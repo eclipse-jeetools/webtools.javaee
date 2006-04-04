@@ -2,15 +2,12 @@ package org.eclipse.jst.j2ee.flexible.project.fvtests;
 import junit.framework.Test;
 import junit.framework.TestCase;
 
-import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.common.jdt.internal.integration.IJavaProjectCreationProperties;
-import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.flexible.project.tests.Migrate07EJBTest;
 import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
@@ -48,19 +45,19 @@ public  class ProjectMigrationTest extends TestCase {
 			project.delete( true, true, null );
 		}
 		
-		IDataModel model = DataModelFactory.createDataModel(new JavaProjectCreationDataModelProvider());	
-		model.setProperty(IJavaProjectCreationProperties.PROJECT_NAME, DEFAULT_PROJECT_NAME);
-		
-		String[] srcFolder = new String[2];
-		srcFolder[0] = new String("Src1");
-		srcFolder[1] = new String("Src2");
-		
-		model.setProperty(IJavaProjectCreationProperties.SOURCE_FOLDERS, srcFolder);
-		try {
-			model.getDefaultOperation().execute(monitor, null);
-		} catch (ExecutionException e) {
-			e.printStackTrace();
-		}
+//		IDataModel model = DataModelFactory.createDataModel(new TestJavaProjectCreationDataModelProvider());	
+//		model.setProperty(ITestJavaProjectCreationProperties.PROJECT_NAME, DEFAULT_PROJECT_NAME);
+//		
+//		String[] srcFolder = new String[2];
+//		srcFolder[0] = new String("Src1");
+//		srcFolder[1] = new String("Src2");
+//		
+//		model.setProperty(ITestJavaProjectCreationProperties.SOURCE_FOLDERS, srcFolder);
+//		try {
+//			model.getDefaultOperation().execute(monitor, null);
+//		} catch (ExecutionException e) {
+//			e.printStackTrace();
+//		}
 
 	}
 	

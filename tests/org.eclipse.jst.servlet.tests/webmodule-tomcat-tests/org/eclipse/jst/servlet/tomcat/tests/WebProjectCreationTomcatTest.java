@@ -19,8 +19,6 @@ import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreat
 import org.eclipse.jst.j2ee.internal.web.operations.AddServletOperation;
 import org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProvider;
-import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
-import org.eclipse.wst.common.componentcore.datamodel.FlexibleProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
@@ -28,7 +26,6 @@ import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOper
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.IProjectCreationProperties;
 import org.eclipse.wst.common.tests.LogUtility;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
@@ -43,8 +40,8 @@ import org.eclipse.wst.common.tests.TaskViewUtility;
 public class WebProjectCreationTomcatTest extends TestCase {
     
     public void createSimpleProject(String projectName) throws Exception {
-        IDataModel dataModel = DataModelFactory.createDataModel(new FlexibleProjectCreationDataModelProvider());
-        dataModel.setProperty(IProjectCreationProperties.PROJECT_NAME, projectName);
+        IDataModel dataModel = DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
+        dataModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, projectName);
         setServerTargetProperty(dataModel);
         dataModel.getDefaultOperation().execute(new NullProgressMonitor(), null);
     }
@@ -53,7 +50,7 @@ public class WebProjectCreationTomcatTest extends TestCase {
      * @param dataModel
      */
     public void setServerTargetProperty(IDataModel dataModel) {
-        dataModel.setProperty(IFlexibleJavaProjectCreationDataModelProperties.RUNTIME_TARGET_ID, AllTomcatTests.TOMCAT_RUNTIME.getId());
+        dataModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, AllTomcatTests.TOMCAT_RUNTIME.getId());
     }
 
     public static void createServlet(IDataModel model) throws Exception {

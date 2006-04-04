@@ -15,18 +15,13 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientFacetProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
-import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.jca.project.facet.ConnectorFacetProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.EARFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
-import org.eclipse.jst.j2ee.tests.modulecore.AllTests;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
@@ -59,9 +54,6 @@ public class PortedComponentCreationTest extends TestCase {
     }
     */
     
-    public void createFlexibleJavaProject() throws Exception {
-        createFlexibleJavaProject(DEFAULT_PROJECT_NAME + "_Java");
-    }
 
 //    public void testCreateJavaUtiltyComponent() throws Exception {
 //        //createFlexibleJavaProject(DEFAULT_PROJECT_NAME + "_JavaUtil");
@@ -93,20 +85,6 @@ public class PortedComponentCreationTest extends TestCase {
 //       // createFlexibleJavaProject(DEFAULT_PROJECT_NAME+"_EARProject");
 //        createEARComponent(14, "TestEAR", DEFAULT_PROJECT_NAME+"_EARProject");
 //    }
-    
-    private void createFlexibleJavaProject(String projectName) throws Exception {
-        IDataModel dataModel = DataModelFactory.createDataModel(new FlexibleJavaProjectCreationDataModelProvider());
-        dataModel.setProperty(IFlexibleJavaProjectCreationDataModelProperties.PROJECT_NAME, projectName);
-        dataModel.setProperty(IFlexibleJavaProjectCreationDataModelProperties.RUNTIME_TARGET_ID, AllTests.JONAS_TOMCAT_RUNTIME.getId());
-        dataModel.getDefaultOperation().execute(new NullProgressMonitor(), null);
-    }
-
-    private void createJavaUtilComponent(String aModuleName, String projectName) throws Exception {
-        IDataModel model = DataModelFactory.createDataModel(new JavaComponentCreationDataModelProvider());
-        model.setProperty(IJavaComponentCreationDataModelProperties.PROJECT_NAME, projectName);
-        model.setProperty(IJavaComponentCreationDataModelProperties.COMPONENT_NAME, aModuleName);
-        model.getDefaultOperation().execute(new NullProgressMonitor(), null);
-    }
     
     private void createConnectorComponent(int j2eeVersion, String aModuleName, String projectName) throws Exception{
         IDataModel model = DataModelFactory.createDataModel(new ConnectorFacetProjectCreationDataModelProvider());

@@ -16,7 +16,6 @@ import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
 import org.eclipse.wst.server.core.IRuntimeWorkingCopy;
 import org.eclipse.wst.server.core.ServerCore;
-import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.J2EEFlexibleProjectCreationOperationTest;
 
 /**
  * To change the template for this generated type comment go to
@@ -32,7 +31,6 @@ public class AllTests extends TestSuite {
     
     public AllTests(){
         super("ModuleCore Tests");
-        addTest(J2EEFlexibleProjectCreationOperationTest.suite());
         //addTest(ProjectFacetCreationTest.suite());
         addTest(EjbProjectFacetCreationTest.suite());
     }

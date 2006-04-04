@@ -30,8 +30,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jst.common.jdt.internal.integration.IJavaProjectCreationProperties;
-import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -40,7 +38,6 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCr
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
-import org.eclipse.wst.common.componentcore.internal.ModuleStructuralModel;
 import org.eclipse.wst.common.componentcore.internal.ProjectComponents;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
@@ -96,13 +93,13 @@ public class ModuleStructuralModelTest extends TestCase {
 	 * 
 	 */
 	public void testResourceTree() throws Exception {
-		StructureEdit moduleCore = null; 
+		StructureEdit moduleCore = null;
 		try {
 			/* We need to find the project */
 			moduleCore = StructureEdit.getStructureEditForRead(StructureEdit.getContainingProject(getWebModuleURI()));
-			
+
 			WorkbenchComponent module = moduleCore.getWorkbenchModules()[0];
-			ResourceTreeRoot sourceRoot = new ResourceTreeRoot(module, SourcePathProvider.INSTANCE); 
+			ResourceTreeRoot sourceRoot = new ResourceTreeRoot(module, SourcePathProvider.INSTANCE);
 			ComponentResource[] resources = sourceRoot.findModuleResources(URI.createURI("/WebContent/WEB-INF/web.xml"));
 			System.out.println(resources[0] != null ? resources[0].getSourcePath().toString() : "NOT FOUND");
 
@@ -117,32 +114,32 @@ public class ModuleStructuralModelTest extends TestCase {
 
 		StructureEdit moduleCore = null;
 		try {
-			IProject containingProject = StructureEdit.getContainingProject(getWebModuleURI()); 
+			IProject containingProject = StructureEdit.getContainingProject(getWebModuleURI());
 			moduleCore = StructureEdit.getStructureEditForRead(containingProject);
 			WorkbenchComponent[] modules = moduleCore.getWorkbenchModules();
 			ProjectComponents pm = moduleCore.getComponentModelRoot();
 			Class clazz = moduleCore.getClass();
 			String name = StructureEdit.getDeployedName(getWebModuleURI());
 			List dependentModules = null;
-			for(int i=0; i<modules.length; i++) {
-				System.out.println("Module: "+modules[i].getName());
+			for (int i = 0; i < modules.length; i++) {
+				System.out.println("Module: " + modules[i].getName());
 				List list = modules[i].getResources();
 				for (int j = 0; j < list.size(); j++) {
-					ComponentResource wmr = (ComponentResource)list.get(j);
+					ComponentResource wmr = (ComponentResource) list.get(j);
 					IResource er = StructureEdit.getEclipseResource(wmr);
 				}
 				// test modulecore API
-				dependentModules = modules[i].getReferencedComponents(); 			
-				for(int dependentIndex=0; dependentIndex<dependentModules.size(); dependentIndex++) {
-					ReferencedComponent dependentModule = (ReferencedComponent)dependentModules.get(dependentIndex);
+				dependentModules = modules[i].getReferencedComponents();
+				for (int dependentIndex = 0; dependentIndex < dependentModules.size(); dependentIndex++) {
+					ReferencedComponent dependentModule = (ReferencedComponent) dependentModules.get(dependentIndex);
 					WorkbenchComponent resolvedModule = moduleCore.findComponentByURI(dependentModule.getHandle());
-					System.out.println("\tDependentModule: "+resolvedModule.getName()+ " in " + resolvedModule.getHandle());
+					System.out.println("\tDependentModule: " + resolvedModule.getName() + " in " + resolvedModule.getHandle());
 					boolean b = moduleCore.isLocalDependency(dependentModule);
 				}
 			}
 		} finally {
-			if(moduleCore != null)
-				moduleCore.dispose();	
+			if (moduleCore != null)
+				moduleCore.dispose();
 		}
 	}
 
@@ -178,7 +175,7 @@ public class ModuleStructuralModelTest extends TestCase {
 		if (PlatformURLModuleConnection.RESOURCE_MODULE.equals(segments[0])) {
 			StructureEdit moduleCore = null;
 			try {
-				moduleCore = StructureEdit.getStructureEditForRead(StructureEdit.getContainingProject(uri)); 
+				moduleCore = StructureEdit.getStructureEditForRead(StructureEdit.getContainingProject(uri));
 				ComponentResource[] resource = moduleCore.findResourcesByRuntimePath(uri);
 				System.out.println(resource != null ? resource[0].getSourcePath().toString() : "NOT FOUND");
 			} finally {
@@ -213,9 +210,9 @@ public class ModuleStructuralModelTest extends TestCase {
 		StructureEdit localModuleCore = null;
 		try {
 			getProjectForWebModuleAndLocalWebLib();
-			
+
 			IProject containingProject = StructureEdit.getContainingProject(getWebModuleURI());
-			localModuleCore = StructureEdit.getStructureEditForWrite(containingProject); 
+			localModuleCore = StructureEdit.getStructureEditForWrite(containingProject);
 
 			createLocalModules(localModuleCore);
 
@@ -260,7 +257,7 @@ public class ModuleStructuralModelTest extends TestCase {
 
 	public WorkbenchComponent addWorkbenchModule(ProjectComponents theModules, String aDeployedName, URI aHandle) {
 		WorkbenchComponent module = ComponentcoreFactory.eINSTANCE.createWorkbenchComponent();
-		module.setName(aDeployedName); 
+		module.setName(aDeployedName);
 		theModules.getComponents().add(module);
 		return module;
 	}
@@ -296,8 +293,9 @@ public class ModuleStructuralModelTest extends TestCase {
 
 	public IProject getJavaProject(String aProjectName) throws Exception {
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);
-		if (!project.exists()) 
-			createJavaProject(aProjectName); 
+		if (!project.exists()) {
+			// createJavaProject(aProjectName);
+		}
 		return project;
 	}
 
@@ -307,43 +305,52 @@ public class ModuleStructuralModelTest extends TestCase {
 		if (!project.exists()) {
 			IDataModel dataModel = DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
 			dataModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, aProjectName);
-			//dataModel.setProperty(WebComponentCreationDataModel.IS_FLEXIBLE_PROJECT, Boolean.TRUE);
-//			dataModel.setProperty(IWebComponentCreationDataModelProperties.ADD_TO_EAR, Boolean.FALSE);
-			//dataModel.setProperty(WebComponentCreationDataModel.ADD_SERVER_TARGET, Boolean.FALSE);
-//			dataModel.setProperty(WebModuleCreationDataModel.SERVER_TARGET_ID, AllPluginTests.JONAS_SERVER.getId());
+			// dataModel.setProperty(WebComponentCreationDataModel.IS_FLEXIBLE_PROJECT,
+			// Boolean.TRUE);
+			// dataModel.setProperty(IWebComponentCreationDataModelProperties.ADD_TO_EAR,
+			// Boolean.FALSE);
+			// dataModel.setProperty(WebComponentCreationDataModel.ADD_SERVER_TARGET,
+			// Boolean.FALSE);
+			// dataModel.setProperty(WebModuleCreationDataModel.SERVER_TARGET_ID,
+			// AllPluginTests.JONAS_SERVER.getId());
 			dataModel.getDefaultOperation().execute(new NullProgressMonitor(), null);
 		}
 		return ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);
 	}
 
-	public IProject createJavaProject(String aProjectName) throws Exception {
-
-		project = ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);
-		if (!project.exists()) {
-IDataModel dataModel = DataModelFactory.createDataModel(new JavaProjectCreationDataModelProvider());
-            dataModel.setProperty(IJavaProjectCreationProperties.PROJECT_NAME, aProjectName);
-            dataModel.getDefaultOperation().execute(new NullProgressMonitor(),null);
-			project = ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);
-			ModuleCoreNature.addModuleCoreNatureIfNecessary(project, null);
-
-			ModuleStructuralModel structuralModel = null;
-			try {
-				structuralModel = ModuleCoreNature.getModuleCoreNature(project).getModuleStructuralModelForWrite(this);
-				structuralModel.prepareProjectModulesIfNecessary();
-				StructureEdit moduleCore = (StructureEdit) structuralModel.getAdapter(StructureEdit.ADAPTER_TYPE);
-				String deployedName = aProjectName + ".jar";
-				URI moduleURI = URI.createURI(MODULE__RESOURCE_URI_PROTOCOL + aProjectName + IPath.SEPARATOR + deployedName);
-				WorkbenchComponent utilityModule = addWorkbenchModule(moduleCore.getComponentModelRoot(), deployedName, moduleURI);
-				IResource sourceFolder = project.getFolder("src");
-				addResource(utilityModule, sourceFolder, "/"); //$NON-NLS-1$
-				structuralModel.saveIfNecessary(this);
-			} finally {
-				if (structuralModel != null)
-					structuralModel.releaseAccess(this);
-			}
-		}
-		return ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);
-	}
+	// public IProject createJavaProject(String aProjectName) throws Exception {
+	//
+	// project = ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);
+	// if (!project.exists()) {
+	// IDataModel dataModel = DataModelFactory.createDataModel(new
+	// TestJavaProjectCreationDataModelProvider());
+	// dataModel.setProperty(ITestJavaProjectCreationProperties.PROJECT_NAME, aProjectName);
+	// dataModel.getDefaultOperation().execute(new NullProgressMonitor(), null);
+	// project = ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);
+	// ModuleCoreNature.addModuleCoreNatureIfNecessary(project, null);
+	//
+	// ModuleStructuralModel structuralModel = null;
+	// try {
+	// structuralModel =
+	// ModuleCoreNature.getModuleCoreNature(project).getModuleStructuralModelForWrite(this);
+	// structuralModel.prepareProjectModulesIfNecessary();
+	// StructureEdit moduleCore = (StructureEdit)
+	// structuralModel.getAdapter(StructureEdit.ADAPTER_TYPE);
+	// String deployedName = aProjectName + ".jar";
+	// URI moduleURI = URI.createURI(MODULE__RESOURCE_URI_PROTOCOL + aProjectName + IPath.SEPARATOR
+	// + deployedName);
+	// WorkbenchComponent utilityModule = addWorkbenchModule(moduleCore.getComponentModelRoot(),
+	// deployedName, moduleURI);
+	// IResource sourceFolder = project.getFolder("src");
+	// addResource(utilityModule, sourceFolder, "/"); //$NON-NLS-1$
+	// structuralModel.saveIfNecessary(this);
+	// } finally {
+	// if (structuralModel != null)
+	// structuralModel.releaseAccess(this);
+	// }
+	// }
+	// return ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);
+	// }
 
 	public ModuleCoreNature getNature(IProject aProject) {
 		try {
