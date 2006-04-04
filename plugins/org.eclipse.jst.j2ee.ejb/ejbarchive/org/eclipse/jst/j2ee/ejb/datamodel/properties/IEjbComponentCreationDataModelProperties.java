@@ -29,8 +29,16 @@ package org.eclipse.jst.j2ee.ejb.datamodel.properties;
  */
 
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
-
-public interface IEjbComponentCreationDataModelProperties extends IJ2EEComponentCreationDataModelProperties {
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.IEjbFacetInstallDataModelProperties;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ * 
+ * @see IEjbFacetInstallDataModelProperties
+ */
+public interface IEjbComponentCreationDataModelProperties extends IJ2EEComponentCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15 {
 	
 	/**
 	 * Required, type Boolean, the default value is <code>Boolean.TRUE</code>

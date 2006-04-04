@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.ejb.datamodel.properties;
 
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 /**
  * <p>
  * IEJBClientComponentCreationDataModelProperties provides properties to the 
@@ -29,7 +30,13 @@ import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModel
  * 
  * @plannedfor 1.0
  */
-public interface IEJBClientComponentCreationDataModelProperties extends IJavaComponentCreationDataModelProperties {
+
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ */
+public interface IEJBClientComponentCreationDataModelProperties extends IJavaComponentCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15{
     /**
      * Required, type String, the name of the Ejb Component
      */     

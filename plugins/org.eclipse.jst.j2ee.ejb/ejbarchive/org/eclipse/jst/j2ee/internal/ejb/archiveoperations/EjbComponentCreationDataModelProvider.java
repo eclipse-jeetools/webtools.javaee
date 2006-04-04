@@ -35,15 +35,18 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
- * @deprecated 
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ * 
  * @see EjbFacetProjectCreationDataModelProvider
  */
-
-public class EjbComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IEjbComponentCreationDataModelProperties {
+public class EjbComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IEjbComponentCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15 {
 
 	
 	public EjbComponentCreationDataModelProvider() {
