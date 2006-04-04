@@ -16,6 +16,8 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
+import org.eclipse.wst.project.facet.IProductConstants;
+import org.eclipse.wst.project.facet.ProductManager;
 
 /**
  * <p>
@@ -95,5 +97,9 @@ public final class AppClientComponentImportWizard extends J2EEComponentImportWiz
 
 	protected IDataModelProvider getDefaultProvider() {
 		return new AppClientComponentImportDataModelProvider();
+	}
+	
+	protected String getFinalPerspectiveID() {
+        return ProductManager.getProperty(IProductConstants.FINAL_PERSPECTIVE_APPCLIENT);
 	}
 }

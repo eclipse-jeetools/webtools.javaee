@@ -18,6 +18,8 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
+import org.eclipse.wst.project.facet.IProductConstants;
+import org.eclipse.wst.project.facet.ProductManager;
 
 /**
  * <p>
@@ -99,6 +101,10 @@ public final class EARComponentImportWizard extends J2EEArtifactImportWizard imp
 
 	protected IDataModelProvider getDefaultProvider() {
 		return new EARComponentImportDataModelProvider();
+	}
+	
+	protected String getFinalPerspectiveID() {
+        return ProductManager.getProperty(IProductConstants.FINAL_PERSPECTIVE_EAR);
 	}
 
 }

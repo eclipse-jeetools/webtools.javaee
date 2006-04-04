@@ -22,6 +22,8 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProjectTemplate;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
+import org.eclipse.wst.project.facet.IProductConstants;
+import org.eclipse.wst.project.facet.ProductManager;
 import org.eclipse.wst.web.ui.internal.wizards.NewProjectDataModelFacetWizard;
 import org.osgi.framework.Bundle;
 
@@ -58,6 +60,10 @@ public class EarProjectWizard extends NewProjectDataModelFacetWizard {
 
 	protected IWizardPage createFirstPage() {
 		return new EarProjectFirstPage(model, "first.page"); //$NON-NLS-1$ 
+	}
+	
+	protected String getFinalPerspectiveID() {
+        return ProductManager.getProperty(IProductConstants.FINAL_PERSPECTIVE_EAR);
 	}
 
 }

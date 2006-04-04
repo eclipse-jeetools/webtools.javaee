@@ -21,6 +21,8 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProjectTemplate;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.project.facet.IProductConstants;
+import org.eclipse.wst.project.facet.ProductManager;
 import org.eclipse.wst.web.ui.internal.wizards.NewProjectDataModelFacetWizard;
 import org.osgi.framework.Bundle;
 
@@ -52,5 +54,9 @@ public class WebProjectWizard extends NewProjectDataModelFacetWizard {
 		final Bundle bundle = Platform.getBundle("org.eclipse.jst.servlet.ui"); //$NON-NLS-1$
 		final URL url = bundle.getEntry("icons/full/ctool16/web-wiz-banner.gif"); //$NON-NLS-1$
 		return ImageDescriptor.createFromURL(url);
+	}
+	
+	protected String getFinalPerspectiveID() {
+        return ProductManager.getProperty(IProductConstants.FINAL_PERSPECTIVE_WEB);
 	}
 }

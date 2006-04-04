@@ -67,6 +67,8 @@ import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
+import org.eclipse.wst.project.facet.IProductConstants;
+import org.eclipse.wst.project.facet.ProductManager;
 
 public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
 
@@ -97,7 +99,7 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			final IVirtualComponent c = ComponentCore.createComponent(project);
 
 			c.create(0, null);
-			c.setMetaProperty("java-output-path", "/build/classes/"); //$NON-NLS-1$ //$NON-NLS-2$
+			c.setMetaProperty("java-output-path", ProductManager.getProperty(IProductConstants.OUTPUT_FOLDER)); //$NON-NLS-1$
 
 			final IVirtualFolder root = c.getRootFolder();
 			IFolder sourceFolder = null;

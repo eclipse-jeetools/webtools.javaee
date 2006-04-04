@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.internal.plugin.CommonEditorUtility;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
@@ -54,8 +55,6 @@ public abstract class J2EEArtifactImportWizard extends DataModelWizard implement
 	 * </p>
 	 */
 	protected static final String MAIN_PG = "main"; //$NON-NLS-1$
-
-	private static final String FINAL_PERSPECTIVE_ID = "org.eclipse.jst.j2ee.J2EEPerspective"; //$NON-NLS-1$ 
 
 	private IConfigurationElement configurationElement;
 	private IStructuredSelection selection;
@@ -146,7 +145,7 @@ public abstract class J2EEArtifactImportWizard extends DataModelWizard implement
 	 * @return Returns the J2EE Perpsective ID by default
 	 */
 	protected String getFinalPerspectiveID() {
-		return FINAL_PERSPECTIVE_ID;
+		return null;
 	}
 
 	/**
@@ -181,19 +180,26 @@ public abstract class J2EEArtifactImportWizard extends DataModelWizard implement
 	protected final void postPerformFinish() throws InvocationTargetException {
 		super.postPerformFinish();
 		if (getFinalPerspectiveID() != null && getFinalPerspectiveID().length() > 0) {
-
-			IConfigurationElement element = new DelegateConfigurationElement(configurationElement) {
+			final IConfigurationElement element = new DelegateConfigurationElement(configurationElement) {
 				public String getAttribute(String aName) {
 					if (aName.equals("finalPerspective")) { //$NON-NLS-1$
 						return getFinalPerspectiveID();
 					}
 					return super.getAttribute(aName);
 				}
-
 			};
-			BasicNewProjectResourceWizard.updatePerspective(element);
-		} else
-			BasicNewProjectResourceWizard.updatePerspective(configurationElement);
+			Display.getDefault().asyncExec(new Runnable() {
+			    public void run() {
+			    	BasicNewProjectResourceWizard.updatePerspective(element);
+			    }
+			});
+		} else {
+			Display.getDefault().asyncExec(new Runnable() {
+			    public void run() {
+			    	BasicNewProjectResourceWizard.updatePerspective(configurationElement);
+			    }
+			});
+		}	
 	}
 
 	/**

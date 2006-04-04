@@ -17,6 +17,8 @@ import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentImportDa
 import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentImportWizard;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
+import org.eclipse.wst.project.facet.IProductConstants;
+import org.eclipse.wst.project.facet.ProductManager;
 
 /**
  * <p>
@@ -90,5 +92,7 @@ public final class WebComponentImportWizard extends J2EEComponentImportWizard {
 		return new WebComponentImportDataModelProvider();
 	}
 
-
+	protected String getFinalPerspectiveID() {
+        return ProductManager.getProperty(IProductConstants.FINAL_PERSPECTIVE_WEB);
+	}
 }

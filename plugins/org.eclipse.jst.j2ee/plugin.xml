@@ -725,4 +725,5 @@
     	helperClass="org.eclipse.jst.j2ee.internal.validation.ProjectValidationHelper">
     </validationHelper>	   
  </extension>
+  
 </plugin>

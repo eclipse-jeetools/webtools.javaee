@@ -24,6 +24,8 @@ import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.project.facet.IProductConstants;
+import org.eclipse.wst.project.facet.ProductManager;
 
 public class EarFacetInstallDataModelProvider extends J2EEFacetInstallDataModelProvider implements IEarFacetInstallDataModelProperties {
 
@@ -39,7 +41,7 @@ public class EarFacetInstallDataModelProvider extends J2EEFacetInstallDataModelP
 		if (propertyName.equals(FACET_ID)) {
 			return J2EEProjectUtilities.ENTERPRISE_APPLICATION;
 		} else if (propertyName.equals(CONTENT_DIR)) {
-			return "EarContent";
+			return ProductManager.getProperty(IProductConstants.APPLICATION_CONTENT_FOLDER);
 		} else if (propertyName.equals(J2EE_PROJECTS_LIST) || propertyName.equals(JAVA_PROJECT_LIST)) {
 			return Collections.EMPTY_LIST;
 		}

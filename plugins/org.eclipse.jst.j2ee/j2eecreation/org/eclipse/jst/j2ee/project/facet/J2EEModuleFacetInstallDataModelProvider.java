@@ -37,6 +37,7 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
+import org.eclipse.wst.project.facet.ProductManager;
 
 public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetInstallDataModelProvider implements IJ2EEModuleFacetInstallDataModelProperties {
 
@@ -61,7 +62,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		if (propertyName.equals(PROHIBIT_ADD_TO_EAR)) {
 			return Boolean.FALSE;
 		} else if (propertyName.equals(ADD_TO_EAR)) {
-			return Boolean.FALSE;
+			return new Boolean(ProductManager.shouldAddToEARByDefault());
 		} else if (propertyName.equals(EAR_PROJECT_NAME)) {
 			if(model.isPropertySet(LAST_EAR_NAME)){
 					IProject project = ProjectUtilities.getProject(getStringProperty(LAST_EAR_NAME));

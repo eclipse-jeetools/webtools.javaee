@@ -25,6 +25,8 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCr
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.project.facet.IProductConstants;
+import org.eclipse.wst.project.facet.ProductManager;
 
 import com.ibm.icu.util.StringTokenizer;
 
@@ -38,10 +40,8 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 	}
 
 	public Object getDefaultProperty(String propertyName) {
-		if (propertyName.equals(ADD_TO_EAR)) {
-			return Boolean.FALSE;
-		} else if (propertyName.equals(CONFIG_FOLDER)) {
-			return "WebContent"; //$NON-NLS-1$
+		if (propertyName.equals(CONFIG_FOLDER)) {
+			return ProductManager.getProperty(IProductConstants.WEB_CONTENT_FOLDER);
 		} else if (propertyName.equals(SOURCE_FOLDER)) {
 			return "src"; //$NON-NLS-1$
 		} else if (propertyName.equals(CONTEXT_ROOT)) {

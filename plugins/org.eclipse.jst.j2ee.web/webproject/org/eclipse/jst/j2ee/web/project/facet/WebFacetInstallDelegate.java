@@ -60,6 +60,8 @@ import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
+import org.eclipse.wst.project.facet.IProductConstants;
+import org.eclipse.wst.project.facet.ProductManager;
 
 public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
 
@@ -215,7 +217,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 	private void setJavaOutputPropertyIfNeeded(final IVirtualComponent c) {
 		String existing = c.getMetaProperties().getProperty("java-output-path"); //$NON-NLS-1$
 		if (existing == null)
-			c.setMetaProperty("java-output-path", "/build/classes/"); //$NON-NLS-1$ //$NON-NLS-2$
+			c.setMetaProperty("java-output-path", ProductManager.getProperty(IProductConstants.OUTPUT_FOLDER)); //$NON-NLS-1$
 	}
 
 	private void setContextRootPropertyIfNeeded(final IVirtualComponent c, String contextRoot) {

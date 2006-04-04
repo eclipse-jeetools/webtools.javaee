@@ -23,5 +23,6 @@ Require-Bundle: org.eclipse.jst.j2ee.ui,
  org.eclipse.wst.common.project.facet.core,
  org.eclipse.wst.common.project.facet.ui,
  org.eclipse.wst.web.ui,
- org.eclipse.ui.navigator.resources
+ org.eclipse.ui.navigator.resources,
+ org.eclipse.wst.web
 Eclipse-AutoStart: true

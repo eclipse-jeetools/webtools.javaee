@@ -14,6 +14,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
+import org.eclipse.wst.project.facet.IProductConstants;
+import org.eclipse.wst.project.facet.ProductManager;
 
 
 /**
@@ -83,6 +85,10 @@ public final class J2EEUtilityJarImportWizardNew extends J2EEArtifactImportWizar
 	protected IDataModelProvider getDefaultProvider() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	protected String getFinalPerspectiveID() {
+        return ProductManager.getProperty(IProductConstants.FINAL_PERSPECTIVE_UTILITY);
 	}
 
 }
