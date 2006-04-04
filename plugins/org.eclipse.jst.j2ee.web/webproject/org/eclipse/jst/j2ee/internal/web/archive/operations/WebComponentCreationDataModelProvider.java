@@ -32,6 +32,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
@@ -40,7 +41,12 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  * @see WebFacetProjectCreationDataModelProvider
  */
 
-public class WebComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IWebComponentCreationDataModelProperties {
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ */
+public class WebComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IWebComponentCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15 {
 
 	public WebComponentCreationDataModelProvider() {
 		super();

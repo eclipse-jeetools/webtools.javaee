@@ -11,6 +11,8 @@
 package org.eclipse.jst.j2ee.internal.jca.operations;
 
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.jca.project.facet.IConnectorFacetInstallDataModelProperties;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 /**
  * <p>
  * IConnectorComponentCreationDataModelProperties provides properties to the 
@@ -30,6 +32,13 @@ import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModel
  * @plannedfor 1.0
  */
 
-public interface IConnectorComponentCreationDataModelProperties extends IJ2EEComponentCreationDataModelProperties {
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ * 
+ * @see IConnectorFacetInstallDataModelProperties
+ */
+public interface IConnectorComponentCreationDataModelProperties extends IJ2EEComponentCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15 {
 
 }

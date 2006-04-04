@@ -10,7 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.project.datamodel.properties;
 
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFlexibleProjectCreationDataModelProperties;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 /**
  * <p>
  * IFlexibleJavaProjectCreationDataModelProperties provides properties to the DataModel associated with the 
@@ -27,7 +29,15 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFlexibleProjec
  * 
  * @plannedfor 1.0
  */
-public interface IFlexibleJavaProjectCreationDataModelProperties extends IFlexibleProjectCreationDataModelProperties {
+
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ * 
+ * @see IFacetProjectCreationDataModelProperties
+ */
+public interface IFlexibleJavaProjectCreationDataModelProperties extends IFlexibleProjectCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15{
     /**
      * Required, type IDataModel. The user set IDataModel used to handle the creation of a server target for the project to be
      * created.  Providers which currently exist for this IDataModel include J2EEProjectServerTargetDataModelProvider.

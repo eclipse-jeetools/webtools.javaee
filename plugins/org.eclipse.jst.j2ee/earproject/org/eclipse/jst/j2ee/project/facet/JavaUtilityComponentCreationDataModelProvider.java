@@ -16,15 +16,17 @@ import java.util.Set;
 import org.eclipse.jst.j2ee.datamodel.properties.IUtilityJavaComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
 /**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
  * 
  * @deprecated
+ * 
  * @see UtilityProjectCreationDataModelProvider
  */
-
 public class JavaUtilityComponentCreationDataModelProvider
-	extends JavaComponentCreationDataModelProvider implements IUtilityJavaComponentCreationDataModelProperties{
+	extends JavaComponentCreationDataModelProvider implements IUtilityJavaComponentCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15{
 
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();

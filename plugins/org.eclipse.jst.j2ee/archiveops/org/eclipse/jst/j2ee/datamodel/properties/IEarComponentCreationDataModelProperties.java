@@ -11,6 +11,9 @@
 
 package org.eclipse.jst.j2ee.datamodel.properties;
 
+import org.eclipse.jst.j2ee.internal.earcreation.IEarFacetInstallDataModelProperties;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
+
 /**
  * <p>
  * IEarComponentCreationDataModelProperties provides properties to the
@@ -31,7 +34,14 @@ package org.eclipse.jst.j2ee.datamodel.properties;
  * @plannedfor 1.0
  */
 
-public interface IEarComponentCreationDataModelProperties extends IJ2EEComponentCreationDataModelProperties {
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ * 
+ * @see IEarFacetInstallDataModelProperties
+ */
+public interface IEarComponentCreationDataModelProperties extends IJ2EEComponentCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15 {
 	/**
 	 * A java.util.List of IProject J2EEModules which are to be added to the EAR.
 	 */

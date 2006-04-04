@@ -29,12 +29,21 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jst.common.project.facet.JavaProjectFacetCreationDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.frameworks.internal.WTPProjectUtilities;
 import org.eclipse.wst.common.frameworks.internal.operations.IProjectCreationProperties;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationOperation;
 
-public class JavaProjectCreationOperation extends ProjectCreationOperation {
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ * 
+ * @see JavaProjectFacetCreationDataModelProvider
+ */
+public class JavaProjectCreationOperation extends ProjectCreationOperation implements DoNotUseMeThisWillBeDeletedPost15 {
 
 	public JavaProjectCreationOperation(IDataModel dataModel) {
 		super(dataModel);

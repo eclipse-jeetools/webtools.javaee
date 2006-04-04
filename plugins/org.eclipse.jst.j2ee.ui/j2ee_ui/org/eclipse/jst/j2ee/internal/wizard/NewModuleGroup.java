@@ -28,14 +28,17 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 
 /**
- *
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
  */
-public class NewModuleGroup implements IJ2EEComponentCreationDataModelProperties{
+public class NewModuleGroup implements IJ2EEComponentCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15{
 	
 	private IDataModel model;
 	protected Text moduleNameText = null;

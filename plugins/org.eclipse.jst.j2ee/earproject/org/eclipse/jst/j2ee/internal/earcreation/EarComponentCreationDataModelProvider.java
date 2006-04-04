@@ -33,17 +33,20 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
 import org.eclipse.wst.server.core.ServerCore;
 
 /**
- * @deprecated 
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ * 
  * @see EARFacetProjectCreationDataModelProvider
  */
-
-public class EarComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IEarComponentCreationDataModelProperties {
+public class EarComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IEarComponentCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15 {
 
     public IDataModelOperation getDefaultOperation() {
         //return new EARComponentCreationOperation(model);

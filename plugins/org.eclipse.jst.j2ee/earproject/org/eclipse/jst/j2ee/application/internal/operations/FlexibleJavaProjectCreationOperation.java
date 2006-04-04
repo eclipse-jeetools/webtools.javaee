@@ -19,12 +19,21 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.internal.plugin.JavaEMFNature;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.project.facet.JavaProjectFacetCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.FlexibleProjectCreationOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
-public class FlexibleJavaProjectCreationOperation extends FlexibleProjectCreationOperation implements IFlexibleJavaProjectCreationDataModelProperties{
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ * 
+ * @see JavaProjectFacetCreationDataModelProvider
+ */
+public class FlexibleJavaProjectCreationOperation extends FlexibleProjectCreationOperation implements IFlexibleJavaProjectCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15{
 
     public FlexibleJavaProjectCreationOperation(IDataModel model) {
         super(model);

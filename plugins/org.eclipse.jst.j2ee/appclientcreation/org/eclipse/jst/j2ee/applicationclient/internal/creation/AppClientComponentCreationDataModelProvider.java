@@ -25,13 +25,21 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
 /**
  * @deprecated 
  * @see AppClientFacetProjectCreationDataModelProvider
  */
 
-public class AppClientComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IAppClientComponentCreationDataModelProperties {
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ * 
+ * @see AppClientFacetProjectCreationDataModelProvider
+ */
+public class AppClientComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IAppClientComponentCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15{
 
 	public AppClientComponentCreationDataModelProvider() {
 		super();

@@ -37,10 +37,18 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerUtil;
 
-public class J2EEComponentCreationFacetOperation extends AbstractDataModelOperation {
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ * 
+ * @see J2EEFacetInstallDataModelProvider
+ */
+public class J2EEComponentCreationFacetOperation extends AbstractDataModelOperation implements DoNotUseMeThisWillBeDeletedPost15{
 
 	
 	public J2EEComponentCreationFacetOperation(IDataModel model) {

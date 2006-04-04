@@ -35,16 +35,20 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 import org.eclipse.wst.common.project.facet.core.runtime.RuntimeManager;
 import org.eclipse.wst.server.core.ServerCore;
 
 /**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
  * @deprecated
+ * 
  * @see EARFacetProjectCreationDataModelProvider
  */
-public class EarComponentCreationFacetOperation extends AbstractDataModelOperation implements IFacetProjectCreationDataModelProperties {
+public class EarComponentCreationFacetOperation extends AbstractDataModelOperation implements IFacetProjectCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15 {
 
 	public EarComponentCreationFacetOperation(IDataModel model) {
 		super(model);

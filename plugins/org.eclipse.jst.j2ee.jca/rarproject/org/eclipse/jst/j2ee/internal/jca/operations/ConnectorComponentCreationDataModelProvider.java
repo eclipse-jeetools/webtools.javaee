@@ -24,13 +24,15 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.jca.project.facet.ConnectorFacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
 /**
- * @deprecated 
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
  * @see ConnectorFacetProjectCreationDataModelProvider
  */
-
-public class ConnectorComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IConnectorComponentCreationDataModelProperties {
+public class ConnectorComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IConnectorComponentCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15 {
 
 	public ConnectorComponentCreationDataModelProvider() {
 		super();

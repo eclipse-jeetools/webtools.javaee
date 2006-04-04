@@ -19,6 +19,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.IDMPageHandler;
 
 /**
@@ -35,7 +36,12 @@ import org.eclipse.wst.common.frameworks.internal.datamodel.ui.IDMPageHandler;
  * 
  * @see org.eclipse.jst.j2ee.internal.wizard.J2EEArtifactCreationWizard
  */
-public abstract class J2EEComponentCreationWizard extends J2EEArtifactCreationWizard implements IJ2EEComponentCreationDataModelProperties {
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ */
+public abstract class J2EEComponentCreationWizard extends J2EEArtifactCreationWizard implements IJ2EEComponentCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15 {
 
 	/**
 	 * <p>

@@ -19,6 +19,7 @@ import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
 /**
  * <p>
@@ -33,7 +34,12 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
  * @deprecated
  * @see WebProjectWizard
  */
-public class WebComponentCreationWizard extends J2EEComponentCreationWizard implements IExecutableExtension, INewWizard {
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ */
+public class WebComponentCreationWizard extends J2EEComponentCreationWizard implements IExecutableExtension, INewWizard, DoNotUseMeThisWillBeDeletedPost15 {
 	
 	/**
 	 * <p>

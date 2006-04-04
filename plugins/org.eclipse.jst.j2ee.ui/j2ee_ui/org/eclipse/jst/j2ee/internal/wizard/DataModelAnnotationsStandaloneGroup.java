@@ -21,9 +21,15 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
 
-public class DataModelAnnotationsStandaloneGroup {
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ */
+public class DataModelAnnotationsStandaloneGroup implements DoNotUseMeThisWillBeDeletedPost15{
 
     protected IDataModel model;
     protected DataModelSynchHelper synchHelper;

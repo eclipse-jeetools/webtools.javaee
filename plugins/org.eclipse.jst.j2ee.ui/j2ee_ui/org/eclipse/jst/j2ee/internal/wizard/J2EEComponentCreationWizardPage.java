@@ -51,13 +51,19 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclipse.wst.server.ui.ServerUIUtil;
 
 
-public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPage implements IJ2EEComponentCreationDataModelProperties{
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ */
+public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPage implements IJ2EEComponentCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15{
 
     private static final boolean isWindows = SWT.getPlatform().toLowerCase().startsWith("win"); //$NON-NLS-1$
     protected static final String MODULE_VERSION = J2EEUIMessages.MODULE_VERSION_LABEL;

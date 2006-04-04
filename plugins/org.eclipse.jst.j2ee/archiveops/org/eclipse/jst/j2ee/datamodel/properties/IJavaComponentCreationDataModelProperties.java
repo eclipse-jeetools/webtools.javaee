@@ -10,8 +10,10 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.datamodel.properties;
 
+import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IJ2EEProjectServerTargetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
 /**
  * <p>
@@ -31,7 +33,15 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreat
  * 
  * @plannedfor 1.0
  */
-public interface IJavaComponentCreationDataModelProperties extends IComponentCreationDataModelProperties {
+
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ * 
+ * @see IJavaFacetInstallDataModelProperties
+ */
+public interface IJavaComponentCreationDataModelProperties extends IComponentCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15 {
 	/**
 	 * Optional, type String
      * String indicating the name of the the root Java Source Folder in the component being created.

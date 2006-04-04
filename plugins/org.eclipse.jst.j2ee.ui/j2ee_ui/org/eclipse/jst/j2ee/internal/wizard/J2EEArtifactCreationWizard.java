@@ -26,6 +26,7 @@ import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
 import org.eclipse.wst.web.internal.DelegateConfigurationElement;
 
@@ -55,7 +56,12 @@ import org.eclipse.wst.web.internal.DelegateConfigurationElement;
  * 
  * @see org.eclipse.wst.common.frameworks.ui.ExtendableWizard
  */
-public abstract class J2EEArtifactCreationWizard extends DataModelWizard implements INewWizard, IExecutableExtension, IPluginContribution {
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ */
+public abstract class J2EEArtifactCreationWizard extends DataModelWizard implements INewWizard, IExecutableExtension, IPluginContribution, DoNotUseMeThisWillBeDeletedPost15 {
 
 	/**
 	 * <p>

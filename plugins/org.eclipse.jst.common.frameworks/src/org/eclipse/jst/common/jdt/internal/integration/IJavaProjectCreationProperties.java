@@ -10,9 +10,18 @@
  *******************************************************************************/
 package org.eclipse.jst.common.jdt.internal.integration;
 
+import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.frameworks.internal.operations.IProjectCreationProperties;
 
-public interface IJavaProjectCreationProperties extends IProjectCreationProperties {
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ * 
+ * @see IJavaFacetInstallDataModelProperties
+ */
+public interface IJavaProjectCreationProperties extends IProjectCreationProperties, DoNotUseMeThisWillBeDeletedPost15 {
 
 	/**
 	 * Optional, type String []. These names are relative.

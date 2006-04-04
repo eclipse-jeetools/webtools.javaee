@@ -28,6 +28,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
 /**
  * @author vijayb
@@ -35,7 +36,12 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * To change the template for this generated type comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
-public class AvailableModuleProjectsProvider implements IStructuredContentProvider, ITableLabelProvider {
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ */
+public class AvailableModuleProjectsProvider implements IStructuredContentProvider, ITableLabelProvider, DoNotUseMeThisWillBeDeletedPost15 {
 	private IDataModel model;
 
 	public AvailableModuleProjectsProvider(IDataModel dataModel) {

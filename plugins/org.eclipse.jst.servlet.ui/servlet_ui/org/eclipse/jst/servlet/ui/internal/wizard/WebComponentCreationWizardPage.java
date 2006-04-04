@@ -25,11 +25,15 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
 /**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
  * 
  */
-public class WebComponentCreationWizardPage extends J2EEComponentCreationWizardPage implements IWebComponentCreationDataModelProperties{
+public class WebComponentCreationWizardPage extends J2EEComponentCreationWizardPage implements IWebComponentCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15{
 
 	public Text contextRootNameField = null;
 	public Label contextRootLabel = null;

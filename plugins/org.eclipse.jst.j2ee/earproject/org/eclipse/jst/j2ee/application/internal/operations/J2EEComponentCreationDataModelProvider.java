@@ -25,6 +25,7 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
@@ -36,6 +37,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.server.core.IModuleType;
@@ -43,7 +45,14 @@ import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
 import org.eclipse.wst.server.core.ServerUtil;
 
-public abstract class J2EEComponentCreationDataModelProvider extends JavaComponentCreationDataModelProvider implements IJ2EEComponentCreationDataModelProperties, IAnnotationsDataModel {
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ * 
+ * @see J2EEFacetInstallDataModelProvider
+ */
+public abstract class J2EEComponentCreationDataModelProvider extends JavaComponentCreationDataModelProvider implements IJ2EEComponentCreationDataModelProperties, IAnnotationsDataModel, DoNotUseMeThisWillBeDeletedPost15 {
 
 	private IDataModel earCreationDM = null;
 	private static String MODULE_NOT_SUPPORTED = "MODULE_NOT_SUPPORTED"; //$NON-NLS-1$

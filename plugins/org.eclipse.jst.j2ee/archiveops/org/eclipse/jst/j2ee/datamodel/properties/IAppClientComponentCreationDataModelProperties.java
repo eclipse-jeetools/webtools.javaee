@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.datamodel.properties;
 
+import org.eclipse.jst.j2ee.project.facet.IAppClientFacetInstallDataModelProperties;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
+
 /**
  * <p>
  * IAppClientComponentCreationDataModelProperties provides properties to the 
@@ -29,8 +32,14 @@ package org.eclipse.jst.j2ee.datamodel.properties;
  * @plannedfor 1.0
  */
 
-
-public interface IAppClientComponentCreationDataModelProperties extends IJ2EEComponentCreationDataModelProperties {
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ * 
+ * @see IAppClientFacetInstallDataModelProperties
+ */
+public interface IAppClientComponentCreationDataModelProperties extends IJ2EEComponentCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15{
     /**
      * Optional, type Boolean. the default value is <code>Boolean.TRUE</code>.If this is true and CREATE_DEFAULT_FILES is true, then a default main
      * class will be generated during component creation.

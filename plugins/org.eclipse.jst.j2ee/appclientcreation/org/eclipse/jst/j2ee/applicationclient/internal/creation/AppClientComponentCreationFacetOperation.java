@@ -27,8 +27,16 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModel
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
-public class AppClientComponentCreationFacetOperation extends J2EEComponentCreationFacetOperation implements IFacetProjectCreationDataModelProperties {
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ * 
+ * @see AppClientFacetProjectCreationDataModelProvider
+ */
+public class AppClientComponentCreationFacetOperation extends J2EEComponentCreationFacetOperation implements IFacetProjectCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15{
 
 	public AppClientComponentCreationFacetOperation(IDataModel model) {
 		super(model);

@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.datamodel.properties;
 
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
+
 
 
 /**
@@ -29,7 +32,15 @@ package org.eclipse.jst.j2ee.datamodel.properties;
  * @see org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties
  * @plannedfor 1.0
  */
-public interface IJ2EEComponentCreationDataModelProperties extends IJavaComponentCreationDataModelProperties{
+
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ * 
+ * @see IJ2EEFacetProjectCreationDataModelProperties
+ */
+public interface IJ2EEComponentCreationDataModelProperties extends IJavaComponentCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15{
 
 	/**
 	 * Required, type Boolean, the default value is <code>Boolean.FALSE</code>.

@@ -12,10 +12,19 @@ package org.eclipse.jst.common.jdt.internal.integration;
 
 import java.util.Set;
 
+import org.eclipse.jst.common.project.facet.JavaProjectFacetCreationDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModelProvider;
 
-public class JavaProjectCreationDataModelProvider extends ProjectCreationDataModelProvider implements IJavaProjectCreationProperties {
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ * 
+ * @see JavaProjectFacetCreationDataModelProvider
+ */
+public class JavaProjectCreationDataModelProvider extends ProjectCreationDataModelProvider implements IJavaProjectCreationProperties, DoNotUseMeThisWillBeDeletedPost15 {
 
 
 	public Set getPropertyNames() {

@@ -29,8 +29,17 @@ package org.eclipse.jst.j2ee.web.datamodel.properties;
  */
 import org.eclipse.jst.j2ee.datamodel.properties.IAddWebComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
-public interface IWebComponentCreationDataModelProperties extends IJ2EEComponentCreationDataModelProperties {
+/**
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
+ * 
+ * @deprecated
+ * 
+ * @see IWebFacetInstallDataModelProperties
+ */
+public interface IWebComponentCreationDataModelProperties extends IJ2EEComponentCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15 {
 
      /**
      * Required, type String, the user defined name of the context root for the web component

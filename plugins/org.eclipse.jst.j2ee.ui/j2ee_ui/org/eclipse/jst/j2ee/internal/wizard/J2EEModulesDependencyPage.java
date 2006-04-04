@@ -37,6 +37,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.internal.WorkbenchMessages;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
 /*
@@ -47,12 +48,11 @@ import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPa
  */
 
 /**
- * @author jsholl
+ * This has been slated for removal post WTP 1.5. Do not use this class/interface
  * 
- * To change the template for this generated type comment go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
+ * @deprecated
  */
-public class J2EEModulesDependencyPage extends DataModelWizardPage implements IJ2EEComponentCreationDataModelProperties{
+public class J2EEModulesDependencyPage extends DataModelWizardPage implements IJ2EEComponentCreationDataModelProperties, DoNotUseMeThisWillBeDeletedPost15{
 
 	private CheckboxTableViewer availableJarsViewer;
 
