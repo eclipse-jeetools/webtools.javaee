@@ -514,7 +514,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 							String[] params = new String[]{uri, component.getProject().getName()};
 							addWarning(getBaseName(), MISSING_PROJECT_FORMODULE_WARN_, params);							
 						}
-						validateModuleURIExtension(module);
+						//validateModuleURIExtension(module);
 					}
 				}finally{
 					if( edit != null )
