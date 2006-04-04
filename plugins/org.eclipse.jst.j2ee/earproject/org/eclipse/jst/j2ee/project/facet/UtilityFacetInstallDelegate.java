@@ -31,6 +31,7 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
@@ -41,6 +42,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 public final class UtilityFacetInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
 
@@ -114,20 +116,22 @@ public final class UtilityFacetInstallDelegate extends J2EEFacetInstallDelegate 
 				final String earProjectName = model.getStringProperty(IUtilityFacetInstallDataModelProperties.EAR_PROJECT_NAME);
 				if (earProjectName != null && earProjectName != "") {
 					IProject earProject = ProjectUtilities.getProject(earProjectName);
-					if (earProject.exists()) {
-						IVirtualComponent earComp = ComponentCore.createComponent(earProject);
-
-						IDataModel dataModel = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
-						dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp);
-						List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
-						modList.add(c);
-						dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
-						try {
-							dataModel.getDefaultOperation().execute(null, null);
-						} catch (ExecutionException e) {
-							Logger.getLogger().logError(e);
-						}
+					if (!earProject.exists()){
+						installEARFacet(J2EEVersionConstants.VERSION_1_4_TEXT, earProjectName, (IRuntime) model.getProperty(IJ2EEFacetInstallDataModelProperties.FACET_RUNTIME), monitor);						
 					}
+
+					IVirtualComponent earComp = ComponentCore.createComponent(earProject);
+					IDataModel dataModel = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
+					dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp);
+					List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+					modList.add(c);
+					dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
+					try {
+						dataModel.getDefaultOperation().execute(null, null);
+					} catch (ExecutionException e) {
+						Logger.getLogger().logError(e);
+					}
+
 				}
 			}
 
