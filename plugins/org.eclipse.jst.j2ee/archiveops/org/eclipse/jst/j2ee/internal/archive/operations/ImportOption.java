@@ -11,8 +11,8 @@
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
 
-import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.IJ2EEProjectTypes;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 
@@ -61,7 +61,7 @@ public class ImportOption implements IJ2EEProjectTypes {
 	}
 
 	public String getProjectName() {
-		return model.getStringProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME);
+		return model.getStringProperty(IFacetDataModelProperties.FACET_PROJECT_NAME);
 	}
 
 	/**

@@ -19,7 +19,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.application.internal.operations.DefaultJ2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientFacetProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
@@ -249,13 +248,13 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 			boolean errorCollision = false;
 			boolean errorNoSelection = true;
 			if (getBooleanProperty(CREATE_APPCLIENT)) {
-				actualProjectName = clientModel.getStringProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME);
+				actualProjectName = clientModel.getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
 				projectName = WTPPlugin.isPlatformCaseSensitive() ? actualProjectName : actualProjectName.toLowerCase();
 				list.add(projectName);
 				errorNoSelection = false;
 			}
 			if (getBooleanProperty(CREATE_EJB)) {
-				actualProjectName = ejbModel.getStringProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME);
+				actualProjectName = ejbModel.getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
 				projectName = WTPPlugin.isPlatformCaseSensitive() ? actualProjectName : actualProjectName.toLowerCase();
 				if (!list.contains(projectName)) {
 					list.add(projectName);
@@ -265,7 +264,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 				errorNoSelection = false;
 			}
 			if (!errorCollision && getBooleanProperty(CREATE_WEB)) {
-				actualProjectName = webModel.getStringProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME);
+				actualProjectName = webModel.getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
 				projectName = WTPPlugin.isPlatformCaseSensitive() ? actualProjectName : actualProjectName.toLowerCase();
 				if (!list.contains(projectName)) {
 					list.add(projectName);
@@ -275,7 +274,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 				errorNoSelection = false;
 			}
 			if (!errorCollision && getBooleanProperty(CREATE_CONNECTOR)) {
-				actualProjectName = jcaModel.getStringProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME);
+				actualProjectName = jcaModel.getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
 				projectName = WTPPlugin.isPlatformCaseSensitive() ? actualProjectName : actualProjectName.toLowerCase();
 				if (!list.contains(projectName)) {
 					list.add(projectName);

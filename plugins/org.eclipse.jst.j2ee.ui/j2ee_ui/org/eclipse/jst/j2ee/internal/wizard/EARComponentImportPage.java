@@ -16,10 +16,8 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
-import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
-import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -27,9 +25,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
-import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
@@ -67,14 +63,6 @@ public class EARComponentImportPage extends J2EEImportPage {
 		createAnnotationsStandaloneGroup(composite);
 		restoreWidgetValues();
 		return composite;
-	}
-
-	protected IDataModel getNewProjectCreationDataModel() {
-		IDataModel earModel = DataModelFactory.createDataModel(new EarComponentCreationDataModelProvider());
-		earModel.setIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, model.getIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION));
-		earModel.setProperty(IComponentCreationDataModelProperties.PROJECT_NAME, model.getProperty(IComponentCreationDataModelProperties.PROJECT_NAME));
-		earModel.setProperty(IComponentCreationDataModelProperties.COMPONENT_NAME, model.getProperty(IComponentCreationDataModelProperties.COMPONENT_NAME));
-		return earModel;
 	}
 
 	protected String getProjectImportLabel() {
