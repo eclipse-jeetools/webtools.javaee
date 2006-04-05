@@ -43,7 +43,7 @@ public class JavaUtilityComponentCreationFacetOperation extends J2EEComponentCre
 			map.add( newModel );
 
 			setRuntime(newModel, dm); // Setting runtime property
-			
+			setAddToEARFromWizard(newModel);
 			result = dm.getDefaultOperation().execute(monitor, null);
 		} catch (ExecutionException e) {
 			Logger.getLogger().logError(e);

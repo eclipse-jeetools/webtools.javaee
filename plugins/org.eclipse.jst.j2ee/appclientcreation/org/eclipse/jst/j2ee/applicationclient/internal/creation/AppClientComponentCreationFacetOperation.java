@@ -45,7 +45,7 @@ public class AppClientComponentCreationFacetOperation extends J2EEComponentCreat
 		IDataModel newModel = setupAppClientFacetInstallAction();
 		map.add(newModel);
 		setRuntime(newModel, dm); // Setting runtime property
-
+		setAddToEARFromWizard(newModel);
 		IStatus stat = dm.getDefaultOperation().execute(monitor, info);
 		if (stat.isOK()) {
 			String earProjectName = (String) model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME);
