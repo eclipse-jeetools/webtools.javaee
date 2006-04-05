@@ -74,5 +74,7 @@ Require-Bundle: org.eclipse.jem,
  org.eclipse.core.runtime,
  org.eclipse.wst.validation,
  org.eclipse.jem.util,
- com.ibm.icu
+ com.ibm.icu,
+ org.eclipse.core.resources,
+ org.eclipse.wst.xml.core
 Eclipse-AutoStart: true
