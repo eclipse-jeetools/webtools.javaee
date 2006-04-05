@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: TestBeanInfo.java,v $
- *  $Revision: 1.5 $  $Date: 2005/09/13 20:31:07 $ 
+ *  $Revision: 1.6 $  $Date: 2006/04/05 23:16:57 $ 
  */
 package org.eclipse.jem.tests.modelListeners;
 
@@ -131,13 +131,13 @@ public class TestBeanInfo extends TestListeners {
 		factory.setTestCases(new int[0], new Object[0]);		
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.eclipse.jem.tests.modelListeners.TestListeners#setupDeleteMethodNoWorkingCopy()
-	 */
-	protected void setupDeleteMethodNoWorkingCopy() throws JavaModelException {
-		super.setupDeleteMethodNoWorkingCopy();
-		factory.setTestCases(new int[] {TestBeaninfoAdapterFactory.MARK_STALE_INTROSPECTION_PLUS_INNER}, new Object[] {new Object[] {"org.eclipse.jem.tests.beaninfo.Test1Class", Boolean.FALSE}});		
-	}
+//	/* (non-Javadoc)
+//	 * @see org.eclipse.jem.tests.modelListeners.TestListeners#setupDeleteMethodNoWorkingCopy()
+//	 */
+//	protected void setupDeleteMethodNoWorkingCopy() throws JavaModelException {
+//		super.setupDeleteMethodNoWorkingCopy();
+//		factory.setTestCases(new int[] {TestBeaninfoAdapterFactory.MARK_STALE_INTROSPECTION_PLUS_INNER}, new Object[] {new Object[] {"org.eclipse.jem.tests.beaninfo.Test1Class", Boolean.FALSE}});		
+//	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.tests.modelListeners.TestListeners#setupAddClass()
 	 */

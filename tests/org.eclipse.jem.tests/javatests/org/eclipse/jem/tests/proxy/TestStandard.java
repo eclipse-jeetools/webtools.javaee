@@ -108,7 +108,8 @@ public class TestStandard extends AbstractTestProxy {
 		// Get all constructors.
 		IConstructorProxy[] ctors = stringType.getConstructors();
 		assertNotNull(ctors);
-		assertEquals(11, ctors.length);		
+		int expectedCtors = System.getProperty("java.version","").startsWith("1.5") ? 13 : 11;
+		assertEquals(expectedCtors, ctors.length);		
 	}
 
 	public void testGetDeclaredConstructors() {

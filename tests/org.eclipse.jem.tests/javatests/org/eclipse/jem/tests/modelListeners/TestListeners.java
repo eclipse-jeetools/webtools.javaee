@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: TestListeners.java,v $
- *  $Revision: 1.3 $  $Date: 2005/08/24 20:58:55 $ 
+ *  $Revision: 1.4 $  $Date: 2006/04/05 23:16:57 $ 
  */
 package org.eclipse.jem.tests.modelListeners;
 
@@ -38,7 +38,7 @@ public abstract class TestListeners extends TestCase {
 
 	// The indexes of these lookups are found in the setup and teardown methods. They must be kept in sync.
 	protected List setupSpecials = Arrays.asList(new String[] { "testOpen", "testClose", "testAddMethodInWorkcopy", "testSaveFromWorkingCopy",
-			"testRevert", "testDeleteMethodNoWorkingCopy", "testAddClass", "testDeleteClassWithWorkingCopy",
+			"testRevert", "testDeleteMethodNoWorkingCopy-obsolete, removed", "testAddClass", "testDeleteClassWithWorkingCopy",
 			"testDeleteClassNoWorkingCopy", "testAddPackage", "testDeletePackage"});
 	
 	protected IListenerTester tester;
@@ -67,9 +67,9 @@ public abstract class TestListeners extends TestCase {
 			case 4:
 				setUpRevert();
 				break;
-			case 5:
-				setupDeleteMethodNoWorkingCopy();
-				break;
+//			case 5:
+//				setupDeleteMethodNoWorkingCopy();
+//				break;
 			case 6:
 				setupAddClass();
 				break;
@@ -112,9 +112,9 @@ public abstract class TestListeners extends TestCase {
 			case 4:
 				tearDownRevert();
 				break;
-			case 5:
-				tearDownDeleteMethodNoWorkingCopy();
-				break;
+//			case 5:
+//				tearDownDeleteMethodNoWorkingCopy();
+//				break;
 			case 6:
 				tearDownAddClass();
 				break;
@@ -218,35 +218,38 @@ public abstract class TestListeners extends TestCase {
 			testCU.discardWorkingCopy();				
 	}
 	
-	protected void setupDeleteMethodNoWorkingCopy() throws JavaModelException {
-		testCU = (ICompilationUnit) jp.findElement(new Path("org/eclipse/jem/tests/beaninfo/Test1Class.java"));
-		IMethod m = testCU.getTypes()[0].getMethod("getSomething", new String[0]);
-		if (m.exists())
-			m.delete(true, new NullProgressMonitor());
-		testCU.getTypes()[0].createMethod("private void getSomething() {}", null, true, new NullProgressMonitor());						
-	}
-	public void testDeleteMethodNoWorkingCopy() throws CoreException {
-		JavaCore.run(new IWorkspaceRunnable() {
-			public void run(IProgressMonitor monitor) throws CoreException {
-				// Actually there will be a working copy. This is to simulate what delete method from member list
-				// with no open editor. This is done by batching everything up, but there is a working copy created.
-				// But it changes the file directly then. (Confusing, no? But that is the way it does it in JDT).
-				testCU.becomeWorkingCopy(null, null);
-				IMethod method = testCU.getTypes()[0].getMethod("getSomething", new String[] {});
-				IBuffer cuBuffer = testCU.getBuffer();
-				ISourceRange sr = method.getSourceRange();
-				cuBuffer.replace(sr.getOffset(), sr.getLength(),"");
-				cuBuffer.save(monitor, true);
-				testCU.discardWorkingCopy();
-			}
-		}, new NullProgressMonitor());
-		tester.isException();
-		tester.isComplete();	// It should of been complete.				
-	}
-	protected void tearDownDeleteMethodNoWorkingCopy() throws JavaModelException {
-		if (testCU != null)
-			testCU.discardWorkingCopy();						
-	}
+// With 3.2M6 delete with no working copy got way to complex. Doing this through refactoring and other stuff. Just too complicated
+// to even try to figure out. So just pulling it out.
+	
+//	protected void setupDeleteMethodNoWorkingCopy() throws JavaModelException {
+//		testCU = (ICompilationUnit) jp.findElement(new Path("org/eclipse/jem/tests/beaninfo/Test1Class.java"));
+//		IMethod m = testCU.getTypes()[0].getMethod("getSomething", new String[0]);
+//		if (m.exists())
+//			m.delete(true, new NullProgressMonitor());
+//		testCU.getTypes()[0].createMethod("private void getSomething() {}", null, true, new NullProgressMonitor());						
+//	}
+//	public void testDeleteMethodNoWorkingCopy() throws CoreException {
+//		JavaCore.run(new IWorkspaceRunnable() {
+//			public void run(IProgressMonitor monitor) throws CoreException {
+//				// Actually there will be a working copy. This is to simulate what delete method from member list
+//				// with no open editor. This is done by batching everything up, but there is a working copy created.
+//				// But it changes the file directly then. (Confusing, no? But that is the way it does it in JDT).
+//				testCU.becomeWorkingCopy(null, null);
+//				IMethod method = testCU.getTypes()[0].getMethod("getSomething", new String[] {});
+//				IBuffer cuBuffer = testCU.getBuffer();
+//				ISourceRange sr = method.getSourceRange();
+//				cuBuffer.replace(sr.getOffset(), sr.getLength(),"");
+//				cuBuffer.save(monitor, true);
+//				testCU.discardWorkingCopy();
+//			}
+//		}, new NullProgressMonitor());
+//		tester.isException();
+//		tester.isComplete();	// It should of been complete.				
+//	}
+//	protected void tearDownDeleteMethodNoWorkingCopy() throws JavaModelException {
+//		if (testCU != null)
+//			testCU.discardWorkingCopy();						
+//	}
 	
 	protected void setupAddClass() {
 		
