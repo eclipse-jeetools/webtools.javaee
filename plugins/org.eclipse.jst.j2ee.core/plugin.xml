@@ -155,5 +155,13 @@
             prefix="commonarchive.looseconfig">
       </map>
    </extension>
+   <extension
+         id="j2eeApplicationErrorCustomizer"
+         name="%J2EEApplicationErrorCustomizer"
+         point="org.eclipse.wst.xml.core.errorCustomizer">
+      <errorCustomizer
+            class="org.eclipse.jst.j2ee.core.internal.validation.xmlerrorcustomization.J2EEErrorMessageCustomizer"
+            namespace="http://java.sun.com/xml/ns/j2ee"/>
+   </extension>
 
 </plugin>
