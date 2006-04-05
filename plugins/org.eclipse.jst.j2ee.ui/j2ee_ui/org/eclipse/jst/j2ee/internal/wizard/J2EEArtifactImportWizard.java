@@ -115,7 +115,6 @@ public abstract class J2EEArtifactImportWizard extends DataModelWizard implement
 		this.configurationElement = null;
 	}
 
-
 	/**
 	 * <p>
 	 * Invoked after the selection has been saved off in
@@ -160,7 +159,7 @@ public abstract class J2EEArtifactImportWizard extends DataModelWizard implement
 			return false;
 		}
 		if (CommonEditorUtility.getDirtyEditors().length != 0) { // all checkboxes were not
-																	// selected
+			// selected
 			return false;
 		}
 		return super.prePerformFinish();
@@ -189,17 +188,17 @@ public abstract class J2EEArtifactImportWizard extends DataModelWizard implement
 				}
 			};
 			Display.getDefault().asyncExec(new Runnable() {
-			    public void run() {
-			    	BasicNewProjectResourceWizard.updatePerspective(element);
-			    }
+				public void run() {
+					BasicNewProjectResourceWizard.updatePerspective(element);
+				}
 			});
 		} else {
 			Display.getDefault().asyncExec(new Runnable() {
-			    public void run() {
-			    	BasicNewProjectResourceWizard.updatePerspective(configurationElement);
-			    }
+				public void run() {
+					BasicNewProjectResourceWizard.updatePerspective(configurationElement);
+				}
 			});
-		}	
+		}
 	}
 
 	/**
@@ -218,7 +217,6 @@ public abstract class J2EEArtifactImportWizard extends DataModelWizard implement
 	public final void setInitializationData(IConfigurationElement config, String propertyName, Object data) throws CoreException {
 		this.configurationElement = config;
 	}
-
 
 	/**
 	 * @return Returns the selection.

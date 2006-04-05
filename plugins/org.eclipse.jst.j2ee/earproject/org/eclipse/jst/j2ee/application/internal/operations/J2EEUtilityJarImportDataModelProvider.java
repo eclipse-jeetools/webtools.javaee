@@ -32,7 +32,6 @@ public final class J2EEUtilityJarImportDataModelProvider extends J2EEArtifactImp
 
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
-		propertyNames.add(EAR_COMPONENT_NAME);
 		propertyNames.add(EAR_PROJECT_NAME);
 		return propertyNames;
 	}

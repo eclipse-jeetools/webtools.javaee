@@ -28,6 +28,7 @@ import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.jst.j2ee.application.internal.operations.EARComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
@@ -270,7 +271,7 @@ public class EARComponentProjectsPage extends J2EEImportPage {
 				TableItem elementHolder = (TableItem) element;
 				if (property.equals(PROJECT_COLUMN)) {
 					elementHolder.setText(1, (String) value);
-					((IDataModel) elementHolder.getData()).setProperty(IJ2EEComponentImportDataModelProperties.COMPONENT_NAME, value);
+					((IDataModel) elementHolder.getData()).setProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME, value);
 				}
 			}
 		});
@@ -286,7 +287,7 @@ public class EARComponentProjectsPage extends J2EEImportPage {
 	}
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{IEARComponentImportDataModelProperties.SELECTED_MODELS_LIST};
+		return new String[]{EARComponentImportDataModelProvider.NESTED_PROJECTS_VALIDATION};
 	}
 
 

@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.datamodel.properties;
 
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
 /**
  * <p>
@@ -46,14 +47,14 @@ public interface IJ2EEComponentImportDataModelProperties extends IDataModelPrope
 	/**
 	 * Required, type String, name of the Project which the Archive will be imported.
 	 */
-	//public static final String PROJECT_NAME = IComponentCreationDataModelProperties.PROJECT_NAME;
 	public static final String PROJECT_NAME = "IJ2EEComponentImportDataModelProperties.PROJECT_NAME"; //$NON-NLS-1$
 	
 	/**
-	 * Required, type String, name of the Component which will be created to house the Archive
+	 * @deprecated used {@link #PROJECT_NAME}
+	 * 
+	 * @see DoNotUseMeThisWillBeDeletedPost15
 	 */
-	//public static final String COMPONENT_NAME = IComponentCreationDataModelProperties.COMPONENT_NAME;
-	public static final String COMPONENT_NAME = "IJ2EEComponentImportDataModelProperties.COMPONENT_NAME"; //$NON-NLS-1$
+	public static final String COMPONENT_NAME = PROJECT_NAME;
 
 	/**
 	 * Unsettable property used to retreive the component after the operation has executed.

@@ -104,7 +104,7 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 			// }
 			// });
 			// newProjectButton.setEnabled(true);
-			synchHelper.synchCombo(componentCombo, IJ2EEComponentImportDataModelProperties.COMPONENT_NAME, new Control[]{componentLabel});
+			synchHelper.synchCombo(componentCombo, IJ2EEComponentImportDataModelProperties.PROJECT_NAME, new Control[]{componentLabel});
 			new Label(parent, SWT.NULL);
 			createServerTargetComposite(parent);
 		//}

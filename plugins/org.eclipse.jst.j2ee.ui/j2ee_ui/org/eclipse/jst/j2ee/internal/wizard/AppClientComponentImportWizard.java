@@ -50,20 +50,6 @@ public final class AppClientComponentImportWizard extends J2EEComponentImportWiz
 		super(model);
 	}
 
-	// /**
-	// * {@inheritDoc}
-	// *
-	// * <p>
-	// * Returns an {@link AppClientImportOperation}using the model either supplied in the
-	// * constructor or created from {@link #createDefaultModel()}.
-	// * </p>
-	// *
-	// * @return Returns the operation to be executed when the Wizard completes.
-	// */
-	// protected WTPOperation getImportOperation() {
-	// return new AppClientModuleImportOperation(getSpecificDataModel());
-	// }
-
 	/**
 	 * <p>
 	 * Adds an {@link AppClientImportPage}as the main wizard page ({@link #MAIN_PG}).
@@ -83,14 +69,8 @@ public final class AppClientComponentImportWizard extends J2EEComponentImportWiz
 	public final void doInit() {
 		setWindowTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.IMPORT_WIZ_TITLE));
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.APP_CLIENT_IMPORT_WIZARD_BANNER));
-		// updateEARToModelFromSelection(getSpecificDataModel());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEModuleImportWizard#getModuleValidatorStrings()
-	 */
 	protected String[] getModuleValidatorStrings() {
 		return new String[]{"org.eclipse.jst.j2ee.internal.validation.UIApplicationClientValidator"}; //$NON-NLS-1$
 	}
@@ -98,8 +78,8 @@ public final class AppClientComponentImportWizard extends J2EEComponentImportWiz
 	protected IDataModelProvider getDefaultProvider() {
 		return new AppClientComponentImportDataModelProvider();
 	}
-	
+
 	protected String getFinalPerspectiveID() {
-        return ProductManager.getProperty(IProductConstants.FINAL_PERSPECTIVE_APPCLIENT);
+		return ProductManager.getProperty(IProductConstants.FINAL_PERSPECTIVE_APPCLIENT);
 	}
 }

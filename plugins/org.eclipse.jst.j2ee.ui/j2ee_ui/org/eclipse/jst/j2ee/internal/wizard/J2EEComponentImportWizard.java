@@ -37,10 +37,6 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  */
 public abstract class J2EEComponentImportWizard extends J2EEArtifactImportWizard implements IImportWizard, IExecutableExtension {
 
-//	private static final String[] VALIDATOR_STRINGS = new String[]{"org.eclipse.jst.j2ee.internal.validation.UIEarValidator"}; //$NON-NLS-1$
-
-//	private static final Class IPROJECT_CLASS = IProject.class;
-
 	/**
 	 * <p>
 	 * The default constructor. Creates a wizard with no selection, no model instance, and no
@@ -66,53 +62,6 @@ public abstract class J2EEComponentImportWizard extends J2EEArtifactImportWizard
 		setWindowTitle(J2EEUIMessages.getResourceString("38"));//$NON-NLS-1$ 
 	}
 
-	// /**
-	// * <p>
-	// * Creates an Import Operation using {@link #getImportOperation()}and wraps it to run
-	// * validation once the module has been imported.
-	// * </p>
-	// *
-	// * @return Returns a wrapper operation around the result of getImportOperation() that also
-	// runs
-	// * validation as defined in getModuleValidatorStrings()
-	// * @see #getImportOperation()
-	// * @see #getModuleValidatorStrings()
-	// */
-	// protected final WTPOperation createBaseOperation() {
-	// return new WTPOperation() {
-	// protected void execute(IProgressMonitor monitor) throws CoreException,
-	// InvocationTargetException, InterruptedException {
-	// WTPOperation importOp = getImportOperation();
-	// if (importOp == null)
-	// return;
-	// importOp.run(monitor);
-	//
-	// J2EEModuleImportDataModel importModel = (J2EEModuleImportDataModel)
-	// getImportOperation().getOperationDataModel();
-	// IProject moduleProject = importModel.getProject();
-	// ValidatorSubsetOperation moduleValidator = new ValidatorSubsetOperation(moduleProject, true,
-	// false);
-	// moduleValidator.setValidators(getModuleValidatorStrings());
-	// moduleValidator.run(monitor);
-	//
-	// if (importModel.getBooleanProperty(J2EEModuleImportDataModel.ADD_TO_EAR)) {
-	// IProject earProject =
-	// importModel.getJ2EEModuleCreationDataModel().getEarComponentCreationDataModel().getTargetProject();
-	// ValidatorSubsetOperation earValidator = new ValidatorSubsetOperation(earProject, true,
-	// false);
-	// earValidator.setValidators(getEarValidatorStrings());
-	// earValidator.run(monitor);
-	// }
-	// }
-	// };
-	// }
-
-	// /**
-	// *
-	// * @return The appropriate import operation for the specific J2EE model type
-	// */
-	// protected abstract WTPOperation getImportOperation();
-
 	/**
 	 * <p>
 	 * The Import Wizards can run arbitrary validators once the module has been created. These
@@ -123,33 +72,5 @@ public abstract class J2EEComponentImportWizard extends J2EEArtifactImportWizard
 	 * @return An array of validator IDs that should be used for this module type
 	 */
 	protected abstract String[] getModuleValidatorStrings();
-
-	// /**
-	// * <p>
-	// * Uses the selection supplied from the {@link #init(IWorkbench, IStructuredSelection)}method
-	// * to set the associated EAR Module if an EAR artifact was selected.
-	// * </p>
-	// *
-	// * @param importModel
-	// * The Module Import data model to have its J2EEModuleImportDataModel.EAR_PROJECT
-	// * field set.
-	// */
-	// protected final void updateEARToModelFromSelection(J2EEModuleImportDataModel importModel) {
-	// /* Set the default ear selected if a ear is selected */
-	// try {
-	// if (getSelection() != null && !getSelection().isEmpty()) {
-	// IProject targetEARProject = (IProject)
-	// AdaptabilityUtility.getAdapter(getSelection().getFirstElement(), IPROJECT_CLASS);
-	// if (targetEARProject != null && targetEARProject.hasNature(IEARNatureConstants.NATURE_ID))
-	// importModel.setProperty(J2EEModuleImportDataModel.EAR_NAME, targetEARProject.getName());
-	// }
-	// } catch (Exception e) {
-	// //Ignore
-	// }
-	// }
-
-	// private String[] getEarValidatorStrings() {
-	// return VALIDATOR_STRINGS;
-	// }
 
 }

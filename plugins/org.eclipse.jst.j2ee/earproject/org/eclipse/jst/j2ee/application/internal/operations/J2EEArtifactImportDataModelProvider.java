@@ -37,12 +37,7 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataModelProvider implements IJ2EEComponentImportDataModelProperties, IDataModelListener {
 
-	private static final String USE_DEFAULT_COMPONENT_NAME = "J2EEArtifactImportDataModelProvider.USE_DEFAULT_COMPONENT_NAME"; //$NON-NLS-1$
-
-	/**
-	 * Extended attributes
-	 */
-	//protected static final String RUNTIME_TARGET_ID = IFlexibleJavaProjectCreationDataModelProperties.RUNTIME_TARGET_ID;
+	private static final String USE_DEFAULT_PROJECT_NAME = "J2EEArtifactImportDataModelProvider.USE_DEFAULT_PROJECT_NAME"; //$NON-NLS-1$
 
 	private IDataModel componentCreationDM;
 	private OpenFailureException cachedOpenFailureException = null;
@@ -54,8 +49,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		propertyNames.add(SAVE_FILTER);
 		propertyNames.add(OVERWRITE_HANDLER);
 		propertyNames.add(CLOSE_ARCHIVE_ON_DISPOSE);
-		propertyNames.add(USE_DEFAULT_COMPONENT_NAME);
-		propertyNames.add(COMPONENT_NAME);
+		propertyNames.add(USE_DEFAULT_PROJECT_NAME);
 		propertyNames.add(PROJECT_NAME);
 		propertyNames.add(COMPONENT);
 		return propertyNames;
@@ -64,12 +58,6 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	public void init() {
 		super.init();
 		componentCreationDM = createJ2EEComponentCreationDataModel();
-//When to use this  property?		
-//		try{
-//		componentCreationDM.setBooleanProperty(IComponentCreationDataModelProperties.CREATE_DEFAULT_FILES, false);
-//		}catch(Exception e){
-//			Logger.getLogger().logError(e);
-//		}
 		componentCreationDM.addListener(this);
 		model.addNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION, componentCreationDM);
 	}
@@ -77,7 +65,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(CLOSE_ARCHIVE_ON_DISPOSE)) {
 			return Boolean.TRUE;
-		} else if (propertyName.equals(USE_DEFAULT_COMPONENT_NAME)) {
+		} else if (propertyName.equals(USE_DEFAULT_PROJECT_NAME)) {
 			return Boolean.TRUE;
 		}else if( propertyName.equals(COMPONENT)){
 			String projectName = getStringProperty(PROJECT_NAME);
@@ -105,20 +93,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 			} catch (OpenFailureException oe) {
 				cachedOpenFailureException = oe;
 			}
-		} else if (COMPONENT_NAME.equals(propertyName)) {
-			List nestedModels = new ArrayList(model.getNestedModels());
-			IDataModel nestedModel = null;
-			for (int i = 0; i < nestedModels.size(); i++) {
-				nestedModel = (IDataModel) nestedModels.get(i);
-				try {
-					//nestedModel.setProperty(IJ2EEComponentImportDataModelProperties.COMPONENT_NAME, propertyValue);
-					nestedModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, propertyValue);
-				} catch (Exception e) {
-					Logger.getLogger().logError(e);
-				}
-			}
-			setProperty(PROJECT_NAME,propertyValue);
-		}else if( COMPONENT.equals(propertyName)){
+		} else if( COMPONENT.equals(propertyName)){
 			throw new RuntimeException(propertyName + " should not be set."); //$NON-NLS-1$
 		}else if (PROJECT_NAME.equals(propertyName)) {
 			List nestedModels = new ArrayList(model.getNestedModels());
@@ -126,7 +101,6 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 			for (int i = 0; i < nestedModels.size(); i++) {
 				nestedModel = (IDataModel) nestedModels.get(i);
 				try {
-					//nestedModel.setProperty(IJ2EEComponentImportDataModelProperties.COMPONENT_NAME, propertyValue);
 					nestedModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, propertyValue);
 				} catch (Exception e) {
 					Logger.getLogger().logError(e);
@@ -140,7 +114,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 
 	private void updateDefaultComponentName() {
 		Archive archive = getArchiveFile();
-		if (null != archive && getBooleanProperty(USE_DEFAULT_COMPONENT_NAME)) {
+		if (null != archive && getBooleanProperty(USE_DEFAULT_PROJECT_NAME)) {
 			try {
 				doingComponentUpdate = true;
 				Path path = new Path(archive.getURI());
@@ -148,7 +122,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 				if (defaultProjectName.indexOf('.') > 0) {
 					defaultProjectName = defaultProjectName.substring(0, defaultProjectName.lastIndexOf('.'));
 				}
-				setProperty(COMPONENT_NAME, defaultProjectName);
+				setProperty(PROJECT_NAME, defaultProjectName);
 			} finally {
 				doingComponentUpdate = false;
 			}
@@ -257,8 +231,8 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	}
 
 	public void propertyChanged(DataModelEvent event) {
-		if (!doingComponentUpdate && event.getDataModel() == componentCreationDM && event.getPropertyName().equals(COMPONENT_NAME) && getBooleanProperty(USE_DEFAULT_COMPONENT_NAME)) {
-			setBooleanProperty(USE_DEFAULT_COMPONENT_NAME, false);
+		if (!doingComponentUpdate && event.getDataModel() == componentCreationDM && event.getPropertyName().equals(PROJECT_NAME) && getBooleanProperty(USE_DEFAULT_PROJECT_NAME)) {
+			setBooleanProperty(USE_DEFAULT_PROJECT_NAME, false);
 		}
 	}
 }

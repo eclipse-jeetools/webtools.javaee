@@ -64,6 +64,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
+import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModelProviderNew;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
@@ -87,7 +88,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 
 	private IDataModelListener nestedListener = new IDataModelListener() {
 		public void propertyChanged(DataModelEvent event) {
-			if (event.getPropertyName().equals(COMPONENT_NAME)) {
+			if (event.getPropertyName().equals(PROJECT_NAME)) {
 				model.notifyPropertyChange(NESTED_PROJECTS_VALIDATION, IDataModel.DEFAULT_CHG);
 			}
 		}
@@ -156,18 +157,15 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 			setProperty(MODULE_MODELS_LIST, getModuleModels());
 			setProperty(UTILITY_LIST, null);
 
-
 			IDataModel earProjectModel = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);
-			if( getArchiveFile() != null){
-				FacetDataModelMap map = (FacetDataModelMap) earProjectModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);			
-				IDataModel earFacetDataModel = map.getFacetDataModel( J2EEProjectUtilities.ENTERPRISE_APPLICATION );
-	
+			if (getArchiveFile() != null) {
+				FacetDataModelMap map = (FacetDataModelMap) earProjectModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+				IDataModel earFacetDataModel = map.getFacetDataModel(J2EEProjectUtilities.ENTERPRISE_APPLICATION);
+
 				int version = ArchiveUtil.getFastSpecVersion((ModuleFile) getArchiveFile());
-				String versionText = J2EEVersionUtil.getJ2EETextVersion( version );
+				String versionText = J2EEVersionUtil.getJ2EETextVersion(version);
 				earFacetDataModel.setStringProperty(IFacetDataModelProperties.FACET_VERSION_STR, versionText);
 			}
-			
-			
 
 			model.notifyPropertyChange(PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
 			if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
@@ -193,7 +191,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 			IDataModel nestedModel = null;
 			for (int i = 0; i < nestedModels.size(); i++) {
 				nestedModel = (IDataModel) nestedModels.get(i);
-				nestedModel.setProperty(IJ2EEModuleImportDataModelProperties.EAR_COMPONENT_NAME, propertyValue);
+				nestedModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME, propertyValue);
 			}
 			nestedModels = (List) getProperty(UTILITY_MODELS_LIST);
 			for (int i = 0; i < nestedModels.size(); i++) {
@@ -201,37 +199,26 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 				nestedModel.setProperty(IJavaUtilityJarImportDataModelProperties.EAR_PROJECT_NAME, propertyValue);
 			}
 
-			IProject project = ProjectUtilities.getProject(getStringProperty(PROJECT_NAME));
-			if (null != project && project.exists()) {
-				
-				IFacetedProject facetedProject = null;
-				boolean canContinue = true;
-				try {
-					facetedProject = ProjectFacetsManager.create( project );
-				} catch (CoreException e) {
-					Logger.getLogger().logError(e);
-					canContinue = false;
-				}
-				
-				if( canContinue ){
-					IRuntime runtime = facetedProject.getRuntime();
-					if (null != runtime) {
-						setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME,
-									runtime);
+			if (ProjectCreationDataModelProviderNew.validateProjectName(getStringProperty(PROJECT_NAME)).isOK()) {
+				IProject project = ProjectUtilities.getProject(getStringProperty(PROJECT_NAME));
+				if (null != project && project.exists()) {
+
+					IFacetedProject facetedProject = null;
+					boolean canContinue = true;
+					try {
+						facetedProject = ProjectFacetsManager.create(project);
+					} catch (CoreException e) {
+						Logger.getLogger().logError(e);
+						canContinue = false;
+					}
+
+					if (canContinue) {
+						IRuntime runtime = facetedProject.getRuntime();
+						if (null != runtime) {
+							setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, runtime);
+						}
 					}
 				}
-			}
-		} else if (COMPONENT_NAME.equals(propertyName)) {
-			List nestedModels = (List) getProperty(MODULE_MODELS_LIST);
-			IDataModel nestedModel = null;
-			for (int i = 0; i < nestedModels.size(); i++) {
-				nestedModel = (IDataModel) nestedModels.get(i);
-				nestedModel.setProperty(IJ2EEModuleImportDataModelProperties.EAR_COMPONENT_NAME, propertyValue);
-			}
-			nestedModels = (List) getProperty(UTILITY_MODELS_LIST);
-			for (int i = 0; i < nestedModels.size(); i++) {
-				nestedModel = (IDataModel) nestedModels.get(i);
-				nestedModel.setProperty(IJavaUtilityJarImportDataModelProperties.EAR_COMPONENT_NAME, propertyValue);
 			}
 		}
 		return doSet;
@@ -283,7 +270,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 
 	public IStatus validate(String propertyName) {
 		if (propertyName.equals(NESTED_PROJECTS_VALIDATION)) {
-			//String earProjectName = getStringProperty(PROJECT_NAME);
+			// String earProjectName = getStringProperty(PROJECT_NAME);
 			String earProjectName = getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
 			List subProjects = getSelectedModels();
 			IDataModel subDataModel = null;
@@ -293,7 +280,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 			Hashtable projects = new Hashtable(4);
 			for (int i = 0; i < subProjects.size(); i++) {
 				subDataModel = (IDataModel) subProjects.get(i);
-				//tempProjectName = subDataModel.getStringProperty(PROJECT_NAME);
+				// tempProjectName = subDataModel.getStringProperty(PROJECT_NAME);
 				tempProjectName = subDataModel.getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
 				// TODO: add manual validation
 				// IStatus status = ProjectCreationDataModel.validateProjectName(tempProjectName);
@@ -306,19 +293,23 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 				// WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString("EARImportDataModel_UI_0",
 				// new Object[]{tempProjectName, tempArchive.getURI()})); //$NON-NLS-1$
 				// }
+				tempStatus = subDataModel.validateProperty(IFacetDataModelProperties.FACET_PROJECT_NAME);
+				if (!tempStatus.isOK()) {
+					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_0, new Object[]{tempProjectName, tempArchive.getURI()}));
+				}
 				tempStatus = subDataModel.validate();
 				if (!tempStatus.isOK()) {
 					return tempStatus;
 				}
 				if (tempProjectName.equals(earProjectName)) {
-					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString("EARImportDataModel_UI_1", new Object[]{tempProjectName, tempArchive.getURI()})); //$NON-NLS-1$
+					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_1, new Object[]{tempProjectName, tempArchive.getURI()}));
 				} else if (!WTPPlugin.isPlatformCaseSensitive()) {
 					if (tempProjectName.toLowerCase().equals(earProjectName.toLowerCase())) {
-						return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString("EARImportDataModel_UI_1", new Object[]{tempProjectName, tempArchive.getURI()})); //$NON-NLS-1$
+						return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_1, new Object[]{tempProjectName, tempArchive.getURI()}));
 					}
 				}
 				if (projects.containsKey(tempProjectName)) {
-					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString("EARImportDataModel_UI_2", new Object[]{tempProjectName, tempArchive.getURI(), ((Archive) projects.get(tempProjectName)).getURI()})); //$NON-NLS-1$
+					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_2, new Object[]{tempProjectName, tempArchive.getURI(), ((Archive) projects.get(tempProjectName)).getURI()}));
 				} else if (!WTPPlugin.isPlatformCaseSensitive()) {
 					String lowerCaseProjectName = tempProjectName.toLowerCase();
 					String currentKey = null;
@@ -326,7 +317,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 					while (keys.hasMoreElements()) {
 						currentKey = (String) keys.nextElement();
 						if (currentKey.toLowerCase().equals(lowerCaseProjectName)) {
-							return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString("EARImportDataModel_UI_2", new Object[]{tempProjectName, tempArchive.getURI(), ((Archive) projects.get(currentKey)).getURI()})); //$NON-NLS-1$
+							return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_2, new Object[]{tempProjectName, tempArchive.getURI(), ((Archive) projects.get(currentKey)).getURI()}));
 						}
 					}
 				}
@@ -424,7 +415,6 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 				IDataModel localModel = DataModelFactory.createDataModel(new J2EEUtilityJarImportDataModelProvider());
 				localModel.setProperty(IJavaUtilityJarImportDataModelProperties.FILE, currentArchive);
 				localModel.setProperty(IJavaUtilityJarImportDataModelProperties.EAR_PROJECT_NAME, getStringProperty(PROJECT_NAME));
-				localModel.setProperty(IJavaUtilityJarImportDataModelProperties.EAR_COMPONENT_NAME, getStringProperty(COMPONENT_NAME));
 				localModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME));
 				utilityModels.add(localModel);
 				localModel.addListener(nestedListener);
@@ -461,11 +451,14 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 		List moduleModels = new ArrayList();
 		List clientJarArchives = new ArrayList();
 		IDataModel localModel;
-		//String earProjectName = getStringProperty(PROJECT_NAME);
+		// String earProjectName = getStringProperty(PROJECT_NAME);
 		String earProjectName = getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
-		
-		String earComponentName = getStringProperty(COMPONENT_NAME);
+
 		List defaultModuleNames = new ArrayList();
+		IProject[] currentProjects = ProjectUtilities.getAllProjects();
+		for (int i = 0; i < currentProjects.length; i++) {
+			// defaultModuleNames.add(currentProjects[i].getName());
+		}
 		defaultModuleNames.add(earProjectName);
 		List collidingModuleNames = null;
 		Hashtable ejbJarsWithClients = new Hashtable();
@@ -509,8 +502,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 			}
 			if (localModel != null) {
 				localModel.setProperty(FILE, temp);
-				localModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME, earComponentName);
-				localModel.setBooleanProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME, false);
+				localModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME, earProjectName);
 				localModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME));
 				localModel.addListener(this);
 				localModel.addListener(nestedListener);
@@ -669,11 +661,6 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#dispose()
-	 */
 	public void dispose() {
 		super.dispose();
 		List list = getProjectModels();

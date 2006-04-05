@@ -9,6 +9,9 @@
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
 package org.eclipse.jst.j2ee.datamodel.properties;
+
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
+
 /**
  * <p>
  * IJavaUtilityJarImportDataModelProperties provides properties to the IDataModel associated with the 
@@ -33,8 +36,10 @@ public interface IJavaUtilityJarImportDataModelProperties extends IJ2EEComponent
      */
     public static final String EAR_PROJECT_NAME = "J2EEUtilityJarImportDataModel.EAR_PROJECT_NAME"; //$NON-NLS-1$
     /**
-     * Required, type String.  Represents the name of the EAR component which the utility jar will be added.
+     * @deprecated use {@link #EAR_PROJECT_NAME}
+     * 
+     * @see DoNotUseMeThisWillBeDeletedPost15
      */
-    public static final String EAR_COMPONENT_NAME = "J2EEUtilityJarImportDataModel.EAR_PROJECT"; //$NON-NLS-1$
+    public static final String EAR_COMPONENT_NAME = EAR_PROJECT_NAME;
 
 }
