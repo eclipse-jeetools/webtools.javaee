@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.31 $  $Date: 2006/02/21 17:16:44 $ 
+ *  $Revision: 1.32 $  $Date: 2006/04/05 16:25:10 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -830,7 +830,7 @@ public class ProxyLaunchSupport {
 	}
 
 	/**
-	 * Convert the urls to string array. It is assumed the urls are in file protocol. 
+	 * Convert the urls to string array. It is assumed the urls are in file protocol. It handles platform and JDK reqts. too.
 	 * @param urls
 	 * @return string paths or <code>null</code> if urls is <code>null</code>. Any <code>null</code> entry of urls will result in 
 	 * a corresponding <code>null</code> in the strings.
@@ -841,7 +841,15 @@ public class ProxyLaunchSupport {
 		if (urls != null) {
 			String[] strings = new String[urls.length];
 			for (int i = 0; i < urls.length; i++) {
-				strings[i] = urls[i] != null ? urls[i].getFile() : null;
+				// [132378] There is a problem with IBM JDK's. They can't handle the getFile() from a URL in the java lib path on Windows.
+				// That is because the normalized format of a file url on windows is "file:/D:/asdfasf". But IBM JDKs can't handle the
+				// leading slash. Sun JDKs do.
+				URL url = urls[i];
+				if (url != null) {
+					strings[i] = url.getFile();
+					if(strings[i].startsWith("/") && Platform.getOS().equals(Platform.OS_WIN32)) //$NON-NLS-1$
+						strings[i] = strings[i].substring(1);
+				}
 			}
 			return strings;
 		} else
