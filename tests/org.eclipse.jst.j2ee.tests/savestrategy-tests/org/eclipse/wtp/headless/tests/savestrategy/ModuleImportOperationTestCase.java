@@ -61,7 +61,7 @@ public abstract class ModuleImportOperationTestCase extends OperationTestCase {
 	public void testImport(String projectName, String filename) throws Exception {
 		IDataModel dataModel = getModelInstance();
 		dataModel.setProperty(IJ2EEComponentImportDataModelProperties.FILE_NAME, filename);
-		dataModel.setProperty(IJ2EEComponentImportDataModelProperties.COMPONENT_NAME, projectName);
+		dataModel.setProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME, projectName);
 		if (dataModelShouldBeValid)
 			runDataModel(dataModel);
 		else

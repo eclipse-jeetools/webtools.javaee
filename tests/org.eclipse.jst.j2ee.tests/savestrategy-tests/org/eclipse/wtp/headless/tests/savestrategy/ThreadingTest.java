@@ -62,7 +62,7 @@ public class ThreadingTest extends ModuleImportOperationTestCase {
 				String projectName = jarName.substring(jarName.lastIndexOf(File.separator) + 1, jarName.length() - 4);
 				IDataModel dataModel = getModelInstance();
 				dataModel.setProperty(IJ2EEComponentImportDataModelProperties.FILE_NAME, jarName);
-				dataModel.setProperty(IJ2EEComponentImportDataModelProperties.COMPONENT_NAME, projectName);
+				dataModel.setProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME, projectName);
 				runDataModel(dataModel);
 				projectArray[i] = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 			}
