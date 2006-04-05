@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.49 $  $Date: 2006/04/05 14:58:17 $ 
+ *  $Revision: 1.50 $  $Date: 2006/04/05 19:14:39 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -2375,7 +2375,13 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		if (!BeaninfoClassAdapter.this.eventListenerClass.isAssignableFrom(parmType))
 			return null; // Parm must be inherit from EventListener
 
-		if (!parmType.getName().equals(name.substring(3)))
+		// Beans introspector also requires that the "listener" part of the name be a
+		// suffix of the type name. So if the type name was "ISomeListener" then
+		// the method name must be "addSomeListener" (actually "addomeListener"
+		// would also be valid according to the introspector!).
+		// This allows the type to be an interface using the "I" convention while not
+		// requiring the "I" to be in the name of the event.		
+		if (!parmType.getName().endsWith(name.substring(3)))
 			return null;	// It is not "add{ListenerType}".
 
 		// This is a unique containing event name and listener type
@@ -2412,8 +2418,14 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		if (!BeaninfoClassAdapter.this.eventListenerClass.isAssignableFrom(parmType))
 			return null; // Parm must be inherit from EventListener
 
-		if (!parmType.getName().equals(name.substring(6)))
-			return null;	// It is not "remove{ListenerType}".
+		// Beans introspector also requires that the "listener" part of the name be a
+		// suffix of the type name. So if the type name was "ISomeListener" then
+		// the method name must be "removeSomeListener" (actually "removeomeListener"
+		// would also be valid according to the introspector!).
+		// This allows the type to be an interface using the "I" convention while not
+		// requiring the "I" to be in the name of the event.
+		if (!parmType.getName().endsWith(name.substring(6)))
+			return null;	// It is not "add{ListenerType}".
 
 		// This is a unique containing event name and listener type
 		// This is so we can have a unique key for two events with the same
