@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.48 $  $Date: 2005/12/14 21:21:02 $ 
+ *  $Revision: 1.49 $  $Date: 2006/04/05 14:58:17 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -2358,6 +2358,10 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		String name = method.getName();
 		if (!name.startsWith("add") || !name.endsWith("Listener")) //$NON-NLS-1$ //$NON-NLS-2$
 			return null; // Not valid format for an add listener name.
+		// Note. The Bean specs only state that it should be "add<ListenerType>" but the
+		// introspector implicitly adds an additional constraint in that the listener type
+		// should end with "Listener". If it doesn't the introspector would actually throw
+		// an index out of bounds. We'll just ignore such methods.
 
 		List parms = method.getParameters();
 		if (parms.size() != 1)
@@ -2370,6 +2374,9 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		EClassifier parmType = ((JavaParameter) parms.get(0)).getEType();
 		if (!BeaninfoClassAdapter.this.eventListenerClass.isAssignableFrom(parmType))
 			return null; // Parm must be inherit from EventListener
+
+		if (!parmType.getName().equals(name.substring(3)))
+			return null;	// It is not "add{ListenerType}".
 
 		// This is a unique containing event name and listener type
 		// This is so we can have a unique key for two events with the same
@@ -2387,6 +2394,11 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		String name = method.getName();
 		if (!name.startsWith("remove") || !name.endsWith("Listener")) //$NON-NLS-1$ //$NON-NLS-2$
 			return null; // Not valid format for a remove listener name.
+		// Note. The Bean specs only state that it should be "add<ListenerType>" but the
+		// introspector implicitly adds an additional constraint in that the listener type name
+		// should end with "Listener". If it doesn't the introspector would actually throw
+		// an index out of bounds. We'll just ignore such methods.
+		
 
 		List parms = method.getParameters();
 		if (parms.size() != 1)
@@ -2399,6 +2411,9 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		EClassifier parmType = ((JavaParameter) parms.get(0)).getEType();
 		if (!BeaninfoClassAdapter.this.eventListenerClass.isAssignableFrom(parmType))
 			return null; // Parm must be inherit from EventListener
+
+		if (!parmType.getName().equals(name.substring(6)))
+			return null;	// It is not "remove{ListenerType}".
 
 		// This is a unique containing event name and listener type
 		// This is so we can have a unique key for two events with the same
