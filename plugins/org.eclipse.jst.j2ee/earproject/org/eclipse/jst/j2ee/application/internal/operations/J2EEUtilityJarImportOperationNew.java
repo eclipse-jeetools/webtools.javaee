@@ -57,16 +57,7 @@ public class J2EEUtilityJarImportOperationNew extends AbstractDataModelOperation
 		IDataModel utilityCreationDataModel = DataModelFactory.createDataModel(new UtilityProjectCreationDataModelProvider());
 		String projectName = model.getStringProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME);
 		utilityCreationDataModel.setStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, projectName);
-//		String runtime = model.getStringProperty(IJavaComponentCreationDataModelProperties.RUNTIME_TARGET_ID);
-//		IRuntime facetRuntime = null;
-//		try {
-//			runtime = ServerCore.findRuntime(runtime).getName();
-//			facetRuntime = RuntimeManager.getRuntime(runtime);
-//		} catch (Exception e) {
-//			// proceed with facetRuntime = null
-//		}
-		IRuntime facetRuntime = null;
-		facetRuntime = (IRuntime) model.getProperty( IFacetProjectCreationDataModelProperties.FACET_RUNTIME );
+		IRuntime facetRuntime = (IRuntime) model.getProperty( IFacetProjectCreationDataModelProperties.FACET_RUNTIME );
 		utilityCreationDataModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, facetRuntime);
 		FacetDataModelMap map = (FacetDataModelMap)utilityCreationDataModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 		map.getFacetDataModel(J2EEProjectUtilities.UTILITY).setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, false);
