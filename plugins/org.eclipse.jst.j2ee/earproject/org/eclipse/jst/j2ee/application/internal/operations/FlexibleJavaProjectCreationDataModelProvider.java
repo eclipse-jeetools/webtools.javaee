@@ -85,8 +85,8 @@ public class FlexibleJavaProjectCreationDataModelProvider extends FlexibleProjec
 		if (!status.isOK()) {
 			return status;
 		} else if (propertyName.equals(NESTED_MODEL_SERVER_TARGET)) {
-			IDataModel stModel = model.getNestedModel(NESTED_MODEL_SERVER_TARGET);
-			return stModel.validate();
+//			IDataModel stModel = model.getNestedModel(NESTED_MODEL_SERVER_TARGET);
+//			return stModel.validate();
 		}
 		return OK_STATUS;
 	}

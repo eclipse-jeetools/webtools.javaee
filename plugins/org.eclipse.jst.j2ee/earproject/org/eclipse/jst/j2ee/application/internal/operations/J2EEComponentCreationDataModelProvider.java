@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
@@ -36,8 +37,11 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModelProviderNew;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
@@ -109,6 +113,25 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	public boolean isPropertyEnabled(String propertyName) {
 		if (EAR_COMPONENT_NAME.equals(propertyName)) {
 			return getBooleanProperty(ADD_TO_EAR);
+		} else if (RUNTIME_TARGET_ID.equals(propertyName)) {
+			if (getBooleanProperty(ADD_TO_EAR)) {
+				IStatus status = validateEAR(model.getStringProperty(EAR_COMPONENT_NAME));
+				if (status.isOK()) {
+					IProject earProject = ProjectUtilities.getProject(getStringProperty(EAR_COMPONENT_NAME));
+					if (earProject != null && earProject.exists()) {
+						IFacetedProject facetdEarProject;
+						try {
+							facetdEarProject = ProjectFacetsManager.create(earProject);
+							if (facetdEarProject != null) {
+								return false;
+							}
+						} catch (CoreException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+			return true;
 		}
 		return super.isPropertyEnabled(propertyName);
 	}
@@ -160,11 +183,34 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 			// version
 			model.notifyPropertyChange(RUNTIME_TARGET_ID, DataModelEvent.VALID_VALUES_CHG);			
 		} else if (RUNTIME_TARGET_ID.equals(propertyName)) {
-			setProperty(ADD_TO_EAR, new Boolean(isEARSupported()));
-
 			IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
 			earDM.setProperty(RUNTIME_TARGET_ID, propertyValue);
 		} 
+		
+		if (EAR_COMPONENT_NAME.equals(propertyName) || ADD_TO_EAR.equals(propertyName)) {
+			if (getBooleanProperty(ADD_TO_EAR)) {
+				IStatus astatus = validateEAR(model.getStringProperty(EAR_COMPONENT_NAME));
+				if (astatus.isOK()) {
+					IProject earProject = ProjectUtilities.getProject(getStringProperty(EAR_COMPONENT_NAME));
+					if (earProject != null && earProject.exists()) {
+						IFacetedProject facetdEarProject;
+						try {
+							facetdEarProject = ProjectFacetsManager.create(earProject);
+							if (facetdEarProject != null) {
+								if(facetdEarProject.getRuntime()== null){
+									setProperty(RUNTIME_TARGET_ID, "");
+								} else {
+									setProperty(RUNTIME_TARGET_ID, facetdEarProject.getRuntime().getName());
+								}
+							}
+						} catch (CoreException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+			model.notifyPropertyChange(RUNTIME_TARGET_ID, IDataModel.ENABLE_CHG);
+		}
 		return status;
 	}
 
@@ -177,7 +223,18 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 			return ProjectUtilities.getProject(earProjname);
 		return null;
 	}
-
+	
+	protected IStatus validateEAR(String earName) {
+		if (earName == null || earName.equals("")) { //$NON-NLS-1$
+			String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_EMPTY_MODULE_NAME);
+			return WTPCommonPlugin.createErrorStatus(errorMessage);
+		} 
+		if (earName.indexOf("#") != -1 || earName.indexOf("/") != -1) { //$NON-NLS-1$ //$NON-NLS-2$
+			String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_INVALID_CHARS); 
+			return WTPCommonPlugin.createErrorStatus(errorMessage);
+		}  
+		return (ProjectCreationDataModelProviderNew.validateProjectName(earName));
+	}	
 
 	public DataModelPropertyDescriptor getPropertyDescriptor(String propertyName){
 		if (propertyName.equals(RUNTIME_TARGET_ID)) {
@@ -238,11 +295,12 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		}
 
 		if (!validServers.isEmpty()) {
-			int serverTargetListSize = validServers.size();
+			int serverTargetListSize = validServers.size()+1;
 			DataModelPropertyDescriptor[] result = new DataModelPropertyDescriptor[serverTargetListSize];
 			for (int i = 0; i < validServers.size(); i++) {
 				result[i] = (DataModelPropertyDescriptor) validServers.get(i);
 			}
+			result[result.length -1] = new DataModelPropertyDescriptor(null, "");
 			return result;
 		}
 		return new DataModelPropertyDescriptor[0];
@@ -462,8 +520,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 				String serverID = model.getStringProperty(RUNTIME_TARGET_ID);
 				IRuntime runtime = getServerTargetByID(serverID);
 				if (serverID.equals("") || runtime == null) { //$NON-NLS-1$
-					String msg = EARCreationResourceHandler.SERVER_TARGET_NOT_SUPPORT_EAR;
-					return WTPCommonPlugin.createErrorStatus(msg);
+					return OK_STATUS;
 				}
 				Integer version = (Integer) model.getProperty(COMPONENT_VERSION);
 				int nj2eeVer = convertModuleVersionToJ2EEVersion(version.intValue());

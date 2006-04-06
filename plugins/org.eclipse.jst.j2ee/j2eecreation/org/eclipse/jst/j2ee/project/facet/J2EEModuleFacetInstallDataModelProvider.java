@@ -111,7 +111,8 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 					javaModel.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, propertyValue);
 			}
 		} else if (EAR_PROJECT_NAME.equals(propertyName)) {
-			if( propertyValue != null && !propertyValue.equals("")){ //$NON-NLS-1$
+			IStatus status = validateEAR(model.getStringProperty(EAR_PROJECT_NAME));
+			if (status.isOK()) {
 				IProject project = ProjectUtilities.getProject((String) propertyValue);
 				if (project.exists() && project.isAccessible() && J2EEProjectUtilities.isEARProject(project)) {
 					try {
@@ -125,8 +126,6 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		}else if(LAST_EAR_NAME.equals(propertyName)){
 			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.DEFAULT_CHG);
 		}else if(propertyName.equals(IFacetProjectCreationDataModelProperties.FACET_RUNTIME)){
-			model.setProperty(ADD_TO_EAR, model.getDefaultProperty(ADD_TO_EAR));
-			model.notifyPropertyChange(ADD_TO_EAR, IDataModel.VALID_VALUES_CHG);
 			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
 		}
 		return super.propertySet(propertyName, propertyValue);
@@ -212,12 +211,12 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		} else if (earName == null || earName.equals("")) { //$NON-NLS-1$
 			String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_EMPTY_MODULE_NAME);
 			return WTPCommonPlugin.createErrorStatus(errorMessage);
-		} 
+		}
 		return (ProjectCreationDataModelProviderNew.validateProjectName(earName));
 	}
 
 	private boolean isEARSupportedByRuntime(){
-		boolean ret = false;
+		boolean ret = true;
 		IRuntime rt = (IRuntime) model.getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
 		if( rt != null )
 			ret =  rt.supports(EARFacetUtils.EAR_FACET);

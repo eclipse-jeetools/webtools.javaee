@@ -57,8 +57,10 @@ public class EarComponentCreationFacetOperation extends AbstractDataModelOperati
 		String runtime = model.getStringProperty(IJavaComponentCreationDataModelProperties.RUNTIME_TARGET_ID);
 		IRuntime facetRuntime = null;
 		try {
-			runtime = ServerCore.findRuntime(runtime).getName();
-			facetRuntime = RuntimeManager.getRuntime(runtime);
+			if(null != ServerCore.findRuntime(runtime)){
+				runtime = ServerCore.findRuntime(runtime).getName();
+				facetRuntime = RuntimeManager.getRuntime(runtime);
+			}
 		} catch (Exception e) {
 			// proceed with facetRuntime = null
 		}

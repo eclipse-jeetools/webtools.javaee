@@ -129,10 +129,10 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
 
 
 	public Object getDefaultProperty(String propertyName) {
-		if (propertyName.equals(ADD_TO_EAR)) {
-			if (isEARSupported())
-				setProperty(ADD_TO_EAR, Boolean.TRUE);
-		}
+//		if (propertyName.equals(ADD_TO_EAR)) {
+//			if (isEARSupported())
+//				setProperty(ADD_TO_EAR, Boolean.TRUE);
+//		}
 		// if (propertyName.equals(WEB_CONTENT)) {
 		// String webContentFolderPref =
 		// J2EEPlugin.getDefault().getJ2EEPreferences().getJ2EEWebContentFolderName();
