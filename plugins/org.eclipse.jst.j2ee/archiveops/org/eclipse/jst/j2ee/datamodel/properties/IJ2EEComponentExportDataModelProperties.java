@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.datamodel.properties;
 
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 /**
  * <p>
  * IJ2EEComponentExportDataModelProperties provides properties to the IDataModel associated with the 
@@ -31,13 +32,14 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties;
 public interface IJ2EEComponentExportDataModelProperties extends IDataModelProperties {
 
 	/**
-     * Required, type String. The user defined name of the component to be exported.
-     */
-    public static final String COMPONENT_NAME = "IJ2EEComponentExportDataModelProperties.COMPONENT_NAME"; //$NON-NLS-1$
-    /**
-     * Required, type String. The user defined name of the component to be exported.
+     * Required, type String. The user defined name of the project to be exported.
      */
     public static final String PROJECT_NAME = "IJ2EEComponentExportDataModelProperties.PROJECT_NAME"; //$NON-NLS-1$
+    /**
+     * @deprecated use {@link #PROJECT_NAME}
+     * @see DoNotUseMeThisWillBeDeletedPost15 
+     */
+    public static final String COMPONENT_NAME = PROJECT_NAME;
     /**
      * Required, type IPath.  The user defined export location including fully qualified Path and archive file
      * to be created name. 

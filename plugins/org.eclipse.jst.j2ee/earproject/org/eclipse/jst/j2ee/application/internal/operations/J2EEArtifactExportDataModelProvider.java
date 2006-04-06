@@ -40,7 +40,6 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
-		propertyNames.add(COMPONENT_NAME);
 		propertyNames.add(PROJECT_NAME);
 		propertyNames.add(ARCHIVE_DESTINATION);
 		propertyNames.add(EXPORT_SOURCE_FILES);
@@ -71,17 +70,15 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		boolean set = super.propertySet(propertyName, propertyValue);
-		if (propertyName.equals(COMPONENT_NAME)) {
+		if (propertyName.equals(PROJECT_NAME)) {
 			if (getComponentMap().isEmpty())
 				intializeComponentMap();
 			IVirtualComponent component = (IVirtualComponent) getComponentMap().get(propertyValue);
 			if (null != component && component.getName().equals(propertyValue)) {
 				setProperty(COMPONENT, component);
-				setProperty(PROJECT_NAME, component.getProject().getName());
 			} else {
 				setProperty(COMPONENT, null);
-				setProperty(PROJECT_NAME, null);
-			}
+		}
 		}
 		return set;
 	}
@@ -104,7 +101,7 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 	 */
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
 		// TODO: populate valid components
-		if (propertyName.equals(COMPONENT_NAME)) {
+		if (propertyName.equals(PROJECT_NAME)) {
 			List componentNames = new ArrayList();
 			IVirtualComponent[] wbComps = ComponentUtilities.getAllWorkbenchComponents();
 
@@ -137,16 +134,16 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
 	public IStatus validate(String propertyName) {
-		if (COMPONENT_NAME.equals(propertyName)) {
-			String componentName = (String) model.getProperty(COMPONENT_NAME);
-			if (componentName == null || componentName.equals("")) //$NON-NLS-1$
+		if (PROJECT_NAME.equals(propertyName)) {
+			String projectName = (String) model.getProperty(PROJECT_NAME);
+			if (projectName == null || projectName.equals("")) //$NON-NLS-1$
 				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.MODULE_EXISTS_ERROR));
-			IVirtualComponent component = (IVirtualComponent) componentMap.get(componentName);
+			IVirtualComponent component = (IVirtualComponent) componentMap.get(projectName);
 			if (component == null) {
 				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.MODULE_EXISTS_ERROR));
 			}
 			if (!J2EEProjectUtilities.getJ2EEProjectType(component.getProject()).equals(getProjectType())) {
-				return WTPCommonPlugin.createErrorStatus(getWrongComponentTypeString(componentName));
+				return WTPCommonPlugin.createErrorStatus(getWrongComponentTypeString(projectName));
 			}
 		}
 		if (ARCHIVE_DESTINATION.equals(propertyName)) {

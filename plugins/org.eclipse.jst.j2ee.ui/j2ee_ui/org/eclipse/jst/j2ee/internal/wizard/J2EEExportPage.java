@@ -132,7 +132,7 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
         GridData data = new GridData(GridData.FILL_HORIZONTAL);
         data.widthHint = SIZING_TEXT_FIELD_WIDTH;
         resourceNameCombo.setLayoutData(data);
-        synchHelper.synchCombo(resourceNameCombo, IJ2EEComponentExportDataModelProperties.COMPONENT_NAME, null);
+        synchHelper.synchCombo(resourceNameCombo, IJ2EEComponentExportDataModelProperties.PROJECT_NAME, null);
         new Label(parent, SWT.NONE);//Pad label
     }
 
@@ -257,7 +257,7 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 	protected void handleDestinationBrowseButtonPressed() {
 
 		FileDialog dialog = new FileDialog(destinationNameCombo.getShell(), SWT.SAVE);
-		String fileName = getDataModel().getStringProperty(IJ2EEComponentExportDataModelProperties.COMPONENT_NAME);
+		String fileName = getDataModel().getStringProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME);
 		String[] filters = getFilterExpression();
 		if (!isWindows) {
 			if (filters.length != 0 && filters[0] != null && filters[0].indexOf('.') != -1) {
