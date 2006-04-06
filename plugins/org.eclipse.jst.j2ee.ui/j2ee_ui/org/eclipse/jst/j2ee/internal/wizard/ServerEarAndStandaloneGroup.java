@@ -13,8 +13,12 @@ package org.eclipse.jst.j2ee.internal.wizard;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
-import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.earcreation.IEarFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.facet.EARFacetProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.ui.project.facet.EarProjectWizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -24,6 +28,8 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
@@ -112,15 +118,27 @@ public class ServerEarAndStandaloneGroup implements IJ2EEComponentCreationDataMo
 	 *  
 	 */
 	protected void handleNewEarSelected() {
+		
 		IDataModel moduleModel = model;
-        IDataModel earModel = DataModelFactory.createDataModel(new EarComponentCreationDataModelProvider());
-		earModel.setIntProperty(COMPONENT_VERSION, moduleModel.getIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION));
-		earModel.setProperty(COMPONENT_NAME, moduleModel.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME));
-		EARComponentCreationWizard earWizard = new EARComponentCreationWizard(earModel);
+		
+        IDataModel earModel = DataModelFactory.createDataModel(new EARFacetProjectCreationDataModelProvider());
+		
+		earModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME,
+				moduleModel.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME));
+		
+		FacetDataModelMap map = (FacetDataModelMap) earModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		IDataModel earFacetDataModel = map.getFacetDataModel(J2EEProjectUtilities.ENTERPRISE_APPLICATION);
+		int j2eeVersion = moduleModel.getIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION);
+		String j2eeVerionText = J2EEVersionUtil.getJ2EETextVersion(j2eeVersion);
+		earFacetDataModel.setStringProperty(IEarFacetInstallDataModelProperties.FACET_VERSION_STR,
+					j2eeVerionText);
+		
+		
+		EarProjectWizard earWizard = new EarProjectWizard(earModel);
 		WizardDialog dialog = new WizardDialog(parentComposite.getShell(), earWizard);
 		if (Window.OK == dialog.open()) {
-			moduleModel.setProperty(EAR_COMPONENT_NAME, earModel.getProperty(COMPONENT_NAME));
-		}
+			moduleModel.setProperty(EAR_COMPONENT_NAME, earModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME));
+		}		
 	}
 
 	public void dispose() {
