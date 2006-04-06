@@ -175,7 +175,6 @@ public class DefectVerificationTests extends OperationTestCase {
 
 		String earOutputName = "d:\\temp\\Output" + System.currentTimeMillis() + ".ear";
 		IDataModel export = DataModelFactory.createDataModel(new EARComponentExportDataModelProvider());
-		export.setProperty(IEARComponentExportDataModelProperties.COMPONENT_NAME, comp.getName());
 		export.setProperty(IEARComponentExportDataModelProperties.PROJECT_NAME, comp.getProject().getName());
 		export.setProperty(IEARComponentExportDataModelProperties.ARCHIVE_DESTINATION, earOutputName);
 		runAndVerify(export);
