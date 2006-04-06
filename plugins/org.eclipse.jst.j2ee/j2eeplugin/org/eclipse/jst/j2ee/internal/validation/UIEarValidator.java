@@ -542,13 +542,6 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		}
 	}
 
-	/*
-	 * @see J2EEValidator#cleanup()
-	 */
-	public void cleanup() {
-		if (earHelper != null)
-			earHelper.closeEARFile();
-	}
 
 	protected IFile getManifestFile(Archive anArchive) {
 		URIConverter conv = anArchive.getResourceSet().getURIConverter();
