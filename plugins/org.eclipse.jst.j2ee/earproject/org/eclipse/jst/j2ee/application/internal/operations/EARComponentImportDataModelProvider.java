@@ -64,6 +64,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
+import org.eclipse.wst.common.frameworks.internal.operations.IProjectCreationPropertiesNew;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModelProviderNew;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
@@ -152,9 +153,10 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 		}
 		boolean doSet = super.propertySet(propertyName, propertyValue);
 		if (NESTED_MODULE_ROOT.equals(propertyName)) {
-			changeModuleCreationLocationForAll(getProjectModels(), (String) propertyValue);
+			updateModuleRoot();
 		} else if (FILE_NAME.equals(propertyName)) {
 			setProperty(MODULE_MODELS_LIST, getModuleModels());
+			updateModuleRoot();
 			setProperty(UTILITY_LIST, null);
 
 			IDataModel earProjectModel = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);
@@ -329,14 +331,15 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 		return super.validate(propertyName);
 	}
 
-	private void changeModuleCreationLocationForAll(List projects, String property) {
+	private void updateModuleRoot() {
+		List projects = getProjectModels();
+		String basePath = isPropertySet(NESTED_MODULE_ROOT) ? getStringProperty(NESTED_MODULE_ROOT) : null;
+		boolean useDefault = basePath == null;
 		IDataModel localModel = null;
 		for (int i = 0; null != projects && i < projects.size(); i++) {
 			localModel = (IDataModel) projects.get(i);
-			IPath newPath = new Path(property);
-			newPath = newPath.append((String) localModel.getProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME));
-			// model.setProperty(J2EEComponentCreationDataModel.PROJECT_LOCATION,
-			// newPath.toOSString());
+			localModel.setProperty(IProjectCreationPropertiesNew.USER_DEFINED_BASE_LOCATION, basePath);
+			localModel.setBooleanProperty(IProjectCreationPropertiesNew.USE_DEFAULT_LOCATION, useDefault);
 		}
 	}
 
