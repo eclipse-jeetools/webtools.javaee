@@ -37,6 +37,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wst.rdb.data.ui,
  org.eclipse.wst.rdb.server.ui,
  org.eclipse.jdt.ui,
- org.eclipse.jface.text,
- org.eclipse.ui.navigator.resources
+ org.eclipse.jface.text
 Eclipse-AutoStart: true
