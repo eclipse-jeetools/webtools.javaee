@@ -305,11 +305,12 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 					}
 				}
 			}
+		} catch (Exception e) {
+			// do nothing no DD no names to validate against
 		} finally {
 			if (edit != null)
 				edit.dispose();
 		}
-
 		return WTPCommonPlugin.OK_STATUS;
 	}
 
