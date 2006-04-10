@@ -11,7 +11,9 @@
 package org.eclipse.jst.j2ee.model.internal.validation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,8 @@ import org.eclipse.jst.j2ee.common.EnvEntry;
 import org.eclipse.jst.j2ee.common.EnvEntryType;
 import org.eclipse.jst.j2ee.common.SecurityRole;
 import org.eclipse.jst.j2ee.common.SecurityRoleRef;
+import org.eclipse.jst.j2ee.ejb.ActivationConfig;
+import org.eclipse.jst.j2ee.ejb.ActivationConfigProperty;
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.CMRField;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
@@ -38,10 +42,12 @@ import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
 import org.eclipse.jst.j2ee.ejb.Session;
+import org.eclipse.jst.j2ee.ejb.internal.util.MDBActivationConfigModelUtil;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
+
 
 /**
  * @version 	1.0
@@ -51,6 +57,7 @@ public class EnterpriseBean20VRule extends AValidationRule implements IMessagePr
 	private List _securityRoles = null;
 	private static final Map MESSAGE_IDS;
 	private static final Object[] DEPENDS_ON = new Object[]{IValidationRuleList.EJB20_BMP_BEANCLASS, IValidationRuleList.EJB20_BMP_HOME, IValidationRuleList.EJB20_BMP_KEYCLASS, IValidationRuleList.EJB20_BMP_LOCAL, IValidationRuleList.EJB20_BMP_LOCALHOME, IValidationRuleList.EJB20_BMP_REMOTE, IValidationRuleList.EJB20_CMP_BEANCLASS, IValidationRuleList.EJB20_CMP_HOME, IValidationRuleList.EJB20_CMP_KEYCLASS, IValidationRuleList.EJB20_CMP_LOCAL, IValidationRuleList.EJB20_CMP_LOCALHOME, IValidationRuleList.EJB20_CMP_REMOTE, IValidationRuleList.EJB20_STATEFUL_SESSION_BEANCLASS, IValidationRuleList.EJB20_STATEFUL_SESSION_HOME, IValidationRuleList.EJB20_STATEFUL_SESSION_LOCAL, IValidationRuleList.EJB20_STATEFUL_SESSION_LOCALHOME, IValidationRuleList.EJB20_STATEFUL_SESSION_REMOTE, IValidationRuleList.EJB20_STATELESS_SESSION_BEANCLASS, IValidationRuleList.EJB20_STATELESS_SESSION_HOME, IValidationRuleList.EJB20_STATELESS_SESSION_LOCAL, IValidationRuleList.EJB20_STATELESS_SESSION_LOCALHOME, IValidationRuleList.EJB20_STATELESS_SESSION_REMOTE};
+	private static String JMS_MESSAGING_TYPE = "javax.jms.MessageListener";
 	
 	static {
 		MESSAGE_IDS = new HashMap();
@@ -192,7 +199,9 @@ public class EnterpriseBean20VRule extends AValidationRule implements IMessagePr
 				validateAbstractSchemaNameElement(vc, ejbJar, cmp);
 				validateJavaIdentifier(vc, ejbJar, cmp);
 			}
-
+			if(bean.isMessageDriven() && bean.getVersionID() == J2EEVersionConstants.EJB_2_1_ID) {
+				validateActivationConfiguration(vc, (MessageDriven)bean);
+			}
 			validatePrimKeyClassElement(vc, ejbJar, bean);
 			validateEJBRef(vc, ejbJar, bean);
 		}
@@ -1181,4 +1190,69 @@ public class EnterpriseBean20VRule extends AValidationRule implements IMessagePr
 			return _bean;
 		}
 	}
+	/**
+	 * @param driven
+	 */
+	private void validateActivationConfiguration(IEJBValidationContext vc, MessageDriven bean) {
+		ActivationConfig config  = bean.getActivationConfig();
+		if(config != null) {
+			List configProperties = config.getConfigProperties();
+			if(configProperties != null && !configProperties.isEmpty()) {
+				HashSet namePropertySet = new HashSet();
+				for(int i = 0; i < configProperties.size(); i++) {
+					ActivationConfigProperty property = (ActivationConfigProperty)configProperties.get(i);
+					boolean doesNotExists = namePropertySet.add(property.getName());
+					if(!doesNotExists) {
+						IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2886, IMessage.HIGH_SEVERITY, bean, bean.getEjbJar(),new String[] {property.getName(),bean.getName()},this);
+						vc.addMessage(message);
+					}
+				if(isJMSMDB(bean)) {
+					validationAckModeActivationConfig(vc, bean, property);
+					validateDestinationTypeActivationConfig(vc, bean, property);
+					validateDurabilityActivationConfig(vc, bean, configProperties, property);
+				   }
+				}
+			}
+	  }
+	}
+	
+	private boolean isJMSMDB(MessageDriven bean) {
+		return bean.getMessagingType() == null || bean.getMessagingType().getQualifiedName().equals(JMS_MESSAGING_TYPE);
+	}
+	
+	private void validationAckModeActivationConfig(IEJBValidationContext vc, MessageDriven bean, ActivationConfigProperty property) {
+		if(property.getName().equals(MDBActivationConfigModelUtil.ackModeKey) && !Arrays.asList(MDBActivationConfigModelUtil.ackModeValues).contains(property.getValue())) {
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2887, IMessage.HIGH_SEVERITY, bean, bean.getEjbJar(),new String[] {property.getName(),property.getValue(),bean.getName()},this);
+			vc.addMessage(message);
+		}
+	}
+
+	/**
+	 * @param vc
+	 * @param bean
+	 * @param property
+	 */
+	private void validateDestinationTypeActivationConfig(IEJBValidationContext vc, MessageDriven bean, ActivationConfigProperty property) {
+		if(property.getName().equals(MDBActivationConfigModelUtil.destinationTypeKey) && !Arrays.asList(MDBActivationConfigModelUtil.destinationTypeValues).contains(property.getValue())) {
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2887, IMessage.HIGH_SEVERITY, bean, bean.getEjbJar(),new String[] {property.getName(),property.getValue(),bean.getName()},this);
+			vc.addMessage(message);
+		}
+		JavaClass messageDestination = bean.getMessageDestination();
+		if(messageDestination != null && messageDestination.getQualifiedName() != null && (property.getName().equals(MDBActivationConfigModelUtil.destinationTypeKey) && !(messageDestination.getQualifiedName().equals(property.getValue())))) {
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2890, IMessage.HIGH_SEVERITY, bean, bean.getEjbJar(),new String[] {messageDestination.getQualifiedName(),property.getValue(),bean.getName()},this);
+			vc.addMessage(message);
+		}
+	}
+	/**
+	 * @param vc
+	 * @param bean
+	 * @param configProperties
+	 * @param property
+	 */
+	private void validateDurabilityActivationConfig(IEJBValidationContext vc, MessageDriven bean, List configProperties, ActivationConfigProperty property) {
+		if(property.getName().equals(MDBActivationConfigModelUtil.durabilityKey) && !Arrays.asList(MDBActivationConfigModelUtil.durabilityValue).contains(property.getValue())) {
+		        IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2887, IMessage.HIGH_SEVERITY, bean, bean.getEjbJar(),new String[] {property.getName(),property.getValue(),bean.getName()},this);
+				vc.addMessage(message);
+		}
+      }	
 }

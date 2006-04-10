@@ -197,4 +197,10 @@ public interface IMessagePrefixEjb20Constants extends IEJBValidatorMessageConsta
 	/*package*/ static final String CHKJ2883 = "CHKJ2883"; // This bean must provide a <remote> //$NON-NLS-1$
 	/*package*/ static final String CHKJ2884 = "CHKJ2884"; // This bean must provide either a <local-home> or a <home> //$NON-NLS-1$
 	/*package*/ static final String CHKJ2885 = "CHKJ2885"; // This bean must provide either a <local> or a <remote> //$NON-NLS-1$
+	
+	/*package*/ static final String CHKJ2886 = "CHKJ2886.ejb21"; // Duplicate activation config: "{0}" exist in message drvien bean: "{1}" //$NON-NLS-1$
+	/*package*/ static final String CHKJ2887 = "CHKJ2887.ejb21"; // The activation config with name : "{0}" has invalid value : "1" for message drvien bean: "{2}" //$NON-NLS-1$
+	/*package*/ static final String CHKJ2888 = "CHKJ2888.ejb21"; // The activation config: "{0}" can only exist for a destination type: "{1}" //$NON-NLS-1$
+	/*package*/ static final String CHKJ2889 = "CHKJ2889.ejb21"; // The message destination is not set for bean: "{0}" //$NON-NLS-1$
+	/*package*/ static final String CHKJ2890 = "CHKJ2890.ejb21"; // The message destination type "{0}" and destination type activation config property value "{1}" do not match  for bean: "{2}" //$NON-NLS-1$	
 }
