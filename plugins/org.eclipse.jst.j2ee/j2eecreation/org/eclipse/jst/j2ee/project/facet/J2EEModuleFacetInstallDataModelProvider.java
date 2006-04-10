@@ -62,7 +62,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		if (propertyName.equals(PROHIBIT_ADD_TO_EAR)) {
 			return Boolean.FALSE;
 		} else if (propertyName.equals(ADD_TO_EAR)) {
-			return new Boolean(ProductManager.shouldAddToEARByDefault());
+			return new Boolean( ProductManager.shouldAddToEARByDefault() && isEARSupportedByRuntime());
 		} else if (propertyName.equals(EAR_PROJECT_NAME)) {
 			if (model.isPropertySet(LAST_EAR_NAME)) {
 				IProject project = ProjectUtilities.getProject(getStringProperty(LAST_EAR_NAME));
