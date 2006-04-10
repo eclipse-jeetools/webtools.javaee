@@ -15,6 +15,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleExportPage;
+import org.eclipse.jst.servlet.ui.IWebUIContextIds;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -28,7 +29,7 @@ public class WebComponentExportPage extends J2EEModuleExportPage {
 		setTitle(WEBUIMessages.WEB_EXPORT_MAIN_PG_TITLE);
 		setDescription(WEBUIMessages.WEB_EXPORT_MAIN_PG_DESC);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.WEB_EXPORT_WIZARD_BANNER));
-
+		setInfopopID(IWebUIContextIds.WAR_EXPORT_PAGE1);
 	}
 
 	/*
@@ -58,8 +59,8 @@ public class WebComponentExportPage extends J2EEModuleExportPage {
 		return o instanceof org.eclipse.jst.j2ee.webapplication.WebApp;
 	}
 
-    protected String getCompnentID() {
-        return "JST_WEB"; //$NON-NLS-1$
-    }
+	protected String getCompnentID() {
+		return "JST_WEB"; //$NON-NLS-1$
+	}
 
 }

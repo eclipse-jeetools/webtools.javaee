@@ -20,6 +20,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportPage;
+import org.eclipse.jst.servlet.ui.IWebUIContextIds;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -41,7 +42,7 @@ public class WebComponentImportPage extends J2EEModuleImportPage {
 		setTitle(WEBUIMessages.WEB_IMPORT_MAIN_PG_TITLE);
 		setDescription(WEBUIMessages.WEB_IMPORT_MAIN_PG_DESC);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.WEB_IMPORT_WIZARD_BANNER));
-
+		setInfopopID(IWebUIContextIds.WAR_EXPORT_PAGE1);
 	}
 
 	protected String getFileImportLabel() {

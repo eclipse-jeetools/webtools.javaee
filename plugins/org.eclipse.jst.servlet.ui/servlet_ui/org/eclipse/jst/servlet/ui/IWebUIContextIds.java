@@ -18,6 +18,11 @@ public static final String PLUGIN_SERVLET_UI = "org.eclipse.jst.servlet.ui."; //
 	public static final String NEW_DYNAMIC_WEB_PROJECT_PAGE2 = PLUGIN_SERVLET_UI + "webw1100"; //$NON-NLS-1$
 	public static final String NEW_DYNAMIC_WEB_PROJECT_PAGE3 = PLUGIN_SERVLET_UI + "webw1200"; //$NON-NLS-1$
 	
+	public static final String WAR_IMPORT_PAGE1 = PLUGIN_SERVLET_UI + "webi1000"; //$NON-NLS-1$
+	public static final String WAR_IMPORT_PAGE2 = PLUGIN_SERVLET_UI + "webi1100"; //$NON-NLS-1$
+	
+	public static final String WAR_EXPORT_PAGE1 = PLUGIN_SERVLET_UI + "webe1000"; //$NON-NLS-1$
+	
 	public static final String WEBEDITOR_SERVLET_PAGE_ADD_SERVLET_WIZARD_1 = PLUGIN_SERVLET_UI + "srvw1050"; //$NON-NLS-1$
 	public static final String WEBEDITOR_SERVLET_PAGE_ADD_SERVLET_WIZARD_2 = PLUGIN_SERVLET_UI + "srvw1100"; //$NON-NLS-1$
 	public static final String WEBEDITOR_SERVLET_PAGE_ADD_SERVLET_WIZARD_3 = PLUGIN_SERVLET_UI + "srvw1200"; //$NON-NLS-1$

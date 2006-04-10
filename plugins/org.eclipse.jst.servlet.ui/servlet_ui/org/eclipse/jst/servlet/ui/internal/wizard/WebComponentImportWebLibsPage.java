@@ -26,6 +26,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEImportPage;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
+import org.eclipse.jst.servlet.ui.IWebUIContextIds;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -68,6 +69,7 @@ public class WebComponentImportWebLibsPage extends J2EEImportPage {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
 	protected Composite createTopLevelComposite(Composite parent) {
+		setInfopopID(IWebUIContextIds.WAR_IMPORT_PAGE2);
 		Composite composite = new Composite(parent, SWT.NONE);
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 1;
@@ -132,10 +134,6 @@ public class WebComponentImportWebLibsPage extends J2EEImportPage {
 		model.setProperty(IWebComponentImportDataModelProperties.WEB_LIB_ARCHIVES_SELECTED, allSelection);
 	}
 
-	
-
-	
-
 	protected void createButtonsGroup(org.eclipse.swt.widgets.Composite parent) {
 		Composite buttonGroup = new Composite(parent, SWT.NONE);
 		GridLayout layout = new GridLayout();
@@ -169,10 +167,6 @@ public class WebComponentImportWebLibsPage extends J2EEImportPage {
 			}
 		});
 	}
-
-	
-
-	
 
 	private void refreshEARFileIfNecessary() {
 		if (isEARFileChanged()) {
