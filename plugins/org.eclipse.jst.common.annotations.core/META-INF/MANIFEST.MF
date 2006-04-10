@@ -9,4 +9,5 @@ Export-Package: org.eclipse.jst.common.internal.annotations.core;x-internal:=tru
 Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.wst.common.emf,
  org.eclipse.core.runtime,
- org.eclipse.jem.util
+ org.eclipse.jem.util,
+ org.eclipse.jdt.core
