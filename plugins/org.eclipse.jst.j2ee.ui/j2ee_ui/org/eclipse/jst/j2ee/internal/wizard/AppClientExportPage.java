@@ -84,5 +84,9 @@ public class AppClientExportPage extends J2EEModuleExportPage {
     protected String getCompnentID() {
         return "JST_APPCLIENT"; //$NON-NLS-1$
     }
+    
+    protected String getInfopopID() {
+    	return IJ2EEUIContextIds.EXPORT_APPCLIENT_WIZARD_P1;
+    }
 
 }
