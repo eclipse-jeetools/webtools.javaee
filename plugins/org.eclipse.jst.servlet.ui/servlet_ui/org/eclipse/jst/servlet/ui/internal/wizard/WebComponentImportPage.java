@@ -42,7 +42,7 @@ public class WebComponentImportPage extends J2EEModuleImportPage {
 		setTitle(WEBUIMessages.WEB_IMPORT_MAIN_PG_TITLE);
 		setDescription(WEBUIMessages.WEB_IMPORT_MAIN_PG_DESC);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.WEB_IMPORT_WIZARD_BANNER));
-		setInfopopID(IWebUIContextIds.WAR_EXPORT_PAGE1);
+		setInfopopID(IWebUIContextIds.WAR_IMPORT_PAGE1);
 	}
 
 	protected String getFileImportLabel() {
