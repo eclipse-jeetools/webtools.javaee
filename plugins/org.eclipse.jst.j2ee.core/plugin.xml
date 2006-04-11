@@ -3,6 +3,7 @@
 <plugin>
 
      <extension-point id="ejbModelExtender" name="ejbModelExtender" schema="schema/ejbModelExtender.exsd"/>
+     <extension-point id="jndiBindingsHelpers" name="jndiBindingsHelpers" schema="schema/jndiBindingsHelpers.exsd"/>
 
 <!--J2EEInit-->
 <!--============================-->
