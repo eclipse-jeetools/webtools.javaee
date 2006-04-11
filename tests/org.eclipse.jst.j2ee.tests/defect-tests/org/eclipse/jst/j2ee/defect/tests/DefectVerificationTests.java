@@ -23,8 +23,11 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentImportDataModelProvider;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.RuntimeClasspathEntry;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
@@ -75,18 +78,18 @@ public class DefectVerificationTests extends OperationTestCase {
 		jsrc.createLink(folder.getProjectRelativePath(), 0, null);
 
 		IJavaProject javaProject = JavaCore.create(component.getProject());
-		IClasspathEntry [] entries = javaProject.getRawClasspath();
+		IClasspathEntry[] entries = javaProject.getRawClasspath();
 		boolean foundImportedClasses = false;
-		for(int i=0;i<entries.length && !foundImportedClasses;i++){
-			if(IClasspathEntry.CPE_CONTAINER == entries[i].getEntryKind()){
+		for (int i = 0; i < entries.length && !foundImportedClasses; i++) {
+			if (IClasspathEntry.CPE_CONTAINER == entries[i].getEntryKind()) {
 				IClasspathContainer container = JavaCore.getClasspathContainer(entries[i].getPath(), javaProject);
-				IClasspathEntry [] containerEntries = container.getClasspathEntries();
-				for(int j = 0; j < containerEntries.length && !foundImportedClasses; j++){
+				IClasspathEntry[] containerEntries = container.getClasspathEntries();
+				for (int j = 0; j < containerEntries.length && !foundImportedClasses; j++) {
 					IPath entryPath = containerEntries[j].getPath().removeFirstSegments(1);
 					foundImportedClasses = folderPath.equals(entryPath);
 				}
 			}
-			
+
 		}
 		Assert.assertTrue(foundImportedClasses);
 	}
@@ -144,6 +147,31 @@ public class DefectVerificationTests extends OperationTestCase {
 	 */
 	public void test112835() throws Exception {
 		checkDeploy("sib.test.mediations.m5.JsMBR.ear");
+	}
+
+	public void test121158() throws Exception {
+		String earFileName = getFullTestDataPath("EAR121158.ear"); //$NON-NLS-1$
+		EARFile earFile = null;
+		try {
+			ArchiveOptions opts = new ArchiveOptions();
+			opts.setIsReadOnly(true);
+			earFile = CommonarchiveFactory.eINSTANCE.openEARFile(opts, earFileName);
+
+			List moduleList = earFile.getModuleFiles();
+			for (int i = 0; i < moduleList.size(); i++) {
+				ModuleFile module = (ModuleFile) moduleList.get(i);
+				RuntimeClasspathEntry[] entries = module.getFullRuntimeClassPath();
+				assertEquals(2, entries.length);
+				assertTrue(entries[0].toString().endsWith(module.getURI()));
+				assertTrue(entries[1].toString().endsWith("EAR121158Util.jar")); //$NON-NLS-1$
+			}
+
+		} finally {
+			if (earFile != null && earFile.isOpen()) {
+				earFile.close();
+				earFile = null;
+			}
+		}
 	}
 
 	protected void checkDeploy(String earName) throws Exception {

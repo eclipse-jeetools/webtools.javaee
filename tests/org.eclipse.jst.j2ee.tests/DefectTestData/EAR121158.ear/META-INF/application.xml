@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application id="Application_ID" version="1.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application_1_4.xsd">
+	<display-name>
+	EAR121158</display-name>
+	<module id="WebModule_1144784925194">
+		<web>
+			<web-uri>EAR121158Web.war</web-uri>
+			<context-root>EAR121158Web</context-root>
+		</web>
+	</module>
+	<module id="EjbModule_1144784925224">
+		<ejb>EAR121158EJB.jar</ejb>
+	</module>
+	<module id="JavaClientModule_1144784925234">
+		<java>EAR121158Client.jar</java>
+	</module>
+	<module id="ConnectorModule_1144784925244">
+		<connector>EAR121158Connector.rar</connector>
+	</module>
+</application>
