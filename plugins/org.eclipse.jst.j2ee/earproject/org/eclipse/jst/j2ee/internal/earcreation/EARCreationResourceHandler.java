@@ -72,6 +72,7 @@ public class EARCreationResourceHandler extends NLS {
 	public static String EARImportDataModel_UI_1;
 	public static String EARImportDataModel_UI_2;
 	public static String EARImportDataModel_UI_3;
+	public static String EARImportDataModel_UI_4;
 	public static String ModuleMappingImpl_UI_0;
 	public static String UtilityJARMappingImpl_UI_0;
 	public static String importWrongType;

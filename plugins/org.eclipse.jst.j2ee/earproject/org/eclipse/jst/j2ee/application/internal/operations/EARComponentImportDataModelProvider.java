@@ -98,6 +98,8 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 	private Hashtable ejbJarToClientJarModels = new Hashtable();
 
 	private Hashtable clientJarToEjbJarModels = new Hashtable();
+	
+	private ModuleFile cachedLoadError = null;
 
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
@@ -325,6 +327,14 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 				}
 				projects.put(tempProjectName, tempArchive);
 			}
+		} else if(propertyName.equals(FILE_NAME)){
+			IStatus status = super.validate(propertyName);
+			if(!status.isOK()){
+				return status;
+			} else if(cachedLoadError != null){
+				return WTPCommonPlugin.createWarningStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_4, new Object[]{cachedLoadError.getURI()}));
+			}
+			return status;
 		}
 		// TODO: check context root is not inside current working
 		// directory...this is invalid
@@ -450,6 +460,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 	private List getModuleModels() {
 		if (getArchiveFile() == null)
 			return Collections.EMPTY_LIST;
+		cachedLoadError = null;
 		List moduleFiles = getEARFile().getModuleFiles();
 		List moduleModels = new ArrayList();
 		List clientJarArchives = new ArrayList();
@@ -468,57 +479,63 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 		for (int i = 0; i < moduleFiles.size(); i++) {
 			localModel = null;
 			ModuleFile temp = (ModuleFile) moduleFiles.get(i);
-			if (temp.isApplicationClientFile()) {
-				localModel = DataModelFactory.createDataModel(new AppClientComponentImportDataModelProvider());
-			} else if (temp.isWARFile()) {
-				WebModuleExtension webExt = EarModuleManager.getWebModuleExtension();
-				if (webExt != null) {
-					localModel = webExt.createImportDataModel();
-					WebModule webModule = (WebModule) getEARFile().getModule(temp.getURI(), null);
-					if (null != webModule && null != webModule.getContextRoot()) {
-						localModel.setProperty(IAddWebComponentToEnterpriseApplicationDataModelProperties.CONTEXT_ROOT, webModule.getContextRoot());
-					}
-				}
-			} else if (temp.isEJBJarFile()) {
-				EjbModuleExtension ejbExt = EarModuleManager.getEJBModuleExtension();
-				if (ejbExt != null) {
-					localModel = ejbExt.createImportDataModel();
-				}
-				EJBJar jar = ((EJBJarFile) temp).getDeploymentDescriptor();
-				if (jar != null) {
-					if (jar.getEjbClientJar() != null) {
-						String clientName = jar.getEjbClientJar();
-						try {
-							Archive clientArchive = (Archive) getEARFile().getFile(clientName);
-							clientJarArchives.add(clientArchive);
-							ejbJarsWithClients.put(localModel, clientArchive);
-						} catch (Exception e) {
-							// TODO: handle exception
+			try {
+				if (temp.isApplicationClientFile()) {
+					localModel = DataModelFactory.createDataModel(new AppClientComponentImportDataModelProvider());
+				} else if (temp.isWARFile()) {
+					WebModuleExtension webExt = EarModuleManager.getWebModuleExtension();
+					if (webExt != null) {
+						localModel = webExt.createImportDataModel();
+						WebModule webModule = (WebModule) getEARFile().getModule(temp.getURI(), null);
+						if (null != webModule && null != webModule.getContextRoot()) {
+							localModel.setProperty(IAddWebComponentToEnterpriseApplicationDataModelProperties.CONTEXT_ROOT, webModule.getContextRoot());
 						}
 					}
-				}
-			} else if (temp.isRARFile()) {
-				JcaModuleExtension rarExt = EarModuleManager.getJCAModuleExtension();
-				if (rarExt != null) {
-					localModel = rarExt.createImportDataModel();
-				}
-			}
-			if (localModel != null) {
-				localModel.setProperty(FILE, temp);
-				localModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME, earProjectName);
-				localModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME));
-				localModel.addListener(this);
-				localModel.addListener(nestedListener);
-				moduleModels.add(localModel);
-				String moduleName = localModel.getStringProperty(IJ2EEFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
-				if (defaultModuleNames.contains(moduleName)) {
-					if (collidingModuleNames == null) {
-						collidingModuleNames = new ArrayList();
+				} else if (temp.isEJBJarFile()) {
+					EjbModuleExtension ejbExt = EarModuleManager.getEJBModuleExtension();
+					if (ejbExt != null) {
+						localModel = ejbExt.createImportDataModel();
 					}
-					collidingModuleNames.add(moduleName);
-				} else {
-					defaultModuleNames.add(moduleName);
+					EJBJar jar = ((EJBJarFile) temp).getDeploymentDescriptor();
+					if (jar != null) {
+						if (jar.getEjbClientJar() != null) {
+							String clientName = jar.getEjbClientJar();
+							try {
+								Archive clientArchive = (Archive) getEARFile().getFile(clientName);
+								clientJarArchives.add(clientArchive);
+								ejbJarsWithClients.put(localModel, clientArchive);
+							} catch (Exception e) {
+								// TODO: handle exception
+							}
+						}
+					}
+				} else if (temp.isRARFile()) {
+					JcaModuleExtension rarExt = EarModuleManager.getJCAModuleExtension();
+					if (rarExt != null) {
+						localModel = rarExt.createImportDataModel();
+					}
 				}
+				if (localModel != null) {
+					localModel.setProperty(FILE, temp);
+					localModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME, earProjectName);
+					localModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME));
+					localModel.addListener(this);
+					localModel.addListener(nestedListener);
+					moduleModels.add(localModel);
+					String moduleName = localModel.getStringProperty(IJ2EEFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
+					if (defaultModuleNames.contains(moduleName)) {
+						if (collidingModuleNames == null) {
+							collidingModuleNames = new ArrayList();
+						}
+						collidingModuleNames.add(moduleName);
+					} else {
+						defaultModuleNames.add(moduleName);
+					}
+				}
+			} catch (Exception e) {
+				Logger.getLogger().logError("Error loading nested archive: "+temp.getURI()); //$NON-NLS-1$
+				Logger.getLogger().logError(e);
+				cachedLoadError = temp;
 			}
 		}
 		updateUtilityModels(clientJarArchives, EJB_CLIENT_LIST, EJB_CLIENT_LIST);
