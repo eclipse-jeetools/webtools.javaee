@@ -541,16 +541,6 @@
     </project-facet>
 
     <project-facet-version facet="jst.ear" version="1.2">
-      <action type="install">
-        <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetInstallDelegate"/>
-        <config-factory class="org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider"/>
-      </action>
-<!--  <action type="version-change">
-        <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetVersionChangeDelegate"/>
-      </action> -->
-      <action type="runtime-changed">
-        <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetRuntimeHandler$RuntimeChangedDelegate"/>
-      </action>
       <constraint>
         <and>
           <conflicts group="modules"/>
@@ -561,16 +551,6 @@
     </project-facet-version>
 
     <project-facet-version facet="jst.ear" version="1.3">
-      <action type="install">
-        <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetInstallDelegate"/>
-        <config-factory class="org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider"/>
-      </action>
-  <!-- <action type="version-change">
-        <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetVersionChangeDelegate"/>
-      </action> -->
-      <action type="runtime-changed">
-        <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetRuntimeHandler$RuntimeChangedDelegate"/>
-      </action>
       <constraint>
         <and>
           <conflicts group="modules"/>
@@ -579,18 +559,8 @@
       </constraint>
       <group-member id="modules"/>      
     </project-facet-version>
-
+    
     <project-facet-version facet="jst.ear" version="1.4">
-      <action type="install">
-        <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetInstallDelegate"/>
-        <config-factory class="org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider"/>
-      </action>
- <!-- <action type="version-change">
-        <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetVersionChangeDelegate"/>
-      </action> -->
-      <action type="runtime-changed">
-        <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetRuntimeHandler$RuntimeChangedDelegate"/>
-      </action>
       <constraint>
         <and>
           <conflicts group="modules"/>
@@ -599,6 +569,20 @@
       </constraint>
       <group-member id="modules"/>      
     </project-facet-version>
+        
+	<action type="install" facet="jst.ear" version="[1.2-1.4]">
+        <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetInstallDelegate"/>
+        <config-factory class="org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider"/>
+	</action>
+      
+	<action type="runtime-changed" facet="jst.ear" version="[1.2-1.4]">
+		<delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetRuntimeHandler$RuntimeChangedDelegate"/>
+	</action>
+      
+	<event-handler type="POST_INSTALL" facet="jst.ear" version="[1.2-1.4]">
+	  <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetPostInstallDelegate"/>
+	</event-handler>  
+	
 
     <project-facet id="jst.utility">
       <label>%UTILITY_FACET_LABEL</label>
@@ -617,6 +601,10 @@
       <event-handler type="RUNTIME_CHANGED">
         <delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
       </event-handler>
+	<event-handler type="POST_INSTALL" facet="jst.ear" version="[1.2-1.4]">
+	  <delegate class="org.eclipse.jst.j2ee.project.facet.UtilityFacetPostInstallDelegate"/>
+	</event-handler>  
+	      
       <constraint>
         <and>
           <requires facet="jst.java" version="[1.3"/>
@@ -634,47 +622,6 @@
     </project-facet>
 
     <project-facet-version facet="jst.appclient" version="1.2">
-      <action type="install">
-        <delegate class="org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDelegate"/>
-        <config-factory class="org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDataModelProvider"/>
-      </action>
-      <event-handler type="RUNTIME_CHANGED">
-        <delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
-      </event-handler>
-      <constraint>
-        <and>
-          <requires facet="jst.java" version="[1.3"/>
-          <conflicts group="modules"/>
-        </and>
-      </constraint>
-      <group-member id="modules"/>      
-    </project-facet-version>
-
-    <project-facet-version facet="jst.appclient" version="1.3">
-      <action type="install">
-        <delegate class="org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDelegate"/>
-        <config-factory class="org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDataModelProvider"/>
-      </action>
-      <event-handler type="RUNTIME_CHANGED">
-        <delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
-      </event-handler>
-      <constraint>
-        <and>
-          <requires facet="jst.java" version="[1.3"/>
-          <conflicts group="modules"/>
-        </and>
-      </constraint>
-      <group-member id="modules"/>      
-    </project-facet-version>
-
-    <project-facet-version facet="jst.appclient" version="1.4">
-      <action type="install">
-        <delegate class="org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDelegate"/>
-        <config-factory class="org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDataModelProvider"/>
-      </action>
-      <event-handler type="RUNTIME_CHANGED">
-        <delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
-      </event-handler>
       <constraint>
         <and>
           <requires facet="jst.java" version="[1.3"/>
@@ -684,6 +631,40 @@
       <group-member id="modules"/>      
     </project-facet-version>
     
+    <project-facet-version facet="jst.appclient" version="1.3">
+      <constraint>
+        <and>
+          <requires facet="jst.java" version="[1.3"/>
+          <conflicts group="modules"/>
+        </and>
+      </constraint>
+      <group-member id="modules"/>      
+    </project-facet-version>
+    
+    <project-facet-version facet="jst.appclient" version="1.4">
+      <constraint>
+        <and>
+          <requires facet="jst.java" version="[1.3"/>
+          <conflicts group="modules"/>
+        </and>
+      </constraint>
+      <group-member id="modules"/>      
+    </project-facet-version>
+            
+	<action type="install" facet="jst.appclient" version="[1.2-1.4]" >
+		<delegate class="org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDelegate"/>
+		<config-factory class="org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDataModelProvider"/>
+	</action>
+	  
+	<event-handler type="RUNTIME_CHANGED" facet="jst.appclient" version="[1.2-1.4]">
+		<delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
+	</event-handler>
+	
+	<event-handler type="POST_INSTALL" facet="jst.appclient" version="[1.2-1.4]">
+	  <delegate class="org.eclipse.jst.j2ee.project.facet.AppClientFacetPostInstallDelegate"/>
+	</event-handler>
+	
+	    
         
     <template id="template.jst.ear">
       <label>%EAR_FACET_TEMPLATE</label>

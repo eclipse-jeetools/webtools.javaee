@@ -396,7 +396,11 @@
     <event-handler type="RUNTIME_CHANGED" facet="jst.web" version="[2.2-2.4]">
       <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetRuntimeChangedDelegate"/>
     </event-handler>
-
+    
+    <event-handler type="POST_INSTALL" facet="jst.web" version="[2.2-2.4]">
+      <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetPostInstallDelegate"/>
+    </event-handler>
+    
     <template id="template.jst.web">
       <label>%WEB_FACET_TEMPLATE_LABEL</label>
       <fixed facet="jst.java"/>

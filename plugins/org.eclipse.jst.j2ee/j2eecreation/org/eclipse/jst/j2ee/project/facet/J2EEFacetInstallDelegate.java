@@ -13,6 +13,8 @@ package org.eclipse.jst.j2ee.project.facet;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -24,11 +26,16 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.FacetProjectCreationOperation;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
@@ -86,5 +93,39 @@ public abstract class J2EEFacetInstallDelegate {
         }
     }
 
-
+    protected void addToEar(IVirtualComponent earComp, IVirtualComponent j2eeComp, String moduleURI ){
+		final IDataModel dataModel = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
+		Map map = (Map)dataModel.getProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP);
+		map.put(j2eeComp, moduleURI);
+		
+		dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp);
+			
+		List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+		modList.add(j2eeComp);
+		dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
+		try {
+			dataModel.getDefaultOperation().execute(null, null);
+		} catch (ExecutionException e) {
+			Logger.getLogger().logError(e);
+		}
+    }
+    
+    protected void installAndAddModuletoEAR( String j2eeVersionText,
+    			String				earProjectName,
+    			IRuntime			runtime,
+    			IProject			moduleProject,
+    			String				moduleURI,
+    			IProgressMonitor	monitor ){
+    	
+		installEARFacet(j2eeVersionText,
+					earProjectName,
+					runtime,
+					monitor);
+		
+		final IVirtualComponent c = ComponentCore.createComponent( moduleProject );
+		final IProject earProject = ProjectUtilities.getProject( earProjectName );
+		final IVirtualComponent earComp = ComponentCore.createComponent( earProject );
+		addToEar( earComp, c, moduleURI );
+    }
+  
 }
