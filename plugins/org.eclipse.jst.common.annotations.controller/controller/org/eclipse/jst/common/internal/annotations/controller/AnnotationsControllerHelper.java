@@ -102,6 +102,24 @@ public class AnnotationsControllerHelper {
 	 * @return the value of <tagset>in the URL example
 	 */
 	public String getTagset(EObject eObject) {
+		String tagset = getTagsetFromProviders(eObject);
+		if (tagset == null) {
+			tagset = getTagsetFromFragment(eObject);
+		}
+		return tagset;
+	}
+	
+	/**
+	 * Acquires the generated annotation comment and parses the Fragment URL of the following form
+	 * to return the tagset name:
+	 * 
+	 * com.acme.ejbs.MyEJB# <tagset>/ <fragment>. <fragment-pointer>
+	 * 
+	 * @param eObject
+	 *            The annotated object
+	 * @return the value of <tagset>in the URL example
+	 */
+	private String getTagsetFromFragment(EObject eObject) {
 
 		String generatedComment = (String) AnnotationsAdapter.getAnnotations(eObject, AnnotationsAdapter.GENERATED);
 		if (generatedComment == null || generatedComment.length() == 0)
@@ -112,6 +130,24 @@ public class AnnotationsControllerHelper {
 			return null;
 		return generatedComment.substring(poundit + 1, slash);
 
+	}
+	
+	/**
+	 * Detect the primary tagset used to create an eObject using the providers.
+	 * 
+	 * @since 1.0.2
+	 * @param eObject - An {@link EObject} that may be annotated.
+	 * @return a String array of the used tagset names.
+	 */
+	private String getTagsetFromProviders(EObject eObject) {
+		String tagset = null;
+		List annotationProviders = AnnotationsProviderManager.INSTANCE.getAnnotationsProviders();
+		int size = annotationProviders.size();
+		for (int i=0; i < size && tagset == null; i++) {
+			IAnnotationsProvider provider = (IAnnotationsProvider) annotationProviders.get(i);
+			tagset = provider != null ? provider.getPrimaryTagset(eObject) : null;
+		}
+		return tagset;
 	}
 
 	/**
@@ -130,13 +166,32 @@ public class AnnotationsControllerHelper {
 		IType itype;
 
 		if (typeString != null && (itype = findType(typeString, eObject)) != null) {
-			try {
-				return itype.getCompilationUnit().getWorkingCopy(null);
-			} catch (JavaModelException e) {
-				Logger.getLogger().logError(e);
-			}
+			return itype.getCompilationUnit();
 		}
 		return null;
+	}
+	
+	/**
+	 * Need to delegate the retrieval of the annotated {@link ICompilationUnit} for
+	 * the passed eObject.  There could be multiple but in this case the first will be returned.
+	 * 
+	 * <p>
+	 * This API would need to be revisited in the future if there is a requirement to show
+	 * all {@link ICompilationUnit} elements that contribute to the eObject via annotations.
+	 * </p>
+	 * 
+	 * @param eObject - an instance of an {@link EObject} that may be annotated.
+	 * @since 1.0.2
+	 */
+	private ICompilationUnit getAnnotatedCUFromProvider(EObject eObject) {
+		ICompilationUnit primaryCU = null;
+		List annotationProviders = AnnotationsProviderManager.INSTANCE.getAnnotationsProviders();
+		int size = annotationProviders.size();
+		for (int i=0; i < size && primaryCU == null; i++) {
+			IAnnotationsProvider provider = (IAnnotationsProvider) annotationProviders.get(i);
+			primaryCU = provider != null ? provider.getPrimaryAnnotatedCompilationUnit(eObject) : null;
+		}
+		return primaryCU;
 	}
 
 	protected IType findType(String type, EObject eObject) {
