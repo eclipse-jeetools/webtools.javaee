@@ -56,11 +56,24 @@
             name="J2EE Defect Verification Tests"/>
             
    </extension>
-   
-    <extension
+
+   <extension
          point="org.eclipse.jst.common.annotations.core.annotationsProvider">
       <annotationsProvider
          className="org.eclipse.jst.common.annotations.tests.TestAnnotationProvider"/>
    </extension>
+
+   
+   <extension
+         id="org.eclipse.jst.j2ee.bindingshelper.tests.TestBindingHelper"
+         point="org.eclipse.jst.j2ee.core.jndiBindingsHelpers">
+      <jndiBindingsHelper
+            class="org.eclipse.jst.j2ee.bindingshelper.tests.FooBindingsHelper"
+            id="org.eclipse.jst.j2ee.bindingshelper.tests.fooBindingsHelper"/>
+      <jndiBindingsHelper
+            class="org.eclipse.jst.j2ee.bindingshelper.tests.BarBindingsHelper"
+            id="org.eclipse.jst.j2ee.bindingshelper.tests.barBindingsHelper"/>
+   </extension>
+   
 
 </plugin>
