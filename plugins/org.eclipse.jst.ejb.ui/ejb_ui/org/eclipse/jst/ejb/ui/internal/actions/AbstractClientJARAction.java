@@ -40,7 +40,7 @@ public abstract class AbstractClientJARAction extends BaseAction implements Clie
 	
 	protected boolean  hasClientJar() {
 		IProject project = getProject();
-		if( project.exists() && project.isAccessible()){
+		if( project != null && project.exists() && project.isAccessible()){
 			EJBArtifactEdit edit = null;
 			try {
 					edit = EJBArtifactEdit.getEJBArtifactEditForRead(project);

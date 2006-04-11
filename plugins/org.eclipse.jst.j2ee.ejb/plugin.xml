@@ -146,6 +146,9 @@
       <event-handler type="RUNTIME_CHANGED">
         <delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
       </event-handler>
+      <event-handler type="POST_INSTALL">
+        <delegate class="org.eclipse.jst.j2ee.ejb.project.facet.EjbFacetPostInstallDelegate"/>
+      </event-handler>
       <constraint>
         <and>
           <requires facet="jst.java" version="[1.3"/>
@@ -163,6 +166,9 @@
       <event-handler type="RUNTIME_CHANGED">
         <delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
       </event-handler>
+      <event-handler type="POST_INSTALL">
+        <delegate class="org.eclipse.jst.j2ee.ejb.project.facet.EjbFacetPostInstallDelegate"/>
+      </event-handler>      
       <constraint>
         <and>
           <requires facet="jst.java" version="[1.3"/>
@@ -180,6 +186,9 @@
       <event-handler type="RUNTIME_CHANGED">
         <delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
       </event-handler>
+      <event-handler type="POST_INSTALL">
+        <delegate class="org.eclipse.jst.j2ee.ejb.project.facet.EjbFacetPostInstallDelegate"/>
+      </event-handler>      
       <constraint>
         <and>
           <requires facet="jst.java" version="[1.3"/>
