@@ -10,6 +10,7 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.common.annotations.tests.AnnotationProviderTest;
 import org.eclipse.jst.j2ee.flexible.project.fvtests.ProjectMigrationTest;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
@@ -40,6 +41,7 @@ public class AllPluginTests extends TestSuite {
 	      addTest(org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AllTests.suite());
 	      addTest(org.eclipse.jst.j2ee.tests.modulecore.AllTests.suite());
 	      addTest(ProjectMigrationTest.suite());
+	      addTest(AnnotationProviderTest.suite());
     }
     
     public static IRuntime createJONASRuntime()  {

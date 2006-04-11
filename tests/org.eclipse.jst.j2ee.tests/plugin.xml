@@ -38,6 +38,7 @@
       <import plugin="org.eclipse.wst.web"/>
       <import plugin="org.eclipse.wst.common.project.facet.core"/>
       <import plugin="org.eclipse.jst.server.core"/>
+      <import plugin="org.eclipse.jst.common.annotations.core"/>
    </requires>
    <extension
          point="org.eclipse.wst.common.tests.collector.suites">
@@ -56,5 +57,10 @@
             
    </extension>
    
+    <extension
+         point="org.eclipse.jst.common.annotations.core.annotationsProvider">
+      <annotationsProvider
+         className="org.eclipse.jst.common.annotations.tests.TestAnnotationProvider"/>
+   </extension>
 
 </plugin>
