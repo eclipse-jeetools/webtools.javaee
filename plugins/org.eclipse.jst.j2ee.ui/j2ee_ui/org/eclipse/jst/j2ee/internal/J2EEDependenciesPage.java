@@ -187,7 +187,9 @@ public class J2EEDependenciesPage extends PropertyPage {
 	public void dispose() {
 		super.dispose();
 		for (int i = 0; i < controls.length; i++) {
-			controls[i].dispose();
+			if(controls[i] != null){
+				controls[i].dispose();
+			}
 		}
 	}
 
