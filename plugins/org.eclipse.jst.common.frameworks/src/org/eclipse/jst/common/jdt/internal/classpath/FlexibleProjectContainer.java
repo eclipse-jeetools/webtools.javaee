@@ -103,7 +103,7 @@ public abstract class FlexibleProjectContainer
             return;
         }
               
-        final IVirtualComponent vc = ComponentCore.createComponent(this.project);
+        final IVirtualComponent vc = ComponentCore.createComponent( this.project );
         
         for( int i = 0; i < paths.length; i++ )
         {
@@ -128,10 +128,8 @@ public abstract class FlexibleProjectContainer
                 {
                     final IResource r = contents[ j ].getUnderlyingResource();
                     final IPath p = r.getFullPath();
-                    final File f = r.getLocation().toFile();
-                    final String fname = f.getName().toLowerCase();
                     
-                    if( f.isFile() && fname.endsWith( ".jar" ) ) //$NON-NLS-1$
+                    if( isJarFile( r.getLocation().toFile() ) )
                     {
                         cp.add( newLibraryEntry( p ) );
                     }
@@ -277,6 +275,21 @@ public abstract class FlexibleProjectContainer
         {
             return false;
         }
+    }
+    
+    private static boolean isJarFile( final File f )
+    {
+        if( f.isFile() )
+        {
+            final String fname = f.getName();
+            
+            if( fname.endsWith( ".jar" ) || fname.endsWith( ".zip" ) )
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
     
     private static class Listener

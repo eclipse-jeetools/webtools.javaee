@@ -613,50 +613,14 @@
       </moduleArtifactAdapter>
      </extension>
      
-    <extension point="org.eclipse.wst.common.project.facet.ui.wizard">
-
-    <!-- <wizard-pages facet="jst.utility" version="1.0">
-      <install>
-        <page class="org.eclipse.jst.j2ee.ui.project.facet.UtilityFacetInstallPage"/>
-      </install>
-    </wizard-pages> -->
-
-    <wizard-pages facet="jst.ear" version="1.2">
-      <install>
-        <page class="org.eclipse.jst.j2ee.ui.project.facet.EarFacetInstallPage"/>
-      </install>
+  <extension point="org.eclipse.wst.common.project.facet.ui.wizardPages">
+    <wizard-pages action="jst.ear.install">
+      <page class="org.eclipse.jst.j2ee.ui.project.facet.EarFacetInstallPage"/>
     </wizard-pages>
-
-    <wizard-pages facet="jst.ear" version="1.3">
-      <install>
-        <page class="org.eclipse.jst.j2ee.ui.project.facet.EarFacetInstallPage"/>
-      </install>
+    <wizard-pages action="jst.appclient.install">
+      <page class="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientFacetInstallPage"/>
     </wizard-pages>
-
-    <wizard-pages facet="jst.ear" version="1.4">
-      <install>
-        <page class="org.eclipse.jst.j2ee.ui.project.facet.EarFacetInstallPage"/>
-      </install>
-    </wizard-pages>
-    
-    <wizard-pages facet="jst.appclient" version="1.2">
-      <install>
-        <page class="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientFacetInstallPage"/>
-      </install>
-    </wizard-pages>
-
-    <wizard-pages facet="jst.appclient" version="1.3">
-      <install>
-        <page class="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientFacetInstallPage"/>
-      </install>
-    </wizard-pages>
-
-    <wizard-pages facet="jst.appclient" version="1.4">
-      <install>
-        <page class="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientFacetInstallPage"/>
-      </install>
-    </wizard-pages>
-    </extension>
+  </extension>
 
   <extension
     point="org.eclipse.ui.ide.markerResolution">

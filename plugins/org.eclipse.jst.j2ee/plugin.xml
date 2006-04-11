@@ -570,19 +570,18 @@
       <group-member id="modules"/>      
     </project-facet-version>
         
-	<action type="install" facet="jst.ear" version="[1.2-1.4]">
-        <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetInstallDelegate"/>
-        <config-factory class="org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider"/>
-	</action>
+    <action facet="jst.ear" version="[1.2-1.4]" type="INSTALL" id="jst.ear.install">
+      <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetInstallDelegate"/>
+      <config-factory class="org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider"/>
+    </action>
       
-	<action type="runtime-changed" facet="jst.ear" version="[1.2-1.4]">
-		<delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetRuntimeHandler$RuntimeChangedDelegate"/>
-	</action>
-      
-	<event-handler type="POST_INSTALL" facet="jst.ear" version="[1.2-1.4]">
-	  <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetPostInstallDelegate"/>
-	</event-handler>  
-	
+    <event-handler facet="jst.ear" version="[1.2-1.4]" type="POST_INSTALL">
+      <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetPostInstallDelegate"/>
+    </event-handler>  
+
+    <event-handler facet="jst.ear" version="[1.2-1.4]" type="RUNTIME_CHANGED">
+      <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetRuntimeHandler$RuntimeChangedDelegate"/>
+	</event-handler>
 
     <project-facet id="jst.utility">
       <label>%UTILITY_FACET_LABEL</label>
@@ -651,21 +650,19 @@
       <group-member id="modules"/>      
     </project-facet-version>
             
-	<action type="install" facet="jst.appclient" version="[1.2-1.4]" >
-		<delegate class="org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDelegate"/>
-		<config-factory class="org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDataModelProvider"/>
-	</action>
+    <action type="install" facet="jst.appclient" version="[1.2-1.4]" id="jst.appclient.install">
+      <delegate class="org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDelegate"/>
+      <config-factory class="org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDataModelProvider"/>
+    </action>
 	  
-	<event-handler type="RUNTIME_CHANGED" facet="jst.appclient" version="[1.2-1.4]">
-		<delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
-	</event-handler>
-	
-	<event-handler type="POST_INSTALL" facet="jst.appclient" version="[1.2-1.4]">
-	  <delegate class="org.eclipse.jst.j2ee.project.facet.AppClientFacetPostInstallDelegate"/>
-	</event-handler>
-	
-	    
+    <event-handler type="POST_INSTALL" facet="jst.appclient" version="[1.2-1.4]">
+      <delegate class="org.eclipse.jst.j2ee.project.facet.AppClientFacetPostInstallDelegate"/>
+    </event-handler>
         
+    <event-handler type="RUNTIME_CHANGED" facet="jst.appclient" version="[1.2-1.4]">
+      <delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
+    </event-handler>
+	
     <template id="template.jst.ear">
       <label>%EAR_FACET_TEMPLATE</label>
       <fixed facet="jst.ear"/>

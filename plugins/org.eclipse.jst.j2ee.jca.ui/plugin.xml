@@ -83,19 +83,10 @@
        </wizard>
      </extension>
     
-    <extension point="org.eclipse.wst.common.project.facet.ui.wizard">
-    
-     <wizard-pages facet="jst.connector" version="1.0">
-      <install>
+    <extension point="org.eclipse.wst.common.project.facet.ui.wizardPages">
+      <wizard-pages action="jst.connector.install">
         <page class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorFacetInstallPage"/>
-      </install>
-     </wizard-pages>
-    
-     <wizard-pages facet="jst.connector" version="1.5">
-      <install>
-        <page class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorFacetInstallPage"/>
-      </install>
-     </wizard-pages>
+      </wizard-pages>
     </extension>
     
 </plugin>

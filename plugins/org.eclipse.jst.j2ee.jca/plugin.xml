@@ -84,17 +84,6 @@
     </project-facet>
 
     <project-facet-version facet="jst.connector" version="1.0">
-      <action type="install">
-        <delegate class="org.eclipse.jst.j2ee.jca.project.facet.ConnectorFacetInstallDelegate"/>
-        <config-factory class="org.eclipse.jst.j2ee.jca.project.facet.ConnectorFacetInstallDataModelProvider"/>
-      </action>
-      <event-handler type="RUNTIME_CHANGED">
-        <delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
-      </event-handler>
-    <event-handler type="POST_INSTALL" facet="jst.connector" version="1.0">
-      <delegate class="org.eclipse.jst.j2ee.jca.project.facet.ConnectorFacetPostInstallDelegate"/>
-    </event-handler>
-          
       <constraint>
         <and>
           <requires facet="jst.java" version="[1.3"/>
@@ -105,17 +94,6 @@
     </project-facet-version>
 
     <project-facet-version facet="jst.connector" version="1.5">
-      <action type="install">
-        <delegate class="org.eclipse.jst.j2ee.jca.project.facet.ConnectorFacetInstallDelegate"/>
-        <config-factory class="org.eclipse.jst.j2ee.jca.project.facet.ConnectorFacetInstallDataModelProvider"/>
-      </action>
-      <event-handler type="RUNTIME_CHANGED">
-        <delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
-      </event-handler>
-    <event-handler type="POST_INSTALL" facet="jst.connector" version="1.5">
-      <delegate class="org.eclipse.jst.j2ee.jca.project.facet.ConnectorFacetPostInstallDelegate"/>
-    </event-handler>
-          
       <constraint>
         <and>
           <requires facet="jst.java" version="[1.3"/>
@@ -124,6 +102,19 @@
       </constraint>
       <group-member id="modules"/>
     </project-facet-version>
+
+    <action facet="jst.connector" version="1.0,1.5" type="INSTALL" id="jst.connector.install">
+      <delegate class="org.eclipse.jst.j2ee.jca.project.facet.ConnectorFacetInstallDelegate"/>
+      <config-factory class="org.eclipse.jst.j2ee.jca.project.facet.ConnectorFacetInstallDataModelProvider"/>
+    </action>
+    
+    <event-handler facet="jst.connector" version="1.0,1.5" type="POST_INSTALL">
+      <delegate class="org.eclipse.jst.j2ee.jca.project.facet.ConnectorFacetPostInstallDelegate"/>
+    </event-handler>
+    
+    <event-handler facet="jst.connector" version="1.0,1.5" type="RUNTIME_CHANGED">
+      <delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
+    </event-handler>
     
     <template id="template.jst.connector">
       <label>%CONN_FACET_TEMPLATE</label>

@@ -246,26 +246,10 @@
       </decorator>
     </extension> 
     
-  <extension point="org.eclipse.wst.common.project.facet.ui.wizard">
-  
-    <wizard-pages facet="jst.web" version="2.2">
-      <install>
-        <page class="org.eclipse.jst.servlet.ui.project.facet.WebFacetInstallPage"/>
-      </install>
+  <extension point="org.eclipse.wst.common.project.facet.ui.wizardPages">
+    <wizard-pages action="jst.web.install">
+      <page class="org.eclipse.jst.servlet.ui.project.facet.WebFacetInstallPage"/>
     </wizard-pages>
-
-    <wizard-pages facet="jst.web" version="2.3">
-      <install>
-        <page class="org.eclipse.jst.servlet.ui.project.facet.WebFacetInstallPage"/>
-      </install>
-    </wizard-pages>
-
-    <wizard-pages facet="jst.web" version="2.4">
-      <install>
-        <page class="org.eclipse.jst.servlet.ui.project.facet.WebFacetInstallPage"/>
-      </install>
-    </wizard-pages>
-    
   </extension>
   
   <extension point="org.eclipse.wst.common.project.facet.ui.images">

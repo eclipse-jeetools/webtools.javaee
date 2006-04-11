@@ -384,16 +384,12 @@
       <group-member id="modules"/>
     </project-facet-version>
     
-    <action type="install" facet="jst.web" version="[2.2-2.4]">
+    <action facet="jst.web" version="[2.2-2.4]" type="INSTALL" id="jst.web.install">
       <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDelegate"/>
       <config-factory class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDataModelProvider"/>
     </action>
 
-<!-- <action type="version-change" facet="jst.web" version="[2.2-2.4]">
-      <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetVersionChangeDelegate"/>
-    </action> -->
-    
-    <event-handler type="RUNTIME_CHANGED" facet="jst.web" version="[2.2-2.4]">
+    <event-handler facet="jst.web" version="[2.2-2.4]" type="RUNTIME_CHANGED">
       <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetRuntimeChangedDelegate"/>
     </event-handler>
     
