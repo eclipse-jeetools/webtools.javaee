@@ -64,15 +64,19 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 	 * @see org.eclipse.wst.common.navigator.internal.views.extensions.ICommonLabelProvider#getDescription(java.lang.Object)
 	 */
 	public String getDescription(Object anElement) {
-		if (anElement instanceof EObject) {
+		if (anElement != null && anElement instanceof EObject) {
 			EObject eObj = (EObject) anElement;
 			if (CommonUtil.isDeploymentDescriptorRoot(eObj, true /* include ears */)) {
 				IProject parent = ProjectUtilities.getProject(eObj);
-				String path = new Path(eObj.eResource().getURI().toString()).makeRelative().toString();
-				if (parent == null)
-					return path;
-				int startIndex = path.indexOf(parent.getFullPath().toString());
-				return -1 == startIndex ? path : path.substring(startIndex);
+				if(eObj.eResource() != null) {
+					String path = new Path(eObj.eResource().getURI().toString()).makeRelative().toString();
+					if (parent == null)
+						return path;
+					int startIndex = path.indexOf(parent.getFullPath().toString());
+					return -1 == startIndex ? path : path.substring(startIndex);
+				} else {
+					return getText(eObj);
+				}
 			}
 		}
 		return null;
@@ -152,7 +156,9 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 		if(element instanceof J2EEJavaClassProviderHelper)
 			return ((J2EEJavaClassProviderHelper) element).getImage();
 		if (element instanceof File)
-			return J2EEUIPlugin.getDefault().getImage("jar_obj");
+			return J2EEUIPlugin.getDefault().getImage("jar_obj"); //$NON-NLS-1$
+		if(element instanceof LoadingDDNode)
+			return ((LoadingDDNode)element).getImage();
 		if (element instanceof IProject)
 			return null;
 		if (delegateLabelProvider != null)
@@ -171,6 +177,8 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 			return ((File)element).getName();
 		if (element instanceof IProject)
 			return ((IProject)element).getName();
+		if(element instanceof LoadingDDNode)
+			return ((LoadingDDNode)element).getText();
 		if (delegateLabelProvider != null)
 			return delegateLabelProvider.getText(element);
 		return null;

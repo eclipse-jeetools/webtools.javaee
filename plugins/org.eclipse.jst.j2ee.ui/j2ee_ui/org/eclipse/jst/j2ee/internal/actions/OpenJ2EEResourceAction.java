@@ -150,8 +150,10 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 		else if (obj instanceof EObject) {
 			IEditorRegistry registry = PlatformUI.getWorkbench().getEditorRegistry();
 			IFile file = WorkbenchResourceHelper.getFile((EObject)obj);
-			IContentType contentType = IDE.getContentType(file);
-			currentDescriptor = registry.getDefaultEditor(file.getName(), contentType);
+			if(file != null) {
+				IContentType contentType = IDE.getContentType(file);
+				currentDescriptor = registry.getDefaultEditor(file.getName(), contentType);
+			}
 		}
 		else if (obj instanceof Resource) {
 			IEditorRegistry registry = PlatformUI.getWorkbench().getEditorRegistry();

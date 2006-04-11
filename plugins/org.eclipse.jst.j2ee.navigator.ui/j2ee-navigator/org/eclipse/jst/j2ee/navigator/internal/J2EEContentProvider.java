@@ -22,8 +22,8 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.edit.provider.ItemProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
-import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.viewers.AbstractTreeViewer;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -51,7 +51,7 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 	private MethodsProviderDelegate delegateMethodsProvider;
 
 	private String viewerId = null;
-	Viewer viewer;
+	private AbstractTreeViewer viewer;
 
 	/**
 	 *  
@@ -88,16 +88,13 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 	public Object[] getChildren(Object aParentElement) {
 		IProject project = null;
 		List children = new ArrayList();
-		if (aParentElement instanceof IProject || aParentElement instanceof IJavaProject) {
+		if (aParentElement instanceof IAdaptable && !(aParentElement instanceof EObject) && !(aParentElement instanceof ItemProvider)) {
 			project = (IProject) ((IAdaptable) aParentElement).getAdapter(IPROJECT_CLASS);
 			if (project != null) {
-				Object[] rootObjects = (rootObjectProvider != null) ? rootObjectProvider.getModels(project) : null;
-				if (rootObjects != null) {
-					for (int x=0; x< rootObjects.length ; ++x) {
-						children.add(rootObjects[x]);
-					}
-					
-				}
+				LoadingDDNode placeHolder = new LoadingDDNode(project.getName());				
+				LoadingDDJob loadJob = new LoadingDDJob(viewer, placeHolder, (IAdaptable) aParentElement, rootObjectProvider);
+				loadJob.schedule();
+				children.add(placeHolder);
 			}
 		} else if (MethodsProviderDelegate.providesContentFor(aParentElement))
 			return delegateMethodsProvider.getChildren(aParentElement);
@@ -150,7 +147,7 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 	 */
 	public void inputChanged(Viewer aViewer, Object anOldInput, Object aNewInput) {
 		String newViewerId = null;
-		viewer = aViewer;
+		viewer = (AbstractTreeViewer) aViewer;
 		if (aViewer instanceof CommonViewer)
 			newViewerId = ((CommonViewer) aViewer).getNavigatorContentService().getViewerId();
 

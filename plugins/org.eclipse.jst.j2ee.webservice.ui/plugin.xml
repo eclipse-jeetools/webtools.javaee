@@ -20,13 +20,21 @@
                <and>
                  <instanceof value="org.eclipse.emf.ecore.EObject"/>
                   <or>
-        	       <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+        	       <test 
+	                	forcePluginActivation="true"
+	                	property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
 	                  value="wsdd.xmi"/>
-	               <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+	               <test 
+	                	forcePluginActivation="true"
+	                	property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
 	                  value="webservice_client.xmi"/>
-	               <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+	               <test 
+	                	forcePluginActivation="true"
+	                	property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
 	                  value="wscommon.xmi"/>
-	               <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+	               <test 
+	                	forcePluginActivation="true"
+	                	property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
 	                  value="http://www.ibm.com/wsdl/2003/WSDL"/>
 	             </or>
 	          </and>
@@ -41,13 +49,21 @@
                <and>
                  <instanceof value="org.eclipse.emf.ecore.EObject"/>
                   <or>
-        	       <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+        	       <test 
+	                	forcePluginActivation="true"
+	                	property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
 	                  value="wsdd.xmi"/>
-	               <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+	               <test 
+	                	forcePluginActivation="true"
+	                	property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
 	                  value="webservice_client.xmi"/>
-	               <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+	               <test 
+	                	forcePluginActivation="true"
+	                	property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
 	                  value="wscommon.xmi"/>
-	               <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+	               <test 
+	                	forcePluginActivation="true"
+	                	property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
 	                  value="http://www.ibm.com/wsdl/2003/WSDL"/>
 	             </or>
 	          </and>
