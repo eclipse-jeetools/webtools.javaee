@@ -8,14 +8,14 @@ import org.eclipse.jdt.core.ICompilationUnit;
  * on whether or not a given EObject is annotated for one of their tag sets.
  * 
  * @author jlanuti
- * @since 1.0.2
+ * @planned for 2.0
  */
 public interface IAnnotationsProvider {
 	
 	/**
 	 * Return whether or not the passed EObject is annotated by your annotation provider
 	 * 
-	 * @since 1.0.2
+	 * @planned for 2.0
 	 * @param eObject
 	 * @return boolean value of isAnnotated
 	 */
@@ -26,7 +26,7 @@ public interface IAnnotationsProvider {
 	 * determine which {@link ICompilationUnit} has the tag or tags that created
 	 * this object.
 	 * 
-	 * @since 1.0.2
+	 * @planned for 2.0
 	 * @param eObject - An {@link EObject} that may be annotated.
 	 * @return the {@link ICompilationUnit} that has the tag that created this eObject.
 	 * 
@@ -38,7 +38,7 @@ public interface IAnnotationsProvider {
 	 * It is desired to obtain the tagset name which is used to create the passed
 	 * eObject.
 	 * 
-	 * @since 1.0.2
+	 * @planned for 2.0
 	 * @param eObject An {@link EObject} which may be annotated.
 	 * @return The name of the tagset which creates the passed eObject.
 	 * 
