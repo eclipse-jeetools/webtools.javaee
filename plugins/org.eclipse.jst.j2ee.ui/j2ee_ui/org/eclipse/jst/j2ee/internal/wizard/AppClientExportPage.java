@@ -22,7 +22,6 @@ import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
@@ -71,16 +70,10 @@ public class AppClientExportPage extends J2EEModuleExportPage {
 		return o instanceof ApplicationClient;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEProjectCreationPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
-	 */
-	protected Composite createTopLevelComposite(Composite parent) {
-		setInfopopID(IJ2EEUIContextIds.EXPORT_APPCLIENT_WIZARD_P1);
-		return super.createTopLevelComposite(parent);
+	protected String getInfopopID() {
+		return IJ2EEUIContextIds.EXPORT_APPCLIENT_WIZARD_P1;
 	}
-
+	
     protected String getCompnentID() {
         return "JST_APPCLIENT"; //$NON-NLS-1$
     }

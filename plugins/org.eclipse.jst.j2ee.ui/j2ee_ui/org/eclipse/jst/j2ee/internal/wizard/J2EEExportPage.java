@@ -55,7 +55,6 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 	private static final String STORE_LABEL = "J2EE_EXPORT_"; //$NON-NLS-1$
 	private static final String OVERWRITE_LABEL = "OVERWRITE"; //$NON-NLS-1$
 	private static final String SOURCE_LABEL = "SOURCE"; //$NON-NLS-1$
-//	private static final String META_LABEL = "META"; //$NON-NLS-1$
 	protected static final String defBrowseButtonLabel = J2EEUIMessages.getResourceString(J2EEUIMessages.BROWSE_LABEL);
 	protected String LABEL_DESTINATION = J2EEUIMessages.getResourceString(J2EEUIMessages.J2EE_EXPORT_DESTINATION);
 	private Combo resourceNameCombo;
@@ -100,6 +99,7 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 
 		//setupBasedOnInitialSelections();
 		setupInfopop(composite);
+		restoreWidgetValues();
 		return composite;
 	}
 

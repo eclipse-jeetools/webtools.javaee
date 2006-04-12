@@ -24,7 +24,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleExportPage;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
@@ -72,11 +71,6 @@ public class RARExportPage extends J2EEModuleExportPage {
 	protected boolean isMetaTypeSupported(Object o) {
 		return o instanceof Connector;
 	}
-
-	protected Composite createTopLevelComposite(Composite parent) {
-		return super.createTopLevelComposite(parent);
-	}
-
 
 	/*
 	 * (non-Javadoc)
