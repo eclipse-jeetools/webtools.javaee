@@ -46,7 +46,6 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 
 	public EARComponentImportOperation(IDataModel model) {
 		super(model);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -172,6 +171,17 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 					} else {
 						String compSearchName = manifestURI.substring(0, manifestURI.length() - 4);
 						IVirtualReference vRef = earComponent.getReference(compSearchName);
+						if(vRef == null){
+							IVirtualReference [] refs = earComponent.getReferences();
+							String archiveName = null;
+							for(int refCount = 0; vRef == null && refCount < refs.length; refCount++){
+								archiveName = refs[refCount].getArchiveName(); 
+								if(null != archiveName && archiveName.equals(manifestURI)){
+									vRef = refs[refCount];
+								}
+							}
+						}
+						
 						if (null != vRef && nestedComponent.getProject() != vRef.getReferencedComponent().getProject()) {
 							IProject project = vRef.getReferencedComponent().getProject();
 							extraEntries.add(JavaCore.newProjectEntry(project.getFullPath(), true));

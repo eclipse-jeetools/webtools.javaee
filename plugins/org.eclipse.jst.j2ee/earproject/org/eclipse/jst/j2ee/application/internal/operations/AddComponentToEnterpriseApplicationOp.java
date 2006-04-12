@@ -71,6 +71,16 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
             }
         }
     }
+    protected String getArchiveName(IVirtualComponent comp) {
+    	if(J2EEProjectUtilities.isUtilityProject(comp.getProject())){
+	    	Map map = (Map)model.getProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP);
+	    	String uri = (String)map.get(comp);
+	    	return uri == null ? "" : uri;
+    	} else {
+    		return super.getArchiveName(comp);
+    	}
+    }
+    
 
 	protected void updateEARDD(IProgressMonitor monitor) {
 

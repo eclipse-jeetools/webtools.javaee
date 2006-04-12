@@ -54,9 +54,9 @@ public final class UtilityFacetPostInstallDelegate extends J2EEFacetInstallDeleg
 //					}
 					
 
-					//final String moduleURI = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.MODULE_URI);
+					final String moduleURI = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.MODULE_URI);
 					
-					final String moduleURI = project.getName() + ".jar";
+					//final String moduleURI = project.getName() + ".jar";
 						
 					installAndAddModuletoEAR( J2EEVersionConstants.VERSION_1_4_TEXT,
 								earProjectName,

@@ -26,7 +26,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -41,7 +41,7 @@ import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedExc
 
 public abstract class J2EEArtifactImportOperation extends AbstractDataModelOperation {
 
-	protected ModuleFile moduleFile;
+	protected Archive moduleFile;
 	protected IVirtualComponent virtualComponent;
 	protected IAdaptable info;
 
@@ -60,7 +60,7 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 	}
 
 	protected void doExecute(IProgressMonitor monitor) throws ExecutionException {
-		moduleFile = (ModuleFile) model.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
+		moduleFile = (Archive) model.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
 		monitor.beginTask(null, moduleFile.getFiles().size());
 
 		virtualComponent = createVirtualComponent(model.getNestedModel(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION), monitor);
@@ -177,14 +177,5 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 			}
 		}
 	}
-
-	public IStatus redo(IProgressMonitor monitor, IAdaptable adaptableInfo) throws ExecutionException {
-		return null;
-	}
-
-	public IStatus undo(IProgressMonitor monitor, IAdaptable adaptableInfo) throws ExecutionException {
-		return null;
-	}
-
 
 }
