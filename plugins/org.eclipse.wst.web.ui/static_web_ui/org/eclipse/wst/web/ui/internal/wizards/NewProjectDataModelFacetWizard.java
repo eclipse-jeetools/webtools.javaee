@@ -157,6 +157,22 @@ public abstract class NewProjectDataModelFacetWizard extends AddRemoveFacetsWiza
 	public String getProjectName() {
 		return model.getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
 	}
+    
+    public boolean performFinish()
+    {
+        if( super.performFinish() == false )
+        {
+            return false;
+        }
+        
+        try {
+            postPerformFinish();
+        } catch (InvocationTargetException e) {
+            Logger.getLogger().logError(e);
+        }
+        
+        return true;
+    }
 
 	protected void performFinish(final IProgressMonitor monitor)
 
@@ -174,12 +190,6 @@ public abstract class NewProjectDataModelFacetWizard extends AddRemoveFacetsWiza
 
 			final Set fixed = this.template.getFixedProjectFacets();
 			this.fproj.setFixedProjectFacets(fixed);
-
-			try {
-				postPerformFinish();
-			} catch (InvocationTargetException e) {
-				Logger.getLogger().logError(e);
-			}
 		} finally {
 			monitor.done();
 		}
