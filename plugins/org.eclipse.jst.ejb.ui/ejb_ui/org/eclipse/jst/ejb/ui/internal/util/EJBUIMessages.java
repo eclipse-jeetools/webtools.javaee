@@ -51,7 +51,6 @@ public class EJBUIMessages extends NLS {
 	public static String GroupedEJBJarItemProvider_UI_0;
 	public static String GroupedEJBJarItemProvider_UI_1;
 	public static String GroupedEJBJarItemProvider_UI_2;
-	public static String NewEJBProjectAction_UI_0;
 	public static String NewEJBModuleAction_UI_0;
 	public static String pageTitle;
 	public static String pageDescription;
