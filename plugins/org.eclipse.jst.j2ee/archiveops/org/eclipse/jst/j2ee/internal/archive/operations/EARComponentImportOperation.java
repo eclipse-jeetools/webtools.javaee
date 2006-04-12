@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.internal.archive.operations;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,8 @@ import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterp
 import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
@@ -60,27 +63,45 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 		List modelsToImport = (List) model.getProperty(IEARComponentImportDataModelProperties.HANDLED_PROJECT_MODELS_LIST);
 		try {
 			IDataModel importModel = null;
-			List allModels = (List) model.getProperty(IEARComponentImportDataModelProperties.ALL_PROJECT_MODELS_LIST);
+			for (int i = modelsToImport.size() - 1; i > 0; i--) {
+				importModel = (IDataModel) modelsToImport.get(i);
+				Archive nestedArchive = (Archive) importModel.getProperty(IEARComponentImportDataModelProperties.FILE);
+				if (nestedArchive.getURI().startsWith(ArchiveConstants.WEBAPP_LIB_URI)) {
+					WARFile owningWar = (WARFile) nestedArchive.eContainer();
+					modelsToImport.remove(importModel);
+					for (int j = 0; j < modelsToImport.size(); j++) {
+						IDataModel warModel = (IDataModel) modelsToImport.get(j);
+						if (warModel.getProperty(IEARComponentImportDataModelProperties.FILE) == owningWar) {
+							//TODO this is bad, but don't have access to the plugin where this constant is defined.
+							String propertyName = "WARImportDataModel.WEB_LIB_ARCHIVES_SELECTED";
+							List list = (List) warModel.getProperty(propertyName);
+							if (list == Collections.EMPTY_LIST) {
+								list = new ArrayList();
+								warModel.setProperty(propertyName, list);
+							}
+							list.add(nestedArchive);
+						}
+					}
+				}
+			}
+
 			List componentToAdd = new ArrayList();
 			Map componentToURIMap = new HashMap();
-			for (int i = 0; i < allModels.size(); i++) {
-				importModel = (IDataModel) allModels.get(i);
-				if (modelsToImport.contains(importModel)) {
-					String archiveUri = ((Archive) importModel.getProperty(IEARComponentImportDataModelProperties.FILE)).getURI();
-					importModel.setProperty(IJ2EEComponentImportDataModelProperties.CLOSE_ARCHIVE_ON_DISPOSE, Boolean.FALSE);
-					IDataModel compCreationModel = importModel.getNestedModel(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION);
-					if (compCreationModel.isProperty(IJ2EEFacetProjectCreationDataModelProperties.MODULE_URI))
-						compCreationModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.MODULE_URI, archiveUri);
-					try {
-						importModel.getDefaultOperation().execute(monitor, info);
-					} catch (ExecutionException e) {
-						Logger.getLogger().logError(e);
-					}
-					IVirtualComponent component = (IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
-					componentToAdd.add(component);
-					componentToURIMap.put(component, archiveUri);
-
+			for (int i = 0; i < modelsToImport.size(); i++) {
+				importModel = (IDataModel) modelsToImport.get(i);
+				Archive nestedArchive = (Archive) importModel.getProperty(IEARComponentImportDataModelProperties.FILE);
+				importModel.setProperty(IJ2EEComponentImportDataModelProperties.CLOSE_ARCHIVE_ON_DISPOSE, Boolean.FALSE);
+				IDataModel compCreationModel = importModel.getNestedModel(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION);
+				if (compCreationModel.isProperty(IJ2EEFacetProjectCreationDataModelProperties.MODULE_URI))
+					compCreationModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.MODULE_URI, nestedArchive.getURI());
+				try {
+					importModel.getDefaultOperation().execute(monitor, info);
+				} catch (ExecutionException e) {
+					Logger.getLogger().logError(e);
 				}
+				IVirtualComponent component = (IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
+				componentToAdd.add(component);
+				componentToURIMap.put(component, nestedArchive.getURI());
 			}
 			if (componentToAdd.size() > 0) {
 				IDataModel addComponentsDM = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
@@ -171,17 +192,17 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 					} else {
 						String compSearchName = manifestURI.substring(0, manifestURI.length() - 4);
 						IVirtualReference vRef = earComponent.getReference(compSearchName);
-						if(vRef == null){
-							IVirtualReference [] refs = earComponent.getReferences();
+						if (vRef == null) {
+							IVirtualReference[] refs = earComponent.getReferences();
 							String archiveName = null;
-							for(int refCount = 0; vRef == null && refCount < refs.length; refCount++){
-								archiveName = refs[refCount].getArchiveName(); 
-								if(null != archiveName && archiveName.equals(manifestURI)){
+							for (int refCount = 0; vRef == null && refCount < refs.length; refCount++) {
+								archiveName = refs[refCount].getArchiveName();
+								if (null != archiveName && archiveName.equals(manifestURI)) {
 									vRef = refs[refCount];
 								}
 							}
 						}
-						
+
 						if (null != vRef && nestedComponent.getProject() != vRef.getReferencedComponent().getProject()) {
 							IProject project = vRef.getReferencedComponent().getProject();
 							extraEntries.add(JavaCore.newProjectEntry(project.getFullPath(), true));

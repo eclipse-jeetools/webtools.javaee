@@ -18,6 +18,8 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -84,7 +86,12 @@ public class EARImportListContentProvider extends LabelProvider implements IStru
 	public String getColumnText(Object element, int columnIndex) {
 		IDataModel dataModel = (IDataModel) element;
 		if (columnIndex == 0) {
-			return ((Archive) dataModel.getProperty(IJ2EEComponentImportDataModelProperties.FILE)).getURI();
+			Archive archive = (Archive) dataModel.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
+			if (archive.getURI().startsWith(ArchiveConstants.WEBAPP_LIB_URI)) {
+				String parentWarFileName = ((WARFile) archive.eContainer()).getName();
+				return parentWarFileName + "#" + archive.getURI(); //$NON-NLS-1$
+			}
+			return archive.getURI();
 		} else if (columnIndex == 1) {
 			return dataModel.getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
 		}

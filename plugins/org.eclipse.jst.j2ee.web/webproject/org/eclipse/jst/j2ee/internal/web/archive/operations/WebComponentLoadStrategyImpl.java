@@ -60,15 +60,19 @@ public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 				String uri = iLibModule.getRuntimePath().makeRelative().toString() + "/" + diskFile.getName(); //$NON-NLS-1$
 				addExternalFile(uri, diskFile);
 			} else {
-				String name = ""; //$NON-NLS-1$
+				String name = null;
 				String archiveName = iLibModule.getArchiveName();
-				if( archiveName != null && archiveName != "" )  //$NON-NLS-1$
+				if (archiveName != null && archiveName.length() > 0) {
 					name = archiveName;
-				
-				else
-					name = looseComponent.getName() + ".jar" ;  //$NON-NLS-1$
-					
-				String uri = iLibModule.getRuntimePath().makeRelative().toString() + "/" + name;  //$NON-NLS-1$
+				} else {
+					name = looseComponent.getName() + ".jar"; //$NON-NLS-1$
+				}
+				String prefix = iLibModule.getRuntimePath().makeRelative().toString();
+				if (prefix.length() > 0 && prefix.charAt(prefix.length() - 1)!= '/') {
+					prefix += "/"; //$NON-NLS-1$
+				}
+
+				String uri = prefix + name;
 				try {
 					Archive utilJAR = J2EEProjectUtilities.asArchive(uri, looseComponent.getProject(), isExportSource());
 					if (utilJAR == null)
