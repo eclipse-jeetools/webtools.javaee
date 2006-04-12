@@ -84,6 +84,7 @@ public class EarHelper extends J2EEValidationHelper {
 		
 		try {
 			Archive archive = ((EARArtifactEdit) edit).asArchive(false);
+			earFile = (EARFile)archive;
 			return archive;
 		} catch (OpenFailureException e1) {
 			Logger.getLogger().log(e1);
@@ -101,6 +102,11 @@ public class EarHelper extends J2EEValidationHelper {
 	public void cleanup(WorkbenchReporter reporter) {
 		if (edit != null) {
 			edit.dispose();
+			edit = null;
 		}
+		if (earFile != null) {
+			earFile.close();
+			earFile = null;
+		}		
 	}	
 }
