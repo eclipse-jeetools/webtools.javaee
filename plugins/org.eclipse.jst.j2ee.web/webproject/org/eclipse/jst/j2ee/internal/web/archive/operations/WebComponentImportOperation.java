@@ -15,28 +15,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperation;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
-import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
+import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
+import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.web.internal.operation.ILibModule;
-import org.eclipse.wst.web.internal.operation.LibModule;
 
 public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 	/**
@@ -58,75 +55,45 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 			}
 		}
 		try {
-			addExtraClasspathEntries(monitor);
-		} catch (JavaModelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			importWebLibraryProjects(monitor);
 		} catch (InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-
 	}
 
-	private void addExtraClasspathEntries(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException, CoreException, JavaModelException, ExecutionException {
-		List extraEntries = null;
-		IJavaProject javaProject = JavaCore.create(virtualComponent.getProject());
-		extraEntries = new ArrayList();
-		importWebLibraryProjects(monitor, extraEntries, javaProject);
-	}
-
-	private void importWebLibraryProjects(IProgressMonitor monitor, List extraEntries, IJavaProject javaProject) throws InvocationTargetException, InterruptedException, ExecutionException {
+	private void importWebLibraryProjects(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException, ExecutionException {
 		List selectedLibs = (List) model.getProperty(IWebComponentImportDataModelProperties.WEB_LIB_ARCHIVES_SELECTED);
 		List libProjects = (List) model.getProperty(IWebComponentImportDataModelProperties.WEB_LIB_MODELS);
 		IDataModel importModel = null;
 		IVirtualComponent nestedComponent = null;
-		ArrayList libModules = new ArrayList();
-		String jarName = null;
 		Archive libArchive = null;
+		List targetComponents = new ArrayList();
+		List extraEntries = new ArrayList();
 		for (int i = 0; null != libProjects && i < libProjects.size(); i++) {
 			importModel = (IDataModel) libProjects.get(i);
 			libArchive = (Archive) importModel.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
 			if (selectedLibs.contains(libArchive)) {
-				jarName = libArchive.getName();
 				importModel.getDefaultOperation().execute(monitor, info);
 				nestedComponent = (IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
-				libModules.add(new LibModule(jarName, nestedComponent.getProject().getName()));
-				if (extraEntries != null) {
-					if (!javaProject.isOnClasspath(nestedComponent.getProject())) {
-						extraEntries.add(JavaCore.newProjectEntry(nestedComponent.getProject().getFullPath()));
-					}
-				}
-				ComponentCore.createReference(virtualComponent, nestedComponent, new Path("/WEB-INF/lib/")).create(0, monitor); //$NON-NLS-1$
+				targetComponents.add(nestedComponent);
+				extraEntries.add(JavaCore.newProjectEntry(nestedComponent.getProject().getFullPath(), true));
 			}
 		}
-
-
-		LibModule[] libModulesArray = new LibModule[libModules.size()];
-		for (int i = 0; i < libModules.size(); i++) {
-			libModulesArray[i] = (LibModule) libModules.get(i);
-		}
-		setLibModules(javaProject.getProject(), libModulesArray);
-	}
-
-	protected void setLibModules(IProject project, ILibModule[] modules) {
-		// TODO this will throw class cast exception, do we still use ILibModule?
-		WebArtifactEdit webArtifactEdit = null;
-		try {
-			// TODO migrate to flex projects
-			// webArtifactEdit =
-			// (WebArtifactEdit)StructureEdit.getFirstArtifactEditForRead(project);
-			if (webArtifactEdit != null)
-				webArtifactEdit.addLibModules((ReferencedComponent[]) modules);
-		} finally {
-			if (webArtifactEdit != null)
-				webArtifactEdit.dispose();
+		if (targetComponents.size() > 0) {
+			IDataModel createRefComponentsModel = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
+			createRefComponentsModel.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, virtualComponent);
+			createRefComponentsModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH, "/WEB-INF/lib/"); //$NON-NLS-1$
+			createRefComponentsModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, targetComponents);
+			createRefComponentsModel.getDefaultOperation().execute(monitor, info);
+			try {
+				addToClasspath(model, extraEntries);
+			} catch (JavaModelException e) {
+				Logger.getLogger().logError(e);
+			}
 		}
 	}
 
