@@ -20,6 +20,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 
 
@@ -43,9 +44,11 @@ public class J2EEComponentLabelProvider implements ILabelProvider {
 	 * @see org.eclipse.jface.viewers.ILabelProvider#getText(java.lang.Object)
 	 */
 	public String getText(Object element) {
-//		if (element instanceof IVirtualComponent) {
-//			return ((IVirtualComponent)element).getName();
-//		}
+		if(element instanceof IVirtualComponent){
+			IVirtualComponent comp = (IVirtualComponent)element;
+			return comp.getProject().getName();
+		}
+		
 		if (element instanceof IProject) {
 			IProject handle = (IProject)element;
 			return handle.getName();

@@ -25,6 +25,7 @@ import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.jst.j2ee.internal.AvailableJ2EEComponentsForEARContentProvider;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModelProvider;
@@ -33,7 +34,6 @@ import org.eclipse.jst.j2ee.internal.earcreation.IEarFacetInstallDataModelProper
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.wizard.AvailableJ2EEComponentsContentProvider;
 import org.eclipse.jst.j2ee.internal.wizard.DefaultJ2EEComponentCreationWizard;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentLabelProvider;
 import org.eclipse.osgi.util.NLS;
@@ -118,7 +118,7 @@ public final class EarFacetInstallPage extends DataModelFacetInstallPage impleme
 		gData.heightHint = 80;
 		moduleProjectsViewer.getControl().setLayoutData(gData);
 		int j2eeVersion = getJ2EEVersion();
-		AvailableJ2EEComponentsContentProvider provider = new AvailableJ2EEComponentsContentProvider(j2eeVersion);
+		AvailableJ2EEComponentsForEARContentProvider provider = new AvailableJ2EEComponentsForEARContentProvider(null, j2eeVersion);
 		moduleProjectsViewer.setContentProvider(provider);
 		moduleProjectsViewer.setLabelProvider(new J2EEComponentLabelProvider());
 		setCheckedItemsFromModel();

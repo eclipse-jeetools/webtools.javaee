@@ -30,13 +30,22 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
-public class AvailableJ2EEComponentsContentProvider implements IStructuredContentProvider, ITableLabelProvider {
-	//private int j2eeVersion;
+/**
+ * This interface is being used to track code slated for removal. Any class or interface
+ * implementing or extending this interface respectively should not be used. All such classes and
+ * interfaces have been deprecated and are no longer supported and will be deleted post WTP 1.5.
+ * 
+ * Any method or field with javadoc referencing this interface should not be used and will be
+ * deleted post WTP 1.5
+ * 
+ * @deprecated
+ */
+public class AvailableJ2EEComponentsContentProvider implements IStructuredContentProvider, ITableLabelProvider, DoNotUseMeThisWillBeDeletedPost15 {
 
 	public AvailableJ2EEComponentsContentProvider(int j2eeVersion) {
 		super();
-//		this.j2eeVersion = j2eeVersion;
 	}
 
 	/*

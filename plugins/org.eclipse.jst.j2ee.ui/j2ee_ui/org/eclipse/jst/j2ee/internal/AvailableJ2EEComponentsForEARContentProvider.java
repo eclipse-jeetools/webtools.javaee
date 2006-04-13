@@ -72,7 +72,7 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 					if( compJ2EEVersion <= j2eeVersion)
 						//validCompList.add(component.getProject());
 						validCompList.add(component);
-				}else if(J2EEProjectUtilities.isEARProject(project)){
+				}else if(null != earComponent && J2EEProjectUtilities.isEARProject(project)){
 					//find the ArchiveComponent
 					if( component.equals( earComponent )){
 						IVirtualReference[] newrefs = component.getReferences();
