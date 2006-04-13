@@ -29,7 +29,6 @@ public class AddComponentToEnterpriseApplicationDataModelProvider extends Create
 
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
-		propertyNames.add(TARGET_COMPONENTS_TO_URI_MAP);
 		return propertyNames;
 	}
 

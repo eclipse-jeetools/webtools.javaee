@@ -48,39 +48,23 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		super(model);
 	}
 
-    public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException 
-    {
-        if( monitor != null )
-        {
-            monitor.beginTask( "", 3 );
-        }
-        
-        try
-        {
-            super.execute( submon( monitor, 1 ), info );
-            updateEARDD( submon( monitor, 1 ) );
-            updateModuleRuntimes( submon( monitor, 1 ) );
-            
-            return OK_STATUS;
-        }
-        finally
-        {
-            if( monitor != null )
-            {
-                monitor.done();
-            }
-        }
-    }
-    protected String getArchiveName(IVirtualComponent comp) {
-    	if(J2EEProjectUtilities.isUtilityProject(comp.getProject())){
-	    	Map map = (Map)model.getProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP);
-	    	String uri = (String)map.get(comp);
-	    	return uri == null ? "" : uri;
-    	} else {
-    		return super.getArchiveName(comp);
-    	}
-    }
-    
+	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		if (monitor != null) {
+			monitor.beginTask("", 3);
+		}
+
+		try {
+			super.execute(submon(monitor, 1), info);
+			updateEARDD(submon(monitor, 1));
+			updateModuleRuntimes(submon(monitor, 1));
+
+			return OK_STATUS;
+		} finally {
+			if (monitor != null) {
+				monitor.done();
+			}
+		}
+	}
 
 	protected void updateEARDD(IProgressMonitor monitor) {
 
@@ -88,8 +72,9 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		StructureEdit se = null;
 		try {
 			IVirtualComponent sourceComp = (IVirtualComponent) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
-			//TEMP workaround for use during ear creation before facet is added, this should be reverted when 115924 is fixed.
-			//earEdit = new EARArtifactEdit(sourceComp.getProject(), false, true);
+			// TEMP workaround for use during ear creation before facet is added, this should be
+			// reverted when 115924 is fixed.
+			// earEdit = new EARArtifactEdit(sourceComp.getProject(), false, true);
 			earEdit = EARArtifactEdit.getEARArtifactEditForWrite(sourceComp.getProject());
 			se = StructureEdit.getStructureEditForWrite(sourceComp.getProject());
 			if (earEdit != null) {
@@ -162,57 +147,42 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		return existingModule;
 	}
 
-    private void updateModuleRuntimes( final IProgressMonitor monitor )
-    {
-        if( monitor != null )
-        {
-            monitor.beginTask( "", 10 );
-        }
-        
-        try
-        {
-            final IVirtualComponent ear
-                = (IVirtualComponent) this.model.getProperty( ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT );
-            
-            final IProject earpj = ear.getProject();
-            
-            final List moduleComponents
-                = (List) this.model.getProperty( ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST );
-            
-            final Set moduleProjects = new HashSet();
-            
-            for( Iterator itr = moduleComponents.iterator(); itr.hasNext(); )
-            {
-                moduleProjects.add( ( (IVirtualComponent) itr.next() ).getProject() );
-            }
-            
-            if( monitor != null )
-            {
-                monitor.worked( 1 );
-            }
-            
-            EarFacetRuntimeHandler.updateModuleProjectRuntime( earpj, moduleProjects,
-                                                               submon( monitor, 9 ) );
-        }
-        catch( Exception e )
-        {
-            Logger.getLogger().logError( e );
-        }
-        finally
-        {
-            if( monitor != null )
-            {
-                monitor.done();
-            }
-        }
-    }
-    
-    private static IProgressMonitor submon( final IProgressMonitor parent,
-                                            final int ticks )
-    {
-        return ( parent == null ? null : new SubProgressMonitor( parent, ticks ) );
-    }
-    
+	private void updateModuleRuntimes(final IProgressMonitor monitor) {
+		if (monitor != null) {
+			monitor.beginTask("", 10);
+		}
+
+		try {
+			final IVirtualComponent ear = (IVirtualComponent) this.model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
+
+			final IProject earpj = ear.getProject();
+
+			final List moduleComponents = (List) this.model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+
+			final Set moduleProjects = new HashSet();
+
+			for (Iterator itr = moduleComponents.iterator(); itr.hasNext();) {
+				moduleProjects.add(((IVirtualComponent) itr.next()).getProject());
+			}
+
+			if (monitor != null) {
+				monitor.worked(1);
+			}
+
+			EarFacetRuntimeHandler.updateModuleProjectRuntime(earpj, moduleProjects, submon(monitor, 9));
+		} catch (Exception e) {
+			Logger.getLogger().logError(e);
+		} finally {
+			if (monitor != null) {
+				monitor.done();
+			}
+		}
+	}
+
+	private static IProgressMonitor submon(final IProgressMonitor parent, final int ticks) {
+		return (parent == null ? null : new SubProgressMonitor(parent, ticks));
+	}
+
 	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		// TODO Auto-generated method stub
 		return null;

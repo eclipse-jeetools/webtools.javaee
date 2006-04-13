@@ -63,6 +63,7 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 		List modelsToImport = (List) model.getProperty(IEARComponentImportDataModelProperties.HANDLED_PROJECT_MODELS_LIST);
 		try {
 			IDataModel importModel = null;
+			// make sure the wars handle importing their own web libs
 			for (int i = modelsToImport.size() - 1; i > 0; i--) {
 				importModel = (IDataModel) modelsToImport.get(i);
 				Archive nestedArchive = (Archive) importModel.getProperty(IEARComponentImportDataModelProperties.FILE);
@@ -72,14 +73,23 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 					for (int j = 0; j < modelsToImport.size(); j++) {
 						IDataModel warModel = (IDataModel) modelsToImport.get(j);
 						if (warModel.getProperty(IEARComponentImportDataModelProperties.FILE) == owningWar) {
-							//TODO this is bad, but don't have access to the plugin where this constant is defined.
-							String propertyName = "WARImportDataModel.WEB_LIB_ARCHIVES_SELECTED";
-							List list = (List) warModel.getProperty(propertyName);
-							if (list == Collections.EMPTY_LIST) {
-								list = new ArrayList();
-								warModel.setProperty(propertyName, list);
+							// TODO this is bad, but don't have access to the plugin where these
+							// constants are defined.
+							String archivesSelected = "WARImportDataModel.WEB_LIB_ARCHIVES_SELECTED";
+							String libModels = "WARImportDataModel.WEB_LIB_MODELS"; //$NON-NLS-1$
+							List warHandledArchives = (List) warModel.getProperty(archivesSelected);
+							if (warHandledArchives == Collections.EMPTY_LIST) {
+								warHandledArchives = new ArrayList();
+								warModel.setProperty(archivesSelected, warHandledArchives);
 							}
-							list.add(nestedArchive);
+							warHandledArchives.add(nestedArchive);
+							List warLibModels = (List) warModel.getProperty(libModels);
+							for (int k = 0; k < warLibModels.size(); k++) {
+								IDataModel libModel = (IDataModel) warLibModels.get(k);
+								if (libModel.getProperty(IJ2EEComponentImportDataModelProperties.FILE) == nestedArchive) {
+									libModel.setProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME, importModel.getProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME));
+								}
+							}
 						}
 					}
 				}

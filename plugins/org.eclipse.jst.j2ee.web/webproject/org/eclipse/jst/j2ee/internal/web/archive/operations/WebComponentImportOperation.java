@@ -12,7 +12,9 @@ package org.eclipse.jst.j2ee.internal.web.archive.operations;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IResource;
@@ -73,6 +75,7 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 		Archive libArchive = null;
 		List targetComponents = new ArrayList();
 		List extraEntries = new ArrayList();
+		Map compToURIMap = new HashMap();
 		for (int i = 0; null != libProjects && i < libProjects.size(); i++) {
 			importModel = (IDataModel) libProjects.get(i);
 			libArchive = (Archive) importModel.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
@@ -81,6 +84,13 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 				nestedComponent = (IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
 				targetComponents.add(nestedComponent);
 				extraEntries.add(JavaCore.newProjectEntry(nestedComponent.getProject().getFullPath(), true));
+				String archiveURI = libArchive.getURI();
+				int lastIndex = archiveURI.lastIndexOf('/');
+				if (-1 != lastIndex && lastIndex + 1 < archiveURI.length()) {
+					lastIndex++;
+					archiveURI = archiveURI.substring(lastIndex);
+				}
+				compToURIMap.put(nestedComponent, archiveURI);
 			}
 		}
 		if (targetComponents.size() > 0) {
@@ -88,6 +98,7 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 			createRefComponentsModel.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, virtualComponent);
 			createRefComponentsModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH, "/WEB-INF/lib/"); //$NON-NLS-1$
 			createRefComponentsModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, targetComponents);
+			createRefComponentsModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, compToURIMap);
 			createRefComponentsModel.getDefaultOperation().execute(monitor, info);
 			try {
 				addToClasspath(model, extraEntries);

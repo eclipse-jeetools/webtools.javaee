@@ -14,10 +14,6 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenc
 
 public interface IAddComponentToEnterpriseApplicationDataModelProperties extends ICreateReferenceComponentsDataModelProperties {
 
-	/**
-	 * Returns a Map which maps Components in the TARGET_COMPONENT_LIST list to the name Strings
-	 * that should be used when adding them to the ear.
-	 */
-	public static final String TARGET_COMPONENTS_TO_URI_MAP = "IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP";
+	
 
 }
