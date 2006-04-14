@@ -14,6 +14,7 @@ package org.eclipse.jst.j2ee.ejb.project.facet;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -182,7 +183,7 @@ public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implem
 			dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
 			
 			String clientURI = model.getStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_URI);
-			dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_ARCHIVE_NAME, clientURI);
+			((Map)dm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP)).put(component, clientURI);
 			
 			try {
 				dm.getDefaultOperation().execute(monitor, null);
