@@ -19,6 +19,7 @@ import java.util.Set;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -38,8 +39,12 @@ import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsOp;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.IProjectFacet;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 public class AddComponentToEnterpriseApplicationOp extends CreateReferenceComponentsOp {
 	public static final String metaInfFolderDeployPath = "/"; //$NON-NLS-1$
@@ -66,6 +71,25 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		}
 	}
 
+	protected String getArchiveName(IVirtualComponent comp) {
+		boolean useArchiveURI = true;
+		IFacetedProject facetedProject = null;
+		try {
+			facetedProject = ProjectFacetsManager.create(comp.getProject());
+		} catch (CoreException e) {
+			useArchiveURI = false;
+		}
+
+		if (useArchiveURI && facetedProject != null && ProjectFacetsManager.isProjectFacetDefined(IModuleConstants.JST_UTILITY_MODULE)) {
+			IProjectFacet projectFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_UTILITY_MODULE);
+			useArchiveURI = projectFacet != null && facetedProject.hasProjectFacet(projectFacet);
+		}
+		if (useArchiveURI) {
+			return super.getArchiveName(comp);
+		}
+		return ""; //$NON-NLS-1$
+	}
+	
 	protected void updateEARDD(IProgressMonitor monitor) {
 
 		EARArtifactEdit earEdit = null;
