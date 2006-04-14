@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
-import java.util.Set;
-
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
@@ -21,17 +19,8 @@ public class AddComponentToEnterpriseApplicationDataModelProvider extends Create
 		super();
 	}
 
-	public Set getPropertyNames() {
-		Set propertyNames = super.getPropertyNames();
-		return propertyNames;
-	}
-
 	public IDataModelOperation getDefaultOperation() {
 		return new AddComponentToEnterpriseApplicationOp(model);
-	}
-
-	public Object getDefaultProperty(String propertyName) {
-		return super.getDefaultProperty(propertyName);
 	}
 
 }
