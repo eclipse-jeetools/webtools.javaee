@@ -13,9 +13,11 @@ package org.eclipse.jst.j2ee.internal.provider;
 
 import java.util.Collection;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.edit.provider.ItemProvider;
@@ -24,7 +26,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 public class J2EEItemProvider extends ItemProvider implements IAdaptable {
 
 	protected static final Class IRESOURCE_CLASS = IResource.class;
-	protected static final Class IPROJECT_CLASS = IProject.class;
+	protected static final Class IFILE_CLASS = IFile.class;
 
 
 	/**
@@ -231,9 +233,13 @@ public class J2EEItemProvider extends ItemProvider implements IAdaptable {
 	 * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
 	 */
 	public Object getAdapter(Class adapter) {
-		if (adapter == IRESOURCE_CLASS || adapter == IPROJECT_CLASS)
-			return getProjectFromParent();
-		return null;
+		if (adapter == IRESOURCE_CLASS || adapter == IFILE_CLASS)
+			return null; //return getAssociatedFile();
+		return Platform.getAdapterManager().getAdapter(this, adapter);
+	}
+	
+	public IFile getAssociatedFile() {
+		return null;		
 	}
 
 	/**

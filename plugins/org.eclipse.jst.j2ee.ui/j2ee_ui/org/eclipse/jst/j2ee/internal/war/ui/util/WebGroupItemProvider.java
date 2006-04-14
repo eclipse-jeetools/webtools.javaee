@@ -22,11 +22,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.common.Listener;
 import org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider;
 import org.eclipse.jst.j2ee.webapplication.Filter;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
+import org.eclipse.jst.j2ee.webapplication.WebApp;
 
 /**
  * @author jlanuti
@@ -79,5 +82,19 @@ public abstract class WebGroupItemProvider extends J2EEItemProvider {
 		// TODO Auto-generated method stub
 		super.dispose();
 		weakWebApp = null;
+	}
+	
+
+	public IFile getAssociatedFile() {
+
+		try { 
+			WebApp webapp = (WebApp) weakWebApp.get();
+			if(webapp != null && webapp.eResource() != null) {
+				return WorkbenchResourceHelperBase.getIFile(webapp.eResource().getURI());
+			}
+		} catch (Throwable t) {
+			
+		}
+		return null;		
 	}
 }

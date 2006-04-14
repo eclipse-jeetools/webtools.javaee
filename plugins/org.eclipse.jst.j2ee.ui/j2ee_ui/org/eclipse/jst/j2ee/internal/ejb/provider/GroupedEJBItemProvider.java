@@ -12,7 +12,10 @@ package org.eclipse.jst.j2ee.internal.ejb.provider;
 
 import java.util.Collection;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
+import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider;
 
 
@@ -24,6 +27,19 @@ public abstract class GroupedEJBItemProvider extends J2EEItemProvider {
 
 	public GroupedEJBItemProvider(AdapterFactory adapterFactory, String text, Object image, Object parent, Collection children) {
 		super(adapterFactory, text, image, parent, children);
+	}
+	
+	public IFile getAssociatedFile() {
+
+		try {
+			EJBJar ejbJar = (EJBJar) getParent();
+			if(ejbJar != null && ejbJar.eResource() != null) {
+				return WorkbenchResourceHelperBase.getIFile(ejbJar.eResource().getURI());
+			}
+		} catch (Throwable t) {
+			
+		}
+		return null;		
 	}
 
 	public abstract String getText(Object object);

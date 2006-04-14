@@ -13,8 +13,11 @@ package org.eclipse.jst.j2ee.internal.provider;
 
 import java.util.Collection;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.notify.AdapterFactory;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.emf.edit.provider.IItemLabelProvider;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -200,17 +203,18 @@ public class ModulesItemProvider extends J2EEItemProvider {
 	public Application getParentApplication() {
 		return (Application) getParent();
 	}
+ 
+	public IFile getAssociatedFile() {
 
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.internal.provider.J2EEItemProvider#getAdapter(java.lang.Class)
-	 */
-	public Object getAdapter(Class adapter) {
-		if (adapter == IRESOURCE_CLASS || adapter == IPROJECT_CLASS)
-			return ProjectUtilities.getProject(getParentApplication());
-		return super.getAdapter(adapter);
+		try { 
+			Application application = getParentApplication();
+			if(application != null && application.eResource() != null) {
+				return WorkbenchResourceHelperBase.getIFile(application.eResource().getURI());
+			}
+		} catch (Throwable t) {
+			
+		}
+		return null;		
 	}
 
 
