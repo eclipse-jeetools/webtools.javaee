@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.jst.web_core.feature"
       label="JST Web Core Feature"
-      version="1.0.1.qualifier"
+      version="1.0.2.qualifier"
       provider-name="Eclilpse.org">
 
    <description>
@@ -18,13 +18,13 @@
    </url>
 
    <requires>
-      <import feature="org.eclipse.platform" version="3.1.1" match="equivalent"/>
+      <import feature="org.eclipse.platform" version="3.1.2" match="equivalent"/>
       <import feature="org.eclipse.emf" version="2.1.1" match="equivalent"/>
-      <import feature="org.eclipse.jdt" version="3.1.1" match="equivalent"/>
+      <import feature="org.eclipse.jdt" version="3.1.2" match="equivalent"/>
       <import feature="org.eclipse.jem" version="1.1.0.1" match="equivalent"/>
-      <import feature="org.eclipse.jst.common_core.feature" version="1.0.0" match="equivalent"/>
-      <import feature="org.eclipse.jst.server_core.feature" version="1.0.0" match="equivalent"/>
-      <import feature="org.eclipse.wst.web_core.feature" version="1.0.0"/>
+      <import feature="org.eclipse.jst.common_core.feature" version="1.0.2" match="equivalent"/>
+      <import feature="org.eclipse.jst.server_core.feature" version="1.0.2" match="equivalent"/>
+      <import feature="org.eclipse.wst.web_core.feature" version="1.0.2" match="equivalent"/>
    </requires>
 
 	<plugin
