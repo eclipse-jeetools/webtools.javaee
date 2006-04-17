@@ -29,10 +29,6 @@
     <extension
          id="J2EEUIProjectWizards"
          point="org.eclipse.ui.newWizards">
-      <category
-            name="%jca.module_ui_"
-            id="org.eclipse.jst.j2ee.jca.ui">
-      </category>
       <wizard
             name="%connector_module_ui_"
             icon="icons/full/ctool16/newconnectionprj_wiz.gif"
@@ -53,10 +49,11 @@
    <extension
          point="org.eclipse.ui.importWizards">
       <wizard
-            name="%connector.jar.file_ui_"
-            icon="icons/full/ctool16/import_rar.gif"
+            category="org.eclipse.jst.j2ee.internal"
             class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentImportWizard"
-            id="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentImportWizard">
+            icon="icons/full/ctool16/import_rar.gif"
+            id="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentImportWizard"
+            name="%connector.jar.file_ui_">
          <description>
             %connector.import.description_ui_
          </description>
@@ -70,10 +67,11 @@
     <extension
          point="org.eclipse.ui.exportWizards">
      <wizard
-            name="%connector.jar.file_ui_"
-            icon="icons/full/ctool16/export_rar.gif"
-            class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentExportWizard"
-            id="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentExportWizard">
+           category="org.eclipse.jst.j2ee.internal"
+           class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentExportWizard"
+           icon="icons/full/ctool16/export_rar.gif"
+           id="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentExportWizard"
+           name="%connector.jar.file_ui_">
          <description>
             %connector.export.description_ui_
          </description>

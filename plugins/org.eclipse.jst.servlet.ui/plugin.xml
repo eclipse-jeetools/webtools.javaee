@@ -24,22 +24,7 @@
                id="org.eclipse.jst.servlet.ui.internal.actions.NewWebComponent">
          </action>
       </actionSet>
-	</extension>
-    <!--new servlet contribution-->
-   <extension
-         point="org.eclipse.ui.newWizards">
-      <wizard
-            name="%ServletWebRegionWizard.name"
-            icon="icons/full/ctool16/newservlet_wiz.gif"
-            category="org.eclipse.wst.web.ui"
-            class="org.eclipse.jst.servlet.ui.internal.wizard.AddServletWizard"
-            id="org.eclipse.jst.servlet.ui.internal.wizard.AddServletWizard">
-         <description>
-            %ServletWebRegionWizard.description
-         </description>
-      </wizard>
-   </extension>
-   
+	</extension> 
       
    <!-- Web Module Wizard -->
     <extension
@@ -64,14 +49,31 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
       </wizard>
+      
+      <!--new servlet contribution-->
+ 	  <wizard
+            name="%ServletWebRegionWizard.name"
+            icon="icons/full/ctool16/newservlet_wiz.gif"
+            category="org.eclipse.wst.web.ui"
+            class="org.eclipse.jst.servlet.ui.internal.wizard.AddServletWizard"
+            id="org.eclipse.jst.servlet.ui.internal.wizard.AddServletWizard">
+         <description>
+            %ServletWebRegionWizard.description
+         </description>
+      </wizard>      
     </extension>
       
    <extension
          point="org.eclipse.ui.importWizards">
+      <category
+            name="%web.category_ui_"
+            id="org.eclipse.wst.web.ui">
+      </category>         
     <wizard
             name="%WarImportWizard.name"
             icon="icons/full/ctool16/importwar_wiz.gif"
             class="org.eclipse.jst.servlet.ui.internal.wizard.WebComponentImportWizard"
+            category="org.eclipse.wst.web.ui"
             id="org.eclipse.jst.servlet.ui.internal.wizard.WebComponentImportWizard">
          <description>
             %WarImportWizard.description
@@ -85,10 +87,15 @@
     
   <extension
          point="org.eclipse.ui.exportWizards">
+     <category
+            name="%web.category_ui_"
+            id="org.eclipse.wst.web.ui">
+      </category>         
     <wizard
             name="%WarexportWizard.name"
             icon="icons/full/ctool16/exportwar_wiz.gif"
             class="org.eclipse.jst.servlet.ui.internal.wizard.WebComponentExportWizard"
+            category="org.eclipse.wst.web.ui"
             id="org.eclipse.jst.servlet.ui.internal.wizard.WebComponentExportWizard">
          <description>
             %WarexportWizard.description

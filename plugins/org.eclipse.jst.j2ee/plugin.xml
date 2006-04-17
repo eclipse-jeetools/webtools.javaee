@@ -40,12 +40,8 @@
       <nature
             id="org.eclipse.jst.j2ee.ModuleCore">
       </nature>
-   </extension>
-
-
-
-
-
+   </extension> 
+ 
    <extension
          point="org.eclipse.wst.common.emfworkbench.integration.editModel">
       <editModel
