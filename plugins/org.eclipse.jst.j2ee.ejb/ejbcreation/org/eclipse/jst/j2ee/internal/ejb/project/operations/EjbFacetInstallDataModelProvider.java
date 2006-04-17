@@ -115,7 +115,7 @@ public class EjbFacetInstallDataModelProvider
 					return status;
 		
 		}
-		return OK_STATUS;
+		return super.validate(propertyName);
 	}
 
 }
