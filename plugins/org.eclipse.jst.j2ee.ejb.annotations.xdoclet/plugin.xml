@@ -198,6 +198,7 @@
 
 	  <preset id="preset.jst.web.xdoclet">
 	      <label>Dynamic Web Project with XDoclet</label>
+	      <description>Web project with XDoclet authoring support.</description>
 	      <facet id="jst.java" version="1.4" />
 	      <facet id="jst.web" version="2.4"/>
 	      <facet id="jst.web.xdoclet" version="1.2.3" />
