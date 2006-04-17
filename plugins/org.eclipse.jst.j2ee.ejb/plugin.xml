@@ -29,9 +29,12 @@
          name="%EJB_VALIDATOR"
          point="org.eclipse.wst.validation.validator">
       <validator>
-      	 <facet
-               facetId="jst.ejb">
-         </facet>
+      	 <enablement>
+      		<and>
+        		<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.java"/>
+	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.ejb"/>
+			</and>
+		</enablement> 
          <filter
                objectClass="org.eclipse.core.resources.IFile"
                nameFilter="ejb-jar.xml">
