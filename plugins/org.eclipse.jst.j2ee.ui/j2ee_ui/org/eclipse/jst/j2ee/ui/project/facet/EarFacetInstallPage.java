@@ -46,7 +46,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
@@ -160,8 +159,8 @@ public final class EarFacetInstallPage extends DataModelFacetInstallPage impleme
 		else{
 			list = new ArrayList(); 
 			for( int i=0; i< elements.length; i++){
-				if( elements[i] instanceof IVirtualComponent ) {
-					list.add(((IVirtualComponent)elements[i]).getProject());
+				if( elements[i] instanceof IProject ) {
+					list.add(elements[i]);
 				}
 			}
 		}	

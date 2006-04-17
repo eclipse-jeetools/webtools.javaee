@@ -118,11 +118,10 @@
    <extension
          point="org.eclipse.ui.importWizards">
       <wizard
-            category="org.eclipse.jst.j2ee.internal"
-            class="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentImportWizard"
+            name="%client.jar.file_ui_"
             icon="icons/full/ctool16/appclient_import_wiz.gif"
-            id="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentImportWizard"
-            name="%client.jar.file_ui_">
+            class="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentImportWizard"
+            id="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentImportWizard">
          <description>
             %client.import.description_ui_
          </description>
@@ -131,32 +130,17 @@
          </selection>
       </wizard>
        <wizard
-             category="org.eclipse.jst.j2ee.internal"
-             class="org.eclipse.jst.j2ee.internal.wizard.EARComponentImportWizard"
-             icon="icons/full/ctool16/import_ear.gif"
-             id="org.eclipse.jst.j2ee.internal.wizard.EARComponentImportWizard"
-             name="%ear.file_ui_">
+            name="%ear.file_ui_"
+            icon="icons/full/ctool16/import_ear.gif"
+            class="org.eclipse.jst.j2ee.internal.wizard.EARComponentImportWizard"
+            id="org.eclipse.jst.j2ee.internal.wizard.EARComponentImportWizard">
          <description>
             %ear.import.description_ui_
          </description>
          <selection
                class="org.eclipse.core.resources.IResource">
          </selection>
-      </wizard>
-       <wizard
-             category="org.eclipse.jst.j2ee.internal"
-             class="org.eclipse.jst.j2ee.internal.wizard.J2EEUtilityJarImportWizardNew"
-             icon="icons/util-wiz-icon.gif"
-             id="org.eclipse.jst.j2ee.internal.wizard.J2EEUtilityJarImportWizardNew"
-             name="%utility_jar_import_wizard">
-          <description>
-          	%utility.import.description_ui_
-          </description>
-          <selection class="org.eclipse.core.resources.IResource"/>
-       </wizard>
-       <category
-             id="org.eclipse.jst.j2ee.internal"
-             name="%j2ee.category_ui_"/> 
+      </wizard> 
        </extension>
      
    <!--   <wizard
@@ -185,11 +169,10 @@
    <extension
          point="org.eclipse.ui.exportWizards">
       <wizard
-            category="org.eclipse.jst.j2ee.internal"
-            class="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentExportWizard"
+            name="%client.jar.file_ui_"
             icon="icons/full/ctool16/appclient_export.gif"
-            id="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentExportWizard"
-            name="%client.jar.file_ui_">
+            class="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentExportWizard"
+            id="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentExportWizard">
          <description>
             %client.export.description_ui_
          </description>
@@ -198,11 +181,10 @@
          </selection>
       </wizard>
       <wizard
-            category="org.eclipse.jst.j2ee.internal"
-            class="org.eclipse.jst.j2ee.internal.wizard.EARComponentExportWizard"
+            name="%ear.file_ui_"
             icon="icons/full/ctool16/export_ear.gif"
-            id="org.eclipse.jst.j2ee.internal.wizard.EARComponentExportWizard"
-            name="%ear.file_ui_">
+            class="org.eclipse.jst.j2ee.internal.wizard.EARComponentExportWizard"
+            id="org.eclipse.jst.j2ee.internal.wizard.EARComponentExportWizard">
          <description>
             %ear.export.description_ui_
          </description>
@@ -210,9 +192,6 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
       </wizard>
-      <category
-            id="org.eclipse.jst.j2ee.internal"
-            name="%j2ee.category_ui_"/>
    </extension>
 <!-- ====================================================== -->
 <!-- Extension point: org.eclipse.ui.projectNatureImages    -->
