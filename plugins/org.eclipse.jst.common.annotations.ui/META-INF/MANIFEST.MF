@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Annotations UI Plug-in
+Bundle-Name: %Annotations_UI_
 Bundle-SymbolicName: org.eclipse.jst.common.annotations.ui; singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.jst.common.internal.annotations.ui.UiPlugin
-Bundle-Vendor: Eclipse.org
+Bundle-Vendor: %Eclipse_UI_
 Bundle-Localization: plugin
 Export-Package: org.eclipse.jst.common.internal.annotations.ui;x-internal:=true
 Require-Bundle: org.eclipse.ui.views,
@@ -22,4 +22,4 @@ Require-Bundle: org.eclipse.ui.views,
  org.eclipse.jst.common.annotations.controller,
  org.eclipse.wst.common.emf,
  org.eclipse.jst.common.annotations.core
-Eclipse-AutoStart: true
+Eclipse-LazyStart: true

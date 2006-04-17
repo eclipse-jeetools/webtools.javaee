@@ -30,5 +30,6 @@ Require-Bundle: org.eclipse.jst.j2ee,
  org.eclipse.wst.ws.parser,
  org.eclipse.wst.wsdl,
  org.wsdl4j,
- org.eclipse.jem.util
+ org.eclipse.jem.util,
+ org.eclipse.wst.common.project.facet.core
 Eclipse-AutoStart: true
