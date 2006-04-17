@@ -518,10 +518,12 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 					ClasspathElement wlpElement = (ClasspathElement)wlpIterator.next();
 					String text = element.getText();
 					int  index = text.indexOf(".jar");
-					text = text.substring(0, index);
-					if( text.equals(wlpElement.getText()) ){
-						found = true;
-						break;
+					if(index != -1){
+						text = text.substring(0, index);
+						if( text.equals(wlpElement.getText()) ){
+							found = true;
+							break;
+						}
 					}
 				}
 				if( !found ){
