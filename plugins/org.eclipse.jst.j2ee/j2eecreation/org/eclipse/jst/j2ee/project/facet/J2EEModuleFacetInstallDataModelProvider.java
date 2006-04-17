@@ -190,6 +190,11 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			IStatus status = validateEAR(getStringProperty(EAR_PROJECT_NAME));
 			if (!status.isOK())
 				return status;
+			IDataModel masterDM = (IDataModel)getProperty(MASTER_PROJECT_DM);
+			if(masterDM.getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME).equals(getStringProperty(EAR_PROJECT_NAME))){
+				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.SAME_MODULE_AND_EAR_NAME, new Object [] {getStringProperty(EAR_PROJECT_NAME) });
+				return WTPCommonPlugin.createErrorStatus(errorMessage);
+			}
 		} else if (name.equals(CONFIG_FOLDER)) {
 			String folderName = model.getStringProperty(CONFIG_FOLDER);
 			if (folderName == null || folderName.length() == 0) {

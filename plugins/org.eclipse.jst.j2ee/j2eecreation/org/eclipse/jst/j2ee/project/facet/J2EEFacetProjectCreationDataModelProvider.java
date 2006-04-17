@@ -7,6 +7,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModelProviderNew;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
@@ -81,14 +82,16 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 	}
 
 	public IStatus validate(String propertyName) {
-		if (ADD_TO_EAR.equals(propertyName) || EAR_PROJECT_NAME.equals(propertyName)) {
+		if (ADD_TO_EAR.equals(propertyName) || EAR_PROJECT_NAME.equals(propertyName) || FACET_PROJECT_NAME.equals(propertyName)) {
 			if (model.getBooleanProperty(ADD_TO_EAR)) {
 				IStatus status = validateEAR(model.getStringProperty(EAR_PROJECT_NAME));
 				if (!status.isOK())
 					return status;
-			} else
-				return OK_STATUS;
-
+				if (getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME).equals(getStringProperty(EAR_PROJECT_NAME))) {
+					String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.SAME_MODULE_AND_EAR_NAME, new Object[]{getStringProperty(EAR_PROJECT_NAME)});
+					return WTPCommonPlugin.createErrorStatus(errorMessage);
+				}
+			}
 		}
 		return super.validate(propertyName);
 	}
