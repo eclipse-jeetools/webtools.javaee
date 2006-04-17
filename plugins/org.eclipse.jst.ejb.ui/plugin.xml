@@ -32,10 +32,11 @@
    <extension
          point="org.eclipse.ui.exportWizards">
       <wizard
-            name="%ejb.jar.file_ui_"
-            icon="icons/full/ctool16/export_ejbjar_wiz.gif"
+            category="org.eclipse.jst.ejb.ui"
             class="org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentExportWizard"
-            id="org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentExportWizard">
+            icon="icons/full/ctool16/export_ejbjar_wiz.gif"
+            id="org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentExportWizard"
+            name="%ejb.jar.file_ui_">
          <description>
             %ejb.export.description_ui_
          </description>
@@ -43,6 +44,9 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
       </wizard>
+      <category
+            id="org.eclipse.jst.ejb.ui"
+            name="%ejb.category_ui_"/>
    </extension>
 
 <!-- New EJB Module Wizard -->
@@ -216,10 +220,11 @@
    <extension
          point="org.eclipse.ui.importWizards">
       <wizard
-            name="%ejb.jar.file_ui_"
-            icon="icons/full/ctool16/import_ejbjar.gif"
+            category="org.eclipse.jst.ejb.ui"
             class="org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentImportWizard"
-            id="org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentImportWizard">
+            icon="icons/full/ctool16/import_ejbjar.gif"
+            id="org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentImportWizard"
+            name="%ejb.jar.file_ui_">
          <description>
             %ejb.import.description_ui_
          </description>
@@ -227,6 +232,9 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
       </wizard>
+      <category
+            id="org.eclipse.jst.ejb.ui"
+            name="%ejb.category_ui_"/>
     </extension> 
     
     <extension point="org.eclipse.wst.common.project.facet.ui.wizardPages">
