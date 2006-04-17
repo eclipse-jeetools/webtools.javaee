@@ -18,10 +18,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
@@ -47,20 +49,22 @@ public final class EarSelectionPanel implements IWebFacetInstallDataModelPropert
         this.model = model;
         this.synchhelper = new DataModelSynchHelper(model);
         
-        this.addToEar = new Button( parent, SWT.CHECK );
+        final Group group = new Group( parent, SWT.NONE );
+        group.setLayoutData( gdhfill() );
+        group.setLayout( new GridLayout( 3, false ) );
+        group.setText( "EAR Membership" );
+        
+        this.addToEar = new Button( group, SWT.CHECK );
         this.addToEar.setText( Resources.addToEarLabel );
         this.addToEar.setLayoutData( gdhspan( gdhfill(), 3 ) );
         synchhelper.synchCheckbox(addToEar, ADD_TO_EAR, null);
 
-        label = new Label(parent, SWT.NULL);
+        label = new Label(group, SWT.NULL);
         label.setText(Resources.earProjectLabel);
-        GridData gridData = new GridData();
-        gridData.horizontalIndent = 20;
-        label.setLayoutData(gridData);
-        this.combo = new Combo(parent, SWT.NONE);
+        this.combo = new Combo(group, SWT.NONE);
         this.combo.setLayoutData( gdhfill() );
         
-        this.newButton = new Button( parent, SWT.PUSH );
+        this.newButton = new Button( group, SWT.PUSH );
         this.newButton.setText( Resources.newButtonLabel );
         
         this.newButton.addSelectionListener( new SelectionAdapter()

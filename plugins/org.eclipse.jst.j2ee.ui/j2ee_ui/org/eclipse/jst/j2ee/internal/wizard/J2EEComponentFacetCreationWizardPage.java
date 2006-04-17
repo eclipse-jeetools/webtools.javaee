@@ -45,24 +45,15 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
 	}
 
 	protected Composite createTopLevelComposite(Composite parent) {
-		Composite top = new Composite(parent, SWT.NONE);
-		PlatformUI.getWorkbench().getHelpSystem().setHelp(top, getInfopopID());
-		top.setLayout(new GridLayout());
-		top.setLayoutData(new GridData(GridData.FILL_BOTH));
-		createProjectGroup(top);
-		Composite composite = new Composite(top, SWT.NONE);
-		composite.setLayoutData(gdhfill());
-		GridLayout layout = new GridLayout(3, false);
-		composite.setLayout(layout);
-		createServerTargetComposite(composite);
-		createEarComposite(composite);
+        final Composite top = super.createTopLevelComposite( parent );
+		createEarComposite(top);
 		return top;
 	}
 
-	private void createEarComposite(Composite composite) {
+	private void createEarComposite(Composite top) {
 		FacetDataModelMap map = (FacetDataModelMap) model.getProperty(FACET_DM_MAP);
 		IDataModel facetModel = (IDataModel) map.get(getModuleFacetID());
-		earPanel = new EarSelectionPanel(facetModel, composite);
+		earPanel = new EarSelectionPanel(facetModel, top);
 	}
 
 	protected abstract String getModuleFacetID();
