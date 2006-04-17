@@ -379,6 +379,7 @@ public class ConnectionSelectionPage extends DataModelWizardPage implements Sele
 					return false;
 				}
 			} catch (SQLException e) {
+				return false;
 			}
 		}
 		this.setErrorMessage(null);
