@@ -148,7 +148,11 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 		
 			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(proj);
 
-			int ejbLevelI = ejbEdit.getEJBJarXmiResource().getModuleVersionID();
+			int ejbLevelI = J2EEVersionConstants.EJB_2_0_ID;
+			try {
+				ejbLevelI = ejbEdit.getEJBJarXmiResource().getModuleVersionID();
+			} catch (RuntimeException e) {
+			}
 			String ejbLevel = J2EEProjectUtilities.getJ2EEProjectVersion(proj);
 			if ((ejbLevel == null || ejbLevel.length()==0) && ejbLevelI == J2EEVersionConstants.EJB_2_0_ID)
 				ejbLevel = J2EEVersionConstants.VERSION_2_0_TEXT;

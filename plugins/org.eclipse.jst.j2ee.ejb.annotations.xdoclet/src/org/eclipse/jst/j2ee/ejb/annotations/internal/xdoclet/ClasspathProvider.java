@@ -30,6 +30,11 @@ public class ClasspathProvider extends DefaultClasspathProvider {
 	 * @see org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.internal.emitter.DefaultClasspathProvider#getClasspathItems()
 	 */
 	public List getClasspathItems() {
-		return super.getClasspathItems();
+		List list  = super.getClasspathItems();
+		list.add("org.eclipse.jst.j2ee.ejb.annotations.xdoclet");	
+		list.add("org.eclipse.jst.common.frameworks");
+		list.add("org.eclipse.wst.common.frameworks");
+		list.add("com.eteration.test");
+		return list;
 	}
 }

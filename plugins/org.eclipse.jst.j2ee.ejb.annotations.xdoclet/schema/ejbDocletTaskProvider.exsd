@@ -15,6 +15,7 @@
          <sequence>
             <element ref="EjbdocletTaskProvider"/>
             <element ref="TaskProperty" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="AnnotationProvider" minOccurs="0" maxOccurs="3"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -158,6 +159,45 @@
                <appInfo>
                   <meta.attribute translatable="true"/>
                </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="AnnotationProvider">
+      <complexType>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.IXDocletRuntimeAnnotation"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="type" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+            <simpleType>
+               <restriction base="string">
+                  <enumeration value="entity">
+                  </enumeration>
+                  <enumeration value="session">
+                  </enumeration>
+                  <enumeration value="mdb">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="include" type="boolean" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
             </annotation>
          </attribute>
       </complexType>

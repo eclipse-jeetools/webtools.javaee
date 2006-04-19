@@ -147,7 +147,7 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 		} else if (propertyName.equals(DISPLAY_NAME)) {
 			return getProperty(EJB_NAME);
 		} else if (propertyName.equals(DESCRIPTION)) {
-			return "A session bean named " + getStringProperty(EJB_NAME);
+			return "An EJB named " + getStringProperty(EJB_NAME);
 		} else if (propertyName.equals(INTERFACES))
 			return getEJBInterfaces();
 		else if (propertyName.equals(ANNOTATIONPROVIDER)) {

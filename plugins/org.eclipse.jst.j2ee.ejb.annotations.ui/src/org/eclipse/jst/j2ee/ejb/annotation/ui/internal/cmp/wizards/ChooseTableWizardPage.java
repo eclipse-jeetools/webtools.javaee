@@ -175,7 +175,7 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 				ResultSet columns = metaData.getColumns(null, schema, tableName, "%");
 				while (columns.next()) {
 					CMPAttributeDelegate atr = new CMPAttributeDelegate();
-					atr.setName(columns.getString("COLUMN_NAME"));
+					atr.setName(columns.getString("COLUMN_NAME").toLowerCase());
 					atr.setAttributeType(CMPUtils.getAttributeType(columns.getInt("DATA_TYPE")));
 					atr.setJdbcType(CMPUtils.getSqlType(columns.getInt("DATA_TYPE")));
 					atr.setSqlType(columns.getString("TYPE_NAME"));
@@ -188,7 +188,7 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 					Iterator iterator = attributes.iterator();
 					while (iterator.hasNext()) {
 						CMPAttributeDelegate attr = (CMPAttributeDelegate) iterator.next();
-						if (key.equals(attr.getName()))
+						if (key.equals(attr.getColumnName()))
 							attr.setKey(true);
 					}
 				}

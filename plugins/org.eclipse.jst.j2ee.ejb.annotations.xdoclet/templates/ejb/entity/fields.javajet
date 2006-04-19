@@ -1,4 +1,4 @@
-<%@ jet package="org.eclipse.jst.j2ee.ejb.gmf.templates.entity" class="TypeStubGenerator" imports="java.util.* org.eclipse.jst.j2ee.ejb.annotation.internal.model.*"%>
+<%@ jet package="org.eclipse.jst.j2ee.ejb.gmf.templates.entity" class="FieldsGenerator" imports="java.util.* org.eclipse.jst.j2ee.ejb.annotation.internal.model.*"%>
 <%  IContainerManagedEntityBean cmp  = (IContainerManagedEntityBean)argument;
     boolean isCMP = true;
    

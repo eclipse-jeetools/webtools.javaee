@@ -31,8 +31,11 @@ import org.eclipse.swt.widgets.Text;
 public class AttributesDecorator {
 
 	private IExtension extension;
+
 	private IConfigurationElement tag;
+
 	private IConfigurationElement[] params;
+
 	HashMap allProperties = new HashMap();
 
 	private XDocletPreferenceStore preferenceStore;
@@ -52,24 +55,26 @@ public class AttributesDecorator {
 		attributes.setText("Attributes " + tag.getAttribute("name"));
 		attributes.setToolTipText(tag.getAttribute("description"));
 
-		GridLayout layout = new GridLayout(4, false);
+		GridLayout layout = new GridLayout(6, false);
 		attributes.setLayout(layout);
 		GridData attributesGrid = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL);
 		attributes.setLayoutData(attributesGrid);
 
 		allProperties = new HashMap();
 		// The first configuration is the tag provider so skip
-		for (int i = 1; i < params.length; i++) {
+		for (int i = 0; i < params.length; i++) {
 			final IConfigurationElement attribute = params[i];
 
-			Group attributeGroup = new Group(attributes, SWT.NONE);
-			attributeGroup.setText(attribute.getAttribute("label"));
-			attributeGroup.setToolTipText(attribute.getAttribute("description"));
-			layout = new GridLayout(3, false);
-			attributeGroup.setLayout(layout);
-			GridData gridData = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL);
-			attributeGroup.setLayoutData(gridData);
-			createAttributeControl(attributeGroup, attribute);
+			if (!"TaskProperty".equals(attribute.getName()))
+				continue;
+//			Group attributeGroup = new Group(attributes, SWT.NONE);
+//			attributeGroup.setText(attribute.getAttribute("label"));
+//			attributeGroup.setToolTipText(attribute.getAttribute("description"));
+//			layout = new GridLayout(3, false);
+//			attributeGroup.setLayout(layout);
+//			GridData gridData = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL);
+//			attributeGroup.setLayoutData(gridData);
+			createAttributeControl(attributes, attribute);
 			String includeId = attribute.getAttribute("id") + ".include";
 			Button bool = createLabeledCheck("include", preferenceStore.getBooleanPropertyNoGlobal(includeId), attributes);
 			bool.setData(attribute);
@@ -93,11 +98,11 @@ public class AttributesDecorator {
 	private void createAttributeControl(Composite parent, IConfigurationElement attribute) {
 		String type = attribute.getAttribute("type");
 		if ("string".equals(type)) {
-			Text str = createLabeledText("", preferenceStore.getPropertyNoGlobal(attribute.getAttribute("id")), parent);
+			Text str = createLabeledText(attribute.getAttribute("label"), preferenceStore.getPropertyNoGlobal(attribute.getAttribute("id")), parent);
 			str.setData(attribute);
 			allProperties.put(attribute.getAttribute("id"), str);
 		} else if ("boolean".equals(type)) {
-			Button bool = createLabeledCheck("", preferenceStore.getBooleanPropertyNoGlobal(attribute.getAttribute("id")), parent);
+			Button bool = createLabeledCheck(attribute.getAttribute("label"), preferenceStore.getBooleanPropertyNoGlobal(attribute.getAttribute("id")), parent);
 			bool.setData(attribute);
 			allProperties.put(attribute.getAttribute("id"), bool);
 		} else if ("enum".equals(type)) {
@@ -114,7 +119,7 @@ public class AttributesDecorator {
 		Label label = new Label(defPanel, SWT.WRAP);
 		gridData = new GridData();
 		label.setLayoutData(gridData);
-		label.setText("");
+		label.setText(attribute.getAttribute("label"));
 
 		Combo combo = new Combo(defPanel, SWT.READ_ONLY);
 		gridData = new GridData(GridData.FILL_HORIZONTAL | GridData.GRAB_HORIZONTAL);

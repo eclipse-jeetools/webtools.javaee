@@ -82,11 +82,9 @@ public final class XDocletPreferenceStore {
 			useGlobal = projectNode.getBoolean(XDOCLETUSEGLOBAL, false);
 		}
 
-		instanceLookupOrder = new IScopeContext[] { instanceScope,
-				new DefaultScope() };
+		instanceLookupOrder = new IScopeContext[] { instanceScope, new DefaultScope() };
 		if (project != null)
-			projectLookupOrder = new IScopeContext[] { projectScope,
-					instanceScope, new DefaultScope() };
+			projectLookupOrder = new IScopeContext[] { projectScope, instanceScope, new DefaultScope() };
 		if (useGlobal)
 			lookupOrder = instanceLookupOrder;
 		else
@@ -95,8 +93,7 @@ public final class XDocletPreferenceStore {
 	}
 
 	protected static String getPreferencePrefix() {
-		return XDocletAnnotationPlugin.getDefault().getBundle()
-				.getSymbolicName();
+		return XDocletAnnotationPlugin.getDefault().getBundle().getSymbolicName();
 	}
 
 	private IPreferencesService getPreferencesService() {
@@ -121,30 +118,26 @@ public final class XDocletPreferenceStore {
 
 	public String getProperty(String item) {
 		init();
-		return this.getPreferencesService().getString(getPreferencePrefix(),
-				item, null, lookupOrder);
+		return this.getPreferencesService().getString(getPreferencePrefix(), item, "", lookupOrder);
 	}
 
 	public String getPropertyNoGlobal(String item) {
 		init();
 		if (project != null)
 			lookupOrder = projectLookupOrder;
-		return this.getPreferencesService().getString(getPreferencePrefix(),
-				item, null, lookupOrder);
+		return this.getPreferencesService().getString(getPreferencePrefix(), item, "", lookupOrder);
 	}
 
 	public boolean getBooleanProperty(String item) {
 		init();
-		return this.getPreferencesService().getBoolean(getPreferencePrefix(),
-				item, false, lookupOrder);
+		return this.getPreferencesService().getBoolean(getPreferencePrefix(), item, false, lookupOrder);
 	}
 
 	public boolean getBooleanPropertyNoGlobal(String item) {
 		init();
 		if (project != null)
 			lookupOrder = projectLookupOrder;
-		return this.getPreferencesService().getBoolean(getPreferencePrefix(),
-				item, false, lookupOrder);
+		return this.getPreferencesService().getBoolean(getPreferencePrefix(), item, false, lookupOrder);
 	}
 
 	private IEclipsePreferences getPreferenceNode() {
@@ -157,9 +150,9 @@ public final class XDocletPreferenceStore {
 
 	public void save() {
 		try {
-			if(projectNode != null)
+			if (projectNode != null)
 				projectNode.flush();
-			if(instanceNode != null)
+			if (instanceNode != null)
 				instanceNode.flush();
 		} catch (BackingStoreException e) {
 			Logger.logException(e);
@@ -174,35 +167,30 @@ public final class XDocletPreferenceStore {
 		store.setDefault(XDOCLETUSEGLOBAL, true);
 		store.setDefault(XDOCLETBUILDERACTIVE, true);
 
-		initDoclet(store,
-				"org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider");
-		initDoclet(store,
-				"org.eclipse.jst.j2ee.ejb.annotations.xdoclet.webdocletTaskProvider");
+		initDoclet(store, "org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider");
+		initDoclet(store, "org.eclipse.jst.j2ee.ejb.annotations.xdoclet.webdocletTaskProvider");
 	}
 
 	private static void initDoclet(IPreferenceStore store, String extensionID) {
-		IExtension[] extensions = Platform.getExtensionRegistry()
-				.getExtensionPoint(extensionID).getExtensions();
+		IExtension[] extensions = Platform.getExtensionRegistry().getExtensionPoint(extensionID).getExtensions();
 		for (int i = 0; extensions != null && i < extensions.length; i++) {
 			IExtension extension = extensions[i];
-			IConfigurationElement[] elements = extension
-					.getConfigurationElements();
+			IConfigurationElement[] elements = extension.getConfigurationElements();
 			if (elements == null)
 				continue;
 
 			String id = elements[0].getAttribute("id");
-			boolean selected = Boolean.valueOf(
-					elements[0].getAttribute("defaultSelection"))
-					.booleanValue();
+			boolean selected = Boolean.valueOf(elements[0].getAttribute("defaultSelection")).booleanValue();
 			store.setDefault(id + ".defaultSelection", selected);
 			for (int j = 1; j < elements.length; j++) {
 				IConfigurationElement param = elements[j];
-				String paramId = param.getAttribute("id");
-				String paramValue = param.getAttribute("default");
-				boolean include = Boolean
-						.valueOf(param.getAttribute("include")).booleanValue();
-				store.setDefault(paramId, paramValue);
-				store.setDefault(paramId + ".include", include);
+				if ("TaskProperty".equals(param.getName())) {
+					String paramId = param.getAttribute("id");
+					String paramValue = param.getAttribute("default");
+					boolean include = Boolean.valueOf(param.getAttribute("include")).booleanValue();
+					store.setDefault(paramId, paramValue);
+					store.setDefault(paramId + ".include", include);
+				}
 			}
 		}
 	}

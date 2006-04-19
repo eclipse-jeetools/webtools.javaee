@@ -11,15 +11,22 @@ package org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet;
 
 import java.util.ArrayList;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IEnterpriseBean;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IEnterpriseBeanClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 
 public class XDocletExtensionUtil {
 
 	public static XDocletRuntime[] getRuntimes() {
-		IExtension[] extensions = Platform.getExtensionRegistry().getExtensionPoint(
-				"org.eclipse.jst.j2ee.ejb.annotations.xdoclet.xdocletRuntime").getExtensions();
+		IExtension[] extensions = Platform
+				.getExtensionRegistry()
+				.getExtensionPoint(
+						"org.eclipse.jst.j2ee.ejb.annotations.xdoclet.xdocletRuntime")
+				.getExtensions();
 
 		XDocletRuntime[] runtimes = new XDocletRuntime[extensions.length];
 		for (int i = 0; i < extensions.length; i++) {
@@ -28,7 +35,8 @@ public class XDocletExtensionUtil {
 			IExtension extension = extensions[i];
 			IConfigurationElement configurationElement = getRuntimeElement(extension);
 			if (configurationElement != null) {
-				runtimes[i].setVersion(configurationElement.getAttribute("xdoclet"));
+				runtimes[i].setVersion(configurationElement
+						.getAttribute("xdoclet"));
 				IConfigurationElement[] libs = getRuntimeLibraries(extension);
 				String[] libsArray = new String[libs.length];
 				for (int j = 0; j < libs.length; j++) {
@@ -42,8 +50,11 @@ public class XDocletExtensionUtil {
 	}
 
 	public static XDocletRuntime getRuntime(String versionID) {
-		IExtension[] extensions = Platform.getExtensionRegistry().getExtensionPoint(
-				"org.eclipse.jst.j2ee.ejb.annotations.xdoclet.xdocletRuntime").getExtensions();
+		IExtension[] extensions = Platform
+				.getExtensionRegistry()
+				.getExtensionPoint(
+						"org.eclipse.jst.j2ee.ejb.annotations.xdoclet.xdocletRuntime")
+				.getExtensions();
 
 		for (int i = 0; i < extensions.length; i++) {
 			XDocletRuntime runtime = new XDocletRuntime();
@@ -51,8 +62,10 @@ public class XDocletExtensionUtil {
 			IExtension extension = extensions[i];
 			IConfigurationElement configurationElement = getRuntimeElement(extension);
 			if (configurationElement != null) {
-				if (versionID.equals(configurationElement.getAttribute("xdoclet"))) {
-					runtime.setVersion(configurationElement.getAttribute("xdoclet"));
+				if (versionID.equals(configurationElement
+						.getAttribute("xdoclet"))) {
+					runtime.setVersion(configurationElement
+							.getAttribute("xdoclet"));
 					IConfigurationElement[] libs = getRuntimeLibraries(extension);
 					String[] libsArray = new String[libs.length];
 					for (int j = 0; j < libs.length; j++) {
@@ -79,7 +92,8 @@ public class XDocletExtensionUtil {
 		return null;
 	}
 
-	public static IConfigurationElement[] getRuntimeLibraries(IExtension extension) {
+	public static IConfigurationElement[] getRuntimeLibraries(
+			IExtension extension) {
 		ArrayList arrayList = new ArrayList();
 		IConfigurationElement[] elements = extension.getConfigurationElements();
 		if (elements != null) {
@@ -89,6 +103,87 @@ public class XDocletExtensionUtil {
 					arrayList.add(element);
 			}
 		}
-		return (IConfigurationElement[]) arrayList.toArray(new IConfigurationElement[arrayList.size()]);
+		return (IConfigurationElement[]) arrayList
+				.toArray(new IConfigurationElement[arrayList.size()]);
 	}
+
+	public static String getRuntimeTypeAnnotations(IEnterpriseBean beanModel) {
+
+		IProject project = (IProject) beanModel.getDataModel().getProperty(
+				IEnterpriseBeanClassDataModelProperties.PROJECT);
+
+		if (!J2EEProjectUtilities.isEJBProject(project))
+			return "";
+
+		IExtension[] extensions = Platform
+				.getExtensionRegistry()
+				.getExtensionPoint(
+						"org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider")
+				.getExtensions();
+		StringBuffer annotations = new StringBuffer(512);
+		for (int i = 0; extensions != null && i < extensions.length; i++) {
+			IExtension extension = extensions[i];
+			IConfigurationElement[] elements = extension
+					.getConfigurationElements();
+			if (elements == null)
+				continue;
+			try {
+				for (int j = 0; j < elements.length; j++) {
+					IConfigurationElement element = elements[j];
+					if ("AnnotationProvider".equals(element.getName())) {
+
+						String pluginDescriptor = element
+								.getDeclaringExtension().getContributor()
+								.getName();
+
+						org.osgi.framework.Bundle bundle = Platform
+						.getBundle(pluginDescriptor);
+
+						
+						if (isRuntimeAnnotationApplicable(beanModel, element)) {
+							Class c = bundle.loadClass(element
+									.getAttribute("class"));
+
+							if (c != null) {
+								IXDocletRuntimeAnnotation annotationProvider = (IXDocletRuntimeAnnotation) c
+										.newInstance();
+								annotationProvider.setPreferenceStore(new XDocletPreferenceStore(project));
+								annotations
+										.append(annotationProvider
+												.getTypeAnnotations(project,
+														beanModel));
+								annotations.append("\n");
+
+							}
+						}
+					}
+				}
+
+			} catch (Exception e) {
+				Logger.logException(e);
+			}
+		}
+		return annotations.toString();
+	}
+
+	private static boolean isRuntimeAnnotationApplicable(IEnterpriseBean beanModel, IConfigurationElement element) {
+		boolean include = Boolean.valueOf(
+				element.getAttribute("include")).booleanValue();
+		if(!include)
+			return false;
+		String type = element.getAttribute("type");
+		boolean generate = false;
+		if (IXDocletRuntimeAnnotation.entity.equals(type)
+				&& beanModel.getEnterpriseBean().isEntity())
+			generate = true;
+		if (IXDocletRuntimeAnnotation.session.equals(type)
+				&& beanModel.getEnterpriseBean().isSession())
+			generate = true;
+		if (IXDocletRuntimeAnnotation.mdb.equals(type)
+				&& beanModel.getEnterpriseBean()
+						.isMessageDriven())
+			generate = true;
+		return generate;
+	}
+
 }

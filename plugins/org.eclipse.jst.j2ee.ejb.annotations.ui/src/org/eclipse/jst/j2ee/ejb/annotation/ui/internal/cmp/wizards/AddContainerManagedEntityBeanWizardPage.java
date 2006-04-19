@@ -108,15 +108,7 @@ public class AddContainerManagedEntityBeanWizardPage extends DataModelWizardPage
 		ejbNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		synchHelper.synchText(ejbNameText, IEnterpriseBeanClassDataModelProperties.EJB_NAME, null);
 
-		// jndi name
-		Label jndiNameLabel = new Label(composite, SWT.LEFT);
-		jndiNameLabel.setText(IEJBAnnotationConstants.DATASOURCE_NAME_LABEL);
-		jndiNameLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
-		jndiNameText = new Text(composite, SWT.SINGLE | SWT.BORDER);
-		jndiNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchText(jndiNameText, IContainerManagedEntityBeanDataModelProperties.DATASOURCE, null);
 
-		// jndi name
 		Label schemaLabel = new Label(composite, SWT.LEFT);
 		schemaLabel.setText(IEJBAnnotationConstants.SCHEMA_NAME_LABEL);
 		schemaLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
@@ -147,6 +139,8 @@ public class AddContainerManagedEntityBeanWizardPage extends DataModelWizardPage
 						jndiNameText.setText(ejbNameText.getText());
 						displayNameText.setText(ejbNameText.getText());
 						descText.setText("An Entity bean named "+ejbNameText.getText());
+						schemaText.setText(ejbNameText.getText()+"SCHEMA");
+						
 						
 					}
 					

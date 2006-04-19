@@ -10,6 +10,8 @@
 package org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -52,6 +54,12 @@ public abstract class NewEjbWizard extends DataModelWizard implements INewWizard
 		IStructuredSelection selection = getCurrentSelection();
 		if (selection != null && selection.getFirstElement() != null) {
 			project = ProjectUtilities.getProject(selection.getFirstElement());
+			if(project == null  && selection.getFirstElement() instanceof IAdaptable){
+				IResource res= (IResource) ((IAdaptable) selection.getFirstElement()).getAdapter(IResource.class);
+				if(res != null)
+					project = res.getProject();
+			}
+				
 		}
 		if (project == null) {
 			IProject[] projects = ProjectUtilities.getAllProjects();

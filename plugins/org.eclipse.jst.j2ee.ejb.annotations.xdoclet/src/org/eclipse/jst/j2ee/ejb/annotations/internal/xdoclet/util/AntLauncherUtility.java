@@ -45,8 +45,10 @@ import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.ui.CommonTab;
 import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.debug.ui.IDebugUIConstants;
+import org.eclipse.jdt.internal.compiler.lookup.ExtraCompilerModifiers;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jdt.launching.IVMInstall;
+import org.eclipse.jdt.launching.JavaLaunchDelegate;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletAnnotationPlugin;
 
@@ -145,6 +147,8 @@ public class AntLauncherUtility {
 	 */
 	private void runUsingLauncher(IPath buildFile, String[] targets, final IProgressMonitor monitor) throws CoreException {
 		ILaunchConfiguration configuration = createDefaultLaunchConfiguration(buildFile, null, targets[0]);
+//		JavaLaunchDelegate javaLaunchDelegate = new JavaLaunchDelegate();
+//		javaLaunchDelegate.launch(configuration, "run", configuration., monitor);
 		DebugUITools.buildAndLaunch(configuration, "run", monitor);
 	}
 
@@ -177,8 +181,7 @@ public class AntLauncherUtility {
 		workingCopy.setAttribute(DebugPlugin.ATTR_PROCESS_FACTORY_ID, REMOTE_ANT_PROCESS_FACTORY_ID);
 
 		workingCopy.setAttribute(IDebugUIConstants.ATTR_LAUNCH_IN_BACKGROUND, false);
-
-		return workingCopy.doSave();
+		return workingCopy;
 	}
 
 	private IVMInstall getDefaultVMInstall(ILaunchConfiguration config) {

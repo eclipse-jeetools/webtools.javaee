@@ -299,6 +299,13 @@
             description="%ejbdoclet.valueobject.desc"
             id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.ValueObjectEjbdocletTaskProvider"
             name="valueobject"/>
+       <TaskProperty
+            default="false"
+            id="ejbdoclet.valueobject.generatePKConstructor"
+            label="generatePKConstructor"
+            include="false"            
+            type="boolean"
+            description="Whether to generate a single-parameter constructor in the ValueObject, which only sets up the PK"/>
    </extension>   
 
    <!-- entitypk -->
@@ -326,6 +333,14 @@
             description="%ejbdoclet.Entitycmp.desc"
             id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.EntitycmpEjbdocletTaskProvider"
             name="Entitycmp"/>
+      <TaskProperty
+            default="2.x"
+            id="ejbdoclet.Entitycmp.cmpSpec"
+            label="cmpSpec"
+            include="false"            
+            restriction="1.x,2.x"
+            type="enum"
+            description="Sets the CmpSpec attribute of the EntityCmpSubTask object Valid values: 1.x, 2.x"/>
    </extension>   
 
    <!-- entitybmp -->
@@ -437,6 +452,10 @@
             description="Adds weblogic task to ejbdoclet"
             id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.server.WeblogicEjbdocletTaskProvider"
             name="Weblogic"/>
+      <AnnotationProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.annotation.WeblogicAnnotationProvider"
+            type="entity" 
+            include="true" />          
       <TaskProperty
             default="8.1"
             id="ejbdoclet.weblogic.version"
@@ -453,14 +472,6 @@
             type="string"
             description="The encoding of the produced xml file. If your XML file uses international characters, you might want to set this to UTF-8."/>
       <TaskProperty
-            default="Disabled"
-            id="ejbdoclet.weblogic.createtables"
-            label="createtables"
-            include="true"            
-            restriction="True, False, Disabled, CreateOnly, DropAndCreate, DropAndCreateAlways, AlterOrCreate"
-            type="enum"
-            description="If True or CreateOnly, then at deployment time\nif there is no Table in the Database for a CMP Bean,\n the Container will attempt to CREATE the Table \n(based on information found in the deployment files \n and in the Bean Class). Valid values are \n True and False for WLS Servers for versions older than 8.1 \n and CreateOnly, DropAndCreate, DropAndCreateAlways, AlterOrCreate \n and Disabled for WLS Servers  8.1 and above"/>            
-      <TaskProperty
             default="false"
             id="ejbdoclet.weblogic.validatexml"
             include="true"
@@ -474,6 +485,21 @@
             label="datasource"
             type="string"
             description="Specifies a default value for the data-source-name element in the CMP descriptor, to use if no weblogic.data-source-name tag appears on a bean." />
+     <TaskProperty
+            default="POINTBASE"
+            id="ejbdoclet.weblogic.databaseType"
+            include="false"
+            label="databaseType"
+            type="string"
+            description="Sets the database type specified in the weblogic-cmp-rdbms-jar.xml deployment descriptor. This is a WLS 7.0 and higher feature. Possible values: DB2 INFORMIX ORACLE SQL_SERVER SYBASE POINTBASE Valid values: DB2, INFORMIX, ORACLE, SQL_SERVER, SYBASE, POINTBASE" />
+      <TaskProperty
+            default="Disabled"
+            id="ejbdoclet.weblogic.createtables"
+            label="createtables"
+            include="true"            
+            restriction="True, False, Disabled, CreateOnly, DropAndCreate, DropAndCreateAlways, AlterOrCreate"
+            type="enum"
+            description="If True or CreateOnly, then at deployment time\nif there is no Table in the Database for a CMP Bean,\n the Container will attempt to CREATE the Table \n(based on information found in the deployment files \n and in the Bean Class). Valid values are \n True and False for WLS Servers for versions older than 8.1 \n and CreateOnly, DropAndCreate, DropAndCreateAlways, AlterOrCreate \n and Disabled for WLS Servers  8.1 and above"/>            
     <TaskProperty
             default="weblogic"
             id="ejbdoclet.weblogic.persistence"
@@ -567,6 +593,10 @@
             description="Adds jboss task to ejbdoclet"
             id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.server.JBossEjbdocletTaskProvider"
             name="JBoss"/>
+      <AnnotationProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.annotation.JBossAnnotationProvider"
+            type="entity" 
+            include="true" />          
       <TaskProperty
             default="3.2"
             id="ejbdoclet.jboss.version"
@@ -604,7 +634,56 @@
             label="destdir"
             type="string"
             description="Sets the directory where the generated file(s) will be written."/>
-            
+
+       <TaskProperty
+            default="java:/DefaultDS"
+            id="ejbdoclet.jboss.datasource"
+            include="true"
+            label="datasource"
+            type="string"
+            description="JNDI name for the datasource"/>           
+      <TaskProperty
+            default="Hypersonic SQL"
+            id="ejbdoclet.jboss.datasourcemapping"
+            include="true"
+            label="datasourcemapping"
+            type="string"
+            description="One of the type-mapping's name that are defined in the conf/standardjbosscmp-jdbc.xml file (the default value is Hypersonic SQL)"/>
+      <TaskProperty
+            default="foreign-key"
+            id="ejbdoclet.jboss.preferredrelationmapping"
+            include="true"
+            label="preferredrelationmapping"
+            type="string"
+            description="preferredRelationMapping "/>
+      <TaskProperty
+            default="false"
+            id="ejbdoclet.jboss.generaterelations"
+            include="true"
+            label="generateRelations"
+            type="boolean"
+            description="generate relations "/>
+      <TaskProperty
+            default="false"
+            id="ejbdoclet.jboss.createtable"
+            include="true"
+            label="createtable"
+            type="boolean"
+            description="Create a table for the entity"/>
+      <TaskProperty
+            default="false"
+            id="ejbdoclet.jboss.removetable"
+            include="true"
+            label="removetable"
+            type="boolean"
+            description="Whether the JBossCMP should remove tables when the application is undeployed. "/>
+      <TaskProperty
+            default="false"
+            id="ejbdoclet.jboss.altertable"
+            include="true"
+            label="altertable"
+            type="boolean"
+            description="Whether the JBossCMP should alter tables when the application is deployed. "/>
    </extension>
  
 
@@ -663,6 +742,21 @@
             label="destdir"
             type="string"
             description="Sets the directory where the generated file(s) will be written."/>        
+ 
+       <TaskProperty
+            default="java:/DefaultDS"
+            id="ejbdoclet.jonas.datasource"
+            include="false"
+            label="datasource"
+            type="string"
+            description="JNDI name for the datasource"/>           
+       <TaskProperty
+            default="false"
+            id="ejbdoclet.jonas.automatic-pk"
+            include="false"
+            label="automatic-pk"
+            type="boolean"
+            description="True or False for use automatic generation of primary"/>           
    </extension>
       
    <extension
@@ -675,6 +769,10 @@
             description="Adds JOnAS task to ejbdoclet"
             id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.server.JonasEjbdocletTaskProvider"
             name="JOnAS"/>
+      <AnnotationProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.annotation.JonasAnnotationProvider"
+            type="entity" 
+            include="true" />          
       <TaskProperty
             default="2.4"
             id="ejbdoclet.jonas.version"
@@ -769,6 +867,10 @@
             description="Adds WebSphere task to ejbdoclet"
             id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.server.WebsphereEjbdocletTaskProvider"
             name="WebSphere"/>
+      <AnnotationProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.annotation.WebsphereAnnotationProvider"
+            type="entity" 
+            include="true" />          
 
       <TaskProperty
             default="UTF-8"
@@ -799,7 +901,23 @@
             label="destdir"
             type="string"
             description="Sets the directory where the generated file(s) will be written."/>
+      <TaskProperty
+            default="MyDataSourceJNDIName"
+            id="ejbdoclet.websphere.datasource"
+            include="false"
+            label="datasource"
+            type="string"
+            description="Sets the default CMP Datasource"/>
+     <TaskProperty
+            default="xxxxx"
+            id="ejbdoclet.websphere.currentBackendId"
+            include="false"
+            label="currentBackendId"
+            type="string"
+            description="Sets the current backend id. This parameter is used to point out the id of the current CMP mapping"/>
             
    </extension>   
+   
+
 
 </plugin>

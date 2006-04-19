@@ -24,6 +24,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
+import org.eclipse.jst.j2ee.ejb.annotation.ui.internal.EjbAnnotationsUiPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -39,6 +40,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Widget;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
@@ -152,6 +154,10 @@ public class ConnectionSelectionPage extends DataModelWizardPage implements Sele
 	public void handleEvent(Event event) {
 		Widget source = event.widget;
 		if (source == newConnectionButton) {
+			try {
+				EjbAnnotationsUiPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("org.eclipse.wst.rdb.server.ui.navigator.serverExplorer");
+			} catch (PartInitException e) {
+			}
 			ConnectionInfo[] infos = RDBCorePlugin.getDefault().getConnectionManager().getAllNamedConnectionInfo();
 			java.util.List nameList = new ArrayList(infos.length);
 			for (int i = 0, n = infos.length; i < n; i++) {

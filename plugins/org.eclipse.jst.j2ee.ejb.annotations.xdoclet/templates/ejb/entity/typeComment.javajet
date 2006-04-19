@@ -1,4 +1,4 @@
-<%@ jet package="org.eclipse.jst.j2ee.ejb.gmf.templates.entity" class="TypeStubGenerator" imports="java.util.* org.eclipse.jst.j2ee.ejb.annotation.internal.model.*  org.eclipse.jst.j2ee.ejb.*"%>
+<%@ jet package="org.eclipse.jst.j2ee.ejb.gmf.templates.entity" class="TypeCommentGenerator" imports="java.util.* org.eclipse.jst.j2ee.ejb.annotation.internal.model.*  org.eclipse.jst.j2ee.ejb.* org.eclipse.jst.j2ee.ejb.annotations.internal.* org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.*"%>
 <%  IContainerManagedEntityBean cmp  = (IContainerManagedEntityBean)argument;
     boolean isCMP = true;
    
@@ -32,6 +32,8 @@
  *    signature="java.util.Collection findAll()"  
  *
  * @ejb.pk class="<%= primaryKeyType %>"
+ *
+ *
  * <!-- end-xdoclet-definition -->
  * @generated
  **/
