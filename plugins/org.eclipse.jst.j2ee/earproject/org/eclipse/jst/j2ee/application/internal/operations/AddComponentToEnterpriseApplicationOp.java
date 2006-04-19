@@ -96,9 +96,6 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		StructureEdit se = null;
 		try {
 			IVirtualComponent sourceComp = (IVirtualComponent) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
-			// TEMP workaround for use during ear creation before facet is added, this should be
-			// reverted when 115924 is fixed.
-			// earEdit = new EARArtifactEdit(sourceComp.getProject(), false, true);
 			earEdit = EARArtifactEdit.getEARArtifactEditForWrite(sourceComp.getProject());
 			se = StructureEdit.getStructureEditForWrite(sourceComp.getProject());
 			if (earEdit != null) {
