@@ -192,11 +192,14 @@ public class ClasspathElement {
 			} catch (UnresolveableURIException e) {
 				Logger.getLogger().logError(e);
 			}
+			IPath resPath = new Path(resourcePath);
+			if (!resPath.isAbsolute())
+				resPath = resPath.makeAbsolute();
 			java.io.File file = new java.io.File(resourcePath);
 			if( file.exists() || J2EEPlugin.getWorkspace().getRoot().exists(new Path(resourcePath))){
-				return new IClasspathEntry[]{JavaCore.newLibraryEntry( new Path(resourcePath), null, null, true)};
+				return new IClasspathEntry[]{JavaCore.newLibraryEntry( resPath, null, null, true)};
 			}else{
-				return new IClasspathEntry[]{JavaCore.newVariableEntry( new Path(resourcePath), null, null)};
+				return new IClasspathEntry[]{JavaCore.newVariableEntry( resPath, null, null)};
 			}
 		}	
 		return new IClasspathEntry[0];
