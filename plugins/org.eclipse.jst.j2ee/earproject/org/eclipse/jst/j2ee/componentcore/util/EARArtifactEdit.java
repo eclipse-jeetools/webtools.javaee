@@ -418,7 +418,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 						
 				} 
 				else if (moduleComp.isBinary()) {
-					if (ref.getHandle().equals(ModuleURIUtil.archiveComponentfullyQualifyURI(moduleComp.getName())));
+					if (ref.getHandle().equals(ModuleURIUtil.archiveComponentfullyQualifyURI(moduleComp.getName())))
 						return ((Module)ref.getDependentObject()).getUri();
 				}	
 			}
