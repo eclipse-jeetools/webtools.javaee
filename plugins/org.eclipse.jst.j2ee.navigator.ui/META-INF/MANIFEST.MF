@@ -34,5 +34,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.navigator,
  org.eclipse.ui.navigator.resources,
  org.eclipse.wst.common.emf,
- org.eclipse.jst.common.project.facet.core
+ org.eclipse.jst.common.project.facet.core,
+ org.eclipse.jst.j2ee.web,
+ org.eclipse.jst.j2ee.jca,
+ org.eclipse.jst.j2ee.ejb
 Eclipse-AutoStart: true

@@ -61,13 +61,22 @@ public class EARCreationResourceHandler extends NLS {
 	public static String KEY_14;
 	public static String KEY_15;
 	public static String KEY_16;
-	public static String J2EEUtilityJarListImportOperation_UI_0;
-	public static String J2EEUtilityJarListImportOperation_UI_1;
+	
+	public static String J2EEUtilityJarListImportOperation_UI_Import_Utility_Jars;
+	public static String J2EEUtilityJarListImportOperation_UI_Preparing_to_import;
 	public static String J2EEUtilityJarListImportOperation_UI_2;
 	public static String J2EEUtilityJarListImportDataModel_0;
 	public static String J2EEUtilityJarListImportDataModel_Specify_Valid_Project;
 	public static String J2EEUtilityJarListImportDataModel_Select_Jar;
 	public static String J2EEUtilityJarListImportDataModel_Specify_Linked_Path;
+	public static String CreateProjectWithExtractedJarOperation_Create_project_with_extracted_conte_;
+	public static String CopyArchiveIntoProjectOperation_Copying_archive_into_selected_proje_;
+	public static String CopyArchiveIntoProjectOperation_Found_existing_file_0_;
+	public static String CreateProjectWithLinkedJarOperation_Creating_project_with_linked_archiv_;
+	public static String CreateProjectWithLinkedJarOperation_Cannot_link_utility_jar_into_a_clos_;
+	public static String CreateProjectWithLinkedJarOperation_File_already_exists_0_;
+	public static String LinkArchiveIntoProjectOperation_Linking_archive_into_selected_proje_;
+	
 	public static String EARImportDataModel_UI_0;
 	public static String EARImportDataModel_UI_1;
 	public static String EARImportDataModel_UI_2;

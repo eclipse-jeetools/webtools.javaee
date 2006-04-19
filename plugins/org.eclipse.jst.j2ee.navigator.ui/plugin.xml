@@ -97,6 +97,34 @@
         <possibleChildren>
          <or>
            <instanceof value="java.io.File"/>
+            <adapt type="org.eclipse.core.resources.IProject">
+            <or>
+               <test 
+	                	forcePluginActivation="true"
+	                	property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         		  value="jst.web"/>
+         	   <test 
+	                	forcePluginActivation="true"
+	                	property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         		  value="jst.ejb"/> 
+         	   <test 
+	                	forcePluginActivation="true"
+	                	property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         		  value="jst.utility"/> 
+         	   <test 
+	                	forcePluginActivation="true"
+	                	property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         		  value="jst.ear"/> 
+         	   <test 
+	                	forcePluginActivation="true"
+	                	property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         		  value="jst.appclient"/> 
+         	   <test 
+	                	forcePluginActivation="true"
+	                	property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         		  value="jst.connector"/>   
+            </or>
+           </adapt>
            <and>
            <instanceof value="org.eclipse.emf.ecore.EObject"/>
             <or>
@@ -164,9 +192,44 @@
             class="org.eclipse.ui.internal.navigator.resources.actions.NewActionProvider"
             id="org.eclipse.jst.j2ee.navigator.internal.WebNewActionProvider">
          <enablement>
-            <instanceof value="org.eclipse.jst.j2ee.internal.war.ui.util.WebGroupItemProvider"/>
+         	<or>
+            	<instanceof value="org.eclipse.jst.j2ee.internal.war.ui.util.WebGroupItemProvider"/>
+				<instanceof value="org.eclipse.jst.j2ee.internal.ejb.provider.GroupedEJBItemProvider"/>            	
+            </or>
          </enablement>
       </actionProvider>
+      <dropAssistant
+            class="org.eclipse.jst.j2ee.navigator.internal.dnd.AddProjectToEARDropAssistant"
+            id="org.eclipse.jst.j2ee.navigator.ui.AddModulesToEAR">
+         <possibleDropTargets>
+            <or>
+               <adapt type="org.eclipse.core.resources.IProject">
+                  <test
+                        forcePluginActivation="true"
+                        property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                        value="jst.ear"/>
+               </adapt>
+               <instanceof value="org.eclipse.jst.j2ee.application.Application"/>
+               <instanceof value="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider"/>
+            </or>
+         </possibleDropTargets>
+      </dropAssistant>
+      <dropAssistant
+            class="org.eclipse.jst.j2ee.navigator.internal.dnd.ImportJ2EEModuleDropAssistant"
+            id="org.eclipse.jst.j2ee.navigator.ui.ImportJ2EEModule">
+         <possibleDropTargets>
+            <or>
+               <instanceof value="org.eclipse.core.resources.IWorkspaceRoot"/>
+               <adapt type="org.eclipse.core.resources.IProject">
+                  <test
+                        forcePluginActivation="true"
+                        property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                        value="jst.ear"/>
+               </adapt>
+               
+            </or>
+         </possibleDropTargets>            
+      </dropAssistant>
       </navigatorContent>
       <!-- EJB New -->
       <commonWizard
@@ -182,6 +245,10 @@
                  		 forcePluginActivation="true"
                  		 property="org.eclipse.wst.common.project.facet.core.projectFacet"
          				 value="jst.ear"/>
+	                  <test 
+                 		 forcePluginActivation="true"
+                 		 property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         				 value="jst.ejb"/>
 	               </or>
 	              </adapt>
                 </and> 
@@ -269,6 +336,10 @@
                  		 forcePluginActivation="true"
                  		 property="org.eclipse.wst.common.project.facet.core.projectFacet"
          				 value="jst.ear"/>
+	                  <test 
+                 		 forcePluginActivation="true"
+                 		 property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         				 value="jst.connector"/>
 	               </or>
 	             </adapt>
                </and> 
@@ -292,6 +363,10 @@
                  		 forcePluginActivation="true"
                  		 property="org.eclipse.wst.common.project.facet.core.projectFacet"
          				 value="jst.ear"/>
+	                  <test 
+                 		 forcePluginActivation="true"
+                 		 property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         				 value="jst.connector"/>
 	               </or>
 	             </adapt>
                </and> 
@@ -342,6 +417,10 @@
                  		 forcePluginActivation="true"
                  		 property="org.eclipse.wst.common.project.facet.core.projectFacet"
          			value="jst.ear"/>
+	                  <test 
+                 		 forcePluginActivation="true"
+                 		 property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         				 value="jst.web"/>
                 </or>
                </adapt>
              </and> 
@@ -387,6 +466,10 @@
                  		 forcePluginActivation="true"
                  		 property="org.eclipse.wst.common.project.facet.core.projectFacet"
          			value="jst.ear"/>
+	                  <test 
+                 		 forcePluginActivation="true"
+                 		 property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         				 value="jst.web"/>
                 </or>
                </adapt>
              </and>
@@ -424,8 +507,24 @@
             wizardId="org.eclipse.jst.j2ee.ui.project.facet.EarProjectWizard">
          <enablement>
           <or> 
-             <instanceof value="org.eclipse.core.resources.IWorkspaceRoot"/>
-             <instanceof value="java.util.Collection"><count value="0"/></instanceof>
+             <instanceof value="org.eclipse.core.resources.IWorkspaceRoot"/>             
+             <and>
+               <adapt type="org.eclipse.core.resources.IProject">
+                <or>
+                  <test 
+                 		 forcePluginActivation="true"
+                 		 property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         			value="jst.ear"/>
+	                  <test 
+                 		 forcePluginActivation="true"
+                 		 property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         				 value="jst.web"/>
+                </or>
+               </adapt>
+             </and>
+           	 <instanceof value="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider"/>
+             <instanceof value="org.eclipse.jst.j2ee.application.Application"/>
+             <instanceof value="java.util.Collection"><count value="0"/></instanceof>   
           </or>
          </enablement>
        </commonWizard>
@@ -443,6 +542,10 @@
                  		 forcePluginActivation="true"
                  		 property="org.eclipse.wst.common.project.facet.core.projectFacet"
          			 value="jst.ear"/>
+                  <test 
+                 		 forcePluginActivation="true"
+                 		 property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         			 value="jst.appclient"/>
                 </or>
                </adapt>
              </and> 
@@ -459,6 +562,22 @@
          <enablement>
            <or> 
              <instanceof value="org.eclipse.core.resources.IWorkspaceRoot"/>   
+            <and>
+               <adapt type="org.eclipse.core.resources.IProject">
+                <or>
+                  <test 
+                 		 forcePluginActivation="true"
+                 		 property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         			value="jst.ear"/>
+	                  <test 
+                 		 forcePluginActivation="true"
+                 		 property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         				 value="jst.web"/>
+                </or>
+               </adapt>
+             </and>
+           	 <instanceof value="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider"/>
+             <instanceof value="org.eclipse.jst.j2ee.application.Application"/>             
              <instanceof value="java.util.Collection"><count value="0"/></instanceof>   
            </or>
          </enablement>
@@ -489,7 +608,7 @@
         <!-- Utility Jar Import -->
        <commonWizard
             type="import"
-            wizardId="org.eclipse.jst.j2ee.ui.J2EEUtilityJarImportWizard">
+            wizardId="org.eclipse.jst.j2ee.internal.wizard.J2EEUtilityJarImportWizardNew">
          <enablement>
            <or> 
              <instanceof value="org.eclipse.core.resources.IWorkspaceRoot"/>
@@ -510,7 +629,6 @@
            </or>
          </enablement>
        </commonWizard>        
-        
          
       <!-- EAR export -->
       <commonWizard
@@ -587,7 +705,7 @@
 		            	value="org.eclipse.jst.j2ee.webapplication.WebApp"/>
 				</or>
 			</enablement>		
-		</commonWizard>
+		</commonWizard> 
    </extension>
    
   <extension 

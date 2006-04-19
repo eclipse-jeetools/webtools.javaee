@@ -7,24 +7,18 @@
  *
  * Contributors:
  * IBM Corporation - initial API and implementation
- *******************************************************************************/
-/*
- * Created on May 13, 2004
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Generation - Code and Comments
- */
+ *******************************************************************************/ 
 package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IPathVariableManager;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -32,15 +26,17 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEUtilityJarListImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.project.facet.EARFacetUtils;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 /**
  * @author mdelder
- * 
- * TODO To change the template for this generated type comment go to Window - Preferences - Java -
- * Code Generation - Code and Comments
+ *  
  */
 public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModelProvider implements IJ2EEUtilityJarListImportDataModelProperties {
 
@@ -54,7 +50,7 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 
 	public Set getPropertyNames(){
 		Set propertyNames = super.getPropertyNames();
-		propertyNames.add(EAR_PROJECT);
+		propertyNames.add(EAR_PROJECT_NAME);
 		propertyNames.add(CREATE_PROJECT);
 		propertyNames.add(LINK_IMPORT);
 		propertyNames.add(CREATE_LINKED_PROJECT);
@@ -206,6 +202,10 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 		String linkedPathVariable = getStringProperty(J2EEUtilityJarListImportDataModelProvider.LINKED_PATH_VARIABLE);
 		return (createPath && (linkedPathVariable == null || linkedPathVariable.trim().length() == 0));
 	}
+	
+	public IDataModelOperation getDefaultOperation() { 
+		return new J2EEUtilityJarListImportOperation(model);
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -229,7 +229,7 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 			return Boolean.FALSE;
 		else if (PROJECT_ROOT.equals(propertyName))
 			return ResourcesPlugin.getWorkspace().getRoot().getRawLocation().toOSString();
-		else if (EAR_PROJECT.equals(propertyName))
+		else if (EAR_PROJECT_NAME.equals(propertyName))
 			return ""; //$NON-NLS-1$
 		else if (AVAILABLE_JARS_DIRECTORY.equals(propertyName))
 			return ""; //$NON-NLS-1$
@@ -242,7 +242,7 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 	}
 
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
-		if (EAR_PROJECT.equals(propertyName)) {
+		if (EAR_PROJECT_NAME.equals(propertyName)) {
 			return DataModelPropertyDescriptor.createDescriptors(getValidProjectNames());
 		} else if (LINKED_PATH_VARIABLE.equals(propertyName)) {
 			IPathVariableManager manager = ResourcesPlugin.getWorkspace().getPathVariableManager();
@@ -255,14 +255,20 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 	 * Populate the resource name combo with connector projects that are not encrypted.
 	 */
 	protected Object[] getValidProjectNames() {
-		List projects = Arrays.asList(ResourcesPlugin.getWorkspace().getRoot().getProjects());
+		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 		List projectsWithNature = new ArrayList();
-
-		for (int i = 0; i < projects.size(); i++) {
-			IProject project = (IProject) projects.get(i);
-			//TODO filter only on ear projects
-			if (project.isOpen()) {
-				projectsWithNature.add(project.getFullPath().toString());
+ 
+		IFacetedProject facetedProject = null;
+		for (int i = 0; i < projects.length; i++) { 
+			if(projects[i].isAccessible()) {
+				try {
+					facetedProject = ProjectFacetsManager.create(projects[i]);
+				if (facetedProject!=null && facetedProject.hasProjectFacet(EARFacetUtils.EAR_FACET)) {
+					projectsWithNature.add(projects[i].getFullPath().toString());
+				}
+				} catch (CoreException e) {
+					J2EEPlugin.logError(0, e.getMessage(), e);
+				} 
 			}
 		}
 
@@ -270,8 +276,8 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 	}
 
 	public IStatus validate(String propertyName) {
-		if (EAR_PROJECT.equals(propertyName) /* && isSet(EAR_PROJECT) */) {
-			String earProjectName = getStringProperty(EAR_PROJECT);
+		if (EAR_PROJECT_NAME.equals(propertyName) /* && isSet(EAR_PROJECT_NAME) */) {
+			String earProjectName = getStringProperty(EAR_PROJECT_NAME);
 			if (earProjectName != null && earProjectName.length() > 0) {
 				IProject earProject = ResourcesPlugin.getWorkspace().getRoot().getProject(earProjectName);
 				try {
@@ -299,7 +305,7 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 		} else if (PROJECT_ROOT.equals(propertyName)) {
 			return validateProjectRoot();
 		}
-		return validate(propertyName);
+		return super.validate(propertyName);
 	}
 
 	private IStatus validateProjectRoot() {
@@ -334,5 +340,7 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 	// }
 	// return Status.OK_STATUS;
 	// }
+	
+	
 
 }

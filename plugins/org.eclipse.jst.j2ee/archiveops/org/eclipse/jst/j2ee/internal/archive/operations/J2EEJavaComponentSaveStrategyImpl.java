@@ -18,4 +18,7 @@ public class J2EEJavaComponentSaveStrategyImpl extends J2EEComponentSaveStrategy
 		super(vComponent);
 	}
 
+	protected boolean shouldAddImportedClassesToClasspath() {
+		return false; //never add to classpath because they are already added
+	}
 }

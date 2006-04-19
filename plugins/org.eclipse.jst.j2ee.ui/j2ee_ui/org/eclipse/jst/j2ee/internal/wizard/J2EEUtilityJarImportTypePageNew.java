@@ -129,7 +129,7 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{IJ2EEUtilityJarListImportDataModelProperties.EAR_PROJECT, IJ2EEUtilityJarListImportDataModelProperties.PROJECT_ROOT};
+		return new String[]{IJ2EEUtilityJarListImportDataModelProperties.EAR_PROJECT_NAME, IJ2EEUtilityJarListImportDataModelProperties.PROJECT_ROOT};
 	}
 
 	/*
@@ -145,7 +145,8 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 
 		createEARProjectGroup(composite);
 		createUtilityJarImportTypes(composite);
-		createProjectCreationOptions(composite);
+		// TODO The binary / project location options are not yet (re-) supported by the import operations. 
+		// createProjectCreationOptions(composite);
 
 		setupBasedOnInitialSelections();
 		return composite;
@@ -261,7 +262,7 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
 		data.widthHint = SIZING_TEXT_FIELD_WIDTH;
 		resourceNameCombo.setLayoutData(data);
-		synchHelper.synchCombo(resourceNameCombo, IJ2EEUtilityJarListImportDataModelProperties.EAR_PROJECT, null);
+		synchHelper.synchCombo(resourceNameCombo, IJ2EEUtilityJarListImportDataModelProperties.EAR_PROJECT_NAME, null);
 
 	}
 
@@ -411,7 +412,7 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 	 * @see org.eclipse.jface.wizard.WizardPage#isPageComplete()
 	 */
 	public boolean isPageComplete() {
-		return model.validateProperty(IJ2EEUtilityJarListImportDataModelProperties.EAR_PROJECT).isOK();
+		return model.validateProperty(IJ2EEUtilityJarListImportDataModelProperties.EAR_PROJECT_NAME).isOK();
 	}
 
 }

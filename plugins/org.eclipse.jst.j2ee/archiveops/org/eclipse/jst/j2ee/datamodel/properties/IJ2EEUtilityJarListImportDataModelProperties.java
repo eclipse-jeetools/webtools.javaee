@@ -17,7 +17,7 @@ public interface IJ2EEUtilityJarListImportDataModelProperties extends IDataModel
 	/**
 	 * Required. The EAR Project to which Utility Jars should be added.
 	 */
-	public static final String EAR_PROJECT = IJavaUtilityJarImportDataModelProperties.EAR_PROJECT_NAME;
+	public static final String EAR_PROJECT_NAME = IJavaUtilityJarImportDataModelProperties.EAR_PROJECT_NAME;
 
 	/**
 	 * Optional. Boolean Property. True indicates to create a Project Can be used with
