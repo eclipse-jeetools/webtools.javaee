@@ -22,7 +22,6 @@
  *  primkey-field="<%= primaryKeyField %>" 
  *  schema="<%= cmp.getSchema() %>" 
  *  cmp-version="<%= cmp.getVersion() %>"
- *  data-source="<%=cmp.getDatasource()%>"
  *
  *  @ejb.persistence 
  *   table-name="<%=cmp.getTable()%>" 
