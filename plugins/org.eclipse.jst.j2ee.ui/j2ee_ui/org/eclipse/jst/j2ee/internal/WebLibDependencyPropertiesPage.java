@@ -166,6 +166,8 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 			if (composed != null)
 				new ProgressMonitorDialog(propPage.getShell()).run(true, true, composed);
 		} catch (InvocationTargetException ex) {
+			ex.printStackTrace();
+			ex.getCause().printStackTrace();
 			String title = ManifestUIResourceHandler.An_internal_error_occurred_ERROR_; 
 			String msg = title;
 			if (ex.getTargetException() != null && ex.getTargetException().getMessage() != null)

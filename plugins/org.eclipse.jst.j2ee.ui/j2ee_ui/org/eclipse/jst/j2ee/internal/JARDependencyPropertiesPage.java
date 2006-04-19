@@ -41,6 +41,7 @@ import org.eclipse.jface.preference.IPreferencePage;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableLayout;
+import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
@@ -336,7 +337,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
         table.setLayout(tableLayout);
         table.setHeaderVisible(true);
         table.setLinesVisible(true);
-        availableJARsViewer.setSorter(null);
+        availableJARsViewer.setSorter(new ViewerSorter());
 
         // table columns
         TableColumn fileNameColumn = new TableColumn(table, SWT.NONE, 0);

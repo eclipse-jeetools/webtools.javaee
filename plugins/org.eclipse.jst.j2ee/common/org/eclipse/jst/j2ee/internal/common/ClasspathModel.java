@@ -606,19 +606,21 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		try {
 			IJavaProject javaProject = JemProjectUtilities.getJavaProject(component.getProject());
 			IClasspathEntry[] entry = javaProject.getRawClasspath();
-			List allValidUtilityProjects = J2EEProjectUtilities.getAllJavaNonFlexProjects();
+			HashSet hs = new HashSet();
+			hs.addAll( J2EEProjectUtilities.getAllJavaNonFlexProjects() );
 			IProject[] utilityProjects = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.UTILITY);
-			allValidUtilityProjects.addAll(Arrays.asList(utilityProjects));
-			for (int i = 0; i < allValidUtilityProjects.size(); i++) {
+			hs.addAll(Arrays.asList(utilityProjects));
+			for(Iterator it = hs.iterator(); it.hasNext();) {
+				Object item = it.next();
 				IProject utilProject = null;
-				if (allValidUtilityProjects.get(i) instanceof IProject){
-					utilProject = (IProject) allValidUtilityProjects.get(i);
+				if (item instanceof IProject){
+					utilProject = (IProject) item;
 					if( utilProject.getName().startsWith(".")){
 						continue;
 					}
 				}
-				else if (allValidUtilityProjects.get(i) instanceof IVirtualComponent)
-					utilProject = ((IVirtualComponent) allValidUtilityProjects.get(i)).getProject();
+				else if (item instanceof IVirtualComponent)
+					utilProject = ((IVirtualComponent) item).getProject();
 				boolean existingEntry = false;
 				for (int j = 0; j < entry.length; j++) {
 					IClasspathEntry eachEntry = entry[j];
