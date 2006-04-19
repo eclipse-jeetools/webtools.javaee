@@ -28,6 +28,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
@@ -353,6 +354,19 @@ public class ClassPathSelection {
 				}
 				if (other != null)
 					element.setProject(getProject(other));
+				
+				if( other == null ){
+					//making a best guess for the project name
+					if( element.getProject() == null ){
+						int  index = cpEntry.indexOf(".jar"); //$NON-NLS-1$
+						if( index > 0 ){
+							String projectName = cpEntry.substring(0, index);
+							IProject project = ProjectUtilities.getProject( projectName );
+							if( project != null && project.exists() )
+								element.setProject( project );
+						}
+					}
+				}
 			}
 			addClasspathElement(element, uri);
 		}
