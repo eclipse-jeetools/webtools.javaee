@@ -45,10 +45,8 @@ import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.ui.CommonTab;
 import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.debug.ui.IDebugUIConstants;
-import org.eclipse.jdt.internal.compiler.lookup.ExtraCompilerModifiers;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jdt.launching.IVMInstall;
-import org.eclipse.jdt.launching.JavaLaunchDelegate;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletAnnotationPlugin;
 
