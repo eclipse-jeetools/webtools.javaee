@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -262,6 +263,10 @@ public class ProjectRefactorMetadata {
 		
 		public String toString() {
 			return _comp.toString();
+		}
+		
+		public void removeReference(IVirtualReference aReference) {
+			((VirtualComponent)_comp).removeReference(aReference);
 		}
 	}
 	
