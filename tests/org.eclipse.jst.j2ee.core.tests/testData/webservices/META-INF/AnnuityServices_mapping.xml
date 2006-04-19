@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java-wsdl-mapping xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://www.ibm.com/webservices/xsd/j2ee_jaxrpc_mapping_1_1.xsd">
+    <package-mapping>
+        <package-type>com.ibm.wssvt.tc.pli.data</package-type>
+        <namespaceURI>http://data.pli.tc.wssvt.ibm.com</namespaceURI>
+    </package-mapping>
+    <package-mapping>
+        <package-type>com.ibm.wssvt.acme.annuity.ws</package-type>
+        <namespaceURI>http://ws.annuity.acme.wssvt.ibm.com</namespaceURI>
+    </package-mapping>
+    <java-xml-type-mapping>
+        <java-type>double</java-type>
+        <root-type-qname xmlns:rtq="http://www.w3.org/2001/XMLSchema">rtq:double</root-type-qname>
+        <qname-scope>simpleType</qname-scope>
+    </java-xml-type-mapping>
+    <java-xml-type-mapping>
+        <java-type>java.util.Vector</java-type>
+        <root-type-qname xmlns:rtq="http://xml.apache.org/xml-soap">rtq:Vector</root-type-qname>
+        <qname-scope>simpleType</qname-scope>
+    </java-xml-type-mapping>
+    <java-xml-type-mapping>
+        <java-type>java.lang.String</java-type>
+        <root-type-qname xmlns:rtq="http://www.w3.org/2001/XMLSchema">rtq:string</root-type-qname>
+        <qname-scope>simpleType</qname-scope>
+    </java-xml-type-mapping>
+    <java-xml-type-mapping>
+        <java-type>com.ibm.wssvt.tc.pli.data.WSAnnuityCompositeData</java-type>
+        <root-type-qname xmlns:rtq="http://data.pli.tc.wssvt.ibm.com">rtq:WSAnnuityCompositeData</root-type-qname>
+        <qname-scope>complexType</qname-scope>
+        <variable-mapping>
+            <java-variable-name>WSAnnuity    Data</java-variable-name>
+            <xml-element-name>WSAnnuity    Data</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>subAccounts</java-variable-name>
+            <xml-element-name>subAccounts</xml-element-name>
+        </variable-mapping>
+    </java-xml-type-mapping>
+    <java-xml-type-mapping>
+        <java-type>com.ibm.wssvt.tc.pli.data.WSAnnuityData</java-type>
+        <root-type-qname xmlns:rtq="http://data.pli.tc.wssvt.ibm.com">rtq:WSAnnuityData</root-type-qname>
+        <qname-scope>complexType</qname-scope>
+        <variable-mapping>
+            <java-variable-name>taxStatus</java-variable-name>
+            <xml-element-name>taxStatus</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>type</java-variable-name>
+            <xml-element-name>type</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>amount</java-variable-name>
+            <xml-element-name>amount</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>endDate</java-variable-name>
+            <xml-element-name>endDate</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>custNumber</java-variable-name>
+            <xml-element-name>custNumber</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>custName</java-variable-name>
+            <xml-element-name>custName</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>custSSNum</java-variable-name>
+            <xml-element-name>custSSNum</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>EMail</java-variable-name>
+            <xml-element-name>EMail</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>annuityNo</java-variable-name>
+            <xml-element-name>annuityNo</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>premium</java-variable-name>
+            <xml-element-name>premium</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>beginDate</java-variable-name>
+            <xml-element-name>beginDate</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>status</java-variable-name>
+            <xml-element-name>status</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>fixedPeriod</java-variable-name>
+            <xml-element-name>fixedPeriod</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>fixedAmount</java-variable-name>
+            <xml-element-name>fixedAmount</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>life</java-variable-name>
+            <xml-element-name>life</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>lifeWithPeriod</java-variable-name>
+            <xml-element-name>lifeWithPeriod</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>fixedPercent</java-variable-name>
+            <xml-element-name>fixedPercent</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>actualPercent</java-variable-name>
+            <xml-element-name>actualPercent</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>benefitOptions</java-variable-name>
+            <xml-element-name>benefitOptions</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>premiumSched</java-variable-name>
+            <xml-element-name>premiumSched</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>investCategory</java-variable-name>
+            <xml-element-name>investCategory</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>payoutOptions</java-variable-name>
+            <xml-element-name>payoutOptions</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>guarPayout</java-variable-name>
+            <xml-element-name>guarPayout</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>numSubAccts</java-variable-name>
+            <xml-element-name>numSubAccts</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>extraCredits</java-variable-name>
+            <xml-element-name>extraCredits</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>cellNodeServerName</java-variable-name>
+            <xml-element-name>cellNodeServerName</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>clientId</java-variable-name>
+            <xml-element-name>clientId</xml-element-name>
+        </variable-mapping>
+    </java-xml-type-mapping>
+    <java-xml-type-mapping>
+        <java-type>int</java-type>
+        <root-type-qname xmlns:rtq="http://www.w3.org/2001/XMLSchema">rtq:int</root-type-qname>
+        <qname-scope>simpleType</qname-scope>
+    </java-xml-type-mapping>
+    <java-xml-type-mapping>
+        <java-type>java.util.Calendar</java-type>
+        <root-type-qname xmlns:rtq="http://www.w3.org/2001/XMLSchema">rtq:dateTime</root-type-qname>
+        <qname-scope>simpleType</qname-scope>
+    </java-xml-type-mapping>
+    <java-xml-type-mapping>
+        <java-type>com.ibm.wssvt.tc.pli.data.SubAcctData[]</java-type>
+        <anonymous-type-qname>http://data.pli.tc.wssvt.ibm.com:SubAcctData[0,unbounded]</anonymous-type-qname>
+        <qname-scope>complexType</qname-scope>
+    </java-xml-type-mapping>
+    <java-xml-type-mapping>
+        <java-type>com.ibm.wssvt.tc.pli.data.SubAcctData</java-type>
+        <root-type-qname xmlns:rtq="http://data.pli.tc.wssvt.ibm.com">rtq:SubAcctData</root-type-qname>
+        <qname-scope>complexType</qname-scope>
+        <variable-mapping>
+            <java-variable-name>type</java-variable-name>
+            <xml-element-name>type</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>value</java-variable-name>
+            <xml-element-name>value</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>annuityId</java-variable-name>
+            <xml-element-name>annuityId</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>id</java-variable-name>
+            <xml-element-name>id</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>name</java-variable-name>
+            <xml-element-name>name</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>cellNodeServerName</java-variable-name>
+            <xml-element-name>cellNodeServerName</xml-element-name>
+        </variable-mapping>
+        <variable-mapping>
+            <java-variable-name>clientId</java-variable-name>
+            <xml-element-name>clientId</xml-element-name>
+        </variable-mapping>
+    </java-xml-type-mapping>
+    <java-xml-type-mapping>
+        <java-type>boolean</java-type>
+        <root-type-qname xmlns:rtq="http://www.w3.org/2001/XMLSchema">rtq:boolean</root-type-qname>
+        <qname-scope>simpleType</qname-scope>
+    </java-xml-type-mapping>
+    <java-xml-type-mapping>
+        <java-type>com.ibm.wssvt.tc.pli.data.SubAcctData[]</java-type>
+        <root-type-qname xmlns:rtq="http://ws.annuity.acme.wssvt.ibm.com">rtq:ArrayOf_tns2_nillable_SubAcctData</root-type-qname>
+        <qname-scope>complexType</qname-scope>
+        <variable-mapping>
+            <java-variable-name>subAcctData</java-variable-name>
+            <xml-element-name>SubAcctData</xml-element-name>
+        </variable-mapping>
+    </java-xml-type-mapping>
+    <java-xml-type-mapping>
+        <java-type>com.ibm.wssvt.tc.pli.data.SubAcctData[]</java-type>
+        <anonymous-type-qname>http://ws.annuity.acme.wssvt.ibm.com:ArrayOf_tns2_nillable_SubAcctData&gt;SubAcctData[0,unbounded]</anonymous-type-qname>
+        <qname-scope>complexType</qname-scope>
+    </java-xml-type-mapping>
+    <java-xml-type-mapping>
+        <java-type>java.lang.Object[]</java-type>
+        <anonymous-type-qname>http://xml.apache.org/xml-soap:Vector&gt;item[0,unbounded]</anonymous-type-qname>
+        <qname-scope>complexType</qname-scope>
+    </java-xml-type-mapping>
+    <service-interface-mapping>
+        <service-interface>com.ibm.wssvt.acme.annuity.ws.WSTAnnuityService</service-interface>
+        <wsdl-service-name xmlns:sim="http://ws.annuity.acme.wssvt.ibm.com">sim:WSTAnnuityService</wsdl-service-name>
+        <port-mapping>
+            <port-name>WSTAnnuityService</port-name>
+            <java-port-name>WSTAnnuityService</java-port-name>
+        </port-mapping>
+    </service-interface-mapping>
+    <service-endpoint-interface-mapping>
+        <service-endpoint-interface>com.ibm.wssvt.acme.annuity.ws.AnnuityServicePortType</service-endpoint-interface>
+        <wsdl-port-type xmlns:seimwpt="http://ws.annuity.acme.wssvt.ibm.com">seimwpt:AnnuityServicePortType</wsdl-port-type>
+        <wsdl-binding xmlns:seimwb="http://ws.annuity.acme.wssvt.ibm.com">seimwb:AnnuityServiceBinding</wsdl-binding>
+        <service-endpoint-method-mapping>
+            <java-method-name>wsListAnnuityByHolder</java-method-name>
+            <wsdl-operation>wsListAnnuityByHolder</wsdl-operation>
+            <wrapped-element></wrapped-element>
+            <method-param-parts-mapping>
+                <param-position>0</param-position>
+                <param-type>java.lang.String</param-type>
+                <wsdl-message-mapping>
+                    <wsdl-message xmlns:mppm="http://ws.annuity.acme.wssvt.ibm.com">mppm:wsListAnnuityByHolderRequest</wsdl-message>
+                    <wsdl-message-part-name>holderSSN</wsdl-message-part-name>
+                    <parameter-mode>IN</parameter-mode>
+                </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping>
+                <method-return-value>java.util.Vector</method-return-value>
+                <wsdl-message xmlns:wrvm="http://ws.annuity.acme.wssvt.ibm.com">wrvm:wsListAnnuityByHolderResponse</wsdl-message>
+                <wsdl-message-part-name>wsListAnnuityByHolderReturn</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+        </service-endpoint-method-mapping>
+        <service-endpoint-method-mapping>
+            <java-method-name>wsAddSubAccounts</java-method-name>
+            <wsdl-operation>wsAddSubAccounts</wsdl-operation>
+            <wrapped-element></wrapped-element>
+            <method-param-parts-mapping>
+                <param-position>0</param-position>
+                <param-type>com.ibm.wssvt.tc.pli.data.WSAnnuityCompositeData</param-type>
+                <wsdl-message-mapping>
+                    <wsdl-message xmlns:mppm="http://ws.annuity.acme.wssvt.ibm.com">mppm:wsAddSubAccountsRequest</wsdl-message>
+                    <wsdl-message-part-name>aCD</wsdl-message-part-name>
+                    <parameter-mode>IN</parameter-mode>
+                </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <method-param-parts-mapping>
+                <param-position>1</param-position>
+                <param-type>com.ibm.wssvt.tc.pli.data.SubAcctData[]</param-type>
+                <wsdl-message-mapping>
+                    <wsdl-message xmlns:mppm="http://ws.annuity.acme.wssvt.ibm.com">mppm:wsAddSubAccountsRequest</wsdl-message>
+                    <wsdl-message-part-name>sAD</wsdl-message-part-name>
+                    <parameter-mode>IN</parameter-mode>
+                </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping>
+                <method-return-value>com.ibm.wssvt.tc.pli.data.WSAnnuityCompositeData</method-return-value>
+                <wsdl-message xmlns:wrvm="http://ws.annuity.acme.wssvt.ibm.com">wrvm:wsAddSubAccountsResponse</wsdl-message>
+                <wsdl-message-part-name>wsAddSubAccountsReturn</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+        </service-endpoint-method-mapping>
+        <service-endpoint-method-mapping>
+            <java-method-name>wsCreateAnnuity</java-method-name>
+            <wsdl-operation>wsCreateAnnuity</wsdl-operation>
+            <wrapped-element></wrapped-element>
+            <method-param-parts-mapping>
+                <param-position>0</param-position>
+                <param-type>com.ibm.wssvt.tc.pli.data.WSAnnuityCompositeData</param-type>
+                <wsdl-message-mapping>
+                    <wsdl-message xmlns:mppm="http://ws.annuity.acme.wssvt.ibm.com">mppm:wsCreateAnnuityRequest</wsdl-message>
+                    <wsdl-message-part-name>aCD</wsdl-message-part-name>
+                    <parameter-mode>IN</parameter-mode>
+                </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping>
+                <method-return-value>com.ibm.wssvt.tc.pli.data.WSAnnuityCompositeData</method-return-value>
+                <wsdl-message xmlns:wrvm="http://ws.annuity.acme.wssvt.ibm.com">wrvm:wsCreateAnnuityResponse</wsdl-message>
+                <wsdl-message-part-name>wsCreateAnnuityReturn</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+        </service-endpoint-method-mapping>
+    </service-endpoint-interface-mapping>
+    <service-interface-mapping>
+        <service-interface>com.ibm.wssvt.acme.annuity.ws.AnnuityService</service-interface>
+        <wsdl-service-name xmlns:sim="http://ws.annuity.acme.wssvt.ibm.com">sim:AnnuityService</wsdl-service-name>
+        <port-mapping>
+            <port-name>AnnuityService</port-name>
+            <java-port-name>AnnuityService</java-port-name>
+        </port-mapping>
+    </service-interface-mapping>
+    <service-endpoint-interface-mapping>
+        <service-endpoint-interface>com.ibm.wssvt.acme.annuity.ws.AnnuityServicePortType</service-endpoint-interface>
+        <wsdl-port-type xmlns:seimwpt="http://ws.annuity.acme.wssvt.ibm.com">seimwpt:AnnuityServicePortType</wsdl-port-type>
+        <wsdl-binding xmlns:seimwb="http://ws.annuity.acme.wssvt.ibm.com">seimwb:AnnuityServiceBinding</wsdl-binding>
+        <service-endpoint-method-mapping>
+            <java-method-name>wsListAnnuityByHolder</java-method-name>
+            <wsdl-operation>wsListAnnuityByHolder</wsdl-operation>
+            <wrapped-element></wrapped-element>
+            <method-param-parts-mapping>
+                <param-position>0</param-position>
+                <param-type>java.lang.String</param-type>
+                <wsdl-message-mapping>
+                    <wsdl-message xmlns:mppm="http://ws.annuity.acme.wssvt.ibm.com">mppm:wsListAnnuityByHolderRequest</wsdl-message>
+                    <wsdl-message-part-name>holderSSN</wsdl-message-part-name>
+                    <parameter-mode>IN</parameter-mode>
+                </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping>
+                <method-return-value>java.util.Vector</method-return-value>
+                <wsdl-message xmlns:wrvm="http://ws.annuity.acme.wssvt.ibm.com">wrvm:wsListAnnuityByHolderResponse</wsdl-message>
+                <wsdl-message-part-name>wsListAnnuityByHolderReturn</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+        </service-endpoint-method-mapping>
+        <service-endpoint-method-mapping>
+            <java-method-name>wsAddSubAccounts</java-method-name>
+            <wsdl-operation>wsAddSubAccounts</wsdl-operation>
+            <wrapped-element></wrapped-element>
+            <method-param-parts-mapping>
+                <param-position>0</param-position>
+                <param-type>com.ibm.wssvt.tc.pli.data.WSAnnuityCompositeData</param-type>
+                <wsdl-message-mapping>
+                    <wsdl-message xmlns:mppm="http://ws.annuity.acme.wssvt.ibm.com">mppm:wsAddSubAccountsRequest</wsdl-message>
+                    <wsdl-message-part-name>aCD</wsdl-message-part-name>
+                    <parameter-mode>IN</parameter-mode>
+                </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <method-param-parts-mapping>
+                <param-position>1</param-position>
+                <param-type>com.ibm.wssvt.tc.pli.data.SubAcctData[]</param-type>
+                <wsdl-message-mapping>
+                    <wsdl-message xmlns:mppm="http://ws.annuity.acme.wssvt.ibm.com">mppm:wsAddSubAccountsRequest</wsdl-message>
+                    <wsdl-message-part-name>sAD</wsdl-message-part-name>
+                    <parameter-mode>IN</parameter-mode>
+                </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping>
+                <method-return-value>com.ibm.wssvt.tc.pli.data.WSAnnuityCompositeData</method-return-value>
+                <wsdl-message xmlns:wrvm="http://ws.annuity.acme.wssvt.ibm.com">wrvm:wsAddSubAccountsResponse</wsdl-message>
+                <wsdl-message-part-name>wsAddSubAccountsReturn</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+        </service-endpoint-method-mapping>
+        <service-endpoint-method-mapping>
+            <java-method-name>wsCreateAnnuity</java-method-name>
+            <wsdl-operation>wsCreateAnnuity</wsdl-operation>
+            <wrapped-element></wrapped-element>
+            <method-param-parts-mapping>
+                <param-position>0</param-position>
+                <param-type>com.ibm.wssvt.tc.pli.data.WSAnnuityCompositeData</param-type>
+                <wsdl-message-mapping>
+                    <wsdl-message xmlns:mppm="http://ws.annuity.acme.wssvt.ibm.com">mppm:wsCreateAnnuityRequest</wsdl-message>
+                    <wsdl-message-part-name>aCD</wsdl-message-part-name>
+                    <parameter-mode>IN</parameter-mode>
+                </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping>
+                <method-return-value>com.ibm.wssvt.tc.pli.data.WSAnnuityCompositeData</method-return-value>
+                <wsdl-message xmlns:wrvm="http://ws.annuity.acme.wssvt.ibm.com">wrvm:wsCreateAnnuityResponse</wsdl-message>
+                <wsdl-message-part-name>wsCreateAnnuityReturn</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+        </service-endpoint-method-mapping>
+    </service-endpoint-interface-mapping>
+    <service-interface-mapping>
+        <service-interface>com.ibm.wssvt.acme.annuity.ws.AnnuityService2</service-interface>
+        <wsdl-service-name xmlns:sim="http://ws.annuity.acme.wssvt.ibm.com">sim:AnnuityService2</wsdl-service-name>
+        <port-mapping>
+            <port-name>AnnuityService2</port-name>
+            <java-port-name>AnnuityService2</java-port-name>
+        </port-mapping>
+    </service-interface-mapping>
+    <service-endpoint-interface-mapping>
+        <service-endpoint-interface>com.ibm.wssvt.acme.annuity.ws.AnnuityServicePortType</service-endpoint-interface>
+        <wsdl-port-type xmlns:seimwpt="http://ws.annuity.acme.wssvt.ibm.com">seimwpt:AnnuityServicePortType</wsdl-port-type>
+        <wsdl-binding xmlns:seimwb="http://ws.annuity.acme.wssvt.ibm.com">seimwb:AnnuityServiceBinding</wsdl-binding>
+        <service-endpoint-method-mapping>
+            <java-method-name>wsListAnnuityByHolder</java-method-name>
+            <wsdl-operation>wsListAnnuityByHolder</wsdl-operation>
+            <wrapped-element></wrapped-element>
+            <method-param-parts-mapping>
+                <param-position>0</param-position>
+                <param-type>java.lang.String</param-type>
+                <wsdl-message-mapping>
+                    <wsdl-message xmlns:mppm="http://ws.annuity.acme.wssvt.ibm.com">mppm:wsListAnnuityByHolderRequest</wsdl-message>
+                    <wsdl-message-part-name>holderSSN</wsdl-message-part-name>
+                    <parameter-mode>IN</parameter-mode>
+                </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping>
+                <method-return-value>java.util.Vector</method-return-value>
+                <wsdl-message xmlns:wrvm="http://ws.annuity.acme.wssvt.ibm.com">wrvm:wsListAnnuityByHolderResponse</wsdl-message>
+                <wsdl-message-part-name>wsListAnnuityByHolderReturn</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+        </service-endpoint-method-mapping>
+        <service-endpoint-method-mapping>
+            <java-method-name>wsAddSubAccounts</java-method-name>
+            <wsdl-operation>wsAddSubAccounts</wsdl-operation>
+            <wrapped-element></wrapped-element>
+            <method-param-parts-mapping>
+                <param-position>0</param-position>
+                <param-type>com.ibm.wssvt.tc.pli.data.WSAnnuityCompositeData</param-type>
+                <wsdl-message-mapping>
+                    <wsdl-message xmlns:mppm="http://ws.annuity.acme.wssvt.ibm.com">mppm:wsAddSubAccountsRequest</wsdl-message>
+                    <wsdl-message-part-name>aCD</wsdl-message-part-name>
+                    <parameter-mode>IN</parameter-mode>
+                </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <method-param-parts-mapping>
+                <param-position>1</param-position>
+                <param-type>com.ibm.wssvt.tc.pli.data.SubAcctData[]</param-type>
+                <wsdl-message-mapping>
+                    <wsdl-message xmlns:mppm="http://ws.annuity.acme.wssvt.ibm.com">mppm:wsAddSubAccountsRequest</wsdl-message>
+                    <wsdl-message-part-name>sAD</wsdl-message-part-name>
+                    <parameter-mode>IN</parameter-mode>
+                </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping>
+                <method-return-value>com.ibm.wssvt.tc.pli.data.WSAnnuityCompositeData</method-return-value>
+                <wsdl-message xmlns:wrvm="http://ws.annuity.acme.wssvt.ibm.com">wrvm:wsAddSubAccountsResponse</wsdl-message>
+                <wsdl-message-part-name>wsAddSubAccountsReturn</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+        </service-endpoint-method-mapping>
+        <service-endpoint-method-mapping>
+            <java-method-name>wsCreateAnnuity</java-method-name>
+            <wsdl-operation>wsCreateAnnuity</wsdl-operation>
+            <wrapped-element></wrapped-element>
+            <method-param-parts-mapping>
+                <param-position>0</param-position>
+                <param-type>com.ibm.wssvt.tc.pli.data.WSAnnuityCompositeData</param-type>
+                <wsdl-message-mapping>
+                    <wsdl-message xmlns:mppm="http://ws.annuity.acme.wssvt.ibm.com">mppm:wsCreateAnnuityRequest</wsdl-message>
+                    <wsdl-message-part-name>aCD</wsdl-message-part-name>
+                    <parameter-mode>IN</parameter-mode>
+                </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping>
+                <method-return-value>com.ibm.wssvt.tc.pli.data.WSAnnuityCompositeData</method-return-value>
+                <wsdl-message xmlns:wrvm="http://ws.annuity.acme.wssvt.ibm.com">wrvm:wsCreateAnnuityResponse</wsdl-message>
+                <wsdl-message-part-name>wsCreateAnnuityReturn</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+        </service-endpoint-method-mapping>
+    </service-endpoint-interface-mapping>
+</java-wsdl-mapping>
