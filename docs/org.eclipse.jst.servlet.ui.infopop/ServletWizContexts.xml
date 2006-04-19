@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS type="org.eclipse.help.contexts"?>
+<!-- /*******************************************************************************
+ * Copyright (c) 2000, 2006 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/ -->
+<contexts>
+<context id="srvw1050">
+<description>Specify the project and folder where the servlet class will be placed. The servlet class should be stored in the Java source directory that you specified when you created the dynamic Web project, for example src. 
+Specify the package that the class will belong to (it is added into a default package if you do not specify one), and the class name of the servlet, for example HelloServlet.
+Specify a superclass for the servlet class. A servlet created by this wizard can have HttpServlet, or any class that has HttpServlet in its hierarchy as its superclass. Click Browse to choose from the available superclasses.
+Select the Generate an annotated servlet class check box, and it will create a default annotated servlet class for you. The annotations will be used to generate the artifacts. 
+</description>
+<topic label="Creating servlets" href="../org.eclipse.wst.webtools.doc.user/topics/twsrvwiz.html"/>
+</context>
+
+<context id="srvw1100">
+<description>Note that the Class Name value provided in the first page of the wizard is automatically mapped to the Name field on this page. 
+Specify the initialization parameters of the servlet as name/value pairs, for example passwords.
+In the URL mapping field, specify the URL string to be mapped with the servlet.</description>
+<topic label="Creating servlets" href="../org.eclipse.wst.webtools.doc.user/topics/twsrvwiz.html"/>
+</context>
+
+<context id="srvw1200">
+<description>Select a modifier to specify whether your servlet class is public, abstract, or final. (Classes cannot be both abstact and final.)
+ The javax.servlet.Servlet is provided as the default Interface. You can also add additional interfaces to implement. Click Add to open the Interface Selection dialog. In this dialog, as you type the name of the interface that you are interested in adding in the Choose interfaces field, the list of available interfaces listed in the Matching types list box updates dynamically to display only the interfaces that match the pattern. 
+Select any appropriate method stubs to be created in the servlet file. The stubs created by using the Inherited abstract methods option must be implemented if you do not intend to create an abstract servlet. This is not true for Constructors from superclass.
+</description>
+<topic label="Creating servlets" href="../org.eclipse.wst.webtools.doc.user/topics/twsrvwiz.html"/>
+</context>
+
+
+</contexts>
