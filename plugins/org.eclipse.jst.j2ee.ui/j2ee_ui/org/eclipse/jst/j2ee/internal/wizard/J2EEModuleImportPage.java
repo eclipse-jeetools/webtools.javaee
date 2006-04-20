@@ -77,6 +77,7 @@ public abstract class J2EEModuleImportPage extends J2EEImportPage {
 		final GridLayout layout = new GridLayout(3, false);
 		layout.marginWidth = 0;
 		layout.marginHeight = 0;
+		layout.horizontalSpacing = 0;
 		c.setLayout(layout);
 		earPanel = new EarSelectionPanel(facetModel, c);
 	}
