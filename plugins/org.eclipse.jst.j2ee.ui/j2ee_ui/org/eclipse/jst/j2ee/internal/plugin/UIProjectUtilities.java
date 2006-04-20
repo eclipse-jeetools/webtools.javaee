@@ -61,12 +61,17 @@ public class UIProjectUtilities {
 				project = (IProject) obj;
 			else if (obj instanceof IAdaptable)
 				project = (IProject) ((IAdaptable) obj).getAdapter(IProject.class);
-			else if (obj instanceof EObject)
-				project = ProjectUtilities.getProject((EObject) obj);
-			else if (obj instanceof ItemProvider) {
-				Object temp = ((ItemProvider) obj).getParent(EObject.class);
-				if (temp != null && temp instanceof EObject)
-					project = ProjectUtilities.getProject((EObject) temp);
+			
+			//Just because an object is adaptable it doesn't mean it is adaptable
+			//for an IProject.
+			if (project == null) {
+				if (obj instanceof EObject)
+					project = ProjectUtilities.getProject((EObject) obj);
+				else if (obj instanceof ItemProvider) {
+					Object temp = ((ItemProvider) obj).getParent(EObject.class);
+					if (temp != null && temp instanceof EObject)
+						project = ProjectUtilities.getProject((EObject) temp);
+				}
 			}
 
 			if (project != null && expectedNatureId != null) {
@@ -145,7 +150,7 @@ public class UIProjectUtilities {
 					project = (IProject) obj;
 				else if (obj instanceof IAdaptable)
 					project = (IProject) ((IAdaptable) obj).getAdapter(IProject.class);
-				else if (obj instanceof EObject)
+				if (project == null && obj instanceof EObject)
 					project = ProjectUtilities.getProject((EObject) obj);
 
 				if (project != null && expectedNatureId != null) {
@@ -188,7 +193,7 @@ public class UIProjectUtilities {
 					project = (IProject) obj;
 				else if (obj instanceof IAdaptable)
 					project = (IProject) ((IAdaptable) obj).getAdapter(IProject.class);
-				else if (obj instanceof EObject)
+				if (project == null && obj instanceof EObject)
 					project = ProjectUtilities.getProject((EObject) obj);
 
 				if (project != null && possibleNatureIds != null && possibleNatureIds.length > 0) {
