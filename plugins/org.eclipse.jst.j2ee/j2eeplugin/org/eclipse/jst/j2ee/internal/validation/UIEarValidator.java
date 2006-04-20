@@ -656,4 +656,13 @@ public class UIEarValidator extends EarValidator {
 		}
 	}
 
+	protected void removeAllMessages(EObject eObject, String groupName) {
+		Resource res = eObject.eResource();
+		if(res != null) {
+			IFile file = WorkbenchResourceHelper.getFile(res);
+			if(file != null)
+				_reporter.removeMessageSubset(this,file,groupName);
+		}
+	}
+	
 }// UIEarValidator
