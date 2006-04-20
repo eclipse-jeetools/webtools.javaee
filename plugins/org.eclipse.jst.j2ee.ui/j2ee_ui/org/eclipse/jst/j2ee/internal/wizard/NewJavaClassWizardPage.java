@@ -399,7 +399,10 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		dialog.setTitle(J2EEUIMessages.CONTAINER_SELECTION_DIALOG_TITLE);
 		dialog.setMessage(J2EEUIMessages.CONTAINER_SELECTION_DIALOG_DESC);
 		dialog.addFilter(filter);
-		IProject project = ProjectUtilities.getProject(model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME));
+		String projectName = model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME);
+		if (projectName==null || projectName.length()==0)
+			return;
+		IProject project = ProjectUtilities.getProject(projectName);
 		dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
 
 		if (project != null)
