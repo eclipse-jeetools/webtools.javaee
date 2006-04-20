@@ -265,7 +265,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		synchHelper.synchText(folderText, INewJavaClassDataModelProperties.SOURCE_FOLDER, null);
 		IPackageFragmentRoot root = getSelectedPackageFragmentRoot();
 		if (root != null)
-			folderText.setText(root.getElementName());
+			folderText.setText(root.getPath().toString());
 		
 		folderButton = new Button(composite, SWT.PUSH);
 		folderButton.setText(J2EEUIMessages.BROWSE_BUTTON_LABEL);
@@ -296,7 +296,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		if (packageFragment != null && packageFragment.exists()) {
 			IPackageFragmentRoot root = getPackageFragmentRoot(packageFragment);
 			if (root != null)
-				folderText.setText(root.getElementName());
+				folderText.setText(root.getPath().toString());
 			model.setProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE, packageFragment.getElementName());
 		}
 
