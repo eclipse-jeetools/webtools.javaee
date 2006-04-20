@@ -18,6 +18,9 @@ package org.eclipse.jst.j2ee.internal.wizard;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ui.project.facet.EarSelectionPanel;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
@@ -67,9 +70,15 @@ public abstract class J2EEModuleImportPage extends J2EEImportPage {
 		FacetDataModelMap map = (FacetDataModelMap) creationDM.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 		IDataModel facetModel = (IDataModel) map.get(getModuleFacetID());
 		
-		//new ServerEarAndStandaloneGroup(composite, facetModel, synchHelper);
-		
-		earPanel = new EarSelectionPanel(facetModel, composite);
+		Composite c = new Composite(composite, SWT.NONE);
+		GridData data = new GridData(GridData.FILL_HORIZONTAL);
+		data.horizontalSpan = 3;
+		c.setLayoutData(data);
+		final GridLayout layout = new GridLayout(3, false);
+		layout.marginWidth = 0;
+		layout.marginHeight = 0;
+		c.setLayout(layout);
+		earPanel = new EarSelectionPanel(facetModel, c);
 	}
 
 
