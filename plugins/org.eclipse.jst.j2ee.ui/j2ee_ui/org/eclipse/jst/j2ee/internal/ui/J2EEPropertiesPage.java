@@ -88,6 +88,9 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 		contextRootNameField.setEditable(true);
 		
 		String s = J2EEProjectUtilities.getServerContextRoot(p);
+		if( s == null ){
+			s = ""; //$NON-NLS-1$
+		}
 		contextRootNameField.setText(s);
 		
 		contextRootNameField.addModifyListener(new ModifyListener() {
