@@ -128,6 +128,9 @@ public class XDocletExtensionUtil {
 			if (elements == null)
 				continue;
 			try {
+				XDocletPreferenceStore preferenceStore = new XDocletPreferenceStore(project);
+				if (! preferenceStore.getBooleanProperty(elements[0].getAttribute("id") + ".defaultSelection")) 
+					continue;	
 				for (int j = 0; j < elements.length; j++) {
 					IConfigurationElement element = elements[j];
 					if ("AnnotationProvider".equals(element.getName())) {
@@ -147,7 +150,7 @@ public class XDocletExtensionUtil {
 							if (c != null) {
 								IXDocletRuntimeAnnotation annotationProvider = (IXDocletRuntimeAnnotation) c
 										.newInstance();
-								annotationProvider.setPreferenceStore(new XDocletPreferenceStore(project));
+								annotationProvider.setPreferenceStore(preferenceStore);
 								annotations
 										.append(annotationProvider
 												.getTypeAnnotations(project,
