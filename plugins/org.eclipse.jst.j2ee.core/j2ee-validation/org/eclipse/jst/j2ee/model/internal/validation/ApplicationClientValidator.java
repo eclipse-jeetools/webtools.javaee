@@ -136,6 +136,8 @@ public class ApplicationClientValidator extends J2EEValidator implements Applica
 
 		try {
 			super.validateInJob(inHelper, inReporter);
+			_reporter.removeAllMessages(this, null); 
+			
 			setAppClientFile( (ApplicationClientFile) inHelper.loadModel(APPCLIENT_MODEL_NAME) );
 			if ( appClientFile != null ) {
 				setAppClientDD( appClientFile.getDeploymentDescriptor() );
