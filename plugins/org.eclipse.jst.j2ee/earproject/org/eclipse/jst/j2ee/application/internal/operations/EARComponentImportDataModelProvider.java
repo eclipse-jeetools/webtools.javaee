@@ -98,7 +98,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 	private Hashtable ejbJarToClientJarModels = new Hashtable();
 
 	private Hashtable clientJarToEjbJarModels = new Hashtable();
-	
+
 	private ModuleFile cachedLoadError = null;
 
 	public Set getPropertyNames() {
@@ -327,11 +327,11 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 				}
 				projects.put(tempProjectName, tempArchive);
 			}
-		} else if(propertyName.equals(FILE_NAME)){
+		} else if (propertyName.equals(FILE_NAME)) {
 			IStatus status = super.validate(propertyName);
-			if(!status.isOK()){
+			if (!status.isOK()) {
 				return status;
-			} else if(cachedLoadError != null){
+			} else if (cachedLoadError != null) {
 				return WTPCommonPlugin.createWarningStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_4, new Object[]{cachedLoadError.getURI()}));
 			}
 			return status;
@@ -465,14 +465,9 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 		List moduleModels = new ArrayList();
 		List clientJarArchives = new ArrayList();
 		IDataModel localModel;
-		// String earProjectName = getStringProperty(PROJECT_NAME);
 		String earProjectName = getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
 
 		List defaultModuleNames = new ArrayList();
-		IProject[] currentProjects = ProjectUtilities.getAllProjects();
-		for (int i = 0; i < currentProjects.length; i++) {
-			// defaultModuleNames.add(currentProjects[i].getName());
-		}
 		defaultModuleNames.add(earProjectName);
 		List collidingModuleNames = null;
 		Hashtable ejbJarsWithClients = new Hashtable();
@@ -533,7 +528,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 					}
 				}
 			} catch (Exception e) {
-				Logger.getLogger().logError("Error loading nested archive: "+temp.getURI()); //$NON-NLS-1$
+				Logger.getLogger().logError("Error loading nested archive: " + temp.getURI()); //$NON-NLS-1$
 				Logger.getLogger().logError(e);
 				cachedLoadError = temp;
 			}

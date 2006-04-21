@@ -99,7 +99,7 @@ public class EARComponentProjectsPage extends J2EEImportPage {
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 4;
 		buttonGroup.setLayout(layout);
-		buttonGroup.setLayoutData(new GridData(GridData.FILL_BOTH));
+		buttonGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button selectNotInWorkspace = new Button(buttonGroup, SWT.PUSH);
 		selectNotInWorkspace.setText(J2EEUIMessages.getResourceString("EARImportProjectsPage_UI_3")); //$NON-NLS-1$
@@ -208,7 +208,7 @@ public class EARComponentProjectsPage extends J2EEImportPage {
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 1;
 		listGroup.setLayout(layout);
-		GridData gd = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL);
+		GridData gd = new GridData(GridData.FILL_BOTH);
 		listGroup.setLayoutData(gd);
 
 		earFileListViewer = CheckboxTableViewer.newCheckList(listGroup, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION);
