@@ -10,8 +10,10 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.archive.operations;
 
+import java.io.File;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
@@ -57,8 +59,12 @@ public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 			if (looseComponent.isBinary()) {
 				VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) looseComponent;
 				java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
+				if (!diskFile.exists()) {
+					IFile wbFile = archiveComp.getUnderlyingWorkbenchFile();
+					diskFile = new File(wbFile.getLocation().toOSString());
+				}
 				String uri = iLibModule.getRuntimePath().makeRelative().toString() + "/" + diskFile.getName(); //$NON-NLS-1$
-				addExternalFile(uri, diskFile);
+				addExternalFile(uri, diskFile);				
 			} else {
 				String name = null;
 				String archiveName = iLibModule.getArchiveName();
