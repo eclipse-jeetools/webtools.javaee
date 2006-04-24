@@ -225,6 +225,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 			if (ejbEdit != null) {
 				jar = (EJBJar) ejbEdit.getContentModelRoot();
 				modHelper = IEJBModelExtenderManager.INSTANCE.getEJBModuleExtension(null);
+				return modHelper == null ? null : modHelper.getJNDIName(jar, jar.getEnterpriseBeanNamed(ejbName));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -232,7 +233,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 			if (ejbEdit != null)
 				ejbEdit.dispose();
 		}
-		return modHelper == null ? null : modHelper.getJNDIName(jar, jar.getEnterpriseBeanNamed(ejbName));
+		return null;
 	}
 
     /**
