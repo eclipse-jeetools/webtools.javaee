@@ -21,7 +21,9 @@ import org.eclipse.jst.j2ee.internal.actions.AbstractOpenWizardWorkbenchAction;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
-
+/**
+ * @deprecated to be removed in WTP 2.0
+ */
 public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAction {
 
 	IStructuredSelection fSelection = null;
