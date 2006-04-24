@@ -8,6 +8,7 @@
          viewerId="org.eclipse.ui.navigator.ProjectExplorer">
          <includes>
            <contentExtension pattern="org.eclipse.jst.navigator.j2ee.ui.*"/>
+           <contentExtension pattern="org.eclipse.jst.j2ee.navigator.ui.filters.*"/>
          </includes>
       </viewerContentBinding>
    </extension>
@@ -899,7 +900,21 @@
 				</or>
 			</enablement>
 		</commonWizard>
-	</navigatorContent>			
+	</navigatorContent>
+ <commonFilter
+       activeByDefault="true"
+       description="%filter.jetemitters.description"
+       id="org.eclipse.jst.j2ee.navigator.ui.filters.jetemitters"
+       name="%filter.jetemitters.name">
+    <filterExpression>
+       <adapt type="org.eclipse.core.resources.IProject">
+          <test
+                forcePluginActivation="true"
+                property="org.eclipse.core.resources.name"
+                value=".JETEmitters"/>
+       </adapt>
+    </filterExpression>
+ </commonFilter>			
  
    </extension>
    
