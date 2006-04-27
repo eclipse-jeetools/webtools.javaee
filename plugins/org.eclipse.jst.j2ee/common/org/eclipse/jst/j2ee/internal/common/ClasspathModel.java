@@ -183,47 +183,62 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		try {
 			initializeEARFile();
 			initializeArchive();
-			if (archive != null) {
-				if (existing == null) {
-					if (manifest != null)
-						archive.setManifest(manifest);
-					else
-						//Load it now because we're going to close the EAR;
-						//this might be a binary project
-						archive.getManifest();
-				} else
-					archive.setManifest(existing);
-				List archiveFiles = earFile.getArchiveFiles();
-				for (int i = 0; i < archiveFiles.size(); i++) {
-					Archive anArchive = (Archive) archiveFiles.get(i);
-					try {
-						if (anArchive.isEJBJarFile())
-							((EJBJarFile) anArchive).getDeploymentDescriptor();
-						anArchive.getManifest();
-					} catch (ManifestException mfEx) {
-						Logger.getLogger().logError(mfEx);
-						anArchive.setManifest((ArchiveManifest) new ArchiveManifestImpl());
+			if (!J2EEProjectUtilities.isEARProject(getProject())) {
+				if (archive != null) {
+					if (existing == null) {
+						if (manifest != null)
+							archive.setManifest(manifest);
+						else
+							// Load it now because we're going to close the EAR;
+							// this might be a binary project
+							archive.getManifest();
+					} else
+						archive.setManifest(existing);
+					List archiveFiles = earFile.getArchiveFiles();
+					for (int i = 0; i < archiveFiles.size(); i++) {
+						Archive anArchive = (Archive) archiveFiles.get(i);
+						try {
+							if (anArchive.isEJBJarFile())
+								((EJBJarFile) anArchive).getDeploymentDescriptor();
+							anArchive.getManifest();
+						} catch (ManifestException mfEx) {
+							Logger.getLogger().logError(mfEx);
+							anArchive.setManifest((ArchiveManifest) new ArchiveManifestImpl());
+						}
 					}
 				}
-			}
+			createClassPathSelection();
+		  }
 		} finally {
 			if (earFile != null)
 				earFile.close();
 		}
-		createClassPathSelection();
 	}
 
 	protected void initializeArchive() {
-		if (earFile == null) {
-			archive = null;
-			return;
-		}
-		String uri = getArchiveURI();
-		if (uri != null) {
-			try {
-				archive = (Archive) earFile.getFile(uri);
-			} catch (java.io.FileNotFoundException ex) {
+		if (!J2EEProjectUtilities.isEARProject(getProject())) {
+			if (earFile == null) {
 				archive = null;
+				return;
+			}
+			String uri = getArchiveURI();
+			if (uri != null) {
+				try {
+					archive = (Archive) earFile.getFile(uri);
+				} catch (java.io.FileNotFoundException ex) {
+					archive = null;
+				}
+			}
+		} else {
+			EARArtifactEdit edit = null;
+			try {
+				edit = EARArtifactEdit.getEARArtifactEditForRead(getProject());
+				archive = edit.asArchive(true);
+			} catch (OpenFailureException oe) {
+				Logger.getLogger().log(oe);
+			} finally {
+				if (edit != null)
+					edit.dispose();
 			}
 		}
 	}
