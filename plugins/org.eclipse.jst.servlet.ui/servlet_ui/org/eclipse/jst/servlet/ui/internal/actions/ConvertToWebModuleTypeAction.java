@@ -11,20 +11,31 @@ package org.eclipse.jst.servlet.ui.internal.actions;
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.jst.j2ee.internal.actions.AbstractOpenWizardWorkbenchAction;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.ui.IWorkbench;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.IWorkbenchWindowActionDelegate;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.IProjectFacet;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.web.ui.internal.Logger;
 /**
- * @deprecated to be removed in WTP 2.0
+ * Convert a simple static web project to a J2EE Dynamic Web Project
  */
-public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAction {
+public class ConvertToWebModuleTypeAction extends Action implements IWorkbenchWindowActionDelegate {
 
 	IStructuredSelection fSelection = null;
 	IProject project = null;
@@ -37,39 +48,10 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 		super();
 	}
 
-	public ConvertToWebModuleTypeAction(IWorkbench workbench, String label, Class[] acceptedTypes) {
-		super(workbench, label, acceptedTypes, false);
-	}
-
-	protected Wizard createWizard() {
-        //TODO: reimplement
-/*		ConvertToWebComponentTypeWizard wizard = new ConvertToWebComponentTypeWizard(new ConvertWebProjectDataModel());
-		WebComponentCreationDataModel model = (WebComponentCreationDataModel) wizard.getModel();
-		model.setProperty(EditModelOperationDataModel.PROJECT_NAME, project.getName());
-		model.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, true);
-
-		StaticWebNatureRuntime nature;
-		try {
-			nature = (StaticWebNatureRuntime) project.getNature(IWebNatureConstants.STATIC_NATURE_ID);
-			String webContent = nature.getRootPublishableFolder().getName();
-			String contextRoot = nature.getContextRoot();
-			//model.setProperty(WebComponentCreationDataModel.WEB_CONTENT, webContent);
-			model.setProperty(WebComponentCreationDataModel.CONTEXT_ROOT, contextRoot);
-		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			Logger.getLogger().logError(e);
-		}
-
-		// wizard.setWindowTitle("Convert to Dynamic Web Project");
-
-		return wizard;*/
-        return null;
-	}
-
 	/**
 	 * make sure a web project is selected.
 	 */
-	public boolean isValidProject(IProject aProject) {
+	protected boolean isValidProject(IProject aProject) {
 		return J2EEProjectUtilities.isStaticWebProject(aProject);
 	}
 
@@ -88,7 +70,7 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 	/**
 	 * selectionChanged method comment.
 	 */
-	public boolean validateSelected(ISelection selection) {
+	protected boolean validateSelected(ISelection selection) {
 		if (!(selection instanceof IStructuredSelection))
 			return false;
 
@@ -100,5 +82,30 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 
 		project = (IProject) selectedProject;
 		return isValidProject(project);
+	}
+
+	public void dispose() {
+		// Default
+	}
+
+	public void init(IWorkbenchWindow window) {
+		// Default
+	}
+
+	public void run(IAction action) {
+		try {
+			IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+			Set fixedFacets = new HashSet();
+			fixedFacets.addAll(facetedProject.getFixedProjectFacets());
+			IProjectFacet webFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.WST_WEB_MODULE);
+			fixedFacets.remove(webFacet);
+			facetedProject.setFixedProjectFacets(fixedFacets);
+			facetedProject.uninstallProjectFacet(facetedProject.getInstalledVersion(webFacet), null, new NullProgressMonitor());
+			IDataModel model = DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
+			model.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, project.getName());
+			model.getDefaultOperation().execute(new NullProgressMonitor(), null);
+		} catch (Exception e) {
+			Logger.logException(e);
+		}
 	}
 }

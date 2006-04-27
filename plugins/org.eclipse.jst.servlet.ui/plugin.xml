@@ -112,7 +112,7 @@
             id="org.eclipse.jst.servlet.ui.WebModuleCreationWizard">
       </extendableWizard>
    </extension>
- <!--  <extension
+   <extension
 		point="org.eclipse.ui.actionSets">
 		<actionSet
 			label="%ConvertWebProjectType"
@@ -129,12 +129,46 @@
 				<enablement>
 					<and>
 						<objectClass name="org.eclipse.core.resources.IProject"/>
-						<objectState name="nature" value="org.eclipse.wst.web.StaticWebNature"/>
+						<!--<objectState
+	                       name="facet"
+	                       value="wst.web">
+	                     </objectState> -->
 					</and>
 				</enablement>            
 			</action>
 		</actionSet>
-	</extension> -->
+	</extension>
+	
+	<extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.eclipse.core.resources.IProject"
+            adaptable="true"
+            id = "convertToWebModuleTypeAction">
+         <menu
+               label="%static.web.project_ui_"
+               path="additions"
+               id="ConvertWebProjectType">
+            <separator
+                  name="ConvertWebProjectType">
+            </separator>
+         </menu>
+        <action
+				label="%convertWebProjectTypeAction.label"
+				tooltip="%ConvertWebProjectTypeAction.tooltip"
+				menubarPath="ConvertWebProjectType/ConvertWebProjectType"
+				class="org.eclipse.jst.servlet.ui.internal.actions.ConvertToWebModuleTypeAction"
+				enablesFor="1"
+				id="convertToWebModuleTypeAction">
+		</action>
+		<enablement>
+		  <and>
+			<objectClass name="org.eclipse.core.resources.IProject"/>
+			<objectState name="facet" value="wst.web"/>
+		   </and>
+		</enablement>
+      </objectContribution>  
+    </extension>
 
   <!-- ==================================================================== -->
 <!-- Extension point: org.eclipse.etools.server.core.moduleObjectAdapters -->
