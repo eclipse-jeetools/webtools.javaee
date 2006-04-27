@@ -21,6 +21,7 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModule;
@@ -89,7 +90,7 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 	protected IPath[] getListenerPaths() {
 		return new IPath[] {
 			new Path(".project"), // nature
-			new Path(".settings/.component"), // component
+			new Path(StructureEdit.MODULE_META_FILE_NAME), // component
 			new Path(".settings/org.eclipse.wst.common.project.facet.core.xml") // facets
 		};
 	}
