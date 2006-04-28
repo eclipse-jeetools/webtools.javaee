@@ -18,9 +18,13 @@ package org.eclipse.jst.j2ee.internal;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -39,8 +43,14 @@ import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.RemoveComponentFromEnterpriseApplicationDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
+import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.common.UpdateProjectClasspath;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
 import org.eclipse.swt.SWT;
@@ -58,7 +68,9 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
+import org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphManager;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
+import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -214,8 +226,13 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 			List list = getComponentsToRemove();
 			if( !list.isEmpty()){
 				try {
+					// retrieve all dependencies on these components within the scope of the EAR
+					Map dependentComps = getEARModuleDependencies(earComponent, list);
+					// remove the components from the EAR
 					IDataModelOperation op = removeComponentFromEAROperation(earComponent, list);
 					op.execute(null, null);
+					// if that succeeded, remove all EAR-scope J2EE dependencies on these components
+					removeEARComponentDependencies(dependentComps);
 				} catch (ExecutionException e) {
 					Logger.getLogger().log(e);
 				}
@@ -223,6 +240,93 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		}
 		return stat;
 	}		
+	
+	private Map getEARModuleDependencies(final IVirtualComponent earComponent, final List components) {
+		final Map dependentComps = new HashMap();
+		// get all current references to project within the scope of this EAR
+		for (int i = 0; i < components.size(); i++) {
+			
+			final List compsForProject = new ArrayList();
+			final IVirtualComponent comp = (IVirtualComponent) components.get(i);
+			final IProject[] dependentProjects = DependencyGraphManager.getInstance().getDependencyGraph().getReferencingComponents(comp.getProject());
+			for (int j = 0; j < dependentProjects.length; j++) {
+				final IProject project = dependentProjects[j];
+				// if this is an EAR, can skip
+				if (J2EEProjectUtilities.isEARProject(project)) {
+					continue;
+				}
+				final IVirtualComponent dependentComp = ComponentCore.createComponent(project);
+				// ensure that the project's share an EAR
+				final IProject[] refEARs = J2EEProjectUtilities.getReferencingEARProjects(project);
+				boolean sameEAR = false;
+				for (int k = 0; k < refEARs.length; k++) {
+					if (refEARs[k].equals(earComponent.getProject())) {
+						sameEAR = true;
+						break;
+					}
+				}
+				if (!sameEAR) {
+					continue;
+				}
+				// if the dependency is a web lib dependency, can skip
+				if (J2EEProjectUtilities.isDynamicWebProject(project)) {
+					IVirtualReference ref = dependentComp.getReference(comp.getName());
+					if (ref != null && ref.getRuntimePath().equals(new Path("/WEB-INF/lib"))) { //$NON-NLS-1$
+						continue;
+					}
+				}
+				compsForProject.add(dependentComp);
+			}
+			dependentComps.put(comp, compsForProject);
+		}
+		return dependentComps;
+	}
+	
+	private void removeEARComponentDependencies(final Map dependentComps) throws ExecutionException {
+		final Iterator targets = dependentComps.keySet().iterator();
+		while (targets.hasNext()) {
+			final IVirtualComponent target = (IVirtualComponent) targets.next();
+			final List sources = (List) dependentComps.get(target);
+			for (int i = 0; i < sources.size(); i++) {
+				final IVirtualComponent source = (IVirtualComponent) sources.get(i);
+				final IDataModel model = DataModelFactory.createDataModel(new RemoveReferenceComponentsDataModelProvider());
+				model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, source);
+				final List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+				modHandlesList.add(target);
+				model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modHandlesList);
+				model.getDefaultOperation().execute(null, null);
+				// update the manifest
+				removeManifestDependency(source, target);
+				// update the project classpath 
+				UpdateProjectClasspath.updateProjectDependency(source.getProject().getName(), target.getProject().getName(), false);
+			}
+		}
+	}
+	
+	private void removeManifestDependency(final IVirtualComponent source, final IVirtualComponent target) 
+		throws ExecutionException {
+		final String sourceProjName = source.getProject().getName();
+		final String targetProjName = target.getProject().getName();
+		final IProgressMonitor monitor = new NullProgressMonitor();
+		final IFile manifestmf = J2EEProjectUtilities.getManifestFile(source.getProject());
+		final ArchiveManifest mf = J2EEProjectUtilities.readManifest(source.getProject());
+		if (mf == null)
+			return;
+		final IDataModel updateManifestDataModel = DataModelFactory.createDataModel(new UpdateManifestDataModelProvider());
+		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.PROJECT_NAME, sourceProjName);
+		updateManifestDataModel.setBooleanProperty(UpdateManifestDataModelProperties.MERGE, false);
+		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.MANIFEST_FILE, manifestmf);
+		String[] cp = mf.getClassPathTokenized();
+		List cpList = new ArrayList();
+		String cpToRemove = targetProjName + ".jar";//$NON-NLS-1$
+		for (int i = 0; i < cp.length; i++) {
+			if (!cp[i].equals(cpToRemove)) {
+				cpList.add(cp[i]);
+			}
+		}
+		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.JAR_LIST, cpList);
+		updateManifestDataModel.getDefaultOperation().execute(monitor, null );
+	}
 	
 	protected IDataModelOperation removeComponentFromEAROperation(IVirtualComponent sourceComponent, List targetComponentsHandles) {
 		IDataModel model = DataModelFactory.createDataModel(new RemoveComponentFromEnterpriseApplicationDataModelProvider());
