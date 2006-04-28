@@ -143,8 +143,10 @@ public class J2EEDependenciesPage extends PropertyPage {
 	 */
 	public boolean performOk() {
 		for (int i = 0; i < controls.length; i++) {
-			if (!controls[i].performOk()) {
-				return false;
+			if (controls[i] != null) {
+				if (!controls[i].performOk()) {
+					return false;
+				}
 			}
 		}
 		return true;
@@ -155,7 +157,9 @@ public class J2EEDependenciesPage extends PropertyPage {
 	 */
 	public void performDefaults() {
 		for (int i = 0; i < controls.length; i++) {
-			controls[i].performDefaults();
+			if (controls[i] != null) {
+				controls[i].performDefaults();
+			}
 		}
 	}
 	
@@ -164,8 +168,10 @@ public class J2EEDependenciesPage extends PropertyPage {
 	 */
 	public boolean performCancel() {
 		for (int i = 0; i < controls.length; i++) {
-			if (!controls[i].performCancel()) {
-				return false;
+			if (controls[i] != null) {
+				if (!controls[i].performCancel()) {
+					return false;
+				}
 			}
 		}
 		return super.performCancel();
@@ -177,7 +183,9 @@ public class J2EEDependenciesPage extends PropertyPage {
 	public void setVisible(boolean visible) {
 		super.setVisible(visible);
 		for (int i = 0; i < controls.length; i++) {
-			controls[i].setVisible(visible);
+			if (controls[i] != null) {
+				controls[i].setVisible(visible);
+			}
 		}
 	}
 	
