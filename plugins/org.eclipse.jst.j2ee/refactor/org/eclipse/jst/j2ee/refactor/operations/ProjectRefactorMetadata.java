@@ -12,8 +12,11 @@
 package org.eclipse.jst.j2ee.refactor.operations;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -28,6 +31,8 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.IProjectFacet;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IServer;
@@ -53,12 +58,7 @@ public class ProjectRefactorMetadata {
 	private boolean javaNature;
 	private boolean moduleCoreNature;
 	private IModule module;
-	private boolean isEAR = false;
-	private boolean isEJB = false;
-	private boolean isWeb = false;
-	private boolean isAppClient = false;
-	private boolean isConnector = false;
-	private boolean isUtility = false;
+	private Set facets = new HashSet();
 	
 	public ProjectRefactorMetadata(final IProject project) {
 		_project = project;
@@ -83,12 +83,7 @@ public class ProjectRefactorMetadata {
 				}
 				final IFacetedProject facetedProject = ProjectFacetsManager.create(_project);
 				module = ServerUtil.getModule(_project);
-				isEAR = facetedProject.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE)); 
-				isEJB = facetedProject.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EJB_MODULE)); 
-				isWeb = facetedProject.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE));
-				isAppClient = facetedProject.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_APPCLIENT_MODULE)); 
-				isConnector = facetedProject.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_CONNECTOR_MODULE));  
-				isUtility = facetedProject.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_UTILITY_MODULE)); 
+				facets = facetedProject.getProjectFacets();
 			}
 		} catch (CoreException ce) {
 			Logger.getLogger().logError(ce);
@@ -161,29 +156,44 @@ public class ProjectRefactorMetadata {
 		return moduleCoreNature;
 	}
 	
+	public Set getProjectFacets() {
+		return facets;
+	}
+	
+	public boolean hasFacet(final IProjectFacet facet) {
+		 for(Iterator itr = facets.iterator(); itr.hasNext();) {
+             final IProjectFacetVersion fv  = (IProjectFacetVersion) itr.next();
+             
+             if(fv.getProjectFacet() == facet) {
+                 return true;
+             }
+         }
+         
+         return false;
+	}
+	
 	public boolean isEAR() {
-		return isEAR;
+		return hasFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE)); 
 	}
 
 	public boolean isEJB() {
-		return isEJB; 
-		
+		return hasFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EJB_MODULE)); 
 	}
 	
 	public boolean isWeb() {
-		return isWeb;
+		return hasFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE));
 	}
 	
 	public boolean isAppClient() {
-		return isAppClient;
+		return hasFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_APPCLIENT_MODULE)); 
 	}
 	
 	public boolean isConnector() {
-		return isConnector;
+		return hasFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_CONNECTOR_MODULE));
 	}
 	
 	public boolean isUtility() {
-		return isUtility;
+		return hasFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_UTILITY_MODULE));
 	}
 	
 	public class CachingVirtualComponent implements IVirtualComponent {
