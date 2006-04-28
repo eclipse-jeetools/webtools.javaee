@@ -382,7 +382,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     		if (reference != null && reference.getDependencyType()==IVirtualReference.DEPENDENCY_TYPE_CONSUMES) {
     			IVirtualComponent consumedComponent = reference.getReferencedComponent();
     			if (consumedComponent!=null && isProjectOfType(consumedComponent.getProject(),IModuleConstants.JST_UTILITY_MODULE)) {
-    				if (consumedComponent != null) {
+    				if (consumedComponent != null && consumedComponent.getRootFolder()!=null) {
     					IVirtualFolder vFolder = consumedComponent.getRootFolder();
     					IModuleResource[] mr = getMembers(vFolder, reference.getRuntimePath().makeRelative());
     					int size = mr.length;
