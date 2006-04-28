@@ -150,7 +150,9 @@ public class AnnotationTagCompletionProc implements IJavadocCompletionProcessor,
 		m_parser.setParserInput(m_doc.get(area.beginOffset, area.length()));
 		m_parser.parse();
 
-		TagSpec ts = getTagSpecForTagName(m_tagName.getText());
+		TagSpec ts = null;
+		if (m_tagName!=null)
+			ts = getTagSpecForTagName(m_tagName.getText());
 
 		// Do we even recognize this tag?
 		if (ts == null) {
