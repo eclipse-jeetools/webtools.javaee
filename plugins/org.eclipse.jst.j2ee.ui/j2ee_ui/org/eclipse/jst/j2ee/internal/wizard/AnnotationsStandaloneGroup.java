@@ -17,9 +17,15 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jst.common.internal.annotations.controller.AnnotationsControllerManager;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.preferences.AnnotationPreferenceStore;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.provider.IAnnotationProvider;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.utility.AnnotationUtilities;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -41,6 +47,25 @@ public class AnnotationsStandaloneGroup {
 	private boolean isForBean;
 	private boolean useServletString = false;
 	public static final String EJBTAGSET = "ejb"; //$NON-NLS-1$
+	public static boolean shouldBeanDefaultUseAnnotations = false;
+	public static boolean shouldProjectDefaultUseAnnotations = false;
+
+
+	private class CheckboxSelectionListener implements SelectionListener {
+		public void widgetSelected(SelectionEvent e) {
+			Button button = (Button) e.getSource();
+			if (isForBean)
+				shouldBeanDefaultUseAnnotations = button.getSelection();
+			else
+				shouldProjectDefaultUseAnnotations = button.getSelection();
+		}
+
+		public void widgetDefaultSelected(SelectionEvent e) {
+			//do nothing
+		}
+	}
+
+	private CheckboxSelectionListener checkboxSelectionListener = new CheckboxSelectionListener();
 
 	/**
 	 * Constructor
@@ -87,9 +112,13 @@ public class AnnotationsStandaloneGroup {
 			labelText = J2EEUIMessages.getResourceString(J2EEUIMessages.ADD_ANNOTATIONS_SUPPORT);
 		useAnnotations.setText(labelText);
 		((DataModelSynchHelper)synchHelper).synchCheckbox(useAnnotations, IAnnotationsDataModel.USE_ANNOTATIONS, null);
+		useAnnotations.addSelectionListener(checkboxSelectionListener);
 		GridData gd2 = new GridData(GridData.FILL_HORIZONTAL);
 		gd2.horizontalSpan = 2;
 		useAnnotations.setLayoutData(gd2);
+		// If for project, set the global annotations supported
+		if (!isForBean)
+			setEnablement(null);
 	}
 
 	public void dispose() {
@@ -98,13 +127,70 @@ public class AnnotationsStandaloneGroup {
 		model = null;
 	}
 
+	public boolean isAnnotationsSupported(IProject project) {
+		//TODO clean up to be module based, not project based
+		try {
+			//			if (isForBean) {
+			//				AnnotationsController controller =
+			// AnnotationsControllerManager.INSTANCE.getAnnotationsController(project);
+			//				return (controller !=null && controller.isTagHandlerInstalled(EJBTAGSET));
+			//			}
+//			J2EEModuleNature nature = null;
+//			if (project != null && project.hasNature(IWebNatureConstants.J2EE_NATURE_ID))
+//				nature = (J2EEModuleNature) project.getNature(IWebNatureConstants.J2EE_NATURE_ID);
+//			else if (project != null && project.hasNature(IEJBNatureConstants.NATURE_ID))
+//				nature = (J2EEModuleNature) project.getNature(IEJBNatureConstants.NATURE_ID);
+//
+//			if (!isForBean || (nature != null && nature.getJ2EEVersion() > J2EEVersionConstants.VERSION_1_2))
+				return true;
+//			return false;
+		} catch (Throwable t) {
+			t.printStackTrace();
+			return false;
+		}
+	}
+
 	public void setEnablement(IProject project) {
-		//TODO Remove - this is to be handled by the provider of the DataModel.
+		//TODO
+		//boolean isEnabled = isAnnotationsSupported(project);
+		boolean isControllerEnabled = AnnotationsControllerManager.INSTANCE.isAnyAnnotationsSupported();
+		final String preferred = AnnotationPreferenceStore.getProperty(AnnotationPreferenceStore.ANNOTATIONPROVIDER);
+		IAnnotationProvider annotationProvider = null;
+		boolean isProviderEnabled = false;
+		if (preferred !=null) {
+			try {
+				annotationProvider = AnnotationUtilities.findAnnotationProviderByName(preferred);
+			} catch (Exception ex) { 
+				//Default
+			}
+			if (annotationProvider != null && annotationProvider.isValid()){
+				isProviderEnabled = true;
+			}
+		}
+		boolean shouldEnable = isControllerEnabled || isProviderEnabled;
+		if (!shouldEnable) {
+			((IDataModel)model).setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, Boolean.FALSE);
+		}
+		useAnnotations.setEnabled(shouldEnable);
+//		if (!isEnabled || (!isForBean && !shouldProjectDefaultUseAnnotations) || (isForBean && !shouldBeanDefaultUseAnnotations)) {
+//			useAnnotations.setSelection(false);
+//			model.setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, Boolean.FALSE);
+//		} else {
+//			useAnnotations.setSelection(true);
+//			model.setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, Boolean.TRUE);
+//		}
 	}
 	
 	
 
 	public void setUseServlet(boolean aBoolean) {
 		useServletString = aBoolean;
+	}
+	
+	public void setUseAnnotations(boolean aBoolean) {
+		if (useAnnotations != null) {
+			useAnnotations.setSelection(aBoolean);
+			((IDataModel)model).setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, new Boolean(aBoolean));
+		}
 	}
 }
