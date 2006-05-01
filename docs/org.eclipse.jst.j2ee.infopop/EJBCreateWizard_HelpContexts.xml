@@ -13,7 +13,7 @@
 <contexts>
 
 <!-- Page 1, Create an Enterprise Bean  -->
-<context id="antejb1000">
+<context id="EJB_NEW_EJB_WIZARD_PAGE1">
 <description>Use this page to select the enterprise bean type: session bean or message-driven bean.
 	
 You must install and enable XDoclet before creating a session or message-driven bean. Follow these steps:
@@ -32,7 +32,7 @@ After installing and configuring XDoclet, select the bean type you want to creat
 </context>
 
 <!-- Page 2, Enterprise Bean class file definition -->
-<context id="antejb1100">
+<context id="EJB_NEW_EJB_WIZARD_PAGE2">
 <description>Enter the <b>Project</b>, <b>Module Name</b>, and workspace <b>Folder</b> for the new enterprise bean.
 
 Enter the <b>Java package</b> and <b>Class name</b> for the new enterprise bean. 
@@ -46,7 +46,7 @@ Select the <b>Generate an annotated bean class</b> check box to add J2EE annotat
 </context>
 
 <!-- Page 3, Enterprise Bean details -->
-<context id="antejb1200">
+<context id="EJB_NEW_EJB_WIZARD_PAGE3">
 <description>Specify the EJB, JNDI and Display names for the enterprise bean. 
 	The <b>EJB name</b> is the name of the enterprise bean class.
 	The <b>JNDI name</b> is a logical name used by the server to locate an enterprise bean at runtime.
@@ -65,7 +65,7 @@ Select the <b>Transaction Type</b> (container or bean) for the enterprise bean. 
 </context>
 
 <!-- Page 4, Enterprise Bean modifiers, interfaces and method stubs -->
-<context id="antejb1300">
+<context id="EJB_NEW_EJB_WIZARD_PAGE4">
 <description>Select the type of <b>Modifiers</b> for the bean class.
 	
 Select the <b>Interfaces</b> that your bean class will implement. Use the <b>Add</b> and <b>Remove</b> buttons to create the list of interfaces.
