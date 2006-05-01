@@ -19,55 +19,68 @@
 <title>Validating code in enterprise applications</title>
 </head>
 <body id="tjval"><a name="tjval"><!-- --></a>
-<h1 class="topictitle1">Validating code in enterprise applications</h1>
-<div><div class="section"> <p>The workbench provides manual code validation, code validation
-during a build, and automatic code validation of project resources. Manual
-code validation is explicitly invoked by the user, and it immediately validates
-the resources contained in a selected project. Build validation occurs when
-you manually invoke a build. Automatic code validation occurs whenever an
-automatic incremental build occurs as a result of a resource change, such
-as when a project is created, a .java file is edited, or a model file (such
-as ejb-jar.xml, .mapxmi, or .rdbxmi) is changed or saved. By
-default, manual code validation and automatic code validation are enabled
-in the preferences.</p>
-<p>On the Properties page for each enterprise application
-module project, you will find a list of validators that you can run against
-a selected project. The list of validators is different for each type of project. </p>
+<div><div>The workbench includes validators that check certain files in your
+enterprise application module projects for errors.</div><div class="section"> <p>By default, the workbench validates your files automatically
+after any build, including automatic builds. You can also begin the validation
+process manually without building.</p>
+<p>On the workbench Properties window,
+you can enable or disable validators to be used on your projects. Also, you
+can enable or disable validators for each enterprise application module project
+individually on the Properties page for that project.</p>
 <p>Each validator
 can apply to certain types of files, certain project natures, and certain
 project facets. When a validator applies to a project facet or nature, the
 workbench uses that validator only on projects that have that facet or nature.
 Likewise, most validators apply only to certain types of files, so the workbench
 uses those validators only on those types of files.</p>
-<p>For
-more information about validation, see the following topics:</p>
+<p>Follow these steps
+to validate your files:</p>
 </div>
+<ol><li class="stepexpand"><span>Click <span class="menucascade"><span class="uicontrol">Window</span> &gt; <span class="uicontrol">Preferences</span></span>.</span></li>
+<li class="stepexpand"><span>In the Preferences window, click <span class="uicontrol">Validation</span> in
+the left pane.</span> The Validation page of the Preferences window
+lists the validators available in your project and their settings.</li>
+<li class="stepexpand"><span>If you want to set individual validation settings for one or more
+of your projects, select the <span class="uicontrol">Allow projects to override these preference
+settings</span> check box.</span></li>
+<li class="stepexpand"><span>To prevent validation at the global level, select the <span class="uicontrol">Suspend
+all validators</span> check box.</span> If you select this check
+box, you can still enable validation at the project level.</li>
+<li class="stepexpand"><span>If you want to save any resources you have modified before the
+validation begins, select the <span class="uicontrol">Save all modified resources automatically
+prior to validating</span> check box.</span></li>
+<li class="stepexpand"><span>In the list of validators, select the check boxes next to each
+validator you want to use at the global level.</span> Each validator has
+a check box to specify whether it is used on manual validation or on build
+validation.</li>
+<li class="stepexpand"><span>Choose an alternate implementation for a validator by clicking
+the button in the <span class="uicontrol">Settings</span> column.</span> Not all
+validators have alternate implementations.</li>
+<li class="stepexpand"><span>Click <span class="uicontrol">OK</span>.</span></li>
+<li class="stepexpand"><span>If you want to set individual validation settings for one or more
+of your projects, see <a href="tjvalglobalpref.html" title="For a given project, you can override the global validation preferences.">Overriding global validation preferences</a>.</span></li>
+<li class="stepexpand"><span>Begin the validation process by one of the following methods:</span><ul><li>Right-click a project and click <span class="uicontrol">Run Validation</span>.</li>
+<li>Start a build.</li>
+</ul>
+</li>
+</ol>
+<div class="section">Any errors found by the validators are listed in the Problems view.</div>
+<div class="section"></div>
 </div>
 <div>
 <ul class="ullinks">
 <li class="ulchildlink"><strong><a href="../topics/rvalerr.html">Common validation errors and solutions</a></strong><br />
-You may encounter these common error messages when you validate
-your projects.</li>
+You may encounter these common error messages when you validate your projects.</li>
 <li class="ulchildlink"><strong><a href="../topics/rvalidators.html">J2EE Validators</a></strong><br />
-This table lists the validators that are available for the different
-project types and gives a brief description of each validator.</li>
-<li class="ulchildlink"><strong><a href="../topics/tjvalauto.html">Enabling automatic code validation</a></strong><br />
-If you want validation to occur automatically during an automatic
-incremental build that occurs as a result of a resource change, you can enable
-automatic code validation.</li>
-<li class="ulchildlink"><strong><a href="../topics/tjvalbuild.html">Enabling build validation</a></strong><br />
-You can enable validation to occur during a build of a project.</li>
-<li class="ulchildlink"><strong><a href="../topics/tjvaldisable.html">Disabling a validator</a></strong><br />
-You can disable one or more validators for a project.</li>
+This table lists the validators that are available for the different project types and gives a brief description of each validator.</li>
+<li class="ulchildlink"><strong><a href="../topics/tjvaldisable.html">Disabling validation</a></strong><br />
+You can disable one or more validators individually or disable validation entirely. Also, you can set validation settings for your entire workspace and for individual projects.</li>
+<li class="ulchildlink"><strong><a href="../topics/tjvalselect.html">Selecting code validators</a></strong><br />
+You can select specific validators to run during manual and build code validation. You can set each validator to run on manual validation, build validation, both, or neither. </li>
 <li class="ulchildlink"><strong><a href="../topics/tjvalglobalpref.html">Overriding global validation preferences</a></strong><br />
 For a given project, you can override the global validation preferences.</li>
 <li class="ulchildlink"><strong><a href="../topics/tjvalmanual.html">Manually validating code</a></strong><br />
-When you run a manual validation, all resources in the selected
-project are validated with the validators that are selected on the Validation
-page of the project Properties dialog.</li>
-<li class="ulchildlink"><strong><a href="../topics/tjvalselect.html">Selecting code validators</a></strong><br />
-You can select specific validators to run for a project during
-manual and automatic code validation.</li>
+When you run a manual validation, all resources in the selected project are validated according to the validation settings.</li>
 </ul>
 
 <div class="familylinks">

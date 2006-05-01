@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?NLS  TYPE="org.eclipse.help.toc"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+
 <toc label="J2EE applications - WTP" topic="topics/ph-j2eeapp.html">
    <topic label="J2EE Applications" href="topics/ph-j2eeapp.html">
       <topic label="J2EE architecture" href="topics/cjarch.html"/>
@@ -29,12 +30,10 @@
       <topic label="Validating code in enterprise applications" href="topics/tjval.html">
          <topic label="Common validation errors and solutions" href="topics/rvalerr.html"/>
          <topic label="J2EE Validators" href="topics/rvalidators.html"/>
-         <topic label="Enabling automatic code validation" href="topics/tjvalauto.html"/>
-         <topic label="Enabling build validation" href="topics/tjvalbuild.html"/>
-         <topic label="Disabling a validator" href="topics/tjvaldisable.html"/>
+         <topic label="Disabling validation" href="topics/tjvaldisable.html"/>
+         <topic label="Selecting code validators" href="topics/tjvalselect.html"/>
          <topic label="Overriding global validation preferences" href="topics/tjvalglobalpref.html"/>
          <topic label="Manually validating code" href="topics/tjvalmanual.html"/>
-         <topic label="Selecting code validators" href="topics/tjvalselect.html"/>
       </topic>
       <topic label="Reference" href="topics/ph-ref.html">
          <topic label="J2EE Validators" href="topics/rvalidators.html"/>

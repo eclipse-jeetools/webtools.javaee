@@ -19,29 +19,37 @@
 <title>Manually validating code</title>
 </head>
 <body id="tjvalmanual"><a name="tjvalmanual"><!-- --></a>
-<h1 class="topictitle1">Manually validating code</h1>
-<div><p>When you run a manual validation, all resources in the selected
-project are validated with the validators that are selected on the Validation
-page of the project Properties dialog.</p>
-<div class="section"><p>To manually invoke an immediate code validation:</p>
+<div><div>When you run a manual validation, all resources in the selected
+project are validated according to the validation settings.</div><div class="section"><div class="p">The validators used depend on the global and project validation
+settings. When you validate a project manually, the global settings are used
+unless both of the following are true:<ul><li>The <span class="uicontrol">Allow projects to override these preference settings</span> check
+box is selected on the global validation preferences page.</li>
+<li>The <span class="uicontrol">Override validation preferences</span> check box is
+selected on the project's validation preferences page.</li>
+</ul>
+</div>
+<p>Whether the workbench uses the global or project validation preferences,
+only the validators selected to run on manual validation are used when you
+run a manual validation.</p>
+<p>To manually invoke an immediate code validation:</p>
 </div>
 <ol><li class="stepexpand"><span>Select the project that you want to validate.</span></li>
-<li class="stepexpand"><span>Right-click the project and select <span class="uicontrol">Run Validation</span>.</span> If no validators were selected, a message box provides information about
-how to select a validator.</li>
+<li class="stepexpand"><span>Right-click the project and then click <span class="uicontrol">Run Validation</span>.</span> If this option is not available, validation is disabled or there are
+no validators enabled for the project. To enable validation at the global
+level, see <a href="tjval.html" title="The workbench includes validators that check certain files in your enterprise application module projects for errors.">Validating code in enterprise applications</a>. To enable validators for this
+project, see <a href="tjvalglobalpref.html" title="For a given project, you can override the global validation preferences.">Overriding global validation preferences</a>.</li>
 </ol>
-<div class="section">Validation of the project is performed using the selected validators
-for the project.</div>
+<div class="section">The workbench validates the project using the enabled validators.
+Any errors found by the validators are listed in the Problems view.</div>
 </div>
 <div>
 <div class="familylinks">
-<div class="parentlink"><strong>Parent topic:</strong> <a href="../topics/tjval.html">Validating code in enterprise applications</a></div>
+<div class="parentlink"><strong>Parent topic:</strong> <a href="../topics/tjval.html" title="The workbench includes validators that check certain files in your enterprise application module projects for errors.">Validating code in enterprise applications</a></div>
 </div>
 <div class="reltasks"><strong>Related tasks</strong><br />
-<div><a href="../topics/tjvalauto.html" title="If you want validation to occur automatically during an automatic incremental build that occurs as a result of a resource change, you can enable automatic code validation.">Enabling automatic code validation</a></div>
-<div><a href="../topics/tjvalbuild.html" title="You can enable validation to occur during a build of a project.">Enabling build validation</a></div>
-<div><a href="../topics/tjvaldisable.html" title="You can disable one or more validators for a project.">Disabling a validator</a></div>
+<div><a href="../topics/tjvaldisable.html" title="You can disable one or more validators individually or disable validation entirely. Also, you can set validation settings for your entire workspace and for individual projects.">Disabling validation</a></div>
 <div><a href="../topics/tjvalglobalpref.html" title="For a given project, you can override the global validation preferences.">Overriding global validation preferences</a></div>
-<div><a href="../topics/tjvalselect.html" title="You can select specific validators to run for a project during manual and automatic code validation.">Selecting code validators</a></div>
+<div><a href="../topics/tjvalselect.html" title="You can select specific validators to run during manual and build code validation. You can set each validator to run on manual validation, build validation, both, or neither.">Selecting code validators</a></div>
 </div>
 </div></body>
 </html>
