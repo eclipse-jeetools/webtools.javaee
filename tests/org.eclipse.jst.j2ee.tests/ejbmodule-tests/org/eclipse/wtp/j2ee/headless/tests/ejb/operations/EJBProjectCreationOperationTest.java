@@ -51,8 +51,8 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
     		IProject project = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.EJB)[0];
     		IVirtualComponent comp = ComponentCore.createComponent(project);
     		try {
-    			if (!project.isSynchronized(IResource.DEPTH_ZERO))
-    				project.refreshLocal(IResource.DEPTH_ZERO, null);
+    			if (!project.isSynchronized(IResource.DEPTH_INFINITE))
+    				project.refreshLocal(IResource.DEPTH_INFINITE, null);
     		} catch (CoreException e) {
     			Logger.getLogger().logError(e);
     		}

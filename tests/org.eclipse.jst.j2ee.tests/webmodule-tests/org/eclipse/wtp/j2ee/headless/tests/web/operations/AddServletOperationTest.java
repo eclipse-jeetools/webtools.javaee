@@ -62,7 +62,7 @@ public class AddServletOperationTest extends OperationTestCase {
     	IProject proj = ProjectUtilities.getProject(WEB_PROJECT_NAME);
     	try {
     		//webEdit = WebArtifactEdit.getWebArtifactEditForWrite(proj);
-    		webEdit = new WebArtifactEdit(proj, true, true );
+    		webEdit = new WebArtifactEdit(proj, false, true );
     		WebApp webApp = webEdit.getWebApp();
         	addServlet(WEB_PROJECT_NAME, SERVLET_NAME);
         	if (webApp != null){
