@@ -414,24 +414,20 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 						if (J2EEProjectUtilities.isJCAProject(moduleComp.getProject()))
 							return moduleComp.getName()+IJ2EEModuleConstants.RAR_EXT;
 						if (J2EEProjectUtilities.isUtilityProject(moduleComp.getProject())){
-							String uri =  ref.getArchiveName();
-							if( uri == null || uri.length() < 0 ){
-								uri = moduleComp.getName()+IJ2EEModuleConstants.JAR_EXT;
-							}else{
-								String prefix = ref.getRuntimePath().makeRelative().toString();
-								if(prefix.length() > 0){
-									uri = prefix + "/" + uri; //$NON-NLS-1$
-								}
-							}
-							return uri;
+							return getJarURI(ref, moduleComp);
 						}
 						return moduleComp.getName()+IJ2EEModuleConstants.JAR_EXT;
 					}
 						
 				} 
 				else if (moduleComp.isBinary()) {
-					if (ref.getHandle().equals(ModuleURIUtil.archiveComponentfullyQualifyURI(moduleComp.getName())))
-						return ((Module)ref.getDependentObject()).getUri();
+					if (ref.getHandle().equals(ModuleURIUtil.archiveComponentfullyQualifyURI(moduleComp.getName()))) {
+						if (ref.getDependentObject()!=null) {
+							return ((Module)ref.getDependentObject()).getUri();
+						} else {
+							return getJarURI(ref, moduleComp);
+						}
+					}
 				}	
 			}
 		} finally {
@@ -439,6 +435,19 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 				core.dispose();
 		}
 		return null;
+	}
+	
+	private String getJarURI(final ReferencedComponent ref, final IVirtualComponent moduleComp) {
+		String uri =  ref.getArchiveName();
+		if( uri == null || uri.length() < 0 ){
+			uri = moduleComp.getName()+IJ2EEModuleConstants.JAR_EXT;
+		}else{
+			String prefix = ref.getRuntimePath().makeRelative().toString();
+			if(prefix.length() > 0){
+				uri = prefix + "/" + uri; //$NON-NLS-1$
+			}
+		}
+		return uri;
 	}
 	
 	public IVirtualComponent getModuleByManifestURI(final String uri){

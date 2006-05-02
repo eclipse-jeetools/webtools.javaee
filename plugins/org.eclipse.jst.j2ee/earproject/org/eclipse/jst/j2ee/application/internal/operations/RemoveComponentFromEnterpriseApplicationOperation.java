@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
@@ -22,6 +21,7 @@ import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
+import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentOperation;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -34,13 +34,12 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 	}
 
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		super.execute(monitor, info);
 		updateEARDD(monitor);
+		super.execute(monitor, info);
 		return OK_STATUS;
 	}
 
 	protected void updateEARDD(IProgressMonitor monitor) {
-
 		EARArtifactEdit earEdit = null;
 		try {
 			IVirtualComponent comp = (IVirtualComponent) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
@@ -49,11 +48,10 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 			if (earEdit != null) {
 				Application application = earEdit.getApplication();
 				List list = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
-				Map map = (Map) model.getProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP);
 				if (list != null && list.size() > 0) {
 					for (int i = 0; i < list.size(); i++) {
 						IVirtualComponent wc = (IVirtualComponent) list.get(i);
-						removeModule(application, wc, (String) map.get(wc));
+						removeModule(application, earEdit.getModuleURI(wc));
 					}
 				}
 			}
@@ -66,11 +64,9 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 		}
 	}
 
-	protected void removeModule(Application application, IVirtualComponent wc, String name) {
-		Application dd = application;
-		Module existingModule = dd.getFirstModule(name);
-		dd.getModules().remove(existingModule);
-
+	protected void removeModule(final Application application, final String moduleURI) {
+		Module module = application.getFirstModule(moduleURI);
+		application.getModules().remove(module);
 	}
 
 	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
