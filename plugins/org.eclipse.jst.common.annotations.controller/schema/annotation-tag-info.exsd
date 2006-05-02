@@ -196,7 +196,7 @@ not specified.
          <attribute name="value" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  This can be used to supply the user a drop down choice of values for a specific attribute selection.  Each one of these &quot;values&quot; is an entry in that drop down for the selected attribute.
                </documentation>
             </annotation>
          </attribute>

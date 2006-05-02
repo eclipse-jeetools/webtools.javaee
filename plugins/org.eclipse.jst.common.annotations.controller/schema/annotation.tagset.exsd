@@ -72,14 +72,14 @@ description, or a key for the declaring plugin&apos;s resource bundle that point
          <attribute name="parentTagset" type="string">
             <annotation>
                <documentation>
-                  
+                  This can be used optionally to set a tagset as a parent to this one, which will enforce the parent as a prerequisite tag set which will be handled first.
                </documentation>
             </annotation>
          </attribute>
          <attribute name="validValuesHelper" type="string">
             <annotation>
                <documentation>
-                  
+                  This can be used optionally to add a programmatic dynamic helper to supply the user with a set of valid values for attributes in this tag set, depending on attribute selection.
                </documentation>
             </annotation>
          </attribute>
