@@ -49,6 +49,9 @@
       <event-handler type="RUNTIME_CHANGED">
         <delegate class="org.eclipse.jst.common.project.facet.JavaFacetRuntimeChangedDelegate"/>
       </event-handler>
+      <constraint>
+        <conflicts facet="wst.web"/>
+      </constraint>
     </project-facet-version>
 
     <project-facet-version facet="jst.java" version="1.4">
@@ -62,6 +65,9 @@
       <event-handler type="RUNTIME_CHANGED">
         <delegate class="org.eclipse.jst.common.project.facet.JavaFacetRuntimeChangedDelegate"/>
       </event-handler>
+      <constraint>
+        <conflicts facet="wst.web"/>
+      </constraint>
     </project-facet-version>
 
     <project-facet-version facet="jst.java" version="5.0">
@@ -75,6 +81,9 @@
       <event-handler type="RUNTIME_CHANGED">
         <delegate class="org.eclipse.jst.common.project.facet.JavaFacetRuntimeChangedDelegate"/>
       </event-handler>
+      <constraint>
+        <conflicts facet="wst.web"/>
+      </constraint>
     </project-facet-version>
 
     <project-facet-version facet="jst.java" version="6.0">
@@ -88,6 +97,9 @@
       <event-handler type="RUNTIME_CHANGED">
         <delegate class="org.eclipse.jst.common.project.facet.JavaFacetRuntimeChangedDelegate"/>
       </event-handler>
+      <constraint>
+        <conflicts facet="wst.web"/>
+      </constraint>
     </project-facet-version>
 
   </extension>
