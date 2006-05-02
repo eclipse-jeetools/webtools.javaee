@@ -41,7 +41,8 @@ public class EJBImportOperationTest extends ModuleImportOperationTestCase {
 		IProject proj = ProjectUtilities.getProject(projectName);
 		EJBArtifactEdit ejbEdit = null;
 		try {
-			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(proj);
+			//ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(proj);
+			ejbEdit = new EJBArtifactEdit(proj,true,true);
 			ejbEdit.getJ2EEVersion();
 		} finally {
 			if (ejbEdit != null)

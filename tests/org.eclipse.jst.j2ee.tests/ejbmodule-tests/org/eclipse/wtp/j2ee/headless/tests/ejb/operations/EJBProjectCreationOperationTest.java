@@ -17,7 +17,6 @@ import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProper
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
-import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -58,7 +57,8 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
     			Logger.getLogger().logError(e);
     		}
     		eclipseFile = project.findMember(new Path("ejbModule/META-INF/ejb-jar.xml"));
-    		file = ComponentUtilities.findFile(comp, new Path("META-INF/ejb-jar.xml")); //$NON-NLS-1$
+    		//file = ComponentUtilities.findFile(comp, new Path("META-INF/ejb-jar.xml")); //$NON-NLS-1$
+    		file = comp.getRootFolder().getFile(new Path("META-INF/ejb-jar.xml")).getUnderlyingFile(); //$NON-NLS-1$
     	} catch (Exception e) {
     		e.printStackTrace();
     	}
