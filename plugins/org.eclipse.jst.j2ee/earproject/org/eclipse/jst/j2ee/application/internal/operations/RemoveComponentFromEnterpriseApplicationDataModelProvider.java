@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
-import java.util.Set;
-
 import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
@@ -19,12 +17,6 @@ public class RemoveComponentFromEnterpriseApplicationDataModelProvider extends R
 
 	public RemoveComponentFromEnterpriseApplicationDataModelProvider() {
 		super();
-	}
-	
-	public Set getPropertyNames() {
-		Set propertyNames = super.getPropertyNames();
-		propertyNames.add(TARGET_COMPONENTS_TO_URI_MAP);
-		return propertyNames;
 	}
 
 	public IDataModelOperation getDefaultOperation() {
