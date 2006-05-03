@@ -55,7 +55,7 @@ public class DefaultJ2EEComponentCreationWizard extends DataModelWizard {
 		String iconPath = "icons/full/"; //$NON-NLS-1$
 		try {
 			URL installURL = IDEWorkbenchPlugin.getDefault().getDescriptor().getInstallURL();
-			URL url = new URL(installURL, iconPath + "wizban/new_wiz.gif"); //$NON-NLS-1$
+			URL url = new URL(installURL, iconPath + "wizban/new_wiz.png"); //$NON-NLS-1$
 			ImageDescriptor desc = ImageDescriptor.createFromURL(url);
 			setDefaultPageImageDescriptor(desc);
 		} catch (MalformedURLException e) {
