@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2005 BEA Systems, Inc.
+ * Copyright (c) 2005 - 2006 BEA Systems, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,8 @@ package org.eclipse.jst.common.jdt.internal.classpath;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
@@ -76,8 +78,10 @@ public abstract class FlexibleProjectContainer
     protected final IPath path;
     protected final IJavaProject owner;
     protected final IProject project;
+    private final IPath[] paths;
+    private final PathType[] pathTypes;
+    private final List entries;
     private final IClasspathEntry[] cpentries;
-    private final IPath[] watchlist;
     
     public FlexibleProjectContainer( final IPath path,
                                      final IJavaProject owner,
@@ -88,29 +92,75 @@ public abstract class FlexibleProjectContainer
         this.path = path;
         this.owner = owner;
         this.project = project;
+        this.paths = paths;
+        this.pathTypes = types;
         
-        final ArrayList cp = new ArrayList();
-        final ArrayList w = new ArrayList();
-
         if( ! isFlexibleProject( this.project ) )
         {
             // Silently noop if the referenced project is not a flexible
             // project. Should I be doing something else here?
             
+            this.entries = Collections.EMPTY_LIST;
             this.cpentries = new IClasspathEntry[ 0 ];
-            this.watchlist = new IPath[ 0 ];
             
             return;
         }
-              
-        final IVirtualComponent vc = ComponentCore.createComponent( this.project );
         
-        for( int i = 0; i < paths.length; i++ )
+        this.entries = computeClasspathEntries();
+        this.cpentries = new IClasspathEntry[ this.entries.size() ];
+        
+        for( int i = 0, n = this.entries.size(); i < n; i++ )
         {
-			final IVirtualFolder rootFolder = vc.getRootFolder();
-			final IVirtualFolder vf = rootFolder.getFolder( paths[ i ] );
+            this.cpentries[ i ] = newLibraryEntry( (IPath) this.entries.get( i ) );
+        }
+    }
+    
+    public int getKind()
+    {
+        return K_APPLICATION;
+    }
+
+    public IPath getPath()
+    {
+        return this.path;
+    }
+    
+    public IClasspathEntry[] getClasspathEntries()
+    {
+        return this.cpentries;
+    }
+    
+    public boolean isOutOfDate( final IResourceDelta delta )
+    {
+        if( delta == null )
+        {
+            return false;
+        }
+        
+        final List currentEntries = computeClasspathEntries();
+        return ! this.entries.equals( currentEntries );
+    }
+    
+    public abstract void refresh();
+    
+    static ClasspathDecorationsManager getDecorationsManager()
+    {
+        return decorations;
+    }
+    
+    private List computeClasspathEntries()
+    {
+        final List entries = new ArrayList();
+        
+        final IVirtualComponent vc 
+            = ComponentCore.createComponent( this.project );
+        
+        for( int i = 0; i < this.paths.length; i++ )
+        {
+            final IVirtualFolder rootFolder = vc.getRootFolder();
+            final IVirtualFolder vf = rootFolder.getFolder( paths[ i ] );
             
-            if( types[ i ] == PathType.LIB_DIRECTORY )
+            if( this.pathTypes[ i ] == PathType.LIB_DIRECTORY )
             {
                 final IVirtualResource[] contents;
                 
@@ -131,15 +181,8 @@ public abstract class FlexibleProjectContainer
                     
                     if( isJarFile( r.getLocation().toFile() ) )
                     {
-                        cp.add( newLibraryEntry( p ) );
+                        entries.add( p );
                     }
-                }
-                
-                final IContainer[] folders = vf.getUnderlyingFolders();
-                
-                for( int j = 0; j < folders.length; j++ )
-                {
-                    w.add( folders[ j ].getFullPath() );
                 }
             }
             else
@@ -152,54 +195,13 @@ public abstract class FlexibleProjectContainer
                     
                     if( ! isSourceDirectory( p ) )
                     {
-                        cp.add( newLibraryEntry( p ) );
+                        entries.add( p );
                     }
                 }
             }
         }
         
-        w.add( this.project.getFullPath().append( IModuleConstants.COMPONENT_FILE_PATH ) );
-            
-        this.cpentries = new IClasspathEntry[ cp.size() ];
-        cp.toArray( this.cpentries );
-        
-        this.watchlist = new IPath[ w.size() ];
-        w.toArray( this.watchlist );
-    }
-    
-    public int getKind()
-    {
-        return K_APPLICATION;
-    }
-
-    public IPath getPath()
-    {
-        return this.path;
-    }
-    
-    public IClasspathEntry[] getClasspathEntries()
-    {
-        return this.cpentries;
-    }
-    
-    public boolean isOutOfDate( final IResourceDelta delta )
-    {
-        for( int i = 0; i < this.watchlist.length; i++ )
-        {
-            if(delta != null && delta.findMember( this.watchlist[ i ] ) != null )
-            {
-                return true;
-            }
-        }
-        
-        return false;
-    }
-    
-    public abstract void refresh();
-    
-    static ClasspathDecorationsManager getDecorationsManager()
-    {
-        return decorations;
+        return entries;
     }
     
     private IClasspathEntry newLibraryEntry( final IPath p )
