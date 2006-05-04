@@ -608,6 +608,10 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 				fieldMapping.setJdbcType(CMPUtils.jdbcTypes[((Integer) value).intValue()]);
 				break;
 			case 4:
+				String sqlType = sqlTypes[((Integer) value).intValue()];
+				//Ugly fix - if the sql type is used to create/alter a table need some size
+				if("VARCHAR".equals(sqlType))
+					sqlType += "(255)";
 				fieldMapping.setSqlType(sqlTypes[((Integer) value).intValue()]);
 				break;
 			case 5:

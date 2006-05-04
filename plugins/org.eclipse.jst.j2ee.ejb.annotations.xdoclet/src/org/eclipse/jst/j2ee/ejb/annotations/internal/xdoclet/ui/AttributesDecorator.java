@@ -52,7 +52,7 @@ public class AttributesDecorator {
 	public void decorate(final Composite composite) {
 
 		Group attributes = new Group(composite, SWT.NONE);
-		attributes.setText("Attributes " + tag.getAttribute("name"));
+		attributes.setText(Messages.label_attributes + " "+ tag.getAttribute("name"));
 		attributes.setToolTipText(tag.getAttribute("description"));
 
 		GridLayout layout = new GridLayout(6, false);
@@ -76,7 +76,7 @@ public class AttributesDecorator {
 //			attributeGroup.setLayoutData(gridData);
 			createAttributeControl(attributes, attribute);
 			String includeId = attribute.getAttribute("id") + ".include";
-			Button bool = createLabeledCheck("include", preferenceStore.getBooleanPropertyNoGlobal(includeId), attributes);
+			Button bool = createLabeledCheck(Messages.label_include, preferenceStore.getBooleanPropertyNoGlobal(includeId), attributes);
 			bool.setData(attribute);
 			allProperties.put(includeId, bool);
 			bool.addSelectionListener(new SelectionListener() {

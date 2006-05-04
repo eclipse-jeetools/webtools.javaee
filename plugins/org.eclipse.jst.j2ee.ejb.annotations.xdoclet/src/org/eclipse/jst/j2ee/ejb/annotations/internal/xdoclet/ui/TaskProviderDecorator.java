@@ -47,7 +47,9 @@ public class TaskProviderDecorator {
 	private IExtension[] extensions;
 
 	private XDocletPreferenceStore preferenceStore;
+
 	Table table;
+
 	Button edit;
 
 	public TaskProviderDecorator(IExtension[] extensions, XDocletPreferenceStore preferenceStore) {
@@ -68,7 +70,7 @@ public class TaskProviderDecorator {
 		GridLayout layout;
 		GridData gridData;
 		Group libraryPanel = new Group(parent, SWT.NONE);
-		libraryPanel.setText("Tasks");
+		libraryPanel.setText(Messages.label_tasks);
 		layout = new GridLayout(3, false);
 		libraryPanel.setLayout(layout);
 		gridData = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL);
@@ -92,7 +94,7 @@ public class TaskProviderDecorator {
 		column.setWidth(200);
 
 		edit = new Button(libraryPanel, SWT.PUSH);
-		edit.setText("Edit...");
+		edit.setText(Messages.label_edit);
 		GridData data = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_BEGINNING);
 		edit.setLayoutData(data);
 		edit.setEnabled(false);
@@ -139,9 +141,9 @@ public class TaskProviderDecorator {
 		tableViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			public void selectionChanged(SelectionChangedEvent event) {
 				Object obj = getSelection(event.getSelection());
-				boolean enabled= false;
-				if(obj != null && obj instanceof IExtension)
-					enabled = ((IExtension)obj).getConfigurationElements().length >1;
+				boolean enabled = false;
+				if (obj != null && obj instanceof IExtension)
+					enabled = ((IExtension) obj).getConfigurationElements().length > 1;
 				edit.setEnabled(enabled);
 			}
 		});
@@ -170,7 +172,7 @@ public class TaskProviderDecorator {
 		return checked.toArray();
 	}
 
-	protected static String[] columnNames = { "include", "task" };
+	protected static String[] columnNames = { Messages.label_include, Messages.label_task };
 
 	protected int getColumnIndex(String columName) {
 		if (columName == null)

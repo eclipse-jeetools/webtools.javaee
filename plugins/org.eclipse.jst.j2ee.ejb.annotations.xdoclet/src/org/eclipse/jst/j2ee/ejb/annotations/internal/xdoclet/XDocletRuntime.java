@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.Messages;
 
 public class XDocletRuntime {
 
@@ -142,7 +143,7 @@ public class XDocletRuntime {
 		if (vLibs == null)
 			errors.add(new Status(IStatus.ERROR,
 					XDocletAnnotationPlugin.PLUGINID, 0,
-					"Could not find library for version: " + version, null));
+					Messages.error_message_no_lib+ version, null));
 		else {
 			for (int i = 0; i < vLibs.length; i++) {
 				String jar = vLibs[i];
@@ -157,7 +158,7 @@ public class XDocletRuntime {
 				if (!libFile.exists() && !libFile2.exists())
 					errors.add(new Status(IStatus.ERROR,
 							XDocletAnnotationPlugin.PLUGINID, 0,
-							"Could not find library: " + jar, null));
+							Messages.error_message_no_lib + jar, null));
 			}
 		}
 		return (IStatus[]) errors.toArray(new IStatus[errors.size()]);

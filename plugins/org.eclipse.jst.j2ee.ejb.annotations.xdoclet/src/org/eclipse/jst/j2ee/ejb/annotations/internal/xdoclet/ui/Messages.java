@@ -31,6 +31,13 @@ public final class Messages extends NLS {
 	public static String label_global_pref;
 	public static String desc_global_pref;
 	
+	public static String label_attributes;
+	public static String label_include;
+	public static String label_tasks;
+	public static String label_task;
+	public static String label_edit;
+	public static String error_message_no_lib;
+	
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
