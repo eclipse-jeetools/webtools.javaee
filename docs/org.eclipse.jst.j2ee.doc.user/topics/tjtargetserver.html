@@ -25,7 +25,7 @@ runtime environments for your J2EE projects. The target server is specified
 during project creation and import, and it can be changed in the project properties.
 The target server setting is the default mechanism for setting the class path
 for J2EE projects.</div><div class="section"><p>In order to support different application servers that use different
-JDK levels for their Javaâ„¢ Runtime Environment (JRE), the workbench
+JDK levels for their Java™ Runtime Environment (JRE), the workbench
 prompts you for a target server setting for each J2EE project. For example,
 if you want to take advantage of the features of JDK 1.4.2, your applications
 require different class path entries than those that were used in previous
@@ -56,7 +56,7 @@ project creation and import wizards prompt you to specify the target server
 for the resulting projects. The list of target servers that you can choose
 from is filtered based on installed runtimes, the J2EE level of the application,
 and the J2EE module type. For example, for EJB projects only application servers
-that support Enterprise JavaBeansâ„¢ are displayed. All projects
+that support Enterprise JavaBeans™ are displayed. All projects
 inside a single EAR file must be targeted to the same server. If you create
 a new project and add it to an existing EAR project during creation, the project
 inherits the target server setting of the EAR project.</p>
@@ -70,24 +70,23 @@ the target runtime and default server for an existing project:</p>
 <ol><li class="stepexpand"><span>In the Project Explorer view of the J2EE perspective, right-click
 the enterprise application or module project, and select <span class="uicontrol">Properties</span> from
 the pop-up menu.</span> The Properties dialog for the project opens.</li>
-<li class="stepexpand"><span>Select the <span class="uicontrol">Project Facets</span> page on the Properties
-dialog.</span></li>
-<li class="stepexpand"><span>Click the <span class="uicontrol">Add/Remove Project Facets</span> button.</span></li>
-<li class="stepexpand"><span>In the Select Project Facets window, click the <span class="uicontrol">Show
-Runtimes</span> button.</span> The <span class="uicontrol">Runtimes</span> list
-shows all of the runtimes in your workspace. The grayed-out runtimes are not
-compatible with the currently selected project facets. The runtime in bold,
-if there is one, is the preferred runtime for the project.</li>
+<li class="stepexpand"><span>Select the <span class="uicontrol">Targeted Runtimes</span> page on the
+Properties dialog.</span></li>
 <li class="stepexpand"><span>In the <span class="uicontrol">Runtimes</span> list, select the check boxes
-next to the runtimes you want to develop the project for.</span> The runtimes
-you select filter the list of available facets in the <span class="uicontrol">Project Facet</span> list.<p>If
-you select any runtimes for the project, you must make one of those runtimes
-the preferred runtime for the project. If you select only one runtime from
-the list, that runtime is automatically made the preferred runtime.</p>
+next to each of the runtimes that you want to develop the project for.</span> <p>Only the runtimes compatible with the project's facets are shown.
+You can select the <span class="uicontrol">Show all runtimes</span> check box to display
+the runtimes not compatible with the project's current facet configuration.
+These runtimes are grayed out.</p>
+<p>If you don't see the runtime that you
+want to use, you need to add it to the runtimes in the workbench. See <a href="../org.eclipse.wst.server.ui.doc.user/topics/twinstprf.html">Defining the installed server runtime environments</a>.</p>
 </li>
-<li class="stepexpand"><span>To select the preferred runtime, click on a runtime and then click
-the <span class="uicontrol">Make Preferred</span> button.</span> The preferred
-runtime is shown in bold text.</li>
+<li class="stepexpand"><span>To select the primary runtime, click on a runtime and then click
+the <span class="uicontrol">Make Primary</span> button.</span> <p>If you select
+any runtimes for the project, you must make one of those runtimes the primary
+runtime for the project. If you select only one runtime from the list, that
+runtime is automatically made the primary runtime. The primary runtime is
+shown in bold text.</p>
+</li>
 <li class="stepexpand"><span>Click <span class="uicontrol">Finish</span>.</span></li>
 <li class="stepexpand"><span>Click <span class="uicontrol">OK</span>.</span></li>
 </ol>
@@ -99,5 +98,6 @@ runtime is shown in bold text.</li>
 <div class="relconcepts"><strong>Related concepts</strong><br />
 <div><a href="../topics/cjarch.html" title="The Java 2 Platform, Enterprise Edition (J2EE) provides a standard for developing multitier, enterprise services.">J2EE architecture</a></div>
 </div>
-</div></body>
+<div><strong>Related information</strong><div><a href="../../org.eclipse.wst.server.ui.doc.user/topics/twinstprf.html">Defining the installed server runtime environments</a></div>
+</div></div></body>
 </html>
