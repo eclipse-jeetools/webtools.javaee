@@ -118,14 +118,16 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 		final int flags = delta.getFlags();
 
 		if (kind == IResourceDelta.REMOVED) {
-			// Remove all entries int the project dependency cache
-			//cache.removeProject(project);
-			// if the kind is REMOVED and there are no special flags, the project was deleted
-			ProjectRefactorMetadata metadata = (ProjectRefactorMetadata) deletedProjectMetadata.remove(project.getName()); 
-			// note: only projects with ModuleCoreNature will have cached metadata
-			if (metadata != null) {
-				processDelete(metadata);
-			} 
+			if (flags == 0) {
+				// Remove all entries int the project dependency cache
+				//cache.removeProject(project);
+				// if the kind is REMOVED and there are no special flags, the project was deleted
+				ProjectRefactorMetadata metadata = (ProjectRefactorMetadata) deletedProjectMetadata.remove(project.getName()); 
+				// note: only projects with ModuleCoreNature will have cached metadata
+				if (metadata != null) {
+					processDelete(metadata);
+				} 
+			}
 		} else if (kind == IResourceDelta.ADDED && wasRenamed(flags)) { // was renamed
 			// get the original name
 			final String originalName = delta.getMovedFromPath().lastSegment();
@@ -167,6 +169,7 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 	 * Processes the renaming of a project.
 	 */
 	private void processRename(final ProjectRefactorMetadata originalMetadata, final ProjectRefactorMetadata newMetadata ) {
+		System.out.println("processing rename");
 		WorkspaceJob job = new WorkspaceJob("J2EEProjectRenameJob") {
 			public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
 				final IDataModel dataModel = DataModelFactory.createDataModel(new ProjectRenameDataModelProvider());
@@ -192,6 +195,7 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 	 * Processes the deletion of a project.
 	 */
 	private void processDelete(final ProjectRefactorMetadata metadata) {
+		System.out.println("processing delete");
 		WorkspaceJob job = new WorkspaceJob("J2EEProjectDeleteJob") {
 			public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
 				final IDataModel dataModel = DataModelFactory.createDataModel(new ProjectDeleteDataModelProvider());
