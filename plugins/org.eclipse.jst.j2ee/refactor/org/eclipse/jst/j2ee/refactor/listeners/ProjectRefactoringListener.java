@@ -169,7 +169,6 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 	 * Processes the renaming of a project.
 	 */
 	private void processRename(final ProjectRefactorMetadata originalMetadata, final ProjectRefactorMetadata newMetadata ) {
-		System.out.println("processing rename");
 		WorkspaceJob job = new WorkspaceJob("J2EEProjectRenameJob") {
 			public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
 				final IDataModel dataModel = DataModelFactory.createDataModel(new ProjectRenameDataModelProvider());
@@ -195,7 +194,6 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 	 * Processes the deletion of a project.
 	 */
 	private void processDelete(final ProjectRefactorMetadata metadata) {
-		System.out.println("processing delete");
 		WorkspaceJob job = new WorkspaceJob("J2EEProjectDeleteJob") {
 			public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
 				final IDataModel dataModel = DataModelFactory.createDataModel(new ProjectDeleteDataModelProvider());
