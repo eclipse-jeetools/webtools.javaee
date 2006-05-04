@@ -56,8 +56,6 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 	 */
 	//private final ProjectDependencyCache cache;
 	
-	//private boolean hasProcessedSavedState = false;
-	
 	public ProjectRefactoringListener() {//final ProjectDependencyCache dependencyCache) {
 		//cache = dependencyCache;
 		// force a refresh of the DependencyGraphManager; was hitting an NPE
@@ -66,44 +64,13 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 		DependencyGraphManager.getInstance();
 	}
 	
-	// XXX not very feasible to make workspace save participation work given the need to process the
-	// pre-delete events
-	/*private synchronized void processPendingEvents() {
-		if (hasProcessedSavedState) {
-			return;
-		}
-		hasProcessedSavedState = true;
-		//process any project rename/delete events that have occurred prior to our activation 
-		try {
-			ISavedState lastState =	ResourcesPlugin.getWorkspace().addSaveParticipant(J2EEPlugin.getDefault(), this);
-			if (lastState != null) {
-				lastState.processResourceChangeEvents(this);
-			}
-		} catch (CoreException ce) {
-			Logger.getLogger().logError(ce);
-		}
-	}*/
-	
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.resources.IResourceChangeListener#resourceChanged(org.eclipse.core.resources.IResourceChangeEvent)
 	 */
 	public void resourceChanged(final IResourceChangeEvent event) {
-		// if we haven't already processed the pending resource change events, process them 
-		//processPendingEvents();
-		
 		// need to capture PRE_DELETE events so that metadata about the
 		// deleted project can be collected and cached
 		try {
-			/*if (event.getType() == IResourceChangeEvent.POST_BUILD) {
-				// we get this event type when processing pending events
-				IResource resource = event.getResource();
-				IResourceDelta delta = event.getDelta();
-				if (resource instanceof IProject && delta.getKind() == IResourceDelta.REMOVED) {
-					cacheDeletedProjectMetadata((IProject)resource);
-				} else {
-					delta.accept(this);
-				}
-			} else */
 			if (event.getType() == IResourceChangeEvent.PRE_DELETE) {
 				// for now, only dependencies on ModuleCoreNature projects
 				final IProject project = (IProject) event.getResource();
@@ -151,19 +118,13 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 		final int flags = delta.getFlags();
 
 		if (kind == IResourceDelta.REMOVED) {
-			if (flags == 0) {
-				// Remove all entries int the project dependency cache
-				//cache.removeProject(project);
-				// if the kind is REMOVED and there are no special flags, the project was deleted
-				ProjectRefactorMetadata metadata = (ProjectRefactorMetadata) deletedProjectMetadata.remove(project.getName()); 
-				// note: only projects with ModuleCoreNature will have cached metadata
-				if (metadata != null) {
-					processDelete(metadata);
-				} else {
-					// likely due to missing the pre-delete event, ignore for now
-					//Logger.getLogger().logWarning(RefactorResourceHandler.getString("pre_delete_not_received_for_removed",  
-					//new Object[]{project.getName()}));
-				}
+			// Remove all entries int the project dependency cache
+			//cache.removeProject(project);
+			// if the kind is REMOVED and there are no special flags, the project was deleted
+			ProjectRefactorMetadata metadata = (ProjectRefactorMetadata) deletedProjectMetadata.remove(project.getName()); 
+			// note: only projects with ModuleCoreNature will have cached metadata
+			if (metadata != null) {
+				processDelete(metadata);
 			} 
 		} else if (kind == IResourceDelta.ADDED && wasRenamed(flags)) { // was renamed
 			// get the original name
@@ -250,32 +211,4 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
 		job.schedule();
 	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.resources.ISaveParticipant#doneSaving(org.eclipse.core.resources.ISaveContext)
-	 */
-//	public void doneSaving(ISaveContext context) {
-//	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.resources.ISaveParticipant#prepareToSave(org.eclipse.core.resources.ISaveContext)
-	 */
-//	public void prepareToSave(ISaveContext context) throws CoreException {
-//	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.resources.ISaveParticipant#rollback(org.eclipse.core.resources.ISaveContext)
-	 */
-//	public void rollback(ISaveContext context) {
-//	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.resources.ISaveParticipant#saving(org.eclipse.core.resources.ISaveContext)
-	 */
-//	public void saving(ISaveContext context) throws CoreException {
-//		// no state to be saved by the plug-in, but request a
-//		// resource delta to be used on next activation.
-//	    context.needDelta();
-//	}
-
 }
