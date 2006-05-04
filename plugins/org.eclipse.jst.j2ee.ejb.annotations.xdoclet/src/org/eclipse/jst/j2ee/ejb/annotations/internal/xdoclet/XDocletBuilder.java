@@ -184,7 +184,7 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 		// Currently, just use the Task Tags preference
 		boolean locallyEnabled = XDocletPreferenceStore.forProject(currentProject).getBooleanProperty(
 				XDocletPreferenceStore.XDOCLETBUILDERACTIVE);
-		if (!locallyEnabled || currentProject == null || !currentProject.isAccessible()) {
+		if (!locallyEnabled || currentProject == null || !currentProject.isAccessible()  || !isValidRuntime(currentProject)) {
 			return new IProject[] { currentProject };
 		}
 
@@ -207,7 +207,8 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 	}
 
 	void build(int kind, Map args, IResource resource, IContentType[] types, IProgressMonitor monitor) {
-		if (!monitor.isCanceled() && resource.getType() == IResource.FILE) {
+		boolean validRuntime = resource != null && isValidRuntime(resource.getProject());
+		if (!monitor.isCanceled() && resource.getType() == IResource.FILE && validRuntime) {
 			XDocletAntProjectBuilder antProjectBuilder = XDocletAntProjectBuilder.Factory.newInstance(resource);
 			if (antProjectBuilder != null)
 				antProjectBuilder.buildUsingAnt(resource, monitor);
@@ -368,5 +369,14 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 
 	public static void startup() {
 		// Default
+	}
+	
+	public boolean isValidRuntime(IProject currentProject) {
+
+		XDocletPreferenceStore store = XDocletPreferenceStore.forProject(currentProject);
+		XDocletRuntime runtime = XDocletExtensionUtil.getRuntime(store
+				.getProperty(XDocletPreferenceStore.XDOCLETVERSION));
+		runtime.setHome(store.getProperty(XDocletPreferenceStore.XDOCLETHOME));
+		return runtime.isValid();
 	}
 }
