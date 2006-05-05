@@ -404,6 +404,14 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		aFile.setLoadingContainer(getContainer());
 		filesHolder.addFile(aFile, externalDiskFile);
 	}
+	
+	protected void addWorkspaceFile(String uri, IFile workspaceFile) {
+		File aFile = getArchiveFactory().createFile();
+		aFile.setURI(uri);
+		aFile.setOriginalURI(uri);
+		aFile.setLoadingContainer(getContainer());
+		filesHolder.addFile(aFile, workspaceFile);
+	}
 
 	public InputStream getInputStream(String uri) throws IOException, FileNotFoundException {
 		if (filesHolder.contains(uri)) {

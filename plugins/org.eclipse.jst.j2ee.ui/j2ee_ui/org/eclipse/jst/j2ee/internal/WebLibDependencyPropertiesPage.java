@@ -355,7 +355,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 						
 						//IPath fullPath = project.getFile(selected[i]).getFullPath();				
 						IVirtualComponent archive = ComponentCore.createArchiveComponent( model.getComponent().getProject(), type +
-									selected[i].toString());
+									selected[i].makeRelative().toString());
 						
 						ArrayList vlist = new ArrayList();
 						IVirtualReference[] oldrefs = model.getComponent().getReferences();

@@ -560,7 +560,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 				//IPath fullPath = project.getFile(selected[i]).getFullPath();	
 				String type = VirtualArchiveComponent.LIBARCHIVETYPE + IPath.SEPARATOR;
 				IVirtualComponent archive = ComponentCore.createArchiveComponent( earComponent.getProject(), type +
-							selected[i].toString());
+							selected[i].makeRelative().toString());
 				
 				ArrayList vlist = new ArrayList();
 			

@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.internal.web.archive.operations;
 
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
@@ -54,13 +55,22 @@ public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 		for (int i = 0; i < libModules.length; i++) {
 			IVirtualReference iLibModule = libModules[i];
 			IVirtualComponent looseComponent = iLibModule.getReferencedComponent();
+			String uri = null;
 			if (looseComponent.isBinary()) {
 				VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) looseComponent;
 				java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
-				String uri = iLibModule.getRuntimePath().makeRelative().toString() + "/" + diskFile.getName(); //$NON-NLS-1$
-				addExternalFile(uri, diskFile);
+				if (diskFile!=null && diskFile.exists()) {
+					uri = iLibModule.getRuntimePath().makeRelative().toString() + "/" + diskFile.getName(); //$NON-NLS-1$
+					addExternalFile(uri, diskFile);
+				}
+				else {
+					IFile file = archiveComp.getUnderlyingWorkbenchFile();
+					uri = iLibModule.getRuntimePath().makeRelative().toString() + "/" + file.getName(); //$NON-NLS-1$
+					addWorkspaceFile(uri, file);
+				}
+				
 			} else {
-				String uri = iLibModule.getRuntimePath().makeRelative().toString() + "/" + looseComponent.getName() + ".jar";  //$NON-NLS-1$//$NON-NLS-2$
+				uri = iLibModule.getRuntimePath().makeRelative().toString() + "/" + looseComponent.getName() + ".jar";  //$NON-NLS-1$//$NON-NLS-2$
 				try {
 					Archive utilJAR = J2EEProjectUtilities.asArchive(uri, looseComponent.getProject(), isExportSource());
 					if (utilJAR == null)
