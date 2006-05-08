@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoDecoratorUtility.java,v $
- *  $Revision: 1.6 $  $Date: 2006/05/08 15:37:54 $ 
+ *  $Revision: 1.7 $  $Date: 2006/05/08 16:50:42 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
@@ -34,9 +34,6 @@ import org.eclipse.jem.java.*;
 /**
  * This is a utility class for handling the BeanInfo decorators with respect to the overrides (explicit settings) vs. introspected/reflected (implicit
  * settings) It handles the transmission of data from the VM for introspection.
- * <p>
- * TODO Need to take advantage of {@link FeatureAttributeValue#isImplicitValue()} to allow mixing of implicit and non-implicit feature attribute
- * values. Currently it is either no implicits or all implicits.
  * @since 1.1.0
  */
 public class BeanInfoDecoratorUtility {
@@ -66,7 +63,7 @@ public class BeanInfoDecoratorUtility {
 		if ((implicitSettings & FeatureDecoratorImpl.FEATURE_ATTRIBUTES_IMPLICIT) != 0) {
 			for (Iterator itr = decor.getAttributes().listIterator(); itr.hasNext();) {
 				FeatureAttributeMapEntryImpl entry = (FeatureAttributeMapEntryImpl)itr.next();
-				if (entry.isImplicit()) {
+				if (entry.getTypedValue().isImplicitValue()) {
 					itr.remove();
 				}
 			}
@@ -515,8 +512,9 @@ public class BeanInfoDecoratorUtility {
 				FeatureAttributeMapEntryImpl entry = (FeatureAttributeMapEntryImpl) ((BeaninfoFactoryImpl) BeaninfoFactory.eINSTANCE)
 						.createFeatureAttributeMapEntry();
 				entry.setTypedKey(record.attributeNames[i]);
-				entry.setTypedValue(record.attributeValues[i]);
-				entry.setImplicit(true);
+				FeatureAttributeValue fv = record.attributeValues[i];
+				fv.setImplicitValue(true);
+				entry.setTypedValue(fv);
 				attrs.add(entry);
 			}
 			implicitSettings |= FeatureDecoratorImpl.FEATURE_ATTRIBUTES_IMPLICIT;
@@ -1124,7 +1122,7 @@ public class BeanInfoDecoratorUtility {
 		if ((implicitSettings & FeatureDecoratorImpl.FEATURE_ATTRIBUTES_IMPLICIT) != 0) {
 			for (Iterator itr = decor.getAttributes().listIterator(); itr.hasNext();) {
 				FeatureAttributeMapEntryImpl entry = (FeatureAttributeMapEntryImpl)itr.next();
-				if (entry.isImplicit()) {
+				if (entry.getTypedValue().isImplicitValue()) {
 					doAddToEnd(cd, fcs, BeaninfoPackage.eINSTANCE.getFeatureDecorator_Attributes(), entry, true);
 				}
 			}

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: FeatureAttributeMapEntryImpl.java,v $
- *  $Revision: 1.6 $  $Date: 2006/05/08 15:37:54 $ 
+ *  $Revision: 1.7 $  $Date: 2006/05/08 16:50:42 $ 
  */
 
 package org.eclipse.jem.internal.beaninfo.impl;
@@ -46,13 +46,6 @@ import org.eclipse.jem.internal.beaninfo.common.FeatureAttributeValue;
  * @generated
  */
 public class FeatureAttributeMapEntryImpl extends EObjectImpl implements BasicEMap.Entry {
-	
-	/**
-	 * Flag to indicate whether this FeatureAttributeMapEntry is implicit or not.
-	 * Default value is false.
-	 * @see #isImplicit()
-	 */
-	protected boolean implicit = false;
 	
 	/**
 	 * The default value of the '{@link #getTypedKey() <em>Key</em>}' attribute.
@@ -310,24 +303,6 @@ public class FeatureAttributeMapEntryImpl extends EObjectImpl implements BasicEM
 	public EMap getEMap() {
 		EObject container = eContainer();
 		return container == null ? null : (EMap)container.eGet(eContainmentFeature());
-	}
-
-	/**
-	 * Flag to indicate whether this FeatureAttributeMapEntry is implicit or not.
-	 * 
-	 * @return true if the entry is implicit, false otherwise.
-	 */
-	public boolean isImplicit() {
-		return implicit;
-	}
-
-	/**
-	 * Mark this FeatureAttributeMapEntry as implicit.
-	 * 
-	 * @param implicit set to true if the entry is implicit, false otherwise
-	 */
-	public void setImplicit(boolean implicit) {
-		this.implicit = implicit;
 	}
 
 } //FeatureAttributeMapEntryImpl
