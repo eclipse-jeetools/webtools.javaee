@@ -52,6 +52,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DeploymentDescriptorLoadException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
@@ -110,7 +111,12 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 	}
 
 	public static Archive getClientJAR(EJBJarFile file, EARFile earFile) {
-		EJBJar jar = file.getDeploymentDescriptor();
+		EJBJar jar = null;
+		try{
+			jar = file.getDeploymentDescriptor();
+		}catch(DeploymentDescriptorLoadException exc){
+			return null;
+		}
 		if (jar == null)
 			return null;
 		String clientJAR = jar.getEjbClientJar();

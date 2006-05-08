@@ -39,6 +39,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DeploymentDescriptorLoadException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ManifestException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
@@ -204,6 +205,8 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 						} catch (ManifestException mfEx) {
 							Logger.getLogger().logError(mfEx);
 							anArchive.setManifest((ArchiveManifest) new ArchiveManifestImpl());
+						}catch(DeploymentDescriptorLoadException ddException){
+							Logger.getLogger().logError(ddException);
 						}
 					}
 				}
