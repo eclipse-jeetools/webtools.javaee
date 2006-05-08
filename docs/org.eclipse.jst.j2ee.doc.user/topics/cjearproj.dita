@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+ "concept.dtd">
+<concept id="cjearproj" xml:lang="en-us">
+<title outputclass="id_title">Enterprise application projects</title>
+<shortdesc outputclass="id_shortdesc">An enterprise application project ties
+together the resources that are required to deploy a J2EE enterprise application.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>enterprise application projects<indexterm>overview</indexterm></indexterm>
+<indexterm>enterprise application projects<indexterm>artifacts</indexterm></indexterm>
+<indexterm>projects<indexterm>enterprise application</indexterm></indexterm>
+<indexterm>J2EE modules<indexterm>enterprise application projects</indexterm></indexterm>
+</keywords>
+</metadata></prolog>
+<conbody outputclass="id_conbody">
+<p outputclass="anchor_topictop">An enterprise application project contains
+a set of references to other J2EE modules and <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> projects that are combined to compose
+an EAR file. These projects can be Web modules, EJB modules, application client
+modules, connector modules, general utility <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> JAR files, and EJB client JAR files.
+Enterprise application projects created in the workbench include a deployment
+descriptor, as well as files that are common to all J2EE modules that are
+defined in the deployment descriptor.</p>
+<p>When a J2EE module project is created, it can be associated with an enterprise
+application project. The project wizards aid this by allowing you to specify
+a new or existing enterprise application project. Enterprise application projects
+are exported as EAR (enterprise archive) files that include all files defined
+in the Enterprise Application project as well as the appropriate archive file
+for each J2EE module or utility JAR project defined in the deployment descriptor,
+such as Web archive (WAR) files and EJB JAR files.</p>
+<p>An enterprise application can contain utility JAR files that are to be
+used by the contained modules. This allows sharing of code at the application
+level by multiple Web, EJB, or application client modules. These JAR files
+are commonly referred to as <i>utility JAR files.</i> The utility JAR files
+defined for an enterprise application project can be actual JAR files in the
+project, or you can include utility <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> projects that are designated to become
+the utility JAR files during assembly and deployment.</p>
+<p>To start developing J2EE applications, you typically first create an enterprise
+application project to tie together your Web, EJB, and application client
+modules. The enterprise application project is used to compose an entire application
+from the various modules. Since no source code is built directly into an enterprise
+application, these projects are not <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> projects, and they are not compiled
+by the <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> builder.</p>
+<p>When you create an enterprise application project using the workbench,
+the following key files are automatically created:<dl><dlentry outputclass="id_projectfiles_top">
+<dt>META-INF/application.xml</dt>
+<dd>This file is the deployment descriptor for the enterprise application,
+as defined in the J2EE specification, that is responsible for associating
+J2EE modules to a specific EAR file. This file is created in the <uicontrol>META-INF</uicontrol> folder.</dd>
+</dlentry><dlentry>
+<dt>.settings/.component</dt>
+<dd>This file matches the location of each module's source code to the location
+of the module at deployment. For each module included for deployment with
+the EAR file, the .component file lists its source path and deployment path.
+This file is created in the <uicontrol>.settings</uicontrol> folder.</dd>
+</dlentry><dlentry>
+<dt>.settings/org.eclipse.wst.common.project.facet.core.xml</dt>
+<dd>This file lists the facets of the enterprise application project. See <xref
+href="taddingfacet.dita"></xref>. This file is created in the <uicontrol>.settings</uicontrol> folder.</dd>
+</dlentry><dlentry outputclass="id_projectfiles_bottom">
+<dt>.project</dt>
+<dd>This is a workbench artifact, the standard project description file.</dd>
+</dlentry></dl></p>
+<p outputclass="anchor_topicbottom"></p>
+</conbody>
+</concept>

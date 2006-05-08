@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
+ "task.dtd">
+<task id="tjvalmanual" xml:lang="en-us">
+<title outputclass="id_title">Manually validating code</title>
+<shortdesc outputclass="id_shortdesc">When you run a manual validation, all
+resources in the selected project are validated according to the validation
+settings.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>validation<indexterm>manual</indexterm></indexterm><indexterm>code
+validation<indexterm>manual</indexterm></indexterm></keywords>
+</metadata></prolog>
+<taskbody outputclass="id_taskbody">
+<context outputclass="id_context"><p outputclass="anchor_topictop">The validators used depend on the
+global and project validation settings. When you validate a project manually,
+the global settings are used unless both of the following are true:<ul>
+<li>The <uicontrol>Allow projects to override these preference settings</uicontrol> check
+box is selected on the global validation preferences page.</li>
+<li>The <uicontrol>Override validation preferences</uicontrol> check box is
+selected on the project's validation preferences page.</li>
+</ul></p><p>Whether the workbench uses the global or project validation preferences,
+only the validators selected to run on manual validation are used when you
+run a manual validation.</p><p>To manually invoke an immediate code validation:</p></context>
+<steps outputclass="id_steps">
+<step><cmd>Select the project that you want to validate.</cmd></step>
+<step><cmd>Right-click the project and then click <uicontrol>Run Validation</uicontrol>.</cmd>
+<info>If this option is not available, validation is disabled or there are
+no validators enabled for the project. To enable validation at the global
+level, see <xref href="tjval.dita"></xref>. To enable validators for this
+project, see <xref href="tjvalglobalpref.dita"></xref>.</info></step>
+</steps>
+<result outputclass="id_result">The workbench validates the project using
+the enabled validators. Any errors found by the validators are listed in the
+Problems view.</result>
+<postreq outputclass="id_postreq"><p outputclass="anchor_topicbottom"></p></postreq>
+</taskbody>
+</task>

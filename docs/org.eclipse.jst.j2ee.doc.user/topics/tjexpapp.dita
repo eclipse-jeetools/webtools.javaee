@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
+ "task.dtd">
+<task id="tjexpapp" xml:lang="en-us">
+<title outputclass="id_title">Exporting an application client project</title>
+<shortdesc outputclass="id_shortdesc">You can export an application client
+project as a JAR file.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>application client projects<indexterm>exporting</indexterm></indexterm>
+</keywords>
+</metadata></prolog>
+<taskbody outputclass="id_taskbody">
+<context outputclass="id_context"><p outputclass="anchor_topictop">To export
+an application client project from the workbench:</p></context>
+<steps outputclass="id_steps">
+<step><cmd>In the J2EE perspective, click <menucascade><uicontrol>File</uicontrol>
+<uicontrol>Export</uicontrol></menucascade>.</cmd><stepresult>The Export window
+opens.</stepresult></step>
+<step><cmd>Under <uicontrol>Select an export destination</uicontrol>, click <menucascade>
+<uicontrol>J2EE</uicontrol><uicontrol>App Client JAR file</uicontrol></menucascade>.</cmd>
+</step>
+<step><cmd>Click <uicontrol>Next</uicontrol>.</cmd></step>
+<step><cmd>In the <uicontrol>Application Client project</uicontrol> list,
+select the application client project you want to export.</cmd></step>
+<step><cmd>In the <uicontrol>Destination</uicontrol> field, enter the full
+path and JAR file name where you want to export the application client project.</cmd>
+</step>
+<step importance="optional"><cmd>To export source files, select the <uicontrol>Export
+source files</uicontrol> check box.</cmd></step>
+<step importance="optional"><cmd>If you are exporting to an existing JAR file
+and you do not want to be warned about overwriting it, select <uicontrol>Overwrite
+existing file</uicontrol>.</cmd></step>
+<step><cmd>Click <uicontrol>Finish</uicontrol>.</cmd></step>
+</steps>
+<postreq outputclass="id_postreq"><p outputclass="anchor_topicbottom"></p></postreq>
+</taskbody>
+</task>

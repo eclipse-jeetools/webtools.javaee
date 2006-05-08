@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
+ "task.dtd">
+<task id="tjimpear" xml:lang="en-us">
+<title outputclass="id_title">Importing an enterprise application EAR file</title>
+<shortdesc outputclass="id_shortdesc">Enterprise application projects are
+deployed into EAR files. You can import an enterprise application project
+by importing it from a deployed EAR file.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>enterprise application projects<indexterm>importing</indexterm></indexterm>
+<indexterm>EAR files<indexterm>importing</indexterm></indexterm></keywords>
+</metadata></prolog>
+<taskbody outputclass="id_taskbody">
+<context outputclass="id_context"> <p outputclass="anchor_topictop">You can
+also choose to import utility JAR files as utility <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> projects. You can also use the wizard
+to change the new project names for the EAR file and modules that will be
+imported.</p><p>To import an EAR file using the wizard:</p></context>
+<steps outputclass="id_steps">
+<step><cmd>In the J2EE perspective, click <menucascade><uicontrol>File</uicontrol>
+<uicontrol>Import</uicontrol></menucascade>. The Import window opens.</cmd>
+</step>
+<step><cmd>Under <uicontrol>Select an import source</uicontrol>, click <menucascade>
+<uicontrol>J2EE</uicontrol><uicontrol>EAR file</uicontrol></menucascade>.</cmd>
+</step>
+<step><cmd>Click <uicontrol>Next</uicontrol>.</cmd></step>
+<step><cmd>In the <uicontrol>EAR file</uicontrol> field, enter the location
+and name of the application client JAR file that you want to import. </cmd>
+<info>You can click the <uicontrol>Browse</uicontrol> button to select the
+JAR file from the file system.</info></step>
+<step><cmd>In the <uicontrol>EAR project</uicontrol> field, accept the default
+project name or type a new project name. </cmd></step>
+<step><cmd>In the <uicontrol>Target runtime</uicontrol> drop-down list, select
+the application server that you want to target for your development. </cmd>
+<info>This selection affects the run time settings by modifying the class
+path entries for the project.</info></step>
+<step><cmd>Click <uicontrol>Next</uicontrol>, and complete the following steps:</cmd>
+<substeps>
+<substep><cmd>On the Enterprise Application Import page, select any utility
+JAR files from the project that you want to import as utility projects.</cmd>
+</substep>
+<substep><cmd>In the <uicontrol>Module Root Location field</uicontrol>, specify
+the root directory for all of the projects that will be imported or created
+during import.</cmd></substep>
+</substeps>
+</step>
+<step><cmd>Click <uicontrol>Next</uicontrol>.</cmd></step>
+<step><cmd>On the EAR Module and Utility JAR Projects page of the wizard,
+select the projects that you want to import with the EAR file. Also, you can
+edit the new project name for each module and utility project to be imported.</cmd>
+<info><note type="tip">The selection buttons on this page can help you select
+the projects to import when you are importing for partial EAR development.
+For example, if you are importing to a workspace where some projects are attached
+to a repository and other projects are in binary form, these buttons help
+you make the proper selections for which projects to import:<ul>
+<li><uicontrol>Select New</uicontrol>: Selects the projects that are currently
+not in your workspace.</li>
+<li><uicontrol>Select All</uicontrol>: Selects all projects for import.</li>
+<li><uicontrol>Deselect All</uicontrol>: Clears all module and utility projects
+for import.</li>
+</ul></note></info></step>
+<step><cmd>Click <uicontrol>Finish</uicontrol> to import the contents of the
+EAR file.</cmd></step>
+</steps>
+<postreq outputclass="id_postreq"><p outputclass="anchor_topicbottom"></p></postreq>
+</taskbody>
+</task>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN"
+ "map.dtd">
+<map title="J2EE WTP relational table">
+<reltable>
+<relheader>
+<relcolspec type="concept"></relcolspec>
+<relcolspec type="task"></relcolspec>
+<relcolspec type="reference"></relcolspec>
+</relheader>
+<relrow>
+<relcell linking="targetonly">
+<topicref href="topics/cjarch.dita" navtitle="J2EE architecture"></topicref>
+</relcell>
+<relcell collection-type="family">
+<topicref href="topics/tjtargetserver.dita" navtitle="Specifying target servers for J2EE projects">
+</topicref>
+</relcell>
+<relcell></relcell>
+<relcell>
+<topicref format="html" href="../org.eclipse.wst.server.ui.doc.user/topics/twinstprf.html"
+linking="targetonly" locktitle="yes" navtitle="Defining the installed server runtime environments"
+scope="peer"></topicref>
+</relcell>
+</relrow>
+<relrow>
+<relcell></relcell>
+<relcell>
+<topicref href="topics/tjval.dita" navtitle="Validating code in enterprise applications">
+</topicref>
+</relcell>
+<relcell collection-type="family">
+<topicref href="topics/rvalerr.dita" navtitle="Common validation errors and solutions">
+</topicref>
+<topicref href="topics/rvalidators.dita" navtitle="J2EE Validators"></topicref>
+</relcell>
+</relrow>
+<relrow>
+<relcell></relcell>
+<relcell collection-type="family">
+<topicref href="topics/tjvaldisable.dita" navtitle="Disabling validation">
+</topicref>
+<topicref href="topics/tjvalglobalpref.dita" navtitle="Overriding global validation preferences">
+</topicref>
+<topicref href="topics/tjvalmanual.dita" navtitle="Manually validating code">
+</topicref>
+<topicref href="topics/tjvalselect.dita" navtitle="Selecting code validators">
+</topicref>
+</relcell>
+<relcell></relcell>
+</relrow>
+<relrow>
+<relcell collection-type="family">
+<topicref href="topics/cjarch.dita" navtitle="J2EE architecture"></topicref>
+<topicref href="topics/cjearproj.dita" navtitle="Enterprise application projects">
+</topicref>
+</relcell>
+<relcell collection-type="family">
+<topicref href="topics/tjear.dita" navtitle="Creating an enterprise application project">
+</topicref>
+<topicref href="topics/tjimpear.dita" navtitle="Importing an enterprise application EAR file">
+</topicref>
+<topicref href="topics/tjexpear.dita" navtitle="Exporting an enterprise application into an EAR file">
+</topicref>
+</relcell>
+<relcell></relcell>
+</relrow>
+<relrow>
+<relcell collection-type="family">
+<topicref href="topics/cjarch.dita" navtitle="J2EE architecture"></topicref>
+<topicref href="topics/cjappcliproj.dita" navtitle="Application client projects">
+</topicref>
+</relcell>
+<relcell collection-type="family">
+<topicref href="topics/tjappproj.dita" navtitle="Creating an application client project">
+</topicref>
+<topicref href="topics/tjexpapp.dita" navtitle="Exporting an application client project">
+</topicref>
+<topicref href="topics/tjimpapp.dita" navtitle="Importing an application client JAR file">
+</topicref>
+</relcell>
+<relcell></relcell>
+</relrow>
+<relrow>
+<relcell>
+<topicref href="topics/cjcircle.dita" navtitle="Cyclical dependencies between J2EE modules">
+</topicref>
+</relcell>
+<relcell collection-type="family">
+<topicref href="topics/tjimpear.dita" navtitle="Importing an enterprise application EAR file">
+</topicref>
+<topicref href="topics/tjcircleb.dita" navtitle="Correcting cyclical dependencies after an EAR is imported">
+</topicref>
+</relcell>
+<relcell></relcell>
+</relrow>
+<relrow>
+<relcell collection-type="family">
+<topicref href="topics/cjviewfilters.dita" navtitle="Filters in the Project Explorer view">
+</topicref>
+<topicref href="topics/cjview.dita" navtitle="Project Explorer view in the J2EE perspective">
+</topicref>
+</relcell>
+<relcell></relcell>
+<relcell></relcell>
+</relrow>
+<relrow>
+<relcell>
+<topicref href="topics/cjearproj.dita" navtitle="Enterprise application projects">
+</topicref>
+</relcell>
+<relcell>
+<topicref href="topics/tjear.dita" navtitle="Creating an enterprise application project">
+</topicref>
+<topicref href="topics/tjappproj.dita" navtitle="Creating an application client project">
+</topicref>
+<topicref href="topics/tjrar.dita" navtitle="Creating a connector project">
+</topicref>
+</relcell>
+<relcell></relcell>
+<relcell>
+<topicref href="topics/taddingfacet.dita" navtitle="Adding a facet to a J2EE project">
+</topicref>
+</relcell>
+</relrow>
+<relrow>
+<relcell>
+<topicref href="topics/cjpers.dita" navtitle="J2EE perspective"></topicref>
+<topicref href="topics/cjview.dita" navtitle="Project Explorer view in the J2EE perspective">
+</topicref>
+</relcell>
+<relcell></relcell>
+<relcell></relcell>
+<relcell>
+<topicref format="html" href="../org.eclipse.platform.doc.user/concepts/cworkset.htm"
+locktitle="yes" navtitle="Working sets" scope="peer"></topicref>
+</relcell>
+</relrow>
+</reltable>
+</map>

@@ -1,0 +1,9 @@
+<maplist version="3.6.2">
+  <nav>
+    <map file="jst_j2ee_toc.ditamap"/>
+  </nav>
+  <link>
+    <map file="jst_j2ee_toc.ditamap"/>
+    <map file="jst_j2ee_relsmap.ditamap"/>
+  </link>
+</maplist>

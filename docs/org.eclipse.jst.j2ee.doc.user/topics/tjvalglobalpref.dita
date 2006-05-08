@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
+ "task.dtd">
+<task id="tjvalglobalpref" xml:lang="en-us">
+<title outputclass="id_title">Overriding global validation preferences</title>
+<shortdesc outputclass="id_shortdesc">For a given project, you can override
+the global validation preferences.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>validation<indexterm>overriding global preferences</indexterm></indexterm>
+<indexterm>code validation<indexterm>overriding global preferences</indexterm></indexterm>
+</keywords>
+</metadata></prolog>
+<taskbody outputclass="id_taskbody">
+<context outputclass="id_context"> <p outputclass="anchor_topictop">The default validation preferences
+are specified globally on the Validation page of the Preferences dialog. To
+allow projects to override these default validation preferences:</p></context>
+<steps outputclass="id_steps">
+<step><cmd>Click <menucascade><uicontrol>Window</uicontrol><uicontrol>Preferences</uicontrol>
+</menucascade>.</cmd></step>
+<step><cmd>In the Preferences window, click <uicontrol>Validation</uicontrol> in
+the left pane.</cmd><stepresult>The Validation page of the Preferences window
+lists the validators available in your project and their settings.</stepresult>
+</step>
+<step><cmd>Select the <uicontrol>Allow projects to override these preference
+settings</uicontrol> check box.</cmd></step>
+<step><cmd>Click <uicontrol>OK</uicontrol>.</cmd><stepresult>Now individual
+projects can override the global preferences.</stepresult></step>
+<step><cmd>Right-click a project and then click <uicontrol>Properties</uicontrol>.</cmd>
+</step>
+<step><cmd>In the left pane of the Properties window, click <uicontrol>Validation</uicontrol>.</cmd>
+</step>
+<step><cmd>Select the <uicontrol>Override validation preferences</uicontrol> check
+box.</cmd><info>This check box is available only if you checked the <uicontrol>Allow
+projects to override these preference settings</uicontrol> check box on the
+workbench validation preferences page.</info></step>
+<step><cmd>To prevent validation for this project, select the <uicontrol>Suspend
+all validators</uicontrol> check box.</cmd></step>
+<step><cmd>In the list of validators, select the check boxes next to each
+validator you want to use.</cmd><info>Each validator has a check box to specify
+whether it is used on manual validation or on a build.</info></step>
+<step><cmd>Choose an alternate implementation for a validator by clicking
+the button in the <uicontrol>Settings</uicontrol> column.</cmd><info>Not all
+validators have alternate implementations.</info></step>
+<step><cmd>Click <uicontrol>OK</uicontrol>.</cmd></step>
+</steps>
+<postreq outputclass="id_postreq"><p outputclass="anchor_topicbottom"></p></postreq>
+</taskbody>
+</task>

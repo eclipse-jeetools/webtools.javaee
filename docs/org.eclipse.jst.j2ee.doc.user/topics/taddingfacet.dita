@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
+ "task.dtd">
+<task id="taddingfacet" xml:lang="en-us">
+<title outputclass="id_title">Adding a facet to a J2EE project</title>
+<shortdesc outputclass="id_shortdesc">This topic explains how to add a facet
+to an existing project in your workspace.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>projects<indexterm>facets<indexterm>adding</indexterm></indexterm></indexterm>
+<indexterm>projects<indexterm>facets<indexterm>removing</indexterm></indexterm></indexterm>
+<indexterm>projects<indexterm>facets<indexterm>overview</indexterm></indexterm></indexterm>
+<indexterm>J2EE development<indexterm>project facets</indexterm></indexterm>
+<indexterm>J2EE modules<indexterm>project facets</indexterm></indexterm></keywords>
+</metadata></prolog>
+<taskbody outputclass="id_taskbody">
+<context outputclass="id_context"><p outputclass="anchor_topictop">Facets
+define characteristics and requirements for projects. When you add a facet
+to a project, that project is configured to perform a certain task, fulfill
+certain requirements, or have certain characteristics. For example, the EAR
+facet sets up a project to function as an enterprise application by adding
+a deployment descriptor and setting up the project's classpath.</p><p>You
+can add facets only to J2EE projects and other types of projects that are
+based on J2EE projects, such as enterprise application projects, dynamic Web
+projects, and EJB projects. You cannot add facets to a Java project or plug-in
+project, for example. Typically, a facet-enabled project has at least one
+facet when it is created, allowing you to add more facets if necessary. For
+example, a new EJB project has the EJB Module facet. You can then add other
+facets to this project like the EJBDoclet (XDoclet) facet.</p><p>Some facets
+require other facets as prerequisites. Other facets cannot be in the same
+project together. For example, you cannot add the Dynamic Web Module facet
+to an EJB project because the EJB project already has the EJB Module facet.
+Some facets can be removed from a project and others cannot.</p><p>New projects
+generally have facets added to them when they are created. To add another
+facet to a project that already exists, follow these steps:</p></context>
+<steps outputclass="id_steps">
+<step><cmd>In the Project Explorer view, right-click the project and then
+click <uicontrol>Properties</uicontrol>.</cmd></step>
+<step><cmd>In the Properties window, click <uicontrol>Project Facets</uicontrol>.</cmd>
+<stepresult>The Project Facets page lists the facets in the project. </stepresult>
+</step>
+<step><cmd>Click <uicontrol>Add/Remove Project Facets</uicontrol>.</cmd></step>
+<step><cmd>In the Add/Remove Project Facets window, select the check boxes
+next to the facets you want this project to have and select a version number
+for each facet.</cmd><info><p>Only the facets that are valid for the project
+are listed:<ul>
+<li>The list of runtimes selected for the project limits the facets shown
+in the list. Only the facets compatible with all selected target runtimes
+are shown.</li>
+<li>The currently selected facets and their version numbers limit the other
+facets shown in the list. For example, if the project contains the Dynamic
+Web Module facet, the EJB Module facet is not listed because these two facets
+cannot be in the same project.</li>
+</ul>You can find out more about the requirements and limitations for each
+facet by right-clicking the facet name and then clicking <uicontrol>Show Constraints</uicontrol>.</p><p>You
+can also choose a preset combination of facets from the <uicontrol>Presets</uicontrol> list.</p></info>
+</step>
+<step><cmd>To remove a facet, clear its check box.</cmd><info>Not all facets
+can be removed.</info></step>
+<step><cmd>If you want to limit the project so it will be compatible with
+one or more runtimes, click the <uicontrol>Show Runtimes</uicontrol> button
+and select the runtimes that you want the project to be compatible with.</cmd>
+<info>For more information on runtimes, see <xref href="tjtargetserver.dita"></xref>.</info>
+</step>
+<step><cmd>Click <uicontrol>Finish</uicontrol>.</cmd></step>
+<step><cmd>Click <uicontrol>OK</uicontrol>.</cmd></step>
+</steps>
+<postreq outputclass="id_postreq"><p outputclass="anchor_topicbottom"></p></postreq>
+</taskbody>
+</task>

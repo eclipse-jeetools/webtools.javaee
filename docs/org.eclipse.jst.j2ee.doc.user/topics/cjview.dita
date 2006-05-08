@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+ "concept.dtd">
+<concept id="cjview" xml:lang="en-us">
+<title outputclass="id_title">Project Explorer view in the J2EE perspective</title>
+<shortdesc outputclass="id_shortdesc">While developing J2EE applications in
+the J2EE perspective, the Project Explorer view is your main view of your
+J2EE projects and resources.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>views<indexterm>Project Explorer</indexterm></indexterm>
+</keywords>
+</metadata></prolog>
+<conbody outputclass="id_conbody">
+<p outputclass="anchor_topictop">The Project Explorer view provides an integrated
+view of all project resources, including models of J2EE deployment descriptors, <tm
+tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> artifacts,
+resources, Web services, databases, and dynamic Web project artifacts.</p>
+<p>You should use this view to work with your J2EE deployment descriptors
+and their content. You can view an enterprise application project and see
+all of the modules associated with it. </p>
+<p>You can also filter what you see in the Project Explorer view to hide projects,
+folders, or files that you don't want to see. To enable or disable filters,
+click the <uicontrol>Filters</uicontrol> button from the drop-down menu at
+the top right corner of the view. For more information, see <xref href="cjviewfilters.dita">Filters
+in the Project Explorer view</xref>.</p>
+<p>Alternately, you can filter what you see by showing or hiding working sets,
+groups of related resources or projects. See <xref format="html" href="../../org.eclipse.platform.doc.user/concepts/cworkset.htm"
+scope="peer">Working Sets<desc></desc></xref>.</p>
+<p>The following image shows the Project Explorer view with a few projects:<image
+alt="Screen capture of the Project Explorer view" href="../images/ProjectExplorer.gif"
+outputclass="id_projectexplorerimage" placement="break"></image></p>
+<p outputclass="anchor_topicbottom"></p>
+</conbody>
+</concept>

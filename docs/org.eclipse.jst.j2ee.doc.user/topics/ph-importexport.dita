@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+ "topic.dtd">
+<topic id="ph-importexport" xml:lang="en-us">
+<title outputclass="id_title">Importing and exporting projects and files</title>
+<shortdesc outputclass="id_shortdesc">These topics cover how to import files
+and projects into the workbench and export files and projects to disk.</shortdesc>
+<prolog><metadata>
+<keywords></keywords>
+</metadata></prolog>
+<body outputclass="id_body">
+<p outputclass="anchor_topictop"></p>
+<p outputclass="anchor_topicbottom"></p>
+</body>
+</topic>

@@ -1,68 +1,94 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en-us" xml:lang="en-us">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!-- /*******************************************************************************
- * Copyright (c) 2000, 2005 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *     IBM Corporation - initial API and implementation
- *******************************************************************************/ -->
-<link rel="stylesheet" type="text/css" href="../../org.eclipse.wst.doc.user/common.css" />
-
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta name="copyright" content="Copyright (c) 2000, 2006 IBM Corporation and others. All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html. Contributors: IBM Corporation - initial API and implementation" />
+<meta name="DC.rights.owner" content="(C) Copyright 2000, 2006" />
+<meta content="public" name="security" />
+<meta content="index,follow" name="Robots" />
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta content="concept" name="DC.Type" />
+<meta name="DC.Title" content="J2EE architecture" />
+<meta name="abstract" content="The Java 2 Platform, Enterprise Edition (J2EE) provides a standard for developing multitier, enterprise services." />
+<meta name="description" content="The Java 2 Platform, Enterprise Edition (J2EE) provides a standard for developing multitier, enterprise services." />
+<meta content="J2EE development, architecture" name="DC.subject" />
+<meta content="J2EE development, architecture" name="keywords" />
+<meta scheme="URI" name="DC.Relation" content="../topics/cjearproj.html" />
+<meta scheme="URI" name="DC.Relation" content="../topics/tjear.html" />
+<meta scheme="URI" name="DC.Relation" content="../topics/tjimpear.html" />
+<meta scheme="URI" name="DC.Relation" content="../topics/tjexpear.html" />
+<meta scheme="URI" name="DC.Relation" content="../topics/cjappcliproj.html" />
+<meta scheme="URI" name="DC.Relation" content="../topics/tjappproj.html" />
+<meta scheme="URI" name="DC.Relation" content="../topics/tjexpapp.html" />
+<meta scheme="URI" name="DC.Relation" content="../topics/tjimpapp.html" />
+<meta content="XHTML" name="DC.Format" />
+<meta content="cjarch" name="DC.Identifier" />
+<meta content="en-us" name="DC.Language" />
+<link href="../../org.eclipse.wst.doc.user/common.css" type="text/css" rel="stylesheet" />
 <title>J2EE architecture</title>
 </head>
 <body id="cjarch"><a name="cjarch"><!-- --></a>
-<h1 class="topictitle1">J2EE architecture</h1>
-<div><p>The Java™ 2 Platform, Enterprise Edition (J2EE) provides
-a standard for developing multitier, enterprise services.</p>
-<p>The economy and technology of today have intensified the need for faster,
-more efficient, and larger-scale information management solutions. The J2EE
-specification satisfies these challenges by providing a programming model
-that improves development productivity, standardizes the platform for hosting
-enterprise applications, and ensures portability of developed applications
-with an extensive test suite.</p>
+
+
+<h1 class="id_title">J2EE architecture</h1>
+
+
+
+<div class="id_conbody"><p class="id_shortdesc">The Java™ 2 Platform, Enterprise Edition (J2EE)
+provides a standard for developing multitier, enterprise services.</p>
+
+<p class="anchor_topictop">The economy and technology of today have
+intensified the need for faster, more efficient, and larger-scale information
+management solutions. The J2EE specification satisfies these challenges by
+providing a programming model that improves development productivity, standardizes
+the platform for hosting enterprise applications, and ensures portability
+of developed applications with an extensive test suite.</p>
+
 <p>J2EE architecture supports component-based development of multi-tier enterprise
 applications. A J2EE application system typically includes the following tiers:</p>
-<ul><li><strong>Client tier</strong>: In the client tier, Web components, such as Servlets
-and JavaServer Pages (JSPs), or standalone Java applications provide a dynamic
-interface to the middle tier.</li>
+
+<ul>
+<li><strong>Client tier</strong>: In the client tier, Web components, such as Servlets
+and JavaServer Pages (JSPs), or standalone Java applications provide a dynamic interface
+to the middle tier.</li>
+
 <li><strong>Middle tier</strong>: In the server tier, or middle tier, enterprise beans
 and Web Services encapsulate reusable, distributable business logic for the
 application. These server-tier components are contained on a J2EE Application
 Server, which provides the platform for these components to perform actions
 and store data.</li>
+
 <li><strong>Enterprise data tier</strong>: In the data tier, the enterprise's data is
 stored and persisted, typically in a relational database.</li>
+
 </ul>
+
 <p>J2EE applications are comprised of components, containers, and services.
 Components are application-level components. Web components, such as Servlets
 and JSPs, provide dynamic responses to requests from a Web page. EJB components
 contain server-side business logic for enterprise applications. Web and EJB
 component containers host services that support Web and EJB modules.</p>
+
 <p>For more information on J2EE architecture and its implicit technologies,
-download and read the <a href="http://java.sun.com/j2ee/download.html#platformspec" target="_blank">J2EE 1.4 Specification</a>.</p>
+download and read the <a href="http://java.sun.com/j2ee/download.html#platformspec" target="_blank" title="">J2EE 1.4 Specification</a>.</p>
+
+<p class="anchor_topicbottom" />
+
 </div>
-<div>
-<div class="familylinks">
-<div class="parentlink"><strong>Parent topic:</strong> <a href="../topics/ph-j2eeapp.html" title="These topics deal with the Java 2 Platform, Enterprise Edition (J2EE).">J2EE Applications</a></div>
-</div>
-<div class="relconcepts"><strong>Related concepts</strong><br />
-<div><a href="../topics/cjearproj.html" title="An enterprise application project contains the hierarchy of resources that are required to deploy a J2EE enterprise application, often referred to as an EAR file.">Enterprise application projects</a></div>
-<div><a href="../topics/cjappcliproj.html">Application client projects</a></div>
+
+<div><div class="relconcepts"><strong>Related concepts</strong><br />
+<div><a href="../topics/cjearproj.html" title="An enterprise application project ties together the resources that are required to deploy a J2EE enterprise application.">Enterprise application projects</a></div>
+<div><a href="../topics/cjappcliproj.html" title="">Application client projects</a></div>
 </div>
 <div class="reltasks"><strong>Related tasks</strong><br />
+<div><a href="../topics/tjear.html" title="">Creating an enterprise application project</a></div>
 <div><a href="../topics/tjimpear.html" title="Enterprise application projects are deployed into EAR files. You can import an enterprise application project by importing it from a deployed EAR file.">Importing an enterprise application EAR file</a></div>
 <div><a href="../topics/tjexpear.html" title="Enterprise applications are deployed in the form of an EAR file. Use the Export wizard to export an enterprise application project into an EAR file for deployment.">Exporting an enterprise application into an EAR file</a></div>
 <div><a href="../topics/tjappproj.html" title="You can use a wizard to create a new application client project and add it to a new or existing enterprise application project.">Creating an application client project</a></div>
 <div><a href="../topics/tjexpapp.html" title="You can export an application client project as a JAR file.">Exporting an application client project</a></div>
 <div><a href="../topics/tjimpapp.html" title="Application client projects are deployed as JAR files. You can import an application client project that has been deployed into a JAR file by using the Import wizard.">Importing an application client JAR file</a></div>
 </div>
-</div></body>
+</div>
+
+</body>
 </html>

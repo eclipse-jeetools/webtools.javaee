@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
+ "task.dtd">
+<task id="tjexpear" xml:lang="en-us">
+<title outputclass="id_title">Exporting an enterprise application into an
+EAR file</title>
+<shortdesc outputclass="id_shortdesc">Enterprise applications are deployed
+in the form of an EAR file. Use the Export wizard to export an enterprise
+application project into an EAR file for deployment.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>enterprise application projects<indexterm>exporting</indexterm></indexterm>
+<indexterm>EAR files<indexterm>exporting</indexterm></indexterm></keywords>
+</metadata></prolog>
+<taskbody outputclass="id_taskbody">
+<context outputclass="id_context"> <p outputclass="anchor_topictop">To export
+an enterprise application project into an EAR file:</p></context>
+<steps outputclass="id_steps">
+<step><cmd>In the J2EE perspective, click <menucascade><uicontrol>File</uicontrol>
+<uicontrol>Export</uicontrol></menucascade>.</cmd><stepresult>The Export window
+opens.</stepresult></step>
+<step><cmd>Under <uicontrol>Select an export destination</uicontrol>, click <menucascade>
+<uicontrol>J2EE</uicontrol><uicontrol>EAR file</uicontrol></menucascade>.</cmd>
+</step>
+<step><cmd>Click <uicontrol>Next</uicontrol>.</cmd></step>
+<step><cmd>In the <uicontrol>EAR application</uicontrol> list, select the
+enterprise application project you want to export.</cmd></step>
+<step><cmd>In the <uicontrol>Destination</uicontrol> field, enter the full
+path and EAR file name where you want to export the enterprise application
+project that is selected in the <uicontrol>EAR application</uicontrol> field.</cmd>
+</step>
+<step importance="optional"><cmd>To export source files, select the <uicontrol>Export
+source files</uicontrol> check box.</cmd></step>
+<step importance="optional"><cmd>If you are exporting to an existing EAR file
+and you do not want to be warned about overwriting it, select <uicontrol>Overwrite
+existing file</uicontrol>.</cmd></step>
+<step><cmd>Click <uicontrol>Finish</uicontrol>.</cmd></step>
+</steps>
+<result outputclass="id_result">The wizard exports the contents of the EAR
+project to the specified EAR file. Additionally, for each project that corresponds
+to a module or utility JAR in the application, the project contents are exported
+into a nested module or JAR file in the EAR file. If any unsaved changes exist
+on any of the files in any of the referenced projects, you are prompted to
+save these files prior to export.</result>
+<postreq outputclass="id_postreq"><p outputclass="anchor_topicbottom"></p></postreq>
+</taskbody>
+</task>

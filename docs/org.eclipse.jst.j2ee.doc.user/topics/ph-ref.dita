@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+ "topic.dtd">
+<topic id="ph-ref" xml:lang="en-us">
+<title outputclass="id_title">Reference</title>
+<shortdesc outputclass="id_shortdesc">The following reference material on
+J2EE is available:</shortdesc>
+<prolog><metadata>
+<keywords></keywords>
+</metadata></prolog>
+<body outputclass="id_body">
+<p outputclass="anchor_topictop"></p>
+<p outputclass="anchor_topicbottom"></p>
+</body>
+</topic>

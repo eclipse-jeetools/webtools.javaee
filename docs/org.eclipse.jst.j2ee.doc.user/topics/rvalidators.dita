@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN"
+ "reference.dtd">
+<reference id="rvalidators" xml:lang="en-us">
+<title outputclass="id_title">J2EE Validators</title>
+<shortdesc outputclass="id_shortdesc">This table lists the validators that
+are available for the different project types and gives a brief description
+of each validator.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>validation<indexterm>J2EE validators</indexterm></indexterm>
+<indexterm>code validation<indexterm>J2EE validators</indexterm></indexterm>
+</keywords>
+</metadata></prolog>
+<refbody outputclass="id_refbody">
+<example outputclass="anchor_topictop"></example>
+<table frame="all">
+<tgroup cols="2" colsep="1" rowsep="1"><colspec colname="col1" colwidth="50*"/>
+<colspec colname="col2" colwidth="50*"/>
+<thead>
+<row outputclass="anchor_toprow">
+<entry>Validator name</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row outputclass="id_appclientValidator">
+<entry align="left" valign="top">Application Client Validator</entry>
+<entry align="left" valign="top">The Application Client Validator validates
+the following Application Client project resources:   <ul>
+<li>Deployment descriptor (application-client.xml)</li>
+<li>EJB references</li>
+<li>Resource references</li>
+</ul></entry>
+</row>
+<row outputclass="id_connectorValidator">
+<entry colname="col1">Connector Validator</entry>
+<entry colname="col2">The Connector validator checks for invalid J2EE specification
+levels in connector projects.</entry>
+</row>
+<row outputclass="id_DTDValidator">
+<entry align="left" valign="top">DTD Validator</entry>
+<entry align="left" valign="top">The DTD validator determines whether the
+current state of a DTD is semantically valid. XML files are validated according
+to the XML specification <xref format="html" href="http://www.w3.org/TR/2000/REC-xml-20001006"
+scope="external"> Extensible Markup Language (XML) 1.0<desc></desc></xref> from
+the W3C Web site. As well, the DTD validator checks for errors such as references
+to entities and elements that do not exist.</entry>
+</row>
+<row outputclass="id_EARValidator">
+<entry align="left" valign="top">EAR Validator</entry>
+<entry align="left" valign="top">The EAR Validator validates the following:
+ <ul>
+<li>EAR deployment descriptor (application.xml)</li>
+<li>EJB references of all module projects in the enterprise application project</li>
+<li>Security roles</li>
+<li>Resource references</li>
+<li>Manifest files for all contained or referenced modules and utility JAR
+files</li>
+<li>Target server consistency between the enterprise application project and
+any utility and module projects</li>
+<li>Existence of projects for each module defined in enterprise application</li>
+</ul>  <p>Note that the EAR Validator only ensures the validity and dependency
+of the module projects with respect to the enterprise application project.</p></entry>
+</row>
+<row outputclass="id_EJBValidator">
+<entry align="left" valign="top">EJB Validator</entry>
+<entry align="left" valign="top">The EJB Validator verifies that enterprise
+beans contained in an EJB project comply with the Sun Enterprise <tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="JavaBeans">JavaBeans</tm> Specifications
+(1.1, 2.0, and 2.1), depending on the level of the bean. Code validation for
+the EJB 1.0 specification is not supported.   <p>Specifically, the EJB Validator
+validates the following resources: </p>  <ul>
+<li><tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> .class
+files that are members of an enterprise bean (home interface, remote interface,
+enterprise bean class, and, if the bean is an entity bean, the key class)</li>
+<li>ejb-jar.xml</li>
+</ul></entry>
+</row>
+<row outputclass="id_ELValidator">
+<entry colname="col1">EL Syntax Validator</entry>
+<entry colname="col2"></entry>
+</row>
+<row outputclass="id_HTMLValidator">
+<entry align="left" valign="top">HTML Syntax Validator</entry>
+<entry align="left" valign="top">The HTML Syntax Validator validates HTML
+basic syntax and HTML DTD compliance in the following Web project resources:
+ <ul>
+<li>HTML files</li>
+<li>JSP files</li>
+</ul></entry>
+</row>
+<row outputclass="id_JSPValidator">
+<entry align="left" valign="top">JSP Syntax Validator</entry>
+<entry align="left" valign="top">The JSP Syntax Validator validates JSP files
+in a project by translating them into the corresponding <tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> code
+and then checking the <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> code for compile errors.</entry>
+</row>
+<row outputclass="id_WARValidator">
+<entry align="left" valign="top">War Validator</entry>
+<entry align="left" valign="top">The War Validator validates the following
+web project resources:   <ul>
+<li>Deployment descriptor (web.xml)</li>
+<li>Servlets</li>
+<li>Security roles</li>
+<li>Servlet &amp; servlet mappings</li>
+<li>EJB references</li>
+</ul></entry>
+</row>
+<row outputclass="id_WSDLValidator">
+<entry colname="col1">WSDL Validator</entry>
+<entry colname="col2">The WSDL validator checks the following in WSDL files: <ul>
+<li>XML syntax</li>
+<li>XML Schema types in the &lt;types> section</li>
+<li>Referential integrity of the various constructs in WSDL </li>
+</ul>The validator also includes an extension point to allow other validators
+to be plugged into the WSDL validation to provide additional verification
+of the WSDL file. Through this mechanism, interoperability is checked by validating
+a WSDL file against WS-I Profiles. </entry>
+</row>
+<row outputclass="id_WSIValidator">
+<entry colname="col1">WS-I Message Validator</entry>
+<entry colname="col2">WS-I Message validator checks SOAP messages against
+WS-I Profiles. A user can capture and verify SOAP messages using the TCP/IP
+Monitor. The validator checks a message log that is saved as a project resource
+(.wsimsg). The log conforms to a format as specified by WS-I.</entry>
+</row>
+<row outputclass="id_XMLSchemaValidator">
+<entry align="left" valign="top">XML Schema Validator</entry>
+<entry align="left" valign="top">The XML schema validator determines whether
+the current state of an XML schema file is semantically valid. XML schemas
+are validated according to the XML Schema specification <xref format="html"
+href="http://www.w3.org/TR/xmlschema-1/" scope="local"> XML Schema Part 1:
+Structures<desc></desc></xref> from the W3C Web site.</entry>
+</row>
+<row outputclass="id_XMLValidator">
+<entry align="left" valign="top">XML Validator</entry>
+<entry align="left" valign="top">The XML validator ensures that an XML file
+is well-formed. It also verifies if an XML file is valid - that is, it follows
+the constraints established in the DTD or XML schema the XML file is associated
+with.</entry>
+</row>
+<row outputclass="anchor_bottomrow">
+<entry colname="col1"></entry>
+<entry colname="col2"></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<example outputclass="anchor_topicbottom"></example>
+</refbody>
+</reference>

@@ -1,60 +1,90 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en-us" xml:lang="en-us">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!-- /*******************************************************************************
- * Copyright (c) 2000, 2005 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *     IBM Corporation - initial API and implementation
- *******************************************************************************/ -->
-<link rel="stylesheet" type="text/css" href="../../org.eclipse.wst.doc.user/common.css" />
-
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta name="copyright" content="Copyright (c) 2000, 2006 IBM Corporation and others. All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html. Contributors: IBM Corporation - initial API and implementation" />
+<meta name="DC.rights.owner" content="(C) Copyright 2000, 2006" />
+<meta content="public" name="security" />
+<meta content="index,follow" name="Robots" />
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta content="task" name="DC.Type" />
+<meta name="DC.Title" content="Selecting code validators" />
+<meta name="abstract" content="You can select specific validators to run during manual and build code validation. You can set each validator to run on manual validation, build validation, both, or neither." />
+<meta name="description" content="You can select specific validators to run during manual and build code validation. You can set each validator to run on manual validation, build validation, both, or neither." />
+<meta content="validation, selecting validators, code validation" name="DC.subject" />
+<meta content="validation, selecting validators, code validation" name="keywords" />
+<meta scheme="URI" name="DC.Relation" content="../topics/tjvaldisable.html" />
+<meta scheme="URI" name="DC.Relation" content="../topics/tjvalglobalpref.html" />
+<meta scheme="URI" name="DC.Relation" content="../topics/tjvalmanual.html" />
+<meta content="XHTML" name="DC.Format" />
+<meta content="tjvalselect" name="DC.Identifier" />
+<meta content="en-us" name="DC.Language" />
+<link href="../../org.eclipse.wst.doc.user/common.css" type="text/css" rel="stylesheet" />
 <title>Selecting code validators</title>
 </head>
 <body id="tjvalselect"><a name="tjvalselect"><!-- --></a>
-<div><div>You can select specific validators to run during manual and build
-code validation. You can set each validator to run on manual validation, build
-validation, both, or neither. </div><div class="section"><p>To choose the validators that you want to use for a project:</p>
+
+
+<h1 class="id_title">Selecting code validators</h1>
+
+
+
+<div class="id_taskbody"><p class="id_shortdesc">You can select specific validators to
+run during manual and build code validation. You can set each validator to
+run on manual validation, build validation, both, or neither. </p>
+
+<div class="id_context"><p class="anchor_topictop">To choose the validators that you
+want to use for a project:</p>
 </div>
-<ol><li class="stepexpand"><span>Click <span class="menucascade"><span class="uicontrol">Window</span> &gt; <span class="uicontrol">Preferences</span></span>.</span></li>
+
+<ol class="id_steps">
+<li class="stepexpand"><span>Click <span class="menucascade"><span class="uicontrol">Window</span> &gt; <span class="uicontrol">Preferences</span>
+</span>.</span></li>
+
 <li class="stepexpand"><span>In the Preferences window, click <span class="uicontrol">Validation</span> in
 the left pane.</span> The Validation page of the Preferences window
-lists the validators available in your project and their settings.</li>
-<li class="stepexpand"><span>Clear the <span class="uicontrol">Suspend all validators</span> check box.</span></li>
+lists the validators available in your project and their settings.
+</li>
+
+<li class="stepexpand"><span>Clear the <span class="uicontrol">Suspend all validators</span> check box.</span>
+</li>
+
 <li class="stepexpand"><span>If you want to set individual validation settings for one or more
 of your projects, select the <span class="uicontrol">Allow projects to override these preference
 settings</span> check box.</span></li>
+
 <li class="stepexpand"><span>In the list of validators, select the check boxes next to each
 validator you want to use at the global level.</span> Each validator has
-a check box to specify whether it is used on manual validation or on a build.<div class="note"><span class="notetitle">Note:</span> If
+a check box to specify whether it is used on manual validation or on a build.<div class="note"><span class="notetitle">Note: </span>If
 you deselect any validator that is currently selected, any messages associated
 with the deselected validator will be removed from the task list.</div>
+
 </li>
+
 <li class="stepexpand"><span>Choose an alternate implementation for a validator by clicking
 the button in the <span class="uicontrol">Settings</span> column.</span> Not all
 validators have alternate implementations.</li>
+
 <li class="stepexpand"><span>Click <span class="uicontrol">OK</span>.</span></li>
+
 <li class="stepexpand"><span>If you want to set individual validation settings for one or more
-of your projects, see <a href="tjvalglobalpref.html" title="For a given project, you can override the global validation preferences.">Overriding global validation preferences</a>.</span> Like
+of your projects, see <a href="tjvalglobalpref.html" title="For a given project, you can override&#10;the global validation preferences.">Overriding global validation preferences</a>.</span> Like
 the global validation preferences, you can set validators at the project level
 to run on manual validation, build validation, both, or neither.</li>
+
 </ol>
+
+<div class="id_postreq"><p class="anchor_topicbottom" />
 </div>
-<div>
-<div class="familylinks">
-<div class="parentlink"><strong>Parent topic:</strong> <a href="../topics/tjval.html" title="The workbench includes validators that check certain files in your enterprise application module projects for errors.">Validating code in enterprise applications</a></div>
+
 </div>
-<div class="reltasks"><strong>Related tasks</strong><br />
+
+<div><div class="reltasks"><strong>Related tasks</strong><br />
 <div><a href="../topics/tjvaldisable.html" title="You can disable one or more validators individually or disable validation entirely. Also, you can set validation settings for your entire workspace and for individual projects.">Disabling validation</a></div>
 <div><a href="../topics/tjvalglobalpref.html" title="For a given project, you can override the global validation preferences.">Overriding global validation preferences</a></div>
 <div><a href="../topics/tjvalmanual.html" title="When you run a manual validation, all resources in the selected project are validated according to the validation settings.">Manually validating code</a></div>
 </div>
-</div></body>
+</div>
+
+</body>
 </html>

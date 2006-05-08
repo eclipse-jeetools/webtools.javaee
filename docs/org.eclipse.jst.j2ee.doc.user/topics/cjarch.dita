@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+ "concept.dtd">
+<concept id="cjarch" xml:lang="en-us">
+<title outputclass="id_title">J2EE architecture</title>
+<shortdesc outputclass="id_shortdesc">The <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> 2 Platform, Enterprise Edition (J2EE)
+provides a standard for developing multitier, enterprise services.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>J2EE development<indexterm>architecture</indexterm></indexterm>
+</keywords>
+</metadata></prolog>
+<conbody outputclass="id_conbody">
+<p outputclass="anchor_topictop">The economy and technology of today have
+intensified the need for faster, more efficient, and larger-scale information
+management solutions. The J2EE specification satisfies these challenges by
+providing a programming model that improves development productivity, standardizes
+the platform for hosting enterprise applications, and ensures portability
+of developed applications with an extensive test suite.</p>
+<p>J2EE architecture supports component-based development of multi-tier enterprise
+applications. A J2EE application system typically includes the following tiers:</p>
+<ul>
+<li><b>Client tier</b>: In the client tier, Web components, such as Servlets
+and JavaServer Pages (JSPs), or standalone <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> applications provide a dynamic interface
+to the middle tier.</li>
+<li><b>Middle tier</b>: In the server tier, or middle tier, enterprise beans
+and Web Services encapsulate reusable, distributable business logic for the
+application. These server-tier components are contained on a J2EE Application
+Server, which provides the platform for these components to perform actions
+and store data.</li>
+<li><b>Enterprise data tier</b>: In the data tier, the enterprise's data is
+stored and persisted, typically in a relational database.</li>
+</ul>
+<p>J2EE applications are comprised of components, containers, and services.
+Components are application-level components. Web components, such as Servlets
+and JSPs, provide dynamic responses to requests from a Web page. EJB components
+contain server-side business logic for enterprise applications. Web and EJB
+component containers host services that support Web and EJB modules.</p>
+<p>For more information on J2EE architecture and its implicit technologies,
+download and read the <xref format="html" href="http://java.sun.com/j2ee/download.html#platformspec"
+scope="external">J2EE 1.4 Specification<desc></desc></xref>.</p>
+<p outputclass="anchor_topicbottom"></p>
+</conbody>
+</concept>
