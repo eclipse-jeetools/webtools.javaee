@@ -12,6 +12,7 @@
 package org.eclipse.jst.j2ee.ui.project.facet;
 
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.jst.j2ee.project.facet.J2EEModuleFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
@@ -87,8 +88,9 @@ public final class EarSelectionPanel implements IWebFacetInstallDataModelPropert
             = new WizardDialog( newButton.getShell(), wizard );
         
         IRuntime runtime = (IRuntime)model.getProperty(FACET_RUNTIME);
+        String earName = model.getStringProperty( J2EEModuleFacetInstallDataModelProvider.EAR_PROJECT_NAME );
     	wizard.setRuntimeInDataModel(runtime);
-    	
+    	wizard.setEARName( earName );
         if( dialog.open() != SWT.CANCEL )
         {
             model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);

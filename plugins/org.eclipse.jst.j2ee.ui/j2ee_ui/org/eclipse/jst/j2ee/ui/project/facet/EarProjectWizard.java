@@ -66,4 +66,7 @@ public class EarProjectWizard extends NewProjectDataModelFacetWizard {
         return ProductManager.getProperty(IProductConstants.FINAL_PERSPECTIVE_EAR);
 	}
 
+	public void setEARName( String earName ){
+		model.setProperty(FACET_PROJECT_NAME, earName);	
+	}
 }
