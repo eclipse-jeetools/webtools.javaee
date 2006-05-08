@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoDecoratorUtility.java,v $
- *  $Revision: 1.5 $  $Date: 2006/01/13 00:09:29 $ 
+ *  $Revision: 1.6 $  $Date: 2006/05/08 15:37:54 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
@@ -63,8 +63,14 @@ public class BeanInfoDecoratorUtility {
 			decor.unsetHidden();
 		if ((implicitSettings & FeatureDecoratorImpl.FEATURE_PREFERRED_IMPLICIT) != 0)
 			decor.unsetPreferred();
-		if ((implicitSettings & FeatureDecoratorImpl.FEATURE_ATTRIBUTES_IMPLICIT) != 0)
-			decor.eUnset(BeaninfoPackage.eINSTANCE.getFeatureDecorator_Attributes());
+		if ((implicitSettings & FeatureDecoratorImpl.FEATURE_ATTRIBUTES_IMPLICIT) != 0) {
+			for (Iterator itr = decor.getAttributes().listIterator(); itr.hasNext();) {
+				FeatureAttributeMapEntryImpl entry = (FeatureAttributeMapEntryImpl)itr.next();
+				if (entry.isImplicit()) {
+					itr.remove();
+				}
+			}
+		}	
 		decor
 				.setImplicitlySetBits(implicitSettings
 						& ~(FeatureDecoratorImpl.FEATURE_DISPLAYNAME_IMPLICIT | FeatureDecoratorImpl.FEATURE_SHORTDESC_IMPLICIT
@@ -502,8 +508,7 @@ public class BeanInfoDecoratorUtility {
 				decor.setPreferred(record.preferred);
 			implicitSettings |= FeatureDecoratorImpl.FEATURE_PREFERRED_IMPLICIT;
 		}
-		if (record.attributeNames != null && !decor.isAttributesExplicitEmpty()
-				&& !decor.eIsSet(BeaninfoPackage.eINSTANCE.getFeatureDecorator_Attributes())) {
+		if (record.attributeNames != null && !decor.isAttributesExplicitEmpty()) {
 			// This is a list, so we need to read an fill in.
 			EMap attrs = decor.getAttributes();
 			for (int i = 0; i < record.attributeNames.length; i++) {
@@ -511,6 +516,7 @@ public class BeanInfoDecoratorUtility {
 						.createFeatureAttributeMapEntry();
 				entry.setTypedKey(record.attributeNames[i]);
 				entry.setTypedValue(record.attributeValues[i]);
+				entry.setImplicit(true);
 				attrs.add(entry);
 			}
 			implicitSettings |= FeatureDecoratorImpl.FEATURE_ATTRIBUTES_IMPLICIT;
@@ -1116,7 +1122,12 @@ public class BeanInfoDecoratorUtility {
 			doSet(cd, fcs, BeaninfoPackage.eINSTANCE.getFeatureDecorator_Preferred(), Boolean.valueOf(decor.isPreferred()), false);
 		}
 		if ((implicitSettings & FeatureDecoratorImpl.FEATURE_ATTRIBUTES_IMPLICIT) != 0) {
-			doAddAllToEnd(cd, fcs, BeaninfoPackage.eINSTANCE.getFeatureDecorator_Attributes(), decor.getAttributes(), true);
+			for (Iterator itr = decor.getAttributes().listIterator(); itr.hasNext();) {
+				FeatureAttributeMapEntryImpl entry = (FeatureAttributeMapEntryImpl)itr.next();
+				if (entry.isImplicit()) {
+					doAddToEnd(cd, fcs, BeaninfoPackage.eINSTANCE.getFeatureDecorator_Attributes(), entry, true);
+				}
+			}
 		}
 	}
 
