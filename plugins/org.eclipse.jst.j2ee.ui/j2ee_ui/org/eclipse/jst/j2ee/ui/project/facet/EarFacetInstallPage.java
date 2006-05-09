@@ -195,19 +195,19 @@ public final class EarFacetInstallPage extends DataModelFacetInstallPage impleme
 		selectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_PROJECT_MODULES_PG_SELECT));
 		selectAllButton.addListener(SWT.Selection, this);
 		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-		gd.widthHint = 120;
+		gd.widthHint = SWT.DEFAULT;
 		selectAllButton.setLayoutData(gd);
 		deselectAllButton = new Button(buttonGroup, SWT.PUSH);
 		deselectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_PROJECT_MODULES_PG_DESELECT));
 		deselectAllButton.addListener(SWT.Selection, this);
 		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-		gd.widthHint = 120;
+		gd.widthHint = SWT.DEFAULT;
 		deselectAllButton.setLayoutData(gd);
 		newModuleButton = new Button(buttonGroup, SWT.PUSH);
 		newModuleButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_PROJECT_MODULES_PG_NEW));
 		newModuleButton.addListener(SWT.Selection, this);
 		gd = new GridData(GridData.GRAB_HORIZONTAL);
-		gd.minimumWidth = 120;
+		gd.minimumWidth = SWT.DEFAULT;
 		newModuleButton.setLayoutData(gd);
 	}
 
