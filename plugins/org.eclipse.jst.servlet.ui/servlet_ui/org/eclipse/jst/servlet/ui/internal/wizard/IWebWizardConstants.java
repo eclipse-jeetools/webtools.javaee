@@ -39,6 +39,7 @@ public interface IWebWizardConstants {
 	
 	// common
 	public final static String ADD_BUTTON_LABEL = WEBUIMessages.ADD_BUTTON_LABEL;
+	public final static String EDIT_BUTTON_LABEL = WEBUIMessages.EDIT_BUTTON_LABEL;
 	public final static String REMOVE_BUTTON_LABEL = WEBUIMessages.REMOVE_BUTTON_LABEL;
 	public final static String URL_PATTERN_TITLE = WEBUIMessages.URL_PATTERN_TITLE;
 	public final static String URL_PATTERN_LABEL = WEBUIMessages.URL_PATTERN_LABEL;

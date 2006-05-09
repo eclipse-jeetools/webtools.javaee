@@ -84,6 +84,7 @@ public class WEBUIMessages extends NLS {
 	public static String PACKAGE_SELECTION_DIALOG_TITLE;
 	public static String _12;
 	public static String ADD_BUTTON_LABEL;
+	public static String EDIT_BUTTON_LABEL;
 	public static String _11;
 	public static String _10;
 	public static String SUPERCLASS_SELECTION_DIALOG_DESC;

@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
@@ -132,9 +134,35 @@ public class StringArrayTableWizardSection extends Composite {
 			return stringArray;
 		}
 	}
+	
+	protected class EditStringArrayDialog extends AddStringArrayDialog {
+		protected String[] valuesForTextField;
+		/**
+		 * CMPFieldDialog constructor comment.
+		 */
+		public EditStringArrayDialog(Shell shell, String windowTitle, String[] labelsForTextField, String[] valuesForTextField) {
+			super(shell, windowTitle, labelsForTextField);
+			this.valuesForTextField = valuesForTextField;
+		}
+		/**
+		 * CMPFieldDialog constructor comment.
+		 */
+		public Control createDialogArea(Composite parent) {
+
+			Composite composite = (Composite) super.createDialogArea(parent);
+
+			int n = valuesForTextField.length;
+			for (int i = 0; i < n; i++) {
+				texts[i].setText(valuesForTextField[i]);
+			}
+			
+			return composite;
+		}
+	}
 
 	private TableViewer viewer;
 	private Button addButton;
+	private Button editButton;
 	private Button removeButton;
 	private String title;
 	private String[] labelsForText;
@@ -142,8 +170,13 @@ public class StringArrayTableWizardSection extends Composite {
 	private String propertyName;
 	private Image labelProviderImage;
 
-	public StringArrayTableWizardSection(Composite parent, String title, String addButtonLabel, String removeButtonLabel, String[] labelsForText, Image labelProviderImage,
-			IDataModel model, String propertyName) {
+	public StringArrayTableWizardSection(Composite parent, String title, String addButtonLabel, String removeButtonLabel, 
+			String[] labelsForText, Image labelProviderImage, IDataModel model, String propertyName) {
+		this(parent, title, addButtonLabel, null, removeButtonLabel, labelsForText, labelProviderImage, model, propertyName);
+	}
+
+	public StringArrayTableWizardSection(Composite parent, String title, String addButtonLabel, String editButtonLabel, String removeButtonLabel, 
+			String[] labelsForText, Image labelProviderImage, IDataModel model, String propertyName) {
 		super(parent, SWT.NONE);
 		this.title = title;
 		this.labelsForText = labelsForText;
@@ -179,19 +212,34 @@ public class StringArrayTableWizardSection extends Composite {
 		addButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
 		addButton.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent event) {
-				handleAddButtonSelected(event);
+				handleAddButtonSelected();
 			}
 			public void widgetDefaultSelected(SelectionEvent event) {
 				//Do nothing
 			}
 		});
 
+		if (editButtonLabel != null) {
+			editButton = new Button(buttonCompo, SWT.PUSH);
+			editButton.setText(editButtonLabel);
+			editButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
+			editButton.addSelectionListener(new SelectionListener() {
+				public void widgetSelected(SelectionEvent event) {
+					handleEditButtonSelected();
+				}
+				public void widgetDefaultSelected(SelectionEvent event) {
+					//Do nothing
+				}
+			});
+			editButton.setEnabled(false);
+		}
+
 		removeButton = new Button(buttonCompo, SWT.PUSH);
 		removeButton.setText(removeButtonLabel);
 		removeButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
 		removeButton.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent event) {
-				handleRemoveButtonSelected(event);
+				handleRemoveButtonSelected();
 			}
 			public void widgetDefaultSelected(SelectionEvent event) {
 				//Do nothing
@@ -202,34 +250,75 @@ public class StringArrayTableWizardSection extends Composite {
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			public void selectionChanged(SelectionChangedEvent event) {
 				ISelection selection = event.getSelection();
+				if (editButton != null) {
+					editButton.setEnabled(!selection.isEmpty());
+				}
 				removeButton.setEnabled(!selection.isEmpty());
 			}
 		});
+		
+		if (editButton != null) {
+			viewer.addDoubleClickListener(new IDoubleClickListener() {
+				public void doubleClick(DoubleClickEvent event) {
+					handleEditButtonSelected();
+				}
+			});
+		}
 	}
 
-	private void handleAddButtonSelected(SelectionEvent event) {
+	private void handleAddButtonSelected() {
 		AddStringArrayDialog dialog = new AddStringArrayDialog(getShell(), title, labelsForText);
 		dialog.open();
 		String[] stringArray = dialog.getStringArray();
 		addStringArray(stringArray);
 	}
 
-	private void handleRemoveButtonSelected(SelectionEvent event) {
+	private void handleEditButtonSelected() {
+		ISelection selection = viewer.getSelection();
+		if (selection.isEmpty() || !(selection instanceof IStructuredSelection))
+			return;
+		Object selectedObj = ((IStructuredSelection) selection).getFirstElement();
+		String[] valuesForText = (String[]) selectedObj;
+		
+		EditStringArrayDialog dialog = new EditStringArrayDialog(getShell(), title, labelsForText, valuesForText);
+		dialog.open();
+		String[] stringArray = dialog.getStringArray();
+		editStringArray(valuesForText, stringArray);
+	}
+
+	private void handleRemoveButtonSelected() {
 		ISelection selection = viewer.getSelection();
 		if (selection.isEmpty() || !(selection instanceof IStructuredSelection))
 			return;
 		Object selectedObj = ((IStructuredSelection) selection).getFirstElement();
 		removeStringArray(selectedObj);
 	}
-
+	
 	public void addStringArray(String[] stringArray) {
-		List valueList = new ArrayList();
 		if (stringArray == null)
 			return;
-		valueList = (List) viewer.getInput();
+		List valueList = (List) viewer.getInput();
 		if (valueList == null)
 			valueList = new ArrayList();
 		valueList.add(stringArray);
+		setInput(valueList);
+	}
+
+	public void editStringArray(String[] oldStringArray, String[] newStringArray) {
+		if (newStringArray == null)
+			return;
+		
+		List valueList = (List) viewer.getInput();
+		if (valueList == null)
+			valueList = new ArrayList();
+		
+		int index = valueList.indexOf(oldStringArray);
+		if (index == -1) {
+			valueList.add(newStringArray);
+		} else {
+			valueList.set(index, newStringArray);
+		}
+		
 		setInput(valueList);
 	}
 
@@ -253,6 +342,10 @@ public class StringArrayTableWizardSection extends Composite {
 
 	public Button getAddButton() {
 		return addButton;
+	}
+
+	public Button getEditButton() {
+		return editButton;
 	}
 
 	public Button getRemoveButton() {
