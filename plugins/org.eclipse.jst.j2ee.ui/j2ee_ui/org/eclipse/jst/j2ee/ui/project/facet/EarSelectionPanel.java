@@ -53,7 +53,7 @@ public final class EarSelectionPanel implements IWebFacetInstallDataModelPropert
         final Group group = new Group( parent, SWT.NONE );
         group.setLayoutData( gdhfill() );
         group.setLayout( new GridLayout( 3, false ) );
-        group.setText( "EAR Membership" );
+        group.setText( Resources.earMemberShip );
         
         this.addToEar = new Button( group, SWT.CHECK );
         this.addToEar.setText( Resources.addToEarLabel );
@@ -119,6 +119,7 @@ public final class EarSelectionPanel implements IWebFacetInstallDataModelPropert
         public static String addToEarLabel;
         public static String newButtonLabel;
         public static String earProjectLabel;
+        public static String earMemberShip;
         
         static
         {
