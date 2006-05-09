@@ -1,28 +1,29 @@
-/*******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
+/***************************************************************************************************
+ * Copyright (c) 2003, 2005 IBM Corporation and others. All rights reserved. This program and the
+ * accompanying materials are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- * IBM Corporation - initial API and implementation
- *******************************************************************************/
+ * 
+ * Contributors: IBM Corporation - initial API and implementation
+ **************************************************************************************************/
 /*
  * Created on Jan 19, 2004
- *
- * To change the template for this generated file go to
- * Window - Preferences - Java - Code Generation - Code and Comments
+ * 
+ * To change the template for this generated file go to Window - Preferences - Java - Code
+ * Generation - Code and Comments
  */
 package org.eclipse.jst.j2ee.internal.webservice;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -32,16 +33,16 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.j2ee.internal.webservice.helper.WebServiceEvent;
 import org.eclipse.jst.j2ee.internal.webservice.helper.WebServiceManagerListener;
 import org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager;
+import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServiceUIPlugin;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
-import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.navigator.internal.IJ2EENavigatorConstants;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
 import org.eclipse.jst.j2ee.webservice.wsdd.PortComponent;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.navigator.ICommonContentExtensionSite;
 import org.eclipse.ui.navigator.ICommonContentProvider;
+import org.eclipse.ui.progress.UIJob;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
 
 /**
@@ -52,6 +53,8 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFa
  */
 public class WebServicesNavigatorContentProvider extends AdapterFactoryContentProvider implements ICommonContentProvider, WebServiceManagerListener {
 
+	private static final Object[] NO_CHILDREN = new Object[0];
+
 	private WebServicesManager webServicesManager = null;
 	private boolean activityEnabled = false;
 	private WebServiceNavigatorGroup webServiceNavigatorGroup;
@@ -59,16 +62,23 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 	private WebServiceNavigatorGroupType CLIENTS = null;
 	private HashMap HANDLERS = new HashMap();
 	private TreeViewer viewer = null;
-	
+
+	private Job indexJob = new WebServiceIndexJob();
+	private Job updateJob = new UpdateWebServicesNodeUIJob(); 
+	private Job removeJob = new RemoveWebServicesNodeUIJob(); 
+
+	private boolean navigatorGroupAdded = false;
+	private boolean indexJobScheduled = false;
+
 	public WebServicesNavigatorContentProvider() {
 		super(createAdapterFactory());
 		WebServicesManager.getInstance().addListener(this);
 		// create the default synchronizer for any web service editor to use with view due
 		// to the usage of seperate edit models.
 		WebServicesNavigatorSynchronizer.createInstance(createAdapterFactory(), this);
-		
+
 	}
-	
+
 	/**
 	 * Configure and return a composite adapter factory for our contents
 	 */
@@ -82,37 +92,67 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 	 * @see org.eclipse.wst.common.navigator.internal.views.navigator.INavigatorContentProvider#getChildren(java.lang.Object)
 	 */
 	public Object[] getChildren(Object parentElement) {
-//		if (!NavigatorActivityHelper.isActivityEnabled(getContainingExtension())) {
-//			activityEnabled = false;
-//			return super.getChildren(parentElement);
-//		}
-//		activityEnabled = true;
-		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+		// if (!NavigatorActivityHelper.isActivityEnabled(getContainingExtension())) {
+		// activityEnabled = false;
+		// return super.getChildren(parentElement);
+		// }
+		// activityEnabled = true;
 		if (parentElement instanceof IWorkspaceRoot) {
-			return new Object[]{getWebServicesNavigatorGroup(parentElement)};
-		} else if (parentElement instanceof WebServiceNavigatorGroup) {
+			// return new Object[]{ getWebServicesNavigatorGroup(parentElement) };
+			if (!hasNavigatorGroupBeenAdded()) {
+				if (!hasIndexJobBeenScheduled())
+					indexJob.schedule();
+				return NO_CHILDREN;
+			} else {
+				return new Object[]{getNavigatorGroup()};
+			}
+		} else if (parentElement instanceof WebServiceNavigatorGroup)
 			return new Object[]{getServicesGroup(), getClientsGroup()};
-		} else if (parentElement instanceof WebServiceNavigatorGroupType && ((WebServiceNavigatorGroupType) parentElement).isServices()) {
-			List result = new ArrayList();
-			result.addAll(getWebServicesManager().getInternalWSDLServices());
-			result.addAll(getWebServicesManager().getExternalWSDLServices());
-			return result.toArray();
-		} else if (parentElement instanceof WebServiceNavigatorGroupType && ((WebServiceNavigatorGroupType) parentElement).isClients()) {
-			return getWebServicesManager().getAllWorkspaceServiceRefs().toArray();
-		} else if (serviceHelper.isService(parentElement)) {
+
+		else if (parentElement instanceof WebServiceNavigatorGroupType) {
+			WebServiceNavigatorGroupType wsGroupType = (WebServiceNavigatorGroupType) parentElement;
+			return wsGroupType.getChildren();
+		} else if (WSDLServiceExtManager.getServiceHelper().isService(parentElement))
 			return getServiceLevelNodes(parentElement).toArray();
-		} else if (parentElement instanceof WebServiceNavigatorGroupType && ((WebServiceNavigatorGroupType) parentElement).isHandlers()) {
-			return getHandlerChildren(parentElement).toArray();
-		} else if (parentElement instanceof ServiceRef) {
-			Collection result = new ArrayList();
-			result.add(getHandlersGroup(parentElement));
-			return result.toArray();
-		} else if (parentElement instanceof Handler || parentElement instanceof org.eclipse.jst.j2ee.webservice.wsclient.Handler) {
-			return new ArrayList().toArray();
-		} else if (serviceHelper.isWSDLResource(parentElement))
-			return new ArrayList().toArray();
+
+		else if (parentElement instanceof ServiceRef)
+			return new Object[]{getHandlersGroup(parentElement)};
+
+		else if (parentElement instanceof Handler || parentElement instanceof org.eclipse.jst.j2ee.webservice.wsclient.Handler || WSDLServiceExtManager.getServiceHelper().isWSDLResource(parentElement))
+			return NO_CHILDREN;
+
 		else
 			return super.getChildren(parentElement);
+	}
+
+	/**
+	 * Employ a Test-And-Set (TST) primitive to ensure the Job is only scheduled once per load.
+	 * 
+	 * @return True if the the index job has been scheduled. The value of indexJobSchedule will
+	 *         _always_ be true after this method executes, so if false is returned, the job must be
+	 *         scheduled by the caller.
+	 */
+	private synchronized boolean hasIndexJobBeenScheduled() {
+		if (!indexJobScheduled) {
+			indexJobScheduled = true;
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Multiple threads access this boolean flag, so we synchronize it to ensure that its value is
+	 * consistent across different threads.
+	 * 
+	 * @return True if the WebServicesNavigatorGroup has already been processed and added to the
+	 *         tree.
+	 */
+	private synchronized boolean hasNavigatorGroupBeenAdded() {
+		return navigatorGroupAdded;
+	} 
+	
+	private synchronized void setNavigatorGroupAdded(boolean hasBeenAdded) {
+		navigatorGroupAdded = hasBeenAdded;
 	}
 
 	private List getServiceLevelNodes(Object parentElement) {
@@ -123,7 +163,7 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 		// Add handlers
 		if (getWebServicesManager().isServiceInternal((EObject) parentElement))
 			result.add(getHandlersGroup(parentElement));
-		//add wsdl file
+		// add wsdl file
 		Resource wsdl = getWebServicesManager().getWSDLResource((EObject) parentElement);
 		if (wsdl != null)
 			result.add(wsdl);
@@ -144,16 +184,6 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 			result.addAll(handlersGroup.getServiceRef().getHandlers());
 		}
 		return result;
-	}
-
-	/**
-	 * @param parentElement
-	 * @return
-	 */
-	protected WebServiceNavigatorGroup getWebServicesNavigatorGroup(Object parentElement) {
-		if (webServiceNavigatorGroup == null)
-			webServiceNavigatorGroup = new WebServiceNavigatorGroup((IWorkspaceRoot) parentElement);
-		return webServiceNavigatorGroup;
 	}
 
 	/*
@@ -187,9 +217,9 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 	 */
 	public void inputChanged(Viewer aViewer, Object oldInput, Object newInput) {
 		// TODO handle change events
-		if (aViewer !=null && aViewer instanceof TreeViewer)
-			viewer = (TreeViewer)aViewer;
-		super.inputChanged(aViewer,oldInput,newInput);
+		if (aViewer != null && aViewer instanceof TreeViewer)
+			viewer = (TreeViewer) aViewer;
+		super.inputChanged(aViewer, oldInput, newInput);
 	}
 
 	/*
@@ -210,23 +240,25 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 	 * @see org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener#editModelChanged(org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent)
 	 */
 	public void webServiceManagerChanged(WebServiceEvent anEvent) {
-		if (getViewer()==null) return;
-		Display d = null;
-		try {
-			d = getViewer().getControl().getDisplay();
-		} catch (Exception e) {
-			//Ignore
-		}
-		if (d != Display.getCurrent() & d != null) {
-			d.asyncExec(new Runnable() {
-				public void run() {
-					getViewer().refresh(getNavigatorGroup());
+		
+		switch (anEvent.getEventType()) {
+			case WebServiceEvent.REFRESH:
+
+				if(!hasNavigatorGroupBeenAdded()) {
+					if(!hasIndexJobBeenScheduled())
+						indexJob.schedule();
+					else {
+						new AddWebServicesNodeUIJob().schedule();
+					}
+				} else {
+					updateJob.schedule();
 				}
-			});
-		} else
-			getViewer().refresh(getNavigatorGroup()); 
+				break;
+			case WebServiceEvent.REMOVE:
+				removeJob.schedule();
+		}
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -276,17 +308,18 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 			return null;
 		WebServiceNavigatorGroupType handler = null;
 		handler = (WebServiceNavigatorGroupType) HANDLERS.get(key);
-		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
 		if (handler == null) {
-			if (serviceHelper.isService(key))
+			if (WSDLServiceExtManager.getServiceHelper().isService(key))
 				handler = new WebServiceNavigatorGroupType(WebServiceNavigatorGroupType.HANDLERS, (EObject) key);
 			else if (key instanceof ServiceRef)
 				handler = new WebServiceNavigatorGroupType(WebServiceNavigatorGroupType.HANDLERS, (ServiceRef) key);
+
 			if (handler != null)
 				HANDLERS.put(key, handler);
 		}
 		return handler;
 	}
+
 	/**
 	 * @return Returns the viewer.
 	 */
@@ -295,17 +328,135 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 	}
 
 	public void restoreState(IMemento aMemento) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void saveState(IMemento aMemento) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void init(ICommonContentExtensionSite site) {
-		// TODO Auto-generated method stub
-		
+	}
+
+	/**
+	 * @param monitor
+	 * @return
+	 */
+	private boolean indexWebServices(IProgressMonitor monitor) {
+		boolean hasChildren = false;
+		if (!monitor.isCanceled()) {
+			try {
+				hasChildren |= getWebServicesManager().getWorkspace13ServiceRefs().size() > 0;
+			} catch (RuntimeException e) { 
+				WebServiceUIPlugin.logError(0, e.getMessage(), e);
+			}
+		} else {
+			return hasChildren;
+		}
+		monitor.worked(1);
+
+		if (!monitor.isCanceled()) {
+			try {
+				hasChildren |= getWebServicesManager().getWorkspace14ServiceRefs().size() > 0;
+			} catch (RuntimeException e) { 
+				WebServiceUIPlugin.logError(0, e.getMessage(), e);
+			}
+		} else {
+			return hasChildren;
+		}
+		monitor.worked(1);
+
+		if (!monitor.isCanceled()) {
+			try {
+				hasChildren |= getWebServicesManager().getInternalWSDLServices().size() > 0;
+			} catch (RuntimeException e) { 
+				WebServiceUIPlugin.logError(0, e.getMessage(), e);
+			}
+		} else {
+			return hasChildren;
+		}
+		monitor.worked(1);
+
+		if (!monitor.isCanceled()) {
+			try {
+				hasChildren |= getWebServicesManager().getExternalWSDLServices().size() > 0;
+			} catch (RuntimeException e) { 
+				WebServiceUIPlugin.logError(0, e.getMessage(), e);
+			}
+		} else {
+			return hasChildren;
+		}
+		monitor.worked(1);
+		return hasChildren;
+	}
+
+	public class WebServiceIndexJob extends Job {
+
+		public WebServiceIndexJob() {
+			super("Indexing JSR-109 Web Services");
+		}
+
+
+		protected IStatus run(IProgressMonitor monitor) {
+			monitor.beginTask("Load Web Service Components", 4);
+  
+			if (indexWebServices(monitor)) {
+				new AddWebServicesNodeUIJob().schedule();
+			}
+
+			return Status.OK_STATUS;
+		}
+	}
+
+	public class AddWebServicesNodeUIJob extends UIJob {
+
+
+		public AddWebServicesNodeUIJob() {
+			super("Add JSR-109 Web Services node to viewer");
+		}
+
+		public IStatus runInUIThread(IProgressMonitor monitor) {
+			getViewer().add(getViewer().getInput(), getNavigatorGroup());
+			setNavigatorGroupAdded(true);
+			return Status.OK_STATUS;
+		} 
+	}
+
+	public class UpdateWebServicesNodeUIJob extends UIJob {
+
+
+		public UpdateWebServicesNodeUIJob () {
+			super("Update JSR-109 Web Services node in viewer");
+		}
+
+		public IStatus runInUIThread(IProgressMonitor monitor) {
+			if(hasNavigatorGroupBeenAdded())
+				getViewer().refresh(getNavigatorGroup());
+			else {
+				getViewer().add(getViewer().getInput(), getNavigatorGroup());
+				setNavigatorGroupAdded(true);
+			}
+			return Status.OK_STATUS;
+		} 
+	}
+	 
+	public class RemoveWebServicesNodeUIJob extends UIJob { 
+
+		public RemoveWebServicesNodeUIJob() {
+			super("Update JSR-109 Web Services node in viewer");
+		}
+
+		public IStatus runInUIThread(IProgressMonitor monitor) { 
+
+			monitor.beginTask("Updating Index of Web Service Components", 4);
+  
+			if (indexWebServices(monitor)) {
+				getViewer().refresh(getNavigatorGroup());
+			} else {
+				getViewer().remove(getNavigatorGroup());
+				setNavigatorGroupAdded(false);
+			}
+			return Status.OK_STATUS;
+		} 
 	}
 }

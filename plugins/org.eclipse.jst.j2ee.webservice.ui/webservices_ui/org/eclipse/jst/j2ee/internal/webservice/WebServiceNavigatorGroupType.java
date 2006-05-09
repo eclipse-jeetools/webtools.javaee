@@ -16,8 +16,13 @@
  */
 package org.eclipse.jst.j2ee.internal.webservice;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
+import org.eclipse.jst.j2ee.webservice.wsdd.PortComponent;
 import org.eclipse.ui.IActionFilter;
 
 /**
@@ -27,6 +32,8 @@ import org.eclipse.ui.IActionFilter;
  * Generation - Code and Comments
  */
 public class WebServiceNavigatorGroupType implements IActionFilter {
+
+	private static final Object[] NO_CHILDREN = new Object[0];
 
 	public static final int SERVICES = 0;
 	public static final int CLIENTS = 2;
@@ -130,4 +137,37 @@ public class WebServiceNavigatorGroupType implements IActionFilter {
 	public ServiceRef getServiceRef() {
 		return serviceRef;
 	}
+	
+	
+	public Object[] getChildren() {
+		
+		switch(getGroupType()) {
+			
+			case CLIENTS: 
+				return WebServicesManager.getInstance().getAllWorkspaceServiceRefs().toArray();
+			case HANDLERS: {
+				List result = new ArrayList();
+				// handle web service handlers case
+				if (getWsdlService() != null) {
+					PortComponent port = WebServicesManager.getInstance().getPortComponent(getWsdlService());
+					if (port != null && port.getHandlers() != null && !port.getHandlers().isEmpty())
+						return port.getHandlers().toArray();
+				}
+				// handle service ref case
+				else if (getServiceRef() != null) 
+					return getServiceRef().getHandlers().toArray();
+				else 
+					return NO_CHILDREN;
+			}
+			case SERVICES: {
+				List result = new ArrayList();
+				result.addAll(WebServicesManager.getInstance().getInternalWSDLServices());
+				result.addAll(WebServicesManager.getInstance().getExternalWSDLServices());
+				return result.toArray();
+			}
+		}
+		return NO_CHILDREN;
+		
+	}
+	
 }

@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.internal.webservice.helper;
 public class WebServiceEvent {
 
 	public static final int REFRESH = 1;
+	public static final int REMOVE = 0;
 	
 	private int eventType = 0;
 	

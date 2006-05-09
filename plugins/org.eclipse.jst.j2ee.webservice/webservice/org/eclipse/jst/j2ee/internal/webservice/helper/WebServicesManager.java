@@ -257,7 +257,12 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		try {
 			List list = getListeners();
 			for (int i = 0; i < list.size(); i++) {
-				WebServiceEvent webServiceEvent = new WebServiceEvent(WebServiceEvent.REFRESH);
+				WebServiceEvent webServiceEvent = null;
+				//If there are no more web services, remove the group
+				if (getAllWorkspaceServiceRefs().isEmpty() && getAllWSDLServices().isEmpty())
+					webServiceEvent = new WebServiceEvent(WebServiceEvent.REMOVE);
+				else
+					webServiceEvent = new WebServiceEvent(WebServiceEvent.REFRESH);
 				((WebServiceManagerListener) list.get(i)).webServiceManagerChanged(webServiceEvent);
 			}
 		} finally {
@@ -762,7 +767,8 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 					if (wscArtifactEdit !=null) {
 						state = false;
 					}
-				return state;
+					notifyListeners(EditModelEvent.ADDED_RESOURCE);
+					return state;
 				}
 			}
 			// Handle project close events and removals 
