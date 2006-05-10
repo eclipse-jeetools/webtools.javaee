@@ -60,6 +60,8 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 
 			final IJavaProject jproj = JavaCore.create(project);
 
+			addJ2EEModuleClasspathContainer(jproj);
+			
 			// Add WTP natures.
 
 			WtpUtils.addNatures(project);
