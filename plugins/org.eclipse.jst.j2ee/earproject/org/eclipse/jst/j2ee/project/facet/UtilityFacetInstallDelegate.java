@@ -61,8 +61,6 @@ public final class UtilityFacetInstallDelegate extends J2EEFacetInstallDelegate 
 			final IVirtualFolder jsrc = c.getRootFolder();
 			final IJavaProject jproj = JavaCore.create(project);
 
-			addJ2EEModuleClasspathContainer(jproj);
-			
 			final IClasspathEntry[] cp = jproj.getRawClasspath();
 
 			for (int i = 0; i < cp.length; i++) {

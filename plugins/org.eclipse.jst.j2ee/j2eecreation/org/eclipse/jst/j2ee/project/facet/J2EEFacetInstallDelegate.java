@@ -22,18 +22,15 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
 import org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -59,12 +56,6 @@ public abstract class J2EEFacetInstallDelegate {
 		jproj.setRawClasspath(updated, null);
 	}
 
-	protected void addJ2EEModuleClasspathContainer(final IJavaProject jproj) throws CoreException{
-		final IPath j2eeModuleContainer = new Path(J2EEComponentClasspathContainer.CONTAINER_ID);
-		addToClasspath(jproj, JavaCore.newContainerEntry(j2eeModuleContainer));
-	}
-
-	
 	protected void installEARFacet(String j2eeVersionText, String earProjectName, IRuntime runtime, IProgressMonitor monitor){
 
 		IProject project = ProjectUtilities.getProject(earProjectName); 

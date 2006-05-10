@@ -20,6 +20,7 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentOperation;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -33,16 +34,23 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 	}
 
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		updateEARDD(monitor);
-		super.execute(monitor, info);
-		return OK_STATUS;
+		try {
+			J2EEComponentClasspathUpdater.getInstance().pauseUpdates();
+			updateEARDD(monitor);
+			super.execute(monitor, info);
+			return OK_STATUS;
+		} finally {
+			J2EEComponentClasspathUpdater.getInstance().resumeUpdates();
+		}
 	}
 
 	protected void updateEARDD(IProgressMonitor monitor) {
 		EARArtifactEdit earEdit = null;
 		try {
 			IVirtualComponent comp = (IVirtualComponent) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
-			if (!comp.getProject().isAccessible()) return;
+			if (!comp.getProject().isAccessible())
+				return;
+			J2EEComponentClasspathUpdater.getInstance().queueUpdateEAR(comp.getProject());
 			earEdit = EARArtifactEdit.getEARArtifactEditForWrite(comp.getProject());
 			if (earEdit != null) {
 				Application application = earEdit.getApplication();
@@ -66,16 +74,6 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 	protected void removeModule(final Application application, final String moduleURI) {
 		Module module = application.getFirstModule(moduleURI);
 		application.getModules().remove(module);
-	}
-
-	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

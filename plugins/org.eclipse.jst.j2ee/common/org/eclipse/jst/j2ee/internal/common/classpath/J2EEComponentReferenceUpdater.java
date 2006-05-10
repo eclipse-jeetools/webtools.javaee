@@ -33,7 +33,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 public class J2EEComponentReferenceUpdater {
 
 	public static IPath WEBLIB = new Path("/WEB-INF/lib"); //$NON-NLS-1$
-	
+
 	/**
 	 * Sets the references for modules in the list to only those defined in the MANIFEST.MF which
 	 * can be resolved through the specified ear. Any existing references will be removed, except in
@@ -42,59 +42,60 @@ public class J2EEComponentReferenceUpdater {
 	 * @param earProject
 	 * @param moduleComponents
 	 */
-	public static void updateReferences(IProject earProject, List moduleComponents) {
+	public static void updateReferences(IProject earProject) {
 		EARArtifactEdit earEdit = null;
 		try {
 			J2EEComponentClasspathUpdater.getInstance().pauseUpdates();
+			J2EEComponentClasspathUpdater.getInstance().queueUpdateEAR(earProject);
 			earEdit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
 			if (earEdit != null) {
-				if (moduleComponents != null && moduleComponents.size() > 0) {
-					for (int i = 0; i < moduleComponents.size(); i++) {
-						IVirtualComponent moduleComponent = (IVirtualComponent) moduleComponents.get(i);
-						IVirtualFile vManifest = moduleComponent.getRootFolder().getFile(J2EEConstants.MANIFEST_URI);
-						if (!vManifest.exists()) {
-							continue;
-						}
-
+				IVirtualReference[] earRefs = earEdit.getComponentReferences();
+				for (int i = 0; i < earRefs.length; i++) {
+					IVirtualComponent moduleComponent = earRefs[i].getReferencedComponent();
+					if (moduleComponent.isBinary()) {
+						continue;
+					}
+					String[] manifestClasspath = null;
+					IVirtualFile vManifest = moduleComponent.getRootFolder().getFile(J2EEConstants.MANIFEST_URI);
+					if (vManifest.exists()) {
 						IFile manifestFile = vManifest.getUnderlyingFile();
-						ArchiveManifest manifest;
 						try {
-							manifest = new ArchiveManifestImpl(manifestFile.getContents());
+							ArchiveManifest manifest = new ArchiveManifestImpl(manifestFile.getContents());
+							manifestClasspath = manifest.getClassPathTokenized();
 						} catch (IOException e) {
 							Logger.getLogger().logError(e);
-							continue;
 						} catch (CoreException e) {
 							Logger.getLogger().logError(e);
-							continue;
 						}
-
-						String[] manifestClasspath = manifest.getClassPathTokenized();
-
-						// list rather than array incase manifest has bogus entries
-						List compRefs = new ArrayList();
-						for (int j = 0; j < manifestClasspath.length; j++) {
-							IVirtualComponent comp = earEdit.getModuleByManifestURI(manifestClasspath[j]);
-							if (comp != null) {
-								compRefs.add(ComponentCore.createReference(moduleComponent, comp));
-							}
-						}
-						if (J2EEProjectUtilities.isDynamicWebProject(moduleComponent.getProject())) {
-							IVirtualReference [] refs = moduleComponent.getReferences();
-							for(int j=0; j<refs.length; j++){
-								if(refs[j].getRuntimePath().equals(WEBLIB)){
-									compRefs.add(refs[j]);
-								}
-							}
-						}
-
-						IVirtualReference[] compRefsArray = new IVirtualReference[compRefs.size()];
-						for (int j = 0; j < compRefsArray.length; j++) {
-							compRefsArray[j] = (IVirtualReference)compRefs.get(j);
-						}
-
-
-						moduleComponent.setReferences(compRefsArray);
 					}
+
+					if (manifestClasspath == null) {
+						manifestClasspath = new String[0];
+					}
+
+					// list rather than array incase manifest has bogus entries
+					List compRefs = new ArrayList();
+					for (int j = 0; j < manifestClasspath.length; j++) {
+						IVirtualComponent comp = earEdit.getModuleByManifestURI(manifestClasspath[j]);
+						if (comp != null) {
+							compRefs.add(ComponentCore.createReference(moduleComponent, comp));
+						}
+					}
+					if (J2EEProjectUtilities.isDynamicWebProject(moduleComponent.getProject())) {
+						IVirtualReference[] moduleRefs = moduleComponent.getReferences();
+						for (int j = 0; j < moduleRefs.length; j++) {
+							if (moduleRefs[j].getRuntimePath().equals(WEBLIB)) {
+								compRefs.add(moduleRefs[j]);
+							}
+						}
+					}
+
+					IVirtualReference[] compRefsArray = new IVirtualReference[compRefs.size()];
+					for (int j = 0; j < compRefsArray.length; j++) {
+						compRefsArray[j] = (IVirtualReference) compRefs.get(j);
+					}
+
+					moduleComponent.setReferences(compRefsArray);
 				}
 			}
 		} catch (Exception e) {

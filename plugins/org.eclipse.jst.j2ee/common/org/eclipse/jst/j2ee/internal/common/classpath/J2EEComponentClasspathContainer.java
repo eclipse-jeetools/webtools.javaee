@@ -39,6 +39,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 public class J2EEComponentClasspathContainer implements IClasspathContainer {
 
 	public static final String CONTAINER_ID = "org.eclipse.jst.j2ee.internal.module.container"; //$NON-NLS-1$
+	public static final IPath CONTAINER_PATH = new Path(CONTAINER_ID);
 
 	private IPath containerPath;
 	private IJavaProject javaProject;

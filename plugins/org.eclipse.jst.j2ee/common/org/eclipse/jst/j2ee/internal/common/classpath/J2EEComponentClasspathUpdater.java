@@ -14,20 +14,29 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.wst.common.componentcore.GlobalComponentChangeListener;
 import org.eclipse.wst.common.componentcore.GlobalComponentChangeNotifier;
+import org.eclipse.wst.common.componentcore.internal.ComponentcorePackage;
+import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
-import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
 
-public class J2EEComponentClasspathUpdater implements EditModelListener {
+public class J2EEComponentClasspathUpdater extends AdapterImpl implements GlobalComponentChangeListener {
 
 	private static J2EEComponentClasspathUpdater instance = null;
 	private int pauseCount = 0;
@@ -74,6 +83,24 @@ public class J2EEComponentClasspathUpdater implements EditModelListener {
 		}
 	}
 
+
+	private final String MODULE_URI = "module:/resource";
+
+	public void notifyChanged(Notification notification) {
+		if (notification.getFeature() == ComponentcorePackage.eINSTANCE.getWorkbenchComponent_ReferencedComponents()) {
+			switch (notification.getEventType()) {
+				case Notification.REMOVE :
+					ReferencedComponent oldRef = (ReferencedComponent) notification.getOldValue();
+					URI handle = oldRef.getHandle();
+					if (handle.toString().startsWith(MODULE_URI)) {
+						String projectName = handle.segment(2);
+						IProject project = ProjectUtilities.getProject(projectName);
+						queueUpdate(project);
+					}
+			}
+		}
+	}
+
 	public void editModelChanged(EditModelEvent anEvent) {
 		switch (anEvent.getEventCode()) {
 			case EditModelEvent.SAVE :
@@ -92,7 +119,6 @@ public class J2EEComponentClasspathUpdater implements EditModelListener {
 			queueUpdateModule(project);
 		}
 	}
-
 
 	public void queueUpdateModule(IProject project) {
 		synchronized (this) {
@@ -126,27 +152,94 @@ public class J2EEComponentClasspathUpdater implements EditModelListener {
 		}
 	}
 
+	private void updateModule(IProject project) {
+		IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(project);
+		if (earProjects.length == 0) {
+			removeContainerFromModuleIfNecessary(project);
+			return;
+		}
+		IClasspathContainer container = addContainerToModuleIfNecessary(project);
+		if (container != null) {
+			((J2EEComponentClasspathContainer) container).update();
+		}
+	}
 
-	protected static void updateModule(IProject project) {
-		final IJavaProject jproj = JavaCore.create(project);
-		IClasspathEntry[] cpes;
+	private IClasspathContainer addContainerToModuleIfNecessary(IProject moduleProject) {
+		IJavaProject jproj = JavaCore.create(moduleProject);
+		IClasspathEntry entry = getJ2eeComponentClasspathEntry(jproj);
+		if (entry == null) {
+			try {
+				entry = JavaCore.newContainerEntry(new Path(J2EEComponentClasspathContainer.CONTAINER_ID));
+				addToClasspath(jproj, entry);
+			} catch (CoreException e) {
+				Logger.getLogger().logError(e);
+			}
+		}
+		IClasspathContainer container = null;
 		try {
+			container = JavaCore.getClasspathContainer(entry.getPath(), jproj);
+		} catch (JavaModelException e) {
+			Logger.getLogger().logError(e);
+		}
+		return container;
+	}
+
+	private void removeContainerFromModuleIfNecessary(IProject moduleProject) {
+		IJavaProject jproj = JavaCore.create(moduleProject);
+		IClasspathEntry entry = getJ2eeComponentClasspathEntry(jproj);
+		if (entry != null) {
+			try {
+				removeFromClasspath(jproj, entry);
+			} catch (CoreException e) {
+				Logger.getLogger().logError(e);
+			}
+		}
+	}
+
+	private void addToClasspath(final IJavaProject jproj, final IClasspathEntry entry) throws CoreException {
+		final IClasspathEntry[] current = jproj.getRawClasspath();
+		final IClasspathEntry[] updated = new IClasspathEntry[current.length + 1];
+		System.arraycopy(current, 0, updated, 0, current.length);
+		updated[current.length] = entry;
+		jproj.setRawClasspath(updated, null);
+	}
+
+	private void removeFromClasspath(final IJavaProject jproj, final IClasspathEntry entry) throws CoreException {
+		final IClasspathEntry[] current = jproj.getRawClasspath();
+		final IClasspathEntry[] updated = new IClasspathEntry[current.length - 1];
+		boolean removed = false;
+		for (int i = 0; i < current.length; i++) {
+			if (!removed) {
+				if (current[i] == entry) {
+					removed = true;
+				} else {
+					updated[i] = current[i];
+				}
+			} else {
+				updated[i - 1] = current[i];
+			}
+		}
+		jproj.setRawClasspath(updated, null);
+	}
+
+
+	private IClasspathEntry getJ2eeComponentClasspathEntry(IJavaProject jproj) {
+		try {
+			IClasspathEntry[] cpes;
 			cpes = jproj.getRawClasspath();
 			for (int j = 0; j < cpes.length; j++) {
 				final IClasspathEntry cpe = cpes[j];
-
 				if (cpe.getEntryKind() == IClasspathEntry.CPE_CONTAINER) {
-					final IClasspathContainer cont = JavaCore.getClasspathContainer(cpe.getPath(), jproj);
-
-					if (cont instanceof J2EEComponentClasspathContainer) {
-						((J2EEComponentClasspathContainer) cont).update();
+					if (cpe.getPath().equals(J2EEComponentClasspathContainer.CONTAINER_PATH)) {
+						return cpe; // entry found
 					}
 				}
 			}
 		} catch (JavaModelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.getLogger().logError(e);
 		}
+		// entry not found
+		return null;
 	}
 
 }

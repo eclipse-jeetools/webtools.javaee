@@ -136,8 +136,6 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			final IPath webLibContainer = new Path(WebAppLibrariesContainer.CONTAINER_ID);
 			addToClasspath(jproj, JavaCore.newContainerEntry(webLibContainer));
 
-			addJ2EEModuleClasspathContainer(jproj);
-			
 			try {
 				((IDataModelOperation) model.getProperty(FacetDataModelProvider.NOTIFICATION_OPERATION)).execute(monitor, null);
 			} catch (ExecutionException e) {
