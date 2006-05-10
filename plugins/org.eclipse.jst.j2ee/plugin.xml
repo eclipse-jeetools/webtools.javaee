@@ -700,4 +700,11 @@
     </validationHelper>	   
  </extension>
   
+  <extension point="org.eclipse.jdt.core.classpathContainerInitializer">
+    <classpathContainerInitializer
+      class="org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathInitializer"
+      id="org.eclipse.jst.j2ee.internal.module.container"/>
+  </extension>
+  
+  
 </plugin>

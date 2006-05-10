@@ -62,6 +62,8 @@ public class J2EECommonMessages extends NLS {
 	public static String ERR_NOT_SUPPORTED;
 	public static String ERR_JAVA_CLASS_FOLDER_NOT_ABSOLUTE;
 
+	public static String J2EE_MODULE_CLASSPATH_CONTAINER_NAME;
+	
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, J2EECommonMessages.class);
 	}
