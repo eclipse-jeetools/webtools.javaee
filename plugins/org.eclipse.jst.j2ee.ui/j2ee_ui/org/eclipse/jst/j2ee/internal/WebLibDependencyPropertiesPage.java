@@ -132,7 +132,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
     
     private void handleWLPSupport() {
 		tableManager.setWLPEntry(true);
-		availableDependentJars.setText("Select utility projects to add as Web Library projects to the web module"); //$NON-NLS-1$
+		availableDependentJars.setText(ManifestUIResourceHandler.WEB_LIB_LIST_DESCRIPTION);
 		tableManager.refresh();
 	}
     

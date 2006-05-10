@@ -50,6 +50,7 @@ public final class ManifestUIResourceHandler extends NLS {
 	public static String Web_Lib_Error;
 	public static String REDIRECT_TEXT_EDITOR_UI_;
 	public static String Error_Checking_Project_Facets;
+	public static String WEB_LIB_LIST_DESCRIPTION;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, ManifestUIResourceHandler.class);
