@@ -47,7 +47,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataMo
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
-import org.eclipse.jst.j2ee.internal.common.UpdateProjectClasspath;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
@@ -231,6 +231,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 					IDataModelOperation op = removeComponentFromEAROperation(earComponent, list);
 					op.execute(null, null);
 					// if that succeeded, remove all EAR-scope J2EE dependencies on these components
+					J2EEComponentClasspathUpdater.getInstance().queueUpdateEAR(earComponent.getProject());
 					removeEARComponentDependencies(dependentComps);
 				} catch (ExecutionException e) {
 					Logger.getLogger().log(e);
@@ -296,8 +297,6 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 				model.getDefaultOperation().execute(null, null);
 				// update the manifest
 				removeManifestDependency(source, target);
-				// update the project classpath 
-				UpdateProjectClasspath.updateProjectDependency(source.getProject().getName(), target.getProject().getName(), false);
 			}
 		}
 	}

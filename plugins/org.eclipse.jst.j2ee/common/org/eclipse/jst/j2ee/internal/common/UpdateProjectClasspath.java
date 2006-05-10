@@ -25,6 +25,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.ClasspathEntry;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
 
 /**
@@ -103,6 +104,13 @@ public class UpdateProjectClasspath {
 		return false;
 	}	
 
+	/**
+	 * {@link DoNotUseMeThisWillBeDeletedPost15}
+	 * TODO this probably can be deleted
+	 * @param projectName
+	 * @param referencedProjectName
+	 * @param add
+	 */
 	public static  void updateProjectDependency(final String projectName, final String referencedProjectName, final boolean add) {
 
 		IProject proj = ProjectUtilities.getProject( projectName );
@@ -110,6 +118,13 @@ public class UpdateProjectClasspath {
 		updateProjectDependency( proj, refproj, add );
 		
 	}
+	/**
+	 * {@link DoNotUseMeThisWillBeDeletedPost15}
+	 * TODO this probably can be deleted
+	 * @param ejbProj
+	 * @param clientProj
+	 * @param add
+	 */
 	public static  void updateProjectDependency(final IProject ejbProj, final IProject clientProj, final boolean add) {
 		final IJavaProject javaProject = JavaCore.create(ejbProj);
 		try {
