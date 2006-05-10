@@ -27,6 +27,7 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.swt.graphics.Image;
@@ -120,8 +121,21 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 	public String getColumnText(Object element, int columnIndex) {
 		if (element instanceof IVirtualComponent) {
 			IVirtualComponent comp = (IVirtualComponent)element;
-			if( columnIndex == 0 )
-				return comp.getName();
+			String name = ""; //$NON-NLS-1$
+			if( columnIndex == 0 ){
+				EARArtifactEdit earEdit = null;
+				try{
+					earEdit = EARArtifactEdit.getEARArtifactEditForRead(earComponent.getProject());
+					name = earEdit.getModuleURI( comp );
+				}finally{
+					if (earEdit != null)
+						earEdit.dispose();
+				}
+				if( name == "" ){ //$NON-NLS-1$
+					name = comp.getName();
+				}
+				return name;
+			}
 			if( columnIndex == 1  )
 				return comp.getProject().getName();
 		}else if(element instanceof IProject){
