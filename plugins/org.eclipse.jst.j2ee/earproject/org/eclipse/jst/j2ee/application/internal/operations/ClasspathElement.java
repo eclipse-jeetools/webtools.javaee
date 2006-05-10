@@ -35,8 +35,11 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEImportConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 
 public class ClasspathElement {
@@ -141,6 +144,29 @@ public class ClasspathElement {
 		return project;
 	}
 
+	public IVirtualComponent getComponent() {
+		if(project != null){
+			return ComponentCore.createComponent(project);
+		} else if(relativeText != null){
+			IVirtualComponent earComponent = ComponentCore.createComponent(earProject);
+			IVirtualReference[] refs = earComponent.getReferences();
+			for (int i = 0; i < refs.length; i++) {
+				IVirtualReference reference = refs[i];
+				if( reference.getReferencedComponent() != null ){
+					String name = reference.getReferencedComponent().getName();
+					if(name.lastIndexOf('/') != -1){
+						name = name.substring(name.lastIndexOf('/')+1);
+					}
+					if (name.equals(relativeText)){
+						return reference.getReferencedComponent();
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	
 	public String getProjectName() {
 		return project == null ? null : project.getName();
 	}

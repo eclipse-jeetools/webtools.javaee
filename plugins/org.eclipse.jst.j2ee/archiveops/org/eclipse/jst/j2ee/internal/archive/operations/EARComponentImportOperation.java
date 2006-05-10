@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -18,11 +17,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
@@ -31,15 +27,12 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
-import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -120,19 +113,12 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 				addComponentsDM.setProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, componentToURIMap);
 				addComponentsDM.getDefaultOperation().execute(monitor, info);
 			}
-			try {
-				fixupClasspaths(modelsToImport, virtualComponent);
-			} catch (JavaModelException e) {
-				Logger.getLogger().logError(e);
-			}
 		} finally {
 			if (null != artifactEdit) {
 				artifactEdit.dispose();
 				artifactEdit = null;
 			}
 			resetDisposeImportModels();
-
-			// FileSet.printState();
 		}
 	}
 
@@ -149,79 +135,6 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 			model = (IDataModel) models.get(i);
 			model.setProperty(IJ2EEComponentImportDataModelProperties.CLOSE_ARCHIVE_ON_DISPOSE, Boolean.TRUE);
 		}
-	}
-
-
-	private void fixupClasspaths(List selectedModels, IVirtualComponent earComponent) throws JavaModelException {
-		IDataModel importModel;
-		for (int i = 0; i < selectedModels.size(); i++) {
-			importModel = (IDataModel) selectedModels.get(i);
-			Archive archive = (Archive) importModel.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
-			String[] manifestClasspath = archive.getManifest().getClassPathTokenized();
-			if (manifestClasspath.length > 0) {
-				if (null == artifactEdit) {
-					artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(earComponent.getProject());
-				}
-				List extraEntries = fixupClasspath(earComponent, manifestClasspath, new ArrayList(), archive, (IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT));
-				addToClasspath(importModel, extraEntries);
-				fixModuleReference(importModel, manifestClasspath);
-			}
-		}
-	}
-
-	private List fixupClasspath(IVirtualComponent earComponent, String[] manifestClasspath, List computedFiles, Archive anArchive, IVirtualComponent nestedComponent) throws JavaModelException {
-		List extraEntries = new ArrayList();
-		for (int j = 0; j < manifestClasspath.length; j++) {
-			String manifestURI = ArchiveUtil.deriveEARRelativeURI(manifestClasspath[j], anArchive);
-			if (null == manifestURI) {
-				continue;
-			}
-			IVirtualFile vFile = earComponent.getRootFolder().getFile(manifestURI);
-			if (!computedFiles.contains(vFile)) {
-				computedFiles.add(vFile);
-				if (vFile.exists()) {
-					IFile file = vFile.getUnderlyingFile();
-					extraEntries.add(JavaCore.newLibraryEntry(file.getFullPath(), file.getFullPath(), null, true));
-					Archive archive = null;
-					try {
-						archive = (Archive) getEarFile().getFile(manifestURI);
-						String[] nestedManifestClasspath = archive.getManifest().getClassPathTokenized();
-						extraEntries.addAll(fixupClasspath(earComponent, nestedManifestClasspath, computedFiles, archive, nestedComponent));
-					} catch (FileNotFoundException e) {
-						Logger.getLogger().logError(e);
-					} finally {
-						if (null != archive) {
-							archive.close();
-						}
-					}
-				} else {
-					IVirtualComponent comp = artifactEdit.getModuleByManifestURI(manifestURI);
-					if (null != comp) {
-						IProject project = comp.getProject();
-						extraEntries.add(JavaCore.newProjectEntry(project.getFullPath(), true));
-					} else {
-						String compSearchName = manifestURI.substring(0, manifestURI.length() - 4);
-						IVirtualReference vRef = earComponent.getReference(compSearchName);
-						if (vRef == null) {
-							IVirtualReference[] refs = earComponent.getReferences();
-							String archiveName = null;
-							for (int refCount = 0; vRef == null && refCount < refs.length; refCount++) {
-								archiveName = refs[refCount].getArchiveName();
-								if (null != archiveName && archiveName.equals(manifestURI)) {
-									vRef = refs[refCount];
-								}
-							}
-						}
-
-						if (null != vRef && nestedComponent.getProject() != vRef.getReferencedComponent().getProject()) {
-							IProject project = vRef.getReferencedComponent().getProject();
-							extraEntries.add(JavaCore.newProjectEntry(project.getFullPath(), true));
-						}
-					}
-				}
-			}
-		}
-		return extraEntries;
 	}
 
 	protected SaveStrategy createSaveStrategy(IProject project) { // NOOP

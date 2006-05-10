@@ -29,6 +29,7 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
@@ -37,6 +38,7 @@ import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 
 public abstract class J2EEArtifactImportOperation extends AbstractDataModelOperation {
@@ -51,11 +53,20 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 
 	public IStatus execute(IProgressMonitor monitor, IAdaptable anInfo) throws ExecutionException {
 		try {
+			J2EEComponentClasspathUpdater.getInstance().pauseUpdates();
 			this.info = anInfo;
 			doExecute(monitor);
 			return OK_STATUS;
 		} finally {
-			model.dispose();
+			try{
+				if (virtualComponent != null) {
+					J2EEComponentClasspathUpdater.getInstance().queueUpdate(virtualComponent.getProject());
+				}
+			} finally {
+				J2EEComponentClasspathUpdater.getInstance().resumeUpdates();
+				model.dispose();
+				
+			}
 		}
 	}
 
@@ -77,7 +88,7 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 	protected IVirtualComponent createVirtualComponent(IDataModel aModel, IProgressMonitor monitor) throws ExecutionException {
 		aModel.getDefaultOperation().execute(monitor, info);
 		String projectName = aModel.getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
-		IProject project = ProjectUtilities.getProject( projectName );
+		IProject project = ProjectUtilities.getProject(projectName);
 		return ComponentCore.createComponent(project);
 	}
 
@@ -108,10 +119,15 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 		} catch (OverwriteHandlerException oe) {
 			throw new InterruptedException();
 		} catch (Exception ex) {
-			throw new WFTWrappedException(ex, EJBArchiveOpsResourceHandler.ERROR_IMPORTING_MODULE_FILE); 
+			throw new WFTWrappedException(ex, EJBArchiveOpsResourceHandler.ERROR_IMPORTING_MODULE_FILE);
 		}
 	}
 
+	/**
+	 * {@link DoNotUseMeThisWillBeDeletedPost15}
+	 * 
+	 * @deprecated this will be deleted do not use this method
+	 */
 	protected static void addToClasspath(IDataModel importModel, List extraEntries) throws JavaModelException {
 		if (extraEntries.size() > 0) {
 			IJavaProject javaProject = JavaCore.create(((IVirtualComponent)importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT)).getProject());
@@ -124,7 +140,7 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 				for (int j = 0; include && j < javaClasspath.length; j++) {
 					if (extraEntry.equals(javaClasspath[j])) {
 						include = false;
-					}
+}
 				}
 				if (include) {
 					nonDuplicateList.add(extraEntry);
@@ -140,10 +156,14 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 			}
 		}
 	}
-
 	//Assumes that the project exists with the same name as the
 	//entry in the manifest.
 	
+	/**
+	 * {@link DoNotUseMeThisWillBeDeletedPost15}
+	 * 
+	 * @deprecated this will be deleted do not use this method
+	 */
 	protected void fixModuleReference(IDataModel importModel, String[] manifestEntries){
 		IVirtualComponent comp = (IVirtualComponent)importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
 		

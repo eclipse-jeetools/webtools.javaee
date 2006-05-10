@@ -61,6 +61,8 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			IDataModel model = (IDataModel) config;
 			final IJavaProject jproj = JavaCore.create(project);
 
+			addJ2EEModuleClasspathContainer(jproj);
+			
 			// Add WTP natures.
 			WtpUtils.addNatures(project);
 

@@ -133,11 +133,11 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			// Add the web libraries container.
 
-			final IPath cont = new Path(WebAppLibrariesContainer.CONTAINER_ID);
-			addToClasspath(jproj, JavaCore.newContainerEntry(cont));
+			final IPath webLibContainer = new Path(WebAppLibrariesContainer.CONTAINER_ID);
+			addToClasspath(jproj, JavaCore.newContainerEntry(webLibContainer));
 
-
-
+			addJ2EEModuleClasspathContainer(jproj);
+			
 			try {
 				((IDataModelOperation) model.getProperty(FacetDataModelProvider.NOTIFICATION_OPERATION)).execute(monitor, null);
 			} catch (ExecutionException e) {
@@ -182,18 +182,6 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			}
 		}
 		return pjpath.append(model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER));
-	}
-
-	private static void addToClasspath(final IJavaProject jproj, final IClasspathEntry entry)
-
-	throws CoreException
-
-	{
-		final IClasspathEntry[] current = jproj.getRawClasspath();
-		final IClasspathEntry[] updated = new IClasspathEntry[current.length + 1];
-		System.arraycopy(current, 0, updated, 0, current.length);
-		updated[current.length] = entry;
-		jproj.setRawClasspath(updated, null);
 	}
 
 	private static void mkdirs(final IFolder folder)

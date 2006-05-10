@@ -21,8 +21,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
@@ -52,18 +50,15 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 			try {
 				libFolder.create(IResource.FORCE, new NullProgressMonitor());
 			} catch (CoreException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Logger.getLogger().logError(e);
 			}
 		}
 		try {
 			importWebLibraryProjects(monitor);
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.getLogger().logError(e);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.getLogger().logError(e);
 		}
 	}
 
@@ -74,7 +69,6 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 		IVirtualComponent nestedComponent = null;
 		Archive libArchive = null;
 		List targetComponents = new ArrayList();
-		List extraEntries = new ArrayList();
 		Map compToURIMap = new HashMap();
 		for (int i = 0; null != libProjects && i < libProjects.size(); i++) {
 			importModel = (IDataModel) libProjects.get(i);
@@ -83,7 +77,6 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 				importModel.getDefaultOperation().execute(monitor, info);
 				nestedComponent = (IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
 				targetComponents.add(nestedComponent);
-				extraEntries.add(JavaCore.newProjectEntry(nestedComponent.getProject().getFullPath(), true));
 				String archiveURI = libArchive.getURI();
 				int lastIndex = archiveURI.lastIndexOf('/');
 				if (-1 != lastIndex && lastIndex + 1 < archiveURI.length()) {
@@ -93,6 +86,10 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 				compToURIMap.put(nestedComponent, archiveURI);
 			}
 		}
+		/**
+		 * The J2EEComponentClasspathContainr will handle adding these to the classpath, so they
+		 * don't need to be added here.
+		 */
 		if (targetComponents.size() > 0) {
 			IDataModel createRefComponentsModel = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
 			createRefComponentsModel.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, virtualComponent);
@@ -100,11 +97,6 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 			createRefComponentsModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, targetComponents);
 			createRefComponentsModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, compToURIMap);
 			createRefComponentsModel.getDefaultOperation().execute(monitor, info);
-			try {
-				addToClasspath(model, extraEntries);
-			} catch (JavaModelException e) {
-				Logger.getLogger().logError(e);
-			}
 		}
 	}
 

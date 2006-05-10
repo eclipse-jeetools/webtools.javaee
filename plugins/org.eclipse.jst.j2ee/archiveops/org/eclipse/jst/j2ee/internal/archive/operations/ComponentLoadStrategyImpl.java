@@ -63,6 +63,10 @@ import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 
 public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
+	protected static final String DOT_PROJECT = ".project"; //$NON-NLS-1$
+	protected static final String DOT_CLASSPATH = ".classpath"; //$NON-NLS-1$
+	protected static final String DOT_SETTINGS = ".settings"; //$NON-NLS-1$
+
 	protected IVirtualComponent vComponent;
 	protected boolean exportSource;
 	private List zipFiles = new ArrayList();
@@ -95,7 +99,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 			String uri = directory.getURI();
 			urisToFiles.put(uri, directory);
 		}
-		
+
 		public void addFile(File file) {
 			String uri = file.getURI();
 			urisToFiles.put(uri, file);
@@ -227,8 +231,6 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		}
 	}
 
-
-
 	protected void aggregateSourceFiles() {
 		try {
 			IVirtualFolder rootFolder = vComponent.getRootFolder();
@@ -255,7 +257,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				}
 
 				if (outputPath != null) {
-					IContainer javaOutputContainer = outputPath.segmentCount() > 1 ? (IContainer)ResourcesPlugin.getWorkspace().getRoot().getFolder(outputPath) : (IContainer)ResourcesPlugin.getWorkspace().getRoot().getProject(outputPath.lastSegment());
+					IContainer javaOutputContainer = outputPath.segmentCount() > 1 ? (IContainer) ResourcesPlugin.getWorkspace().getRoot().getFolder(outputPath) : (IContainer) ResourcesPlugin.getWorkspace().getRoot().getProject(outputPath.lastSegment());
 					IPath runtimePath = null;
 					try {
 						ComponentResource[] componentResources = se.findResourcesBySourcePath(sourceRoots[i].getResource().getProjectRelativePath());
@@ -344,7 +346,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 			}
 			if (filesHolder.contains(uri))
 				continue;
-			
+
 			if (virtualResources[i].getType() == IVirtualResource.FILE) {
 				if (!shouldInclude(uri))
 					continue;
@@ -386,10 +388,14 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	}
 
 	protected boolean shouldInclude(IVirtualContainer vContainer) {
-		return true;
+		IContainer iContainer = (IContainer) vContainer.getUnderlyingResource();
+		return shouldInclude(iContainer);
 	}
 
 	protected boolean shouldInclude(String uri) {
+		if (DOT_PROJECT.equals(uri) || DOT_CLASSPATH.equals(uri) || uri.startsWith(DOT_SETTINGS)) {
+			return false;
+		}
 		return isExportSource() || !isSource(uri);
 	}
 

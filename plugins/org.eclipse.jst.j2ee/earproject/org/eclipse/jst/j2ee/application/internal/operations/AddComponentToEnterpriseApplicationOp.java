@@ -32,6 +32,7 @@ import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentReferenceUpdater;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.EarFacetRuntimeHandler;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
@@ -55,14 +56,14 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		if (monitor != null) {
-			monitor.beginTask("", 3);
+			monitor.beginTask("", 4);
 		}
 
 		try {
 			super.execute(submon(monitor, 1), info);
 			updateEARDD(submon(monitor, 1));
 			updateModuleRuntimes(submon(monitor, 1));
-
+			updateManifestReferences(submon(monitor, 1));
 			return OK_STATUS;
 		} finally {
 			if (monitor != null) {
@@ -89,7 +90,20 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		}
 		return ""; //$NON-NLS-1$
 	}
+
 	
+	/**
+	 * For each module component added to the ear, references are created for every manifest entry.
+	 * 
+	 * @param monitor
+	 */
+	protected void updateManifestReferences(IProgressMonitor monitor) {
+		IVirtualComponent earComponent = (IVirtualComponent) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
+		IProject earProject = earComponent.getProject();
+		List moduleComponents = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+		J2EEComponentReferenceUpdater.updateReferences(earProject, moduleComponents);
+	}
+
 	protected void updateEARDD(IProgressMonitor monitor) {
 
 		EARArtifactEdit earEdit = null;

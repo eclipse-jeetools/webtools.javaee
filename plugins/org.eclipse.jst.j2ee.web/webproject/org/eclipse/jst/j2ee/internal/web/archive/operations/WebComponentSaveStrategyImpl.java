@@ -19,9 +19,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.FileIterator;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEComponentSaveStrategyImpl;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
@@ -33,23 +31,27 @@ public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 		super(vComponent);
 	}
 
-	public void save(File aFile, FileIterator iterator) throws SaveFailureException {
-		if (aFile.isArchive() && operationHandlesNested((Archive) aFile)) {
-			return;
-		}
-		super.save(aFile, iterator);
-	}
-
-	protected boolean operationHandlesNested(Archive archive) {
+	protected boolean shouldLinkAsComponentRef(Archive archive) {
 		if (null != dataModel) {
 			List list = (List) dataModel.getProperty(IWebComponentImportDataModelProperties.WEB_LIB_ARCHIVES_SELECTED);
-			return list.contains(archive);
+			return !list.contains(archive);
 		}
-		return false;
+		return true;
 	}
-	
+
+	/**
+	 * DoNotUseMeThisWillBeDeletedPost15
+	 * 
+	 * @deprecated
+	 * @param archive
+	 * @return
+	 */
+	protected boolean operationHandlesNested(Archive archive) {
+		return !shouldLinkAsComponentRef(archive);
+	}
+
 	protected boolean shouldAddImportedClassesToClasspath() {
-		return false; //never add to classpath because the web app container will pick this up.
+		return false; // never add to classpath because the web app container will pick this up.
 	}
 
 	protected String getImportedClassesURI(File aFile) {

@@ -146,16 +146,11 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 		try {
 			boolean createdFlexProjects = runWLPOp(createFlexProjectOperations());
 			boolean createdComponentDependency = false;
-			if (createdFlexProjects)
+			if (createdFlexProjects){
 				createdComponentDependency = runWLPOp(createComponentDependencyOperations());
-			boolean createdBuildPathSettings = false;
-			if (createdComponentDependency) {
-				WorkspaceModifyComposedOperation composedOp = new WorkspaceModifyComposedOperation();
-				composedOp.addRunnable(createWLPBuildPathOperation());
-				createdBuildPathSettings = runWLPOp(composedOp);
+				isDirty = false;
 			}
-			isDirty = false;
-			return createdBuildPathSettings;
+			return createdComponentDependency;
 		} finally {
 			model.dispose();
 		}

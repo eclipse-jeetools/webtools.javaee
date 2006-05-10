@@ -36,6 +36,7 @@ import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelPro
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
 public class EARComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl {
 
@@ -105,7 +106,7 @@ public class EARComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 		saveFiles();
 		saveManifest();
 		saveMofResources();
-		progressMonitor.subTask(EARArchiveOpsResourceHandler.Updating_project_classpath_UI_); 
+		progressMonitor.subTask(EARArchiveOpsResourceHandler.Updating_project_classpath_UI_);
 		updateComponentClasspaths();
 
 	}
@@ -134,31 +135,39 @@ public class EARComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 
 	protected boolean shouldSave(File aFile) {
 		if (aFile.isArchive()) {
-			if (operationHandlesNested((Archive) aFile)) {
-				return false;
-			}
 			return getFilter().shouldSave(aFile.getURI(), getArchive());
 		}
 		return super.shouldSave(aFile);
 	}
 
+	/**
+	 * {@link DoNotUseMeThisWillBeDeletedPost15}
+	 * 
+	 * @deprecated
+	 * @param archive
+	 * @return
+	 */
 	protected boolean operationHandlesNested(Archive archive) {
+		return !shouldLinkAsComponentRef(archive);
+	}
+
+	protected boolean shouldLinkAsComponentRef(Archive archive) {
 		if (null != dataModel) {
 			List list = (List) dataModel.getProperty(IEARComponentImportDataModelProperties.HANDLED_PROJECT_MODELS_LIST);
 			for (int i = 0; i < list.size(); i++) {
 				if (archive == ((IDataModel) list.get(i)).getProperty(IEARComponentImportDataModelProperties.FILE)) {
-					return true;
+					return false;
 				}
 			}
 		}
-		return false;
+		return true;
 	}
 
 	protected boolean shouldSave(String uri) {
 		if (overwriteHandler != null) {
 			if (overwriteHandler.isOverwriteNone())
 				return false;
-			return ((super.shouldSave(uri)) && (overwriteHandler.isOverwriteAll() ||overwriteHandler.isOverwriteResources() || overwriteHandler.shouldOverwrite(uri)));
+			return ((super.shouldSave(uri)) && (overwriteHandler.isOverwriteAll() || overwriteHandler.isOverwriteResources() || overwriteHandler.shouldOverwrite(uri)));
 		}
 		return true;
 	}
@@ -173,7 +182,7 @@ public class EARComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 	 */
 	protected void updateProjectClasspath(Archive anArchive, IVirtualComponent component) {
 
-		String message = EARArchiveOpsResourceHandler.Updating_project_classpath_UI_ + component.getName(); 
+		String message = EARArchiveOpsResourceHandler.Updating_project_classpath_UI_ + component.getName();
 		progressMonitor.subTask(message);
 		List projectCpEntries = new ArrayList();
 		Set visited = new HashSet();
