@@ -101,6 +101,9 @@ public class WEBUIMessages extends NLS {
 	public static String WEB_CONT_PAGE_DESCRIPTION;
 	public static String JAVA_CLASS_INTERFACES_LABEL;
 	public static String WEBCONTENT;
+	
+	public static String Compressed_Libraries;
+	public static String Compressed_JavaResources;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, WEBUIMessages.class);
@@ -124,4 +127,6 @@ public class WEBUIMessages extends NLS {
 	public static final String WEB_IMPORT_WEB_LIB_PG_DESC = _15;
 	public static final String WAR_IMPORT_SELECT_ALL_LIBS_BUTTON = _16;
 	public static final String WAR_IMPORT_DESELECT_ALL_LIBS_BUTTON = _17;
+	
+	
 }

@@ -411,8 +411,9 @@
 			</or>
 		</triggerPoints>
 		<possibleChildren>
+		  <or>
 			<and>
-				<instanceof value="org.eclipse.emf.ecore.EObject" />
+				<instanceof value="org.eclipse.emf.ecore.EObject"/>
 				<or>
 					<test forcePluginActivation="true"
 						property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
@@ -422,6 +423,7 @@
 						value="jsp.xmi" />
 				</or>
 			</and>
+		  </or>
 		</possibleChildren>
 		<commonSorter
 		    id="org.eclipse.jst.j2ee.navigator.internal.J2EEViewerSorter"
@@ -448,8 +450,7 @@
 			class="org.eclipse.ui.internal.navigator.resources.actions.NewActionProvider"
 			id="org.eclipse.jst.j2ee.navigator.internal.WebNewActionProvider">
 			<enablement>
-				<instanceof
-					value="org.eclipse.jst.j2ee.internal.war.ui.util.WebGroupItemProvider" />
+				<instanceof value="org.eclipse.jst.j2ee.internal.war.ui.util.WebGroupItemProvider"/>
 			</enablement>
 		</actionProvider>
 
@@ -653,7 +654,7 @@
 		-->
 		<actionProvider
 			class="org.eclipse.ui.internal.navigator.resources.actions.NewActionProvider"
-			id="org.eclipse.jst.j2ee.navigator.internal.WebNewActionProvider">
+			id="org.eclipse.jst.j2ee.navigator.internal.EjbNewActionProvider">
 			<enablement>
 				<instanceof
 					value="org.eclipse.jst.j2ee.internal.ejb.provider.GroupedEJBItemProvider" />

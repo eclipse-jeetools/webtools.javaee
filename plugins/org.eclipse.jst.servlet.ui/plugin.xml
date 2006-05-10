@@ -305,5 +305,99 @@
       id="org.eclipse.jst.j2ee.internal.web.container">
     </classpathContainerPage>
   </extension>
+  <extension
+        point="org.eclipse.ui.navigator.navigatorContent">
+     <navigatorContent
+           activeByDefault="true"
+           contentProvider="org.eclipse.jst.servlet.ui.internal.navigator.WebJavaContentProvider"
+           icon="icons/full/ctool16/webjava-icon.gif"
+           id="org.eclipse.jst.servlet.ui.EnhancedJavaRendering"
+           labelProvider="org.eclipse.jst.servlet.ui.internal.navigator.WebJavaLabelProvider"
+           name="%enhanced.java.for.web.name"
+           priority="higher">
+        <override
+              policy="InvokeOnlyIfSuppressedExtAlsoVisibleAndActive"
+              suppressedExtensionId="org.eclipse.jdt.java.ui.javaContent"/>					   
+        <triggerPoints>
+			<and>
+				<adapt
+					type="org.eclipse.core.resources.IProject">
+					<or> 
+						<test forcePluginActivation="true"
+							property="org.eclipse.wst.common.project.facet.core.projectFacet"
+							value="jst.web" />
+					</or>
+				</adapt>
+			</and>        
+        </triggerPoints>
+        <possibleChildren>
+           <or>
+              <instanceof value="org.eclipse.jst.servlet.ui.internal.navigator.CompressedJavaProject"/>
+              <instanceof value="org.eclipse.jdt.core.IPackageFragmentRoot"/>
+              <instanceof value="org.eclipse.jdt.core.IPackageFragment"/>
+              <instanceof value="org.eclipse.jdt.internal.ui.packageview.ClassPathContainer"/>
+              <instanceof value="org.eclipse.jst.servlet.ui.internal.navigator.CompressedJavaLibraries"/>
+           </or>
+        </possibleChildren> 
+		<actionProvider
+			class="org.eclipse.ui.internal.navigator.resources.actions.NewActionProvider"
+			id="org.eclipse.jst.servlet.ui.EnhancedJavaRendering.actions.NewActionProvider">
+			<enablement>
+				<instanceof
+					value="org.eclipse.jst.servlet.ui.internal.navigator.ICompressedNode" />
+			</enablement>
+		</actionProvider>        
+        <commonSorter
+              class="org.eclipse.jst.servlet.ui.internal.navigator.CompressedJavaSorter"
+              id="org.eclipse.jst.servlet.ui.EnhancedJavaRendering.sorter">
+           <parentExpression>
+              <instanceof value="org.eclipse.jst.servlet.ui.internal.navigator.CompressedJavaProject"/>
+           </parentExpression>
+        </commonSorter>
+ 
+		   <commonWizard
+		        type="new"
+		        wizardId="org.eclipse.jdt.ui.wizards.NewPackageCreationWizard">
+		     <enablement>
+				<instanceof
+					value="org.eclipse.jst.servlet.ui.internal.navigator.ICompressedNode" />
+		     </enablement>
+		  </commonWizard>
+		  <commonWizard
+		        type="new"
+		        wizardId="org.eclipse.jdt.ui.wizards.NewClassCreationWizard">
+		     <enablement>
+				<instanceof
+					value="org.eclipse.jst.servlet.ui.internal.navigator.ICompressedNode" />
+		     </enablement>
+		  </commonWizard>
+
+   	      <commonWizard
+		        type="new"
+		        wizardId="org.eclipse.jdt.ui.wizards.NewInterfaceCreationWizard">
+		     <enablement>
+				<instanceof
+					value="org.eclipse.jst.servlet.ui.internal.navigator.ICompressedNode" />
+		     </enablement>
+		  </commonWizard> 
+		    <commonWizard
+		          type="new"
+		          wizardId="org.eclipse.jdt.ui.wizards.NewSourceFolderCreationWizard">
+				     <enablement>
+				        
+				<instanceof
+					value="org.eclipse.jst.servlet.ui.internal.navigator.ICompressedNode" />
+				     </enablement>
+			 </commonWizard>        
+     </navigatorContent>
+  </extension>
+  <extension
+        point="org.eclipse.ui.navigator.viewer">
+     <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+        <includes>
+           <contentExtension pattern="org.eclipse.jst.servlet.ui.EnhancedJavaRendering"/>
+        </includes>
+     </viewerContentBinding>
+  </extension>
   
 </plugin>
