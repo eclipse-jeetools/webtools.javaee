@@ -667,5 +667,13 @@
   <extension point="org.eclipse.wst.common.project.facet.ui.images">
     <image facet="jst.java" path="icons/java.gif"/>
   </extension>
+  
+   <extension 
+       point="org.eclipse.jem.util.uiContextSensitiveClass">
+       <uiContextSensitiveClass
+          key="ValidateEditContext"
+          className="org.eclipse.jst.j2ee.internal.listeners.ValidateEditListener"
+          context="UI"/>
+  </extension>
 
 </plugin>

@@ -22,12 +22,19 @@ import org.eclipse.jst.j2ee.internal.dialogs.ListMessageDialog;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.swt.events.ShellAdapter;
 import org.eclipse.swt.events.ShellEvent;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.internal.Workbench;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
+import org.eclipse.wst.common.internal.emfworkbench.validateedit.IValidateEditContext;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidator;
+import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidatorPresenter;
 
-public class ValidateEditListener extends ShellAdapter implements IValidateEditListener {
+public class ValidateEditListener extends ShellAdapter implements IValidateEditListener, IValidateEditContext {
+	
 	protected ResourceStateValidator fValidator;
 	private boolean fNeedsStateValidation = true;
 	private Shell fShell;
@@ -37,7 +44,20 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	private boolean fMessageUp = false;
 	private boolean fIsActivating = false;
 	private boolean fIsDeactivating = false;
-
+	
+	public ValidateEditListener() {
+		super();
+		try {
+			Display.getDefault().asyncExec(new Runnable() {
+				public void run() {
+					setShell(Workbench.getInstance().getActiveWorkbenchWindow().getShell());
+				}
+			});
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * Constructor for ValidateEditHandler.
 	 */
@@ -194,23 +214,26 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	public IStatus validateState() {
 		if (fNeedsStateValidation) {
 			setNeedsStateValidation(false);
-			IStatus status = null;
 			try {
-				status = fValidator.validateState(this);
+				final IStatus status = fValidator.validateState(this);
 				if (status.getSeverity() == IStatus.ERROR) {
 					setNeedsStateValidation(true);
 					if (!fMessageUp) {
 						fMessageUp = true;
-						MessageDialog.openError(getShell(), J2EEUIMessages.getResourceString("Error_checking_out_files_10"), status.getMessage()); //$NON-NLS-1$
+						Display.getDefault().asyncExec(new Runnable() {
+							public void run() {
+								MessageDialog.openError(getShell(), J2EEUIMessages.getResourceString("Error_checking_out_files_10"), status.getMessage()); //$NON-NLS-1$
+							}
+						});
 						fMessageUp = false;
 					}
 				}
 				fValidator.checkActivation(this);
 				updatePartReadOnly();
+				return status;
 			} catch (CoreException e) {
 				// do nothing for now
 			}
-			return status;
 		}
 		return ResourceStateValidator.OK_STATUS;
 	}
@@ -265,5 +288,15 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 
 	public void setShell(Shell aShell) {
 		fShell = aShell;
+	}
+	
+	public void setEditModel(EditModel anEditModel) {
+		fValidator = anEditModel;
+		
+	}
+
+	public IStatus validateState(EditModel anEditModel) {
+		setEditModel(anEditModel);
+		return validateState();
 	}
 }

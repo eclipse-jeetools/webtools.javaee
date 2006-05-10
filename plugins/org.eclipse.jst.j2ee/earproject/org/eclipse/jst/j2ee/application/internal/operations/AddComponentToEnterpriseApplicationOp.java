@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -62,7 +63,9 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 
 		try {
 			J2EEComponentClasspathUpdater.getInstance().pauseUpdates();
-			super.execute(submon(monitor, 1), info);
+			IStatus status = super.execute(submon(monitor, 1), info);
+			if (!status.isOK())
+				return Status.CANCEL_STATUS;
 			updateEARDD(submon(monitor, 1));
 			updateModuleRuntimes(submon(monitor, 1));
 			updateManifestReferences(submon(monitor, 1));
@@ -94,7 +97,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		return ""; //$NON-NLS-1$
 	}
 
-
+	
 	/**
 	 * For each module component added to the ear, references are created for every manifest entry.
 	 * 
@@ -128,7 +131,8 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 							WorkbenchComponent refwc = compse.getComponent();
 							ReferencedComponent ref = se.findReferencedComponent(earwc, refwc);
 							Module mod = addModule(application, wc, (String) map.get(wc));
-							ref.setDependentObject(mod);
+							if (ref!=null)
+								ref.setDependentObject(mod);
 						} finally {
 							if (compse != null) {
 								compse.saveIfNecessary(monitor);
