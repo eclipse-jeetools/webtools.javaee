@@ -131,7 +131,7 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 					if (earEdit != null)
 						earEdit.dispose();
 				}
-				if( name == "" ){ //$NON-NLS-1$
+				if( name == null || name == "" ){ //$NON-NLS-1$
 					name = comp.getName();
 				}
 				return name;
