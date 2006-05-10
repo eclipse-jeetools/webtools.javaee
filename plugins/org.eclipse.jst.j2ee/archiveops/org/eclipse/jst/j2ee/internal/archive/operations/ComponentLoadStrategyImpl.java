@@ -350,8 +350,11 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 			if (virtualResources[i].getType() == IVirtualResource.FILE) {
 				if (!shouldInclude(uri))
 					continue;
-				cFile = createFile(uri);
 				IResource resource = virtualResources[i].getUnderlyingResource();
+				if (resource.isDerived()) {
+					continue;
+				}
+				cFile = createFile(uri);
 				cFile.setLastModified(getLastModified(resource));
 				filesHolder.addFile(cFile, resource);
 				fileAdded = true;
@@ -360,8 +363,11 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				if (!aggregateFiles(nestedVirtualResources)) {
 					if (!shouldInclude(uri))
 						continue;
-					cFile = createDirectory(uri);
 					IResource resource = virtualResources[i].getUnderlyingResource();
+					if (resource.isDerived()) {
+						continue;
+					}
+					cFile = createDirectory(uri);
 					cFile.setLastModified(getLastModified(resource));
 					filesHolder.addDirectory(cFile);
 					fileAdded = true;
