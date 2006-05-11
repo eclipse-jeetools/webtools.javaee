@@ -48,6 +48,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestIm
 import org.eclipse.jst.j2ee.internal.common.ClasspathModel;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModelEvent;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModelListener;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.listeners.IValidateEditListener;
 import org.eclipse.jst.j2ee.internal.listeners.ValidateEditListener;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -103,6 +104,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	 */
 	public JARDependencyPropertiesPage(final IProject project, final J2EEDependenciesPage page) {
 		super();
+		J2EEComponentClasspathUpdater.getInstance().pauseUpdates();
 		this.project = project;
 		this.propPage = page;
 	}
@@ -121,6 +123,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	}
 
 	public void dispose() {
+		J2EEComponentClasspathUpdater.getInstance().resumeUpdates();
 		if (model.earArtifactEdit != null) {
 			model.earArtifactEdit.dispose();
 			model.earArtifactEdit = null;
