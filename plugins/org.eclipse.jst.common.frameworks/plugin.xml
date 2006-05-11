@@ -35,7 +35,7 @@
   
     <project-facet id="jst.java">
       <label>Java</label>
-      <description>Adds support for writing applications using Java programming language.</description>
+      <description>%jstJavaFacetDescription</description>
     </project-facet>
 
     <project-facet-version facet="jst.java" version="1.3">

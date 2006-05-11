@@ -16,6 +16,8 @@ import java.util.Set;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.project.facet.IProductConstants;
+import org.eclipse.wst.project.facet.ProductManager;
 
 public class JavaFacetInstallDataModelProvider extends FacetInstallDataModelProvider implements IJavaFacetInstallDataModelProperties {
 
@@ -26,6 +28,7 @@ public class JavaFacetInstallDataModelProvider extends FacetInstallDataModelProv
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(SOURCE_FOLDER_NAME);
+        propertyNames.add(DEFAULT_OUTPUT_FOLDER_NAME);
 		return propertyNames;
 	}
 
@@ -44,7 +47,10 @@ public class JavaFacetInstallDataModelProvider extends FacetInstallDataModelProv
 			
 		} else if (SOURCE_FOLDER_NAME.equals(propertyName)) {
 			return "src"; //$NON-NLS-1$
-		}
+		} else if (DEFAULT_OUTPUT_FOLDER_NAME.equals(propertyName)) {
+            return ProductManager.getProperty(IProductConstants.OUTPUT_FOLDER);
+        }
+        
 		return super.getDefaultProperty(propertyName);
 	}
 

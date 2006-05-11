@@ -25,8 +25,6 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
-import org.eclipse.wst.project.facet.IProductConstants;
-import org.eclipse.wst.project.facet.ProductManager;
 
 /**
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
@@ -55,11 +53,20 @@ public final class JavaFacetInstallDelegate implements IDelegate {
 			if( !jproject.exists()){
 				String srcFolderName = model.getStringProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME);
 				final IPath srcdir = pjpath.append(srcFolderName);
+
+                if( ! srcdir.equals( pjpath ) )
+                {
+                    ws.getRoot().getFolder(srcdir).getLocation().toFile().mkdirs();
+                }
+                
+                String outputFolderName = model.getStringProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME);
+				final IPath outdir = pjpath.append(outputFolderName); 
 	
-				final IPath outdir = pjpath.append(ProductManager.getProperty(IProductConstants.OUTPUT_FOLDER)); 
-	
-				ws.getRoot().getFolder(srcdir).getLocation().toFile().mkdirs();
-				ws.getRoot().getFolder(outdir).getLocation().toFile().mkdirs();
+                if( ! outdir.equals( pjpath ) )
+                {
+                    ws.getRoot().getFolder(outdir).getLocation().toFile().mkdirs();
+                }
+                
 				project.refreshLocal(IResource.DEPTH_INFINITE, null);
 	
 				// Add the java nature. This will automatically add the builder.
