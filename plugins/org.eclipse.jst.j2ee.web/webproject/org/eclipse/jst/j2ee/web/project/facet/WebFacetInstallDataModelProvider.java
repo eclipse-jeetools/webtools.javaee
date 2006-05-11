@@ -83,7 +83,7 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 	}
 
 	public IStatus validate(String name) {
-		if (name.equals(CONTEXT_ROOT) && getBooleanProperty(ADD_TO_EAR)) {
+		if (name.equals(CONTEXT_ROOT)) {
 			return validateContextRoot(getStringProperty(CONTEXT_ROOT));
 		}
 		return super.validate(name);
