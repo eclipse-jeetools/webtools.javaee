@@ -66,6 +66,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	protected static final String DOT_PROJECT = ".project"; //$NON-NLS-1$
 	protected static final String DOT_CLASSPATH = ".classpath"; //$NON-NLS-1$
 	protected static final String DOT_SETTINGS = ".settings"; //$NON-NLS-1$
+	protected static final String DOT_CVS_IGORE = ".cvsignore"; //$NON-NLS-1$
 
 	protected IVirtualComponent vComponent;
 	protected boolean exportSource;
@@ -399,7 +400,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	}
 
 	protected boolean shouldInclude(String uri) {
-		if (DOT_PROJECT.equals(uri) || DOT_CLASSPATH.equals(uri) || uri.startsWith(DOT_SETTINGS)) {
+		if (DOT_PROJECT.equals(uri) || DOT_CLASSPATH.equals(uri) || uri.endsWith(DOT_CVS_IGORE) || uri.startsWith(DOT_SETTINGS)) {
 			return false;
 		}
 		return isExportSource() || !isSource(uri);
