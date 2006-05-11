@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.listeners;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -26,6 +27,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.internal.Workbench;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
@@ -44,13 +46,18 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	private boolean fMessageUp = false;
 	private boolean fIsActivating = false;
 	private boolean fIsDeactivating = false;
+	private boolean inconsistentResult;
+	private boolean inconsistentOverwriteResult;
 	
 	public ValidateEditListener() {
 		super();
 		try {
 			Display.getDefault().asyncExec(new Runnable() {
 				public void run() {
-					setShell(Workbench.getInstance().getActiveWorkbenchWindow().getShell());
+					IWorkbenchWindow window = Workbench.getInstance().getActiveWorkbenchWindow();
+					if (window == null && Workbench.getInstance().getWorkbenchWindowCount()>0)
+						window = Workbench.getInstance().getWorkbenchWindows()[0];
+					setShell(window.getShell());
 				}
 			});
 			
@@ -107,28 +114,32 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 		if (inconsistentFiles == null || inconsistentFiles.size() == 0) // this case should never
 			// occur.
 			return false;
-		String title = null;
-		String message = null;
-		String[] fileNames = new String[inconsistentFiles.size()];
+
+		List inconsistentFileNames = new ArrayList();
 		for (int i = 0; inconsistentFiles.size() > i; i++) {
 			Object file = inconsistentFiles.get(i);
 			if (file instanceof Resource) {
 				IFile aFile = WorkbenchResourceHelper.getFile((Resource) file);
-				fileNames[i] = aFile.getFullPath().toOSString();
+				inconsistentFileNames.add(aFile.getFullPath().toOSString());
 			} else if (file instanceof IResource) {
 				IResource resfile = (IResource) file;
 				if (!resfile.exists()) {
 					return false;
 				}
-				fileNames[i] = resfile.getFullPath().toOSString();
+				inconsistentFileNames.add(resfile.getFullPath().toOSString());
 			}
 		}
 
-
-		title = J2EEUIMessages.getResourceString("Inconsistent_Files_3"); //$NON-NLS-1$
-		message = J2EEUIMessages.getResourceString("The_following_workspace_files_are_inconsistent_with_the_editor_4"); //$NON-NLS-1$
-		message += J2EEUIMessages.getResourceString("Update_the_editor_with_the_workspace_contents__5"); //$NON-NLS-1$
-		return ListMessageDialog.openQuestion(getShell(), title, message, fileNames);
+		final String title = J2EEUIMessages.getResourceString("Inconsistent_Files_3"); //$NON-NLS-1$
+		final String message = J2EEUIMessages.getResourceString("The_following_workspace_files_are_inconsistent_with_the_editor_4") + J2EEUIMessages.getResourceString("Update_the_editor_with_the_workspace_contents__5"); //$NON-NLS-1$ //$NON-NLS-2$
+		final String[] fileNames = (String[])inconsistentFileNames.toArray(new String[inconsistentFileNames.size()]);
+		
+		Display.getDefault().asyncExec(new Runnable() {
+			public void run() {
+				inconsistentResult = ListMessageDialog.openQuestion(getShell(), title, message, fileNames);
+			}
+		});
+		return inconsistentResult;
 	}
 
 	/**
@@ -245,15 +256,21 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	 */
 	public boolean promptForInconsistentFileOverwrite(List inconsistentFiles) {
 		int size = inconsistentFiles.size();
-		String[] items = new String[size];
+		List files = new ArrayList();
 		IFile file = null;
 		for (int i = 0; i < size; i++) {
 			file = (IFile) inconsistentFiles.get(i);
-			items[i] = file.getFullPath().toString();
+			files.add(file.getFullPath().toString());
 		}
-		return ListMessageDialog.openQuestion(getShell(), J2EEUIMessages.getResourceString("Inconsistent_files_detected_11"), //$NON-NLS-1$
+		final String[] items = (String[])files.toArray(new String[files.size()]);
+		Display.getDefault().asyncExec(new Runnable() {
+			public void run() {
+				inconsistentOverwriteResult = ListMessageDialog.openQuestion(getShell(), J2EEUIMessages.getResourceString("Inconsistent_files_detected_11"), //$NON-NLS-1$
 					J2EEUIMessages.getResourceString("The_following_files_are_inconsistent_with_the_file_system._Do_you_want_to_save_and_overwrite_these_files_on_the_file_system__12_WARN_"), //$NON-NLS-1$
 					items);
+			}
+		});
+		return inconsistentOverwriteResult;
 	}
 
 	protected boolean checkReadOnly() {
