@@ -345,22 +345,27 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return boolean
 	 */
 	public boolean uriExists(String currentURI) {
-		if (currentURI != null) {
-			IVirtualComponent comp = ComponentCore.createComponent(getProject());
-			if (comp == null)
-				return false;
-			IVirtualReference[] refComponents = comp.getReferences();
-			if (refComponents.length == 0)
-				return false;
-			for (int i = 0; i < refComponents.length; i++) {
-				if (refComponents[i].getRuntimePath().equals(currentURI))
-					return true;
+		StructureEdit edit = null;
+		try {
+			edit = StructureEdit.getStructureEditForRead(getProject());
+			if (edit!=null && edit.getComponent()!=null) {
+				List referencedComps = edit.getComponent().getReferencedComponents();
+				for (int i=0; i<referencedComps.size(); i++) {
+					ReferencedComponent ref = (ReferencedComponent) referencedComps.get(i);
+					Object module = ref.getDependentObject();
+					if (module!=null && module instanceof Module) {
+						String existingURI = ((Module)module).getUri();
+						if (existingURI!=null && existingURI.equals(currentURI))
+							return true;
+					}
+				}
 			}
-		} // if
+		} finally {
+			if (edit != null)
+				edit.dispose();
+		}
 		return false;
-	} // uriExists
-
-
+	}
 
 	/*
 	 * (non-Javadoc)
