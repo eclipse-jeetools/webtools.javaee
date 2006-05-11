@@ -476,12 +476,14 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	 */
 	protected IPackageFragmentRoot getJavaPackageFragmentRoot() {
 		IProject project = getTargetProject();
-		IJavaProject aJavaProject = JemProjectUtilities.getJavaProject(project);
-		// Return the source folder for the java project of the selected project
-		if (aJavaProject != null) {
-			IFolder sourcefolder = (IFolder) getProperty(JAVA_SOURCE_FOLDER);
-			if (sourcefolder != null)
-				return aJavaProject.getPackageFragmentRoot(sourcefolder);
+		if (project != null) {
+			IJavaProject aJavaProject = JemProjectUtilities.getJavaProject(project);
+			// Return the source folder for the java project of the selected project
+			if (aJavaProject != null) {
+				IFolder sourcefolder = (IFolder) getProperty(JAVA_SOURCE_FOLDER);
+				if (sourcefolder != null)
+					return aJavaProject.getPackageFragmentRoot(sourcefolder);
+			}
 		}
 		return null;
 	}
