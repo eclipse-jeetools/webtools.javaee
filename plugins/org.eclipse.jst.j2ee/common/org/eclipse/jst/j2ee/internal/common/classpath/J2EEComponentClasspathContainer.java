@@ -111,6 +111,10 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			for (int i = 0; i < refs.length; i++) {
 				comp = refs[i].getReferencedComponent();
 				lastUpdate.isBinary[i] = comp.isBinary();
+				shouldAdd = !(isWeb && refs[i].getRuntimePath().equals(J2EEComponentReferenceUpdater.WEBLIB));
+				if (!shouldAdd) {
+					continue;
+				}
 				if (comp.isBinary()) {
 					VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
 					java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
@@ -120,10 +124,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 					} else {
 						IFile iFile = archiveComp.getUnderlyingWorkbenchFile();
 						lastUpdate.paths[i] = iFile.getFullPath();
-						shouldAdd = !(isWeb && refs[i].getRuntimePath().equals(J2EEComponentReferenceUpdater.WEBLIB));
-						if(shouldAdd){
-							entriesList.add(JavaCore.newLibraryEntry(lastUpdate.paths[i], null, null));
-						}
+						entriesList.add(JavaCore.newLibraryEntry(lastUpdate.paths[i], null, null));
 					}
 				} else {
 					IProject project = comp.getProject();

@@ -15,6 +15,7 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
@@ -26,6 +27,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainer;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.GlobalComponentChangeListener;
@@ -41,6 +43,7 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 	private static J2EEComponentClasspathUpdater instance = null;
 	private int pauseCount = 0;
 	private Set updatesRequired = new HashSet();
+	private IPath WEB_APP_LIBS_PATH = new Path("org.eclipse.jst.j2ee.internal.web.container");
 
 	public static J2EEComponentClasspathUpdater getInstance() {
 		if (instance == null) {
@@ -82,7 +85,6 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 			updateModule((IProject) projects[i]);
 		}
 	}
-
 
 	private final String MODULE_URI = "module:/resource";
 
@@ -153,15 +155,30 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 	}
 
 	private void updateModule(IProject project) {
+		IClasspathContainer container = getWebAppLibrariesContainer(project);
+		if (container != null) {
+			((FlexibleProjectContainer) container).refresh();
+		}
 		IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(project);
 		if (earProjects.length == 0) {
 			removeContainerFromModuleIfNecessary(project);
 			return;
 		}
-		IClasspathContainer container = addContainerToModuleIfNecessary(project);
+		container = addContainerToModuleIfNecessary(project);
 		if (container != null) {
 			((J2EEComponentClasspathContainer) container).update();
 		}
+	}
+
+	private IClasspathContainer getWebAppLibrariesContainer(IProject webProject) {
+		IJavaProject jproj = JavaCore.create(webProject);
+		IClasspathContainer container = null;
+		try {
+			container = JavaCore.getClasspathContainer(WEB_APP_LIBS_PATH, jproj);
+		} catch (JavaModelException e) {
+			Logger.getLogger().logError(e);
+		}
+		return container;
 	}
 
 	private IClasspathContainer addContainerToModuleIfNecessary(IProject moduleProject) {
