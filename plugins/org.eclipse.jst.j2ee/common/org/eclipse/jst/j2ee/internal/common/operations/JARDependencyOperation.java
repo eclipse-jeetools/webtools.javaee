@@ -41,9 +41,15 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
 
-
+/**
+ * {@link DoNotUseMeThisWillBeDeletedPost15}
+ * 
+ * @deprecated This should no longer be necessary because of the new EAR & Web Lib classpath
+ *             containers
+ */
 public class JARDependencyOperation extends AbstractDataModelOperation implements JARDependencyDataModelProperties{
 	public JARDependencyOperation(IDataModel dataModel) {
 		super(dataModel);

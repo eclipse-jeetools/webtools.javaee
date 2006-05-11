@@ -118,7 +118,8 @@ public abstract class FlexibleProjectContainer
         for( int i = 0, n = this.entries.size(); i < n; i++ )
         {
         	IPath entryPath = (IPath) this.entries.get( i );
-        	if(ResourcesPlugin.getWorkspace().getRoot().findMember(entryPath).getType() == IResource.PROJECT)
+        	IResource resource =ResourcesPlugin.getWorkspace().getRoot().findMember(entryPath); 
+        	if(null != resource && resource.getType() == IResource.PROJECT)
         		this.cpentries[ i ] = JavaCore.newProjectEntry(entryPath, false);
         	else
         		this.cpentries[ i ] = newLibraryEntry( entryPath );

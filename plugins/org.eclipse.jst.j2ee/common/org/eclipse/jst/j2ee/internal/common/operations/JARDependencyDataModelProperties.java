@@ -11,7 +11,14 @@
 package org.eclipse.jst.j2ee.internal.common.operations;
 
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
+/**
+ * {@link DoNotUseMeThisWillBeDeletedPost15}
+ * 
+ * @deprecated This should no longer be necessary because of the new EAR & Web Lib classpath
+ *             containers
+ */
 public interface JARDependencyDataModelProperties {
 
 	/**

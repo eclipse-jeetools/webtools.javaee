@@ -25,13 +25,13 @@ import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
-
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
 /**
- * @author jsholl
+ * {@link DoNotUseMeThisWillBeDeletedPost15}
  * 
- * To change the template for this generated type comment go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
+ * @deprecated This should no longer be necessary because of the new EAR & Web Lib classpath
+ *             containers
  */
 public class JARDependencyDataModelProvider extends AbstractDataModelProvider implements JARDependencyDataModelProperties {
 
@@ -78,5 +78,5 @@ public class JARDependencyDataModelProvider extends AbstractDataModelProvider im
 
 	public IDataModelOperation getDefaultOperation() {
 		return new JARDependencyOperation(model);
-	}	
+	}
 }

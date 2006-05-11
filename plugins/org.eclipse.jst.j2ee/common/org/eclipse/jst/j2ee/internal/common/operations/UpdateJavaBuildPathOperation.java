@@ -29,19 +29,20 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
 
-
 /**
- * Insert the type's description here. Creation date: (9/10/2001 12:35:38 PM)
+ * {@link DoNotUseMeThisWillBeDeletedPost15}
  * 
- * @author: Administrator
+ * @deprecated This should no longer be necessary because of the new EAR & Web Lib classpath
+ *             containers
  */
 public class UpdateJavaBuildPathOperation implements IHeadlessRunnableWithProgress {
 	protected IJavaProject javaProject;
 	protected ClassPathSelection classPathSelection;
-	//All the Java build path entries created by the classpath selection
+	// All the Java build path entries created by the classpath selection
 	protected Set allClasspathEntries;
 	protected List allUnselectedClasspathEntries;
 
@@ -54,38 +55,38 @@ public class UpdateJavaBuildPathOperation implements IHeadlessRunnableWithProgre
 		classPathSelection = aClassPathSelection;
 		allClasspathEntries = new HashSet();
 		IClasspathEntry[] classpathEntry = aClassPathSelection.getClasspathEntriesForSelected();
-		if(classpathEntry != null)
+		if (classpathEntry != null)
 			allClasspathEntries.addAll(Arrays.asList(classpathEntry));
 	}
-	
+
 	/**
 	 * UpdateJavaBuildPathOperation constructor comment.
 	 */
-	public UpdateJavaBuildPathOperation(IJavaProject aJavaProject, ClassPathSelection selected,ClassPathSelection unselected) {
+	public UpdateJavaBuildPathOperation(IJavaProject aJavaProject, ClassPathSelection selected, ClassPathSelection unselected) {
 		super();
 		javaProject = aJavaProject;
 		classPathSelection = selected;
 		allClasspathEntries = new HashSet();
-		if(selected != null && !selected.getClasspathElements().isEmpty())
+		if (selected != null && !selected.getClasspathElements().isEmpty())
 			allClasspathEntries.addAll(Arrays.asList(selected.getClasspathEntriesForSelected()));
-		
+
 		allUnselectedClasspathEntries = new ArrayList();
-		if(unselected != null && !unselected.getClasspathElements().isEmpty())
+		if (unselected != null && !unselected.getClasspathElements().isEmpty())
 			allUnselectedClasspathEntries.addAll(unselected.getClasspathElements());
 	}
-	
+
 	public UpdateJavaBuildPathOperation(IJavaProject aJavaProject, ClassPathSelection selected, List unselected) {
 		super();
 		javaProject = aJavaProject;
 		classPathSelection = selected;
 		allClasspathEntries = new HashSet();
-		if(selected != null && !selected.getClasspathElements().isEmpty())
+		if (selected != null && !selected.getClasspathElements().isEmpty())
 			allClasspathEntries.addAll(Arrays.asList(selected.getClasspathEntriesForSelected()));
-		
+
 		allUnselectedClasspathEntries = new ArrayList();
-		if(unselected != null && !unselected.isEmpty())
+		if (unselected != null && !unselected.isEmpty())
 			allUnselectedClasspathEntries.addAll(unselected);
-	}	
+	}
 
 	protected void ensureClasspathEntryIsExported(List cp, IClasspathEntry entry) {
 		if (entry.isExported())
@@ -99,7 +100,7 @@ public class UpdateJavaBuildPathOperation implements IHeadlessRunnableWithProgre
 			case IClasspathEntry.CPE_LIBRARY :
 				newEntry = JavaCore.newLibraryEntry(entry.getPath(), entry.getSourceAttachmentPath(), entry.getSourceAttachmentRootPath(), true);
 				break;
-			case IClasspathEntry.CPE_VARIABLE:
+			case IClasspathEntry.CPE_VARIABLE :
 				newEntry = JavaCore.newVariableEntry(entry.getPath(), entry.getSourceAttachmentPath(), entry.getSourceAttachmentRootPath());
 			default :
 				break;
@@ -110,18 +111,18 @@ public class UpdateJavaBuildPathOperation implements IHeadlessRunnableWithProgre
 
 	protected IClasspathEntry ensureElementInList(List cp, ClasspathElement element, IClasspathEntry predecessor) {
 		IClasspathEntry addedEntry = null;
-		//The element might have multiple entries in the case of
-		//the imported_classes.jar file
+		// The element might have multiple entries in the case of
+		// the imported_classes.jar file
 		IClasspathEntry[] cpEntries = element.newClasspathEntries();
 		if (cpEntries == null || cpEntries.length == 0)
-			//indicates an invalid entry
+			// indicates an invalid entry
 			return null;
 
 		int predecessorPos = predecessor == null ? -1 : getIndex(cp, predecessor);
 		addedEntry = cpEntries[0];
-		//Ensure that the first item is in the list, and follows
-		//the predecessor if specified; preserve existing items in
-		//the case of source attachments
+		// Ensure that the first item is in the list, and follows
+		// the predecessor if specified; preserve existing items in
+		// the case of source attachments
 		int pos = getIndex(cp, addedEntry);
 		if (pos == -1) {
 			if (predecessorPos == -1)
@@ -137,9 +138,9 @@ public class UpdateJavaBuildPathOperation implements IHeadlessRunnableWithProgre
 		}
 		ensureClasspathEntryIsExported(cp, addedEntry);
 
-		//Remove and add so we can ensure the proper order; this
-		//is the case of the imported_classes.jar; we always want it
-		//directly after the project
+		// Remove and add so we can ensure the proper order; this
+		// is the case of the imported_classes.jar; we always want it
+		// directly after the project
 		for (int i = 1; i < cpEntries.length; i++) {
 			int index = getIndex(cp, cpEntries[i]);
 			if (index != -1) {
@@ -168,14 +169,14 @@ public class UpdateJavaBuildPathOperation implements IHeadlessRunnableWithProgre
 			return;
 		for (int i = 0; i < cpEntries.length; i++) {
 			if (allClasspathEntries.contains(cpEntries[i]))
-				//This may be included indirectly by a transitive dependency
+				// This may be included indirectly by a transitive dependency
 				continue;
 			int index = getIndex(cp, cpEntries[i]);
 			if (index != -1)
 				cp.remove(index);
 		}
 	}
-	
+
 	protected void ensureRemoveElementInList(List cp, ClasspathElement element) {
 		IClasspathEntry[] cpEntries = element.newClasspathEntries();
 		if (cpEntries == null || cpEntries.length == 0)
