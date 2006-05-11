@@ -37,6 +37,7 @@ import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.IEjbFacetInstallDataModelProperties;
@@ -85,6 +86,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			String facetid = getFacetFromProject(project);
 			if (facetid.length() == 0)
 				addFacets(project);
+			J2EEComponentClasspathUpdater.getInstance().queueUpdate(project);
 		}
 
 	}
