@@ -166,11 +166,15 @@ public class ArchiveUtil {
 	 * @return true if successful; false if any file or sub file could not be deleted
 	 */
 	public static boolean delete(File aFile) {
+		if (aFile == null)
+			return true;
 		if (aFile.isDirectory()) {
 			File[] files = aFile.listFiles();
-			for (int i = 0; i < files.length; i++) {
-				if (!delete(files[i]))
-					return false;
+			if (files != null) {
+				for (int i = 0; i < files.length; i++) {
+					if (!delete(files[i]))
+						return false;
+				}
 			}
 		}
 		return aFile.delete();
