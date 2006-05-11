@@ -14,7 +14,9 @@ package org.eclipse.jst.common.jdt.internal.classpath;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -163,6 +165,35 @@ public abstract class FlexibleProjectContainer
         final IVirtualComponent vc 
             = ComponentCore.createComponent( this.project );
         
+        
+        IVirtualReference[] refs = vc.getReferences();
+		IVirtualComponent comp = null;
+		Set jarsHandled = new HashSet();
+		String jarName = null;
+		for (int i = 0; i < refs.length; i++) {
+			comp = refs[i].getReferencedComponent();
+			if (!refs[i].getRuntimePath().equals(paths[0].makeAbsolute()))
+				continue;
+			jarName = refs[i].getArchiveName();
+			if(null != jarName){
+				jarsHandled.add(jarName);
+			}
+			if (comp.isBinary()) {
+				VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
+				java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
+				if (diskFile.exists()) {
+					entries.add(new Path(diskFile.getAbsolutePath()));
+				} else {
+					IFile iFile = archiveComp.getUnderlyingWorkbenchFile();
+					if (!entries.contains(iFile.getFullPath()))
+						entries.add(iFile.getFullPath());
+				}
+			} else {
+				IProject project = comp.getProject();
+				entries.add(project.getFullPath());	
+			}
+		}
+        
         for( int i = 0; i < this.paths.length; i++ )
         {
             final IVirtualFolder rootFolder = vc.getRootFolder();
@@ -187,8 +218,9 @@ public abstract class FlexibleProjectContainer
                     final IResource r = contents[ j ].getUnderlyingResource();
                     final IPath p = r.getFullPath();
                     
-                    if( isJarFile( r.getLocation().toFile() ) )
+                    if(!jarsHandled.contains(p.lastSegment()) &&  isJarFile( r.getLocation().toFile() ) )
                     {
+                    	jarsHandled.add(p.lastSegment());
                         entries.add( p );
                     }
                 }
@@ -201,38 +233,16 @@ public abstract class FlexibleProjectContainer
                 {
                     final IPath p = uf[ j ].getFullPath();
                     
-                    if( ! isSourceDirectory( p ) )
+                    if(!jarsHandled.contains(p.lastSegment()) && ! isSourceDirectory( p ) )
                     {
+                    	jarsHandled.add(p.lastSegment());
                         entries.add( p );
                     }
                 }
             }
         }
         
-        IVirtualReference[] refs = vc.getReferences();
-		IVirtualComponent comp = null;
 
-		List entriesList = new ArrayList();
-
-			for (int i = 0; i < refs.length; i++) {
-				comp = refs[i].getReferencedComponent();
-				if (!refs[i].getRuntimePath().equals(paths[0].makeAbsolute()))
-					continue;
-				if (comp.isBinary()) {
-					VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
-					java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
-					if (diskFile.exists()) {
-						entries.add(new Path(diskFile.getAbsolutePath()));
-					} else {
-						IFile iFile = archiveComp.getUnderlyingWorkbenchFile();
-						if (!entries.contains(iFile.getFullPath()))
-							entries.add(iFile.getFullPath());
-					}
-				} else {
-					IProject project = comp.getProject();
-					entries.add(project.getFullPath());	
-				}
-			}
         return entries;
     }
     
