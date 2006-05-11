@@ -170,7 +170,7 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 		}
 	}
 
-	private IClasspathContainer getWebAppLibrariesContainer(IProject webProject) {
+	public IClasspathContainer getWebAppLibrariesContainer(IProject webProject) {
 		IJavaProject jproj = JavaCore.create(webProject);
 		IClasspathContainer container = null;
 		try {

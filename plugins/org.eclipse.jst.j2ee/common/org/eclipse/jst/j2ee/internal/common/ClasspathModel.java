@@ -28,12 +28,10 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
@@ -46,6 +44,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
@@ -107,7 +106,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	}
 
 	protected IVirtualComponent[] refreshAvailableEARs() {
-		if( component != null ){
+		if (component != null) {
 			IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(getComponent().getProject());
 			availableEARComponents = ComponentUtilities.getComponents(earProjects);
 			if (availableEARComponents != null && availableEARComponents.length > 0) {
@@ -138,26 +137,26 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		return selectedEARComponent;
 	}
 
-	public  void setSelectedEARComponent(IVirtualComponent component) {
+	public void setSelectedEARComponent(IVirtualComponent component) {
 		selectedEARComponent = component;
 		fireNotification(new ClasspathModelEvent(ClasspathModelEvent.EAR_PROJECT_CHANGED));
 	}
-	
+
 	public String getArchiveURI() {
 		if (selectedEARComponent != null) {
-			return getEARArtifactEdit().getModuleURI(getComponent()); 
+			return getEARArtifactEdit().getModuleURI(getComponent());
 		}
 		return null;
 	}
-	
+
 	public EARArtifactEdit getEARArtifactEdit() {
-		if(earArtifactEdit == null || selectedEARComponentChanged()) 
+		if (earArtifactEdit == null || selectedEARComponentChanged())
 			earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(selectedEARComponent);
 		return earArtifactEdit;
 	}
 
 	private boolean selectedEARComponentChanged() {
-		if(earArtifactEdit != null && !earArtifactEdit.getComponent().getName().equals(selectedEARComponent.getName())) {
+		if (earArtifactEdit != null && !earArtifactEdit.getComponent().getName().equals(selectedEARComponent.getName())) {
 			earArtifactEdit.dispose();
 			earArtifactEdit = null;
 			return true;
@@ -171,7 +170,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 			return;
 		}
 		try {
-			earFile = (EARFile)getEARArtifactEdit().asArchive(false);
+			earFile = (EARFile) getEARArtifactEdit().asArchive(false);
 		} catch (OpenFailureException ex) {
 			handleOpenFailureException(ex);
 		}
@@ -205,13 +204,13 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 						} catch (ManifestException mfEx) {
 							Logger.getLogger().logError(mfEx);
 							anArchive.setManifest((ArchiveManifest) new ArchiveManifestImpl());
-						}catch(DeploymentDescriptorLoadException ddException){
+						} catch (DeploymentDescriptorLoadException ddException) {
 							Logger.getLogger().logError(ddException);
 						}
 					}
 				}
-			createClassPathSelection();
-		  }
+				createClassPathSelection();
+			}
 		} finally {
 			if (earFile != null)
 				earFile.close();
@@ -266,10 +265,10 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	}
 
 	public void dispose() {
-		   if(earArtifactEdit != null) {
-			   earArtifactEdit.dispose();
-			   earArtifactEdit = null;
-		   }
+		if (earArtifactEdit != null) {
+			earArtifactEdit.dispose();
+			earArtifactEdit = null;
+		}
 	}
 
 	public ClassPathSelection getClassPathSelection() {
@@ -373,7 +372,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		archive.getManifest().setMainClass(mainClass);
 		fireNotification(new ClasspathModelEvent(ClasspathModelEvent.MAIN_CLASS_CHANGED));
 	}
-	
+
 	/**
 	 * Updates the manifest Main-Class:, and sends out a notification of type
 	 * {@link ClasspathModelEvent#MAIN_CLASS_CHANGED}
@@ -399,7 +398,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	 */
 	public void setManifest(ArchiveManifest manifest) {
 		archive.setManifest(manifest);
-		getClassPathSelection(); //Ensure the selection is initialized.
+		getClassPathSelection(); // Ensure the selection is initialized.
 		fireNotification(new ClasspathModelEvent(ClasspathModelEvent.MANIFEST_CHANGED));
 	}
 
@@ -447,7 +446,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	}
 
 	protected void initNonResourceFiles() {
-		//Might be opened from a JAR
+		// Might be opened from a JAR
 		if (getComponent() == null)
 			return;
 		nonResourceFiles = new ArrayList(3);
@@ -614,7 +613,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	}
 
 	public ClassPathSelection getClassPathSelectionForWLPs() {
-		if(classPathWLPSelection == null)
+		if (classPathWLPSelection == null)
 			initializeSelectionForWLPs();
 		return classPathWLPSelection;
 	}
@@ -622,115 +621,96 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	private void initializeSelectionForWLPs() {
 		classPathWLPSelection = new ClassPathSelection();
 		try {
-			IJavaProject javaProject = JemProjectUtilities.getJavaProject(component.getProject());
-			IClasspathEntry[] entry = javaProject.getRawClasspath();
+			IClasspathContainer container = J2EEComponentClasspathUpdater.getInstance().getWebAppLibrariesContainer(component.getProject());
+			IClasspathEntry[] containerEntries = null != container ? container.getClasspathEntries() : null;
+			IPath libPath = new Path("/WEB-INF/lib"); //$NON-NLS-1$
+
 			HashSet hs = new HashSet();
-			hs.addAll( J2EEProjectUtilities.getAllJavaNonFlexProjects() );
+			hs.addAll(J2EEProjectUtilities.getAllJavaNonFlexProjects());
 			IProject[] utilityProjects = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.UTILITY);
 			hs.addAll(Arrays.asList(utilityProjects));
-			for(Iterator it = hs.iterator(); it.hasNext();) {
+			for (Iterator it = hs.iterator(); it.hasNext();) {
 				Object item = it.next();
 				IProject utilProject = null;
-				if (item instanceof IProject){
+				if (item instanceof IProject) {
 					utilProject = (IProject) item;
-					if( utilProject.getName().startsWith(".")){
+					if (utilProject.getName().startsWith(".")) { //$NON-NLS-1$
 						continue;
 					}
-				}
-				else if (item instanceof IVirtualComponent)
+				} else if (item instanceof IVirtualComponent)
 					utilProject = ((IVirtualComponent) item).getProject();
 				boolean existingEntry = false;
-				for (int j = 0; j < entry.length; j++) {
-					IClasspathEntry eachEntry = entry[j];
-					if (eachEntry.getEntryKind() == IClasspathEntry.CPE_PROJECT && eachEntry.getPath().toString().equals("/" + utilProject.getName())) { //$NON-NLS-1$
-
-						IVirtualReference ref = component.getReference(utilProject.getName());
-						IPath path = new Path("/WEB-INF/lib");
-						if( ref != null && ref.getRuntimePath().equals(path)){
-							existingEntry = true;
+				if (containerEntries != null) {
+					for (int j = 0; j < containerEntries.length; j++) {
+						IClasspathEntry eachEntry = containerEntries[j];
+						if (eachEntry.getEntryKind() == IClasspathEntry.CPE_PROJECT && eachEntry.getPath().toString().equals("/" + utilProject.getName())) { //$NON-NLS-1$
+							IVirtualReference ref = component.getReference(utilProject.getName());
+							if (ref != null && ref.getRuntimePath().equals(libPath)) {
+								existingEntry = true;
+							}
+							break;
 						}
-						break;
 					}
 				}
 				classPathWLPSelection.createProjectElement(utilProject, existingEntry);
 				classPathWLPSelection.setFilterLevel(ClassPathSelection.FILTER_NONE);
 			}
-			
-			if( component != null && J2EEProjectUtilities.isDynamicWebProject(component.getProject())){
+
+			if (component != null && J2EEProjectUtilities.isDynamicWebProject(component.getProject())) {
 				IVirtualReference[] newrefs = component.getReferences();
-				for( int i=0; i < newrefs.length; i++){
+				for (int i = 0; i < newrefs.length; i++) {
 					IVirtualReference ref = newrefs[i];
 					IVirtualComponent referencedComponent = ref.getReferencedComponent();
 					if (referencedComponent == null)
 						continue;
 					boolean isBinary = referencedComponent.isBinary();
-					if( isBinary ){
-						//String uri = ComponentUtilities.getResolvedPathForArchiveComponent(referencedComponent.getName()).toString();
+					if (isBinary) {
 						String unresolvedURI = ""; //$NON-NLS-1$
 						try {
 							unresolvedURI = ModuleURIUtil.getArchiveName(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)));
 						} catch (UnresolveableURIException e) {
 							e.printStackTrace();
 						}
-						URI archiveURI = URI.createURI(unresolvedURI);	
-						
-						boolean  alreadyInList = false;
+						URI archiveURI = URI.createURI(unresolvedURI);
+
+						boolean alreadyInList = false;
 						Iterator iter = classPathWLPSelection.getClasspathElements().iterator();
-						while(iter.hasNext()){
-							ClasspathElement tmpelement = (ClasspathElement)iter.next();
-							if( tmpelement.getText().equals(archiveURI.lastSegment())){
+						while (iter.hasNext()) {
+							ClasspathElement tmpelement = (ClasspathElement) iter.next();
+							if (tmpelement.getText().equals(archiveURI.lastSegment())) {
 								alreadyInList = true;
 								break;
 							}
 						}
 						ClasspathElement element = null;
-						if( !alreadyInList ){
-							if( inClassPath(javaProject, archiveURI.lastSegment())){
+						if (!alreadyInList) {
+							boolean inContainer = false;
+							if (containerEntries != null) {
+								String lastSegment = archiveURI.lastSegment();
+								for (int j = 0; !inContainer && j < containerEntries.length; j++) {
+									if (containerEntries[i].getPath().lastSegment().equals(lastSegment)) {
+										inContainer = true;
+									}
+								}
+							}
+
+							if (inContainer) {
 								element = classPathWLPSelection.createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)), referencedComponent.getName(), archiveURI.lastSegment());
 								classPathWLPSelection.addClasspathElement(element, unresolvedURI);
-							}
-							else
-							{
+							} else {
 								element = classPathWLPSelection.createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)), archiveURI.lastSegment(), null);
-								classPathWLPSelection.addClasspathElement(element, unresolvedURI);							
+								classPathWLPSelection.addClasspathElement(element, unresolvedURI);
 							}
 						}
 					}
-				}	//for
-			}	
-//			for (int j = 0; j < entry.length; j++) {
-//				IClasspathEntry eachEntry = entry[j];
-//				if (eachEntry.getEntryKind() == IClasspathEntry.CPE_LIBRARY ) {
-//					classPathWLPSelection.crcrecreateProjectElement(utilProject, existingEntry);
-//				}
-//			}			
+				} // for
+			}
 		} catch (CoreException e) {
-		}catch (Exception e) {
+		} catch (Exception e) {
 			Logger.getLogger().logError(e);
 		}
 	}
 
-	boolean inClassPath(IJavaProject javaProject, String archiveName ){
-		boolean existingEntry = false;
-		IClasspathEntry[] entry = null;
-		try {
-			entry = javaProject.getRawClasspath();
-		} catch (JavaModelException e) {
-			e.printStackTrace();
-		}
-		for (int j = 0; j < entry.length; j++) {
-			IClasspathEntry eachEntry = entry[j];
-			if (eachEntry.getEntryKind() == IClasspathEntry.CPE_LIBRARY || eachEntry.getEntryKind() == IClasspathEntry.CPE_VARIABLE ) {
-				if( eachEntry.getPath().lastSegment().equals(archiveName)){
-					existingEntry = true;
-					break;
-				}
-			}
-		}
-		return existingEntry;
-	}
-	
-	
 	public boolean isWLPModel() {
 		return isWLPModel;
 	}
