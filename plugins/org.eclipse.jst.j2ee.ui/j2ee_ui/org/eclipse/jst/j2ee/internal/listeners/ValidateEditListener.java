@@ -212,7 +212,7 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	}
 
 	public IStatus validateState() {
-		if (fShell==null)
+		if ((fShell==null) && (Workbench.getInstance().getActiveWorkbenchWindow() != null))
 			fShell=Workbench.getInstance().getActiveWorkbenchWindow().getShell();
 		if (fNeedsStateValidation) {
 			setNeedsStateValidation(false);

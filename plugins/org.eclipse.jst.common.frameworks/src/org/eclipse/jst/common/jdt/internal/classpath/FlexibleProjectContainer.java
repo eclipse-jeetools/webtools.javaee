@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
@@ -26,6 +27,7 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IAccessRule;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathContainer;
@@ -35,9 +37,11 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
 /**
@@ -111,7 +115,11 @@ public abstract class FlexibleProjectContainer
         
         for( int i = 0, n = this.entries.size(); i < n; i++ )
         {
-            this.cpentries[ i ] = newLibraryEntry( (IPath) this.entries.get( i ) );
+        	IPath entryPath = (IPath) this.entries.get( i );
+        	if(ResourcesPlugin.getWorkspace().getRoot().findMember(entryPath).getType() == IResource.PROJECT)
+        		this.cpentries[ i ] = JavaCore.newProjectEntry(entryPath, false);
+        	else
+        		this.cpentries[ i ] = newLibraryEntry( entryPath );
         }
     }
     
@@ -201,6 +209,30 @@ public abstract class FlexibleProjectContainer
             }
         }
         
+        IVirtualReference[] refs = vc.getReferences();
+		IVirtualComponent comp = null;
+
+		List entriesList = new ArrayList();
+
+			for (int i = 0; i < refs.length; i++) {
+				comp = refs[i].getReferencedComponent();
+				if (!refs[i].getRuntimePath().equals(paths[0].makeAbsolute()))
+					continue;
+				if (comp.isBinary()) {
+					VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
+					java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
+					if (diskFile.exists()) {
+						entries.add(new Path(diskFile.getAbsolutePath()));
+					} else {
+						IFile iFile = archiveComp.getUnderlyingWorkbenchFile();
+						if (!entries.contains(iFile.getFullPath()))
+							entries.add(iFile.getFullPath());
+					}
+				} else {
+					IProject project = comp.getProject();
+					entries.add(project.getFullPath());	
+				}
+			}
         return entries;
     }
     
