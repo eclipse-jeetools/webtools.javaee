@@ -540,6 +540,10 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		IJavaElement element = getInitialJavaElement(selection);
 		if (element != null && element.getJavaProject() != null)
 			return element.getJavaProject().getProject();
+		return getExtendedSelectedProject(stucturedSelection.getFirstElement());
+	}
+	
+	protected IProject getExtendedSelectedProject(Object selection) {
 		return null;
 	}
 

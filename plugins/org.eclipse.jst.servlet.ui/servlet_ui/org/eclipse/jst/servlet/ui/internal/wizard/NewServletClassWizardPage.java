@@ -19,9 +19,12 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.internal.war.ui.util.WebServletGroupItemProvider;
 import org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
+import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.jst.servlet.ui.internal.navigator.CompressedJavaProject;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -162,5 +165,16 @@ public class NewServletClassWizardPage extends NewJavaClassWizardPage {
 			existingClassText.setText(qualifiedClassName);
 		}
 		getControl().setCursor(null);
+	}
+	
+	protected IProject getExtendedSelectedProject(Object selection) {
+		if (selection instanceof WebServletGroupItemProvider) {
+			WebApp webApp = (WebApp)((WebServletGroupItemProvider)selection).getParent();
+			return ProjectUtilities.getProject(webApp);
+		}
+		else if (selection instanceof CompressedJavaProject) {
+			return ((CompressedJavaProject)selection).getProject().getProject();
+		}
+		return super.getExtendedSelectedProject(selection);
 	}
 }
