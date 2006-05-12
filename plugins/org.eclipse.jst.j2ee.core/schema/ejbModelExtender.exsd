@@ -45,14 +45,14 @@ server vendors.
          <attribute name="id" type="string">
             <annotation>
                <documentation>
-                  
+                  an optional identifier for this instance of the model extender
                </documentation>
             </annotation>
          </attribute>
          <attribute name="extensionClass" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  the qualified name of the class to use to extend the EJB model
                </documentation>
             </annotation>
          </attribute>

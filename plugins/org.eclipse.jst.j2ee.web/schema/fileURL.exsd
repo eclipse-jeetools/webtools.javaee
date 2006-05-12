@@ -47,7 +47,7 @@
          <attribute name="id" type="string">
             <annotation>
                <documentation>
-                  
+                  an optional identifier for this extension instance
                </documentation>
             </annotation>
          </attribute>
@@ -59,7 +59,7 @@
          <attribute name="class" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  the qualified name of the class to run
                </documentation>
             </annotation>
          </attribute>

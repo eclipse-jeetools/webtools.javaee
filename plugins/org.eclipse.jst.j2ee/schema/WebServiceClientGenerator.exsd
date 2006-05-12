@@ -47,7 +47,7 @@
          <attribute name="className" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  the qualifed class name to be used as the web service client generator
                </documentation>
             </annotation>
          </attribute>
@@ -59,7 +59,7 @@
          <attribute name="serverTarget" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  the name of runtime server target where this client generator is used
                </documentation>
             </annotation>
          </attribute>

@@ -51,7 +51,7 @@
          <attribute name="deployer_class" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  the qualified name of the class to be used as the deployer
                </documentation>
             </annotation>
          </attribute>
@@ -63,7 +63,7 @@
          <attribute name="runtime_server_id" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  the runtime server id for this deployer
                </documentation>
             </annotation>
          </attribute>
@@ -75,7 +75,7 @@
          <attribute name="module_nature_id" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  the support module nature id
                </documentation>
             </annotation>
          </attribute>
@@ -87,7 +87,7 @@
          <attribute name="component_type" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  the supported component type for this deployer
                </documentation>
             </annotation>
          </attribute>

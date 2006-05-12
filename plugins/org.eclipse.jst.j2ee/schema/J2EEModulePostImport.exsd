@@ -50,7 +50,7 @@ Both of the following examples register for notification for all J2EEModule type
          <attribute name="className" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  the qualified class name to call during post import
                </documentation>
             </annotation>
          </attribute>
@@ -62,7 +62,7 @@ Both of the following examples register for notification for all J2EEModule type
          <attribute name="type" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  the J2EE module type to run post import on
                </documentation>
             </annotation>
          </attribute>
