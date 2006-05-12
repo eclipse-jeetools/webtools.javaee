@@ -66,7 +66,9 @@ public abstract class J2EEFacetInstallDelegate {
 		try {
 			facetProj = ProjectFacetsManager.create(earProjectName,
 					null, monitor);
-			facetProj.setRuntime(runtime, monitor);
+			if(null != runtime){
+				facetProj.setRuntime(runtime, monitor);
+			}
 			
 			IDataModel earFacetInstallDataModel = DataModelFactory.createDataModel(new EarFacetInstallDataModelProvider());
 			earFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, earProjectName);
