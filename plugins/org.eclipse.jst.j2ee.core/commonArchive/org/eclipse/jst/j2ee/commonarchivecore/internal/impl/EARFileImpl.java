@@ -993,6 +993,8 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 		deploymentDescriptor = newDeploymentDescriptor;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, CommonarchivePackage.EAR_FILE__DEPLOYMENT_DESCRIPTOR, oldDeploymentDescriptor, deploymentDescriptor));
+		if ( oldDeploymentDescriptor != deploymentDescriptor )
+            getModuleRefsGen().clear();
 	}
 
 	/**
