@@ -11,11 +11,13 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.50 $  $Date: 2006/04/05 19:14:39 $ 
+ *  $Revision: 1.51 $  $Date: 2006/05/15 14:03:23 $ 
  */
 
 import java.io.FileNotFoundException;
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
 import java.util.*;
 import java.util.logging.Level;
@@ -23,8 +25,7 @@ import java.util.regex.Pattern;
 
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.*;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.*;
 import org.eclipse.emf.ecore.*;
@@ -34,6 +35,7 @@ import org.eclipse.emf.ecore.impl.ESuperAdapter;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.*;
+import org.eclipse.emf.ecore.xmi.PackageNotFoundException;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 
 import org.eclipse.jem.internal.beaninfo.*;
@@ -46,9 +48,6 @@ import org.eclipse.jem.java.*;
 import org.eclipse.jem.java.internal.impl.JavaClassImpl;
 import org.eclipse.jem.util.TimerTests;
 import org.eclipse.jem.util.logger.proxy.Logger;
-
-import com.ibm.etools.emf.event.EventFactory;
-import com.ibm.etools.emf.event.EventUtil;
 
 /**
  * Beaninfo adapter for doing introspection on a Java Model class.
@@ -961,6 +960,36 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	private static final String ROOT_FRAGMENT = "//@root"; //$NON-NLS-1$
 	private static final Pattern FRAGMENT_SPLITTER = Pattern.compile("/"); //$NON-NLS-1$
 	
+	// TODO This is to make event util optional. This should be removed entirely with 1.3 when event util goes away.
+	private static boolean RETRIEVED_EVENT_METHODS;
+	private static Object EVENT_FACTORY_INSTANCE;
+	private static java.lang.reflect.Method CREATE_EVENT_UTIL_METHOD;
+	private static java.lang.reflect.Method DO_FORWARD_EVENTS_METHOD;
+	
+	private static boolean isEventUtilLoaded() {
+		if (!RETRIEVED_EVENT_METHODS) {
+			try {
+				Class eventFactoryClass = Class.forName("com.ibm.etools.emf.event.EventFactory");
+				Field eventFactoryField = eventFactoryClass.getField("eINSTANCE");
+				Object eventFactoryInstance = eventFactoryField.get(null);
+				java.lang.reflect.Method createEventMethod = eventFactoryClass.getMethod("createEventUtil", new Class[] {Notifier.class, ResourceSet.class});
+				Class eventUtilClass = createEventMethod.getReturnType();
+				java.lang.reflect.Method doForwardEventsMethod = eventUtilClass.getMethod("doForwardEvents", new Class[] {List.class});
+				EVENT_FACTORY_INSTANCE = eventFactoryInstance;
+				CREATE_EVENT_UTIL_METHOD = createEventMethod;
+				DO_FORWARD_EVENTS_METHOD = doForwardEventsMethod;
+			} catch (ClassNotFoundException e) {
+			} catch (SecurityException e) {
+			} catch (NoSuchFieldException e) {
+			} catch (IllegalArgumentException e) {
+			} catch (IllegalAccessException e) {
+			} catch (NoSuchMethodException e) {
+			}
+			RETRIEVED_EVENT_METHODS = true;
+		} 
+		return EVENT_FACTORY_INSTANCE != null;
+		
+	}
 	private class ExtensionDocApplies implements BeaninfoPlugin.IOverrideRunnable {
 		
 		private final String overrideFile;
@@ -990,6 +1019,11 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 					if (e.exception() instanceof CoreException
 						&& ((CoreException) e.exception()).getStatus().getCode() == IResourceStatus.RESOURCE_NOT_FOUND) {
 						// This is ok. Means uri_mapping not set so couldn't find in Workspace, also ok.
+					} else if (e.exception() instanceof PackageNotFoundException && ((PackageNotFoundException) e.exception()).getMessage().indexOf("event.xmi") != -1) {
+						if (!RETRIEVED_EVENT_METHODS) {
+							BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0, "An old style override file using the com.ibm.event format was found, but com.ibm.event was not installed. The first such file is "+uri, null)); //$NON-NLS-1$
+							RETRIEVED_EVENT_METHODS = true;	// Mark we've retrieved. This is ok because if event is missing here, it will be missing for retrieve too.
+						}
 					} else {
 						BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0, "Error loading file\"" + uri + "\"", e.exception())); //$NON-NLS-1$ //$NON-NLS-2$						
 					}
@@ -1088,8 +1122,8 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 					// TODO It could be either the old event model or the new ChangeDescription. When we remove Event Model we need to remove
 					// the test. This could be the override cache too, so we must apply the contents in the order they are in the resource.
 					try {
-						List events = new ArrayList(1);
-						events.add(null);	// EventUtil needs a list, but we will be calling one by one. So just reuse this list.
+						List events = null;
+						Object[] eventsParm = null;
 						Iterator itr = contents.iterator();
 						while (itr.hasNext()) {
 							Object o = itr.next();
@@ -1097,11 +1131,22 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 								ChangeDescription cd = (ChangeDescription) o;
 								fixupCD(cd);
 								cd.apply();
-							} else {
+							} else if (isEventUtilLoaded()) {
+								if (events == null) {
+									events = new ArrayList(1);
+									events.add(null); // EventUtil needs a list, but we will be calling one by one. So just reuse this list.
+									eventsParm = new Object[] { events};
+								}								
 								// It is the old format.
 								events.set(0, o);
-								EventUtil util = EventFactory.eINSTANCE.createEventUtil(mergeIntoJavaClass, rset);
-								util.doForwardEvents(events);
+								try {
+									Object util = CREATE_EVENT_UTIL_METHOD.invoke(EVENT_FACTORY_INSTANCE, new Object[] {mergeIntoJavaClass, rset});
+									DO_FORWARD_EVENTS_METHOD.invoke(util, eventsParm);
+								} catch (IllegalArgumentException e) {
+								} catch (IllegalAccessException e) {
+								} catch (InvocationTargetException e) {
+									BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0, "Error processing file\"" + overrideRes.getURI() + "\"", e.getCause())); //$NON-NLS-1$ //$NON-NLS-2$
+								}
 							}
 						}
 					} finally {

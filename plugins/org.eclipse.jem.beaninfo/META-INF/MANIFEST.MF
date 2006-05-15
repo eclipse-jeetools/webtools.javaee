@@ -14,7 +14,7 @@ Export-Package: org.eclipse.jem.beaninfo.common,
  org.eclipse.jem.internal.beaninfo.core,
  org.eclipse.jem.internal.beaninfo.impl
 Require-Bundle: org.eclipse.jem.proxy,
- com.ibm.etools.emf.event,
+ com.ibm.etools.emf.event;resolution:=optional,
  org.eclipse.jdt.core,
  org.eclipse.jem.workbench,
  org.eclipse.core.resources,
