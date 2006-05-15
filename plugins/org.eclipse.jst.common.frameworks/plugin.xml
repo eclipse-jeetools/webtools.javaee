@@ -112,7 +112,8 @@
 
   <extension 
     point="org.eclipse.core.resources.markers"
-    id="javaVersionMismatch">
+    id="javaVersionMismatch"
+    name="%javaVersionMismatchMarkerName">
     <super type="org.eclipse.wst.common.project.facet.core.validation.marker"/>
     <attribute name="facetVersion"/>
     <attribute name="compilerLevel"/>
