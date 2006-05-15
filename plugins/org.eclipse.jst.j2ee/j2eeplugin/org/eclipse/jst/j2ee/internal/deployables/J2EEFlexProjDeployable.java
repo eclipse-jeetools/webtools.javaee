@@ -255,13 +255,11 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     	// If the component is a child module and the module passed in is the ear
     	if (module != null && J2EEProjectUtilities.isEARProject(module.getProject()))
     		ear = ComponentCore.createComponent(module.getProject());
-    	// else if the component is a child module and the module passed in is null or bogus, search for first ear
-    	else {
-    		if (component != null) {
-	    		IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(component.getProject());
-	        	if (earProjects.length>0)
-	        		ear = ComponentCore.createComponent(earProjects[0]);
-    		}
+    	// else if the component is a child module and the module passed in is null, search for first ear
+    	else if (module==null && component != null) {
+    		IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(component.getProject());
+	        if (earProjects.length>0)
+	        	ear = ComponentCore.createComponent(earProjects[0]);
     	}
     	// We have a valid ear and the component is a valid child
     	if (ear != null && component != null) {
@@ -283,7 +281,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     	} 
     	// We have child components but could not find valid ears
     	else if (component!=null && J2EEProjectUtilities.isDynamicWebProject(component.getProject())) {
-    		if( module != null && J2EEProjectUtilities.isUtilityProject(module.getProject())){
+    		if (module != null && J2EEProjectUtilities.isUtilityProject(module.getProject())) {
     			IVirtualComponent webComp = ComponentCore.createComponent(component.getProject());
     			IVirtualReference reference = webComp.getReference(module.getProject().getName());
     			aURI = ComponentUtilities.getDeployUriOfUtilComponent(reference);
