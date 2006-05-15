@@ -27,7 +27,6 @@ import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterp
 import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
-import org.eclipse.jst.server.core.FacetUtil;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
@@ -38,6 +37,7 @@ import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
+import org.eclipse.wst.common.project.facet.core.runtime.RuntimeManager;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerUtil;
 
@@ -62,20 +62,13 @@ public class J2EEComponentCreationFacetOperation extends AbstractDataModelOperat
 	protected void setRuntime(IDataModel newModel, IDataModel facetModel) {
 		String runtime = newModel.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.RUNTIME_TARGET_ID);
 		try {
-			if (runtime != null) {
-				IRuntime run = getRuntimeByID(runtime);
-				org.eclipse.wst.common.project.facet.core.runtime.IRuntime facetRuntime = null;
-				try {
-					if (run != null)
-						facetRuntime = FacetUtil.getRuntime(run);
-				}
-				catch (IllegalArgumentException ex)
-				{}
+			if (runtime != null && runtime.trim().length() > 0) {
+				org.eclipse.wst.common.project.facet.core.runtime.IRuntime facetRuntime = RuntimeManager.getRuntime(runtime);
 				if (facetRuntime != null) {
-					facetModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME,facetRuntime);
+					facetModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, facetRuntime);
 				}
 			}
-			} catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 			Logger.getLogger().logError(e);
 		}
 	}
