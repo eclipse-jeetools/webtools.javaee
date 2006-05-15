@@ -66,7 +66,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		} else if (propertyName.equals(EAR_PROJECT_NAME)) {
 			if (model.isPropertySet(LAST_EAR_NAME)) {
 				IProject project = ProjectUtilities.getProject(getStringProperty(LAST_EAR_NAME));
-				if (project.exists())
+				if (project.exists() && project.isAccessible())
 					return project.getName();
 			}
 			DataModelPropertyDescriptor[] descs = getValidPropertyDescriptors(EAR_PROJECT_NAME);
