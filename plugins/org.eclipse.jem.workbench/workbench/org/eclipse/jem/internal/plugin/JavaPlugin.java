@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.plugin;
 /*
- * $RCSfile: JavaPlugin.java,v $ $Revision: 1.11 $ $Date: 2006/01/13 23:46:52 $
+ * $RCSfile: JavaPlugin.java,v $ $Revision: 1.12 $ $Date: 2006/05/15 23:12:54 $
  */
 
 import org.eclipse.core.runtime.Plugin;
@@ -59,6 +59,7 @@ public class JavaPlugin extends Plugin {
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
+		INSTANCE = this;
 		JavaContext.setReflectionAdapterFactoryClass(JavaJDOMAdapterFactory.class);
 		JEMUtilPlugin.getPluginResourceSet().getAdapterFactories().add(new JavaJDKAdapterFactory());		
 	}

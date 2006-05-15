@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaReflectionSynchronizer.java,v $
- *  $Revision: 1.13 $  $Date: 2006/02/08 14:46:25 $ 
+ *  $Revision: 1.14 $  $Date: 2006/05/15 23:12:54 $ 
  */
 
 import java.util.ArrayList;
@@ -115,7 +115,7 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 	 */
 	protected void processJavaElementChanged(IJavaProject element, IJavaElementDelta delta) {
 		if (isInClasspath(element)) {
-			if (delta.getKind() == IJavaElementDelta.REMOVED) {
+			if (delta.getKind() == IJavaElementDelta.REMOVED || (delta.getKind() == IJavaElementDelta.CHANGED && (delta.getFlags() & IJavaElementDelta.F_CLOSED) != 0)) {
 				if (element.equals(getAdapterFactory().getJavaProject()))
 					stopSynchronizer();
 				else
@@ -207,6 +207,32 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 	protected void processRemoveOrAdd(ICompilationUnit element) {
 		disAssociateSource(getFullNameFromElement(element));
 	}
+	
+	protected String getFullNameFromElement(ICompilationUnit cu) {
+		IType primary = cu.findPrimaryType();
+		if (primary != null)
+			return primary.getFullyQualifiedName();
+		else {
+			String filename = cu.getElementName();
+			// Just strip off extension. There is actually a more complicated test for "java like extenstions" but JDT has that hidden\
+			// so we will just guess and take off the extension.
+			int idx = filename.lastIndexOf('.');
+			if (idx != -1)
+				filename = filename.substring(0, idx);
+			return ((IPackageFragment) cu.getParent()).getElementName()+'.'+filename;
+		}
+	}
+	
+	protected String getFullNameFromElement(IClassFile cf) {
+		try {
+			return cf.getType().getFullyQualifiedName();
+		} catch (JavaModelException e) {
+			JavaPlugin.getDefault().getLogger().log(e, Level.WARNING);
+			String cfName = cf.getElementName();
+			return cfName.substring(0, cfName.length()-(".class".length()));
+		}
+	}
+	
 	protected String getFullNameFromElement(IJavaElement element) {
 		String name = element.getElementName();
 		if (element == null || name.length() <= 5 || !name.substring(name.length() - 5).equals(".java")) { //$NON-NLS-1$

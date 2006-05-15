@@ -15,4 +15,4 @@ Require-Bundle: org.eclipse.jem,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.core.runtime,
  org.eclipse.jem.util
-Lazy-Start: true
+Eclipse-LazyStart: true
