@@ -10,13 +10,12 @@
  *******************************************************************************/ 
 package org.eclipse.jst.j2ee.navigator.internal;
 
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.viewers.AbstractTreeViewer;
-import org.eclipse.ui.progress.UIJob;
 import org.eclipse.jst.j2ee.internal.navigator.ui.Messages;
+import org.eclipse.ui.progress.UIJob;
 
 public class ClearPlaceHolderJob extends UIJob {
 
@@ -36,8 +35,13 @@ public class ClearPlaceHolderJob extends UIJob {
 	
 	public IStatus runInUIThread(IProgressMonitor monitor) {
 
-		viewer.remove(placeHolder);
-		viewer.add(parent, children);
+		try {
+			viewer.getControl().setRedraw(false);
+			viewer.remove(placeHolder);
+			viewer.add(parent, children);
+		} finally {
+			viewer.getControl().setRedraw(true);
+		}
 		return Status.OK_STATUS;
 	}
 
