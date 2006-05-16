@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -24,11 +25,14 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.osgi.util.NLS;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class CopyArchiveIntoProjectOperation extends J2EEUtilityJarImportAssistantOperation {
 
@@ -41,10 +45,18 @@ public class CopyArchiveIntoProjectOperation extends J2EEUtilityJarImportAssista
 		 
 		try {
 
-			IProject associatedEARProject = getWorkspaceRoot().getProject(getAssociatedEARProjectName());
- 
-			IFile copiedJarFile = associatedEARProject.getFile(getUtilityJar().getName());
-			if (copiedJarFile.exists()) {
+			IFile copiedJarFile = null;
+			
+			IProject associatedEARProject = getWorkspaceRoot().getProject(getAssociatedEARProjectName()); 
+			IVirtualComponent earComponent = ComponentCore.createComponent(associatedEARProject);
+			
+			IContainer underlyingFolder = earComponent.getRootFolder().getUnderlyingFolder();
+			if(underlyingFolder.isAccessible()) {
+				 copiedJarFile = underlyingFolder.getFile(new Path(getUtilityJar().getName()));
+			} else {
+				 copiedJarFile = associatedEARProject.getFile(getUtilityJar().getName());
+			}		
+ 			if (copiedJarFile.exists()) {
 				if (isOverwriteIfNecessary())
 					copiedJarFile.delete(true, true, new SubProgressMonitor(monitor, 1));
 				else {

@@ -69,6 +69,9 @@ public class EARCreationResourceHandler extends NLS {
 	public static String J2EEUtilityJarListImportDataModel_Specify_Valid_Project;
 	public static String J2EEUtilityJarListImportDataModel_Select_Jar;
 	public static String J2EEUtilityJarListImportDataModel_Specify_Linked_Path;
+	public static String J2EEUtilityJarListImportOperation_There_were_no_utility_jars_selected;
+	
+	
 	public static String CreateProjectWithExtractedJarOperation_Create_project_with_extracted_conte_;
 	public static String CopyArchiveIntoProjectOperation_Copying_archive_into_selected_proje_;
 	public static String CopyArchiveIntoProjectOperation_Found_existing_file_0_;

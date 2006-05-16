@@ -41,7 +41,7 @@ public class J2EEUtilityJarListImportOperation extends AbstractDataModelOperatio
 			
 		Object[] utilityJars = (Object[]) model.getProperty(IJ2EEUtilityJarListImportDataModelProperties.UTILITY_JAR_LIST);
 		if (utilityJars == null || utilityJars.length == 0)
-			return J2EEPlugin.createErrorStatus(0, "There were no utility jars selected.", null);
+			return J2EEPlugin.createErrorStatus(0, EARCreationResourceHandler.J2EEUtilityJarListImportOperation_There_were_no_utility_jars_selected, null);
 
 		monitor.beginTask(EARCreationResourceHandler.J2EEUtilityJarListImportOperation_UI_Import_Utility_Jars, utilityJars.length * (1 + ASSISTANT_TICKS)); //$NON-NLS-1$
 
