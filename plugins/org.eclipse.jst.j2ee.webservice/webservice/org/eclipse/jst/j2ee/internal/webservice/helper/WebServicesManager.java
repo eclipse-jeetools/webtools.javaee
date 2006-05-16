@@ -84,7 +84,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	private static WebServicesManager INSTANCE = null;
 	private List listeners;
 	private List removedListeners = new ArrayList();
-	private boolean isNotifing = false;
+	private boolean isNotifying = false;
 
 	public static final String WSDL_EXT = "wsdl"; //$NON-NLS-1$
 	public static final String WSIL_EXT = "wsil"; //$NON-NLS-1$
@@ -256,22 +256,30 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		if (listeners == null)
 			return;
 		synchronized (this) {
-			isNotifing = true;
+			isNotifying = true;
 		}
 		try {
-			List list = getListeners();
-			for (int i = 0; i < list.size(); i++) {
-				WebServiceEvent webServiceEvent = null;
-				//If there are no more web services, remove the group
-				if (getAllWorkspaceServiceRefs().isEmpty() && getAllWSDLServices().isEmpty())
-					webServiceEvent = new WebServiceEvent(WebServiceEvent.REMOVE);
-				else
+			WebServiceEvent webServiceEvent = null;
+			
+			switch (anEventType) {
+			case EditModelEvent.UNLOADED_RESOURCE:
+			case EditModelEvent.PRE_DISPOSE:
+			case EditModelEvent.REMOVED_RESOURCE:
+				webServiceEvent = new WebServiceEvent(WebServiceEvent.REMOVE);
+				break;
+			default:
+				if (!getAllWorkspaceServiceRefs().isEmpty() || !getAllWSDLServices().isEmpty())
 					webServiceEvent = new WebServiceEvent(WebServiceEvent.REFRESH);
-				((WebServiceManagerListener) list.get(i)).webServiceManagerChanged(webServiceEvent);
+			}
+			List list = getListeners();
+			if (webServiceEvent!=null) {
+				for (int i = 0; i < list.size(); i++) {
+					((WebServiceManagerListener) list.get(i)).webServiceManagerChanged(webServiceEvent);
+				}
 			}
 		} finally {
 			synchronized (this) {
-				isNotifing = false;
+				isNotifying = false;
 				if (removedListeners != null && !removedListeners.isEmpty()) {
 					for (int i = 0; i < removedListeners.size(); i++)
 						listeners.remove(removedListeners.get(i));
@@ -286,7 +294,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	 */
 	public synchronized boolean removeListener(WebServiceManagerListener aListener) {
 		if (aListener != null) {
-			if (isNotifing)
+			if (isNotifying)
 				return removedListeners.add(aListener);
 			return getListeners().remove(aListener);
 		}
