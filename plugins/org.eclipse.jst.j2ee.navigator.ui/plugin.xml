@@ -180,8 +180,10 @@
 		</dropAssistant>
 
 		<!-- EAR New -->
-		<commonWizard type="new"
-			wizardId="org.eclipse.jst.j2ee.ui.project.facet.EarProjectWizard">
+		<commonWizard
+        menuGroupId="org.eclipse.jst.j2ee.ui.newProjects"
+        type="new"
+        wizardId="org.eclipse.jst.j2ee.ui.project.facet.EarProjectWizard">
 			<enablement>
 				<or>
 					<instanceof
@@ -220,8 +222,10 @@
 			</enablement>
 		</commonWizard>
 		<!-- AppClient New -->
-		<commonWizard type="new"
-			wizardId="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientProjectWizard">
+		<commonWizard
+        menuGroupId="org.eclipse.jst.j2ee.ui.newProjects"
+        type="new"
+        wizardId="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientProjectWizard">
 			<enablement>
 				<or>
 					<instanceof
@@ -455,8 +459,10 @@
 		</actionProvider>
 
 		<!-- Web New -->
-		<commonWizard type="new"
-			wizardId="org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard">
+		<commonWizard
+        menuGroupId="org.eclipse.jst.j2ee.ui.newProjects"
+        type="new"
+        wizardId="org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard">
 			<enablement>
 				<or>
 					<instanceof
@@ -545,8 +551,10 @@
 			</enablement>
 		</commonWizard>
 		<!-- New Servlet -->
-		<commonWizard type="new"
-			wizardId="org.eclipse.jst.servlet.ui.internal.wizard.AddServletWizard">
+		<commonWizard
+        menuGroupId="org.eclipse.wst.web.ui"
+        type="new"
+        wizardId="org.eclipse.jst.servlet.ui.internal.wizard.AddServletWizard">
 			<enablement>
 				<or>
 					<instanceof
@@ -572,8 +580,10 @@
 		<!-- The contribution of the New *.jsp wizard to Files, Folders, and Projects 
 			is handled in org.eclipse.jst.jsp.ui. This contribution adds the 
 			wizard to the model elements contributed by the J2EE Content Provider -->
-		<commonWizard type="new"
-			wizardId="org.eclipse.jst.jsp.ui.internal.wizard.NewJSPWizard">
+		<commonWizard
+        menuGroupId="org.eclipse.wst.web.ui"
+        type="new"
+        wizardId="org.eclipse.jst.jsp.ui.internal.wizard.NewJSPWizard">
 			<enablement>
 				<or>
 					<instanceof
@@ -589,8 +599,10 @@
 		<!-- The contribution of the New *.html wizard to Files, Folders, and Projects 
 			is handled in org.eclipse.jst.html.ui. This contribution adds the 
 			wizard to the model elements contributed by the J2EE Content Provider -->
-		<commonWizard type="new"
-			wizardId="org.eclipse.wst.html.ui.internal.wizard.NewHTMLWizard">
+		<commonWizard
+        menuGroupId="org.eclipse.wst.web.ui"
+        type="new"
+        wizardId="org.eclipse.wst.html.ui.internal.wizard.NewHTMLWizard">
 			<enablement>
 				<or>
 					<instanceof
@@ -662,8 +674,10 @@
 		</actionProvider>
 
 		<!-- EJB New -->
-		<commonWizard type="new"
-			wizardId="org.eclipse.jst.ejb.ui.project.facet.EjbProjectWizard">
+		<commonWizard
+        menuGroupId="org.eclipse.jst.j2ee.ui.newProjects"
+        type="new"
+        wizardId="org.eclipse.jst.ejb.ui.project.facet.EjbProjectWizard">
 			<enablement>
 				<or>
 					<instanceof
@@ -748,8 +762,10 @@
 		</commonWizard>
 
 		<!-- Add Enterprise Bean -->
-		<commonWizard type="new"
-			wizardId="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards.AddEjbWizard">
+		<commonWizard
+        menuGroupId="org.eclipse.jst.ejb.ui"
+        type="new"
+        wizardId="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards.AddEjbWizard">
 			<enablement>
 				<or>
 					<and>
@@ -814,8 +830,10 @@
 		</actionProvider>
 
 		<!-- Connector New -->
-		<commonWizard type="new"
-			wizardId="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorProjectWizard">
+		<commonWizard
+        menuGroupId="org.eclipse.jst.j2ee.ui.newProjects"
+        type="new"
+        wizardId="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorProjectWizard">
 			<enablement>
 				<or>
 					<instanceof
