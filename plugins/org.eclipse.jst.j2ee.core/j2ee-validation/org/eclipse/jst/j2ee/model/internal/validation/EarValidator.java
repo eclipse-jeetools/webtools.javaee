@@ -401,8 +401,12 @@ public class EarValidator extends J2EEValidator  {
 					validateAppClientRefs(ref);
 			} catch (ArchiveWrappedException ex) {
 				Exception nested = ex.getNestedException();
-				if (!(nested instanceof NoModuleFileException)) 
-					Logger.getLogger().logError(ex);
+				if (!(nested instanceof NoModuleFileException)) {
+					//Logger.getLogger().logError(ex);
+					String[] params = new String[1];
+					params[0] = ref.getUri();
+					addError(EREF_CATEGORY, ERROR_MODULE_DD_FILE_NOT_FOUND, params);					
+				}
 				//otherwise ignore it; there are other validations for this
 			} 
 			
@@ -785,8 +789,11 @@ public class EarValidator extends J2EEValidator  {
 				 }
 			} catch (ArchiveWrappedException ex) {
 				Exception nested = ex.getNestedException();
-				if (!(nested instanceof NoModuleFileException)) 
-					Logger.getLogger().logError(ex);
+				if (!(nested instanceof NoModuleFileException)) {
+					String[] params = new String[1];
+					params[0] = ref.getUri();
+					addError(EREF_CATEGORY, ERROR_MODULE_DD_FILE_NOT_FOUND, params);
+				}
 			} 
 			
 		}
@@ -894,8 +901,11 @@ public class EarValidator extends J2EEValidator  {
 			}
 		} catch (ArchiveWrappedException ex) {
 			Exception nested = ex.getNestedException();
-			if (!(nested instanceof NoModuleFileException)) 
-				Logger.getLogger().logError(ex);
+			if (!(nested instanceof NoModuleFileException)) {
+				String[] params = new String[1];
+				params[0] = ref.getUri();
+				addError(EREF_CATEGORY, ERROR_MODULE_DD_FILE_NOT_FOUND, params);
+			}
 		} 
 			
 		
