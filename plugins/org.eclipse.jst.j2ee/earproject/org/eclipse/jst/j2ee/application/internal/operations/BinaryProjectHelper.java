@@ -37,7 +37,7 @@ public class BinaryProjectHelper {
 					
 			IJavaProject javaProject = JavaCore.create(project);
 			
-			IFile savedModuleFile = savedModuleFile = saveFile(archive, project);
+			IFile savedModuleFile = saveFile(archive, project);
 			saveEnclosedFile(archive, project, ProjectUtilities.DOT_CLASSPATH);
 			saveEnclosedFile(archive, project, ProjectUtilities.DOT_PROJECT);
 			removeImportedClassesFromClasspathIfNecessary(project);

@@ -495,7 +495,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 				if (earProj != null) {
 					String earProjName = earProj.getName();
 					if (earProjName.equalsIgnoreCase(projName)) {
-						String msg = msg = EARCreationResourceHandler.EAR_PROJECTNAME_SAMEAS_MODULE;
+						String msg = EARCreationResourceHandler.EAR_PROJECTNAME_SAMEAS_MODULE;
 						return WTPCommonPlugin.createErrorStatus(msg);
 					}
 				}

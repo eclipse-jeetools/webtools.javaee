@@ -55,6 +55,8 @@ import org.eclipse.jem.workbench.utility.JemProjectUtilities;
  * Note: the builder is not currently invoking the Minimize helper, it is relying on the copy to not
  * replace existing class files, and the build path order to ensure that compiled classes override
  * imported ones.
+ * 
+ * @deprecated This class is only used for backwards compatibility
  */
 public class LibCopyBuilder extends IncrementalProjectBuilder {
 	/**
@@ -106,49 +108,51 @@ public class LibCopyBuilder extends IncrementalProjectBuilder {
 	 * </p>
 	 */
 	protected IProject[] build(int kind, Map args, IProgressMonitor monitor) throws CoreException {
-		sourceContainers = null;
-		needOutputRefresh = false;
-		if (DEBUG) {
-			System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__Start_build_project_INFO_ + getProject().getName()); 
-		}
-
-		boolean builderOrderOK = checkBuilderOrdering();
-
-		if (DEBUG && !builderOrderOK) {
-			System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__Bad_builder_order_for_project_INFO_ + getProject().getName()); 
-		}
-
-		IFolder[] classFolders = getClassesFolders();
-		if (classFolders.length == 0) {
-			// no files to copy
-			if (DEBUG)
-				System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__No_imported_classes_folder__quitting_INFO_); 
-			return null;
-		}
-
-		IJavaProject jproject = JavaCore.create(getProject());
-		if (jproject == null) {
-			// not a java project (anymore?)
-			return null;
-		}
-
-		IPath outputPath = jproject.getOutputLocation();
-		IFolder outputFolder = getProject().getParent().getFolder(outputPath);
-		if (outputPath.equals(lastOutputPath)) {
-			if (kind == INCREMENTAL_BUILD || kind == AUTO_BUILD) {
-				processDelta(getDelta(getProject()), outputFolder, monitor, classFolders);
-				refreshOutputIfNecessary(outputFolder);
-				return null;
-			}
-		}
-
-		if (DEBUG) {
-			System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__Full_first_build_INFO_);
-		}
-		copyAllClassFolders(monitor, classFolders, outputFolder);
-		lastOutputPath = outputPath;
-		refreshOutputIfNecessary(outputFolder);
+		// this builder is unnecessary in WTP 1.5
 		return null;
+//		sourceContainers = null;
+//		needOutputRefresh = false;
+//		if (DEBUG) {
+//			System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__Start_build_project_INFO_ + getProject().getName()); 
+//		}
+//
+//		boolean builderOrderOK = checkBuilderOrdering();
+//
+//		if (DEBUG && !builderOrderOK) {
+//			System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__Bad_builder_order_for_project_INFO_ + getProject().getName()); 
+//		}
+//
+//		IFolder[] classFolders = getClassesFolders();
+//		if (classFolders.length == 0) {
+//			// no files to copy
+//			if (DEBUG)
+//				System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__No_imported_classes_folder__quitting_INFO_); 
+//			return null;
+//		}
+//
+//		IJavaProject jproject = JavaCore.create(getProject());
+//		if (jproject == null) {
+//			// not a java project (anymore?)
+//			return null;
+//		}
+//
+//		IPath outputPath = jproject.getOutputLocation();
+//		IFolder outputFolder = getProject().getParent().getFolder(outputPath);
+//		if (outputPath.equals(lastOutputPath)) {
+//			if (kind == INCREMENTAL_BUILD || kind == AUTO_BUILD) {
+//				processDelta(getDelta(getProject()), outputFolder, monitor, classFolders);
+//				refreshOutputIfNecessary(outputFolder);
+//				return null;
+//			}
+//		}
+//
+//		if (DEBUG) {
+//			System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__Full_first_build_INFO_);
+//		}
+//		copyAllClassFolders(monitor, classFolders, outputFolder);
+//		lastOutputPath = outputPath;
+//		refreshOutputIfNecessary(outputFolder);
+//		return null;
 	}
 
 	/**
@@ -161,7 +165,8 @@ public class LibCopyBuilder extends IncrementalProjectBuilder {
 
 	private void copyAllClassFolders(IProgressMonitor monitor, IFolder[] classFolders, IFolder outputFolder) throws CoreException {
 		for (int i = 0; i < classFolders.length; i++) {
-			copyClassFiles(classFolders[i], outputFolder, monitor);
+			if (!classFolders[i].equals(outputFolder))
+				copyClassFiles(classFolders[i], outputFolder, monitor);
 		}
 
 	}
