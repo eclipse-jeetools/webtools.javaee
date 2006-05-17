@@ -138,7 +138,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 		if (isValidAppClientModule(getComponent()))
 			resourceURI = J2EEConstants.WEB_SERVICES_META_INF_DD_URI_OBJ;
 		else if (isValidEJBModule(getComponent()))
-			resourceURI = J2EEConstants.WEB_SERVICES_META_INF_DD_URI_OBJ; //$NON-NLS-1$
+			resourceURI = J2EEConstants.WEB_SERVICES_META_INF_DD_URI_OBJ;
 		return resourceURI;
 	}
 

@@ -128,7 +128,7 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 		if (isValidAppClientModule(ComponentCore.createComponent(getProject())))
 			resourceURI = J2EEConstants.WEB_SERVICES_CLIENT_META_INF_DD_URI_OBJ;
 		else if (isValidEJBModule(ComponentCore.createComponent(getProject())))
-			resourceURI = J2EEConstants.WEB_SERVICES_CLIENT_META_INF_DD_URI_OBJ; //$NON-NLS-1$
+			resourceURI = J2EEConstants.WEB_SERVICES_CLIENT_META_INF_DD_URI_OBJ;
 		return resourceURI;
 	}
 

@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServicePlugin;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaWSDLMapping;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapFactory;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapResource;
@@ -365,18 +366,18 @@ public class JaxRPCMapArtifactEdit extends EnterpriseArtifactEdit {
 	}
 
 	public EObject createModelRoot() {
-		throw new IllegalArgumentException("Mapping file name unknown");
+		throw new IllegalArgumentException(WebServicePlugin.getMessage("_UI_JaxRPCMissingModel")); //$NON-NLS-1$
 	}
 
 	public EObject createModelRoot(int version) {
-		throw new IllegalArgumentException("Mapping file name unknown");
+		throw new IllegalArgumentException(WebServicePlugin.getMessage("_UI_JaxRPCMissingModel")); //$NON-NLS-1$
 	}
 
 	public Resource getDeploymentDescriptorResource() {
-		throw new IllegalArgumentException("Mapping file name unknown");
+		throw new IllegalArgumentException(WebServicePlugin.getMessage("_UI_JaxRPCMissingModel")); //$NON-NLS-1$
 	}
 
 	public int getJ2EEVersion() {
-		throw new IllegalArgumentException("Mapping file name unknown");
+		throw new IllegalArgumentException(WebServicePlugin.getMessage("_UI_JaxRPCMissingModel")); //$NON-NLS-1$
 	}
 }

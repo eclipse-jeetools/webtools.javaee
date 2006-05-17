@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Web Service Plug-in
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.jst.j2ee.webservice; singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.jst.j2ee.internal.webservice.plugin.WebServicePlugin
-Bundle-Vendor: Eclipse.org
+Bundle-Vendor: %pluginVendor
 Bundle-Localization: plugin
 Export-Package: org.eclipse.jst.j2ee.internal.webservice.adapter;x-internal:=true,
  org.eclipse.jst.j2ee.internal.webservice.command;x-internal:=true,
