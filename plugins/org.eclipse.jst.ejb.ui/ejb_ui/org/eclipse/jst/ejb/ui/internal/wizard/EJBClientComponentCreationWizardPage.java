@@ -36,7 +36,7 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
 	protected int indent = 0;
 	private Label projectNameLabel;
     protected Text projectNameText = null;
-    private static final String MODULE_NAME_UI = J2EEUIMessages.getResourceString(J2EEUIMessages.NAME_LABEL); //$NON-NLS-1$    
+    private static final String MODULE_NAME_UI = J2EEUIMessages.getResourceString(J2EEUIMessages.NAME_LABEL);    
     private static final int SIZING_TEXT_FIELD_WIDTH = 305;	
 
 	/**
@@ -174,7 +174,7 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
 	private void createClientJarURISection(Composite parent) {
 	    // set up project name label
 		clientJarURILabel = new Label(parent, SWT.NONE);
-		clientJarURILabel.setText(EJBUIMessages.Client_JAR_URI + " ");
+		clientJarURILabel.setText(EJBUIMessages.Client_JAR_URI + " "); //$NON-NLS-1$
 	    GridData data = new GridData();
 	    clientJarURILabel.setLayoutData(data);
 	

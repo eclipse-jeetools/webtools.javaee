@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.Text;
 public class EjbFacetInstallPage extends J2EEModuleFacetInstallPage 
 	implements IEjbFacetInstallDataModelProperties{
 
-    private static final String MODULE_NAME_UI = J2EEUIMessages.getResourceString(J2EEUIMessages.NAME_LABEL); //$NON-NLS-1$
+    private static final String MODULE_NAME_UI = J2EEUIMessages.getResourceString(J2EEUIMessages.NAME_LABEL);
     
 	private Text configFolder;
 	private Label configFolderLabel;
@@ -29,7 +29,7 @@ public class EjbFacetInstallPage extends J2EEModuleFacetInstallPage
 	private Text clientJarURI;
     
 	public EjbFacetInstallPage() {
-		super("ejb.facet.install.page");
+		super("ejb.facet.install.page"); //$NON-NLS-1$
 		setTitle(EJBUIMessages.pageTitle);
 		setDescription(EJBUIMessages.pageDescription);
 	}
@@ -92,7 +92,7 @@ public class EjbFacetInstallPage extends J2EEModuleFacetInstallPage
     private void createClientJarURISection(Composite parent) {
         // set up project name label
     	clientJarURILabel = new Label(parent, SWT.NONE);
-    	clientJarURILabel.setText(EJBUIMessages.Client_JAR_URI + " ");
+    	clientJarURILabel.setText(EJBUIMessages.Client_JAR_URI + " "); //$NON-NLS-1$
         GridData data = new GridData();
         clientJarURILabel.setLayoutData(data);
 

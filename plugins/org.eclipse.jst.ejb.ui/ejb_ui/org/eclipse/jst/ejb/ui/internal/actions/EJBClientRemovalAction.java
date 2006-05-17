@@ -131,9 +131,9 @@ public class EJBClientRemovalAction extends AbstractClientJARAction {
 	protected void runValidationOperation(ProgressMonitorDialog dlg) {
 		WorkspaceModifyComposedOperation runnable = new WorkspaceModifyComposedOperation();
 		ValidatorSubsetOperation sop = new ValidatorSubsetOperation(getProject(), true, false);
-		sop.setValidators(new String[] { "org.eclipse.jst.j2ee.core.internal.validation.EJBValidator"}); //$NON-NLS-1$ //$NON-NLS-2$
+		sop.setValidators(new String[] { "org.eclipse.jst.j2ee.core.internal.validation.EJBValidator"}); //$NON-NLS-1$
 		//TODO: add extension back in for validator  "com.ibm.etools.ejb.mapvalidator.MapValidation" 
-		runnable.addRunnable(ValidationUIPlugin.getRunnableWithProgress(sop)); //$NON-NLS-1$
+		runnable.addRunnable(ValidationUIPlugin.getRunnableWithProgress(sop));
 		try {
 			dlg.run(true, false, runnable);
 		} catch (InvocationTargetException e) {
