@@ -1,17 +1,17 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2006 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 package org.eclipse.jem.tests.beaninfo;
 /*
  *  $RCSfile: TestStandard.java,v $
- *  $Revision: 1.13 $  $Date: 2006/02/17 18:30:55 $ 
+ *  $Revision: 1.14 $  $Date: 2006/05/17 20:13:56 $ 
  */
 
 import java.util.Iterator;
