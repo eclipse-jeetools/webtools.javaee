@@ -1,17 +1,17 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2006 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JDOMSearchHelper.java,v $
- *  $Revision: 1.7 $  $Date: 2006/02/24 00:19:15 $ 
+ *  $Revision: 1.8 $  $Date: 2006/05/17 20:13:58 $ 
  */
 
 import java.io.File;
