@@ -15,6 +15,7 @@
 package org.eclipse.jst.j2ee.internal.webservice;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,6 +26,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
@@ -37,8 +39,10 @@ import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServiceUIPlugin;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.navigator.internal.IJ2EENavigatorConstants;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
+import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
 import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
 import org.eclipse.jst.j2ee.webservice.wsdd.PortComponent;
+import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.navigator.ICommonContentExtensionSite;
 import org.eclipse.ui.navigator.ICommonContentProvider;
@@ -293,13 +297,13 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 
 	private WebServiceNavigatorGroupType getServicesGroup() {
 		if (SERVICES == null)
-			SERVICES = new WebServiceNavigatorGroupType(WebServiceNavigatorGroupType.SERVICES);
+			SERVICES = new WebServiceNavigatorGroupType(WebServiceNavigatorGroupType.SERVICES, getAdapterFactory());
 		return SERVICES;
 	}
 
 	private WebServiceNavigatorGroupType getClientsGroup() {
 		if (CLIENTS == null)
-			CLIENTS = new WebServiceNavigatorGroupType(WebServiceNavigatorGroupType.CLIENTS);
+			CLIENTS = new WebServiceNavigatorGroupType(WebServiceNavigatorGroupType.CLIENTS, getAdapterFactory());
 		return CLIENTS;
 	}
 
@@ -310,9 +314,9 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 		handler = (WebServiceNavigatorGroupType) HANDLERS.get(key);
 		if (handler == null) {
 			if (WSDLServiceExtManager.getServiceHelper().isService(key))
-				handler = new WebServiceNavigatorGroupType(WebServiceNavigatorGroupType.HANDLERS, (EObject) key);
+				handler = new WebServiceNavigatorGroupType(WebServiceNavigatorGroupType.HANDLERS, (EObject) key, getAdapterFactory());
 			else if (key instanceof ServiceRef)
-				handler = new WebServiceNavigatorGroupType(WebServiceNavigatorGroupType.HANDLERS, (ServiceRef) key);
+				handler = new WebServiceNavigatorGroupType(WebServiceNavigatorGroupType.HANDLERS, (ServiceRef) key, getAdapterFactory());
 
 			if (handler != null)
 				HANDLERS.put(key, handler);
@@ -336,6 +340,69 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 	}
 
 	public void init(ICommonContentExtensionSite site) {
+	}
+	
+	public void notifyChanged(Notification notification) {
+	
+		if(notification.getNotifier() instanceof ServiceRef) {
+			switch(notification.getFeatureID(ServiceRef.class)) {
+				case Webservice_clientPackage.SERVICE_REF__HANDLERS:
+					
+					WebServiceNavigatorGroupType handlersGroup = getHandlersGroup(notification.getNotifier());
+
+					if(handlersGroup != null) {
+						switch(notification.getEventType()) {
+							case Notification.ADD: 
+								viewer.add(handlersGroup, notification.getNewValue());						
+								break;
+							case Notification.ADD_MANY: 
+								viewer.add(handlersGroup, ((Collection)notification.getNewValue()).toArray());						
+								break;
+							case Notification.REMOVE: 						
+								viewer.remove(notification.getOldValue());
+								break;
+							case Notification.REMOVE_MANY:
+								viewer.remove(((Collection)notification.getOldValue()).toArray());
+								break;
+						}			
+					}
+					return;				
+				default:			
+			} 
+		} else if(notification.getNotifier() instanceof PortComponent) {
+			switch(notification.getFeatureID(PortComponent.class)) {
+				case WsddPackage.PORT_COMPONENT__HANDLERS:
+					
+					PortComponent pComp = (PortComponent) notification.getNotifier();
+					EObject service = WebServicesManager.getInstance().getService(pComp);
+					if(service != null) {
+						WebServiceNavigatorGroupType handlersGroup = getHandlersGroup(service);						
+						if(handlersGroup != null) {
+							switch(notification.getEventType()) {
+								case Notification.ADD: 
+									viewer.add(handlersGroup, notification.getNewValue());						
+									break;
+								case Notification.ADD_MANY: 
+									viewer.add(handlersGroup, ((Collection)notification.getNewValue()).toArray());						
+									break;
+								case Notification.REMOVE: 						
+									viewer.remove(notification.getOldValue());
+									break;
+								case Notification.REMOVE_MANY:
+									viewer.remove(((Collection)notification.getOldValue()).toArray());
+									break;
+							}
+						}
+					}
+					
+					
+					return;				
+				default:			
+			}
+		}  
+		super.notifyChanged(notification);	
+		
+		
 	}
 
 	/**
