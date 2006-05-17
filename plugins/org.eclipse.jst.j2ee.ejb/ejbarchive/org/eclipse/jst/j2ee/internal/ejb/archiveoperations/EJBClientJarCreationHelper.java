@@ -167,9 +167,9 @@ public class EJBClientJarCreationHelper {
 	private void computeJavaTypes(JavaClass javaClass) {
 		if (javaClass == null)
 			return;
-		javaClass.isInterface();//force reflection prior to the move.
+		//javaClass.isInterface();//force reflection prior to the move.
 		IJavaProject jProj = JemProjectUtilities.getJavaProject(ejbProject);
-		IType type = JDOMSearchHelper.findType(javaClass.getJavaPackage().getName(), javaClass.getQualifiedName(), jProj);
+		IType type = JDOMSearchHelper.findType(javaClass.getJavaPackage().getName(), javaClass.getSimpleName(), jProj);
 		computeJavaTypes(type);
 	}
 
