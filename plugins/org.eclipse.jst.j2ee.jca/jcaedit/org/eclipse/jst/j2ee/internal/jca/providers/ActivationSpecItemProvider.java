@@ -110,7 +110,7 @@ public class ActivationSpecItemProvider extends ItemProviderAdapter implements I
 	public String getText(Object object) {
 		String label = ((ActivationSpec) object).getActivationSpecClass();
 		return label == null || label.length() == 0 ? JCAResourceHandler._UI_ActivationSpec_type : 
-					JCAResourceHandler._UI_ActivationSpec_type + " " + label; 
+					JCAResourceHandler._UI_ActivationSpec_type + " " + label;  //$NON-NLS-1$
 	}
 
 	/**

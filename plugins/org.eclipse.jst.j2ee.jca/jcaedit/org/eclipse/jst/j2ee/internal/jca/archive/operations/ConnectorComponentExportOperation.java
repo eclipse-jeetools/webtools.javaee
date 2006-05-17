@@ -39,12 +39,12 @@ public class ConnectorComponentExportOperation extends J2EEArtifactExportOperati
 			setModuleFile(caf.openRARFile(ls, getDestinationPath().toOSString()));
 			getModuleFile().saveAsNoReopen(getDestinationPath().toOSString());
 		} catch (Exception e) {
-			throw new SaveFailureException(J2EEPluginResourceHandler.Error_opening_archive_for_export_2, e);//$NON-NLS-1$
+			throw new SaveFailureException(J2EEPluginResourceHandler.Error_opening_archive_for_export_2, e);
 		}
 	}
 
 	protected String archiveString() {
 		//TODO fill in string
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 }

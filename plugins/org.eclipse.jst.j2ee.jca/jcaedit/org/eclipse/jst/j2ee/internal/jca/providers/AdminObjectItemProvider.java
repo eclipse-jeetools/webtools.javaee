@@ -123,7 +123,7 @@ public class AdminObjectItemProvider extends ItemProviderAdapter implements IEdi
 	public String getText(Object object) {
 		String label = ((AdminObject) object).getAdminObjectInterface();
 		return label == null || label.length() == 0 ? JCAResourceHandler._UI_AdminObject_type : 
-					JCAResourceHandler._UI_AdminObject_type + " " + label; 
+					JCAResourceHandler._UI_AdminObject_type + " " + label;  //$NON-NLS-1$
 	}
 
 	/**

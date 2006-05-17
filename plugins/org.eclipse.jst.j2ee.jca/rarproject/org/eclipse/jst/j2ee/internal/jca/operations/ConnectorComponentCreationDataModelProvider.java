@@ -157,7 +157,7 @@ public class ConnectorComponentCreationDataModelProvider extends J2EEComponentCr
 		boolean doSet = super.propertySet(propertyName, propertyValue);
 		if (propertyName.equals(JAVASOURCE_FOLDER)){
 			//unless MANIFEST folder is opened up, it is set as same as Java source folder
-			setProperty(MANIFEST_FOLDER, getProperty(JAVASOURCE_FOLDER)+ "/" + J2EEConstants.META_INF);
+			setProperty(MANIFEST_FOLDER, getProperty(JAVASOURCE_FOLDER)+ "/" + J2EEConstants.META_INF); //$NON-NLS-1$
 		}		
 		return doSet;
 	}	

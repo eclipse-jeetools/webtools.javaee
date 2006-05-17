@@ -74,7 +74,7 @@ public class JcaPlugin extends WTPPlugin implements ResourceLocator {
 	 * Javadoc copied from interface.
 	 */
 	public URL getBaseURL() {
-		return getBundle().getEntry("/");
+		return getBundle().getEntry("/"); //$NON-NLS-1$
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class JcaPlugin extends WTPPlugin implements ResourceLocator {
 
 
 	public static URL getInstallURL() {
-		return getDefault().getBundle().getEntry("/");
+		return getDefault().getBundle().getEntry("/"); //$NON-NLS-1$
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class JcaPlugin extends WTPPlugin implements ResourceLocator {
 		Bundle bundle = Platform.getBundle(pluginId);
 		if (bundle != null) {
 			try {
-				IPath installPath = new Path(bundle.getEntry("/").toExternalForm()).removeTrailingSeparator();
+				IPath installPath = new Path(bundle.getEntry("/").toExternalForm()).removeTrailingSeparator(); //$NON-NLS-1$
 				String installStr = Platform.asLocalURL(new URL(installPath.toString())).getFile();
 				return new Path(installStr);
 			} catch (IOException e) {

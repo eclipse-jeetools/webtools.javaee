@@ -167,7 +167,7 @@ public class SecurityPermissionItemProvider extends JcaItemProviderAdapter imple
 		SecurityPermission securityPermission = ((SecurityPermission) object);
 		if (securityPermission.getDescription() == null)
 			return JCAResourceHandler.SecurityPermissionItemProvider_UI_0; 
-		return JCAResourceHandler.SecurityPermissionItemProvider_UI_0 + ": " + securityPermission.getDescription(); 
+		return JCAResourceHandler.SecurityPermissionItemProvider_UI_0 + ": " + securityPermission.getDescription();  //$NON-NLS-1$
 	}// getText
 
 	/**

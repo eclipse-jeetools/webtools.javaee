@@ -111,7 +111,7 @@ public class RequiredConfigPropertyTypeItemProvider extends ItemProviderAdapter 
 	public String getText(Object object) {
 		String label = ((RequiredConfigPropertyType) object).getName();
 		return label == null || label.length() == 0 ? JCAResourceHandler._UI_RequiredConfigPropertyType_type : 
-					JCAResourceHandler._UI_RequiredConfigPropertyType_type + " " + label; 
+					JCAResourceHandler._UI_RequiredConfigPropertyType_type + " " + label;  //$NON-NLS-1$
 	}
 
 	/**

@@ -54,7 +54,7 @@ public class ConnectorComponentLoadStrategyImpl extends ComponentLoadStrategyImp
 				".o", //$NON-NLS-1$
 				".sl", //$NON-NLS-1$
 				".dll", //$NON-NLS-1$
-	}; //$NON-NLS-1$
+	};
 
 	public ConnectorComponentLoadStrategyImpl(IVirtualComponent vComponent) {
 		super(vComponent);
