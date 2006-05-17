@@ -103,10 +103,10 @@ public class TagSpec {
 				// Should be impossible unless the annotation-taghandler.exsd or
 				// calling code changes.
 				//TODO: Logging
-				throw new CoreException(new Status(IStatus.ERROR, "org.eclipse.wst.common.internal.annotations.controller", IStatus.OK, AnnotationsControllerResources.TagSpec_3 + s, null)); //$NON-NLS-1$ //$NON-NLS-2$
+				throw new CoreException(new Status(IStatus.ERROR, "org.eclipse.wst.common.internal.annotations.controller", IStatus.OK, AnnotationsControllerResources.TagSpec_3 + s, null)); //$NON-NLS-1$
 			}
 		}
-		throw new CoreException(new Status(IStatus.ERROR, "org.eclipse.wst.common.internal.annotations.controller", IStatus.OK, AnnotationsControllerResources.TagSpec_4, null)); //$NON-NLS-1$ //$NON-NLS-2$
+		throw new CoreException(new Status(IStatus.ERROR, "org.eclipse.wst.common.internal.annotations.controller", IStatus.OK, AnnotationsControllerResources.TagSpec_4, null)); //$NON-NLS-1$
 
 	}
 
@@ -117,7 +117,7 @@ public class TagSpec {
 			} else if (s.equalsIgnoreCase("*")) { //$NON-NLS-1$
 				return TagSpec.Multiplicity.MANY;
 			}
-			throw new CoreException(new Status(IStatus.ERROR, "org.eclipse.wst.common.internal.annotations.controller", IStatus.OK, AnnotationsControllerResources.TagSpec_4, null)); //$NON-NLS-1$ //$NON-NLS-2$
+			throw new CoreException(new Status(IStatus.ERROR, "org.eclipse.wst.common.internal.annotations.controller", IStatus.OK, AnnotationsControllerResources.TagSpec_4, null)); //$NON-NLS-1$
 		}
 		//Return default
 		return TagSpec.Multiplicity.ONE;

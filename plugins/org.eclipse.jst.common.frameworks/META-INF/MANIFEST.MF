@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Integration Plug-in
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.jst.common.frameworks; singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: Eclipse.org
+Bundle-Vendor: %pluginVendor
 Bundle-Localization: plugin
 Export-Package: 
  org.eclipse.jst.common.frameworks,

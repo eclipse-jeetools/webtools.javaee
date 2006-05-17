@@ -328,7 +328,7 @@ public abstract class FlexibleProjectContainer
         {
             final String fname = f.getName();
             
-            if( fname.endsWith( ".jar" ) || fname.endsWith( ".zip" ) )
+            if( fname.endsWith( ".jar" ) || fname.endsWith( ".zip" ) ) //$NON-NLS-1$ //$NON-NLS-2$
             {
                 return true;
             }

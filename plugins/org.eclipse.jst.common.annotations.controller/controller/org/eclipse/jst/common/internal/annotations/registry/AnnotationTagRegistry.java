@@ -220,7 +220,7 @@ public class AnnotationTagRegistry {
 				} else {
 					// Unlikely, unless annotation extension spec changes
 					// without changes here.
-					System.err.println(AnnotationsControllerResources.AnnotationTagRegistry_9 + use); //$NON-NLS-1$
+					System.err.println(AnnotationsControllerResources.AnnotationTagRegistry_9 + use);
 					return null;
 				}
 
@@ -230,7 +230,7 @@ public class AnnotationTagRegistry {
 					if (elemUniqueArray[0].getAttribute("scope") != null) //$NON-NLS-1$
 						tas.getUnique().setScope(TagAttribSpec.uniqueScopeFromString(elemUniqueArray[0].getAttribute("scope"))); //$NON-NLS-1$
 					if (elemUniqueArray.length > 1) {
-						Logger.getLogger().logError(AnnotationsControllerResources.TagAttribSpec_2 + elemUniqueArray.length); //$NON-NLS-1$
+						Logger.getLogger().logError(AnnotationsControllerResources.TagAttribSpec_2 + elemUniqueArray.length);
 					}
 				} else {
 					tas.clearUnique();
@@ -311,18 +311,18 @@ public class AnnotationTagRegistry {
 				tagName = elem.getAttribute("tagName"); //$NON-NLS-1$
 				scope = elem.getAttribute("scope"); //$NON-NLS-1$
 				if (isNullOrEmpty(tagSet) || isNullOrEmpty(tagName) || isNullOrEmpty(scope)) {
-					Logger.getLogger().log(NLS.bind(AnnotationsControllerResources.AnnotationTagRegistry_10, new Object[]{identifier})); //$NON-NLS-1$ //$NON-NLS-2$
+					Logger.getLogger().log(NLS.bind(AnnotationsControllerResources.AnnotationTagRegistry_10, new Object[]{identifier}));
 					continue;
 				}
 				fullTagName = tagSet + "." + tagName; //$NON-NLS-1$
 
-				InitTagInfo tagInf = parseTagAttribs(elem.getChildren(), fullTagName.toLowerCase(), scope); //$NON-NLS-1$
+				InitTagInfo tagInf = parseTagAttribs(elem.getChildren(), fullTagName.toLowerCase(), scope);
 				String key = (fullTagName + "#" + scope).toLowerCase(); //$NON-NLS-1$
 				/*
 				 * There should only ever be one AnnotationTagInfo tag for any one annotation tag.
 				 */
 				if (tagAttribs.containsKey(key)) {
-					Logger.getLogger().log(AnnotationsControllerResources.AnnotationTagRegistry_0 + tagName + "'."); //$NON-NLS-1$ //$NON-NLS-2$
+					Logger.getLogger().log(AnnotationsControllerResources.AnnotationTagRegistry_0 + tagName + "'."); //$NON-NLS-1$
 				} else {
 					tagInf.bundle = bundle;
 					tagAttribs.put(key, tagInf);
@@ -505,7 +505,7 @@ public class AnnotationTagRegistry {
 		try {
 			AnnotationTagRegistry.init();
 		} catch (CoreException e) {
-			Logger.getLogger().logError(AnnotationsControllerResources.AnnotationTagRegistry_ERROR_1); //$NON-NLS-1$
+			Logger.getLogger().logError(AnnotationsControllerResources.AnnotationTagRegistry_ERROR_1);
 			Logger.getLogger().logError(e);
 		}
 	}
