@@ -18,7 +18,6 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jst.j2ee.internal.common.UpdateProjectClasspath;
 import org.eclipse.jst.j2ee.refactor.operations.ProjectRefactorMetadata.RefCachingVirtualComponent;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
@@ -86,7 +85,7 @@ public class UpdateDependentModuleonRenameOp extends UpdateDependentProjectOp {
 //        dataModel.setProperty(JARDependencyDataModelProperties.REFERENCED_PROJECT_NAME, refactoredMetadata.getProjectName());
 //        dataModel.setIntProperty(JARDependencyDataModelProperties.JAR_MANIPULATION_TYPE, JARDependencyDataModelProperties.JAR_MANIPULATION_ADD);
 //        dataModel.getDefaultOperation().execute(monitor, null );
-		UpdateProjectClasspath.updateProjectDependency( dependentMetadata.getProjectName(), refactoredMetadata.getProjectName(), true );
+		//UpdateProjectClasspath.updateProjectDependency( dependentMetadata.getProjectName(), refactoredMetadata.getProjectName(), true );
 		return Status.OK_STATUS;
 	}
 	

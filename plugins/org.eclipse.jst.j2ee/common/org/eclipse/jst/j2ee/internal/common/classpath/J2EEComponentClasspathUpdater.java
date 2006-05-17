@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -118,6 +119,8 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 			// TODO streamline the ear section so it only changes if the refs have changed
 			queueUpdateEAR(project);
 		} else if (J2EEProjectUtilities.isApplicationClientProject(project) || J2EEProjectUtilities.isEJBProject(project) || J2EEProjectUtilities.isDynamicWebProject(project) || J2EEProjectUtilities.isJCAProject(project) || J2EEProjectUtilities.isUtilityProject(project)) {
+			//Hari: update the project only if the tree is not locked.
+			if(false == ResourcesPlugin.getWorkspace().isTreeLocked())
 			queueUpdateModule(project);
 		}
 	}
