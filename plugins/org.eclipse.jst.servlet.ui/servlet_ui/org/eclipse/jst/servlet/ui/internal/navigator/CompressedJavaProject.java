@@ -94,7 +94,7 @@ public class CompressedJavaProject implements ICompressedNode {
 		return nonExternalSourceFolders;
 	}
 	
-	private CompressedJavaLibraries getCompressedJavaLibraries() {		
+	public CompressedJavaLibraries getCompressedJavaLibraries() {		
 		if(compressedLibraries == null) 
 			compressedLibraries = new CompressedJavaLibraries(this);
 		return compressedLibraries;

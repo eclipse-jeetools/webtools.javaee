@@ -65,6 +65,10 @@ public class CompressedJavaLibraries implements ICompressedNode {
 		}
 		return classpathContainers.toArray();
 	}
+
+	public CompressedJavaProject getCompressedProject() {
+		return compressedProject;
+	}
 	
 	
 

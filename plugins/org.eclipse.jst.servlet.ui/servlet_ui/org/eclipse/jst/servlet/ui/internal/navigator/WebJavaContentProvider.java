@@ -93,7 +93,10 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 			if (!root.isExternal() && aSuggestedParent instanceof IJavaProject) {
 				return getCompressedNode((IJavaProject) aSuggestedParent);
 			}
+		} else if(INTERNAL_CONTAINER_CLASS.isInstance(anObject) && aSuggestedParent instanceof IJavaProject) {
+			return getCompressedNode( (IJavaProject) aSuggestedParent ).getCompressedJavaLibraries();
 		}
+		
 		return null;
 	}
 
@@ -186,6 +189,8 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 	public Object getParent(Object element) {
 		if (element instanceof CompressedJavaProject)
 			return ((CompressedJavaProject) element).getProject();
+		if (element instanceof CompressedJavaLibraries) 
+			return ((CompressedJavaLibraries) element).getCompressedProject();
 		return null;
 	}
 
