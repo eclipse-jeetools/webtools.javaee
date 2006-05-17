@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEUtilityJarListImportDataModelProvider;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -43,8 +42,7 @@ public final class J2EEUtilityJarImportWizardNew extends J2EEArtifactImportWizar
 	 * </p>
 	 */
 	private static final String SELECT_JARS = "SELECT_JARS"; //$NON-NLS-1$
-
-	private IStructuredSelection selection;
+ 
 
 	/**
 	 * <p>
@@ -79,7 +77,7 @@ public final class J2EEUtilityJarImportWizardNew extends J2EEArtifactImportWizar
 	 * </p>
 	 */
 	public void doAddPages() {
-		this.addPage(new J2EEUtilityJarImportTypePageNew(getDataModel(), IMPORT_TYPE, selection));
+		this.addPage(new J2EEUtilityJarImportTypePageNew(getDataModel(), IMPORT_TYPE, getSelection()));
 		this.addPage(new J2EEUtilityJarImportPageNew(getDataModel(), SELECT_JARS));
 	}
 
