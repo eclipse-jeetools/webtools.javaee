@@ -16,6 +16,7 @@ import java.util.Map;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.IUndoableOperation;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -36,6 +37,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnter
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.navigator.ui.Messages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider;
 import org.eclipse.jst.j2ee.navigator.internal.plugin.J2EENavigatorPlugin;
 import org.eclipse.jst.j2ee.project.facet.EARFacetUtils;
 import org.eclipse.osgi.util.NLS;
@@ -167,7 +169,11 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 		int earVersion = -1;
 		EARArtifactEdit earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
 		try {
-			earVersion = earArtifactEdit.getJ2EEVersion();
+			if(earArtifactEdit != null)
+				earVersion = earArtifactEdit.getJ2EEVersion();
+			else {
+				J2EENavigatorPlugin.logError(0, "Could not acquire model elements for project \""+earProject.getName()+"\".", null); //$NON-NLS-1$ //$NON-NLS-2$
+			}
 		} finally {
 			if (earArtifactEdit != null) {
 				earArtifactEdit.dispose();
@@ -246,8 +252,14 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 			project = (IProject) ((IAdaptable) element).getAdapter(IPROJECT_CLASS);
 		else
 			project = (IProject) Platform.getAdapterManager().getAdapter(element, IPROJECT_CLASS);
-		if (project == null && element instanceof EObject) {
-			project = ProjectUtilities.getProject((EObject) element);
+		if (project == null) {
+			if(element instanceof EObject) {
+				project = ProjectUtilities.getProject((EObject) element);
+			} else if (element instanceof J2EEItemProvider) {
+				IFile associatedFile = ((J2EEItemProvider)element).getAssociatedFile();
+				if(associatedFile != null)
+					project = associatedFile.getProject();				
+			}
 		}
 		return project;
 	}
