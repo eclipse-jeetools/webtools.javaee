@@ -97,6 +97,9 @@ public final class EARComponentImportWizard extends J2EEArtifactImportWizard imp
 	protected void doInit() {
 		setWindowTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.IMPORT_WIZ_TITLE));
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EAR_IMPORT_WIZARD_BANNER));
+		//Added to enable progress monitor to show on the last page for EAR import.
+		setNeedsProgressMonitor(true);
+		
 	}
 
 	protected IDataModelProvider getDefaultProvider() {
