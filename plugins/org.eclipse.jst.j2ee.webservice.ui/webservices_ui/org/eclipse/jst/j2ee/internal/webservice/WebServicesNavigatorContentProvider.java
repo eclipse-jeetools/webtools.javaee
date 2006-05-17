@@ -393,12 +393,12 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 	public class WebServiceIndexJob extends Job {
 
 		public WebServiceIndexJob() {
-			super("Indexing JSR-109 Web Services");
+			super(WebServiceUIResourceHandler.WS_NAV_JOB0);
 		}
 
 
 		protected IStatus run(IProgressMonitor monitor) {
-			monitor.beginTask("Load Web Service Components", 4);
+			monitor.beginTask(WebServiceUIResourceHandler.WS_NAV_JOB1, 4);
   
 			if (indexWebServices(monitor)) {
 				new AddWebServicesNodeUIJob().schedule();
@@ -412,7 +412,7 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 
 
 		public AddWebServicesNodeUIJob() {
-			super("Add JSR-109 Web Services node to viewer");
+			super(WebServiceUIResourceHandler.WS_NAV_JOB2);
 		}
 
 		public IStatus runInUIThread(IProgressMonitor monitor) {
@@ -426,7 +426,7 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 
 
 		public UpdateWebServicesNodeUIJob () {
-			super("Update JSR-109 Web Services node in viewer");
+			super(WebServiceUIResourceHandler.WS_NAV_JOB3);
 		}
 
 		public IStatus runInUIThread(IProgressMonitor monitor) {
@@ -443,12 +443,12 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 	public class RemoveWebServicesNodeUIJob extends UIJob { 
 
 		public RemoveWebServicesNodeUIJob() {
-			super("Update JSR-109 Web Services node in viewer");
+			super(WebServiceUIResourceHandler.WS_NAV_JOB4);
 		}
 
 		public IStatus runInUIThread(IProgressMonitor monitor) { 
 
-			monitor.beginTask("Updating Index of Web Service Components", 4);
+			monitor.beginTask(WebServiceUIResourceHandler.WS_NAV_JOB5, 4);
   
 			if (indexWebServices(monitor)) {
 				getViewer().refresh(getNavigatorGroup());

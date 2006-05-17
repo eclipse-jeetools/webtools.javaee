@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: WTP Webservice UI Plug-in
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.jst.j2ee.webservice.ui; singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.jst.j2ee.internal.webservice.plugin.WebServiceUIPlugin
-Bundle-Vendor: Eclipse.org
+Bundle-Vendor: %pluginVendor
 Bundle-Localization: plugin
 Export-Package: org.eclipse.jst.j2ee.internal.webservice;x-internal:=true,
  org.eclipse.jst.j2ee.internal.webservice.plugin;x-internal:=true

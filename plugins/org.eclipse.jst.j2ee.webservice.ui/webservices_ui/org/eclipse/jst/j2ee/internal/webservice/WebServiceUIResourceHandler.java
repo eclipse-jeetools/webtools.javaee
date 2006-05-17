@@ -53,6 +53,12 @@ public final class WebServiceUIResourceHandler extends NLS {
 	public static String SERVICE_CLASSES_UI_;
 	public static String PORT_UI_;
 	public static String HANDLER_UI_;
+	public static String WS_NAV_JOB0;
+	public static String WS_NAV_JOB1;
+	public static String WS_NAV_JOB2;
+	public static String WS_NAV_JOB3;
+	public static String WS_NAV_JOB4;
+	public static String WS_NAV_JOB5;
 	public static String WSDL_PORT_UI_;
 	public static String SERVICE_IMPL_UI_;
 	public static String WSDL_UI_;
