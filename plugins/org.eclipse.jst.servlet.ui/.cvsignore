@@ -4,3 +4,4 @@ build.xml
 servletui.jar
 @dot
 src.zip
+javaCompiler...args
