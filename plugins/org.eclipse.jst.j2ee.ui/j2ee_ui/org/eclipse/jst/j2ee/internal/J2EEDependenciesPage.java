@@ -41,7 +41,7 @@ public class J2EEDependenciesPage extends PropertyPage {
 	public String DESCRIPTION = J2EEUIMessages.getResourceString("DESCRIPTION"); //$NON-NLS-1$
 
 	private IProject project;
-	private IJ2EEDependenciesControl[] controls;
+	private IJ2EEDependenciesControl[] controls = new IJ2EEDependenciesControl[0];
 	
 	public J2EEDependenciesPage() {
 		super();
@@ -143,7 +143,7 @@ public class J2EEDependenciesPage extends PropertyPage {
 	 */
 	public boolean performOk() {
 		for (int i = 0; i < controls.length; i++) {
-			if (!controls[i].performOk()) {
+			if (controls[i] != null && !controls[i].performOk()) {
 				return false;
 			}
 		}
@@ -155,7 +155,9 @@ public class J2EEDependenciesPage extends PropertyPage {
 	 */
 	public void performDefaults() {
 		for (int i = 0; i < controls.length; i++) {
-			controls[i].performDefaults();
+			if (controls[i] != null) {
+				controls[i].performDefaults();
+			}
 		}
 	}
 	
@@ -164,7 +166,7 @@ public class J2EEDependenciesPage extends PropertyPage {
 	 */
 	public boolean performCancel() {
 		for (int i = 0; i < controls.length; i++) {
-			if (!controls[i].performCancel()) {
+			if (controls[i] != null && !controls[i].performCancel()) {
 				return false;
 			}
 		}
@@ -177,7 +179,9 @@ public class J2EEDependenciesPage extends PropertyPage {
 	public void setVisible(boolean visible) {
 		super.setVisible(visible);
 		for (int i = 0; i < controls.length; i++) {
-			controls[i].setVisible(visible);
+			if (controls[i] != null) {
+				controls[i].setVisible(visible);
+			}
 		}
 	}
 	
@@ -187,7 +191,9 @@ public class J2EEDependenciesPage extends PropertyPage {
 	public void dispose() {
 		super.dispose();
 		for (int i = 0; i < controls.length; i++) {
-			controls[i].dispose();
+			if (controls[i] != null) {
+				controls[i].dispose();
+			}
 		}
 	}
 
