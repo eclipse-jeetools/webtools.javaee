@@ -4,3 +4,4 @@ build.xml
 xdocletAnnotation.jar
 @dot
 src.zip
+javaCompiler...args

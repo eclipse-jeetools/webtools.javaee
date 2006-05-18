@@ -4,3 +4,4 @@ build.xml
 ejbAnnotationsUi.jar
 @dot
 src.zip
+javaCompiler...args
