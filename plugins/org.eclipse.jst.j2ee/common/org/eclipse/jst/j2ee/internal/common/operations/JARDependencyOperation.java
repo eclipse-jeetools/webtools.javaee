@@ -74,7 +74,8 @@ public class JARDependencyOperation extends AbstractDataModelOperation implement
 		IHeadlessRunnableWithProgress buildPathOperation = createBuildPathOperation(model);
 		try {
 			mfOperation.execute(new SubProgressMonitor(monitor, 1), null);
-			buildPathOperation.run(new SubProgressMonitor(monitor, 1));
+			// No longer manipulating build path... containers will calculate
+			//buildPathOperation.run(new SubProgressMonitor(monitor, 1));
 		} catch (Exception e) {
 			Logger.getLogger().logError(e);
 		}
