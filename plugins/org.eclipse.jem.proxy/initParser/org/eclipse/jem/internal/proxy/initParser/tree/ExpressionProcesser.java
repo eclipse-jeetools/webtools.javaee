@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesser.java,v $
- *  $Revision: 1.23 $  $Date: 2006/05/17 20:13:05 $ 
+ *  $Revision: 1.24 $  $Date: 2006/05/18 16:52:16 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 
@@ -826,9 +826,9 @@ public class ExpressionProcesser {
 						printObjectAndType(proxy.getValue(), proxy.getType());
 					pushExpressionValue(proxy.getValue(), proxy.getType());	// Can push a VariableReference. This is ok. When used it will then deref with the current value.
 				} else
-					processSyntaxException(new NoExpressionValueException("Proxy id: "+proxyid)); //$NON-NLS-1$
+					processException(new NoExpressionValueException("Proxy id: "+proxyid)); //$NON-NLS-1$
 			} else
-				processSyntaxException(new NoExpressionValueException("Proxy id: "+proxyid)); //$NON-NLS-1$
+				processException(new NoExpressionValueException("Proxy id: "+proxyid)); //$NON-NLS-1$
 		} finally {
 			if (traceOn)
 				printTraceEnd();
@@ -858,7 +858,7 @@ public class ExpressionProcesser {
 			} catch (RuntimeException e) {
 				processException(e);
 			} catch (NoExpressionValueException e) {
-				processSyntaxException(e);
+				processException(e);
 			}
 		} finally {
 			if (traceOn)
@@ -1069,7 +1069,7 @@ public class ExpressionProcesser {
 			} catch (RuntimeException e) {
 				processException(e);
 			} catch (NoExpressionValueException e) {
-				processSyntaxException(e);
+				processException(e);
 			}
 		} finally {
 			if (traceOn)
@@ -1164,7 +1164,7 @@ public class ExpressionProcesser {
 				Class exptype = popExpressionType(false);
 				pushExpressionValue(Boolean.valueOf(isInstance(type, exp, exptype)), Boolean.TYPE);
 			} catch (NoExpressionValueException e) {
-				processSyntaxException(e);
+				processException(e);
 			} catch (RuntimeException e) {
 				processException(e);
 			}
@@ -1333,7 +1333,7 @@ public class ExpressionProcesser {
 			} catch (IllegalArgumentException e) {
 				processSyntaxException(e);
 			} catch (NoExpressionValueException e) {
-				processSyntaxException(e);
+				processException(e);
 			} catch (RuntimeException e) {
 				processException(e);
 			} 
@@ -1390,7 +1390,7 @@ public class ExpressionProcesser {
 		} catch (IllegalArgumentException e) {
 			processException(e);
 		} catch (NoExpressionValueException e) {
-			processSyntaxException(e);
+			processException(e);
 		} catch (IllegalAccessException e) {
 			processException(e);
 		} catch (RuntimeException e) {
@@ -1420,7 +1420,7 @@ public class ExpressionProcesser {
 				if (traceOn)
 					printObjectAndType(proxy.getValue(), proxy.getType());
 			} catch (NoExpressionValueException e) {
-				processSyntaxException(e);
+				processException(e);
 			} catch (RuntimeException e) {
 				processException(e);
 			}
@@ -2015,7 +2015,7 @@ public class ExpressionProcesser {
 			} catch (IllegalArgumentException e) {
 				processException(e);
 			} catch (NoExpressionValueException e) {
-				processSyntaxException(e);
+				processException(e);
 			} catch (RuntimeException e) {
 				processException(e);
 			}
@@ -2218,7 +2218,7 @@ public class ExpressionProcesser {
 					 throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.NotAnArray_EXC_"), new Object[] {arrayType})); //$NON-NLS-1$
 	
 			} catch (NoExpressionValueException e) {
-				processSyntaxException(e);
+				processException(e);
 			} catch (RuntimeException e) {
 				processException(e);
 			}
@@ -2280,7 +2280,7 @@ public class ExpressionProcesser {
 			} catch (RuntimeException e) {
 				processException(e);
 			} catch (NoExpressionValueException e) {
-				processSyntaxException(e);
+				processException(e);
 			}
 		} finally {
 			if (traceOn)
@@ -2413,7 +2413,7 @@ public class ExpressionProcesser {
 			} catch (RuntimeException e) {
 				processException(e);
 			} catch (NoExpressionValueException e) {
-				processSyntaxException(e);
+				processException(e);
 			}
 		} finally {
 			if (traceOn)
@@ -2466,7 +2466,7 @@ public class ExpressionProcesser {
 			} catch (RuntimeException e) {
 				processException(e);
 			} catch (NoExpressionValueException e) {
-				processSyntaxException(e);
+				processException(e);
 			} catch (InstantiationException e) {
 				processException(e);
 			} catch (IllegalAccessException e) {
@@ -2538,7 +2538,7 @@ public class ExpressionProcesser {
 			} catch (RuntimeException e) {
 				processException(e);
 			} catch (NoExpressionValueException e) {
-				processSyntaxException(e);
+				processException(e);
 			} catch (NoSuchFieldException e) {
 				processException(e);
 			}
@@ -2733,7 +2733,7 @@ public class ExpressionProcesser {
 			} catch (RuntimeException e) {
 				processException(e);
 			} catch (NoExpressionValueException e) {
-				processSyntaxException(e);
+				processException(e);
 			}
 		} finally {
 			if (traceOn)
@@ -2896,7 +2896,7 @@ public class ExpressionProcesser {
 				}
 				throwException((Throwable) t);
 			} catch (NoExpressionValueException e) {
-				processSyntaxException(e);
+				processException(e);
 			} catch (ClassCastException e) {
 				processException(e);
 			}
@@ -2915,7 +2915,10 @@ public class ExpressionProcesser {
 	protected final void throwException(Throwable exception) {
 		if (topTry == -1) {
 			// There are no tries, so treat this as a syntax error.
-			processSyntaxException(exception);
+			if (exception instanceof NoExpressionValueException)
+				processSyntaxException((NoExpressionValueException) exception);
+			else
+				processSyntaxException(exception);
 		} else if (trysInCatch[topTry] == null) {
 			// We are not in a catch clause of the top try. So do a throw ignore for toptry.
 			ignoreExpression = TRY_THROW_IGNORE;
@@ -3348,7 +3351,7 @@ public class ExpressionProcesser {
 					popExpressions(expressionStack.size()-subexpressionStackPos[topSubexpression]);
 					topSubexpression--;
 				} catch (NoExpressionValueException e) {
-					processSyntaxException(e);
+					processException(e);
 				}
 			}
 		} finally {
