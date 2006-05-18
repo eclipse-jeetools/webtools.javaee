@@ -4,3 +4,4 @@ annotations-core.jar
 build.xml
 @dot
 src.zip
+javaCompiler...args

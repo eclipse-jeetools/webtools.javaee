@@ -4,3 +4,4 @@ build.xml
 controller.jar
 @dot
 src.zip
+javaCompiler...args

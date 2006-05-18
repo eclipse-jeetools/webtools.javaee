@@ -4,3 +4,4 @@ build.xml
 j2ee-navigator.jar
 @dot
 src.zip
+javaCompiler...args

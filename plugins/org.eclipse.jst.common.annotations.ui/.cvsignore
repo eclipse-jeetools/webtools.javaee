@@ -4,3 +4,4 @@ build.xml
 ui.jar
 @dot
 src.zip
+javaCompiler...args

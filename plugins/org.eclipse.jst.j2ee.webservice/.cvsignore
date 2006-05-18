@@ -4,3 +4,4 @@ build.xml
 webservice.jar
 @dot
 src.zip
+javaCompiler...args
