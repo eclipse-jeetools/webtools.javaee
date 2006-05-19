@@ -62,7 +62,7 @@ Both container and plugin can be specified, but at least one of them must be spe
                <documentation>
                   contributor is for a container. The value is the container id (e.g. &lt;b&gt;&quot;JRE_CONTAINER&quot;&lt;/b&gt;). This will match &quot;/JRE_CONTAINER&quot; or &quot;/JRE_CONTAINER/...&quot;. Or &lt;b&gt;&quot;JRE_CONTAINER/XYZ&quot;&lt;/b&gt; would match &quot;/JRE_CONTAINER/XYZ/...&quot;.
 &lt;p&gt;
-You can also use a regular expression. An expression such as &lt;b&gt;&quot;SWT_CONTAINER/.*/JFACE&quot;&lt;/b&gt; will match &quot;/SWT_CONTAINER/PDE/JFACE&quot; but will not match &quot;/SWT_CONTAINER&quot;.
+You can also use a regular expression. An expression such as &lt;b&gt;&quot;SWT_CONTAINER/(.*/)*PDE&quot;&lt;/b&gt; will match &quot;/SWT_CONTAINER/JFACE/PDE&quot; and &quot;/SWT_CONTAINER/PDE&quot; but will not match &quot;/SWT_CONTAINER&quot;.
                </documentation>
             </annotation>
          </attribute>
