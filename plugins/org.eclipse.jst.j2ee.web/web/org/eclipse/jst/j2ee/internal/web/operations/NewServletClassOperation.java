@@ -12,25 +12,23 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.jdt.core.ICompilationUnit;
@@ -47,10 +45,19 @@ import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataMode
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.WTPJETEmitter;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
+import org.eclipse.wst.common.componentcore.datamodel.FacetInstallDataModelProvider;
+import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 /**
  * The NewServletClassOperation is an IDataModelOperation following the IDataModel wizard and
@@ -82,7 +89,13 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
 public class NewServletClassOperation extends ArtifactEditProviderOperation {
-	
+
+	/**
+	 * XDoclet facet constants
+	 */
+	private static final String JST_WEB_XDOCLET_VERSION = "1.2.3";
+	private static final String JST_WEB_XDOCLET = "jst.web.xdoclet";
+
 	private static final String WEB_PLUGIN_JAR = "org.eclipse.jst.j2ee.web_1.0.0.jar"; //$NON-NLS-1$
 	/**
 	 * The extension name for a java class
@@ -227,7 +240,7 @@ public class NewServletClassOperation extends ArtifactEditProviderOperation {
 		}
 		// Add the annotations builder to the java project so metadata can be generated.
 		//TODO for M4 cannot add builder directly here, needs to be set up more extensibly
-		addAnnotationsBuilder();
+		addAnnotationsBuilder(monitor,project);
 	}
 	
 	/**
@@ -238,42 +251,60 @@ public class NewServletClassOperation extends ArtifactEditProviderOperation {
 	 * 
 	 * 
 	 */
-	private void addAnnotationsBuilder() {
-		// If an extended annotations processor is added, ignore the default xdoclet one
+	private void addAnnotationsBuilder(IProgressMonitor monitor, IProject project) {
+		// If an extended annotations processor is added, ignore the default
+		// xdoclet one
 		Descriptor descriptor = AnnotationsControllerManager.INSTANCE.getDescriptor(getTargetComponent().getProject());
 		if (descriptor != null)
 			return;
 		try {
-			// Find the xdoclet builder from the extension registry
-			IConfigurationElement[] configurationElements = Platform.getExtensionRegistry().getConfigurationElementsFor(TEMPLATE_EMITTER);
-			String builderID = configurationElements[0].getNamespace() + "."+ configurationElements[0].getAttribute(BUILDER_ID); //$NON-NLS-1$
-			IProject project = getTargetProject(); 
-			IProjectDescription description = project.getDescription();
-			ICommand[] commands = description.getBuildSpec();
-			boolean found = false;
-			// Check if the builder is already set on the project
-			for (int i = 0; i < commands.length; ++i) {
-				if (commands[i].getBuilderName().equals(builderID)) {
-					found = true;
-					break;
-				}
-			}
-			// If the builder is not on the project, add it
-			if (!found) {
-				ICommand command = description.newCommand();
-				command.setBuilderName(builderID);
-				ICommand[] newCommands = new ICommand[commands.length + 1];
-				System.arraycopy(commands, 0, newCommands, 0, commands.length);
-				newCommands[commands.length] = command;
-				IProjectDescription desc = project.getDescription();
-				desc.setBuildSpec(newCommands);
-				project.setDescription(desc, null);
-			}
+			// Add the xdoclet facet.
+			//
+
+			installXDocletFacet(monitor, project);
+
 		} catch (Exception e) {
-			//Ignore
+			// Ignore
 		}
 	}
 
+	/**
+	 * This method is intended for internal use only. This will add an webdoclet
+	 * facet to the project.
+	 * @throws CoreException 
+	 * @throws ExecutionException 
+	 * 
+	 */
+	private void installXDocletFacet(IProgressMonitor monitor, IProject project) throws CoreException, ExecutionException {
+
+		IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+		Set facets = facetedProject.getProjectFacets();
+		Set fixedFacets = facetedProject.getFixedProjectFacets();
+		boolean shouldInstallFacet = true;
+		for (Iterator iter = facets.iterator(); iter.hasNext();) {
+			IProjectFacetVersion facetVersion = (IProjectFacetVersion) iter.next();
+			String facetID = facetVersion.getProjectFacet().getId();
+			if (JST_WEB_XDOCLET.equals(facetID)) {
+				shouldInstallFacet = false;
+			}
+		}
+		if (!shouldInstallFacet)
+			return;
+
+		IDataModel dm = DataModelFactory.createDataModel(new FacetInstallDataModelProvider());
+		dm.setProperty(IFacetDataModelProperties.FACET_ID, JST_WEB_XDOCLET);
+		dm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, project.getName());
+		dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, JST_WEB_XDOCLET_VERSION); //$NON-NLS-1$
+		IDataModel fdm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
+		fdm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, project.getName());
+
+		FacetDataModelMap map = (FacetDataModelMap) fdm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		map.add(dm);
+
+		fdm.getDefaultOperation().execute(monitor, null);
+		facetedProject.setFixedProjectFacets(fixedFacets);
+
+	}
 	/**
 	 * This method is intended for internal use only.  This will use the WTPJETEmitter to create
 	 * an annotated java file based on the passed in servlet class template model.  This method
