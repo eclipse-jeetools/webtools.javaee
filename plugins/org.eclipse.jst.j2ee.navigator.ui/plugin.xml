@@ -115,8 +115,8 @@
 			</or>
 		</possibleChildren>
 		<commonSorter
-		    id="org.eclipse.jst.j2ee.navigator.internal.J2EEViewerSorter"
-			class="org.eclipse.jst.j2ee.navigator.internal.J2EEViewerSorter" />
+		    id="org.eclipse.jst.j2ee.navigator.internal.ApplicationViewerSorter"
+			class="org.eclipse.jst.j2ee.navigator.internal.ApplicationViewerSorter" />
 		<!--  Handle open requests -->
 		<actionProvider
 			class="org.eclipse.jst.j2ee.navigator.internal.J2EEActionProvider"

@@ -575,13 +575,13 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			IVirtualReference[] refComponents = earComponent.getReferences();
 			for (int i = 0; i < refComponents.length; i++) {
 				IVirtualComponent module = refComponents[i].getReferencedComponent();
-				if (module == null || module.getProject() == null || !module.getProject().isAccessible())
+				if (module == null)
 					continue;
 				// if component types passed in is null then return all components
 				if (componentTypes == null || componentTypes.size() == 0)
 					components.add(refComponents[i]);
 				else {
-					if (componentTypes.contains(J2EEProjectUtilities.getJ2EEProjectType(module.getProject()))) {
+					if (componentTypes.contains(J2EEProjectUtilities.getJ2EEComponentType(module))) {
 						components.add(refComponents[i]);
 					}
 				}

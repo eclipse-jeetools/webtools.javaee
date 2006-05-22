@@ -47,9 +47,13 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	 */
 	protected EnterpriseArtifactEdit() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
+	public EnterpriseArtifactEdit(IVirtualComponent aModule){
+		super(aModule);
+	}
+	
+	
 	/**
 	 * @param aHandle
 	 * @param toAccessAsReadOnly
@@ -57,7 +61,6 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	 */
 	public EnterpriseArtifactEdit(IProject aProject, boolean toAccessAsReadOnly) throws IllegalArgumentException {
 		super(aProject, toAccessAsReadOnly);
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -67,7 +70,6 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	 */
 	protected EnterpriseArtifactEdit(IProject aProject, boolean toAccessAsReadOnly, boolean forCreate, String projectType) throws IllegalArgumentException {
 		super(aProject, toAccessAsReadOnly, forCreate, projectType);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -159,7 +161,9 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	 */
 
 	public WorkingCopyManager getWorkingCopyManager() {
-		
+		if(isBinary()){
+			throwAttemptedBinaryEditModelAccess();
+		}
 		return ((JavaArtifactEditModel)getArtifactEditModel()).getWorkingCopyManager();
 	}
 	

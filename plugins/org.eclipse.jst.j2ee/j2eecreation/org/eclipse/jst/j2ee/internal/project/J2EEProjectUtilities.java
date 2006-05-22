@@ -62,6 +62,10 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentLoadStrategyImpl;
+import org.eclipse.jst.j2ee.internal.componentcore.AppClientBinaryComponentHelper;
+import org.eclipse.jst.j2ee.internal.componentcore.EJBBinaryComponentHelper;
+import org.eclipse.jst.j2ee.internal.componentcore.JCABinaryComponentHelper;
+import org.eclipse.jst.j2ee.internal.componentcore.WebBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
@@ -83,7 +87,7 @@ import org.eclipse.wst.server.core.IRuntime;
 
 
 public class J2EEProjectUtilities extends ProjectUtilities {
-	
+
 	public static final String ENTERPRISE_APPLICATION = IModuleConstants.JST_EAR_MODULE;
 	public static final String APPLICATION_CLIENT = IModuleConstants.JST_APPCLIENT_MODULE;
 	public static final String EJB = IModuleConstants.JST_EJB_MODULE;
@@ -112,9 +116,9 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 
 	public static Archive getClientJAR(EJBJarFile file, EARFile earFile) {
 		EJBJar jar = null;
-		try{
+		try {
 			jar = file.getDeploymentDescriptor();
-		}catch(DeploymentDescriptorLoadException exc){
+		} catch (DeploymentDescriptorLoadException exc) {
 			return null;
 		}
 		if (jar == null)
@@ -300,7 +304,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 			pDep = pDep.removeFirstSegments(1);
 		}
 
-		IPath result = null; 
+		IPath result = null;
 		StringBuffer buf = new StringBuffer();
 		String segment = null;
 		do {
@@ -370,21 +374,22 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 			return null;
 		}
 	}
-	public static void removeBuilders(IProject project,List builderids) throws CoreException {
+
+	public static void removeBuilders(IProject project, List builderids) throws CoreException {
 		IProjectDescription desc = project.getDescription();
 		ICommand[] oldSpec = desc.getBuildSpec();
 		int oldLength = oldSpec.length;
 		if (oldLength == 0)
 			return;
 		int remaining = 0;
-		//null out all commands that match the builder to remove
+		// null out all commands that match the builder to remove
 		for (int i = 0; i < oldSpec.length; i++) {
 			if (builderids.contains(oldSpec[i].getBuilderName()))
 				oldSpec[i] = null;
 			else
 				remaining++;
 		}
-		//check if any were actually removed
+		// check if any were actually removed
 		if (remaining == oldSpec.length)
 			return;
 		ICommand[] newSpec = new ICommand[remaining];
@@ -476,13 +481,13 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		}
 		return false;
 	}
-	
+
 	public static Archive asArchive(String jarUri, IProject project, boolean exportSource) throws OpenFailureException {
 		JavaComponentLoadStrategyImpl strat = new JavaComponentLoadStrategyImpl(ComponentCore.createComponent(project));
 		strat.setExportSource(exportSource);
 		return CommonarchiveFactoryImpl.getActiveFactory().primOpenArchive(strat, jarUri);
 	}
-	
+
 	public static boolean isProjectOfType(IProject project, String typeID) {
 		IFacetedProject facetedProject = null;
 		try {
@@ -490,134 +495,186 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		} catch (CoreException e) {
 			return false;
 		}
-		
-		if (facetedProject !=null && ProjectFacetsManager.isProjectFacetDefined(typeID)) {
+
+		if (facetedProject != null && ProjectFacetsManager.isProjectFacetDefined(typeID)) {
 			IProjectFacet projectFacet = ProjectFacetsManager.getProjectFacet(typeID);
-			return projectFacet!=null && facetedProject.hasProjectFacet(projectFacet);
+			return projectFacet != null && facetedProject.hasProjectFacet(projectFacet);
 		}
 		return false;
 	}
+
 	private static boolean isProjectOfType(IFacetedProject facetedProject, String typeID) {
-		
-		if (facetedProject !=null && ProjectFacetsManager.isProjectFacetDefined(typeID)) {
+
+		if (facetedProject != null && ProjectFacetsManager.isProjectFacetDefined(typeID)) {
 			IProjectFacet projectFacet = ProjectFacetsManager.getProjectFacet(typeID);
-			return projectFacet!=null && facetedProject.hasProjectFacet(projectFacet);
+			return projectFacet != null && facetedProject.hasProjectFacet(projectFacet);
 		}
 		return false;
 	}
-	
+
 	private static boolean isEARProject(IFacetedProject project) {
 		return isProjectOfType(project, ENTERPRISE_APPLICATION);
 	}
-	
+
 	private static boolean isDynamicWebProject(IFacetedProject project) {
 		return isProjectOfType(project, DYNAMIC_WEB);
 	}
-	
+
 	private static boolean isStaticWebProject(IFacetedProject project) {
 		return isProjectOfType(project, STATIC_WEB);
 	}
-	
+
 	private static boolean isEJBProject(IFacetedProject project) {
 		return isProjectOfType(project, EJB);
 	}
-	
+
 	private static boolean isJCAProject(IFacetedProject project) {
 		return isProjectOfType(project, JCA);
 	}
-	
+
 	private static boolean isApplicationClientProject(IFacetedProject project) {
 		return isProjectOfType(project, APPLICATION_CLIENT);
 	}
-	
+
 	private static boolean isUtilityProject(IFacetedProject project) {
 		return isProjectOfType(project, UTILITY);
 	}
+
 	public static boolean isEARProject(IProject project) {
 		return isProjectOfType(project, ENTERPRISE_APPLICATION);
 	}
-	
+
+	public static boolean isDynamicWebComponent(IVirtualComponent component) {
+		if (component.isBinary()) {
+			return WebBinaryComponentHelper.handlesComponent(component);
+		}
+		return isProjectOfType(component.getProject(), DYNAMIC_WEB);
+	}
+
 	public static boolean isDynamicWebProject(IProject project) {
 		return isProjectOfType(project, DYNAMIC_WEB);
 	}
-	
+
 	public static boolean isStaticWebProject(IProject project) {
 		return isProjectOfType(project, STATIC_WEB);
 	}
-	
+
+	public static boolean isEJBComponent(IVirtualComponent component) {
+		if (component.isBinary()) {
+			return EJBBinaryComponentHelper.handlesComponent(component);
+		}
+		return isProjectOfType(component.getProject(), EJB);
+	}
+
 	public static boolean isEJBProject(IProject project) {
 		return isProjectOfType(project, EJB);
 	}
-	
+
+	public static boolean isJCAComponent(IVirtualComponent component) {
+		if (component.isBinary()) {
+			return JCABinaryComponentHelper.handlesComponent(component);
+		}
+		return isProjectOfType(component.getProject(), JCA);
+	}
+
 	public static boolean isJCAProject(IProject project) {
 		return isProjectOfType(project, JCA);
 	}
-	
+
+	public static boolean isApplicationClientComponent(IVirtualComponent component) {
+		if (component.isBinary()) {
+			return AppClientBinaryComponentHelper.handlesComponent(component);
+		}
+		return isProjectOfType(component.getProject(), APPLICATION_CLIENT);
+	}
+
 	public static boolean isApplicationClientProject(IProject project) {
 		return isProjectOfType(project, APPLICATION_CLIENT);
 	}
-	
+
 	public static boolean isUtilityProject(IProject project) {
 		return isProjectOfType(project, UTILITY);
 	}
-	
+
 	public static boolean isStandaloneProject(IProject project) {
-		return getReferencingEARProjects(project).length==0;
+		return getReferencingEARProjects(project).length == 0;
 	}
-	
+
 	public static IProject[] getReferencingEARProjects(IProject project) {
 		List result = new ArrayList();
 		IVirtualComponent component = ComponentCore.createComponent(project);
 		if (component != null) {
 			IVirtualComponent[] refComponents = component.getReferencingComponents();
-			for (int i=0; i<refComponents.length; i++) {
+			for (int i = 0; i < refComponents.length; i++) {
 				if (isEARProject(refComponents[i].getProject()))
 					result.add(refComponents[i].getProject());
 			}
 		}
 		return (IProject[]) result.toArray(new IProject[result.size()]);
 	}
-	
+
 	/**
 	 * Return all projects in workspace of the specified type
-	 * @param type - use one of the static strings on this class as a type
+	 * 
+	 * @param type -
+	 *            use one of the static strings on this class as a type
 	 * @return IProject[]
 	 */
 	public static IProject[] getAllProjectsInWorkspaceOfType(String type) {
 		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 		List result = new ArrayList();
 		for (int i = 0; i < projects.length; i++) {
-			if (isProjectOfType(projects[i],type))
+			if (isProjectOfType(projects[i], type))
 				result.add(projects[i]);
 		}
 		return (IProject[]) result.toArray(new IProject[result.size()]);
 	}
-	
-	public static String getJ2EEProjectType(IProject project) {
-		IFacetedProject facetedProject = null;
-		try {
-			facetedProject = ProjectFacetsManager.create(project);
-		} catch (CoreException e) {
-			return ""; //$NON-NLS-1$
+
+	public static String getJ2EEComponentType(IVirtualComponent component) {
+		if (null != component) {
+			if (component.isBinary()) {
+				if (isApplicationClientComponent(component))
+					return APPLICATION_CLIENT;
+				else if (isDynamicWebComponent(component))
+					return DYNAMIC_WEB;
+				else if (isEJBComponent(component))
+					return EJB;
+				else if (isJCAComponent(component))
+					return JCA;
+				else
+					return UTILITY;
+			}
+			return getJ2EEProjectType(component.getProject());
 		}
-		if (isApplicationClientProject(facetedProject))
-			return APPLICATION_CLIENT;
-		else if (isDynamicWebProject(facetedProject))
-			return DYNAMIC_WEB;
-		else if (isEJBProject(facetedProject))
-			return EJB;
-		else if (isEARProject(facetedProject))
-			return ENTERPRISE_APPLICATION;
-		else if (isJCAProject(facetedProject))
-			return JCA;
-		else if (isStaticWebProject(facetedProject))
-			return STATIC_WEB;
-		else if (isUtilityProject(facetedProject))
-			return UTILITY;
-		else
-			return ""; //$NON-NLS-1$
+		return ""; //$NON-NLS-1$
 	}
-	
+
+	public static String getJ2EEProjectType(IProject project) {
+		if (null != project && project.isAccessible()) {
+			IFacetedProject facetedProject = null;
+			try {
+				facetedProject = ProjectFacetsManager.create(project);
+			} catch (CoreException e) {
+				return ""; //$NON-NLS-1$
+			}
+			if (isApplicationClientProject(facetedProject))
+				return APPLICATION_CLIENT;
+			else if (isDynamicWebProject(facetedProject))
+				return DYNAMIC_WEB;
+			else if (isEJBProject(facetedProject))
+				return EJB;
+			else if (isEARProject(facetedProject))
+				return ENTERPRISE_APPLICATION;
+			else if (isJCAProject(facetedProject))
+				return JCA;
+			else if (isStaticWebProject(facetedProject))
+				return STATIC_WEB;
+			else if (isUtilityProject(facetedProject))
+				return UTILITY;
+		}
+		return ""; //$NON-NLS-1$
+	}
+
 	public static IRuntime getServerRuntime(IProject project) throws CoreException {
 		if (project == null)
 			return null;
@@ -635,8 +692,8 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		IFacetedProject facetedProject = null;
 		IProjectFacet facet = null;
 		try {
-		facetedProject = ProjectFacetsManager.create(project);
-		facet = ProjectFacetsManager.getProjectFacet(type);
+			facetedProject = ProjectFacetsManager.create(project);
+			facet = ProjectFacetsManager.getProjectFacet(type);
 		} catch (Exception e) {
 			// Not Faceted project or not J2EE Project
 		}
@@ -644,12 +701,13 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 			return facetedProject.getInstalledVersion(facet).getVersionString();
 		return null;
 	}
+
 	public static JavaProjectMigrationOperation createFlexJavaProjectForProjectOperation(IProject project) {
 		IDataModel model = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
 		model.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, project.getName());
 		return new JavaProjectMigrationOperation(model);
 	}
-	
+
 	/**
 	 * Retrieve all the source containers for a given virtual workbench component
 	 * 
@@ -686,7 +744,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		}
 		return (IPackageFragmentRoot[]) list.toArray(new IPackageFragmentRoot[list.size()]);
 	}
-	
+
 	/**
 	 * Retrieve all the output containers for a given virtual component.
 	 * 
@@ -698,31 +756,32 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		try {
 			if (!project.hasNature(JavaCore.NATURE_ID))
 				return new IContainer[]{};
+		} catch (Exception e) {
 		}
-		catch (Exception e) {}
 		IPackageFragmentRoot[] sourceContainers = getSourceContainers(project);
-		for (int i=0; i<sourceContainers.length; i++) {
-			IContainer outputFolder = getOutputContainer(project,sourceContainers[i]);
+		for (int i = 0; i < sourceContainers.length; i++) {
+			IContainer outputFolder = getOutputContainer(project, sourceContainers[i]);
 			if (outputFolder != null && !result.contains(outputFolder))
 				result.add(outputFolder);
 		}
 		return (IContainer[]) result.toArray(new IContainer[result.size()]);
 	}
-	
+
 	public static IContainer getOutputContainer(IProject project, IPackageFragmentRoot sourceContainer) {
 		try {
 			IJavaProject jProject = JavaCore.create(project);
 			IPath outputPath = sourceContainer.getRawClasspathEntry().getOutputLocation();
 			if (outputPath == null) {
-				if (jProject.getOutputLocation().segmentCount()==1)
+				if (jProject.getOutputLocation().segmentCount() == 1)
 					return project;
 				return project.getFolder(jProject.getOutputLocation().removeFirstSegments(1));
 			}
 			return project.getFolder(outputPath.removeFirstSegments(1));
-		} catch (Exception e) {}
+		} catch (Exception e) {
+		}
 		return null;
 	}
-	
+
 	/**
 	 * 
 	 * @param name
@@ -765,7 +824,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		}
 		return null;
 	}
-	
+
 	public static List getAllJavaNonFlexProjects() throws CoreException {
 		List nonFlexJavaProjects = new ArrayList();
 		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
@@ -776,29 +835,29 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		}
 		return nonFlexJavaProjects;
 	}
-	
+
 	/**
 	 * This method will retrieve the context root for the associated workbench module which is used
-	 * by the server at runtime.  This method is not yet completed as the context root has to be
-	 * abstracted and added to the workbenchModule model.  This API will not change though.
-	 * Returns null for now.
+	 * by the server at runtime. This method is not yet completed as the context root has to be
+	 * abstracted and added to the workbenchModule model. This API will not change though. Returns
+	 * null for now.
 	 * 
 	 * @return String value of the context root for runtime of the associated module
 	 */
 	public static String getServerContextRoot(IProject project) {
 		return ComponentUtilities.getServerContextRoot(project);
 	}
-	
+
 	/**
-	 * This method will set the context root on the associated workbench module with the given string
-	 * value passed in.  This context root is used by the server at runtime.  This method is not yet
-	 * completed as the context root still needs to be abstracted and added to the workbench module
-	 * model.  This API will not change though.
-	 * Does nothing as of now.
+	 * This method will set the context root on the associated workbench module with the given
+	 * string value passed in. This context root is used by the server at runtime. This method is
+	 * not yet completed as the context root still needs to be abstracted and added to the workbench
+	 * module model. This API will not change though. Does nothing as of now.
 	 * 
-	 * @param contextRoot string
+	 * @param contextRoot
+	 *            string
 	 */
 	public static void setServerContextRoot(IProject project, String contextRoot) {
-		ComponentUtilities.setServerContextRoot(project,contextRoot);
+		ComponentUtilities.setServerContextRoot(project, contextRoot);
 	}
 }

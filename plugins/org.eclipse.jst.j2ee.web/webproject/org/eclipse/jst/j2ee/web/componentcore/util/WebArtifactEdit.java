@@ -29,6 +29,7 @@ import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
+import org.eclipse.jst.j2ee.internal.componentcore.WebBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -41,6 +42,7 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.internal.BinaryComponentHelper;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
@@ -82,9 +84,15 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 	public WebArtifactEdit() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
+	public WebArtifactEdit(IVirtualComponent aModule) {
+		super(aModule);
+	}
+	
+	protected BinaryComponentHelper initBinaryComponentHelper(IVirtualComponent binaryModule) {
+		return new WebBinaryComponentHelper(binaryModule);
+	}
 
 	/**
 	 * @param aHandle
@@ -202,6 +210,10 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public static WebArtifactEdit getWebArtifactEditForRead(IVirtualComponent aModule) {
 		if (aModule == null)
 			return null;
+		if(aModule.isBinary()){
+			return new WebArtifactEdit(aModule);
+		}
+			
 		return getWebArtifactEditForRead(aModule.getProject());
 	}
 
@@ -228,7 +240,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 *         underlying content model
 	 */
 	public static WebArtifactEdit getWebArtifactEditForWrite(IVirtualComponent aModule) {
-		if (aModule == null)
+		if (aModule == null || aModule.isBinary())
 			return null;
 		return getWebArtifactEditForWrite(aModule.getProject());
 	}
@@ -302,6 +314,9 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		List contents = getDeploymentDescriptorResource().getContents();
 		if (contents.size() > 0)
 			return (EObject) contents.get(0);
+		if(isBinary()){
+			return null;
+		}
 		addWebAppIfNecessary((WebAppResource)getDeploymentDescriptorResource());
 		return (EObject) contents.get(0);
 	}
@@ -315,6 +330,9 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 *  
 	 */
 	public Resource getDeploymentDescriptorResource() {
+		if(isBinary()){
+			return getBinaryComponentHelper().getResource(J2EEConstants.WEBAPP_DD_URI_OBJ);
+		}
 		return getArtifactEditModel().getResource(J2EEConstants.WEBAPP_DD_URI_OBJ);
 	}
 
@@ -365,6 +383,9 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * </p>
 	 */
 	protected void addWebAppIfNecessary(XMLResource aResource) {
+		if(isBinary()){
+			throwAttemptedBinaryEditModelAccess();
+		}
 		if (aResource != null) {
 		    if(aResource.getContents() == null || aResource.getContents().isEmpty()) {
 		        WebApp webAppNew = WebapplicationFactory.eINSTANCE.createWebApp();
@@ -439,6 +460,9 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return the eObject instance of the model root
 	 */
 	public EObject createModelRoot() {
+		if(isBinary()){
+			throwAttemptedBinaryEditModelAccess();
+		}
 	    return createModelRoot(getJ2EEVersion());
 	}
 	/**
@@ -452,6 +476,9 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return the eObject instance of the model root
 	 */
 	public EObject createModelRoot(int version) {
+		if(isBinary()){
+			throwAttemptedBinaryEditModelAccess();
+		}
 		WebAppResource res = (WebAppResource)getDeploymentDescriptorResource();
 		res.setModuleVersionID(version);
 	    addWebAppIfNecessary(res);
@@ -469,7 +496,6 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	    IVirtualReference[] refComponents = comp.getReferences();
 		// Check the deployed path to make sure it has a lib parent folder and matchs the web.xml base path
 		for (int i = 0; i < refComponents.length; i++) {
-			comp.getRootFolder().getFolder(WEBLIB);	
 			if (refComponents[i].getRuntimePath().equals(WEBLIB))
 				result.add(refComponents[i]);
 		}
