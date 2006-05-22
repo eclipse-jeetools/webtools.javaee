@@ -31,6 +31,7 @@ import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
+import org.eclipse.jst.j2ee.internal.componentcore.EJBBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
@@ -38,6 +39,7 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.internal.BinaryComponentHelper;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
@@ -75,6 +77,14 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		super();
 	}
 
+	public EJBArtifactEdit(IVirtualComponent aModule) {
+		super(aModule);
+	}
+
+	protected BinaryComponentHelper initBinaryComponentHelper(IVirtualComponent binaryModule) {
+		return new EJBBinaryComponentHelper(binaryModule);
+	}
+
 	/**
 	 * @param aHandle
 	 * @param toAccessAsReadOnly
@@ -83,7 +93,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public EJBArtifactEdit(IProject aProject, boolean toAccessAsReadOnly) throws IllegalArgumentException {
 		super(aProject, toAccessAsReadOnly);
 	}
-	
+
 	public EJBArtifactEdit(IProject aProject, boolean toAccessAsReadOnly, boolean forCreate) throws IllegalArgumentException {
 		super(aProject, toAccessAsReadOnly, forCreate, J2EEProjectUtilities.EJB);
 	}
@@ -212,6 +222,9 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return
 	 */
 	public Module createNewModule() {
+		if (isBinary()) {
+			throwAttemptedBinaryEditModelAccess();
+		}
 		return ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createEjbModule();
 	}
 
@@ -228,21 +241,21 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			return null;
 		Properties props = ejbComponent.getMetaProperties();
 		String clientCompName = props.getProperty(CreationConstants.EJB_CLIENT_NAME);
-		if( clientCompName != null && !clientCompName.equals("")){ //$NON-NLS-1$
+		if (clientCompName != null && !clientCompName.equals("")) { //$NON-NLS-1$
 			IVirtualReference vRef = ejbComponent.getReference(clientCompName);
-			if (vRef!=null)
+			if (vRef != null)
 				ejbClientComponent = vRef.getReferencedComponent();
-		}
-		else {
+		} else {
 			String clientJAR = null;
 			if (jar != null)
 				clientJAR = jar.getEjbClientJar();
 			if (clientJAR != null) {
-	            clientJAR = clientJAR.substring(0, clientJAR.length() - 4);
+				clientJAR = clientJAR.substring(0, clientJAR.length() - 4);
 				ejbComponent = ComponentCore.createComponent(getProject());
-				if (ejbComponent == null) return null;
+				if (ejbComponent == null)
+					return null;
 				IVirtualReference ref = ejbComponent.getReference(clientJAR);
-				if (ref !=null)
+				if (ref != null)
 					ejbClientComponent = ref.getReferencedComponent();
 			}
 		}
@@ -260,6 +273,9 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 
 	public Resource getDeploymentDescriptorResource() {
+		if (isBinary()) {
+			return getBinaryComponentHelper().getResource(J2EEConstants.EJBJAR_DD_URI_OBJ);
+		}
 		return getArtifactEditModel().getResource(J2EEConstants.EJBJAR_DD_URI_OBJ);
 	}
 
@@ -286,6 +302,9 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		List contents = getDeploymentDescriptorResource().getContents();
 		if (contents.size() > 0)
 			return (EObject) contents.get(0);
+		if (isBinary()) {
+			return null;
+		}
 		addEJBJarIfNecessary((EJBResource) getDeploymentDescriptorResource());
 		return (EObject) contents.get(0);
 	}
@@ -314,6 +333,9 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 *            </p>
 	 */
 	protected void addEJBJarIfNecessary(XMLResource aResource) {
+		if (isBinary()) {
+			throwAttemptedBinaryEditModelAccess();
+		}
 		if (aResource != null) {
 			if (aResource.getContents() == null || aResource.getContents().isEmpty()) {
 				EJBJar ejbJar = EjbFactory.eINSTANCE.createEJBJar();
@@ -400,7 +422,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		return artifactEdit;
 	}
 
-	
+
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given
@@ -431,6 +453,9 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public static EJBArtifactEdit getEJBArtifactEditForRead(IVirtualComponent aModule) {
 		if (aModule == null)
 			return null;
+		if (aModule.isBinary()) {
+			return new EJBArtifactEdit(aModule);
+		}
 		return getEJBArtifactEditForRead(aModule.getProject());
 	}
 
@@ -459,7 +484,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 *         underlying content model
 	 */
 	public static EJBArtifactEdit getEJBArtifactEditForWrite(IVirtualComponent aModule) {
-		if (aModule == null)
+		if (aModule == null || aModule.isBinary())
 			return null;
 		return getEJBArtifactEditForWrite(aModule.getProject());
 	}
@@ -484,6 +509,10 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot()
 	 */
 	public EObject createModelRoot() {
+		if (isBinary()) {
+			throwAttemptedBinaryEditModelAccess();
+		}
+
 		return createModelRoot(getJ2EEVersion());
 	}
 
@@ -493,6 +522,10 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(int)
 	 */
 	public EObject createModelRoot(int version) {
+		if (isBinary()) {
+			throwAttemptedBinaryEditModelAccess();
+		}
+
 		EJBResource res = (EJBResource) getDeploymentDescriptorResource();
 		res.setModuleVersionID(version);
 		addEJBJarIfNecessary(res);
@@ -507,20 +540,20 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		return getEJBArtifactEditForWrite(aComponent);
 	}
 
-	public Archive asArchive(boolean includeSource) throws OpenFailureException{
+	public Archive asArchive(boolean includeSource) throws OpenFailureException {
 		EJBComponentLoadStrategyImpl loader = new EJBComponentLoadStrategyImpl(getComponent());
 		loader.setExportSource(includeSource);
 		String uri = ModuleURIUtil.getHandleString(getComponent());
 		return CommonarchiveFactory.eINSTANCE.openEJBJarFile(loader, uri);
 	}
-	
+
 	public static void createDeploymentDescriptor(IProject project, int version) {
-		EJBArtifactEdit ejbEdit = new EJBArtifactEdit(project,false,true);
+		EJBArtifactEdit ejbEdit = new EJBArtifactEdit(project, false, true);
 		try {
 			ejbEdit.createModelRoot(version);
 			ejbEdit.save(null);
 		} finally {
 			ejbEdit.dispose();
-		} 
+		}
 	}
 }
