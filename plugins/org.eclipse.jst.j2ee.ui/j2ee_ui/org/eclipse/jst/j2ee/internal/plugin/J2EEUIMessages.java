@@ -172,6 +172,7 @@ public class J2EEUIMessages extends Messages {
 	public final static String JAVA_CLASS_INHERIT_CHECKBOX_LABEL = getResourceString("JAVA_CLASS_INHERIT_CHECKBOX_LABEL"); //$NON-NLS-1$
 	public final static String ADD_BUTTON_LABEL = getResourceString("ADD_BUTTON_LABEL"); //$NON-NLS-1$
 	public static final String REMOVE_BUTTON = getResourceString("REMOVE_BUTTON"); //$NON-NLS-1$
+	public static final String BINARY = getResourceString("BINARY"); //$NON-NLS-1$
 	public final static String INTERFACE_SELECTION_DIALOG_TITLE = getResourceString("INTERFACE_SELECTION_DIALOG_TITLE"); //$NON-NLS-1$
 
 	public static final String JAVAUTIL_COMPONENT_WIZ_TITLE="JAVAUTIL_COMPONENT_WIZ_TITLE"; //$NON-NLS-1$

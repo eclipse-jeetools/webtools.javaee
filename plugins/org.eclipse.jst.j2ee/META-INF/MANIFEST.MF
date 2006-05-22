@@ -21,6 +21,7 @@ Export-Package: org.eclipse.jst.j2ee.application.internal.operations;x-internal:
  org.eclipse.jst.j2ee.internal.common;x-internal:=true,
  org.eclipse.jst.j2ee.internal.common.classpath,
  org.eclipse.jst.j2ee.internal.common.operations;x-internal:=true,
+ org.eclipse.jst.j2ee.internal.componentcore,
  org.eclipse.jst.j2ee.internal.delete;x-internal:=true,
  org.eclipse.jst.j2ee.internal.deploy;x-internal:=true,
  org.eclipse.jst.j2ee.internal.deployables;x-internal:=true,

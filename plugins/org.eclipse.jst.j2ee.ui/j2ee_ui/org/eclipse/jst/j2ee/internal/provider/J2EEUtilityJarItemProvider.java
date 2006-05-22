@@ -31,6 +31,7 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.application.Application;
+import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -102,56 +103,67 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 	private void computeChildren() {
 		childrenLoaded = true;
 		IVirtualComponent ear = ComponentUtilities.findComponent(application);
-		if (ear!=null) {
-			IVirtualReference[] modules = ear.getReferences();
-			for (int i=0; i<modules.length; i++) {
-				IVirtualComponent module = modules[i].getReferencedComponent();
-				if (module.getProject() == null || !module.getProject().isAccessible())
-					continue;
-				// return only jars for utility components
-				if (J2EEProjectUtilities.isUtilityProject(module.getProject())) {
-					IProject project = ProjectUtilities.getProject(application);
-					if (project == null)
+		if (ear != null) {
+			EARArtifactEdit earEdit = null;
+			try {
+				earEdit = EARArtifactEdit.getEARArtifactEditForRead(ear);
+				IVirtualReference[] modules = earEdit.getUtilityModuleReferences();
+				for (int i = 0; i < modules.length; i++) {
+					IVirtualComponent module = modules[i].getReferencedComponent();
+					if (module.isBinary()) {
+						VirtualArchiveComponent virtualArchiveComponent = (VirtualArchiveComponent) module;
+						java.io.File diskFile = virtualArchiveComponent.getUnderlyingDiskFile();
+						if (diskFile.exists())
+							children.add(diskFile);
+						else {
+							// we will assume the component name is in synch with the module uri
+							IFile utilityJar = virtualArchiveComponent.getUnderlyingWorkbenchFile();
+							if (utilityJar != null)
+								children.add(utilityJar);
+						}
+					} else {
+
+					}
+					if (module.getProject() == null || !module.getProject().isAccessible())
 						continue;
-					// we will assume the component name is in synch with the module uri
-					IFile utilityJar = project.getFile(module.getName()+".jar"); //$NON-NLS-1$
-					if (utilityJar !=null)
-						children.add(utilityJar);
-				}	
-				if (module.isBinary()) {
-					java.io.File diskFile = ((VirtualArchiveComponent) module).getUnderlyingDiskFile();
-					if (diskFile.exists())
-						children.add(diskFile);
-					else {
+					// return only jars for utility components
+					if (J2EEProjectUtilities.isUtilityProject(module.getProject())) {
+						IProject project = ProjectUtilities.getProject(application);
+						if (project == null)
+							continue;
 						// we will assume the component name is in synch with the module uri
-						IFile utilityJar = ((VirtualArchiveComponent)module).getUnderlyingWorkbenchFile();
-						if (utilityJar !=null)
+						IFile utilityJar = project.getFile(module.getName() + ".jar"); //$NON-NLS-1$
+						if (utilityJar != null)
 							children.add(utilityJar);
 					}
+				}
+			} finally {
+				if (earEdit != null) {
+					earEdit.dispose();
 				}
 			}
 		}
 	}
 
-//	private Collection getJars(List list, IResource[] members) {
-//		for (int i = 0; i < members.length; i++) {
-//			if (isJarFile(members[i])) {
-//				list.add(members[i]);
-//			} else if (members[i].getType() == IResource.FOLDER) {
-//				try {
-//					getJars(list, ((IFolder) members[i]).members());
-//				} catch (CoreException e) {
-//					Logger.getLogger().logError(e);
-//				}
-//			}
-//		}
-//		return list;
-//	}
+	// private Collection getJars(List list, IResource[] members) {
+	// for (int i = 0; i < members.length; i++) {
+	// if (isJarFile(members[i])) {
+	// list.add(members[i]);
+	// } else if (members[i].getType() == IResource.FOLDER) {
+	// try {
+	// getJars(list, ((IFolder) members[i]).members());
+	// } catch (CoreException e) {
+	// Logger.getLogger().logError(e);
+	// }
+	// }
+	// }
+	// return list;
+	// }
 
 	public static boolean isJarFile(IResource member) {
 		return member.getType() == IResource.FILE && member.getName().toLowerCase().endsWith(".jar"); //$NON-NLS-1$
 	}
-	
+
 	public static boolean isComponentFile(IResource member) {
 		return member.getType() == IResource.FILE && member.getName().toLowerCase().endsWith(IModuleConstants.COMPONENT_FILE_NAME);
 	}
@@ -273,17 +285,17 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 			return false;
 		}
 	}
- 
+
 	public IFile getAssociatedFile() {
 
-		try { 
-			if(application != null && application.eResource() != null) {
+		try {
+			if (application != null && application.eResource() != null) {
 				return WorkbenchResourceHelperBase.getIFile(application.eResource().getURI());
 			}
 		} catch (Throwable t) {
-			
+
 		}
-		return null;		
+		return null;
 	}
 
 }

@@ -11,7 +11,9 @@
 package org.eclipse.jst.j2ee.internal.provider;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -19,8 +21,16 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.application.Application;
+import org.eclipse.jst.j2ee.application.Module;
+import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
+import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
+import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
+import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public class ModulesItemProvider extends J2EEItemProvider {
 	public static final String MODULES = J2EEUIMessages.getResourceString("Modules_UI_"); //$NON-NLS-1$
@@ -203,18 +213,18 @@ public class ModulesItemProvider extends J2EEItemProvider {
 	public Application getParentApplication() {
 		return (Application) getParent();
 	}
- 
+
 	public IFile getAssociatedFile() {
 
-		try { 
+		try {
 			Application application = getParentApplication();
-			if(application != null && application.eResource() != null) {
+			if (application != null && application.eResource() != null) {
 				return WorkbenchResourceHelperBase.getIFile(application.eResource().getURI());
 			}
 		} catch (Throwable t) {
-			
+
 		}
-		return null;		
+		return null;
 	}
 
 
@@ -225,4 +235,57 @@ public class ModulesItemProvider extends J2EEItemProvider {
 		return MODULES;
 	}
 
+	public boolean hasChildren(Object object) {
+		getChildren(object);
+		return !localChildren.isEmpty();
+	}
+
+	private List localChildren = null;
+
+	public Collection getChildren(Object object) {
+		return initChildren(object);
+	}
+
+	protected List initChildren(Object object) {
+		localChildren = new ArrayList();
+		Application app = (Application) getParent();
+		IVirtualComponent ear = ComponentUtilities.findComponent(app);
+		List modules = app.getModules();
+		List binaryModules = new ArrayList();
+		IVirtualReference[] refs = ear.getReferences();
+		for (int i = 0; i < modules.size(); i++) {
+			Module module = (Module) modules.get(i);
+			String moduleURI = module.getUri();
+			boolean foundBinary = false;
+			for (int j = 0; j < refs.length && !foundBinary; j++) {
+				IVirtualComponent component = refs[j].getReferencedComponent();
+				if (component.isBinary()) {
+					if (refs[j].getArchiveName().equals(moduleURI)) {
+						foundBinary = true;
+						Object binaryModule = null;
+						if (module.isWebModule()) {
+							binaryModule = WebArtifactEdit.getWebArtifactEditForRead(component).getWebApp();
+						} else if (module.isJavaModule()) {
+							binaryModule = AppClientArtifactEdit.getAppClientArtifactEditForRead(component).getApplicationClient();
+						} else if (module.isEjbModule()) {
+							binaryModule = EJBArtifactEdit.getEJBArtifactEditForRead(component).getEJBJar();
+						} else if (module.isConnectorModule()) {
+							binaryModule = ConnectorArtifactEdit.getConnectorArtifactEditForRead(component).getConnector();
+						}
+						binaryModules.add(binaryModule);
+					}
+				}
+			}
+			if (!foundBinary) {
+				localChildren.add(module);
+			}
+		}
+
+		if (!binaryModules.isEmpty()) {
+			localChildren.add(new J2EEBinaryModulesItemProvider(app, getAdapterFactory(), binaryModules));
+		}
+
+		return localChildren;
+
+	}
 }

@@ -62,24 +62,24 @@ public class J2EEApplicationItemProvider extends ApplicationItemProvider impleme
 		Application app = (Application) object;
 		List localChildren = new ArrayList(2);
 		// MDE: changed getParent(object) to just app
-		localChildren.add(new ModulesItemProvider(getAdapterFactory(), null, null, app, app.getModules()));
+		localChildren.add(new ModulesItemProvider(getAdapterFactory(), null, null, app));
 
-//		IProject project = ProjectUtilities.getProject(app);
-//		IVirtualComponent ear = ComponentUtilities.findComponent(app);
-		//TODO switch to retrieve referenceComponents
-//		EAREditModel editModel = null;
-//		try {
-//			EARNatureRuntime runtime = EARNatureRuntime.getRuntime(project);
-//			if (runtime != null) {
-//				editModel = runtime.getEarEditModelForRead(this);
-//				EARProjectMap map = editModel.getEARProjectMap();
-//				localChildren.add(map);
-//				map.eResource().eAdapters().add(getNewAdapter(app));
-//			}
-//		} finally {
-//			if (editModel != null)
-//				editModel.releaseAccess(this);
-//		}
+		// IProject project = ProjectUtilities.getProject(app);
+		// IVirtualComponent ear = ComponentUtilities.findComponent(app);
+		// TODO switch to retrieve referenceComponents
+		// EAREditModel editModel = null;
+		// try {
+		// EARNatureRuntime runtime = EARNatureRuntime.getRuntime(project);
+		// if (runtime != null) {
+		// editModel = runtime.getEarEditModelForRead(this);
+		// EARProjectMap map = editModel.getEARProjectMap();
+		// localChildren.add(map);
+		// map.eResource().eAdapters().add(getNewAdapter(app));
+		// }
+		// } finally {
+		// if (editModel != null)
+		// editModel.releaseAccess(this);
+		// }
 		localChildren.add(new J2EEUtilityJarItemProvider(app, getAdapterFactory(), this));
 
 		children.put(object, localChildren);
