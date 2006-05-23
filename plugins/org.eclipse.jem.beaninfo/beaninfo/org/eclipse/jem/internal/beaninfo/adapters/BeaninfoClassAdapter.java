@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.52 $  $Date: 2006/05/17 20:13:00 $ 
+ *  $Revision: 1.53 $  $Date: 2006/05/23 15:43:06 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -727,8 +727,14 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 										// shouldn't have exceptions during introspection, but if we do it should be logged
 										// so it can be corrected.
 										try {
-											beaninfo = getProxyConstants().getIntrospectProxy().invoke(null,
-													new IBeanProxy[] { targetType, getRegistry().getBeanProxyFactory().createBeanProxyWith(false), getRegistry().getBeanProxyFactory().createBeanProxyWith(doFlags)});
+											BeaninfoProxyConstants proxyConstants = getProxyConstants();
+											if (proxyConstants != null) {
+												beaninfo = proxyConstants.getIntrospectProxy().invoke(
+														null,
+														new IBeanProxy[] { targetType,
+																getRegistry().getBeanProxyFactory().createBeanProxyWith(false),
+																getRegistry().getBeanProxyFactory().createBeanProxyWith(doFlags)});
+											}											
 										} catch (ThrowableProxy e) {
 											BeaninfoPlugin.getPlugin().getLogger().log(
 													new Status(IStatus.WARNING, BeaninfoPlugin.getPlugin().getBundle().getSymbolicName(), 0,

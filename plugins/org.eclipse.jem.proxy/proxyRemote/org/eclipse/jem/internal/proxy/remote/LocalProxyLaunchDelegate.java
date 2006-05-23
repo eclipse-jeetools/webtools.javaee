@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.34 $ $Date: 2006/05/17 20:13:05 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.35 $ $Date: 2006/05/23 15:43:03 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -297,6 +297,8 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 			java.io.PrintWriter w = new java.io.PrintWriter(s);
 
 			w.println(ProxyRemoteMessages.VM_TERMINATED_INFO_); 
+			w.println(ProxyRemoteMessages.VM_COMMAND_LINE);
+			w.println(process.getAttribute(IProcess.ATTR_CMDLINE));
 			w.println(ProxyRemoteMessages.VM_TERMINATED_LINE1); 
 			w.println(stProxy.getErrorStreamMonitor().getContents());
 			w.println(ProxyRemoteMessages.VM_TERMINATED_LINE2); 

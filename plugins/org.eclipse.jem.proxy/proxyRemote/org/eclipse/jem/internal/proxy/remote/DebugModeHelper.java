@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: DebugModeHelper.java,v $
- *  $Revision: 1.10 $  $Date: 2005/08/24 20:39:07 $ 
+ *  $Revision: 1.11 $  $Date: 2006/05/23 15:43:03 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -37,7 +37,7 @@ class DebugModeHelper {
 	// Workbench reflections
 	Object display = null;	
 	Constructor cMB = null;
-	Field fAppModel = null;
+	Field fPrimaryModel = null;
 	Method fasync = null;
 	Method fsync = null;	
 	Method fSetText = null;
@@ -104,7 +104,7 @@ class DebugModeHelper {
 				fOpen = cMessageBox.getMethod("open", null);		 		 //$NON-NLS-1$				
 		 			
 	 			cSWT = uiBundle.loadClass("org.eclipse.swt.SWT"); //$NON-NLS-1$
-	 			fAppModel = cSWT.getField("APPLICATION_MODAL"); //$NON-NLS-1$
+	 			fPrimaryModel = cSWT.getField("PRIMARY_MODAL"); //$NON-NLS-1$
 		 	} else {
 		 		setupAWT();	// UI not available, try through AWT.
 		 	}
@@ -152,7 +152,7 @@ class DebugModeHelper {
  			Field fNo = cSWT.getField("NO"); //$NON-NLS-1$
  			Field fIcon = cSWT.getField("ICON_QUESTION"); //$NON-NLS-1$
 	 			
- 			final int style = fYes.getInt(null) | fNo.getInt(null) | fIcon.getInt(null) | fAppModel.getInt(null);	 			
+ 			final int style = fYes.getInt(null) | fNo.getInt(null) | fIcon.getInt(null) | fPrimaryModel.getInt(null);	 			
  			final boolean[] db = new boolean[1];
 
 			fsync.invoke(display, new Object[] { new Runnable() {
@@ -254,7 +254,7 @@ class DebugModeHelper {
 			Field fCancel = cSWT.getField("CANCEL"); //$NON-NLS-1$
 			Field fIcon = cSWT.getField("ICON_WORKING"); //$NON-NLS-1$
 	 			
-			final int style = fOK.getInt(null) | fCancel.getInt(null) | fIcon.getInt(null) | fAppModel.getInt(null);
+			final int style = fOK.getInt(null) | fCancel.getInt(null) | fIcon.getInt(null) | fPrimaryModel.getInt(null);
 
 			final boolean[] ok = new boolean[1];
 			fsync.invoke(display, new Object[] { new Runnable() {	
@@ -325,7 +325,7 @@ class DebugModeHelper {
 				Field fOK = cSWT.getField("OK"); //$NON-NLS-1$
 				Field fIcon = cSWT.getField("ICON_ERROR"); //$NON-NLS-1$
 
-				final int style = fOK.getInt(null) | fIcon.getInt(null) | fAppModel.getInt(null);
+				final int style = fOK.getInt(null) | fIcon.getInt(null) | fPrimaryModel.getInt(null);
 				fasync.invoke(display, new Object[] { new Runnable() {
 						/**
 						 * @see java.lang.Runnable#run()

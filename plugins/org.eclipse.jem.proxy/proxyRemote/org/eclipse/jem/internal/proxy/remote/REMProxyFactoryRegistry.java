@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMProxyFactoryRegistry.java,v $
- *  $Revision: 1.27 $  $Date: 2005/12/14 21:23:46 $ 
+ *  $Revision: 1.28 $  $Date: 2006/05/23 15:43:03 $ 
  */
 
 
@@ -162,7 +162,9 @@ public class REMProxyFactoryRegistry extends BaseProxyFactoryRegistry {
 		
 						String msg = MessageFormat.format(ProxyRemoteMessages.Proxy_Terminated_too_soon_ERROR_, new Object[] {fName}); 
 						w.println(msg);						
-						w.println(ProxyRemoteMessages.VM_TERMINATED_INFO_); 
+						w.println(ProxyRemoteMessages.VM_TERMINATED_INFO_);
+						w.println(ProxyRemoteMessages.VM_COMMAND_LINE);
+						w.println(fProcess.getAttribute(IProcess.ATTR_CMDLINE));						
 						w.println(ProxyRemoteMessages.VM_TERMINATED_LINE1); 
 						w.println(stProxy.getErrorStreamMonitor().getContents());
 						w.println(ProxyRemoteMessages.VM_TERMINATED_LINE2); 

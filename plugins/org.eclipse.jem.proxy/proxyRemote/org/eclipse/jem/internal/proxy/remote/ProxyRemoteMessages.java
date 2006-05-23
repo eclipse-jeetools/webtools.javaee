@@ -21,6 +21,7 @@ public final class ProxyRemoteMessages extends NLS {
 	}
 
 	public static String NO_OUTPUT_FOLDER_EXC_;
+	public static String VM_COMMAND_LINE;
 	public static String VM_TERMINATED_INFO_;
 	public static String VM_TERMINATED_LINE1;
 	public static String VM_TERMINATED_LINE2;

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.core;
 /*
  *  $RCSfile: Utilities.java,v $
- *  $Revision: 1.9 $  $Date: 2006/05/17 20:13:00 $ 
+ *  $Revision: 1.10 $  $Date: 2006/05/23 15:43:06 $ 
  */
 import java.util.Iterator;
 
@@ -351,11 +351,14 @@ public final class Utilities {
 	 * saved across invocations of the workspace if it is not updated through the nature).
 	 */
 	public static IArrayBeanProxy getBeanInfoSearchPath(ProxyFactoryRegistry registry) {
-		return (IArrayBeanProxy) BeaninfoProxyConstants
-			.getConstants(registry)
-			.getGetBeanInfoSearchPathProxy()
-			.invokeCatchThrowableExceptions(
-			null);
+		BeaninfoProxyConstants biconstants = BeaninfoProxyConstants.getConstants(registry);
+		if (biconstants != null)
+			return (IArrayBeanProxy) biconstants
+				.getGetBeanInfoSearchPathProxy()
+				.invokeCatchThrowableExceptions(
+				null);
+		else
+			return null;
 	}
 
 	/**
@@ -369,13 +372,15 @@ public final class Utilities {
 
 		try {
 			BeaninfoProxyConstants biConstants = BeaninfoProxyConstants.getConstants(registry);
-			JavaStandardBeanProxyConstants jConstants = JavaStandardBeanProxyConstants.getConstants(registry);
-			IStandardBeanProxyFactory proxyFactory = registry.getBeanProxyFactory();
-			IArrayBeanProxy newPath = proxyFactory.createBeanProxyWith(jConstants.getStringType(), paths != null ? paths.length : 0);
-			if (paths != null)
-				for (int i = 0; i < paths.length; i++)
-					newPath.set(proxyFactory.createBeanProxyWith(paths[i]), i);
-			biConstants.getSetBeanInfoSearchPathProxy().invoke(null, newPath);
+			if (biConstants != null) {
+				JavaStandardBeanProxyConstants jConstants = JavaStandardBeanProxyConstants.getConstants(registry);
+				IStandardBeanProxyFactory proxyFactory = registry.getBeanProxyFactory();
+				IArrayBeanProxy newPath = proxyFactory.createBeanProxyWith(jConstants.getStringType(), paths != null ? paths.length : 0);
+				if (paths != null)
+					for (int i = 0; i < paths.length; i++)
+						newPath.set(proxyFactory.createBeanProxyWith(paths[i]), i);
+				biConstants.getSetBeanInfoSearchPathProxy().invoke(null, newPath);
+			}			
 		} catch (ThrowableProxy e) {
 		}
 	}
@@ -416,27 +421,25 @@ public final class Utilities {
 	public static void insertBeanInfoSearchPath(ProxyFactoryRegistry registry, String path, int index) {
 		try {
 			BeaninfoProxyConstants biConstants = BeaninfoProxyConstants.getConstants(registry);
-			IArrayBeanProxy infoPath = (IArrayBeanProxy) biConstants.getGetBeanInfoSearchPathProxy().invoke(null);
-			int pathLength = infoPath.getLength();
-
-			IStandardBeanProxyFactory proxyFactory = registry.getBeanProxyFactory();
-
-			IArrayBeanProxy newPath = proxyFactory.createBeanProxyWith(infoPath.getTypeProxy(), pathLength + 1);
-			IBeanProxy stringProxy = proxyFactory.createBeanProxyWith(path);
-
-			JavaStandardBeanProxyConstants constants = JavaStandardBeanProxyConstants.getConstants(registry);
-			if (index == -1 || index >= pathLength) {
-				// At the end or past end
-				constants.arraycopy(infoPath, 0, newPath, 0, infoPath.getLength());
-				newPath.set(stringProxy, pathLength);
-			} else {
-				// In the middle
-				constants.arraycopy(infoPath, 0, newPath, 0, index);
-				newPath.set(stringProxy, index);
-				constants.arraycopy(infoPath, index, newPath, index + 1, pathLength - index);
-			}
-
-			biConstants.getSetBeanInfoSearchPathProxy().invoke(null, newPath);
+			if (biConstants != null) {
+				IArrayBeanProxy infoPath = (IArrayBeanProxy) biConstants.getGetBeanInfoSearchPathProxy().invoke(null);
+				int pathLength = infoPath.getLength();
+				IStandardBeanProxyFactory proxyFactory = registry.getBeanProxyFactory();
+				IArrayBeanProxy newPath = proxyFactory.createBeanProxyWith(infoPath.getTypeProxy(), pathLength + 1);
+				IBeanProxy stringProxy = proxyFactory.createBeanProxyWith(path);
+				JavaStandardBeanProxyConstants constants = JavaStandardBeanProxyConstants.getConstants(registry);
+				if (index == -1 || index >= pathLength) {
+					// At the end or past end
+					constants.arraycopy(infoPath, 0, newPath, 0, infoPath.getLength());
+					newPath.set(stringProxy, pathLength);
+				} else {
+					// In the middle
+					constants.arraycopy(infoPath, 0, newPath, 0, index);
+					newPath.set(stringProxy, index);
+					constants.arraycopy(infoPath, index, newPath, index + 1, pathLength - index);
+				}
+				biConstants.getSetBeanInfoSearchPathProxy().invoke(null, newPath);
+			}			
 		} catch (ThrowableProxy e) {
 		}
 	}
@@ -474,22 +477,23 @@ public final class Utilities {
 	public static void removeBeanInfoPath(ProxyFactoryRegistry registry, String path) {
 		try {
 			BeaninfoProxyConstants biConstants = BeaninfoProxyConstants.getConstants(registry);
-			IArrayBeanProxy infoPath = (IArrayBeanProxy) biConstants.getGetBeanInfoSearchPathProxy().invoke(null);
-			int pathLength = infoPath.getLength();
-
-			for (int i = 0; i < pathLength; i++) {
-				IStringBeanProxy aPath = (IStringBeanProxy) infoPath.get(i);
-				if (path.equals(aPath.stringValue())) {
-					// We found it, so remove it.
-					IArrayBeanProxy newPath = registry.getBeanProxyFactory().createBeanProxyWith(infoPath.getTypeProxy(), pathLength - 1);
-					JavaStandardBeanProxyConstants constants = JavaStandardBeanProxyConstants.getConstants(registry);
-					constants.arraycopy(infoPath, 0, newPath, 0, i);
-					if (i < pathLength - 1)
-						constants.arraycopy(infoPath, i + 1, newPath, i, pathLength - i - 1);
-					biConstants.getSetBeanInfoSearchPathProxy().invoke(null, newPath);
-					return;
+			if (biConstants != null) {
+				IArrayBeanProxy infoPath = (IArrayBeanProxy) biConstants.getGetBeanInfoSearchPathProxy().invoke(null);
+				int pathLength = infoPath.getLength();
+				for (int i = 0; i < pathLength; i++) {
+					IStringBeanProxy aPath = (IStringBeanProxy) infoPath.get(i);
+					if (path.equals(aPath.stringValue())) {
+						// We found it, so remove it.
+						IArrayBeanProxy newPath = registry.getBeanProxyFactory().createBeanProxyWith(infoPath.getTypeProxy(), pathLength - 1);
+						JavaStandardBeanProxyConstants constants = JavaStandardBeanProxyConstants.getConstants(registry);
+						constants.arraycopy(infoPath, 0, newPath, 0, i);
+						if (i < pathLength - 1)
+							constants.arraycopy(infoPath, i + 1, newPath, i, pathLength - i - 1);
+						biConstants.getSetBeanInfoSearchPathProxy().invoke(null, newPath);
+						return;
+					}
 				}
-			}
+			}			
 		} catch (ThrowableProxy e) {
 		}
 	};

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.42 $  $Date: 2006/05/17 20:13:00 $ 
+ *  $Revision: 1.43 $  $Date: 2006/05/23 15:43:06 $ 
  */
 
 import java.io.*;
@@ -68,6 +68,7 @@ public class BeaninfoNature implements IProjectNature {
 		 * @see org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry.IRegistryListener#registryTerminated(ProxyFactoryRegistry)
 		 */
 		public void registryTerminated(ProxyFactoryRegistry registry) {
+			prematureRegistryTerminate();
 			markAllStale();
 		};
 	};
@@ -276,6 +277,7 @@ public class BeaninfoNature implements IProjectNature {
 		if (fRegistry != null)
 			fRegistry.terminateRegistry(true);
 
+		projectCleaned();
 		javaRSet = null;
 		fRegistry = null;
 		fProject = null;
@@ -456,6 +458,10 @@ public class BeaninfoNature implements IProjectNature {
 		return fRegistry;
 	}
 	
+	private static final long NO_PREMATURE_TERMINATE_TIME = -1;
+	private int registryPrematureTerminateCount;
+	private long registryLastPrematureTerminateTime = NO_PREMATURE_TERMINATE_TIME;
+	
 	/*
 	 * This is <package-protected> so that only the appropriate create job in this
 	 * package can call it. This is because this must be controlled to only be
@@ -468,13 +474,26 @@ public class BeaninfoNature implements IProjectNature {
 			return; // It had already been created. Could of been because threads were racing to do the creation, and one got there first.
 		}
 
+		// Test to see if we have terminated too many times within the last 10 minutes. If we have then don't try again.
+		synchronized(this) {
+			if (registryLastPrematureTerminateTime != NO_PREMATURE_TERMINATE_TIME) {
+				long lastPrematureTerminateInterval = System.currentTimeMillis() - registryLastPrematureTerminateTime;
+				// Don't try again within 1 sec of last premature terminate. It will still be bad.
+				// Of if there have been more than 3 and it has been 10 mins since the last try.
+				if (lastPrematureTerminateInterval < 3*1000 || (registryPrematureTerminateCount > 3 && lastPrematureTerminateInterval < 10 * 60 * 1000))
+					return;
+			}			
+		}
+		
+		ProxyFactoryRegistry registry = null;
 		try {
 			ConfigurationContributor configurationContributor = (ConfigurationContributor) getConfigurationContributor();
 			configurationContributor.setNature(this);
-			ProxyFactoryRegistry registry = ProxyLaunchSupport.startImplementation(fProject, "Beaninfo", //$NON-NLS-1$
+			registry = ProxyLaunchSupport.startImplementation(fProject, "Beaninfo", //$NON-NLS-1$
 					new IConfigurationContributor[] { configurationContributor}, false, new SubProgressMonitor(pm, 100));
 			synchronized(this) {
 				if (!isRegistryCreated()) {
+					projectCleaned();
 					registry.addRegistryListener(registryListener);
 					fRegistry = registry;
 				} else {
@@ -485,8 +504,24 @@ public class BeaninfoNature implements IProjectNature {
 		} catch (CoreException e) {
 			BeaninfoPlugin.getPlugin().getLogger().log(e.getStatus());
 		} finally {
+			if (registry == null) {
+				// It didn't create. Treat as premature terminate.
+				prematureRegistryTerminate();
+			}
 			pm.done();
 		}
+	}
+
+	/**
+	 * Called by others in package (BeaninfoCacheController) to let know a clean has occured.
+	 * 
+	 * TODO this should be package-protected but until in same package as cache controller it is public.
+	 * @since 1.2.0
+	 */
+	public synchronized void projectCleaned() {
+		// On a clean we will reset the counters.
+		registryPrematureTerminateCount = 0;
+		registryLastPrematureTerminateTime = NO_PREMATURE_TERMINATE_TIME;
 	}
 	
 	public synchronized boolean isRegistryCreated() {
@@ -708,6 +743,13 @@ public class BeaninfoNature implements IProjectNature {
 	 */
 	public IConfigurationContributor getConfigurationContributor() {
 		return new ConfigurationContributor(getSearchPath());
+	}
+
+	private void prematureRegistryTerminate() {
+		synchronized(BeaninfoNature.this) {
+			registryPrematureTerminateCount++;
+			registryLastPrematureTerminateTime = System.currentTimeMillis();
+		}
 	}
 
 	private static class ConfigurationContributor extends ConfigurationContributorAdapter {

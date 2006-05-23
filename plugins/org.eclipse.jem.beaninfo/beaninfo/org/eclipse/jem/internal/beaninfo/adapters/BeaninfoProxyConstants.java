@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoProxyConstants.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 20:31:29 $ 
+ *  $Revision: 1.7 $  $Date: 2006/05/23 15:43:06 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
@@ -40,10 +40,13 @@ public final class BeaninfoProxyConstants {
 	 * Get the constants instance for the specified registry.
 	 */
 	public static BeaninfoProxyConstants getConstants(ProxyFactoryRegistry registry) {
-		BeaninfoProxyConstants constants = (BeaninfoProxyConstants) registry.getConstants(REGISTRY_KEY);
-		if (constants == null)
-			registry.registerConstants(REGISTRY_KEY, constants = new BeaninfoProxyConstants(registry));
-		return constants;
+		if (registry != null && registry.isValid()) {
+			BeaninfoProxyConstants constants = (BeaninfoProxyConstants) registry.getConstants(REGISTRY_KEY);
+			if (constants == null)
+				registry.registerConstants(REGISTRY_KEY, constants = new BeaninfoProxyConstants(registry));
+			return constants;
+		} else
+			return null;
 	}
 
 	private BeaninfoProxyConstants(ProxyFactoryRegistry registry) {

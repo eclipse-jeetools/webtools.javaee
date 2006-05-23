@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoCacheController.java,v $
- *  $Revision: 1.18 $  $Date: 2005/12/12 18:21:33 $ 
+ *  $Revision: 1.19 $  $Date: 2006/05/23 15:43:06 $ 
  */
 package org.eclipse.jem.internal.beaninfo.core;
 
@@ -126,6 +126,7 @@ public class BeanInfoCacheController {
 						}
 						BeaninfoNature nature = BeaninfoPlugin.getPlugin().getNature(project);
 						if (nature != null) {
+							nature.projectCleaned();
 							BeaninfoAdapterFactory adapterFactory = (BeaninfoAdapterFactory) EcoreUtil.getAdapterFactory(nature.getResourceSet().getAdapterFactories(), IIntrospectionAdapter.ADAPTER_KEY);
 							if (adapterFactory != null) {
 								adapterFactory.markAllStale(true);	// Also clear the overrides.
