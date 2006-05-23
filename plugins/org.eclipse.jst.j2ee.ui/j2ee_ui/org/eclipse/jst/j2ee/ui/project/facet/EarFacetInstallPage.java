@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.ui.project.facet;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
@@ -44,6 +45,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -144,7 +146,25 @@ public final class EarFacetInstallPage extends DataModelFacetInstallPage impleme
 	 */
 	private void setCheckedItemsFromModel() {
 		List components = (List) getDataModel().getProperty(J2EE_PROJECTS_LIST);
-		moduleProjectsViewer.setCheckedElements(components.toArray());
+		
+		TableItem [] items = moduleProjectsViewer.getTable().getItems();
+
+		List list = new ArrayList();
+		
+		for( int i=0; i< items.length; i++ ){
+			Object element = items[i].getData();
+			if( element instanceof IVirtualComponent){
+				IVirtualComponent comp = (IVirtualComponent)element;				
+				Iterator it = components.iterator();
+				while( it.hasNext() ){
+					IProject project = (IProject)it.next();
+					if( comp.getProject().getName().equals(project.getName()) ){
+						list.add(comp);
+					}					
+				}
+			}	
+		}
+		moduleProjectsViewer.setCheckedElements(list.toArray());		
 	}
 
 	private void refreshModules() {
