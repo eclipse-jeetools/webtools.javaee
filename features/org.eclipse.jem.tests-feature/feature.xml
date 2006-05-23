@@ -9,7 +9,7 @@
    <copyright>
       %copyright
    </copyright>
-   
+
    <license url="%licenseURL">
       %license
    </license>
@@ -20,7 +20,7 @@
    </url>
 
    <requires>
-      <import feature="org.eclipse.jem"/>
+      <import feature="org.eclipse.jem" version="1.2.0"/>
    </requires>
 
    <plugin
