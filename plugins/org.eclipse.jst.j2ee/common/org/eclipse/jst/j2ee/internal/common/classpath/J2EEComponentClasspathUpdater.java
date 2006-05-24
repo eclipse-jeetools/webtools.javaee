@@ -14,9 +14,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
@@ -119,9 +123,9 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 			// TODO streamline the ear section so it only changes if the refs have changed
 			queueUpdateEAR(project);
 		} else if (J2EEProjectUtilities.isApplicationClientProject(project) || J2EEProjectUtilities.isEJBProject(project) || J2EEProjectUtilities.isDynamicWebProject(project) || J2EEProjectUtilities.isJCAProject(project) || J2EEProjectUtilities.isUtilityProject(project)) {
-			//Hari: update the project only if the tree is not locked.
-			if(false == ResourcesPlugin.getWorkspace().isTreeLocked())
-			queueUpdateModule(project);
+			// Hari: update the project only if the tree is not locked.
+			if (false == ResourcesPlugin.getWorkspace().isTreeLocked())
+				queueUpdateModule(project);
 		}
 	}
 
@@ -157,19 +161,49 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 		}
 	}
 
-	private void updateModule(IProject project) {
-		IClasspathContainer container = getWebAppLibrariesContainer(project);
-		if (container != null) {
-			((FlexibleProjectContainer) container).refresh();
-		}
-		IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(project);
-		if (earProjects.length == 0) {
-			removeContainerFromModuleIfNecessary(project);
-			return;
-		}
-		container = addContainerToModuleIfNecessary(project);
-		if (container != null) {
-			((J2EEComponentClasspathContainer) container).update();
+	private void updateModule(final IProject project) {
+		final IWorkspaceRunnable workspaceRunnable = new IWorkspaceRunnable() {
+			public void run(IProgressMonitor monitor) {
+				IClasspathContainer container = getWebAppLibrariesContainer(project);
+				if (container != null) {
+					((FlexibleProjectContainer) container).refresh();
+				}
+				IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(project);
+				if (earProjects.length == 0) {
+					removeContainerFromModuleIfNecessary(project);
+					return;
+				}
+				container = addContainerToModuleIfNecessary(project);
+				if (container != null) {
+					((J2EEComponentClasspathContainer) container).update();
+				}
+			}
+		};
+		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		if (workspace.isTreeLocked()) {
+			Runnable r = new Runnable() {
+				public void run() {
+					while (workspace.isTreeLocked()) {
+						try {
+							Thread.sleep(10);
+						} catch (InterruptedException e) {
+						}
+					}
+					try {
+						workspace.run(workspaceRunnable, workspace.getRoot(), IWorkspace.AVOID_UPDATE, new NullProgressMonitor());
+					} catch (CoreException e) {
+						Logger.getLogger().logError(e);
+					}
+				}
+			};
+			Thread t = new Thread(r);
+			t.start();
+		} else {
+			try {
+				workspace.run(workspaceRunnable, workspace.getRoot(), IWorkspace.AVOID_UPDATE, new NullProgressMonitor());
+			} catch (CoreException e) {
+				Logger.getLogger().logError(e);
+			}
 		}
 	}
 
