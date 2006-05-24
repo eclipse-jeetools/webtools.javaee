@@ -161,6 +161,13 @@
 				enablesFor="1"
 				id="convertToWebModuleTypeAction">
 		</action>
+		<enablement>
+		  <adapt type="org.eclipse.core.resources.IProject">
+						<test forcePluginActivation="true"
+							property="org.eclipse.wst.common.project.facet.core.projectFacet"
+							value="wst.web" />
+					</adapt>
+		</enablement>
       </objectContribution>  
     </extension>
 
