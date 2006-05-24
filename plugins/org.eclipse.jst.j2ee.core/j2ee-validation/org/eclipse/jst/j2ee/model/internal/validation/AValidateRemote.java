@@ -26,47 +26,12 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
  * The checks for a session remote interface and an entity remote interface are the same
  * in EJB 1.1.
  *
- * The following paragraph is taken from
  * Enterprise JavaBeans Specification ("Specification")
  * Version: 1.1
  * Status: Final Release
  * Release: 12/17/99
- * Copyright 1999 Sun Microsystems, Inc.
- * 901 San Antonio Road, Palo Alto, CA 94303, U.S.A.
- * All rights reserved.
- *
- * 6.10.5 Session bean's remote interface
- * The following are the requirements for the session bean's remote interface:
- *		- The interface must extend the javax.ejb.EJBObject interface.
- *		- The methods defined in this interface must follow the rules for RMI/IIOP.
- *        This means that their argument and return values must be of valid types 
- *        for RMI/IIOP, and their throws clause must include the java.rmi.RemoteException.
- *		- The remote interface is allowed to have superinterfaces. Use of interface
- *        inheritance is subject to the RMI/IIOP rules for the definition of remote interfaces.
- *		- For each method defined in the remote interface, there must be a matching
- *        method in the session bean's class. 
- *			- The matching method must have:
- *				- The same name.
- *				- The same number and types of arguments, and the same return type.
- *				- All the exceptions defined in the throws clause of the matching 
- *                method of the session bean class must be defined in the throws 
- *                clause of the method of the remote interface.
- *
- * 9.2.7 Entity bean's remote interface
- * The following are the requirements for the entity bean's remote interface:
- * 		- The interface must extend the javax.ejb.EJBObject interface.
- * 		- The methods defined in the remote interface must follow the rules for RMI-IIOP. 
- * 		  This means that their argument and return value types must be valid types for RMI-IIOP, 
- * 		  and their throws clauses must include the java.rmi.RemoteException.
- * 		- The remote interface is allowed to have superinterfaces. Use of interface inheritance 
- *		  is subject to the RMI-IIOP rules for the definition of remote interfaces. 
- * 		- For each method defined in the remote interface, there must be a matching method 
- *		  in the entity bean's class. The matching method must have:
- * 			- The same name.
- *			- The same number and types of its arguments, and the same return type.
- *			- All the exceptions defined in the throws clause of the matching method 
- *			  of the enterprise Bean class must be defined in the throws clause of 
- *			  the method of the remote interface.
+ * URL: http://java.sun.com/products/ejb/docs.html
+ * Section: 6.10.5 and 9.2.7
  */
 public abstract class AValidateRemote extends AValidateEJB {
 	public final Object getTarget(Object parent, Object clazz) {
@@ -123,36 +88,7 @@ public abstract class AValidateRemote extends AValidateEJB {
 	
 	/**
 	 * Check the remote interface's methods against the EJB 1.1 spec.
-	 * 
-	 * 6.10.5 Session bean's remote interface
-	 * ...
-	 *		- The methods defined in this interface must follow the rules for RMI/IIOP.
-	 *        This means that their argument and return values must be of valid types 
-	 *        for RMI/IIOP, and their throws clause must include the java.rmi.RemoteException.
-	 * ...
-	 *		- For each method defined in the remote interface, there must be a matching
-	 *        method in the session bean's class. 
-	 *			- The matching method must have:
-	 *				- The same name.
-	 *				- The same number and types of arguments, and the same return type.
-	 *				- All the exceptions defined in the throws clause of the matching 
-	 *                method of the session bean class must be defined in the throws 
-	 *                clause of the method of the remote interface.
-	 * ...
-	 * 9.2.7 Entity bean's remote interface
-	 * ...
-	 * 		- The methods defined in the remote interface must follow the rules for RMI-IIOP. 
-	 * 		  This means that their argument and return value types must be valid types for RMI-IIOP, 
-	 * 		  and their throws clauses must include the java.rmi.RemoteException.
-	 * ...
-	 * 		- For each method defined in the remote interface, there must be a matching method 
-	 *		  in the entity bean's class. The matching method must have:
-	 * 			- The same name.
-	 *			- The same number and types of its arguments, and the same return type.
-	 *			- All the exceptions defined in the throws clause of the matching method 
-	 *			  of the enterprise Bean class must be defined in the throws clause of 
-	 *			  the method of the remote interface.
-	 * ...
+	 * Section: 6.10.5 and 9.2.7
 	 */
 	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method riMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
@@ -182,29 +118,12 @@ public abstract class AValidateRemote extends AValidateEJB {
 	/**
 	 * Check that the remote interface class definition follows the EJB 1.1 spec.
 	 *
-	 * The following paragraph is taken from
 	 * Enterprise JavaBeans Specification ("Specification")
 	 * Version: 1.1
 	 * Status: Final Release
 	 * Release: 12/17/99
-	 * Copyright 1999 Sun Microsystems, Inc.
-	 * 901 San Antonio Road, Palo Alto, CA 94303, U.S.A.
-	 * All rights reserved.
-	 *
-	 * 6.10.5 Session bean's remote interface
-	 * The following are the requirements for the session bean's remote interface:
-	 *		- The interface must extend the javax.ejb.EJBObject interface.
-	 * ...
-	 *		- The remote interface is allowed to have superinterfaces. Use of interface
-	 *        inheritance is subject to the RMI/IIOP rules for the definition of remote interfaces.
-	 * ...
-	 * 9.2.7 Entity bean's remote interface
-	 * The following are the requirements for the entity bean's remote interface:
-	 * 		- The interface must extend the javax.ejb.EJBObject interface.
-	 * ...
-	 * 		- The remote interface is allowed to have superinterfaces. Use of interface inheritance 
-	 *		  is subject to the RMI-IIOP rules for the definition of remote interfaces.
-	 * ...
+	 * URL: http://java.sun.com/products/ejb/docs.html
+	 * Section: 6.10.5 and 9.2.7
 	 */
 	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		vc.terminateIfCancelled();
@@ -232,23 +151,8 @@ public abstract class AValidateRemote extends AValidateEJB {
 	}
 	
 	/**
-	 * 6.10.5
-	 * For each method defined in the remote interface, there must be a matching 
-	 * method in the session bean's class. The matching method must have:
-	 *   - The same name.
-	 *   - The same number and types of arguments, and the same return type.
-	 *   - All the exceptions defined in the throws clause of the matching method 
-	 *     of the session bean class must be defined in the throws clause of the 
-	 *     method of the remote interface.
-	 *
-	 * 9.2.7
-	 * For each method defined in the remote interface, there must be a matching 
-	 * method in the entity bean's class. The matching method must have:
-	 *   - The same name.
-	 *   - The same number and types of its arguments, and the same return type.
-	 *   - All the exceptions defined in the throws clause of the matching method 
-	 *     of the enterprise Bean class must be defined in the throws clause of 
-	 *     the method of the remote interface. 
+	 * EJB 1.1 specification
+	 * Section: 6.10.5 and 9.2.7
 	 */
 	public void validateMatchingBeanMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method remoteMethod) throws InvalidInputException {
 		vc.terminateIfCancelled();
@@ -307,36 +211,7 @@ public abstract class AValidateRemote extends AValidateEJB {
 	
 	/**
 	 * Check the remote interface's methods against the EJB 1.1 spec.
-	 * 
-	 * 6.10.5 Session bean's remote interface
-	 * ...
-	 *		- The methods defined in this interface must follow the rules for RMI/IIOP.
-	 *        This means that their argument and return values must be of valid types 
-	 *        for RMI/IIOP, and their throws clause must include the java.rmi.RemoteException.
-	 * ...
-	 *		- For each method defined in the remote interface, there must be a matching
-	 *        method in the session bean's class. 
-	 *			- The matching method must have:
-	 *				- The same name.
-	 *				- The same number and types of arguments, and the same return type.
-	 *				- All the exceptions defined in the throws clause of the matching 
-	 *                method of the session bean class must be defined in the throws 
-	 *                clause of the method of the remote interface.
-	 * ...
-	 * 9.2.7 Entity bean's remote interface
-	 * ...
-	 * 		- The methods defined in the remote interface must follow the rules for RMI-IIOP. 
-	 * 		  This means that their argument and return value types must be valid types for RMI-IIOP, 
-	 * 		  and their throws clauses must include the java.rmi.RemoteException.
-	 * ...
-	 * 		- For each method defined in the remote interface, there must be a matching method 
-	 *		  in the entity bean's class. The matching method must have:
-	 * 			- The same name.
-	 *			- The same number and types of its arguments, and the same return type.
-	 *			- All the exceptions defined in the throws clause of the matching method 
-	 *			  of the enterprise Bean class must be defined in the throws clause of 
-	 *			  the method of the remote interface.
-	 * ...
+	 * Section: 6.10.5 and 9.2.7
 	 */
 	public void validateMethod_beanDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method riMethod) throws InvalidInputException {
 		vc.terminateIfCancelled();

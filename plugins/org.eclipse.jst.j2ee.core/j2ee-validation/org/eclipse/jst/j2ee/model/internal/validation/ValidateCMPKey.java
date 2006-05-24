@@ -32,46 +32,17 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
  * This class checks entity bean classes for errors or potential errors.
  * If any problems are found, an error, warning, or info marker is added to the task list.
  *
- * The following paragraph is taken from
  * Enterprise JavaBeans Specification ("Specification")
  * Version: 1.1
  * Status: Final Release
  * Release: 12/17/99
- * Copyright 1999 Sun Microsystems, Inc.
- * 901 San Antonio Road, Palo Alto, CA 94303, U.S.A.
- * All rights reserved.
+ * URL: http://java.sun.com/products/ejb/docs.html
  *
  *
  * All 9.2.X sections describe BMP requirements. (And the bulk of those
  * are implemented in ValidateKeyClass.)
  * If a CMP requirement is different than these, then the differences are
  * documented in 9.4.X sections.
- *
- * 9.4.7 primary key type
- *   - The container must be able to manipulate the primary key type. Therefore, 
- *     the primary key type for an entity bean with container-managed persistence 
- *     must follow the rules in this subsection, in addition to those specified in 
- *     Subsection 9.2.9.
- *
- *     There are two ways to specify a primary key class for an entity bean with container-managed persistence:
- *        - Primary key that maps to a single field in the entity bean class.
- *        - Primary key that maps to multiple fields in the entity bean class.
- *     The second method is necessary for implementing compound keys, and the first method is convenient for
- *     single-field keys. Without the first method, simple types such as String would have to be wrapped in a
- *     user-defined class.
- * 
- *     9.4.7.1 Primary key that maps to a single field in the entity bean class
- *     The Bean Provider uses the primkey-field element of the deployment descriptor to specify the
- *     container-managed field of the entity bean class that contains the primary key. The field's type must be
- *     the primary key type.
- *
- *     9.4.7.2 Primary key that maps to multiple fields in the entity bean class
- *     The primary key class must be public, and must have a public constructor with no parameters.
- *     All fields in the primary key class must be declared as public.
- *     The names of the fields in the primary key class must be a subset of the names of the container-managed
- *     fields. (This allows the container to extract the primary key fields from an instance's container-managed
- *     fields, and vice versa.)
- *...
  */
 public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixEjb11Constants {
 	private boolean hasAConstructor = false;
@@ -141,17 +112,8 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 	}
 
 	/*
-	 * 9.4.7.1 Primary key that maps to a single field in the entity bean class
-	 *     The Bean Provider uses the primkey-field element of the deployment descriptor to specify the
-	 *     container-managed field of the entity bean class that contains the primary key. The field's type must be
-	 *     the primary key type.
-	 *
-	 * 9.4.7.2 Primary key that maps to multiple fields in the entity bean class
-	 *     The primary key class must be public, and must have a public constructor with no parameters.
-	 *     All fields in the primary key class must be declared as public.
-	 *     The names of the fields in the primary key class must be a subset of the names of the container-managed
-	 *     fields. (This allows the container to extract the primary key fields from an instance's container-managed
-	 *     fields, and vice versa.)
+	 * EJB 1.1 specification
+	 * Section: 9.4.7.1 and 9.4.7.2
 	 */
 	protected void buildFieldNameList(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// Build up the list of field names to be used in the field validation.
@@ -187,12 +149,8 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 	/**
 	 * This method actually does the validation.
 	 *
-	 * 9.4.7.2 Primary key that maps to multiple fields in the entity bean class
-	 *     The primary key class must be public, and must have a public constructor with no parameters.
-	 *     All fields in the primary key class must be declared as public.
-	 *     The names of the fields in the primary key class must be a subset of the names of the container-managed
-	 *     fields. (This allows the container to extract the primary key fields from an instance's container-managed
-	 *     fields, and vice versa.)
+	 * EJB 1.1 specification
+	 * Section: 9.4.7.2
 	 */
 	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws InvalidInputException {
 		// All fields in the primary key class must be declared as public.
@@ -244,12 +202,8 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 	}
 	
 	/**
-	 * 9.4.7.2 Primary key that maps to multiple fields in the entity bean class
-	 *     The primary key class must be public, and must have a public constructor with no parameters.
-	 *     All fields in the primary key class must be declared as public.
-	 *     The names of the fields in the primary key class must be a subset of the names of the container-managed
-	 *     fields. (This allows the container to extract the primary key fields from an instance's container-managed
-	 *     fields, and vice versa.)
+	 * EJB 1.1 specification
+	 * Section: 9.4.7.2
 	 */
 	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		super.validateClass(vc, bean, clazz);
@@ -281,8 +235,8 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 	}
 	
 	/**
-	 *  9.4.7.2 Primary key that maps to multiple fields in the entity bean class
-	 *     The primary key class must be public, and must have a public constructor with no parameters.
+	 * EJB 1.1 specification
+	 * Section: 9.4.7.2
 	 */
 	public void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		super.validateMethodExists(vc, bean, clazz);

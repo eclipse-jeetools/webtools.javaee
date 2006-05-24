@@ -26,51 +26,12 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
  * This class checks entity home classes for errors or potential errors.
  * If any problems are found, an error, warning, or info marker is added to the task list.
  *
- * The following paragraph is taken from
  * Enterprise JavaBeans Specification ("Specification")
  * Version: 1.1
  * Status: Final Release
  * Release: 12/17/99
- * Copyright 1999 Sun Microsystems, Inc.
- * 901 San Antonio Road, Palo Alto, CA 94303, U.S.A.
- * All rights reserved.
- *
- * 9.2.8 Entity bean's home interface
- * The following are the requirements for the entity bean's home interface:
- *   - The interface must extend the javax.ejb.EJBHome interface.
- *   - The methods defined in this interface must follow the rules for RMI-IIOP. 
- *     This means that their argument and return types must be of valid types for 
- *     RMI-IIOP, and that their throws clause must include the java.rmi.RemoteException.
- *   - The home interface is allowed to have superinterfaces. Use of interface 
- *     inheritance is subject to the RMI-IIOP rules for the definition of remote interfaces.
- *   - Each method defined in the home interface must be one of the following:
- *      - A create method.
- *      - A finder method.
- *   - Each create method must be named "create", and it must match one of the 
- *     ejbCreate methods defined in the enterprise Bean class. The matching 
- *     ejbCreate method must have the same number and types of its arguments. 
- *     (Note that the return type is different.)
- *   - The return type for a create method must be the entity bean's remote interface type.
- *   - All the exceptions defined in the throws clause of the matching ejbCreate 
- *     and ejbPostCreate methods of the enterprise Bean class must be included in 
- *     the throws clause of the matching create method of the home interface 
- *     (i.e the set of exceptions defined for the create method must be a superset
- *     of the union of exceptions defined for the ejbCreate and ejbPostCreate methods)
- *   - The throws clause of a create method must include the javax.ejb.CreateException.
- *   - Each finder method must be named "find<METHOD>" (e.g. findLargeAccounts), and it
- *     must match one of the ejbFind<METHOD> methods defined in the entity bean class 
- *     (e.g. ejbFindLargeAccounts). The matching ejbFind<METHOD> method must have the 
- *     same number and types of arguments. (Note that the return type may be different.)
- *   - The return type for a find<METHOD> method must be the entity bean's remote 
- *     interface type (for a single-object finder), or a collection thereof (for a 
- *     multi-object finder).
- *   - The home interface must always include the findByPrimaryKey method, which is 
- *     always a single-object finder. The method must declare the primary key class 
- *     as the method argument.
- *   - All the exceptions defined in the throws clause of an ejbFind method of the 
- *     entity bean class must be included in the throws clause of the matching find 
- *     method of the home interface.
- *   - The throws clause of a finder method must include the javax.ejb.FinderException. 
+ * URL: http://java.sun.com/products/ejb/docs.html
+ * Section: 9.2.8
  */
 public abstract class AValidateEntityHome extends AValidateHome {
 	private HashSet findByPKMethods = null;
@@ -122,42 +83,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	
 	/**
 	 * This method checks that the entity home's methods comply with the EJB 1.1 specification.
-	 *
-	 * 9.2.8 Entity bean's home interface
-	 * The following are the requirements for the entity bean's home interface:
-	 *...
-	 *   - The methods defined in this interface must follow the rules for RMI-IIOP. 
-	 *     This means that their argument and return types must be of valid types for 
-	 *     RMI-IIOP, and that their throws clause must include the java.rmi.RemoteException.
-	 *...
-	 *   - Each method defined in the home interface must be one of the following:
-	 *      - A create method.
-	 *      - A finder method.
-	 *   - Each create method must be named "create", and it must match one of the 
-	 *     ejbCreate methods defined in the enterprise Bean class. The matching 
-	 *     ejbCreate method must have the same number and types of its arguments. 
-	 *     (Note that the return type is different.)
-	 *   - The return type for a create method must be the entity bean's remote interface type.
-	 *   - All the exceptions defined in the throws clause of the matching ejbCreate 
-	 *     and ejbPostCreate methods of the enterprise Bean class must be included in 
-	 *     the throws clause of the matching create method of the home interface 
-	 *     (i.e the set of exceptions defined for the create method must be a superset
-	 *     of the union of exceptions defined for the ejbCreate and ejbPostCreate methods)
-	 *   - The throws clause of a create method must include the javax.ejb.CreateException.
-	 *   - Each finder method must be named "find<METHOD>" (e.g. findLargeAccounts), and it
-	 *     must match one of the ejbFind<METHOD> methods defined in the entity bean class 
-	 *     (e.g. ejbFindLargeAccounts). The matching ejbFind<METHOD> method must have the 
-	 *     same number and types of arguments. (Note that the return type may be different.)
-	 *   - The return type for a find<METHOD> method must be the entity bean's remote 
-	 *     interface type (for a single-object finder), or a collection thereof (for a 
-	 *     multi-object finder).
-	 *   - The home interface must always include the findByPrimaryKey method, which is 
-	 *     always a single-object finder. The method must declare the primary key class 
-	 *     as the method argument.
-	 *   - All the exceptions defined in the throws clause of an ejbFind method of the 
-	 *     entity bean class must be included in the throws clause of the matching find 
-	 *     method of the home interface.
-	 *   - The throws clause of a finder method must include the javax.ejb.FinderException. 
+	 * Section: 9.2.8
 	 */
 	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method hiMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
@@ -192,13 +118,8 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	}
 	
 	/**
-	 * 9.2.8 Entity bean's home interface
-	 * The following are the requirements for the entity bean's home interface:
-	 *   - The interface must extend the javax.ejb.EJBHome interface.
-	 *...
-	 *   - The home interface is allowed to have superinterfaces. Use of interface 
-	 *     inheritance is subject to the RMI-IIOP rules for the definition of remote interfaces.
-	 *...
+	 * EJB 1.1 specification
+	 * Section: 9.2.8
 	 */
 	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		super.validateClass(vc, bean, clazz);
@@ -208,19 +129,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	
 	/**
 	 * Checks that the create method on the entity home follows the EJB 1.1. specification.
-	 *
-	 * 9.2.8 Entity bean's home interface
-	 * The following are the requirements for the entity bean's home interface:
-	 *   - Each create method must be named "create", and it must match one of the 
-	 *     ejbCreate methods defined in the enterprise Bean class. The matching 
-	 *     ejbCreate method must have the same number and types of its arguments. 
-	 *     (Note that the return type is different.)
-	 *   - The return type for a create method must be the entity bean's remote interface type.
-	 *   - All the exceptions defined in the throws clause of the matching ejbCreate 
-	 *     and ejbPostCreate methods of the enterprise Bean class must be included in 
-	 *     the throws clause of the matching create method of the home interface 
-	 *     (i.e the set of exceptions defined for the create method must be a superset
-	 *     of the union of exceptions defined for the ejbCreate and ejbPostCreate methods)
+	 * Section: 9.2.8
 	 */
 	public void validateCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
@@ -261,19 +170,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	
 	/**
 	 * Checks that the create method on the entity home follows the EJB 1.1. specification.
-	 *
-	 * 9.2.8 Entity bean's home interface
-	 * The following are the requirements for the entity bean's home interface:
-	 *   - Each create method must be named "create", and it must match one of the 
-	 *     ejbCreate methods defined in the enterprise Bean class. The matching 
-	 *     ejbCreate method must have the same number and types of its arguments. 
-	 *     (Note that the return type is different.)
-	 *   - The return type for a create method must be the entity bean's remote interface type.
-	 *   - All the exceptions defined in the throws clause of the matching ejbCreate 
-	 *     and ejbPostCreate methods of the enterprise Bean class must be included in 
-	 *     the throws clause of the matching create method of the home interface 
-	 *     (i.e the set of exceptions defined for the create method must be a superset
-	 *     of the union of exceptions defined for the ejbCreate and ejbPostCreate methods)
+	 * Section: 9.2.8
 	 */
 	public void validateCreateMethod_beanDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
@@ -298,13 +195,8 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	
 	/**
 	 * In addition to regular find rules, findByPrimaryKey needs to follow some other rules.
-	 *
-	 * 9.2.8 Entity bean's home interface
-	 * The following are the requirements for the entity bean's home interface:
-	 *...
-	 *   - The home interface must always include the findByPrimaryKey method, which is 
-	 *     always a single-object finder. The method must declare the primary key class 
-	 *     as the method argument.
+	 * EJB 1.1 specification
+	 * Section: 9.2.8
 	 */
 	public void validateFindByPrimaryKeyMethod_keyDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
@@ -348,13 +240,8 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	
 	/**
 	 * In addition to regular find rules, findByPrimaryKey needs to follow some other rules.
-	 *
-	 * 9.2.8 Entity bean's home interface
-	 * The following are the requirements for the entity bean's home interface:
-	 *...
-	 *   - The home interface must always include the findByPrimaryKey method, which is 
-	 *     always a single-object finder. The method must declare the primary key class 
-	 *     as the method argument.
+	 * EJB 1.1 specification
+	 * Section: 9.2.8
 	 */
 	public void validateFindByPrimaryKeyMethod_remoteDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
@@ -367,22 +254,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	
 	/**
 	 * Checks that the finder method on the entity home class follows the EJB 1.1 specification.
-	 *
-	 * 9.2.8 Entity bean's home interface
-	 * The following are the requirements for the entity bean's home interface:
-	 *...
-	 *   - Each finder method must be named "find<METHOD>" (e.g. findLargeAccounts), and it
-	 *     must match one of the ejbFind<METHOD> methods defined in the entity bean class 
-	 *     (e.g. ejbFindLargeAccounts). The matching ejbFind<METHOD> method must have the 
-	 *     same number and types of arguments. (Note that the return type may be different.)
-	 *   - The return type for a find<METHOD> method must be the entity bean's remote 
-	 *     interface type (for a single-object finder), or a collection thereof (for a 
-	 *     multi-object finder).
-	 *...
-	 *   - All the exceptions defined in the throws clause of an ejbFind method of the 
-	 *     entity bean class must be included in the throws clause of the matching find 
-	 *     method of the home interface.
-	 *   - The throws clause of a finder method must include the javax.ejb.FinderException. 
+	 * Section: 9.2.8
 	 */
 	public void validateFindMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
@@ -452,22 +324,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	
 	/**
 	 * Checks that the finder method on the entity home class follows the EJB 1.1 specification.
-	 *
-	 * 9.2.8 Entity bean's home interface
-	 * The following are the requirements for the entity bean's home interface:
-	 *...
-	 *   - Each finder method must be named "find<METHOD>" (e.g. findLargeAccounts), and it
-	 *     must match one of the ejbFind<METHOD> methods defined in the entity bean class 
-	 *     (e.g. ejbFindLargeAccounts). The matching ejbFind<METHOD> method must have the 
-	 *     same number and types of arguments. (Note that the return type may be different.)
-	 *   - The return type for a find<METHOD> method must be the entity bean's remote 
-	 *     interface type (for a single-object finder), or a collection thereof (for a 
-	 *     multi-object finder).
-	 *...
-	 *   - All the exceptions defined in the throws clause of an ejbFind method of the 
-	 *     entity bean class must be included in the throws clause of the matching find 
-	 *     method of the home interface.
-	 *   - The throws clause of a finder method must include the javax.ejb.FinderException. 
+	 * Section: 9.2.8
 	 */
 	public void validateFindMethod_remoteDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
@@ -522,18 +379,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	
 	/**
 	 * Checks that the finder method on the entity home class follows the EJB 1.1 specification.
-	 *
-	 * 9.2.8 Entity bean's home interface
-	 * The following are the requirements for the entity bean's home interface:
-	 *   - Each finder method must be named "find<METHOD>" (e.g. findLargeAccounts), and it
-	 *     must match one of the ejbFind<METHOD> methods defined in the entity bean class 
-	 *     (e.g. ejbFindLargeAccounts). The matching ejbFind<METHOD> method must have the 
-	 *     same number and types of arguments. (Note that the return type may be different.)
-	 *...
-	 *   - All the exceptions defined in the throws clause of an ejbFind method of the 
-	 *     entity bean class must be included in the throws clause of the matching find 
-	 *     method of the home interface.
-	 *...
+	 * Section: 9.2.8
 	 */
 	public void validateMatchingBeanFindMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method homeMethod) throws InvalidInputException {
 		vc.terminateIfCancelled();
@@ -594,20 +440,8 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	
 	/**
 	 * Checks that the create method on the entity home has a matching ejbCreate and ejbPostCreate on the bean.
-	 *
-	 * 9.2.8 Entity bean's home interface
-	 * The following are the requirements for the entity bean's home interface:
-	 *   - Each create method must be named "create", and it must match one of the 
-	 *     ejbCreate methods defined in the enterprise Bean class. The matching 
-	 *     ejbCreate method must have the same number and types of its arguments. 
-	 *     (Note that the return type is different.)
-	 *...
-	 *   - All the exceptions defined in the throws clause of the matching ejbCreate 
-	 *     and ejbPostCreate methods of the enterprise Bean class must be included in 
-	 *     the throws clause of the matching create method of the home interface 
-	 *     (i.e the set of exceptions defined for the create method must be a superset
-	 *     of the union of exceptions defined for the ejbCreate and ejbPostCreate methods)
-	 *...
+	 * EJB 1.1 specification
+	 * Section: 9.2.8
 	 */
 	public void validateMatchingBeanPostCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method homeMethod) throws InvalidInputException {
 		vc.terminateIfCancelled();
@@ -655,11 +489,8 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	}
 	
 	/**
-	 * 9.2.8 Entity bean's home interface
-	 * The following are the requirements for the entity bean's home interface:
-	 *   - The home interface must always include the findByPrimaryKey method, which is 
-	 *     always a single-object finder. The method must declare the primary key class 
-	 *     as the method argument.
+	 * EJB 1.1 specification
+	 * Section: 9.2.8
 	 */
 	protected void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		// - The home interface must always include the findByPrimaryKey method, which is 

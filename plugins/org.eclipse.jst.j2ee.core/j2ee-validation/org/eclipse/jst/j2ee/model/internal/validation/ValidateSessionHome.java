@@ -28,44 +28,13 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
  * This class checks Session home interface classes for errors or potential errors.
  * If any problems are found, an error, warning, or info marker is added to the task list.
  *
- * The following paragraph is taken from
  * Enterprise JavaBeans Specification ("Specification")
  * Version: 1.1
  * Status: Final Release
  * Release: 12/17/99
- * Copyright 1999 Sun Microsystems, Inc.
- * 901 San Antonio Road, Palo Alto, CA 94303, U.S.A.
- * All rights reserved.
+ * URL: http://java.sun.com/products/ejb/docs.html
+ * Section: 6.8 and 6.10.6
  *
- * 6.8 Stateless session beans
- *...
- * The home interface of a stateless session bean must have one create 
- * method that takes no arguments and returns the session bean's remote 
- * interface. There can be no other create methods in the home interface. 
- * The session bean class must define a single ejbCreate method that takes 
- * no arguments.
- *...
- *
- * 6.10.6 Session beans home interface
- * The following are the requirements for the session bean's home interface:
- *   - The interface must extend the javax.ejb.EJBHome interface.
- *   - The methods defined in this interface must follow the rules for RMI/IIOP. 
- *     This means that their argument and return values must be of valid types 
- *     for RMI/IIOP, and that their throws clause must include the java.rmi.RemoteException.
- *   - The home interface is allowed to have superinterfaces. Use of interface 
- *     inheritance is subject to the RMI/IIOP rules for the definition of 
- *     remote interfaces.
- *   - A session bean's home interface must define one or more create(...) methods.
- *   - Each create method must be named "create", and it must match one of 
- *     the ejbCreate methods defined in the session bean class. The matching 
- *     ejbCreate method must have the same number and types of arguments. 
- *     (Note that the return type is different.)
- *   - The return type for a create method must be the session bean's remote 
- *     interface type.
- *   - All the exceptions defined in the throws clause of an ejbCreate method 
- *     of the session bean class must be defined in the throws clause of the 
- *     matching create method of the home interface.
- *   - The throws clause must include javax.ejb.CreateException. 
  */
 public class ValidateSessionHome extends AValidateHome implements IMessagePrefixEjb11Constants {
 	private boolean hasDefaultCreateMethod = false;
@@ -156,43 +125,12 @@ public class ValidateSessionHome extends AValidateHome implements IMessagePrefix
 	/**
 	 * Check the session home interface's methods follow the EJB 1.1 spec.
 	 * 
-	 * The following paragraph is taken from
 	 * Enterprise JavaBeans Specification ("Specification")
 	 * Version: 1.1
 	 * Status: Final Release
 	 * Release: 12/17/99
-	 * Copyright 1999 Sun Microsystems, Inc.
-	 * 901 San Antonio Road, Palo Alto, CA 94303, U.S.A.
-	 * All rights reserved.
-	 * 
-	 * 6.8 Stateless session beans
-	 *...
-	 * The home interface of a stateless session bean must have one create 
-	 * method that takes no arguments and returns the session bean's remote 
-	 * interface. There can be no other create methods in the home interface. 
-	 * The session bean class must define a single ejbCreate method that takes 
-	 * no arguments.
-	 *...
-	 *
-	 * 6.10.6 Session bean's home interface
-	 * The following are the requirements for the session bean's home interface:
-	 * ...
-	 *   - The methods defined in this interface must follow the rules for RMI/IIOP. 
-	 *     This means that their argument and return values must be of valid types 
-	 *     for RMI/IIOP, and that their throws clause must include the java.rmi.RemoteException.
-	 * ...
-	 *   - A session bean's home interface must define one or more create(...) methods.
-	 *   - Each create method must be named "create", and it must match one of 
-	 *     the ejbCreate methods defined in the session bean class. The matching 
-	 *     ejbCreate method must have the same number and types of arguments. 
-	 *     (Note that the return type is different.)
-	 *   - The return type for a create method must be the session bean's remote 
-	 *     interface type.
-	 *   - All the exceptions defined in the throws clause of an ejbCreate method 
-	 *     of the session bean class must be defined in the throws clause of the 
-	 *     matching create method of the home interface.
-	 *   - The throws clause must include javax.ejb.CreateException.
-	 * ...
+	 * URL: http://java.sun.com/products/ejb/docs.html
+	 * Section: 6.8 and 6.10.6
 	 */
 	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method hiMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
@@ -231,23 +169,12 @@ public class ValidateSessionHome extends AValidateHome implements IMessagePrefix
 	/**
 	 * Check that the session home class definition follows the EJB 1.1 spec.
 	 *
-	 * The following paragraph is taken from
 	 * Enterprise JavaBeans Specification ("Specification")
 	 * Version: 1.1
 	 * Status: Final Release
 	 * Release: 12/17/99
-	 * Copyright 1999 Sun Microsystems, Inc.
-	 * 901 San Antonio Road, Palo Alto, CA 94303, U.S.A.
-	 * All rights reserved.
-	 *
-	 * 6.10.6 Session bean's home interface
-	 * The following are the requirements for the session bean's home interface:
-	 *   - The interface must extend the javax.ejb.EJBHome interface.
-	 * ...
-	 *   - The home interface is allowed to have superinterfaces. Use of interface 
-	 *     inheritance is subject to the RMI/IIOP rules for the definition of 
-	 *     remote interfaces.
-	 * ...
+	 * URL: http://java.sun.com/products/ejb/docs.html
+	 * Section: 6.10.6
 	 */
 	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		vc.terminateIfCancelled();
@@ -256,31 +183,8 @@ public class ValidateSessionHome extends AValidateHome implements IMessagePrefix
 	}
 
 	/**
-	 * 6.8 Stateless session beans
-	 *...
-	 * The home interface of a stateless session bean must have one create 
-	 * method that takes no arguments and returns the session bean's remote 
-	 * interface. There can be no other create methods in the home interface. 
-	 * The session bean class must define a single ejbCreate method that takes 
-	 * no arguments.
-	 *...
-	 *
-	 * 6.10.6 Session bean's home interface
-	 * The following are the requirements for the session bean's home interface:
-	 *   - The methods defined in this interface must follow the rules for RMI/IIOP. 
-	 *     This means that their argument and return values must be of valid types 
-	 *     for RMI/IIOP, and that their throws clause must include the java.rmi.RemoteException.
-	 *   - A session bean's home interface must define one or more create(...) methods.
-	 *   - Each create method must be named "create", and it must match one of 
-	 *     the ejbCreate methods defined in the session bean class. The matching 
-	 *     ejbCreate method must have the same number and types of arguments. 
-	 *     (Note that the return type is different.)
-	 *   - The return type for a create method must be the session bean's remote 
-	 *     interface type.
-	 *   - All the exceptions defined in the throws clause of an ejbCreate method 
-	 *     of the session bean class must be defined in the throws clause of the 
-	 *     matching create method of the home interface.
-	 *   - The throws clause must include javax.ejb.CreateException. 
+	 * EJB 1.1 specification
+	 * Section: 6.8 and 6.10.6
 	 */
 	protected void validateCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		if (method == null) {
@@ -314,18 +218,8 @@ public class ValidateSessionHome extends AValidateHome implements IMessagePrefix
 	}
 
 	/**
-	 * 6.8 Stateless session beans
-	 *...
-	 * The home interface of a stateless session bean must have one create 
-	 * method that takes no arguments and returns the session bean's remote 
-	 * interface. There can be no other create methods in the home interface. 
-	 * The session bean class must define a single ejbCreate method that takes 
-	 * no arguments.
-	 *...
-	 *
-	 * 6.10.6 Session bean's home interface
-	 * The following are the requirements for the session bean's home interface:
-	 *   - A session bean's home interface must define one or more create(...) methods.
+	 * EJB 1.1 specification
+	 * Section: 6.8 and 6.10.6
 	 */
 	protected void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		final String[] modelObjectName = new String[] { clazz.getQualifiedName()};
