@@ -25,21 +25,12 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
  * This class checks entity key classes for errors or potential errors.
  * If any problems are found, an error, warning, or info marker is added to the task list.
  *
- * The following paragraph is taken from
  * Enterprise JavaBeans Specification ("Specification")
  * Version: 1.1
  * Status: Final Release
  * Release: 12/17/99
- * Copyright 1999 Sun Microsystems, Inc.
- * 901 San Antonio Road, Palo Alto, CA 94303, U.S.A.
- * All rights reserved.
- *
- * 9.2.9 Entity bean's primary key class
- *  - The Bean Provider must specify a primary key class in the deployment descriptor.
- *  - The primary key type must be a legal Value Type in RMI-IIOP.
- *  - The class must provide suitable implementation of the hashCode() and 
- *    equals(Object other) methods to simplify the management of the primary keys 
- *    by client code.
+ * URL: http://java.sun.com/products/ejb/docs.html
+ * Section 9.2.9
 */
 public abstract class AValidateKeyClass extends AValidateEJB {
 	public Object getTarget(Object parent, Object clazz) {
@@ -78,12 +69,8 @@ public abstract class AValidateKeyClass extends AValidateEJB {
 	}
 	
 	/**
-	 * 9.2.9 Entity bean's primary key class
-	 *  - The Bean Provider must specify a primary key class in the deployment descriptor. (checked by the MOF model)
-	 *  - The primary key type must be a legal Value Type in RMI-IIOP. (for key fields, checked in the ValidateEntityBean class)
-	 *  - The class must provide suitable implementation of the hashCode() and 
-	 *    equals(Object other) methods to simplify the management of the primary keys 
-	 *    by client code.
+	 * EJB 1.1 specification
+	 * Section: 9.2.9
 	 */
 	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		vc.terminateIfCancelled();
@@ -104,12 +91,7 @@ public abstract class AValidateKeyClass extends AValidateEJB {
 	 *
 	 * Revision 1.7, Java 2 SDK, Standard Edition, v1.3.0, December 1999
 	 *
-	 * 2.6 Parameter Passing in Remote Method Invocation
-	 *   An argument to, or a return value from, a remote object can be any object that
-	 *   is serializable. This includes primitive types, remote objects, and non-remote
-	 *   objects that implement the java.io.Serializable interface. For more
-	 *   details on how to make classes serializable, see the Java Object Serialization
-	 *   Specification. 
+	 * Section: 2.6
 	 */
 	public final void validateLegalRMIType(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		vc.terminateIfCancelled();
@@ -123,10 +105,8 @@ public abstract class AValidateKeyClass extends AValidateEJB {
 	}
 	
 	/**
-	 * 9.2.9 Entity bean's primary key class
-	 *  - The class must provide suitable implementation of the hashCode() and 
-	 *    equals(Object other) methods to simplify the management of the primary keys 
-	 *    by client code.
+	 * EJB 1.1 specification
+	 * Section: 9.2.9
 	 */
 	public void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		// The class must provide suitable implementation of the hashCode() and 

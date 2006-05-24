@@ -30,78 +30,12 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
  * This class checks Session home interface classes for errors or potential errors.
  * If any problems are found, an error, warning, or info marker is added to the task list.
  *
- * The following paragraph is taken from
  * Enterprise JavaBeans Specification ("Specification")
  * Version: 1.1
  * Status: Final Release
  * Release: 12/17/99
- * Copyright 1999 Sun Microsystems, Inc.
- * 901 San Antonio Road, Palo Alto, CA 94303, U.S.A.
- * All rights reserved.
- *
- * 6.8 Stateless session beans
- *...
- * The home interface of a stateless session bean must have one create 
- * method that takes no arguments and returns the session bean's remote 
- * interface. There can be no other create methods in the home interface. 
- * The session bean class must define a single ejbCreate method that takes 
- * no arguments.
- *...
- *
- * 6.10.2 Session bean class
- * The following are the requirements for session bean class:
- * 		- The class must implement, directly or indirectly, the javax.ejb.SessionBean 
- *        interface.
- * 		- The class must be defined as public, must not be final, and must not 
- *        be abstract.
- * 		- The class must have a public constructor that takes no parameters. The 
- *        Container uses this constructor to create instances of the session bean class.
- * 		- The class must not define the finalize() method.
- * 		- The class may, but is not required to, implement the session bean's 
- *        remote interface [4] .
- * 		- The class must implement the business methods and the ejbCreate methods.
- * 		- If the class is a stateful session bean, it may optionally implement 
- *        the javax.ejb.SessionSynchronization interface.
- * 		- The session bean class may have superclasses and/or superinterfaces. If the 
- *        session bean has superclasses, then the business methods, the ejbCreate methods, 
- *        the methods of the SessionBean interface, and the methods of the optional 
- *        SessionSynchronization interface may be defined in the session bean class, 
- *        or in any of its superclasses.
- * 		- The session bean class is allowed to implement other methods (for example 
- *        helper methods invoked internally by the business methods) in addition to 
- *        the methods required by the EJB specification.
- *
- *		[4] If the session bean class does implement the remote interface, care must 
- *          be taken to avoid passing of this as a method argument or result. This 
- *          potential error can be avoided by choosing not to implement the remote 
- *          interface in the session bean class.
- *
- * 6.10.3 ejbCreate methods
- * The session bean class must define one or more ejbCreate(...) methods whose signatures must
- * follow these rules:
- * 		- The method name must be ejbCreate.
- * 		- The method must be declared as public.
- * 		- The method must not be declared as final or static.
- * 		- The return type must be void.
- * 		- The method arguments must be legal types for RMI/IIOP.
- * 		- The throws clause may define arbitrary application exceptions, possibly 
- *        including the javax.ejb.CreateException. 
- * Compatibility Note: EJB 1.0 allowed the ejbCreate method to throw the java.rmi.RemoteException 
- * to indicate a non-application exception. This practice is deprecated in EJB 1.1 -- an EJB 1.1 
- * compliant enterprise bean should throw the javax.ejb.EJBException or another RuntimeException 
- * to indicate non-application exceptions to the Container (see Section 12.2.2).
- *
- * 6.10.4 Business methods
- * The session bean class may define zero or more business methods whose signatures must follow these rules:
- * 		- The method names can be arbitrary, but they must not start with "ejb" to avoid conflicts with the callback methods used by the EJB architecture.
- * 		- The business method must be declared as public.
- * 		- The method must not be declared as final or static.
- * 		- The argument and return value types for a method must be legal types for RMI/IIOP.
- * 		- The throws clause may define arbitrary application exceptions.
- * Compatibility Note: EJB 1.0 allowed the business methods to throw the java.rmi.RemoteException 
- * to indicate a non-application exception. This practice is deprecated in EJB 1.1 -- an EJB 1.1 compliant
- * enterprise bean should throw the javax.ejb.EJBException or another RuntimeException to
- * indicate non-application exceptions to the Container (see Section 12.2.2).
+ * URL: http://java.sun.com/products/ejb/docs.html
+ * Section: 6.8, 6.10.2, 6.10.3 and 6.10.4
  */
 public class ValidateSessionBean extends AValidateBean implements IMessagePrefixEjb11Constants {
 	private boolean hasValidConstructor = false;
@@ -227,57 +161,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 
 	/**
 	 * Check that the ejbCreate methods and business methods follow the EJB 1.1 spec.
-	 *
-	 *
-	 * 6.8 Stateless session beans
-	 *...
-	 * The home interface of a stateless session bean must have one create 
-	 * method that takes no arguments and returns the session bean's remote 
-	 * interface. There can be no other create methods in the home interface. 
-	 * The session bean class must define a single ejbCreate method that takes 
-	 * no arguments.
-	 *...
-	 *
-	 * 6.10.2 Session bean class
-	 * The following are the requirements for session bean class:
-	 * ...
-	 * 		- The class must have a public constructor that takes no parameters. The 
-	 *        Container uses this constructor to create instances of the session bean class.
-	 * 		- The class must not define the finalize() method.
-	 * ...
-	 * 		- The class must implement the business methods and the ejbCreate methods.
-	 * ...
-	 * 		- The session bean class is allowed to implement other methods (for example 
-	 *        helper methods invoked internally by the business methods) in addition to 
-	 *        the methods required by the EJB specification.
-	 * ...
-	 *
-	 * 6.10.3 ejbCreate methods
-	 * The session bean class must define one or more ejbCreate(...) methods whose signatures must
-	 * follow these rules:
-	 * 		- The method name must be ejbCreate.
-	 * 		- The method must be declared as public.
-	 * 		- The method must not be declared as final or static.
-	 * 		- The return type must be void.
-	 * 		- The method arguments must be legal types for RMI/IIOP.
-	 * 		- The throws clause may define arbitrary application exceptions, possibly 
-	 *        including the javax.ejb.CreateException. 
-	 * Compatibility Note: EJB 1.0 allowed the ejbCreate method to throw the java.rmi.RemoteException 
-	 * to indicate a non-application exception. This practice is deprecated in EJB 1.1 -- an EJB 1.1 
-	 * compliant enterprise bean should throw the javax.ejb.EJBException or another RuntimeException 
-	 * to indicate non-application exceptions to the Container (see Section 12.2.2).
-	 *
-	 * 6.10.4 Business methods
-	 * The session bean class may define zero or more business methods whose signatures must follow these rules:
-	 * 		- The method names can be arbitrary, but they must not start with "ejb" to avoid conflicts with the callback methods used by the EJB architecture.
-	 * 		- The business method must be declared as public.
-	 * 		- The method must not be declared as final or static.
-	 * 		- The argument and return value types for a method must be legal types for RMI/IIOP.
-	 * 		- The throws clause may define arbitrary application exceptions.
-	 * Compatibility Note: EJB 1.0 allowed the business methods to throw the java.rmi.RemoteException 
-	 * to indicate a non-application exception. This practice is deprecated in EJB 1.1 -- an EJB 1.1 compliant
-	 * enterprise bean should throw the javax.ejb.EJBException or another RuntimeException to
-	 * indicate non-application exceptions to the Container (see Section 12.2.2).
+	 * Section: 6.8, 6.10.2, 6.10.3 and 6.10.4
 	 */
 	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
@@ -321,18 +205,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 	
 	/**
 	 * Test that the supplied business method follows the EJB 1.1 spec rules.
-	 *
-	 * 6.10.4 Business methods
-	 * The session bean class may define zero or more business methods whose signatures must follow these rules:
-	 * 		- The method names can be arbitrary, but they must not start with "ejb" to avoid conflicts with the callback methods used by the EJB architecture.
-	 * 		- The business method must be declared as public.
-	 * 		- The method must not be declared as final or static.
-	 * 		- The argument and return value types for a method must be legal types for RMI/IIOP.
-	 * 		- The throws clause may define arbitrary application exceptions.
-	 * Compatibility Note: EJB 1.0 allowed the business methods to throw the java.rmi.RemoteException 
-	 * to indicate a non-application exception. This practice is deprecated in EJB 1.1 -- an EJB 1.1 compliant
-	 * enterprise bean should throw the javax.ejb.EJBException or another RuntimeException to
-	 * indicate non-application exceptions to the Container (see Section 12.2.2).
+	 * Section: 6.10.4
 	 */
 	public void validateBusinessMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
@@ -349,35 +222,12 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 	/**
 	 * Check that the session bean class definition follows the EJB 1.1 spec.
 	 *
-	 * The following paragraph is taken from
 	 * Enterprise JavaBeans Specification ("Specification")
 	 * Version: 1.1
 	 * Status: Final Release
 	 * Release: 12/17/99
-	 * Copyright 1999 Sun Microsystems, Inc.
-	 * 901 San Antonio Road, Palo Alto, CA 94303, U.S.A.
-	 * All rights reserved.
-	 *
-	 * 6.10.2 Session bean class
-	 * The following are the requirements for session bean class:
-	 * 		- The class must implement, directly or indirectly, the javax.ejb.SessionBean 
-	 *        interface.
-	 * 		- The class must be defined as public, must not be final, and must not 
-	 *        be abstract.
-	 * 		- The class may, but is not required to, implement the session bean's 
-	 *        remote interface [4] .
-	 * 		- If the class is a stateful session bean, it may optionally implement 
-	 *        the javax.ejb.SessionSynchronization interface.
-	 * 		- The session bean class may have superclasses and/or superinterfaces. If the 
-	 *        session bean has superclasses, then the business methods, the ejbCreate methods, 
-	 *        the methods of the SessionBean interface, and the methods of the optional 
-	 *        SessionSynchronization interface may be defined in the session bean class, 
-	 *        or in any of its superclasses.
-	 *
-	 *		[4] If the session bean class does implement the remote interface, care must 
-	 *          be taken to avoid passing of this as a method argument or result. This 
-	 *          potential error can be avoided by choosing not to implement the remote 
-	 *          interface in the session bean class.
+	 * URL: http://java.sun.com/products/ejb/docs.html
+	 * Section: 6.10.2
 	 */
 	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		vc.terminateIfCancelled();
@@ -397,16 +247,8 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 
 		if (isStateless) {
 			/*
-			 * 6.5.3 The optional SessionSynchronization interface
-			 *...
-			 * Only a stateful Session bean with container-managed transaction demarcation may 
-			 * implement the SessionSynchronization interface.
-			 *...
-			 * There is no need for a Session bean with bean-managed transaction to rely on the 
-			 * synchronization call backs because the bean is in control of the commit the bean 
-			 * knows when the transaction is about to be committed and it knows the outcome of the 
-			 * transaction commit.
-			 *...
+			 * EJB 1.1 specification
+			 * Section: 6.5.3
 			 */
 			try {
 				if (ValidationRuleUtility.isAssignableFrom(bean.getEjbClass(), ValidationRuleUtility.getType(ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONSYNCHRONIZATION, bean))) {
@@ -424,16 +266,8 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 		}
 		else if (isBeanManagedStateful) {
 			/*
-			 * 6.5.3 The optional SessionSynchronization interface
-			 *...
-			 * Only a stateful Session bean with container-managed transaction demarcation may 
-			 * implement the SessionSynchronization interface.
-			 *...
-			 * There is no need for a Session bean with bean-managed transaction to rely on the 
-			 * synchronization call backs because the bean is in control of the commit the bean 
-			 * knows when the transaction is about to be committed and it knows the outcome of the 
-			 * transaction commit.
-			 *...
+			 * EJB 1.1 specification
+			 * Section: 6.5.3
 			 */
 			try {
 				if (ValidationRuleUtility.isAssignableFrom(bean.getEjbClass(), ValidationRuleUtility.getType(ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONSYNCHRONIZATION, bean))) {
@@ -468,35 +302,12 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 	/**
 	 * Check that the session bean class definition follows the EJB 1.1 spec.
 	 *
-	 * The following paragraph is taken from
 	 * Enterprise JavaBeans Specification ("Specification")
 	 * Version: 1.1
 	 * Status: Final Release
 	 * Release: 12/17/99
-	 * Copyright 1999 Sun Microsystems, Inc.
-	 * 901 San Antonio Road, Palo Alto, CA 94303, U.S.A.
-	 * All rights reserved.
-	 *
-	 * 6.10.2 Session bean class
-	 * The following are the requirements for session bean class:
-	 * 		- The class must implement, directly or indirectly, the javax.ejb.SessionBean 
-	 *        interface.
-	 * 		- The class must be defined as public, must not be final, and must not 
-	 *        be abstract.
-	 * 		- The class may, but is not required to, implement the session bean's 
-	 *        remote interface [4] .
-	 * 		- If the class is a stateful session bean, it may optionally implement 
-	 *        the javax.ejb.SessionSynchronization interface.
-	 * 		- The session bean class may have superclasses and/or superinterfaces. If the 
-	 *        session bean has superclasses, then the business methods, the ejbCreate methods, 
-	 *        the methods of the SessionBean interface, and the methods of the optional 
-	 *        SessionSynchronization interface may be defined in the session bean class, 
-	 *        or in any of its superclasses.
-	 *
-	 *		[4] If the session bean class does implement the remote interface, care must 
-	 *          be taken to avoid passing of this as a method argument or result. This 
-	 *          potential error can be avoided by choosing not to implement the remote 
-	 *          interface in the session bean class.
+	 * URL: http://java.sun.com/products/ejb/docs.html
+	 * Section: 6.10.2
 	 */
 	public void validateClass_remoteDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		vc.terminateIfCancelled();
@@ -529,21 +340,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 	
 	/**
 	 * Test that the supplied ejbCreate method follows the EJB 1.1 spec rules.
-	 *
-	 * 6.10.3 ejbCreate methods
-	 * The session bean class must define one or more ejbCreate(...) methods whose signatures must
-	 * follow these rules:
-	 * 		- The method name must be ejbCreate.
-	 * 		- The method must be declared as public.
-	 * 		- The method must not be declared as final or static.
-	 * 		- The return type must be void.
-	 * 		- The method arguments must be legal types for RMI/IIOP.
-	 * 		- The throws clause may define arbitrary application exceptions, possibly 
-	 *        including the javax.ejb.CreateException. 
-	 * Compatibility Note: EJB 1.0 allowed the ejbCreate method to throw the java.rmi.RemoteException 
-	 * to indicate a non-application exception. This practice is deprecated in EJB 1.1 -- an EJB 1.1 
-	 * compliant enterprise bean should throw the javax.ejb.EJBException or another RuntimeException 
-	 * to indicate non-application exceptions to the Container (see Section 12.2.2).
+	 * Section: 6.10.3
 	 */
 	public void validateEjbCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
@@ -571,12 +368,8 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 	}
 	
 	/**
-	 *...
-	 * 6.10.2 Session bean class
-	 * The following are the requirements for session bean class:
-	 * ...
-	 * 		- The class must not define the finalize() method.
-	 * ...
+	 * EJB 1.1 specification
+	 * Section: 6.10.2
 	 */
 	protected void validateFinalizeMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) {
 		if (method == null) {
@@ -591,21 +384,8 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 	}
 	
 	/**
-	 * 6.8 Stateless session beans
-	 *...
-	 * The session bean class must define a single ejbCreate method that takes 
-	 * no arguments.
-	 *...
-	 * 6.10.2 Session bean class
-	 * The following are the requirements for session bean class:
-	 * ...
-	 * 		- The class must have a public constructor that takes no parameters. The 
-	 *        Container uses this constructor to create instances of the session bean class.
-	 * ...
-	 * 6.10.3 ejbCreate methods
-	 * The session bean class must define one or more ejbCreate(...) methods whose signatures must
-	 * follow these rules:
-	 *...
+	 * EJB 1.1 specification
+	 * Section: 6.8, 6.10.2 and 6.10.3
 	 */
 	protected void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		final String[] modelObjectName = new String[] { clazz.getQualifiedName()};
@@ -638,14 +418,6 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 	 *
 	 * ejbCreate and business methods follow some of the same rules. This method checks those rules.
 	 * (Part of sections 6.10.3 and 6.10.4)
-	 *
-	 * 		- The business method must be declared as public.
-	 * 		- The method must not be declared as final or static.
-	 * 		- The argument and return value types for a method must be legal types for RMI/IIOP.
-	 * Compatibility Note: EJB 1.0 allowed the business methods to throw the java.rmi.RemoteException 
-	 * to indicate a non-application exception. This practice is deprecated in EJB 1.1 -- an EJB 1.1 compliant
-	 * enterprise bean should throw the javax.ejb.EJBException or another RuntimeException to
-	 * indicate non-application exceptions to the Container (see Section 12.2.2).
 	 */
 	public void validateBusinessModifiersAndExceptions(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		// EJB 2.0 added "throws InvalidInputException" above

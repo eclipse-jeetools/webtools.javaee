@@ -28,202 +28,15 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
  * This class checks entity bean classes for errors or potential errors.
  * If any problems are found, an error, warning, or info marker is added to the task list.
  *
- * The following paragraph is taken from
  * Enterprise JavaBeans Specification ("Specification")
  * Version: 1.1
  * Status: Final Release
  * Release: 12/17/99
- * Copyright 1999 Sun Microsystems, Inc.
- * 901 San Antonio Road, Palo Alto, CA 94303, U.S.A.
- * All rights reserved.
- *
+ * URL: http://java.sun.com/products/ejb/docs.html
  *
  * All 9.2.X sections describe BMP requirements.
  * If a CMP requirement is different than these, then the differences are
  * documented in 9.4.X sections.
- *
- * 9.1.5.1 Entity bean instance's view: ... The entity Bean Provider is responsible
- *    for implementing the following methods in the entity bean class:...
- *
- * 9.2.2 Enterprise bean class
- *   - The following are the requirements for an entity bean class:
- *      - The class must implement, directly or indirectly, the javax.ejb.EntityBean interface.
- *      - The class must be defined as public and must not be abstract.
- *      - The class must not be defined as final.
- *      - The class must define a public constructor that takes no arguments.
- *      - The class must not define the finalize() method.
- *   - The class may, but is not required to, implement the entity bean's remote interface [9]. 
- *     If the class implements the entity bean's remote interface, the class must provide no-op 
- *     implementations of the methods defined in the javax.ejb.EJBObject interface. The container 
- *     will never invoke these methods on the bean instances at runtime.
- *   - A no-op implementation of these methods is required to avoid 
- *     defining the entity bean class as abstract.
- *   - The entity bean class must implement the business methods, and the 
- *     ejbCreate, ejbPostCreate, and ejbFind<METHOD> methods as described 
- *     later in this section.
- *   - The entity bean class may have superclasses and/or superinterfaces. 
- *     If the entity bean has superclasses, the business methods, the 
- *     ejbCreate and ejbPostCreate methods, the finder methods, and the
- *     methods of the EntityBean interface may be implemented in the 
- *     enterprise bean class or in any of its superclasses.
- *   - The entity bean class is allowed to implement other methods (for 
- *     example helper methods invoked internally by the business methods) 
- *     in addition to the methods required by the EJB specification.
- *
- * 9.2.3 ejbCreate methods
- *   - The entity bean class may define zero or more ejbCreate(...) methods whose signatures 
- *     must follow these rules:
- *       - The method name must be ejbCreate.
- *       - The method must be declared as public.
- *       - The method must not be declared as final or static.
- *       - The return type must be the entity bean's primary key type.
- *       - The method argument and return value types must be legal types for RMI-IIOP.
- *       - The throws clause may define arbitrary application specific exceptions, 
- *         including the javax.ejb.CreateException.
- *       - Compatibility Note: EJB 1.0 allowed the ejbCreate method to throw the 
- *         java.rmi.RemoteException to indicate a non-application exception. This 
- *         practice is deprecated in EJB 1.1 -- an EJB 1.1 compliant enterprise bean 
- *         should throw the javax.ejb.EJBException or another java.lang.RuntimeException
- *         to indicate non-application exceptions to the Container (see Section 12.2.2).
- *   - The entity object created by the ejbCreate method must have a unique primary key. 
- *     This means that the primary key must be different from the primary keys of all 
- *     the existing entity objects within the same home. The ejbCreate method should 
- *     throw the DuplicateKeyException on an attempt to create an entity object with 
- *     a duplicate primary key. However, it is legal to reuse the primary key of a
- *     previously removed entity object.
- *
- * 9.2.4 ejbPostCreate methods
- *   - For each ejbCreate(...) method, the entity bean class must define a matching 
- *     ejbPostCreate(...) method, using the following rules:
- *        - The method name must be ejbPostCreate.
- *        - The method must be declared as public.
- *        - The method must not be declared as final or static.
- *        - The return type must be void.
- *        - The method arguments must be the same as the arguments of the matching ejbCreate(...) method.
- *        - The throws clause may define arbitrary application specific exceptions, including the javax.ejb.CreateException.
- *        - Compatibility Note: EJB 1.0 allowed the ejbPostCreate method to throw the 
- *          java.rmi.RemoteExceptionto indicate a non-application exception. This practice is deprecated in EJB 1.1 -- an EJB 1.1
- *          compliant enterprise bean should throw the javax.ejb.EJBException or another java.lang.RuntimeException
- *          to indicate non-application exceptions to the Container (see Section 12.2.2).
- *
- * 9.2.5 ejbFind methods
- *   - The entity bean class may also define additional ejbFind<METHOD>(...) finder methods.
- *   - The signatures of the finder methods must follow the following rules:
- *   - A finder method name must start with the prefix "ejbFind" 
- *     (e.g. ejbFindByPrimaryKey, ejbFindLargeAccounts, ejbFindLateShipments).
- *   - A finder method must be declared as public.
- *   - The method must not be declared as final or static.
- *   - The method argument types must be legal types for RMI-IIOP.
- *   - The return type of a finder method must be the entity bean's primary key type, 
- *     or a collection of primary keys (see Section Subsection 9.1.8).
- *   - The throws clause may define arbitrary application specific exceptions, including 
- *     the javax.ejb.FinderException.
- *   - Every entity bean must define the ejbFindByPrimaryKey method. The result type for 
- *     this method must be the primary key type (i.e. the ejbFindByPrimaryKey method must 
- *     be a single-object finder).
- *   - Compatibility Note: EJB 1.0 allowed the finder methods to throw the 
- *     java.rmi.RemoteException to indicate a non-application exception. 
- *     This practice is deprecated in EJB 1.1 -- an EJB 1.1 compliant enterprise bean 
- *     should throw the javax.ejb.EJBException or another java.lang.RuntimeException
- *     to indicate non-application exceptions to the Container (see Section 12.2.2).
- *
- * 9.2.6 Business methods
- *   - The entity bean class may define zero or more business methods whose signatures 
- *     must follow these rules:
- *        - The method names can be arbitrary, but they must not start with 'ejb' to 
- *          avoid conflicts with the callback methods used by the EJB architecture.
- *        - The business method must be declared as public.
- *        - The method must not be declared as final or static.
- *        - The method argument and return value types must be legal types for RMI-IIOP.
- *        - The throws clause may define arbitrary application specific exceptions.
- *        - Compatibility Note: EJB 1.0 allowed the business methods to throw the 
- *          java.rmi.RemoteException to indicate a non-application exception. This 
- *          practice is deprecated in EJB 1.1 -- an EJB 1.1 compliant enterprise bean 
- *          should throw the javax.ejb.EJBException or another java.lang.RuntimeException
- *          to indicate non-application exceptions to the Container (see Section 12.2.2).
- *...
- * 9.2.9 Entity bean's primary key class
- *...
- *  - The primary key type must be a legal Value Type in RMI-IIOP.
- *...
- *
- * 9.4.1 Container-managed fields
- *...
- *   - The following requirements ensure that an entity bean can be deployed in any 
- *     compliant container.
- *        - The Bean Provider must ensure that the Java programming language types 
- *          assigned to the container-managed fields are restricted to the following: 
- *          Java programming language primitive types, Java programming language 
- *          serializable types, and references of enterprise beans' remote or home 
- *          interfaces.
- *        - The Container Provider may, but is not required to, use Java programming 
- *          language Serialization to store the container-managed fields in the database. 
- *          If the container chooses a different approach, the effect should be equivalent 
- *          to that of Java programming language Serialization. The Container must also be 
- *          capable of persisting references to enterprise beans' remote and home interfaces 
- *          (for example, by storing their handle or primary key).
- *...
- *
- * 9.4.2 ejbCreate, ejbPostCreate
- *...
- *   - The ejbCreate(...) methods must be defined to return the primary key class type. 
- *     The implementation of the ejbCreate(...) methods should be coded to return a null. 
- *     The returned value is ignored by the Container.
- *...
- *
- * 9.4.6 finder methods
- *   - The entity Bean Provider does not write the finder (ejbFind<METHOD>(...)) methods.
- *...
- * 9.4.7 primary key type
- *   - The container must be able to manipulate the primary key type. Therefore, 
- *     the primary key type for an entity bean with container-managed persistence 
- *     must follow the rules in this subsection, in addition to those specified in 
- *     Subsection 9.2.9.
- *
- *     There are two ways to specify a primary key class for an entity bean with container-managed persistence:
- *        - Primary key that maps to a single field in the entity bean class.
- *        - Primary key that maps to multiple fields in the entity bean class.
- *     The second method is necessary for implementing compound keys, and the first method is convenient for
- *     single-field keys. Without the first method, simple types such as String would have to be wrapped in a
- *     user-defined class.
- * 
- *     9.4.7.1 Primary key that maps to a single field in the entity bean class
- *     The Bean Provider uses the primkey-field element of the deployment descriptor to specify the
- *     container-managed field of the entity bean class that contains the primary key. The field's type must be
- *     the primary key type.
- *
- *     9.4.7.2 Primary key that maps to multiple fields in the entity bean class
- *     The primary key class must be public, and must have a public constructor with no parameters.
- *     All fields in the primary key class must be declared as public.
- *     The names of the fields in the primary key class must be a subset of the names of the container-managed
- *     fields. (This allows the container to extract the primary key fields from an instance's container-managed
- *     fields, and vice versa.)
- *
- *     9.4.7.3 Special case: Unknown primary key class
- *     In special situations, the entity Bean Provider may choose not to specify the primary key class for an
- *     entity bean with container-managed persistence. This case usually happens when the entity bean does
- *     not have a natural primary key, and the Bean Provider wants to allow the Deployer to select the primary
- *     key fields at deployment time. The entity bean's primary key type will usually be derived from the primary
- *     key type used by the underlying database system that stores the entity objects. The primary key
- *     used by the database system may not be known to the Bean Provider.
- *     When defining the primary key for the enterprise bean, the Deployer may sometimes need to subclass
- *     the entity bean class to add additional container-managed fields (this typically happens for entity beans
- *     that do not have a natural primary key, and the primary keys are system-generated by the underlying
- *     database system that stores the entity objects).
- *     In this special case, the type of the argument of the findByPrimaryKey method must be declared as
- *     java.lang.Object, and the return value of ejbCreate() must be declared as
- *     java.lang.Object. The Bean Provider must specify the primary key class in the deployment
- *     descriptor as of the type java.lang.Object.
- *     The primary key class is specified at deployment time in the situations when the Bean Provider develops
- *     an entity bean that is intended to be used with multiple back-ends that provide persistence, and when
- *     these multiple back-ends require different primary key structures.
- *     Use of entity beans with a deferred primary key type specification limits the client application programming
- *     model, because the clients written prior to deployment of the entity bean may not use, in general,
- *     the methods that rely on the knowledge of the primary key type.
- *     The implementation of the enterprise bean class methods must be done carefully. For example, the meth-ods
- *     should not depend on the type of the object returned from EntityContext.getPrimaryKey(), because
- *     the return type is determined by the Deployer after the EJB class has been written.
- *
  */
 public abstract class AValidateEntityBean extends AValidateBean {
 	protected final static String JAVAX_EJB_ENTITYBEAN = "javax.ejb.EntityBean"; //$NON-NLS-1$
@@ -293,25 +106,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	/**
 	 * Checks that the methods in the entity bean class follow the EJB 1.1. specification,
 	 * and that there are no missing required methods.
-	 *
-	 * 9.2.2 Enterprise bean class
-	 *...
-	 *   - The following are the requirements for an entity bean class:
-	 *...
-	 *      - The class must define a public constructor that takes no arguments.
-	 *      - The class must not define the finalize() method.
-	 *...
-	 *   - The entity bean class must implement the business methods, and the 
-	 *     ejbCreate, ejbPostCreate, and ejbFind<METHOD> methods as described 
-	 *     later in this section.
-	 *   - The entity bean class may have superclasses and/or superinterfaces. 
-	 *     If the entity bean has superclasses, the business methods, the 
-	 *     ejbCreate and ejbPostCreate methods, the finder methods, and the
-	 *     methods of the EntityBean interface may be implemented in the 
-	 *     enterprise bean class or in any of its superclasses.
-	 *   - The entity bean class is allowed to implement other methods (for 
-	 *     example helper methods invoked internally by the business methods) 
-	 *     in addition to the methods required by the EJB specification.
+	 * Section: 9.2.2
 	 */
 	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
@@ -396,20 +191,8 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	}
 	
 	/**
-	 * 9.2.6 Business methods
-	 *   - The entity bean class may define zero or more business methods whose signatures 
-	 *     must follow these rules:
-	 *        - The method names can be arbitrary, but they must not start with 'ejb' to 
-	 *          avoid conflicts with the callback methods used by the EJB architecture.
-	 *        - The business method must be declared as public.
-	 *        - The method must not be declared as final or static.
-	 *        - The method argument and return value types must be legal types for RMI-IIOP.
-	 *        - The throws clause may define arbitrary application specific exceptions.
-	 *        - Compatibility Note: EJB 1.0 allowed the business methods to throw the 
-	 *          java.rmi.RemoteException to indicate a non-application exception. This 
-	 *          practice is deprecated in EJB 1.1 -- an EJB 1.1 compliant enterprise bean 
-	 *          should throw the javax.ejb.EJBException or another java.lang.RuntimeException
-	 *          to indicate non-application exceptions to the Container (see Section 12.2.2).
+	 * EJB 1.1 specification
+	 * Section: 9.2.6
 	 */
 	public void validateBusinessMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
@@ -451,29 +234,8 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	}
 	
 	/**
-	 * 9.2.2 Enterprise bean class
-	 *   - The following are the requirements for an entity bean class:
-	 *      - The class must implement, directly or indirectly, the javax.ejb.EntityBean interface.
-	 *      - The class must be defined as public and must not be abstract.
-	 *      - The class must not be defined as final.
-	 *...
-	 *   - The class may, but is not required to, implement the entity bean's remote interface [9]. 
-	 *     If the class implements the entity bean's remote interface, the class must provide no-op 
-	 *     implementations of the methods defined in the javax.ejb.EJBObject interface. The container 
-	 *     will never invoke these methods on the bean instances at runtime.
-	 *   - A no-op implementation of these methods is required to avoid 
-	 *     defining the entity bean class as abstract.
-	 *   - The entity bean class must implement the business methods, and the 
-	 *     ejbCreate, ejbPostCreate, and ejbFind<METHOD> methods as described 
-	 *     later in this section.
-	 *   - The entity bean class may have superclasses and/or superinterfaces. 
-	 *     If the entity bean has superclasses, the business methods, the 
-	 *     ejbCreate and ejbPostCreate methods, the finder methods, and the
-	 *     methods of the EntityBean interface may be implemented in the 
-	 *     enterprise bean class or in any of its superclasses.
-	 *   - The entity bean class is allowed to implement other methods (for 
-	 *     example helper methods invoked internally by the business methods) 
-	 *     in addition to the methods required by the EJB specification.
+	 * EJB 1.1 specification
+	 * Section: 9.2.2
 	 */
 	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		// All of the above checks are performed by ValidateBean.
@@ -484,47 +246,8 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	}
 	
 	/**
-	 * 9.2.3 ejbCreate methods
-	 *   - The entity bean class may define zero or more ejbCreate(...) methods whose signatures 
-	 *     must follow these rules:
-	 *       - The method name must be ejbCreate.
-	 *       - The method must be declared as public.
-	 *       - The method must not be declared as final or static.
-	 *       - The return type must be the entity bean's primary key type.
-	 *       - The method argument and return value types must be legal types for RMI-IIOP.
-	 *       - The throws clause may define arbitrary application specific exceptions, 
-	 *         including the javax.ejb.CreateException.
-	 *       - Compatibility Note: EJB 1.0 allowed the ejbCreate method to throw the 
-	 *         java.rmi.RemoteException to indicate a non-application exception. This 
-	 *         practice is deprecated in EJB 1.1 -- an EJB 1.1 compliant enterprise bean 
-	 *         should throw the javax.ejb.EJBException or another java.lang.RuntimeException
-	 *         to indicate non-application exceptions to the Container (see Section 12.2.2).
-	 *   - The entity object created by the ejbCreate method must have a unique primary key. 
-	 *     This means that the primary key must be different from the primary keys of all 
-	 *     the existing entity objects within the same home. The ejbCreate method should 
-	 *     throw the DuplicateKeyException on an attempt to create an entity object with 
-	 *     a duplicate primary key. However, it is legal to reuse the primary key of a
-	 *     previously removed entity object.
-	 *
-	 * 9.2.8 Entity bean's home interface
-	 * The following are the requirements for the entity bean's home interface:
-	 *   - Each create method must be named "create", and it must match one of the 
-	 *     ejbCreate methods defined in the enterprise Bean class. The matching 
-	 *     ejbCreate method must have the same number and types of its arguments. 
-	 *     (Note that the return type is different.)
-	 *   - All the exceptions defined in the throws clause of the matching ejbCreate 
-	 *     and ejbPostCreate methods of the enterprise Bean class must be included in 
-	 *     the throws clause of the matching create method of the home interface 
-	 *     (i.e the set of exceptions defined for the create method must be a superset
-	 *     of the union of exceptions defined for the ejbCreate and ejbPostCreate methods)
-	 *...
-	 *
-	 * 9.4.2 ejbCreate, ejbPostCreate
-	 *...
-	 *   - The ejbCreate(...) methods must be defined to return the primary key class type. 
-	 *     The implementation of the ejbCreate(...) methods should be coded to return a null. 
-	 *     The returned value is ignored by the Container.
-	 *...
+	 * EJB 1.1 specification
+	 * Section: 9.2.3, 9.2.8 and 9.4.2
 	 */
 	public void validateEjbCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
@@ -585,47 +308,8 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	}
 	
 	/**
-	 * 9.2.3 ejbCreate methods
-	 *   - The entity bean class may define zero or more ejbCreate(...) methods whose signatures 
-	 *     must follow these rules:
-	 *       - The method name must be ejbCreate.
-	 *       - The method must be declared as public.
-	 *       - The method must not be declared as final or static.
-	 *       - The return type must be the entity bean's primary key type.
-	 *       - The method argument and return value types must be legal types for RMI-IIOP.
-	 *       - The throws clause may define arbitrary application specific exceptions, 
-	 *         including the javax.ejb.CreateException.
-	 *       - Compatibility Note: EJB 1.0 allowed the ejbCreate method to throw the 
-	 *         java.rmi.RemoteException to indicate a non-application exception. This 
-	 *         practice is deprecated in EJB 1.1 -- an EJB 1.1 compliant enterprise bean 
-	 *         should throw the javax.ejb.EJBException or another java.lang.RuntimeException
-	 *         to indicate non-application exceptions to the Container (see Section 12.2.2).
-	 *   - The entity object created by the ejbCreate method must have a unique primary key. 
-	 *     This means that the primary key must be different from the primary keys of all 
-	 *     the existing entity objects within the same home. The ejbCreate method should 
-	 *     throw the DuplicateKeyException on an attempt to create an entity object with 
-	 *     a duplicate primary key. However, it is legal to reuse the primary key of a
-	 *     previously removed entity object.
-	 *
-	 * 9.2.8 Entity bean's home interface
-	 * The following are the requirements for the entity bean's home interface:
-	 *   - Each create method must be named "create", and it must match one of the 
-	 *     ejbCreate methods defined in the enterprise Bean class. The matching 
-	 *     ejbCreate method must have the same number and types of its arguments. 
-	 *     (Note that the return type is different.)
-	 *   - All the exceptions defined in the throws clause of the matching ejbCreate 
-	 *     and ejbPostCreate methods of the enterprise Bean class must be included in 
-	 *     the throws clause of the matching create method of the home interface 
-	 *     (i.e the set of exceptions defined for the create method must be a superset
-	 *     of the union of exceptions defined for the ejbCreate and ejbPostCreate methods)
-	 *...
-	 *
-	 * 9.4.2 ejbCreate, ejbPostCreate
-	 *...
-	 *   - The ejbCreate(...) methods must be defined to return the primary key class type. 
-	 *     The implementation of the ejbCreate(...) methods should be coded to return a null. 
-	 *     The returned value is ignored by the Container.
-	 *...
+	 * EJB 1.1 specification
+	 * Section: 9.2.3, 9.2.8 and 9.4.2
 	 */
 	public void validateEjbCreateMethod_keyDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
@@ -659,36 +343,8 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	}
 	
 	/**
-	 * 9.2.5 ejbFind methods
-	 *   - The entity bean class may also define additional ejbFind<METHOD>(...) finder methods.
-	 *   - The signatures of the finder methods must follow the following rules:
-	 *   - A finder method name must start with the prefix "ejbFind" 
-	 *     (e.g. ejbFindByPrimaryKey, ejbFindLargeAccounts, ejbFindLateShipments).
-	 *   - A finder method must be declared as public.
-	 *   - The method must not be declared as final or static.
-	 *   - The method argument types must be legal types for RMI-IIOP.
-	 *   - The return type of a finder method must be the entity bean's primary key type, 
-	 *     or a collection of primary keys (see Section Subsection 9.1.8).
-	 *   - The throws clause may define arbitrary application specific exceptions, including 
-	 *     the javax.ejb.FinderException.
-	 *   - Every entity bean must define the ejbFindByPrimaryKey method. The result type for 
-	 *     this method must be the primary key type (i.e. the ejbFindByPrimaryKey method must 
-	 *     be a single-object finder).
-	 *   - Compatibility Note: EJB 1.0 allowed the finder methods to throw the 
-	 *     java.rmi.RemoteException to indicate a non-application exception. 
-	 *     This practice is deprecated in EJB 1.1 -- an EJB 1.1 compliant enterprise bean 
-	 *     should throw the javax.ejb.EJBException or another java.lang.RuntimeException
-	 *     to indicate non-application exceptions to the Container (see Section 12.2.2).
-	 *
-	 * 9.4.6 finder methods
-	 *   - The entity Bean Provider does not write the finder (ejbFind<METHOD>(...)) methods.
-	 *
-	 * 9.4.7.3 (CMP) Special case: Unknown primary key class.
-	 *   - In this special case, the type of the argument of the findByPrimaryKey method 
-	 *     must be declared as java.lang.Object, and the return value of ejbCreate() must 
-	 *     be declared as java.lang.Object. The Bean Provider must specify the primary key 
-	 *     class in the deployment descriptor as of the type java.lang.Object.
-	 *  (This does not need to be validated directly, since CMPs don't implement finder methods.
+	 * EJB 1.1 specification
+	 * Section: 9.2.5, 9.4.6 and 9.4.7.3
 	 */
 	public void validateEjbFindMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		// This method is a no-op so that the dependency classes don't have to implement it.
@@ -696,36 +352,8 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	}
 	
 	/**
-	 * 9.2.5 ejbFind methods
-	 *   - The entity bean class may also define additional ejbFind<METHOD>(...) finder methods.
-	 *   - The signatures of the finder methods must follow the following rules:
-	 *   - A finder method name must start with the prefix "ejbFind" 
-	 *     (e.g. ejbFindByPrimaryKey, ejbFindLargeAccounts, ejbFindLateShipments).
-	 *   - A finder method must be declared as public.
-	 *   - The method must not be declared as final or static.
-	 *   - The method argument types must be legal types for RMI-IIOP.
-	 *   - The return type of a finder method must be the entity bean's primary key type, 
-	 *     or a collection of primary keys (see Section Subsection 9.1.8).
-	 *   - The throws clause may define arbitrary application specific exceptions, including 
-	 *     the javax.ejb.FinderException.
-	 *   - Every entity bean must define the ejbFindByPrimaryKey method. The result type for 
-	 *     this method must be the primary key type (i.e. the ejbFindByPrimaryKey method must 
-	 *     be a single-object finder).
-	 *   - Compatibility Note: EJB 1.0 allowed the finder methods to throw the 
-	 *     java.rmi.RemoteException to indicate a non-application exception. 
-	 *     This practice is deprecated in EJB 1.1 -- an EJB 1.1 compliant enterprise bean 
-	 *     should throw the javax.ejb.EJBException or another java.lang.RuntimeException
-	 *     to indicate non-application exceptions to the Container (see Section 12.2.2).
-	 *
-	 * 9.4.6 finder methods
-	 *   - The entity Bean Provider does not write the finder (ejbFind<METHOD>(...)) methods.
-	 *
-	 * 9.4.7.3 (CMP) Special case: Unknown primary key class.
-	 *   - In this special case, the type of the argument of the findByPrimaryKey method 
-	 *     must be declared as java.lang.Object, and the return value of ejbCreate() must 
-	 *     be declared as java.lang.Object. The Bean Provider must specify the primary key 
-	 *     class in the deployment descriptor as of the type java.lang.Object.
-	 *  (This does not need to be validated directly, since CMPs don't implement finder methods.
+	 * EJB 1.1 specification
+	 * Section: 9.2.5, 9.4.6 and 9.4.7.3
 	 */
 	public void validateEjbFindMethod_homeDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		// All the exceptions defined in the throws clause of the matching ejbCreate 
@@ -756,25 +384,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	
 	/**
 	 * Checks that the ejbPostCreate method follows the EJB 1.1. specification.
-	 *
-	 * 9.2.4 ejbPostCreate methods
-	 * - For each ejbCreate(...) method, the entity bean class must define a matching 
-	 *   ejbPostCreate(...) method, using the following rules:
-	 *    - The method name must be ejbPostCreate.
-	 *    - The method must be declared as public.
-	 *    - The method must not be declared as final or static.
-	 *    - The return type must be void.
-	 *    - The method arguments must be the same as the arguments of the matching 
-	 *      ejbCreate(...) method.
-	 *    - The throws clause may define arbitrary application specific exceptions, 
-	 *      including the javax.ejb.CreateException.
-	 *      Compatibility Note: EJB 1.0 allowed the ejbPostCreate method to throw 
-	 *      the java.rmi.RemoteException to indicate a non-application exception. 
-	 *      This practice is deprecated in EJB 1.1 -- an EJB 1.1 compliant enterprise 
-	 *      bean should throw the javax.ejb.EJBException or another 
-	 *      java.lang.RuntimeException to indicate non-application exceptions to the 
-	 *      Container (see Section 12.2.2).
-	 *...
+	 * Section: 9.2.4
 	*/
 	public void validateEjbPostCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
@@ -831,25 +441,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	
 	/**
 	 * Checks that the ejbPostCreate method follows the EJB 1.1. specification.
-	 *
-	 * 9.2.4 ejbPostCreate methods
-	 * - For each ejbCreate(...) method, the entity bean class must define a matching 
-	 *   ejbPostCreate(...) method, using the following rules:
-	 *    - The method name must be ejbPostCreate.
-	 *    - The method must be declared as public.
-	 *    - The method must not be declared as final or static.
-	 *    - The return type must be void.
-	 *    - The method arguments must be the same as the arguments of the matching 
-	 *      ejbCreate(...) method.
-	 *    - The throws clause may define arbitrary application specific exceptions, 
-	 *      including the javax.ejb.CreateException.
-	 *      Compatibility Note: EJB 1.0 allowed the ejbPostCreate method to throw 
-	 *      the java.rmi.RemoteException to indicate a non-application exception. 
-	 *      This practice is deprecated in EJB 1.1 -- an EJB 1.1 compliant enterprise 
-	 *      bean should throw the javax.ejb.EJBException or another 
-	 *      java.lang.RuntimeException to indicate non-application exceptions to the 
-	 *      Container (see Section 12.2.2).
-	 *...
+	 * Section: 9.2.4
 	*/
 	public void validateEjbPostCreateMethod_homeDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
@@ -899,12 +491,8 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	}
 	
 	/**
-	 * 9.2.2 Enterprise bean class
-	 *...
-	 *   - The following are the requirements for an entity bean class:
-	 *...
-	 *      - The class must not define the finalize() method.
-	 *...
+	 * EJB 1.1 specification
+	 * Section: 9.2.2
 	 */
 	protected void validateFinalize(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) {
 		if (method == null) {
@@ -920,19 +508,8 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	}
 	
 	/**
-	 * 9.2.2 Enterprise bean class
-	 *...
-	 *   - The following are the requirements for an entity bean class:
-	 *...
-	 *      - The class must define a public constructor that takes no arguments.
-	 *...
-	 *
-	 * EJB spec 1.1, p. 105 explains why this method does not check for at least one ejbCreate method.
-	 *    [6] An entity enterprise Bean has no ejbCreate(...) and ejbPostCreate(...) 
-	 *    methods if it does not define any create methods in its home interface. 
-	 *    Such an entity enterprise Bean does not allow the clients to create new 
-	 *    EJB objects. The enterprise Bean restricts the clients to accessing entities 
-	 *    that were created through direct database inserts.
+	 * EJB 1.1 specification
+	 * Section: 9.2.2
 	 */
 	protected void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		final String[] modelObjectName = new String[] { clazz.getQualifiedName()};
