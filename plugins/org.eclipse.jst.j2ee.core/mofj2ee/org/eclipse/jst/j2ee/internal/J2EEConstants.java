@@ -45,7 +45,9 @@ public interface J2EEConstants extends J2EEVersionConstants {
 	String APP_CLIENT_PUBLICID_1_2		=   "-//Sun Microsystems, Inc.//DTD J2EE Application Client 1.2//EN"; //$NON-NLS-1$
 	String APP_CLIENT_PUBLICID_1_3		=   "-//Sun Microsystems, Inc.//DTD J2EE Application Client 1.3//EN"; //$NON-NLS-1$
 	String APP_CLIENT_SYSTEMID_1_2		= 	"http://java.sun.com/j2ee/dtds/application-client_1_2.dtd"; //$NON-NLS-1$
+	String APP_CLIENT_ALT_SYSTEMID_1_2	= 	"http://java.sun.com/j2ee/dtds/application-client_1.2.dtd"; //$NON-NLS-1$
 	String APP_CLIENT_SYSTEMID_1_3		= 	"http://java.sun.com/dtd/application-client_1_3.dtd"; //$NON-NLS-1$
+	String APP_CLIENT_ALT_SYSTEMID_1_3	= 	"http://java.sun.com/dtd/application-client_1.3.dtd"; //$NON-NLS-1$
 	String APP_CLIENT_SCHEMA_1_4       =   "http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application-client_1_4.xsd";//$NON-NLS-1$
 	
 	
@@ -64,7 +66,9 @@ public interface J2EEConstants extends J2EEVersionConstants {
 	String APPLICATION_PUBLICID_1_3		=   "-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN"; //$NON-NLS-1$
 	String APPLICATION_PUBLICID_1_4		=   "-//Sun Microsystems, Inc.//DTD J2EE Application 1.4//EN"; //$NON-NLS-1$
 	String APPLICATION_SYSTEMID_1_2		= 	"http://java.sun.com/j2ee/dtds/application_1_2.dtd"; //$NON-NLS-1$
+	String APPLICATION_ALT_SYSTEMID_1_2	= 	"http://java.sun.com/j2ee/dtds/application_1.2.dtd"; //$NON-NLS-1$
 	String APPLICATION_SYSTEMID_1_3		= 	"http://java.sun.com/dtd/application_1_3.dtd"; //$NON-NLS-1$
+	String APPLICATION_ALT_SYSTEMID_1_3	= 	"http://java.sun.com/dtd/application_1.3.dtd"; //$NON-NLS-1$
 	String APPLICATION_SYSTEMID_1_4		= 	"http://java.sun.com/dtd/application_1_4.dtd"; //$NON-NLS-1$
 	String APPLICATION_SCHEMA_1_4       =   "http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application_1_4.xsd";//$NON-NLS-1$
 	
@@ -83,7 +87,9 @@ public interface J2EEConstants extends J2EEVersionConstants {
 	String EJBJAR_PUBLICID_1_1		=   "-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 1.1//EN"; //$NON-NLS-1$
 	String EJBJAR_PUBLICID_2_0		=   "-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN"; //$NON-NLS-1$
 	String EJBJAR_SYSTEMID_1_1		= 	"http://java.sun.com/j2ee/dtds/ejb-jar_1_1.dtd"; //$NON-NLS-1$
+	String EJBJAR_ALT_SYSTEMID_1_1	= 	"http://java.sun.com/j2ee/dtds/ejb-jar_1.1.dtd"; //$NON-NLS-1$
 	String EJBJAR_SYSTEMID_2_0		= 	"http://java.sun.com/dtd/ejb-jar_2_0.dtd"; //$NON-NLS-1$
+	String EJBJAR_ALT_SYSTEMID_2_0	= 	"http://java.sun.com/dtd/ejb-jar_2.0.dtd"; //$NON-NLS-1$
 	String EJBJAR_SCHEMA_2_1        =   "http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd";//$NON-NLS-1$
 	String EJBJAR_SCHEMA_2_1_NS     =   "http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd";//$NON-NLS-1$
 	
@@ -104,6 +110,7 @@ public interface J2EEConstants extends J2EEVersionConstants {
 	String WEBAPP_SYSTEMID_2_2		= 	"http://java.sun.com/j2ee/dtds/web-app_2_2.dtd"; //$NON-NLS-1$
 	String WEBAPP_ALT_SYSTEMID_2_2	= 	"http://java.sun.com/j2ee/dtds/web-app_2.2.dtd"; //$NON-NLS-1$
 	String WEBAPP_SYSTEMID_2_3		= 	"http://java.sun.com/dtd/web-app_2_3.dtd"; //$NON-NLS-1$
+	String WEBAPP_ALT_SYSTEMID_2_3	= 	"http://java.sun.com/dtd/web-app_2.3.dtd"; //$NON-NLS-1$
 	String WEBAPP_SCHEMA_2_4        =   "http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd";//$NON-NLS-1$
 	//J2C Resource Adapter Constants
 	/** "J2CResourceAdapter_ID"												*/
@@ -118,6 +125,7 @@ public interface J2EEConstants extends J2EEVersionConstants {
 	String CONNECTOR_DOCTYPE 			= 	"connector"; //$NON-NLS-1$
 	String CONNECTOR_PUBLICID_1_0		=   "-//Sun Microsystems, Inc.//DTD Connector 1.0//EN"; //$NON-NLS-1$
 	String CONNECTOR_SYSTEMID_1_0		= 	"http://java.sun.com/dtd/connector_1_0.dtd"; //$NON-NLS-1$
+	String CONNECTOR_ALT_SYSTEMID_1_0	= 	"http://java.sun.com/dtd/connector_1.0.dtd"; //$NON-NLS-1$
 	String CONNECTOR_SCHEMA_1_5         =   "http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/connector_1_5.xsd";//$NON-NLS-1$
 	
 	//Web Services Constants

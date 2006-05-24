@@ -30,9 +30,10 @@ public class ApplicationClientResourceFactory extends TranslatorResourceFactory 
 	 */
 	public static void registerDtds() {
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.APP_CLIENT_SYSTEMID_1_2, "application-client_1_2.dtd"); //$NON-NLS-1$
+		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.APP_CLIENT_ALT_SYSTEMID_1_2, "application-client_1.2.dtd"); //$NON-NLS-1$
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.APP_CLIENT_SYSTEMID_1_3, "application-client_1_3.dtd"); //$NON-NLS-1$
-		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.APP_CLIENT_SCHEMA_LOC_1_4, "application-client_1_4.xsd"); //$NON-NLS-1$
-		
+		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.APP_CLIENT_ALT_SYSTEMID_1_3, "application-client_1.3.dtd"); //$NON-NLS-1$
+		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.APP_CLIENT_SCHEMA_LOC_1_4, "application-client_1_4.xsd"); //$NON-NLS-1$	
 	}
 
 	/**

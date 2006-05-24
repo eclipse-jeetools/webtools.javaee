@@ -41,8 +41,9 @@ public class WebAppResourceFactory extends TranslatorResourceFactory {
 	 */
 	public static void registerDtds() {
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.WEBAPP_SYSTEMID_2_2, "web-app_2_2.dtd"); //$NON-NLS-1$
-		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.WEBAPP_ALT_SYSTEMID_2_2, "web-app_2.2.dtd");		//$NON-NLS-1$
+		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.WEBAPP_ALT_SYSTEMID_2_2, "web-app_2.2.dtd");	//$NON-NLS-1$
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.WEBAPP_SYSTEMID_2_3, "web-app_2_3.dtd"); //$NON-NLS-1$
+		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.WEBAPP_ALT_SYSTEMID_2_3, "web-app_2.3.dtd"); //$NON-NLS-1$
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.WEB_APP_SCHEMA_LOC_2_4, "web-app_2_4.xsd"); //$NON-NLS-1$
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.JSP_SCHEMA_LOC_2_0, "jsp_2_0.xsd"); //$NON-NLS-1$
 	}

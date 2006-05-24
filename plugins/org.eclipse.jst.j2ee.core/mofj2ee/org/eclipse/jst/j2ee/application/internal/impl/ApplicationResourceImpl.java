@@ -73,12 +73,20 @@ public class ApplicationResourceImpl extends XMLResourceImpl implements Applicat
 	public String getJ2EE_1_2_SystemID() {
 		return J2EEConstants.APPLICATION_SYSTEMID_1_2;
 	}
+	
+	public String getJ2EE_Alt_1_2_SystemID() {
+		return J2EEConstants.APPLICATION_ALT_SYSTEMID_1_2;
+	}
 
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_3_SystemID()
 	 */
 	public String getJ2EE_1_3_SystemID() {
 		return J2EEConstants.APPLICATION_SYSTEMID_1_3;
+	}
+	
+	public String getJ2EE_Alt_1_3_SystemID() {
+		return J2EEConstants.APPLICATION_ALT_SYSTEMID_1_3;
 	}
 
 	/* (non-Javadoc)

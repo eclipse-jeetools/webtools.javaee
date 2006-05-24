@@ -130,9 +130,9 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 		int version = J2EE_1_4_ID;
 		if (systemId == null) 
 			version = J2EE_1_4_ID;
-		else if (systemId.equals(getJ2EE_1_3_SystemID()))
+		else if (systemId.equals(getJ2EE_1_3_SystemID()) || systemId.equals(getJ2EE_Alt_1_3_SystemID()))
 			version = J2EE_1_3_ID;
-		else if (systemId.equals(getJ2EE_1_2_SystemID()))
+		else if (systemId.equals(getJ2EE_1_2_SystemID()) || systemId.equals(getJ2EE_Alt_1_2_SystemID()))
 			version = J2EE_1_2_ID;
 		super.setDoctypeValues(publicId, systemId);
 		setJ2EEVersionID(version);
@@ -216,10 +216,30 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 				return null;
 		}
 	}
+	
 	public abstract String getJ2EE_1_2_PublicID();
+	
 	public abstract String getJ2EE_1_2_SystemID();
+	
+	/**
+	 * By default just return the proper 1.2 system ID, subclasses may override
+	 * @return alternate string for system ID
+	 */
+	public String getJ2EE_Alt_1_2_SystemID() {
+		return getJ2EE_1_2_SystemID();
+	}
+	
 	public abstract String getJ2EE_1_3_PublicID();
+	
 	public abstract String getJ2EE_1_3_SystemID();
+	
+	/**
+	 * By default just return the proper 1.3 system ID, subclasses may override
+	 * @return alternate string for system ID
+	 */
+	public String getJ2EE_Alt_1_3_SystemID() {
+		return getJ2EE_1_3_SystemID();
+	}
 	
 	
 	public NotificationChain basicSetResourceSet(ResourceSet aResourceSet, NotificationChain notifications) {

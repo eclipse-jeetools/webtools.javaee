@@ -29,7 +29,9 @@ public class ApplicationResourceFactory extends TranslatorResourceFactory {
 	 */
 	public static void registerDtds() {
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.APPLICATION_SYSTEMID_1_2, "application_1_2.dtd"); //$NON-NLS-1$
+		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.APPLICATION_ALT_SYSTEMID_1_2, "application_1.2.dtd"); //$NON-NLS-1$
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.APPLICATION_SYSTEMID_1_3, "application_1_3.dtd"); //$NON-NLS-1$
+		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.APPLICATION_ALT_SYSTEMID_1_3, "application_1.3.dtd"); //$NON-NLS-1$
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.APPLICATION_SCHEMA_LOC_1_4, "application_1_4.xsd"); //$NON-NLS-1$
 		// moved to the web svcs J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.WEB_SERVICES_CLIENT_SCHEMA_LOC_1_1, "j2ee_web_services_client_1_1.xsd"); //$NON-NLS-1$
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.J2EE_1_4_XSD_SHORT_NAME, J2EEConstants.J2EE_1_4_XSD_SHORT_NAME); 

@@ -61,6 +61,10 @@ public class WebAppResourceImpl extends XMLResourceImpl implements WebAppResourc
 	public String getJ2EE_1_2_SystemID() {
 		return J2EEConstants.WEBAPP_SYSTEMID_2_2;
 	}
+	
+	public String getJ2EE_Alt_1_2_SystemID() {
+		return J2EEConstants.WEBAPP_ALT_SYSTEMID_2_2;
+	}
 
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_3_PublicID()
@@ -76,6 +80,9 @@ public class WebAppResourceImpl extends XMLResourceImpl implements WebAppResourc
 		return J2EEConstants.WEBAPP_SYSTEMID_2_3;
 	}
 
+	public String getJ2EE_Alt_1_3_SystemID() {
+		return J2EEConstants.WEBAPP_ALT_SYSTEMID_2_3;
+	}
 	/*
 	 * @see WebAppResource#isWeb2_2()
 	 * @deprecated - use getModuleVersionID() and J2EEVersionConstants

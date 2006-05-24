@@ -33,7 +33,9 @@ public class EJBJarResourceFactory extends TranslatorResourceFactory {
 	
 	public static void registerDtds() {
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.EJBJAR_SYSTEMID_1_1, "ejb-jar_1_1.dtd"); //$NON-NLS-1$
+		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.EJBJAR_ALT_SYSTEMID_1_1, "ejb-jar_1.1.dtd"); //$NON-NLS-1$
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.EJBJAR_SYSTEMID_2_0, "ejb-jar_2_0.dtd"); //$NON-NLS-1$
+		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.EJBJAR_ALT_SYSTEMID_2_0, "ejb-jar_2.0.dtd"); //$NON-NLS-1$
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.EJB_JAR_SCHEMA_LOC_2_1, "ejb-jar_2_1.xsd"); //$NON-NLS-1$
 	}
 

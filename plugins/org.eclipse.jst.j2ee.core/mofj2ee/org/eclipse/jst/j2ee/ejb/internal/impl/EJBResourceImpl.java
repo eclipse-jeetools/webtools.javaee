@@ -97,6 +97,10 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	public String getJ2EE_1_2_SystemID() {
 		return J2EEConstants.EJBJAR_SYSTEMID_1_1;
 	}
+	
+	public String getJ2EE_Alt_1_2_SystemID() {
+		return J2EEConstants.EJBJAR_ALT_SYSTEMID_1_1;
+	}
 
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_3_PublicID()
@@ -110,6 +114,10 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	 */
 	public String getJ2EE_1_3_SystemID() {
 		return J2EEConstants.EJBJAR_SYSTEMID_2_0;
+	}
+	
+	public String getJ2EE_Alt_1_3_SystemID() {
+		return J2EEConstants.EJBJAR_ALT_SYSTEMID_2_0;
 	}
 
 	/* (non-Javadoc)
