@@ -125,7 +125,7 @@ public class SecurityRoleRefImpl extends EObjectImpl implements SecurityRoleRef{
 				d.setValue(newDescription);
 		}
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.SECURITY_ROLE__DESCRIPTION, oldDescription, description));
+			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.SECURITY_ROLE_REF__DESCRIPTION, oldDescription, description));
 	}
 
 	public String getDescription() {
