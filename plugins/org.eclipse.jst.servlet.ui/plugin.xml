@@ -161,12 +161,6 @@
 				enablesFor="1"
 				id="convertToWebModuleTypeAction">
 		</action>
-		<enablement>
-		  <and>
-			<objectClass name="org.eclipse.core.resources.IProject"/>
-			<objectState name="facet" value="wst.web"/>
-		   </and>
-		</enablement>
       </objectContribution>  
     </extension>
 

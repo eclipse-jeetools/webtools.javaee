@@ -166,7 +166,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			IProject project = projects[i];
 			IVirtualComponent component = ComponentCore.createComponent(project);
 			try {
-				if (!ModuleCoreNature.isFlexibleProject(project) || J2EEProjectUtilities.isEARProject(project))
+				if (!ModuleCoreNature.isFlexibleProject(project) || J2EEProjectUtilities.isEARProject(project) || J2EEProjectUtilities.isStaticWebProject(project))
 					continue;
 			} catch (Exception e) {
 				continue;
@@ -790,7 +790,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			// Handle project adds and project opens
 			if ((delta.getKind()==IResourceDelta.ADDED || (((delta.getFlags() & IResourceDelta.OPEN) != 0) && p.isAccessible()))) {
 				IVirtualComponent component = ComponentCore.createComponent(p);
-				if (component!=null && !J2EEProjectUtilities.isEARProject(p)) {
+				if (component!=null && !J2EEProjectUtilities.isEARProject(p) && !J2EEProjectUtilities.isStaticWebProject(p)) {
 					addArtifactEdit(p);
 					notifyListeners(EditModelEvent.ADDED_RESOURCE);
 					return false;
