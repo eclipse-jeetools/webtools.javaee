@@ -16,6 +16,7 @@
  */
 package org.eclipse.jst.j2ee.internal.actions;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
@@ -28,10 +29,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.internal.deploy.DeployerRegistry;
 import org.eclipse.jst.j2ee.internal.deploy.J2EEDeployOperation;
+import org.eclipse.jst.j2ee.internal.dialogs.RuntimeSelectionDialog;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wst.common.frameworks.internal.WTPResourceHandler;
@@ -52,7 +57,7 @@ public class J2EEDeployAction extends BaseAction {
 	 */
 	protected void primRun(Shell shell) {
 
-		if (isEnabled()) {
+		if (checkEnabled(shell)) {
 			final IStructuredSelection deploySelection = selection;
 			Job deployJob = new Job("Deploy") {
 				protected IStatus run(IProgressMonitor monitor) {
@@ -97,17 +102,12 @@ public class J2EEDeployAction extends BaseAction {
 	 *      org.eclipse.jface.viewers.ISelection)
 	 */
 	public void selectionChanged(IAction action, ISelection aSelection) {
-		// TODO Auto-generated method stub
 		super.selectionChanged(action, aSelection);
-		action.setEnabled(isEnabled());
+		action.setEnabled(true);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.action.IAction#isEnabled()
-	 */
-	public boolean isEnabled() {
+	
+	public boolean checkEnabled(Shell shell) {
 
 		try {
 			DeployerRegistry reg = DeployerRegistry.instance();
@@ -116,19 +116,50 @@ public class J2EEDeployAction extends BaseAction {
 			for (int i = 0; i < modules.size(); i++) {
 				EObject module = (EObject) modules.get(i);
 				IProject proj = ProjectUtilities.getProject(module);
-				IRuntime runtime = J2EEProjectUtilities.getServerRuntime(proj);
-				if (proj == null || runtime == null)
+				if (proj == null) {
+					displayMessageDialog(J2EEUIMessages.getResourceString("DEPLOY_PROJECT_NOT_FOUND") , shell);
 					return false;
+				}
+				
+				IRuntime runtime = J2EEProjectUtilities.getServerRuntime(proj);
+				if (runtime == null) {
+					String message = MessageFormat.format(J2EEUIMessages.getResourceString("DEPLOY_RUNTIME_NOT_FOUND"), new String []{proj.getName()});
+					RuntimeSelectionDialog selectionDialog = new RuntimeSelectionDialog(shell, 
+							J2EEUIMessages.getResourceString("DEPLOY_DIALOG_TITLE"), 
+ 								null /* default image */, 
+ 								message, 
+ 								MessageDialog.ERROR, 
+ 								new String[] { IDialogConstants.OK_LABEL }, 0, proj) ;
+					selectionDialog.open();
+					runtime = J2EEProjectUtilities.getServerRuntime(proj);
+					if (runtime == null)
+						return false;
+				}
 				List visitors = reg.getDeployModuleExtensions(module, runtime);
-				if (!visitors.isEmpty())
-					return true;
+				if (visitors.isEmpty()) {
+					displayMessageDialog(MessageFormat.format(J2EEUIMessages.getResourceString("DEPLOY_PROJECT_NOT_SUPPORTED"), new String []{proj.getName()}), shell);
+					return false;
+				}
+				
 			}
-			return false;
+			
+			return true;
 		} catch (CoreException e) {
 			System.out.println("Deploy Action recovering from problem verifying enablement."); //$NON-NLS-1$
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	private void displayMessageDialog(String message, Shell shell) {
+		 String title = J2EEUIMessages.getResourceString("DEPLOY_DIALOG_TITLE");
+		 MessageDialog dialog = new MessageDialog(shell, 
+				 								title, 
+				 								null /* default image */, 
+				 								message, 
+				 								MessageDialog.ERROR, 
+				 								new String[] { IDialogConstants.OK_LABEL }, 0) ;
+	     dialog.open();
 	}
 
 }
