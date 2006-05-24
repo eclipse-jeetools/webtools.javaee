@@ -14,6 +14,7 @@ package org.eclipse.jst.j2ee.internal.actions;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -21,9 +22,13 @@ import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.internal.componentcore.ComponentArchiveOptions;
 import org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -83,6 +88,23 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 		return baseJavaEditorDescriptor;
 	}
 	
+	protected void openAppropriateEditor(IVirtualComponent c){
+		if (c == null){
+			return;
+		}
+		IWorkbenchPage page = null;
+		IEditorPart editor = null;
+		try {
+			page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+			editor = page.openEditor(new ComponentEditorInput(c), currentDescriptor.getId());
+			if (editor instanceof ISetSelectionTarget)
+				((ISetSelectionTarget) editor).selectReveal(getStructuredSelection());
+		} catch (Exception e) {
+			MessageDialog.openError(page.getWorkbenchWindow().getShell(), J2EEUIMessages.getResourceString("Problems_Opening_Editor_ERROR_"), e.getMessage()); //$NON-NLS-1$ = "Problems Opening Editor"
+		}
+	}
+	
+	
 	/**
 	 * open the appropriate editor
 	 */
@@ -119,7 +141,17 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 				openBeanLinkInJavaEditor((BeanLink) ro, p);
 				return;
 			}
-			openAppropriateEditor(WorkbenchResourceHelper.getFile((EObject)srcObject));
+			IResource resource = WorkbenchResourceHelper.getFile((EObject)srcObject);
+			if(resource != null){
+				openAppropriateEditor(resource);
+			} else {
+				ModuleFile moduleFile = ArchiveUtil.getModuleFile(ro);
+				ArchiveOptions options = moduleFile.getOptions();
+				if(options instanceof ComponentArchiveOptions) {
+					IVirtualComponent component = ((ComponentArchiveOptions)options).getComponent();
+					openAppropriateEditor(component);
+				}
+			}
 		}
 		else if (srcObject instanceof Resource)
 			openAppropriateEditor(WorkbenchResourceHelper.getFile((Resource)srcObject));
@@ -153,6 +185,9 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			if(file != null) {
 				IContentType contentType = IDE.getContentType(file);
 				currentDescriptor = registry.getDefaultEditor(file.getName(), contentType);
+			} else {
+				String name = (new Path(((EObject)obj).eResource().getURI().toString())).lastSegment();
+				currentDescriptor = registry.getDefaultEditor(name, null);
 			}
 		}
 		else if (obj instanceof Resource) {
