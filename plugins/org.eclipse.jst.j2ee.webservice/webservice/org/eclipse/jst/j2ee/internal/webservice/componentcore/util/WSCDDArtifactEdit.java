@@ -123,7 +123,6 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	}
 
 	public URI getWebServicesClientXmlResourceURI() {
-
 		URI resourceURI = J2EEConstants.WEB_SERVICES_CLIENT_WEB_INF_DD_URI_OBJ;
 		if (isValidAppClientModule(ComponentCore.createComponent(getProject())))
 			resourceURI = J2EEConstants.WEB_SERVICES_CLIENT_META_INF_DD_URI_OBJ;
@@ -329,7 +328,7 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	 *         the moduleTypeId is a JST module
 	 */
 	public static boolean isValidEJBModule(IVirtualComponent aComponent) {
-		return J2EEProjectUtilities.isEJBProject(aComponent.getProject());
+		return aComponent !=null && J2EEProjectUtilities.isEJBProject(aComponent.getProject());
 	}
 
 	/**
@@ -351,7 +350,7 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	 *         the moduleTypeId is a JST module
 	 */
 	public static boolean isValidWebModule(IVirtualComponent aComponent) {
-		return J2EEProjectUtilities.isDynamicWebProject(aComponent.getProject());
+		return aComponent !=null && J2EEProjectUtilities.isDynamicWebProject(aComponent.getProject());
 	}
 
 	/**
@@ -362,7 +361,7 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	 *         the moduleTypeId is a JST module
 	 */
 	public static boolean isValidAppClientModule(IVirtualComponent aComponent) {
-		return J2EEProjectUtilities.isApplicationClientProject(aComponent.getProject());
+		return aComponent !=null && J2EEProjectUtilities.isApplicationClientProject(aComponent.getProject());
 	}
 
 	/*
