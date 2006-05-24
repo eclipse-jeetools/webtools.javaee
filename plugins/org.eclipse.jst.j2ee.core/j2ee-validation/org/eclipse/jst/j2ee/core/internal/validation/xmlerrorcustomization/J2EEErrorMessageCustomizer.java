@@ -19,34 +19,40 @@ import org.eclipse.wst.xml.core.internal.validation.errorcustomization.IErrorMes
  * A J2EE message customizer for the XML validator. This error customizer will
  * customize errors on application.xml.
  */
-public class J2EEErrorMessageCustomizer implements IErrorMessageCustomizer 
-{
+public class J2EEErrorMessageCustomizer implements IErrorMessageCustomizer {
 
-  /* (non-Javadoc)
-   * @see org.eclipse.wst.xml.core.internal.validation.errorcustomization.IErrorMessageCustomizer#customizeMessage(org.eclipse.wst.xml.core.internal.validation.errorcustomization.ElementInformation, java.lang.String, java.lang.Object[])
-   */
-  public String customizeMessage(ElementInformation elementInfo, String errorKey, Object[] arguments) 
-  {
-	if ("cvc-complex-type.2.4.a".equals(errorKey) || "cvc-complex-type.2.4.b".equals(errorKey))
-	{
-      if ("application".equals(elementInfo.getLocalname()))
-      {
-        boolean applicationHasModule = false;
-        for (Iterator i = elementInfo.getChildren().iterator(); i.hasNext(); )
-        {
-          ElementInformation child = (ElementInformation)i.next();
-          if ("module".equals(child.getLocalname()))
-          {
-            applicationHasModule = true;
-            break;
-          }  
-        }  
-        if (!applicationHasModule)
-        {  
-          return J2EEXMLCustomValidationMessages.J2EE_APPLICATION_ONE_OR_MORE_MODULES;
-        }  
-      }
-    }
-    return null;
-  }
+	/* (non-Javadoc)
+	 * @see org.eclipse.wst.xml.core.internal.validation.errorcustomization.IErrorMessageCustomizer#customizeMessage(org.eclipse.wst.xml.core.internal.validation.errorcustomization.ElementInformation, java.lang.String, java.lang.Object[])
+	 */
+	public String customizeMessage(ElementInformation elementInfo, String errorKey, Object[] arguments) {
+		if ("cvc-complex-type.2.4.a".equals(errorKey) || "cvc-complex-type.2.4.b".equals(errorKey)) { //$NON-NLS-1$ //$NON-NLS-2$
+			if ("application".equals(elementInfo.getLocalname())) { //$NON-NLS-1$
+				boolean applicationHasModule = false;
+				for (Iterator i = elementInfo.getChildren().iterator(); i.hasNext();) {
+					ElementInformation child = (ElementInformation) i.next();
+					if ("module".equals(child.getLocalname())) { //$NON-NLS-1$
+						applicationHasModule = true;
+						break;
+					}
+				}
+				if (!applicationHasModule) {
+					return J2EEXMLCustomValidationMessages.J2EE_APPLICATION_ONE_OR_MORE_MODULES;
+				}
+			}
+			if ("ejb-jar".equals(elementInfo.getLocalname())) { //$NON-NLS-1$
+				boolean ejbHasBeans = false;
+				for (Iterator i = elementInfo.getChildren().iterator(); i.hasNext();) {
+					ElementInformation child = (ElementInformation) i.next();
+					if ("enterprise-beans".equals(child.getLocalname())) { //$NON-NLS-1$
+						ejbHasBeans = true;
+						break;
+					}
+				}
+				if (!ejbHasBeans) {
+					return J2EEXMLCustomValidationMessages.EJB_ONE_OR_MORE_BEANS;
+				}
+			}
+		}
+		return null;
+	}
 }
