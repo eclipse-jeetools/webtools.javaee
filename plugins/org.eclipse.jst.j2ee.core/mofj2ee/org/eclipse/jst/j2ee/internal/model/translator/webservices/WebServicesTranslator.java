@@ -45,7 +45,7 @@ public class WebServicesTranslator extends RootTranslator implements WebServices
 	protected Translator[] create13Children() {
 		return new Translator[] {
 			IDTranslator.INSTANCE,
-			createServiceRefGroupTranslator13(),
+			createServiceRefGroupTranslator13(null),
 			createComponentScopedRefs13()
 		};
 	}
@@ -54,8 +54,10 @@ public class WebServicesTranslator extends RootTranslator implements WebServices
 	 * @param reference
 	 * @return
 	 */
-	public static Translator createServiceRefGroupTranslator13() {
-		GenericTranslator result = new GenericTranslator(SERVICE_REF, WEBSERVICECLIENT_PKG.getWebServicesClient_ServiceRefs());
+	public static Translator createServiceRefGroupTranslator13(EStructuralFeature feature) {
+		if (feature == null)
+			feature = WEBSERVICECLIENT_PKG.getWebServicesClient_ServiceRefs();
+		GenericTranslator result = new GenericTranslator(SERVICE_REF, feature);
 		result.setChildren( new Translator[] {
 			IDTranslator.INSTANCE,
 			new Translator(DESCRIPTION, COMMON_PKG.getCompatibilityDescriptionGroup_Description()),
@@ -108,31 +110,6 @@ public class WebServicesTranslator extends RootTranslator implements WebServices
 		});
 		return result;
     }
-    
-	/**
-	 * This model was model from Websphere Webservices
-	 * @param reference
-	 * @return
-	 */
-	public static Translator createServiceRefGroupTranslator13(EStructuralFeature feature) {
-		GenericTranslator result = new GenericTranslator(SERVICE_REF, feature);
-		result.setChildren( new Translator[] {
-			IDTranslator.INSTANCE,
-			CommonTranslators.DESCRIPTIONS_TRANSLATOR,
-			CommonTranslators.DISPLAYNAMES_TRANSLATOR,
-			CommonTranslators.ICONS_TRANSLATOR,
-			new Translator(SERVICE_REF_NAME, WEBSERVICECLIENT_PKG.getServiceRef_ServiceRefName()),
-			new JavaClassTranslator(SERVICE_INTERFACE, WEBSERVICECLIENT_PKG.getServiceRef_ServiceInterface()),
-			new Translator(WSDL_FILE, WEBSERVICECLIENT_PKG.getServiceRef_WsdlFile()),
-			new Translator(JAXRPC_MAPPING_FILE, WEBSERVICECLIENT_PKG.getServiceRef_JaxrpcMappingFile()),
-			createQNameTranslator10(SERVICE_QNAME, WEBSERVICECLIENT_PKG.getServiceRef_ServiceQname()),
-			CommonTranslators.createPortComponentRefTranslator(),
-			CommonTranslators.createServiceRefHandlerTranslator(),
-		});
-		
-		
-		return result;
-	}    
     
 	public static Translator createQNameTranslator10(String domName, EStructuralFeature feature) {		
 		GenericTranslator result = new GenericTranslator(domName, feature);
