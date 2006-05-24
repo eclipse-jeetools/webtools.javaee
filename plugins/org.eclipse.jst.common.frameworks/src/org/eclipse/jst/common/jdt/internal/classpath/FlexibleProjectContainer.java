@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2005 - 2006 BEA Systems, Inc.
+ * Copyright (c) 2005, 2006 BEA Systems, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -117,12 +117,12 @@ public abstract class FlexibleProjectContainer
         
         for( int i = 0, n = this.entries.size(); i < n; i++ )
         {
-        	IPath entryPath = (IPath) this.entries.get( i );
-        	IResource resource =ResourcesPlugin.getWorkspace().getRoot().findMember(entryPath); 
-        	if(null != resource && resource.getType() == IResource.PROJECT)
-        		this.cpentries[ i ] = JavaCore.newProjectEntry(entryPath, false);
-        	else
-        		this.cpentries[ i ] = newLibraryEntry( entryPath );
+            IPath entryPath = (IPath) this.entries.get( i );
+            IResource resource =ResourcesPlugin.getWorkspace().getRoot().findMember(entryPath); 
+            if(null != resource && resource.getType() == IResource.PROJECT)
+                this.cpentries[ i ] = JavaCore.newProjectEntry(entryPath, false);
+            else
+                this.cpentries[ i ] = newLibraryEntry( entryPath );
         }
     }
     
@@ -168,32 +168,32 @@ public abstract class FlexibleProjectContainer
         
         
         IVirtualReference[] refs = vc.getReferences();
-		IVirtualComponent comp = null;
-		Set jarsHandled = new HashSet();
-		String jarName = null;
-		for (int i = 0; i < refs.length; i++) {
-			comp = refs[i].getReferencedComponent();
-			if (!refs[i].getRuntimePath().equals(paths[0].makeAbsolute()))
-				continue;
-			jarName = refs[i].getArchiveName();
-			if(null != jarName){
-				jarsHandled.add(jarName);
-			}
-			if (comp.isBinary()) {
-				VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
-				java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
-				if (diskFile.exists()) {
-					entries.add(new Path(diskFile.getAbsolutePath()));
-				} else {
-					IFile iFile = archiveComp.getUnderlyingWorkbenchFile();
-					if (!entries.contains(iFile.getFullPath()))
-						entries.add(iFile.getFullPath());
-				}
-			} else {
-				IProject project = comp.getProject();
-				entries.add(project.getFullPath());	
-			}
-		}
+        IVirtualComponent comp = null;
+        Set jarsHandled = new HashSet();
+        String jarName = null;
+        for (int i = 0; i < refs.length; i++) {
+            comp = refs[i].getReferencedComponent();
+            if (!refs[i].getRuntimePath().equals(paths[0].makeAbsolute()))
+                continue;
+            jarName = refs[i].getArchiveName();
+            if(null != jarName){
+                jarsHandled.add(jarName);
+            }
+            if (comp.isBinary()) {
+                VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
+                java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
+                if (diskFile.exists()) {
+                    entries.add(new Path(diskFile.getAbsolutePath()));
+                } else {
+                    IFile iFile = archiveComp.getUnderlyingWorkbenchFile();
+                    if (!entries.contains(iFile.getFullPath()))
+                        entries.add(iFile.getFullPath());
+                }
+            } else {
+                IProject project = comp.getProject();
+                entries.add(project.getFullPath());    
+            }
+        }
         
         for( int i = 0; i < this.paths.length; i++ )
         {
@@ -221,7 +221,7 @@ public abstract class FlexibleProjectContainer
                     
                     if(!jarsHandled.contains(p.lastSegment()) &&  isJarFile( r.getLocation().toFile() ) )
                     {
-                    	jarsHandled.add(p.lastSegment());
+                        jarsHandled.add(p.lastSegment());
                         entries.add( p );
                     }
                 }
@@ -234,15 +234,15 @@ public abstract class FlexibleProjectContainer
                 {
                     final IPath p = uf[ j ].getFullPath();
                     
-                    if(!jarsHandled.contains(p.lastSegment()) && ! isSourceDirectory( p ) )
+                    if( ! jarsHandled.contains( p.lastSegment() ) && 
+                        ! isSourceOrOutputDirectory( p ) )
                     {
-                    	jarsHandled.add(p.lastSegment());
+                        jarsHandled.add(p.lastSegment());
                         entries.add( p );
                     }
                 }
             }
         }
-        
 
         return entries;
     }
@@ -269,25 +269,36 @@ public abstract class FlexibleProjectContainer
         
     }
     
-    private boolean isSourceDirectory( final IPath aPath )
+    private boolean isSourceOrOutputDirectory( final IPath aPath )
     {
         if( isJavaProject( this.project ) )
         {
             try
             {
                 final IJavaProject jproject = JavaCore.create( this.project );
-	            final IClasspathEntry[] cp = jproject.getRawClasspath();
-	            
-	            for( int i = 0; i < cp.length; i++ )
-	            {
-	                final IClasspathEntry cpe = cp[ i ];
-	                
-	                if( cpe.getEntryKind() == IClasspathEntry.CPE_SOURCE &&
-	                    cpe.getPath().equals( aPath ) )
-	                {
-	                    return true;
-	                }
-	            }
+                final IClasspathEntry[] cp = jproject.getRawClasspath();
+                
+                for( int i = 0; i < cp.length; i++ )
+                {
+                    final IClasspathEntry cpe = cp[ i ];
+                    
+                    if( cpe.getEntryKind() == IClasspathEntry.CPE_SOURCE )
+                    {
+                        final IPath src = cpe.getPath();
+                        final IPath output = cpe.getOutputLocation();
+                        
+                        if( src.equals( aPath ) ||
+                            output != null && output.equals( aPath ) )
+                        {
+                            return true;
+                        }
+                    }
+                }
+                
+                if( jproject.getOutputLocation().equals( aPath ) )
+                {
+                    return true;
+                }
             }
             catch( JavaModelException e )
             {
