@@ -149,6 +149,8 @@ public class DefectVerificationTests extends OperationTestCase {
 		checkDeploy("sib.test.mediations.m5.JsMBR.ear");
 	}
 
+
+
 	public void test121158() throws Exception {
 		String earFileName = getFullTestDataPath("EAR121158.ear"); //$NON-NLS-1$
 		EARFile earFile = null;
@@ -198,15 +200,22 @@ public class DefectVerificationTests extends OperationTestCase {
 		earFile.getEJBReferences(true, false);
 		earFile.getEJBReferences(false, true);
 		earFile.getEJBReferences(false, false);
-
+		earFile.close();
+		earFile = null;
+		
 		Thread.sleep(5000);
-
+		
 		String earOutputName = "d:\\temp\\Output" + System.currentTimeMillis() + ".ear";
 		IDataModel export = DataModelFactory.createDataModel(new EARComponentExportDataModelProvider());
 		export.setProperty(IEARComponentExportDataModelProperties.PROJECT_NAME, comp.getProject().getName());
 		export.setProperty(IEARComponentExportDataModelProperties.ARCHIVE_DESTINATION, earOutputName);
 		runAndVerify(export);
+		
 
+	}
+
+	public void test143483() throws Exception {
+		checkDeploy("undeployed_DefaultApplication.ear");//$NON-NLS-1$
 	}
 
 
