@@ -125,26 +125,30 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 		moduleFile = newModuleFile;
 	}
 
+	//TODO delete this method
 	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	//TODO delete this method
 	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	protected void runNecessaryBuilders(IVirtualComponent component, IProgressMonitor monitor) throws CoreException {
-		IProject project = component.getProject();
-		IProjectDescription description = project.getDescription();
-		ICommand javaBuilder = getJavaCommand(description);
-		if (javaBuilder != null) {
-			project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, JavaCore.BUILDER_ID, javaBuilder.getArguments(), monitor);
-		}
-		ICommand libCopyBuilder = getLibCopyBuilder(description);
-		if (null != libCopyBuilder) {
-			project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, LibCopyBuilder.BUILDER_ID, libCopyBuilder.getArguments(), monitor);
+		if(!component.isBinary()){
+			IProject project = component.getProject();
+			IProjectDescription description = project.getDescription();
+			ICommand javaBuilder = getJavaCommand(description);
+			if (javaBuilder != null) {
+				project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, JavaCore.BUILDER_ID, javaBuilder.getArguments(), monitor);
+			}
+			ICommand libCopyBuilder = getLibCopyBuilder(description);
+			if (null != libCopyBuilder) {
+				project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, LibCopyBuilder.BUILDER_ID, libCopyBuilder.getArguments(), monitor);
+			}
 		}
 	}
 

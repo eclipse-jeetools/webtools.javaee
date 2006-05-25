@@ -13,10 +13,13 @@ package org.eclipse.jst.j2ee.internal.archive.operations;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class EARComponentExportOperation extends J2EEArtifactExportOperation {
@@ -44,6 +47,16 @@ public class EARComponentExportOperation extends J2EEArtifactExportOperation {
 			}
 		}
 	}
+
+	protected void runNecessaryBuilders(IVirtualComponent component, IProgressMonitor monitor) throws CoreException {
+		super.runNecessaryBuilders(component, monitor);
+		IVirtualReference[] refs = component.getReferences();
+		for (int i = 0; i < refs.length; i++) {
+			IVirtualComponent refComp = refs[i].getReferencedComponent();
+			super.runNecessaryBuilders(refComp, monitor);
+		}
+	}
+
 
 	protected String archiveString() {
 		return "EAR";
