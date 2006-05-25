@@ -32,6 +32,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.componentcore.EJBBinaryComponentHelper;
+import org.eclipse.jst.j2ee.internal.componentcore.EnterpriseBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
@@ -541,10 +542,14 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 
 	public Archive asArchive(boolean includeSource) throws OpenFailureException {
-		EJBComponentLoadStrategyImpl loader = new EJBComponentLoadStrategyImpl(getComponent());
-		loader.setExportSource(includeSource);
-		String uri = ModuleURIUtil.getHandleString(getComponent());
-		return CommonarchiveFactory.eINSTANCE.openEJBJarFile(loader, uri);
+		if (isBinary()) {
+			return ((EnterpriseBinaryComponentHelper) getBinaryComponentHelper()).getArchive();
+		} else {
+			EJBComponentLoadStrategyImpl loader = new EJBComponentLoadStrategyImpl(getComponent());
+			loader.setExportSource(includeSource);
+			String uri = ModuleURIUtil.getHandleString(getComponent());
+			return CommonarchiveFactory.eINSTANCE.openEJBJarFile(loader, uri);
+		}
 	}
 
 	public static void createDeploymentDescriptor(IProject project, int version) {
