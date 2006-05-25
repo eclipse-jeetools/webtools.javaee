@@ -145,8 +145,8 @@ public class WebComponentImportWebLibsPage extends J2EEImportPage {
 		selectAllButton.setText(WEBUIMessages.WAR_IMPORT_SELECT_ALL_LIBS_BUTTON);
 		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
 		gd.horizontalSpan = 1;
-		gd.heightHint = 22;
-		gd.widthHint = 120;
+		gd.heightHint = SWT.DEFAULT;
+		gd.widthHint = SWT.DEFAULT;
 		selectAllButton.setLayoutData(gd);
 		selectAllButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
@@ -158,8 +158,8 @@ public class WebComponentImportWebLibsPage extends J2EEImportPage {
 		deselectAllButton.setText(WEBUIMessages.WAR_IMPORT_DESELECT_ALL_LIBS_BUTTON);
 		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
 		gd.horizontalSpan = 2;
-		gd.heightHint = 22;
-		gd.widthHint = 120;
+		gd.heightHint = SWT.DEFAULT;
+		gd.widthHint = SWT.DEFAULT;
 		deselectAllButton.setLayoutData(gd);
 		deselectAllButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
