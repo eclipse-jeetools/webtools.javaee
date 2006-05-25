@@ -190,7 +190,7 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 						}
 					}
 					try {
-						workspace.run(workspaceRunnable, workspace.getRoot(), IWorkspace.AVOID_UPDATE, new NullProgressMonitor());
+						workspace.run(workspaceRunnable, new NullProgressMonitor());
 					} catch (CoreException e) {
 						Logger.getLogger().logError(e);
 					}
@@ -200,7 +200,7 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 			t.start();
 		} else {
 			try {
-				workspace.run(workspaceRunnable, workspace.getRoot(), IWorkspace.AVOID_UPDATE, new NullProgressMonitor());
+				workspaceRunnable.run(new NullProgressMonitor());
 			} catch (CoreException e) {
 				Logger.getLogger().logError(e);
 			}
