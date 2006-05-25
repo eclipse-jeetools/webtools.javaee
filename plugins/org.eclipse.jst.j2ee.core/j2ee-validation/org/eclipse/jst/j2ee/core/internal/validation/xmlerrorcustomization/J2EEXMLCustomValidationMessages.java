@@ -20,6 +20,7 @@ public class J2EEXMLCustomValidationMessages extends NLS {
 	private static final String BUNDLE_NAME = "org.eclipse.jst.j2ee.core.internal.validation.xmlerrorcustomization.j2eexmlcustomvalidation";//$NON-NLS-1$
 
 	public static String J2EE_APPLICATION_ONE_OR_MORE_MODULES;
+	public static String EJB_ONE_OR_MORE_BEANS;
 
 	static {
 		// load message values from bundle file
