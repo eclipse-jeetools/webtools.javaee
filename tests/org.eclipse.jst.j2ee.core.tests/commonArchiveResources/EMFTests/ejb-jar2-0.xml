@@ -159,22 +159,27 @@
                 <ejb-link>link_4</ejb-link>
             </ejb-local-ref>
             <security-role-ref>
+            	<description>description_0</description>
                 <role-name>name_0</role-name>
                 <role-link>link_0</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_1</description>
                 <role-name>name_1</role-name>
                 <role-link>link_1</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_2</description>
                 <role-name>name_2</role-name>
                 <role-link>link_2</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_3</description>
                 <role-name>name_3</role-name>
                 <role-link>link_3</role-link>
             </security-role-ref>
             <security-role-ref>
+                <description>description_4</description>
                 <role-name>name_4</role-name>
                 <role-link>link_4</role-link>
             </security-role-ref>
@@ -371,22 +376,27 @@
                 <ejb-link>link_9</ejb-link>
             </ejb-local-ref>
             <security-role-ref>
+            	<description>description_5</description>
                 <role-name>name_5</role-name>
                 <role-link>link_5</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_6</description>
                 <role-name>name_6</role-name>
                 <role-link>link_6</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_7</description>
                 <role-name>name_7</role-name>
                 <role-link>link_7</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_8</description>
                 <role-name>name_8</role-name>
                 <role-link>link_8</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_9</description>
                 <role-name>name_9</role-name>
                 <role-link>link_9</role-link>
             </security-role-ref>
@@ -594,22 +604,27 @@
                 <ejb-link>link_14</ejb-link>
             </ejb-local-ref>
             <security-role-ref>
+            	<description>description_10</description>
                 <role-name>name_10</role-name>
                 <role-link>link_10</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_11</description>
                 <role-name>name_11</role-name>
                 <role-link>link_11</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_12</description>
                 <role-name>name_12</role-name>
                 <role-link>link_12</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_13</description>
                 <role-name>name_13</role-name>
                 <role-link>link_13</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_14</description>
                 <role-name>name_14</role-name>
                 <role-link>link_14</role-link>
             </security-role-ref>
@@ -858,22 +873,27 @@
                 <ejb-link>link_19</ejb-link>
             </ejb-local-ref>
             <security-role-ref>
+            	<description>description_15</description>
                 <role-name>name_15</role-name>
                 <role-link>link_15</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_16</description>
                 <role-name>name_16</role-name>
                 <role-link>link_16</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_17</description>
                 <role-name>name_17</role-name>
                 <role-link>link_17</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_18</description>
                 <role-name>name_18</role-name>
                 <role-link>link_18</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_19</description>
                 <role-name>name_19</role-name>
                 <role-link>link_19</role-link>
             </security-role-ref>
@@ -1067,22 +1087,27 @@
                 <ejb-link>link_24</ejb-link>
             </ejb-local-ref>
             <security-role-ref>
+            	<description>description_20</description>
                 <role-name>name_20</role-name>
                 <role-link>link_20</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_21</description>
                 <role-name>name_21</role-name>
                 <role-link>link_21</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_22</description>
                 <role-name>name_22</role-name>
                 <role-link>link_22</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_23</description>
                 <role-name>name_23</role-name>
                 <role-link>link_23</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_24</description>
                 <role-name>name_24</role-name>
                 <role-link>link_24</role-link>
             </security-role-ref>
@@ -1279,22 +1304,27 @@
                 <ejb-link>link_29</ejb-link>
             </ejb-local-ref>
             <security-role-ref>
+            	<description>description_25</description>
                 <role-name>name_25</role-name>
                 <role-link>link_25</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_26</description>
                 <role-name>name_26</role-name>
                 <role-link>link_26</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_27</description>
                 <role-name>name_27</role-name>
                 <role-link>link_27</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_28</description>
                 <role-name>name_28</role-name>
                 <role-link>link_28</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_29</description>
                 <role-name>name_29</role-name>
                 <role-link>link_29</role-link>
             </security-role-ref>
@@ -1679,22 +1709,27 @@
                 <ejb-link>link_39</ejb-link>
             </ejb-local-ref>
             <security-role-ref>
+            	<description>description_35</description>
                 <role-name>name_35</role-name>
                 <role-link>link_35</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_36</description>
                 <role-name>name_36</role-name>
                 <role-link>link_36</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_37</description>
                 <role-name>name_37</role-name>
                 <role-link>link_37</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_38</description>
                 <role-name>name_38</role-name>
                 <role-link>link_38</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_39</description>
                 <role-name>name_39</role-name>
                 <role-link>link_39</role-link>
             </security-role-ref>
@@ -1888,22 +1923,27 @@
                 <ejb-link>link_44</ejb-link>
             </ejb-local-ref>
             <security-role-ref>
+            	<description>description_40</description>
                 <role-name>name_40</role-name>
                 <role-link>link_40</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_41</description>
                 <role-name>name_41</role-name>
                 <role-link>link_41</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_42</description>
                 <role-name>name_42</role-name>
                 <role-link>link_42</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_43</description>
                 <role-name>name_43</role-name>
                 <role-link>link_43</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_44</description>
                 <role-name>name_44</role-name>
                 <role-link>link_44</role-link>
             </security-role-ref>
@@ -2100,22 +2140,27 @@
                 <ejb-link>link_49</ejb-link>
             </ejb-local-ref>
             <security-role-ref>
+            	<description>description_45</description>
                 <role-name>name_45</role-name>
                 <role-link>link_45</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_46</description>
                 <role-name>name_46</role-name>
                 <role-link>link_46</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_47</description>
                 <role-name>name_47</role-name>
                 <role-link>link_47</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_48</description>
                 <role-name>name_48</role-name>
                 <role-link>link_48</role-link>
             </security-role-ref>
             <security-role-ref>
+            	<description>description_49</description>
                 <role-name>name_49</role-name>
                 <role-link>link_49</role-link>
             </security-role-ref>
