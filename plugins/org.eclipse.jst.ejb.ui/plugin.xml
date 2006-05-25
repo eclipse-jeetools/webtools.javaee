@@ -281,12 +281,13 @@
                id="org.eclipse.jst.ejb.ui.internal.actions.EJBClientRemovalAction">
                
          </action>
-         <visibility>
-	            <objectState
-	                  name="facet"
-	                  value="jst.ejb">
-	            </objectState>
-         </visibility>
+		<enablement>
+		  <adapt type="org.eclipse.core.resources.IProject">
+						<test forcePluginActivation="true"
+							property="org.eclipse.wst.common.project.facet.core.projectFacet"
+							value="jst.ejb" />
+					</adapt>
+		</enablement>
 
       </objectContribution>
       
