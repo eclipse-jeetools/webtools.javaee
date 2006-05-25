@@ -211,6 +211,7 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 			if (notifier != null) {
 				NotificationWrapper notificationWrapper = new NotificationWrapper(notifier, notification);
 				fireNotifyChanged(notificationWrapper);
+				return;
 			}
 		}
 		super.notifyChanged(notification);
