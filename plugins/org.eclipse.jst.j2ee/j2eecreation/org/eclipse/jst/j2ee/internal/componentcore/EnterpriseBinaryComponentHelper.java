@@ -39,14 +39,19 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 		return options;
 	}
 
+	private Archive getUniqueArchive() {
+		String archiveURI = getArchiveURI();
+		try {
+			return openArchive(archiveURI);
+		} catch (OpenFailureException e) {
+			Logger.getLogger().logError(e);
+		}
+		return null;
+	}
+
 	public Archive getArchive() {
 		if (archive == null) {
-			String archiveURI = getArchiveURI();
-			try {
-				archive = openArchive(archiveURI);
-			} catch (OpenFailureException e) {
-				Logger.getLogger().logError(e);
-			}
+			archive = getUniqueArchive();
 		}
 		return archive;
 	}
@@ -100,6 +105,7 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 	}
 
 	public void releaseAccess(ArtifactEdit edit) {
+		dispose();
 	}
 
 }

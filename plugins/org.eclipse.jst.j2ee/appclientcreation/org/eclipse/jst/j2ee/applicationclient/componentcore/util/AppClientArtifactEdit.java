@@ -30,6 +30,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.AppClientComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.componentcore.AppClientBinaryComponentHelper;
+import org.eclipse.jst.j2ee.internal.componentcore.EnterpriseBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -374,10 +375,14 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	}
 
 	public Archive asArchive(boolean includeSource) throws OpenFailureException{
-		AppClientComponentLoadStrategyImpl loader = new AppClientComponentLoadStrategyImpl(getComponent());
-		loader.setExportSource(includeSource);
-		String uri = ModuleURIUtil.getHandleString(getComponent());
-		return CommonarchiveFactory.eINSTANCE.openApplicationClientFile(loader, uri);
+		if (isBinary()) {
+			return ((EnterpriseBinaryComponentHelper) getBinaryComponentHelper()).getArchive();
+		} else {
+			AppClientComponentLoadStrategyImpl loader = new AppClientComponentLoadStrategyImpl(getComponent());
+			loader.setExportSource(includeSource);
+			String uri = ModuleURIUtil.getHandleString(getComponent());
+			return CommonarchiveFactory.eINSTANCE.openApplicationClientFile(loader, uri);
+		}
 	}
 	
 	public static void createDeploymentDescriptor(IProject project, int version) {

@@ -29,6 +29,7 @@ import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
+import org.eclipse.jst.j2ee.internal.componentcore.EnterpriseBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.componentcore.WebBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentLoadStrategyImpl;
@@ -64,7 +65,7 @@ import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
  * </p>
  * 
  */
-public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory{
+public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory {
 
 	/**
 	 * <p>
@@ -76,7 +77,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public static final String WEB_CONTENT = "WebContent"; //$NON-NLS-1$
 	public static final String WEB_INF = "WEB-INF"; //$NON-NLS-1$
 	public static final String META_INF = "META-INF"; //$NON-NLS-1$
-	
+
 	public static IPath WEBLIB = new Path("/WEB-INF/lib"); //$NON-NLS-1$
 
 	/**
@@ -89,7 +90,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public WebArtifactEdit(IVirtualComponent aModule) {
 		super(aModule);
 	}
-	
+
 	protected BinaryComponentHelper initBinaryComponentHelper(IVirtualComponent binaryModule) {
 		return new WebBinaryComponentHelper(binaryModule);
 	}
@@ -102,7 +103,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public WebArtifactEdit(IProject aProject, boolean toAccessAsReadOnly) throws IllegalArgumentException {
 		super(aProject, toAccessAsReadOnly);
 	}
-	
+
 	/**
 	 * @param aHandle
 	 * @param toAccessAsReadOnly
@@ -111,7 +112,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public WebArtifactEdit(IProject aProject, boolean toAccessAsReadOnly, boolean forCreate) throws IllegalArgumentException {
 		super(aProject, toAccessAsReadOnly, forCreate, J2EEProjectUtilities.DYNAMIC_WEB);
 	}
-	
+
 	/**
 	 * @param aHandle
 	 * @param toAccessAsReadOnly
@@ -152,6 +153,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		}
 		return artifactEdit;
 	}
+
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given
@@ -186,22 +188,25 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given
-	 * {@see WorkbenchComponent}. Instances of WebArtifactEdit that are returned through this method
-	 * must be {@see #dispose()}ed of when no longer in use.
+	 * {@see WorkbenchComponent}. Instances of WebArtifactEdit that are returned through this
+	 * method must be {@see #dispose()}ed of when no longer in use.
 	 * </p>
 	 * <p>
-	 * Use to acquire an WebArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that will not
-	 * be used for editing. Invocations of any save*() API on an instance returned from this method
-	 * will throw exceptions.
+	 * Use to acquire an WebArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that
+	 * will not be used for editing. Invocations of any save*() API on an instance returned from
+	 * this method will throw exceptions.
 	 * </p>
 	 * <p>
 	 * <b>This method may return null. </b>
 	 * </p>
 	 * 
-	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
+	 * <p>
+	 * Note: This method is for internal use only. Clients should not call this method.
+	 * </p>
+	 * 
 	 * @param aModule
-	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
-	 *            project in the workspace
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an
+	 *            accessible project in the workspace
 	 * @return An instance of WebArtifactEdit that may only be used to read the underlying content
 	 *         model
 	 * @throws UnresolveableURIException
@@ -210,10 +215,10 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public static WebArtifactEdit getWebArtifactEditForRead(IVirtualComponent aModule) {
 		if (aModule == null)
 			return null;
-		if(aModule.isBinary()){
+		if (aModule.isBinary()) {
 			return new WebArtifactEdit(aModule);
 		}
-			
+
 		return getWebArtifactEditForRead(aModule.getProject());
 	}
 
@@ -221,8 +226,8 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given
-	 * {@see WorkbenchComponent}. Instances of WebArtifactEdit that are returned through this method
-	 * must be {@see #dispose()}ed of when no longer in use.
+	 * {@see WorkbenchComponent}. Instances of WebArtifactEdit that are returned through this
+	 * method must be {@see #dispose()}ed of when no longer in use.
 	 * </p>
 	 * <p>
 	 * Use to acquire an WebArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that
@@ -232,10 +237,13 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * <b>This method may return null. </b>
 	 * </p>
 	 * 
-	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
+	 * <p>
+	 * Note: This method is for internal use only. Clients should not call this method.
+	 * </p>
+	 * 
 	 * @param aModule
-	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
-	 *            project in the workspace
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an
+	 *            accessible project in the workspace
 	 * @return An instance of WebArtifactEdit that may be used to modify and persist changes to the
 	 *         underlying content model
 	 */
@@ -249,8 +257,8 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @param module
 	 *            A {@see WorkbenchComponent}
 	 * @return True if the supplied module
-	 *         {@see ArtifactEdit#isValidEditableModule(WorkbenchComponent)}and the moduleTypeId is a
-	 *         JST module
+	 *         {@see ArtifactEdit#isValidEditableModule(WorkbenchComponent)}and the moduleTypeId is
+	 *         a JST module
 	 */
 	public static boolean isValidWebModule(IVirtualComponent aModule) throws UnresolveableURIException {
 		if (!isValidEditableModule(aModule))
@@ -275,7 +283,10 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * Creates an instance facade for the given {@see ArtifactEditModel}
 	 * </p>
 	 * 
-	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
+	 * <p>
+	 * Note: This method is for internal use only. Clients should not call this method.
+	 * </p>
+	 * 
 	 * @param aNature
 	 *            A non-null {@see ModuleCoreNature}for an accessible project
 	 * @param aModule
@@ -294,10 +305,10 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * </p>
 	 * 
 	 * @return an integer representation of a J2EE Spec version
-	 *  
+	 * 
 	 */
 	public int getJ2EEVersion() {
-		return ((WebAppResource)getDeploymentDescriptorResource()).getJ2EEVersionID();
+		return ((WebAppResource) getDeploymentDescriptorResource()).getJ2EEVersionID();
 	}
 
 	/**
@@ -308,16 +319,16 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * </p>
 	 * 
 	 * @return EObject
-	 *  
+	 * 
 	 */
 	public EObject getDeploymentDescriptorRoot() {
 		List contents = getDeploymentDescriptorResource().getContents();
 		if (contents.size() > 0)
 			return (EObject) contents.get(0);
-		if(isBinary()){
+		if (isBinary()) {
 			return null;
 		}
-		addWebAppIfNecessary((WebAppResource)getDeploymentDescriptorResource());
+		addWebAppIfNecessary((WebAppResource) getDeploymentDescriptorResource());
 		return (EObject) contents.get(0);
 	}
 
@@ -327,10 +338,10 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * </p>
 	 * 
 	 * @return Resource
-	 *  
+	 * 
 	 */
 	public Resource getDeploymentDescriptorResource() {
-		if(isBinary()){
+		if (isBinary()) {
 			return getBinaryComponentHelper().getResource(J2EEConstants.WEBAPP_DD_URI_OBJ);
 		}
 		return getArtifactEditModel().getResource(J2EEConstants.WEBAPP_DD_URI_OBJ);
@@ -342,16 +353,17 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * </p>
 	 * 
 	 * @return an integer representation of a module version
-	 *  
+	 * 
 	 */
 	public int getServletVersion() {
-		return ((WebAppResource)getDeploymentDescriptorResource()).getModuleVersionID();
+		return ((WebAppResource) getDeploymentDescriptorResource()).getModuleVersionID();
 	}
 
 	/**
-	 * This method returns the integer representation for the JSP specification level associated with
-	 * the J2EE version for this workbench module.  This method will not return null and returns 20
-	 * as default.
+	 * This method returns the integer representation for the JSP specification level associated
+	 * with the J2EE version for this workbench module. This method will not return null and returns
+	 * 20 as default.
+	 * 
 	 * @see WebArtifactEdit#getServletVersion()
 	 * 
 	 * @return an integer representation of the JSP level
@@ -365,7 +377,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		else
 			return J2EEVersionConstants.JSP_2_0_ID;
 	}
-	
+
 	/**
 	 * <p>
 	 * Creates a deployment descriptor root object (WebApp) and populates with data. Adds the root
@@ -377,30 +389,30 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @param aModule
 	 *            A non-null pointing to a {@see XMLResource}
 	 * @param version
-	 * 			Version to be set on resource....if null default is taken
+	 *            Version to be set on resource....if null default is taken
 	 * 
 	 * Note: This method is typically used for JUNIT - move?
 	 * </p>
 	 */
 	protected void addWebAppIfNecessary(XMLResource aResource) {
-		if(isBinary()){
+		if (isBinary()) {
 			throwAttemptedBinaryEditModelAccess();
 		}
 		if (aResource != null) {
-		    if(aResource.getContents() == null || aResource.getContents().isEmpty()) {
-		        WebApp webAppNew = WebapplicationFactory.eINSTANCE.createWebApp();
+			if (aResource.getContents() == null || aResource.getContents().isEmpty()) {
+				WebApp webAppNew = WebapplicationFactory.eINSTANCE.createWebApp();
 				aResource.getContents().add(webAppNew);
 				aResource.setModified(true);
-		    } 
-		    WebApp webApp = (WebApp)aResource.getContents().get(0);
+			}
+			WebApp webApp = (WebApp) aResource.getContents().get(0);
 			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
 				webApp.setDisplayName(StructureEdit.getDeployedName(moduleURI));
 			} catch (UnresolveableURIException e) {
-				//Ignore
+				// Ignore
 			}
 			aResource.setID(webApp, J2EEConstants.WEBAPP_ID);
-	
+
 			WelcomeFileList wList = WebapplicationFactory.eINSTANCE.createWelcomeFileList();
 			webApp.setFileList(wList);
 			List files = wList.getFile();
@@ -422,12 +434,12 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			file = WebapplicationFactory.eINSTANCE.createWelcomeFile();
 			file.setWelcomeFile("default.jsp"); //$NON-NLS-1$
 			files.add(file);
-			
-			try{
+
+			try {
 				aResource.saveIfNecessary();
-			}catch(java.net.ConnectException ex){
-				
-			}catch(Exception e){
+			} catch (java.net.ConnectException ex) {
+
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -436,7 +448,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 
 	/**
 	 * This method returns the full path to the deployment descriptor resource for the associated
-	 * workbench module.  This method may return null.
+	 * workbench module. This method may return null.
 	 * 
 	 * @see WebArtifactEdit#getDeploymentDescriptorResource()
 	 * 
@@ -444,85 +456,92 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 	public IPath getDeploymentDescriptorPath() {
 		IFile file = WorkbenchResourceHelper.getFile(getDeploymentDescriptorResource());
-		if (file!=null)
+		if (file != null)
 			return file.getFullPath();
 		return null;
 	}
-	
+
 	/**
-	 * This method will retrieve the web app resource, create it if necessary, add get the root object,
-	 * the web app out of that web app resource.  It will create the web app instance if need be, and add
-	 * it to the web resource.  Then, it returns the web app object as the model root.  This method will
-	 * not return null.
+	 * This method will retrieve the web app resource, create it if necessary, add get the root
+	 * object, the web app out of that web app resource. It will create the web app instance if need
+	 * be, and add it to the web resource. Then, it returns the web app object as the model root.
+	 * This method will not return null.
 	 * 
 	 * @see EnterpriseArtifactEdit#createModelRoot()
 	 * 
 	 * @return the eObject instance of the model root
 	 */
 	public EObject createModelRoot() {
-		if(isBinary()){
+		if (isBinary()) {
 			throwAttemptedBinaryEditModelAccess();
 		}
-	    return createModelRoot(getJ2EEVersion());
+		return createModelRoot(getJ2EEVersion());
 	}
+
 	/**
-	 * This method will retrieve the web app resource, create it if necessary, add get the root object, set version
-	 * the web app out of that web app resource.  It will create the web app instance if need be, and add
-	 * it to the web resource.  Then, it returns the web app object as the model root.  This method will
-	 * not return null.
+	 * This method will retrieve the web app resource, create it if necessary, add get the root
+	 * object, set version the web app out of that web app resource. It will create the web app
+	 * instance if need be, and add it to the web resource. Then, it returns the web app object as
+	 * the model root. This method will not return null.
 	 * 
 	 * @see EnterpriseArtifactEdit#createModelRoot()
 	 * 
 	 * @return the eObject instance of the model root
 	 */
 	public EObject createModelRoot(int version) {
-		if(isBinary()){
+		if (isBinary()) {
 			throwAttemptedBinaryEditModelAccess();
 		}
-		WebAppResource res = (WebAppResource)getDeploymentDescriptorResource();
+		WebAppResource res = (WebAppResource) getDeploymentDescriptorResource();
 		res.setModuleVersionID(version);
-	    addWebAppIfNecessary(res);
+		addWebAppIfNecessary(res);
 		return res.getRootObject();
 	}
+
 	/**
 	 * This method will return the list of dependent modules which are utility jars in the web lib
-	 * folder of the deployed path of the module.  It will not return null.
+	 * folder of the deployed path of the module. It will not return null.
 	 * 
 	 * @return array of the web library dependent modules
 	 */
 	public IVirtualReference[] getLibModules() {
 		List result = new ArrayList();
 		IVirtualComponent comp = ComponentCore.createComponent(getProject());
-	    IVirtualReference[] refComponents = comp.getReferences();
-		// Check the deployed path to make sure it has a lib parent folder and matchs the web.xml base path
+		IVirtualReference[] refComponents = comp.getReferences();
+		// Check the deployed path to make sure it has a lib parent folder and matchs the web.xml
+		// base path
 		for (int i = 0; i < refComponents.length; i++) {
 			if (refComponents[i].getRuntimePath().equals(WEBLIB))
 				result.add(refComponents[i]);
 		}
-		
+
 		return (IVirtualReference[]) result.toArray(new IVirtualReference[result.size()]);
 	}
-	
+
 	/**
-	 * This method will add the dependent modules from the passed in array to the dependentmodules list
-	 * of the associated workbench module. It will ensure a null is not passed and it will ensure the
-	 * dependent modules are not already in the list.
+	 * This method will add the dependent modules from the passed in array to the dependentmodules
+	 * list of the associated workbench module. It will ensure a null is not passed and it will
+	 * ensure the dependent modules are not already in the list.
 	 * 
-	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
-	 * @param libModules array of dependent modules to add as web libraries 
+	 * <p>
+	 * Note: This method is for internal use only. Clients should not call this method.
+	 * </p>
+	 * 
+	 * @param libModules
+	 *            array of dependent modules to add as web libraries
 	 */
 	public void addLibModules(ReferencedComponent[] libModules) {
-		//TODO - Need to implement
-//		if (libModules==null)
-//			return;
-//		for (int i=0; i<libModules.length; i++) {
-//			if (!module.getReferencedComponents().contains(libModules[i]))
-//				module.getReferencedComponents().add(libModules[i]);
-//		}
+		// TODO - Need to implement
+		// if (libModules==null)
+		// return;
+		// for (int i=0; i<libModules.length; i++) {
+		// if (!module.getReferencedComponents().contains(libModules[i]))
+		// module.getReferencedComponents().add(libModules[i]);
+		// }
 	}
-	
+
 	/**
-	 * This method will retrieve the context root for this web project's .component file.  It is 
+	 * This method will retrieve the context root for this web project's .component file. It is
 	 * meant to handle a standalone web case.
 	 * 
 	 * @return contextRoot String
@@ -530,11 +549,11 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public String getServerContextRoot() {
 		return J2EEProjectUtilities.getServerContextRoot(getProject());
 	}
-	
+
 	/**
 	 * This method will retrieve the context root for this web project in the associated parameter's
-	 * application.xml. If the earProject is null, then the contextRoot from the .component of the web
-	 * project is returned.
+	 * application.xml. If the earProject is null, then the contextRoot from the .component of the
+	 * web project is returned.
 	 * 
 	 * @param earProject
 	 * @return contextRoot String
@@ -546,15 +565,15 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		String contextRoot = null;
 		try {
 			earEdit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
-			if (earEdit!=null )
+			if (earEdit != null)
 				contextRoot = earEdit.getWebContextRoot(getProject());
 		} finally {
-			if (earEdit!=null)
+			if (earEdit != null)
 				earEdit.dispose();
 		}
 		return contextRoot;
 	}
-	
+
 	/**
 	 * This method will update the context root for this web project on the EAR which is passed in.
 	 * If no EAR is passed the .component file for the web project will be updated.
@@ -568,21 +587,22 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		EARArtifactEdit earEdit = null;
 		try {
 			earEdit = EARArtifactEdit.getEARArtifactEditForWrite(earProject);
-			if (earEdit!=null )
-				earEdit.setWebContextRoot(getProject(),aContextRoot);
+			if (earEdit != null)
+				earEdit.setWebContextRoot(getProject(), aContextRoot);
 		} finally {
-			if (earEdit!=null) {
+			if (earEdit != null) {
 				earEdit.saveIfNecessary(new NullProgressMonitor());
 				earEdit.dispose();
 			}
-		}		
+		}
 	}
-	
+
 	/**
-	 * This method sets the context root property on the web project's .component file for
-	 * the standalone case.
+	 * This method sets the context root property on the web project's .component file for the
+	 * standalone case.
 	 * 
-	 * @param contextRoot string
+	 * @param contextRoot
+	 *            string
 	 */
 	public void setServerContextRoot(String contextRoot) {
 		J2EEProjectUtilities.setServerContextRoot(getProject(), contextRoot);
@@ -593,8 +613,8 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return WebApp
 	 */
 	public WebApp getWebApp() {
-		
-		return (WebApp)getDeploymentDescriptorRoot();
+
+		return (WebApp) getDeploymentDescriptorRoot();
 	}
 
 
@@ -606,21 +626,25 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public ArtifactEdit createArtifactEditForWrite(IVirtualComponent aComponent) {
 		return getWebArtifactEditForWrite(aComponent);
 	}
-	
-	public Archive asArchive(boolean includeSource) throws OpenFailureException{
-		WebComponentLoadStrategyImpl loader = new WebComponentLoadStrategyImpl(getComponent());
-		loader.setExportSource(includeSource);
-		String uri = ModuleURIUtil.getHandleString(getComponent());
-		return CommonarchiveFactory.eINSTANCE.openWARFile(loader, uri);
+
+	public Archive asArchive(boolean includeSource) throws OpenFailureException {
+		if (isBinary()) {
+			return ((EnterpriseBinaryComponentHelper) getBinaryComponentHelper()).getArchive();
+		} else {
+			WebComponentLoadStrategyImpl loader = new WebComponentLoadStrategyImpl(getComponent());
+			loader.setExportSource(includeSource);
+			String uri = ModuleURIUtil.getHandleString(getComponent());
+			return CommonarchiveFactory.eINSTANCE.openWARFile(loader, uri);
+		}
 	}
-	
+
 	public static void createDeploymentDescriptor(IProject project, int version) {
-		WebArtifactEdit webEdit = new WebArtifactEdit(project,false,true);
+		WebArtifactEdit webEdit = new WebArtifactEdit(project, false, true);
 		try {
 			webEdit.createModelRoot(version);
 			webEdit.save(null);
 		} finally {
 			webEdit.dispose();
-		} 
+		}
 	}
 }

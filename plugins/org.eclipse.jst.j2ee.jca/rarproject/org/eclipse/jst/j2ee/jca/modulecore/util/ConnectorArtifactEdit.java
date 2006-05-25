@@ -22,6 +22,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureExce
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
+import org.eclipse.jst.j2ee.internal.componentcore.EnterpriseBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.componentcore.JCABinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.jca.archive.operations.ConnectorComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -380,10 +381,14 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	}
 
 	public Archive asArchive(boolean includeSource) throws OpenFailureException {
-		ConnectorComponentLoadStrategyImpl loader = new ConnectorComponentLoadStrategyImpl(getComponent());
-		loader.setExportSource(includeSource);
-		String uri = ModuleURIUtil.getHandleString(getComponent());
-		return CommonarchiveFactory.eINSTANCE.openRARFile(loader, uri);
+		if (isBinary()) {
+			return ((EnterpriseBinaryComponentHelper) getBinaryComponentHelper()).getArchive();
+		} else {
+			ConnectorComponentLoadStrategyImpl loader = new ConnectorComponentLoadStrategyImpl(getComponent());
+			loader.setExportSource(includeSource);
+			String uri = ModuleURIUtil.getHandleString(getComponent());
+			return CommonarchiveFactory.eINSTANCE.openRARFile(loader, uri);
+		}
 	}
 
 	public static void createDeploymentDescriptor(IProject project, int version) {
