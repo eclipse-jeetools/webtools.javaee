@@ -60,7 +60,7 @@ public class AppClientExportOperationTest extends ModuleExportOperationTestCase 
 		for (int i = 0; i < projs.length; i++) {
 			IProject project = projs[i];
 			IVirtualComponent comp = ComponentCore.createComponent(project);
-			if (J2EEProjectUtilities.isApplicationClientProject(comp.getProject()))
+			if ((comp != null) && J2EEProjectUtilities.isApplicationClientProject(comp.getProject()))
 				filteredProjs.add(project);
 		}
 		return (IProject[]) filteredProjs.toArray(new IProject[filteredProjs.size()]);
