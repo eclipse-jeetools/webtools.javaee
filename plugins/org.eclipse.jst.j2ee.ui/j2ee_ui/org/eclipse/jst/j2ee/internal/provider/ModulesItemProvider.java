@@ -28,6 +28,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -261,27 +262,43 @@ public class ModulesItemProvider extends J2EEItemProvider {
 				IVirtualComponent component = refs[j].getReferencedComponent();
 				if (component.isBinary()) {
 					if (refs[j].getArchiveName().equals(moduleURI)) {
-						foundBinary = true;
-						Object binaryModule = null;
-						if (module.isWebModule()) {
-							WebArtifactEdit webEdit = WebArtifactEdit.getWebArtifactEditForRead(component);
-							if(webEdit != null)
-								binaryModule = webEdit.getWebApp();
-						} else if (module.isJavaModule()) {
-							AppClientArtifactEdit appClientEdit = AppClientArtifactEdit.getAppClientArtifactEditForRead(component);
-							if(appClientEdit != null)
-								binaryModule = appClientEdit.getApplicationClient();
-						} else if (module.isEjbModule()) {
-							EJBArtifactEdit ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(component);
-							if(ejbEdit != null)
-								binaryModule = ejbEdit.getEJBJar();
-						} else if (module.isConnectorModule()) {
-							ConnectorArtifactEdit connectorEdit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(component);
-							if(connectorEdit != null)
-								binaryModule = connectorEdit.getConnector();
+						ArtifactEdit edit = null;
+						try {
+							foundBinary = true;
+							Object binaryModule = null;
+							if (module.isWebModule()) {
+								WebArtifactEdit webEdit = WebArtifactEdit.getWebArtifactEditForRead(component);
+								if (webEdit != null) {
+									edit = webEdit;
+									binaryModule = webEdit.getWebApp();
+								}
+							} else if (module.isJavaModule()) {
+								AppClientArtifactEdit appClientEdit = AppClientArtifactEdit.getAppClientArtifactEditForRead(component);
+								if (appClientEdit != null) {
+									edit = appClientEdit;
+									binaryModule = appClientEdit.getApplicationClient();
+								}
+							} else if (module.isEjbModule()) {
+								EJBArtifactEdit ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(component);
+								if (ejbEdit != null) {
+									edit = ejbEdit;
+									binaryModule = ejbEdit.getEJBJar();
+								}
+							} else if (module.isConnectorModule()) {
+								ConnectorArtifactEdit connectorEdit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(component);
+								if (connectorEdit != null) {
+									edit = connectorEdit;
+									binaryModule = connectorEdit.getConnector();
+								}
+							}
+							if (binaryModule != null) {
+								binaryModules.add(binaryModule);
+							}
+						} finally {
+							if (null != edit) {
+								edit.dispose();
+							}
 						}
-						if(binaryModule != null)
-							binaryModules.add(binaryModule);
 					}
 				}
 			}
