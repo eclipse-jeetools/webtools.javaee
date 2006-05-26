@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Arrays;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
@@ -630,9 +631,14 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		availableComponentsViewer.getTable().setLayoutData(data);
 
 		TableItem [] items = availableComponentsViewer.getTable().getItems();
-
 		List list = new ArrayList();
-		Object[] comps = getComponentsInEar();
+		//Object[] comps = getComponentsInEar();
+		
+		if( j2eeComponentList.isEmpty() ){
+			Object[] comps = getComponentsInEar();
+			j2eeComponentList.addAll( Arrays.asList(comps));
+			}
+			Object[] comps = j2eeComponentList.toArray();
 		
 		for( int i=0; i< items.length; i++ ){
 			Object element = items[i].getData();
@@ -648,7 +654,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		}
 		
 		availableComponentsViewer.setCheckedElements(list.toArray());
-		j2eeComponentList.addAll(list);
+	//	j2eeComponentList.addAll(list);
 		GridData btndata = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_BEGINNING);
 		buttonColumn.setLayoutData(btndata);
 
