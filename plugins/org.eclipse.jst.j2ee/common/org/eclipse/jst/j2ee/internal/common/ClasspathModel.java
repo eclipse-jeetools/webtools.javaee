@@ -629,6 +629,10 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 			hs.addAll(J2EEProjectUtilities.getAllJavaNonFlexProjects());
 			IProject[] utilityProjects = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.UTILITY);
 			hs.addAll(Arrays.asList(utilityProjects));
+			
+			IProject[] ejbProjects = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.EJB);
+			hs.addAll(Arrays.asList(ejbProjects));
+			
 			for (Iterator it = hs.iterator(); it.hasNext();) {
 				Object item = it.next();
 				IProject utilProject = null;
