@@ -10,6 +10,7 @@ package org.eclipse.jst.servlet.ui.internal.navigator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -91,7 +92,7 @@ public class CompressedJavaProject implements ICompressedNode {
 		} catch (JavaModelException e) {
 			ServletUIPlugin.log(e);
 		}
-		return nonExternalSourceFolders;
+		return nonExternalSourceFolders != null ? nonExternalSourceFolders : Collections.EMPTY_LIST;
 	}
 	
 	public CompressedJavaLibraries getCompressedJavaLibraries() {		
