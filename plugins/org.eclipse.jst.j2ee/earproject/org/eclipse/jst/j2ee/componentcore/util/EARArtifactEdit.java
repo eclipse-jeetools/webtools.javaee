@@ -12,7 +12,9 @@
 package org.eclipse.jst.j2ee.componentcore.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
@@ -45,6 +47,7 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -62,6 +65,8 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory {
 
 	public static final Class ADAPTER_TYPE = EARArtifactEdit.class;
+	
+	private static final IVirtualReference[] NO_REFERENCES = new IVirtualReference[0];
 
 	/**
 	 * 
@@ -394,10 +399,39 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * 
 	 * @return - an array of IVirtualReferences for utility modules in the EAR
 	 */
-	public IVirtualReference[] getUtilityModuleReferences() {
-		List utilityModuleTypes = new ArrayList();
-		utilityModuleTypes.add(J2EEProjectUtilities.UTILITY);
-		return getComponentReferences(utilityModuleTypes);
+	public IVirtualReference[] getUtilityModuleReferences() {  
+		
+		List explicitUtilityReferences = 
+			getComponentReferencesAsList(Collections.singletonList(J2EEProjectUtilities.UTILITY));
+		
+		// fetch other Utility Jars attached to the EAR project 
+		List implicitUtilityReferenceTypes =
+			Arrays.asList(new String[] {  IModuleConstants.JST_APPCLIENT_MODULE, 
+										   IModuleConstants.JST_WEB_MODULE,  
+										   IModuleConstants.JST_EJB_MODULE }); 
+
+		List implicitUtilityReferences = 
+			getComponentReferencesAsList(implicitUtilityReferenceTypes);
+		
+		
+		Application application = getApplication();
+		Module module = null;
+		IVirtualReference reference = null;
+		for (Iterator referenceItr = implicitUtilityReferences.iterator(); referenceItr.hasNext(); ) {
+			reference = (IVirtualReference) referenceItr.next();
+			module = application.getFirstModule(reference.getArchiveName());
+			if(module != null) 
+				referenceItr.remove(); 
+		}
+		
+		List allUtilityModuleReferences = new ArrayList();
+		allUtilityModuleReferences.addAll(explicitUtilityReferences);
+		allUtilityModuleReferences.addAll(implicitUtilityReferences);
+		
+		if(allUtilityModuleReferences.size() > 0)
+			return (IVirtualReference[]) allUtilityModuleReferences.toArray(new IVirtualReference[allUtilityModuleReferences.size()]);
+		return NO_REFERENCES;
+		
 	}
 
 	public String getModuleURI(IVirtualComponent moduleComp) {
@@ -569,6 +603,18 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 
 	private IVirtualReference[] getComponentReferences(List componentTypes) {
+		List components = getComponentReferencesAsList(componentTypes);
+		if(components.size() > 0)
+			return (IVirtualReference[]) components.toArray(new IVirtualReference[components.size()]);
+		return NO_REFERENCES;
+	} 
+	
+	/**
+	 * 
+	 * @param componentTypes
+	 * @return A List of {@link IVirtualReference}s.
+	 */
+	private List getComponentReferencesAsList(List componentTypes) {
 		List components = new ArrayList();
 		IVirtualComponent earComponent = getComponent();
 		if (earComponent != null && J2EEProjectUtilities.isEARProject(earComponent.getProject())) {
@@ -587,7 +633,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 				}
 			}
 		}
-		return (IVirtualReference[]) components.toArray(new IVirtualReference[components.size()]);
+		return components;
 	}
 
 	public ArtifactEdit createArtifactEditForRead(IVirtualComponent aComponent) {

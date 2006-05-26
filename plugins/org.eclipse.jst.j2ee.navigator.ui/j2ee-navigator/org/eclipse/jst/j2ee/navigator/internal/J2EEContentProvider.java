@@ -135,7 +135,9 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 		if (MethodsProviderDelegate.providesContentFor(element))
 			return delegateMethodsProvider.hasChildren(element);
 		/* else if (isEMFEditObject(element)) */
-		return delegateContentProvider.hasChildren(element);
+		if(element instanceof ItemProvider)
+			return true;
+		return delegateContentProvider.hasChildren(element); 
 
 	}
 

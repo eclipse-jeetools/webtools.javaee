@@ -264,15 +264,24 @@ public class ModulesItemProvider extends J2EEItemProvider {
 						foundBinary = true;
 						Object binaryModule = null;
 						if (module.isWebModule()) {
-							binaryModule = WebArtifactEdit.getWebArtifactEditForRead(component).getWebApp();
+							WebArtifactEdit webEdit = WebArtifactEdit.getWebArtifactEditForRead(component);
+							if(webEdit != null)
+								binaryModule = webEdit.getWebApp();
 						} else if (module.isJavaModule()) {
-							binaryModule = AppClientArtifactEdit.getAppClientArtifactEditForRead(component).getApplicationClient();
+							AppClientArtifactEdit appClientEdit = AppClientArtifactEdit.getAppClientArtifactEditForRead(component);
+							if(appClientEdit != null)
+								binaryModule = appClientEdit.getApplicationClient();
 						} else if (module.isEjbModule()) {
-							binaryModule = EJBArtifactEdit.getEJBArtifactEditForRead(component).getEJBJar();
+							EJBArtifactEdit ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(component);
+							if(ejbEdit != null)
+								binaryModule = ejbEdit.getEJBJar();
 						} else if (module.isConnectorModule()) {
-							binaryModule = ConnectorArtifactEdit.getConnectorArtifactEditForRead(component).getConnector();
+							ConnectorArtifactEdit connectorEdit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(component);
+							if(connectorEdit != null)
+								binaryModule = connectorEdit.getConnector();
 						}
-						binaryModules.add(binaryModule);
+						if(binaryModule != null)
+							binaryModules.add(binaryModule);
 					}
 				}
 			}
