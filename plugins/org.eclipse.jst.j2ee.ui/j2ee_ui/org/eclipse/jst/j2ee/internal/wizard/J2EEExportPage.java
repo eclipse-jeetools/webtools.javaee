@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.IDialogSettings;
@@ -70,6 +71,11 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 	public J2EEExportPage(IDataModel model, String pageName, IStructuredSelection selection) {
 		super(model, pageName);
 		currentResourceSelection = selection;
+		Object element = currentResourceSelection.getFirstElement();
+		IProject project = ProjectUtilities.getProject(element);
+		if (project != null) {
+			model.setProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME, project.getName());
+		}
 
 	}
 
