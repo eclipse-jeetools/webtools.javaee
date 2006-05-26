@@ -29,16 +29,20 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.IProjectCreationPropertiesNew;
+
 
 public class CreateProjectWithExtractedJarOperation extends J2EEUtilityJarImportAssistantOperation {
-
 //	private boolean createBinaryProject = false; 
 	private String newProjectName;
+	private String projectRoot;
+	private boolean createAsBinary;
 
 
-	public CreateProjectWithExtractedJarOperation(File utilityJar) {
+	public CreateProjectWithExtractedJarOperation(File utilityJar, String overridingProjectRoot) {
 		super(NLS.bind(EARCreationResourceHandler.CreateProjectWithExtractedJarOperation_Create_project_with_extracted_conte_, utilityJar.getName()), utilityJar);
 		newProjectName = getUtilityJarProjectName(utilityJar);
+		projectRoot = findUniqueLocation(overridingProjectRoot, newProjectName); 
 	}
 
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
@@ -47,16 +51,15 @@ public class CreateProjectWithExtractedJarOperation extends J2EEUtilityJarImport
 		try {
 			archive = CommonarchiveFactory.eINSTANCE.primOpenArchive(getUtilityJar().getAbsolutePath());
 
-			IDataModel importModel = DataModelFactory.createDataModel(new J2EEUtilityJarImportDataModelProvider());
-			// importModel.setBooleanProperty(IJavaUtilityJarImportDataModelProperties.PRESERVE_PROJECT_METADATA,
-			// createBinaryProject);
+			IDataModel importModel = DataModelFactory.createDataModel(new J2EEUtilityJarImportDataModelProvider()); 
 
 			importModel.setProperty(IJavaUtilityJarImportDataModelProperties.FILE, archive);
 //			importModel.setProperty(IJavaUtilityJarImportDataModelProperties.FILE_NAME, getUtilityJar().getAbsolutePath());
 
-			// if (overrideProjectRoot && projectRoot != null && projectRoot.length() > 0)
-			// importModel.getJ2eeProjectCreationDataModel().setProperty(IJavaUtilityProjectCreationDataModelProperties.PROJECT_LOCATION,
-			// projectRoot);
+			if (projectRoot != null && projectRoot.length() > 0) {				
+				importModel.setBooleanProperty(IProjectCreationPropertiesNew.USE_DEFAULT_LOCATION, false);
+				importModel.setProperty(IProjectCreationPropertiesNew.USER_DEFINED_LOCATION, projectRoot);
+			}
 
 			// importModel.getJ2eeProjectCreationDataModel().setBooleanProperty(J2EEProjectCreationDataModel.ADD_SERVER_TARGET, true);
 			if (isOverwriteIfNecessary()) {

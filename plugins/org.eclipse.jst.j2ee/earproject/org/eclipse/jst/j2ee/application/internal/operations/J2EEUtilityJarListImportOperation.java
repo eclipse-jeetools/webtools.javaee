@@ -52,9 +52,13 @@ public class J2EEUtilityJarListImportOperation extends AbstractDataModelOperatio
 		// isLinked = createProject = false;
 		boolean toLinkImportedJars = shouldLinkImportedJars();
 		boolean toCreateProject = shouldCreateProject();
-//		boolean toOverrideProjectRoot = shouldOverrideProjectRoot();
+		boolean toOverrideProjectRoot = shouldOverrideProjectRoot();  
+		boolean toOverwriteIfNecessary = shouldOverwriteIfNecessary();
 		
-//		String projectRoot = model.getStringProperty(IJ2EEUtilityJarListImportDataModelProperties.PROJECT_ROOT);
+		
+		String projectRoot = null;		
+		if(toOverrideProjectRoot)
+			projectRoot = model.getStringProperty(IJ2EEUtilityJarListImportDataModelProperties.PROJECT_ROOT);
 		
 		monitor.subTask(EARCreationResourceHandler.J2EEUtilityJarListImportOperation_UI_Preparing_to_import); //$NON-NLS-1$
 
@@ -70,10 +74,10 @@ public class J2EEUtilityJarListImportOperation extends AbstractDataModelOperatio
 			utilityJar = (File) utilityJars[i];
 			if (toCreateProject) { 
 				if (!toLinkImportedJars) {
-					assistantOperation = new CreateProjectWithExtractedJarOperation(utilityJar); 
+					assistantOperation = new CreateProjectWithExtractedJarOperation(utilityJar, projectRoot); 
 				 
 				} else {
-					assistantOperation = new CreateProjectWithLinkedJarOperation(utilityJar, linkedPathVariable);
+					assistantOperation = new CreateProjectWithLinkedJarOperation(utilityJar, projectRoot, linkedPathVariable);
 					
 				} 
 			} else { 
@@ -83,7 +87,7 @@ public class J2EEUtilityJarListImportOperation extends AbstractDataModelOperatio
 					assistantOperation = new LinkArchiveIntoProjectOperation(utilityJar, linkedPathVariable);
 			} 
 			assistantOperation.setAssociatedEARProjectName(associatedEARProjectName); 
-			assistantOperation.setOverwriteIfNecessary(model.getBooleanProperty(IJ2EEUtilityJarListImportDataModelProperties.OVERWRITE_IF_NECESSARY));
+			assistantOperation.setOverwriteIfNecessary(toOverwriteIfNecessary);
 			utilityJarOperations.add(assistantOperation);
 
 			monitor.worked(1);
@@ -106,6 +110,14 @@ public class J2EEUtilityJarListImportOperation extends AbstractDataModelOperatio
 		return status;
 	}
  
+	private boolean shouldOverwriteIfNecessary() {
+		return model.getBooleanProperty(IJ2EEUtilityJarListImportDataModelProperties.OVERWRITE_IF_NECESSARY);
+	}
+
+	protected final boolean shouldImportAsBinary() {
+		return model.getBooleanProperty(IJ2EEUtilityJarListImportDataModelProperties.BINARY_IMPORT);
+	}
+
 	protected final boolean shouldOverrideProjectRoot() {
 		return model.getBooleanProperty(IJ2EEUtilityJarListImportDataModelProperties.OVERRIDE_PROJECT_ROOT);
 	}

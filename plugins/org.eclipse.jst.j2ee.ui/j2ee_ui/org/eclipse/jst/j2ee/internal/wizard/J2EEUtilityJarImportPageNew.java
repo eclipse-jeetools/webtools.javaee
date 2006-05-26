@@ -66,7 +66,8 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPage {
 
 	private Combo availableJarsCombo;
 
-	protected Button linkedPathCheckbox;
+	protected Button linkedPathCheckbox;  
+
 
 	/**
 	 * @param model
@@ -96,7 +97,7 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPage {
 		createUtilityJarFileNameComposite(composite);
 		createLinkedPathVariable(composite);
 		createJARsComposite(composite);
-		/* createOverwriteCheckbox(composite); */
+		createOverwriteCheckbox(composite); 
 
 		restoreWidgetValues();
 		return composite;
@@ -288,13 +289,6 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPage {
 		});
 	}
 
-	public void createNestedProjectOverwriteCheckbox(Composite parent) {
-		Button allowNestedOverwriteCheckbox;
-		allowNestedOverwriteCheckbox = new Button(parent, SWT.CHECK);
-		allowNestedOverwriteCheckbox.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_OVERWRITE_NESTED));
-		synchHelper.synchCheckbox(allowNestedOverwriteCheckbox, IJ2EEUtilityJarListImportDataModelProperties.OVERWRITE_IF_NECESSARY, null);
-	}
-
 	protected void createJARsComposite(Composite parent) {
 		Group group = new Group(parent, SWT.NULL);
 		group.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_JARS_GROUP));
@@ -394,5 +388,6 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPage {
 	protected String getFileImportLabel() {
 		return J2EEUIMessages.getResourceString("J2EEUtilityJarImportPage_UI_7"); //$NON-NLS-1$
 	}
-
+	
+ 
 }

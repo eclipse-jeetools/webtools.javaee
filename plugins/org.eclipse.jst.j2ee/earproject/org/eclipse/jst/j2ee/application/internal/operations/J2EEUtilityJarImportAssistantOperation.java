@@ -177,8 +177,7 @@ public abstract class J2EEUtilityJarImportAssistantOperation extends AbstractOpe
         return Status.OK_STATUS;
     } 
 
-    protected final IPath getLinkedPath(File archiveFile, String linkedPathVariable) throws CoreException {
-        
+    protected final IPath getLinkedPath(File archiveFile, String linkedPathVariable) throws CoreException {        
 
         if (linkedPathVariable == null || linkedPathVariable.length() == 0)
             return new Path(archiveFile.getAbsolutePath());
@@ -187,5 +186,10 @@ public abstract class J2EEUtilityJarImportAssistantOperation extends AbstractOpe
             return new Path(linkedPathVariable).append(archiveFile.getName());
         }
     } 
+    
+    protected final String findUniqueLocation(String baseLocation, String proposedProjectName) { 
+    	
+    	return baseLocation != null ? (baseLocation + File.separator + proposedProjectName) : null;
+    }
 
 }

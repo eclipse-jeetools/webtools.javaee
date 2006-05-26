@@ -301,10 +301,12 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 			return Status.OK_STATUS;
 		} else if (LINKED_PATH_VARIABLE.equals(propertyName)) {
 			if (isLinkedPathVariableInvalid())
-				return new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, 0, EARCreationResourceHandler.J2EEUtilityJarListImportDataModel_Specify_Linked_Path, null); 
+				return new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, 0, EARCreationResourceHandler.J2EEUtilityJarListImportDataModel_Specify_Linked_Path, null);
+			else if (linkedPathExists()) 
+				return new Status(IStatus.INFO, J2EEPlugin.PLUGIN_ID, 0, EARCreationResourceHandler.J2EEUtilityJarListImportDataModel_Linked_Path_Exists, null);
 		} else if (PROJECT_ROOT.equals(propertyName)) {
 			return validateProjectRoot();
-		}
+		} 
 		return super.validate(propertyName);
 	}
 

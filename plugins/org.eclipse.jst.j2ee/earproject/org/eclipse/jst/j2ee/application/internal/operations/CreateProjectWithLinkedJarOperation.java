@@ -32,14 +32,18 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCr
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.IProjectCreationPropertiesNew;
 
 public class CreateProjectWithLinkedJarOperation extends J2EEUtilityJarImportAssistantOperation {
 
 	private String linkedPathVariable;
+	private String projectRoot;
+	private boolean createAsBinary;
 
-	public CreateProjectWithLinkedJarOperation(File utilityJar, String linkedPathVariable) {
+	public CreateProjectWithLinkedJarOperation(File utilityJar, String overridingProjectRoot, String linkedPathVariable) {
 		super(NLS.bind(EARCreationResourceHandler.CreateProjectWithLinkedJarOperation_Creating_project_with_linked_archiv_, utilityJar.getName()), utilityJar);
-		this.linkedPathVariable= linkedPathVariable;
+		this.linkedPathVariable= linkedPathVariable; 
+		projectRoot = findUniqueLocation(overridingProjectRoot, getUtilityJarProjectName(utilityJar)); 
 	}
 
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
@@ -50,6 +54,11 @@ public class CreateProjectWithLinkedJarOperation extends J2EEUtilityJarImportAss
 			
 			IDataModel createUtilityProject = DataModelFactory.createDataModel(new UtilityProjectCreationDataModelProvider());
 			createUtilityProject.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, getUtilityJarProjectName(getUtilityJar()));
+			
+			if (projectRoot != null && projectRoot.length() > 0) {				
+				createUtilityProject.setBooleanProperty(IProjectCreationPropertiesNew.USE_DEFAULT_LOCATION, false);
+				createUtilityProject.setProperty(IProjectCreationPropertiesNew.USER_DEFINED_LOCATION, projectRoot);
+			}
  			
 			createUtilityProject.setProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME, getAssociatedEARProjectName());
 			

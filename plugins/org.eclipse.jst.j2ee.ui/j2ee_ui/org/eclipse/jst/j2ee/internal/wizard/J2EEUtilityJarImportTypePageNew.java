@@ -47,7 +47,6 @@ import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
@@ -76,8 +75,6 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 	private Button createProjects;
 
 	protected Button browseButton;
-
-	private Button binaryImportCheckbox;
 
 	private Button overrideProjectRootCheckbox;
 
@@ -146,7 +143,7 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 		createEARProjectGroup(composite);
 		createUtilityJarImportTypes(composite);
 		// TODO The binary / project location options are not yet (re-) supported by the import operations. 
-		// createProjectCreationOptions(composite);
+		createProjectCreationOptions(composite);
 
 		setupBasedOnInitialSelections();
 		return composite;
@@ -189,9 +186,7 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 
 		GridLayout layout = new GridLayout(1, false);
 		projectOptionsGroup.setLayout(layout);
-		projectOptionsGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-
-		createBinaryImportCheckbox(projectOptionsGroup);
+		projectOptionsGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL)); 
 
 		overrideProjectRootCheckbox = new Button(projectOptionsGroup, SWT.CHECK);
 		overrideProjectRootCheckbox.setText(J2EEUIMessages.getResourceString("J2EEUtilityJarImportTypePage_UI_11")); //$NON-NLS-1$
@@ -202,40 +197,6 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 																																					 * projectRootLocationText,
 																																					 * browseButton
 																																					 */});
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#propertyChanged(org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModelEvent)
-	 */
-	public void propertyChanged(DataModelEvent event) {
-		// if (synching) return;
-		// synching = true;
-		// if (J2EEUtilityJarListImportDataModel.CREATE_PROJECT.equals(event.getPropertyName())
-		// || J2EEUtilityJarListImportDataModel.LINK_IMPORT.equals(event.getPropertyName())) {
-		//
-		// boolean shouldCreateProject =
-		// getModel().getBooleanProperty(J2EEUtilityJarListImportDataModel.CREATE_PROJECT);
-		// boolean linkImportedContent =
-		// getModel().getBooleanProperty(J2EEUtilityJarListImportDataModel.LINK_IMPORT);
-		//
-		// createProjects.setSelection(shouldCreateProject && !linkImportedContent);
-		// createLinkedProjects.setSelection(shouldCreateProject && linkImportedContent);
-		// linkJarIntoEAR.setSelection(!shouldCreateProject && linkImportedContent);
-		// copyJarIntoEAR.setSelection(!shouldCreateProject && !linkImportedContent);
-		//             
-		// enableProjectOptions(shouldCreateProject);
-		//
-		// } else
-		// if(J2EEUtilityJarListImportDataModel.OVERRIDE_PROJECT_ROOT.equals(event.getPropertyName()))
-		// {
-		// boolean overrideProjectRoot =
-		// getModel().getBooleanProperty(J2EEUtilityJarListImportDataModel.OVERRIDE_PROJECT_ROOT);
-		// projectRootLocationText.setEnabled(overrideProjectRoot);
-		// }
-		// synching = false;
-		super.propertyChanged(event);
 	}
 
 	/**
@@ -304,11 +265,6 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 		synchHelper.synchText(projectRootLocationText, IJ2EEUtilityJarListImportDataModelProperties.PROJECT_ROOT, new Control[]{moduleProjectLocationLabel, projectRootLocationText, browseButton});
 	}
 
-	protected void createBinaryImportCheckbox(Composite parent) {
-		binaryImportCheckbox = new Button(parent, SWT.CHECK);
-		binaryImportCheckbox.setText(J2EEUIMessages.getResourceString("J2EEUtilityJarImportTypePage_UI_10")); //$NON-NLS-1$
-		synchHelper.synchCheckbox(binaryImportCheckbox, IJ2EEUtilityJarListImportDataModelProperties.BINARY_IMPORT, null);
-	}
 
 	/**
 	 * Open an appropriate directory browser
@@ -394,9 +350,7 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 		return o instanceof EARFile || o instanceof Application;
 	}
 
-	protected void enableProjectOptions(boolean enabled) {
-		// getModel().setBooleanProperty(J2EEUtilityJarListImportDataModel.BINARY_IMPORT, enabled);
-		binaryImportCheckbox.setEnabled(enabled);
+	protected void enableProjectOptions(boolean enabled) { 
 		overrideProjectRootCheckbox.setEnabled(enabled);
 
 		if (overrideProjectRootCheckbox.getSelection() && enabled)
