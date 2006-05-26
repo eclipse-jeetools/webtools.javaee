@@ -39,6 +39,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.jst.j2ee.internal.common.ClasspathModelEvent;
 
 /**
  * @author jialin
@@ -247,6 +248,9 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	 * @see Listener#handleEvent(Event)
 	 */
 	public void handleEvent(Event event) {
+		
+		ClasspathModelEvent evt = new ClasspathModelEvent(ClasspathModelEvent.CLASS_PATH_CHANGED);
+		model.fireNotification(evt);
 		if (event.widget == upButton)
 			upButtonSelected();
 		else if (event.widget == downButton)
@@ -316,6 +320,8 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 			return;
 		availableJARsViewer.setAllChecked(false);
 		model.setAllClasspathElementsSelected(false);
+		ClasspathModelEvent evt = new ClasspathModelEvent(ClasspathModelEvent.CLASS_PATH_CHANGED);
+		
 	}
 
 	protected void selectAllButtonSelected() {
