@@ -284,7 +284,7 @@ public class ProjectRefactorMetadata {
 		private IVirtualReference[] cachedRefs;
 		public RefCachingVirtualComponent(final IVirtualComponent comp) {
 			super(comp);
-			cachedRefs = comp.getReferences();
+			cachedRefs = ((VirtualComponent)comp).getAllReferences();
 		}
 
 		public IVirtualReference getReference(String aComponentName) {
