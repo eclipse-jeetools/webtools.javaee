@@ -34,6 +34,10 @@ public class ContainerManagedEntityBeanDelegate extends EnterpriseBeanDelegate i
 
 	public void setDataModel(IDataModel dataModel) {
 		super.setDataModel(dataModel);
+		String schema = dataModel.getStringProperty(IContainerManagedEntityBeanDataModelProperties.SCHEMA);
+		ContainerManagedEntity entity = (ContainerManagedEntity) this.getEnterpriseBean();
+		entity.setAbstractSchemaName(schema);
+		
 	}
 
 	public String getType() {
