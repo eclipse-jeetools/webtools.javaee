@@ -267,7 +267,7 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 		}
 		catalogButton.setItems((String[]) tableList.toArray(new String[tableList.size()]));
 		catalogButton.select(0);
-		if (tableList.size() >= 0) {
+		if (tableList.size() > 0) {
 			fillTableWith((String) tableList.get(0));
 			catalogButton.setEnabled(true);
 			if (attributeTableViewer != null)
