@@ -158,7 +158,7 @@ public class XDocletRuntime {
 				if (!libFile.exists() && !libFile2.exists())
 					errors.add(new Status(IStatus.ERROR,
 							XDocletAnnotationPlugin.PLUGINID, 0,
-							Messages.error_message_no_lib + jar, null));
+							Messages.error_message_no_lib + jar +". "+ Messages.error_xdoclet_home_message+version, null));
 			}
 		}
 		return (IStatus[]) errors.toArray(new IStatus[errors.size()]);

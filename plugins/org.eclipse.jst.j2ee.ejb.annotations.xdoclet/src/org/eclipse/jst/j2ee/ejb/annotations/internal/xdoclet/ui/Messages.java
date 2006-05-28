@@ -37,6 +37,7 @@ public final class Messages extends NLS {
 	public static String label_task;
 	public static String label_edit;
 	public static String error_message_no_lib;
+	public static String error_xdoclet_home_message;
 	
 
 	static {
