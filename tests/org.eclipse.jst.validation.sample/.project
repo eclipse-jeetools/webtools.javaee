@@ -3,8 +3,6 @@
 	<name>org.eclipse.jst.validation.sample</name>
 	<comment></comment>
 	<projects>
-		<project>com.ibm.etools.validation</project>
-		<project>com.ibm.wtp.common</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
