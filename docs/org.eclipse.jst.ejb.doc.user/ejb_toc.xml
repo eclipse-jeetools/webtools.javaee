@@ -23,6 +23,7 @@
 	<topic label="Exporting EJB projects to EJB JAR files" href="topics/teexp.html"/>
 	<topic label="Creating enterprise beans with XDoclet annotation support" href="topics/tecrte.html">
 		<topic label="Creating session beans with XDoclet annotation support" href="topics/tesessb.html"/>
+		<topic label="Creating CMP entity beans with XDoclet annotation support" href="topics/teentityb.html"/>
 		<topic label="Creating message-driven beans with XDoclet annotation support" href="topics/temessb.html"/>
 		<topic label="Configuring XDoclet annotation support" href="topics/txdocletconf.html"/>
 	</topic>
