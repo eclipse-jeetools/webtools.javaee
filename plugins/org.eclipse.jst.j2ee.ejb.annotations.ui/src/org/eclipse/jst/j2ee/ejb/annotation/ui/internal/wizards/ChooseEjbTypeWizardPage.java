@@ -83,7 +83,7 @@ public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 		ejbTypeGroup.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL));
 
 		sessionType = new Button(ejbTypeGroup, SWT.RADIO);
-		sessionType.setText("SessionBean"); //$NON-NLS-1$
+		sessionType.setText(Messages.label_session_bean); //$NON-NLS-1$
 		sessionType.setSelection(true);
 		sessionType.addSelectionListener(new SelectionListener() {
 
@@ -100,7 +100,7 @@ public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 		});
 
 		messageDrivenType = new Button(ejbTypeGroup, SWT.RADIO);
-		messageDrivenType.setText("MessageDrivenBean"); //$NON-NLS-1$
+		messageDrivenType.setText(Messages.label_message_driven_bean); //$NON-NLS-1$
 		messageDrivenType.setSelection(false);
 		messageDrivenType.addSelectionListener(new SelectionListener() {
 
@@ -119,7 +119,7 @@ public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 
 
 		containerManagedEntityType = new Button(ejbTypeGroup, SWT.RADIO);
-		containerManagedEntityType.setText("ContainerManagedEntityBean"); //$NON-NLS-1$
+		containerManagedEntityType.setText(Messages.label_container_managed_entity_bean); //$NON-NLS-1$
 		containerManagedEntityType.setSelection(false);
 		containerManagedEntityType
 				.addSelectionListener(new SelectionListener() {
@@ -196,7 +196,7 @@ public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 
 		Link link = new Link(composite, SWT.NONE);
 		link.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false, 3, 1));
-		link.setText("You can change your provider <a>preferences</a>");
+		link.setText(Messages.label_change_your_provider_preference);
 
 		link.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
@@ -241,7 +241,7 @@ public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 			this.setErrorMessage(null);
 			this.setPageComplete(true);
 		} else
-			this.setErrorMessage("Annotation provider definition is not valid, please check the preferences. ");
+			this.setErrorMessage(Messages.msg_err_annotation_provider_not_valid);
 		getContainer().updateMessage();
 	}
 
