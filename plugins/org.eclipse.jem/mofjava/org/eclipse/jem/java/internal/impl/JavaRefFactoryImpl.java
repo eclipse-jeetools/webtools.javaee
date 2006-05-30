@@ -419,10 +419,11 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	 */
 	public URI createTypeURI(String aQualifiedName) {
 		// for need to just tolerate generics (i.e. "<...>". Fully support later.
+		//In this case tolerate means ignore the parameter types.
 		int genNdx = aQualifiedName.indexOf(GENERIC_START);
 		int pkgNdx = genNdx == -1 ? aQualifiedName.lastIndexOf('.') : aQualifiedName.lastIndexOf('.', genNdx);
 		if (pkgNdx > -1)
-			return createTypeURI(aQualifiedName.substring(0, pkgNdx), aQualifiedName.substring(pkgNdx+1));
+			return createTypeURI(aQualifiedName.substring(0, pkgNdx), genNdx == -1 ? aQualifiedName.substring(pkgNdx+1) : aQualifiedName.substring(pkgNdx+1, genNdx));
 		else
 			return createTypeURI(null, aQualifiedName);
 	}
