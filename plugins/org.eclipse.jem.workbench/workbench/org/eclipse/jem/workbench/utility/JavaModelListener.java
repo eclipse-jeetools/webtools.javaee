@@ -11,7 +11,7 @@
 package org.eclipse.jem.workbench.utility;
 
 /*
- * $RCSfile: JavaModelListener.java,v $ $Revision: 1.2 $ $Date: 2006/02/06 23:49:37 $
+ * $RCSfile: JavaModelListener.java,v $ $Revision: 1.3 $ $Date: 2006/05/30 15:44:02 $
  */
 
 import java.util.*;
@@ -19,6 +19,8 @@ import java.util.*;
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.*;
+
+import org.eclipse.jem.internal.core.JEMPlugin;
 
 /**
  * An element change listener to listen for Java Model changes. It breaks the notification up into individual method calls to make it easier to walk
@@ -318,26 +320,66 @@ public abstract class JavaModelListener implements IElementChangedListener {
 		} catch (JavaModelException e) {
 			return false;
 		}
-		IClasspathEntry entry, resEntry;
-		IJavaProject proj = null;
 		List projects = null;
 		for (int i = 0; i < entries.length; i++) {
+			IClasspathEntry entry;
 			entry = entries[i];
-			if (entry.getEntryKind() == IClasspathEntry.CPE_PROJECT) {
-				resEntry = JavaCore.getResolvedClasspathEntry(entry);
-				proj = getJavaProject(entry);
-				if (isFirstLevel || resEntry.isExported()) {
-					if (proj.equals(testProject))
-						return true;
-					else {
-						if (projects == null)
-							projects = new ArrayList();
-						projects.add(proj);
+			switch (entry.getEntryKind()) {
+				case IClasspathEntry.CPE_PROJECT:
+					IJavaProject entryProject = getVisibleJavaProject(entry, isFirstLevel);
+					if (entryProject != null) {
+						if (entryProject.equals(testProject)) {
+							return true;
+						} else {
+							if (projects == null) {
+								projects = new ArrayList();
+							}
+							projects.add(entryProject);
+						}
 					}
-				}
+					break;
+				//A container may contain references to projects.
+				case IClasspathEntry.CPE_CONTAINER :
+					IClasspathContainer container = null;
+					try {
+						container = JavaCore.getClasspathContainer(entry.getPath(), targetProject);
+					} catch (JavaModelException e) {
+						JEMPlugin.getPlugin().getLogger().logError(e);
+					}
+					if (container == null || container.getKind() != IClasspathContainer.K_APPLICATION)
+						break;
+					IClasspathEntry[] containerEntries = container.getClasspathEntries();
+					for (int j = 0; j < containerEntries.length; j++) {
+						if (containerEntries[j].getEntryKind() == IClasspathEntry.CPE_PROJECT) {
+							IJavaProject conEntryProject = getVisibleJavaProject(containerEntries[j], isFirstLevel);
+							if (conEntryProject != null) {
+								if (conEntryProject.equals(testProject)) {
+									return true;
+								} else {
+									if (projects == null) {
+										projects = new ArrayList();
+									}
+									projects.add(conEntryProject);
+								}
+							}
+						}
+					}
+					break;
 			}
 		}
 		return isInClasspath(testProject, projects, false, visited);
+	}
+	
+	/*
+	 * This method is used to return an IJavaProject that is resolved from the entry
+	 * if it is currently visible to downstream projects.
+	 */
+	private IJavaProject getVisibleJavaProject(IClasspathEntry entry, boolean isFirstLevel) {
+		if (isFirstLevel || entry.isExported()) {
+			IClasspathEntry resEntry = JavaCore.getResolvedClasspathEntry(entry);
+			return getJavaProject(resEntry);
+		}
+		return null;
 	}
 
 	/*
