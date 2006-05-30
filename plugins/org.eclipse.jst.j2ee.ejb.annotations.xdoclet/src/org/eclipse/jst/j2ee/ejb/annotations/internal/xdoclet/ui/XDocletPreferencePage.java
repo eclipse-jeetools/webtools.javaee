@@ -185,6 +185,8 @@ public class XDocletPreferencePage extends PropertyPreferencePage implements Sel
 
 		xDocletPath.addModifyListener(listener);
 		xDocletVersion.addModifyListener(listener);
+		applyDialogFont(composite);
+		
 		return composite;
 	}
 
