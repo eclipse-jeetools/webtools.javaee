@@ -19,6 +19,7 @@ package org.eclipse.jst.j2ee.internal.war.ui.util;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -147,15 +148,24 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 
 	protected WeakReference weakWebApp = null;
 
-	public Collection getChildren(Object object) {
-		children.clear();
-		if (object instanceof WebApp && children.isEmpty()) {
-			weakWebApp = new WeakReference(object);
-			initChildren();
-		}
-		if (object instanceof WebApp)
-			weakWebApp = new WeakReference(object);
-		return children;
+	public Collection getChildren(Object object) {		
+		if (object instanceof WebApp) {
+			WebApp webApp = (WebApp) object;
+			
+			// uninitialized
+			if(weakWebApp == null || children.isEmpty()) {
+				weakWebApp = new WeakReference(webApp);
+				initChildren();
+				
+			// must be re-initialized
+			} else if(webApp != weakWebApp.get()) {
+				children.clear();
+				weakWebApp = new WeakReference(webApp);
+				initChildren();
+			}
+			return children;			
+		} 
+		return Collections.EMPTY_LIST;
 	}
 
 	/*
