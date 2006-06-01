@@ -613,6 +613,12 @@
              adaptableType="org.eclipse.core.resources.IFile">
             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
        </factory>
+        <factory
+              adaptableType="org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper"
+              class="org.eclipse.jst.j2ee.internal.ClassHelperAdapterFactory">
+           <adapter type="org.eclipse.core.resources.IFile"/>
+           <adapter type="org.eclipse.core.resources.IResource"/>
+        </factory>
     
     <!--
       <factory 

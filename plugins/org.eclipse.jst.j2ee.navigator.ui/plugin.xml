@@ -636,14 +636,17 @@
 			</or>
 		</triggerPoints>
 		<possibleChildren>
-			<and>
-				<instanceof value="org.eclipse.emf.ecore.EObject" />
-				<or>
-					<test forcePluginActivation="true"
-						property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
-						value="ejb.xmi" />
-				</or>
-			</and>
+			<or>
+				<and>
+					<instanceof value="org.eclipse.emf.ecore.EObject" />
+					<or>
+						<test forcePluginActivation="true"
+							property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+							value="ejb.xmi" />
+					</or>
+				</and>
+				<instanceof value="org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper"/>
+			</or>
 		</possibleChildren>
 		<commonSorter
 		    id="org.eclipse.jst.j2ee.navigator.internal.J2EEViewerSorter"
@@ -653,12 +656,15 @@
 			class="org.eclipse.jst.j2ee.navigator.internal.J2EEActionProvider"
 			id="org.eclipse.jst.j2ee.navigator.ui.EJBActionProvider">
 			<enablement>
-				<and>
-					<instanceof value="org.eclipse.emf.ecore.EObject" />
-					<test forcePluginActivation="true"
-						property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
-						value="ejb.xmi" />
-				</and>
+				<or>
+					<and>
+						<instanceof value="org.eclipse.emf.ecore.EObject" />
+						<test forcePluginActivation="true"
+								property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+								value="ejb.xmi" />
+					</and>
+					<instanceof value="org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper"/>
+				</or>
 			</enablement>
 		</actionProvider>
 		<!--  By default, anything that can adapt to an IResource gets  New Action Provider (from the Resources extension),
