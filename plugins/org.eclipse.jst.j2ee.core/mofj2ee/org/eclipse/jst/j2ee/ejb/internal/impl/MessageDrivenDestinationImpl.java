@@ -150,18 +150,18 @@ public class MessageDrivenDestinationImpl extends EObjectImpl implements Message
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSubscriptionDurability(SubscriptionDurabilityKind newSubscriptionDurability) {
-		SubscriptionDurabilityKind oldSubscriptionDurability = subscriptionDurability;
-		subscriptionDurability = newSubscriptionDurability == null ? SUBSCRIPTION_DURABILITY_EDEFAULT : newSubscriptionDurability;
-		boolean oldSubscriptionDurabilityESet = subscriptionDurabilityESet;
-		subscriptionDurabilityESet = true;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.MESSAGE_DRIVEN_DESTINATION__SUBSCRIPTION_DURABILITY, oldSubscriptionDurability, subscriptionDurability, !oldSubscriptionDurabilityESet));
-	}
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSubscriptionDurability(SubscriptionDurabilityKind newSubscriptionDurability) {
+    	SubscriptionDurabilityKind oldSubscriptionDurability = subscriptionDurability;
+    	subscriptionDurability = newSubscriptionDurability == null ? null : newSubscriptionDurability;
+    	boolean oldSubscriptionDurabilityESet = subscriptionDurabilityESet;
+    	subscriptionDurabilityESet = true;
+    	if (eNotificationRequired())
+    		eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.MESSAGE_DRIVEN_DESTINATION__SUBSCRIPTION_DURABILITY, oldSubscriptionDurability, subscriptionDurability, !oldSubscriptionDurabilityESet));
+    }
 
 	/**
 	 * <!-- begin-user-doc -->
