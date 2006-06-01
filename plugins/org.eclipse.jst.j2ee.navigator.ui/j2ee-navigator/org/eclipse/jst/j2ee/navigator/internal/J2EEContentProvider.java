@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.provider.ItemProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
@@ -89,13 +90,34 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 		IProject project = null;
 		List children = new ArrayList();
 		if (aParentElement instanceof IAdaptable && !(aParentElement instanceof EObject) && !(aParentElement instanceof ItemProvider)) {
-			project = (IProject) ((IAdaptable) aParentElement).getAdapter(IPROJECT_CLASS);
-			if (project != null) {
-				LoadingDDNode placeHolder = new LoadingDDNode(project.getName());				
-				LoadingDDJob loadJob = new LoadingDDJob(viewer, placeHolder, (IAdaptable) aParentElement, rootObjectProvider);
-				loadJob.schedule();
+			project = (IProject) ((IAdaptable) aParentElement).getAdapter(IPROJECT_CLASS); 
+			 
+	 			
+			// Verify if the model *is being* 
+			//			loaded and just return the place holder 			
+			if(LoadingDDNode.isBeingLoaded(project)) {
+				children.add(LoadingDDNode.createPlaceHolder(project)); 
+				
+			// Verify if the model has been loaded, just return it  
+			} else if (rootObjectProvider.hasLoadedModels(project)) {
+				/* model already loaded, just return the model */ 
+				children.addAll(Arrays.asList(rootObjectProvider.getModels(project)));
+			
+			// Otherwise return a place holder node and start loading job
+			} else { 
+				LoadingDDNode placeHolder = LoadingDDNode.createPlaceHolder(project);
+				/* we need to load the model; possible long running operation */					
+				if(LoadingDDNode.canBeginLoading(project))
+					new LoadingDDJob(viewer, placeHolder, (IAdaptable) aParentElement, rootObjectProvider)
+						.schedule();
 				children.add(placeHolder);
 			}
+//			if (project != null) {
+//				LoadingDDNode placeHolder = new LoadingDDNode(project.getName());				
+//				LoadingDDJob loadJob = new LoadingDDJob(viewer, placeHolder, (IAdaptable) aParentElement, rootObjectProvider);
+//				loadJob.schedule();
+//				children.add(placeHolder);
+//			}
 		} else if (MethodsProviderDelegate.providesContentFor(aParentElement))
 			return delegateMethodsProvider.getChildren(aParentElement);
 		else /* if (isEMFEditObject(aParentElement)) */{
@@ -110,10 +132,15 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 		if (MethodsProviderDelegate.providesContentFor(object))
 			return delegateMethodsProvider.getParent(object);
 		Object parent = delegateContentProvider.getParent(object);
-		if (parent == null && object instanceof BeanClassProviderHelper)
-			parent = ((BeanClassProviderHelper) object).getEjb();
-		if (parent == null && object instanceof EObject)
+		if(parent instanceof Resource) {
 			parent = ProjectUtilities.getProject((EObject) object);
+		} else if (parent == null) {
+			if(object instanceof BeanClassProviderHelper)
+				parent = ((BeanClassProviderHelper) object).getEjb();
+			else if (object instanceof EObject) {
+				parent = ProjectUtilities.getProject((EObject) object);	
+			}
+		} 
 		return parent;
 	}
 

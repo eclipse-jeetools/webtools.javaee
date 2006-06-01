@@ -8,6 +8,12 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.navigator.internal;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.j2ee.internal.navigator.ui.Messages;
 import org.eclipse.jst.j2ee.navigator.internal.plugin.J2EENavigatorPlugin;
@@ -20,6 +26,10 @@ public class LoadingDDNode {
 	private static ImageDescriptor loadingTwo;
 	private static ImageDescriptor loadingThree;
 	private static ImageDescriptor loadingFour;
+	
+
+	private static final Set loadingFiles = new HashSet();
+	private static final Map placeHolders = new HashMap();
 
 	static {
 		try {
@@ -42,12 +52,35 @@ public class LoadingDDNode {
 	private String text2;
 	private String text3;
 	private int count = 0;
+
+	private boolean disposed = false;
+	private IProject modelProject;
 	
-	public LoadingDDNode(String type) {
-		text = NLS.bind(Messages.LoadingDDNode_Loading_0_, type);
+
+	/**
+	 * Return a place holder node to sit in the tree until data is available.
+	 * This place holder node will be animated for the user's enjoyment. 
+	 *  
+	 * @param modelFile The modelFile to be loaded
+	 * @return A new unique place holder for this file for a given load cycle
+	 */
+	public static LoadingDDNode createPlaceHolder(IProject modelFile) {
+		LoadingDDNode node = null;
+		synchronized (LoadingDDNode.class) {
+			if(placeHolders.containsKey(modelFile))
+				node = (LoadingDDNode) placeHolders.get(modelFile);
+			else 			
+				placeHolders.put(modelFile, node = new LoadingDDNode(modelFile));
+		}
+		return node;
+	}
+	
+	public LoadingDDNode(IProject model) {
+		text = NLS.bind(Messages.LoadingDDNode_Loading_0_, model.getName());
 		text1 = text  + "."; //$NON-NLS-1$
 		text2 = text  + ".."; //$NON-NLS-1$
 		text3 = text  + "..."; //$NON-NLS-1$
+		modelProject = model;
 	}
 
 	public String getText() {
@@ -78,5 +111,47 @@ public class LoadingDDNode {
 				return J2EENavigatorPlugin.getDefault().getImage(loadingFour);
 		}
 	} 
+	
+	
+	
+	public boolean isDisposed() {
+		return disposed;
+	}
+	
+	public void dispose() {
+		synchronized (LoadingDDNode.class) {
+			disposed = true;
+			placeHolders.remove(modelProject);	
+			loadingFiles.remove(modelProject);
+		}
+	}
+
+	/**
+	 * Employ a Test and Set (TST) primitive to ensure 
+	 * that only job is spawned to load the model file
+	 *   
+	 * 
+	 * @return True only if no other jobs are trying to load this model.
+	 */
+	public static boolean canBeginLoading(IProject modelProject) {
+		synchronized (LoadingDDNode.class) {  
+			if(loadingFiles.contains(modelProject))
+				return false;
+			loadingFiles.add(modelProject);
+			return true;
+		}
+
+	}
+
+	/**
+	 * Return true if a job has requested permission to load the model file   
+	 * @param modelFile The model file that should be loaded
+	 * @return True only if a job is trying to load the model.
+	 */
+	public static boolean isBeingLoaded(IProject modelProject) {
+		synchronized (LoadingDDNode.class) {  
+			return loadingFiles.contains(modelProject);
+		}
+	}
 	
 }

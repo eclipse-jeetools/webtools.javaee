@@ -23,31 +23,25 @@ public class LoadingDDUIJob extends UIJob {
 	private static final long DELAY = 200;
 	  
 	private LoadingDDNode placeHolder;
-	private StructuredViewer viewer;
-
-	private boolean complete; 
+	private StructuredViewer viewer; 
 	 
 	public LoadingDDUIJob(StructuredViewer viewer, LoadingDDNode placeHolder) {
 		super(placeHolder.getText()); 
 		this.viewer = viewer;
 		this.placeHolder = placeHolder;
 		setSystem(true);
-		//setRule(NonConflictingRule.INSTANCE);
+		setRule(new NonConflictingRule());
 	}
 
-	public IStatus runInUIThread(IProgressMonitor monitor) { 
-		
-		if(!complete) {
+	public IStatus runInUIThread(IProgressMonitor monitor) {  
+
+		if(!placeHolder.isDisposed()) {
 			viewer.refresh(placeHolder, true);			
 			schedule(DELAY);		
 		}
 		return Status.OK_STATUS;
 		
 	}
-
-	public void setComplete(boolean newComplete) {
-		complete = newComplete;
-		
-	}
+ 
 
 }

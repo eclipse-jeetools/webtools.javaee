@@ -43,18 +43,25 @@ public class LoadingDDJob extends Job {
 
 		LoadingDDUIJob updateUIJob = new LoadingDDUIJob(viewer, placeHolder);
 		updateUIJob.schedule();
-		
+
 		List children = new ArrayList();
-		IProject project =  (IProject)  parent.getAdapter(IPROJECT_CLASS);
-		Object[] rootObjects = (rootObjectProvider != null) ? rootObjectProvider.getModels(project) : null;
-		if (rootObjects != null) {
-			for (int x=0; x< rootObjects.length ; ++x) {
-				children.add(rootObjects[x]);
-			}
-			
-		}		
-		updateUIJob.setComplete(true);
-		new ClearPlaceHolderJob(viewer, placeHolder, parent, children.toArray()).schedule();
+		
+		try {
+			IProject project =  (IProject)  parent.getAdapter(IPROJECT_CLASS);
+			Object[] rootObjects = (rootObjectProvider != null) ? rootObjectProvider.getModels(project) : null;
+			if (rootObjects != null) {
+				for (int x=0; x< rootObjects.length ; ++x) {
+					children.add(rootObjects[x]);
+				}
+				
+			}		
+		} finally { 
+			/* dispose of the place holder, causes the termination of the animation job */
+			placeHolder.dispose(); 
+			new ClearPlaceHolderJob(viewer, placeHolder, parent, children.toArray()).schedule();
+		}
+		
+		 
 		return Status.OK_STATUS;
 	}
 

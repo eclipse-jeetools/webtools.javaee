@@ -646,7 +646,9 @@
 					</or>
 				</and>
 				<instanceof value="org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper"/>
+               <instanceof value="org.eclipse.jst.j2ee.internal.ejb.provider.GroupedEJBItemProvider"/>
 			</or>
+            <instanceof value="org.eclipse.jst.j2ee.navigator.internal.LoadingDDNode"/>
 		</possibleChildren>
 		<commonSorter
 		    id="org.eclipse.jst.j2ee.navigator.internal.J2EEViewerSorter"
@@ -664,7 +666,7 @@
 								value="ejb.xmi" />
 					</and>
 					<instanceof value="org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper"/>
-				</or>
+				  </or>
 			</enablement>
 		</actionProvider>
 		<!--  By default, anything that can adapt to an IResource gets  New Action Provider (from the Resources extension),

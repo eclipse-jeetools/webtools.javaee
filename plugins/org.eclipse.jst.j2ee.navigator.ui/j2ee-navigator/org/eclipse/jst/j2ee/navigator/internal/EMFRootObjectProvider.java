@@ -54,7 +54,7 @@ public class EMFRootObjectProvider implements  IResourceChangeListener, IResourc
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(this);
 	}
 	
-	public Object[] getModels(IProject project){
+	public synchronized Object[] getModels(IProject project){
 		try {
 		EMFModelManager modelManager = (EMFModelManager) emfModelCache.get(project);
 		if (modelManager == null) {
@@ -68,6 +68,10 @@ public class EMFRootObjectProvider implements  IResourceChangeListener, IResourc
 			//ex.printStackTrace();
 			return null;
 		}
+	}
+	
+	public synchronized boolean hasLoadedModels(IProject project) {
+		return emfModelCache.get(project) != null;
 	}
 
 	/* (non-Javadoc)
