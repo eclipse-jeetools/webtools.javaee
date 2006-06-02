@@ -13,15 +13,20 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.ContainerManagedEntityBeanDataModelProvider;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IContainerManagedEntityBeanDataModelProperties;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IEnterpriseBeanClassDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.annotation.ui.internal.EjbAnnotationsUiPlugin;
 import org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards.IEJBUIContextIds;
 import org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards.NewEjbClassOptionsWizardPage;
 import org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards.NewEjbClassWizardPage;
 import org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards.NewEjbWizard;
+import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.IDMPageHandler;
 import org.eclipse.wst.rdb.internal.core.connection.ConnectionInfo;
@@ -65,6 +70,36 @@ public class AddContainerManagedEntityEjbWizard extends NewEjbWizard {
 		if (project != null) {
 			getDataModel().setProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME, project.getName());
 		}
+		initializeEjbNameListener(getDataModel());
+	}
+	
+	private void initializeEjbNameListener(final IDataModel dataModel) {
+		dataModel.addListener(new IDataModelListener(){
+
+			public void propertyChanged(DataModelEvent event) {
+				if( INewJavaClassDataModelProperties.CLASS_NAME.equals(event.getPropertyName()))
+				{
+					String className = (String)event.getProperty();
+					int i = className.toLowerCase().indexOf("bean");
+					if (i < 0)
+						i= className.toLowerCase().indexOf("ejb");
+					if (i >= 0)
+						className = className.substring(0,i);
+					if (className.length() > 0) {
+						// Unset these properties. They will be set with new 
+						// values when EJB_NAME property is set. 
+						dataModel.setProperty(IContainerManagedEntityBeanDataModelProperties.DATASOURCE, null);
+						dataModel.setProperty(IEnterpriseBeanClassDataModelProperties.DISPLAY_NAME, null);
+						dataModel.setProperty(IEnterpriseBeanClassDataModelProperties.DESCRIPTION, null);
+						dataModel.setProperty(IContainerManagedEntityBeanDataModelProperties.SCHEMA, null);
+						
+						// Set the EJB_NAME property. Call to 
+						// DataModelProvider.propertySet() will be triggered 
+						// that will reset the above properties.
+						dataModel.setProperty(IEnterpriseBeanClassDataModelProperties.EJB_NAME, className);
+					}
+				}
+			}});
 	}
 
 	protected IDataModelProvider getDefaultProvider() {

@@ -79,10 +79,17 @@ public class AddSessionEjbWizard extends NewEjbWizard {
 						i= className.toLowerCase().indexOf("ejb");
 					if( i >= 0)
 						className = className.substring(0,i);
-					if( className.length() > 0 ){
-						dataModel.setProperty(IEnterpriseBeanClassDataModelProperties.EJB_NAME,className);
-						dataModel.setProperty(IEnterpriseBeanClassDataModelProperties.JNDI_NAME,className);
-						dataModel.setProperty(IEnterpriseBeanClassDataModelProperties.DISPLAY_NAME,className);
+					if( className.length() > 0 ) {
+						// Unset these properties. They will be set with new 
+						// values when EJB_NAME property is set. 
+						dataModel.setProperty(IEnterpriseBeanClassDataModelProperties.JNDI_NAME, null);
+						dataModel.setProperty(IEnterpriseBeanClassDataModelProperties.DISPLAY_NAME, null);
+						dataModel.setProperty(IEnterpriseBeanClassDataModelProperties.DESCRIPTION, null);
+						
+						// Set the EJB_NAME property. Call to 
+						// DataModelProvider.propertySet() will be triggered 
+						// that will reset the above properties.
+						dataModel.setProperty(IEnterpriseBeanClassDataModelProperties.EJB_NAME, className);
 					}
 				}
 			}});

@@ -11,12 +11,17 @@ package org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IEnterpriseBeanClassDataModelProperties;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IMessageDrivenBeanDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDataModelProvider;
 import org.eclipse.jst.j2ee.ejb.annotation.ui.internal.EjbAnnotationsUiPlugin;
+import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 
 public class AddMessageDrivenEjbWizard extends NewEjbWizard {
@@ -54,10 +59,39 @@ public class AddMessageDrivenEjbWizard extends NewEjbWizard {
 		if (project != null) {
 		    getDataModel().setProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME, project.getName());
 		}
+		initializeEjbNameListener(getDataModel());
 	}
 
 	protected IDataModelProvider getDefaultProvider() {
 		return new MessageDrivenBeanDataModelProvider();
+	}
+	
+	private void initializeEjbNameListener(final IDataModel dataModel) {
+		dataModel.addListener(new IDataModelListener(){
+
+			public void propertyChanged(DataModelEvent event) {
+				if( INewJavaClassDataModelProperties.CLASS_NAME.equals(event.getPropertyName()))
+				{
+					String className = (String)event.getProperty();
+					int i = className.toLowerCase().indexOf("bean");
+					if (i < 0)
+						i= className.toLowerCase().indexOf("ejb");
+					if (i >= 0)
+						className = className.substring(0,i);
+					if (className.length() > 0) {
+						// Unset these properties. They will be set with new 
+						// values when EJB_NAME property is set. 
+						dataModel.setProperty(IMessageDrivenBeanDataModelProperties.DESTINATIONNAME, null);
+						dataModel.setProperty(IEnterpriseBeanClassDataModelProperties.DISPLAY_NAME, null);
+						dataModel.setProperty(IEnterpriseBeanClassDataModelProperties.DESCRIPTION, null);
+						
+						// Set the EJB_NAME property. Call to 
+						// DataModelProvider.propertySet() will be triggered 
+						// that will reset the above properties.
+						dataModel.setProperty(IEnterpriseBeanClassDataModelProperties.EJB_NAME, className);
+					}
+				}
+			}});
 	}
 
 	/*

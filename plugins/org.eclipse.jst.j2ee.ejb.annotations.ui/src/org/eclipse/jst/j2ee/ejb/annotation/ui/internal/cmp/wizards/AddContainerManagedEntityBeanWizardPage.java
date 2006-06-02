@@ -18,8 +18,6 @@ import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IContainerManagedEntit
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IEnterpriseBeanClassDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards.IBeanWizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
@@ -37,7 +35,6 @@ public class AddContainerManagedEntityBeanWizardPage extends DataModelWizardPage
 
 
 	private Text ejbNameText;
-	private Text jndiNameText;
 	private Text displayNameText;
 	private Combo usecaseButton;
 	private Combo versionButton;
@@ -131,20 +128,6 @@ public class AddContainerManagedEntityBeanWizardPage extends DataModelWizardPage
 		final Text descText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		descText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		synchHelper.synchText(descText, IEnterpriseBeanClassDataModelProperties.DESCRIPTION, null);
-		
-		ejbNameText.addModifyListener(new ModifyListener()
-				{
-
-					public void modifyText(ModifyEvent e) {
-						jndiNameText.setText(ejbNameText.getText());
-						displayNameText.setText(ejbNameText.getText());
-						descText.setText("An Entity bean named "+ejbNameText.getText());
-						schemaText.setText(ejbNameText.getText()+"SCHEMA");
-						
-						
-					}
-					
-				});		
 	}
 
 	protected void createUsecaseTypeGroup(Composite composite) {

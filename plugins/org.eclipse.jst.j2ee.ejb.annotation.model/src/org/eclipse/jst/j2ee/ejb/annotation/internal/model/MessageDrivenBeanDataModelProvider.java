@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.ejb.DestinationType;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddMessageDrivenBeanOperation;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
@@ -116,7 +117,17 @@ public class MessageDrivenBeanDataModelProvider extends EnterpriseBeanClassDataM
 		// Set the defaults so that they are propagated via events
 		this.setProperty(DESTINATIONTYPE, this.getProperty(DESTINATIONTYPE));
 		this.setProperty(TRANSACTIONTYPE, this.getProperty(TRANSACTIONTYPE));
-		this.setProperty(DESTINATIONNAME, this.getProperty(DESTINATIONNAME));
+	}
+	
+	public boolean propertySet(String propertyName, Object propertyValue) {
+
+		boolean result = super.propertySet(propertyName, propertyValue);
+
+		if (propertyName.equals(EJB_NAME)) {
+			if (!isPropertySet(DESTINATIONNAME))
+				getDataModel().notifyPropertyChange(DESTINATIONNAME, IDataModel.DEFAULT_CHG);
+		}
+		return result;
 	}
 
 

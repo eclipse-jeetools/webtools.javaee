@@ -120,7 +120,7 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 		} else if (propertyName.equals(EJB_NAME)) {
 			if (!isPropertySet(JNDI_NAME))
 				getDataModel().notifyPropertyChange(JNDI_NAME, IDataModel.DEFAULT_CHG);
-			else if (!isPropertySet(DISPLAY_NAME))
+			if (!isPropertySet(DISPLAY_NAME))
 				getDataModel().notifyPropertyChange(DISPLAY_NAME, IDataModel.DEFAULT_CHG);
 			if (!isPropertySet(DESCRIPTION))
 				getDataModel().notifyPropertyChange(DESCRIPTION, IDataModel.DEFAULT_CHG);

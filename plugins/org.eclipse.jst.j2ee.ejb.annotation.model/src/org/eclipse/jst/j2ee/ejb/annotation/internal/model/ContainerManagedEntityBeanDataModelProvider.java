@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddContainerManagedEntityBeanOperation;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
@@ -196,5 +197,16 @@ public class ContainerManagedEntityBeanDataModelProvider extends EnterpriseBeanC
 		this.setProperty(TABLE, this.getProperty(TABLE));
 		this.setProperty(ATTRIBUTES, this.getProperty(ATTRIBUTES));
 		this.setProperty(VERSION, this.getProperty(VERSION));
+	}
+	
+	public boolean propertySet(String propertyName, Object propertyValue) {
+
+		boolean result = super.propertySet(propertyName, propertyValue);
+
+		if (propertyName.equals(EJB_NAME)) {
+			if (!isPropertySet(DATASOURCE))
+				getDataModel().notifyPropertyChange(DATASOURCE, IDataModel.DEFAULT_CHG);
+		}
+		return result;
 	}
 }

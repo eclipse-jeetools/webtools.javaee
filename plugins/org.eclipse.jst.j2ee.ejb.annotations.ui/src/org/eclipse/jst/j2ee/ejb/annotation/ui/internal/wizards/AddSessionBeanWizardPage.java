@@ -128,18 +128,6 @@ public class AddSessionBeanWizardPage extends DataModelWizardPage implements IBe
 		final Text descText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		descText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		synchHelper.synchText(descText, IEnterpriseBeanClassDataModelProperties.DESCRIPTION, null);
-		
-		ejbNameText.addModifyListener(new ModifyListener()
-		{
-
-			public void modifyText(ModifyEvent e) {
-				jndiNameText.setText(ejbNameText.getText());
-				displayNameText.setText(ejbNameText.getText());
-				descText.setText("A session bean named "+ejbNameText.getText());
-				
-			}
-			
-		});
 	}
 
 	protected void createStatelessGroup(Composite composite) {
