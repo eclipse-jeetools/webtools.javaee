@@ -27,7 +27,6 @@ import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterp
 import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
-import org.eclipse.jst.server.core.FacetUtil;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
@@ -37,37 +36,32 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.project.facet.core.runtime.RuntimeManager;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerUtil;
 
 public class J2EEComponentCreationFacetOperation extends AbstractDataModelOperation {
 
-	
+
 	public J2EEComponentCreationFacetOperation(IDataModel model) {
 		super(model);
 	}
-	
+
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	protected void setRuntime(IDataModel newModel, IDataModel facetModel) {
 		String runtime = newModel.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.RUNTIME_TARGET_ID);
 		try {
-			if (runtime != null) {
-				IRuntime run = getRuntimeByID(runtime);
-				org.eclipse.wst.common.project.facet.core.runtime.IRuntime facetRuntime = null;
-				try {
-					if (run != null)
-						facetRuntime = FacetUtil.getRuntime(run);
-				}
-				catch (IllegalArgumentException ex)
-				{}
+			if (runtime != null && runtime.trim().length() > 0) {
+				org.eclipse.wst.common.project.facet.core.runtime.IRuntime facetRuntime = RuntimeManager.getRuntime(runtime);
 				if (facetRuntime != null) {
-					facetModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME,facetRuntime);
+					facetModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, facetRuntime);
 				}
 			}
-			} catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 			Logger.getLogger().logError(e);
 		}
 	}
@@ -81,44 +75,44 @@ public class J2EEComponentCreationFacetOperation extends AbstractDataModelOperat
 		}
 		return null;
 	}
-	
+
 	protected IDataModel setupJavaInstallAction() {
 		IDataModel dm = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
 		dm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME));
-		//dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.4"); //$NON-NLS-1$
+		// dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.4"); //$NON-NLS-1$
 		dm.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, model.getStringProperty(IJavaComponentCreationDataModelProperties.JAVASOURCE_FOLDER));
 		return dm;
 	}
-	
-	protected IStatus addtoEar(String projectName, String earProjectName){
-		
-		IStatus stat = OK_STATUS;
-		IProject moduleProject = ProjectUtilities.getProject( projectName );
-		IProject earProject = ProjectUtilities.getProject( earProjectName );
 
-		IVirtualComponent comp = ComponentCore.createComponent( moduleProject );
-		IVirtualComponent earComp = ComponentCore.createComponent( earProject );
-		if( comp != null && comp.exists() && earComp != null && earComp.exists()){
-			
-			IDataModel dataModel = DataModelFactory.createDataModel( new AddComponentToEnterpriseApplicationDataModelProvider());
-			dataModel.setProperty( ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp );
-	        List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
-	        modList.add(comp);
-	        dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
-	        Map map = new HashMap();
+	protected IStatus addtoEar(String projectName, String earProjectName) {
+
+		IStatus stat = OK_STATUS;
+		IProject moduleProject = ProjectUtilities.getProject(projectName);
+		IProject earProject = ProjectUtilities.getProject(earProjectName);
+
+		IVirtualComponent comp = ComponentCore.createComponent(moduleProject);
+		IVirtualComponent earComp = ComponentCore.createComponent(earProject);
+		if (comp != null && comp.exists() && earComp != null && earComp.exists()) {
+
+			IDataModel dataModel = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
+			dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp);
+			List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+			modList.add(comp);
+			dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
+			Map map = new HashMap();
 			map.put(comp, model.getStringProperty(IJ2EEComponentCreationDataModelProperties.MODULE_URI));
-	        dataModel.setProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, map);
-	        try {
+			dataModel.setProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, map);
+			try {
 				stat = dataModel.getDefaultOperation().execute(null, null);
 			} catch (ExecutionException e) {
 				Logger.getLogger().logError(e);
 			}
-		}	
+		}
 		return stat;
 	}
-	
+
 	protected void setAddToEARFromWizard(IDataModel newModel) {
 		if (newModel != null && model != null)
-			newModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR,model.getBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR));	
+			newModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, model.getBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR));
 	}
 }
