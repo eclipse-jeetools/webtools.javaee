@@ -121,8 +121,8 @@ public abstract class FlexibleProjectContainer
         
         for( int i = 0; i < paths.length; i++ )
         {
-			final IVirtualFolder rootFolder = vc.getRootFolder();
-			final IVirtualFolder vf = rootFolder.getFolder( paths[ i ] );
+            final IVirtualFolder rootFolder = vc.getRootFolder();
+            final IVirtualFolder vf = rootFolder.getFolder( paths[ i ] );
             
             if( types[ i ] == PathType.LIB_DIRECTORY )
             {
@@ -166,7 +166,7 @@ public abstract class FlexibleProjectContainer
                 {
                     final IPath p = uf[ j ].getFullPath();
                     
-                    if( ! isSourceDirectory( p ) )
+                    if( ! isSourceOrOutputDirectory( p ) )
                     {
                         cp.add( newLibraryEntry( p ) );
                     }
@@ -175,6 +175,7 @@ public abstract class FlexibleProjectContainer
         }
         
         w.add( this.project.getFullPath().append( IModuleConstants.COMPONENT_FILE_PATH ) );
+        w.add( this.project.getFullPath().append( ".classpath" ) );
             
         this.cpentries = new IClasspathEntry[ cp.size() ];
         cp.toArray( this.cpentries );
@@ -240,25 +241,36 @@ public abstract class FlexibleProjectContainer
         
     }
     
-    private boolean isSourceDirectory( final IPath aPath )
+    private boolean isSourceOrOutputDirectory( final IPath aPath )
     {
         if( isJavaProject( this.project ) )
         {
             try
             {
                 final IJavaProject jproject = JavaCore.create( this.project );
-	            final IClasspathEntry[] cp = jproject.getRawClasspath();
-	            
-	            for( int i = 0; i < cp.length; i++ )
-	            {
-	                final IClasspathEntry cpe = cp[ i ];
-	                
-	                if( cpe.getEntryKind() == IClasspathEntry.CPE_SOURCE &&
-	                    cpe.getPath().equals( aPath ) )
-	                {
-	                    return true;
-	                }
-	            }
+                final IClasspathEntry[] cp = jproject.getRawClasspath();
+                
+                for( int i = 0; i < cp.length; i++ )
+                {
+                    final IClasspathEntry cpe = cp[ i ];
+                    
+                    if( cpe.getEntryKind() == IClasspathEntry.CPE_SOURCE )
+                    {
+                        final IPath src = cpe.getPath();
+                        final IPath output = cpe.getOutputLocation();
+                        
+                        if( src.equals( aPath ) ||
+                            output != null && output.equals( aPath ) )
+                        {
+                            return true;
+                        }
+                    }
+                }
+                
+                if( jproject.getOutputLocation().equals( aPath ) )
+                {
+                    return true;
+                }
             }
             catch( JavaModelException e )
             {
