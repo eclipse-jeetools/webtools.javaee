@@ -41,7 +41,6 @@ import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
 import org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.WebServicesClientResourceFactory;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
-import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 import org.eclipse.wst.common.internal.emf.utilities.AdapterFactoryDescriptor;
 import org.eclipse.wst.common.internal.emf.utilities.DOMUtilities;
 import org.eclipse.wst.common.internal.emf.utilities.EncoderDecoderRegistry;
@@ -97,9 +96,6 @@ public class J2EEInit {
 					return new EJBAttributeMaintenanceFactoryImpl();
 				}
 			});
-			//TODO: Remove this line after SED Adapter is restored.
-			RendererFactory.getDefaultRendererFactory().setValidating(false);
-
 		}
 	}
 
