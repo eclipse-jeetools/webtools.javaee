@@ -15,23 +15,31 @@ import java.util.List;
 
 import junit.framework.Assert;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentImportDataModelProvider;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.RuntimeClasspathEntry;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
+import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -202,15 +210,15 @@ public class DefectVerificationTests extends OperationTestCase {
 		earFile.getEJBReferences(false, false);
 		earFile.close();
 		earFile = null;
-		
+
 		Thread.sleep(5000);
-		
+
 		String earOutputName = "d:\\temp\\Output" + System.currentTimeMillis() + ".ear";
 		IDataModel export = DataModelFactory.createDataModel(new EARComponentExportDataModelProvider());
 		export.setProperty(IEARComponentExportDataModelProperties.PROJECT_NAME, comp.getProject().getName());
 		export.setProperty(IEARComponentExportDataModelProperties.ARCHIVE_DESTINATION, earOutputName);
 		runAndVerify(export);
-		
+
 
 	}
 
@@ -219,4 +227,52 @@ public class DefectVerificationTests extends OperationTestCase {
 	}
 
 
+	public void test144288() throws Exception {
+		String earName = "WorkAreaFvtApp.ear";//$NON-NLS-1$
+		String earFileName = getFullTestDataPath(earName);
+		IDataModel model = DataModelFactory.createDataModel(new EARComponentImportDataModelProvider());
+		model.setProperty(IEARComponentImportDataModelProperties.FILE_NAME, earFileName);
+
+		List moduleList = (List) model.getProperty(IEARComponentImportDataModelProperties.SELECTED_MODELS_LIST);
+		for (int i = moduleList.size() - 1; i > -1; i--) {
+			IDataModel aModel = (IDataModel) moduleList.get(i);
+			Object file = aModel.getProperty(IEARComponentImportDataModelProperties.FILE);
+			if (file instanceof ModuleFile) {
+				ModuleFile moduleFile = (ModuleFile) file;
+				if (moduleFile.isWARFile())
+					moduleList.remove(aModel);
+				if (moduleFile.isApplicationClientFile())
+					moduleList.remove(aModel);
+			}
+		}
+
+		runAndVerify(model);
+		IVirtualComponent comp = (IVirtualComponent) model.getProperty(IEARComponentImportDataModelProperties.COMPONENT);
+		String appClientURI = "WorkAreaFvtClient.jar";//$NON-NLS-1$
+
+		IFile file = ComponentUtilities.findFile(comp, new Path(appClientURI));
+		ApplicationClientFile appClientJar = CommonarchiveFactoryImpl.getActiveFactory().openApplicationClientFile(file.getLocation().toOSString());
+		ArchiveManifest manf = appClientJar.getManifest();
+		String existingEntries[] = manf.getClassPathTokenized();
+		manf.appendClassPath("foo.jar");//$NON-NLS-1$
+		appClientJar.saveNoReopen();
+
+		String earOutputName = "d:\\temp\\Output" + System.currentTimeMillis() + ".ear";
+		IDataModel export = DataModelFactory.createDataModel(new EARComponentExportDataModelProvider());
+		export.setProperty(IEARComponentExportDataModelProperties.PROJECT_NAME, comp.getProject().getName());
+		export.setProperty(IEARComponentExportDataModelProperties.ARCHIVE_DESTINATION, earOutputName);
+		runAndVerify(export);
+	}
+
+	public void test145460() throws Exception {
+		String warName = "Example1.war"; //$NON-NLS-1$
+		String warFileName = getFullTestDataPath(warName);
+
+		IDataModel dataModel = DataModelFactory.createDataModel(new WebComponentImportDataModelProvider());
+		dataModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME, "AN_EAR");
+		dataModel.setBooleanProperty(IJ2EEFacetProjectCreationDataModelProperties.ADD_TO_EAR, true);
+		dataModel.setProperty(IWebComponentImportDataModelProperties.FILE_NAME, warFileName);
+		dataModel.setProperty(IWebComponentImportDataModelProperties.PROJECT_NAME, "A_WAR");
+		runAndVerify(dataModel);
+	}
 }
