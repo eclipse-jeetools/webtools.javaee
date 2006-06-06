@@ -23,6 +23,7 @@ import org.eclipse.ui.actions.ActionContext;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionConstants;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
+import org.eclipse.ui.navigator.ICommonMenuConstants;
 
 public class J2EEActionProvider extends CommonActionProvider  {
 
@@ -95,34 +96,12 @@ public class J2EEActionProvider extends CommonActionProvider  {
 	 * @see org.eclipse.wst.common.navigator.internal.views.actions.ICommonActionProvider#fillContextMenu(org.eclipse.jface.action.IMenuManager)
 	 */
 	public void fillContextMenu(IMenuManager aMenu) {
-//		IStructuredSelection selection = (IStructuredSelection) getContext().getSelection();
-//		if (selection.getFirstElement() instanceof ItemProvider || selection.isEmpty()) {
-//			
-//		IMenuManager submenu = null;
-//		if (submenu == null)
-//			submenu = new MenuManager(WorkbenchNavigatorMessages.NewActionProvider_NewMenu_label, ICommonMenuConstants.GROUP_NEW);
-//		
-//		// fill the menu from the commonWizard contributions
-//		newWizardActionGroup.setContext(getContext());
-//		newWizardActionGroup.fillContextMenu(submenu);
-//
-//		submenu.add(new Separator(ICommonMenuConstants.GROUP_ADDITIONS));
-//
-//		// append the submenu after the GROUP_NEW group.
-//		aMenu.insertAfter(ICommonMenuConstants.GROUP_NEW, submenu);
-//		}
-//		else {
-//			if (openAction.isEnabled())
-//				aMenu.appendToGroup(ICommonMenuConstants.GROUP_OPEN, openAction);
-//		}
-	/*	if (renameAction.isEnabled()) {
-			aMenu.appendToGroup(ICommonMenuConstants.COMMON_MENU_EDIT_ACTIONS, renameAction);
-			actionsAdded = true;
-		}
-		if (genericDelete.isEnabled()) {
-			aMenu.appendToGroup(ICommonMenuConstants.COMMON_MENU_EDIT_ACTIONS, genericDelete);
-			actionsAdded = true;
-		}*/
+		if (getContext()==null || getContext().getSelection().isEmpty())
+			return;
+		IStructuredSelection selection = (IStructuredSelection) getContext().getSelection();
+		openAction.selectionChanged(selection);
+		if (openAction.isEnabled())
+			aMenu.insertAfter(ICommonMenuConstants.GROUP_OPEN, openAction);
 	}
 
 	private boolean isUtilityJars(Object[] items) {
