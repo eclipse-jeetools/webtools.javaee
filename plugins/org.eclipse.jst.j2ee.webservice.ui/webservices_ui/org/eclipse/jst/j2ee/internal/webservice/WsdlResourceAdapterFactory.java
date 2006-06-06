@@ -17,7 +17,6 @@
 package org.eclipse.jst.j2ee.internal.webservice;
 
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.navigator.internal.J2EEEMFAdapterFactory;
@@ -53,8 +52,6 @@ public class WsdlResourceAdapterFactory extends J2EEEMFAdapterFactory {
 			return WorkbenchResourceHelper.getFile(res) != null ? WorkbenchResourceHelper.getFile(res) : null;
 		else if (res != null && adapterType == J2EEEMFAdapterFactory.IRESOURCE_CLASS)
 			return WorkbenchResourceHelper.getFile(res);
-		else if (res != null && adapterType == J2EEEMFAdapterFactory.IPROJECT_CLASS)
-			return ProjectUtilities.getProject(res);
 		else
 			return super.getAdapter(adaptableObject, adapterType);
 	}

@@ -21,20 +21,23 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jface.viewers.IOpenListener;
-import org.eclipse.jface.viewers.OpenEvent;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jst.j2ee.internal.actions.OpenJ2EEResourceAction;
 import org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
-import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddResource;
-import org.eclipse.wst.common.componentcore.ArtifactEdit;
-import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.actions.ActionContext;
+import org.eclipse.ui.navigator.CommonActionProvider;
+import org.eclipse.ui.navigator.ICommonActionConstants;
+import org.eclipse.ui.navigator.ICommonActionExtensionSite;
+import org.eclipse.ui.navigator.ICommonMenuConstants;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.wsdl.internal.impl.ServiceImpl;
+import org.eclipse.wst.wsdl.util.WSDLResourceImpl;
 
 /**
  * @author jlanuti
@@ -42,65 +45,116 @@ import org.eclipse.wst.wsdl.internal.impl.ServiceImpl;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class WebServicesNavigatorGroupOpenListener implements IOpenListener {
+public class WebServicesNavigatorGroupOpenListener extends CommonActionProvider {
 
-	private OpenExternalWSDLAction openExternalWSDLAction = new OpenExternalWSDLAction(WebServiceUIResourceHandler.WebServiceGroupContentExtension_UI_1); 
-	private OpenJ2EEResourceAction openAction = new OpenJ2EEResourceAction();
+	private OpenExternalWSDLAction openExternalWSDLAction;
+	private OpenJ2EEResourceAction openAction;
 	
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.IOpenListener#open(org.eclipse.jface.viewers.OpenEvent)
+	/**
+	 * @param text
 	 */
-	public void open(OpenEvent event) {
-		if (event == null)
+	public WebServicesNavigatorGroupOpenListener() {
+	}
+	
+	public void init(ICommonActionExtensionSite aConfig) { 
+		openExternalWSDLAction = new OpenExternalWSDLAction(WebServiceUIResourceHandler.WebServiceGroupContentExtension_UI_1);
+		openAction = new OpenJ2EEResourceAction();
+	}
+	
+	public void setContext(ActionContext aContext) {
+		if (aContext != null && aContext.getSelection() instanceof IStructuredSelection) {
+			IStructuredSelection selection = (IStructuredSelection) aContext.getSelection();
+			WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+			if (selection == null || selection.getFirstElement()==null)
+				return;
+			Object selectedObject = selection.getFirstElement();
+			if (serviceHelper==null)
+				return;
+			else if (serviceHelper.isWSDLResource(selectedObject)) {
+				Resource wsdl = (Resource) selectedObject;
+				IFile wsdlFile = WorkbenchResourceHelper.getFile(wsdl);
+				if (wsdlFile == null || !wsdlFile.exists()) {
+					openExternalWSDLAction.selectionChanged(selection);
+					super.setContext(aContext);
+					return;
+				}
+				openAction.selectionChanged(selection);
+			}
+			else if (selectedObject instanceof ServiceImpl) {
+				WsddResource resource = WebServicesManager.getInstance().getWsddResource((ServiceImpl)selectedObject);
+				if (resource == null) {
+					openExternalWSDLAction.selectionChanged(selection);
+					super.setContext(aContext);
+					return;
+				}
+				List wsddSelection = new ArrayList();
+				wsddSelection.add(resource);
+				openAction.selectionChanged(new StructuredSelection(wsddSelection));
+			}
+			else {
+				openAction.selectionChanged(selection);
+			}	
+		}
+		super.setContext(aContext);
+	}
+	
+	public void fillActionBars(IActionBars theActionBars) {
+		if (getContext()==null || getContext().getSelection().isEmpty())
 			return;
-		StructuredSelection selection = (StructuredSelection)event.getSelection();
-		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
-		if (selection == null || selection.getFirstElement()==null)
-			return;
-		Object selectedObject = selection.getFirstElement();
-		if (serviceHelper==null)
-			return;
-		else if (serviceHelper.isWSDLResource(selectedObject)) {
-			Resource wsdl = (Resource) selectedObject;
+		IStructuredSelection selection = (IStructuredSelection) getContext().getSelection();
+		
+		if (selection.getFirstElement() instanceof ServiceImpl) {
+			ServiceImpl wsdl = (ServiceImpl) selection.getFirstElement();
 			IFile wsdlFile = WorkbenchResourceHelper.getFile(wsdl);
 			if (wsdlFile == null || !wsdlFile.exists()) {
 				openExternalWSDLAction.selectionChanged(selection);
-				openExternalWSDLAction.run();
+				theActionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, openExternalWSDLAction);
 				return;
 			}
-			openAction.selectionChanged(selection);
-			openAction.run();
-		}
-		else if (selectedObject instanceof ServiceImpl) {
-			WsddResource resource = WebServicesManager.getInstance().getWsddResource((ServiceImpl)selectedObject);
-			List wsddSelection = new ArrayList();
-			wsddSelection.add(resource);
-			
-			openAction.selectionChanged(new StructuredSelection(wsddSelection));
-			openAction.run();
-		}
-		else if (selectedObject instanceof ServiceRef) {
-			if (!WebServicesManager.getInstance().isJ2EE14((ServiceRef)selectedObject)) {
-				IVirtualComponent component = ComponentUtilities.findComponent((ServiceRef)selectedObject);
-				ArtifactEdit artifactEdit = null;
-				try {
-					artifactEdit = ArtifactEdit.getArtifactEditForRead(component);
-					List module = new ArrayList();
-					module.add(artifactEdit.getContentModelRoot());
-					selection = new StructuredSelection(module);
-				} finally {
-					if (artifactEdit != null)
-						artifactEdit.dispose();
-				}
+		} else if (selection.getFirstElement() instanceof WSDLResourceImpl) {
+			WSDLResourceImpl wsdl = (WSDLResourceImpl) selection.getFirstElement();
+			IFile wsdlFile = WorkbenchResourceHelper.getFile(wsdl);
+			if (wsdlFile == null || !wsdlFile.exists()) {
+				openExternalWSDLAction.selectionChanged(selection);
+				theActionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, openExternalWSDLAction);
+				return;
 			}
-			openAction.selectionChanged(selection);
-			openAction.run();
 		}
-		else {
-			openAction.selectionChanged(selection);
-			openAction.run();
-		}	
+		
+		openAction.selectionChanged(selection);
+		if(openAction.isEnabled()) 
+			theActionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, openAction);
+		return;
 	}
+	
+	public void fillContextMenu(IMenuManager menu) {
+		if (getContext()==null || getContext().getSelection().isEmpty())
+			return;
+		IStructuredSelection selection = (IStructuredSelection) getContext().getSelection();
+		if (selection.getFirstElement() instanceof ServiceImpl) {
+			ServiceImpl wsdl = (ServiceImpl) selection.getFirstElement();
+			IFile wsdlFile = WorkbenchResourceHelper.getFile(wsdl);
+			if (wsdlFile == null || !wsdlFile.exists()) {
+				openExternalWSDLAction.selectionChanged(selection);
+				menu.insertAfter(ICommonMenuConstants.GROUP_OPEN, openExternalWSDLAction);
+				return;
+			}
+		}
+		else if (selection.getFirstElement() instanceof WSDLResourceImpl) {
+			WSDLResourceImpl wsdl = (WSDLResourceImpl) selection.getFirstElement();
+			IFile wsdlFile = WorkbenchResourceHelper.getFile(wsdl);
+			if (wsdlFile == null || !wsdlFile.exists()) {
+				openExternalWSDLAction.selectionChanged(selection);
+				menu.insertAfter(ICommonMenuConstants.GROUP_OPEN, openExternalWSDLAction);
+				return;
+			}
+		}
+		openAction.selectionChanged(selection);
+		if (openAction.isEnabled())
+			menu.insertAfter(ICommonMenuConstants.GROUP_OPEN, openAction);
+	}
+
+	
 	//TODO fill open with menu for web services group
 	
 //	return new CommonEditActionGroup(getExtensionSite()) {

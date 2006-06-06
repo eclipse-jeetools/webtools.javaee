@@ -13,10 +13,12 @@ package org.eclipse.jst.j2ee.internal.webservice;
 
 import java.net.URL;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.internal.actions.AbstractOpenAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager;
 import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServiceUIPlugin;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
@@ -54,6 +56,8 @@ public class OpenExternalWSDLAction extends AbstractOpenAction {
 		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
 		if (serviceHelper.isWSDLResource(obj))
 			uri = ((Resource) obj).getURI().toString();
+		else if (serviceHelper.isService(obj))
+			uri = WebServicesManager.getInstance().getWSDLResource((EObject)obj).getURI().toString();
 		return super.updateSelection(s);
 	}
 }

@@ -17,12 +17,11 @@
 package org.eclipse.jst.j2ee.internal.webservice;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.navigator.internal.J2EEEMFAdapterFactory;
-import org.eclipse.jst.j2ee.webservice.wsdd.WsddResource;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 /**
@@ -46,17 +45,16 @@ public class WebServiceAdapterFactory extends J2EEEMFAdapterFactory {
 	 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapter(java.lang.Object, java.lang.Class)
 	 */
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
-		WsddResource res = null;
+		Resource res = null;
 		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
 		if (serviceHelper.isService(adaptableObject))
 			res = WebServicesManager.getInstance().getWsddResource((EObject) adaptableObject);
-
+		if (res == null)
+			res = WebServicesManager.getInstance().getWSDLResource((EObject) adaptableObject);
 		if (res != null && adapterType == J2EEEMFAdapterFactory.IFILE_CLASS)
 			return WorkbenchResourceHelper.getFile(res);
 		else if (res != null && adapterType == J2EEEMFAdapterFactory.IRESOURCE_CLASS)
 			return WorkbenchResourceHelper.getFile(res);
-		else if (res != null && adapterType == J2EEEMFAdapterFactory.IPROJECT_CLASS)
-			return ProjectUtilities.getProject(res);
 		else
 			return super.getAdapter(adaptableObject, adapterType);
 	}

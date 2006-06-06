@@ -80,7 +80,38 @@
 		                  value="org.eclipse.core.resources.IWorkspaceRoot" />  
 		         </or>
 		   </parentExpression>
-      </commonSorter>   
+      </commonSorter>
+      <!--  Handle open requests -->
+	  <actionProvider
+		  class="org.eclipse.jst.j2ee.internal.webservice.WebServicesNavigatorGroupOpenListener"
+		  id="org.eclipse.jst.j2ee.webservice.ui.J2EEWebServiceActionProvider">
+		  <enablement>
+			 <or>
+				<and>
+				  <instanceof
+					 value="org.eclipse.emf.ecore.EObject" />
+					<or>
+						<test forcePluginActivation="true"
+							property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+							value="wsdd.xmi" />
+						<test forcePluginActivation="true"
+							property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+							value="webservice_client.xmi" />
+						<test forcePluginActivation="true"
+							property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+							value="wscommon.xmi" />
+						<test forcePluginActivation="true"
+							property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+							value="http://www.ibm.com/wsdl/2003/WSDL" />
+					 </or>
+				</and>
+				<instanceof
+					value="org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider" />
+				<instanceof
+					value="org.eclipse.wst.wsdl.util.WSDLResourceImpl" />
+			  </or>
+			</enablement>
+		</actionProvider> 
       </navigatorContent>
    </extension>
 
@@ -98,4 +129,23 @@
       </viewerContentBinding>
    </extension>
 	
+   <extension 
+  		point="org.eclipse.core.runtime.adapters">
+    <factory 
+      class="org.eclipse.jst.j2ee.internal.webservice.WebServiceAdapterFactory" 
+      adaptableType="org.eclipse.wst.wsdl.Service">
+      <adapter type="org.eclipse.core.resources.IResource"/>
+    </factory>
+    <factory 
+      class="org.eclipse.jst.j2ee.internal.webservice.WebServiceAdapterFactory" 
+      adaptableType="org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef">
+      <adapter type="org.eclipse.core.resources.IResource"/>
+      <adapter type="org.eclipse.core.resources.IFile"/>
+    </factory>
+     <factory 
+      class="org.eclipse.jst.j2ee.internal.webservice.WsdlResourceAdapterFactory" 
+      adaptableType="org.eclipse.wst.wsdl.util.WSDLResourceImpl">
+      <adapter type="org.eclipse.core.resources.IResource"/>
+    </factory>
+  </extension>
 </plugin>
