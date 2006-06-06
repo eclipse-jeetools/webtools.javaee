@@ -6,8 +6,11 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
+import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModelProviderNew;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
@@ -35,6 +38,15 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		if (EAR_PROJECT_NAME.equals(propertyName) || ADD_TO_EAR.equals(propertyName)) {
+			IDataModel nestedJ2EEFacetDataModel = getJ2EEFacetModel();
+			if(null != nestedJ2EEFacetDataModel){
+				if(EAR_PROJECT_NAME.equals(propertyName)){
+					nestedJ2EEFacetDataModel.setProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME, propertyValue);
+				} else {
+					nestedJ2EEFacetDataModel.setProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, propertyValue);	
+				}
+				
+			}
 			if (getBooleanProperty(ADD_TO_EAR)) {
 				IStatus status = validateEAR(model.getStringProperty(EAR_PROJECT_NAME));
 				if (status.isOK()) {
@@ -55,6 +67,19 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 			model.notifyPropertyChange(FACET_RUNTIME, IDataModel.ENABLE_CHG);
 		}
 		return super.propertySet(propertyName, propertyValue);
+	}
+
+	protected IDataModel getJ2EEFacetModel() {
+		FacetDataModelMap map = (FacetDataModelMap) getProperty(FACET_DM_MAP);
+		String [] j2eeFacets = new String [] { J2EEProjectUtilities.APPLICATION_CLIENT, J2EEProjectUtilities.EJB, J2EEProjectUtilities.JCA, J2EEProjectUtilities.DYNAMIC_WEB, J2EEProjectUtilities.UTILITY};
+		IDataModel j2eeFacetDataModel = null;
+		for(int i=0;i<j2eeFacets.length; i++){
+			j2eeFacetDataModel = map.getFacetDataModel(j2eeFacets[i]);
+			if(null != j2eeFacetDataModel){
+				return j2eeFacetDataModel;
+			}
+		}
+		return null;
 	}
 
 	public boolean isPropertyEnabled(String propertyName) {
