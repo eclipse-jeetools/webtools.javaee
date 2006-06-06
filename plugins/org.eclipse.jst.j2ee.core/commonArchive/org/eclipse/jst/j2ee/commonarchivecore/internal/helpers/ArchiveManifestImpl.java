@@ -231,7 +231,7 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements org.e
 			Map.Entry e = (Map.Entry) it.next();
 			StringBuffer buffer = new StringBuffer(((Attributes.Name) e.getKey()).toString());
 			buffer.append(": "); //$NON-NLS-1$
-			buffer.append((String) e.getValue());
+			buffer.append(toUtf8((String) e.getValue()));
 			buffer.append("\r\n"); //$NON-NLS-1$
 			localMake72Safe(buffer);
 			os.writeBytes(buffer.toString());
@@ -248,10 +248,10 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements org.e
 	protected void writeMainSplittingClasspath(Attributes attributes, DataOutputStream out) throws IOException {
 		// write out the *-Version header first, if it exists
 		String vername = Attributes.Name.MANIFEST_VERSION.toString();
-		String version = attributes.getValue(vername);
+		String version = toUtf8(attributes.getValue(vername));
 		if (version == null) {
 			vername = Attributes.Name.SIGNATURE_VERSION.toString();
-			version = attributes.getValue(vername);
+			version = toUtf8(attributes.getValue(vername));
 		}
 
 		if (version != null) {
@@ -266,12 +266,12 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements org.e
 			String name = ((Attributes.Name) e.getKey()).toString();
 			if ((version != null) && !(name.equalsIgnoreCase(vername))) {
 				if (name.equalsIgnoreCase(Attributes.Name.CLASS_PATH.toString())) {
-					writeSplit(out, name, (String) e.getValue());
+					writeSplit(out, name, toUtf8((String) e.getValue()));
 					continue;
 				}
 				StringBuffer buffer = new StringBuffer(name);
 				buffer.append(": "); //$NON-NLS-1$
-				buffer.append((String) e.getValue());
+				buffer.append(toUtf8((String) e.getValue()));
 				buffer.append("\r\n"); //$NON-NLS-1$
 				localMake72Safe(buffer);
 				out.writeBytes(buffer.toString());
@@ -327,6 +327,23 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements org.e
 		Attributes attributes = getMainAttributes();
 		attributes.putValue(Attributes.Name.IMPLEMENTATION_VERSION.toString(), version);
 	}
-
+    
+    /**
+     * Encodes a double-byte string into UTF8 form. Every character in the
+     * returned string represents one byte of the UTF8 encoding. 
+     */
+    
+    private String toUtf8( final String str ) throws IOException
+    {
+        if( str == null )
+        {
+            return null;
+        }
+        else
+        {
+            final byte[] utf8 = str.getBytes( "UTF-8" );
+            return new String( utf8, 0, 0, utf8.length );
+        }
+    }
 
 }
