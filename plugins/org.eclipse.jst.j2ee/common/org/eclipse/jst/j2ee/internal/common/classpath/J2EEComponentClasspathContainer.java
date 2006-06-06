@@ -22,7 +22,11 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.internal.core.ClasspathEntry;
+import org.eclipse.jdt.internal.core.JavaProject;
+import org.eclipse.jdt.internal.core.util.Util;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainer;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -40,6 +44,8 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 
 	public static final String CONTAINER_ID = "org.eclipse.jst.j2ee.internal.module.container"; //$NON-NLS-1$
 	public static final IPath CONTAINER_PATH = new Path(CONTAINER_ID);
+
+	private static IPath WEBLIB = new Path("/WEB-INF/lib"); //$NON-NLS-1$
 
 	private IPath containerPath;
 	private IJavaProject javaProject;
@@ -59,21 +65,20 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		update();
 	}
 
-	protected void update() {
+	private boolean requiresUpdate() {
 		IVirtualComponent component = ComponentCore.createComponent(javaProject.getProject());
 		if (component == null) {
-			return;
+			return false;
 		}
 		IVirtualReference[] refs = component.getReferences();
 		IVirtualComponent comp = null;
 
 		// avoid updating the container if references haven't changed
 		if (refs.length == lastUpdate.refCount) {
-			boolean refsChanged = false;
-			for (int i = 0; i < lastUpdate.refCount && !refsChanged; i++) {
+			for (int i = 0; i < lastUpdate.refCount; i++) {
 				comp = refs[i].getReferencedComponent();
 				if (comp.isBinary() != lastUpdate.isBinary[i]) {
-					refsChanged = true;
+					return true;
 				} else {
 					IPath path = null;
 					if (comp.isBinary()) {
@@ -89,14 +94,22 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 						path = comp.getProject().getFullPath();
 					}
 					if (!path.equals(lastUpdate.paths[i])) {
-						refsChanged = true;
+						return true;
 					}
 				}
 			}
-			if (!refsChanged) {
-				return;
-			}
+			return false;
 		}
+		return true;
+	}
+
+	private void update() {
+		IVirtualComponent component = ComponentCore.createComponent(javaProject.getProject());
+		if (component == null) {
+			return;
+		}
+		IVirtualReference[] refs = component.getReferences();
+		IVirtualComponent comp = null;
 
 		lastUpdate.refCount = refs.length;
 		lastUpdate.isBinary = new boolean[lastUpdate.refCount];
@@ -108,10 +121,19 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		List entriesList = new ArrayList();
 
 		try {
+			entries = new IClasspathEntry[0];
+			IJavaProject javaProject = JavaCore.create(component.getProject());
+			IClasspathEntry[] existingEntries = null;
+			try {
+				existingEntries = javaProject.getResolvedClasspath(true);
+			} catch (JavaModelException e) {
+				existingEntries = new IClasspathEntry[0];
+				Logger.getLogger().logError(e);
+			}
 			for (int i = 0; i < refs.length; i++) {
 				comp = refs[i].getReferencedComponent();
 				lastUpdate.isBinary[i] = comp.isBinary();
-				shouldAdd = !(isWeb && refs[i].getRuntimePath().equals(J2EEComponentReferenceUpdater.WEBLIB));
+				shouldAdd = !(isWeb && refs[i].getRuntimePath().equals(WEBLIB));
 				if (!shouldAdd) {
 					continue;
 				}
@@ -120,16 +142,19 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 					java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
 					if (diskFile.exists()) {
 						lastUpdate.paths[i] = new Path(diskFile.getAbsolutePath());
-						entriesList.add(JavaCore.newLibraryEntry(lastUpdate.paths[i], null, null));
 					} else {
 						IFile iFile = archiveComp.getUnderlyingWorkbenchFile();
 						lastUpdate.paths[i] = iFile.getFullPath();
+					}
+					if (!FlexibleProjectContainer.isAlreadyOnClasspath(existingEntries, lastUpdate.paths[i])) {
 						entriesList.add(JavaCore.newLibraryEntry(lastUpdate.paths[i], null, null));
 					}
 				} else {
 					IProject project = comp.getProject();
 					lastUpdate.paths[i] = project.getFullPath();
-					entriesList.add(JavaCore.newProjectEntry(lastUpdate.paths[i], false));
+					if (!FlexibleProjectContainer.isAlreadyOnClasspath(existingEntries, lastUpdate.paths[i])) {
+						entriesList.add(JavaCore.newProjectEntry(lastUpdate.paths[i], false));
+					}
 				}
 			}
 		} finally {
@@ -142,7 +167,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 
 	public void install() {
 		final IJavaProject[] projects = new IJavaProject[]{javaProject};
-		final IClasspathContainer[] conts = new IClasspathContainer[]{this};
+		final IClasspathContainer[] conts = new IClasspathContainer[]{new J2EEComponentClasspathContainer(this.containerPath, this.javaProject)};
 
 		try {
 			JavaCore.setClasspathContainer(containerPath, projects, conts, null);
@@ -152,8 +177,9 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	}
 
 	public void refresh() {
-		update();
-		install();
+		if (requiresUpdate()) {
+			install();
+		}
 	}
 
 	public IClasspathEntry[] getClasspathEntries() {

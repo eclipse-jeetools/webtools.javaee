@@ -457,9 +457,6 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 			return true;
 		WorkspaceModifyComposedOperation composed = new WorkspaceModifyComposedOperation(createManifestOperation());
 		
-		WorkspaceModifyComposedOperation op = createJ2EEComponentDependencyOperations();
-		if (op != null)
-			composed.addRunnable(op);
 		try {
 			new ProgressMonitorDialog(propPage.getShell()).run(true, true, composed);
 		} catch (InvocationTargetException ex) {
@@ -571,6 +568,10 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		return unselected;
 	}
 
+	/**
+	 * DoNotUseMeThisWillBeDeletedPost15
+	 * @return
+	 */
 	protected WorkspaceModifyComposedOperation createJ2EEComponentDependencyOperations() {
 		WorkspaceModifyComposedOperation composedOp = null;
 		List selected = getSelectedClassPathSelection().getClasspathElements();

@@ -62,6 +62,7 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentLoadStrategyImpl;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.componentcore.AppClientBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.componentcore.EJBBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.componentcore.JCABinaryComponentHelper;
@@ -233,21 +234,20 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		return null;
 	}
 
-	public static void writeManifest(IProject p, ArchiveManifest manifest) throws java.io.IOException {
-
-		IFile aFile = getManifestFile(p);
-		if (aFile != null) {
-			OutputStream out = new WorkbenchByteArrayOutputStream(aFile);
-			manifest.writeSplittingClasspath(out);
-			out.close();
-		}
+	public static void writeManifest(IProject aProject, ArchiveManifest manifest) throws java.io.IOException {
+		writeManifest(aProject, getManifestFile(aProject), manifest);
 	}
 
 	public static void writeManifest(IFile aFile, ArchiveManifest manifest) throws java.io.IOException {
+		writeManifest(aFile.getProject(), aFile, manifest);
+	}
+
+	private static void writeManifest(IProject aProject, IFile aFile, ArchiveManifest manifest) throws java.io.IOException {
 		if (aFile != null) {
 			OutputStream out = new WorkbenchByteArrayOutputStream(aFile);
 			manifest.writeSplittingClasspath(out);
 			out.close();
+			J2EEComponentClasspathUpdater.getInstance().queueUpdateModule(aProject);
 		}
 	}
 

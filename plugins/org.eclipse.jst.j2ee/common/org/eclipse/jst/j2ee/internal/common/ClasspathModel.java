@@ -621,7 +621,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	private void initializeSelectionForWLPs() {
 		classPathWLPSelection = new ClassPathSelection();
 		try {
-			IClasspathContainer container = J2EEComponentClasspathUpdater.getInstance().getWebAppLibrariesContainer(component.getProject());
+			IClasspathContainer container = J2EEComponentClasspathUpdater.getInstance().getWebAppLibrariesContainer(component.getProject(), true);
 			IClasspathEntry[] containerEntries = null != container ? container.getClasspathEntries() : null;
 			IPath libPath = new Path("/WEB-INF/lib"); //$NON-NLS-1$
 

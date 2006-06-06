@@ -21,7 +21,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
 import org.eclipse.jst.j2ee.application.ApplicationResource;
@@ -43,9 +42,7 @@ import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
-import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -435,46 +432,13 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 
 	public String getModuleURI(IVirtualComponent moduleComp) {
-
-		StructureEdit core = null;
-		try {
-			core = StructureEdit.getStructureEditForRead(getProject());
-			WorkbenchComponent component = core.getComponent();
-			List referencedComponents = component.getReferencedComponents();
-
-			for (int i = 0; i < referencedComponents.size(); i++) {
-				ReferencedComponent ref = (ReferencedComponent) referencedComponents.get(i);
-				if (!moduleComp.isBinary()) {
-					if (ref.getHandle().equals(ModuleURIUtil.fullyQualifyURI(moduleComp.getProject()))) {
-						if (ref.getDependentObject() != null)
-							return ((Module) ref.getDependentObject()).getUri();
-						//If dependent object is not set, assume compname is module name + proper extension
-						if (J2EEProjectUtilities.isDynamicWebProject(moduleComp.getProject()) || J2EEProjectUtilities.isStaticWebProject(moduleComp.getProject()))
-							return moduleComp.getName() + IJ2EEModuleConstants.WAR_EXT;
-						if (J2EEProjectUtilities.isJCAProject(moduleComp.getProject()))
-							return moduleComp.getName() + IJ2EEModuleConstants.RAR_EXT;
-						if (J2EEProjectUtilities.isUtilityProject(moduleComp.getProject())) {
-							return getJarURI(ref, moduleComp);
-								}
-						return moduleComp.getName() + IJ2EEModuleConstants.JAR_EXT;
-					}
-
-				} 
-				else if (moduleComp.isBinary()) {
-					if (ref.getHandle().equals(ModuleURIUtil.archiveComponentfullyQualifyURI(moduleComp.getName()))) {
-						if (ref.getDependentObject()!=null) {
-						return ((Module) ref.getDependentObject()).getUri();
-						} else {
-							return getJarURI(ref, moduleComp);
-				}
+		IVirtualReference [] refs = getComponent().getReferences();
+		for(int i=0; i<refs.length; i++){
+			if(refs[i].getReferencedComponent().equals(moduleComp)){
+				return refs[i].getArchiveName();
 			}
-				}	
-			}
-		} finally {
-			if (core != null)
-				core.dispose();
 		}
-		return null;
+		return null;		
 	}
 
 	private String getJarURI(final ReferencedComponent ref, final IVirtualComponent moduleComp) {
@@ -491,50 +455,13 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 	
 	public IVirtualComponent getModuleByManifestURI(final String uri) {
-		StructureEdit core = null;
-		try {
-			core = StructureEdit.getStructureEditForRead(getProject());
-			WorkbenchComponent component = core.getComponent();
-			List referencedComponents = component.getReferencedComponents();
+		IVirtualComponent earComponent = ComponentCore.createComponent(getProject());
+		IVirtualReference [] refs = earComponent.getReferences();
 
-			for (int i = 0; i < referencedComponents.size(); i++) {
-				ReferencedComponent ref = (ReferencedComponent) referencedComponents.get(i);
-				if (ref.getDependentObject() != null) {
-					Module module = (Module) ref.getDependentObject();
-					if (uri.equals(module.getUri())) {
-						String componentName;
-						try {
-							componentName = ModuleURIUtil.getArchiveName(ref.getHandle());
-							return getModule(componentName);
-						} catch (UnresolveableURIException e) {
-							Logger.getLogger().logError(e);
-						}
-					}
-				} else if (ref.getArchiveName().equals(uri)) {
-					String baseComponentName;
-					String archiveComponentNamme;
-					try {
-						baseComponentName = ModuleURIUtil.getArchiveName(ref.getHandle());
-						archiveComponentNamme = VirtualArchiveComponent.LIBARCHIVETYPE + "/" + baseComponentName; 
-						IVirtualReference[] references = getComponentReferences();
-						IVirtualComponent comp = null;
-						String compName = null;
-						for (int j = 0; j < references.length; j++) {
-							comp = references[j].getReferencedComponent();
-							compName = comp.getName();
-							if (compName.equals(baseComponentName) || compName.equals(archiveComponentNamme)) {
-								return comp;
-							}
-						}
-						return null;
-					} catch (UnresolveableURIException e) {
-						Logger.getLogger().logError(e);
-					}
-				}
+		for(int i=0;i<refs.length; i++){
+			if(refs[i].getArchiveName().equals(uri)){
+				return refs[i].getReferencedComponent();
 			}
-		} finally {
-			if (core != null)
-				core.dispose();
 		}
 		return null;
 	}

@@ -30,9 +30,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
-import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentReferenceUpdater;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsOp;
@@ -85,18 +83,13 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 		} catch (InterruptedException e) {
 			throw new ExecutionException(e.getMessage(), e);
 		}
-		fixupManifestRefs();
 	}
 
+	/**
+	 * {@link DoNotUseMeThisWillBeDeletedPost15}
+	 * 
+	 */
 	protected void fixupManifestRefs() {
-		IDataModel nestedModel = model.getNestedModel(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION);
-		if (nestedModel.isProperty(IJ2EEFacetProjectCreationDataModelProperties.ADD_TO_EAR) && nestedModel.getBooleanProperty(IJ2EEFacetProjectCreationDataModelProperties.ADD_TO_EAR)) {
-			IProject earProject = ProjectUtilities.getProject(nestedModel.getStringProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME));
-			if (null != earProject) {
-				J2EEComponentReferenceUpdater.updateReferences(earProject);
-			}
-		}
-
 	}
 
 	protected IVirtualComponent createVirtualComponent(IDataModel aModel, IProgressMonitor monitor) throws ExecutionException {

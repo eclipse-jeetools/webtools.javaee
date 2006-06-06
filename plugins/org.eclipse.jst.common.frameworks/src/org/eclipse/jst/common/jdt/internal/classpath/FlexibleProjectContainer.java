@@ -37,6 +37,10 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.internal.core.ClasspathEntry;
+import org.eclipse.jdt.internal.core.JavaProject;
+import org.eclipse.jdt.internal.core.util.Util;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
@@ -161,6 +165,15 @@ public abstract class FlexibleProjectContainer
     
     private List computeClasspathEntries()
     {
+    	IJavaProject javaProject = JavaCore.create(this.project);
+		IClasspathEntry[] existingEntries = null;
+		try {
+			existingEntries = javaProject.getResolvedClasspath(true);
+		} catch (JavaModelException e) {
+			existingEntries = new IClasspathEntry[0];
+			Logger.getLogger().logError(e);
+		}
+		
         final List entries = new ArrayList();
         
         final IVirtualComponent vc 
@@ -179,20 +192,27 @@ public abstract class FlexibleProjectContainer
             if(null != jarName){
                 jarsHandled.add(jarName);
             }
+            IPath newPath = null;
             if (comp.isBinary()) {
                 VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
                 java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
                 if (diskFile.exists()) {
-                    entries.add(new Path(diskFile.getAbsolutePath()));
+                	newPath =new Path(diskFile.getAbsolutePath());
                 } else {
                     IFile iFile = archiveComp.getUnderlyingWorkbenchFile();
-                    if (!entries.contains(iFile.getFullPath()))
-                        entries.add(iFile.getFullPath());
+                    if (!entries.contains(iFile.getFullPath())){
+                        newPath = iFile.getFullPath();
+                    }
                 }
             } else {
                 IProject project = comp.getProject();
-                entries.add(project.getFullPath());    
+                newPath = project.getFullPath();    
             }
+            
+        	if(null != newPath && !isAlreadyOnClasspath(existingEntries, newPath)){
+                entries.add(newPath);
+        	}
+
         }
         
         for( int i = 0; i < this.paths.length; i++ )
@@ -222,7 +242,9 @@ public abstract class FlexibleProjectContainer
                     if(!jarsHandled.contains(p.lastSegment()) &&  isJarFile( r.getLocation().toFile() ) )
                     {
                         jarsHandled.add(p.lastSegment());
-                        entries.add( p );
+                        if(!isAlreadyOnClasspath(existingEntries, p)){
+                        	entries.add( p );
+                        }
                     }
                 }
             }
@@ -238,7 +260,9 @@ public abstract class FlexibleProjectContainer
                         ! isSourceOrOutputDirectory( p ) )
                     {
                         jarsHandled.add(p.lastSegment());
-                        entries.add( p );
+                        if(!isAlreadyOnClasspath(existingEntries, p)){
+                        	entries.add( p );
+                        }
                     }
                 }
             }
@@ -347,6 +371,28 @@ public abstract class FlexibleProjectContainer
         
         return false;
     }
+    
+    /**
+	 * Taken from {@link JavaProject#isOnClasspath(org.eclipse.core.resources.IResource)}
+	 * 
+	 * @param classpath
+	 * @param newPath
+	 * @return
+	 */
+	public static boolean isAlreadyOnClasspath(IClasspathEntry[] classpath, IPath newPath) {
+		for (int i = 0; i < classpath.length; i++) {
+			IClasspathEntry entry = classpath[i];
+			IPath entryPath = entry.getPath();
+			if (entryPath.equals(newPath)) { // package fragment roots must match exactly entry
+				// pathes (no exclusion there)
+				return true;
+			}
+			if (entryPath.isPrefixOf(newPath) && !Util.isExcluded(newPath, ((ClasspathEntry) entry).fullInclusionPatternChars(), ((ClasspathEntry) entry).fullExclusionPatternChars(), false)) {
+				return true;
+			}
+		}
+		return false;
+	}
     
     private static class Listener
     

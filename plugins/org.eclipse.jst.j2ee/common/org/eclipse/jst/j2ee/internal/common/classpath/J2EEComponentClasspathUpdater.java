@@ -10,10 +10,18 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.common.classpath;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -35,15 +43,17 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainer;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.ComponentcorePackage;
 import org.eclipse.wst.common.componentcore.internal.GlobalComponentChangeListener;
 import org.eclipse.wst.common.componentcore.internal.GlobalComponentChangeNotifier;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
+import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 
-public class J2EEComponentClasspathUpdater extends AdapterImpl implements GlobalComponentChangeListener {
+public class J2EEComponentClasspathUpdater extends AdapterImpl implements GlobalComponentChangeListener, IResourceChangeListener {
 
 	private static J2EEComponentClasspathUpdater instance = null;
 	private int pauseCount = 0;
@@ -61,6 +71,7 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 		if (instance == null) {
 			instance = new J2EEComponentClasspathUpdater();
 			GlobalComponentChangeNotifier.getInstance().addListener(instance);
+			ResourcesPlugin.getWorkspace().addResourceChangeListener(instance, IResourceChangeEvent.POST_CHANGE);
 		}
 	}
 
@@ -143,6 +154,7 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 	}
 
 	public void queueUpdateEAR(IProject earProject) {
+		trackEAR(earProject, true);
 		EARArtifactEdit edit = null;
 		try {
 			edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
@@ -164,7 +176,7 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 	private void updateModule(final IProject project) {
 		final IWorkspaceRunnable workspaceRunnable = new IWorkspaceRunnable() {
 			public void run(IProgressMonitor monitor) {
-				IClasspathContainer container = getWebAppLibrariesContainer(project);
+				IClasspathContainer container = getWebAppLibrariesContainer(project, false);
 				if (container != null) {
 					((FlexibleProjectContainer) container).refresh();
 				}
@@ -175,8 +187,10 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 				}
 				container = addContainerToModuleIfNecessary(project);
 				if (container != null) {
-					((J2EEComponentClasspathContainer) container).update();
+					((J2EEComponentClasspathContainer) container).refresh();
 				}
+				IResource manifest = J2EEProjectUtilities.getManifestFile(project);
+				trackManifest(manifest);
 			}
 		};
 		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
@@ -207,23 +221,26 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 		}
 	}
 
-	public IClasspathContainer getWebAppLibrariesContainer(IProject webProject) {
+	public IClasspathContainer getWebAppLibrariesContainer(IProject webProject, boolean create) {
 		IJavaProject jproj = JavaCore.create(webProject);
 		IClasspathContainer container = null;
-		try {
-			container = JavaCore.getClasspathContainer(WEB_APP_LIBS_PATH, jproj);
-		} catch (JavaModelException e) {
-			Logger.getLogger().logError(e);
+		IClasspathEntry entry = create ? null : getExistingContainer(jproj, WEB_APP_LIBS_PATH);
+		if (entry != null || create) {
+			try {
+				container = JavaCore.getClasspathContainer(WEB_APP_LIBS_PATH, jproj);
+			} catch (JavaModelException e) {
+				Logger.getLogger().logError(e);
+			}
 		}
 		return container;
 	}
 
 	private IClasspathContainer addContainerToModuleIfNecessary(IProject moduleProject) {
 		IJavaProject jproj = JavaCore.create(moduleProject);
-		IClasspathEntry entry = getJ2eeComponentClasspathEntry(jproj);
+		IClasspathEntry entry = getExistingContainer(jproj, J2EEComponentClasspathContainer.CONTAINER_PATH);
 		if (entry == null) {
 			try {
-				entry = JavaCore.newContainerEntry(new Path(J2EEComponentClasspathContainer.CONTAINER_ID));
+				entry = JavaCore.newContainerEntry(J2EEComponentClasspathContainer.CONTAINER_PATH);
 				addToClasspath(jproj, entry);
 			} catch (CoreException e) {
 				Logger.getLogger().logError(e);
@@ -231,7 +248,7 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 		}
 		IClasspathContainer container = null;
 		try {
-			container = JavaCore.getClasspathContainer(entry.getPath(), jproj);
+			container = JavaCore.getClasspathContainer(J2EEComponentClasspathContainer.CONTAINER_PATH, jproj);
 		} catch (JavaModelException e) {
 			Logger.getLogger().logError(e);
 		}
@@ -240,7 +257,7 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 
 	private void removeContainerFromModuleIfNecessary(IProject moduleProject) {
 		IJavaProject jproj = JavaCore.create(moduleProject);
-		IClasspathEntry entry = getJ2eeComponentClasspathEntry(jproj);
+		IClasspathEntry entry = getExistingContainer(jproj, J2EEComponentClasspathContainer.CONTAINER_PATH);
 		if (entry != null) {
 			try {
 				removeFromClasspath(jproj, entry);
@@ -276,15 +293,22 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 		jproj.setRawClasspath(updated, null);
 	}
 
-
-	private IClasspathEntry getJ2eeComponentClasspathEntry(IJavaProject jproj) {
+	/**
+	 * Returns the existing classpath container if it is already on the classpath. This will not
+	 * create a new container.
+	 * 
+	 * @param jproj
+	 * @param classpathContainerID
+	 * @return
+	 */
+	private IClasspathEntry getExistingContainer(IJavaProject jproj, IPath classpathContainerPath) {
 		try {
 			IClasspathEntry[] cpes;
 			cpes = jproj.getRawClasspath();
 			for (int j = 0; j < cpes.length; j++) {
 				final IClasspathEntry cpe = cpes[j];
 				if (cpe.getEntryKind() == IClasspathEntry.CPE_CONTAINER) {
-					if (cpe.getPath().equals(J2EEComponentClasspathContainer.CONTAINER_PATH)) {
+					if (cpe.getPath().equals(classpathContainerPath)) {
 						return cpe; // entry found
 					}
 				}
@@ -294,6 +318,140 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 		}
 		// entry not found
 		return null;
+	}
+
+	public void trackManifest(IResource manifest) {
+		synchronized (knownManifests) {
+			if (manifest.exists()) {
+				Long timeStamp = new Long(manifest.getLocalTimeStamp());
+				knownManifests.put(manifest, timeStamp);
+			} else {
+				knownManifests.remove(manifest);
+			}
+		}
+	}
+
+	public void trackEAR(IProject earProject) {
+		trackEAR(earProject, false);
+	}
+
+
+	private void trackEAR(IProject earProject, boolean forceUpdate) {
+		synchronized (knownEARs) {
+			if (earProject.exists()) {
+				if (forceUpdate || !knownEARs.containsKey(earProject)) {
+					try {
+						IVirtualComponent earComponent = ComponentCore.createComponent(earProject);
+						IVirtualResource[] resources = earComponent.getRootFolder().members();
+						Set archiveSet = (Set) knownEARs.get(earProject);
+						if (null == archiveSet) {
+							archiveSet = new HashSet();
+							knownEARs.put(earProject, archiveSet);
+						} else {
+							archiveSet.clear();
+						}
+						for (int i = 0; i < resources.length; i++) {
+							if (resources[i].getName().endsWith(".jar")) {
+								archiveSet.add(resources[i].getName());
+							}
+						}
+					} catch (CoreException e) {
+						knownEARs.remove(earProject);
+					}
+				}
+			} else {
+				knownEARs.remove(earProject);
+			}
+		}
+	}
+
+
+	/* IResource to timestamps */
+	private Map knownManifests = new HashMap();
+	/* IProject to Sets of archive names */
+	private Map knownEARs = new HashMap();
+
+	public void resourceChanged(IResourceChangeEvent event) {
+		try {
+			pauseUpdates();
+			synchronized (knownManifests) {
+				Iterator iterator = knownManifests.keySet().iterator();
+				List toRemove = null;
+				while (iterator.hasNext()) {
+					IResource resource = (IResource) iterator.next();
+					if (resource.exists()) {
+						long currentTimeStamp = resource.getLocalTimeStamp();
+						Long lastTimeStamp = (Long) knownManifests.get(resource);
+						if (lastTimeStamp.longValue() != currentTimeStamp) {
+							queueUpdateModule(resource.getProject());
+						}
+					} else {
+						if (toRemove == null) {
+							toRemove = new ArrayList();
+						}
+						toRemove.add(resource);
+					}
+				}
+				if (toRemove != null) {
+					for (int i = 0; i < toRemove.size(); i++) {
+						knownManifests.remove(toRemove.get(i));
+					}
+				}
+			}
+			List earsToUpdate = null;
+			synchronized (knownEARs) {
+				Iterator iterator = knownEARs.keySet().iterator();
+				List toRemove = null;
+				while (iterator.hasNext()) {
+					IProject earProject = (IProject) iterator.next();
+					if (earProject.exists()) {
+						Set archiveSet = (Set) knownEARs.get(earProject);
+						IVirtualComponent earComponent = ComponentCore.createComponent(earProject);
+						IVirtualResource[] resources;
+						try {
+							resources = earComponent.getRootFolder().members();
+							boolean requiresUpdate = false;
+							int archivesFound = 0;
+							for (int i = 0; i < resources.length && !requiresUpdate; i++) {
+								String name = resources[i].getName();
+								if (name.endsWith(".jar")) {
+									if (!archiveSet.contains(resources[i].getName())) {
+										requiresUpdate = true;
+									} else {
+										archivesFound++;
+									}
+								}
+							}
+							if (requiresUpdate || archivesFound < archiveSet.size()) {
+								if (null == earsToUpdate) {
+									earsToUpdate = new ArrayList();
+								}
+								earsToUpdate.add(earProject);
+							}
+						} catch (CoreException e) {
+							toRemove.add(earProject);
+						}
+					} else {
+						if (toRemove == null) {
+							toRemove = new ArrayList();
+						}
+						toRemove.add(earProject);
+					}
+				}
+				if (toRemove != null) {
+					for (int i = 0; i < toRemove.size(); i++) {
+						knownEARs.remove(toRemove.get(i));
+					}
+				}
+			}
+			if (null != earsToUpdate) {
+				for (int i = 0; i < earsToUpdate.size(); i++) {
+					queueUpdateEAR((IProject) earsToUpdate.get(i));
+				}
+			}
+		} finally {
+			resumeUpdates();
+		}
 	}
 
 }

@@ -34,7 +34,6 @@ import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
-import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentReferenceUpdater;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.EarFacetRuntimeHandler;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
@@ -45,6 +44,7 @@ import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceCo
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
@@ -58,7 +58,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		if (monitor != null) {
-			monitor.beginTask("", 4);
+			monitor.beginTask("", 3);
 		}
 
 		try {
@@ -68,7 +68,6 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 				return Status.CANCEL_STATUS;
 			updateEARDD(submon(monitor, 1));
 			updateModuleRuntimes(submon(monitor, 1));
-			updateManifestReferences(submon(monitor, 1));
 			return OK_STATUS;
 		} finally {
 			if (monitor != null) {
@@ -99,14 +98,12 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 
 	
 	/**
+	 * {@link DoNotUseMeThisWillBeDeletedPost15}
 	 * For each module component added to the ear, references are created for every manifest entry.
 	 * 
 	 * @param monitor
 	 */
 	protected void updateManifestReferences(IProgressMonitor monitor) {
-		IVirtualComponent earComponent = (IVirtualComponent) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
-		IProject earProject = earComponent.getProject();
-		J2EEComponentReferenceUpdater.updateReferences(earProject);
 	}
 
 	protected void updateEARDD(IProgressMonitor monitor) {

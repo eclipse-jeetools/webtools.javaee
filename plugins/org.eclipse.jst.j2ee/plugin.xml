@@ -720,5 +720,54 @@
       id="org.eclipse.wst.web.internal.operation.WebProjectPropertiesUpdateOperation"
       postOperationClass="org.eclipse.jst.j2ee.application.internal.operations.UpdateModuleContextRootInEAROp"/>
   </extension>
+
+
+   <extension
+         point="org.eclipse.wst.common.modulecore.componentimpl">
+      <componentimpl
+            typeID="jst.ear"
+            class="org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent">
+      </componentimpl>
+   </extension>
+
+   <extension
+         point="org.eclipse.wst.common.modulecore.componentimpl">
+      <componentimpl
+            typeID="jst.utility"
+            class="org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent">
+      </componentimpl>
+   </extension>
   
+   <extension
+         point="org.eclipse.wst.common.modulecore.componentimpl">
+      <componentimpl
+            typeID="jst.web"
+            class="org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent">
+      </componentimpl>
+   </extension>
+
+   <extension
+         point="org.eclipse.wst.common.modulecore.componentimpl">
+      <componentimpl
+            typeID="jst.connector"
+            class="org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent">
+      </componentimpl>
+   </extension>
+
+   <extension
+         point="org.eclipse.wst.common.modulecore.componentimpl">
+      <componentimpl
+            typeID="jst.ejb"
+            class="org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent">
+      </componentimpl>
+   </extension>
+
+   <extension
+         point="org.eclipse.wst.common.modulecore.componentimpl">
+      <componentimpl
+            typeID="jst.appclient"
+            class="org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent">
+      </componentimpl>
+   </extension>
+
 </plugin>
