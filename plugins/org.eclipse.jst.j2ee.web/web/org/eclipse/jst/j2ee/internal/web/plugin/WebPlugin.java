@@ -35,9 +35,7 @@ import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.jst.j2ee.internal.web.util.WebEditAdapterFactory;
-import org.eclipse.jst.j2ee.webapplication.internal.impl.WebAppResourceFactory;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
-import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -262,7 +260,7 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-		WebAppResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);
+		//WebAppResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);
 		IAdapterManager manager = Platform.getAdapterManager();
 		manager.registerAdapters(new WebEditAdapterFactory(), ArtifactEditModel.class);
 	}

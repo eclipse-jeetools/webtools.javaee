@@ -39,6 +39,12 @@ public class EJBJarResourceFactory extends TranslatorResourceFactory {
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.EJB_JAR_SCHEMA_LOC_2_1, "ejb-jar_2_1.xsd"); //$NON-NLS-1$
 	}
 
+	/**  
+	 */
+	public EJBJarResourceFactory() {
+		super(RendererFactory.getDefaultRendererFactory());
+	}
+
 	/**
 	 * @param aRendererFactory
 	 */

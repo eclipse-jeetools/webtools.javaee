@@ -20,12 +20,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.MessageFormat;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jst.j2ee.webservice.internal.wsdd.WsddResourceFactory;
-import org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.WebServicesClientResourceFactory;
-import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -206,8 +204,6 @@ public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-		WsddResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);
-		WebServicesClientResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);
 	}
 
 	/**

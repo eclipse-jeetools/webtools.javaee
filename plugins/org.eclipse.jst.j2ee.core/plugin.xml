@@ -164,5 +164,25 @@
             class="org.eclipse.jst.j2ee.core.internal.validation.xmlerrorcustomization.J2EEErrorMessageCustomizer"
             namespace="http://java.sun.com/xml/ns/j2ee"/>
    </extension>
+   
+   
+  <extension
+        point="org.eclipse.wst.common.modulecore.resourceFactories">
+     <resourceFactory
+           class="org.eclipse.jst.j2ee.webapplication.internal.impl.WebAppResourceFactory"
+           shortSegment="web.xml"/>
+     <resourceFactory
+           class="org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarResourceFactory"
+           shortSegment="ejb-jar.xml"/>
+     <resourceFactory
+           class="org.eclipse.jst.j2ee.client.internal.impl.ApplicationClientResourceFactory"
+           shortSegment="application-client.xml"/>
+     <resourceFactory
+           class="org.eclipse.jst.j2ee.application.internal.impl.ApplicationResourceFactory"
+           shortSegment="application.xml"/>
+     <resourceFactory
+           class="org.eclipse.jst.j2ee.jca.internal.impl.ConnectorResourceFactory"
+           shortSegment="ra.xml"/>
+  </extension>
 
 </plugin>

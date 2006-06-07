@@ -31,6 +31,16 @@ public class ConnectorResourceFactory extends TranslatorResourceFactory {
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.CONNECTOR_ALT_SYSTEMID_1_0, "connector_1.0.dtd"); //$NON-NLS-1$
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.CONNECTOR_SCHEMA_LOC_1_5, "connector_1_5.xsd"); //$NON-NLS-1$
 	} 
+	
+
+	 
+	/**
+	 * Constructor for ConnectorResourceFactory.
+	 * @param aRendererFactory
+	 */
+	public ConnectorResourceFactory() {
+		super(RendererFactory.getDefaultRendererFactory());
+	}
  
 	/**
 	 * Constructor for ConnectorResourceFactory.

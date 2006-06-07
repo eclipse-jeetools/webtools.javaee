@@ -37,6 +37,15 @@ public class ApplicationResourceFactory extends TranslatorResourceFactory {
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.J2EE_1_4_XSD_SHORT_NAME, J2EEConstants.J2EE_1_4_XSD_SHORT_NAME); 
 	}
 
+	
+
+    /**
+     * @param aRendererFactory
+     */
+    public ApplicationResourceFactory() {
+        super(RendererFactory.getDefaultRendererFactory());
+    }
+	
     /**
      * @param aRendererFactory
      */

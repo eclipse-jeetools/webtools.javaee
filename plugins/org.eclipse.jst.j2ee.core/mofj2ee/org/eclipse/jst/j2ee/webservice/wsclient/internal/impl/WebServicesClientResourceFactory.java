@@ -30,6 +30,14 @@ import org.eclipse.wst.common.internal.emf.resource.TranslatorResourceFactory;
 
 public class WebServicesClientResourceFactory
     extends TranslatorResourceFactory {
+	
+	/**
+     * @param aRendererFactory
+     */
+    public WebServicesClientResourceFactory() {
+        super(RendererFactory.getDefaultRendererFactory());
+    }
+	
 		/**
 		 * Method registerDtds.
 		 */

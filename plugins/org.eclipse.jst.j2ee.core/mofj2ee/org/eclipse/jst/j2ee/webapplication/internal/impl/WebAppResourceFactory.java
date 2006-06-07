@@ -48,11 +48,17 @@ public class WebAppResourceFactory extends TranslatorResourceFactory {
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.JSP_SCHEMA_LOC_2_0, "jsp_2_0.xsd"); //$NON-NLS-1$
 	}
 
+	/** 
+	 */
+	public WebAppResourceFactory() {
+		super(RendererFactory.getDefaultRendererFactory()); 
+	}
+
 	/**
 	 * @param aRendererFactory
 	 */
 	public WebAppResourceFactory(RendererFactory aRendererFactory) {
-		super(aRendererFactory);
+		super(aRendererFactory); 
 	}
 
 	/* (non-Javadoc)
@@ -65,7 +71,7 @@ public class WebAppResourceFactory extends TranslatorResourceFactory {
 	/**
 	 * Register myself with the Resource.Factory.Registry
 	 */
-	public static void registerWith(RendererFactory aRendererFactory) {
+	public static void registerWith(RendererFactory aRendererFactory) { 
 		J2EEResourceFactoryRegistry.INSTANCE.registerLastFileSegment(J2EEConstants.WEBAPP_DD_SHORT_NAME, new WebAppResourceFactory(aRendererFactory));
 	}
 	
@@ -81,11 +87,13 @@ public class WebAppResourceFactory extends TranslatorResourceFactory {
 	 * register using the default renderer factory.
 	 * @see #registerWith(RendererFactory)
 	 */
-	public static void register(FileNameResourceFactoryRegistry aRegistry) {
+	public static void register(FileNameResourceFactoryRegistry aRegistry) {		
 		aRegistry.registerLastFileSegment(J2EEConstants.WEBAPP_DD_SHORT_NAME, new WebAppResourceFactory(RendererFactory.getDefaultRendererFactory()));
 	}
 	
 	public static Resource.Factory getRegisteredFactory() {
+
+		System.err.println("fetching registered factory for web app uri");
 		return J2EEResourceFactoryRegistry.INSTANCE.getFactory(J2EEConstants.WEBAPP_DD_URI_OBJ);
 	}
 

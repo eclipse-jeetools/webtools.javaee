@@ -25,6 +25,15 @@ import org.eclipse.wst.common.internal.emf.resource.TranslatorResourceFactory;
 
 public class WsddResourceFactory extends TranslatorResourceFactory
 {
+	
+	  /**
+	  * WsddResourceFactory constructor comment.
+	  */
+	  public WsddResourceFactory() 
+	  {
+		  super(RendererFactory.getDefaultRendererFactory());
+	  }
+	
   /**
   * WsddResourceFactory constructor comment.
   */

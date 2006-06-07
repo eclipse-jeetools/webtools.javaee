@@ -38,6 +38,13 @@ public class ApplicationClientResourceFactory extends TranslatorResourceFactory 
 
 	/**
 	 * Constructor for ApplicationClientResourceFactory.
+	 */
+	public ApplicationClientResourceFactory() {
+		super(RendererFactory.getDefaultRendererFactory());
+	}
+	
+	/**
+	 * Constructor for ApplicationClientResourceFactory.
 	 * @param aRendererFactory
 	 */
 	public ApplicationClientResourceFactory(RendererFactory aRendererFactory) {
