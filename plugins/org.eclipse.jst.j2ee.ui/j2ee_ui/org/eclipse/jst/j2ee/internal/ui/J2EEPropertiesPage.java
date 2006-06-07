@@ -173,7 +173,7 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
             bValid = false;
         }
 
-        if (name.trim().equals(name)) {
+        if (!name.contains(" ")) {
             StringTokenizer stok = new StringTokenizer(name, "."); //$NON-NLS-1$
             outer : while (stok.hasMoreTokens()) {
                 String token = stok.nextToken();
@@ -188,7 +188,7 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
             }
         } // en/ end of if(name.trim
         else {
-        	this.setErrorMessage(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Names_cannot_begin_or_end_with_whitespace_5, new Object[0]));
+        	this.setErrorMessage(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Names_cannot_contain_whitespace_, new Object[0]));
         	bValid = false;
         }
         if (bValid)   	this.setErrorMessage(null);
