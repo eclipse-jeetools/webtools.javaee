@@ -316,7 +316,8 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				fileAdded = true;
 			} else if (shouldInclude((IContainer) resources[i])) {
 				IResource[] nestedResources = ((IContainer) resources[i]).members();
-				if (!aggregateOutputFiles(nestedResources, runtimePathPrefix, outputFolderSegmentCount)) {
+				aggregateOutputFiles(nestedResources, runtimePathPrefix, outputFolderSegmentCount);
+				if(!filesHolder.contains(uri)){
 					if (!shouldInclude(uri))
 						continue;
 					cFile = createDirectory(uri);
@@ -361,7 +362,8 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				fileAdded = true;
 			} else if (shouldInclude((IVirtualContainer) virtualResources[i])) {
 				IVirtualResource[] nestedVirtualResources = ((IVirtualContainer) virtualResources[i]).members();
-				if (!aggregateFiles(nestedVirtualResources)) {
+				aggregateFiles(nestedVirtualResources);
+				if(!filesHolder.contains(uri)){
 					if (!shouldInclude(uri))
 						continue;
 					IResource resource = virtualResources[i].getUnderlyingResource();
