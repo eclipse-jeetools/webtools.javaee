@@ -53,6 +53,7 @@ public class ProjectSupportResourceHandler extends NLS {
 	public static String Catalog_Lib_Directory__UI_;
 	public static String Update_ClassPath__UI_;	
 	public static String Set_ClassPath__UI_; 	
+	public static String Names_cannot_contain_whitespace_;
 
 
 	static {

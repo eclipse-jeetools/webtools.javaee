@@ -21,6 +21,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.DefaultJ2EEComponent
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
 import org.eclipse.jst.j2ee.internal.moduleextension.JcaModuleExtension;
@@ -32,8 +33,10 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModel
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
@@ -299,34 +302,38 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
 	public IStatus validate(String propertyName) {
-		if (propertyName.equals(APPCLIENT_COMPONENT_NAME)) {
-			return validateComponentName(getStringProperty(APPCLIENT_COMPONENT_NAME));
+
+		if (getBooleanProperty(CREATE_APPCLIENT) && propertyName.equals(APPCLIENT_COMPONENT_NAME)) {
+			return clientModel.validateProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
 		}
-		if (propertyName.equals(WEB_COMPONENT_NAME)) {
-			return validateComponentName(getStringProperty(WEB_COMPONENT_NAME));
+
+		if (getBooleanProperty(CREATE_WEB) && propertyName.equals(WEB_COMPONENT_NAME)) {
+			return webModel.validateProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
 		}
-		if (propertyName.equals(EJB_COMPONENT_NAME)) {
-			return validateComponentName(getStringProperty(EJB_COMPONENT_NAME));
+
+		if (getBooleanProperty(CREATE_EJB) && propertyName.equals(EJB_COMPONENT_NAME)) {
+			return ejbModel.validateProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
 		}
-		if (propertyName.equals(CONNECTOR_COMPONENT_NAME)) {
-			return validateComponentName(getStringProperty(CONNECTOR_COMPONENT_NAME));
+
+		if (getBooleanProperty(CREATE_CONNECTOR) && propertyName.equals(CONNECTOR_COMPONENT_NAME)) {
+			return jcaModel.validateProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
 		}
 		return super.validate(propertyName);
 	}
 
-	private IStatus validateComponentName(String componentName) {
-		IStatus status = OK_STATUS;
-		if (status.isOK()) {
-			if (componentName.indexOf("#") != -1) { //$NON-NLS-1$
-				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_INVALID_CHARS); 
-				return WTPCommonPlugin.createErrorStatus(errorMessage);
-			} else if (componentName == null || componentName.equals("")) { //$NON-NLS-1$
-				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_EMPTY_MODULE_NAME);
-				return WTPCommonPlugin.createErrorStatus(errorMessage);
-			}
-		}
-		return status;
-	}
+//	private IStatus validateComponentName(String componentName) {
+//		IStatus status = OK_STATUS;
+//		if (status.isOK()) {
+//			if (componentName.indexOf("#") != -1) { //$NON-NLS-1$
+//				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_INVALID_CHARS); 
+//				return WTPCommonPlugin.createErrorStatus(errorMessage);
+//			} else if (componentName == null || componentName.equals("")) { //$NON-NLS-1$
+//				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_EMPTY_MODULE_NAME);
+//				return WTPCommonPlugin.createErrorStatus(errorMessage);
+//			}
+//		}
+//		return status;
+//	}
 
 	private void setDefaultNestedComponentName(String name, int flag) {
 		IDataModel modModule = getNestedModel(flag);

@@ -45,12 +45,12 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 		} else if (propertyName.equals(SOURCE_FOLDER)) {
 			return "src"; //$NON-NLS-1$
 		} else if (propertyName.equals(CONTEXT_ROOT)) {
-			return getProperty(FACET_PROJECT_NAME);
+			return (Object) ((String) getProperty(FACET_PROJECT_NAME)).replace(' ', '_');
 		} else if (propertyName.equals(FACET_ID)) {
 			return J2EEProjectUtilities.DYNAMIC_WEB;
 		} else if (propertyName.equals(MODULE_URI)) {
 			String projectName = model.getStringProperty(FACET_PROJECT_NAME);
-			return projectName + IJ2EEModuleConstants.WAR_EXT; 
+			return projectName + IJ2EEModuleConstants.WAR_EXT;
 		}
 		return super.getDefaultProperty(propertyName);
 	}
