@@ -67,9 +67,6 @@ public class J2EENavigatorPlugin extends AbstractUIPlugin {
 
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-		WorkbenchResourceHelper.initializeFileAdapterFactory();
-		IAdapterManager manager = Platform.getAdapterManager();
-		manager.registerAdapters(new J2EEEMFAdapterFactory(), EObject.class);
 		images = new ImageRegistry(Display.getDefault());
 	}
 	

@@ -37,5 +37,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jst.common.project.facet.core,
  org.eclipse.jst.j2ee.web,
  org.eclipse.jst.j2ee.jca,
- org.eclipse.jst.j2ee.ejb
-Eclipse-AutoStart: true
+ org.eclipse.jst.j2ee.ejb,
+ org.eclipse.core.expressions
+Eclipse-LazyStart: true; exceptions="org.eclipse.jst.j2ee.navigator.internal"

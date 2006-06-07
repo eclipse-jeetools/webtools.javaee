@@ -7,54 +7,108 @@ import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.viewers.ILightweightLabelDecorator;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.wst.common.project.facet.core.internal.FacetedProjectPropertyTester;
 
 /**
  * J2EEProjectDecorator
  */
 public class J2EEProjectDecorator extends LabelProvider implements ILightweightLabelDecorator {
 
-    private static final ImageDescriptor EAR = getImageDescriptor("enterprise_app_ovr"); //$NON-NLS-1$
-    private static final ImageDescriptor APPCLIENT = getImageDescriptor("client_app_ovr"); //$NON-NLS-1$
-    private static final ImageDescriptor DYNAMICWEB = getImageDescriptor("web_module_ovr"); //$NON-NLS-1$
-    private static final ImageDescriptor EJB = getImageDescriptor("ejb_module_ovr"); //$NON-NLS-1$
-    private static final ImageDescriptor CONNECTOR = getImageDescriptor("connector_ovr"); //$NON-NLS-1$
+    private static ImageDescriptor EAR;
+    private static ImageDescriptor APPCLIENT;
+    private static ImageDescriptor DYNAMICWEB;
+    private static ImageDescriptor EJB;
+    private static ImageDescriptor CONNECTOR;
+    
+    private static final String PROJECT_FACET = "projectFacet"; //$NON-NLS-1$     
+    
+    /* The */
+    private static final String EAR_FACET = "jst.ear"; //$NON-NLS-1$ 
+    private static final String APPCLIENT_FACET = "jst.appclient"; //$NON-NLS-1$ 
+    private static final String WEB_FACET = "jst.web"; //$NON-NLS-1$ 
+    private static final String EJB_FACET = "jst.ejb"; //$NON-NLS-1$ 
+    private static final String UTILITY_FACET = "jst.utility"; //$NON-NLS-1$ 
+    private static final String CONNECTOR_FACET = "jst.connector"; //$NON-NLS-1$ 
+    private static final String STATIC_WEB_FACET = "wst.web"; //$NON-NLS-1$ 
+    
+    private static final FacetedProjectPropertyTester facetPropertyTester = new FacetedProjectPropertyTester();
     
     public J2EEProjectDecorator() {
         super();
     }
     
     public void decorate(Object element, IDecoration decoration) {
+    	
     	if(element instanceof IJavaProject) {
     		element = ((IJavaProject)element).getProject();
     	}
-        if (element instanceof IProject) {
+        if (element instanceof IProject) {  
+    	
         	IProject project = (IProject) element;
         	ImageDescriptor overlay = null;
-			if (J2EEProjectUtilities.isEARProject(project))
-				overlay=EAR;
-			else if (J2EEProjectUtilities.isApplicationClientProject(project))
-				overlay=APPCLIENT;
-			else if (J2EEProjectUtilities.isDynamicWebProject(project))
-				overlay=DYNAMICWEB;
-			else if (J2EEProjectUtilities.isEJBProject(project))
-				overlay=EJB;
-			else if (J2EEProjectUtilities.isJCAProject(project))
-				overlay=CONNECTOR;
-			else if (J2EEProjectUtilities.isStaticWebProject(project))
-				overlay=DYNAMICWEB;
-			else if (J2EEProjectUtilities.isUtilityProject(project))
+			if (hasFacet(element, EAR_FACET))
+				overlay=getEAR();
+			else if (hasFacet(element, APPCLIENT_FACET))
+				overlay=getAPPCLIENT();
+			else if (hasFacet(element, WEB_FACET))
+				overlay=getDYNAMICWEB();
+			else if (hasFacet(element, EJB_FACET))
+				overlay=getEJB();
+			else if (hasFacet(element, CONNECTOR_FACET))
+				overlay=getCONNECTOR();
+			else if (hasFacet(element, STATIC_WEB_FACET))
+				overlay=getDYNAMICWEB();
+			else if (hasFacet(element, UTILITY_FACET))
 				overlay=null;
 			
 			if (overlay != null)
-				decoration.addOverlay(overlay);
+				decoration.addOverlay(overlay); 
         }
 	}
 
-    private static ImageDescriptor getImageDescriptor(String imageFileName) {
+    private boolean hasFacet(Object element, String facet) {
+		return facetPropertyTester.test(element, PROJECT_FACET, new Object[] {}, facet);
+	}
+
+	private static ImageDescriptor getImageDescriptor(String imageFileName) {
         if (imageFileName != null)
             return J2EEUIPlugin.getDefault().getImageDescriptor(imageFileName);
         return null;
+    }
+    
+    private static ImageDescriptor getEAR() {
+    	if (EAR == null) {
+    		EAR = getImageDescriptor("enterprise_app_ovr"); //$NON-NLS-1$
+    	}
+    	return EAR;
+    }
+    
+    private static ImageDescriptor getAPPCLIENT() {
+    	if (APPCLIENT == null) {
+    		APPCLIENT = getImageDescriptor("client_app_ovr"); //$NON-NLS-1$
+    	}
+    	return APPCLIENT;
+    }
+    
+    private static ImageDescriptor getDYNAMICWEB() {
+    	if (DYNAMICWEB == null) {
+    		DYNAMICWEB = getImageDescriptor("web_module_ovr"); //$NON-NLS-1$
+    	}
+    	return DYNAMICWEB;
+    }
+    
+    private static ImageDescriptor getEJB() {
+    	if (EJB == null) {
+    		EJB = getImageDescriptor("ejb_module_ovr"); //$NON-NLS-1$
+    	}
+    	return EJB;
+    }
+    
+    private static ImageDescriptor getCONNECTOR() {
+    	if (CONNECTOR == null) {
+    		CONNECTOR = getImageDescriptor("connector_ovr"); //$NON-NLS-1$
+    	}
+    	return CONNECTOR;
     }
 
 }

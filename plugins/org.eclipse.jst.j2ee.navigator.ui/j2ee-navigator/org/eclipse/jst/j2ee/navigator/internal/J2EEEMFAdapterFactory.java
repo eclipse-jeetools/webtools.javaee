@@ -60,7 +60,7 @@ public class J2EEEMFAdapterFactory implements IAdapterFactory {
 	 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapterList()
 	 */
 	public Class[] getAdapterList() {
-		return new Class[]{IPROJECT_CLASS, IRESOURCE_CLASS, IFILE_CLASS};
+		return new Class[]{IRESOURCE_CLASS, IFILE_CLASS};
 	}
 
 }
