@@ -11,8 +11,8 @@
 package org.eclipse.jst.j2ee.internal.common.classpath;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -57,7 +57,8 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 
 	private static J2EEComponentClasspathUpdater instance = null;
 	private int pauseCount = 0;
-	private Set updatesRequired = new HashSet();
+	private Set moduleUpdatesRequired = new HashSet();
+	private Set earUpdatesRequired = new HashSet();
 	private IPath WEB_APP_LIBS_PATH = new Path("org.eclipse.jst.j2ee.internal.web.container");
 
 	public static J2EEComponentClasspathUpdater getInstance() {
@@ -86,19 +87,34 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 	}
 
 	public void resumeUpdates() {
-		Object[] projects = null;
-		synchronized (this) {
-			if (pauseCount > 0) {
-				pauseCount--;
+		try {
+			Object[] earProjects = null;
+			synchronized (this) {
+				if (pauseCount == 1) {
+					earProjects = earUpdatesRequired.toArray();
+					earUpdatesRequired.clear();
+				}
 			}
-			if (pauseCount > 0) {
-				return;
+			if (earProjects != null) {
+				for (int i = 0; i < earProjects.length; i++) {
+					updateEAR((IProject) earProjects[i]);
+				}
 			}
-			projects = updatesRequired.toArray();
-			updatesRequired.clear();
-		}
-		for (int i = 0; i < projects.length; i++) {
-			updateModule((IProject) projects[i]);
+		} finally {
+			Object[] projects = null;
+			synchronized (this) {
+				if (pauseCount > 0) {
+					pauseCount--;
+				}
+				if (pauseCount > 0) {
+					return;
+				}
+				projects = moduleUpdatesRequired.toArray();
+				moduleUpdatesRequired.clear();
+			}
+			for (int i = 0; i < projects.length; i++) {
+				updateModule((IProject) projects[i]);
+			}
 		}
 	}
 
@@ -143,8 +159,8 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 	public void queueUpdateModule(IProject project) {
 		synchronized (this) {
 			if (pauseCount > 0) {
-				if (!updatesRequired.contains(project)) {
-					updatesRequired.add(project);
+				if (!moduleUpdatesRequired.contains(project)) {
+					moduleUpdatesRequired.add(project);
 				}
 				return;
 			}
@@ -154,6 +170,18 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 	}
 
 	public void queueUpdateEAR(IProject earProject) {
+		synchronized (this) {
+			if (pauseCount > 0) {
+				if (!earUpdatesRequired.contains(earProject)) {
+					earUpdatesRequired.add(earProject);
+				}
+				return;
+			}
+		}
+		updateEAR(earProject);
+	}
+
+	private void updateEAR(IProject earProject) {
 		trackEAR(earProject, true);
 		EARArtifactEdit edit = null;
 		try {
@@ -337,85 +365,103 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 
 
 	private void trackEAR(IProject earProject, boolean forceUpdate) {
-		synchronized (knownEARs) {
-			if (earProject.exists()) {
-				if (forceUpdate || !knownEARs.containsKey(earProject)) {
-					try {
-						IVirtualComponent earComponent = ComponentCore.createComponent(earProject);
-						IVirtualResource[] resources = earComponent.getRootFolder().members();
-						Set archiveSet = (Set) knownEARs.get(earProject);
-						if (null == archiveSet) {
-							archiveSet = new HashSet();
-							knownEARs.put(earProject, archiveSet);
-						} else {
-							archiveSet.clear();
-						}
-						for (int i = 0; i < resources.length; i++) {
-							if (resources[i].getName().endsWith(".jar")) {
-								archiveSet.add(resources[i].getName());
-							}
-						}
-					} catch (CoreException e) {
-						knownEARs.remove(earProject);
+		if (earProject.exists()) {
+			if (forceUpdate || !knownEARs.containsKey(earProject)) {
+				try {
+					IVirtualComponent earComponent = ComponentCore.createComponent(earProject);
+					IVirtualResource[] resources = earComponent.getRootFolder().members();
+					Set archiveSet = (Set) knownEARs.get(earProject);
+					if (null == archiveSet) {
+						archiveSet = new HashSet();
+						knownEARs.put(earProject, archiveSet);
+					} else {
+						archiveSet.clear();
 					}
+					for (int i = 0; i < resources.length; i++) {
+						if (resources[i].getName().endsWith(".jar")) {
+							archiveSet.add(resources[i].getName());
+						}
+					}
+				} catch (CoreException e) {
+					knownEARs.remove(earProject);
 				}
-			} else {
-				knownEARs.remove(earProject);
 			}
+		} else {
+			knownEARs.remove(earProject);
 		}
 	}
 
 
 	/* IResource to timestamps */
-	private Map knownManifests = new HashMap();
+	private Map knownManifests = new Hashtable();
 	/* IProject to Sets of archive names */
-	private Map knownEARs = new HashMap();
+	private Map knownEARs = new Hashtable();
 
 	public void resourceChanged(IResourceChangeEvent event) {
 		try {
 			pauseUpdates();
+			List manifestsToRemove = null;
+			List modulesToUpdate = null;
 			synchronized (knownManifests) {
 				Iterator iterator = knownManifests.keySet().iterator();
-				List toRemove = null;
 				while (iterator.hasNext()) {
 					IResource resource = (IResource) iterator.next();
 					if (resource.exists()) {
 						long currentTimeStamp = resource.getLocalTimeStamp();
 						Long lastTimeStamp = (Long) knownManifests.get(resource);
 						if (lastTimeStamp.longValue() != currentTimeStamp) {
-							queueUpdateModule(resource.getProject());
+							if (modulesToUpdate == null) {
+								modulesToUpdate = new ArrayList();
+							}
+							modulesToUpdate.add(resource.getProject());
 						}
 					} else {
-						if (toRemove == null) {
-							toRemove = new ArrayList();
+						if (manifestsToRemove == null) {
+							manifestsToRemove = new ArrayList();
 						}
-						toRemove.add(resource);
-					}
-				}
-				if (toRemove != null) {
-					for (int i = 0; i < toRemove.size(); i++) {
-						knownManifests.remove(toRemove.get(i));
+						manifestsToRemove.add(resource);
 					}
 				}
 			}
-			List earsToUpdate = null;
+			if (manifestsToRemove != null) {
+				synchronized (knownManifests) {
+					for (int i = 0, size = manifestsToRemove.size(); i < size; i++) {
+						knownManifests.remove(manifestsToRemove.get(i));
+					}
+				}
+			}
+
+			if (null != modulesToUpdate) {
+				for (int i = 0, size = modulesToUpdate.size(); i < size; i++) {
+					queueUpdateModule((IProject) modulesToUpdate.get(i));
+				}
+			}
+			List earsToRemove = null;
+			IProject[] earProjects = null;
+
 			synchronized (knownEARs) {
-				Iterator iterator = knownEARs.keySet().iterator();
-				List toRemove = null;
-				while (iterator.hasNext()) {
-					IProject earProject = (IProject) iterator.next();
-					if (earProject.exists()) {
-						Set archiveSet = (Set) knownEARs.get(earProject);
-						IVirtualComponent earComponent = ComponentCore.createComponent(earProject);
+				Set keySet = knownEARs.keySet();
+				earProjects = new IProject[keySet.size()];
+				Iterator iterator = keySet.iterator();
+				for (int i = 0; iterator.hasNext(); i++) {
+					earProjects[i] = (IProject) iterator.next();
+				}
+			}
+
+			for (int i = 0; i < earProjects.length; i++) {
+				if (earProjects[i].exists()) {
+					Set archiveSet = (Set) knownEARs.get(earProjects[i]);
+					if (archiveSet != null) {
+						IVirtualComponent earComponent = ComponentCore.createComponent(earProjects[i]);
 						IVirtualResource[] resources;
 						try {
 							resources = earComponent.getRootFolder().members();
 							boolean requiresUpdate = false;
 							int archivesFound = 0;
-							for (int i = 0; i < resources.length && !requiresUpdate; i++) {
-								String name = resources[i].getName();
+							for (int j = 0; j < resources.length && !requiresUpdate; j++) {
+								String name = resources[j].getName();
 								if (name.endsWith(".jar")) {
-									if (!archiveSet.contains(resources[i].getName())) {
+									if (!archiveSet.contains(resources[j].getName())) {
 										requiresUpdate = true;
 									} else {
 										archivesFound++;
@@ -423,30 +469,28 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 								}
 							}
 							if (requiresUpdate || archivesFound < archiveSet.size()) {
-								if (null == earsToUpdate) {
-									earsToUpdate = new ArrayList();
-								}
-								earsToUpdate.add(earProject);
+								queueUpdateEAR(earProjects[i]);
 							}
 						} catch (CoreException e) {
-							toRemove.add(earProject);
+							if (earsToRemove == null) {
+								earsToRemove = new ArrayList();
+							}
+							earsToRemove.add(earProjects[i]);
 						}
-					} else {
-						if (toRemove == null) {
-							toRemove = new ArrayList();
-						}
-						toRemove.add(earProject);
 					}
-				}
-				if (toRemove != null) {
-					for (int i = 0; i < toRemove.size(); i++) {
-						knownEARs.remove(toRemove.get(i));
+				} else {
+					if (earsToRemove == null) {
+						earsToRemove = new ArrayList();
 					}
+					earsToRemove.add(earProjects[i]);
 				}
 			}
-			if (null != earsToUpdate) {
-				for (int i = 0; i < earsToUpdate.size(); i++) {
-					queueUpdateEAR((IProject) earsToUpdate.get(i));
+
+			if (earsToRemove != null) {
+				synchronized (knownEARs) {
+					for (int i = 0; i < earsToRemove.size(); i++) {
+						knownEARs.remove(earsToRemove.get(i));
+					}
 				}
 			}
 		} finally {
