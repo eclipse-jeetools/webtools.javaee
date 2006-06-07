@@ -23,10 +23,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarResourceFactory;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
-import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -175,8 +173,7 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 	}
 
 	public void start(BundleContext context) throws Exception {
-		super.start(context);
-		EJBJarResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);
+		super.start(context); 
 	}
 
 	public String getString(String key, boolean translate) {
