@@ -77,6 +77,7 @@ public final class EJBCreationResourceHandler extends NLS {
 	public static String Key_class_UI_;
 	public static String Entity_enter_primary_key;
 	public static String Entyty_primary_key_not_default;
+	public static String Entity_primary_key_duplicate;
 	public static String EJB_CLIENT_JAR_CREATION_ERROR_;
 	public static String EJB_CLIENT_JAR_CREATION_MESSAGE_;
 	public static String CREATING_CLIENT_JAR_UI_;
