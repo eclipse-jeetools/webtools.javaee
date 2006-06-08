@@ -275,4 +275,15 @@ public class DefectVerificationTests extends OperationTestCase {
 		dataModel.setProperty(IWebComponentImportDataModelProperties.PROJECT_NAME, "A_WAR");
 		runAndVerify(dataModel);
 	}
+
+	/**
+	 * To run this test, first override setUp() to do nothing, and then import a few ear projects
+	 * containing modules.
+	 * 
+	 * @throws Exception
+	 */
+	public void test145805() throws Exception {
+		ClasspathContainerThreading threading = new ClasspathContainerThreading();
+		threading.testDeadlock();
+	}
 }
