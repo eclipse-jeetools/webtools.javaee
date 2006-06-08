@@ -349,6 +349,7 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 	}
 
 	public void trackManifest(IResource manifest) {
+		if (manifest == null) return;
 		synchronized (knownManifests) {
 			if (manifest.exists()) {
 				Long timeStamp = new Long(manifest.getLocalTimeStamp());
