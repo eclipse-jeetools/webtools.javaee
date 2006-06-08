@@ -11,6 +11,8 @@
 
 package org.eclipse.jst.common.jdt.internal.classpath;
 
+import java.lang.reflect.Field;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.ClasspathContainerInitializer;
@@ -76,7 +78,41 @@ public abstract class FlexibleProjectContainerInitializer
         final IClasspathContainer container
             = JavaCore.getClasspathContainer( containerPath, project );
         
-        ( (FlexibleProjectContainer) container ).refresh();
+        // ( (FlexibleProjectContainer) container ).refresh();
+        
+        refresh( container );
     }
-
+    
+    // Workaround for bug 145784.
+    
+    private static void refresh( final IClasspathContainer container )
+    {
+        if( container instanceof FlexibleProjectContainer )
+        {
+            ( (FlexibleProjectContainer) container ).refresh();
+        }
+        else
+        {
+            try
+            {
+                final Field field 
+                    = container.getClass().getDeclaredField( "fOriginal" ); //$NON-NLS-1$
+                
+                field.setAccessible( true );
+                
+                refresh( (IClasspathContainer) field.get( container ) );
+            }
+            catch( NoSuchFieldException e )
+            {
+                // Should not happen.
+                throw new RuntimeException( e );
+            }
+            catch( IllegalAccessException e )
+            {
+                // Should not happen.
+                throw new RuntimeException( e );
+            }
+        }
+    }
+    
 }
