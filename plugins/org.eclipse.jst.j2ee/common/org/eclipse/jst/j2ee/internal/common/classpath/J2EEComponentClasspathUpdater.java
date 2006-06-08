@@ -205,7 +205,7 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 		final IWorkspaceRunnable workspaceRunnable = new IWorkspaceRunnable() {
 			public void run(IProgressMonitor monitor) {
 				IClasspathContainer container = getWebAppLibrariesContainer(project, false);
-				if (container != null) {
+				if (container != null && container instanceof FlexibleProjectContainer) {
 					((FlexibleProjectContainer) container).refresh();
 				}
 				IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(project);

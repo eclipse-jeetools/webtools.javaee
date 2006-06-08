@@ -11,7 +11,11 @@
 package org.eclipse.jst.j2ee.internal.common.classpath;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -22,8 +26,10 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.internal.core.ClasspathEntry;
+import org.eclipse.jdt.internal.core.JavaProject;
+import org.eclipse.jdt.internal.core.util.Util;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainer;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -118,13 +124,23 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		List entriesList = new ArrayList();
 
 		try {
-			entries = new IClasspathEntry[0];
 			IJavaProject javaProject = JavaCore.create(component.getProject());
-			IClasspathEntry[] existingEntries = null;
+			Set existingEntries = new HashSet();
 			try {
-				existingEntries = javaProject.getResolvedClasspath(true);
+				existingEntries.addAll(Arrays.asList(javaProject.getResolvedClasspath(true)));
+				// Then remove any entries provided by this container's prior self.
+				final IClasspathEntry[] cp = javaProject.getRawClasspath();
+				for (int i = 0; i < cp.length; i++) {
+					final IPath path = cp[i].getPath();
+					if (path.equals(CONTAINER_PATH)) {
+						final IClasspathContainer container = JavaCore.getClasspathContainer(path, javaProject);
+						final IClasspathEntry[] containerEntries = container.getClasspathEntries();
+						existingEntries.removeAll(Arrays.asList(containerEntries));
+						break;
+					}
+				}
+				existingEntries.removeAll(Arrays.asList(entries));
 			} catch (JavaModelException e) {
-				existingEntries = new IClasspathEntry[0];
 				Logger.getLogger().logError(e);
 			}
 			for (int i = 0; i < refs.length; i++) {
@@ -143,13 +159,13 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 						IFile iFile = archiveComp.getUnderlyingWorkbenchFile();
 						lastUpdate.paths[i] = iFile.getFullPath();
 					}
-					if (!FlexibleProjectContainer.isAlreadyOnClasspath(existingEntries, lastUpdate.paths[i])) {
+					if (!isAlreadyOnClasspath(existingEntries, lastUpdate.paths[i])) {
 						entriesList.add(JavaCore.newLibraryEntry(lastUpdate.paths[i], null, null));
 					}
 				} else {
 					IProject project = comp.getProject();
 					lastUpdate.paths[i] = project.getFullPath();
-					if (!FlexibleProjectContainer.isAlreadyOnClasspath(existingEntries, lastUpdate.paths[i])) {
+					if (!isAlreadyOnClasspath(existingEntries, lastUpdate.paths[i])) {
 						entriesList.add(JavaCore.newProjectEntry(lastUpdate.paths[i], false));
 					}
 				}
@@ -193,5 +209,27 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 
 	public IPath getPath() {
 		return containerPath;
+	}
+
+	/**
+	 * Taken from {@link JavaProject#isOnClasspath(org.eclipse.core.resources.IResource)}
+	 * 
+	 * @param classpath
+	 * @param newPath
+	 * @return
+	 */
+	private static boolean isAlreadyOnClasspath(Set classpath, IPath newPath) {
+		for (Iterator itr = classpath.iterator(); itr.hasNext();) {
+			IClasspathEntry entry = (IClasspathEntry) itr.next();
+			IPath entryPath = entry.getPath();
+			if (entryPath.equals(newPath)) { // package fragment roots must match exactly entry
+				// pathes (no exclusion there)
+				return true;
+			}
+			if (entryPath.isPrefixOf(newPath) && !Util.isExcluded(newPath, ((ClasspathEntry) entry).fullInclusionPatternChars(), ((ClasspathEntry) entry).fullExclusionPatternChars(), false)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
