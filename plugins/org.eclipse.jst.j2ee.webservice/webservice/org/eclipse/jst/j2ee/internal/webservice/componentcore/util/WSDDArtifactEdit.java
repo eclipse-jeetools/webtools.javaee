@@ -13,15 +13,18 @@ package org.eclipse.jst.j2ee.internal.webservice.componentcore.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceProxy;
+import org.eclipse.core.resources.IResourceProxyVisitor;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServicePlugin;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServices;
@@ -412,16 +415,25 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	}
 
 	public List getWSILResources() {
-		List result = new ArrayList();
-		List files = ProjectUtilities.getAllProjectFiles(getProject());
-		for (int i = 0; i < files.size(); i++) {
-			IFile file = (IFile) files.get(i);
-			if (file.getFileExtension() != null && file.getFileExtension().equals(WSIL_FILE_EXT)) {
-				IVirtualResource[] vResources = ComponentCore.createResources(file);
-				if (vResources.length > 0 && !result.contains(file))
-					result.add(file);
-			}
-		}
+		final List result = new ArrayList(); 
+		
+		try {
+			getProject().accept(new IResourceProxyVisitor() {
+				
+				public boolean visit(IResourceProxy proxy) throws CoreException {
+					if(proxy.getName().endsWith(WSIL_FILE_EXT)) {
+						IResource file = proxy.requestResource();
+						IVirtualResource[] vResources = ComponentCore.createResources(file);
+						if (vResources.length > 0 && !result.contains(file))
+							result.add(file);
+					}
+					return true;
+				}
+				
+			}, IResource.NONE);
+		} catch (CoreException e) {
+			WebServicePlugin.logError(0, e.getMessage(), e);
+		} 
 		return result;
 	}
 

@@ -114,4 +114,16 @@
             class="org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.WebServicesClientResourceFactory"
             shortSegment="webservicesclient.xml"/> 
    </extension>
+      <extension
+         point="org.eclipse.wst.common.modulecore.resourceFactories">
+      <resourceFactory
+            class="org.eclipse.jst.j2ee.webservice.internal.wsdd.WsddResourceFactory"
+            shortSegment="webservices.xml"/>
+      <resourceFactory
+            class="org.eclipse.jst.j2ee.webservice.internal.wsdd.WsddResourceFactory"
+            shortSegment="webservices-temp.xml"/>
+      <resourceFactory
+            class="org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.WebServicesClientResourceFactory"
+            shortSegment="webservicesclient.xml"/> 
+   </extension>
 </plugin>

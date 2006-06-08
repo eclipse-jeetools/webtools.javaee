@@ -161,7 +161,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	}
 
 	private void collectArtifactEdits() {
-		IProject[] projects = ProjectUtilities.getAllProjects();
+		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 		for (int i = 0; i < projects.length; i++) {
 			IProject project = projects[i];
 			IVirtualComponent component = ComponentCore.createComponent(project);
