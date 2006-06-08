@@ -134,9 +134,11 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 					final IPath path = cp[i].getPath();
 					if (path.equals(CONTAINER_PATH)) {
 						final IClasspathContainer container = JavaCore.getClasspathContainer(path, javaProject);
-						final IClasspathEntry[] containerEntries = container.getClasspathEntries();
-						existingEntries.removeAll(Arrays.asList(containerEntries));
-						break;
+						if(null != container){
+							final IClasspathEntry[] containerEntries = container.getClasspathEntries();
+							existingEntries.removeAll(Arrays.asList(containerEntries));
+							break;
+						}
 					}
 				}
 				existingEntries.removeAll(Arrays.asList(entries));

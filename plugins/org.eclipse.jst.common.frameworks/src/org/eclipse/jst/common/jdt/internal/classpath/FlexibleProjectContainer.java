@@ -294,13 +294,14 @@ public abstract class FlexibleProjectContainer
                 {
                     final IClasspathContainer container
                         = JavaCore.getClasspathContainer( path, jproj );
+                    if(null != container){
+	                    final IClasspathEntry[] containerEntries
+	                        = container.getClasspathEntries();
+	                    
+	                    existing.removeAll( Arrays.asList( containerEntries ) );
                     
-                    final IClasspathEntry[] containerEntries
-                        = container.getClasspathEntries();
-                    
-                    existing.removeAll( Arrays.asList( containerEntries ) );
-                    
-                    break;
+	                    break;
+                    }
                 }
             }
         } 
