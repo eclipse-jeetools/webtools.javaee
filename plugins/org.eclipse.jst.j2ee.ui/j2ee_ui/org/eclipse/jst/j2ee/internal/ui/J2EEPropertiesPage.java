@@ -173,7 +173,7 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
             bValid = false;
         }
 
-        if (!name.contains(" ")) {
+        if (!(name.indexOf(' ') > -1)) {
             StringTokenizer stok = new StringTokenizer(name, "."); //$NON-NLS-1$
             outer : while (stok.hasMoreTokens()) {
                 String token = stok.nextToken();
