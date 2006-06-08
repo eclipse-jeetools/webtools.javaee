@@ -179,6 +179,10 @@ public abstract class FlexibleProjectContainer
         final IVirtualComponent vc 
             = ComponentCore.createComponent( this.project );
         
+        if( vc == null )
+        {
+            return entries;
+        }
         
         IVirtualReference[] refs = vc.getReferences();
         IVirtualComponent comp = null;
