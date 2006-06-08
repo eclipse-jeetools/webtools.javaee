@@ -25,7 +25,7 @@ public class ConnectorFacetInstallDataModelProvider extends J2EEModuleFacetInsta
 		} else if (propertyName.equals(CONFIG_FOLDER))
 			return CreationConstants.DEFAULT_CONNECTOR_SOURCE_FOLDER;
 		else if (propertyName.equals(MODULE_URI)) {
-			String projectName = model.getStringProperty(FACET_PROJECT_NAME);
+			String projectName = model.getStringProperty(FACET_PROJECT_NAME).replace(' ','_');
 			return projectName + IJ2EEModuleConstants.RAR_EXT; 
 		}
 		return super.getDefaultProperty(propertyName);

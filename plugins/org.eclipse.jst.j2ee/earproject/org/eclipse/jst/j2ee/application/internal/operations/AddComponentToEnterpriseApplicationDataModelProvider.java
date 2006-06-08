@@ -34,7 +34,9 @@ public class AddComponentToEnterpriseApplicationDataModelProvider extends Create
 				IVirtualComponent component = (IVirtualComponent) components.get(i);
 				IProject project = component.getProject();
 				String name = component.getName();
-
+				if(name != null)
+					name = name.replace(' ','_');
+				
 				if (J2EEProjectUtilities.isDynamicWebProject(project)) {
 					name += IModuleExtensions.DOT_WAR;
 				} else if (J2EEProjectUtilities.isJCAProject(project)) {

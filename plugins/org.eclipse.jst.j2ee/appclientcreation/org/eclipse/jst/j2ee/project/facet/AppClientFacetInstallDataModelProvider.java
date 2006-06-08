@@ -38,7 +38,7 @@ public class AppClientFacetInstallDataModelProvider extends J2EEModuleFacetInsta
 		else if (propertyName.equals(CONFIG_FOLDER))
 			return CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER;
 		else if (propertyName.equals(MODULE_URI)) {
-			String projectName = model.getStringProperty(FACET_PROJECT_NAME);
+			String projectName = model.getStringProperty(FACET_PROJECT_NAME).replace(' ','_');
 			return projectName + IJ2EEModuleConstants.JAR_EXT; 
 		}
 		return super.getDefaultProperty(propertyName);
