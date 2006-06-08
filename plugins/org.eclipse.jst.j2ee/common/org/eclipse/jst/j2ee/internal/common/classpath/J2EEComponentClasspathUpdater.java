@@ -214,7 +214,7 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 					return;
 				}
 				container = addContainerToModuleIfNecessary(project);
-				if (container != null) {
+				if (container != null && container instanceof J2EEComponentClasspathContainer) {
 					((J2EEComponentClasspathContainer) container).refresh();
 				}
 				IResource manifest = J2EEProjectUtilities.getManifestFile(project);
