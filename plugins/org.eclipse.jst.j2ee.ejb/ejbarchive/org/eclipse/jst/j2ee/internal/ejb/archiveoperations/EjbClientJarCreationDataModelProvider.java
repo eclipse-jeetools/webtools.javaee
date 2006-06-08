@@ -45,7 +45,7 @@ public class EjbClientJarCreationDataModelProvider
 
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(CLIENT_URI)){
-			String projectName = model.getStringProperty(EJB_PROJECT_NAME);
+			String projectName = model.getStringProperty(EJB_PROJECT_NAME).replace(' ','_');
 			return projectName + "Client.jar"; //$NON-NLS-1$ 
 		}
 		if (propertyName.equals(PROJECT_NAME)){
@@ -58,7 +58,9 @@ public class EjbClientJarCreationDataModelProvider
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		boolean status = super.propertySet(propertyName, propertyValue);
 		if (propertyName.equals(PROJECT_NAME)){
-			String projectName = model.getStringProperty(PROJECT_NAME);			
+			String projectName = model.getStringProperty(PROJECT_NAME);	
+			if(projectName != null)
+				projectName = projectName.replace(' ','_');
 			setProperty(CLIENT_URI, projectName + "Client.jar");//$NON-NLS-1$			
 		}
 		return status;

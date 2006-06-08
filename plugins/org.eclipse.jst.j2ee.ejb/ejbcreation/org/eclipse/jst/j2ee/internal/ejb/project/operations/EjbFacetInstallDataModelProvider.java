@@ -55,10 +55,10 @@ public class EjbFacetInstallDataModelProvider
 			String projectName = model.getStringProperty(FACET_PROJECT_NAME);
 			return projectName + "Client"; //$NON-NLS-1$ 
 		}else if (propertyName.equals(CLIENT_URI)){
-			String projectName = model.getStringProperty(FACET_PROJECT_NAME);
+			String projectName = model.getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
 			return projectName + "Client.jar"; //$NON-NLS-1$ 
 		} else if (propertyName.equals(MODULE_URI)) {
-			String projectName = model.getStringProperty(FACET_PROJECT_NAME);
+			String projectName = model.getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
 			return projectName + IJ2EEModuleConstants.JAR_EXT; 
 		}
 		return super.getDefaultProperty(propertyName);
@@ -94,7 +94,7 @@ public class EjbFacetInstallDataModelProvider
 	    	model.notifyPropertyChange(CLIENT_URI, IDataModel.ENABLE_CHG);
 	    }else if (propertyName.equals(FACET_PROJECT_NAME)){
 	    	model.setStringProperty(CLIENT_NAME, (String)propertyValue + "Client");
-	    	model.setStringProperty(CLIENT_URI, (String)propertyValue + "Client.jar");
+	    	model.setStringProperty(CLIENT_URI, (String)((String)(propertyValue + "Client.jar").replace(' ', '_')));
 	    }else if(propertyName.equals(ADD_TO_EAR)){
 	    	boolean addToEar = ((Boolean)propertyValue).booleanValue();
 	    	if(!addToEar && isPropertySet(CREATE_CLIENT)){
