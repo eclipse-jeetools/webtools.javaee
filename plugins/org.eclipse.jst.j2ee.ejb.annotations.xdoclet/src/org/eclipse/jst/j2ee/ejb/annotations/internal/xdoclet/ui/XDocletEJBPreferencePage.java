@@ -95,6 +95,18 @@ public class XDocletEJBPreferencePage extends PropertyPreferencePage implements 
 		return composite;
 	}
 
+	public void performDefaults() {
+		super.performDefaults();
+		getStore().clear();
+		getStore().save();
+		descriptionProvider.refresh();
+		try {
+			XDocletBuildUtility.runNecessaryBuilders(new NullProgressMonitor(), (IProject) getElement());
+		} catch (CoreException e) {
+			Logger.logException(e);
+		}		
+	}
+	
 	public boolean performOk() {
 
 		getStore().save();

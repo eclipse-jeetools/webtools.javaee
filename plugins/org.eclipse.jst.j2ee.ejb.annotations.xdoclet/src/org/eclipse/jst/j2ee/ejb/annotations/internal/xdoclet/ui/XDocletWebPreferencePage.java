@@ -94,6 +94,18 @@ public class XDocletWebPreferencePage extends PropertyPreferencePage implements 
 		return composite;
 	}
 
+	public void performDefaults() {
+		super.performDefaults();
+		getStore().clear();
+		getStore().save();
+		taskProviderDecorator.refresh();
+		try {
+			XDocletBuildUtility.runNecessaryBuilders(new NullProgressMonitor(), (IProject) getElement());
+		} catch (CoreException e) {
+			Logger.logException(e);
+		}		
+	}
+	
 	public boolean performOk() {
 
 		getStore().save();
@@ -103,7 +115,5 @@ public class XDocletWebPreferencePage extends PropertyPreferencePage implements 
 			Logger.logException(e);
 		}
 		return super.performOk();
-
 	}
-
 }

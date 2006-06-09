@@ -19,6 +19,9 @@
 
 package org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet;
 
+import java.util.HashMap;
+import java.util.Iterator;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -64,8 +67,11 @@ public final class XDocletPreferenceStore {
 
 	public static final String XDOCLETVERSION = "XDOCLETVERSION";
 
+	private HashMap temporaryStore;
+
 	public XDocletPreferenceStore(IProject project) {
 		this.project = project;
+		this.temporaryStore = new HashMap();
 		init();
 
 	}
@@ -106,18 +112,23 @@ public final class XDocletPreferenceStore {
 	}
 
 	public void setProperty(String item, boolean value) {
-		IEclipsePreferences node = getPreferenceNode();
-		node.putBoolean(item, value);
+
+		temporaryStore.put(item, Boolean.valueOf(value));
+		// IEclipsePreferences node = getPreferenceNode();
+		// node.putBoolean(item, value);
 
 	}
 
 	public void setProperty(String item, String value) {
-		IEclipsePreferences node = getPreferenceNode();
-		node.put(item, value);
+		temporaryStore.put(item, value);
+		// IEclipsePreferences node = getPreferenceNode();
+		// node.put(item, value);
 	}
 
 	public String getProperty(String item) {
 		init();
+		if (temporaryStore != null && temporaryStore.containsKey(item))
+			return (String) temporaryStore.get(item);
 		return this.getPreferencesService().getString(getPreferencePrefix(), item, "", lookupOrder);
 	}
 
@@ -125,11 +136,15 @@ public final class XDocletPreferenceStore {
 		init();
 		if (project != null)
 			lookupOrder = projectLookupOrder;
+		if (temporaryStore != null && temporaryStore.containsKey(item))
+			return (String) temporaryStore.get(item);
 		return this.getPreferencesService().getString(getPreferencePrefix(), item, "", lookupOrder);
 	}
 
 	public boolean getBooleanProperty(String item) {
 		init();
+		if (temporaryStore != null && temporaryStore.containsKey(item))
+			return ((Boolean) temporaryStore.get(item)).booleanValue();
 		return this.getPreferencesService().getBoolean(getPreferencePrefix(), item, false, lookupOrder);
 	}
 
@@ -137,6 +152,8 @@ public final class XDocletPreferenceStore {
 		init();
 		if (project != null)
 			lookupOrder = projectLookupOrder;
+		if (temporaryStore != null && temporaryStore.containsKey(item))
+			return ((Boolean) temporaryStore.get(item)).booleanValue();
 		return this.getPreferencesService().getBoolean(getPreferencePrefix(), item, false, lookupOrder);
 	}
 
@@ -150,10 +167,36 @@ public final class XDocletPreferenceStore {
 
 	public void save() {
 		try {
+			IEclipsePreferences node = getPreferenceNode();
+			Iterator tempProps = temporaryStore.keySet().iterator();
+			while (tempProps.hasNext()) {
+				String key = (String) tempProps.next();
+				Object value = temporaryStore.get(key);
+				if (value instanceof Boolean) {
+					Boolean bValue = (Boolean) value;
+					node.putBoolean(key, bValue.booleanValue());
+				} else if (value instanceof String) {
+					node.put(key, (String) value);
+				}
+			}
+			temporaryStore.clear();
+
 			if (projectNode != null)
 				projectNode.flush();
 			if (instanceNode != null)
 				instanceNode.flush();
+		} catch (BackingStoreException e) {
+			Logger.logException(e);
+		}
+	}
+
+	public void clear() {
+		try {
+			temporaryStore.clear();
+			if (projectNode != null)
+				projectNode.clear();
+			if (instanceNode != null)
+				instanceNode.clear();
 		} catch (BackingStoreException e) {
 			Logger.logException(e);
 		}

@@ -48,10 +48,10 @@ public class TaskProviderDecorator {
 
 	private XDocletPreferenceStore preferenceStore;
 
-	Table table;
-
-	Button edit;
-
+	private Table table;
+	private Button edit;
+	private CheckboxTableViewer tableViewer; 
+	
 	public TaskProviderDecorator(IExtension[] extensions, XDocletPreferenceStore preferenceStore) {
 		super();
 		this.extensions = extensions;
@@ -116,7 +116,7 @@ public class TaskProviderDecorator {
 	 */
 	private TableViewer createTableViewer(Table table) {
 
-		CheckboxTableViewer tableViewer = new CheckboxTableViewer(table);
+		tableViewer = new CheckboxTableViewer(table);
 		tableViewer.setUseHashlookup(true);
 
 		tableViewer.setColumnProperties(columnNames);
@@ -235,5 +235,9 @@ public class TaskProviderDecorator {
 		wizard.setForcePreviousAndNextButtons(true);
 		WizardDialog dialog = new WizardDialog(shell, wizard);
 		return dialog.open();
+	}
+
+	public void refresh() {
+		tableViewer.setCheckedElements(getCheckedTasks());
 	}
 }

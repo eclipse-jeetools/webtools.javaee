@@ -46,7 +46,9 @@ public class XDocletPreferencePage extends PropertyPreferencePage implements Sel
 	DialogPanel panel;
 
 	private Map fData; // page data
+
 	private XDocletRuntime[] runtimes;
+
 
 	/*
 	 * (non-Javadoc)
@@ -153,23 +155,24 @@ public class XDocletPreferencePage extends PropertyPreferencePage implements Sel
 		panel.fActive = new Button[numCont];
 
 		if (isProjectPreferencePage())
-			panel.preferences[3] = panel.createLabeledCheck(3, getStore().getBooleanPropertyNoGlobal(XDocletPreferenceStore.XDOCLETUSEGLOBAL),
-					Messages.label_global_pref, Messages.desc_global_pref, getStore().getBooleanPropertyNoGlobal(
-							XDocletPreferenceStore.XDOCLETUSEGLOBAL), defPanel);
+			panel.preferences[3] = panel.createLabeledCheck(3, getStore().getBooleanPropertyNoGlobal(
+					XDocletPreferenceStore.XDOCLETUSEGLOBAL), Messages.label_global_pref, Messages.desc_global_pref, getStore()
+					.getBooleanPropertyNoGlobal(XDocletPreferenceStore.XDOCLETUSEGLOBAL), defPanel);
 
 		panel.preferences[0] = panel.createLabeledCheck(0, false, getStore().getBooleanPropertyNoGlobal(
 				XDocletPreferenceStore.XDOCLETBUILDERACTIVE), Messages.label_enable_xdoclet_builder,
-				Messages.desc_enable_xdoclet_builder, getStore().getBooleanPropertyNoGlobal(XDocletPreferenceStore.XDOCLETBUILDERACTIVE),
-				defPanel);
-		panel.preferences[2] = panel.createLabeledPath(2, true, Messages.label_xdoclet_home, Messages.desc_xdoclet_home, getStore()
-				.getPropertyNoGlobal(XDocletPreferenceStore.XDOCLETHOME), defPanel);
+				Messages.desc_enable_xdoclet_builder, getStore().getBooleanPropertyNoGlobal(
+						XDocletPreferenceStore.XDOCLETBUILDERACTIVE), defPanel);
+		panel.preferences[2] = panel.createLabeledPath(2, true, Messages.label_xdoclet_home, Messages.desc_xdoclet_home,
+				getStore().getPropertyNoGlobal(XDocletPreferenceStore.XDOCLETHOME), defPanel);
 
 		String[] versions = new String[runtimes.length];
 		for (int i = 0; i < versions.length; i++) {
 			versions[i] = runtimes[i].getVersion();
 		}
-		panel.preferences[1] = panel.createLabeledCombo(1, false, true, Messages.label_xdoclet_version, Messages.desc_xdoclet_version,
-				getStore().getPropertyNoGlobal(XDocletPreferenceStore.XDOCLETVERSION), versions, defPanel);
+		panel.preferences[1] = panel.createLabeledCombo(1, false, true, Messages.label_xdoclet_version,
+				Messages.desc_xdoclet_version, getStore().getPropertyNoGlobal(XDocletPreferenceStore.XDOCLETVERSION), versions,
+				defPanel);
 		final Text xDocletPath = (Text) panel.preferences[2];
 		final Combo xDocletVersion = (Combo) panel.preferences[1];
 
@@ -186,7 +189,7 @@ public class XDocletPreferencePage extends PropertyPreferencePage implements Sel
 		xDocletPath.addModifyListener(listener);
 		xDocletVersion.addModifyListener(listener);
 		applyDialogFont(composite);
-		
+
 		return composite;
 	}
 
@@ -220,9 +223,29 @@ public class XDocletPreferencePage extends PropertyPreferencePage implements Sel
 		return super.performOk();
 	}
 
+	protected void performDefaults() {
+
+		getStore().clear();
+		((Button) panel.preferences[0]).setSelection(getStore().getBooleanPropertyNoGlobal(
+				XDocletPreferenceStore.XDOCLETBUILDERACTIVE));
+		((Combo) panel.preferences[1]).select(0);
+		((Text) panel.preferences[2]).setText(getStore().getPropertyNoGlobal(XDocletPreferenceStore.XDOCLETHOME));
+		if (isProjectPreferencePage())
+			((Button) panel.preferences[3]).setSelection(getStore().getBooleanPropertyNoGlobal(
+					XDocletPreferenceStore.XDOCLETUSEGLOBAL));
+		getStore().save();
+
+		try {
+			XDocletBuildUtility.runNecessaryBuilders(new NullProgressMonitor(), (IProject) getElement());
+		} catch (CoreException e) {
+			Logger.logException(e);
+		}
+		super.performDefaults();
+	}
+
 	protected void validateCurrentPreferences(final Text xDocletPath, final Combo xDocletVersion) {
 		int selection = xDocletVersion.getSelectionIndex();
-		if(selection <0 || selection >= runtimes.length)
+		if (selection < 0 || selection >= runtimes.length)
 			return;
 		runtimes[selection].setHome(xDocletPath.getText());
 		IStatus[] result = runtimes[selection].validate();
