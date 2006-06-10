@@ -72,7 +72,7 @@ public class ContainerManagedEntityBeanDataModelProvider extends EnterpriseBeanC
 		else if (propertyName.equals(EJB_INTERFACES))
 			return DEFAULT_EJB_INTERFACES;
 		else if (propertyName.equals(SCHEMA))
-			return "MYSCHEMA";
+			return this.getProperty(EJB_NAME)+"SCHEMA";
 		else if (propertyName.equals(TABLE))
 			return "MYTABLE";
 		else if (propertyName.equals(ATTRIBUTES))
@@ -206,6 +206,8 @@ public class ContainerManagedEntityBeanDataModelProvider extends EnterpriseBeanC
 		if (propertyName.equals(EJB_NAME)) {
 			if (!isPropertySet(DATASOURCE))
 				getDataModel().notifyPropertyChange(DATASOURCE, IDataModel.DEFAULT_CHG);
+			if (!isPropertySet(SCHEMA))
+				getDataModel().notifyPropertyChange(SCHEMA, IDataModel.DEFAULT_CHG);
 		}
 		return result;
 	}
