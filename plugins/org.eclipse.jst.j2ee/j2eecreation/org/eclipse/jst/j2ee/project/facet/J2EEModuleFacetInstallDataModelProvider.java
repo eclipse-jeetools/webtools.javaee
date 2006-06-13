@@ -89,13 +89,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		if (propertyName.equals(PROHIBIT_ADD_TO_EAR)) {
 			setBooleanProperty(ADD_TO_EAR, false);
 		}
-		if (ADD_TO_EAR.equals(propertyName)) {
-			IStatus stat = model.validateProperty(propertyName);
-			if (stat != OK_STATUS) {
-				return true;
-			}
-			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
-		} else if (FACET_PROJECT_NAME.equals(propertyName)) {
+		if (FACET_PROJECT_NAME.equals(propertyName)) {
 			if (getBooleanProperty(ADD_TO_EAR)) {
 				if (!model.isPropertySet(EAR_PROJECT_NAME)) {
 					model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.DEFAULT_CHG);
@@ -111,10 +105,10 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 				if (javaModel != null)
 					javaModel.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, propertyValue);
 			}
-		} else if (EAR_PROJECT_NAME.equals(propertyName)) {
+		} else if ((EAR_PROJECT_NAME.equals(propertyName) || ADD_TO_EAR.equals(propertyName)) && getBooleanProperty(ADD_TO_EAR)) {
 			IStatus status = validateEAR(model.getStringProperty(EAR_PROJECT_NAME));
 			if (status.isOK()) {
-				IProject project = ProjectUtilities.getProject((String) propertyValue);
+				IProject project = ProjectUtilities.getProject(getStringProperty(EAR_PROJECT_NAME));
 				if (project.exists() && project.isAccessible() && J2EEProjectUtilities.isEARProject(project)) {
 					try {
 						IFacetedProject facetProj = ProjectFacetsManager.create(project, false, new NullProgressMonitor());
@@ -127,9 +121,18 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		} else if (LAST_EAR_NAME.equals(propertyName)) {
 			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.DEFAULT_CHG);
 		} else if (propertyName.equals(IFacetProjectCreationDataModelProperties.FACET_RUNTIME)) {
-            model.notifyPropertyChange(ADD_TO_EAR, IDataModel.VALID_VALUES_CHG);
-            model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
+			model.notifyPropertyChange(ADD_TO_EAR, IDataModel.VALID_VALUES_CHG);
+			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
 		}
+
+		if (ADD_TO_EAR.equals(propertyName)) {
+			IStatus stat = model.validateProperty(propertyName);
+			if (stat != OK_STATUS) {
+				return true;
+			}
+			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
+		}
+
 		return super.propertySet(propertyName, propertyValue);
 	}
 

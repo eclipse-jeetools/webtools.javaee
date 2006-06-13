@@ -1,5 +1,7 @@
 package org.eclipse.jst.j2ee.project.facet;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
@@ -9,12 +11,14 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModelProviderNew;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreationDataModelProvider implements IJ2EEFacetProjectCreationDataModelProperties {
 
@@ -32,6 +36,25 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 		names.add(ADD_TO_EAR);
 		names.add(MODULE_URI);
 		return names;
+	}
+
+	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
+		if (FACET_RUNTIME.equals(propertyName) && getBooleanProperty(ADD_TO_EAR)) {
+			DataModelPropertyDescriptor[] descriptors = super.getValidPropertyDescriptors(propertyName);
+			List list = new ArrayList();
+			for (int i = 0; i < descriptors.length; i++) {
+				IRuntime rt = (IRuntime) descriptors[i].getPropertyValue();
+				if (rt == null || rt.supports(EARFacetUtils.EAR_FACET)) {
+					list.add(descriptors[i]);
+				}
+			}
+			descriptors = new DataModelPropertyDescriptor[list.size()];
+			for (int i = 0; i < descriptors.length; i++) {
+				descriptors[i] = (DataModelPropertyDescriptor) list.get(i);
+			}
+			return descriptors;
+		}
+		return super.getValidPropertyDescriptors(propertyName);
 	}
 
 	public boolean propertySet(String propertyName, Object propertyValue) {
@@ -61,6 +84,9 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 						}
 					}
 				}
+			}
+			if (ADD_TO_EAR.equals(propertyName)) {
+				model.notifyPropertyChange(FACET_RUNTIME, IDataModel.VALID_VALUES_CHG);
 			}
 			model.notifyPropertyChange(FACET_RUNTIME, IDataModel.ENABLE_CHG);
 		}
