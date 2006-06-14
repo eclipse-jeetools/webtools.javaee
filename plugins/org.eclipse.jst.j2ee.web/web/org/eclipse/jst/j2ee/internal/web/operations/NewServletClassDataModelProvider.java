@@ -19,7 +19,11 @@ import java.util.Set;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.common.internal.annotations.controller.AnnotationsControllerManager;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.preferences.AnnotationPreferenceStore;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.provider.IAnnotationProvider;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.utility.AnnotationUtilities;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
@@ -281,8 +285,34 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		return result;
 	}
 
+	/**
+	 * This method is used to determine if annotations should try to enable based on workspace settings
+	 * @return does any valid annotation provider or xdoclet handler exist
+	 */
+	protected boolean isAnnotationProviderDefined() {
+		boolean isControllerEnabled = AnnotationsControllerManager.INSTANCE.isAnyAnnotationsSupported();
+		final String preferred = AnnotationPreferenceStore.getProperty(AnnotationPreferenceStore.ANNOTATIONPROVIDER);
+		IAnnotationProvider annotationProvider = null;
+		boolean isProviderEnabled = false;
+		if (preferred != null) {
+			try {
+				annotationProvider = AnnotationUtilities.findAnnotationProviderByName(preferred);
+			} catch (Exception ex) { 
+				//Default
+			}
+			if (annotationProvider != null && annotationProvider.isValid())
+				isProviderEnabled = true;
+		}
+		return isControllerEnabled || isProviderEnabled;
+	}
+	
+	/**
+	 * This method checks to see if valid annotation providers exist and if valid project version levels exist.
+	 * @return should annotations be supported for this project in this workspace
+	 */
 	protected boolean isAnnotationsSupported() {
-
+		if (!isAnnotationProviderDefined())
+			return false;
 		if (!getDataModel().isPropertySet(IArtifactEditOperationDataModelProperties.PROJECT_NAME))
 			return true;
 		if (getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME).equals("")) //$NON-NLS-1$
