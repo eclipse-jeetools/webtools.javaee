@@ -1,5 +1,6 @@
 package org.eclipse.wtp.j2ee.headless.tests.j2ee.operations;
 
+import junit.framework.Assert;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
@@ -87,6 +88,7 @@ public abstract class ModuleProjectCreationOperationTest extends OperationTestCa
         if( dataModel != null ){
 	        dataModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, componentName);
 	        runAndVerify(dataModel,false,true);
+	        Assert.assertTrue(dataModel.getStringProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME).equals(componentName + "EAR"));
         }
     }  	
 }
