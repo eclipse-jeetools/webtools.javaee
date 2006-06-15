@@ -39,7 +39,10 @@ public class WebFacetProjectCreationDataModelProvider extends J2EEFacetProjectCr
 		webFacet.addListener(new IDataModelListener() {
 			public void propertyChanged(DataModelEvent event) {
 				if (IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME.equals(event.getPropertyName())) {
-					setProperty(EAR_PROJECT_NAME, (String)event.getProperty());
+					if (isPropertySet(EAR_PROJECT_NAME))
+						setProperty(EAR_PROJECT_NAME, (String)event.getProperty());
+					else
+						model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.DEFAULT_CHG);
 				}else if (IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR.equals(event.getPropertyName())) {
 					setProperty(ADD_TO_EAR, event.getProperty());
 				}

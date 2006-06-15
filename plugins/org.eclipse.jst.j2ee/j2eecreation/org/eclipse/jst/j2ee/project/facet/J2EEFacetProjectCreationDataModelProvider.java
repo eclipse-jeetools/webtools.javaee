@@ -29,6 +29,15 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 	public void init() {
 		super.init();
 	}
+	
+	public Object getDefaultProperty(String propertyName) {
+		if (EAR_PROJECT_NAME.equals(propertyName)) {
+			IDataModel nestedJ2EEFacetDataModel = getJ2EEFacetModel();
+			if (nestedJ2EEFacetDataModel!=null)
+				return nestedJ2EEFacetDataModel.getProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME);
+		}
+		return super.getDefaultProperty(propertyName);
+	}
 
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
