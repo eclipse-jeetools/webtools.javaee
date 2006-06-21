@@ -58,16 +58,23 @@ import org.eclipse.wst.rdb.internal.core.connection.ConnectionInfo;
 
 public class ChooseTableWizardPage extends DataModelWizardPage {
 
-	protected final Image fChecked = EjbAnnotationsUiPlugin.getDefault().getImageDescriptor("icons/checked.gif").createImage();// Util.createImage("icons/checked.gif",getClass());
-	protected final Image fUnchecked = EjbAnnotationsUiPlugin.getDefault().getImageDescriptor("icons/unchecked.gif").createImage();// Util.createImage("icons/unchecked.gif",
+	protected final Image fChecked = EjbAnnotationsUiPlugin.getDefault().getImageDescriptor("icons/checked.gif").createImage();
+
+	protected final Image fUnchecked = EjbAnnotationsUiPlugin.getDefault().getImageDescriptor("icons/unchecked.gif")
+			.createImage();
 
 	private String[] sqlTypes = CMPUtils.sqlTypes;
 
 	private Combo catalogButton;
+
 	private Table attributeTable;
+
 	private TableViewer attributeTableViewer;
+
 	private Button add;
+
 	private Button remove;
+
 	private ArrayList tableList = new ArrayList();
 
 	public void dispose() {
@@ -93,7 +100,11 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 	}
 
 	protected List getAttributes() {
-		return (List) this.getDataModel().getProperty(IContainerManagedEntityBeanDataModelProperties.ATTRIBUTES);
+		List attr = (List) this.getDataModel().getProperty(IContainerManagedEntityBeanDataModelProperties.ATTRIBUTES);
+		if (!this.getDataModel().isPropertySet(IContainerManagedEntityBeanDataModelProperties.ATTRIBUTES)) {
+			this.getDataModel().setProperty(IContainerManagedEntityBeanDataModelProperties.ATTRIBUTES, attr);
+		}
+		return attr;
 	}
 
 	protected Composite createTopLevelComposite(Composite parent) {
@@ -132,11 +143,13 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 		catalogButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL | GridData.GRAB_VERTICAL));
 		catalogButton.addSelectionListener(new SelectionListener() {
 			public void widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent e) {
-				fillTableWith((String) tableList.get(catalogButton.getSelectionIndex()));
-				attributeTable.removeAll();
-				attributeTable.setData(getAttributes());
-				attributeTableViewer.setInput(getAttributes());
-				attributeTableViewer.refresh();
+				if (tableList.size() >= 1 && catalogButton.getSelectionIndex() != -1) {
+					fillTableWith((String) tableList.get(catalogButton.getSelectionIndex()));
+					attributeTable.removeAll();
+					attributeTable.setData(getAttributes());
+					attributeTableViewer.setInput(getAttributes());
+					attributeTableViewer.refresh();
+				}
 			}
 
 			public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
@@ -257,7 +270,8 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 
 		} catch (Throwable ex) {
 			ex.printStackTrace();
-			MessageDialog.openError(this.getShell(), IEJBAnnotationConstants.CANNOT_CONNECT, IEJBAnnotationConstants.CHECK_PROPERTIES);
+			MessageDialog.openError(this.getShell(), IEJBAnnotationConstants.CANNOT_CONNECT,
+					IEJBAnnotationConstants.CHECK_PROPERTIES);
 		} finally {
 			if (connection != null)
 				try {
@@ -387,7 +401,7 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 			public void widgetSelected(SelectionEvent e) {
 				TableItem ti = attributeTable.getSelection()[0];
 				CMPAttributeDelegate attributeDelegate = (CMPAttributeDelegate) ti.getData();
-				getAttributes().remove(attributeDelegate.getName());
+				getAttributes().remove(attributeDelegate);
 				ChooseTableWizardPage.this.validatePage();
 				attributeTableViewer.refresh();
 				remove.setEnabled(false);
@@ -428,7 +442,8 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 		if (sources != null && sources.length >= 1) {
 			JavaTypeCompletionProcessor fFieldTypeCompletionProcessor = new JavaTypeCompletionProcessor(false, false);
 			fFieldTypeCompletionProcessor.setPackageFragment(sources[0].getPackageFragment(""));
-			ControlContentAssistHelper.createTextContentAssistant(((Text) textEditor3.getControl()), fFieldTypeCompletionProcessor);
+			ControlContentAssistHelper.createTextContentAssistant(((Text) textEditor3.getControl()),
+					fFieldTypeCompletionProcessor);
 		}
 		editors[2] = textEditor3;
 
@@ -606,13 +621,15 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 				break;
 			case 3:
 				fieldMapping.setJdbcType(CMPUtils.jdbcTypes[((Integer) value).intValue()]);
+				int sqli = CMPUtils.getSqlTypeFromJDBC(((Integer) value).intValue());
+				if (sqli >= 0) {
+					fieldMapping.setSqlType(sqlTypes[sqli]);
+					tItem.getParent().redraw();
+				}
 				break;
 			case 4:
 				String sqlType = sqlTypes[((Integer) value).intValue()];
-				//Ugly fix - if the sql type is used to create/alter a table need some size
-				if("VARCHAR".equals(sqlType))
-					sqlType += "(255)";
-				fieldMapping.setSqlType(sqlTypes[((Integer) value).intValue()]);
+				fieldMapping.setSqlType(sqlType);
 				break;
 			case 5:
 				boolean readValue = ((Boolean) value).booleanValue();

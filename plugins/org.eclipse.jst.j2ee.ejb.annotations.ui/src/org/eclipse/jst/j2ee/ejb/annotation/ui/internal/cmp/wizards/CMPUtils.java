@@ -144,9 +144,20 @@ public class CMPUtils {
 		case Types.VARBINARY:
 			return "java.lang.Object";
 		case Types.VARCHAR:
-			return "java.lang.String";
+		return "java.lang.String";
 
 		}
 		return "java.lang.String";
 	}
+	
+	public static int getSqlTypeFromJDBC(int jdbcType)
+	{
+		for (int i = 0; i < sqlTypes.length; i++) {
+			String sqlType = sqlTypes[i];
+			if(sqlType.equals(jdbcTypes[jdbcType]))
+				return i;
+		}
+		return -1;
+	}
+	
 }
