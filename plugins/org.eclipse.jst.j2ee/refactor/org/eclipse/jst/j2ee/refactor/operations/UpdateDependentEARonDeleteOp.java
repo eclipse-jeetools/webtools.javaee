@@ -12,6 +12,7 @@
 package org.eclipse.jst.j2ee.refactor.operations;
 
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
@@ -66,6 +67,12 @@ public class UpdateDependentEARonDeleteOp extends UpdateDependentProjectOp {
 			final List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 			modHandlesList.add(refactoredComp);
 			model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modHandlesList);
+			final String moduleURI = refactoredMetadata.getModuleURI(dependentMetadata.getProjectName());
+			if (moduleURI != null) {
+				final Map compToURI = (Map) model.getProperty(RemoveDeletedComponentFromEARDataModelProvider.TARGET_COMPONENTS_TO_URI_MAP);
+				compToURI.put(refactoredComp, moduleURI); 
+				model.setProperty(RemoveDeletedComponentFromEARDataModelProvider.TARGET_COMPONENTS_TO_URI_MAP, compToURI);
+			}
 			model.getDefaultOperation().execute(monitor, null);
 		}
 	}

@@ -58,7 +58,7 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 				if (list != null && list.size() > 0) {
 					for (int i = 0; i < list.size(); i++) {
 						IVirtualComponent wc = (IVirtualComponent) list.get(i);
-						removeModule(application, earEdit.getModuleURI(wc));
+						removeModule(application, getModuleURI(earEdit, wc)); 
 					}
 				}
 			}
@@ -69,6 +69,10 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 			if (earEdit != null)
 				earEdit.dispose();
 		}
+	}
+	
+	protected String getModuleURI(final EARArtifactEdit earEdit, final IVirtualComponent targetComponent) {
+		return earEdit.getModuleURI(targetComponent);
 	}
 
 	protected void removeModule(final Application application, final String moduleURI) {

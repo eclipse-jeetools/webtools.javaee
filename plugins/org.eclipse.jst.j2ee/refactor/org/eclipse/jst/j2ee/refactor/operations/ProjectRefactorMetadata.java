@@ -12,9 +12,11 @@
 package org.eclipse.jst.j2ee.refactor.operations;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -23,6 +25,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
@@ -59,6 +62,7 @@ public class ProjectRefactorMetadata {
 	private boolean moduleCoreNature;
 	private IModule module;
 	private Set facets = new HashSet();
+	private final Map earToModuleURI = new HashMap();
 	
 	public ProjectRefactorMetadata(final IProject project) {
 		_project = project;
@@ -107,8 +111,41 @@ public class ProjectRefactorMetadata {
 				metadata = new ProjectRefactorMetadata(dependentProjects[i], virtualComponentCaching);
 				metadata.computeMetadata();
 				dependentMetadata.add(metadata);
+				if (metadata.isEAR()) {
+					final String uri = getModuleURI(dependentProject, virtualComp);
+					if (uri != null) {
+						earToModuleURI.put(dependentProject.getName(), uri);
+					}
+				}
 			}
 		}
+	}
+	
+	/**
+	 * If this project is associated with the specified EAR project, retrieves the module URI for the dependency or null if
+	 * it could not be retrieved.
+	 * @param earName Name of the EAR project.
+	 * @return Module URI for the project in the context of that EAR.
+	 */
+	public String getModuleURI(final String earName) {
+		return (String) earToModuleURI.get(earName);
+	}
+	
+	private String getModuleURI(final IProject earProject, final IVirtualComponent comp) {
+		EARArtifactEdit earEdit = null;
+		try {
+			earEdit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
+			if (earEdit != null) {
+				return earEdit.getModuleURI(comp); 
+			}
+		} catch (Exception e) {
+			Logger.getLogger().logError(e);
+		} finally {
+			if (earEdit != null) {
+				earEdit.dispose();
+			}
+		}
+		return null;
 	}
 	
 	/**

@@ -17,6 +17,7 @@ import java.util.Map;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.internal.operations.RemoveComponentFromEnterpriseApplicationDataModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
 public class RemoveDeletedComponentFromEARDataModelProvider extends RemoveComponentFromEnterpriseApplicationDataModelProvider {
 
@@ -48,5 +49,9 @@ public class RemoveDeletedComponentFromEARDataModelProvider extends RemoveCompon
 			return map;
 		}
 		return super.getDefaultProperty(propertyName);
+	}
+
+	public IDataModelOperation getDefaultOperation() {
+		return new RemoveDeletedComponentFromEAROperation(model);
 	}
 }
