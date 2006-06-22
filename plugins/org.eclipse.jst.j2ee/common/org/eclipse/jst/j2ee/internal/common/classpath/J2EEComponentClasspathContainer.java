@@ -33,6 +33,7 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphManager;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -194,6 +195,8 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	public void refresh() {
 		if (requiresUpdate()) {
 			install();
+			// Update dependency graph
+			DependencyGraphManager.getInstance().forceRefresh();
 		}
 	}
 
