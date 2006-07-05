@@ -289,7 +289,7 @@ public class AnnotationTagCompletionProc implements IJavadocCompletionProcessor,
 			String rplString = validValues[i];
 			if (partialValue != null && !rplString.startsWith(partialValue))
 				continue;
-			AnnotationTagProposal prop = new AnnotationTagProposal(rplString, valueOffset, 0, null, rplString, 1);
+			AnnotationTagProposal prop = new AnnotationTagProposal(rplString, valueOffset, 0, null, rplString, 90);
 			prop.setEnsureQuoted(true);
 			//prop.setPartialValueString(partialValue);
 			resultingValues.add(prop);
@@ -389,7 +389,7 @@ public class AnnotationTagCompletionProc implements IJavadocCompletionProcessor,
 			if (!m_attSet.contains(aname)) {
 				if (aname.startsWith(partialAttributeName)) {
 					String rtxt = appendEquals ? aname + '=' : aname;
-					AnnotationTagProposal prop = new AnnotationTagProposal(rtxt, replaceOffset, replaceLength, null, aname, 1);
+					AnnotationTagProposal prop = new AnnotationTagProposal(rtxt, replaceOffset, replaceLength, null, aname, 90);
 					prop.setHelpText(lookupAttHelp(tas));
 					props.add(prop);
 				}
@@ -488,7 +488,7 @@ public class AnnotationTagCompletionProc implements IJavadocCompletionProcessor,
 			if (ts.getScope() == m_tagScope && tname.startsWith(partialTagName)) {
 				String rtxt = getReplacementForTag(ts, area.beginOffset);
 				String labl = '@' + tname;
-				AnnotationTagProposal prop = new AnnotationTagProposal(rtxt, area.beginOffset, Math.max(selectLength, rtxt.length()), null, labl, 1);
+				AnnotationTagProposal prop = new AnnotationTagProposal(rtxt, area.beginOffset, Math.max(selectLength, rtxt.length()), null, labl, 90);
 				prop.setHelpText(lookupTagHelp(ts));
 				found.add(prop);
 			}
