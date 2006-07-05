@@ -1,12 +1,18 @@
 package org.eclipse.jst.j2ee.navigator.internal;
 
+import java.net.URL;
+
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.viewers.ILightweightLabelDecorator;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.navigator.internal.plugin.J2EENavigatorPlugin;
 import org.eclipse.wst.common.project.facet.core.internal.FacetedProjectPropertyTester;
 
 /**
@@ -30,6 +36,8 @@ public class J2EEProjectDecorator extends LabelProvider implements ILightweightL
     private static final String UTILITY_FACET = "jst.utility"; //$NON-NLS-1$ 
     private static final String CONNECTOR_FACET = "jst.connector"; //$NON-NLS-1$ 
     private static final String STATIC_WEB_FACET = "wst.web"; //$NON-NLS-1$ 
+    
+    private static final String ICON_DIR = "icons/full/ovr16"; //$NON-NLS-1$
     
     private static final FacetedProjectPropertyTester facetPropertyTester = new FacetedProjectPropertyTester();
     
@@ -69,13 +77,22 @@ public class J2EEProjectDecorator extends LabelProvider implements ILightweightL
     private boolean hasFacet(Object element, String facet) {
 		return facetPropertyTester.test(element, PROJECT_FACET, new Object[] {}, facet);
 	}
-
-	private static ImageDescriptor getImageDescriptor(String imageFileName) {
-        if (imageFileName != null)
-            return J2EEUIPlugin.getDefault().getImageDescriptor(imageFileName);
-        return null;
-    }
     
+    /**
+	 * This gets a .gif from the icons folder.
+	 */
+	private static ImageDescriptor getImageDescriptor(String key) {
+		ImageDescriptor imageDescriptor = null;
+		if (key != null) {
+			String gif = "/" + key + ".gif"; //$NON-NLS-1$ //$NON-NLS-2$
+			IPath path = new Path(ICON_DIR).append(gif);
+			URL gifImageURL = FileLocator.find(Platform.getBundle(J2EENavigatorPlugin.PLUGIN_ID), path, null);
+			if (gifImageURL != null)
+				imageDescriptor = ImageDescriptor.createFromURL(gifImageURL);
+		}
+		return imageDescriptor;
+	}
+
     private static ImageDescriptor getEAR() {
     	if (EAR == null) {
     		EAR = getImageDescriptor("enterprise_app_ovr"); //$NON-NLS-1$
