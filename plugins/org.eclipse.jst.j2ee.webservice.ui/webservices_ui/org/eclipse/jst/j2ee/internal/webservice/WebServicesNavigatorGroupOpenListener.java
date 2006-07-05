@@ -70,16 +70,6 @@ public class WebServicesNavigatorGroupOpenListener extends CommonActionProvider 
 			Object selectedObject = selection.getFirstElement();
 			if (serviceHelper==null)
 				return;
-			else if (serviceHelper.isWSDLResource(selectedObject)) {
-				Resource wsdl = (Resource) selectedObject;
-				IFile wsdlFile = WorkbenchResourceHelper.getFile(wsdl);
-				if (wsdlFile == null || !wsdlFile.exists()) {
-					openExternalWSDLAction.selectionChanged(selection);
-					super.setContext(aContext);
-					return;
-				}
-				openAction.selectionChanged(selection);
-			}
 			else if (selectedObject instanceof ServiceImpl) {
 				WsddResource resource = WebServicesManager.getInstance().getWsddResource((ServiceImpl)selectedObject);
 				if (resource == null) {
@@ -91,6 +81,17 @@ public class WebServicesNavigatorGroupOpenListener extends CommonActionProvider 
 				wsddSelection.add(resource);
 				openAction.selectionChanged(new StructuredSelection(wsddSelection));
 			}
+			else if (serviceHelper.isWSDLResource(selectedObject)) {
+				Resource wsdl = (Resource) selectedObject;
+				IFile wsdlFile = WorkbenchResourceHelper.getFile(wsdl);
+				if (wsdlFile == null || !wsdlFile.exists()) {
+					openExternalWSDLAction.selectionChanged(selection);
+					super.setContext(aContext);
+					return;
+				}
+				openAction.selectionChanged(selection);
+			}
+			
 			else {
 				openAction.selectionChanged(selection);
 			}	
@@ -105,12 +106,24 @@ public class WebServicesNavigatorGroupOpenListener extends CommonActionProvider 
 		
 		if (selection.getFirstElement() instanceof ServiceImpl) {
 			ServiceImpl wsdl = (ServiceImpl) selection.getFirstElement();
-			IFile wsdlFile = WorkbenchResourceHelper.getFile(wsdl);
-			if (wsdlFile == null || !wsdlFile.exists()) {
-				openExternalWSDLAction.selectionChanged(selection);
-				theActionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, openExternalWSDLAction);
+			WsddResource resource = WebServicesManager.getInstance().getWsddResource(wsdl);
+			if (resource == null) {
+				IFile wsdlFile = WorkbenchResourceHelper.getFile(wsdl);
+				if (wsdlFile == null || !wsdlFile.exists()) {
+					openExternalWSDLAction.selectionChanged(selection);
+					theActionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, openExternalWSDLAction);
+					return;
+				} 
+				openAction.selectionChanged(selection);
+				theActionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, openAction);
 				return;
 			}
+			List wsddSelection = new ArrayList();
+			wsddSelection.add(resource);
+			openAction.selectionChanged(new StructuredSelection(wsddSelection));
+			theActionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, openAction);
+			return;
+			
 		} else if (selection.getFirstElement() instanceof WSDLResourceImpl) {
 			WSDLResourceImpl wsdl = (WSDLResourceImpl) selection.getFirstElement();
 			IFile wsdlFile = WorkbenchResourceHelper.getFile(wsdl);
@@ -153,23 +166,4 @@ public class WebServicesNavigatorGroupOpenListener extends CommonActionProvider 
 		if (openAction.isEnabled())
 			menu.insertAfter(ICommonMenuConstants.GROUP_OPEN, openAction);
 	}
-
-	
-	//TODO fill open with menu for web services group
-	
-//	return new CommonEditActionGroup(getExtensionSite()) {
-//		public void fillOpenWithMenu(IMenuManager menu) {
-//			if ((getExtensionSite().getSelection().getFirstElement() instanceof BeanLink)) {
-//				openAction.selectionChanged(getExtensionSite().getSelection());
-//				menu.insertAfter(ICommonMenuConstants.COMMON_MENU_TOP, openAction);
-//			} else if ((getExtensionSite().getSelection().getFirstElement() instanceof WSDLResourceImpl)) {
-//				WSDLResourceImpl wsdl = (WSDLResourceImpl) getExtensionSite().getSelection().getFirstElement();
-//				IFile wsdlFile = WorkbenchResourceHelper.getFile(wsdl);
-//				if (wsdlFile == null || !wsdlFile.exists()) {
-//					openExternalWSDLAction.selectionChanged(getExtensionSite().getSelection());
-//					menu.insertAfter(ICommonMenuConstants.COMMON_MENU_TOP, openExternalWSDLAction);
-//				}
-//			}
-//		}
-
 }
