@@ -16,9 +16,13 @@
  */
 package org.eclipse.jst.common.internal.annotations.ui;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.jdt.internal.ui.text.java.JavaCompletionProposal;
+import org.eclipse.jdt.ui.text.java.IJavaCompletionProposal;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.contentassist.ICompletionProposalExtension;
+import org.eclipse.jface.text.contentassist.ICompletionProposalExtension2;
 import org.eclipse.jst.common.internal.annotations.registry.AttributeValueProposalHelper;
 import org.eclipse.swt.graphics.Image;
 
@@ -33,13 +37,13 @@ import org.eclipse.swt.graphics.Image;
  * JavaCompletionProposal and override <code>getAdditionalProposalInfo</code> for a more suitable
  * way of associating help text with a proposal.
  */
-public class AnnotationTagProposal extends JavaCompletionProposal {
+public class AnnotationTagProposal extends AbstractAnnotationTagProposal implements IJavaCompletionProposal, ICompletionProposalExtension, ICompletionProposalExtension2 {
 	private static final char QUOTE = '"';
 	private boolean ensureBeginQuote = false;
 	private boolean ensureEndQuote = false;
 	private String localString;
-	//private String partialValueString;
-	//private AttributeValueProposalHelper helper;
+	//String used to validate the prefix.
+	private String fValidationString;
 
 	/**
 	 * Localized help text.
@@ -47,8 +51,7 @@ public class AnnotationTagProposal extends JavaCompletionProposal {
 	private String locText;
 
 	/**
-	 * @see JavaCompletionProposal#JavaCompletionProposal(java.lang.String, int, int,
-	 *      org.eclipse.swt.graphics.Image, java.lang.String, int)
+	 * 
 	 * @param replacementString
 	 * @param replacementOffset
 	 * @param replacementLength
@@ -57,8 +60,19 @@ public class AnnotationTagProposal extends JavaCompletionProposal {
 	 * @param relevance
 	 */
 	public AnnotationTagProposal(String replacementString, int replacementOffset, int replacementLength, Image image, String displayString, int relevance) {
-		super(replacementString, replacementOffset, replacementLength, image, displayString, relevance);
-		this.localString = displayString;
+		Assert.isNotNull(replacementString);
+		Assert.isTrue(replacementOffset >= 0);
+		Assert.isTrue(replacementLength >= 0);
+
+		setReplacementString(replacementString);
+		setReplacementOffset(replacementOffset);
+		setReplacementLength(replacementLength);
+		setImage(image);
+		setDisplayString(displayString == null ? replacementString : displayString);
+		setRelevance(relevance);
+		setCursorPosition(replacementString.length());
+		setSortString(displayString == null ? replacementString : displayString);
+		this.localString = replacementString;
 	}
 
 	/**
@@ -74,7 +88,7 @@ public class AnnotationTagProposal extends JavaCompletionProposal {
 	 */
 
 	public AnnotationTagProposal(AttributeValueProposalHelper proposalHelper) {
-		this(proposalHelper.getReplacementString(), proposalHelper.getValueOffset(), proposalHelper.getReplacementLength(), null, proposalHelper.getValueDisplayString(), 1);
+		this(proposalHelper.getReplacementString(), proposalHelper.getValueOffset(), proposalHelper.getReplacementLength(), null, proposalHelper.getValueDisplayString(), 90);
 		if (proposalHelper instanceof UIAttributeValueProposalHelper)
 			setImage(((UIAttributeValueProposalHelper) proposalHelper).getImage());
 		setEnsureBeginQuote(proposalHelper.ensureBeginQuote());
@@ -82,7 +96,7 @@ public class AnnotationTagProposal extends JavaCompletionProposal {
 	}
 
 	public AnnotationTagProposal(UIAttributeValueProposalHelper proposalHelper) {
-		this(proposalHelper.getReplacementString(), proposalHelper.getValueOffset(), proposalHelper.getReplacementLength(), proposalHelper.getImage(), proposalHelper.getValueDisplayString(), 1);
+		this(proposalHelper.getReplacementString(), proposalHelper.getValueOffset(), proposalHelper.getReplacementLength(), proposalHelper.getImage(), proposalHelper.getValueDisplayString(), 90);
 		setEnsureBeginQuote(proposalHelper.ensureBeginQuote());
 		setEnsureEndQuote(proposalHelper.ensureEndQuote());
 	}
@@ -154,5 +168,41 @@ public class AnnotationTagProposal extends JavaCompletionProposal {
 
 	public void setEnsureEndQuote(boolean ensureEndQuote) {
 		this.ensureEndQuote = ensureEndQuote;
+	}
+	
+	protected boolean isValidPrefix(String prefix) {
+		if (getReplacementString().startsWith(getDisplayString())) {
+			return super.isValidPrefix(prefix);
+		}
+		return super.isPrefix(trim(prefix), getValidationString());
+	}
+	
+	private String getValidationString() {
+		if (fValidationString == null) {
+			fValidationString = trim(getReplacementString());
+		}
+		return fValidationString;
+	}
+
+	
+	/*
+	 * It is possible that the replacement string is complex and larger than the prefix.
+	 * In this case we want to trim the prefix to the last whitespace character.  This
+	 * will provide us with a prefix to use when matching the display string.
+	 */
+	private String trim(String aString) {
+		if (aString == null || aString.length() == 0)
+			return aString;
+		StringBuffer buffer = new StringBuffer();
+		char[] chars = aString.toCharArray();
+		for (int i = chars.length - 1; i > -1; i--) {
+			if (Character.isWhitespace(chars[i])) {
+				break;
+			} else {
+				buffer.append(chars[i]);
+			}
+		}
+		buffer = buffer.reverse();
+		return buffer.toString();
 	}
 }
