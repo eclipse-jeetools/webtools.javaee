@@ -86,6 +86,11 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 	 */
 	public static final String NESTED_PROJECTS_VALIDATION = "EARImportDataModel.NESTED_PROJECTS_VALIDATION"; //$NON-NLS-1$
 
+	/**
+	 * This is only to force validation for the EAR name against the nested projects; do not set.
+	 */
+	public static final String EAR_NAME_VALIDATION = "EARImportDataModel.EAR_NAME_VALIDATION";//$NON-NLS-1$
+
 
 	private IDataModelListener nestedListener = new IDataModelListener() {
 		public void propertyChanged(DataModelEvent event) {
@@ -109,6 +114,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 		propertyNames.add(EJB_CLIENT_LIST);
 		propertyNames.add(UTILITY_MODELS_LIST);
 		propertyNames.add(NESTED_PROJECTS_VALIDATION);
+		propertyNames.add(EAR_NAME_VALIDATION);
 		propertyNames.add(SELECTED_MODELS_LIST);
 		propertyNames.add(USE_ANNOTATIONS);
 		propertyNames.add(ALL_PROJECT_MODELS_LIST);
@@ -150,7 +156,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 	}
 
 	public boolean propertySet(String propertyName, Object propertyValue) {
-		if (ALL_PROJECT_MODELS_LIST.equals(propertyName) || UNHANDLED_PROJECT_MODELS_LIST.equals(propertyName) || HANDLED_PROJECT_MODELS_LIST.equals(propertyName)) {
+		if (ALL_PROJECT_MODELS_LIST.equals(propertyName) || UNHANDLED_PROJECT_MODELS_LIST.equals(propertyName) || HANDLED_PROJECT_MODELS_LIST.equals(propertyName) || EAR_NAME_VALIDATION.equals(propertyName)) {
 			throw new RuntimeException(propertyName + " is an unsettable property"); //$NON-NLS-1$
 		}
 		boolean doSet = super.propertySet(propertyName, propertyValue);
@@ -273,8 +279,9 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 	}
 
 	public IStatus validate(String propertyName) {
-		if (propertyName.equals(NESTED_PROJECTS_VALIDATION)) {
-			// String earProjectName = getStringProperty(PROJECT_NAME);
+		if (propertyName.equals(NESTED_PROJECTS_VALIDATION) || propertyName.equals(EAR_NAME_VALIDATION)) {
+			boolean checkAgainstEARNameOnly = propertyName.equals(EAR_NAME_VALIDATION);
+
 			String earProjectName = getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
 			List subProjects = getSelectedModels();
 			IDataModel subDataModel = null;
@@ -284,48 +291,59 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 			Hashtable projects = new Hashtable(4);
 			for (int i = 0; i < subProjects.size(); i++) {
 				subDataModel = (IDataModel) subProjects.get(i);
-				// tempProjectName = subDataModel.getStringProperty(PROJECT_NAME);
 				tempProjectName = subDataModel.getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
 				// TODO: add manual validation
-				// IStatus status = ProjectCreationDataModel.validateProjectName(tempProjectName);
+				// IStatus status =
+				// ProjectCreationDataModel.validateProjectName(tempProjectName);
 				// if (!status.isOK()) {
 				// return status;
 				// }
 				tempArchive = (Archive) subDataModel.getProperty(FILE);
-				// if (!overwrite && subDataModel.getProject().exists()) {
-				// return
-				// WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString("EARImportDataModel_UI_0",
-				// new Object[]{tempProjectName, tempArchive.getURI()})); //$NON-NLS-1$
-				// }
-				tempStatus = subDataModel.validateProperty(IFacetDataModelProperties.FACET_PROJECT_NAME);
-				if (!tempStatus.isOK()) {
-					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_0, new Object[]{tempProjectName, tempArchive.getURI()}));
-				}
-				tempStatus = subDataModel.validate();
-				if (!tempStatus.isOK()) {
-					return tempStatus;
-				}
-				if (tempProjectName.equals(earProjectName)) {
-					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_1, new Object[]{tempProjectName, tempArchive.getURI()}));
-				} else if (!WTPPlugin.isPlatformCaseSensitive()) {
-					if (tempProjectName.toLowerCase().equals(earProjectName.toLowerCase())) {
-						return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_1, new Object[]{tempProjectName, tempArchive.getURI()}));
-					}
-				}
-				if (projects.containsKey(tempProjectName)) {
-					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_2, new Object[]{tempProjectName, tempArchive.getURI(), ((Archive) projects.get(tempProjectName)).getURI()}));
-				} else if (!WTPPlugin.isPlatformCaseSensitive()) {
-					String lowerCaseProjectName = tempProjectName.toLowerCase();
-					String currentKey = null;
-					Enumeration keys = projects.keys();
-					while (keys.hasMoreElements()) {
-						currentKey = (String) keys.nextElement();
-						if (currentKey.toLowerCase().equals(lowerCaseProjectName)) {
-							return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_2, new Object[]{tempProjectName, tempArchive.getURI(), ((Archive) projects.get(currentKey)).getURI()}));
+
+				if (checkAgainstEARNameOnly) {
+					if (tempProjectName.equals(earProjectName)) {
+						return WTPCommonPlugin.createWarningStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_1, new Object[]{tempProjectName, tempArchive.getURI()}));
+					} else if (!WTPPlugin.isPlatformCaseSensitive()) {
+						if (tempProjectName.toLowerCase().equals(earProjectName.toLowerCase())) {
+							return WTPCommonPlugin.createWarningStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_1a, new Object[]{earProjectName, tempProjectName, tempArchive.getURI()}));
 						}
 					}
+				} else {
+					// if (!overwrite && subDataModel.getProject().exists()) {
+					// return
+					// WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString("EARImportDataModel_UI_0",
+					// new Object[]{tempProjectName, tempArchive.getURI()})); //$NON-NLS-1$
+					// }
+					tempStatus = subDataModel.validateProperty(IFacetDataModelProperties.FACET_PROJECT_NAME);
+					if (!tempStatus.isOK()) {
+						return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_0, new Object[]{tempProjectName, tempArchive.getURI()}));
+					}
+					tempStatus = subDataModel.validate();
+					if (!tempStatus.isOK()) {
+						return tempStatus;
+					}
+					if (tempProjectName.equals(earProjectName)) {
+						return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_1, new Object[]{tempProjectName, tempArchive.getURI()}));
+					} else if (!WTPPlugin.isPlatformCaseSensitive()) {
+						if (tempProjectName.toLowerCase().equals(earProjectName.toLowerCase())) {
+							return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_1a, new Object[]{earProjectName, tempProjectName, tempArchive.getURI()}));
+						}
+					}
+					if (projects.containsKey(tempProjectName)) {
+						return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_2, new Object[]{tempProjectName, tempArchive.getURI(), ((Archive) projects.get(tempProjectName)).getURI()}));
+					} else if (!WTPPlugin.isPlatformCaseSensitive()) {
+						String lowerCaseProjectName = tempProjectName.toLowerCase();
+						String currentKey = null;
+						Enumeration keys = projects.keys();
+						while (keys.hasMoreElements()) {
+							currentKey = (String) keys.nextElement();
+							if (currentKey.toLowerCase().equals(lowerCaseProjectName)) {
+								return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_2a, new Object[]{tempProjectName, currentKey, tempArchive.getURI(), ((Archive) projects.get(currentKey)).getURI()}));
+							}
+						}
+					}
+					projects.put(tempProjectName, tempArchive);
 				}
-				projects.put(tempProjectName, tempArchive);
 			}
 		} else if (propertyName.equals(FILE_NAME)) {
 			IStatus status = super.validate(propertyName);

@@ -15,6 +15,7 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
+import org.eclipse.jst.j2ee.application.internal.operations.EARComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
@@ -105,6 +106,7 @@ public class EARComponentImportPage extends J2EEImportPage {
 	protected String[] getValidationPropertyNames() {
 		return new String[]{IJ2EEComponentImportDataModelProperties.FILE_NAME,
 					IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME,
+					EARComponentImportDataModelProvider.EAR_NAME_VALIDATION,
 					IFacetProjectCreationDataModelProperties.FACET_RUNTIME,
 					IAnnotationsDataModel.USE_ANNOTATIONS};
 	}
