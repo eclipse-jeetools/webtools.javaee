@@ -218,7 +218,7 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 					((J2EEComponentClasspathContainer) container).refresh();
 				}
 				IResource manifest = J2EEProjectUtilities.getManifestFile(project);
-				trackManifest(manifest);
+				trackManifest(manifest, true);
 			}
 		};
 		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
@@ -349,17 +349,24 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 	}
 
 	public void trackManifest(IResource manifest) {
+		trackManifest(manifest, false);
+	}
+
+	private void trackManifest(IResource manifest, boolean updateTimestamp) {
 		if (manifest == null) return;
 		synchronized (knownManifests) {
 			if (manifest.exists()) {
-				Long timeStamp = new Long(manifest.getLocalTimeStamp());
-				knownManifests.put(manifest, timeStamp);
+				if(updateTimestamp || !knownManifests.containsKey(manifest)){
+					Long timeStamp = new Long(manifest.getLocalTimeStamp());
+					knownManifests.put(manifest, timeStamp);
+				}
 			} else {
 				knownManifests.remove(manifest);
 			}
 		}
 	}
-
+	
+	
 	public void trackEAR(IProject earProject) {
 		trackEAR(earProject, false);
 	}
