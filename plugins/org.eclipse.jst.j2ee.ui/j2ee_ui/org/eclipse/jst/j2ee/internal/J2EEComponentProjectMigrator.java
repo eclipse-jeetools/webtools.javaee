@@ -49,6 +49,11 @@ import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProper
 import org.eclipse.jst.j2ee.project.facet.UtilityFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDataModelProvider;
 import org.eclipse.jst.server.core.FacetUtil;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.internal.Workbench;
+import org.eclipse.ui.navigator.CommonViewer;
+import org.eclipse.ui.navigator.INavigatorContentService;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
@@ -72,6 +77,16 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 	private static final String WEB_LIB_PATH = "/WEB-INF/lib";
 	private static final String OLD_DEPLOYABLES_PATH = ".deployables";
 	private IProject project;
+	
+	private static final String[] J2EE_CONTENT_EXTENSION_IDS = new String[] {
+		"org.eclipse.jst.navigator.j2ee.ui.EARDDContent", //$NON-NLS-1$
+		"org.eclipse.jst.navigator.j2ee.ui.WebDDContent", //$NON-NLS-1$
+		"org.eclipse.jst.navigator.j2ee.ui.EJBDDContent", //$NON-NLS-1$
+		"org.eclipse.jst.navigator.j2ee.ui.ConnectorDDContent" //$NON-NLS-1$
+	};
+	
+	private static final String PROJECT_EXPLORER = "org.eclipse.ui.navigator.ProjectExplorer"; //$NON-NLS-1$
+	
 	public J2EEComponentProjectMigrator() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -88,7 +103,36 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 				addFacets(project);
 			J2EEComponentClasspathUpdater.getInstance().queueUpdate(project);
 		}
-
+		ensureJ2EEContentExtensionsEnabled();
+	}
+	
+	/**
+	 * Ensure the J2EE content extension ids are enabled on the project explorer 
+	 * for the projects being migrated.
+	 */
+	private void ensureJ2EEContentExtensionsEnabled() {
+		IViewPart view = null;
+		try {
+			view = Workbench.getInstance().getWorkbenchWindows()[0].getActivePage().findView(PROJECT_EXPLORER);
+		} catch (Exception e) { 
+			//Just bail and return if there is no view
+		}
+		if (view == null)
+			return;
+		
+		INavigatorContentService contentService = (INavigatorContentService) view.getAdapter(INavigatorContentService.class);
+		CommonViewer viewer = (CommonViewer) view.getAdapter(CommonViewer.class);
+		
+		// Set the J2EE content extensions as enabled now that we have set the J2EE facets
+		if (contentService != null)
+			contentService.getActivationService().activateExtensions(J2EE_CONTENT_EXTENSION_IDS, false);
+		
+		// Update the viewer if we are in the current UI thread
+		if (viewer != null) {
+			Display display = viewer.getControl().getDisplay();
+			if (display!=null && Thread.currentThread().equals(display.getThread()))
+				viewer.refresh();
+		}
 	}
 
 		private void createNewProjects() {
