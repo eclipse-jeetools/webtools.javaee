@@ -268,7 +268,7 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 		IClasspathEntry entry = getExistingContainer(jproj, J2EEComponentClasspathContainer.CONTAINER_PATH);
 		if (entry == null) {
 			try {
-				entry = JavaCore.newContainerEntry(J2EEComponentClasspathContainer.CONTAINER_PATH);
+				entry = JavaCore.newContainerEntry(J2EEComponentClasspathContainer.CONTAINER_PATH, true);
 				addToClasspath(jproj, entry);
 			} catch (CoreException e) {
 				Logger.getLogger().logError(e);
