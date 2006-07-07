@@ -534,6 +534,8 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		ISelection selection = window.getSelectionService().getSelection();
 		if (selection == null)
 			return null;
+		if (!(selection instanceof IStructuredSelection)) 
+			return null;
 		IStructuredSelection stucturedSelection = (IStructuredSelection) selection;
 		if (stucturedSelection.getFirstElement() instanceof EObject)
 			return ProjectUtilities.getProject(stucturedSelection.getFirstElement());
