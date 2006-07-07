@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
@@ -30,7 +30,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
 /**
- * @author mdelder
+ * Utility class for retrieving the project from the specified selection
  */
 public class UIProjectUtilities {
 
@@ -40,7 +40,7 @@ public class UIProjectUtilities {
 	 * @return The first project (regardless of nature) in the selection
 	 */
 	public static IProject getSelectedProject(IStructuredSelection selection) {
-		return getSelectedProject(selection, (String) null);
+		return getSelectedProject(selection, (String[]) null);
 	}
 
 	/**
@@ -51,40 +51,7 @@ public class UIProjectUtilities {
 	 * @return The first project, only if the first project has the given nature
 	 */
 	public static IProject getSelectedProject(IStructuredSelection selection, String expectedNatureId) {
-
-		if (selection != null && !selection.isEmpty()) {
-			if (ResourcesPlugin.getWorkspace().getRoot().getProjects().length == 0)
-				return null;
-			Object obj = selection.getFirstElement();
-			IProject project = null;
-			if (obj instanceof IProject)
-				project = (IProject) obj;
-			else if (obj instanceof IAdaptable)
-				project = (IProject) ((IAdaptable) obj).getAdapter(IProject.class);
-			
-			//Just because an object is adaptable it doesn't mean it is adaptable
-			//for an IProject.
-			if (project == null) {
-				if (obj instanceof EObject)
-					project = ProjectUtilities.getProject((EObject) obj);
-				else if (obj instanceof ItemProvider) {
-					Object temp = ((ItemProvider) obj).getParent(EObject.class);
-					if (temp != null && temp instanceof EObject)
-						project = ProjectUtilities.getProject((EObject) temp);
-				}
-			}
-
-			if (project != null && expectedNatureId != null) {
-				try {
-					if (project.hasNature(expectedNatureId))
-						return project;
-				} catch (CoreException e) {
-					return null;
-				}
-			} else
-				return project;
-		}
-		return null;
+		return getSelectedProject(selection, new String[] {expectedNatureId});
 	}
 
 	/**
@@ -96,28 +63,10 @@ public class UIProjectUtilities {
 	 * @return The first project selected, only if it has AT LEAST ONE of the possible nature ids
 	 */
 	public static IProject getSelectedProject(IStructuredSelection selection, String[] possibleNatureIds) {
-		if (selection != null && !selection.isEmpty()) {
-			Object obj = selection.getFirstElement();
-			IProject project = null;
-			if (obj instanceof IProject)
-				project = (IProject) obj;
-			else if (obj instanceof IAdaptable)
-				project = (IProject) ((IAdaptable) obj).getAdapter(IProject.class);
-			else if (obj instanceof EObject)
-				project = ProjectUtilities.getProject((EObject) obj);
-
-			if (project != null && possibleNatureIds != null && possibleNatureIds.length > 0) {
-				try {
-					for (int i = 0; i < possibleNatureIds.length; i++)
-						if (project.hasNature(possibleNatureIds[i]))
-							return project;
-				} catch (CoreException e) {
-					return null;
-				}
-			} else
-				return project;
-		}
-		return null;
+		IProject[] projects = getAllSelectedProjects(selection, possibleNatureIds);
+		if (projects == null || projects.length==0)
+			return null;
+		return projects[0];
 	}
 
 	/**
@@ -127,7 +76,7 @@ public class UIProjectUtilities {
 	 * @return All selected Projects, regardless of nature
 	 */
 	public static IProject[] getAllSelectedProjects(IStructuredSelection selection) {
-		return getAllSelectedProjects(selection, (String) null);
+		return getAllSelectedProjects(selection, (String[]) null);
 	}
 
 	/**
@@ -139,39 +88,8 @@ public class UIProjectUtilities {
 	 * @return All selected Projects which have the expected nature id
 	 */
 	public static IProject[] getAllSelectedProjects(IStructuredSelection selection, String expectedNatureId) {
-		if (selection != null && !selection.isEmpty()) {
-			Object obj = null;
-			List projects = new ArrayList();
-			Iterator selectionIterator = selection.iterator();
-			while (selectionIterator.hasNext()) {
-				obj = selectionIterator.next();
-				IProject project = null;
-				if (obj instanceof IProject)
-					project = (IProject) obj;
-				else if (obj instanceof IAdaptable)
-					project = (IProject) ((IAdaptable) obj).getAdapter(IProject.class);
-				if (project == null && obj instanceof EObject)
-					project = ProjectUtilities.getProject((EObject) obj);
-
-				if (project != null && expectedNatureId != null) {
-					try {
-
-						if (project.hasNature(expectedNatureId))
-							projects.add(project);
-
-					} catch (CoreException e) {
-						//Ignore
-					}
-				} else
-					projects.add(project);
-			}
-			IProject[] finalProjects = new IProject[projects.size()];
-			projects.toArray(finalProjects);
-			return finalProjects;
-		}
-		return new IProject[0];
+		return getAllSelectedProjects(selection, new String[] {expectedNatureId});
 	}
-
 
 	/**
 	 * 
@@ -193,15 +111,23 @@ public class UIProjectUtilities {
 					project = (IProject) obj;
 				else if (obj instanceof IAdaptable)
 					project = (IProject) ((IAdaptable) obj).getAdapter(IProject.class);
+				
+				// Selection may not be adaptable to a project so continue trying to get selected project
 				if (project == null && obj instanceof EObject)
 					project = ProjectUtilities.getProject((EObject) obj);
+				else if (project == null && obj instanceof ItemProvider) {
+					Object temp = ((ItemProvider) obj).getParent(EObject.class);
+					if (temp != null && temp instanceof EObject)
+						project = ProjectUtilities.getProject((EObject) temp);
+				}
+				else if (project == null && obj instanceof IFile) 
+					project = ProjectUtilities.getProject(obj);
 
 				if (project != null && possibleNatureIds != null && possibleNatureIds.length > 0) {
 					try {
 						for (int i = 0; i < possibleNatureIds.length; i++)
 							if (project.hasNature(possibleNatureIds[i]))
 								projects.add(project);
-
 					} catch (CoreException e) {
 						//Ignore
 					}
