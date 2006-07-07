@@ -163,14 +163,14 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 						lastUpdate.paths[i] = iFile.getFullPath();
 					}
 					if (!isAlreadyOnClasspath(existingEntries, lastUpdate.paths[i])) {
-						entriesList.add(JavaCore.newLibraryEntry(lastUpdate.paths[i], null, null));
-					}
+						entriesList.add(JavaCore.newLibraryEntry(lastUpdate.paths[i], null, null, true));
+					} 
 				} else {
 					IProject project = comp.getProject();
 					lastUpdate.paths[i] = project.getFullPath();
 					if (!isAlreadyOnClasspath(existingEntries, lastUpdate.paths[i])) {
-						entriesList.add(JavaCore.newProjectEntry(lastUpdate.paths[i], false));
-					}
+						entriesList.add(JavaCore.newProjectEntry(lastUpdate.paths[i], true));
+					} 
 				}
 			}
 		} finally {
