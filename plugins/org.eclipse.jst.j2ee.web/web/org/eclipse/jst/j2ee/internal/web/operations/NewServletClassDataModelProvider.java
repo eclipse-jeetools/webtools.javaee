@@ -18,6 +18,7 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -345,12 +346,10 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 	 * @return IStatus is property value valid?
 	 */
 	public IStatus validate(String propertyName) {
+		IStatus result = Status.OK_STATUS;
 		// If our default is the superclass, we know it is ok
 		if (propertyName.equals(SUPERCLASS) && getStringProperty(propertyName).equals(SERVLET_SUPERCLASS))
 			return WTPCommonPlugin.OK_STATUS;
-		IStatus result = super.validate(propertyName);
-		if (result != null && !result.isOK())
-			return result;
 		// Validate init params
 		if (propertyName.equals(INIT_PARAM))
 			return validateInitParamList((List) getProperty(propertyName));
@@ -361,13 +360,18 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		if (propertyName.equals(DISPLAY_NAME))
 			return validateDisplayName(getStringProperty(propertyName));
 		if (propertyName.equals(CLASS_NAME)) {
-			result = validateJavaClassName(getStringProperty(propertyName));
-			if (result.isOK()&&!getBooleanProperty(USE_EXISTING_CLASS))
-				result = canCreateTypeInClasspath(getStringProperty(CLASS_NAME));
+			if (getBooleanProperty(USE_EXISTING_CLASS))
+				return WTPCommonPlugin.OK_STATUS;
+			result = super.validateJavaClassName(getStringProperty(propertyName));
+			if (result.isOK()) {
+				result = validateJavaClassName(getStringProperty(propertyName));
+				if (result.isOK()&&!getBooleanProperty(USE_EXISTING_CLASS))
+					result = canCreateTypeInClasspath(getStringProperty(CLASS_NAME));
+			}
 			return result;
 		}
 		// Otherwise defer to super to validate the property
-		return result;
+		return super.validate(propertyName);
 	}
 
 	/**

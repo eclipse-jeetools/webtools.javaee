@@ -420,7 +420,10 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 		// Retrieve the java project for the cached project
 		IJavaProject javaProject = JemProjectUtilities.getJavaProject(getTargetProject());
 		try {
-			IPath path = new Path(getStringProperty(SOURCE_FOLDER) + "//" + getStringProperty(JAVA_PACKAGE)); //$NON-NLS-1$
+			String folderPath = getStringProperty(SOURCE_FOLDER);
+			String packagePath = getStringProperty(JAVA_PACKAGE);
+			packagePath = packagePath.replace(".", "//");
+			IPath path = new Path(folderPath + "//" + packagePath); //$NON-NLS-1$
 			IPackageFragment pack = javaProject.findPackageFragment(path);
 			if (pack != null) {
 				ICompilationUnit cu = pack.getCompilationUnit(className + ".java"); //$NON-NLS-1$
