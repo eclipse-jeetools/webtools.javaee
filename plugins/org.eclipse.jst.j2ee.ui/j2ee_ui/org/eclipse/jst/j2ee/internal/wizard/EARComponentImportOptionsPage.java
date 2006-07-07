@@ -136,6 +136,7 @@ public class EARComponentImportOptionsPage extends J2EEImportPage {
 	private void handleDeselectAllButtonPressed() {
 		ArrayList emptySelection = new ArrayList(2);
 		model.setProperty(IEARComponentImportDataModelProperties.UTILITY_LIST, emptySelection);
+		validatePage();
 	}
 
 	private void handleSelectAllButtonPressed() {
@@ -145,6 +146,7 @@ public class EARComponentImportOptionsPage extends J2EEImportPage {
 			allSelection.add(selection);
 		}
 		model.setProperty(IEARComponentImportDataModelProperties.UTILITY_LIST, allSelection);
+		validatePage();
 	}
 
 	/**
