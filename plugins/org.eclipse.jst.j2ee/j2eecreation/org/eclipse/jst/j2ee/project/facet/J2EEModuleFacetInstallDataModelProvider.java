@@ -118,6 +118,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 					}
 				}
 			}
+			model.notifyPropertyChange(FACET_RUNTIME, IDataModel.ENABLE_CHG);
 		} else if (LAST_EAR_NAME.equals(propertyName)) {
 			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.DEFAULT_CHG);
 		} else if (propertyName.equals(IFacetProjectCreationDataModelProperties.FACET_RUNTIME)) {
