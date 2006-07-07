@@ -149,24 +149,25 @@ public class CreateServletTemplateModel {
 	}
 
 	protected boolean implementImplementedMethod(String methodName) {
-		if (methodName.equals(INIT))
-			return dataModel.getBooleanProperty(INewServletClassDataModelProperties.INIT);
-		else if (methodName.equals(TO_STRING))
-			return dataModel.getBooleanProperty(INewServletClassDataModelProperties.TO_STRING);
-		else if (methodName.equals(GET_SERVLET_INFO))
-			return dataModel.getBooleanProperty(INewServletClassDataModelProperties.GET_SERVLET_INFO);
-		else if (methodName.equals(DO_POST))
-			return dataModel.getBooleanProperty(INewServletClassDataModelProperties.DO_POST);
-		else if (methodName.equals(DO_PUT))
-			return dataModel.getBooleanProperty(INewServletClassDataModelProperties.DO_PUT);
-		else if (methodName.equals(DO_DELETE))
-			return dataModel.getBooleanProperty(INewServletClassDataModelProperties.DO_DELETE);
-		else if (methodName.equals(DESTROY))
-			return dataModel.getBooleanProperty(INewServletClassDataModelProperties.DESTROY);
-		else if (methodName.equals(DO_GET))
-			return dataModel.getBooleanProperty(INewServletClassDataModelProperties.DO_GET);
-		else
-			return false;
+		if (dataModel.getBooleanProperty(INewJavaClassDataModelProperties.ABSTRACT_METHODS)) {
+			if (methodName.equals(INIT))
+				return dataModel.getBooleanProperty(INewServletClassDataModelProperties.INIT);
+			else if (methodName.equals(TO_STRING))
+				return dataModel.getBooleanProperty(INewServletClassDataModelProperties.TO_STRING);
+			else if (methodName.equals(GET_SERVLET_INFO))
+				return dataModel.getBooleanProperty(INewServletClassDataModelProperties.GET_SERVLET_INFO);
+			else if (methodName.equals(DO_POST))
+				return dataModel.getBooleanProperty(INewServletClassDataModelProperties.DO_POST);
+			else if (methodName.equals(DO_PUT))
+				return dataModel.getBooleanProperty(INewServletClassDataModelProperties.DO_PUT);
+			else if (methodName.equals(DO_DELETE))
+				return dataModel.getBooleanProperty(INewServletClassDataModelProperties.DO_DELETE);
+			else if (methodName.equals(DESTROY))
+				return dataModel.getBooleanProperty(INewServletClassDataModelProperties.DESTROY);
+			else if (methodName.equals(DO_GET))
+				return dataModel.getBooleanProperty(INewServletClassDataModelProperties.DO_GET);
+		}		
+		return false;
 	}
 
 }
