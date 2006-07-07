@@ -13,8 +13,10 @@ package org.eclipse.jst.common.internal.annotations.ui;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.internal.ui.text.PreferencesAdapter;
+import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.jdt.ui.text.JavaTextTools;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.editors.text.EditorsUI;
@@ -75,14 +77,18 @@ public class UiPlugin extends AbstractUIPlugin {
 	public IPreferenceStore getCombinedPreferenceStore() {
 		if (fCombinedPreferenceStore == null) {
 			IPreferenceStore generalTextStore= EditorsUI.getPreferenceStore(); 
-			fCombinedPreferenceStore= new ChainedPreferenceStore(new IPreferenceStore[] { getPreferenceStore(), new PreferencesAdapter(JavaCore.getPlugin().getPluginPreferences()), generalTextStore });
+			fCombinedPreferenceStore= new ChainedPreferenceStore(new IPreferenceStore[] { getJavaPlugin().getPreferenceStore(), new PreferencesAdapter(JavaCore.getPlugin().getPluginPreferences()), generalTextStore });
 		}
 		return fCombinedPreferenceStore;
 	}
 	
 	public synchronized JavaTextTools getJavaTextTools() {
 		if (fJavaTextTools == null)
-			fJavaTextTools= new JavaTextTools(getPreferenceStore(), JavaCore.getPlugin().getPluginPreferences());
+			fJavaTextTools= new JavaTextTools(getJavaPlugin().getPreferenceStore(), JavaCore.getPlugin().getPluginPreferences());
 		return fJavaTextTools;
+	}
+	
+	protected AbstractUIPlugin getJavaPlugin() {
+		return (AbstractUIPlugin) Platform.getPlugin(JavaUI.ID_PLUGIN);
 	}
 }
