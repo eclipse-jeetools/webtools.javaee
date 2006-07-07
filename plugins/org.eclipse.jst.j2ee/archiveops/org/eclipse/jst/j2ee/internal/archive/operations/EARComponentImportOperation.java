@@ -32,6 +32,7 @@ import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelPro
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -68,7 +69,7 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 						if (warModel.getProperty(IEARComponentImportDataModelProperties.FILE) == owningWar) {
 							// TODO this is bad, but don't have access to the plugin where these
 							// constants are defined.
-							String archivesSelected = "WARImportDataModel.WEB_LIB_ARCHIVES_SELECTED";
+							String archivesSelected = "WARImportDataModel.WEB_LIB_ARCHIVES_SELECTED"; //$NON-NLS-1$
 							String libModels = "WARImportDataModel.WEB_LIB_MODELS"; //$NON-NLS-1$
 							List warHandledArchives = (List) warModel.getProperty(archivesSelected);
 							if (warHandledArchives == Collections.EMPTY_LIST) {
@@ -81,6 +82,7 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 								IDataModel libModel = (IDataModel) warLibModels.get(k);
 								if (libModel.getProperty(IJ2EEComponentImportDataModelProperties.FILE) == nestedArchive) {
 									libModel.setProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME, importModel.getProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME));
+									libModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, importModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME));
 								}
 							}
 						}
