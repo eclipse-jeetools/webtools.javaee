@@ -360,7 +360,7 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		if (propertyName.equals(DISPLAY_NAME))
 			return validateDisplayName(getStringProperty(propertyName));
 		if (propertyName.equals(CLASS_NAME)) {
-			if (getBooleanProperty(USE_EXISTING_CLASS))
+			if (getStringProperty(propertyName).length()!=0 && getBooleanProperty(USE_EXISTING_CLASS))
 				return WTPCommonPlugin.OK_STATUS;
 			result = super.validateJavaClassName(getStringProperty(propertyName));
 			if (result.isOK()) {

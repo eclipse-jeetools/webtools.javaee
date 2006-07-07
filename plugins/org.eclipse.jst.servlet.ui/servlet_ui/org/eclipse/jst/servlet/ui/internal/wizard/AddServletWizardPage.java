@@ -127,4 +127,10 @@ public class AddServletWizardPage extends DataModelWizardPage {
 	public String getDisplayName() {
 		return displayNameText.getText();
 	}
+	
+	public boolean canFlipToNextPage() {
+		if (model.getBooleanProperty(INewServletClassDataModelProperties.USE_EXISTING_CLASS))
+			return false;
+		return super.canFlipToNextPage();
+	}
 }
