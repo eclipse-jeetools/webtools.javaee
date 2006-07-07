@@ -325,9 +325,14 @@ public boolean isLocal(){
 	 */
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
-		description = newDescription;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.EJB_REF__DESCRIPTION, oldDescription, description));
+        description = newDescription;
+        if (getDescriptions() != null && !getDescriptions().isEmpty()) {
+        	Description d = (Description) getDescriptions().get(0);
+        	if (d != null)
+        		d.setValue(newDescription);
+        }
+        if (eNotificationRequired())
+        	eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.EJB_REF__DESCRIPTION, oldDescription, description));
 	}
 
 	public String getDescription() {
