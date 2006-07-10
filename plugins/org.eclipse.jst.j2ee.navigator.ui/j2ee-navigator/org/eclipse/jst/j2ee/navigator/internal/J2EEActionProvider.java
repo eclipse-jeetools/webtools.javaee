@@ -13,6 +13,8 @@ package org.eclipse.jst.j2ee.navigator.internal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -27,6 +29,8 @@ import org.eclipse.ui.navigator.ICommonMenuConstants;
 
 public class J2EEActionProvider extends CommonActionProvider  {
 
+	private static final Class IRESOURCE_CLASS = IResource.class;
+	
 	private OpenJ2EEResourceAction openAction; 
 	
 	/**
@@ -99,11 +103,23 @@ public class J2EEActionProvider extends CommonActionProvider  {
 		if (getContext()==null || getContext().getSelection().isEmpty())
 			return;
 		IStructuredSelection selection = (IStructuredSelection) getContext().getSelection();
-		openAction.selectionChanged(selection);
-		if (openAction.isEnabled())
-			aMenu.insertAfter(ICommonMenuConstants.GROUP_OPEN, openAction);
+		if(!adaptsToResource(selection.toArray())) {
+			openAction.selectionChanged(selection);
+			if (openAction.isEnabled())
+				aMenu.insertAfter(ICommonMenuConstants.GROUP_OPEN, openAction);
+		}
 	}
 
+	private boolean adaptsToResource(Object[] objects) {
+		for (int i = 0; i < objects.length; i++) {
+			if(objects[i] instanceof IResource) {
+				return true;
+			} else if (objects[i] instanceof IAdaptable && (((IAdaptable)objects[i]).getAdapter(IRESOURCE_CLASS) != null)) {
+				return true;
+			}			
+		}
+		return false;
+	}
 	private boolean isUtilityJars(Object[] items) {
 		if (items != null) {
 			for (int i = 0; i < items.length; i++) {
