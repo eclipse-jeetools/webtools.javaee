@@ -13,15 +13,7 @@ package org.eclipse.jst.common.internal.annotations.ui;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.internal.ui.text.PreferencesAdapter;
-import org.eclipse.jdt.ui.JavaUI;
-import org.eclipse.jdt.ui.text.JavaTextTools;
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.ui.editors.text.EditorsUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.eclipse.ui.texteditor.ChainedPreferenceStore;
 
 /**
  * The main plugin class to be used in the desktop.
@@ -31,9 +23,6 @@ public class UiPlugin extends AbstractUIPlugin {
 	private static UiPlugin plugin;
 	//Resource bundle.
 	private ResourceBundle resourceBundle;
-	
-	private IPreferenceStore fCombinedPreferenceStore;
-	private JavaTextTools fJavaTextTools;
 
 	/**
 	 * The constructor.
@@ -72,23 +61,5 @@ public class UiPlugin extends AbstractUIPlugin {
 	 */
 	public ResourceBundle getResourceBundle() {
 		return resourceBundle;
-	}
-	
-	public IPreferenceStore getCombinedPreferenceStore() {
-		if (fCombinedPreferenceStore == null) {
-			IPreferenceStore generalTextStore= EditorsUI.getPreferenceStore(); 
-			fCombinedPreferenceStore= new ChainedPreferenceStore(new IPreferenceStore[] { getJavaPlugin().getPreferenceStore(), new PreferencesAdapter(JavaCore.getPlugin().getPluginPreferences()), generalTextStore });
-		}
-		return fCombinedPreferenceStore;
-	}
-	
-	public synchronized JavaTextTools getJavaTextTools() {
-		if (fJavaTextTools == null)
-			fJavaTextTools= new JavaTextTools(getJavaPlugin().getPreferenceStore(), JavaCore.getPlugin().getPluginPreferences());
-		return fJavaTextTools;
-	}
-	
-	protected AbstractUIPlugin getJavaPlugin() {
-		return (AbstractUIPlugin) Platform.getPlugin(JavaUI.ID_PLUGIN);
 	}
 }

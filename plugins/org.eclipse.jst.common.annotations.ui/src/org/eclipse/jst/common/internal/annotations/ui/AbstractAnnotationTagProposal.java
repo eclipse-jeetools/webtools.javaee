@@ -22,7 +22,6 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.compiler.CharOperation;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.jdt.ui.PreferenceConstants;
-import org.eclipse.jdt.ui.text.JavaTextTools;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.jface.text.Assert;
@@ -56,7 +55,6 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
-import org.eclipse.jst.common.internal.annotations.ui.UiPlugin;
 import org.eclipse.ui.texteditor.link.EditorLinkedModeUI;
 import org.osgi.framework.Bundle;
 
@@ -290,8 +288,15 @@ public abstract class AbstractAnnotationTagProposal {
 	}
 
 	private boolean isSmartTrigger(char trigger) {
-		return trigger == ';' && UiPlugin.getDefault().getCombinedPreferenceStore().getBoolean(PreferenceConstants.EDITOR_SMART_SEMICOLON)
-				|| trigger == '{' && UiPlugin.getDefault().getCombinedPreferenceStore().getBoolean(PreferenceConstants.EDITOR_SMART_OPENING_BRACE);
+		return trigger == ';' && getBooleanPreference(PreferenceConstants.EDITOR_SMART_SEMICOLON)
+				|| trigger == '{' && getBooleanPreference(PreferenceConstants.EDITOR_SMART_OPENING_BRACE);
+	}
+	
+	private boolean getBooleanPreference(String preferenceKey) {
+		String value = PreferenceConstants.getPreference(preferenceKey, getProject());
+		if (value != null)
+			return Boolean.valueOf(value).booleanValue();
+		return false;
 	}
 
 	private void handleSmartTrigger(IDocument document, char trigger, int referenceOffset) throws BadLocationException {
@@ -711,24 +716,22 @@ public abstract class AbstractAnnotationTagProposal {
 
 
 	private static boolean insertCompletion() {
-		IPreferenceStore preference= UiPlugin.getDefault().getPreferenceStore();
+		IPreferenceStore preference= PreferenceConstants.getPreferenceStore();
 		return preference.getBoolean(PreferenceConstants.CODEASSIST_INSERT_COMPLETION);
 	}
 
 	private static Color getForegroundColor(StyledText text) {
 
-		IPreferenceStore preference= UiPlugin.getDefault().getPreferenceStore();
+		IPreferenceStore preference= PreferenceConstants.getPreferenceStore();
 		RGB rgb= PreferenceConverter.getColor(preference, PreferenceConstants.CODEASSIST_REPLACEMENT_FOREGROUND);
-		JavaTextTools textTools= UiPlugin.getDefault().getJavaTextTools();
-		return textTools.getColorManager().getColor(rgb);
+		return JavaUI.getColorManager().getColor(rgb);
 	}
 
 	private static Color getBackgroundColor(StyledText text) {
 
-		IPreferenceStore preference= UiPlugin.getDefault().getPreferenceStore();
+		IPreferenceStore preference= PreferenceConstants.getPreferenceStore();
 		RGB rgb= PreferenceConverter.getColor(preference, PreferenceConstants.CODEASSIST_REPLACEMENT_BACKGROUND);
-		JavaTextTools textTools= UiPlugin.getDefault().getJavaTextTools();
-		return textTools.getColorManager().getColor(rgb);
+		return JavaUI.getColorManager().getColor(rgb);
 	}
 
 	private void repairPresentation(ITextViewer viewer) {
@@ -891,7 +894,7 @@ public abstract class AbstractAnnotationTagProposal {
 	}
 	
 	protected boolean autocloseBrackets() {
-		IPreferenceStore preferenceStore= UiPlugin.getDefault().getPreferenceStore();
+		IPreferenceStore preferenceStore= PreferenceConstants.getPreferenceStore();
 		return preferenceStore.getBoolean(PreferenceConstants.EDITOR_CLOSE_BRACKETS);
 	}
 
