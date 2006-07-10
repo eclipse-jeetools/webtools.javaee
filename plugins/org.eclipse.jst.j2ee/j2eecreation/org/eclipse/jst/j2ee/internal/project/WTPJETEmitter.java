@@ -26,6 +26,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -189,6 +190,12 @@ public class WTPJETEmitter extends JETEmitter {
 			} else {
 				project.open(new SubProgressMonitor(progressMonitor, 5));
 				javaProject = JavaCore.create(project);
+				List rawClassPath = Arrays.asList(javaProject.getRawClasspath());
+				for (int i=0; i<rawClassPath.size(); i++) {
+					IClasspathEntry entry = (IClasspathEntry) rawClassPath.get(i);
+					if (entry.getEntryKind()==IClasspathEntry.CPE_LIBRARY)
+						classpathEntries.add(entry);
+				}
 			}
 
 			IPackageFragmentRoot sourcePackageFragmentRoot = openJavaProjectIfNecessary(progressMonitor, project, javaProject);
