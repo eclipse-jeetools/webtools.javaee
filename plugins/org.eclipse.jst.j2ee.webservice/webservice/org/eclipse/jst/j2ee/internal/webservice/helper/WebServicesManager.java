@@ -722,7 +722,10 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	 * @return
 	 */
 	public List get13ServiceRefs(EnterpriseBean bean) {
-		WSCDDArtifactEdit artifactEdit = getExistingWSCDDArtifactEdit(WorkbenchResourceHelper.getFile(bean).getProject());
+		WSCDDArtifactEdit artifactEdit = null;
+		IFile file = WorkbenchResourceHelper.getFile(bean);
+		if (file!=null)
+			artifactEdit = getExistingWSCDDArtifactEdit(file.getProject());
 		if (artifactEdit !=null) {
 			WebServicesResource res = artifactEdit.getWscddXmiResource();
 			if (res != null && res.getWebServicesClient() != null) {
