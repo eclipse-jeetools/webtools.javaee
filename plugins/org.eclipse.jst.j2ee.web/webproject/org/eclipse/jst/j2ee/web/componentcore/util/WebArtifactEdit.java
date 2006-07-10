@@ -414,7 +414,6 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			aResource.setID(webApp, J2EEConstants.WEBAPP_ID);
 
 			WelcomeFileList wList = WebapplicationFactory.eINSTANCE.createWelcomeFileList();
-			webApp.setFileList(wList);
 			List files = wList.getFile();
 			WelcomeFile file = WebapplicationFactory.eINSTANCE.createWelcomeFile();
 			file.setWelcomeFile("index.html"); //$NON-NLS-1$
@@ -434,7 +433,9 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			file = WebapplicationFactory.eINSTANCE.createWelcomeFile();
 			file.setWelcomeFile("default.jsp"); //$NON-NLS-1$
 			files.add(file);
-
+			
+			webApp.setFileList(wList);
+			
 			try {
 				aResource.saveIfNecessary();
 			} catch (java.net.ConnectException ex) {
