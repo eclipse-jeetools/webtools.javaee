@@ -422,7 +422,17 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 		try {
 			String folderPath = getStringProperty(SOURCE_FOLDER);
 			String packagePath = getStringProperty(JAVA_PACKAGE);
-			packagePath = packagePath.replace(".", "//");
+			// Replace all "." with "//" in the package path to denote folders
+			if (packagePath.indexOf('.')>-1) {
+				StringBuffer buffer = new StringBuffer(packagePath);
+				for (int i = 0; i < buffer.length(); i++) {
+					if (buffer.charAt(i)=='.') {
+						buffer.deleteCharAt(i);
+						buffer.insert(i, "//"); //$NON-NLS-1$
+					}
+				}
+				packagePath = buffer.toString();
+			}
 			IPath path = new Path(folderPath + "//" + packagePath); //$NON-NLS-1$
 			IPackageFragment pack = javaProject.findPackageFragment(path);
 			if (pack != null) {
