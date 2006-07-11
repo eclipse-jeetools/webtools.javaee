@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.internal.ejb.workbench.validation;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
@@ -63,19 +62,14 @@ public class UIEjbValidator extends EJBValidator {
 		
 		IProject project = ((IWorkbenchContext) helper).getProject();
 		IVirtualComponent comp = ComponentCore.createComponent( project );
+		IFile ejbJarFile = null;
 		if( comp != null ){
 			IVirtualFile vf = comp.getRootFolder().getFile(new Path(J2EEConstants.EJBJAR_DD_URI));
-			IPath path = null;
 			if( vf!= null ){
-				IFile ejbJarFile = vf.getUnderlyingFile();
-				path = ejbJarFile.getRawLocation();
-			}
-			if( path != null ){
-				EjbValidatorSchedulingRule rule = new EjbValidatorSchedulingRule(path);
-				return rule;
+				ejbJarFile = vf.getUnderlyingFile();
 			}
 		}
-		return null;
+		return ejbJarFile;
 	}	
 }		
 
