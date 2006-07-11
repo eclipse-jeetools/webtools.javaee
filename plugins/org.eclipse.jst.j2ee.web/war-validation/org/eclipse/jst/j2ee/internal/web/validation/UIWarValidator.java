@@ -12,8 +12,10 @@ package org.eclipse.jst.j2ee.internal.web.validation;
 
 
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -94,9 +96,7 @@ public class UIWarValidator extends WarValidator {
 	}	
 		
 	
-	public ISchedulingRule getSchedulingRule(IValidationContext helper) {
-		return null;
-	}
+
 	
 	public void cleanup(IReporter reporter) {
 		super.cleanup(reporter);
@@ -178,5 +178,19 @@ public class UIWarValidator extends WarValidator {
 			}
 		}
 	}*/	
+	
+	public ISchedulingRule getSchedulingRule(IValidationContext helper) {
+		
+		IProject project = ((IWorkbenchContext) helper).getProject();
+		IVirtualComponent comp = ComponentCore.createComponent( project );
+		IFile webDeploymentDescriptor = null;
+		if( comp != null ){
+			IVirtualFile vf = comp.getRootFolder().getFile(new Path(J2EEConstants.WEBAPP_DD_URI));
+			if( vf!= null ){
+				webDeploymentDescriptor = vf.getUnderlyingFile();
+			}
+		}
+		return webDeploymentDescriptor;
+	}	
 
 }

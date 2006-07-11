@@ -24,6 +24,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.EList;
@@ -226,7 +227,16 @@ public class UIEarValidator extends EarValidator {
 	}	
 
 	public ISchedulingRule getSchedulingRule(IValidationContext helper) {
-		return null;
+		IProject project = ((IWorkbenchContext) helper).getProject();
+		IVirtualComponent comp = ComponentCore.createComponent( project );
+		IFile appDeploymentDescriptor = null;
+		if( comp != null ){
+			IVirtualFile vf = comp.getRootFolder().getFile(new Path(J2EEConstants.APPLICATION_DD_URI));
+			if( vf!= null ){
+				appDeploymentDescriptor = vf.getUnderlyingFile();
+			}
+		}
+		return appDeploymentDescriptor;
 	}
 
 	public void validateManifests() throws ValidationException {
