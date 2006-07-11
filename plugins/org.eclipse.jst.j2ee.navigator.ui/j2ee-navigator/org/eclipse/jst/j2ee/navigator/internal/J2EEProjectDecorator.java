@@ -3,6 +3,7 @@ package org.eclipse.jst.j2ee.navigator.internal;
 import java.net.URL;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -13,7 +14,7 @@ import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.viewers.ILightweightLabelDecorator;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jst.j2ee.navigator.internal.plugin.J2EENavigatorPlugin;
-import org.eclipse.wst.common.project.facet.core.internal.FacetedProjectPropertyTester;
+import org.eclipse.wst.common.project.facet.core.FacetedProjectFramework;
 
 /**
  * J2EEProjectDecorator
@@ -25,10 +26,8 @@ public class J2EEProjectDecorator extends LabelProvider implements ILightweightL
     private static ImageDescriptor DYNAMICWEB;
     private static ImageDescriptor EJB;
     private static ImageDescriptor CONNECTOR;
-    
-    private static final String PROJECT_FACET = "projectFacet"; //$NON-NLS-1$     
-    
-    /* The */
+      
+    /* The constants are duplicated here to avoid plugin loading. */
     private static final String EAR_FACET = "jst.ear"; //$NON-NLS-1$ 
     private static final String APPCLIENT_FACET = "jst.appclient"; //$NON-NLS-1$ 
     private static final String WEB_FACET = "jst.web"; //$NON-NLS-1$ 
@@ -39,7 +38,6 @@ public class J2EEProjectDecorator extends LabelProvider implements ILightweightL
     
     private static final String ICON_DIR = "icons/full/ovr16"; //$NON-NLS-1$
     
-    private static final FacetedProjectPropertyTester facetPropertyTester = new FacetedProjectPropertyTester();
     
     public J2EEProjectDecorator() {
         super();
@@ -54,19 +52,19 @@ public class J2EEProjectDecorator extends LabelProvider implements ILightweightL
     	
         	IProject project = (IProject) element;
         	ImageDescriptor overlay = null;
-			if (hasFacet(element, EAR_FACET))
+			if (hasFacet(project, EAR_FACET))
 				overlay=getEAR();
-			else if (hasFacet(element, APPCLIENT_FACET))
+			else if (hasFacet(project, APPCLIENT_FACET))
 				overlay=getAPPCLIENT();
-			else if (hasFacet(element, WEB_FACET))
+			else if (hasFacet(project, WEB_FACET))
 				overlay=getDYNAMICWEB();
-			else if (hasFacet(element, EJB_FACET))
+			else if (hasFacet(project, EJB_FACET))
 				overlay=getEJB();
-			else if (hasFacet(element, CONNECTOR_FACET))
+			else if (hasFacet(project, CONNECTOR_FACET))
 				overlay=getCONNECTOR();
-			else if (hasFacet(element, STATIC_WEB_FACET))
+			else if (hasFacet(project, STATIC_WEB_FACET))
 				overlay=getDYNAMICWEB();
-			else if (hasFacet(element, UTILITY_FACET))
+			else if (hasFacet(project, UTILITY_FACET))
 				overlay=null;
 			
 			if (overlay != null)
@@ -74,8 +72,13 @@ public class J2EEProjectDecorator extends LabelProvider implements ILightweightL
         }
 	}
 
-    private boolean hasFacet(Object element, String facet) {
-		return facetPropertyTester.test(element, PROJECT_FACET, new Object[] {}, facet);
+    private boolean hasFacet(IProject project, String facet) {
+		try {
+			return FacetedProjectFramework.hasProjectFacet(project, facet);
+		} catch (CoreException e) { 
+			J2EENavigatorPlugin.logError(0, e.getMessage(), e);
+			return false;
+		}
 	}
     
     /**
