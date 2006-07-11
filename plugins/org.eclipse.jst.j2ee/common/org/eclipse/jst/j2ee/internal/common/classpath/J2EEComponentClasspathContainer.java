@@ -54,7 +54,8 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	private IPath containerPath;
 	private IJavaProject javaProject;
 	private IClasspathEntry[] entries = new IClasspathEntry[0];
-
+	private J2EEComponentClasspathContainer previousSelf = null;
+	
 	private class LastUpdate {
 		private int refCount = 0;
 		private boolean[] isBinary = new boolean[refCount];
@@ -66,7 +67,6 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	public J2EEComponentClasspathContainer(IPath path, IJavaProject javaProject) {
 		this.containerPath = path;
 		this.javaProject = javaProject;
-		update();
 	}
 
 	private boolean requiresUpdate() {
@@ -128,20 +128,21 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			IJavaProject javaProject = JavaCore.create(component.getProject());
 			Set existingEntries = new HashSet();
 			try {
-				existingEntries.addAll(Arrays.asList(javaProject.getResolvedClasspath(true)));
-				// Then remove any entries provided by this container's prior self.
-				final IClasspathEntry[] cp = javaProject.getRawClasspath();
-				for (int i = 0; i < cp.length; i++) {
-					final IPath path = cp[i].getPath();
-					if (path.equals(CONTAINER_PATH)) {
-						final IClasspathContainer container = JavaCore.getClasspathContainer(path, javaProject);
-						if(null != container){
-							final IClasspathEntry[] containerEntries = container.getClasspathEntries();
-							existingEntries.removeAll(Arrays.asList(containerEntries));
-							break;
-						}
-					}
+				final IClasspathContainer container = JavaCore.getClasspathContainer(CONTAINER_PATH, javaProject);
+				List previousEntries = null;
+				if(null != container){
+					final IClasspathEntry[] containerEntries = container.getClasspathEntries();
+					previousEntries = Arrays.asList(containerEntries);
 				}
+				
+				existingEntries.addAll(Arrays.asList(javaProject.getResolvedClasspath(true)));
+				if(null != previousEntries){
+					existingEntries.removeAll(previousEntries);
+				}
+				if(previousSelf != null){
+					existingEntries.removeAll(Arrays.asList(previousSelf.entries));
+				}
+				
 				existingEntries.removeAll(Arrays.asList(entries));
 			} catch (JavaModelException e) {
 				Logger.getLogger().logError(e);
@@ -164,13 +165,13 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 					}
 					if (!isAlreadyOnClasspath(existingEntries, lastUpdate.paths[i])) {
 						entriesList.add(JavaCore.newLibraryEntry(lastUpdate.paths[i], null, null, true));
-					} 
+					}
 				} else {
 					IProject project = comp.getProject();
 					lastUpdate.paths[i] = project.getFullPath();
 					if (!isAlreadyOnClasspath(existingEntries, lastUpdate.paths[i])) {
 						entriesList.add(JavaCore.newProjectEntry(lastUpdate.paths[i], true));
-					} 
+					}
 				}
 			}
 		} finally {
@@ -182,13 +183,17 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	}
 
 	public void install() {
-		final IJavaProject[] projects = new IJavaProject[]{javaProject};
-		final IClasspathContainer[] conts = new IClasspathContainer[]{new J2EEComponentClasspathContainer(this.containerPath, this.javaProject)};
-
-		try {
-			JavaCore.setClasspathContainer(containerPath, projects, conts, null);
-		} catch (JavaModelException e) {
-			Logger.getLogger().log(e);
+		synchronized (javaProject) {
+			final IJavaProject[] projects = new IJavaProject[]{javaProject};
+			final J2EEComponentClasspathContainer container = new J2EEComponentClasspathContainer(this.containerPath, this.javaProject);
+			container.previousSelf = this;
+			container.update();
+			final IClasspathContainer[] conts = new IClasspathContainer[]{container};
+			try {
+				JavaCore.setClasspathContainer(containerPath, projects, conts, null);
+			} catch (JavaModelException e) {
+				Logger.getLogger().log(e);
+			}
 		}
 	}
 
