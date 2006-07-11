@@ -16,9 +16,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -31,6 +33,7 @@ import org.eclipse.jem.java.JavaParameter;
 import org.eclipse.jem.java.JavaRefFactory;
 import org.eclipse.jem.java.JavaVisibilityKind;
 import org.eclipse.jem.java.Method;
+import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
 import org.eclipse.jem.util.logger.LogEntry;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
@@ -62,7 +65,7 @@ public final class ValidationRuleUtility {
 	private static Logger logger = null;
 	
 	public static HashMap helperMap = null;
-	public static HashMap projectHelperMap = new HashMap();
+	public static Map projectHelperMap =   Collections.synchronizedMap( new HashMap() );
 	private static HashSet commonClassNames = null;
 	
 	public static JavaClass getCMRFieldType(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, CMRField field) {
@@ -602,27 +605,36 @@ public final class ValidationRuleUtility {
 		}
 		if (commonClassNames.contains(javaClassName)) {
 			ResourceSet rSet = resource.getResourceSet();
-			helperMap = getHelperMap(rSet);
-			Object obj = helperMap.get(javaClassName);
+			ResourceSet set = resource == null ? null : resource.getResourceSet();
+			IProject project = null;
+			if (set instanceof ProjectResourceSet){
+				project = ((ProjectResourceSet) set).getProject();
+			}
+			
+			//helperMap = getHelperMap(rSet);
+			//Object obj = getHelperMap(rSet).get(javaClassName);
+			Object obj = getHelperMap(project).get(javaClassName);
 			if (obj != null) 
 				return (JavaHelpers) obj;
 			 else {
 				helper = getType(javaClassName,rSet);
-				helperMap.put(javaClassName, helper);
+				//getHelperMap(rSet).put(javaClassName, helper);
+				getHelperMap(project).put(javaClassName, helper);
 			}
 		} else
 			helper = getType(javaClassName, resource.getResourceSet());
 		return helper;
 	}
-	
-    protected static HashMap getHelperMap(ResourceSet rSet){
-    	HashMap mapHelper = (HashMap)projectHelperMap.get( rSet ); 
-    	if( mapHelper == null ){
-    		mapHelper =  new HashMap();
-    		projectHelperMap.put(rSet, mapHelper);
-    	}
-    	return mapHelper;
-    }
+   
+	  protected static HashMap getHelperMap(IProject  project){
+		HashMap mapHelper = (HashMap)projectHelperMap.get( project ); 
+		if( mapHelper == null ){
+			mapHelper =  new HashMap();
+			projectHelperMap.put(project, mapHelper);
+		}
+		helperMap = mapHelper;
+		return mapHelper;
+	}    
     
 	private static void initializeCommonClassNames() {
 		if(commonClassNames == null)

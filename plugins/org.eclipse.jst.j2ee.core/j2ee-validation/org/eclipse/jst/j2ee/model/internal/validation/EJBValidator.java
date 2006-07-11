@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.jem.java.JavaClass;
@@ -29,6 +30,7 @@ import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.wst.validation.internal.core.ValidationException;
+import org.eclipse.wst.validation.internal.operations.WorkbenchReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
@@ -87,10 +89,7 @@ public class EJBValidator extends AbstractEJBValidator {
 				logger.write(Level.FINER, entry);
 			}
 		} finally {
-			if (ValidationRuleUtility.helperMap != null) {
-				ValidationRuleUtility.helperMap.clear();
-				ValidationRuleUtility.helperMap = null;
-			}
+
 		}
 	}	
 	
@@ -517,4 +516,14 @@ public class EJBValidator extends AbstractEJBValidator {
 		return null;
 	}
 	
+	public void cleanup(IReporter reporter){
+		if( reporter instanceof WorkbenchReporter ){
+			WorkbenchReporter wbReporter = (WorkbenchReporter)reporter;
+			IProject project = wbReporter.getProject();
+			HashMap helperMap = ValidationRuleUtility.getHelperMap(project);
+			helperMap.clear();
+			ValidationRuleUtility.projectHelperMap.remove( helperMap );
+			helperMap = null;
+		}
+	}
 }
