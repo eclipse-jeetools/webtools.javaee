@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.defect.tests;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -36,15 +37,18 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactory
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
+import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.OperationTestCase;
@@ -276,6 +280,31 @@ public class DefectVerificationTests extends OperationTestCase {
 		runAndVerify(dataModel);
 	}
 
+	public void test149995() throws Exception {
+		String earName = "149995.ear";//$NON-NLS-1$
+		String earFileName = getFullTestDataPath(earName);
+		IDataModel model = DataModelFactory.createDataModel(new EARComponentImportDataModelProvider());
+		model.setProperty(IEARComponentImportDataModelProperties.FILE_NAME, earFileName);
+		runAndVerify(model);
+		
+		IVirtualComponent earComponent = ComponentCore.createComponent(J2EEProjectUtilities.getProject("149995"));
+		IVirtualResource [] members = earComponent.getRootFolder().members();
+		Assert.assertEquals(1, members.length);
+		
+		setUp();
+		
+		model = DataModelFactory.createDataModel(new EARComponentImportDataModelProvider());
+		model.setProperty(IEARComponentImportDataModelProperties.FILE_NAME, earFileName);
+		model.setProperty(IEARComponentImportDataModelProperties.MODULE_MODELS_LIST, Collections.EMPTY_LIST);
+		runAndVerify(model);
+		
+		earComponent = ComponentCore.createComponent(J2EEProjectUtilities.getProject("149995"));
+		members = earComponent.getRootFolder().members();
+		Assert.assertEquals(1, members.length);
+	}
+	
+	
+	
 	/**
 	 * To run this test, first override setUp() to do nothing, and then import a few ear projects
 	 * containing modules.
