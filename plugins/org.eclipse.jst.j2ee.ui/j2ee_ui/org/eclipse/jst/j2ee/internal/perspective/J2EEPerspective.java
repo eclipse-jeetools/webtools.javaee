@@ -40,6 +40,7 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
     private static String ID_DYNAMIC_WEB_COMPONENT_WIZARD = "org.eclipse.jst.servlet.ui.WebComponentCreationWizard"; //$NON-NLS-1$
 	private static String ID_STATIC_WEB_COMPONENT_WIZARD = "org.eclipse.wst.web.ui.internal.wizards.SimpleWebModuleCreation"; //$NON-NLS-1$
 	private static final String ID_SEARCH_VIEW = "org.eclipse.search.ui.views.SearchView"; //$NON-NLS-1$
+	private static final String ID_DATA_VIEW = "org.eclipse.wst.rdb.server.ui.navigator.serverExplorer"; //$NON-NLS-1$
 	public static final String ID_CONSOLE_VIEW= "org.eclipse.ui.console.ConsoleView"; //$NON-NLS-1$
 
 	public J2EEPerspective() {
@@ -72,6 +73,7 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 
 		layout.addShowViewShortcut(ID_J2EE_HIERARCHY_VIEW);
 		layout.addShowViewShortcut(ID_SERVERS_VIEW);
+		layout.addShowViewShortcut(ID_DATA_VIEW);
 		layout.addShowViewShortcut(IPageLayout.ID_BOOKMARKS);
 		layout.addShowViewShortcut(IPageLayout.ID_OUTLINE);
 		layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);
@@ -117,6 +119,7 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 		bottomRight.addView(IPageLayout.ID_TASK_LIST);
 		bottomRight.addView(IPageLayout.ID_PROP_SHEET);
 		bottomRight.addView(ID_SERVERS_VIEW);
+		bottomRight.addView(ID_DATA_VIEW);
 		bottomRight.addView(ID_WST_SNIPPETS_VIEW);
 		
 		bottomRight.addPlaceholder(ID_CONSOLE_VIEW);
