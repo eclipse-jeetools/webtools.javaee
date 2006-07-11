@@ -14,6 +14,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaModelException;
@@ -26,8 +28,10 @@ import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.graphics.Image;
 
-public class CompressedJavaProject implements ICompressedNode {
+public class CompressedJavaProject implements ICompressedNode, IAdaptable {
  
+	
+	private static final Class IJAVA_PROJECT_CLASS = IJavaProject.class;
 	
 	private IJavaProject project;
 	private CompressedJavaLibraries compressedLibraries;
@@ -100,6 +104,10 @@ public class CompressedJavaProject implements ICompressedNode {
 			compressedLibraries = new CompressedJavaLibraries(this);
 		return compressedLibraries;
 		
+	}
+
+	public Object getAdapter(Class adapter) { 
+		return Platform.getAdapterManager().getAdapter(this, adapter);
 	}
 
 }

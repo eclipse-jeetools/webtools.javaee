@@ -384,12 +384,11 @@
 		    <commonWizard
 		          type="new"
 		          wizardId="org.eclipse.jdt.ui.wizards.NewSourceFolderCreationWizard">
-				     <enablement>
-				        
-				<instanceof
-					value="org.eclipse.jst.servlet.ui.internal.navigator.ICompressedNode" />
-				     </enablement>
-			 </commonWizard>        
+				<enablement>				        
+					<instanceof
+						value="org.eclipse.jst.servlet.ui.internal.navigator.ICompressedNode" />
+			     </enablement>
+			 </commonWizard>        			 
      </navigatorContent>
   </extension>
   <extension
@@ -399,6 +398,14 @@
            <contentExtension pattern="org.eclipse.jst.servlet.ui.EnhancedJavaRendering"/>
         </includes>
      </viewerContentBinding>
+  </extension>
+  <extension
+        point="org.eclipse.core.runtime.adapters">
+     <factory
+           adaptableType="org.eclipse.jst.servlet.ui.internal.navigator.CompressedJavaProject"
+           class="org.eclipse.jst.servlet.ui.internal.navigator.CompressedNodeAdapterFactory">
+        <adapter type="org.eclipse.jdt.core.IJavaProject"/>
+     </factory>
   </extension>
   
 </plugin>
