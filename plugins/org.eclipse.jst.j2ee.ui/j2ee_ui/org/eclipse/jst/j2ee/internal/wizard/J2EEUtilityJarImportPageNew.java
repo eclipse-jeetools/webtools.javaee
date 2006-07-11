@@ -153,8 +153,19 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPage {
 
 		linkedPathCheckbox = new Button(checkboxGroup, SWT.CHECK);
 		linkedPathCheckbox.setText(" "); //$NON-NLS-1$
-		Text linkedPathText = new Text(checkboxGroup, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
+		final Text linkedPathText = new Text(checkboxGroup, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		linkedPathText.setText(J2EEUIMessages.getResourceString("J2EEUtilityJarImportPage_UI_5")); //$NON-NLS-1$
+		linkedPathText.setEnabled(getDataModel().isPropertyEnabled(IJ2EEUtilityJarListImportDataModelProperties.CREATE_LINKED_PATH_VARIABLE));
+		
+		getDataModel().addListener(new IDataModelListener() {
+			public void propertyChanged(DataModelEvent event) {
+				if(IJ2EEUtilityJarListImportDataModelProperties.CREATE_LINKED_PATH_VARIABLE.equals(event.getPropertyName())) {
+					linkedPathText.setEnabled(getDataModel().isPropertyEnabled(IJ2EEUtilityJarListImportDataModelProperties.CREATE_LINKED_PATH_VARIABLE));
+				}
+				
+			}
+		});
+		
 		GridData textGridData = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL);
 		textGridData.heightHint = 50;
 		textGridData.widthHint = 350;
