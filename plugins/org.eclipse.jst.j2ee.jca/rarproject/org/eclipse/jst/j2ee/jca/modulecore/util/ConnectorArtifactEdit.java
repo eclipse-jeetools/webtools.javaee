@@ -134,7 +134,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 
 	public Resource getDeploymentDescriptorResource() {
 		if (isBinary()) {
-			return getBinaryComponentHelper().getResource(J2EEConstants.APP_CLIENT_DD_URI_OBJ);
+			return getBinaryComponentHelper().getResource(J2EEConstants.RAR_DD_URI_OBJ);
 		}
 		return getArtifactEditModel().getResource(J2EEConstants.RAR_DD_URI_OBJ);
 	}
