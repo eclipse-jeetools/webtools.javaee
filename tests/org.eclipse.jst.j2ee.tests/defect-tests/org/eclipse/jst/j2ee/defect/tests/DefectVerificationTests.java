@@ -23,10 +23,14 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.internal.core.BinaryType;
+import org.eclipse.jdt.internal.core.SourceType;
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
@@ -301,6 +305,74 @@ public class DefectVerificationTests extends OperationTestCase {
 		earComponent = ComponentCore.createComponent(J2EEProjectUtilities.getProject("149995"));
 		members = earComponent.getRootFolder().members();
 		Assert.assertEquals(1, members.length);
+	}	
+		
+	/**
+	 * The following code checks to ensure classpaths are being setup properly for dependent projects
+	 * In the ear there is one AppClient which depends directly on the utility jar C which contains class test.C.
+	 * The utility jar C depends on the utility jar B which contains class test.B
+	 * The utility jar B depends on the utility jar A which contains class test.A
+	 * 
+	 * This portion of the test ensures the classpath is setup properly by importing every combination of the 
+	 * A, B, and C utility jars along with AppClient.  Then the types test.A, test.B, and test.C are opened through
+	 * AppClient to ensure they are pulled from the correct location (the utility jars in the EAR, or the expanded projects)
+	 * 
+	 */
+	public void test149995_BinaryClaspathTest() throws Exception {	
+		int A = 1;
+		int B = 2;
+		int C = 4;
+		
+		String earName = "149995BinaryClasspathTest.ear";//$NON-NLS-1$
+		String earFileName = getFullTestDataPath(earName);
+		
+		for(int i=0; i<8; i++){
+			setUp();
+			
+			IDataModel model = DataModelFactory.createDataModel(new EARComponentImportDataModelProvider());
+			model.setProperty(IEARComponentImportDataModelProperties.FILE_NAME, earFileName);
+			List utilityArchives = EARComponentImportDataModelProvider.getAllUtilities((EARFile) model.getProperty(IEARComponentImportDataModelProperties.FILE));
+			List utilsList = new ArrayList();
+			
+			for(int j =0;j<utilityArchives.size(); j++){
+				Archive archive = (Archive)utilityArchives.get(j);
+				String projectName = archive.getName();
+				if((i & A) == A && "A.jar".equals(projectName)){
+					utilsList.add(archive);
+				} else if((i & B) == B && "B.jar".equals(projectName)){
+					utilsList.add(archive);
+				} else if((i & C) == C && "C.jar".equals(projectName)){
+					utilsList.add(archive);
+				}
+			}
+			model.setProperty(IEARComponentImportDataModelProperties.UTILITY_LIST, utilsList);
+			runAndVerify(model);
+			
+			IJavaProject appClient = JavaCore.create(J2EEProjectUtilities.getProject("AppClient"));
+			IType aType = appClient.findType("test.A");
+			Assert.assertNotNull(aType);
+			if((i & A) == A ){
+				Assert.assertTrue(aType instanceof SourceType);
+			} else {
+				Assert.assertTrue(aType instanceof BinaryType);
+			}
+			
+			IType bType = appClient.findType("test.B");
+			Assert.assertNotNull(bType);
+			if((i & B) == B ){
+				Assert.assertTrue(bType instanceof SourceType);
+			} else {
+				Assert.assertTrue(bType instanceof BinaryType);
+			}
+			
+			IType cType = appClient.findType("test.C");
+			Assert.assertNotNull(cType);
+			if((i & C) == C ){
+				Assert.assertTrue(cType instanceof SourceType);
+			} else {
+				Assert.assertTrue(cType instanceof BinaryType);
+			}
+		}
 	}
 	
 	
