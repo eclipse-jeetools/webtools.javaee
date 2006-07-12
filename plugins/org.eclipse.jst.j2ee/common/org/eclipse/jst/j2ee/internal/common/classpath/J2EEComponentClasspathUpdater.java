@@ -374,7 +374,7 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 
 
 	private void trackEAR(IProject earProject, boolean forceUpdate) {
-		if (earProject.exists()) {
+		if (earProject.isAccessible()) {
 			if (forceUpdate || !knownEARs.containsKey(earProject)) {
 				try {
 					EARVirtualComponent earComponent = (EARVirtualComponent)ComponentCore.createComponent(earProject);
@@ -458,7 +458,7 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 			}
 
 			for (int i = 0; i < earProjects.length; i++) {
-				if (earProjects[i].exists()) {
+				if (earProjects[i].isAccessible()) {
 					Set archiveSet = (Set) knownEARs.get(earProjects[i]);
 					if (archiveSet != null) {
 						EARVirtualComponent earComponent = (EARVirtualComponent)ComponentCore.createComponent(earProjects[i]);

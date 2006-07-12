@@ -13,6 +13,15 @@ public class UtilityBinaryComponentHelper extends EnterpriseBinaryComponentHelpe
 		super(component);
 	}
 	
+	protected Archive getUniqueArchive() {
+		String archiveURI = getArchiveURI();
+		try {
+			return openArchive(archiveURI);
+		} catch (OpenFailureException e) {
+		}
+		return null;
+	}
+	
 	protected ArchiveTypeDiscriminator getDiscriminator() {
 		return null;
 	}

@@ -39,7 +39,7 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 		return options;
 	}
 
-	private Archive getUniqueArchive() {
+	protected Archive getUniqueArchive() {
 		String archiveURI = getArchiveURI();
 		try {
 			return openArchive(archiveURI);
