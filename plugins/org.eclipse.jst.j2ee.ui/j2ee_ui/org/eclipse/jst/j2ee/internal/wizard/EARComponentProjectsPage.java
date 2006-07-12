@@ -48,6 +48,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
 /**
  * @author cbridgha
@@ -55,7 +56,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * To change the template for this generated type comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
-public class EARComponentProjectsPage extends J2EEImportPage {
+public class EARComponentProjectsPage extends DataModelWizardPage {
 
 	private CheckboxTableViewer earFileListViewer;
 

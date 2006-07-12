@@ -34,6 +34,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 import org.eclipse.wst.server.ui.ServerUIUtil;
+import org.eclipse.wst.web.ui.internal.wizards.DataModelFacetCreationWizardPage;
 
 public abstract class J2EEImportPage extends DataModelWizardPage {
 
@@ -41,8 +42,7 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 	private Combo fileNameCombo;
 	private static final String STORE_LABEL = "J2EE_IMPORT_"; //$NON-NLS-1$
 	private static final int SIZING_TEXT_FIELD_WIDTH = 305;
-	protected static final String defBrowseButtonLabel = J2EEUIMessages.getResourceString(J2EEUIMessages.BROWSE_LABEL); //$NON-NLS-1$
-//	private static final String defNewButtonLabel = J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E); //$NON-NLS-1$
+	protected static final String defBrowseButtonLabel = J2EEUIMessages.getResourceString(J2EEUIMessages.BROWSE_LABEL);
 
 	/**
 	 * @param model
@@ -128,45 +128,12 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 		});
 		Control[] deps = new Control[]{label, newServerTargetButton};
 		synchHelper.synchCombo(serverTargetCombo, IFacetProjectCreationDataModelProperties.FACET_RUNTIME, deps);
-		if (serverTargetCombo.getVisibleItemCount() != 0)
-			serverTargetCombo.select(0);
 	}
 
-	/**
-	 * 
-	 */
-	// protected void handleNewProjectButtonPressed() {
-	// J2EEComponentCreationDataModel dm = getNewProjectCreationDataModel();
-	//
-	// WizardDialog dialog = new WizardDialog(projectCombo.getShell(), getNewProjectWizard(dm));
-	// dialog.create();
-	// dialog.getShell().setSize(500, 500);
-	// if (dialog.open() == Window.OK) {
-	// model.notifyValidValuesChange(J2EEArtifactImportDataModel.PROJECT_NAME);
-	// String projectName = dm.getStringProperty(EditModelOperationDataModel.PROJECT_NAME);
-	// model.setProperty(J2EEArtifactImportDataModel.PROJECT_NAME, projectName);
-	// model.setBooleanProperty(J2EEArtifactImportDataModel.OVERWRITE_PROJECT, true);
-	// }
-	// }
-	// protected J2EEComponentCreationDataModel getNewProjectCreationDataModel() {
-	// return null;
-	// }
-	//
-	// protected WTPWizard getNewProjectWizard(J2EEComponentCreationDataModel aModel) {
-	// return null;
-	// }
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.wizard.WizardPage#getDialogSettings()
-	 */
 	protected IDialogSettings getDialogSettings() {
 		return J2EEUIPlugin.getDefault().getDialogSettings();
 	}
 
-	/**
-	 * @return
-	 */
 	protected String getProjectImportLabel() {
 		return null;
 	}
@@ -254,9 +221,16 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 			// sourceNames = addToHistory(sourceNames,
 			// getJ2EEImportDataModel().getStringProperty(J2EEImportDataModel.FILE_NAME));
 			settings.put(STORE_LABEL + getFileNamesStoreID(), sourceNames);
+			
+			DataModelFacetCreationWizardPage.saveRuntimeSettings(settings, model);
 		}
 	}
 
+	public void restoreDefaultSettings() {
+		IDialogSettings settings = getDialogSettings();
+		DataModelFacetCreationWizardPage.restoreRuntimeSettings(settings, model);
+	}
+	
 	/**
 	 * @return
 	 */

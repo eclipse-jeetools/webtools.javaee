@@ -85,8 +85,8 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
             	IDataModel j2eeModel = map.getFacetDataModel(facetID);
                 j2eeModel.setProperty(IJ2EEModuleFacetInstallDataModelProperties.LAST_EAR_NAME, lastEARName);
             }
-	            		}
-	            	}
+		}
+	}
     
 	protected IDialogSettings getDialogSettings() {
         return J2EEUIPlugin.getDefault().getDialogSettings();

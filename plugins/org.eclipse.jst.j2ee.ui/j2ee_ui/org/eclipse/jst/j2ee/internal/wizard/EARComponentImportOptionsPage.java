@@ -47,6 +47,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
 /**
  * @author cbridgha
@@ -54,7 +55,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
  * To change the template for this generated type comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
-public class EARComponentImportOptionsPage extends J2EEImportPage {
+public class EARComponentImportOptionsPage extends DataModelWizardPage {
 	private Button deselectAllButton;
 	private Button selectAllButton;
 	private Label moduleProjectLocationLabel;
@@ -252,7 +253,7 @@ public class EARComponentImportOptionsPage extends J2EEImportPage {
 		synchHelper.synchText(systemDefaultText, IEARComponentImportDataModelProperties.NESTED_MODULE_ROOT, null);
 
 		browseButton = new Button(group, SWT.PUSH);
-		browseButton.setText(defBrowseButtonLabel);
+		browseButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.BROWSE_LABEL));
 		gd = new GridData(GridData.HORIZONTAL_ALIGN_END);
 		browseButton.setLayoutData(gd);
 		browseButton.addSelectionListener(new SelectionAdapter() {
