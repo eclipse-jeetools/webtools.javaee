@@ -152,7 +152,7 @@ public class MessageDrivenDestinationImpl extends EObjectImpl implements Message
 	/**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public void setSubscriptionDurability(SubscriptionDurabilityKind newSubscriptionDurability) {
     	SubscriptionDurabilityKind oldSubscriptionDurability = subscriptionDurability;

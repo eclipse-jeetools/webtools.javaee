@@ -323,18 +323,22 @@ public boolean isLocal(){
 	 *            ejb-jar file consumer will display the description when
 	 *            processing the parent element.
 	 */
-	public void setDescription(String newDescription) {
+	public void setDescriptionGen(String newDescription) {
 		String oldDescription = description;
         description = newDescription;
-        if (getDescriptions() != null && !getDescriptions().isEmpty()) {
+        if (eNotificationRequired())
+        	eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.EJB_REF__DESCRIPTION, oldDescription, description));
+	}
+	
+	public void setDescription(String newDescription) {
+		if (!getDescriptions().isEmpty()) {
         	Description d = (Description) getDescriptions().get(0);
         	if (d != null)
         		d.setValue(newDescription);
         }
-        if (eNotificationRequired())
-        	eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.EJB_REF__DESCRIPTION, oldDescription, description));
+		setDescriptionGen(newDescription);
 	}
-
+	
 	public String getDescription() {
 		if (getDescriptions() != null && !getDescriptions().isEmpty()) {
 			Description d = (Description) getDescriptions().get(0);

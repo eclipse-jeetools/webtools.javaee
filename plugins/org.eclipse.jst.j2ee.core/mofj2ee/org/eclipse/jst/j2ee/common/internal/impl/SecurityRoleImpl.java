@@ -116,21 +116,20 @@ public String toString() {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	public String getDescriptionGen() {
+		return description;
+	}
+	
 	public String getDescription() {
-		if (getDescriptions() != null && !getDescriptions().isEmpty()) {
+		if (!getDescriptions().isEmpty()) {
 			Description d = (Description) getDescriptions().get(0);
 			if (d != null)
 				description = d.getValue();
 		}
-		return description;
+		return getDescriptionGen();
 	}
 
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
 	public void setDescription(String newDescription) {
-		String oldDescription = description;
-		description = newDescription;
 		if (getDescriptions() != null) {
 			if (getDescriptions().isEmpty()) {
 				Description d = new DescriptionImpl();
@@ -142,9 +141,20 @@ public String toString() {
 					d.setValue(newDescription);
 			}
 		}
+		setDescriptionGen(newDescription);
+	}
+	
+	/**
+	 * @generated This field/method will be replaced during code generation.
+	 */
+	public void setDescriptionGen(String newDescription) {
+		String oldDescription = description;
+		description = newDescription;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.SECURITY_ROLE__DESCRIPTION, oldDescription, description));
 	}
+	
+	
 
 	/**
 	 * @generated This field/method will be replaced during code generation The
