@@ -564,6 +564,8 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 					vc.addMessage(message);
 				}
 				
+				if( oppositeRole == null )
+					continue;
 				RoleSource oppositeRoleSource = oppositeRole.getSource();
 				if(oppositeRoleSource == null) {
 					// Do not emit an error message - when we iterate to the role where
