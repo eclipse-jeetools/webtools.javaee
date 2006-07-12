@@ -235,13 +235,13 @@ public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implem
 			manifestmf = container.getFile(new Path(J2EEConstants.MANIFEST_SHORT_NAME));
 		}
 
-		String clientProjectName = model.getStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME);
+		String clientURI = model.getStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_URI);
 
 		IDataModel updateManifestDataModel = DataModelFactory.createDataModel(UpdateManifestDataModelProvider.class);
 		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.PROJECT_NAME, ejbprojectName);
 		updateManifestDataModel.setBooleanProperty(UpdateManifestDataModelProperties.MERGE, false);
 		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.MANIFEST_FILE, manifestmf);
-		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.JAR_LIST, UpdateManifestDataModelProvider.convertClasspathStringToList(clientProjectName + ".jar"));//$NON-NLS-1$
+		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.JAR_LIST, UpdateManifestDataModelProvider.convertClasspathStringToList(clientURI));
 
 
 		try {
