@@ -135,6 +135,7 @@
       class="org.eclipse.jst.j2ee.internal.webservice.WebServiceAdapterFactory" 
       adaptableType="org.eclipse.wst.wsdl.Service">
       <adapter type="org.eclipse.core.resources.IResource"/>
+      <adapter type="org.eclipse.core.resources.IFile"/>
     </factory>
     <factory 
       class="org.eclipse.jst.j2ee.internal.webservice.WebServiceAdapterFactory" 
@@ -146,6 +147,14 @@
       class="org.eclipse.jst.j2ee.internal.webservice.WsdlResourceAdapterFactory" 
       adaptableType="org.eclipse.wst.wsdl.util.WSDLResourceImpl">
       <adapter type="org.eclipse.core.resources.IResource"/>
+      <adapter type="org.eclipse.core.resources.IFile"/>
     </factory>
+    <factory 
+      class="org.eclipse.jst.j2ee.internal.webservice.WebServiceAdapterFactory" 
+      adaptableType="org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean">
+      <adapter type="org.eclipse.core.resources.IResource"/>
+      <adapter type="org.eclipse.core.resources.IFile"/>
+    </factory>
+    
   </extension>
 </plugin>
