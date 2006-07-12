@@ -112,10 +112,27 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		if (component == null) {
 			return;
 		}
-		IVirtualReference[] refs = component.getReferences();
 		IVirtualComponent comp = null;
-
-		lastUpdate.refCount = refs.length;
+		IVirtualReference ref = null;
+		
+		IVirtualReference[] refs = component.getReferences();
+		List refsList = new ArrayList();
+		for(int i = 0; i<refs.length;i++){
+			refsList.add(refs[i]);
+		}
+		for(int i=0; i< refsList.size(); i++){
+			comp = ((IVirtualReference)refsList.get(i)).getReferencedComponent();
+			if(comp.isBinary()){
+				IVirtualReference [] binaryRefs = comp.getReferences();
+				for(int j = 0; j<binaryRefs.length; j++){
+					if(!refsList.contains(binaryRefs[j])){
+						refsList.add(binaryRefs[j]);
+					}
+				}
+			}
+		}
+		
+		lastUpdate.refCount = refsList.size();
 		lastUpdate.isBinary = new boolean[lastUpdate.refCount];
 		lastUpdate.paths = new IPath[lastUpdate.refCount];
 
@@ -147,10 +164,11 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			} catch (JavaModelException e) {
 				Logger.getLogger().logError(e);
 			}
-			for (int i = 0; i < refs.length; i++) {
-				comp = refs[i].getReferencedComponent();
+			for (int i = 0; i < refsList.size(); i++) {
+				ref = (IVirtualReference)refsList.get(i);
+				comp = ref.getReferencedComponent();
 				lastUpdate.isBinary[i] = comp.isBinary();
-				shouldAdd = !(isWeb && refs[i].getRuntimePath().equals(WEBLIB));
+				shouldAdd = !(isWeb && ref.getRuntimePath().equals(WEBLIB));
 				if (!shouldAdd) {
 					continue;
 				}

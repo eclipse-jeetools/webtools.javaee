@@ -64,7 +64,7 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 		try {
 			anArchive = CommonarchiveFactory.eINSTANCE.primOpenArchive(getArchiveOptions(), getArchiveURI());
 			ArchiveTypeDiscriminator disc = getDiscriminator();
-			return disc.canImport(anArchive);
+			return null == disc || disc.canImport(anArchive);
 		} catch (Exception e) {
 			return false;
 		} finally {

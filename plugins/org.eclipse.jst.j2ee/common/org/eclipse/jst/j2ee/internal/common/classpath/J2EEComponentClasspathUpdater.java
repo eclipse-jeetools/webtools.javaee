@@ -42,6 +42,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainer;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.ComponentcorePackage;
@@ -376,8 +377,8 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 		if (earProject.exists()) {
 			if (forceUpdate || !knownEARs.containsKey(earProject)) {
 				try {
-					IVirtualComponent earComponent = ComponentCore.createComponent(earProject);
-					IVirtualResource[] resources = earComponent.getRootFolder().members();
+					EARVirtualComponent earComponent = (EARVirtualComponent)ComponentCore.createComponent(earProject);
+					IVirtualResource[] resources = earComponent.getDefaultRootFolder().members();
 					Set archiveSet = (Set) knownEARs.get(earProject);
 					if (null == archiveSet) {
 						archiveSet = new HashSet();
@@ -460,10 +461,10 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 				if (earProjects[i].exists()) {
 					Set archiveSet = (Set) knownEARs.get(earProjects[i]);
 					if (archiveSet != null) {
-						IVirtualComponent earComponent = ComponentCore.createComponent(earProjects[i]);
+						EARVirtualComponent earComponent = (EARVirtualComponent)ComponentCore.createComponent(earProjects[i]);
 						IVirtualResource[] resources;
 						try {
-							resources = earComponent.getRootFolder().members();
+							resources = earComponent.getDefaultRootFolder().members();
 							boolean requiresUpdate = false;
 							int archivesFound = 0;
 							for (int j = 0; j < resources.length && !requiresUpdate; j++) {

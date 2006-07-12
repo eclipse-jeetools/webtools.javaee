@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.Module;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -30,6 +31,7 @@ import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualFolder;
 import org.eclipse.wst.common.componentcore.internal.util.IComponentImplFactory;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -38,16 +40,30 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
 public class EARVirtualComponent extends VirtualComponent implements IComponentImplFactory {
 	
+	protected IVirtualFolder defaultRootFolder;
+	
 	public EARVirtualComponent() {
 		super();
 	}
 
 	public EARVirtualComponent(IProject aProject, IPath aRuntimePath) {
 		super(aProject, aRuntimePath);
+		defaultRootFolder = new VirtualFolder(aProject, new Path("/")); //$NON-NLS-1$
 	}
 
+	public IVirtualComponent createArchiveComponent(IProject aProject, String archiveLocation, IPath aRuntimePath) {
+		return new J2EEModuleVirtualArchiveComponent(aProject, archiveLocation, aRuntimePath);
+	}
+	
 	public IVirtualComponent createComponent(IProject aProject) {
 		return new EARVirtualComponent(aProject, new Path("/")); //$NON-NLS-1$
+	}
+	
+	public IVirtualFolder createFolder(IProject aProject, IPath aRuntimePath) {
+		if(aRuntimePath.segmentCount() == 0){
+			return new EARVirtualRootFolder(aProject, aRuntimePath);
+		}
+		return new VirtualFolder(aProject, aRuntimePath);
 	}
 
 	private static String getJarURI(final ReferencedComponent ref, final IVirtualComponent moduleComp) {
@@ -116,15 +132,23 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 		return hardReferences;
 	}
 
-	private static List getLooseArchiveReferences(IVirtualComponent earComponent, List hardReferences) {
+	/**
+	 * Returns the resulting list of referenced components based off the hard references and archives mapping to the root folder.
+	 * 
+	 * @param earComponent
+	 * @param hardReferences
+	 * @param membersToIgnore
+	 * @return
+	 */
+	private static List getLooseArchiveReferences(EARVirtualComponent earComponent, List hardReferences) {
 		List dynamicReferences = null;
-		IVirtualFolder rootFolder = earComponent.getRootFolder();
 		try {
-			IVirtualResource[] members = rootFolder.members();
+			IVirtualResource[] members = earComponent.defaultRootFolder.members();
 			for (int i = 0; i < members.length; i++) {
 				if (IVirtualResource.FILE == members[i].getType()) {
 					String archiveName = members[i].getName();
-					if (archiveName.toLowerCase().endsWith(".jar")) {
+					String lowerCase = archiveName.toLowerCase();
+					if (lowerCase.endsWith(".jar") || lowerCase.endsWith(".rar") || lowerCase.endsWith(".war")) {
 						boolean shouldInclude = true;
 						for (int j = 0; j < hardReferences.size() && shouldInclude; j++) {
 							String tempArchiveName = ((IVirtualReference) hardReferences.get(j)).getArchiveName();
@@ -164,14 +188,7 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 		return (IVirtualReference[]) hardReferences.toArray(new IVirtualReference[hardReferences.size()]);
 	}
 
-	public IVirtualReference[] getAllReferences() {
-		// TODO Auto-generated method stub
-		return super.getAllReferences();
+	public IVirtualFolder getDefaultRootFolder() {
+		return defaultRootFolder;
 	}
-
-	public void setReferences(IVirtualReference[] references) {
-		// TODO Auto-generated method stub
-		super.setReferences(references);
-	}
-
 }

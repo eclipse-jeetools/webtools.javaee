@@ -28,9 +28,11 @@ import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpda
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualFolder;
 import org.eclipse.wst.common.componentcore.internal.util.IComponentImplFactory;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public class J2EEModuleVirtualComponent extends VirtualComponent implements IComponentImplFactory {
@@ -47,9 +49,17 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		return new J2EEModuleVirtualComponent(aProject, new Path("/")); //$NON-NLS-1$
 	}
 
+	public IVirtualComponent createArchiveComponent(IProject aProject, String archiveLocation, IPath aRuntimePath) {
+		return new J2EEModuleVirtualArchiveComponent(aProject, archiveLocation, aRuntimePath);
+	}
+	
+	public IVirtualFolder createFolder(IProject aProject, IPath aRuntimePath) {
+		return new VirtualFolder(aProject, aRuntimePath);
+	}
+	
 	public IVirtualReference[] getReferences() {
 		IVirtualReference[] hardReferences = super.getReferences();
-		List dynamicReferences = getManifestReferences(this, hardReferences);
+		List dynamicReferences = J2EEModuleVirtualComponent.getManifestReferences(this, hardReferences);
 
 		IVirtualReference[] references = null;
 		if (dynamicReferences == null) {
@@ -64,34 +74,45 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		return references;
 	}
 
-
-	private static List getManifestReferences(IVirtualComponent moduleComponent, IVirtualReference[] hardReferences) {
-		List dynamicReferences = null;
+	public static String [] getManifestClasspath(IVirtualComponent moduleComponent) {
 		String[] manifestClasspath = null;
-		IVirtualFile vManifest = moduleComponent.getRootFolder().getFile(J2EEConstants.MANIFEST_URI);
-		if (vManifest.exists()) {
-			IFile manifestFile = vManifest.getUnderlyingFile();
-			J2EEComponentClasspathUpdater.getInstance().trackManifest(manifestFile);
-			InputStream in = null;
-			try {
-				in = manifestFile.getContents();
-				ArchiveManifest manifest = new ArchiveManifestImpl(in);
-				manifestClasspath = manifest.getClassPathTokenized();
-			} catch (IOException e) {
-				Logger.getLogger().logError(e);
-			} catch (CoreException e) {
-				Logger.getLogger().logError(e);
-			} finally {
-				if (in != null) {
-					try {
-						in.close();
-						in = null;
-					} catch (IOException e) {
-						Logger.getLogger().logError(e);
+		if(!moduleComponent.isBinary()){
+			IVirtualFile vManifest = moduleComponent.getRootFolder().getFile(J2EEConstants.MANIFEST_URI);
+			if (vManifest.exists()) {
+				IFile manifestFile = vManifest.getUnderlyingFile();
+				J2EEComponentClasspathUpdater.getInstance().trackManifest(manifestFile);
+				InputStream in = null;
+				try {
+					in = manifestFile.getContents();
+					ArchiveManifest manifest = new ArchiveManifestImpl(in);
+					manifestClasspath = manifest.getClassPathTokenized();
+				} catch (IOException e) {
+					Logger.getLogger().logError(e);
+				} catch (CoreException e) {
+					Logger.getLogger().logError(e);
+				} finally {
+					if (in != null) {
+						try {
+							in.close();
+							in = null;
+						} catch (IOException e) {
+							Logger.getLogger().logError(e);
+						}
 					}
 				}
 			}
+		} else {
+			manifestClasspath = ((J2EEModuleVirtualArchiveComponent)moduleComponent).getManifestClasspath();
 		}
+		
+		return manifestClasspath;
+			
+	}
+	
+
+	public static List getManifestReferences(IVirtualComponent moduleComponent, IVirtualReference[] hardReferences) {
+		List dynamicReferences = null;
+		String [] manifestClasspath = getManifestClasspath(moduleComponent); 
 
 		if (manifestClasspath != null && manifestClasspath.length > 0) {
 			IProject[] earProjects = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.ENTERPRISE_APPLICATION);
@@ -115,9 +136,11 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 							found = true;
 							boolean shouldInclude = true;
 							IVirtualComponent dynamicComponent = earRefs[j].getReferencedComponent();
-							for (int k = 0; k < hardReferences.length && shouldInclude; k++) {
-								if (hardReferences[k].getReferencedComponent().equals(dynamicComponent)) {
-									shouldInclude = false;
+							if(null != hardReferences){
+								for (int k = 0; k < hardReferences.length && shouldInclude; k++) {
+									if (hardReferences[k].getReferencedComponent().equals(dynamicComponent)) {
+										shouldInclude = false;
+									}
 								}
 							}
 							if (shouldInclude) {
