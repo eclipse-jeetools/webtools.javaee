@@ -97,6 +97,7 @@ public abstract class J2EEArtifactImportWizard extends DataModelWizard implement
 	 */
 	public final void init(IWorkbench workbench, IStructuredSelection aSelection) {
 		this.selection = aSelection;
+		setNeedsProgressMonitor(true);
 		doInit();
 	}
 

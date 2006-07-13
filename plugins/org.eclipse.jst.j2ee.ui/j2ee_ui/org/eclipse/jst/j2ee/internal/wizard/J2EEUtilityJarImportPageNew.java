@@ -400,5 +400,8 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPage {
 		return J2EEUIMessages.getResourceString("J2EEUtilityJarImportPage_UI_7"); //$NON-NLS-1$
 	}
 	
+	
+	public void restoreDefaultSettings() {
+	}
  
 }
