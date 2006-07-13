@@ -549,11 +549,12 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 					ClasspathElement j2eeElement = (ClasspathElement) j2eeIterator.next();
 					String text = j2eeElement.getText();
 					int index = text.indexOf(".jar");
-					text = text.substring(0, index);
-
-					if (element.getText().equals(text)) {
-						found = true;
-						break;
+					if( index != -1 ){
+						text = text.substring(0, index);
+						if (element.getText().equals(text)) {
+							found = true;
+							break;
+						}
 					}
 				}
 				if (!found) {
