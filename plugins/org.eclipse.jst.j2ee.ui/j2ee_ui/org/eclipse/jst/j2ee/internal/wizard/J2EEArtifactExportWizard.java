@@ -127,6 +127,7 @@ public abstract class J2EEArtifactExportWizard extends DataModelWizard {
 //				}
 //			}
 //		}
+		setNeedsProgressMonitor(true);
 		doInit();
 	}
 
