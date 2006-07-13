@@ -58,7 +58,8 @@ public class UpdateDependentEARonRenameOp extends UpdateDependentProjectOp {
 			return Status.OK_STATUS;
 		}
 		
-		boolean hadReference = hadReference(dependentMetadata, originalMetadata) != null;
+		boolean hadModuleReference = hadReference(dependentMetadata, originalMetadata) != null;
+		boolean hadProjectReference = hadProjectReference(dependentMetadata, originalMetadata);
 		
 		// first, remove the dependency on the old project name via the 
 		// ProjectDeleteOperation
@@ -86,7 +87,7 @@ public class UpdateDependentEARonRenameOp extends UpdateDependentProjectOp {
 			targetCompList.add(refactoredComp);
 			refdm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp);
 			refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, targetCompList);
-			CreateOptionalReferenceOp op = new CreateOptionalReferenceOp(refdm, hadReference);
+			CreateOptionalReferenceOp op = new CreateOptionalReferenceOp(refdm, hadModuleReference, hadProjectReference);
 			op.execute(monitor, null);
 		} else {
 			throw new ExecutionException(RefactorResourceHandler.getString("missing_natures"), null);

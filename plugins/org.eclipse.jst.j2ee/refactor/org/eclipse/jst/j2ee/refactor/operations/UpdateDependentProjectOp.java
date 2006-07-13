@@ -11,7 +11,10 @@
 
 package org.eclipse.jst.j2ee.refactor.operations;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
@@ -51,6 +54,27 @@ public abstract class UpdateDependentProjectOp extends AbstractDataModelOperatio
 			}
 		}
 		return ref;
+	}
+	
+	/**
+	 * Does the dependent project have a .project reference on the refactored project?
+	 * (dynamic project refs don't count)
+	 * @return True if a project reference exists.
+	 */
+	protected static boolean hadProjectReference(final ProjectRefactorMetadata dependentMetadata,
+			final ProjectRefactorMetadata refactoredMetadata) {
+		try {
+			final IProject[] refs = dependentMetadata.getProject().getDescription().getReferencedProjects();
+			final IProject refactoredProject= refactoredMetadata.getProject();
+			for (int i = 0; i < refs.length; i++) {
+				if (refs[i].equals(refactoredProject)) {
+					return true;
+				}
+			} 
+		} catch (CoreException ce) {
+			Logger.getLogger().logError(ce);
+		}
+		return false;
 	}
 	
 	/**

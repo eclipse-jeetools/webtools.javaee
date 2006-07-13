@@ -49,8 +49,10 @@ public class UpdateDependentModuleonRenameOp extends UpdateDependentProjectOp {
 		final RefCachingVirtualComponent dependentComp = (RefCachingVirtualComponent) dependentMetadata.getVirtualComponent();
 		final IVirtualComponent refactoredComp = refactoredMetadata.getVirtualComponent();
 		
-		// Does the dependent project have a .component reference on the refactored project?
+		// Does the dependent project have a component and/or project references on the refactored project?
 		final IVirtualReference ref = hadReference(dependentMetadata, originalMetadata);
+		boolean hadModuleRef = ref != null;
+		boolean hadProjectRef = hadProjectReference(dependentMetadata, originalMetadata);
 		final boolean webLibDep = hasWebLibDependency(ref);
 	
 		// first, remove the dependency on the old project name via the 
@@ -60,8 +62,8 @@ public class UpdateDependentModuleonRenameOp extends UpdateDependentProjectOp {
 		// change to use not use caching
 		dependentComp.setCaching(false);
 		
-		// add a reference to the renamed project
-		if (refactoredComp != null) {
+		// add a reference to the renamed project (need to be adding either a component or project ref)
+		if (refactoredComp != null && (hadModuleRef || hadProjectRef)) {
 			final IDataModel refdm = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
 			final List targetCompList = (List) refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 			targetCompList.add(refactoredComp);
@@ -70,7 +72,7 @@ public class UpdateDependentModuleonRenameOp extends UpdateDependentProjectOp {
 			if (webLibDep) {
 				refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH,"/WEB-INF/lib"); //$NON-NLS-1$
 			}
-			CreateOptionalReferenceOp op = new CreateOptionalReferenceOp(refdm, ref != null);
+			CreateOptionalReferenceOp op = new CreateOptionalReferenceOp(refdm, hadModuleRef, hadProjectRef);
 			op.execute(monitor, null);
 		}
 	
@@ -79,13 +81,6 @@ public class UpdateDependentModuleonRenameOp extends UpdateDependentProjectOp {
 			UpdateDependentModuleonDeleteOp.updateManifestDependency(refactoredMetadata, dependentMetadata, false);
 		}
 			
-        // update the JAR dependency data
-//        IDataModel dataModel = DataModelFactory.createDataModel(new JARDependencyDataModelProvider());
-//        dataModel.setProperty(JARDependencyDataModelProperties.PROJECT_NAME, dependentMetadata.getProjectName());
-//        dataModel.setProperty(JARDependencyDataModelProperties.REFERENCED_PROJECT_NAME, refactoredMetadata.getProjectName());
-//        dataModel.setIntProperty(JARDependencyDataModelProperties.JAR_MANIPULATION_TYPE, JARDependencyDataModelProperties.JAR_MANIPULATION_ADD);
-//        dataModel.getDefaultOperation().execute(monitor, null );
-		//UpdateProjectClasspath.updateProjectDependency( dependentMetadata.getProjectName(), refactoredMetadata.getProjectName(), true );
 		return Status.OK_STATUS;
 	}
 	

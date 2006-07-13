@@ -20,22 +20,31 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
  * Extension of <code>CreateReferenceComponentsOp</code> that supports the optional creation of
- * the .component reference. 
+ * the component and project references.
  */
 public class CreateOptionalReferenceOp extends CreateReferenceComponentsOp {
 
-	private final boolean _createReferences;
+	private final boolean _createModuleReference;
+	private final boolean _createProjectReference;
 	
 	public CreateOptionalReferenceOp(IDataModel model, boolean createReferences) {
+		this(model, createReferences, createReferences);
+	}
+	
+	public CreateOptionalReferenceOp(final IDataModel model, final boolean createModuleReference, 
+			final boolean createProjectReference) {
 		super(model);
-		_createReferences = createReferences;
+		_createModuleReference = createModuleReference;
+		_createProjectReference = createProjectReference;
 	}
 	
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		if (_createReferences) {
+		if (_createModuleReference) {
 			addReferencedComponents(monitor);
 		}
-		addProjectReferences();
+		if (_createProjectReference) {
+			addProjectReferences();
+		}
 		return OK_STATUS;
 	}
 	
