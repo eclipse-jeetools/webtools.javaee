@@ -64,7 +64,7 @@ public class UpdateDependentModuleonRenameOp extends UpdateDependentProjectOp {
 		
 		// add a reference to the renamed project (need to be adding either a component or project ref)
 		if (refactoredComp != null && (hadModuleRef || hadProjectRef)) {
-			final IDataModel refdm = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
+			final IDataModel refdm = DataModelFactory.createDataModel(new CreateOptionalReferenceOpDataModelProvider());
 			final List targetCompList = (List) refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 			targetCompList.add(refactoredComp);
 			refdm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, dependentComp);
@@ -72,8 +72,9 @@ public class UpdateDependentModuleonRenameOp extends UpdateDependentProjectOp {
 			if (webLibDep) {
 				refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH,"/WEB-INF/lib"); //$NON-NLS-1$
 			}
-			CreateOptionalReferenceOp op = new CreateOptionalReferenceOp(refdm, hadModuleRef, hadProjectRef);
-			op.execute(monitor, null);
+			refdm.setBooleanProperty(CreateOptionalReferenceOpDataModelProvider.CREATE_COMPONENT_REF,hadModuleRef); 
+			refdm.setBooleanProperty(CreateOptionalReferenceOpDataModelProvider.CREATE_PROJECT_REF,hadProjectRef);
+			refdm.getDefaultOperation().execute(monitor, null);
 		}
 	
 		// update the manifest, unless this was a web library dependency

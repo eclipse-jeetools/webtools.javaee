@@ -15,6 +15,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsOp;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -23,26 +24,18 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * the component and project references.
  */
 public class CreateOptionalReferenceOp extends CreateReferenceComponentsOp {
-
-	private final boolean _createModuleReference;
-	private final boolean _createProjectReference;
 	
-	public CreateOptionalReferenceOp(IDataModel model, boolean createReferences) {
-		this(model, createReferences, createReferences);
-	}
-	
-	public CreateOptionalReferenceOp(final IDataModel model, final boolean createModuleReference, 
-			final boolean createProjectReference) {
+	public CreateOptionalReferenceOp(final IDataModel model) {
 		super(model);
-		_createModuleReference = createModuleReference;
-		_createProjectReference = createProjectReference;
 	}
 	
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		if (_createModuleReference) {
+		if (!validateEdit().isOK())
+			return Status.CANCEL_STATUS;
+		if (model.getBooleanProperty(CreateOptionalReferenceOpDataModelProvider.CREATE_COMPONENT_REF)) {
 			addReferencedComponents(monitor);
 		}
-		if (_createProjectReference) {
+		if (model.getBooleanProperty(CreateOptionalReferenceOpDataModelProvider.CREATE_PROJECT_REF)) {
 			addProjectReferences();
 		}
 		return OK_STATUS;

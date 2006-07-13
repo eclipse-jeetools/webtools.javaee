@@ -82,13 +82,14 @@ public class UpdateDependentEARonRenameOp extends UpdateDependentProjectOp {
 			final IDataModel migrationdm = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
 			migrationdm.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, refactoredMetadata.getProjectName());
 			migrationdm.getDefaultOperation().execute(new NullProgressMonitor(), null);
-			final IDataModel refdm = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
+			final IDataModel refdm = DataModelFactory.createDataModel(new CreateOptionalReferenceOpDataModelProvider());
 			final List targetCompList = (List) refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 			targetCompList.add(refactoredComp);
 			refdm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp);
 			refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, targetCompList);
-			CreateOptionalReferenceOp op = new CreateOptionalReferenceOp(refdm, hadModuleReference, hadProjectReference);
-			op.execute(monitor, null);
+			refdm.setBooleanProperty(CreateOptionalReferenceOpDataModelProvider.CREATE_COMPONENT_REF,hadModuleReference); 
+			refdm.setBooleanProperty(CreateOptionalReferenceOpDataModelProvider.CREATE_PROJECT_REF,hadProjectReference);
+			refdm.getDefaultOperation().execute(monitor, null);
 		} else {
 			throw new ExecutionException(RefactorResourceHandler.getString("missing_natures"), null);
 		}
