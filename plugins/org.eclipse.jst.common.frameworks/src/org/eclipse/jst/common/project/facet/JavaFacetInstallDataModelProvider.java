@@ -38,6 +38,9 @@ public class JavaFacetInstallDataModelProvider extends FacetInstallDataModelProv
 		} else if (FACET_VERSION.equals(propertyName)) {
 		   Hashtable javaOptions = JavaCore.getOptions();
 		   String jdtVersion = (String)javaOptions.get(JavaCore.COMPILER_COMPLIANCE);
+		   if(jdtVersion == null){
+			   jdtVersion = (String)JavaCore.getDefaultOptions().get(JavaCore.COMPILER_COMPLIANCE); 
+		   }
 		   if (jdtVersion.startsWith("1.3")) { //$NON-NLS-1$
 		    return JavaFacetUtils.JAVA_13;
 		   } else if (jdtVersion.startsWith("1.4")) { //$NON-NLS-1$
