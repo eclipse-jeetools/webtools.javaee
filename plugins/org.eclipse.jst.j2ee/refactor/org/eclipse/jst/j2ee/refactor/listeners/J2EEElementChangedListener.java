@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.refactor.listeners;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
@@ -81,55 +84,75 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 	 */
 	private void alterMapping(final IJavaElementDelta[] children, final IJavaProject jproject,
 			final IProject project) throws CoreException {
+		List pathsToAdd = null;
+		List pathsToRemove = null;
 		for (int i = 0; i < children.length; i++) {
 			final IJavaElementDelta delta = children[i];
 			final IJavaElement element = delta.getElement();
-			final int kind = delta.getKind();
-			final int flags = delta.getFlags();
-			if (element instanceof IPackageFragmentRoot) {
+			if(element.getElementType() == IJavaElement.PACKAGE_FRAGMENT_ROOT){
 				final IPackageFragmentRoot root = (IPackageFragmentRoot) element;
 				int cpeKind = IPackageFragmentRoot.K_SOURCE;
+				boolean abortAdd = false;
 				try {
 					cpeKind = root.getKind();
 				} catch (JavaModelException jme) {
 					// this is thrown if the folder corresponding to the CPE has been deleted
-					// since it could represent another error, we need to set to binary to 
-					// avoid adding mappings for binary folders
-					cpeKind = IPackageFragmentRoot.K_BINARY;
+					// since it could represent another error, we need to abort adding. 
+					abortAdd = true;
 				}
 
-				final IPath path = root.getPath().removeFirstSegments(1);
-				WorkspaceJob job= null;
-				// kind and flags for CP additions are somewhat sporadic; either:
-				// -kind is ADDED and flags are 0
-				//   or
-				// -kind is CHANGED and flags are F_ADDED_TO_CLASSPATH
-				if (kind == IJavaElementDelta.ADDED || 
-						(flags & IJavaElementDelta.F_ADDED_TO_CLASSPATH) == IJavaElementDelta.F_ADDED_TO_CLASSPATH) {
-					// can only add if we know it is a src folder
-					if (cpeKind == IPackageFragmentRoot.K_SOURCE) {
-						job = new WorkspaceJob("J2EEComponentLinkAdditionJob") {
-							public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
-								getDestinationFolder(project).createLink(path, 0, monitor);
-								return Status.OK_STATUS;
+				// only update if we know it is a src folder
+				if (cpeKind == IPackageFragmentRoot.K_SOURCE) {
+					// kind and flags for CP additions are somewhat sporadic; either:
+					// -kind is ADDED and flags are 0
+					//   or
+					// -kind is CHANGED and flags are F_ADDED_TO_CLASSPATH
+					int flags = delta.getFlags();
+					if (delta.getKind() == IJavaElementDelta.ADDED || 
+							(flags & IJavaElementDelta.F_ADDED_TO_CLASSPATH) == IJavaElementDelta.F_ADDED_TO_CLASSPATH) {
+						if (!abortAdd) {
+							if(pathsToAdd == null){
+								pathsToAdd = new ArrayList();
 							}
-						};
-					}
-				// getting a kind = REMOVED and flags = 0 for removal of the folder (w/o removing the CPE), probably
-			    // should not be generated
-				} else if ((flags & IJavaElementDelta.F_REMOVED_FROM_CLASSPATH) == IJavaElementDelta.F_REMOVED_FROM_CLASSPATH) {						
-					job = new WorkspaceJob("J2EEComponentMappingRemovalJob") {							
-						public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
-							getDestinationFolder(project).removeLink(path, 0, monitor);
-							return Status.OK_STATUS;
+							IPath path = root.getPath().removeFirstSegments(1);
+							pathsToAdd.add(path);
 						}
-					};
-				}
-				if (job != null) {
-					job.setRule(project);
-					job.schedule();
+					// getting a kind = REMOVED and flags = 0 for removal of the folder (w/o removing the CPE), probably
+				    // should not be generated
+					} else if ((flags & IJavaElementDelta.F_REMOVED_FROM_CLASSPATH) == IJavaElementDelta.F_REMOVED_FROM_CLASSPATH) {
+						if(pathsToRemove == null){
+							pathsToRemove = new ArrayList();
+						}
+						IPath path = root.getPath().removeFirstSegments(1);
+						pathsToRemove.add(path);
+					}
 				}
 			}
+		}
+		if(pathsToAdd != null || pathsToRemove != null){
+			final List jobPathsToAdd = pathsToAdd;
+			final List jobPathsToRemove = pathsToRemove;
+			WorkspaceJob job = new WorkspaceJob("J2EEComponentMappingUpdateJob") {							
+				public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
+					IVirtualFolder destFolder = getDestinationFolder(project);
+					IPath path = null;
+					if(jobPathsToAdd != null){
+						for(int i=0;i<jobPathsToAdd.size(); i++){
+							path = (IPath)jobPathsToAdd.get(i);
+							destFolder.createLink(path, 0, monitor);
+						}
+					}
+					if(jobPathsToRemove != null){
+						for(int i=0;i<jobPathsToRemove.size(); i++){
+							path = (IPath)jobPathsToRemove.get(i);
+							destFolder.removeLink(path, 0, monitor);
+						}
+					}
+					return Status.OK_STATUS;
+				}
+			};
+			job.setRule(project);
+			job.schedule();
 		}
 	}
 
