@@ -12,9 +12,11 @@ package org.eclipse.jst.j2ee.internal.common.classpath;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
@@ -54,7 +56,8 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	private IPath containerPath;
 	private IJavaProject javaProject;
 	private IClasspathEntry[] entries = new IClasspathEntry[0];
-	private J2EEComponentClasspathContainer previousSelf = null;
+	private static Map keys = new HashMap();
+	private static Map previousSelfs = new HashMap();
 	
 	private class LastUpdate {
 		private int refCount = 0;
@@ -109,6 +112,8 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 
 	private void update() {
 		IVirtualComponent component = ComponentCore.createComponent(javaProject.getProject());
+		Object key = keys.get(new Integer(javaProject.getProject().hashCode()));
+		J2EEComponentClasspathContainer previousSelf = (J2EEComponentClasspathContainer)previousSelfs.get(key);
 		if (component == null) {
 			return;
 		}
@@ -145,13 +150,12 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			IJavaProject javaProject = JavaCore.create(component.getProject());
 			Set existingEntries = new HashSet();
 			try {
-				final IClasspathContainer container = JavaCore.getClasspathContainer(CONTAINER_PATH, javaProject);
+				IClasspathContainer container = JavaCore.getClasspathContainer(CONTAINER_PATH, javaProject);
 				List previousEntries = null;
 				if(null != container){
 					final IClasspathEntry[] containerEntries = container.getClasspathEntries();
 					previousEntries = Arrays.asList(containerEntries);
 				}
-				
 				existingEntries.addAll(Arrays.asList(javaProject.getResolvedClasspath(true)));
 				if(null != previousEntries){
 					existingEntries.removeAll(previousEntries);
@@ -159,8 +163,8 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 				if(previousSelf != null){
 					existingEntries.removeAll(Arrays.asList(previousSelf.entries));
 				}
-				
 				existingEntries.removeAll(Arrays.asList(entries));
+			
 			} catch (JavaModelException e) {
 				Logger.getLogger().logError(e);
 			}
@@ -200,11 +204,16 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		}
 	}
 
-	public void install() {
-		synchronized (javaProject) {
+	public static void install(IPath containerPath, IJavaProject javaProject) {
+		Integer hashCode = new Integer(javaProject.getProject().hashCode());
+		Object key = keys.get(hashCode);
+		if(key == null){
+			keys.put(hashCode, hashCode);
+			key = hashCode;
+		}
+		synchronized (key) {
 			final IJavaProject[] projects = new IJavaProject[]{javaProject};
-			final J2EEComponentClasspathContainer container = new J2EEComponentClasspathContainer(this.containerPath, this.javaProject);
-			container.previousSelf = this;
+			final J2EEComponentClasspathContainer container = new J2EEComponentClasspathContainer(containerPath, javaProject);
 			container.update();
 			final IClasspathContainer[] conts = new IClasspathContainer[]{container};
 			try {
@@ -212,12 +221,13 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			} catch (JavaModelException e) {
 				Logger.getLogger().log(e);
 			}
+			previousSelfs.put(key, container);
 		}
 	}
 
 	public void refresh() {
 		if (requiresUpdate()) {
-			install();
+			install(containerPath, javaProject);
 			// Update dependency graph
 			DependencyGraphManager.getInstance().forceRefresh();
 		}
