@@ -16,12 +16,11 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webservice.wsclient.ComponentScopedRefs;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
@@ -41,7 +40,7 @@ import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
  *
  * @generated
  */
-public class ComponentScopedRefsImpl extends EObjectImpl implements ComponentScopedRefs {
+public class ComponentScopedRefsImpl extends J2EEEObjectImpl implements ComponentScopedRefs {
 	/**
 	 * The default value of the '{@link #getComponentName() <em>Component Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -87,7 +86,7 @@ public class ComponentScopedRefsImpl extends EObjectImpl implements ComponentSco
 	 * @generated
 	 */
     protected EClass eStaticClass() {
-		return Webservice_clientPackage.eINSTANCE.getComponentScopedRefs();
+		return Webservice_clientPackage.Literals.COMPONENT_SCOPED_REFS;
 	}
 
 	/**
@@ -125,43 +124,39 @@ public class ComponentScopedRefsImpl extends EObjectImpl implements ComponentSco
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case Webservice_clientPackage.COMPONENT_SCOPED_REFS__SERVICE_REFS:
-					return ((InternalEList)getServiceRefs()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case Webservice_clientPackage.COMPONENT_SCOPED_REFS__SERVICE_REFS:
+				return ((InternalEList)getServiceRefs()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case Webservice_clientPackage.COMPONENT_SCOPED_REFS__COMPONENT_NAME:
 				return getComponentName();
 			case Webservice_clientPackage.COMPONENT_SCOPED_REFS__SERVICE_REFS:
 				return getServiceRefs();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case Webservice_clientPackage.COMPONENT_SCOPED_REFS__COMPONENT_NAME:
 				setComponentName((String)newValue);
 				return;
@@ -170,16 +165,16 @@ public class ComponentScopedRefsImpl extends EObjectImpl implements ComponentSco
 				getServiceRefs().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case Webservice_clientPackage.COMPONENT_SCOPED_REFS__COMPONENT_NAME:
 				setComponentName(COMPONENT_NAME_EDEFAULT);
 				return;
@@ -187,22 +182,22 @@ public class ComponentScopedRefsImpl extends EObjectImpl implements ComponentSco
 				getServiceRefs().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case Webservice_clientPackage.COMPONENT_SCOPED_REFS__COMPONENT_NAME:
 				return COMPONENT_NAME_EDEFAULT == null ? componentName != null : !COMPONENT_NAME_EDEFAULT.equals(componentName);
 			case Webservice_clientPackage.COMPONENT_SCOPED_REFS__SERVICE_REFS:
 				return serviceRefs != null && !serviceRefs.isEmpty();
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

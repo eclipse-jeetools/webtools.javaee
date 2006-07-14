@@ -15,11 +15,10 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webservice.wsclient.ComponentScopedRefs;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient;
@@ -40,7 +39,7 @@ import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
  *
  * @generated
  */
-public class WebServicesClientImpl extends EObjectImpl implements WebServicesClient {
+public class WebServicesClientImpl extends J2EEEObjectImpl implements WebServicesClient {
 	/**
 	 * The cached value of the '{@link #getComponentScopedRefs() <em>Component Scoped Refs</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -76,7 +75,7 @@ public class WebServicesClientImpl extends EObjectImpl implements WebServicesCli
 	 * @generated
 	 */
     protected EClass eStaticClass() {
-		return Webservice_clientPackage.eINSTANCE.getWebServicesClient();
+		return Webservice_clientPackage.Literals.WEB_SERVICES_CLIENT;
 	}
 
 	/**
@@ -105,45 +104,41 @@ public class WebServicesClientImpl extends EObjectImpl implements WebServicesCli
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case Webservice_clientPackage.WEB_SERVICES_CLIENT__COMPONENT_SCOPED_REFS:
-					return ((InternalEList)getComponentScopedRefs()).basicRemove(otherEnd, msgs);
-				case Webservice_clientPackage.WEB_SERVICES_CLIENT__SERVICE_REFS:
-					return ((InternalEList)getServiceRefs()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case Webservice_clientPackage.WEB_SERVICES_CLIENT__COMPONENT_SCOPED_REFS:
+				return ((InternalEList)getComponentScopedRefs()).basicRemove(otherEnd, msgs);
+			case Webservice_clientPackage.WEB_SERVICES_CLIENT__SERVICE_REFS:
+				return ((InternalEList)getServiceRefs()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case Webservice_clientPackage.WEB_SERVICES_CLIENT__COMPONENT_SCOPED_REFS:
 				return getComponentScopedRefs();
 			case Webservice_clientPackage.WEB_SERVICES_CLIENT__SERVICE_REFS:
 				return getServiceRefs();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case Webservice_clientPackage.WEB_SERVICES_CLIENT__COMPONENT_SCOPED_REFS:
 				getComponentScopedRefs().clear();
 				getComponentScopedRefs().addAll((Collection)newValue);
@@ -153,16 +148,16 @@ public class WebServicesClientImpl extends EObjectImpl implements WebServicesCli
 				getServiceRefs().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case Webservice_clientPackage.WEB_SERVICES_CLIENT__COMPONENT_SCOPED_REFS:
 				getComponentScopedRefs().clear();
 				return;
@@ -170,22 +165,22 @@ public class WebServicesClientImpl extends EObjectImpl implements WebServicesCli
 				getServiceRefs().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case Webservice_clientPackage.WEB_SERVICES_CLIENT__COMPONENT_SCOPED_REFS:
 				return componentScopedRefs != null && !componentScopedRefs.isEmpty();
 			case Webservice_clientPackage.WEB_SERVICES_CLIENT__SERVICE_REFS:
 				return serviceRefs != null && !serviceRefs.isEmpty();
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 } //WebServicesClientImpl

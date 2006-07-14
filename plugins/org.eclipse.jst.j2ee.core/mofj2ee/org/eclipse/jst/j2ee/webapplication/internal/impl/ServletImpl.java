@@ -22,7 +22,6 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -121,7 +120,7 @@ public class ServletImpl extends CompatibilityDescriptionGroupImpl implements Se
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return WebapplicationPackage.eINSTANCE.getServlet();
+		return WebapplicationPackage.Literals.SERVLET;
 	}
 
 /**
@@ -245,22 +244,32 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	 */
 	public WebApp getWebApp() {
 		if (eContainerFeatureID != WebapplicationPackage.SERVLET__WEB_APP) return null;
-		return (WebApp)eContainer;
+		return (WebApp)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetWebApp(WebApp newWebApp, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newWebApp, WebapplicationPackage.SERVLET__WEB_APP, msgs);
+		return msgs;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public void setWebApp(WebApp newWebApp) {
-		if (newWebApp != eContainer || (eContainerFeatureID != WebapplicationPackage.SERVLET__WEB_APP && newWebApp != null)) {
+		if (newWebApp != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.SERVLET__WEB_APP && newWebApp != null)) {
 			if (EcoreUtil.isAncestor(this, newWebApp))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newWebApp != null)
 				msgs = ((InternalEObject)newWebApp).eInverseAdd(this, WebapplicationPackage.WEB_APP__SERVLETS, WebApp.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newWebApp, WebapplicationPackage.SERVLET__WEB_APP, msgs);
+			msgs = basicSetWebApp(newWebApp, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -387,20 +396,14 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WebapplicationPackage.SERVLET__WEB_APP:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, WebapplicationPackage.SERVLET__WEB_APP, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case WebapplicationPackage.SERVLET__WEB_APP:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetWebApp((WebApp)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -408,32 +411,22 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WebapplicationPackage.SERVLET__ICONS:
-					return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.SERVLET__DISPLAY_NAMES:
-					return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.SERVLET__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.SERVLET__WEB_APP:
-					return eBasicSetContainer(null, WebapplicationPackage.SERVLET__WEB_APP, msgs);
-				case WebapplicationPackage.SERVLET__WEB_TYPE:
-					return basicSetWebType(null, msgs);
-				case WebapplicationPackage.SERVLET__PARAMS:
-					return ((InternalEList)getParams()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.SERVLET__SECURITY_ROLE_REFS:
-					return ((InternalEList)getSecurityRoleRefs()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.SERVLET__RUN_AS:
-					return basicSetRunAs(null, msgs);
-				case WebapplicationPackage.SERVLET__INIT_PARAMS:
-					return ((InternalEList)getInitParams()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case WebapplicationPackage.SERVLET__WEB_APP:
+				return basicSetWebApp(null, msgs);
+			case WebapplicationPackage.SERVLET__WEB_TYPE:
+				return basicSetWebType(null, msgs);
+			case WebapplicationPackage.SERVLET__PARAMS:
+				return ((InternalEList)getParams()).basicRemove(otherEnd, msgs);
+			case WebapplicationPackage.SERVLET__SECURITY_ROLE_REFS:
+				return ((InternalEList)getSecurityRoleRefs()).basicRemove(otherEnd, msgs);
+			case WebapplicationPackage.SERVLET__RUN_AS:
+				return basicSetRunAs(null, msgs);
+			case WebapplicationPackage.SERVLET__INIT_PARAMS:
+				return ((InternalEList)getInitParams()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -441,16 +434,12 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case WebapplicationPackage.SERVLET__WEB_APP:
-					return eContainer.eInverseRemove(this, WebapplicationPackage.WEB_APP__SERVLETS, WebApp.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case WebapplicationPackage.SERVLET__WEB_APP:
+				return eInternalContainer().eInverseRemove(this, WebapplicationPackage.WEB_APP__SERVLETS, WebApp.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -458,22 +447,8 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.SERVLET__ICONS:
-				return getIcons();
-			case WebapplicationPackage.SERVLET__DISPLAY_NAMES:
-				return getDisplayNames();
-			case WebapplicationPackage.SERVLET__DESCRIPTIONS:
-				return getDescriptions();
-			case WebapplicationPackage.SERVLET__SMALL_ICON:
-				return getSmallIcon();
-			case WebapplicationPackage.SERVLET__LARGE_ICON:
-				return getLargeIcon();
-			case WebapplicationPackage.SERVLET__DESCRIPTION:
-				return getDescription();
-			case WebapplicationPackage.SERVLET__DISPLAY_NAME:
-				return getDisplayName();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case WebapplicationPackage.SERVLET__SERVLET_NAME:
 				return getServletName();
 			case WebapplicationPackage.SERVLET__LOAD_ON_STARTUP:
@@ -491,77 +466,16 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 			case WebapplicationPackage.SERVLET__INIT_PARAMS:
 				return getInitParams();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.SERVLET__ICONS:
-				return icons != null && !icons.isEmpty();
-			case WebapplicationPackage.SERVLET__DISPLAY_NAMES:
-				return displayNames != null && !displayNames.isEmpty();
-			case WebapplicationPackage.SERVLET__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-			case WebapplicationPackage.SERVLET__SMALL_ICON:
-				return SMALL_ICON_EDEFAULT == null ? smallIcon != null : !SMALL_ICON_EDEFAULT.equals(smallIcon);
-			case WebapplicationPackage.SERVLET__LARGE_ICON:
-				return LARGE_ICON_EDEFAULT == null ? largeIcon != null : !LARGE_ICON_EDEFAULT.equals(largeIcon);
-			case WebapplicationPackage.SERVLET__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case WebapplicationPackage.SERVLET__DISPLAY_NAME:
-				return DISPLAY_NAME_EDEFAULT == null ? displayName != null : !DISPLAY_NAME_EDEFAULT.equals(displayName);
-			case WebapplicationPackage.SERVLET__SERVLET_NAME:
-				return SERVLET_NAME_EDEFAULT == null ? servletName != null : !SERVLET_NAME_EDEFAULT.equals(servletName);
-			case WebapplicationPackage.SERVLET__LOAD_ON_STARTUP:
-				return isSetLoadOnStartup();
-			case WebapplicationPackage.SERVLET__WEB_APP:
-				return getWebApp() != null;
-			case WebapplicationPackage.SERVLET__WEB_TYPE:
-				return webType != null;
-			case WebapplicationPackage.SERVLET__PARAMS:
-				return params != null && !params.isEmpty();
-			case WebapplicationPackage.SERVLET__SECURITY_ROLE_REFS:
-				return securityRoleRefs != null && !securityRoleRefs.isEmpty();
-			case WebapplicationPackage.SERVLET__RUN_AS:
-				return runAs != null;
-			case WebapplicationPackage.SERVLET__INIT_PARAMS:
-				return initParams != null && !initParams.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.SERVLET__ICONS:
-				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
-				return;
-			case WebapplicationPackage.SERVLET__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
-				return;
-			case WebapplicationPackage.SERVLET__DESCRIPTIONS:
-				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
-				return;
-			case WebapplicationPackage.SERVLET__SMALL_ICON:
-				setSmallIcon((String)newValue);
-				return;
-			case WebapplicationPackage.SERVLET__LARGE_ICON:
-				setLargeIcon((String)newValue);
-				return;
-			case WebapplicationPackage.SERVLET__DESCRIPTION:
-				setDescription((String)newValue);
-				return;
-			case WebapplicationPackage.SERVLET__DISPLAY_NAME:
-				setDisplayName((String)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case WebapplicationPackage.SERVLET__SERVLET_NAME:
 				setServletName((String)newValue);
 				return;
@@ -590,35 +504,16 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 				getInitParams().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.SERVLET__ICONS:
-				getIcons().clear();
-				return;
-			case WebapplicationPackage.SERVLET__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				return;
-			case WebapplicationPackage.SERVLET__DESCRIPTIONS:
-				getDescriptions().clear();
-				return;
-			case WebapplicationPackage.SERVLET__SMALL_ICON:
-				setSmallIcon(SMALL_ICON_EDEFAULT);
-				return;
-			case WebapplicationPackage.SERVLET__LARGE_ICON:
-				setLargeIcon(LARGE_ICON_EDEFAULT);
-				return;
-			case WebapplicationPackage.SERVLET__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case WebapplicationPackage.SERVLET__DISPLAY_NAME:
-				setDisplayName(DISPLAY_NAME_EDEFAULT);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case WebapplicationPackage.SERVLET__SERVLET_NAME:
 				setServletName(SERVLET_NAME_EDEFAULT);
 				return;
@@ -644,7 +539,34 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 				getInitParams().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case WebapplicationPackage.SERVLET__SERVLET_NAME:
+				return SERVLET_NAME_EDEFAULT == null ? servletName != null : !SERVLET_NAME_EDEFAULT.equals(servletName);
+			case WebapplicationPackage.SERVLET__LOAD_ON_STARTUP:
+				return isSetLoadOnStartup();
+			case WebapplicationPackage.SERVLET__WEB_APP:
+				return getWebApp() != null;
+			case WebapplicationPackage.SERVLET__WEB_TYPE:
+				return webType != null;
+			case WebapplicationPackage.SERVLET__PARAMS:
+				return params != null && !params.isEmpty();
+			case WebapplicationPackage.SERVLET__SECURITY_ROLE_REFS:
+				return securityRoleRefs != null && !securityRoleRefs.isEmpty();
+			case WebapplicationPackage.SERVLET__RUN_AS:
+				return runAs != null;
+			case WebapplicationPackage.SERVLET__INIT_PARAMS:
+				return initParams != null && !initParams.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

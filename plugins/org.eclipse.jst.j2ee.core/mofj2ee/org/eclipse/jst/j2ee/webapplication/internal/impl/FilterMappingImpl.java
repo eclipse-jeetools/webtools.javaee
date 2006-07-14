@@ -15,12 +15,11 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webapplication.DispatcherType;
 import org.eclipse.jst.j2ee.webapplication.Filter;
 import org.eclipse.jst.j2ee.webapplication.FilterMapping;
@@ -33,9 +32,9 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
  * Declaration of the filter mappings in this web application. The container uses the filter-mapping declarations to decide which filters to apply to a request, and in what order. The container matches the request URI to a Servlet in the normal way. To determine which filters to apply it matches filter-mapping declarations either on servlet-name, or on url-pattern for each filter-mapping element, depending on which style is used. The order in which filters are invoked is the order in which filter-mapping declarations that match a request URI for a servlet appear in the list of filter-mapping elements.The filter-name value must be the value of the <filtername> sub-elements of one of the <filter> declarations in the deployment descriptor.
  * 
  * @invariant The filter-name value must be the value of the Filter::name of one of the Filter declarations in the deployment descriptor.
-
+ * @generated
  */
-public class FilterMappingImpl extends EObjectImpl implements FilterMapping, EObject{
+public class FilterMappingImpl extends J2EEEObjectImpl implements FilterMapping {
 
 	/**
 	 * The default value of the '{@link #getUrlPattern() <em>Url Pattern</em>}' attribute.
@@ -82,7 +81,7 @@ public class FilterMappingImpl extends EObjectImpl implements FilterMapping, EOb
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return WebapplicationPackage.eINSTANCE.getFilterMapping();
+		return WebapplicationPackage.Literals.FILTER_MAPPING;
 	}
 
 /**
@@ -156,8 +155,8 @@ public void setServletName(String servletName){
 	 */
 	public Filter getFilter() {
 		if (filter != null && filter.eIsProxy()) {
-			Filter oldFilter = filter;
-			filter = (Filter)eResolveProxy((InternalEObject)filter);
+			InternalEObject oldFilter = (InternalEObject)filter;
+			filter = (Filter)eResolveProxy(oldFilter);
 			if (filter != oldFilter) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, WebapplicationPackage.FILTER_MAPPING__FILTER, oldFilter, filter));
@@ -205,8 +204,8 @@ public void setServletName(String servletName){
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case WebapplicationPackage.FILTER_MAPPING__URL_PATTERN:
 				return getUrlPattern();
 			case WebapplicationPackage.FILTER_MAPPING__DISPATCHER_TYPE:
@@ -218,14 +217,63 @@ public void setServletName(String servletName){
 				if (resolve) return getServlet();
 				return basicGetServlet();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case WebapplicationPackage.FILTER_MAPPING__URL_PATTERN:
+				setUrlPattern((String)newValue);
+				return;
+			case WebapplicationPackage.FILTER_MAPPING__DISPATCHER_TYPE:
+				getDispatcherType().clear();
+				getDispatcherType().addAll((Collection)newValue);
+				return;
+			case WebapplicationPackage.FILTER_MAPPING__FILTER:
+				setFilter((Filter)newValue);
+				return;
+			case WebapplicationPackage.FILTER_MAPPING__SERVLET:
+				setServlet((Servlet)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case WebapplicationPackage.FILTER_MAPPING__URL_PATTERN:
+				setUrlPattern(URL_PATTERN_EDEFAULT);
+				return;
+			case WebapplicationPackage.FILTER_MAPPING__DISPATCHER_TYPE:
+				getDispatcherType().clear();
+				return;
+			case WebapplicationPackage.FILTER_MAPPING__FILTER:
+				setFilter((Filter)null);
+				return;
+			case WebapplicationPackage.FILTER_MAPPING__SERVLET:
+				setServlet((Servlet)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case WebapplicationPackage.FILTER_MAPPING__URL_PATTERN:
 				return URL_PATTERN_EDEFAULT == null ? urlPattern != null : !URL_PATTERN_EDEFAULT.equals(urlPattern);
 			case WebapplicationPackage.FILTER_MAPPING__DISPATCHER_TYPE:
@@ -235,7 +283,7 @@ public void setServletName(String servletName){
 			case WebapplicationPackage.FILTER_MAPPING__SERVLET:
 				return servlet != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**
@@ -266,34 +314,13 @@ public void setServletName(String servletName){
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.FILTER_MAPPING__URL_PATTERN:
-				setUrlPattern(URL_PATTERN_EDEFAULT);
-				return;
-			case WebapplicationPackage.FILTER_MAPPING__DISPATCHER_TYPE:
-				getDispatcherType().clear();
-				return;
-			case WebapplicationPackage.FILTER_MAPPING__FILTER:
-				setFilter((Filter)null);
-				return;
-			case WebapplicationPackage.FILTER_MAPPING__SERVLET:
-				setServlet((Servlet)null);
-				return;
-		}
-		eDynamicUnset(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (urlPattern: ");//$NON-NLS-1$
+		result.append(" (urlPattern: ");
 		result.append(urlPattern);
-		result.append(", dispatcherType: ");//$NON-NLS-1$
+		result.append(", dispatcherType: ");
 		result.append(dispatcherType);
 		result.append(')');
 		return result.toString();
@@ -305,8 +332,8 @@ public void setServletName(String servletName){
 	 */
 	public Servlet getServletGen() {
 		if (servlet != null && servlet.eIsProxy()) {
-			Servlet oldServlet = servlet;
-			servlet = (Servlet)eResolveProxy((InternalEObject)servlet);
+			InternalEObject oldServlet = (InternalEObject)servlet;
+			servlet = (Servlet)eResolveProxy(oldServlet);
 			if (servlet != oldServlet) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, WebapplicationPackage.FILTER_MAPPING__SERVLET, oldServlet, servlet));

@@ -15,14 +15,14 @@ import org.eclipse.emf.ecore.EFactory;
  * @generated
  * @since 1.0
  */
-public interface WebapplicationFactory extends EFactory{
+public interface WebapplicationFactory extends EFactory {
 	/**
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	WebapplicationFactory eINSTANCE = new org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationFactoryImpl();
+	WebapplicationFactory eINSTANCE = org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationFactoryImpl.init();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
@@ -202,12 +202,13 @@ public interface WebapplicationFactory extends EFactory{
 	RoleNameType createRoleNameType();
 
 	/**
+	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * This method is NOT api, and may change in future releases.  
 	 * EMF package classes should be access via their "eINSTANCE" static fields
 	 * <!-- end-user-doc -->
-	 * @generated This field/method will be replaced during code generation.
-	 * @return reference to WebapplicationPackage
+	 * @return the package supported by this factory.
+	 * @generated
 	 */
 	WebapplicationPackage getWebapplicationPackage();
 

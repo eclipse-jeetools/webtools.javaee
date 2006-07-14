@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EFactory;
 /**
  * @generated
  * @since 1.0 */
-public interface JcaFactory extends EFactory{
+public interface JcaFactory extends EFactory {
 
 	/**
 	 * The singleton instance of the factory.
@@ -22,7 +22,7 @@ public interface JcaFactory extends EFactory{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	JcaFactory eINSTANCE = new org.eclipse.jst.j2ee.jca.internal.impl.JcaFactoryImpl();
+	JcaFactory eINSTANCE = org.eclipse.jst.j2ee.jca.internal.impl.JcaFactoryImpl.init();
 
 
 	/**
@@ -134,159 +134,14 @@ public interface JcaFactory extends EFactory{
 	ConfigProperty createConfigProperty();
 
 	/**
+	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * This method is NOT api, and may change in future releases.  
 	 * EMF package classes should be access via their "eINSTANCE" static fields
 	 * <!-- end-user-doc -->
-	 * @generated This field/method will be replaced during code generation.
+	 * @return the package supported by this factory.
+	 * @generated
 	 */
 	JcaPackage getJcaPackage();
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

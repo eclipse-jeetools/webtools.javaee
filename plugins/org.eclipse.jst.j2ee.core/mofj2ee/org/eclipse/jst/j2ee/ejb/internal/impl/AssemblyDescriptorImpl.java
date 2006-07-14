@@ -18,17 +18,15 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.MessageDestination;
 import org.eclipse.jst.j2ee.common.SecurityRole;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.ejb.AssemblyDescriptor;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
@@ -42,8 +40,9 @@ import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 
 /**
  * The assembly-descriptor element contains application-assembly information.  The application-assembly information consists of the following parts: the definition of security roles, the definition of method permissions, and the definition of transaction attributes for enterprise beans with container-managed transaction demarcation. All the parts are optional in the sense that they are omitted if the lists represented by them are empty. Providing an assembly-descriptor in the deployment descriptor is optional for the ejb-jar file producer.
+ * @generated
  */
-public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescriptor, EObject {
+public class AssemblyDescriptorImpl extends J2EEEObjectImpl implements AssemblyDescriptor {
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
@@ -83,7 +82,7 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return EjbPackage.eINSTANCE.getAssemblyDescriptor();
+		return EjbPackage.Literals.ASSEMBLY_DESCRIPTOR;
 	}
 
 /**
@@ -171,22 +170,32 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 */
 	public EJBJar getEjbJar() {
 		if (eContainerFeatureID != EjbPackage.ASSEMBLY_DESCRIPTOR__EJB_JAR) return null;
-		return (EJBJar)eContainer;
+		return (EJBJar)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetEjbJar(EJBJar newEjbJar, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newEjbJar, EjbPackage.ASSEMBLY_DESCRIPTOR__EJB_JAR, msgs);
+		return msgs;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public void setEjbJar(EJBJar newEjbJar) {
-		if (newEjbJar != eContainer || (eContainerFeatureID != EjbPackage.ASSEMBLY_DESCRIPTOR__EJB_JAR && newEjbJar != null)) {
+		if (newEjbJar != eInternalContainer() || (eContainerFeatureID != EjbPackage.ASSEMBLY_DESCRIPTOR__EJB_JAR && newEjbJar != null)) {
 			if (EcoreUtil.isAncestor(this, newEjbJar))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newEjbJar != null)
 				msgs = ((InternalEObject)newEjbJar).eInverseAdd(this, EjbPackage.EJB_JAR__ASSEMBLY_DESCRIPTOR, EJBJar.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newEjbJar, EjbPackage.ASSEMBLY_DESCRIPTOR__EJB_JAR, msgs);
+			msgs = basicSetEjbJar(newEjbJar, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -259,24 +268,18 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_PERMISSIONS:
-					return ((InternalEList)getMethodPermissions()).basicAdd(otherEnd, msgs);
-				case EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_TRANSACTIONS:
-					return ((InternalEList)getMethodTransactions()).basicAdd(otherEnd, msgs);
-				case EjbPackage.ASSEMBLY_DESCRIPTOR__EJB_JAR:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, EjbPackage.ASSEMBLY_DESCRIPTOR__EJB_JAR, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_PERMISSIONS:
+				return ((InternalEList)getMethodPermissions()).basicAdd(otherEnd, msgs);
+			case EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_TRANSACTIONS:
+				return ((InternalEList)getMethodTransactions()).basicAdd(otherEnd, msgs);
+			case EjbPackage.ASSEMBLY_DESCRIPTOR__EJB_JAR:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetEjbJar((EJBJar)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -284,26 +287,22 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_PERMISSIONS:
-					return ((InternalEList)getMethodPermissions()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_TRANSACTIONS:
-					return ((InternalEList)getMethodTransactions()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ASSEMBLY_DESCRIPTOR__EJB_JAR:
-					return eBasicSetContainer(null, EjbPackage.ASSEMBLY_DESCRIPTOR__EJB_JAR, msgs);
-				case EjbPackage.ASSEMBLY_DESCRIPTOR__SECURITY_ROLES:
-					return ((InternalEList)getSecurityRoles()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ASSEMBLY_DESCRIPTOR__EXCLUDE_LIST:
-					return basicSetExcludeList(null, msgs);
-				case EjbPackage.ASSEMBLY_DESCRIPTOR__MESSAGE_DESTINATIONS:
-					return ((InternalEList)getMessageDestinations()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_PERMISSIONS:
+				return ((InternalEList)getMethodPermissions()).basicRemove(otherEnd, msgs);
+			case EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_TRANSACTIONS:
+				return ((InternalEList)getMethodTransactions()).basicRemove(otherEnd, msgs);
+			case EjbPackage.ASSEMBLY_DESCRIPTOR__EJB_JAR:
+				return basicSetEjbJar(null, msgs);
+			case EjbPackage.ASSEMBLY_DESCRIPTOR__SECURITY_ROLES:
+				return ((InternalEList)getSecurityRoles()).basicRemove(otherEnd, msgs);
+			case EjbPackage.ASSEMBLY_DESCRIPTOR__EXCLUDE_LIST:
+				return basicSetExcludeList(null, msgs);
+			case EjbPackage.ASSEMBLY_DESCRIPTOR__MESSAGE_DESTINATIONS:
+				return ((InternalEList)getMessageDestinations()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -311,16 +310,12 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case EjbPackage.ASSEMBLY_DESCRIPTOR__EJB_JAR:
-					return eContainer.eInverseRemove(this, EjbPackage.EJB_JAR__ASSEMBLY_DESCRIPTOR, EJBJar.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case EjbPackage.ASSEMBLY_DESCRIPTOR__EJB_JAR:
+				return eInternalContainer().eInverseRemove(this, EjbPackage.EJB_JAR__ASSEMBLY_DESCRIPTOR, EJBJar.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -328,8 +323,8 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_PERMISSIONS:
 				return getMethodPermissions();
 			case EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_TRANSACTIONS:
@@ -343,35 +338,16 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 			case EjbPackage.ASSEMBLY_DESCRIPTOR__MESSAGE_DESTINATIONS:
 				return getMessageDestinations();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_PERMISSIONS:
-				return methodPermissions != null && !methodPermissions.isEmpty();
-			case EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_TRANSACTIONS:
-				return methodTransactions != null && !methodTransactions.isEmpty();
-			case EjbPackage.ASSEMBLY_DESCRIPTOR__EJB_JAR:
-				return getEjbJar() != null;
-			case EjbPackage.ASSEMBLY_DESCRIPTOR__SECURITY_ROLES:
-				return securityRoles != null && !securityRoles.isEmpty();
-			case EjbPackage.ASSEMBLY_DESCRIPTOR__EXCLUDE_LIST:
-				return excludeList != null;
-			case EjbPackage.ASSEMBLY_DESCRIPTOR__MESSAGE_DESTINATIONS:
-				return messageDestinations != null && !messageDestinations.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_PERMISSIONS:
 				getMethodPermissions().clear();
 				getMethodPermissions().addAll((Collection)newValue);
@@ -395,14 +371,16 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 				getMessageDestinations().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_PERMISSIONS:
 				getMethodPermissions().clear();
 				return;
@@ -422,7 +400,30 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 				getMessageDestinations().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_PERMISSIONS:
+				return methodPermissions != null && !methodPermissions.isEmpty();
+			case EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_TRANSACTIONS:
+				return methodTransactions != null && !methodTransactions.isEmpty();
+			case EjbPackage.ASSEMBLY_DESCRIPTOR__EJB_JAR:
+				return getEjbJar() != null;
+			case EjbPackage.ASSEMBLY_DESCRIPTOR__SECURITY_ROLES:
+				return securityRoles != null && !securityRoles.isEmpty();
+			case EjbPackage.ASSEMBLY_DESCRIPTOR__EXCLUDE_LIST:
+				return excludeList != null;
+			case EjbPackage.ASSEMBLY_DESCRIPTOR__MESSAGE_DESTINATIONS:
+				return messageDestinations != null && !messageDestinations.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

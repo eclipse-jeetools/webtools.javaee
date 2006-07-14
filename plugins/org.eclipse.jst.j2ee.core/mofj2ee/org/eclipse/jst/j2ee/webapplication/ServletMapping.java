@@ -10,12 +10,13 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.webapplication;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 /**
  * The servlet-mapping element defines a mapping between a servlet and a url pattern
  * @since 1.0
+ * @generated
  */
-public interface ServletMapping extends EObject{
+public interface ServletMapping extends J2EEEObject {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the UrlPattern attribute

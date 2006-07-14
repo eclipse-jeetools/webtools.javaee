@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ClientModuleRef;
@@ -245,6 +246,21 @@ public class CommonarchiveSwitch {
 	}
 
 	/**
+	 * Returns the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseJ2EEEObject(J2EEEObject object) {
+		return null;
+	}
+
+	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public Object doSwitchGen(EObject theEObject) {
@@ -283,6 +299,7 @@ public class CommonarchiveSwitch {
 			case CommonarchivePackage.FILE: {
 				File file = (File)theEObject;
 				Object result = caseFile(file);
+				if (result == null) result = caseJ2EEEObject(file);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -291,6 +308,7 @@ public class CommonarchiveSwitch {
 				Object result = caseArchive(archive);
 				if (result == null) result = caseContainer(archive);
 				if (result == null) result = caseFile(archive);
+				if (result == null) result = caseJ2EEEObject(archive);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -301,6 +319,7 @@ public class CommonarchiveSwitch {
 				if (result == null) result = caseArchive(ejbJarFile);
 				if (result == null) result = caseContainer(ejbJarFile);
 				if (result == null) result = caseFile(ejbJarFile);
+				if (result == null) result = caseJ2EEEObject(ejbJarFile);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -311,6 +330,7 @@ public class CommonarchiveSwitch {
 				if (result == null) result = caseArchive(warFile);
 				if (result == null) result = caseContainer(warFile);
 				if (result == null) result = caseFile(warFile);
+				if (result == null) result = caseJ2EEEObject(warFile);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -321,6 +341,7 @@ public class CommonarchiveSwitch {
 				if (result == null) result = caseArchive(earFile);
 				if (result == null) result = caseContainer(earFile);
 				if (result == null) result = caseFile(earFile);
+				if (result == null) result = caseJ2EEEObject(earFile);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -331,6 +352,7 @@ public class CommonarchiveSwitch {
 				if (result == null) result = caseArchive(applicationClientFile);
 				if (result == null) result = caseContainer(applicationClientFile);
 				if (result == null) result = caseFile(applicationClientFile);
+				if (result == null) result = caseJ2EEEObject(applicationClientFile);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -340,6 +362,7 @@ public class CommonarchiveSwitch {
 				if (result == null) result = caseArchive(moduleFile);
 				if (result == null) result = caseContainer(moduleFile);
 				if (result == null) result = caseFile(moduleFile);
+				if (result == null) result = caseJ2EEEObject(moduleFile);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -347,6 +370,7 @@ public class CommonarchiveSwitch {
 				Container container = (Container)theEObject;
 				Object result = caseContainer(container);
 				if (result == null) result = caseFile(container);
+				if (result == null) result = caseJ2EEEObject(container);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -355,6 +379,7 @@ public class CommonarchiveSwitch {
 				Object result = caseReadOnlyDirectory(readOnlyDirectory);
 				if (result == null) result = caseContainer(readOnlyDirectory);
 				if (result == null) result = caseFile(readOnlyDirectory);
+				if (result == null) result = caseJ2EEEObject(readOnlyDirectory);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -365,12 +390,14 @@ public class CommonarchiveSwitch {
 				if (result == null) result = caseArchive(rarFile);
 				if (result == null) result = caseContainer(rarFile);
 				if (result == null) result = caseFile(rarFile);
+				if (result == null) result = caseJ2EEEObject(rarFile);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case CommonarchivePackage.MODULE_REF: {
 				ModuleRef moduleRef = (ModuleRef)theEObject;
 				Object result = caseModuleRef(moduleRef);
+				if (result == null) result = caseJ2EEEObject(moduleRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -378,6 +405,7 @@ public class CommonarchiveSwitch {
 				EJBModuleRef ejbModuleRef = (EJBModuleRef)theEObject;
 				Object result = caseEJBModuleRef(ejbModuleRef);
 				if (result == null) result = caseModuleRef(ejbModuleRef);
+				if (result == null) result = caseJ2EEEObject(ejbModuleRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -385,6 +413,7 @@ public class CommonarchiveSwitch {
 				WebModuleRef webModuleRef = (WebModuleRef)theEObject;
 				Object result = caseWebModuleRef(webModuleRef);
 				if (result == null) result = caseModuleRef(webModuleRef);
+				if (result == null) result = caseJ2EEEObject(webModuleRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -392,6 +421,7 @@ public class CommonarchiveSwitch {
 				ClientModuleRef clientModuleRef = (ClientModuleRef)theEObject;
 				Object result = caseClientModuleRef(clientModuleRef);
 				if (result == null) result = caseModuleRef(clientModuleRef);
+				if (result == null) result = caseJ2EEEObject(clientModuleRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -399,6 +429,7 @@ public class CommonarchiveSwitch {
 				ConnectorModuleRef connectorModuleRef = (ConnectorModuleRef)theEObject;
 				Object result = caseConnectorModuleRef(connectorModuleRef);
 				if (result == null) result = caseModuleRef(connectorModuleRef);
+				if (result == null) result = caseJ2EEEObject(connectorModuleRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

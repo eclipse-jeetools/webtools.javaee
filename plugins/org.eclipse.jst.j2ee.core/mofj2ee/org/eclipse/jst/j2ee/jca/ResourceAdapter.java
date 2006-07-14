@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.jca;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 /**
  * Specifies information about the resource adapter. The information includes fully-qualified names of class//interfaces required as part of the connector architecture specified contracts, level of transaction support provided, configurable properties for ManagedConnectionFactory instances, one or more authentication mechanisms supported and additional
  * required security permissions.
@@ -21,9 +21,10 @@ import org.eclipse.emf.ecore.EObject;
  * support any standard security authentication mechanisms as part
  * of security contract. The application server ignores the security
  * part of the system contracts in this case.
-
- * @since 1.0 */
-public interface ResourceAdapter extends EObject{
+ * @generated
+ * @since 1.0
+ */
+public interface ResourceAdapter extends J2EEEObject {
 
 
 	/**
@@ -319,8 +320,3 @@ public interface ResourceAdapter extends EObject{
 	EList getAdminObjects();
 
 }
-
-
-
-
-

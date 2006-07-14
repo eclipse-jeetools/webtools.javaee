@@ -40,8 +40,8 @@ import org.eclipse.jst.j2ee.common.CommonPackage;
  * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddFactory
  * @model kind="package"
  * @generated
- * @since 1.0 */
-public interface WsddPackage extends EPackage{
+ */
+public interface WsddPackage extends EPackage {
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
@@ -157,7 +157,7 @@ public interface WsddPackage extends EPackage{
   int WEB_SERVICES__WEB_SERVICE_DESCRIPTIONS = CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Web Services</em>' class.
+	 * The number of structural features of the '<em>Web Services</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -182,7 +182,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WEB_SERVICE_DESCRIPTION__JAXRPC_MAPPING_FILE = 0;
+  int WEB_SERVICE_DESCRIPTION__JAXRPC_MAPPING_FILE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Web Service Description Name</b></em>' attribute.
@@ -191,7 +191,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WEB_SERVICE_DESCRIPTION__WEB_SERVICE_DESCRIPTION_NAME = 1;
+  int WEB_SERVICE_DESCRIPTION__WEB_SERVICE_DESCRIPTION_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Wsdl File</b></em>' attribute.
@@ -200,7 +200,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WEB_SERVICE_DESCRIPTION__WSDL_FILE = 2;
+  int WEB_SERVICE_DESCRIPTION__WSDL_FILE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Small Icon</b></em>' attribute.
@@ -209,7 +209,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WEB_SERVICE_DESCRIPTION__SMALL_ICON = 3;
+  int WEB_SERVICE_DESCRIPTION__SMALL_ICON = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Large Icon</b></em>' attribute.
@@ -218,7 +218,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WEB_SERVICE_DESCRIPTION__LARGE_ICON = 4;
+  int WEB_SERVICE_DESCRIPTION__LARGE_ICON = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -227,7 +227,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WEB_SERVICE_DESCRIPTION__DESCRIPTION = 5;
+  int WEB_SERVICE_DESCRIPTION__DESCRIPTION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Display Name</b></em>' attribute.
@@ -236,7 +236,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WEB_SERVICE_DESCRIPTION__DISPLAY_NAME = 6;
+  int WEB_SERVICE_DESCRIPTION__DISPLAY_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Port Components</b></em>' containment reference list.
@@ -245,7 +245,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WEB_SERVICE_DESCRIPTION__PORT_COMPONENTS = 7;
+  int WEB_SERVICE_DESCRIPTION__PORT_COMPONENTS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Description Type</b></em>' containment reference.
@@ -254,7 +254,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WEB_SERVICE_DESCRIPTION__DESCRIPTION_TYPE = 8;
+  int WEB_SERVICE_DESCRIPTION__DESCRIPTION_TYPE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Display Name Type</b></em>' containment reference.
@@ -263,7 +263,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WEB_SERVICE_DESCRIPTION__DISPLAY_NAME_TYPE = 9;
+  int WEB_SERVICE_DESCRIPTION__DISPLAY_NAME_TYPE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Icon Type</b></em>' containment reference.
@@ -272,16 +272,16 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WEB_SERVICE_DESCRIPTION__ICON_TYPE = 10;
+  int WEB_SERVICE_DESCRIPTION__ICON_TYPE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 10;
 
 	/**
-	 * The number of structural features of the the '<em>Web Service Description</em>' class.
+	 * The number of structural features of the '<em>Web Service Description</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int WEB_SERVICE_DESCRIPTION_FEATURE_COUNT = 11;
+  int WEB_SERVICE_DESCRIPTION_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 11;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.PortComponentImpl <em>Port Component</em>}' class.
@@ -300,7 +300,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int PORT_COMPONENT__PORT_COMPONENT_NAME = 0;
+  int PORT_COMPONENT__PORT_COMPONENT_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Service Endpoint Interface</b></em>' attribute.
@@ -309,7 +309,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int PORT_COMPONENT__SERVICE_ENDPOINT_INTERFACE = 1;
+  int PORT_COMPONENT__SERVICE_ENDPOINT_INTERFACE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Small Icon</b></em>' attribute.
@@ -318,7 +318,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int PORT_COMPONENT__SMALL_ICON = 2;
+  int PORT_COMPONENT__SMALL_ICON = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Large Icon</b></em>' attribute.
@@ -327,7 +327,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int PORT_COMPONENT__LARGE_ICON = 3;
+  int PORT_COMPONENT__LARGE_ICON = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -336,7 +336,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int PORT_COMPONENT__DESCRIPTION = 4;
+  int PORT_COMPONENT__DESCRIPTION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Display Name</b></em>' attribute.
@@ -345,7 +345,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int PORT_COMPONENT__DISPLAY_NAME = 5;
+  int PORT_COMPONENT__DISPLAY_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Wsdl Port</b></em>' containment reference.
@@ -354,7 +354,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int PORT_COMPONENT__WSDL_PORT = 6;
+  int PORT_COMPONENT__WSDL_PORT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Service Impl Bean</b></em>' containment reference.
@@ -363,7 +363,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int PORT_COMPONENT__SERVICE_IMPL_BEAN = 7;
+  int PORT_COMPONENT__SERVICE_IMPL_BEAN = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Handlers</b></em>' containment reference list.
@@ -372,7 +372,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int PORT_COMPONENT__HANDLERS = 8;
+  int PORT_COMPONENT__HANDLERS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Description Type</b></em>' containment reference.
@@ -381,7 +381,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int PORT_COMPONENT__DESCRIPTION_TYPE = 9;
+  int PORT_COMPONENT__DESCRIPTION_TYPE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Display Name Type</b></em>' containment reference.
@@ -390,7 +390,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int PORT_COMPONENT__DISPLAY_NAME_TYPE = 10;
+  int PORT_COMPONENT__DISPLAY_NAME_TYPE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 10;
 
 	/**
 	 * The feature id for the '<em><b>Icon Type</b></em>' containment reference.
@@ -399,16 +399,16 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int PORT_COMPONENT__ICON_TYPE = 11;
+  int PORT_COMPONENT__ICON_TYPE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 11;
 
 	/**
-	 * The number of structural features of the the '<em>Port Component</em>' class.
+	 * The number of structural features of the '<em>Port Component</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int PORT_COMPONENT_FEATURE_COUNT = 12;
+  int PORT_COMPONENT_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 12;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WSDLPortImpl <em>WSDL Port</em>}' class.
@@ -457,7 +457,7 @@ public interface WsddPackage extends EPackage{
   int WSDL_PORT__INTERNAL_PREFIX_OR_NS_URI = CommonPackage.QNAME__INTERNAL_PREFIX_OR_NS_URI;
 
 	/**
-	 * The number of structural features of the the '<em>WSDL Port</em>' class.
+	 * The number of structural features of the '<em>WSDL Port</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -482,7 +482,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int SERVICE_IMPL_BEAN__EEJB_LINK = 0;
+  int SERVICE_IMPL_BEAN__EEJB_LINK = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>EServlet Link</b></em>' containment reference.
@@ -491,7 +491,7 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int SERVICE_IMPL_BEAN__ESERVLET_LINK = 1;
+  int SERVICE_IMPL_BEAN__ESERVLET_LINK = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Bean Link</b></em>' containment reference.
@@ -500,16 +500,16 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int SERVICE_IMPL_BEAN__BEAN_LINK = 2;
+  int SERVICE_IMPL_BEAN__BEAN_LINK = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the the '<em>Service Impl Bean</em>' class.
+	 * The number of structural features of the '<em>Service Impl Bean</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int SERVICE_IMPL_BEAN_FEATURE_COUNT = 3;
+  int SERVICE_IMPL_BEAN_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.BeanLinkImpl <em>Bean Link</em>}' class.
@@ -522,13 +522,13 @@ public interface WsddPackage extends EPackage{
   int BEAN_LINK = 8;
 
 	/**
-	 * The number of structural features of the the '<em>Bean Link</em>' class.
+	 * The number of structural features of the '<em>Bean Link</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int BEAN_LINK_FEATURE_COUNT = 0;
+  int BEAN_LINK_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.ServletLinkImpl <em>Servlet Link</em>}' class.
@@ -550,7 +550,7 @@ public interface WsddPackage extends EPackage{
   int SERVLET_LINK__SERVLET_LINK = BEAN_LINK_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Servlet Link</em>' class.
+	 * The number of structural features of the '<em>Servlet Link</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -578,7 +578,7 @@ public interface WsddPackage extends EPackage{
   int EJB_LINK__EJB_LINK = BEAN_LINK_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>EJB Link</em>' class.
+	 * The number of structural features of the '<em>EJB Link</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -705,7 +705,7 @@ public interface WsddPackage extends EPackage{
   int HANDLER__SOAP_ROLES = CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP_FEATURE_COUNT + 4;
 
 	/**
-	 * The number of structural features of the the '<em>Handler</em>' class.
+	 * The number of structural features of the '<em>Handler</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -1186,5 +1186,382 @@ public interface WsddPackage extends EPackage{
 	 * @generated
 	 */
   WsddFactory getWsddFactory();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Defines literals for the meta objects that represent
+	 * <ul>
+	 *   <li>each class,</li>
+	 *   <li>each feature of each class,</li>
+	 *   <li>each enum,</li>
+	 *   <li>and each data type</li>
+	 * </ul>
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	interface Literals  {
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WebServicesImpl <em>Web Services</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WebServicesImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl#getWebServices()
+		 * @generated
+		 */
+		EClass WEB_SERVICES = eINSTANCE.getWebServices();
+
+		/**
+		 * The meta object literal for the '<em><b>Web Service Descriptions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_SERVICES__WEB_SERVICE_DESCRIPTIONS = eINSTANCE.getWebServices_WebServiceDescriptions();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WebServiceDescriptionImpl <em>Web Service Description</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WebServiceDescriptionImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl#getWebServiceDescription()
+		 * @generated
+		 */
+		EClass WEB_SERVICE_DESCRIPTION = eINSTANCE.getWebServiceDescription();
+
+		/**
+		 * The meta object literal for the '<em><b>Jaxrpc Mapping File</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_SERVICE_DESCRIPTION__JAXRPC_MAPPING_FILE = eINSTANCE.getWebServiceDescription_JaxrpcMappingFile();
+
+		/**
+		 * The meta object literal for the '<em><b>Web Service Description Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_SERVICE_DESCRIPTION__WEB_SERVICE_DESCRIPTION_NAME = eINSTANCE.getWebServiceDescription_WebServiceDescriptionName();
+
+		/**
+		 * The meta object literal for the '<em><b>Wsdl File</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_SERVICE_DESCRIPTION__WSDL_FILE = eINSTANCE.getWebServiceDescription_WsdlFile();
+
+		/**
+		 * The meta object literal for the '<em><b>Small Icon</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_SERVICE_DESCRIPTION__SMALL_ICON = eINSTANCE.getWebServiceDescription_SmallIcon();
+
+		/**
+		 * The meta object literal for the '<em><b>Large Icon</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_SERVICE_DESCRIPTION__LARGE_ICON = eINSTANCE.getWebServiceDescription_LargeIcon();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_SERVICE_DESCRIPTION__DESCRIPTION = eINSTANCE.getWebServiceDescription_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Display Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_SERVICE_DESCRIPTION__DISPLAY_NAME = eINSTANCE.getWebServiceDescription_DisplayName();
+
+		/**
+		 * The meta object literal for the '<em><b>Port Components</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_SERVICE_DESCRIPTION__PORT_COMPONENTS = eINSTANCE.getWebServiceDescription_PortComponents();
+
+		/**
+		 * The meta object literal for the '<em><b>Description Type</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_SERVICE_DESCRIPTION__DESCRIPTION_TYPE = eINSTANCE.getWebServiceDescription_DescriptionType();
+
+		/**
+		 * The meta object literal for the '<em><b>Display Name Type</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_SERVICE_DESCRIPTION__DISPLAY_NAME_TYPE = eINSTANCE.getWebServiceDescription_DisplayNameType();
+
+		/**
+		 * The meta object literal for the '<em><b>Icon Type</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_SERVICE_DESCRIPTION__ICON_TYPE = eINSTANCE.getWebServiceDescription_IconType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.PortComponentImpl <em>Port Component</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.PortComponentImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl#getPortComponent()
+		 * @generated
+		 */
+		EClass PORT_COMPONENT = eINSTANCE.getPortComponent();
+
+		/**
+		 * The meta object literal for the '<em><b>Port Component Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PORT_COMPONENT__PORT_COMPONENT_NAME = eINSTANCE.getPortComponent_PortComponentName();
+
+		/**
+		 * The meta object literal for the '<em><b>Service Endpoint Interface</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PORT_COMPONENT__SERVICE_ENDPOINT_INTERFACE = eINSTANCE.getPortComponent_ServiceEndpointInterface();
+
+		/**
+		 * The meta object literal for the '<em><b>Small Icon</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PORT_COMPONENT__SMALL_ICON = eINSTANCE.getPortComponent_SmallIcon();
+
+		/**
+		 * The meta object literal for the '<em><b>Large Icon</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PORT_COMPONENT__LARGE_ICON = eINSTANCE.getPortComponent_LargeIcon();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PORT_COMPONENT__DESCRIPTION = eINSTANCE.getPortComponent_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Display Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PORT_COMPONENT__DISPLAY_NAME = eINSTANCE.getPortComponent_DisplayName();
+
+		/**
+		 * The meta object literal for the '<em><b>Wsdl Port</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PORT_COMPONENT__WSDL_PORT = eINSTANCE.getPortComponent_WsdlPort();
+
+		/**
+		 * The meta object literal for the '<em><b>Service Impl Bean</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PORT_COMPONENT__SERVICE_IMPL_BEAN = eINSTANCE.getPortComponent_ServiceImplBean();
+
+		/**
+		 * The meta object literal for the '<em><b>Handlers</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PORT_COMPONENT__HANDLERS = eINSTANCE.getPortComponent_Handlers();
+
+		/**
+		 * The meta object literal for the '<em><b>Description Type</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PORT_COMPONENT__DESCRIPTION_TYPE = eINSTANCE.getPortComponent_DescriptionType();
+
+		/**
+		 * The meta object literal for the '<em><b>Display Name Type</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PORT_COMPONENT__DISPLAY_NAME_TYPE = eINSTANCE.getPortComponent_DisplayNameType();
+
+		/**
+		 * The meta object literal for the '<em><b>Icon Type</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PORT_COMPONENT__ICON_TYPE = eINSTANCE.getPortComponent_IconType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WSDLPortImpl <em>WSDL Port</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WSDLPortImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl#getWSDLPort()
+		 * @generated
+		 */
+		EClass WSDL_PORT = eINSTANCE.getWSDLPort();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.ServiceImplBeanImpl <em>Service Impl Bean</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.ServiceImplBeanImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl#getServiceImplBean()
+		 * @generated
+		 */
+		EClass SERVICE_IMPL_BEAN = eINSTANCE.getServiceImplBean();
+
+		/**
+		 * The meta object literal for the '<em><b>EEJB Link</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_IMPL_BEAN__EEJB_LINK = eINSTANCE.getServiceImplBean_EEJBLink();
+
+		/**
+		 * The meta object literal for the '<em><b>EServlet Link</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_IMPL_BEAN__ESERVLET_LINK = eINSTANCE.getServiceImplBean_EServletLink();
+
+		/**
+		 * The meta object literal for the '<em><b>Bean Link</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_IMPL_BEAN__BEAN_LINK = eINSTANCE.getServiceImplBean_BeanLink();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.ServletLinkImpl <em>Servlet Link</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.ServletLinkImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl#getServletLink()
+		 * @generated
+		 */
+		EClass SERVLET_LINK = eINSTANCE.getServletLink();
+
+		/**
+		 * The meta object literal for the '<em><b>Servlet Link</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVLET_LINK__SERVLET_LINK = eINSTANCE.getServletLink_ServletLink();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.EJBLinkImpl <em>EJB Link</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.EJBLinkImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl#getEJBLink()
+		 * @generated
+		 */
+		EClass EJB_LINK = eINSTANCE.getEJBLink();
+
+		/**
+		 * The meta object literal for the '<em><b>Ejb Link</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EJB_LINK__EJB_LINK = eINSTANCE.getEJBLink_EjbLink();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.HandlerImpl <em>Handler</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.HandlerImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl#getHandler()
+		 * @generated
+		 */
+		EClass HANDLER = eINSTANCE.getHandler();
+
+		/**
+		 * The meta object literal for the '<em><b>Handler Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute HANDLER__HANDLER_NAME = eINSTANCE.getHandler_HandlerName();
+
+		/**
+		 * The meta object literal for the '<em><b>Handler Class</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute HANDLER__HANDLER_CLASS = eINSTANCE.getHandler_HandlerClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Init Params</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference HANDLER__INIT_PARAMS = eINSTANCE.getHandler_InitParams();
+
+		/**
+		 * The meta object literal for the '<em><b>Soap Headers</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference HANDLER__SOAP_HEADERS = eINSTANCE.getHandler_SoapHeaders();
+
+		/**
+		 * The meta object literal for the '<em><b>Soap Roles</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference HANDLER__SOAP_ROLES = eINSTANCE.getHandler_SoapRoles();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.BeanLinkImpl <em>Bean Link</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.BeanLinkImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl#getBeanLink()
+		 * @generated
+		 */
+		EClass BEAN_LINK = eINSTANCE.getBeanLink();
+
+	}
 
 } //WsddPackage

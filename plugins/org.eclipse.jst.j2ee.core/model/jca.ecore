@@ -36,7 +36,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="resourceAdapter" lowerBound="1"
         eType="#//ResourceAdapter" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ResourceAdapter">
+  <eClassifiers xsi:type="ecore:EClass" name="ResourceAdapter" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Specifies information about the resource adapter. The information includes fully-qualified names of class/interfaces required as part of the connector architecture specified contracts, level of transaction support provided, configurable properties for ManagedConnectionFactory instances, one or more authentication mechanisms supported and additional&#xD;&#xA;required security permissions.&#xD;&#xA;&#xD;&#xA;If there is no authentication-mechanism specified as part of&#xD;&#xA;resource adapter element then the resource adapter does not&#xD;&#xA;support any standard security authentication mechanisms as part&#xD;&#xA;of security contract. The application server ignores the security&#xD;&#xA;part of the system contracts in this case.&#xD;&#xA;"/>
     </eAnnotations>
@@ -114,7 +114,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AuthenticationMechanism">
+  <eClassifiers xsi:type="ecore:EClass" name="AuthenticationMechanism" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The element authentication-mechanism specifies an authentication mechanism supported by the resource adapter. Note that this support is for the resource adapter and not for the underlying EIS instance. The optional description specifies any resource adapter specific requirement for the support of security contract and authentication mechanism.&#xD;&#xA;&#xD;&#xA;Note that BasicPassword mechanism type should support the&#xD;&#xA;javax.resource.spi.security.PasswordCredential interface.&#xD;&#xA;The Kerbv5 mechanism type should support the&#xD;&#xA;javax.resource.spi.security.GenericCredential interface.&#xD;&#xA;"/>
     </eAnnotations>
@@ -156,7 +156,7 @@
     <eLiterals name="BasicPassword"/>
     <eLiterals name="Kerbv5" value="1"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ConfigProperty">
+  <eClassifiers xsi:type="ecore:EClass" name="ConfigProperty" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The config property contains a declaration of a single&#xD;&#xA;configuration property for a ManagedConnectionFactory instance.&#xD;&#xA;&#xD;&#xA;Each ManagedConnectionFactory instance creates connections to a specific EIS instance based on the properties configured on the ManagedConnectionFactory instance. The configurable properties are specified only once in the deployment descriptor, even though a resource adapter can be used to configure multiple ManagedConnnection-Factory instances (that create connections to different instances of the same EIS).&#xD;&#xA;&#xD;&#xA;The declaration consists of an optional description, name, type&#xD;&#xA;and an optional value of the configuration property. If the resource&#xD;&#xA;adapter provider does not specify a value than the deployer is&#xD;&#xA;responsible for providing a valid value for a configuration property.&#xD;&#xA;&#xD;&#xA;Any bounds or well-defined values of properties should be described in the description.&#xD;&#xA;"/>
     </eAnnotations>
@@ -187,7 +187,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SecurityPermission">
+  <eClassifiers xsi:type="ecore:EClass" name="SecurityPermission" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Specifies a security permission that is required by the resource adapter code.&#xD;&#xA;&#xD;&#xA;The security permission listed in the deployment descriptor are ones that are different from those required by the default permission set as specified in the connector specification. The optional description can mention specific reason that resource adapter requires a given security permission.&#xD;&#xA;"/>
     </eAnnotations>
@@ -208,7 +208,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="License">
+  <eClassifiers xsi:type="ecore:EClass" name="License" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Specifies licensing requirements for the resource adapter module. Specifies whether a license is required to deploy and use this resource adapter, and an optional description of the licensing terms (examples: duration of license, number of connection restrictions)."/>
     </eAnnotations>
@@ -227,7 +227,7 @@
     <eLiterals name="LocalTransaction" value="1"/>
     <eLiterals name="XATransaction" value="2"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="InboundResourceAdapter">
+  <eClassifiers xsi:type="ecore:EClass" name="InboundResourceAdapter" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="@version J2EE1.4&#xD;&#xA;The inbound-resourceadapterType specifies information&#xD;&#xA;about an inbound resource adapter. This contains information&#xD;&#xA;specific to the implementation of the resource adapter&#xD;&#xA;library as specified through the messageadapter element."/>
     </eAnnotations>
@@ -238,7 +238,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OutboundResourceAdapter">
+  <eClassifiers xsi:type="ecore:EClass" name="OutboundResourceAdapter" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="@version J2EE1.4&#xD;&#xA;The outbound-resourceadapterType specifies information about&#xD;&#xA;an outbound resource adapter. The information includes fully&#xD;&#xA;qualified names of classes/interfaces required as part of&#xD;&#xA;the connector architecture specified contracts for&#xD;&#xA;connection management, level of transaction support&#xD;&#xA;provided, one or more authentication mechanisms supported&#xD;&#xA;and additional required security permissions.&#xD;&#xA;&#xD;&#xA;If there is no authentication-mechanism specified as part of&#xD;&#xA;resource adapter element then the resource adapter does not&#xD;&#xA;support any standard security authentication mechanisms as&#xD;&#xA;part of security contract. The application server ignores&#xD;&#xA;the security part of the system contracts in this case."/>
     </eAnnotations>
@@ -255,14 +255,14 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="authenticationMechanisms"
         upperBound="-1" eType="#//AuthenticationMechanism" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MessageAdapter">
+  <eClassifiers xsi:type="ecore:EClass" name="MessageAdapter" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="@version J2EE1.4&#xD;&#xA;The messageadapterType specifies information about the&#xD;&#xA;messaging capabilities of the resource adapter. This&#xD;&#xA;contains information specific to the implementation of the&#xD;&#xA;resource adapter library as specified through the&#xD;&#xA;messagelistener element."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="messageListeners" lowerBound="1"
         upperBound="-1" eType="#//MessageListener" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ConnectionDefinition">
+  <eClassifiers xsi:type="ecore:EClass" name="ConnectionDefinition" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="@version J2EE1.4&#xD;&#xA;The connection-definitionType defines a set of connection&#xD;&#xA;interfaces and classes pertaining to a particular connection&#xD;&#xA;type. This also includes configurable properties for&#xD;&#xA;ManagedConnectionFactory instances that may be produced out&#xD;&#xA;of this set."/>
     </eAnnotations>
@@ -297,7 +297,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="configProperties" upperBound="-1"
         eType="#//ConfigProperty" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AdminObject">
+  <eClassifiers xsi:type="ecore:EClass" name="AdminObject" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="@version J2EE1.4&#xD;&#xA;The adminobjectType specifies information about an&#xD;&#xA;administered object.  Administered objects are specific to a&#xD;&#xA;messaging style or message provider.  This contains&#xD;&#xA;information on the Java type of the interface implemented by&#xD;&#xA;an administered object, its Java class name and its&#xD;&#xA;configuration properties."/>
     </eAnnotations>
@@ -314,7 +314,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="configProperties" upperBound="-1"
         eType="#//ConfigProperty" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MessageListener">
+  <eClassifiers xsi:type="ecore:EClass" name="MessageListener" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="@version J2EE1.4&#xD;&#xA;The messagelistenerType specifies information about a&#xD;&#xA;specific message listener supported by the messaging&#xD;&#xA;resource adapter. It contains information on the Java type&#xD;&#xA;of the message listener interface and an activation&#xD;&#xA;specification."/>
     </eAnnotations>
@@ -326,7 +326,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="activationSpec" lowerBound="1"
         eType="#//ActivationSpec" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ActivationSpec">
+  <eClassifiers xsi:type="ecore:EClass" name="ActivationSpec" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="@version J2EE1.4&#xD;&#xA;The activationspecType specifies an activation&#xD;&#xA;specification.  The information includes fully qualified&#xD;&#xA;Java class name of an activation specification and a set of&#xD;&#xA;required configuration property names."/>
     </eAnnotations>
@@ -338,7 +338,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="requiredConfigProperties"
         upperBound="-1" eType="#//RequiredConfigPropertyType" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RequiredConfigPropertyType">
+  <eClassifiers xsi:type="ecore:EClass" name="RequiredConfigPropertyType" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="@version J2EE1.4&#xD;&#xA;The required-config-propertyType contains a declaration&#xD;&#xA;of a single configuration property used for specifying a&#xD;&#xA;required configuration property name. It is used&#xD;&#xA;by required-config-property elements.&#xD;&#xA;&#xD;&#xA;Example:&#xD;&#xA;&#xD;&#xA;&lt;required-config-property>Destination&lt;/required-config-property>"/>
     </eAnnotations>

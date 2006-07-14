@@ -13,20 +13,15 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.impl;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Container;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DeploymentDescriptorLoadException;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
@@ -60,7 +55,7 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return CommonarchivePackage.eINSTANCE.getEJBJarFile();
+		return CommonarchivePackage.Literals.EJB_JAR_FILE;
 	}
 
 	/**
@@ -177,121 +172,12 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.EJB_JAR_FILE__URI:
-				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
-			case CommonarchivePackage.EJB_JAR_FILE__LAST_MODIFIED:
-				return isSetLastModified();
-			case CommonarchivePackage.EJB_JAR_FILE__SIZE:
-				return isSetSize();
-			case CommonarchivePackage.EJB_JAR_FILE__DIRECTORY_ENTRY:
-				return isSetDirectoryEntry();
-			case CommonarchivePackage.EJB_JAR_FILE__ORIGINAL_URI:
-				return ORIGINAL_URI_EDEFAULT == null ? originalURI != null : !ORIGINAL_URI_EDEFAULT.equals(originalURI);
-			case CommonarchivePackage.EJB_JAR_FILE__LOADING_CONTAINER:
-				return loadingContainer != null;
-			case CommonarchivePackage.EJB_JAR_FILE__CONTAINER:
-				return getContainer() != null;
-			case CommonarchivePackage.EJB_JAR_FILE__FILES:
-				return files != null && !files.isEmpty();
-			case CommonarchivePackage.EJB_JAR_FILE__TYPES:
-				return types != null && !types.isEmpty();
-			case CommonarchivePackage.EJB_JAR_FILE__DEPLOYMENT_DESCRIPTOR:
-				return deploymentDescriptor != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.EJB_JAR_FILE__URI:
-				setURI((String)newValue);
-				return;
-			case CommonarchivePackage.EJB_JAR_FILE__LAST_MODIFIED:
-				setLastModified(((Long)newValue).longValue());
-				return;
-			case CommonarchivePackage.EJB_JAR_FILE__SIZE:
-				setSize(((Long)newValue).longValue());
-				return;
-			case CommonarchivePackage.EJB_JAR_FILE__DIRECTORY_ENTRY:
-				setDirectoryEntry(((Boolean)newValue).booleanValue());
-				return;
-			case CommonarchivePackage.EJB_JAR_FILE__ORIGINAL_URI:
-				setOriginalURI((String)newValue);
-				return;
-			case CommonarchivePackage.EJB_JAR_FILE__LOADING_CONTAINER:
-				setLoadingContainer((Container)newValue);
-				return;
-			case CommonarchivePackage.EJB_JAR_FILE__CONTAINER:
-				setContainer((Container)newValue);
-				return;
-			case CommonarchivePackage.EJB_JAR_FILE__FILES:
-				getFiles().clear();
-				getFiles().addAll((Collection)newValue);
-				return;
-			case CommonarchivePackage.EJB_JAR_FILE__TYPES:
-				getTypes().clear();
-				getTypes().addAll((Collection)newValue);
-				return;
-			case CommonarchivePackage.EJB_JAR_FILE__DEPLOYMENT_DESCRIPTOR:
-				setDeploymentDescriptor((EJBJar)newValue);
-				return;
-		}
-		eDynamicSet(eFeature, newValue);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.EJB_JAR_FILE__URI:
-				setURI(URI_EDEFAULT);
-				return;
-			case CommonarchivePackage.EJB_JAR_FILE__LAST_MODIFIED:
-				unsetLastModified();
-				return;
-			case CommonarchivePackage.EJB_JAR_FILE__SIZE:
-				unsetSize();
-				return;
-			case CommonarchivePackage.EJB_JAR_FILE__DIRECTORY_ENTRY:
-				unsetDirectoryEntry();
-				return;
-			case CommonarchivePackage.EJB_JAR_FILE__ORIGINAL_URI:
-				setOriginalURI(ORIGINAL_URI_EDEFAULT);
-				return;
-			case CommonarchivePackage.EJB_JAR_FILE__LOADING_CONTAINER:
-				setLoadingContainer((Container)null);
-				return;
-			case CommonarchivePackage.EJB_JAR_FILE__CONTAINER:
-				setContainer((Container)null);
-				return;
-			case CommonarchivePackage.EJB_JAR_FILE__FILES:
-				getFiles().clear();
-				return;
-			case CommonarchivePackage.EJB_JAR_FILE__TYPES:
-				getTypes().clear();
-				return;
-			case CommonarchivePackage.EJB_JAR_FILE__DEPLOYMENT_DESCRIPTOR:
-				setDeploymentDescriptor((EJBJar)null);
-				return;
-		}
-		eDynamicUnset(eFeature);
-	}
-
-	/**
 	 * @generated This field/method will be replaced during code generation
 	 */
 	public EJBJar getDeploymentDescriptorGen() {
 		if (deploymentDescriptor != null && deploymentDescriptor.eIsProxy()) {
-			EJBJar oldDeploymentDescriptor = deploymentDescriptor;
-			deploymentDescriptor = (EJBJar)eResolveProxy((InternalEObject)deploymentDescriptor);
+			InternalEObject oldDeploymentDescriptor = (InternalEObject)deploymentDescriptor;
+			deploymentDescriptor = (EJBJar)eResolveProxy(oldDeploymentDescriptor);
 			if (deploymentDescriptor != oldDeploymentDescriptor) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonarchivePackage.EJB_JAR_FILE__DEPLOYMENT_DESCRIPTOR, oldDeploymentDescriptor, deploymentDescriptor));
@@ -319,91 +205,58 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.EJB_JAR_FILE__CONTAINER:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, CommonarchivePackage.EJB_JAR_FILE__CONTAINER, msgs);
-				case CommonarchivePackage.EJB_JAR_FILE__FILES:
-					return ((InternalEList)getFiles()).basicAdd(otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.EJB_JAR_FILE__CONTAINER:
-					return eBasicSetContainer(null, CommonarchivePackage.EJB_JAR_FILE__CONTAINER, msgs);
-				case CommonarchivePackage.EJB_JAR_FILE__FILES:
-					return ((InternalEList)getFiles()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case CommonarchivePackage.EJB_JAR_FILE__CONTAINER:
-					return eContainer.eInverseRemove(this, CommonarchivePackage.CONTAINER__FILES, Container.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.EJB_JAR_FILE__URI:
-				return getURI();
-			case CommonarchivePackage.EJB_JAR_FILE__LAST_MODIFIED:
-				return new Long(getLastModified());
-			case CommonarchivePackage.EJB_JAR_FILE__SIZE:
-				return new Long(getSize());
-			case CommonarchivePackage.EJB_JAR_FILE__DIRECTORY_ENTRY:
-				return isDirectoryEntry() ? Boolean.TRUE : Boolean.FALSE;
-			case CommonarchivePackage.EJB_JAR_FILE__ORIGINAL_URI:
-				return getOriginalURI();
-			case CommonarchivePackage.EJB_JAR_FILE__LOADING_CONTAINER:
-				if (resolve) return getLoadingContainer();
-				return basicGetLoadingContainer();
-			case CommonarchivePackage.EJB_JAR_FILE__CONTAINER:
-				return getContainer();
-			case CommonarchivePackage.EJB_JAR_FILE__FILES:
-				return getFiles();
-			case CommonarchivePackage.EJB_JAR_FILE__TYPES:
-				return getTypes();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case CommonarchivePackage.EJB_JAR_FILE__DEPLOYMENT_DESCRIPTOR:
 				if (resolve) return getDeploymentDescriptor();
 				return basicGetDeploymentDescriptor();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case CommonarchivePackage.EJB_JAR_FILE__DEPLOYMENT_DESCRIPTOR:
+				setDeploymentDescriptor((EJBJar)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case CommonarchivePackage.EJB_JAR_FILE__DEPLOYMENT_DESCRIPTOR:
+				setDeploymentDescriptor((EJBJar)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case CommonarchivePackage.EJB_JAR_FILE__DEPLOYMENT_DESCRIPTOR:
+				return deploymentDescriptor != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 }

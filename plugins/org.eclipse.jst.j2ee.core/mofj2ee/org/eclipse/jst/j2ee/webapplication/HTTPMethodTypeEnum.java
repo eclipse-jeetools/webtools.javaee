@@ -118,7 +118,7 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final HTTPMethodTypeEnum GET_LITERAL = new HTTPMethodTypeEnum(GET, "GET");//$NON-NLS-1$
+	public static final HTTPMethodTypeEnum GET_LITERAL = new HTTPMethodTypeEnum(GET, "GET", "GET");//$NON-NLS-1$
 
 	/**
 	 * The '<em><b>POST</b></em>' literal object.
@@ -132,7 +132,7 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final HTTPMethodTypeEnum POST_LITERAL = new HTTPMethodTypeEnum(POST, "POST");//$NON-NLS-1$
+	public static final HTTPMethodTypeEnum POST_LITERAL = new HTTPMethodTypeEnum(POST, "POST", "POST");//$NON-NLS-1$
 
 	/**
 	 * The '<em><b>PUT</b></em>' literal object.
@@ -146,7 +146,7 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final HTTPMethodTypeEnum PUT_LITERAL = new HTTPMethodTypeEnum(PUT, "PUT");//$NON-NLS-1$
+	public static final HTTPMethodTypeEnum PUT_LITERAL = new HTTPMethodTypeEnum(PUT, "PUT", "PUT");//$NON-NLS-1$
 
 	/**
 	 * The '<em><b>DELETE</b></em>' literal object.
@@ -160,7 +160,7 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final HTTPMethodTypeEnum DELETE_LITERAL = new HTTPMethodTypeEnum(DELETE, "DELETE");//$NON-NLS-1$
+	public static final HTTPMethodTypeEnum DELETE_LITERAL = new HTTPMethodTypeEnum(DELETE, "DELETE", "DELETE");//$NON-NLS-1$
 
 	/**
 	 * The '<em><b>HEAD</b></em>' literal object.
@@ -174,7 +174,7 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final HTTPMethodTypeEnum HEAD_LITERAL = new HTTPMethodTypeEnum(HEAD, "HEAD");//$NON-NLS-1$
+	public static final HTTPMethodTypeEnum HEAD_LITERAL = new HTTPMethodTypeEnum(HEAD, "HEAD", "HEAD");//$NON-NLS-1$
 
 	/**
 	 * The '<em><b>OPTIONS</b></em>' literal object.
@@ -188,7 +188,7 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final HTTPMethodTypeEnum OPTIONS_LITERAL = new HTTPMethodTypeEnum(OPTIONS, "OPTIONS");//$NON-NLS-1$
+	public static final HTTPMethodTypeEnum OPTIONS_LITERAL = new HTTPMethodTypeEnum(OPTIONS, "OPTIONS", "OPTIONS");//$NON-NLS-1$
 
 	/**
 	 * The '<em><b>TRACE</b></em>' literal object.
@@ -202,7 +202,7 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final HTTPMethodTypeEnum TRACE_LITERAL = new HTTPMethodTypeEnum(TRACE, "TRACE");//$NON-NLS-1$
+	public static final HTTPMethodTypeEnum TRACE_LITERAL = new HTTPMethodTypeEnum(TRACE, "TRACE", "TRACE");//$NON-NLS-1$
 
 	/**
 	 * An array of all the '<em><b>HTTP Method Type Enum</b></em>' enumerators.
@@ -230,17 +230,17 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>HTTP Method Type Enum</b></em>' literal with the specified name.
+	 * Returns the '<em><b>HTTP Method Type Enum</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * @param name passes literal name
 	 * @return literal instance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static HTTPMethodTypeEnum get(String name) {
+	public static HTTPMethodTypeEnum get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			HTTPMethodTypeEnum result = VALUES_ARRAY[i];
-			if (result.toString().equals(name)) {
+			if (result.toString().equals(literal)) {
 				return result;
 			}
 		}
@@ -248,7 +248,23 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>HTTP Method Type Enum</b></em>' literal with the specified value.
+	 * Returns the '<em><b>HTTP Method Type Enum</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static HTTPMethodTypeEnum getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			HTTPMethodTypeEnum result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>HTTP Method Type Enum</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * @param value passes literal value
 	 * @return literal instance
@@ -274,8 +290,8 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private HTTPMethodTypeEnum(int value, String name) {
-		super(value, name);
+	private HTTPMethodTypeEnum(int value, String name, String literal) {
+		super(value, name, literal);
 	}
 
 } //HTTPMethodTypeEnum

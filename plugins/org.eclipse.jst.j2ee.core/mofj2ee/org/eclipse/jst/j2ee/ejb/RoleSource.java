@@ -11,12 +11,14 @@
 package org.eclipse.jst.j2ee.ejb;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 /**
  * Designates the source of a role that participates in a relationship. A relationship-role-source element uniquely identifies an entity bean.
  * @invariant The content of each role-source element shall refer to an existing entity bean, entity bean reference.
- * @since 1.0 */
-public interface RoleSource extends EObject{
+ * @since 1.0 
+ * @generated
+ */
+public interface RoleSource extends J2EEEObject {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the Description attribute

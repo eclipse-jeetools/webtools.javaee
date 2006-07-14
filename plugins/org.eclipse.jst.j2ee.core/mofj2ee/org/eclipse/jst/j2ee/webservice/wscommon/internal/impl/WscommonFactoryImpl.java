@@ -12,7 +12,9 @@ package org.eclipse.jst.j2ee.webservice.wscommon.internal.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.jst.j2ee.webservice.wscommon.DescriptionType;
 import org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType;
 import org.eclipse.jst.j2ee.webservice.wscommon.InitParam;
@@ -31,6 +33,25 @@ import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
  */
 public class WscommonFactoryImpl extends EFactoryImpl implements WscommonFactory
 {
+	/**
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static WscommonFactory init() {
+		try {
+			WscommonFactory theWscommonFactory = (WscommonFactory)EPackage.Registry.INSTANCE.getEFactory("wscommon.xmi"); 
+			if (theWscommonFactory != null) {
+				return theWscommonFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new WscommonFactoryImpl();
+	}
+
 	/**
 	 * Creates an instance of the factory.
 	 * <!-- begin-user-doc -->

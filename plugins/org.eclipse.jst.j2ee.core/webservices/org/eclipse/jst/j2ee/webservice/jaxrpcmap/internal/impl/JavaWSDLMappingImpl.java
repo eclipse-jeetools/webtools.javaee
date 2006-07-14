@@ -16,12 +16,11 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionMapping;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.InterfaceMapping;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaWSDLMapping;
@@ -46,7 +45,7 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.PackageMapping;
  *
  * @generated
  */
-public class JavaWSDLMappingImpl extends EObjectImpl implements JavaWSDLMapping
+public class JavaWSDLMappingImpl extends J2EEEObjectImpl implements JavaWSDLMapping
 {
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -123,7 +122,7 @@ public class JavaWSDLMappingImpl extends EObjectImpl implements JavaWSDLMapping
 	 * @generated
 	 */
   protected EClass eStaticClass() {
-		return JaxrpcmapPackage.eINSTANCE.getJavaWSDLMapping();
+		return JaxrpcmapPackage.Literals.JAVA_WSDL_MAPPING;
 	}
 
 	/**
@@ -197,34 +196,30 @@ public class JavaWSDLMappingImpl extends EObjectImpl implements JavaWSDLMapping
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JaxrpcmapPackage.JAVA_WSDL_MAPPING__PACKAGE_MAPPINGS:
-					return ((InternalEList)getPackageMappings()).basicRemove(otherEnd, msgs);
-				case JaxrpcmapPackage.JAVA_WSDL_MAPPING__JAVA_XML_TYPE_MAPPINGS:
-					return ((InternalEList)getJavaXMLTypeMappings()).basicRemove(otherEnd, msgs);
-				case JaxrpcmapPackage.JAVA_WSDL_MAPPING__EXCEPTION_MAPPINGS:
-					return ((InternalEList)getExceptionMappings()).basicRemove(otherEnd, msgs);
-				case JaxrpcmapPackage.JAVA_WSDL_MAPPING__INTERFACE_MAPPINGS:
-					return ((InternalEList)getInterfaceMappings()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case JaxrpcmapPackage.JAVA_WSDL_MAPPING__PACKAGE_MAPPINGS:
+				return ((InternalEList)getPackageMappings()).basicRemove(otherEnd, msgs);
+			case JaxrpcmapPackage.JAVA_WSDL_MAPPING__JAVA_XML_TYPE_MAPPINGS:
+				return ((InternalEList)getJavaXMLTypeMappings()).basicRemove(otherEnd, msgs);
+			case JaxrpcmapPackage.JAVA_WSDL_MAPPING__EXCEPTION_MAPPINGS:
+				return ((InternalEList)getExceptionMappings()).basicRemove(otherEnd, msgs);
+			case JaxrpcmapPackage.JAVA_WSDL_MAPPING__INTERFACE_MAPPINGS:
+				return ((InternalEList)getInterfaceMappings()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case JaxrpcmapPackage.JAVA_WSDL_MAPPING__ID:
 				return getId();
 			case JaxrpcmapPackage.JAVA_WSDL_MAPPING__PACKAGE_MAPPINGS:
@@ -236,16 +231,16 @@ public class JavaWSDLMappingImpl extends EObjectImpl implements JavaWSDLMapping
 			case JaxrpcmapPackage.JAVA_WSDL_MAPPING__INTERFACE_MAPPINGS:
 				return getInterfaceMappings();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case JaxrpcmapPackage.JAVA_WSDL_MAPPING__ID:
 				setId((String)newValue);
 				return;
@@ -266,16 +261,16 @@ public class JavaWSDLMappingImpl extends EObjectImpl implements JavaWSDLMapping
 				getInterfaceMappings().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case JaxrpcmapPackage.JAVA_WSDL_MAPPING__ID:
 				setId(ID_EDEFAULT);
 				return;
@@ -292,16 +287,16 @@ public class JavaWSDLMappingImpl extends EObjectImpl implements JavaWSDLMapping
 				getInterfaceMappings().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case JaxrpcmapPackage.JAVA_WSDL_MAPPING__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case JaxrpcmapPackage.JAVA_WSDL_MAPPING__PACKAGE_MAPPINGS:
@@ -313,7 +308,7 @@ public class JavaWSDLMappingImpl extends EObjectImpl implements JavaWSDLMapping
 			case JaxrpcmapPackage.JAVA_WSDL_MAPPING__INTERFACE_MAPPINGS:
 				return interfaceMappings != null && !interfaceMappings.isEmpty();
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

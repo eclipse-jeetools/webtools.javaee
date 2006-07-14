@@ -14,7 +14,9 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveWrappedException;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 
-
+/**
+ * @generated
+ */
 public interface WebModuleRef extends ModuleRef {
 	WebApp getWebApp() throws ArchiveWrappedException;
 

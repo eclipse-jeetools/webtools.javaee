@@ -11,22 +11,17 @@
 package org.eclipse.jst.j2ee.ejb.internal.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jst.j2ee.common.SecurityIdentity;
 import org.eclipse.jst.j2ee.ejb.AcknowledgeMode;
 import org.eclipse.jst.j2ee.ejb.ActivationConfig;
-import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
 import org.eclipse.jst.j2ee.ejb.MessageDrivenDestination;
@@ -35,7 +30,7 @@ import org.eclipse.jst.j2ee.ejb.TransactionType;
 /**
  * @generated
  */
-public class MessageDrivenImpl extends EnterpriseBeanImpl implements MessageDriven{
+public class MessageDrivenImpl extends EnterpriseBeanImpl implements MessageDriven {
 
 	/**
 	 * The default value of the '{@link #getTransactionType() <em>Transaction Type</em>}' attribute.
@@ -163,7 +158,7 @@ public class MessageDrivenImpl extends EnterpriseBeanImpl implements MessageDriv
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return EjbPackage.eINSTANCE.getMessageDriven();
+		return EjbPackage.Literals.MESSAGE_DRIVEN;
 	}
 
 public boolean isMessageDriven() {
@@ -380,8 +375,8 @@ public boolean isMessageDriven() {
 	 */
 	public JavaClass getMessageDestination() {
 		if (messageDestination != null && messageDestination.eIsProxy()) {
-			JavaClass oldMessageDestination = messageDestination;
-			messageDestination = (JavaClass)eResolveProxy((InternalEObject)messageDestination);
+			InternalEObject oldMessageDestination = (InternalEObject)messageDestination;
+			messageDestination = (JavaClass)eResolveProxy(oldMessageDestination);
 			if (messageDestination != oldMessageDestination) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EjbPackage.MESSAGE_DRIVEN__MESSAGE_DESTINATION, oldMessageDestination, messageDestination));
@@ -439,8 +434,8 @@ public boolean isMessageDriven() {
 	 */
 	public JavaClass getMessagingType() {
 		if (messagingType != null && messagingType.eIsProxy()) {
-			JavaClass oldMessagingType = messagingType;
-			messagingType = (JavaClass)eResolveProxy((InternalEObject)messagingType);
+			InternalEObject oldMessagingType = (InternalEObject)messagingType;
+			messagingType = (JavaClass)eResolveProxy(oldMessagingType);
 			if (messagingType != oldMessagingType) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EjbPackage.MESSAGE_DRIVEN__MESSAGING_TYPE, oldMessagingType, messagingType));
@@ -475,24 +470,14 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.MESSAGE_DRIVEN__EJB_JAR:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, EjbPackage.MESSAGE_DRIVEN__EJB_JAR, msgs);
-				case EjbPackage.MESSAGE_DRIVEN__DESTINATION:
-					if (destination != null)
-						msgs = ((InternalEObject)destination).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EjbPackage.MESSAGE_DRIVEN__DESTINATION, null, msgs);
-					return basicSetDestination((MessageDrivenDestination)otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.MESSAGE_DRIVEN__DESTINATION:
+				if (destination != null)
+					msgs = ((InternalEObject)destination).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EjbPackage.MESSAGE_DRIVEN__DESTINATION, null, msgs);
+				return basicSetDestination((MessageDrivenDestination)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -500,44 +485,14 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.MESSAGE_DRIVEN__ICONS:
-					return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
-				case EjbPackage.MESSAGE_DRIVEN__DISPLAY_NAMES:
-					return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
-				case EjbPackage.MESSAGE_DRIVEN__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				case EjbPackage.MESSAGE_DRIVEN__ENVIRONMENT_PROPERTIES:
-					return ((InternalEList)getEnvironmentProperties()).basicRemove(otherEnd, msgs);
-				case EjbPackage.MESSAGE_DRIVEN__RESOURCE_REFS:
-					return ((InternalEList)getResourceRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.MESSAGE_DRIVEN__EJB_REFS:
-					return ((InternalEList)getEjbRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.MESSAGE_DRIVEN__RESOURCE_ENV_REFS:
-					return ((InternalEList)getResourceEnvRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.MESSAGE_DRIVEN__EJB_LOCAL_REFS:
-					return ((InternalEList)getEjbLocalRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.MESSAGE_DRIVEN__MESSAGE_DESTINATION_REFS:
-					return ((InternalEList)getMessageDestinationRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.MESSAGE_DRIVEN__SERVICE_REFS:
-					return ((InternalEList)getServiceRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.MESSAGE_DRIVEN__SECURITY_ROLE_REFS:
-					return ((InternalEList)getSecurityRoleRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.MESSAGE_DRIVEN__EJB_JAR:
-					return eBasicSetContainer(null, EjbPackage.MESSAGE_DRIVEN__EJB_JAR, msgs);
-				case EjbPackage.MESSAGE_DRIVEN__SECURITY_IDENTITY:
-					return basicSetSecurityIdentity(null, msgs);
-				case EjbPackage.MESSAGE_DRIVEN__DESTINATION:
-					return basicSetDestination(null, msgs);
-				case EjbPackage.MESSAGE_DRIVEN__ACTIVATION_CONFIG:
-					return basicSetActivationConfig(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.MESSAGE_DRIVEN__DESTINATION:
+				return basicSetDestination(null, msgs);
+			case EjbPackage.MESSAGE_DRIVEN__ACTIVATION_CONFIG:
+				return basicSetActivationConfig(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -545,76 +500,8 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case EjbPackage.MESSAGE_DRIVEN__EJB_JAR:
-					return eContainer.eInverseRemove(this, EjbPackage.EJB_JAR__ENTERPRISE_BEANS, EJBJar.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.MESSAGE_DRIVEN__ICONS:
-				return getIcons();
-			case EjbPackage.MESSAGE_DRIVEN__DISPLAY_NAMES:
-				return getDisplayNames();
-			case EjbPackage.MESSAGE_DRIVEN__DESCRIPTIONS:
-				return getDescriptions();
-			case EjbPackage.MESSAGE_DRIVEN__SMALL_ICON:
-				return getSmallIcon();
-			case EjbPackage.MESSAGE_DRIVEN__LARGE_ICON:
-				return getLargeIcon();
-			case EjbPackage.MESSAGE_DRIVEN__DESCRIPTION:
-				return getDescription();
-			case EjbPackage.MESSAGE_DRIVEN__DISPLAY_NAME:
-				return getDisplayName();
-			case EjbPackage.MESSAGE_DRIVEN__ENVIRONMENT_PROPERTIES:
-				return getEnvironmentProperties();
-			case EjbPackage.MESSAGE_DRIVEN__RESOURCE_REFS:
-				return getResourceRefs();
-			case EjbPackage.MESSAGE_DRIVEN__EJB_REFS:
-				return getEjbRefs();
-			case EjbPackage.MESSAGE_DRIVEN__RESOURCE_ENV_REFS:
-				return getResourceEnvRefs();
-			case EjbPackage.MESSAGE_DRIVEN__EJB_LOCAL_REFS:
-				return getEjbLocalRefs();
-			case EjbPackage.MESSAGE_DRIVEN__MESSAGE_DESTINATION_REFS:
-				return getMessageDestinationRefs();
-			case EjbPackage.MESSAGE_DRIVEN__SERVICE_REFS:
-				return getServiceRefs();
-			case EjbPackage.MESSAGE_DRIVEN__NAME:
-				return getName();
-			case EjbPackage.MESSAGE_DRIVEN__SECURITY_ROLE_REFS:
-				return getSecurityRoleRefs();
-			case EjbPackage.MESSAGE_DRIVEN__EJB_CLASS:
-				if (resolve) return getEjbClass();
-				return basicGetEjbClass();
-			case EjbPackage.MESSAGE_DRIVEN__HOME_INTERFACE:
-				if (resolve) return getHomeInterface();
-				return basicGetHomeInterface();
-			case EjbPackage.MESSAGE_DRIVEN__REMOTE_INTERFACE:
-				if (resolve) return getRemoteInterface();
-				return basicGetRemoteInterface();
-			case EjbPackage.MESSAGE_DRIVEN__EJB_JAR:
-				return getEjbJar();
-			case EjbPackage.MESSAGE_DRIVEN__SECURITY_IDENTITY:
-				return getSecurityIdentity();
-			case EjbPackage.MESSAGE_DRIVEN__LOCAL_HOME_INTERFACE:
-				if (resolve) return getLocalHomeInterface();
-				return basicGetLocalHomeInterface();
-			case EjbPackage.MESSAGE_DRIVEN__LOCAL_INTERFACE:
-				if (resolve) return getLocalInterface();
-				return basicGetLocalInterface();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case EjbPackage.MESSAGE_DRIVEN__TRANSACTION_TYPE:
 				return getTransactionType();
 			case EjbPackage.MESSAGE_DRIVEN__MESSAGE_SELECTOR:
@@ -634,165 +521,16 @@ public boolean isMessageDriven() {
 				if (resolve) return getMessagingType();
 				return basicGetMessagingType();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.MESSAGE_DRIVEN__ICONS:
-				return icons != null && !icons.isEmpty();
-			case EjbPackage.MESSAGE_DRIVEN__DISPLAY_NAMES:
-				return displayNames != null && !displayNames.isEmpty();
-			case EjbPackage.MESSAGE_DRIVEN__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-			case EjbPackage.MESSAGE_DRIVEN__SMALL_ICON:
-				return SMALL_ICON_EDEFAULT == null ? smallIcon != null : !SMALL_ICON_EDEFAULT.equals(smallIcon);
-			case EjbPackage.MESSAGE_DRIVEN__LARGE_ICON:
-				return LARGE_ICON_EDEFAULT == null ? largeIcon != null : !LARGE_ICON_EDEFAULT.equals(largeIcon);
-			case EjbPackage.MESSAGE_DRIVEN__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case EjbPackage.MESSAGE_DRIVEN__DISPLAY_NAME:
-				return DISPLAY_NAME_EDEFAULT == null ? displayName != null : !DISPLAY_NAME_EDEFAULT.equals(displayName);
-			case EjbPackage.MESSAGE_DRIVEN__ENVIRONMENT_PROPERTIES:
-				return environmentProperties != null && !environmentProperties.isEmpty();
-			case EjbPackage.MESSAGE_DRIVEN__RESOURCE_REFS:
-				return resourceRefs != null && !resourceRefs.isEmpty();
-			case EjbPackage.MESSAGE_DRIVEN__EJB_REFS:
-				return ejbRefs != null && !ejbRefs.isEmpty();
-			case EjbPackage.MESSAGE_DRIVEN__RESOURCE_ENV_REFS:
-				return resourceEnvRefs != null && !resourceEnvRefs.isEmpty();
-			case EjbPackage.MESSAGE_DRIVEN__EJB_LOCAL_REFS:
-				return ejbLocalRefs != null && !ejbLocalRefs.isEmpty();
-			case EjbPackage.MESSAGE_DRIVEN__MESSAGE_DESTINATION_REFS:
-				return messageDestinationRefs != null && !messageDestinationRefs.isEmpty();
-			case EjbPackage.MESSAGE_DRIVEN__SERVICE_REFS:
-				return serviceRefs != null && !serviceRefs.isEmpty();
-			case EjbPackage.MESSAGE_DRIVEN__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case EjbPackage.MESSAGE_DRIVEN__SECURITY_ROLE_REFS:
-				return securityRoleRefs != null && !securityRoleRefs.isEmpty();
-			case EjbPackage.MESSAGE_DRIVEN__EJB_CLASS:
-				return ejbClass != null;
-			case EjbPackage.MESSAGE_DRIVEN__HOME_INTERFACE:
-				return homeInterface != null;
-			case EjbPackage.MESSAGE_DRIVEN__REMOTE_INTERFACE:
-				return remoteInterface != null;
-			case EjbPackage.MESSAGE_DRIVEN__EJB_JAR:
-				return getEjbJar() != null;
-			case EjbPackage.MESSAGE_DRIVEN__SECURITY_IDENTITY:
-				return securityIdentity != null;
-			case EjbPackage.MESSAGE_DRIVEN__LOCAL_HOME_INTERFACE:
-				return localHomeInterface != null;
-			case EjbPackage.MESSAGE_DRIVEN__LOCAL_INTERFACE:
-				return localInterface != null;
-			case EjbPackage.MESSAGE_DRIVEN__TRANSACTION_TYPE:
-				return isSetTransactionType();
-			case EjbPackage.MESSAGE_DRIVEN__MESSAGE_SELECTOR:
-				return MESSAGE_SELECTOR_EDEFAULT == null ? messageSelector != null : !MESSAGE_SELECTOR_EDEFAULT.equals(messageSelector);
-			case EjbPackage.MESSAGE_DRIVEN__ACKNOWLEDGE_MODE:
-				return isSetAcknowledgeMode();
-			case EjbPackage.MESSAGE_DRIVEN__LINK:
-				return LINK_EDEFAULT == null ? link != null : !LINK_EDEFAULT.equals(link);
-			case EjbPackage.MESSAGE_DRIVEN__DESTINATION:
-				return destination != null;
-			case EjbPackage.MESSAGE_DRIVEN__ACTIVATION_CONFIG:
-				return activationConfig != null;
-			case EjbPackage.MESSAGE_DRIVEN__MESSAGE_DESTINATION:
-				return messageDestination != null;
-			case EjbPackage.MESSAGE_DRIVEN__MESSAGING_TYPE:
-				return messagingType != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.MESSAGE_DRIVEN__ICONS:
-				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__DESCRIPTIONS:
-				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__SMALL_ICON:
-				setSmallIcon((String)newValue);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__LARGE_ICON:
-				setLargeIcon((String)newValue);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__DESCRIPTION:
-				setDescription((String)newValue);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__DISPLAY_NAME:
-				setDisplayName((String)newValue);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__ENVIRONMENT_PROPERTIES:
-				getEnvironmentProperties().clear();
-				getEnvironmentProperties().addAll((Collection)newValue);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__RESOURCE_REFS:
-				getResourceRefs().clear();
-				getResourceRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__EJB_REFS:
-				getEjbRefs().clear();
-				getEjbRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__RESOURCE_ENV_REFS:
-				getResourceEnvRefs().clear();
-				getResourceEnvRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__EJB_LOCAL_REFS:
-				getEjbLocalRefs().clear();
-				getEjbLocalRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__MESSAGE_DESTINATION_REFS:
-				getMessageDestinationRefs().clear();
-				getMessageDestinationRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__SERVICE_REFS:
-				getServiceRefs().clear();
-				getServiceRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__NAME:
-				setName((String)newValue);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__SECURITY_ROLE_REFS:
-				getSecurityRoleRefs().clear();
-				getSecurityRoleRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__EJB_CLASS:
-				setEjbClass((JavaClass)newValue);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__HOME_INTERFACE:
-				setHomeInterface((JavaClass)newValue);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__REMOTE_INTERFACE:
-				setRemoteInterface((JavaClass)newValue);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__EJB_JAR:
-				setEjbJar((EJBJar)newValue);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__SECURITY_IDENTITY:
-				setSecurityIdentity((SecurityIdentity)newValue);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__LOCAL_HOME_INTERFACE:
-				setLocalHomeInterface((JavaClass)newValue);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__LOCAL_INTERFACE:
-				setLocalInterface((JavaClass)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case EjbPackage.MESSAGE_DRIVEN__TRANSACTION_TYPE:
 				setTransactionType((TransactionType)newValue);
 				return;
@@ -818,83 +556,16 @@ public boolean isMessageDriven() {
 				setMessagingType((JavaClass)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.MESSAGE_DRIVEN__ICONS:
-				getIcons().clear();
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__DESCRIPTIONS:
-				getDescriptions().clear();
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__SMALL_ICON:
-				setSmallIcon(SMALL_ICON_EDEFAULT);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__LARGE_ICON:
-				setLargeIcon(LARGE_ICON_EDEFAULT);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__DISPLAY_NAME:
-				setDisplayName(DISPLAY_NAME_EDEFAULT);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__ENVIRONMENT_PROPERTIES:
-				getEnvironmentProperties().clear();
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__RESOURCE_REFS:
-				getResourceRefs().clear();
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__EJB_REFS:
-				getEjbRefs().clear();
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__RESOURCE_ENV_REFS:
-				getResourceEnvRefs().clear();
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__EJB_LOCAL_REFS:
-				getEjbLocalRefs().clear();
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__MESSAGE_DESTINATION_REFS:
-				getMessageDestinationRefs().clear();
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__SERVICE_REFS:
-				getServiceRefs().clear();
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__SECURITY_ROLE_REFS:
-				getSecurityRoleRefs().clear();
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__EJB_CLASS:
-				setEjbClass((JavaClass)null);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__HOME_INTERFACE:
-				setHomeInterface((JavaClass)null);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__REMOTE_INTERFACE:
-				setRemoteInterface((JavaClass)null);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__EJB_JAR:
-				setEjbJar((EJBJar)null);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__SECURITY_IDENTITY:
-				setSecurityIdentity((SecurityIdentity)null);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__LOCAL_HOME_INTERFACE:
-				setLocalHomeInterface((JavaClass)null);
-				return;
-			case EjbPackage.MESSAGE_DRIVEN__LOCAL_INTERFACE:
-				setLocalInterface((JavaClass)null);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case EjbPackage.MESSAGE_DRIVEN__TRANSACTION_TYPE:
 				unsetTransactionType();
 				return;
@@ -920,7 +591,34 @@ public boolean isMessageDriven() {
 				setMessagingType((JavaClass)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case EjbPackage.MESSAGE_DRIVEN__TRANSACTION_TYPE:
+				return isSetTransactionType();
+			case EjbPackage.MESSAGE_DRIVEN__MESSAGE_SELECTOR:
+				return MESSAGE_SELECTOR_EDEFAULT == null ? messageSelector != null : !MESSAGE_SELECTOR_EDEFAULT.equals(messageSelector);
+			case EjbPackage.MESSAGE_DRIVEN__ACKNOWLEDGE_MODE:
+				return isSetAcknowledgeMode();
+			case EjbPackage.MESSAGE_DRIVEN__LINK:
+				return LINK_EDEFAULT == null ? link != null : !LINK_EDEFAULT.equals(link);
+			case EjbPackage.MESSAGE_DRIVEN__DESTINATION:
+				return destination != null;
+			case EjbPackage.MESSAGE_DRIVEN__ACTIVATION_CONFIG:
+				return activationConfig != null;
+			case EjbPackage.MESSAGE_DRIVEN__MESSAGE_DESTINATION:
+				return messageDestination != null;
+			case EjbPackage.MESSAGE_DRIVEN__MESSAGING_TYPE:
+				return messagingType != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

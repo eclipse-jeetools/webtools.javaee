@@ -13,7 +13,9 @@ package org.eclipse.jst.j2ee.jca.internal.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.jst.j2ee.jca.ActivationSpec;
 import org.eclipse.jst.j2ee.jca.AdminObject;
 import org.eclipse.jst.j2ee.jca.AuthenticationMechanism;
@@ -36,7 +38,26 @@ import org.eclipse.jst.j2ee.jca.TransactionSupportKind;
 /**
  * @generated
  */
-public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory{
+public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
+
+	/**
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static JcaFactory init() {
+		try {
+			JcaFactory theJcaFactory = (JcaFactory)EPackage.Registry.INSTANCE.getEFactory("jca.xmi"); 
+			if (theJcaFactory != null) {
+				return theJcaFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new JcaFactoryImpl();
+	}
 
 	public JcaFactoryImpl() {
 		super();
@@ -74,16 +95,10 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory{
 	 */
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case JcaPackage.AUTHENTICATION_MECHANISM_TYPE: {
-				AuthenticationMechanismType result = AuthenticationMechanismType.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case JcaPackage.TRANSACTION_SUPPORT_KIND: {
-				TransactionSupportKind result = TransactionSupportKind.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
+			case JcaPackage.AUTHENTICATION_MECHANISM_TYPE:
+				return createAuthenticationMechanismTypeFromString(eDataType, initialValue);
+			case JcaPackage.TRANSACTION_SUPPORT_KIND:
+				return createTransactionSupportKindFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -97,9 +112,9 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory{
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			case JcaPackage.AUTHENTICATION_MECHANISM_TYPE:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertAuthenticationMechanismTypeToString(eDataType, instanceValue);
 			case JcaPackage.TRANSACTION_SUPPORT_KIND:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertTransactionSupportKindToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -202,6 +217,46 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory{
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AuthenticationMechanismType createAuthenticationMechanismTypeFromString(EDataType eDataType, String initialValue) {
+		AuthenticationMechanismType result = AuthenticationMechanismType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertAuthenticationMechanismTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TransactionSupportKind createTransactionSupportKindFromString(EDataType eDataType, String initialValue) {
+		TransactionSupportKind result = TransactionSupportKind.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTransactionSupportKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public ResourceAdapter createResourceAdapter() {
@@ -248,182 +303,3 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory{
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

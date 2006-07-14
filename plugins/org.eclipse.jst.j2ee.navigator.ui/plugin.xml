@@ -947,33 +947,14 @@
    
   <extension 
   		point="org.eclipse.core.runtime.adapters">
-    <factory 
-      class="org.eclipse.jst.j2ee.navigator.internal.J2EEEMFAdapterFactory" 
-      adaptableType="org.eclipse.jst.j2ee.ejb.EJBJar">
-      <adapter type="org.eclipse.core.resources.IFile"/>
-    </factory>
-    <factory 
-      class="org.eclipse.jst.j2ee.navigator.internal.J2EEEMFAdapterFactory" 
-      adaptableType="org.eclipse.jst.j2ee.webapplication.WebApp">
-      <adapter type="org.eclipse.core.resources.IFile"/>
-    </factory>
-    <factory 
-      class="org.eclipse.jst.j2ee.navigator.internal.J2EEEMFAdapterFactory" 
-      adaptableType="org.eclipse.jst.j2ee.client.ApplicationClient">
-      <adapter type="org.eclipse.core.resources.IFile"/>
-    </factory>
-    <factory 
-      class="org.eclipse.jst.j2ee.navigator.internal.J2EEEMFAdapterFactory" 
-      adaptableType="org.eclipse.jst.j2ee.jca.Connector">
-      <adapter type="org.eclipse.core.resources.IFile"/>
-    </factory>
-    <factory 
-      class="org.eclipse.jst.j2ee.navigator.internal.J2EEEMFAdapterFactory" 
-      adaptableType="org.eclipse.jst.j2ee.application.Application">
-      <adapter type="org.eclipse.core.resources.IFile"/>
+    <factory
+          adaptableType="org.eclipse.jst.j2ee.common.J2EEEObject"
+          class="org.eclipse.jst.j2ee.navigator.internal.J2EEEMFAdapterFactory">
+       <adapter type="org.eclipse.core.resources.IFile"/>
+       <adapter type="org.eclipse.core.resources.IResource"/>
     </factory>
     <factory
-          adaptableType="org.eclipse.emf.ecore.EObject"
+          adaptableType="org.eclipse.jst.j2ee.common.J2EEEAttribute"
           class="org.eclipse.jst.j2ee.navigator.internal.J2EEEMFAdapterFactory">
        <adapter type="org.eclipse.core.resources.IFile"/>
        <adapter type="org.eclipse.core.resources.IResource"/>

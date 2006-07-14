@@ -24,8 +24,7 @@ import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.common.DescriptionGroup;
-
-
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 public class ApplicationAdapterFactory extends AdapterFactoryImpl {
 	protected static ApplicationPackage modelPackage;
@@ -137,6 +136,9 @@ public class ApplicationAdapterFactory extends AdapterFactoryImpl {
 			public Object caseConnectorModule(ConnectorModule object) {
 				return createConnectorModuleAdapter();
 			}
+			public Object caseJ2EEEObject(J2EEEObject object) {
+				return createJ2EEEObjectAdapter();
+			}
 			public Object caseDescriptionGroup(DescriptionGroup object) {
 				return createDescriptionGroupAdapter();
 			}
@@ -203,6 +205,20 @@ public class ApplicationAdapterFactory extends AdapterFactoryImpl {
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public Adapter createConnectorModuleAdapterGen() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.J2EEEObject <em>J2EEE Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.j2ee.common.J2EEEObject
+	 * @generated
+	 */
+	public Adapter createJ2EEEObjectAdapter() {
 		return null;
 	}
 

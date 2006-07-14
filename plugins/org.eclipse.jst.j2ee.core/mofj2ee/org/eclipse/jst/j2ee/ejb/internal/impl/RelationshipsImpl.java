@@ -16,16 +16,14 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.Description;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EJBRelation;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
@@ -33,8 +31,9 @@ import org.eclipse.jst.j2ee.ejb.Relationships;
 
 /**
  * The relationships describes the relationships in which entity beans with container managed persistence participate. The relationships element contains an optional description; and a list of ejb-relation elements, which specify the container managed relationships.
+ * @generated
  */
-public class RelationshipsImpl extends EObjectImpl implements Relationships, EObject{
+public class RelationshipsImpl extends J2EEEObjectImpl implements Relationships {
 
 	/**
 	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
@@ -76,7 +75,7 @@ public class RelationshipsImpl extends EObjectImpl implements Relationships, EOb
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return EjbPackage.eINSTANCE.getRelationships();
+		return EjbPackage.Literals.RELATIONSHIPS;
 	}
 
 	/**
@@ -104,22 +103,32 @@ public class RelationshipsImpl extends EObjectImpl implements Relationships, EOb
 	 */
 	public EJBJar getEjbJar() {
 		if (eContainerFeatureID != EjbPackage.RELATIONSHIPS__EJB_JAR) return null;
-		return (EJBJar)eContainer;
+		return (EJBJar)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetEjbJar(EJBJar newEjbJar, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newEjbJar, EjbPackage.RELATIONSHIPS__EJB_JAR, msgs);
+		return msgs;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public void setEjbJar(EJBJar newEjbJar) {
-		if (newEjbJar != eContainer || (eContainerFeatureID != EjbPackage.RELATIONSHIPS__EJB_JAR && newEjbJar != null)) {
+		if (newEjbJar != eInternalContainer() || (eContainerFeatureID != EjbPackage.RELATIONSHIPS__EJB_JAR && newEjbJar != null)) {
 			if (EcoreUtil.isAncestor(this, newEjbJar))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newEjbJar != null)
 				msgs = ((InternalEObject)newEjbJar).eInverseAdd(this, EjbPackage.EJB_JAR__RELATIONSHIP_LIST, EJBJar.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newEjbJar, EjbPackage.RELATIONSHIPS__EJB_JAR, msgs);
+			msgs = basicSetEjbJar(newEjbJar, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -155,22 +164,16 @@ public class RelationshipsImpl extends EObjectImpl implements Relationships, EOb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.RELATIONSHIPS__EJB_JAR:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, EjbPackage.RELATIONSHIPS__EJB_JAR, msgs);
-				case EjbPackage.RELATIONSHIPS__EJB_RELATIONS:
-					return ((InternalEList)getEjbRelations()).basicAdd(otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.RELATIONSHIPS__EJB_JAR:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetEjbJar((EJBJar)otherEnd, msgs);
+			case EjbPackage.RELATIONSHIPS__EJB_RELATIONS:
+				return ((InternalEList)getEjbRelations()).basicAdd(otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -178,20 +181,16 @@ public class RelationshipsImpl extends EObjectImpl implements Relationships, EOb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.RELATIONSHIPS__EJB_JAR:
-					return eBasicSetContainer(null, EjbPackage.RELATIONSHIPS__EJB_JAR, msgs);
-				case EjbPackage.RELATIONSHIPS__EJB_RELATIONS:
-					return ((InternalEList)getEjbRelations()).basicRemove(otherEnd, msgs);
-				case EjbPackage.RELATIONSHIPS__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.RELATIONSHIPS__EJB_JAR:
+				return basicSetEjbJar(null, msgs);
+			case EjbPackage.RELATIONSHIPS__EJB_RELATIONS:
+				return ((InternalEList)getEjbRelations()).basicRemove(otherEnd, msgs);
+			case EjbPackage.RELATIONSHIPS__DESCRIPTIONS:
+				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -199,16 +198,12 @@ public class RelationshipsImpl extends EObjectImpl implements Relationships, EOb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case EjbPackage.RELATIONSHIPS__EJB_JAR:
-					return eContainer.eInverseRemove(this, EjbPackage.EJB_JAR__RELATIONSHIP_LIST, EJBJar.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case EjbPackage.RELATIONSHIPS__EJB_JAR:
+				return eInternalContainer().eInverseRemove(this, EjbPackage.EJB_JAR__RELATIONSHIP_LIST, EJBJar.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -216,8 +211,8 @@ public class RelationshipsImpl extends EObjectImpl implements Relationships, EOb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case EjbPackage.RELATIONSHIPS__DESCRIPTION:
 				return getDescription();
 			case EjbPackage.RELATIONSHIPS__EJB_JAR:
@@ -227,31 +222,16 @@ public class RelationshipsImpl extends EObjectImpl implements Relationships, EOb
 			case EjbPackage.RELATIONSHIPS__DESCRIPTIONS:
 				return getDescriptions();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.RELATIONSHIPS__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case EjbPackage.RELATIONSHIPS__EJB_JAR:
-				return getEjbJar() != null;
-			case EjbPackage.RELATIONSHIPS__EJB_RELATIONS:
-				return ejbRelations != null && !ejbRelations.isEmpty();
-			case EjbPackage.RELATIONSHIPS__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case EjbPackage.RELATIONSHIPS__DESCRIPTION:
 				setDescription((String)newValue);
 				return;
@@ -267,14 +247,16 @@ public class RelationshipsImpl extends EObjectImpl implements Relationships, EOb
 				getDescriptions().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case EjbPackage.RELATIONSHIPS__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
@@ -288,7 +270,26 @@ public class RelationshipsImpl extends EObjectImpl implements Relationships, EOb
 				getDescriptions().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case EjbPackage.RELATIONSHIPS__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case EjbPackage.RELATIONSHIPS__EJB_JAR:
+				return getEjbJar() != null;
+			case EjbPackage.RELATIONSHIPS__EJB_RELATIONS:
+				return ejbRelations != null && !ejbRelations.isEmpty();
+			case EjbPackage.RELATIONSHIPS__DESCRIPTIONS:
+				return descriptions != null && !descriptions.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

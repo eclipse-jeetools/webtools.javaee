@@ -12,17 +12,15 @@ package org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.impl;
 
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseApplication;
-import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseArchive;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseModule;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseconfigPackage;
 
-public class LooseModuleImpl extends LooseArchiveImpl implements LooseModule, LooseArchive {
+/**
+ * @generated
+ */
+public class LooseModuleImpl extends LooseArchiveImpl implements LooseModule {
 	/**
 	 * The default value of the '{@link #getAltDD() <em>Alt DD</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
@@ -53,7 +51,7 @@ public class LooseModuleImpl extends LooseArchiveImpl implements LooseModule, Lo
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return LooseconfigPackage.eINSTANCE.getLooseModule();
+		return LooseconfigPackage.Literals.LOOSE_MODULE;
 	}
 
 	/**
@@ -74,142 +72,57 @@ public class LooseModuleImpl extends LooseArchiveImpl implements LooseModule, Lo
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case LooseconfigPackage.LOOSE_MODULE__LOOSE_APP:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, LooseconfigPackage.LOOSE_MODULE__LOOSE_APP, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case LooseconfigPackage.LOOSE_MODULE__LOOSE_APP:
-					return eBasicSetContainer(null, LooseconfigPackage.LOOSE_MODULE__LOOSE_APP, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case LooseconfigPackage.LOOSE_MODULE__LOOSE_APP:
-					return eContainer.eInverseRemove(this, LooseconfigPackage.LOOSE_APPLICATION__LOOSE_ARCHIVES, LooseApplication.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case LooseconfigPackage.LOOSE_MODULE__URI:
-				return getUri();
-			case LooseconfigPackage.LOOSE_MODULE__BINARIES_PATH:
-				return getBinariesPath();
-			case LooseconfigPackage.LOOSE_MODULE__RESOURCES_PATH:
-				return getResourcesPath();
-			case LooseconfigPackage.LOOSE_MODULE__LOOSE_APP:
-				return getLooseApp();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case LooseconfigPackage.LOOSE_MODULE__ALT_DD:
 				return getAltDD();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case LooseconfigPackage.LOOSE_MODULE__URI:
-				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
-			case LooseconfigPackage.LOOSE_MODULE__BINARIES_PATH:
-				return BINARIES_PATH_EDEFAULT == null ? binariesPath != null : !BINARIES_PATH_EDEFAULT.equals(binariesPath);
-			case LooseconfigPackage.LOOSE_MODULE__RESOURCES_PATH:
-				return RESOURCES_PATH_EDEFAULT == null ? resourcesPath != null : !RESOURCES_PATH_EDEFAULT.equals(resourcesPath);
-			case LooseconfigPackage.LOOSE_MODULE__LOOSE_APP:
-				return getLooseApp() != null;
-			case LooseconfigPackage.LOOSE_MODULE__ALT_DD:
-				return ALT_DD_EDEFAULT == null ? altDD != null : !ALT_DD_EDEFAULT.equals(altDD);
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case LooseconfigPackage.LOOSE_MODULE__URI:
-				setUri((String)newValue);
-				return;
-			case LooseconfigPackage.LOOSE_MODULE__BINARIES_PATH:
-				setBinariesPath((String)newValue);
-				return;
-			case LooseconfigPackage.LOOSE_MODULE__RESOURCES_PATH:
-				setResourcesPath((String)newValue);
-				return;
-			case LooseconfigPackage.LOOSE_MODULE__LOOSE_APP:
-				setLooseApp((LooseApplication)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case LooseconfigPackage.LOOSE_MODULE__ALT_DD:
 				setAltDD((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case LooseconfigPackage.LOOSE_MODULE__URI:
-				setUri(URI_EDEFAULT);
-				return;
-			case LooseconfigPackage.LOOSE_MODULE__BINARIES_PATH:
-				setBinariesPath(BINARIES_PATH_EDEFAULT);
-				return;
-			case LooseconfigPackage.LOOSE_MODULE__RESOURCES_PATH:
-				setResourcesPath(RESOURCES_PATH_EDEFAULT);
-				return;
-			case LooseconfigPackage.LOOSE_MODULE__LOOSE_APP:
-				setLooseApp((LooseApplication)null);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case LooseconfigPackage.LOOSE_MODULE__ALT_DD:
 				setAltDD(ALT_DD_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case LooseconfigPackage.LOOSE_MODULE__ALT_DD:
+				return ALT_DD_EDEFAULT == null ? altDD != null : !ALT_DD_EDEFAULT.equals(altDD);
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

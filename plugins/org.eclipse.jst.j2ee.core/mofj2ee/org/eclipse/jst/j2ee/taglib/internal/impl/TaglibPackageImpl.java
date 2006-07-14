@@ -16,10 +16,9 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.eclipse.emf.ecore.impl.EcorePackageImpl;
 import org.eclipse.jem.java.JavaRefPackage;
-import org.eclipse.jem.java.internal.impl.JavaRefPackageImpl;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.internal.impl.ApplicationPackageImpl;
 import org.eclipse.jst.j2ee.client.ClientPackage;
@@ -159,8 +158,8 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage, EP
 		isInited = true;
 
 		// Initialize simple dependencies
-		EcorePackageImpl.init();
-		JavaRefPackageImpl.init();
+		EcorePackage.eINSTANCE.eClass();
+		JavaRefPackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
 		ClientPackageImpl theClientPackage = (ClientPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI) instanceof ClientPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI) : ClientPackage.eINSTANCE);
@@ -759,15 +758,20 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage, EP
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		CommonPackageImpl theCommonPackage = (CommonPackageImpl)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
-		JavaRefPackageImpl theJavaRefPackage = (JavaRefPackageImpl)EPackage.Registry.INSTANCE.getEPackage(JavaRefPackage.eNS_URI);
-		WebapplicationPackageImpl theWebapplicationPackage = (WebapplicationPackageImpl)EPackage.Registry.INSTANCE.getEPackage(WebapplicationPackage.eNS_URI);
+		CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+		JavaRefPackage theJavaRefPackage = (JavaRefPackage)EPackage.Registry.INSTANCE.getEPackage(JavaRefPackage.eNS_URI);
+		WebapplicationPackage theWebapplicationPackage = (WebapplicationPackage)EPackage.Registry.INSTANCE.getEPackage(WebapplicationPackage.eNS_URI);
 
 		// Add supertypes to classes
 		tagLibEClass.getESuperTypes().add(theCommonPackage.getCompatibilityDescriptionGroup());
 		jspTagEClass.getESuperTypes().add(theCommonPackage.getDescriptionGroup());
+		jspTagAttributeEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		validatorEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		jspVariableEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 		functionEClass.getESuperTypes().add(theCommonPackage.getDescriptionGroup());
 		tagFileEClass.getESuperTypes().add(theCommonPackage.getDescriptionGroup());
+		tldExtensionEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		extensibleTypeEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(tagLibEClass, TagLib.class, "TagLib", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

@@ -16,11 +16,8 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.java.JavaClass;
@@ -38,8 +35,9 @@ import org.eclipse.jst.j2ee.common.ResourceEnvRef;
  *     <resource-env-ref-name>jms//StockQueue<//resource-env-ref-name>
  *     <resource-env-ref-type>javax.jms.Queue<//resource-env-ref-type>
  * <//resource-env-ref>
+ * @generated
  */
-public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef, EObject{
+public class ResourceEnvRefImpl extends J2EEEObjectImpl implements ResourceEnvRef {
 
 	/**
 	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
@@ -95,7 +93,7 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef, E
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return CommonPackage.eINSTANCE.getResourceEnvRef();
+		return CommonPackage.Literals.RESOURCE_ENV_REF;
 	}
 
 	/**
@@ -161,8 +159,8 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef, E
 	 */
 	public JavaClass getType() {
 		if (type != null && type.eIsProxy()) {
-			JavaClass oldType = type;
-			type = (JavaClass)eResolveProxy((InternalEObject)type);
+			InternalEObject oldType = (InternalEObject)type;
+			type = (JavaClass)eResolveProxy(oldType);
 			if (type != oldType) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.RESOURCE_ENV_REF__TYPE, oldType, type));
@@ -207,16 +205,12 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef, E
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonPackage.RESOURCE_ENV_REF__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CommonPackage.RESOURCE_ENV_REF__DESCRIPTIONS:
+				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -224,8 +218,8 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef, E
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case CommonPackage.RESOURCE_ENV_REF__DESCRIPTION:
 				return getDescription();
 			case CommonPackage.RESOURCE_ENV_REF__NAME:
@@ -236,31 +230,16 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef, E
 			case CommonPackage.RESOURCE_ENV_REF__DESCRIPTIONS:
 				return getDescriptions();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonPackage.RESOURCE_ENV_REF__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case CommonPackage.RESOURCE_ENV_REF__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case CommonPackage.RESOURCE_ENV_REF__TYPE:
-				return type != null;
-			case CommonPackage.RESOURCE_ENV_REF__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case CommonPackage.RESOURCE_ENV_REF__DESCRIPTION:
 				setDescription((String)newValue);
 				return;
@@ -275,14 +254,16 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef, E
 				getDescriptions().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case CommonPackage.RESOURCE_ENV_REF__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
@@ -296,7 +277,26 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef, E
 				getDescriptions().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case CommonPackage.RESOURCE_ENV_REF__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case CommonPackage.RESOURCE_ENV_REF__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case CommonPackage.RESOURCE_ENV_REF__TYPE:
+				return type != null;
+			case CommonPackage.RESOURCE_ENV_REF__DESCRIPTIONS:
+				return descriptions != null && !descriptions.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

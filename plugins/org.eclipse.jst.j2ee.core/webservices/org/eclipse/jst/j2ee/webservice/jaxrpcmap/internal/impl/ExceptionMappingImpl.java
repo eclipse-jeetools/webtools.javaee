@@ -13,10 +13,9 @@ package org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.ConstructorParameterOrder;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionMapping;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage;
@@ -39,7 +38,7 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessage;
  *
  * @generated
  */
-public class ExceptionMappingImpl extends EObjectImpl implements ExceptionMapping
+public class ExceptionMappingImpl extends J2EEEObjectImpl implements ExceptionMapping
 {
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -136,7 +135,7 @@ public class ExceptionMappingImpl extends EObjectImpl implements ExceptionMappin
 	 * @generated
 	 */
   protected EClass eStaticClass() {
-		return JaxrpcmapPackage.eINSTANCE.getExceptionMapping();
+		return JaxrpcmapPackage.Literals.EXCEPTION_MAPPING;
 	}
 
 	/**
@@ -290,30 +289,26 @@ public class ExceptionMappingImpl extends EObjectImpl implements ExceptionMappin
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JaxrpcmapPackage.EXCEPTION_MAPPING__WSDL_MESSAGE:
-					return basicSetWsdlMessage(null, msgs);
-				case JaxrpcmapPackage.EXCEPTION_MAPPING__CONSTRUCTOR_PARAMETER_ORDER:
-					return basicSetConstructorParameterOrder(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case JaxrpcmapPackage.EXCEPTION_MAPPING__WSDL_MESSAGE:
+				return basicSetWsdlMessage(null, msgs);
+			case JaxrpcmapPackage.EXCEPTION_MAPPING__CONSTRUCTOR_PARAMETER_ORDER:
+				return basicSetConstructorParameterOrder(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case JaxrpcmapPackage.EXCEPTION_MAPPING__ID:
 				return getId();
 			case JaxrpcmapPackage.EXCEPTION_MAPPING__EXCEPTION_TYPE:
@@ -325,16 +320,16 @@ public class ExceptionMappingImpl extends EObjectImpl implements ExceptionMappin
 			case JaxrpcmapPackage.EXCEPTION_MAPPING__CONSTRUCTOR_PARAMETER_ORDER:
 				return getConstructorParameterOrder();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case JaxrpcmapPackage.EXCEPTION_MAPPING__ID:
 				setId((String)newValue);
 				return;
@@ -351,16 +346,16 @@ public class ExceptionMappingImpl extends EObjectImpl implements ExceptionMappin
 				setConstructorParameterOrder((ConstructorParameterOrder)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case JaxrpcmapPackage.EXCEPTION_MAPPING__ID:
 				setId(ID_EDEFAULT);
 				return;
@@ -377,16 +372,16 @@ public class ExceptionMappingImpl extends EObjectImpl implements ExceptionMappin
 				setConstructorParameterOrder((ConstructorParameterOrder)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case JaxrpcmapPackage.EXCEPTION_MAPPING__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case JaxrpcmapPackage.EXCEPTION_MAPPING__EXCEPTION_TYPE:
@@ -398,7 +393,7 @@ public class ExceptionMappingImpl extends EObjectImpl implements ExceptionMappin
 			case JaxrpcmapPackage.EXCEPTION_MAPPING__CONSTRUCTOR_PARAMETER_ORDER:
 				return constructorParameterOrder != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

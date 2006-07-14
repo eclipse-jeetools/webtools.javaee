@@ -26,7 +26,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -37,13 +36,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.java.Field;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
-import org.eclipse.jst.j2ee.common.SecurityIdentity;
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.CMRField;
 import org.eclipse.jst.j2ee.ejb.CommonRelationshipRole;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EJBExtensionFilter;
-import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EJBRelation;
 import org.eclipse.jst.j2ee.ejb.EJBRelationshipRole;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
@@ -147,7 +144,7 @@ public class ContainerManagedEntityImpl extends EntityImpl implements ContainerM
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return EjbPackage.eINSTANCE.getContainerManagedEntity();
+		return EjbPackage.Literals.CONTAINER_MANAGED_ENTITY;
 	}
 
 /**
@@ -494,471 +491,6 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_JAR:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_JAR, msgs);
-				case EjbPackage.CONTAINER_MANAGED_ENTITY__QUERIES:
-					return ((InternalEList)getQueries()).basicAdd(otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.CONTAINER_MANAGED_ENTITY__ICONS:
-					return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
-				case EjbPackage.CONTAINER_MANAGED_ENTITY__DISPLAY_NAMES:
-					return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
-				case EjbPackage.CONTAINER_MANAGED_ENTITY__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				case EjbPackage.CONTAINER_MANAGED_ENTITY__ENVIRONMENT_PROPERTIES:
-					return ((InternalEList)getEnvironmentProperties()).basicRemove(otherEnd, msgs);
-				case EjbPackage.CONTAINER_MANAGED_ENTITY__RESOURCE_REFS:
-					return ((InternalEList)getResourceRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_REFS:
-					return ((InternalEList)getEjbRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.CONTAINER_MANAGED_ENTITY__RESOURCE_ENV_REFS:
-					return ((InternalEList)getResourceEnvRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_LOCAL_REFS:
-					return ((InternalEList)getEjbLocalRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.CONTAINER_MANAGED_ENTITY__MESSAGE_DESTINATION_REFS:
-					return ((InternalEList)getMessageDestinationRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.CONTAINER_MANAGED_ENTITY__SERVICE_REFS:
-					return ((InternalEList)getServiceRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.CONTAINER_MANAGED_ENTITY__SECURITY_ROLE_REFS:
-					return ((InternalEList)getSecurityRoleRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_JAR:
-					return eBasicSetContainer(null, EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_JAR, msgs);
-				case EjbPackage.CONTAINER_MANAGED_ENTITY__SECURITY_IDENTITY:
-					return basicSetSecurityIdentity(null, msgs);
-				case EjbPackage.CONTAINER_MANAGED_ENTITY__PERSISTENT_ATTRIBUTES:
-					return ((InternalEList)getPersistentAttributes()).basicRemove(otherEnd, msgs);
-				case EjbPackage.CONTAINER_MANAGED_ENTITY__QUERIES:
-					return ((InternalEList)getQueries()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_JAR:
-					return eContainer.eInverseRemove(this, EjbPackage.EJB_JAR__ENTERPRISE_BEANS, EJBJar.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__ICONS:
-				return getIcons();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__DISPLAY_NAMES:
-				return getDisplayNames();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__DESCRIPTIONS:
-				return getDescriptions();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__SMALL_ICON:
-				return getSmallIcon();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__LARGE_ICON:
-				return getLargeIcon();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__DESCRIPTION:
-				return getDescription();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__DISPLAY_NAME:
-				return getDisplayName();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__ENVIRONMENT_PROPERTIES:
-				return getEnvironmentProperties();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__RESOURCE_REFS:
-				return getResourceRefs();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_REFS:
-				return getEjbRefs();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__RESOURCE_ENV_REFS:
-				return getResourceEnvRefs();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_LOCAL_REFS:
-				return getEjbLocalRefs();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__MESSAGE_DESTINATION_REFS:
-				return getMessageDestinationRefs();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__SERVICE_REFS:
-				return getServiceRefs();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__NAME:
-				return getName();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__SECURITY_ROLE_REFS:
-				return getSecurityRoleRefs();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_CLASS:
-				if (resolve) return getEjbClass();
-				return basicGetEjbClass();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__HOME_INTERFACE:
-				if (resolve) return getHomeInterface();
-				return basicGetHomeInterface();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__REMOTE_INTERFACE:
-				if (resolve) return getRemoteInterface();
-				return basicGetRemoteInterface();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_JAR:
-				return getEjbJar();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__SECURITY_IDENTITY:
-				return getSecurityIdentity();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__LOCAL_HOME_INTERFACE:
-				if (resolve) return getLocalHomeInterface();
-				return basicGetLocalHomeInterface();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__LOCAL_INTERFACE:
-				if (resolve) return getLocalInterface();
-				return basicGetLocalInterface();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__REENTRANT:
-				return isReentrant() ? Boolean.TRUE : Boolean.FALSE;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__PRIMARY_KEY:
-				if (resolve) return getPrimaryKey();
-				return basicGetPrimaryKey();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__VERSION:
-				return getVersion();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__ABSTRACT_SCHEMA_NAME:
-				return getAbstractSchemaName();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__PERSISTENT_ATTRIBUTES:
-				return getPersistentAttributes();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__KEY_ATTRIBUTES:
-				return getKeyAttributes();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__QUERIES:
-				return getQueries();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__CMP_ATTRIBUTE:
-				return getCMPAttribute();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__PRIM_KEY_FIELD:
-				if (resolve) return getPrimKeyField();
-				return basicGetPrimKeyField();
-		}
-		return eDynamicGet(eFeature, resolve);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__ICONS:
-				return icons != null && !icons.isEmpty();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__DISPLAY_NAMES:
-				return displayNames != null && !displayNames.isEmpty();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__SMALL_ICON:
-				return SMALL_ICON_EDEFAULT == null ? smallIcon != null : !SMALL_ICON_EDEFAULT.equals(smallIcon);
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__LARGE_ICON:
-				return LARGE_ICON_EDEFAULT == null ? largeIcon != null : !LARGE_ICON_EDEFAULT.equals(largeIcon);
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__DISPLAY_NAME:
-				return DISPLAY_NAME_EDEFAULT == null ? displayName != null : !DISPLAY_NAME_EDEFAULT.equals(displayName);
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__ENVIRONMENT_PROPERTIES:
-				return environmentProperties != null && !environmentProperties.isEmpty();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__RESOURCE_REFS:
-				return resourceRefs != null && !resourceRefs.isEmpty();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_REFS:
-				return ejbRefs != null && !ejbRefs.isEmpty();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__RESOURCE_ENV_REFS:
-				return resourceEnvRefs != null && !resourceEnvRefs.isEmpty();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_LOCAL_REFS:
-				return ejbLocalRefs != null && !ejbLocalRefs.isEmpty();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__MESSAGE_DESTINATION_REFS:
-				return messageDestinationRefs != null && !messageDestinationRefs.isEmpty();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__SERVICE_REFS:
-				return serviceRefs != null && !serviceRefs.isEmpty();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__SECURITY_ROLE_REFS:
-				return securityRoleRefs != null && !securityRoleRefs.isEmpty();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_CLASS:
-				return ejbClass != null;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__HOME_INTERFACE:
-				return homeInterface != null;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__REMOTE_INTERFACE:
-				return remoteInterface != null;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_JAR:
-				return getEjbJar() != null;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__SECURITY_IDENTITY:
-				return securityIdentity != null;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__LOCAL_HOME_INTERFACE:
-				return localHomeInterface != null;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__LOCAL_INTERFACE:
-				return localInterface != null;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__REENTRANT:
-				return isSetReentrant();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__PRIMARY_KEY:
-				return primaryKey != null;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__VERSION:
-				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__ABSTRACT_SCHEMA_NAME:
-				return ABSTRACT_SCHEMA_NAME_EDEFAULT == null ? abstractSchemaName != null : !ABSTRACT_SCHEMA_NAME_EDEFAULT.equals(abstractSchemaName);
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__PERSISTENT_ATTRIBUTES:
-				return persistentAttributes != null && !persistentAttributes.isEmpty();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__KEY_ATTRIBUTES:
-				return keyAttributes != null && !keyAttributes.isEmpty();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__QUERIES:
-				return queries != null && !queries.isEmpty();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__CMP_ATTRIBUTE:
-				return cmpAttribute != null && !cmpAttribute.isEmpty();
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__PRIM_KEY_FIELD:
-				return primKeyField != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__ICONS:
-				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__DESCRIPTIONS:
-				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__SMALL_ICON:
-				setSmallIcon((String)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__LARGE_ICON:
-				setLargeIcon((String)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__DESCRIPTION:
-				setDescription((String)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__DISPLAY_NAME:
-				setDisplayName((String)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__ENVIRONMENT_PROPERTIES:
-				getEnvironmentProperties().clear();
-				getEnvironmentProperties().addAll((Collection)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__RESOURCE_REFS:
-				getResourceRefs().clear();
-				getResourceRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_REFS:
-				getEjbRefs().clear();
-				getEjbRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__RESOURCE_ENV_REFS:
-				getResourceEnvRefs().clear();
-				getResourceEnvRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_LOCAL_REFS:
-				getEjbLocalRefs().clear();
-				getEjbLocalRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__MESSAGE_DESTINATION_REFS:
-				getMessageDestinationRefs().clear();
-				getMessageDestinationRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__SERVICE_REFS:
-				getServiceRefs().clear();
-				getServiceRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__NAME:
-				setName((String)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__SECURITY_ROLE_REFS:
-				getSecurityRoleRefs().clear();
-				getSecurityRoleRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_CLASS:
-				setEjbClass((JavaClass)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__HOME_INTERFACE:
-				setHomeInterface((JavaClass)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__REMOTE_INTERFACE:
-				setRemoteInterface((JavaClass)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_JAR:
-				setEjbJar((EJBJar)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__SECURITY_IDENTITY:
-				setSecurityIdentity((SecurityIdentity)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__LOCAL_HOME_INTERFACE:
-				setLocalHomeInterface((JavaClass)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__LOCAL_INTERFACE:
-				setLocalInterface((JavaClass)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__REENTRANT:
-				setReentrant(((Boolean)newValue).booleanValue());
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__PRIMARY_KEY:
-				setPrimaryKey((JavaClass)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__VERSION:
-				setVersion((String)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__ABSTRACT_SCHEMA_NAME:
-				setAbstractSchemaName((String)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__PERSISTENT_ATTRIBUTES:
-				getPersistentAttributes().clear();
-				getPersistentAttributes().addAll((Collection)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__KEY_ATTRIBUTES:
-				getKeyAttributes().clear();
-				getKeyAttributes().addAll((Collection)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__QUERIES:
-				getQueries().clear();
-				getQueries().addAll((Collection)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__CMP_ATTRIBUTE:
-				getCMPAttribute().clear();
-				getCMPAttribute().addAll((Collection)newValue);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__PRIM_KEY_FIELD:
-				setPrimKeyField((CMPAttribute)newValue);
-				return;
-		}
-		eDynamicSet(eFeature, newValue);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__ICONS:
-				getIcons().clear();
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__DESCRIPTIONS:
-				getDescriptions().clear();
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__SMALL_ICON:
-				setSmallIcon(SMALL_ICON_EDEFAULT);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__LARGE_ICON:
-				setLargeIcon(LARGE_ICON_EDEFAULT);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__DISPLAY_NAME:
-				setDisplayName(DISPLAY_NAME_EDEFAULT);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__ENVIRONMENT_PROPERTIES:
-				getEnvironmentProperties().clear();
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__RESOURCE_REFS:
-				getResourceRefs().clear();
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_REFS:
-				getEjbRefs().clear();
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__RESOURCE_ENV_REFS:
-				getResourceEnvRefs().clear();
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_LOCAL_REFS:
-				getEjbLocalRefs().clear();
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__MESSAGE_DESTINATION_REFS:
-				getMessageDestinationRefs().clear();
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__SERVICE_REFS:
-				getServiceRefs().clear();
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__SECURITY_ROLE_REFS:
-				getSecurityRoleRefs().clear();
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_CLASS:
-				setEjbClass((JavaClass)null);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__HOME_INTERFACE:
-				setHomeInterface((JavaClass)null);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__REMOTE_INTERFACE:
-				setRemoteInterface((JavaClass)null);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__EJB_JAR:
-				setEjbJar((EJBJar)null);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__SECURITY_IDENTITY:
-				setSecurityIdentity((SecurityIdentity)null);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__LOCAL_HOME_INTERFACE:
-				setLocalHomeInterface((JavaClass)null);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__LOCAL_INTERFACE:
-				setLocalInterface((JavaClass)null);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__REENTRANT:
-				unsetReentrant();
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__PRIMARY_KEY:
-				setPrimaryKey((JavaClass)null);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__VERSION:
-				setVersion(VERSION_EDEFAULT);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__ABSTRACT_SCHEMA_NAME:
-				setAbstractSchemaName(ABSTRACT_SCHEMA_NAME_EDEFAULT);
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__PERSISTENT_ATTRIBUTES:
-				getPersistentAttributes().clear();
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__KEY_ATTRIBUTES:
-				getKeyAttributes().clear();
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__QUERIES:
-				getQueries().clear();
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__CMP_ATTRIBUTE:
-				getCMPAttribute().clear();
-				return;
-			case EjbPackage.CONTAINER_MANAGED_ENTITY__PRIM_KEY_FIELD:
-				setPrimKeyField((CMPAttribute)null);
-				return;
-		}
-		eDynamicUnset(eFeature);
-	}
-
-	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public String toString() {
@@ -1023,8 +555,8 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	 */
 	public CMPAttribute getPrimKeyField() {
 		if (primKeyField != null && primKeyField.eIsProxy()) {
-			CMPAttribute oldPrimKeyField = primKeyField;
-			primKeyField = (CMPAttribute)eResolveProxy((InternalEObject)primKeyField);
+			InternalEObject oldPrimKeyField = (InternalEObject)primKeyField;
+			primKeyField = (CMPAttribute)eResolveProxy(oldPrimKeyField);
 			if (primKeyField != oldPrimKeyField) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EjbPackage.CONTAINER_MANAGED_ENTITY__PRIM_KEY_FIELD, oldPrimKeyField, primKeyField));
@@ -1061,6 +593,153 @@ public CMPAttribute removePersistentAttribute(String aName) {
 		primKeyField = newPrimKeyField;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.CONTAINER_MANAGED_ENTITY__PRIM_KEY_FIELD, oldPrimKeyField, primKeyField));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__QUERIES:
+				return ((InternalEList)getQueries()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__PERSISTENT_ATTRIBUTES:
+				return ((InternalEList)getPersistentAttributes()).basicRemove(otherEnd, msgs);
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__QUERIES:
+				return ((InternalEList)getQueries()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__VERSION:
+				return getVersion();
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__ABSTRACT_SCHEMA_NAME:
+				return getAbstractSchemaName();
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__PERSISTENT_ATTRIBUTES:
+				return getPersistentAttributes();
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__KEY_ATTRIBUTES:
+				return getKeyAttributes();
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__QUERIES:
+				return getQueries();
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__CMP_ATTRIBUTE:
+				return getCMPAttribute();
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__PRIM_KEY_FIELD:
+				if (resolve) return getPrimKeyField();
+				return basicGetPrimKeyField();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__VERSION:
+				setVersion((String)newValue);
+				return;
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__ABSTRACT_SCHEMA_NAME:
+				setAbstractSchemaName((String)newValue);
+				return;
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__PERSISTENT_ATTRIBUTES:
+				getPersistentAttributes().clear();
+				getPersistentAttributes().addAll((Collection)newValue);
+				return;
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__KEY_ATTRIBUTES:
+				getKeyAttributes().clear();
+				getKeyAttributes().addAll((Collection)newValue);
+				return;
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__QUERIES:
+				getQueries().clear();
+				getQueries().addAll((Collection)newValue);
+				return;
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__CMP_ATTRIBUTE:
+				getCMPAttribute().clear();
+				getCMPAttribute().addAll((Collection)newValue);
+				return;
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__PRIM_KEY_FIELD:
+				setPrimKeyField((CMPAttribute)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__VERSION:
+				setVersion(VERSION_EDEFAULT);
+				return;
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__ABSTRACT_SCHEMA_NAME:
+				setAbstractSchemaName(ABSTRACT_SCHEMA_NAME_EDEFAULT);
+				return;
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__PERSISTENT_ATTRIBUTES:
+				getPersistentAttributes().clear();
+				return;
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__KEY_ATTRIBUTES:
+				getKeyAttributes().clear();
+				return;
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__QUERIES:
+				getQueries().clear();
+				return;
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__CMP_ATTRIBUTE:
+				getCMPAttribute().clear();
+				return;
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__PRIM_KEY_FIELD:
+				setPrimKeyField((CMPAttribute)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__VERSION:
+				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__ABSTRACT_SCHEMA_NAME:
+				return ABSTRACT_SCHEMA_NAME_EDEFAULT == null ? abstractSchemaName != null : !ABSTRACT_SCHEMA_NAME_EDEFAULT.equals(abstractSchemaName);
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__PERSISTENT_ATTRIBUTES:
+				return persistentAttributes != null && !persistentAttributes.isEmpty();
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__KEY_ATTRIBUTES:
+				return keyAttributes != null && !keyAttributes.isEmpty();
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__QUERIES:
+				return queries != null && !queries.isEmpty();
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__CMP_ATTRIBUTE:
+				return cmpAttribute != null && !cmpAttribute.isEmpty();
+			case EjbPackage.CONTAINER_MANAGED_ENTITY__PRIM_KEY_FIELD:
+				return primKeyField != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/* (non-Javadoc)

@@ -27,7 +27,7 @@ import org.eclipse.jst.j2ee.common.CommonPackage;
  * </p>
  *	@since 1.0
  */
-public interface WebapplicationPackage extends EPackage{
+public interface WebapplicationPackage extends EPackage {
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
@@ -233,7 +233,7 @@ public interface WebapplicationPackage extends EPackage{
 	int WEB_APP__LOCAL_ENCODING_MAPPING_LIST = CommonPackage.JNDI_ENV_REFS_GROUP_FEATURE_COUNT + 19;
 
 	/**
-	 * The number of structural features of the the '<em>Web App</em>' class.
+	 * The number of structural features of the '<em>Web App</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -248,28 +248,28 @@ public interface WebapplicationPackage extends EPackage{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int CONTEXT_PARAM__PARAM_NAME = 0;
+	int CONTEXT_PARAM__PARAM_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int CONTEXT_PARAM__PARAM_VALUE = 1;
+	int CONTEXT_PARAM__PARAM_VALUE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int CONTEXT_PARAM__DESCRIPTION = 2;
+	int CONTEXT_PARAM__DESCRIPTION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int CONTEXT_PARAM__WEB_APP = 3;
+	int CONTEXT_PARAM__WEB_APP = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
-	 * The number of structural features of the the '<em>Context Param</em>' class.
+	 * The number of structural features of the '<em>Context Param</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTEXT_PARAM_FEATURE_COUNT = 4;
+	int CONTEXT_PARAM_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
@@ -430,7 +430,7 @@ public interface WebapplicationPackage extends EPackage{
 	int SERVLET__INIT_PARAMS = CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP_FEATURE_COUNT + 7;
 
 	/**
-	 * The number of structural features of the the '<em>Servlet</em>' class.
+	 * The number of structural features of the '<em>Servlet</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -441,7 +441,7 @@ public interface WebapplicationPackage extends EPackage{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int SERVLET_MAPPING__URL_PATTERN = 0;
+	int SERVLET_MAPPING__URL_PATTERN = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -449,110 +449,110 @@ public interface WebapplicationPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int SERVLET_MAPPING__NAME = 1;
+	int SERVLET_MAPPING__NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int SERVLET_MAPPING__WEB_APP = 2;
+	int SERVLET_MAPPING__WEB_APP = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int SERVLET_MAPPING__SERVLET = 3;
+	int SERVLET_MAPPING__SERVLET = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
-	 * The number of structural features of the the '<em>Servlet Mapping</em>' class.
+	 * The number of structural features of the '<em>Servlet Mapping</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SERVLET_MAPPING_FEATURE_COUNT = 4;
+	int SERVLET_MAPPING_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int SESSION_CONFIG__SESSION_TIMEOUT = 0;
+	int SESSION_CONFIG__SESSION_TIMEOUT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int SESSION_CONFIG__WEB_APP = 1;
+	int SESSION_CONFIG__WEB_APP = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Session Config</em>' class.
+	 * The number of structural features of the '<em>Session Config</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_CONFIG_FEATURE_COUNT = 2;
+	int SESSION_CONFIG_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int MIME_MAPPING__EXTENSION = 0;
+	int MIME_MAPPING__EXTENSION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int MIME_MAPPING__MIME_TYPE = 1;
+	int MIME_MAPPING__MIME_TYPE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int MIME_MAPPING__WEB_APP = 2;
+	int MIME_MAPPING__WEB_APP = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the the '<em>Mime Mapping</em>' class.
+	 * The number of structural features of the '<em>Mime Mapping</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MIME_MAPPING_FEATURE_COUNT = 3;
+	int MIME_MAPPING_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int WELCOME_FILE_LIST__WEB_APP = 0;
+	int WELCOME_FILE_LIST__WEB_APP = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int WELCOME_FILE_LIST__FILE = 1;
+	int WELCOME_FILE_LIST__FILE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Welcome File List</em>' class.
+	 * The number of structural features of the '<em>Welcome File List</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WELCOME_FILE_LIST_FEATURE_COUNT = 2;
+	int WELCOME_FILE_LIST_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int ERROR_PAGE__LOCATION = 0;
+	int ERROR_PAGE__LOCATION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int ERROR_PAGE__WEB_APP = 1;
+	int ERROR_PAGE__WEB_APP = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Error Page</em>' class.
+	 * The number of structural features of the '<em>Error Page</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ERROR_PAGE_FEATURE_COUNT = 2;
+	int ERROR_PAGE_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int TAG_LIB_REF__TAGLIB_URI = 0;
+	int TAG_LIB_REF__TAGLIB_URI = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int TAG_LIB_REF__TAGLIB_LOCATION = 1;
+	int TAG_LIB_REF__TAGLIB_LOCATION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * The feature id for the '<em><b>Web App</b></em>' container reference.
 	 * <!-- begin-user-doc -->
@@ -560,16 +560,16 @@ public interface WebapplicationPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int TAG_LIB_REF__WEB_APP = 2;
+	int TAG_LIB_REF__WEB_APP = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the the '<em>Tag Lib Ref</em>' class.
+	 * The number of structural features of the '<em>Tag Lib Ref</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TAG_LIB_REF_FEATURE_COUNT = 3;
+	int TAG_LIB_REF_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Display Name</b></em>' attribute.
@@ -578,24 +578,24 @@ public interface WebapplicationPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int SECURITY_CONSTRAINT__DISPLAY_NAME = 0;
+	int SECURITY_CONSTRAINT__DISPLAY_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int SECURITY_CONSTRAINT__WEB_APP = 1;
+	int SECURITY_CONSTRAINT__WEB_APP = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int SECURITY_CONSTRAINT__WEB_RESOURCE_COLLECTIONS = 2;
+	int SECURITY_CONSTRAINT__WEB_RESOURCE_COLLECTIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int SECURITY_CONSTRAINT__AUTH_CONSTRAINT = 3;
+	int SECURITY_CONSTRAINT__AUTH_CONSTRAINT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int SECURITY_CONSTRAINT__USER_DATA_CONSTRAINT = 4;
+	int SECURITY_CONSTRAINT__USER_DATA_CONSTRAINT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Display Names</b></em>' containment reference list.
@@ -604,25 +604,25 @@ public interface WebapplicationPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int SECURITY_CONSTRAINT__DISPLAY_NAMES = 5;
+	int SECURITY_CONSTRAINT__DISPLAY_NAMES = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
-	 * The number of structural features of the the '<em>Security Constraint</em>' class.
+	 * The number of structural features of the '<em>Security Constraint</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SECURITY_CONSTRAINT_FEATURE_COUNT = 6;
+	int SECURITY_CONSTRAINT_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 6;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int WEB_RESOURCE_COLLECTION__WEB_RESOURCE_NAME = 0;
+	int WEB_RESOURCE_COLLECTION__WEB_RESOURCE_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int WEB_RESOURCE_COLLECTION__DESCRIPTION = 1;
+	int WEB_RESOURCE_COLLECTION__DESCRIPTION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * The feature id for the '<em><b>Url Pattern</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
@@ -630,7 +630,7 @@ public interface WebapplicationPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_RESOURCE_COLLECTION__URL_PATTERN = 2;
+	int WEB_RESOURCE_COLLECTION__URL_PATTERN = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Http Method</b></em>' attribute list.
@@ -639,16 +639,16 @@ public interface WebapplicationPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_RESOURCE_COLLECTION__HTTP_METHOD = 3;
+	int WEB_RESOURCE_COLLECTION__HTTP_METHOD = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT = 4;
+	int WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int WEB_RESOURCE_COLLECTION__UR_LS = 5;
+	int WEB_RESOURCE_COLLECTION__UR_LS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -656,7 +656,7 @@ public interface WebapplicationPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_RESOURCE_COLLECTION__DESCRIPTIONS = 6;
+	int WEB_RESOURCE_COLLECTION__DESCRIPTIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>HTT Ps</b></em>' containment reference list.
@@ -665,29 +665,29 @@ public interface WebapplicationPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_RESOURCE_COLLECTION__HTT_PS = 7;
+	int WEB_RESOURCE_COLLECTION__HTT_PS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 7;
 
 	/**
-	 * The number of structural features of the the '<em>Web Resource Collection</em>' class.
+	 * The number of structural features of the '<em>Web Resource Collection</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_RESOURCE_COLLECTION_FEATURE_COUNT = 8;
+	int WEB_RESOURCE_COLLECTION_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 8;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int AUTH_CONSTRAINT__DESCRIPTION = 0;
+	int AUTH_CONSTRAINT__DESCRIPTION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int AUTH_CONSTRAINT__ROLES = 1;
+	int AUTH_CONSTRAINT__ROLES = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int AUTH_CONSTRAINT__SEC_CONSTRAINT = 2;
+	int AUTH_CONSTRAINT__SEC_CONSTRAINT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -696,29 +696,29 @@ public interface WebapplicationPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int AUTH_CONSTRAINT__DESCRIPTIONS = 3;
+	int AUTH_CONSTRAINT__DESCRIPTIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
-	 * The number of structural features of the the '<em>Auth Constraint</em>' class.
+	 * The number of structural features of the '<em>Auth Constraint</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int AUTH_CONSTRAINT_FEATURE_COUNT = 4;
+	int AUTH_CONSTRAINT_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int USER_DATA_CONSTRAINT__DESCRIPTION = 0;
+	int USER_DATA_CONSTRAINT__DESCRIPTION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int USER_DATA_CONSTRAINT__TRANSPORT_GUARANTEE = 1;
+	int USER_DATA_CONSTRAINT__TRANSPORT_GUARANTEE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int USER_DATA_CONSTRAINT__SEC_CONSTRAINT = 2;
+	int USER_DATA_CONSTRAINT__SEC_CONSTRAINT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -727,25 +727,25 @@ public interface WebapplicationPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int USER_DATA_CONSTRAINT__DESCRIPTIONS = 3;
+	int USER_DATA_CONSTRAINT__DESCRIPTIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
-	 * The number of structural features of the the '<em>User Data Constraint</em>' class.
+	 * The number of structural features of the '<em>User Data Constraint</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int USER_DATA_CONSTRAINT_FEATURE_COUNT = 4;
+	int USER_DATA_CONSTRAINT_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int LOGIN_CONFIG__AUTH_METHOD = 0;
+	int LOGIN_CONFIG__AUTH_METHOD = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int LOGIN_CONFIG__REALM_NAME = 1;
+	int LOGIN_CONFIG__REALM_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * The feature id for the '<em><b>Authorization Method</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -753,47 +753,47 @@ public interface WebapplicationPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int LOGIN_CONFIG__AUTHORIZATION_METHOD = 2;
+	int LOGIN_CONFIG__AUTHORIZATION_METHOD = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int LOGIN_CONFIG__WEB_APP = 3;
+	int LOGIN_CONFIG__WEB_APP = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int LOGIN_CONFIG__FORM_LOGIN_CONFIG = 4;
+	int LOGIN_CONFIG__FORM_LOGIN_CONFIG = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
-	 * The number of structural features of the the '<em>Login Config</em>' class.
+	 * The number of structural features of the '<em>Login Config</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LOGIN_CONFIG_FEATURE_COUNT = 5;
+	int LOGIN_CONFIG_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int FORM_LOGIN_CONFIG__FORM_LOGIN_PAGE = 0;
+	int FORM_LOGIN_CONFIG__FORM_LOGIN_PAGE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int FORM_LOGIN_CONFIG__FORM_ERROR_PAGE = 1;
+	int FORM_LOGIN_CONFIG__FORM_ERROR_PAGE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int FORM_LOGIN_CONFIG__LOGIN_CONFIG = 2;
+	int FORM_LOGIN_CONFIG__LOGIN_CONFIG = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the the '<em>Form Login Config</em>' class.
+	 * The number of structural features of the '<em>Form Login Config</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FORM_LOGIN_CONFIG_FEATURE_COUNT = 3;
+	int FORM_LOGIN_CONFIG_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
@@ -814,32 +814,32 @@ public interface WebapplicationPackage extends EPackage{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int INIT_PARAM__PARAM_NAME = 0;
+	int INIT_PARAM__PARAM_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int INIT_PARAM__PARAM_VALUE = 1;
+	int INIT_PARAM__PARAM_VALUE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int INIT_PARAM__DESCRIPTION = 2;
+	int INIT_PARAM__DESCRIPTION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 	/**
-	 * The number of structural features of the the '<em>Init Param</em>' class.
+	 * The number of structural features of the '<em>Init Param</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INIT_PARAM_FEATURE_COUNT = 3;
+	int INIT_PARAM_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
-	 * The number of structural features of the the '<em>Web Type</em>' class.
+	 * The number of structural features of the '<em>Web Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_TYPE_FEATURE_COUNT = 0;
+	int WEB_TYPE_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
@@ -847,7 +847,7 @@ public interface WebapplicationPackage extends EPackage{
 	int SERVLET_TYPE__CLASS_NAME = WEB_TYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Servlet Type</em>' class.
+	 * The number of structural features of the '<em>Servlet Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -861,7 +861,7 @@ public interface WebapplicationPackage extends EPackage{
 	int JSP_TYPE__JSP_FILE = WEB_TYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>JSP Type</em>' class.
+	 * The number of structural features of the '<em>JSP Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -872,20 +872,20 @@ public interface WebapplicationPackage extends EPackage{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int URL_PATTERN_TYPE__URL_PATTERN = 0;
+	int URL_PATTERN_TYPE__URL_PATTERN = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int URL_PATTERN_TYPE__RES_COLLECTION = 1;
+	int URL_PATTERN_TYPE__RES_COLLECTION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>URL Pattern Type</em>' class.
+	 * The number of structural features of the '<em>URL Pattern Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int URL_PATTERN_TYPE_FEATURE_COUNT = 2;
+	int URL_PATTERN_TYPE_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
@@ -902,34 +902,34 @@ public interface WebapplicationPackage extends EPackage{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int ROLE_NAME_TYPE__ROLE_NAME = 0;
+	int ROLE_NAME_TYPE__ROLE_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Role Name Type</em>' class.
+	 * The number of structural features of the '<em>Role Name Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ROLE_NAME_TYPE_FEATURE_COUNT = 1;
+	int ROLE_NAME_TYPE_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int WELCOME_FILE__WELCOME_FILE = 0;
+	int WELCOME_FILE__WELCOME_FILE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int WELCOME_FILE__FILE_LIST = 1;
+	int WELCOME_FILE__FILE_LIST = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Welcome File</em>' class.
+	 * The number of structural features of the '<em>Welcome File</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WELCOME_FILE_FEATURE_COUNT = 2;
+	int WELCOME_FILE_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
@@ -945,7 +945,7 @@ public interface WebapplicationPackage extends EPackage{
 	 */
 	int EXCEPTION_TYPE_ERROR_PAGE__EXCEPTION_TYPE = ERROR_PAGE_FEATURE_COUNT + 0;
 	/**
-	 * The number of structural features of the the '<em>Exception Type Error Page</em>' class.
+	 * The number of structural features of the '<em>Exception Type Error Page</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -967,7 +967,7 @@ public interface WebapplicationPackage extends EPackage{
 	 */
 	int ERROR_CODE_ERROR_PAGE__ERROR_CODE = ERROR_PAGE_FEATURE_COUNT + 0;
 	/**
-	 * The number of structural features of the the '<em>Error Code Error Page</em>' class.
+	 * The number of structural features of the '<em>Error Code Error Page</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -978,7 +978,7 @@ public interface WebapplicationPackage extends EPackage{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int FILTER_MAPPING__URL_PATTERN = 0;
+	int FILTER_MAPPING__URL_PATTERN = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * The feature id for the '<em><b>Dispatcher Type</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
@@ -986,25 +986,25 @@ public interface WebapplicationPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int FILTER_MAPPING__DISPATCHER_TYPE = 1;
+	int FILTER_MAPPING__DISPATCHER_TYPE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int FILTER_MAPPING__FILTER = 2;
+	int FILTER_MAPPING__FILTER = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int FILTER_MAPPING__SERVLET = 3;
+	int FILTER_MAPPING__SERVLET = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
-	 * The number of structural features of the the '<em>Filter Mapping</em>' class.
+	 * The number of structural features of the '<em>Filter Mapping</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FILTER_MAPPING_FEATURE_COUNT = 4;
+	int FILTER_MAPPING_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Icons</b></em>' containment reference list.
@@ -1072,7 +1072,7 @@ public interface WebapplicationPackage extends EPackage{
 	int FILTER__INIT_PARAM_VALUES = CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP_FEATURE_COUNT + 3;
 
 	/**
-	 * The number of structural features of the the '<em>Filter</em>' class.
+	 * The number of structural features of the '<em>Filter</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1097,16 +1097,16 @@ public interface WebapplicationPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int LOCAL_ENCODING_MAPPING_LIST__LOCAL_ENCODING_MAPPINGS = 0;
+	int LOCAL_ENCODING_MAPPING_LIST__LOCAL_ENCODING_MAPPINGS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Local Encoding Mapping List</em>' class.
+	 * The number of structural features of the '<em>Local Encoding Mapping List</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LOCAL_ENCODING_MAPPING_LIST_FEATURE_COUNT = 1;
+	int LOCAL_ENCODING_MAPPING_LIST_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.LocalEncodingMappingImpl <em>Local Encoding Mapping</em>}' class.
@@ -1125,7 +1125,7 @@ public interface WebapplicationPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int LOCAL_ENCODING_MAPPING__LOCALE = 0;
+	int LOCAL_ENCODING_MAPPING__LOCALE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Encoding</b></em>' attribute.
@@ -1134,16 +1134,16 @@ public interface WebapplicationPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int LOCAL_ENCODING_MAPPING__ENCODING = 1;
+	int LOCAL_ENCODING_MAPPING__ENCODING = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Local Encoding Mapping</em>' class.
+	 * The number of structural features of the '<em>Local Encoding Mapping</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LOCAL_ENCODING_MAPPING_FEATURE_COUNT = 2;
+	int LOCAL_ENCODING_MAPPING_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Http Method</b></em>' attribute.
@@ -1152,16 +1152,16 @@ public interface WebapplicationPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int HTTP_METHOD_TYPE__HTTP_METHOD = 0;
+	int HTTP_METHOD_TYPE__HTTP_METHOD = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>HTTP Method Type</em>' class.
+	 * The number of structural features of the '<em>HTTP Method Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int HTTP_METHOD_TYPE_FEATURE_COUNT = 1;
+	int HTTP_METHOD_TYPE_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webapplication.ResAuthServletType <em>Res Auth Servlet Type</em>}' enum.
@@ -1251,9 +1251,6 @@ public interface WebapplicationPackage extends EPackage{
 	 * @see org.eclipse.jst.j2ee.webapplication.WebApp#getVersion()
 	 * @see #getWebApp()
 	 * @generated
-	 */
-	/**
-	 * @return
 	 */
 	EAttribute getWebApp_Version();
 
@@ -1378,9 +1375,6 @@ public interface WebapplicationPackage extends EPackage{
 	 * @see #getWebApp()
 	 * @generated
 	 */
-	/**
-	 * @return
-	 */
 	EReference getWebApp_ContextParams();
 
 	/**
@@ -1391,9 +1385,6 @@ public interface WebapplicationPackage extends EPackage{
 	 * @see org.eclipse.jst.j2ee.webapplication.WebApp#getJspConfig()
 	 * @see #getWebApp()
 	 * @generated
-	 */
-	/**
-	 * @return
 	 */
 	EReference getWebApp_JspConfig();
 
@@ -1406,9 +1397,6 @@ public interface WebapplicationPackage extends EPackage{
 	 * @see #getWebApp()
 	 * @generated
 	 */
-	/**
-	 * @return
-	 */
 	EReference getWebApp_MessageDestinations();
 
 	/**
@@ -1419,9 +1407,6 @@ public interface WebapplicationPackage extends EPackage{
 	 * @see org.eclipse.jst.j2ee.webapplication.WebApp#getLocalEncodingMappingList()
 	 * @see #getWebApp()
 	 * @generated
-	 */
-	/**
-	 * @return
 	 */
 	EReference getWebApp_LocalEncodingMappingList();
 
@@ -1769,9 +1754,6 @@ public interface WebapplicationPackage extends EPackage{
 	 * @see org.eclipse.jst.j2ee.webapplication.AuthConstraint#getDescriptions()
 	 * @see #getAuthConstraint()
 	 * @generated
-	 */
-	/**
-	 * @return Descriptions
 	 */
 	EReference getAuthConstraint_Descriptions();
 
@@ -2213,6 +2195,1177 @@ public interface WebapplicationPackage extends EPackage{
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	WebapplicationFactory getWebapplicationFactory();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Defines literals for the meta objects that represent
+	 * <ul>
+	 *   <li>each class,</li>
+	 *   <li>each feature of each class,</li>
+	 *   <li>each enum,</li>
+	 *   <li>and each data type</li>
+	 * </ul>
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	interface Literals  {
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.WebAppImpl <em>Web App</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebAppImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getWebApp()
+		 * @generated
+		 */
+		EClass WEB_APP = eINSTANCE.getWebApp();
+
+		/**
+		 * The meta object literal for the '<em><b>Distributable</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_APP__DISTRIBUTABLE = eINSTANCE.getWebApp_Distributable();
+
+		/**
+		 * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_APP__VERSION = eINSTANCE.getWebApp_Version();
+
+		/**
+		 * The meta object literal for the '<em><b>Contexts</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__CONTEXTS = eINSTANCE.getWebApp_Contexts();
+
+		/**
+		 * The meta object literal for the '<em><b>Error Pages</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__ERROR_PAGES = eINSTANCE.getWebApp_ErrorPages();
+
+		/**
+		 * The meta object literal for the '<em><b>File List</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__FILE_LIST = eINSTANCE.getWebApp_FileList();
+
+		/**
+		 * The meta object literal for the '<em><b>Tag Libs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__TAG_LIBS = eINSTANCE.getWebApp_TagLibs();
+
+		/**
+		 * The meta object literal for the '<em><b>Constraints</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__CONSTRAINTS = eINSTANCE.getWebApp_Constraints();
+
+		/**
+		 * The meta object literal for the '<em><b>Login Config</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__LOGIN_CONFIG = eINSTANCE.getWebApp_LoginConfig();
+
+		/**
+		 * The meta object literal for the '<em><b>Mime Mappings</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__MIME_MAPPINGS = eINSTANCE.getWebApp_MimeMappings();
+
+		/**
+		 * The meta object literal for the '<em><b>Session Config</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__SESSION_CONFIG = eINSTANCE.getWebApp_SessionConfig();
+
+		/**
+		 * The meta object literal for the '<em><b>Servlet Mappings</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__SERVLET_MAPPINGS = eINSTANCE.getWebApp_ServletMappings();
+
+		/**
+		 * The meta object literal for the '<em><b>Servlets</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__SERVLETS = eINSTANCE.getWebApp_Servlets();
+
+		/**
+		 * The meta object literal for the '<em><b>Security Roles</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__SECURITY_ROLES = eINSTANCE.getWebApp_SecurityRoles();
+
+		/**
+		 * The meta object literal for the '<em><b>Filters</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__FILTERS = eINSTANCE.getWebApp_Filters();
+
+		/**
+		 * The meta object literal for the '<em><b>Filter Mappings</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__FILTER_MAPPINGS = eINSTANCE.getWebApp_FilterMappings();
+
+		/**
+		 * The meta object literal for the '<em><b>Listeners</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__LISTENERS = eINSTANCE.getWebApp_Listeners();
+
+		/**
+		 * The meta object literal for the '<em><b>Context Params</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__CONTEXT_PARAMS = eINSTANCE.getWebApp_ContextParams();
+
+		/**
+		 * The meta object literal for the '<em><b>Jsp Config</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__JSP_CONFIG = eINSTANCE.getWebApp_JspConfig();
+
+		/**
+		 * The meta object literal for the '<em><b>Message Destinations</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__MESSAGE_DESTINATIONS = eINSTANCE.getWebApp_MessageDestinations();
+
+		/**
+		 * The meta object literal for the '<em><b>Local Encoding Mapping List</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__LOCAL_ENCODING_MAPPING_LIST = eINSTANCE.getWebApp_LocalEncodingMappingList();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.ContextParamImpl <em>Context Param</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.ContextParamImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getContextParam()
+		 * @generated
+		 */
+		EClass CONTEXT_PARAM = eINSTANCE.getContextParam();
+
+		/**
+		 * The meta object literal for the '<em><b>Param Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONTEXT_PARAM__PARAM_NAME = eINSTANCE.getContextParam_ParamName();
+
+		/**
+		 * The meta object literal for the '<em><b>Param Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONTEXT_PARAM__PARAM_VALUE = eINSTANCE.getContextParam_ParamValue();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONTEXT_PARAM__DESCRIPTION = eINSTANCE.getContextParam_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Web App</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONTEXT_PARAM__WEB_APP = eINSTANCE.getContextParam_WebApp();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.ServletImpl <em>Servlet</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.ServletImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getServlet()
+		 * @generated
+		 */
+		EClass SERVLET = eINSTANCE.getServlet();
+
+		/**
+		 * The meta object literal for the '<em><b>Servlet Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVLET__SERVLET_NAME = eINSTANCE.getServlet_ServletName();
+
+		/**
+		 * The meta object literal for the '<em><b>Load On Startup</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVLET__LOAD_ON_STARTUP = eINSTANCE.getServlet_LoadOnStartup();
+
+		/**
+		 * The meta object literal for the '<em><b>Web App</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVLET__WEB_APP = eINSTANCE.getServlet_WebApp();
+
+		/**
+		 * The meta object literal for the '<em><b>Web Type</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVLET__WEB_TYPE = eINSTANCE.getServlet_WebType();
+
+		/**
+		 * The meta object literal for the '<em><b>Params</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVLET__PARAMS = eINSTANCE.getServlet_Params();
+
+		/**
+		 * The meta object literal for the '<em><b>Security Role Refs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVLET__SECURITY_ROLE_REFS = eINSTANCE.getServlet_SecurityRoleRefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Run As</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVLET__RUN_AS = eINSTANCE.getServlet_RunAs();
+
+		/**
+		 * The meta object literal for the '<em><b>Init Params</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVLET__INIT_PARAMS = eINSTANCE.getServlet_InitParams();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.ServletMappingImpl <em>Servlet Mapping</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.ServletMappingImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getServletMapping()
+		 * @generated
+		 */
+		EClass SERVLET_MAPPING = eINSTANCE.getServletMapping();
+
+		/**
+		 * The meta object literal for the '<em><b>Url Pattern</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVLET_MAPPING__URL_PATTERN = eINSTANCE.getServletMapping_UrlPattern();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVLET_MAPPING__NAME = eINSTANCE.getServletMapping_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Web App</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVLET_MAPPING__WEB_APP = eINSTANCE.getServletMapping_WebApp();
+
+		/**
+		 * The meta object literal for the '<em><b>Servlet</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVLET_MAPPING__SERVLET = eINSTANCE.getServletMapping_Servlet();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.SessionConfigImpl <em>Session Config</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.SessionConfigImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getSessionConfig()
+		 * @generated
+		 */
+		EClass SESSION_CONFIG = eINSTANCE.getSessionConfig();
+
+		/**
+		 * The meta object literal for the '<em><b>Session Timeout</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SESSION_CONFIG__SESSION_TIMEOUT = eINSTANCE.getSessionConfig_SessionTimeout();
+
+		/**
+		 * The meta object literal for the '<em><b>Web App</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SESSION_CONFIG__WEB_APP = eINSTANCE.getSessionConfig_WebApp();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.MimeMappingImpl <em>Mime Mapping</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.MimeMappingImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getMimeMapping()
+		 * @generated
+		 */
+		EClass MIME_MAPPING = eINSTANCE.getMimeMapping();
+
+		/**
+		 * The meta object literal for the '<em><b>Extension</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MIME_MAPPING__EXTENSION = eINSTANCE.getMimeMapping_Extension();
+
+		/**
+		 * The meta object literal for the '<em><b>Mime Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MIME_MAPPING__MIME_TYPE = eINSTANCE.getMimeMapping_MimeType();
+
+		/**
+		 * The meta object literal for the '<em><b>Web App</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MIME_MAPPING__WEB_APP = eINSTANCE.getMimeMapping_WebApp();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.WelcomeFileListImpl <em>Welcome File List</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WelcomeFileListImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getWelcomeFileList()
+		 * @generated
+		 */
+		EClass WELCOME_FILE_LIST = eINSTANCE.getWelcomeFileList();
+
+		/**
+		 * The meta object literal for the '<em><b>Web App</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WELCOME_FILE_LIST__WEB_APP = eINSTANCE.getWelcomeFileList_WebApp();
+
+		/**
+		 * The meta object literal for the '<em><b>File</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WELCOME_FILE_LIST__FILE = eINSTANCE.getWelcomeFileList_File();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.ErrorPageImpl <em>Error Page</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.ErrorPageImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getErrorPage()
+		 * @generated
+		 */
+		EClass ERROR_PAGE = eINSTANCE.getErrorPage();
+
+		/**
+		 * The meta object literal for the '<em><b>Location</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ERROR_PAGE__LOCATION = eINSTANCE.getErrorPage_Location();
+
+		/**
+		 * The meta object literal for the '<em><b>Web App</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ERROR_PAGE__WEB_APP = eINSTANCE.getErrorPage_WebApp();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.TagLibRefImpl <em>Tag Lib Ref</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.TagLibRefImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getTagLibRef()
+		 * @generated
+		 */
+		EClass TAG_LIB_REF = eINSTANCE.getTagLibRef();
+
+		/**
+		 * The meta object literal for the '<em><b>Taglib URI</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TAG_LIB_REF__TAGLIB_URI = eINSTANCE.getTagLibRef_TaglibURI();
+
+		/**
+		 * The meta object literal for the '<em><b>Taglib Location</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TAG_LIB_REF__TAGLIB_LOCATION = eINSTANCE.getTagLibRef_TaglibLocation();
+
+		/**
+		 * The meta object literal for the '<em><b>Web App</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TAG_LIB_REF__WEB_APP = eINSTANCE.getTagLibRef_WebApp();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.SecurityConstraintImpl <em>Security Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.SecurityConstraintImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getSecurityConstraint()
+		 * @generated
+		 */
+		EClass SECURITY_CONSTRAINT = eINSTANCE.getSecurityConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Display Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SECURITY_CONSTRAINT__DISPLAY_NAME = eINSTANCE.getSecurityConstraint_DisplayName();
+
+		/**
+		 * The meta object literal for the '<em><b>Web App</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SECURITY_CONSTRAINT__WEB_APP = eINSTANCE.getSecurityConstraint_WebApp();
+
+		/**
+		 * The meta object literal for the '<em><b>Web Resource Collections</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SECURITY_CONSTRAINT__WEB_RESOURCE_COLLECTIONS = eINSTANCE.getSecurityConstraint_WebResourceCollections();
+
+		/**
+		 * The meta object literal for the '<em><b>Auth Constraint</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SECURITY_CONSTRAINT__AUTH_CONSTRAINT = eINSTANCE.getSecurityConstraint_AuthConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>User Data Constraint</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SECURITY_CONSTRAINT__USER_DATA_CONSTRAINT = eINSTANCE.getSecurityConstraint_UserDataConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Display Names</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SECURITY_CONSTRAINT__DISPLAY_NAMES = eINSTANCE.getSecurityConstraint_DisplayNames();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.WebResourceCollectionImpl <em>Web Resource Collection</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebResourceCollectionImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getWebResourceCollection()
+		 * @generated
+		 */
+		EClass WEB_RESOURCE_COLLECTION = eINSTANCE.getWebResourceCollection();
+
+		/**
+		 * The meta object literal for the '<em><b>Web Resource Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_RESOURCE_COLLECTION__WEB_RESOURCE_NAME = eINSTANCE.getWebResourceCollection_WebResourceName();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_RESOURCE_COLLECTION__DESCRIPTION = eINSTANCE.getWebResourceCollection_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Url Pattern</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_RESOURCE_COLLECTION__URL_PATTERN = eINSTANCE.getWebResourceCollection_UrlPattern();
+
+		/**
+		 * The meta object literal for the '<em><b>Http Method</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_RESOURCE_COLLECTION__HTTP_METHOD = eINSTANCE.getWebResourceCollection_HttpMethod();
+
+		/**
+		 * The meta object literal for the '<em><b>Sec Constraint</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT = eINSTANCE.getWebResourceCollection_SecConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>UR Ls</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_RESOURCE_COLLECTION__UR_LS = eINSTANCE.getWebResourceCollection_URLs();
+
+		/**
+		 * The meta object literal for the '<em><b>Descriptions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_RESOURCE_COLLECTION__DESCRIPTIONS = eINSTANCE.getWebResourceCollection_Descriptions();
+
+		/**
+		 * The meta object literal for the '<em><b>HTT Ps</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_RESOURCE_COLLECTION__HTT_PS = eINSTANCE.getWebResourceCollection_HTTPs();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.AuthConstraintImpl <em>Auth Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.AuthConstraintImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getAuthConstraint()
+		 * @generated
+		 */
+		EClass AUTH_CONSTRAINT = eINSTANCE.getAuthConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute AUTH_CONSTRAINT__DESCRIPTION = eINSTANCE.getAuthConstraint_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Roles</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute AUTH_CONSTRAINT__ROLES = eINSTANCE.getAuthConstraint_Roles();
+
+		/**
+		 * The meta object literal for the '<em><b>Sec Constraint</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference AUTH_CONSTRAINT__SEC_CONSTRAINT = eINSTANCE.getAuthConstraint_SecConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Descriptions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference AUTH_CONSTRAINT__DESCRIPTIONS = eINSTANCE.getAuthConstraint_Descriptions();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.UserDataConstraintImpl <em>User Data Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.UserDataConstraintImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getUserDataConstraint()
+		 * @generated
+		 */
+		EClass USER_DATA_CONSTRAINT = eINSTANCE.getUserDataConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute USER_DATA_CONSTRAINT__DESCRIPTION = eINSTANCE.getUserDataConstraint_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Transport Guarantee</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute USER_DATA_CONSTRAINT__TRANSPORT_GUARANTEE = eINSTANCE.getUserDataConstraint_TransportGuarantee();
+
+		/**
+		 * The meta object literal for the '<em><b>Sec Constraint</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference USER_DATA_CONSTRAINT__SEC_CONSTRAINT = eINSTANCE.getUserDataConstraint_SecConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Descriptions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference USER_DATA_CONSTRAINT__DESCRIPTIONS = eINSTANCE.getUserDataConstraint_Descriptions();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.LoginConfigImpl <em>Login Config</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.LoginConfigImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getLoginConfig()
+		 * @generated
+		 */
+		EClass LOGIN_CONFIG = eINSTANCE.getLoginConfig();
+
+		/**
+		 * The meta object literal for the '<em><b>Auth Method</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LOGIN_CONFIG__AUTH_METHOD = eINSTANCE.getLoginConfig_AuthMethod();
+
+		/**
+		 * The meta object literal for the '<em><b>Realm Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LOGIN_CONFIG__REALM_NAME = eINSTANCE.getLoginConfig_RealmName();
+
+		/**
+		 * The meta object literal for the '<em><b>Authorization Method</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LOGIN_CONFIG__AUTHORIZATION_METHOD = eINSTANCE.getLoginConfig_AuthorizationMethod();
+
+		/**
+		 * The meta object literal for the '<em><b>Web App</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LOGIN_CONFIG__WEB_APP = eINSTANCE.getLoginConfig_WebApp();
+
+		/**
+		 * The meta object literal for the '<em><b>Form Login Config</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LOGIN_CONFIG__FORM_LOGIN_CONFIG = eINSTANCE.getLoginConfig_FormLoginConfig();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.FormLoginConfigImpl <em>Form Login Config</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.FormLoginConfigImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getFormLoginConfig()
+		 * @generated
+		 */
+		EClass FORM_LOGIN_CONFIG = eINSTANCE.getFormLoginConfig();
+
+		/**
+		 * The meta object literal for the '<em><b>Form Login Page</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FORM_LOGIN_CONFIG__FORM_LOGIN_PAGE = eINSTANCE.getFormLoginConfig_FormLoginPage();
+
+		/**
+		 * The meta object literal for the '<em><b>Form Error Page</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FORM_LOGIN_CONFIG__FORM_ERROR_PAGE = eINSTANCE.getFormLoginConfig_FormErrorPage();
+
+		/**
+		 * The meta object literal for the '<em><b>Login Config</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FORM_LOGIN_CONFIG__LOGIN_CONFIG = eINSTANCE.getFormLoginConfig_LoginConfig();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.InitParamImpl <em>Init Param</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.InitParamImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getInitParam()
+		 * @generated
+		 */
+		EClass INIT_PARAM = eINSTANCE.getInitParam();
+
+		/**
+		 * The meta object literal for the '<em><b>Param Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INIT_PARAM__PARAM_NAME = eINSTANCE.getInitParam_ParamName();
+
+		/**
+		 * The meta object literal for the '<em><b>Param Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INIT_PARAM__PARAM_VALUE = eINSTANCE.getInitParam_ParamValue();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INIT_PARAM__DESCRIPTION = eINSTANCE.getInitParam_Description();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.WebTypeImpl <em>Web Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebTypeImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getWebType()
+		 * @generated
+		 */
+		EClass WEB_TYPE = eINSTANCE.getWebType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.ServletTypeImpl <em>Servlet Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.ServletTypeImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getServletType()
+		 * @generated
+		 */
+		EClass SERVLET_TYPE = eINSTANCE.getServletType();
+
+		/**
+		 * The meta object literal for the '<em><b>Class Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVLET_TYPE__CLASS_NAME = eINSTANCE.getServletType_ClassName();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.JSPTypeImpl <em>JSP Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.JSPTypeImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getJSPType()
+		 * @generated
+		 */
+		EClass JSP_TYPE = eINSTANCE.getJSPType();
+
+		/**
+		 * The meta object literal for the '<em><b>Jsp File</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JSP_TYPE__JSP_FILE = eINSTANCE.getJSPType_JspFile();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.URLPatternTypeImpl <em>URL Pattern Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.URLPatternTypeImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getURLPatternType()
+		 * @generated
+		 */
+		EClass URL_PATTERN_TYPE = eINSTANCE.getURLPatternType();
+
+		/**
+		 * The meta object literal for the '<em><b>Url Pattern</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute URL_PATTERN_TYPE__URL_PATTERN = eINSTANCE.getURLPatternType_UrlPattern();
+
+		/**
+		 * The meta object literal for the '<em><b>Res Collection</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference URL_PATTERN_TYPE__RES_COLLECTION = eINSTANCE.getURLPatternType_ResCollection();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.RoleNameTypeImpl <em>Role Name Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.RoleNameTypeImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getRoleNameType()
+		 * @generated
+		 */
+		EClass ROLE_NAME_TYPE = eINSTANCE.getRoleNameType();
+
+		/**
+		 * The meta object literal for the '<em><b>Role Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ROLE_NAME_TYPE__ROLE_NAME = eINSTANCE.getRoleNameType_RoleName();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.WelcomeFileImpl <em>Welcome File</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WelcomeFileImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getWelcomeFile()
+		 * @generated
+		 */
+		EClass WELCOME_FILE = eINSTANCE.getWelcomeFile();
+
+		/**
+		 * The meta object literal for the '<em><b>Welcome File</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WELCOME_FILE__WELCOME_FILE = eINSTANCE.getWelcomeFile_WelcomeFile();
+
+		/**
+		 * The meta object literal for the '<em><b>File List</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WELCOME_FILE__FILE_LIST = eINSTANCE.getWelcomeFile_FileList();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.ExceptionTypeErrorPageImpl <em>Exception Type Error Page</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.ExceptionTypeErrorPageImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getExceptionTypeErrorPage()
+		 * @generated
+		 */
+		EClass EXCEPTION_TYPE_ERROR_PAGE = eINSTANCE.getExceptionTypeErrorPage();
+
+		/**
+		 * The meta object literal for the '<em><b>Exception Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXCEPTION_TYPE_ERROR_PAGE__EXCEPTION_TYPE = eINSTANCE.getExceptionTypeErrorPage_ExceptionType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.ErrorCodeErrorPageImpl <em>Error Code Error Page</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.ErrorCodeErrorPageImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getErrorCodeErrorPage()
+		 * @generated
+		 */
+		EClass ERROR_CODE_ERROR_PAGE = eINSTANCE.getErrorCodeErrorPage();
+
+		/**
+		 * The meta object literal for the '<em><b>Error Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ERROR_CODE_ERROR_PAGE__ERROR_CODE = eINSTANCE.getErrorCodeErrorPage_ErrorCode();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.FilterMappingImpl <em>Filter Mapping</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.FilterMappingImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getFilterMapping()
+		 * @generated
+		 */
+		EClass FILTER_MAPPING = eINSTANCE.getFilterMapping();
+
+		/**
+		 * The meta object literal for the '<em><b>Url Pattern</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FILTER_MAPPING__URL_PATTERN = eINSTANCE.getFilterMapping_UrlPattern();
+
+		/**
+		 * The meta object literal for the '<em><b>Dispatcher Type</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FILTER_MAPPING__DISPATCHER_TYPE = eINSTANCE.getFilterMapping_DispatcherType();
+
+		/**
+		 * The meta object literal for the '<em><b>Filter</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FILTER_MAPPING__FILTER = eINSTANCE.getFilterMapping_Filter();
+
+		/**
+		 * The meta object literal for the '<em><b>Servlet</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FILTER_MAPPING__SERVLET = eINSTANCE.getFilterMapping_Servlet();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.FilterImpl <em>Filter</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.FilterImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getFilter()
+		 * @generated
+		 */
+		EClass FILTER = eINSTANCE.getFilter();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FILTER__NAME = eINSTANCE.getFilter_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Init Params</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FILTER__INIT_PARAMS = eINSTANCE.getFilter_InitParams();
+
+		/**
+		 * The meta object literal for the '<em><b>Filter Class</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FILTER__FILTER_CLASS = eINSTANCE.getFilter_FilterClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Init Param Values</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FILTER__INIT_PARAM_VALUES = eINSTANCE.getFilter_InitParamValues();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.LocalEncodingMappingListImpl <em>Local Encoding Mapping List</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.LocalEncodingMappingListImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getLocalEncodingMappingList()
+		 * @generated
+		 */
+		EClass LOCAL_ENCODING_MAPPING_LIST = eINSTANCE.getLocalEncodingMappingList();
+
+		/**
+		 * The meta object literal for the '<em><b>Local Encoding Mappings</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LOCAL_ENCODING_MAPPING_LIST__LOCAL_ENCODING_MAPPINGS = eINSTANCE.getLocalEncodingMappingList_LocalEncodingMappings();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.LocalEncodingMappingImpl <em>Local Encoding Mapping</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.LocalEncodingMappingImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getLocalEncodingMapping()
+		 * @generated
+		 */
+		EClass LOCAL_ENCODING_MAPPING = eINSTANCE.getLocalEncodingMapping();
+
+		/**
+		 * The meta object literal for the '<em><b>Locale</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LOCAL_ENCODING_MAPPING__LOCALE = eINSTANCE.getLocalEncodingMapping_Locale();
+
+		/**
+		 * The meta object literal for the '<em><b>Encoding</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LOCAL_ENCODING_MAPPING__ENCODING = eINSTANCE.getLocalEncodingMapping_Encoding();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.internal.impl.HTTPMethodTypeImpl <em>HTTP Method Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.HTTPMethodTypeImpl
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getHTTPMethodType()
+		 * @generated
+		 */
+		EClass HTTP_METHOD_TYPE = eINSTANCE.getHTTPMethodType();
+
+		/**
+		 * The meta object literal for the '<em><b>Http Method</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute HTTP_METHOD_TYPE__HTTP_METHOD = eINSTANCE.getHTTPMethodType_HttpMethod();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.ResAuthServletType <em>Res Auth Servlet Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.ResAuthServletType
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getResAuthServletType()
+		 * @generated
+		 */
+		EEnum RES_AUTH_SERVLET_TYPE = eINSTANCE.getResAuthServletType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.HTTPMethodTypeEnum <em>HTTP Method Type Enum</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.HTTPMethodTypeEnum
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getHTTPMethodTypeEnum()
+		 * @generated
+		 */
+		EEnum HTTP_METHOD_TYPE_ENUM = eINSTANCE.getHTTPMethodTypeEnum();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.TransportGuaranteeType <em>Transport Guarantee Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.TransportGuaranteeType
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getTransportGuaranteeType()
+		 * @generated
+		 */
+		EEnum TRANSPORT_GUARANTEE_TYPE = eINSTANCE.getTransportGuaranteeType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.DispatcherType <em>Dispatcher Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.DispatcherType
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getDispatcherType()
+		 * @generated
+		 */
+		EEnum DISPATCHER_TYPE = eINSTANCE.getDispatcherType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webapplication.AuthMethodKind <em>Auth Method Kind</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webapplication.AuthMethodKind
+		 * @see org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl#getAuthMethodKind()
+		 * @generated
+		 */
+		EEnum AUTH_METHOD_KIND = eINSTANCE.getAuthMethodKind();
+
+	}
 
 } //WebapplicationPackage
 

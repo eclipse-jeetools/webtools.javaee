@@ -64,7 +64,7 @@ public final class TransactionAttributeType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransactionAttributeType NOT_SUPPORTED_LITERAL = new TransactionAttributeType(NOT_SUPPORTED, "NotSupported"); //$NON-NLS-1$
+	public static final TransactionAttributeType NOT_SUPPORTED_LITERAL = new TransactionAttributeType(NOT_SUPPORTED, "NotSupported", "NotSupported"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Supports</b></em>' literal object.
@@ -78,7 +78,7 @@ public final class TransactionAttributeType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransactionAttributeType SUPPORTS_LITERAL = new TransactionAttributeType(SUPPORTS, "Supports"); //$NON-NLS-1$
+	public static final TransactionAttributeType SUPPORTS_LITERAL = new TransactionAttributeType(SUPPORTS, "Supports", "Supports"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Required</b></em>' literal object.
@@ -92,7 +92,7 @@ public final class TransactionAttributeType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransactionAttributeType REQUIRED_LITERAL = new TransactionAttributeType(REQUIRED, "Required"); //$NON-NLS-1$
+	public static final TransactionAttributeType REQUIRED_LITERAL = new TransactionAttributeType(REQUIRED, "Required", "Required"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Requires New</b></em>' literal object.
@@ -106,7 +106,7 @@ public final class TransactionAttributeType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransactionAttributeType REQUIRES_NEW_LITERAL = new TransactionAttributeType(REQUIRES_NEW, "RequiresNew"); //$NON-NLS-1$
+	public static final TransactionAttributeType REQUIRES_NEW_LITERAL = new TransactionAttributeType(REQUIRES_NEW, "RequiresNew", "RequiresNew"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Mandatory</b></em>' literal object.
@@ -120,7 +120,7 @@ public final class TransactionAttributeType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransactionAttributeType MANDATORY_LITERAL = new TransactionAttributeType(MANDATORY, "Mandatory"); //$NON-NLS-1$
+	public static final TransactionAttributeType MANDATORY_LITERAL = new TransactionAttributeType(MANDATORY, "Mandatory", "Mandatory"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Never</b></em>' literal object.
@@ -134,7 +134,7 @@ public final class TransactionAttributeType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransactionAttributeType NEVER_LITERAL = new TransactionAttributeType(NEVER, "Never"); //$NON-NLS-1$
+	public static final TransactionAttributeType NEVER_LITERAL = new TransactionAttributeType(NEVER, "Never", "Never"); //$NON-NLS-1$
 
 	/**
 	 * An array of all the '<em><b>Transaction Attribute Type</b></em>' enumerators.
@@ -161,17 +161,17 @@ public final class TransactionAttributeType extends AbstractEnumerator{
 	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Transaction Attribute Type</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Transaction Attribute Type</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * @param name passes literal name
 	 * @return literal instance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static TransactionAttributeType get(String name) {
+	public static TransactionAttributeType get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			TransactionAttributeType result = VALUES_ARRAY[i];
-			if (result.toString().equals(name)) {
+			if (result.toString().equals(literal)) {
 				return result;
 			}
 		}
@@ -179,7 +179,23 @@ public final class TransactionAttributeType extends AbstractEnumerator{
 	}
 
 	/**
-	 * Returns the '<em><b>Transaction Attribute Type</b></em>' literal with the specified value.
+	 * Returns the '<em><b>Transaction Attribute Type</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static TransactionAttributeType getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			TransactionAttributeType result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Transaction Attribute Type</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * @param value passes literal value
 	 * @return literal instance
@@ -204,8 +220,8 @@ public final class TransactionAttributeType extends AbstractEnumerator{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private TransactionAttributeType(int value, String name) {
-		super(value, name);
+	private TransactionAttributeType(int value, String name, String literal) {
+		super(value, name, literal);
 	}
 
 } //TransactionAttributeType

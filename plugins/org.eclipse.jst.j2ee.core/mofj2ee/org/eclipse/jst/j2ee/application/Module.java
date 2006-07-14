@@ -10,12 +10,12 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 /**
  * The module element represents a single J2EE module and contains an ejb, java, or web element, which indicates the module type and contains a path to the module file, and an optional alt-dd element, which specifies an optional URI to the post-assembly version of the deployment descriptor. The application deployment descriptor must have one module element for each J2EE module in the application package.
-
+ * @generated
  * @since 1.0 */
-public interface Module extends EObject{
+public interface Module extends J2EEEObject {
 
 	/**
 	 * Returns boolean value if this Module represents a ConnectorModule

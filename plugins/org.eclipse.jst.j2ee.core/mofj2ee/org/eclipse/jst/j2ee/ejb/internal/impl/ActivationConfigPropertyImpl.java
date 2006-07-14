@@ -12,9 +12,8 @@ package org.eclipse.jst.j2ee.ejb.internal.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.ejb.ActivationConfigProperty;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 
@@ -33,7 +32,7 @@ import org.eclipse.jst.j2ee.ejb.EjbPackage;
  *
  * @generated
  */
-public class ActivationConfigPropertyImpl extends EObjectImpl implements ActivationConfigProperty {
+public class ActivationConfigPropertyImpl extends J2EEEObjectImpl implements ActivationConfigProperty {
 	/**
 	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -89,7 +88,7 @@ public class ActivationConfigPropertyImpl extends EObjectImpl implements Activat
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return EjbPackage.eINSTANCE.getActivationConfigProperty();
+		return EjbPackage.Literals.ACTIVATION_CONFIG_PROPERTY;
 	}
 
 	/**
@@ -139,14 +138,14 @@ public class ActivationConfigPropertyImpl extends EObjectImpl implements Activat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case EjbPackage.ACTIVATION_CONFIG_PROPERTY__VALUE:
 				return getValue();
 			case EjbPackage.ACTIVATION_CONFIG_PROPERTY__NAME:
 				return getName();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -154,8 +153,8 @@ public class ActivationConfigPropertyImpl extends EObjectImpl implements Activat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case EjbPackage.ACTIVATION_CONFIG_PROPERTY__VALUE:
 				setValue((String)newValue);
 				return;
@@ -163,7 +162,7 @@ public class ActivationConfigPropertyImpl extends EObjectImpl implements Activat
 				setName((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -171,8 +170,8 @@ public class ActivationConfigPropertyImpl extends EObjectImpl implements Activat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case EjbPackage.ACTIVATION_CONFIG_PROPERTY__VALUE:
 				setValue(VALUE_EDEFAULT);
 				return;
@@ -180,7 +179,7 @@ public class ActivationConfigPropertyImpl extends EObjectImpl implements Activat
 				setName(NAME_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -188,14 +187,14 @@ public class ActivationConfigPropertyImpl extends EObjectImpl implements Activat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case EjbPackage.ACTIVATION_CONFIG_PROPERTY__VALUE:
 				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 			case EjbPackage.ACTIVATION_CONFIG_PROPERTY__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

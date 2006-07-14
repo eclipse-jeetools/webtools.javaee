@@ -30,8 +30,8 @@ import org.eclipse.jst.j2ee.common.CommonPackage;
  * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapFactory
  * @model kind="package"
  * @generated
- * @since 1.0 */
-public interface JaxrpcmapPackage extends EPackage{
+ */
+public interface JaxrpcmapPackage extends EPackage {
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
@@ -81,7 +81,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int JAVA_WSDL_MAPPING__ID = 0;
+  int JAVA_WSDL_MAPPING__ID = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Package Mappings</b></em>' containment reference list.
@@ -90,7 +90,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int JAVA_WSDL_MAPPING__PACKAGE_MAPPINGS = 1;
+  int JAVA_WSDL_MAPPING__PACKAGE_MAPPINGS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Java XML Type Mappings</b></em>' containment reference list.
@@ -99,7 +99,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int JAVA_WSDL_MAPPING__JAVA_XML_TYPE_MAPPINGS = 2;
+  int JAVA_WSDL_MAPPING__JAVA_XML_TYPE_MAPPINGS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Exception Mappings</b></em>' containment reference list.
@@ -108,7 +108,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int JAVA_WSDL_MAPPING__EXCEPTION_MAPPINGS = 3;
+  int JAVA_WSDL_MAPPING__EXCEPTION_MAPPINGS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Interface Mappings</b></em>' containment reference list.
@@ -117,16 +117,16 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int JAVA_WSDL_MAPPING__INTERFACE_MAPPINGS = 4;
+  int JAVA_WSDL_MAPPING__INTERFACE_MAPPINGS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
-	 * The number of structural features of the the '<em>Java WSDL Mapping</em>' class.
+	 * The number of structural features of the '<em>Java WSDL Mapping</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int JAVA_WSDL_MAPPING_FEATURE_COUNT = 5;
+  int JAVA_WSDL_MAPPING_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.PackageMappingImpl <em>Package Mapping</em>}' class.
@@ -145,7 +145,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int PACKAGE_MAPPING__ID = 0;
+  int PACKAGE_MAPPING__ID = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Package Type</b></em>' attribute.
@@ -154,7 +154,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int PACKAGE_MAPPING__PACKAGE_TYPE = 1;
+  int PACKAGE_MAPPING__PACKAGE_TYPE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Namespace URI</b></em>' attribute.
@@ -163,16 +163,16 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int PACKAGE_MAPPING__NAMESPACE_URI = 2;
+  int PACKAGE_MAPPING__NAMESPACE_URI = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the the '<em>Package Mapping</em>' class.
+	 * The number of structural features of the '<em>Package Mapping</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int PACKAGE_MAPPING_FEATURE_COUNT = 3;
+  int PACKAGE_MAPPING_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JavaXMLTypeMappingImpl <em>Java XML Type Mapping</em>}' class.
@@ -191,7 +191,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int JAVA_XML_TYPE_MAPPING__ID = 0;
+  int JAVA_XML_TYPE_MAPPING__ID = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Class Type</b></em>' attribute.
@@ -200,7 +200,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int JAVA_XML_TYPE_MAPPING__CLASS_TYPE = 1;
+  int JAVA_XML_TYPE_MAPPING__CLASS_TYPE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Qname Scope</b></em>' attribute.
@@ -209,7 +209,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int JAVA_XML_TYPE_MAPPING__QNAME_SCOPE = 2;
+  int JAVA_XML_TYPE_MAPPING__QNAME_SCOPE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Anonymous Type Qname</b></em>' attribute.
@@ -218,7 +218,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int JAVA_XML_TYPE_MAPPING__ANONYMOUS_TYPE_QNAME = 3;
+  int JAVA_XML_TYPE_MAPPING__ANONYMOUS_TYPE_QNAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Root Type Qname</b></em>' containment reference.
@@ -227,7 +227,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int JAVA_XML_TYPE_MAPPING__ROOT_TYPE_QNAME = 4;
+  int JAVA_XML_TYPE_MAPPING__ROOT_TYPE_QNAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Variable Mappings</b></em>' containment reference list.
@@ -236,16 +236,16 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int JAVA_XML_TYPE_MAPPING__VARIABLE_MAPPINGS = 5;
+  int JAVA_XML_TYPE_MAPPING__VARIABLE_MAPPINGS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
-	 * The number of structural features of the the '<em>Java XML Type Mapping</em>' class.
+	 * The number of structural features of the '<em>Java XML Type Mapping</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int JAVA_XML_TYPE_MAPPING_FEATURE_COUNT = 6;
+  int JAVA_XML_TYPE_MAPPING_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.ExceptionMappingImpl <em>Exception Mapping</em>}' class.
@@ -264,7 +264,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int EXCEPTION_MAPPING__ID = 0;
+  int EXCEPTION_MAPPING__ID = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Exception Type</b></em>' attribute.
@@ -273,7 +273,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int EXCEPTION_MAPPING__EXCEPTION_TYPE = 1;
+  int EXCEPTION_MAPPING__EXCEPTION_TYPE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Wsdl Message Part Name</b></em>' attribute.
@@ -282,7 +282,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int EXCEPTION_MAPPING__WSDL_MESSAGE_PART_NAME = 2;
+  int EXCEPTION_MAPPING__WSDL_MESSAGE_PART_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Wsdl Message</b></em>' containment reference.
@@ -291,7 +291,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int EXCEPTION_MAPPING__WSDL_MESSAGE = 3;
+  int EXCEPTION_MAPPING__WSDL_MESSAGE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Constructor Parameter Order</b></em>' containment reference.
@@ -300,16 +300,16 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int EXCEPTION_MAPPING__CONSTRUCTOR_PARAMETER_ORDER = 4;
+  int EXCEPTION_MAPPING__CONSTRUCTOR_PARAMETER_ORDER = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
-	 * The number of structural features of the the '<em>Exception Mapping</em>' class.
+	 * The number of structural features of the '<em>Exception Mapping</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int EXCEPTION_MAPPING_FEATURE_COUNT = 5;
+  int EXCEPTION_MAPPING_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.InterfaceMappingImpl <em>Interface Mapping</em>}' class.
@@ -322,13 +322,13 @@ public interface JaxrpcmapPackage extends EPackage{
   int INTERFACE_MAPPING = 21;
 
 	/**
-	 * The number of structural features of the the '<em>Interface Mapping</em>' class.
+	 * The number of structural features of the '<em>Interface Mapping</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int INTERFACE_MAPPING_FEATURE_COUNT = 0;
+  int INTERFACE_MAPPING_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.ServiceInterfaceMappingImpl <em>Service Interface Mapping</em>}' class.
@@ -377,7 +377,7 @@ public interface JaxrpcmapPackage extends EPackage{
   int SERVICE_INTERFACE_MAPPING__PORT_MAPPINGS = INTERFACE_MAPPING_FEATURE_COUNT + 3;
 
 	/**
-	 * The number of structural features of the the '<em>Service Interface Mapping</em>' class.
+	 * The number of structural features of the '<em>Service Interface Mapping</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -441,7 +441,7 @@ public interface JaxrpcmapPackage extends EPackage{
   int SERVICE_ENDPOINT_INTERFACE_MAPPING__SERVICE_ENDPOINT_METHOD_MAPPINGS = INTERFACE_MAPPING_FEATURE_COUNT + 4;
 
 	/**
-	 * The number of structural features of the the '<em>Service Endpoint Interface Mapping</em>' class.
+	 * The number of structural features of the '<em>Service Endpoint Interface Mapping</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -496,7 +496,7 @@ public interface JaxrpcmapPackage extends EPackage{
   int ROOT_TYPE_QNAME__INTERNAL_PREFIX_OR_NS_URI = CommonPackage.QNAME__INTERNAL_PREFIX_OR_NS_URI;
 
 	/**
-	 * The number of structural features of the the '<em>Root Type Qname</em>' class.
+	 * The number of structural features of the '<em>Root Type Qname</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -521,7 +521,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int VARIABLE_MAPPING__ID = 0;
+  int VARIABLE_MAPPING__ID = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Java Variable Name</b></em>' attribute.
@@ -530,7 +530,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int VARIABLE_MAPPING__JAVA_VARIABLE_NAME = 1;
+  int VARIABLE_MAPPING__JAVA_VARIABLE_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Xml Element Name</b></em>' attribute.
@@ -539,7 +539,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int VARIABLE_MAPPING__XML_ELEMENT_NAME = 2;
+  int VARIABLE_MAPPING__XML_ELEMENT_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Data Member</b></em>' attribute.
@@ -548,7 +548,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int VARIABLE_MAPPING__DATA_MEMBER = 3;
+  int VARIABLE_MAPPING__DATA_MEMBER = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Xml Attribute Name</b></em>' attribute.
@@ -557,7 +557,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int VARIABLE_MAPPING__XML_ATTRIBUTE_NAME = 4;
+  int VARIABLE_MAPPING__XML_ATTRIBUTE_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Xml Wildcard</b></em>' attribute.
@@ -566,16 +566,16 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int VARIABLE_MAPPING__XML_WILDCARD = 5;
+  int VARIABLE_MAPPING__XML_WILDCARD = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
-	 * The number of structural features of the the '<em>Variable Mapping</em>' class.
+	 * The number of structural features of the '<em>Variable Mapping</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int VARIABLE_MAPPING_FEATURE_COUNT = 6;
+  int VARIABLE_MAPPING_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLMessageImpl <em>WSDL Message</em>}' class.
@@ -624,7 +624,7 @@ public interface JaxrpcmapPackage extends EPackage{
   int WSDL_MESSAGE__INTERNAL_PREFIX_OR_NS_URI = CommonPackage.QNAME__INTERNAL_PREFIX_OR_NS_URI;
 
 	/**
-	 * The number of structural features of the the '<em>WSDL Message</em>' class.
+	 * The number of structural features of the '<em>WSDL Message</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -649,7 +649,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int CONSTRUCTOR_PARAMETER_ORDER__ID = 0;
+  int CONSTRUCTOR_PARAMETER_ORDER__ID = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Element Names</b></em>' containment reference list.
@@ -658,16 +658,16 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int CONSTRUCTOR_PARAMETER_ORDER__ELEMENT_NAMES = 1;
+  int CONSTRUCTOR_PARAMETER_ORDER__ELEMENT_NAMES = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Constructor Parameter Order</em>' class.
+	 * The number of structural features of the '<em>Constructor Parameter Order</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int CONSTRUCTOR_PARAMETER_ORDER_FEATURE_COUNT = 2;
+  int CONSTRUCTOR_PARAMETER_ORDER_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.ElementNameImpl <em>Element Name</em>}' class.
@@ -686,7 +686,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int ELEMENT_NAME__ID = 0;
+  int ELEMENT_NAME__ID = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Text</b></em>' attribute.
@@ -695,16 +695,16 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int ELEMENT_NAME__TEXT = 1;
+  int ELEMENT_NAME__TEXT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Element Name</em>' class.
+	 * The number of structural features of the '<em>Element Name</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int ELEMENT_NAME_FEATURE_COUNT = 2;
+  int ELEMENT_NAME_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLServiceNameImpl <em>WSDL Service Name</em>}' class.
@@ -753,7 +753,7 @@ public interface JaxrpcmapPackage extends EPackage{
   int WSDL_SERVICE_NAME__INTERNAL_PREFIX_OR_NS_URI = CommonPackage.QNAME__INTERNAL_PREFIX_OR_NS_URI;
 
 	/**
-	 * The number of structural features of the the '<em>WSDL Service Name</em>' class.
+	 * The number of structural features of the '<em>WSDL Service Name</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -778,7 +778,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int PORT_MAPPING__ID = 0;
+  int PORT_MAPPING__ID = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Port Name</b></em>' attribute.
@@ -787,7 +787,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int PORT_MAPPING__PORT_NAME = 1;
+  int PORT_MAPPING__PORT_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Java Port Name</b></em>' attribute.
@@ -796,16 +796,16 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int PORT_MAPPING__JAVA_PORT_NAME = 2;
+  int PORT_MAPPING__JAVA_PORT_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the the '<em>Port Mapping</em>' class.
+	 * The number of structural features of the '<em>Port Mapping</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int PORT_MAPPING_FEATURE_COUNT = 3;
+  int PORT_MAPPING_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLPortTypeImpl <em>WSDL Port Type</em>}' class.
@@ -854,7 +854,7 @@ public interface JaxrpcmapPackage extends EPackage{
   int WSDL_PORT_TYPE__INTERNAL_PREFIX_OR_NS_URI = CommonPackage.QNAME__INTERNAL_PREFIX_OR_NS_URI;
 
 	/**
-	 * The number of structural features of the the '<em>WSDL Port Type</em>' class.
+	 * The number of structural features of the '<em>WSDL Port Type</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -909,7 +909,7 @@ public interface JaxrpcmapPackage extends EPackage{
   int WSDL_BINDING__INTERNAL_PREFIX_OR_NS_URI = CommonPackage.QNAME__INTERNAL_PREFIX_OR_NS_URI;
 
 	/**
-	 * The number of structural features of the the '<em>WSDL Binding</em>' class.
+	 * The number of structural features of the '<em>WSDL Binding</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -934,7 +934,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int SERVICE_ENDPOINT_METHOD_MAPPING__ID = 0;
+  int SERVICE_ENDPOINT_METHOD_MAPPING__ID = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Java Method Name</b></em>' attribute.
@@ -943,7 +943,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int SERVICE_ENDPOINT_METHOD_MAPPING__JAVA_METHOD_NAME = 1;
+  int SERVICE_ENDPOINT_METHOD_MAPPING__JAVA_METHOD_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Wsdl Operation</b></em>' attribute.
@@ -952,7 +952,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int SERVICE_ENDPOINT_METHOD_MAPPING__WSDL_OPERATION = 2;
+  int SERVICE_ENDPOINT_METHOD_MAPPING__WSDL_OPERATION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Wrapped Element</b></em>' attribute.
@@ -961,7 +961,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int SERVICE_ENDPOINT_METHOD_MAPPING__WRAPPED_ELEMENT = 3;
+  int SERVICE_ENDPOINT_METHOD_MAPPING__WRAPPED_ELEMENT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Method Param Parts Mappings</b></em>' containment reference list.
@@ -970,7 +970,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int SERVICE_ENDPOINT_METHOD_MAPPING__METHOD_PARAM_PARTS_MAPPINGS = 4;
+  int SERVICE_ENDPOINT_METHOD_MAPPING__METHOD_PARAM_PARTS_MAPPINGS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Wsdl Return Value Mapping</b></em>' containment reference.
@@ -979,16 +979,16 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int SERVICE_ENDPOINT_METHOD_MAPPING__WSDL_RETURN_VALUE_MAPPING = 5;
+  int SERVICE_ENDPOINT_METHOD_MAPPING__WSDL_RETURN_VALUE_MAPPING = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
-	 * The number of structural features of the the '<em>Service Endpoint Method Mapping</em>' class.
+	 * The number of structural features of the '<em>Service Endpoint Method Mapping</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int SERVICE_ENDPOINT_METHOD_MAPPING_FEATURE_COUNT = 6;
+  int SERVICE_ENDPOINT_METHOD_MAPPING_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLOperationImpl <em>WSDL Operation</em>}' class.
@@ -1007,7 +1007,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WSDL_OPERATION__ID = 0;
+  int WSDL_OPERATION__ID = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Wsdl Operation</b></em>' attribute.
@@ -1016,16 +1016,16 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WSDL_OPERATION__WSDL_OPERATION = 1;
+  int WSDL_OPERATION__WSDL_OPERATION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>WSDL Operation</em>' class.
+	 * The number of structural features of the '<em>WSDL Operation</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int WSDL_OPERATION_FEATURE_COUNT = 2;
+  int WSDL_OPERATION_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.MethodParamPartsMappingImpl <em>Method Param Parts Mapping</em>}' class.
@@ -1044,7 +1044,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int METHOD_PARAM_PARTS_MAPPING__ID = 0;
+  int METHOD_PARAM_PARTS_MAPPING__ID = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Param Position</b></em>' attribute.
@@ -1053,7 +1053,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int METHOD_PARAM_PARTS_MAPPING__PARAM_POSITION = 1;
+  int METHOD_PARAM_PARTS_MAPPING__PARAM_POSITION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Param Type</b></em>' attribute.
@@ -1062,7 +1062,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int METHOD_PARAM_PARTS_MAPPING__PARAM_TYPE = 2;
+  int METHOD_PARAM_PARTS_MAPPING__PARAM_TYPE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Wsdl Message Mapping</b></em>' containment reference.
@@ -1071,16 +1071,16 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int METHOD_PARAM_PARTS_MAPPING__WSDL_MESSAGE_MAPPING = 3;
+  int METHOD_PARAM_PARTS_MAPPING__WSDL_MESSAGE_MAPPING = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
-	 * The number of structural features of the the '<em>Method Param Parts Mapping</em>' class.
+	 * The number of structural features of the '<em>Method Param Parts Mapping</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int METHOD_PARAM_PARTS_MAPPING_FEATURE_COUNT = 4;
+  int METHOD_PARAM_PARTS_MAPPING_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLReturnValueMappingImpl <em>WSDL Return Value Mapping</em>}' class.
@@ -1099,7 +1099,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WSDL_RETURN_VALUE_MAPPING__ID = 0;
+  int WSDL_RETURN_VALUE_MAPPING__ID = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Method Return Value</b></em>' attribute.
@@ -1108,7 +1108,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WSDL_RETURN_VALUE_MAPPING__METHOD_RETURN_VALUE = 1;
+  int WSDL_RETURN_VALUE_MAPPING__METHOD_RETURN_VALUE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Wsdl Message Part Name</b></em>' attribute.
@@ -1117,7 +1117,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WSDL_RETURN_VALUE_MAPPING__WSDL_MESSAGE_PART_NAME = 2;
+  int WSDL_RETURN_VALUE_MAPPING__WSDL_MESSAGE_PART_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Wsdl Message</b></em>' containment reference.
@@ -1126,16 +1126,16 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WSDL_RETURN_VALUE_MAPPING__WSDL_MESSAGE = 3;
+  int WSDL_RETURN_VALUE_MAPPING__WSDL_MESSAGE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
-	 * The number of structural features of the the '<em>WSDL Return Value Mapping</em>' class.
+	 * The number of structural features of the '<em>WSDL Return Value Mapping</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int WSDL_RETURN_VALUE_MAPPING_FEATURE_COUNT = 4;
+  int WSDL_RETURN_VALUE_MAPPING_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLMessageMappingImpl <em>WSDL Message Mapping</em>}' class.
@@ -1154,7 +1154,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WSDL_MESSAGE_MAPPING__ID = 0;
+  int WSDL_MESSAGE_MAPPING__ID = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Wsdl Message Part Name</b></em>' attribute.
@@ -1163,7 +1163,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WSDL_MESSAGE_MAPPING__WSDL_MESSAGE_PART_NAME = 1;
+  int WSDL_MESSAGE_MAPPING__WSDL_MESSAGE_PART_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Parameter Mode</b></em>' attribute.
@@ -1172,7 +1172,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WSDL_MESSAGE_MAPPING__PARAMETER_MODE = 2;
+  int WSDL_MESSAGE_MAPPING__PARAMETER_MODE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Soap Header</b></em>' attribute.
@@ -1181,7 +1181,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WSDL_MESSAGE_MAPPING__SOAP_HEADER = 3;
+  int WSDL_MESSAGE_MAPPING__SOAP_HEADER = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Wsdl Message</b></em>' containment reference.
@@ -1190,16 +1190,16 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WSDL_MESSAGE_MAPPING__WSDL_MESSAGE = 4;
+  int WSDL_MESSAGE_MAPPING__WSDL_MESSAGE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
-	 * The number of structural features of the the '<em>WSDL Message Mapping</em>' class.
+	 * The number of structural features of the '<em>WSDL Message Mapping</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int WSDL_MESSAGE_MAPPING_FEATURE_COUNT = 5;
+  int WSDL_MESSAGE_MAPPING_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLMessagePartNameImpl <em>WSDL Message Part Name</em>}' class.
@@ -1218,7 +1218,7 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WSDL_MESSAGE_PART_NAME__ID = 0;
+  int WSDL_MESSAGE_PART_NAME__ID = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Wsdl Message Part Name</b></em>' attribute.
@@ -1227,16 +1227,16 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int WSDL_MESSAGE_PART_NAME__WSDL_MESSAGE_PART_NAME = 1;
+  int WSDL_MESSAGE_PART_NAME__WSDL_MESSAGE_PART_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>WSDL Message Part Name</em>' class.
+	 * The number of structural features of the '<em>WSDL Message Part Name</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int WSDL_MESSAGE_PART_NAME_FEATURE_COUNT = 2;
+  int WSDL_MESSAGE_PART_NAME_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaWSDLMapping <em>Java WSDL Mapping</em>}'.
@@ -2170,5 +2170,752 @@ public interface JaxrpcmapPackage extends EPackage{
 	 * @generated
 	 */
   JaxrpcmapFactory getJaxrpcmapFactory();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Defines literals for the meta objects that represent
+	 * <ul>
+	 *   <li>each class,</li>
+	 *   <li>each feature of each class,</li>
+	 *   <li>each enum,</li>
+	 *   <li>and each data type</li>
+	 * </ul>
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	interface Literals  {
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JavaWSDLMappingImpl <em>Java WSDL Mapping</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JavaWSDLMappingImpl
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapPackageImpl#getJavaWSDLMapping()
+		 * @generated
+		 */
+		EClass JAVA_WSDL_MAPPING = eINSTANCE.getJavaWSDLMapping();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JAVA_WSDL_MAPPING__ID = eINSTANCE.getJavaWSDLMapping_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Package Mappings</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JAVA_WSDL_MAPPING__PACKAGE_MAPPINGS = eINSTANCE.getJavaWSDLMapping_PackageMappings();
+
+		/**
+		 * The meta object literal for the '<em><b>Java XML Type Mappings</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JAVA_WSDL_MAPPING__JAVA_XML_TYPE_MAPPINGS = eINSTANCE.getJavaWSDLMapping_JavaXMLTypeMappings();
+
+		/**
+		 * The meta object literal for the '<em><b>Exception Mappings</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JAVA_WSDL_MAPPING__EXCEPTION_MAPPINGS = eINSTANCE.getJavaWSDLMapping_ExceptionMappings();
+
+		/**
+		 * The meta object literal for the '<em><b>Interface Mappings</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JAVA_WSDL_MAPPING__INTERFACE_MAPPINGS = eINSTANCE.getJavaWSDLMapping_InterfaceMappings();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.PackageMappingImpl <em>Package Mapping</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.PackageMappingImpl
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapPackageImpl#getPackageMapping()
+		 * @generated
+		 */
+		EClass PACKAGE_MAPPING = eINSTANCE.getPackageMapping();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PACKAGE_MAPPING__ID = eINSTANCE.getPackageMapping_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Package Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PACKAGE_MAPPING__PACKAGE_TYPE = eINSTANCE.getPackageMapping_PackageType();
+
+		/**
+		 * The meta object literal for the '<em><b>Namespace URI</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PACKAGE_MAPPING__NAMESPACE_URI = eINSTANCE.getPackageMapping_NamespaceURI();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JavaXMLTypeMappingImpl <em>Java XML Type Mapping</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JavaXMLTypeMappingImpl
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapPackageImpl#getJavaXMLTypeMapping()
+		 * @generated
+		 */
+		EClass JAVA_XML_TYPE_MAPPING = eINSTANCE.getJavaXMLTypeMapping();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JAVA_XML_TYPE_MAPPING__ID = eINSTANCE.getJavaXMLTypeMapping_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Class Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JAVA_XML_TYPE_MAPPING__CLASS_TYPE = eINSTANCE.getJavaXMLTypeMapping_ClassType();
+
+		/**
+		 * The meta object literal for the '<em><b>Qname Scope</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JAVA_XML_TYPE_MAPPING__QNAME_SCOPE = eINSTANCE.getJavaXMLTypeMapping_QnameScope();
+
+		/**
+		 * The meta object literal for the '<em><b>Anonymous Type Qname</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JAVA_XML_TYPE_MAPPING__ANONYMOUS_TYPE_QNAME = eINSTANCE.getJavaXMLTypeMapping_AnonymousTypeQname();
+
+		/**
+		 * The meta object literal for the '<em><b>Root Type Qname</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JAVA_XML_TYPE_MAPPING__ROOT_TYPE_QNAME = eINSTANCE.getJavaXMLTypeMapping_RootTypeQname();
+
+		/**
+		 * The meta object literal for the '<em><b>Variable Mappings</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JAVA_XML_TYPE_MAPPING__VARIABLE_MAPPINGS = eINSTANCE.getJavaXMLTypeMapping_VariableMappings();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.ExceptionMappingImpl <em>Exception Mapping</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.ExceptionMappingImpl
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapPackageImpl#getExceptionMapping()
+		 * @generated
+		 */
+		EClass EXCEPTION_MAPPING = eINSTANCE.getExceptionMapping();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EXCEPTION_MAPPING__ID = eINSTANCE.getExceptionMapping_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Exception Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EXCEPTION_MAPPING__EXCEPTION_TYPE = eINSTANCE.getExceptionMapping_ExceptionType();
+
+		/**
+		 * The meta object literal for the '<em><b>Wsdl Message Part Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EXCEPTION_MAPPING__WSDL_MESSAGE_PART_NAME = eINSTANCE.getExceptionMapping_WsdlMessagePartName();
+
+		/**
+		 * The meta object literal for the '<em><b>Wsdl Message</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXCEPTION_MAPPING__WSDL_MESSAGE = eINSTANCE.getExceptionMapping_WsdlMessage();
+
+		/**
+		 * The meta object literal for the '<em><b>Constructor Parameter Order</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXCEPTION_MAPPING__CONSTRUCTOR_PARAMETER_ORDER = eINSTANCE.getExceptionMapping_ConstructorParameterOrder();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.ServiceInterfaceMappingImpl <em>Service Interface Mapping</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.ServiceInterfaceMappingImpl
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapPackageImpl#getServiceInterfaceMapping()
+		 * @generated
+		 */
+		EClass SERVICE_INTERFACE_MAPPING = eINSTANCE.getServiceInterfaceMapping();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVICE_INTERFACE_MAPPING__ID = eINSTANCE.getServiceInterfaceMapping_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Service Interface</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVICE_INTERFACE_MAPPING__SERVICE_INTERFACE = eINSTANCE.getServiceInterfaceMapping_ServiceInterface();
+
+		/**
+		 * The meta object literal for the '<em><b>Wsdl Service Name</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_INTERFACE_MAPPING__WSDL_SERVICE_NAME = eINSTANCE.getServiceInterfaceMapping_WsdlServiceName();
+
+		/**
+		 * The meta object literal for the '<em><b>Port Mappings</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_INTERFACE_MAPPING__PORT_MAPPINGS = eINSTANCE.getServiceInterfaceMapping_PortMappings();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.ServiceEndpointInterfaceMappingImpl <em>Service Endpoint Interface Mapping</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.ServiceEndpointInterfaceMappingImpl
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapPackageImpl#getServiceEndpointInterfaceMapping()
+		 * @generated
+		 */
+		EClass SERVICE_ENDPOINT_INTERFACE_MAPPING = eINSTANCE.getServiceEndpointInterfaceMapping();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVICE_ENDPOINT_INTERFACE_MAPPING__ID = eINSTANCE.getServiceEndpointInterfaceMapping_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Service Endpoint Interface</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVICE_ENDPOINT_INTERFACE_MAPPING__SERVICE_ENDPOINT_INTERFACE = eINSTANCE.getServiceEndpointInterfaceMapping_ServiceEndpointInterface();
+
+		/**
+		 * The meta object literal for the '<em><b>Wsdl Port Type</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_ENDPOINT_INTERFACE_MAPPING__WSDL_PORT_TYPE = eINSTANCE.getServiceEndpointInterfaceMapping_WsdlPortType();
+
+		/**
+		 * The meta object literal for the '<em><b>Wsdl Binding</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_ENDPOINT_INTERFACE_MAPPING__WSDL_BINDING = eINSTANCE.getServiceEndpointInterfaceMapping_WsdlBinding();
+
+		/**
+		 * The meta object literal for the '<em><b>Service Endpoint Method Mappings</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_ENDPOINT_INTERFACE_MAPPING__SERVICE_ENDPOINT_METHOD_MAPPINGS = eINSTANCE.getServiceEndpointInterfaceMapping_ServiceEndpointMethodMappings();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.RootTypeQnameImpl <em>Root Type Qname</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.RootTypeQnameImpl
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapPackageImpl#getRootTypeQname()
+		 * @generated
+		 */
+		EClass ROOT_TYPE_QNAME = eINSTANCE.getRootTypeQname();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.VariableMappingImpl <em>Variable Mapping</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.VariableMappingImpl
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapPackageImpl#getVariableMapping()
+		 * @generated
+		 */
+		EClass VARIABLE_MAPPING = eINSTANCE.getVariableMapping();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute VARIABLE_MAPPING__ID = eINSTANCE.getVariableMapping_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Java Variable Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute VARIABLE_MAPPING__JAVA_VARIABLE_NAME = eINSTANCE.getVariableMapping_JavaVariableName();
+
+		/**
+		 * The meta object literal for the '<em><b>Xml Element Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute VARIABLE_MAPPING__XML_ELEMENT_NAME = eINSTANCE.getVariableMapping_XmlElementName();
+
+		/**
+		 * The meta object literal for the '<em><b>Data Member</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute VARIABLE_MAPPING__DATA_MEMBER = eINSTANCE.getVariableMapping_DataMember();
+
+		/**
+		 * The meta object literal for the '<em><b>Xml Attribute Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute VARIABLE_MAPPING__XML_ATTRIBUTE_NAME = eINSTANCE.getVariableMapping_XmlAttributeName();
+
+		/**
+		 * The meta object literal for the '<em><b>Xml Wildcard</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute VARIABLE_MAPPING__XML_WILDCARD = eINSTANCE.getVariableMapping_XmlWildcard();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLMessageImpl <em>WSDL Message</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLMessageImpl
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapPackageImpl#getWSDLMessage()
+		 * @generated
+		 */
+		EClass WSDL_MESSAGE = eINSTANCE.getWSDLMessage();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.ConstructorParameterOrderImpl <em>Constructor Parameter Order</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.ConstructorParameterOrderImpl
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapPackageImpl#getConstructorParameterOrder()
+		 * @generated
+		 */
+		EClass CONSTRUCTOR_PARAMETER_ORDER = eINSTANCE.getConstructorParameterOrder();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONSTRUCTOR_PARAMETER_ORDER__ID = eINSTANCE.getConstructorParameterOrder_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Element Names</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONSTRUCTOR_PARAMETER_ORDER__ELEMENT_NAMES = eINSTANCE.getConstructorParameterOrder_ElementNames();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.ElementNameImpl <em>Element Name</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.ElementNameImpl
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapPackageImpl#getElementName()
+		 * @generated
+		 */
+		EClass ELEMENT_NAME = eINSTANCE.getElementName();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ELEMENT_NAME__ID = eINSTANCE.getElementName_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Text</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ELEMENT_NAME__TEXT = eINSTANCE.getElementName_Text();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLServiceNameImpl <em>WSDL Service Name</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLServiceNameImpl
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapPackageImpl#getWSDLServiceName()
+		 * @generated
+		 */
+		EClass WSDL_SERVICE_NAME = eINSTANCE.getWSDLServiceName();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.PortMappingImpl <em>Port Mapping</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.PortMappingImpl
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapPackageImpl#getPortMapping()
+		 * @generated
+		 */
+		EClass PORT_MAPPING = eINSTANCE.getPortMapping();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PORT_MAPPING__ID = eINSTANCE.getPortMapping_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Port Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PORT_MAPPING__PORT_NAME = eINSTANCE.getPortMapping_PortName();
+
+		/**
+		 * The meta object literal for the '<em><b>Java Port Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PORT_MAPPING__JAVA_PORT_NAME = eINSTANCE.getPortMapping_JavaPortName();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLPortTypeImpl <em>WSDL Port Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLPortTypeImpl
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapPackageImpl#getWSDLPortType()
+		 * @generated
+		 */
+		EClass WSDL_PORT_TYPE = eINSTANCE.getWSDLPortType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLBindingImpl <em>WSDL Binding</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLBindingImpl
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapPackageImpl#getWSDLBinding()
+		 * @generated
+		 */
+		EClass WSDL_BINDING = eINSTANCE.getWSDLBinding();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.ServiceEndpointMethodMappingImpl <em>Service Endpoint Method Mapping</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.ServiceEndpointMethodMappingImpl
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapPackageImpl#getServiceEndpointMethodMapping()
+		 * @generated
+		 */
+		EClass SERVICE_ENDPOINT_METHOD_MAPPING = eINSTANCE.getServiceEndpointMethodMapping();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVICE_ENDPOINT_METHOD_MAPPING__ID = eINSTANCE.getServiceEndpointMethodMapping_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Java Method Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVICE_ENDPOINT_METHOD_MAPPING__JAVA_METHOD_NAME = eINSTANCE.getServiceEndpointMethodMapping_JavaMethodName();
+
+		/**
+		 * The meta object literal for the '<em><b>Wsdl Operation</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVICE_ENDPOINT_METHOD_MAPPING__WSDL_OPERATION = eINSTANCE.getServiceEndpointMethodMapping_WsdlOperation();
+
+		/**
+		 * The meta object literal for the '<em><b>Wrapped Element</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVICE_ENDPOINT_METHOD_MAPPING__WRAPPED_ELEMENT = eINSTANCE.getServiceEndpointMethodMapping_WrappedElement();
+
+		/**
+		 * The meta object literal for the '<em><b>Method Param Parts Mappings</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_ENDPOINT_METHOD_MAPPING__METHOD_PARAM_PARTS_MAPPINGS = eINSTANCE.getServiceEndpointMethodMapping_MethodParamPartsMappings();
+
+		/**
+		 * The meta object literal for the '<em><b>Wsdl Return Value Mapping</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_ENDPOINT_METHOD_MAPPING__WSDL_RETURN_VALUE_MAPPING = eINSTANCE.getServiceEndpointMethodMapping_WsdlReturnValueMapping();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLOperationImpl <em>WSDL Operation</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLOperationImpl
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapPackageImpl#getWSDLOperation()
+		 * @generated
+		 */
+		EClass WSDL_OPERATION = eINSTANCE.getWSDLOperation();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WSDL_OPERATION__ID = eINSTANCE.getWSDLOperation_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Wsdl Operation</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WSDL_OPERATION__WSDL_OPERATION = eINSTANCE.getWSDLOperation_WsdlOperation();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.MethodParamPartsMappingImpl <em>Method Param Parts Mapping</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.MethodParamPartsMappingImpl
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapPackageImpl#getMethodParamPartsMapping()
+		 * @generated
+		 */
+		EClass METHOD_PARAM_PARTS_MAPPING = eINSTANCE.getMethodParamPartsMapping();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METHOD_PARAM_PARTS_MAPPING__ID = eINSTANCE.getMethodParamPartsMapping_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Param Position</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METHOD_PARAM_PARTS_MAPPING__PARAM_POSITION = eINSTANCE.getMethodParamPartsMapping_ParamPosition();
+
+		/**
+		 * The meta object literal for the '<em><b>Param Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METHOD_PARAM_PARTS_MAPPING__PARAM_TYPE = eINSTANCE.getMethodParamPartsMapping_ParamType();
+
+		/**
+		 * The meta object literal for the '<em><b>Wsdl Message Mapping</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference METHOD_PARAM_PARTS_MAPPING__WSDL_MESSAGE_MAPPING = eINSTANCE.getMethodParamPartsMapping_WsdlMessageMapping();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLReturnValueMappingImpl <em>WSDL Return Value Mapping</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLReturnValueMappingImpl
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapPackageImpl#getWSDLReturnValueMapping()
+		 * @generated
+		 */
+		EClass WSDL_RETURN_VALUE_MAPPING = eINSTANCE.getWSDLReturnValueMapping();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WSDL_RETURN_VALUE_MAPPING__ID = eINSTANCE.getWSDLReturnValueMapping_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Method Return Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WSDL_RETURN_VALUE_MAPPING__METHOD_RETURN_VALUE = eINSTANCE.getWSDLReturnValueMapping_MethodReturnValue();
+
+		/**
+		 * The meta object literal for the '<em><b>Wsdl Message Part Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WSDL_RETURN_VALUE_MAPPING__WSDL_MESSAGE_PART_NAME = eINSTANCE.getWSDLReturnValueMapping_WsdlMessagePartName();
+
+		/**
+		 * The meta object literal for the '<em><b>Wsdl Message</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WSDL_RETURN_VALUE_MAPPING__WSDL_MESSAGE = eINSTANCE.getWSDLReturnValueMapping_WsdlMessage();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLMessageMappingImpl <em>WSDL Message Mapping</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLMessageMappingImpl
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapPackageImpl#getWSDLMessageMapping()
+		 * @generated
+		 */
+		EClass WSDL_MESSAGE_MAPPING = eINSTANCE.getWSDLMessageMapping();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WSDL_MESSAGE_MAPPING__ID = eINSTANCE.getWSDLMessageMapping_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Wsdl Message Part Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WSDL_MESSAGE_MAPPING__WSDL_MESSAGE_PART_NAME = eINSTANCE.getWSDLMessageMapping_WsdlMessagePartName();
+
+		/**
+		 * The meta object literal for the '<em><b>Parameter Mode</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WSDL_MESSAGE_MAPPING__PARAMETER_MODE = eINSTANCE.getWSDLMessageMapping_ParameterMode();
+
+		/**
+		 * The meta object literal for the '<em><b>Soap Header</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WSDL_MESSAGE_MAPPING__SOAP_HEADER = eINSTANCE.getWSDLMessageMapping_SoapHeader();
+
+		/**
+		 * The meta object literal for the '<em><b>Wsdl Message</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WSDL_MESSAGE_MAPPING__WSDL_MESSAGE = eINSTANCE.getWSDLMessageMapping_WsdlMessage();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLMessagePartNameImpl <em>WSDL Message Part Name</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.WSDLMessagePartNameImpl
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapPackageImpl#getWSDLMessagePartName()
+		 * @generated
+		 */
+		EClass WSDL_MESSAGE_PART_NAME = eINSTANCE.getWSDLMessagePartName();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WSDL_MESSAGE_PART_NAME__ID = eINSTANCE.getWSDLMessagePartName_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Wsdl Message Part Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WSDL_MESSAGE_PART_NAME__WSDL_MESSAGE_PART_NAME = eINSTANCE.getWSDLMessagePartName_WsdlMessagePartName();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.InterfaceMappingImpl <em>Interface Mapping</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.InterfaceMappingImpl
+		 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapPackageImpl#getInterfaceMapping()
+		 * @generated
+		 */
+		EClass INTERFACE_MAPPING = eINSTANCE.getInterfaceMapping();
+
+	}
 
 } //JaxrpcmapPackage

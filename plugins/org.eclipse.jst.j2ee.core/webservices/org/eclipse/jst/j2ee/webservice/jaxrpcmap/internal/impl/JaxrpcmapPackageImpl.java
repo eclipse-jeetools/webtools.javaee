@@ -14,16 +14,15 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.eclipse.emf.ecore.impl.EcorePackageImpl;
-import org.eclipse.jem.java.internal.impl.JavaRefPackageImpl;
-import org.eclipse.jst.j2ee.application.internal.impl.ApplicationPackageImpl;
-import org.eclipse.jst.j2ee.client.internal.impl.ClientPackageImpl;
+import org.eclipse.jem.java.JavaRefPackage;
+import org.eclipse.jst.j2ee.application.ApplicationPackage;
+import org.eclipse.jst.j2ee.client.ClientPackage;
 import org.eclipse.jst.j2ee.common.CommonPackage;
-import org.eclipse.jst.j2ee.common.internal.impl.CommonPackageImpl;
-import org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl;
-import org.eclipse.jst.j2ee.jsp.internal.impl.JspPackageImpl;
-import org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl;
+import org.eclipse.jst.j2ee.ejb.EjbPackage;
+import org.eclipse.jst.j2ee.jsp.JspPackage;
+import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.ConstructorParameterOrder;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.ElementName;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionMapping;
@@ -48,9 +47,9 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLOperation;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLPortType;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLReturnValueMapping;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLServiceName;
-import org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.Webservice_clientPackageImpl;
-import org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.WscommonPackageImpl;
-import org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl;
+import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
+import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
+import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
 
 
 /**
@@ -272,17 +271,17 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
 		isInited = true;
 
 		// Initialize simple dependencies
-		ClientPackageImpl.init();
-		ApplicationPackageImpl.init();
-		CommonPackageImpl.init();
-		EjbPackageImpl.init();
-		WebapplicationPackageImpl.init();
-		Webservice_clientPackageImpl.init();
-		JspPackageImpl.init();
-		WscommonPackageImpl.init();
-		WsddPackageImpl.init();
-		EcorePackageImpl.init();
-		JavaRefPackageImpl.init();
+		ClientPackage.eINSTANCE.eClass();
+		ApplicationPackage.eINSTANCE.eClass();
+		CommonPackage.eINSTANCE.eClass();
+		EjbPackage.eINSTANCE.eClass();
+		WebapplicationPackage.eINSTANCE.eClass();
+		Webservice_clientPackage.eINSTANCE.eClass();
+		JspPackage.eINSTANCE.eClass();
+		WscommonPackage.eINSTANCE.eClass();
+		WsddPackage.eINSTANCE.eClass();
+		EcorePackage.eINSTANCE.eClass();
+		JavaRefPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theJaxrpcmapPackage.createPackageContents();
@@ -1231,16 +1230,31 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		CommonPackageImpl theCommonPackage = (CommonPackageImpl)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+		CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
 
 		// Add supertypes to classes
+		javaWSDLMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		packageMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		javaXMLTypeMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		exceptionMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 		serviceInterfaceMappingEClass.getESuperTypes().add(this.getInterfaceMapping());
 		serviceEndpointInterfaceMappingEClass.getESuperTypes().add(this.getInterfaceMapping());
 		rootTypeQnameEClass.getESuperTypes().add(theCommonPackage.getQName());
+		variableMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 		wsdlMessageEClass.getESuperTypes().add(theCommonPackage.getQName());
+		constructorParameterOrderEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		elementNameEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 		wsdlServiceNameEClass.getESuperTypes().add(theCommonPackage.getQName());
+		portMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 		wsdlPortTypeEClass.getESuperTypes().add(theCommonPackage.getQName());
 		wsdlBindingEClass.getESuperTypes().add(theCommonPackage.getQName());
+		serviceEndpointMethodMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		wsdlOperationEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		methodParamPartsMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		wsdlReturnValueMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		wsdlMessageMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		wsdlMessagePartNameEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		interfaceMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(javaWSDLMappingEClass, JavaWSDLMapping.class, "JavaWSDLMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

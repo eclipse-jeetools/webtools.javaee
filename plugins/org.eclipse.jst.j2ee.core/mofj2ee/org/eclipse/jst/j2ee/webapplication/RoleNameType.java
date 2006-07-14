@@ -10,12 +10,12 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.webapplication;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 /**
  * @generated
  * @since  1.0
  */
-public interface RoleNameType extends EObject {
+public interface RoleNameType extends J2EEEObject {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the RoleName attribute

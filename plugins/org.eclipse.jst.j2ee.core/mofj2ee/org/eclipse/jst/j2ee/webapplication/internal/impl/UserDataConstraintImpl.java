@@ -16,15 +16,13 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.Description;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webapplication.SecurityConstraint;
 import org.eclipse.jst.j2ee.webapplication.TransportGuaranteeType;
 import org.eclipse.jst.j2ee.webapplication.UserDataConstraint;
@@ -33,8 +31,9 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 /**
  * The user-data-constraint element is used to indicate how data communicated between the client and container should be protected
+ * @generated
  */
-public class UserDataConstraintImpl extends EObjectImpl implements UserDataConstraint, EObject {
+public class UserDataConstraintImpl extends J2EEEObjectImpl implements UserDataConstraint {
 
 	/**
 	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
@@ -95,7 +94,7 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return WebapplicationPackage.eINSTANCE.getUserDataConstraint();
+		return WebapplicationPackage.Literals.USER_DATA_CONSTRAINT;
 	}
 
 	/**
@@ -174,22 +173,32 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 */
 	public SecurityConstraint getSecConstraint() {
 		if (eContainerFeatureID != WebapplicationPackage.USER_DATA_CONSTRAINT__SEC_CONSTRAINT) return null;
-		return (SecurityConstraint)eContainer;
+		return (SecurityConstraint)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetSecConstraint(SecurityConstraint newSecConstraint, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newSecConstraint, WebapplicationPackage.USER_DATA_CONSTRAINT__SEC_CONSTRAINT, msgs);
+		return msgs;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public void setSecConstraint(SecurityConstraint newSecConstraint) {
-		if (newSecConstraint != eContainer || (eContainerFeatureID != WebapplicationPackage.USER_DATA_CONSTRAINT__SEC_CONSTRAINT && newSecConstraint != null)) {
+		if (newSecConstraint != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.USER_DATA_CONSTRAINT__SEC_CONSTRAINT && newSecConstraint != null)) {
 			if (EcoreUtil.isAncestor(this, newSecConstraint))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newSecConstraint != null)
 				msgs = ((InternalEObject)newSecConstraint).eInverseAdd(this, WebapplicationPackage.SECURITY_CONSTRAINT__USER_DATA_CONSTRAINT, SecurityConstraint.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newSecConstraint, WebapplicationPackage.USER_DATA_CONSTRAINT__SEC_CONSTRAINT, msgs);
+			msgs = basicSetSecConstraint(newSecConstraint, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -213,20 +222,14 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WebapplicationPackage.USER_DATA_CONSTRAINT__SEC_CONSTRAINT:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, WebapplicationPackage.USER_DATA_CONSTRAINT__SEC_CONSTRAINT, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case WebapplicationPackage.USER_DATA_CONSTRAINT__SEC_CONSTRAINT:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetSecConstraint((SecurityConstraint)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -234,18 +237,14 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WebapplicationPackage.USER_DATA_CONSTRAINT__SEC_CONSTRAINT:
-					return eBasicSetContainer(null, WebapplicationPackage.USER_DATA_CONSTRAINT__SEC_CONSTRAINT, msgs);
-				case WebapplicationPackage.USER_DATA_CONSTRAINT__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case WebapplicationPackage.USER_DATA_CONSTRAINT__SEC_CONSTRAINT:
+				return basicSetSecConstraint(null, msgs);
+			case WebapplicationPackage.USER_DATA_CONSTRAINT__DESCRIPTIONS:
+				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -253,16 +252,12 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case WebapplicationPackage.USER_DATA_CONSTRAINT__SEC_CONSTRAINT:
-					return eContainer.eInverseRemove(this, WebapplicationPackage.SECURITY_CONSTRAINT__USER_DATA_CONSTRAINT, SecurityConstraint.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case WebapplicationPackage.USER_DATA_CONSTRAINT__SEC_CONSTRAINT:
+				return eInternalContainer().eInverseRemove(this, WebapplicationPackage.SECURITY_CONSTRAINT__USER_DATA_CONSTRAINT, SecurityConstraint.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -270,8 +265,8 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case WebapplicationPackage.USER_DATA_CONSTRAINT__DESCRIPTION:
 				return getDescription();
 			case WebapplicationPackage.USER_DATA_CONSTRAINT__TRANSPORT_GUARANTEE:
@@ -281,31 +276,16 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 			case WebapplicationPackage.USER_DATA_CONSTRAINT__DESCRIPTIONS:
 				return getDescriptions();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.USER_DATA_CONSTRAINT__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case WebapplicationPackage.USER_DATA_CONSTRAINT__TRANSPORT_GUARANTEE:
-				return isSetTransportGuarantee();
-			case WebapplicationPackage.USER_DATA_CONSTRAINT__SEC_CONSTRAINT:
-				return getSecConstraint() != null;
-			case WebapplicationPackage.USER_DATA_CONSTRAINT__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case WebapplicationPackage.USER_DATA_CONSTRAINT__DESCRIPTION:
 				setDescription((String)newValue);
 				return;
@@ -320,14 +300,16 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 				getDescriptions().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case WebapplicationPackage.USER_DATA_CONSTRAINT__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
@@ -341,7 +323,26 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 				getDescriptions().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case WebapplicationPackage.USER_DATA_CONSTRAINT__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case WebapplicationPackage.USER_DATA_CONSTRAINT__TRANSPORT_GUARANTEE:
+				return isSetTransportGuarantee();
+			case WebapplicationPackage.USER_DATA_CONSTRAINT__SEC_CONSTRAINT:
+				return getSecConstraint() != null;
+			case WebapplicationPackage.USER_DATA_CONSTRAINT__DESCRIPTIONS:
+				return descriptions != null && !descriptions.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

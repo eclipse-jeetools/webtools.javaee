@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.application;
 
 /**
  * Specifies the URI of a resource adapter archive file, relative to the top level of the application package.
+ * @generated
  * @since 1.0 */
 public interface ConnectorModule extends Module{
 	//ConnectorModule

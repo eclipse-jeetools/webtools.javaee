@@ -31,7 +31,7 @@ import org.eclipse.jst.j2ee.common.DescriptionGroup;
  * example -- Optional informal description of an example of a use of this action.
 
  */
-public interface JSPTag extends DescriptionGroup{
+public interface JSPTag extends DescriptionGroup {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the BodyContent attribute
@@ -109,7 +109,7 @@ public interface JSPTag extends DescriptionGroup{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
-	 * @see org.eclipse.jst.j2ee.taglib.internal.TaglibPackage#getJSPTag_Name()
+	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getJSPTag_Name()
 	 * @model
 	 * @generated
 	 */
@@ -135,7 +135,7 @@ public interface JSPTag extends DescriptionGroup{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Dynamic Attributes</em>' attribute.
 	 * @see #setDynamicAttributes(boolean)
-	 * @see org.eclipse.jst.j2ee.taglib.internal.TaglibPackage#getJSPTag_DynamicAttributes()
+	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getJSPTag_DynamicAttributes()
 	 * @model
 	 * @generated
 	 */

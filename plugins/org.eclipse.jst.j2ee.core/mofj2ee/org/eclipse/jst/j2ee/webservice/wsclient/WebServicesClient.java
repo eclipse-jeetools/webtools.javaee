@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.webservice.wsclient;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,8 +33,8 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getWebServicesClient()
  * @model
  * @generated
- * @since 1.0 */
-public interface WebServicesClient extends EObject{
+ */
+public interface WebServicesClient extends J2EEEObject {
 	/**
 	 * Returns the value of the '<em><b>Component Scoped Refs</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.jst.j2ee.webservice.wsclient.ComponentScopedRefs}.

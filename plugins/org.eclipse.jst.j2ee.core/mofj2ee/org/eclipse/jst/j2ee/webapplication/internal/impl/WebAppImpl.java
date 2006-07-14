@@ -19,7 +19,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -209,7 +208,7 @@ public class WebAppImpl extends JNDIEnvRefsGroupImpl implements WebApp {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return WebapplicationPackage.eINSTANCE.getWebApp();
+		return WebapplicationPackage.Literals.WEB_APP;
 	}
 
 /**
@@ -857,42 +856,36 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WebapplicationPackage.WEB_APP__CONTEXTS:
-					return ((InternalEList)getContexts()).basicAdd(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__ERROR_PAGES:
-					return ((InternalEList)getErrorPages()).basicAdd(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__FILE_LIST:
-					if (fileList != null)
-						msgs = ((InternalEObject)fileList).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WebapplicationPackage.WEB_APP__FILE_LIST, null, msgs);
-					return basicSetFileList((WelcomeFileList)otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__TAG_LIBS:
-					return ((InternalEList)getTagLibs()).basicAdd(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__CONSTRAINTS:
-					return ((InternalEList)getConstraints()).basicAdd(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__LOGIN_CONFIG:
-					if (loginConfig != null)
-						msgs = ((InternalEObject)loginConfig).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WebapplicationPackage.WEB_APP__LOGIN_CONFIG, null, msgs);
-					return basicSetLoginConfig((LoginConfig)otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__MIME_MAPPINGS:
-					return ((InternalEList)getMimeMappings()).basicAdd(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__SESSION_CONFIG:
-					if (sessionConfig != null)
-						msgs = ((InternalEObject)sessionConfig).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WebapplicationPackage.WEB_APP__SESSION_CONFIG, null, msgs);
-					return basicSetSessionConfig((SessionConfig)otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__SERVLET_MAPPINGS:
-					return ((InternalEList)getServletMappings()).basicAdd(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__SERVLETS:
-					return ((InternalEList)getServlets()).basicAdd(otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case WebapplicationPackage.WEB_APP__CONTEXTS:
+				return ((InternalEList)getContexts()).basicAdd(otherEnd, msgs);
+			case WebapplicationPackage.WEB_APP__ERROR_PAGES:
+				return ((InternalEList)getErrorPages()).basicAdd(otherEnd, msgs);
+			case WebapplicationPackage.WEB_APP__FILE_LIST:
+				if (fileList != null)
+					msgs = ((InternalEObject)fileList).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WebapplicationPackage.WEB_APP__FILE_LIST, null, msgs);
+				return basicSetFileList((WelcomeFileList)otherEnd, msgs);
+			case WebapplicationPackage.WEB_APP__TAG_LIBS:
+				return ((InternalEList)getTagLibs()).basicAdd(otherEnd, msgs);
+			case WebapplicationPackage.WEB_APP__CONSTRAINTS:
+				return ((InternalEList)getConstraints()).basicAdd(otherEnd, msgs);
+			case WebapplicationPackage.WEB_APP__LOGIN_CONFIG:
+				if (loginConfig != null)
+					msgs = ((InternalEObject)loginConfig).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WebapplicationPackage.WEB_APP__LOGIN_CONFIG, null, msgs);
+				return basicSetLoginConfig((LoginConfig)otherEnd, msgs);
+			case WebapplicationPackage.WEB_APP__MIME_MAPPINGS:
+				return ((InternalEList)getMimeMappings()).basicAdd(otherEnd, msgs);
+			case WebapplicationPackage.WEB_APP__SESSION_CONFIG:
+				if (sessionConfig != null)
+					msgs = ((InternalEObject)sessionConfig).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WebapplicationPackage.WEB_APP__SESSION_CONFIG, null, msgs);
+				return basicSetSessionConfig((SessionConfig)otherEnd, msgs);
+			case WebapplicationPackage.WEB_APP__SERVLET_MAPPINGS:
+				return ((InternalEList)getServletMappings()).basicAdd(otherEnd, msgs);
+			case WebapplicationPackage.WEB_APP__SERVLETS:
+				return ((InternalEList)getServlets()).basicAdd(otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -900,70 +893,46 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WebapplicationPackage.WEB_APP__ICONS:
-					return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__DISPLAY_NAMES:
-					return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__ENVIRONMENT_PROPERTIES:
-					return ((InternalEList)getEnvironmentProperties()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__RESOURCE_REFS:
-					return ((InternalEList)getResourceRefs()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__EJB_REFS:
-					return ((InternalEList)getEjbRefs()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__RESOURCE_ENV_REFS:
-					return ((InternalEList)getResourceEnvRefs()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__EJB_LOCAL_REFS:
-					return ((InternalEList)getEjbLocalRefs()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__MESSAGE_DESTINATION_REFS:
-					return ((InternalEList)getMessageDestinationRefs()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__SERVICE_REFS:
-					return ((InternalEList)getServiceRefs()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__CONTEXTS:
-					return ((InternalEList)getContexts()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__ERROR_PAGES:
-					return ((InternalEList)getErrorPages()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__FILE_LIST:
-					return basicSetFileList(null, msgs);
-				case WebapplicationPackage.WEB_APP__TAG_LIBS:
-					return ((InternalEList)getTagLibs()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__CONSTRAINTS:
-					return ((InternalEList)getConstraints()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__LOGIN_CONFIG:
-					return basicSetLoginConfig(null, msgs);
-				case WebapplicationPackage.WEB_APP__MIME_MAPPINGS:
-					return ((InternalEList)getMimeMappings()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__SESSION_CONFIG:
-					return basicSetSessionConfig(null, msgs);
-				case WebapplicationPackage.WEB_APP__SERVLET_MAPPINGS:
-					return ((InternalEList)getServletMappings()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__SERVLETS:
-					return ((InternalEList)getServlets()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__SECURITY_ROLES:
-					return ((InternalEList)getSecurityRoles()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__FILTERS:
-					return ((InternalEList)getFilters()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__FILTER_MAPPINGS:
-					return ((InternalEList)getFilterMappings()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__LISTENERS:
-					return ((InternalEList)getListeners()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__CONTEXT_PARAMS:
-					return ((InternalEList)getContextParams()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__JSP_CONFIG:
-					return basicSetJspConfig(null, msgs);
-				case WebapplicationPackage.WEB_APP__MESSAGE_DESTINATIONS:
-					return ((InternalEList)getMessageDestinations()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_APP__LOCAL_ENCODING_MAPPING_LIST:
-					return basicSetLocalEncodingMappingList(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case WebapplicationPackage.WEB_APP__CONTEXTS:
+				return ((InternalEList)getContexts()).basicRemove(otherEnd, msgs);
+			case WebapplicationPackage.WEB_APP__ERROR_PAGES:
+				return ((InternalEList)getErrorPages()).basicRemove(otherEnd, msgs);
+			case WebapplicationPackage.WEB_APP__FILE_LIST:
+				return basicSetFileList(null, msgs);
+			case WebapplicationPackage.WEB_APP__TAG_LIBS:
+				return ((InternalEList)getTagLibs()).basicRemove(otherEnd, msgs);
+			case WebapplicationPackage.WEB_APP__CONSTRAINTS:
+				return ((InternalEList)getConstraints()).basicRemove(otherEnd, msgs);
+			case WebapplicationPackage.WEB_APP__LOGIN_CONFIG:
+				return basicSetLoginConfig(null, msgs);
+			case WebapplicationPackage.WEB_APP__MIME_MAPPINGS:
+				return ((InternalEList)getMimeMappings()).basicRemove(otherEnd, msgs);
+			case WebapplicationPackage.WEB_APP__SESSION_CONFIG:
+				return basicSetSessionConfig(null, msgs);
+			case WebapplicationPackage.WEB_APP__SERVLET_MAPPINGS:
+				return ((InternalEList)getServletMappings()).basicRemove(otherEnd, msgs);
+			case WebapplicationPackage.WEB_APP__SERVLETS:
+				return ((InternalEList)getServlets()).basicRemove(otherEnd, msgs);
+			case WebapplicationPackage.WEB_APP__SECURITY_ROLES:
+				return ((InternalEList)getSecurityRoles()).basicRemove(otherEnd, msgs);
+			case WebapplicationPackage.WEB_APP__FILTERS:
+				return ((InternalEList)getFilters()).basicRemove(otherEnd, msgs);
+			case WebapplicationPackage.WEB_APP__FILTER_MAPPINGS:
+				return ((InternalEList)getFilterMappings()).basicRemove(otherEnd, msgs);
+			case WebapplicationPackage.WEB_APP__LISTENERS:
+				return ((InternalEList)getListeners()).basicRemove(otherEnd, msgs);
+			case WebapplicationPackage.WEB_APP__CONTEXT_PARAMS:
+				return ((InternalEList)getContextParams()).basicRemove(otherEnd, msgs);
+			case WebapplicationPackage.WEB_APP__JSP_CONFIG:
+				return basicSetJspConfig(null, msgs);
+			case WebapplicationPackage.WEB_APP__MESSAGE_DESTINATIONS:
+				return ((InternalEList)getMessageDestinations()).basicRemove(otherEnd, msgs);
+			case WebapplicationPackage.WEB_APP__LOCAL_ENCODING_MAPPING_LIST:
+				return basicSetLocalEncodingMappingList(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -971,36 +940,8 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.WEB_APP__ICONS:
-				return getIcons();
-			case WebapplicationPackage.WEB_APP__DISPLAY_NAMES:
-				return getDisplayNames();
-			case WebapplicationPackage.WEB_APP__DESCRIPTIONS:
-				return getDescriptions();
-			case WebapplicationPackage.WEB_APP__SMALL_ICON:
-				return getSmallIcon();
-			case WebapplicationPackage.WEB_APP__LARGE_ICON:
-				return getLargeIcon();
-			case WebapplicationPackage.WEB_APP__DESCRIPTION:
-				return getDescription();
-			case WebapplicationPackage.WEB_APP__DISPLAY_NAME:
-				return getDisplayName();
-			case WebapplicationPackage.WEB_APP__ENVIRONMENT_PROPERTIES:
-				return getEnvironmentProperties();
-			case WebapplicationPackage.WEB_APP__RESOURCE_REFS:
-				return getResourceRefs();
-			case WebapplicationPackage.WEB_APP__EJB_REFS:
-				return getEjbRefs();
-			case WebapplicationPackage.WEB_APP__RESOURCE_ENV_REFS:
-				return getResourceEnvRefs();
-			case WebapplicationPackage.WEB_APP__EJB_LOCAL_REFS:
-				return getEjbLocalRefs();
-			case WebapplicationPackage.WEB_APP__MESSAGE_DESTINATION_REFS:
-				return getMessageDestinationRefs();
-			case WebapplicationPackage.WEB_APP__SERVICE_REFS:
-				return getServiceRefs();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case WebapplicationPackage.WEB_APP__DISTRIBUTABLE:
 				return isDistributable() ? Boolean.TRUE : Boolean.FALSE;
 			case WebapplicationPackage.WEB_APP__VERSION:
@@ -1042,143 +983,16 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 			case WebapplicationPackage.WEB_APP__LOCAL_ENCODING_MAPPING_LIST:
 				return getLocalEncodingMappingList();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.WEB_APP__ICONS:
-				return icons != null && !icons.isEmpty();
-			case WebapplicationPackage.WEB_APP__DISPLAY_NAMES:
-				return displayNames != null && !displayNames.isEmpty();
-			case WebapplicationPackage.WEB_APP__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-			case WebapplicationPackage.WEB_APP__SMALL_ICON:
-				return SMALL_ICON_EDEFAULT == null ? smallIcon != null : !SMALL_ICON_EDEFAULT.equals(smallIcon);
-			case WebapplicationPackage.WEB_APP__LARGE_ICON:
-				return LARGE_ICON_EDEFAULT == null ? largeIcon != null : !LARGE_ICON_EDEFAULT.equals(largeIcon);
-			case WebapplicationPackage.WEB_APP__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case WebapplicationPackage.WEB_APP__DISPLAY_NAME:
-				return DISPLAY_NAME_EDEFAULT == null ? displayName != null : !DISPLAY_NAME_EDEFAULT.equals(displayName);
-			case WebapplicationPackage.WEB_APP__ENVIRONMENT_PROPERTIES:
-				return environmentProperties != null && !environmentProperties.isEmpty();
-			case WebapplicationPackage.WEB_APP__RESOURCE_REFS:
-				return resourceRefs != null && !resourceRefs.isEmpty();
-			case WebapplicationPackage.WEB_APP__EJB_REFS:
-				return ejbRefs != null && !ejbRefs.isEmpty();
-			case WebapplicationPackage.WEB_APP__RESOURCE_ENV_REFS:
-				return resourceEnvRefs != null && !resourceEnvRefs.isEmpty();
-			case WebapplicationPackage.WEB_APP__EJB_LOCAL_REFS:
-				return ejbLocalRefs != null && !ejbLocalRefs.isEmpty();
-			case WebapplicationPackage.WEB_APP__MESSAGE_DESTINATION_REFS:
-				return messageDestinationRefs != null && !messageDestinationRefs.isEmpty();
-			case WebapplicationPackage.WEB_APP__SERVICE_REFS:
-				return serviceRefs != null && !serviceRefs.isEmpty();
-			case WebapplicationPackage.WEB_APP__DISTRIBUTABLE:
-				return isSetDistributable();
-			case WebapplicationPackage.WEB_APP__VERSION:
-				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
-			case WebapplicationPackage.WEB_APP__CONTEXTS:
-				return contexts != null && !contexts.isEmpty();
-			case WebapplicationPackage.WEB_APP__ERROR_PAGES:
-				return errorPages != null && !errorPages.isEmpty();
-			case WebapplicationPackage.WEB_APP__FILE_LIST:
-				return fileList != null;
-			case WebapplicationPackage.WEB_APP__TAG_LIBS:
-				return tagLibs != null && !tagLibs.isEmpty();
-			case WebapplicationPackage.WEB_APP__CONSTRAINTS:
-				return constraints != null && !constraints.isEmpty();
-			case WebapplicationPackage.WEB_APP__LOGIN_CONFIG:
-				return loginConfig != null;
-			case WebapplicationPackage.WEB_APP__MIME_MAPPINGS:
-				return mimeMappings != null && !mimeMappings.isEmpty();
-			case WebapplicationPackage.WEB_APP__SESSION_CONFIG:
-				return sessionConfig != null;
-			case WebapplicationPackage.WEB_APP__SERVLET_MAPPINGS:
-				return servletMappings != null && !servletMappings.isEmpty();
-			case WebapplicationPackage.WEB_APP__SERVLETS:
-				return servlets != null && !servlets.isEmpty();
-			case WebapplicationPackage.WEB_APP__SECURITY_ROLES:
-				return securityRoles != null && !securityRoles.isEmpty();
-			case WebapplicationPackage.WEB_APP__FILTERS:
-				return filters != null && !filters.isEmpty();
-			case WebapplicationPackage.WEB_APP__FILTER_MAPPINGS:
-				return filterMappings != null && !filterMappings.isEmpty();
-			case WebapplicationPackage.WEB_APP__LISTENERS:
-				return listeners != null && !listeners.isEmpty();
-			case WebapplicationPackage.WEB_APP__CONTEXT_PARAMS:
-				return contextParams != null && !contextParams.isEmpty();
-			case WebapplicationPackage.WEB_APP__JSP_CONFIG:
-				return jspConfig != null;
-			case WebapplicationPackage.WEB_APP__MESSAGE_DESTINATIONS:
-				return messageDestinations != null && !messageDestinations.isEmpty();
-			case WebapplicationPackage.WEB_APP__LOCAL_ENCODING_MAPPING_LIST:
-				return localEncodingMappingList != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.WEB_APP__ICONS:
-				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
-				return;
-			case WebapplicationPackage.WEB_APP__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
-				return;
-			case WebapplicationPackage.WEB_APP__DESCRIPTIONS:
-				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
-				return;
-			case WebapplicationPackage.WEB_APP__SMALL_ICON:
-				setSmallIcon((String)newValue);
-				return;
-			case WebapplicationPackage.WEB_APP__LARGE_ICON:
-				setLargeIcon((String)newValue);
-				return;
-			case WebapplicationPackage.WEB_APP__DESCRIPTION:
-				setDescription((String)newValue);
-				return;
-			case WebapplicationPackage.WEB_APP__DISPLAY_NAME:
-				setDisplayName((String)newValue);
-				return;
-			case WebapplicationPackage.WEB_APP__ENVIRONMENT_PROPERTIES:
-				getEnvironmentProperties().clear();
-				getEnvironmentProperties().addAll((Collection)newValue);
-				return;
-			case WebapplicationPackage.WEB_APP__RESOURCE_REFS:
-				getResourceRefs().clear();
-				getResourceRefs().addAll((Collection)newValue);
-				return;
-			case WebapplicationPackage.WEB_APP__EJB_REFS:
-				getEjbRefs().clear();
-				getEjbRefs().addAll((Collection)newValue);
-				return;
-			case WebapplicationPackage.WEB_APP__RESOURCE_ENV_REFS:
-				getResourceEnvRefs().clear();
-				getResourceEnvRefs().addAll((Collection)newValue);
-				return;
-			case WebapplicationPackage.WEB_APP__EJB_LOCAL_REFS:
-				getEjbLocalRefs().clear();
-				getEjbLocalRefs().addAll((Collection)newValue);
-				return;
-			case WebapplicationPackage.WEB_APP__MESSAGE_DESTINATION_REFS:
-				getMessageDestinationRefs().clear();
-				getMessageDestinationRefs().addAll((Collection)newValue);
-				return;
-			case WebapplicationPackage.WEB_APP__SERVICE_REFS:
-				getServiceRefs().clear();
-				getServiceRefs().addAll((Collection)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case WebapplicationPackage.WEB_APP__DISTRIBUTABLE:
 				setDistributable(((Boolean)newValue).booleanValue());
 				return;
@@ -1253,56 +1067,16 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 				setLocalEncodingMappingList((LocalEncodingMappingList)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.WEB_APP__ICONS:
-				getIcons().clear();
-				return;
-			case WebapplicationPackage.WEB_APP__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				return;
-			case WebapplicationPackage.WEB_APP__DESCRIPTIONS:
-				getDescriptions().clear();
-				return;
-			case WebapplicationPackage.WEB_APP__SMALL_ICON:
-				setSmallIcon(SMALL_ICON_EDEFAULT);
-				return;
-			case WebapplicationPackage.WEB_APP__LARGE_ICON:
-				setLargeIcon(LARGE_ICON_EDEFAULT);
-				return;
-			case WebapplicationPackage.WEB_APP__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case WebapplicationPackage.WEB_APP__DISPLAY_NAME:
-				setDisplayName(DISPLAY_NAME_EDEFAULT);
-				return;
-			case WebapplicationPackage.WEB_APP__ENVIRONMENT_PROPERTIES:
-				getEnvironmentProperties().clear();
-				return;
-			case WebapplicationPackage.WEB_APP__RESOURCE_REFS:
-				getResourceRefs().clear();
-				return;
-			case WebapplicationPackage.WEB_APP__EJB_REFS:
-				getEjbRefs().clear();
-				return;
-			case WebapplicationPackage.WEB_APP__RESOURCE_ENV_REFS:
-				getResourceEnvRefs().clear();
-				return;
-			case WebapplicationPackage.WEB_APP__EJB_LOCAL_REFS:
-				getEjbLocalRefs().clear();
-				return;
-			case WebapplicationPackage.WEB_APP__MESSAGE_DESTINATION_REFS:
-				getMessageDestinationRefs().clear();
-				return;
-			case WebapplicationPackage.WEB_APP__SERVICE_REFS:
-				getServiceRefs().clear();
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case WebapplicationPackage.WEB_APP__DISTRIBUTABLE:
 				unsetDistributable();
 				return;
@@ -1364,7 +1138,58 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 				setLocalEncodingMappingList((LocalEncodingMappingList)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case WebapplicationPackage.WEB_APP__DISTRIBUTABLE:
+				return isSetDistributable();
+			case WebapplicationPackage.WEB_APP__VERSION:
+				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
+			case WebapplicationPackage.WEB_APP__CONTEXTS:
+				return contexts != null && !contexts.isEmpty();
+			case WebapplicationPackage.WEB_APP__ERROR_PAGES:
+				return errorPages != null && !errorPages.isEmpty();
+			case WebapplicationPackage.WEB_APP__FILE_LIST:
+				return fileList != null;
+			case WebapplicationPackage.WEB_APP__TAG_LIBS:
+				return tagLibs != null && !tagLibs.isEmpty();
+			case WebapplicationPackage.WEB_APP__CONSTRAINTS:
+				return constraints != null && !constraints.isEmpty();
+			case WebapplicationPackage.WEB_APP__LOGIN_CONFIG:
+				return loginConfig != null;
+			case WebapplicationPackage.WEB_APP__MIME_MAPPINGS:
+				return mimeMappings != null && !mimeMappings.isEmpty();
+			case WebapplicationPackage.WEB_APP__SESSION_CONFIG:
+				return sessionConfig != null;
+			case WebapplicationPackage.WEB_APP__SERVLET_MAPPINGS:
+				return servletMappings != null && !servletMappings.isEmpty();
+			case WebapplicationPackage.WEB_APP__SERVLETS:
+				return servlets != null && !servlets.isEmpty();
+			case WebapplicationPackage.WEB_APP__SECURITY_ROLES:
+				return securityRoles != null && !securityRoles.isEmpty();
+			case WebapplicationPackage.WEB_APP__FILTERS:
+				return filters != null && !filters.isEmpty();
+			case WebapplicationPackage.WEB_APP__FILTER_MAPPINGS:
+				return filterMappings != null && !filterMappings.isEmpty();
+			case WebapplicationPackage.WEB_APP__LISTENERS:
+				return listeners != null && !listeners.isEmpty();
+			case WebapplicationPackage.WEB_APP__CONTEXT_PARAMS:
+				return contextParams != null && !contextParams.isEmpty();
+			case WebapplicationPackage.WEB_APP__JSP_CONFIG:
+				return jspConfig != null;
+			case WebapplicationPackage.WEB_APP__MESSAGE_DESTINATIONS:
+				return messageDestinations != null && !messageDestinations.isEmpty();
+			case WebapplicationPackage.WEB_APP__LOCAL_ENCODING_MAPPING_LIST:
+				return localEncodingMappingList != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

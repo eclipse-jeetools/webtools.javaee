@@ -19,14 +19,12 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.Description;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.ExcludeList;
@@ -36,9 +34,9 @@ import org.eclipse.jst.j2ee.ejb.MethodElement;
  * The exclude list element defines a set of methods which the Assembler marks to be uncallable. It contains one or more methods.
  * 
  * If the method permission relation contains methods that are in the exclude list, the Deployer must consider those methods to be uncallable.
-
+ * @generated
  */
-public class ExcludeListImpl extends EObjectImpl implements ExcludeList, EObject {
+public class ExcludeListImpl extends J2EEEObjectImpl implements ExcludeList {
 
 	/**
 	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
@@ -80,7 +78,7 @@ public class ExcludeListImpl extends EObjectImpl implements ExcludeList, EObject
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return EjbPackage.eINSTANCE.getExcludeList();
+		return EjbPackage.Literals.EXCLUDE_LIST;
 	}
 
 	/**
@@ -127,18 +125,14 @@ public class ExcludeListImpl extends EObjectImpl implements ExcludeList, EObject
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.EXCLUDE_LIST__METHOD_ELEMENTS:
-					return ((InternalEList)getMethodElements()).basicRemove(otherEnd, msgs);
-				case EjbPackage.EXCLUDE_LIST__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.EXCLUDE_LIST__METHOD_ELEMENTS:
+				return ((InternalEList)getMethodElements()).basicRemove(otherEnd, msgs);
+			case EjbPackage.EXCLUDE_LIST__DESCRIPTIONS:
+				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -146,8 +140,8 @@ public class ExcludeListImpl extends EObjectImpl implements ExcludeList, EObject
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case EjbPackage.EXCLUDE_LIST__DESCRIPTION:
 				return getDescription();
 			case EjbPackage.EXCLUDE_LIST__METHOD_ELEMENTS:
@@ -155,29 +149,16 @@ public class ExcludeListImpl extends EObjectImpl implements ExcludeList, EObject
 			case EjbPackage.EXCLUDE_LIST__DESCRIPTIONS:
 				return getDescriptions();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.EXCLUDE_LIST__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case EjbPackage.EXCLUDE_LIST__METHOD_ELEMENTS:
-				return methodElements != null && !methodElements.isEmpty();
-			case EjbPackage.EXCLUDE_LIST__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case EjbPackage.EXCLUDE_LIST__DESCRIPTION:
 				setDescription((String)newValue);
 				return;
@@ -190,14 +171,16 @@ public class ExcludeListImpl extends EObjectImpl implements ExcludeList, EObject
 				getDescriptions().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case EjbPackage.EXCLUDE_LIST__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
@@ -208,7 +191,24 @@ public class ExcludeListImpl extends EObjectImpl implements ExcludeList, EObject
 				getDescriptions().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case EjbPackage.EXCLUDE_LIST__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case EjbPackage.EXCLUDE_LIST__METHOD_ELEMENTS:
+				return methodElements != null && !methodElements.isEmpty();
+			case EjbPackage.EXCLUDE_LIST__DESCRIPTIONS:
+				return descriptions != null && !descriptions.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

@@ -75,7 +75,7 @@ public final class EnvEntryType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final EnvEntryType STRING_LITERAL = new EnvEntryType(STRING, "String"); //$NON-NLS-1$
+	public static final EnvEntryType STRING_LITERAL = new EnvEntryType(STRING, "String", "String"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Integer</b></em>' literal object.
@@ -89,7 +89,7 @@ public final class EnvEntryType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final EnvEntryType INTEGER_LITERAL = new EnvEntryType(INTEGER, "Integer"); //$NON-NLS-1$
+	public static final EnvEntryType INTEGER_LITERAL = new EnvEntryType(INTEGER, "Integer", "Integer"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Boolean</b></em>' literal object.
@@ -103,7 +103,7 @@ public final class EnvEntryType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final EnvEntryType BOOLEAN_LITERAL = new EnvEntryType(BOOLEAN, "Boolean"); //$NON-NLS-1$
+	public static final EnvEntryType BOOLEAN_LITERAL = new EnvEntryType(BOOLEAN, "Boolean", "Boolean"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Double</b></em>' literal object.
@@ -117,7 +117,7 @@ public final class EnvEntryType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final EnvEntryType DOUBLE_LITERAL = new EnvEntryType(DOUBLE, "Double"); //$NON-NLS-1$
+	public static final EnvEntryType DOUBLE_LITERAL = new EnvEntryType(DOUBLE, "Double", "Double"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Byte</b></em>' literal object.
@@ -131,7 +131,7 @@ public final class EnvEntryType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final EnvEntryType BYTE_LITERAL = new EnvEntryType(BYTE, "Byte"); //$NON-NLS-1$
+	public static final EnvEntryType BYTE_LITERAL = new EnvEntryType(BYTE, "Byte", "Byte"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Short</b></em>' literal object.
@@ -145,7 +145,7 @@ public final class EnvEntryType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final EnvEntryType SHORT_LITERAL = new EnvEntryType(SHORT, "Short"); //$NON-NLS-1$
+	public static final EnvEntryType SHORT_LITERAL = new EnvEntryType(SHORT, "Short", "Short"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Long</b></em>' literal object.
@@ -159,7 +159,7 @@ public final class EnvEntryType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final EnvEntryType LONG_LITERAL = new EnvEntryType(LONG, "Long"); //$NON-NLS-1$
+	public static final EnvEntryType LONG_LITERAL = new EnvEntryType(LONG, "Long", "Long"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Float</b></em>' literal object.
@@ -173,7 +173,7 @@ public final class EnvEntryType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final EnvEntryType FLOAT_LITERAL = new EnvEntryType(FLOAT, "Float"); //$NON-NLS-1$
+	public static final EnvEntryType FLOAT_LITERAL = new EnvEntryType(FLOAT, "Float", "Float"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Character</b></em>' literal object.
@@ -187,7 +187,7 @@ public final class EnvEntryType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final EnvEntryType CHARACTER_LITERAL = new EnvEntryType(CHARACTER, "Character"); //$NON-NLS-1$
+	public static final EnvEntryType CHARACTER_LITERAL = new EnvEntryType(CHARACTER, "Character", "Character"); //$NON-NLS-1$
 
 	/**
 	 * An array of all the '<em><b>Env Entry Type</b></em>' enumerators.
@@ -217,17 +217,17 @@ public final class EnvEntryType extends AbstractEnumerator{
 	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Env Entry Type</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Env Entry Type</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * @param name passes literal name
 	 * @return literal instance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static EnvEntryType get(String name) {
+	public static EnvEntryType get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			EnvEntryType result = VALUES_ARRAY[i];
-			if (result.toString().equals(name)) {
+			if (result.toString().equals(literal)) {
 				return result;
 			}
 		}
@@ -235,7 +235,23 @@ public final class EnvEntryType extends AbstractEnumerator{
 	}
 
 	/**
-	 * Returns the '<em><b>Env Entry Type</b></em>' literal with the specified value.
+	 * Returns the '<em><b>Env Entry Type</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static EnvEntryType getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			EnvEntryType result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Env Entry Type</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * @param value passes literal value
 	 * @return literal instance
@@ -263,8 +279,8 @@ public final class EnvEntryType extends AbstractEnumerator{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EnvEntryType(int value, String name) {
-		super(value, name);
+	private EnvEntryType(int value, String name, String literal) {
+		super(value, name, literal);
 	}
 
 } //EnvEntryType

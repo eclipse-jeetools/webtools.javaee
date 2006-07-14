@@ -13,12 +13,10 @@ package org.eclipse.jst.j2ee.webapplication.internal.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.ServletMapping;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -26,8 +24,9 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 /**
  * The servlet-mapping element defines a mapping between a servlet and a url pattern
+ * @generated
  */
-public class ServletMappingImpl extends EObjectImpl implements ServletMapping, EObject {
+public class ServletMappingImpl extends J2EEEObjectImpl implements ServletMapping {
 
 	/**
 	 * The default value of the '{@link #getUrlPattern() <em>Url Pattern</em>}' attribute.
@@ -79,7 +78,7 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping, E
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return WebapplicationPackage.eINSTANCE.getServletMapping();
+		return WebapplicationPackage.Literals.SERVLET_MAPPING;
 	}
 
 	/**
@@ -127,22 +126,32 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping, E
 	 */
 	public WebApp getWebApp() {
 		if (eContainerFeatureID != WebapplicationPackage.SERVLET_MAPPING__WEB_APP) return null;
-		return (WebApp)eContainer;
+		return (WebApp)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetWebApp(WebApp newWebApp, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newWebApp, WebapplicationPackage.SERVLET_MAPPING__WEB_APP, msgs);
+		return msgs;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public void setWebApp(WebApp newWebApp) {
-		if (newWebApp != eContainer || (eContainerFeatureID != WebapplicationPackage.SERVLET_MAPPING__WEB_APP && newWebApp != null)) {
+		if (newWebApp != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.SERVLET_MAPPING__WEB_APP && newWebApp != null)) {
 			if (EcoreUtil.isAncestor(this, newWebApp))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newWebApp != null)
 				msgs = ((InternalEObject)newWebApp).eInverseAdd(this, WebapplicationPackage.WEB_APP__SERVLET_MAPPINGS, WebApp.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newWebApp, WebapplicationPackage.SERVLET_MAPPING__WEB_APP, msgs);
+			msgs = basicSetWebApp(newWebApp, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -154,8 +163,8 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping, E
 	 */
 	public Servlet getServlet() {
 		if (servlet != null && servlet.eIsProxy()) {
-			Servlet oldServlet = servlet;
-			servlet = (Servlet)eResolveProxy((InternalEObject)servlet);
+			InternalEObject oldServlet = (InternalEObject)servlet;
+			servlet = (Servlet)eResolveProxy(oldServlet);
 			if (servlet != oldServlet) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, WebapplicationPackage.SERVLET_MAPPING__SERVLET, oldServlet, servlet));
@@ -188,20 +197,14 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping, E
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WebapplicationPackage.SERVLET_MAPPING__WEB_APP:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, WebapplicationPackage.SERVLET_MAPPING__WEB_APP, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case WebapplicationPackage.SERVLET_MAPPING__WEB_APP:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetWebApp((WebApp)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -209,16 +212,12 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping, E
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WebapplicationPackage.SERVLET_MAPPING__WEB_APP:
-					return eBasicSetContainer(null, WebapplicationPackage.SERVLET_MAPPING__WEB_APP, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case WebapplicationPackage.SERVLET_MAPPING__WEB_APP:
+				return basicSetWebApp(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -226,16 +225,12 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping, E
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case WebapplicationPackage.SERVLET_MAPPING__WEB_APP:
-					return eContainer.eInverseRemove(this, WebapplicationPackage.WEB_APP__SERVLET_MAPPINGS, WebApp.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case WebapplicationPackage.SERVLET_MAPPING__WEB_APP:
+				return eInternalContainer().eInverseRemove(this, WebapplicationPackage.WEB_APP__SERVLET_MAPPINGS, WebApp.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -243,8 +238,8 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping, E
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case WebapplicationPackage.SERVLET_MAPPING__URL_PATTERN:
 				return getUrlPattern();
 			case WebapplicationPackage.SERVLET_MAPPING__NAME:
@@ -255,31 +250,16 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping, E
 				if (resolve) return getServlet();
 				return basicGetServlet();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.SERVLET_MAPPING__URL_PATTERN:
-				return URL_PATTERN_EDEFAULT == null ? urlPattern != null : !URL_PATTERN_EDEFAULT.equals(urlPattern);
-			case WebapplicationPackage.SERVLET_MAPPING__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case WebapplicationPackage.SERVLET_MAPPING__WEB_APP:
-				return getWebApp() != null;
-			case WebapplicationPackage.SERVLET_MAPPING__SERVLET:
-				return servlet != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case WebapplicationPackage.SERVLET_MAPPING__URL_PATTERN:
 				setUrlPattern((String)newValue);
 				return;
@@ -293,14 +273,16 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping, E
 				setServlet((Servlet)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case WebapplicationPackage.SERVLET_MAPPING__URL_PATTERN:
 				setUrlPattern(URL_PATTERN_EDEFAULT);
 				return;
@@ -314,7 +296,26 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping, E
 				setServlet((Servlet)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case WebapplicationPackage.SERVLET_MAPPING__URL_PATTERN:
+				return URL_PATTERN_EDEFAULT == null ? urlPattern != null : !URL_PATTERN_EDEFAULT.equals(urlPattern);
+			case WebapplicationPackage.SERVLET_MAPPING__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case WebapplicationPackage.SERVLET_MAPPING__WEB_APP:
+				return getWebApp() != null;
+			case WebapplicationPackage.SERVLET_MAPPING__SERVLET:
+				return servlet != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

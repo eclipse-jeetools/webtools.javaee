@@ -67,7 +67,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="localEncodingMappingList"
         eType="#//LocalEncodingMappingList" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ContextParam">
+  <eClassifiers xsi:type="ecore:EClass" name="ContextParam" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="@version J2EE1.4 deprecated&#xD;&#xA;The context-param element contains the declaration of a web application's servlet context initialization parameters."/>
     </eAnnotations>
@@ -125,7 +125,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="initParams" upperBound="-1"
         eType="ecore:EClass common.ecore#//ParamValue" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ServletMapping">
+  <eClassifiers xsi:type="ecore:EClass" name="ServletMapping" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The servlet-mapping element defines a mapping between a servlet and a url pattern"/>
     </eAnnotations>
@@ -144,7 +144,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="servlet" lowerBound="1"
         eType="#//Servlet"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SessionConfig">
+  <eClassifiers xsi:type="ecore:EClass" name="SessionConfig" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The session-config element defines the session parameters for this web application."/>
     </eAnnotations>
@@ -157,7 +157,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="webApp" eType="#//WebApp"
         transient="true" eOpposite="#//WebApp/sessionConfig"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MimeMapping">
+  <eClassifiers xsi:type="ecore:EClass" name="MimeMapping" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The mime-mapping element defines a mapping between an extension and a mime type.&#xD;&#xA;"/>
     </eAnnotations>
@@ -174,7 +174,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="webApp" eType="#//WebApp"
         transient="true" eOpposite="#//WebApp/mimeMappings"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="WelcomeFileList">
+  <eClassifiers xsi:type="ecore:EClass" name="WelcomeFileList" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The welcome-file-list contains an ordered list of welcome files elements."/>
     </eAnnotations>
@@ -183,7 +183,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="file" upperBound="-1" eType="#//WelcomeFile"
         containment="true" eOpposite="#//WelcomeFile/fileList"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ErrorPage">
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorPage" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The error-page element contains a mapping between an error code or exception type to the path of a resource in the web application"/>
     </eAnnotations>
@@ -195,7 +195,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="webApp" eType="#//WebApp"
         transient="true" eOpposite="#//WebApp/errorPages"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TagLibRef">
+  <eClassifiers xsi:type="ecore:EClass" name="TagLibRef" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="@version J2EE1.4 deprecated, becomes jsp::TagLibRef&#xD;&#xA;The taglib element is used to describe a JSP tag library."/>
     </eAnnotations>
@@ -212,7 +212,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="webApp" eType="#//WebApp"
         transient="true" eOpposite="#//WebApp/tagLibs"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SecurityConstraint">
+  <eClassifiers xsi:type="ecore:EClass" name="SecurityConstraint" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The security-constraint element is used to associate security constraints with one or more web resource collections"/>
     </eAnnotations>
@@ -233,7 +233,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="displayNames" upperBound="-1"
         eType="ecore:EClass common.ecore#//DisplayName" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="WebResourceCollection">
+  <eClassifiers xsi:type="ecore:EClass" name="WebResourceCollection" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The web-resource-collection element is used to identify a subset of the resources and HTTP methods on those resources within a web application to which a security constraint applies. If no HTTP methods are specified, then the security constraint applies to all HTTP methods.&#xD;&#xA;"/>
     </eAnnotations>
@@ -280,7 +280,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AuthConstraint">
+  <eClassifiers xsi:type="ecore:EClass" name="AuthConstraint" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The auth-constraintType indicates the user roles that&#xD;&#xA;should be permitted access to this resource&#xD;&#xA;collection. The role-name used here must either correspond&#xD;&#xA;to the role-name of one of the security-role elements&#xD;&#xA;defined for this web application, or be the specially&#xD;&#xA;reserved role-name &quot;*&quot; that is a compact syntax for&#xD;&#xA;indicating all roles in the web application. If both &quot;*&quot;&#xD;&#xA;and rolenames appear, the container interprets this as all&#xD;&#xA;roles.  If no roles are defined, no user is allowed access&#xD;&#xA;to the portion of the web application described by the&#xD;&#xA;containing security-constraint.  The container matches&#xD;&#xA;role names case sensitively when determining access."/>
     </eAnnotations>
@@ -304,7 +304,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="UserDataConstraint">
+  <eClassifiers xsi:type="ecore:EClass" name="UserDataConstraint" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The user-data-constraint element is used to indicate how data communicated between the client and container should be protected"/>
     </eAnnotations>
@@ -328,7 +328,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="LoginConfig">
+  <eClassifiers xsi:type="ecore:EClass" name="LoginConfig" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The login-config element is used to configure the authentication method that should be used, the realm name that should be used for this application, and the attributes that are needed by the form login&#xD;&#xA;mechanism."/>
     </eAnnotations>
@@ -353,7 +353,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="formLoginConfig" eType="#//FormLoginConfig"
         containment="true" eOpposite="#//FormLoginConfig/loginConfig"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FormLoginConfig">
+  <eClassifiers xsi:type="ecore:EClass" name="FormLoginConfig" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The form-login-config element specifies the login and error pages that should be used in form based login. If form based authentication is not used, these elements are ignored."/>
     </eAnnotations>
@@ -370,7 +370,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="loginConfig" eType="#//LoginConfig"
         transient="true" eOpposite="#//LoginConfig/formLoginConfig"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="InitParam">
+  <eClassifiers xsi:type="ecore:EClass" name="InitParam" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="@version J2EE1.4 deprecated&#xD;&#xA;The init-param element contains a name/value pair as an initialization param of the servlet"/>
     </eAnnotations>
@@ -397,7 +397,7 @@
     <eLiterals name="CONTAINER"/>
     <eLiterals name="SERVLET" value="1"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="WebType" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WebType" abstract="true" eSuperTypes="common.ecore#//J2EEEObject"/>
   <eClassifiers xsi:type="ecore:EClass" name="ServletType" eSuperTypes="#//WebType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -408,7 +408,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="URLPatternType">
+  <eClassifiers xsi:type="ecore:EClass" name="URLPatternType" eSuperTypes="common.ecore#//J2EEEObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="urlPattern" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="resCollection" eType="#//WebResourceCollection"
         transient="true" eOpposite="#//WebResourceCollection/URLs"/>
@@ -426,10 +426,10 @@
     <eLiterals name="OPTIONS" value="5"/>
     <eLiterals name="TRACE" value="6"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RoleNameType">
+  <eClassifiers xsi:type="ecore:EClass" name="RoleNameType" eSuperTypes="common.ecore#//J2EEEObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="roleName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="WelcomeFile">
+  <eClassifiers xsi:type="ecore:EClass" name="WelcomeFile" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The welcome-file element contains file name to use as a default welcome file, such as index.html&#xD;&#xA;"/>
     </eAnnotations>
@@ -460,7 +460,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FilterMapping">
+  <eClassifiers xsi:type="ecore:EClass" name="FilterMapping" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Declaration of the filter mappings in this web application. The container uses the filter-mapping declarations to decide which filters to apply to a request, and in what order. The container matches the request URI to a Servlet in the normal way. To determine which filters to apply it matches filter-mapping declarations either on servlet-name, or on url-pattern for each filter-mapping element, depending on which style is used. The order in which filters are invoked is the order in which filter-mapping declarations that match a request URI for a servlet appear in the list of filter-mapping elements.The filter-name value must be the value of the &lt;filtername> sub-elements of one of the &lt;filter> declarations in the deployment descriptor.&#xD;&#xA;&#xD;&#xA;@invariant The filter-name value must be the value of the Filter::name of one of the Filter declarations in the deployment descriptor.&#xD;&#xA;"/>
     </eAnnotations>
@@ -517,15 +517,15 @@
     <eLiterals name="REQUEST" value="2"/>
     <eLiterals name="ERROR" value="3"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="LocalEncodingMappingList">
+  <eClassifiers xsi:type="ecore:EClass" name="LocalEncodingMappingList" eSuperTypes="common.ecore#//J2EEEObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="localEncodingMappings"
         lowerBound="1" upperBound="-1" eType="#//LocalEncodingMapping" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="LocalEncodingMapping">
+  <eClassifiers xsi:type="ecore:EClass" name="LocalEncodingMapping" eSuperTypes="common.ecore#//J2EEEObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="locale" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="encoding" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="HTTPMethodType">
+  <eClassifiers xsi:type="ecore:EClass" name="HTTPMethodType" eSuperTypes="common.ecore#//J2EEEObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="httpMethod" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="AuthMethodKind">

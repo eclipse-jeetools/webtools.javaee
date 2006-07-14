@@ -11,12 +11,13 @@
 package org.eclipse.jst.j2ee.webapplication;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 /**
  * The security-constraint element is used to associate security constraints with one or more web resource collections
+ * @generated
  * @since 1.0
  */
-public interface SecurityConstraint extends EObject{
+public interface SecurityConstraint extends J2EEEObject {
 	/**
 	 * Returns the value of the '<em><b>Display Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->

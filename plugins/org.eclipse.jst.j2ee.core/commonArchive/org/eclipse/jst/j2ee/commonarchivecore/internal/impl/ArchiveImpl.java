@@ -22,18 +22,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
 import org.eclipse.jem.internal.java.adapters.jdk.JavaJDKAdapterFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
@@ -120,7 +116,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return CommonarchivePackage.eINSTANCE.getArchive();
+		return CommonarchivePackage.Literals.ARCHIVE;
 	}
 
 	/**
@@ -135,192 +131,58 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.ARCHIVE__CONTAINER:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, CommonarchivePackage.ARCHIVE__CONTAINER, msgs);
-				case CommonarchivePackage.ARCHIVE__FILES:
-					return ((InternalEList)getFiles()).basicAdd(otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.ARCHIVE__CONTAINER:
-					return eBasicSetContainer(null, CommonarchivePackage.ARCHIVE__CONTAINER, msgs);
-				case CommonarchivePackage.ARCHIVE__FILES:
-					return ((InternalEList)getFiles()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case CommonarchivePackage.ARCHIVE__CONTAINER:
-					return eContainer.eInverseRemove(this, CommonarchivePackage.CONTAINER__FILES, Container.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.ARCHIVE__URI:
-				return getURI();
-			case CommonarchivePackage.ARCHIVE__LAST_MODIFIED:
-				return new Long(getLastModified());
-			case CommonarchivePackage.ARCHIVE__SIZE:
-				return new Long(getSize());
-			case CommonarchivePackage.ARCHIVE__DIRECTORY_ENTRY:
-				return isDirectoryEntry() ? Boolean.TRUE : Boolean.FALSE;
-			case CommonarchivePackage.ARCHIVE__ORIGINAL_URI:
-				return getOriginalURI();
-			case CommonarchivePackage.ARCHIVE__LOADING_CONTAINER:
-				if (resolve) return getLoadingContainer();
-				return basicGetLoadingContainer();
-			case CommonarchivePackage.ARCHIVE__CONTAINER:
-				return getContainer();
-			case CommonarchivePackage.ARCHIVE__FILES:
-				return getFiles();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case CommonarchivePackage.ARCHIVE__TYPES:
 				return getTypes();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.ARCHIVE__URI:
-				setURI((String)newValue);
-				return;
-			case CommonarchivePackage.ARCHIVE__LAST_MODIFIED:
-				setLastModified(((Long)newValue).longValue());
-				return;
-			case CommonarchivePackage.ARCHIVE__SIZE:
-				setSize(((Long)newValue).longValue());
-				return;
-			case CommonarchivePackage.ARCHIVE__DIRECTORY_ENTRY:
-				setDirectoryEntry(((Boolean)newValue).booleanValue());
-				return;
-			case CommonarchivePackage.ARCHIVE__ORIGINAL_URI:
-				setOriginalURI((String)newValue);
-				return;
-			case CommonarchivePackage.ARCHIVE__LOADING_CONTAINER:
-				setLoadingContainer((Container)newValue);
-				return;
-			case CommonarchivePackage.ARCHIVE__CONTAINER:
-				setContainer((Container)newValue);
-				return;
-			case CommonarchivePackage.ARCHIVE__FILES:
-				getFiles().clear();
-				getFiles().addAll((Collection)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case CommonarchivePackage.ARCHIVE__TYPES:
 				getTypes().clear();
 				getTypes().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.ARCHIVE__URI:
-				setURI(URI_EDEFAULT);
-				return;
-			case CommonarchivePackage.ARCHIVE__LAST_MODIFIED:
-				unsetLastModified();
-				return;
-			case CommonarchivePackage.ARCHIVE__SIZE:
-				unsetSize();
-				return;
-			case CommonarchivePackage.ARCHIVE__DIRECTORY_ENTRY:
-				unsetDirectoryEntry();
-				return;
-			case CommonarchivePackage.ARCHIVE__ORIGINAL_URI:
-				setOriginalURI(ORIGINAL_URI_EDEFAULT);
-				return;
-			case CommonarchivePackage.ARCHIVE__LOADING_CONTAINER:
-				setLoadingContainer((Container)null);
-				return;
-			case CommonarchivePackage.ARCHIVE__CONTAINER:
-				setContainer((Container)null);
-				return;
-			case CommonarchivePackage.ARCHIVE__FILES:
-				getFiles().clear();
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case CommonarchivePackage.ARCHIVE__TYPES:
 				getTypes().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.ARCHIVE__URI:
-				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
-			case CommonarchivePackage.ARCHIVE__LAST_MODIFIED:
-				return isSetLastModified();
-			case CommonarchivePackage.ARCHIVE__SIZE:
-				return isSetSize();
-			case CommonarchivePackage.ARCHIVE__DIRECTORY_ENTRY:
-				return isSetDirectoryEntry();
-			case CommonarchivePackage.ARCHIVE__ORIGINAL_URI:
-				return ORIGINAL_URI_EDEFAULT == null ? originalURI != null : !ORIGINAL_URI_EDEFAULT.equals(originalURI);
-			case CommonarchivePackage.ARCHIVE__LOADING_CONTAINER:
-				return loadingContainer != null;
-			case CommonarchivePackage.ARCHIVE__CONTAINER:
-				return getContainer() != null;
-			case CommonarchivePackage.ARCHIVE__FILES:
-				return files != null && !files.isEmpty();
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case CommonarchivePackage.ARCHIVE__TYPES:
 				return types != null && !types.isEmpty();
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

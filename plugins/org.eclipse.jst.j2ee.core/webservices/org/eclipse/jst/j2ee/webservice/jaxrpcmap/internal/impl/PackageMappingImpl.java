@@ -12,9 +12,8 @@ package org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.PackageMapping;
 
@@ -33,7 +32,7 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.PackageMapping;
  *
  * @generated
  */
-public class PackageMappingImpl extends EObjectImpl implements PackageMapping
+public class PackageMappingImpl extends J2EEEObjectImpl implements PackageMapping
 {
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -110,7 +109,7 @@ public class PackageMappingImpl extends EObjectImpl implements PackageMapping
 	 * @generated
 	 */
   protected EClass eStaticClass() {
-		return JaxrpcmapPackage.eINSTANCE.getPackageMapping();
+		return JaxrpcmapPackage.Literals.PACKAGE_MAPPING;
 	}
 
 	/**
@@ -178,11 +177,11 @@ public class PackageMappingImpl extends EObjectImpl implements PackageMapping
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case JaxrpcmapPackage.PACKAGE_MAPPING__ID:
 				return getId();
 			case JaxrpcmapPackage.PACKAGE_MAPPING__PACKAGE_TYPE:
@@ -190,16 +189,16 @@ public class PackageMappingImpl extends EObjectImpl implements PackageMapping
 			case JaxrpcmapPackage.PACKAGE_MAPPING__NAMESPACE_URI:
 				return getNamespaceURI();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case JaxrpcmapPackage.PACKAGE_MAPPING__ID:
 				setId((String)newValue);
 				return;
@@ -210,16 +209,16 @@ public class PackageMappingImpl extends EObjectImpl implements PackageMapping
 				setNamespaceURI((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case JaxrpcmapPackage.PACKAGE_MAPPING__ID:
 				setId(ID_EDEFAULT);
 				return;
@@ -230,16 +229,16 @@ public class PackageMappingImpl extends EObjectImpl implements PackageMapping
 				setNamespaceURI(NAMESPACE_URI_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case JaxrpcmapPackage.PACKAGE_MAPPING__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case JaxrpcmapPackage.PACKAGE_MAPPING__PACKAGE_TYPE:
@@ -247,7 +246,7 @@ public class PackageMappingImpl extends EObjectImpl implements PackageMapping
 			case JaxrpcmapPackage.PACKAGE_MAPPING__NAMESPACE_URI:
 				return NAMESPACE_URI_EDEFAULT == null ? namespaceURI != null : !NAMESPACE_URI_EDEFAULT.equals(namespaceURI);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

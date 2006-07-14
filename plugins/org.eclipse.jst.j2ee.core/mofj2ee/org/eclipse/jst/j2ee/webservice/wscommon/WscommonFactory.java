@@ -19,15 +19,15 @@ import org.eclipse.emf.ecore.EFactory;
  * <!-- end-user-doc -->
  * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage
  * @generated
- * @since 1.0 */
-public interface WscommonFactory extends EFactory{
+ */
+public interface WscommonFactory extends EFactory {
 	/**
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  WscommonFactory eINSTANCE = new org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.WscommonFactoryImpl();
+  WscommonFactory eINSTANCE = org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.WscommonFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>Init Param</em>'.

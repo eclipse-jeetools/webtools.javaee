@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.common.DescriptionGroup;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 import org.eclipse.jst.j2ee.taglib.internal.ExtensibleType;
 import org.eclipse.jst.j2ee.taglib.internal.Function;
 import org.eclipse.jst.j2ee.taglib.internal.JSPTag;
@@ -152,6 +153,7 @@ public class TaglibSwitch {
 				Object result = caseTagLib(tagLib);
 				if (result == null) result = caseCompatibilityDescriptionGroup(tagLib);
 				if (result == null) result = caseDescriptionGroup(tagLib);
+				if (result == null) result = caseJ2EEEObject(tagLib);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -159,24 +161,28 @@ public class TaglibSwitch {
 				JSPTag jspTag = (JSPTag)theEObject;
 				Object result = caseJSPTag(jspTag);
 				if (result == null) result = caseDescriptionGroup(jspTag);
+				if (result == null) result = caseJ2EEEObject(jspTag);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case TaglibPackage.JSP_TAG_ATTRIBUTE: {
 				JSPTagAttribute jspTagAttribute = (JSPTagAttribute)theEObject;
 				Object result = caseJSPTagAttribute(jspTagAttribute);
+				if (result == null) result = caseJ2EEEObject(jspTagAttribute);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case TaglibPackage.VALIDATOR: {
 				Validator validator = (Validator)theEObject;
 				Object result = caseValidator(validator);
+				if (result == null) result = caseJ2EEEObject(validator);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case TaglibPackage.JSP_VARIABLE: {
 				JSPVariable jspVariable = (JSPVariable)theEObject;
 				Object result = caseJSPVariable(jspVariable);
+				if (result == null) result = caseJ2EEEObject(jspVariable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -184,6 +190,7 @@ public class TaglibSwitch {
 				Function function = (Function)theEObject;
 				Object result = caseFunction(function);
 				if (result == null) result = caseDescriptionGroup(function);
+				if (result == null) result = caseJ2EEEObject(function);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -191,18 +198,21 @@ public class TaglibSwitch {
 				TagFile tagFile = (TagFile)theEObject;
 				Object result = caseTagFile(tagFile);
 				if (result == null) result = caseDescriptionGroup(tagFile);
+				if (result == null) result = caseJ2EEEObject(tagFile);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case TaglibPackage.TLD_EXTENSION: {
 				TldExtension tldExtension = (TldExtension)theEObject;
 				Object result = caseTldExtension(tldExtension);
+				if (result == null) result = caseJ2EEEObject(tldExtension);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case TaglibPackage.EXTENSIBLE_TYPE: {
 				ExtensibleType extensibleType = (ExtensibleType)theEObject;
 				Object result = caseExtensibleType(extensibleType);
+				if (result == null) result = caseJ2EEEObject(extensibleType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -302,6 +312,21 @@ public class TaglibSwitch {
 	 * @generated
 	 */
 	public Object caseExtensibleType(ExtensibleType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseJ2EEEObject(J2EEEObject object) {
 		return null;
 	}
 

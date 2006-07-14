@@ -16,15 +16,13 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.Description;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EJBRelationshipRole;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
@@ -33,8 +31,9 @@ import org.eclipse.jst.j2ee.ejb.RoleSource;
 /**
  * Designates the source of a role that participates in a relationship. A relationship-role-source element uniquely identifies an entity bean.
  * @invariant The content of each role-source element shall refer to an existing entity bean, entity bean reference.
+ * @generated
  */
-public class RoleSourceImpl extends EObjectImpl implements RoleSource, EObject{
+public class RoleSourceImpl extends J2EEEObjectImpl implements RoleSource {
 
 	/**
 	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
@@ -76,7 +75,7 @@ public class RoleSourceImpl extends EObjectImpl implements RoleSource, EObject{
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return EjbPackage.eINSTANCE.getRoleSource();
+		return EjbPackage.Literals.ROLE_SOURCE;
 	}
 
 	/**
@@ -101,22 +100,32 @@ public class RoleSourceImpl extends EObjectImpl implements RoleSource, EObject{
 	 */
 	public EJBRelationshipRole getRole() {
 		if (eContainerFeatureID != EjbPackage.ROLE_SOURCE__ROLE) return null;
-		return (EJBRelationshipRole)eContainer;
+		return (EJBRelationshipRole)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetRole(EJBRelationshipRole newRole, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newRole, EjbPackage.ROLE_SOURCE__ROLE, msgs);
+		return msgs;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public void setRole(EJBRelationshipRole newRole) {
-		if (newRole != eContainer || (eContainerFeatureID != EjbPackage.ROLE_SOURCE__ROLE && newRole != null)) {
+		if (newRole != eInternalContainer() || (eContainerFeatureID != EjbPackage.ROLE_SOURCE__ROLE && newRole != null)) {
 			if (EcoreUtil.isAncestor(this, newRole))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newRole != null)
 				msgs = ((InternalEObject)newRole).eInverseAdd(this, EjbPackage.EJB_RELATIONSHIP_ROLE__SOURCE, EJBRelationshipRole.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newRole, EjbPackage.ROLE_SOURCE__ROLE, msgs);
+			msgs = basicSetRole(newRole, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -128,8 +137,8 @@ public class RoleSourceImpl extends EObjectImpl implements RoleSource, EObject{
 	 */
 	public ContainerManagedEntity getEntityBean() {
 		if (entityBean != null && entityBean.eIsProxy()) {
-			ContainerManagedEntity oldEntityBean = entityBean;
-			entityBean = (ContainerManagedEntity)eResolveProxy((InternalEObject)entityBean);
+			InternalEObject oldEntityBean = (InternalEObject)entityBean;
+			entityBean = (ContainerManagedEntity)eResolveProxy(oldEntityBean);
 			if (entityBean != oldEntityBean) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EjbPackage.ROLE_SOURCE__ENTITY_BEAN, oldEntityBean, entityBean));
@@ -176,20 +185,14 @@ public class RoleSourceImpl extends EObjectImpl implements RoleSource, EObject{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.ROLE_SOURCE__ROLE:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, EjbPackage.ROLE_SOURCE__ROLE, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.ROLE_SOURCE__ROLE:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetRole((EJBRelationshipRole)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -197,18 +200,14 @@ public class RoleSourceImpl extends EObjectImpl implements RoleSource, EObject{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.ROLE_SOURCE__ROLE:
-					return eBasicSetContainer(null, EjbPackage.ROLE_SOURCE__ROLE, msgs);
-				case EjbPackage.ROLE_SOURCE__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.ROLE_SOURCE__ROLE:
+				return basicSetRole(null, msgs);
+			case EjbPackage.ROLE_SOURCE__DESCRIPTIONS:
+				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -216,16 +215,12 @@ public class RoleSourceImpl extends EObjectImpl implements RoleSource, EObject{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case EjbPackage.ROLE_SOURCE__ROLE:
-					return eContainer.eInverseRemove(this, EjbPackage.EJB_RELATIONSHIP_ROLE__SOURCE, EJBRelationshipRole.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case EjbPackage.ROLE_SOURCE__ROLE:
+				return eInternalContainer().eInverseRemove(this, EjbPackage.EJB_RELATIONSHIP_ROLE__SOURCE, EJBRelationshipRole.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -233,8 +228,8 @@ public class RoleSourceImpl extends EObjectImpl implements RoleSource, EObject{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case EjbPackage.ROLE_SOURCE__DESCRIPTION:
 				return getDescription();
 			case EjbPackage.ROLE_SOURCE__ROLE:
@@ -245,31 +240,16 @@ public class RoleSourceImpl extends EObjectImpl implements RoleSource, EObject{
 			case EjbPackage.ROLE_SOURCE__DESCRIPTIONS:
 				return getDescriptions();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.ROLE_SOURCE__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case EjbPackage.ROLE_SOURCE__ROLE:
-				return getRole() != null;
-			case EjbPackage.ROLE_SOURCE__ENTITY_BEAN:
-				return entityBean != null;
-			case EjbPackage.ROLE_SOURCE__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case EjbPackage.ROLE_SOURCE__DESCRIPTION:
 				setDescription((String)newValue);
 				return;
@@ -284,14 +264,16 @@ public class RoleSourceImpl extends EObjectImpl implements RoleSource, EObject{
 				getDescriptions().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case EjbPackage.ROLE_SOURCE__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
@@ -305,7 +287,26 @@ public class RoleSourceImpl extends EObjectImpl implements RoleSource, EObject{
 				getDescriptions().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case EjbPackage.ROLE_SOURCE__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case EjbPackage.ROLE_SOURCE__ROLE:
+				return getRole() != null;
+			case EjbPackage.ROLE_SOURCE__ENTITY_BEAN:
+				return entityBean != null;
+			case EjbPackage.ROLE_SOURCE__DESCRIPTIONS:
+				return descriptions != null && !descriptions.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

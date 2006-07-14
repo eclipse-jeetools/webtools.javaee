@@ -13,22 +13,22 @@ package org.eclipse.jst.j2ee.application;
 
 /**
  * Contains the web-uri and context-root of a web application module.
-
+ * @generated
  * @since 1.0 */
-public interface WebModule extends Module{
+public interface WebModule extends Module {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the ContextRoot attribute
 	 * The context-root element specifies the context root of a web application
 
 	 */
-	public String getContextRoot();
+	String getContextRoot();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @param value The new value of the ContextRoot attribute
 	 */
-	public void setContextRoot(String value);
+	void setContextRoot(String value);
 
 }
 

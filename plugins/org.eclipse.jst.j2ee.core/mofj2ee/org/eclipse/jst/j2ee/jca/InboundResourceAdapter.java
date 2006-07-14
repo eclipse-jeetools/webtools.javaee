@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.jca;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,8 +35,8 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.jca.JcaPackage#getInboundResourceAdapter()
  * @model
  * @generated
- * @since 1.0 */
-public interface InboundResourceAdapter extends EObject{
+ */
+public interface InboundResourceAdapter extends J2EEEObject {
 	/**
 	 * Returns the value of the '<em><b>Message Adapter</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

@@ -11,13 +11,14 @@
 package org.eclipse.jst.j2ee.taglib.internal;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
+
 /**
  * The validator element provides information on an optional validator that can be used to validate the conformance of a JSP page to using this tag library.
-
+ * @generated
  */
-public interface Validator extends EObject{
+public interface Validator extends J2EEEObject {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The ValidatorClass reference
@@ -51,7 +52,7 @@ public interface Validator extends EObject{
 	 * @version J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.taglib.internal.TaglibPackage#getValidator_Descriptions()
+	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getValidator_Descriptions()
 	 * @model type="org.eclipse.jst.j2ee.common.Description" containment="true"
 	 * @generated
 	 */

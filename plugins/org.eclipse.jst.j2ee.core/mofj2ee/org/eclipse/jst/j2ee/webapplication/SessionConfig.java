@@ -10,12 +10,13 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.webapplication;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 /**
  * The session-config element defines the session parameters for this web application.
  * @since 1.0
+ * @generated
  */
-public interface SessionConfig extends EObject{
+public interface SessionConfig extends J2EEEObject {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the SessionTimeout attribute

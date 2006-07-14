@@ -12,7 +12,9 @@ package org.eclipse.jst.j2ee.application.internal.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
@@ -25,8 +27,27 @@ import org.eclipse.jst.j2ee.application.WebModule;
 /**
  * @generated
  */
-public class ApplicationFactoryImpl extends EFactoryImpl implements ApplicationFactory{
+public class ApplicationFactoryImpl extends EFactoryImpl implements ApplicationFactory {
  
+	/**
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static ApplicationFactory init() {
+		try {
+			ApplicationFactory theApplicationFactory = (ApplicationFactory)EPackage.Registry.INSTANCE.getEFactory("application.xmi"); 
+			if (theApplicationFactory != null) {
+				return theApplicationFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new ApplicationFactoryImpl();
+	}
+
 	public ApplicationFactoryImpl() {
 		super(); 	
 	}

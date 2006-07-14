@@ -3,7 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="jaxrpcmap"
     nsURI="jaxrpcmap.xmi" nsPrefix="org.eclipse.jst.j2ee.webservice.jaxrpcmap">
-  <eClassifiers xsi:type="ecore:EClass" name="JavaWSDLMapping">
+  <eClassifiers xsi:type="ecore:EClass" name="JavaWSDLMapping" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The element describes the Java mapping to a known WSDL document.It contains the mapping between package names and XML namespaces, &#xD;&#xA;WSDL root types and Java artifacts, and the set of mappings for services."/>
     </eAnnotations>
@@ -17,7 +17,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="interfaceMappings" upperBound="-1"
         eType="#//InterfaceMapping" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PackageMapping">
+  <eClassifiers xsi:type="ecore:EClass" name="PackageMapping" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The package-mapping indicates the mapping between java-package-name and XML namespace in the WSDL document.&#xD;&#xA;&#xD;&#xA;Used in: java-wsdl-mapping"/>
     </eAnnotations>
@@ -29,7 +29,7 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="namespaceURI" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="JavaXMLTypeMapping">
+  <eClassifiers xsi:type="ecore:EClass" name="JavaXMLTypeMapping" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The java-xml-type-mapping element contains a class-type that is the fully qualified name of the Java class, QName of the XML root type, the WSDL type scope the QName applies to and the set of variable &#xD;&#xA;mappings for each public variable within the Java class.&#xD;&#xA;&#xD;&#xA;Used in: java-wsdl-mapping"/>
     </eAnnotations>
@@ -50,7 +50,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="variableMappings" upperBound="-1"
         eType="#//VariableMapping" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ExceptionMapping">
+  <eClassifiers xsi:type="ecore:EClass" name="ExceptionMapping" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The exception-mapping element defines the mapping between the service specific exception types and the wsdl faults.&#xD;&#xA;&#xD;&#xA;This element should be interpreted with respect to the&#xD;&#xA;mapping between a method and an operation which provides the mapping context.&#xD;&#xA;&#xD;&#xA;Used in: service-endpoint-method-mapping"/>
     </eAnnotations>
@@ -104,7 +104,7 @@
       <details key="documentation" value="The root-type-qname identifies the WSDL QName of an XML type.&#xD;&#xA;&#xD;&#xA;Used in: java-xml-type-mapping"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="VariableMapping">
+  <eClassifiers xsi:type="ecore:EClass" name="VariableMapping" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The variable-mapping element defines the correlation between a Java class data member or JavaBeans property to an XML element name of an XML root type. If the data-member element is present, the Java variable name is a public data member.  If data-member&#xD;&#xA;is not present, the Java variable name is a JavaBeans property.&#xD;&#xA;&#xD;&#xA;Used in: java-xml-type-mapping"/>
     </eAnnotations>
@@ -130,7 +130,7 @@
       <details key="documentation" value="The wsdl-message  element defines a WSDL message by a QNAME.&#xD;&#xA;&#xD;&#xA;Used in: wsdl-message-mapping, wsdl-return-value-mapping"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ConstructorParameterOrder">
+  <eClassifiers xsi:type="ecore:EClass" name="ConstructorParameterOrder" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The constructor-parameter-order element defines the order that complexType element values are applied to a Java exception constructor. Element names are specified for each parameter of the constructor, including element names of inherited types if necessary.&#xD;&#xA;&#xD;&#xA;Used in: exception-mapping"/>
     </eAnnotations>
@@ -138,7 +138,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="elementNames" lowerBound="1"
         upperBound="-1" eType="#//ElementName" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ElementName">
+  <eClassifiers xsi:type="ecore:EClass" name="ElementName" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The element-name element defines the name of a complexType element name attribute value.&#xD;&#xA;&#xD;&#xA;Used in: constructor-parameter-order"/>
     </eAnnotations>
@@ -150,7 +150,7 @@
       <details key="documentation" value="The wsdl-service-name element defines the wsdl service name by a QNAME which uniquely identifies  the service.&#xD;&#xA;&#xD;&#xA;Used in: service-interface-mapping"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PortMapping">
+  <eClassifiers xsi:type="ecore:EClass" name="PortMapping" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The port-mapping defines the mapping of the WSDL port name attribute to the Java name used to generate the Generated Service Interface method get&lt;java-name>.&#xD;&#xA;&#xD;&#xA;Used in: service-interface-mapping"/>
     </eAnnotations>
@@ -176,7 +176,7 @@
       <details key="documentation" value="The wsdl-binding element defines the wsdl binding&#xD;&#xA;by a QNAME which uniquely identifies  the binding.&#xD;&#xA;&#xD;&#xA;Used in: service-endpoint-interface-mapping"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ServiceEndpointMethodMapping">
+  <eClassifiers xsi:type="ecore:EClass" name="ServiceEndpointMethodMapping" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The service-endpoint-method-mapping element defines the mapping of Java methods to operations (which are not uniquely qualified by qnames).&#xD;&#xA;&#xD;&#xA;The wsdl-operation should be interpreted with respect to the portType and binding in which this definition is embedded within. See the definitions for service-endpoint-interface-mapping and &#xD;&#xA;service-interface-mapping to acquire the proper context. The wrapped-element indicator should only be specified when a WSDL message wraps an element type.  The wsdl-return-value-mapping is not specified for one-way operations.&#xD;&#xA;&#xD;&#xA;Used in: service-endpoint-interface-mapping"/>
     </eAnnotations>
@@ -198,11 +198,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="wsdlReturnValueMapping"
         eType="#//WSDLReturnValueMapping" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="WSDLOperation">
+  <eClassifiers xsi:type="ecore:EClass" name="WSDLOperation" eSuperTypes="common.ecore#//J2EEEObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="wsdlOperation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MethodParamPartsMapping">
+  <eClassifiers xsi:type="ecore:EClass" name="MethodParamPartsMapping" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The method-param-parts-mapping element defines the mapping between a Java method parameters and a wsdl-message.&#xD;&#xA;&#xD;&#xA;Used in: service-endpoint-method-mapping"/>
     </eAnnotations>
@@ -220,7 +220,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="wsdlMessageMapping" lowerBound="1"
         eType="#//WSDLMessageMapping" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="WSDLReturnValueMapping">
+  <eClassifiers xsi:type="ecore:EClass" name="WSDLReturnValueMapping" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The wsdl-return-value-mapping  element defines the mapping for the method's return value. It defines the mapping to a specific message and its part.  Together they define uniquely the mapping for a specific parameter. Parts within a message context are uniquely &#xD;&#xA;identified with their names. The wsdl-message-part-name is not&#xD;&#xA;specified if there is no return value or OUT parameters.&#xD;&#xA;&#xD;&#xA;Used in: service-endpoint-method-mapping"/>
     </eAnnotations>
@@ -238,7 +238,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="wsdlMessage" lowerBound="1"
         eType="#//WSDLMessage" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="WSDLMessageMapping">
+  <eClassifiers xsi:type="ecore:EClass" name="WSDLMessageMapping" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The wsdl-message-mapping element defines the mapping to a specific message and its part. Together they define uniquely the mapping for a specific parameter. Parts within a message context are uniquely &#xD;&#xA;identified with their names.&#xD;&#xA;&#xD;&#xA;The parameter-mode is defined by the mapping to indicate whether the mapping will be IN, OUT, or INOUT..  The presence of the soap-header&#xD;&#xA;element indicates that the parameter is mapped to a soap header only. When absent, it means that the wsdl-message is mapped to a Java parameter. The soap headers are interpreted in the order they are&#xD;&#xA;provided in the mapping.&#xD;&#xA;&#xD;&#xA;Used in: method-param-parts-mapping"/>
     </eAnnotations>
@@ -258,9 +258,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="wsdlMessage" lowerBound="1"
         eType="#//WSDLMessage" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="WSDLMessagePartName">
+  <eClassifiers xsi:type="ecore:EClass" name="WSDLMessagePartName" eSuperTypes="common.ecore#//J2EEEObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="wsdlMessagePartName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="InterfaceMapping"/>
+  <eClassifiers xsi:type="ecore:EClass" name="InterfaceMapping" eSuperTypes="common.ecore#//J2EEEObject"/>
 </ecore:EPackage>

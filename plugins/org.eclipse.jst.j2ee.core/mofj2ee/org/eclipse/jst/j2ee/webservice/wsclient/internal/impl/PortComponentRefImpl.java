@@ -12,11 +12,10 @@ package org.eclipse.jst.j2ee.webservice.wsclient.internal.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webservice.wsclient.PortComponentRef;
 import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
 
@@ -35,7 +34,7 @@ import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
  *
  * @generated
  */
-public class PortComponentRefImpl extends EObjectImpl implements PortComponentRef {
+public class PortComponentRefImpl extends J2EEEObjectImpl implements PortComponentRef {
 	/**
 	 * The default value of the '{@link #getPortComponentLink() <em>Port Component Link</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -81,7 +80,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return Webservice_clientPackage.eINSTANCE.getPortComponentRef();
+		return Webservice_clientPackage.Literals.PORT_COMPONENT_REF;
 	}
 
 	/**
@@ -112,8 +111,8 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 */
 	public JavaClass getServiceEndpointInterface() {
 		if (serviceEndpointInterface != null && serviceEndpointInterface.eIsProxy()) {
-			JavaClass oldServiceEndpointInterface = serviceEndpointInterface;
-			serviceEndpointInterface = (JavaClass)eResolveProxy((InternalEObject)serviceEndpointInterface);
+			InternalEObject oldServiceEndpointInterface = (InternalEObject)serviceEndpointInterface;
+			serviceEndpointInterface = (JavaClass)eResolveProxy(oldServiceEndpointInterface);
 			if (serviceEndpointInterface != oldServiceEndpointInterface) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Webservice_clientPackage.PORT_COMPONENT_REF__SERVICE_ENDPOINT_INTERFACE, oldServiceEndpointInterface, serviceEndpointInterface));
@@ -148,15 +147,15 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case Webservice_clientPackage.PORT_COMPONENT_REF__PORT_COMPONENT_LINK:
 				return getPortComponentLink();
 			case Webservice_clientPackage.PORT_COMPONENT_REF__SERVICE_ENDPOINT_INTERFACE:
 				if (resolve) return getServiceEndpointInterface();
 				return basicGetServiceEndpointInterface();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -164,8 +163,8 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case Webservice_clientPackage.PORT_COMPONENT_REF__PORT_COMPONENT_LINK:
 				setPortComponentLink((String)newValue);
 				return;
@@ -173,7 +172,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 				setServiceEndpointInterface((JavaClass)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -181,8 +180,8 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case Webservice_clientPackage.PORT_COMPONENT_REF__PORT_COMPONENT_LINK:
 				setPortComponentLink(PORT_COMPONENT_LINK_EDEFAULT);
 				return;
@@ -190,7 +189,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 				setServiceEndpointInterface((JavaClass)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -198,14 +197,14 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case Webservice_clientPackage.PORT_COMPONENT_REF__PORT_COMPONENT_LINK:
 				return PORT_COMPONENT_LINK_EDEFAULT == null ? portComponentLink != null : !PORT_COMPONENT_LINK_EDEFAULT.equals(portComponentLink);
 			case Webservice_clientPackage.PORT_COMPONENT_REF__SERVICE_ENDPOINT_INTERFACE:
 				return serviceEndpointInterface != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

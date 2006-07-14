@@ -15,6 +15,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseApplication;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseArchive;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseConfiguration;
@@ -85,6 +86,9 @@ public class LooseconfigAdapterFactory extends AdapterFactoryImpl {
 			public Object caseLooseWARFile(LooseWARFile object) {
 				return createLooseWARFileAdapter();
 			}
+			public Object caseJ2EEEObject(J2EEEObject object) {
+				return createJ2EEEObjectAdapter();
+			}
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -129,6 +133,20 @@ public class LooseconfigAdapterFactory extends AdapterFactoryImpl {
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public Adapter createLooseWARFileAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.J2EEEObject <em>J2EEE Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.j2ee.common.J2EEEObject
+	 * @generated
+	 */
+	public Adapter createJ2EEEObjectAdapter() {
 		return null;
 	}
 

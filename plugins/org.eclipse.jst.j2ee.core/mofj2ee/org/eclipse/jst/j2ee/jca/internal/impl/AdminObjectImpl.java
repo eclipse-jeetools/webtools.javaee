@@ -16,12 +16,11 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.jca.AdminObject;
 import org.eclipse.jst.j2ee.jca.ConfigProperty;
 import org.eclipse.jst.j2ee.jca.JcaPackage;
@@ -42,7 +41,7 @@ import org.eclipse.jst.j2ee.jca.JcaPackage;
  *
  * @generated
  */
-public class AdminObjectImpl extends EObjectImpl implements AdminObject {
+public class AdminObjectImpl extends J2EEEObjectImpl implements AdminObject {
 	/**
 	 * The default value of the '{@link #getAdminObjectInterface() <em>Admin Object Interface</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -108,7 +107,7 @@ public class AdminObjectImpl extends EObjectImpl implements AdminObject {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return JcaPackage.eINSTANCE.getAdminObject();
+		return JcaPackage.Literals.ADMIN_OBJECT;
 	}
 
 	/**
@@ -170,16 +169,12 @@ public class AdminObjectImpl extends EObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JcaPackage.ADMIN_OBJECT__CONFIG_PROPERTIES:
-					return ((InternalEList)getConfigProperties()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case JcaPackage.ADMIN_OBJECT__CONFIG_PROPERTIES:
+				return ((InternalEList)getConfigProperties()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -187,8 +182,8 @@ public class AdminObjectImpl extends EObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case JcaPackage.ADMIN_OBJECT__ADMIN_OBJECT_INTERFACE:
 				return getAdminObjectInterface();
 			case JcaPackage.ADMIN_OBJECT__ADMIN_OBJECT_CLASS:
@@ -196,7 +191,7 @@ public class AdminObjectImpl extends EObjectImpl implements AdminObject {
 			case JcaPackage.ADMIN_OBJECT__CONFIG_PROPERTIES:
 				return getConfigProperties();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -204,8 +199,8 @@ public class AdminObjectImpl extends EObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case JcaPackage.ADMIN_OBJECT__ADMIN_OBJECT_INTERFACE:
 				setAdminObjectInterface((String)newValue);
 				return;
@@ -217,7 +212,7 @@ public class AdminObjectImpl extends EObjectImpl implements AdminObject {
 				getConfigProperties().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -225,8 +220,8 @@ public class AdminObjectImpl extends EObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case JcaPackage.ADMIN_OBJECT__ADMIN_OBJECT_INTERFACE:
 				setAdminObjectInterface(ADMIN_OBJECT_INTERFACE_EDEFAULT);
 				return;
@@ -237,7 +232,7 @@ public class AdminObjectImpl extends EObjectImpl implements AdminObject {
 				getConfigProperties().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -245,8 +240,8 @@ public class AdminObjectImpl extends EObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case JcaPackage.ADMIN_OBJECT__ADMIN_OBJECT_INTERFACE:
 				return ADMIN_OBJECT_INTERFACE_EDEFAULT == null ? adminObjectInterface != null : !ADMIN_OBJECT_INTERFACE_EDEFAULT.equals(adminObjectInterface);
 			case JcaPackage.ADMIN_OBJECT__ADMIN_OBJECT_CLASS:
@@ -254,7 +249,7 @@ public class AdminObjectImpl extends EObjectImpl implements AdminObject {
 			case JcaPackage.ADMIN_OBJECT__CONFIG_PROPERTIES:
 				return configProperties != null && !configProperties.isEmpty();
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

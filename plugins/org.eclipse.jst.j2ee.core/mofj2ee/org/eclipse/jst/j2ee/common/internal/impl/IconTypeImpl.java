@@ -12,9 +12,7 @@ package org.eclipse.jst.j2ee.common.internal.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.IconType;
 
@@ -34,7 +32,7 @@ import org.eclipse.jst.j2ee.common.IconType;
  *
  * @generated
  */
-public class IconTypeImpl extends EObjectImpl implements IconType {
+public class IconTypeImpl extends J2EEEObjectImpl implements IconType {
 	/**
 	 * The default value of the '{@link #getSmallIcon() <em>Small Icon</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -110,7 +108,7 @@ public class IconTypeImpl extends EObjectImpl implements IconType {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return CommonPackage.eINSTANCE.getIconType();
+		return CommonPackage.Literals.ICON_TYPE;
 	}
 
 	/**
@@ -181,8 +179,8 @@ public class IconTypeImpl extends EObjectImpl implements IconType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case CommonPackage.ICON_TYPE__SMALL_ICON:
 				return getSmallIcon();
 			case CommonPackage.ICON_TYPE__LARGE_ICON:
@@ -190,7 +188,7 @@ public class IconTypeImpl extends EObjectImpl implements IconType {
 			case CommonPackage.ICON_TYPE__LANG:
 				return getLang();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -198,8 +196,8 @@ public class IconTypeImpl extends EObjectImpl implements IconType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case CommonPackage.ICON_TYPE__SMALL_ICON:
 				setSmallIcon((String)newValue);
 				return;
@@ -210,7 +208,7 @@ public class IconTypeImpl extends EObjectImpl implements IconType {
 				setLang((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -218,8 +216,8 @@ public class IconTypeImpl extends EObjectImpl implements IconType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case CommonPackage.ICON_TYPE__SMALL_ICON:
 				setSmallIcon(SMALL_ICON_EDEFAULT);
 				return;
@@ -230,7 +228,7 @@ public class IconTypeImpl extends EObjectImpl implements IconType {
 				setLang(LANG_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -238,8 +236,8 @@ public class IconTypeImpl extends EObjectImpl implements IconType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case CommonPackage.ICON_TYPE__SMALL_ICON:
 				return SMALL_ICON_EDEFAULT == null ? smallIcon != null : !SMALL_ICON_EDEFAULT.equals(smallIcon);
 			case CommonPackage.ICON_TYPE__LARGE_ICON:
@@ -247,7 +245,7 @@ public class IconTypeImpl extends EObjectImpl implements IconType {
 			case CommonPackage.ICON_TYPE__LANG:
 				return LANG_EDEFAULT == null ? lang != null : !LANG_EDEFAULT.equals(lang);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

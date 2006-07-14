@@ -10,12 +10,13 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.webapplication;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 /**
  * The context-param element contains the declaration of a web application's servlet context initialization parameters.
  * @since 1.0
+ * @generated
  */
-public interface ContextParam extends EObject{
+public interface ContextParam extends J2EEEObject {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the ParamName attribute

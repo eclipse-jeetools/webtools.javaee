@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.common;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -36,8 +35,8 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.common.CommonPackage#getDescriptionGroup()
  * @model
  * @generated
- * @since 1.0 */
-public interface DescriptionGroup extends EObject{
+ */
+public interface DescriptionGroup extends J2EEEObject {
 	/**
 	 * Returns the value of the '<em><b>Icons</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.IconType}.

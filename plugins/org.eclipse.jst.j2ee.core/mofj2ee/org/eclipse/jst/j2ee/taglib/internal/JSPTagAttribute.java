@@ -11,13 +11,14 @@
 package org.eclipse.jst.j2ee.taglib.internal;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 /**
  * The attribute tag defines an attribute for the nesting tag
+ * @generated
  */
-public interface JSPTagAttribute extends EObject{
+public interface JSPTagAttribute extends J2EEEObject {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the Name attribute
@@ -119,7 +120,7 @@ public interface JSPTagAttribute extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Fragment</em>' attribute.
 	 * @see #setFragment(boolean)
-	 * @see org.eclipse.jst.j2ee.taglib.internal.TaglibPackage#getJSPTagAttribute_Fragment()
+	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getJSPTagAttribute_Fragment()
 	 * @model
 	 * @generated
 	 */
@@ -163,7 +164,7 @@ public interface JSPTagAttribute extends EObject{
 	 * @version J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.taglib.internal.TaglibPackage#getJSPTagAttribute_Descriptions()
+	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getJSPTagAttribute_Descriptions()
 	 * @model type="org.eclipse.jst.j2ee.common.Description" containment="true"
 	 * @generated
 	 */

@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.jca;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 /**
  * The config property contains a declaration of a single
  * configuration property for a ManagedConnectionFactory instance.
@@ -24,9 +24,9 @@ import org.eclipse.emf.ecore.EObject;
  * responsible for providing a valid value for a configuration property.
  * 
  * Any bounds or well-defined values of properties should be described in the description.
-
+ * @generated
  * @since 1.0 */
-public interface ConfigProperty extends EObject{
+public interface ConfigProperty extends J2EEEObject {
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
@@ -118,8 +118,3 @@ public interface ConfigProperty extends EObject{
 	EList getDescriptions();
 
 }
-
-
-
-
-

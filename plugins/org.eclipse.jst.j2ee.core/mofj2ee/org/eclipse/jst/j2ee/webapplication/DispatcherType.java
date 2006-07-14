@@ -24,7 +24,6 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getDispatcherType()
  * @model
  * @generated
- * @since 1.0
  */
 public final class DispatcherType extends AbstractEnumerator
 {
@@ -84,7 +83,7 @@ public final class DispatcherType extends AbstractEnumerator
 	 * @generated
 	 * @ordered
 	 */
-	public static final DispatcherType FORWARD_LITERAL = new DispatcherType(FORWARD, "FORWARD");//$NON-NLS-1$
+	public static final DispatcherType FORWARD_LITERAL = new DispatcherType(FORWARD, "FORWARD", "FORWARD");//$NON-NLS-1$
 
 	/**
 	 * The '<em><b>INCLUDE</b></em>' literal object.
@@ -98,7 +97,7 @@ public final class DispatcherType extends AbstractEnumerator
 	 * @generated
 	 * @ordered
 	 */
-	public static final DispatcherType INCLUDE_LITERAL = new DispatcherType(INCLUDE, "INCLUDE");//$NON-NLS-1$
+	public static final DispatcherType INCLUDE_LITERAL = new DispatcherType(INCLUDE, "INCLUDE", "INCLUDE");//$NON-NLS-1$
 
 	/**
 	 * The '<em><b>REQUEST</b></em>' literal object.
@@ -112,7 +111,7 @@ public final class DispatcherType extends AbstractEnumerator
 	 * @generated
 	 * @ordered
 	 */
-	public static final DispatcherType REQUEST_LITERAL = new DispatcherType(REQUEST, "REQUEST");//$NON-NLS-1$
+	public static final DispatcherType REQUEST_LITERAL = new DispatcherType(REQUEST, "REQUEST", "REQUEST");//$NON-NLS-1$
 
 	/**
 	 * The '<em><b>ERROR</b></em>' literal object.
@@ -126,7 +125,7 @@ public final class DispatcherType extends AbstractEnumerator
 	 * @generated
 	 * @ordered
 	 */
-	public static final DispatcherType ERROR_LITERAL = new DispatcherType(ERROR, "ERROR");//$NON-NLS-1$
+	public static final DispatcherType ERROR_LITERAL = new DispatcherType(ERROR, "ERROR", "ERROR");//$NON-NLS-1$
 
 	/**
 	 * An array of all the '<em><b>Dispatcher Type</b></em>' enumerators.
@@ -151,17 +150,17 @@ public final class DispatcherType extends AbstractEnumerator
 	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Dispatcher Type</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Dispatcher Type</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * @param name passes literal name
 	 * @return literal instance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static DispatcherType get(String name) {
+	public static DispatcherType get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			DispatcherType result = VALUES_ARRAY[i];
-			if (result.toString().equals(name)) {
+			if (result.toString().equals(literal)) {
 				return result;
 			}
 		}
@@ -169,7 +168,23 @@ public final class DispatcherType extends AbstractEnumerator
 	}
 
 	/**
-	 * Returns the '<em><b>Dispatcher Type</b></em>' literal with the specified value.
+	 * Returns the '<em><b>Dispatcher Type</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static DispatcherType getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			DispatcherType result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Dispatcher Type</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * @param value passes literal value
 	 * @return literal instance
@@ -192,8 +207,8 @@ public final class DispatcherType extends AbstractEnumerator
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private DispatcherType(int value, String name) {
-		super(value, name);
+	private DispatcherType(int value, String name, String literal) {
+		super(value, name, literal);
 	}
 
 } //DispatcherType

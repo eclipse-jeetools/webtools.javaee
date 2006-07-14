@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.jca;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,8 +37,8 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.jca.JcaPackage#getMessageListener()
  * @model
  * @generated
- * @since 1.0 */
-public interface MessageListener extends EObject{
+ */
+public interface MessageListener extends J2EEEObject {
 	/**
 	 * Returns the value of the '<em><b>Message Listener Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->

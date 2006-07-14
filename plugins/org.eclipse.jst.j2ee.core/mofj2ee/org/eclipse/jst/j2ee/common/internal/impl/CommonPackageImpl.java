@@ -15,10 +15,9 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.eclipse.emf.ecore.impl.EcorePackageImpl;
 import org.eclipse.jem.java.JavaRefPackage;
-import org.eclipse.jem.java.internal.impl.JavaRefPackageImpl;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.internal.impl.ApplicationPackageImpl;
 import org.eclipse.jst.j2ee.client.ClientPackage;
@@ -36,6 +35,8 @@ import org.eclipse.jst.j2ee.common.EnvEntry;
 import org.eclipse.jst.j2ee.common.EnvEntryType;
 import org.eclipse.jst.j2ee.common.IconType;
 import org.eclipse.jst.j2ee.common.Identity;
+import org.eclipse.jst.j2ee.common.J2EEEAttribute;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 import org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup;
 import org.eclipse.jst.j2ee.common.Listener;
 import org.eclipse.jst.j2ee.common.MessageDestination;
@@ -58,6 +59,7 @@ import org.eclipse.jst.j2ee.jca.JcaPackage;
 import org.eclipse.jst.j2ee.jca.internal.impl.JcaPackageImpl;
 import org.eclipse.jst.j2ee.jsp.JspPackage;
 import org.eclipse.jst.j2ee.jsp.internal.impl.JspPackageImpl;
+
 import org.eclipse.jst.j2ee.taglib.internal.TaglibPackage;
 import org.eclipse.jst.j2ee.taglib.internal.impl.TaglibPackageImpl;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
@@ -230,6 +232,20 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage, EP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass j2EEEObjectEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass j2EEEAttributeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum envEntryTypeEEnum = null;
 
 	/**
@@ -286,8 +302,8 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage, EP
 		isInited = true;
 
 		// Initialize simple dependencies
-		EcorePackageImpl.init();
-		JavaRefPackageImpl.init();
+		EcorePackage.eINSTANCE.eClass();
+		JavaRefPackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
 		ClientPackageImpl theClientPackage = (ClientPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI) instanceof ClientPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI) : ClientPackage.eINSTANCE);
@@ -765,6 +781,24 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage, EP
 	 */
 	public EAttribute getCompatibilityDescriptionGroup_DisplayName() {
 		return (EAttribute)compatibilityDescriptionGroupEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getJ2EEEObject() {
+		return j2EEEObjectEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getJ2EEEAttribute() {
+		return j2EEEAttributeEClass;
 	}
 
 	/**
@@ -1303,6 +1337,10 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage, EP
 		createEAttribute(compatibilityDescriptionGroupEClass, COMPATIBILITY_DESCRIPTION_GROUP__DESCRIPTION);
 		createEAttribute(compatibilityDescriptionGroupEClass, COMPATIBILITY_DESCRIPTION_GROUP__DISPLAY_NAME);
 
+		j2EEEObjectEClass = createEClass(J2EEE_OBJECT);
+
+		j2EEEAttributeEClass = createEClass(J2EEE_ATTRIBUTE);
+
 		// Create enums
 		envEntryTypeEEnum = createEEnum(ENV_ENTRY_TYPE);
 		resAuthTypeBaseEEnum = createEEnum(RES_AUTH_TYPE_BASE);
@@ -1335,17 +1373,34 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage, EP
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		JavaRefPackageImpl theJavaRefPackage = (JavaRefPackageImpl)EPackage.Registry.INSTANCE.getEPackage(JavaRefPackage.eNS_URI);
-		Webservice_clientPackageImpl theWebservice_clientPackage = (Webservice_clientPackageImpl)EPackage.Registry.INSTANCE.getEPackage(Webservice_clientPackage.eNS_URI);
+		JavaRefPackage theJavaRefPackage = (JavaRefPackage)EPackage.Registry.INSTANCE.getEPackage(JavaRefPackage.eNS_URI);
+		Webservice_clientPackage theWebservice_clientPackage = (Webservice_clientPackage)EPackage.Registry.INSTANCE.getEPackage(Webservice_clientPackage.eNS_URI);
+		EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
 
 		// Add supertypes to classes
+		ejbRefEClass.getESuperTypes().add(this.getJ2EEEObject());
+		envEntryEClass.getESuperTypes().add(this.getJ2EEEObject());
+		resourceRefEClass.getESuperTypes().add(this.getJ2EEEObject());
+		securityRoleRefEClass.getESuperTypes().add(this.getJ2EEEObject());
+		securityRoleEClass.getESuperTypes().add(this.getJ2EEEObject());
+		resourceEnvRefEClass.getESuperTypes().add(this.getJ2EEEObject());
 		ejbLocalRefEClass.getESuperTypes().add(this.getEjbRef());
 		runAsSpecifiedIdentityEClass.getESuperTypes().add(this.getSecurityIdentity());
+		identityEClass.getESuperTypes().add(this.getJ2EEEObject());
+		iconTypeEClass.getESuperTypes().add(this.getJ2EEEObject());
+		displayNameEClass.getESuperTypes().add(this.getJ2EEEObject());
+		messageDestinationRefEClass.getESuperTypes().add(this.getJ2EEEObject());
 		messageDestinationEClass.getESuperTypes().add(this.getCompatibilityDescriptionGroup());
+		paramValueEClass.getESuperTypes().add(this.getJ2EEEObject());
+		descriptionGroupEClass.getESuperTypes().add(this.getJ2EEEObject());
 		jndiEnvRefsGroupEClass.getESuperTypes().add(this.getCompatibilityDescriptionGroup());
+		securityIdentityEClass.getESuperTypes().add(this.getJ2EEEObject());
 		useCallerIdentityEClass.getESuperTypes().add(this.getSecurityIdentity());
+		descriptionEClass.getESuperTypes().add(this.getJ2EEEObject());
+		qNameEClass.getESuperTypes().add(this.getJ2EEEObject());
 		listenerEClass.getESuperTypes().add(this.getCompatibilityDescriptionGroup());
 		compatibilityDescriptionGroupEClass.getESuperTypes().add(this.getDescriptionGroup());
+		j2EEEAttributeEClass.getESuperTypes().add(theEcorePackage.getEAttribute());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(ejbRefEClass, EjbRef.class, "EjbRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1465,6 +1520,10 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage, EP
 		initEAttribute(getCompatibilityDescriptionGroup_LargeIcon(), ecorePackage.getEString(), "largeIcon", null, 0, 1, CompatibilityDescriptionGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCompatibilityDescriptionGroup_Description(), ecorePackage.getEString(), "description", null, 0, 1, CompatibilityDescriptionGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCompatibilityDescriptionGroup_DisplayName(), ecorePackage.getEString(), "displayName", null, 0, 1, CompatibilityDescriptionGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(j2EEEObjectEClass, J2EEEObject.class, "J2EEEObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(j2EEEAttributeEClass, J2EEEAttribute.class, "J2EEEAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(envEntryTypeEEnum, EnvEntryType.class, "EnvEntryType");

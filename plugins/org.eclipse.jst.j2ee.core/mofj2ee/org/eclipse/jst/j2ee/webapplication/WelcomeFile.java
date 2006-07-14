@@ -10,12 +10,13 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.webapplication;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 /**
  * The welcome-file element contains file name to use as a default welcome file, such as index.html
  * @since 1.0
+ * @generated
  */
-public interface WelcomeFile extends EObject{
+public interface WelcomeFile extends J2EEEObject {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the WelcomeFile attribute

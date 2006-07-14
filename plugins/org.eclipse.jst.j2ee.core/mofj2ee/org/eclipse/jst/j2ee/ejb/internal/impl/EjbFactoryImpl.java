@@ -18,7 +18,9 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jem.java.JavaParameter;
 import org.eclipse.jem.java.Method;
@@ -65,7 +67,26 @@ import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 /**
  * @generated
  */
-public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory{
+public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
+	/**
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static EjbFactory init() {
+		try {
+			EjbFactory theEjbFactory = (EjbFactory)EPackage.Registry.INSTANCE.getEFactory("ejb.xmi"); 
+			if (theEjbFactory != null) {
+				return theEjbFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new EjbFactoryImpl();
+	}
+
 	private static List CMP_ADAPTER_FACTORIES = new ArrayList(1);
 	private static List CMP_ADAPTER_FACTORY_DESCRIPTORS = new ArrayList(1);
 	private static List EJB_RELATION_ADAPTER_FACTORIES = new ArrayList(1);
@@ -119,51 +140,24 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory{
 	 */
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case EjbPackage.TRANSACTION_ATTRIBUTE_TYPE: {
-				TransactionAttributeType result = TransactionAttributeType.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case EjbPackage.TRANSACTION_TYPE: {
-				TransactionType result = TransactionType.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case EjbPackage.SESSION_TYPE: {
-				SessionType result = SessionType.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case EjbPackage.METHOD_ELEMENT_KIND: {
-				MethodElementKind result = MethodElementKind.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case EjbPackage.ACKNOWLEDGE_MODE: {
-				AcknowledgeMode result = AcknowledgeMode.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case EjbPackage.SUBSCRIPTION_DURABILITY_KIND: {
-				SubscriptionDurabilityKind result = SubscriptionDurabilityKind.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case EjbPackage.RETURN_TYPE_MAPPING: {
-				ReturnTypeMapping result = ReturnTypeMapping.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case EjbPackage.DESTINATION_TYPE: {
-				DestinationType result = DestinationType.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case EjbPackage.MULTIPLICITY_KIND: {
-				MultiplicityKind result = MultiplicityKind.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
+			case EjbPackage.TRANSACTION_ATTRIBUTE_TYPE:
+				return createTransactionAttributeTypeFromString(eDataType, initialValue);
+			case EjbPackage.TRANSACTION_TYPE:
+				return createTransactionTypeFromString(eDataType, initialValue);
+			case EjbPackage.SESSION_TYPE:
+				return createSessionTypeFromString(eDataType, initialValue);
+			case EjbPackage.METHOD_ELEMENT_KIND:
+				return createMethodElementKindFromString(eDataType, initialValue);
+			case EjbPackage.ACKNOWLEDGE_MODE:
+				return createAcknowledgeModeFromString(eDataType, initialValue);
+			case EjbPackage.SUBSCRIPTION_DURABILITY_KIND:
+				return createSubscriptionDurabilityKindFromString(eDataType, initialValue);
+			case EjbPackage.RETURN_TYPE_MAPPING:
+				return createReturnTypeMappingFromString(eDataType, initialValue);
+			case EjbPackage.DESTINATION_TYPE:
+				return createDestinationTypeFromString(eDataType, initialValue);
+			case EjbPackage.MULTIPLICITY_KIND:
+				return createMultiplicityKindFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -177,23 +171,23 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory{
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			case EjbPackage.TRANSACTION_ATTRIBUTE_TYPE:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertTransactionAttributeTypeToString(eDataType, instanceValue);
 			case EjbPackage.TRANSACTION_TYPE:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertTransactionTypeToString(eDataType, instanceValue);
 			case EjbPackage.SESSION_TYPE:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertSessionTypeToString(eDataType, instanceValue);
 			case EjbPackage.METHOD_ELEMENT_KIND:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertMethodElementKindToString(eDataType, instanceValue);
 			case EjbPackage.ACKNOWLEDGE_MODE:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertAcknowledgeModeToString(eDataType, instanceValue);
 			case EjbPackage.SUBSCRIPTION_DURABILITY_KIND:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertSubscriptionDurabilityKindToString(eDataType, instanceValue);
 			case EjbPackage.RETURN_TYPE_MAPPING:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertReturnTypeMappingToString(eDataType, instanceValue);
 			case EjbPackage.DESTINATION_TYPE:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertDestinationTypeToString(eDataType, instanceValue);
 			case EjbPackage.MULTIPLICITY_KIND:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertMultiplicityKindToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -430,6 +424,186 @@ static String getTypeName(Class type) {
 	public ActivationConfig createActivationConfig() {
 		ActivationConfigImpl activationConfig = new ActivationConfigImpl();
 		return activationConfig;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TransactionAttributeType createTransactionAttributeTypeFromString(EDataType eDataType, String initialValue) {
+		TransactionAttributeType result = TransactionAttributeType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTransactionAttributeTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TransactionType createTransactionTypeFromString(EDataType eDataType, String initialValue) {
+		TransactionType result = TransactionType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTransactionTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SessionType createSessionTypeFromString(EDataType eDataType, String initialValue) {
+		SessionType result = SessionType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertSessionTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MethodElementKind createMethodElementKindFromString(EDataType eDataType, String initialValue) {
+		MethodElementKind result = MethodElementKind.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertMethodElementKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AcknowledgeMode createAcknowledgeModeFromString(EDataType eDataType, String initialValue) {
+		AcknowledgeMode result = AcknowledgeMode.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertAcknowledgeModeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubscriptionDurabilityKind createSubscriptionDurabilityKindFromString(EDataType eDataType, String initialValue) {
+		SubscriptionDurabilityKind result = SubscriptionDurabilityKind.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertSubscriptionDurabilityKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ReturnTypeMapping createReturnTypeMappingFromString(EDataType eDataType, String initialValue) {
+		ReturnTypeMapping result = ReturnTypeMapping.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertReturnTypeMappingToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DestinationType createDestinationTypeFromString(EDataType eDataType, String initialValue) {
+		DestinationType result = DestinationType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertDestinationTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MultiplicityKind createMultiplicityKindFromString(EDataType eDataType, String initialValue) {
+		MultiplicityKind result = MultiplicityKind.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertMultiplicityKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

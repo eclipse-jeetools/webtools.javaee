@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.InterfaceMapping;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage;
 
@@ -24,7 +24,7 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage;
  *
  * @generated
  */
-public class InterfaceMappingImpl extends EObjectImpl implements InterfaceMapping
+public class InterfaceMappingImpl extends J2EEEObjectImpl implements InterfaceMapping
 {
 	/**
 	 * <!-- begin-user-doc -->
@@ -41,7 +41,7 @@ public class InterfaceMappingImpl extends EObjectImpl implements InterfaceMappin
 	 * @generated
 	 */
   protected EClass eStaticClass() {
-		return JaxrpcmapPackage.eINSTANCE.getInterfaceMapping();
+		return JaxrpcmapPackage.Literals.INTERFACE_MAPPING;
 	}
 
 } //InterfaceMappingImpl

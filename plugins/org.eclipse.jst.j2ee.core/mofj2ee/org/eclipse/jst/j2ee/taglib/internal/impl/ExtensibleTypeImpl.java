@@ -12,9 +12,8 @@ package org.eclipse.jst.j2ee.taglib.internal.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.taglib.internal.ExtensibleType;
 import org.eclipse.jst.j2ee.taglib.internal.TaglibPackage;
 
@@ -32,7 +31,7 @@ import org.eclipse.jst.j2ee.taglib.internal.TaglibPackage;
  *
  * @generated
  */
-public abstract class ExtensibleTypeImpl extends EObjectImpl implements ExtensibleType {
+public abstract class ExtensibleTypeImpl extends J2EEEObjectImpl implements ExtensibleType {
 	/**
 	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -68,7 +67,7 @@ public abstract class ExtensibleTypeImpl extends EObjectImpl implements Extensib
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return TaglibPackage.eINSTANCE.getExtensibleType();
+		return TaglibPackage.Literals.EXTENSIBLE_TYPE;
 	}
 
 	/**
@@ -97,12 +96,12 @@ public abstract class ExtensibleTypeImpl extends EObjectImpl implements Extensib
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case TaglibPackage.EXTENSIBLE_TYPE__VALUE:
 				return getValue();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -110,13 +109,13 @@ public abstract class ExtensibleTypeImpl extends EObjectImpl implements Extensib
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case TaglibPackage.EXTENSIBLE_TYPE__VALUE:
 				setValue((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -124,13 +123,13 @@ public abstract class ExtensibleTypeImpl extends EObjectImpl implements Extensib
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case TaglibPackage.EXTENSIBLE_TYPE__VALUE:
 				setValue(VALUE_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -138,12 +137,12 @@ public abstract class ExtensibleTypeImpl extends EObjectImpl implements Extensib
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case TaglibPackage.EXTENSIBLE_TYPE__VALUE:
 				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

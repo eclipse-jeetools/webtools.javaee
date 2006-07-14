@@ -40,8 +40,8 @@ import org.eclipse.emf.common.util.EList;
  * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getServiceEndpointInterfaceMapping()
  * @model
  * @generated
- * @since 1.0 */
-public interface ServiceEndpointInterfaceMapping extends InterfaceMapping{
+ */
+public interface ServiceEndpointInterfaceMapping extends InterfaceMapping {
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->

@@ -20,8 +20,6 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EAttributeImpl;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -43,7 +41,7 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
  * Describes a container-managed field. The field element includes an optional description of the field, and the name of the field.
 
  */
-public class CMPAttributeImpl extends EAttributeImpl implements CMPAttribute, EAttribute{
+public class CMPAttributeImpl extends EAttributeImpl implements CMPAttribute, EAttribute {
 
 	/**
 	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
@@ -85,7 +83,7 @@ public class CMPAttributeImpl extends EAttributeImpl implements CMPAttribute, EA
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return EjbPackage.eINSTANCE.getCMPAttribute();
+		return EjbPackage.Literals.CMP_ATTRIBUTE;
 	}
 
 protected Field findExistingField() {
@@ -288,22 +286,12 @@ public void setOriginatingType(JavaHelpers newOriginatingType) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.CMP_ATTRIBUTE__EANNOTATIONS:
-					return ((InternalEList)getEAnnotations()).basicAdd(otherEnd, msgs);
-				case EjbPackage.CMP_ATTRIBUTE__ECONTAINING_CLASS:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, EjbPackage.CMP_ATTRIBUTE__ECONTAINING_CLASS, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.CMP_ATTRIBUTE__DESCRIPTIONS:
+				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -311,193 +299,23 @@ public void setOriginatingType(JavaHelpers newOriginatingType) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.CMP_ATTRIBUTE__EANNOTATIONS:
-					return ((InternalEList)getEAnnotations()).basicRemove(otherEnd, msgs);
-				case EjbPackage.CMP_ATTRIBUTE__ECONTAINING_CLASS:
-					return eBasicSetContainer(null, EjbPackage.CMP_ATTRIBUTE__ECONTAINING_CLASS, msgs);
-				case EjbPackage.CMP_ATTRIBUTE__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case EjbPackage.CMP_ATTRIBUTE__ECONTAINING_CLASS:
-					return eContainer.eInverseRemove(this, EcorePackage.ECLASS__ESTRUCTURAL_FEATURES, EClass.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.CMP_ATTRIBUTE__EANNOTATIONS:
-				return getEAnnotations();
-			case EjbPackage.CMP_ATTRIBUTE__NAME:
-				return getName();
-			case EjbPackage.CMP_ATTRIBUTE__ORDERED:
-				return isOrdered() ? Boolean.TRUE : Boolean.FALSE;
-			case EjbPackage.CMP_ATTRIBUTE__UNIQUE:
-				return isUnique() ? Boolean.TRUE : Boolean.FALSE;
-			case EjbPackage.CMP_ATTRIBUTE__LOWER_BOUND:
-				return new Integer(getLowerBound());
-			case EjbPackage.CMP_ATTRIBUTE__UPPER_BOUND:
-				return new Integer(getUpperBound());
-			case EjbPackage.CMP_ATTRIBUTE__MANY:
-				return isMany() ? Boolean.TRUE : Boolean.FALSE;
-			case EjbPackage.CMP_ATTRIBUTE__REQUIRED:
-				return isRequired() ? Boolean.TRUE : Boolean.FALSE;
-			case EjbPackage.CMP_ATTRIBUTE__ETYPE:
-				if (resolve) return getEType();
-				return basicGetEType();
-			case EjbPackage.CMP_ATTRIBUTE__CHANGEABLE:
-				return isChangeable() ? Boolean.TRUE : Boolean.FALSE;
-			case EjbPackage.CMP_ATTRIBUTE__VOLATILE:
-				return isVolatile() ? Boolean.TRUE : Boolean.FALSE;
-			case EjbPackage.CMP_ATTRIBUTE__TRANSIENT:
-				return isTransient() ? Boolean.TRUE : Boolean.FALSE;
-			case EjbPackage.CMP_ATTRIBUTE__DEFAULT_VALUE_LITERAL:
-				return getDefaultValueLiteral();
-			case EjbPackage.CMP_ATTRIBUTE__DEFAULT_VALUE:
-				return getDefaultValue();
-			case EjbPackage.CMP_ATTRIBUTE__UNSETTABLE:
-				return isUnsettable() ? Boolean.TRUE : Boolean.FALSE;
-			case EjbPackage.CMP_ATTRIBUTE__DERIVED:
-				return isDerived() ? Boolean.TRUE : Boolean.FALSE;
-			case EjbPackage.CMP_ATTRIBUTE__ECONTAINING_CLASS:
-				return getEContainingClass();
-			case EjbPackage.CMP_ATTRIBUTE__ID:
-				return isID() ? Boolean.TRUE : Boolean.FALSE;
-			case EjbPackage.CMP_ATTRIBUTE__EATTRIBUTE_TYPE:
-				if (resolve) return getEAttributeType();
-				return basicGetEAttributeType();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case EjbPackage.CMP_ATTRIBUTE__DESCRIPTION:
 				return getDescription();
 			case EjbPackage.CMP_ATTRIBUTE__DESCRIPTIONS:
 				return getDescriptions();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.CMP_ATTRIBUTE__EANNOTATIONS:
-				return eAnnotations != null && !eAnnotations.isEmpty();
-			case EjbPackage.CMP_ATTRIBUTE__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case EjbPackage.CMP_ATTRIBUTE__ORDERED:
-				return ((eFlags & ORDERED_EFLAG) != 0) != ORDERED_EDEFAULT;
-			case EjbPackage.CMP_ATTRIBUTE__UNIQUE:
-				return ((eFlags & UNIQUE_EFLAG) != 0) != UNIQUE_EDEFAULT;
-			case EjbPackage.CMP_ATTRIBUTE__LOWER_BOUND:
-				return lowerBound != LOWER_BOUND_EDEFAULT;
-			case EjbPackage.CMP_ATTRIBUTE__UPPER_BOUND:
-				return upperBound != UPPER_BOUND_EDEFAULT;
-			case EjbPackage.CMP_ATTRIBUTE__MANY:
-				return isMany() != MANY_EDEFAULT;
-			case EjbPackage.CMP_ATTRIBUTE__REQUIRED:
-				return isRequired() != REQUIRED_EDEFAULT;
-			case EjbPackage.CMP_ATTRIBUTE__ETYPE:
-				return eType != null;
-			case EjbPackage.CMP_ATTRIBUTE__CHANGEABLE:
-				return ((eFlags & CHANGEABLE_EFLAG) != 0) != CHANGEABLE_EDEFAULT;
-			case EjbPackage.CMP_ATTRIBUTE__VOLATILE:
-				return ((eFlags & VOLATILE_EFLAG) != 0) != VOLATILE_EDEFAULT;
-			case EjbPackage.CMP_ATTRIBUTE__TRANSIENT:
-				return ((eFlags & TRANSIENT_EFLAG) != 0) != TRANSIENT_EDEFAULT;
-			case EjbPackage.CMP_ATTRIBUTE__DEFAULT_VALUE_LITERAL:
-				return DEFAULT_VALUE_LITERAL_EDEFAULT == null ? defaultValueLiteral != null : !DEFAULT_VALUE_LITERAL_EDEFAULT.equals(defaultValueLiteral);
-			case EjbPackage.CMP_ATTRIBUTE__DEFAULT_VALUE:
-				return DEFAULT_VALUE_EDEFAULT == null ? getDefaultValue() != null : !DEFAULT_VALUE_EDEFAULT.equals(getDefaultValue());
-			case EjbPackage.CMP_ATTRIBUTE__UNSETTABLE:
-				return ((eFlags & UNSETTABLE_EFLAG) != 0) != UNSETTABLE_EDEFAULT;
-			case EjbPackage.CMP_ATTRIBUTE__DERIVED:
-				return ((eFlags & DERIVED_EFLAG) != 0) != DERIVED_EDEFAULT;
-			case EjbPackage.CMP_ATTRIBUTE__ECONTAINING_CLASS:
-				return getEContainingClass() != null;
-			case EjbPackage.CMP_ATTRIBUTE__ID:
-				return ((eFlags & ID_EFLAG) != 0) != ID_EDEFAULT;
-			case EjbPackage.CMP_ATTRIBUTE__EATTRIBUTE_TYPE:
-				return basicGetEAttributeType() != null;
-			case EjbPackage.CMP_ATTRIBUTE__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case EjbPackage.CMP_ATTRIBUTE__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.CMP_ATTRIBUTE__EANNOTATIONS:
-				getEAnnotations().clear();
-				getEAnnotations().addAll((Collection)newValue);
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__NAME:
-				setName((String)newValue);
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__ORDERED:
-				setOrdered(((Boolean)newValue).booleanValue());
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__UNIQUE:
-				setUnique(((Boolean)newValue).booleanValue());
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__LOWER_BOUND:
-				setLowerBound(((Integer)newValue).intValue());
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__UPPER_BOUND:
-				setUpperBound(((Integer)newValue).intValue());
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__ETYPE:
-				setEType((EClassifier)newValue);
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__CHANGEABLE:
-				setChangeable(((Boolean)newValue).booleanValue());
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__VOLATILE:
-				setVolatile(((Boolean)newValue).booleanValue());
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__TRANSIENT:
-				setTransient(((Boolean)newValue).booleanValue());
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__DEFAULT_VALUE_LITERAL:
-				setDefaultValueLiteral((String)newValue);
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__UNSETTABLE:
-				setUnsettable(((Boolean)newValue).booleanValue());
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__DERIVED:
-				setDerived(((Boolean)newValue).booleanValue());
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__ID:
-				setID(((Boolean)newValue).booleanValue());
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case EjbPackage.CMP_ATTRIBUTE__DESCRIPTION:
 				setDescription((String)newValue);
 				return;
@@ -506,56 +324,16 @@ public void setOriginatingType(JavaHelpers newOriginatingType) {
 				getDescriptions().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.CMP_ATTRIBUTE__EANNOTATIONS:
-				getEAnnotations().clear();
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__ORDERED:
-				setOrdered(ORDERED_EDEFAULT);
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__UNIQUE:
-				setUnique(UNIQUE_EDEFAULT);
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__LOWER_BOUND:
-				setLowerBound(LOWER_BOUND_EDEFAULT);
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__UPPER_BOUND:
-				setUpperBound(UPPER_BOUND_EDEFAULT);
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__ETYPE:
-				setEType((EClassifier)null);
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__CHANGEABLE:
-				setChangeable(CHANGEABLE_EDEFAULT);
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__VOLATILE:
-				setVolatile(VOLATILE_EDEFAULT);
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__TRANSIENT:
-				setTransient(TRANSIENT_EDEFAULT);
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__DEFAULT_VALUE_LITERAL:
-				setDefaultValueLiteral(DEFAULT_VALUE_LITERAL_EDEFAULT);
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__UNSETTABLE:
-				setUnsettable(UNSETTABLE_EDEFAULT);
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__DERIVED:
-				setDerived(DERIVED_EDEFAULT);
-				return;
-			case EjbPackage.CMP_ATTRIBUTE__ID:
-				setID(ID_EDEFAULT);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case EjbPackage.CMP_ATTRIBUTE__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
@@ -563,7 +341,22 @@ public void setOriginatingType(JavaHelpers newOriginatingType) {
 				getDescriptions().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case EjbPackage.CMP_ATTRIBUTE__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case EjbPackage.CMP_ATTRIBUTE__DESCRIPTIONS:
+				return descriptions != null && !descriptions.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

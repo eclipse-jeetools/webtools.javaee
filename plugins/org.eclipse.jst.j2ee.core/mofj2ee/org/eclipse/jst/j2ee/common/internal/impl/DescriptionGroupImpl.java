@@ -15,9 +15,7 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.CommonPackage;
@@ -43,7 +41,7 @@ import org.eclipse.jst.j2ee.internal.common.J2EEVersionResource;
  *
  * @generated
  */
-public class DescriptionGroupImpl extends EObjectImpl implements DescriptionGroup {
+public class DescriptionGroupImpl extends J2EEEObjectImpl implements DescriptionGroup {
 	/**
 	 * The cached value of the '{@link #getIcons() <em>Icons</em>}' containment reference list.
 	 * <!-- begin-user-doc --><!-- end-user-doc -->
@@ -79,7 +77,7 @@ public class DescriptionGroupImpl extends EObjectImpl implements DescriptionGrou
 	 * <!-- begin-user-doc --><!-- end-user-doc -->@generated
 	 */
 	protected EClass eStaticClass() {
-		return CommonPackage.eINSTANCE.getDescriptionGroup();
+		return CommonPackage.Literals.DESCRIPTION_GROUP;
 	}
 
 	/**
@@ -113,29 +111,29 @@ public class DescriptionGroupImpl extends EObjectImpl implements DescriptionGrou
 	}
 
 	/**
-	 * <!-- begin-user-doc --><!-- end-user-doc -->@generated
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonPackage.DESCRIPTION_GROUP__ICONS:
-					return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
-				case CommonPackage.DESCRIPTION_GROUP__DISPLAY_NAMES:
-					return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
-				case CommonPackage.DESCRIPTION_GROUP__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CommonPackage.DESCRIPTION_GROUP__ICONS:
+				return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
+			case CommonPackage.DESCRIPTION_GROUP__DISPLAY_NAMES:
+				return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
+			case CommonPackage.DESCRIPTION_GROUP__DESCRIPTIONS:
+				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
-	 * <!-- begin-user-doc --><!-- end-user-doc -->@generated
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case CommonPackage.DESCRIPTION_GROUP__ICONS:
 				return getIcons();
 			case CommonPackage.DESCRIPTION_GROUP__DISPLAY_NAMES:
@@ -143,14 +141,16 @@ public class DescriptionGroupImpl extends EObjectImpl implements DescriptionGrou
 			case CommonPackage.DESCRIPTION_GROUP__DESCRIPTIONS:
 				return getDescriptions();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * <!-- begin-user-doc --><!-- end-user-doc -->@generated
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case CommonPackage.DESCRIPTION_GROUP__ICONS:
 				getIcons().clear();
 				getIcons().addAll((Collection)newValue);
@@ -164,14 +164,16 @@ public class DescriptionGroupImpl extends EObjectImpl implements DescriptionGrou
 				getDescriptions().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * <!-- begin-user-doc --><!-- end-user-doc -->@generated
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case CommonPackage.DESCRIPTION_GROUP__ICONS:
 				getIcons().clear();
 				return;
@@ -182,14 +184,16 @@ public class DescriptionGroupImpl extends EObjectImpl implements DescriptionGrou
 				getDescriptions().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc --><!-- end-user-doc -->@generated
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case CommonPackage.DESCRIPTION_GROUP__ICONS:
 				return icons != null && !icons.isEmpty();
 			case CommonPackage.DESCRIPTION_GROUP__DISPLAY_NAMES:
@@ -197,7 +201,7 @@ public class DescriptionGroupImpl extends EObjectImpl implements DescriptionGrou
 			case CommonPackage.DESCRIPTION_GROUP__DESCRIPTIONS:
 				return descriptions != null && !descriptions.isEmpty();
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/*

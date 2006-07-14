@@ -55,7 +55,7 @@ public final class ResAuthApplicationType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final ResAuthApplicationType APPLICATION_LITERAL = new ResAuthApplicationType(APPLICATION, "Application"); //$NON-NLS-1$
+	public static final ResAuthApplicationType APPLICATION_LITERAL = new ResAuthApplicationType(APPLICATION, "Application", "Application"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Container</b></em>' literal object.
@@ -69,7 +69,7 @@ public final class ResAuthApplicationType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final ResAuthApplicationType CONTAINER_LITERAL = new ResAuthApplicationType(CONTAINER, "Container"); //$NON-NLS-1$
+	public static final ResAuthApplicationType CONTAINER_LITERAL = new ResAuthApplicationType(CONTAINER, "Container", "Container"); //$NON-NLS-1$
 
 	/**
 	 * An array of all the '<em><b>Res Auth Application Type</b></em>' enumerators.
@@ -92,17 +92,17 @@ public final class ResAuthApplicationType extends AbstractEnumerator{
 	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Res Auth Application Type</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Res Auth Application Type</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * @param name passes literal name
 	 * @return literal instance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static ResAuthApplicationType get(String name) {
+	public static ResAuthApplicationType get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			ResAuthApplicationType result = VALUES_ARRAY[i];
-			if (result.toString().equals(name)) {
+			if (result.toString().equals(literal)) {
 				return result;
 			}
 		}
@@ -110,7 +110,23 @@ public final class ResAuthApplicationType extends AbstractEnumerator{
 	}
 
 	/**
-	 * Returns the '<em><b>Res Auth Application Type</b></em>' literal with the specified value.
+	 * Returns the '<em><b>Res Auth Application Type</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static ResAuthApplicationType getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			ResAuthApplicationType result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Res Auth Application Type</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * @param value passes literal value
 	 * @return literal instance
@@ -131,8 +147,8 @@ public final class ResAuthApplicationType extends AbstractEnumerator{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private ResAuthApplicationType(int value, String name) {
-		super(value, name);
+	private ResAuthApplicationType(int value, String name, String literal) {
+		super(value, name, literal);
 	}
 
 } //ResAuthApplicationType

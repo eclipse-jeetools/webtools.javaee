@@ -16,23 +16,22 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jst.j2ee.common.Description;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.taglib.internal.JSPTagAttribute;
 import org.eclipse.jst.j2ee.taglib.internal.TaglibPackage;
 
 
 /**
  * The attribute tag defines an attribute for the nesting tag
+ * @generated
  */
-public class JSPTagAttributeImpl extends EObjectImpl implements JSPTagAttribute, EObject{
+public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttribute {
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -140,7 +139,7 @@ public class JSPTagAttributeImpl extends EObjectImpl implements JSPTagAttribute,
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return TaglibPackage.eINSTANCE.getJSPTagAttribute();
+		return TaglibPackage.Literals.JSP_TAG_ATTRIBUTE;
 	}
 
 	/**
@@ -279,8 +278,8 @@ public class JSPTagAttributeImpl extends EObjectImpl implements JSPTagAttribute,
 	 */
 	public JavaClass getType() {
 		if (type != null && type.eIsProxy()) {
-			JavaClass oldType = type;
-			type = (JavaClass)eResolveProxy((InternalEObject)type);
+			InternalEObject oldType = (InternalEObject)type;
+			type = (JavaClass)eResolveProxy(oldType);
 			if (type != oldType) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TaglibPackage.JSP_TAG_ATTRIBUTE__TYPE, oldType, type));
@@ -325,16 +324,12 @@ public class JSPTagAttributeImpl extends EObjectImpl implements JSPTagAttribute,
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case TaglibPackage.JSP_TAG_ATTRIBUTE__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case TaglibPackage.JSP_TAG_ATTRIBUTE__DESCRIPTIONS:
+				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -342,8 +337,8 @@ public class JSPTagAttributeImpl extends EObjectImpl implements JSPTagAttribute,
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case TaglibPackage.JSP_TAG_ATTRIBUTE__NAME:
 				return getName();
 			case TaglibPackage.JSP_TAG_ATTRIBUTE__REQUIRED:
@@ -358,35 +353,16 @@ public class JSPTagAttributeImpl extends EObjectImpl implements JSPTagAttribute,
 			case TaglibPackage.JSP_TAG_ATTRIBUTE__DESCRIPTIONS:
 				return getDescriptions();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case TaglibPackage.JSP_TAG_ATTRIBUTE__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case TaglibPackage.JSP_TAG_ATTRIBUTE__REQUIRED:
-				return isSetRequired();
-			case TaglibPackage.JSP_TAG_ATTRIBUTE__RT_EXPR_VALUE:
-				return isSetRtExprValue();
-			case TaglibPackage.JSP_TAG_ATTRIBUTE__FRAGMENT:
-				return fragment != FRAGMENT_EDEFAULT;
-			case TaglibPackage.JSP_TAG_ATTRIBUTE__TYPE:
-				return type != null;
-			case TaglibPackage.JSP_TAG_ATTRIBUTE__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case TaglibPackage.JSP_TAG_ATTRIBUTE__NAME:
 				setName((String)newValue);
 				return;
@@ -407,14 +383,16 @@ public class JSPTagAttributeImpl extends EObjectImpl implements JSPTagAttribute,
 				getDescriptions().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case TaglibPackage.JSP_TAG_ATTRIBUTE__NAME:
 				setName(NAME_EDEFAULT);
 				return;
@@ -434,7 +412,30 @@ public class JSPTagAttributeImpl extends EObjectImpl implements JSPTagAttribute,
 				getDescriptions().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case TaglibPackage.JSP_TAG_ATTRIBUTE__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case TaglibPackage.JSP_TAG_ATTRIBUTE__REQUIRED:
+				return isSetRequired();
+			case TaglibPackage.JSP_TAG_ATTRIBUTE__RT_EXPR_VALUE:
+				return isSetRtExprValue();
+			case TaglibPackage.JSP_TAG_ATTRIBUTE__FRAGMENT:
+				return fragment != FRAGMENT_EDEFAULT;
+			case TaglibPackage.JSP_TAG_ATTRIBUTE__TYPE:
+				return type != null;
+			case TaglibPackage.JSP_TAG_ATTRIBUTE__DESCRIPTIONS:
+				return descriptions != null && !descriptions.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

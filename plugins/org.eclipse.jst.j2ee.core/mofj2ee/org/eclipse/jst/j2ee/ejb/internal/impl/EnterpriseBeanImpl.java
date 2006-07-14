@@ -124,7 +124,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return EjbPackage.eINSTANCE.getEnterpriseBean();
+		return EjbPackage.Literals.ENTERPRISE_BEAN;
 	}
 
 	/**
@@ -816,8 +816,8 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 */
 	public JavaClass getHomeInterface() {
 		if (homeInterface != null && homeInterface.eIsProxy()) {
-			JavaClass oldHomeInterface = homeInterface;
-			homeInterface = (JavaClass)eResolveProxy((InternalEObject)homeInterface);
+			InternalEObject oldHomeInterface = (InternalEObject)homeInterface;
+			homeInterface = (JavaClass)eResolveProxy(oldHomeInterface);
 			if (homeInterface != oldHomeInterface) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EjbPackage.ENTERPRISE_BEAN__HOME_INTERFACE, oldHomeInterface, homeInterface));
@@ -850,8 +850,8 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 */
 	public JavaClass getRemoteInterface() {
 		if (remoteInterface != null && remoteInterface.eIsProxy()) {
-			JavaClass oldRemoteInterface = remoteInterface;
-			remoteInterface = (JavaClass)eResolveProxy((InternalEObject)remoteInterface);
+			InternalEObject oldRemoteInterface = (InternalEObject)remoteInterface;
+			remoteInterface = (JavaClass)eResolveProxy(oldRemoteInterface);
 			if (remoteInterface != oldRemoteInterface) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EjbPackage.ENTERPRISE_BEAN__REMOTE_INTERFACE, oldRemoteInterface, remoteInterface));
@@ -884,22 +884,32 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 */
 	public EJBJar getEjbJar() {
 		if (eContainerFeatureID != EjbPackage.ENTERPRISE_BEAN__EJB_JAR) return null;
-		return (EJBJar)eContainer;
+		return (EJBJar)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetEjbJar(EJBJar newEjbJar, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newEjbJar, EjbPackage.ENTERPRISE_BEAN__EJB_JAR, msgs);
+		return msgs;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public void setEjbJar(EJBJar newEjbJar) {
-		if (newEjbJar != eContainer || (eContainerFeatureID != EjbPackage.ENTERPRISE_BEAN__EJB_JAR && newEjbJar != null)) {
+		if (newEjbJar != eInternalContainer() || (eContainerFeatureID != EjbPackage.ENTERPRISE_BEAN__EJB_JAR && newEjbJar != null)) {
 			if (EcoreUtil.isAncestor(this, newEjbJar))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newEjbJar != null)
 				msgs = ((InternalEObject)newEjbJar).eInverseAdd(this, EjbPackage.EJB_JAR__ENTERPRISE_BEANS, EJBJar.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newEjbJar, EjbPackage.ENTERPRISE_BEAN__EJB_JAR, msgs);
+			msgs = basicSetEjbJar(newEjbJar, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -952,8 +962,8 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 */
 	public JavaClass getLocalHomeInterface() {
 		if (localHomeInterface != null && localHomeInterface.eIsProxy()) {
-			JavaClass oldLocalHomeInterface = localHomeInterface;
-			localHomeInterface = (JavaClass)eResolveProxy((InternalEObject)localHomeInterface);
+			InternalEObject oldLocalHomeInterface = (InternalEObject)localHomeInterface;
+			localHomeInterface = (JavaClass)eResolveProxy(oldLocalHomeInterface);
 			if (localHomeInterface != oldLocalHomeInterface) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EjbPackage.ENTERPRISE_BEAN__LOCAL_HOME_INTERFACE, oldLocalHomeInterface, localHomeInterface));
@@ -989,8 +999,8 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 */
 	public JavaClass getLocalInterface() {
 		if (localInterface != null && localInterface.eIsProxy()) {
-			JavaClass oldLocalInterface = localInterface;
-			localInterface = (JavaClass)eResolveProxy((InternalEObject)localInterface);
+			InternalEObject oldLocalInterface = (InternalEObject)localInterface;
+			localInterface = (JavaClass)eResolveProxy(oldLocalInterface);
 			if (localInterface != oldLocalInterface) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EjbPackage.ENTERPRISE_BEAN__LOCAL_INTERFACE, oldLocalInterface, localInterface));
@@ -1023,20 +1033,14 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.ENTERPRISE_BEAN__EJB_JAR:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, EjbPackage.ENTERPRISE_BEAN__EJB_JAR, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.ENTERPRISE_BEAN__EJB_JAR:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetEjbJar((EJBJar)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -1044,40 +1048,16 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.ENTERPRISE_BEAN__ICONS:
-					return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ENTERPRISE_BEAN__DISPLAY_NAMES:
-					return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ENTERPRISE_BEAN__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ENTERPRISE_BEAN__ENVIRONMENT_PROPERTIES:
-					return ((InternalEList)getEnvironmentProperties()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ENTERPRISE_BEAN__RESOURCE_REFS:
-					return ((InternalEList)getResourceRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ENTERPRISE_BEAN__EJB_REFS:
-					return ((InternalEList)getEjbRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ENTERPRISE_BEAN__RESOURCE_ENV_REFS:
-					return ((InternalEList)getResourceEnvRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ENTERPRISE_BEAN__EJB_LOCAL_REFS:
-					return ((InternalEList)getEjbLocalRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ENTERPRISE_BEAN__MESSAGE_DESTINATION_REFS:
-					return ((InternalEList)getMessageDestinationRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ENTERPRISE_BEAN__SERVICE_REFS:
-					return ((InternalEList)getServiceRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ENTERPRISE_BEAN__SECURITY_ROLE_REFS:
-					return ((InternalEList)getSecurityRoleRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ENTERPRISE_BEAN__EJB_JAR:
-					return eBasicSetContainer(null, EjbPackage.ENTERPRISE_BEAN__EJB_JAR, msgs);
-				case EjbPackage.ENTERPRISE_BEAN__SECURITY_IDENTITY:
-					return basicSetSecurityIdentity(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.ENTERPRISE_BEAN__SECURITY_ROLE_REFS:
+				return ((InternalEList)getSecurityRoleRefs()).basicRemove(otherEnd, msgs);
+			case EjbPackage.ENTERPRISE_BEAN__EJB_JAR:
+				return basicSetEjbJar(null, msgs);
+			case EjbPackage.ENTERPRISE_BEAN__SECURITY_IDENTITY:
+				return basicSetSecurityIdentity(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -1085,16 +1065,12 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case EjbPackage.ENTERPRISE_BEAN__EJB_JAR:
-					return eContainer.eInverseRemove(this, EjbPackage.EJB_JAR__ENTERPRISE_BEANS, EJBJar.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case EjbPackage.ENTERPRISE_BEAN__EJB_JAR:
+				return eInternalContainer().eInverseRemove(this, EjbPackage.EJB_JAR__ENTERPRISE_BEANS, EJBJar.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -1102,36 +1078,8 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.ENTERPRISE_BEAN__ICONS:
-				return getIcons();
-			case EjbPackage.ENTERPRISE_BEAN__DISPLAY_NAMES:
-				return getDisplayNames();
-			case EjbPackage.ENTERPRISE_BEAN__DESCRIPTIONS:
-				return getDescriptions();
-			case EjbPackage.ENTERPRISE_BEAN__SMALL_ICON:
-				return getSmallIcon();
-			case EjbPackage.ENTERPRISE_BEAN__LARGE_ICON:
-				return getLargeIcon();
-			case EjbPackage.ENTERPRISE_BEAN__DESCRIPTION:
-				return getDescription();
-			case EjbPackage.ENTERPRISE_BEAN__DISPLAY_NAME:
-				return getDisplayName();
-			case EjbPackage.ENTERPRISE_BEAN__ENVIRONMENT_PROPERTIES:
-				return getEnvironmentProperties();
-			case EjbPackage.ENTERPRISE_BEAN__RESOURCE_REFS:
-				return getResourceRefs();
-			case EjbPackage.ENTERPRISE_BEAN__EJB_REFS:
-				return getEjbRefs();
-			case EjbPackage.ENTERPRISE_BEAN__RESOURCE_ENV_REFS:
-				return getResourceEnvRefs();
-			case EjbPackage.ENTERPRISE_BEAN__EJB_LOCAL_REFS:
-				return getEjbLocalRefs();
-			case EjbPackage.ENTERPRISE_BEAN__MESSAGE_DESTINATION_REFS:
-				return getMessageDestinationRefs();
-			case EjbPackage.ENTERPRISE_BEAN__SERVICE_REFS:
-				return getServiceRefs();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case EjbPackage.ENTERPRISE_BEAN__NAME:
 				return getName();
 			case EjbPackage.ENTERPRISE_BEAN__SECURITY_ROLE_REFS:
@@ -1156,121 +1104,16 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 				if (resolve) return getLocalInterface();
 				return basicGetLocalInterface();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.ENTERPRISE_BEAN__ICONS:
-				return icons != null && !icons.isEmpty();
-			case EjbPackage.ENTERPRISE_BEAN__DISPLAY_NAMES:
-				return displayNames != null && !displayNames.isEmpty();
-			case EjbPackage.ENTERPRISE_BEAN__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-			case EjbPackage.ENTERPRISE_BEAN__SMALL_ICON:
-				return SMALL_ICON_EDEFAULT == null ? smallIcon != null : !SMALL_ICON_EDEFAULT.equals(smallIcon);
-			case EjbPackage.ENTERPRISE_BEAN__LARGE_ICON:
-				return LARGE_ICON_EDEFAULT == null ? largeIcon != null : !LARGE_ICON_EDEFAULT.equals(largeIcon);
-			case EjbPackage.ENTERPRISE_BEAN__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case EjbPackage.ENTERPRISE_BEAN__DISPLAY_NAME:
-				return DISPLAY_NAME_EDEFAULT == null ? displayName != null : !DISPLAY_NAME_EDEFAULT.equals(displayName);
-			case EjbPackage.ENTERPRISE_BEAN__ENVIRONMENT_PROPERTIES:
-				return environmentProperties != null && !environmentProperties.isEmpty();
-			case EjbPackage.ENTERPRISE_BEAN__RESOURCE_REFS:
-				return resourceRefs != null && !resourceRefs.isEmpty();
-			case EjbPackage.ENTERPRISE_BEAN__EJB_REFS:
-				return ejbRefs != null && !ejbRefs.isEmpty();
-			case EjbPackage.ENTERPRISE_BEAN__RESOURCE_ENV_REFS:
-				return resourceEnvRefs != null && !resourceEnvRefs.isEmpty();
-			case EjbPackage.ENTERPRISE_BEAN__EJB_LOCAL_REFS:
-				return ejbLocalRefs != null && !ejbLocalRefs.isEmpty();
-			case EjbPackage.ENTERPRISE_BEAN__MESSAGE_DESTINATION_REFS:
-				return messageDestinationRefs != null && !messageDestinationRefs.isEmpty();
-			case EjbPackage.ENTERPRISE_BEAN__SERVICE_REFS:
-				return serviceRefs != null && !serviceRefs.isEmpty();
-			case EjbPackage.ENTERPRISE_BEAN__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case EjbPackage.ENTERPRISE_BEAN__SECURITY_ROLE_REFS:
-				return securityRoleRefs != null && !securityRoleRefs.isEmpty();
-			case EjbPackage.ENTERPRISE_BEAN__EJB_CLASS:
-				return ejbClass != null;
-			case EjbPackage.ENTERPRISE_BEAN__HOME_INTERFACE:
-				return homeInterface != null;
-			case EjbPackage.ENTERPRISE_BEAN__REMOTE_INTERFACE:
-				return remoteInterface != null;
-			case EjbPackage.ENTERPRISE_BEAN__EJB_JAR:
-				return getEjbJar() != null;
-			case EjbPackage.ENTERPRISE_BEAN__SECURITY_IDENTITY:
-				return securityIdentity != null;
-			case EjbPackage.ENTERPRISE_BEAN__LOCAL_HOME_INTERFACE:
-				return localHomeInterface != null;
-			case EjbPackage.ENTERPRISE_BEAN__LOCAL_INTERFACE:
-				return localInterface != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.ENTERPRISE_BEAN__ICONS:
-				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__DESCRIPTIONS:
-				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__SMALL_ICON:
-				setSmallIcon((String)newValue);
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__LARGE_ICON:
-				setLargeIcon((String)newValue);
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__DESCRIPTION:
-				setDescription((String)newValue);
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__DISPLAY_NAME:
-				setDisplayName((String)newValue);
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__ENVIRONMENT_PROPERTIES:
-				getEnvironmentProperties().clear();
-				getEnvironmentProperties().addAll((Collection)newValue);
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__RESOURCE_REFS:
-				getResourceRefs().clear();
-				getResourceRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__EJB_REFS:
-				getEjbRefs().clear();
-				getEjbRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__RESOURCE_ENV_REFS:
-				getResourceEnvRefs().clear();
-				getResourceEnvRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__EJB_LOCAL_REFS:
-				getEjbLocalRefs().clear();
-				getEjbLocalRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__MESSAGE_DESTINATION_REFS:
-				getMessageDestinationRefs().clear();
-				getMessageDestinationRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__SERVICE_REFS:
-				getServiceRefs().clear();
-				getServiceRefs().addAll((Collection)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case EjbPackage.ENTERPRISE_BEAN__NAME:
 				setName((String)newValue);
 				return;
@@ -1300,56 +1143,16 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 				setLocalInterface((JavaClass)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.ENTERPRISE_BEAN__ICONS:
-				getIcons().clear();
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__DESCRIPTIONS:
-				getDescriptions().clear();
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__SMALL_ICON:
-				setSmallIcon(SMALL_ICON_EDEFAULT);
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__LARGE_ICON:
-				setLargeIcon(LARGE_ICON_EDEFAULT);
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__DISPLAY_NAME:
-				setDisplayName(DISPLAY_NAME_EDEFAULT);
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__ENVIRONMENT_PROPERTIES:
-				getEnvironmentProperties().clear();
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__RESOURCE_REFS:
-				getResourceRefs().clear();
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__EJB_REFS:
-				getEjbRefs().clear();
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__RESOURCE_ENV_REFS:
-				getResourceEnvRefs().clear();
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__EJB_LOCAL_REFS:
-				getEjbLocalRefs().clear();
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__MESSAGE_DESTINATION_REFS:
-				getMessageDestinationRefs().clear();
-				return;
-			case EjbPackage.ENTERPRISE_BEAN__SERVICE_REFS:
-				getServiceRefs().clear();
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case EjbPackage.ENTERPRISE_BEAN__NAME:
 				setName(NAME_EDEFAULT);
 				return;
@@ -1378,7 +1181,36 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 				setLocalInterface((JavaClass)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case EjbPackage.ENTERPRISE_BEAN__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case EjbPackage.ENTERPRISE_BEAN__SECURITY_ROLE_REFS:
+				return securityRoleRefs != null && !securityRoleRefs.isEmpty();
+			case EjbPackage.ENTERPRISE_BEAN__EJB_CLASS:
+				return ejbClass != null;
+			case EjbPackage.ENTERPRISE_BEAN__HOME_INTERFACE:
+				return homeInterface != null;
+			case EjbPackage.ENTERPRISE_BEAN__REMOTE_INTERFACE:
+				return remoteInterface != null;
+			case EjbPackage.ENTERPRISE_BEAN__EJB_JAR:
+				return getEjbJar() != null;
+			case EjbPackage.ENTERPRISE_BEAN__SECURITY_IDENTITY:
+				return securityIdentity != null;
+			case EjbPackage.ENTERPRISE_BEAN__LOCAL_HOME_INTERFACE:
+				return localHomeInterface != null;
+			case EjbPackage.ENTERPRISE_BEAN__LOCAL_INTERFACE:
+				return localInterface != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**
@@ -1416,8 +1248,8 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 */
 	public JavaClass getEjbClassGen() {
 		if (ejbClass != null && ejbClass.eIsProxy()) {
-			JavaClass oldEjbClass = ejbClass;
-			ejbClass = (JavaClass)eResolveProxy((InternalEObject)ejbClass);
+			InternalEObject oldEjbClass = (InternalEObject)ejbClass;
+			ejbClass = (JavaClass)eResolveProxy(oldEjbClass);
 			if (ejbClass != oldEjbClass) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EjbPackage.ENTERPRISE_BEAN__EJB_CLASS, oldEjbClass, ejbClass));

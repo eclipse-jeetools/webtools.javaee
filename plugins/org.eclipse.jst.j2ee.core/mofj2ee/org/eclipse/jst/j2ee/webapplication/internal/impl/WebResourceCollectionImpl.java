@@ -18,7 +18,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
@@ -128,7 +127,7 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return WebapplicationPackage.eINSTANCE.getWebResourceCollection();
+		return WebapplicationPackage.Literals.WEB_RESOURCE_COLLECTION;
 	}
 
 /**
@@ -214,22 +213,32 @@ public WebapplicationFactory getFactory() {
 	 */
 	public SecurityConstraint getSecConstraint() {
 		if (eContainerFeatureID != WebapplicationPackage.WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT) return null;
-		return (SecurityConstraint)eContainer;
+		return (SecurityConstraint)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetSecConstraint(SecurityConstraint newSecConstraint, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newSecConstraint, WebapplicationPackage.WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT, msgs);
+		return msgs;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public void setSecConstraint(SecurityConstraint newSecConstraint) {
-		if (newSecConstraint != eContainer || (eContainerFeatureID != WebapplicationPackage.WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT && newSecConstraint != null)) {
+		if (newSecConstraint != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT && newSecConstraint != null)) {
 			if (EcoreUtil.isAncestor(this, newSecConstraint))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newSecConstraint != null)
 				msgs = ((InternalEObject)newSecConstraint).eInverseAdd(this, WebapplicationPackage.SECURITY_CONSTRAINT__WEB_RESOURCE_COLLECTIONS, SecurityConstraint.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newSecConstraint, WebapplicationPackage.WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT, msgs);
+			msgs = basicSetSecConstraint(newSecConstraint, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -279,22 +288,16 @@ public WebapplicationFactory getFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WebapplicationPackage.WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, WebapplicationPackage.WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT, msgs);
-				case WebapplicationPackage.WEB_RESOURCE_COLLECTION__UR_LS:
-					return ((InternalEList)getURLs()).basicAdd(otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetSecConstraint((SecurityConstraint)otherEnd, msgs);
+			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__UR_LS:
+				return ((InternalEList)getURLs()).basicAdd(otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -302,22 +305,18 @@ public WebapplicationFactory getFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WebapplicationPackage.WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT:
-					return eBasicSetContainer(null, WebapplicationPackage.WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT, msgs);
-				case WebapplicationPackage.WEB_RESOURCE_COLLECTION__UR_LS:
-					return ((InternalEList)getURLs()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_RESOURCE_COLLECTION__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.WEB_RESOURCE_COLLECTION__HTT_PS:
-					return ((InternalEList)getHTTPs()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT:
+				return basicSetSecConstraint(null, msgs);
+			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__UR_LS:
+				return ((InternalEList)getURLs()).basicRemove(otherEnd, msgs);
+			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__DESCRIPTIONS:
+				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__HTT_PS:
+				return ((InternalEList)getHTTPs()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -325,16 +324,12 @@ public WebapplicationFactory getFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case WebapplicationPackage.WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT:
-					return eContainer.eInverseRemove(this, WebapplicationPackage.SECURITY_CONSTRAINT__WEB_RESOURCE_COLLECTIONS, SecurityConstraint.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT:
+				return eInternalContainer().eInverseRemove(this, WebapplicationPackage.SECURITY_CONSTRAINT__WEB_RESOURCE_COLLECTIONS, SecurityConstraint.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -342,8 +337,8 @@ public WebapplicationFactory getFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__WEB_RESOURCE_NAME:
 				return getWebResourceName();
 			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__DESCRIPTION:
@@ -361,39 +356,16 @@ public WebapplicationFactory getFactory() {
 			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__HTT_PS:
 				return getHTTPs();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__WEB_RESOURCE_NAME:
-				return WEB_RESOURCE_NAME_EDEFAULT == null ? webResourceName != null : !WEB_RESOURCE_NAME_EDEFAULT.equals(webResourceName);
-			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__URL_PATTERN:
-				return urlPattern != null && !urlPattern.isEmpty();
-			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__HTTP_METHOD:
-				return httpMethod != null && !httpMethod.isEmpty();
-			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT:
-				return getSecConstraint() != null;
-			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__UR_LS:
-				return urLs != null && !urLs.isEmpty();
-			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__HTT_PS:
-				return httPs != null && !httPs.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__WEB_RESOURCE_NAME:
 				setWebResourceName((String)newValue);
 				return;
@@ -424,14 +396,16 @@ public WebapplicationFactory getFactory() {
 				getHTTPs().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__WEB_RESOURCE_NAME:
 				setWebResourceName(WEB_RESOURCE_NAME_EDEFAULT);
 				return;
@@ -457,7 +431,34 @@ public WebapplicationFactory getFactory() {
 				getHTTPs().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__WEB_RESOURCE_NAME:
+				return WEB_RESOURCE_NAME_EDEFAULT == null ? webResourceName != null : !WEB_RESOURCE_NAME_EDEFAULT.equals(webResourceName);
+			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__URL_PATTERN:
+				return urlPattern != null && !urlPattern.isEmpty();
+			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__HTTP_METHOD:
+				return httpMethod != null && !httpMethod.isEmpty();
+			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT:
+				return getSecConstraint() != null;
+			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__UR_LS:
+				return urLs != null && !urLs.isEmpty();
+			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__DESCRIPTIONS:
+				return descriptions != null && !descriptions.isEmpty();
+			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__HTT_PS:
+				return httPs != null && !httPs.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

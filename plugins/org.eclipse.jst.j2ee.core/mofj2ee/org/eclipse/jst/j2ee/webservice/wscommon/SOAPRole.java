@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.webservice.wscommon;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,8 +32,8 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage#getSOAPRole()
  * @model
  * @generated
- * @since 1.0 */
-public interface SOAPRole extends EObject{
+ */
+public interface SOAPRole extends J2EEEObject {
 	/**
 	 * Returns the value of the '<em><b>Soap Role</b></em>' attribute.
 	 * <!-- begin-user-doc -->

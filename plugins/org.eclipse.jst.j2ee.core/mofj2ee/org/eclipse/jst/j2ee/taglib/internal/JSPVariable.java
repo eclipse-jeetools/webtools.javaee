@@ -11,13 +11,13 @@
 package org.eclipse.jst.j2ee.taglib.internal;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 /**
  * @generated
  */
-public interface JSPVariable extends EObject{
+public interface JSPVariable extends J2EEEObject {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the NameGiven attribute
@@ -102,7 +102,7 @@ public interface JSPVariable extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.taglib.internal.TaglibPackage#getJSPVariable_Descriptions()
+	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getJSPVariable_Descriptions()
 	 * @model type="org.eclipse.jst.j2ee.common.Description" containment="true"
 	 * @generated
 	 */

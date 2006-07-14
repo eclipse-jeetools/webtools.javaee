@@ -48,7 +48,7 @@ public final class DestinationType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final DestinationType QUEUE_LITERAL = new DestinationType(QUEUE, "Queue"); //$NON-NLS-1$
+	public static final DestinationType QUEUE_LITERAL = new DestinationType(QUEUE, "Queue", "Queue"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Topic</b></em>' literal object.
@@ -62,7 +62,7 @@ public final class DestinationType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final DestinationType TOPIC_LITERAL = new DestinationType(TOPIC, "Topic"); //$NON-NLS-1$
+	public static final DestinationType TOPIC_LITERAL = new DestinationType(TOPIC, "Topic", "Topic"); //$NON-NLS-1$
 
 	/**
 	 * An array of all the '<em><b>Destination Type</b></em>' enumerators.
@@ -85,17 +85,17 @@ public final class DestinationType extends AbstractEnumerator{
 	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Destination Type</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Destination Type</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * @param name passes literal name
 	 * @return literal instance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static DestinationType get(String name) {
+	public static DestinationType get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			DestinationType result = VALUES_ARRAY[i];
-			if (result.toString().equals(name)) {
+			if (result.toString().equals(literal)) {
 				return result;
 			}
 		}
@@ -103,7 +103,23 @@ public final class DestinationType extends AbstractEnumerator{
 	}
 
 	/**
-	 * Returns the '<em><b>Destination Type</b></em>' literal with the specified value.
+	 * Returns the '<em><b>Destination Type</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static DestinationType getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			DestinationType result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Destination Type</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * @param value passes literal value
 	 * @return literal instance
@@ -121,12 +137,11 @@ public final class DestinationType extends AbstractEnumerator{
 	/**
 	 * Only this class can construct instances.
 	 * <!-- begin-user-doc -->
-	 * 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private DestinationType(int value, String name) {
-		super(value, name);
+	private DestinationType(int value, String name, String literal) {
+		super(value, name, literal);
 	}
 
 } //DestinationType

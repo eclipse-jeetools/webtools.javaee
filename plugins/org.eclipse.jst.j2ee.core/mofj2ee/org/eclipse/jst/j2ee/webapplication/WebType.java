@@ -10,12 +10,12 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.webapplication;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 /**
  * @generated
  * @since 1.0
  */
-public interface WebType extends EObject {
+public interface WebType extends J2EEEObject {
 
 	/**
 	 * Returns true if the type denotes a JSP

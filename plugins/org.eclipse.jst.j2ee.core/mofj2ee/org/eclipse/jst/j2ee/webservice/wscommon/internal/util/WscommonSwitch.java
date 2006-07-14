@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.common.DisplayName;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 import org.eclipse.jst.j2ee.common.QName;
 import org.eclipse.jst.j2ee.webservice.wscommon.DescriptionType;
 import org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType;
@@ -104,6 +105,7 @@ public class WscommonSwitch {
 			case WscommonPackage.INIT_PARAM: {
 				InitParam initParam = (InitParam)theEObject;
 				Object result = caseInitParam(initParam);
+				if (result == null) result = caseJ2EEEObject(initParam);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -111,18 +113,21 @@ public class WscommonSwitch {
 				SOAPHeader soapHeader = (SOAPHeader)theEObject;
 				Object result = caseSOAPHeader(soapHeader);
 				if (result == null) result = caseQName(soapHeader);
+				if (result == null) result = caseJ2EEEObject(soapHeader);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WscommonPackage.SOAP_ROLE: {
 				SOAPRole soapRole = (SOAPRole)theEObject;
 				Object result = caseSOAPRole(soapRole);
+				if (result == null) result = caseJ2EEEObject(soapRole);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WscommonPackage.PORT_NAME: {
 				PortName portName = (PortName)theEObject;
 				Object result = casePortName(portName);
+				if (result == null) result = caseJ2EEEObject(portName);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -130,6 +135,7 @@ public class WscommonSwitch {
 				DescriptionType descriptionType = (DescriptionType)theEObject;
 				Object result = caseDescriptionType(descriptionType);
 				if (result == null) result = caseDescription(descriptionType);
+				if (result == null) result = caseJ2EEEObject(descriptionType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -137,6 +143,7 @@ public class WscommonSwitch {
 				DisplayNameType displayNameType = (DisplayNameType)theEObject;
 				Object result = caseDisplayNameType(displayNameType);
 				if (result == null) result = caseDisplayName(displayNameType);
+				if (result == null) result = caseJ2EEEObject(displayNameType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -231,6 +238,21 @@ public class WscommonSwitch {
 	 * @generated
 	 */
   public Object caseDisplayNameType(DisplayNameType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseJ2EEEObject(J2EEEObject object) {
 		return null;
 	}
 

@@ -48,7 +48,7 @@ public final class TransactionType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransactionType BEAN_LITERAL = new TransactionType(BEAN, "Bean"); //$NON-NLS-1$
+	public static final TransactionType BEAN_LITERAL = new TransactionType(BEAN, "Bean", "Bean"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Container</b></em>' literal object.
@@ -62,7 +62,7 @@ public final class TransactionType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransactionType CONTAINER_LITERAL = new TransactionType(CONTAINER, "Container"); //$NON-NLS-1$
+	public static final TransactionType CONTAINER_LITERAL = new TransactionType(CONTAINER, "Container", "Container"); //$NON-NLS-1$
 
 	/**
 	 * An array of all the '<em><b>Transaction Type</b></em>' enumerators.
@@ -85,17 +85,17 @@ public final class TransactionType extends AbstractEnumerator{
 	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Transaction Type</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Transaction Type</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * @param name passes literal name
 	 * @return literal instance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static TransactionType get(String name) {
+	public static TransactionType get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			TransactionType result = VALUES_ARRAY[i];
-			if (result.toString().equals(name)) {
+			if (result.toString().equals(literal)) {
 				return result;
 			}
 		}
@@ -103,7 +103,23 @@ public final class TransactionType extends AbstractEnumerator{
 	}
 
 	/**
-	 * Returns the '<em><b>Transaction Type</b></em>' literal with the specified value.
+	 * Returns the '<em><b>Transaction Type</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static TransactionType getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			TransactionType result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Transaction Type</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * @param value passes literal value
 	 * @return literal instance
@@ -124,8 +140,8 @@ public final class TransactionType extends AbstractEnumerator{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private TransactionType(int value, String name) {
-		super(value, name);
+	private TransactionType(int value, String name, String literal) {
+		super(value, name, literal);
 	}
 
 } //TransactionType

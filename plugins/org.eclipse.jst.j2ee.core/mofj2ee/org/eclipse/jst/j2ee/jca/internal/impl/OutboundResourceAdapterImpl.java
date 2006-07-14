@@ -16,12 +16,11 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.jca.AuthenticationMechanism;
 import org.eclipse.jst.j2ee.jca.ConnectionDefinition;
 import org.eclipse.jst.j2ee.jca.JcaPackage;
@@ -45,7 +44,7 @@ import org.eclipse.jst.j2ee.jca.TransactionSupportKind;
  *
  * @generated
  */
-public class OutboundResourceAdapterImpl extends EObjectImpl implements OutboundResourceAdapter {
+public class OutboundResourceAdapterImpl extends J2EEEObjectImpl implements OutboundResourceAdapter {
 	/**
 	 * The default value of the '{@link #isReauthenticationSupport() <em>Reauthentication Support</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -139,7 +138,7 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return JcaPackage.eINSTANCE.getOutboundResourceAdapter();
+		return JcaPackage.Literals.OUTBOUND_RESOURCE_ADAPTER;
 	}
 
 	/**
@@ -263,18 +262,14 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JcaPackage.OUTBOUND_RESOURCE_ADAPTER__CONNECTION_DEFINITIONS:
-					return ((InternalEList)getConnectionDefinitions()).basicRemove(otherEnd, msgs);
-				case JcaPackage.OUTBOUND_RESOURCE_ADAPTER__AUTHENTICATION_MECHANISMS:
-					return ((InternalEList)getAuthenticationMechanisms()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case JcaPackage.OUTBOUND_RESOURCE_ADAPTER__CONNECTION_DEFINITIONS:
+				return ((InternalEList)getConnectionDefinitions()).basicRemove(otherEnd, msgs);
+			case JcaPackage.OUTBOUND_RESOURCE_ADAPTER__AUTHENTICATION_MECHANISMS:
+				return ((InternalEList)getAuthenticationMechanisms()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -282,8 +277,8 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case JcaPackage.OUTBOUND_RESOURCE_ADAPTER__REAUTHENTICATION_SUPPORT:
 				return isReauthenticationSupport() ? Boolean.TRUE : Boolean.FALSE;
 			case JcaPackage.OUTBOUND_RESOURCE_ADAPTER__TRANSACTION_SUPPORT:
@@ -293,7 +288,7 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 			case JcaPackage.OUTBOUND_RESOURCE_ADAPTER__AUTHENTICATION_MECHANISMS:
 				return getAuthenticationMechanisms();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -301,8 +296,8 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case JcaPackage.OUTBOUND_RESOURCE_ADAPTER__REAUTHENTICATION_SUPPORT:
 				setReauthenticationSupport(((Boolean)newValue).booleanValue());
 				return;
@@ -318,7 +313,7 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 				getAuthenticationMechanisms().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -326,8 +321,8 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case JcaPackage.OUTBOUND_RESOURCE_ADAPTER__REAUTHENTICATION_SUPPORT:
 				unsetReauthenticationSupport();
 				return;
@@ -341,7 +336,7 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 				getAuthenticationMechanisms().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -349,8 +344,8 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case JcaPackage.OUTBOUND_RESOURCE_ADAPTER__REAUTHENTICATION_SUPPORT:
 				return isSetReauthenticationSupport();
 			case JcaPackage.OUTBOUND_RESOURCE_ADAPTER__TRANSACTION_SUPPORT:
@@ -360,7 +355,7 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 			case JcaPackage.OUTBOUND_RESOURCE_ADAPTER__AUTHENTICATION_MECHANISMS:
 				return authenticationMechanisms != null && !authenticationMechanisms.isEmpty();
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

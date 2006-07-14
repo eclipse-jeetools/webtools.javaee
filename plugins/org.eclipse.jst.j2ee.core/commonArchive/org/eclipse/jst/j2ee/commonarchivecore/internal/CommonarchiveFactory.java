@@ -26,14 +26,14 @@ import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseArchive;
 /**
  * @generated
  */
-public interface CommonarchiveFactory extends EFactory{
+public interface CommonarchiveFactory extends EFactory {
 
 	/**
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	CommonarchiveFactory eINSTANCE = new org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl();
+	CommonarchiveFactory eINSTANCE = org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl.init();
 
 	/**
 	 * Tell the factory that an archive has been opened; the factory maintains a weak set of all the

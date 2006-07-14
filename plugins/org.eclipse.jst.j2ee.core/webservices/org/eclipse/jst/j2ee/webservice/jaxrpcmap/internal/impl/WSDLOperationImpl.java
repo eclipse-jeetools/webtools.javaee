@@ -12,9 +12,8 @@ package org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLOperation;
 
@@ -32,7 +31,7 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLOperation;
  *
  * @generated
  */
-public class WSDLOperationImpl extends EObjectImpl implements WSDLOperation
+public class WSDLOperationImpl extends J2EEEObjectImpl implements WSDLOperation
 {
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -89,7 +88,7 @@ public class WSDLOperationImpl extends EObjectImpl implements WSDLOperation
 	 * @generated
 	 */
   protected EClass eStaticClass() {
-		return JaxrpcmapPackage.eINSTANCE.getWSDLOperation();
+		return JaxrpcmapPackage.Literals.WSDL_OPERATION;
 	}
 
 	/**
@@ -136,26 +135,26 @@ public class WSDLOperationImpl extends EObjectImpl implements WSDLOperation
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case JaxrpcmapPackage.WSDL_OPERATION__ID:
 				return getId();
 			case JaxrpcmapPackage.WSDL_OPERATION__WSDL_OPERATION:
 				return getWsdlOperation();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case JaxrpcmapPackage.WSDL_OPERATION__ID:
 				setId((String)newValue);
 				return;
@@ -163,16 +162,16 @@ public class WSDLOperationImpl extends EObjectImpl implements WSDLOperation
 				setWsdlOperation((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case JaxrpcmapPackage.WSDL_OPERATION__ID:
 				setId(ID_EDEFAULT);
 				return;
@@ -180,22 +179,22 @@ public class WSDLOperationImpl extends EObjectImpl implements WSDLOperation
 				setWsdlOperation(WSDL_OPERATION_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case JaxrpcmapPackage.WSDL_OPERATION__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case JaxrpcmapPackage.WSDL_OPERATION__WSDL_OPERATION:
 				return WSDL_OPERATION_EDEFAULT == null ? wsdlOperation != null : !WSDL_OPERATION_EDEFAULT.equals(wsdlOperation);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

@@ -11,12 +11,11 @@
 package org.eclipse.jst.j2ee.common;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 /**
  * Specifies the run-as identity to be used for the execution of the methods of an enterprise bean. It contains an optional description, and the name of a security role.
-
+ * @generated
  * @since 1.0 */
-public interface Identity extends EObject{
+public interface Identity extends J2EEEObject {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the Description attribute

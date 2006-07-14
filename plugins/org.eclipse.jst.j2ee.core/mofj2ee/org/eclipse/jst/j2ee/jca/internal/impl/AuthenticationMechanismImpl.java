@@ -16,14 +16,12 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.Description;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.jca.AuthenticationMechanism;
 import org.eclipse.jst.j2ee.jca.AuthenticationMechanismType;
 import org.eclipse.jst.j2ee.jca.JcaPackage;
@@ -36,9 +34,9 @@ import org.eclipse.jst.j2ee.jca.JcaPackage;
  * javax.resource.spi.security.PasswordCredential interface.
  * The Kerbv5 mechanism type should support the
  * javax.resource.spi.security.GenericCredential interface.
-
+ * @generated
  */
-public class AuthenticationMechanismImpl extends EObjectImpl implements AuthenticationMechanism, EObject{
+public class AuthenticationMechanismImpl extends J2EEEObjectImpl implements AuthenticationMechanism {
 
 	/**
 	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
@@ -148,7 +146,7 @@ public class AuthenticationMechanismImpl extends EObjectImpl implements Authenti
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return JcaPackage.eINSTANCE.getAuthenticationMechanism();
+		return JcaPackage.Literals.AUTHENTICATION_MECHANISM;
 	}
 
 	/**
@@ -271,82 +269,6 @@ public class AuthenticationMechanismImpl extends EObjectImpl implements Authenti
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case JcaPackage.AUTHENTICATION_MECHANISM__AUTHENTICATION_MECHANISM:
-				return AUTHENTICATION_MECHANISM_EDEFAULT == null ? authenticationMechanism != null : !AUTHENTICATION_MECHANISM_EDEFAULT.equals(authenticationMechanism);
-			case JcaPackage.AUTHENTICATION_MECHANISM__AUTHENTICATION_MECHANISM_TYPE:
-				return isSetAuthenticationMechanismType();
-			case JcaPackage.AUTHENTICATION_MECHANISM__CREDENTIAL_INTERFACE:
-				return CREDENTIAL_INTERFACE_EDEFAULT == null ? credentialInterface != null : !CREDENTIAL_INTERFACE_EDEFAULT.equals(credentialInterface);
-			case JcaPackage.AUTHENTICATION_MECHANISM__CUSTOM_AUTH_MECH_TYPE:
-				return CUSTOM_AUTH_MECH_TYPE_EDEFAULT == null ? customAuthMechType != null : !CUSTOM_AUTH_MECH_TYPE_EDEFAULT.equals(customAuthMechType);
-			case JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTION:
-				setDescription((String)newValue);
-				return;
-			case JcaPackage.AUTHENTICATION_MECHANISM__AUTHENTICATION_MECHANISM:
-				setAuthenticationMechanism((String)newValue);
-				return;
-			case JcaPackage.AUTHENTICATION_MECHANISM__AUTHENTICATION_MECHANISM_TYPE:
-				setAuthenticationMechanismType((AuthenticationMechanismType)newValue);
-				return;
-			case JcaPackage.AUTHENTICATION_MECHANISM__CREDENTIAL_INTERFACE:
-				setCredentialInterface((String)newValue);
-				return;
-			case JcaPackage.AUTHENTICATION_MECHANISM__CUSTOM_AUTH_MECH_TYPE:
-				setCustomAuthMechType((String)newValue);
-				return;
-			case JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTIONS:
-				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
-				return;
-		}
-		eDynamicSet(eFeature, newValue);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case JcaPackage.AUTHENTICATION_MECHANISM__AUTHENTICATION_MECHANISM:
-				setAuthenticationMechanism(AUTHENTICATION_MECHANISM_EDEFAULT);
-				return;
-			case JcaPackage.AUTHENTICATION_MECHANISM__AUTHENTICATION_MECHANISM_TYPE:
-				unsetAuthenticationMechanismType();
-				return;
-			case JcaPackage.AUTHENTICATION_MECHANISM__CREDENTIAL_INTERFACE:
-				setCredentialInterface(CREDENTIAL_INTERFACE_EDEFAULT);
-				return;
-			case JcaPackage.AUTHENTICATION_MECHANISM__CUSTOM_AUTH_MECH_TYPE:
-				setCustomAuthMechType(CUSTOM_AUTH_MECH_TYPE_EDEFAULT);
-				return;
-			case JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTIONS:
-				getDescriptions().clear();
-				return;
-		}
-		eDynamicUnset(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
@@ -407,16 +329,12 @@ public class AuthenticationMechanismImpl extends EObjectImpl implements Authenti
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTIONS:
+				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -424,8 +342,8 @@ public class AuthenticationMechanismImpl extends EObjectImpl implements Authenti
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTION:
 				return getDescription();
 			case JcaPackage.AUTHENTICATION_MECHANISM__AUTHENTICATION_MECHANISM:
@@ -439,428 +357,89 @@ public class AuthenticationMechanismImpl extends EObjectImpl implements Authenti
 			case JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTIONS:
 				return getDescriptions();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTION:
+				setDescription((String)newValue);
+				return;
+			case JcaPackage.AUTHENTICATION_MECHANISM__AUTHENTICATION_MECHANISM:
+				setAuthenticationMechanism((String)newValue);
+				return;
+			case JcaPackage.AUTHENTICATION_MECHANISM__AUTHENTICATION_MECHANISM_TYPE:
+				setAuthenticationMechanismType((AuthenticationMechanismType)newValue);
+				return;
+			case JcaPackage.AUTHENTICATION_MECHANISM__CREDENTIAL_INTERFACE:
+				setCredentialInterface((String)newValue);
+				return;
+			case JcaPackage.AUTHENTICATION_MECHANISM__CUSTOM_AUTH_MECH_TYPE:
+				setCustomAuthMechType((String)newValue);
+				return;
+			case JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTIONS:
+				getDescriptions().clear();
+				getDescriptions().addAll((Collection)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTION:
+				setDescription(DESCRIPTION_EDEFAULT);
+				return;
+			case JcaPackage.AUTHENTICATION_MECHANISM__AUTHENTICATION_MECHANISM:
+				setAuthenticationMechanism(AUTHENTICATION_MECHANISM_EDEFAULT);
+				return;
+			case JcaPackage.AUTHENTICATION_MECHANISM__AUTHENTICATION_MECHANISM_TYPE:
+				unsetAuthenticationMechanismType();
+				return;
+			case JcaPackage.AUTHENTICATION_MECHANISM__CREDENTIAL_INTERFACE:
+				setCredentialInterface(CREDENTIAL_INTERFACE_EDEFAULT);
+				return;
+			case JcaPackage.AUTHENTICATION_MECHANISM__CUSTOM_AUTH_MECH_TYPE:
+				setCustomAuthMechType(CUSTOM_AUTH_MECH_TYPE_EDEFAULT);
+				return;
+			case JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTIONS:
+				getDescriptions().clear();
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case JcaPackage.AUTHENTICATION_MECHANISM__AUTHENTICATION_MECHANISM:
+				return AUTHENTICATION_MECHANISM_EDEFAULT == null ? authenticationMechanism != null : !AUTHENTICATION_MECHANISM_EDEFAULT.equals(authenticationMechanism);
+			case JcaPackage.AUTHENTICATION_MECHANISM__AUTHENTICATION_MECHANISM_TYPE:
+				return isSetAuthenticationMechanismType();
+			case JcaPackage.AUTHENTICATION_MECHANISM__CREDENTIAL_INTERFACE:
+				return CREDENTIAL_INTERFACE_EDEFAULT == null ? credentialInterface != null : !CREDENTIAL_INTERFACE_EDEFAULT.equals(credentialInterface);
+			case JcaPackage.AUTHENTICATION_MECHANISM__CUSTOM_AUTH_MECH_TYPE:
+				return CUSTOM_AUTH_MECH_TYPE_EDEFAULT == null ? customAuthMechType != null : !CUSTOM_AUTH_MECH_TYPE_EDEFAULT.equals(customAuthMechType);
+			case JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTIONS:
+				return descriptions != null && !descriptions.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

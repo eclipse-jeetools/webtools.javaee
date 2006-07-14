@@ -14,9 +14,9 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveWrappedException;
 
-
-
-
+/**
+ * @generated
+ */
 public interface ClientModuleRef extends ModuleRef {
 	ApplicationClient getApplicationClient() throws ArchiveWrappedException;
 } //ClientModuleRef

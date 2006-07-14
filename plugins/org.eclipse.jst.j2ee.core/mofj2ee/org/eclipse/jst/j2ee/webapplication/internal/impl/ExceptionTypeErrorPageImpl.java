@@ -11,16 +11,13 @@
 package org.eclipse.jst.j2ee.webapplication.internal.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
 import org.eclipse.jst.j2ee.webapplication.ExceptionTypeErrorPage;
-import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 
@@ -45,7 +42,7 @@ public class ExceptionTypeErrorPageImpl extends ErrorPageImpl implements Excepti
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return WebapplicationPackage.eINSTANCE.getExceptionTypeErrorPage();
+		return WebapplicationPackage.Literals.EXCEPTION_TYPE_ERROR_PAGE;
 	}
 
 /**
@@ -77,8 +74,8 @@ public void setExceptionTypeName(String exceptionTypeName, ResourceSet context) 
 	 */
 	public JavaClass getExceptionType() {
 		if (exceptionType != null && exceptionType.eIsProxy()) {
-			JavaClass oldExceptionType = exceptionType;
-			exceptionType = (JavaClass)eResolveProxy((InternalEObject)exceptionType);
+			InternalEObject oldExceptionType = (InternalEObject)exceptionType;
+			exceptionType = (JavaClass)eResolveProxy(oldExceptionType);
 			if (exceptionType != oldExceptionType) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__EXCEPTION_TYPE, oldExceptionType, exceptionType));
@@ -111,123 +108,54 @@ public void setExceptionTypeName(String exceptionTypeName, ResourceSet context) 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__WEB_APP:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__WEB_APP, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__WEB_APP:
-					return eBasicSetContainer(null, WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__WEB_APP, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__WEB_APP:
-					return eContainer.eInverseRemove(this, WebapplicationPackage.WEB_APP__ERROR_PAGES, WebApp.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__LOCATION:
-				return getLocation();
-			case WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__WEB_APP:
-				return getWebApp();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__EXCEPTION_TYPE:
 				if (resolve) return getExceptionType();
 				return basicGetExceptionType();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__LOCATION:
-				return LOCATION_EDEFAULT == null ? location != null : !LOCATION_EDEFAULT.equals(location);
-			case WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__WEB_APP:
-				return getWebApp() != null;
-			case WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__EXCEPTION_TYPE:
-				return exceptionType != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__LOCATION:
-				setLocation((String)newValue);
-				return;
-			case WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__WEB_APP:
-				setWebApp((WebApp)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__EXCEPTION_TYPE:
 				setExceptionType((JavaClass)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__LOCATION:
-				setLocation(LOCATION_EDEFAULT);
-				return;
-			case WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__WEB_APP:
-				setWebApp((WebApp)null);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__EXCEPTION_TYPE:
 				setExceptionType((JavaClass)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__EXCEPTION_TYPE:
+				return exceptionType != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 }

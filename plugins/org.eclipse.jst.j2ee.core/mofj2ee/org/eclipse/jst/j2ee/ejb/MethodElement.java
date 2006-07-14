@@ -11,9 +11,9 @@
 package org.eclipse.jst.j2ee.ejb;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.Method;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 /**
  * The method element is used to denote a method of an enterprise bean's
  * home or remote interface, or a set of methods. The ejb-name element
@@ -150,9 +150,9 @@ import org.eclipse.jem.java.Method;
  * 				<method-param>java.lang.String<//method-param>
  * 			<//method-params>
  * 		<//method>
-
+ * @generated
  * @since 1.0 */
-public interface MethodElement extends EObject{
+public interface MethodElement extends J2EEEObject {
 
 	public static final String RIGHT_PAREN = "("; //$NON-NLS-1$
 	public static final String LEFT_PAREN = ")"; //$NON-NLS-1$

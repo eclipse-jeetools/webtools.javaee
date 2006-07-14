@@ -84,7 +84,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="JSPTagAttribute">
+  <eClassifiers xsi:type="ecore:EClass" name="JSPTagAttribute" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The attribute tag defines an attribute for the nesting tag"/>
     </eAnnotations>
@@ -131,7 +131,7 @@
     <eLiterals name="empty" value="2"/>
     <eLiterals name="scriptless" value="3"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Validator">
+  <eClassifiers xsi:type="ecore:EClass" name="Validator" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The validator element provides information on an optional validator that can be used to validate the conformance of a JSP page to using this tag library.&#xD;&#xA;"/>
     </eAnnotations>
@@ -149,7 +149,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="JSPVariable">
+  <eClassifiers xsi:type="ecore:EClass" name="JSPVariable" eSuperTypes="common.ecore#//J2EEEObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="nameGiven" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The name-given element provides the name for the scripting variable.&#xD;&#xA;&#xD;&#xA;One of name-given or name-from-attribute is required."/>
@@ -212,12 +212,12 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="tagExtensions" upperBound="-1"
         eType="#//TldExtension" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TldExtension">
+  <eClassifiers xsi:type="ecore:EClass" name="TldExtension" eSuperTypes="common.ecore#//J2EEEObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="namespace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="extensionElements" lowerBound="1"
         upperBound="-1" eType="#//ExtensibleType" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ExtensibleType" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="ExtensibleType" abstract="true" eSuperTypes="common.ecore#//J2EEEObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

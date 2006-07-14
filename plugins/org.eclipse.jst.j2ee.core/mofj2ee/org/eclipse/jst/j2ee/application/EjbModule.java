@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.application;
 
 /**
  * Specifies the URI of a ejb-jar, relative to the top level of the application package.
-
+ * @generated
  * @since 1.0 */
 public interface EjbModule extends Module{
 	//EjbModule

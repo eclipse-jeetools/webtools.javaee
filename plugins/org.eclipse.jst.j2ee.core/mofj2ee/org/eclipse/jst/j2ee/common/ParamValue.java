@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.common;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,8 +36,8 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.common.CommonPackage#getParamValue()
  * @model
  * @generated
- * @since 1.0 */
-public interface ParamValue extends EObject{
+ */
+public interface ParamValue extends J2EEEObject {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->

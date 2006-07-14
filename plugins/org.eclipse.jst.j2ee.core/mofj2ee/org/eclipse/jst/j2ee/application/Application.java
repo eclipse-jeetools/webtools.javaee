@@ -18,7 +18,7 @@ import org.eclipse.jst.j2ee.common.SecurityRole;
  * The application element is the root element of a J2EE application deployment descriptor.
 
  * @since 1.0 */
-public interface Application extends CompatibilityDescriptionGroup{
+public interface Application extends CompatibilityDescriptionGroup {
 
 
 /**
@@ -109,7 +109,6 @@ public boolean isVersion1_3Descriptor();
 	 * @see org.eclipse.jst.j2ee.application.ApplicationPackage#getApplication_Version()
 	 * @model
 	 * @generated
-	 *
 	 */
 	String getVersion();
 

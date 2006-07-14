@@ -16,18 +16,17 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseApplication;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseLibrary;
-import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseModule;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseWARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseconfigPackage;
 
-
-public class LooseWARFileImpl extends LooseModuleImpl implements LooseWARFile, LooseModule {
+/**
+ * @generated
+ */
+public class LooseWARFileImpl extends LooseModuleImpl implements LooseWARFile {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
@@ -48,7 +47,7 @@ public class LooseWARFileImpl extends LooseModuleImpl implements LooseWARFile, L
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return LooseconfigPackage.eINSTANCE.getLooseWARFile();
+		return LooseconfigPackage.Literals.LOOSE_WAR_FILE;
 	}
 
 	public boolean isWAR() {
@@ -66,160 +65,84 @@ public class LooseWARFileImpl extends LooseModuleImpl implements LooseWARFile, L
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_APP:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_APP, msgs);
-				case LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_LIBS:
-					return ((InternalEList)getLooseLibs()).basicAdd(otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_LIBS:
+				return ((InternalEList)getLooseLibs()).basicAdd(otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_APP:
-					return eBasicSetContainer(null, LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_APP, msgs);
-				case LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_LIBS:
-					return ((InternalEList)getLooseLibs()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_LIBS:
+				return ((InternalEList)getLooseLibs()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_APP:
-					return eContainer.eInverseRemove(this, LooseconfigPackage.LOOSE_APPLICATION__LOOSE_ARCHIVES, LooseApplication.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case LooseconfigPackage.LOOSE_WAR_FILE__URI:
-				return getUri();
-			case LooseconfigPackage.LOOSE_WAR_FILE__BINARIES_PATH:
-				return getBinariesPath();
-			case LooseconfigPackage.LOOSE_WAR_FILE__RESOURCES_PATH:
-				return getResourcesPath();
-			case LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_APP:
-				return getLooseApp();
-			case LooseconfigPackage.LOOSE_WAR_FILE__ALT_DD:
-				return getAltDD();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_LIBS:
 				return getLooseLibs();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case LooseconfigPackage.LOOSE_WAR_FILE__URI:
-				setUri((String)newValue);
-				return;
-			case LooseconfigPackage.LOOSE_WAR_FILE__BINARIES_PATH:
-				setBinariesPath((String)newValue);
-				return;
-			case LooseconfigPackage.LOOSE_WAR_FILE__RESOURCES_PATH:
-				setResourcesPath((String)newValue);
-				return;
-			case LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_APP:
-				setLooseApp((LooseApplication)newValue);
-				return;
-			case LooseconfigPackage.LOOSE_WAR_FILE__ALT_DD:
-				setAltDD((String)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_LIBS:
 				getLooseLibs().clear();
 				getLooseLibs().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case LooseconfigPackage.LOOSE_WAR_FILE__URI:
-				setUri(URI_EDEFAULT);
-				return;
-			case LooseconfigPackage.LOOSE_WAR_FILE__BINARIES_PATH:
-				setBinariesPath(BINARIES_PATH_EDEFAULT);
-				return;
-			case LooseconfigPackage.LOOSE_WAR_FILE__RESOURCES_PATH:
-				setResourcesPath(RESOURCES_PATH_EDEFAULT);
-				return;
-			case LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_APP:
-				setLooseApp((LooseApplication)null);
-				return;
-			case LooseconfigPackage.LOOSE_WAR_FILE__ALT_DD:
-				setAltDD(ALT_DD_EDEFAULT);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_LIBS:
 				getLooseLibs().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case LooseconfigPackage.LOOSE_WAR_FILE__URI:
-				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
-			case LooseconfigPackage.LOOSE_WAR_FILE__BINARIES_PATH:
-				return BINARIES_PATH_EDEFAULT == null ? binariesPath != null : !BINARIES_PATH_EDEFAULT.equals(binariesPath);
-			case LooseconfigPackage.LOOSE_WAR_FILE__RESOURCES_PATH:
-				return RESOURCES_PATH_EDEFAULT == null ? resourcesPath != null : !RESOURCES_PATH_EDEFAULT.equals(resourcesPath);
-			case LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_APP:
-				return getLooseApp() != null;
-			case LooseconfigPackage.LOOSE_WAR_FILE__ALT_DD:
-				return ALT_DD_EDEFAULT == null ? altDD != null : !ALT_DD_EDEFAULT.equals(altDD);
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_LIBS:
 				return looseLibs != null && !looseLibs.isEmpty();
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 } //LooseWARFileImpl

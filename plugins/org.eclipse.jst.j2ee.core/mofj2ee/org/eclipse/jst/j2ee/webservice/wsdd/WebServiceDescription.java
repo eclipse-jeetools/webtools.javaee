@@ -11,8 +11,8 @@
 package org.eclipse.jst.j2ee.webservice.wsdd;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.common.IconType;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 import org.eclipse.jst.j2ee.webservice.wscommon.DescriptionType;
 import org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType;
 
@@ -51,8 +51,8 @@ import org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType;
  * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getWebServiceDescription()
  * @model
  * @generated
- * @since 1.0 */
-public interface WebServiceDescription extends EObject{
+ */
+public interface WebServiceDescription extends J2EEEObject {
 	/**
 	 * Returns the value of the '<em><b>Jaxrpc Mapping File</b></em>' attribute.
 	 * <!-- begin-user-doc -->

@@ -11,7 +11,9 @@
 package org.eclipse.jst.j2ee.jsp.internal.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.jst.j2ee.jsp.JSPConfig;
 import org.eclipse.jst.j2ee.jsp.JSPPropertyGroup;
 import org.eclipse.jst.j2ee.jsp.JspFactory;
@@ -26,6 +28,25 @@ import org.eclipse.jst.j2ee.jsp.TagLibRefType;
  * @generated
  */
 public class JspFactoryImpl extends EFactoryImpl implements JspFactory {
+	/**
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static JspFactory init() {
+		try {
+			JspFactory theJspFactory = (JspFactory)EPackage.Registry.INSTANCE.getEFactory("jsp.xmi"); 
+			if (theJspFactory != null) {
+				return theJspFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new JspFactoryImpl();
+	}
+
 	/**
 	 * Creates an instance of the factory.
 	 * <!-- begin-user-doc -->

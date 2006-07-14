@@ -13,7 +13,9 @@ package org.eclipse.jst.j2ee.webapplication.internal.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.jst.j2ee.webapplication.AuthConstraint;
 import org.eclipse.jst.j2ee.webapplication.AuthMethodKind;
 import org.eclipse.jst.j2ee.webapplication.ContextParam;
@@ -53,8 +55,27 @@ import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
 /**
  * @generated
  */
-public class WebapplicationFactoryImpl extends EFactoryImpl implements WebapplicationFactory{
+public class WebapplicationFactoryImpl extends EFactoryImpl implements WebapplicationFactory {
  
+	/**
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static WebapplicationFactory init() {
+		try {
+			WebapplicationFactory theWebapplicationFactory = (WebapplicationFactory)EPackage.Registry.INSTANCE.getEFactory("webapplication.xmi"); 
+			if (theWebapplicationFactory != null) {
+				return theWebapplicationFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new WebapplicationFactoryImpl();
+	}
+
 	public static final String MM_VERSION = "1.1";//$NON-NLS-1$
 	
 	public WebapplicationFactoryImpl() {
@@ -107,31 +128,16 @@ public class WebapplicationFactoryImpl extends EFactoryImpl implements Webapplic
 	 */
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case WebapplicationPackage.RES_AUTH_SERVLET_TYPE: {
-				ResAuthServletType result = ResAuthServletType.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case WebapplicationPackage.HTTP_METHOD_TYPE_ENUM: {
-				HTTPMethodTypeEnum result = HTTPMethodTypeEnum.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case WebapplicationPackage.TRANSPORT_GUARANTEE_TYPE: {
-				TransportGuaranteeType result = TransportGuaranteeType.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case WebapplicationPackage.DISPATCHER_TYPE: {
-				DispatcherType result = DispatcherType.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case WebapplicationPackage.AUTH_METHOD_KIND: {
-				AuthMethodKind result = AuthMethodKind.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
+			case WebapplicationPackage.RES_AUTH_SERVLET_TYPE:
+				return createResAuthServletTypeFromString(eDataType, initialValue);
+			case WebapplicationPackage.HTTP_METHOD_TYPE_ENUM:
+				return createHTTPMethodTypeEnumFromString(eDataType, initialValue);
+			case WebapplicationPackage.TRANSPORT_GUARANTEE_TYPE:
+				return createTransportGuaranteeTypeFromString(eDataType, initialValue);
+			case WebapplicationPackage.DISPATCHER_TYPE:
+				return createDispatcherTypeFromString(eDataType, initialValue);
+			case WebapplicationPackage.AUTH_METHOD_KIND:
+				return createAuthMethodKindFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -145,15 +151,15 @@ public class WebapplicationFactoryImpl extends EFactoryImpl implements Webapplic
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			case WebapplicationPackage.RES_AUTH_SERVLET_TYPE:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertResAuthServletTypeToString(eDataType, instanceValue);
 			case WebapplicationPackage.HTTP_METHOD_TYPE_ENUM:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertHTTPMethodTypeEnumToString(eDataType, instanceValue);
 			case WebapplicationPackage.TRANSPORT_GUARANTEE_TYPE:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertTransportGuaranteeTypeToString(eDataType, instanceValue);
 			case WebapplicationPackage.DISPATCHER_TYPE:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertDispatcherTypeToString(eDataType, instanceValue);
 			case WebapplicationPackage.AUTH_METHOD_KIND:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertAuthMethodKindToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -384,6 +390,106 @@ public static WebapplicationFactory getActiveFactory() {
 	public HTTPMethodType createHTTPMethodType() {
 		HTTPMethodTypeImpl httpMethodType = new HTTPMethodTypeImpl();
 		return httpMethodType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ResAuthServletType createResAuthServletTypeFromString(EDataType eDataType, String initialValue) {
+		ResAuthServletType result = ResAuthServletType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertResAuthServletTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public HTTPMethodTypeEnum createHTTPMethodTypeEnumFromString(EDataType eDataType, String initialValue) {
+		HTTPMethodTypeEnum result = HTTPMethodTypeEnum.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertHTTPMethodTypeEnumToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TransportGuaranteeType createTransportGuaranteeTypeFromString(EDataType eDataType, String initialValue) {
+		TransportGuaranteeType result = TransportGuaranteeType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTransportGuaranteeTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DispatcherType createDispatcherTypeFromString(EDataType eDataType, String initialValue) {
+		DispatcherType result = DispatcherType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertDispatcherTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AuthMethodKind createAuthMethodKindFromString(EDataType eDataType, String initialValue) {
+		AuthMethodKind result = AuthMethodKind.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertAuthMethodKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

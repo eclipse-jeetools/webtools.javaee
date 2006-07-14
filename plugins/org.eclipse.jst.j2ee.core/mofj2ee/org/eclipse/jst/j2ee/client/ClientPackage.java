@@ -28,7 +28,7 @@ import org.eclipse.jst.j2ee.common.CommonPackage;
  *	@since 1.0
  */
 
-public interface ClientPackage extends EPackage{
+public interface ClientPackage extends EPackage {
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
@@ -147,7 +147,7 @@ public interface ClientPackage extends EPackage{
 	int APPLICATION_CLIENT__MESSAGE_DESTINATIONS = CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP_FEATURE_COUNT + 8;
 
 	/**
-	 * The number of structural features of the the '<em>Application Client</em>' class.
+	 * The number of structural features of the '<em>Application Client</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -275,6 +275,113 @@ public interface ClientPackage extends EPackage{
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	ClientFactory getClientFactory();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Defines literals for the meta objects that represent
+	 * <ul>
+	 *   <li>each class,</li>
+	 *   <li>each feature of each class,</li>
+	 *   <li>each enum,</li>
+	 *   <li>and each data type</li>
+	 * </ul>
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	interface Literals  {
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.client.internal.impl.ApplicationClientImpl <em>Application Client</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.client.internal.impl.ApplicationClientImpl
+		 * @see org.eclipse.jst.j2ee.client.internal.impl.ClientPackageImpl#getApplicationClient()
+		 * @generated
+		 */
+		EClass APPLICATION_CLIENT = eINSTANCE.getApplicationClient();
+
+		/**
+		 * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute APPLICATION_CLIENT__VERSION = eINSTANCE.getApplicationClient_Version();
+
+		/**
+		 * The meta object literal for the '<em><b>Resource Refs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION_CLIENT__RESOURCE_REFS = eINSTANCE.getApplicationClient_ResourceRefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Environment Props</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION_CLIENT__ENVIRONMENT_PROPS = eINSTANCE.getApplicationClient_EnvironmentProps();
+
+		/**
+		 * The meta object literal for the '<em><b>Ejb References</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION_CLIENT__EJB_REFERENCES = eINSTANCE.getApplicationClient_EjbReferences();
+
+		/**
+		 * The meta object literal for the '<em><b>Resource Env Refs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION_CLIENT__RESOURCE_ENV_REFS = eINSTANCE.getApplicationClient_ResourceEnvRefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Callback Handler</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION_CLIENT__CALLBACK_HANDLER = eINSTANCE.getApplicationClient_CallbackHandler();
+
+		/**
+		 * The meta object literal for the '<em><b>Service Refs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION_CLIENT__SERVICE_REFS = eINSTANCE.getApplicationClient_ServiceRefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Message Destination Refs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION_CLIENT__MESSAGE_DESTINATION_REFS = eINSTANCE.getApplicationClient_MessageDestinationRefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Message Destinations</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION_CLIENT__MESSAGE_DESTINATIONS = eINSTANCE.getApplicationClient_MessageDestinations();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.client.ResAuthApplicationType <em>Res Auth Application Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.client.ResAuthApplicationType
+		 * @see org.eclipse.jst.j2ee.client.internal.impl.ClientPackageImpl#getResAuthApplicationType()
+		 * @generated
+		 */
+		EEnum RES_AUTH_APPLICATION_TYPE = eINSTANCE.getResAuthApplicationType();
+
+	}
 
 } //ClientPackage
 

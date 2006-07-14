@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.common.DescriptionGroup;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 import org.eclipse.jst.j2ee.common.QName;
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.EJBLink;
@@ -109,18 +110,21 @@ public class WsddSwitch {
 				Object result = caseWebServices(webServices);
 				if (result == null) result = caseCompatibilityDescriptionGroup(webServices);
 				if (result == null) result = caseDescriptionGroup(webServices);
+				if (result == null) result = caseJ2EEEObject(webServices);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WsddPackage.WEB_SERVICE_DESCRIPTION: {
 				WebServiceDescription webServiceDescription = (WebServiceDescription)theEObject;
 				Object result = caseWebServiceDescription(webServiceDescription);
+				if (result == null) result = caseJ2EEEObject(webServiceDescription);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WsddPackage.PORT_COMPONENT: {
 				PortComponent portComponent = (PortComponent)theEObject;
 				Object result = casePortComponent(portComponent);
+				if (result == null) result = caseJ2EEEObject(portComponent);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -128,12 +132,14 @@ public class WsddSwitch {
 				WSDLPort wsdlPort = (WSDLPort)theEObject;
 				Object result = caseWSDLPort(wsdlPort);
 				if (result == null) result = caseQName(wsdlPort);
+				if (result == null) result = caseJ2EEEObject(wsdlPort);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WsddPackage.SERVICE_IMPL_BEAN: {
 				ServiceImplBean serviceImplBean = (ServiceImplBean)theEObject;
 				Object result = caseServiceImplBean(serviceImplBean);
+				if (result == null) result = caseJ2EEEObject(serviceImplBean);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -141,6 +147,7 @@ public class WsddSwitch {
 				ServletLink servletLink = (ServletLink)theEObject;
 				Object result = caseServletLink(servletLink);
 				if (result == null) result = caseBeanLink(servletLink);
+				if (result == null) result = caseJ2EEEObject(servletLink);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -148,6 +155,7 @@ public class WsddSwitch {
 				EJBLink ejbLink = (EJBLink)theEObject;
 				Object result = caseEJBLink(ejbLink);
 				if (result == null) result = caseBeanLink(ejbLink);
+				if (result == null) result = caseJ2EEEObject(ejbLink);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -156,12 +164,14 @@ public class WsddSwitch {
 				Object result = caseHandler(handler);
 				if (result == null) result = caseCompatibilityDescriptionGroup(handler);
 				if (result == null) result = caseDescriptionGroup(handler);
+				if (result == null) result = caseJ2EEEObject(handler);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WsddPackage.BEAN_LINK: {
 				BeanLink beanLink = (BeanLink)theEObject;
 				Object result = caseBeanLink(beanLink);
+				if (result == null) result = caseJ2EEEObject(beanLink);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -301,6 +311,21 @@ public class WsddSwitch {
 	 * @generated
 	 */
   public Object caseBeanLink(BeanLink object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseJ2EEEObject(J2EEEObject object) {
 		return null;
 	}
 

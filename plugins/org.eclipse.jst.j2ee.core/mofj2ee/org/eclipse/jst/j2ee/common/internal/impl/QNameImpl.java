@@ -14,7 +14,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.QName;
 import org.eclipse.wst.common.internal.emf.utilities.NamespaceAdapter;
@@ -37,7 +36,7 @@ import org.eclipse.wst.common.internal.emf.utilities.StringUtil;
  *
  * @generated
  */
-public class QNameImpl extends EObjectImpl implements QName {
+public class QNameImpl extends J2EEEObjectImpl implements QName {
 	/**
 	 * The default value of the '{@link #getNamespaceURI() <em>Namespace URI</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -133,7 +132,7 @@ public class QNameImpl extends EObjectImpl implements QName {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return CommonPackage.eINSTANCE.getQName();
+		return CommonPackage.Literals.QNAME;
 	}
 
 	/**
@@ -295,8 +294,8 @@ public class QNameImpl extends EObjectImpl implements QName {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case CommonPackage.QNAME__NAMESPACE_URI:
 				return getNamespaceURI();
 			case CommonPackage.QNAME__LOCAL_PART:
@@ -306,7 +305,7 @@ public class QNameImpl extends EObjectImpl implements QName {
 			case CommonPackage.QNAME__INTERNAL_PREFIX_OR_NS_URI:
 				return getInternalPrefixOrNsURI();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -314,8 +313,8 @@ public class QNameImpl extends EObjectImpl implements QName {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case CommonPackage.QNAME__NAMESPACE_URI:
 				setNamespaceURI((String)newValue);
 				return;
@@ -329,7 +328,7 @@ public class QNameImpl extends EObjectImpl implements QName {
 				setInternalPrefixOrNsURI((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -337,8 +336,8 @@ public class QNameImpl extends EObjectImpl implements QName {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case CommonPackage.QNAME__NAMESPACE_URI:
 				setNamespaceURI(NAMESPACE_URI_EDEFAULT);
 				return;
@@ -352,7 +351,26 @@ public class QNameImpl extends EObjectImpl implements QName {
 				setInternalPrefixOrNsURI(INTERNAL_PREFIX_OR_NS_URI_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case CommonPackage.QNAME__NAMESPACE_URI:
+				return NAMESPACE_URI_EDEFAULT == null ? namespaceURI != null : !NAMESPACE_URI_EDEFAULT.equals(namespaceURI);
+			case CommonPackage.QNAME__LOCAL_PART:
+				return LOCAL_PART_EDEFAULT == null ? localPart != null : !LOCAL_PART_EDEFAULT.equals(localPart);
+			case CommonPackage.QNAME__COMBINED_QNAME:
+				return COMBINED_QNAME_EDEFAULT == null ? combinedQName != null : !COMBINED_QNAME_EDEFAULT.equals(combinedQName);
+			case CommonPackage.QNAME__INTERNAL_PREFIX_OR_NS_URI:
+				return INTERNAL_PREFIX_OR_NS_URI_EDEFAULT == null ? internalPrefixOrNsURI != null : !INTERNAL_PREFIX_OR_NS_URI_EDEFAULT.equals(internalPrefixOrNsURI);
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

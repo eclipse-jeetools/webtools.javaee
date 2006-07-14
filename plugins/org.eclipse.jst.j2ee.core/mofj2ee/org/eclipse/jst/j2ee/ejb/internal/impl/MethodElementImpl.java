@@ -15,16 +15,13 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import com.ibm.icu.util.StringTokenizer;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.emf.ecore.xmi.XMIResource;
@@ -33,12 +30,15 @@ import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jem.java.JavaParameter;
 import org.eclipse.jem.java.Method;
 import org.eclipse.jst.j2ee.common.Description;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.MethodElement;
 import org.eclipse.jst.j2ee.ejb.MethodElementKind;
 import org.eclipse.jst.j2ee.ejb.Session;
 import org.eclipse.jst.j2ee.ejb.internal.util.MethodElementHelper;
+
+import com.ibm.icu.util.StringTokenizer;
 
 
 /**
@@ -177,9 +177,9 @@ import org.eclipse.jst.j2ee.ejb.internal.util.MethodElementHelper;
  * 				<method-param>java.lang.String<//method-param>
  * 			<//method-params>
  * 		<//method>
-
+ * @generated
  */
-public class MethodElementImpl extends EObjectImpl implements MethodElement {
+public class MethodElementImpl extends J2EEEObjectImpl implements MethodElement {
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -273,7 +273,7 @@ public class MethodElementImpl extends EObjectImpl implements MethodElement {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return EjbPackage.eINSTANCE.getMethodElement();
+		return EjbPackage.Literals.METHOD_ELEMENT;
 	}
 
 public void addMethodParams(String param) { 
@@ -853,8 +853,8 @@ public boolean uniquelyIdentifies(Method aMethod) {
 	 */
 	public EnterpriseBean getEnterpriseBean() {
 		if (enterpriseBean != null && enterpriseBean.eIsProxy()) {
-			EnterpriseBean oldEnterpriseBean = enterpriseBean;
-			enterpriseBean = (EnterpriseBean)eResolveProxy((InternalEObject)enterpriseBean);
+			InternalEObject oldEnterpriseBean = (InternalEObject)enterpriseBean;
+			enterpriseBean = (EnterpriseBean)eResolveProxy(oldEnterpriseBean);
 			if (enterpriseBean != oldEnterpriseBean) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EjbPackage.METHOD_ELEMENT__ENTERPRISE_BEAN, oldEnterpriseBean, enterpriseBean));
@@ -899,16 +899,12 @@ public boolean uniquelyIdentifies(Method aMethod) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.METHOD_ELEMENT__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.METHOD_ELEMENT__DESCRIPTIONS:
+				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -916,8 +912,8 @@ public boolean uniquelyIdentifies(Method aMethod) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case EjbPackage.METHOD_ELEMENT__NAME:
 				return getName();
 			case EjbPackage.METHOD_ELEMENT__PARMS:
@@ -932,35 +928,16 @@ public boolean uniquelyIdentifies(Method aMethod) {
 			case EjbPackage.METHOD_ELEMENT__DESCRIPTIONS:
 				return getDescriptions();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.METHOD_ELEMENT__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case EjbPackage.METHOD_ELEMENT__PARMS:
-				return PARMS_EDEFAULT == null ? parms != null : !PARMS_EDEFAULT.equals(parms);
-			case EjbPackage.METHOD_ELEMENT__TYPE:
-				return isSetType();
-			case EjbPackage.METHOD_ELEMENT__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case EjbPackage.METHOD_ELEMENT__ENTERPRISE_BEAN:
-				return enterpriseBean != null;
-			case EjbPackage.METHOD_ELEMENT__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case EjbPackage.METHOD_ELEMENT__NAME:
 				setName((String)newValue);
 				return;
@@ -981,14 +958,16 @@ public boolean uniquelyIdentifies(Method aMethod) {
 				getDescriptions().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case EjbPackage.METHOD_ELEMENT__NAME:
 				setName(NAME_EDEFAULT);
 				return;
@@ -1008,7 +987,30 @@ public boolean uniquelyIdentifies(Method aMethod) {
 				getDescriptions().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case EjbPackage.METHOD_ELEMENT__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case EjbPackage.METHOD_ELEMENT__PARMS:
+				return PARMS_EDEFAULT == null ? parms != null : !PARMS_EDEFAULT.equals(parms);
+			case EjbPackage.METHOD_ELEMENT__TYPE:
+				return isSetType();
+			case EjbPackage.METHOD_ELEMENT__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case EjbPackage.METHOD_ELEMENT__ENTERPRISE_BEAN:
+				return enterpriseBean != null;
+			case EjbPackage.METHOD_ELEMENT__DESCRIPTIONS:
+				return descriptions != null && !descriptions.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

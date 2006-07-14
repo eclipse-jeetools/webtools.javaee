@@ -38,7 +38,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseArchive;
 /**
  * @generated
  */
-public interface Archive extends Container{
+public interface Archive extends Container {
 
 	public static final int EXPAND_NONE = 0;
 	public static final int EXPAND_WAR_FILES = 1 << 1;
@@ -459,7 +459,7 @@ public interface Archive extends Container{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Types</em>' attribute list.
-	 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage#getArchive_Types()
+	 * @see org.eclipse.jst.j2ee.commonarchivecore.CommonarchivePackage#getArchive_Types()
 	 * @model type="java.lang.String"
 	 * @generated
 	 */

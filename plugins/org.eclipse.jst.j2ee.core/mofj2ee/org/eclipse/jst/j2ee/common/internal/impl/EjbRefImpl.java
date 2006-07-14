@@ -16,11 +16,8 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.CommonPackage;
@@ -32,8 +29,9 @@ import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 
 /**
  * The ejb-ref element is used for the declaration of a reference to an enterprise bean's home. The declaration consists of an optional description; the EJB reference name used in the code of the referencing application client; the expected type of the referenced enterprise bean; the expected home and remote interfaces of the referenced enterprise bean; and an optional ejb-link information. The optional  ejb-link element is used to specify the referenced enterprise bean.
+ * @generated
  */
-public class EjbRefImpl extends EObjectImpl implements EjbRef, EObject{
+public class EjbRefImpl extends J2EEEObjectImpl implements EjbRef {
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -150,7 +148,7 @@ public class EjbRefImpl extends EObjectImpl implements EjbRef, EObject{
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return CommonPackage.eINSTANCE.getEjbRef();
+		return CommonPackage.Literals.EJB_REF;
 	}
 
 /**
@@ -325,11 +323,11 @@ public boolean isLocal(){
 	 */
 	public void setDescriptionGen(String newDescription) {
 		String oldDescription = description;
-        description = newDescription;
-        if (eNotificationRequired())
-        	eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.EJB_REF__DESCRIPTION, oldDescription, description));
+		description = newDescription;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.EJB_REF__DESCRIPTION, oldDescription, description));
 	}
-	
+
 	public void setDescription(String newDescription) {
 		if (!getDescriptions().isEmpty()) {
         	Description d = (Description) getDescriptions().get(0);
@@ -365,16 +363,12 @@ public boolean isLocal(){
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonPackage.EJB_REF__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CommonPackage.EJB_REF__DESCRIPTIONS:
+				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -382,8 +376,8 @@ public boolean isLocal(){
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case CommonPackage.EJB_REF__NAME:
 				return getName();
 			case CommonPackage.EJB_REF__TYPE:
@@ -399,37 +393,16 @@ public boolean isLocal(){
 			case CommonPackage.EJB_REF__DESCRIPTIONS:
 				return getDescriptions();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonPackage.EJB_REF__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case CommonPackage.EJB_REF__TYPE:
-				return isSetType();
-			case CommonPackage.EJB_REF__HOME:
-				return HOME_EDEFAULT == null ? home != null : !HOME_EDEFAULT.equals(home);
-			case CommonPackage.EJB_REF__REMOTE:
-				return REMOTE_EDEFAULT == null ? remote != null : !REMOTE_EDEFAULT.equals(remote);
-			case CommonPackage.EJB_REF__LINK:
-				return LINK_EDEFAULT == null ? link != null : !LINK_EDEFAULT.equals(link);
-			case CommonPackage.EJB_REF__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case CommonPackage.EJB_REF__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case CommonPackage.EJB_REF__NAME:
 				setName((String)newValue);
 				return;
@@ -453,14 +426,16 @@ public boolean isLocal(){
 				getDescriptions().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case CommonPackage.EJB_REF__NAME:
 				setName(NAME_EDEFAULT);
 				return;
@@ -483,7 +458,32 @@ public boolean isLocal(){
 				getDescriptions().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case CommonPackage.EJB_REF__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case CommonPackage.EJB_REF__TYPE:
+				return isSetType();
+			case CommonPackage.EJB_REF__HOME:
+				return HOME_EDEFAULT == null ? home != null : !HOME_EDEFAULT.equals(home);
+			case CommonPackage.EJB_REF__REMOTE:
+				return REMOTE_EDEFAULT == null ? remote != null : !REMOTE_EDEFAULT.equals(remote);
+			case CommonPackage.EJB_REF__LINK:
+				return LINK_EDEFAULT == null ? link != null : !LINK_EDEFAULT.equals(link);
+			case CommonPackage.EJB_REF__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case CommonPackage.EJB_REF__DESCRIPTIONS:
+				return descriptions != null && !descriptions.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

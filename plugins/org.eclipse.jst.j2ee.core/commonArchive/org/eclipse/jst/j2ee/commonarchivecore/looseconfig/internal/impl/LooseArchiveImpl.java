@@ -14,17 +14,18 @@ package org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseApplication;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseArchive;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseconfigPackage;
 
-public class LooseArchiveImpl extends EObjectImpl implements LooseArchive, EObject {
+/**
+ * @generated
+ */
+public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseArchive {
 	/**
 	 * The default value of the '{@link #getUri() <em>Uri</em>}' attribute.
 	 * <!-- begin-user-doc
@@ -81,7 +82,7 @@ public class LooseArchiveImpl extends EObjectImpl implements LooseArchive, EObje
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return LooseconfigPackage.eINSTANCE.getLooseArchive();
+		return LooseconfigPackage.Literals.LOOSE_ARCHIVE;
 	}
 
 	/**
@@ -148,22 +149,32 @@ public class LooseArchiveImpl extends EObjectImpl implements LooseArchive, EObje
 	 */
 	public LooseApplication getLooseApp() {
 		if (eContainerFeatureID != LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP) return null;
-		return (LooseApplication)eContainer;
+		return (LooseApplication)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetLooseApp(LooseApplication newLooseApp, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newLooseApp, LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP, msgs);
+		return msgs;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public void setLooseApp(LooseApplication newLooseApp) {
-		if (newLooseApp != eContainer || (eContainerFeatureID != LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP && newLooseApp != null)) {
+		if (newLooseApp != eInternalContainer() || (eContainerFeatureID != LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP && newLooseApp != null)) {
 			if (EcoreUtil.isAncestor(this, newLooseApp))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newLooseApp != null)
 				msgs = ((InternalEObject)newLooseApp).eInverseAdd(this, LooseconfigPackage.LOOSE_APPLICATION__LOOSE_ARCHIVES, LooseApplication.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newLooseApp, LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP, msgs);
+			msgs = basicSetLooseApp(newLooseApp, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -175,63 +186,53 @@ public class LooseArchiveImpl extends EObjectImpl implements LooseArchive, EObje
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetLooseApp((LooseApplication)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP:
-					return eBasicSetContainer(null, LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP:
+				return basicSetLooseApp(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP:
-					return eContainer.eInverseRemove(this, LooseconfigPackage.LOOSE_APPLICATION__LOOSE_ARCHIVES, LooseApplication.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP:
+				return eInternalContainer().eInverseRemove(this, LooseconfigPackage.LOOSE_APPLICATION__LOOSE_ARCHIVES, LooseApplication.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case LooseconfigPackage.LOOSE_ARCHIVE__URI:
 				return getUri();
 			case LooseconfigPackage.LOOSE_ARCHIVE__BINARIES_PATH:
@@ -241,31 +242,16 @@ public class LooseArchiveImpl extends EObjectImpl implements LooseArchive, EObje
 			case LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP:
 				return getLooseApp();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case LooseconfigPackage.LOOSE_ARCHIVE__URI:
-				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
-			case LooseconfigPackage.LOOSE_ARCHIVE__BINARIES_PATH:
-				return BINARIES_PATH_EDEFAULT == null ? binariesPath != null : !BINARIES_PATH_EDEFAULT.equals(binariesPath);
-			case LooseconfigPackage.LOOSE_ARCHIVE__RESOURCES_PATH:
-				return RESOURCES_PATH_EDEFAULT == null ? resourcesPath != null : !RESOURCES_PATH_EDEFAULT.equals(resourcesPath);
-			case LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP:
-				return getLooseApp() != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case LooseconfigPackage.LOOSE_ARCHIVE__URI:
 				setUri((String)newValue);
 				return;
@@ -279,14 +265,16 @@ public class LooseArchiveImpl extends EObjectImpl implements LooseArchive, EObje
 				setLooseApp((LooseApplication)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case LooseconfigPackage.LOOSE_ARCHIVE__URI:
 				setUri(URI_EDEFAULT);
 				return;
@@ -300,7 +288,26 @@ public class LooseArchiveImpl extends EObjectImpl implements LooseArchive, EObje
 				setLooseApp((LooseApplication)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case LooseconfigPackage.LOOSE_ARCHIVE__URI:
+				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
+			case LooseconfigPackage.LOOSE_ARCHIVE__BINARIES_PATH:
+				return BINARIES_PATH_EDEFAULT == null ? binariesPath != null : !BINARIES_PATH_EDEFAULT.equals(binariesPath);
+			case LooseconfigPackage.LOOSE_ARCHIVE__RESOURCES_PATH:
+				return RESOURCES_PATH_EDEFAULT == null ? resourcesPath != null : !RESOURCES_PATH_EDEFAULT.equals(resourcesPath);
+			case LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP:
+				return getLooseApp() != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

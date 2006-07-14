@@ -11,12 +11,11 @@
 package org.eclipse.jst.j2ee.common;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * @generated
  * @since 1.0 */
-public interface SecurityRoleRef extends EObject{
+public interface SecurityRoleRef extends J2EEEObject {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the Name attribute

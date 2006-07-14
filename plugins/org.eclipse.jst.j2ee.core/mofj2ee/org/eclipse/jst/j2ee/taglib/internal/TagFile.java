@@ -46,11 +46,11 @@ import org.eclipse.jst.j2ee.common.DescriptionGroup;
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.taglib.internal.TaglibPackage#getTagFile()
+ * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getTagFile()
  * @model
  * @generated
  */
-public interface TagFile extends DescriptionGroup{
+public interface TagFile extends DescriptionGroup {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -61,7 +61,7 @@ public interface TagFile extends DescriptionGroup{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
-	 * @see org.eclipse.jst.j2ee.taglib.internal.TaglibPackage#getTagFile_Name()
+	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getTagFile_Name()
 	 * @model
 	 * @generated
 	 */
@@ -87,7 +87,7 @@ public interface TagFile extends DescriptionGroup{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Path</em>' attribute.
 	 * @see #setPath(String)
-	 * @see org.eclipse.jst.j2ee.taglib.internal.TaglibPackage#getTagFile_Path()
+	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getTagFile_Path()
 	 * @model
 	 * @generated
 	 */
@@ -113,7 +113,7 @@ public interface TagFile extends DescriptionGroup{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Example</em>' attribute.
 	 * @see #setExample(String)
-	 * @see org.eclipse.jst.j2ee.taglib.internal.TaglibPackage#getTagFile_Example()
+	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getTagFile_Example()
 	 * @model
 	 * @generated
 	 */
@@ -139,7 +139,7 @@ public interface TagFile extends DescriptionGroup{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Tag Extensions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.taglib.internal.TaglibPackage#getTagFile_TagExtensions()
+	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getTagFile_TagExtensions()
 	 * @model type="org.eclipse.jst.j2ee.taglib.internal.TldExtension" containment="true"
 	 * @generated
 	 */

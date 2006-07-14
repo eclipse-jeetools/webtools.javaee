@@ -11,12 +11,12 @@
 package org.eclipse.jst.j2ee.common;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 /**
  * A semantic grouping of operations that may be performed by a subject.
  * The security-role element contains the declaration of a security role which is used in the security-constraints placed on the web application.
+ * @generated
  * @since 1.0 */
-public interface SecurityRole extends EObject{
+public interface SecurityRole extends J2EEEObject {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the Description attribute

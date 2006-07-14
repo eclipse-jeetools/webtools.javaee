@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.common.DescriptionGroup;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 import org.eclipse.jst.j2ee.jsp.JSPConfig;
 import org.eclipse.jst.j2ee.jsp.JSPPropertyGroup;
 import org.eclipse.jst.j2ee.jsp.JspPackage;
@@ -99,6 +100,7 @@ public class JspSwitch {
 			case JspPackage.JSP_CONFIG: {
 				JSPConfig jspConfig = (JSPConfig)theEObject;
 				Object result = caseJSPConfig(jspConfig);
+				if (result == null) result = caseJ2EEEObject(jspConfig);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -107,12 +109,14 @@ public class JspSwitch {
 				Object result = caseJSPPropertyGroup(jspPropertyGroup);
 				if (result == null) result = caseCompatibilityDescriptionGroup(jspPropertyGroup);
 				if (result == null) result = caseDescriptionGroup(jspPropertyGroup);
+				if (result == null) result = caseJ2EEEObject(jspPropertyGroup);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JspPackage.TAG_LIB_REF_TYPE: {
 				TagLibRefType tagLibRefType = (TagLibRefType)theEObject;
 				Object result = caseTagLibRefType(tagLibRefType);
+				if (result == null) result = caseJ2EEEObject(tagLibRefType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -162,6 +166,21 @@ public class JspSwitch {
 	 * @generated
 	 */
 	public Object caseTagLibRefType(TagLibRefType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseJ2EEEObject(J2EEEObject object) {
 		return null;
 	}
 

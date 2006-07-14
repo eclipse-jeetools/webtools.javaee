@@ -19,8 +19,7 @@ import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.client.ClientPackage;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.common.DescriptionGroup;
-
-
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 public class ClientAdapterFactory extends AdapterFactoryImpl {
 	protected static ClientPackage modelPackage;
@@ -82,6 +81,9 @@ public class ClientAdapterFactory extends AdapterFactoryImpl {
 			public Object caseApplicationClient(ApplicationClient object) {
 				return createApplicationClientAdapter();
 			}
+			public Object caseJ2EEEObject(J2EEEObject object) {
+				return createJ2EEEObjectAdapter();
+			}
 			public Object caseDescriptionGroup(DescriptionGroup object) {
 				return createDescriptionGroupAdapter();
 			}
@@ -113,6 +115,20 @@ public class ClientAdapterFactory extends AdapterFactoryImpl {
 
 		return null;
 	}
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.J2EEEObject <em>J2EEE Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.j2ee.common.J2EEEObject
+	 * @generated
+	 */
+	public Adapter createJ2EEEObjectAdapter() {
+		return null;
+	}
+
 	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.DescriptionGroup <em>Description Group</em>}'.
 	 * <!-- begin-user-doc -->

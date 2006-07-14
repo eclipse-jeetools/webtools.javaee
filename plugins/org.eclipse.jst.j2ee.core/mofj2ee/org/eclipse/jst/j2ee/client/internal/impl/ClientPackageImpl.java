@@ -15,10 +15,9 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.eclipse.emf.ecore.impl.EcorePackageImpl;
 import org.eclipse.jem.java.JavaRefPackage;
-import org.eclipse.jem.java.internal.impl.JavaRefPackageImpl;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.internal.impl.ApplicationPackageImpl;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
@@ -86,8 +85,8 @@ public class ClientPackageImpl extends EPackageImpl implements ClientPackage, EP
 		isInited = true;
 
 		// Initialize simple dependencies
-		EcorePackageImpl.init();
-		JavaRefPackageImpl.init();
+		EcorePackage.eINSTANCE.eClass();
+		JavaRefPackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
 		ApplicationPackageImpl theApplicationPackage = (ApplicationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) instanceof ApplicationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) : ApplicationPackage.eINSTANCE);
@@ -288,9 +287,9 @@ public class ClientPackageImpl extends EPackageImpl implements ClientPackage, EP
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		CommonPackageImpl theCommonPackage = (CommonPackageImpl)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
-		JavaRefPackageImpl theJavaRefPackage = (JavaRefPackageImpl)EPackage.Registry.INSTANCE.getEPackage(JavaRefPackage.eNS_URI);
-		Webservice_clientPackageImpl theWebservice_clientPackage = (Webservice_clientPackageImpl)EPackage.Registry.INSTANCE.getEPackage(Webservice_clientPackage.eNS_URI);
+		CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+		JavaRefPackage theJavaRefPackage = (JavaRefPackage)EPackage.Registry.INSTANCE.getEPackage(JavaRefPackage.eNS_URI);
+		Webservice_clientPackage theWebservice_clientPackage = (Webservice_clientPackage)EPackage.Registry.INSTANCE.getEPackage(Webservice_clientPackage.eNS_URI);
 
 		// Add supertypes to classes
 		applicationClientEClass.getESuperTypes().add(theCommonPackage.getCompatibilityDescriptionGroup());

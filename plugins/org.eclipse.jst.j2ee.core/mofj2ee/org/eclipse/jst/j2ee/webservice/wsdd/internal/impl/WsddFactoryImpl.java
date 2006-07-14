@@ -12,7 +12,9 @@ package org.eclipse.jst.j2ee.webservice.wsdd.internal.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.EJBLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
@@ -34,6 +36,25 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
  */
 public class WsddFactoryImpl extends EFactoryImpl implements WsddFactory
 {
+	/**
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static WsddFactory init() {
+		try {
+			WsddFactory theWsddFactory = (WsddFactory)EPackage.Registry.INSTANCE.getEFactory("wsdd.xmi"); 
+			if (theWsddFactory != null) {
+				return theWsddFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new WsddFactoryImpl();
+	}
+
 	/**
 	 * Creates an instance of the factory.
 	 * <!-- begin-user-doc -->

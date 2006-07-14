@@ -13,12 +13,10 @@ package org.eclipse.jst.j2ee.ejb.internal.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.ejb.DestinationType;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
@@ -27,8 +25,9 @@ import org.eclipse.jst.j2ee.ejb.SubscriptionDurabilityKind;
 
 /**
  * The message-driven-destination element provides advice to the Deployer as to whether a message-driven bean is intended for a Queue or a Topic. The declaration consists of: the type of the message-driven bean's intended destination and an optional declaration of whether a durable or non-durable subscription should be used if the destination-type is javax.jms.Topic.
+ * @generated
  */
-public class MessageDrivenDestinationImpl extends EObjectImpl implements MessageDrivenDestination, EObject{
+public class MessageDrivenDestinationImpl extends J2EEEObjectImpl implements MessageDrivenDestination {
 
 	/**
 	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -88,7 +87,7 @@ public class MessageDrivenDestinationImpl extends EObjectImpl implements Message
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return EjbPackage.eINSTANCE.getMessageDrivenDestination();
+		return EjbPackage.Literals.MESSAGE_DRIVEN_DESTINATION;
 	}
 
 	/**
@@ -191,22 +190,32 @@ public class MessageDrivenDestinationImpl extends EObjectImpl implements Message
 	 */
 	public MessageDriven getBean() {
 		if (eContainerFeatureID != EjbPackage.MESSAGE_DRIVEN_DESTINATION__BEAN) return null;
-		return (MessageDriven)eContainer;
+		return (MessageDriven)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetBean(MessageDriven newBean, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newBean, EjbPackage.MESSAGE_DRIVEN_DESTINATION__BEAN, msgs);
+		return msgs;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public void setBean(MessageDriven newBean) {
-		if (newBean != eContainer || (eContainerFeatureID != EjbPackage.MESSAGE_DRIVEN_DESTINATION__BEAN && newBean != null)) {
+		if (newBean != eInternalContainer() || (eContainerFeatureID != EjbPackage.MESSAGE_DRIVEN_DESTINATION__BEAN && newBean != null)) {
 			if (EcoreUtil.isAncestor(this, newBean))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newBean != null)
 				msgs = ((InternalEObject)newBean).eInverseAdd(this, EjbPackage.MESSAGE_DRIVEN__DESTINATION, MessageDriven.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newBean, EjbPackage.MESSAGE_DRIVEN_DESTINATION__BEAN, msgs);
+			msgs = basicSetBean(newBean, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -218,20 +227,14 @@ public class MessageDrivenDestinationImpl extends EObjectImpl implements Message
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.MESSAGE_DRIVEN_DESTINATION__BEAN:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, EjbPackage.MESSAGE_DRIVEN_DESTINATION__BEAN, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.MESSAGE_DRIVEN_DESTINATION__BEAN:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetBean((MessageDriven)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -239,16 +242,12 @@ public class MessageDrivenDestinationImpl extends EObjectImpl implements Message
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.MESSAGE_DRIVEN_DESTINATION__BEAN:
-					return eBasicSetContainer(null, EjbPackage.MESSAGE_DRIVEN_DESTINATION__BEAN, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.MESSAGE_DRIVEN_DESTINATION__BEAN:
+				return basicSetBean(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -256,16 +255,12 @@ public class MessageDrivenDestinationImpl extends EObjectImpl implements Message
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case EjbPackage.MESSAGE_DRIVEN_DESTINATION__BEAN:
-					return eContainer.eInverseRemove(this, EjbPackage.MESSAGE_DRIVEN__DESTINATION, MessageDriven.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case EjbPackage.MESSAGE_DRIVEN_DESTINATION__BEAN:
+				return eInternalContainer().eInverseRemove(this, EjbPackage.MESSAGE_DRIVEN__DESTINATION, MessageDriven.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -273,8 +268,8 @@ public class MessageDrivenDestinationImpl extends EObjectImpl implements Message
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case EjbPackage.MESSAGE_DRIVEN_DESTINATION__TYPE:
 				return getType();
 			case EjbPackage.MESSAGE_DRIVEN_DESTINATION__SUBSCRIPTION_DURABILITY:
@@ -282,29 +277,16 @@ public class MessageDrivenDestinationImpl extends EObjectImpl implements Message
 			case EjbPackage.MESSAGE_DRIVEN_DESTINATION__BEAN:
 				return getBean();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.MESSAGE_DRIVEN_DESTINATION__TYPE:
-				return isSetType();
-			case EjbPackage.MESSAGE_DRIVEN_DESTINATION__SUBSCRIPTION_DURABILITY:
-				return isSetSubscriptionDurability();
-			case EjbPackage.MESSAGE_DRIVEN_DESTINATION__BEAN:
-				return getBean() != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case EjbPackage.MESSAGE_DRIVEN_DESTINATION__TYPE:
 				setType((DestinationType)newValue);
 				return;
@@ -315,14 +297,16 @@ public class MessageDrivenDestinationImpl extends EObjectImpl implements Message
 				setBean((MessageDriven)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case EjbPackage.MESSAGE_DRIVEN_DESTINATION__TYPE:
 				unsetType();
 				return;
@@ -333,7 +317,24 @@ public class MessageDrivenDestinationImpl extends EObjectImpl implements Message
 				setBean((MessageDriven)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case EjbPackage.MESSAGE_DRIVEN_DESTINATION__TYPE:
+				return isSetType();
+			case EjbPackage.MESSAGE_DRIVEN_DESTINATION__SUBSCRIPTION_DURABILITY:
+				return isSetSubscriptionDurability();
+			case EjbPackage.MESSAGE_DRIVEN_DESTINATION__BEAN:
+				return getBean() != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

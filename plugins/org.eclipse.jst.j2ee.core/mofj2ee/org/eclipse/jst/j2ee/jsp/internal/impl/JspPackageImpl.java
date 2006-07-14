@@ -14,9 +14,9 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.eclipse.emf.ecore.impl.EcorePackageImpl;
-import org.eclipse.jem.java.internal.impl.JavaRefPackageImpl;
+import org.eclipse.jem.java.JavaRefPackage;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.internal.impl.ApplicationPackageImpl;
 import org.eclipse.jst.j2ee.client.ClientPackage;
@@ -129,8 +129,8 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 		isInited = true;
 
 		// Initialize simple dependencies
-		EcorePackageImpl.init();
-		JavaRefPackageImpl.init();
+		EcorePackage.eINSTANCE.eClass();
+		JavaRefPackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
 		ClientPackageImpl theClientPackage = (ClientPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI) instanceof ClientPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI) : ClientPackage.eINSTANCE);
@@ -375,10 +375,12 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		CommonPackageImpl theCommonPackage = (CommonPackageImpl)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+		CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
 
 		// Add supertypes to classes
+		jspConfigEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 		jspPropertyGroupEClass.getESuperTypes().add(theCommonPackage.getCompatibilityDescriptionGroup());
+		tagLibRefTypeEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(jspConfigEClass, JSPConfig.class, "JSPConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

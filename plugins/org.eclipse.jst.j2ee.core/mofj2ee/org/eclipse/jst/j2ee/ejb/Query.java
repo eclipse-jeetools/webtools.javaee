@@ -11,13 +11,14 @@
 package org.eclipse.jst.j2ee.ejb;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 /**
  * The query element is used to specify a finder or select query. It contains an optional description of the query; the specification of the finder or select method it is used by; a specification of the return type mapping, if any, if the query is for a select method; and the EJB QL query string that defines the query. Queries that are expressible in EJB QL must use the ejb-ql element to specify the query. If a query
  * is not expressible in EJB QL, the description element should be used to describe the semantics of the query and the ejb-ql element should be empty.
+ * @generated
  * @since 1.0 */
-public interface Query extends EObject{
+public interface Query extends J2EEEObject {
 
 	/**
 	 * Returns boolean value for ReturnTypeMapping, checks if it is of type ReturnTypeMapping.LOCAL

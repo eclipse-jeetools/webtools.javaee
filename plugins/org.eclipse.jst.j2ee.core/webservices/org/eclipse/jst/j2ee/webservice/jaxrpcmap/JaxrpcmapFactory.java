@@ -19,15 +19,15 @@ import org.eclipse.emf.ecore.EFactory;
  * <!-- end-user-doc -->
  * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage
  * @generated
- * @since 1.0 */
-public interface JaxrpcmapFactory extends EFactory{
+ */
+public interface JaxrpcmapFactory extends EFactory {
 	/**
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  JaxrpcmapFactory eINSTANCE = new org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapFactoryImpl();
+  JaxrpcmapFactory eINSTANCE = org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>Java WSDL Mapping</em>'.

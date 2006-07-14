@@ -15,16 +15,12 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.eclipse.emf.ecore.impl.EcorePackageImpl;
 import org.eclipse.jem.java.JavaRefPackage;
-import org.eclipse.jem.java.internal.impl.JavaRefPackageImpl;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
-import org.eclipse.jst.j2ee.application.internal.impl.ApplicationPackageImpl;
 import org.eclipse.jst.j2ee.client.ClientPackage;
-import org.eclipse.jst.j2ee.client.internal.impl.ClientPackageImpl;
 import org.eclipse.jst.j2ee.common.CommonPackage;
-import org.eclipse.jst.j2ee.common.internal.impl.CommonPackageImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ClientModuleRef;
@@ -45,15 +41,10 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.WebModuleRef;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseconfigPackage;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.impl.LooseconfigPackageImpl;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
-import org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl;
 import org.eclipse.jst.j2ee.jca.JcaPackage;
-import org.eclipse.jst.j2ee.jca.internal.impl.JcaPackageImpl;
 import org.eclipse.jst.j2ee.jsp.JspPackage;
-import org.eclipse.jst.j2ee.jsp.internal.impl.JspPackageImpl;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
-import org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl;
 import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
-import org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.Webservice_clientPackageImpl;
 
 
 /**
@@ -176,45 +167,27 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 		isInited = true;
 
 		// Initialize simple dependencies
-		EcorePackageImpl.init();
+		EcorePackage.eINSTANCE.eClass();
+		Webservice_clientPackage.eINSTANCE.eClass();
+		CommonPackage.eINSTANCE.eClass();
+		WebapplicationPackage.eINSTANCE.eClass();
+		EjbPackage.eINSTANCE.eClass();
+		JspPackage.eINSTANCE.eClass();
+		ApplicationPackage.eINSTANCE.eClass();
+		ClientPackage.eINSTANCE.eClass();
+		JcaPackage.eINSTANCE.eClass();
+		JavaRefPackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
-		ApplicationPackageImpl theApplicationPackage = (ApplicationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) instanceof ApplicationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) : ApplicationPackage.eINSTANCE);
-		ClientPackageImpl theClientPackage = (ClientPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI) instanceof ClientPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI) : ClientPackage.eINSTANCE);
-		EjbPackageImpl theEjbPackage = (EjbPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI) instanceof EjbPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI) : EjbPackage.eINSTANCE);
-		WebapplicationPackageImpl theWebapplicationPackage = (WebapplicationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebapplicationPackage.eNS_URI) instanceof WebapplicationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebapplicationPackage.eNS_URI) : WebapplicationPackage.eINSTANCE);
 		LooseconfigPackageImpl theLooseconfigPackage = (LooseconfigPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(LooseconfigPackage.eNS_URI) instanceof LooseconfigPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(LooseconfigPackage.eNS_URI) : LooseconfigPackage.eINSTANCE);
-		JavaRefPackageImpl theJavaRefPackage = (JavaRefPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JavaRefPackage.eNS_URI) instanceof JavaRefPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JavaRefPackage.eNS_URI) : JavaRefPackage.eINSTANCE);
-		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) : CommonPackage.eINSTANCE);
-		JcaPackageImpl theJcaPackage = (JcaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI) instanceof JcaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI) : JcaPackage.eINSTANCE);
-		Webservice_clientPackageImpl theWebservice_clientPackage = (Webservice_clientPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(Webservice_clientPackage.eNS_URI) instanceof Webservice_clientPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(Webservice_clientPackage.eNS_URI) : Webservice_clientPackage.eINSTANCE);
-		JspPackageImpl theJspPackage = (JspPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI) instanceof JspPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI) : JspPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theCommonarchivePackage.createPackageContents();
-		theApplicationPackage.createPackageContents();
-		theClientPackage.createPackageContents();
-		theEjbPackage.createPackageContents();
-		theWebapplicationPackage.createPackageContents();
 		theLooseconfigPackage.createPackageContents();
-		theJavaRefPackage.createPackageContents();
-		theCommonPackage.createPackageContents();
-		theJcaPackage.createPackageContents();
-		theWebservice_clientPackage.createPackageContents();
-		theJspPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theCommonarchivePackage.initializePackageContents();
-		theApplicationPackage.initializePackageContents();
-		theClientPackage.initializePackageContents();
-		theEjbPackage.initializePackageContents();
-		theWebapplicationPackage.initializePackageContents();
 		theLooseconfigPackage.initializePackageContents();
-		theJavaRefPackage.initializePackageContents();
-		theCommonPackage.initializePackageContents();
-		theJcaPackage.initializePackageContents();
-		theWebservice_clientPackage.initializePackageContents();
-		theJspPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theCommonarchivePackage.freeze();
@@ -553,17 +526,19 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		LooseconfigPackageImpl theLooseconfigPackage = (LooseconfigPackageImpl)EPackage.Registry.INSTANCE.getEPackage(LooseconfigPackage.eNS_URI);
-		EjbPackageImpl theEjbPackage = (EjbPackageImpl)EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI);
-		WebapplicationPackageImpl theWebapplicationPackage = (WebapplicationPackageImpl)EPackage.Registry.INSTANCE.getEPackage(WebapplicationPackage.eNS_URI);
-		ApplicationPackageImpl theApplicationPackage = (ApplicationPackageImpl)EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI);
-		ClientPackageImpl theClientPackage = (ClientPackageImpl)EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI);
-		JcaPackageImpl theJcaPackage = (JcaPackageImpl)EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI);
+		LooseconfigPackage theLooseconfigPackage = (LooseconfigPackage)EPackage.Registry.INSTANCE.getEPackage(LooseconfigPackage.eNS_URI);
+		CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+		EjbPackage theEjbPackage = (EjbPackage)EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI);
+		WebapplicationPackage theWebapplicationPackage = (WebapplicationPackage)EPackage.Registry.INSTANCE.getEPackage(WebapplicationPackage.eNS_URI);
+		ApplicationPackage theApplicationPackage = (ApplicationPackage)EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI);
+		ClientPackage theClientPackage = (ClientPackage)EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI);
+		JcaPackage theJcaPackage = (JcaPackage)EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI);
 
 		// Add subpackages
 		getESubpackages().add(theLooseconfigPackage);
 
 		// Add supertypes to classes
+		fileEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 		archiveEClass.getESuperTypes().add(this.getContainer());
 		ejbJarFileEClass.getESuperTypes().add(this.getModuleFile());
 		warFileEClass.getESuperTypes().add(this.getModuleFile());
@@ -573,6 +548,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 		containerEClass.getESuperTypes().add(this.getFile());
 		readOnlyDirectoryEClass.getESuperTypes().add(this.getContainer());
 		rarFileEClass.getESuperTypes().add(this.getModuleFile());
+		moduleRefEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 		ejbModuleRefEClass.getESuperTypes().add(this.getModuleRef());
 		webModuleRefEClass.getESuperTypes().add(this.getModuleRef());
 		clientModuleRefEClass.getESuperTypes().add(this.getModuleRef());

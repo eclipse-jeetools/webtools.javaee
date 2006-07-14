@@ -12,9 +12,7 @@ package org.eclipse.jst.j2ee.common.internal.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.Description;
 
@@ -33,7 +31,7 @@ import org.eclipse.jst.j2ee.common.Description;
  *
  * @generated
  */
-public class DescriptionImpl extends EObjectImpl implements Description {
+public class DescriptionImpl extends J2EEEObjectImpl implements Description {
 	/**
 	 * The default value of the '{@link #getLang() <em>Lang</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -89,7 +87,7 @@ public class DescriptionImpl extends EObjectImpl implements Description {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return CommonPackage.eINSTANCE.getDescription();
+		return CommonPackage.Literals.DESCRIPTION;
 	}
 
 	/**
@@ -139,14 +137,14 @@ public class DescriptionImpl extends EObjectImpl implements Description {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case CommonPackage.DESCRIPTION__LANG:
 				return getLang();
 			case CommonPackage.DESCRIPTION__VALUE:
 				return getValue();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -154,8 +152,8 @@ public class DescriptionImpl extends EObjectImpl implements Description {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case CommonPackage.DESCRIPTION__LANG:
 				setLang((String)newValue);
 				return;
@@ -163,7 +161,7 @@ public class DescriptionImpl extends EObjectImpl implements Description {
 				setValue((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -171,8 +169,8 @@ public class DescriptionImpl extends EObjectImpl implements Description {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case CommonPackage.DESCRIPTION__LANG:
 				setLang(LANG_EDEFAULT);
 				return;
@@ -180,7 +178,7 @@ public class DescriptionImpl extends EObjectImpl implements Description {
 				setValue(VALUE_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -188,14 +186,14 @@ public class DescriptionImpl extends EObjectImpl implements Description {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case CommonPackage.DESCRIPTION__LANG:
 				return LANG_EDEFAULT == null ? lang != null : !LANG_EDEFAULT.equals(lang);
 			case CommonPackage.DESCRIPTION__VALUE:
 				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

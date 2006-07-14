@@ -10,13 +10,14 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.webapplication;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 /**
  * The taglib element is used to describe a JSP tag library.
  * @version since J2EE1.4 deprecated, use org.eclipse.jst.j2ee.internal.jsp.TagLibRef
+ * @generated
  * @since 1.0
  */
-public interface TagLibRef extends EObject{
+public interface TagLibRef extends J2EEEObject {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the TaglibURI attribute

@@ -24,7 +24,6 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @see org.eclipse.jst.j2ee.common.CommonPackage#getMessageDestinationUsageType()
  * @model
  * @generated
- * @since 1.0
  */
 public final class MessageDestinationUsageType extends AbstractEnumerator {
 	/**
@@ -72,7 +71,7 @@ public final class MessageDestinationUsageType extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final MessageDestinationUsageType CONSUMES_LITERAL = new MessageDestinationUsageType(CONSUMES, "Consumes"); //$NON-NLS-1$
+	public static final MessageDestinationUsageType CONSUMES_LITERAL = new MessageDestinationUsageType(CONSUMES, "Consumes", "Consumes"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Produces</b></em>' literal object.
@@ -86,7 +85,7 @@ public final class MessageDestinationUsageType extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final MessageDestinationUsageType PRODUCES_LITERAL = new MessageDestinationUsageType(PRODUCES, "Produces"); //$NON-NLS-1$
+	public static final MessageDestinationUsageType PRODUCES_LITERAL = new MessageDestinationUsageType(PRODUCES, "Produces", "Produces"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Consumes Produces</b></em>' literal object.
@@ -100,7 +99,7 @@ public final class MessageDestinationUsageType extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final MessageDestinationUsageType CONSUMES_PRODUCES_LITERAL = new MessageDestinationUsageType(CONSUMES_PRODUCES, "ConsumesProduces"); //$NON-NLS-1$
+	public static final MessageDestinationUsageType CONSUMES_PRODUCES_LITERAL = new MessageDestinationUsageType(CONSUMES_PRODUCES, "ConsumesProduces", "ConsumesProduces"); //$NON-NLS-1$
 
 	/**
 	 * An array of all the '<em><b>Message Destination Usage Type</b></em>' enumerators.
@@ -124,17 +123,17 @@ public final class MessageDestinationUsageType extends AbstractEnumerator {
 	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Message Destination Usage Type</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Message Destination Usage Type</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * @param name passes literal name
 	 * @return literal instance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static MessageDestinationUsageType get(String name) {
+	public static MessageDestinationUsageType get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			MessageDestinationUsageType result = VALUES_ARRAY[i];
-			if (result.toString().equals(name)) {
+			if (result.toString().equals(literal)) {
 				return result;
 			}
 		}
@@ -142,7 +141,23 @@ public final class MessageDestinationUsageType extends AbstractEnumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Message Destination Usage Type</b></em>' literal with the specified value.
+	 * Returns the '<em><b>Message Destination Usage Type</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static MessageDestinationUsageType getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			MessageDestinationUsageType result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Message Destination Usage Type</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * @param value passes literal value
 	 * @return literal instance
@@ -164,8 +179,8 @@ public final class MessageDestinationUsageType extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private MessageDestinationUsageType(int value, String name) {
-		super(value, name);
+	private MessageDestinationUsageType(int value, String name, String literal) {
+		super(value, name, literal);
 	}
 
 } //MessageDestinationUsageType

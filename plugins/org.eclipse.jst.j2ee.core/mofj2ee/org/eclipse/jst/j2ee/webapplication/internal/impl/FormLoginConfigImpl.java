@@ -13,20 +13,19 @@ package org.eclipse.jst.j2ee.webapplication.internal.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webapplication.FormLoginConfig;
 import org.eclipse.jst.j2ee.webapplication.LoginConfig;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 /**
  * The form-login-config element specifies the login and error pages that should be used in form based login. If form based authentication is not used, these elements are ignored.
+ * @generated
  */
-public class FormLoginConfigImpl extends EObjectImpl implements FormLoginConfig, EObject {
+public class FormLoginConfigImpl extends J2EEEObjectImpl implements FormLoginConfig {
 
 	/**
 	 * The default value of the '{@link #getFormLoginPage() <em>Form Login Page</em>}' attribute.
@@ -68,7 +67,7 @@ public class FormLoginConfigImpl extends EObjectImpl implements FormLoginConfig,
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return WebapplicationPackage.eINSTANCE.getFormLoginConfig();
+		return WebapplicationPackage.Literals.FORM_LOGIN_CONFIG;
 	}
 
 	/**
@@ -114,22 +113,32 @@ public class FormLoginConfigImpl extends EObjectImpl implements FormLoginConfig,
 	 */
 	public LoginConfig getLoginConfig() {
 		if (eContainerFeatureID != WebapplicationPackage.FORM_LOGIN_CONFIG__LOGIN_CONFIG) return null;
-		return (LoginConfig)eContainer;
+		return (LoginConfig)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetLoginConfig(LoginConfig newLoginConfig, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newLoginConfig, WebapplicationPackage.FORM_LOGIN_CONFIG__LOGIN_CONFIG, msgs);
+		return msgs;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public void setLoginConfig(LoginConfig newLoginConfig) {
-		if (newLoginConfig != eContainer || (eContainerFeatureID != WebapplicationPackage.FORM_LOGIN_CONFIG__LOGIN_CONFIG && newLoginConfig != null)) {
+		if (newLoginConfig != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.FORM_LOGIN_CONFIG__LOGIN_CONFIG && newLoginConfig != null)) {
 			if (EcoreUtil.isAncestor(this, newLoginConfig))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newLoginConfig != null)
 				msgs = ((InternalEObject)newLoginConfig).eInverseAdd(this, WebapplicationPackage.LOGIN_CONFIG__FORM_LOGIN_CONFIG, LoginConfig.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newLoginConfig, WebapplicationPackage.FORM_LOGIN_CONFIG__LOGIN_CONFIG, msgs);
+			msgs = basicSetLoginConfig(newLoginConfig, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -141,20 +150,14 @@ public class FormLoginConfigImpl extends EObjectImpl implements FormLoginConfig,
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WebapplicationPackage.FORM_LOGIN_CONFIG__LOGIN_CONFIG:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, WebapplicationPackage.FORM_LOGIN_CONFIG__LOGIN_CONFIG, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case WebapplicationPackage.FORM_LOGIN_CONFIG__LOGIN_CONFIG:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetLoginConfig((LoginConfig)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -162,16 +165,12 @@ public class FormLoginConfigImpl extends EObjectImpl implements FormLoginConfig,
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WebapplicationPackage.FORM_LOGIN_CONFIG__LOGIN_CONFIG:
-					return eBasicSetContainer(null, WebapplicationPackage.FORM_LOGIN_CONFIG__LOGIN_CONFIG, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case WebapplicationPackage.FORM_LOGIN_CONFIG__LOGIN_CONFIG:
+				return basicSetLoginConfig(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -179,16 +178,12 @@ public class FormLoginConfigImpl extends EObjectImpl implements FormLoginConfig,
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case WebapplicationPackage.FORM_LOGIN_CONFIG__LOGIN_CONFIG:
-					return eContainer.eInverseRemove(this, WebapplicationPackage.LOGIN_CONFIG__FORM_LOGIN_CONFIG, LoginConfig.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case WebapplicationPackage.FORM_LOGIN_CONFIG__LOGIN_CONFIG:
+				return eInternalContainer().eInverseRemove(this, WebapplicationPackage.LOGIN_CONFIG__FORM_LOGIN_CONFIG, LoginConfig.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -196,8 +191,8 @@ public class FormLoginConfigImpl extends EObjectImpl implements FormLoginConfig,
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case WebapplicationPackage.FORM_LOGIN_CONFIG__FORM_LOGIN_PAGE:
 				return getFormLoginPage();
 			case WebapplicationPackage.FORM_LOGIN_CONFIG__FORM_ERROR_PAGE:
@@ -205,29 +200,16 @@ public class FormLoginConfigImpl extends EObjectImpl implements FormLoginConfig,
 			case WebapplicationPackage.FORM_LOGIN_CONFIG__LOGIN_CONFIG:
 				return getLoginConfig();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.FORM_LOGIN_CONFIG__FORM_LOGIN_PAGE:
-				return FORM_LOGIN_PAGE_EDEFAULT == null ? formLoginPage != null : !FORM_LOGIN_PAGE_EDEFAULT.equals(formLoginPage);
-			case WebapplicationPackage.FORM_LOGIN_CONFIG__FORM_ERROR_PAGE:
-				return FORM_ERROR_PAGE_EDEFAULT == null ? formErrorPage != null : !FORM_ERROR_PAGE_EDEFAULT.equals(formErrorPage);
-			case WebapplicationPackage.FORM_LOGIN_CONFIG__LOGIN_CONFIG:
-				return getLoginConfig() != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case WebapplicationPackage.FORM_LOGIN_CONFIG__FORM_LOGIN_PAGE:
 				setFormLoginPage((String)newValue);
 				return;
@@ -238,14 +220,16 @@ public class FormLoginConfigImpl extends EObjectImpl implements FormLoginConfig,
 				setLoginConfig((LoginConfig)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case WebapplicationPackage.FORM_LOGIN_CONFIG__FORM_LOGIN_PAGE:
 				setFormLoginPage(FORM_LOGIN_PAGE_EDEFAULT);
 				return;
@@ -256,7 +240,24 @@ public class FormLoginConfigImpl extends EObjectImpl implements FormLoginConfig,
 				setLoginConfig((LoginConfig)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case WebapplicationPackage.FORM_LOGIN_CONFIG__FORM_LOGIN_PAGE:
+				return FORM_LOGIN_PAGE_EDEFAULT == null ? formLoginPage != null : !FORM_LOGIN_PAGE_EDEFAULT.equals(formLoginPage);
+			case WebapplicationPackage.FORM_LOGIN_CONFIG__FORM_ERROR_PAGE:
+				return FORM_ERROR_PAGE_EDEFAULT == null ? formErrorPage != null : !FORM_ERROR_PAGE_EDEFAULT.equals(formErrorPage);
+			case WebapplicationPackage.FORM_LOGIN_CONFIG__LOGIN_CONFIG:
+				return getLoginConfig() != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

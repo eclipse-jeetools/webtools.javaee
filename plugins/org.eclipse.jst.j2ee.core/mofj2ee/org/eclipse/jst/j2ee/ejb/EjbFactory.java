@@ -15,7 +15,7 @@ import org.eclipse.jem.java.Method;
 /**
  * @generated
  * @since 1.0 */
-public interface EjbFactory extends EFactory{
+public interface EjbFactory extends EFactory {
 
 	/**
 	 * The singleton instance of the factory.
@@ -23,7 +23,7 @@ public interface EjbFactory extends EFactory{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	EjbFactory eINSTANCE = new org.eclipse.jst.j2ee.ejb.internal.impl.EjbFactoryImpl();
+	EjbFactory eINSTANCE = org.eclipse.jst.j2ee.ejb.internal.impl.EjbFactoryImpl.init();
 
 	/**
 	 * Creates and returns a reference to a MethodElement from the given signature
@@ -184,12 +184,13 @@ public interface EjbFactory extends EFactory{
 	EJBMethodCategory createEJBMethodCategory();
 
 	/**
+	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * This method is NOT api, and may change in future releases.  
 	 * EMF package classes should be access via their "eINSTANCE" static fields
 	 * <!-- end-user-doc -->
-	 * @generated This field/method will be replaced during code generation.
-	 * @return EjbPackage
+	 * @return the package supported by this factory.
+	 * @generated
 	 */
 	EjbPackage getEjbPackage();
 

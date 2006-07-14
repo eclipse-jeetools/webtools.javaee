@@ -16,15 +16,13 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jst.j2ee.common.Description;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.taglib.internal.TaglibPackage;
 import org.eclipse.jst.j2ee.taglib.internal.Validator;
 import org.eclipse.jst.j2ee.webapplication.InitParam;
@@ -32,9 +30,9 @@ import org.eclipse.jst.j2ee.webapplication.InitParam;
 
 /**
  * The validator element provides information on an optional validator that can be used to validate the conformance of a JSP page to using this tag library.
-
+ * @generated
  */
-public class ValidatorImpl extends EObjectImpl implements Validator, EObject{
+public class ValidatorImpl extends J2EEEObjectImpl implements Validator {
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
@@ -52,7 +50,7 @@ public class ValidatorImpl extends EObjectImpl implements Validator, EObject{
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return TaglibPackage.eINSTANCE.getValidator();
+		return TaglibPackage.Literals.VALIDATOR;
 	}
 
 	/**
@@ -62,8 +60,8 @@ public class ValidatorImpl extends EObjectImpl implements Validator, EObject{
 	 */
 	public JavaClass getValidatorClass() {
 		if (validatorClass != null && validatorClass.eIsProxy()) {
-			JavaClass oldValidatorClass = validatorClass;
-			validatorClass = (JavaClass)eResolveProxy((InternalEObject)validatorClass);
+			InternalEObject oldValidatorClass = (InternalEObject)validatorClass;
+			validatorClass = (JavaClass)eResolveProxy(oldValidatorClass);
 			if (validatorClass != oldValidatorClass) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TaglibPackage.VALIDATOR__VALIDATOR_CLASS, oldValidatorClass, validatorClass));
@@ -122,18 +120,14 @@ public class ValidatorImpl extends EObjectImpl implements Validator, EObject{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case TaglibPackage.VALIDATOR__INIT_PARAMS:
-					return ((InternalEList)getInitParams()).basicRemove(otherEnd, msgs);
-				case TaglibPackage.VALIDATOR__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case TaglibPackage.VALIDATOR__INIT_PARAMS:
+				return ((InternalEList)getInitParams()).basicRemove(otherEnd, msgs);
+			case TaglibPackage.VALIDATOR__DESCRIPTIONS:
+				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -141,8 +135,8 @@ public class ValidatorImpl extends EObjectImpl implements Validator, EObject{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case TaglibPackage.VALIDATOR__VALIDATOR_CLASS:
 				if (resolve) return getValidatorClass();
 				return basicGetValidatorClass();
@@ -151,7 +145,7 @@ public class ValidatorImpl extends EObjectImpl implements Validator, EObject{
 			case TaglibPackage.VALIDATOR__DESCRIPTIONS:
 				return getDescriptions();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -159,8 +153,8 @@ public class ValidatorImpl extends EObjectImpl implements Validator, EObject{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case TaglibPackage.VALIDATOR__VALIDATOR_CLASS:
 				setValidatorClass((JavaClass)newValue);
 				return;
@@ -173,7 +167,7 @@ public class ValidatorImpl extends EObjectImpl implements Validator, EObject{
 				getDescriptions().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -181,8 +175,8 @@ public class ValidatorImpl extends EObjectImpl implements Validator, EObject{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case TaglibPackage.VALIDATOR__VALIDATOR_CLASS:
 				setValidatorClass((JavaClass)null);
 				return;
@@ -193,7 +187,7 @@ public class ValidatorImpl extends EObjectImpl implements Validator, EObject{
 				getDescriptions().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -201,8 +195,8 @@ public class ValidatorImpl extends EObjectImpl implements Validator, EObject{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case TaglibPackage.VALIDATOR__VALIDATOR_CLASS:
 				return validatorClass != null;
 			case TaglibPackage.VALIDATOR__INIT_PARAMS:
@@ -210,7 +204,7 @@ public class ValidatorImpl extends EObjectImpl implements Validator, EObject{
 			case TaglibPackage.VALIDATOR__DESCRIPTIONS:
 				return descriptions != null && !descriptions.isEmpty();
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	protected EList initParams=null;

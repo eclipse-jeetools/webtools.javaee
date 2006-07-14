@@ -13,21 +13,19 @@ package org.eclipse.jst.j2ee.webapplication.internal.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFile;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
 
 /**
  * The welcome-file element contains file name to use as a default welcome file, such as index.html
-
+ * @generated
  */
-public class WelcomeFileImpl extends EObjectImpl implements WelcomeFile, EObject {
+public class WelcomeFileImpl extends J2EEEObjectImpl implements WelcomeFile {
 
 	/**
 	 * The default value of the '{@link #getWelcomeFile() <em>Welcome File</em>}' attribute.
@@ -55,7 +53,7 @@ public class WelcomeFileImpl extends EObjectImpl implements WelcomeFile, EObject
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return WebapplicationPackage.eINSTANCE.getWelcomeFile();
+		return WebapplicationPackage.Literals.WELCOME_FILE;
 	}
 
 	/**
@@ -80,22 +78,32 @@ public class WelcomeFileImpl extends EObjectImpl implements WelcomeFile, EObject
 	 */
 	public WelcomeFileList getFileList() {
 		if (eContainerFeatureID != WebapplicationPackage.WELCOME_FILE__FILE_LIST) return null;
-		return (WelcomeFileList)eContainer;
+		return (WelcomeFileList)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetFileList(WelcomeFileList newFileList, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newFileList, WebapplicationPackage.WELCOME_FILE__FILE_LIST, msgs);
+		return msgs;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public void setFileList(WelcomeFileList newFileList) {
-		if (newFileList != eContainer || (eContainerFeatureID != WebapplicationPackage.WELCOME_FILE__FILE_LIST && newFileList != null)) {
+		if (newFileList != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.WELCOME_FILE__FILE_LIST && newFileList != null)) {
 			if (EcoreUtil.isAncestor(this, newFileList))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newFileList != null)
 				msgs = ((InternalEObject)newFileList).eInverseAdd(this, WebapplicationPackage.WELCOME_FILE_LIST__FILE, WelcomeFileList.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newFileList, WebapplicationPackage.WELCOME_FILE__FILE_LIST, msgs);
+			msgs = basicSetFileList(newFileList, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -107,20 +115,14 @@ public class WelcomeFileImpl extends EObjectImpl implements WelcomeFile, EObject
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WebapplicationPackage.WELCOME_FILE__FILE_LIST:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, WebapplicationPackage.WELCOME_FILE__FILE_LIST, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case WebapplicationPackage.WELCOME_FILE__FILE_LIST:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetFileList((WelcomeFileList)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -128,16 +130,12 @@ public class WelcomeFileImpl extends EObjectImpl implements WelcomeFile, EObject
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WebapplicationPackage.WELCOME_FILE__FILE_LIST:
-					return eBasicSetContainer(null, WebapplicationPackage.WELCOME_FILE__FILE_LIST, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case WebapplicationPackage.WELCOME_FILE__FILE_LIST:
+				return basicSetFileList(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -145,16 +143,12 @@ public class WelcomeFileImpl extends EObjectImpl implements WelcomeFile, EObject
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case WebapplicationPackage.WELCOME_FILE__FILE_LIST:
-					return eContainer.eInverseRemove(this, WebapplicationPackage.WELCOME_FILE_LIST__FILE, WelcomeFileList.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case WebapplicationPackage.WELCOME_FILE__FILE_LIST:
+				return eInternalContainer().eInverseRemove(this, WebapplicationPackage.WELCOME_FILE_LIST__FILE, WelcomeFileList.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -162,34 +156,23 @@ public class WelcomeFileImpl extends EObjectImpl implements WelcomeFile, EObject
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case WebapplicationPackage.WELCOME_FILE__WELCOME_FILE:
 				return getWelcomeFile();
 			case WebapplicationPackage.WELCOME_FILE__FILE_LIST:
 				return getFileList();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.WELCOME_FILE__WELCOME_FILE:
-				return WELCOME_FILE_EDEFAULT == null ? welcomeFile != null : !WELCOME_FILE_EDEFAULT.equals(welcomeFile);
-			case WebapplicationPackage.WELCOME_FILE__FILE_LIST:
-				return getFileList() != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case WebapplicationPackage.WELCOME_FILE__WELCOME_FILE:
 				setWelcomeFile((String)newValue);
 				return;
@@ -197,14 +180,16 @@ public class WelcomeFileImpl extends EObjectImpl implements WelcomeFile, EObject
 				setFileList((WelcomeFileList)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case WebapplicationPackage.WELCOME_FILE__WELCOME_FILE:
 				setWelcomeFile(WELCOME_FILE_EDEFAULT);
 				return;
@@ -212,7 +197,22 @@ public class WelcomeFileImpl extends EObjectImpl implements WelcomeFile, EObject
 				setFileList((WelcomeFileList)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case WebapplicationPackage.WELCOME_FILE__WELCOME_FILE:
+				return WELCOME_FILE_EDEFAULT == null ? welcomeFile != null : !WELCOME_FILE_EDEFAULT.equals(welcomeFile);
+			case WebapplicationPackage.WELCOME_FILE__FILE_LIST:
+				return getFileList() != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

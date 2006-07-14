@@ -13,10 +13,9 @@ package org.eclipse.jst.j2ee.webservice.wsdd.internal.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.EJBLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean;
@@ -39,7 +38,7 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
  *
  * @generated
  */
-public class ServiceImplBeanImpl extends EObjectImpl implements ServiceImplBean
+public class ServiceImplBeanImpl extends J2EEEObjectImpl implements ServiceImplBean
 {
 	/**
 	 * The cached value of the '{@link #getEEJBLink() <em>EEJB Link</em>}' containment reference.
@@ -86,7 +85,7 @@ public class ServiceImplBeanImpl extends EObjectImpl implements ServiceImplBean
 	 * @generated
 	 */
   protected EClass eStaticClass() {
-		return WsddPackage.eINSTANCE.getServiceImplBean();
+		return WsddPackage.Literals.SERVICE_IMPL_BEAN;
 	}
 
 	/**
@@ -220,32 +219,28 @@ public class ServiceImplBeanImpl extends EObjectImpl implements ServiceImplBean
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WsddPackage.SERVICE_IMPL_BEAN__EEJB_LINK:
-					return basicSetEEJBLink(null, msgs);
-				case WsddPackage.SERVICE_IMPL_BEAN__ESERVLET_LINK:
-					return basicSetEServletLink(null, msgs);
-				case WsddPackage.SERVICE_IMPL_BEAN__BEAN_LINK:
-					return basicSetBeanLink(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case WsddPackage.SERVICE_IMPL_BEAN__EEJB_LINK:
+				return basicSetEEJBLink(null, msgs);
+			case WsddPackage.SERVICE_IMPL_BEAN__ESERVLET_LINK:
+				return basicSetEServletLink(null, msgs);
+			case WsddPackage.SERVICE_IMPL_BEAN__BEAN_LINK:
+				return basicSetBeanLink(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case WsddPackage.SERVICE_IMPL_BEAN__EEJB_LINK:
 				return getEEJBLink();
 			case WsddPackage.SERVICE_IMPL_BEAN__ESERVLET_LINK:
@@ -253,16 +248,16 @@ public class ServiceImplBeanImpl extends EObjectImpl implements ServiceImplBean
 			case WsddPackage.SERVICE_IMPL_BEAN__BEAN_LINK:
 				return getBeanLink();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case WsddPackage.SERVICE_IMPL_BEAN__EEJB_LINK:
 				setEEJBLink((EJBLink)newValue);
 				return;
@@ -273,16 +268,16 @@ public class ServiceImplBeanImpl extends EObjectImpl implements ServiceImplBean
 				setBeanLink((BeanLink)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case WsddPackage.SERVICE_IMPL_BEAN__EEJB_LINK:
 				setEEJBLink((EJBLink)null);
 				return;
@@ -293,16 +288,16 @@ public class ServiceImplBeanImpl extends EObjectImpl implements ServiceImplBean
 				setBeanLink((BeanLink)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case WsddPackage.SERVICE_IMPL_BEAN__EEJB_LINK:
 				return eEJBLink != null;
 			case WsddPackage.SERVICE_IMPL_BEAN__ESERVLET_LINK:
@@ -310,7 +305,7 @@ public class ServiceImplBeanImpl extends EObjectImpl implements ServiceImplBean
 			case WsddPackage.SERVICE_IMPL_BEAN__BEAN_LINK:
 				return beanLink != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 } //ServiceImplBeanImpl

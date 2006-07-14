@@ -16,15 +16,13 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.Description;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.Query;
@@ -34,8 +32,9 @@ import org.eclipse.jst.j2ee.ejb.ReturnTypeMapping;
 /**
  * The query element is used to specify a finder or select query. It contains an optional description of the query; the specification of the finder or select method it is used by; a specification of the return type mapping, if any, if the query is for a select method; and the EJB QL query string that defines the query. Queries that are expressible in EJB QL must use the ejb-ql element to specify the query. If a query
  * is not expressible in EJB QL, the description element should be used to describe the semantics of the query and the ejb-ql element should be empty.
+ * @generated
  */
-public class QueryImpl extends EObjectImpl implements Query, EObject{
+public class QueryImpl extends J2EEEObjectImpl implements Query {
 
 	/**
 	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
@@ -114,7 +113,7 @@ public class QueryImpl extends EObjectImpl implements Query, EObject{
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return EjbPackage.eINSTANCE.getQuery();
+		return EjbPackage.Literals.QUERY;
 	}
 
 public boolean isLocalResultMapping() {
@@ -289,7 +288,17 @@ public boolean isRemoteResultMapping() {
 	 */
 	public ContainerManagedEntity getEntity() {
 		if (eContainerFeatureID != EjbPackage.QUERY__ENTITY) return null;
-		return (ContainerManagedEntity)eContainer;
+		return (ContainerManagedEntity)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetEntity(ContainerManagedEntity newEntity, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newEntity, EjbPackage.QUERY__ENTITY, msgs);
+		return msgs;
 	}
 
 	/**
@@ -298,15 +307,15 @@ public boolean isRemoteResultMapping() {
 	 * @generated
 	 */
 	public void setEntity(ContainerManagedEntity newEntity) {
-		if (newEntity != eContainer || (eContainerFeatureID != EjbPackage.QUERY__ENTITY && newEntity != null)) {
+		if (newEntity != eInternalContainer() || (eContainerFeatureID != EjbPackage.QUERY__ENTITY && newEntity != null)) {
 			if (EcoreUtil.isAncestor(this, newEntity))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newEntity != null)
 				msgs = ((InternalEObject)newEntity).eInverseAdd(this, EjbPackage.CONTAINER_MANAGED_ENTITY__QUERIES, ContainerManagedEntity.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newEntity, EjbPackage.QUERY__ENTITY, msgs);
+			msgs = basicSetEntity(newEntity, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -330,24 +339,18 @@ public boolean isRemoteResultMapping() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.QUERY__QUERY_METHOD:
-					if (queryMethod != null)
-						msgs = ((InternalEObject)queryMethod).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EjbPackage.QUERY__QUERY_METHOD, null, msgs);
-					return basicSetQueryMethod((QueryMethod)otherEnd, msgs);
-				case EjbPackage.QUERY__ENTITY:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, EjbPackage.QUERY__ENTITY, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.QUERY__QUERY_METHOD:
+				if (queryMethod != null)
+					msgs = ((InternalEObject)queryMethod).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EjbPackage.QUERY__QUERY_METHOD, null, msgs);
+				return basicSetQueryMethod((QueryMethod)otherEnd, msgs);
+			case EjbPackage.QUERY__ENTITY:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetEntity((ContainerManagedEntity)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -355,20 +358,16 @@ public boolean isRemoteResultMapping() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.QUERY__QUERY_METHOD:
-					return basicSetQueryMethod(null, msgs);
-				case EjbPackage.QUERY__ENTITY:
-					return eBasicSetContainer(null, EjbPackage.QUERY__ENTITY, msgs);
-				case EjbPackage.QUERY__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.QUERY__QUERY_METHOD:
+				return basicSetQueryMethod(null, msgs);
+			case EjbPackage.QUERY__ENTITY:
+				return basicSetEntity(null, msgs);
+			case EjbPackage.QUERY__DESCRIPTIONS:
+				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -376,16 +375,12 @@ public boolean isRemoteResultMapping() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case EjbPackage.QUERY__ENTITY:
-					return eContainer.eInverseRemove(this, EjbPackage.CONTAINER_MANAGED_ENTITY__QUERIES, ContainerManagedEntity.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case EjbPackage.QUERY__ENTITY:
+				return eInternalContainer().eInverseRemove(this, EjbPackage.CONTAINER_MANAGED_ENTITY__QUERIES, ContainerManagedEntity.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -393,8 +388,8 @@ public boolean isRemoteResultMapping() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case EjbPackage.QUERY__DESCRIPTION:
 				return getDescription();
 			case EjbPackage.QUERY__EJB_QL:
@@ -408,35 +403,16 @@ public boolean isRemoteResultMapping() {
 			case EjbPackage.QUERY__DESCRIPTIONS:
 				return getDescriptions();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.QUERY__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case EjbPackage.QUERY__EJB_QL:
-				return EJB_QL_EDEFAULT == null ? ejbQL != null : !EJB_QL_EDEFAULT.equals(ejbQL);
-			case EjbPackage.QUERY__RETURN_TYPE_MAPPING:
-				return isSetReturnTypeMapping();
-			case EjbPackage.QUERY__QUERY_METHOD:
-				return queryMethod != null;
-			case EjbPackage.QUERY__ENTITY:
-				return getEntity() != null;
-			case EjbPackage.QUERY__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case EjbPackage.QUERY__DESCRIPTION:
 				setDescription((String)newValue);
 				return;
@@ -457,14 +433,16 @@ public boolean isRemoteResultMapping() {
 				getDescriptions().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case EjbPackage.QUERY__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
@@ -484,7 +462,30 @@ public boolean isRemoteResultMapping() {
 				getDescriptions().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case EjbPackage.QUERY__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case EjbPackage.QUERY__EJB_QL:
+				return EJB_QL_EDEFAULT == null ? ejbQL != null : !EJB_QL_EDEFAULT.equals(ejbQL);
+			case EjbPackage.QUERY__RETURN_TYPE_MAPPING:
+				return isSetReturnTypeMapping();
+			case EjbPackage.QUERY__QUERY_METHOD:
+				return queryMethod != null;
+			case EjbPackage.QUERY__ENTITY:
+				return getEntity() != null;
+			case EjbPackage.QUERY__DESCRIPTIONS:
+				return descriptions != null && !descriptions.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

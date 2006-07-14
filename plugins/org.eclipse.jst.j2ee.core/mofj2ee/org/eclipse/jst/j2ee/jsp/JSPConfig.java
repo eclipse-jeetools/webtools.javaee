@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.jsp;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -36,8 +36,8 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.jsp.JspPackage#getJSPConfig()
  * @model
  * @generated
- * @since 1.0 */
-public interface JSPConfig extends EObject{
+ */
+public interface JSPConfig extends J2EEEObject {
 	/**
 	 * Returns the value of the '<em><b>Tag Libs</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.jst.j2ee.jsp.TagLibRefType}.

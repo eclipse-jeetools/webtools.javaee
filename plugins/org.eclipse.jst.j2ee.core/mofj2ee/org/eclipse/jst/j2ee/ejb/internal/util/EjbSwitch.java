@@ -21,6 +21,8 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.common.DescriptionGroup;
+import org.eclipse.jst.j2ee.common.J2EEEAttribute;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 import org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup;
 import org.eclipse.jst.j2ee.ejb.ActivationConfig;
 import org.eclipse.jst.j2ee.ejb.ActivationConfigProperty;
@@ -130,24 +132,28 @@ public class EjbSwitch {
 				if (result == null) result = caseJNDIEnvRefsGroup(containerManagedEntity);
 				if (result == null) result = caseCompatibilityDescriptionGroup(containerManagedEntity);
 				if (result == null) result = caseDescriptionGroup(containerManagedEntity);
+				if (result == null) result = caseJ2EEEObject(containerManagedEntity);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.METHOD_PERMISSION: {
 				MethodPermission methodPermission = (MethodPermission)theEObject;
 				Object result = caseMethodPermission(methodPermission);
+				if (result == null) result = caseJ2EEEObject(methodPermission);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.ASSEMBLY_DESCRIPTOR: {
 				AssemblyDescriptor assemblyDescriptor = (AssemblyDescriptor)theEObject;
 				Object result = caseAssemblyDescriptor(assemblyDescriptor);
+				if (result == null) result = caseJ2EEEObject(assemblyDescriptor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.METHOD_TRANSACTION: {
 				MethodTransaction methodTransaction = (MethodTransaction)theEObject;
 				Object result = caseMethodTransaction(methodTransaction);
+				if (result == null) result = caseJ2EEEObject(methodTransaction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -158,6 +164,7 @@ public class EjbSwitch {
 				if (result == null) result = caseJNDIEnvRefsGroup(session);
 				if (result == null) result = caseCompatibilityDescriptionGroup(session);
 				if (result == null) result = caseDescriptionGroup(session);
+				if (result == null) result = caseJ2EEEObject(session);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -168,6 +175,7 @@ public class EjbSwitch {
 				if (result == null) result = caseJNDIEnvRefsGroup(entity);
 				if (result == null) result = caseCompatibilityDescriptionGroup(entity);
 				if (result == null) result = caseDescriptionGroup(entity);
+				if (result == null) result = caseJ2EEEObject(entity);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -177,12 +185,14 @@ public class EjbSwitch {
 				if (result == null) result = caseJNDIEnvRefsGroup(enterpriseBean);
 				if (result == null) result = caseCompatibilityDescriptionGroup(enterpriseBean);
 				if (result == null) result = caseDescriptionGroup(enterpriseBean);
+				if (result == null) result = caseJ2EEEObject(enterpriseBean);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.EJB_METHOD_CATEGORY: {
 				EJBMethodCategory ejbMethodCategory = (EJBMethodCategory)theEObject;
 				Object result = caseEJBMethodCategory(ejbMethodCategory);
+				if (result == null) result = caseJ2EEEObject(ejbMethodCategory);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -191,18 +201,21 @@ public class EjbSwitch {
 				Object result = caseEJBJar(ejbJar);
 				if (result == null) result = caseCompatibilityDescriptionGroup(ejbJar);
 				if (result == null) result = caseDescriptionGroup(ejbJar);
+				if (result == null) result = caseJ2EEEObject(ejbJar);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.METHOD_ELEMENT: {
 				MethodElement methodElement = (MethodElement)theEObject;
 				Object result = caseMethodElement(methodElement);
+				if (result == null) result = caseJ2EEEObject(methodElement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.CMP_ATTRIBUTE: {
 				CMPAttribute cmpAttribute = (CMPAttribute)theEObject;
 				Object result = caseCMPAttribute(cmpAttribute);
+				if (result == null) result = caseJ2EEEAttribute(cmpAttribute);
 				if (result == null) result = caseEAttribute(cmpAttribute);
 				if (result == null) result = caseEStructuralFeature(cmpAttribute);
 				if (result == null) result = caseETypedElement(cmpAttribute);
@@ -214,30 +227,35 @@ public class EjbSwitch {
 			case EjbPackage.RELATIONSHIPS: {
 				Relationships relationships = (Relationships)theEObject;
 				Object result = caseRelationships(relationships);
+				if (result == null) result = caseJ2EEEObject(relationships);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.QUERY: {
 				Query query = (Query)theEObject;
 				Object result = caseQuery(query);
+				if (result == null) result = caseJ2EEEObject(query);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.EJB_RELATION: {
 				EJBRelation ejbRelation = (EJBRelation)theEObject;
 				Object result = caseEJBRelation(ejbRelation);
+				if (result == null) result = caseJ2EEEObject(ejbRelation);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.EJB_RELATIONSHIP_ROLE: {
 				EJBRelationshipRole ejbRelationshipRole = (EJBRelationshipRole)theEObject;
 				Object result = caseEJBRelationshipRole(ejbRelationshipRole);
+				if (result == null) result = caseJ2EEEObject(ejbRelationshipRole);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.ROLE_SOURCE: {
 				RoleSource roleSource = (RoleSource)theEObject;
 				Object result = caseRoleSource(roleSource);
+				if (result == null) result = caseJ2EEEObject(roleSource);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -245,6 +263,7 @@ public class EjbSwitch {
 				CMRField cmrField = (CMRField)theEObject;
 				Object result = caseCMRField(cmrField);
 				if (result == null) result = caseCMPAttribute(cmrField);
+				if (result == null) result = caseJ2EEEAttribute(cmrField);
 				if (result == null) result = caseEAttribute(cmrField);
 				if (result == null) result = caseEStructuralFeature(cmrField);
 				if (result == null) result = caseETypedElement(cmrField);
@@ -260,18 +279,21 @@ public class EjbSwitch {
 				if (result == null) result = caseJNDIEnvRefsGroup(messageDriven);
 				if (result == null) result = caseCompatibilityDescriptionGroup(messageDriven);
 				if (result == null) result = caseDescriptionGroup(messageDriven);
+				if (result == null) result = caseJ2EEEObject(messageDriven);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.MESSAGE_DRIVEN_DESTINATION: {
 				MessageDrivenDestination messageDrivenDestination = (MessageDrivenDestination)theEObject;
 				Object result = caseMessageDrivenDestination(messageDrivenDestination);
+				if (result == null) result = caseJ2EEEObject(messageDrivenDestination);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.EXCLUDE_LIST: {
 				ExcludeList excludeList = (ExcludeList)theEObject;
 				Object result = caseExcludeList(excludeList);
+				if (result == null) result = caseJ2EEEObject(excludeList);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -279,18 +301,21 @@ public class EjbSwitch {
 				QueryMethod queryMethod = (QueryMethod)theEObject;
 				Object result = caseQueryMethod(queryMethod);
 				if (result == null) result = caseMethodElement(queryMethod);
+				if (result == null) result = caseJ2EEEObject(queryMethod);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.ACTIVATION_CONFIG_PROPERTY: {
 				ActivationConfigProperty activationConfigProperty = (ActivationConfigProperty)theEObject;
 				Object result = caseActivationConfigProperty(activationConfigProperty);
+				if (result == null) result = caseJ2EEEObject(activationConfigProperty);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.ACTIVATION_CONFIG: {
 				ActivationConfig activationConfig = (ActivationConfig)theEObject;
 				Object result = caseActivationConfig(activationConfig);
+				if (result == null) result = caseJ2EEEObject(activationConfig);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -644,6 +669,21 @@ public class EjbSwitch {
 	}
 
 	/**
+	 * Returns the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseJ2EEEObject(J2EEEObject object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpretting the object as an instance of '<em>Description Group</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -760,6 +800,21 @@ public class EjbSwitch {
 	 * @generated
 	 */
 	public Object caseEAttribute(EAttribute object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>J2EEE Attribute</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>J2EEE Attribute</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseJ2EEEAttribute(J2EEEAttribute object) {
 		return null;
 	}
 

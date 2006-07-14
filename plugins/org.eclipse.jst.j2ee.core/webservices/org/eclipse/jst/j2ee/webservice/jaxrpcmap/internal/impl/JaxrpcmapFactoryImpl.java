@@ -12,7 +12,9 @@ package org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.ConstructorParameterOrder;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.ElementName;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionMapping;
@@ -46,6 +48,25 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLServiceName;
  */
 public class JaxrpcmapFactoryImpl extends EFactoryImpl implements JaxrpcmapFactory
 {
+	/**
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static JaxrpcmapFactory init() {
+		try {
+			JaxrpcmapFactory theJaxrpcmapFactory = (JaxrpcmapFactory)EPackage.Registry.INSTANCE.getEFactory("jaxrpcmap.xmi"); 
+			if (theJaxrpcmapFactory != null) {
+				return theJaxrpcmapFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new JaxrpcmapFactoryImpl();
+	}
+
 	/**
 	 * Creates an instance of the factory.
 	 * <!-- begin-user-doc -->

@@ -16,16 +16,15 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.common.DisplayName;
 import org.eclipse.jst.j2ee.common.IconType;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionResource;
 import org.eclipse.jst.j2ee.webservice.wscommon.DescriptionType;
@@ -59,7 +58,7 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
  *
  * @generated
  */
-public class WebServiceDescriptionImpl extends EObjectImpl implements WebServiceDescription
+public class WebServiceDescriptionImpl extends J2EEEObjectImpl implements WebServiceDescription
 {
 	/**
 	 * The default value of the '{@link #getJaxrpcMappingFile() <em>Jaxrpc Mapping File</em>}' attribute.
@@ -256,7 +255,7 @@ public class WebServiceDescriptionImpl extends EObjectImpl implements WebService
 	 * @generated
 	 */
   protected EClass eStaticClass() {
-		return WsddPackage.eINSTANCE.getWebServiceDescription();
+		return WsddPackage.Literals.WEB_SERVICE_DESCRIPTION;
 	}
 
 	/**
@@ -663,34 +662,30 @@ public class WebServiceDescriptionImpl extends EObjectImpl implements WebService
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WsddPackage.WEB_SERVICE_DESCRIPTION__PORT_COMPONENTS:
-					return ((InternalEList)getPortComponents()).basicRemove(otherEnd, msgs);
-				case WsddPackage.WEB_SERVICE_DESCRIPTION__DESCRIPTION_TYPE:
-					return basicSetDescriptionType(null, msgs);
-				case WsddPackage.WEB_SERVICE_DESCRIPTION__DISPLAY_NAME_TYPE:
-					return basicSetDisplayNameType(null, msgs);
-				case WsddPackage.WEB_SERVICE_DESCRIPTION__ICON_TYPE:
-					return basicSetIconType(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case WsddPackage.WEB_SERVICE_DESCRIPTION__PORT_COMPONENTS:
+				return ((InternalEList)getPortComponents()).basicRemove(otherEnd, msgs);
+			case WsddPackage.WEB_SERVICE_DESCRIPTION__DESCRIPTION_TYPE:
+				return basicSetDescriptionType(null, msgs);
+			case WsddPackage.WEB_SERVICE_DESCRIPTION__DISPLAY_NAME_TYPE:
+				return basicSetDisplayNameType(null, msgs);
+			case WsddPackage.WEB_SERVICE_DESCRIPTION__ICON_TYPE:
+				return basicSetIconType(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case WsddPackage.WEB_SERVICE_DESCRIPTION__JAXRPC_MAPPING_FILE:
 				return getJaxrpcMappingFile();
 			case WsddPackage.WEB_SERVICE_DESCRIPTION__WEB_SERVICE_DESCRIPTION_NAME:
@@ -714,16 +709,16 @@ public class WebServiceDescriptionImpl extends EObjectImpl implements WebService
 			case WsddPackage.WEB_SERVICE_DESCRIPTION__ICON_TYPE:
 				return getIconType();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case WsddPackage.WEB_SERVICE_DESCRIPTION__JAXRPC_MAPPING_FILE:
 				setJaxrpcMappingFile((String)newValue);
 				return;
@@ -759,16 +754,16 @@ public class WebServiceDescriptionImpl extends EObjectImpl implements WebService
 				setIconType((IconType)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case WsddPackage.WEB_SERVICE_DESCRIPTION__JAXRPC_MAPPING_FILE:
 				setJaxrpcMappingFile(JAXRPC_MAPPING_FILE_EDEFAULT);
 				return;
@@ -803,16 +798,16 @@ public class WebServiceDescriptionImpl extends EObjectImpl implements WebService
 				setIconType((IconType)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case WsddPackage.WEB_SERVICE_DESCRIPTION__JAXRPC_MAPPING_FILE:
 				return JAXRPC_MAPPING_FILE_EDEFAULT == null ? jaxrpcMappingFile != null : !JAXRPC_MAPPING_FILE_EDEFAULT.equals(jaxrpcMappingFile);
 			case WsddPackage.WEB_SERVICE_DESCRIPTION__WEB_SERVICE_DESCRIPTION_NAME:
@@ -836,7 +831,7 @@ public class WebServiceDescriptionImpl extends EObjectImpl implements WebService
 			case WsddPackage.WEB_SERVICE_DESCRIPTION__ICON_TYPE:
 				return iconType != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

@@ -40,8 +40,8 @@ import org.eclipse.jst.j2ee.common.CommonPackage;
  * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory
  * @model kind="package"
  * @generated
- * @since 1.0 */
-public interface WscommonPackage extends EPackage{
+ */
+public interface WscommonPackage extends EPackage {
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
@@ -91,7 +91,7 @@ public interface WscommonPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int INIT_PARAM__PARAM_NAME = 0;
+  int INIT_PARAM__PARAM_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Param Value</b></em>' attribute.
@@ -100,7 +100,7 @@ public interface WscommonPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int INIT_PARAM__PARAM_VALUE = 1;
+  int INIT_PARAM__PARAM_VALUE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -109,7 +109,7 @@ public interface WscommonPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int INIT_PARAM__DESCRIPTION = 2;
+  int INIT_PARAM__DESCRIPTION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Description Types</b></em>' containment reference list.
@@ -118,16 +118,16 @@ public interface WscommonPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int INIT_PARAM__DESCRIPTION_TYPES = 3;
+  int INIT_PARAM__DESCRIPTION_TYPES = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
-	 * The number of structural features of the the '<em>Init Param</em>' class.
+	 * The number of structural features of the '<em>Init Param</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int INIT_PARAM_FEATURE_COUNT = 4;
+  int INIT_PARAM_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.SOAPHeaderImpl <em>SOAP Header</em>}' class.
@@ -176,7 +176,7 @@ public interface WscommonPackage extends EPackage{
   int SOAP_HEADER__INTERNAL_PREFIX_OR_NS_URI = CommonPackage.QNAME__INTERNAL_PREFIX_OR_NS_URI;
 
 	/**
-	 * The number of structural features of the the '<em>SOAP Header</em>' class.
+	 * The number of structural features of the '<em>SOAP Header</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -201,16 +201,16 @@ public interface WscommonPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int SOAP_ROLE__SOAP_ROLE = 0;
+  int SOAP_ROLE__SOAP_ROLE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>SOAP Role</em>' class.
+	 * The number of structural features of the '<em>SOAP Role</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int SOAP_ROLE_FEATURE_COUNT = 1;
+  int SOAP_ROLE_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.PortNameImpl <em>Port Name</em>}' class.
@@ -229,16 +229,16 @@ public interface WscommonPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int PORT_NAME__PORT_NAME = 0;
+  int PORT_NAME__PORT_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Port Name</em>' class.
+	 * The number of structural features of the '<em>Port Name</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int PORT_NAME_FEATURE_COUNT = 1;
+  int PORT_NAME_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.DescriptionTypeImpl <em>Description Type</em>}' class.
@@ -269,7 +269,7 @@ public interface WscommonPackage extends EPackage{
   int DESCRIPTION_TYPE__VALUE = CommonPackage.DESCRIPTION__VALUE;
 
 	/**
-	 * The number of structural features of the the '<em>Description Type</em>' class.
+	 * The number of structural features of the '<em>Description Type</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -306,7 +306,7 @@ public interface WscommonPackage extends EPackage{
   int DISPLAY_NAME_TYPE__VALUE = CommonPackage.DISPLAY_NAME__VALUE;
 
 	/**
-	 * The number of structural features of the the '<em>Display Name Type</em>' class.
+	 * The number of structural features of the '<em>Display Name Type</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -449,5 +449,128 @@ public interface WscommonPackage extends EPackage{
 	 * @generated
 	 */
   WscommonFactory getWscommonFactory();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Defines literals for the meta objects that represent
+	 * <ul>
+	 *   <li>each class,</li>
+	 *   <li>each feature of each class,</li>
+	 *   <li>each enum,</li>
+	 *   <li>and each data type</li>
+	 * </ul>
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	interface Literals  {
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.InitParamImpl <em>Init Param</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.InitParamImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.WscommonPackageImpl#getInitParam()
+		 * @generated
+		 */
+		EClass INIT_PARAM = eINSTANCE.getInitParam();
+
+		/**
+		 * The meta object literal for the '<em><b>Param Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INIT_PARAM__PARAM_NAME = eINSTANCE.getInitParam_ParamName();
+
+		/**
+		 * The meta object literal for the '<em><b>Param Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INIT_PARAM__PARAM_VALUE = eINSTANCE.getInitParam_ParamValue();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INIT_PARAM__DESCRIPTION = eINSTANCE.getInitParam_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Description Types</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INIT_PARAM__DESCRIPTION_TYPES = eINSTANCE.getInitParam_DescriptionTypes();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.SOAPHeaderImpl <em>SOAP Header</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.SOAPHeaderImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.WscommonPackageImpl#getSOAPHeader()
+		 * @generated
+		 */
+		EClass SOAP_HEADER = eINSTANCE.getSOAPHeader();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.SOAPRoleImpl <em>SOAP Role</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.SOAPRoleImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.WscommonPackageImpl#getSOAPRole()
+		 * @generated
+		 */
+		EClass SOAP_ROLE = eINSTANCE.getSOAPRole();
+
+		/**
+		 * The meta object literal for the '<em><b>Soap Role</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOAP_ROLE__SOAP_ROLE = eINSTANCE.getSOAPRole_SoapRole();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.PortNameImpl <em>Port Name</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.PortNameImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.WscommonPackageImpl#getPortName()
+		 * @generated
+		 */
+		EClass PORT_NAME = eINSTANCE.getPortName();
+
+		/**
+		 * The meta object literal for the '<em><b>Port Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PORT_NAME__PORT_NAME = eINSTANCE.getPortName_PortName();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.DescriptionTypeImpl <em>Description Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.DescriptionTypeImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.WscommonPackageImpl#getDescriptionType()
+		 * @generated
+		 */
+		EClass DESCRIPTION_TYPE = eINSTANCE.getDescriptionType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.DisplayNameTypeImpl <em>Display Name Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.DisplayNameTypeImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.WscommonPackageImpl#getDisplayNameType()
+		 * @generated
+		 */
+		EClass DISPLAY_NAME_TYPE = eINSTANCE.getDisplayNameType();
+
+	}
 
 } //WscommonPackage

@@ -13,7 +13,9 @@ package org.eclipse.jst.j2ee.client.internal.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.client.ClientFactory;
 import org.eclipse.jst.j2ee.client.ClientPackage;
@@ -22,8 +24,27 @@ import org.eclipse.jst.j2ee.client.ResAuthApplicationType;
 /**
  * @generated
  */
-public class ClientFactoryImpl extends EFactoryImpl implements ClientFactory{
+public class ClientFactoryImpl extends EFactoryImpl implements ClientFactory {
  
+	/**
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static ClientFactory init() {
+		try {
+			ClientFactory theClientFactory = (ClientFactory)EPackage.Registry.INSTANCE.getEFactory("client.xmi"); 
+			if (theClientFactory != null) {
+				return theClientFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new ClientFactoryImpl();
+	}
+
 	public ClientFactoryImpl() {
 		super(); 		
 	}
@@ -47,11 +68,8 @@ public class ClientFactoryImpl extends EFactoryImpl implements ClientFactory{
 	 */
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case ClientPackage.RES_AUTH_APPLICATION_TYPE: {
-				ResAuthApplicationType result = ResAuthApplicationType.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
+			case ClientPackage.RES_AUTH_APPLICATION_TYPE:
+				return createResAuthApplicationTypeFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -65,7 +83,7 @@ public class ClientFactoryImpl extends EFactoryImpl implements ClientFactory{
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			case ClientPackage.RES_AUTH_APPLICATION_TYPE:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertResAuthApplicationTypeToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -80,6 +98,26 @@ public static ClientFactory getActiveFactory() {
 	public ApplicationClient createApplicationClient() {
 		ApplicationClientImpl applicationClient = new ApplicationClientImpl();
 		return applicationClient;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ResAuthApplicationType createResAuthApplicationTypeFromString(EDataType eDataType, String initialValue) {
+		ResAuthApplicationType result = ResAuthApplicationType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertResAuthApplicationTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

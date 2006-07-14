@@ -17,7 +17,7 @@ import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
  * The taglib tag is the document root.
 
  */
-public interface TagLib extends CompatibilityDescriptionGroup{
+public interface TagLib extends CompatibilityDescriptionGroup {
 	/**
 	 * These values are used in the deployment descriptor, use getVersionID() to determine module versions
 	 * @generated This field/method will be replaced during code generation 
@@ -123,7 +123,7 @@ public interface TagLib extends CompatibilityDescriptionGroup{
 	 * @version J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Functions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.taglib.internal.TaglibPackage#getTagLib_Functions()
+	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getTagLib_Functions()
 	 * @model type="org.eclipse.jst.j2ee.taglib.internal.Function" containment="true"
 	 * @generated
 	 */
@@ -139,7 +139,7 @@ public interface TagLib extends CompatibilityDescriptionGroup{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Taglib Extensions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.taglib.internal.TaglibPackage#getTagLib_TaglibExtensions()
+	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getTagLib_TaglibExtensions()
 	 * @model type="org.eclipse.jst.j2ee.taglib.internal.TldExtension" containment="true"
 	 * @generated
 	 */

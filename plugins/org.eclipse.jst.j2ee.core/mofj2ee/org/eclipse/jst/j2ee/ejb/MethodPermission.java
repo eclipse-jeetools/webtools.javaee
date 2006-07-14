@@ -13,13 +13,14 @@ package org.eclipse.jst.j2ee.ejb;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 import org.eclipse.jst.j2ee.common.SecurityRole;
 
 /**
  * The method-permission element specifies that one or more security roles are allowed to invoke one or more enterprise bean methods. The method-permission element consists of an optional description, a list of security role names, and a list of method elements.  The security roles used in the method-permission element must be defined in the security-role element of the deployment descriptor, and the methods must be methods defined in the enterprise bean's remote and//or home interfaces.
+ * @generated
  * @since 1.0 */
-public interface MethodPermission extends EObject{
+public interface MethodPermission extends J2EEEObject {
 
 /**
  * Return a List of MethodElements that point to

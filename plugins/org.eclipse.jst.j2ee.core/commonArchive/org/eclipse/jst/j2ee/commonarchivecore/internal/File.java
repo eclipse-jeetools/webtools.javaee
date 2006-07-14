@@ -14,12 +14,12 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal;
 
 import java.io.InputStream;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 /**
  * @generated
  */
-public interface File extends EObject{
+public interface File extends J2EEEObject {
 
 	/**
 	 * Return the path up to the filename; e.g., from com/ibm/foo/bar.class, com/ibm/foo

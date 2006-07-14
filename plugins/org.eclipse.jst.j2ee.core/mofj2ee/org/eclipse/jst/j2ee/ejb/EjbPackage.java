@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 /**
  * <p>
@@ -27,7 +26,7 @@ import org.eclipse.jst.j2ee.common.CommonPackage;
  * </p>
  *	@since 1.0
  */
-public interface EjbPackage extends EPackage{
+public interface EjbPackage extends EPackage {
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
@@ -175,7 +174,7 @@ public interface EjbPackage extends EPackage{
 	 */
 	int ENTERPRISE_BEAN__LOCAL_INTERFACE = CommonPackage.JNDI_ENV_REFS_GROUP_FEATURE_COUNT + 8;
 	/**
-	 * The number of structural features of the the '<em>Enterprise Bean</em>' class.
+	 * The number of structural features of the '<em>Enterprise Bean</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -318,7 +317,7 @@ public interface EjbPackage extends EPackage{
 	 */
 	int ENTITY__PRIMARY_KEY = ENTERPRISE_BEAN_FEATURE_COUNT + 1;
 	/**
-	 * The number of structural features of the the '<em>Entity</em>' class.
+	 * The number of structural features of the '<em>Entity</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -499,7 +498,7 @@ public interface EjbPackage extends EPackage{
 	int CONTAINER_MANAGED_ENTITY__PRIM_KEY_FIELD = ENTITY_FEATURE_COUNT + 6;
 
 	/**
-	 * The number of structural features of the the '<em>Container Managed Entity</em>' class.
+	 * The number of structural features of the '<em>Container Managed Entity</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -510,23 +509,23 @@ public interface EjbPackage extends EPackage{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int METHOD_PERMISSION__DESCRIPTION = 0;
+	int METHOD_PERMISSION__DESCRIPTION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int METHOD_PERMISSION__UNCHECKED = 1;
+	int METHOD_PERMISSION__UNCHECKED = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int METHOD_PERMISSION__ASSEMBLY_DESCRIPTOR = 2;
+	int METHOD_PERMISSION__ASSEMBLY_DESCRIPTOR = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int METHOD_PERMISSION__ROLES = 3;
+	int METHOD_PERMISSION__ROLES = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int METHOD_PERMISSION__METHOD_ELEMENTS = 4;
+	int METHOD_PERMISSION__METHOD_ELEMENTS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -535,37 +534,37 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int METHOD_PERMISSION__DESCRIPTIONS = 5;
+	int METHOD_PERMISSION__DESCRIPTIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
-	 * The number of structural features of the the '<em>Method Permission</em>' class.
+	 * The number of structural features of the '<em>Method Permission</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int METHOD_PERMISSION_FEATURE_COUNT = 6;
+	int METHOD_PERMISSION_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 6;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int ASSEMBLY_DESCRIPTOR__METHOD_PERMISSIONS = 0;
+	int ASSEMBLY_DESCRIPTOR__METHOD_PERMISSIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int ASSEMBLY_DESCRIPTOR__METHOD_TRANSACTIONS = 1;
+	int ASSEMBLY_DESCRIPTOR__METHOD_TRANSACTIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int ASSEMBLY_DESCRIPTOR__EJB_JAR = 2;
+	int ASSEMBLY_DESCRIPTOR__EJB_JAR = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int ASSEMBLY_DESCRIPTOR__SECURITY_ROLES = 3;
+	int ASSEMBLY_DESCRIPTOR__SECURITY_ROLES = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int ASSEMBLY_DESCRIPTOR__EXCLUDE_LIST = 4;
+	int ASSEMBLY_DESCRIPTOR__EXCLUDE_LIST = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Message Destinations</b></em>' containment reference list.
@@ -574,33 +573,33 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int ASSEMBLY_DESCRIPTOR__MESSAGE_DESTINATIONS = 5;
+	int ASSEMBLY_DESCRIPTOR__MESSAGE_DESTINATIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
-	 * The number of structural features of the the '<em>Assembly Descriptor</em>' class.
+	 * The number of structural features of the '<em>Assembly Descriptor</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ASSEMBLY_DESCRIPTOR_FEATURE_COUNT = 6;
+	int ASSEMBLY_DESCRIPTOR_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 6;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int METHOD_TRANSACTION__TRANSACTION_ATTRIBUTE = 0;
+	int METHOD_TRANSACTION__TRANSACTION_ATTRIBUTE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int METHOD_TRANSACTION__DESCRIPTION = 1;
+	int METHOD_TRANSACTION__DESCRIPTION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR = 2;
+	int METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int METHOD_TRANSACTION__METHOD_ELEMENTS = 3;
+	int METHOD_TRANSACTION__METHOD_ELEMENTS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -609,16 +608,16 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int METHOD_TRANSACTION__DESCRIPTIONS = 4;
+	int METHOD_TRANSACTION__DESCRIPTIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
-	 * The number of structural features of the the '<em>Method Transaction</em>' class.
+	 * The number of structural features of the '<em>Method Transaction</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int METHOD_TRANSACTION_FEATURE_COUNT = 5;
+	int METHOD_TRANSACTION_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
@@ -803,7 +802,7 @@ public interface EjbPackage extends EPackage{
 	int SESSION__SERVICE_ENDPOINT = ENTERPRISE_BEAN_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the the '<em>Session</em>' class.
+	 * The number of structural features of the '<em>Session</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -824,13 +823,13 @@ public interface EjbPackage extends EPackage{
 	 */
 	int EJB_METHOD_CATEGORY = 7;
 	/**
-	 * The number of structural features of the the '<em>EJB Method Category</em>' class.
+	 * The number of structural features of the '<em>EJB Method Category</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_METHOD_CATEGORY_FEATURE_COUNT = 0;
+	int EJB_METHOD_CATEGORY_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Icons</b></em>' containment reference list.
@@ -902,7 +901,7 @@ public interface EjbPackage extends EPackage{
 	int EJB_JAR__RELATIONSHIP_LIST = CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP_FEATURE_COUNT + 4;
 
 	/**
-	 * The number of structural features of the the '<em>EJB Jar</em>' class.
+	 * The number of structural features of the '<em>EJB Jar</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -913,23 +912,23 @@ public interface EjbPackage extends EPackage{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int METHOD_ELEMENT__NAME = 0;
+	int METHOD_ELEMENT__NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int METHOD_ELEMENT__PARMS = 1;
+	int METHOD_ELEMENT__PARMS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int METHOD_ELEMENT__TYPE = 2;
+	int METHOD_ELEMENT__TYPE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int METHOD_ELEMENT__DESCRIPTION = 3;
+	int METHOD_ELEMENT__DESCRIPTION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int METHOD_ELEMENT__ENTERPRISE_BEAN = 4;
+	int METHOD_ELEMENT__ENTERPRISE_BEAN = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -938,16 +937,16 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int METHOD_ELEMENT__DESCRIPTIONS = 5;
+	int METHOD_ELEMENT__DESCRIPTIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
-	 * The number of structural features of the the '<em>Method Element</em>' class.
+	 * The number of structural features of the '<em>Method Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int METHOD_ELEMENT_FEATURE_COUNT = 6;
+	int METHOD_ELEMENT_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -956,12 +955,12 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CMP_ATTRIBUTE__EANNOTATIONS = EcorePackage.EATTRIBUTE__EANNOTATIONS;
+	int CMP_ATTRIBUTE__EANNOTATIONS = CommonPackage.J2EEE_ATTRIBUTE__EANNOTATIONS;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int CMP_ATTRIBUTE__NAME = EcorePackage.EATTRIBUTE__NAME;
+	int CMP_ATTRIBUTE__NAME = CommonPackage.J2EEE_ATTRIBUTE__NAME;
 	/**
 	 * The feature id for the '<em><b>Ordered</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -969,7 +968,7 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CMP_ATTRIBUTE__ORDERED = EcorePackage.EATTRIBUTE__ORDERED;
+	int CMP_ATTRIBUTE__ORDERED = CommonPackage.J2EEE_ATTRIBUTE__ORDERED;
 
 	/**
 	 * The feature id for the '<em><b>Unique</b></em>' attribute.
@@ -978,7 +977,7 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CMP_ATTRIBUTE__UNIQUE = EcorePackage.EATTRIBUTE__UNIQUE;
+	int CMP_ATTRIBUTE__UNIQUE = CommonPackage.J2EEE_ATTRIBUTE__UNIQUE;
 
 	/**
 	 * The feature id for the '<em><b>Lower Bound</b></em>' attribute.
@@ -987,7 +986,7 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CMP_ATTRIBUTE__LOWER_BOUND = EcorePackage.EATTRIBUTE__LOWER_BOUND;
+	int CMP_ATTRIBUTE__LOWER_BOUND = CommonPackage.J2EEE_ATTRIBUTE__LOWER_BOUND;
 
 	/**
 	 * The feature id for the '<em><b>Upper Bound</b></em>' attribute.
@@ -996,7 +995,7 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CMP_ATTRIBUTE__UPPER_BOUND = EcorePackage.EATTRIBUTE__UPPER_BOUND;
+	int CMP_ATTRIBUTE__UPPER_BOUND = CommonPackage.J2EEE_ATTRIBUTE__UPPER_BOUND;
 
 	/**
 	 * The feature id for the '<em><b>Many</b></em>' attribute.
@@ -1005,7 +1004,7 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CMP_ATTRIBUTE__MANY = EcorePackage.EATTRIBUTE__MANY;
+	int CMP_ATTRIBUTE__MANY = CommonPackage.J2EEE_ATTRIBUTE__MANY;
 
 	/**
 	 * The feature id for the '<em><b>Required</b></em>' attribute.
@@ -1014,7 +1013,7 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CMP_ATTRIBUTE__REQUIRED = EcorePackage.EATTRIBUTE__REQUIRED;
+	int CMP_ATTRIBUTE__REQUIRED = CommonPackage.J2EEE_ATTRIBUTE__REQUIRED;
 
 	/**
 	 * The feature id for the '<em><b>EType</b></em>' reference.
@@ -1023,7 +1022,7 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CMP_ATTRIBUTE__ETYPE = EcorePackage.EATTRIBUTE__ETYPE;
+	int CMP_ATTRIBUTE__ETYPE = CommonPackage.J2EEE_ATTRIBUTE__ETYPE;
 
 	/**
 	 * The feature id for the '<em><b>Changeable</b></em>' attribute.
@@ -1032,7 +1031,7 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CMP_ATTRIBUTE__CHANGEABLE = EcorePackage.EATTRIBUTE__CHANGEABLE;
+	int CMP_ATTRIBUTE__CHANGEABLE = CommonPackage.J2EEE_ATTRIBUTE__CHANGEABLE;
 
 	/**
 	 * The feature id for the '<em><b>Volatile</b></em>' attribute.
@@ -1041,7 +1040,7 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CMP_ATTRIBUTE__VOLATILE = EcorePackage.EATTRIBUTE__VOLATILE;
+	int CMP_ATTRIBUTE__VOLATILE = CommonPackage.J2EEE_ATTRIBUTE__VOLATILE;
 
 	/**
 	 * The feature id for the '<em><b>Transient</b></em>' attribute.
@@ -1050,7 +1049,7 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CMP_ATTRIBUTE__TRANSIENT = EcorePackage.EATTRIBUTE__TRANSIENT;
+	int CMP_ATTRIBUTE__TRANSIENT = CommonPackage.J2EEE_ATTRIBUTE__TRANSIENT;
 
 	/**
 	 * The feature id for the '<em><b>Default Value Literal</b></em>' attribute.
@@ -1059,7 +1058,7 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CMP_ATTRIBUTE__DEFAULT_VALUE_LITERAL = EcorePackage.EATTRIBUTE__DEFAULT_VALUE_LITERAL;
+	int CMP_ATTRIBUTE__DEFAULT_VALUE_LITERAL = CommonPackage.J2EEE_ATTRIBUTE__DEFAULT_VALUE_LITERAL;
 
 	/**
 	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
@@ -1068,7 +1067,7 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CMP_ATTRIBUTE__DEFAULT_VALUE = EcorePackage.EATTRIBUTE__DEFAULT_VALUE;
+	int CMP_ATTRIBUTE__DEFAULT_VALUE = CommonPackage.J2EEE_ATTRIBUTE__DEFAULT_VALUE;
 
 	/**
 	 * The feature id for the '<em><b>Unsettable</b></em>' attribute.
@@ -1077,7 +1076,7 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CMP_ATTRIBUTE__UNSETTABLE = EcorePackage.EATTRIBUTE__UNSETTABLE;
+	int CMP_ATTRIBUTE__UNSETTABLE = CommonPackage.J2EEE_ATTRIBUTE__UNSETTABLE;
 
 	/**
 	 * The feature id for the '<em><b>Derived</b></em>' attribute.
@@ -1086,7 +1085,7 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CMP_ATTRIBUTE__DERIVED = EcorePackage.EATTRIBUTE__DERIVED;
+	int CMP_ATTRIBUTE__DERIVED = CommonPackage.J2EEE_ATTRIBUTE__DERIVED;
 
 	/**
 	 * The feature id for the '<em><b>EContaining Class</b></em>' container reference.
@@ -1095,7 +1094,7 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CMP_ATTRIBUTE__ECONTAINING_CLASS = EcorePackage.EATTRIBUTE__ECONTAINING_CLASS;
+	int CMP_ATTRIBUTE__ECONTAINING_CLASS = CommonPackage.J2EEE_ATTRIBUTE__ECONTAINING_CLASS;
 
 	/**
 	 * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -1104,7 +1103,7 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-  int CMP_ATTRIBUTE__ID = EcorePackage.EATTRIBUTE__ID;
+  int CMP_ATTRIBUTE__ID = CommonPackage.J2EEE_ATTRIBUTE__ID;
 
 	/**
 	 * The feature id for the '<em><b>EAttribute Type</b></em>' reference.
@@ -1113,12 +1112,12 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CMP_ATTRIBUTE__EATTRIBUTE_TYPE = EcorePackage.EATTRIBUTE__EATTRIBUTE_TYPE;
+	int CMP_ATTRIBUTE__EATTRIBUTE_TYPE = CommonPackage.J2EEE_ATTRIBUTE__EATTRIBUTE_TYPE;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int CMP_ATTRIBUTE__DESCRIPTION = EcorePackage.EATTRIBUTE_FEATURE_COUNT + 0;
+	int CMP_ATTRIBUTE__DESCRIPTION = CommonPackage.J2EEE_ATTRIBUTE_FEATURE_COUNT + 0;
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -1126,68 +1125,29 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CMP_ATTRIBUTE__DESCRIPTIONS = EcorePackage.EATTRIBUTE_FEATURE_COUNT + 1;
+	int CMP_ATTRIBUTE__DESCRIPTIONS = CommonPackage.J2EEE_ATTRIBUTE_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>CMP Attribute</em>' class.
+	 * The number of structural features of the '<em>CMP Attribute</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CMP_ATTRIBUTE_FEATURE_COUNT = EcorePackage.EATTRIBUTE_FEATURE_COUNT + 2;
+	int CMP_ATTRIBUTE_FEATURE_COUNT = CommonPackage.J2EEE_ATTRIBUTE_FEATURE_COUNT + 2;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int RELATIONSHIPS__DESCRIPTION = 0;
+	int RELATIONSHIPS__DESCRIPTION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int RELATIONSHIPS__EJB_JAR = 1;
+	int RELATIONSHIPS__EJB_JAR = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int RELATIONSHIPS__EJB_RELATIONS = 2;
-
-	/**
-	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RELATIONSHIPS__DESCRIPTIONS = 3;
-
-	/**
-	 * The number of structural features of the the '<em>Relationships</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RELATIONSHIPS_FEATURE_COUNT = 4;
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	int QUERY__DESCRIPTION = 0;
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	int QUERY__EJB_QL = 1;
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	int QUERY__RETURN_TYPE_MAPPING = 2;
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	int QUERY__QUERY_METHOD = 3;
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	int QUERY__ENTITY = 4;
+	int RELATIONSHIPS__EJB_RELATIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1196,33 +1156,37 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int QUERY__DESCRIPTIONS = 5;
+	int RELATIONSHIPS__DESCRIPTIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
-	 * The number of structural features of the the '<em>Query</em>' class.
+	 * The number of structural features of the '<em>Relationships</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int QUERY_FEATURE_COUNT = 6;
+	int RELATIONSHIPS_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int EJB_RELATION__DESCRIPTION = 0;
+	int QUERY__DESCRIPTION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int EJB_RELATION__NAME = 1;
+	int QUERY__EJB_QL = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int EJB_RELATION__RELATIONSHIP_LIST = 2;
+	int QUERY__RETURN_TYPE_MAPPING = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int EJB_RELATION__RELATIONSHIP_ROLES = 3;
+	int QUERY__QUERY_METHOD = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
+	/**
+	 * @generated This field/method will be replaced during code generation.
+	 */
+	int QUERY__ENTITY = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1231,45 +1195,33 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_RELATION__DESCRIPTIONS = 4;
+	int QUERY__DESCRIPTIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
-	 * The number of structural features of the the '<em>EJB Relation</em>' class.
+	 * The number of structural features of the '<em>Query</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_RELATION_FEATURE_COUNT = 5;
+	int QUERY_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 6;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int EJB_RELATIONSHIP_ROLE__DESCRIPTION = 0;
+	int EJB_RELATION__DESCRIPTION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int EJB_RELATIONSHIP_ROLE__ROLE_NAME = 1;
+	int EJB_RELATION__NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int EJB_RELATIONSHIP_ROLE__MULTIPLICITY = 2;
+	int EJB_RELATION__RELATIONSHIP_LIST = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int EJB_RELATIONSHIP_ROLE__CASCADE_DELETE = 3;
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	int EJB_RELATIONSHIP_ROLE__RELATIONSHIP = 4;
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	int EJB_RELATIONSHIP_ROLE__SOURCE = 5;
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	int EJB_RELATIONSHIP_ROLE__CMR_FIELD = 6;
+	int EJB_RELATION__RELATIONSHIP_ROLES = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1278,29 +1230,45 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_RELATIONSHIP_ROLE__DESCRIPTIONS = 7;
+	int EJB_RELATION__DESCRIPTIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
-	 * The number of structural features of the the '<em>EJB Relationship Role</em>' class.
+	 * The number of structural features of the '<em>EJB Relation</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_RELATIONSHIP_ROLE_FEATURE_COUNT = 8;
+	int EJB_RELATION_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int ROLE_SOURCE__DESCRIPTION = 0;
+	int EJB_RELATIONSHIP_ROLE__DESCRIPTION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int ROLE_SOURCE__ROLE = 1;
+	int EJB_RELATIONSHIP_ROLE__ROLE_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int ROLE_SOURCE__ENTITY_BEAN = 2;
+	int EJB_RELATIONSHIP_ROLE__MULTIPLICITY = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
+	/**
+	 * @generated This field/method will be replaced during code generation.
+	 */
+	int EJB_RELATIONSHIP_ROLE__CASCADE_DELETE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
+	/**
+	 * @generated This field/method will be replaced during code generation.
+	 */
+	int EJB_RELATIONSHIP_ROLE__RELATIONSHIP = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
+	/**
+	 * @generated This field/method will be replaced during code generation.
+	 */
+	int EJB_RELATIONSHIP_ROLE__SOURCE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
+	/**
+	 * @generated This field/method will be replaced during code generation.
+	 */
+	int EJB_RELATIONSHIP_ROLE__CMR_FIELD = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1309,16 +1277,47 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int ROLE_SOURCE__DESCRIPTIONS = 3;
+	int EJB_RELATIONSHIP_ROLE__DESCRIPTIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 7;
 
 	/**
-	 * The number of structural features of the the '<em>Role Source</em>' class.
+	 * The number of structural features of the '<em>EJB Relationship Role</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ROLE_SOURCE_FEATURE_COUNT = 4;
+	int EJB_RELATIONSHIP_ROLE_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 8;
+
+	/**
+	 * @generated This field/method will be replaced during code generation.
+	 */
+	int ROLE_SOURCE__DESCRIPTION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
+	/**
+	 * @generated This field/method will be replaced during code generation.
+	 */
+	int ROLE_SOURCE__ROLE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
+	/**
+	 * @generated This field/method will be replaced during code generation.
+	 */
+	int ROLE_SOURCE__ENTITY_BEAN = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROLE_SOURCE__DESCRIPTIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>Role Source</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROLE_SOURCE_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -1508,7 +1507,7 @@ public interface EjbPackage extends EPackage{
 	 */
 	int CMR_FIELD__COLLECTION_TYPE = CMP_ATTRIBUTE_FEATURE_COUNT + 1;
 	/**
-	 * The number of structural features of the the '<em>CMR Field</em>' class.
+	 * The number of structural features of the '<em>CMR Field</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1686,7 +1685,7 @@ public interface EjbPackage extends EPackage{
 	int MESSAGE_DRIVEN__MESSAGING_TYPE = ENTERPRISE_BEAN_FEATURE_COUNT + 7;
 
 	/**
-	 * The number of structural features of the the '<em>Message Driven</em>' class.
+	 * The number of structural features of the '<em>Message Driven</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1697,33 +1696,33 @@ public interface EjbPackage extends EPackage{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int MESSAGE_DRIVEN_DESTINATION__TYPE = 0;
+	int MESSAGE_DRIVEN_DESTINATION__TYPE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int MESSAGE_DRIVEN_DESTINATION__SUBSCRIPTION_DURABILITY = 1;
+	int MESSAGE_DRIVEN_DESTINATION__SUBSCRIPTION_DURABILITY = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int MESSAGE_DRIVEN_DESTINATION__BEAN = 2;
+	int MESSAGE_DRIVEN_DESTINATION__BEAN = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the the '<em>Message Driven Destination</em>' class.
+	 * The number of structural features of the '<em>Message Driven Destination</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_DESTINATION_FEATURE_COUNT = 3;
+	int MESSAGE_DRIVEN_DESTINATION_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int EXCLUDE_LIST__DESCRIPTION = 0;
+	int EXCLUDE_LIST__DESCRIPTION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int EXCLUDE_LIST__METHOD_ELEMENTS = 1;
+	int EXCLUDE_LIST__METHOD_ELEMENTS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1732,16 +1731,16 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int EXCLUDE_LIST__DESCRIPTIONS = 2;
+	int EXCLUDE_LIST__DESCRIPTIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the the '<em>Exclude List</em>' class.
+	 * The number of structural features of the '<em>Exclude List</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXCLUDE_LIST_FEATURE_COUNT = 3;
+	int EXCLUDE_LIST_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
@@ -1778,7 +1777,7 @@ public interface EjbPackage extends EPackage{
 	 */
 	int QUERY_METHOD__QUERY = METHOD_ELEMENT_FEATURE_COUNT + 0;
 	/**
-	 * The number of structural features of the the '<em>Query Method</em>' class.
+	 * The number of structural features of the '<em>Query Method</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1803,7 +1802,7 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVATION_CONFIG_PROPERTY__VALUE = 0;
+	int ACTIVATION_CONFIG_PROPERTY__VALUE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1812,16 +1811,16 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVATION_CONFIG_PROPERTY__NAME = 1;
+	int ACTIVATION_CONFIG_PROPERTY__NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Activation Config Property</em>' class.
+	 * The number of structural features of the '<em>Activation Config Property</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVATION_CONFIG_PROPERTY_FEATURE_COUNT = 2;
+	int ACTIVATION_CONFIG_PROPERTY_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.ActivationConfigImpl <em>Activation Config</em>}' class.
@@ -1840,7 +1839,7 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVATION_CONFIG__CONFIG_PROPERTIES = 0;
+	int ACTIVATION_CONFIG__CONFIG_PROPERTIES = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1849,16 +1848,16 @@ public interface EjbPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVATION_CONFIG__DESCRIPTIONS = 1;
+	int ACTIVATION_CONFIG__DESCRIPTIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Activation Config</em>' class.
+	 * The number of structural features of the '<em>Activation Config</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVATION_CONFIG_FEATURE_COUNT = 2;
+	int ACTIVATION_CONFIG_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
@@ -2771,6 +2770,1133 @@ public interface EjbPackage extends EPackage{
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	EjbFactory getEjbFactory();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Defines literals for the meta objects that represent
+	 * <ul>
+	 *   <li>each class,</li>
+	 *   <li>each feature of each class,</li>
+	 *   <li>each enum,</li>
+	 *   <li>and each data type</li>
+	 * </ul>
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	interface Literals  {
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.ContainerManagedEntityImpl <em>Container Managed Entity</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.ContainerManagedEntityImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getContainerManagedEntity()
+		 * @generated
+		 */
+		EClass CONTAINER_MANAGED_ENTITY = eINSTANCE.getContainerManagedEntity();
+
+		/**
+		 * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONTAINER_MANAGED_ENTITY__VERSION = eINSTANCE.getContainerManagedEntity_Version();
+
+		/**
+		 * The meta object literal for the '<em><b>Abstract Schema Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONTAINER_MANAGED_ENTITY__ABSTRACT_SCHEMA_NAME = eINSTANCE.getContainerManagedEntity_AbstractSchemaName();
+
+		/**
+		 * The meta object literal for the '<em><b>Persistent Attributes</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONTAINER_MANAGED_ENTITY__PERSISTENT_ATTRIBUTES = eINSTANCE.getContainerManagedEntity_PersistentAttributes();
+
+		/**
+		 * The meta object literal for the '<em><b>Key Attributes</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONTAINER_MANAGED_ENTITY__KEY_ATTRIBUTES = eINSTANCE.getContainerManagedEntity_KeyAttributes();
+
+		/**
+		 * The meta object literal for the '<em><b>Queries</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONTAINER_MANAGED_ENTITY__QUERIES = eINSTANCE.getContainerManagedEntity_Queries();
+
+		/**
+		 * The meta object literal for the '<em><b>CMP Attribute</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONTAINER_MANAGED_ENTITY__CMP_ATTRIBUTE = eINSTANCE.getContainerManagedEntity_CMPAttribute();
+
+		/**
+		 * The meta object literal for the '<em><b>Prim Key Field</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONTAINER_MANAGED_ENTITY__PRIM_KEY_FIELD = eINSTANCE.getContainerManagedEntity_PrimKeyField();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.MethodPermissionImpl <em>Method Permission</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.MethodPermissionImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getMethodPermission()
+		 * @generated
+		 */
+		EClass METHOD_PERMISSION = eINSTANCE.getMethodPermission();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METHOD_PERMISSION__DESCRIPTION = eINSTANCE.getMethodPermission_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Unchecked</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METHOD_PERMISSION__UNCHECKED = eINSTANCE.getMethodPermission_Unchecked();
+
+		/**
+		 * The meta object literal for the '<em><b>Assembly Descriptor</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference METHOD_PERMISSION__ASSEMBLY_DESCRIPTOR = eINSTANCE.getMethodPermission_AssemblyDescriptor();
+
+		/**
+		 * The meta object literal for the '<em><b>Roles</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference METHOD_PERMISSION__ROLES = eINSTANCE.getMethodPermission_Roles();
+
+		/**
+		 * The meta object literal for the '<em><b>Method Elements</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference METHOD_PERMISSION__METHOD_ELEMENTS = eINSTANCE.getMethodPermission_MethodElements();
+
+		/**
+		 * The meta object literal for the '<em><b>Descriptions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference METHOD_PERMISSION__DESCRIPTIONS = eINSTANCE.getMethodPermission_Descriptions();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.AssemblyDescriptorImpl <em>Assembly Descriptor</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.AssemblyDescriptorImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getAssemblyDescriptor()
+		 * @generated
+		 */
+		EClass ASSEMBLY_DESCRIPTOR = eINSTANCE.getAssemblyDescriptor();
+
+		/**
+		 * The meta object literal for the '<em><b>Method Permissions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_DESCRIPTOR__METHOD_PERMISSIONS = eINSTANCE.getAssemblyDescriptor_MethodPermissions();
+
+		/**
+		 * The meta object literal for the '<em><b>Method Transactions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_DESCRIPTOR__METHOD_TRANSACTIONS = eINSTANCE.getAssemblyDescriptor_MethodTransactions();
+
+		/**
+		 * The meta object literal for the '<em><b>Ejb Jar</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_DESCRIPTOR__EJB_JAR = eINSTANCE.getAssemblyDescriptor_EjbJar();
+
+		/**
+		 * The meta object literal for the '<em><b>Security Roles</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_DESCRIPTOR__SECURITY_ROLES = eINSTANCE.getAssemblyDescriptor_SecurityRoles();
+
+		/**
+		 * The meta object literal for the '<em><b>Exclude List</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_DESCRIPTOR__EXCLUDE_LIST = eINSTANCE.getAssemblyDescriptor_ExcludeList();
+
+		/**
+		 * The meta object literal for the '<em><b>Message Destinations</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_DESCRIPTOR__MESSAGE_DESTINATIONS = eINSTANCE.getAssemblyDescriptor_MessageDestinations();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.MethodTransactionImpl <em>Method Transaction</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.MethodTransactionImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getMethodTransaction()
+		 * @generated
+		 */
+		EClass METHOD_TRANSACTION = eINSTANCE.getMethodTransaction();
+
+		/**
+		 * The meta object literal for the '<em><b>Transaction Attribute</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METHOD_TRANSACTION__TRANSACTION_ATTRIBUTE = eINSTANCE.getMethodTransaction_TransactionAttribute();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METHOD_TRANSACTION__DESCRIPTION = eINSTANCE.getMethodTransaction_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Assembly Descriptor</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR = eINSTANCE.getMethodTransaction_AssemblyDescriptor();
+
+		/**
+		 * The meta object literal for the '<em><b>Method Elements</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference METHOD_TRANSACTION__METHOD_ELEMENTS = eINSTANCE.getMethodTransaction_MethodElements();
+
+		/**
+		 * The meta object literal for the '<em><b>Descriptions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference METHOD_TRANSACTION__DESCRIPTIONS = eINSTANCE.getMethodTransaction_Descriptions();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.SessionImpl <em>Session</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.SessionImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getSession()
+		 * @generated
+		 */
+		EClass SESSION = eINSTANCE.getSession();
+
+		/**
+		 * The meta object literal for the '<em><b>Transaction Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SESSION__TRANSACTION_TYPE = eINSTANCE.getSession_TransactionType();
+
+		/**
+		 * The meta object literal for the '<em><b>Session Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SESSION__SESSION_TYPE = eINSTANCE.getSession_SessionType();
+
+		/**
+		 * The meta object literal for the '<em><b>Service Endpoint</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SESSION__SERVICE_ENDPOINT = eINSTANCE.getSession_ServiceEndpoint();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.EntityImpl <em>Entity</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EntityImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getEntity()
+		 * @generated
+		 */
+		EClass ENTITY = eINSTANCE.getEntity();
+
+		/**
+		 * The meta object literal for the '<em><b>Reentrant</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ENTITY__REENTRANT = eINSTANCE.getEntity_Reentrant();
+
+		/**
+		 * The meta object literal for the '<em><b>Primary Key</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENTITY__PRIMARY_KEY = eINSTANCE.getEntity_PrimaryKey();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.EnterpriseBeanImpl <em>Enterprise Bean</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EnterpriseBeanImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getEnterpriseBean()
+		 * @generated
+		 */
+		EClass ENTERPRISE_BEAN = eINSTANCE.getEnterpriseBean();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ENTERPRISE_BEAN__NAME = eINSTANCE.getEnterpriseBean_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Security Role Refs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENTERPRISE_BEAN__SECURITY_ROLE_REFS = eINSTANCE.getEnterpriseBean_SecurityRoleRefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Ejb Class</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENTERPRISE_BEAN__EJB_CLASS = eINSTANCE.getEnterpriseBean_EjbClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Home Interface</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENTERPRISE_BEAN__HOME_INTERFACE = eINSTANCE.getEnterpriseBean_HomeInterface();
+
+		/**
+		 * The meta object literal for the '<em><b>Remote Interface</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENTERPRISE_BEAN__REMOTE_INTERFACE = eINSTANCE.getEnterpriseBean_RemoteInterface();
+
+		/**
+		 * The meta object literal for the '<em><b>Ejb Jar</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENTERPRISE_BEAN__EJB_JAR = eINSTANCE.getEnterpriseBean_EjbJar();
+
+		/**
+		 * The meta object literal for the '<em><b>Security Identity</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENTERPRISE_BEAN__SECURITY_IDENTITY = eINSTANCE.getEnterpriseBean_SecurityIdentity();
+
+		/**
+		 * The meta object literal for the '<em><b>Local Home Interface</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENTERPRISE_BEAN__LOCAL_HOME_INTERFACE = eINSTANCE.getEnterpriseBean_LocalHomeInterface();
+
+		/**
+		 * The meta object literal for the '<em><b>Local Interface</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENTERPRISE_BEAN__LOCAL_INTERFACE = eINSTANCE.getEnterpriseBean_LocalInterface();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.EJBMethodCategoryImpl <em>EJB Method Category</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EJBMethodCategoryImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getEJBMethodCategory()
+		 * @generated
+		 */
+		EClass EJB_METHOD_CATEGORY = eINSTANCE.getEJBMethodCategory();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarImpl <em>EJB Jar</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getEJBJar()
+		 * @generated
+		 */
+		EClass EJB_JAR = eINSTANCE.getEJBJar();
+
+		/**
+		 * The meta object literal for the '<em><b>Ejb Client Jar</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EJB_JAR__EJB_CLIENT_JAR = eINSTANCE.getEJBJar_EjbClientJar();
+
+		/**
+		 * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EJB_JAR__VERSION = eINSTANCE.getEJBJar_Version();
+
+		/**
+		 * The meta object literal for the '<em><b>Assembly Descriptor</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EJB_JAR__ASSEMBLY_DESCRIPTOR = eINSTANCE.getEJBJar_AssemblyDescriptor();
+
+		/**
+		 * The meta object literal for the '<em><b>Enterprise Beans</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EJB_JAR__ENTERPRISE_BEANS = eINSTANCE.getEJBJar_EnterpriseBeans();
+
+		/**
+		 * The meta object literal for the '<em><b>Relationship List</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EJB_JAR__RELATIONSHIP_LIST = eINSTANCE.getEJBJar_RelationshipList();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.MethodElementImpl <em>Method Element</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.MethodElementImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getMethodElement()
+		 * @generated
+		 */
+		EClass METHOD_ELEMENT = eINSTANCE.getMethodElement();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METHOD_ELEMENT__NAME = eINSTANCE.getMethodElement_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Parms</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METHOD_ELEMENT__PARMS = eINSTANCE.getMethodElement_Parms();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METHOD_ELEMENT__TYPE = eINSTANCE.getMethodElement_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METHOD_ELEMENT__DESCRIPTION = eINSTANCE.getMethodElement_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Enterprise Bean</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference METHOD_ELEMENT__ENTERPRISE_BEAN = eINSTANCE.getMethodElement_EnterpriseBean();
+
+		/**
+		 * The meta object literal for the '<em><b>Descriptions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference METHOD_ELEMENT__DESCRIPTIONS = eINSTANCE.getMethodElement_Descriptions();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.CMPAttributeImpl <em>CMP Attribute</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.CMPAttributeImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getCMPAttribute()
+		 * @generated
+		 */
+		EClass CMP_ATTRIBUTE = eINSTANCE.getCMPAttribute();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CMP_ATTRIBUTE__DESCRIPTION = eINSTANCE.getCMPAttribute_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Descriptions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CMP_ATTRIBUTE__DESCRIPTIONS = eINSTANCE.getCMPAttribute_Descriptions();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.RelationshipsImpl <em>Relationships</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.RelationshipsImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getRelationships()
+		 * @generated
+		 */
+		EClass RELATIONSHIPS = eINSTANCE.getRelationships();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RELATIONSHIPS__DESCRIPTION = eINSTANCE.getRelationships_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Ejb Jar</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RELATIONSHIPS__EJB_JAR = eINSTANCE.getRelationships_EjbJar();
+
+		/**
+		 * The meta object literal for the '<em><b>Ejb Relations</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RELATIONSHIPS__EJB_RELATIONS = eINSTANCE.getRelationships_EjbRelations();
+
+		/**
+		 * The meta object literal for the '<em><b>Descriptions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RELATIONSHIPS__DESCRIPTIONS = eINSTANCE.getRelationships_Descriptions();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.QueryImpl <em>Query</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.QueryImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getQuery()
+		 * @generated
+		 */
+		EClass QUERY = eINSTANCE.getQuery();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute QUERY__DESCRIPTION = eINSTANCE.getQuery_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Ejb QL</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute QUERY__EJB_QL = eINSTANCE.getQuery_EjbQL();
+
+		/**
+		 * The meta object literal for the '<em><b>Return Type Mapping</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute QUERY__RETURN_TYPE_MAPPING = eINSTANCE.getQuery_ReturnTypeMapping();
+
+		/**
+		 * The meta object literal for the '<em><b>Query Method</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference QUERY__QUERY_METHOD = eINSTANCE.getQuery_QueryMethod();
+
+		/**
+		 * The meta object literal for the '<em><b>Entity</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference QUERY__ENTITY = eINSTANCE.getQuery_Entity();
+
+		/**
+		 * The meta object literal for the '<em><b>Descriptions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference QUERY__DESCRIPTIONS = eINSTANCE.getQuery_Descriptions();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.EJBRelationImpl <em>EJB Relation</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EJBRelationImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getEJBRelation()
+		 * @generated
+		 */
+		EClass EJB_RELATION = eINSTANCE.getEJBRelation();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EJB_RELATION__DESCRIPTION = eINSTANCE.getEJBRelation_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EJB_RELATION__NAME = eINSTANCE.getEJBRelation_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Relationship List</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EJB_RELATION__RELATIONSHIP_LIST = eINSTANCE.getEJBRelation_RelationshipList();
+
+		/**
+		 * The meta object literal for the '<em><b>Relationship Roles</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EJB_RELATION__RELATIONSHIP_ROLES = eINSTANCE.getEJBRelation_RelationshipRoles();
+
+		/**
+		 * The meta object literal for the '<em><b>Descriptions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EJB_RELATION__DESCRIPTIONS = eINSTANCE.getEJBRelation_Descriptions();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.EJBRelationshipRoleImpl <em>EJB Relationship Role</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EJBRelationshipRoleImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getEJBRelationshipRole()
+		 * @generated
+		 */
+		EClass EJB_RELATIONSHIP_ROLE = eINSTANCE.getEJBRelationshipRole();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EJB_RELATIONSHIP_ROLE__DESCRIPTION = eINSTANCE.getEJBRelationshipRole_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Role Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EJB_RELATIONSHIP_ROLE__ROLE_NAME = eINSTANCE.getEJBRelationshipRole_RoleName();
+
+		/**
+		 * The meta object literal for the '<em><b>Multiplicity</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EJB_RELATIONSHIP_ROLE__MULTIPLICITY = eINSTANCE.getEJBRelationshipRole_Multiplicity();
+
+		/**
+		 * The meta object literal for the '<em><b>Cascade Delete</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EJB_RELATIONSHIP_ROLE__CASCADE_DELETE = eINSTANCE.getEJBRelationshipRole_CascadeDelete();
+
+		/**
+		 * The meta object literal for the '<em><b>Relationship</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EJB_RELATIONSHIP_ROLE__RELATIONSHIP = eINSTANCE.getEJBRelationshipRole_Relationship();
+
+		/**
+		 * The meta object literal for the '<em><b>Source</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EJB_RELATIONSHIP_ROLE__SOURCE = eINSTANCE.getEJBRelationshipRole_Source();
+
+		/**
+		 * The meta object literal for the '<em><b>Cmr Field</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EJB_RELATIONSHIP_ROLE__CMR_FIELD = eINSTANCE.getEJBRelationshipRole_CmrField();
+
+		/**
+		 * The meta object literal for the '<em><b>Descriptions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EJB_RELATIONSHIP_ROLE__DESCRIPTIONS = eINSTANCE.getEJBRelationshipRole_Descriptions();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.RoleSourceImpl <em>Role Source</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.RoleSourceImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getRoleSource()
+		 * @generated
+		 */
+		EClass ROLE_SOURCE = eINSTANCE.getRoleSource();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ROLE_SOURCE__DESCRIPTION = eINSTANCE.getRoleSource_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Role</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ROLE_SOURCE__ROLE = eINSTANCE.getRoleSource_Role();
+
+		/**
+		 * The meta object literal for the '<em><b>Entity Bean</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ROLE_SOURCE__ENTITY_BEAN = eINSTANCE.getRoleSource_EntityBean();
+
+		/**
+		 * The meta object literal for the '<em><b>Descriptions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ROLE_SOURCE__DESCRIPTIONS = eINSTANCE.getRoleSource_Descriptions();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.CMRFieldImpl <em>CMR Field</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.CMRFieldImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getCMRField()
+		 * @generated
+		 */
+		EClass CMR_FIELD = eINSTANCE.getCMRField();
+
+		/**
+		 * The meta object literal for the '<em><b>Role</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CMR_FIELD__ROLE = eINSTANCE.getCMRField_Role();
+
+		/**
+		 * The meta object literal for the '<em><b>Collection Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CMR_FIELD__COLLECTION_TYPE = eINSTANCE.getCMRField_CollectionType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.MessageDrivenImpl <em>Message Driven</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.MessageDrivenImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getMessageDriven()
+		 * @generated
+		 */
+		EClass MESSAGE_DRIVEN = eINSTANCE.getMessageDriven();
+
+		/**
+		 * The meta object literal for the '<em><b>Transaction Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MESSAGE_DRIVEN__TRANSACTION_TYPE = eINSTANCE.getMessageDriven_TransactionType();
+
+		/**
+		 * The meta object literal for the '<em><b>Message Selector</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MESSAGE_DRIVEN__MESSAGE_SELECTOR = eINSTANCE.getMessageDriven_MessageSelector();
+
+		/**
+		 * The meta object literal for the '<em><b>Acknowledge Mode</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MESSAGE_DRIVEN__ACKNOWLEDGE_MODE = eINSTANCE.getMessageDriven_AcknowledgeMode();
+
+		/**
+		 * The meta object literal for the '<em><b>Link</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MESSAGE_DRIVEN__LINK = eINSTANCE.getMessageDriven_Link();
+
+		/**
+		 * The meta object literal for the '<em><b>Destination</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MESSAGE_DRIVEN__DESTINATION = eINSTANCE.getMessageDriven_Destination();
+
+		/**
+		 * The meta object literal for the '<em><b>Activation Config</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MESSAGE_DRIVEN__ACTIVATION_CONFIG = eINSTANCE.getMessageDriven_ActivationConfig();
+
+		/**
+		 * The meta object literal for the '<em><b>Message Destination</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MESSAGE_DRIVEN__MESSAGE_DESTINATION = eINSTANCE.getMessageDriven_MessageDestination();
+
+		/**
+		 * The meta object literal for the '<em><b>Messaging Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MESSAGE_DRIVEN__MESSAGING_TYPE = eINSTANCE.getMessageDriven_MessagingType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.MessageDrivenDestinationImpl <em>Message Driven Destination</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.MessageDrivenDestinationImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getMessageDrivenDestination()
+		 * @generated
+		 */
+		EClass MESSAGE_DRIVEN_DESTINATION = eINSTANCE.getMessageDrivenDestination();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MESSAGE_DRIVEN_DESTINATION__TYPE = eINSTANCE.getMessageDrivenDestination_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Subscription Durability</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MESSAGE_DRIVEN_DESTINATION__SUBSCRIPTION_DURABILITY = eINSTANCE.getMessageDrivenDestination_SubscriptionDurability();
+
+		/**
+		 * The meta object literal for the '<em><b>Bean</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MESSAGE_DRIVEN_DESTINATION__BEAN = eINSTANCE.getMessageDrivenDestination_Bean();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.ExcludeListImpl <em>Exclude List</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.ExcludeListImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getExcludeList()
+		 * @generated
+		 */
+		EClass EXCLUDE_LIST = eINSTANCE.getExcludeList();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EXCLUDE_LIST__DESCRIPTION = eINSTANCE.getExcludeList_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Method Elements</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXCLUDE_LIST__METHOD_ELEMENTS = eINSTANCE.getExcludeList_MethodElements();
+
+		/**
+		 * The meta object literal for the '<em><b>Descriptions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXCLUDE_LIST__DESCRIPTIONS = eINSTANCE.getExcludeList_Descriptions();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.QueryMethodImpl <em>Query Method</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.QueryMethodImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getQueryMethod()
+		 * @generated
+		 */
+		EClass QUERY_METHOD = eINSTANCE.getQueryMethod();
+
+		/**
+		 * The meta object literal for the '<em><b>Query</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference QUERY_METHOD__QUERY = eINSTANCE.getQueryMethod_Query();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.ActivationConfigPropertyImpl <em>Activation Config Property</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.ActivationConfigPropertyImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getActivationConfigProperty()
+		 * @generated
+		 */
+		EClass ACTIVATION_CONFIG_PROPERTY = eINSTANCE.getActivationConfigProperty();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ACTIVATION_CONFIG_PROPERTY__VALUE = eINSTANCE.getActivationConfigProperty_Value();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ACTIVATION_CONFIG_PROPERTY__NAME = eINSTANCE.getActivationConfigProperty_Name();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.internal.impl.ActivationConfigImpl <em>Activation Config</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.ActivationConfigImpl
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getActivationConfig()
+		 * @generated
+		 */
+		EClass ACTIVATION_CONFIG = eINSTANCE.getActivationConfig();
+
+		/**
+		 * The meta object literal for the '<em><b>Config Properties</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ACTIVATION_CONFIG__CONFIG_PROPERTIES = eINSTANCE.getActivationConfig_ConfigProperties();
+
+		/**
+		 * The meta object literal for the '<em><b>Descriptions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ACTIVATION_CONFIG__DESCRIPTIONS = eINSTANCE.getActivationConfig_Descriptions();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.TransactionAttributeType <em>Transaction Attribute Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.TransactionAttributeType
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getTransactionAttributeType()
+		 * @generated
+		 */
+		EEnum TRANSACTION_ATTRIBUTE_TYPE = eINSTANCE.getTransactionAttributeType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.TransactionType <em>Transaction Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.TransactionType
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getTransactionType()
+		 * @generated
+		 */
+		EEnum TRANSACTION_TYPE = eINSTANCE.getTransactionType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.SessionType <em>Session Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.SessionType
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getSessionType()
+		 * @generated
+		 */
+		EEnum SESSION_TYPE = eINSTANCE.getSessionType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.MethodElementKind <em>Method Element Kind</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.MethodElementKind
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getMethodElementKind()
+		 * @generated
+		 */
+		EEnum METHOD_ELEMENT_KIND = eINSTANCE.getMethodElementKind();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.AcknowledgeMode <em>Acknowledge Mode</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.AcknowledgeMode
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getAcknowledgeMode()
+		 * @generated
+		 */
+		EEnum ACKNOWLEDGE_MODE = eINSTANCE.getAcknowledgeMode();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.SubscriptionDurabilityKind <em>Subscription Durability Kind</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.SubscriptionDurabilityKind
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getSubscriptionDurabilityKind()
+		 * @generated
+		 */
+		EEnum SUBSCRIPTION_DURABILITY_KIND = eINSTANCE.getSubscriptionDurabilityKind();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.ReturnTypeMapping <em>Return Type Mapping</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.ReturnTypeMapping
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getReturnTypeMapping()
+		 * @generated
+		 */
+		EEnum RETURN_TYPE_MAPPING = eINSTANCE.getReturnTypeMapping();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.DestinationType <em>Destination Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.DestinationType
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getDestinationType()
+		 * @generated
+		 */
+		EEnum DESTINATION_TYPE = eINSTANCE.getDestinationType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.ejb.MultiplicityKind <em>Multiplicity Kind</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.ejb.MultiplicityKind
+		 * @see org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl#getMultiplicityKind()
+		 * @generated
+		 */
+		EEnum MULTIPLICITY_KIND = eINSTANCE.getMultiplicityKind();
+
+	}
 
 } //EjbPackage
 

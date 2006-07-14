@@ -12,17 +12,16 @@ package org.eclipse.jst.j2ee.webapplication.internal.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webapplication.InitParam;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 /**
  * The init-param element contains a name//value pair as an initialization param of the servlet
+ * @generated
  */
-public class InitParamImpl extends EObjectImpl implements InitParam, EObject {
+public class InitParamImpl extends J2EEEObjectImpl implements InitParam {
 
 	/**
 	 * The default value of the '{@link #getParamName() <em>Param Name</em>}' attribute.
@@ -78,7 +77,7 @@ public class InitParamImpl extends EObjectImpl implements InitParam, EObject {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return WebapplicationPackage.eINSTANCE.getInitParam();
+		return WebapplicationPackage.Literals.INIT_PARAM;
 	}
 
 	/**
@@ -140,8 +139,8 @@ public class InitParamImpl extends EObjectImpl implements InitParam, EObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case WebapplicationPackage.INIT_PARAM__PARAM_NAME:
 				return getParamName();
 			case WebapplicationPackage.INIT_PARAM__PARAM_VALUE:
@@ -149,29 +148,16 @@ public class InitParamImpl extends EObjectImpl implements InitParam, EObject {
 			case WebapplicationPackage.INIT_PARAM__DESCRIPTION:
 				return getDescription();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.INIT_PARAM__PARAM_NAME:
-				return PARAM_NAME_EDEFAULT == null ? paramName != null : !PARAM_NAME_EDEFAULT.equals(paramName);
-			case WebapplicationPackage.INIT_PARAM__PARAM_VALUE:
-				return PARAM_VALUE_EDEFAULT == null ? paramValue != null : !PARAM_VALUE_EDEFAULT.equals(paramValue);
-			case WebapplicationPackage.INIT_PARAM__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case WebapplicationPackage.INIT_PARAM__PARAM_NAME:
 				setParamName((String)newValue);
 				return;
@@ -182,14 +168,16 @@ public class InitParamImpl extends EObjectImpl implements InitParam, EObject {
 				setDescription((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case WebapplicationPackage.INIT_PARAM__PARAM_NAME:
 				setParamName(PARAM_NAME_EDEFAULT);
 				return;
@@ -200,7 +188,24 @@ public class InitParamImpl extends EObjectImpl implements InitParam, EObject {
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case WebapplicationPackage.INIT_PARAM__PARAM_NAME:
+				return PARAM_NAME_EDEFAULT == null ? paramName != null : !PARAM_NAME_EDEFAULT.equals(paramName);
+			case WebapplicationPackage.INIT_PARAM__PARAM_VALUE:
+				return PARAM_VALUE_EDEFAULT == null ? paramValue != null : !PARAM_VALUE_EDEFAULT.equals(paramValue);
+			case WebapplicationPackage.INIT_PARAM__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

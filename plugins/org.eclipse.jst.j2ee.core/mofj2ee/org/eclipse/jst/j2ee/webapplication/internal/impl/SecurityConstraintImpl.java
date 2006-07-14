@@ -16,16 +16,14 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.DisplayName;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webapplication.AuthConstraint;
 import org.eclipse.jst.j2ee.webapplication.SecurityConstraint;
 import org.eclipse.jst.j2ee.webapplication.UserDataConstraint;
@@ -36,8 +34,9 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 /**
  * The security-constraint element is used to associate security constraints with one or more web resource collections
+ * @generated
  */
-public class SecurityConstraintImpl extends EObjectImpl implements SecurityConstraint, EObject {
+public class SecurityConstraintImpl extends J2EEEObjectImpl implements SecurityConstraint {
 
 	/**
 	 * The default value of the '{@link #getDisplayName() <em>Display Name</em>}' attribute.
@@ -93,7 +92,7 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return WebapplicationPackage.eINSTANCE.getSecurityConstraint();
+		return WebapplicationPackage.Literals.SECURITY_CONSTRAINT;
 	}
 
 	/**
@@ -122,22 +121,32 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	 */
 	public WebApp getWebApp() {
 		if (eContainerFeatureID != WebapplicationPackage.SECURITY_CONSTRAINT__WEB_APP) return null;
-		return (WebApp)eContainer;
+		return (WebApp)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetWebApp(WebApp newWebApp, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newWebApp, WebapplicationPackage.SECURITY_CONSTRAINT__WEB_APP, msgs);
+		return msgs;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public void setWebApp(WebApp newWebApp) {
-		if (newWebApp != eContainer || (eContainerFeatureID != WebapplicationPackage.SECURITY_CONSTRAINT__WEB_APP && newWebApp != null)) {
+		if (newWebApp != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.SECURITY_CONSTRAINT__WEB_APP && newWebApp != null)) {
 			if (EcoreUtil.isAncestor(this, newWebApp))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newWebApp != null)
 				msgs = ((InternalEObject)newWebApp).eInverseAdd(this, WebapplicationPackage.WEB_APP__CONSTRAINTS, WebApp.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newWebApp, WebapplicationPackage.SECURITY_CONSTRAINT__WEB_APP, msgs);
+			msgs = basicSetWebApp(newWebApp, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -249,30 +258,24 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WebapplicationPackage.SECURITY_CONSTRAINT__WEB_APP:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, WebapplicationPackage.SECURITY_CONSTRAINT__WEB_APP, msgs);
-				case WebapplicationPackage.SECURITY_CONSTRAINT__WEB_RESOURCE_COLLECTIONS:
-					return ((InternalEList)getWebResourceCollections()).basicAdd(otherEnd, msgs);
-				case WebapplicationPackage.SECURITY_CONSTRAINT__AUTH_CONSTRAINT:
-					if (authConstraint != null)
-						msgs = ((InternalEObject)authConstraint).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WebapplicationPackage.SECURITY_CONSTRAINT__AUTH_CONSTRAINT, null, msgs);
-					return basicSetAuthConstraint((AuthConstraint)otherEnd, msgs);
-				case WebapplicationPackage.SECURITY_CONSTRAINT__USER_DATA_CONSTRAINT:
-					if (userDataConstraint != null)
-						msgs = ((InternalEObject)userDataConstraint).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WebapplicationPackage.SECURITY_CONSTRAINT__USER_DATA_CONSTRAINT, null, msgs);
-					return basicSetUserDataConstraint((UserDataConstraint)otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case WebapplicationPackage.SECURITY_CONSTRAINT__WEB_APP:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetWebApp((WebApp)otherEnd, msgs);
+			case WebapplicationPackage.SECURITY_CONSTRAINT__WEB_RESOURCE_COLLECTIONS:
+				return ((InternalEList)getWebResourceCollections()).basicAdd(otherEnd, msgs);
+			case WebapplicationPackage.SECURITY_CONSTRAINT__AUTH_CONSTRAINT:
+				if (authConstraint != null)
+					msgs = ((InternalEObject)authConstraint).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WebapplicationPackage.SECURITY_CONSTRAINT__AUTH_CONSTRAINT, null, msgs);
+				return basicSetAuthConstraint((AuthConstraint)otherEnd, msgs);
+			case WebapplicationPackage.SECURITY_CONSTRAINT__USER_DATA_CONSTRAINT:
+				if (userDataConstraint != null)
+					msgs = ((InternalEObject)userDataConstraint).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WebapplicationPackage.SECURITY_CONSTRAINT__USER_DATA_CONSTRAINT, null, msgs);
+				return basicSetUserDataConstraint((UserDataConstraint)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -280,24 +283,20 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WebapplicationPackage.SECURITY_CONSTRAINT__WEB_APP:
-					return eBasicSetContainer(null, WebapplicationPackage.SECURITY_CONSTRAINT__WEB_APP, msgs);
-				case WebapplicationPackage.SECURITY_CONSTRAINT__WEB_RESOURCE_COLLECTIONS:
-					return ((InternalEList)getWebResourceCollections()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.SECURITY_CONSTRAINT__AUTH_CONSTRAINT:
-					return basicSetAuthConstraint(null, msgs);
-				case WebapplicationPackage.SECURITY_CONSTRAINT__USER_DATA_CONSTRAINT:
-					return basicSetUserDataConstraint(null, msgs);
-				case WebapplicationPackage.SECURITY_CONSTRAINT__DISPLAY_NAMES:
-					return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case WebapplicationPackage.SECURITY_CONSTRAINT__WEB_APP:
+				return basicSetWebApp(null, msgs);
+			case WebapplicationPackage.SECURITY_CONSTRAINT__WEB_RESOURCE_COLLECTIONS:
+				return ((InternalEList)getWebResourceCollections()).basicRemove(otherEnd, msgs);
+			case WebapplicationPackage.SECURITY_CONSTRAINT__AUTH_CONSTRAINT:
+				return basicSetAuthConstraint(null, msgs);
+			case WebapplicationPackage.SECURITY_CONSTRAINT__USER_DATA_CONSTRAINT:
+				return basicSetUserDataConstraint(null, msgs);
+			case WebapplicationPackage.SECURITY_CONSTRAINT__DISPLAY_NAMES:
+				return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -305,16 +304,12 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case WebapplicationPackage.SECURITY_CONSTRAINT__WEB_APP:
-					return eContainer.eInverseRemove(this, WebapplicationPackage.WEB_APP__CONSTRAINTS, WebApp.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case WebapplicationPackage.SECURITY_CONSTRAINT__WEB_APP:
+				return eInternalContainer().eInverseRemove(this, WebapplicationPackage.WEB_APP__CONSTRAINTS, WebApp.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -322,8 +317,8 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case WebapplicationPackage.SECURITY_CONSTRAINT__DISPLAY_NAME:
 				return getDisplayName();
 			case WebapplicationPackage.SECURITY_CONSTRAINT__WEB_APP:
@@ -337,28 +332,7 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 			case WebapplicationPackage.SECURITY_CONSTRAINT__DISPLAY_NAMES:
 				return getDisplayNames();
 		}
-		return eDynamicGet(eFeature, resolve);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.SECURITY_CONSTRAINT__DISPLAY_NAME:
-				return DISPLAY_NAME_EDEFAULT == null ? displayName != null : !DISPLAY_NAME_EDEFAULT.equals(displayName);
-			case WebapplicationPackage.SECURITY_CONSTRAINT__WEB_APP:
-				return getWebApp() != null;
-			case WebapplicationPackage.SECURITY_CONSTRAINT__WEB_RESOURCE_COLLECTIONS:
-				return webResourceCollections != null && !webResourceCollections.isEmpty();
-			case WebapplicationPackage.SECURITY_CONSTRAINT__AUTH_CONSTRAINT:
-				return authConstraint != null;
-			case WebapplicationPackage.SECURITY_CONSTRAINT__USER_DATA_CONSTRAINT:
-				return userDataConstraint != null;
-			case WebapplicationPackage.SECURITY_CONSTRAINT__DISPLAY_NAMES:
-				return displayNames != null && !displayNames.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -366,21 +340,8 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (displayName: ");
-		result.append(displayName);
-		result.append(')');
-		return result.toString();
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case WebapplicationPackage.SECURITY_CONSTRAINT__DISPLAY_NAME:
 				setDisplayName((String)newValue);
 				return;
@@ -402,14 +363,16 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 				getDisplayNames().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case WebapplicationPackage.SECURITY_CONSTRAINT__DISPLAY_NAME:
 				setDisplayName(DISPLAY_NAME_EDEFAULT);
 				return;
@@ -429,7 +392,45 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 				getDisplayNames().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case WebapplicationPackage.SECURITY_CONSTRAINT__DISPLAY_NAME:
+				return DISPLAY_NAME_EDEFAULT == null ? displayName != null : !DISPLAY_NAME_EDEFAULT.equals(displayName);
+			case WebapplicationPackage.SECURITY_CONSTRAINT__WEB_APP:
+				return getWebApp() != null;
+			case WebapplicationPackage.SECURITY_CONSTRAINT__WEB_RESOURCE_COLLECTIONS:
+				return webResourceCollections != null && !webResourceCollections.isEmpty();
+			case WebapplicationPackage.SECURITY_CONSTRAINT__AUTH_CONSTRAINT:
+				return authConstraint != null;
+			case WebapplicationPackage.SECURITY_CONSTRAINT__USER_DATA_CONSTRAINT:
+				return userDataConstraint != null;
+			case WebapplicationPackage.SECURITY_CONSTRAINT__DISPLAY_NAMES:
+				return displayNames != null && !displayNames.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (displayName: ");
+		result.append(displayName);
+		result.append(')');
+		return result.toString();
 	}
 
 }

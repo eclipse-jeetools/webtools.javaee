@@ -12,8 +12,16 @@ package org.eclipse.jst.j2ee.common.internal.util;
 
 import java.util.List;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EModelElement;
+import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.ETypedElement;
+
+import org.eclipse.jst.j2ee.common.*;
+
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.common.Description;
@@ -24,6 +32,7 @@ import org.eclipse.jst.j2ee.common.EjbRef;
 import org.eclipse.jst.j2ee.common.EnvEntry;
 import org.eclipse.jst.j2ee.common.IconType;
 import org.eclipse.jst.j2ee.common.Identity;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 import org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup;
 import org.eclipse.jst.j2ee.common.Listener;
 import org.eclipse.jst.j2ee.common.MessageDestination;
@@ -117,36 +126,42 @@ public class CommonSwitch {
 			case CommonPackage.EJB_REF: {
 				EjbRef ejbRef = (EjbRef)theEObject;
 				Object result = caseEjbRef(ejbRef);
+				if (result == null) result = caseJ2EEEObject(ejbRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case CommonPackage.ENV_ENTRY: {
 				EnvEntry envEntry = (EnvEntry)theEObject;
 				Object result = caseEnvEntry(envEntry);
+				if (result == null) result = caseJ2EEEObject(envEntry);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case CommonPackage.RESOURCE_REF: {
 				ResourceRef resourceRef = (ResourceRef)theEObject;
 				Object result = caseResourceRef(resourceRef);
+				if (result == null) result = caseJ2EEEObject(resourceRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case CommonPackage.SECURITY_ROLE_REF: {
 				SecurityRoleRef securityRoleRef = (SecurityRoleRef)theEObject;
 				Object result = caseSecurityRoleRef(securityRoleRef);
+				if (result == null) result = caseJ2EEEObject(securityRoleRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case CommonPackage.SECURITY_ROLE: {
 				SecurityRole securityRole = (SecurityRole)theEObject;
 				Object result = caseSecurityRole(securityRole);
+				if (result == null) result = caseJ2EEEObject(securityRole);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case CommonPackage.RESOURCE_ENV_REF: {
 				ResourceEnvRef resourceEnvRef = (ResourceEnvRef)theEObject;
 				Object result = caseResourceEnvRef(resourceEnvRef);
+				if (result == null) result = caseJ2EEEObject(resourceEnvRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -154,6 +169,7 @@ public class CommonSwitch {
 				EJBLocalRef ejbLocalRef = (EJBLocalRef)theEObject;
 				Object result = caseEJBLocalRef(ejbLocalRef);
 				if (result == null) result = caseEjbRef(ejbLocalRef);
+				if (result == null) result = caseJ2EEEObject(ejbLocalRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -161,30 +177,35 @@ public class CommonSwitch {
 				RunAsSpecifiedIdentity runAsSpecifiedIdentity = (RunAsSpecifiedIdentity)theEObject;
 				Object result = caseRunAsSpecifiedIdentity(runAsSpecifiedIdentity);
 				if (result == null) result = caseSecurityIdentity(runAsSpecifiedIdentity);
+				if (result == null) result = caseJ2EEEObject(runAsSpecifiedIdentity);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case CommonPackage.IDENTITY: {
 				Identity identity = (Identity)theEObject;
 				Object result = caseIdentity(identity);
+				if (result == null) result = caseJ2EEEObject(identity);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case CommonPackage.ICON_TYPE: {
 				IconType iconType = (IconType)theEObject;
 				Object result = caseIconType(iconType);
+				if (result == null) result = caseJ2EEEObject(iconType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case CommonPackage.DISPLAY_NAME: {
 				DisplayName displayName = (DisplayName)theEObject;
 				Object result = caseDisplayName(displayName);
+				if (result == null) result = caseJ2EEEObject(displayName);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case CommonPackage.MESSAGE_DESTINATION_REF: {
 				MessageDestinationRef messageDestinationRef = (MessageDestinationRef)theEObject;
 				Object result = caseMessageDestinationRef(messageDestinationRef);
+				if (result == null) result = caseJ2EEEObject(messageDestinationRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -193,18 +214,21 @@ public class CommonSwitch {
 				Object result = caseMessageDestination(messageDestination);
 				if (result == null) result = caseCompatibilityDescriptionGroup(messageDestination);
 				if (result == null) result = caseDescriptionGroup(messageDestination);
+				if (result == null) result = caseJ2EEEObject(messageDestination);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case CommonPackage.PARAM_VALUE: {
 				ParamValue paramValue = (ParamValue)theEObject;
 				Object result = caseParamValue(paramValue);
+				if (result == null) result = caseJ2EEEObject(paramValue);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case CommonPackage.DESCRIPTION_GROUP: {
 				DescriptionGroup descriptionGroup = (DescriptionGroup)theEObject;
 				Object result = caseDescriptionGroup(descriptionGroup);
+				if (result == null) result = caseJ2EEEObject(descriptionGroup);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -213,12 +237,14 @@ public class CommonSwitch {
 				Object result = caseJNDIEnvRefsGroup(jndiEnvRefsGroup);
 				if (result == null) result = caseCompatibilityDescriptionGroup(jndiEnvRefsGroup);
 				if (result == null) result = caseDescriptionGroup(jndiEnvRefsGroup);
+				if (result == null) result = caseJ2EEEObject(jndiEnvRefsGroup);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case CommonPackage.SECURITY_IDENTITY: {
 				SecurityIdentity securityIdentity = (SecurityIdentity)theEObject;
 				Object result = caseSecurityIdentity(securityIdentity);
+				if (result == null) result = caseJ2EEEObject(securityIdentity);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -226,18 +252,21 @@ public class CommonSwitch {
 				UseCallerIdentity useCallerIdentity = (UseCallerIdentity)theEObject;
 				Object result = caseUseCallerIdentity(useCallerIdentity);
 				if (result == null) result = caseSecurityIdentity(useCallerIdentity);
+				if (result == null) result = caseJ2EEEObject(useCallerIdentity);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case CommonPackage.DESCRIPTION: {
 				Description description = (Description)theEObject;
 				Object result = caseDescription(description);
+				if (result == null) result = caseJ2EEEObject(description);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case CommonPackage.QNAME: {
 				QName qName = (QName)theEObject;
 				Object result = caseQName(qName);
+				if (result == null) result = caseJ2EEEObject(qName);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -246,6 +275,7 @@ public class CommonSwitch {
 				Object result = caseListener(listener);
 				if (result == null) result = caseCompatibilityDescriptionGroup(listener);
 				if (result == null) result = caseDescriptionGroup(listener);
+				if (result == null) result = caseJ2EEEObject(listener);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -253,6 +283,24 @@ public class CommonSwitch {
 				CompatibilityDescriptionGroup compatibilityDescriptionGroup = (CompatibilityDescriptionGroup)theEObject;
 				Object result = caseCompatibilityDescriptionGroup(compatibilityDescriptionGroup);
 				if (result == null) result = caseDescriptionGroup(compatibilityDescriptionGroup);
+				if (result == null) result = caseJ2EEEObject(compatibilityDescriptionGroup);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CommonPackage.J2EEE_OBJECT: {
+				J2EEEObject j2EEEObject = (J2EEEObject)theEObject;
+				Object result = caseJ2EEEObject(j2EEEObject);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CommonPackage.J2EEE_ATTRIBUTE: {
+				J2EEEAttribute j2EEEAttribute = (J2EEEAttribute)theEObject;
+				Object result = caseJ2EEEAttribute(j2EEEAttribute);
+				if (result == null) result = caseEAttribute(j2EEEAttribute);
+				if (result == null) result = caseEStructuralFeature(j2EEEAttribute);
+				if (result == null) result = caseETypedElement(j2EEEAttribute);
+				if (result == null) result = caseENamedElement(j2EEEAttribute);
+				if (result == null) result = caseEModelElement(j2EEEAttribute);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -587,6 +635,111 @@ public class CommonSwitch {
 	 * @generated
 	 */
 	public Object caseCompatibilityDescriptionGroup(CompatibilityDescriptionGroup object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseJ2EEEObject(J2EEEObject object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>J2EEE Attribute</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>J2EEE Attribute</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseJ2EEEAttribute(J2EEEAttribute object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>EModel Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>EModel Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseEModelElement(EModelElement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>ENamed Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>ENamed Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseENamedElement(ENamedElement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>ETyped Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>ETyped Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseETypedElement(ETypedElement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>EStructural Feature</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>EStructural Feature</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseEStructuralFeature(EStructuralFeature object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>EAttribute</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>EAttribute</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseEAttribute(EAttribute object) {
 		return null;
 	}
 

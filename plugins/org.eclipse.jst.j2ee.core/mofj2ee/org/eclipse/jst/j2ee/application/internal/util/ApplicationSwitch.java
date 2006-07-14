@@ -23,7 +23,7 @@ import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.common.DescriptionGroup;
-
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -104,12 +104,14 @@ public class ApplicationSwitch {
 				Object result = caseApplication(application);
 				if (result == null) result = caseCompatibilityDescriptionGroup(application);
 				if (result == null) result = caseDescriptionGroup(application);
+				if (result == null) result = caseJ2EEEObject(application);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ApplicationPackage.MODULE: {
 				Module module = (Module)theEObject;
 				Object result = caseModule(module);
+				if (result == null) result = caseJ2EEEObject(module);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -117,6 +119,7 @@ public class ApplicationSwitch {
 				WebModule webModule = (WebModule)theEObject;
 				Object result = caseWebModule(webModule);
 				if (result == null) result = caseApplication_Module(webModule);
+				if (result == null) result = caseJ2EEEObject(webModule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -124,6 +127,7 @@ public class ApplicationSwitch {
 				JavaClientModule javaClientModule = (JavaClientModule)theEObject;
 				Object result = caseJavaClientModule(javaClientModule);
 				if (result == null) result = caseApplication_Module(javaClientModule);
+				if (result == null) result = caseJ2EEEObject(javaClientModule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -131,6 +135,7 @@ public class ApplicationSwitch {
 				EjbModule ejbModule = (EjbModule)theEObject;
 				Object result = caseEjbModule(ejbModule);
 				if (result == null) result = caseApplication_Module(ejbModule);
+				if (result == null) result = caseJ2EEEObject(ejbModule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -138,6 +143,7 @@ public class ApplicationSwitch {
 				ConnectorModule connectorModule = (ConnectorModule)theEObject;
 				Object result = caseConnectorModule(connectorModule);
 				if (result == null) result = caseApplication_Module(connectorModule);
+				if (result == null) result = caseJ2EEEObject(connectorModule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -232,6 +238,21 @@ public class ApplicationSwitch {
 	 * @generated
 	 */
 	public Object caseConnectorModule(ConnectorModule object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseJ2EEEObject(J2EEEObject object) {
 		return null;
 	}
 

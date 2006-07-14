@@ -27,7 +27,9 @@ import java.util.WeakHashMap;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
@@ -73,6 +75,25 @@ import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseArchive;
  */
 public class CommonarchiveFactoryImpl extends EFactoryImpl implements CommonarchiveFactory {
 
+
+	/**
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static CommonarchiveFactory init() {
+		try {
+			CommonarchiveFactory theCommonarchiveFactory = (CommonarchiveFactory)EPackage.Registry.INSTANCE.getEFactory("commonarchive.xmi"); 
+			if (theCommonarchiveFactory != null) {
+				return theCommonarchiveFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new CommonarchiveFactoryImpl();
+	}
 
 	protected Map openArchives;
 	private static boolean delegateNeedsInit = true;

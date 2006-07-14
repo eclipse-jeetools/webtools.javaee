@@ -10,15 +10,10 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.common.internal.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
 import org.eclipse.jst.j2ee.common.CommonPackage;
@@ -49,7 +44,7 @@ public class ListenerImpl extends CompatibilityDescriptionGroupImpl implements L
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return CommonPackage.eINSTANCE.getListener();
+		return CommonPackage.Literals.LISTENER;
 	}
 
 	/**
@@ -58,8 +53,8 @@ public class ListenerImpl extends CompatibilityDescriptionGroupImpl implements L
 	 */
 	public JavaClass getListenerClass() {
 		if (listenerClass != null && listenerClass.eIsProxy()) {
-			JavaClass oldListenerClass = listenerClass;
-			listenerClass = (JavaClass)eResolveProxy((InternalEObject)listenerClass);
+			InternalEObject oldListenerClass = (InternalEObject)listenerClass;
+			listenerClass = (JavaClass)eResolveProxy(oldListenerClass);
 			if (listenerClass != oldListenerClass) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.LISTENER__LISTENER_CLASS, oldListenerClass, listenerClass));
@@ -92,20 +87,13 @@ public class ListenerImpl extends CompatibilityDescriptionGroupImpl implements L
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonPackage.LISTENER__ICONS:
-					return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
-				case CommonPackage.LISTENER__DISPLAY_NAMES:
-					return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
-				case CommonPackage.LISTENER__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case CommonPackage.LISTENER__LISTENER_CLASS:
+				if (resolve) return getListenerClass();
+				return basicGetListenerClass();
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -113,121 +101,40 @@ public class ListenerImpl extends CompatibilityDescriptionGroupImpl implements L
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonPackage.LISTENER__ICONS:
-				return getIcons();
-			case CommonPackage.LISTENER__DISPLAY_NAMES:
-				return getDisplayNames();
-			case CommonPackage.LISTENER__DESCRIPTIONS:
-				return getDescriptions();
-			case CommonPackage.LISTENER__SMALL_ICON:
-				return getSmallIcon();
-			case CommonPackage.LISTENER__LARGE_ICON:
-				return getLargeIcon();
-			case CommonPackage.LISTENER__DESCRIPTION:
-				return getDescription();
-			case CommonPackage.LISTENER__DISPLAY_NAME:
-				return getDisplayName();
-			case CommonPackage.LISTENER__LISTENER_CLASS:
-				if (resolve) return getListenerClass();
-				return basicGetListenerClass();
-		}
-		return eDynamicGet(eFeature, resolve);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonPackage.LISTENER__ICONS:
-				return icons != null && !icons.isEmpty();
-			case CommonPackage.LISTENER__DISPLAY_NAMES:
-				return displayNames != null && !displayNames.isEmpty();
-			case CommonPackage.LISTENER__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-			case CommonPackage.LISTENER__SMALL_ICON:
-				return SMALL_ICON_EDEFAULT == null ? smallIcon != null : !SMALL_ICON_EDEFAULT.equals(smallIcon);
-			case CommonPackage.LISTENER__LARGE_ICON:
-				return LARGE_ICON_EDEFAULT == null ? largeIcon != null : !LARGE_ICON_EDEFAULT.equals(largeIcon);
-			case CommonPackage.LISTENER__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case CommonPackage.LISTENER__DISPLAY_NAME:
-				return DISPLAY_NAME_EDEFAULT == null ? displayName != null : !DISPLAY_NAME_EDEFAULT.equals(displayName);
-			case CommonPackage.LISTENER__LISTENER_CLASS:
-				return listenerClass != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonPackage.LISTENER__ICONS:
-				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
-				return;
-			case CommonPackage.LISTENER__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
-				return;
-			case CommonPackage.LISTENER__DESCRIPTIONS:
-				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
-				return;
-			case CommonPackage.LISTENER__SMALL_ICON:
-				setSmallIcon((String)newValue);
-				return;
-			case CommonPackage.LISTENER__LARGE_ICON:
-				setLargeIcon((String)newValue);
-				return;
-			case CommonPackage.LISTENER__DESCRIPTION:
-				setDescription((String)newValue);
-				return;
-			case CommonPackage.LISTENER__DISPLAY_NAME:
-				setDisplayName((String)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case CommonPackage.LISTENER__LISTENER_CLASS:
 				setListenerClass((JavaClass)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonPackage.LISTENER__ICONS:
-				getIcons().clear();
-				return;
-			case CommonPackage.LISTENER__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				return;
-			case CommonPackage.LISTENER__DESCRIPTIONS:
-				getDescriptions().clear();
-				return;
-			case CommonPackage.LISTENER__SMALL_ICON:
-				setSmallIcon(SMALL_ICON_EDEFAULT);
-				return;
-			case CommonPackage.LISTENER__LARGE_ICON:
-				setLargeIcon(LARGE_ICON_EDEFAULT);
-				return;
-			case CommonPackage.LISTENER__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case CommonPackage.LISTENER__DISPLAY_NAME:
-				setDisplayName(DISPLAY_NAME_EDEFAULT);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case CommonPackage.LISTENER__LISTENER_CLASS:
 				setListenerClass((JavaClass)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case CommonPackage.LISTENER__LISTENER_CLASS:
+				return listenerClass != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 /**

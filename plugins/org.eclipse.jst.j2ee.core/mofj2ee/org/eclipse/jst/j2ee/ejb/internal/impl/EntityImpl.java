@@ -10,20 +10,14 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jst.j2ee.common.SecurityIdentity;
-import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
@@ -81,7 +75,7 @@ public class EntityImpl extends EnterpriseBeanImpl implements Entity, Enterprise
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return EjbPackage.eINSTANCE.getEntity();
+		return EjbPackage.Literals.ENTITY;
 	}
 
 public String getPrimaryKeyName() {
@@ -204,291 +198,24 @@ public void setPrimaryKeyName(String primaryKeyName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.ENTITY__EJB_JAR:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, EjbPackage.ENTITY__EJB_JAR, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.ENTITY__ICONS:
-					return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ENTITY__DISPLAY_NAMES:
-					return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ENTITY__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ENTITY__ENVIRONMENT_PROPERTIES:
-					return ((InternalEList)getEnvironmentProperties()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ENTITY__RESOURCE_REFS:
-					return ((InternalEList)getResourceRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ENTITY__EJB_REFS:
-					return ((InternalEList)getEjbRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ENTITY__RESOURCE_ENV_REFS:
-					return ((InternalEList)getResourceEnvRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ENTITY__EJB_LOCAL_REFS:
-					return ((InternalEList)getEjbLocalRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ENTITY__MESSAGE_DESTINATION_REFS:
-					return ((InternalEList)getMessageDestinationRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ENTITY__SERVICE_REFS:
-					return ((InternalEList)getServiceRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ENTITY__SECURITY_ROLE_REFS:
-					return ((InternalEList)getSecurityRoleRefs()).basicRemove(otherEnd, msgs);
-				case EjbPackage.ENTITY__EJB_JAR:
-					return eBasicSetContainer(null, EjbPackage.ENTITY__EJB_JAR, msgs);
-				case EjbPackage.ENTITY__SECURITY_IDENTITY:
-					return basicSetSecurityIdentity(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case EjbPackage.ENTITY__EJB_JAR:
-					return eContainer.eInverseRemove(this, EjbPackage.EJB_JAR__ENTERPRISE_BEANS, EJBJar.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.ENTITY__ICONS:
-				return getIcons();
-			case EjbPackage.ENTITY__DISPLAY_NAMES:
-				return getDisplayNames();
-			case EjbPackage.ENTITY__DESCRIPTIONS:
-				return getDescriptions();
-			case EjbPackage.ENTITY__SMALL_ICON:
-				return getSmallIcon();
-			case EjbPackage.ENTITY__LARGE_ICON:
-				return getLargeIcon();
-			case EjbPackage.ENTITY__DESCRIPTION:
-				return getDescription();
-			case EjbPackage.ENTITY__DISPLAY_NAME:
-				return getDisplayName();
-			case EjbPackage.ENTITY__ENVIRONMENT_PROPERTIES:
-				return getEnvironmentProperties();
-			case EjbPackage.ENTITY__RESOURCE_REFS:
-				return getResourceRefs();
-			case EjbPackage.ENTITY__EJB_REFS:
-				return getEjbRefs();
-			case EjbPackage.ENTITY__RESOURCE_ENV_REFS:
-				return getResourceEnvRefs();
-			case EjbPackage.ENTITY__EJB_LOCAL_REFS:
-				return getEjbLocalRefs();
-			case EjbPackage.ENTITY__MESSAGE_DESTINATION_REFS:
-				return getMessageDestinationRefs();
-			case EjbPackage.ENTITY__SERVICE_REFS:
-				return getServiceRefs();
-			case EjbPackage.ENTITY__NAME:
-				return getName();
-			case EjbPackage.ENTITY__SECURITY_ROLE_REFS:
-				return getSecurityRoleRefs();
-			case EjbPackage.ENTITY__EJB_CLASS:
-				if (resolve) return getEjbClass();
-				return basicGetEjbClass();
-			case EjbPackage.ENTITY__HOME_INTERFACE:
-				if (resolve) return getHomeInterface();
-				return basicGetHomeInterface();
-			case EjbPackage.ENTITY__REMOTE_INTERFACE:
-				if (resolve) return getRemoteInterface();
-				return basicGetRemoteInterface();
-			case EjbPackage.ENTITY__EJB_JAR:
-				return getEjbJar();
-			case EjbPackage.ENTITY__SECURITY_IDENTITY:
-				return getSecurityIdentity();
-			case EjbPackage.ENTITY__LOCAL_HOME_INTERFACE:
-				if (resolve) return getLocalHomeInterface();
-				return basicGetLocalHomeInterface();
-			case EjbPackage.ENTITY__LOCAL_INTERFACE:
-				if (resolve) return getLocalInterface();
-				return basicGetLocalInterface();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case EjbPackage.ENTITY__REENTRANT:
 				return isReentrant() ? Boolean.TRUE : Boolean.FALSE;
 			case EjbPackage.ENTITY__PRIMARY_KEY:
 				if (resolve) return getPrimaryKey();
 				return basicGetPrimaryKey();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.ENTITY__ICONS:
-				return icons != null && !icons.isEmpty();
-			case EjbPackage.ENTITY__DISPLAY_NAMES:
-				return displayNames != null && !displayNames.isEmpty();
-			case EjbPackage.ENTITY__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-			case EjbPackage.ENTITY__SMALL_ICON:
-				return SMALL_ICON_EDEFAULT == null ? smallIcon != null : !SMALL_ICON_EDEFAULT.equals(smallIcon);
-			case EjbPackage.ENTITY__LARGE_ICON:
-				return LARGE_ICON_EDEFAULT == null ? largeIcon != null : !LARGE_ICON_EDEFAULT.equals(largeIcon);
-			case EjbPackage.ENTITY__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case EjbPackage.ENTITY__DISPLAY_NAME:
-				return DISPLAY_NAME_EDEFAULT == null ? displayName != null : !DISPLAY_NAME_EDEFAULT.equals(displayName);
-			case EjbPackage.ENTITY__ENVIRONMENT_PROPERTIES:
-				return environmentProperties != null && !environmentProperties.isEmpty();
-			case EjbPackage.ENTITY__RESOURCE_REFS:
-				return resourceRefs != null && !resourceRefs.isEmpty();
-			case EjbPackage.ENTITY__EJB_REFS:
-				return ejbRefs != null && !ejbRefs.isEmpty();
-			case EjbPackage.ENTITY__RESOURCE_ENV_REFS:
-				return resourceEnvRefs != null && !resourceEnvRefs.isEmpty();
-			case EjbPackage.ENTITY__EJB_LOCAL_REFS:
-				return ejbLocalRefs != null && !ejbLocalRefs.isEmpty();
-			case EjbPackage.ENTITY__MESSAGE_DESTINATION_REFS:
-				return messageDestinationRefs != null && !messageDestinationRefs.isEmpty();
-			case EjbPackage.ENTITY__SERVICE_REFS:
-				return serviceRefs != null && !serviceRefs.isEmpty();
-			case EjbPackage.ENTITY__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case EjbPackage.ENTITY__SECURITY_ROLE_REFS:
-				return securityRoleRefs != null && !securityRoleRefs.isEmpty();
-			case EjbPackage.ENTITY__EJB_CLASS:
-				return ejbClass != null;
-			case EjbPackage.ENTITY__HOME_INTERFACE:
-				return homeInterface != null;
-			case EjbPackage.ENTITY__REMOTE_INTERFACE:
-				return remoteInterface != null;
-			case EjbPackage.ENTITY__EJB_JAR:
-				return getEjbJar() != null;
-			case EjbPackage.ENTITY__SECURITY_IDENTITY:
-				return securityIdentity != null;
-			case EjbPackage.ENTITY__LOCAL_HOME_INTERFACE:
-				return localHomeInterface != null;
-			case EjbPackage.ENTITY__LOCAL_INTERFACE:
-				return localInterface != null;
-			case EjbPackage.ENTITY__REENTRANT:
-				return isSetReentrant();
-			case EjbPackage.ENTITY__PRIMARY_KEY:
-				return primaryKey != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.ENTITY__ICONS:
-				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
-				return;
-			case EjbPackage.ENTITY__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
-				return;
-			case EjbPackage.ENTITY__DESCRIPTIONS:
-				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
-				return;
-			case EjbPackage.ENTITY__SMALL_ICON:
-				setSmallIcon((String)newValue);
-				return;
-			case EjbPackage.ENTITY__LARGE_ICON:
-				setLargeIcon((String)newValue);
-				return;
-			case EjbPackage.ENTITY__DESCRIPTION:
-				setDescription((String)newValue);
-				return;
-			case EjbPackage.ENTITY__DISPLAY_NAME:
-				setDisplayName((String)newValue);
-				return;
-			case EjbPackage.ENTITY__ENVIRONMENT_PROPERTIES:
-				getEnvironmentProperties().clear();
-				getEnvironmentProperties().addAll((Collection)newValue);
-				return;
-			case EjbPackage.ENTITY__RESOURCE_REFS:
-				getResourceRefs().clear();
-				getResourceRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.ENTITY__EJB_REFS:
-				getEjbRefs().clear();
-				getEjbRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.ENTITY__RESOURCE_ENV_REFS:
-				getResourceEnvRefs().clear();
-				getResourceEnvRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.ENTITY__EJB_LOCAL_REFS:
-				getEjbLocalRefs().clear();
-				getEjbLocalRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.ENTITY__MESSAGE_DESTINATION_REFS:
-				getMessageDestinationRefs().clear();
-				getMessageDestinationRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.ENTITY__SERVICE_REFS:
-				getServiceRefs().clear();
-				getServiceRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.ENTITY__NAME:
-				setName((String)newValue);
-				return;
-			case EjbPackage.ENTITY__SECURITY_ROLE_REFS:
-				getSecurityRoleRefs().clear();
-				getSecurityRoleRefs().addAll((Collection)newValue);
-				return;
-			case EjbPackage.ENTITY__EJB_CLASS:
-				setEjbClass((JavaClass)newValue);
-				return;
-			case EjbPackage.ENTITY__HOME_INTERFACE:
-				setHomeInterface((JavaClass)newValue);
-				return;
-			case EjbPackage.ENTITY__REMOTE_INTERFACE:
-				setRemoteInterface((JavaClass)newValue);
-				return;
-			case EjbPackage.ENTITY__EJB_JAR:
-				setEjbJar((EJBJar)newValue);
-				return;
-			case EjbPackage.ENTITY__SECURITY_IDENTITY:
-				setSecurityIdentity((SecurityIdentity)newValue);
-				return;
-			case EjbPackage.ENTITY__LOCAL_HOME_INTERFACE:
-				setLocalHomeInterface((JavaClass)newValue);
-				return;
-			case EjbPackage.ENTITY__LOCAL_INTERFACE:
-				setLocalInterface((JavaClass)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case EjbPackage.ENTITY__REENTRANT:
 				setReentrant(((Boolean)newValue).booleanValue());
 				return;
@@ -496,83 +223,16 @@ public void setPrimaryKeyName(String primaryKeyName) {
 				setPrimaryKey((JavaClass)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.ENTITY__ICONS:
-				getIcons().clear();
-				return;
-			case EjbPackage.ENTITY__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				return;
-			case EjbPackage.ENTITY__DESCRIPTIONS:
-				getDescriptions().clear();
-				return;
-			case EjbPackage.ENTITY__SMALL_ICON:
-				setSmallIcon(SMALL_ICON_EDEFAULT);
-				return;
-			case EjbPackage.ENTITY__LARGE_ICON:
-				setLargeIcon(LARGE_ICON_EDEFAULT);
-				return;
-			case EjbPackage.ENTITY__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case EjbPackage.ENTITY__DISPLAY_NAME:
-				setDisplayName(DISPLAY_NAME_EDEFAULT);
-				return;
-			case EjbPackage.ENTITY__ENVIRONMENT_PROPERTIES:
-				getEnvironmentProperties().clear();
-				return;
-			case EjbPackage.ENTITY__RESOURCE_REFS:
-				getResourceRefs().clear();
-				return;
-			case EjbPackage.ENTITY__EJB_REFS:
-				getEjbRefs().clear();
-				return;
-			case EjbPackage.ENTITY__RESOURCE_ENV_REFS:
-				getResourceEnvRefs().clear();
-				return;
-			case EjbPackage.ENTITY__EJB_LOCAL_REFS:
-				getEjbLocalRefs().clear();
-				return;
-			case EjbPackage.ENTITY__MESSAGE_DESTINATION_REFS:
-				getMessageDestinationRefs().clear();
-				return;
-			case EjbPackage.ENTITY__SERVICE_REFS:
-				getServiceRefs().clear();
-				return;
-			case EjbPackage.ENTITY__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case EjbPackage.ENTITY__SECURITY_ROLE_REFS:
-				getSecurityRoleRefs().clear();
-				return;
-			case EjbPackage.ENTITY__EJB_CLASS:
-				setEjbClass((JavaClass)null);
-				return;
-			case EjbPackage.ENTITY__HOME_INTERFACE:
-				setHomeInterface((JavaClass)null);
-				return;
-			case EjbPackage.ENTITY__REMOTE_INTERFACE:
-				setRemoteInterface((JavaClass)null);
-				return;
-			case EjbPackage.ENTITY__EJB_JAR:
-				setEjbJar((EJBJar)null);
-				return;
-			case EjbPackage.ENTITY__SECURITY_IDENTITY:
-				setSecurityIdentity((SecurityIdentity)null);
-				return;
-			case EjbPackage.ENTITY__LOCAL_HOME_INTERFACE:
-				setLocalHomeInterface((JavaClass)null);
-				return;
-			case EjbPackage.ENTITY__LOCAL_INTERFACE:
-				setLocalInterface((JavaClass)null);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case EjbPackage.ENTITY__REENTRANT:
 				unsetReentrant();
 				return;
@@ -580,7 +240,22 @@ public void setPrimaryKeyName(String primaryKeyName) {
 				setPrimaryKey((JavaClass)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case EjbPackage.ENTITY__REENTRANT:
+				return isSetReentrant();
+			case EjbPackage.ENTITY__PRIMARY_KEY:
+				return primaryKey != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**
@@ -613,8 +288,8 @@ public void setPrimaryKeyName(String primaryKeyName) {
 	 */
 	public JavaClass getPrimaryKeyGen() {
 		if (primaryKey != null && primaryKey.eIsProxy()) {
-			JavaClass oldPrimaryKey = primaryKey;
-			primaryKey = (JavaClass)eResolveProxy((InternalEObject)primaryKey);
+			InternalEObject oldPrimaryKey = (InternalEObject)primaryKey;
+			primaryKey = (JavaClass)eResolveProxy(oldPrimaryKey);
 			if (primaryKey != oldPrimaryKey) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EjbPackage.ENTITY__PRIMARY_KEY, oldPrimaryKey, primaryKey));

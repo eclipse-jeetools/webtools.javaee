@@ -13,12 +13,13 @@ package org.eclipse.jst.j2ee.ejb;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.java.Method;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 /**
  * Specifies how the container must manage transaction scopes for the enterprise bean's method invocations.  It consists of an optional description, a list of method elements, and a transaction attribute.The transaction attribute is to be applied to all the specified methods.
+ * @generated
  * @since 1.0 */
-public interface MethodTransaction extends EObject{
+public interface MethodTransaction extends J2EEEObject {
 
 /**
  * Return a List of MethodElements that point to

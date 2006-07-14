@@ -13,10 +13,9 @@ package org.eclipse.jst.j2ee.jca.internal.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.jca.InboundResourceAdapter;
 import org.eclipse.jst.j2ee.jca.JcaPackage;
 import org.eclipse.jst.j2ee.jca.MessageAdapter;
@@ -35,7 +34,7 @@ import org.eclipse.jst.j2ee.jca.MessageAdapter;
  *
  * @generated
  */
-public class InboundResourceAdapterImpl extends EObjectImpl implements InboundResourceAdapter {
+public class InboundResourceAdapterImpl extends J2EEEObjectImpl implements InboundResourceAdapter {
 	/**
 	 * The cached value of the '{@link #getMessageAdapter() <em>Message Adapter</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -61,7 +60,7 @@ public class InboundResourceAdapterImpl extends EObjectImpl implements InboundRe
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return JcaPackage.eINSTANCE.getInboundResourceAdapter();
+		return JcaPackage.Literals.INBOUND_RESOURCE_ADAPTER;
 	}
 
 	/**
@@ -112,16 +111,12 @@ public class InboundResourceAdapterImpl extends EObjectImpl implements InboundRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JcaPackage.INBOUND_RESOURCE_ADAPTER__MESSAGE_ADAPTER:
-					return basicSetMessageAdapter(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case JcaPackage.INBOUND_RESOURCE_ADAPTER__MESSAGE_ADAPTER:
+				return basicSetMessageAdapter(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -129,12 +124,12 @@ public class InboundResourceAdapterImpl extends EObjectImpl implements InboundRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case JcaPackage.INBOUND_RESOURCE_ADAPTER__MESSAGE_ADAPTER:
 				return getMessageAdapter();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -142,13 +137,13 @@ public class InboundResourceAdapterImpl extends EObjectImpl implements InboundRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case JcaPackage.INBOUND_RESOURCE_ADAPTER__MESSAGE_ADAPTER:
 				setMessageAdapter((MessageAdapter)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -156,13 +151,13 @@ public class InboundResourceAdapterImpl extends EObjectImpl implements InboundRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case JcaPackage.INBOUND_RESOURCE_ADAPTER__MESSAGE_ADAPTER:
 				setMessageAdapter((MessageAdapter)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -170,12 +165,12 @@ public class InboundResourceAdapterImpl extends EObjectImpl implements InboundRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case JcaPackage.INBOUND_RESOURCE_ADAPTER__MESSAGE_ADAPTER:
 				return messageAdapter != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 } //InboundResourceAdapterImpl

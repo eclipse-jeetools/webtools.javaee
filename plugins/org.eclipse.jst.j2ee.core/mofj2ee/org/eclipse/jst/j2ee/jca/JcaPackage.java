@@ -27,7 +27,7 @@ import org.eclipse.jst.j2ee.common.CommonPackage;
  * </p>
  *	@since 1.0
  */
-public interface JcaPackage extends EPackage{
+public interface JcaPackage extends EPackage {
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
@@ -108,7 +108,7 @@ public interface JcaPackage extends EPackage{
 	 */
 	int CONNECTOR__RESOURCE_ADAPTER = CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP_FEATURE_COUNT + 5;
 	/**
-	 * The number of structural features of the the '<em>Connector</em>' class.
+	 * The number of structural features of the '<em>Connector</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -127,31 +127,31 @@ public interface JcaPackage extends EPackage{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int RESOURCE_ADAPTER__MANAGED_CONNECTION_FACTORY_CLASS = 0;
+	int RESOURCE_ADAPTER__MANAGED_CONNECTION_FACTORY_CLASS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int RESOURCE_ADAPTER__CONNECTION_FACTORY_INTERFACE = 1;
+	int RESOURCE_ADAPTER__CONNECTION_FACTORY_INTERFACE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int RESOURCE_ADAPTER__CONNECTION_FACTORY_IMPL_CLASS = 2;
+	int RESOURCE_ADAPTER__CONNECTION_FACTORY_IMPL_CLASS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int RESOURCE_ADAPTER__CONNECTION_INTERFACE = 3;
+	int RESOURCE_ADAPTER__CONNECTION_INTERFACE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int RESOURCE_ADAPTER__CONNECTION_IMPL_CLASS = 4;
+	int RESOURCE_ADAPTER__CONNECTION_IMPL_CLASS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int RESOURCE_ADAPTER__TRANSACTION_SUPPORT = 5;
+	int RESOURCE_ADAPTER__TRANSACTION_SUPPORT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int RESOURCE_ADAPTER__REAUTHENTICATION_SUPPORT = 6;
+	int RESOURCE_ADAPTER__REAUTHENTICATION_SUPPORT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 6;
 	/**
 	 * The feature id for the '<em><b>Resource Adapter Class</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -159,20 +159,20 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int RESOURCE_ADAPTER__RESOURCE_ADAPTER_CLASS = 7;
+	int RESOURCE_ADAPTER__RESOURCE_ADAPTER_CLASS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 7;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int RESOURCE_ADAPTER__SECURITY_PERMISSIONS = 8;
+	int RESOURCE_ADAPTER__SECURITY_PERMISSIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 8;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int RESOURCE_ADAPTER__AUTHENTICATION_MECHANISMS = 9;
+	int RESOURCE_ADAPTER__AUTHENTICATION_MECHANISMS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 9;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int RESOURCE_ADAPTER__CONFIG_PROPERTIES = 10;
+	int RESOURCE_ADAPTER__CONFIG_PROPERTIES = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 10;
 	/**
 	 * The feature id for the '<em><b>Outbound Resource Adapter</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -180,7 +180,7 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int RESOURCE_ADAPTER__OUTBOUND_RESOURCE_ADAPTER = 11;
+	int RESOURCE_ADAPTER__OUTBOUND_RESOURCE_ADAPTER = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 11;
 
 	/**
 	 * The feature id for the '<em><b>Inbound Resource Adapter</b></em>' containment reference.
@@ -189,7 +189,7 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int RESOURCE_ADAPTER__INBOUND_RESOURCE_ADAPTER = 12;
+	int RESOURCE_ADAPTER__INBOUND_RESOURCE_ADAPTER = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 12;
 
 	/**
 	 * The feature id for the '<em><b>Admin Objects</b></em>' containment reference list.
@@ -198,16 +198,16 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int RESOURCE_ADAPTER__ADMIN_OBJECTS = 13;
+	int RESOURCE_ADAPTER__ADMIN_OBJECTS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 13;
 
 	/**
-	 * The number of structural features of the the '<em>Resource Adapter</em>' class.
+	 * The number of structural features of the '<em>Resource Adapter</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RESOURCE_ADAPTER_FEATURE_COUNT = 14;
+	int RESOURCE_ADAPTER_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 14;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
@@ -225,7 +225,7 @@ public interface JcaPackage extends EPackage{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int AUTHENTICATION_MECHANISM__DESCRIPTION = 0;
+	int AUTHENTICATION_MECHANISM__DESCRIPTION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * The feature id for the '<em><b>Authentication Mechanism</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -233,16 +233,16 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int AUTHENTICATION_MECHANISM__AUTHENTICATION_MECHANISM = 1;
+	int AUTHENTICATION_MECHANISM__AUTHENTICATION_MECHANISM = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int AUTHENTICATION_MECHANISM__AUTHENTICATION_MECHANISM_TYPE = 2;
+	int AUTHENTICATION_MECHANISM__AUTHENTICATION_MECHANISM_TYPE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int AUTHENTICATION_MECHANISM__CREDENTIAL_INTERFACE = 3;
+	int AUTHENTICATION_MECHANISM__CREDENTIAL_INTERFACE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
@@ -278,7 +278,7 @@ public interface JcaPackage extends EPackage{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int AUTHENTICATION_MECHANISM__CUSTOM_AUTH_MECH_TYPE = 4;
+	int AUTHENTICATION_MECHANISM__CUSTOM_AUTH_MECH_TYPE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -286,33 +286,33 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int AUTHENTICATION_MECHANISM__DESCRIPTIONS = 5;
+	int AUTHENTICATION_MECHANISM__DESCRIPTIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
-	 * The number of structural features of the the '<em>Authentication Mechanism</em>' class.
+	 * The number of structural features of the '<em>Authentication Mechanism</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int AUTHENTICATION_MECHANISM_FEATURE_COUNT = 6;
+	int AUTHENTICATION_MECHANISM_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 6;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int CONFIG_PROPERTY__DESCRIPTION = 0;
+	int CONFIG_PROPERTY__DESCRIPTION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int CONFIG_PROPERTY__NAME = 1;
+	int CONFIG_PROPERTY__NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int CONFIG_PROPERTY__TYPE = 2;
+	int CONFIG_PROPERTY__TYPE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int CONFIG_PROPERTY__VALUE = 3;
+	int CONFIG_PROPERTY__VALUE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -320,25 +320,25 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CONFIG_PROPERTY__DESCRIPTIONS = 4;
+	int CONFIG_PROPERTY__DESCRIPTIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
-	 * The number of structural features of the the '<em>Config Property</em>' class.
+	 * The number of structural features of the '<em>Config Property</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONFIG_PROPERTY_FEATURE_COUNT = 5;
+	int CONFIG_PROPERTY_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int SECURITY_PERMISSION__DESCRIPTION = 0;
+	int SECURITY_PERMISSION__DESCRIPTION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int SECURITY_PERMISSION__SPECIFICATION = 1;
+	int SECURITY_PERMISSION__SPECIFICATION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -346,25 +346,25 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int SECURITY_PERMISSION__DESCRIPTIONS = 2;
+	int SECURITY_PERMISSION__DESCRIPTIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the the '<em>Security Permission</em>' class.
+	 * The number of structural features of the '<em>Security Permission</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SECURITY_PERMISSION_FEATURE_COUNT = 3;
+	int SECURITY_PERMISSION_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int LICENSE__DESCRIPTION = 0;
+	int LICENSE__DESCRIPTION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int LICENSE__REQUIRED = 1;
+	int LICENSE__REQUIRED = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -372,16 +372,16 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int LICENSE__DESCRIPTIONS = 2;
+	int LICENSE__DESCRIPTIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the the '<em>License</em>' class.
+	 * The number of structural features of the '<em>License</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LICENSE_FEATURE_COUNT = 3;
+	int LICENSE_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.jca.internal.impl.InboundResourceAdapterImpl <em>Inbound Resource Adapter</em>}' class.
@@ -400,16 +400,16 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int INBOUND_RESOURCE_ADAPTER__MESSAGE_ADAPTER = 0;
+	int INBOUND_RESOURCE_ADAPTER__MESSAGE_ADAPTER = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Inbound Resource Adapter</em>' class.
+	 * The number of structural features of the '<em>Inbound Resource Adapter</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INBOUND_RESOURCE_ADAPTER_FEATURE_COUNT = 1;
+	int INBOUND_RESOURCE_ADAPTER_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.jca.internal.impl.OutboundResourceAdapterImpl <em>Outbound Resource Adapter</em>}' class.
@@ -428,7 +428,7 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int OUTBOUND_RESOURCE_ADAPTER__REAUTHENTICATION_SUPPORT = 0;
+	int OUTBOUND_RESOURCE_ADAPTER__REAUTHENTICATION_SUPPORT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Transaction Support</b></em>' attribute.
@@ -437,7 +437,7 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int OUTBOUND_RESOURCE_ADAPTER__TRANSACTION_SUPPORT = 1;
+	int OUTBOUND_RESOURCE_ADAPTER__TRANSACTION_SUPPORT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Connection Definitions</b></em>' containment reference list.
@@ -446,7 +446,7 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int OUTBOUND_RESOURCE_ADAPTER__CONNECTION_DEFINITIONS = 2;
+	int OUTBOUND_RESOURCE_ADAPTER__CONNECTION_DEFINITIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Authentication Mechanisms</b></em>' containment reference list.
@@ -455,16 +455,16 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int OUTBOUND_RESOURCE_ADAPTER__AUTHENTICATION_MECHANISMS = 3;
+	int OUTBOUND_RESOURCE_ADAPTER__AUTHENTICATION_MECHANISMS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
-	 * The number of structural features of the the '<em>Outbound Resource Adapter</em>' class.
+	 * The number of structural features of the '<em>Outbound Resource Adapter</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OUTBOUND_RESOURCE_ADAPTER_FEATURE_COUNT = 4;
+	int OUTBOUND_RESOURCE_ADAPTER_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.jca.internal.impl.MessageAdapterImpl <em>Message Adapter</em>}' class.
@@ -483,16 +483,16 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_ADAPTER__MESSAGE_LISTENERS = 0;
+	int MESSAGE_ADAPTER__MESSAGE_LISTENERS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Message Adapter</em>' class.
+	 * The number of structural features of the '<em>Message Adapter</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_ADAPTER_FEATURE_COUNT = 1;
+	int MESSAGE_ADAPTER_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.jca.internal.impl.ConnectionDefinitionImpl <em>Connection Definition</em>}' class.
@@ -511,7 +511,7 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_DEFINITION__MANAGED_CONNECTION_FACTORY_CLASS = 0;
+	int CONNECTION_DEFINITION__MANAGED_CONNECTION_FACTORY_CLASS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Connection Factory Interface</b></em>' attribute.
@@ -520,7 +520,7 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_DEFINITION__CONNECTION_FACTORY_INTERFACE = 1;
+	int CONNECTION_DEFINITION__CONNECTION_FACTORY_INTERFACE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Connection Factory Impl Class</b></em>' attribute.
@@ -529,7 +529,7 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_DEFINITION__CONNECTION_FACTORY_IMPL_CLASS = 2;
+	int CONNECTION_DEFINITION__CONNECTION_FACTORY_IMPL_CLASS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Connection Interface</b></em>' attribute.
@@ -538,7 +538,7 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_DEFINITION__CONNECTION_INTERFACE = 3;
+	int CONNECTION_DEFINITION__CONNECTION_INTERFACE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Connection Impl Class</b></em>' attribute.
@@ -547,7 +547,7 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_DEFINITION__CONNECTION_IMPL_CLASS = 4;
+	int CONNECTION_DEFINITION__CONNECTION_IMPL_CLASS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Config Properties</b></em>' containment reference list.
@@ -556,16 +556,16 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_DEFINITION__CONFIG_PROPERTIES = 5;
+	int CONNECTION_DEFINITION__CONFIG_PROPERTIES = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
-	 * The number of structural features of the the '<em>Connection Definition</em>' class.
+	 * The number of structural features of the '<em>Connection Definition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_DEFINITION_FEATURE_COUNT = 6;
+	int CONNECTION_DEFINITION_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.jca.internal.impl.AdminObjectImpl <em>Admin Object</em>}' class.
@@ -584,7 +584,7 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int ADMIN_OBJECT__ADMIN_OBJECT_INTERFACE = 0;
+	int ADMIN_OBJECT__ADMIN_OBJECT_INTERFACE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Admin Object Class</b></em>' attribute.
@@ -593,7 +593,7 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int ADMIN_OBJECT__ADMIN_OBJECT_CLASS = 1;
+	int ADMIN_OBJECT__ADMIN_OBJECT_CLASS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Config Properties</b></em>' containment reference list.
@@ -602,16 +602,16 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int ADMIN_OBJECT__CONFIG_PROPERTIES = 2;
+	int ADMIN_OBJECT__CONFIG_PROPERTIES = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the the '<em>Admin Object</em>' class.
+	 * The number of structural features of the '<em>Admin Object</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ADMIN_OBJECT_FEATURE_COUNT = 3;
+	int ADMIN_OBJECT_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.jca.internal.impl.MessageListenerImpl <em>Message Listener</em>}' class.
@@ -630,7 +630,7 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_LISTENER__MESSAGE_LISTENER_TYPE = 0;
+	int MESSAGE_LISTENER__MESSAGE_LISTENER_TYPE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Activation Spec</b></em>' containment reference.
@@ -639,16 +639,16 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_LISTENER__ACTIVATION_SPEC = 1;
+	int MESSAGE_LISTENER__ACTIVATION_SPEC = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Message Listener</em>' class.
+	 * The number of structural features of the '<em>Message Listener</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_LISTENER_FEATURE_COUNT = 2;
+	int MESSAGE_LISTENER_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.jca.internal.impl.ActivationSpecImpl <em>Activation Spec</em>}' class.
@@ -667,7 +667,7 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVATION_SPEC__ACTIVATION_SPEC_CLASS = 0;
+	int ACTIVATION_SPEC__ACTIVATION_SPEC_CLASS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Required Config Properties</b></em>' containment reference list.
@@ -676,16 +676,16 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVATION_SPEC__REQUIRED_CONFIG_PROPERTIES = 1;
+	int ACTIVATION_SPEC__REQUIRED_CONFIG_PROPERTIES = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Activation Spec</em>' class.
+	 * The number of structural features of the '<em>Activation Spec</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVATION_SPEC_FEATURE_COUNT = 2;
+	int ACTIVATION_SPEC_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.jca.internal.impl.RequiredConfigPropertyTypeImpl <em>Required Config Property Type</em>}' class.
@@ -704,7 +704,7 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int REQUIRED_CONFIG_PROPERTY_TYPE__NAME = 0;
+	int REQUIRED_CONFIG_PROPERTY_TYPE__NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -713,16 +713,16 @@ public interface JcaPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int REQUIRED_CONFIG_PROPERTY_TYPE__DESCRIPTIONS = 1;
+	int REQUIRED_CONFIG_PROPERTY_TYPE__DESCRIPTIONS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Required Config Property Type</em>' class.
+	 * The number of structural features of the '<em>Required Config Property Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REQUIRED_CONFIG_PROPERTY_TYPE_FEATURE_COUNT = 2;
+	int REQUIRED_CONFIG_PROPERTY_TYPE_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
@@ -1312,6 +1312,645 @@ public interface JcaPackage extends EPackage{
 	JcaFactory getJcaFactory();
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * Defines literals for the meta objects that represent
+	 * <ul>
+	 *   <li>each class,</li>
+	 *   <li>each feature of each class,</li>
+	 *   <li>each enum,</li>
+	 *   <li>and each data type</li>
+	 * </ul>
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	interface Literals  {
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.jca.internal.impl.ConnectorImpl <em>Connector</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.ConnectorImpl
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.JcaPackageImpl#getConnector()
+		 * @generated
+		 */
+		EClass CONNECTOR = eINSTANCE.getConnector();
+
+		/**
+		 * The meta object literal for the '<em><b>Vendor Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONNECTOR__VENDOR_NAME = eINSTANCE.getConnector_VendorName();
+
+		/**
+		 * The meta object literal for the '<em><b>Spec Version</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONNECTOR__SPEC_VERSION = eINSTANCE.getConnector_SpecVersion();
+
+		/**
+		 * The meta object literal for the '<em><b>Eis Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONNECTOR__EIS_TYPE = eINSTANCE.getConnector_EisType();
+
+		/**
+		 * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONNECTOR__VERSION = eINSTANCE.getConnector_Version();
+
+		/**
+		 * The meta object literal for the '<em><b>License</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONNECTOR__LICENSE = eINSTANCE.getConnector_License();
+
+		/**
+		 * The meta object literal for the '<em><b>Resource Adapter</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONNECTOR__RESOURCE_ADAPTER = eINSTANCE.getConnector_ResourceAdapter();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.jca.internal.impl.ResourceAdapterImpl <em>Resource Adapter</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.ResourceAdapterImpl
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.JcaPackageImpl#getResourceAdapter()
+		 * @generated
+		 */
+		EClass RESOURCE_ADAPTER = eINSTANCE.getResourceAdapter();
+
+		/**
+		 * The meta object literal for the '<em><b>Managed Connection Factory Class</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RESOURCE_ADAPTER__MANAGED_CONNECTION_FACTORY_CLASS = eINSTANCE.getResourceAdapter_ManagedConnectionFactoryClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Connection Factory Interface</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RESOURCE_ADAPTER__CONNECTION_FACTORY_INTERFACE = eINSTANCE.getResourceAdapter_ConnectionFactoryInterface();
+
+		/**
+		 * The meta object literal for the '<em><b>Connection Factory Impl Class</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RESOURCE_ADAPTER__CONNECTION_FACTORY_IMPL_CLASS = eINSTANCE.getResourceAdapter_ConnectionFactoryImplClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Connection Interface</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RESOURCE_ADAPTER__CONNECTION_INTERFACE = eINSTANCE.getResourceAdapter_ConnectionInterface();
+
+		/**
+		 * The meta object literal for the '<em><b>Connection Impl Class</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RESOURCE_ADAPTER__CONNECTION_IMPL_CLASS = eINSTANCE.getResourceAdapter_ConnectionImplClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Transaction Support</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RESOURCE_ADAPTER__TRANSACTION_SUPPORT = eINSTANCE.getResourceAdapter_TransactionSupport();
+
+		/**
+		 * The meta object literal for the '<em><b>Reauthentication Support</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RESOURCE_ADAPTER__REAUTHENTICATION_SUPPORT = eINSTANCE.getResourceAdapter_ReauthenticationSupport();
+
+		/**
+		 * The meta object literal for the '<em><b>Resource Adapter Class</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RESOURCE_ADAPTER__RESOURCE_ADAPTER_CLASS = eINSTANCE.getResourceAdapter_ResourceAdapterClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Security Permissions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RESOURCE_ADAPTER__SECURITY_PERMISSIONS = eINSTANCE.getResourceAdapter_SecurityPermissions();
+
+		/**
+		 * The meta object literal for the '<em><b>Authentication Mechanisms</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RESOURCE_ADAPTER__AUTHENTICATION_MECHANISMS = eINSTANCE.getResourceAdapter_AuthenticationMechanisms();
+
+		/**
+		 * The meta object literal for the '<em><b>Config Properties</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RESOURCE_ADAPTER__CONFIG_PROPERTIES = eINSTANCE.getResourceAdapter_ConfigProperties();
+
+		/**
+		 * The meta object literal for the '<em><b>Outbound Resource Adapter</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RESOURCE_ADAPTER__OUTBOUND_RESOURCE_ADAPTER = eINSTANCE.getResourceAdapter_OutboundResourceAdapter();
+
+		/**
+		 * The meta object literal for the '<em><b>Inbound Resource Adapter</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RESOURCE_ADAPTER__INBOUND_RESOURCE_ADAPTER = eINSTANCE.getResourceAdapter_InboundResourceAdapter();
+
+		/**
+		 * The meta object literal for the '<em><b>Admin Objects</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RESOURCE_ADAPTER__ADMIN_OBJECTS = eINSTANCE.getResourceAdapter_AdminObjects();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.jca.internal.impl.AuthenticationMechanismImpl <em>Authentication Mechanism</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.AuthenticationMechanismImpl
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.JcaPackageImpl#getAuthenticationMechanism()
+		 * @generated
+		 */
+		EClass AUTHENTICATION_MECHANISM = eINSTANCE.getAuthenticationMechanism();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute AUTHENTICATION_MECHANISM__DESCRIPTION = eINSTANCE.getAuthenticationMechanism_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Authentication Mechanism</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute AUTHENTICATION_MECHANISM__AUTHENTICATION_MECHANISM = eINSTANCE.getAuthenticationMechanism_AuthenticationMechanism();
+
+		/**
+		 * The meta object literal for the '<em><b>Authentication Mechanism Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute AUTHENTICATION_MECHANISM__AUTHENTICATION_MECHANISM_TYPE = eINSTANCE.getAuthenticationMechanism_AuthenticationMechanismType();
+
+		/**
+		 * The meta object literal for the '<em><b>Credential Interface</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute AUTHENTICATION_MECHANISM__CREDENTIAL_INTERFACE = eINSTANCE.getAuthenticationMechanism_CredentialInterface();
+
+		/**
+		 * The meta object literal for the '<em><b>Custom Auth Mech Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute AUTHENTICATION_MECHANISM__CUSTOM_AUTH_MECH_TYPE = eINSTANCE.getAuthenticationMechanism_CustomAuthMechType();
+
+		/**
+		 * The meta object literal for the '<em><b>Descriptions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference AUTHENTICATION_MECHANISM__DESCRIPTIONS = eINSTANCE.getAuthenticationMechanism_Descriptions();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.jca.internal.impl.ConfigPropertyImpl <em>Config Property</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.ConfigPropertyImpl
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.JcaPackageImpl#getConfigProperty()
+		 * @generated
+		 */
+		EClass CONFIG_PROPERTY = eINSTANCE.getConfigProperty();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONFIG_PROPERTY__DESCRIPTION = eINSTANCE.getConfigProperty_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONFIG_PROPERTY__NAME = eINSTANCE.getConfigProperty_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONFIG_PROPERTY__TYPE = eINSTANCE.getConfigProperty_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONFIG_PROPERTY__VALUE = eINSTANCE.getConfigProperty_Value();
+
+		/**
+		 * The meta object literal for the '<em><b>Descriptions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONFIG_PROPERTY__DESCRIPTIONS = eINSTANCE.getConfigProperty_Descriptions();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.jca.internal.impl.SecurityPermissionImpl <em>Security Permission</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.SecurityPermissionImpl
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.JcaPackageImpl#getSecurityPermission()
+		 * @generated
+		 */
+		EClass SECURITY_PERMISSION = eINSTANCE.getSecurityPermission();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SECURITY_PERMISSION__DESCRIPTION = eINSTANCE.getSecurityPermission_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Specification</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SECURITY_PERMISSION__SPECIFICATION = eINSTANCE.getSecurityPermission_Specification();
+
+		/**
+		 * The meta object literal for the '<em><b>Descriptions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SECURITY_PERMISSION__DESCRIPTIONS = eINSTANCE.getSecurityPermission_Descriptions();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.jca.internal.impl.LicenseImpl <em>License</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.LicenseImpl
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.JcaPackageImpl#getLicense()
+		 * @generated
+		 */
+		EClass LICENSE = eINSTANCE.getLicense();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LICENSE__DESCRIPTION = eINSTANCE.getLicense_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Required</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LICENSE__REQUIRED = eINSTANCE.getLicense_Required();
+
+		/**
+		 * The meta object literal for the '<em><b>Descriptions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LICENSE__DESCRIPTIONS = eINSTANCE.getLicense_Descriptions();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.jca.internal.impl.InboundResourceAdapterImpl <em>Inbound Resource Adapter</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.InboundResourceAdapterImpl
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.JcaPackageImpl#getInboundResourceAdapter()
+		 * @generated
+		 */
+		EClass INBOUND_RESOURCE_ADAPTER = eINSTANCE.getInboundResourceAdapter();
+
+		/**
+		 * The meta object literal for the '<em><b>Message Adapter</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INBOUND_RESOURCE_ADAPTER__MESSAGE_ADAPTER = eINSTANCE.getInboundResourceAdapter_MessageAdapter();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.jca.internal.impl.OutboundResourceAdapterImpl <em>Outbound Resource Adapter</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.OutboundResourceAdapterImpl
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.JcaPackageImpl#getOutboundResourceAdapter()
+		 * @generated
+		 */
+		EClass OUTBOUND_RESOURCE_ADAPTER = eINSTANCE.getOutboundResourceAdapter();
+
+		/**
+		 * The meta object literal for the '<em><b>Reauthentication Support</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute OUTBOUND_RESOURCE_ADAPTER__REAUTHENTICATION_SUPPORT = eINSTANCE.getOutboundResourceAdapter_ReauthenticationSupport();
+
+		/**
+		 * The meta object literal for the '<em><b>Transaction Support</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute OUTBOUND_RESOURCE_ADAPTER__TRANSACTION_SUPPORT = eINSTANCE.getOutboundResourceAdapter_TransactionSupport();
+
+		/**
+		 * The meta object literal for the '<em><b>Connection Definitions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OUTBOUND_RESOURCE_ADAPTER__CONNECTION_DEFINITIONS = eINSTANCE.getOutboundResourceAdapter_ConnectionDefinitions();
+
+		/**
+		 * The meta object literal for the '<em><b>Authentication Mechanisms</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OUTBOUND_RESOURCE_ADAPTER__AUTHENTICATION_MECHANISMS = eINSTANCE.getOutboundResourceAdapter_AuthenticationMechanisms();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.jca.internal.impl.MessageAdapterImpl <em>Message Adapter</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.MessageAdapterImpl
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.JcaPackageImpl#getMessageAdapter()
+		 * @generated
+		 */
+		EClass MESSAGE_ADAPTER = eINSTANCE.getMessageAdapter();
+
+		/**
+		 * The meta object literal for the '<em><b>Message Listeners</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MESSAGE_ADAPTER__MESSAGE_LISTENERS = eINSTANCE.getMessageAdapter_MessageListeners();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.jca.internal.impl.ConnectionDefinitionImpl <em>Connection Definition</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.ConnectionDefinitionImpl
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.JcaPackageImpl#getConnectionDefinition()
+		 * @generated
+		 */
+		EClass CONNECTION_DEFINITION = eINSTANCE.getConnectionDefinition();
+
+		/**
+		 * The meta object literal for the '<em><b>Managed Connection Factory Class</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONNECTION_DEFINITION__MANAGED_CONNECTION_FACTORY_CLASS = eINSTANCE.getConnectionDefinition_ManagedConnectionFactoryClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Connection Factory Interface</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONNECTION_DEFINITION__CONNECTION_FACTORY_INTERFACE = eINSTANCE.getConnectionDefinition_ConnectionFactoryInterface();
+
+		/**
+		 * The meta object literal for the '<em><b>Connection Factory Impl Class</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONNECTION_DEFINITION__CONNECTION_FACTORY_IMPL_CLASS = eINSTANCE.getConnectionDefinition_ConnectionFactoryImplClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Connection Interface</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONNECTION_DEFINITION__CONNECTION_INTERFACE = eINSTANCE.getConnectionDefinition_ConnectionInterface();
+
+		/**
+		 * The meta object literal for the '<em><b>Connection Impl Class</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONNECTION_DEFINITION__CONNECTION_IMPL_CLASS = eINSTANCE.getConnectionDefinition_ConnectionImplClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Config Properties</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONNECTION_DEFINITION__CONFIG_PROPERTIES = eINSTANCE.getConnectionDefinition_ConfigProperties();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.jca.internal.impl.AdminObjectImpl <em>Admin Object</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.AdminObjectImpl
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.JcaPackageImpl#getAdminObject()
+		 * @generated
+		 */
+		EClass ADMIN_OBJECT = eINSTANCE.getAdminObject();
+
+		/**
+		 * The meta object literal for the '<em><b>Admin Object Interface</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADMIN_OBJECT__ADMIN_OBJECT_INTERFACE = eINSTANCE.getAdminObject_AdminObjectInterface();
+
+		/**
+		 * The meta object literal for the '<em><b>Admin Object Class</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADMIN_OBJECT__ADMIN_OBJECT_CLASS = eINSTANCE.getAdminObject_AdminObjectClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Config Properties</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ADMIN_OBJECT__CONFIG_PROPERTIES = eINSTANCE.getAdminObject_ConfigProperties();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.jca.internal.impl.MessageListenerImpl <em>Message Listener</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.MessageListenerImpl
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.JcaPackageImpl#getMessageListener()
+		 * @generated
+		 */
+		EClass MESSAGE_LISTENER = eINSTANCE.getMessageListener();
+
+		/**
+		 * The meta object literal for the '<em><b>Message Listener Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MESSAGE_LISTENER__MESSAGE_LISTENER_TYPE = eINSTANCE.getMessageListener_MessageListenerType();
+
+		/**
+		 * The meta object literal for the '<em><b>Activation Spec</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MESSAGE_LISTENER__ACTIVATION_SPEC = eINSTANCE.getMessageListener_ActivationSpec();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.jca.internal.impl.ActivationSpecImpl <em>Activation Spec</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.ActivationSpecImpl
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.JcaPackageImpl#getActivationSpec()
+		 * @generated
+		 */
+		EClass ACTIVATION_SPEC = eINSTANCE.getActivationSpec();
+
+		/**
+		 * The meta object literal for the '<em><b>Activation Spec Class</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ACTIVATION_SPEC__ACTIVATION_SPEC_CLASS = eINSTANCE.getActivationSpec_ActivationSpecClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Required Config Properties</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ACTIVATION_SPEC__REQUIRED_CONFIG_PROPERTIES = eINSTANCE.getActivationSpec_RequiredConfigProperties();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.jca.internal.impl.RequiredConfigPropertyTypeImpl <em>Required Config Property Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.RequiredConfigPropertyTypeImpl
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.JcaPackageImpl#getRequiredConfigPropertyType()
+		 * @generated
+		 */
+		EClass REQUIRED_CONFIG_PROPERTY_TYPE = eINSTANCE.getRequiredConfigPropertyType();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REQUIRED_CONFIG_PROPERTY_TYPE__NAME = eINSTANCE.getRequiredConfigPropertyType_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Descriptions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference REQUIRED_CONFIG_PROPERTY_TYPE__DESCRIPTIONS = eINSTANCE.getRequiredConfigPropertyType_Descriptions();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.jca.AuthenticationMechanismType <em>Authentication Mechanism Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.jca.AuthenticationMechanismType
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.JcaPackageImpl#getAuthenticationMechanismType()
+		 * @generated
+		 */
+		EEnum AUTHENTICATION_MECHANISM_TYPE = eINSTANCE.getAuthenticationMechanismType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.jca.TransactionSupportKind <em>Transaction Support Kind</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.jca.TransactionSupportKind
+		 * @see org.eclipse.jst.j2ee.jca.internal.impl.JcaPackageImpl#getTransactionSupportKind()
+		 * @generated
+		 */
+		EEnum TRANSACTION_SUPPORT_KIND = eINSTANCE.getTransactionSupportKind();
+
+	}
+
+	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	EAttribute getAuthenticationMechanism_CustomAuthMechType();
@@ -1328,768 +1967,3 @@ public interface JcaPackage extends EPackage{
 	EReference getAuthenticationMechanism_Descriptions();
 
 } //JcaPackage
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

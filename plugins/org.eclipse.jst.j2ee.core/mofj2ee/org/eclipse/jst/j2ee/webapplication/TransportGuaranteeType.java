@@ -49,7 +49,7 @@ public final class TransportGuaranteeType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransportGuaranteeType NONE_LITERAL = new TransportGuaranteeType(NONE, "NONE");//$NON-NLS-1$
+	public static final TransportGuaranteeType NONE_LITERAL = new TransportGuaranteeType(NONE, "NONE", "NONE");//$NON-NLS-1$
 
 	/**
 	 * The '<em><b>INTEGRAL</b></em>' literal object.
@@ -63,7 +63,7 @@ public final class TransportGuaranteeType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransportGuaranteeType INTEGRAL_LITERAL = new TransportGuaranteeType(INTEGRAL, "INTEGRAL");//$NON-NLS-1$
+	public static final TransportGuaranteeType INTEGRAL_LITERAL = new TransportGuaranteeType(INTEGRAL, "INTEGRAL", "INTEGRAL");//$NON-NLS-1$
 
 	/**
 	 * The '<em><b>CONFIDENTIAL</b></em>' literal object.
@@ -77,7 +77,7 @@ public final class TransportGuaranteeType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransportGuaranteeType CONFIDENTIAL_LITERAL = new TransportGuaranteeType(CONFIDENTIAL, "CONFIDENTIAL");//$NON-NLS-1$
+	public static final TransportGuaranteeType CONFIDENTIAL_LITERAL = new TransportGuaranteeType(CONFIDENTIAL, "CONFIDENTIAL", "CONFIDENTIAL");//$NON-NLS-1$
 
 	/**
 	 * An array of all the '<em><b>Transport Guarantee Type</b></em>' enumerators.
@@ -101,17 +101,17 @@ public final class TransportGuaranteeType extends AbstractEnumerator{
 	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Transport Guarantee Type</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Transport Guarantee Type</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * @param name passes literal name
 	 * @return literal instance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static TransportGuaranteeType get(String name) {
+	public static TransportGuaranteeType get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			TransportGuaranteeType result = VALUES_ARRAY[i];
-			if (result.toString().equals(name)) {
+			if (result.toString().equals(literal)) {
 				return result;
 			}
 		}
@@ -119,7 +119,23 @@ public final class TransportGuaranteeType extends AbstractEnumerator{
 	}
 
 	/**
-	 * Returns the '<em><b>Transport Guarantee Type</b></em>' literal with the specified value.
+	 * Returns the '<em><b>Transport Guarantee Type</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static TransportGuaranteeType getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			TransportGuaranteeType result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Transport Guarantee Type</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * @param value passes literal value
 	 * @return literal instance
@@ -141,8 +157,8 @@ public final class TransportGuaranteeType extends AbstractEnumerator{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private TransportGuaranteeType(int value, String name) {
-		super(value, name);
+	private TransportGuaranteeType(int value, String name, String literal) {
+		super(value, name, literal);
 	}
 
 } //TransportGuaranteeType

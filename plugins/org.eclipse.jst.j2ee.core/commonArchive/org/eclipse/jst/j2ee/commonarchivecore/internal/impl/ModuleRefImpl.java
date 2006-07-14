@@ -21,13 +21,12 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jst.j2ee.application.Module;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveFactoryRegistry;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
@@ -44,8 +43,10 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadExc
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 
-
-public class ModuleRefImpl extends EObjectImpl implements ModuleRef, EObject {
+/**
+ * @generated
+ */
+public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
@@ -71,7 +72,7 @@ public class ModuleRefImpl extends EObjectImpl implements ModuleRef, EObject {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return CommonarchivePackage.eINSTANCE.getModuleRef();
+		return CommonarchivePackage.Literals.MODULE_REF;
 	}
 
 	protected CommonarchiveFactory getCommonArchiveFactory() {
@@ -90,8 +91,8 @@ public class ModuleRefImpl extends EObjectImpl implements ModuleRef, EObject {
 	 */
 	public ModuleFile getModuleFileGen() {
 		if (moduleFile != null && moduleFile.eIsProxy()) {
-			ModuleFile oldModuleFile = moduleFile;
-			moduleFile = (ModuleFile)eResolveProxy((InternalEObject)moduleFile);
+			InternalEObject oldModuleFile = (InternalEObject)moduleFile;
+			moduleFile = (ModuleFile)eResolveProxy(oldModuleFile);
 			if (moduleFile != oldModuleFile) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonarchivePackage.MODULE_REF__MODULE_FILE, oldModuleFile, moduleFile));
@@ -142,57 +143,6 @@ public class ModuleRefImpl extends EObjectImpl implements ModuleRef, EObject {
 		if (module == null)
 			return false;
 		return !ArchiveUtil.isNullOrEmpty(module.getAltDD());
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.MODULE_REF__MODULE_FILE:
-				return moduleFile != null;
-			case CommonarchivePackage.MODULE_REF__EAR_FILE:
-				return getEarFile() != null;
-			case CommonarchivePackage.MODULE_REF__MODULE:
-				return module != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.MODULE_REF__MODULE_FILE:
-				setModuleFile((ModuleFile)newValue);
-				return;
-			case CommonarchivePackage.MODULE_REF__EAR_FILE:
-				setEarFile((EARFile)newValue);
-				return;
-			case CommonarchivePackage.MODULE_REF__MODULE:
-				setModule((Module)newValue);
-				return;
-		}
-		eDynamicSet(eFeature, newValue);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.MODULE_REF__MODULE_FILE:
-				setModuleFile((ModuleFile)null);
-				return;
-			case CommonarchivePackage.MODULE_REF__EAR_FILE:
-				setEarFile((EARFile)null);
-				return;
-			case CommonarchivePackage.MODULE_REF__MODULE:
-				setModule((Module)null);
-				return;
-		}
-		eDynamicUnset(eFeature);
 	}
 
 	public EObject getAltDeploymentDescriptor() throws ArchiveWrappedException {
@@ -272,22 +222,32 @@ public class ModuleRefImpl extends EObjectImpl implements ModuleRef, EObject {
 	 */
 	public EARFile getEarFile() {
 		if (eContainerFeatureID != CommonarchivePackage.MODULE_REF__EAR_FILE) return null;
-		return (EARFile)eContainer;
+		return (EARFile)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetEarFile(EARFile newEarFile, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newEarFile, CommonarchivePackage.MODULE_REF__EAR_FILE, msgs);
+		return msgs;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public void setEarFile(EARFile newEarFile) {
-		if (newEarFile != eContainer || (eContainerFeatureID != CommonarchivePackage.MODULE_REF__EAR_FILE && newEarFile != null)) {
+		if (newEarFile != eInternalContainer() || (eContainerFeatureID != CommonarchivePackage.MODULE_REF__EAR_FILE && newEarFile != null)) {
 			if (EcoreUtil.isAncestor(this, newEarFile))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newEarFile != null)
 				msgs = ((InternalEObject)newEarFile).eInverseAdd(this, CommonarchivePackage.EAR_FILE__MODULE_REFS, EARFile.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newEarFile, CommonarchivePackage.MODULE_REF__EAR_FILE, msgs);
+			msgs = basicSetEarFile(newEarFile, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -328,63 +288,53 @@ public class ModuleRefImpl extends EObjectImpl implements ModuleRef, EObject {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.MODULE_REF__EAR_FILE:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, CommonarchivePackage.MODULE_REF__EAR_FILE, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CommonarchivePackage.MODULE_REF__EAR_FILE:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetEarFile((EARFile)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.MODULE_REF__EAR_FILE:
-					return eBasicSetContainer(null, CommonarchivePackage.MODULE_REF__EAR_FILE, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CommonarchivePackage.MODULE_REF__EAR_FILE:
+				return basicSetEarFile(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case CommonarchivePackage.MODULE_REF__EAR_FILE:
-					return eContainer.eInverseRemove(this, CommonarchivePackage.EAR_FILE__MODULE_REFS, EARFile.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case CommonarchivePackage.MODULE_REF__EAR_FILE:
+				return eInternalContainer().eInverseRemove(this, CommonarchivePackage.EAR_FILE__MODULE_REFS, EARFile.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case CommonarchivePackage.MODULE_REF__MODULE_FILE:
 				if (resolve) return getModuleFile();
 				return basicGetModuleFile();
@@ -394,7 +344,64 @@ public class ModuleRefImpl extends EObjectImpl implements ModuleRef, EObject {
 				if (resolve) return getModule();
 				return basicGetModule();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case CommonarchivePackage.MODULE_REF__MODULE_FILE:
+				setModuleFile((ModuleFile)newValue);
+				return;
+			case CommonarchivePackage.MODULE_REF__EAR_FILE:
+				setEarFile((EARFile)newValue);
+				return;
+			case CommonarchivePackage.MODULE_REF__MODULE:
+				setModule((Module)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case CommonarchivePackage.MODULE_REF__MODULE_FILE:
+				setModuleFile((ModuleFile)null);
+				return;
+			case CommonarchivePackage.MODULE_REF__EAR_FILE:
+				setEarFile((EARFile)null);
+				return;
+			case CommonarchivePackage.MODULE_REF__MODULE:
+				setModule((Module)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case CommonarchivePackage.MODULE_REF__MODULE_FILE:
+				return moduleFile != null;
+			case CommonarchivePackage.MODULE_REF__EAR_FILE:
+				return getEarFile() != null;
+			case CommonarchivePackage.MODULE_REF__MODULE:
+				return module != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

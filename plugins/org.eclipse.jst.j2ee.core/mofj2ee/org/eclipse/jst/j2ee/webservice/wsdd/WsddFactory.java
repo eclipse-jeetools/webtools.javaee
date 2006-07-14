@@ -19,15 +19,15 @@ import org.eclipse.emf.ecore.EFactory;
  * <!-- end-user-doc -->
  * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage
  * @generated
- * @since 1.0 */
-public interface WsddFactory extends EFactory{
+ */
+public interface WsddFactory extends EFactory {
 	/**
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  WsddFactory eINSTANCE = new org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddFactoryImpl();
+  WsddFactory eINSTANCE = org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>Web Services</em>'.
@@ -111,6 +111,7 @@ public interface WsddFactory extends EFactory{
 	BeanLink createBeanLink();
 
 	/**
+	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * This method is NOT api, and may change in future releases.  
 	 * EMF package classes should be access via their "eINSTANCE" static fields

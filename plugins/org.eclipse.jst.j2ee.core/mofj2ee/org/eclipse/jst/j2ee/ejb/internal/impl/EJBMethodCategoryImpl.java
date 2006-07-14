@@ -11,15 +11,15 @@
 package org.eclipse.jst.j2ee.ejb.internal.impl;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.ejb.EJBMethodCategory;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 
 /**
  * The valid EJB method category names are: EJBHOMEMETHOD, EJBCREATEMETHOD, EJBFINDERMETHOD, EJBREMOTEMETHOD.
+ * @generated
  */
-public class EJBMethodCategoryImpl extends EObjectImpl implements EJBMethodCategory, EObject {
+public class EJBMethodCategoryImpl extends J2EEEObjectImpl implements EJBMethodCategory {
 
 	public EJBMethodCategoryImpl() {
 		super();
@@ -30,7 +30,7 @@ public class EJBMethodCategoryImpl extends EObjectImpl implements EJBMethodCateg
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return EjbPackage.eINSTANCE.getEJBMethodCategory();
+		return EjbPackage.Literals.EJB_METHOD_CATEGORY;
 	}
 
 }

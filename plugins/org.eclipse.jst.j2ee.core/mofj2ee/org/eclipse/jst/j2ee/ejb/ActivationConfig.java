@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.ejb;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -44,8 +44,8 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getActivationConfig()
  * @model
  * @generated
- * @since 1.0 */
-public interface ActivationConfig extends EObject{
+ */
+public interface ActivationConfig extends J2EEEObject {
 	/**
 	 * Returns the value of the '<em><b>Config Properties</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.jst.j2ee.ejb.ActivationConfigProperty}.

@@ -19,17 +19,15 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnumLiteral;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.java.Method;
 import org.eclipse.jst.j2ee.common.Description;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.ejb.AssemblyDescriptor;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
@@ -39,8 +37,9 @@ import org.eclipse.jst.j2ee.ejb.TransactionAttributeType;
 
 /**
  * Specifies how the container must manage transaction scopes for the enterprise bean's method invocations.  It consists of an optional description, a list of method elements, and a transaction attribute.The transaction attribute is to be applied to all the specified methods.
+ * @generated
  */
-public class MethodTransactionImpl extends EObjectImpl implements MethodTransaction, EObject {
+public class MethodTransactionImpl extends J2EEEObjectImpl implements MethodTransaction {
 
 	/**
 	 * The default value of the '{@link #getTransactionAttribute() <em>Transaction Attribute</em>}' attribute.
@@ -105,7 +104,7 @@ public class MethodTransactionImpl extends EObjectImpl implements MethodTransact
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return EjbPackage.eINSTANCE.getMethodTransaction();
+		return EjbPackage.Literals.METHOD_TRANSACTION;
 	}
 
 /**
@@ -215,22 +214,32 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	 */
 	public AssemblyDescriptor getAssemblyDescriptor() {
 		if (eContainerFeatureID != EjbPackage.METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR) return null;
-		return (AssemblyDescriptor)eContainer;
+		return (AssemblyDescriptor)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetAssemblyDescriptor(AssemblyDescriptor newAssemblyDescriptor, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newAssemblyDescriptor, EjbPackage.METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR, msgs);
+		return msgs;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public void setAssemblyDescriptor(AssemblyDescriptor newAssemblyDescriptor) {
-		if (newAssemblyDescriptor != eContainer || (eContainerFeatureID != EjbPackage.METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR && newAssemblyDescriptor != null)) {
+		if (newAssemblyDescriptor != eInternalContainer() || (eContainerFeatureID != EjbPackage.METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR && newAssemblyDescriptor != null)) {
 			if (EcoreUtil.isAncestor(this, newAssemblyDescriptor))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newAssemblyDescriptor != null)
 				msgs = ((InternalEObject)newAssemblyDescriptor).eInverseAdd(this, EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_TRANSACTIONS, AssemblyDescriptor.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newAssemblyDescriptor, EjbPackage.METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR, msgs);
+			msgs = basicSetAssemblyDescriptor(newAssemblyDescriptor, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -264,20 +273,14 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, EjbPackage.METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetAssemblyDescriptor((AssemblyDescriptor)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -285,20 +288,16 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR:
-					return eBasicSetContainer(null, EjbPackage.METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR, msgs);
-				case EjbPackage.METHOD_TRANSACTION__METHOD_ELEMENTS:
-					return ((InternalEList)getMethodElements()).basicRemove(otherEnd, msgs);
-				case EjbPackage.METHOD_TRANSACTION__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR:
+				return basicSetAssemblyDescriptor(null, msgs);
+			case EjbPackage.METHOD_TRANSACTION__METHOD_ELEMENTS:
+				return ((InternalEList)getMethodElements()).basicRemove(otherEnd, msgs);
+			case EjbPackage.METHOD_TRANSACTION__DESCRIPTIONS:
+				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -306,16 +305,12 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case EjbPackage.METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR:
-					return eContainer.eInverseRemove(this, EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_TRANSACTIONS, AssemblyDescriptor.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case EjbPackage.METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR:
+				return eInternalContainer().eInverseRemove(this, EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_TRANSACTIONS, AssemblyDescriptor.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -323,8 +318,8 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case EjbPackage.METHOD_TRANSACTION__TRANSACTION_ATTRIBUTE:
 				return getTransactionAttribute();
 			case EjbPackage.METHOD_TRANSACTION__DESCRIPTION:
@@ -336,33 +331,16 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 			case EjbPackage.METHOD_TRANSACTION__DESCRIPTIONS:
 				return getDescriptions();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.METHOD_TRANSACTION__TRANSACTION_ATTRIBUTE:
-				return isSetTransactionAttribute();
-			case EjbPackage.METHOD_TRANSACTION__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case EjbPackage.METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR:
-				return getAssemblyDescriptor() != null;
-			case EjbPackage.METHOD_TRANSACTION__METHOD_ELEMENTS:
-				return methodElements != null && !methodElements.isEmpty();
-			case EjbPackage.METHOD_TRANSACTION__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case EjbPackage.METHOD_TRANSACTION__TRANSACTION_ATTRIBUTE:
 				setTransactionAttribute((TransactionAttributeType)newValue);
 				return;
@@ -381,14 +359,16 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 				getDescriptions().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case EjbPackage.METHOD_TRANSACTION__TRANSACTION_ATTRIBUTE:
 				unsetTransactionAttribute();
 				return;
@@ -405,7 +385,28 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 				getDescriptions().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case EjbPackage.METHOD_TRANSACTION__TRANSACTION_ATTRIBUTE:
+				return isSetTransactionAttribute();
+			case EjbPackage.METHOD_TRANSACTION__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case EjbPackage.METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR:
+				return getAssemblyDescriptor() != null;
+			case EjbPackage.METHOD_TRANSACTION__METHOD_ELEMENTS:
+				return methodElements != null && !methodElements.isEmpty();
+			case EjbPackage.METHOD_TRANSACTION__DESCRIPTIONS:
+				return descriptions != null && !descriptions.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

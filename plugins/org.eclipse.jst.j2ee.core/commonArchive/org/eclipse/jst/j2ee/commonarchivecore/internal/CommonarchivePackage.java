@@ -15,12 +15,12 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
+import org.eclipse.jst.j2ee.common.CommonPackage;
 
 /**
  * @lastgen interface CommonarchivePackage extends EPackage {}
  */
-public interface CommonarchivePackage extends EPackage{
+public interface CommonarchivePackage extends EPackage {
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -92,15 +92,15 @@ public interface CommonarchivePackage extends EPackage{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int FILE__URI = 0;
+	int FILE__URI = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int FILE__LAST_MODIFIED = 1;
+	int FILE__LAST_MODIFIED = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int FILE__SIZE = 2;
+	int FILE__SIZE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 	/**
 	 * The feature id for the '<em><b>Directory Entry</b></em>' attribute.
 	 * <!-- begin-user-doc
@@ -108,29 +108,29 @@ public interface CommonarchivePackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int FILE__DIRECTORY_ENTRY = 3;
+	int FILE__DIRECTORY_ENTRY = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int FILE__ORIGINAL_URI = 4;
+	int FILE__ORIGINAL_URI = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int FILE__LOADING_CONTAINER = 5;
+	int FILE__LOADING_CONTAINER = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 5;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int FILE__CONTAINER = 6;
+	int FILE__CONTAINER = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 6;
 
 	/**
-	 * The number of structural features of the the '<em>File</em>' class.
+	 * The number of structural features of the '<em>File</em>' class.
 	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_FEATURE_COUNT = 7;
+	int FILE_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 7;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
@@ -527,7 +527,7 @@ public interface CommonarchivePackage extends EPackage{
 	 */
 	int APPLICATION_CLIENT_FILE__DEPLOYMENT_DESCRIPTOR = MODULE_FILE_FEATURE_COUNT + 0;
 	/**
-	 * The number of structural features of the the '<em>Application Client File</em>' class.
+	 * The number of structural features of the '<em>Application Client File</em>' class.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
@@ -654,11 +654,11 @@ public interface CommonarchivePackage extends EPackage{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int MODULE_REF__MODULE_FILE = 0;
+	int MODULE_REF__MODULE_FILE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int MODULE_REF__EAR_FILE = 1;
+	int MODULE_REF__EAR_FILE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Module</b></em>' reference.
@@ -667,7 +667,7 @@ public interface CommonarchivePackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int MODULE_REF__MODULE = 2;
+	int MODULE_REF__MODULE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the the '<em>Module Ref</em>' class. <!--
@@ -676,7 +676,7 @@ public interface CommonarchivePackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int MODULE_REF_FEATURE_COUNT = 3;
+	int MODULE_REF_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
@@ -1011,6 +1011,315 @@ public interface CommonarchivePackage extends EPackage{
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	CommonarchiveFactory getCommonarchiveFactory();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Defines literals for the meta objects that represent
+	 * <ul>
+	 *   <li>each class,</li>
+	 *   <li>each feature of each class,</li>
+	 *   <li>each enum,</li>
+	 *   <li>and each data type</li>
+	 * </ul>
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	interface Literals  {
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.impl.FileImpl <em>File</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.FileImpl
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchivePackageImpl#getFile()
+		 * @generated
+		 */
+		EClass FILE = eINSTANCE.getFile();
+
+		/**
+		 * The meta object literal for the '<em><b>URI</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FILE__URI = eINSTANCE.getFile_URI();
+
+		/**
+		 * The meta object literal for the '<em><b>Last Modified</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FILE__LAST_MODIFIED = eINSTANCE.getFile_LastModified();
+
+		/**
+		 * The meta object literal for the '<em><b>Size</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FILE__SIZE = eINSTANCE.getFile_Size();
+
+		/**
+		 * The meta object literal for the '<em><b>Directory Entry</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FILE__DIRECTORY_ENTRY = eINSTANCE.getFile_DirectoryEntry();
+
+		/**
+		 * The meta object literal for the '<em><b>Original URI</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FILE__ORIGINAL_URI = eINSTANCE.getFile_OriginalURI();
+
+		/**
+		 * The meta object literal for the '<em><b>Loading Container</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FILE__LOADING_CONTAINER = eINSTANCE.getFile_LoadingContainer();
+
+		/**
+		 * The meta object literal for the '<em><b>Container</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FILE__CONTAINER = eINSTANCE.getFile_Container();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.impl.ArchiveImpl <em>Archive</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.ArchiveImpl
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchivePackageImpl#getArchive()
+		 * @generated
+		 */
+		EClass ARCHIVE = eINSTANCE.getArchive();
+
+		/**
+		 * The meta object literal for the '<em><b>Types</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ARCHIVE__TYPES = eINSTANCE.getArchive_Types();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.impl.EJBJarFileImpl <em>EJB Jar File</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.EJBJarFileImpl
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchivePackageImpl#getEJBJarFile()
+		 * @generated
+		 */
+		EClass EJB_JAR_FILE = eINSTANCE.getEJBJarFile();
+
+		/**
+		 * The meta object literal for the '<em><b>Deployment Descriptor</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EJB_JAR_FILE__DEPLOYMENT_DESCRIPTOR = eINSTANCE.getEJBJarFile_DeploymentDescriptor();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl <em>WAR File</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchivePackageImpl#getWARFile()
+		 * @generated
+		 */
+		EClass WAR_FILE = eINSTANCE.getWARFile();
+
+		/**
+		 * The meta object literal for the '<em><b>Deployment Descriptor</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WAR_FILE__DEPLOYMENT_DESCRIPTOR = eINSTANCE.getWARFile_DeploymentDescriptor();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.impl.EARFileImpl <em>EAR File</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.EARFileImpl
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchivePackageImpl#getEARFile()
+		 * @generated
+		 */
+		EClass EAR_FILE = eINSTANCE.getEARFile();
+
+		/**
+		 * The meta object literal for the '<em><b>Module Refs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EAR_FILE__MODULE_REFS = eINSTANCE.getEARFile_ModuleRefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Deployment Descriptor</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EAR_FILE__DEPLOYMENT_DESCRIPTOR = eINSTANCE.getEARFile_DeploymentDescriptor();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.impl.ApplicationClientFileImpl <em>Application Client File</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.ApplicationClientFileImpl
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchivePackageImpl#getApplicationClientFile()
+		 * @generated
+		 */
+		EClass APPLICATION_CLIENT_FILE = eINSTANCE.getApplicationClientFile();
+
+		/**
+		 * The meta object literal for the '<em><b>Deployment Descriptor</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION_CLIENT_FILE__DEPLOYMENT_DESCRIPTOR = eINSTANCE.getApplicationClientFile_DeploymentDescriptor();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.impl.ModuleFileImpl <em>Module File</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.ModuleFileImpl
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchivePackageImpl#getModuleFile()
+		 * @generated
+		 */
+		EClass MODULE_FILE = eINSTANCE.getModuleFile();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.impl.ContainerImpl <em>Container</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.ContainerImpl
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchivePackageImpl#getContainer()
+		 * @generated
+		 */
+		EClass CONTAINER = eINSTANCE.getContainer();
+
+		/**
+		 * The meta object literal for the '<em><b>Files</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONTAINER__FILES = eINSTANCE.getContainer_Files();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.impl.ReadOnlyDirectoryImpl <em>Read Only Directory</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.ReadOnlyDirectoryImpl
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchivePackageImpl#getReadOnlyDirectory()
+		 * @generated
+		 */
+		EClass READ_ONLY_DIRECTORY = eINSTANCE.getReadOnlyDirectory();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.impl.RARFileImpl <em>RAR File</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.RARFileImpl
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchivePackageImpl#getRARFile()
+		 * @generated
+		 */
+		EClass RAR_FILE = eINSTANCE.getRARFile();
+
+		/**
+		 * The meta object literal for the '<em><b>Deployment Descriptor</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RAR_FILE__DEPLOYMENT_DESCRIPTOR = eINSTANCE.getRARFile_DeploymentDescriptor();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.impl.ModuleRefImpl <em>Module Ref</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.ModuleRefImpl
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchivePackageImpl#getModuleRef()
+		 * @generated
+		 */
+		EClass MODULE_REF = eINSTANCE.getModuleRef();
+
+		/**
+		 * The meta object literal for the '<em><b>Module File</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODULE_REF__MODULE_FILE = eINSTANCE.getModuleRef_ModuleFile();
+
+		/**
+		 * The meta object literal for the '<em><b>Ear File</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODULE_REF__EAR_FILE = eINSTANCE.getModuleRef_EarFile();
+
+		/**
+		 * The meta object literal for the '<em><b>Module</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODULE_REF__MODULE = eINSTANCE.getModuleRef_Module();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.impl.EJBModuleRefImpl <em>EJB Module Ref</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.EJBModuleRefImpl
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchivePackageImpl#getEJBModuleRef()
+		 * @generated
+		 */
+		EClass EJB_MODULE_REF = eINSTANCE.getEJBModuleRef();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WebModuleRefImpl <em>Web Module Ref</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WebModuleRefImpl
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchivePackageImpl#getWebModuleRef()
+		 * @generated
+		 */
+		EClass WEB_MODULE_REF = eINSTANCE.getWebModuleRef();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.impl.ClientModuleRefImpl <em>Client Module Ref</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.ClientModuleRefImpl
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchivePackageImpl#getClientModuleRef()
+		 * @generated
+		 */
+		EClass CLIENT_MODULE_REF = eINSTANCE.getClientModuleRef();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.impl.ConnectorModuleRefImpl <em>Connector Module Ref</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.ConnectorModuleRefImpl
+		 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchivePackageImpl#getConnectorModuleRef()
+		 * @generated
+		 */
+		EClass CONNECTOR_MODULE_REF = eINSTANCE.getConnectorModuleRef();
+
+	}
 
 } //CommonarchivePackage
 

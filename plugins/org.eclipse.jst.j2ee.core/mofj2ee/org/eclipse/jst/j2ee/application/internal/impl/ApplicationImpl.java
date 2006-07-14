@@ -17,7 +17,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -39,7 +38,7 @@ import org.eclipse.wst.common.internal.emf.utilities.StringUtil;
  * The application element is the root element of a J2EE application deployment descriptor.
 
  */
-public class ApplicationImpl extends CompatibilityDescriptionGroupImpl implements Application{
+public class ApplicationImpl extends CompatibilityDescriptionGroupImpl implements Application {
 
 	/**
 	 * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
@@ -78,7 +77,7 @@ public class ApplicationImpl extends CompatibilityDescriptionGroupImpl implement
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return ApplicationPackage.eINSTANCE.getApplication();
+		return ApplicationPackage.Literals.APPLICATION;
 	}
 
 /**
@@ -231,18 +230,12 @@ public boolean isVersion1_3Descriptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case ApplicationPackage.APPLICATION__MODULES:
-					return ((InternalEList)getModules()).basicAdd(otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ApplicationPackage.APPLICATION__MODULES:
+				return ((InternalEList)getModules()).basicAdd(otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -250,24 +243,14 @@ public boolean isVersion1_3Descriptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case ApplicationPackage.APPLICATION__ICONS:
-					return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
-				case ApplicationPackage.APPLICATION__DISPLAY_NAMES:
-					return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
-				case ApplicationPackage.APPLICATION__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				case ApplicationPackage.APPLICATION__SECURITY_ROLES:
-					return ((InternalEList)getSecurityRoles()).basicRemove(otherEnd, msgs);
-				case ApplicationPackage.APPLICATION__MODULES:
-					return ((InternalEList)getModules()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ApplicationPackage.APPLICATION__SECURITY_ROLES:
+				return ((InternalEList)getSecurityRoles()).basicRemove(otherEnd, msgs);
+			case ApplicationPackage.APPLICATION__MODULES:
+				return ((InternalEList)getModules()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -275,22 +258,8 @@ public boolean isVersion1_3Descriptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case ApplicationPackage.APPLICATION__ICONS:
-				return getIcons();
-			case ApplicationPackage.APPLICATION__DISPLAY_NAMES:
-				return getDisplayNames();
-			case ApplicationPackage.APPLICATION__DESCRIPTIONS:
-				return getDescriptions();
-			case ApplicationPackage.APPLICATION__SMALL_ICON:
-				return getSmallIcon();
-			case ApplicationPackage.APPLICATION__LARGE_ICON:
-				return getLargeIcon();
-			case ApplicationPackage.APPLICATION__DESCRIPTION:
-				return getDescription();
-			case ApplicationPackage.APPLICATION__DISPLAY_NAME:
-				return getDisplayName();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case ApplicationPackage.APPLICATION__VERSION:
 				return getVersion();
 			case ApplicationPackage.APPLICATION__SECURITY_ROLES:
@@ -298,67 +267,16 @@ public boolean isVersion1_3Descriptor() {
 			case ApplicationPackage.APPLICATION__MODULES:
 				return getModules();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case ApplicationPackage.APPLICATION__ICONS:
-				return icons != null && !icons.isEmpty();
-			case ApplicationPackage.APPLICATION__DISPLAY_NAMES:
-				return displayNames != null && !displayNames.isEmpty();
-			case ApplicationPackage.APPLICATION__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-			case ApplicationPackage.APPLICATION__SMALL_ICON:
-				return SMALL_ICON_EDEFAULT == null ? smallIcon != null : !SMALL_ICON_EDEFAULT.equals(smallIcon);
-			case ApplicationPackage.APPLICATION__LARGE_ICON:
-				return LARGE_ICON_EDEFAULT == null ? largeIcon != null : !LARGE_ICON_EDEFAULT.equals(largeIcon);
-			case ApplicationPackage.APPLICATION__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case ApplicationPackage.APPLICATION__DISPLAY_NAME:
-				return DISPLAY_NAME_EDEFAULT == null ? displayName != null : !DISPLAY_NAME_EDEFAULT.equals(displayName);
-			case ApplicationPackage.APPLICATION__VERSION:
-				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
-			case ApplicationPackage.APPLICATION__SECURITY_ROLES:
-				return securityRoles != null && !securityRoles.isEmpty();
-			case ApplicationPackage.APPLICATION__MODULES:
-				return modules != null && !modules.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case ApplicationPackage.APPLICATION__ICONS:
-				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
-				return;
-			case ApplicationPackage.APPLICATION__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
-				return;
-			case ApplicationPackage.APPLICATION__DESCRIPTIONS:
-				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
-				return;
-			case ApplicationPackage.APPLICATION__SMALL_ICON:
-				setSmallIcon((String)newValue);
-				return;
-			case ApplicationPackage.APPLICATION__LARGE_ICON:
-				setLargeIcon((String)newValue);
-				return;
-			case ApplicationPackage.APPLICATION__DESCRIPTION:
-				setDescription((String)newValue);
-				return;
-			case ApplicationPackage.APPLICATION__DISPLAY_NAME:
-				setDisplayName((String)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case ApplicationPackage.APPLICATION__VERSION:
 				setVersion((String)newValue);
 				return;
@@ -371,35 +289,16 @@ public boolean isVersion1_3Descriptor() {
 				getModules().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case ApplicationPackage.APPLICATION__ICONS:
-				getIcons().clear();
-				return;
-			case ApplicationPackage.APPLICATION__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				return;
-			case ApplicationPackage.APPLICATION__DESCRIPTIONS:
-				getDescriptions().clear();
-				return;
-			case ApplicationPackage.APPLICATION__SMALL_ICON:
-				setSmallIcon(SMALL_ICON_EDEFAULT);
-				return;
-			case ApplicationPackage.APPLICATION__LARGE_ICON:
-				setLargeIcon(LARGE_ICON_EDEFAULT);
-				return;
-			case ApplicationPackage.APPLICATION__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case ApplicationPackage.APPLICATION__DISPLAY_NAME:
-				setDisplayName(DISPLAY_NAME_EDEFAULT);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case ApplicationPackage.APPLICATION__VERSION:
 				setVersion(VERSION_EDEFAULT);
 				return;
@@ -410,7 +309,24 @@ public boolean isVersion1_3Descriptor() {
 				getModules().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case ApplicationPackage.APPLICATION__VERSION:
+				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
+			case ApplicationPackage.APPLICATION__SECURITY_ROLES:
+				return securityRoles != null && !securityRoles.isEmpty();
+			case ApplicationPackage.APPLICATION__MODULES:
+				return modules != null && !modules.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

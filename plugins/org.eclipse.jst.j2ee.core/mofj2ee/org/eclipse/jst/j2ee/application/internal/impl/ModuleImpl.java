@@ -13,22 +13,19 @@ package org.eclipse.jst.j2ee.application.internal.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.Module;
-
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 
 /**
  * The module element represents a single J2EE module and contains an ejb, java, or web element, which indicates the module type and contains a path to the module file, and an optional alt-dd element, which specifies an optional URI to the post-assembly version of the deployment descriptor. The application deployment descriptor must have one module element for each J2EE module in the application package.
-
+ * @generated
  */
-public class ModuleImpl extends EObjectImpl implements Module, EObject {
+public class ModuleImpl extends J2EEEObjectImpl implements Module {
 
 	/**
 	 * The default value of the '{@link #getUri() <em>Uri</em>}' attribute.
@@ -72,7 +69,7 @@ public class ModuleImpl extends EObjectImpl implements Module, EObject {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return ApplicationPackage.eINSTANCE.getModule();
+		return ApplicationPackage.Literals.MODULE;
 	}
 
 public boolean isConnectorModule() {
@@ -139,22 +136,32 @@ public boolean isWebModule() {
 	 */
 	public Application getApplication() {
 		if (eContainerFeatureID != ApplicationPackage.MODULE__APPLICATION) return null;
-		return (Application)eContainer;
+		return (Application)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetApplication(Application newApplication, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newApplication, ApplicationPackage.MODULE__APPLICATION, msgs);
+		return msgs;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public void setApplication(Application newApplication) {
-		if (newApplication != eContainer || (eContainerFeatureID != ApplicationPackage.MODULE__APPLICATION && newApplication != null)) {
+		if (newApplication != eInternalContainer() || (eContainerFeatureID != ApplicationPackage.MODULE__APPLICATION && newApplication != null)) {
 			if (EcoreUtil.isAncestor(this, newApplication))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newApplication != null)
 				msgs = ((InternalEObject)newApplication).eInverseAdd(this, ApplicationPackage.APPLICATION__MODULES, Application.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newApplication, ApplicationPackage.MODULE__APPLICATION, msgs);
+			msgs = basicSetApplication(newApplication, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -166,20 +173,14 @@ public boolean isWebModule() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case ApplicationPackage.MODULE__APPLICATION:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, ApplicationPackage.MODULE__APPLICATION, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ApplicationPackage.MODULE__APPLICATION:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetApplication((Application)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -187,16 +188,12 @@ public boolean isWebModule() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case ApplicationPackage.MODULE__APPLICATION:
-					return eBasicSetContainer(null, ApplicationPackage.MODULE__APPLICATION, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ApplicationPackage.MODULE__APPLICATION:
+				return basicSetApplication(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -204,16 +201,12 @@ public boolean isWebModule() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case ApplicationPackage.MODULE__APPLICATION:
-					return eContainer.eInverseRemove(this, ApplicationPackage.APPLICATION__MODULES, Application.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case ApplicationPackage.MODULE__APPLICATION:
+				return eInternalContainer().eInverseRemove(this, ApplicationPackage.APPLICATION__MODULES, Application.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -221,8 +214,8 @@ public boolean isWebModule() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case ApplicationPackage.MODULE__URI:
 				return getUri();
 			case ApplicationPackage.MODULE__ALT_DD:
@@ -230,29 +223,16 @@ public boolean isWebModule() {
 			case ApplicationPackage.MODULE__APPLICATION:
 				return getApplication();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case ApplicationPackage.MODULE__URI:
-				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
-			case ApplicationPackage.MODULE__ALT_DD:
-				return ALT_DD_EDEFAULT == null ? altDD != null : !ALT_DD_EDEFAULT.equals(altDD);
-			case ApplicationPackage.MODULE__APPLICATION:
-				return getApplication() != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case ApplicationPackage.MODULE__URI:
 				setUri((String)newValue);
 				return;
@@ -263,14 +243,16 @@ public boolean isWebModule() {
 				setApplication((Application)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case ApplicationPackage.MODULE__URI:
 				setUri(URI_EDEFAULT);
 				return;
@@ -281,7 +263,24 @@ public boolean isWebModule() {
 				setApplication((Application)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case ApplicationPackage.MODULE__URI:
+				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
+			case ApplicationPackage.MODULE__ALT_DD:
+				return ALT_DD_EDEFAULT == null ? altDD != null : !ALT_DD_EDEFAULT.equals(altDD);
+			case ApplicationPackage.MODULE__APPLICATION:
+				return getApplication() != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

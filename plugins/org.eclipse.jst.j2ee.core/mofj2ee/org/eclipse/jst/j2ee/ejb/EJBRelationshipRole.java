@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.ejb;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 
 /**
@@ -34,8 +34,11 @@ import org.eclipse.emf.ecore.EObject;
  *     <//relationship-role-source>
  *   <//ejb-relationship-role>
  * ...
- * @since 1.0 */
-public interface EJBRelationshipRole extends EObject,CommonRelationshipRole{
+ * @since 1.0 
+ * @generated
+ * @extends CommonRelationshipRole
+ */
+public interface EJBRelationshipRole extends J2EEEObject, CommonRelationshipRole {
 
 /**
  * @return The logical name which can be used for naming this role.

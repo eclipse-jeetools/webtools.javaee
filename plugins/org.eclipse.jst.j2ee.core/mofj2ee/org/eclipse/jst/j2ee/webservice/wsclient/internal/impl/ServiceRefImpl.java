@@ -16,7 +16,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -165,7 +164,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return Webservice_clientPackage.eINSTANCE.getServiceRef();
+		return Webservice_clientPackage.Literals.SERVICE_REF;
 	}
 
 	/**
@@ -238,8 +237,8 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 */
 	public JavaClass getServiceInterface() {
 		if (serviceInterface != null && serviceInterface.eIsProxy()) {
-			JavaClass oldServiceInterface = serviceInterface;
-			serviceInterface = (JavaClass)eResolveProxy((InternalEObject)serviceInterface);
+			InternalEObject oldServiceInterface = (InternalEObject)serviceInterface;
+			serviceInterface = (JavaClass)eResolveProxy(oldServiceInterface);
 			if (serviceInterface != oldServiceInterface) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Webservice_clientPackage.SERVICE_REF__SERVICE_INTERFACE, oldServiceInterface, serviceInterface));
@@ -341,26 +340,16 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case Webservice_clientPackage.SERVICE_REF__ICONS:
-					return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
-				case Webservice_clientPackage.SERVICE_REF__DISPLAY_NAMES:
-					return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
-				case Webservice_clientPackage.SERVICE_REF__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				case Webservice_clientPackage.SERVICE_REF__PORT_COMPONENT_REFS:
-					return ((InternalEList)getPortComponentRefs()).basicRemove(otherEnd, msgs);
-				case Webservice_clientPackage.SERVICE_REF__HANDLERS:
-					return ((InternalEList)getHandlers()).basicRemove(otherEnd, msgs);
-				case Webservice_clientPackage.SERVICE_REF__SERVICE_QNAME:
-					return basicSetServiceQname(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case Webservice_clientPackage.SERVICE_REF__PORT_COMPONENT_REFS:
+				return ((InternalEList)getPortComponentRefs()).basicRemove(otherEnd, msgs);
+			case Webservice_clientPackage.SERVICE_REF__HANDLERS:
+				return ((InternalEList)getHandlers()).basicRemove(otherEnd, msgs);
+			case Webservice_clientPackage.SERVICE_REF__SERVICE_QNAME:
+				return basicSetServiceQname(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -368,22 +357,8 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case Webservice_clientPackage.SERVICE_REF__ICONS:
-				return getIcons();
-			case Webservice_clientPackage.SERVICE_REF__DISPLAY_NAMES:
-				return getDisplayNames();
-			case Webservice_clientPackage.SERVICE_REF__DESCRIPTIONS:
-				return getDescriptions();
-			case Webservice_clientPackage.SERVICE_REF__SMALL_ICON:
-				return getSmallIcon();
-			case Webservice_clientPackage.SERVICE_REF__LARGE_ICON:
-				return getLargeIcon();
-			case Webservice_clientPackage.SERVICE_REF__DESCRIPTION:
-				return getDescription();
-			case Webservice_clientPackage.SERVICE_REF__DISPLAY_NAME:
-				return getDisplayName();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case Webservice_clientPackage.SERVICE_REF__SERVICE_INTERFACE:
 				if (resolve) return getServiceInterface();
 				return basicGetServiceInterface();
@@ -400,7 +375,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 			case Webservice_clientPackage.SERVICE_REF__SERVICE_QNAME:
 				return getServiceQname();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -408,32 +383,8 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case Webservice_clientPackage.SERVICE_REF__ICONS:
-				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
-				return;
-			case Webservice_clientPackage.SERVICE_REF__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
-				return;
-			case Webservice_clientPackage.SERVICE_REF__DESCRIPTIONS:
-				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
-				return;
-			case Webservice_clientPackage.SERVICE_REF__SMALL_ICON:
-				setSmallIcon((String)newValue);
-				return;
-			case Webservice_clientPackage.SERVICE_REF__LARGE_ICON:
-				setLargeIcon((String)newValue);
-				return;
-			case Webservice_clientPackage.SERVICE_REF__DESCRIPTION:
-				setDescription((String)newValue);
-				return;
-			case Webservice_clientPackage.SERVICE_REF__DISPLAY_NAME:
-				setDisplayName((String)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case Webservice_clientPackage.SERVICE_REF__SERVICE_INTERFACE:
 				setServiceInterface((JavaClass)newValue);
 				return;
@@ -458,7 +409,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 				setServiceQname((QName)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -466,29 +417,8 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case Webservice_clientPackage.SERVICE_REF__ICONS:
-				getIcons().clear();
-				return;
-			case Webservice_clientPackage.SERVICE_REF__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				return;
-			case Webservice_clientPackage.SERVICE_REF__DESCRIPTIONS:
-				getDescriptions().clear();
-				return;
-			case Webservice_clientPackage.SERVICE_REF__SMALL_ICON:
-				setSmallIcon(SMALL_ICON_EDEFAULT);
-				return;
-			case Webservice_clientPackage.SERVICE_REF__LARGE_ICON:
-				setLargeIcon(LARGE_ICON_EDEFAULT);
-				return;
-			case Webservice_clientPackage.SERVICE_REF__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case Webservice_clientPackage.SERVICE_REF__DISPLAY_NAME:
-				setDisplayName(DISPLAY_NAME_EDEFAULT);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case Webservice_clientPackage.SERVICE_REF__SERVICE_INTERFACE:
 				setServiceInterface((JavaClass)null);
 				return;
@@ -511,7 +441,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 				setServiceQname((QName)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -519,22 +449,8 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case Webservice_clientPackage.SERVICE_REF__ICONS:
-				return icons != null && !icons.isEmpty();
-			case Webservice_clientPackage.SERVICE_REF__DISPLAY_NAMES:
-				return displayNames != null && !displayNames.isEmpty();
-			case Webservice_clientPackage.SERVICE_REF__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-			case Webservice_clientPackage.SERVICE_REF__SMALL_ICON:
-				return SMALL_ICON_EDEFAULT == null ? smallIcon != null : !SMALL_ICON_EDEFAULT.equals(smallIcon);
-			case Webservice_clientPackage.SERVICE_REF__LARGE_ICON:
-				return LARGE_ICON_EDEFAULT == null ? largeIcon != null : !LARGE_ICON_EDEFAULT.equals(largeIcon);
-			case Webservice_clientPackage.SERVICE_REF__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case Webservice_clientPackage.SERVICE_REF__DISPLAY_NAME:
-				return DISPLAY_NAME_EDEFAULT == null ? displayName != null : !DISPLAY_NAME_EDEFAULT.equals(displayName);
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case Webservice_clientPackage.SERVICE_REF__SERVICE_INTERFACE:
 				return serviceInterface != null;
 			case Webservice_clientPackage.SERVICE_REF__SERVICE_REF_NAME:
@@ -550,7 +466,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 			case Webservice_clientPackage.SERVICE_REF__SERVICE_QNAME:
 				return serviceQname != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

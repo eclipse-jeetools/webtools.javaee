@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.common;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.java.JavaClass;
 
 /**
@@ -23,8 +22,9 @@ import org.eclipse.jem.java.JavaClass;
  *     <resource-env-ref-name>jms//StockQueue<//resource-env-ref-name>
  *     <resource-env-ref-type>javax.jms.Queue<//resource-env-ref-type>
  * <//resource-env-ref>
+ * @generated
  * @since 1.0 */
-public interface ResourceEnvRef extends EObject{
+public interface ResourceEnvRef extends J2EEEObject {
 
 	/**
 	 * Gets the name for the type

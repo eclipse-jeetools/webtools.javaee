@@ -13,13 +13,14 @@ package org.eclipse.jst.j2ee.ejb;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 import org.eclipse.jst.j2ee.common.SecurityRole;
 
 /**
  * The assembly-descriptor element contains application-assembly information.  The application-assembly information consists of the following parts: the definition of security roles, the definition of method permissions, and the definition of transaction attributes for enterprise beans with container-managed transaction demarcation. All the parts are optional in the sense that they are omitted if the lists represented by them are empty. Providing an assembly-descriptor in the deployment descriptor is optional for the ejb-jar file producer.
+ * @generated
  * @since 1.0 */
-public interface AssemblyDescriptor extends EObject{
+public interface AssemblyDescriptor extends J2EEEObject {
 
 	/**
 	 * Return the first method permission that contains all the roles in securityRoles and

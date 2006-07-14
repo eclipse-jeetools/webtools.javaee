@@ -11,15 +11,15 @@
 package org.eclipse.jst.j2ee.common;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 
 
 /**
  * The ejb-ref element is used for the declaration of a reference to an enterprise bean's home. The declaration consists of an optional description; the EJB reference name used in the code of the referencing application client; the expected type of the referenced enterprise bean; the expected home and remote interfaces of the referenced enterprise bean; and an optional ejb-link information. The optional  ejb-link element is used to specify the referenced enterprise bean.
+ * @generated
  * @since 1.0 */
-public interface EjbRef extends EObject{
+public interface EjbRef extends J2EEEObject {
 
 /**
  * Return an enterprise bean referenced by the EjbRef, if one exists, within the scope of the parameter.

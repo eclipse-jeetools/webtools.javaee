@@ -15,10 +15,9 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.eclipse.emf.ecore.impl.EcorePackageImpl;
 import org.eclipse.jem.java.JavaRefPackage;
-import org.eclipse.jem.java.internal.impl.JavaRefPackageImpl;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.internal.impl.ApplicationPackageImpl;
 import org.eclipse.jst.j2ee.client.ClientPackage;
@@ -342,8 +341,8 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 		isInited = true;
 
 		// Initialize simple dependencies
-		EcorePackageImpl.init();
-		JavaRefPackageImpl.init();
+		EcorePackage.eINSTANCE.eClass();
+		JavaRefPackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
 		ClientPackageImpl theClientPackage = (ClientPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI) instanceof ClientPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI) : ClientPackage.eINSTANCE);
@@ -1620,18 +1619,40 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		CommonPackageImpl theCommonPackage = (CommonPackageImpl)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
-		JspPackageImpl theJspPackage = (JspPackageImpl)EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI);
-		JavaRefPackageImpl theJavaRefPackage = (JavaRefPackageImpl)EPackage.Registry.INSTANCE.getEPackage(JavaRefPackage.eNS_URI);
+		CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+		JspPackage theJspPackage = (JspPackage)EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI);
+		JavaRefPackage theJavaRefPackage = (JavaRefPackage)EPackage.Registry.INSTANCE.getEPackage(JavaRefPackage.eNS_URI);
 
 		// Add supertypes to classes
 		webAppEClass.getESuperTypes().add(theCommonPackage.getJNDIEnvRefsGroup());
+		contextParamEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 		servletEClass.getESuperTypes().add(theCommonPackage.getCompatibilityDescriptionGroup());
+		servletMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		sessionConfigEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		mimeMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		welcomeFileListEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		errorPageEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		tagLibRefEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		securityConstraintEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		webResourceCollectionEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		authConstraintEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		userDataConstraintEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		loginConfigEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		formLoginConfigEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		initParamEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		webTypeEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 		servletTypeEClass.getESuperTypes().add(this.getWebType());
 		jspTypeEClass.getESuperTypes().add(this.getWebType());
+		urlPatternTypeEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		roleNameTypeEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		welcomeFileEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 		exceptionTypeErrorPageEClass.getESuperTypes().add(this.getErrorPage());
 		errorCodeErrorPageEClass.getESuperTypes().add(this.getErrorPage());
+		filterMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 		filterEClass.getESuperTypes().add(theCommonPackage.getCompatibilityDescriptionGroup());
+		localEncodingMappingListEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		localEncodingMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		httpMethodTypeEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(webAppEClass, WebApp.class, "WebApp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

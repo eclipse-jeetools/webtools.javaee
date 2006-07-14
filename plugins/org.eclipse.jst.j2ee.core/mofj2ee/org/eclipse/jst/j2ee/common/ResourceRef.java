@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.common;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * The resource-ref element contains a declaration of application clients's reference to an external resource. It consists of an optional description, the resource factory reference name, the indication of the resource factory type expected by the application client's code, and the type of authentication (bean or container).
@@ -21,8 +20,9 @@ import org.eclipse.emf.ecore.EObject;
  * <res-type>javax.sql.DataSource<//res-type>
  * <res-auth>Container<//res-auth>
  * <//resource-ref>
+ * @generated
  * @since 1.0 */
-public interface ResourceRef extends EObject{
+public interface ResourceRef extends J2EEEObject {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the Description attribute

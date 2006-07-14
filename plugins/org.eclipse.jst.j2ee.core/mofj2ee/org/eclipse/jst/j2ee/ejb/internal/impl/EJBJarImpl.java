@@ -20,7 +20,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
@@ -105,7 +104,7 @@ public class EJBJarImpl extends CompatibilityDescriptionGroupImpl implements EJB
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return EjbPackage.eINSTANCE.getEJBJar();
+		return EjbPackage.Literals.EJB_JAR;
 	}
 
 /**
@@ -490,26 +489,20 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.EJB_JAR__ASSEMBLY_DESCRIPTOR:
-					if (assemblyDescriptor != null)
-						msgs = ((InternalEObject)assemblyDescriptor).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EjbPackage.EJB_JAR__ASSEMBLY_DESCRIPTOR, null, msgs);
-					return basicSetAssemblyDescriptor((AssemblyDescriptor)otherEnd, msgs);
-				case EjbPackage.EJB_JAR__ENTERPRISE_BEANS:
-					return ((InternalEList)getEnterpriseBeans()).basicAdd(otherEnd, msgs);
-				case EjbPackage.EJB_JAR__RELATIONSHIP_LIST:
-					if (relationshipList != null)
-						msgs = ((InternalEObject)relationshipList).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EjbPackage.EJB_JAR__RELATIONSHIP_LIST, null, msgs);
-					return basicSetRelationshipList((Relationships)otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.EJB_JAR__ASSEMBLY_DESCRIPTOR:
+				if (assemblyDescriptor != null)
+					msgs = ((InternalEObject)assemblyDescriptor).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EjbPackage.EJB_JAR__ASSEMBLY_DESCRIPTOR, null, msgs);
+				return basicSetAssemblyDescriptor((AssemblyDescriptor)otherEnd, msgs);
+			case EjbPackage.EJB_JAR__ENTERPRISE_BEANS:
+				return ((InternalEList)getEnterpriseBeans()).basicAdd(otherEnd, msgs);
+			case EjbPackage.EJB_JAR__RELATIONSHIP_LIST:
+				if (relationshipList != null)
+					msgs = ((InternalEObject)relationshipList).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EjbPackage.EJB_JAR__RELATIONSHIP_LIST, null, msgs);
+				return basicSetRelationshipList((Relationships)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -517,26 +510,16 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.EJB_JAR__ICONS:
-					return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
-				case EjbPackage.EJB_JAR__DISPLAY_NAMES:
-					return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
-				case EjbPackage.EJB_JAR__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				case EjbPackage.EJB_JAR__ASSEMBLY_DESCRIPTOR:
-					return basicSetAssemblyDescriptor(null, msgs);
-				case EjbPackage.EJB_JAR__ENTERPRISE_BEANS:
-					return ((InternalEList)getEnterpriseBeans()).basicRemove(otherEnd, msgs);
-				case EjbPackage.EJB_JAR__RELATIONSHIP_LIST:
-					return basicSetRelationshipList(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.EJB_JAR__ASSEMBLY_DESCRIPTOR:
+				return basicSetAssemblyDescriptor(null, msgs);
+			case EjbPackage.EJB_JAR__ENTERPRISE_BEANS:
+				return ((InternalEList)getEnterpriseBeans()).basicRemove(otherEnd, msgs);
+			case EjbPackage.EJB_JAR__RELATIONSHIP_LIST:
+				return basicSetRelationshipList(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -544,22 +527,8 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.EJB_JAR__ICONS:
-				return getIcons();
-			case EjbPackage.EJB_JAR__DISPLAY_NAMES:
-				return getDisplayNames();
-			case EjbPackage.EJB_JAR__DESCRIPTIONS:
-				return getDescriptions();
-			case EjbPackage.EJB_JAR__SMALL_ICON:
-				return getSmallIcon();
-			case EjbPackage.EJB_JAR__LARGE_ICON:
-				return getLargeIcon();
-			case EjbPackage.EJB_JAR__DESCRIPTION:
-				return getDescription();
-			case EjbPackage.EJB_JAR__DISPLAY_NAME:
-				return getDisplayName();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case EjbPackage.EJB_JAR__EJB_CLIENT_JAR:
 				return getEjbClientJar();
 			case EjbPackage.EJB_JAR__VERSION:
@@ -571,71 +540,16 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 			case EjbPackage.EJB_JAR__RELATIONSHIP_LIST:
 				return getRelationshipList();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.EJB_JAR__ICONS:
-				return icons != null && !icons.isEmpty();
-			case EjbPackage.EJB_JAR__DISPLAY_NAMES:
-				return displayNames != null && !displayNames.isEmpty();
-			case EjbPackage.EJB_JAR__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-			case EjbPackage.EJB_JAR__SMALL_ICON:
-				return SMALL_ICON_EDEFAULT == null ? smallIcon != null : !SMALL_ICON_EDEFAULT.equals(smallIcon);
-			case EjbPackage.EJB_JAR__LARGE_ICON:
-				return LARGE_ICON_EDEFAULT == null ? largeIcon != null : !LARGE_ICON_EDEFAULT.equals(largeIcon);
-			case EjbPackage.EJB_JAR__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case EjbPackage.EJB_JAR__DISPLAY_NAME:
-				return DISPLAY_NAME_EDEFAULT == null ? displayName != null : !DISPLAY_NAME_EDEFAULT.equals(displayName);
-			case EjbPackage.EJB_JAR__EJB_CLIENT_JAR:
-				return EJB_CLIENT_JAR_EDEFAULT == null ? ejbClientJar != null : !EJB_CLIENT_JAR_EDEFAULT.equals(ejbClientJar);
-			case EjbPackage.EJB_JAR__VERSION:
-				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
-			case EjbPackage.EJB_JAR__ASSEMBLY_DESCRIPTOR:
-				return assemblyDescriptor != null;
-			case EjbPackage.EJB_JAR__ENTERPRISE_BEANS:
-				return enterpriseBeans != null && !enterpriseBeans.isEmpty();
-			case EjbPackage.EJB_JAR__RELATIONSHIP_LIST:
-				return relationshipList != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.EJB_JAR__ICONS:
-				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
-				return;
-			case EjbPackage.EJB_JAR__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
-				return;
-			case EjbPackage.EJB_JAR__DESCRIPTIONS:
-				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
-				return;
-			case EjbPackage.EJB_JAR__SMALL_ICON:
-				setSmallIcon((String)newValue);
-				return;
-			case EjbPackage.EJB_JAR__LARGE_ICON:
-				setLargeIcon((String)newValue);
-				return;
-			case EjbPackage.EJB_JAR__DESCRIPTION:
-				setDescription((String)newValue);
-				return;
-			case EjbPackage.EJB_JAR__DISPLAY_NAME:
-				setDisplayName((String)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case EjbPackage.EJB_JAR__EJB_CLIENT_JAR:
 				setEjbClientJar((String)newValue);
 				return;
@@ -653,35 +567,16 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 				setRelationshipList((Relationships)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.EJB_JAR__ICONS:
-				getIcons().clear();
-				return;
-			case EjbPackage.EJB_JAR__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				return;
-			case EjbPackage.EJB_JAR__DESCRIPTIONS:
-				getDescriptions().clear();
-				return;
-			case EjbPackage.EJB_JAR__SMALL_ICON:
-				setSmallIcon(SMALL_ICON_EDEFAULT);
-				return;
-			case EjbPackage.EJB_JAR__LARGE_ICON:
-				setLargeIcon(LARGE_ICON_EDEFAULT);
-				return;
-			case EjbPackage.EJB_JAR__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case EjbPackage.EJB_JAR__DISPLAY_NAME:
-				setDisplayName(DISPLAY_NAME_EDEFAULT);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case EjbPackage.EJB_JAR__EJB_CLIENT_JAR:
 				setEjbClientJar(EJB_CLIENT_JAR_EDEFAULT);
 				return;
@@ -698,7 +593,28 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 				setRelationshipList((Relationships)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case EjbPackage.EJB_JAR__EJB_CLIENT_JAR:
+				return EJB_CLIENT_JAR_EDEFAULT == null ? ejbClientJar != null : !EJB_CLIENT_JAR_EDEFAULT.equals(ejbClientJar);
+			case EjbPackage.EJB_JAR__VERSION:
+				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
+			case EjbPackage.EJB_JAR__ASSEMBLY_DESCRIPTOR:
+				return assemblyDescriptor != null;
+			case EjbPackage.EJB_JAR__ENTERPRISE_BEANS:
+				return enterpriseBeans != null && !enterpriseBeans.isEmpty();
+			case EjbPackage.EJB_JAR__RELATIONSHIP_LIST:
+				return relationshipList != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

@@ -11,22 +11,17 @@
 package org.eclipse.jst.j2ee.application.internal.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
-import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.WebModule;
 
 
 /**
  * Contains the web-uri and context-root of a web application module.
-
+ * @generated
  */
-public class WebModuleImpl extends ModuleImpl implements WebModule, Module {
+public class WebModuleImpl extends ModuleImpl implements WebModule {
 
 	/**
 	 * The default value of the '{@link #getContextRoot() <em>Context Root</em>}' attribute.
@@ -54,7 +49,7 @@ public class WebModuleImpl extends ModuleImpl implements WebModule, Module {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return ApplicationPackage.eINSTANCE.getWebModule();
+		return ApplicationPackage.Literals.WEB_MODULE;
 	}
 
 public boolean isWebModule() {
@@ -84,132 +79,53 @@ public boolean isWebModule() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case ApplicationPackage.WEB_MODULE__APPLICATION:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, ApplicationPackage.WEB_MODULE__APPLICATION, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case ApplicationPackage.WEB_MODULE__APPLICATION:
-					return eBasicSetContainer(null, ApplicationPackage.WEB_MODULE__APPLICATION, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case ApplicationPackage.WEB_MODULE__APPLICATION:
-					return eContainer.eInverseRemove(this, ApplicationPackage.APPLICATION__MODULES, Application.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case ApplicationPackage.WEB_MODULE__URI:
-				return getUri();
-			case ApplicationPackage.WEB_MODULE__ALT_DD:
-				return getAltDD();
-			case ApplicationPackage.WEB_MODULE__APPLICATION:
-				return getApplication();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case ApplicationPackage.WEB_MODULE__CONTEXT_ROOT:
 				return getContextRoot();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case ApplicationPackage.WEB_MODULE__URI:
-				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
-			case ApplicationPackage.WEB_MODULE__ALT_DD:
-				return ALT_DD_EDEFAULT == null ? altDD != null : !ALT_DD_EDEFAULT.equals(altDD);
-			case ApplicationPackage.WEB_MODULE__APPLICATION:
-				return getApplication() != null;
-			case ApplicationPackage.WEB_MODULE__CONTEXT_ROOT:
-				return CONTEXT_ROOT_EDEFAULT == null ? contextRoot != null : !CONTEXT_ROOT_EDEFAULT.equals(contextRoot);
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case ApplicationPackage.WEB_MODULE__URI:
-				setUri((String)newValue);
-				return;
-			case ApplicationPackage.WEB_MODULE__ALT_DD:
-				setAltDD((String)newValue);
-				return;
-			case ApplicationPackage.WEB_MODULE__APPLICATION:
-				setApplication((Application)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case ApplicationPackage.WEB_MODULE__CONTEXT_ROOT:
 				setContextRoot((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case ApplicationPackage.WEB_MODULE__URI:
-				setUri(URI_EDEFAULT);
-				return;
-			case ApplicationPackage.WEB_MODULE__ALT_DD:
-				setAltDD(ALT_DD_EDEFAULT);
-				return;
-			case ApplicationPackage.WEB_MODULE__APPLICATION:
-				setApplication((Application)null);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case ApplicationPackage.WEB_MODULE__CONTEXT_ROOT:
 				setContextRoot(CONTEXT_ROOT_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case ApplicationPackage.WEB_MODULE__CONTEXT_ROOT:
+				return CONTEXT_ROOT_EDEFAULT == null ? contextRoot != null : !CONTEXT_ROOT_EDEFAULT.equals(contextRoot);
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

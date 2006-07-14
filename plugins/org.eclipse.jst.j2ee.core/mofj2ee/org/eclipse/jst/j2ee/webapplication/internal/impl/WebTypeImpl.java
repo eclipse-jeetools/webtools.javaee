@@ -11,14 +11,14 @@
 package org.eclipse.jst.j2ee.webapplication.internal.impl;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webapplication.WebType;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 /**
  * @generated
  */
-public abstract class WebTypeImpl extends EObjectImpl implements WebType {
+public abstract class WebTypeImpl extends J2EEEObjectImpl implements WebType {
 
 	public WebTypeImpl() {
 		super();
@@ -29,7 +29,7 @@ public abstract class WebTypeImpl extends EObjectImpl implements WebType {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return WebapplicationPackage.eINSTANCE.getWebType();
+		return WebapplicationPackage.Literals.WEB_TYPE;
 	}
 
 /**

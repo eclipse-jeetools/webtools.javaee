@@ -16,7 +16,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -46,7 +45,7 @@ import org.eclipse.jst.j2ee.taglib.internal.TaglibPackage;
  * example -- Optional informal description of an example of a use of this action.
 
  */
-public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag{
+public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 
 	/**
 	 * The default value of the '{@link #getBodyContent() <em>Body Content</em>}' attribute.
@@ -153,7 +152,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag{
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return TaglibPackage.eINSTANCE.getJSPTag();
+		return TaglibPackage.Literals.JSP_TAG;
 	}
 
 	/**
@@ -316,8 +315,8 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag{
 	 */
 	public JavaClass getTagClass() {
 		if (tagClass != null && tagClass.eIsProxy()) {
-			JavaClass oldTagClass = tagClass;
-			tagClass = (JavaClass)eResolveProxy((InternalEObject)tagClass);
+			InternalEObject oldTagClass = (InternalEObject)tagClass;
+			tagClass = (JavaClass)eResolveProxy(oldTagClass);
 			if (tagClass != oldTagClass) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TaglibPackage.JSP_TAG__TAG_CLASS, oldTagClass, tagClass));
@@ -354,8 +353,8 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag{
 	 */
 	public JavaClass getTeiClass() {
 		if (teiClass != null && teiClass.eIsProxy()) {
-			JavaClass oldTeiClass = teiClass;
-			teiClass = (JavaClass)eResolveProxy((InternalEObject)teiClass);
+			InternalEObject oldTeiClass = (InternalEObject)teiClass;
+			teiClass = (JavaClass)eResolveProxy(oldTeiClass);
 			if (teiClass != oldTeiClass) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TaglibPackage.JSP_TAG__TEI_CLASS, oldTeiClass, teiClass));
@@ -388,24 +387,14 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case TaglibPackage.JSP_TAG__ICONS:
-					return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
-				case TaglibPackage.JSP_TAG__DISPLAY_NAMES:
-					return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
-				case TaglibPackage.JSP_TAG__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				case TaglibPackage.JSP_TAG__ATTRIBUTES:
-					return ((InternalEList)getAttributes()).basicRemove(otherEnd, msgs);
-				case TaglibPackage.JSP_TAG__VARIABLES:
-					return ((InternalEList)getVariables()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case TaglibPackage.JSP_TAG__ATTRIBUTES:
+				return ((InternalEList)getAttributes()).basicRemove(otherEnd, msgs);
+			case TaglibPackage.JSP_TAG__VARIABLES:
+				return ((InternalEList)getVariables()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -413,14 +402,8 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case TaglibPackage.JSP_TAG__ICONS:
-				return getIcons();
-			case TaglibPackage.JSP_TAG__DISPLAY_NAMES:
-				return getDisplayNames();
-			case TaglibPackage.JSP_TAG__DESCRIPTIONS:
-				return getDescriptions();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case TaglibPackage.JSP_TAG__BODY_CONTENT:
 				return getBodyContent();
 			case TaglibPackage.JSP_TAG__EXAMPLE:
@@ -440,57 +423,16 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag{
 				if (resolve) return getTeiClass();
 				return basicGetTeiClass();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case TaglibPackage.JSP_TAG__ICONS:
-				return icons != null && !icons.isEmpty();
-			case TaglibPackage.JSP_TAG__DISPLAY_NAMES:
-				return displayNames != null && !displayNames.isEmpty();
-			case TaglibPackage.JSP_TAG__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-			case TaglibPackage.JSP_TAG__BODY_CONTENT:
-				return isSetBodyContent();
-			case TaglibPackage.JSP_TAG__EXAMPLE:
-				return EXAMPLE_EDEFAULT == null ? example != null : !EXAMPLE_EDEFAULT.equals(example);
-			case TaglibPackage.JSP_TAG__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case TaglibPackage.JSP_TAG__DYNAMIC_ATTRIBUTES:
-				return dynamicAttributes != DYNAMIC_ATTRIBUTES_EDEFAULT;
-			case TaglibPackage.JSP_TAG__ATTRIBUTES:
-				return attributes != null && !attributes.isEmpty();
-			case TaglibPackage.JSP_TAG__VARIABLES:
-				return variables != null && !variables.isEmpty();
-			case TaglibPackage.JSP_TAG__TAG_CLASS:
-				return tagClass != null;
-			case TaglibPackage.JSP_TAG__TEI_CLASS:
-				return teiClass != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case TaglibPackage.JSP_TAG__ICONS:
-				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
-				return;
-			case TaglibPackage.JSP_TAG__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
-				return;
-			case TaglibPackage.JSP_TAG__DESCRIPTIONS:
-				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case TaglibPackage.JSP_TAG__BODY_CONTENT:
 				setBodyContent((BodyContentType)newValue);
 				return;
@@ -518,23 +460,16 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag{
 				setTeiClass((JavaClass)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case TaglibPackage.JSP_TAG__ICONS:
-				getIcons().clear();
-				return;
-			case TaglibPackage.JSP_TAG__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				return;
-			case TaglibPackage.JSP_TAG__DESCRIPTIONS:
-				getDescriptions().clear();
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case TaglibPackage.JSP_TAG__BODY_CONTENT:
 				unsetBodyContent();
 				return;
@@ -560,7 +495,34 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag{
 				setTeiClass((JavaClass)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case TaglibPackage.JSP_TAG__BODY_CONTENT:
+				return isSetBodyContent();
+			case TaglibPackage.JSP_TAG__EXAMPLE:
+				return EXAMPLE_EDEFAULT == null ? example != null : !EXAMPLE_EDEFAULT.equals(example);
+			case TaglibPackage.JSP_TAG__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case TaglibPackage.JSP_TAG__DYNAMIC_ATTRIBUTES:
+				return dynamicAttributes != DYNAMIC_ATTRIBUTES_EDEFAULT;
+			case TaglibPackage.JSP_TAG__ATTRIBUTES:
+				return attributes != null && !attributes.isEmpty();
+			case TaglibPackage.JSP_TAG__VARIABLES:
+				return variables != null && !variables.isEmpty();
+			case TaglibPackage.JSP_TAG__TAG_CLASS:
+				return tagClass != null;
+			case TaglibPackage.JSP_TAG__TEI_CLASS:
+				return teiClass != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

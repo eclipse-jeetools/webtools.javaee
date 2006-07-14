@@ -13,10 +13,9 @@ package org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessage;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLReturnValueMapping;
@@ -37,7 +36,7 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLReturnValueMapping;
  *
  * @generated
  */
-public class WSDLReturnValueMappingImpl extends EObjectImpl implements WSDLReturnValueMapping
+public class WSDLReturnValueMappingImpl extends J2EEEObjectImpl implements WSDLReturnValueMapping
 {
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -124,7 +123,7 @@ public class WSDLReturnValueMappingImpl extends EObjectImpl implements WSDLRetur
 	 * @generated
 	 */
   protected EClass eStaticClass() {
-		return JaxrpcmapPackage.eINSTANCE.getWSDLReturnValueMapping();
+		return JaxrpcmapPackage.Literals.WSDL_RETURN_VALUE_MAPPING;
 	}
 
 	/**
@@ -235,28 +234,24 @@ public class WSDLReturnValueMappingImpl extends EObjectImpl implements WSDLRetur
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JaxrpcmapPackage.WSDL_RETURN_VALUE_MAPPING__WSDL_MESSAGE:
-					return basicSetWsdlMessage(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case JaxrpcmapPackage.WSDL_RETURN_VALUE_MAPPING__WSDL_MESSAGE:
+				return basicSetWsdlMessage(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case JaxrpcmapPackage.WSDL_RETURN_VALUE_MAPPING__ID:
 				return getId();
 			case JaxrpcmapPackage.WSDL_RETURN_VALUE_MAPPING__METHOD_RETURN_VALUE:
@@ -266,16 +261,16 @@ public class WSDLReturnValueMappingImpl extends EObjectImpl implements WSDLRetur
 			case JaxrpcmapPackage.WSDL_RETURN_VALUE_MAPPING__WSDL_MESSAGE:
 				return getWsdlMessage();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case JaxrpcmapPackage.WSDL_RETURN_VALUE_MAPPING__ID:
 				setId((String)newValue);
 				return;
@@ -289,16 +284,16 @@ public class WSDLReturnValueMappingImpl extends EObjectImpl implements WSDLRetur
 				setWsdlMessage((WSDLMessage)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case JaxrpcmapPackage.WSDL_RETURN_VALUE_MAPPING__ID:
 				setId(ID_EDEFAULT);
 				return;
@@ -312,16 +307,16 @@ public class WSDLReturnValueMappingImpl extends EObjectImpl implements WSDLRetur
 				setWsdlMessage((WSDLMessage)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case JaxrpcmapPackage.WSDL_RETURN_VALUE_MAPPING__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case JaxrpcmapPackage.WSDL_RETURN_VALUE_MAPPING__METHOD_RETURN_VALUE:
@@ -331,7 +326,7 @@ public class WSDLReturnValueMappingImpl extends EObjectImpl implements WSDLRetur
 			case JaxrpcmapPackage.WSDL_RETURN_VALUE_MAPPING__WSDL_MESSAGE:
 				return wsdlMessage != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

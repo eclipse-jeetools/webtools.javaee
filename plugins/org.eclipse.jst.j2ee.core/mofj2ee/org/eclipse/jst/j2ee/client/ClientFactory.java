@@ -14,14 +14,14 @@ import org.eclipse.emf.ecore.EFactory;
 /**
  * @generated
  * @since 1.0 */
-public interface ClientFactory extends EFactory{
+public interface ClientFactory extends EFactory {
 	/**
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	ClientFactory eINSTANCE = new org.eclipse.jst.j2ee.client.internal.impl.ClientFactoryImpl();
+	ClientFactory eINSTANCE = org.eclipse.jst.j2ee.client.internal.impl.ClientFactoryImpl.init();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 

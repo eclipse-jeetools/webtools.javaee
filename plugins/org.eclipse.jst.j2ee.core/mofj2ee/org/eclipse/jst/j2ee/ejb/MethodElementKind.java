@@ -70,7 +70,7 @@ public final class MethodElementKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final MethodElementKind UNSPECIFIED_LITERAL = new MethodElementKind(UNSPECIFIED, "Unspecified"); //$NON-NLS-1$
+	public static final MethodElementKind UNSPECIFIED_LITERAL = new MethodElementKind(UNSPECIFIED, "Unspecified", "Unspecified"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Remote</b></em>' literal object.
@@ -84,7 +84,7 @@ public final class MethodElementKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final MethodElementKind REMOTE_LITERAL = new MethodElementKind(REMOTE, "Remote"); //$NON-NLS-1$
+	public static final MethodElementKind REMOTE_LITERAL = new MethodElementKind(REMOTE, "Remote", "Remote"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Home</b></em>' literal object.
@@ -98,7 +98,7 @@ public final class MethodElementKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final MethodElementKind HOME_LITERAL = new MethodElementKind(HOME, "Home"); //$NON-NLS-1$
+	public static final MethodElementKind HOME_LITERAL = new MethodElementKind(HOME, "Home", "Home"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Local</b></em>' literal object.
@@ -112,7 +112,7 @@ public final class MethodElementKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final MethodElementKind LOCAL_LITERAL = new MethodElementKind(LOCAL, "Local"); //$NON-NLS-1$
+	public static final MethodElementKind LOCAL_LITERAL = new MethodElementKind(LOCAL, "Local", "Local"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Local Home</b></em>' literal object.
@@ -126,7 +126,7 @@ public final class MethodElementKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final MethodElementKind LOCAL_HOME_LITERAL = new MethodElementKind(LOCAL_HOME, "LocalHome"); //$NON-NLS-1$
+	public static final MethodElementKind LOCAL_HOME_LITERAL = new MethodElementKind(LOCAL_HOME, "LocalHome", "LocalHome"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Service Endpoint</b></em>' literal object.
@@ -140,7 +140,7 @@ public final class MethodElementKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final MethodElementKind SERVICE_ENDPOINT_LITERAL = new MethodElementKind(SERVICE_ENDPOINT, "ServiceEndpoint"); //$NON-NLS-1$
+	public static final MethodElementKind SERVICE_ENDPOINT_LITERAL = new MethodElementKind(SERVICE_ENDPOINT, "ServiceEndpoint", "ServiceEndpoint"); //$NON-NLS-1$
 
 	/**
 	 * An array of all the '<em><b>Method Element Kind</b></em>' enumerators.
@@ -167,17 +167,17 @@ public final class MethodElementKind extends AbstractEnumerator{
 	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Method Element Kind</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Method Element Kind</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * @param name passes literal name
 	 * @return literal instance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static MethodElementKind get(String name) {
+	public static MethodElementKind get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			MethodElementKind result = VALUES_ARRAY[i];
-			if (result.toString().equals(name)) {
+			if (result.toString().equals(literal)) {
 				return result;
 			}
 		}
@@ -185,7 +185,23 @@ public final class MethodElementKind extends AbstractEnumerator{
 	}
 
 	/**
-	 * Returns the '<em><b>Method Element Kind</b></em>' literal with the specified value.
+	 * Returns the '<em><b>Method Element Kind</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static MethodElementKind getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			MethodElementKind result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Method Element Kind</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * @param value passes literal value
 	 * @return literal instance
@@ -210,8 +226,8 @@ public final class MethodElementKind extends AbstractEnumerator{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private MethodElementKind(int value, String name) {
-		super(value, name);
+	private MethodElementKind(int value, String name, String literal) {
+		super(value, name, literal);
 	}
 
 } //MethodElementKind

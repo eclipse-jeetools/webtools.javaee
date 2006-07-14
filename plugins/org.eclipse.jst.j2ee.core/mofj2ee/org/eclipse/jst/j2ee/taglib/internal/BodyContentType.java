@@ -58,7 +58,7 @@ public final class BodyContentType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final BodyContentType TAGDEPENDENT_LITERAL = new BodyContentType(TAGDEPENDENT, "tagdependent");//$NON-NLS-1$
+	public static final BodyContentType TAGDEPENDENT_LITERAL = new BodyContentType(TAGDEPENDENT, "tagdependent", "tagdependent");//$NON-NLS-1$
 
 	/**
 	 * The '<em><b>JSP</b></em>' literal object.
@@ -72,7 +72,7 @@ public final class BodyContentType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final BodyContentType JSP_LITERAL = new BodyContentType(JSP, "JSP");//$NON-NLS-1$
+	public static final BodyContentType JSP_LITERAL = new BodyContentType(JSP, "JSP", "JSP");//$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Empty</b></em>' literal object.
@@ -86,7 +86,7 @@ public final class BodyContentType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final BodyContentType EMPTY_LITERAL = new BodyContentType(EMPTY, "empty");//$NON-NLS-1$
+	public static final BodyContentType EMPTY_LITERAL = new BodyContentType(EMPTY, "empty", "empty");//$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Scriptless</b></em>' literal object.
@@ -100,7 +100,7 @@ public final class BodyContentType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final BodyContentType SCRIPTLESS_LITERAL = new BodyContentType(SCRIPTLESS, "scriptless");//$NON-NLS-1$
+	public static final BodyContentType SCRIPTLESS_LITERAL = new BodyContentType(SCRIPTLESS, "scriptless", "scriptless");//$NON-NLS-1$
 
 	/**
 	 * An array of all the '<em><b>Body Content Type</b></em>' enumerators.
@@ -125,17 +125,17 @@ public final class BodyContentType extends AbstractEnumerator{
 	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Body Content Type</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Body Content Type</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * @param name passes literal name
 	 * @return literal instance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static BodyContentType get(String name) {
+	public static BodyContentType get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			BodyContentType result = VALUES_ARRAY[i];
-			if (result.toString().equals(name)) {
+			if (result.toString().equals(literal)) {
 				return result;
 			}
 		}
@@ -143,7 +143,23 @@ public final class BodyContentType extends AbstractEnumerator{
 	}
 
 	/**
-	 * Returns the '<em><b>Body Content Type</b></em>' literal with the specified value.
+	 * Returns the '<em><b>Body Content Type</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static BodyContentType getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			BodyContentType result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Body Content Type</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * @param value passes literal value
 	 * @return literal instance
@@ -166,8 +182,8 @@ public final class BodyContentType extends AbstractEnumerator{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private BodyContentType(int value, String name) {
-		super(value, name);
+	private BodyContentType(int value, String name, String literal) {
+		super(value, name, literal);
 	}
 
 } //BodyContentType

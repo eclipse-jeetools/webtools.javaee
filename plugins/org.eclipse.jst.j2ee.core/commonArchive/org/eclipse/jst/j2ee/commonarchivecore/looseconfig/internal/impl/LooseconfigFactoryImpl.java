@@ -14,7 +14,9 @@ package org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseApplication;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseConfiguration;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseLibrary;
@@ -25,6 +27,25 @@ import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseconfigPa
 
 
 public class LooseconfigFactoryImpl extends EFactoryImpl implements LooseconfigFactory, EFactory {
+	/**
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static LooseconfigFactory init() {
+		try {
+			LooseconfigFactory theLooseconfigFactory = (LooseconfigFactory)EPackage.Registry.INSTANCE.getEFactory("commonarchive.looseconfig.xmi"); 
+			if (theLooseconfigFactory != null) {
+				return theLooseconfigFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new LooseconfigFactoryImpl();
+	}
+
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */

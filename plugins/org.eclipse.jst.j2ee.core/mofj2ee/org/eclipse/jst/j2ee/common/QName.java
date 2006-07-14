@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.common;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,8 +29,8 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.common.CommonPackage#getQName()
  * @model
  * @generated
- * @since 1.0 */
-public interface QName extends EObject{
+ */
+public interface QName extends J2EEEObject {
 	/**
 	 * Returns the value of the '<em><b>Namespace URI</b></em>' attribute.
 	 * <!-- begin-user-doc -->

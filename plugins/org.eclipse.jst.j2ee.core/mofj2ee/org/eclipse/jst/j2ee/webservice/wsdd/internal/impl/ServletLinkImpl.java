@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.webservice.wsdd.internal.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.jst.j2ee.webservice.wsdd.ServletLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
@@ -68,7 +67,7 @@ public class ServletLinkImpl extends BeanLinkImpl implements ServletLink
 	 * @generated
 	 */
   protected EClass eStaticClass() {
-		return WsddPackage.eINSTANCE.getServletLink();
+		return WsddPackage.Literals.SERVLET_LINK;
 	}
 
 	/**
@@ -94,56 +93,56 @@ public class ServletLinkImpl extends BeanLinkImpl implements ServletLink
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case WsddPackage.SERVLET_LINK__SERVLET_LINK:
 				return getServletLink();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case WsddPackage.SERVLET_LINK__SERVLET_LINK:
 				setServletLink((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case WsddPackage.SERVLET_LINK__SERVLET_LINK:
 				setServletLink(SERVLET_LINK_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case WsddPackage.SERVLET_LINK__SERVLET_LINK:
 				return SERVLET_LINK_EDEFAULT == null ? servletLink != null : !SERVLET_LINK_EDEFAULT.equals(servletLink);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

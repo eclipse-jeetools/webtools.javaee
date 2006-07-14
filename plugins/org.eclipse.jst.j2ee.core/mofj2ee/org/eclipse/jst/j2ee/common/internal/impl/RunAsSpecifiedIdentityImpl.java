@@ -10,26 +10,21 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.common.internal.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.Identity;
 import org.eclipse.jst.j2ee.common.RunAsSpecifiedIdentity;
-import org.eclipse.jst.j2ee.common.SecurityIdentity;
 
 
 /**
  * The security-identity element specifies whether the caller's security identity is to be used for the execution of the methods of the enterprise bean or whether a specific run-as identity is to be used. It    contains an optional description and a specification of the security identity to be used.
-
+ * @generated
  */
-public class RunAsSpecifiedIdentityImpl extends SecurityIdentityImpl implements RunAsSpecifiedIdentity, SecurityIdentity{
+public class RunAsSpecifiedIdentityImpl extends SecurityIdentityImpl implements RunAsSpecifiedIdentity {
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
@@ -47,7 +42,7 @@ public class RunAsSpecifiedIdentityImpl extends SecurityIdentityImpl implements 
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return CommonPackage.eINSTANCE.getRunAsSpecifiedIdentity();
+		return CommonPackage.Literals.RUN_AS_SPECIFIED_IDENTITY;
 	}
 
 	/**
@@ -95,18 +90,12 @@ public class RunAsSpecifiedIdentityImpl extends SecurityIdentityImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonPackage.RUN_AS_SPECIFIED_IDENTITY__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				case CommonPackage.RUN_AS_SPECIFIED_IDENTITY__IDENTITY:
-					return basicSetIdentity(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CommonPackage.RUN_AS_SPECIFIED_IDENTITY__IDENTITY:
+				return basicSetIdentity(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -114,68 +103,53 @@ public class RunAsSpecifiedIdentityImpl extends SecurityIdentityImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonPackage.RUN_AS_SPECIFIED_IDENTITY__DESCRIPTION:
-				return getDescription();
-			case CommonPackage.RUN_AS_SPECIFIED_IDENTITY__DESCRIPTIONS:
-				return getDescriptions();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case CommonPackage.RUN_AS_SPECIFIED_IDENTITY__IDENTITY:
 				return getIdentity();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonPackage.RUN_AS_SPECIFIED_IDENTITY__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case CommonPackage.RUN_AS_SPECIFIED_IDENTITY__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-			case CommonPackage.RUN_AS_SPECIFIED_IDENTITY__IDENTITY:
-				return identity != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonPackage.RUN_AS_SPECIFIED_IDENTITY__DESCRIPTION:
-				setDescription((String)newValue);
-				return;
-			case CommonPackage.RUN_AS_SPECIFIED_IDENTITY__DESCRIPTIONS:
-				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case CommonPackage.RUN_AS_SPECIFIED_IDENTITY__IDENTITY:
 				setIdentity((Identity)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonPackage.RUN_AS_SPECIFIED_IDENTITY__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case CommonPackage.RUN_AS_SPECIFIED_IDENTITY__DESCRIPTIONS:
-				getDescriptions().clear();
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case CommonPackage.RUN_AS_SPECIFIED_IDENTITY__IDENTITY:
 				setIdentity((Identity)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case CommonPackage.RUN_AS_SPECIFIED_IDENTITY__IDENTITY:
+				return identity != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

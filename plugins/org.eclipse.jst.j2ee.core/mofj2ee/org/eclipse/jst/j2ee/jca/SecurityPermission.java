@@ -11,14 +11,14 @@
 package org.eclipse.jst.j2ee.jca;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 /**
  * Specifies a security permission that is required by the resource adapter code.
  * 
  * The security permission listed in the deployment descriptor are ones that are different from those required by the default permission set as specified in the connector specification. The optional description can mention specific reason that resource adapter requires a given security permission.
-
+ * @generated
  * @since 1.0 */
-public interface SecurityPermission extends EObject{
+public interface SecurityPermission extends J2EEEObject {
 
 
 	/**
@@ -68,8 +68,3 @@ public interface SecurityPermission extends EObject{
 	EList getDescriptions();
 
 }
-
-
-
-
-

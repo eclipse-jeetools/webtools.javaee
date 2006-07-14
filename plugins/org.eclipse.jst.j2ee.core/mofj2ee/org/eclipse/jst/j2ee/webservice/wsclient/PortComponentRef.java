@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.webservice.wsclient;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,8 +37,8 @@ import org.eclipse.jem.java.JavaClass;
  * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getPortComponentRef()
  * @model
  * @generated
- * @since 1.0 */
-public interface PortComponentRef extends EObject{
+ */
+public interface PortComponentRef extends J2EEEObject {
 	/**
 	 * Returns the value of the '<em><b>Port Component Link</b></em>' attribute.
 	 * <!-- begin-user-doc -->

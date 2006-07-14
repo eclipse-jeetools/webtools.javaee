@@ -11,13 +11,9 @@
 package org.eclipse.jst.j2ee.webapplication.internal.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.jst.j2ee.webapplication.ErrorCodeErrorPage;
-import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 
@@ -52,7 +48,7 @@ public class ErrorCodeErrorPageImpl extends ErrorPageImpl implements ErrorCodeEr
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return WebapplicationPackage.eINSTANCE.getErrorCodeErrorPage();
+		return WebapplicationPackage.Literals.ERROR_CODE_ERROR_PAGE;
 	}
 
 /**
@@ -85,122 +81,53 @@ public boolean isErrorCode() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WebapplicationPackage.ERROR_CODE_ERROR_PAGE__WEB_APP:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, WebapplicationPackage.ERROR_CODE_ERROR_PAGE__WEB_APP, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WebapplicationPackage.ERROR_CODE_ERROR_PAGE__WEB_APP:
-					return eBasicSetContainer(null, WebapplicationPackage.ERROR_CODE_ERROR_PAGE__WEB_APP, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case WebapplicationPackage.ERROR_CODE_ERROR_PAGE__WEB_APP:
-					return eContainer.eInverseRemove(this, WebapplicationPackage.WEB_APP__ERROR_PAGES, WebApp.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.ERROR_CODE_ERROR_PAGE__LOCATION:
-				return getLocation();
-			case WebapplicationPackage.ERROR_CODE_ERROR_PAGE__WEB_APP:
-				return getWebApp();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case WebapplicationPackage.ERROR_CODE_ERROR_PAGE__ERROR_CODE:
 				return getErrorCode();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.ERROR_CODE_ERROR_PAGE__LOCATION:
-				return LOCATION_EDEFAULT == null ? location != null : !LOCATION_EDEFAULT.equals(location);
-			case WebapplicationPackage.ERROR_CODE_ERROR_PAGE__WEB_APP:
-				return getWebApp() != null;
-			case WebapplicationPackage.ERROR_CODE_ERROR_PAGE__ERROR_CODE:
-				return ERROR_CODE_EDEFAULT == null ? errorCode != null : !ERROR_CODE_EDEFAULT.equals(errorCode);
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.ERROR_CODE_ERROR_PAGE__LOCATION:
-				setLocation((String)newValue);
-				return;
-			case WebapplicationPackage.ERROR_CODE_ERROR_PAGE__WEB_APP:
-				setWebApp((WebApp)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case WebapplicationPackage.ERROR_CODE_ERROR_PAGE__ERROR_CODE:
 				setErrorCode((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.ERROR_CODE_ERROR_PAGE__LOCATION:
-				setLocation(LOCATION_EDEFAULT);
-				return;
-			case WebapplicationPackage.ERROR_CODE_ERROR_PAGE__WEB_APP:
-				setWebApp((WebApp)null);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case WebapplicationPackage.ERROR_CODE_ERROR_PAGE__ERROR_CODE:
 				setErrorCode(ERROR_CODE_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case WebapplicationPackage.ERROR_CODE_ERROR_PAGE__ERROR_CODE:
+				return ERROR_CODE_EDEFAULT == null ? errorCode != null : !ERROR_CODE_EDEFAULT.equals(errorCode);
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

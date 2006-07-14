@@ -13,7 +13,11 @@ package org.eclipse.jst.j2ee.common.internal.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.jst.j2ee.common.*;
+
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
@@ -27,6 +31,7 @@ import org.eclipse.jst.j2ee.common.EnvEntry;
 import org.eclipse.jst.j2ee.common.EnvEntryType;
 import org.eclipse.jst.j2ee.common.IconType;
 import org.eclipse.jst.j2ee.common.Identity;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 import org.eclipse.jst.j2ee.common.Listener;
 import org.eclipse.jst.j2ee.common.MessageDestination;
 import org.eclipse.jst.j2ee.common.MessageDestinationRef;
@@ -51,6 +56,25 @@ import org.eclipse.jst.j2ee.common.UseCallerIdentity;
  * @generated
  */
 public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
+	/**
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static CommonFactory init() {
+		try {
+			CommonFactory theCommonFactory = (CommonFactory)EPackage.Registry.INSTANCE.getEFactory("common.xmi"); 
+			if (theCommonFactory != null) {
+				return theCommonFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new CommonFactoryImpl();
+	}
+
 	/**
 	 * Creates an instance of the factory.
 	 * <!-- begin-user-doc -->
@@ -89,6 +113,8 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 			case CommonPackage.QNAME: return createQName();
 			case CommonPackage.LISTENER: return createListener();
 			case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP: return createCompatibilityDescriptionGroup();
+			case CommonPackage.J2EEE_OBJECT: return createJ2EEEObject();
+			case CommonPackage.J2EEE_ATTRIBUTE: return createJ2EEEAttribute();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -101,31 +127,16 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 */
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case CommonPackage.ENV_ENTRY_TYPE: {
-				EnvEntryType result = EnvEntryType.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case CommonPackage.RES_AUTH_TYPE_BASE: {
-				ResAuthTypeBase result = ResAuthTypeBase.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case CommonPackage.EJB_REF_TYPE: {
-				EjbRefType result = EjbRefType.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case CommonPackage.RES_SHARING_SCOPE_TYPE: {
-				ResSharingScopeType result = ResSharingScopeType.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case CommonPackage.MESSAGE_DESTINATION_USAGE_TYPE: {
-				MessageDestinationUsageType result = MessageDestinationUsageType.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
+			case CommonPackage.ENV_ENTRY_TYPE:
+				return createEnvEntryTypeFromString(eDataType, initialValue);
+			case CommonPackage.RES_AUTH_TYPE_BASE:
+				return createResAuthTypeBaseFromString(eDataType, initialValue);
+			case CommonPackage.EJB_REF_TYPE:
+				return createEjbRefTypeFromString(eDataType, initialValue);
+			case CommonPackage.RES_SHARING_SCOPE_TYPE:
+				return createResSharingScopeTypeFromString(eDataType, initialValue);
+			case CommonPackage.MESSAGE_DESTINATION_USAGE_TYPE:
+				return createMessageDestinationUsageTypeFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -139,15 +150,15 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			case CommonPackage.ENV_ENTRY_TYPE:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertEnvEntryTypeToString(eDataType, instanceValue);
 			case CommonPackage.RES_AUTH_TYPE_BASE:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertResAuthTypeBaseToString(eDataType, instanceValue);
 			case CommonPackage.EJB_REF_TYPE:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertEjbRefTypeToString(eDataType, instanceValue);
 			case CommonPackage.RES_SHARING_SCOPE_TYPE:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertResSharingScopeTypeToString(eDataType, instanceValue);
 			case CommonPackage.MESSAGE_DESTINATION_USAGE_TYPE:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertMessageDestinationUsageTypeToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -361,6 +372,126 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	public CompatibilityDescriptionGroup createCompatibilityDescriptionGroup() {
 		CompatibilityDescriptionGroupImpl compatibilityDescriptionGroup = new CompatibilityDescriptionGroupImpl();
 		return compatibilityDescriptionGroup;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public J2EEEObject createJ2EEEObject() {
+		J2EEEObjectImpl j2EEEObject = new J2EEEObjectImpl();
+		return j2EEEObject;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public J2EEEAttribute createJ2EEEAttribute() {
+		J2EEEAttributeImpl j2EEEAttribute = new J2EEEAttributeImpl();
+		return j2EEEAttribute;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EnvEntryType createEnvEntryTypeFromString(EDataType eDataType, String initialValue) {
+		EnvEntryType result = EnvEntryType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertEnvEntryTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ResAuthTypeBase createResAuthTypeBaseFromString(EDataType eDataType, String initialValue) {
+		ResAuthTypeBase result = ResAuthTypeBase.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertResAuthTypeBaseToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EjbRefType createEjbRefTypeFromString(EDataType eDataType, String initialValue) {
+		EjbRefType result = EjbRefType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertEjbRefTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ResSharingScopeType createResSharingScopeTypeFromString(EDataType eDataType, String initialValue) {
+		ResSharingScopeType result = ResSharingScopeType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertResSharingScopeTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MessageDestinationUsageType createMessageDestinationUsageTypeFromString(EDataType eDataType, String initialValue) {
+		MessageDestinationUsageType result = MessageDestinationUsageType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertMessageDestinationUsageTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

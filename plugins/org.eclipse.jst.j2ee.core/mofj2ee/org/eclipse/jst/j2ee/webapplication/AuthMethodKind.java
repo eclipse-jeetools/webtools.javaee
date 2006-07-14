@@ -59,7 +59,7 @@ public final class AuthMethodKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final AuthMethodKind UNSPECIFIED_LITERAL = new AuthMethodKind(UNSPECIFIED, "UNSPECIFIED");//$NON-NLS-1$
+	public static final AuthMethodKind UNSPECIFIED_LITERAL = new AuthMethodKind(UNSPECIFIED, "UNSPECIFIED", "UNSPECIFIED");//$NON-NLS-1$
 
 	/**
 	 * The '<em><b>BASIC</b></em>' literal object.
@@ -73,7 +73,7 @@ public final class AuthMethodKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final AuthMethodKind BASIC_LITERAL = new AuthMethodKind(BASIC, "BASIC");//$NON-NLS-1$
+	public static final AuthMethodKind BASIC_LITERAL = new AuthMethodKind(BASIC, "BASIC", "BASIC");//$NON-NLS-1$
 
 	/**
 	 * The '<em><b>DIGEST</b></em>' literal object.
@@ -87,7 +87,7 @@ public final class AuthMethodKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final AuthMethodKind DIGEST_LITERAL = new AuthMethodKind(DIGEST, "DIGEST");//$NON-NLS-1$
+	public static final AuthMethodKind DIGEST_LITERAL = new AuthMethodKind(DIGEST, "DIGEST", "DIGEST");//$NON-NLS-1$
 
 	/**
 	 * The '<em><b>FORM</b></em>' literal object.
@@ -101,7 +101,7 @@ public final class AuthMethodKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final AuthMethodKind FORM_LITERAL = new AuthMethodKind(FORM, "FORM");//$NON-NLS-1$
+	public static final AuthMethodKind FORM_LITERAL = new AuthMethodKind(FORM, "FORM", "FORM");//$NON-NLS-1$
 
 	/**
 	 * The '<em><b>CLIENT CERT</b></em>' literal object.
@@ -115,7 +115,7 @@ public final class AuthMethodKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final AuthMethodKind CLIENT_CERT_LITERAL = new AuthMethodKind(CLIENT_CERT, "CLIENT_CERT");//$NON-NLS-1$
+	public static final AuthMethodKind CLIENT_CERT_LITERAL = new AuthMethodKind(CLIENT_CERT, "CLIENT_CERT", "CLIENT_CERT");//$NON-NLS-1$
 
 	/**
 	 * An array of all the '<em><b>Auth Method Kind</b></em>' enumerators.
@@ -141,17 +141,17 @@ public final class AuthMethodKind extends AbstractEnumerator{
 	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Auth Method Kind</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Auth Method Kind</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * @param name passes literal name
 	 * @return literal instance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static AuthMethodKind get(String name) {
+	public static AuthMethodKind get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			AuthMethodKind result = VALUES_ARRAY[i];
-			if (result.toString().equals(name)) {
+			if (result.toString().equals(literal)) {
 				return result;
 			}
 		}
@@ -159,12 +159,26 @@ public final class AuthMethodKind extends AbstractEnumerator{
 	}
 
 	/**
-	 * Returns the '<em><b>Auth Method Kind</b></em>' literal with the specified value.
+	 * Returns the '<em><b>Auth Method Kind</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
-	 * @param value passes literal value
-	 * @return literal instance
+	 */
+	public static AuthMethodKind getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			AuthMethodKind result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Auth Method Kind</b></em>' literal with the specified integer value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
 	public static AuthMethodKind get(int value) {
 		switch (value) {
@@ -183,8 +197,8 @@ public final class AuthMethodKind extends AbstractEnumerator{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private AuthMethodKind(int value, String name) {
-		super(value, name);
+	private AuthMethodKind(int value, String name, String literal) {
+		super(value, name, literal);
 	}
 
 } //AuthMethodKind

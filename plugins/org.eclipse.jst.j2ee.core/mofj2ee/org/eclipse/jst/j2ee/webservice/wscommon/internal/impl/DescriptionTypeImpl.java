@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.webservice.wscommon.internal.impl;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jst.j2ee.common.internal.impl.DescriptionImpl;
 import org.eclipse.jst.j2ee.webservice.wscommon.DescriptionType;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
@@ -43,71 +42,7 @@ public class DescriptionTypeImpl extends DescriptionImpl implements DescriptionT
 	 * @generated
 	 */
   protected EClass eStaticClass() {
-		return WscommonPackage.eINSTANCE.getDescriptionType();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WscommonPackage.DESCRIPTION_TYPE__LANG:
-				return getLang();
-			case WscommonPackage.DESCRIPTION_TYPE__VALUE:
-				return getValue();
-		}
-		return eDynamicGet(eFeature, resolve);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WscommonPackage.DESCRIPTION_TYPE__LANG:
-				setLang((String)newValue);
-				return;
-			case WscommonPackage.DESCRIPTION_TYPE__VALUE:
-				setValue((String)newValue);
-				return;
-		}
-		eDynamicSet(eFeature, newValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WscommonPackage.DESCRIPTION_TYPE__LANG:
-				setLang(LANG_EDEFAULT);
-				return;
-			case WscommonPackage.DESCRIPTION_TYPE__VALUE:
-				setValue(VALUE_EDEFAULT);
-				return;
-		}
-		eDynamicUnset(eFeature);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WscommonPackage.DESCRIPTION_TYPE__LANG:
-				return LANG_EDEFAULT == null ? lang != null : !LANG_EDEFAULT.equals(lang);
-			case WscommonPackage.DESCRIPTION_TYPE__VALUE:
-				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
-		}
-		return eDynamicIsSet(eFeature);
+		return WscommonPackage.Literals.DESCRIPTION_TYPE;
 	}
 
 } //DescriptionTypeImpl

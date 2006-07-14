@@ -14,7 +14,9 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveWrappedException;
 import org.eclipse.jst.j2ee.jca.Connector;
 
-
+/**
+ * @generated
+ */
 public interface ConnectorModuleRef extends ModuleRef {
 	Connector getConnector() throws ArchiveWrappedException;
 

@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.webservice.jaxrpcmap;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getInterfaceMapping()
  * @model
  * @generated
- * @since 1.0 */
-public interface InterfaceMapping extends EObject{
+ */
+public interface InterfaceMapping extends J2EEEObject {
  // InterfaceMapping
 }

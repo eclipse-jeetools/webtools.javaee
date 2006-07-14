@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.common.DescriptionGroup;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 import org.eclipse.jst.j2ee.webservice.wsclient.ComponentScopedRefs;
 import org.eclipse.jst.j2ee.webservice.wsclient.Handler;
 import org.eclipse.jst.j2ee.webservice.wsclient.PortComponentRef;
@@ -103,12 +104,14 @@ public class Webservice_clientSwitch {
 				Object result = caseServiceRef(serviceRef);
 				if (result == null) result = caseCompatibilityDescriptionGroup(serviceRef);
 				if (result == null) result = caseDescriptionGroup(serviceRef);
+				if (result == null) result = caseJ2EEEObject(serviceRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case Webservice_clientPackage.PORT_COMPONENT_REF: {
 				PortComponentRef portComponentRef = (PortComponentRef)theEObject;
 				Object result = casePortComponentRef(portComponentRef);
+				if (result == null) result = caseJ2EEEObject(portComponentRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -117,18 +120,21 @@ public class Webservice_clientSwitch {
 				Object result = caseHandler(handler);
 				if (result == null) result = caseCompatibilityDescriptionGroup(handler);
 				if (result == null) result = caseDescriptionGroup(handler);
+				if (result == null) result = caseJ2EEEObject(handler);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case Webservice_clientPackage.WEB_SERVICES_CLIENT: {
 				WebServicesClient webServicesClient = (WebServicesClient)theEObject;
 				Object result = caseWebServicesClient(webServicesClient);
+				if (result == null) result = caseJ2EEEObject(webServicesClient);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case Webservice_clientPackage.COMPONENT_SCOPED_REFS: {
 				ComponentScopedRefs componentScopedRefs = (ComponentScopedRefs)theEObject;
 				Object result = caseComponentScopedRefs(componentScopedRefs);
+				if (result == null) result = caseJ2EEEObject(componentScopedRefs);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -208,6 +214,21 @@ public class Webservice_clientSwitch {
 	 * @generated
 	 */
     public Object caseComponentScopedRefs(ComponentScopedRefs object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseJ2EEEObject(J2EEEObject object) {
 		return null;
 	}
 

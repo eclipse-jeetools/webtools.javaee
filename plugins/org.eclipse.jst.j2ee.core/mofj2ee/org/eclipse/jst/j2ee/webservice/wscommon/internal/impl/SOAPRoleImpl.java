@@ -12,9 +12,8 @@ package org.eclipse.jst.j2ee.webservice.wscommon.internal.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webservice.wscommon.SOAPRole;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
 
@@ -32,7 +31,7 @@ import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
  *
  * @generated
  */
-public class SOAPRoleImpl extends EObjectImpl implements SOAPRole
+public class SOAPRoleImpl extends J2EEEObjectImpl implements SOAPRole
 {
 	/**
 	 * The default value of the '{@link #getSoapRole() <em>Soap Role</em>}' attribute.
@@ -69,7 +68,7 @@ public class SOAPRoleImpl extends EObjectImpl implements SOAPRole
 	 * @generated
 	 */
   protected EClass eStaticClass() {
-		return WscommonPackage.eINSTANCE.getSOAPRole();
+		return WscommonPackage.Literals.SOAP_ROLE;
 	}
 
 	/**
@@ -95,56 +94,56 @@ public class SOAPRoleImpl extends EObjectImpl implements SOAPRole
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case WscommonPackage.SOAP_ROLE__SOAP_ROLE:
 				return getSoapRole();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case WscommonPackage.SOAP_ROLE__SOAP_ROLE:
 				setSoapRole((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case WscommonPackage.SOAP_ROLE__SOAP_ROLE:
 				setSoapRole(SOAP_ROLE_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case WscommonPackage.SOAP_ROLE__SOAP_ROLE:
 				return SOAP_ROLE_EDEFAULT == null ? soapRole != null : !SOAP_ROLE_EDEFAULT.equals(soapRole);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

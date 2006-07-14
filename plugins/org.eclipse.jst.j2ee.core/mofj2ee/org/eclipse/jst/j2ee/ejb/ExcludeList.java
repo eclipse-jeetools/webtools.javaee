@@ -13,14 +13,14 @@ package org.eclipse.jst.j2ee.ejb;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 /**
  * The exclude list element defines a set of methods which the Assembler marks to be uncallable. It contains one or more methods.
  * 
  * If the method permission relation contains methods that are in the exclude list, the Deployer must consider those methods to be uncallable.
-
+ * @generated
  * @since 1.0 */
-public interface ExcludeList extends EObject{
+public interface ExcludeList extends J2EEEObject {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the Description attribute

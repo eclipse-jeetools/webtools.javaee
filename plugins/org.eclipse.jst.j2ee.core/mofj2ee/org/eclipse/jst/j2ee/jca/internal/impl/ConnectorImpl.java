@@ -10,15 +10,11 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.jca.internal.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.internal.impl.CompatibilityDescriptionGroupImpl;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionResource;
 import org.eclipse.jst.j2ee.jca.Connector;
@@ -31,7 +27,7 @@ import org.eclipse.jst.j2ee.jca.ResourceAdapter;
  * The connector element is the root element of the deployment descriptor for the resource adapter. This element includes general information - vendor name, version, specification version supported, icon -  about the resource adapter module. It also includes information specific to the implementation of the resource adapter library as specified through the element resourceadapter.
 
  */
-public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements Connector{
+public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements Connector {
 
 	/**
 	 * The default value of the '{@link #getVendorName() <em>Vendor Name</em>}' attribute.
@@ -106,7 +102,7 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return JcaPackage.eINSTANCE.getConnector();
+		return JcaPackage.Literals.CONNECTOR;
 	}
 
 	/**
@@ -290,24 +286,14 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JcaPackage.CONNECTOR__ICONS:
-					return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
-				case JcaPackage.CONNECTOR__DISPLAY_NAMES:
-					return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
-				case JcaPackage.CONNECTOR__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				case JcaPackage.CONNECTOR__LICENSE:
-					return basicSetLicense(null, msgs);
-				case JcaPackage.CONNECTOR__RESOURCE_ADAPTER:
-					return basicSetResourceAdapter(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case JcaPackage.CONNECTOR__LICENSE:
+				return basicSetLicense(null, msgs);
+			case JcaPackage.CONNECTOR__RESOURCE_ADAPTER:
+				return basicSetResourceAdapter(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -315,22 +301,8 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JcaPackage.CONNECTOR__ICONS:
-				return getIcons();
-			case JcaPackage.CONNECTOR__DISPLAY_NAMES:
-				return getDisplayNames();
-			case JcaPackage.CONNECTOR__DESCRIPTIONS:
-				return getDescriptions();
-			case JcaPackage.CONNECTOR__SMALL_ICON:
-				return getSmallIcon();
-			case JcaPackage.CONNECTOR__LARGE_ICON:
-				return getLargeIcon();
-			case JcaPackage.CONNECTOR__DESCRIPTION:
-				return getDescription();
-			case JcaPackage.CONNECTOR__DISPLAY_NAME:
-				return getDisplayName();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case JcaPackage.CONNECTOR__VENDOR_NAME:
 				return getVendorName();
 			case JcaPackage.CONNECTOR__SPEC_VERSION:
@@ -344,73 +316,16 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 			case JcaPackage.CONNECTOR__RESOURCE_ADAPTER:
 				return getResourceAdapter();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JcaPackage.CONNECTOR__ICONS:
-				return icons != null && !icons.isEmpty();
-			case JcaPackage.CONNECTOR__DISPLAY_NAMES:
-				return displayNames != null && !displayNames.isEmpty();
-			case JcaPackage.CONNECTOR__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-			case JcaPackage.CONNECTOR__SMALL_ICON:
-				return SMALL_ICON_EDEFAULT == null ? smallIcon != null : !SMALL_ICON_EDEFAULT.equals(smallIcon);
-			case JcaPackage.CONNECTOR__LARGE_ICON:
-				return LARGE_ICON_EDEFAULT == null ? largeIcon != null : !LARGE_ICON_EDEFAULT.equals(largeIcon);
-			case JcaPackage.CONNECTOR__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case JcaPackage.CONNECTOR__DISPLAY_NAME:
-				return DISPLAY_NAME_EDEFAULT == null ? displayName != null : !DISPLAY_NAME_EDEFAULT.equals(displayName);
-			case JcaPackage.CONNECTOR__VENDOR_NAME:
-				return VENDOR_NAME_EDEFAULT == null ? vendorName != null : !VENDOR_NAME_EDEFAULT.equals(vendorName);
-			case JcaPackage.CONNECTOR__SPEC_VERSION:
-				return SPEC_VERSION_EDEFAULT == null ? specVersion != null : !SPEC_VERSION_EDEFAULT.equals(specVersion);
-			case JcaPackage.CONNECTOR__EIS_TYPE:
-				return EIS_TYPE_EDEFAULT == null ? eisType != null : !EIS_TYPE_EDEFAULT.equals(eisType);
-			case JcaPackage.CONNECTOR__VERSION:
-				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
-			case JcaPackage.CONNECTOR__LICENSE:
-				return license != null;
-			case JcaPackage.CONNECTOR__RESOURCE_ADAPTER:
-				return resourceAdapter != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JcaPackage.CONNECTOR__ICONS:
-				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
-				return;
-			case JcaPackage.CONNECTOR__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
-				return;
-			case JcaPackage.CONNECTOR__DESCRIPTIONS:
-				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
-				return;
-			case JcaPackage.CONNECTOR__SMALL_ICON:
-				setSmallIcon((String)newValue);
-				return;
-			case JcaPackage.CONNECTOR__LARGE_ICON:
-				setLargeIcon((String)newValue);
-				return;
-			case JcaPackage.CONNECTOR__DESCRIPTION:
-				setDescription((String)newValue);
-				return;
-			case JcaPackage.CONNECTOR__DISPLAY_NAME:
-				setDisplayName((String)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case JcaPackage.CONNECTOR__VENDOR_NAME:
 				setVendorName((String)newValue);
 				return;
@@ -430,35 +345,16 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 				setResourceAdapter((ResourceAdapter)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JcaPackage.CONNECTOR__ICONS:
-				getIcons().clear();
-				return;
-			case JcaPackage.CONNECTOR__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				return;
-			case JcaPackage.CONNECTOR__DESCRIPTIONS:
-				getDescriptions().clear();
-				return;
-			case JcaPackage.CONNECTOR__SMALL_ICON:
-				setSmallIcon(SMALL_ICON_EDEFAULT);
-				return;
-			case JcaPackage.CONNECTOR__LARGE_ICON:
-				setLargeIcon(LARGE_ICON_EDEFAULT);
-				return;
-			case JcaPackage.CONNECTOR__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case JcaPackage.CONNECTOR__DISPLAY_NAME:
-				setDisplayName(DISPLAY_NAME_EDEFAULT);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case JcaPackage.CONNECTOR__VENDOR_NAME:
 				setVendorName(VENDOR_NAME_EDEFAULT);
 				return;
@@ -478,7 +374,30 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 				setResourceAdapter((ResourceAdapter)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case JcaPackage.CONNECTOR__VENDOR_NAME:
+				return VENDOR_NAME_EDEFAULT == null ? vendorName != null : !VENDOR_NAME_EDEFAULT.equals(vendorName);
+			case JcaPackage.CONNECTOR__SPEC_VERSION:
+				return SPEC_VERSION_EDEFAULT == null ? specVersion != null : !SPEC_VERSION_EDEFAULT.equals(specVersion);
+			case JcaPackage.CONNECTOR__EIS_TYPE:
+				return EIS_TYPE_EDEFAULT == null ? eisType != null : !EIS_TYPE_EDEFAULT.equals(eisType);
+			case JcaPackage.CONNECTOR__VERSION:
+				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
+			case JcaPackage.CONNECTOR__LICENSE:
+				return license != null;
+			case JcaPackage.CONNECTOR__RESOURCE_ADAPTER:
+				return resourceAdapter != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**
@@ -501,8 +420,3 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	}
 
 }
-
-
-
-
-

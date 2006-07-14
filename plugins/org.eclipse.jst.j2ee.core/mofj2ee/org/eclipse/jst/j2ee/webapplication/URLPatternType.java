@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.webapplication;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 /**
  *  <!-- begin-user-doc -->
  * @deprecated since 4/25/2003 use list on {@link org.eclipse.jst.j2ee.internal.webapplication.WebResourceCollection} 
@@ -27,9 +27,8 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getURLPatternType()
  * @model
  * @generated
- * @since 1.0
  */
-public interface URLPatternType extends EObject{
+public interface URLPatternType extends J2EEEObject {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the UrlPattern attribute

@@ -16,7 +16,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -79,7 +78,7 @@ public class FilterImpl extends CompatibilityDescriptionGroupImpl implements Fil
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return WebapplicationPackage.eINSTANCE.getFilter();
+		return WebapplicationPackage.Literals.FILTER;
 	}
 
 	/**
@@ -119,8 +118,8 @@ public class FilterImpl extends CompatibilityDescriptionGroupImpl implements Fil
 	 */
 	public JavaClass getFilterClass() {
 		if (filterClass != null && filterClass.eIsProxy()) {
-			JavaClass oldFilterClass = filterClass;
-			filterClass = (JavaClass)eResolveProxy((InternalEObject)filterClass);
+			InternalEObject oldFilterClass = (InternalEObject)filterClass;
+			filterClass = (JavaClass)eResolveProxy(oldFilterClass);
 			if (filterClass != oldFilterClass) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, WebapplicationPackage.FILTER__FILTER_CLASS, oldFilterClass, filterClass));
@@ -166,24 +165,14 @@ public class FilterImpl extends CompatibilityDescriptionGroupImpl implements Fil
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WebapplicationPackage.FILTER__ICONS:
-					return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.FILTER__DISPLAY_NAMES:
-					return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.FILTER__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.FILTER__INIT_PARAMS:
-					return ((InternalEList)getInitParams()).basicRemove(otherEnd, msgs);
-				case WebapplicationPackage.FILTER__INIT_PARAM_VALUES:
-					return ((InternalEList)getInitParamValues()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case WebapplicationPackage.FILTER__INIT_PARAMS:
+				return ((InternalEList)getInitParams()).basicRemove(otherEnd, msgs);
+			case WebapplicationPackage.FILTER__INIT_PARAM_VALUES:
+				return ((InternalEList)getInitParamValues()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -191,22 +180,8 @@ public class FilterImpl extends CompatibilityDescriptionGroupImpl implements Fil
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.FILTER__ICONS:
-				return getIcons();
-			case WebapplicationPackage.FILTER__DISPLAY_NAMES:
-				return getDisplayNames();
-			case WebapplicationPackage.FILTER__DESCRIPTIONS:
-				return getDescriptions();
-			case WebapplicationPackage.FILTER__SMALL_ICON:
-				return getSmallIcon();
-			case WebapplicationPackage.FILTER__LARGE_ICON:
-				return getLargeIcon();
-			case WebapplicationPackage.FILTER__DESCRIPTION:
-				return getDescription();
-			case WebapplicationPackage.FILTER__DISPLAY_NAME:
-				return getDisplayName();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case WebapplicationPackage.FILTER__NAME:
 				return getName();
 			case WebapplicationPackage.FILTER__INIT_PARAMS:
@@ -217,69 +192,16 @@ public class FilterImpl extends CompatibilityDescriptionGroupImpl implements Fil
 			case WebapplicationPackage.FILTER__INIT_PARAM_VALUES:
 				return getInitParamValues();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.FILTER__ICONS:
-				return icons != null && !icons.isEmpty();
-			case WebapplicationPackage.FILTER__DISPLAY_NAMES:
-				return displayNames != null && !displayNames.isEmpty();
-			case WebapplicationPackage.FILTER__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-			case WebapplicationPackage.FILTER__SMALL_ICON:
-				return SMALL_ICON_EDEFAULT == null ? smallIcon != null : !SMALL_ICON_EDEFAULT.equals(smallIcon);
-			case WebapplicationPackage.FILTER__LARGE_ICON:
-				return LARGE_ICON_EDEFAULT == null ? largeIcon != null : !LARGE_ICON_EDEFAULT.equals(largeIcon);
-			case WebapplicationPackage.FILTER__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case WebapplicationPackage.FILTER__DISPLAY_NAME:
-				return DISPLAY_NAME_EDEFAULT == null ? displayName != null : !DISPLAY_NAME_EDEFAULT.equals(displayName);
-			case WebapplicationPackage.FILTER__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case WebapplicationPackage.FILTER__INIT_PARAMS:
-				return initParams != null && !initParams.isEmpty();
-			case WebapplicationPackage.FILTER__FILTER_CLASS:
-				return filterClass != null;
-			case WebapplicationPackage.FILTER__INIT_PARAM_VALUES:
-				return initParamValues != null && !initParamValues.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.FILTER__ICONS:
-				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
-				return;
-			case WebapplicationPackage.FILTER__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
-				return;
-			case WebapplicationPackage.FILTER__DESCRIPTIONS:
-				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
-				return;
-			case WebapplicationPackage.FILTER__SMALL_ICON:
-				setSmallIcon((String)newValue);
-				return;
-			case WebapplicationPackage.FILTER__LARGE_ICON:
-				setLargeIcon((String)newValue);
-				return;
-			case WebapplicationPackage.FILTER__DESCRIPTION:
-				setDescription((String)newValue);
-				return;
-			case WebapplicationPackage.FILTER__DISPLAY_NAME:
-				setDisplayName((String)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case WebapplicationPackage.FILTER__NAME:
 				setName((String)newValue);
 				return;
@@ -295,35 +217,16 @@ public class FilterImpl extends CompatibilityDescriptionGroupImpl implements Fil
 				getInitParamValues().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WebapplicationPackage.FILTER__ICONS:
-				getIcons().clear();
-				return;
-			case WebapplicationPackage.FILTER__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				return;
-			case WebapplicationPackage.FILTER__DESCRIPTIONS:
-				getDescriptions().clear();
-				return;
-			case WebapplicationPackage.FILTER__SMALL_ICON:
-				setSmallIcon(SMALL_ICON_EDEFAULT);
-				return;
-			case WebapplicationPackage.FILTER__LARGE_ICON:
-				setLargeIcon(LARGE_ICON_EDEFAULT);
-				return;
-			case WebapplicationPackage.FILTER__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case WebapplicationPackage.FILTER__DISPLAY_NAME:
-				setDisplayName(DISPLAY_NAME_EDEFAULT);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case WebapplicationPackage.FILTER__NAME:
 				setName(NAME_EDEFAULT);
 				return;
@@ -337,7 +240,26 @@ public class FilterImpl extends CompatibilityDescriptionGroupImpl implements Fil
 				getInitParamValues().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case WebapplicationPackage.FILTER__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case WebapplicationPackage.FILTER__INIT_PARAMS:
+				return initParams != null && !initParams.isEmpty();
+			case WebapplicationPackage.FILTER__FILTER_CLASS:
+				return filterClass != null;
+			case WebapplicationPackage.FILTER__INIT_PARAM_VALUES:
+				return initParamValues != null && !initParamValues.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

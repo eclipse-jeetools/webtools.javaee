@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.webservice.wsdd.internal.impl;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
 
@@ -25,7 +25,7 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
  *
  * @generated
  */
-public class BeanLinkImpl extends EObjectImpl implements BeanLink
+public class BeanLinkImpl extends J2EEEObjectImpl implements BeanLink
 {
 	/**
 	 * <!-- begin-user-doc -->
@@ -42,7 +42,7 @@ public class BeanLinkImpl extends EObjectImpl implements BeanLink
 	 * @generated
 	 */
   protected EClass eStaticClass() {
-		return WsddPackage.eINSTANCE.getBeanLink();
+		return WsddPackage.Literals.BEAN_LINK;
 	}
 
 } //BeanLinkImpl

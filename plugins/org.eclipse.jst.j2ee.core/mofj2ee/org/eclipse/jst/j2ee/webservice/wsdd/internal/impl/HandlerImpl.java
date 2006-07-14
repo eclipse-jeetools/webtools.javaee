@@ -16,7 +16,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -133,7 +132,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * @generated
 	 */
   protected EClass eStaticClass() {
-		return WsddPackage.eINSTANCE.getHandler();
+		return WsddPackage.Literals.HANDLER;
 	}
 
 	/**
@@ -216,52 +215,28 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case WsddPackage.HANDLER__ICONS:
-					return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
-				case WsddPackage.HANDLER__DISPLAY_NAMES:
-					return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
-				case WsddPackage.HANDLER__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				case WsddPackage.HANDLER__INIT_PARAMS:
-					return ((InternalEList)getInitParams()).basicRemove(otherEnd, msgs);
-				case WsddPackage.HANDLER__SOAP_HEADERS:
-					return ((InternalEList)getSoapHeaders()).basicRemove(otherEnd, msgs);
-				case WsddPackage.HANDLER__SOAP_ROLES:
-					return ((InternalEList)getSoapRoles()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case WsddPackage.HANDLER__INIT_PARAMS:
+				return ((InternalEList)getInitParams()).basicRemove(otherEnd, msgs);
+			case WsddPackage.HANDLER__SOAP_HEADERS:
+				return ((InternalEList)getSoapHeaders()).basicRemove(otherEnd, msgs);
+			case WsddPackage.HANDLER__SOAP_ROLES:
+				return ((InternalEList)getSoapRoles()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WsddPackage.HANDLER__ICONS:
-				return getIcons();
-			case WsddPackage.HANDLER__DISPLAY_NAMES:
-				return getDisplayNames();
-			case WsddPackage.HANDLER__DESCRIPTIONS:
-				return getDescriptions();
-			case WsddPackage.HANDLER__SMALL_ICON:
-				return getSmallIcon();
-			case WsddPackage.HANDLER__LARGE_ICON:
-				return getLargeIcon();
-			case WsddPackage.HANDLER__DESCRIPTION:
-				return getDescription();
-			case WsddPackage.HANDLER__DISPLAY_NAME:
-				return getDisplayName();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case WsddPackage.HANDLER__HANDLER_NAME:
 				return getHandlerName();
 			case WsddPackage.HANDLER__HANDLER_CLASS:
@@ -273,40 +248,16 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 			case WsddPackage.HANDLER__SOAP_ROLES:
 				return getSoapRoles();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WsddPackage.HANDLER__ICONS:
-				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
-				return;
-			case WsddPackage.HANDLER__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
-				return;
-			case WsddPackage.HANDLER__DESCRIPTIONS:
-				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
-				return;
-			case WsddPackage.HANDLER__SMALL_ICON:
-				setSmallIcon((String)newValue);
-				return;
-			case WsddPackage.HANDLER__LARGE_ICON:
-				setLargeIcon((String)newValue);
-				return;
-			case WsddPackage.HANDLER__DESCRIPTION:
-				setDescription((String)newValue);
-				return;
-			case WsddPackage.HANDLER__DISPLAY_NAME:
-				setDisplayName((String)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case WsddPackage.HANDLER__HANDLER_NAME:
 				setHandlerName((String)newValue);
 				return;
@@ -326,37 +277,16 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 				getSoapRoles().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WsddPackage.HANDLER__ICONS:
-				getIcons().clear();
-				return;
-			case WsddPackage.HANDLER__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				return;
-			case WsddPackage.HANDLER__DESCRIPTIONS:
-				getDescriptions().clear();
-				return;
-			case WsddPackage.HANDLER__SMALL_ICON:
-				setSmallIcon(SMALL_ICON_EDEFAULT);
-				return;
-			case WsddPackage.HANDLER__LARGE_ICON:
-				setLargeIcon(LARGE_ICON_EDEFAULT);
-				return;
-			case WsddPackage.HANDLER__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case WsddPackage.HANDLER__DISPLAY_NAME:
-				setDisplayName(DISPLAY_NAME_EDEFAULT);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case WsddPackage.HANDLER__HANDLER_NAME:
 				setHandlerName(HANDLER_NAME_EDEFAULT);
 				return;
@@ -373,30 +303,16 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 				getSoapRoles().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case WsddPackage.HANDLER__ICONS:
-				return icons != null && !icons.isEmpty();
-			case WsddPackage.HANDLER__DISPLAY_NAMES:
-				return displayNames != null && !displayNames.isEmpty();
-			case WsddPackage.HANDLER__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-			case WsddPackage.HANDLER__SMALL_ICON:
-				return SMALL_ICON_EDEFAULT == null ? smallIcon != null : !SMALL_ICON_EDEFAULT.equals(smallIcon);
-			case WsddPackage.HANDLER__LARGE_ICON:
-				return LARGE_ICON_EDEFAULT == null ? largeIcon != null : !LARGE_ICON_EDEFAULT.equals(largeIcon);
-			case WsddPackage.HANDLER__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case WsddPackage.HANDLER__DISPLAY_NAME:
-				return DISPLAY_NAME_EDEFAULT == null ? displayName != null : !DISPLAY_NAME_EDEFAULT.equals(displayName);
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case WsddPackage.HANDLER__HANDLER_NAME:
 				return HANDLER_NAME_EDEFAULT == null ? handlerName != null : !HANDLER_NAME_EDEFAULT.equals(handlerName);
 			case WsddPackage.HANDLER__HANDLER_CLASS:
@@ -408,7 +324,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 			case WsddPackage.HANDLER__SOAP_ROLES:
 				return soapRoles != null && !soapRoles.isEmpty();
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

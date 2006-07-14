@@ -10,12 +10,13 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.webapplication;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 /**
  * The mime-mapping element defines a mapping between an extension and a mime type.
- *@since 1.0
+ * @generated
+ * @since 1.0
  */
-public interface MimeMapping extends EObject{
+public interface MimeMapping extends J2EEEObject {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the Extension attribute

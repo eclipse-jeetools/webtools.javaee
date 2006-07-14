@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseApplication;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseArchive;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseConfiguration;
@@ -84,12 +85,14 @@ public class LooseconfigSwitch {
 				LooseApplication looseApplication = (LooseApplication)theEObject;
 				Object result = caseLooseApplication(looseApplication);
 				if (result == null) result = caseLooseArchive(looseApplication);
+				if (result == null) result = caseJ2EEEObject(looseApplication);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case LooseconfigPackage.LOOSE_ARCHIVE: {
 				LooseArchive looseArchive = (LooseArchive)theEObject;
 				Object result = caseLooseArchive(looseArchive);
+				if (result == null) result = caseJ2EEEObject(looseArchive);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -97,6 +100,7 @@ public class LooseconfigSwitch {
 				LooseLibrary looseLibrary = (LooseLibrary)theEObject;
 				Object result = caseLooseLibrary(looseLibrary);
 				if (result == null) result = caseLooseArchive(looseLibrary);
+				if (result == null) result = caseJ2EEEObject(looseLibrary);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -104,12 +108,14 @@ public class LooseconfigSwitch {
 				LooseModule looseModule = (LooseModule)theEObject;
 				Object result = caseLooseModule(looseModule);
 				if (result == null) result = caseLooseArchive(looseModule);
+				if (result == null) result = caseJ2EEEObject(looseModule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case LooseconfigPackage.LOOSE_CONFIGURATION: {
 				LooseConfiguration looseConfiguration = (LooseConfiguration)theEObject;
 				Object result = caseLooseConfiguration(looseConfiguration);
+				if (result == null) result = caseJ2EEEObject(looseConfiguration);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -118,6 +124,7 @@ public class LooseconfigSwitch {
 				Object result = caseLooseWARFile(looseWARFile);
 				if (result == null) result = caseLooseModule(looseWARFile);
 				if (result == null) result = caseLooseArchive(looseWARFile);
+				if (result == null) result = caseJ2EEEObject(looseWARFile);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -150,6 +157,21 @@ public class LooseconfigSwitch {
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public Object caseLooseWARFile(LooseWARFile object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseJ2EEEObject(J2EEEObject object) {
 		return null;
 	}
 

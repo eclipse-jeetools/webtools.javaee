@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.taglib.internal;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,11 +24,11 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.taglib.internal.TaglibPackage#getExtensibleType()
+ * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getExtensibleType()
  * @model abstract="true"
  * @generated
  */
-public interface ExtensibleType extends EObject{
+public interface ExtensibleType extends J2EEEObject {
 	/**
 	 * Returns the value of the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -39,7 +39,7 @@ public interface ExtensibleType extends EObject{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(String)
-	 * @see org.eclipse.jst.j2ee.taglib.internal.TaglibPackage#getExtensibleType_Value()
+	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getExtensibleType_Value()
 	 * @model
 	 * @generated
 	 */

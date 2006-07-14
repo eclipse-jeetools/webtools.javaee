@@ -12,9 +12,8 @@ package org.eclipse.jst.j2ee.webapplication.internal.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webapplication.HTTPMethodType;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
@@ -32,7 +31,7 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
  *
  * @generated
  */
-public class HTTPMethodTypeImpl extends EObjectImpl implements HTTPMethodType {
+public class HTTPMethodTypeImpl extends J2EEEObjectImpl implements HTTPMethodType {
 	/**
 	 * The default value of the '{@link #getHttpMethod() <em>Http Method</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -68,7 +67,7 @@ public class HTTPMethodTypeImpl extends EObjectImpl implements HTTPMethodType {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return WebapplicationPackage.eINSTANCE.getHTTPMethodType();
+		return WebapplicationPackage.Literals.HTTP_METHOD_TYPE;
 	}
 
 	/**
@@ -97,12 +96,12 @@ public class HTTPMethodTypeImpl extends EObjectImpl implements HTTPMethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case WebapplicationPackage.HTTP_METHOD_TYPE__HTTP_METHOD:
 				return getHttpMethod();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -110,13 +109,13 @@ public class HTTPMethodTypeImpl extends EObjectImpl implements HTTPMethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case WebapplicationPackage.HTTP_METHOD_TYPE__HTTP_METHOD:
 				setHttpMethod((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -124,13 +123,13 @@ public class HTTPMethodTypeImpl extends EObjectImpl implements HTTPMethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case WebapplicationPackage.HTTP_METHOD_TYPE__HTTP_METHOD:
 				setHttpMethod(HTTP_METHOD_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -138,12 +137,12 @@ public class HTTPMethodTypeImpl extends EObjectImpl implements HTTPMethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case WebapplicationPackage.HTTP_METHOD_TYPE__HTTP_METHOD:
 				return HTTP_METHOD_EDEFAULT == null ? httpMethod != null : !HTTP_METHOD_EDEFAULT.equals(httpMethod);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

@@ -10,11 +10,12 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.webapplication;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 /**
  * The error-page element contains a mapping between an error code or exception type to the path of a resource in the web application
+ * @generated
  */
-public interface ErrorPage extends EObject{
+public interface ErrorPage extends J2EEEObject {
 
 public boolean isErrorCode();
 public boolean isExceptionType();

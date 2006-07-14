@@ -18,13 +18,16 @@ import java.io.InputStream;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.application.Module;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveWrappedException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 
-
-public interface ModuleRef extends EObject{
+/**
+ * @generated
+ */
+public interface ModuleRef extends J2EEEObject {
 
 	/**
 	 * Return the parsed local deployment descriptor from the ModuleFile
@@ -155,7 +158,7 @@ public interface ModuleRef extends EObject{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Module</em>' reference.
 	 * @see #setModule(Module)
-	 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage#getModuleRef_Module()
+	 * @see org.eclipse.jst.j2ee.commonarchivecore.CommonarchivePackage#getModuleRef_Module()
 	 * @model required="true"
 	 * @generated
 	 */

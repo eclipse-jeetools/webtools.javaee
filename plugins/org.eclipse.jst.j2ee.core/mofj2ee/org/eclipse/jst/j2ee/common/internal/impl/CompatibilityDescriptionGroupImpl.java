@@ -10,15 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.common.internal.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
@@ -141,7 +135,7 @@ public class CompatibilityDescriptionGroupImpl extends DescriptionGroupImpl impl
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return CommonPackage.eINSTANCE.getCompatibilityDescriptionGroup();
+		return CommonPackage.Literals.COMPATIBILITY_DESCRIPTION_GROUP;
 	}
 
 	public String getSmallIcon() {
@@ -444,35 +438,8 @@ public class CompatibilityDescriptionGroupImpl extends DescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__ICONS:
-					return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
-				case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__DISPLAY_NAMES:
-					return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
-				case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__ICONS:
-				return getIcons();
-			case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__DISPLAY_NAMES:
-				return getDisplayNames();
-			case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__DESCRIPTIONS:
-				return getDescriptions();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__SMALL_ICON:
 				return getSmallIcon();
 			case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__LARGE_ICON:
@@ -482,7 +449,7 @@ public class CompatibilityDescriptionGroupImpl extends DescriptionGroupImpl impl
 			case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__DISPLAY_NAME:
 				return getDisplayName();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -490,20 +457,8 @@ public class CompatibilityDescriptionGroupImpl extends DescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__ICONS:
-				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
-				return;
-			case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
-				return;
-			case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__DESCRIPTIONS:
-				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__SMALL_ICON:
 				setSmallIcon((String)newValue);
 				return;
@@ -517,7 +472,7 @@ public class CompatibilityDescriptionGroupImpl extends DescriptionGroupImpl impl
 				setDisplayName((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -525,17 +480,8 @@ public class CompatibilityDescriptionGroupImpl extends DescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__ICONS:
-				getIcons().clear();
-				return;
-			case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				return;
-			case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__DESCRIPTIONS:
-				getDescriptions().clear();
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__SMALL_ICON:
 				setSmallIcon(SMALL_ICON_EDEFAULT);
 				return;
@@ -549,7 +495,7 @@ public class CompatibilityDescriptionGroupImpl extends DescriptionGroupImpl impl
 				setDisplayName(DISPLAY_NAME_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -557,14 +503,8 @@ public class CompatibilityDescriptionGroupImpl extends DescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__ICONS:
-				return icons != null && !icons.isEmpty();
-			case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__DISPLAY_NAMES:
-				return displayNames != null && !displayNames.isEmpty();
-			case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__SMALL_ICON:
 				return SMALL_ICON_EDEFAULT == null ? smallIcon != null : !SMALL_ICON_EDEFAULT.equals(smallIcon);
 			case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__LARGE_ICON:
@@ -574,7 +514,7 @@ public class CompatibilityDescriptionGroupImpl extends DescriptionGroupImpl impl
 			case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__DISPLAY_NAME:
 				return DISPLAY_NAME_EDEFAULT == null ? displayName != null : !DISPLAY_NAME_EDEFAULT.equals(displayName);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

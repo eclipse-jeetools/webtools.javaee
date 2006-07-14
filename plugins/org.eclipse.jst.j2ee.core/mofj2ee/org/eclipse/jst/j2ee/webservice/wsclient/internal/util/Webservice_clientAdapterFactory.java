@@ -16,6 +16,7 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.common.DescriptionGroup;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 import org.eclipse.jst.j2ee.webservice.wsclient.ComponentScopedRefs;
 import org.eclipse.jst.j2ee.webservice.wsclient.Handler;
 import org.eclipse.jst.j2ee.webservice.wsclient.PortComponentRef;
@@ -93,6 +94,9 @@ public class Webservice_clientAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseComponentScopedRefs(ComponentScopedRefs object) {
 				return createComponentScopedRefsAdapter();
+			}
+			public Object caseJ2EEEObject(J2EEEObject object) {
+				return createJ2EEEObjectAdapter();
 			}
 			public Object caseDescriptionGroup(DescriptionGroup object) {
 				return createDescriptionGroupAdapter();
@@ -185,6 +189,20 @@ public class Webservice_clientAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
     public Adapter createComponentScopedRefsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.J2EEEObject <em>J2EEE Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.j2ee.common.J2EEEObject
+	 * @generated
+	 */
+	public Adapter createJ2EEEObjectAdapter() {
 		return null;
 	}
 

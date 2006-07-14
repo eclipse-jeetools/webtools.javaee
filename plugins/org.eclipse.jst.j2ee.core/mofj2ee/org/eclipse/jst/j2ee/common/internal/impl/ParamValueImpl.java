@@ -16,10 +16,8 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.CommonPackage;
@@ -43,7 +41,7 @@ import org.eclipse.jst.j2ee.common.ParamValue;
  *
  * @generated
  */
-public class ParamValueImpl extends EObjectImpl implements ParamValue {
+public class ParamValueImpl extends J2EEEObjectImpl implements ParamValue {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -129,7 +127,7 @@ public class ParamValueImpl extends EObjectImpl implements ParamValue {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return CommonPackage.eINSTANCE.getParamValue();
+		return CommonPackage.Literals.PARAM_VALUE;
 	}
 
 	/**
@@ -212,16 +210,12 @@ public class ParamValueImpl extends EObjectImpl implements ParamValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonPackage.PARAM_VALUE__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CommonPackage.PARAM_VALUE__DESCRIPTIONS:
+				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -229,8 +223,8 @@ public class ParamValueImpl extends EObjectImpl implements ParamValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case CommonPackage.PARAM_VALUE__NAME:
 				return getName();
 			case CommonPackage.PARAM_VALUE__VALUE:
@@ -240,7 +234,7 @@ public class ParamValueImpl extends EObjectImpl implements ParamValue {
 			case CommonPackage.PARAM_VALUE__DESCRIPTIONS:
 				return getDescriptions();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -248,8 +242,8 @@ public class ParamValueImpl extends EObjectImpl implements ParamValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case CommonPackage.PARAM_VALUE__NAME:
 				setName((String)newValue);
 				return;
@@ -264,7 +258,7 @@ public class ParamValueImpl extends EObjectImpl implements ParamValue {
 				getDescriptions().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -272,8 +266,8 @@ public class ParamValueImpl extends EObjectImpl implements ParamValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case CommonPackage.PARAM_VALUE__NAME:
 				setName(NAME_EDEFAULT);
 				return;
@@ -287,7 +281,7 @@ public class ParamValueImpl extends EObjectImpl implements ParamValue {
 				getDescriptions().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -295,8 +289,8 @@ public class ParamValueImpl extends EObjectImpl implements ParamValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case CommonPackage.PARAM_VALUE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case CommonPackage.PARAM_VALUE__VALUE:
@@ -306,7 +300,7 @@ public class ParamValueImpl extends EObjectImpl implements ParamValue {
 			case CommonPackage.PARAM_VALUE__DESCRIPTIONS:
 				return descriptions != null && !descriptions.isEmpty();
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

@@ -19,15 +19,15 @@ import org.eclipse.emf.ecore.EFactory;
  * <!-- end-user-doc -->
  * @see org.eclipse.jst.j2ee.common.CommonPackage
  * @generated
- * @since 1.0 */
-public interface CommonFactory extends EFactory{
+ */
+public interface CommonFactory extends EFactory {
 	/**
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	CommonFactory eINSTANCE = new org.eclipse.jst.j2ee.common.internal.impl.CommonFactoryImpl();
+	CommonFactory eINSTANCE = org.eclipse.jst.j2ee.common.internal.impl.CommonFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>Ejb Ref</em>'.
@@ -217,6 +217,24 @@ public interface CommonFactory extends EFactory{
 	 * @generated
 	 */
 	CompatibilityDescriptionGroup createCompatibilityDescriptionGroup();
+
+	/**
+	 * Returns a new object of class '<em>J2EEE Object</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>J2EEE Object</em>'.
+	 * @generated
+	 */
+	J2EEEObject createJ2EEEObject();
+
+	/**
+	 * Returns a new object of class '<em>J2EEE Attribute</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>J2EEE Attribute</em>'.
+	 * @generated
+	 */
+	J2EEEAttribute createJ2EEEAttribute();
 
 	/**
 	 * Returns the package supported by this factory.

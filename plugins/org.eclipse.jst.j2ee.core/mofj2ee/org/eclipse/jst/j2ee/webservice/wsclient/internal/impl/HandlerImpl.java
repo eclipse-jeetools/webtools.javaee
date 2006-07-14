@@ -16,7 +16,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
@@ -134,7 +133,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return Webservice_clientPackage.eINSTANCE.getHandler();
+		return Webservice_clientPackage.Literals.HANDLER;
 	}
 
 	/**
@@ -175,6 +174,130 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case Webservice_clientPackage.HANDLER__INIT_PARAMS:
+				return ((InternalEList)getInitParams()).basicRemove(otherEnd, msgs);
+			case Webservice_clientPackage.HANDLER__SOAP_HEADERS:
+				return ((InternalEList)getSoapHeaders()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case Webservice_clientPackage.HANDLER__HANDLER_NAME:
+				return getHandlerName();
+			case Webservice_clientPackage.HANDLER__SOAP_ROLES:
+				return getSoapRoles();
+			case Webservice_clientPackage.HANDLER__PORT_NAMES:
+				return getPortNames();
+			case Webservice_clientPackage.HANDLER__HANDLER_CLASS:
+				if (resolve) return getHandlerClass();
+				return basicGetHandlerClass();
+			case Webservice_clientPackage.HANDLER__INIT_PARAMS:
+				return getInitParams();
+			case Webservice_clientPackage.HANDLER__SOAP_HEADERS:
+				return getSoapHeaders();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case Webservice_clientPackage.HANDLER__HANDLER_NAME:
+				setHandlerName((String)newValue);
+				return;
+			case Webservice_clientPackage.HANDLER__SOAP_ROLES:
+				getSoapRoles().clear();
+				getSoapRoles().addAll((Collection)newValue);
+				return;
+			case Webservice_clientPackage.HANDLER__PORT_NAMES:
+				getPortNames().clear();
+				getPortNames().addAll((Collection)newValue);
+				return;
+			case Webservice_clientPackage.HANDLER__HANDLER_CLASS:
+				setHandlerClass((JavaClass)newValue);
+				return;
+			case Webservice_clientPackage.HANDLER__INIT_PARAMS:
+				getInitParams().clear();
+				getInitParams().addAll((Collection)newValue);
+				return;
+			case Webservice_clientPackage.HANDLER__SOAP_HEADERS:
+				getSoapHeaders().clear();
+				getSoapHeaders().addAll((Collection)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case Webservice_clientPackage.HANDLER__HANDLER_NAME:
+				setHandlerName(HANDLER_NAME_EDEFAULT);
+				return;
+			case Webservice_clientPackage.HANDLER__SOAP_ROLES:
+				getSoapRoles().clear();
+				return;
+			case Webservice_clientPackage.HANDLER__PORT_NAMES:
+				getPortNames().clear();
+				return;
+			case Webservice_clientPackage.HANDLER__HANDLER_CLASS:
+				setHandlerClass((JavaClass)null);
+				return;
+			case Webservice_clientPackage.HANDLER__INIT_PARAMS:
+				getInitParams().clear();
+				return;
+			case Webservice_clientPackage.HANDLER__SOAP_HEADERS:
+				getSoapHeaders().clear();
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case Webservice_clientPackage.HANDLER__HANDLER_NAME:
+				return HANDLER_NAME_EDEFAULT == null ? handlerName != null : !HANDLER_NAME_EDEFAULT.equals(handlerName);
+			case Webservice_clientPackage.HANDLER__SOAP_ROLES:
+				return soapRoles != null && !soapRoles.isEmpty();
+			case Webservice_clientPackage.HANDLER__PORT_NAMES:
+				return portNames != null && !portNames.isEmpty();
+			case Webservice_clientPackage.HANDLER__HANDLER_CLASS:
+				return handlerClass != null;
+			case Webservice_clientPackage.HANDLER__INIT_PARAMS:
+				return initParams != null && !initParams.isEmpty();
+			case Webservice_clientPackage.HANDLER__SOAP_HEADERS:
+				return soapHeaders != null && !soapHeaders.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList getSoapRoles() {
 		if (soapRoles == null) {
 			soapRoles = new EDataTypeUniqueEList(String.class, this, Webservice_clientPackage.HANDLER__SOAP_ROLES);
@@ -201,8 +324,8 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 */
 	public JavaClass getHandlerClass() {
 		if (handlerClass != null && handlerClass.eIsProxy()) {
-			JavaClass oldHandlerClass = handlerClass;
-			handlerClass = (JavaClass)eResolveProxy((InternalEObject)handlerClass);
+			InternalEObject oldHandlerClass = (InternalEObject)handlerClass;
+			handlerClass = (JavaClass)eResolveProxy(oldHandlerClass);
 			if (handlerClass != oldHandlerClass) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Webservice_clientPackage.HANDLER__HANDLER_CLASS, oldHandlerClass, handlerClass));
@@ -242,213 +365,6 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 			initParams = new EObjectContainmentEList(ParamValue.class, this, Webservice_clientPackage.HANDLER__INIT_PARAMS);
 		}
 		return initParams;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case Webservice_clientPackage.HANDLER__ICONS:
-					return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
-				case Webservice_clientPackage.HANDLER__DISPLAY_NAMES:
-					return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
-				case Webservice_clientPackage.HANDLER__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				case Webservice_clientPackage.HANDLER__INIT_PARAMS:
-					return ((InternalEList)getInitParams()).basicRemove(otherEnd, msgs);
-				case Webservice_clientPackage.HANDLER__SOAP_HEADERS:
-					return ((InternalEList)getSoapHeaders()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case Webservice_clientPackage.HANDLER__ICONS:
-				return getIcons();
-			case Webservice_clientPackage.HANDLER__DISPLAY_NAMES:
-				return getDisplayNames();
-			case Webservice_clientPackage.HANDLER__DESCRIPTIONS:
-				return getDescriptions();
-			case Webservice_clientPackage.HANDLER__SMALL_ICON:
-				return getSmallIcon();
-			case Webservice_clientPackage.HANDLER__LARGE_ICON:
-				return getLargeIcon();
-			case Webservice_clientPackage.HANDLER__DESCRIPTION:
-				return getDescription();
-			case Webservice_clientPackage.HANDLER__DISPLAY_NAME:
-				return getDisplayName();
-			case Webservice_clientPackage.HANDLER__HANDLER_NAME:
-				return getHandlerName();
-			case Webservice_clientPackage.HANDLER__SOAP_ROLES:
-				return getSoapRoles();
-			case Webservice_clientPackage.HANDLER__PORT_NAMES:
-				return getPortNames();
-			case Webservice_clientPackage.HANDLER__HANDLER_CLASS:
-				if (resolve) return getHandlerClass();
-				return basicGetHandlerClass();
-			case Webservice_clientPackage.HANDLER__INIT_PARAMS:
-				return getInitParams();
-			case Webservice_clientPackage.HANDLER__SOAP_HEADERS:
-				return getSoapHeaders();
-		}
-		return eDynamicGet(eFeature, resolve);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case Webservice_clientPackage.HANDLER__ICONS:
-				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
-				return;
-			case Webservice_clientPackage.HANDLER__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
-				return;
-			case Webservice_clientPackage.HANDLER__DESCRIPTIONS:
-				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
-				return;
-			case Webservice_clientPackage.HANDLER__SMALL_ICON:
-				setSmallIcon((String)newValue);
-				return;
-			case Webservice_clientPackage.HANDLER__LARGE_ICON:
-				setLargeIcon((String)newValue);
-				return;
-			case Webservice_clientPackage.HANDLER__DESCRIPTION:
-				setDescription((String)newValue);
-				return;
-			case Webservice_clientPackage.HANDLER__DISPLAY_NAME:
-				setDisplayName((String)newValue);
-				return;
-			case Webservice_clientPackage.HANDLER__HANDLER_NAME:
-				setHandlerName((String)newValue);
-				return;
-			case Webservice_clientPackage.HANDLER__SOAP_ROLES:
-				getSoapRoles().clear();
-				getSoapRoles().addAll((Collection)newValue);
-				return;
-			case Webservice_clientPackage.HANDLER__PORT_NAMES:
-				getPortNames().clear();
-				getPortNames().addAll((Collection)newValue);
-				return;
-			case Webservice_clientPackage.HANDLER__HANDLER_CLASS:
-				setHandlerClass((JavaClass)newValue);
-				return;
-			case Webservice_clientPackage.HANDLER__INIT_PARAMS:
-				getInitParams().clear();
-				getInitParams().addAll((Collection)newValue);
-				return;
-			case Webservice_clientPackage.HANDLER__SOAP_HEADERS:
-				getSoapHeaders().clear();
-				getSoapHeaders().addAll((Collection)newValue);
-				return;
-		}
-		eDynamicSet(eFeature, newValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case Webservice_clientPackage.HANDLER__ICONS:
-				getIcons().clear();
-				return;
-			case Webservice_clientPackage.HANDLER__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				return;
-			case Webservice_clientPackage.HANDLER__DESCRIPTIONS:
-				getDescriptions().clear();
-				return;
-			case Webservice_clientPackage.HANDLER__SMALL_ICON:
-				setSmallIcon(SMALL_ICON_EDEFAULT);
-				return;
-			case Webservice_clientPackage.HANDLER__LARGE_ICON:
-				setLargeIcon(LARGE_ICON_EDEFAULT);
-				return;
-			case Webservice_clientPackage.HANDLER__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case Webservice_clientPackage.HANDLER__DISPLAY_NAME:
-				setDisplayName(DISPLAY_NAME_EDEFAULT);
-				return;
-			case Webservice_clientPackage.HANDLER__HANDLER_NAME:
-				setHandlerName(HANDLER_NAME_EDEFAULT);
-				return;
-			case Webservice_clientPackage.HANDLER__SOAP_ROLES:
-				getSoapRoles().clear();
-				return;
-			case Webservice_clientPackage.HANDLER__PORT_NAMES:
-				getPortNames().clear();
-				return;
-			case Webservice_clientPackage.HANDLER__HANDLER_CLASS:
-				setHandlerClass((JavaClass)null);
-				return;
-			case Webservice_clientPackage.HANDLER__INIT_PARAMS:
-				getInitParams().clear();
-				return;
-			case Webservice_clientPackage.HANDLER__SOAP_HEADERS:
-				getSoapHeaders().clear();
-				return;
-		}
-		eDynamicUnset(eFeature);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case Webservice_clientPackage.HANDLER__ICONS:
-				return icons != null && !icons.isEmpty();
-			case Webservice_clientPackage.HANDLER__DISPLAY_NAMES:
-				return displayNames != null && !displayNames.isEmpty();
-			case Webservice_clientPackage.HANDLER__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-			case Webservice_clientPackage.HANDLER__SMALL_ICON:
-				return SMALL_ICON_EDEFAULT == null ? smallIcon != null : !SMALL_ICON_EDEFAULT.equals(smallIcon);
-			case Webservice_clientPackage.HANDLER__LARGE_ICON:
-				return LARGE_ICON_EDEFAULT == null ? largeIcon != null : !LARGE_ICON_EDEFAULT.equals(largeIcon);
-			case Webservice_clientPackage.HANDLER__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case Webservice_clientPackage.HANDLER__DISPLAY_NAME:
-				return DISPLAY_NAME_EDEFAULT == null ? displayName != null : !DISPLAY_NAME_EDEFAULT.equals(displayName);
-			case Webservice_clientPackage.HANDLER__HANDLER_NAME:
-				return HANDLER_NAME_EDEFAULT == null ? handlerName != null : !HANDLER_NAME_EDEFAULT.equals(handlerName);
-			case Webservice_clientPackage.HANDLER__SOAP_ROLES:
-				return soapRoles != null && !soapRoles.isEmpty();
-			case Webservice_clientPackage.HANDLER__PORT_NAMES:
-				return portNames != null && !portNames.isEmpty();
-			case Webservice_clientPackage.HANDLER__HANDLER_CLASS:
-				return handlerClass != null;
-			case Webservice_clientPackage.HANDLER__INIT_PARAMS:
-				return initParams != null && !initParams.isEmpty();
-			case Webservice_clientPackage.HANDLER__SOAP_HEADERS:
-				return soapHeaders != null && !soapHeaders.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
 	}
 
 	/**

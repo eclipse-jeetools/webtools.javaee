@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.webapplication;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -28,9 +28,8 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getLocalEncodingMapping()
  * @model
  * @generated
- * @since 1.0
  */
-public interface LocalEncodingMapping extends EObject{
+public interface LocalEncodingMapping extends J2EEEObject {
 	/**
 	 * Returns the value of the '<em><b>Locale</b></em>' attribute.
 	 * <!-- begin-user-doc -->

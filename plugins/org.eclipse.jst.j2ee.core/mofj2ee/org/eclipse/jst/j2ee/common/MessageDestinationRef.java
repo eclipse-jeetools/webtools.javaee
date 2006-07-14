@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.common;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -61,8 +60,8 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.common.CommonPackage#getMessageDestinationRef()
  * @model
  * @generated
- * @since 1.0 */
-public interface MessageDestinationRef extends EObject{
+ */
+public interface MessageDestinationRef extends J2EEEObject {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->

@@ -17,9 +17,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.eclipse.emf.ecore.impl.EcorePackageImpl;
 import org.eclipse.jem.java.JavaRefPackage;
-import org.eclipse.jem.java.internal.impl.JavaRefPackageImpl;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.internal.impl.ApplicationPackageImpl;
 import org.eclipse.jst.j2ee.client.ClientPackage;
@@ -327,8 +325,8 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage, EPackage
 		isInited = true;
 
 		// Initialize simple dependencies
-		EcorePackageImpl.init();
-		JavaRefPackageImpl.init();
+		EcorePackage.eINSTANCE.eClass();
+		JavaRefPackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
 		ClientPackageImpl theClientPackage = (ClientPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI) instanceof ClientPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI) : ClientPackage.eINSTANCE);
@@ -1557,20 +1555,33 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage, EPackage
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		CommonPackageImpl theCommonPackage = (CommonPackageImpl)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
-		JavaRefPackageImpl theJavaRefPackage = (JavaRefPackageImpl)EPackage.Registry.INSTANCE.getEPackage(JavaRefPackage.eNS_URI);
-		EcorePackageImpl theEcorePackage = (EcorePackageImpl)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
+		CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+		JavaRefPackage theJavaRefPackage = (JavaRefPackage)EPackage.Registry.INSTANCE.getEPackage(JavaRefPackage.eNS_URI);
 
 		// Add supertypes to classes
 		containerManagedEntityEClass.getESuperTypes().add(this.getEntity());
+		methodPermissionEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		assemblyDescriptorEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		methodTransactionEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 		sessionEClass.getESuperTypes().add(this.getEnterpriseBean());
 		entityEClass.getESuperTypes().add(this.getEnterpriseBean());
 		enterpriseBeanEClass.getESuperTypes().add(theCommonPackage.getJNDIEnvRefsGroup());
+		ejbMethodCategoryEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 		ejbJarEClass.getESuperTypes().add(theCommonPackage.getCompatibilityDescriptionGroup());
-		cmpAttributeEClass.getESuperTypes().add(theEcorePackage.getEAttribute());
+		methodElementEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		cmpAttributeEClass.getESuperTypes().add(theCommonPackage.getJ2EEEAttribute());
+		relationshipsEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		queryEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		ejbRelationEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		ejbRelationshipRoleEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		roleSourceEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 		cmrFieldEClass.getESuperTypes().add(this.getCMPAttribute());
 		messageDrivenEClass.getESuperTypes().add(this.getEnterpriseBean());
+		messageDrivenDestinationEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		excludeListEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 		queryMethodEClass.getESuperTypes().add(this.getMethodElement());
+		activationConfigPropertyEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		activationConfigEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(containerManagedEntityEClass, ContainerManagedEntity.class, "ContainerManagedEntity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

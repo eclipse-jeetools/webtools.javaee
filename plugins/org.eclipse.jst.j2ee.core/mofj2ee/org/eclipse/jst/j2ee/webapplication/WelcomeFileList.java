@@ -11,12 +11,13 @@
 package org.eclipse.jst.j2ee.webapplication;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 /**
  * The welcome-file-list contains an ordered list of welcome files elements.
+ * @generated
  * @since 1.0
  */
-public interface WelcomeFileList extends EObject{
+public interface WelcomeFileList extends J2EEEObject {
 
 	/**
 	 * Adds the file whose name is specified in the parameter

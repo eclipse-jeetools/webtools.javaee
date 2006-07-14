@@ -10,21 +10,14 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
-import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.CMRField;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EJBRelationshipRole;
@@ -33,9 +26,9 @@ import org.eclipse.jst.j2ee.ejb.EjbPackage;
 /**
  * Describes the bean provider's view of a relationship. It consists of an optional description, and the name and the class type of a field in the source of a role of a relationship. The CMRField::name element corresponds to the name used for the get and set accessor methods for the relationship. The CMRField::type element is used only for collection-valued CMRFields. It specifies the type of the collection that is used (a java class name).
  * 
-
+ * @generated
  */
-public class CMRFieldImpl extends CMPAttributeImpl implements CMRField, CMPAttribute{
+public class CMRFieldImpl extends CMPAttributeImpl implements CMRField {
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
@@ -53,7 +46,7 @@ public class CMRFieldImpl extends CMPAttributeImpl implements CMRField, CMPAttri
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return EjbPackage.eINSTANCE.getCMRField();
+		return EjbPackage.Literals.CMR_FIELD;
 	}
 
 /**
@@ -82,22 +75,32 @@ public void setCollectionTypeName(String typeName) {
 	 */
 	public EJBRelationshipRole getRole() {
 		if (eContainerFeatureID != EjbPackage.CMR_FIELD__ROLE) return null;
-		return (EJBRelationshipRole)eContainer;
+		return (EJBRelationshipRole)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetRole(EJBRelationshipRole newRole, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newRole, EjbPackage.CMR_FIELD__ROLE, msgs);
+		return msgs;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public void setRole(EJBRelationshipRole newRole) {
-		if (newRole != eContainer || (eContainerFeatureID != EjbPackage.CMR_FIELD__ROLE && newRole != null)) {
+		if (newRole != eInternalContainer() || (eContainerFeatureID != EjbPackage.CMR_FIELD__ROLE && newRole != null)) {
 			if (EcoreUtil.isAncestor(this, newRole))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newRole != null)
 				msgs = ((InternalEObject)newRole).eInverseAdd(this, EjbPackage.EJB_RELATIONSHIP_ROLE__CMR_FIELD, EJBRelationshipRole.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newRole, EjbPackage.CMR_FIELD__ROLE, msgs);
+			msgs = basicSetRole(newRole, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -109,8 +112,8 @@ public void setCollectionTypeName(String typeName) {
 	 */
 	public JavaClass getCollectionType() {
 		if (collectionType != null && collectionType.eIsProxy()) {
-			JavaClass oldCollectionType = collectionType;
-			collectionType = (JavaClass)eResolveProxy((InternalEObject)collectionType);
+			InternalEObject oldCollectionType = (InternalEObject)collectionType;
+			collectionType = (JavaClass)eResolveProxy(oldCollectionType);
 			if (collectionType != oldCollectionType) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EjbPackage.CMR_FIELD__COLLECTION_TYPE, oldCollectionType, collectionType));
@@ -143,26 +146,14 @@ public void setCollectionTypeName(String typeName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.CMR_FIELD__EANNOTATIONS:
-					return ((InternalEList)getEAnnotations()).basicAdd(otherEnd, msgs);
-				case EjbPackage.CMR_FIELD__ECONTAINING_CLASS:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, EjbPackage.CMR_FIELD__ECONTAINING_CLASS, msgs);
-				case EjbPackage.CMR_FIELD__ROLE:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, EjbPackage.CMR_FIELD__ROLE, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.CMR_FIELD__ROLE:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetRole((EJBRelationshipRole)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -170,22 +161,12 @@ public void setCollectionTypeName(String typeName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.CMR_FIELD__EANNOTATIONS:
-					return ((InternalEList)getEAnnotations()).basicRemove(otherEnd, msgs);
-				case EjbPackage.CMR_FIELD__ECONTAINING_CLASS:
-					return eBasicSetContainer(null, EjbPackage.CMR_FIELD__ECONTAINING_CLASS, msgs);
-				case EjbPackage.CMR_FIELD__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				case EjbPackage.CMR_FIELD__ROLE:
-					return eBasicSetContainer(null, EjbPackage.CMR_FIELD__ROLE, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.CMR_FIELD__ROLE:
+				return basicSetRole(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -193,18 +174,12 @@ public void setCollectionTypeName(String typeName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case EjbPackage.CMR_FIELD__ECONTAINING_CLASS:
-					return eContainer.eInverseRemove(this, EcorePackage.ECLASS__ESTRUCTURAL_FEATURES, EClass.class, msgs);
-				case EjbPackage.CMR_FIELD__ROLE:
-					return eContainer.eInverseRemove(this, EjbPackage.EJB_RELATIONSHIP_ROLE__CMR_FIELD, EJBRelationshipRole.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case EjbPackage.CMR_FIELD__ROLE:
+				return eInternalContainer().eInverseRemove(this, EjbPackage.EJB_RELATIONSHIP_ROLE__CMR_FIELD, EJBRelationshipRole.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -212,171 +187,24 @@ public void setCollectionTypeName(String typeName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.CMR_FIELD__EANNOTATIONS:
-				return getEAnnotations();
-			case EjbPackage.CMR_FIELD__NAME:
-				return getName();
-			case EjbPackage.CMR_FIELD__ORDERED:
-				return isOrdered() ? Boolean.TRUE : Boolean.FALSE;
-			case EjbPackage.CMR_FIELD__UNIQUE:
-				return isUnique() ? Boolean.TRUE : Boolean.FALSE;
-			case EjbPackage.CMR_FIELD__LOWER_BOUND:
-				return new Integer(getLowerBound());
-			case EjbPackage.CMR_FIELD__UPPER_BOUND:
-				return new Integer(getUpperBound());
-			case EjbPackage.CMR_FIELD__MANY:
-				return isMany() ? Boolean.TRUE : Boolean.FALSE;
-			case EjbPackage.CMR_FIELD__REQUIRED:
-				return isRequired() ? Boolean.TRUE : Boolean.FALSE;
-			case EjbPackage.CMR_FIELD__ETYPE:
-				if (resolve) return getEType();
-				return basicGetEType();
-			case EjbPackage.CMR_FIELD__CHANGEABLE:
-				return isChangeable() ? Boolean.TRUE : Boolean.FALSE;
-			case EjbPackage.CMR_FIELD__VOLATILE:
-				return isVolatile() ? Boolean.TRUE : Boolean.FALSE;
-			case EjbPackage.CMR_FIELD__TRANSIENT:
-				return isTransient() ? Boolean.TRUE : Boolean.FALSE;
-			case EjbPackage.CMR_FIELD__DEFAULT_VALUE_LITERAL:
-				return getDefaultValueLiteral();
-			case EjbPackage.CMR_FIELD__DEFAULT_VALUE:
-				return getDefaultValue();
-			case EjbPackage.CMR_FIELD__UNSETTABLE:
-				return isUnsettable() ? Boolean.TRUE : Boolean.FALSE;
-			case EjbPackage.CMR_FIELD__DERIVED:
-				return isDerived() ? Boolean.TRUE : Boolean.FALSE;
-			case EjbPackage.CMR_FIELD__ECONTAINING_CLASS:
-				return getEContainingClass();
-			case EjbPackage.CMR_FIELD__ID:
-				return isID() ? Boolean.TRUE : Boolean.FALSE;
-			case EjbPackage.CMR_FIELD__EATTRIBUTE_TYPE:
-				if (resolve) return getEAttributeType();
-				return basicGetEAttributeType();
-			case EjbPackage.CMR_FIELD__DESCRIPTION:
-				return getDescription();
-			case EjbPackage.CMR_FIELD__DESCRIPTIONS:
-				return getDescriptions();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case EjbPackage.CMR_FIELD__ROLE:
 				return getRole();
 			case EjbPackage.CMR_FIELD__COLLECTION_TYPE:
 				if (resolve) return getCollectionType();
 				return basicGetCollectionType();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.CMR_FIELD__EANNOTATIONS:
-				return eAnnotations != null && !eAnnotations.isEmpty();
-			case EjbPackage.CMR_FIELD__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case EjbPackage.CMR_FIELD__ORDERED:
-				return ((eFlags & ORDERED_EFLAG) != 0) != ORDERED_EDEFAULT;
-			case EjbPackage.CMR_FIELD__UNIQUE:
-				return ((eFlags & UNIQUE_EFLAG) != 0) != UNIQUE_EDEFAULT;
-			case EjbPackage.CMR_FIELD__LOWER_BOUND:
-				return lowerBound != LOWER_BOUND_EDEFAULT;
-			case EjbPackage.CMR_FIELD__UPPER_BOUND:
-				return upperBound != UPPER_BOUND_EDEFAULT;
-			case EjbPackage.CMR_FIELD__MANY:
-				return isMany() != MANY_EDEFAULT;
-			case EjbPackage.CMR_FIELD__REQUIRED:
-				return isRequired() != REQUIRED_EDEFAULT;
-			case EjbPackage.CMR_FIELD__ETYPE:
-				return eType != null;
-			case EjbPackage.CMR_FIELD__CHANGEABLE:
-				return ((eFlags & CHANGEABLE_EFLAG) != 0) != CHANGEABLE_EDEFAULT;
-			case EjbPackage.CMR_FIELD__VOLATILE:
-				return ((eFlags & VOLATILE_EFLAG) != 0) != VOLATILE_EDEFAULT;
-			case EjbPackage.CMR_FIELD__TRANSIENT:
-				return ((eFlags & TRANSIENT_EFLAG) != 0) != TRANSIENT_EDEFAULT;
-			case EjbPackage.CMR_FIELD__DEFAULT_VALUE_LITERAL:
-				return DEFAULT_VALUE_LITERAL_EDEFAULT == null ? defaultValueLiteral != null : !DEFAULT_VALUE_LITERAL_EDEFAULT.equals(defaultValueLiteral);
-			case EjbPackage.CMR_FIELD__DEFAULT_VALUE:
-				return DEFAULT_VALUE_EDEFAULT == null ? getDefaultValue() != null : !DEFAULT_VALUE_EDEFAULT.equals(getDefaultValue());
-			case EjbPackage.CMR_FIELD__UNSETTABLE:
-				return ((eFlags & UNSETTABLE_EFLAG) != 0) != UNSETTABLE_EDEFAULT;
-			case EjbPackage.CMR_FIELD__DERIVED:
-				return ((eFlags & DERIVED_EFLAG) != 0) != DERIVED_EDEFAULT;
-			case EjbPackage.CMR_FIELD__ECONTAINING_CLASS:
-				return getEContainingClass() != null;
-			case EjbPackage.CMR_FIELD__ID:
-				return ((eFlags & ID_EFLAG) != 0) != ID_EDEFAULT;
-			case EjbPackage.CMR_FIELD__EATTRIBUTE_TYPE:
-				return basicGetEAttributeType() != null;
-			case EjbPackage.CMR_FIELD__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case EjbPackage.CMR_FIELD__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-			case EjbPackage.CMR_FIELD__ROLE:
-				return getRole() != null;
-			case EjbPackage.CMR_FIELD__COLLECTION_TYPE:
-				return collectionType != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.CMR_FIELD__EANNOTATIONS:
-				getEAnnotations().clear();
-				getEAnnotations().addAll((Collection)newValue);
-				return;
-			case EjbPackage.CMR_FIELD__NAME:
-				setName((String)newValue);
-				return;
-			case EjbPackage.CMR_FIELD__ORDERED:
-				setOrdered(((Boolean)newValue).booleanValue());
-				return;
-			case EjbPackage.CMR_FIELD__UNIQUE:
-				setUnique(((Boolean)newValue).booleanValue());
-				return;
-			case EjbPackage.CMR_FIELD__LOWER_BOUND:
-				setLowerBound(((Integer)newValue).intValue());
-				return;
-			case EjbPackage.CMR_FIELD__UPPER_BOUND:
-				setUpperBound(((Integer)newValue).intValue());
-				return;
-			case EjbPackage.CMR_FIELD__ETYPE:
-				setEType((EClassifier)newValue);
-				return;
-			case EjbPackage.CMR_FIELD__CHANGEABLE:
-				setChangeable(((Boolean)newValue).booleanValue());
-				return;
-			case EjbPackage.CMR_FIELD__VOLATILE:
-				setVolatile(((Boolean)newValue).booleanValue());
-				return;
-			case EjbPackage.CMR_FIELD__TRANSIENT:
-				setTransient(((Boolean)newValue).booleanValue());
-				return;
-			case EjbPackage.CMR_FIELD__DEFAULT_VALUE_LITERAL:
-				setDefaultValueLiteral((String)newValue);
-				return;
-			case EjbPackage.CMR_FIELD__UNSETTABLE:
-				setUnsettable(((Boolean)newValue).booleanValue());
-				return;
-			case EjbPackage.CMR_FIELD__DERIVED:
-				setDerived(((Boolean)newValue).booleanValue());
-				return;
-			case EjbPackage.CMR_FIELD__ID:
-				setID(((Boolean)newValue).booleanValue());
-				return;
-			case EjbPackage.CMR_FIELD__DESCRIPTION:
-				setDescription((String)newValue);
-				return;
-			case EjbPackage.CMR_FIELD__DESCRIPTIONS:
-				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case EjbPackage.CMR_FIELD__ROLE:
 				setRole((EJBRelationshipRole)newValue);
 				return;
@@ -384,62 +212,16 @@ public void setCollectionTypeName(String typeName) {
 				setCollectionType((JavaClass)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.CMR_FIELD__EANNOTATIONS:
-				getEAnnotations().clear();
-				return;
-			case EjbPackage.CMR_FIELD__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case EjbPackage.CMR_FIELD__ORDERED:
-				setOrdered(ORDERED_EDEFAULT);
-				return;
-			case EjbPackage.CMR_FIELD__UNIQUE:
-				setUnique(UNIQUE_EDEFAULT);
-				return;
-			case EjbPackage.CMR_FIELD__LOWER_BOUND:
-				setLowerBound(LOWER_BOUND_EDEFAULT);
-				return;
-			case EjbPackage.CMR_FIELD__UPPER_BOUND:
-				setUpperBound(UPPER_BOUND_EDEFAULT);
-				return;
-			case EjbPackage.CMR_FIELD__ETYPE:
-				setEType((EClassifier)null);
-				return;
-			case EjbPackage.CMR_FIELD__CHANGEABLE:
-				setChangeable(CHANGEABLE_EDEFAULT);
-				return;
-			case EjbPackage.CMR_FIELD__VOLATILE:
-				setVolatile(VOLATILE_EDEFAULT);
-				return;
-			case EjbPackage.CMR_FIELD__TRANSIENT:
-				setTransient(TRANSIENT_EDEFAULT);
-				return;
-			case EjbPackage.CMR_FIELD__DEFAULT_VALUE_LITERAL:
-				setDefaultValueLiteral(DEFAULT_VALUE_LITERAL_EDEFAULT);
-				return;
-			case EjbPackage.CMR_FIELD__UNSETTABLE:
-				setUnsettable(UNSETTABLE_EDEFAULT);
-				return;
-			case EjbPackage.CMR_FIELD__DERIVED:
-				setDerived(DERIVED_EDEFAULT);
-				return;
-			case EjbPackage.CMR_FIELD__ID:
-				setID(ID_EDEFAULT);
-				return;
-			case EjbPackage.CMR_FIELD__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case EjbPackage.CMR_FIELD__DESCRIPTIONS:
-				getDescriptions().clear();
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case EjbPackage.CMR_FIELD__ROLE:
 				setRole((EJBRelationshipRole)null);
 				return;
@@ -447,7 +229,22 @@ public void setCollectionTypeName(String typeName) {
 				setCollectionType((JavaClass)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case EjbPackage.CMR_FIELD__ROLE:
+				return getRole() != null;
+			case EjbPackage.CMR_FIELD__COLLECTION_TYPE:
+				return collectionType != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

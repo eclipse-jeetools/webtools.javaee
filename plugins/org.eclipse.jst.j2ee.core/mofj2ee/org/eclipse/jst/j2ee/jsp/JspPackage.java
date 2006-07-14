@@ -39,8 +39,8 @@ import org.eclipse.jst.j2ee.common.CommonPackage;
  * @see org.eclipse.jst.j2ee.jsp.JspFactory
  * @model kind="package"
  * @generated
- * @since 1.0 */
-public interface JspPackage extends EPackage{
+ */
+public interface JspPackage extends EPackage {
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
@@ -90,7 +90,7 @@ public interface JspPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int JSP_CONFIG__TAG_LIBS = 0;
+	int JSP_CONFIG__TAG_LIBS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Property Groups</b></em>' containment reference list.
@@ -99,16 +99,16 @@ public interface JspPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int JSP_CONFIG__PROPERTY_GROUPS = 1;
+	int JSP_CONFIG__PROPERTY_GROUPS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>JSP Config</em>' class.
+	 * The number of structural features of the '<em>JSP Config</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JSP_CONFIG_FEATURE_COUNT = 2;
+	int JSP_CONFIG_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.jsp.internal.impl.JSPPropertyGroupImpl <em>JSP Property Group</em>}' class.
@@ -247,7 +247,7 @@ public interface JspPackage extends EPackage{
 	int JSP_PROPERTY_GROUP__INCLUDE_CODAS = CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP_FEATURE_COUNT + 6;
 
 	/**
-	 * The number of structural features of the the '<em>JSP Property Group</em>' class.
+	 * The number of structural features of the '<em>JSP Property Group</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -272,7 +272,7 @@ public interface JspPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int TAG_LIB_REF_TYPE__TAGLIB_URI = 0;
+	int TAG_LIB_REF_TYPE__TAGLIB_URI = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Taglib Location</b></em>' attribute.
@@ -281,16 +281,16 @@ public interface JspPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int TAG_LIB_REF_TYPE__TAGLIB_LOCATION = 1;
+	int TAG_LIB_REF_TYPE__TAGLIB_LOCATION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Tag Lib Ref Type</em>' class.
+	 * The number of structural features of the '<em>Tag Lib Ref Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TAG_LIB_REF_TYPE_FEATURE_COUNT = 2;
+	int TAG_LIB_REF_TYPE_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 
 	/**
@@ -452,5 +452,138 @@ public interface JspPackage extends EPackage{
 	 * @generated
 	 */
 	JspFactory getJspFactory();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Defines literals for the meta objects that represent
+	 * <ul>
+	 *   <li>each class,</li>
+	 *   <li>each feature of each class,</li>
+	 *   <li>each enum,</li>
+	 *   <li>and each data type</li>
+	 * </ul>
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	interface Literals  {
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.jsp.internal.impl.JSPConfigImpl <em>JSP Config</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.jsp.internal.impl.JSPConfigImpl
+		 * @see org.eclipse.jst.j2ee.jsp.internal.impl.JspPackageImpl#getJSPConfig()
+		 * @generated
+		 */
+		EClass JSP_CONFIG = eINSTANCE.getJSPConfig();
+
+		/**
+		 * The meta object literal for the '<em><b>Tag Libs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JSP_CONFIG__TAG_LIBS = eINSTANCE.getJSPConfig_TagLibs();
+
+		/**
+		 * The meta object literal for the '<em><b>Property Groups</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JSP_CONFIG__PROPERTY_GROUPS = eINSTANCE.getJSPConfig_PropertyGroups();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.jsp.internal.impl.JSPPropertyGroupImpl <em>JSP Property Group</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.jsp.internal.impl.JSPPropertyGroupImpl
+		 * @see org.eclipse.jst.j2ee.jsp.internal.impl.JspPackageImpl#getJSPPropertyGroup()
+		 * @generated
+		 */
+		EClass JSP_PROPERTY_GROUP = eINSTANCE.getJSPPropertyGroup();
+
+		/**
+		 * The meta object literal for the '<em><b>Url Pattern</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JSP_PROPERTY_GROUP__URL_PATTERN = eINSTANCE.getJSPPropertyGroup_UrlPattern();
+
+		/**
+		 * The meta object literal for the '<em><b>El Ignored</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JSP_PROPERTY_GROUP__EL_IGNORED = eINSTANCE.getJSPPropertyGroup_ElIgnored();
+
+		/**
+		 * The meta object literal for the '<em><b>Page Encoding</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JSP_PROPERTY_GROUP__PAGE_ENCODING = eINSTANCE.getJSPPropertyGroup_PageEncoding();
+
+		/**
+		 * The meta object literal for the '<em><b>Scripting Invalid</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JSP_PROPERTY_GROUP__SCRIPTING_INVALID = eINSTANCE.getJSPPropertyGroup_ScriptingInvalid();
+
+		/**
+		 * The meta object literal for the '<em><b>Is XML</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JSP_PROPERTY_GROUP__IS_XML = eINSTANCE.getJSPPropertyGroup_IsXML();
+
+		/**
+		 * The meta object literal for the '<em><b>Include Preludes</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JSP_PROPERTY_GROUP__INCLUDE_PRELUDES = eINSTANCE.getJSPPropertyGroup_IncludePreludes();
+
+		/**
+		 * The meta object literal for the '<em><b>Include Codas</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JSP_PROPERTY_GROUP__INCLUDE_CODAS = eINSTANCE.getJSPPropertyGroup_IncludeCodas();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.jsp.internal.impl.TagLibRefTypeImpl <em>Tag Lib Ref Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.jsp.internal.impl.TagLibRefTypeImpl
+		 * @see org.eclipse.jst.j2ee.jsp.internal.impl.JspPackageImpl#getTagLibRefType()
+		 * @generated
+		 */
+		EClass TAG_LIB_REF_TYPE = eINSTANCE.getTagLibRefType();
+
+		/**
+		 * The meta object literal for the '<em><b>Taglib URI</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TAG_LIB_REF_TYPE__TAGLIB_URI = eINSTANCE.getTagLibRefType_TaglibURI();
+
+		/**
+		 * The meta object literal for the '<em><b>Taglib Location</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TAG_LIB_REF_TYPE__TAGLIB_LOCATION = eINSTANCE.getTagLibRefType_TaglibLocation();
+
+	}
 
 } //JspPackage

@@ -14,7 +14,9 @@ package org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal;
 
 import org.eclipse.emf.common.util.EList;
 
-
+/**
+ * @generated
+ */
 public interface LooseApplication extends LooseArchive {
 	/**
 	 * @generated This field/method will be replaced during code generation

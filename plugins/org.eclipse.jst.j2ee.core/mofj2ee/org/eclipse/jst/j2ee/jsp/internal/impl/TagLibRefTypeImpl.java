@@ -12,9 +12,8 @@ package org.eclipse.jst.j2ee.jsp.internal.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.jsp.JspPackage;
 import org.eclipse.jst.j2ee.jsp.TagLibRefType;
 
@@ -33,7 +32,7 @@ import org.eclipse.jst.j2ee.jsp.TagLibRefType;
  *
  * @generated
  */
-public class TagLibRefTypeImpl extends EObjectImpl implements TagLibRefType {
+public class TagLibRefTypeImpl extends J2EEEObjectImpl implements TagLibRefType {
 	/**
 	 * The default value of the '{@link #getTaglibURI() <em>Taglib URI</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -89,7 +88,7 @@ public class TagLibRefTypeImpl extends EObjectImpl implements TagLibRefType {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return JspPackage.eINSTANCE.getTagLibRefType();
+		return JspPackage.Literals.TAG_LIB_REF_TYPE;
 	}
 
 	/**
@@ -139,14 +138,14 @@ public class TagLibRefTypeImpl extends EObjectImpl implements TagLibRefType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case JspPackage.TAG_LIB_REF_TYPE__TAGLIB_URI:
 				return getTaglibURI();
 			case JspPackage.TAG_LIB_REF_TYPE__TAGLIB_LOCATION:
 				return getTaglibLocation();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -154,8 +153,8 @@ public class TagLibRefTypeImpl extends EObjectImpl implements TagLibRefType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case JspPackage.TAG_LIB_REF_TYPE__TAGLIB_URI:
 				setTaglibURI((String)newValue);
 				return;
@@ -163,7 +162,7 @@ public class TagLibRefTypeImpl extends EObjectImpl implements TagLibRefType {
 				setTaglibLocation((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -171,8 +170,8 @@ public class TagLibRefTypeImpl extends EObjectImpl implements TagLibRefType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case JspPackage.TAG_LIB_REF_TYPE__TAGLIB_URI:
 				setTaglibURI(TAGLIB_URI_EDEFAULT);
 				return;
@@ -180,7 +179,7 @@ public class TagLibRefTypeImpl extends EObjectImpl implements TagLibRefType {
 				setTaglibLocation(TAGLIB_LOCATION_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -188,14 +187,14 @@ public class TagLibRefTypeImpl extends EObjectImpl implements TagLibRefType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case JspPackage.TAG_LIB_REF_TYPE__TAGLIB_URI:
 				return TAGLIB_URI_EDEFAULT == null ? taglibURI != null : !TAGLIB_URI_EDEFAULT.equals(taglibURI);
 			case JspPackage.TAG_LIB_REF_TYPE__TAGLIB_LOCATION:
 				return TAGLIB_LOCATION_EDEFAULT == null ? taglibLocation != null : !TAGLIB_LOCATION_EDEFAULT.equals(taglibLocation);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

@@ -48,7 +48,7 @@ public final class SessionType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final SessionType STATEFUL_LITERAL = new SessionType(STATEFUL, "Stateful"); //$NON-NLS-1$
+	public static final SessionType STATEFUL_LITERAL = new SessionType(STATEFUL, "Stateful", "Stateful"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Stateless</b></em>' literal object.
@@ -62,7 +62,7 @@ public final class SessionType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final SessionType STATELESS_LITERAL = new SessionType(STATELESS, "Stateless"); //$NON-NLS-1$
+	public static final SessionType STATELESS_LITERAL = new SessionType(STATELESS, "Stateless", "Stateless"); //$NON-NLS-1$
 
 	/**
 	 * An array of all the '<em><b>Session Type</b></em>' enumerators.
@@ -85,17 +85,17 @@ public final class SessionType extends AbstractEnumerator{
 	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Session Type</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Session Type</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * @param name passes literal name
 	 * @return literal instance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static SessionType get(String name) {
+	public static SessionType get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			SessionType result = VALUES_ARRAY[i];
-			if (result.toString().equals(name)) {
+			if (result.toString().equals(literal)) {
 				return result;
 			}
 		}
@@ -103,7 +103,23 @@ public final class SessionType extends AbstractEnumerator{
 	}
 
 	/**
-	 * Returns the '<em><b>Session Type</b></em>' literal with the specified value.
+	 * Returns the '<em><b>Session Type</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static SessionType getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			SessionType result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Session Type</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * @param value passes literal value
 	 * @return literal instance
@@ -124,8 +140,8 @@ public final class SessionType extends AbstractEnumerator{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private SessionType(int value, String name) {
-		super(value, name);
+	private SessionType(int value, String name, String literal) {
+		super(value, name, literal);
 	}
 
 } //SessionType

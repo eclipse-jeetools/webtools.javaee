@@ -43,7 +43,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="serviceQname" lowerBound="1"
         eType="ecore:EClass common.ecore#//QName" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PortComponentRef">
+  <eClassifiers xsi:type="ecore:EClass" name="PortComponentRef" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The port-component-ref element declares a client dependency&#xD;&#xA;    on the container for resolving a Service Endpoint Interface&#xD;&#xA;    to a WSDL port. It optionally associates the Service Endpoint&#xD;&#xA;    Interface with a particular port-component. This is only used&#xD;&#xA;    by the container for a Service.getPort(Class) method call."/>
     </eAnnotations>
@@ -91,7 +91,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="soapHeaders" upperBound="-1"
         eType="ecore:EClass common.ecore#//QName" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="WebServicesClient">
+  <eClassifiers xsi:type="ecore:EClass" name="WebServicesClient" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="@version J2EE1.4 deprecated"/>
     </eAnnotations>
@@ -100,7 +100,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="serviceRefs" upperBound="-1"
         eType="#//ServiceRef" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ComponentScopedRefs">
+  <eClassifiers xsi:type="ecore:EClass" name="ComponentScopedRefs" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="@version J2EE1.4 deprecated"/>
     </eAnnotations>

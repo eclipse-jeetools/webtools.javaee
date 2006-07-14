@@ -20,17 +20,15 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.common.Description;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.CMRField;
 import org.eclipse.jst.j2ee.ejb.CommonRelationship;
@@ -63,8 +61,9 @@ import org.eclipse.wst.common.internal.emf.utilities.IDUtil;
  *     <//relationship-role-source>
  *   <//ejb-relationship-role>
  * ...
+ * @generated
  */
-public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelationshipRole, EObject, CommonRelationshipRole {
+public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelationshipRole {
 
 
 
@@ -195,7 +194,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return EjbPackage.eINSTANCE.getEJBRelationshipRole();
+		return EjbPackage.Literals.EJB_RELATIONSHIP_ROLE;
 	}
 
 	/**
@@ -583,7 +582,17 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 */
 	public EJBRelation getRelationship() {
 		if (eContainerFeatureID != EjbPackage.EJB_RELATIONSHIP_ROLE__RELATIONSHIP) return null;
-		return (EJBRelation)eContainer;
+		return (EJBRelation)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetRelationship(EJBRelation newRelationship, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newRelationship, EjbPackage.EJB_RELATIONSHIP_ROLE__RELATIONSHIP, msgs);
+		return msgs;
 	}
 
 	/**
@@ -718,28 +727,22 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.EJB_RELATIONSHIP_ROLE__RELATIONSHIP:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, EjbPackage.EJB_RELATIONSHIP_ROLE__RELATIONSHIP, msgs);
-				case EjbPackage.EJB_RELATIONSHIP_ROLE__SOURCE:
-					if (source != null)
-						msgs = ((InternalEObject)source).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EjbPackage.EJB_RELATIONSHIP_ROLE__SOURCE, null, msgs);
-					return basicSetSource((RoleSource)otherEnd, msgs);
-				case EjbPackage.EJB_RELATIONSHIP_ROLE__CMR_FIELD:
-					if (cmrField != null)
-						msgs = ((InternalEObject)cmrField).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EjbPackage.EJB_RELATIONSHIP_ROLE__CMR_FIELD, null, msgs);
-					return basicSetCmrField((CMRField)otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.EJB_RELATIONSHIP_ROLE__RELATIONSHIP:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetRelationship((EJBRelation)otherEnd, msgs);
+			case EjbPackage.EJB_RELATIONSHIP_ROLE__SOURCE:
+				if (source != null)
+					msgs = ((InternalEObject)source).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EjbPackage.EJB_RELATIONSHIP_ROLE__SOURCE, null, msgs);
+				return basicSetSource((RoleSource)otherEnd, msgs);
+			case EjbPackage.EJB_RELATIONSHIP_ROLE__CMR_FIELD:
+				if (cmrField != null)
+					msgs = ((InternalEObject)cmrField).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EjbPackage.EJB_RELATIONSHIP_ROLE__CMR_FIELD, null, msgs);
+				return basicSetCmrField((CMRField)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -747,22 +750,18 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case EjbPackage.EJB_RELATIONSHIP_ROLE__RELATIONSHIP:
-					return eBasicSetContainer(null, EjbPackage.EJB_RELATIONSHIP_ROLE__RELATIONSHIP, msgs);
-				case EjbPackage.EJB_RELATIONSHIP_ROLE__SOURCE:
-					return basicSetSource(null, msgs);
-				case EjbPackage.EJB_RELATIONSHIP_ROLE__CMR_FIELD:
-					return basicSetCmrField(null, msgs);
-				case EjbPackage.EJB_RELATIONSHIP_ROLE__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EjbPackage.EJB_RELATIONSHIP_ROLE__RELATIONSHIP:
+				return basicSetRelationship(null, msgs);
+			case EjbPackage.EJB_RELATIONSHIP_ROLE__SOURCE:
+				return basicSetSource(null, msgs);
+			case EjbPackage.EJB_RELATIONSHIP_ROLE__CMR_FIELD:
+				return basicSetCmrField(null, msgs);
+			case EjbPackage.EJB_RELATIONSHIP_ROLE__DESCRIPTIONS:
+				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -770,16 +769,12 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case EjbPackage.EJB_RELATIONSHIP_ROLE__RELATIONSHIP:
-					return eContainer.eInverseRemove(this, EjbPackage.EJB_RELATION__RELATIONSHIP_ROLES, EJBRelation.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case EjbPackage.EJB_RELATIONSHIP_ROLE__RELATIONSHIP:
+				return eInternalContainer().eInverseRemove(this, EjbPackage.EJB_RELATION__RELATIONSHIP_ROLES, EJBRelation.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -787,8 +782,8 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case EjbPackage.EJB_RELATIONSHIP_ROLE__DESCRIPTION:
 				return getDescription();
 			case EjbPackage.EJB_RELATIONSHIP_ROLE__ROLE_NAME:
@@ -806,39 +801,16 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 			case EjbPackage.EJB_RELATIONSHIP_ROLE__DESCRIPTIONS:
 				return getDescriptions();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case EjbPackage.EJB_RELATIONSHIP_ROLE__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case EjbPackage.EJB_RELATIONSHIP_ROLE__ROLE_NAME:
-				return ROLE_NAME_EDEFAULT == null ? roleName != null : !ROLE_NAME_EDEFAULT.equals(roleName);
-			case EjbPackage.EJB_RELATIONSHIP_ROLE__MULTIPLICITY:
-				return isSetMultiplicity();
-			case EjbPackage.EJB_RELATIONSHIP_ROLE__CASCADE_DELETE:
-				return isSetCascadeDelete();
-			case EjbPackage.EJB_RELATIONSHIP_ROLE__RELATIONSHIP:
-				return getRelationship() != null;
-			case EjbPackage.EJB_RELATIONSHIP_ROLE__SOURCE:
-				return source != null;
-			case EjbPackage.EJB_RELATIONSHIP_ROLE__CMR_FIELD:
-				return cmrField != null;
-			case EjbPackage.EJB_RELATIONSHIP_ROLE__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case EjbPackage.EJB_RELATIONSHIP_ROLE__DESCRIPTION:
 				setDescription((String)newValue);
 				return;
@@ -865,14 +837,16 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 				getDescriptions().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case EjbPackage.EJB_RELATIONSHIP_ROLE__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
@@ -898,7 +872,34 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 				getDescriptions().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case EjbPackage.EJB_RELATIONSHIP_ROLE__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case EjbPackage.EJB_RELATIONSHIP_ROLE__ROLE_NAME:
+				return ROLE_NAME_EDEFAULT == null ? roleName != null : !ROLE_NAME_EDEFAULT.equals(roleName);
+			case EjbPackage.EJB_RELATIONSHIP_ROLE__MULTIPLICITY:
+				return isSetMultiplicity();
+			case EjbPackage.EJB_RELATIONSHIP_ROLE__CASCADE_DELETE:
+				return isSetCascadeDelete();
+			case EjbPackage.EJB_RELATIONSHIP_ROLE__RELATIONSHIP:
+				return getRelationship() != null;
+			case EjbPackage.EJB_RELATIONSHIP_ROLE__SOURCE:
+				return source != null;
+			case EjbPackage.EJB_RELATIONSHIP_ROLE__CMR_FIELD:
+				return cmrField != null;
+			case EjbPackage.EJB_RELATIONSHIP_ROLE__DESCRIPTIONS:
+				return descriptions != null && !descriptions.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**
@@ -949,15 +950,15 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public void setRelationshipGen(EJBRelation newRelationship) {
-		if (newRelationship != eContainer || (eContainerFeatureID != EjbPackage.EJB_RELATIONSHIP_ROLE__RELATIONSHIP && newRelationship != null)) {
+		if (newRelationship != eInternalContainer() || (eContainerFeatureID != EjbPackage.EJB_RELATIONSHIP_ROLE__RELATIONSHIP && newRelationship != null)) {
 			if (EcoreUtil.isAncestor(this, newRelationship))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newRelationship != null)
 				msgs = ((InternalEObject)newRelationship).eInverseAdd(this, EjbPackage.EJB_RELATION__RELATIONSHIP_ROLES, EJBRelation.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newRelationship, EjbPackage.EJB_RELATIONSHIP_ROLE__RELATIONSHIP, msgs);
+			msgs = basicSetRelationship(newRelationship, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())

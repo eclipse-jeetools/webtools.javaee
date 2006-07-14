@@ -16,13 +16,11 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.jca.AdminObject;
 import org.eclipse.jst.j2ee.jca.AuthenticationMechanism;
 import org.eclipse.jst.j2ee.jca.ConfigProperty;
@@ -43,9 +41,9 @@ import org.eclipse.jst.j2ee.jca.TransactionSupportKind;
  * support any standard security authentication mechanisms as part
  * of security contract. The application server ignores the security
  * part of the system contracts in this case.
-
+ * @generated
  */
-public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter, EObject{
+public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdapter {
 
 	/**
 	 * The default value of the '{@link #getManagedConnectionFactoryClass() <em>Managed Connection Factory Class</em>}' attribute.
@@ -237,7 +235,7 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter,
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return JcaPackage.eINSTANCE.getResourceAdapter();
+		return JcaPackage.Literals.RESOURCE_ADAPTER;
 	}
 
 	/**
@@ -578,26 +576,22 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter,
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JcaPackage.RESOURCE_ADAPTER__SECURITY_PERMISSIONS:
-					return ((InternalEList)getSecurityPermissions()).basicRemove(otherEnd, msgs);
-				case JcaPackage.RESOURCE_ADAPTER__AUTHENTICATION_MECHANISMS:
-					return ((InternalEList)getAuthenticationMechanisms()).basicRemove(otherEnd, msgs);
-				case JcaPackage.RESOURCE_ADAPTER__CONFIG_PROPERTIES:
-					return ((InternalEList)getConfigProperties()).basicRemove(otherEnd, msgs);
-				case JcaPackage.RESOURCE_ADAPTER__OUTBOUND_RESOURCE_ADAPTER:
-					return basicSetOutboundResourceAdapter(null, msgs);
-				case JcaPackage.RESOURCE_ADAPTER__INBOUND_RESOURCE_ADAPTER:
-					return basicSetInboundResourceAdapter(null, msgs);
-				case JcaPackage.RESOURCE_ADAPTER__ADMIN_OBJECTS:
-					return ((InternalEList)getAdminObjects()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case JcaPackage.RESOURCE_ADAPTER__SECURITY_PERMISSIONS:
+				return ((InternalEList)getSecurityPermissions()).basicRemove(otherEnd, msgs);
+			case JcaPackage.RESOURCE_ADAPTER__AUTHENTICATION_MECHANISMS:
+				return ((InternalEList)getAuthenticationMechanisms()).basicRemove(otherEnd, msgs);
+			case JcaPackage.RESOURCE_ADAPTER__CONFIG_PROPERTIES:
+				return ((InternalEList)getConfigProperties()).basicRemove(otherEnd, msgs);
+			case JcaPackage.RESOURCE_ADAPTER__OUTBOUND_RESOURCE_ADAPTER:
+				return basicSetOutboundResourceAdapter(null, msgs);
+			case JcaPackage.RESOURCE_ADAPTER__INBOUND_RESOURCE_ADAPTER:
+				return basicSetInboundResourceAdapter(null, msgs);
+			case JcaPackage.RESOURCE_ADAPTER__ADMIN_OBJECTS:
+				return ((InternalEList)getAdminObjects()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -605,8 +599,8 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter,
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case JcaPackage.RESOURCE_ADAPTER__MANAGED_CONNECTION_FACTORY_CLASS:
 				return getManagedConnectionFactoryClass();
 			case JcaPackage.RESOURCE_ADAPTER__CONNECTION_FACTORY_INTERFACE:
@@ -636,51 +630,16 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter,
 			case JcaPackage.RESOURCE_ADAPTER__ADMIN_OBJECTS:
 				return getAdminObjects();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JcaPackage.RESOURCE_ADAPTER__MANAGED_CONNECTION_FACTORY_CLASS:
-				return MANAGED_CONNECTION_FACTORY_CLASS_EDEFAULT == null ? managedConnectionFactoryClass != null : !MANAGED_CONNECTION_FACTORY_CLASS_EDEFAULT.equals(managedConnectionFactoryClass);
-			case JcaPackage.RESOURCE_ADAPTER__CONNECTION_FACTORY_INTERFACE:
-				return CONNECTION_FACTORY_INTERFACE_EDEFAULT == null ? connectionFactoryInterface != null : !CONNECTION_FACTORY_INTERFACE_EDEFAULT.equals(connectionFactoryInterface);
-			case JcaPackage.RESOURCE_ADAPTER__CONNECTION_FACTORY_IMPL_CLASS:
-				return CONNECTION_FACTORY_IMPL_CLASS_EDEFAULT == null ? connectionFactoryImplClass != null : !CONNECTION_FACTORY_IMPL_CLASS_EDEFAULT.equals(connectionFactoryImplClass);
-			case JcaPackage.RESOURCE_ADAPTER__CONNECTION_INTERFACE:
-				return CONNECTION_INTERFACE_EDEFAULT == null ? connectionInterface != null : !CONNECTION_INTERFACE_EDEFAULT.equals(connectionInterface);
-			case JcaPackage.RESOURCE_ADAPTER__CONNECTION_IMPL_CLASS:
-				return CONNECTION_IMPL_CLASS_EDEFAULT == null ? connectionImplClass != null : !CONNECTION_IMPL_CLASS_EDEFAULT.equals(connectionImplClass);
-			case JcaPackage.RESOURCE_ADAPTER__TRANSACTION_SUPPORT:
-				return isSetTransactionSupport();
-			case JcaPackage.RESOURCE_ADAPTER__REAUTHENTICATION_SUPPORT:
-				return isSetReauthenticationSupport();
-			case JcaPackage.RESOURCE_ADAPTER__RESOURCE_ADAPTER_CLASS:
-				return RESOURCE_ADAPTER_CLASS_EDEFAULT == null ? resourceAdapterClass != null : !RESOURCE_ADAPTER_CLASS_EDEFAULT.equals(resourceAdapterClass);
-			case JcaPackage.RESOURCE_ADAPTER__SECURITY_PERMISSIONS:
-				return securityPermissions != null && !securityPermissions.isEmpty();
-			case JcaPackage.RESOURCE_ADAPTER__AUTHENTICATION_MECHANISMS:
-				return authenticationMechanisms != null && !authenticationMechanisms.isEmpty();
-			case JcaPackage.RESOURCE_ADAPTER__CONFIG_PROPERTIES:
-				return configProperties != null && !configProperties.isEmpty();
-			case JcaPackage.RESOURCE_ADAPTER__OUTBOUND_RESOURCE_ADAPTER:
-				return outboundResourceAdapter != null;
-			case JcaPackage.RESOURCE_ADAPTER__INBOUND_RESOURCE_ADAPTER:
-				return inboundResourceAdapter != null;
-			case JcaPackage.RESOURCE_ADAPTER__ADMIN_OBJECTS:
-				return adminObjects != null && !adminObjects.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case JcaPackage.RESOURCE_ADAPTER__MANAGED_CONNECTION_FACTORY_CLASS:
 				setManagedConnectionFactoryClass((String)newValue);
 				return;
@@ -728,14 +687,16 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter,
 				getAdminObjects().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case JcaPackage.RESOURCE_ADAPTER__MANAGED_CONNECTION_FACTORY_CLASS:
 				setManagedConnectionFactoryClass(MANAGED_CONNECTION_FACTORY_CLASS_EDEFAULT);
 				return;
@@ -779,7 +740,46 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter,
 				getAdminObjects().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case JcaPackage.RESOURCE_ADAPTER__MANAGED_CONNECTION_FACTORY_CLASS:
+				return MANAGED_CONNECTION_FACTORY_CLASS_EDEFAULT == null ? managedConnectionFactoryClass != null : !MANAGED_CONNECTION_FACTORY_CLASS_EDEFAULT.equals(managedConnectionFactoryClass);
+			case JcaPackage.RESOURCE_ADAPTER__CONNECTION_FACTORY_INTERFACE:
+				return CONNECTION_FACTORY_INTERFACE_EDEFAULT == null ? connectionFactoryInterface != null : !CONNECTION_FACTORY_INTERFACE_EDEFAULT.equals(connectionFactoryInterface);
+			case JcaPackage.RESOURCE_ADAPTER__CONNECTION_FACTORY_IMPL_CLASS:
+				return CONNECTION_FACTORY_IMPL_CLASS_EDEFAULT == null ? connectionFactoryImplClass != null : !CONNECTION_FACTORY_IMPL_CLASS_EDEFAULT.equals(connectionFactoryImplClass);
+			case JcaPackage.RESOURCE_ADAPTER__CONNECTION_INTERFACE:
+				return CONNECTION_INTERFACE_EDEFAULT == null ? connectionInterface != null : !CONNECTION_INTERFACE_EDEFAULT.equals(connectionInterface);
+			case JcaPackage.RESOURCE_ADAPTER__CONNECTION_IMPL_CLASS:
+				return CONNECTION_IMPL_CLASS_EDEFAULT == null ? connectionImplClass != null : !CONNECTION_IMPL_CLASS_EDEFAULT.equals(connectionImplClass);
+			case JcaPackage.RESOURCE_ADAPTER__TRANSACTION_SUPPORT:
+				return isSetTransactionSupport();
+			case JcaPackage.RESOURCE_ADAPTER__REAUTHENTICATION_SUPPORT:
+				return isSetReauthenticationSupport();
+			case JcaPackage.RESOURCE_ADAPTER__RESOURCE_ADAPTER_CLASS:
+				return RESOURCE_ADAPTER_CLASS_EDEFAULT == null ? resourceAdapterClass != null : !RESOURCE_ADAPTER_CLASS_EDEFAULT.equals(resourceAdapterClass);
+			case JcaPackage.RESOURCE_ADAPTER__SECURITY_PERMISSIONS:
+				return securityPermissions != null && !securityPermissions.isEmpty();
+			case JcaPackage.RESOURCE_ADAPTER__AUTHENTICATION_MECHANISMS:
+				return authenticationMechanisms != null && !authenticationMechanisms.isEmpty();
+			case JcaPackage.RESOURCE_ADAPTER__CONFIG_PROPERTIES:
+				return configProperties != null && !configProperties.isEmpty();
+			case JcaPackage.RESOURCE_ADAPTER__OUTBOUND_RESOURCE_ADAPTER:
+				return outboundResourceAdapter != null;
+			case JcaPackage.RESOURCE_ADAPTER__INBOUND_RESOURCE_ADAPTER:
+				return inboundResourceAdapter != null;
+			case JcaPackage.RESOURCE_ADAPTER__ADMIN_OBJECTS:
+				return adminObjects != null && !adminObjects.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**
@@ -810,8 +810,3 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter,
 	}
 
 }
-
-
-
-
-

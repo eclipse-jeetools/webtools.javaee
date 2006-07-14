@@ -12,10 +12,12 @@ package org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal;
 
 
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
-
-public interface LooseArchive extends EObject {
+/**
+ * @generated
+ */
+public interface LooseArchive extends J2EEEObject {
 	/**
 	 * @generated This field/method will be replaced during code generation
 	 * @return The value of the Uri attribute

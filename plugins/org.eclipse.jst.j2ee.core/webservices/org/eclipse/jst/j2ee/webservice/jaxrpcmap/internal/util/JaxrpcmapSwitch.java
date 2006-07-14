@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 import org.eclipse.jst.j2ee.common.QName;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.ConstructorParameterOrder;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.ElementName;
@@ -118,24 +119,28 @@ public class JaxrpcmapSwitch {
 			case JaxrpcmapPackage.JAVA_WSDL_MAPPING: {
 				JavaWSDLMapping javaWSDLMapping = (JavaWSDLMapping)theEObject;
 				Object result = caseJavaWSDLMapping(javaWSDLMapping);
+				if (result == null) result = caseJ2EEEObject(javaWSDLMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JaxrpcmapPackage.PACKAGE_MAPPING: {
 				PackageMapping packageMapping = (PackageMapping)theEObject;
 				Object result = casePackageMapping(packageMapping);
+				if (result == null) result = caseJ2EEEObject(packageMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JaxrpcmapPackage.JAVA_XML_TYPE_MAPPING: {
 				JavaXMLTypeMapping javaXMLTypeMapping = (JavaXMLTypeMapping)theEObject;
 				Object result = caseJavaXMLTypeMapping(javaXMLTypeMapping);
+				if (result == null) result = caseJ2EEEObject(javaXMLTypeMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JaxrpcmapPackage.EXCEPTION_MAPPING: {
 				ExceptionMapping exceptionMapping = (ExceptionMapping)theEObject;
 				Object result = caseExceptionMapping(exceptionMapping);
+				if (result == null) result = caseJ2EEEObject(exceptionMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -143,6 +148,7 @@ public class JaxrpcmapSwitch {
 				ServiceInterfaceMapping serviceInterfaceMapping = (ServiceInterfaceMapping)theEObject;
 				Object result = caseServiceInterfaceMapping(serviceInterfaceMapping);
 				if (result == null) result = caseInterfaceMapping(serviceInterfaceMapping);
+				if (result == null) result = caseJ2EEEObject(serviceInterfaceMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -150,6 +156,7 @@ public class JaxrpcmapSwitch {
 				ServiceEndpointInterfaceMapping serviceEndpointInterfaceMapping = (ServiceEndpointInterfaceMapping)theEObject;
 				Object result = caseServiceEndpointInterfaceMapping(serviceEndpointInterfaceMapping);
 				if (result == null) result = caseInterfaceMapping(serviceEndpointInterfaceMapping);
+				if (result == null) result = caseJ2EEEObject(serviceEndpointInterfaceMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -157,12 +164,14 @@ public class JaxrpcmapSwitch {
 				RootTypeQname rootTypeQname = (RootTypeQname)theEObject;
 				Object result = caseRootTypeQname(rootTypeQname);
 				if (result == null) result = caseQName(rootTypeQname);
+				if (result == null) result = caseJ2EEEObject(rootTypeQname);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JaxrpcmapPackage.VARIABLE_MAPPING: {
 				VariableMapping variableMapping = (VariableMapping)theEObject;
 				Object result = caseVariableMapping(variableMapping);
+				if (result == null) result = caseJ2EEEObject(variableMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -170,18 +179,21 @@ public class JaxrpcmapSwitch {
 				WSDLMessage wsdlMessage = (WSDLMessage)theEObject;
 				Object result = caseWSDLMessage(wsdlMessage);
 				if (result == null) result = caseQName(wsdlMessage);
+				if (result == null) result = caseJ2EEEObject(wsdlMessage);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JaxrpcmapPackage.CONSTRUCTOR_PARAMETER_ORDER: {
 				ConstructorParameterOrder constructorParameterOrder = (ConstructorParameterOrder)theEObject;
 				Object result = caseConstructorParameterOrder(constructorParameterOrder);
+				if (result == null) result = caseJ2EEEObject(constructorParameterOrder);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JaxrpcmapPackage.ELEMENT_NAME: {
 				ElementName elementName = (ElementName)theEObject;
 				Object result = caseElementName(elementName);
+				if (result == null) result = caseJ2EEEObject(elementName);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -189,12 +201,14 @@ public class JaxrpcmapSwitch {
 				WSDLServiceName wsdlServiceName = (WSDLServiceName)theEObject;
 				Object result = caseWSDLServiceName(wsdlServiceName);
 				if (result == null) result = caseQName(wsdlServiceName);
+				if (result == null) result = caseJ2EEEObject(wsdlServiceName);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JaxrpcmapPackage.PORT_MAPPING: {
 				PortMapping portMapping = (PortMapping)theEObject;
 				Object result = casePortMapping(portMapping);
+				if (result == null) result = caseJ2EEEObject(portMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -202,6 +216,7 @@ public class JaxrpcmapSwitch {
 				WSDLPortType wsdlPortType = (WSDLPortType)theEObject;
 				Object result = caseWSDLPortType(wsdlPortType);
 				if (result == null) result = caseQName(wsdlPortType);
+				if (result == null) result = caseJ2EEEObject(wsdlPortType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -209,48 +224,56 @@ public class JaxrpcmapSwitch {
 				WSDLBinding wsdlBinding = (WSDLBinding)theEObject;
 				Object result = caseWSDLBinding(wsdlBinding);
 				if (result == null) result = caseQName(wsdlBinding);
+				if (result == null) result = caseJ2EEEObject(wsdlBinding);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JaxrpcmapPackage.SERVICE_ENDPOINT_METHOD_MAPPING: {
 				ServiceEndpointMethodMapping serviceEndpointMethodMapping = (ServiceEndpointMethodMapping)theEObject;
 				Object result = caseServiceEndpointMethodMapping(serviceEndpointMethodMapping);
+				if (result == null) result = caseJ2EEEObject(serviceEndpointMethodMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JaxrpcmapPackage.WSDL_OPERATION: {
 				WSDLOperation wsdlOperation = (WSDLOperation)theEObject;
 				Object result = caseWSDLOperation(wsdlOperation);
+				if (result == null) result = caseJ2EEEObject(wsdlOperation);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JaxrpcmapPackage.METHOD_PARAM_PARTS_MAPPING: {
 				MethodParamPartsMapping methodParamPartsMapping = (MethodParamPartsMapping)theEObject;
 				Object result = caseMethodParamPartsMapping(methodParamPartsMapping);
+				if (result == null) result = caseJ2EEEObject(methodParamPartsMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JaxrpcmapPackage.WSDL_RETURN_VALUE_MAPPING: {
 				WSDLReturnValueMapping wsdlReturnValueMapping = (WSDLReturnValueMapping)theEObject;
 				Object result = caseWSDLReturnValueMapping(wsdlReturnValueMapping);
+				if (result == null) result = caseJ2EEEObject(wsdlReturnValueMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JaxrpcmapPackage.WSDL_MESSAGE_MAPPING: {
 				WSDLMessageMapping wsdlMessageMapping = (WSDLMessageMapping)theEObject;
 				Object result = caseWSDLMessageMapping(wsdlMessageMapping);
+				if (result == null) result = caseJ2EEEObject(wsdlMessageMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JaxrpcmapPackage.WSDL_MESSAGE_PART_NAME: {
 				WSDLMessagePartName wsdlMessagePartName = (WSDLMessagePartName)theEObject;
 				Object result = caseWSDLMessagePartName(wsdlMessagePartName);
+				if (result == null) result = caseJ2EEEObject(wsdlMessagePartName);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JaxrpcmapPackage.INTERFACE_MAPPING: {
 				InterfaceMapping interfaceMapping = (InterfaceMapping)theEObject;
 				Object result = caseInterfaceMapping(interfaceMapping);
+				if (result == null) result = caseJ2EEEObject(interfaceMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -585,6 +608,21 @@ public class JaxrpcmapSwitch {
 	 * @generated
 	 */
   public Object caseInterfaceMapping(InterfaceMapping object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseJ2EEEObject(J2EEEObject object) {
 		return null;
 	}
 

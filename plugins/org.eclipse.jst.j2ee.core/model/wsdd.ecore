@@ -10,7 +10,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="webServiceDescriptions"
         lowerBound="1" upperBound="-1" eType="#//WebServiceDescription" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="WebServiceDescription">
+  <eClassifiers xsi:type="ecore:EClass" name="WebServiceDescription" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The webservice-description element defines a WSDL document file and the set of Port components associated with the WSDL ports defined in the WSDL document.  There may be multiple webservice-descriptions defined within a module.&#xD;&#xA;&#xD;&#xA;All WSDL file ports must have a corresponding port-component element defined.&#xD;&#xA;&#xD;&#xA;Used in: webservices&#xD;&#xA;"/>
     </eAnnotations>
@@ -43,7 +43,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="iconType" eType="ecore:EClass common.ecore#//IconType"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PortComponent">
+  <eClassifiers xsi:type="ecore:EClass" name="PortComponent" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The port-component element associates a WSDL port with a Web service interface and implementation.  It defines the name of the port as a component, optional description, optional display name, optional iconic representations, WSDL port QName, Service Endpoint Interface, Service Implementation Bean.&#xD;&#xA;"/>
     </eAnnotations>
@@ -80,7 +80,7 @@
       <details key="documentation" value="Defines the name space and local name part of the WSDL port QName.&#xD;&#xA;"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ServiceImplBean">
+  <eClassifiers xsi:type="ecore:EClass" name="ServiceImplBean" eSuperTypes="common.ecore#//J2EEEObject">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The service-impl-bean element defines the Web service implementation.A service implementation can be an EJB bean class or JAX-RPC web component. Existing EJB implementations are exposed as a Web service using an ejb-link.&#xD;&#xA;&#xD;&#xA;Used in: port-component&#xD;&#xA;"/>
     </eAnnotations>
@@ -116,5 +116,5 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="soapRoles" upperBound="-1"
         eType="ecore:EClass wscommon.ecore#//SOAPRole" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BeanLink"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BeanLink" eSuperTypes="common.ecore#//J2EEEObject"/>
 </ecore:EPackage>

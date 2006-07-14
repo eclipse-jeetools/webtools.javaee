@@ -121,8 +121,3 @@ public interface Connector extends CompatibilityDescriptionGroup{
 	void setResourceAdapter(ResourceAdapter value);
 
 }
-
-
-
-
-

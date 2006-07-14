@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.common.DescriptionGroup;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 import org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup;
 import org.eclipse.jst.j2ee.webapplication.AuthConstraint;
 import org.eclipse.jst.j2ee.webapplication.ContextParam;
@@ -130,12 +131,14 @@ public class WebapplicationSwitch {
 				if (result == null) result = caseJNDIEnvRefsGroup(webApp);
 				if (result == null) result = caseCompatibilityDescriptionGroup(webApp);
 				if (result == null) result = caseDescriptionGroup(webApp);
+				if (result == null) result = caseJ2EEEObject(webApp);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebapplicationPackage.CONTEXT_PARAM: {
 				ContextParam contextParam = (ContextParam)theEObject;
 				Object result = caseContextParam(contextParam);
+				if (result == null) result = caseJ2EEEObject(contextParam);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -144,90 +147,105 @@ public class WebapplicationSwitch {
 				Object result = caseServlet(servlet);
 				if (result == null) result = caseCompatibilityDescriptionGroup(servlet);
 				if (result == null) result = caseDescriptionGroup(servlet);
+				if (result == null) result = caseJ2EEEObject(servlet);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebapplicationPackage.SERVLET_MAPPING: {
 				ServletMapping servletMapping = (ServletMapping)theEObject;
 				Object result = caseServletMapping(servletMapping);
+				if (result == null) result = caseJ2EEEObject(servletMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebapplicationPackage.SESSION_CONFIG: {
 				SessionConfig sessionConfig = (SessionConfig)theEObject;
 				Object result = caseSessionConfig(sessionConfig);
+				if (result == null) result = caseJ2EEEObject(sessionConfig);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebapplicationPackage.MIME_MAPPING: {
 				MimeMapping mimeMapping = (MimeMapping)theEObject;
 				Object result = caseMimeMapping(mimeMapping);
+				if (result == null) result = caseJ2EEEObject(mimeMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebapplicationPackage.WELCOME_FILE_LIST: {
 				WelcomeFileList welcomeFileList = (WelcomeFileList)theEObject;
 				Object result = caseWelcomeFileList(welcomeFileList);
+				if (result == null) result = caseJ2EEEObject(welcomeFileList);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebapplicationPackage.ERROR_PAGE: {
 				ErrorPage errorPage = (ErrorPage)theEObject;
 				Object result = caseErrorPage(errorPage);
+				if (result == null) result = caseJ2EEEObject(errorPage);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebapplicationPackage.TAG_LIB_REF: {
 				TagLibRef tagLibRef = (TagLibRef)theEObject;
 				Object result = caseTagLibRef(tagLibRef);
+				if (result == null) result = caseJ2EEEObject(tagLibRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebapplicationPackage.SECURITY_CONSTRAINT: {
 				SecurityConstraint securityConstraint = (SecurityConstraint)theEObject;
 				Object result = caseSecurityConstraint(securityConstraint);
+				if (result == null) result = caseJ2EEEObject(securityConstraint);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebapplicationPackage.WEB_RESOURCE_COLLECTION: {
 				WebResourceCollection webResourceCollection = (WebResourceCollection)theEObject;
 				Object result = caseWebResourceCollection(webResourceCollection);
+				if (result == null) result = caseJ2EEEObject(webResourceCollection);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebapplicationPackage.AUTH_CONSTRAINT: {
 				AuthConstraint authConstraint = (AuthConstraint)theEObject;
 				Object result = caseAuthConstraint(authConstraint);
+				if (result == null) result = caseJ2EEEObject(authConstraint);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebapplicationPackage.USER_DATA_CONSTRAINT: {
 				UserDataConstraint userDataConstraint = (UserDataConstraint)theEObject;
 				Object result = caseUserDataConstraint(userDataConstraint);
+				if (result == null) result = caseJ2EEEObject(userDataConstraint);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebapplicationPackage.LOGIN_CONFIG: {
 				LoginConfig loginConfig = (LoginConfig)theEObject;
 				Object result = caseLoginConfig(loginConfig);
+				if (result == null) result = caseJ2EEEObject(loginConfig);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebapplicationPackage.FORM_LOGIN_CONFIG: {
 				FormLoginConfig formLoginConfig = (FormLoginConfig)theEObject;
 				Object result = caseFormLoginConfig(formLoginConfig);
+				if (result == null) result = caseJ2EEEObject(formLoginConfig);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebapplicationPackage.INIT_PARAM: {
 				InitParam initParam = (InitParam)theEObject;
 				Object result = caseInitParam(initParam);
+				if (result == null) result = caseJ2EEEObject(initParam);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebapplicationPackage.WEB_TYPE: {
 				WebType webType = (WebType)theEObject;
 				Object result = caseWebType(webType);
+				if (result == null) result = caseJ2EEEObject(webType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -235,6 +253,7 @@ public class WebapplicationSwitch {
 				ServletType servletType = (ServletType)theEObject;
 				Object result = caseServletType(servletType);
 				if (result == null) result = caseWebType(servletType);
+				if (result == null) result = caseJ2EEEObject(servletType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -242,24 +261,28 @@ public class WebapplicationSwitch {
 				JSPType jspType = (JSPType)theEObject;
 				Object result = caseJSPType(jspType);
 				if (result == null) result = caseWebType(jspType);
+				if (result == null) result = caseJ2EEEObject(jspType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebapplicationPackage.URL_PATTERN_TYPE: {
 				URLPatternType urlPatternType = (URLPatternType)theEObject;
 				Object result = caseURLPatternType(urlPatternType);
+				if (result == null) result = caseJ2EEEObject(urlPatternType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebapplicationPackage.ROLE_NAME_TYPE: {
 				RoleNameType roleNameType = (RoleNameType)theEObject;
 				Object result = caseRoleNameType(roleNameType);
+				if (result == null) result = caseJ2EEEObject(roleNameType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebapplicationPackage.WELCOME_FILE: {
 				WelcomeFile welcomeFile = (WelcomeFile)theEObject;
 				Object result = caseWelcomeFile(welcomeFile);
+				if (result == null) result = caseJ2EEEObject(welcomeFile);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -267,6 +290,7 @@ public class WebapplicationSwitch {
 				ExceptionTypeErrorPage exceptionTypeErrorPage = (ExceptionTypeErrorPage)theEObject;
 				Object result = caseExceptionTypeErrorPage(exceptionTypeErrorPage);
 				if (result == null) result = caseErrorPage(exceptionTypeErrorPage);
+				if (result == null) result = caseJ2EEEObject(exceptionTypeErrorPage);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -274,12 +298,14 @@ public class WebapplicationSwitch {
 				ErrorCodeErrorPage errorCodeErrorPage = (ErrorCodeErrorPage)theEObject;
 				Object result = caseErrorCodeErrorPage(errorCodeErrorPage);
 				if (result == null) result = caseErrorPage(errorCodeErrorPage);
+				if (result == null) result = caseJ2EEEObject(errorCodeErrorPage);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebapplicationPackage.FILTER_MAPPING: {
 				FilterMapping filterMapping = (FilterMapping)theEObject;
 				Object result = caseFilterMapping(filterMapping);
+				if (result == null) result = caseJ2EEEObject(filterMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -288,24 +314,28 @@ public class WebapplicationSwitch {
 				Object result = caseFilter(filter);
 				if (result == null) result = caseCompatibilityDescriptionGroup(filter);
 				if (result == null) result = caseDescriptionGroup(filter);
+				if (result == null) result = caseJ2EEEObject(filter);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebapplicationPackage.LOCAL_ENCODING_MAPPING_LIST: {
 				LocalEncodingMappingList localEncodingMappingList = (LocalEncodingMappingList)theEObject;
 				Object result = caseLocalEncodingMappingList(localEncodingMappingList);
+				if (result == null) result = caseJ2EEEObject(localEncodingMappingList);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebapplicationPackage.LOCAL_ENCODING_MAPPING: {
 				LocalEncodingMapping localEncodingMapping = (LocalEncodingMapping)theEObject;
 				Object result = caseLocalEncodingMapping(localEncodingMapping);
+				if (result == null) result = caseJ2EEEObject(localEncodingMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebapplicationPackage.HTTP_METHOD_TYPE: {
 				HTTPMethodType httpMethodType = (HTTPMethodType)theEObject;
 				Object result = caseHTTPMethodType(httpMethodType);
+				if (result == null) result = caseJ2EEEObject(httpMethodType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -745,6 +775,21 @@ public class WebapplicationSwitch {
 	 * @generated
 	 */
 	public Object caseHTTPMethodType(HTTPMethodType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseJ2EEEObject(J2EEEObject object) {
 		return null;
 	}
 

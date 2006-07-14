@@ -12,7 +12,9 @@ package org.eclipse.jst.j2ee.webservice.wsclient.internal.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.jst.j2ee.webservice.wsclient.ComponentScopedRefs;
 import org.eclipse.jst.j2ee.webservice.wsclient.Handler;
 import org.eclipse.jst.j2ee.webservice.wsclient.PortComponentRef;
@@ -29,6 +31,25 @@ import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
  * @generated
  */
 public class Webservice_clientFactoryImpl extends EFactoryImpl implements Webservice_clientFactory {
+	/**
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static Webservice_clientFactory init() {
+		try {
+			Webservice_clientFactory theWebservice_clientFactory = (Webservice_clientFactory)EPackage.Registry.INSTANCE.getEFactory("webservice_client.xmi"); 
+			if (theWebservice_clientFactory != null) {
+				return theWebservice_clientFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new Webservice_clientFactoryImpl();
+	}
+
 	/**
 	 * Creates an instance of the factory.
 	 * <!-- begin-user-doc -->

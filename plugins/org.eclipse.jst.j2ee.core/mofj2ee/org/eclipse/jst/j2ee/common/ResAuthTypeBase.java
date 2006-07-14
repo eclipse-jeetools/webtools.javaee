@@ -31,7 +31,6 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @see org.eclipse.jst.j2ee.common.CommonPackage#getResAuthTypeBase()
  * @model
  * @generated
- * @since 1.0
  */
 public final class ResAuthTypeBase extends AbstractEnumerator {
 	/**
@@ -79,7 +78,7 @@ public final class ResAuthTypeBase extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final ResAuthTypeBase CONTAINER_LITERAL = new ResAuthTypeBase(CONTAINER, "Container"); //$NON-NLS-1$
+	public static final ResAuthTypeBase CONTAINER_LITERAL = new ResAuthTypeBase(CONTAINER, "Container", "Container"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>Application</b></em>' literal object.
@@ -93,7 +92,7 @@ public final class ResAuthTypeBase extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final ResAuthTypeBase APPLICATION_LITERAL = new ResAuthTypeBase(APPLICATION, "Application"); //$NON-NLS-1$
+	public static final ResAuthTypeBase APPLICATION_LITERAL = new ResAuthTypeBase(APPLICATION, "Application", "Application"); //$NON-NLS-1$
 
 	/**
 	 * The '<em><b>SERVLET</b></em>' literal object.
@@ -107,7 +106,7 @@ public final class ResAuthTypeBase extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final ResAuthTypeBase SERVLET_LITERAL = new ResAuthTypeBase(SERVLET, "SERVLET"); //$NON-NLS-1$
+	public static final ResAuthTypeBase SERVLET_LITERAL = new ResAuthTypeBase(SERVLET, "SERVLET", "SERVLET"); //$NON-NLS-1$
 
 	/**
 	 * An array of all the '<em><b>Res Auth Type Base</b></em>' enumerators.
@@ -131,17 +130,17 @@ public final class ResAuthTypeBase extends AbstractEnumerator {
 	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Res Auth Type Base</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Res Auth Type Base</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * @param name passes literal name
 	 * @return literal instance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static ResAuthTypeBase get(String name) {
+	public static ResAuthTypeBase get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			ResAuthTypeBase result = VALUES_ARRAY[i];
-			if (result.toString().equals(name)) {
+			if (result.toString().equals(literal)) {
 				return result;
 			}
 		}
@@ -149,7 +148,23 @@ public final class ResAuthTypeBase extends AbstractEnumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Res Auth Type Base</b></em>' literal with the specified value.
+	 * Returns the '<em><b>Res Auth Type Base</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static ResAuthTypeBase getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			ResAuthTypeBase result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Res Auth Type Base</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * @param value passes literal value
 	 * @return literal instance
@@ -171,8 +186,8 @@ public final class ResAuthTypeBase extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private ResAuthTypeBase(int value, String name) {
-		super(value, name);
+	private ResAuthTypeBase(int value, String name, String literal) {
+		super(value, name, literal);
 	}
 
 } //ResAuthTypeBase

@@ -12,9 +12,8 @@ package org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessagePartName;
 
@@ -32,7 +31,7 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessagePartName;
  *
  * @generated
  */
-public class WSDLMessagePartNameImpl extends EObjectImpl implements WSDLMessagePartName
+public class WSDLMessagePartNameImpl extends J2EEEObjectImpl implements WSDLMessagePartName
 {
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -89,7 +88,7 @@ public class WSDLMessagePartNameImpl extends EObjectImpl implements WSDLMessageP
 	 * @generated
 	 */
   protected EClass eStaticClass() {
-		return JaxrpcmapPackage.eINSTANCE.getWSDLMessagePartName();
+		return JaxrpcmapPackage.Literals.WSDL_MESSAGE_PART_NAME;
 	}
 
 	/**
@@ -136,26 +135,26 @@ public class WSDLMessagePartNameImpl extends EObjectImpl implements WSDLMessageP
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case JaxrpcmapPackage.WSDL_MESSAGE_PART_NAME__ID:
 				return getId();
 			case JaxrpcmapPackage.WSDL_MESSAGE_PART_NAME__WSDL_MESSAGE_PART_NAME:
 				return getWsdlMessagePartName();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case JaxrpcmapPackage.WSDL_MESSAGE_PART_NAME__ID:
 				setId((String)newValue);
 				return;
@@ -163,16 +162,16 @@ public class WSDLMessagePartNameImpl extends EObjectImpl implements WSDLMessageP
 				setWsdlMessagePartName((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case JaxrpcmapPackage.WSDL_MESSAGE_PART_NAME__ID:
 				setId(ID_EDEFAULT);
 				return;
@@ -180,22 +179,22 @@ public class WSDLMessagePartNameImpl extends EObjectImpl implements WSDLMessageP
 				setWsdlMessagePartName(WSDL_MESSAGE_PART_NAME_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case JaxrpcmapPackage.WSDL_MESSAGE_PART_NAME__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case JaxrpcmapPackage.WSDL_MESSAGE_PART_NAME__WSDL_MESSAGE_PART_NAME:
 				return WSDL_MESSAGE_PART_NAME_EDEFAULT == null ? wsdlMessagePartName != null : !WSDL_MESSAGE_PART_NAME_EDEFAULT.equals(wsdlMessagePartName);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

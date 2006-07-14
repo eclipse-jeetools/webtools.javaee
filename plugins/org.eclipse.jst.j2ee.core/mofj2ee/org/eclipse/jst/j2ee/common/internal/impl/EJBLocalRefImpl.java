@@ -10,25 +10,18 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.common.internal.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.EJBLocalRef;
-import org.eclipse.jst.j2ee.common.EjbRef;
-import org.eclipse.jst.j2ee.common.EjbRefType;
 
 /**
  * The ejb-local-ref element is used for the declaration of a reference to another enterprise bean's local home. The declaration consists of an optional description; the EJB reference name used in the code of the referencing enterprise bean; the expected type of the referenced enterprise bean; the expected local home and local interfaces of the referenced enterprise bean; and an optional ejb-link information. The optional ejb-link element is used to specify the referenced enterprise bean.
  * Used in: entity, session, message-driven
+ * @generated
  */
-public class EJBLocalRefImpl extends EjbRefImpl implements EJBLocalRef, EjbRef{
+public class EJBLocalRefImpl extends EjbRefImpl implements EJBLocalRef {
 
 	/**
 	 * The default value of the '{@link #getLocalHome() <em>Local Home</em>}' attribute.
@@ -79,7 +72,7 @@ public class EJBLocalRefImpl extends EjbRefImpl implements EJBLocalRef, EjbRef{
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return CommonPackage.eINSTANCE.getEJBLocalRef();
+		return CommonPackage.Literals.EJB_LOCAL_REF;
 	}
 
 	/**
@@ -129,28 +122,14 @@ public class EJBLocalRefImpl extends EjbRefImpl implements EJBLocalRef, EjbRef{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonPackage.EJB_LOCAL_REF__NAME:
-				return getName();
-			case CommonPackage.EJB_LOCAL_REF__TYPE:
-				return getType();
-			case CommonPackage.EJB_LOCAL_REF__HOME:
-				return getHome();
-			case CommonPackage.EJB_LOCAL_REF__REMOTE:
-				return getRemote();
-			case CommonPackage.EJB_LOCAL_REF__LINK:
-				return getLink();
-			case CommonPackage.EJB_LOCAL_REF__DESCRIPTION:
-				return getDescription();
-			case CommonPackage.EJB_LOCAL_REF__DESCRIPTIONS:
-				return getDescriptions();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case CommonPackage.EJB_LOCAL_REF__LOCAL_HOME:
 				return getLocalHome();
 			case CommonPackage.EJB_LOCAL_REF__LOCAL:
 				return getLocal();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -158,30 +137,8 @@ public class EJBLocalRefImpl extends EjbRefImpl implements EJBLocalRef, EjbRef{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonPackage.EJB_LOCAL_REF__NAME:
-				setName((String)newValue);
-				return;
-			case CommonPackage.EJB_LOCAL_REF__TYPE:
-				setType((EjbRefType)newValue);
-				return;
-			case CommonPackage.EJB_LOCAL_REF__HOME:
-				setHome((String)newValue);
-				return;
-			case CommonPackage.EJB_LOCAL_REF__REMOTE:
-				setRemote((String)newValue);
-				return;
-			case CommonPackage.EJB_LOCAL_REF__LINK:
-				setLink((String)newValue);
-				return;
-			case CommonPackage.EJB_LOCAL_REF__DESCRIPTION:
-				setDescription((String)newValue);
-				return;
-			case CommonPackage.EJB_LOCAL_REF__DESCRIPTIONS:
-				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case CommonPackage.EJB_LOCAL_REF__LOCAL_HOME:
 				setLocalHome((String)newValue);
 				return;
@@ -189,7 +146,7 @@ public class EJBLocalRefImpl extends EjbRefImpl implements EJBLocalRef, EjbRef{
 				setLocal((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -197,29 +154,8 @@ public class EJBLocalRefImpl extends EjbRefImpl implements EJBLocalRef, EjbRef{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonPackage.EJB_LOCAL_REF__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case CommonPackage.EJB_LOCAL_REF__TYPE:
-				unsetType();
-				return;
-			case CommonPackage.EJB_LOCAL_REF__HOME:
-				setHome(HOME_EDEFAULT);
-				return;
-			case CommonPackage.EJB_LOCAL_REF__REMOTE:
-				setRemote(REMOTE_EDEFAULT);
-				return;
-			case CommonPackage.EJB_LOCAL_REF__LINK:
-				setLink(LINK_EDEFAULT);
-				return;
-			case CommonPackage.EJB_LOCAL_REF__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case CommonPackage.EJB_LOCAL_REF__DESCRIPTIONS:
-				getDescriptions().clear();
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case CommonPackage.EJB_LOCAL_REF__LOCAL_HOME:
 				setLocalHome(LOCAL_HOME_EDEFAULT);
 				return;
@@ -227,7 +163,7 @@ public class EJBLocalRefImpl extends EjbRefImpl implements EJBLocalRef, EjbRef{
 				setLocal(LOCAL_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -235,28 +171,14 @@ public class EJBLocalRefImpl extends EjbRefImpl implements EJBLocalRef, EjbRef{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonPackage.EJB_LOCAL_REF__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case CommonPackage.EJB_LOCAL_REF__TYPE:
-				return isSetType();
-			case CommonPackage.EJB_LOCAL_REF__HOME:
-				return HOME_EDEFAULT == null ? home != null : !HOME_EDEFAULT.equals(home);
-			case CommonPackage.EJB_LOCAL_REF__REMOTE:
-				return REMOTE_EDEFAULT == null ? remote != null : !REMOTE_EDEFAULT.equals(remote);
-			case CommonPackage.EJB_LOCAL_REF__LINK:
-				return LINK_EDEFAULT == null ? link != null : !LINK_EDEFAULT.equals(link);
-			case CommonPackage.EJB_LOCAL_REF__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case CommonPackage.EJB_LOCAL_REF__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case CommonPackage.EJB_LOCAL_REF__LOCAL_HOME:
 				return LOCAL_HOME_EDEFAULT == null ? localHome != null : !LOCAL_HOME_EDEFAULT.equals(localHome);
 			case CommonPackage.EJB_LOCAL_REF__LOCAL:
 				return LOCAL_EDEFAULT == null ? local != null : !LOCAL_EDEFAULT.equals(local);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**
@@ -282,23 +204,6 @@ public class EJBLocalRefImpl extends EjbRefImpl implements EJBLocalRef, EjbRef{
 public boolean isLocal(){
 	return true;
 }
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonPackage.EJB_LOCAL_REF__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.common.EjbRef#getRemote()
 	 */

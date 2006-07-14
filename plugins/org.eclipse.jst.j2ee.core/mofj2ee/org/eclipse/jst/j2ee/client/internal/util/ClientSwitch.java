@@ -18,7 +18,7 @@ import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.client.ClientPackage;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.common.DescriptionGroup;
-
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -99,6 +99,7 @@ public class ClientSwitch {
 				Object result = caseApplicationClient(applicationClient);
 				if (result == null) result = caseCompatibilityDescriptionGroup(applicationClient);
 				if (result == null) result = caseDescriptionGroup(applicationClient);
+				if (result == null) result = caseJ2EEEObject(applicationClient);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -118,6 +119,21 @@ public class ClientSwitch {
 	 * @generated
 	 */
 	public Object caseApplicationClient(ApplicationClient object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseJ2EEEObject(J2EEEObject object) {
 		return null;
 	}
 

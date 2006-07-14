@@ -10,20 +10,15 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.impl;
 
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.EjbModule;
-import org.eclipse.jst.j2ee.application.Module;
 
 /**
  * Specifies the URI of a ejb-jar, relative to the top level of the application package.
-
+ * @generated
  */
-public class EjbModuleImpl extends ModuleImpl implements EjbModule, Module {
+public class EjbModuleImpl extends ModuleImpl implements EjbModule {
 
 	public EjbModuleImpl() {
 		super();
@@ -34,136 +29,7 @@ public class EjbModuleImpl extends ModuleImpl implements EjbModule, Module {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return ApplicationPackage.eINSTANCE.getEjbModule();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case ApplicationPackage.EJB_MODULE__APPLICATION:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, ApplicationPackage.EJB_MODULE__APPLICATION, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case ApplicationPackage.EJB_MODULE__APPLICATION:
-					return eBasicSetContainer(null, ApplicationPackage.EJB_MODULE__APPLICATION, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case ApplicationPackage.EJB_MODULE__APPLICATION:
-					return eContainer.eInverseRemove(this, ApplicationPackage.APPLICATION__MODULES, Application.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case ApplicationPackage.EJB_MODULE__URI:
-				return getUri();
-			case ApplicationPackage.EJB_MODULE__ALT_DD:
-				return getAltDD();
-			case ApplicationPackage.EJB_MODULE__APPLICATION:
-				return getApplication();
-		}
-		return eDynamicGet(eFeature, resolve);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case ApplicationPackage.EJB_MODULE__URI:
-				setUri((String)newValue);
-				return;
-			case ApplicationPackage.EJB_MODULE__ALT_DD:
-				setAltDD((String)newValue);
-				return;
-			case ApplicationPackage.EJB_MODULE__APPLICATION:
-				setApplication((Application)newValue);
-				return;
-		}
-		eDynamicSet(eFeature, newValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case ApplicationPackage.EJB_MODULE__URI:
-				setUri(URI_EDEFAULT);
-				return;
-			case ApplicationPackage.EJB_MODULE__ALT_DD:
-				setAltDD(ALT_DD_EDEFAULT);
-				return;
-			case ApplicationPackage.EJB_MODULE__APPLICATION:
-				setApplication((Application)null);
-				return;
-		}
-		eDynamicUnset(eFeature);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case ApplicationPackage.EJB_MODULE__URI:
-				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
-			case ApplicationPackage.EJB_MODULE__ALT_DD:
-				return ALT_DD_EDEFAULT == null ? altDD != null : !ALT_DD_EDEFAULT.equals(altDD);
-			case ApplicationPackage.EJB_MODULE__APPLICATION:
-				return getApplication() != null;
-		}
-		return eDynamicIsSet(eFeature);
+		return ApplicationPackage.Literals.EJB_MODULE;
 	}
 
 public boolean isEjbModule() {

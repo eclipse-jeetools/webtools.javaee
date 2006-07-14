@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.jsp;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,8 +35,8 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.jsp.JspPackage#getTagLibRefType()
  * @model
  * @generated
- * @since 1.0 */
-public interface TagLibRefType extends EObject{
+ */
+public interface TagLibRefType extends J2EEEObject {
 	/**
 	 * Returns the value of the '<em><b>Taglib URI</b></em>' attribute.
 	 * <!-- begin-user-doc -->

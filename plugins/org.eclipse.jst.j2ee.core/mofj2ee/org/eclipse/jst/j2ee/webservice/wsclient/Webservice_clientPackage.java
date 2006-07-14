@@ -40,8 +40,8 @@ import org.eclipse.jst.j2ee.common.CommonPackage;
  * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientFactory
  * @model kind="package"
  * @generated
- * @since 1.0 */
-public interface Webservice_clientPackage extends EPackage{
+ */
+public interface Webservice_clientPackage extends EPackage {
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
@@ -211,7 +211,7 @@ public interface Webservice_clientPackage extends EPackage{
 	int SERVICE_REF__SERVICE_QNAME = CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP_FEATURE_COUNT + 6;
 
 	/**
-	 * The number of structural features of the the '<em>Service Ref</em>' class.
+	 * The number of structural features of the '<em>Service Ref</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -236,7 +236,7 @@ public interface Webservice_clientPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int PORT_COMPONENT_REF__PORT_COMPONENT_LINK = 0;
+	int PORT_COMPONENT_REF__PORT_COMPONENT_LINK = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Service Endpoint Interface</b></em>' reference.
@@ -245,16 +245,16 @@ public interface Webservice_clientPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int PORT_COMPONENT_REF__SERVICE_ENDPOINT_INTERFACE = 1;
+	int PORT_COMPONENT_REF__SERVICE_ENDPOINT_INTERFACE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Port Component Ref</em>' class.
+	 * The number of structural features of the '<em>Port Component Ref</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PORT_COMPONENT_REF_FEATURE_COUNT = 2;
+	int PORT_COMPONENT_REF_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.HandlerImpl <em>Handler</em>}' class.
@@ -384,7 +384,7 @@ public interface Webservice_clientPackage extends EPackage{
 	int HANDLER__SOAP_HEADERS = CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP_FEATURE_COUNT + 5;
 
 	/**
-	 * The number of structural features of the the '<em>Handler</em>' class.
+	 * The number of structural features of the '<em>Handler</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -410,7 +410,7 @@ public interface Webservice_clientPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-    int WEB_SERVICES_CLIENT__COMPONENT_SCOPED_REFS = 0;
+    int WEB_SERVICES_CLIENT__COMPONENT_SCOPED_REFS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Service Refs</b></em>' containment reference list.
@@ -419,16 +419,16 @@ public interface Webservice_clientPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-    int WEB_SERVICES_CLIENT__SERVICE_REFS = 1;
+    int WEB_SERVICES_CLIENT__SERVICE_REFS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Web Services Client</em>' class.
+	 * The number of structural features of the '<em>Web Services Client</em>' class.
 	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-    int WEB_SERVICES_CLIENT_FEATURE_COUNT = 2;
+    int WEB_SERVICES_CLIENT_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.ComponentScopedRefsImpl <em>Component Scoped Refs</em>}' class.
@@ -447,7 +447,7 @@ public interface Webservice_clientPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-    int COMPONENT_SCOPED_REFS__COMPONENT_NAME = 0;
+    int COMPONENT_SCOPED_REFS__COMPONENT_NAME = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Service Refs</b></em>' containment reference list.
@@ -456,16 +456,16 @@ public interface Webservice_clientPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-    int COMPONENT_SCOPED_REFS__SERVICE_REFS = 1;
+    int COMPONENT_SCOPED_REFS__SERVICE_REFS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Component Scoped Refs</em>' class.
+	 * The number of structural features of the '<em>Component Scoped Refs</em>' class.
 	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-    int COMPONENT_SCOPED_REFS_FEATURE_COUNT = 2;
+    int COMPONENT_SCOPED_REFS_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 
 	/**
@@ -735,5 +735,222 @@ public interface Webservice_clientPackage extends EPackage{
 	 * @generated
 	 */
 	Webservice_clientFactory getWebservice_clientFactory();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Defines literals for the meta objects that represent
+	 * <ul>
+	 *   <li>each class,</li>
+	 *   <li>each feature of each class,</li>
+	 *   <li>each enum,</li>
+	 *   <li>and each data type</li>
+	 * </ul>
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	interface Literals  {
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.ServiceRefImpl <em>Service Ref</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.ServiceRefImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.Webservice_clientPackageImpl#getServiceRef()
+		 * @generated
+		 */
+		EClass SERVICE_REF = eINSTANCE.getServiceRef();
+
+		/**
+		 * The meta object literal for the '<em><b>Service Interface</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_REF__SERVICE_INTERFACE = eINSTANCE.getServiceRef_ServiceInterface();
+
+		/**
+		 * The meta object literal for the '<em><b>Service Ref Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVICE_REF__SERVICE_REF_NAME = eINSTANCE.getServiceRef_ServiceRefName();
+
+		/**
+		 * The meta object literal for the '<em><b>Wsdl File</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVICE_REF__WSDL_FILE = eINSTANCE.getServiceRef_WsdlFile();
+
+		/**
+		 * The meta object literal for the '<em><b>Jaxrpc Mapping File</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVICE_REF__JAXRPC_MAPPING_FILE = eINSTANCE.getServiceRef_JaxrpcMappingFile();
+
+		/**
+		 * The meta object literal for the '<em><b>Port Component Refs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_REF__PORT_COMPONENT_REFS = eINSTANCE.getServiceRef_PortComponentRefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Handlers</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_REF__HANDLERS = eINSTANCE.getServiceRef_Handlers();
+
+		/**
+		 * The meta object literal for the '<em><b>Service Qname</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_REF__SERVICE_QNAME = eINSTANCE.getServiceRef_ServiceQname();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.PortComponentRefImpl <em>Port Component Ref</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.PortComponentRefImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.Webservice_clientPackageImpl#getPortComponentRef()
+		 * @generated
+		 */
+		EClass PORT_COMPONENT_REF = eINSTANCE.getPortComponentRef();
+
+		/**
+		 * The meta object literal for the '<em><b>Port Component Link</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PORT_COMPONENT_REF__PORT_COMPONENT_LINK = eINSTANCE.getPortComponentRef_PortComponentLink();
+
+		/**
+		 * The meta object literal for the '<em><b>Service Endpoint Interface</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PORT_COMPONENT_REF__SERVICE_ENDPOINT_INTERFACE = eINSTANCE.getPortComponentRef_ServiceEndpointInterface();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.HandlerImpl <em>Handler</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.HandlerImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.Webservice_clientPackageImpl#getHandler()
+		 * @generated
+		 */
+		EClass HANDLER = eINSTANCE.getHandler();
+
+		/**
+		 * The meta object literal for the '<em><b>Handler Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute HANDLER__HANDLER_NAME = eINSTANCE.getHandler_HandlerName();
+
+		/**
+		 * The meta object literal for the '<em><b>Soap Roles</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute HANDLER__SOAP_ROLES = eINSTANCE.getHandler_SoapRoles();
+
+		/**
+		 * The meta object literal for the '<em><b>Port Names</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute HANDLER__PORT_NAMES = eINSTANCE.getHandler_PortNames();
+
+		/**
+		 * The meta object literal for the '<em><b>Handler Class</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference HANDLER__HANDLER_CLASS = eINSTANCE.getHandler_HandlerClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Init Params</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference HANDLER__INIT_PARAMS = eINSTANCE.getHandler_InitParams();
+
+		/**
+		 * The meta object literal for the '<em><b>Soap Headers</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference HANDLER__SOAP_HEADERS = eINSTANCE.getHandler_SoapHeaders();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.WebServicesClientImpl <em>Web Services Client</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.WebServicesClientImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.Webservice_clientPackageImpl#getWebServicesClient()
+		 * @generated
+		 */
+		EClass WEB_SERVICES_CLIENT = eINSTANCE.getWebServicesClient();
+
+		/**
+		 * The meta object literal for the '<em><b>Component Scoped Refs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_SERVICES_CLIENT__COMPONENT_SCOPED_REFS = eINSTANCE.getWebServicesClient_ComponentScopedRefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Service Refs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_SERVICES_CLIENT__SERVICE_REFS = eINSTANCE.getWebServicesClient_ServiceRefs();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.ComponentScopedRefsImpl <em>Component Scoped Refs</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.ComponentScopedRefsImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.Webservice_clientPackageImpl#getComponentScopedRefs()
+		 * @generated
+		 */
+		EClass COMPONENT_SCOPED_REFS = eINSTANCE.getComponentScopedRefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Component Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMPONENT_SCOPED_REFS__COMPONENT_NAME = eINSTANCE.getComponentScopedRefs_ComponentName();
+
+		/**
+		 * The meta object literal for the '<em><b>Service Refs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMPONENT_SCOPED_REFS__SERVICE_REFS = eINSTANCE.getComponentScopedRefs_ServiceRefs();
+
+	}
 
 } //Webservice_clientPackage

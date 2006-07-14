@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.common.DescriptionGroup;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 import org.eclipse.jst.j2ee.jca.ActivationSpec;
 import org.eclipse.jst.j2ee.jca.AdminObject;
 import org.eclipse.jst.j2ee.jca.AuthenticationMechanism;
@@ -113,84 +114,98 @@ public class JcaSwitch {
 				Object result = caseConnector(connector);
 				if (result == null) result = caseCompatibilityDescriptionGroup(connector);
 				if (result == null) result = caseDescriptionGroup(connector);
+				if (result == null) result = caseJ2EEEObject(connector);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JcaPackage.RESOURCE_ADAPTER: {
 				ResourceAdapter resourceAdapter = (ResourceAdapter)theEObject;
 				Object result = caseResourceAdapter(resourceAdapter);
+				if (result == null) result = caseJ2EEEObject(resourceAdapter);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JcaPackage.AUTHENTICATION_MECHANISM: {
 				AuthenticationMechanism authenticationMechanism = (AuthenticationMechanism)theEObject;
 				Object result = caseAuthenticationMechanism(authenticationMechanism);
+				if (result == null) result = caseJ2EEEObject(authenticationMechanism);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JcaPackage.CONFIG_PROPERTY: {
 				ConfigProperty configProperty = (ConfigProperty)theEObject;
 				Object result = caseConfigProperty(configProperty);
+				if (result == null) result = caseJ2EEEObject(configProperty);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JcaPackage.SECURITY_PERMISSION: {
 				SecurityPermission securityPermission = (SecurityPermission)theEObject;
 				Object result = caseSecurityPermission(securityPermission);
+				if (result == null) result = caseJ2EEEObject(securityPermission);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JcaPackage.LICENSE: {
 				License license = (License)theEObject;
 				Object result = caseLicense(license);
+				if (result == null) result = caseJ2EEEObject(license);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JcaPackage.INBOUND_RESOURCE_ADAPTER: {
 				InboundResourceAdapter inboundResourceAdapter = (InboundResourceAdapter)theEObject;
 				Object result = caseInboundResourceAdapter(inboundResourceAdapter);
+				if (result == null) result = caseJ2EEEObject(inboundResourceAdapter);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JcaPackage.OUTBOUND_RESOURCE_ADAPTER: {
 				OutboundResourceAdapter outboundResourceAdapter = (OutboundResourceAdapter)theEObject;
 				Object result = caseOutboundResourceAdapter(outboundResourceAdapter);
+				if (result == null) result = caseJ2EEEObject(outboundResourceAdapter);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JcaPackage.MESSAGE_ADAPTER: {
 				MessageAdapter messageAdapter = (MessageAdapter)theEObject;
 				Object result = caseMessageAdapter(messageAdapter);
+				if (result == null) result = caseJ2EEEObject(messageAdapter);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JcaPackage.CONNECTION_DEFINITION: {
 				ConnectionDefinition connectionDefinition = (ConnectionDefinition)theEObject;
 				Object result = caseConnectionDefinition(connectionDefinition);
+				if (result == null) result = caseJ2EEEObject(connectionDefinition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JcaPackage.ADMIN_OBJECT: {
 				AdminObject adminObject = (AdminObject)theEObject;
 				Object result = caseAdminObject(adminObject);
+				if (result == null) result = caseJ2EEEObject(adminObject);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JcaPackage.MESSAGE_LISTENER: {
 				MessageListener messageListener = (MessageListener)theEObject;
 				Object result = caseMessageListener(messageListener);
+				if (result == null) result = caseJ2EEEObject(messageListener);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JcaPackage.ACTIVATION_SPEC: {
 				ActivationSpec activationSpec = (ActivationSpec)theEObject;
 				Object result = caseActivationSpec(activationSpec);
+				if (result == null) result = caseJ2EEEObject(activationSpec);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JcaPackage.REQUIRED_CONFIG_PROPERTY_TYPE: {
 				RequiredConfigPropertyType requiredConfigPropertyType = (RequiredConfigPropertyType)theEObject;
 				Object result = caseRequiredConfigPropertyType(requiredConfigPropertyType);
+				if (result == null) result = caseJ2EEEObject(requiredConfigPropertyType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -405,6 +420,21 @@ public class JcaSwitch {
 	 * @generated
 	 */
 	public Object caseRequiredConfigPropertyType(RequiredConfigPropertyType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseJ2EEEObject(J2EEEObject object) {
 		return null;
 	}
 

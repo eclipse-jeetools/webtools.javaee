@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.webapplication;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model 
  * @generated
  */
-public interface HTTPMethodType extends EObject{
+public interface HTTPMethodType extends J2EEEObject {
 	/**
 	 * Returns the value of the '<em><b>Http Method</b></em>' attribute.
 	 * <!-- begin-user-doc -->

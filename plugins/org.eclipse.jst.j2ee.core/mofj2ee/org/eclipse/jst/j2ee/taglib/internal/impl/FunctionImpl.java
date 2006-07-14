@@ -16,7 +16,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -141,7 +140,7 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return TaglibPackage.eINSTANCE.getFunction();
+		return TaglibPackage.Literals.FUNCTION;
 	}
 
 	/**
@@ -214,8 +213,8 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 */
 	public JavaClass getFunctionClass() {
 		if (functionClass != null && functionClass.eIsProxy()) {
-			JavaClass oldFunctionClass = functionClass;
-			functionClass = (JavaClass)eResolveProxy((InternalEObject)functionClass);
+			InternalEObject oldFunctionClass = (InternalEObject)functionClass;
+			functionClass = (JavaClass)eResolveProxy(oldFunctionClass);
 			if (functionClass != oldFunctionClass) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TaglibPackage.FUNCTION__FUNCTION_CLASS, oldFunctionClass, functionClass));
@@ -262,22 +261,12 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case TaglibPackage.FUNCTION__ICONS:
-					return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
-				case TaglibPackage.FUNCTION__DISPLAY_NAMES:
-					return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
-				case TaglibPackage.FUNCTION__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				case TaglibPackage.FUNCTION__FUNCTION_EXTENSIONS:
-					return ((InternalEList)getFunctionExtensions()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case TaglibPackage.FUNCTION__FUNCTION_EXTENSIONS:
+				return ((InternalEList)getFunctionExtensions()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -285,14 +274,8 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case TaglibPackage.FUNCTION__ICONS:
-				return getIcons();
-			case TaglibPackage.FUNCTION__DISPLAY_NAMES:
-				return getDisplayNames();
-			case TaglibPackage.FUNCTION__DESCRIPTIONS:
-				return getDescriptions();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case TaglibPackage.FUNCTION__NAME:
 				return getName();
 			case TaglibPackage.FUNCTION__SIGNATURE:
@@ -305,7 +288,7 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 			case TaglibPackage.FUNCTION__FUNCTION_EXTENSIONS:
 				return getFunctionExtensions();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -313,20 +296,8 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case TaglibPackage.FUNCTION__ICONS:
-				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
-				return;
-			case TaglibPackage.FUNCTION__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
-				return;
-			case TaglibPackage.FUNCTION__DESCRIPTIONS:
-				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case TaglibPackage.FUNCTION__NAME:
 				setName((String)newValue);
 				return;
@@ -344,7 +315,7 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 				getFunctionExtensions().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -352,17 +323,8 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case TaglibPackage.FUNCTION__ICONS:
-				getIcons().clear();
-				return;
-			case TaglibPackage.FUNCTION__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				return;
-			case TaglibPackage.FUNCTION__DESCRIPTIONS:
-				getDescriptions().clear();
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case TaglibPackage.FUNCTION__NAME:
 				setName(NAME_EDEFAULT);
 				return;
@@ -379,7 +341,7 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 				getFunctionExtensions().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -387,14 +349,8 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case TaglibPackage.FUNCTION__ICONS:
-				return icons != null && !icons.isEmpty();
-			case TaglibPackage.FUNCTION__DISPLAY_NAMES:
-				return displayNames != null && !displayNames.isEmpty();
-			case TaglibPackage.FUNCTION__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case TaglibPackage.FUNCTION__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case TaglibPackage.FUNCTION__SIGNATURE:
@@ -406,7 +362,7 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 			case TaglibPackage.FUNCTION__FUNCTION_EXTENSIONS:
 				return functionExtensions != null && !functionExtensions.isEmpty();
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

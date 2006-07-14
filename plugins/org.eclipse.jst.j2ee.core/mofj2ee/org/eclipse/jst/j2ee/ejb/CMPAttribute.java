@@ -11,14 +11,14 @@
 package org.eclipse.jst.j2ee.ejb;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.jem.java.Field;
 import org.eclipse.jem.java.JavaHelpers;
+import org.eclipse.jst.j2ee.common.J2EEEAttribute;
 /**
  * Describes a container-managed field. The field element includes an optional description of the field, and the name of the field.
-
+ * @generated
  * @since 1.0 */
-public interface CMPAttribute extends EAttribute{
+public interface CMPAttribute extends J2EEEAttribute {
 
 	/**
 	 * @deprecated - With EJB 2.0, assuming a Java field is no longer safe.

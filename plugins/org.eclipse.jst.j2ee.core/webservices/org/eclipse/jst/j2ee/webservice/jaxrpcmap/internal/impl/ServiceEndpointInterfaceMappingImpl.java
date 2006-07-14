@@ -16,7 +16,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -131,7 +130,7 @@ public class ServiceEndpointInterfaceMappingImpl extends InterfaceMappingImpl im
 	 * @generated
 	 */
   protected EClass eStaticClass() {
-		return JaxrpcmapPackage.eINSTANCE.getServiceEndpointInterfaceMapping();
+		return JaxrpcmapPackage.Literals.SERVICE_ENDPOINT_INTERFACE_MAPPING;
 	}
 
 	/**
@@ -276,32 +275,28 @@ public class ServiceEndpointInterfaceMappingImpl extends InterfaceMappingImpl im
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JaxrpcmapPackage.SERVICE_ENDPOINT_INTERFACE_MAPPING__WSDL_PORT_TYPE:
-					return basicSetWsdlPortType(null, msgs);
-				case JaxrpcmapPackage.SERVICE_ENDPOINT_INTERFACE_MAPPING__WSDL_BINDING:
-					return basicSetWsdlBinding(null, msgs);
-				case JaxrpcmapPackage.SERVICE_ENDPOINT_INTERFACE_MAPPING__SERVICE_ENDPOINT_METHOD_MAPPINGS:
-					return ((InternalEList)getServiceEndpointMethodMappings()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case JaxrpcmapPackage.SERVICE_ENDPOINT_INTERFACE_MAPPING__WSDL_PORT_TYPE:
+				return basicSetWsdlPortType(null, msgs);
+			case JaxrpcmapPackage.SERVICE_ENDPOINT_INTERFACE_MAPPING__WSDL_BINDING:
+				return basicSetWsdlBinding(null, msgs);
+			case JaxrpcmapPackage.SERVICE_ENDPOINT_INTERFACE_MAPPING__SERVICE_ENDPOINT_METHOD_MAPPINGS:
+				return ((InternalEList)getServiceEndpointMethodMappings()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case JaxrpcmapPackage.SERVICE_ENDPOINT_INTERFACE_MAPPING__ID:
 				return getId();
 			case JaxrpcmapPackage.SERVICE_ENDPOINT_INTERFACE_MAPPING__SERVICE_ENDPOINT_INTERFACE:
@@ -313,16 +308,16 @@ public class ServiceEndpointInterfaceMappingImpl extends InterfaceMappingImpl im
 			case JaxrpcmapPackage.SERVICE_ENDPOINT_INTERFACE_MAPPING__SERVICE_ENDPOINT_METHOD_MAPPINGS:
 				return getServiceEndpointMethodMappings();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case JaxrpcmapPackage.SERVICE_ENDPOINT_INTERFACE_MAPPING__ID:
 				setId((String)newValue);
 				return;
@@ -340,16 +335,16 @@ public class ServiceEndpointInterfaceMappingImpl extends InterfaceMappingImpl im
 				getServiceEndpointMethodMappings().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case JaxrpcmapPackage.SERVICE_ENDPOINT_INTERFACE_MAPPING__ID:
 				setId(ID_EDEFAULT);
 				return;
@@ -366,16 +361,16 @@ public class ServiceEndpointInterfaceMappingImpl extends InterfaceMappingImpl im
 				getServiceEndpointMethodMappings().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case JaxrpcmapPackage.SERVICE_ENDPOINT_INTERFACE_MAPPING__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case JaxrpcmapPackage.SERVICE_ENDPOINT_INTERFACE_MAPPING__SERVICE_ENDPOINT_INTERFACE:
@@ -387,7 +382,7 @@ public class ServiceEndpointInterfaceMappingImpl extends InterfaceMappingImpl im
 			case JaxrpcmapPackage.SERVICE_ENDPOINT_INTERFACE_MAPPING__SERVICE_ENDPOINT_METHOD_MAPPINGS:
 				return serviceEndpointMethodMappings != null && !serviceEndpointMethodMappings.isEmpty();
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

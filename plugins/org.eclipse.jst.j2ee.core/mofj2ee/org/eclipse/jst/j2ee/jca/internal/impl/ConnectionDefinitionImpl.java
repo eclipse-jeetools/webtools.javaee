@@ -16,12 +16,11 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.jca.ConfigProperty;
 import org.eclipse.jst.j2ee.jca.ConnectionDefinition;
 import org.eclipse.jst.j2ee.jca.JcaPackage;
@@ -45,7 +44,7 @@ import org.eclipse.jst.j2ee.jca.JcaPackage;
  *
  * @generated
  */
-public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionDefinition {
+public class ConnectionDefinitionImpl extends J2EEEObjectImpl implements ConnectionDefinition {
 	/**
 	 * The default value of the '{@link #getManagedConnectionFactoryClass() <em>Managed Connection Factory Class</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -171,7 +170,7 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return JcaPackage.eINSTANCE.getConnectionDefinition();
+		return JcaPackage.Literals.CONNECTION_DEFINITION;
 	}
 
 	/**
@@ -296,16 +295,12 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JcaPackage.CONNECTION_DEFINITION__CONFIG_PROPERTIES:
-					return ((InternalEList)getConfigProperties()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case JcaPackage.CONNECTION_DEFINITION__CONFIG_PROPERTIES:
+				return ((InternalEList)getConfigProperties()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -313,8 +308,8 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case JcaPackage.CONNECTION_DEFINITION__MANAGED_CONNECTION_FACTORY_CLASS:
 				return getManagedConnectionFactoryClass();
 			case JcaPackage.CONNECTION_DEFINITION__CONNECTION_FACTORY_INTERFACE:
@@ -328,7 +323,7 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 			case JcaPackage.CONNECTION_DEFINITION__CONFIG_PROPERTIES:
 				return getConfigProperties();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -336,8 +331,8 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case JcaPackage.CONNECTION_DEFINITION__MANAGED_CONNECTION_FACTORY_CLASS:
 				setManagedConnectionFactoryClass((String)newValue);
 				return;
@@ -358,7 +353,7 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 				getConfigProperties().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -366,8 +361,8 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case JcaPackage.CONNECTION_DEFINITION__MANAGED_CONNECTION_FACTORY_CLASS:
 				setManagedConnectionFactoryClass(MANAGED_CONNECTION_FACTORY_CLASS_EDEFAULT);
 				return;
@@ -387,7 +382,7 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 				getConfigProperties().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -395,8 +390,8 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case JcaPackage.CONNECTION_DEFINITION__MANAGED_CONNECTION_FACTORY_CLASS:
 				return MANAGED_CONNECTION_FACTORY_CLASS_EDEFAULT == null ? managedConnectionFactoryClass != null : !MANAGED_CONNECTION_FACTORY_CLASS_EDEFAULT.equals(managedConnectionFactoryClass);
 			case JcaPackage.CONNECTION_DEFINITION__CONNECTION_FACTORY_INTERFACE:
@@ -410,7 +405,7 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 			case JcaPackage.CONNECTION_DEFINITION__CONFIG_PROPERTIES:
 				return configProperties != null && !configProperties.isEmpty();
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

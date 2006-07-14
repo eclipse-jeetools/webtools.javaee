@@ -16,7 +16,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -124,7 +123,7 @@ public class ApplicationClientImpl extends CompatibilityDescriptionGroupImpl imp
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return ClientPackage.eINSTANCE.getApplicationClient();
+		return ClientPackage.Literals.APPLICATION_CLIENT;
 	}
 
 /**
@@ -272,8 +271,8 @@ public int getJ2EEVersionID() throws IllegalStateException {
 	 */
 	public JavaClass getCallbackHandler() {
 		if (callbackHandler != null && callbackHandler.eIsProxy()) {
-			JavaClass oldCallbackHandler = callbackHandler;
-			callbackHandler = (JavaClass)eResolveProxy((InternalEObject)callbackHandler);
+			InternalEObject oldCallbackHandler = (InternalEObject)callbackHandler;
+			callbackHandler = (JavaClass)eResolveProxy(oldCallbackHandler);
 			if (callbackHandler != oldCallbackHandler) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ClientPackage.APPLICATION_CLIENT__CALLBACK_HANDLER, oldCallbackHandler, callbackHandler));
@@ -345,34 +344,24 @@ public int getJ2EEVersionID() throws IllegalStateException {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case ClientPackage.APPLICATION_CLIENT__ICONS:
-					return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
-				case ClientPackage.APPLICATION_CLIENT__DISPLAY_NAMES:
-					return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
-				case ClientPackage.APPLICATION_CLIENT__DESCRIPTIONS:
-					return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-				case ClientPackage.APPLICATION_CLIENT__RESOURCE_REFS:
-					return ((InternalEList)getResourceRefs()).basicRemove(otherEnd, msgs);
-				case ClientPackage.APPLICATION_CLIENT__ENVIRONMENT_PROPS:
-					return ((InternalEList)getEnvironmentProps()).basicRemove(otherEnd, msgs);
-				case ClientPackage.APPLICATION_CLIENT__EJB_REFERENCES:
-					return ((InternalEList)getEjbReferences()).basicRemove(otherEnd, msgs);
-				case ClientPackage.APPLICATION_CLIENT__RESOURCE_ENV_REFS:
-					return ((InternalEList)getResourceEnvRefs()).basicRemove(otherEnd, msgs);
-				case ClientPackage.APPLICATION_CLIENT__SERVICE_REFS:
-					return ((InternalEList)getServiceRefs()).basicRemove(otherEnd, msgs);
-				case ClientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATION_REFS:
-					return ((InternalEList)getMessageDestinationRefs()).basicRemove(otherEnd, msgs);
-				case ClientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATIONS:
-					return ((InternalEList)getMessageDestinations()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ClientPackage.APPLICATION_CLIENT__RESOURCE_REFS:
+				return ((InternalEList)getResourceRefs()).basicRemove(otherEnd, msgs);
+			case ClientPackage.APPLICATION_CLIENT__ENVIRONMENT_PROPS:
+				return ((InternalEList)getEnvironmentProps()).basicRemove(otherEnd, msgs);
+			case ClientPackage.APPLICATION_CLIENT__EJB_REFERENCES:
+				return ((InternalEList)getEjbReferences()).basicRemove(otherEnd, msgs);
+			case ClientPackage.APPLICATION_CLIENT__RESOURCE_ENV_REFS:
+				return ((InternalEList)getResourceEnvRefs()).basicRemove(otherEnd, msgs);
+			case ClientPackage.APPLICATION_CLIENT__SERVICE_REFS:
+				return ((InternalEList)getServiceRefs()).basicRemove(otherEnd, msgs);
+			case ClientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATION_REFS:
+				return ((InternalEList)getMessageDestinationRefs()).basicRemove(otherEnd, msgs);
+			case ClientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATIONS:
+				return ((InternalEList)getMessageDestinations()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -380,22 +369,8 @@ public int getJ2EEVersionID() throws IllegalStateException {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case ClientPackage.APPLICATION_CLIENT__ICONS:
-				return getIcons();
-			case ClientPackage.APPLICATION_CLIENT__DISPLAY_NAMES:
-				return getDisplayNames();
-			case ClientPackage.APPLICATION_CLIENT__DESCRIPTIONS:
-				return getDescriptions();
-			case ClientPackage.APPLICATION_CLIENT__SMALL_ICON:
-				return getSmallIcon();
-			case ClientPackage.APPLICATION_CLIENT__LARGE_ICON:
-				return getLargeIcon();
-			case ClientPackage.APPLICATION_CLIENT__DESCRIPTION:
-				return getDescription();
-			case ClientPackage.APPLICATION_CLIENT__DISPLAY_NAME:
-				return getDisplayName();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case ClientPackage.APPLICATION_CLIENT__VERSION:
 				return getVersion();
 			case ClientPackage.APPLICATION_CLIENT__RESOURCE_REFS:
@@ -416,79 +391,16 @@ public int getJ2EEVersionID() throws IllegalStateException {
 			case ClientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATIONS:
 				return getMessageDestinations();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case ClientPackage.APPLICATION_CLIENT__ICONS:
-				return icons != null && !icons.isEmpty();
-			case ClientPackage.APPLICATION_CLIENT__DISPLAY_NAMES:
-				return displayNames != null && !displayNames.isEmpty();
-			case ClientPackage.APPLICATION_CLIENT__DESCRIPTIONS:
-				return descriptions != null && !descriptions.isEmpty();
-			case ClientPackage.APPLICATION_CLIENT__SMALL_ICON:
-				return SMALL_ICON_EDEFAULT == null ? smallIcon != null : !SMALL_ICON_EDEFAULT.equals(smallIcon);
-			case ClientPackage.APPLICATION_CLIENT__LARGE_ICON:
-				return LARGE_ICON_EDEFAULT == null ? largeIcon != null : !LARGE_ICON_EDEFAULT.equals(largeIcon);
-			case ClientPackage.APPLICATION_CLIENT__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case ClientPackage.APPLICATION_CLIENT__DISPLAY_NAME:
-				return DISPLAY_NAME_EDEFAULT == null ? displayName != null : !DISPLAY_NAME_EDEFAULT.equals(displayName);
-			case ClientPackage.APPLICATION_CLIENT__VERSION:
-				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
-			case ClientPackage.APPLICATION_CLIENT__RESOURCE_REFS:
-				return resourceRefs != null && !resourceRefs.isEmpty();
-			case ClientPackage.APPLICATION_CLIENT__ENVIRONMENT_PROPS:
-				return environmentProps != null && !environmentProps.isEmpty();
-			case ClientPackage.APPLICATION_CLIENT__EJB_REFERENCES:
-				return ejbReferences != null && !ejbReferences.isEmpty();
-			case ClientPackage.APPLICATION_CLIENT__RESOURCE_ENV_REFS:
-				return resourceEnvRefs != null && !resourceEnvRefs.isEmpty();
-			case ClientPackage.APPLICATION_CLIENT__CALLBACK_HANDLER:
-				return callbackHandler != null;
-			case ClientPackage.APPLICATION_CLIENT__SERVICE_REFS:
-				return serviceRefs != null && !serviceRefs.isEmpty();
-			case ClientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATION_REFS:
-				return messageDestinationRefs != null && !messageDestinationRefs.isEmpty();
-			case ClientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATIONS:
-				return messageDestinations != null && !messageDestinations.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case ClientPackage.APPLICATION_CLIENT__ICONS:
-				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
-				return;
-			case ClientPackage.APPLICATION_CLIENT__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
-				return;
-			case ClientPackage.APPLICATION_CLIENT__DESCRIPTIONS:
-				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
-				return;
-			case ClientPackage.APPLICATION_CLIENT__SMALL_ICON:
-				setSmallIcon((String)newValue);
-				return;
-			case ClientPackage.APPLICATION_CLIENT__LARGE_ICON:
-				setLargeIcon((String)newValue);
-				return;
-			case ClientPackage.APPLICATION_CLIENT__DESCRIPTION:
-				setDescription((String)newValue);
-				return;
-			case ClientPackage.APPLICATION_CLIENT__DISPLAY_NAME:
-				setDisplayName((String)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case ClientPackage.APPLICATION_CLIENT__VERSION:
 				setVersion((String)newValue);
 				return;
@@ -524,35 +436,16 @@ public int getJ2EEVersionID() throws IllegalStateException {
 				getMessageDestinations().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case ClientPackage.APPLICATION_CLIENT__ICONS:
-				getIcons().clear();
-				return;
-			case ClientPackage.APPLICATION_CLIENT__DISPLAY_NAMES:
-				getDisplayNames().clear();
-				return;
-			case ClientPackage.APPLICATION_CLIENT__DESCRIPTIONS:
-				getDescriptions().clear();
-				return;
-			case ClientPackage.APPLICATION_CLIENT__SMALL_ICON:
-				setSmallIcon(SMALL_ICON_EDEFAULT);
-				return;
-			case ClientPackage.APPLICATION_CLIENT__LARGE_ICON:
-				setLargeIcon(LARGE_ICON_EDEFAULT);
-				return;
-			case ClientPackage.APPLICATION_CLIENT__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case ClientPackage.APPLICATION_CLIENT__DISPLAY_NAME:
-				setDisplayName(DISPLAY_NAME_EDEFAULT);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case ClientPackage.APPLICATION_CLIENT__VERSION:
 				setVersion(VERSION_EDEFAULT);
 				return;
@@ -581,7 +474,36 @@ public int getJ2EEVersionID() throws IllegalStateException {
 				getMessageDestinations().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case ClientPackage.APPLICATION_CLIENT__VERSION:
+				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
+			case ClientPackage.APPLICATION_CLIENT__RESOURCE_REFS:
+				return resourceRefs != null && !resourceRefs.isEmpty();
+			case ClientPackage.APPLICATION_CLIENT__ENVIRONMENT_PROPS:
+				return environmentProps != null && !environmentProps.isEmpty();
+			case ClientPackage.APPLICATION_CLIENT__EJB_REFERENCES:
+				return ejbReferences != null && !ejbReferences.isEmpty();
+			case ClientPackage.APPLICATION_CLIENT__RESOURCE_ENV_REFS:
+				return resourceEnvRefs != null && !resourceEnvRefs.isEmpty();
+			case ClientPackage.APPLICATION_CLIENT__CALLBACK_HANDLER:
+				return callbackHandler != null;
+			case ClientPackage.APPLICATION_CLIENT__SERVICE_REFS:
+				return serviceRefs != null && !serviceRefs.isEmpty();
+			case ClientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATION_REFS:
+				return messageDestinationRefs != null && !messageDestinationRefs.isEmpty();
+			case ClientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATIONS:
+				return messageDestinations != null && !messageDestinations.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

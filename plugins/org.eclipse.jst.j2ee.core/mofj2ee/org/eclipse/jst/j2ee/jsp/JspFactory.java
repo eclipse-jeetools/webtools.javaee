@@ -19,15 +19,15 @@ import org.eclipse.emf.ecore.EFactory;
  * <!-- end-user-doc -->
  * @see org.eclipse.jst.j2ee.jsp.JspPackage
  * @generated
- * @since 1.0 */
-public interface JspFactory extends EFactory{
+ */
+public interface JspFactory extends EFactory {
 	/**
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	JspFactory eINSTANCE = new org.eclipse.jst.j2ee.jsp.internal.impl.JspFactoryImpl();
+	JspFactory eINSTANCE = org.eclipse.jst.j2ee.jsp.internal.impl.JspFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>JSP Config</em>'.

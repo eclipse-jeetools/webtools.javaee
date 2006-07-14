@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.webservice.jaxrpcmap;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -40,8 +40,8 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaXMLTypeMapping()
  * @model
  * @generated
- * @since 1.0 */
-public interface JavaXMLTypeMapping extends EObject{
+ */
+public interface JavaXMLTypeMapping extends J2EEEObject {
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->

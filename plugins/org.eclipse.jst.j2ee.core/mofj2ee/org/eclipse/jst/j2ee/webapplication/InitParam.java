@@ -10,11 +10,12 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.webapplication;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 /**
  * The init-param element contains a name//value pair as an initialization param of the servlet
+ * @generated
  */
-public interface InitParam extends EObject{
+public interface InitParam extends J2EEEObject {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the ParamName attribute

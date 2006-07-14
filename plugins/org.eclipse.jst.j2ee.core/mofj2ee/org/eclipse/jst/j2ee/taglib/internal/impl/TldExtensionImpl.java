@@ -16,12 +16,11 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.taglib.internal.ExtensibleType;
 import org.eclipse.jst.j2ee.taglib.internal.TaglibPackage;
 import org.eclipse.jst.j2ee.taglib.internal.TldExtension;
@@ -41,7 +40,7 @@ import org.eclipse.jst.j2ee.taglib.internal.TldExtension;
  *
  * @generated
  */
-public class TldExtensionImpl extends EObjectImpl implements TldExtension {
+public class TldExtensionImpl extends J2EEEObjectImpl implements TldExtension {
 	/**
 	 * The default value of the '{@link #getNamespace() <em>Namespace</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -87,7 +86,7 @@ public class TldExtensionImpl extends EObjectImpl implements TldExtension {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return TaglibPackage.eINSTANCE.getTldExtension();
+		return TaglibPackage.Literals.TLD_EXTENSION;
 	}
 
 	/**
@@ -128,16 +127,12 @@ public class TldExtensionImpl extends EObjectImpl implements TldExtension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case TaglibPackage.TLD_EXTENSION__EXTENSION_ELEMENTS:
-					return ((InternalEList)getExtensionElements()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case TaglibPackage.TLD_EXTENSION__EXTENSION_ELEMENTS:
+				return ((InternalEList)getExtensionElements()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -145,14 +140,14 @@ public class TldExtensionImpl extends EObjectImpl implements TldExtension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case TaglibPackage.TLD_EXTENSION__NAMESPACE:
 				return getNamespace();
 			case TaglibPackage.TLD_EXTENSION__EXTENSION_ELEMENTS:
 				return getExtensionElements();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -160,8 +155,8 @@ public class TldExtensionImpl extends EObjectImpl implements TldExtension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case TaglibPackage.TLD_EXTENSION__NAMESPACE:
 				setNamespace((String)newValue);
 				return;
@@ -170,7 +165,7 @@ public class TldExtensionImpl extends EObjectImpl implements TldExtension {
 				getExtensionElements().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -178,8 +173,8 @@ public class TldExtensionImpl extends EObjectImpl implements TldExtension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case TaglibPackage.TLD_EXTENSION__NAMESPACE:
 				setNamespace(NAMESPACE_EDEFAULT);
 				return;
@@ -187,7 +182,7 @@ public class TldExtensionImpl extends EObjectImpl implements TldExtension {
 				getExtensionElements().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -195,14 +190,14 @@ public class TldExtensionImpl extends EObjectImpl implements TldExtension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case TaglibPackage.TLD_EXTENSION__NAMESPACE:
 				return NAMESPACE_EDEFAULT == null ? namespace != null : !NAMESPACE_EDEFAULT.equals(namespace);
 			case TaglibPackage.TLD_EXTENSION__EXTENSION_ELEMENTS:
 				return extensionElements != null && !extensionElements.isEmpty();
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

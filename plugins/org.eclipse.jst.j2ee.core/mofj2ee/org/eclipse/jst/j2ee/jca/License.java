@@ -11,11 +11,13 @@
 package org.eclipse.jst.j2ee.jca;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 /**
  * Specifies licensing requirements for the resource adapter module. Specifies whether a license is required to deploy and use this resource adapter, and an optional description of the licensing terms (examples: duration of license, number of connection restrictions).
- * @since 1.0 */
-public interface License extends EObject{
+ * @since 1.0 
+ * @generated
+ */
+public interface License extends J2EEEObject {
 
 
 	/**
@@ -82,8 +84,3 @@ public interface License extends EObject{
 	EList getDescriptions();
 
 }
-
-
-
-
-

@@ -19,15 +19,15 @@ import org.eclipse.emf.ecore.EFactory;
  * <!-- end-user-doc -->
  * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage
  * @generated
- * @since 1.0 */
-public interface Webservice_clientFactory extends EFactory{
+ */
+public interface Webservice_clientFactory extends EFactory {
 	/**
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	Webservice_clientFactory eINSTANCE = new org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.Webservice_clientFactoryImpl();
+	Webservice_clientFactory eINSTANCE = org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.Webservice_clientFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>Service Ref</em>'.

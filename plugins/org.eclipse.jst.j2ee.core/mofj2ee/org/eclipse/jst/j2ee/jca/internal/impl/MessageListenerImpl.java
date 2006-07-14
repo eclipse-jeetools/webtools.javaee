@@ -13,10 +13,9 @@ package org.eclipse.jst.j2ee.jca.internal.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.jca.ActivationSpec;
 import org.eclipse.jst.j2ee.jca.JcaPackage;
 import org.eclipse.jst.j2ee.jca.MessageListener;
@@ -36,7 +35,7 @@ import org.eclipse.jst.j2ee.jca.MessageListener;
  *
  * @generated
  */
-public class MessageListenerImpl extends EObjectImpl implements MessageListener {
+public class MessageListenerImpl extends J2EEEObjectImpl implements MessageListener {
 	/**
 	 * The default value of the '{@link #getMessageListenerType() <em>Message Listener Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -82,7 +81,7 @@ public class MessageListenerImpl extends EObjectImpl implements MessageListener 
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return JcaPackage.eINSTANCE.getMessageListener();
+		return JcaPackage.Literals.MESSAGE_LISTENER;
 	}
 
 	/**
@@ -154,16 +153,12 @@ public class MessageListenerImpl extends EObjectImpl implements MessageListener 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JcaPackage.MESSAGE_LISTENER__ACTIVATION_SPEC:
-					return basicSetActivationSpec(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case JcaPackage.MESSAGE_LISTENER__ACTIVATION_SPEC:
+				return basicSetActivationSpec(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -171,14 +166,14 @@ public class MessageListenerImpl extends EObjectImpl implements MessageListener 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case JcaPackage.MESSAGE_LISTENER__MESSAGE_LISTENER_TYPE:
 				return getMessageListenerType();
 			case JcaPackage.MESSAGE_LISTENER__ACTIVATION_SPEC:
 				return getActivationSpec();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -186,8 +181,8 @@ public class MessageListenerImpl extends EObjectImpl implements MessageListener 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case JcaPackage.MESSAGE_LISTENER__MESSAGE_LISTENER_TYPE:
 				setMessageListenerType((String)newValue);
 				return;
@@ -195,7 +190,7 @@ public class MessageListenerImpl extends EObjectImpl implements MessageListener 
 				setActivationSpec((ActivationSpec)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -203,8 +198,8 @@ public class MessageListenerImpl extends EObjectImpl implements MessageListener 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case JcaPackage.MESSAGE_LISTENER__MESSAGE_LISTENER_TYPE:
 				setMessageListenerType(MESSAGE_LISTENER_TYPE_EDEFAULT);
 				return;
@@ -212,7 +207,7 @@ public class MessageListenerImpl extends EObjectImpl implements MessageListener 
 				setActivationSpec((ActivationSpec)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -220,14 +215,14 @@ public class MessageListenerImpl extends EObjectImpl implements MessageListener 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case JcaPackage.MESSAGE_LISTENER__MESSAGE_LISTENER_TYPE:
 				return MESSAGE_LISTENER_TYPE_EDEFAULT == null ? messageListenerType != null : !MESSAGE_LISTENER_TYPE_EDEFAULT.equals(messageListenerType);
 			case JcaPackage.MESSAGE_LISTENER__ACTIVATION_SPEC:
 				return activationSpec != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

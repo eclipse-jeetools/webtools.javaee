@@ -28,7 +28,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -49,7 +48,6 @@ import org.eclipse.jst.j2ee.common.SecurityRole;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Container;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
@@ -127,7 +125,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return CommonarchivePackage.eINSTANCE.getEARFile();
+		return CommonarchivePackage.Literals.EAR_FILE;
 	}
 
 	public Archive addCopy(Archive anArchive) throws org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException {
@@ -845,130 +843,12 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.EAR_FILE__URI:
-				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
-			case CommonarchivePackage.EAR_FILE__LAST_MODIFIED:
-				return isSetLastModified();
-			case CommonarchivePackage.EAR_FILE__SIZE:
-				return isSetSize();
-			case CommonarchivePackage.EAR_FILE__DIRECTORY_ENTRY:
-				return isSetDirectoryEntry();
-			case CommonarchivePackage.EAR_FILE__ORIGINAL_URI:
-				return ORIGINAL_URI_EDEFAULT == null ? originalURI != null : !ORIGINAL_URI_EDEFAULT.equals(originalURI);
-			case CommonarchivePackage.EAR_FILE__LOADING_CONTAINER:
-				return loadingContainer != null;
-			case CommonarchivePackage.EAR_FILE__CONTAINER:
-				return getContainer() != null;
-			case CommonarchivePackage.EAR_FILE__FILES:
-				return files != null && !files.isEmpty();
-			case CommonarchivePackage.EAR_FILE__TYPES:
-				return types != null && !types.isEmpty();
-			case CommonarchivePackage.EAR_FILE__MODULE_REFS:
-				return moduleRefs != null && !moduleRefs.isEmpty();
-			case CommonarchivePackage.EAR_FILE__DEPLOYMENT_DESCRIPTOR:
-				return deploymentDescriptor != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.EAR_FILE__URI:
-				setURI((String)newValue);
-				return;
-			case CommonarchivePackage.EAR_FILE__LAST_MODIFIED:
-				setLastModified(((Long)newValue).longValue());
-				return;
-			case CommonarchivePackage.EAR_FILE__SIZE:
-				setSize(((Long)newValue).longValue());
-				return;
-			case CommonarchivePackage.EAR_FILE__DIRECTORY_ENTRY:
-				setDirectoryEntry(((Boolean)newValue).booleanValue());
-				return;
-			case CommonarchivePackage.EAR_FILE__ORIGINAL_URI:
-				setOriginalURI((String)newValue);
-				return;
-			case CommonarchivePackage.EAR_FILE__LOADING_CONTAINER:
-				setLoadingContainer((Container)newValue);
-				return;
-			case CommonarchivePackage.EAR_FILE__CONTAINER:
-				setContainer((Container)newValue);
-				return;
-			case CommonarchivePackage.EAR_FILE__FILES:
-				getFiles().clear();
-				getFiles().addAll((Collection)newValue);
-				return;
-			case CommonarchivePackage.EAR_FILE__TYPES:
-				getTypes().clear();
-				getTypes().addAll((Collection)newValue);
-				return;
-			case CommonarchivePackage.EAR_FILE__MODULE_REFS:
-				getModuleRefs().clear();
-				getModuleRefs().addAll((Collection)newValue);
-				return;
-			case CommonarchivePackage.EAR_FILE__DEPLOYMENT_DESCRIPTOR:
-				setDeploymentDescriptor((Application)newValue);
-				return;
-		}
-		eDynamicSet(eFeature, newValue);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.EAR_FILE__URI:
-				setURI(URI_EDEFAULT);
-				return;
-			case CommonarchivePackage.EAR_FILE__LAST_MODIFIED:
-				unsetLastModified();
-				return;
-			case CommonarchivePackage.EAR_FILE__SIZE:
-				unsetSize();
-				return;
-			case CommonarchivePackage.EAR_FILE__DIRECTORY_ENTRY:
-				unsetDirectoryEntry();
-				return;
-			case CommonarchivePackage.EAR_FILE__ORIGINAL_URI:
-				setOriginalURI(ORIGINAL_URI_EDEFAULT);
-				return;
-			case CommonarchivePackage.EAR_FILE__LOADING_CONTAINER:
-				setLoadingContainer((Container)null);
-				return;
-			case CommonarchivePackage.EAR_FILE__CONTAINER:
-				setContainer((Container)null);
-				return;
-			case CommonarchivePackage.EAR_FILE__FILES:
-				getFiles().clear();
-				return;
-			case CommonarchivePackage.EAR_FILE__TYPES:
-				getTypes().clear();
-				return;
-			case CommonarchivePackage.EAR_FILE__MODULE_REFS:
-				getModuleRefs().clear();
-				return;
-			case CommonarchivePackage.EAR_FILE__DEPLOYMENT_DESCRIPTOR:
-				setDeploymentDescriptor((Application)null);
-				return;
-		}
-		eDynamicUnset(eFeature);
-	}
-
-	/**
 	 * @generated This field/method will be replaced during code generation
 	 */
 	public Application getDeploymentDescriptorGen() {
 		if (deploymentDescriptor != null && deploymentDescriptor.eIsProxy()) {
-			Application oldDeploymentDescriptor = deploymentDescriptor;
-			deploymentDescriptor = (Application)eResolveProxy((InternalEObject)deploymentDescriptor);
+			InternalEObject oldDeploymentDescriptor = (InternalEObject)deploymentDescriptor;
+			deploymentDescriptor = (Application)eResolveProxy(oldDeploymentDescriptor);
 			if (deploymentDescriptor != oldDeploymentDescriptor) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonarchivePackage.EAR_FILE__DEPLOYMENT_DESCRIPTOR, oldDeploymentDescriptor, deploymentDescriptor));
@@ -993,8 +873,98 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 		deploymentDescriptor = newDeploymentDescriptor;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, CommonarchivePackage.EAR_FILE__DEPLOYMENT_DESCRIPTOR, oldDeploymentDescriptor, deploymentDescriptor));
-		if ( oldDeploymentDescriptor != deploymentDescriptor )
-            getModuleRefsGen().clear();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CommonarchivePackage.EAR_FILE__MODULE_REFS:
+				return ((InternalEList)getModuleRefs()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CommonarchivePackage.EAR_FILE__MODULE_REFS:
+				return ((InternalEList)getModuleRefs()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case CommonarchivePackage.EAR_FILE__MODULE_REFS:
+				return getModuleRefs();
+			case CommonarchivePackage.EAR_FILE__DEPLOYMENT_DESCRIPTOR:
+				if (resolve) return getDeploymentDescriptor();
+				return basicGetDeploymentDescriptor();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case CommonarchivePackage.EAR_FILE__MODULE_REFS:
+				getModuleRefs().clear();
+				getModuleRefs().addAll((Collection)newValue);
+				return;
+			case CommonarchivePackage.EAR_FILE__DEPLOYMENT_DESCRIPTOR:
+				setDeploymentDescriptor((Application)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case CommonarchivePackage.EAR_FILE__MODULE_REFS:
+				getModuleRefs().clear();
+				return;
+			case CommonarchivePackage.EAR_FILE__DEPLOYMENT_DESCRIPTOR:
+				setDeploymentDescriptor((Application)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case CommonarchivePackage.EAR_FILE__MODULE_REFS:
+				return moduleRefs != null && !moduleRefs.isEmpty();
+			case CommonarchivePackage.EAR_FILE__DEPLOYMENT_DESCRIPTOR:
+				return deploymentDescriptor != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**
@@ -1014,100 +984,6 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 			initRefs(refs);
 
 		return refs;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.EAR_FILE__CONTAINER:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, CommonarchivePackage.EAR_FILE__CONTAINER, msgs);
-				case CommonarchivePackage.EAR_FILE__FILES:
-					return ((InternalEList)getFiles()).basicAdd(otherEnd, msgs);
-				case CommonarchivePackage.EAR_FILE__MODULE_REFS:
-					return ((InternalEList)getModuleRefs()).basicAdd(otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.EAR_FILE__CONTAINER:
-					return eBasicSetContainer(null, CommonarchivePackage.EAR_FILE__CONTAINER, msgs);
-				case CommonarchivePackage.EAR_FILE__FILES:
-					return ((InternalEList)getFiles()).basicRemove(otherEnd, msgs);
-				case CommonarchivePackage.EAR_FILE__MODULE_REFS:
-					return ((InternalEList)getModuleRefs()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case CommonarchivePackage.EAR_FILE__CONTAINER:
-					return eContainer.eInverseRemove(this, CommonarchivePackage.CONTAINER__FILES, Container.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.EAR_FILE__URI:
-				return getURI();
-			case CommonarchivePackage.EAR_FILE__LAST_MODIFIED:
-				return new Long(getLastModified());
-			case CommonarchivePackage.EAR_FILE__SIZE:
-				return new Long(getSize());
-			case CommonarchivePackage.EAR_FILE__DIRECTORY_ENTRY:
-				return isDirectoryEntry() ? Boolean.TRUE : Boolean.FALSE;
-			case CommonarchivePackage.EAR_FILE__ORIGINAL_URI:
-				return getOriginalURI();
-			case CommonarchivePackage.EAR_FILE__LOADING_CONTAINER:
-				if (resolve) return getLoadingContainer();
-				return basicGetLoadingContainer();
-			case CommonarchivePackage.EAR_FILE__CONTAINER:
-				return getContainer();
-			case CommonarchivePackage.EAR_FILE__FILES:
-				return getFiles();
-			case CommonarchivePackage.EAR_FILE__TYPES:
-				return getTypes();
-			case CommonarchivePackage.EAR_FILE__MODULE_REFS:
-				return getModuleRefs();
-			case CommonarchivePackage.EAR_FILE__DEPLOYMENT_DESCRIPTOR:
-				if (resolve) return getDeploymentDescriptor();
-				return basicGetDeploymentDescriptor();
-		}
-		return eDynamicGet(eFeature, resolve);
 	}
 
 	public void initRefs(EList refs) {

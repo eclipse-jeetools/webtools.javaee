@@ -26,7 +26,7 @@ import org.eclipse.jst.j2ee.common.CommonPackage;
  * </p>
  *	@since 1.0
  */
-public interface ApplicationPackage extends EPackage{
+public interface ApplicationPackage extends EPackage {
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
@@ -101,7 +101,7 @@ public interface ApplicationPackage extends EPackage{
 	int APPLICATION__MODULES = CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the the '<em>Application</em>' class.
+	 * The number of structural features of the '<em>Application</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -116,24 +116,24 @@ public interface ApplicationPackage extends EPackage{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int MODULE__URI = 0;
+	int MODULE__URI = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int MODULE__ALT_DD = 1;
+	int MODULE__ALT_DD = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int MODULE__APPLICATION = 2;
+	int MODULE__APPLICATION = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the the '<em>Module</em>' class.
+	 * The number of structural features of the '<em>Module</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODULE_FEATURE_COUNT = 3;
+	int MODULE_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
@@ -157,7 +157,7 @@ public interface ApplicationPackage extends EPackage{
 	 */
 	int WEB_MODULE__CONTEXT_ROOT = ApplicationPackage.MODULE_FEATURE_COUNT + 0;
 	/**
-	 * The number of structural features of the the '<em>Web Module</em>' class.
+	 * The number of structural features of the '<em>Web Module</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -183,7 +183,7 @@ public interface ApplicationPackage extends EPackage{
 	int JAVA_CLIENT_MODULE__APPLICATION = ApplicationPackage.MODULE__APPLICATION;
 
 	/**
-	 * The number of structural features of the the '<em>Java Client Module</em>' class.
+	 * The number of structural features of the '<em>Java Client Module</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -209,7 +209,7 @@ public interface ApplicationPackage extends EPackage{
 	int EJB_MODULE__APPLICATION = ApplicationPackage.MODULE__APPLICATION;
 
 	/**
-	 * The number of structural features of the the '<em>Ejb Module</em>' class.
+	 * The number of structural features of the '<em>Ejb Module</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -241,7 +241,7 @@ public interface ApplicationPackage extends EPackage{
 
 
 	/**
-	 * The number of structural features of the the '<em>Connector Module</em>' class.
+	 * The number of structural features of the '<em>Connector Module</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -351,6 +351,137 @@ public interface ApplicationPackage extends EPackage{
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	ApplicationFactory getApplicationFactory();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Defines literals for the meta objects that represent
+	 * <ul>
+	 *   <li>each class,</li>
+	 *   <li>each feature of each class,</li>
+	 *   <li>each enum,</li>
+	 *   <li>and each data type</li>
+	 * </ul>
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	interface Literals  {
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.application.internal.impl.ApplicationImpl <em>Application</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.application.internal.impl.ApplicationImpl
+		 * @see org.eclipse.jst.j2ee.application.internal.impl.ApplicationPackageImpl#getApplication()
+		 * @generated
+		 */
+		EClass APPLICATION = eINSTANCE.getApplication();
+
+		/**
+		 * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute APPLICATION__VERSION = eINSTANCE.getApplication_Version();
+
+		/**
+		 * The meta object literal for the '<em><b>Security Roles</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION__SECURITY_ROLES = eINSTANCE.getApplication_SecurityRoles();
+
+		/**
+		 * The meta object literal for the '<em><b>Modules</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION__MODULES = eINSTANCE.getApplication_Modules();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.application.internal.impl.ModuleImpl <em>Module</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.application.internal.impl.ModuleImpl
+		 * @see org.eclipse.jst.j2ee.application.internal.impl.ApplicationPackageImpl#getModule()
+		 * @generated
+		 */
+		EClass MODULE = eINSTANCE.getModule();
+
+		/**
+		 * The meta object literal for the '<em><b>Uri</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MODULE__URI = eINSTANCE.getModule_Uri();
+
+		/**
+		 * The meta object literal for the '<em><b>Alt DD</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MODULE__ALT_DD = eINSTANCE.getModule_AltDD();
+
+		/**
+		 * The meta object literal for the '<em><b>Application</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODULE__APPLICATION = eINSTANCE.getModule_Application();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.application.internal.impl.WebModuleImpl <em>Web Module</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.application.internal.impl.WebModuleImpl
+		 * @see org.eclipse.jst.j2ee.application.internal.impl.ApplicationPackageImpl#getWebModule()
+		 * @generated
+		 */
+		EClass WEB_MODULE = eINSTANCE.getWebModule();
+
+		/**
+		 * The meta object literal for the '<em><b>Context Root</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_MODULE__CONTEXT_ROOT = eINSTANCE.getWebModule_ContextRoot();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.application.internal.impl.JavaClientModuleImpl <em>Java Client Module</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.application.internal.impl.JavaClientModuleImpl
+		 * @see org.eclipse.jst.j2ee.application.internal.impl.ApplicationPackageImpl#getJavaClientModule()
+		 * @generated
+		 */
+		EClass JAVA_CLIENT_MODULE = eINSTANCE.getJavaClientModule();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.application.internal.impl.EjbModuleImpl <em>Ejb Module</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.application.internal.impl.EjbModuleImpl
+		 * @see org.eclipse.jst.j2ee.application.internal.impl.ApplicationPackageImpl#getEjbModule()
+		 * @generated
+		 */
+		EClass EJB_MODULE = eINSTANCE.getEjbModule();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.application.internal.impl.ConnectorModuleImpl <em>Connector Module</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.application.internal.impl.ConnectorModuleImpl
+		 * @see org.eclipse.jst.j2ee.application.internal.impl.ApplicationPackageImpl#getConnectorModule()
+		 * @generated
+		 */
+		EClass CONNECTOR_MODULE = eINSTANCE.getConnectorModule();
+
+	}
 
 } //ApplicationPackage
 

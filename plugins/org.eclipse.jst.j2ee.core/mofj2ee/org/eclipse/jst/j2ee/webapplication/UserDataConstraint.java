@@ -11,13 +11,14 @@
 package org.eclipse.jst.j2ee.webapplication;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.common.J2EEEObject;
 
 /**
  * The user-data-constraint element is used to indicate how data communicated between the client and container should be protected
  * @since 1.0
+ * @generated
  */
-public interface UserDataConstraint extends EObject{
+public interface UserDataConstraint extends J2EEEObject {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the Description attribute

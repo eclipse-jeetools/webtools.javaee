@@ -13,7 +13,9 @@ package org.eclipse.jst.j2ee.taglib.internal.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.jst.j2ee.taglib.internal.BodyContentType;
 import org.eclipse.jst.j2ee.taglib.internal.Function;
 import org.eclipse.jst.j2ee.taglib.internal.JSPScriptingVariableScope;
@@ -30,8 +32,27 @@ import org.eclipse.jst.j2ee.taglib.internal.Validator;
 /**
  * @generated
  */
-public class TaglibFactoryImpl extends EFactoryImpl implements TaglibFactory{
+public class TaglibFactoryImpl extends EFactoryImpl implements TaglibFactory {
  
+	/**
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static TaglibFactory init() {
+		try {
+			TaglibFactory theTaglibFactory = (TaglibFactory)EPackage.Registry.INSTANCE.getEFactory("taglib.xmi"); 
+			if (theTaglibFactory != null) {
+				return theTaglibFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new TaglibFactoryImpl();
+	}
+
 	public TaglibFactoryImpl() {
 		super(); 		
 	}
@@ -62,16 +83,10 @@ public class TaglibFactoryImpl extends EFactoryImpl implements TaglibFactory{
 	 */
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case TaglibPackage.BODY_CONTENT_TYPE: {
-				BodyContentType result = BodyContentType.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case TaglibPackage.JSP_SCRIPTING_VARIABLE_SCOPE: {
-				JSPScriptingVariableScope result = JSPScriptingVariableScope.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
+			case TaglibPackage.BODY_CONTENT_TYPE:
+				return createBodyContentTypeFromString(eDataType, initialValue);
+			case TaglibPackage.JSP_SCRIPTING_VARIABLE_SCOPE:
+				return createJSPScriptingVariableScopeFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -85,9 +100,9 @@ public class TaglibFactoryImpl extends EFactoryImpl implements TaglibFactory{
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			case TaglibPackage.BODY_CONTENT_TYPE:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertBodyContentTypeToString(eDataType, instanceValue);
 			case TaglibPackage.JSP_SCRIPTING_VARIABLE_SCOPE:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertJSPScriptingVariableScopeToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -164,6 +179,46 @@ public static TaglibFactory getActiveFactory() {
 	public TldExtension createTldExtension() {
 		TldExtensionImpl tldExtension = new TldExtensionImpl();
 		return tldExtension;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BodyContentType createBodyContentTypeFromString(EDataType eDataType, String initialValue) {
+		BodyContentType result = BodyContentType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertBodyContentTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JSPScriptingVariableScope createJSPScriptingVariableScopeFromString(EDataType eDataType, String initialValue) {
+		JSPScriptingVariableScope result = JSPScriptingVariableScope.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertJSPScriptingVariableScopeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**
