@@ -55,6 +55,7 @@ import org.eclipse.wst.web.internal.deployables.ComponentDeployable;
  */
 public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EEModule, IEnterpriseApplication, IApplicationClientModule, IConnectorModule, IEJBModule, IWebModule {
 	private static final IPath WEB_CLASSES_PATH = new Path("WEB-INF").append("classes"); //$NON-NLS-1$ //$NON-NLS-2$
+	private IPackageFragmentRoot[] cachedSourceContainers;
 
 	/**
 	 * Constructor for J2EEFlexProjDeployable.
@@ -112,44 +113,49 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 
 	public IModuleResource[] members() throws CoreException {
 		members.clear();
-		IPath javaPath = Path.EMPTY;
-		if (J2EEProjectUtilities.isDynamicWebProject(component.getProject()))
-			javaPath = WEB_CLASSES_PATH;
-		
-		IVirtualComponent vc = ComponentCore.createComponent(getProject());
-		if (vc != null) {
-			IVirtualFolder vFolder = vc.getRootFolder();
-			IModuleResource[] mr = getMembers(vFolder, Path.EMPTY);
-			int size = mr.length;
-			for (int j = 0; j < size; j++) {
-				if (!members.contains(mr[j]))
-					members.add(mr[j]);
+		cachedSourceContainers = J2EEProjectUtilities.getSourceContainers(getProject());
+		try {
+			IPath javaPath = Path.EMPTY;
+			if (J2EEProjectUtilities.isDynamicWebProject(component.getProject()))
+				javaPath = WEB_CLASSES_PATH;
+			
+			IVirtualComponent vc = ComponentCore.createComponent(getProject());
+			if (vc != null) {
+				IVirtualFolder vFolder = vc.getRootFolder();
+				IModuleResource[] mr = getMembers(vFolder, Path.EMPTY);
+				int size = mr.length;
+				for (int j = 0; j < size; j++) {
+					if (!members.contains(mr[j]))
+						members.add(mr[j]);
+				}
 			}
-		}
-		
-		IContainer[] javaCont = getJavaOutputFolders();		
-		int size = javaCont.length;
-		for (int i = 0; i < size; i++) {
-			IModuleResource[] mr = getMembers(javaCont[i], javaPath, javaPath, javaCont);
-			int size2 = mr.length;
-			for (int j = 0; j < size2; j++) {
-				if (!members.contains(mr[j]))
-					members.add(mr[j]);
+			
+			IContainer[] javaCont = getJavaOutputFolders();		
+			int size = javaCont.length;
+			for (int i = 0; i < size; i++) {
+				IModuleResource[] mr = getMembers(javaCont[i], javaPath, javaPath, javaCont);
+				int size2 = mr.length;
+				for (int j = 0; j < size2; j++) {
+					if (!members.contains(mr[j]))
+						members.add(mr[j]);
+				}
 			}
+			
+			if (vc != null) {
+				List utilMembers = getUtilMembers(vc);
+				if (!utilMembers.isEmpty())
+					members.addAll(utilMembers);
+				List consumableMembers = getConsumableReferencedMembers(vc);
+				if (!consumableMembers.isEmpty())
+					members.addAll(consumableMembers);
+			}
+			
+			IModuleResource[] mr = new IModuleResource[members.size()];
+			members.toArray(mr);
+			return mr;
+		} finally {
+			cachedSourceContainers = null;
 		}
-		
-		if (vc != null) {
-			List utilMembers = getUtilMembers(vc);
-			if (!utilMembers.isEmpty())
-				members.addAll(utilMembers);
-			List consumableMembers = getConsumableReferencedMembers(vc);
-			if (!consumableMembers.isEmpty())
-				members.addAll(consumableMembers);
-		}
-		
-		IModuleResource[] mr = new IModuleResource[members.size()];
-		members.toArray(mr);
-		return mr;
 	}
 	
 	protected IModuleResource[] handleJavaPath(IPath path, IPath javaPath, IPath curPath, IContainer[] javaCont, IModuleResource[] mr, IContainer cc) throws CoreException {
@@ -362,7 +368,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     	boolean result = false;
     	if (file == null)
     		return false;
-    	IPackageFragmentRoot[] srcContainers = J2EEProjectUtilities.getSourceContainers(getProject());
+    	IPackageFragmentRoot[] srcContainers = getSourceContainers();
     	for (int i=0; i<srcContainers.length; i++) {
     		IPath srcPath = srcContainers[i].getPath();
     		result = srcPath.isPrefixOf(file.getFullPath());
@@ -371,6 +377,13 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     	}
     	return result;
     }
+
+	private IPackageFragmentRoot[] getSourceContainers() {
+		if (cachedSourceContainers != null)
+			return cachedSourceContainers;
+		else
+			return J2EEProjectUtilities.getSourceContainers(getProject());
+	}
     
     protected List getConsumableReferencedMembers(IVirtualComponent vc) throws CoreException {
 		List consumableMembers = new ArrayList();
