@@ -19,6 +19,6 @@ public class J2EEComponentClasspathInitializer extends ClasspathContainerInitial
 
 	public void initialize(IPath containerPath, IJavaProject javaProject) throws CoreException {
 		J2EEComponentClasspathUpdater.init();
-		J2EEComponentClasspathContainer.install(containerPath, javaProject);
+		(new J2EEComponentClasspathContainer(containerPath, javaProject)).install();
 	}
 }
