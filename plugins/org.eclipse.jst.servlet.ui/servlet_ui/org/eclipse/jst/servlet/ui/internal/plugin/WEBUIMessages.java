@@ -104,6 +104,9 @@ public class WEBUIMessages extends NLS {
 	
 	public static String Compressed_Libraries;
 	public static String Compressed_JavaResources;
+	
+	public static String ConvertToWebTitle;
+	public static String SelectWebVersion;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, WEBUIMessages.class);

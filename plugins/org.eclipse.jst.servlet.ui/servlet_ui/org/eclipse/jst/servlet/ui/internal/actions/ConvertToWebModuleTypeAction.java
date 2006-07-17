@@ -20,11 +20,16 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.window.Window;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
+import org.eclipse.jst.servlet.ui.internal.wizard.ConvertToWebModuleTypeDialog;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -94,6 +99,11 @@ public class ConvertToWebModuleTypeAction extends Action implements IWorkbenchWi
 
 	public void run(IAction action) {
 		try {
+			IWorkbenchWindow window = PlatformUI.getWorkbench().getWorkbenchWindows()[0];
+			ConvertToWebModuleTypeDialog dialog = new ConvertToWebModuleTypeDialog(window.getShell());
+			dialog.open();
+			if (dialog.getReturnCode() == Window.CANCEL)
+				return;
 			IFacetedProject facetedProject = ProjectFacetsManager.create(project);
 			Set fixedFacets = new HashSet();
 			fixedFacets.addAll(facetedProject.getFixedProjectFacets());
@@ -103,6 +113,9 @@ public class ConvertToWebModuleTypeAction extends Action implements IWorkbenchWi
 			facetedProject.uninstallProjectFacet(facetedProject.getInstalledVersion(webFacet), null, new NullProgressMonitor());
 			IDataModel model = DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
 			model.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, project.getName());
+			FacetDataModelMap map = (FacetDataModelMap) model.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+			IDataModel webModel = map.getFacetDataModel(IModuleConstants.JST_WEB_MODULE);
+			webModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, dialog.getSelectedVersion());
 			model.getDefaultOperation().execute(new NullProgressMonitor(), null);
 		} catch (Exception e) {
 			Logger.logException(e);

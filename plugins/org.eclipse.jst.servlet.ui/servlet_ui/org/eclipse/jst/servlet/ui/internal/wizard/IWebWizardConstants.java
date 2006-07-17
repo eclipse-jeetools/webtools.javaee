@@ -86,4 +86,7 @@ public interface IWebWizardConstants {
 	public final static String NO_WEB_PROJECTS = WEBUIMessages.NO_WEB_PROJECTS;
 	
 	public static final String SERVLETS = WEBUIMessages.SERVLETS;
+	
+	public static final String CONVERT_TO_WEB_TITLE = WEBUIMessages.ConvertToWebTitle;
+	public static final String SELECT_WEB_VERSION = WEBUIMessages.SelectWebVersion;
 }
