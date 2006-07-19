@@ -42,6 +42,7 @@ public class AllPluginTests extends TestSuite {
 	      addTest(org.eclipse.jst.j2ee.tests.modulecore.AllTests.suite());
 	      addTest(ProjectMigrationTest.suite());
 	      addTest(AnnotationProviderTest.suite());
+	      addTest(org.eclipse.jst.j2ee.dependency.tests.AllTests.suite());
     }
     
     public static IRuntime createJONASRuntime()  {
