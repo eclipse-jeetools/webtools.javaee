@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -43,6 +44,12 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
  */
 public class J2EEElementChangedListener implements IElementChangedListener {
 
+	/**
+	 * Name of the Job family in which all component update jobs belong.
+	 */
+	public static final String PROJECT_COMPONENT_UPDATE_JOB_FAMILY =  "org.eclipse.jst.j2ee.refactor.component"; //$NON-NLS-1$
+	
+	
 	/* (non-Javadoc)
 	 * @see org.eclipse.jdt.core.IElementChangedListener#elementChanged(org.eclipse.jdt.core.ElementChangedEvent)
 	 */
@@ -100,7 +107,6 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 					// since it could represent another error, we need to abort adding. 
 					abortAdd = true;
 				}
-
 				// only update if we know it is a src folder
 				if (cpeKind == IPackageFragmentRoot.K_SOURCE) {
 					// kind and flags for CP additions are somewhat sporadic; either:
@@ -114,8 +120,17 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 							if(pathsToAdd == null){
 								pathsToAdd = new ArrayList();
 							}
-							IPath path = root.getPath().removeFirstSegments(1);
+							final IPath path = root.getPath().removeFirstSegments(1);
 							pathsToAdd.add(path);
+							// if the added src path was moved from another location, remove any mapping for that
+							// location
+							if ((flags & IJavaElementDelta.F_MOVED_FROM) == IJavaElementDelta.F_MOVED_FROM) {
+								final IJavaElement movedFromElement = delta.getMovedFromElement();
+								if(pathsToRemove == null){
+									pathsToRemove = new ArrayList();
+								}
+								pathsToRemove.add(movedFromElement.getPath().removeFirstSegments(1));
+							}
 						}
 					// getting a kind = REMOVED and flags = 0 for removal of the folder (w/o removing the CPE), probably
 				    // should not be generated
@@ -150,11 +165,16 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 					}
 					return Status.OK_STATUS;
 				}
+				public boolean belongsTo(final Object family) {
+					return PROJECT_COMPONENT_UPDATE_JOB_FAMILY.equals(family);
+				}
 			};
-			job.setRule(project);
+			job.setRule(ResourcesPlugin.getWorkspace().getRoot());
 			job.schedule();
 		}
 	}
+	
+	
 
 	/*
 	 * Retrieves the IVirtualFolder to which Java src folders should be mapped

@@ -46,6 +46,11 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
   */
 public final class ProjectRefactoringListener implements IResourceChangeListener, IResourceDeltaVisitor {
 	
+	/**
+	 * Name of the Job family in which all project rename/delete refactoring jobs belong.
+	 */
+	public static final String PROJECT_REFACTORING_JOB_FAMILY =  "org.eclipse.jst.j2ee.refactor.project"; //$NON-NLS-1$
+	
 	/*
 	 * Map from name of deleted project to ProjectRefactorMetadata instances.
 	 */
@@ -184,6 +189,10 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 				}				
 				return Status.OK_STATUS;
 			}
+			
+			public boolean belongsTo(final Object family) {
+				return PROJECT_REFACTORING_JOB_FAMILY.equals(family);
+			}
 		};
 		// XXX note: might want to consider switching to a MultiRule for optimization
 		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
@@ -207,6 +216,10 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 					return new Status(Status.ERROR, J2EEPlugin.PLUGIN_ID, 0, msg, e);
 				}
 				return Status.OK_STATUS;
+			}
+			
+			public boolean belongsTo(final Object family) {
+				return PROJECT_REFACTORING_JOB_FAMILY.equals(family);
 			}
 		};
 		// XXX note: might want to consider switching to a MultiRule for optimization
