@@ -58,9 +58,11 @@ public abstract class ProjectRefactorOperation extends AbstractDataModelOperatio
 				updateProject(refactoredMetadata);
 			}
 			
-			// Update metadata for dependent projects
-			updateDependentProjects(refactoredMetadata, monitor);
-			
+			// If this is not an EAR, update metadata for dependent projects
+			// (not performing any refactoring for projects that depend on EAR's right now)
+			if (!refactoredMetadata.isEAR()) {
+				updateDependentProjects(refactoredMetadata, monitor);
+			}
 		} finally {
 			if (monitor != null) {
 				monitor.done();
