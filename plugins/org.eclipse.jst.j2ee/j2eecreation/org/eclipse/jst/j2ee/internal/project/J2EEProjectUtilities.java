@@ -77,6 +77,7 @@ import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -227,7 +228,20 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 	public static IFile getManifestFile(IProject p) {
 		IVirtualComponent component = ComponentCore.createComponent(p);
 		try {
-			return ComponentUtilities.findFile(component, new Path(J2EEConstants.MANIFEST_URI));
+			IFile file = ComponentUtilities.findFile(component, new Path(J2EEConstants.MANIFEST_URI));
+			if( file == null ){
+				IVirtualFolder  virtualFolder = component.getRootFolder();
+		        file = virtualFolder.getUnderlyingFolder().getFile(new Path(J2EEConstants.MANIFEST_URI));
+
+		        try {
+		            ManifestFileCreationAction.createManifestFile(file, p);
+		        } catch (CoreException e) {
+		            Logger.getLogger().log(e);
+		        } catch (IOException e) {
+		            Logger.getLogger().log(e);
+		        }				
+			}
+			return file;
 		} catch (CoreException ce) {
 			Logger.getLogger().log(ce);
 		}
