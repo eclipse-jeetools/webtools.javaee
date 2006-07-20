@@ -45,12 +45,10 @@ import org.eclipse.jem.util.logger.LogEntry;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.common.SecurityRoleRef;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.EJBJarFileImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.ejb.CommonRelationshipRole;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
@@ -98,6 +96,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	private static LogEntry logEntry;
 	private static Logger logger;
 	private ArtifactEdit edit = null;
+	private EJBJarFile ejbJarFile = null;
 	private EJBJar ejbJar = null;
 
 	public EJBHelper() {
@@ -176,6 +175,11 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 			edit.dispose();
 			edit = null;
 		}
+		if(null != ejbJarFile){
+			ejbJarFile.close();
+			ejbJarFile = null;
+		}
+		
 	}
 
 	/**
@@ -559,9 +563,8 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 			edit = ComponentUtilities.getArtifactEditForRead(comp);
 			
 			try {
-				Archive archive = ((EJBArtifactEdit) edit).asArchive(false);
-				ejbJar = ((EJBJarFileImpl)archive).getDeploymentDescriptor();
-				//return ((EJBJarFileImpl)archive).getDeploymentDescriptor();
+				ejbJarFile = (EJBJarFile)((EJBArtifactEdit) edit).asArchive(false);
+				ejbJar = ejbJarFile.getDeploymentDescriptor();
 			} catch (OpenFailureException e1) {
 				Logger.getLogger().log(e1);
 			}
