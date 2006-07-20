@@ -34,7 +34,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -46,12 +45,11 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadExc
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.DependencyType;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
-import org.eclipse.wst.common.componentcore.internal.impl.PlatformURLModuleConnection;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -59,7 +57,6 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualContainer;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
-import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 
 public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
@@ -70,6 +67,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
 	protected IVirtualComponent vComponent;
 	protected boolean exportSource;
+	private ArtifactEdit artifactEdit;
 	private List zipFiles = new ArrayList();
 
 	protected class FilesHolder {
@@ -454,21 +452,15 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		return resources;
 	}
 
-	public Resource getMofResource(String uri) throws FileNotFoundException, ResourceLoadException {
-		try {
-			URI compUri = ModuleURIUtil.fullyQualifyURI(vComponent.getProject());
-			IPath requestPath = new Path(compUri.path()).append(new Path(uri));
-			URI resourceURI = URI.createURI(PlatformURLModuleConnection.MODULE_PROTOCOL + requestPath.toString());
-			return getResourceSet().getResource(resourceURI, true);
-		} catch (WrappedException wrapEx) {
-			if ((ExtendedEcoreUtil.getFileNotFoundDetector().isFileNotFound(wrapEx))) {
-				FileNotFoundException fileNotFoundEx = ExtendedEcoreUtil.getInnerFileNotFoundException(wrapEx);
-				throw fileNotFoundEx;
-			}
-			throwResourceLoadException(uri, wrapEx);
-			return null; // never happens - compiler expects it though
+	protected synchronized ArtifactEdit getArtifactEditForRead() {
+		if(artifactEdit == null){
+			artifactEdit = ArtifactEdit.getArtifactEditForRead(vComponent);
 		}
-
+		return artifactEdit;
+	}
+	
+	public Resource getMofResource(String uri) throws FileNotFoundException, ResourceLoadException {
+		return getArtifactEditForRead().getResource(URI.createURI(uri));
 	}
 
 	public boolean isClassLoaderNeeded() {
@@ -480,13 +472,22 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	}
 
 	public void close() {
-		Iterator it = zipFiles.iterator();
-		while (it.hasNext()) {
-			ZipFile file = (ZipFile) it.next();
-			try {
-				file.close();
-			} catch (IOException e) {
-				e.printStackTrace();
+		try{
+			Iterator it = zipFiles.iterator();
+			while (it.hasNext()) {
+				ZipFile file = (ZipFile) it.next();
+				try {
+					file.close();
+				} catch (IOException e) {
+					Logger.getLogger().logError(e);
+				}
+			}
+		} finally{
+			synchronized(this) {
+				if(artifactEdit != null){
+					artifactEdit.dispose();
+					artifactEdit = null;
+				}
 			}
 		}
 	}
