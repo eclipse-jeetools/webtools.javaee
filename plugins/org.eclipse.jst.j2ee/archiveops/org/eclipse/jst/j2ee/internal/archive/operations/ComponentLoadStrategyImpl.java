@@ -476,7 +476,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
 	public void close() {
 		if(Thread.currentThread().toString().toLowerCase().indexOf("finalizer") != -1){
-			System.err.println("Opener of Archive didn't close!");
+			System.err.println("Opener of Archive didn't close! "+this);
 			exception.printStackTrace(System.err);
 		}
 		
@@ -491,12 +491,17 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				}
 			}
 		} finally{
-			synchronized(this) {
-				if(artifactEdit != null){
-					artifactEdit.dispose();
-					artifactEdit = null;
+			try{
+				synchronized(this) {
+					if(artifactEdit != null){
+						artifactEdit.dispose();
+						artifactEdit = null;
+					}
 				}
+			} finally {
+				super.close();
 			}
 		}
+		
 	}
 }

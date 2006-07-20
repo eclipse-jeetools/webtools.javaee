@@ -164,7 +164,9 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	}
 
 	protected void finalize() throws Throwable {
-		close();
+		if(isOpen){
+			close();
+		}
 	}
 
 	/**

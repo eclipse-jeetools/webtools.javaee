@@ -94,16 +94,6 @@ public class UIWarValidator extends WarValidator {
         }
         return status;
 	}	
-		
-	
-
-	
-	public void cleanup(IReporter reporter) {
-		super.cleanup(reporter);
-		if(warHelper != null) 
-			warHelper.disposeWarFileMap();
-		}
-	
 	
 	/**
 	 * Insert the method's description here. Creation date: (10/2/2001 6:49:26 PM)
