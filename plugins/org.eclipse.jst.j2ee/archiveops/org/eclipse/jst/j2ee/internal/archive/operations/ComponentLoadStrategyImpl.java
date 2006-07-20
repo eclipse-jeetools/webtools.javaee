@@ -178,9 +178,12 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
 	protected FilesHolder filesHolder;
 
+	private Exception exception; //TEMP TODO REMOVE
+	
 	public ComponentLoadStrategyImpl(IVirtualComponent vComponent) {
 		this.vComponent = vComponent;
 		filesHolder = new FilesHolder();
+		exception = new Exception();
 	}
 
 	public boolean contains(String uri) {
@@ -472,6 +475,11 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	}
 
 	public void close() {
+		if(Thread.currentThread().toString().toLowerCase().indexOf("finalizer") != -1){
+			System.err.println("Opener of Archive didn't close!");
+			exception.printStackTrace(System.err);
+		}
+		
 		try{
 			Iterator it = zipFiles.iterator();
 			while (it.hasNext()) {
