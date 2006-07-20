@@ -19,7 +19,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -37,6 +36,7 @@ import org.eclipse.wst.validation.internal.operations.WorkbenchReporter;
 public class WarHelper extends J2EEValidationHelper {
 	Hashtable warFileMap = new Hashtable();
 	ArtifactEdit edit = null;
+	WARFile warFile = null;
 	final static String HelperID = "org.eclipse.wst.validation.internal.core.war.workbenchimpl.WarHelper"; //$NON-NLS-1$
 
 
@@ -114,8 +114,8 @@ public class WarHelper extends J2EEValidationHelper {
 			edit = ComponentUtilities.getArtifactEditForRead(comp);
 			
 			try {
-				Archive archive = ((WebArtifactEdit) edit).asArchive(false);
-				return archive;
+				warFile = (WARFile)((WebArtifactEdit) edit).asArchive(false);
+				return warFile;
 			} catch (OpenFailureException e1) {
 				Logger.getLogger().log(e1);
 			}
@@ -132,6 +132,10 @@ public class WarHelper extends J2EEValidationHelper {
 			edit.dispose();
 			edit = null;
 		}	
+		if(warFile != null){
+			warFile.close();
+			warFile = null;
+		}
 		super.cleanup(reporter);
 	}
 }

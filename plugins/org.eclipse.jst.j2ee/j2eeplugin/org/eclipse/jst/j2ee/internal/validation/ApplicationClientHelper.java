@@ -18,13 +18,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.model.internal.validation.ApplicationClientMessageConstants;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.validation.internal.operations.WorkbenchReporter;
 
 
 /**
@@ -66,8 +66,8 @@ public class ApplicationClientHelper extends J2EEValidationHelper {
 		ArtifactEdit edit = ComponentUtilities.getArtifactEditForRead(comp);
 		
 		try {
-			Archive archive = ((AppClientArtifactEdit) edit).asArchive(false);
-			return archive;
+			appClientFile = (ApplicationClientFile)((AppClientArtifactEdit) edit).asArchive(false);
+			return appClientFile;
 		} catch (OpenFailureException e1) {
 			Logger.getLogger().log(e1);
 		}finally {
@@ -77,6 +77,11 @@ public class ApplicationClientHelper extends J2EEValidationHelper {
 		}
 		return null;
 	}	
+	
+	public void cleanup(WorkbenchReporter reporter) {
+		closeApplicationClientFile();
+		super.cleanup(reporter);
+	}
 	
 	public void closeApplicationClientFile() {
 		if (appClientFile != null)
