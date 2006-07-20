@@ -10,9 +10,14 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.defect.tests;
 
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import junit.framework.Assert;
 
@@ -376,10 +381,42 @@ public class DefectVerificationTests extends OperationTestCase {
 	}
 	
 	
+	public void test145031() throws Exception {
+		String [] shortNames = new String [] { "JarTest.man.jar", "JarTest.auto.jar"};
+		
+		for (int i = 0; i < shortNames.length; i++) {
+			System.out.println("trying shortName ="+shortNames[i]);
+			String longName = getFullTestDataPath(shortNames[i]);
+			System.out.println("longName ="+longName);
+			URLClassLoader jarCL = new URLClassLoader(new URL[] { new URL("file:\\"+longName) });
+			Enumeration resources = jarCL.getResources("META-INF/");
+			boolean foundResource = false;
+			while(resources.hasMoreElements()){
+				URL url = (URL)resources.nextElement();
+				if(url.toString().indexOf(shortNames[i]) != -1){
+					System.out.println("  Found URL with URLClassLoader.getResources(\"META-INF/\") ");
+					System.out.println("  url = "+ url);
+					foundResource = true;
+				}
+			}
+			if(!foundResource){
+				System.out.println("  Didn't find URL with URLClassLoader.getResources(\"META-INF/\") ");
+			}
+
+			ZipFile zipFile = new ZipFile(longName);
+			Enumeration entries = zipFile.entries();
+			while(entries.hasMoreElements()){
+				ZipEntry entry = (ZipEntry)entries.nextElement();
+				System.out.println("  Entry found = "+entry);
+			}
+			
+		}
+	}
+	
 	
 	/**
-	 * To run this test, first override setUp() to do nothing, and then import a few ear projects
-	 * containing modules.
+	 * To run this test, first override setUp() to do nothing, and then import a
+	 * few ear projects containing modules.
 	 * 
 	 * @throws Exception
 	 */
