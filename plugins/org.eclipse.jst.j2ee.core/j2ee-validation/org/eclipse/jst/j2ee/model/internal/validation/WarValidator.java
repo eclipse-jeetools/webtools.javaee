@@ -1283,7 +1283,7 @@ public class WarValidator extends J2EEValidator implements WARMessageConstants {
 
 			// if it's a JSP, the jsp-file attribute MUST be a full-path, according to the servlet
 			// 2.2 spec
-			if (nextServlet.getWebType().isJspType()) {
+			if (nextServlet.getWebType() != null && nextServlet.getWebType().isJspType()) {
 				JSPType jspType = (JSPType) (nextServlet.getWebType());
 
 				String jspFileName = jspType.getJspFile();
