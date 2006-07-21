@@ -54,7 +54,7 @@ public class StructureEditStressTest extends ModuleExportOperationTestCase {
 	}
 	
 	public void testStress() throws Exception {
-		File exportDirectory = new File(TESTS_OUTPUT_PATH);
+		File exportDirectory = new File(getTestsOutputPath());
 		if (exportDirectory.isDirectory()) {
 			File[] contents = exportDirectory.listFiles();
 			for (int i = 0; i < contents.length; i++) {

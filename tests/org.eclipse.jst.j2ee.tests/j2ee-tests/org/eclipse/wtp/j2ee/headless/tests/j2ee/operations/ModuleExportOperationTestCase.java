@@ -38,7 +38,7 @@ public abstract class ModuleExportOperationTestCase extends OperationTestCase {
 	protected boolean overwriteExisting = false;
 	protected boolean dataModelShouldBeValid = true;
 
-	public final String TESTS_OUTPUT_PATH;
+	//public String TESTS_OUTPUT_PATH;
 
 	public static Test suite() {
 		TestSuite suite = new TestSuite();
@@ -51,9 +51,6 @@ public abstract class ModuleExportOperationTestCase extends OperationTestCase {
 
 	public ModuleExportOperationTestCase(String name) {
 		super(name);
-
-		String relativeOutputTestsPath = "TestData" + File.separator + getOutputDirectory() + File.separator;
-		TESTS_OUTPUT_PATH = getOutputPath(relativeOutputTestsPath);
 	}
 	
 	public String getOutputPath(String relPath) {
@@ -100,7 +97,7 @@ public abstract class ModuleExportOperationTestCase extends OperationTestCase {
 
 	public void testExport(IVirtualComponent component, String filename) throws Exception {
 		IDataModel dataModel = getModelInstance();
-		dataModel.setProperty(J2EEComponentExportDataModelProvider.ARCHIVE_DESTINATION, TESTS_OUTPUT_PATH + filename);
+		dataModel.setProperty(J2EEComponentExportDataModelProvider.ARCHIVE_DESTINATION, getTestsOutputPath() + filename);
 		dataModel.setProperty(J2EEComponentExportDataModelProvider.COMPONENT, component);
 		dataModel.setBooleanProperty(J2EEComponentExportDataModelProvider.EXPORT_SOURCE_FILES, exportSourceFiles);
 		dataModel.setBooleanProperty(J2EEComponentExportDataModelProvider.OVERWRITE_EXISTING, overwriteExisting);
@@ -155,7 +152,7 @@ public abstract class ModuleExportOperationTestCase extends OperationTestCase {
 
 	public void testAllExportTestCases() throws Exception {
 
-		File exportDirectory = new File(TESTS_OUTPUT_PATH);
+		File exportDirectory = new File(getTestsOutputPath());
 		if (exportDirectory.isDirectory()) {
 			File[] contents = exportDirectory.listFiles();
 			for (int i = 0; i < contents.length; i++) {
@@ -173,6 +170,10 @@ public abstract class ModuleExportOperationTestCase extends OperationTestCase {
 		StringBuffer result = new StringBuffer(baseName);
 		result.append((exportSourceFiles) ? "_withSource" : "_withoutSource").append(getModuleExportFileExt());
 		return result.toString();
+	}
+	protected String getTestsOutputPath() {
+		String relativeOutputTestsPath = "TestData" + File.separator + getOutputDirectory() + File.separator;
+		return getOutputPath(relativeOutputTestsPath);
 	}
 
 	/**
