@@ -18,11 +18,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -30,36 +35,33 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.impl.AdapterImpl;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainer;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.ComponentcorePackage;
-import org.eclipse.wst.common.componentcore.internal.GlobalComponentChangeListener;
-import org.eclipse.wst.common.componentcore.internal.GlobalComponentChangeNotifier;
-import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
-import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 
-public class J2EEComponentClasspathUpdater extends AdapterImpl implements GlobalComponentChangeListener, IResourceChangeListener {
+public class J2EEComponentClasspathUpdater implements IResourceChangeListener, IResourceDeltaVisitor {
 
 	private static J2EEComponentClasspathUpdater instance = null;
+
 	private int pauseCount = 0;
+
 	private Set moduleUpdatesRequired = new HashSet();
+
 	private Set earUpdatesRequired = new HashSet();
+
 	private IPath WEB_APP_LIBS_PATH = new Path("org.eclipse.jst.j2ee.internal.web.container");
 
 	public static J2EEComponentClasspathUpdater getInstance() {
@@ -72,14 +74,13 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 	public static void init() {
 		if (instance == null) {
 			instance = new J2EEComponentClasspathUpdater();
-			GlobalComponentChangeNotifier.getInstance().addListener(instance);
 			ResourcesPlugin.getWorkspace().addResourceChangeListener(instance, IResourceChangeEvent.POST_CHANGE);
 		}
 	}
-
+	
 	/**
-	 * Pauses updates; any caller of this method must ensure through a try/finally block that
-	 * resumeUpdates is subsequently called.
+	 * Pauses updates; any caller of this method must ensure through a
+	 * try/finally block that resumeUpdates is subsequently called.
 	 */
 	public void pauseUpdates() {
 		synchronized (this) {
@@ -119,38 +120,13 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 		}
 	}
 
-	private final String MODULE_URI = "module:/resource";
-
-	public void notifyChanged(Notification notification) {
-		if (notification.getFeature() == ComponentcorePackage.eINSTANCE.getWorkbenchComponent_ReferencedComponents()) {
-			switch (notification.getEventType()) {
-				case Notification.REMOVE :
-					ReferencedComponent oldRef = (ReferencedComponent) notification.getOldValue();
-					URI handle = oldRef.getHandle();
-					if (handle.toString().startsWith(MODULE_URI)) {
-						String projectName = handle.segment(2);
-						IProject project = ProjectUtilities.getProject(projectName);
-						queueUpdate(project);
-					}
-			}
-		}
-	}
-
-	public void editModelChanged(EditModelEvent anEvent) {
-		switch (anEvent.getEventCode()) {
-			case EditModelEvent.SAVE :
-			case EditModelEvent.LOADED_RESOURCE :
-				IProject project = anEvent.getEditModel().getProject();
-				queueUpdate(project);
-				break;
-		}
-	}
-
 	public void queueUpdate(IProject project) {
 		if (J2EEProjectUtilities.isEARProject(project)) {
-			// TODO streamline the ear section so it only changes if the refs have changed
+			// TODO streamline the ear section so it only changes if the refs
+			// have changed
 			queueUpdateEAR(project);
-		} else if (J2EEProjectUtilities.isApplicationClientProject(project) || J2EEProjectUtilities.isEJBProject(project) || J2EEProjectUtilities.isDynamicWebProject(project) || J2EEProjectUtilities.isJCAProject(project) || J2EEProjectUtilities.isUtilityProject(project)) {
+		} else if (J2EEProjectUtilities.isApplicationClientProject(project) || J2EEProjectUtilities.isEJBProject(project) || J2EEProjectUtilities.isDynamicWebProject(project)
+				|| J2EEProjectUtilities.isJCAProject(project) || J2EEProjectUtilities.isUtilityProject(project)) {
 			// Hari: update the project only if the tree is not locked.
 			if (false == ResourcesPlugin.getWorkspace().isTreeLocked())
 				queueUpdateModule(project);
@@ -167,7 +143,6 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 			}
 		}
 		updateModule(project);
-
 	}
 
 	public void queueUpdateEAR(IProject earProject) {
@@ -323,8 +298,8 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 	}
 
 	/**
-	 * Returns the existing classpath container if it is already on the classpath. This will not
-	 * create a new container.
+	 * Returns the existing classpath container if it is already on the
+	 * classpath. This will not create a new container.
 	 * 
 	 * @param jproj
 	 * @param classpathContainerID
@@ -354,10 +329,11 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 	}
 
 	private void trackManifest(IResource manifest, boolean updateTimestamp) {
-		if (manifest == null) return;
+		if (manifest == null)
+			return;
 		synchronized (knownManifests) {
 			if (manifest.exists()) {
-				if(updateTimestamp || !knownManifests.containsKey(manifest)){
+				if (updateTimestamp || !knownManifests.containsKey(manifest)) {
 					Long timeStamp = new Long(manifest.getLocalTimeStamp());
 					knownManifests.put(manifest, timeStamp);
 				}
@@ -366,18 +342,16 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 			}
 		}
 	}
-	
-	
+
 	public void trackEAR(IProject earProject) {
 		trackEAR(earProject, false);
 	}
-
 
 	private void trackEAR(IProject earProject, boolean forceUpdate) {
 		if (earProject.isAccessible()) {
 			if (forceUpdate || !knownEARs.containsKey(earProject)) {
 				try {
-					EARVirtualComponent earComponent = (EARVirtualComponent)ComponentCore.createComponent(earProject);
+					EARVirtualComponent earComponent = (EARVirtualComponent) ComponentCore.createComponent(earProject);
 					IVirtualResource[] resources = earComponent.getDefaultRootFolder().members();
 					Set archiveSet = (Set) knownEARs.get(earProject);
 					if (null == archiveSet) {
@@ -400,13 +374,80 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 		}
 	}
 
-
 	/* IResource to timestamps */
 	private Map knownManifests = new Hashtable();
+
 	/* IProject to Sets of archive names */
 	private Map knownEARs = new Hashtable();
 
+	/*
+	 * Needs to notice changes to MANIFEST.MF in any J2EE projects, changes to
+	 * .component in any J2EE Projects, and any archive changes in EAR projects
+	 */
 	public void resourceChanged(IResourceChangeEvent event) {
+		try {
+			pauseUpdates();
+			event.getDelta().accept(this);
+		} catch (CoreException e){
+			Logger.getLogger().logError(e);
+		} finally {
+			resumeUpdates();
+		}
+	}
+	
+	public boolean visit(IResourceDelta delta) {
+		IResource resource = delta.getResource();
+		if(resource instanceof IWorkspaceRoot){
+			return true;
+		} else if(resource instanceof IProject) {
+			return ModuleCoreNature.isFlexibleProject((IProject)resource);
+		} else if(resource instanceof IFolder){
+			if(resource.getName().equals(".settings")){
+				return true;
+			}
+			IVirtualComponent comp = ComponentCore.createComponent(resource.getProject());
+			IVirtualFolder rootFolder = comp.getRootFolder();
+			IContainer [] realRoots = rootFolder.getUnderlyingFolders();
+			IResource aRealRoot;
+			
+			for(int i=0;i<realRoots.length; i++){
+				aRealRoot = realRoots[i];
+				while(aRealRoot != null){
+					if(aRealRoot.equals(resource)){
+						return true;
+					}
+					aRealRoot = aRealRoot.getParent();
+				}
+			}
+			
+			if(comp instanceof EARVirtualComponent){
+				return false;
+			}
+			IVirtualFolder metaFolder = rootFolder.getFolder("META-INF");
+			IContainer [] realMetas = metaFolder.getUnderlyingFolders();
+			for(int i=0;i<realMetas.length; i++){
+				if(realMetas[i].equals(resource)){
+					return true;
+				}
+			}
+			return false;
+		} 
+		if(resource.getName().equals("org.eclipse.wst.common.component")){
+			queueUpdate(resource.getProject());
+		} else if(resource.getName().equals("MANIFEST.MF")){
+			if(resource.equals(J2EEProjectUtilities.getManifestFile(resource.getProject()))){
+				queueUpdateModule(resource.getProject());
+			}
+		} else if(resource.getName().toLowerCase().endsWith(".jar")){
+			IVirtualComponent comp = ComponentCore.createComponent(resource.getProject());
+			if(comp instanceof EARVirtualComponent){
+				queueUpdateEAR(resource.getProject());
+			}
+		}
+		return false;
+	}
+	
+	public void resourceChangedOld(IResourceChangeEvent event) {
 		try {
 			pauseUpdates();
 			List manifestsToRemove = null;
@@ -461,7 +502,7 @@ public class J2EEComponentClasspathUpdater extends AdapterImpl implements Global
 				if (earProjects[i].isAccessible()) {
 					Set archiveSet = (Set) knownEARs.get(earProjects[i]);
 					if (archiveSet != null) {
-						EARVirtualComponent earComponent = (EARVirtualComponent)ComponentCore.createComponent(earProjects[i]);
+						EARVirtualComponent earComponent = (EARVirtualComponent) ComponentCore.createComponent(earProjects[i]);
 						IVirtualResource[] resources;
 						try {
 							resources = earComponent.getDefaultRootFolder().members();
