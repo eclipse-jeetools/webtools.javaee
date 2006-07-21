@@ -47,6 +47,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.DependencyType;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
@@ -494,7 +495,10 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 			try{
 				synchronized(this) {
 					if(artifactEdit != null){
-						artifactEdit.dispose();
+						ArtifactEditModel editModel = (ArtifactEditModel)artifactEdit.getAdapter(ArtifactEditModel.class);
+						if(editModel != null && !editModel.isDisposed()){
+							artifactEdit.dispose();
+						}
 						artifactEdit = null;
 					}
 				}
