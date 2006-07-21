@@ -14,7 +14,7 @@ import junit.framework.TestSuite;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
@@ -108,17 +108,21 @@ public class WebExportOperationTest extends ModuleExportOperationTestCase {
 	
 	protected void testDDExported(IVirtualComponent component) throws Exception {
 		WebArtifactEdit webEdit = null;
+		WARFile warFile = null;
 		try {
 			webEdit = WebArtifactEdit.getWebArtifactEditForRead(component);
-			WARFileImpl archive = (WARFileImpl) webEdit.asArchive(true);
+			warFile = (WARFile) webEdit.asArchive(true);
 			try {
-			Resource res = archive.getDeploymentDescriptorResource();
+			Resource res = warFile.getDeploymentDescriptorResource();
 			} catch (Exception e) {
 				fail("Web deployment descriptor is null.");
 			}
 		} finally {
 			if (webEdit !=null)
 				webEdit.dispose();
+			if(warFile != null){
+				warFile.close();
+			}
 		}
 	}
 

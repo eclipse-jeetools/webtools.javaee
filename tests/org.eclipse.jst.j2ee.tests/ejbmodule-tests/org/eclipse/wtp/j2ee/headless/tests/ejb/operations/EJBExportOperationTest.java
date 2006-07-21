@@ -14,7 +14,7 @@ import junit.framework.TestSuite;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.EJBJarFileImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -63,17 +63,21 @@ public class EJBExportOperationTest extends ModuleExportOperationTestCase {
 	
 	protected void testDDExported(IVirtualComponent component) throws Exception {
 		EJBArtifactEdit ejbEdit = null;
+		EJBJarFile ejbJarFile = null;
 		try {
 			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(component);
-			EJBJarFileImpl archive = (EJBJarFileImpl) ejbEdit.asArchive(true);
+			ejbJarFile = (EJBJarFile)ejbEdit.asArchive(true);
 			try {
-			Resource res = archive.getDeploymentDescriptorResource();
+			Resource res = ejbJarFile.getDeploymentDescriptorResource();
 			} catch (Exception e) {
 				fail("EJB deployment descriptor is null.");
 			}
 		} finally {
 			if (ejbEdit !=null)
 				ejbEdit.dispose();
+			if(ejbJarFile != null){
+				ejbJarFile.close();
+			}
 		}
 	}
 
