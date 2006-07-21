@@ -74,7 +74,7 @@ public abstract class ModuleExportOperationTestCase extends OperationTestCase {
 	}
 
 	public String getOutputDirectory(){
-	    return "testOutput";
+	    return "testOutputs";
 	}
 	protected abstract ModuleImportOperationTestCase getImportTestCase();
 	protected abstract IDataModel getModelInstance();
