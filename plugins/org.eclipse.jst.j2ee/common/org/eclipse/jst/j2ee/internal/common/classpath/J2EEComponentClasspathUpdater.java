@@ -10,12 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.common.classpath;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.resources.IContainer;
@@ -42,6 +37,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainer;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -50,7 +46,6 @@ import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
-import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
 public class J2EEComponentClasspathUpdater implements IResourceChangeListener, IResourceDeltaVisitor {
 
@@ -158,7 +153,6 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 	}
 
 	private void updateEAR(IProject earProject) {
-		trackEAR(earProject, true);
 		EARArtifactEdit edit = null;
 		try {
 			edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
@@ -193,8 +187,6 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				if (container != null && container instanceof J2EEComponentClasspathContainer) {
 					((J2EEComponentClasspathContainer) container).refresh();
 				}
-				IResource manifest = J2EEProjectUtilities.getManifestFile(project);
-				trackManifest(manifest, true);
 			}
 		};
 		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
@@ -324,62 +316,6 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		return null;
 	}
 
-	public void trackManifest(IResource manifest) {
-		trackManifest(manifest, false);
-	}
-
-	private void trackManifest(IResource manifest, boolean updateTimestamp) {
-		if (manifest == null)
-			return;
-		synchronized (knownManifests) {
-			if (manifest.exists()) {
-				if (updateTimestamp || !knownManifests.containsKey(manifest)) {
-					Long timeStamp = new Long(manifest.getLocalTimeStamp());
-					knownManifests.put(manifest, timeStamp);
-				}
-			} else {
-				knownManifests.remove(manifest);
-			}
-		}
-	}
-
-	public void trackEAR(IProject earProject) {
-		trackEAR(earProject, false);
-	}
-
-	private void trackEAR(IProject earProject, boolean forceUpdate) {
-		if (earProject.isAccessible()) {
-			if (forceUpdate || !knownEARs.containsKey(earProject)) {
-				try {
-					EARVirtualComponent earComponent = (EARVirtualComponent) ComponentCore.createComponent(earProject);
-					IVirtualResource[] resources = earComponent.getDefaultRootFolder().members();
-					Set archiveSet = (Set) knownEARs.get(earProject);
-					if (null == archiveSet) {
-						archiveSet = new HashSet();
-						knownEARs.put(earProject, archiveSet);
-					} else {
-						archiveSet.clear();
-					}
-					for (int i = 0; i < resources.length; i++) {
-						if (resources[i].getName().endsWith(".jar")) {
-							archiveSet.add(resources[i].getName());
-						}
-					}
-				} catch (CoreException e) {
-					knownEARs.remove(earProject);
-				}
-			}
-		} else {
-			knownEARs.remove(earProject);
-		}
-	}
-
-	/* IResource to timestamps */
-	private Map knownManifests = new Hashtable();
-
-	/* IProject to Sets of archive names */
-	private Map knownEARs = new Hashtable();
-
 	/*
 	 * Needs to notice changes to MANIFEST.MF in any J2EE projects, changes to
 	 * .component in any J2EE Projects, and any archive changes in EAR projects
@@ -395,6 +331,11 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		}
 	}
 	
+	/*
+	 * Check for the following changes:
+	 * 1. changes to the component definition in .settings/org.eclipse.wst.common.component for all J2EE modules
+	 * 2. 
+	 */
 	public boolean visit(IResourceDelta delta) {
 		IResource resource = delta.getResource();
 		if(resource instanceof IWorkspaceRoot){
@@ -406,6 +347,11 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				return true;
 			}
 			IVirtualComponent comp = ComponentCore.createComponent(resource.getProject());
+			
+			if(!(comp instanceof J2EEModuleVirtualComponent) && !(comp instanceof EARVirtualComponent)){
+				return false;
+			}
+			
 			IVirtualFolder rootFolder = comp.getRootFolder();
 			IContainer [] realRoots = rootFolder.getUnderlyingFolders();
 			IResource aRealRoot;
@@ -445,107 +391,6 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			}
 		}
 		return false;
-	}
-	
-	public void resourceChangedOld(IResourceChangeEvent event) {
-		try {
-			pauseUpdates();
-			List manifestsToRemove = null;
-			List modulesToUpdate = null;
-			synchronized (knownManifests) {
-				Iterator iterator = knownManifests.keySet().iterator();
-				while (iterator.hasNext()) {
-					IResource resource = (IResource) iterator.next();
-					if (resource.exists()) {
-						long currentTimeStamp = resource.getLocalTimeStamp();
-						Long lastTimeStamp = (Long) knownManifests.get(resource);
-						if (lastTimeStamp.longValue() != currentTimeStamp) {
-							if (modulesToUpdate == null) {
-								modulesToUpdate = new ArrayList();
-							}
-							modulesToUpdate.add(resource.getProject());
-						}
-					} else {
-						if (manifestsToRemove == null) {
-							manifestsToRemove = new ArrayList();
-						}
-						manifestsToRemove.add(resource);
-					}
-				}
-			}
-			if (manifestsToRemove != null) {
-				synchronized (knownManifests) {
-					for (int i = 0, size = manifestsToRemove.size(); i < size; i++) {
-						knownManifests.remove(manifestsToRemove.get(i));
-					}
-				}
-			}
-
-			if (null != modulesToUpdate) {
-				for (int i = 0, size = modulesToUpdate.size(); i < size; i++) {
-					queueUpdateModule((IProject) modulesToUpdate.get(i));
-				}
-			}
-			List earsToRemove = null;
-			IProject[] earProjects = null;
-
-			synchronized (knownEARs) {
-				Set keySet = knownEARs.keySet();
-				earProjects = new IProject[keySet.size()];
-				Iterator iterator = keySet.iterator();
-				for (int i = 0; iterator.hasNext(); i++) {
-					earProjects[i] = (IProject) iterator.next();
-				}
-			}
-
-			for (int i = 0; i < earProjects.length; i++) {
-				if (earProjects[i].isAccessible()) {
-					Set archiveSet = (Set) knownEARs.get(earProjects[i]);
-					if (archiveSet != null) {
-						EARVirtualComponent earComponent = (EARVirtualComponent) ComponentCore.createComponent(earProjects[i]);
-						IVirtualResource[] resources;
-						try {
-							resources = earComponent.getDefaultRootFolder().members();
-							boolean requiresUpdate = false;
-							int archivesFound = 0;
-							for (int j = 0; j < resources.length && !requiresUpdate; j++) {
-								String name = resources[j].getName();
-								if (name.endsWith(".jar")) {
-									if (!archiveSet.contains(resources[j].getName())) {
-										requiresUpdate = true;
-									} else {
-										archivesFound++;
-									}
-								}
-							}
-							if (requiresUpdate || archivesFound < archiveSet.size()) {
-								queueUpdateEAR(earProjects[i]);
-							}
-						} catch (CoreException e) {
-							if (earsToRemove == null) {
-								earsToRemove = new ArrayList();
-							}
-							earsToRemove.add(earProjects[i]);
-						}
-					}
-				} else {
-					if (earsToRemove == null) {
-						earsToRemove = new ArrayList();
-					}
-					earsToRemove.add(earProjects[i]);
-				}
-			}
-
-			if (earsToRemove != null) {
-				synchronized (knownEARs) {
-					for (int i = 0; i < earsToRemove.size(); i++) {
-						knownEARs.remove(earsToRemove.get(i));
-					}
-				}
-			}
-		} finally {
-			resumeUpdates();
-		}
 	}
 
 }

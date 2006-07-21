@@ -24,7 +24,6 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
@@ -80,7 +79,6 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 			IVirtualFile vManifest = moduleComponent.getRootFolder().getFile(J2EEConstants.MANIFEST_URI);
 			if (vManifest.exists()) {
 				IFile manifestFile = vManifest.getUnderlyingFile();
-				J2EEComponentClasspathUpdater.getInstance().trackManifest(manifestFile);
 				InputStream in = null;
 				try {
 					in = manifestFile.getContents();

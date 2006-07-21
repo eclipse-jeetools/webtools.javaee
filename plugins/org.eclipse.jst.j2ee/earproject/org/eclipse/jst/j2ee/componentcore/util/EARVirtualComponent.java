@@ -22,7 +22,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
-import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -177,7 +176,6 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 
 
 	public IVirtualReference[] getReferences() {
-		J2EEComponentClasspathUpdater.getInstance().trackEAR(getProject());
 		List hardReferences = getHardReferences(this);
 		List dynamicReferences = getLooseArchiveReferences(this, hardReferences);
 
