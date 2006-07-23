@@ -41,7 +41,6 @@ public final class XDocletFacetInstallDelegate extends J2EEFacetInstallDelegate 
 					if (!ProjectUtilities.hasBuilder(project.getProject(), XDocletActionDelegate.BUILDERID)) {
 						ProjectUtilities.addToBuildSpecBefore(XDocletActionDelegate.BUILDERID, JavaCore.BUILDER_ID, project
 								.getProject());
-						project.getProject().build(IncrementalProjectBuilder.FULL_BUILD, new NullProgressMonitor());
 					}
 				} catch (CoreException e) {
 				}

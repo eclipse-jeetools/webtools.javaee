@@ -50,8 +50,7 @@ public class XDocletBuildUtility {
 		protected IStatus run(IProgressMonitor monitor) {
 			if (xdocletBuilder != null) {
 				try {
-					fProject.build(IncrementalProjectBuilder.FULL_BUILD,
-							XDOCLETBUILDER, xdocletBuilder.getArguments(), monitor);
+					fProject.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, monitor);
 				} catch (CoreException e) {
 					Logger.logException(e);
 					return Status.CANCEL_STATUS;
