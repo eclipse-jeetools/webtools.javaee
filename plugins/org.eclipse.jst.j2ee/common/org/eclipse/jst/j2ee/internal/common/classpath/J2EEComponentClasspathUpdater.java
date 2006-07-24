@@ -14,7 +14,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
@@ -22,7 +21,6 @@ import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -35,17 +33,18 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainer;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
+import org.eclipse.wst.common.project.facet.core.FacetedProjectFramework;
 
 public class J2EEComponentClasspathUpdater implements IResourceChangeListener, IResourceDeltaVisitor {
 
@@ -72,7 +71,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			ResourcesPlugin.getWorkspace().addResourceChangeListener(instance, IResourceChangeEvent.POST_CHANGE);
 		}
 	}
-	
+
 	/**
 	 * Pauses updates; any caller of this method must ensure through a
 	 * try/finally block that resumeUpdates is subsequently called.
@@ -124,7 +123,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				|| J2EEProjectUtilities.isJCAProject(project) || J2EEProjectUtilities.isUtilityProject(project)) {
 			// Hari: update the project only if the tree is not locked.
 			if (false == ResourcesPlugin.getWorkspace().isTreeLocked())
-				queueUpdateModule(project);
+			queueUpdateModule(project);
 		}
 	}
 
@@ -174,20 +173,20 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 	private void updateModule(final IProject project) {
 		final IWorkspaceRunnable workspaceRunnable = new IWorkspaceRunnable() {
 			public void run(IProgressMonitor monitor) {
-				IClasspathContainer container = getWebAppLibrariesContainer(project, false);
-				if (container != null && container instanceof FlexibleProjectContainer) {
-					((FlexibleProjectContainer) container).refresh();
-				}
-				IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(project);
-				if (earProjects.length == 0) {
-					removeContainerFromModuleIfNecessary(project);
-					return;
-				}
-				container = addContainerToModuleIfNecessary(project);
-				if (container != null && container instanceof J2EEComponentClasspathContainer) {
-					((J2EEComponentClasspathContainer) container).refresh();
-				}
-			}
+		IClasspathContainer container = getWebAppLibrariesContainer(project, false);
+		if (container != null && container instanceof FlexibleProjectContainer) {
+			((FlexibleProjectContainer) container).refresh();
+		}
+		IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(project);
+		if (earProjects.length == 0) {
+			removeContainerFromModuleIfNecessary(project);
+			return;
+		}
+		container = addContainerToModuleIfNecessary(project);
+		if (container != null && container instanceof J2EEComponentClasspathContainer) {
+			((J2EEComponentClasspathContainer) container).refresh();
+		}
+	}
 		};
 		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		if (workspace.isTreeLocked()) {
@@ -202,7 +201,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 					try {
 						workspace.run(workspaceRunnable, new NullProgressMonitor());
 					} catch (CoreException e) {
-						Logger.getLogger().logError(e);
+						J2EEPlugin.getDefault().getLogger().logError(e);
 					}
 				}
 			};
@@ -212,7 +211,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			try {
 				workspaceRunnable.run(new NullProgressMonitor());
 			} catch (CoreException e) {
-				Logger.getLogger().logError(e);
+				J2EEPlugin.getDefault().getLogger().logError(e);
 			}
 		}
 	}
@@ -225,7 +224,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			try {
 				container = JavaCore.getClasspathContainer(WEB_APP_LIBS_PATH, jproj);
 			} catch (JavaModelException e) {
-				Logger.getLogger().logError(e);
+				J2EEPlugin.getDefault().getLogger().logError(e);
 			}
 		}
 		return container;
@@ -239,14 +238,14 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				entry = JavaCore.newContainerEntry(J2EEComponentClasspathContainer.CONTAINER_PATH, true);
 				addToClasspath(jproj, entry);
 			} catch (CoreException e) {
-				Logger.getLogger().logError(e);
+				J2EEPlugin.getDefault().getLogger().logError(e);
 			}
 		}
 		IClasspathContainer container = null;
 		try {
 			container = JavaCore.getClasspathContainer(J2EEComponentClasspathContainer.CONTAINER_PATH, jproj);
 		} catch (JavaModelException e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.getDefault().getLogger().logError(e);
 		}
 		return container;
 	}
@@ -258,7 +257,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			try {
 				removeFromClasspath(jproj, entry);
 			} catch (CoreException e) {
-				Logger.getLogger().logError(e);
+				J2EEPlugin.getDefault().getLogger().logError(e);
 			}
 		}
 	}
@@ -310,87 +309,101 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				}
 			}
 		} catch (JavaModelException e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.getDefault().getLogger().logError(e);
 		}
 		// entry not found
 		return null;
 	}
 
-	/*
-	 * Needs to notice changes to MANIFEST.MF in any J2EE projects, changes to
-	 * .component in any J2EE Projects, and any archive changes in EAR projects
-	 */
 	public void resourceChanged(IResourceChangeEvent event) {
 		try {
 			pauseUpdates();
 			event.getDelta().accept(this);
-		} catch (CoreException e){
-			Logger.getLogger().logError(e);
+		} catch (CoreException e) {
+			J2EEPlugin.getDefault().getLogger().logError(e);
 		} finally {
 			resumeUpdates();
 		}
 	}
+
+	private static final String DOT_SETTINGS = ".settings";
+	private static final String COMPONENT = "org.eclipse.wst.common.component";
+	private static final String META_INF = "META-INF";
+	private static final String MANIFEST = "MANIFEST.MF";
+	private static final String DOT_JAR = ".jar";
 	
 	/*
-	 * Check for the following changes:
-	 * 1. changes to the component definition in .settings/org.eclipse.wst.common.component for all J2EE modules
-	 * 2. 
+	 * Needs to notice changes to MANIFEST.MF in any J2EE projects, changes to
+	 * .component in any J2EE Projects, and any archive changes in EAR projects
 	 */
 	public boolean visit(IResourceDelta delta) {
 		IResource resource = delta.getResource();
-		if(resource instanceof IWorkspaceRoot){
-			return true;
-		} else if(resource instanceof IProject) {
-			return ModuleCoreNature.isFlexibleProject((IProject)resource);
-		} else if(resource instanceof IFolder){
-			if(resource.getName().equals(".settings")){
+		switch(resource.getType()){
+			case IResource.ROOT:
 				return true;
-			}
-			IVirtualComponent comp = ComponentCore.createComponent(resource.getProject());
-			
-			if(!(comp instanceof J2EEModuleVirtualComponent) && !(comp instanceof EARVirtualComponent)){
-				return false;
-			}
-			
-			IVirtualFolder rootFolder = comp.getRootFolder();
-			IContainer [] realRoots = rootFolder.getUnderlyingFolders();
-			IResource aRealRoot;
-			
-			for(int i=0;i<realRoots.length; i++){
-				aRealRoot = realRoots[i];
-				while(aRealRoot != null){
-					if(aRealRoot.equals(resource)){
-						return true;
-					}
-					aRealRoot = aRealRoot.getParent();
-				}
-			}
-			
-			if(comp instanceof EARVirtualComponent){
-				return false;
-			}
-			IVirtualFolder metaFolder = rootFolder.getFolder("META-INF");
-			IContainer [] realMetas = metaFolder.getUnderlyingFolders();
-			for(int i=0;i<realMetas.length; i++){
-				if(realMetas[i].equals(resource)){
+			case IResource.PROJECT:
+				return ModuleCoreNature.isFlexibleProject((IProject) resource);
+			case IResource.FOLDER:
+			{
+				if (resource.getName().equals(DOT_SETTINGS)) {
 					return true;
 				}
+				IVirtualComponent comp = ComponentCore.createComponent(resource.getProject());
+	
+				if (comp instanceof J2EEModuleVirtualComponent || comp instanceof EARVirtualComponent) {
+					IVirtualFolder rootFolder = comp.getRootFolder();
+					if(comp instanceof EARVirtualComponent){
+						return isRootAncester(resource, rootFolder);
+					} else { //J2EEModuleVirtualComponent
+						return isRootAncester(resource, rootFolder) || isMetaFolder(resource, rootFolder);
+					}
+				}
+				return false;
 			}
-			return false;
-		} 
-		if(resource.getName().equals("org.eclipse.wst.common.component")){
-			queueUpdate(resource.getProject());
-		} else if(resource.getName().equals("MANIFEST.MF")){
-			if(resource.equals(J2EEProjectUtilities.getManifestFile(resource.getProject()))){
-				queueUpdateModule(resource.getProject());
+			case IResource.FILE:
+			{
+				String name = resource.getName();
+				if (name.equals(COMPONENT)) {
+					queueUpdate(resource.getProject());
+				} else if (name.equals(MANIFEST)) { //MANIFEST.MF must be all caps per spec
+					if (resource.equals(J2EEProjectUtilities.getManifestFile(resource.getProject()))) {
+						queueUpdateModule(resource.getProject());
+					}
+				} else if (name.regionMatches(true, name.length() - DOT_JAR.length(), DOT_JAR, 0, DOT_JAR.length())) {
+					try {
+						if(FacetedProjectFramework.hasProjectFacet(resource.getProject(), J2EEProjectUtilities.ENTERPRISE_APPLICATION)){
+							queueUpdateEAR(resource.getProject());
+						}
+					} catch (CoreException e) {
+						J2EEPlugin.getDefault().getLogger().logError(e);
+					}
+				}
 			}
-		} else if(resource.getName().toLowerCase().endsWith(".jar")){
-			IVirtualComponent comp = ComponentCore.createComponent(resource.getProject());
-			if(comp instanceof EARVirtualComponent){
-				queueUpdateEAR(resource.getProject());
+			default:
+				return false;
+		}
+	}
+
+	private boolean isMetaFolder(IResource resource, IVirtualFolder rootFolder) {
+		IVirtualFolder metaFolder = rootFolder.getFolder(META_INF);
+		IContainer[] realMetas = metaFolder.getUnderlyingFolders();
+		for (int i = 0; i < realMetas.length; i++) {
+			if (realMetas[i].equals(resource)) { //META-INF must be all caps per spec
+				return true;
 			}
 		}
 		return false;
 	}
 
+	private static boolean isRootAncester(IResource resource, IVirtualFolder rootFolder){
+		IContainer [] realRoots = rootFolder.getUnderlyingFolders();
+		IPath currentResourcePath = resource.getFullPath();
+		for(int i=0; i<realRoots.length; i++) {
+		   if(currentResourcePath.isPrefixOf(realRoots[i].getFullPath()))
+		        return true;
+		}
+		return false;
+	}
+	
+	
 }
