@@ -61,10 +61,9 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		return instance;
 	}
 
-	public static void init() {
+	private static void init() {
 		if (instance == null) {
 			instance = new J2EEComponentClasspathUpdater();
-			ResourcesPlugin.getWorkspace().addResourceChangeListener(instance, IResourceChangeEvent.POST_CHANGE);
 		}
 	}
 

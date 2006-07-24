@@ -18,7 +18,6 @@ import org.eclipse.jdt.core.IJavaProject;
 public class J2EEComponentClasspathInitializer extends ClasspathContainerInitializer {
 
 	public void initialize(IPath containerPath, IJavaProject javaProject) throws CoreException {
-		J2EEComponentClasspathUpdater.init();
 		J2EEComponentClasspathContainer.install(containerPath, javaProject);
 	}
 }

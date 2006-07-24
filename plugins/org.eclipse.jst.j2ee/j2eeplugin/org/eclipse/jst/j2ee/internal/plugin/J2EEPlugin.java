@@ -56,6 +56,7 @@ import org.eclipse.jst.j2ee.applicationclient.internal.modulecore.util.AppClient
 import org.eclipse.jst.j2ee.common.internal.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveInit;
 import org.eclipse.jst.j2ee.internal.common.VirtualArchiveComponentAdapterFactory;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EarEditAdapterFactory;
 import org.eclipse.jst.j2ee.internal.validation.ResourceUtil;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtensionRegistry;
@@ -502,6 +503,13 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		// register the IElementChangedLister that updates the .component file in 
 		// response to .classpath changes
 		JavaCore.addElementChangedListener(new J2EEElementChangedListener(), ElementChangedEvent.POST_CHANGE);
+		
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(J2EEComponentClasspathUpdater.getInstance(), IResourceChangeEvent.POST_CHANGE);
+	}
+	
+	public void stop(BundleContext context) throws Exception {
+		super.stop(context);
+		ResourcesPlugin.getWorkspace().removeResourceChangeListener(J2EEComponentClasspathUpdater.getInstance());
 	}
 
 	/*
