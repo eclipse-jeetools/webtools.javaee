@@ -39,7 +39,11 @@ public class ProjectDeleteOperation extends ProjectRefactorOperation {
 	 */
 	protected void updateDependentProjects(final ProjectRefactorMetadata refactoredMetadata,
 			final IProgressMonitor monitor) throws ExecutionException {
-		super.updateDependentProjects(refactoredMetadata, monitor);
+	    // If this is not an EAR, update metadata for dependent projects
+        // (not performing any refactoring for projects that depend on EAR's right now)
+        if (!refactoredMetadata.isEAR()) {
+            super.updateDependentProjects(refactoredMetadata, monitor);
+        }
 		// update any server instance refs to the refactored project
 		super.updateServerRefs(refactoredMetadata, null);
 	}

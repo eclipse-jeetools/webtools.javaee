@@ -25,10 +25,16 @@ public interface ProjectRefactoringProperties {
 	 */
 	public static final String ORIGINAL_PROJECT_METADATA = "ProjectRefactoringProperties.ORIGINAL_PROJECT_METADATA"; //$NON-NLS-1$
 	
-	/**
-	 * Name of the property that holds an instance of ProjectRefactorMetadata for the
-	 * dependent project.
-	 */
-	public static final String DEPENDENT_PROJECT_METADATA = "ProjectRefactoringProperties.DEPENDENT_PROJECT_METADATA"; //$NON-NLS-1$
-		
+    /**
+     * Name of the property that holds an instance of ProjectRefactorMetadata for the
+     * dependent project.
+     */
+    public static final String DEPENDENT_PROJECT_METADATA = "ProjectRefactoringProperties.DEPENDENT_PROJECT_METADATA"; //$NON-NLS-1$
+    
+    /**
+     * Name of the property that holds an instance of the IResourceDelta
+     */
+    public static final String RESOURCE_DELTA= "ProjectRefactoringProperties.RESOURCE_DELTA"; //$NON-NLS-1$
+
+    
 }

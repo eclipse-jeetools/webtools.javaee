@@ -14,6 +14,7 @@ package org.eclipse.jst.j2ee.refactor.operations;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.internal.Property;
@@ -22,6 +23,7 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate;
 
 public class ProjectRenameOperation extends ProjectRefactorOperation {
 
@@ -33,7 +35,7 @@ public class ProjectRenameOperation extends ProjectRefactorOperation {
 	 * Override to return the pre-rename metadata.
 	 */
 	protected ProjectRefactorMetadata getProjectMetadata() {
-		return (ProjectRefactorMetadata) model.getProperty(ProjectRenameDataModelProvider.ORIGINAL_PROJECT_METADATA);
+        return (ProjectRefactorMetadata) model.getProperty(ProjectRenameDataModelProvider.ORIGINAL_PROJECT_METADATA);
 	}
 	
 	/**
@@ -81,9 +83,15 @@ public class ProjectRenameOperation extends ProjectRefactorOperation {
 	 */
 	protected void updateDependentProjects(final ProjectRefactorMetadata originalMetadata,
 			final IProgressMonitor monitor) throws ExecutionException {
-		super.updateDependentProjects(originalMetadata, monitor);
+	    // If this is not an EAR, update metadata for dependent projects
+        // (not performing any refactoring for projects that depend on EAR's right now)
+        if (!originalMetadata.isEAR()) {
+            super.updateDependentProjects(originalMetadata, monitor);
+        }
 		// update any server instance refs to the refactored project
 		final ProjectRefactorMetadata refactoredMetadata = super.getProjectMetadata();
+        ProjectModuleFactoryDelegate.handleGlobalProjectChange(refactoredMetadata.getProject(),
+                (IResourceDelta) model.getProperty(ProjectRenameDataModelProvider.RESOURCE_DELTA));           
 		super.updateServerRefs(originalMetadata, refactoredMetadata);
 	}
 	

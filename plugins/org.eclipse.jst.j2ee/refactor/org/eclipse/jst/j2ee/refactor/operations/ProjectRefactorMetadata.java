@@ -74,6 +74,9 @@ public class ProjectRefactorMetadata {
 	}
 	
 	public void computeMetadata() {
+        computeMetadata(_project);
+    }
+    public void computeMetadata(final IProject oldProject) {
 		try {
 			javaNature = _project.hasNature("org.eclipse.jdt.core.javanature"); //$NON-NLS-1$
 			moduleCoreNature = ModuleCoreNature.getModuleCoreNature(_project) != null;
@@ -87,6 +90,11 @@ public class ProjectRefactorMetadata {
 				}
 				final IFacetedProject facetedProject = ProjectFacetsManager.create(_project);
 				module = ServerUtil.getModule(_project);
+                // XXX Due to resource change listener order uncertainty, the project associated with the
+                // module may be either the new (correct) project or the old project so need to try both
+                if (module == null && !_project.equals(oldProject)) {
+                    module = ServerUtil.getModule(oldProject);
+                }
 				facets = facetedProject.getProjectFacets();
 			}
 		} catch (CoreException ce) {

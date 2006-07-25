@@ -23,7 +23,8 @@ public class ProjectRenameDataModelProvider extends	ProjectRefactoringDataModelP
 	 */
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
-		propertyNames.add(ORIGINAL_PROJECT_METADATA);
+        propertyNames.add(ORIGINAL_PROJECT_METADATA);
+        propertyNames.add(RESOURCE_DELTA);
 		return propertyNames;
 	}
 	

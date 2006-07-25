@@ -143,8 +143,8 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 			final ProjectRefactorMetadata newMetadata = new ProjectRefactorMetadata(project);
 			// note: only projects with ModuleCoreNature will have cached metadata
 			if (originalMetadata != null) {
-				newMetadata.computeMetadata();
-				processRename(originalMetadata, newMetadata);
+				newMetadata.computeMetadata(originalMetadata.getProject());
+				processRename(originalMetadata, newMetadata, delta);
 				// Rename all entries in the project dependency cache
 				//cache.replaceProject(originalProject, project);
 			} else {
@@ -173,12 +173,13 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 	/*
 	 * Processes the renaming of a project.
 	 */
-	private void processRename(final ProjectRefactorMetadata originalMetadata, final ProjectRefactorMetadata newMetadata ) {
+	private void processRename(final ProjectRefactorMetadata originalMetadata, final ProjectRefactorMetadata newMetadata, final IResourceDelta delta) {
 		WorkspaceJob job = new WorkspaceJob("J2EEProjectRenameJob") {
 			public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
 				final IDataModel dataModel = DataModelFactory.createDataModel(new ProjectRenameDataModelProvider());
 				dataModel.setProperty(ProjectRefactoringDataModelProvider.PROJECT_METADATA, newMetadata);
-				dataModel.setProperty(ProjectRenameDataModelProvider.ORIGINAL_PROJECT_METADATA, originalMetadata);
+                dataModel.setProperty(ProjectRenameDataModelProvider.ORIGINAL_PROJECT_METADATA, originalMetadata);
+                dataModel.setProperty(ProjectRenameDataModelProvider.RESOURCE_DELTA, delta);                
 				try {
 					dataModel.getDefaultOperation().execute(monitor, null);
 				} catch (Exception e) {

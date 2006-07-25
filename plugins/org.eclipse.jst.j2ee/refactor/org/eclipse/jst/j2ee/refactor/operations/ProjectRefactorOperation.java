@@ -31,6 +31,7 @@ import org.eclipse.wst.server.core.IServerWorkingCopy;
 import org.eclipse.wst.server.core.ServerUtil;
 import org.eclipse.wst.server.core.internal.DeletedModule;
 import org.eclipse.wst.server.core.internal.Module;
+import org.eclipse.wst.server.core.internal.ModuleFactory;
 
 /**
  * Abstract base class for project refactoring operations.
@@ -58,11 +59,7 @@ public abstract class ProjectRefactorOperation extends AbstractDataModelOperatio
 				updateProject(refactoredMetadata);
 			}
 			
-			// If this is not an EAR, update metadata for dependent projects
-			// (not performing any refactoring for projects that depend on EAR's right now)
-			if (!refactoredMetadata.isEAR()) {
-				updateDependentProjects(refactoredMetadata, monitor);
-			}
+			updateDependentProjects(refactoredMetadata, monitor);
 		} finally {
 			if (monitor != null) {
 				monitor.done();
@@ -133,8 +130,9 @@ public abstract class ProjectRefactorOperation extends AbstractDataModelOperatio
 			// XXX Due to https://bugs.eclipse.org/bugs/show_bug.cgi?id=124292,
 			// need to ensure that the IModule for the renamed project has the
 			// id and name for the renamed IProject and not the old name
-			final IProject newProject = newModule.getProject();
+			final IProject newProject = newMetadata.getProject();
 			final IModuleType moduleType = newModule.getModuleType();
+            ((Module) newModule).getModuleFactory().getModules();
 			newModule = new Module(((Module) newModule).getModuleFactory(), newProject.getName(), newProject.getName(), moduleType.getId(), 
 					moduleType.getVersion(), newProject);
 			toAdd = new IModule[]{newModule};
