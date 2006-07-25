@@ -8,6 +8,7 @@
  **************************************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.navigator;
 
+import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.swt.graphics.Image;
 
@@ -38,4 +39,10 @@ public interface ICompressedNode   {
 	 * @return The children either from me or the delegateContentProvider.
 	 */
 	public Object[] getChildren(ITreeContentProvider delegateContentProvider);
+
+	/**
+	 * 
+	 * @return The Java element associated with this node, if any.
+	 */
+	public IJavaElement getJavaElement();
 }

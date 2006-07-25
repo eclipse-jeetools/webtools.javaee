@@ -69,6 +69,10 @@ public class CompressedJavaLibraries implements ICompressedNode {
 	public CompressedJavaProject getCompressedProject() {
 		return compressedProject;
 	}
+
+	public IJavaElement getJavaElement() { 
+		return null;
+	}
 	
 	
 

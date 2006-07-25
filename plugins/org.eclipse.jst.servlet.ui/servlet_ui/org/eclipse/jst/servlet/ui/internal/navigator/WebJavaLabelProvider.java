@@ -10,45 +10,54 @@
  *******************************************************************************/ 
 package org.eclipse.jst.servlet.ui.internal.navigator;
 
+import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.ui.ProblemsLabelDecorator;
+import org.eclipse.jface.viewers.ILabelDecorator;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
 
 public class WebJavaLabelProvider implements ILabelProvider {
+	
+	private ILabelDecorator decorator = new ProblemsLabelDecorator();
 
 	public Image getImage(Object element) {
-		if(element instanceof CompressedJavaProject)
-			return ((CompressedJavaProject)element).getImage();
-		if(element instanceof CompressedJavaLibraries)
-			return ((CompressedJavaLibraries)element).getImage();
-		return null;
+		Image image = null;
+		if(element instanceof ICompressedNode)
+			image = ((ICompressedNode)element).getImage(); 
+		
+		IJavaElement javaElement = null;
+		if(image != null && ( javaElement = ((ICompressedNode)element).getJavaElement()) != null ) {			
+			image = decorator.decorateImage(image, javaElement);
+		}
+		return image;
 	}
 
 	public String getText(Object element) {
-		if(element instanceof CompressedJavaProject)
-			return ((CompressedJavaProject)element).getLabel();
-		if(element instanceof CompressedJavaLibraries)
-			return ((CompressedJavaLibraries)element).getLabel();
-		return null;
+		String text = null;
+		if(element instanceof ICompressedNode)
+			text = ((ICompressedNode)element).getLabel(); 
+
+		IJavaElement javaElement = null;
+		if(text != null && ( javaElement = ((ICompressedNode)element).getJavaElement()) != null ) {
+			text = decorator.decorateText(text, javaElement);
+		}
+		return text;
 	}
 
-	public void addListener(ILabelProviderListener listener) {
-		// TODO Auto-generated method stub
+	public void addListener(ILabelProviderListener listener) { 
 
 	}
 
-	public void dispose() {
-		// TODO Auto-generated method stub
-
+	public void dispose() { 
+		decorator.dispose();
 	}
 
-	public boolean isLabelProperty(Object element, String property) {
-		// TODO Auto-generated method stub
+	public boolean isLabelProperty(Object element, String property) { 
 		return false;
 	}
 
-	public void removeListener(ILabelProviderListener listener) {
-		// TODO Auto-generated method stub
+	public void removeListener(ILabelProviderListener listener) { 
 
 	}
 

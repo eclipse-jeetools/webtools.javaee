@@ -18,6 +18,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jst.j2ee.common.internal.util.CommonUtil;
@@ -159,7 +160,7 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 			return J2EEUIPlugin.getDefault().getImage("jar_obj"); //$NON-NLS-1$
 		if(element instanceof LoadingDDNode)
 			return ((LoadingDDNode)element).getImage();
-		if (element instanceof IProject)
+		if (element instanceof IProject || element instanceof IJavaProject)
 			return null;
 		if (delegateLabelProvider != null)
 			return delegateLabelProvider.getImage(element);
