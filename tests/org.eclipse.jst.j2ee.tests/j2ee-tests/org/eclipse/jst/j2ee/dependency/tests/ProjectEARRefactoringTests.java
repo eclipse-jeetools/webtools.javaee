@@ -5,6 +5,7 @@ import org.eclipse.jst.j2ee.dependency.tests.util.DependencyCreationUtil;
 import org.eclipse.jst.j2ee.dependency.tests.util.DependencyUtil;
 import org.eclipse.jst.j2ee.dependency.tests.util.DependencyVerificationUtil;
 import org.eclipse.jst.j2ee.dependency.tests.util.ProjectUtil;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -76,6 +77,9 @@ public class ProjectEARRefactoringTests extends AbstractTests {
 	public void testDeleteEAREJBModule() throws Exception {
 		final IProject earProject = ProjectUtil.getProject("TestEAR");
 		final IProject ejbProject = ProjectUtil.createEJBProject("TestEJB", earProject.getName());
+		
+		J2EEComponentClasspathUpdater.getInstance().waitForClasspathUpdate();
+		
 		final IProject ejbClientProject = ProjectUtil.getProject("TestEJBClient");
 		String moduleURI = DependencyVerificationUtil.verifyEARDependency(earProject, ejbProject, true);
 		
@@ -140,6 +144,8 @@ public class ProjectEARRefactoringTests extends AbstractTests {
 		final String moduleURI2 = DependencyVerificationUtil.verifyEARDependency(earProject2, webProject, true);
 		
 		ProjectUtil.deleteProject(webProject);
+
+		J2EEComponentClasspathUpdater.getInstance().waitForClasspathUpdate();
 		
 		DependencyVerificationUtil.verifyEARDependencyRemoved(earProject1, webProject, moduleURI1);	
 		DependencyVerificationUtil.verifyEARDependencyRemoved(earProject2, webProject, moduleURI2);	
@@ -197,11 +203,16 @@ public class ProjectEARRefactoringTests extends AbstractTests {
 		final IProject utilProject = ProjectUtil.createUtilityProject("TestUtil", earProject.getName());
 		final IProject webProject = ProjectUtil.createWebProject("TestWeb", earProject.getName());
 		DependencyCreationUtil.createModuleDependency(webProject, utilProject);
+		
+		J2EEComponentClasspathUpdater.getInstance().waitForClasspathUpdate();
+		
 		DependencyVerificationUtil.verifyEARDependency(earProject, utilProject, false);	
 		DependencyVerificationUtil.verifyEARDependency(earProject, webProject, true);
 		DependencyVerificationUtil.verifyModuleDependency(webProject, utilProject);
 		
 		ProjectUtil.deleteProject(utilProject);
+		
+		J2EEComponentClasspathUpdater.getInstance().waitForClasspathUpdate();
 		
 		DependencyVerificationUtil.verifyEARDependencyRemoved(earProject, utilProject);	
 		DependencyVerificationUtil.verifyModuleDependencyRemoved(webProject, utilProject);
@@ -218,6 +229,8 @@ public class ProjectEARRefactoringTests extends AbstractTests {
 		DependencyCreationUtil.createModuleDependency(webProject1, ejbProject);
 		DependencyCreationUtil.createWebLibDependency(webProject2, ejbProject);
 		
+		J2EEComponentClasspathUpdater.getInstance().waitForClasspathUpdate();
+		
 		final String moduleURI1 = DependencyVerificationUtil.verifyEARDependency(earProject1, ejbProject, true);
 		final String moduleURI2 = DependencyVerificationUtil.verifyEARDependency(earProject2, ejbProject, true);	
 		DependencyVerificationUtil.verifyEARDependency(earProject1, webProject1, true);
@@ -226,6 +239,8 @@ public class ProjectEARRefactoringTests extends AbstractTests {
 		DependencyVerificationUtil.verifyWebLibDependency(webProject2, ejbProject);
 		
 		IProject newEJB = ProjectUtil.renameProject(ejbProject, "newEJB");
+		
+		J2EEComponentClasspathUpdater.getInstance().waitForClasspathUpdate();
 		
 		DependencyVerificationUtil.verifyEARDependencyChanged(earProject1, ejbProject, moduleURI1, newEJB);	
 		DependencyVerificationUtil.verifyEARDependencyChanged(earProject2, ejbProject, moduleURI2, newEJB);	

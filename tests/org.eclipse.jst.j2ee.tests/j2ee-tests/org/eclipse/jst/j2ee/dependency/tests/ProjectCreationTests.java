@@ -3,6 +3,7 @@ package org.eclipse.jst.j2ee.dependency.tests;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.dependency.tests.util.DependencyVerificationUtil;
 import org.eclipse.jst.j2ee.dependency.tests.util.ProjectUtil;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -49,6 +50,7 @@ public class ProjectCreationTests extends AbstractTests {
     public void testEJBWithEARCreation() throws Exception {
     	final IProject earProject = ProjectUtil.getProject("TestEAR"); 
     	final IProject ejbProject = ProjectUtil.createEJBProject("TestEJB", earProject.getName());
+    	J2EEComponentClasspathUpdater.getInstance().waitForClasspathUpdate();
     	DependencyVerificationUtil.verifyEARDependency(earProject, ejbProject, true);
     	testEJBClient(ejbProject, earProject);
     }
