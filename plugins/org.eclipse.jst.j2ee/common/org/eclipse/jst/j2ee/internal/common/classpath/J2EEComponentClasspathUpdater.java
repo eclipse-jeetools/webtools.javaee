@@ -146,14 +146,18 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 	}
 	
 	public void waitForClasspathUpdate(int maxWait) {
+		if(!moduleUpdateJob.projectsQueued()){
+			return;
+		}
 		ClasspathUpdateJobListener listener = new ClasspathUpdateJobListener();
+		long startTime = System.currentTimeMillis();
+		long totalTime = 0;
 		int waitIncrement = 10;
-		int waitTime = 0;
 		try {
-			while(!listener.isDone && waitTime < maxWait){
-				waitTime += waitIncrement;
-					Thread.sleep(waitIncrement);
-				} 
+			while(!listener.isDone && totalTime < maxWait){
+				Thread.sleep(waitIncrement);
+				totalTime = System.currentTimeMillis() - startTime;
+			} 
 		} catch (InterruptedException e) {
 			J2EEPlugin.getDefault().getLogger().logError(e);
 		}
@@ -191,6 +195,10 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 
 		public void queueModule(IProject project) {
 			moduleQueue.add(project);
+		}
+		
+		public boolean projectsQueued() {
+			return !earQueue.isEmpty() || !moduleQueue.isEmpty();
 		}
 
 		private void processEars() {
