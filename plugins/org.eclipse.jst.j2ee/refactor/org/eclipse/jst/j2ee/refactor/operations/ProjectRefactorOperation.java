@@ -31,7 +31,6 @@ import org.eclipse.wst.server.core.IServerWorkingCopy;
 import org.eclipse.wst.server.core.ServerUtil;
 import org.eclipse.wst.server.core.internal.DeletedModule;
 import org.eclipse.wst.server.core.internal.Module;
-import org.eclipse.wst.server.core.internal.ModuleFactory;
 
 /**
  * Abstract base class for project refactoring operations.
