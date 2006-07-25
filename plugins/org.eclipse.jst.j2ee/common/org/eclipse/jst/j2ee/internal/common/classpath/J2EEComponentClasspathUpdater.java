@@ -27,7 +27,9 @@ import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
@@ -118,7 +120,47 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		moduleUpdateJob.schedule(MODULE_UPDATE_DELAY);
 	}
 
-	private final int MODULE_UPDATE_DELAY = 30;
+	
+	private class ClasspathUpdateJobListener extends JobChangeAdapter {
+		
+		public boolean isDone = false;
+		
+		public ClasspathUpdateJobListener() {
+			super();
+			Job.getJobManager().addJobChangeListener(this);
+		}
+		
+		public void done(IJobChangeEvent event) {
+			Job job = event.getJob();
+			if(job.getName().equals(J2EEComponentClasspathUpdater.MODULE_UPDATE_JOB_NAME)){
+				isDone = true;
+				Job.getJobManager().removeJobChangeListener(this);
+			}
+		}
+	}
+	
+	public static final int MAX_WAIT_TIME = 30000;
+	
+	public void waitForClasspathUpdate() {
+		waitForClasspathUpdate(MAX_WAIT_TIME);
+	}
+	
+	public void waitForClasspathUpdate(int maxWait) {
+		ClasspathUpdateJobListener listener = new ClasspathUpdateJobListener();
+		int waitIncrement = 10;
+		int waitTime = 0;
+		try {
+			while(!listener.isDone && waitTime < maxWait){
+				waitTime += waitIncrement;
+					Thread.sleep(waitIncrement);
+				} 
+		} catch (InterruptedException e) {
+			J2EEPlugin.getDefault().getLogger().logError(e);
+		}
+	}
+	
+	private static final int MODULE_UPDATE_DELAY = 30;
+	public static final String MODULE_UPDATE_JOB_NAME = "EAR Libraries Update Job"; 
 
 	private final ModuleUpdateJob moduleUpdateJob = new ModuleUpdateJob();
 
@@ -138,7 +180,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		private Queue earQueue = new Queue();
 
 		public ModuleUpdateJob() {
-			super("EAR Libraries Update Job"); // come up with better name
+			super(MODULE_UPDATE_JOB_NAME); 
 			setRule(ResourcesPlugin.getWorkspace().getRoot());
 			setSystem(true);
 		}
