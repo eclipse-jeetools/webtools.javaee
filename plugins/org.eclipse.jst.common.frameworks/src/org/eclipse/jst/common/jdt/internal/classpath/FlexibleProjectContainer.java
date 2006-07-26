@@ -24,7 +24,10 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -69,7 +72,17 @@ public abstract class FlexibleProjectContainer
 
     static
     {
+        // Register the resource listener that will listen for changes to
+        // resources relevant to flexible project containers across the
+        // workspace and refresh them as necessary.
+        
+        final IWorkspace ws = ResourcesPlugin.getWorkspace();
+        
+        ws.addResourceChangeListener( new Listener(), 
+                                      IResourceChangeEvent.POST_CHANGE );
+        
         // Read the decorations from the workspace metadata.
+        
         final String plugin = CommonFrameworksPlugin.PLUGIN_ID;
         decorations = new ClasspathDecorationsManager( plugin );
     }
@@ -424,5 +437,70 @@ public abstract class FlexibleProjectContainer
 		}
 		return false;
 	}
+    
+    private static class Listener
+    
+        implements IResourceChangeListener
+        
+    {
+        public void resourceChanged( final IResourceChangeEvent event )
+        {
+            // Locate all of the flexible project containers.
+            
+            final ArrayList containers = new ArrayList();
+            
+            final IProject[] projects 
+                = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+            
+            for( int i = 0; i < projects.length; i++ )
+            {
+                final IProject project = projects[ i ];
+                
+                try
+                {
+                    if( isJavaProject( project ) )
+                    {
+                        final IJavaProject jproj = JavaCore.create( project );
+                        final IClasspathEntry[] cpes = jproj.getRawClasspath();
+                        
+                        for( int j = 0; j < cpes.length; j++ )
+                        {
+                            final IClasspathEntry cpe = cpes[ j ];
+                            
+                            if( cpe.getEntryKind() == IClasspathEntry.CPE_CONTAINER )
+                            {
+                                final IClasspathContainer cont
+                                    = JavaCore.getClasspathContainer( cpe.getPath(), jproj );
+                                
+                                if( cont instanceof FlexibleProjectContainer )
+                                {
+                                    containers.add( cont );
+                                }
+                            }
+                        }
+                    }
+                }
+                catch( JavaModelException e )
+                {
+                    CommonFrameworksPlugin.log( e );
+                }
+            }
+            
+            // Refresh the containers that are out of date.
+            
+            final IResourceDelta delta = event.getDelta();
+            
+            for( int i = 0, n = containers.size(); i < n; i++ )
+            {
+                final FlexibleProjectContainer c 
+                    = (FlexibleProjectContainer) containers.get( i );
+                
+                if( c.isOutOfDate( delta ) )
+                {
+                    c.refresh();
+                }
+            }
+        }
+    }
     
 }

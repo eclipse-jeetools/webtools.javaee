@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Vector;
 
 import org.eclipse.core.internal.boot.PlatformURLConnection;
-import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -35,7 +34,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
-import org.eclipse.jst.j2ee.internal.web.classpath.WebAppLibrariesContainerUpdater;
 import org.eclipse.jst.j2ee.internal.web.util.WebEditAdapterFactory;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
@@ -258,7 +256,6 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
-		ResourcesPlugin.getWorkspace().removeResourceChangeListener(WebAppLibrariesContainerUpdater.getInstance());
 	}
 
 	public void start(BundleContext context) throws Exception {
@@ -266,11 +263,6 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 		//WebAppResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);
 		IAdapterManager manager = Platform.getAdapterManager();
 		manager.registerAdapters(new WebEditAdapterFactory(), ArtifactEditModel.class);
-		
-		// Register the resource listener that will listen for changes to
-        // resources relevant to flexible project containers across the
-        // workspace and refresh them as necessary.
-    	ResourcesPlugin.getWorkspace().addResourceChangeListener(WebAppLibrariesContainerUpdater.getInstance(), IResourceChangeEvent.POST_CHANGE);
 	}
 
 
