@@ -281,6 +281,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			try {
 				edit = StructureEdit.getStructureEditForWrite(aProject);
 				if (edit == null) return;  // Not a component project....
+				edit.getModuleStructuralModel().setUseOldFormat(true);
 				if (edit.getComponent() == null) return; // Can't migrate
 				ComponentType type = edit.getComponent().getComponentType();
 				if (type == null) return;  // Can't migrate
@@ -292,6 +293,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			finally {
 				if (edit != null) {
 					edit.save(null);
+					edit.getModuleStructuralModel().setUseOldFormat(false);
 					edit.dispose();
 				}
 			}
