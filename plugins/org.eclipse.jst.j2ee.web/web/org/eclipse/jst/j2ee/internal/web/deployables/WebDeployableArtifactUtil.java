@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.internal.web.deployables;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -131,7 +132,34 @@ public class WebDeployableArtifactUtil {
 			return new WebResource(getModule(resource.getProject(), component), new Path("servlet/" + className)); //$NON-NLS-1$
 
 		}
-        
+		if (className == null) {
+			WebArtifactEdit webEdit = null;
+			try {
+				webEdit = WebArtifactEdit.getWebArtifactEditForRead(component);
+				List servlets = webEdit.getWebApp().getServlets();
+				for (int i=0; i<servlets.size(); i++) {
+					Servlet servlet = (Servlet) servlets.get(i);
+					WebType type = servlet.getWebType();
+					if (type.isJspType()) {
+						JSPType jsp = (JSPType)type;
+						String jspPath = resource.getProjectRelativePath().removeFirstSegments(1).toString();
+						if (jsp.getJspFile().equals(jspPath)) {
+							List mappings = servlet.getMappings();
+							String mapping = null;
+							if (mappings != null && !mappings.isEmpty()) {
+								ServletMapping map = (ServletMapping) mappings.get(0);
+								mapping = map.getUrlPattern();
+								if (mapping != null) 
+									return new WebResource(getModule(resource.getProject(), component), new Path(mapping));
+							}
+						}
+					}
+				}
+			} finally {
+				if (webEdit != null)
+					webEdit.dispose();
+			}
+		}
         resourcePath = resources[0].getRuntimePath();
 
 		// Extension read to get the correct URL for Java Server Faces file if
@@ -143,6 +171,7 @@ public class WebDeployableArtifactUtil {
 				return new WebResource(getModule(resource.getProject(), component), correctJSPPath);
 		}
 		// return Web resource type
+		
 		return new WebResource(getModule(resource.getProject(), component), resourcePath);
 	}
 
@@ -283,12 +312,6 @@ public class WebDeployableArtifactUtil {
 			edit = WebArtifactEdit.getWebArtifactEditForRead(project);
 			edit.getDeploymentDescriptorRoot();
 			webApp = edit.getWebApp();
-		} finally {
-			if (edit != null) {
-				edit.dispose();
-			}
-		}
-		try {
 			if (webApp == null)
 				return null;
 			Iterator iterator = webApp.getServlets().iterator();
@@ -315,8 +338,10 @@ public class WebDeployableArtifactUtil {
 				}
 			}
 			return null;
-		} catch (Exception e) {
-			return null;
+		} finally {
+			if (edit != null) {
+				edit.dispose();
+			}
 		}
 	}
 
