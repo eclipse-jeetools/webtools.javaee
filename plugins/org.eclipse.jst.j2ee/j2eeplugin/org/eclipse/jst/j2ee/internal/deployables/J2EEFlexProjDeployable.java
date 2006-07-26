@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.deployables;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,12 +20,14 @@ import java.util.Properties;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
@@ -46,6 +49,8 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.ServerUtil;
+import org.eclipse.wst.server.core.internal.ModuleFile;
 import org.eclipse.wst.server.core.internal.ModuleFolder;
 import org.eclipse.wst.server.core.model.IModuleFolder;
 import org.eclipse.wst.server.core.model.IModuleResource;
@@ -62,10 +67,9 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	 * 
 	 * @param project
 	 * @param aComponent
-	 * @deprecated use J2EEFlexProjDeployable(IProject project)
 	 */
 	public J2EEFlexProjDeployable(IProject project, IVirtualComponent aComponent) {
-		super(project);
+		super(project, aComponent);
 	}
 	
 
@@ -111,8 +115,29 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 		return J2EEProjectUtilities.getOutputContainers(project);
 	}
 
+	protected boolean shouldIncludeUtilityComponent(IVirtualComponent virtualComp) {
+		return virtualComp != null && virtualComp.isBinary() && !(virtualComp instanceof J2EEModuleVirtualArchiveComponent);
+	}
+	
+	protected IModuleResource[] getBinaryModuleMembers() {
+		IPath archivePath = ((J2EEModuleVirtualArchiveComponent)component).getWorkspaceRelativePath();
+		ModuleFile mf = null;
+		if (archivePath != null) { //In Workspace
+			IFile utilFile = ResourcesPlugin.getWorkspace().getRoot().getFile(archivePath);
+			mf = new ModuleFile(utilFile, utilFile.getName(), ((J2EEModuleVirtualArchiveComponent)component).getRuntimePath().makeRelative());
+		} else {
+			File extFile = ((J2EEModuleVirtualArchiveComponent)component).getUnderlyingDiskFile();
+			mf = new ModuleFile(extFile, extFile.getName(), ((J2EEModuleVirtualArchiveComponent)component).getRuntimePath().makeRelative());
+		}
+		return new IModuleResource[] {mf};
+	}
+	
 	public IModuleResource[] members() throws CoreException {
 		members.clear();
+		
+		if (component instanceof J2EEModuleVirtualArchiveComponent)
+			return getBinaryModuleMembers();
+		
 		cachedSourceContainers = J2EEProjectUtilities.getSourceContainers(getProject());
 		try {
 			IPath javaPath = Path.EMPTY;
@@ -307,7 +332,19 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     	return aURI;
 	}
     
+    private boolean isBinaryModuleArchive(IModule module) {
+    	if (module!=null && module.getName().endsWith(IJ2EEModuleConstants.JAR_EXT) || module.getName().endsWith(IJ2EEModuleConstants.WAR_EXT) ||
+    			module.getName().endsWith(IJ2EEModuleConstants.RAR_EXT)) {
+    		if (component!=null && J2EEProjectUtilities.isEARProject(component.getProject()))
+    			return true;
+    	}
+    	return false;
+    }
+    
     private String getContainedURI(IModule module) {
+    	if (component instanceof J2EEModuleVirtualArchiveComponent || isBinaryModuleArchive(module))
+    		return new Path(module.getName()).lastSegment();
+    	
     	IVirtualComponent comp = ComponentCore.createComponent(module.getProject());
     	String aURI = null;
     	if (comp!=null && component!=null && J2EEProjectUtilities.isEARProject(component.getProject())) {
@@ -381,8 +418,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	private IPackageFragmentRoot[] getSourceContainers() {
 		if (cachedSourceContainers != null)
 			return cachedSourceContainers;
-		else
-			return J2EEProjectUtilities.getSourceContainers(getProject());
+		return J2EEProjectUtilities.getSourceContainers(getProject());
 	}
     
     protected List getConsumableReferencedMembers(IVirtualComponent vc) throws CoreException {
@@ -424,4 +460,12 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     	}
 		return consumableMembers;
 	}
+    
+    protected IModule gatherModuleReference(IVirtualComponent component, IVirtualComponent targetComponent ) {
+    	IModule module = super.gatherModuleReference(component, targetComponent);
+		// Handle binary module components
+		if (J2EEProjectUtilities.isEARProject(component.getProject()) && targetComponent instanceof J2EEModuleVirtualArchiveComponent)
+			module = ServerUtil.getModule(J2EEDeployableFactory.ID+":"+targetComponent.getName()); //$NON-NLS-1$
+		return module;
+    }
 }
