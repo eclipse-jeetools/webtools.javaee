@@ -55,9 +55,16 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 			Display.getDefault().asyncExec(new Runnable() {
 				public void run() {
 					IWorkbenchWindow window = Workbench.getInstance().getActiveWorkbenchWindow();
-					if (window == null && Workbench.getInstance().getWorkbenchWindowCount()>0)
-						window = Workbench.getInstance().getWorkbenchWindows()[0];
-					setShell(window.getShell());
+					if (window == null && Workbench.getInstance().getWorkbenchWindowCount()>0) {
+						for (int i=0; i<Workbench.getInstance().getWorkbenchWindows().length; i++) {
+							window = Workbench.getInstance().getWorkbenchWindows()[i];
+							if (window != null)
+								break;
+						}
+						
+					}
+					if (window!=null)
+						setShell(window.getShell());
 				}
 			});
 			
