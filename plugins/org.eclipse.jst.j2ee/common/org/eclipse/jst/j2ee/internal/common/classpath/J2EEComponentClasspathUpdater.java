@@ -35,6 +35,7 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainer;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
@@ -235,12 +236,16 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 					Object[] projects = moduleQueue.getListeners();
 					for (int i = 0; i < projects.length; i++) {
 						IProject project = (IProject) projects[i];
+						IClasspathContainer container = getWebAppLibrariesContainer(project, false);
+						if (container != null && container instanceof FlexibleProjectContainer) {
+							((FlexibleProjectContainer) container).refresh();
+						}
 						IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(project);
 						if (earProjects.length == 0) {
 							removeContainerFromModuleIfNecessary(project);
 							return;
 						}
-						IClasspathContainer container = addContainerToModuleIfNecessary(project);
+						container = addContainerToModuleIfNecessary(project);
 						if (container != null && container instanceof J2EEComponentClasspathContainer) {
 							((J2EEComponentClasspathContainer) container).refresh();
 						}
