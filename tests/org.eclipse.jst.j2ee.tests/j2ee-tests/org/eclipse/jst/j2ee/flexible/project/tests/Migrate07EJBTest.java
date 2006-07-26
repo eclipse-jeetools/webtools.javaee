@@ -15,6 +15,7 @@ import org.eclipse.jst.j2ee.flexible.project.apitests.artifactedit.Test0_7Worksp
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.wst.common.componentcore.internal.ModuleMigratorManager;
 
 public class Migrate07EJBTest extends TestCase {
 	
@@ -43,11 +44,12 @@ public class Migrate07EJBTest extends TestCase {
 		WebArtifactEdit webEdit = null;
 		
 		
-			//Run full build to start migration
+			//Run full build
 			try {
 				ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.FULL_BUILD, null);
 			} catch (CoreException e) {
 			}
+			migrateProjects();
 			
 			ISchedulingRule rule= ResourcesPlugin.getWorkspace().getRuleFactory().buildRule();
 			IJobManager manager= Platform.getJobManager();
@@ -77,6 +79,29 @@ public class Migrate07EJBTest extends TestCase {
 			} finally {
 				manager.endRule(rule);
 			}
+	}
+
+	private void migrateProjects() {
+
+		ModuleMigratorManager manager = ModuleMigratorManager.getManager(ejbProject);
+		if (!manager.isMigrating() && !ResourcesPlugin.getWorkspace().isTreeLocked())
+			try {
+				manager.migrateOldMetaData(ejbProject,true);
+			} catch (CoreException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		manager = ModuleMigratorManager.getManager(webProject);
+		if (!manager.isMigrating() && !ResourcesPlugin.getWorkspace().isTreeLocked())
+			try {
+				manager.migrateOldMetaData(webProject,true);
+			} catch (CoreException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    
+		
 	}
 	
 
