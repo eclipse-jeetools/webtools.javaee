@@ -166,7 +166,7 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 	 
 	 public void validateContextRoot(String name) {  
         boolean bValid = true;
-        if (name == null || name.length() ==0 ) { 
+        if (name == null) { 
             //  this was added because the error message shouldnt be shown initially. It should be shown only if context
             // root field is edited to
             this.setErrorMessage(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Context_Root_cannot_be_empty_2, new Object[0]));
