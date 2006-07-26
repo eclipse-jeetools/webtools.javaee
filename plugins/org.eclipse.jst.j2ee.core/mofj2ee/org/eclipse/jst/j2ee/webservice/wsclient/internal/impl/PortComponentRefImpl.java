@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.java.TypeKind;
 import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webservice.wsclient.PortComponentRef;
 import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
@@ -109,7 +110,7 @@ public class PortComponentRefImpl extends J2EEEObjectImpl implements PortCompone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JavaClass getServiceEndpointInterface() {
+	public JavaClass getServiceEndpointInterfaceGen() {
 		if (serviceEndpointInterface != null && serviceEndpointInterface.eIsProxy()) {
 			InternalEObject oldServiceEndpointInterface = (InternalEObject)serviceEndpointInterface;
 			serviceEndpointInterface = (JavaClass)eResolveProxy(oldServiceEndpointInterface);
@@ -117,6 +118,17 @@ public class PortComponentRefImpl extends J2EEEObjectImpl implements PortCompone
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Webservice_clientPackage.PORT_COMPONENT_REF__SERVICE_ENDPOINT_INTERFACE, oldServiceEndpointInterface, serviceEndpointInterface));
 			}
+		}
+		return serviceEndpointInterface;
+	}
+	
+	public JavaClass getServiceEndpointInterface() {
+		serviceEndpointInterface = getServiceEndpointInterfaceGen();
+		if (serviceEndpointInterface!=null) {
+			// Verify the interface type is set correctly on the SEI
+			TypeKind typeKind = serviceEndpointInterface.getKind();
+			if (typeKind == null || !typeKind.equals(TypeKind.INTERFACE_LITERAL))
+				serviceEndpointInterface.setKind(TypeKind.INTERFACE_LITERAL);
 		}
 		return serviceEndpointInterface;
 	}
@@ -216,7 +228,7 @@ public class PortComponentRefImpl extends J2EEEObjectImpl implements PortCompone
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (portComponentLink: ");
+		result.append(" (portComponentLink: "); //$NON-NLS-1$
 		result.append(portComponentLink);
 		result.append(')');
 		return result.toString();
