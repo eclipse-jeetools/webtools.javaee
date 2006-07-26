@@ -162,7 +162,7 @@ public class ApplicationTest extends EarEMFTest {
     	ApplicationResource DD = (ApplicationResource) earFile.getDeploymentDescriptorResource();
         DD.setVersionID(J2EEVersionConstants.J2EE_1_4_ID);
 		setVersion(VERSION_1_4);
-		setModuleType(APP_CLIENT);
+		setModuleType(APPLICATION);
 		populateRoot(DD.getRootObject());
         int retValue = 0;
         retValue = DD.getApplication().getVersionID();
@@ -183,7 +183,7 @@ public class ApplicationTest extends EarEMFTest {
      	ApplicationResource DD = (ApplicationResource) earFile.getDeploymentDescriptorResource();
         DD.setVersionID(J2EEVersionConstants.J2EE_1_4_ID);
  		setVersion(VERSION_1_4);
- 		setModuleType(APP_CLIENT);
+ 		setModuleType(APPLICATION);
  		populateRoot(DD.getRootObject());
         int retValue = 0;
         retValue = DD.getApplication().getJ2EEVersionID();

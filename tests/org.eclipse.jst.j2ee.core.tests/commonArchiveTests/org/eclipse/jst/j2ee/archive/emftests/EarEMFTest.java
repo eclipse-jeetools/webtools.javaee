@@ -72,7 +72,7 @@ public class EarEMFTest extends GeneralEMFPopulationTest {
 		//TODO: individual test for each version
 		DD.setVersionID(J2EEVersionConstants.J2EE_1_3_ID);
 		setVersion(VERSION_1_3);
-		setModuleType(APPICATION);
+		setModuleType(APPLICATION);
         populateRoot(DD.getRootObject());
 
 		String out = AutomatedBVT.baseDirectory +"testOutput/TestEAR";
@@ -96,7 +96,7 @@ public class EarEMFTest extends GeneralEMFPopulationTest {
 		//TODO: individual test for each version
 		DD.setVersionID(J2EEVersionConstants.J2EE_1_4_ID);
 		setVersion(VERSION_1_4);
-		setModuleType(APPICATION);
+		setModuleType(APPLICATION);
 		populateRoot(DD.getRootObject());
 
 		String out = AutomatedBVT.baseDirectory +"testOutput/TestEAR14";

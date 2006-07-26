@@ -67,7 +67,7 @@ public class GeneralEMFPopulationTest extends BaseTestCase {
     public static final int VERSION_1_3 = 1;
     public static final int VERSION_1_4 = 2;
 
-    public static final int APPICATION = 0;
+    public static final int APPLICATION = 0;
     public static final int APP_CLIENT = 1;
     public static final int CONNECTOR = 2;
     public static final int EJB = 3;
