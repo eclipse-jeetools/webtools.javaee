@@ -35,7 +35,6 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainer;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
@@ -53,7 +52,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 	private static J2EEComponentClasspathUpdater instance = null;
 
 	private int pauseCount = 0;
-
+	
 	private IPath WEB_APP_LIBS_PATH = new Path("org.eclipse.jst.j2ee.internal.web.container");
 
 	public static J2EEComponentClasspathUpdater getInstance() {
@@ -236,16 +235,12 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 					Object[] projects = moduleQueue.getListeners();
 					for (int i = 0; i < projects.length; i++) {
 						IProject project = (IProject) projects[i];
-						IClasspathContainer container = getWebAppLibrariesContainer(project, false);
-						if (container != null && container instanceof FlexibleProjectContainer) {
-							((FlexibleProjectContainer) container).refresh();
-						}
 						IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(project);
 						if (earProjects.length == 0) {
 							removeContainerFromModuleIfNecessary(project);
 							return;
 						}
-						container = addContainerToModuleIfNecessary(project);
+						IClasspathContainer container = addContainerToModuleIfNecessary(project);
 						if (container != null && container instanceof J2EEComponentClasspathContainer) {
 							((J2EEComponentClasspathContainer) container).refresh();
 						}
@@ -262,15 +257,15 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		IClasspathContainer container = null;
 		IClasspathEntry entry = create ? null : getExistingContainer(jproj, WEB_APP_LIBS_PATH);
 		if (entry != null || create) {
-			try {
+		try {
 				container = JavaCore.getClasspathContainer(WEB_APP_LIBS_PATH, jproj);
-			} catch (JavaModelException e) {
+		} catch (JavaModelException e) {
 				J2EEPlugin.getDefault().getLogger().logError(e);
-			}
 		}
+	}
 		return container;
 	}
-
+	
 	private IClasspathContainer addContainerToModuleIfNecessary(IProject moduleProject) {
 		IJavaProject jproj = JavaCore.create(moduleProject);
 		IClasspathEntry entry = getExistingContainer(jproj, J2EEComponentClasspathContainer.CONTAINER_PATH);
@@ -337,7 +332,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 	 * @param classpathContainerID
 	 * @return
 	 */
-	private IClasspathEntry getExistingContainer(IJavaProject jproj, IPath classpathContainerPath) {
+	public IClasspathEntry getExistingContainer(IJavaProject jproj, IPath classpathContainerPath) {
 		try {
 			IClasspathEntry[] cpes;
 			cpes = jproj.getRawClasspath();
@@ -399,7 +394,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				if (comp instanceof EARVirtualComponent) {
 					return isRootAncester(resource, rootFolder);
 				} else { // J2EEModuleVirtualComponent
-					return isRootAncester(resource, rootFolder) || isMetaFolder(resource, rootFolder);
+					return isRootAncester(resource, rootFolder) || isFolder(resource, rootFolder.getFolder(META_INF));
 				}
 			}
 			return false;
@@ -413,10 +408,13 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				if (resource.equals(J2EEProjectUtilities.getManifestFile(resource.getProject()))) {
 					queueUpdateModule(resource.getProject());
 				}
-			} else if (name.regionMatches(true, name.length() - DOT_JAR.length(), DOT_JAR, 0, DOT_JAR.length())) {
+			} else if (endsWithIgnoreCase(name, DOT_JAR)) {
 				try {
 					if (FacetedProjectFramework.hasProjectFacet(resource.getProject(), J2EEProjectUtilities.ENTERPRISE_APPLICATION)) {
-						queueUpdateEAR(resource.getProject());
+						IVirtualComponent comp = ComponentCore.createComponent(resource.getProject());
+						if(isFolder(resource.getParent(), comp.getRootFolder())){
+							queueUpdateEAR(resource.getProject());
+						}
 					}
 				} catch (CoreException e) {
 					J2EEPlugin.getDefault().getLogger().logError(e);
@@ -427,20 +425,22 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			return false;
 		}
 	}
+	
+	public static boolean endsWithIgnoreCase(String str, String sfx) {
+		return str.regionMatches(true, str.length() - sfx.length(), sfx, 0, sfx.length());
+	}
 
-	private boolean isMetaFolder(IResource resource, IVirtualFolder rootFolder) {
-		IVirtualFolder metaFolder = rootFolder.getFolder(META_INF);
-		IContainer[] realMetas = metaFolder.getUnderlyingFolders();
-		for (int i = 0; i < realMetas.length; i++) {
-			if (realMetas[i].equals(resource)) { // META-INF must be all caps
-													// per spec
+	public static boolean isFolder(IResource resource, IVirtualFolder folder) {
+		IContainer[] realFolders = folder.getUnderlyingFolders();
+		for (int i = 0; i < realFolders.length; i++) {
+			if (realFolders[i].equals(resource)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	private static boolean isRootAncester(IResource resource, IVirtualFolder rootFolder) {
+	public static boolean isRootAncester(IResource resource, IVirtualFolder rootFolder) {
 		IContainer[] realRoots = rootFolder.getUnderlyingFolders();
 		IPath currentResourcePath = resource.getFullPath();
 		for (int i = 0; i < realRoots.length; i++) {
