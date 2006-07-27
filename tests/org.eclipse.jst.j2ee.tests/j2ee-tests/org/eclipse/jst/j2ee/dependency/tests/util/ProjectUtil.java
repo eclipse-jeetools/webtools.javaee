@@ -61,6 +61,8 @@ public class ProjectUtil {
 		//waitForValidationJobs();
 		ResourcesPlugin.getWorkspace().run(workspaceRunnable, null);
 		DependencyUtil.waitForProjectRefactoringJobs();
+		DependencyUtil.waitForComponentRefactoringJobs();
+		ProjectUtil.waitForClasspathUpdate();
 	}
 
 	/**
@@ -85,7 +87,8 @@ public class ProjectUtil {
 		//waitForValidationJobs();
 		ResourcesPlugin.getWorkspace().run(workspaceRunnable, null);
 		DependencyUtil.waitForProjectRefactoringJobs();
-
+		DependencyUtil.waitForComponentRefactoringJobs();
+		ProjectUtil.waitForClasspathUpdate();
 		return newProject;
 	}
 	
