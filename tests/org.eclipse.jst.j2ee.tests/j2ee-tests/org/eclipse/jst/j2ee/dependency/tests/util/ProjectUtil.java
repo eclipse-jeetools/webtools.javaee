@@ -199,6 +199,8 @@ public class ProjectUtil {
 	}
 
 	public static void waitForClasspathUpdate(int maxWait) {
+		long startTime = System.currentTimeMillis();
+		listener.isDone = false;
 		int waitIncrement = 10;
 		final J2EEComponentClasspathUpdater updater = J2EEComponentClasspathUpdater.getInstance();
 		boolean updatesQueued = false;
@@ -216,9 +218,6 @@ public class ProjectUtil {
 			return;
 		}
 		
-		listener.isDone = false;
-		
-		long startTime = System.currentTimeMillis();
 		long totalTime = 0;
 		try {
 			while (!listener.isDone && totalTime < maxWait) {

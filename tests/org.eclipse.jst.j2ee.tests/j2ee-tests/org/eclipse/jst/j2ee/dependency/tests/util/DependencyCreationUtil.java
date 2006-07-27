@@ -61,6 +61,7 @@ public class DependencyCreationUtil {
 	
 	public static void createWebLibDependency(final IProject source, final IProject target) throws ExecutionException, CoreException, IOException {
 		createProjectDependency(source, target, true);
+		ProjectUtil.waitForClasspathUpdate();
 	}
 	
 	private static void createProjectDependency(final IProject source, final IProject target, final boolean webLibDep) throws ExecutionException, CoreException, IOException {
