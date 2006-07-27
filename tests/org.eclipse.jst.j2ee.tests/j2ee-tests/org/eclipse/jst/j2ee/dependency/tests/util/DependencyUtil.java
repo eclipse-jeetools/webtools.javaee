@@ -85,7 +85,6 @@ public class DependencyUtil {
         for (int i = 0; i < 1000; i++) {
 			final Job[] jobs = jobMgr.find(family);
 			if (jobs.length > 0) {
-                waitedForJobs = true;
 				try {
 					jobMgr.join(family, null);
 				} catch (InterruptedException ie) {
