@@ -119,7 +119,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 	}
 	
 	public boolean projectsQueued() {
-		return moduleUpdateJob.projectsQueued();
+		return moduleUpdateJob.projectsQueued() || moduleUpdateJob.getState() != Job.NONE;
 	}
 	
 	private static final int MODULE_UPDATE_DELAY = 30;
