@@ -199,14 +199,27 @@ public class ProjectUtil {
 	}
 
 	public static void waitForClasspathUpdate(int maxWait) {
+		int waitIncrement = 10;
 		final J2EEComponentClasspathUpdater updater = J2EEComponentClasspathUpdater.getInstance();
-		if (!updater.projectsQueued()) {
+		boolean updatesQueued = false;
+		for(int i=0;i<50 && !updatesQueued ; i++){
+			updatesQueued = updater.projectsQueued();
+			if(!updatesQueued){
+				try{
+					Thread.sleep(waitIncrement);
+				} catch (InterruptedException e) {
+					J2EEPlugin.getDefault().getLogger().logError(e);
+				}
+			}
+		}
+		if(!updatesQueued){
 			return;
 		}
-		ClasspathUpdateJobListener listener = new ClasspathUpdateJobListener();
+		
+		listener.isDone = false;
+		
 		long startTime = System.currentTimeMillis();
 		long totalTime = 0;
-		int waitIncrement = 10;
 		try {
 			while (!listener.isDone && totalTime < maxWait) {
 				Thread.sleep(waitIncrement);
@@ -218,6 +231,8 @@ public class ProjectUtil {
 		waitForClasspathUpdate(maxWait- (int)(System.currentTimeMillis()-startTime));
 	}
 
+	private static ClasspathUpdateJobListener listener = new ClasspathUpdateJobListener();
+	
 	private static class ClasspathUpdateJobListener extends JobChangeAdapter {
 
 		public boolean isDone = false;
@@ -231,7 +246,6 @@ public class ProjectUtil {
 			Job job = event.getJob();
 			if (job.getName().equals(J2EEComponentClasspathUpdater.MODULE_UPDATE_JOB_NAME)) {
 				isDone = true;
-				Job.getJobManager().removeJobChangeListener(this);
 			}
 		}
 	}
