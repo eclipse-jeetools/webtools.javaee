@@ -175,22 +175,28 @@ public class DependencyVerificationUtil {
 	 * @throws Exception
 	 */
 	public static void verifyClasspathReference(final IProject source, final IProject target, final boolean hasRef) throws CoreException {
-		IJavaProject javaProject = JavaCore.create(source);
-		IClasspathEntry[] cp = javaProject.getResolvedClasspath(true); // ignore unresolvable entries
-		boolean onClasspath = false;
-		for (int i = 0; i < cp.length; i++) {
-			if (cp[i].getEntryKind() == IClasspathEntry.CPE_PROJECT 
-					&& cp[i].getPath().equals(target.getFullPath())) {
-				onClasspath= true;
-				break;
-			}
-		}
+		boolean onClasspath = hasClasspathReference(source, target);
 		if (hasRef) {
 			Assert.assertTrue("Project " + target + " missing from resolved classpath of project " + source, onClasspath);
 		} else {
 			Assert.assertFalse("Project " + target + " should not be on resolved classpath of project " + source, onClasspath);
 		}	
 	}
+    
+    public static boolean hasClasspathReference(final IProject source, final IProject target) throws CoreException {
+        IJavaProject javaProject = JavaCore.create(source);
+        IClasspathEntry[] cp = javaProject.getResolvedClasspath(true); // ignore unresolvable entries
+        boolean onClasspath = false;
+        for (int i = 0; i < cp.length; i++) {
+            if (cp[i].getEntryKind() == IClasspathEntry.CPE_PROJECT 
+                    && cp[i].getPath().equals(target.getFullPath())) {
+                onClasspath= true;
+                break;
+            }
+        }
+        return onClasspath;
+    }
+    
 	
 	public static String verifyEARDependency(final IProject earProject, final IProject childProject, final boolean moduleRef) throws CoreException {
 		// .project dep

@@ -33,6 +33,7 @@ import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wst.validation.internal.ConfigurationManager;
 import org.eclipse.wst.validation.internal.GlobalConfiguration;
+import org.eclipse.wst.validation.internal.ValidatorMetaData;
 
 /**
  * Various utility methods.
@@ -81,10 +82,10 @@ public class DependencyUtil {
 	 */
 	public static void waitForJobs(final String family) {
 		final IJobManager jobMgr = Platform.getJobManager();
-		for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1000; i++) {
 			final Job[] jobs = jobMgr.find(family);
-			//System.out.println("Number of refactoring jobs: " + jobs.length);
 			if (jobs.length > 0) {
+                waitedForJobs = true;
 				try {
 					jobMgr.join(family, null);
 				} catch (InterruptedException ie) {
@@ -116,6 +117,35 @@ public class DependencyUtil {
     	config.passivate();
     	config.store();
 	}
+    
+    /**
+     * Disables all validators except the specified validator
+     * @param project Project on which to disable the validator. Cannot be null.
+     * @param validatorToLeaveEnabled Name of the validator to leave enabled
+     * @throws CoreException Thrown if an error is encountered disabling the validator.
+     */
+    public static void disableValidation(final String validatorToLeaveEnabled) throws InvocationTargetException {
+        final GlobalConfiguration config = new GlobalConfiguration(ConfigurationManager.getManager().getGlobalConfiguration());
+        final List listVmd = new ArrayList();            
+        ValidatorMetaData[] enabledValidators = config.getEnabledValidators();
+            
+        // filter out validators to disable
+        boolean disabledSomeValidators = false;
+        for (int i = 0; i < enabledValidators.length; i++) {
+            final String uniqueName = enabledValidators[i].getValidatorUniqueName();
+            if (uniqueName.equals(validatorToLeaveEnabled)) {
+                listVmd.add(enabledValidators[i]);
+            } else {
+                disabledSomeValidators = true;
+            }
+        }
+            
+        if (disabledSomeValidators) {
+            config.setEnabledValidators((ValidatorMetaData[]) listVmd.toArray(new ValidatorMetaData[0]));                       
+            config.passivate();
+            config.store();   
+        }
+    }
     
     /**
      * Adds a Java source path

@@ -49,7 +49,6 @@ public class ProjectCreationTests extends AbstractTests {
     public void testEJBWithEARCreation() throws Exception {
     	final IProject earProject = ProjectUtil.getProject("TestEAR"); 
     	final IProject ejbProject = ProjectUtil.createEJBProject("TestEJB", earProject.getName());
-    	ProjectUtil.waitForClasspathUpdate();
     	DependencyVerificationUtil.verifyEARDependency(earProject, ejbProject, true);
     	testEJBClient(ejbProject, earProject);
     }

@@ -42,6 +42,7 @@ public class DependencyCreationUtil {
 		depList.add(childComp);
 		dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, depList);
 		dm.getDefaultOperation().execute(null, null);
+        ProjectUtil.waitForClasspathUpdate();
 	}
 	
 	public static void removeEARDependency(final IProject earProject, final IProject childProject) throws ExecutionException {
@@ -53,6 +54,7 @@ public class DependencyCreationUtil {
 		depList.add(childComp);
 		dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, depList);
 		dm.getDefaultOperation().execute(null, null);
+        ProjectUtil.waitForClasspathUpdate();
 	}
 
 	public static void createModuleDependency(final IProject source, final IProject target) throws ExecutionException, CoreException, IOException {
@@ -61,7 +63,6 @@ public class DependencyCreationUtil {
 	
 	public static void createWebLibDependency(final IProject source, final IProject target) throws ExecutionException, CoreException, IOException {
 		createProjectDependency(source, target, true);
-		ProjectUtil.waitForClasspathUpdate();
 	}
 	
 	private static void createProjectDependency(final IProject source, final IProject target, final boolean webLibDep) throws ExecutionException, CoreException, IOException {
@@ -100,8 +101,8 @@ public class DependencyCreationUtil {
 			cpList.add(newCp);
 			updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.JAR_LIST, cpList);
 			updateManifestDataModel.getDefaultOperation().execute(monitor, null );
-		
 		}
+        ProjectUtil.waitForClasspathUpdate();
 	}
 	
 	public static ArchiveManifest getArchiveManifest(final IFile manifestFile) throws CoreException, IOException {

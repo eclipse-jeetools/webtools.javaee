@@ -86,7 +86,7 @@ public class ProjectUtil {
 		//waitForValidationJobs();
 		ResourcesPlugin.getWorkspace().run(workspaceRunnable, null);
 		DependencyUtil.waitForProjectRefactoringJobs();
-		ProjectUtil.waitForClasspathUpdate();
+        ProjectUtil.waitForClasspathUpdate();
 		return newProject;
 	}
 	
@@ -175,6 +175,8 @@ public class ProjectUtil {
 	private static IProject createAndVerify(final IDataModel model, final String projectName, final String type, final String earName) throws Exception {
 		// run the data model operation to create the projects
 		OperationTestCase.runAndVerify(model,false,true, true);
+        // wait for any classpath update jobs
+        ProjectUtil.waitForClasspathUpdate();
 		// verify the EAR (if one was created)
 	    verifyProject(earName, J2EEProjectUtilities.ENTERPRISE_APPLICATION);
 	    // verify the module project
@@ -195,43 +197,43 @@ public class ProjectUtil {
 	public static final int MAX_WAIT_TIME = 30000;
 
 	public static void waitForClasspathUpdate() {
-		waitForClasspathUpdate(MAX_WAIT_TIME);
-	}
+        waitForClasspathUpdate(MAX_WAIT_TIME);
+    }
 
-	public static void waitForClasspathUpdate(int maxWait) {
-		long startTime = System.currentTimeMillis();
-		listener.isDone = false;
-		int waitIncrement = 10;
-		final J2EEComponentClasspathUpdater updater = J2EEComponentClasspathUpdater.getInstance();
-		boolean updatesQueued = false;
-		for(int i=0;i<50 && !updatesQueued ; i++){
-			updatesQueued = updater.projectsQueued();
-			if(!updatesQueued){
-				try{
-					Thread.sleep(waitIncrement);
-				} catch (InterruptedException e) {
-					J2EEPlugin.getDefault().getLogger().logError(e);
-				}
-			}
-		}
-		if(!updatesQueued){
-			return;
-		}
-		
-		long totalTime = 0;
-		try {
-			while (!listener.isDone && totalTime < maxWait) {
-				Thread.sleep(waitIncrement);
-				totalTime = System.currentTimeMillis() - startTime;
-			}
-		} catch (InterruptedException e) {
-			J2EEPlugin.getDefault().getLogger().logError(e);
-		}
-		waitForClasspathUpdate(maxWait- (int)(System.currentTimeMillis()-startTime));
-	}
-
+    public static void waitForClasspathUpdate(int maxWait) {
+        long startTime = System.currentTimeMillis();
+        listener.isDone = false;
+        int waitIncrement = 10;
+        final J2EEComponentClasspathUpdater updater = J2EEComponentClasspathUpdater.getInstance();
+        boolean updatesQueued = false;
+        for(int i=0;i<50 && !updatesQueued ; i++){
+            updatesQueued = updater.projectsQueued();
+            if(!updatesQueued){
+                try{
+                    Thread.sleep(waitIncrement);
+                } catch (InterruptedException e) {
+                    J2EEPlugin.getDefault().getLogger().logError(e);
+                }
+            }
+        }
+        if(!updatesQueued){
+            return;
+        }
+        
+        long totalTime = 0;
+        try {
+            while (!listener.isDone && totalTime < maxWait) {
+                Thread.sleep(waitIncrement);
+                totalTime = System.currentTimeMillis() - startTime;
+            }
+        } catch (InterruptedException e) {
+            //J2EEPlugin.getDefault().getLogger().logError(e);
+        }
+        waitForClasspathUpdate(maxWait- (int)(System.currentTimeMillis()-startTime));
+    }
+    
 	private static ClasspathUpdateJobListener listener = new ClasspathUpdateJobListener();
-	
+    
 	private static class ClasspathUpdateJobListener extends JobChangeAdapter {
 
 		public boolean isDone = false;
@@ -247,5 +249,6 @@ public class ProjectUtil {
 				isDone = true;
 			}
 		}
-	}
-}
+    }
+}    
+

@@ -82,9 +82,6 @@ public class ProjectDependencyTests extends AbstractTests {
     	testEARDependency(ear, web, true);
     	testEARDependency(ear, ejb, true);
     	DependencyCreationUtil.createModuleDependency(web, ejb);
-    	
-    	ProjectUtil.waitForClasspathUpdate();
-    	
     	DependencyVerificationUtil.verifyModuleDependency(web, ejb);	
     }
 }

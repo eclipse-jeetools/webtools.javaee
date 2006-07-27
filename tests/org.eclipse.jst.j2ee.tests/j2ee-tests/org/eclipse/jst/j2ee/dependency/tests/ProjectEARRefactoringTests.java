@@ -1,13 +1,13 @@
 package org.eclipse.jst.j2ee.dependency.tests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.dependency.tests.util.DependencyCreationUtil;
 import org.eclipse.jst.j2ee.dependency.tests.util.DependencyUtil;
 import org.eclipse.jst.j2ee.dependency.tests.util.DependencyVerificationUtil;
 import org.eclipse.jst.j2ee.dependency.tests.util.ProjectUtil;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
  * Tests the refactoring logic that handles rename/delete refactoring of EAR child
@@ -25,7 +25,7 @@ public class ProjectEARRefactoringTests extends AbstractTests {
         suite.addTest(new ProjectEARRefactoringTests("testDeleteEARWebModule"));
         // XXX this can fail
         //suite.addTest(new ProjectEARRefactoringTests("testDeleteEARWebModuleWithValidation"));
-        suite.addTest(new ProjectEARRefactoringTests("testDeleteEARUtilModule"));        
+        suite.addTest(new ProjectEARRefactoringTests("testDeleteEARUtilModule"));
         suite.addTest(new ProjectEARRefactoringTests("testDeleteEAREJBModule"));
         suite.addTest(new ProjectEARRefactoringTests("testRenameEARWebModule"));
         suite.addTest(new ProjectEARRefactoringTests("testRenameEARUtilModule"));
@@ -76,8 +76,6 @@ public class ProjectEARRefactoringTests extends AbstractTests {
 	public void testDeleteEAREJBModule() throws Exception {
 		final IProject earProject = ProjectUtil.getProject("TestEAR");
 		final IProject ejbProject = ProjectUtil.createEJBProject("TestEJB", earProject.getName());
-		
-		ProjectUtil.waitForClasspathUpdate();
 		
 		final IProject ejbClientProject = ProjectUtil.getProject("TestEJBClient");
 		String moduleURI = DependencyVerificationUtil.verifyEARDependency(earProject, ejbProject, true);
@@ -144,8 +142,6 @@ public class ProjectEARRefactoringTests extends AbstractTests {
 		
 		ProjectUtil.deleteProject(webProject);
 
-		ProjectUtil.waitForClasspathUpdate();
-		
 		DependencyVerificationUtil.verifyEARDependencyRemoved(earProject1, webProject, moduleURI1);	
 		DependencyVerificationUtil.verifyEARDependencyRemoved(earProject2, webProject, moduleURI2);	
 		
@@ -203,15 +199,11 @@ public class ProjectEARRefactoringTests extends AbstractTests {
 		final IProject webProject = ProjectUtil.createWebProject("TestWeb", earProject.getName());
 		DependencyCreationUtil.createModuleDependency(webProject, utilProject);
 		
-		ProjectUtil.waitForClasspathUpdate();
-		
 		DependencyVerificationUtil.verifyEARDependency(earProject, utilProject, false);	
 		DependencyVerificationUtil.verifyEARDependency(earProject, webProject, true);
 		DependencyVerificationUtil.verifyModuleDependency(webProject, utilProject);
 		
 		ProjectUtil.deleteProject(utilProject);
-		
-		ProjectUtil.waitForClasspathUpdate();
 		
 		DependencyVerificationUtil.verifyEARDependencyRemoved(earProject, utilProject);	
 		DependencyVerificationUtil.verifyModuleDependencyRemoved(webProject, utilProject);
@@ -228,22 +220,18 @@ public class ProjectEARRefactoringTests extends AbstractTests {
 		DependencyCreationUtil.createModuleDependency(webProject1, ejbProject);
 		DependencyCreationUtil.createWebLibDependency(webProject2, ejbProject);
 		
-		ProjectUtil.waitForClasspathUpdate();
-		
 		final String moduleURI1 = DependencyVerificationUtil.verifyEARDependency(earProject1, ejbProject, true);
 		final String moduleURI2 = DependencyVerificationUtil.verifyEARDependency(earProject2, ejbProject, true);	
 		DependencyVerificationUtil.verifyEARDependency(earProject1, webProject1, true);
 		DependencyVerificationUtil.verifyEARDependency(earProject2, webProject2, true);
-		DependencyVerificationUtil.verifyModuleDependency(webProject1, ejbProject);
+       	DependencyVerificationUtil.verifyModuleDependency(webProject1, ejbProject);
 		DependencyVerificationUtil.verifyWebLibDependency(webProject2, ejbProject);
 		
 		IProject newEJB = ProjectUtil.renameProject(ejbProject, "newEJB");
 		
-		ProjectUtil.waitForClasspathUpdate();
-		
 		DependencyVerificationUtil.verifyEARDependencyChanged(earProject1, ejbProject, moduleURI1, newEJB);	
-		DependencyVerificationUtil.verifyEARDependencyChanged(earProject2, ejbProject, moduleURI2, newEJB);	
-		DependencyVerificationUtil.verifyModuleDependencyChanged(webProject1, ejbProject, newEJB);
+		DependencyVerificationUtil.verifyEARDependencyChanged(earProject2, ejbProject, moduleURI2, newEJB);
+      	DependencyVerificationUtil.verifyModuleDependencyChanged(webProject1, ejbProject, newEJB);
 		DependencyVerificationUtil.verifyWebLibDependencyChanged(webProject2, ejbProject, newEJB);
 	}
 	

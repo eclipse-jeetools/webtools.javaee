@@ -36,8 +36,6 @@ public class ProjectModuleRefactoringTests extends AbstractTests {
 
 		ProjectUtil.deleteProject(utilProject);
 		
-		ProjectUtil.waitForClasspathUpdate();
-		
 		DependencyVerificationUtil.verifyEARDependencyRemoved(earProject, utilProject);	
 		DependencyVerificationUtil.verifyModuleDependencyRemoved(webProject, utilProject);
     }
@@ -49,8 +47,6 @@ public class ProjectModuleRefactoringTests extends AbstractTests {
 		final IProject utilProject = projects[2];
 		
 		final IProject newUtil = ProjectUtil.renameProject(utilProject, "newUtil");
-		
-		ProjectUtil.waitForClasspathUpdate();
 		
 		DependencyVerificationUtil.verifyEARDependencyChanged(earProject, utilProject, newUtil);	
 		DependencyVerificationUtil.verifyModuleDependencyChanged(webProject, utilProject, newUtil);
@@ -65,8 +61,6 @@ public class ProjectModuleRefactoringTests extends AbstractTests {
 		final IProject utilProject = projects[4];
 
 		ProjectUtil.deleteProject(utilProject);
-		
-		ProjectUtil.waitForClasspathUpdate();
 		
 		DependencyVerificationUtil.verifyEARDependencyRemoved(earProject1, utilProject);	
 		DependencyVerificationUtil.verifyEARDependencyRemoved(earProject2, utilProject);	
@@ -84,8 +78,6 @@ public class ProjectModuleRefactoringTests extends AbstractTests {
 
 		final IProject newUtil = ProjectUtil.renameProject(utilProject, "newUtil");
 		
-		ProjectUtil.waitForClasspathUpdate();
-		
 		DependencyVerificationUtil.verifyEARDependencyChanged(earProject1, utilProject, newUtil);
 		DependencyVerificationUtil.verifyEARDependencyChanged(earProject2, utilProject, newUtil);
 		DependencyVerificationUtil.verifyModuleDependencyChanged(webProject, utilProject, newUtil);
@@ -97,7 +89,6 @@ public class ProjectModuleRefactoringTests extends AbstractTests {
 		final IProject utilProject = ProjectUtil.createUtilityProject("TestUtil", earProject.getName());
 		final IProject webProject = ProjectUtil.createWebProject("TestWeb", earProject.getName());
 		DependencyCreationUtil.createModuleDependency(webProject, utilProject);
-		ProjectUtil.waitForClasspathUpdate();
 		DependencyVerificationUtil.verifyEARDependency(earProject, utilProject, false);	
 		DependencyVerificationUtil.verifyEARDependency(earProject, webProject, true);
 		DependencyVerificationUtil.verifyModuleDependency(webProject, utilProject);	
@@ -118,8 +109,6 @@ public class ProjectModuleRefactoringTests extends AbstractTests {
 		DependencyCreationUtil.createModuleDependency(webProject, utilProject);
 		DependencyCreationUtil.createModuleDependency(ejbProject, utilProject);
 
-		ProjectUtil.waitForClasspathUpdate();
-		
 		// verify the dependencies
 		DependencyVerificationUtil.verifyEARDependency(earProject1, utilProject, false);
 		DependencyVerificationUtil.verifyEARDependency(earProject1, webProject, true);
