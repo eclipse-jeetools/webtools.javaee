@@ -81,7 +81,7 @@ public class DependencyUtil {
 	 */
 	public static void waitForJobs(final String family) {
 		final IJobManager jobMgr = Platform.getJobManager();
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 1000; i++) {
 			final Job[] jobs = jobMgr.find(family);
 			//System.out.println("Number of refactoring jobs: " + jobs.length);
 			if (jobs.length > 0) {
@@ -92,7 +92,7 @@ public class DependencyUtil {
 				break;
 			}
 			try {
-				Thread.sleep(100);
+				Thread.sleep(10);
 			} catch (InterruptedException ie) {
 			}
 		}
