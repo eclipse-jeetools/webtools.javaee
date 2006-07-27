@@ -214,6 +214,7 @@ public class ProjectUtil {
 		} catch (InterruptedException e) {
 			J2EEPlugin.getDefault().getLogger().logError(e);
 		}
+		waitForClasspathUpdate(maxWait- (int)(System.currentTimeMillis()-startTime));
 	}
 
 	private static class ClasspathUpdateJobListener extends JobChangeAdapter {
