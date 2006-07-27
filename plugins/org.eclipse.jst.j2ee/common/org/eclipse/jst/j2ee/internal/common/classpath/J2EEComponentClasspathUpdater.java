@@ -27,9 +27,7 @@ import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
@@ -119,48 +117,9 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		}
 		moduleUpdateJob.schedule(MODULE_UPDATE_DELAY);
 	}
-
 	
-	private class ClasspathUpdateJobListener extends JobChangeAdapter {
-		
-		public boolean isDone = false;
-		
-		public ClasspathUpdateJobListener() {
-			super();
-			Job.getJobManager().addJobChangeListener(this);
-		}
-		
-		public void done(IJobChangeEvent event) {
-			Job job = event.getJob();
-			if(job.getName().equals(J2EEComponentClasspathUpdater.MODULE_UPDATE_JOB_NAME)){
-				isDone = true;
-				Job.getJobManager().removeJobChangeListener(this);
-			}
-		}
-	}
-	
-	public static final int MAX_WAIT_TIME = 30000;
-	
-	public void waitForClasspathUpdate() {
-		waitForClasspathUpdate(MAX_WAIT_TIME);
-	}
-	
-	public void waitForClasspathUpdate(int maxWait) {
-		if(!moduleUpdateJob.projectsQueued()){
-			return;
-		}
-		ClasspathUpdateJobListener listener = new ClasspathUpdateJobListener();
-		long startTime = System.currentTimeMillis();
-		long totalTime = 0;
-		int waitIncrement = 10;
-		try {
-			while(!listener.isDone && totalTime < maxWait){
-				Thread.sleep(waitIncrement);
-				totalTime = System.currentTimeMillis() - startTime;
-			} 
-		} catch (InterruptedException e) {
-			J2EEPlugin.getDefault().getLogger().logError(e);
-		}
+	public boolean projectsQueued() {
+		return moduleUpdateJob.projectsQueued();
 	}
 	
 	private static final int MODULE_UPDATE_DELAY = 30;
