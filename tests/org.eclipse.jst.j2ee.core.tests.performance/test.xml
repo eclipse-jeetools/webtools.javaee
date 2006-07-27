@@ -11,6 +11,7 @@
             value="${eclipse-home}/plugins/org.eclipse.test_3.1.0/library.xml"/>
   <property name="perf-tests-file"
             value="${testDir}/performance-tests.xml"/>
+  <property name="extraVMargs" value="-Xmx512M"/>
 
   <!-- This target holds all initialization code that needs to be done for -->
   <!-- all tests that are to be run. Initialization for individual tests -->
@@ -37,6 +38,7 @@
      <property name="data-dir" value="${performance-folder}"/>
      <property name="plugin-name" value="${plugin-name}"/>
      <property name="classname" value="org.eclipse.jst.j2ee.core.tests.performance.AllCorePerformanceTests"/>
+     <property name="extraVMargs" value="${extraVMargs}"/>
   </ant>
 </target>
                     
