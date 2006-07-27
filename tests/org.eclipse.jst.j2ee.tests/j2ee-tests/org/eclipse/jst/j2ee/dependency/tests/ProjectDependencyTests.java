@@ -1,13 +1,12 @@
 package org.eclipse.jst.j2ee.dependency.tests;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.dependency.tests.util.DependencyCreationUtil;
 import org.eclipse.jst.j2ee.dependency.tests.util.DependencyVerificationUtil;
 import org.eclipse.jst.j2ee.dependency.tests.util.ProjectUtil;
-import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
 
 /**
  * Tests project creation logic in the DependencyCreationUtil helper class.
@@ -84,7 +83,7 @@ public class ProjectDependencyTests extends AbstractTests {
     	testEARDependency(ear, ejb, true);
     	DependencyCreationUtil.createModuleDependency(web, ejb);
     	
-    	J2EEComponentClasspathUpdater.getInstance().waitForClasspathUpdate();
+    	ProjectUtil.waitForClasspathUpdate();
     	
     	DependencyVerificationUtil.verifyModuleDependency(web, ejb);	
     }

@@ -8,14 +8,17 @@ import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-
+import org.eclipse.core.runtime.jobs.IJobChangeEvent;
+import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.core.runtime.jobs.JobChangeAdapter;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.EARFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.UtilityProjectCreationDataModelProvider;
-
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -185,5 +188,49 @@ public class ProjectUtil {
             return project;
         }	
 		return null;
+	}
+	
+	
+	public static final int MAX_WAIT_TIME = 30000;
+
+	public static void waitForClasspathUpdate() {
+		waitForClasspathUpdate(MAX_WAIT_TIME);
+	}
+
+	public static void waitForClasspathUpdate(int maxWait) {
+		final J2EEComponentClasspathUpdater updater = J2EEComponentClasspathUpdater.getInstance();
+		if (!updater.projectsQueued()) {
+			return;
+		}
+		ClasspathUpdateJobListener listener = new ClasspathUpdateJobListener();
+		long startTime = System.currentTimeMillis();
+		long totalTime = 0;
+		int waitIncrement = 10;
+		try {
+			while (!listener.isDone && totalTime < maxWait) {
+				Thread.sleep(waitIncrement);
+				totalTime = System.currentTimeMillis() - startTime;
+			}
+		} catch (InterruptedException e) {
+			J2EEPlugin.getDefault().getLogger().logError(e);
+		}
+	}
+
+	private static class ClasspathUpdateJobListener extends JobChangeAdapter {
+
+		public boolean isDone = false;
+
+		public ClasspathUpdateJobListener() {
+			super();
+			Job.getJobManager().addJobChangeListener(this);
+		}
+
+		public void done(IJobChangeEvent event) {
+			Job job = event.getJob();
+			if (job.getName().equals(J2EEComponentClasspathUpdater.MODULE_UPDATE_JOB_NAME)) {
+				isDone = true;
+				Job.getJobManager().removeJobChangeListener(this);
+			}
+		}
 	}
 }
