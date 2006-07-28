@@ -119,7 +119,9 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 
 	public Resource getDeploymentDescriptorResource() {
-		return getArtifactEditModel().getResource(getWebServicesClientXmlResourceURI());
+		if (getArtifactEditModel()!=null)
+			return getArtifactEditModel().getResource(getWebServicesClientXmlResourceURI());
+		return null;
 	}
 
 	public URI getWebServicesClientXmlResourceURI() {

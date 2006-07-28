@@ -641,7 +641,9 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			WSCDDArtifactEdit wscArtifactEdit = (WSCDDArtifactEdit) iter.next();
 			ArtifactEdit artifactEdit = ArtifactEdit.getArtifactEditForRead(wscArtifactEdit.getProject());
 			try {
-				EObject rootObject = artifactEdit.getContentModelRoot();
+				EObject rootObject = null;
+				if (artifactEdit!=null)
+					artifactEdit.getContentModelRoot();
 				// handle EJB project case
 				if (rootObject instanceof EJBJar) {
 					List cmps = ((EJBJar) rootObject).getEnterpriseBeans();
