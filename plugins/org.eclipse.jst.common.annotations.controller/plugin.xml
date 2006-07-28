@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?eclipse version="3.0"?>
-<plugin>
-
-   <extension-point id="annotationsController" name="%Annotations_Controller" schema="schema/annotationsController.exsd"/>
-   <extension-point id="AnnotationTagInfo" name="%annotation_tag_info" schema="schema/annotation-tag-info.exsd"/>
-   <extension-point id="AnnotationTagSet" name="%annotation_tagset" schema="schema/annotation.tagset.exsd"/>
-   <extension-point id="annotationTagDynamicInitializer" name="%annotationTagDynamicInitializer" schema="schema/annotationTagDynamicInitializer.exsd"/>
-</plugin>
