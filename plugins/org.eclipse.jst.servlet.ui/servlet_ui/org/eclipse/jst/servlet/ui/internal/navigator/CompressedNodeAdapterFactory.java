@@ -11,19 +11,24 @@
 package org.eclipse.jst.servlet.ui.internal.navigator;
 
 import org.eclipse.core.runtime.IAdapterFactory;
+import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 
 // 
 public class CompressedNodeAdapterFactory implements IAdapterFactory {
 	
 	private static final Class IJAVA_PROJECT_CLASS = IJavaProject.class;
+	private static final Class IJAVA_ELEMENT_CLASS = IJavaElement.class;
 	
 	private static final Class[] ADAPTER_LIST = new Class[] { IJAVA_PROJECT_CLASS };
 
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
-		if(adapterType == IJAVA_PROJECT_CLASS) {
-			if(adaptableObject instanceof CompressedJavaProject)
+		if(adaptableObject instanceof CompressedJavaProject) {
+			if(adapterType == IJAVA_PROJECT_CLASS) {
 				return ((CompressedJavaProject)adaptableObject).getProject();
+			} else if (adapterType == IJAVA_ELEMENT_CLASS) {
+				return ((CompressedJavaProject)adaptableObject).getJavaElement();
+			}
 		}
 		return null;
 	}

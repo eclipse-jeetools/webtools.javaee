@@ -405,6 +405,7 @@
            adaptableType="org.eclipse.jst.servlet.ui.internal.navigator.CompressedJavaProject"
            class="org.eclipse.jst.servlet.ui.internal.navigator.CompressedNodeAdapterFactory">
         <adapter type="org.eclipse.jdt.core.IJavaProject"/>
+        <adapter type="org.eclipse.jdt.core.IJavaElement"/>
      </factory>
   </extension>
   

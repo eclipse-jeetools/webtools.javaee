@@ -108,7 +108,11 @@ public class CompressedJavaProject implements ICompressedNode, IAdaptable {
 		return Platform.getAdapterManager().getAdapter(this, adapter);
 	}
 
-	public IJavaElement getJavaElement() { 
+	public IJavaElement getJavaElement() {
+		List nonExternalSourceFolders = getNonExternalSourceFolders();
+		if (nonExternalSourceFolders.size() == 1) {
+			return (IJavaElement) nonExternalSourceFolders.get(0);
+		}
 		return getProject();
 	}
 
