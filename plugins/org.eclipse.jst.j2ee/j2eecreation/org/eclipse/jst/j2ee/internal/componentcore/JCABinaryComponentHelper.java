@@ -12,10 +12,9 @@ package org.eclipse.jst.j2ee.internal.componentcore;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.RARFileImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.RarImportStrategyImpl;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
@@ -33,20 +32,55 @@ public class JCABinaryComponentHelper extends EnterpriseBinaryComponentHelper {
 		}
 	}
 
+	protected static class Discriminator extends RarImportStrategyImpl.Discriminator {
+
+		private static Discriminator instance;
+
+		public static Discriminator getInstance() {
+			if (instance == null) {
+				instance = new Discriminator();
+			}
+			return instance;
+		}
+
+		public Archive createConvertedArchive() {
+			ReferenceCountedRARFileImpl archive = new ReferenceCountedRARFileImpl();
+			return archive;
+		}
+	}
+
+	protected static class ReferenceCountedRARFileImpl extends RARFileImpl implements IReferenceCountedArchive {
+
+		private int count = 0;
+
+		public void access() {
+			synchronized (this) {
+				count++;
+			}
+		}
+
+		public void close() {
+			synchronized (this) {
+				count--;
+				if (count > 0) {
+					return;
+				}
+			}
+			ArchiveCache.getInstance().removeArchive(this);
+			super.close();
+		}
+	}
+
+	protected ArchiveTypeDiscriminator getDiscriminator() {
+		return Discriminator.getInstance();
+	}
+
 	public JCABinaryComponentHelper(IVirtualComponent component) {
 		super(component);
 	}
 
-	protected Archive openArchive(String archiveURI) throws OpenFailureException {
-		return CommonarchiveFactory.eINSTANCE.openRARFile(getArchiveOptions(), archiveURI);
-	}
-
 	public EObject getPrimaryRootObject() {
 		return ((RARFile) getArchive()).getDeploymentDescriptor();
-	}
-
-	protected ArchiveTypeDiscriminator getDiscriminator() {
-		return RarImportStrategyImpl.getDiscriminator();
 	}
 
 }

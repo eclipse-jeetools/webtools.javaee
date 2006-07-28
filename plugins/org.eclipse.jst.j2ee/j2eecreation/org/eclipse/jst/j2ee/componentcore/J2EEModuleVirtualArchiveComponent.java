@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.internal.componentcore.UtilityBinaryComponentHelper;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
@@ -30,12 +31,17 @@ public class J2EEModuleVirtualArchiveComponent extends VirtualArchiveComponent {
 	public String [] getManifestClasspath() {
 		if(null == manifestClasspath){
 			UtilityBinaryComponentHelper helper = null;
+			Archive archive = null;
 			try{
 				helper = new UtilityBinaryComponentHelper(this);
-				ArchiveManifest manifest = helper.getArchive().getManifest();
+				archive = helper.accessArchive();
+				ArchiveManifest manifest = archive.getManifest();
 				manifestClasspath = manifest.getClassPathTokenized();
 			} catch (Exception e){
 			} finally {
+				if(null != archive){
+					archive.close();
+				}
 				helper.dispose();
 			}
 			if(manifestClasspath == null){

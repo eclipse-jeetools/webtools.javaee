@@ -630,7 +630,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 
 	public Archive asArchive(boolean includeSource) throws OpenFailureException {
 		if (isBinary()) {
-			return ((EnterpriseBinaryComponentHelper) getBinaryComponentHelper()).getArchive();
+			return ((EnterpriseBinaryComponentHelper) getBinaryComponentHelper()).accessArchive();
 		} else {
 			WebComponentLoadStrategyImpl loader = new WebComponentLoadStrategyImpl(getComponent());
 			loader.setExportSource(includeSource);

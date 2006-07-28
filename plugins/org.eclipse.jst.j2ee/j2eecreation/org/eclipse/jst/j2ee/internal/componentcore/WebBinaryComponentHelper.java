@@ -12,10 +12,9 @@ package org.eclipse.jst.j2ee.internal.componentcore;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.War22ImportStrategyImpl;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
@@ -33,20 +32,55 @@ public class WebBinaryComponentHelper extends EnterpriseBinaryComponentHelper {
 		}
 	}
 
+	protected static class Discriminator extends War22ImportStrategyImpl.Discriminator {
+
+		private static Discriminator instance;
+
+		public static Discriminator getInstance() {
+			if (instance == null) {
+				instance = new Discriminator();
+			}
+			return instance;
+		}
+
+		public Archive createConvertedArchive() {
+			ReferenceCountedWARFileImpl archive = new ReferenceCountedWARFileImpl();
+			return archive;
+		}
+	}
+
+	protected static class ReferenceCountedWARFileImpl extends WARFileImpl implements IReferenceCountedArchive {
+
+		private int count = 0;
+
+		public void access() {
+			synchronized (this) {
+				count++;
+			}
+		}
+
+		public void close() {
+			synchronized (this) {
+				count--;
+				if (count > 0) {
+					return;
+				}
+			}
+			ArchiveCache.getInstance().removeArchive(this);
+			super.close();
+		}
+	}
+
+	protected ArchiveTypeDiscriminator getDiscriminator() {
+		return Discriminator.getInstance();
+	}
+
 	public WebBinaryComponentHelper(IVirtualComponent component) {
 		super(component);
 	}
 
-	public Archive openArchive(String archiveURI) throws OpenFailureException {
-		return CommonarchiveFactory.eINSTANCE.openWARFile(getArchiveOptions(), archiveURI);
-	}
-
 	public EObject getPrimaryRootObject() {
 		return ((WARFile) getArchive()).getDeploymentDescriptor();
-	}
-
-	protected ArchiveTypeDiscriminator getDiscriminator() {
-		return War22ImportStrategyImpl.getDiscriminator();
 	}
 
 }

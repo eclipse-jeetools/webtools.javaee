@@ -376,7 +376,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 
 	public Archive asArchive(boolean includeSource) throws OpenFailureException{
 		if (isBinary()) {
-			return ((EnterpriseBinaryComponentHelper) getBinaryComponentHelper()).getArchive();
+			return ((EnterpriseBinaryComponentHelper) getBinaryComponentHelper()).accessArchive();
 		} else {
 			AppClientComponentLoadStrategyImpl loader = new AppClientComponentLoadStrategyImpl(getComponent());
 			loader.setExportSource(includeSource);

@@ -12,11 +12,10 @@ package org.eclipse.jst.j2ee.internal.componentcore;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.RootEJBJarDescriminatorImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.EJBJarFileImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.EjbJar11ImportStrategyImpl;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class EJBBinaryComponentHelper extends EnterpriseBinaryComponentHelper {
@@ -33,20 +32,55 @@ public class EJBBinaryComponentHelper extends EnterpriseBinaryComponentHelper {
 		}
 	}
 
+	protected static class Discriminator extends EjbJar11ImportStrategyImpl.Discriminator {
+
+		private static Discriminator instance;
+
+		public static Discriminator getInstance() {
+			if (instance == null) {
+				instance = new Discriminator();
+			}
+			return instance;
+		}
+
+		public Archive createConvertedArchive() {
+			ReferenceCountedEJBJarFileImpl archive = new ReferenceCountedEJBJarFileImpl();
+			return archive;
+		}
+	}
+
+	protected static class ReferenceCountedEJBJarFileImpl extends EJBJarFileImpl implements IReferenceCountedArchive {
+
+		private int count = 0;
+
+		public void access() {
+			synchronized (this) {
+				count++;
+			}
+		}
+
+		public void close() {
+			synchronized (this) {
+				count--;
+				if (count > 0) {
+					return;
+				}
+			}
+			ArchiveCache.getInstance().removeArchive(this);
+			super.close();
+		}
+	}
+
+	protected ArchiveTypeDiscriminator getDiscriminator() {
+		return Discriminator.getInstance();
+	}
+
 	public EJBBinaryComponentHelper(IVirtualComponent component) {
 		super(component);
 	}
 
-	protected Archive openArchive(String archiveURI) throws OpenFailureException {
-		return CommonarchiveFactory.eINSTANCE.openEJBJarFile(getArchiveOptions(), archiveURI);
-	}
-
 	public EObject getPrimaryRootObject() {
 		return ((EJBJarFile) getArchive()).getDeploymentDescriptor();
-	}
-
-	protected ArchiveTypeDiscriminator getDiscriminator() {
-		return RootEJBJarDescriminatorImpl.singleton();
 	}
 
 }

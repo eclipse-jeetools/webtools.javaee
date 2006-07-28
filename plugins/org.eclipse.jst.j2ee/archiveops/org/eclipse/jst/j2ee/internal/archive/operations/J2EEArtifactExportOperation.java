@@ -70,11 +70,12 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 			}
 			export();
 		} catch (Exception e) {
-			throw new ExecutionException(EJBArchiveOpsResourceHandler.Error_exporting__UI_ + archiveString(), e);
-		} finally{
 			if(moduleFile != null){
-				moduleFile.close();
+				//The module fil will be closed if the export succeeds
+				//Need to be careful not to close the archive twice because of ReferenceCounted Archives
+				moduleFile.close(); 
 			}
+			throw new ExecutionException(EJBArchiveOpsResourceHandler.Error_exporting__UI_ + archiveString(), e);
 		}
 		return OK_STATUS;
 	}
@@ -123,18 +124,6 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 
 	protected void setModuleFile(ModuleFile newModuleFile) {
 		moduleFile = newModuleFile;
-	}
-
-	//TODO delete this method
-	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	//TODO delete this method
-	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	protected void runNecessaryBuilders(IVirtualComponent component, IProgressMonitor monitor) throws CoreException {

@@ -13,11 +13,9 @@ package org.eclipse.jst.j2ee.internal.componentcore;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.ApplicationClientFileImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.AppClient12ImportStrategyImpl;
-import org.eclipse.jst.j2ee.internal.componentcore.EnterpriseBinaryComponentHelper;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class AppClientBinaryComponentHelper extends EnterpriseBinaryComponentHelper {
@@ -34,20 +32,55 @@ public class AppClientBinaryComponentHelper extends EnterpriseBinaryComponentHel
 		}
 	}
 
+	protected static class Discriminator extends AppClient12ImportStrategyImpl.Discriminator {
+
+		private static Discriminator instance;
+
+		public static Discriminator getInstance() {
+			if (instance == null) {
+				instance = new Discriminator();
+			}
+			return instance;
+		}
+
+		public Archive createConvertedArchive() {
+			ReferenceCountedApplicationClientFileImpl archive = new ReferenceCountedApplicationClientFileImpl();
+			return archive;
+		}
+	}
+
+	protected static class ReferenceCountedApplicationClientFileImpl extends ApplicationClientFileImpl implements IReferenceCountedArchive {
+
+		private int count = 0;
+
+		public void access() {
+			synchronized (this) {
+				count++;
+			}
+		}
+
+		public void close() {
+			synchronized (this) {
+				count--;
+				if (count > 0) {
+					return;
+				}
+			}
+			ArchiveCache.getInstance().removeArchive(this);
+			super.close();
+		}
+	}
+
+	protected ArchiveTypeDiscriminator getDiscriminator() {
+		return Discriminator.getInstance();
+	}
+
 	public AppClientBinaryComponentHelper(IVirtualComponent component) {
 		super(component);
 	}
 
-	protected Archive openArchive(String archiveURI) throws OpenFailureException {
-		return CommonarchiveFactory.eINSTANCE.openApplicationClientFile(getArchiveOptions(), archiveURI);
-	}
-
 	public EObject getPrimaryRootObject() {
 		return ((ApplicationClientFile) getArchive()).getDeploymentDescriptor();
-	}
-
-	protected ArchiveTypeDiscriminator getDiscriminator() {
-		return AppClient12ImportStrategyImpl.getDiscriminator();
 	}
 
 }

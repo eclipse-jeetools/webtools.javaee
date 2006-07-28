@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.componentcore;
 
+import java.util.Hashtable;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -26,7 +28,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHelper {
 
-	private Archive archive = null;
+	private IReferenceCountedArchive archive = null;
 
 	protected EnterpriseBinaryComponentHelper(IVirtualComponent component) {
 		super(component);
@@ -39,7 +41,7 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 		return options;
 	}
 
-	protected Archive getUniqueArchive() {
+	protected IReferenceCountedArchive getUniqueArchive() {
 		String archiveURI = getArchiveURI();
 		try {
 			return openArchive(archiveURI);
@@ -49,7 +51,13 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 		return null;
 	}
 
-	public Archive getArchive() {
+	public Archive accessArchive() {
+		IReferenceCountedArchive archive = getArchive();
+		archive.access();
+		return archive;
+	}
+	
+	protected IReferenceCountedArchive getArchive() {
 		if (archive == null) {
 			archive = getUniqueArchive();
 		}
@@ -91,14 +99,24 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 		if (archive != null) {
 			if (archive.isOpen()) {
 				archive.close();
+			} else {
+				System.out.println("Somebody else closed this before it should have.");
 			}
 			archive = null;
 		}
 	}
-
+	
 	protected abstract ArchiveTypeDiscriminator getDiscriminator();
-
-	protected abstract Archive openArchive(String archiveURI) throws OpenFailureException;
+	
+	protected IReferenceCountedArchive openArchive(String archiveURI) throws OpenFailureException {
+		ArchiveCache cache = ArchiveCache.getInstance();
+		IReferenceCountedArchive archive = cache.getArchive(archiveURI);
+		if(archive != null){
+			archive.access();
+			return archive;
+		} 
+		return cache.openArchive(this, archiveURI);
+	}
 
 	public Resource getResource(URI uri) {
 		return getArchive().getResourceSet().getResource(uri, true);
@@ -106,6 +124,63 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 
 	public void releaseAccess(ArtifactEdit edit) {
 		dispose();
+	}
+	
+	protected static class ArchiveCache {
+		
+		private static ArchiveCache instance = null;
+		
+		public static ArchiveCache getInstance() {
+			if(instance == null) {
+				instance = new ArchiveCache();
+			}
+			return instance;
+		}
+		//necessary to contain two mappings in case the archive changes its URI
+		protected Hashtable keysToArchives = new Hashtable();
+		protected Hashtable archivesToKeys = new Hashtable();
+		
+		public synchronized IReferenceCountedArchive getArchive(String archiveURI) {
+			IReferenceCountedArchive archive = null;
+			if(keysToArchives.containsKey(archiveURI)){
+				archive = (IReferenceCountedArchive)keysToArchives.get(archiveURI);
+			}
+			return archive;
+		}
+		
+		public synchronized IReferenceCountedArchive openArchive(EnterpriseBinaryComponentHelper helper, String archiveURI) throws OpenFailureException {
+			ArchiveOptions options = helper.getArchiveOptions();
+			Archive anArchive = CommonarchiveFactory.eINSTANCE.primOpenArchive(options, archiveURI);
+			
+			ArchiveTypeDiscriminator discriminator = helper.getDiscriminator();
+			
+			if (!discriminator.canImport(anArchive)) {
+				anArchive.close();
+				throw new OpenFailureException(discriminator.getUnableToOpenMessage());
+			}
+			IReferenceCountedArchive specificArchive = (IReferenceCountedArchive)discriminator.openArchive(anArchive);
+			specificArchive.initializeAfterOpen();
+			specificArchive.access();
+			keysToArchives.put(archiveURI, specificArchive);
+			archivesToKeys.put(specificArchive, archiveURI);
+			return specificArchive;
+		}
+	
+		public synchronized void removeArchive(IReferenceCountedArchive archive) {
+			Object uri = archivesToKeys.remove(archive);
+			keysToArchives.remove(uri);
+		}
+	}
+	
+	
+	protected interface IReferenceCountedArchive extends Archive {
+		
+		/**
+		 * Increases the reference count by one.  A call to close will decriment the count by one.  If after decrimenting the count the count is 0 
+		 *
+		 */
+		public void access();
+		
 	}
 
 }

@@ -382,7 +382,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 
 	public Archive asArchive(boolean includeSource) throws OpenFailureException {
 		if (isBinary()) {
-			return ((EnterpriseBinaryComponentHelper) getBinaryComponentHelper()).getArchive();
+			return ((EnterpriseBinaryComponentHelper) getBinaryComponentHelper()).accessArchive();
 		} else {
 			ConnectorComponentLoadStrategyImpl loader = new ConnectorComponentLoadStrategyImpl(getComponent());
 			loader.setExportSource(includeSource);
