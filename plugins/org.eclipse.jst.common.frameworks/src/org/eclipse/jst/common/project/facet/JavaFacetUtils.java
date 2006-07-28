@@ -16,6 +16,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -25,6 +26,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IScopeContext;
@@ -154,6 +156,11 @@ public final class JavaFacetUtils
     
     public static void scheduleFullBuild( final IProject project )
     {
+        // This code is modeled after the code in 
+        // org.eclipse.jdt.internal.ui.util.CoreUtility.getBuildJob() method.
+        
+        final IWorkspace ws = ResourcesPlugin.getWorkspace();
+        
         final String msg 
             = NLS.bind( Resources.buildingMsg, project.getName() );
         
@@ -161,21 +168,36 @@ public final class JavaFacetUtils
         {
             public IStatus run( final IProgressMonitor monitor ) 
             {
+                monitor.beginTask( msg, 2 );
+                
                 try
                 {
                     project.build( IncrementalProjectBuilder.FULL_BUILD,
-                                   monitor );
+                                   new SubProgressMonitor( monitor, 1 ) );
+                    
+                    ws.build( IncrementalProjectBuilder.INCREMENTAL_BUILD, 
+                              new SubProgressMonitor( monitor, 1 ) );
+                    
                 }
                 catch( CoreException e )
                 {
                     return e.getStatus();
                 }
+                finally
+                {
+                    monitor.done();
+                }
                 
                 return Status.OK_STATUS;
             }
+            
+            public boolean belongsTo( final Object family ) 
+            {
+                return family == ResourcesPlugin.FAMILY_MANUAL_BUILD;
+            }
         };
          
-        buildJob.setRule( ResourcesPlugin.getWorkspace().getRoot() );
+        buildJob.setRule( ws.getRuleFactory().buildRule() );
         buildJob.schedule();
     }
     
