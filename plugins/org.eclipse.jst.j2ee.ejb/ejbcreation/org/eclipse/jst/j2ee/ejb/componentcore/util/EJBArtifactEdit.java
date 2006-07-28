@@ -543,7 +543,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 
 	public Archive asArchive(boolean includeSource) throws OpenFailureException {
 		if (isBinary()) {
-			return ((EnterpriseBinaryComponentHelper) getBinaryComponentHelper()).getArchive();
+			return ((EnterpriseBinaryComponentHelper) getBinaryComponentHelper()).accessArchive();
 		} else {
 			EJBComponentLoadStrategyImpl loader = new EJBComponentLoadStrategyImpl(getComponent());
 			loader.setExportSource(includeSource);
