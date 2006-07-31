@@ -532,6 +532,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 
 			IJavaProject jproj = JemProjectUtilities.getJavaProject(proj);
 			final IClasspathEntry[] current;
+			boolean deployablesFound = false;
 			try {
 				current = jproj.getRawClasspath();
 				List updatedList = new ArrayList();
@@ -541,13 +542,16 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 					if ((entry.getEntryKind() == IClasspathEntry.CPE_SOURCE) && (entry.getOutputLocation() != null && entry.getOutputLocation().toString().indexOf(OLD_DEPLOYABLES_PATH) != -1)) {
 						sourcePath = entry.getPath();
 						updatedList.add(JavaCore.newSourceEntry(sourcePath));
+						deployablesFound = true;
 					}
 					else
 						updatedList.add(entry);
 				}
-				IClasspathEntry[] updated = (IClasspathEntry[])updatedList.toArray(new IClasspathEntry[updatedList.size()]);
-				jproj.setRawClasspath(updated, null);
-				jproj.save(null, true);
+				if (deployablesFound) {
+					IClasspathEntry[] updated = (IClasspathEntry[])updatedList.toArray(new IClasspathEntry[updatedList.size()]);
+					jproj.setRawClasspath(updated, null);
+					jproj.save(null, true);
+				}
 			} catch (JavaModelException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
