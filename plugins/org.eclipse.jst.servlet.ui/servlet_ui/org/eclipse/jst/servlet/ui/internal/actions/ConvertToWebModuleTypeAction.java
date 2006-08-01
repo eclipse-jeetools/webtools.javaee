@@ -21,20 +21,16 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
+import org.eclipse.jst.common.project.facet.JavaFacetUtils;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.servlet.ui.internal.wizard.ConvertToWebModuleTypeDialog;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
-import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
-import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
-import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.web.ui.internal.Logger;
 /**
@@ -104,21 +100,30 @@ public class ConvertToWebModuleTypeAction extends Action implements IWorkbenchWi
 			dialog.open();
 			if (dialog.getReturnCode() == Window.CANCEL)
 				return;
-			IFacetedProject facetedProject = ProjectFacetsManager.create(project);
-			Set fixedFacets = new HashSet();
-			fixedFacets.addAll(facetedProject.getFixedProjectFacets());
-			IProjectFacet webFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.WST_WEB_MODULE);
-			fixedFacets.remove(webFacet);
-			facetedProject.setFixedProjectFacets(fixedFacets);
-			facetedProject.uninstallProjectFacet(facetedProject.getInstalledVersion(webFacet), null, new NullProgressMonitor());
-			IDataModel model = DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
-			model.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, project.getName());
-			FacetDataModelMap map = (FacetDataModelMap) model.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-			IDataModel webModel = map.getFacetDataModel(IModuleConstants.JST_WEB_MODULE);
-			webModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, dialog.getSelectedVersion());
-			model.getDefaultOperation().execute(new NullProgressMonitor(), null);
+			
+			doConvert(dialog.getSelectedVersion());
+			
 		} catch (Exception e) {
 			Logger.logException(e);
 		}
+	}
+	
+	protected void doConvert(String selectedVersion) throws Exception {
+		IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+		Set fixedFacets = new HashSet();
+		fixedFacets.addAll(facetedProject.getFixedProjectFacets());
+		IProjectFacet webFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.WST_WEB_MODULE);
+		fixedFacets.remove(webFacet);
+		facetedProject.setFixedProjectFacets(fixedFacets);
+		IProjectFacetVersion webFv = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE).getVersion(selectedVersion);
+		IProjectFacetVersion javaFv = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_JAVA).getVersion(JavaFacetUtils.getCompilerLevel(project));
+		IFacetedProject.Action uninstall = new IFacetedProject.Action(IFacetedProject.Action.Type.UNINSTALL, facetedProject.getInstalledVersion(webFacet), null);
+		IFacetedProject.Action install = new IFacetedProject.Action(IFacetedProject.Action.Type.INSTALL,webFv,null);
+		IFacetedProject.Action javaInstall = new IFacetedProject.Action(IFacetedProject.Action.Type.INSTALL, javaFv, null);
+		Set set = new HashSet();
+		set.add(uninstall);
+		set.add(install);
+		set.add(javaInstall);
+		facetedProject.modify(set, new NullProgressMonitor());
 	}
 }
