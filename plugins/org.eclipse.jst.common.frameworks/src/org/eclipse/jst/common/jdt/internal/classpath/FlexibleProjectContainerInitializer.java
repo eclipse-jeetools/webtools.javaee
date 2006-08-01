@@ -47,10 +47,11 @@ public abstract class FlexibleProjectContainerInitializer
         throws CoreException
         
     {
-        final String cid = containerPath.toString();
-        final IClasspathEntry[] entries = sg.getClasspathEntries();
+    	final String key = FlexibleProjectContainer.getDecorationManagerKey(project.getProject(), containerPath.toString());
+    	
+    	final IClasspathEntry[] entries = sg.getClasspathEntries();
         
-        decorations.clearAllDecorations( cid );
+        decorations.clearAllDecorations( key );
         
         for( int i = 0; i < entries.length; i++ )
         {
@@ -69,7 +70,7 @@ public abstract class FlexibleProjectContainerInitializer
                 dec.setSourceAttachmentRootPath( srcrootpath );
                 dec.setExtraAttributes( attrs );
                 
-                decorations.setDecorations( cid, eid, dec );
+                decorations.setDecorations( key, eid, dec );
             }
         }
         
@@ -84,7 +85,7 @@ public abstract class FlexibleProjectContainerInitializer
     }
     
     // Workaround for bug 145784.
-    
+    // this same hack is also being used in J2EEComponentClasspathInitializer
     private static void refresh( final IClasspathContainer container )
     {
         if( container instanceof FlexibleProjectContainer )

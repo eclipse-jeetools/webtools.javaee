@@ -32,7 +32,7 @@ public final class ClasspathDecorations
         return this.sourceAttachmentPath;
     }
     
-    void setSourceAttachmentPath( final IPath sourceAttachmentPath )
+    public void setSourceAttachmentPath( final IPath sourceAttachmentPath )
     {
         this.sourceAttachmentPath = sourceAttachmentPath;
     }
@@ -42,7 +42,7 @@ public final class ClasspathDecorations
         return this.sourceAttachmentRootPath;
     }
     
-    void setSourceAttachmentRootPath( final IPath sourceAttachmentRootPath )
+    public void setSourceAttachmentRootPath( final IPath sourceAttachmentRootPath )
     {
         this.sourceAttachmentRootPath = sourceAttachmentRootPath;
     }
@@ -55,7 +55,7 @@ public final class ClasspathDecorations
         return (IClasspathAttribute[]) this.extraAttributes.toArray( array );
     }
     
-    void setExtraAttributes( final IClasspathAttribute[] attrs )
+    public void setExtraAttributes( final IClasspathAttribute[] attrs )
     {
         for( int i = 0; i < attrs.length; i++ )
         {
@@ -63,7 +63,7 @@ public final class ClasspathDecorations
         }
     }
 
-    void addExtraAttribute( final String name,
+    public void addExtraAttribute( final String name,
                             final String value )
     {
         final IClasspathAttribute attr

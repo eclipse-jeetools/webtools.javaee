@@ -87,6 +87,12 @@ public abstract class FlexibleProjectContainer
         decorations = new ClasspathDecorationsManager( plugin );
     }
 
+    private static final String SEPARATOR = "!"; //$NON-NLS-1$
+    
+    public static String getDecorationManagerKey(IProject project, String container){
+    	return project.getName() + SEPARATOR + container;
+    }
+    
     protected final IPath path;
     protected final IJavaProject owner;
     protected final IProject project;
@@ -321,7 +327,7 @@ public abstract class FlexibleProjectContainer
         IAccessRule[] access = {};
         
         final ClasspathDecorations dec 
-            = decorations.getDecorations( getPath().toString(), p.toString() );
+            = decorations.getDecorations( getDecorationManagerKey(project, getPath().toString()), p.toString() );
         
         if( dec != null )
         {

@@ -42,7 +42,7 @@ import org.w3c.dom.NodeList;
 
 public final class ClasspathDecorationsManager
 {
-    private final File f;
+	private final File f;
     private final HashMap decorations;
     
     public ClasspathDecorationsManager( final String plugin )
@@ -56,10 +56,10 @@ public final class ClasspathDecorationsManager
         this.decorations = read();
     }
     
-    public ClasspathDecorations getDecorations( final String container,
+    public ClasspathDecorations getDecorations( final String key,
                                                 final String entry )
     {
-        final HashMap submap = (HashMap) this.decorations.get( container );
+        final HashMap submap = (HashMap) this.decorations.get( key );
         
         if( submap == null )
         {
@@ -69,24 +69,24 @@ public final class ClasspathDecorationsManager
         return (ClasspathDecorations) submap.get( entry );
     }
 
-    public void setDecorations( final String container,
+    public void setDecorations( final String key,
                                 final String entry,
                                 final ClasspathDecorations dec )
     {
-        HashMap submap = (HashMap) this.decorations.get( container );
+    	HashMap submap = (HashMap) this.decorations.get( key );
         
         if( submap == null )
         {
             submap = new HashMap();
-            this.decorations.put( container, submap );
+            this.decorations.put( key, submap );
         }
         
         submap.put( entry, dec );
     }
     
-    public void clearAllDecorations( final String container )
+    public void clearAllDecorations( final String key )
     {
-        this.decorations.remove( container );
+    	this.decorations.remove( key );
     }
 
     public void save()
