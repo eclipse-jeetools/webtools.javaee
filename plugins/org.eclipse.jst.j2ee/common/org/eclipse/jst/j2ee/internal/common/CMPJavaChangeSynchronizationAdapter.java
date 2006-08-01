@@ -12,7 +12,9 @@ package org.eclipse.jst.j2ee.internal.common;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -25,6 +27,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jem.internal.adapters.jdom.JavaJDOMAdapterFactory;
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
+import org.eclipse.jem.internal.java.adapters.ReflectionAdaptor;
 import org.eclipse.jem.java.Field;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaVisibilityKind;
@@ -66,6 +69,12 @@ public class CMPJavaChangeSynchronizationAdapter extends AdapterImpl {
 	protected Resource cmpResource;
 
 	private List foundKeys = new ArrayList();
+	
+	/*
+	 * This Set is used to avoid reacting to notifications for a notifier while
+	 * updating that notifier.
+	 */
+	private Set updatingSet = new HashSet();
 
 	public CMPJavaChangeSynchronizationAdapter() {
 		super();
@@ -82,21 +91,29 @@ public class CMPJavaChangeSynchronizationAdapter extends AdapterImpl {
 			enable(getCMP());
 			return;
 		}
-		switch (msg.getEventType()) {
-			case Notification.SET :
-				setNotification(msg);
-				break;
-			case Notification.UNSET :
-				unsetNotification(msg);
-				break;
-			//			case Notification.TOUCH :
-			//				touchNotification(msg);
-			//				break;
-			case Notification.REMOVING_ADAPTER :
-				removeAdapterNotification(msg);
-				break;
-		} //  switch
-	} // notifyChanged
+		Object notifier = msg.getNotifier();
+		if (!updatingSet.contains(notifier)) {
+			try {
+				updatingSet.add(notifier);
+				switch (msg.getEventType()) {
+					case Notification.SET :
+						setNotification(msg);
+						break;
+					case Notification.UNSET :
+						unsetNotification(msg);
+						break;
+					case Notification.REMOVING_ADAPTER :
+						removeAdapterNotification(msg);
+						break;
+					case ReflectionAdaptor.EVENT :
+						jemFlushNotification(msg);
+						break;
+				}
+			} finally {
+				updatingSet.remove(notifier);
+			}
+		}
+	}
 
 	/**
 	 * Use if the there was an set notification.
@@ -117,7 +134,7 @@ public class CMPJavaChangeSynchronizationAdapter extends AdapterImpl {
 			if (shouldAddToPrimaryKeyClass((ContainerManagedEntity) getTarget()))
 				addAttributeMaintenanceAdapter((Notifier) msg.getNewValue());
 		} else {
-			touchNotification(msg); //In EMF a TOUCH is a SET.
+			jemFlushNotification(msg); //In EMF a TOUCH is a SET.
 		}
 	} // setNotification
 
@@ -151,7 +168,7 @@ public class CMPJavaChangeSynchronizationAdapter extends AdapterImpl {
 	 * @param Notification
 	 *            msg - Message indicates what has changed.
 	 */
-	protected void touchNotification(Notification msg) {
+	protected void jemFlushNotification(Notification msg) {
 		if ((NotificationUtil.isFlushNewEvent(msg) || NotificationUtil.isFlushEvent(msg)) && !isMigrating()) {
 			if (msg.getNotifier() == ((ContainerManagedEntity) getTarget()).getEjbClass()) {
 				touchBeanAdapter(msg);
