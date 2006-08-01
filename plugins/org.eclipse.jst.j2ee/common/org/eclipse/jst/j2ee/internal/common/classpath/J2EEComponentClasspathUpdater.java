@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.internal.common.classpath;
 
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
@@ -367,9 +368,9 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			String name = resource.getName();
 			if (name.equals(COMPONENT)) {
 				queueUpdate(resource.getProject());
-			} else if (name.equals(MANIFEST)) { // MANIFEST.MF must be all caps
-												// per spec
-				if (resource.equals(J2EEProjectUtilities.getManifestFile(resource.getProject()))) {
+			} else if (name.equals(MANIFEST)) { // MANIFEST.MF must be all caps per spec
+				IFile manifestFile = J2EEProjectUtilities.getManifestFile(resource.getProject(), false);
+				if (null == manifestFile || resource.equals(manifestFile)) {
 					queueUpdateModule(resource.getProject());
 				}
 			} else if (endsWithIgnoreCase(name, DOT_JAR)) {

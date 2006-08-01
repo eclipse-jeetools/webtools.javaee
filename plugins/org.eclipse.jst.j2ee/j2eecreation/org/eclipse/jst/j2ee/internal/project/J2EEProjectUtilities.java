@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.project;
 
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -86,16 +85,20 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.server.core.IRuntime;
 
-
-
 public class J2EEProjectUtilities extends ProjectUtilities {
 
 	public static final String ENTERPRISE_APPLICATION = IModuleConstants.JST_EAR_MODULE;
+
 	public static final String APPLICATION_CLIENT = IModuleConstants.JST_APPCLIENT_MODULE;
+
 	public static final String EJB = IModuleConstants.JST_EJB_MODULE;
+
 	public static final String DYNAMIC_WEB = IModuleConstants.JST_WEB_MODULE;
+
 	public static final String UTILITY = IModuleConstants.JST_UTILITY_MODULE;
+
 	public static final String JCA = IModuleConstants.JST_CONNECTOR_MODULE;
+
 	public static final String STATIC_WEB = IModuleConstants.WST_WEB_MODULE;
 
 	/**
@@ -172,7 +175,6 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		javaProject.setRawClasspath(newClasspath, new NullProgressMonitor());
 	}
 
-
 	public static Archive asArchiveFromBinary(String jarUri, IProject aProject) throws OpenFailureException {
 		IPath path = getBinaryProjectJARLocation(aProject);
 		if (path != null) {
@@ -225,21 +227,40 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		}
 	}
 
-	public static IFile getManifestFile(IProject p) {
+	/**
+	 * Equavalent to calling getManifestFile(project, true)
+	 * 
+	 * @param p
+	 * @return
+	 */
+	public static IFile getManifestFile(IProject project) {
+		return getManifestFile(project, true);
+	}
+
+	/**
+	 * Returns the IFile handle to the J2EE manifest file for the specified
+	 * project. If createIfNecessary is true, the MANIFEST.MF file will be
+	 * created if it does not already exist.
+	 * 
+	 * @param p
+	 * @param createIfNecessary
+	 * @return
+	 */
+	public static IFile getManifestFile(IProject p, boolean createIfNecessary) {
 		IVirtualComponent component = ComponentCore.createComponent(p);
 		try {
 			IFile file = ComponentUtilities.findFile(component, new Path(J2EEConstants.MANIFEST_URI));
-			if( file == null ){
-				IVirtualFolder  virtualFolder = component.getRootFolder();
-		        file = virtualFolder.getUnderlyingFolder().getFile(new Path(J2EEConstants.MANIFEST_URI));
+			if (createIfNecessary && file == null) {
+				IVirtualFolder virtualFolder = component.getRootFolder();
+				file = virtualFolder.getUnderlyingFolder().getFile(new Path(J2EEConstants.MANIFEST_URI));
 
-		        try {
-		            ManifestFileCreationAction.createManifestFile(file, p);
-		        } catch (CoreException e) {
-		            Logger.getLogger().log(e);
-		        } catch (IOException e) {
-		            Logger.getLogger().log(e);
-		        }				
+				try {
+					ManifestFileCreationAction.createManifestFile(file, p);
+				} catch (CoreException e) {
+					Logger.getLogger().log(e);
+				} catch (IOException e) {
+					Logger.getLogger().log(e);
+				}
 			}
 			return file;
 		} catch (CoreException ce) {
@@ -769,7 +790,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		List result = new ArrayList();
 		try {
 			if (!project.hasNature(JavaCore.NATURE_ID))
-				return new IContainer[]{};
+				return new IContainer[] {};
 		} catch (Exception e) {
 		}
 		IPackageFragmentRoot[] sourceContainers = getSourceContainers(project);
