@@ -23,6 +23,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jdt.core.IAccessRule;
+import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
@@ -32,7 +34,10 @@ import org.eclipse.jdt.internal.core.ClasspathEntry;
 import org.eclipse.jdt.internal.core.JavaProject;
 import org.eclipse.jdt.internal.core.util.Util;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.jdt.internal.classpath.ClasspathDecorations;
+import org.eclipse.jst.common.jdt.internal.classpath.ClasspathDecorationsManager;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphManager;
@@ -52,7 +57,13 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	public static final IPath CONTAINER_PATH = new Path(CONTAINER_ID);
 
 	private static IPath WEBLIB = new Path("/WEB-INF/lib"); //$NON-NLS-1$
+	
+	private static ClasspathDecorationsManager decorationsManager = new ClasspathDecorationsManager(J2EEPlugin.PLUGIN_ID);
 
+	public static ClasspathDecorationsManager getDecorationsManager() {
+        return decorationsManager;
+    }
+	
 	private IPath containerPath;
 	private IJavaProject javaProject;
 	private IClasspathEntry[] entries = new IClasspathEntry[0];
@@ -192,7 +203,20 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 						lastUpdate.paths[i] = iFile.getFullPath();
 					}
 					if (!isAlreadyOnClasspath(existingEntries, lastUpdate.paths[i])) {
-						entriesList.add(JavaCore.newLibraryEntry(lastUpdate.paths[i], null, null, true));
+						ClasspathDecorations dec = decorationsManager.getDecorations( getPath().toString(), lastUpdate.paths[i].toString() );
+						
+						IPath srcpath = null;
+				        IPath srcrootpath = null;
+				        IClasspathAttribute[] attrs = {};
+				        IAccessRule[] access = {};
+						
+				        if( dec != null ) {
+				            srcpath = dec.getSourceAttachmentPath();
+				            srcrootpath = dec.getSourceAttachmentRootPath();
+				            attrs = dec.getExtraAttributes();
+				        }
+			        
+				        entriesList.add(JavaCore.newLibraryEntry( lastUpdate.paths[i], srcpath, srcrootpath, access, attrs, true ));
 					}
 				} else {
 					IProject project = comp.getProject();
@@ -235,12 +259,16 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		}
 	}
 
-	public void refresh() {
-		if (requiresUpdate()) {
+	public void refresh(boolean force){
+		if(force || requiresUpdate()){
 			install(containerPath, javaProject);
 			// Update dependency graph
 			DependencyGraphManager.getInstance().forceRefresh();
 		}
+	}
+	
+	public void refresh() {
+		refresh(false);
 	}
 
 	public IClasspathEntry[] getClasspathEntries() {
