@@ -176,19 +176,17 @@ public class EARComponentImportOptionsPage extends DataModelWizardPage {
 		return text;
 	}
 
-	protected void createButtonsGroup(org.eclipse.swt.widgets.Composite parent) {
+	protected void createButtonsGroup(Composite parent) {
 		Composite buttonGroup = new Composite(parent, SWT.NONE);
 		GridLayout layout = new GridLayout();
-		layout.numColumns = 4;
+		layout.numColumns = 2;
 		buttonGroup.setLayout(layout);
 		buttonGroup.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		selectAllButton = new Button(buttonGroup, SWT.PUSH);
-		selectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_SELECT_ALL_UTIL_BUTTON)); //$NON-NLS-1$ = "Select All"
+		selectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_SELECT_ALL_UTIL_BUTTON));
 		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL);
-		gd.horizontalSpan = 1;
-		gd.heightHint = SWT.DEFAULT;
-		gd.widthHint = 120;
+		gd.widthHint = 140;
 		selectAllButton.setLayoutData(gd);
 		selectAllButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
@@ -197,11 +195,9 @@ public class EARComponentImportOptionsPage extends DataModelWizardPage {
 		});
 
 		deselectAllButton = new Button(buttonGroup, SWT.PUSH);
-		deselectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_DESELECT_ALL_UTIL_BUTTON)); //$NON-NLS-1$ = "Deselect All"
+		deselectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_DESELECT_ALL_UTIL_BUTTON));
 		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL);
-		gd.horizontalSpan = 2;
-		gd.heightHint = SWT.DEFAULT;
-		gd.widthHint = 120;
+		gd.widthHint = 140;
 		deselectAllButton.setLayoutData(gd);
 		deselectAllButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {

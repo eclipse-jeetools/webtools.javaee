@@ -98,16 +98,16 @@ public class EARComponentProjectsPage extends DataModelWizardPage {
 	protected void createButtonsGroup(Composite parent) {
 		Composite buttonGroup = new Composite(parent, SWT.NONE);
 		GridLayout layout = new GridLayout();
-		layout.numColumns = 4;
+		layout.numColumns = 3;
 		buttonGroup.setLayout(layout);
-		buttonGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		buttonGroup.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		Button selectNotInWorkspace = new Button(buttonGroup, SWT.PUSH);
 		selectNotInWorkspace.setText(J2EEUIMessages.getResourceString("EARImportProjectsPage_UI_3")); //$NON-NLS-1$
 		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL);
-		gd.horizontalSpan = 1;
-		gd.heightHint = 22;
-		gd.widthHint = 120;
+		//gd.horizontalSpan = 1;
+		//gd.heightHint = 22;
+		gd.widthHint = 140;
 		selectNotInWorkspace.setLayoutData(gd);
 		selectNotInWorkspace.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
@@ -129,9 +129,9 @@ public class EARComponentProjectsPage extends DataModelWizardPage {
 		Button selectAllButton = new Button(buttonGroup, SWT.PUSH);
 		selectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_SELECT_ALL_UTIL_BUTTON));
 		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL);
-		gd.horizontalSpan = 1;
-		gd.heightHint = 22;
-		gd.widthHint = 120;
+		//gd.horizontalSpan = 1;
+		//gd.heightHint = 22;
+		gd.widthHint = 140;
 		selectAllButton.setLayoutData(gd);
 		selectAllButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
@@ -145,9 +145,9 @@ public class EARComponentProjectsPage extends DataModelWizardPage {
 		Button deselectAllButton = new Button(buttonGroup, SWT.PUSH);
 		deselectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_DESELECT_ALL_UTIL_BUTTON));
 		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL);
-		gd.horizontalSpan = 1;
-		gd.heightHint = 22;
-		gd.widthHint = 120;
+		////gd.horizontalSpan = 1;
+		//gd.heightHint = 22;
+		gd.widthHint = 140;
 		deselectAllButton.setLayoutData(gd);
 		deselectAllButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
