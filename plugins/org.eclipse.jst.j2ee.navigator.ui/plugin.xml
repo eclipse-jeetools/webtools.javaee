@@ -18,7 +18,7 @@
 	<navigatorContent name="%extension.application.name"
 		priority="highest" icon="icons/eargroup_obj.gif"
 		activeByDefault="true"
-		contentProvider="org.eclipse.jst.j2ee.navigator.internal.J2EEContentProvider"
+		contentProvider="org.eclipse.jst.j2ee.navigator.internal.EARContentProvider"
 		labelProvider="org.eclipse.jst.j2ee.navigator.internal.J2EELabelProvider"
 		id="org.eclipse.jst.navigator.j2ee.ui.EARDDContent">
 		<triggerPoints>
@@ -35,9 +35,6 @@
 							value="application.xmi" />
 						<test forcePluginActivation="true"
 							property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
-							value="client.xmi" />
-						<test forcePluginActivation="true"
-							property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
 							value="modulemap.xmi" />
 					</or>
 				</and>
@@ -47,9 +44,6 @@
 							<test forcePluginActivation="true"
 								property="org.eclipse.wst.common.project.facet.core.projectFacet"
 								value="jst.ear" />
-							<test forcePluginActivation="true"
-								property="org.eclipse.wst.common.project.facet.core.projectFacet"
-								value="jst.appclient" />
 						</or>
 					</adapt>
 				</and>
@@ -135,9 +129,6 @@
 								value="application.xmi" />
 							<test forcePluginActivation="true"
 								property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
-								value="client.xmi" />
-							<test forcePluginActivation="true"
-								property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
 								value="modulemap.xmi" />
 						</or>
 					</and>
@@ -221,39 +212,6 @@
 				</or>
 			</enablement>
 		</commonWizard>
-		<!-- AppClient New -->
-		<commonWizard
-        menuGroupId="org.eclipse.jst.j2ee.ui.newProjects"
-        type="new"
-        wizardId="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientProjectWizard">
-			<enablement>
-				<or>
-					<instanceof
-						value="org.eclipse.core.resources.IWorkspaceRoot" />
-					<and>
-						<adapt
-							type="org.eclipse.core.resources.IProject">
-							<or>
-								<test forcePluginActivation="true"
-									property="org.eclipse.wst.common.project.facet.core.projectFacet"
-									value="jst.ear" />
-								<test forcePluginActivation="true"
-									property="org.eclipse.wst.common.project.facet.core.projectFacet"
-									value="jst.appclient" />
-							</or>
-						</adapt>
-					</and>
-					<instanceof
-						value="org.eclipse.jst.j2ee.application.Application" />
-					<instanceof
-						value="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider" />
-					<and>
-					  <instanceof value="java.util.Collection"/>
-					  <count value="0" />
-					</and>
-				</or>
-			</enablement>
-		</commonWizard>
 		<!-- EAR Import -->
 		<commonWizard type="import"
 			wizardId="org.eclipse.jst.j2ee.internal.wizard.EARComponentImportWizard">
@@ -278,34 +236,6 @@
 						value="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider" />
 					<instanceof
 						value="org.eclipse.jst.j2ee.application.Application" />
-					<and>
-					  <instanceof value="java.util.Collection"/>
-					  <count value="0" />
-					</and>
-				</or>
-			</enablement>
-		</commonWizard>
-		<!-- App Client Import -->
-		<commonWizard type="import"
-			wizardId="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentImportWizard">
-			<enablement>
-				<or>
-					<instanceof
-						value="org.eclipse.core.resources.IWorkspaceRoot" />
-					<and>
-						<adapt
-							type="org.eclipse.core.resources.IProject">
-							<or>
-								<test forcePluginActivation="true"
-									property="org.eclipse.wst.common.project.facet.core.projectFacet"
-									value="jst.ear" />
-							</or>
-						</adapt>
-					</and>
-					<instanceof
-						value="org.eclipse.jst.j2ee.application.Application" />
-					<instanceof
-						value="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider" />
 					<and>
 					  <instanceof value="java.util.Collection"/>
 					  <count value="0" />
@@ -366,6 +296,123 @@
 				</or>
 			</enablement>
 		</commonWizard>
+	</navigatorContent>
+	
+	<navigatorContent name="%extension.appclient.name" priority="highest"
+		icon="icons/appclientgroup_obj.gif" activeByDefault="true"
+		contentProvider="org.eclipse.jst.j2ee.navigator.internal.J2EEContentProvider"
+		labelProvider="org.eclipse.jst.j2ee.navigator.internal.J2EELabelProvider"
+		id="org.eclipse.jst.navigator.j2ee.ui.AppClientContent">
+		<triggerPoints>
+			<or>
+				<and>
+					<instanceof value="org.eclipse.emf.ecore.EObject" />
+					<or>
+						<test forcePluginActivation="true"
+							property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+							value="client.xmi" />
+					</or>
+				</and>
+				<adapt type="org.eclipse.core.resources.IProject">
+					<test forcePluginActivation="true"
+						property="org.eclipse.wst.common.project.facet.core.projectFacet"
+						value="jst.appclient" />
+				</adapt>
+			</or>
+		</triggerPoints>
+		<possibleChildren>
+			<and>
+				<instanceof value="org.eclipse.emf.ecore.EObject" />
+				<or>
+					<test forcePluginActivation="true"
+						property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+						value="client.xmi" />
+				</or>
+			</and>
+		</possibleChildren>
+		<commonSorter
+		    id="org.eclipse.jst.j2ee.navigator.internal.J2EEViewerSorter"
+			class="org.eclipse.jst.j2ee.navigator.internal.J2EEViewerSorter" />
+		<!--  Handle open requests -->
+		<actionProvider
+			class="org.eclipse.jst.j2ee.navigator.internal.J2EEActionProvider"
+			id="org.eclipse.jst.j2ee.navigator.ui.AppClientActionProvider">
+			<enablement>
+				<or>
+					<and>
+						<instanceof
+							value="org.eclipse.emf.ecore.EObject" />
+						<or>
+							<test forcePluginActivation="true"
+								property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+								value="client.xmi" />
+						</or>
+					</and>
+				</or>
+			</enablement>
+		</actionProvider>
+		
+		<!-- AppClient New -->
+		<commonWizard
+        menuGroupId="org.eclipse.jst.j2ee.ui.newProjects"
+        type="new"
+        wizardId="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientProjectWizard">
+			<enablement>
+				<or>
+					<instanceof
+						value="org.eclipse.core.resources.IWorkspaceRoot" />
+					<and>
+						<adapt
+							type="org.eclipse.core.resources.IProject">
+							<or>
+								<test forcePluginActivation="true"
+									property="org.eclipse.wst.common.project.facet.core.projectFacet"
+									value="jst.ear" />
+								<test forcePluginActivation="true"
+									property="org.eclipse.wst.common.project.facet.core.projectFacet"
+									value="jst.appclient" />
+							</or>
+						</adapt>
+					</and>
+					<instanceof
+						value="org.eclipse.jst.j2ee.application.Application" />
+					<instanceof
+						value="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider" />
+					<and>
+					  <instanceof value="java.util.Collection"/>
+					  <count value="0" />
+					</and>
+				</or>
+			</enablement>
+		</commonWizard>
+		<!-- App Client Import -->
+		<commonWizard type="import"
+			wizardId="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentImportWizard">
+			<enablement>
+				<or>
+					<instanceof
+						value="org.eclipse.core.resources.IWorkspaceRoot" />
+					<and>
+						<adapt
+							type="org.eclipse.core.resources.IProject">
+							<or>
+								<test forcePluginActivation="true"
+									property="org.eclipse.wst.common.project.facet.core.projectFacet"
+									value="jst.ear" />
+							</or>
+						</adapt>
+					</and>
+					<instanceof
+						value="org.eclipse.jst.j2ee.application.Application" />
+					<instanceof
+						value="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider" />
+					<and>
+					  <instanceof value="java.util.Collection"/>
+					  <count value="0" />
+					</and>
+				</or>
+			</enablement>
+		</commonWizard>
 		<!-- App Client export -->
 		<commonWizard type="export"
 			wizardId="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentExportWizard">
@@ -389,6 +436,7 @@
 			</enablement>
 		</commonWizard>
 	</navigatorContent>
+		
 	<navigatorContent name="%extension.web.name" priority="highest"
 		icon="icons/webgroup_obj.gif" activeByDefault="true"
 		contentProvider="org.eclipse.jst.j2ee.navigator.internal.J2EEContentProvider"
