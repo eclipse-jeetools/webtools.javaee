@@ -68,7 +68,11 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	private static String getJarURI(final ReferencedComponent ref, final IVirtualComponent moduleComp) {
 		String uri = ref.getArchiveName();
 		if (uri == null || uri.length() < 0) {
-			uri = moduleComp.getName() + IJ2EEModuleConstants.JAR_EXT;
+			if(moduleComp.isBinary()){
+				uri = new Path(moduleComp.getName()).lastSegment();
+			} else {
+				uri = moduleComp.getName() + IJ2EEModuleConstants.JAR_EXT;
+			}
 		} else {
 			String prefix = ref.getRuntimePath().makeRelative().toString();
 			if (prefix.length() > 0) {
