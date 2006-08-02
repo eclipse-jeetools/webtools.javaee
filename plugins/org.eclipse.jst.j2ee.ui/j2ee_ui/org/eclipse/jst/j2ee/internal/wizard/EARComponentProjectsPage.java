@@ -288,7 +288,7 @@ public class EARComponentProjectsPage extends DataModelWizardPage {
 	}
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{EARComponentImportDataModelProvider.NESTED_PROJECTS_VALIDATION};
+		return new String[]{IEARComponentImportDataModelProperties.SELECTED_MODELS_LIST, EARComponentImportDataModelProvider.NESTED_PROJECTS_VALIDATION};
 	}
 
 
