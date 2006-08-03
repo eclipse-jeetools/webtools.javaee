@@ -546,7 +546,7 @@ public class UIEarValidator extends EarValidator {
 					for (int i = 0; i < modules.size(); i++) {
 						Module module = (Module) modules.get(i);
 						String uri = module.getUri();
-						IVirtualComponent referencedComp = edit.getModule( uri );
+						IVirtualComponent referencedComp = edit.getModuleByManifestURI( uri );
 						if( referencedComp == null ){
 							String[] params = new String[]{uri, component.getProject().getName()};
 							String tmp = NLS.bind(EARValidationMessageResourceHandler.MISSING_PROJECT_FORMODULE_WARN_, params);
