@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2005 BEA Systems, Inc.
+ * Copyright (c) 2005, 2006 BEA Systems, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -64,24 +64,31 @@ public final class JavaFacetUtils
     
     public static final IProjectFacetVersion JAVA_60
         = JAVA_FACET.getVersion( "6.0" ); //$NON-NLS-1$
-
-    public static String getCompilerLevel( final IProject project )
+    
+    public static String getCompilerLevel()
     {
-        IScopeContext context = new ProjectScope( project );
-        IEclipsePreferences prefs = context.getNode( JavaCore.PLUGIN_ID );
+        final IScopeContext context = new InstanceScope();
+        final IEclipsePreferences prefs = context.getNode( JavaCore.PLUGIN_ID );
         String level = prefs.get( JavaCore.COMPILER_COMPLIANCE, null );
-        
-        if( level == null )
-        {
-            context = new InstanceScope();
-            prefs = context.getNode( JavaCore.PLUGIN_ID );
-            level = prefs.get( JavaCore.COMPILER_COMPLIANCE, null );
-        }
         
         if( level == null )
         {
             final Hashtable defaults = JavaCore.getDefaultOptions();
             level = (String) defaults.get( JavaCore.COMPILER_COMPLIANCE );
+        }
+        
+        return level;
+    }
+
+    public static String getCompilerLevel( final IProject project )
+    {
+        final IScopeContext context = new ProjectScope( project );
+        final IEclipsePreferences prefs = context.getNode( JavaCore.PLUGIN_ID );
+        String level = prefs.get( JavaCore.COMPILER_COMPLIANCE, null );
+        
+        if( level == null )
+        {
+            level = getCompilerLevel();
         }
         
         return level;

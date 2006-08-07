@@ -36,6 +36,7 @@
     <project-facet id="jst.java">
       <label>Java</label>
       <description>%jstJavaFacetDescription</description>
+      <default-version provider="org.eclipse.jst.common.project.facet.JavaFacetDefaultVersionProvider"/>
     </project-facet>
 
     <project-facet-version facet="jst.java" version="1.3">
