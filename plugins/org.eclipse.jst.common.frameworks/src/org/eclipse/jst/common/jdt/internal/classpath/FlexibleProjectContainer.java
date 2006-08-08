@@ -13,10 +13,8 @@ package org.eclipse.jst.common.jdt.internal.classpath;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -39,10 +37,6 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jdt.internal.core.ClasspathEntry;
-import org.eclipse.jdt.internal.core.JavaProject;
-import org.eclipse.jdt.internal.core.util.Util;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
@@ -183,7 +177,10 @@ public abstract class FlexibleProjectContainer
             return entries;
         }
         
-        final Set existingEntries = computeExistingClasspathEntries();
+        final IJavaProject jproject = JavaCore.create( this.project );
+        
+        final Set existingEntries 
+            = ClasspathUtil.getResolvedClasspath( jproject, getPath() );
         
         IVirtualReference[] refs = vc.getReferences();
         IVirtualComponent comp = null;
@@ -214,10 +211,10 @@ public abstract class FlexibleProjectContainer
                 newPath = project.getFullPath();    
             }
             
-        	if(null != newPath && !isAlreadyOnClasspath(existingEntries, newPath)){
-                entries.add(newPath);
+        	if( newPath != null && ! existingEntries.contains( newPath ) )
+            {
+                entries.add( newPath );
         	}
-
         }
         
         for( int i = 0; i < this.paths.length; i++ )
@@ -247,7 +244,9 @@ public abstract class FlexibleProjectContainer
                     if(!jarsHandled.contains(p.lastSegment()) &&  isJarFile( r.getLocation().toFile() ) )
                     {
                         jarsHandled.add(p.lastSegment());
-                        if(!isAlreadyOnClasspath(existingEntries, p)){
+                        
+                        if( ! existingEntries.contains( p ) )
+                        {
                         	entries.add( p );
                         }
                     }
@@ -265,7 +264,9 @@ public abstract class FlexibleProjectContainer
                         ! isSourceOrOutputDirectory( p ) )
                     {
                         jarsHandled.add(p.lastSegment());
-                        if(!isAlreadyOnClasspath(existingEntries, p)){
+                        
+                        if( ! existingEntries.contains( p ) )
+                        {
                         	entries.add( p );
                         }
                     }
@@ -274,49 +275,6 @@ public abstract class FlexibleProjectContainer
         }
 
         return entries;
-    }
-    
-    private Set computeExistingClasspathEntries()
-    {
-        final IJavaProject jproj = JavaCore.create( this.project );
-        final Set existing = new HashSet();
-        
-        try 
-        {
-            // Get all resolved entries first.
-            
-            final IClasspathEntry[] entries = jproj.getResolvedClasspath( true );
-            existing.addAll( Arrays.asList( entries ) );
-            
-            // Then remove any entries provided by this container's prior self.
-            
-            final IClasspathEntry[] cp = jproj.getRawClasspath();
-            
-            for( int i = 0; i < cp.length; i++ )
-            {
-                final IPath path = cp[ i ].getPath();
-                
-                if( path.equals( this.path ) )
-                {
-                    final IClasspathContainer container
-                        = JavaCore.getClasspathContainer( path, jproj );
-                    if(null != container){
-	                    final IClasspathEntry[] containerEntries
-	                        = container.getClasspathEntries();
-	                    
-	                    existing.removeAll( Arrays.asList( containerEntries ) );
-                    
-	                    break;
-                    }
-                }
-            }
-        } 
-        catch( JavaModelException e ) 
-        {
-            Logger.getLogger().logError( e );
-        }
-        
-        return existing;
     }
     
     private IClasspathEntry newLibraryEntry( final IPath p )
@@ -419,30 +377,6 @@ public abstract class FlexibleProjectContainer
         
         return false;
     }
-    
-    /**
-	 * Taken from {@link JavaProject#isOnClasspath(org.eclipse.core.resources.IResource)}
-	 * 
-	 * @param classpath
-	 * @param newPath
-	 * @return
-	 */
-	private static boolean isAlreadyOnClasspath(Set classpath, IPath newPath) 
-    {
-		for( Iterator itr = classpath.iterator(); itr.hasNext(); ) 
-        {
-			IClasspathEntry entry = (IClasspathEntry) itr.next();
-			IPath entryPath = entry.getPath();
-			if (entryPath.equals(newPath)) { // package fragment roots must match exactly entry
-				// pathes (no exclusion there)
-				return true;
-			}
-			if (entryPath.isPrefixOf(newPath) && !Util.isExcluded(newPath, ((ClasspathEntry) entry).fullInclusionPatternChars(), ((ClasspathEntry) entry).fullExclusionPatternChars(), false)) {
-				return true;
-			}
-		}
-		return false;
-	}
     
     private static class Listener
     
