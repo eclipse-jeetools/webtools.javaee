@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.25 $  $Date: 2006/05/17 20:13:58 $ 
+ *  $Revision: 1.26 $  $Date: 2006/08/08 18:54:51 $ 
  */
 
 import java.util.*;
@@ -354,6 +354,15 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 		if (sourceType == null) {
 			JavaClassImpl javaClass = (JavaClassImpl) getTarget();
 			sourceType = JDOMSearchHelper.findType(javaClass.getJavaPackage().getName(), javaClass.primGetName(), getSourceProject());
+			/*
+			 * If the sourceType was found and we are not in the middle of
+			 * reflecting it is necessary to ensure that the hasReflected
+			 * is set back to false.  If this is not done then the system
+			 * assumes that the content in the target model object has been
+			 * reflected from this found sourceType which is not the case.
+			 */
+			if (hasValidReflection())
+				flushReflectedValuesIfNecessaryNoNotification(false);
 		}
 		return sourceType;
 	}
@@ -699,5 +708,18 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 				declaredClasses.add(inner);
 			}
 		}
+	}
+	
+	/**
+	 * Test if we have a valid source and has been reflected. This is to only
+	 * to be used by this adapter and by the JDOM adapter factory. It has a 
+	 * very specific meaning and may change as needed. It should not be used
+	 * for any other purpose. It is not an API.
+	 * @return
+	 * 
+	 * @since 1.2.0
+	 */
+	synchronized boolean hasValidReflection() {
+		return sourceType != null && hasReflected && !isReflecting;
 	}
 }

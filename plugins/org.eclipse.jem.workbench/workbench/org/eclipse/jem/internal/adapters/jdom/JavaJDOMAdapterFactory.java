@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaJDOMAdapterFactory.java,v $
- *  $Revision: 1.7 $  $Date: 2005/12/02 18:41:27 $ 
+ *  $Revision: 1.8 $  $Date: 2006/08/08 18:54:51 $ 
  */
 import java.util.*;
 
@@ -92,7 +92,12 @@ private List getReflectedForPackage(String packageName, boolean filterFoundTypes
 			while (it.hasNext()) {
 				entry = (Map.Entry) it.next();
 				adaptor = (JavaClassJDOMAdaptor) entry.getValue();
-				if (filterFoundTypes && adaptor.sourceType != null)
+				/*
+				 * Ensure that the the adaptor is only filtered out if it has
+				 * actually reflected the content.  It is not good enough just
+				 * to test for the sourceType.
+				 */
+				if (filterFoundTypes && adaptor.hasValidReflection())
 					continue;
 				key = (String) entry.getKey();
 				if (key.startsWith(packageName) && key.indexOf('.', packageName.length() + 1) < 0) {
