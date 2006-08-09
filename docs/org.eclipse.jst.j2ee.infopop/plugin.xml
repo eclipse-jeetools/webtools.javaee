@@ -17,7 +17,7 @@
 	<contexts file="ImportWizard_HelpContexts.xml" plugin="org.eclipse.jst.j2ee.ui" />
 	<contexts file="J2EEGeneral_HelpContexts.xml" plugin="org.eclipse.jst.j2ee.ui" />
 	<contexts file="ProjectCreateWizard_HelpContexts.xml" plugin="org.eclipse.jst.j2ee.ui" />
-	<contexts file="EJBCreateWizard_HelpContexts.xml" plugin="org.eclipse.jst.j2ee.ui" />
+	<contexts file="EJBCreateWizard_HelpContexts.xml" />
 	<contexts file="ProjectPrefs_HelpContexts.xml" plugin="org.eclipse.jst.j2ee.ui" />
 	<contexts file="Preferences_HelpContexts.xml" plugin="org.eclipse.jst.j2ee.ui" />
    </extension>

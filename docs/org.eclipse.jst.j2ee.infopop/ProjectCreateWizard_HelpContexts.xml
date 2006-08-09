@@ -59,7 +59,7 @@ You can save the settings for this project so you can create other projects with
 <context id="EJB_NEW_EJB_WIZARD_PAGE1">
 <description>Use this wizard to create an EJB project.
 
-On this page, name the application client project and select the workspace location to store the project files. You can also select a target runtime for the project and add the project to an enterprise application project.
+On this page, name the project and select the workspace location to store the project files. You can also select a target runtime for the project and add the project to an enterprise application project.
 
 </description>
 <topic filter="plugin=org.eclipse.jst.ejb.doc.user" href="../org.eclipse.jst.ejb.doc.user/topics/tecrtpro.html" label="Creating EJB projects"/>
