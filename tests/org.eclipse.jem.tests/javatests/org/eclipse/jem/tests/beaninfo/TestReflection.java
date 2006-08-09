@@ -11,17 +11,26 @@
 package org.eclipse.jem.tests.beaninfo;
 /*
  *  $RCSfile: TestReflection.java,v $
- *  $Revision: 1.8 $  $Date: 2005/08/24 20:58:55 $ 
+ *  $Revision: 1.9 $  $Date: 2006/08/09 15:38:21 $ 
  */
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.internal.beaninfo.PropertyDecorator;
 import org.eclipse.jem.internal.beaninfo.core.Utilities;
 import org.eclipse.jem.java.JavaClass;
@@ -177,6 +186,53 @@ public class TestReflection extends AbstractBeanInfoTestCase {
 		for (Iterator itr = ops.iterator(); itr.hasNext();) {
 			EOperation op = (EOperation) itr.next();
 			assertTrue("Extra operation:"+op.getName(), validNames.contains(op.getName()));
+		}
+	}
+	
+	/**
+	 * Test for regression for this bug.
+	 * @throws CoreException
+	 * @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=153150
+	 *
+	 */
+	public void test153150() throws CoreException {
+		// This tests that within a platform runnable, that if a class is reflected as not found, then is created and source type tested that
+		// it will now reflect as found. The source type test forces a flush if the type is now found. However, if didn't do source type test
+		// but did just reflection we wouldn't see the new class until after notification. This bug doesn't address that problem.
+		
+		// Need to have a folder (package) already exist for this test to work. If the package was created at the same time
+		// as the class, then it won't be found until after the notification is done. But this fix was for a new class in an
+		// existing package.
+		IPackageFragment pkg1 = (IPackageFragment) JavaCore.create(nature.getProject()).findElement(new Path("org/eclipse/jem/tests/beaninfo"));
+		final IFolder folder = ((IFolder) pkg1.getCorrespondingResource()).getFolder("t153150");
+		if (!folder.exists())
+			folder.create(true, true, new NullProgressMonitor());
+
+		final ICompilationUnit[] testCU = new ICompilationUnit[1];
+		try {
+			JavaCore.run(new IWorkspaceRunnable() {
+				public void run(IProgressMonitor monitor) throws CoreException {
+					JavaClass test1Class =
+						(JavaClass) rset.getEObject(URI.createURI("java:/org.eclipse.jem.tests.beaninfo.t153150#Test153150Class"), true); //$NON-NLS-1$
+					assertEquals("Should not be defined.", TypeKind.UNDEFINED_LITERAL, test1Class.getKind());
+
+					// Now create the class.
+					IPackageFragment pkg = (IPackageFragment) JavaCore.create(folder);
+					testCU[0] = pkg.createCompilationUnit("Test153150Class.java", "public class Test153150Class {}", true, new NullProgressMonitor());
+
+					assertEquals("It should still reflect as not found.", TypeKind.UNDEFINED_LITERAL, test1Class.getKind());
+					
+					// Now do the get source type. This should reset our flags.
+					assertTrue("It should have a source type.", test1Class.isExistingType());
+					
+					// Now it should reflect.
+					assertEquals("It should now reflect as found.", TypeKind.CLASS_LITERAL, test1Class.getKind());
+				}
+			}, new NullProgressMonitor());
+		} finally {
+			if (testCU[0] != null) {
+				testCU[0].delete(true, new NullProgressMonitor());
+			}
 		}
 	}
 	
