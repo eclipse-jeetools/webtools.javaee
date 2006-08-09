@@ -19,9 +19,9 @@ adapter is a system-level software driver that is used by an EJB container
 or an application client to connect to an EIS. Connectors comply with the
 J2EE Connector architecture (JCA).</p><p>Like the other types of projects,
 connector projects can contain one or more project facets, which represent
-units of functionality in the project. A new application client project should
-have the J2C Module facet. Depending on what you want to use the project for,
-you may want to enable other facets for the project.</p><note type="restriction">J2EE
+units of functionality in the project. A new connector project should have
+the J2C Module facet. Depending on what you want to use the project for, you
+may want to enable other facets for the project.</p><note type="restriction">J2EE
 1.2 specification level does not include connector capability.</note><p>To
 create a new connector project:</p></context>
 <steps outputclass="id_steps">
