@@ -130,5 +130,9 @@
             id="org.eclipse.jem.beaninfo.OverrideEditor">
       </editor>
    </extension>
+   <extension
+         point="org.eclipse.jem.util.uiTester">
+      <uiTester className="org.eclipse.jem.internal.ui.core.UITester"/>
+   </extension>
 
 </plugin>
