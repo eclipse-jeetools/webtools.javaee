@@ -87,13 +87,14 @@ public final class ClasspathUtil
                             Logger.getLogger().logError( e );
                             continue;
                         }
-                        
-                        final IClasspathEntry[] containerEntries
-                            = container.getClasspathEntries();
-
-                        for( int j = 0; j < containerEntries.length; j++ )
-                        {
-                            resolved.add( containerEntries[ j ].getPath() );
+                        if (container!=null) {
+	                        final IClasspathEntry[] containerEntries
+	                            = container.getClasspathEntries();
+	
+	                        for( int j = 0; j < containerEntries.length; j++ )
+	                        {
+	                            resolved.add( containerEntries[ j ].getPath() );
+	                        }
                         }
                     }
                 }
