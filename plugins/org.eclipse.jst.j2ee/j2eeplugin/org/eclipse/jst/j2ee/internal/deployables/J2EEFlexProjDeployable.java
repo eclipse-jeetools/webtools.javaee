@@ -27,6 +27,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
@@ -115,8 +116,14 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 		return J2EEProjectUtilities.getOutputContainers(project);
 	}
 
-	protected boolean shouldIncludeUtilityComponent(IVirtualComponent virtualComp) {
-		return virtualComp != null && virtualComp.isBinary() && !(virtualComp instanceof J2EEModuleVirtualArchiveComponent);
+	protected boolean shouldIncludeUtilityComponent(IVirtualComponent virtualComp,IVirtualReference[] references, ArtifactEdit edit) {
+		// If the component module is an EAR we know all archives are filtered out of virtual component members
+		// and we will return only those archives which are not binary J2EE modules in the EAR DD.  These J2EE modules will
+		// be returned by getChildModules()
+		if (J2EEProjectUtilities.isEARProject(component.getProject()))
+			return virtualComp != null && virtualComp.isBinary() && !isNestedJ2EEModule(virtualComp, references, (EARArtifactEdit)edit);
+		else 
+			return super.shouldIncludeUtilityComponent(virtualComp, references, edit);
 	}
 	
 	protected IModuleResource[] getBinaryModuleMembers() {
@@ -167,9 +174,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 			}
 			
 			if (vc != null) {
-				List utilMembers = getUtilMembers(vc);
-				if (!utilMembers.isEmpty())
-					members.addAll(utilMembers);
+				addUtilMembers(vc);
 				List consumableMembers = getConsumableReferencedMembers(vc);
 				if (!consumableMembers.isEmpty())
 					members.addAll(consumableMembers);
@@ -437,9 +442,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     						if (!members.contains(mr[j]))
     							members.add(mr[j]);
     					}
-    					List utilMembers = getUtilMembers(consumedComponent);
-    					if (!utilMembers.isEmpty())
-    						members.addAll(utilMembers);
+    					addUtilMembers(consumedComponent);
     					List childConsumableMembers = getConsumableReferencedMembers(consumedComponent);
     					if (!childConsumableMembers.isEmpty())
     						members.addAll(childConsumableMembers);
@@ -463,9 +466,37 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     
     protected IModule gatherModuleReference(IVirtualComponent component, IVirtualComponent targetComponent ) {
     	IModule module = super.gatherModuleReference(component, targetComponent);
-		// Handle binary module components
-		if (J2EEProjectUtilities.isEARProject(component.getProject()) && targetComponent instanceof J2EEModuleVirtualArchiveComponent)
-			module = ServerUtil.getModule(J2EEDeployableFactory.ID+":"+targetComponent.getName()); //$NON-NLS-1$
+    	// Handle binary module components
+    	if (targetComponent instanceof J2EEModuleVirtualArchiveComponent) {
+    		if (J2EEProjectUtilities.isEARProject(component.getProject()) || targetComponent.getProject()!=component.getProject())
+    			module = ServerUtil.getModule(J2EEDeployableFactory.ID+":"+targetComponent.getName()); //$NON-NLS-1$
+    	}
 		return module;
     }
+    
+    /**
+     * Determine if the component is nested J2EE module on the application.xml of this EAR
+     * @param aComponent
+     * @return boolean is passed in component a nested J2EE module on this EAR
+     */
+    private boolean isNestedJ2EEModule(IVirtualComponent aComponent, IVirtualReference[] references, EARArtifactEdit edit) {
+    	if (edit==null) 
+			return false;
+		Application app = edit.getApplication();
+		IVirtualReference reference = getReferenceNamed(references,aComponent.getName());
+		// Ensure module URI exists on EAR DD for binary archive
+		return app.getFirstModule(reference.getArchiveName()) != null;
+    }
+    
+    private IVirtualReference getReferenceNamed(IVirtualReference[] references, String name) {
+    	for (int i=0; i<references.length; i++) {
+    		if (references[i].getReferencedComponent().getName().equals(name))
+    			return references[i];
+    	}
+    	return null;
+    }
+    
+    protected ArtifactEdit getComponentArtifactEditForRead() {
+		return EARArtifactEdit.getEARArtifactEditForRead(component.getProject());
+	}
 }
