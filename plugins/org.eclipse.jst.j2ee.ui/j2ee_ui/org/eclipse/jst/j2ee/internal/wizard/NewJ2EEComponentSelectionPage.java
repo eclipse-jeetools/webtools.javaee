@@ -44,6 +44,7 @@ import org.eclipse.ui.activities.WorkbenchActivityHelper;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.wizards.IWizardDescriptor;
 import org.eclipse.ui.wizards.IWizardRegistry;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -357,7 +358,14 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                 protected IWizard createWizard() {
                     IDataModel dm = DataModelFactory.createDataModel(new AppClientFacetProjectCreationDataModelProvider());
                     FacetDataModelMap map = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-                    map.getFacetDataModel(J2EEProjectUtilities.APPLICATION_CLIENT).setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);
+                    IDataModel model = map.getFacetDataModel(J2EEProjectUtilities.APPLICATION_CLIENT);
+                    model.setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);
+                    
+                    IDataModel nestedAppClientModel = getDataModel().getNestedModel(NESTED_MODEL_CLIENT);
+                    model.setProperty(J2EEModuleFacetInstallDataModelProvider.FACET_RUNTIME, nestedAppClientModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME));
+    				IDataModel appClientFacetModel = ((FacetDataModelMap)nestedAppClientModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP)).getFacetDataModel(J2EEProjectUtilities.APPLICATION_CLIENT);
+                    model.setProperty(J2EEModuleFacetInstallDataModelProvider.FACET_VERSION, appClientFacetModel.getProperty(IFacetDataModelProperties.FACET_VERSION));
+                    
                     return new AppClientProjectWizard(dm);
                 }
             };
@@ -385,7 +393,14 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                         result = (NewProjectDataModelFacetWizard)descriptor.createWizard();
                         IDataModel dm = result.getDataModel();
                         FacetDataModelMap map = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-                        map.getFacetDataModel(J2EEProjectUtilities.JCA).setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);
+                        IDataModel model = map.getFacetDataModel(J2EEProjectUtilities.JCA);
+                        model.setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);
+                        
+                        IDataModel nestedJCAModel = getDataModel().getNestedModel(NESTED_MODEL_JCA);
+                        model.setProperty(J2EEModuleFacetInstallDataModelProvider.FACET_RUNTIME, nestedJCAModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME));
+        				IDataModel jcaFacetModel = ((FacetDataModelMap)nestedJCAModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP)).getFacetDataModel(J2EEProjectUtilities.JCA);
+                        model.setProperty(J2EEModuleFacetInstallDataModelProvider.FACET_VERSION, jcaFacetModel.getProperty(IFacetDataModelProperties.FACET_VERSION));
+                        
                     } catch (CoreException ce) {
                         Logger.getLogger().log(ce);
                     }
@@ -416,7 +431,14 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                         result = (NewProjectDataModelFacetWizard)descriptor.createWizard();
                         IDataModel dm = result.getDataModel();
                         FacetDataModelMap map = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-                        map.getFacetDataModel(J2EEProjectUtilities.EJB).setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);
+                        IDataModel model = map.getFacetDataModel(J2EEProjectUtilities.EJB);
+                        model.setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);
+                        
+                        IDataModel nestedEjbModel = getDataModel().getNestedModel(NESTED_MODEL_EJB);
+                        model.setProperty(J2EEModuleFacetInstallDataModelProvider.FACET_RUNTIME, nestedEjbModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME));
+        				IDataModel ejbFacetModel = ((FacetDataModelMap)nestedEjbModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP)).getFacetDataModel(J2EEProjectUtilities.EJB);
+                        model.setProperty(J2EEModuleFacetInstallDataModelProvider.FACET_VERSION, ejbFacetModel.getProperty(IFacetDataModelProperties.FACET_VERSION));
+                        
                     } catch (CoreException ce) {
                         Logger.getLogger().log(ce);
                     }
@@ -446,8 +468,14 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                         result = (NewProjectDataModelFacetWizard)servletWizardDescriptor.createWizard();
                         IDataModel dm = result.getDataModel();
                         FacetDataModelMap map = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-                        map.getFacetDataModel(J2EEProjectUtilities.DYNAMIC_WEB).setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);
+                        IDataModel model = map.getFacetDataModel(J2EEProjectUtilities.DYNAMIC_WEB);
+                        model.setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);
                         
+                        IDataModel nestedWebModel = getDataModel().getNestedModel(NESTED_MODEL_WEB);
+                        model.setProperty(J2EEModuleFacetInstallDataModelProvider.FACET_RUNTIME, nestedWebModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME));
+        				IDataModel webFacetModel = ((FacetDataModelMap)nestedWebModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP)).getFacetDataModel(J2EEProjectUtilities.DYNAMIC_WEB);
+                        model.setProperty(J2EEModuleFacetInstallDataModelProvider.FACET_VERSION, webFacetModel.getProperty(IFacetDataModelProperties.FACET_VERSION));
+                         
                     } catch (CoreException ce) {
                         Logger.getLogger().log(ce);
                     }
