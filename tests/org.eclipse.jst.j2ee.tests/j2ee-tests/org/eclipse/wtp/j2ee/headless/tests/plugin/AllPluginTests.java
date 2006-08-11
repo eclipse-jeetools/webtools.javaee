@@ -16,6 +16,7 @@ import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
 import org.eclipse.wst.server.core.IRuntimeWorkingCopy;
 import org.eclipse.wst.server.core.ServerCore;
+import org.eclipse.wtp.j2ee.headless.tests.web.container.WebAppLibrariesContainerTests;
 
 /**
  * @author jsholl
@@ -43,6 +44,7 @@ public class AllPluginTests extends TestSuite {
 	      addTest(ProjectMigrationTest.suite());
 	      addTest(AnnotationProviderTest.suite());
 	      addTest(org.eclipse.jst.j2ee.dependency.tests.AllTests.suite());
+          addTest(WebAppLibrariesContainerTests.suite());
     }
     
     public static IRuntime createJONASRuntime()  {
