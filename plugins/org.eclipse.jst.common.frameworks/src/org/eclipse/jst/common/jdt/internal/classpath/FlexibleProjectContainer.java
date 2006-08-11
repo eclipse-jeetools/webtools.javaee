@@ -25,6 +25,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -39,6 +40,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -70,10 +72,7 @@ public abstract class FlexibleProjectContainer
         // resources relevant to flexible project containers across the
         // workspace and refresh them as necessary.
         
-        final IWorkspace ws = ResourcesPlugin.getWorkspace();
-        
-        ws.addResourceChangeListener( new Listener(), 
-                                      IResourceChangeEvent.POST_CHANGE );
+        Listener.register();
         
         // Read the decorations from the workspace metadata.
         
@@ -94,6 +93,7 @@ public abstract class FlexibleProjectContainer
     private final PathType[] pathTypes;
     private final List entries;
     private final IClasspathEntry[] cpentries;
+    private static final Set containerTypes = new HashSet();
     
     public FlexibleProjectContainer( final IPath path,
                                      final IJavaProject owner,
@@ -117,6 +117,8 @@ public abstract class FlexibleProjectContainer
             
             return;
         }
+        
+        addFlexibleProjectContainerType( path.segment( 0 ) );
         
         this.entries = computeClasspathEntries();
         this.cpentries = new IClasspathEntry[ this.entries.size() ];
@@ -177,10 +179,8 @@ public abstract class FlexibleProjectContainer
             return entries;
         }
         
-        final IJavaProject jproject = JavaCore.create( this.project );
-        
         final Set existingEntries 
-            = ClasspathUtil.getResolvedClasspath( jproject, getPath() );
+            = ClasspathUtil.getResolvedClasspath( this.owner, getPath() );
         
         IVirtualReference[] refs = vc.getReferences();
         IVirtualComponent comp = null;
@@ -241,7 +241,7 @@ public abstract class FlexibleProjectContainer
                     final IResource r = contents[ j ].getUnderlyingResource();
                     final IPath p = r.getFullPath();
                     
-                    if(!jarsHandled.contains(p.lastSegment()) &&  isJarFile( r.getLocation().toFile() ) )
+                    if(!jarsHandled.contains(p.lastSegment()) &&  isJarFile( r ) )
                     {
                         jarsHandled.add(p.lastSegment());
                         
@@ -363,9 +363,9 @@ public abstract class FlexibleProjectContainer
         }
     }
     
-    private static boolean isJarFile( final File f )
+    private static boolean isJarFile( final IResource f )
     {
-        if( f.isFile() )
+        if( f.getType() == IResource.FILE )
         {
             final String fname = f.getName();
             
@@ -378,13 +378,59 @@ public abstract class FlexibleProjectContainer
         return false;
     }
     
-    private static class Listener
+    private static boolean isMetadataFile( final IResource f )
+    {
+        if( f.getType() == IResource.FILE )
+        {
+            final String fname = f.getName();
+
+            if( fname.equals( ".component" ) || //$NON-NLS-1$
+                fname.equals( "org.eclipse.wst.common.component" ) ) //$NON-NLS-1$
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    private static boolean isFlexibleProjectContainer( final IPath path )
+    {
+        synchronized( containerTypes )
+        {
+            return containerTypes.contains( path.segment( 0 ) );
+        }
+    }
+    
+    private static void addFlexibleProjectContainerType( final String type )
+    {
+        synchronized( containerTypes )
+        {
+            containerTypes.add( type );
+        }
+    }
+    
+    private static final class Listener
     
         implements IResourceChangeListener
         
     {
+        public static void register()
+        {
+            final Listener listener = new Listener();
+            final IWorkspace ws = ResourcesPlugin.getWorkspace();
+            ws.addResourceChangeListener( listener, IResourceChangeEvent.PRE_BUILD );
+        }
+        
         public void resourceChanged( final IResourceChangeEvent event )
         {
+            // Screen the delta before going any further. 
+            
+            if( ! isInterestingEvent( event ) )
+            {
+                return;
+            }
+            
             // Locate all of the flexible project containers.
             
             final ArrayList containers = new ArrayList();
@@ -406,16 +452,15 @@ public abstract class FlexibleProjectContainer
                         for( int j = 0; j < cpes.length; j++ )
                         {
                             final IClasspathEntry cpe = cpes[ j ];
+                            final IPath path = cpe.getPath();
                             
-                            if( cpe.getEntryKind() == IClasspathEntry.CPE_CONTAINER )
+                            if( cpe.getEntryKind() == IClasspathEntry.CPE_CONTAINER &&
+                                isFlexibleProjectContainer( path ) )
                             {
                                 final IClasspathContainer cont
-                                    = JavaCore.getClasspathContainer( cpe.getPath(), jproj );
+                                    = JavaCore.getClasspathContainer( path, jproj );
                                 
-                                if( cont instanceof FlexibleProjectContainer )
-                                {
-                                    containers.add( cont );
-                                }
+                                containers.add( cont );
                             }
                         }
                     }
@@ -440,6 +485,70 @@ public abstract class FlexibleProjectContainer
                     c.refresh();
                 }
             }
+        }
+
+        private static boolean isInterestingEvent( final IResourceChangeEvent event )
+        {
+            final boolean[] result = new boolean[ 1 ];
+            
+            final IResourceDeltaVisitor visitor = new IResourceDeltaVisitor()
+            {
+                public boolean visit( final IResourceDelta delta ) 
+                {
+                    final IResource r = delta.getResource();
+                    
+                    switch( r.getType() )
+                    {
+                        case IResource.ROOT:
+                        {
+                            return true;
+                        }
+                        case IResource.PROJECT:
+                        {
+                            return ModuleCoreNature.isFlexibleProject( (IProject) r );
+                        }
+                        case IResource.FOLDER:
+                        {
+                            final int kind = delta.getKind();
+                            
+                            if( kind == IResourceDelta.ADDED ||
+                                kind == IResourceDelta.REMOVED )
+                            {
+                                result[ 0 ] = true;
+                                return false;
+                            }
+                            else
+                            {
+                                return true;
+                            }
+                        }
+                        case IResource.FILE:
+                        {
+                            if( isJarFile( r ) || isMetadataFile( r ) )
+                            {
+                                result[ 0 ] = true;
+                            }
+                            
+                            return false;
+                        }
+                        default:
+                        {
+                            return false;
+                        }
+                    }
+                }
+            };
+            
+            try
+            {
+                event.getDelta().accept( visitor, false );
+            }
+            catch( CoreException e )
+            {
+                CommonFrameworksPlugin.log( e );
+            }
+            
+            return result[ 0 ];
         }
     }
     
