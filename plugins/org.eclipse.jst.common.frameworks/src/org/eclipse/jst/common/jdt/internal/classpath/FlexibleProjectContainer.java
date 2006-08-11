@@ -11,7 +11,6 @@
 
 package org.eclipse.jst.common.jdt.internal.classpath;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
