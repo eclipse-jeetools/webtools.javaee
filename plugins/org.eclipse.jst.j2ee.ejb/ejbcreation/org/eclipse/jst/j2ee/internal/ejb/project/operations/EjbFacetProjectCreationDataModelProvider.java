@@ -10,15 +10,20 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetProjectCreationDataModelProvider;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 public class EjbFacetProjectCreationDataModelProvider extends
 J2EEFacetProjectCreationDataModelProvider {
@@ -46,7 +51,12 @@ J2EEFacetProjectCreationDataModelProvider {
 					setProperty(ADD_TO_EAR, event.getProperty());
 				}
 			}
-		});			
+		});
+		
+		Collection requiredFacets = new ArrayList();
+		requiredFacets.add(ProjectFacetsManager.getProjectFacet(javaFacet.getStringProperty(IFacetDataModelProperties.FACET_ID)));
+		requiredFacets.add(ProjectFacetsManager.getProjectFacet(ejbFacet.getStringProperty(IFacetDataModelProperties.FACET_ID)));
+		setProperty(REQUIRED_FACETS_COLLECTION, requiredFacets);
 	}
 	
 	public boolean propertySet(String propertyName, Object propertyValue) {
