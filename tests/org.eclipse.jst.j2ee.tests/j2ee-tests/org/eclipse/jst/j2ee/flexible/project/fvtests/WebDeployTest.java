@@ -24,7 +24,7 @@ import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
 
 public class WebDeployTest extends TestCase {
 
-	private static String[] projectNames = new String[]{"TestDeploy","TestDeployUtil","TestDeployWeb","TestWebLibProject"}; //$NON-NLS-1$;
+	private static String[] projectNames = new String[]{"TestDeploy","TestDeployUtil","TestDeployWeb","TestWebLibProject","TestExternalJar"}; //$NON-NLS-1$;
 	private static Path zipFilePath = new Path("/TestData/WebDeployTests/WebDeployTest.zip"); //$NON-NLS-1$
 	
 	public static Test suite() {
@@ -33,6 +33,7 @@ public class WebDeployTest extends TestCase {
 	public void testMembersDeployment() {
 		ProjectUnzipUtil util = new ProjectUnzipUtil(getLocalPath(), projectNames);
 		util.createProjects();
+		
 		//hari: we're getting the web project here
 		IProject project = ProjectUtilities.getProject(projectNames[2]);
 		IVirtualComponent component = ComponentCore.createComponent(project);
@@ -57,10 +58,12 @@ public class WebDeployTest extends TestCase {
 						if (webResource.getName().equals("lib")){
 							IModuleResource[] webresMembers = ((ModuleFolder)webResource).members();
 							{//finds only smokeEJB.jar here...
-								assertTrue(webresMembers.length==1);
+								assertTrue(webresMembers.length==2);
 								//Check that the names match the 3 names we expect
-								for (int k = 0; k < webresMembers.length; k++)
-								assertTrue	(webresMembers[k].getName().equals("SmokeEJB.jar") );
+								for (int k = 0; k < webresMembers.length; k++){
+									String localName = webresMembers[k].getName();
+									assertTrue	(localName.equals("SmokeEJB.jar") || localName.equals("AutoWorldEJB512.jar"));
+								}
 							}
 						}
 					}
