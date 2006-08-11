@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.internal;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
@@ -177,91 +176,46 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 		return true;
 	}
 
+	private void createRef(String aComponentName){
+		IVirtualComponent archive = ComponentCore.createArchiveComponent(model.getComponent().getProject(), aComponentName);
+
+		// To do: check if archive component already exists
+		IVirtualReference ref = ComponentCore.createReference(model.getComponent(), archive, new Path("/WEB-INF/lib")); //$NON-NLS-1$
+		model.getComponent().addReferences(new IVirtualReference [] { ref });
+
+		ClasspathElement element = createClassPathElement(archive, archive.getName());
+		ClassPathSelection selection = createClassPathSelectionForExternalJar(element);
+		model.getClassPathSelectionForWLPs().getClasspathElements().add(element);
+	}
+	
 	public void handleSelectExternalJarButton() {
-
 		if (J2EEProjectUtilities.isDynamicWebProject(project)) {
-
 			IPath[] selected = BuildPathDialogAccess.chooseExternalJAREntries(propPage.getShell());
-
 			if (selected != null) {
+				String type = VirtualArchiveComponent.LIBARCHIVETYPE + IPath.SEPARATOR;
 				for (int i = 0; i < selected.length; i++) {
-
-					String type = VirtualArchiveComponent.LIBARCHIVETYPE + IPath.SEPARATOR;
-					// String name = selected[i].toString();
-
-					// java.io.File file = new java.io.File(name);
-					IVirtualComponent archive = ComponentCore.createArchiveComponent(model.getComponent().getProject(), type + selected[i].toString());
-
-					ArrayList vlist = new ArrayList();
-					IVirtualReference[] oldrefs = model.getComponent().getReferences();
-					for (int j = 0; j < oldrefs.length; j++) {
-						IVirtualReference ref = oldrefs[j];
-						vlist.add(ref);
-					}
-
-					// To do: check if archive component already exists
-					IVirtualReference ref = ComponentCore.createReference(model.getComponent(), archive, new Path("/WEB-INF/lib")); //$NON-NLS-1$
-					vlist.add(ref);
-
-					IVirtualReference[] refs = new IVirtualReference[vlist.size()];
-					for (int j = 0; j < vlist.size(); j++) {
-						IVirtualReference tmpref = (IVirtualReference) vlist.get(j);
-						refs[j] = tmpref;
-					}
-					model.getComponent().setReferences(refs);
-
-					ClasspathElement element = createClassPathElement(archive, archive.getName());
-					ClassPathSelection selection = createClassPathSelectionForExternalJar(element);
-					model.getClassPathSelectionForWLPs().getClasspathElements().add(element);
+					createRef(type + selected[i].toString());
 				}
-
 				refresh();
 			}
 		}
-
 	}
 
 	public void handleSelectVariableButton() {
-
 		if (J2EEProjectUtilities.isDynamicWebProject(project)) {
 			IPath existingPath[] = new Path[0];
-			IPath[] paths = BuildPathDialogAccess.chooseVariableEntries(propPage.getShell(), existingPath);
+			IPath[] selected = BuildPathDialogAccess.chooseVariableEntries(propPage.getShell(), existingPath);
 
-			if (paths != null) {
-				for (int i = 0; i < paths.length; i++) {
-					IPath resolvedPath = JavaCore.getResolvedVariablePath(paths[i]);
-
+			if (selected != null) {
+				String type = VirtualArchiveComponent.VARARCHIVETYPE + IPath.SEPARATOR;
+				for (int i = 0; i < selected.length; i++) {
+					IPath resolvedPath = JavaCore.getResolvedVariablePath(selected[i]);
 					java.io.File file = new java.io.File(resolvedPath.toOSString());
 					if (file.isFile() && file.exists()) {
-						String type = VirtualArchiveComponent.VARARCHIVETYPE + IPath.SEPARATOR;
-
-						IVirtualComponent archive = ComponentCore.createArchiveComponent(model.getComponent().getProject(), type + paths[i].toString());
-
-						ArrayList vlist = new ArrayList();
-						IVirtualReference[] oldrefs = model.getComponent().getReferences();
-						for (int j = 0; j < oldrefs.length; j++) {
-							IVirtualReference ref = oldrefs[j];
-							vlist.add(ref);
-						}
-
-						// To do: check if archive component already exists
-						IVirtualReference ref = ComponentCore.createReference(model.getComponent(), archive, new Path("/WEB-INF/lib")); //$NON-NLS-1$
-						vlist.add(ref);
-
-						IVirtualReference[] refs = new IVirtualReference[vlist.size()];
-						for (int j = 0; j < vlist.size(); j++) {
-							IVirtualReference tmpref = (IVirtualReference) vlist.get(j);
-							refs[j] = tmpref;
-						}
-						model.getComponent().setReferences(refs);
-
-						ClasspathElement element = createClassPathElement(archive, archive.getName());
-						model.getClassPathSelectionForWLPs().getClasspathElements().add(element);
-
+						createRef(type + selected[i].toString());
 					} else {
 						// display error
 					}
-
 				}
 				refresh();
 			}
@@ -308,31 +262,10 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 		if (J2EEProjectUtilities.isDynamicWebProject(project)) {
 			IPath[] selected = BuildPathDialogAccess.chooseJAREntries(propPage.getShell(), project.getLocation(), new IPath[0]);
 			if (selected != null) {
+				String type = VirtualArchiveComponent.LIBARCHIVETYPE + IPath.SEPARATOR;
 				for (int i = 0; i < selected.length; i++) {
-					String type = VirtualArchiveComponent.LIBARCHIVETYPE + IPath.SEPARATOR;
-					IVirtualComponent archive = ComponentCore.createArchiveComponent(model.getComponent().getProject(), type + selected[i].makeRelative().toString());
-
-					ArrayList vlist = new ArrayList();
-					IVirtualReference[] oldrefs = model.getComponent().getReferences();
-					for (int j = 0; j < oldrefs.length; j++) {
-						IVirtualReference ref = oldrefs[j];
-						vlist.add(ref);
-					}
-
-					// To do: check if archive component already exists
-					IVirtualReference ref = ComponentCore.createReference(model.getComponent(), archive, new Path("/WEB-INF/lib")); //$NON-NLS-1$
-					vlist.add(ref);
-
-					IVirtualReference[] refs = new IVirtualReference[vlist.size()];
-					for (int j = 0; j < vlist.size(); j++) {
-						IVirtualReference tmpref = (IVirtualReference) vlist.get(j);
-						refs[j] = tmpref;
-					}
-					model.getComponent().setReferences(refs);
-					ClasspathElement element = createClassPathElement(archive, archive.getName());
-					model.getClassPathSelectionForWLPs().getClasspathElements().add(element);
+					createRef(type + selected[i].makeRelative().toString());
 				}
-
 				refresh();
 			}
 		}

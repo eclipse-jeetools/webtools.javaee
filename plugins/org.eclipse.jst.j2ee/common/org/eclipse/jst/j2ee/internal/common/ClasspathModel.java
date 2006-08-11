@@ -692,7 +692,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 							if (containerEntries != null) {
 								String lastSegment = archiveURI.lastSegment();
 								for (int j = 0; !inContainer && j < containerEntries.length; j++) {
-									if (containerEntries[i].getPath().lastSegment().equals(lastSegment)) {
+									if (containerEntries[j].getPath().lastSegment().equals(lastSegment)) {
 										inContainer = true;
 									}
 								}
