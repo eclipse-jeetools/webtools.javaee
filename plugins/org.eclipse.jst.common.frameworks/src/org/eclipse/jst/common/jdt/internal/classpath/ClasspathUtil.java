@@ -87,7 +87,9 @@ public final class ClasspathUtil
                             Logger.getLogger().logError( e );
                             continue;
                         }
-                        if (container!=null) {
+                        
+                        if( container != null ) 
+                        {
 	                        final IClasspathEntry[] containerEntries
 	                            = container.getClasspathEntries();
 	
