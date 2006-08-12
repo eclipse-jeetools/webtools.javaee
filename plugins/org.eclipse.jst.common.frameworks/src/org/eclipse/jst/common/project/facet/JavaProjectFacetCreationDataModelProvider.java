@@ -10,14 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.common.project.facet;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
-import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 public class JavaProjectFacetCreationDataModelProvider extends FacetProjectCreationDataModelProvider {
 
@@ -28,12 +23,8 @@ public class JavaProjectFacetCreationDataModelProvider extends FacetProjectCreat
 	public void init() {
 		super.init();
 		FacetDataModelMap map = (FacetDataModelMap) getProperty(FACET_DM_MAP);
-		IDataModel javaFacet = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
-		map.add(javaFacet);
-		
-		Collection requiredFacets = new ArrayList();
-		requiredFacets.add(ProjectFacetsManager.getProjectFacet(javaFacet.getStringProperty(IFacetDataModelProperties.FACET_ID)));
-		setProperty(REQUIRED_FACETS_COLLECTION, requiredFacets);
+		IDataModel simpleWebFacet = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
+		map.add(simpleWebFacet);
 	}
 
 }
