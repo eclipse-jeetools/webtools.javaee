@@ -128,5 +128,13 @@ public class AddEjbWizard extends NewEjbWizard {
 		return false;
 	}
 
-		
+	public void dispose() {
+		super.dispose();
+		if (sessionEjbWizard != null)
+			sessionEjbWizard.dispose();
+		if (messageDrivenEjbWizard != null)
+			messageDrivenEjbWizard.dispose();
+		if (containerManagedEntityEjbWizard != null)
+			containerManagedEntityEjbWizard.dispose();
+	}
 }
