@@ -617,8 +617,15 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		while (iter.hasNext()) {
 			WSCDDArtifactEdit artifactEdit = (WSCDDArtifactEdit) iter.next();
 			WebServicesResource res = artifactEdit.getWscddXmiResource();
-			if (res != null && res.isLoaded() && res.getWebServicesClient() != null)
-				result.addAll(res.getWebServicesClient().getServiceRefs());
+			if (res != null && res.isLoaded() && res.getWebServicesClient() != null) {
+				if (J2EEProjectUtilities.isEJBProject(artifactEdit.getProject())) {
+					List scopedBeans = res.getWebServicesClient().getComponentScopedRefs();
+					for (Iterator iterator = scopedBeans.iterator(); iterator.hasNext();) {
+						ComponentScopedRefs refBean = (ComponentScopedRefs) iterator.next();
+						result.addAll(refBean.getServiceRefs());
+					}
+				} else	result.addAll(res.getWebServicesClient().getServiceRefs());
+			}
 		}
 		return result;
 	}
@@ -643,7 +650,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			try {
 				EObject rootObject = null;
 				if (artifactEdit!=null)
-					artifactEdit.getContentModelRoot();
+					rootObject = artifactEdit.getContentModelRoot();
 				// handle EJB project case
 				if (rootObject instanceof EJBJar) {
 					List cmps = ((EJBJar) rootObject).getEnterpriseBeans();
