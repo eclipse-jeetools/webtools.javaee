@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: NaiveExpressionFlattener.java,v $
- *  $Revision: 1.10 $  $Date: 2005/10/28 22:56:46 $ 
+ *  $Revision: 1.11 $  $Date: 2006/08/16 18:32:28 $ 
  */
 package org.eclipse.jem.internal.instantiation.impl;
 
@@ -80,33 +80,33 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTArrayCreation)
 	 */
 	public boolean visit(PTArrayCreation node) {
-		String type = handleQualifiedName(node.getType());
-		buffer.append("new "); //$NON-NLS-1$
-		int ob = type.indexOf('[');
-		buffer.append(type.substring(0, ob));
-		int realdims = 0;
-		while (ob != -1) {
-			realdims++;
-			ob = type.indexOf('[',ob+1);
-		}
-		List dims = node.getDimensions();
-		for (int i = 0; i < dims.size(); i++) {
-			buffer.append('[');
-			((PTExpression) dims.get(i)).accept(this);
-			buffer.append(']');
-		}
-		for (int i=dims.size(); i < realdims; i++) {
-			buffer.append("[]"); //$NON-NLS-1$
-		}
-		
-		if (node.getInitializer() != null) {
-			buffer.append(' ');
-			((PTExpression) node.getInitializer()).accept(this);
-		}
-		
-		return false;
-	}
+        String arrayType = node.getType();
+        int ob = arrayType.indexOf('[');
+        String type = handleQualifiedName(arrayType.substring(0, ob));
+        buffer.append("new "); //$NON-NLS-1$
+        buffer.append(type);
+        int realdims = 0;
+        while (ob != -1) {
+                realdims++;
+                ob = arrayType.indexOf('[',ob+1);
+        }
+        List dims = node.getDimensions();
+        for (int i = 0; i < dims.size(); i++) {
+                buffer.append('[');
+                ((PTExpression) dims.get(i)).accept(this);
+                buffer.append(']');
+        }
+        for (int i=dims.size(); i < realdims; i++) {
+                buffer.append("[]"); //$NON-NLS-1$
+        }
 
+        if (node.getInitializer() != null) {
+                buffer.append(' ');
+                ((PTExpression) node.getInitializer()).accept(this);
+        }
+
+        return false;
+	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTArrayInitializer)
 	 */
