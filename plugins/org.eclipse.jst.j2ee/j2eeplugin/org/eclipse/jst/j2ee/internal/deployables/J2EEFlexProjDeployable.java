@@ -157,8 +157,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				IModuleResource[] mr = getMembers(vFolder, Path.EMPTY);
 				int size = mr.length;
 				for (int j = 0; j < size; j++) {
-					if (!members.contains(mr[j]))
-						members.add(mr[j]);
+					members.add(mr[j]);
 				}
 			}
 			
@@ -168,8 +167,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				IModuleResource[] mr = getMembers(javaCont[i], javaPath, javaPath, javaCont);
 				int size2 = mr.length;
 				for (int j = 0; j < size2; j++) {
-					if (!members.contains(mr[j]))
-						members.add(mr[j]);
+					members.add(mr[j]);
 				}
 			}
 			
