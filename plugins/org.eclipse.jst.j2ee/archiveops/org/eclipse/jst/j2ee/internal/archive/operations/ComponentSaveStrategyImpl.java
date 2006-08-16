@@ -27,7 +27,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
@@ -110,13 +109,14 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 		try {
 			String displayString = EJBArchiveOpsResourceHandler.IMPORT_OPERATION_STRING;
 			progressMonitor.subTask(displayString + aFile.getURI());
-			IPath outputPath = getOutputPathForFile(aFile);
+			
+			IPath projectRelativePath = getOutputPathForFile(aFile);
 			if (aFile.isArchive()) {
-				saveAsArchiveComponent((Archive) aFile, outputPath, in);
+				saveAsArchiveComponent((Archive) aFile, projectRelativePath, in);
 			} else if (!aFile.isDirectoryEntry()) {
-				saveToOutputPath(outputPath, in);
+				saveToOutputPath(projectRelativePath, in);
 			} else {
-				createDirectory(outputPath);
+				createDirectory(projectRelativePath);
 			}
 		} catch (OverwriteHandlerException ohe) {
 			throw ohe;
@@ -126,25 +126,49 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 		}
 	}
 
+	//TODO this should be renamed to getProjectRelativePath
+	/**
+	 * Returns the project relative path for where the specified file should be
+	 * saved.
+	 * 
+	 * @param aFile
+	 * @return
+	 */
 	protected IPath getOutputPathForFile(File aFile) {
-		return new Path(aFile.getURI().toString());
+		IVirtualFolder rootFolder = vComponent.getRootFolder();
+		IVirtualFile vFile = rootFolder.getFile(aFile.getURI());
+		IFile iFile = vFile.getUnderlyingFile();
+		return iFile.getProjectRelativePath();
 	}
 
+	//TODO This isn't referenced in WTP it should be deleted.
+	/**
+	 * @deprecated
+	 */
 	protected void saveToWorkbenchPath(IPath workbenchPath, InputStream in) throws Exception {
 		IFile iFile = ResourcesPlugin.getWorkspace().getRoot().getFile(workbenchPath);
-		// IFile iFile = vComponent.getProject().getFile(workbenchPath);
 		saveToIFile(iFile, in);
 	}
 
-	protected void createDirectory(IPath outputPath) throws CoreException {
-		IVirtualFolder rootFolder = vComponent.getRootFolder();
-		IVirtualFolder vFolder = rootFolder.getFolder(outputPath);
-		IFolder iFolder = (IFolder) vFolder.getUnderlyingFolder();
+	/**
+	 * Creates the IFolder specified by the project relative path.
+	 * 
+	 * @param projectRelativePath
+	 * @throws CoreException
+	 */
+	protected void createDirectory(IPath projectRelativePath) throws CoreException {
+		IFolder iFolder = vComponent.getProject().getFolder(projectRelativePath);
 		if (!iFolder.exists()) {
 			mkdirs(iFolder);
 		}
 	}
 
+	/**
+	 * Creates the specified IFolder
+	 * 
+	 * @param folder
+	 * @throws CoreException
+	 */
 	protected void mkdirs(IFolder folder) throws CoreException {
 		IContainer container = folder.getParent();
 		if (!container.exists()) {
@@ -153,14 +177,23 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 		folder.create(true, true, null);
 	}
 
-	protected void saveAsArchiveComponent(Archive archive, IPath outputPath, InputStream in) throws Exception {
-		IFile iFile = saveToOutputPathIFile(outputPath, in);
+	/**
+	 * Save the specified Archive to the specified project relative path
+	 * using the passed input stream.
+	 * 
+	 * @param archive
+	 * @param projectRelativePath
+	 * @param in
+	 * @throws Exception
+	 */
+	protected void saveAsArchiveComponent(Archive archive, IPath projectRelativePath, InputStream in) throws Exception {
+		IFile iFile = saveToOutputPathIFile(projectRelativePath, in);
 		if (shouldLinkAsComponentRef(archive)) {
 			IVirtualComponent archiveComponent = ComponentCore.createArchiveComponent(vComponent.getProject(), VirtualArchiveComponent.LIBARCHIVETYPE + iFile.getFullPath().toString());
 			if (archiveComponents == null) {
 				archiveComponents = new ArrayList();
 				archiveComponentURIMap = new HashMap();
-				archiveComponentsDeployPath = IPath.SEPARATOR + outputPath.removeLastSegments(1).toString();
+				archiveComponentsDeployPath = IPath.SEPARATOR + projectRelativePath.removeLastSegments(1).toString();
 			}
 			archiveComponents.add(archiveComponent);
 			archiveComponentURIMap.put(archiveComponent, iFile.getName());
@@ -188,25 +221,23 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 	}
 
 	/**
-	 * Saves to the specified output path. The workbench path is computed from the output path.
-	 * Warning this method will be changed post 1.5 to return an IFile
+	 * Saves to the specified project relative output path. Warning this method
+	 * will be changed post 1.5 to return an IFile
 	 * 
-	 * @param outputPath
+	 * @param projectRelativePath
 	 * @param in
 	 * @throws Exception
 	 */
-	protected void saveToOutputPath(IPath outputPath, InputStream in) throws Exception {
-		saveToOutputPathIFile(outputPath, in);
+	protected void saveToOutputPath(IPath projectRelativePath, InputStream in) throws Exception {
+		saveToOutputPathIFile(projectRelativePath, in);
 	}
 
 	/**
 	 * TODO refactor change the method above to return IFile
 	 * {@link DoNotUseMeThisWillBeDeletedPost15}
 	 */
-	protected IFile saveToOutputPathIFile(IPath outputPath, InputStream in) throws Exception {
-		IVirtualFolder rootFolder = vComponent.getRootFolder();
-		IVirtualFile vFile = rootFolder.getFile(outputPath);
-		IFile iFile = vFile.getUnderlyingFile();
+	protected IFile saveToOutputPathIFile(IPath projectRelativePath, InputStream in) throws Exception {
+		IFile iFile = vComponent.getProject().getFile(projectRelativePath);
 		saveToIFile(iFile, in);
 		return iFile;
 	}

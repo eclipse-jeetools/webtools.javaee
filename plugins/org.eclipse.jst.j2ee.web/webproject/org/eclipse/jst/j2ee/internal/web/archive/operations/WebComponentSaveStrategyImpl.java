@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
@@ -24,6 +25,8 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEComponentSaveStrategyImpl;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 
 public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl {
 
@@ -65,7 +68,10 @@ public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 
 	protected IPath getOutputPathForFile(File aFile) {
 		if (null != nonStandardSourceFiles && nonStandardSourceFiles.containsKey(aFile)) {
-			return new Path((String) nonStandardSourceFiles.get(aFile));
+			IVirtualFolder rootFolder = vComponent.getRootFolder();
+			IVirtualFile vFile = rootFolder.getFile((String) nonStandardSourceFiles.get(aFile));
+			IFile iFile = vFile.getUnderlyingFile();
+			return iFile.getProjectRelativePath();
 		}
 		return super.getOutputPathForFile(aFile);
 	}
@@ -102,7 +108,7 @@ public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 		if (nonStandardSourceFiles == null) {
 			nonStandardSourceFiles = new HashMap();
 		}
-		if (!nonStandardSourceFiles.containsKey(nonStandardSourceFiles)) {
+		if (!nonStandardSourceFiles.containsKey(sourceFile)) {
 			nonStandardSourceFiles.put(sourceFile, javaUri);
 		}
 		return false;
