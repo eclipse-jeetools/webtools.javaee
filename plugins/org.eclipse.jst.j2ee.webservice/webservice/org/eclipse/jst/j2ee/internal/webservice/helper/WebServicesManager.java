@@ -43,15 +43,19 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
+import org.eclipse.jst.j2ee.client.ApplicationClientResource;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
+import org.eclipse.jst.j2ee.ejb.EJBResource;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.webservice.componentcore.util.WSCDDArtifactEdit;
 import org.eclipse.jst.j2ee.internal.webservice.componentcore.util.WSDDArtifactEdit;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.jst.j2ee.webservice.wsclient.ComponentScopedRefs;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient;
@@ -229,9 +233,8 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			List resources = anEvent.getChangedResources();
 			for (int i=0; i<resources.size(); i++) {
 				Resource res = (Resource) resources.get(i);
-				if (res instanceof WsddResource || res instanceof WebServicesResource) {
+				if (isInterestedInResource(res))
 					notifyListeners(anEvent.getEventCode());
-				}
 			}
 		}
 		else if (anEvent.getEventCode() == EditModelEvent.PRE_DISPOSE) {
@@ -864,6 +867,22 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			return extension.equals(WSDL_EXT) || extension.equals(WSIL_EXT);
 		}
 		return false;
+	}
+	
+	/**
+	 * The only resources webservice manager is concerned about are:
+	 * webservice.xml, webserviceclient.xml, and J2EE 1.4 web.xml, ejb-jar-xml, and application-client.xml
+	 * @param res
+	 * @return boolean isInterested
+	 */
+	private boolean isInterestedInResource(Resource res) {
+		if (res instanceof WsddResource || res instanceof WebServicesResource) {
+			return true;
+		} else if (res instanceof EJBResource || res instanceof WebAppResource || res instanceof ApplicationClientResource) {
+			return ((XMLResource)res).getJ2EEVersionID()>J2EEVersionConstants.J2EE_1_3_ID;
+		} else {
+			return false;
+		}
 	}
 
 	/**

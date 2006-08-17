@@ -20,6 +20,8 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager;
+import org.eclipse.jst.j2ee.webservice.wsclient.ComponentScopedRefs;
+import org.eclipse.jst.j2ee.webservice.wsclient.Handler;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServices;
@@ -83,23 +85,50 @@ public class WebServicesNavigatorSynchronizer extends AdapterFactoryContentProvi
 	}
 
 	public void notifyChanged(final Notification notification) {
-		EObject notifier = (EObject) notification.getNotifier();
-
-		if (notifier instanceof WebServices)
-			return;
-
-		if (notifier instanceof ServiceRef) {
-			contentProvider.getViewer().refresh(notifier);
+		if (notification.isTouch()) {
+			//There is nothing that is required since nothing changed.
 			return;
 		}
 		
-		while (!(notifier instanceof WebServiceDescription) && notifier != null)
-			notifier = notifier.eContainer();
-
-		if (notifier instanceof WebServiceDescription && notifier !=null) {
-			EObject wsdl = WebServicesManager.getInstance().getWSDLServiceForWebService((WebServiceDescription) notifier);
-			contentProvider.getViewer().refresh(wsdl);
+		EObject notifier = (EObject) notification.getNotifier();
+		if (notifier instanceof WebServices) {
+			//Do nothing.
+		} else if (isServiceRefModification(notification)) {
+			// Handle service ref edits
+			contentProvider.getViewer().refresh(notifier);
+		} else if (isServiceRefAddOrRemove(notification)) {
+			//Handle service ref adds or removes
+			contentProvider.getViewer().refresh();
+		} else {
+			// Handle web service changes by getting the WSDD parent
+			while (!(notifier instanceof WebServiceDescription) && notifier != null) {
+				notifier = notifier.eContainer();
+			}
+			// Refresh the associated wsdl service for the WSDD parent
+			if (notifier instanceof WebServiceDescription && notifier !=null) {
+				EObject wsdl = WebServicesManager.getInstance().getWSDLServiceForWebService((WebServiceDescription)notifier);
+				contentProvider.getViewer().refresh(wsdl);
+			}
+			super.notifyChanged(notification);
 		}
-		super.notifyChanged(notification);
+	}
+	
+	private boolean isServiceRefAddOrRemove(Notification notification) {
+		//Note this check is not handling ADD_MANY or REMOVE_MANY.
+		Object value = null;
+		switch (notification.getEventType()) {
+			case Notification.ADD:
+				value = notification.getNewValue();
+				break;
+			case Notification.REMOVE:
+				value = notification.getOldValue();
+				break;
+		}
+		return value != null && (value instanceof ServiceRef || value instanceof ComponentScopedRefs);
+	}
+	
+	private boolean isServiceRefModification(Notification notification) {
+		Object notifier = notification.getNotifier();
+		return notifier instanceof ServiceRef || notifier instanceof Handler;
 	}
 }
