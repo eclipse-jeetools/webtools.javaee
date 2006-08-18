@@ -384,7 +384,8 @@ public abstract class FlexibleProjectContainer
             final String fname = f.getName();
 
             if( fname.equals( ".component" ) || //$NON-NLS-1$
-                fname.equals( "org.eclipse.wst.common.component" ) ) //$NON-NLS-1$
+                fname.equals( "org.eclipse.wst.common.component" ) || //$NON-NLS-1$
+                fname.equals( ".classpath")) //$NON-NLS-1$
             {
                 return true;
             }

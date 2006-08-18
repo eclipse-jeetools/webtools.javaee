@@ -30,6 +30,9 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
@@ -49,6 +52,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -656,11 +660,28 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 						}
 					}
 				}
+				if( !existingEntry ){
+					IJavaProject javaProject = JavaCore.create( component.getProject() );
+					if( javaProject!= null ){
+						IClasspathEntry[] entry = javaProject.getRawClasspath();
+						for (int j = 0; j < entry.length; j++) {
+							IClasspathEntry eachEntry = entry[j];
+							if (eachEntry.getEntryKind() == IClasspathEntry.CPE_PROJECT && 
+									eachEntry.getPath().toString().equals("/" + utilProject.getName())) { //$NON-NLS-1$
+								IVirtualReference ref = component.getReference(utilProject.getName());
+								if( ref != null && ref.getRuntimePath().equals( libPath )){
+									existingEntry = true;
+								}						
+								break;
+							}
+						}
+					}
+				}
 				classPathWLPSelection.createProjectElement(utilProject, existingEntry);
 				classPathWLPSelection.setFilterLevel(ClassPathSelection.FILTER_NONE);
 			}
 
-			if (component != null && J2EEProjectUtilities.isDynamicWebProject(component.getProject())) {
+			if (component != null && J2EEProjectUtilities.isDynamicWebProject( component.getProject() )) {
 				IVirtualReference[] newrefs = component.getReferences();
 				for (int i = 0; i < newrefs.length; i++) {
 					IVirtualReference ref = newrefs[i];
@@ -675,6 +696,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 						} catch (UnresolveableURIException e) {
 							e.printStackTrace();
 						}
+						
 						URI archiveURI = URI.createURI(unresolvedURI);
 
 						boolean alreadyInList = false;
@@ -697,7 +719,22 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 									}
 								}
 							}
-
+							
+							if( !inContainer ){
+								IJavaProject javaProject = JavaCore.create( component.getProject() );
+									if( javaProject != null ){
+									VirtualArchiveComponent vComp = (VirtualArchiveComponent) referencedComponent;
+					                java.io.File diskFile = vComp.getUnderlyingDiskFile();
+					                IPath path = null;
+					                if ( diskFile.exists() ) {
+					                	path = new Path( diskFile.getAbsolutePath() );
+					                } else {
+					                    IFile iFile = vComp.getUnderlyingWorkbenchFile();
+					                    path = iFile.getFullPath();
+					                }								
+									inContainer =  inClassPath(javaProject, path );
+								}
+							}
 							if (inContainer) {
 								element = classPathWLPSelection.createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)), referencedComponent.getName(), archiveURI.lastSegment());
 								classPathWLPSelection.addClasspathElement(element, unresolvedURI);
@@ -723,4 +760,24 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		this.isWLPModel = isWLPModel;
 	}
 
+	private boolean inClassPath(IJavaProject javaProject, IPath path ){
+		boolean existingEntry = false;
+		IClasspathEntry[] entry = null;
+		try {
+			entry = javaProject.getRawClasspath();
+		} catch (JavaModelException e) {
+			Logger.getLogger().logError(e);
+		}
+		for (int j = 0; j < entry.length; j++) {
+			IClasspathEntry eachEntry = entry[j];
+			if (eachEntry.getEntryKind() == IClasspathEntry.CPE_LIBRARY || eachEntry.getEntryKind() == IClasspathEntry.CPE_VARIABLE ) {
+				IClasspathEntry classPathEntry = JavaCore.getResolvedClasspathEntry( eachEntry );
+				if( classPathEntry != null && classPathEntry.getPath().equals(path) ){
+					existingEntry = true;
+					break;
+				}
+			}
+		}
+		return existingEntry;
+	}
 }
