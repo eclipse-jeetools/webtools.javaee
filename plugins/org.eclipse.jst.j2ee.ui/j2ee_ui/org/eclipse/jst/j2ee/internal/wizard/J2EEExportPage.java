@@ -38,6 +38,7 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
@@ -74,9 +75,19 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 		Object element = currentResourceSelection.getFirstElement();
 		IProject project = ProjectUtilities.getProject(element);
 		if (project != null) {
-			model.setProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME, project.getName());
+			String projectName = project.getName();
+			DataModelPropertyDescriptor [] validProjectNames = model.getValidPropertyDescriptors(IJ2EEComponentExportDataModelProperties.PROJECT_NAME);
+			boolean projectNameSet = false;
+			for(int i=0;i<validProjectNames.length && !projectNameSet; i++){
+				if(projectName.equals(validProjectNames[i].getPropertyDescription())){
+					projectNameSet = true;
+					model.setProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME, projectName);
+				}
+			}
+			if(!projectNameSet && validProjectNames.length > 0){
+				model.setProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME, validProjectNames[0].getPropertyDescription());
+			}
 		}
-
 	}
 
 	/*
