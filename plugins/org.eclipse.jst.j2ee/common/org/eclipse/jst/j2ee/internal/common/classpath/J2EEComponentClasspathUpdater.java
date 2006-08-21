@@ -34,14 +34,19 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainer;
+import org.eclipse.jst.j2ee.application.internal.operations.IModuleExtensions;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.internal.impl.WTPModulesResourceFactory;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -327,16 +332,6 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		}
 	}
 
-	private static final String DOT_SETTINGS = ".settings";
-
-	private static final String COMPONENT = "org.eclipse.wst.common.component";
-
-	private static final String META_INF = "META-INF";
-
-	private static final String MANIFEST = "MANIFEST.MF";
-
-	private static final String DOT_JAR = ".jar";
-
 	/*
 	 * Needs to notice changes to MANIFEST.MF in any J2EE projects, changes to
 	 * .component in any J2EE Projects, and any archive changes in EAR projects
@@ -349,7 +344,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		case IResource.PROJECT:
 			return ModuleCoreNature.isFlexibleProject((IProject) resource);
 		case IResource.FOLDER: {
-			if (resource.getName().equals(DOT_SETTINGS)) {
+			if (resource.getName().equals(IJ2EEModuleConstants.DOT_SETTINGS)) {
 				return true;
 			}
 			IVirtualComponent comp = ComponentCore.createComponent(resource.getProject());
@@ -359,21 +354,21 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				if (comp instanceof EARVirtualComponent) {
 					return isRootAncester(resource, rootFolder);
 				} else { // J2EEModuleVirtualComponent
-					return isRootAncester(resource, rootFolder) || isFolder(resource, rootFolder.getFolder(META_INF));
+					return isRootAncester(resource, rootFolder) || isFolder(resource, rootFolder.getFolder(J2EEConstants.META_INF));
 				}
 			}
 			return false;
 		}
 		case IResource.FILE: {
 			String name = resource.getName();
-			if (name.equals(COMPONENT)) {
+			if (name.equals(WTPModulesResourceFactory.WTP_MODULES_SHORT_NAME) || name.equals(ProjectUtilities.DOT_CLASSPATH)) {
 				queueUpdate(resource.getProject());
-			} else if (name.equals(MANIFEST)) { // MANIFEST.MF must be all caps per spec
+			} else if (name.equals(J2EEConstants.MANIFEST_SHORT_NAME)) { // MANIFEST.MF must be all caps per spec
 				IFile manifestFile = J2EEProjectUtilities.getManifestFile(resource.getProject(), false);
 				if (null == manifestFile || resource.equals(manifestFile)) {
 					queueUpdateModule(resource.getProject());
 				}
-			} else if (endsWithIgnoreCase(name, DOT_JAR)) {
+			} else if (endsWithIgnoreCase(name, IModuleExtensions.DOT_JAR)) {
 				try {
 					if (FacetedProjectFramework.hasProjectFacet(resource.getProject(), J2EEProjectUtilities.ENTERPRISE_APPLICATION)) {
 						IVirtualComponent comp = ComponentCore.createComponent(resource.getProject());

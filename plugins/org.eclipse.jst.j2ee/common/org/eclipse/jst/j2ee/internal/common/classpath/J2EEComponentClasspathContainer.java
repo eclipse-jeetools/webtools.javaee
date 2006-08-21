@@ -33,6 +33,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.ClasspathEntry;
 import org.eclipse.jdt.internal.core.JavaProject;
 import org.eclipse.jdt.internal.core.util.Util;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.jdt.internal.classpath.ClasspathDecorations;
 import org.eclipse.jst.common.jdt.internal.classpath.ClasspathDecorationsManager;
@@ -71,6 +72,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	private static Map previousSelves = new Hashtable();
 	
 	private class LastUpdate {
+		private long dotClasspathTimeStamp = -1;
 		private int refCount = 0;
 		private boolean[] isBinary = new boolean[refCount];
 		private IPath[] paths = new IPath[refCount];
@@ -88,6 +90,13 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		if (component == null) {
 			return false;
 		}
+		
+		IFile dotClasspath = javaProject.getProject().getFile(ProjectUtilities.DOT_CLASSPATH);
+		long dotClasspathTimeStamp = dotClasspath.exists() ? dotClasspath.getLocalTimeStamp() : 0;
+		if(dotClasspathTimeStamp != lastUpdate.dotClasspathTimeStamp){
+			return true;
+		}
+		
 		IVirtualReference[] refs = component.getReferences();
 		IVirtualComponent comp = null;
 
@@ -128,6 +137,9 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		if (component == null) {
 			return;
 		}
+		
+		IFile dotClasspath = javaProject.getProject().getFile(ProjectUtilities.DOT_CLASSPATH);
+		lastUpdate.dotClasspathTimeStamp = dotClasspath.exists() ? dotClasspath.getLocalTimeStamp() : 0;
 		
 		IVirtualComponent comp = null;
 		IVirtualReference ref = null;
