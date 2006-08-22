@@ -211,6 +211,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//CompatibilityDescriptionGroup/description"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//CompatibilityDescriptionGroup/displayName"/>
     </genClasses>
+    <genClasses ecoreClass="common.ecore#//J2EEEObject"/>
+    <genClasses ecoreClass="common.ecore#//J2EEEAttribute"/>
   </genPackages>
   <genPackages prefix="Ejb" basePackage="org.eclipse.jst.j2ee" disposableProviderFactory="true"
       classPackageSuffix="internal.impl" utilityPackageSuffix="internal.util" ecorePackage="ejb.ecore#/">
@@ -404,8 +406,8 @@
     </genClasses>
   </genPackages>
   <genPackages prefix="Taglib" basePackage="org.eclipse.jst.j2ee" disposableProviderFactory="true"
-      interfacePackageSuffix="internal" classPackageSuffix="internal.impl" utilityPackageSuffix="internal.util"
-      ecorePackage="taglib.ecore#/">
+      interfacePackageSuffix="internal" metaDataPackageSuffix="internal" classPackageSuffix="internal.impl"
+      utilityPackageSuffix="internal.util" ecorePackage="taglib.ecore#/">
     <genEnums ecoreEnum="taglib.ecore#//BodyContentType">
       <genEnumLiterals ecoreEnumLiteral="taglib.ecore#//BodyContentType/tagdependent"/>
       <genEnumLiterals ecoreEnumLiteral="taglib.ecore#//BodyContentType/JSP"/>
