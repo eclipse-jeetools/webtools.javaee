@@ -6,9 +6,9 @@ Bundle-Version: 1.1.0.qualifier
 Bundle-Activator: org.eclipse.jst.j2ee.xdoclet.runtime.internal.XDocletRuntimePlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
-Require-Bundle:  org.eclipse.core.runtime;bundle-version="[3.2.0,3.3.0)",
+Require-Bundle:  org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.jst.j2ee.ejb.annotations.xdoclet;bundle-version="[1.1.0,1.2.0)",
- org.eclipse.core.resources;bundle-version="[3.2.0,3.3.0)",
+ org.eclipse.core.resources;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.jst.j2ee.ejb.annotation.model;bundle-version="[1.1.0,1.2.0)"
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.jst.j2ee.xdoclet.runtime.internal;x-internal:=true,
