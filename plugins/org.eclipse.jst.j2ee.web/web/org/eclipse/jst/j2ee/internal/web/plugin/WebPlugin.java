@@ -130,15 +130,11 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 		return J2EEPlugin.getImageURL(key, getBundle());
 	}
 
+	// ISSUE: this method is never used in WTP. Seems no need to be API
 	public static IPath getInstallLocation() {
 		if (location == null) {
-			URL url = getInstallURL();
-			try {
-				String installLocation = ((PlatformURLConnection) url.openConnection()).getURLAsLocal().getFile();
-				location = new Path(installLocation);
-			} catch (IOException e) {
-				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logWarning(J2EEPluginResourceHandler.getString("Install_Location_Error_", new Object[]{url}) + e); //$NON-NLS-1$
-			}
+			String installLocation = getDefault().getBundle().getLocation();
+			location = new Path(installLocation);
 		}
 		return location;
 	}
