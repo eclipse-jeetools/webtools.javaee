@@ -14,7 +14,6 @@ package org.eclipse.jst.ejb.ui.internal.actions;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.internal.core.JavaProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jface.action.IAction;
