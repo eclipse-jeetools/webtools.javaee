@@ -13,6 +13,7 @@ package org.eclipse.jst.ejb.ui.internal.actions;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.internal.core.JavaProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
@@ -106,8 +107,8 @@ public class EJBClientCreationAction extends AbstractClientJARAction {
             return ProjectUtilities.getProject(selProject);
         } else if (selection.getFirstElement() instanceof IProject) {
             return (IProject) selection.getFirstElement();
-        } else if (selection.getFirstElement() instanceof JavaProject) {
-            return ((JavaProject) selection.getFirstElement()).getProject();
+        } else if (selection.getFirstElement() instanceof IJavaProject) {
+            return ((IJavaProject) selection.getFirstElement()).getProject();
         } else if(selection.getFirstElement() instanceof GroupedEJBItemProvider) {
         	if(((GroupedEJBItemProvider)selection.getFirstElement()).getParent() instanceof EJBJar) {
         		EJBJar jar = (EJBJar) ((GroupedEJBItemProvider)selection.getFirstElement()).getParent();
