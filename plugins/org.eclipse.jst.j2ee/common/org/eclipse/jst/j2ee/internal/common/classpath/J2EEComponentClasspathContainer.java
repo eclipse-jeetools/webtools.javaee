@@ -131,6 +131,9 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	}
 	
 	private void update() {
+		if(!javaProject.isOpen()){
+			return;
+		}
 		IVirtualComponent component = ComponentCore.createComponent(javaProject.getProject());
 		Object key = keys.get(new Integer(javaProject.getProject().hashCode()));
 		J2EEComponentClasspathContainer firstPreviousSelf = (J2EEComponentClasspathContainer)previousSelves.get(key);
@@ -146,16 +149,20 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		
 		IVirtualReference[] refs = component.getReferences();
 		List refsList = new ArrayList();
+		Set refedComps = new HashSet();
+		refedComps.add(component);
 		for(int i = 0; i<refs.length;i++){
 			refsList.add(refs[i]);
+			refedComps.add(refs[i].getReferencedComponent());
 		}
 		for(int i=0; i< refsList.size(); i++){
 			comp = ((IVirtualReference)refsList.get(i)).getReferencedComponent();
 			if(comp.isBinary()){
 				IVirtualReference [] binaryRefs = comp.getReferences();
 				for(int j = 0; j<binaryRefs.length; j++){
-					if(!refsList.contains(binaryRefs[j])){
+					if(!refedComps.contains(binaryRefs[j].getReferencedComponent())){
 						refsList.add(binaryRefs[j]);
+						refedComps.add(binaryRefs[j].getReferencedComponent());
 					}
 				}
 			}
