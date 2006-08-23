@@ -27,15 +27,45 @@ public class J2EEViewerSorter extends ViewerSorter {
 		super();
 	}
 
-
+	private static final String WST = "org.eclipse.wst"; //$NON-NLS-1$
+	private static final String JST = "org.eclipse.jst"; //$NON-NLS-1$
 
 	/**
 	 * @see ViewerSorter#compare(Viewer, Object, Object)
 	 */
 	public int compare(Viewer viewer, Object e1, Object e2) {
-		//if (shouldSort(e1, e2))
+		// Check to see if each object is a base WST or JST core contribution
+		boolean e1_isCore = isCore(e1);
+		boolean e2_isCore = isCore(e2);
+		// If both elements are from the same category, do default comparison
+		if (e1_isCore == e2_isCore)
 			return super.compare(viewer, e1, e2);
-		//return 0;
+		// If e1 is core, but not e2, e1 is less than e2
+		else if (e1_isCore)
+			return -1;
+		// If e1 is not core, but e2 is, e1 is greater than e2
+		else
+			return 1;
+	}
+	
+	/**
+	 * Any contribution from the base JST or WST packages is considered core, everything else is
+	 * an extension
+	 * @param element
+	 * @return boolean is Contribution Core?
+	 */
+	private boolean isCore(Object element) {
+		if (element != null) {
+			Class clazz = element.getClass();
+			if (clazz != null) {
+				Package pack = clazz.getPackage();
+				if (pack != null) {
+					String packageName = pack.getName();
+					return packageName!=null && (packageName.startsWith(WST) || packageName.startsWith(JST));
+				}
+			}
+		}
+		return false;
 	}
 
 	protected boolean isEnterpriseBean(Object o) {
