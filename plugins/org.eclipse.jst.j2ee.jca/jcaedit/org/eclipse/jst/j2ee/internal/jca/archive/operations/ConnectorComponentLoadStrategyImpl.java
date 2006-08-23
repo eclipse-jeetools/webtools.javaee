@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.internal.jca.archive.operations;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -62,30 +61,24 @@ public class ConnectorComponentLoadStrategyImpl extends ComponentLoadStrategyImp
 	}
 
 	public List getFiles() {
-		Collection nestedJars = getNestedJARsFromSourceRoots();
-		Iterator interator = nestedJars.iterator();
-		while (interator.hasNext()) {
-			filesHolder.addFile((File) interator.next());
-		}
+		addNestedJARsFromSourceRoots();
 		aggregateSourceFiles();
 		return filesHolder.getFiles();
 	}
 
-	private Collection getNestedJARsFromSourceRoots() {
-		List nestedJars = new ArrayList();
+	private void addNestedJARsFromSourceRoots() {
 		IPackageFragmentRoot[] sourceRoots = J2EEProjectUtilities.getSourceContainers(vComponent.getProject());
 		for (int i = 0; i < sourceRoots.length; i++) {
 			File aFile;
 			try {
 				aFile = getNestedJar(sourceRoots[i]);
 				if (null != aFile) {
-					nestedJars.add(aFile);
+					filesHolder.addFile(aFile);
 				}
 			} catch (JavaModelException e) {
 				Logger.getLogger().logError(e);
 			}
 		}
-		return nestedJars;
 	}
 
 
