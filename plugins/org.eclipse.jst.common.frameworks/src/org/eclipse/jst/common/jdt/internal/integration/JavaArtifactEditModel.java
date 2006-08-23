@@ -67,8 +67,8 @@ public class JavaArtifactEditModel extends ArtifactEditModel implements WorkingC
 	/**
 	 * This method should only be called by the J2EENature.
 	 */
-	public void dispose() {
-		super.dispose();
+	protected void doDispose() {
+		super.doDispose();
 		resetWorkingCopyManager();
 	}
 
