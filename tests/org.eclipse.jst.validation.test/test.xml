@@ -13,7 +13,7 @@
   <property name="plugin-name" value="org.eclipse.jst.validation.test"/>
   <property name="library-file"
             value="${eclipse-home}/plugins/org.eclipse.test_3.1.0/library.xml"/>
-  <property name="extraVMargs" value="-DXmx700M"/>
+  <property name="extraVMargs" value="-Xmx700M"/>
 
   <!--===============================================================-->
   <!-- This target initializes all of the tests that will run.       -->
