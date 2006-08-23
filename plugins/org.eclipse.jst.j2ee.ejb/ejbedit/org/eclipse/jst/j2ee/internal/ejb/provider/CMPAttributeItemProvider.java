@@ -191,12 +191,12 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements 
 
 			// This is for the eTypeClassifier feature.
 			//
-			itemPropertyDescriptors.add(new ItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), EJBProviderLibrariesResourceHandler.getString("ETypeClassifier_UI_"), //$NON-NLS-1$ = "ETypeClassifier"
-						EJBProviderLibrariesResourceHandler.getString("The_eTypeClassifier_proper_UI_"), //$NON-NLS-1$ = "The eTypeClassifier property"
+			itemPropertyDescriptors.add(new ItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), EJBProviderLibrariesResourceHandler.getString("Type_UI_"), //$NON-NLS-1$ = "ETypeClassifier"
+						EJBProviderLibrariesResourceHandler.getString("The_type_property_UI_"), //$NON-NLS-1$ = "The eTypeClassifier property"
 						ePackageEcore.getETypedElement_EType(), false) {
 				public Object getPropertyValue(Object o) {
 					CMPAttribute thisCMPAttribute = (CMPAttribute) o;
-					return createPropertyValueWrapper(o, thisCMPAttribute.getType());
+					return createPropertyValueWrapper(o, thisCMPAttribute.getType().getQualifiedName());
 				}
 
 				public Collection getChoiceOfValues(Object o) {
