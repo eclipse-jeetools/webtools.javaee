@@ -88,7 +88,7 @@ public class CompressedJavaProject implements ICompressedNode, IAdaptable {
 			nonExternalSourceFolders = new ArrayList(Arrays.asList(sourceFolders));
 			for (Iterator iter = nonExternalSourceFolders.iterator(); iter.hasNext();) {
 				IPackageFragmentRoot root = (IPackageFragmentRoot) iter.next();
-				if (root.isExternal() || root.isArchive())
+				if (root.isExternal() || root.isArchive() || root.getKind()==IPackageFragmentRoot.K_BINARY)
 					iter.remove();
 			}
 		} catch (JavaModelException e) {
