@@ -24,17 +24,23 @@ import org.eclipse.jst.j2ee.internal.project.WTPJETEmitter;
 
 public abstract class EjbEmitter {
 	public static final String CLASSPATHPROVIDER = "classpathProvider";
+
 	public static final String JAVACLASSPATHVARIABLEPREFIX = "WTPEJBEMITTER";
+
 	public static final String EJBEMITTERPROJECT = ".WtpEjbEmitter";
+
 	protected IConfigurationElement emitterConfig;
+
 	protected IEmitterClasspathProvider classpathProvider;
+
 	protected String base;
+
 	protected IProgressMonitor monitor;
 
 	public EjbEmitter(IConfigurationElement emitterConfig) throws ClassNotFoundException, InstantiationException,
 			IllegalAccessException, CoreException {
 		this.emitterConfig = emitterConfig;
-		String pluginDescriptor = emitterConfig.getDeclaringExtension().getNamespace();
+		String pluginDescriptor = emitterConfig.getDeclaringExtension().getContributor().getName();
 
 		org.osgi.framework.Bundle bundle = Platform.getBundle(pluginDescriptor);
 		Class c = bundle.loadClass(emitterConfig.getAttribute(CLASSPATHPROVIDER));
@@ -82,8 +88,7 @@ public abstract class EjbEmitter {
 		try {
 			WTPJETEmitter emitter = createJetEmitter(uri);
 			result = emitter.generate(aMonitor, new Object[] { enterpriseBean });
-		}
-		catch (JETException e) {
+		} catch (JETException e) {
 			throw new CoreException(e.getStatus());
 		}
 		return result;
