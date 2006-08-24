@@ -135,8 +135,15 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 
 	public class ModuleUpdateJob extends Job {
 
+		public boolean belongsTo(Object family) {
+			if(family == MODULE_UPDATE_JOB_NAME){
+				return true;
+			}
+			return super.belongsTo(family);
+		}
+		
 		// We use the listener list as a thread safe queue.
-		private class Queue extends ListenerList {
+		private class Queue extends ListenerList  {
 			public synchronized Object[] getListeners() {
 				Object[] data = super.getListeners();
 				clear();
