@@ -132,8 +132,13 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	
 	private void update() {
 		if(!javaProject.isOpen()){
-			return;
+			try {
+				javaProject.open(null);
+			} catch (JavaModelException e) {
+				Logger.getLogger().logError(e);
+			}
 		}
+		
 		IVirtualComponent component = ComponentCore.createComponent(javaProject.getProject());
 		Object key = keys.get(new Integer(javaProject.getProject().hashCode()));
 		J2EEComponentClasspathContainer firstPreviousSelf = (J2EEComponentClasspathContainer)previousSelves.get(key);
