@@ -372,11 +372,12 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 	}
 	
 	public boolean isValidRuntime(IProject currentProject) {
-
-		XDocletPreferenceStore store = XDocletPreferenceStore.forProject(currentProject);
-		XDocletRuntime runtime = XDocletExtensionUtil.getRuntime(store
-				.getProperty(XDocletPreferenceStore.XDOCLETVERSION));
-		runtime.setHome(store.getProperty(XDocletPreferenceStore.XDOCLETHOME));
-		return runtime.isValid();
+		XDocletBuilderValidator validator = new XDocletBuilderValidator();
+		boolean valid = false;
+		try {
+			valid = validator.validate(currentProject);
+		} catch (CoreException e) {
+		}
+		return valid;
 	}
 }

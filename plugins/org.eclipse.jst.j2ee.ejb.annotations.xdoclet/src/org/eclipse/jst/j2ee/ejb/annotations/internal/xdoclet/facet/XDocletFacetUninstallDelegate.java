@@ -14,6 +14,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletBuilderValidator;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.action.XDocletActionDelegate;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
@@ -36,6 +37,8 @@ public final class XDocletFacetUninstallDelegate extends J2EEFacetInstallDelegat
 							.getProject()))) {
 				try {
 					ProjectUtilities.removeFromBuildSpec(XDocletActionDelegate.BUILDERID, project.getProject());
+					XDocletBuilderValidator validator = new XDocletBuilderValidator();
+					validator.clearMarkers(project);
 				} catch (CoreException e) {
 				}
 			}			

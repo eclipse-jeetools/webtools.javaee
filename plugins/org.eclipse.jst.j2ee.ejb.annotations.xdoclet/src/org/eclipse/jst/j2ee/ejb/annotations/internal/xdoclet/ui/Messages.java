@@ -39,6 +39,7 @@ public final class Messages extends NLS {
 	public static String error_message_no_lib;
 	public static String error_xdoclet_home_message;
 	
+	public static String xdoclet_runtime_invalid;	
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

@@ -15,6 +15,15 @@
       </builder>
    </extension>
 
+  <extension 
+    point="org.eclipse.core.resources.markers"
+    id="xdoclet.marker"
+    name="%validationMarkerName">
+    <super type="org.eclipse.core.resources.problemmarker"/>
+    <persistent value="true"/>
+  </extension>
+  
+  
    <extension
          point="org.eclipse.ui.preferencePages">
      <page
