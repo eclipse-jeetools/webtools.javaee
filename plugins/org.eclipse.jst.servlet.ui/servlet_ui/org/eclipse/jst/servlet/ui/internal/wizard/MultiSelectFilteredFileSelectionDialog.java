@@ -18,14 +18,13 @@ import java.util.ArrayList;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
-import org.eclipse.jdt.internal.ui.JavaPluginImages;
-import org.eclipse.jdt.internal.ui.dialogs.StatusInfo;
-import org.eclipse.jdt.internal.ui.util.StringMatcher;
-import org.eclipse.jdt.internal.ui.wizards.TypedElementSelectionValidator;
+import org.eclipse.jdt.ui.ISharedImages;
+import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -37,6 +36,7 @@ import org.eclipse.jst.j2ee.internal.dialogs.TwoArrayQuickSorter;
 import org.eclipse.jst.j2ee.internal.dialogs.TypedFileViewerFilter;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.web.providers.WebAppEditResourceHandler;
+import org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -56,19 +56,19 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.eclipse.ui.part.PageBook;
 
 /**
  * Insert the type's description here.
  * Creation date: (7/30/2001 11:16:36 AM)
- * @author: Administrator
  */
 public class MultiSelectFilteredFileSelectionDialog extends FilteredFileSelectionDialog implements SelectionListener {
 	
 
 	private static class PackageRenderer extends LabelProvider {
-		private final Image PACKAGE_ICON = JavaPluginImages.get(JavaPluginImages.IMG_OBJS_PACKAGE);
+		private final Image PACKAGE_ICON = JavaUI.getSharedImages().getImage(ISharedImages.IMG_OBJS_PACKAGE); 
 
 		public String getText(Object element) {
 			IType type = (IType) element;
@@ -83,7 +83,7 @@ public class MultiSelectFilteredFileSelectionDialog extends FilteredFileSelectio
 	}
 
 	private static class TypeRenderer extends LabelProvider {
-		private final Image CLASS_ICON = JavaPluginImages.get(JavaPluginImages.IMG_OBJS_CLASS);
+		private final Image CLASS_ICON = JavaUI.getSharedImages().getImage(ISharedImages.IMG_OBJS_CLASS); 
 
 		public String getText(Object element) {
 			IType e = ((IType) element);
@@ -141,10 +141,13 @@ public class MultiSelectFilteredFileSelectionDialog extends FilteredFileSelectio
 		setMessage(message);
 		setExtensions(extensions);
 		addFilter(new TypedFileViewerFilter(extensions));
-		fLocalValidator = new TypedElementSelectionValidator(new Class[] { IFile.class }, allowMultiple);
+		fLocalValidator = new SimpleTypedElementSelectionValidator(new Class[] { IFile.class }, allowMultiple);
 		setValidator(fLocalValidator);
-		StatusInfo currStatus = new StatusInfo();
-		currStatus.setOK();
+		
+		//StatusInfo currStatus = new StatusInfo();
+		//currStatus.setOK();
+		Status currStatus = new Status(Status.OK, ServletUIPlugin.PLUGIN_ID, Status.OK, "", null);
+		
 		updateStatus(currStatus);
 		fElementRenderer = new TypeRenderer();
 		fQualifierRenderer = new PackageRenderer();
