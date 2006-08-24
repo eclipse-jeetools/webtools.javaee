@@ -705,7 +705,7 @@
             include="true"            
             restriction="2.3, 2.4, 2.5, 2.6, 3.0, 3.2, 4.0, 4.1, 4.5"
             type="enum"
-            description="Sets the version of JOnAS. Supported versions are: 2.3, 2.4, 2.5, 2.6, 3.0"/>
+            description="Sets the version of JOnAS. Supported versions are: 2.3, 2.4, 2.5, 2.6, 3.0, 3.2, 4.0, 4.1, 4.5"/>
       <TaskProperty
             default="${web}"
             id="webdoclet.jonas.contextroot"
