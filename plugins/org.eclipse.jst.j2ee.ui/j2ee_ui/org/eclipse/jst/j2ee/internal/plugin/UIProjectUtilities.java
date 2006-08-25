@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.provider.ItemProvider;
+import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
@@ -109,9 +110,16 @@ public class UIProjectUtilities {
 				IProject project = null;
 				if (obj instanceof IProject)
 					project = (IProject) obj;
-				else if (obj instanceof IAdaptable)
+				else if (obj instanceof IAdaptable) {
 					project = (IProject) ((IAdaptable) obj).getAdapter(IProject.class);
-				
+					if (project == null) {
+						//Check for IJavaElements.
+						IJavaElement javaElement = (IJavaElement) ((IAdaptable) obj).getAdapter(IJavaElement.class);
+						if (javaElement != null) {
+							project = javaElement.getJavaProject().getProject();
+						}
+					}
+				}
 				// Selection may not be adaptable to a project so continue trying to get selected project
 				if (project == null && obj instanceof EObject)
 					project = ProjectUtilities.getProject((EObject) obj);
@@ -131,7 +139,9 @@ public class UIProjectUtilities {
 					} catch (CoreException e) {
 						//Ignore
 					}
-				} else
+				} 
+				
+				else
 					projects.add(project);
 			}
 			IProject[] finalProjects = new IProject[projects.size()];
