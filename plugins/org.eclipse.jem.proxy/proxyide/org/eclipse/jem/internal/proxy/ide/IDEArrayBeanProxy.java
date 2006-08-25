@@ -11,11 +11,12 @@
 package org.eclipse.jem.internal.proxy.ide;
 /*
  *  $RCSfile: IDEArrayBeanProxy.java,v $
- *  $Revision: 1.9 $  $Date: 2005/08/24 20:39:06 $ 
+ *  $Revision: 1.10 $  $Date: 2006/08/25 19:56:04 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
 import java.lang.reflect.*;
+import java.util.Arrays;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -30,6 +31,48 @@ public final class IDEArrayBeanProxy extends IDEObjectBeanProxy implements IArra
 IDEArrayBeanProxy(IDEProxyFactoryRegistry aRegistry, Object array,IBeanTypeProxy aType) {
 	super(aRegistry, array ,aType);
 	fBeanTypeProxyFactory = (IDEStandardBeanTypeProxyFactory)aRegistry.getBeanTypeProxyFactory();
+}
+
+/* (non-Javadoc)
+ * @see org.eclipse.jem.internal.proxy.ide.IDEBeanProxy#equals(java.lang.Object)
+ */
+public boolean equals(Object obj) {
+	if (super.equals(obj))
+		return true;
+	if (!(obj instanceof IDEArrayBeanProxy))
+		return false;
+	Object arrayBean = ((IDEArrayBeanProxy) obj).getBean();
+
+	if (getBean() == null || arrayBean == null)
+		return false;
+	Object thisArrayBean = getBean();
+	Class aclass = thisArrayBean.getClass();
+	Class bclass = arrayBean.getClass();
+	Class acomp = aclass.getComponentType();
+	Class bcomp = bclass.getComponentType();
+	if (acomp.isPrimitive() || bcomp.isPrimitive()) {
+		if (acomp != bcomp)
+			return false;
+		if (acomp == Integer.TYPE)
+			return Arrays.equals((int[]) thisArrayBean, (int[]) arrayBean);
+		else if (acomp == Boolean.TYPE)
+			return Arrays.equals((boolean[]) thisArrayBean, (boolean[]) arrayBean);
+		else if (acomp == Long.TYPE)
+			return Arrays.equals((long[]) thisArrayBean, (long[]) arrayBean);
+		else if (acomp == Short.TYPE)
+			return Arrays.equals((short[]) thisArrayBean, (short[]) arrayBean);
+		else if (acomp == Double.TYPE)
+			return Arrays.equals((double[]) thisArrayBean, (double[]) arrayBean);
+		else if (acomp == Float.TYPE)
+			return Arrays.equals((float[]) thisArrayBean, (float[]) arrayBean);
+		else if (acomp == Character.TYPE)
+			return Arrays.equals((char[]) thisArrayBean, (char[]) arrayBean);
+		else if (acomp == Byte.TYPE)
+			return Arrays.equals((byte[]) thisArrayBean, (byte[]) arrayBean);
+		else
+			return false;
+	} else
+		return Arrays.equals((Object[]) thisArrayBean, (Object[]) arrayBean);
 }
 /**
  * Get the object at the specified index.

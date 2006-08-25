@@ -9,9 +9,11 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.vm.remote;
+
+import java.util.Arrays;
 /*
  *  $RCSfile: ArrayHelper.java,v $
- *  $Revision: 1.3 $  $Date: 2005/08/24 20:39:08 $ 
+ *  $Revision: 1.4 $  $Date: 2006/08/25 19:56:04 $ 
  */
 
 
@@ -67,5 +69,50 @@ public final class ArrayHelper {
 		for (int i=0; i<upTo; i++)
 			subArray = java.lang.reflect.Array.get(subArray, indexes[i]);
 		java.lang.reflect.Array.set(subArray, indexes[upTo], value);
+	}
+	
+	/**
+	 * See if the two arrays are "equal" (not identidy, but that the contents are equal).
+	 * @param array1 must be an array
+	 * @param array2 must be an array
+	 * @return true if semantically equal using {@link Arrays#equals(Object[], Object[])};
+	 * 
+	 * @see Arrays#equals(Object[], Object[]);
+	 * @since 1.2.1
+	 */
+	public static boolean equals(Object array1, Object array2) {
+		if (array1 == array2)
+			return true;
+		if (array1 == null || array2 == null)
+			return false;
+		Class aclass = array1.getClass();
+		Class bclass = array2.getClass();
+		if (!aclass.isArray() || !bclass.isArray())
+			return false;
+		Class acomp = aclass.getComponentType();
+		Class bcomp = bclass.getComponentType();
+		if (acomp.isPrimitive() || bcomp.isPrimitive()) {
+			if (acomp != bcomp)
+				return false;
+			if (acomp == Integer.TYPE)
+				return Arrays.equals((int[]) array1, (int[]) array2);
+			else if (acomp == Boolean.TYPE)
+				return Arrays.equals((boolean[]) array1, (boolean[]) array2);
+			else if (acomp == Long.TYPE)
+				return Arrays.equals((long[]) array1, (long[]) array2);
+			else if (acomp == Short.TYPE)
+				return Arrays.equals((short[]) array1, (short[]) array2);
+			else if (acomp == Double.TYPE)
+				return Arrays.equals((double[]) array1, (double[]) array2);
+			else if (acomp == Float.TYPE)
+				return Arrays.equals((float[]) array1, (float[]) array2);
+			else if (acomp == Character.TYPE)
+				return Arrays.equals((char[]) array1, (char[]) array2);
+			else if (acomp == Byte.TYPE)
+				return Arrays.equals((byte[]) array1, (byte[]) array2);
+			else
+				return false;
+		} else
+			return Arrays.equals((Object[]) array1, (Object[]) array2);
 	}
 }

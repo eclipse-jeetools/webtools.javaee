@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMStandardBeanProxyConstants.java,v $
- *  $Revision: 1.9 $  $Date: 2005/08/24 20:39:06 $ 
+ *  $Revision: 1.10 $  $Date: 2006/08/25 19:56:04 $ 
  */
 
 
@@ -108,7 +108,8 @@ public final class REMStandardBeanProxyConstants {
 	private IMethodProxy fArrayHelperGetInt;
 	private IMethodProxy fArrayHelperGetShort;
 	private IMethodProxy fArrayHelperGetLong;	
-	private IMethodProxy fArrayHelperSet;			
+	private IMethodProxy fArrayHelperSet;
+	private IMethodProxy fArrayHelperEquals;
 	
 /**
  * Get the constants instance for the specified registry.
@@ -444,6 +445,11 @@ public IMethodProxy getArrayHelperSet() {
 	return fArrayHelperSet;
 }
 
+public IMethodProxy getArrayHelperEquals() {
+	if (fArrayHelperEquals == null)
+		fArrayHelperEquals = fRegistry.getMethodProxyFactory().getMethodProxy("org.eclipse.jem.internal.proxy.vm.remote.ArrayHelper", "equals", new String[] {"java.lang.Object", "java.lang.Object"}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+	return fArrayHelperEquals;
+}
 
 public IMethodProxy getClassGetDeclaredField() {
 

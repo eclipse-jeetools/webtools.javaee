@@ -11,10 +11,11 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMArrayBeanProxy.java,v $
- *  $Revision: 1.8 $  $Date: 2005/08/24 20:39:07 $ 
+ *  $Revision: 1.9 $  $Date: 2006/08/25 19:56:03 $ 
  */
 
 import java.lang.reflect.Array;
+import java.util.logging.Level;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -35,7 +36,21 @@ public final class REMArrayBeanProxy extends REMBeanProxy implements IArrayBeanP
 		super(aRegistry, anID, aType);
 	}
 
-
+	public boolean equals(Object anObject) {
+		if (!(anObject instanceof IArrayBeanProxy))
+			return false;
+		if (sameAs((IBeanProxy) anObject))
+			return true;	// Identity
+		if (((IBeanProxy) anObject).getProxyFactoryRegistry() == fFactory)
+			try {
+				// The other is an array also, let the server do the check. We will use Arrays.equals.
+				return ((IBooleanBeanProxy) REMStandardBeanProxyConstants.getConstants(fFactory).getArrayHelperEquals().invoke(null, new IBeanProxy[] {this, (IBeanProxy) anObject})).booleanValue();
+			} catch (ThrowableProxy e) {
+				ProxyPlugin.getPlugin().getLogger().log(e, Level.INFO);
+			}
+		return false;
+	}	
+	
 	/**
 	 * Get the object at the specified index.
 	 */
