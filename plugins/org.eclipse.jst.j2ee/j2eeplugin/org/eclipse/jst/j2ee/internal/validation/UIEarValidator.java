@@ -608,7 +608,7 @@ public class UIEarValidator extends EarValidator {
 			IProject p = input.getProject();
 			if (p == null || JemProjectUtilities.isBinaryProject(p))
 				return null;
-			IFile result = J2EEProjectUtilities.getManifestFile(p);
+			IFile result = J2EEProjectUtilities.getManifestFile(p, false);
 			if (result != null && result.exists())
 				return result;
 		}
