@@ -14,6 +14,10 @@ public class WSDLServiceExtManager {
 	public static WSDLServiceHelper extension;
 
 	public static WSDLServiceHelper getServiceHelper() {
+		if (extension == null) {
+			// Initialize the WSDL Service Registry to register extensions into this manager
+			WSDLServiceExtensionRegistry.getInstance();
+		}
 		return extension;
 	}
 

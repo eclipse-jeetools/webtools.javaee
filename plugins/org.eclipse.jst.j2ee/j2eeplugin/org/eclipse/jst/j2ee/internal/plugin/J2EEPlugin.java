@@ -59,7 +59,6 @@ import org.eclipse.jst.j2ee.internal.common.VirtualArchiveComponentAdapterFactor
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EarEditAdapterFactory;
 import org.eclipse.jst.j2ee.internal.validation.ResourceUtil;
-import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtensionRegistry;
 import org.eclipse.jst.j2ee.internal.xml.J2EEXmlDtDEntityResolver;
 import org.eclipse.jst.j2ee.refactor.listeners.J2EEElementChangedListener;
 import org.eclipse.jst.j2ee.refactor.listeners.ProjectRefactoringListener;
@@ -491,8 +490,6 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		IAdapterManager manager = Platform.getAdapterManager();
 		manager.registerAdapters(new EarEditAdapterFactory(), ArtifactEditModel.class);
 		manager.registerAdapters(new AppClientEditAdapterFactory(), ArtifactEditModel.class);
- 		WSDLServiceExtensionRegistry.getInstance();
-		
 		manager.registerAdapters(new VirtualArchiveComponentAdapterFactory(), VirtualArchiveComponent.class );
 		
 		final ProjectRefactoringListener listener = new ProjectRefactoringListener();//ProjectDependencyCache.getCache());
