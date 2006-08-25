@@ -53,9 +53,11 @@ public class ProjectDeleteOperation extends ProjectRefactorOperation {
 	 */
 	protected void updateDependentEARProject(final ProjectRefactorMetadata dependentMetadata, 
 			final ProjectRefactorMetadata refactoredMetadata) throws ExecutionException {
-		final IDataModel dataModel = createDataModel(dependentMetadata, refactoredMetadata,
-				new UpdateDependentEARonDeleteProvider());
-		dataModel.getDefaultOperation().execute(null, null);
+        if (OptionalRefactorHandler.getInstance().shouldRefactorDependentProjectOnDelete(refactoredMetadata, dependentMetadata)) {
+            final IDataModel dataModel = createDataModel(dependentMetadata, refactoredMetadata,
+                    new UpdateDependentEARonDeleteProvider());
+            dataModel.getDefaultOperation().execute(null, null);
+        }
 	}
 	
 	/* (non-Javadoc)
@@ -63,9 +65,11 @@ public class ProjectDeleteOperation extends ProjectRefactorOperation {
 	 */
 	protected void updateDependentModuleProject(final ProjectRefactorMetadata dependentMetadata, 
 			final ProjectRefactorMetadata refactoredMetadata) throws ExecutionException {
-		final IDataModel dataModel = createDataModel(dependentMetadata, refactoredMetadata,
-				new UpdateDependentModuleonDeleteProvider());
-		dataModel.getDefaultOperation().execute(null, null);
+        if (OptionalRefactorHandler.getInstance().shouldRefactorDependentProjectOnDelete(refactoredMetadata, dependentMetadata)) {
+            final IDataModel dataModel = createDataModel(dependentMetadata, refactoredMetadata,
+                    new UpdateDependentModuleonDeleteProvider());
+            dataModel.getDefaultOperation().execute(null, null);
+        }
 	}
 
 	private IDataModel createDataModel(final ProjectRefactorMetadata dependentMetadata, 

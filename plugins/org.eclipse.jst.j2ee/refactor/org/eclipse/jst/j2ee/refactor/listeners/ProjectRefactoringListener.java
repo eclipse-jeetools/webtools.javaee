@@ -30,6 +30,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.refactor.RefactorResourceHandler;
+import org.eclipse.jst.j2ee.refactor.operations.OptionalRefactorHandler;
 import org.eclipse.jst.j2ee.refactor.operations.ProjectDeleteDataModelProvider;
 import org.eclipse.jst.j2ee.refactor.operations.ProjectRefactorMetadata;
 import org.eclipse.jst.j2ee.refactor.operations.ProjectRefactoringDataModelProvider;
@@ -98,7 +99,7 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 		metadata.computeDependentMetadata(ProjectRefactorMetadata.REF_CACHING,
 				DependencyGraphManager.getInstance().getDependencyGraph().getReferencingComponents(project));
 		//, cache.getDependentProjects(project));
-		deletedProjectMetadata.put(project.getName(), metadata); 		
+		deletedProjectMetadata.put(project.getName(), metadata);
 	}
 	
 	/* (non-Javadoc)
@@ -129,8 +130,8 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 				// if the kind is REMOVED and there are no special flags, the project was deleted
 				ProjectRefactorMetadata metadata = (ProjectRefactorMetadata) deletedProjectMetadata.remove(project.getName()); 
 				// note: only projects with ModuleCoreNature will have cached metadata
-				if (metadata != null) {
-					processDelete(metadata);
+				if (metadata != null && OptionalRefactorHandler.getInstance().shouldRefactorDeletedProject(metadata)) {
+				    processDelete(metadata);
 				} 
 			}
 		} else if (kind == IResourceDelta.ADDED && wasRenamed(flags)) { // was renamed
@@ -142,7 +143,7 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 			// get the metadata for the new project
 			final ProjectRefactorMetadata newMetadata = new ProjectRefactorMetadata(project);
 			// note: only projects with ModuleCoreNature will have cached metadata
-			if (originalMetadata != null) {
+			if (originalMetadata != null && OptionalRefactorHandler.getInstance().shouldRefactorRenamedProject(originalMetadata)) {
 				newMetadata.computeMetadata(originalMetadata.getProject());
 				processRename(originalMetadata, newMetadata, delta);
 				// Rename all entries in the project dependency cache

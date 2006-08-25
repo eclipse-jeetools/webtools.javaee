@@ -100,9 +100,11 @@ public class ProjectRenameOperation extends ProjectRefactorOperation {
 	 */
 	protected void updateDependentEARProject(final ProjectRefactorMetadata dependentMetadata, 
 			final ProjectRefactorMetadata originalMetadata) throws ExecutionException {
-		final IDataModel dataModel = createDataModel(dependentMetadata, originalMetadata,
-				new UpdateDependentEARonRenameProvider());
-		dataModel.getDefaultOperation().execute(null, null);
+        if (OptionalRefactorHandler.getInstance().shouldRefactorDependentProjectOnRename(originalMetadata, dependentMetadata)) {
+		    final IDataModel dataModel = createDataModel(dependentMetadata, originalMetadata,
+		            new UpdateDependentEARonRenameProvider());
+		    dataModel.getDefaultOperation().execute(null, null);
+        }
 	}
 	
 	/**
@@ -110,9 +112,11 @@ public class ProjectRenameOperation extends ProjectRefactorOperation {
 	 */
 	protected void updateDependentModuleProject(final ProjectRefactorMetadata dependentMetadata, 
 			final ProjectRefactorMetadata originalMetadata) throws ExecutionException {
-		final IDataModel dataModel = createDataModel(dependentMetadata, originalMetadata,
-				new UpdateDependentModuleonRenameProvider());
-		dataModel.getDefaultOperation().execute(null, null);
+        if (OptionalRefactorHandler.getInstance().shouldRefactorDependentProjectOnRename(originalMetadata, dependentMetadata)) {
+            final IDataModel dataModel = createDataModel(dependentMetadata, originalMetadata,
+                    new UpdateDependentModuleonRenameProvider());
+            dataModel.getDefaultOperation().execute(null, null);
+        }
 	}
 	
 	private IDataModel createDataModel(final ProjectRefactorMetadata dependentMetadata, 

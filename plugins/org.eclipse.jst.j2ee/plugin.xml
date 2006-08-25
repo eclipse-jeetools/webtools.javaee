@@ -19,6 +19,7 @@
    <extension-point id="WebServiceClientGenerator" name="WebServiceClientGenerator" schema="schema/WebServiceClientGenerator.exsd"/>
    <extension-point id="ExtendedModuleImport" name="ExtendedModuleImport" schema="schema/ExtendedModuleImport.exsd"/>
    <extension-point id="WSDLServiceHelper" name="WSDLServiceHelper" schema="schema/WSDLServiceHelper.exsd"/>
+   <extension-point id="optionalRefactorHandler" name="optionalRefactorHandler" schema="schema/optionalRefactorHandler.exsd"/>
 
 <!--============================-->
 <!-- Module Core Nature         -->
