@@ -363,6 +363,161 @@ public class TestStandard extends AbstractTestProxy {
 		assertEquals(44, ((IIntegerBeanProxy) idx1).intValue());
 	}
 	
+	public void testArrayEquals() throws ThrowableProxy {
+		// Test that array equals works (does semantic equals and not identity equals).
+		primIntEquals();
+		primBoolEquals();
+		primByteEquals();
+		primShortEquals();
+		primCharEquals();
+		primDoubleEquals();
+		primFloatEquals();
+		primLongEquals();
+		objectEquals();
+	}
+	
+	private void primIntEquals() throws ThrowableProxy {
+		IArrayBeanTypeProxy arrayType = (IArrayBeanTypeProxy) proxyTypeFactory.getBeanTypeProxy("int", 1); //$NON-NLS-1$
+		IArrayBeanProxy arrayProxy = proxyFactory.createBeanProxyWith(arrayType, 3);
+		arrayProxy.set(proxyFactory.createBeanProxyWith(44), 1);
+
+		IArrayBeanProxy array2Proxy = proxyFactory.createBeanProxyWith(arrayType, 3);
+		array2Proxy.set(proxyFactory.createBeanProxyWith(44), 1);
+
+		assertTrue(arrayProxy.equals(array2Proxy));
+		
+		// change the value of one so now different.
+		array2Proxy.set(proxyFactory.createBeanProxyWith(55), 1);
+		assertFalse(arrayProxy.equals(array2Proxy));
+		
+		// One side test that if not compatible it should be false.
+		IArrayBeanTypeProxy array3Type = (IArrayBeanTypeProxy) proxyTypeFactory.getBeanTypeProxy("long", 1); //$NON-NLS-1$
+		IArrayBeanProxy array3Proxy = proxyFactory.createBeanProxyWith(array3Type, 3);
+		array3Proxy.set(proxyFactory.createBeanProxyWith(44l), 1);
+		assertFalse(arrayProxy.equals(array3Proxy));
+	}
+	
+	private void primBoolEquals() throws ThrowableProxy {
+		IArrayBeanTypeProxy arrayType = (IArrayBeanTypeProxy) proxyTypeFactory.getBeanTypeProxy("boolean", 1); //$NON-NLS-1$
+		IArrayBeanProxy arrayProxy = proxyFactory.createBeanProxyWith(arrayType, 3);
+		arrayProxy.set(proxyFactory.createBeanProxyWith(true), 1);
+
+		IArrayBeanProxy array2Proxy = proxyFactory.createBeanProxyWith(arrayType, 3);
+		array2Proxy.set(proxyFactory.createBeanProxyWith(true), 1);
+
+		assertTrue(arrayProxy.equals(array2Proxy));
+		
+		// change the value of one so now different.
+		array2Proxy.set(proxyFactory.createBeanProxyWith(false), 1);
+		assertFalse(arrayProxy.equals(array2Proxy));		
+	}
+
+	private void primByteEquals() throws ThrowableProxy {
+		IArrayBeanTypeProxy arrayType = (IArrayBeanTypeProxy) proxyTypeFactory.getBeanTypeProxy("byte", 1); //$NON-NLS-1$
+		IArrayBeanProxy arrayProxy = proxyFactory.createBeanProxyWith(arrayType, 3);
+		arrayProxy.set(proxyFactory.createBeanProxyWith((byte) 3), 1);
+
+		IArrayBeanProxy array2Proxy = proxyFactory.createBeanProxyWith(arrayType, 3);
+		array2Proxy.set(proxyFactory.createBeanProxyWith((byte) 3), 1);
+
+		assertTrue(arrayProxy.equals(array2Proxy));
+		
+		// change the value of one so now different.
+		array2Proxy.set(proxyFactory.createBeanProxyWith((byte) 4), 1);
+		assertFalse(arrayProxy.equals(array2Proxy));		
+	}
+
+	private void primShortEquals() throws ThrowableProxy {
+		IArrayBeanTypeProxy arrayType = (IArrayBeanTypeProxy) proxyTypeFactory.getBeanTypeProxy("short", 1); //$NON-NLS-1$
+		IArrayBeanProxy arrayProxy = proxyFactory.createBeanProxyWith(arrayType, 3);
+		arrayProxy.set(proxyFactory.createBeanProxyWith((short) 3), 1);
+
+		IArrayBeanProxy array2Proxy = proxyFactory.createBeanProxyWith(arrayType, 3);
+		array2Proxy.set(proxyFactory.createBeanProxyWith((short) 3), 1);
+
+		assertTrue(arrayProxy.equals(array2Proxy));
+		
+		// change the value of one so now different.
+		array2Proxy.set(proxyFactory.createBeanProxyWith((short) 4), 1);
+		assertFalse(arrayProxy.equals(array2Proxy));		
+	}
+
+	private void primCharEquals() throws ThrowableProxy {
+		IArrayBeanTypeProxy arrayType = (IArrayBeanTypeProxy) proxyTypeFactory.getBeanTypeProxy("char", 1); //$NON-NLS-1$
+		IArrayBeanProxy arrayProxy = proxyFactory.createBeanProxyWith(arrayType, 3);
+		arrayProxy.set(proxyFactory.createBeanProxyWith('a'), 1);
+
+		IArrayBeanProxy array2Proxy = proxyFactory.createBeanProxyWith(arrayType, 3);
+		array2Proxy.set(proxyFactory.createBeanProxyWith('a'), 1);
+
+		assertTrue(arrayProxy.equals(array2Proxy));
+		
+		// change the value of one so now different.
+		array2Proxy.set(proxyFactory.createBeanProxyWith('b'), 1);
+		assertFalse(arrayProxy.equals(array2Proxy));		
+	}
+	
+	private void primDoubleEquals() throws ThrowableProxy {
+		IArrayBeanTypeProxy arrayType = (IArrayBeanTypeProxy) proxyTypeFactory.getBeanTypeProxy("double", 1); //$NON-NLS-1$
+		IArrayBeanProxy arrayProxy = proxyFactory.createBeanProxyWith(arrayType, 3);
+		arrayProxy.set(proxyFactory.createBeanProxyWith(4.3d), 1);
+
+		IArrayBeanProxy array2Proxy = proxyFactory.createBeanProxyWith(arrayType, 3);
+		array2Proxy.set(proxyFactory.createBeanProxyWith(4.3d), 1);
+
+		assertTrue(arrayProxy.equals(array2Proxy));
+		
+		// change the value of one so now different.
+		array2Proxy.set(proxyFactory.createBeanProxyWith(10d), 1);
+		assertFalse(arrayProxy.equals(array2Proxy));		
+	}
+
+	private void primFloatEquals() throws ThrowableProxy {
+		IArrayBeanTypeProxy arrayType = (IArrayBeanTypeProxy) proxyTypeFactory.getBeanTypeProxy("float", 1); //$NON-NLS-1$
+		IArrayBeanProxy arrayProxy = proxyFactory.createBeanProxyWith(arrayType, 3);
+		arrayProxy.set(proxyFactory.createBeanProxyWith(4.3f), 1);
+
+		IArrayBeanProxy array2Proxy = proxyFactory.createBeanProxyWith(arrayType, 3);
+		array2Proxy.set(proxyFactory.createBeanProxyWith(4.3f), 1);
+
+		assertTrue(arrayProxy.equals(array2Proxy));
+		
+		// change the value of one so now different.
+		array2Proxy.set(proxyFactory.createBeanProxyWith(10f), 1);
+		assertFalse(arrayProxy.equals(array2Proxy));		
+	}
+
+	private void primLongEquals() throws ThrowableProxy {
+		IArrayBeanTypeProxy arrayType = (IArrayBeanTypeProxy) proxyTypeFactory.getBeanTypeProxy("long", 1); //$NON-NLS-1$
+		IArrayBeanProxy arrayProxy = proxyFactory.createBeanProxyWith(arrayType, 3);
+		arrayProxy.set(proxyFactory.createBeanProxyWith(1l), 1);
+
+		IArrayBeanProxy array2Proxy = proxyFactory.createBeanProxyWith(arrayType, 3);
+		array2Proxy.set(proxyFactory.createBeanProxyWith(1l), 1);
+
+		assertTrue(arrayProxy.equals(array2Proxy));
+		
+		// change the value of one so now different.
+		array2Proxy.set(proxyFactory.createBeanProxyWith(2l), 1);
+		assertFalse(arrayProxy.equals(array2Proxy));		
+	}
+
+	private void objectEquals() throws ThrowableProxy {
+		IArrayBeanTypeProxy arrayType = (IArrayBeanTypeProxy) proxyTypeFactory.getBeanTypeProxy("java.lang.Integer", 1); //$NON-NLS-1$
+		IArrayBeanProxy arrayProxy = proxyFactory.createBeanProxyWith(arrayType, 3);
+		arrayProxy.set(proxyFactory.createBeanProxyWith(new Integer(1)), 1);
+
+		IArrayBeanProxy array2Proxy = proxyFactory.createBeanProxyWith(arrayType, 3);
+		array2Proxy.set(proxyFactory.createBeanProxyWith(new Integer(1)), 1);
+
+		assertTrue(arrayProxy.equals(array2Proxy));
+		
+		// change the value of one so now different.
+		array2Proxy.set(proxyFactory.createBeanProxyWith(new Integer(2)), 1);
+		assertFalse(arrayProxy.equals(array2Proxy));		
+	}
+
+
 	public void testCollections() throws ThrowableProxy {
 		IBeanTypeProxy vectorType = proxyTypeFactory.getBeanTypeProxy("java.util.Vector"); //$NON-NLS-1$
 		IBeanProxy vectorProxy = vectorType.newInstance();
