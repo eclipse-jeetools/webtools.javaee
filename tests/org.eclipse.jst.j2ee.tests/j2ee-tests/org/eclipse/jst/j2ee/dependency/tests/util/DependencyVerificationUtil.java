@@ -10,6 +10,7 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -18,6 +19,7 @@ import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphManager;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -167,6 +169,20 @@ public class DependencyVerificationUtil {
 		return null;
 	}
 	
+	public static void waitForClasspathUpdate() {
+		Job [] jobs = Job.getJobManager().find(J2EEComponentClasspathUpdater.MODULE_UPDATE_JOB_NAME);
+		if(jobs.length > 0){
+			try {
+				for (int i = 0; i < jobs.length; i++){
+					if(jobs[i].getName().equals(J2EEComponentClasspathUpdater.MODULE_UPDATE_JOB_NAME))
+						jobs[i].join();
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	/**
 	 * Verifies that the specified target project is visible (or not visible) to the source project via the Java build path 
 	 * @param source Source project.
@@ -175,6 +191,7 @@ public class DependencyVerificationUtil {
 	 * @throws Exception
 	 */
 	public static void verifyClasspathReference(final IProject source, final IProject target, final boolean hasRef) throws CoreException {
+		waitForClasspathUpdate();
 		boolean onClasspath = hasClasspathReference(source, target);
 		if (hasRef) {
 			Assert.assertTrue("Project " + target + " missing from resolved classpath of project " + source, onClasspath);
