@@ -130,4 +130,10 @@ public class ConnectorValidator extends J2EEValidator implements ConnectorMessag
 		}
 		return status;		
 	}
+
+	public void cleanup(IReporter reporter) {
+		rarFile = null;
+		connectorDD = null;
+		super.cleanup(reporter);
+	}	
 }

@@ -525,5 +525,6 @@ public class EJBValidator extends AbstractEJBValidator {
 			ValidationRuleUtility.projectHelperMap.remove( helperMap );
 			helperMap = null;
 		}
+		super.cleanup(reporter);
 	}
 }

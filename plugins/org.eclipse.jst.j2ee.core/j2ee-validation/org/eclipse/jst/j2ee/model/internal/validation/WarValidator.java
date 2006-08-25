@@ -1417,4 +1417,11 @@ public class WarValidator extends J2EEValidator implements WARMessageConstants {
 		_helper = helper;
 		return null;
 	}
+	
+	public void cleanup(IReporter reporter) {
+		warFile = null;
+		webDD = null;
+		httpMethods = null;
+		super.cleanup( reporter );
+	}		
 }

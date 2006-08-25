@@ -154,4 +154,10 @@ public class ApplicationClientValidator extends J2EEValidator implements Applica
 		}// try 
 		return status;
 	}
+	
+	public void cleanup(IReporter reporter) {
+		appClientDD = null;
+		appClientFile = null;
+		super.cleanup(reporter);
+	}	
 }// ApplicationClientValidator

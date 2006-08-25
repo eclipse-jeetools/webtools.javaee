@@ -585,19 +585,15 @@ public class UIEarValidator extends EarValidator {
 	
 
 	public void cleanup(IReporter reporter) {
-		super.cleanup(reporter);
-		cleanup();
-	}
-
-
-	/*
-	 * @see J2EEValidator#cleanup()
-	 */
-	public void cleanup() {
 		if (earHelper != null)
 			earHelper.closeEARFile();
+		super.cleanup(reporter);
 	}
 
+	public void cleanup() {
+
+	}
+	
 	protected IFile getManifestFile(Archive anArchive) {
 		URIConverter conv = anArchive.getResourceSet().getURIConverter();
 		if (conv instanceof WorkbenchURIConverter) {

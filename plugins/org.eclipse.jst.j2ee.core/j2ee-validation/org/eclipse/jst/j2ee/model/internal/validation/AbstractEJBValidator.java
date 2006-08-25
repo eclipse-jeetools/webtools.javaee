@@ -315,6 +315,7 @@ public abstract class AbstractEJBValidator extends J2EEValidator {
     	}
     	_validated.clear();
     	setValidationContext(null);
+    	_validated = null;
     }
 
 }

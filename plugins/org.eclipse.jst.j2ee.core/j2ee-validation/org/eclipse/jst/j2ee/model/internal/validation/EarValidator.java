@@ -955,5 +955,11 @@ public class EarValidator extends J2EEValidator  {
 		_helper = helper;
 		return null;
 	}
+	
+	public void cleanup(IReporter reporter) {
+		earFile = null;
+		appDD = null;
+		super.cleanup(reporter);
+	}	
 
 }// EarValidator

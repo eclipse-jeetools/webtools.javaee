@@ -339,6 +339,7 @@ public abstract class J2EEValidator implements IValidatorJob, J2EEMessageConstan
 	
 	/**
 	 * Perform any resource cleanup once validation is complete.
+	 * @deprecated Use cleanup(IReporter reporter)
 	 */
 	public void cleanup() {
 		_reporter = null;
@@ -348,8 +349,6 @@ public abstract class J2EEValidator implements IValidatorJob, J2EEMessageConstan
 	 * Perform any resource cleanup once validation is complete. If cleanup will take some time, the
 	 * IValidator should report subtask information to the user through the IReporter parameter. The
 	 * AReporter parameter will not be null.
-	 * 
-	 * @deprecated Use cleanup()
 	 */
 	public void cleanup(IReporter reporter) {
 		_reporter = null;
