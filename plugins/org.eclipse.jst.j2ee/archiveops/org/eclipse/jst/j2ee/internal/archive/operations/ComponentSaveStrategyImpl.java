@@ -27,6 +27,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
@@ -38,6 +39,7 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -135,9 +137,15 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 	 * @return
 	 */
 	protected IPath getOutputPathForFile(File aFile) {
-		IVirtualFolder rootFolder = vComponent.getRootFolder();
-		IVirtualFile vFile = rootFolder.getFile(aFile.getURI());
-		IFile iFile = vFile.getUnderlyingFile();
+		String uri = aFile.getURI();
+		IFile iFile = null;
+		if(uri.startsWith(IModuleConstants.DOT_SETTINGS)){
+			iFile = vComponent.getProject().getFile(new Path(uri));
+		}else {
+			IVirtualFolder rootFolder = vComponent.getRootFolder();
+			IVirtualFile vFile = rootFolder.getFile(aFile.getURI());
+			iFile = vFile.getUnderlyingFile();
+		}
 		return iFile.getProjectRelativePath();
 	}
 

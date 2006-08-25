@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.common.classpath;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -84,6 +87,10 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 	}
 
 	public void resumeUpdates() {
+		resumeUpdates(true);
+	}
+	
+	private void resumeUpdates(boolean scheduleJob){
 		synchronized (this) {
 			if (pauseCount > 0) {
 				pauseCount--;
@@ -92,8 +99,11 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				return;
 			}
 		}
-		moduleUpdateJob.schedule(MODULE_UPDATE_DELAY);
+		if(scheduleJob){
+			moduleUpdateJob.schedule(MODULE_UPDATE_DELAY);
+		}
 	}
+	
 
 	public void queueUpdate(IProject project) {
 		if (J2EEProjectUtilities.isEARProject(project)) {
@@ -106,6 +116,12 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 
 	public void queueUpdateModule(IProject project) {
 		moduleUpdateJob.queueModule(project);
+		if(!isKnown(project)){
+			IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(project);
+			for (int i = 0; i < earProjects.length; i++) {
+				moduleUpdateJob.queueEAR(earProjects[i]);
+			}
+		} 
 		synchronized (this) {
 			if (pauseCount > 0) {
 				return;
@@ -180,12 +196,14 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				EARArtifactEdit edit = null;
 				try {
 					edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
-					IVirtualReference[] refs = edit.getComponentReferences();
-					IVirtualComponent comp = null;
-					for (int j = 0; j < refs.length; j++) {
-						comp = refs[j].getReferencedComponent();
-						if (!comp.isBinary()) {
-							queueModule(comp.getProject());
+					if(edit != null){
+						IVirtualReference[] refs = edit.getComponentReferences();
+						IVirtualComponent comp = null;
+						for (int j = 0; j < refs.length; j++) {
+							comp = refs[j].getReferencedComponent();
+							if (!comp.isBinary()) {
+								queueModule(comp.getProject());
+							}
 						}
 					}
 				} finally {
@@ -195,6 +213,28 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				}
 			}
 		}
+		
+		private void processModules(){
+			Object[] projects = moduleQueue.getListeners();
+			for (int i = 0; i < projects.length; i++) {
+				IProject project = (IProject) projects[i];
+				IClasspathContainer container = getWebAppLibrariesContainer(project, false);
+				if (container != null && container instanceof FlexibleProjectContainer) {
+					((FlexibleProjectContainer) container).refresh();
+				}
+				IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(project);
+				if (earProjects.length == 0) {
+					removeContainerFromModuleIfNecessary(project);
+					return;
+				} 
+				
+				container = addContainerToModuleIfNecessary(project);
+				if (container != null && container instanceof J2EEComponentClasspathContainer) {
+					((J2EEComponentClasspathContainer) container).refresh();
+				}
+			}
+		}
+		
 
 		protected IStatus run(IProgressMonitor monitor) {
 
@@ -205,23 +245,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 
 				public void run() throws Exception {
 					processEars();
-					Object[] projects = moduleQueue.getListeners();
-					for (int i = 0; i < projects.length; i++) {
-						IProject project = (IProject) projects[i];
-						IClasspathContainer container = getWebAppLibrariesContainer(project, false);
-						if (container != null && container instanceof FlexibleProjectContainer) {
-							((FlexibleProjectContainer) container).refresh();
-						}
-						IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(project);
-						if (earProjects.length == 0) {
-							removeContainerFromModuleIfNecessary(project);
-							return;
-						}
-						container = addContainerToModuleIfNecessary(project);
-						if (container != null && container instanceof J2EEComponentClasspathContainer) {
-							((J2EEComponentClasspathContainer) container).refresh();
-						}
-					}
+					processModules();
 				}
 			});
 
@@ -328,14 +352,43 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		return null;
 	}
 
+	private Set knownProjects = new HashSet();
+	
+	private boolean isKnown(IProject project){
+		return !knownProjects.add(project.getName());
+	}
+	
+	private void forgetProject(IProject project){
+		knownProjects.remove(project.getName());
+	}
+	
 	public void resourceChanged(IResourceChangeEvent event) {
+		boolean scheduleJob = false;
 		try {
 			pauseUpdates();
-			event.getDelta().accept(this);
+			switch (event.getType()){
+				case IResourceChangeEvent.PRE_CLOSE:
+				case IResourceChangeEvent.PRE_DELETE:
+					IResource resource = event.getResource();
+					if(resource.getType() == IResource.PROJECT){
+						if(ModuleCoreNature.isFlexibleProject((IProject) resource)){
+							IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects((IProject)resource);
+							for(int i=0; i<earProjects.length; i++){
+								queueUpdateEAR(earProjects[i]);
+							}
+							forgetProject((IProject)resource);
+						}
+					}
+					break;
+				case IResourceChangeEvent.POST_CHANGE:
+					scheduleJob = true;
+					event.getDelta().accept(this);
+					break;
+			}
 		} catch (CoreException e) {
 			J2EEPlugin.getDefault().getLogger().logError(e);
 		} finally {
-			resumeUpdates();
+			resumeUpdates(scheduleJob);
 		}
 	}
 

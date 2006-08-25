@@ -501,7 +501,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		// response to .classpath changes
 		JavaCore.addElementChangedListener(new J2EEElementChangedListener(), ElementChangedEvent.POST_CHANGE);
 		
-		ResourcesPlugin.getWorkspace().addResourceChangeListener(J2EEComponentClasspathUpdater.getInstance(), IResourceChangeEvent.POST_CHANGE);
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(J2EEComponentClasspathUpdater.getInstance(), IResourceChangeEvent.POST_CHANGE | IResourceChangeEvent.PRE_CLOSE | IResourceChangeEvent.PRE_DELETE);
 	}
 	
 	public void stop(BundleContext context) throws Exception {

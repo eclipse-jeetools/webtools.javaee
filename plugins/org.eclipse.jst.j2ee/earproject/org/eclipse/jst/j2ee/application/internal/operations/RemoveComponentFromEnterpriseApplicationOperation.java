@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -24,6 +25,7 @@ import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpda
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentOperation;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveReferenceComponentOperation {
@@ -58,7 +60,13 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 				if (list != null && list.size() > 0) {
 					for (int i = 0; i < list.size(); i++) {
 						IVirtualComponent wc = (IVirtualComponent) list.get(i);
-						removeModule(application, getModuleURI(earEdit, wc)); 
+						String moduleURI = getModuleURI(earEdit, wc);
+						removeModule(application, moduleURI); 
+						IVirtualFile vFile = comp.getRootFolder().getFile(moduleURI);
+						IFile iFile = vFile.getUnderlyingFile();
+						if(iFile.exists()){
+							iFile.delete(true, monitor);
+						}
 					}
 				}
 			}

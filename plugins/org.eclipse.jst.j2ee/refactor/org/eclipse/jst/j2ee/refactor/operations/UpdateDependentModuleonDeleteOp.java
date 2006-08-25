@@ -19,6 +19,7 @@ import java.util.jar.Manifest;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -101,29 +102,32 @@ public class UpdateDependentModuleonDeleteOp extends UpdateDependentProjectOp {
 	protected static void updateManifestDependency(final ProjectRefactorMetadata refactoredMetadata,
 			final ProjectRefactorMetadata dependentMetadata, final boolean remove) throws ExecutionException {
 		final IVirtualComponent dependentComp = dependentMetadata.getVirtualComponent();
-		final String dependentProjName = dependentMetadata.getProjectName();
-		final String refactoredProjName = refactoredMetadata.getProjectName();
-		final IVirtualFile vf = dependentComp.getRootFolder().getFile(new Path(J2EEConstants.MANIFEST_URI) );
-		final IFile manifestmf = vf.getUnderlyingFile();
-		final IProgressMonitor monitor = new NullProgressMonitor();
-		final IDataModel updateManifestDataModel = DataModelFactory.createDataModel(new UpdateManifestDataModelProvider());
-		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.PROJECT_NAME, dependentProjName);
-		updateManifestDataModel.setBooleanProperty(UpdateManifestDataModelProperties.MERGE, false);
-		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.MANIFEST_FILE, manifestmf);
-		final ArchiveManifest manifest = getArchiveManifest(manifestmf);
-		String[] cp = manifest.getClassPathTokenized();
-		List cpList = new ArrayList();
-		String newCp = refactoredProjName + ".jar";//$NON-NLS-1$
-		for (int i = 0; i < cp.length; i++) {
-			if (!cp[i].equals(newCp)) {
-				cpList.add(cp[i]);
+		IProject project= dependentComp.getProject();
+		if(project.isAccessible()){
+			final String dependentProjName = dependentMetadata.getProjectName();
+			final String refactoredProjName = refactoredMetadata.getProjectName();
+			final IVirtualFile vf = dependentComp.getRootFolder().getFile(new Path(J2EEConstants.MANIFEST_URI) );
+			final IFile manifestmf = vf.getUnderlyingFile();
+			final IProgressMonitor monitor = new NullProgressMonitor();
+			final IDataModel updateManifestDataModel = DataModelFactory.createDataModel(new UpdateManifestDataModelProvider());
+			updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.PROJECT_NAME, dependentProjName);
+			updateManifestDataModel.setBooleanProperty(UpdateManifestDataModelProperties.MERGE, false);
+			updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.MANIFEST_FILE, manifestmf);
+			final ArchiveManifest manifest = getArchiveManifest(manifestmf);
+			String[] cp = manifest.getClassPathTokenized();
+			List cpList = new ArrayList();
+			String newCp = refactoredProjName + ".jar";//$NON-NLS-1$
+			for (int i = 0; i < cp.length; i++) {
+				if (!cp[i].equals(newCp)) {
+					cpList.add(cp[i]);
+				}
 			}
+			if (!remove) {
+				cpList.add(newCp);
+			}
+			updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.JAR_LIST, cpList);
+			updateManifestDataModel.getDefaultOperation().execute(monitor, null );
 		}
-		if (!remove) {
-			cpList.add(newCp);
-		}
-		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.JAR_LIST, cpList);
-		updateManifestDataModel.getDefaultOperation().execute(monitor, null );
 	}
 	
 	private static ArchiveManifest getArchiveManifest(final IFile manifestFile) throws ExecutionException {
