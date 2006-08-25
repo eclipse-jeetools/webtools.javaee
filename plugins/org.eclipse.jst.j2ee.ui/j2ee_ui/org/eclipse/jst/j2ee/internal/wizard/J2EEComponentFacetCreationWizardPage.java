@@ -54,6 +54,10 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
 
 	protected abstract String getModuleFacetID();
 
+	protected String getModuleTypeID() {
+		return getModuleFacetID();
+	}
+	
 	public void dispose() {
 		super.dispose();
 		if (earPanel != null)
