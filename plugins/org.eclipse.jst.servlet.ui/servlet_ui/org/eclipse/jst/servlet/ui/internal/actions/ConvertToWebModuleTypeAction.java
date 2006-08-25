@@ -116,7 +116,7 @@ public class ConvertToWebModuleTypeAction extends Action implements IWorkbenchWi
 		fixedFacets.remove(webFacet);
 		facetedProject.setFixedProjectFacets(fixedFacets);
 		IProjectFacetVersion webFv = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE).getVersion(selectedVersion);
-		IProjectFacetVersion javaFv = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_JAVA).getVersion(JavaFacetUtils.getCompilerLevel(project));
+		IProjectFacetVersion javaFv = JavaFacetUtils.compilerLevelToFacet(JavaFacetUtils.getCompilerLevel(project));
 		IFacetedProject.Action uninstall = new IFacetedProject.Action(IFacetedProject.Action.Type.UNINSTALL, facetedProject.getInstalledVersion(webFacet), null);
 		IFacetedProject.Action install = new IFacetedProject.Action(IFacetedProject.Action.Type.INSTALL,webFv,null);
 		IFacetedProject.Action javaInstall = new IFacetedProject.Action(IFacetedProject.Action.Type.INSTALL, javaFv, null);
