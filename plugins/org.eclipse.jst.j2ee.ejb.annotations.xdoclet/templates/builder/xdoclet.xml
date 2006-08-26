@@ -60,8 +60,8 @@
 
 
       <ejbdoclet
-            destdir="${ejb.project.dir}/${ejb.module.gen}"
-            mergedir="${ejb.dd.dir}"
+            destdir="${ejb.module.gen}"
+            mergedir="${xdoclet.merge.dir}"
             excludedtags="@version,@author,@todo"
             addedtags="@wtp generated"
             ejbspec="${ejb.spec.version}"
@@ -70,7 +70,7 @@
 
 
 <!-- BEANS START -->
- 	   <fileset dir="${ejb.project.dir}/${ejb.module.src}" defaultexcludes="yes"> 
+ 	   <fileset dir="${ejb.module.src}" defaultexcludes="yes"> 
    	    @beans@
  	   </fileset>
 <!-- BEANS END -->
@@ -85,7 +85,7 @@
 	
 	<target name="client.jar" if="ejb.client.module.src">
 	  	  <move todir="${ejb.client.module.src}" >
-			<fileset dir="${ejb.project.dir}/${ejb.module.src}" id="id">
+			<fileset dir="${ejb.module.src}" id="id">
 			    <include name="**/*.java"/>
 			    <exclude name="**/*Bean.java"/>
 			    <exclude name="**/*EJB.java"/>

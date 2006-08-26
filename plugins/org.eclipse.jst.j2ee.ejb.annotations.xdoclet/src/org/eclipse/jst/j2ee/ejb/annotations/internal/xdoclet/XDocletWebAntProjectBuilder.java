@@ -116,10 +116,12 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 			properties.put("web", contextRoot); //$NON-NLS-1$
 			properties.put("web.project.dir", projectDir); //$NON-NLS-1$
 			properties.put("web.project.classpath", asClassPath(javaProject)); //$NON-NLS-1$
-			properties.put("web.module.src", packageFragmentRoot.getResource().getProjectRelativePath().toString()); //$NON-NLS-1$
-			properties.put("web.module.gen", packageFragmentRoot.getResource().getProjectRelativePath().toString()); //$NON-NLS-1$
+			properties.put("web.module.src", packageFragmentRoot.getResource().getLocation().toString()); //$NON-NLS-1$
+			properties.put("web.module.gen", packageFragmentRoot.getResource().getLocation().toString()); //$NON-NLS-1$
 			properties.put("web.bin.dir", this.getJavaProjectOutputContainer(javaProject).toString()); //$NON-NLS-1$
 			properties.put("xdoclet.home", getPreferenceStore().getProperty(XDocletPreferenceStore.XDOCLETHOME)); //$NON-NLS-1$
+			properties.put("xdoclet.merge.dir", projectDir +"/"+webInf.toString());
+			//getPreferenceStore().getProperty(projectDir +"/"+XDocletPreferenceStore.XDOCLEMERGEDIR)); //$NON-NLS-1$
 			URL url = Platform.getBundle("org.apache.ant").getEntry("/"); //$NON-NLS-1$ //$NON-NLS-2$
 			url = Platform.asLocalURL(url);
 			File file = new File(url.getFile());

@@ -124,17 +124,17 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 			core = StructureEdit.getStructureEditForRead(javaProject.getProject());
 			List ejbs = new ArrayList();
 			getAllAnnotatedEjbs(packageFragmentRoot, ejbs);
-			
-			String projectDir = resource.getProject().getLocation().toString() ;
-			String moduleDir = packageFragmentRoot.getResource().getProjectRelativePath().toString();
+
+			String projectDir = resource.getProject().getLocation().toString();
+			String moduleDir = packageFragmentRoot.getResource().getLocation().toString();
 
 			properties.put("ejb", resource.getProject().getName()); //$NON-NLS-1$
 			properties.put("ejb.project.dir", projectDir); //$NON-NLS-1$
 			properties.put("ejb.project.classpath", asClassPath(javaProject)); //$NON-NLS-1$
 			properties.put("ejb.module.src", moduleDir); //$NON-NLS-1$
-			properties.put("ejb.module.gen", packageFragmentRoot.getResource().getProjectRelativePath().toString()); //$NON-NLS-1$
+			properties.put("ejb.module.gen", packageFragmentRoot.getResource().getLocation().toString()); //$NON-NLS-1$
 			properties.put("ejb.bin.dir", this.getJavaProjectOutputContainer(javaProject).toString()); //$NON-NLS-1$
-			properties.put("ejb.bin.dir", this.getJavaProjectOutputContainer(javaProject).toString()); //$NON-NLS-1$
+
 			properties.put("xdoclet.home", getPreferenceStore().getProperty(XDocletPreferenceStore.XDOCLETHOME)); //$NON-NLS-1$
 			URL url = Platform.getBundle("org.apache.ant").getEntry("/"); //$NON-NLS-1$ //$NON-NLS-2$
 			url = Platform.asLocalURL(url);
@@ -145,7 +145,7 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 			// So assume the first module in the project (currently)
 			// there is only one anyway...
 			IProject proj = javaProject.getProject();
-		
+
 			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(proj);
 
 			int ejbLevelI = J2EEVersionConstants.EJB_2_0_ID;
@@ -154,19 +154,21 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 			} catch (RuntimeException e) {
 			}
 			String ejbLevel = J2EEProjectUtilities.getJ2EEProjectVersion(proj);
-			if ((ejbLevel == null || ejbLevel.length()==0) && ejbLevelI == J2EEVersionConstants.EJB_2_0_ID)
+			if ((ejbLevel == null || ejbLevel.length() == 0) && ejbLevelI == J2EEVersionConstants.EJB_2_0_ID)
 				ejbLevel = J2EEVersionConstants.VERSION_2_0_TEXT;
-			else if ((ejbLevel == null || ejbLevel.length()==0) && ejbLevelI == J2EEVersionConstants.EJB_2_1_ID)
+			else if ((ejbLevel == null || ejbLevel.length() == 0) && ejbLevelI == J2EEVersionConstants.EJB_2_1_ID)
 				ejbLevel = J2EEVersionConstants.VERSION_2_1_TEXT;
 
 			setEjbClientJarProperties(properties, core, ejbModule);
 			IPath metaInfPath = getMetaInfFolder(ejbModule);
-			String metaInf = projectDir+"/"+ moduleDir+"/META-INF";
-			if(metaInfPath != null)
-				metaInf = projectDir+"/"+metaInfPath.toString();
-			
+			String metaInf = moduleDir + "/META-INF";
+			if (metaInfPath != null)
+				metaInf = projectDir + "/" + metaInfPath.toString();
+
 			properties.put("ejb.spec.version", ejbLevel); //$NON-NLS-1$
 			properties.put("ejb.metainf.dir", metaInf); //$NON-NLS-1$
+			properties.put("xdoclet.merge.dir", metaInf);
+
 			properties.put("java.class.path", ""); //$NON-NLS-1$ //$NON-NLS-2$
 			properties.put("project.class.path", ""); //$NON-NLS-1$ //$NON-NLS-2$
 			properties.put("project.path", ""); //$NON-NLS-1$ //$NON-NLS-2$
@@ -286,14 +288,14 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 			clientProject.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 
 	}
-	
+
 	protected IPath getMetaInfFolder(WorkbenchComponent ejbModule) {
 		ComponentResource[] METAINF = ejbModule.findResourcesByRuntimePath(new Path("/META-INF"));
 		for (int i = 0; i < METAINF.length; i++) {
 			ComponentResource resource = METAINF[i];
-			if(resource.getRuntimePath().toString().equals("/META-INF"))
+			if (resource.getRuntimePath().toString().equals("/META-INF"))
 				return resource.getSourcePath();
-		}		
+		}
 		if (METAINF.length > 0)
 			return METAINF[0].getSourcePath();
 		return null;

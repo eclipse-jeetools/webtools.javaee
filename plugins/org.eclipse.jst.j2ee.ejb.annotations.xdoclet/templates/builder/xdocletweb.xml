@@ -59,14 +59,14 @@
 
     <webdoclet 
     		destdir="${web.module.webinf}"
-    		mergedir="${web.module.webinf}"
+    		mergedir="${xdoclet.merge.dir}"
     	    excludedtags="@version,@author,@todo"
     	    addedtags="@wtp generated"
     	    force="${xdoclet.force}"
     	    verbose="true" >
     	
     	<!-- SERVLETS START -->
-    	 	   <fileset dir="${web.project.dir}/${web.module.src}" defaultexcludes="yes"> 
+    	 	   <fileset dir="${web.module.src}" defaultexcludes="yes"> 
     	   	    @servlets@
     	 	   </fileset>
     	<!-- SERVLETS END -->
