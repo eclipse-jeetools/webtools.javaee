@@ -552,7 +552,14 @@
             label="contextroot"
             type="string"
             description="	The context-root element specifies the context root for the web application."/>
-      <TaskProperty
+       <TaskProperty
+            default="java:/jaas/MySecurityDomain"
+            id="webdoclet.jboss.securitydomain"
+            include="false"
+            label="securitydomain"
+            type="string"
+            description="Security domain"/> 
+       <TaskProperty
             default="UTF-8"
             id="webdoclet.jboss.xmlencoding"
             include="true"
@@ -635,6 +642,13 @@
             type="string"
             description="Sets the directory where the generated file(s) will be written."/>
 
+       <TaskProperty
+            default="java:/DefaultDS"
+            id="webdoclet.jboss.securitydomain"
+            include="false"
+            label="securitydomain"
+            type="string"
+            description="Security domain"/>           
        <TaskProperty
             default="java:/DefaultDS"
             id="ejbdoclet.jboss.datasource"
