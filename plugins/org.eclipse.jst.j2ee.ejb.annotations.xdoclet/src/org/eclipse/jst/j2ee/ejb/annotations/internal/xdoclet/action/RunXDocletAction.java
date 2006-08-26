@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.action;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletAntProjectBuilder;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 
@@ -25,6 +26,12 @@ public class RunXDocletAction extends XDocletActionDelegate {
 			
 			builder.buildUsingAnt(sourceFile, new NullProgressMonitor());
 		}
+	}
+	
+	public void selectionChanged(IAction action, ISelection selection) {
+		super.selectionChanged(action, selection);
+		IFile sourceFile = getFirstSourceFile();
+		action.setEnabled( sourceFile != null);
 	}
 
 }
