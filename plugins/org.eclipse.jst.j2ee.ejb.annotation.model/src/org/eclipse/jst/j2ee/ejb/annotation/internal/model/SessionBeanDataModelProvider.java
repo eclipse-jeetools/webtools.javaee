@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.ejb.SessionType;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddSessionBeanOperation;
+import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
@@ -62,6 +63,8 @@ public class SessionBeanDataModelProvider extends EnterpriseBeanClassDataModelPr
 			return Boolean.TRUE;
 		else if (propertyName.equals(SUPERCLASS))
 			return DEFAULT_EJB_SUPERCLASS;
+		else if (propertyName.equals(MODIFIER_ABSTRACT))
+			return Boolean.TRUE;
 		else if (propertyName.equals(EJB_INTERFACES))
 			return DEFAULT_EJB_INTERFACES;
 		return super.getDefaultProperty(propertyName);

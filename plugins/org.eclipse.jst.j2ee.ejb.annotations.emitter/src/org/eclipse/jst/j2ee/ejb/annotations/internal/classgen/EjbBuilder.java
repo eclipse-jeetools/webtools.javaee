@@ -9,7 +9,9 @@
 
 package org.eclipse.jst.j2ee.ejb.annotations.internal.classgen;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -18,6 +20,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.IBuffer;
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.ISourceRange;
@@ -27,10 +30,16 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.ToolFactory;
 import org.eclipse.jdt.core.compiler.IProblem;
 import org.eclipse.jdt.core.dom.AST;
+import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTParser;
+import org.eclipse.jdt.core.dom.AbstractTypeDeclaration;
 import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.rewrite.ImportRewrite;
 import org.eclipse.jdt.core.formatter.CodeFormatter;
+import org.eclipse.jdt.internal.corext.codemanipulation.AddUnimplementedConstructorsOperation;
+import org.eclipse.jdt.internal.corext.codemanipulation.AddUnimplementedMethodsOperation;
+import org.eclipse.jdt.internal.corext.dom.NodeFinder;
 import org.eclipse.jdt.ui.CodeGeneration;
 import org.eclipse.jdt.ui.CodeStyleConfiguration;
 import org.eclipse.jface.text.Document;
@@ -54,6 +63,10 @@ public class EjbBuilder {
 	protected String methodStub;
 
 	protected String fields;
+
+	protected boolean createInheritedMethods;
+
+	protected boolean createInheritedConstructors;
 
 	protected IConfigurationElement configurationElement;
 
@@ -122,6 +135,8 @@ public class EjbBuilder {
 
 			createTypeMembers(createdType, imports, new SubProgressMonitor(monitor, 1));
 
+			createInheritedMethods(createdType, isCreateInheritedConstructors(), isCreateInheritedMethods(), imports,
+					new SubProgressMonitor(monitor, 1));
 			// add imports
 			imports.create(cu, true);
 
@@ -169,6 +184,81 @@ public class EjbBuilder {
 			createdType.createField(fields, null, false, this.getMonitor());
 		if (methodStub != null && methodStub.length() > 0)
 			createdType.createMethod(methodStub, null, false, this.getMonitor());
+	}
+
+	/**
+	 * Creates the bodies of all unimplemented methods and constructors and adds
+	 * them to the type. Method is typically called by implementers of
+	 * <code>NewTypeWizardPage</code> to add needed method and constructors.
+	 * 
+	 * @param type
+	 *            the type for which the new methods and constructor are to be
+	 *            created
+	 * @param doConstructors
+	 *            if <code>true</code> unimplemented constructors are created
+	 * @param doUnimplementedMethods
+	 *            if <code>true</code> unimplemented methods are created
+	 * @param imports
+	 *            an import manager to add all needed import statements
+	 * @param monitor
+	 *            a progress monitor to report progress
+	 * @return the created methods.
+	 * @throws CoreException
+	 *             thrown when the creation fails.
+	 */
+	protected IMethod[] createInheritedMethods(IType type, boolean doConstructors, boolean doUnimplementedMethods,
+			ImportsManager imports, IProgressMonitor monitor) throws CoreException {
+		final ICompilationUnit cu = type.getCompilationUnit();
+		cu.reconcile(ICompilationUnit.NO_AST, false, null, null);
+		IMethod[] typeMethods = type.getMethods();
+		Set handleIds = new HashSet(typeMethods.length);
+		for (int index = 0; index < typeMethods.length; index++)
+			handleIds.add(typeMethods[index].getHandleIdentifier());
+		ArrayList newMethods = new ArrayList();
+		ASTParser parser = ASTParser.newParser(AST.JLS3);
+		parser.setResolveBindings(true);
+		parser.setSource(cu);
+		CompilationUnit unit = (CompilationUnit) parser.createAST(new SubProgressMonitor(monitor, 1));
+		ASTNode node = NodeFinder.perform(unit, type.getNameRange());
+		do {
+			node = node.getParent();
+		} while (node != null && !AbstractTypeDeclaration.class.isInstance(node));
+
+		final AbstractTypeDeclaration declaration = (AbstractTypeDeclaration) node;
+		ITypeBinding binding = null;
+		if (declaration != null)
+			binding = declaration.resolveBinding();
+
+		if (binding != null) {
+			if (doUnimplementedMethods) {
+				AddUnimplementedMethodsOperation operation = new AddUnimplementedMethodsOperation(unit, binding, null, -1, false,
+						true, false);
+				operation.setCreateComments(true);
+				operation.run(monitor);
+				createImports(imports, operation.getCreatedImports());
+			}
+			if (doConstructors) {	
+				AddUnimplementedConstructorsOperation operation = new AddUnimplementedConstructorsOperation(unit, binding, null, -1,
+						false, true, false);
+				operation.setOmitSuper(true);
+				operation.setCreateComments(true);
+				operation.run(monitor);
+				createImports(imports, operation.getCreatedImports());
+			}
+		}
+		cu.reconcile(ICompilationUnit.NO_AST, false, null, null);
+		typeMethods = type.getMethods();
+		for (int index = 0; index < typeMethods.length; index++)
+			if (!handleIds.contains(typeMethods[index].getHandleIdentifier()))
+				newMethods.add(typeMethods[index]);
+		IMethod[] methods = new IMethod[newMethods.size()];
+		newMethods.toArray(methods);
+		return methods;
+	}
+
+	private void createImports(ImportsManager imports, String[] createdImports) {
+		for (int index = 0; index < createdImports.length; index++)
+			imports.addImport(createdImports[index]);
 	}
 
 	/**
@@ -235,6 +325,15 @@ public class EjbBuilder {
 
 		void create(ICompilationUnit cu, boolean toRestore) throws CoreException {
 			ImportRewrite.create(cu, toRestore);
+			TextEdit edit = fImportsStructure.rewriteImports(new NullProgressMonitor());
+			IDocument document = new Document(cu.getSource());
+			try {
+				edit.apply(document);
+			} catch (Exception e) {
+			}
+			String imports = document.get();
+			cu.getBuffer().setContents(imports);
+			cu.commitWorkingCopy(false, new NullProgressMonitor());
 		}
 
 		void removeImport(String qualifiedName) {
@@ -371,6 +470,22 @@ public class EjbBuilder {
 	 */
 	public void setConfigurationElement(IConfigurationElement configurationElement) {
 		this.configurationElement = configurationElement;
+	}
+
+	public boolean isCreateInheritedConstructors() {
+		return createInheritedConstructors;
+	}
+
+	public void setCreateInheritedConstructors(boolean createInheritedConstructors) {
+		this.createInheritedConstructors = createInheritedConstructors;
+	}
+
+	public boolean isCreateInheritedMethods() {
+		return createInheritedMethods;
+	}
+
+	public void setCreateInheritedMethods(boolean createInheritedMethods) {
+		this.createInheritedMethods = createInheritedMethods;
 	}
 
 }

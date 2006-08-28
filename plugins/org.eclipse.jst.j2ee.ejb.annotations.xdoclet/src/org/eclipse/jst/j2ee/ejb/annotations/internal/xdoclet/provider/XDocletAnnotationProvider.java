@@ -122,6 +122,8 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 		ejbBuilder.setTypeStub(stub);
 		ejbBuilder.setMethodStub(method);
 		ejbBuilder.setFields("");
+		ejbBuilder.setCreateInheritedMethods(dataModel.getBooleanProperty(INewJavaClassDataModelProperties.ABSTRACT_METHODS));
+		ejbBuilder.setCreateInheritedConstructors(dataModel.getBooleanProperty(INewJavaClassDataModelProperties.CONSTRUCTOR));
 
 		ejbBuilder.createType();
 
@@ -171,6 +173,8 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 		ejbBuilder.setTypeStub(stub);
 		ejbBuilder.setMethodStub(method);
 		ejbBuilder.setFields(fields);
+		ejbBuilder.setCreateInheritedMethods(dataModel.getBooleanProperty(INewJavaClassDataModelProperties.ABSTRACT_METHODS));
+		ejbBuilder.setCreateInheritedConstructors(dataModel.getBooleanProperty(INewJavaClassDataModelProperties.CONSTRUCTOR));
 
 		ejbBuilder.createType();
 
@@ -230,6 +234,8 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 		ejbBuilder.setTypeStub(stub);
 		ejbBuilder.setMethodStub(method);
 		ejbBuilder.setFields(fields);
+		ejbBuilder.setCreateInheritedMethods(dataModel.getBooleanProperty(INewJavaClassDataModelProperties.ABSTRACT_METHODS));
+		ejbBuilder.setCreateInheritedConstructors(dataModel.getBooleanProperty(INewJavaClassDataModelProperties.CONSTRUCTOR));
 
 		ejbBuilder.createType();
 		IType bean = ejbBuilder.getCreatedType();

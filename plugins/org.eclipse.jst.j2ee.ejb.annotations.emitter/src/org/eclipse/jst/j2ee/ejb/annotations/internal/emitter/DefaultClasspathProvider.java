@@ -33,6 +33,7 @@ public class DefaultClasspathProvider implements IEmitterClasspathProvider {
 		list.add("org.eclipse.emf.ecore");
 		list.add("org.eclipse.emf.ecore.xmi");
 		list.add("org.eclipse.emf.common");
+		list.add("org.eclipse.jst.j2ee");	
 		list.add("org.eclipse.jst.j2ee.core");	
 		list.add("org.eclipse.jst.j2ee.ejb.annotation.model");	
 		list.add("org.eclipse.jst.j2ee.ejb.annotations.emitter");	

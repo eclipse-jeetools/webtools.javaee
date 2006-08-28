@@ -66,7 +66,7 @@ public class ContainerManagedEntityBeanDataModelProvider extends EnterpriseBeanC
 		else if (propertyName.equals(EJB_TYPE))
 			return "EntityBean";
 		else if (propertyName.equals(MODIFIER_ABSTRACT))
-			return Boolean.FALSE;
+			return Boolean.TRUE;
 		else if (propertyName.equals(SUPERCLASS))
 			return DEFAULT_EJB_SUPERCLASS;
 		else if (propertyName.equals(EJB_INTERFACES))
