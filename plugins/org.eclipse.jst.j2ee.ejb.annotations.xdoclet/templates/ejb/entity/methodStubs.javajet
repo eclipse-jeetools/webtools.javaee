@@ -71,7 +71,7 @@ public void ejbPostCreate() throws javax.ejb.CreateException {
 * @ejb.persistence
 *    column-name="<%= mapping.getColumnName() %>"
 *     jdbc-type="<%= mapping.getJdbcType() %>"
-*     sql-type="<%= mapping.getSqlType() %>"
+*     sql-type="<%= mapping.getSqlTypeDecl() %>"
 *     read-only="<%= mapping.isReadOnly() %>"
 * <%= (mapping.isKey() ? "@ejb.pk-field" : "" ) %> 
 *

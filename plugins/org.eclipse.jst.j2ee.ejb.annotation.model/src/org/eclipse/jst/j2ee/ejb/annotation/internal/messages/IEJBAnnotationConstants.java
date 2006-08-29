@@ -123,6 +123,8 @@ public interface IEJBAnnotationConstants {
 	public static final String ATTRIBUTE_TYPE = EJBAnnotationMessages.ATTRIBUTE_TYPE;
 	public static final String ATTRIBUTE_JDBCTYPE = EJBAnnotationMessages.ATTRIBUTE_JDBCTYPE;
 	public static final String ATTRIBUTE_SQLTYPE = EJBAnnotationMessages.ATTRIBUTE_SQLTYPE;
+	public static final String ATTRIBUTE_COLUMNSIZE = EJBAnnotationMessages.ATTRIBUTE_COLUMNSIZE;
+	public static final String ATTRIBUTE_DECIMALDIGITS = EJBAnnotationMessages.ATTRIBUTE_DECIMALDIGITS;
 	public static final String ATTRIBUTE_READONLY = EJBAnnotationMessages.ATTRIBUTE_READONLY;
 	public static final String ATTRIBUTE_ISKEY = EJBAnnotationMessages.ATTRIBUTE_ISKEY;
 	public static final String ATTRIBUTE_ADD = EJBAnnotationMessages.ATTRIBUTE_ADD;

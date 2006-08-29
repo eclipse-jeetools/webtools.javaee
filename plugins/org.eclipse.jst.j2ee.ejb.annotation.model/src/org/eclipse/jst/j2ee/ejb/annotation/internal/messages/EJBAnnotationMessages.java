@@ -134,6 +134,8 @@ public class EJBAnnotationMessages extends NLS {
 	public static String ATTRIBUTE_TYPE;
 	public static String ATTRIBUTE_JDBCTYPE;
 	public static String ATTRIBUTE_SQLTYPE;
+	public static String ATTRIBUTE_COLUMNSIZE;
+	public static String ATTRIBUTE_DECIMALDIGITS;
 	public static String ATTRIBUTE_READONLY;
 	public static String ATTRIBUTE_ISKEY;
 	public static String ATTRIBUTE_ADD;

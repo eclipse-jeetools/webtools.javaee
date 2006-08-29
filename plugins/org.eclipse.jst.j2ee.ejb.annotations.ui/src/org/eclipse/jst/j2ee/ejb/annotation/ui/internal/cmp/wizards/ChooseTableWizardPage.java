@@ -60,8 +60,7 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 
 	protected final Image fChecked = EjbAnnotationsUiPlugin.getDefault().getImageDescriptor("icons/checked.gif").createImage();
 
-	protected final Image fUnchecked = EjbAnnotationsUiPlugin.getDefault().getImageDescriptor("icons/unchecked.gif")
-			.createImage();
+	protected final Image fUnchecked = EjbAnnotationsUiPlugin.getDefault().getImageDescriptor("icons/unchecked.gif").createImage();
 
 	private String[] sqlTypes = CMPUtils.sqlTypes;
 
@@ -187,12 +186,17 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 
 				ResultSet columns = metaData.getColumns(null, schema, tableName, "%");
 				while (columns.next()) {
+					int datasize = columns.getInt("COLUMN_SIZE");
+					int digits = columns.getInt("DECIMAL_DIGITS");
+
 					CMPAttributeDelegate atr = new CMPAttributeDelegate();
 					atr.setName(columns.getString("COLUMN_NAME").toLowerCase());
 					atr.setAttributeType(CMPUtils.getAttributeType(columns.getInt("DATA_TYPE")));
 					atr.setJdbcType(CMPUtils.getSqlType(columns.getInt("DATA_TYPE")));
 					atr.setSqlType(columns.getString("TYPE_NAME"));
 					atr.setColumnName(columns.getString("COLUMN_NAME"));
+					atr.setDecimalDigits(digits);
+					atr.setColumnSize(datasize);
 					attributes.add(atr);
 				}
 				ResultSet primaryKeys = metaData.getPrimaryKeys(null, schema, tableName);
@@ -270,8 +274,7 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 
 		} catch (Throwable ex) {
 			ex.printStackTrace();
-			MessageDialog.openError(this.getShell(), IEJBAnnotationConstants.CANNOT_CONNECT,
-					IEJBAnnotationConstants.CHECK_PROPERTIES);
+			MessageDialog.openError(this.getShell(), IEJBAnnotationConstants.CANNOT_CONNECT, IEJBAnnotationConstants.CHECK_PROPERTIES);
 		} finally {
 			if (connection != null)
 				try {
@@ -345,11 +348,20 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 		column.setText(IEJBAnnotationConstants.ATTRIBUTE_SQLTYPE);
 		column.setWidth(80);
 
-		column = new TableColumn(attributeTable, SWT.CENTER, 5);
+		// 2 column with task Description
+		column = new TableColumn(attributeTable, SWT.LEFT, 5);
+		column.setText(IEJBAnnotationConstants.ATTRIBUTE_COLUMNSIZE);
+		column.setWidth(60);
+
+		column = new TableColumn(attributeTable, SWT.LEFT, 6);
+		column.setText(IEJBAnnotationConstants.ATTRIBUTE_DECIMALDIGITS);
+		column.setWidth(60);
+
+		column = new TableColumn(attributeTable, SWT.CENTER, 7);
 		column.setText(IEJBAnnotationConstants.ATTRIBUTE_READONLY);
 		column.setWidth(80);
 
-		column = new TableColumn(attributeTable, SWT.CENTER, 6);
+		column = new TableColumn(attributeTable, SWT.CENTER, 8);
 		column.setText(IEJBAnnotationConstants.ATTRIBUTE_ISKEY);
 		column.setWidth(80);
 		addAttributeButtons(libraryPanel);
@@ -442,8 +454,7 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 		if (sources != null && sources.length >= 1) {
 			JavaTypeCompletionProcessor fFieldTypeCompletionProcessor = new JavaTypeCompletionProcessor(false, false);
 			fFieldTypeCompletionProcessor.setPackageFragment(sources[0].getPackageFragment(""));
-			ControlContentAssistHelper.createTextContentAssistant(((Text) textEditor3.getControl()),
-					fFieldTypeCompletionProcessor);
+			ControlContentAssistHelper.createTextContentAssistant(((Text) textEditor3.getControl()), fFieldTypeCompletionProcessor);
 		}
 		editors[2] = textEditor3;
 
@@ -454,9 +465,17 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 		// editors[4] = textEditor4;
 		editors[4] = new ComboBoxCellEditor(table, sqlTypes, SWT.READ_ONLY);
 
-		editors[5] = new CheckboxCellEditor(table, SWT.CENTER);
+		TextCellEditor textEditor5 = new TextCellEditor(table);
+		((Text) textEditor5.getControl()).setTextLimit(200);
+		editors[5] = textEditor5;
 
-		editors[6] = new CheckboxCellEditor(table, SWT.CENTER);
+		TextCellEditor textEditor6 = new TextCellEditor(table);
+		((Text) textEditor6.getControl()).setTextLimit(200);
+		editors[6] = textEditor6;
+
+		editors[7] = new CheckboxCellEditor(table, SWT.CENTER);
+
+		editors[8] = new CheckboxCellEditor(table, SWT.CENTER);
 
 		// Assign the cell editors to the viewer
 		tableViewer.setCellEditors(editors);
@@ -467,8 +486,9 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 	}
 
 	protected static String[] columnNames = { IEJBAnnotationConstants.ATTRIBUTE_NAME, IEJBAnnotationConstants.ATTRIBUTE_COLUMN,
-			IEJBAnnotationConstants.ATTRIBUTE_TYPE, IEJBAnnotationConstants.ATTRIBUTE_JDBCTYPE,
-			IEJBAnnotationConstants.ATTRIBUTE_SQLTYPE, IEJBAnnotationConstants.ATTRIBUTE_READONLY,
+			IEJBAnnotationConstants.ATTRIBUTE_TYPE, IEJBAnnotationConstants.ATTRIBUTE_SQLTYPE,
+			IEJBAnnotationConstants.ATTRIBUTE_JDBCTYPE, IEJBAnnotationConstants.ATTRIBUTE_COLUMNSIZE,
+			IEJBAnnotationConstants.ATTRIBUTE_DECIMALDIGITS, IEJBAnnotationConstants.ATTRIBUTE_READONLY,
 			IEJBAnnotationConstants.ATTRIBUTE_ISKEY };
 
 	protected int getColumnIndex(String columName) {
@@ -510,9 +530,19 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 				return fieldMapping.getJdbcType();
 			case 4: // Local
 				return fieldMapping.getSqlType();
-			case 5: // Local
+			case 5:
+				if (fieldMapping.isVariableSizedType()) {
+					return "" + fieldMapping.getColumnSize();
+				}
 				return "";
-			case 6: // Local
+			case 6:
+				if (fieldMapping.isDecimal()) {
+					return "" + fieldMapping.getDecimalDigits();
+				}
+				return "";
+			case 7: // Local
+				return "";
+			case 8: // Local
 				return "";
 			}
 			return "";
@@ -525,18 +555,18 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 		public Image getColumnImage(Object obj, int index) {
 			CMPAttributeDelegate fieldMapping = (CMPAttributeDelegate) obj;
 			switch (index) {
-			case 5: // Local
+			case 7: // Local
 				if (fieldMapping.isReadOnly())
 					return fChecked;
 				else
 					return fUnchecked;
 
-			case 6: // Local
+			case 8: // Local
 				if (fieldMapping.isKey())
 					return fChecked;
 				else
 					return fUnchecked;
-			case 7: // Local
+			case 9: // Local
 				if (fieldMapping.isTransient())
 					return fChecked;
 				else
@@ -553,6 +583,17 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 	public class FieldCellModifier implements ICellModifier {
 
 		public boolean canModify(Object element, String property) {
+			CMPAttributeDelegate attribute = (CMPAttributeDelegate) element;
+			if (IEJBAnnotationConstants.ATTRIBUTE_DECIMALDIGITS.equals(property)) {
+				if (attribute.isDecimal())
+					return true;
+				return false;
+			}
+			if (IEJBAnnotationConstants.ATTRIBUTE_COLUMNSIZE.equals(property)) {
+				if (attribute.isVariableSizedType())
+					return true;
+				return false;
+			}
 			return true;
 		}
 
@@ -587,10 +628,20 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 				}
 				return new Integer(0);
 			case 5:
-				return Boolean.valueOf(fieldMapping.isReadOnly());
+				if (fieldMapping.isVariableSizedType()) {
+					return "" + fieldMapping.getColumnSize();
+				}
+				return "";
 			case 6:
-				return Boolean.valueOf(fieldMapping.isKey());
+				if (fieldMapping.isDecimal()) {
+					return "" + fieldMapping.getDecimalDigits();
+				}
+				return "";
 			case 7:
+				return Boolean.valueOf(fieldMapping.isReadOnly());
+			case 8:
+				return Boolean.valueOf(fieldMapping.isKey());
+			case 9:
 				return Boolean.valueOf(fieldMapping.isTransient());
 			default:
 				result = "";
@@ -632,14 +683,26 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 				fieldMapping.setSqlType(sqlType);
 				break;
 			case 5:
+				if (fieldMapping.isVariableSizedType()) {
+					int colSize = Integer.parseInt((String) value);
+					fieldMapping.setColumnSize(colSize);
+				}
+				break;
+			case 6:
+				if (fieldMapping.isDecimal()) {
+					int decDigits = Integer.parseInt((String) value);
+					fieldMapping.setDecimalDigits(decDigits);
+				}
+				break;
+			case 7:
 				boolean readValue = ((Boolean) value).booleanValue();
 				fieldMapping.setReadOnly(readValue);
 				break;
-			case 6:
+			case 8:
 				boolean newValue = ((Boolean) value).booleanValue();
 				fieldMapping.setKey(newValue);
 				break;
-			case 7:
+			case 9:
 				fieldMapping.setTransient(((Boolean) value).booleanValue());
 				break;
 			}

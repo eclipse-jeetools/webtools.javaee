@@ -18,6 +18,9 @@ public class CMPAttributeDelegate {
 	private String columnName;
 	private String jdbcType;
 	private boolean isReadOnly;
+	
+	private int columnSize;
+	private int decimalDigits;
 
 	public CMPAttributeDelegate() {
 		this.name = "aField";
@@ -25,6 +28,8 @@ public class CMPAttributeDelegate {
 		this.jdbcType = "VARCHAR";
 		this.sqlType = "VARCHAR";
 		this.columnName = "ACOLUMN";
+		this.columnSize = 0;
+		this.decimalDigits = 0;
 	}
 
 	/**
@@ -138,6 +143,27 @@ public class CMPAttributeDelegate {
 	public String getSqlType() {
 		return sqlType;
 	}
+	/**
+	 * @return Returns the sqlType.
+	 */
+	public String getSqlTypeDecl() {
+		String response = this.sqlType;
+		if (isVariableSizedType()) {
+			response += ("("+columnSize);
+			if (isDecimal())
+					response += (","+decimalDigits);
+			response += ")";
+		}
+		return response;
+	}
+
+	public boolean isDecimal() {
+		return sqlType.equals("DECIMAL");
+	}
+
+	public boolean isVariableSizedType() {
+		return isDecimal() || sqlType.equals("VARCHAR") || sqlType.equals("CHAR") || sqlType.equals("CLOB") || sqlType.equals("BLOB");
+	}
 
 	/**
 	 * @param sqlType
@@ -145,5 +171,21 @@ public class CMPAttributeDelegate {
 	 */
 	public void setSqlType(String sqlType) {
 		this.sqlType = sqlType;
+	}
+
+	public int getColumnSize() {
+		return columnSize;
+	}
+
+	public void setColumnSize(int columnSize) {
+		this.columnSize = columnSize;
+	}
+
+	public int getDecimalDigits() {
+		return decimalDigits;
+	}
+
+	public void setDecimalDigits(int decimalDigits) {
+		this.decimalDigits = decimalDigits;
 	}
 }
