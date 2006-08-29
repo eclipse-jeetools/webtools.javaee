@@ -471,7 +471,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		String wsdlFileName = webService.getWsdlFile();
 		Resource res = null;
 		IVirtualResource[] resources = ComponentCore.createResources(WorkbenchResourceHelper.getFile(webService));
-		if (resources == null) return res;
+		if (resources == null || resources.length==0) return res;
 		WSDDArtifactEdit artifactEdit = getExistingWSDDArtifactEdit(resources[0].getComponent().getProject());
 		if (artifactEdit!=null) 
 			res = artifactEdit.getWsdlResource(wsdlFileName);
@@ -858,6 +858,8 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	}
 	
 	private IProject getComponentProject(IFile res) {
+		if (res==null)
+			return null;
 		return res.getProject();
 	}
 
