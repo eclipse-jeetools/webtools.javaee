@@ -44,7 +44,7 @@ You can save the settings for this project so you can create other projects with
 
 </description>
 <topic filter="plugin=org.eclipse.jst.j2ee.doc.user" href="../org.eclipse.jst.j2ee.doc.user/topics/cjarch.html" label="J2EE architecture"/>
-<topic filter="plugin=org.eclipse.jst.j2ee.doc.user" href="../org.eclipse.jst.j2ee.doc.user/topics/taddingfacet.html" label="Adding a facet to a J2EE project"/>
+<topic filter="plugin=org.eclipse.jst.j2ee.doc.user" href="../org.eclipse.jst.j2ee.doc.user/topics/cfacets.html" label="Project facets"/>
 </context>
 <context id="NEW_EAR_ADD_MODULES_PAGE" title="New EAR - page 3">
 <description>Select the check boxes next to each J2EE module you want to add to the new enterprise application project. Click the <b>New Module</b> button to create new modules.</description>

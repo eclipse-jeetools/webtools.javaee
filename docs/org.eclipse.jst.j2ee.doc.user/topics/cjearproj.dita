@@ -60,7 +60,7 @@ This file is created in the <uicontrol>.settings</uicontrol> folder.</dd>
 </dlentry><dlentry>
 <dt>.settings/org.eclipse.wst.common.project.facet.core.xml</dt>
 <dd>This file lists the facets of the enterprise application project. See <xref
-href="taddingfacet.dita"></xref>. This file is created in the <uicontrol>.settings</uicontrol> folder.</dd>
+href="cfacets.dita"></xref>. This file is created in the <uicontrol>.settings</uicontrol> folder.</dd>
 </dlentry><dlentry outputclass="id_projectfiles_bottom">
 <dt>.project</dt>
 <dd>This is a workbench artifact, the standard project description file.</dd>

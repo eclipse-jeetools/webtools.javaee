@@ -32,8 +32,14 @@
 <topicref href="topics/tjtargetserver.dita" navtitle="Specifying target servers for J2EE projects">
 </topicref>
 <anchor id="target_servers"/>
+<topicref href="topics/cfacets.dita" navtitle="Project facets">
 <topicref href="topics/taddingfacet.dita" navtitle="Adding a facet to a J2EE project">
 </topicref>
+<topicref href="topics/tchangefacet.dita" navtitle="Changing the version of a facet">
+</topicref>
+<topicref href="topics/tchangejavalevel.dita" navtitle="Changing the Java compiler version">
+</topicref>
+<anchor id="childof_J2EEProjectFacets"/></topicref>
 <anchor id="J2EEProjectFacets"/>
 <anchor id="before_importexport"/>
 <topicref href="topics/ph-importexport.dita" navtitle="Importing and exporting projects and files">
