@@ -44,6 +44,13 @@ public abstract class AbstractEJBValidator extends J2EEValidator {
 		_validated = new HashMap();
 	}
 	
+	private Map getValidatedMap(){
+		if( _validated == null ){
+			_validated = new HashMap();
+		}
+		return _validated;
+	}
+	
 	protected void logMissingRule(IEJBValidationContext vc, Object ruleId) {
 		Logger logger = vc.getMsgLogger();
 		if (logger != null && logger.isLoggingLevel(Level.SEVERE)) {
@@ -236,15 +243,15 @@ public abstract class AbstractEJBValidator extends J2EEValidator {
 
     public void setValidated(Object key, Object targetParent, Object target) {
     	Set done = null;
-    	if(_validated.containsKey(key)) {
-    		done = (Set)_validated.get(key);
+    	if(getValidatedMap().containsKey(key)) {
+    		done = (Set)getValidatedMap().get(key);
     	}
     	else {
     		done = new HashSet();
     	}
     	
     	done.add(getTargetObjectPool().getTargetObject(targetParent, target));
-    	_validated.put(key, done);
+    	getValidatedMap().put(key, done);
     }
 
 
@@ -284,12 +291,12 @@ public abstract class AbstractEJBValidator extends J2EEValidator {
 	protected abstract TargetObjectPool getTargetObjectPool();
 
     public boolean isValidated(Object key, Object targetParent, Object target) {
-    	if(!_validated.containsKey(key)) {
+    	if(!getValidatedMap().containsKey(key)) {
     		return false;
     	}
     
     
-    	Set done = (Set)_validated.get(key);
+    	Set done = (Set)getValidatedMap().get(key);
     	TargetObject temp = getTargetObjectPool().getTargetObject(targetParent, target);
     	try {
     		if(done.contains(temp)) {
@@ -303,19 +310,21 @@ public abstract class AbstractEJBValidator extends J2EEValidator {
     	}
     }
     public void cleanup(IReporter reporter) {
-    	Iterator iterator = _validated.keySet().iterator();
-    	while(iterator.hasNext()) {
-    		Set done = (Set)_validated.get(iterator.next());
-    		Iterator toIterator = done.iterator();
-    		while(toIterator.hasNext()) {
-    			TargetObject to = (TargetObject)toIterator.next();
-    			getTargetObjectPool().release(to);
-    		}
-    		done.clear();
+    	if( _validated != null ){
+	    	Iterator iterator = _validated.keySet().iterator();
+	    	while(iterator.hasNext()) {
+	    		Set done = (Set)_validated.get(iterator.next());
+	    		Iterator toIterator = done.iterator();
+	    		while(toIterator.hasNext()) {
+	    			TargetObject to = (TargetObject)toIterator.next();
+	    			getTargetObjectPool().release(to);
+	    		}
+	    		done.clear();
+	    	}
+	    	_validated.clear();
+	    	_validated = null;
     	}
-    	_validated.clear();
     	setValidationContext(null);
-    	_validated = null;
     }
 
 }
