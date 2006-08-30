@@ -149,8 +149,19 @@ public abstract class J2EEValidator implements IValidatorJob, J2EEMessageConstan
 	}
 	
 	public void addLocalizedError(String msg, Object target, int lineNumber) {
+		addLocalizedError( msg, target, null, lineNumber );
+	}
+	
+	public void addLocalizedError(String msg, Object target, String groupName, int lineNumber) {
 		IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, msg, target);
+		message.setGroupName( groupName );
 		message.setLineNo(lineNumber);
+		_reporter.addMessage(this, message);
+	}	
+	
+	public void addLocalizedError(String msg, Object target, String groupName) {
+		IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, msg, target);
+		message.setGroupName( groupName );
 		_reporter.addMessage(this, message);
 	}
 	

@@ -376,9 +376,9 @@ public class UIEarValidator extends EarValidator {
 		String tmp = NLS.bind(EARValidationMessageResourceHandler.MANIFEST_LINE_EXCEEDS_LENGTH_ERROR_, args);
 		
 		if( lineNo >= 0 ){
-			addLocalizedError(tmp, target);
+			addLocalizedError(tmp, target, MANIFEST_GROUP_NAME, lineNo );
 		}else{
-			addLocalizedError(tmp, target, lineNo);
+			addLocalizedError(tmp, target, MANIFEST_GROUP_NAME );
 		}
 
 	}
@@ -389,9 +389,9 @@ public class UIEarValidator extends EarValidator {
 		String tmp = NLS.bind(EARValidationMessageResourceHandler.MANIFEST_LINE_END_ERROR_, args);
 		
 		if (target != null)
-			addLocalizedError(tmp, getManifestFile(anArchive), mfVal.getLineCount());
+			addLocalizedError(tmp, getManifestFile(anArchive), MANIFEST_GROUP_NAME, mfVal.getLineCount());
 		else
-			addLocalizedError(tmp, null);
+			addLocalizedError(tmp, null, MANIFEST_GROUP_NAME);
 	}
 
 	protected void handleManifestException(IOException ex, Archive anArchive) throws ValidationException {
