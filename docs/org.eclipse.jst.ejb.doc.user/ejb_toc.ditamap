@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2005, v.4002-->
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN"
+ "map.dtd">
+<map title="EJB applications">
+<topicref href="topics/ceover.dita" navtitle="EJB application development"
+type="concept">
+<topicref href="topics/cearch.dita" navtitle="EJB architecture" type="concept">
+</topicref>
+<topicref href="topics/ceresrc.dita" navtitle="EJB development resources"
+type="concept"></topicref>
+</topicref>
+<topicref href="topics/tecrtpro.dita" navtitle="Creating EJB projects" type="task">
+<topicref href="topics/ceclientjars.dita" navtitle="EJB client JAR projects"
+type="concept"></topicref>
+</topicref>
+<topicref href="topics/teimp.dita" navtitle="Importing EJB JAR files" type="task">
+</topicref>
+<topicref href="topics/teexp.dita" navtitle="Exporting EJB projects to EJB JAR files"
+type="task"></topicref>
+<topicref href="topics/tecrte.dita" navtitle="Creating enterprise beans with XDoclet annotation support"
+type="task">
+<topicref href="topics/tesessb.dita" navtitle="Creating session beans with XDoclet annotation support">
+</topicref>
+<topicref href="topics/teentityb.dita" navtitle="Creating CMP entity beans with XDoclet annotation support">
+</topicref>
+<topicref href="topics/temessb.dita" navtitle="Creating message-driven beans with XDoclet annotation support"
+type="task"></topicref>
+<topicref href="topics/txdocletconf.dita" navtitle="Configuring XDoclet annotation support"
+type="task"></topicref>
+</topicref>
+</map>

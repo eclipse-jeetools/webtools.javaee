@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<index>
+  <entry keyword="EJBs">
+    <entry keyword="architecture overview">
+      <topic href="topics/cearch.html#cearch" title="EJB architecture"/>
+    </entry>
+  </entry>
+  <entry keyword="architecture">
+    <entry keyword="EJBs">
+      <topic href="topics/cearch.html#cearch" title="EJB architecture"/>
+    </entry>
+  </entry>
+</index>

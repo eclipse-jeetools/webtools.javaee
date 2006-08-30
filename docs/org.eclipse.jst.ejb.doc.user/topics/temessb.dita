@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2005, v.4002-->
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="temessb" xml:lang="en-us">
+<title>Creating message-driven beans with XDoclet annotation support</title>
+<shortdesc>You can use a wizard to create a message-driven bean and add it
+to your project.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>message-driven beans<indexterm>creating with XDoclet
+annotation support</indexterm></indexterm><indexterm>XDoclet annotation support<indexterm>creating
+message-driven beans</indexterm></indexterm></keywords>
+</metadata></prolog>
+<taskbody>
+<prereq><p>Before you can create an enterprise bean, you must:</p><ul>
+<li>Define an EJB project to contain the enterprise bean. See <xref href="tecrtpro.dita"></xref>.</li>
+<li>Install XDoclet annotation support and enable it. See <xref href="txdocletconf.dita"></xref>.</li>
+</ul></prereq>
+<context><p>To create a message-driven bean:</p></context>
+<steps>
+<step><cmd>In the J2EE perspective, click <b>File > New > Other > EJB > XDoclet
+Enterprise JavaBean</b>. The Create an Enterprise JavaBean wizard appears.</cmd>
+</step>
+<step><cmd>Select the <b>MessageDrivenBean</b> radio button.</cmd></step>
+<step><cmd>Click <b>Next</b>.</cmd></step>
+<step><cmd>Select the <b>Project</b> that will contain the new bean. </cmd>
+</step>
+<step><cmd>In the <b>Folder</b> field, select the folder for the new bean. </cmd>
+</step>
+<step><cmd>In the <b>Java package</b> field, enter the package name for the
+new bean. </cmd></step>
+<step><cmd>In the <b>Class name</b> field, type a name for the enterprise
+bean. By convention, bean names should begin with an uppercase letter. </cmd>
+<info><note>You can use Unicode characters for the bean name, but Unicode
+characters are not supported for enterprise bean packages and classes associated
+with enterprise beans.</note></info></step>
+<step><cmd>Change the <b>Superclass</b> for the bean if you want it to inherit
+from a class other than <codeph>java.lang.Object</codeph> .</cmd></step>
+<step><cmd>Click <b>Next</b>.</cmd></step>
+<step><cmd>Provide an <b>EJB Name</b> for the bean. This is the name of the
+enterprise bean class. </cmd></step>
+<step><cmd>Provide an <b>Destination JNDI Name</b> for the bean. This is a
+logical name used by the server to locate an enterprise bean at runtime. </cmd>
+</step>
+<step><cmd>Provide an <b>Display Name</b> for the bean. This is a short name
+for the enterprise bean that is used by tools. </cmd></step>
+<step><cmd>Provide a text <b>Description</b> for the bean.</cmd></step>
+<step><cmd>Select a <b>Destination</b> for the new bean: </cmd><info><ul>
+<li><b>Queue</b> specifies that the point-to-point JMS messaging model will
+be used. </li>
+<li><b>Topic</b> specifies that the publish-and-subscribe JMS messaging model
+will be used.</li>
+</ul></info></step>
+<step><cmd>Select a <b>Transaction Type</b> for the new bean:</cmd><info><ul>
+<li><b>Container</b> specifies that the transaction demarcation is performed
+by the container.</li>
+<li><b>Bean</b> specifies that the transaction demarcation is performed by
+the bean. </li>
+</ul></info></step>
+<step><cmd>Click <b>Next</b>.</cmd></step>
+<step><cmd>Select the type of <b>Modifiers</b> to use for the class. Choices
+are <b>Public</b>, <b>Abstract</b>, and <b>Final</b>. </cmd></step>
+<step><cmd>Select the <b>Interfaces</b> you want the bean to implement:</cmd>
+<info><ul>
+<li>Click the <b>Add</b> button to open the Type Selection dialog box where
+you can select the interface that you want to implement. </li>
+<li>If you added an interface that you no longer want to implement, select
+the interface in the list and click <b>Remove</b>.</li>
+</ul></info></step>
+<step><cmd>Select the method stubs that you want the wizard to create. Choices
+include <b>main</b>, <b>Inherited abstract methods</b>, and <b>Constructors
+from the superclass</b>.</cmd></step>
+<step><cmd>Click <b>Finish</b>. The new bean is added to the specified EJB
+project.</cmd></step>
+</steps>
+</taskbody>
+</task>
+<?Pub *0000004091?>
