@@ -111,11 +111,13 @@ public class WebExportOperationTest extends ModuleExportOperationTestCase {
 		WARFile warFile = null;
 		try {
 			webEdit = WebArtifactEdit.getWebArtifactEditForRead(component);
-			warFile = (WARFile) webEdit.asArchive(true);
-			try {
-			Resource res = warFile.getDeploymentDescriptorResource();
-			} catch (Exception e) {
-				fail("Web deployment descriptor is null.");
+			if (webEdit != null) {
+				warFile = (WARFile) webEdit.asArchive(true);
+				try {
+				Resource res = warFile.getDeploymentDescriptorResource();
+				} catch (Exception e) {
+					fail("Web deployment descriptor is null.");
+				}
 			}
 		} finally {
 			if (webEdit !=null)
@@ -124,6 +126,7 @@ public class WebExportOperationTest extends ModuleExportOperationTestCase {
 				warFile.close();
 			}
 		}
+		
 	}
 
 }

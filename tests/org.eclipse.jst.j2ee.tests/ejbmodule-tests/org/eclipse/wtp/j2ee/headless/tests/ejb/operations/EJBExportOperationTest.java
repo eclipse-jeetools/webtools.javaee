@@ -66,11 +66,13 @@ public class EJBExportOperationTest extends ModuleExportOperationTestCase {
 		EJBJarFile ejbJarFile = null;
 		try {
 			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(component);
-			ejbJarFile = (EJBJarFile)ejbEdit.asArchive(true);
-			try {
-			Resource res = ejbJarFile.getDeploymentDescriptorResource();
-			} catch (Exception e) {
-				fail("EJB deployment descriptor is null.");
+			if (ejbEdit != null) {
+				ejbJarFile = (EJBJarFile)ejbEdit.asArchive(true);
+				try {
+				Resource res = ejbJarFile.getDeploymentDescriptorResource();
+				} catch (Exception e) {
+					fail("EJB deployment descriptor is null.");
+				}
 			}
 		} finally {
 			if (ejbEdit !=null)
