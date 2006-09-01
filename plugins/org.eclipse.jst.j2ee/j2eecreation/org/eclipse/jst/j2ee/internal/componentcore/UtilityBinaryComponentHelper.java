@@ -61,7 +61,11 @@ public class UtilityBinaryComponentHelper extends EnterpriseBinaryComponentHelpe
 					return;
 				}
 			}
-			ArchiveCache.getInstance().removeArchive(this);
+			physicallyClose(this);
+		}
+		
+		public void forceClose(){
+			count = 0;
 			super.close();
 		}
 	}
@@ -70,12 +74,9 @@ public class UtilityBinaryComponentHelper extends EnterpriseBinaryComponentHelpe
 		return Discriminator.getInstance();
 	}
 	
-	
-	
 	protected IReferenceCountedArchive getUniqueArchive() {
-		String archiveURI = getArchiveURI();
 		try {
-			return openArchive(archiveURI);
+			return openArchive();
 		} catch (OpenFailureException e) {
 		}
 		return null;

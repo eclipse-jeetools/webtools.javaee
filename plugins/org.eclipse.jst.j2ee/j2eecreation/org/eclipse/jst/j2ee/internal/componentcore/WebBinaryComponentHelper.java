@@ -66,7 +66,11 @@ public class WebBinaryComponentHelper extends EnterpriseBinaryComponentHelper {
 					return;
 				}
 			}
-			ArchiveCache.getInstance().removeArchive(this);
+			physicallyClose(this);
+		}
+		
+		public void forceClose(){
+			count = 0;
 			super.close();
 		}
 	}

@@ -44,6 +44,7 @@ import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.componentcore.EnterpriseBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -211,6 +212,10 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 						edit.dispose();
 					}
 				}
+				IVirtualComponent earComponent = ComponentCore.createComponent(earProject);
+				if(null != earComponent){
+					EnterpriseBinaryComponentHelper.ArchiveCache.getInstance().clearDisconnectedArchivesInEAR(earComponent);	
+				}
 			}
 		}
 		
@@ -372,12 +377,13 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 					IResource resource = event.getResource();
 					if(resource.getType() == IResource.PROJECT){
 						if(ModuleCoreNature.isFlexibleProject((IProject) resource)){
-							IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects((IProject)resource);
-							for(int i=0; i<earProjects.length; i++){
-								queueUpdateEAR(earProjects[i]);
-							}
+								IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects((IProject)resource);
+								for(int i=0; i<earProjects.length; i++){
+									queueUpdateEAR(earProjects[i]);
+								}
 							forgetProject((IProject)resource);
 						}
+						EnterpriseBinaryComponentHelper.ArchiveCache.getInstance().clearAllArchivesInProject((IProject)resource);
 					}
 					break;
 				case IResourceChangeEvent.POST_CHANGE:

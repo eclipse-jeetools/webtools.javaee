@@ -10,24 +10,56 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.componentcore;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
+import java.util.zip.ZipFile;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipFileLoadStrategyImpl;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.BinaryComponentHelper;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHelper {
 
+	public static EnterpriseBinaryComponentHelper getHelper(IVirtualComponent aComponent){
+		EnterpriseBinaryComponentHelper helper = null;
+		if (J2EEProjectUtilities.isEJBComponent(aComponent)) {
+			helper = new EJBBinaryComponentHelper(aComponent);
+		} else if (J2EEProjectUtilities.isApplicationClientComponent(aComponent)) {
+			helper = new AppClientBinaryComponentHelper(aComponent);
+		} else if (J2EEProjectUtilities.isJCAComponent(aComponent)) {
+			helper = new JCABinaryComponentHelper(aComponent);
+		} else if (J2EEProjectUtilities.isDynamicWebComponent(aComponent)) {
+			helper = new WebBinaryComponentHelper(aComponent);
+		} else {
+			helper = new UtilityBinaryComponentHelper(aComponent);
+		}
+		return helper;
+	}
+	
 	private IReferenceCountedArchive archive = null;
 
 	protected EnterpriseBinaryComponentHelper(IVirtualComponent component) {
@@ -38,13 +70,13 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 		ComponentArchiveOptions options = new ComponentArchiveOptions(getComponent());
 		options.setIsReadOnly(true);
 		options.setRendererType(ArchiveOptions.SAX);
+		options.setUseJavaReflection(false);
 		return options;
 	}
 
 	protected IReferenceCountedArchive getUniqueArchive() {
-		String archiveURI = getArchiveURI();
 		try {
-			return openArchive(archiveURI);
+			return openArchive();
 		} catch (OpenFailureException e) {
 			Logger.getLogger().logError(e);
 		}
@@ -54,9 +86,12 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 	public Archive accessArchive() {
 		IReferenceCountedArchive archive = getArchive();
 		archive.access();
+		if(!isPhysicallyOpen(archive)){
+			physicallyOpen(archive);
+		}
 		return archive;
 	}
-	
+
 	protected IReferenceCountedArchive getArchive() {
 		if (archive == null) {
 			archive = getUniqueArchive();
@@ -97,89 +132,239 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 
 	public void dispose() {
 		if (archive != null) {
-			if (archive.isOpen()) {
-				archive.close();
-			} else {
-				System.out.println("Somebody else closed this before it should have.");
-			}
+			archive.close();
 			archive = null;
 		}
 	}
-	
+
 	protected abstract ArchiveTypeDiscriminator getDiscriminator();
-	
-	protected IReferenceCountedArchive openArchive(String archiveURI) throws OpenFailureException {
+
+	protected IReferenceCountedArchive openArchive() throws OpenFailureException {
 		ArchiveCache cache = ArchiveCache.getInstance();
-		IReferenceCountedArchive archive = cache.getArchive(archiveURI);
-		if(archive != null){
+		IReferenceCountedArchive archive = cache.getArchive(getComponent());
+		if (archive != null) {
 			archive.access();
 			return archive;
-		} 
-		return cache.openArchive(this, archiveURI);
+		}
+		return cache.openArchive(this);
 	}
 
+	boolean gotResource = false;
+	
 	public Resource getResource(URI uri) {
-		return getArchive().getResourceSet().getResource(uri, true);
+		Resource resource = null;
+		if(!isPhysicallyOpen(getArchive())){
+			resource = getArchive().getResourceSet().getResource(uri, false);
+			if(resource == null){
+				physicallyOpen(getArchive());
+			}
+		}
+		if(resource == null){
+			resource = getArchive().getResourceSet().getResource(uri, true); 
+		}
+		
+		return resource;
 	}
 
 	public void releaseAccess(ArtifactEdit edit) {
 		dispose();
 	}
+
+	private static void unloadArchive(IReferenceCountedArchive archive) {
+		WorkbenchResourceHelperBase.removeAndUnloadAll(archive.getResourceSet().getResources(), archive.getResourceSet());
+		archive.getLoadStrategy().setResourceSet(null);
+		archive.setLoadStrategy(null);
+	}
 	
-	protected static class ArchiveCache {
+	private static boolean isPhysicallyOpen(IReferenceCountedArchive archive) {
+		return ((BinaryZipFileLoadStrategy)archive.getLoadStrategy()).isPhysicallyOpen();
+	}
+	
+	private static void physicallyOpen(IReferenceCountedArchive archive) {
+		try {
+			((BinaryZipFileLoadStrategy)archive.getLoadStrategy()).physicallyOpen();
+		} catch (ZipException e) {
+			Logger.getLogger().logError(e);
+		} catch (IOException e) {
+			Logger.getLogger().logError(e);
+		}
+	}
+	
+	protected static void physicallyClose(IReferenceCountedArchive archive) {
+		((BinaryZipFileLoadStrategy)archive.getLoadStrategy()).physicallyClose();
+	}
+
+	private static class BinaryZipFileLoadStrategy extends ZipFileLoadStrategyImpl {
 		
+		private boolean physicallyOpen = true;
+		
+		public BinaryZipFileLoadStrategy() {
+			super();
+		}
+
+		public BinaryZipFileLoadStrategy(java.io.File file) throws IOException {
+			super(file);
+		}
+
+		public boolean isPhysicallyOpen(){
+			return physicallyOpen;
+		}
+		
+		public void physicallyOpen() throws ZipException, IOException{
+			if(!isPhysicallyOpen()){
+				physicallyOpen = true;
+				setZipFile(new ZipFile(file));
+			}
+		}
+		
+		public void physicallyClose(){
+			if(isPhysicallyOpen()){
+				physicallyOpen = false;
+				try{
+					zipFile.close();
+				}
+				catch (Throwable t) {
+					//Ignore
+				}
+			} 
+		}
+		
+		public InputStream getInputStream(String uri) throws IOException, FileNotFoundException {
+			final boolean isPhysciallyOpen = isPhysicallyOpen();
+			Exception caughtException = null;
+			try {
+				if (!isPhysciallyOpen) {
+					physicallyOpen();
+				}
+				ZipEntry entry = getZipFile().getEntry(uri);
+				if (entry == null)
+					throw new FileNotFoundException(uri);
+
+				return new java.io.BufferedInputStream(getZipFile().getInputStream(entry)) {
+					public void close() throws IOException {
+						super.close();
+						if (!isPhysciallyOpen ) {
+							physicallyClose();
+						}
+					}
+				};
+			} catch (FileNotFoundException e) {
+				caughtException = e;
+				throw e;
+			} catch (IllegalStateException zipClosed) {
+				caughtException = zipClosed;
+				throw new IOException(zipClosed.toString());
+			} catch (Exception e) {
+				caughtException = e;
+				throw new IOException(e.toString());
+			} finally {
+				if (caughtException != null) {
+					if (!isPhysciallyOpen) {
+						physicallyClose();
+					}
+				}
+			}
+		}
+	};
+	
+	public static class ArchiveCache {
+
 		private static ArchiveCache instance = null;
-		
+
 		public static ArchiveCache getInstance() {
-			if(instance == null) {
+			if (instance == null) {
 				instance = new ArchiveCache();
 			}
 			return instance;
 		}
-		//necessary to contain two mappings in case the archive changes its URI
-		protected Hashtable keysToArchives = new Hashtable();
-		protected Hashtable archivesToKeys = new Hashtable();
-		
-		public synchronized IReferenceCountedArchive getArchive(String archiveURI) {
-			IReferenceCountedArchive archive = null;
-			if(keysToArchives.containsKey(archiveURI)){
-				archive = (IReferenceCountedArchive)keysToArchives.get(archiveURI);
-			}
+
+		protected Map componentsToArchives = new Hashtable();
+
+		public synchronized IReferenceCountedArchive getArchive(IVirtualComponent component) {
+			IReferenceCountedArchive archive = (IReferenceCountedArchive) componentsToArchives.get(component);
 			return archive;
 		}
-		
-		public synchronized IReferenceCountedArchive openArchive(EnterpriseBinaryComponentHelper helper, String archiveURI) throws OpenFailureException {
+
+		public synchronized void clearDisconnectedArchivesInEAR(IVirtualComponent earComponent) {
+			if (componentsToArchives.isEmpty()) {
+				return;
+			}
+			Set liveBinaryComponnts = new HashSet();
+			IVirtualReference[] refs = earComponent.getReferences();
+			IVirtualComponent component = null;
+			for (int i = 0; i < refs.length; i++) {
+				component = refs[i].getReferencedComponent();
+				if (component.isBinary()) {
+					liveBinaryComponnts.add(component);
+				}
+			}
+			clearArchivesInProject(earComponent.getProject(), liveBinaryComponnts);
+		}
+
+		public synchronized void clearAllArchivesInProject(IProject earProject) {
+			if (componentsToArchives.isEmpty()) {
+				return;
+			}
+			clearArchivesInProject(earProject, null);
+		}
+
+		private void clearArchivesInProject(IProject earProject, Set excludeSet) {
+			Iterator iterator = componentsToArchives.entrySet().iterator();
+			IVirtualComponent component = null;
+			IReferenceCountedArchive archive = null;
+			while (iterator.hasNext()) {
+				Map.Entry entry = (Map.Entry)iterator.next();
+				component = (IVirtualComponent) entry.getKey();
+				if (component.getProject().equals(earProject) && (excludeSet == null || !excludeSet.contains(component))) {
+					archive = (IReferenceCountedArchive) entry.getValue();
+					archive.forceClose();
+					unloadArchive(archive);
+					iterator.remove();
+				}
+			}
+		}
+
+		public synchronized IReferenceCountedArchive openArchive(EnterpriseBinaryComponentHelper helper) throws OpenFailureException {
 			ArchiveOptions options = helper.getArchiveOptions();
+			String archiveURI = helper.getArchiveURI();
+			String filename = archiveURI.replace('/', java.io.File.separatorChar);
+			java.io.File file = new java.io.File(filename);
+			if (!file.exists()) {
+				throw new OpenFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.file_not_found_EXC_, (new Object[] { archiveURI, file.getAbsolutePath() }))); 
+			}
+			try {
+				BinaryZipFileLoadStrategy strategy = new BinaryZipFileLoadStrategy(file);
+				options.setLoadStrategy(strategy);
+			} catch (IOException ex) {
+				throw new OpenFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.could_not_open_EXC_, (new Object[] { archiveURI })), ex); 
+			}
+
 			Archive anArchive = CommonarchiveFactory.eINSTANCE.primOpenArchive(options, archiveURI);
-			
+
 			ArchiveTypeDiscriminator discriminator = helper.getDiscriminator();
-			
+
 			if (!discriminator.canImport(anArchive)) {
 				anArchive.close();
 				throw new OpenFailureException(discriminator.getUnableToOpenMessage());
 			}
-			IReferenceCountedArchive specificArchive = (IReferenceCountedArchive)discriminator.openArchive(anArchive);
+			IReferenceCountedArchive specificArchive = (IReferenceCountedArchive) discriminator.openArchive(anArchive);
 			specificArchive.initializeAfterOpen();
 			specificArchive.access();
-			keysToArchives.put(archiveURI, specificArchive);
-			archivesToKeys.put(specificArchive, archiveURI);
+			componentsToArchives.put(helper.getComponent(), specificArchive);
 			return specificArchive;
 		}
-	
-		public synchronized void removeArchive(IReferenceCountedArchive archive) {
-			Object uri = archivesToKeys.remove(archive);
-			keysToArchives.remove(uri);
-		}
 	}
-	
-	
+
 	protected interface IReferenceCountedArchive extends Archive {
-		
+
 		/**
-		 * Increases the reference count by one.  A call to close will decriment the count by one.  If after decrimenting the count the count is 0 
-		 *
+		 * Increases the reference count by one. A call to close will decriment
+		 * the count by one. If after decrimenting the count the count is 0
+		 * 
 		 */
 		public void access();
+
+		public void forceClose();
 		
 	}
 
