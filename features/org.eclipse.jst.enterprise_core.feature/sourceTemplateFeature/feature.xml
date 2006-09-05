@@ -22,7 +22,7 @@
    </url>
 
    <plugin
-         id="org.eclipse.jst.common_core.feature.source"
+         id="org.eclipse.jst.enterprise_core.feature.source"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
