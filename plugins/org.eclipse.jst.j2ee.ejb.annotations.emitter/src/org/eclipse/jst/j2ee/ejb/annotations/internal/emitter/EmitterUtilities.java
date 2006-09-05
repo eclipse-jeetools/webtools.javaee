@@ -21,38 +21,30 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
  */
 public class EmitterUtilities {
 
+	final static String JAVABUILDER = JavaCore.BUILDER_ID;
 
-	final static String JAVABUILDER= JavaCore.BUILDER_ID;
-	
-	public static void addAnnotationBuilderToProject(IConfigurationElement emitter,
-			IProject targetProject) throws CoreException {
+	public static void addAnnotationBuilderToProject(IConfigurationElement emitter, IProject targetProject) throws CoreException {
 		String builderId = emitter.getAttribute("builderId");
-		ProjectUtilities.addToBuildSpecBefore(emitter.getNamespace()+ "." + builderId,JAVABUILDER, targetProject);
-		
+		ProjectUtilities.addToBuildSpecBefore(emitter.getContributor().getName() + "." + builderId, JAVABUILDER, targetProject);
+
 	}
 
-	
-	public static IConfigurationElement findEmitter(String id)
-	{
-		
+	public static IConfigurationElement findEmitter(String id) {
+
 		IConfigurationElement configurationElement[] = getAnnotationExtensions();
 		for (int i = 0; i < configurationElement.length; i++) {
 			IConfigurationElement element = configurationElement[i];
 			String emitterId = element.getAttribute("name");
-			if("emitter".equals(element.getName()) && emitterId != null && emitterId.equals(id))
+			if ("emitter".equals(element.getName()) && emitterId != null && emitterId.equals(id))
 				return element;
 		}
 		return null;
 	}
-	
-	public static IConfigurationElement[] getAnnotationExtensions()
-	{
-		IConfigurationElement[] configurationElements = Platform
-				.getExtensionRegistry()
-				.getConfigurationElementsFor(
-						"org.eclipse.jst.j2ee.ejb.annotations.emitter.template");
+
+	public static IConfigurationElement[] getAnnotationExtensions() {
+		IConfigurationElement[] configurationElements = Platform.getExtensionRegistry().getConfigurationElementsFor(
+				"org.eclipse.jst.j2ee.ejb.annotations.emitter.template");
 		return configurationElements;
 	}
-	
 
 }

@@ -22,69 +22,61 @@ import org.eclipse.jst.j2ee.ejb.annotation.internal.provider.IEJBGenerator;
  */
 public class AnnotationUtilities {
 
+	public static IConfigurationElement findAnnotationProviderConfigurationByName(String id) {
 
-
-	public static IConfigurationElement findAnnotationProviderConfigurationByName(String id)
-	{
-		
 		IConfigurationElement configurationElement[] = getGeneratorExtensions();
 		for (int i = 0; i < configurationElement.length; i++) {
 			IConfigurationElement element = configurationElement[i];
 			String providerID = element.getAttribute("name");
-			if("provider".equals(element.getName()) && providerID != null && providerID.equals(id))
+			if ("provider".equals(element.getName()) && providerID != null && providerID.equals(id))
 				return element;
 		}
 		return null;
 	}
-	
-	public static IAnnotationProvider findAnnotationProviderByName(String id) throws InvalidRegistryObjectException, ClassNotFoundException, InstantiationException, IllegalAccessException
-	{
-		
+
+	public static IAnnotationProvider findAnnotationProviderByName(String id) throws InvalidRegistryObjectException,
+			ClassNotFoundException, InstantiationException, IllegalAccessException {
+
 		IConfigurationElement configurationElement[] = getGeneratorExtensions();
 		for (int i = 0; i < configurationElement.length; i++) {
 			IConfigurationElement element = configurationElement[i];
 			String emitterId = element.getAttribute("name");
-			if("provider".equals(element.getName()) && emitterId != null && emitterId.equals(id)){
-				String pluginDescriptor = element.getDeclaringExtension().getNamespace();
+			if ("provider".equals(element.getName()) && emitterId != null && emitterId.equals(id)) {
+				String pluginDescriptor = element.getDeclaringExtension().getContributor().getName();
 
 				org.osgi.framework.Bundle bundle = Platform.getBundle(pluginDescriptor);
 				Class c = bundle.loadClass(element.getAttribute("class"));
 				IAnnotationProvider provider = (IAnnotationProvider) c.newInstance();
-				
+
 				return provider;
 			}
 		}
 		return null;
 	}
-	
-	public static IEJBGenerator findEjbGeneratorByName(String id) throws InvalidRegistryObjectException, ClassNotFoundException, InstantiationException, IllegalAccessException
-	{
-		
+
+	public static IEJBGenerator findEjbGeneratorByName(String id) throws InvalidRegistryObjectException, ClassNotFoundException,
+			InstantiationException, IllegalAccessException {
+
 		IConfigurationElement configurationElement[] = getGeneratorExtensions();
 		for (int i = 0; i < configurationElement.length; i++) {
 			IConfigurationElement element = configurationElement[i];
 			String generatorID = element.getAttribute("name");
-			if("ejbGenerator".equals(element.getName()) && generatorID != null && generatorID.equals(id)){
-				String pluginDescriptor = element.getDeclaringExtension().getNamespace();
+			if ("ejbGenerator".equals(element.getName()) && generatorID != null && generatorID.equals(id)) {
+				String pluginDescriptor = element.getDeclaringExtension().getContributor().getName();
 
 				org.osgi.framework.Bundle bundle = Platform.getBundle(pluginDescriptor);
 				Class c = bundle.loadClass(element.getAttribute("class"));
 				IEJBGenerator provider = (IEJBGenerator) c.newInstance();
-				
+
 				return provider;
 			}
 		}
 		return null;
 	}
-	
 
-	
-	public static IConfigurationElement[] getGeneratorExtensions()
-	{
-		IConfigurationElement[] configurationElements = Platform
-				.getExtensionRegistry()
-				.getConfigurationElementsFor(
-						"org.eclipse.jst.j2ee.ejb.annotation.model.ejbGenerator");
+	public static IConfigurationElement[] getGeneratorExtensions() {
+		IConfigurationElement[] configurationElements = Platform.getExtensionRegistry().getConfigurationElementsFor(
+				"org.eclipse.jst.j2ee.ejb.annotation.model.ejbGenerator");
 		return configurationElements;
 	}
 
@@ -93,10 +85,10 @@ public class AnnotationUtilities {
 		ArrayList names = new ArrayList();
 		for (int i = 0; i < configurationElement.length; i++) {
 			IConfigurationElement element = configurationElement[i];
-			if("provider".equals(element.getName()))
+			if ("provider".equals(element.getName()))
 				names.add(element.getAttribute("name"));
 		}
-		return (String [])names.toArray(new String[names.size()]);
+		return (String[]) names.toArray(new String[names.size()]);
 	}
 
 }

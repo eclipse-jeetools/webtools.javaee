@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -32,16 +33,23 @@ import org.eclipse.jdt.core.compiler.IProblem;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTParser;
+import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AbstractTypeDeclaration;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.ITypeBinding;
+import org.eclipse.jdt.core.dom.Javadoc;
+import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.Modifier;
+import org.eclipse.jdt.core.dom.PackageDeclaration;
+import org.eclipse.jdt.core.dom.SimpleName;
+import org.eclipse.jdt.core.dom.SimpleType;
+import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.rewrite.ImportRewrite;
 import org.eclipse.jdt.core.formatter.CodeFormatter;
-import org.eclipse.jdt.internal.corext.codemanipulation.AddUnimplementedConstructorsOperation;
-import org.eclipse.jdt.internal.corext.codemanipulation.AddUnimplementedMethodsOperation;
-import org.eclipse.jdt.internal.corext.dom.NodeFinder;
 import org.eclipse.jdt.ui.CodeGeneration;
 import org.eclipse.jdt.ui.CodeStyleConfiguration;
+import org.eclipse.jdt.ui.actions.AddUnimplementedConstructorsAction;
+import org.eclipse.jdt.ui.actions.OverrideMethodsAction;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.text.edits.TextEdit;
@@ -101,7 +109,6 @@ public class EjbBuilder {
 			String clName = this.typeName;
 
 			IType createdType;
-			ImportsManager imports;
 			int indent = 0;
 
 			String lineDelimiter = null;
@@ -120,8 +127,6 @@ public class EjbBuilder {
 				createdWorkingCopy.getBuffer().setContents(content);
 			}
 
-			imports = new ImportsManager(createdWorkingCopy);
-
 			String cuContent = content + lineDelimiter + typeComment + lineDelimiter + typeStub;
 			createdWorkingCopy.getBuffer().setContents(cuContent);
 			createdType = createdWorkingCopy.getType(clName);
@@ -129,21 +134,17 @@ public class EjbBuilder {
 			// add imports for superclass/interfaces, so types can be resolved
 			// correctly
 			ICompilationUnit cu = createdType.getCompilationUnit();
-			imports.create(cu, true);
 
 			cu.reconcile(ICompilationUnit.NO_AST, false, null, null);
 
-			createTypeMembers(createdType, imports, new SubProgressMonitor(monitor, 1));
-
-			createInheritedMethods(createdType, isCreateInheritedConstructors(), isCreateInheritedMethods(), imports,
-					new SubProgressMonitor(monitor, 1));
 			// add imports
-			imports.create(cu, true);
+			createTypeMembers(createdType, null, new SubProgressMonitor(monitor, 1));
 
-			if (removeUnused(cu, imports)) {
-				imports.create(cu, true);
-			}
-
+			if (isCreateInheritedMethods())
+				createInheritedMethods(cu, createdType, new SubProgressMonitor(monitor, 1));
+			if(isCreateInheritedConstructors())
+				createInheritedConstructors(cu, createdType, new SubProgressMonitor(monitor, 1));
+			
 			cu.reconcile(ICompilationUnit.NO_AST, false, null, null);
 
 			ISourceRange range = createdType.getSourceRange();
@@ -206,47 +207,70 @@ public class EjbBuilder {
 	 * @throws CoreException
 	 *             thrown when the creation fails.
 	 */
-	protected IMethod[] createInheritedMethods(IType type, boolean doConstructors, boolean doUnimplementedMethods,
-			ImportsManager imports, IProgressMonitor monitor) throws CoreException {
-		final ICompilationUnit cu = type.getCompilationUnit();
+	protected IMethod[] createInheritedMethods(ICompilationUnit cu, IType type, IProgressMonitor monitor) throws CoreException {
 		cu.reconcile(ICompilationUnit.NO_AST, false, null, null);
-		IMethod[] typeMethods = type.getMethods();
-		Set handleIds = new HashSet(typeMethods.length);
-		for (int index = 0; index < typeMethods.length; index++)
-			handleIds.add(typeMethods[index].getHandleIdentifier());
-		ArrayList newMethods = new ArrayList();
+		Set handleIds = getHandleIds(type);
 		ASTParser parser = ASTParser.newParser(AST.JLS3);
 		parser.setResolveBindings(true);
 		parser.setSource(cu);
 		CompilationUnit unit = (CompilationUnit) parser.createAST(new SubProgressMonitor(monitor, 1));
+		ITypeBinding binding = getBinding(type, unit);
+
+		if (binding != null) {
+			IWorkspaceRunnable operation = OverrideMethodsAction.createRunnable(unit, binding, null, -1, true);
+			operation.run(monitor);
+			cu.reconcile(ICompilationUnit.NO_AST, false, null, null);
+			cu.commitWorkingCopy(false, monitor);
+		}
+
+		return getTypeMethods(type, handleIds);
+	}
+
+	protected IMethod[] createInheritedConstructors(ICompilationUnit cu, IType type, IProgressMonitor monitor) throws CoreException {
+		cu.reconcile(ICompilationUnit.NO_AST, false, null, null);
+		Set handleIds = getHandleIds(type);
+		ASTParser parser = ASTParser.newParser(AST.JLS3);
+		parser.setResolveBindings(true);
+		parser.setSource(cu);
+		CompilationUnit unit = (CompilationUnit) parser.createAST(new SubProgressMonitor(monitor, 1));
+		ITypeBinding binding = getBinding(type, unit);
+
+		if (binding != null) {
+			IWorkspaceRunnable operation = AddUnimplementedConstructorsAction.createRunnable(unit, binding, null, -1, true,
+					Modifier.PUBLIC, true);
+			operation.run(monitor);
+			cu.commitWorkingCopy(false, monitor);
+		}
+
+		return getTypeMethods(type, handleIds);
+	}
+
+	private ITypeBinding getBinding(IType type, CompilationUnit unit) throws JavaModelException {
+		ITypeBinding binding = null;
 		ASTNode node = NodeFinder.perform(unit, type.getNameRange());
 		do {
 			node = node.getParent();
 		} while (node != null && !AbstractTypeDeclaration.class.isInstance(node));
 
-		final AbstractTypeDeclaration declaration = (AbstractTypeDeclaration) node;
-		ITypeBinding binding = null;
+		AbstractTypeDeclaration declaration = (AbstractTypeDeclaration) node;
+
 		if (declaration != null)
 			binding = declaration.resolveBinding();
+		return binding;
+	}
 
-		if (binding != null) {
-			if (doUnimplementedMethods) {
-				AddUnimplementedMethodsOperation operation = new AddUnimplementedMethodsOperation(unit, binding, null, -1, false,
-						true, false);
-				operation.setCreateComments(true);
-				operation.run(monitor);
-				createImports(imports, operation.getCreatedImports());
-			}
-			if (doConstructors) {	
-				AddUnimplementedConstructorsOperation operation = new AddUnimplementedConstructorsOperation(unit, binding, null, -1,
-						false, true, false);
-				operation.setOmitSuper(true);
-				operation.setCreateComments(true);
-				operation.run(monitor);
-				createImports(imports, operation.getCreatedImports());
-			}
-		}
-		cu.reconcile(ICompilationUnit.NO_AST, false, null, null);
+	private Set getHandleIds(IType type) throws JavaModelException {
+		Set handleIds;
+		IMethod[] typeMethods = type.getMethods();
+		handleIds = new HashSet(typeMethods.length);
+		for (int index = 0; index < typeMethods.length; index++)
+			handleIds.add(typeMethods[index].getHandleIdentifier());
+		return handleIds;
+	}
+
+	private IMethod[] getTypeMethods(IType type, Set handleIds) throws JavaModelException {
+		ArrayList newMethods = new ArrayList();
+		IMethod[] typeMethods;
 		typeMethods = type.getMethods();
 		for (int index = 0; index < typeMethods.length; index++)
 			if (!handleIds.contains(typeMethods[index].getHandleIdentifier()))
@@ -256,7 +280,7 @@ public class EjbBuilder {
 		return methods;
 	}
 
-	private void createImports(ImportsManager imports, String[] createdImports) {
+	protected void createImports(ImportsManager imports, String[] createdImports) {
 		for (int index = 0; index < createdImports.length; index++)
 			imports.addImport(createdImports[index]);
 	}
@@ -268,7 +292,7 @@ public class EjbBuilder {
 		return packageFragmentRoot;
 	}
 
-	private boolean removeUnused(ICompilationUnit cu, ImportsManager imports) {
+	protected boolean removeUnused(ICompilationUnit cu, ImportsManager imports) {
 		ASTParser parser = ASTParser.newParser(AST.JLS3);
 		parser.setSource(cu);
 		parser.setResolveBindings(true);
@@ -486,6 +510,118 @@ public class EjbBuilder {
 
 	public void setCreateInheritedMethods(boolean createInheritedMethods) {
 		this.createInheritedMethods = createInheritedMethods;
+	}
+
+	public static class NodeFinder extends ASTVisitor {
+
+		public static ASTNode perform(ASTNode root, int start, int length) {
+			NodeFinder finder = new NodeFinder(start, length);
+			root.accept(finder);
+			ASTNode result = finder.getCoveredNode();
+			if (result == null || result.getStartPosition() != start || result.getLength() != length) {
+				return finder.getCoveringNode();
+			}
+			return result;
+		}
+
+		public static ASTNode perform(ASTNode root, ISourceRange range) {
+			return perform(root, range.getOffset(), range.getLength());
+		}
+
+		private int fStart;
+
+		private int fEnd;
+
+		private ASTNode fCoveringNode;
+
+		private ASTNode fCoveredNode;
+
+		public NodeFinder(int offset, int length) {
+			super(true); // include Javadoc tags
+			fStart = offset;
+			fEnd = offset + length;
+		}
+
+		protected boolean visitNode(ASTNode node) {
+			int nodeStart = node.getStartPosition();
+			int nodeEnd = nodeStart + node.getLength();
+			if (nodeEnd < fStart || fEnd < nodeStart) {
+				return false;
+			}
+			if (nodeStart <= fStart && fEnd <= nodeEnd) {
+				fCoveringNode = node;
+			}
+			if (fStart <= nodeStart && nodeEnd <= fEnd) {
+				if (fCoveringNode == node) { // nodeStart == fStart &&
+					// nodeEnd == fEnd
+					fCoveredNode = node;
+					return true; // look further for node with same length as
+					// parent
+				} else if (fCoveredNode == null) { // no better found
+					fCoveredNode = node;
+				}
+				return false;
+			}
+			return true;
+		}
+
+		public boolean visit(CompilationUnit node) {
+			return visitNode(node);
+		}
+
+		public boolean visit(PackageDeclaration node) {
+			return visitNode(node);
+		}
+
+		public boolean visit(TypeDeclaration node) {
+			return visitNode(node);
+		}
+
+		public boolean visit(Javadoc node) {
+			if (super.visit(node))
+				return visitNode(node);
+			else
+				return false;
+		}
+
+		public boolean visit(Modifier node) {
+			return visitNode(node);
+		}
+
+		public boolean visit(SimpleName node) {
+			return visitNode(node);
+		}
+
+		public boolean visit(SimpleType node) {
+			return visitNode(node);
+		}
+
+		public boolean visit(MethodDeclaration node) {
+			return visitNode(node);
+		}
+
+		/**
+		 * Returns the covered node. If more than one nodes are covered by the
+		 * selection, the returned node is first covered node found in a
+		 * top-down traversal of the AST
+		 * 
+		 * @return ASTNode
+		 */
+		public ASTNode getCoveredNode() {
+			return fCoveredNode;
+		}
+
+		/**
+		 * Returns the covering node. If more than one nodes are covering the
+		 * selection, the returned node is last covering node found in a
+		 * top-down traversal of the AST
+		 * 
+		 * @return ASTNode
+		 */
+		public ASTNode getCoveringNode() {
+			return fCoveringNode;
+		}
+
 	}
 
 }
