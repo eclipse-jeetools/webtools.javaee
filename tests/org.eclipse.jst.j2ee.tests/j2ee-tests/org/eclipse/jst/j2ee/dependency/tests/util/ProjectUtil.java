@@ -23,6 +23,7 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCr
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.tests.OperationTestCase;
 
 /**
@@ -194,13 +195,24 @@ public class ProjectUtil {
 	}
 	
 	
+	
+	/**
+	 * @deprecated do not use
+	 * 
+	 * @see DoNotUseMeThisWillBeDeletedPost15
+	 */
 	public static final int MAX_WAIT_TIME = 30000;
 
 	public static void waitForClasspathUpdate() {
-        waitForClasspathUpdate(MAX_WAIT_TIME);
+		DependencyVerificationUtil.waitForClasspathUpdate();
     }
 
-    public static void waitForClasspathUpdate(int maxWait) {
+	/**
+	 * @deprecated do not use
+	 * 
+	 * @see DoNotUseMeThisWillBeDeletedPost15
+	 */
+	 public static void waitForClasspathUpdate(int maxWait) {
         long startTime = System.currentTimeMillis();
         listener.isDone = false;
         int waitIncrement = 10;
