@@ -23,6 +23,8 @@ public class ProjectModuleRefactoringTests extends AbstractTests {
         suite.setName("Project Module Dependency Refactoring Tests" );
         suite.addTest(new ProjectModuleRefactoringTests("testDeleteModuleDependency"));
         suite.addTest(new ProjectModuleRefactoringTests("testRenameModuleDependency"));
+        suite.addTest(new ProjectModuleRefactoringTests("testDeleteModuleDependencyWithMarker"));
+        suite.addTest(new ProjectModuleRefactoringTests("testRenameModuleDependencyWithMarker"));
         suite.addTest(new ProjectModuleRefactoringTests("testDeleteMultipleDependency"));
         suite.addTest(new ProjectModuleRefactoringTests("testRenameMultipleModuleDependency"));
         return suite;
@@ -39,17 +41,47 @@ public class ProjectModuleRefactoringTests extends AbstractTests {
 		DependencyVerificationUtil.verifyEARDependencyRemoved(earProject, utilProject);	
 		DependencyVerificationUtil.verifyModuleDependencyRemoved(webProject, utilProject);
     }
+    
+    public void testDeleteModuleDependencyWithMarker() throws Exception {
+        final IProject[] projects = setupModuleDependency();
+        final IProject earProject = projects[0];
+        final IProject webProject = projects[1];
+        final IProject utilProject = projects[2];
 
-	public void testRenameModuleDependency() throws Exception {
-		final IProject[] projects = setupModuleDependency();
-		final IProject earProject = projects[0];
-		final IProject webProject = projects[1];
-		final IProject utilProject = projects[2];
-		
-		final IProject newUtil = ProjectUtil.renameProject(utilProject, "newUtil");
-		
-		DependencyVerificationUtil.verifyEARDependencyChanged(earProject, utilProject, newUtil);	
-		DependencyVerificationUtil.verifyModuleDependencyChanged(webProject, utilProject, newUtil);
+        // add a marker 
+        utilProject.createMarker("TEST_MARKER");
+        
+        ProjectUtil.deleteProject(utilProject);
+        
+        DependencyVerificationUtil.verifyEARDependencyRemoved(earProject, utilProject); 
+        DependencyVerificationUtil.verifyModuleDependencyRemoved(webProject, utilProject);
+    }
+
+    public void testRenameModuleDependency() throws Exception {
+        final IProject[] projects = setupModuleDependency();
+        final IProject earProject = projects[0];
+        final IProject webProject = projects[1];
+        final IProject utilProject = projects[2];
+        
+        final IProject newUtil = ProjectUtil.renameProject(utilProject, "newUtil");
+        
+        DependencyVerificationUtil.verifyEARDependencyChanged(earProject, utilProject, newUtil);    
+        DependencyVerificationUtil.verifyModuleDependencyChanged(webProject, utilProject, newUtil);
+    }
+    
+    public void testRenameModuleDependencyWithMarker() throws Exception {
+        final IProject[] projects = setupModuleDependency();
+        final IProject earProject = projects[0];
+        final IProject webProject = projects[1];
+        final IProject utilProject = projects[2];
+        
+        // add a marker 
+        utilProject.createMarker("TEST_MARKER");
+        
+        final IProject newUtil = ProjectUtil.renameProject(utilProject, "newUtil");
+        
+        DependencyVerificationUtil.verifyEARDependencyChanged(earProject, utilProject, newUtil);    
+        DependencyVerificationUtil.verifyModuleDependencyChanged(webProject, utilProject, newUtil);
     }
 
 	public void testDeleteMultipleDependency() throws Exception {
