@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.defect.tests;
 
+import java.io.StringBufferInputStream;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.zip.ZipFile;
 import junit.framework.Assert;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -34,6 +36,7 @@ import org.eclipse.jdt.internal.core.BinaryType;
 import org.eclipse.jdt.internal.core.SourceType;
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentImportDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
@@ -47,6 +50,7 @@ import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
@@ -78,6 +82,33 @@ public class DefectVerificationTests extends OperationTestCase {
 			e.printStackTrace();
 		}
 		return "";
+	}
+	/**
+	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=130657
+	 */
+	public void test130657() throws Exception {
+		IDataModel model = DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
+		model.setProperty(IWebFacetInstallDataModelProperties.FACET_PROJECT_NAME, "Test120018");
+		model.getDefaultOperation().execute(null, null);
+
+		IVirtualComponent component = ComponentUtilities.getComponent("Test120018");
+
+		IFolder folder = component.getProject().getFolder("imported_classes");
+		folder.create(true,true,null);
+		IFile fakeClassFile = folder.getFile("Fake.class");
+		fakeClassFile.create(new StringBufferInputStream(""),true,null);
+		IPath folderPath = folder.getProjectRelativePath();
+
+		final IVirtualFolder jsrc = component.getRootFolder().getFolder("/WEB-INF/classes");
+		jsrc.createLink(folder.getProjectRelativePath(), 0, null);
+
+		//Export war
+		IDataModel dataModel = DataModelFactory.createDataModel(new WebComponentExportDataModelProvider());
+		dataModel.setProperty(J2EEComponentExportDataModelProvider.ARCHIVE_DESTINATION, getFullTestDataPath("testblah.war"));
+		dataModel.setProperty(J2EEComponentExportDataModelProvider.COMPONENT, component);
+		dataModel.setBooleanProperty(J2EEComponentExportDataModelProvider.EXPORT_SOURCE_FILES, true);
+		dataModel.setBooleanProperty(J2EEComponentExportDataModelProvider.OVERWRITE_EXISTING, true);
+		dataModel.getDefaultOperation().execute(null, null);
 	}
 
 
