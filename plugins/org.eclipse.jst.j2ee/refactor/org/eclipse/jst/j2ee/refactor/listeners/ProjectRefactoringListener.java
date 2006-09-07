@@ -124,7 +124,7 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 		final int flags = delta.getFlags();
 
 		if (kind == IResourceDelta.REMOVED) {
-			if (flags == 0) {
+			if (hasDeletedRemovedFlags(flags)) {
 				// Remove all entries int the project dependency cache
 				//cache.removeProject(project);
 				// if the kind is REMOVED and there are no special flags, the project was deleted
@@ -133,8 +133,8 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 				if (metadata != null && OptionalRefactorHandler.getInstance().shouldRefactorDeletedProject(metadata)) {
 				    processDelete(metadata);
 				} 
-			}
-		} else if (kind == IResourceDelta.ADDED && wasRenamed(flags)) { // was renamed
+			} 
+		} else if (kind == IResourceDelta.ADDED && hasRenamedAddedFlags(flags)) { // was renamed
 			// get the original name
 			final String originalName = delta.getMovedFromPath().lastSegment();
 			//Logger.getLogger().logInfo("Added event for " + originalName + " with flags " + flags);
@@ -161,15 +161,26 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 	}
 	
 	/*
-	 * Determines if the project was renamed based on the IResourceDelta flags 
+	 * Determines if the added project was renamed based on the IResourceDelta flags 
 	 */
-	private boolean wasRenamed(final int flags) {
+	private boolean hasRenamedAddedFlags(final int flags) {
 		if ((flags & IResourceDelta.DESCRIPTION) > 0
 			&& (flags & IResourceDelta.MOVED_FROM) > 0) {
 			return true;
 		}
 		return false;
 	}
+    
+    /*
+     * Determines if the removed project was deleted based on the IResourceDelta flags 
+     */
+    private boolean hasDeletedRemovedFlags(final int flags) {
+        if ((flags & IResourceDelta.MOVED_TO) == 0 
+                && (flags & IResourceDelta.REPLACED) == 0) {
+            return true;
+        }
+        return false;
+    }
 	
 	/*
 	 * Processes the renaming of a project.
