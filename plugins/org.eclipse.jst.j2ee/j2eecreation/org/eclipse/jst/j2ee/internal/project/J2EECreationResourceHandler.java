@@ -150,6 +150,7 @@ public class J2EECreationResourceHandler extends NLS {
 	public static String MessageDestReferenceDataModel_7;
 	public static String ENTERPRISE_BEANS_LIST_UI_;
 	public static String PROJECT_CLASSPATH_UPDATED;
+	public static String VERSION_NOT_SUPPORTED;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, J2EECreationResourceHandler.class);
