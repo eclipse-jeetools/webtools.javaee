@@ -15,6 +15,7 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModelProvider;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ui.project.facet.EarSelectionPanel;
@@ -88,7 +89,8 @@ public abstract class J2EEModuleImportPage extends J2EEImportPage {
 					IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME,
 					IFacetProjectCreationDataModelProperties.FACET_RUNTIME,
 					IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME,
-					IJ2EEFacetProjectCreationDataModelProperties.ADD_TO_EAR};
+					IJ2EEFacetProjectCreationDataModelProperties.ADD_TO_EAR,
+					J2EEArtifactImportDataModelProvider.FACET_RUNTIME};
 	}
 
 	public void dispose() {
