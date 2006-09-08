@@ -19,6 +19,7 @@ import org.eclipse.jst.j2ee.internal.archive.operations.AppClientComponentImport
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.facet.IAppClientFacetInstallDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
@@ -46,8 +47,11 @@ public final class AppClientComponentImportDataModelProvider extends J2EECompone
 	}
 
 	protected IDataModel createJ2EEComponentCreationDataModel() {
-		return DataModelFactory.createDataModel(new AppClientFacetProjectCreationDataModelProvider());
-		
+		IDataModel appClientDataModel = DataModelFactory.createDataModel(new AppClientFacetProjectCreationDataModelProvider());
+		FacetDataModelMap map = (FacetDataModelMap)appClientDataModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		//need to ensure no default Main class is created during import
+		map.getFacetDataModel(J2EEProjectUtilities.APPLICATION_CLIENT).setBooleanProperty(IAppClientFacetInstallDataModelProperties.CREATE_DEFAULT_MAIN_CLASS, false);
+		return appClientDataModel;
 	}
 
 	public boolean propertySet(String propertyName, Object propertyValue) {
