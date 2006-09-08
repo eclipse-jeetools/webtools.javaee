@@ -62,7 +62,7 @@ public final class EarFacetValidator
                 final IVirtualReference ref = refs[ i ];
                 final IVirtualComponent refvc = ref.getReferencedComponent();
                 
-                if( refvc != null )
+                if( refvc != null && !refvc.isBinary())
                 {
                     final IProject refpj = refvc.getProject();
                     validate( fproj, ProjectFacetsManager.create( refpj ) );

@@ -25,8 +25,12 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
+import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
@@ -34,10 +38,14 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataModelProvider implements IJ2EEComponentImportDataModelProperties, IDataModelListener {
 
 	private static final String USE_DEFAULT_PROJECT_NAME = "J2EEArtifactImportDataModelProvider.USE_DEFAULT_PROJECT_NAME"; //$NON-NLS-1$
+	
+	public static final String FACET_RUNTIME = "IJ2EEArtifactImportDataModelProperties.FACET_RUNTIME"; //$NON-NLS-1$	
 
 	private IDataModel componentCreationDM;
 	private OpenFailureException cachedOpenFailureException = null;
@@ -52,12 +60,14 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		propertyNames.add(USE_DEFAULT_PROJECT_NAME);
 		propertyNames.add(PROJECT_NAME);
 		propertyNames.add(COMPONENT);
+		propertyNames.add( FACET_RUNTIME );
 		return propertyNames;
 	}
 
 	public void init() {
 		super.init();
 		componentCreationDM = createJ2EEComponentCreationDataModel();
+		componentCreationDM.setBooleanProperty(FacetProjectCreationDataModelProvider.FORCE_VERSION_COMPLIANCE, false);
 		componentCreationDM.addListener(this);
 		model.addNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION, componentCreationDM);
 	}
@@ -106,6 +116,8 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 					Logger.getLogger().logError(e);
 				}
 			}
+		} else if( FACET_RUNTIME.equals( propertyName )){
+			throw new RuntimeException(propertyName + " should not be set."); //$NON-NLS-1$
 		}
 		return true;
 	}
@@ -174,6 +186,8 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 			}
 		} else if (NESTED_MODEL_J2EE_COMPONENT_CREATION.equals(propertyName) ) {
 			return getDataModel().getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION).validate(true);
+		} else if(FACET_RUNTIME.equals(propertyName)){
+			return model.validateProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
 		}
 		return OK_STATUS;
 	}
@@ -234,5 +248,24 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		if (!doingComponentUpdate && event.getDataModel() == componentCreationDM && event.getPropertyName().equals(PROJECT_NAME) && getBooleanProperty(USE_DEFAULT_PROJECT_NAME)) {
 			setBooleanProperty(USE_DEFAULT_PROJECT_NAME, false);
 		}
+		if( event.getDataModel() == componentCreationDM && event.getPropertyName().equals(IFacetProjectCreationDataModelProperties.FACET_RUNTIME)){
+			model.notifyPropertyChange(FACET_RUNTIME, IDataModel.DEFAULT_CHG);
+		}
+	}
+	
+	protected IStatus validateVersionSupportedByServer(String facetId){
+		if( model.isPropertySet(FILE)){
+			IDataModel earProjectModel = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);
+			FacetDataModelMap map = (FacetDataModelMap) earProjectModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+			
+			IDataModel facetDataModel = map.getFacetDataModel(facetId);
+			IProjectFacetVersion facetVersion = (IProjectFacetVersion)facetDataModel.getProperty(IFacetDataModelProperties.FACET_VERSION);
+			
+			IRuntime runtime = (IRuntime) getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME); 
+			if(runtime != null && !runtime.supports(facetVersion)){
+				return WTPCommonPlugin.createErrorStatus( J2EECreationResourceHandler.VERSION_NOT_SUPPORTED ); //$NON-NLS-1$
+			}	
+		}
+		return OK_STATUS;
 	}
 }

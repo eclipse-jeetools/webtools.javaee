@@ -21,6 +21,7 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IAccessRule;
@@ -133,9 +134,16 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	private void update() {
 		if(!javaProject.isOpen()){
 			try {
-				javaProject.open(null);
+				if(javaProject.getProject().exists() && javaProject.getProject().hasNature(JavaCore.NATURE_ID)){
+					javaProject.open(null);
+				} else {
+					return;
+				}
 			} catch (JavaModelException e) {
 				Logger.getLogger().logError(e);
+			} catch (CoreException e) {
+				//ignore 
+				return;
 			}
 		}
 		

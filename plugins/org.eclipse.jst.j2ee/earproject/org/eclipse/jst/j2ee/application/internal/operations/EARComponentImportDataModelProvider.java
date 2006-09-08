@@ -90,6 +90,8 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 	 * This is only to force validation for the EAR name against the nested projects; do not set.
 	 */
 	public static final String EAR_NAME_VALIDATION = "EARImportDataModel.EAR_NAME_VALIDATION";//$NON-NLS-1$
+	
+	
 
 
 	private IDataModelListener nestedListener = new IDataModelListener() {
@@ -353,6 +355,8 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 				return WTPCommonPlugin.createWarningStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_4, new Object[]{cachedLoadError.getURI()}));
 			}
 			return status;
+		}else if( FACET_RUNTIME.equals( propertyName)){
+			return validateVersionSupportedByServer( J2EEProjectUtilities.ENTERPRISE_APPLICATION );
 		}
 		// TODO: check context root is not inside current working
 		// directory...this is invalid

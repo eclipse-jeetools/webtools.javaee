@@ -24,7 +24,6 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
-import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -111,7 +110,7 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 			for (int i=0; i<references.length; i++) {
 				IVirtualComponent moduleComponent = references[i].getReferencedComponent();
 				// Is referenced component a J2EE binary module archive
-				if (moduleComponent instanceof J2EEModuleVirtualArchiveComponent) {
+				if (moduleComponent.isBinary()) {
 					// Ensure module URI exists on EAR DD for binary archive
 					Module j2eeModule = app.getFirstModule(references[i].getArchiveName());
 					if (j2eeModule == null)
