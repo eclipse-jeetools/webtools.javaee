@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.plugin;
 /*
- * $RCSfile: JavaEMFNature.java,v $ $Revision: 1.15 $ $Date: 2005/09/14 23:30:27 $
+ * $RCSfile: JavaEMFNature.java,v $ $Revision: 1.16 $ $Date: 2006/09/11 23:42:31 $
  */
 
 import java.util.List;
@@ -168,13 +168,26 @@ protected void addAdapterFactories(ResourceSet aSet) {
 protected void addJavaReflectionAdapterFactories(ResourceSet aSet) {
 	List factories = aSet.getAdapterFactories();
 	// The context may already have a JavaReflection adaptor factory, so remove it
+	// This should maybe be considered a logic error, but we can recover easily
 	if (!factories.isEmpty()) {
 		AdapterFactory factory = EcoreUtil.getAdapterFactory(factories, ReadAdaptor.TYPE_KEY);
 		if (factory != null)
 			factories.remove(factory);
 	}
-	// This should maybe be considered a logic error, but we can recover easily
-	factories.add(new JavaJDOMAdapterFactory(JemProjectUtilities.getJavaProject(project)));
+
+	factories.add(adapterFactory);
+}
+
+private JavaJDOMAdapterFactory adapterFactory;
+
+/* (non-Javadoc)
+ * @see org.eclipse.jem.util.emf.workbench.nature.EMFNature#setProject(org.eclipse.core.resources.IProject)
+ */
+public void setProject(IProject newProject) {
+	super.setProject(newProject);
+	// This is done here because we should be able to lock on the build rule to allow correct initialization of the
+	// java synchronizer.
+	adapterFactory = new JavaJDOMAdapterFactory(JemProjectUtilities.getJavaProject(project));
 }
 
 }

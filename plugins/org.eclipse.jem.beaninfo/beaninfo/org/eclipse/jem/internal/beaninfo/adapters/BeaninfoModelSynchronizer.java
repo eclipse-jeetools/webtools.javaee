@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoModelSynchronizer.java,v $
- *  $Revision: 1.10 $  $Date: 2006/05/17 20:13:00 $ 
+ *  $Revision: 1.11 $  $Date: 2006/09/11 23:42:30 $ 
  */
 
 import org.eclipse.core.runtime.IPath;
@@ -52,7 +52,7 @@ public class BeaninfoModelSynchronizer extends JavaModelListener {
 	 * Stop the synchronizer from listening to any more changes.
 	 */
 	public void stopSynchronizer(boolean clearResults) {
-		JavaCore.removeElementChangedListener(this);
+		releaseListener();
 		getAdapterFactory().closeAll(clearResults);
 	}
 
@@ -156,9 +156,54 @@ public class BeaninfoModelSynchronizer extends JavaModelListener {
 	 */
 	protected void processJavaElementChanged(IPackageFragmentRoot element, IJavaElementDelta delta) {
 		if (isClassPathChange(delta))
-			fAdapterFactory.markAllStale();
+			markAllStale();
 		else
 			super.processJavaElementChanged(element, delta);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.workbench.utility.JavaModelListener#notifyProjectAddedRemovedFromClasspath(org.eclipse.jdt.core.IJavaProject, boolean)
+	 */
+	protected void notifyProjectAddedRemovedFromClasspath(IJavaProject[] added, IJavaProject[] removed) {
+		try {
+			setMarkedAllStale(false);
+			markAllStale();
+		} finally {
+			setMarkedAllStale(false);
+		}
+	}
+
+	private ThreadLocal markedAllStale = new ThreadLocal();
+	private boolean isMarkedAllStale() {
+		Boolean b = (Boolean) markedAllStale.get();
+		if (b == null) {
+			b = Boolean.FALSE;
+			markedAllStale.set(b);
+		}
+		return b.booleanValue();
+	}
+	
+	private void setMarkedAllStale(boolean b) {
+		markedAllStale.set(Boolean.valueOf(b));
+	}
+	
+	private void markAllStale() {
+		if (!isMarkedAllStale()) {
+			fAdapterFactory.markAllStale();
+			setMarkedAllStale(true);
+		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.workbench.utility.JavaModelListener#processElementChanged(org.eclipse.jdt.core.ElementChangedEvent)
+	 */
+	protected void processElementChanged(ElementChangedEvent event) {
+		setMarkedAllStale(false);
+		try {
+			super.processElementChanged(event);
+		} finally {
+			setMarkedAllStale(false);
+		}
 	}
 	
 	protected void processJavaElementChanged(IPackageFragment element, IJavaElementDelta delta) {
@@ -167,7 +212,7 @@ public class BeaninfoModelSynchronizer extends JavaModelListener {
 				break;	// Don't need to do anything on a new package. If this was from a new fragroot, we would recycle already. Otherwise, it will find this package on the first use.
 			case IJavaElementDelta.REMOVED:
 				if (delta.getAffectedChildren().length == 0)
-					fAdapterFactory.markAllStale();
+					markAllStale();
 				break;
 			default :
 				super.processJavaElementChanged(element, delta);

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.43 $  $Date: 2006/05/23 15:43:06 $ 
+ *  $Revision: 1.44 $  $Date: 2006/09/11 23:42:30 $ 
  */
 
 import java.io.*;
@@ -346,6 +346,7 @@ public class BeaninfoNature implements IProjectNature {
 				new BeaninfoModelSynchronizer(
 					(BeaninfoAdapterFactory) EcoreUtil.getAdapterFactory(javaRSet.getAdapterFactories(), IIntrospectionAdapter.ADAPTER_KEY),
 					JavaCore.create(javaNature.getProject()));
+			fSynchronizer.initializeClasspaths();
 		} catch (CoreException e) {
 			BeaninfoPlugin.getPlugin().getLogger().log(e.getStatus());
 		}
