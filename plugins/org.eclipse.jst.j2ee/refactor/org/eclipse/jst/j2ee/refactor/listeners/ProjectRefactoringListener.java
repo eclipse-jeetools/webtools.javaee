@@ -39,6 +39,7 @@ import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphManager;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 /**
  * Listens for project rename/delete events and, if the project had the
@@ -80,7 +81,9 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 			if (event.getType() == IResourceChangeEvent.PRE_DELETE) {
 				// for now, only dependencies on ModuleCoreNature projects
 				final IProject project = (IProject) event.getResource();
-				if (ModuleCoreNature.getModuleCoreNature(project) != null) {
+                // ensure project is accessible and has both module core and faceted natures
+				if (ModuleCoreNature.getModuleCoreNature(project) != null
+                        && ProjectFacetsManager.create(project) != null) {
 					cacheDeletedProjectMetadata(project);
 				}
 			} else {

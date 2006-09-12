@@ -95,7 +95,9 @@ public class ProjectRefactorMetadata {
                 if (module == null && !_project.equals(oldProject)) {
                     module = ServerUtil.getModule(oldProject);
                 }
-				facets = facetedProject.getProjectFacets();
+                if (facetedProject != null) {
+                    facets = facetedProject.getProjectFacets();
+                }
 			}
 		} catch (CoreException ce) {
 			Logger.getLogger().logError(ce);
