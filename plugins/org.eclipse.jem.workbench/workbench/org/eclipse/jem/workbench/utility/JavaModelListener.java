@@ -11,14 +11,13 @@
 package org.eclipse.jem.workbench.utility;
 
 /*
- * $RCSfile: JavaModelListener.java,v $ $Revision: 1.4 $ $Date: 2006/09/11 23:42:31 $
+ * $RCSfile: JavaModelListener.java,v $ $Revision: 1.5 $ $Date: 2006/09/12 18:45:40 $
  */
 
 import java.util.*;
 
 import org.eclipse.core.resources.*;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.*;
 import org.eclipse.jdt.core.*;
 
 import org.eclipse.jem.internal.core.JEMPlugin;
@@ -73,9 +72,11 @@ public abstract class JavaModelListener implements IElementChangedListener {
 	 * Used to initialize the classpath projects list. This should be
 	 * called if the subclass will need to use the {@link #isInClasspath(IJavaProject)} method.
 	 * If it doesn't need to do this, then this call is not needed. Even if it is not called,
-	 * but the subclass does call isInClasspath then it will be initialized lazily, but it
-	 * may not be acurate the first time because it may not be able to get the build rule.
-	 * It is better to call this explicitly.
+	 * but the subclass does call isInClasspath then the old deprecated way will be used. This may
+	 * result in a deadlock with the build job.
+	 * <p>
+	 * The most accurate is call with waitForBuild true, but this must be done at a time that it is safe
+	 * to wait for the build.
 	 * <p>
 	 * <b>Note:</b>
 	 * When finished with the model listener, <b>must</b> call {@link #releaseListener()} instead of the old
@@ -85,8 +86,6 @@ public abstract class JavaModelListener implements IElementChangedListener {
 	 * <p> 
 	 * <b>Note:</b> This must be called after it is ok to call {@link #getJavaProject()} to return the project
 	 * that is of interest.
-	 * 
-	 * 
 	 * @since 1.2.1
 	 */
 	public void initializeClasspaths() {
@@ -121,7 +120,7 @@ public abstract class JavaModelListener implements IElementChangedListener {
 		// We will be listening for changes to the IProjectDescription (the dynamic references will be the projects that are added/removed,
 		// that is the only way we know that a project has been added/removed). Need to listen to POST_BUILD because that is the only
 		// time notification is sent due to a Container changing and having a project added/removed. However, also
-		// listening for POST_CHANGE because there could be some direct changes.
+		// listening for POST_CHANGE because there could be some direct changes to classpath.
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(projectChangeListener, IResourceChangeEvent.POST_BUILD | IResourceChangeEvent.POST_CHANGE);
 	}
 	
@@ -132,7 +131,7 @@ public abstract class JavaModelListener implements IElementChangedListener {
 		String topProjectName = project.getName();
 		IWorkspaceRoot wsroot = ResourcesPlugin.getWorkspace().getRoot();
 		Map newMap = new HashMap();
-		traverseProjects(project, newMap);
+		traverseProjects(project, newMap, true);
 		
 		if (notify) {
 			// Now notify of the added/removed projects, if any.
@@ -192,7 +191,7 @@ public abstract class JavaModelListener implements IElementChangedListener {
 		}
 	}
 	
-	private void traverseProjects(IProject project, Map projectsProcessed) {
+	private void traverseProjects(IProject project, Map projectsProcessed, boolean topProject) {
 		String projectName = project.getName();
 		if (projectsProcessed.containsKey(projectName))
 			return;
@@ -205,9 +204,12 @@ public abstract class JavaModelListener implements IElementChangedListener {
 			
 			// Now walk all of the projects to get their references.
 			for (int i = 0; i < dynProjects.length; i++) {
-				traverseProjects(dynProjects[i], projectsProcessed);
+				traverseProjects(dynProjects[i], projectsProcessed, false);
 			}
 		} catch (CoreException e) {
+			// If we have an error on the top project, the top project is still considered to be in the classpath.
+			if (topProject)
+				projectsProcessed.put(projectName, EMPTY_PROJECTS);
 		}
 	}
 	
