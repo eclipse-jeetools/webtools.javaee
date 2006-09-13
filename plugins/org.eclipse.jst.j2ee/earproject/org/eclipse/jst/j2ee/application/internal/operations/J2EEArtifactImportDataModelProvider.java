@@ -12,11 +12,13 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
@@ -33,6 +35,7 @@ import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataMo
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
@@ -266,6 +269,28 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 			for(Iterator iterator = projectFacets.iterator(); iterator.hasNext();){
 				IDataModel facetDataModel = map.getFacetDataModel(((IProjectFacet)iterator.next()).getId());
 				IProjectFacetVersion facetVersion = (IProjectFacetVersion)facetDataModel.getProperty(IFacetDataModelProperties.FACET_VERSION);
+				if(facetVersion.getProjectFacet().getId().equals(IModuleConstants.JST_JAVA)){
+					Set set = Collections.singleton(facetVersion.getProjectFacet());
+					try {
+						Set correctSet = runtime.getDefaultFacets(set);
+						IProjectFacetVersion correctVersion = null;
+						Iterator correctVersions = correctSet.iterator();
+						while(correctVersions.hasNext() && correctVersion == null){
+							IProjectFacetVersion version = (IProjectFacetVersion)correctVersions.next();
+							if(version.getProjectFacet().getId().equals(IModuleConstants.JST_JAVA)){
+								correctVersion = version;
+							}
+						}
+						
+						if(correctVersion != null){
+							facetDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION, correctVersion);
+							facetVersion = correctVersion;
+						}
+					} catch (CoreException e) {
+						Logger.getLogger().logError(e);
+					}
+				}
+			
 				if(runtime != null && !runtime.supports(facetVersion)){
 					return WTPCommonPlugin.createErrorStatus( J2EECreationResourceHandler.VERSION_NOT_SUPPORTED ); //$NON-NLS-1$
 				}
