@@ -96,10 +96,8 @@ public class NewServletClassOperation extends ArtifactEditProviderOperation {
 	/**
 	 * XDoclet facet constants
 	 */
-	private static final String JST_WEB_XDOCLET_VERSION = "1.2.3";
-	private static final String JST_WEB_XDOCLET = "jst.web.xdoclet";
-
-	private static final String WEB_PLUGIN_JAR = "org.eclipse.jst.j2ee.web_1.0.0.jar"; //$NON-NLS-1$
+	private static final String JST_WEB_XDOCLET_VERSION = "1.2.3"; //$NON-NLS-1$
+	private static final String JST_WEB_XDOCLET = "jst.web.xdoclet"; //$NON-NLS-1$
 
 	/**
 	 * The extension name for a java class
@@ -239,8 +237,7 @@ public class NewServletClassOperation extends ArtifactEditProviderOperation {
 		CreateServletTemplateModel tempModel = createTemplateModel();
 		IProject project = getTargetProject();
 		String source;
-		// Using the WTPJetEmitter, generate the java source based on the
-		// servlet template model
+		// Using the WTPJetEmitter, generate the java source based on the servlet template model
 		try {
 			source = generateTemplateSource(tempModel, monitor);
 		} catch (Exception e) {
@@ -258,71 +255,29 @@ public class NewServletClassOperation extends ArtifactEditProviderOperation {
 			AnnotationsController controller = AnnotationsControllerManager.INSTANCE.getAnnotationsController(project);
 			if (controller != null)
 				controller.process(aFile);
-			// ((J2EEEditModel)model.getEditModel()).getWorkingCopy(cu, true);
-			// //Track CU.
 		}
-		// Add the annotations builder to the java project so metadata can be
-		// generated.
-		// TODO for M4 cannot add builder directly here, needs to be set up more
-		// extensibly
-		addAnnotationsBuilder(monitor, project);
-	}
-
-	/**
-	 * This method is intended for internal use only. This method will add the
-	 * annotations builder for Xdoclet to the targetted project. This needs to
-	 * be removed from the operation and set up to be more extensible throughout
-	 * the workbench.
-	 * 
-	 * @see NewServletClassOperation#generateUsingTemplates(IProgressMonitor,
-	 *      IPackageFragment)
-	 * 
-	 * 
-	 */
-	private void addAnnotationsBuilder(IProgressMonitor monitor, IProject project) {
-		// If an extended annotations processor is added, ignore the default
-		// xdoclet one
-		Descriptor descriptor = AnnotationsControllerManager.INSTANCE.getDescriptor(getTargetComponent().getProject());
-		if (descriptor != null)
-			return;
+		
+		// Add the xdoclet facet, if necessary, for xdoclet servlet creation
 		try {
-			// Add the xdoclet facet.
-			//
-
-			installXDocletFacet(monitor, project);
-
+			installXDocletFacetIfNecessary(monitor, project);
 		} catch (Exception e) {
-			// Ignore
+			throw new WFTWrappedException(e);
 		}
 	}
 
 	/**
-	 * This method is intended for internal use only. This will add an webdoclet
-	 * facet to the project.
+	 * This method is intended for internal use only. This will add an webdoclet facet to the project.
+	 * 
 	 * @throws CoreException 
 	 * @throws ExecutionException 
-	 * 
 	 */
 	private void installXDocletFacet(IProgressMonitor monitor, IProject project) throws CoreException, ExecutionException {
-
 		IFacetedProject facetedProject = ProjectFacetsManager.create(project);
-		Set facets = facetedProject.getProjectFacets();
 		Set fixedFacets = facetedProject.getFixedProjectFacets();
-		boolean shouldInstallFacet = true;
-		for (Iterator iter = facets.iterator(); iter.hasNext();) {
-			IProjectFacetVersion facetVersion = (IProjectFacetVersion) iter.next();
-			String facetID = facetVersion.getProjectFacet().getId();
-			if (JST_WEB_XDOCLET.equals(facetID)) {
-				shouldInstallFacet = false;
-			}
-		}
-		if (!shouldInstallFacet)
-			return;
-
 		IDataModel dm = DataModelFactory.createDataModel(new FacetInstallDataModelProvider());
 		dm.setProperty(IFacetDataModelProperties.FACET_ID, JST_WEB_XDOCLET);
 		dm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, project.getName());
-		dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, JST_WEB_XDOCLET_VERSION); //$NON-NLS-1$
+		dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, JST_WEB_XDOCLET_VERSION);
 		IDataModel fdm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 		fdm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, project.getName());
 
@@ -331,7 +286,37 @@ public class NewServletClassOperation extends ArtifactEditProviderOperation {
 
 		fdm.getDefaultOperation().execute(monitor, null);
 		facetedProject.setFixedProjectFacets(fixedFacets);
+	}
+	
+	/**
+	 * This method is intended for internal use only. This will check to see if it needs to add an 
+	 * webdoclet facet to the project.
+	 * 
+	 * @throws CoreException 
+	 * @throws ExecutionException 
+	 */
+	private void installXDocletFacetIfNecessary(IProgressMonitor monitor, IProject project) throws CoreException, ExecutionException {
 
+		// If not using annotations, ignore the xdoclet facet
+		if (!model.getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
+			return;
+		
+		// If an extended annotations processor is added, ignore the default xdoclet one
+		Descriptor descriptor = AnnotationsControllerManager.INSTANCE.getDescriptor(getTargetComponent().getProject());
+		if (descriptor != null)
+			return;
+
+		// Otherwise check and see if the xdoclet facet is on the project yet
+		IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+		Set facets = facetedProject.getProjectFacets();
+		for (Iterator iter = facets.iterator(); iter.hasNext();) {
+			IProjectFacetVersion facetVersion = (IProjectFacetVersion) iter.next();
+			String facetID = facetVersion.getProjectFacet().getId();
+			if (JST_WEB_XDOCLET.equals(facetID)) 
+				return;
+		}
+		// Install xdoclet facet
+		installXDocletFacet(monitor, project);
 	}
 
 	/**
