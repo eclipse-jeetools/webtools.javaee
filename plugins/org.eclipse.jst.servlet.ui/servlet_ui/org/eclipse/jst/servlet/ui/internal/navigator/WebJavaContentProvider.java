@@ -159,13 +159,14 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 			Object refreshTarget = (Object) iter.next();
 			if (refreshTarget instanceof IPackageFragmentRoot) {
 				IPackageFragmentRoot sourceFolder = (IPackageFragmentRoot) refreshTarget;
-				CompressedJavaProject compressedNode = getCompressedNode(sourceFolder.getJavaProject());
-				if(compressedNode.isFlatteningSourceFolder()) {
-					iter.remove(); // voids the iterator; but is okay because we're done with it
-					refreshTargets.add(compressedNode);
-					return true;
+				if (sourceFolder.getJavaProject()!=null && sourceFolder.getJavaProject().exists() && sourceFolder.getJavaProject().isOpen()) {
+					CompressedJavaProject compressedNode = getCompressedNode(sourceFolder.getJavaProject());
+					if(compressedNode.isFlatteningSourceFolder()) {
+						iter.remove(); // voids the iterator; but is okay because we're done with it
+						refreshTargets.add(compressedNode);
+						return true;
+					}
 				}
-				
 			}
 		}
 		
