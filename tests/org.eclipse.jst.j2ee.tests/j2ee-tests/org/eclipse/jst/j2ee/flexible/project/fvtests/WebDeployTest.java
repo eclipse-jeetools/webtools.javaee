@@ -69,17 +69,15 @@ public class WebDeployTest extends TestCase {
 					}
 				} 
 			}
-			//assertTrue(verified==3);
 			
-//			get child modules on the deployable - that should return the utility module that was in the ear - it should have  only testdeployutil jar
-			//Hari: need to make sure we need to be looking for the ear project
-		
+			// get child modules on the deployable should return the utility modules which are not 
+			// on the manifest but web lib projects
+			
 			IModule[] childModules = deployable.getChildModules();
 			// TODO temporary remove assert, possible linux issue, investigate
 			//assertTrue(childModules.length==3);
 			for (int l = 0; l < childModules.length; l++){
-				//Hari: need to check to see these are the right modules to check for
-				assertTrue(childModules[l].getName().equals("TestDeployUtil") || childModules[l].getName().equals("lib/TestDeploy/customerEjb.jar") || childModules[l].getName().equals("TestWebLibProject"));
+				assertTrue(childModules[l].getName().equals("TestWebLibProject"));
 			}
 			
 		} catch (CoreException e) {
