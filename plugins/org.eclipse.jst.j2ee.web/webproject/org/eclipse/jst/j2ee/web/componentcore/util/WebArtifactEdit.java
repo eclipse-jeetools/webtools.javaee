@@ -25,6 +25,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -508,7 +509,11 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public IVirtualReference[] getLibModules() {
 		List result = new ArrayList();
 		IVirtualComponent comp = ComponentCore.createComponent(getProject());
-		IVirtualReference[] refComponents = comp.getReferences();
+		IVirtualReference[] refComponents = null;
+		if (!comp.isBinary())
+			refComponents = ((J2EEModuleVirtualComponent)comp).getNonManifestReferences();
+		else
+			refComponents = comp.getReferences();
 		// Check the deployed path to make sure it has a lib parent folder and matchs the web.xml
 		// base path
 		for (int i = 0; i < refComponents.length; i++) {

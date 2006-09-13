@@ -29,6 +29,7 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
@@ -61,6 +62,7 @@ import org.eclipse.wst.web.internal.deployables.ComponentDeployable;
  */
 public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EEModule, IEnterpriseApplication, IApplicationClientModule, IConnectorModule, IEJBModule, IWebModule {
 	private static final IPath WEB_CLASSES_PATH = new Path("WEB-INF").append("classes"); //$NON-NLS-1$ //$NON-NLS-2$
+	private static IPath WEBLIB = new Path("/WEB-INF/lib"); //$NON-NLS-1$
 	private IPackageFragmentRoot[] cachedSourceContainers;
 
 	/**
@@ -496,5 +498,38 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     
     protected ArtifactEdit getComponentArtifactEditForRead() {
 		return EARArtifactEdit.getEARArtifactEditForRead(component.getProject());
+	}
+    
+    /**
+     * The references for J2EE module deployment are only those child modules of EARs or web modules
+     */
+    protected IVirtualReference[] getReferences(IVirtualComponent aComponent) {
+    	if (aComponent == null || aComponent.isBinary()) {
+    		return new IVirtualReference[] {};
+    	} else if (J2EEProjectUtilities.isDynamicWebProject(aComponent.getProject())) {
+    		return getWebLibModules((J2EEModuleVirtualComponent)aComponent);
+    	} else if (J2EEProjectUtilities.isEARProject(aComponent.getProject())) {
+    		return super.getReferences(aComponent);
+    	} else {
+    		return new IVirtualReference[] {};
+    	}
+    }
+    
+    /**
+	 * This method will return the list of dependent modules which are utility jars in the web lib
+	 * folder of the deployed path of the module. It will not return null.
+	 * 
+	 * @return array of the web library dependent modules
+	 */
+	private IVirtualReference[] getWebLibModules(J2EEModuleVirtualComponent comp) {
+		List result = new ArrayList();
+		IVirtualReference[] refComponents = comp.getNonManifestReferences();
+		// Check the deployed path to make sure it has a lib parent folder and matchs the web.xml
+		// base path
+		for (int i = 0; i < refComponents.length; i++) {
+			if (refComponents[i].getRuntimePath().equals(WEBLIB))
+				result.add(refComponents[i]);
+		}
+		return (IVirtualReference[]) result.toArray(new IVirtualReference[result.size()]);
 	}
 }

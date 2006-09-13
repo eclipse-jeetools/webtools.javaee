@@ -57,7 +57,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	}
 	
 	public IVirtualReference[] getReferences() {
-		IVirtualReference[] hardReferences = super.getReferences();
+		IVirtualReference[] hardReferences = getNonManifestReferences();
 		List dynamicReferences = J2EEModuleVirtualComponent.getManifestReferences(this, hardReferences);
 
 		IVirtualReference[] references = null;
@@ -71,6 +71,10 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 			}
 		}
 		return references;
+	}
+	
+	public IVirtualReference[] getNonManifestReferences() {
+		return super.getReferences();
 	}
 
 	public static String [] getManifestClasspath(IVirtualComponent moduleComponent) {
