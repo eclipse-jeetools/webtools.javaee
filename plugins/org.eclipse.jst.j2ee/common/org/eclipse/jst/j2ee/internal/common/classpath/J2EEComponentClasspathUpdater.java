@@ -10,7 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.common.classpath;
 
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.eclipse.core.resources.IContainer;
@@ -105,7 +107,25 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		}
 	}
 	
-
+	/**
+	 * Collection of type IProject
+	 * @param projects
+	 */
+	public void forceUpdate(Collection projects) {
+		try {
+			pauseUpdates();
+			Iterator iterator = projects.iterator();
+			while(iterator.hasNext()){
+				queueUpdate((IProject)iterator.next());
+			}
+		} finally {
+			forceUpdateOnNextRun = true;
+			resumeUpdates();
+		}
+	}
+	
+	private boolean forceUpdateOnNextRun = false;
+	
 	public void queueUpdate(IProject project) {
 		if (J2EEProjectUtilities.isEARProject(project)) {
 			queueUpdateEAR(project);
@@ -235,7 +255,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				
 				container = addContainerToModuleIfNecessary(project);
 				if (container != null && container instanceof J2EEComponentClasspathContainer) {
-					((J2EEComponentClasspathContainer) container).refresh();
+					((J2EEComponentClasspathContainer) container).refresh(forceUpdateOnNextRun);
 				}
 			}
 		}
@@ -249,8 +269,13 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				}
 
 				public void run() throws Exception {
-					processEars();
-					processModules();
+					try {
+						processEars();
+						processModules();
+					} finally {
+						forceUpdateOnNextRun = false;
+					}
+					
 				}
 			});
 
