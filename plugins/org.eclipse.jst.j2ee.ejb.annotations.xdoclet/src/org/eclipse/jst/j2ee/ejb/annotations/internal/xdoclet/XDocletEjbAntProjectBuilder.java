@@ -20,6 +20,7 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IPath;
@@ -82,7 +83,7 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 			if (elements == null)
 				continue;
 			try {
-				String pluginDescriptor = elements[0].getDeclaringExtension().getNamespace();
+				String pluginDescriptor = elements[0].getDeclaringExtension().getContributor().getName();
 
 				org.osgi.framework.Bundle bundle = Platform.getBundle(pluginDescriptor);
 				Class c = bundle.loadClass(elements[0].getAttribute("class"));
@@ -137,7 +138,7 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 
 			properties.put("xdoclet.home", getPreferenceStore().getProperty(XDocletPreferenceStore.XDOCLETHOME)); //$NON-NLS-1$
 			URL url = Platform.getBundle("org.apache.ant").getEntry("/"); //$NON-NLS-1$ //$NON-NLS-2$
-			url = Platform.asLocalURL(url);
+			url = FileLocator.toFileURL(url);
 			File file = new File(url.getFile());
 			properties.put("ant.home", file.getAbsolutePath()); //$NON-NLS-1$
 			WorkbenchComponent ejbModule = core.getComponent();

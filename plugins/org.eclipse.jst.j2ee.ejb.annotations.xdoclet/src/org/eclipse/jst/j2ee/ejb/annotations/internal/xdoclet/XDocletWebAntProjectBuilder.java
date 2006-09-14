@@ -19,6 +19,7 @@ import java.util.Properties;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IPath;
@@ -69,7 +70,7 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 			if (elements == null)
 				continue;
 			try {
-				String pluginDescriptor = elements[0].getDeclaringExtension().getNamespace();
+				String pluginDescriptor = elements[0].getDeclaringExtension().getContributor().getName();
 
 				org.osgi.framework.Bundle bundle = Platform.getBundle(pluginDescriptor);
 				Class c = bundle.loadClass(elements[0].getAttribute("class"));
@@ -101,18 +102,18 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 		WebArtifactEdit webEdit = null;
 		try {
 			moduleCore = StructureEdit.getStructureEditForRead(javaProject.getProject());
-			
+
 			WorkbenchComponent wbModule = moduleCore.getComponent();
 			IProject proj = javaProject.getProject();
 			webEdit = WebArtifactEdit.getWebArtifactEditForRead(proj);
 
 			if (webEdit != null) {
-				if((contextRoot = webEdit.getServerContextRoot()) == null)
+				if ((contextRoot = webEdit.getServerContextRoot()) == null)
 					contextRoot = "";//$NON-NLS-1$
 			}
 			String projectDir = resource.getProject().getLocation().toString();
-			IPath webInf =  getWebInfFolder(wbModule);
-			properties.put("web.module.webinf", projectDir +"/"+webInf.toString()); //$NON-NLS-1$
+			IPath webInf = getWebInfFolder(wbModule);
+			properties.put("web.module.webinf", projectDir + "/" + webInf.toString()); //$NON-NLS-1$
 			properties.put("web", contextRoot); //$NON-NLS-1$
 			properties.put("web.project.dir", projectDir); //$NON-NLS-1$
 			properties.put("web.project.classpath", asClassPath(javaProject)); //$NON-NLS-1$
@@ -120,10 +121,11 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 			properties.put("web.module.gen", packageFragmentRoot.getResource().getLocation().toString()); //$NON-NLS-1$
 			properties.put("web.bin.dir", this.getJavaProjectOutputContainer(javaProject).toString()); //$NON-NLS-1$
 			properties.put("xdoclet.home", getPreferenceStore().getProperty(XDocletPreferenceStore.XDOCLETHOME)); //$NON-NLS-1$
-			properties.put("xdoclet.merge.dir", projectDir +"/"+webInf.toString());
-			//getPreferenceStore().getProperty(projectDir +"/"+XDocletPreferenceStore.XDOCLEMERGEDIR)); //$NON-NLS-1$
+			properties.put("xdoclet.merge.dir", projectDir + "/" + webInf.toString());
+			// getPreferenceStore().getProperty(projectDir
+			// +"/"+XDocletPreferenceStore.XDOCLEMERGEDIR)); //$NON-NLS-1$
 			URL url = Platform.getBundle("org.apache.ant").getEntry("/"); //$NON-NLS-1$ //$NON-NLS-2$
-			url = Platform.asLocalURL(url);
+			url = FileLocator.toFileURL(url);
 			File file = new File(url.getFile());
 			properties.put("ant.home", file.getAbsolutePath()); //$NON-NLS-1$
 
@@ -198,7 +200,7 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 		ComponentResource[] webXML = webModule.findResourcesByRuntimePath(new Path("/WEB-INF"));
 		for (int i = 0; i < webXML.length; i++) {
 			ComponentResource resource = webXML[i];
-			if(resource.getRuntimePath().toString().equals("/WEB-INF"))
+			if (resource.getRuntimePath().toString().equals("/WEB-INF"))
 				return resource.getSourcePath();
 		}
 		if (webXML.length > 0)
