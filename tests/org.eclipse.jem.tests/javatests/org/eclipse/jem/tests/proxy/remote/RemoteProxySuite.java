@@ -11,7 +11,7 @@
 package org.eclipse.jem.tests.proxy.remote;
 /*
  *  $RCSfile: RemoteProxySuite.java,v $
- *  $Revision: 1.10 $  $Date: 2006/05/17 20:13:56 $ 
+ *  $Revision: 1.11 $  $Date: 2006/09/14 18:31:06 $ 
  */
 import java.net.URL;
 
@@ -113,6 +113,10 @@ public class RemoteProxySuite extends TestSetup {
 	protected void tearDown() throws Exception {
 		registryHandler.destroyRegistry();
 		if (project != null) {
+			try {
+				Thread.sleep(500);	// Wait because some times the other vm isn't quite down so a file stays locked.
+			} catch (InterruptedException e) {
+			}
 			project.delete(true, false, null); // Get rid of the project and the files themselves.
 			project = null;
 		}

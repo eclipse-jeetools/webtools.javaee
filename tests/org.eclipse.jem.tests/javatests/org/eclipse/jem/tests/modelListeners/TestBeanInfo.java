@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: TestBeanInfo.java,v $
- *  $Revision: 1.8 $  $Date: 2006/09/11 23:42:32 $ 
+ *  $Revision: 1.9 $  $Date: 2006/09/14 18:31:06 $ 
  */
 package org.eclipse.jem.tests.modelListeners;
 
@@ -86,7 +86,6 @@ public class TestBeanInfo extends TestListeners {
 		
 		// Basic for this is add our special listener. (Don't need full JEM model cluttering things up).		
 		sync = new BeaninfoModelSynchronizer(factory, jp);
-		sync.initializeClasspaths();
 		setTester(factory);
 	}
 	
