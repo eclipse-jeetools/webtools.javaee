@@ -22,15 +22,15 @@
 <body id="rjlimitcurrent"><a name="rjlimitcurrent"><!-- --></a>
 
 
-<h1 class="id_title">Limitations of J2EE development tools</h1>
+<h1 class="topictitle1" id="title">Limitations of J2EE development tools</h1>
 
 
 
-<div class="id_refbody"><p class="id_shortdesc">This topic outlines current known limitations
-and restrictions for J2EE tooling.</p>
+<div id="refbody"><div id="shortdesc">This topic outlines current known limitations
+and restrictions for J2EE tooling.</div>
 
-<div class="id_spacesLimitation"><h4 class="sectiontitle">Spaces
-not supported in JAR URIs within an enterprise application</h4><p class="anchor_topictop" />
+<div id="spacesLimitation"><h4 class="sectiontitle">Spaces
+not supported in JAR URIs within an enterprise application</h4><anchor id="topictop"></anchor>
 Spaces are
 not supported in the URI for modules or utility JAR files in an enterprise
 application. The "Class-Path:" attribute of a MANIFEST.MF file in a JAR file
@@ -38,13 +38,13 @@ or module is a space-delimited list of relative paths within an enterprise
 application. A JAR file would not be able to reference another JAR file in
 the EAR if the URI of the referenced JAR file contained spaces.</div>
 
-<div class="id_EARDBCSLimitation"><h4 class="sectiontitle">Enterprise application
+<div id="EARDBCSLimitation"><h4 class="sectiontitle">Enterprise application
 project names should not contain DBCS characters</h4><p id="rjlimitcurrent__limitation_ear_dbcs"><a name="rjlimitcurrent__limitation_ear_dbcs"><!-- --></a>When
 you create an enterprise application project, it is recommended that you do
 not give it a name that contains double-byte character set (DBCS) characters.</p>
 </div>
 
-<div class="id_utilityJARLimitation"><h4 class="sectiontitle">Java™ build
+<div id="utilityJARLimitation"><h4 class="sectiontitle">Java™ build
 path updates when removing the dependency on a Utility JAR file</h4>When
 removing the dependency on a Utility JAR, the corresponding Java project
 will be removed from the Java build path only if the dependent JAR
@@ -56,7 +56,7 @@ between JUnit and the Web project, remove the Java JAR Dependency from the Web p
 first, then remove the Utility JAR from the EAR. Follow this order to ensure
 that this works correctly.</div>
 
-<div class="id_JARdepLimitation"><h4 class="sectiontitle">Java JAR Dependencies page fails to update Java build
+<div id="JARdepLimitation"><h4 class="sectiontitle">Java JAR Dependencies page fails to update Java build
 path</h4>The Java JAR Dependencies page is not synchronized with
 the Java build
 path page in the project properties dialog. Therefore, a change applied in
@@ -69,7 +69,7 @@ a JAR dependency was added, but the project did not get added to the Java build
 path. The workaround is to reopen the properties dialogs, switch to the JAR
 dependency page, clear and re-select the dependent JAR files, then click <span class="uicontrol">OK</span>.</div>
 
-<div class="id_locationLimitation"><h4 class="sectiontitle">'Invalid project description'
+<div id="locationLimitation"><h4 class="sectiontitle">'Invalid project description'
 error when using a non-default project location for a new J2EE project</h4>When
 you create a new J2EE project (including Java, enterprise application, Dynamic Web,
 EJB, application client, and connector projects), you cannot use a project
@@ -80,7 +80,7 @@ this message you then select a valid project location by clicking the Browse
 button, the project creation will still not finish. The workaround is to click
 Cancel and reopen the project creation wizard.</div>
 
-<div class="anchor_topicbottom" />
+<anchor id="topicbottom"></anchor>
 
 </div>
 

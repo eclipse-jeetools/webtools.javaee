@@ -16,6 +16,9 @@
   <extension point="org.eclipse.help.toc">
        <toc file="jst_j2ee_toc.xml" />
    </extension>
+   <extension point="org.eclipse.help.contentProducer">
+       <binding producerId="org.eclipse.help.dynamic"/>
+   </extension>
    	<extension point="org.eclipse.help.index">
       <index file="org.eclipse.jst.j2ee.doc.userindex.xml"/>
     </extension>
