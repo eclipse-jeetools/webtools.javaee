@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaReflectionSynchronizer.java,v $
- *  $Revision: 1.16 $  $Date: 2006/09/11 23:42:31 $ 
+ *  $Revision: 1.17 $  $Date: 2006/09/14 18:31:08 $ 
  */
 
 import java.util.ArrayList;
@@ -35,53 +35,10 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 	
 	protected JavaJDOMAdapterFactory fAdapterFactory;
 
-	// Doing thread local because the notifications can come on any thread at any time, but these fields are only valid
-	// during a single notification.
-	private ThreadLocal flushedAll = new ThreadLocal();	//Boolean
-	private ThreadLocal flushTypes = new ThreadLocal();	// List
-	private ThreadLocal flushTypePlusInner = new ThreadLocal();	// List
-	private ThreadLocal notifications = new ThreadLocal();	// List
-	
-	protected boolean isFlushedAll() {
-		Boolean b = (Boolean) flushedAll.get();
-		if (b == null) {
-			b = Boolean.FALSE;
-			flushedAll.set(b);
-		}
-		return b.booleanValue();
-	}
-	
-	protected void setFlushedAll(boolean b) {
-		flushedAll.set(Boolean.valueOf(b));
-	}
-	
-	protected List getFlushTypes() {
-		List ft = (List) flushTypes.get();
-		if (ft == null) {
-			ft = new ArrayList();
-			flushTypes.set(ft);
-		}
-		return ft;
-	}
-	
-	protected List getFlushTypePlusInner() {
-		List ft = (List) flushTypePlusInner.get();
-		if (ft == null) {
-			ft = new ArrayList();
-			flushTypePlusInner.set(ft);
-		}
-		return ft;
-	}	
-
-	protected List getNotifications() {
-		List note = (List) notifications.get();
-		if (note == null) {
-			note = new ArrayList();
-			notifications.set(note);
-		}
-		return note;
-	}	
-
+	protected boolean flushedAll = false;
+	protected List flushTypes = new ArrayList();
+	protected List flushTypePlusInner = new ArrayList();
+	protected List notifications = new ArrayList();
 	/**
 	 * JavaReflectionSynchronizer constructor comment.
 	 */
@@ -110,21 +67,19 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 	}
 	
 	protected void flush(IType element) {
-		List fTypes = getFlushTypes();
-		if (!fTypes.contains(element))
-			fTypes.add(element);
+		if (!flushTypes.contains(element))
+			flushTypes.add(element);
 	}
 	/*
 	 * flush the compilation unit. Since we don't know if inner classes may also
 	 * of been affected, they to will be flushed.
 	 */
 	protected void flush(ICompilationUnit element) {
-		List ftp = getFlushTypePlusInner();
-		if (!ftp.contains(element))
-			ftp.add(element);		
+		if (!flushTypePlusInner.contains(element))
+			flushTypePlusInner.add(element);		
 	}
 	protected void flushPackage(String packageName, boolean noFlushIfSourceFound) {
-		getNotifications().addAll(getAdapterFactory().flushPackageNoNotification(packageName, true));
+		notifications.addAll(getAdapterFactory().flushPackageNoNotification(packageName, true));
 	}
 	protected JavaJDOMAdapterFactory getAdapterFactory() {
 		return fAdapterFactory;
@@ -196,32 +151,12 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 	 *
 	 */
 	protected void processJavaElementChanged(IPackageFragmentRoot element, IJavaElementDelta delta) {
-		if (isFlushedAll())
+		if (flushedAll)
 			return;
 		if (isClassPathChange(delta))
 			flushAll();
 		else
 			super.processJavaElementChanged(element, delta);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.jem.workbench.utility.JavaModelListener#notifyProjectAddedRemovedFromClasspath(org.eclipse.jdt.core.IJavaProject, boolean)
-	 */
-	protected void notifyProjectAddedRemovedFromClasspath(IJavaProject[] added, IJavaProject[] removed) {
-		try {
-			setFlushedAll(false);
-			getFlushTypes().clear();
-			getFlushTypePlusInner().clear();
-			getNotifications().clear();
-			flushAll();
-			flushTypes();
-			processNotifications();
-		} finally {
-			setFlushedAll(false);
-			getFlushTypes().clear();
-			getFlushTypePlusInner().clear();
-			getNotifications().clear();
-		}
 	}
 	
 	/* 
@@ -321,52 +256,48 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 	 * Stop the synchronizer from listening to any more changes.
 	 */
 	public void stopSynchronizer() {
-		releaseListener();
+		JavaCore.removeElementChangedListener(this);
 	}
 	/**
 	 * @see org.eclipse.jem.internal.adapters.jdom.JavaModelListener#elementChanged(ElementChangedEvent)
 	 */
-	protected void processElementChanged(ElementChangedEvent event) {
+	public void elementChanged(ElementChangedEvent event) {
 		try {
-			setFlushedAll(false);
-			getFlushTypes().clear();
-			getFlushTypePlusInner().clear();
-			getNotifications().clear();
-			super.processElementChanged(event);
+			flushTypes.clear();
+			flushTypePlusInner.clear();
+			notifications.clear();
+			super.elementChanged(event);
 			flushTypes();
 			processNotifications();
 		} finally {
-			setFlushedAll(false);
-			getFlushTypes().clear();
-			getFlushTypePlusInner().clear();
-			getNotifications().clear();
+			flushedAll = false;
+			flushTypes.clear();
+			flushTypePlusInner.clear();
+			notifications.clear();
 		}
 	}
-	
 	/**
 	 * 
 	 */
 	private void flushTypes() {
-		List ft = getFlushTypes();
-		if (!ft.isEmpty()) {
+		if (!flushTypes.isEmpty()) {
 			IType type = null;
 			Notification not;
-			for (int i = 0; i < ft.size(); i++) {
-				type = (IType) ft.get(i);
+			for (int i = 0; i < flushTypes.size(); i++) {
+				type = (IType) flushTypes.get(i);
 				not = doFlush(type);
 				if (not != null)
-					getNotifications().add(not);
+					notifications.add(not);
 			}
 		}
-		List ftp = getFlushTypePlusInner();
-		if (!ftp.isEmpty()) {
+		if (!flushTypePlusInner.isEmpty()) {
 			ICompilationUnit unit = null;
 			Notification not;
-			for (int i = 0; i < ftp.size(); i++) {
-				unit = (ICompilationUnit) ftp.get(i);
+			for (int i = 0; i < flushTypePlusInner.size(); i++) {
+				unit = (ICompilationUnit) flushTypePlusInner.get(i);
 				not = doFlush(unit);
 				if (not != null)
-					getNotifications().add(not);
+					notifications.add(not);
 			}
 		}		
 	}
@@ -376,9 +307,8 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 	private void processNotifications() {
 		Notifier notifier;
 		Notification not;
-		List notes = getNotifications();
-		for (int i = 0; i < notes.size(); i++) {
-			not = (Notification) notes.get(i);
+		for (int i = 0; i < notifications.size(); i++) {
+			not = (Notification) notifications.get(i);
 			notifier = (Notifier) not.getNotifier();
 			if (notifier != null)
 				try {
@@ -391,31 +321,29 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 	protected void disAssociateSource(String qualifiedName) {
 		Notification not = getAdapterFactory().disAssociateSource(qualifiedName, false);
 		if (not != null)
-			getNotifications().add(not);
+			notifications.add(not);
 	}
 	protected void disAssociateSourcePlusInner(String qualifiedName) {
 		Notification not = getAdapterFactory().disAssociateSourcePlusInner(qualifiedName, false);
 		if (not != null)
-			getNotifications().add(not);
+			notifications.add(not);
 	}
 	protected void flushAll() {
-		if (!isFlushedAll()) {
-			getNotifications().addAll(getAdapterFactory().flushAllNoNotification());
-			setFlushedAll(true);
-		}
+		notifications.addAll(getAdapterFactory().flushAllNoNotification());
+		flushedAll = true;
 	}
 	/**
 	 * @see org.eclipse.jem.internal.adapters.jdom.JavaModelListener#processChildren(IJavaElement, IJavaElementDelta)
 	 */
 	protected void processChildren(IJavaElement element, IJavaElementDelta delta) {
-		if (!isFlushedAll())
+		if (!flushedAll)
 			super.processChildren(element, delta);
 	}
 	/**
 	 * @see org.eclipse.jem.internal.adapters.jdom.JavaModelListener#processDelta(IJavaElementDelta)
 	 */
 	public void processDelta(IJavaElementDelta delta) {
-		if (!isFlushedAll())
+		if (!flushedAll)
 			super.processDelta(delta);
 	}
 }

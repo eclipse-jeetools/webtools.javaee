@@ -11,13 +11,13 @@
 package org.eclipse.jem.workbench.utility;
 
 /*
- * $RCSfile: JavaModelListener.java,v $ $Revision: 1.5 $ $Date: 2006/09/12 18:45:40 $
+ * $RCSfile: JavaModelListener.java,v $ $Revision: 1.6 $ $Date: 2006/09/14 18:31:08 $
  */
 
 import java.util.*;
 
 import org.eclipse.core.resources.*;
-import org.eclipse.core.runtime.*;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.*;
 
 import org.eclipse.jem.internal.core.JEMPlugin;
@@ -25,22 +25,7 @@ import org.eclipse.jem.internal.core.JEMPlugin;
 /**
  * An element change listener to listen for Java Model changes. It breaks the notification up into individual method calls to make it easier to walk
  * the notification tree.
- * <p>
- * When finished with this listener, the new approved API <b>requires</b> calling {@link #releaseListener()}. The old way of directly calling
- * JavaCore to do the release will cause resource leaks if {@link #initializeClasspaths()} was called.
- * <p>
- * <b>Note:</b> If the subclass implementation will be calling {@link #isInClasspath(IJavaProject)} then a call to {@link #initializeClasspaths()}
- * will be required at the appropriate time. See the comments for the initialize method for info. If the initialize is not called, then
- * when/if isInClasspath is called then the older way of determining if it is in the classpath will be called. This may result in a deadlock
- * depending on the situation, so it is better to use initializeClasspaths and releaseListener instead of the old way.
- * <p>
- * <b>Subclass implementation details:</b> Subclass implementations should not override {@link #elementChanged(ElementChangedEvent)}. 
- * The elementChanged method should be made final but it cannot because the API would be broken for older subclassers. If they wish to
- * override what elementChanged does, the API way is to override {@link #processElementChanged(ElementChangedEvent)} instead.  There the
- * subclass can do additional processing (by still calling super.processElementChanged) or replace it entirely. That
- * way the processing of the classpath projects list will still be done.  
- * Older subclass implementations must call {@link #elementChanged(ElementChangedEvent)} if they
- * have overridden it. This is necessary for {@link #isInClasspath(IJavaProject)} to be processed correctly. 
+ * 
  * @since 1.2.0
  */
 public abstract class JavaModelListener implements IElementChangedListener {
@@ -66,219 +51,16 @@ public abstract class JavaModelListener implements IElementChangedListener {
 	public JavaModelListener(int eventsToListen) {
 		JavaCore.addElementChangedListener(this, eventsToListen);
 	}
-	
-	
-	/**
-	 * Used to initialize the classpath projects list. This should be
-	 * called if the subclass will need to use the {@link #isInClasspath(IJavaProject)} method.
-	 * If it doesn't need to do this, then this call is not needed. Even if it is not called,
-	 * but the subclass does call isInClasspath then the old deprecated way will be used. This may
-	 * result in a deadlock with the build job.
-	 * <p>
-	 * The most accurate is call with waitForBuild true, but this must be done at a time that it is safe
-	 * to wait for the build.
-	 * <p>
-	 * <b>Note:</b>
-	 * When finished with the model listener, <b>must</b> call {@link #releaseListener()} instead of the old
-	 * deprecated way of just calling to remove this listener from JavaCore. If the old way
-	 * is done, then it will not release all of the listeners because another internal listener
-	 * is added somewhere else.
-	 * <p> 
-	 * <b>Note:</b> This must be called after it is ok to call {@link #getJavaProject()} to return the project
-	 * that is of interest.
-	 * @since 1.2.1
-	 */
-	public void initializeClasspaths() {
-		buildProjectsInClasspath(false);
-		projectChangeListener = new IResourceChangeListener() {
-		
-			public void resourceChanged(IResourceChangeEvent event) {
-				try {
-					final boolean[] rebuild = new boolean[1]; 
-					event.getDelta().accept(new IResourceDeltaVisitor() {
-					
-						public boolean visit(IResourceDelta delta) throws CoreException {
-							IResource res = delta.getResource();
-							boolean isProject = res.getType() == IResource.PROJECT;
-							if (isProject && projectsInClasspath.containsKey(res.getName())) {
-								if ((delta.getFlags() & IResourceDelta.DESCRIPTION) != 0) {
-									rebuild[0] = true;
-								}
-							}
-							return res.getType() != IResource.PROJECT;	// As soon as we reach project, we don't want to go to the children.
-						}
-					
-					});
-					if (rebuild[0])
-						buildProjectsInClasspath(true);
-				} catch (CoreException e) {
-				}
-			}
-		
-		};
-		
-		// We will be listening for changes to the IProjectDescription (the dynamic references will be the projects that are added/removed,
-		// that is the only way we know that a project has been added/removed). Need to listen to POST_BUILD because that is the only
-		// time notification is sent due to a Container changing and having a project added/removed. However, also
-		// listening for POST_CHANGE because there could be some direct changes to classpath.
-		ResourcesPlugin.getWorkspace().addResourceChangeListener(projectChangeListener, IResourceChangeEvent.POST_BUILD | IResourceChangeEvent.POST_CHANGE);
-	}
-	
-	private static final IJavaProject[] EMPTY_PROJECTS = new IJavaProject[0];
-	
-	private void buildProjectsInClasspath(boolean notify) {
-		IProject project = getJavaProject().getProject();
-		String topProjectName = project.getName();
-		IWorkspaceRoot wsroot = ResourcesPlugin.getWorkspace().getRoot();
-		Map newMap = new HashMap();
-		traverseProjects(project, newMap, true);
-		
-		if (notify) {
-			// Now notify of the added/removed projects, if any.
-			if (projectsInClasspath.size() > 1) {
-				// There are some old ones other than the top project.
-				String[] oldProjectNames = (String[]) projectsInClasspath.keySet().toArray(new String[projectsInClasspath.size()]);
-				int oldProjectsLeft = oldProjectNames.length;
-				String[] newProjectNames = (String[]) newMap.keySet().toArray(new String[newMap.size()]);
-				int newProjectsAdded = 0;
-				nextDyn: for (int nndx = 0; nndx < newProjectNames.length; nndx++) {
-					String newProjectName = newProjectNames[nndx];
-					for (int ondx = 0; ondx < oldProjectNames.length; ondx++) {
-						if (newProjectName.equals(oldProjectNames[ondx])) {
-							oldProjectNames[ondx] = null;
-							newProjectNames[nndx] = null;
-							oldProjectsLeft--;
-							continue nextDyn;
-						}
-					}
-					newProjectsAdded++;
-				}
-				IJavaProject[] added = EMPTY_PROJECTS;
-				if (newProjectsAdded > 0) {
-					added = new IJavaProject[newProjectsAdded];
-					int addndx = 0;
-					for (int i = 0; i < newProjectNames.length; i++) {
-						if (newProjectNames[i] != null)
-							added[addndx++] = JavaCore.create(wsroot.getProject(newProjectNames[i]));
-					}
-				}
-				IJavaProject[] removed = EMPTY_PROJECTS;
-				if (oldProjectsLeft > 0) {
-					removed = new IJavaProject[oldProjectsLeft];
-					int removedndx = 0;
-					for (int i = 0; i < newProjectNames.length; i++) {
-						String oldProjectName = oldProjectNames[i];
-						if (oldProjectName != null)
-							removed[removedndx++] = JavaCore.create(wsroot.getProject(oldProjectName));
-					}
-				}
-				notifyProjectAddedRemovedFromClasspath(added, removed);
-			} else if (newMap.size() > 1) {
-				// There are no old, other than the top project. So we will notify all as added.
-				IJavaProject[] added = new IJavaProject[newMap.size() - 1]; // Won't include top project. 
-				int addedndx = 0;
-				for (Iterator itr = newMap.keySet().iterator(); itr.hasNext();) {
-					String newProjectName = (String) itr.next();
-					if (!topProjectName.equals(newProjectName))
-						added[addedndx++] = JavaCore.create(wsroot.getProject(newProjectName));
-				}
-				notifyProjectAddedRemovedFromClasspath(added, EMPTY_PROJECTS);
-			}
-		}		
-		synchronized (projectsInClasspath) {
-			projectsInClasspath.clear();
-			projectsInClasspath.putAll(newMap);
-		}
-	}
-	
-	private void traverseProjects(IProject project, Map projectsProcessed, boolean topProject) {
-		String projectName = project.getName();
-		if (projectsProcessed.containsKey(projectName))
-			return;
-		// Now gather the referenced projects.
-		// Note: we can no longer determine if visible or not since we can't traverse the classpath for these.
-		// Compare to old, if not changed then don't go any further. Assume order change is change. Easiest for now.
-		try {
-			IProject[] dynProjects = project.getDescription().getDynamicReferences();
-			projectsProcessed.put(projectName, dynProjects);
-			
-			// Now walk all of the projects to get their references.
-			for (int i = 0; i < dynProjects.length; i++) {
-				traverseProjects(dynProjects[i], projectsProcessed, false);
-			}
-		} catch (CoreException e) {
-			// If we have an error on the top project, the top project is still considered to be in the classpath.
-			if (topProject)
-				projectsProcessed.put(projectName, EMPTY_PROJECTS);
-		}
-	}
-	
-	/**
-	 * Called when project(s) were added/removed from the classpath (somewhere, it may be nested down
-	 * in another project from the top project. It doesn't say which project it was removed/added to).
-	 * This is used because currently JDT does not notify
-	 * that a project was added/removed from a classpath. When/if it ever does that, then the normal processJavaElement can be
-	 * used instead. Since this is API, it will continue, but it will be deprecated.
-	 * <p>
-	 * This will be called after all have been gathered for any one notification.
-	 * <p>
-	 * The default implementation does nothing. Subclasses may override to do what they need.
-	 * @param added array of projects added
-	 * @param removed array of projects removed
-	 * 
-	 * @since 1.2.1
-	 */
-	protected void notifyProjectAddedRemovedFromClasspath(IJavaProject[] added, IJavaProject[] removed) {
-		
-	}
-	
-	private IResourceChangeListener projectChangeListener;
-	
-	/**
-	 * Call to release this listener. This is the API way of doing this. The old way of calling JavaCore directly
-	 * to release the listener will no longer work if {@link #initializeClasspaths()} had been called. Even if
-	 * initializeClasspath has not been called, this is still the new approved way of doing this. It should never
-	 * of been the API that users would do the remove listener directly against JavaCore. That exposed too much
-	 * of the internals.
-	 * 
-	 * @since 1.2.1
-	 */
-	public void releaseListener() {
-		JavaCore.removeElementChangedListener(this);
-		if (projectChangeListener != null) {
-			ResourcesPlugin.getWorkspace().removeResourceChangeListener(projectChangeListener);
-			projectChangeListener = null;
-		}
-	}
-	
-	/*
-	 * The projects in classpath (the key will be the project name as a string, and the value will be IProject[] of projects that
-	 * are referenced by this project).
-	 * This must be a synchronzied set so that accessing and updating are synced.
-	 */
-	private Map projectsInClasspath = Collections.synchronizedMap(new HashMap(5));
-				
+
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.jdt.core.IElementChangedListener#elementChanged(org.eclipse.jdt.core.ElementChangedEvent)
 	 */
 	public void elementChanged(ElementChangedEvent event) {
-		processElementChanged(event);
-	}
-	
-	/**
-	 * Process the element changed event.
-	 * <p>
-	 * Subclasses should override this method instead of {@link #elementChanged(ElementChangedEvent)}.
-	 * @param event
-	 * 
-	 * @since 1.2.1
-	 */
-	protected void processElementChanged(ElementChangedEvent event) {
 		processDelta((IJavaElementDelta) event.getSource());
 	}
-	
+
 	/**
 	 * Generally dispatch the children of the delta. Normally this method should not be overridden.
 	 * 
@@ -499,8 +281,9 @@ public abstract class JavaModelListener implements IElementChangedListener {
 	}
 
 	/**
-	 * Answers whether the given java project is in the classpath (including recursive). The java project is determined by subclasses, see
-	 * {@link #getJavaProject()}. The list is cached and rebuild whenever the classpath has changed.
+	 * Answers whether the given java project is in the classpath (including recursive). This currently will not walk through containers (such as the
+	 * PDE container). Only through the direct and recursive project references. The java project is determined by subclasses, see
+	 * {@link #getJavaProject()}.
 	 * 
 	 * @param javaProject
 	 * @return <code>true</code> if project is in classpath or <code>false</code> if not.
@@ -508,14 +291,10 @@ public abstract class JavaModelListener implements IElementChangedListener {
 	 * @since 1.2.0
 	 */
 	protected boolean isInClasspath(IJavaProject javaProject) {
-		// If there is no listener, then we need to do it the old way, ricking deadlock.
-		if (projectChangeListener == null) {
-			IJavaProject listenerJavaProject = getJavaProject();
-			if (javaProject.equals(listenerJavaProject))
-				return true;
-			return isInClasspath(javaProject, listenerJavaProject, true, new HashSet());
-		} else
-			return projectsInClasspath.containsKey(javaProject.getElementName());
+		IJavaProject listenerJavaProject = getJavaProject();
+		if (javaProject.equals(listenerJavaProject))
+			return true;
+		return isInClasspath(javaProject, listenerJavaProject, true, new HashSet());
 	}
 
 	/**
@@ -530,9 +309,6 @@ public abstract class JavaModelListener implements IElementChangedListener {
 	/*
 	 * test to see if the testProject is in the classpath (including from any referenced projects) of the target project. Keep track of those already
 	 * visited so as not to visit again. Too late to make private. But it should not be overridden.
-	 */
-	/**
-	 * @deprecated There is no replacement. Should not be used in listener because it can cause deadlocks. Use {@link #isInClasspath(IJavaProject)} only.
 	 */
 	protected boolean isInClasspath(IJavaProject testProject, IJavaProject targetProject, boolean isFirstLevel, Set visited) {
 		if (visited.contains(targetProject))
@@ -609,9 +385,6 @@ public abstract class JavaModelListener implements IElementChangedListener {
 	/*
 	 * See if the testProject is in the classpath of any of the list of projects or in any project that an entry in the list may of visited. Too late
 	 * to make private. But it should not be overridden.
-	 */
-	/**
-	 * @deprecated There is no replacement. Should not be used in listener because it can cause deadlocks. Use {@link #isInClasspath(IJavaProject)} only.
 	 */
 	protected boolean isInClasspath(IJavaProject testProject, List someJavaProjects, boolean isFirstLevel, Set visited) {
 		if (someJavaProjects == null)

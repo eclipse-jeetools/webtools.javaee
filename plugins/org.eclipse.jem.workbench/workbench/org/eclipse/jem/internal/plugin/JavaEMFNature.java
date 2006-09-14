@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.plugin;
 /*
- * $RCSfile: JavaEMFNature.java,v $ $Revision: 1.16 $ $Date: 2006/09/11 23:42:31 $
+ * $RCSfile: JavaEMFNature.java,v $ $Revision: 1.17 $ $Date: 2006/09/14 18:31:08 $
  */
 
 import java.util.List;
@@ -185,8 +185,6 @@ private JavaJDOMAdapterFactory adapterFactory;
  */
 public void setProject(IProject newProject) {
 	super.setProject(newProject);
-	// This is done here because we should be able to lock on the build rule to allow correct initialization of the
-	// java synchronizer.
 	adapterFactory = new JavaJDOMAdapterFactory(JemProjectUtilities.getJavaProject(project));
 }
 
