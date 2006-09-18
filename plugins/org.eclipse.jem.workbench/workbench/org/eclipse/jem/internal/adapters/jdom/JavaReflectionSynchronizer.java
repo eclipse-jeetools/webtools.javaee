@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaReflectionSynchronizer.java,v $
- *  $Revision: 1.18 $  $Date: 2006/09/18 17:53:18 $ 
+ *  $Revision: 1.19 $  $Date: 2006/09/18 22:18:02 $ 
  */
 
 import java.util.ArrayList;
@@ -169,9 +169,11 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 		switch (delta.getKind()) {
 			case IJavaElementDelta.ADDED : 
 				// Even though added there is possibility that package exists in other root but this
-				// one may now take priority, so we will clear the package anyway.				
-			case IJavaElementDelta.REMOVED :
+				// one may now take priority, so we will clear the package anyway.
 				flushPackage(delta.getElement().getElementName(), false);
+				break;
+			case IJavaElementDelta.REMOVED :
+				getAdapterFactory().flushPackage(delta.getElement().getElementName(), false);
 				break;
 			default :
 				super.processJavaElementChanged(element, delta);
