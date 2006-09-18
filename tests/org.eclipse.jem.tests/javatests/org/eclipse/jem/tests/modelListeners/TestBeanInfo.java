@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: TestBeanInfo.java,v $
- *  $Revision: 1.9 $  $Date: 2006/09/14 18:31:06 $ 
+ *  $Revision: 1.10 $  $Date: 2006/09/18 22:57:55 $ 
  */
 package org.eclipse.jem.tests.modelListeners;
 
@@ -164,14 +164,14 @@ public class TestBeanInfo extends TestListeners {
 	 */
 	protected void setUpAddPackage() throws JavaModelException {
 		super.setUpAddPackage();
-		factory.setTestCases(new int[0], new Object[0]);		
+		factory.setTestCases(new int[] {TestBeaninfoAdapterFactory.MARK_PACKAGE_STALE}, new Object[] {"test"});		
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.tests.modelListeners.TestListeners#setUpDeletePackage()
 	 */
 	protected void setUpDeletePackage() throws JavaModelException {
 		super.setUpDeletePackage();
-		factory.setTestCases(new int[] {TestBeaninfoAdapterFactory.MARK_ALL_STALE}, new Object[] {null});
+		factory.setTestCases(new int[] {TestBeaninfoAdapterFactory.MARK_PACKAGE_STALE}, new Object[] {"test"});
 	}
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#tearDown()

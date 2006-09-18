@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: TestBeaninfoAdapterFactory.java,v $
- *  $Revision: 1.3 $  $Date: 2005/08/24 20:58:55 $ 
+ *  $Revision: 1.4 $  $Date: 2006/09/18 22:57:55 $ 
  */
 package org.eclipse.jem.tests.modelListeners;
 
@@ -58,9 +58,10 @@ public class TestBeaninfoAdapterFactory extends BeaninfoAdapterFactory implement
 		Assert.assertEquals("Did not complete all notifcations. ", callTypes.length, callIndex + 1);
 	}
 
-	public static final int MARK_ALL_STALE = 0, MARK_STALE_INTROSPECTION = 1, MARK_STALE_INTROSPECTION_PLUS_INNER = 2;
+	public static final int MARK_ALL_STALE = 0, MARK_STALE_INTROSPECTION = 1, MARK_STALE_INTROSPECTION_PLUS_INNER = 2, MARK_PACKAGE_STALE = 3;
 
 	private static final String[] callTypeNames = new String[] { "MARK_ALL_STALE", "MARK_STALE_INTROSPECTION", "MARK_STALE_INTROSPECTION_PLUS_INNER",
+			"MARK_PACKAGE_STALE", 
 			"UNREGISTER_INTROSPECTION", "UNREGISTER_INTROSPECTION_PLUS_INNER"};
 
 	/*
@@ -116,6 +117,19 @@ public class TestBeaninfoAdapterFactory extends BeaninfoAdapterFactory implement
 			try {
 				Assert.assertEquals((String) ((Object[]) callArgs[callIndex])[0], sourceName);
 				Assert.assertEquals(((Boolean) ((Object[]) callArgs[callIndex])[1]).booleanValue(), clearResults); 
+			} catch (AssertionFailedError e) {
+				exception = e;
+			}			
+		}		
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.beaninfo.adapters.BeaninfoAdapterFactory#markPackageStale(java.lang.String)
+	 */
+	public void markPackageStale(String packageName) {
+		if (testCallType(MARK_PACKAGE_STALE)) {
+			try {
+				Assert.assertEquals((String) ((Object[]) callArgs[callIndex])[0], packageName);
 			} catch (AssertionFailedError e) {
 				exception = e;
 			}			
