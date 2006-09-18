@@ -8,7 +8,7 @@ Bundle-Localization: plugin
 Export-Package: com.ibm.etools.emf.event,
  com.ibm.etools.emf.event.impl,
  com.ibm.etools.emf.event.util
-Require-Bundle: org.eclipse.emf.ecore,
- org.eclipse.core.runtime.compatibility,
- org.eclipse.core.runtime;bundle-version="2.1"
+Require-Bundle: org.eclipse.emf.ecore;bundle-version="[2.2.0,3.0.0)",
+ org.eclipse.core.runtime.compatibility;bundle-version="[3.1.0,4.0.0)",
+ org.eclipse.core.runtime;bundle-version="[2.1.0,4.0.0)"
 Eclipse-LazyStart: true
