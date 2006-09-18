@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: TestJEM.java,v $
- *  $Revision: 1.7 $  $Date: 2006/05/17 20:13:56 $ 
+ *  $Revision: 1.8 $  $Date: 2006/09/18 22:18:02 $ 
  */
 package org.eclipse.jem.tests.modelListeners;
 
@@ -116,7 +116,7 @@ public class TestJEM extends TestListeners {
 	 */
 	protected void setUpAddPackage() throws JavaModelException {
 		super.setUpAddPackage();
-		factory.setTestCases(new int[] {TestJavaJDOMAdapterFactory.FLUSH_PACKAGE_NO_NOTIFICATION}, new Object[] {new Object[] {"test", Boolean.TRUE}});		
+		factory.setTestCases(new int[] {TestJavaJDOMAdapterFactory.FLUSH_PACKAGE_NO_NOTIFICATION}, new Object[] {new Object[] {"test", Boolean.FALSE}});		
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.tests.modelListeners.TestListeners#setUpDeletePackage()
