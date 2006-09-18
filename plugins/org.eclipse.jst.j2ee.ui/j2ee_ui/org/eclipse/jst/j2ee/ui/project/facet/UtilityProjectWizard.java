@@ -31,7 +31,7 @@ import org.osgi.framework.Bundle;
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
  */
 
-public final class UtilityProjectWizard extends NewProjectDataModelFacetWizard {
+public class UtilityProjectWizard extends NewProjectDataModelFacetWizard {
 
 	public UtilityProjectWizard(IDataModel model) {
 		super(model);
