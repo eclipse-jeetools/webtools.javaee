@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.26 $  $Date: 2006/08/08 18:54:51 $ 
+ *  $Revision: 1.27 $  $Date: 2006/09/18 17:53:18 $ 
  */
 
 import java.util.*;
@@ -351,7 +351,7 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 	 * getSourceType - return the IType which describes our existing Java class or source file
 	 */
 	public IType getSourceType() {
-		if (sourceType == null) {
+		if (sourceType == null || flushAndClearCachedModelObject) {
 			JavaClassImpl javaClass = (JavaClassImpl) getTarget();
 			sourceType = JDOMSearchHelper.findType(javaClass.getJavaPackage().getName(), javaClass.primGetName(), getSourceProject());
 			/*

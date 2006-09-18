@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoModelSynchronizer.java,v $
- *  $Revision: 1.12 $  $Date: 2006/09/14 18:31:09 $ 
+ *  $Revision: 1.13 $  $Date: 2006/09/18 17:53:20 $ 
  */
 
 import org.eclipse.core.runtime.IPath;
@@ -164,10 +164,10 @@ public class BeaninfoModelSynchronizer extends JavaModelListener {
 	protected void processJavaElementChanged(IPackageFragment element, IJavaElementDelta delta) {
 		switch (delta.getKind()) {
 			case IJavaElementDelta.ADDED:
-				break;	// Don't need to do anything on a new package. If this was from a new fragroot, we would recycle already. Otherwise, it will find this package on the first use.
+				// Even though added there is possibility that package exists in other root but this
+				// one may now take priority, so we will clear the package anyway.
 			case IJavaElementDelta.REMOVED:
-				if (delta.getAffectedChildren().length == 0)
-					fAdapterFactory.markAllStale();
+				fAdapterFactory.markPackageStale(element.getElementName());
 				break;
 			default :
 				super.processJavaElementChanged(element, delta);

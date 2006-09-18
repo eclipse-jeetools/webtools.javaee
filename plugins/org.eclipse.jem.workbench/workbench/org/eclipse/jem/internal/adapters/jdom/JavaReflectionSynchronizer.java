@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaReflectionSynchronizer.java,v $
- *  $Revision: 1.17 $  $Date: 2006/09/14 18:31:08 $ 
+ *  $Revision: 1.18 $  $Date: 2006/09/18 17:53:18 $ 
  */
 
 import java.util.ArrayList;
@@ -79,7 +79,7 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 			flushTypePlusInner.add(element);		
 	}
 	protected void flushPackage(String packageName, boolean noFlushIfSourceFound) {
-		notifications.addAll(getAdapterFactory().flushPackageNoNotification(packageName, true));
+		notifications.addAll(getAdapterFactory().flushPackageNoNotification(packageName, noFlushIfSourceFound));
 	}
 	protected JavaJDOMAdapterFactory getAdapterFactory() {
 		return fAdapterFactory;
@@ -167,16 +167,12 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 	 */
 	protected void processJavaElementChanged(IPackageFragment element, IJavaElementDelta delta) {
 		switch (delta.getKind()) {
-			case IJavaElementDelta.ADDED : {
-				if (delta.getAffectedChildren().length == 0)
-					flushPackage(delta.getElement().getElementName(), true);
+			case IJavaElementDelta.ADDED : 
+				// Even though added there is possibility that package exists in other root but this
+				// one may now take priority, so we will clear the package anyway.				
+			case IJavaElementDelta.REMOVED :
+				flushPackage(delta.getElement().getElementName(), false);
 				break;
-			}
-			case IJavaElementDelta.REMOVED :{
-				if (delta.getAffectedChildren().length == 0)
-					getAdapterFactory().flushPackage(delta.getElement().getElementName(), false);
-				break;
-			}
 			default :
 				super.processJavaElementChanged(element, delta);
 		}

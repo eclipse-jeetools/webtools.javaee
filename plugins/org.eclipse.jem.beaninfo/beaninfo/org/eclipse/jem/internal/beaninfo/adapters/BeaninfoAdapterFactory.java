@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoAdapterFactory.java,v $
- *  $Revision: 1.9 $  $Date: 2005/09/13 20:30:47 $ 
+ *  $Revision: 1.10 $  $Date: 2006/09/18 17:53:18 $ 
  */
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
@@ -135,6 +135,32 @@ public class BeaninfoAdapterFactory extends AdapterFactoryImpl {
 	 */
 	public void markAllStale() {
 		markAllStale(false);
+	}
+	
+	/**
+	 * Mark the package as stale. The overrides are left alone since they are not stale.
+	 * 
+	 * @param packageName name of package ('.' qualified).
+	 * @since 1.2.1
+	 */
+	public void markPackageStale(String packageName) {
+		processQueue();
+		packageName+='.';	// Include the '.' so that can distinguish package from class. 
+		synchronized (this) {
+			Iterator itr = fIntrospected.entrySet().iterator();
+			while (itr.hasNext()) {
+				Map.Entry entry = (Map.Entry) itr.next();
+				String entryName = (String) entry.getKey();
+				if (entryName.startsWith(packageName)) {
+					// It is the item or one of its inner classes.
+					WeakValue ref = (WeakValue) entry.getValue();
+					BeaninfoClassAdapter a = (BeaninfoClassAdapter) ref.get();					
+					if (a != null) {
+						a.markStaleFactory(isRegistryCreated() ? getRegistry() : null); // Mark it stale with the current registry.
+					}
+				}
+			}
+		}
 	}
 
 	/**
