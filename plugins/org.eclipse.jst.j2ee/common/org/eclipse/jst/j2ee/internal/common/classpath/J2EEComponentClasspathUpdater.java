@@ -402,10 +402,32 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 					IResource resource = event.getResource();
 					if(resource.getType() == IResource.PROJECT){
 						if(ModuleCoreNature.isFlexibleProject((IProject) resource)){
+							if(J2EEProjectUtilities.isEARProject((IProject)resource)){
+								IProject earProject = (IProject) resource;
+								EARArtifactEdit edit = null;
+								try {
+									edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
+									if(edit != null){
+										IVirtualReference[] refs = edit.getComponentReferences();
+										IVirtualComponent comp = null;
+										for (int j = 0; j < refs.length; j++) {
+											comp = refs[j].getReferencedComponent();
+											if (!comp.isBinary()) {
+												queueUpdateModule(comp.getProject());
+											}
+										}
+									}
+								} finally {
+									if (edit != null) {
+										edit.dispose();
+									}
+								}
+							} else {
 								IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects((IProject)resource);
 								for(int i=0; i<earProjects.length; i++){
 									queueUpdateEAR(earProjects[i]);
 								}
+							}
 							forgetProject((IProject)resource);
 						}
 						EnterpriseBinaryComponentHelper.ArchiveCache.getInstance().clearAllArchivesInProject((IProject)resource);
