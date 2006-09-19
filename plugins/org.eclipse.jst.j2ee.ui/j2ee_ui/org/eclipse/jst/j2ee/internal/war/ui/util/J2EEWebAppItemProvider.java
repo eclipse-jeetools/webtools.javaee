@@ -43,6 +43,7 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListene
 public class J2EEWebAppItemProvider extends WebAppItemProvider {
 
 	private List children = new ArrayList();
+	private boolean isInitializing = false;
 	private WebServletGroupItemProvider webServletGroup;
 	private WebServletMappingGroupItemProvider webServletMappingGroup;
 	private WebFiltersGroupItemProvider webFiltersGroup;
@@ -132,18 +133,27 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 	}
 
 	/**
-	 * initilaize list of children
+	 * Initialize the list of children
 	 */
 	private void initChildren() {
-		if (clientMgr == null)
-			clientMgr = new J2EEWebServiceClientDDManager(weakWebApp);
-		children.add(webServletGroup = new WebServletGroupItemProvider(adapterFactory, weakWebApp));
-		children.add(webServletMappingGroup = new WebServletMappingGroupItemProvider(adapterFactory, weakWebApp));
-		children.add(webFiltersGroup = new WebFiltersGroupItemProvider(adapterFactory, weakWebApp));
-		children.add(webFilterMappingGroup = new WebFilterMappingGroupItemProvider(adapterFactory, weakWebApp));
-		children.add(webRefsGroup = new WebReferencesGroupItemProvider(adapterFactory, weakWebApp));
-		children.add(webSecurityGroup = new WebSecurityGroupItemProvider(adapterFactory, weakWebApp));
-		children.add(webListenerGroup = new WebListenerGroupItemProvider(adapterFactory, weakWebApp));
+		if (isInitializing)
+			return;
+		
+		isInitializing = true;
+		try {
+			children.clear();
+			if (clientMgr == null)
+				clientMgr = new J2EEWebServiceClientDDManager(weakWebApp);
+			children.add(webServletGroup = new WebServletGroupItemProvider(adapterFactory, weakWebApp));
+			children.add(webServletMappingGroup = new WebServletMappingGroupItemProvider(adapterFactory, weakWebApp));
+			children.add(webFiltersGroup = new WebFiltersGroupItemProvider(adapterFactory, weakWebApp));
+			children.add(webFilterMappingGroup = new WebFilterMappingGroupItemProvider(adapterFactory, weakWebApp));
+			children.add(webRefsGroup = new WebReferencesGroupItemProvider(adapterFactory, weakWebApp));
+			children.add(webSecurityGroup = new WebSecurityGroupItemProvider(adapterFactory, weakWebApp));
+			children.add(webListenerGroup = new WebListenerGroupItemProvider(adapterFactory, weakWebApp));
+		} finally {
+			isInitializing = false;
+		}
 	}
 
 	protected WeakReference weakWebApp = null;
@@ -151,15 +161,8 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 	public Collection getChildren(Object object) {		
 		if (object instanceof WebApp) {
 			WebApp webApp = (WebApp) object;
-			
-			// uninitialized
-			if(weakWebApp == null || children.isEmpty()) {
-				weakWebApp = new WeakReference(webApp);
-				initChildren();
-				
-			// must be re-initialized
-			} else if(webApp != weakWebApp.get()) {
-				children.clear();
+			// If uninitialized or web app needs to re-initialize, init the children
+			if(weakWebApp == null || children.isEmpty() || webApp != weakWebApp.get()) {
 				weakWebApp = new WeakReference(webApp);
 				initChildren();
 			}
@@ -183,8 +186,6 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 	 * @see org.eclipse.emf.common.notify.Adapter#notifyChanged(org.eclipse.emf.common.notify.Notification)
 	 */
 	public void notifyChanged(Notification notification) {
-		if (children == null || children.isEmpty())
-			initChildren();
 		// We only care about adds and removes for the different item provider
 		// groups
 		if (notification.getEventType() == Notification.ADD || notification.getEventType() == Notification.ADD_MANY || notification.getEventType() == Notification.REMOVE || notification.getEventType() == Notification.REMOVE_MANY) {
