@@ -30,6 +30,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.ListenerList;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.core.runtime.Status;
@@ -107,11 +108,15 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		}
 	}
 	
+	public void forceUpdate(Collection projects){
+		forceUpdate(projects, true);
+	}
+	
 	/**
 	 * Collection of type IProject
 	 * @param projects
 	 */
-	public void forceUpdate(Collection projects) {
+	public void forceUpdate(Collection projects, boolean runAsJob) {
 		try {
 			pauseUpdates();
 			Iterator iterator = projects.iterator();
@@ -120,7 +125,19 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			}
 		} finally {
 			forceUpdateOnNextRun = true;
-			resumeUpdates();
+			// the following code is in place of the normal call to
+			// resume updates.  This restores the pauseCount and forces 
+			// the job to be scheduled immediately 
+			synchronized (this) {
+				if (pauseCount > 0) {
+					pauseCount--;
+				}
+			}
+			if(runAsJob){
+				moduleUpdateJob.schedule(0);
+			} else {
+				moduleUpdateJob.run(new NullProgressMonitor());
+			}
 		}
 	}
 	
