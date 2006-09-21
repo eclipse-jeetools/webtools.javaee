@@ -86,7 +86,7 @@ public class EjbClientJarCreationOperation
 				canContinue = false;
 			}
 			if( canContinue ){
-				runtime = facetedProject.getRuntime();
+				runtime = facetedProject.getPrimaryRuntime();
 
 				IContainer container = J2EEProjectUtilities.getSourceFolderOrFirst(ejbproject, null);
 				if( container.getType() == IResource.FOLDER ){
