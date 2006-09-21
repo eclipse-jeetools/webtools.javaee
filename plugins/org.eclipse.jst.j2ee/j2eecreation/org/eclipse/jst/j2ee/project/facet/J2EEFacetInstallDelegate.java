@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.project.facet;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -68,7 +67,7 @@ public abstract class J2EEFacetInstallDelegate {
 			facetProj = ProjectFacetsManager.create(earProjectName,
 					null, monitor);
 			if(null != runtime){
-				facetProj.setTargetedRuntimes(Collections.singleton(runtime), monitor);
+				facetProj.setRuntime(runtime, monitor);
 			}
 			
 			IDataModel earFacetInstallDataModel = DataModelFactory.createDataModel(new EarFacetInstallDataModelProvider());

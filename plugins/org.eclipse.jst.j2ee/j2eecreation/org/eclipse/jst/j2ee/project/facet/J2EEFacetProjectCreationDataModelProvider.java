@@ -86,7 +86,7 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 						try {
 							facetdEarProject = ProjectFacetsManager.create(earProject);
 							if (facetdEarProject != null) {
-								setProperty(FACET_RUNTIME, facetdEarProject.getPrimaryRuntime());
+								setProperty(FACET_RUNTIME, facetdEarProject.getRuntime());
 							}
 						} catch (CoreException e) {
 							e.printStackTrace();

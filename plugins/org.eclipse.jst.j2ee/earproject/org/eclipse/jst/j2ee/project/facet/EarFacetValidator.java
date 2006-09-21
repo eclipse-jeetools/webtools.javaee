@@ -95,8 +95,8 @@ public final class EarFacetValidator
         throws CoreException
         
     {
-        final IRuntime earRuntime = ear.getPrimaryRuntime();
-        final IRuntime moduleRuntime = module.getPrimaryRuntime();
+        final IRuntime earRuntime = ear.getRuntime();
+        final IRuntime moduleRuntime = module.getRuntime();
         
         if( earRuntime == null && moduleRuntime != null )
         {
@@ -116,8 +116,8 @@ public final class EarFacetValidator
             final IMarker m = ear.createWarningMarker( MARKER_ID, msg );
             
             m.setAttribute( "moduleProject", module.getProject().getName() );
-            m.setAttribute( "runtime1", ear.getPrimaryRuntime().getName() );
-            m.setAttribute( "runtime2", module.getPrimaryRuntime().getName() );
+            m.setAttribute( "runtime1", ear.getRuntime().getName() );
+            m.setAttribute( "runtime2", module.getRuntime().getName() );
         }
     }
     
