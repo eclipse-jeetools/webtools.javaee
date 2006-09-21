@@ -112,7 +112,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 				if (project.exists() && project.isAccessible() && J2EEProjectUtilities.isEARProject(project)) {
 					try {
 						IFacetedProject facetProj = ProjectFacetsManager.create(project, false, new NullProgressMonitor());
-						setProperty(FACET_RUNTIME, facetProj.getRuntime());
+						setProperty(FACET_RUNTIME, facetProj.getPrimaryRuntime());
 					} catch (CoreException e) {
 						Logger.getLogger().logError(e);
 					}

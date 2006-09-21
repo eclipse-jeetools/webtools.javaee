@@ -722,7 +722,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		IFacetedProject facetedProject = ProjectFacetsManager.create(project);
 		if (facetedProject == null)
 			return null;
-		org.eclipse.wst.common.project.facet.core.runtime.IRuntime runtime = facetedProject.getRuntime();
+		org.eclipse.wst.common.project.facet.core.runtime.IRuntime runtime = facetedProject.getPrimaryRuntime();
 		if (runtime == null)
 			return null;
 		return FacetUtil.getRuntime(runtime);

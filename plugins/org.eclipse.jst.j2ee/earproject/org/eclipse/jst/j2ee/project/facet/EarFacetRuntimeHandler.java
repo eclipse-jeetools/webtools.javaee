@@ -11,6 +11,7 @@
 
 package org.eclipse.jst.j2ee.project.facet;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -57,13 +58,13 @@ public final class EarFacetRuntimeHandler
             final IFacetedProject earFacetedProject
                 = ProjectFacetsManager.create( earProject );
         
-            final IRuntime earRuntime = earFacetedProject.getRuntime();
+            final IRuntime earRuntime = earFacetedProject.getPrimaryRuntime();
     
             final IFacetedProject moduleFacetedProject 
                 = ProjectFacetsManager.create( moduleProject );
             
             if( moduleFacetedProject != null && 
-                ! equals( earRuntime, moduleFacetedProject.getRuntime() ) )
+                ! equals( earRuntime, moduleFacetedProject.getPrimaryRuntime() ) )
             {
                 boolean supports = true;
                 
@@ -85,7 +86,7 @@ public final class EarFacetRuntimeHandler
                 
                 if( supports )
                 {
-                    moduleFacetedProject.setRuntime( earRuntime, submon( monitor, 1 ) );
+                    moduleFacetedProject.setTargetedRuntimes( Collections.singleton( earRuntime ), submon( monitor, 1 ) );
                 }
             }
         }

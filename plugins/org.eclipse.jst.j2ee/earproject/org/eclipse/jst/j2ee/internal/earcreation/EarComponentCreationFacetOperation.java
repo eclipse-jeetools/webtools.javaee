@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.internal.earcreation;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -94,7 +95,7 @@ public class EarComponentCreationFacetOperation extends AbstractDataModelOperati
 		String runtimeName = ServerCore.findRuntime(runtimeID).getName();
 		try {
 			IRuntime runtime = RuntimeManager.getRuntime(runtimeName);
-			facetProj.setRuntime(runtime, null);
+			facetProj.setTargetedRuntimes(Collections.singleton(runtime), null);
 		} catch (IllegalArgumentException e) {
 			Logger.getLogger().logError(e);
 		}

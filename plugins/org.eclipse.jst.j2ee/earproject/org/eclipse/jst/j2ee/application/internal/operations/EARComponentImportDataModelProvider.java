@@ -223,7 +223,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 					}
 
 					if (canContinue) {
-						IRuntime runtime = facetedProject.getRuntime();
+						IRuntime runtime = facetedProject.getPrimaryRuntime();
 						if (null != runtime) {
 							setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, runtime);
 						}

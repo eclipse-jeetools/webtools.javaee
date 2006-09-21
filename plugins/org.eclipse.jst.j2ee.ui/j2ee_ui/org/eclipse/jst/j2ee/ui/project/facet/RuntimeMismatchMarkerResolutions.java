@@ -11,6 +11,8 @@
 
 package org.eclipse.jst.j2ee.ui.project.facet;
 
+import java.util.Collections;
+
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
@@ -96,9 +98,9 @@ public final class RuntimeMismatchMarkerResolutions
         {
             final IFacetedProject fproj = ProjectFacetsManager.create( proj );
             
-            if( ! fproj.getRuntime().equals( runtime ) )
+            if( ! fproj.getPrimaryRuntime().equals( runtime ) )
             {
-                fproj.setRuntime( runtime, null );
+                fproj.setTargetedRuntimes( Collections.singleton( runtime ), null );
             }
         }
     }
