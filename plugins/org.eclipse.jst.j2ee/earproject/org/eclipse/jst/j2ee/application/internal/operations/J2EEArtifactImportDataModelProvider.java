@@ -272,19 +272,21 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 				if(facetVersion.getProjectFacet().getId().equals(IModuleConstants.JST_JAVA)){
 					Set set = Collections.singleton(facetVersion.getProjectFacet());
 					try {
-						Set correctSet = runtime.getDefaultFacets(set);
-						IProjectFacetVersion correctVersion = null;
-						Iterator correctVersions = correctSet.iterator();
-						while(correctVersions.hasNext() && correctVersion == null){
-							IProjectFacetVersion version = (IProjectFacetVersion)correctVersions.next();
-							if(version.getProjectFacet().getId().equals(IModuleConstants.JST_JAVA)){
-								correctVersion = version;
+						if( runtime != null ){
+							Set correctSet = runtime.getDefaultFacets(set);
+							IProjectFacetVersion correctVersion = null;
+							Iterator correctVersions = correctSet.iterator();
+							while(correctVersions.hasNext() && correctVersion == null){
+								IProjectFacetVersion version = (IProjectFacetVersion)correctVersions.next();
+								if(version.getProjectFacet().getId().equals(IModuleConstants.JST_JAVA)){
+									correctVersion = version;
+								}
 							}
-						}
-						
-						if(correctVersion != null){
-							facetDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION, correctVersion);
-							facetVersion = correctVersion;
+							
+							if(correctVersion != null){
+								facetDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION, correctVersion);
+								facetVersion = correctVersion;
+							}
 						}
 					} catch (CoreException e) {
 						Logger.getLogger().logError(e);
