@@ -169,25 +169,6 @@ class WizardClassesImportPage1 extends WizardResourceImportPage implements Liste
 			sourceNameField.setText(""); //$NON-NLS-1$
 	}
 
-	protected void createFileSelectionGroup(Composite parent) {
-
-		//Just create with a dummy root.
-		this.selectionGroup = new ResourceTreeAndListGroup(parent, new FileSystemElement("Dummy", null, true), //$NON-NLS-1$
-					getFolderProvider(), new WorkbenchLabelProvider(), getFileProvider(),
-					//new WorkbenchLabelProviderForClassImport(),
-					new WorkbenchLabelProvider(), SWT.NONE, DialogUtil.inRegularFontMode(parent));
-
-		ICheckStateListener listener = new ICheckStateListener() {
-			public void checkStateChanged(CheckStateChangedEvent event) {
-				updateWidgetEnablements();
-			}
-		};
-
-		WorkbenchViewerSorter sorter = new WorkbenchViewerSorter();
-		this.selectionGroup.setTreeSorter(sorter);
-		this.selectionGroup.setListSorter(sorter);
-		this.selectionGroup.addCheckStateListener(listener);
-	}
 
 	/**
 	 * Creates a new button with the given id.
