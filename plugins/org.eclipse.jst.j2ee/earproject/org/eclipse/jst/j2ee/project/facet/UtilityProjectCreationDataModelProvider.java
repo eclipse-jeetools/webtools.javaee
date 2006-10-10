@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.project.facet;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
@@ -21,6 +22,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.project.facet.ProductManager;
 
 public class UtilityProjectCreationDataModelProvider extends J2EEFacetProjectCreationDataModelProvider {
 
@@ -32,6 +34,9 @@ public class UtilityProjectCreationDataModelProvider extends J2EEFacetProjectCre
 		super.init();
 		FacetDataModelMap map = (FacetDataModelMap) getProperty(FACET_DM_MAP);
 		IDataModel javaFacet = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
+		// If applicable, keep project structure optimized by making output directory the same as the content root
+		if (ProductManager.shouldUseSingleRootStructure())
+			javaFacet.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME, javaFacet.getStringProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME));
 		map.add(javaFacet);
 		IDataModel utilFacet = DataModelFactory.createDataModel(new UtilityFacetInstallDataModelProvider());
 		map.add(utilFacet);

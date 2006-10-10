@@ -24,6 +24,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.project.facet.ProductManager;
 
 public class ConnectorFacetProjectCreationDataModelProvider extends J2EEFacetProjectCreationDataModelProvider {
 
@@ -38,7 +39,11 @@ public class ConnectorFacetProjectCreationDataModelProvider extends J2EEFacetPro
 		map.add(javaFacet);
 		IDataModel jcaFacet = DataModelFactory.createDataModel(new ConnectorFacetInstallDataModelProvider());
 		map.add(jcaFacet);
-		javaFacet.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME,jcaFacet.getStringProperty(IConnectorFacetInstallDataModelProperties.CONFIG_FOLDER));
+		String jcaRoot = jcaFacet.getStringProperty(IConnectorFacetInstallDataModelProperties.CONFIG_FOLDER);
+		javaFacet.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, jcaRoot);
+		// If using optimized single root structure, set the output folder to the content folder
+		if (ProductManager.shouldUseSingleRootStructure())
+			javaFacet.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME, jcaRoot);
 		jcaFacet.addListener(new IDataModelListener() {
 			public void propertyChanged(DataModelEvent event) {
 				if (IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME.equals(event.getPropertyName())) {
