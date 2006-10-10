@@ -71,7 +71,8 @@ public class InvertClientJARDependencyCompoundOperation extends AbstractDataMode
 				if ( comp != null ){
 					IProject project = comp.getProject();
 					if ( project != null && !project.equals(oldProject) 
-						&& !project.equals(newProject) && !JemProjectUtilities.isBinaryProject(project)) {
+						&& !project.equals(newProject) && !JemProjectUtilities.isBinaryProject(project) 
+						&& !comp.isBinary()){
 						
 						IDataModel model = DataModelFactory.createDataModel( new JARDependencyDataModelProvider());
 						
