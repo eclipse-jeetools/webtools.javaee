@@ -392,35 +392,42 @@ public class ClassPathSelection {
 				IVirtualComponent referencedComponent = ref.getReferencedComponent();
 				boolean isBinary = referencedComponent.isBinary();
 				if( isBinary ){
+					
+					
 			         /**
 			          * Warning clean-up 12/05/2005
 			          */   
 					//String uri = J2EEProjectUtilities.getResolvedPathForArchiveComponent(referencedComponent.getName()).toString();
-					String unresolvedURI = "";
-					try {
-						unresolvedURI = ModuleURIUtil.getArchiveName(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)));
-					} catch (UnresolveableURIException e) {
-						e.printStackTrace();
-					}
-					URI archiveURI = URI.createURI(unresolvedURI);	
-					
-					boolean  alreadyInList = false;
-					Iterator iter = getClasspathElements().iterator();
-					while(iter.hasNext()){
-						ClasspathElement tmpelement = (ClasspathElement)iter.next();
-						if( tmpelement.getText().equals(archiveURI.lastSegment())){
-							alreadyInList = true;
-							break;
+					String unresolvedURI = ref.getArchiveName();
+					if(unresolvedURI == null){
+						try {
+							unresolvedURI = ModuleURIUtil.getArchiveName(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)));
+						} catch (UnresolveableURIException e) {
+							e.printStackTrace();
 						}
 					}
 					
-					if( !alreadyInList ){
-						if( inManifest(cp, archiveURI.lastSegment())){
-							element = createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)), archiveURI.lastSegment(), archiveURI.lastSegment());
-							addClasspathElement(element, unresolvedURI);
-						}else{
-							element = createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)), archiveURI.lastSegment(), null);
-							addClasspathElement(element, unresolvedURI);							
+					if(unresolvedURI != null){
+						URI archiveURI = URI.createURI(unresolvedURI);	
+						
+						boolean  alreadyInList = false;
+						Iterator iter = getClasspathElements().iterator();
+						while(iter.hasNext()){
+							ClasspathElement tmpelement = (ClasspathElement)iter.next();
+							if(unresolvedURI.endsWith(tmpelement.getText())){
+								alreadyInList = true;
+								break;
+							}
+						}
+						
+						if( !alreadyInList ){
+							if( inManifest(cp, archiveURI.lastSegment())){
+								element = createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)), archiveURI.lastSegment(), archiveURI.lastSegment());
+								addClasspathElement(element, unresolvedURI);
+							}else{
+								element = createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)), archiveURI.lastSegment(), null);
+								addClasspathElement(element, unresolvedURI);							
+							}
 						}
 					}
 				}

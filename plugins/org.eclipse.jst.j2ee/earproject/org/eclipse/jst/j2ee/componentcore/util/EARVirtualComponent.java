@@ -33,12 +33,19 @@ import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualFolder;
 import org.eclipse.wst.common.componentcore.internal.util.IComponentImplFactory;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
+import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
 public class EARVirtualComponent extends VirtualComponent implements IComponentImplFactory {
 	
+	/**
+	 * @deprecated
+	 * @return
+	 * @see DoNotUseMeThisWillBeDeletedPost15
+	 */
 	protected IVirtualFolder defaultRootFolder;
 	
 	public EARVirtualComponent() {
@@ -59,10 +66,7 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	}
 	
 	public IVirtualFolder createFolder(IProject aProject, IPath aRuntimePath) {
-		if(aRuntimePath.segmentCount() == 0){
-			return new EARVirtualRootFolder(aProject, aRuntimePath);
-		}
-		return new VirtualFolder(aProject, aRuntimePath);
+		return new EARVirtualRootFolder(aProject, aRuntimePath);
 	}
 
 	private static String getJarURI(final ReferencedComponent ref, final IVirtualComponent moduleComp) {
@@ -144,14 +148,16 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	 * @return
 	 */
 	private static List getLooseArchiveReferences(EARVirtualComponent earComponent, List hardReferences) {
-		List dynamicReferences = null;
+		return  getLooseArchiveReferences(earComponent, hardReferences, null, (EARVirtualRootFolder)earComponent.getRootFolder());
+	}
+	
+	private static List getLooseArchiveReferences(EARVirtualComponent earComponent, List hardReferences, List dynamicReferences, EARVirtualRootFolder folder) {
 		try {
-			IVirtualResource[] members = earComponent.defaultRootFolder.members();
+			IVirtualResource[] members = folder.superMembers();
 			for (int i = 0; i < members.length; i++) {
 				if (IVirtualResource.FILE == members[i].getType()) {
-					String archiveName = members[i].getName();
-					String lowerCase = archiveName.toLowerCase();
-					if (lowerCase.endsWith(".jar") || lowerCase.endsWith(".rar") || lowerCase.endsWith(".war")) {
+					if(folder.isDynamicComponent((IVirtualFile)members[i])){
+						String archiveName = members[i].getRuntimePath().toString().substring(1);
 						boolean shouldInclude = true;
 						for (int j = 0; j < hardReferences.size() && shouldInclude; j++) {
 							String tempArchiveName = ((IVirtualReference) hardReferences.get(j)).getArchiveName();
@@ -170,6 +176,8 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 							dynamicReferences.add(dynamicRef);
 						}
 					}
+				} else if(IVirtualResource.FOLDER == members[i].getType()){
+					dynamicReferences = getLooseArchiveReferences(earComponent, hardReferences, dynamicReferences, (EARVirtualRootFolder)members[i]);
 				}
 			}
 		} catch (CoreException e) {
@@ -177,7 +185,6 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 		}
 		return dynamicReferences;
 	}
-
 
 	public IVirtualReference[] getReferences() {
 		List hardReferences = getHardReferences(this);
@@ -190,6 +197,11 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 		return (IVirtualReference[]) hardReferences.toArray(new IVirtualReference[hardReferences.size()]);
 	}
 
+	/**
+	 * @deprecated
+	 * @return
+	 * @see DoNotUseMeThisWillBeDeletedPost15
+	 */
 	public IVirtualFolder getDefaultRootFolder() {
 		return defaultRootFolder;
 	}
