@@ -14,6 +14,7 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -61,6 +62,17 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 		} else if (FACET_PROJECT_NAME.equals(propertyName)) {
 			model.notifyPropertyChange(CONTEXT_ROOT, IDataModel.VALID_VALUES_CHG);
 		} else if (propertyName.equals(CONFIG_FOLDER)) {
+			// If using optimized single root structure, update the output folder based on content folder change
+			// The output folder will be "<contentRoot>/WEB-INF/classes"
+			if (ProductManager.shouldUseSingleRootStructure()) {
+				IDataModel masterModel = (IDataModel) model.getProperty(MASTER_PROJECT_DM);
+				if (masterModel != null) {
+					FacetDataModelMap map = (FacetDataModelMap) masterModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+					IDataModel javaModel = map.getFacetDataModel(IModuleConstants.JST_JAVA);
+					if (javaModel != null)
+						javaModel.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME,propertyValue+"/"+J2EEConstants.WEB_INF_CLASSES); //$NON-NLS-1$
+				}
+			}
 			return true;
 		} else if (propertyName.equals(SOURCE_FOLDER)) {
 			IDataModel masterModel = (IDataModel) model.getProperty(MASTER_PROJECT_DM);

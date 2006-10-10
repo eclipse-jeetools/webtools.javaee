@@ -49,7 +49,7 @@ public class JavaFacetInstallDataModelProvider extends FacetInstallDataModelProv
 		   return JavaFacetUtils.JAVA_50;
 			
 		} else if (SOURCE_FOLDER_NAME.equals(propertyName)) {
-			return "src"; //$NON-NLS-1$
+			return ProductManager.getProperty(IProductConstants.DEFAULT_SOURCE_FOLDER);
 		} else if (DEFAULT_OUTPUT_FOLDER_NAME.equals(propertyName)) {
             return ProductManager.getProperty(IProductConstants.OUTPUT_FOLDER);
         }

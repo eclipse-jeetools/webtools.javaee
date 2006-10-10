@@ -37,8 +37,6 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
-import org.eclipse.wst.project.facet.IProductConstants;
-import org.eclipse.wst.project.facet.ProductManager;
 
 public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
 
@@ -90,7 +88,7 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 		final IVirtualComponent c = ComponentCore.createComponent(project);
 		c.create(0, null);
-		c.setMetaProperty("java-output-path", ProductManager.getProperty(IProductConstants.OUTPUT_FOLDER)); //$NON-NLS-1$
+		setOutputFolder(model, c);
 		final IVirtualFolder root = c.getRootFolder();
 		
 		IFolder sourceFolder = null;
