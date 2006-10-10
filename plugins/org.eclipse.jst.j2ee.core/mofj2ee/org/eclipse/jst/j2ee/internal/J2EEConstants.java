@@ -30,6 +30,7 @@ public interface J2EEConstants extends J2EEVersionConstants {
 	/** "WEB-INF"  															*/
 	String WEB_INF						= 	"WEB-INF"; //$NON-NLS-1$
 	String WEB_INF_CLASSES				=	"WEB-INF/classes"; //$NON-NLS-1$
+	String WEB_INF_LIB					=	"WEB-INF/lib"; //$NON-NLS-1$
 	/** "ALT-INF"  															*/
 	String ALT_INF						= 	"ALT-INF"; //$NON-NLS-1$
 	//Application client info
