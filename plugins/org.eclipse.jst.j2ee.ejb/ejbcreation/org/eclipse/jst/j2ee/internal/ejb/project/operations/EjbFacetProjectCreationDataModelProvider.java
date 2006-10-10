@@ -24,6 +24,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.project.facet.ProductManager;
 
 public class EjbFacetProjectCreationDataModelProvider extends
 J2EEFacetProjectCreationDataModelProvider {
@@ -39,7 +40,11 @@ J2EEFacetProjectCreationDataModelProvider {
 		map.add(javaFacet);
 		IDataModel ejbFacet = DataModelFactory.createDataModel(new EjbFacetInstallDataModelProvider());
 		map.add(ejbFacet);
-		javaFacet.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME,ejbFacet.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER));
+		String ejbRoot = ejbFacet.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
+		javaFacet.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, ejbRoot);
+		// If using optimized single root structure, set the output folder to be the content folder
+		if (ProductManager.shouldUseSingleRootStructure())
+			javaFacet.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME, ejbRoot);
 		ejbFacet.addListener(new IDataModelListener() {
 			public void propertyChanged(DataModelEvent event) {
 				if (IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME.equals(event.getPropertyName())) {

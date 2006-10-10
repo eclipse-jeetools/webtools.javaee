@@ -44,8 +44,6 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
-import org.eclipse.wst.project.facet.IProductConstants;
-import org.eclipse.wst.project.facet.ProductManager;
 
 public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
 
@@ -65,22 +63,14 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 			WtpUtils.addNatures(project);
 
 			// Create the directory structure.
-
 			final IWorkspace ws = ResourcesPlugin.getWorkspace();
 			final IPath pjpath = project.getFullPath();
 
 			// Setup the flexible project structure.
-
 			final IVirtualComponent c = ComponentCore.createComponent(project);
-
 			c.create(0, null);
-
-			c.setMetaProperty("java-output-path", ProductManager.getProperty(IProductConstants.OUTPUT_FOLDER)); //$NON-NLS-1$
-
-
+			setOutputFolder(model,c);
 			final IVirtualFolder ejbroot = c.getRootFolder();
-
-			
 
 			IFolder ejbFolder = null;
 			String configFolder = null;
