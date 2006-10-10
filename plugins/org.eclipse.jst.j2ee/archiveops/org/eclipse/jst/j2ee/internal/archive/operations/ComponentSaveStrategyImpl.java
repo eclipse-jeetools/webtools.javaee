@@ -196,6 +196,7 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 	 */
 	protected void saveAsArchiveComponent(Archive archive, IPath projectRelativePath, InputStream in) throws Exception {
 		IFile iFile = saveToOutputPathIFile(projectRelativePath, in);
+		//TODO investigate removing this block and related variables and linkArchiveComponents(); see bugzilla 159160
 		if (shouldLinkAsComponentRef(archive)) {
 			IVirtualComponent archiveComponent = ComponentCore.createArchiveComponent(vComponent.getProject(), VirtualArchiveComponent.LIBARCHIVETYPE + iFile.getFullPath().toString());
 			if (archiveComponents == null) {
@@ -209,7 +210,7 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 	}
 
 	protected boolean shouldLinkAsComponentRef(Archive archive) {
-		return true;
+		return false;
 	}
 
 	protected void linkArchiveComponents() {
