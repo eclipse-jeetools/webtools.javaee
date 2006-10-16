@@ -119,21 +119,47 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	private void addArtifactEdit(IProject handle) {
 		synchronized(wsArtifactEdits) {
 			if (!wsArtifactEdits.containsKey(handle)) {
-				ArtifactEdit edit = WSDDArtifactEdit.getWSDDArtifactEditForRead(handle);
+				WSDDArtifactEdit edit = WSDDArtifactEdit.getWSDDArtifactEditForRead(handle);
 				if (edit != null) {
-					edit.addListener(this);
-					wsArtifactEdits.put(handle, edit);
-					wsElementsChanged = true;
+					WebServices webServices = edit.getWebServices();
+					// If the project has a webservice.xml with internal services or 
+					// it has .wsil files with external services, we cache the artifact edit
+					if ((webServices != null && !webServices.getWebServiceDescriptions().isEmpty()) || !edit.getWSILResources().isEmpty()) {
+						edit.addListener(this);
+						wsArtifactEdits.put(handle, edit);
+						wsElementsChanged = true;
+					// Otherwise, dispose the artifact edit
+					} else {
+						edit.dispose();
+					}
 				}
 			}
 		}
 		synchronized (wsClientArtifactEdits) {
 			if (!wsClientArtifactEdits.containsKey(handle)) {
-				ArtifactEdit edit = WSCDDArtifactEdit.getWSCDDArtifactEditForRead(handle);
+				WSCDDArtifactEdit edit = WSCDDArtifactEdit.getWSCDDArtifactEditForRead(handle);
 				if (edit != null) {
-					edit.addListener(this);
-					wsClientArtifactEdits.put(handle, edit);
-					wsClientElementsChanged = true;
+					WebServicesResource res = edit.getWscddXmiResource();
+					boolean isInterested = false;
+					// Does the project have 1.3 web service clients?
+					if (res != null && res.isLoaded() && res.getWebServicesClient() != null)
+						isInterested = true;
+					
+					// Does the project have 1.4 web service clients?
+					List wsClientEdits = new ArrayList();
+					wsClientEdits.add(edit);
+					if (!getWorkspace14ServiceRefs(wsClientEdits).isEmpty())
+						isInterested = true;
+					
+					// If project has 1.3 or 1.4 web service clients, cache the artifact edit
+					if (isInterested) {
+						edit.addListener(this);
+						wsClientArtifactEdits.put(handle, edit);
+						wsClientElementsChanged = true;
+					// Otherwise, dispose the artifact edit	
+					} else {
+						edit.dispose();
+					}
 				}
 			}
 		}
@@ -645,8 +671,12 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	}
 
 	public List getWorkspace14ServiceRefs() {
+		return getWorkspace14ServiceRefs(getWSClientArtifactEdits());
+	}
+	
+	private List getWorkspace14ServiceRefs(List wsClientArtifactEdits) {
+		Iterator iter = wsClientArtifactEdits.iterator();
 		List result = new ArrayList();
-		Iterator iter = getWSClientArtifactEdits().iterator();
 		while (iter.hasNext()) {
 			WSCDDArtifactEdit wscArtifactEdit = (WSCDDArtifactEdit) iter.next();
 			ArtifactEdit artifactEdit = ArtifactEdit.getArtifactEditForRead(wscArtifactEdit.getProject());
