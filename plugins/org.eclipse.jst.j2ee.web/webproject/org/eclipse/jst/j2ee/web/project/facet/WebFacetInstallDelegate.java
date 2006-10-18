@@ -86,7 +86,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			String contextRoot = model.getStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT);
 			setContextRootPropertyIfNeeded(c, contextRoot);
-			setJavaOutputPropertyIfNeeded(c);
+			setJavaOutputPropertyIfNeeded(model,c);
 
 			final IVirtualFolder webroot = c.getRootFolder();
 			if (webroot.getProjectRelativePath().equals(new Path("/"))) //$NON-NLS-1$
@@ -152,10 +152,29 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		}
 	}
 
-	private void setJavaOutputPropertyIfNeeded(final IVirtualComponent c) {
+	private void setJavaOutputPropertyIfNeeded(IDataModel model, final IVirtualComponent c) {
 		String existing = c.getMetaProperties().getProperty("java-output-path"); //$NON-NLS-1$
 		if (existing == null)
-			c.setMetaProperty("java-output-path", ProductManager.getProperty(IProductConstants.OUTPUT_FOLDER)); //$NON-NLS-1$
+			setOutputFolder(model, c);
+	}
+	
+	/**
+	 * This overrides the default J2EE set output folder which sets the output folder to the content root
+	 * if the optimized single root structure is used.  For web projects, we need to switch this to
+	 * set the output folder to "<contentRoot>/WEB-INF/classes"
+	 * 
+	 * @param model
+	 * @param component
+	 */
+	protected void setOutputFolder(IDataModel model, IVirtualComponent component) {
+		String outputFolder = null;
+		// If using single root structure, set the output folder to "<contentRoot>/WEB-INF/classes"
+		if (ProductManager.shouldUseSingleRootStructure())
+			outputFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER)+"/"+J2EEConstants.WEB_INF_CLASSES;
+		// Otherwise set the output folder to the product setting default
+		else
+			outputFolder = ProductManager.getProperty(IProductConstants.OUTPUT_FOLDER);
+		component.setMetaProperty("java-output-path", outputFolder ); //$NON-NLS-1$
 	}
 
 	private void setContextRootPropertyIfNeeded(final IVirtualComponent c, String contextRoot) {

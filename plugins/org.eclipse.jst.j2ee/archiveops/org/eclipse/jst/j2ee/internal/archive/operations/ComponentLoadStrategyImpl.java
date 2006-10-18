@@ -417,10 +417,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	}
 
 	protected void addExternalFile(String uri, java.io.File externalDiskFile) {
-		File aFile = getArchiveFactory().createFile();
-		aFile.setURI(uri);
-		aFile.setOriginalURI(uri);
-		aFile.setLoadingContainer(getContainer());
+		File aFile = createFile(uri);
 		filesHolder.addFile(aFile, externalDiskFile);
 	}
 
