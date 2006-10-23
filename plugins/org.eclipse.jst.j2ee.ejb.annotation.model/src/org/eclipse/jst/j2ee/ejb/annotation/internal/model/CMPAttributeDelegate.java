@@ -158,11 +158,11 @@ public class CMPAttributeDelegate {
 	}
 
 	public boolean isDecimal() {
-		return sqlType.equals("DECIMAL");
+		return sqlType.equalsIgnoreCase("DECIMAL");
 	}
 
 	public boolean isVariableSizedType() {
-		return isDecimal() || sqlType.equals("VARCHAR") || sqlType.equals("CHAR") || sqlType.equals("CLOB") || sqlType.equals("BLOB");
+		return isDecimal() || sqlType.equalsIgnoreCase("VARCHAR") || sqlType.equalsIgnoreCase("CHAR") || sqlType.equalsIgnoreCase("CLOB") || sqlType.equalsIgnoreCase("BLOB");
 	}
 
 	/**

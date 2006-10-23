@@ -14,14 +14,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.Vector;
+import java.util.Properties;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.datatools.connectivity.IConnectionProfile;
+import org.eclipse.datatools.connectivity.ProfileManager;
+import org.eclipse.datatools.connectivity.ui.actions.AddProfileViewAction;
+import org.eclipse.datatools.connectivity.ui.wizards.NewConnectionProfileWizard;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.ui.internal.EjbAnnotationsUiPlugin;
@@ -44,22 +48,21 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
-import org.eclipse.wst.rdb.connection.internal.ui.util.resource.ResourceLoader;
-import org.eclipse.wst.rdb.connection.internal.ui.wizards.ConnectionDisplayProperty;
-import org.eclipse.wst.rdb.connection.internal.ui.wizards.shared.UserIdentification;
-import org.eclipse.wst.rdb.internal.core.RDBCorePlugin;
-import org.eclipse.wst.rdb.internal.core.connection.ConnectionInfo;
-import org.eclipse.wst.rdb.server.internal.ui.wizards.NewConnectionWizard;
+
+import sun.security.krb5.internal.ac;
 
 public class ConnectionSelectionPage extends DataModelWizardPage implements SelectionListener {
 
-	private static final ResourceLoader resourceLoader = ResourceLoader.INSTANCE;
 	protected boolean myFirstTime = true;
+
 	protected Button reconnectButton;
+
 	private Button newConnectionButton;
 
 	private boolean connected;
+
 	private List existingConnectionsList;
+
 	private Hashtable existingConnections;
 
 	private Label propertiesLabel;
@@ -150,30 +153,44 @@ public class ConnectionSelectionPage extends DataModelWizardPage implements Sele
 	 * 
 	 * @see org.eclipse.swt.widgets.Listener#handleEvent(org.eclipse.swt.widgets.Event)
 	 */
+	class NewConnectionWizard extends NewConnectionProfileWizard {
+
+		public void addCustomPages() {
+		}
+
+		public Properties getProfileProperties() {
+			return new Properties();
+		}
+
+	}
 
 	public void handleEvent(Event event) {
 		Widget source = event.widget;
 		if (source == newConnectionButton) {
 			try {
-				EjbAnnotationsUiPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("org.eclipse.wst.rdb.server.ui.navigator.serverExplorer");
+				EjbAnnotationsUiPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(
+						"org.eclipse.wst.rdb.server.ui.navigator.serverExplorer");
 			} catch (PartInitException e) {
 			}
-			ConnectionInfo[] infos = RDBCorePlugin.getDefault().getConnectionManager().getAllNamedConnectionInfo();
-			java.util.List nameList = new ArrayList(infos.length);
-			for (int i = 0, n = infos.length; i < n; i++) {
-				if (!nameList.contains(infos[i].getName())) {
-					nameList.add(infos[i].getName().toLowerCase());
+			IConnectionProfile[] profiles = ProfileManager.getInstance().getProfilesByCategory(
+					"org.eclipse.datatools.connectivity.db.category");
+			// ConnectionInfo[] infos =
+			// ProfileConnectionManager.getProfileConnectionManagerInstance().getAllNamedConnectionInfo();
+			java.util.List nameList = new ArrayList(profiles.length);
+			for (int i = 0, n = profiles.length; i < n; i++) {
+				if (!nameList.contains(profiles[i].getName())) {
+					nameList.add(profiles[i].getName().toLowerCase());
 				}
 			}
 			String[] names = (String[]) nameList.toArray(new String[nameList.size()]);
-
-			NewConnectionWizard wizard = new NewConnectionWizard(null, true);
-			wizard.init(PlatformUI.getWorkbench(), null);
-			wizard.setNeedsProgressMonitor(false);
-			wizard.setExistingConnectionNames(Arrays.asList(names));
-			WizardDialog dialog = new WizardDialog(this.getShell(), wizard);
-			dialog.create();
-			dialog.open();
+			AddProfileViewAction action = new AddProfileViewAction("org.eclipse.datatools.connectivity.db.category");
+			action.run();
+			// NewConnectionProfileWizard wizard = new NewConnectionWizard();
+			// wizard.init(PlatformUI.getWorkbench(), null);
+			// wizard.setNeedsProgressMonitor(false);
+			// WizardDialog dialog = new WizardDialog(this.getShell(), wizard);
+			// dialog.create();
+			// dialog.open();
 			initializeValues();
 		} else if (source == existingConnectionsList) {
 			updateConnectionProperties();
@@ -193,7 +210,7 @@ public class ConnectionSelectionPage extends DataModelWizardPage implements Sele
 	 */
 	private void addReconnectButton(Composite parent) {
 		reconnectButton = new Button(parent, SWT.PUSH);
-		reconnectButton.setText(resourceLoader.queryString("CUI_CONN_SELECT_EXT_RECONNECT_BTN_LBL")); //$NON-NLS-1$
+		reconnectButton.setText("Reconnect"); // TODO - TRANSLATE THIS
 		GridData data = new GridData();
 		data.horizontalSpan = 2;
 		data.horizontalAlignment = GridData.BEGINNING;
@@ -224,24 +241,23 @@ public class ConnectionSelectionPage extends DataModelWizardPage implements Sele
 	public void widgetSelected(SelectionEvent evt) {
 		Object source = evt.getSource();
 		if (source == reconnectButton) {
-			ConnectionInfo info = getSelectedConnection();
-			UserIdentification userDialog = new UserIdentification(info.getUserName());
-			if (userDialog.open() == Window.OK) {
-				String us = userDialog.getUserNameInformation();
-				String pa = userDialog.getPasswordInformation();
-				info.setUserName(us);
-				info.setPassword(pa);
-				// try to connect
+			IConnectionProfile info = getSelectedConnection();
+			if (true) {
+				// if (userDialog.open() == Window.OK) {
+				// String us = userDialog.getUserNameInformation();
+				// String pa = userDialog.getPasswordInformation();
+				// info.setUserName(us);
+				// info.setPassword(pa);
+				// // try to connect
 				try {
-					this.getSelectedConnection().setPassword(pa);
-					this.getSelectedConnection().setUserName(us);
 					this.getSelectedConnection().connect();
 					reconnectButton.setEnabled(false);
 					connected = true;
 				} catch (Exception ex) {
 					reconnectButton.setEnabled(true);
 					connected = false;
-					MessageDialog.openError(this.getShell(), resourceLoader.queryString("CUI_CONN_SELECT_EXT_ERROR_DIALOG_TITLE"), //$NON-NLS-1$
+					MessageDialog.openError(this.getShell(), "Cannot connect", // TODO:
+							// TRANSLATE
 							ex.getMessage());
 				}
 				isValidConnection();
@@ -251,14 +267,14 @@ public class ConnectionSelectionPage extends DataModelWizardPage implements Sele
 
 	private void initializeValues() {
 		existingConnectionsList.removeAll();
-		ConnectionInfo[] connInfos = getConnectionsToDisplay();
+		IConnectionProfile[] connInfos = getConnectionsToDisplay();
 		if (connInfos != null) {
 			existingConnections = new Hashtable();
 			java.util.List sortedConnections = Arrays.asList(connInfos);
 			sortConnections(sortedConnections);
 			Iterator connections = sortedConnections.iterator();
 			while (connections.hasNext()) {
-				ConnectionInfo con = (ConnectionInfo) connections.next();
+				IConnectionProfile con = (IConnectionProfile) connections.next();
 				existingConnections.put(con.getName(), con);
 				existingConnectionsList.add(con.getName());
 			}
@@ -274,8 +290,8 @@ public class ConnectionSelectionPage extends DataModelWizardPage implements Sele
 	protected void sortConnections(java.util.List connections) {
 		Comparator c = new Comparator() {
 			public int compare(Object o1, Object o2) {
-				String s1 = ((ConnectionInfo) o1).getName();
-				String s2 = ((ConnectionInfo) o2).getName();
+				String s1 = ((IConnectionProfile) o1).getName();
+				String s2 = ((IConnectionProfile) o2).getName();
 				return s1.compareToIgnoreCase(s2);
 			}
 		};
@@ -291,10 +307,10 @@ public class ConnectionSelectionPage extends DataModelWizardPage implements Sele
 	 * @return A ConnectionInfo object representing the users selection in the
 	 *         wizard page
 	 */
-	public ConnectionInfo getSelectedConnection() {
+	public IConnectionProfile getSelectedConnection() {
 		if (existingConnections == null || existingConnectionsList == null || existingConnectionsList.getSelection().length == 0)
 			return null;
-		ConnectionInfo connection = (ConnectionInfo) existingConnections.get(existingConnectionsList.getSelection()[0]);
+		IConnectionProfile connection = (IConnectionProfile) existingConnections.get(existingConnectionsList.getSelection()[0]);
 		return connection;
 	}
 
@@ -305,8 +321,8 @@ public class ConnectionSelectionPage extends DataModelWizardPage implements Sele
 	 * @return A array of ConnectionInfo objects that should be displayed in the
 	 *         existing connections list
 	 */
-	protected ConnectionInfo[] getConnectionsToDisplay() {
-		return RDBCorePlugin.getDefault().getConnectionManager().getAllNamedConnectionInfo();
+	protected IConnectionProfile[] getConnectionsToDisplay() {
+		return ProfileManager.getInstance().getProfilesByCategory("org.eclipse.datatools.connectivity.db.category");
 	}
 
 	/**
@@ -322,39 +338,20 @@ public class ConnectionSelectionPage extends DataModelWizardPage implements Sele
 	private void updateConnectionProperties() {
 		connectionPropertiesTable.removeAll();
 		if (existingConnectionsList.getSelectionIndex() > -1) {
-			ConnectionInfo selectedConnection = (ConnectionInfo) existingConnections.get((String) existingConnectionsList
+			IConnectionProfile selectedConnection = (IConnectionProfile) existingConnections.get((String) existingConnectionsList
 					.getSelection()[0]);
 			if (selectedConnection != null) {
-
-				ConnectionDisplayProperty[] properties = getConnectionDisplayProperties(selectedConnection);
+				Properties properties = selectedConnection.getBaseProperties();
 				if (properties != null) {
-					int propertyCount = properties.length;
-					for (int index = 0; index < propertyCount; index++) {
+					Enumeration keys = properties.keys();
+					while (keys.hasMoreElements()) {
+						Object pkey = keys.nextElement();
 						TableItem tableItem = new TableItem(connectionPropertiesTable, SWT.NONE);
-						tableItem.setText(new String[] { properties[index].getPropertyName(), properties[index].getValue() });
+						tableItem.setText(new String[] { pkey.toString(), "" + properties.getProperty((String) pkey) });
 					}
 				}
 			}
 		}
-	}
-
-	private ConnectionDisplayProperty[] getConnectionDisplayProperties(ConnectionInfo connectionInfo) {
-		ConnectionDisplayProperty[] properties = null;
-		Vector propertiesCollection = new Vector();
-
-		propertiesCollection.add(new ConnectionDisplayProperty(resourceLoader
-				.queryString("_UI_JDBC_DRIVER_CLASS_CONNECTION_PROPERTY_NAME"), connectionInfo.getDriverClassName())); //$NON-NLS-1$
-		propertiesCollection.add(new ConnectionDisplayProperty(resourceLoader
-				.queryString("_UI_CLASS_LOCATION_CONNECTION_PROPERTY_NAME"), connectionInfo.getLoadingPath())); //$NON-NLS-1$
-		propertiesCollection.add(new ConnectionDisplayProperty(
-				resourceLoader.queryString("_UI_URL_CONNECTION_PROPERTY_NAME"), connectionInfo.getURL())); //$NON-NLS-1$
-		propertiesCollection.add(new ConnectionDisplayProperty(
-				resourceLoader.queryString("_UI_USER_ID_CONNECTION_PROPERTY_NAME"), connectionInfo.getUserName())); //$NON-NLS-1$
-
-		properties = new ConnectionDisplayProperty[propertiesCollection.size()];
-		propertiesCollection.copyInto(properties);
-
-		return properties;
 	}
 
 	protected String[] getValidationPropertyNames() {
@@ -367,32 +364,26 @@ public class ConnectionSelectionPage extends DataModelWizardPage implements Sele
 	}
 
 	protected boolean isValidConnection() {
-		Connection connection = null;
+		boolean isOK = false;
 		try {
-			ConnectionInfo connectionInfo = this.getSelectedConnection();
+			IConnectionProfile connectionInfo = this.getSelectedConnection();
 			if (connectionInfo != null) {
-				connection = this.getSelectedConnection().connect();
+				isOK = this.getSelectedConnection().connect().isOK();
 			}
 		} catch (Throwable e) {
-		} finally {
-			try {
-				if (connection != null) {
-					connection.close();
-				} else {
-					this.setErrorMessage(IEJBAnnotationConstants.ERR_CMP_NO_CONNECTION);
-					connected = false;
-					this.setPageComplete(false);
-					return false;
-				}
-			} catch (SQLException e) {
-				return false;
-			}
 		}
-		this.setErrorMessage(null);
-		setMessage(IEJBAnnotationConstants.ERR_CMP_CONNECTION_SUCCESS, IStatus.OK);
-		connected = true;
-		this.setPageComplete(true);
-		return true;
+		if (isOK) {
+			this.setErrorMessage(null);
+			setMessage("Connected succesfully", IStatus.OK);// TODO: TRANSLATE
+			connected = true;
+			this.setPageComplete(true);
+			return true;
+		}
+		this.setErrorMessage("No Connection"); // TODO: TRANSLATE
+		connected = false;
+		this.setPageComplete(false);
+		return false;
+
 	}
 
 }

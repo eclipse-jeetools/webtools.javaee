@@ -18,6 +18,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.datatools.connectivity.IConnection;
+import org.eclipse.datatools.connectivity.IConnectionProfile;
+import org.eclipse.datatools.connectivity.IManagedConnection;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.internal.ui.refactoring.contentassist.ControlContentAssistHelper;
 import org.eclipse.jdt.internal.ui.refactoring.contentassist.JavaTypeCompletionProcessor;
@@ -54,7 +58,6 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
-import org.eclipse.wst.rdb.internal.core.connection.ConnectionInfo;
 
 public class ChooseTableWizardPage extends DataModelWizardPage {
 
@@ -164,18 +167,21 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 		ArrayList attributes = new ArrayList();
 		if (!((AddContainerManagedEntityEjbWizard) this.getWizard()).isJavaBean()) {
 			try {
-				ConnectionInfo connectionInfo = getConnectionInfo();
+				IConnectionProfile connectionInfo = getConnectionInfo();
 				if (connectionInfo == null)
 					return;
-				String passw = connectionInfo.getPassword();
-				if (passw == null || passw.length() == 0)
-					passw = "password";
-				connectionInfo.setPassword(passw);
+//				String passw = connectionInfo.getPassword();
+//				if (passw == null || passw.length() == 0)
+//					passw = "password";
+//				connectionInfo.setPassword(passw);
 
-				connection = connectionInfo.connect();
+				IStatus connectionStatus = connectionInfo.connect();
 
-				if (connection == null)
+				if (! connectionStatus.isOK())
 					return;
+				IConnection dbConnection = connectionInfo.getManagedConnection("java.sql.Connection").getConnection();
+				connection = (Connection)dbConnection.getRawConnection();
+				
 				DatabaseMetaData metaData = connection.getMetaData();
 				String schema = null;
 				int scIndex = tableName.indexOf(".");
@@ -215,11 +221,11 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 				MessageDialog.openError(this.getShell(), IEJBAnnotationConstants.CANNOT_CONNECT,
 						IEJBAnnotationConstants.CHECK_PROPERTIES);
 			} finally {
-				if (connection != null)
-					try {
-						connection.close();
-					} catch (SQLException e) {
-					}
+//				if (connection != null)
+//					try {
+//						connection.close();
+//					} catch (SQLException e) {
+//					}
 			}
 		}
 		this.getDataModel().setProperty(IContainerManagedEntityBeanDataModelProperties.ATTRIBUTES, attributes);
@@ -236,18 +242,17 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 		Connection connection = null;
 		tableList = new ArrayList();
 		try {
-			ConnectionInfo connectionInfo = getConnectionInfo();
+			IConnectionProfile connectionInfo = getConnectionInfo();
 			if (connectionInfo == null)
 				return;
-			String passw = connectionInfo.getPassword();
-			if (passw == null || passw.length() == 0)
-				passw = "password";
-			connectionInfo.setPassword(passw);
 
-			connection = connectionInfo.connect();
+			IStatus connectionStatus = connectionInfo.connect();
 
-			if (connection == null)
+			if (! connectionStatus.isOK())
 				return;
+			
+			IConnection dbConnection = connectionInfo.getManagedConnection("java.sql.Connection").getConnection();
+			connection = (Connection)dbConnection.getRawConnection();
 			DatabaseMetaData metaData = connection.getMetaData();
 			String[] names = { "TABLE" };
 			ResultSet rs = metaData.getSchemas();
@@ -276,11 +281,11 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 			ex.printStackTrace();
 			MessageDialog.openError(this.getShell(), IEJBAnnotationConstants.CANNOT_CONNECT, IEJBAnnotationConstants.CHECK_PROPERTIES);
 		} finally {
-			if (connection != null)
-				try {
-					connection.close();
-				} catch (SQLException e) {
-				}
+//			if (dbConnection != null)
+//				try {
+//					connection.close();
+//				} catch (SQLException e) {
+//				}
 		}
 		catalogButton.setItems((String[]) tableList.toArray(new String[tableList.size()]));
 		catalogButton.select(0);
@@ -296,7 +301,7 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 
 	}
 
-	public ConnectionInfo getConnectionInfo() {
+	public IConnectionProfile getConnectionInfo() {
 		return ((AddContainerManagedEntityEjbWizard) getWizard()).getConnectionInfo();
 	}
 
