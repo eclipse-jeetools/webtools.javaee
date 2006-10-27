@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaMethodJDOMAdaptor.java,v $
- *  $Revision: 1.14 $  $Date: 2005/10/18 14:58:18 $ 
+ *  $Revision: 1.15 $  $Date: 2006/10/27 19:36:32 $ 
  */
 package org.eclipse.jem.internal.adapters.jdom;
 
@@ -360,5 +360,80 @@ public class JavaMethodJDOMAdaptor extends JDOMAdaptor implements IJavaMethodAda
 	 */
 	public void setSourceMethod(org.eclipse.jdt.core.IMethod newSourceMethod) {
 		sourceMethod = newSourceMethod;
+	}
+	
+	/*
+	 * Override to tolerate JDK 5 variable types.
+	 * @see org.eclipse.jem.internal.adapters.jdom.JDOMAdaptor#typeNameFromSignature(java.lang.String)
+	 */
+	protected String typeNameFromSignature(String typeSignature) {
+		String erasure = null;
+		try {
+			erasure = Signature.getTypeErasure(typeSignature);
+		} catch (IllegalArgumentException e) {
+			//The signature is not the correct format for a variable.
+		}
+		if (erasure != null) {
+			String variableName = null;
+			String resolvedVariable = null;
+			
+			int arrayCount = Signature.getArrayCount(erasure);
+			if (arrayCount > 0) {
+				//We have an array.  Check if the element type is a variable.
+				String elementTypeName = Signature.getElementType(erasure);
+				variableName = Signature.toString(elementTypeName);
+				resolvedVariable = resolveVariableName(erasure, variableName);
+				if (resolvedVariable != null) {
+					//Add array info.
+					StringBuffer b = new StringBuffer(resolvedVariable);
+					for (int i = 0; i < arrayCount; i++) {
+						b.append("[]"); //$NON-NLS-1$
+					}
+					resolvedVariable = b.toString();
+				}
+			} else {
+				variableName = Signature.toString(erasure);
+				//Need to resolve the variable.
+				resolvedVariable = resolveVariableName(erasure, variableName);
+			}
+			if (resolvedVariable == null) {
+				return super.typeNameFromSignature(erasure);
+			} else {
+				return resolvedVariable;
+			}
+		}
+		return super.typeNameFromSignature(typeSignature);
+	}
+
+
+	private String resolveVariableName(String erasure, String variableName) {
+		IMethod method = getSourceMethod();
+		ITypeParameter[] typeParameters = null;
+		try {
+			typeParameters = method.getTypeParameters();
+		} catch (JavaModelException e1) {
+			//Failed to retrieve type parameters for any number of reasons.
+		}
+		ITypeParameter typeParam = null;
+		if (typeParameters != null && typeParameters.length > 0) {
+			for (int i = 0; i < typeParameters.length; i++) {
+				if (typeParameters[i].exists() && variableName.equals(typeParameters[i].getElementName())) {
+					typeParam = typeParameters[i];
+					break;
+				}
+			}
+			if (typeParam != null) {
+				String[] bounds = null;
+				try {
+					bounds = typeParam.getBounds();
+				} catch (JavaModelException e) {}
+				if (bounds != null && bounds.length > 0) {
+					return JDOMSearchHelper.getResolvedTypeName(bounds[0], getType(), getTypeResolutionCache());
+				} else {
+					return "java.lang.Object";
+				}
+			}
+		}
+		return null;
 	}
 }
