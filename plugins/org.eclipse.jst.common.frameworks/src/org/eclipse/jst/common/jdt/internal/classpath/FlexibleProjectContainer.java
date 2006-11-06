@@ -227,7 +227,7 @@ public abstract class FlexibleProjectContainer
                 
                 try
                 {
-                    contents = vf.members();
+                    contents = members( vf );
                 }
                 catch( CoreException e )
                 {
@@ -274,6 +274,19 @@ public abstract class FlexibleProjectContainer
         }
 
         return entries;
+    }
+
+    // TODO: This method was created to provide a safe last-minute workaround
+    // for the issue described in https://bugs.eclipse.org/bugs/show_bug.cgi?id=162974.
+    // This code needs to be revisited in a future release to find a more
+    // permanent solution.
+
+    protected IVirtualResource[] members( final IVirtualFolder vf ) 
+    
+        throws CoreException 
+        
+    {
+        return vf.members();
     }
     
     private IClasspathEntry newLibraryEntry( final IPath p )
