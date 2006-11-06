@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2005 BEA Systems, Inc.
+ * Copyright (c) 2005, 2006 BEA Systems, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Konstantin Komissarchik - initial API and implementation
+ *    David Schneider, david.schneider@unisys.com - [142500] WTP properties pages fonts don't follow Eclipse preferences
  ******************************************************************************/
 
 package org.eclipse.jst.j2ee.ui.project.facet;
@@ -20,6 +21,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
@@ -102,7 +104,7 @@ public final class EarFacetInstallPage extends DataModelFacetInstallPage impleme
 		this.contentDir = new Text(composite, SWT.BORDER);
 		this.contentDir.setLayoutData(gdhfill());
 		synchHelper.synchText(contentDir, CONTENT_DIR, null);
-
+	    Dialog.applyDialogFont(parent);
 		return modulesGroup;
 	}
 

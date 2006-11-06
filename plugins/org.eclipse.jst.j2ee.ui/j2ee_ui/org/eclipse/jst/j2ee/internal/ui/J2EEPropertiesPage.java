@@ -1,8 +1,21 @@
+/*******************************************************************************
+ * Copyright (c) 2006 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *     David Schneider, david.schneider@unisys.com - [142500] WTP properties pages fonts don't follow Eclipse preferences     
+ *******************************************************************************/
+
 package org.eclipse.jst.j2ee.internal.ui;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jst.j2ee.internal.J2EEPropertiesConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
@@ -53,6 +66,7 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 			
 			fillInformation(project, containerGroup);
 		}
+		Dialog.applyDialogFont(parent);
 		return control;
 	}
 	

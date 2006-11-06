@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2005 BEA Systems, Inc.
+ * Copyright (c) 2005, 2006 BEA Systems, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,10 +7,12 @@
  *
  * Contributors:
  *    Konstantin Komissarchik - initial API and implementation
+ *    David Schneider, david.schneider@unisys.com - [142500] WTP properties pages fonts don't follow Eclipse preferences
  ******************************************************************************/
 
 package org.eclipse.jst.servlet.ui.project.facet;
 
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleFacetInstallPage;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.jst.servlet.ui.IWebUIContextIds;
@@ -72,7 +74,7 @@ public final class WebFacetInstallPage extends J2EEModuleFacetInstallPage implem
 		this.sourceDir.setLayoutData(gdhfill());
 		this.sourceDir.setData("label", this.sourceDirLabel); //$NON-NLS-1$
 		synchHelper.synchText(sourceDir, SOURCE_FOLDER, null);
-
+        Dialog.applyDialogFont(parent);
 		return composite;
 	}
 
