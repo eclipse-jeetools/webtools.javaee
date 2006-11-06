@@ -1,15 +1,17 @@
 /***************************************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others. All rights reserved. This program and the
+ * Copyright (c) 2003, 2006 IBM Corporation and others. All rights reserved. This program and the
  * accompanying materials are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors: IBM Corporation - initial API and implementation
+ *				 David Schneider, david.schneider@unisys.com - [142500] WTP properties pages fonts don't follow Eclipse preferences
  **************************************************************************************************/
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
@@ -78,6 +80,7 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
 		createEJBComponentSection(composite);
 		createClientJarURISection(composite);
 		handleHasClientJar();
+	    Dialog.applyDialogFont(parent);
 		return top;
 	}
     

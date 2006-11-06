@@ -1,17 +1,19 @@
 
 /***************************************************************************************************
- * Copyright (c) 2005 Eteration A.S. and others. All rights reserved. This program and the
+ * Copyright (c) 2005, 2006 Eteration A.S. and others. All rights reserved. This program and the
  * accompanying materials are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors: Eteration A.S. - initial API and implementation
+ *				 David Schneider, david.schneider@unisys.com - [142500] WTP properties pages fonts don't follow Eclipse preferences
  **************************************************************************************************/
 
 package org.eclipse.jst.j2ee.ejb.annotation.ui.internal.cmp.wizards;
 
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IContainerManagedEntityBeanDataModelProperties;
@@ -84,7 +86,7 @@ public class AddContainerManagedEntityBeanWizardPage extends DataModelWizardPage
 			setErrorMessage(projectStatus.getMessage());
 			composite.setEnabled(false);
 		}
-		
+		Dialog.applyDialogFont(parent);
 		return composite;
 	}
 
