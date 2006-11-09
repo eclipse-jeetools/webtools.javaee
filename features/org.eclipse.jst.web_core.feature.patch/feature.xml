@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.jst.web_core.feature.patch"
       label="%featureName"
-      version="1.0.0"
+      version="1.5.2.qualifier"
       provider-name="%providerName">
 
    <description>
@@ -22,7 +22,7 @@
    </url>
 
    <requires>
-      <import feature="org.eclipse.jst.web_core.feature" version="1.5.2.qualifier" patch="true"/>
+      <import feature="org.eclipse.jst.web_core.feature" version="1.5.2.v200610070620--87cMN7RkU-WXcu" patch="true"/>
    </requires>
 
    <plugin
