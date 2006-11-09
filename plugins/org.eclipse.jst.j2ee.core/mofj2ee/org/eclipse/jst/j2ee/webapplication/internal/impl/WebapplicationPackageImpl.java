@@ -1828,7 +1828,50 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.HEAD_LITERAL);
 		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.OPTIONS_LITERAL);
 		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.TRACE_LITERAL);
+		//WEBDAV support
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.ACK_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.ACL_LITERAL); 
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.BASELINE_CONTROL_LITERAL); 
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.BIND_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.BYE_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.CANCEL_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.CHECKIN_LITERAL); 
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.CHECKOUT_LITERAL); 
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.COPY_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.ERRORRESPONSE_LITERAL); 
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.INFO_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.INVITE_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.LABEL_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.LOCK_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.MERGE_LITERAL); 
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.MESSAGE_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.MKACTIVITY_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.MKCOL_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.MKWORKSPACE_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.MOVE_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.NOTIFY_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.PRACK_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.PROPFIND_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.PROPPATCH_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.PROVISIONALRESPONSE_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.PUBLISH_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.REBIND_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.REDIRECTRESPONSE_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.REGISTER_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.REPORT_LITERAL); 
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.REQUEST_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.RESPONSE_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.SEARCH_LITERAL); 
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.SUCCESSRESPONSE_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.UNBIND_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.UNCHECKOUT_LITERAL); 
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.UNLOCK_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.UPDATE_LITERAL);
+		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.VERSION_CONTROL_LITERAL); 
 
+
+		
+		
 		initEEnum(transportGuaranteeTypeEEnum, TransportGuaranteeType.class, "TransportGuaranteeType");
 		addEEnumLiteral(transportGuaranteeTypeEEnum, TransportGuaranteeType.NONE_LITERAL);
 		addEEnumLiteral(transportGuaranteeTypeEEnum, TransportGuaranteeType.INTEGRAL_LITERAL);
