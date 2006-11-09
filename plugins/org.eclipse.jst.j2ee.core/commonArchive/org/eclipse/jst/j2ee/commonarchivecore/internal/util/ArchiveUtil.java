@@ -233,7 +233,7 @@ public class ArchiveUtil {
 			if (parent == null || parent.equals("")) //$NON-NLS-1$
 				parent = "."; //$NON-NLS-1$
 			String workingDir = new java.io.File(".").getCanonicalPath(); //$NON-NLS-1$
-			
+
 			String resolvedPath = new java.io.File(parent, classpathEntry).getCanonicalPath();
 			if (!resolvedPath.startsWith(workingDir))
 				return null;
