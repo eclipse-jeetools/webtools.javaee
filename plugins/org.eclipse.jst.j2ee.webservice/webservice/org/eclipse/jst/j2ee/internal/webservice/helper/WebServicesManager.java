@@ -47,6 +47,7 @@ import org.eclipse.jst.j2ee.client.ApplicationClientResource;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EJBResource;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -850,13 +851,18 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		}
 		
 		else if (resource.getType() == IResource.FILE && isInterrestedInFile((IFile) resource)) {
-			// Handle WSIL and WSDL File additions
+			// Handle WSIL and WSDL File additions as well as webservice.xml and webserviceclient.xml
 			if ((delta.getKind() == IResourceDelta.ADDED) || ((delta.getFlags() & IResourceDelta.MOVED_TO) != 0)) {
 				if (resource.getFileExtension().equals(WSDL_EXT))
 				    addedWsdl((IFile) resource);
 				else if (resource.getFileExtension().equals(WSIL_EXT))
 				    addedWsil((IFile)resource);
-			}
+				else if (resource.getName().equals(J2EEConstants.WEB_SERVICES_CLIENT_SHORTNAME) ||
+						resource.getName().equals(J2EEConstants.WEB_SERVICES_DD_URI)) {
+					addArtifactEdit(resource.getProject());
+					notifyListeners(EditModelEvent.LOADED_RESOURCE);
+				}	
+			} 
 			// Handle WSIL or WSDL file removals
 			else if ((delta.getKind() == IResourceDelta.REMOVED) || ((delta.getFlags() & IResourceDelta.MOVED_FROM) != 0)) {
 				if (resource.getFileExtension().equals(WSDL_EXT) || resource.getFileExtension().equals(WSIL_EXT))
@@ -896,7 +902,9 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	protected boolean isInterrestedInFile(IFile aFile) {
 		if (aFile != null && aFile.getFileExtension() != null) {
 			String extension = aFile.getFileExtension();
-			return extension.equals(WSDL_EXT) || extension.equals(WSIL_EXT);
+			return extension.equals(WSDL_EXT) || extension.equals(WSIL_EXT) 
+			|| aFile.getName().equals(J2EEConstants.WEB_SERVICES_CLIENT_SHORTNAME) 
+			|| aFile.getName().equals(J2EEConstants.WEB_SERVICES_DD_URI);
 		}
 		return false;
 	}
