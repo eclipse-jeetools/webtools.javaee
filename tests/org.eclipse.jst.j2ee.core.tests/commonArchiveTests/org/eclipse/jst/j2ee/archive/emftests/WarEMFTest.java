@@ -21,6 +21,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
@@ -149,7 +150,9 @@ public class WarEMFTest extends GeneralEMFPopulationTest {
     
 	public void getWARClient() throws DuplicateObjectException, OpenFailureException {
 		String in = AutomatedBVT.baseDirectory + "testOutput/TestWarEAR14/fooWAR";
-		warFile = getArchiveFactory().openWARFile(in);
+		ArchiveOptions options = new ArchiveOptions();
+		options.setRendererType(options.SAX);
+		warFile = getArchiveFactory().openWARFile(options, in);
 		assertTrue(warFile.getDeploymentDescriptor() != null);
 	}
 

@@ -40,12 +40,15 @@ import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentExportD
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.RuntimeClasspathEntry;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
@@ -445,6 +448,16 @@ public class DefectVerificationTests extends OperationTestCase {
 	}
 	
 	
+	public void test159481() throws Exception {
+		ArchiveOptions options = new ArchiveOptions();
+		options.setRendererType(ArchiveOptions.DOM);
+		final String earPath = getFullTestDataPath("WebDavTest.war"); //$NON-NLS-1$
+		CommonarchivePackage pkg = CommonarchivePackage.eINSTANCE;
+		WARFile warFile = pkg.getCommonarchiveFactory().openWARFile(options, earPath);
+		warFile.getDeploymentDescriptor();
+	}
+	
+	
 	/**
 	 * To run this test, first override setUp() to do nothing, and then import a
 	 * few ear projects containing modules.
@@ -455,4 +468,81 @@ public class DefectVerificationTests extends OperationTestCase {
 		ClasspathContainerThreading threading = new ClasspathContainerThreading();
 		threading.testDeadlock();
 	}
+	
+	public void test160562() throws Exception {
+		Assert.assertEquals("A.jar", ArchiveUtil.deriveEARRelativeURI("A.jar", "B.jar"));
+		Assert.assertEquals("A.jar", ArchiveUtil.deriveEARRelativeURI("./A.jar", "B.jar"));
+		Assert.assertEquals("A.jar", ArchiveUtil.deriveEARRelativeURI("A.jar", "./B.jar"));
+		Assert.assertEquals("A.jar", ArchiveUtil.deriveEARRelativeURI("././././A.jar", "B.jar"));
+		Assert.assertEquals("A.jar", ArchiveUtil.deriveEARRelativeURI("A.jar", "././././B.jar"));
+		Assert.assertEquals("A.jar", ArchiveUtil.deriveEARRelativeURI("././././A.jar", "././././B.jar"));
+		Assert.assertEquals("lib/A.jar", ArchiveUtil.deriveEARRelativeURI("A.jar", "lib/B.jar"));
+		Assert.assertEquals("lib/A.jar", ArchiveUtil.deriveEARRelativeURI("./A.jar", "lib/B.jar"));
+		Assert.assertEquals("A.jar", ArchiveUtil.deriveEARRelativeURI("../A.jar", "lib/B.jar"));
+		Assert.assertEquals("lib/A.jar", ArchiveUtil.deriveEARRelativeURI("../lib/A.jar", "lib/B.jar"));
+		Assert.assertEquals("A.jar", ArchiveUtil.deriveEARRelativeURI("../../../A.jar", "lib/foo/bar/B.jar"));
+		Assert.assertEquals("lib/A.jar", ArchiveUtil.deriveEARRelativeURI("../../A.jar", "lib/foo/bar/B.jar"));
+		Assert.assertEquals("lib/foo/A.jar", ArchiveUtil.deriveEARRelativeURI("../A.jar", "lib/foo/bar/B.jar"));
+		Assert.assertEquals("lib/foo/bar/A.jar", ArchiveUtil.deriveEARRelativeURI("A.jar", "lib/foo/bar/B.jar"));
+		Assert.assertEquals("lib/foo/bar/A.jar", ArchiveUtil.deriveEARRelativeURI("./A.jar", "lib/foo/bar/B.jar"));
+		Assert.assertEquals("lib/foo/bar/A.jar", ArchiveUtil.deriveEARRelativeURI("./A.jar", "lib/foo/bar/B.jar"));
+		Assert.assertEquals("lib/foo/bar/A.jar", ArchiveUtil.deriveEARRelativeURI("./../bar/../../foo/./bar/A.jar", "lib/foo/bar/B.jar"));
+		Assert.assertEquals("lib/foo/bar/A.jar", ArchiveUtil.deriveEARRelativeURI("./A.jar", "lib/foo/bar/B.jar"));
+	}
+	
+	/**
+	 * This defect was canceled.
+	public void test147917() throws Exception {
+		
+		Assert.assertEquals("Lib/A.jar", ArchiveUtil.deriveEARRelativeURI("Lib/A.jar", "B.jar"));
+		
+		
+		String workingDir = new java.io.File(".").getCanonicalPath(); //$NON-NLS-1$
+		if(workingDir.lastIndexOf(java.io.File.separatorChar) == -1){
+			return;
+		}
+		
+		List prefixes = new ArrayList();
+		String lastSegment = workingDir.substring(workingDir.lastIndexOf(java.io.File.separatorChar)+1);
+		prefixes.add(lastSegment);
+		String lower = lastSegment.toLowerCase();
+		prefixes.add(lower);
+		String upper = lastSegment.toUpperCase();
+		prefixes.add(upper);
+		//switch each charactor
+		for(int i=0;i<lastSegment.length(); i++){
+			char [] newValue = lastSegment.toCharArray();
+			char c = Character.toUpperCase(newValue[i]);
+			if(c == newValue[i]){
+				c = Character.toLowerCase(c);
+			}
+			if(c != newValue[i]){
+				newValue[i] = c;
+				String newString = new String(newValue);
+				prefixes.add(newString);	
+			}
+		}
+		
+		for(Iterator itr = prefixes.iterator(); itr.hasNext();){
+			String prefix = (String)itr.next();
+			Assert.assertEquals("A.jar", ArchiveUtil.deriveEARRelativeURI("/A.jar", "B.jar"));
+			Assert.assertEquals(prefix+"/A.jar", ArchiveUtil.deriveEARRelativeURI(prefix+"/A.jar", "B.jar"));
+			Assert.assertEquals(prefix+"/A.jar", ArchiveUtil.deriveEARRelativeURI("/"+prefix+"/A.jar", "B.jar"));
+			Assert.assertEquals(prefix+"/A.jar", ArchiveUtil.deriveEARRelativeURI(prefix+"/A.jar", "./B.jar"));
+			Assert.assertEquals(prefix+"/A.jar", ArchiveUtil.deriveEARRelativeURI("A.jar", prefix+"/B.jar"));
+			Assert.assertEquals(prefix+"/A.jar", ArchiveUtil.deriveEARRelativeURI("/A.jar", prefix+"/B.jar"));
+			Assert.assertEquals(prefix+"/A.jar", ArchiveUtil.deriveEARRelativeURI("./A.jar", prefix+"/B.jar"));
+			Assert.assertEquals("A.jar", ArchiveUtil.deriveEARRelativeURI("../A.jar", prefix+"/B.jar"));
+			Assert.assertEquals("A.jar", ArchiveUtil.deriveEARRelativeURI("/../A.jar", prefix+"/B.jar"));
+			Assert.assertEquals("A.jar", ArchiveUtil.deriveEARRelativeURI(prefix+"/../../A.jar", prefix+"/B.jar"));
+			Assert.assertEquals("A.jar", ArchiveUtil.deriveEARRelativeURI("/"+prefix+"/../../A.jar", prefix+"/B.jar"));
+			Assert.assertEquals(prefix+"/A.jar", ArchiveUtil.deriveEARRelativeURI(prefix+"/../A.jar", prefix+"/B.jar"));
+			Assert.assertEquals(prefix+"/A.jar", ArchiveUtil.deriveEARRelativeURI("/"+prefix+"/../A.jar", prefix+"/B.jar"));
+			Assert.assertEquals(prefix+"/"+prefix+"/A.jar", ArchiveUtil.deriveEARRelativeURI(prefix+"/A.jar", prefix+"/B.jar"));
+			Assert.assertEquals(prefix+"/"+prefix+"/A.jar", ArchiveUtil.deriveEARRelativeURI("/"+prefix+"/A.jar", prefix+"/B.jar"));
+			
+			
+		}
+	}
+	**/
 }

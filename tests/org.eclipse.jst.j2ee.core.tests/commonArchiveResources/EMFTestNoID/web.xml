@@ -744,9 +744,9 @@
             <url-pattern>urlPattern_9</url-pattern>
             <http-method>OPTIONS</http-method>
             <http-method>TRACE</http-method>
-            <http-method>GET</http-method>
-            <http-method>POST</http-method>
-            <http-method>PUT</http-method>
+            <http-method>ACL</http-method>
+            <http-method>BASELINE-CONTROL</http-method>
+            <http-method>BIND</http-method>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>webResourceName_2</web-resource-name>
@@ -756,11 +756,11 @@
             <url-pattern>urlPattern_12</url-pattern>
             <url-pattern>urlPattern_13</url-pattern>
             <url-pattern>urlPattern_14</url-pattern>
-            <http-method>DELETE</http-method>
-            <http-method>HEAD</http-method>
-            <http-method>OPTIONS</http-method>
-            <http-method>TRACE</http-method>
-            <http-method>GET</http-method>
+            <http-method>CHECKIN</http-method>
+            <http-method>CHECKOUT</http-method>
+            <http-method>LABEL</http-method>
+            <http-method>MERGE</http-method>
+            <http-method>MKACTIVITY</http-method>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>webResourceName_3</web-resource-name>
@@ -770,11 +770,11 @@
             <url-pattern>urlPattern_17</url-pattern>
             <url-pattern>urlPattern_18</url-pattern>
             <url-pattern>urlPattern_19</url-pattern>
-            <http-method>POST</http-method>
-            <http-method>PUT</http-method>
-            <http-method>DELETE</http-method>
-            <http-method>HEAD</http-method>
-            <http-method>OPTIONS</http-method>
+            <http-method>MKWORKSPACE</http-method>
+            <http-method>REBIND</http-method>
+            <http-method>REPORT</http-method>
+            <http-method>SEARCH</http-method>
+            <http-method>UNBIND</http-method>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>webResourceName_4</web-resource-name>
@@ -784,11 +784,11 @@
             <url-pattern>urlPattern_22</url-pattern>
             <url-pattern>urlPattern_23</url-pattern>
             <url-pattern>urlPattern_24</url-pattern>
-            <http-method>TRACE</http-method>
-            <http-method>GET</http-method>
-            <http-method>POST</http-method>
-            <http-method>PUT</http-method>
-            <http-method>DELETE</http-method>
+            <http-method>UNCHECKOUT</http-method>
+            <http-method>UPDATE</http-method>
+            <http-method>VERSION-CONTROL</http-method>
+            <http-method>ACK</http-method>
+            <http-method>BYE</http-method>
         </web-resource-collection>
         <auth-constraint>
             <description>description_0</description>
@@ -813,11 +813,11 @@
             <url-pattern>urlPattern_27</url-pattern>
             <url-pattern>urlPattern_28</url-pattern>
             <url-pattern>urlPattern_29</url-pattern>
-            <http-method>HEAD</http-method>
-            <http-method>OPTIONS</http-method>
-            <http-method>TRACE</http-method>
-            <http-method>GET</http-method>
-            <http-method>POST</http-method>
+            <http-method>CANCEL</http-method>
+            <http-method>COPY</http-method>
+            <http-method>ERRORRESPONSE</http-method>
+            <http-method>INFO</http-method>
+            <http-method>INVITE</http-method>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>webResourceName_6</web-resource-name>
@@ -827,11 +827,11 @@
             <url-pattern>urlPattern_32</url-pattern>
             <url-pattern>urlPattern_33</url-pattern>
             <url-pattern>urlPattern_34</url-pattern>
-            <http-method>PUT</http-method>
-            <http-method>DELETE</http-method>
-            <http-method>HEAD</http-method>
-            <http-method>OPTIONS</http-method>
-            <http-method>TRACE</http-method>
+            <http-method>LOCK</http-method>
+            <http-method>MESSAGE</http-method>
+            <http-method>MKCOL</http-method>
+            <http-method>MOVE</http-method>
+            <http-method>NOTIFY</http-method>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>webResourceName_7</web-resource-name>
@@ -841,11 +841,11 @@
             <url-pattern>urlPattern_37</url-pattern>
             <url-pattern>urlPattern_38</url-pattern>
             <url-pattern>urlPattern_39</url-pattern>
-            <http-method>GET</http-method>
-            <http-method>POST</http-method>
-            <http-method>PUT</http-method>
-            <http-method>DELETE</http-method>
-            <http-method>HEAD</http-method>
+            <http-method>PRACK</http-method>
+            <http-method>PROPFIND</http-method>
+            <http-method>PROPPATCH</http-method>
+            <http-method>PROVISIONALRESPONSE</http-method>
+            <http-method>PUBLISH</http-method>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>webResourceName_8</web-resource-name>
@@ -855,11 +855,11 @@
             <url-pattern>urlPattern_42</url-pattern>
             <url-pattern>urlPattern_43</url-pattern>
             <url-pattern>urlPattern_44</url-pattern>
-            <http-method>OPTIONS</http-method>
-            <http-method>TRACE</http-method>
-            <http-method>GET</http-method>
-            <http-method>POST</http-method>
-            <http-method>PUT</http-method>
+            <http-method>REDIRECTRESPONSE</http-method>
+            <http-method>REGISTER</http-method>
+            <http-method>REQUEST</http-method>
+            <http-method>RESPONSE</http-method>
+            <http-method>SUCCESSRESPONSE</http-method>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>webResourceName_9</web-resource-name>
@@ -869,11 +869,11 @@
             <url-pattern>urlPattern_47</url-pattern>
             <url-pattern>urlPattern_48</url-pattern>
             <url-pattern>urlPattern_49</url-pattern>
-            <http-method>DELETE</http-method>
-            <http-method>HEAD</http-method>
-            <http-method>OPTIONS</http-method>
-            <http-method>TRACE</http-method>
+            <http-method>UNLOCK</http-method>
             <http-method>GET</http-method>
+            <http-method>POST</http-method>
+            <http-method>PUT</http-method>
+            <http-method>DELETE</http-method>
         </web-resource-collection>
         <auth-constraint>
             <description>description_1</description>
@@ -898,11 +898,11 @@
             <url-pattern>urlPattern_52</url-pattern>
             <url-pattern>urlPattern_53</url-pattern>
             <url-pattern>urlPattern_54</url-pattern>
-            <http-method>POST</http-method>
-            <http-method>PUT</http-method>
-            <http-method>DELETE</http-method>
             <http-method>HEAD</http-method>
             <http-method>OPTIONS</http-method>
+            <http-method>TRACE</http-method>
+            <http-method>ACL</http-method>
+            <http-method>BASELINE-CONTROL</http-method>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>webResourceName_11</web-resource-name>
@@ -912,11 +912,11 @@
             <url-pattern>urlPattern_57</url-pattern>
             <url-pattern>urlPattern_58</url-pattern>
             <url-pattern>urlPattern_59</url-pattern>
-            <http-method>TRACE</http-method>
-            <http-method>GET</http-method>
-            <http-method>POST</http-method>
-            <http-method>PUT</http-method>
-            <http-method>DELETE</http-method>
+            <http-method>BIND</http-method>
+            <http-method>CHECKIN</http-method>
+            <http-method>CHECKOUT</http-method>
+            <http-method>LABEL</http-method>
+            <http-method>MERGE</http-method>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>webResourceName_12</web-resource-name>
@@ -926,11 +926,11 @@
             <url-pattern>urlPattern_62</url-pattern>
             <url-pattern>urlPattern_63</url-pattern>
             <url-pattern>urlPattern_64</url-pattern>
-            <http-method>HEAD</http-method>
-            <http-method>OPTIONS</http-method>
-            <http-method>TRACE</http-method>
-            <http-method>GET</http-method>
-            <http-method>POST</http-method>
+            <http-method>MKACTIVITY</http-method>
+            <http-method>MKWORKSPACE</http-method>
+            <http-method>REBIND</http-method>
+            <http-method>REPORT</http-method>
+            <http-method>SEARCH</http-method>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>webResourceName_13</web-resource-name>
@@ -940,11 +940,11 @@
             <url-pattern>urlPattern_67</url-pattern>
             <url-pattern>urlPattern_68</url-pattern>
             <url-pattern>urlPattern_69</url-pattern>
-            <http-method>PUT</http-method>
-            <http-method>DELETE</http-method>
-            <http-method>HEAD</http-method>
-            <http-method>OPTIONS</http-method>
-            <http-method>TRACE</http-method>
+            <http-method>UNBIND</http-method>
+            <http-method>UNCHECKOUT</http-method>
+            <http-method>UPDATE</http-method>
+            <http-method>VERSION-CONTROL</http-method>
+            <http-method>ACK</http-method>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>webResourceName_14</web-resource-name>
@@ -954,11 +954,11 @@
             <url-pattern>urlPattern_72</url-pattern>
             <url-pattern>urlPattern_73</url-pattern>
             <url-pattern>urlPattern_74</url-pattern>
-            <http-method>GET</http-method>
-            <http-method>POST</http-method>
-            <http-method>PUT</http-method>
-            <http-method>DELETE</http-method>
-            <http-method>HEAD</http-method>
+            <http-method>BYE</http-method>
+            <http-method>CANCEL</http-method>
+            <http-method>COPY</http-method>
+            <http-method>ERRORRESPONSE</http-method>
+            <http-method>INFO</http-method>
         </web-resource-collection>
         <auth-constraint>
             <description>description_2</description>
@@ -983,11 +983,11 @@
             <url-pattern>urlPattern_77</url-pattern>
             <url-pattern>urlPattern_78</url-pattern>
             <url-pattern>urlPattern_79</url-pattern>
-            <http-method>OPTIONS</http-method>
-            <http-method>TRACE</http-method>
-            <http-method>GET</http-method>
-            <http-method>POST</http-method>
-            <http-method>PUT</http-method>
+            <http-method>INVITE</http-method>
+            <http-method>LOCK</http-method>
+            <http-method>MESSAGE</http-method>
+            <http-method>MKCOL</http-method>
+            <http-method>MOVE</http-method>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>webResourceName_16</web-resource-name>
@@ -997,11 +997,11 @@
             <url-pattern>urlPattern_82</url-pattern>
             <url-pattern>urlPattern_83</url-pattern>
             <url-pattern>urlPattern_84</url-pattern>
-            <http-method>DELETE</http-method>
-            <http-method>HEAD</http-method>
-            <http-method>OPTIONS</http-method>
-            <http-method>TRACE</http-method>
-            <http-method>GET</http-method>
+            <http-method>NOTIFY</http-method>
+            <http-method>PRACK</http-method>
+            <http-method>PROPFIND</http-method>
+            <http-method>PROPPATCH</http-method>
+            <http-method>PROVISIONALRESPONSE</http-method>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>webResourceName_17</web-resource-name>
@@ -1011,11 +1011,11 @@
             <url-pattern>urlPattern_87</url-pattern>
             <url-pattern>urlPattern_88</url-pattern>
             <url-pattern>urlPattern_89</url-pattern>
-            <http-method>POST</http-method>
-            <http-method>PUT</http-method>
-            <http-method>DELETE</http-method>
-            <http-method>HEAD</http-method>
-            <http-method>OPTIONS</http-method>
+            <http-method>PUBLISH</http-method>
+            <http-method>REDIRECTRESPONSE</http-method>
+            <http-method>REGISTER</http-method>
+            <http-method>REQUEST</http-method>
+            <http-method>RESPONSE</http-method>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>webResourceName_18</web-resource-name>
@@ -1025,11 +1025,11 @@
             <url-pattern>urlPattern_92</url-pattern>
             <url-pattern>urlPattern_93</url-pattern>
             <url-pattern>urlPattern_94</url-pattern>
-            <http-method>TRACE</http-method>
+            <http-method>SUCCESSRESPONSE</http-method>
+            <http-method>UNLOCK</http-method>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
             <http-method>PUT</http-method>
-            <http-method>DELETE</http-method>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>webResourceName_19</web-resource-name>
@@ -1039,11 +1039,11 @@
             <url-pattern>urlPattern_97</url-pattern>
             <url-pattern>urlPattern_98</url-pattern>
             <url-pattern>urlPattern_99</url-pattern>
+            <http-method>DELETE</http-method>
             <http-method>HEAD</http-method>
             <http-method>OPTIONS</http-method>
             <http-method>TRACE</http-method>
-            <http-method>GET</http-method>
-            <http-method>POST</http-method>
+            <http-method>ACL</http-method>
         </web-resource-collection>
         <auth-constraint>
             <description>description_3</description>
@@ -1068,11 +1068,11 @@
             <url-pattern>urlPattern_102</url-pattern>
             <url-pattern>urlPattern_103</url-pattern>
             <url-pattern>urlPattern_104</url-pattern>
-            <http-method>PUT</http-method>
-            <http-method>DELETE</http-method>
-            <http-method>HEAD</http-method>
-            <http-method>OPTIONS</http-method>
-            <http-method>TRACE</http-method>
+            <http-method>BASELINE-CONTROL</http-method>
+            <http-method>BIND</http-method>
+            <http-method>CHECKIN</http-method>
+            <http-method>CHECKOUT</http-method>
+            <http-method>LABEL</http-method>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>webResourceName_21</web-resource-name>
@@ -1082,11 +1082,11 @@
             <url-pattern>urlPattern_107</url-pattern>
             <url-pattern>urlPattern_108</url-pattern>
             <url-pattern>urlPattern_109</url-pattern>
-            <http-method>GET</http-method>
-            <http-method>POST</http-method>
-            <http-method>PUT</http-method>
-            <http-method>DELETE</http-method>
-            <http-method>HEAD</http-method>
+            <http-method>MERGE</http-method>
+            <http-method>MKACTIVITY</http-method>
+            <http-method>MKWORKSPACE</http-method>
+            <http-method>REBIND</http-method>
+            <http-method>REPORT</http-method>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>webResourceName_22</web-resource-name>
@@ -1096,11 +1096,11 @@
             <url-pattern>urlPattern_112</url-pattern>
             <url-pattern>urlPattern_113</url-pattern>
             <url-pattern>urlPattern_114</url-pattern>
-            <http-method>OPTIONS</http-method>
-            <http-method>TRACE</http-method>
-            <http-method>GET</http-method>
-            <http-method>POST</http-method>
-            <http-method>PUT</http-method>
+            <http-method>SEARCH</http-method>
+            <http-method>UNBIND</http-method>
+            <http-method>UNCHECKOUT</http-method>
+            <http-method>UPDATE</http-method>
+            <http-method>VERSION-CONTROL</http-method>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>webResourceName_23</web-resource-name>
@@ -1110,11 +1110,11 @@
             <url-pattern>urlPattern_117</url-pattern>
             <url-pattern>urlPattern_118</url-pattern>
             <url-pattern>urlPattern_119</url-pattern>
-            <http-method>DELETE</http-method>
-            <http-method>HEAD</http-method>
-            <http-method>OPTIONS</http-method>
-            <http-method>TRACE</http-method>
-            <http-method>GET</http-method>
+            <http-method>ACK</http-method>
+            <http-method>BYE</http-method>
+            <http-method>CANCEL</http-method>
+            <http-method>COPY</http-method>
+            <http-method>ERRORRESPONSE</http-method>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>webResourceName_24</web-resource-name>
@@ -1124,11 +1124,11 @@
             <url-pattern>urlPattern_122</url-pattern>
             <url-pattern>urlPattern_123</url-pattern>
             <url-pattern>urlPattern_124</url-pattern>
-            <http-method>POST</http-method>
-            <http-method>PUT</http-method>
-            <http-method>DELETE</http-method>
-            <http-method>HEAD</http-method>
-            <http-method>OPTIONS</http-method>
+            <http-method>INFO</http-method>
+            <http-method>INVITE</http-method>
+            <http-method>LOCK</http-method>
+            <http-method>MESSAGE</http-method>
+            <http-method>MKCOL</http-method>
         </web-resource-collection>
         <auth-constraint>
             <description>description_4</description>
