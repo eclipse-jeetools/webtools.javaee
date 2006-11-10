@@ -81,36 +81,38 @@ public abstract class UpdateEJBClientRefOp extends AbstractDataModelOperation
 		StructureEdit core = null;
 		try {
 			core = StructureEdit.getStructureEditForWrite(dependentMetadata.getProject());
-			WorkbenchComponent component = core.getComponent();
-			// if the deploy-name had been set to the old project name, update it to 
-			// the new project name
-			// if there is a context-root property that had been set to the old project name, update it to 
-			// the new project name
-			List propList = component.getProperties();
-            for (int i = 0; i < propList.size(); i++) {
-            	final Property prop = (Property) propList.get(i);
-            	if (prop.getName().equals(CreationConstants.EJB_CLIENT_NAME) && prop.getValue().equals(originalMetadata.getProjectName())) {
-            		propList.remove(i);
-            		if (!remove) {
-            			final Property newProp = ComponentcoreFactory.eINSTANCE.createProperty();
-            			newProp.setName(CreationConstants.EJB_CLIENT_NAME);
-            			newProp.setValue(refactoredMetadata.getProjectName());
-            			propList.add(0, newProp);
-            		} else {
-            			i--;
-            		}
-            	} else if (prop.getName().equals(CreationConstants.CLIENT_JAR_URI) && prop.getValue().equals(originalMetadata.getProjectName() + ".jar")) { //$NON-NLS-1$
-            		propList.remove(i);
-            		if (!remove) {
-            			final Property newProp = ComponentcoreFactory.eINSTANCE.createProperty();
-            			newProp.setName(CreationConstants.CLIENT_JAR_URI);
-            			newProp.setValue(refactoredMetadata.getProjectName() + ".jar");
-            			propList.add(0, newProp);
-            		} else {
-            			i--;
-            		}
-            	}
-            }
+			if(core != null){
+				WorkbenchComponent component = core.getComponent();
+				// if the deploy-name had been set to the old project name, update it to 
+				// the new project name
+				// if there is a context-root property that had been set to the old project name, update it to 
+				// the new project name
+				List propList = component.getProperties();
+	            for (int i = 0; i < propList.size(); i++) {
+	            	final Property prop = (Property) propList.get(i);
+	            	if (prop.getName().equals(CreationConstants.EJB_CLIENT_NAME) && prop.getValue().equals(originalMetadata.getProjectName())) {
+	            		propList.remove(i);
+	            		if (!remove) {
+	            			final Property newProp = ComponentcoreFactory.eINSTANCE.createProperty();
+	            			newProp.setName(CreationConstants.EJB_CLIENT_NAME);
+	            			newProp.setValue(refactoredMetadata.getProjectName());
+	            			propList.add(0, newProp);
+	            		} else {
+	            			i--;
+	            		}
+	            	} else if (prop.getName().equals(CreationConstants.CLIENT_JAR_URI) && prop.getValue().equals(originalMetadata.getProjectName() + ".jar")) { //$NON-NLS-1$
+	            		propList.remove(i);
+	            		if (!remove) {
+	            			final Property newProp = ComponentcoreFactory.eINSTANCE.createProperty();
+	            			newProp.setName(CreationConstants.CLIENT_JAR_URI);
+	            			newProp.setValue(refactoredMetadata.getProjectName() + ".jar");
+	            			propList.add(0, newProp);
+	            		} else {
+	            			i--;
+	            		}
+	            	}
+	            }
+			}
 		} finally {
 			if(core != null) {
 				core.saveIfNecessary(null);
