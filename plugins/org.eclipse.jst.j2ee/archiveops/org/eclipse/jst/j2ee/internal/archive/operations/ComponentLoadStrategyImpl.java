@@ -32,7 +32,9 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.IJavaProject;
@@ -42,9 +44,13 @@ import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.FileIterator;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.FileIteratorImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.ContainerImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
@@ -472,6 +478,48 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		return vComponent;
 	}
 
+	protected IProgressMonitor monitor = null;
+	
+	public void setProgressMonitor(IProgressMonitor monitor){
+		this.monitor = monitor;
+	}
+	
+	protected final int FILE_SAVE_WORK = 100;
+	
+	public FileIterator getFileIterator() throws IOException {
+		return new FileIteratorImpl(getContainer().getFiles()){
+			protected SubProgressMonitor lastSubMon = null;
+			boolean firstVisit = true;
+			
+			public File next() {
+				if(firstVisit){
+					firstVisit = false;
+					if(monitor != null){
+						monitor.beginTask(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Exporting_archive, new Object [] { getContainer().getURI() }), files.size() * FILE_SAVE_WORK);
+					}
+				}
+				if(lastSubMon != null){
+					lastSubMon.done();
+					lastSubMon = null;
+				} else if(monitor != null){
+					monitor.worked(FILE_SAVE_WORK);
+				}
+				File file = super.next();
+				if(monitor != null){
+					if(file.isContainer() && ComponentLoadStrategyImpl.class.isInstance(((ContainerImpl)file).getLoadStrategy())){
+						ComponentLoadStrategyImpl ls = (ComponentLoadStrategyImpl)((ContainerImpl)file).getLoadStrategy();
+						lastSubMon = new SubProgressMonitor(monitor, FILE_SAVE_WORK, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK);
+						ls.setProgressMonitor(lastSubMon);
+					} else {
+						monitor.subTask(file.getURI());
+					}
+				}
+				return file;
+			}
+		};
+		
+	}
+	
 	public void close() {
 		if(Thread.currentThread().toString().toLowerCase().indexOf("finalizer") != -1){
 			System.err.println("Opener of Archive didn't close! "+this);

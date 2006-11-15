@@ -29,6 +29,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.jdt.core.JavaCore;
@@ -36,6 +37,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
+import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
@@ -56,17 +58,33 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 	public J2EEArtifactExportOperation(IDataModel model) {
 		super(model);
 	}
-
+	
+	protected final int REFRESH_WORK = 100;
+	protected final int JAVA_BUILDER_WORK = 100;
+	protected final int LIB_BUILDER_WORK = 100;
+	protected final int EXPORT_WORK = 1000;
+	protected final int CLOSE_WORK = 10;
+	
+	protected int computeTotalWork() {
+		int totalWork = REFRESH_WORK;
+		if (model.getBooleanProperty(IJ2EEComponentExportDataModelProperties.RUN_BUILD)) {
+			totalWork += JAVA_BUILDER_WORK + LIB_BUILDER_WORK;
+		}
+		totalWork += EXPORT_WORK + CLOSE_WORK;
+		return totalWork;
+	}
+	
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		setComponent((IVirtualComponent) model.getProperty(IJ2EEComponentExportDataModelProperties.COMPONENT));
 		setDestinationPath(new Path(model.getStringProperty(IJ2EEComponentExportDataModelProperties.ARCHIVE_DESTINATION)));
 		setExportSource(model.getBooleanProperty(IJ2EEComponentExportDataModelProperties.EXPORT_SOURCE_FILES));
 		try {
+			monitor.beginTask(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Exporting_archive, new Object [] { getDestinationPath().lastSegment() }), computeTotalWork());
 			setProgressMonitor(monitor);
 			// defect 240999
-			component.getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
+			component.getProject().refreshLocal(IResource.DEPTH_INFINITE, new SubProgressMonitor(monitor, REFRESH_WORK));
 			if (model.getBooleanProperty(IJ2EEComponentExportDataModelProperties.RUN_BUILD)) {
-				runNecessaryBuilders(component, monitor);
+				runNecessaryBuilders(component, new SubProgressMonitor(monitor, JAVA_BUILDER_WORK + LIB_BUILDER_WORK));
 			}
 			export();
 		} catch (Exception e) {
@@ -74,8 +92,11 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 				//The module fil will be closed if the export succeeds
 				//Need to be careful not to close the archive twice because of ReferenceCounted Archives
 				moduleFile.close(); 
+				monitor.worked(CLOSE_WORK);
 			}
 			throw new ExecutionException(EJBArchiveOpsResourceHandler.Error_exporting__UI_ + archiveString(), e);
+		} finally {
+			monitor.done();
 		}
 		return OK_STATUS;
 	}
@@ -127,17 +148,22 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 	}
 
 	protected void runNecessaryBuilders(IVirtualComponent component, IProgressMonitor monitor) throws CoreException {
-		if(!component.isBinary()){
-			IProject project = component.getProject();
-			IProjectDescription description = project.getDescription();
-			ICommand javaBuilder = getJavaCommand(description);
-			if (javaBuilder != null) {
-				project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, JavaCore.BUILDER_ID, javaBuilder.getArguments(), monitor);
+		try{
+			monitor.beginTask(null, JAVA_BUILDER_WORK + LIB_BUILDER_WORK);
+			if(!component.isBinary()){
+				IProject project = component.getProject();
+				IProjectDescription description = project.getDescription();
+				ICommand javaBuilder = getJavaCommand(description);
+				if (javaBuilder != null) {
+					project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, JavaCore.BUILDER_ID, javaBuilder.getArguments(), new SubProgressMonitor(monitor, JAVA_BUILDER_WORK));
+				}
+				ICommand libCopyBuilder = getLibCopyBuilder(description);
+				if (null != libCopyBuilder) {
+					project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, LibCopyBuilder.BUILDER_ID, libCopyBuilder.getArguments(), new SubProgressMonitor(monitor, LIB_BUILDER_WORK));
+				}
 			}
-			ICommand libCopyBuilder = getLibCopyBuilder(description);
-			if (null != libCopyBuilder) {
-				project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, LibCopyBuilder.BUILDER_ID, libCopyBuilder.getArguments(), monitor);
-			}
+		} finally {
+			monitor.done();
 		}
 	}
 
