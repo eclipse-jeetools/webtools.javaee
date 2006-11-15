@@ -13,6 +13,8 @@ package org.eclipse.jst.j2ee.internal.web.archive.operations;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
@@ -32,17 +34,22 @@ public class WebComponentExportOperation extends J2EEArtifactExportOperation {
 	}
 
 	protected void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
+		IProgressMonitor subMonitor = new SubProgressMonitor(progressMonitor, EXPORT_WORK);
 		try {
 			CommonarchiveFactory caf = ((CommonarchivePackage) EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI)).getCommonarchiveFactory();
 			WebComponentLoadStrategyImpl ls = new WebComponentLoadStrategyImpl(getComponent());
 			ls.setExportSource(isExportSource());
 			setModuleFile(caf.openWARFile(ls, getDestinationPath().toOSString()));
+			ls.setProgressMonitor(subMonitor);
 			getModuleFile().saveAsNoReopen(getDestinationPath().toOSString());
 		} catch (SaveFailureException ex) {
 			throw ex;
 		} catch (Exception e) {
 			throw new SaveFailureException(AppClientArchiveOpsResourceHandler.ARCHIVE_OPERATION_OpeningArchive, e);
-		}	}
+		} finally {
+			subMonitor.done();
+		}
+	}
 
 	protected String archiveString() {
 		return "War File";

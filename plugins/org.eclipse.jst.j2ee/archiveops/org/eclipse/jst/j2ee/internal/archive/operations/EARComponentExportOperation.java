@@ -14,6 +14,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
@@ -29,6 +30,7 @@ public class EARComponentExportOperation extends J2EEArtifactExportOperation {
 	}
 
 	protected void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
+		IProgressMonitor subMonitor = new SubProgressMonitor(progressMonitor, EXPORT_WORK);
 		EARArtifactEdit artifactEdit = null;
 		try {
 			artifactEdit = (EARArtifactEdit) ComponentUtilities.getArtifactEditForRead(getComponent());
@@ -36,6 +38,8 @@ public class EARComponentExportOperation extends J2EEArtifactExportOperation {
 			String destination = getDestinationPath().toOSString();
 			archive.setURI(destination);
 			setModuleFile(archive);
+			ComponentLoadStrategyImpl ls = (ComponentLoadStrategyImpl)archive.getLoadStrategy();
+			ls.setProgressMonitor(subMonitor);
 			archive.saveAsNoReopen(destination);
 		} catch (SaveFailureException ex) {
 			throw ex;
@@ -45,15 +49,21 @@ public class EARComponentExportOperation extends J2EEArtifactExportOperation {
 			if (null != artifactEdit) {
 				artifactEdit.dispose();
 			}
+			subMonitor.done();
 		}
 	}
 
 	protected void runNecessaryBuilders(IVirtualComponent component, IProgressMonitor monitor) throws CoreException {
-		super.runNecessaryBuilders(component, monitor);
-		IVirtualReference[] refs = component.getReferences();
-		for (int i = 0; i < refs.length; i++) {
-			IVirtualComponent refComp = refs[i].getReferencedComponent();
-			super.runNecessaryBuilders(refComp, monitor);
+		try {
+			IVirtualReference[] refs = component.getReferences();
+			int work = (JAVA_BUILDER_WORK + LIB_BUILDER_WORK) / refs.length + 1; 
+			super.runNecessaryBuilders(component, new SubProgressMonitor(monitor, work));
+			for (int i = 0; i < refs.length; i++) {
+				IVirtualComponent refComp = refs[i].getReferencedComponent();
+				super.runNecessaryBuilders(refComp, new SubProgressMonitor(monitor, work));
+			} 
+		} finally {
+			monitor.done();
 		}
 	}
 
