@@ -13,10 +13,13 @@ package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
+import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactExportOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -31,13 +34,17 @@ public class EJBComponentExportOperation extends J2EEArtifactExportOperation {
 	}
 
 	protected void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
+		IProgressMonitor subMonitor = new SubProgressMonitor(progressMonitor, EXPORT_WORK);
 		try {
 			createModuleFile();
+			((ComponentLoadStrategyImpl)(getModuleFile().getLoadStrategy())).setProgressMonitor(subMonitor);
 			getModuleFile().saveAsNoReopen(getDestinationPath().toOSString());
 		} catch (SaveFailureException ex) {
 			throw ex;
 		} catch (Exception e) {
 			throw new SaveFailureException(EJBArchiveOpsResourceHandler.ARCHIVE_OPERATION_OpeningArchive, e);
+		} finally {
+			subMonitor.done();
 		}
 	}
 
