@@ -15,8 +15,8 @@ Export-Package: org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet;x-internal
  org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.util;x-internal:=true
 Require-Bundle: org.eclipse.jst.j2ee.ejb.annotations.emitter;visibility:=reexport;bundle-version="[1.1.0,1.2.0)",
  org.eclipse.jdt;bundle-version="[3.2.0,4.0.0)",
- org.eclipse.emf.common;bundle-version="[2.2.0,2.3.0)",
- org.eclipse.emf.ecore;bundle-version="[2.2.0,2.3.0)",
+ org.eclipse.emf.common;bundle-version="[2.2.0,2.4.0)",
+ org.eclipse.emf.ecore;bundle-version="[2.2.0,2.4.0)",
  org.eclipse.jdt.core;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.jst.j2ee.core;bundle-version="[1.1.0,1.2.0)",
  org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
@@ -40,7 +40,7 @@ Require-Bundle: org.eclipse.jst.j2ee.ejb.annotations.emitter;visibility:=reexpor
  org.eclipse.debug.ui;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.jdt.debug.ui;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.jem;bundle-version="[1.2.0,1.3.0)",
- org.eclipse.emf.ecore.xmi;bundle-version="[2.2.0,2.3.0)",
+ org.eclipse.emf.ecore.xmi;bundle-version="[2.2.0,2.4.0)",
  org.eclipse.wst.common.project.facet.core;bundle-version="[1.1.0,1.2.0)",
  org.eclipse.jst.common.project.facet.core;bundle-version="[1.1.0,1.2.0)",
  org.eclipse.wst.common.project.facet.ui;bundle-version="[1.1.0,1.2.0)"
