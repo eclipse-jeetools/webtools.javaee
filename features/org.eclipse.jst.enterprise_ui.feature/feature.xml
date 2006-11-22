@@ -25,6 +25,10 @@
          id="org.eclipse.jst.enterprise_userdoc.feature"
          version="0.0.0"/>
 
+   <includes
+         id="org.eclipse.jst.enterprise_core.feature"
+         version="0.0.0"/>
+
    <plugin
          id="org.eclipse.jst.ws"
          download-size="0"
