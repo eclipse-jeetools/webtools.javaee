@@ -17,7 +17,6 @@
 package org.eclipse.jst.common.internal.annotations.ui;
 
 import org.eclipse.core.runtime.Assert;
-import org.eclipse.jdt.internal.ui.text.java.JavaCompletionProposal;
 import org.eclipse.jdt.ui.text.java.IJavaCompletionProposal;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
@@ -76,7 +75,7 @@ public class AnnotationTagProposal extends AbstractAnnotationTagProposal impleme
 	}
 
 	/**
-	 * @see JavaCompletionProposal#JavaCompletionProposal(java.lang.String, int, int,
+	 * @see org.eclipse.jdt.internal.ui.text.java.JavaCompletionProposal#JavaCompletionProposal(java.lang.String, int, int,
 	 *      org.eclipse.swt.graphics.Image, java.lang.String, int,
 	 *      org.eclipse.jface.text.ITextViewer)
 	 * @param replacementString
