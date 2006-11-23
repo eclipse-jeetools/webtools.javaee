@@ -48,7 +48,7 @@ public class MessageDrivenBeanDelegate extends EnterpriseBeanDelegate implements
 		String dName = dataModel.getStringProperty(IMessageDrivenBeanDataModelProperties.DESTINATIONNAME);
 		if (dName == null || dName.length() <= 0)
 			dName = dataModel.getStringProperty(IEnterpriseBeanClassDataModelProperties.JNDI_NAME);
-		messageDriven.setMessageSelector((String) dName);
+		messageDriven.setMessageSelector(dName);
 
 		TransactionType transactionType = TransactionType.CONTAINER_LITERAL;
 		if (dataModel.getStringProperty(IMessageDrivenBeanDataModelProperties.TRANSACTIONTYPE).equals(
