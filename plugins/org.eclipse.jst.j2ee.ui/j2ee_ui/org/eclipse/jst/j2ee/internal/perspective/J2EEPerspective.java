@@ -20,7 +20,9 @@ import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.IProgressConstants;
+import org.eclipse.ui.views.IViewDescriptor;
 
 /**
  * 
@@ -40,7 +42,7 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
     private static String ID_DYNAMIC_WEB_COMPONENT_WIZARD = "org.eclipse.jst.servlet.ui.WebComponentCreationWizard"; //$NON-NLS-1$
 	private static String ID_STATIC_WEB_COMPONENT_WIZARD = "org.eclipse.wst.web.ui.internal.wizards.SimpleWebModuleCreation"; //$NON-NLS-1$
 	private static final String ID_SEARCH_VIEW = "org.eclipse.search.ui.views.SearchView"; //$NON-NLS-1$
-	private static final String ID_DATA_VIEW = "org.eclipse.wst.rdb.server.ui.navigator.serverExplorer"; //$NON-NLS-1$
+	private static final String ID_DATA_VIEW = "org.eclipse.datatools.connectivity.DataSourceExplorerNavigator"; //$NON-NLS-1$
 	public static final String ID_CONSOLE_VIEW= "org.eclipse.ui.console.ConsoleView"; //$NON-NLS-1$
 
 	public J2EEPerspective() {
@@ -119,7 +121,7 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 		bottomRight.addView(IPageLayout.ID_TASK_LIST);
 		bottomRight.addView(IPageLayout.ID_PROP_SHEET);
 		bottomRight.addView(ID_SERVERS_VIEW);
-		bottomRight.addView(ID_DATA_VIEW);
+		addDBViewIfPresent(layout,bottomRight);
 		bottomRight.addView(ID_WST_SNIPPETS_VIEW);
 		
 		bottomRight.addPlaceholder(ID_CONSOLE_VIEW);
@@ -130,6 +132,12 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 		// Top right.
 		IFolderLayout topRight = layout.createFolder("topRight", IPageLayout.RIGHT, 0.7f, editorArea);//$NON-NLS-1$
 		topRight.addView(IPageLayout.ID_OUTLINE);
+	}
+	private void addDBViewIfPresent(IPageLayout page,IFolderLayout bottomRight) {
+		// TODO Auto-generated method stub
+		IViewDescriptor dbView = PlatformUI.getWorkbench().getViewRegistry().find(ID_DATA_VIEW);
+		if (dbView != null)
+			bottomRight.addView(ID_DATA_VIEW);
 	}
 }
 
