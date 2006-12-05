@@ -26,7 +26,7 @@
    </requires>
 
    <plugin
-         id="org.eclipse.jst.common.frameworks"
+         id="org.eclipse.jst.j2ee.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
