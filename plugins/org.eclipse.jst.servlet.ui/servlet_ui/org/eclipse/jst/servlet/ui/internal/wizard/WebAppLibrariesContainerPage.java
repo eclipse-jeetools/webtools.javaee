@@ -67,7 +67,8 @@ public class WebAppLibrariesContainerPage
         final int index = this.projectsCombo.getSelectionIndex();
         final String selectedProjectName = this.projectsCombo.getItem( index );
         
-        if( ! selectedProjectName.equals( this.ownerProject.getName() ) )
+        if( this.ownerProject == null || 
+            ! selectedProjectName.equals( this.ownerProject.getName() ) )
         {
             path = path.append( selectedProjectName );
         }
@@ -81,7 +82,10 @@ public class WebAppLibrariesContainerPage
         
         if( path == null || path.segmentCount() == 1 )
         {
-            this.libsProjectName = this.ownerProject.getName();
+            if( this.ownerProject != null )
+            {
+                this.libsProjectName = this.ownerProject.getName();
+            }
         }
         else
         {
@@ -102,9 +106,26 @@ public class WebAppLibrariesContainerPage
         this.projectsCombo = new Combo( composite, SWT.READ_ONLY );
         this.projectsCombo.setItems( webProjects );
         
+        final int index;
+        
         if( this.ownerProject != null )
         {
-            final int index = indexOf( webProjects, this.libsProjectName );
+            index = indexOf( webProjects, this.libsProjectName );
+        }
+        else
+        {
+            if( this.projectsCombo.getItemCount() > 0 )
+            {
+                index = 0;
+            }
+            else
+            {
+                index = -1;
+            }
+        }
+        
+        if( index != -1 )
+        {
             this.projectsCombo.select( index );
         }
         
@@ -125,7 +146,7 @@ public class WebAppLibrariesContainerPage
     public void initialize( final IJavaProject project, 
                             final IClasspathEntry[] currentEntries ) 
     {
-        this.ownerProject = project.getProject();
+        this.ownerProject = ( project == null ? null : project.getProject() );
     }
     
     private static String[] getWebProjects()

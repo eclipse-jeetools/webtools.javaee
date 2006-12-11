@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2005 BEA Systems, Inc.
+ * Copyright (c) 2005, 2006 BEA Systems, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,8 +10,6 @@
  ******************************************************************************/
 
 package org.eclipse.jst.common.jdt.internal.classpath;
-
-import java.lang.reflect.Field;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -79,41 +77,7 @@ public abstract class FlexibleProjectContainerInitializer
         final IClasspathContainer container
             = JavaCore.getClasspathContainer( containerPath, project );
         
-        // ( (FlexibleProjectContainer) container ).refresh();
-        
-        refresh( container );
-    }
-    
-    // Workaround for bug 145784.
-    // this same hack is also being used in J2EEComponentClasspathInitializer
-    private static void refresh( final IClasspathContainer container )
-    {
-        if( container instanceof FlexibleProjectContainer )
-        {
-            ( (FlexibleProjectContainer) container ).refresh();
-        }
-        else
-        {
-            try
-            {
-                final Field field 
-                    = container.getClass().getDeclaredField( "fOriginal" ); //$NON-NLS-1$
-                
-                field.setAccessible( true );
-                
-                refresh( (IClasspathContainer) field.get( container ) );
-            }
-            catch( NoSuchFieldException e )
-            {
-                // Should not happen.
-                throw new RuntimeException( e );
-            }
-            catch( IllegalAccessException e )
-            {
-                // Should not happen.
-                throw new RuntimeException( e );
-            }
-        }
+        ( (FlexibleProjectContainer) container ).refresh();
     }
     
 }

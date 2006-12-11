@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.common.classpath;
 
-import java.lang.reflect.Field;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.ClasspathContainerInitializer;
@@ -62,40 +60,6 @@ public class J2EEComponentClasspathInitializer extends ClasspathContainerInitial
 
 		final IClasspathContainer container = JavaCore.getClasspathContainer(containerPath, javaProject);
 
-		// ( (FlexibleProjectContainer) container ).refresh();
-
-		refresh(container);
+		( (J2EEComponentClasspathContainer) container ).refresh( true );
 	}
-	
-	// Workaround for bug 145784.
-    // this same hack is also being used in FlexibleProjectContainerInitializer
-    private static void refresh( final IClasspathContainer container )
-    {
-        if( container instanceof J2EEComponentClasspathContainer )
-        {
-            ( (J2EEComponentClasspathContainer) container ).refresh(true);
-        }
-        else
-        {
-            try
-            {
-                final Field field 
-                    = container.getClass().getDeclaredField( "fOriginal" ); //$NON-NLS-1$
-                
-                field.setAccessible( true );
-                
-                refresh( (IClasspathContainer) field.get( container ) );
-            }
-            catch( NoSuchFieldException e )
-            {
-                // Should not happen.
-                throw new RuntimeException( e );
-            }
-            catch( IllegalAccessException e )
-            {
-                // Should not happen.
-                throw new RuntimeException( e );
-            }
-        }
-    }
 }
