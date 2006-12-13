@@ -240,11 +240,23 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		}
 	}
 
+	/**
+	 *	This is a cache of the IResource roots for all java source folders and is used by
+	 *  {@link #inJavaSrc(IVirtualResource)}.
+	 */
+	private IResource[] sourceRoots = null;
+	
 	protected void aggregateSourceFiles() {
 		try {
 			IVirtualFolder rootFolder = vComponent.getRootFolder();
 			IVirtualResource[] members = rootFolder.members();
-			aggregateFiles(members);
+			IPackageFragmentRoot[] srcPkgs = J2EEProjectUtilities.getSourceContainers(vComponent.getProject());
+			sourceRoots = new IResource[srcPkgs.length];
+			for (int i = 0; i < srcPkgs.length; i++) {
+				sourceRoots[i] = srcPkgs[i].getCorrespondingResource();
+			}
+			inJavaSrc = false;
+			aggregateFiles(members); 
 		} catch (CoreException e) {
 			Logger.getLogger().logError(e);
 		}
@@ -338,6 +350,11 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		return fileAdded;
 	}
 
+	/**
+	 * This is used to track whether {@link #aggregateFiles(IVirtualResource[])} is currently within a Java Source folder.
+	 */
+	private boolean inJavaSrc = false;
+	
 	protected boolean aggregateFiles(IVirtualResource[] virtualResources) throws CoreException {
 		boolean fileAdded = false;
 		for (int i = 0; i < virtualResources.length; i++) {
@@ -356,12 +373,15 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 			}
 			if (filesHolder.contains(uri))
 				continue;
-
+			
 			if (virtualResources[i].getType() == IVirtualResource.FILE) {
 				if (!shouldInclude(uri))
 					continue;
 				IResource resource = virtualResources[i].getUnderlyingResource();
-				if (resource.isDerived()) {
+				// want to ignore derived resources nested within Java src directories; this covers the case where
+				// a user has nested a Java output directory within a Java src directory (note: should ideally be 
+				// respecting Java src path exclusion filters)
+				if (inJavaSrc && resource.isDerived()) {
 					continue;
 				}
 				cFile = createFile(uri);
@@ -369,23 +389,62 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				filesHolder.addFile(cFile, resource);
 				fileAdded = true;
 			} else if (shouldInclude((IVirtualContainer) virtualResources[i])) {
-				IVirtualResource[] nestedVirtualResources = ((IVirtualContainer) virtualResources[i]).members();
-				aggregateFiles(nestedVirtualResources);
-				if(!filesHolder.contains(uri)){
-					if (!shouldInclude(uri))
-						continue;
-					IResource resource = virtualResources[i].getUnderlyingResource();
-					if (resource.isDerived()) {
-						continue;
+				boolean inJavaSrcAtThisLevel = inJavaSrc;
+				try {
+					if (!inJavaSrc) {
+						// if not already inside a Java src dir, check again
+						inJavaSrc = inJavaSrc(virtualResources[i]);
 					}
-					cFile = createDirectory(uri);
-					cFile.setLastModified(getLastModified(resource));
-					filesHolder.addDirectory(cFile);
-					fileAdded = true;
+					IVirtualResource[] nestedVirtualResources = ((IVirtualContainer) virtualResources[i]).members();
+					aggregateFiles(nestedVirtualResources);
+					if(!filesHolder.contains(uri)){
+						if (!shouldInclude(uri))
+							continue;
+						IResource resource = virtualResources[i].getUnderlyingResource();
+						if (inJavaSrc && resource.isDerived()) {
+							continue;
+						}
+						cFile = createDirectory(uri);
+						cFile.setLastModified(getLastModified(resource));
+						filesHolder.addDirectory(cFile);
+						fileAdded = true;
+					}
+				} finally {
+					inJavaSrc = inJavaSrcAtThisLevel;
 				}
 			}
 		}
 		return fileAdded;
+	}
+	
+	/**
+	 * Determines if the specified IVirtualResource maps to a IResource that is contained within a Java src root.
+	 * @param virtualResource IVirtualResource to check.
+	 * @param sourceRoots Current Java src roots.
+	 * @return True if contained in a Java src root, false otherwise.
+	 */
+	private boolean inJavaSrc(final IVirtualResource virtualResource) {
+		if (sourceRoots.length == 0) {
+			return false;
+		}
+		// all mapped resources must be associated with Java src for the resource to be considered in Java src
+		final IResource[] resources = virtualResource.getUnderlyingResources();
+		boolean inJavaSrc = false;
+		for (int i = 0; i < resources.length; i++) {
+			inJavaSrc = false;
+			for (int j = 0; j < sourceRoots.length; j++) {
+				if (sourceRoots[j].getFullPath().isPrefixOf(resources[i].getFullPath())) {
+					inJavaSrc = true;
+					break;
+				}
+			}
+			// if this one was not in Java src, can break
+			if (!inJavaSrc) {
+				break;
+			}
+		}
+		
+		return inJavaSrc;
 	}
 
 	protected long getLastModified(IResource aResource) {
