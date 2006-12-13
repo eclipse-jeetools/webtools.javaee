@@ -132,7 +132,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 						earRefs = tempEarRefs;
 						foundRef = tempEarRefs[j];
 						earArchiveURI = foundRef.getArchiveName(); 
-						simplePath = earArchiveURI.lastIndexOf("/") == -1; //$NON-NLS-1$
+						simplePath = earArchiveURI != null ? earArchiveURI.lastIndexOf("/") == -1 : true; //$NON-NLS-1$
 					}
 				}
 			}
