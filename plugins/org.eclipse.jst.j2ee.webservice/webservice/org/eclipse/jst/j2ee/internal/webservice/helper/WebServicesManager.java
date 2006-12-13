@@ -36,6 +36,10 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -837,8 +841,9 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			if ((delta.getKind()==IResourceDelta.ADDED || (((delta.getFlags() & IResourceDelta.OPEN) != 0) && p.isAccessible()))) {
 				IVirtualComponent component = ComponentCore.createComponent(p);
 				if (component!=null && !J2EEProjectUtilities.isEARProject(p) && !J2EEProjectUtilities.isStaticWebProject(p)) {
-					addArtifactEdit(p);
-					notifyListeners(EditModelEvent.ADDED_RESOURCE);
+					Job job = new ProcessProjectsWithWSDL(p, EditModelEvent.ADDED_RESOURCE);
+					job.setRule(p);
+					job.schedule();
 					return false;
 				}
 			}
@@ -859,8 +864,9 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 				    addedWsil((IFile)resource);
 				else if (resource.getName().equals(J2EEConstants.WEB_SERVICES_CLIENT_SHORTNAME) ||
 						resource.getName().equals(J2EEConstants.WEB_SERVICES_DD_URI)) {
-					addArtifactEdit(resource.getProject());
-					notifyListeners(EditModelEvent.LOADED_RESOURCE);
+					Job job = new ProcessProjectsWithWSDL(resource.getProject(), EditModelEvent.LOADED_RESOURCE);
+					job.setRule(resource.getProject());
+					job.schedule();
 				}	
 			} 
 			// Handle WSIL or WSDL file removals
@@ -871,6 +877,25 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			return false;
 		}
 		return true;
+	}
+
+	private class ProcessProjectsWithWSDL extends Job
+	{
+		private IProject currentProject;
+		private int eventType;
+		
+		public ProcessProjectsWithWSDL(IProject p, int newEventType)
+		{
+			super("Loading artifact edit for project");
+			currentProject = p;
+			eventType = newEventType;
+		}
+		
+		protected IStatus run(IProgressMonitor monitor) {
+			addArtifactEdit(currentProject);
+			notifyListeners(eventType);
+			return Status.OK_STATUS;
+		}
 	}
 
 	protected void addedWsdl(IFile wsdl) {
