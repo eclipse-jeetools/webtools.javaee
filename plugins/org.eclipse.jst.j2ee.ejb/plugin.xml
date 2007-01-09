@@ -139,6 +139,7 @@
       <label>%EJB_FACET_LABEL</label>
       <description>%EJB_FACET_DESCRIPTION</description>
       <icon>icons/EJBJar.gif</icon>
+      <default-version version="2.1"/>
     </project-facet>
 
     <project-facet-version facet="jst.ejb" version="1.1">

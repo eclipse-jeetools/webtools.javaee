@@ -3,7 +3,7 @@
 <plugin>
  	
           
-    <!--EJB3
+    <!--EJB3  -->
     <extension point="org.eclipse.wst.common.project.facet.core.facets">
 	<project-facet-version facet="jst.ejb" version="3.0">
 		<constraint>
@@ -23,6 +23,6 @@
     </project-facet-version>
     
          
-   </extension> -->
+   </extension> 
 
 </plugin>
