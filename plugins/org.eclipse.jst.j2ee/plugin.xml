@@ -531,6 +531,7 @@
       <label>%EAR_FACET_LABEL</label>
       <description>%EAR_FACET_DESCRIPTION</description>
       <icon>icons/EAR.gif</icon>
+      <default-version version="1.4"/>
     </project-facet>
 
     <project-facet-version facet="jst.ear" version="1.2">
