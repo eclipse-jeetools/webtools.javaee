@@ -23,10 +23,9 @@ public class AllTests extends TestSuite {
     
     public AllTests(){
         super("EAR Tests");
-     //   addTest(EARExportOperationTest.suite());
-       //addTest(EARImportOperationTest.suite());
-     //   addTest(EARProjectCreationOperationTest.suite());
-       // addTest(EARComponentCreationTest.suite());
+        addTest(EARExportOperationTest.suite());
+       addTest(EARImportOperationTest.suite());
+        //addTest(EARProjectCreationOperationTest.suite());
     }
     
 }

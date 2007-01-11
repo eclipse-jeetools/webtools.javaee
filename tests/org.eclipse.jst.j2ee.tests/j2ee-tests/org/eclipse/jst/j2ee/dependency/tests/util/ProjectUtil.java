@@ -11,6 +11,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -19,6 +21,7 @@ import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreat
 import org.eclipse.jst.j2ee.project.facet.EARFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.UtilityProjectCreationDataModelProvider;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -140,36 +143,40 @@ public class ProjectUtil {
 
 	private static IDataModel getEARCreationDataModel(final String name) {
 		final IDataModel model =  DataModelFactory.createDataModel(new EARFacetProjectCreationDataModelProvider());
-		configure(model, name, J2EEProjectUtilities.ENTERPRISE_APPLICATION, null);
+		configure(model, name, J2EEProjectUtilities.ENTERPRISE_APPLICATION, null, J2EEVersionConstants.J2EE_1_4_ID);
 		return model;
 	}
 
 	
 	private static IDataModel getWebCreationDataModel(final String name, final String earName) {
 		final IDataModel model =  DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
-		configure(model, name, J2EEProjectUtilities.DYNAMIC_WEB, earName);
+		configure(model, name, J2EEProjectUtilities.DYNAMIC_WEB, earName, J2EEVersionConstants.SERVLET_2_4);
 		return model;
 	}
 		
 	private static IDataModel getUtilityCreationDataModel(final String name, final String earName) {
 		final IDataModel model =  DataModelFactory.createDataModel(new UtilityProjectCreationDataModelProvider());
-		configure(model, name, J2EEProjectUtilities.UTILITY, earName);
+		configure(model, name, J2EEProjectUtilities.UTILITY, earName, 0);
 		return model;
 	}
 	
 	private static IDataModel getEJBCreationDataModel(final String name, final String earName) {
 		final IDataModel model =  DataModelFactory.createDataModel(new EjbFacetProjectCreationDataModelProvider());
-		configure(model, name, J2EEProjectUtilities.EJB, earName);
+		configure(model, name, J2EEProjectUtilities.EJB, earName, J2EEVersionConstants.EJB_2_1_ID);
 		return model;
 	}
 	
-	private static void configure(final IDataModel model, final String name, final String facet, final String earName) {
+	private static void configure(final IDataModel model, final String name, final String facet, final String earName, final int facetVersion) {
 		model.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, name);		
 		if (earName != null) {
 			final FacetDataModelMap map = (FacetDataModelMap) model.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 			final IDataModel facetDM = map.getFacetDataModel(facet);
 			facetDM.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, true);
 			facetDM.setProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME, earName);
+			if (facetVersion != 0) {
+				String versionText = J2EEVersionUtil.getJ2EETextVersion(facetVersion);
+				facetDM.setStringProperty(IFacetDataModelProperties.FACET_VERSION_STR, versionText);
+			}
 		}
 	}
 
