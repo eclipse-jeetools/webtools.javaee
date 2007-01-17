@@ -40,6 +40,7 @@ import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
 import org.eclipse.wst.server.core.model.ModuleDelegate;
+import org.eclipse.wst.server.core.util.NullModuleArtifact;
 
 /**
  * @version 1.0
@@ -214,8 +215,9 @@ public class EJBDeployableArtifactAdapterUtil {
 				module.loadAdapter(ModuleDelegate.class, new NullProgressMonitor());
 				J2EEFlexProjDeployable moduleDelegate = (J2EEFlexProjDeployable)module.getAdapter(ModuleDelegate.class);
 				jndiName = moduleDelegate.getJNDIName(ejbName);
+				return new EJBBean(module, jndiName, remote, local);
 			}
-			return new EJBBean(module, jndiName, remote, local);
+			return new NullModuleArtifact(module);
 		}
 		return null;
 	}
