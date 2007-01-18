@@ -259,20 +259,25 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		}
 	}
 	
+	/**
+	 * Calling this method will fixup the JST facet version if it is incompatible with the selected runtime
+	 * It should be called when the Server Runtime or the Archive properties are set.
+	 * @return
+	 */
 	protected IStatus validateVersionSupportedByServer(){
-		if( model.isPropertySet(FILE)){
+		if( model.isPropertySet(FILE) && model.isPropertySet(IFacetProjectCreationDataModelProperties.FACET_RUNTIME)){
 			IDataModel projectModel = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);
 			FacetDataModelMap map = (FacetDataModelMap) projectModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 			Collection projectFacets = (Collection)getProperty(FacetProjectCreationDataModelProvider.REQUIRED_FACETS_COLLECTION);
 					
-			IRuntime runtime = (IRuntime) getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME); 
-			for(Iterator iterator = projectFacets.iterator(); iterator.hasNext();){
-				IDataModel facetDataModel = map.getFacetDataModel(((IProjectFacet)iterator.next()).getId());
-				IProjectFacetVersion facetVersion = (IProjectFacetVersion)facetDataModel.getProperty(IFacetDataModelProperties.FACET_VERSION);
-				if(facetVersion.getProjectFacet().getId().equals(IModuleConstants.JST_JAVA)){
-					Set set = Collections.singleton(facetVersion.getProjectFacet());
-					try {
-						if( runtime != null ){
+			IRuntime runtime = (IRuntime) getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
+			if(runtime != null){
+				for(Iterator iterator = projectFacets.iterator(); iterator.hasNext();){
+					IDataModel facetDataModel = map.getFacetDataModel(((IProjectFacet)iterator.next()).getId());
+					IProjectFacetVersion facetVersion = (IProjectFacetVersion)facetDataModel.getProperty(IFacetDataModelProperties.FACET_VERSION);
+					if(facetVersion.getProjectFacet().getId().equals(IModuleConstants.JST_JAVA)){
+						Set set = Collections.singleton(facetVersion.getProjectFacet());
+						try {
 							Set correctSet = runtime.getDefaultFacets(set);
 							IProjectFacetVersion correctVersion = null;
 							Iterator correctVersions = correctSet.iterator();
@@ -284,17 +289,19 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 							}
 							
 							if(correctVersion != null){
-								facetDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION, correctVersion);
-								facetVersion = correctVersion;
+								if(!facetVersion.equals(correctVersion)){
+									facetDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION, correctVersion);
+									facetVersion = correctVersion;
+								}
 							}
+						} catch (CoreException e) {
+							Logger.getLogger().logError(e);
 						}
-					} catch (CoreException e) {
-						Logger.getLogger().logError(e);
 					}
-				}
-			
-				if(runtime != null && !runtime.supports(facetVersion)){
-					return WTPCommonPlugin.createErrorStatus( J2EECreationResourceHandler.VERSION_NOT_SUPPORTED ); //$NON-NLS-1$
+				
+					if(!runtime.supports(facetVersion)){
+						return WTPCommonPlugin.createErrorStatus( J2EECreationResourceHandler.VERSION_NOT_SUPPORTED ); //$NON-NLS-1$
+					}
 				}
 			}
 		}
