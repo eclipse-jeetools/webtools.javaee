@@ -43,6 +43,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleRef;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.EmptyResourceException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveURIConverterImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipFileLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
@@ -85,6 +86,14 @@ public class ArchiveUtil {
 	protected static String tempDirectoryName;
 
 	protected static java.io.File tempDirectory;
+	
+	/**
+	 * Flag to indicate whether empty directories should be included during import; defaults to true.
+	 * 
+	 * @see ZipFileLoadStrategyImpl#isIncludeEmptyDirectories()
+	 */
+	public static boolean INCLUDE_EMPTY_DIRECTORIES = true;
+	
 
 	public static String classNameToJavaUri(String className) {
 		return className.replace('.', '/').concat(DOT_JAVA);
