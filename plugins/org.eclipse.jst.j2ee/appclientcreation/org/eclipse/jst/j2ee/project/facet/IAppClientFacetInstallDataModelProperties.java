@@ -10,8 +10,15 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.project.facet;
 
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientFacetProjectCreationDataModelProvider;
+
 public interface IAppClientFacetInstallDataModelProperties extends IJ2EEModuleFacetInstallDataModelProperties {
 
+	/**
+	 * This field should not be used.  It is not part of the API and may be modified in the future.
+	 */
+	public static Class _provider_class = AppClientFacetProjectCreationDataModelProvider.class;
+	
 	 /**
      * Optional, type Boolean. the default value is <code>Boolean.TRUE</code>.If this is true and CREATE_DEFAULT_FILES is true, then a default main
      * class will be generated during component creation.
