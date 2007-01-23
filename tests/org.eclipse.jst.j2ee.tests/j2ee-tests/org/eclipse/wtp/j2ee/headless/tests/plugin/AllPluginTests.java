@@ -11,6 +11,7 @@ import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.common.annotations.tests.AnnotationProviderTest;
+import org.eclipse.jst.j2ee.defect.tests.DefectVerificationTestsSuite;
 import org.eclipse.jst.j2ee.flexible.project.fvtests.ProjectMigrationTest;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
@@ -45,6 +46,7 @@ public class AllPluginTests extends TestSuite {
 	      addTest(AnnotationProviderTest.suite());
 	      addTest(org.eclipse.jst.j2ee.dependency.tests.AllTests.suite());
           addTest(WebAppLibrariesContainerTests.suite());
+          addTest(DefectVerificationTestsSuite.suite());
     }
     
     public static IRuntime createJONASRuntime()  {

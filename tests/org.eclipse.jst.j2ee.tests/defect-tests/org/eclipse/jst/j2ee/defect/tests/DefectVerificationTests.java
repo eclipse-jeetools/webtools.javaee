@@ -142,6 +142,7 @@ public class DefectVerificationTests extends OperationTestCase {
 				for (int j = 0; j < containerEntries.length && !foundImportedClasses; j++) {
 					IPath entryPath = containerEntries[j].getPath().removeFirstSegments(1);
 					foundImportedClasses = folderPath.equals(entryPath);
+					if (foundImportedClasses) break;
 				}
 			}
 
