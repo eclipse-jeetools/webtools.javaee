@@ -10,9 +10,10 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.project.facet;
 
-
-
-
 public interface IUtilityFacetInstallDataModelProperties extends IJ2EEModuleFacetInstallDataModelProperties {
 
+	/**
+	 * This field should not be used.  It is not part of the API and may be modified in the future.
+	 */
+	public static Class _provider_class = UtilityFacetInstallDataModelProvider.class;
 }

@@ -10,13 +10,16 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.web.project.facet;
 
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
-
-
 
 public interface IWebFacetInstallDataModelProperties extends IJ2EEModuleFacetInstallDataModelProperties {
 
-
+	/**
+	 * This field should not be used.  It is not part of the API and may be modified in the future.
+	 */
+	public static Class _provider_class = WebFacetProjectCreationDataModelProvider.class;
+		
 	public static final String CONTEXT_ROOT = "IWebFacetInstallDataModelProperties.CONTEXT_ROOT"; //$NON-NLS-1$
 	
 	public static final String SOURCE_FOLDER = "IWebFacetInstallDataModelProperties.SOURCE_FOLDER"; //$NON-NLS-1$
