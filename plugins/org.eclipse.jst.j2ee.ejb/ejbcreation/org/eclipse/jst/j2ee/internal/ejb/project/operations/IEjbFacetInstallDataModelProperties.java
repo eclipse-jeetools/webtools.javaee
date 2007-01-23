@@ -15,6 +15,11 @@ import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProper
 public interface IEjbFacetInstallDataModelProperties 
 	extends IJ2EEModuleFacetInstallDataModelProperties {
 
+	/**
+	 * This field should not be used.  It is not part of the API and may be modified in the future.
+	 */
+	public static Class _provider_class = EjbFacetProjectCreationDataModelProvider.class;
+	
     public static final String CREATE_CLIENT = "IEjbFacetInstallDataModelProperties.CREATE_CLIENT"; //$NON-NLS-1$	
 	public static final String CLIENT_NAME = "IEjbFacetInstallDataModelProperties.CLIENT_NAME ";//$NON-NLS-1$	
 	public static final String CLIENT_SOURCE_FOLDER = "IEjbFacetInstallDataModelProperties.CLIENT_SOURCE_FOLDER ";//$NON-NLS-1$
