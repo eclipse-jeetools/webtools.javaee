@@ -28,6 +28,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDataModelProvider;
+import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
 import org.eclipse.jst.servlet.ui.internal.wizard.ConvertToWebModuleTypeDialog;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
@@ -122,8 +123,10 @@ public class ConvertToWebModuleTypeAction extends Action implements IWorkbenchWi
 		fixedFacets.addAll(facetedProject.getFixedProjectFacets());
 		IProjectFacet webFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.WST_WEB_MODULE);
 		fixedFacets.remove(webFacet);
+		fixedFacets.add(WebFacetUtils.WEB_FACET);
+		fixedFacets.add(JavaFacetUtils.JAVA_FACET);
 		facetedProject.setFixedProjectFacets(fixedFacets);
-		IProjectFacetVersion webFv = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE).getVersion(selectedVersion);
+		IProjectFacetVersion webFv = WebFacetUtils.WEB_FACET.getVersion(selectedVersion);
 		IProjectFacetVersion javaFv = JavaFacetUtils.compilerLevelToFacet(JavaFacetUtils.getCompilerLevel(project));
 		IFacetedProject.Action uninstall = new IFacetedProject.Action(IFacetedProject.Action.Type.UNINSTALL, facetedProject.getInstalledVersion(webFacet), null);
 		IDataModel webModelCfg = DataModelFactory.createDataModel(new WebFacetInstallDataModelProvider());
@@ -143,7 +146,6 @@ public class ConvertToWebModuleTypeAction extends Action implements IWorkbenchWi
 		set.add(uninstall);
 		set.add(install);
 		set.add(javaInstall);
-		
 		facetedProject.modify(set, new NullProgressMonitor());
 	}
 }
