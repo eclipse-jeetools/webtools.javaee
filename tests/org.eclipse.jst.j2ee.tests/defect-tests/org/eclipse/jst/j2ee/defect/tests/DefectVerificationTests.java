@@ -27,6 +27,8 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.jobs.IJobManager;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
@@ -34,6 +36,7 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.internal.core.BinaryType;
 import org.eclipse.jdt.internal.core.SourceType;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentExportDataModelProvider;
@@ -52,6 +55,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentImportDataModelProvider;
@@ -131,6 +135,20 @@ public class DefectVerificationTests extends OperationTestCase {
 
 		final IVirtualFolder jsrc = component.getRootFolder().getFolder("/WEB-INF/classes");
 		jsrc.createLink(folder.getProjectRelativePath(), 0, null);
+		
+		J2EEComponentClasspathUpdater.getInstance().forceUpdate(Collections.singleton(component.getProject()));
+		IJobManager manager = Job.getJobManager(); 
+		Job [] jobs = manager.find(J2EEComponentClasspathUpdater.MODULE_UPDATE_JOB_NAME);
+		if(jobs.length > 0){
+			try {
+				for (int i = 0; i < jobs.length; i++){
+					if(jobs[i].getName().equals(J2EEComponentClasspathUpdater.MODULE_UPDATE_JOB_NAME))
+						jobs[i].join();
+				}
+			} catch (InterruptedException e) {
+				Logger.getLogger().log(e);
+			}
+		}
 
 		IJavaProject javaProject = JavaCore.create(component.getProject());
 		IClasspathEntry[] entries = javaProject.getRawClasspath();
