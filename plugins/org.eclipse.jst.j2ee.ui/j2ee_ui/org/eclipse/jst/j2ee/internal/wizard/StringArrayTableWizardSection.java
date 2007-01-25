@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2006 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,11 +7,11 @@
  *
  * Contributors:
  * IBM Corporation - initial API and implementation
+ * David Schneider, david.schneider@unisys.com - [142500] WTP properties pages fonts don't follow Eclipse preferences
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.jface.dialogs.Dialog;
@@ -119,6 +119,7 @@ public class StringArrayTableWizardSection extends Composite {
 
 			// set focus
 			texts[0].setFocus();
+			Dialog.applyDialogFont(parent);
 			return composite;
 		}
 
@@ -252,8 +253,7 @@ public class StringArrayTableWizardSection extends Composite {
 			public void selectionChanged(SelectionChangedEvent event) {
 				ISelection selection = event.getSelection();
 				if (editButton != null) {
-					boolean enabled = ((IStructuredSelection) selection).size() == 1;
-					editButton.setEnabled(enabled);
+					editButton.setEnabled(!selection.isEmpty());
 				}
 				removeButton.setEnabled(!selection.isEmpty());
 			}
@@ -276,14 +276,10 @@ public class StringArrayTableWizardSection extends Composite {
 	}
 
 	private void handleEditButtonSelected() {
-		ISelection s = viewer.getSelection();
-		if (!(s instanceof IStructuredSelection))
+		ISelection selection = viewer.getSelection();
+		if (selection.isEmpty() || !(selection instanceof IStructuredSelection))
 			return;
-		IStructuredSelection selection = (IStructuredSelection) s;
-		if (selection.size() != 1)
-			return;
-		
-		Object selectedObj = selection.getFirstElement();
+		Object selectedObj = ((IStructuredSelection) selection).getFirstElement();
 		String[] valuesForText = (String[]) selectedObj;
 		
 		EditStringArrayDialog dialog = new EditStringArrayDialog(getShell(), title, labelsForText, valuesForText);
@@ -296,8 +292,8 @@ public class StringArrayTableWizardSection extends Composite {
 		ISelection selection = viewer.getSelection();
 		if (selection.isEmpty() || !(selection instanceof IStructuredSelection))
 			return;
-		List selectedObj = ((IStructuredSelection) selection).toList();
-		removeStringArrays(selectedObj);
+		Object selectedObj = ((IStructuredSelection) selection).getFirstElement();
+		removeStringArray(selectedObj);
 	}
 	
 	public void addStringArray(String[] stringArray) {
@@ -331,12 +327,6 @@ public class StringArrayTableWizardSection extends Composite {
 	public void removeStringArray(Object selectedStringArray) {
 		List valueList = (List) viewer.getInput();
 		valueList.remove(selectedStringArray);
-		setInput(valueList);
-	}
-	
-	public void removeStringArrays(Collection selectedStringArrays) {
-		List valueList = (List) viewer.getInput();
-		valueList.removeAll(selectedStringArrays);
 		setInput(valueList);
 	}
 
