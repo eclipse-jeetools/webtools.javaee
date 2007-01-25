@@ -12,6 +12,7 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.jface.dialogs.Dialog;
@@ -253,7 +254,8 @@ public class StringArrayTableWizardSection extends Composite {
 			public void selectionChanged(SelectionChangedEvent event) {
 				ISelection selection = event.getSelection();
 				if (editButton != null) {
-					editButton.setEnabled(!selection.isEmpty());
+					boolean enabled = ((IStructuredSelection) selection).size() == 1;
+					editButton.setEnabled(enabled);
 				}
 				removeButton.setEnabled(!selection.isEmpty());
 			}
@@ -276,10 +278,14 @@ public class StringArrayTableWizardSection extends Composite {
 	}
 
 	private void handleEditButtonSelected() {
-		ISelection selection = viewer.getSelection();
-		if (selection.isEmpty() || !(selection instanceof IStructuredSelection))
+		ISelection s = viewer.getSelection();
+		if (!(s instanceof IStructuredSelection))
 			return;
-		Object selectedObj = ((IStructuredSelection) selection).getFirstElement();
+		IStructuredSelection selection = (IStructuredSelection) s;
+		if (selection.size() != 1)
+			return;
+		
+		Object selectedObj = selection.getFirstElement();
 		String[] valuesForText = (String[]) selectedObj;
 		
 		EditStringArrayDialog dialog = new EditStringArrayDialog(getShell(), title, labelsForText, valuesForText);
@@ -292,8 +298,8 @@ public class StringArrayTableWizardSection extends Composite {
 		ISelection selection = viewer.getSelection();
 		if (selection.isEmpty() || !(selection instanceof IStructuredSelection))
 			return;
-		Object selectedObj = ((IStructuredSelection) selection).getFirstElement();
-		removeStringArray(selectedObj);
+		List selectedObj = ((IStructuredSelection) selection).toList();
+		removeStringArrays(selectedObj);
 	}
 	
 	public void addStringArray(String[] stringArray) {
@@ -327,6 +333,12 @@ public class StringArrayTableWizardSection extends Composite {
 	public void removeStringArray(Object selectedStringArray) {
 		List valueList = (List) viewer.getInput();
 		valueList.remove(selectedStringArray);
+		setInput(valueList);
+	}
+	
+	public void removeStringArrays(Collection selectedStringArrays) {
+		List valueList = (List) viewer.getInput();
+		valueList.removeAll(selectedStringArrays);
 		setInput(valueList);
 	}
 
