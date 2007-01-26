@@ -58,7 +58,9 @@ public class RarEMFTest extends GeneralEMFPopulationTest {
 	public static junit.framework.Test suite() {
 		TestSuite suite = new TestSuite();
 		suite.addTest(new RarEMFTest("testRARPopulation"));
+/* xsd problem - see bugzilla 152355
 		suite.addTest(new RarEMFTest("test14RARPopulation"));
+*/
 		return suite;
 	}
 

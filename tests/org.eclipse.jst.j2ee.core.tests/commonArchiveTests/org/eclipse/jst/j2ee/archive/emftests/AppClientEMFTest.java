@@ -57,7 +57,9 @@ public class AppClientEMFTest extends GeneralEMFPopulationTest {
     public static junit.framework.Test suite() {
         TestSuite suite = new TestSuite();
         suite.addTest(new AppClientEMFTest("testApplicationClientPopulation"));
+/* xsd problem - see bugzilla 152355
         suite.addTest(new AppClientEMFTest("test14ApplicationClientPopulation"));
+*/
         return suite;
     }
 

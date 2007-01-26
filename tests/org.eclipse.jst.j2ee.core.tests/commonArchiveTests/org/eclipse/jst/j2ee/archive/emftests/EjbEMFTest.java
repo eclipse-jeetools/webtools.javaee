@@ -91,7 +91,9 @@ public class EjbEMFTest extends GeneralEMFPopulationTest {
 		/*System.out.println("Switching to SAX Renderer in " + EjbEMFTest.class.getName());
 		suite.addTest(new AllSAXTests("testSwitchRenderer"));*/
 		suite.addTest(new EjbEMFTest("testEJBJarPopulation"));
+/* xsd problem - see bugzilla 152355
 		suite.addTest(new EjbEMFTest("test14EJBJarPopulation"));
+*/
 		return suite;
 	}
 

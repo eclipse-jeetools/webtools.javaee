@@ -103,7 +103,9 @@ public class WebServicesEMFTest extends GeneralEMFPopulationTest {
 		suite.addTest(new WebServicesEMFTest("test13WebServicesClientPopulation"));
 		suite.addTest(new WebServicesEMFTest("test13WebServicesDDPopulation"));
 		suite.addTest(new WebServicesEMFTest("test14WebServicesDDPopulation"));
+/* xsd problem - see bugzilla 152355
 		suite.addTest(new WebServicesEMFTest("testJaxRPCMapPopulation"));
+*/
 		return suite;
 	}
 	
