@@ -20,7 +20,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
 import org.eclipse.jdt.core.search.IJavaSearchScope;
-import org.eclipse.jdt.internal.ui.dialogs.FilteredTypesSelectionDialog;
+import org.eclipse.jdt.internal.ui.dialogs.TypeSelectionDialog2;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.operation.IRunnableContext;
@@ -335,7 +335,7 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 		IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
 		// this eliminates the non-exported classpath entries
 		final IJavaSearchScope scope = TypeSearchEngine.createJavaSearchScopeForAProject(javaProject, true, true);
-		FilteredTypesSelectionDialog dialog = new FilteredTypesSelectionDialog(getShell(),false, context, scope,IJavaSearchConstants.INTERFACE);
+		TypeSelectionDialog2 dialog = new TypeSelectionDialog2(getShell(),false, context, scope,IJavaSearchConstants.INTERFACE);
 		dialog.setTitle(J2EEUIMessages.INTERFACE_SELECTION_DIALOG_TITLE);
 		if (dialog.open() == Window.OK) {
 			IType type = (IType) dialog.getFirstResult();

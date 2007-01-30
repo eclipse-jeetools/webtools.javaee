@@ -35,7 +35,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
 import org.eclipse.jdt.core.search.IJavaSearchScope;
 import org.eclipse.jdt.internal.ui.JavaPlugin;
-import org.eclipse.jdt.internal.ui.dialogs.FilteredTypesSelectionDialog;
+import org.eclipse.jdt.internal.ui.dialogs.TypeSelectionDialog2;
 import org.eclipse.jdt.internal.ui.viewsupport.IViewPartInputProvider;
 import org.eclipse.jdt.ui.JavaElementLabelProvider;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
@@ -468,7 +468,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		// to the Super Class Browse Button on the Create new Java Class Wizard
 		// final IJavaSearchScope scope = SearchEngine.createJavaSearchScope(new
 		// IJavaElement[] {root.getJavaProject()} );
-		FilteredTypesSelectionDialog dialog = new FilteredTypesSelectionDialog(getShell(),false, getWizard().getContainer(), scope, IJavaSearchConstants.CLASS);
+		TypeSelectionDialog2 dialog = new TypeSelectionDialog2(getShell(),false, getWizard().getContainer(), scope, IJavaSearchConstants.CLASS);
 		dialog.setTitle(J2EEUIMessages.SUPERCLASS_SELECTION_DIALOG_TITLE);
 		dialog.setMessage(J2EEUIMessages.SUPERCLASS_SELECTION_DIALOG_DESC);
 
