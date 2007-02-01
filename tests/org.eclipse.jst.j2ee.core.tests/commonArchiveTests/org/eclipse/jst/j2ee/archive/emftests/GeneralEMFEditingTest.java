@@ -458,7 +458,6 @@ public class GeneralEMFEditingTest extends BaseTestCase {
 		}
 	}
 
-	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		//TODO: Remove this line after ws xsd's are restored.
