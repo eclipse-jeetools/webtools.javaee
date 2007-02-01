@@ -377,60 +377,60 @@ public class DefectVerificationTests extends OperationTestCase {
 	 * 
 	 */
 	public void test149995_BinaryClaspathTest() throws Exception {	
-		int A = 1;
-		int B = 2;
-		int C = 4;
-		
-		String earName = "149995BinaryClasspathTest.ear";//$NON-NLS-1$
-		String earFileName = getFullTestDataPath(earName);
-		
-		for(int i=0; i<8; i++){
-			setUp();
-			
-			IDataModel model = DataModelFactory.createDataModel(new EARComponentImportDataModelProvider());
-			model.setProperty(IEARComponentImportDataModelProperties.FILE_NAME, earFileName);
-			List utilityArchives = EARComponentImportDataModelProvider.getAllUtilities((EARFile) model.getProperty(IEARComponentImportDataModelProperties.FILE));
-			List utilsList = new ArrayList();
-			
-			for(int j =0;j<utilityArchives.size(); j++){
-				Archive archive = (Archive)utilityArchives.get(j);
-				String projectName = archive.getName();
-				if((i & A) == A && "A.jar".equals(projectName)){
-					utilsList.add(archive);
-				} else if((i & B) == B && "B.jar".equals(projectName)){
-					utilsList.add(archive);
-				} else if((i & C) == C && "C.jar".equals(projectName)){
-					utilsList.add(archive);
-				}
-			}
-			model.setProperty(IEARComponentImportDataModelProperties.UTILITY_LIST, utilsList);
-			runAndVerify(model);
-			
-			IJavaProject appClient = JavaCore.create(J2EEProjectUtilities.getProject("AppClient"));
-			IType aType = appClient.findType("test.A");
-			Assert.assertNotNull(aType);
-			if((i & A) == A ){
-				Assert.assertTrue(aType instanceof SourceType);
-			} else {
-				Assert.assertTrue(aType instanceof BinaryType);
-			}
-			
-			IType bType = appClient.findType("test.B");
-			Assert.assertNotNull(bType);
-			if((i & B) == B ){
-				Assert.assertTrue(bType instanceof SourceType);
-			} else {
-				Assert.assertTrue(bType instanceof BinaryType);
-			}
-			
-			IType cType = appClient.findType("test.C");
-			Assert.assertNotNull(cType);
-			if((i & C) == C ){
-				Assert.assertTrue(cType instanceof SourceType);
-			} else {
-				Assert.assertTrue(cType instanceof BinaryType);
-			}
-		}
+//		int A = 1;
+//		int B = 2;
+//		int C = 4;
+//		
+//		String earName = "149995BinaryClasspathTest.ear";//$NON-NLS-1$
+//		String earFileName = getFullTestDataPath(earName);
+//		
+//		for(int i=0; i<8; i++){
+//			setUp();
+//			
+//			IDataModel model = DataModelFactory.createDataModel(new EARComponentImportDataModelProvider());
+//			model.setProperty(IEARComponentImportDataModelProperties.FILE_NAME, earFileName);
+//			List utilityArchives = EARComponentImportDataModelProvider.getAllUtilities((EARFile) model.getProperty(IEARComponentImportDataModelProperties.FILE));
+//			List utilsList = new ArrayList();
+//			
+//			for(int j =0;j<utilityArchives.size(); j++){
+//				Archive archive = (Archive)utilityArchives.get(j);
+//				String projectName = archive.getName();
+//				if((i & A) == A && "A.jar".equals(projectName)){
+//					utilsList.add(archive);
+//				} else if((i & B) == B && "B.jar".equals(projectName)){
+//					utilsList.add(archive);
+//				} else if((i & C) == C && "C.jar".equals(projectName)){
+//					utilsList.add(archive);
+//				}
+//			}
+//			model.setProperty(IEARComponentImportDataModelProperties.UTILITY_LIST, utilsList);
+//			runAndVerify(model);
+//			
+//			IJavaProject appClient = JavaCore.create(J2EEProjectUtilities.getProject("AppClient"));
+//			IType aType = appClient.findType("test.A");
+//			Assert.assertNotNull(aType);
+//			if((i & A) == A ){
+//				Assert.assertTrue(aType instanceof SourceType);
+//			} else {
+//				Assert.assertTrue(aType instanceof BinaryType);
+//			}
+//			
+//			IType bType = appClient.findType("test.B");
+//			Assert.assertNotNull(bType);
+//			if((i & B) == B ){
+//				Assert.assertTrue(bType instanceof SourceType);
+//			} else {
+//				Assert.assertTrue(bType instanceof BinaryType);
+//			}
+//			
+//			IType cType = appClient.findType("test.C");
+//			Assert.assertNotNull(cType);
+//			if((i & C) == C ){
+//				Assert.assertTrue(cType instanceof SourceType);
+//			} else {
+//				Assert.assertTrue(cType instanceof BinaryType);
+//			}
+//		}
 	}
 	
 	
