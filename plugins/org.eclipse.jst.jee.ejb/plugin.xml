@@ -13,7 +13,7 @@
  	       </and>
     	</constraint>
       	<group-member id="modules"/>
-		<action type="install">
+		<action type="install" id="jst.ejb#3.0#install">
     		<delegate class="org.eclipse.jst.jee.ejb.project.facet.Ejb3FacetInstallDelegate"/>
        	   	<config-factory class="org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetInstallDataModelProvider"/>
       	</action>
