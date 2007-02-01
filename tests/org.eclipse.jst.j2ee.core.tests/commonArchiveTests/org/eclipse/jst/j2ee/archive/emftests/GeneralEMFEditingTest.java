@@ -28,6 +28,7 @@ import org.eclipse.jst.j2ee.archive.testutilities.J2EEVersionCheck;
 import org.eclipse.jst.j2ee.archive.testutilities.TestUtilities;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
+import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 import org.eclipse.wst.common.tests.BaseTestCase;
 
 
@@ -455,5 +456,12 @@ public class GeneralEMFEditingTest extends BaseTestCase {
 		      delFiles[i].delete();
 		   }  
 		}
+	}
+
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		//TODO: Remove this line after ws xsd's are restored.
+		RendererFactory.getDefaultRendererFactory().setValidating(false);
 	}
 }
