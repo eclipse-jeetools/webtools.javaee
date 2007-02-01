@@ -18,9 +18,12 @@
          name="%war_validator_UI_"
          point="org.eclipse.wst.validation.validator">
       <validator>
-         <facet
-               facetId="jst.web">
-         </facet>
+         <enablement>
+      		<and>
+        		<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.web"/>
+	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.web:2.4]"/>
+			</and>
+		</enablement>
          <filter
                objectClass="org.eclipse.core.resources.IFile"
                nameFilter="web.xml">
@@ -352,6 +355,7 @@
     <project-facet id="jst.web">
       <label>%WEB_FACET_LABEL</label>
       <description>%WEB_FACET_DESCRIPTION</description>
+      <default-version version="2.4"/>
     </project-facet>
 
     <project-facet-version facet="jst.web" version="2.2">

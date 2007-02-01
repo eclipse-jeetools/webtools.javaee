@@ -27,22 +27,17 @@ import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
  * TODO cleaning, as we copied from J2EEVersionUtil and added the ejb 30, jee 50 constants, 
  */
 public class JEEVersionUtil {
-/*
+
 	public static String getServletTextVersion(int aVersion) {
 		switch (aVersion) {
-		case J2EEVersionConstants.SERVLET_2_2:
-			return J2EEVersionConstants.VERSION_2_2_TEXT;
+		case JEEVersionConstants.SERVLET_2_5:
+			return JEEVersionConstants.VERSION_2_5_TEXT;
 
-		case J2EEVersionConstants.SERVLET_2_3:
-			return J2EEVersionConstants.VERSION_2_3_TEXT;
-
-		case J2EEVersionConstants.SERVLET_2_4:
-			return J2EEVersionConstants.VERSION_2_4_TEXT;
+		default : 
+			return J2EEVersionUtil.getServletTextVersion(aVersion);
 		}
-		return ""; //$NON-NLS-1$
-
 	}
-*/
+
 	public static String getEJBTextVersion(int aVersion) {
 
 		switch (aVersion) {
@@ -76,43 +71,33 @@ public class JEEVersionUtil {
 
 		}
 	}
-/*
+
 	public static int convertAppClientVersionStringToJ2EEVersionID(String version) {
-		if (version.equals(J2EEVersionConstants.VERSION_1_2_TEXT))
-			return J2EEVersionConstants.J2EE_1_2_ID;
-		if (version.equals(J2EEVersionConstants.VERSION_1_3_TEXT))
-			return J2EEVersionConstants.J2EE_1_3_ID;
-		if (version.equals(J2EEVersionConstants.VERSION_1_4_TEXT))
-			return J2EEVersionConstants.J2EE_1_4_ID;
-		// default
-		return J2EEVersionConstants.J2EE_1_4_ID;
+		if (version.equals(JEEVersionConstants.VERSION_5_0_TEXT))
+			return JEEVersionConstants.J2EE_5_0_ID;
+		else
+			return J2EEVersionUtil.convertAppClientVersionStringToJ2EEVersionID(version);
 	}
-*/
+
 	public static int convertEJBVersionStringToJ2EEVersionID(String version) {
 		if (version.equals(JEEVersionConstants.VERSION_3_0_TEXT))
 			return JEEVersionConstants.J2EE_5_0_ID;
 		else
 			return J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(version);
 	}
-/*
-	public static int convertWebVersionStringToJ2EEVersionID(String version) {
-		if (version.equals(J2EEVersionConstants.VERSION_2_2_TEXT))
-			return J2EEVersionConstants.J2EE_1_2_ID;
-		if (version.equals(J2EEVersionConstants.VERSION_2_3_TEXT))
-			return J2EEVersionConstants.J2EE_1_3_ID;
-		if (version.equals(J2EEVersionConstants.VERSION_2_4_TEXT))
-			return J2EEVersionConstants.J2EE_1_4_ID;
-		// default
-		return J2EEVersionConstants.J2EE_1_4_ID;
-	}
 
+	public static int convertWebVersionStringToJ2EEVersionID(String version) {
+		if (version.equals(JEEVersionConstants.VERSION_2_5_TEXT))
+			return JEEVersionConstants.J2EE_5_0_ID;
+		else
+			return J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(version);
+	}
+/*
 	public static int convertConnectorVersionStringToJ2EEVersionID(String version) {
-		if (version.equals(J2EEVersionConstants.VERSION_1_0_TEXT))
-			return J2EEVersionConstants.J2EE_1_3_ID;
 		if (version.equals(J2EEVersionConstants.VERSION_1_5_TEXT))
-			return J2EEVersionConstants.J2EE_1_4_ID;
-		// default
-		return J2EEVersionConstants.J2EE_1_4_ID;
+			return JEEVersionConstants.J2EE_5_0_ID;
+		else
+			return J2EEVersionUtil.convertConnectorVersionStringToJ2EEVersionID(version);
 	}
 */
 	public static int convertJ2EEVersionIDToEJBVersionID(int j2eeVersionId) {
@@ -123,20 +108,16 @@ public class JEEVersionUtil {
 				return J2EEVersionUtil.convertJ2EEVersionIDToEJBVersionID(j2eeVersionId);
 		}
 	}
-/*
+
 	public static int convertJ2EEVersionIDToWebVersionID(int j2eeVersionId) {
 		switch (j2eeVersionId) {
-			case J2EEVersionConstants.J2EE_1_2_ID:
-				return J2EEVersionConstants.WEB_2_2_ID;
-			case J2EEVersionConstants.J2EE_1_3_ID:
-				return J2EEVersionConstants.WEB_2_3_ID;
-			case J2EEVersionConstants.J2EE_1_4_ID:
-				return J2EEVersionConstants.WEB_2_4_ID;
+		case JEEVersionConstants.J2EE_5_0_ID:
+			return JEEVersionConstants.WEB_2_5_ID;
+		default : 
+			return J2EEVersionUtil.convertJ2EEVersionIDToWebVersionID(j2eeVersionId);
 		}
-		// default
-		return J2EEVersionConstants.WEB_2_4_ID;
 	}
-
+/*
 	public static int convertJ2EEVersionIDToConnectorVersionID(int j2eeVersionId) {
 		switch (j2eeVersionId) {
 			case J2EEVersionConstants.J2EE_1_3_ID:
@@ -146,21 +127,6 @@ public class JEEVersionUtil {
 		}
 		// default
 		return J2EEVersionConstants.JCA_1_5_ID;
-	}
-	
-	public static int convertVersionStringToInt(IVirtualComponent comp) {
-		String version = J2EEProjectUtilities.getJ2EEProjectVersion(comp.getProject());
-		if (J2EEProjectUtilities.isDynamicWebProject(comp.getProject()))
-			return convertWebVersionStringToJ2EEVersionID(version);
-		if (J2EEProjectUtilities.isEJBProject(comp.getProject()))
-			return convertEJBVersionStringToJ2EEVersionID(version);
-		if (J2EEProjectUtilities.isEARProject(comp.getProject()))
-			return convertVersionStringToInt(version);
-		if (J2EEProjectUtilities.isJCAProject(comp.getProject()))
-			return convertConnectorVersionStringToJ2EEVersionID(version);
-		if (J2EEProjectUtilities.isApplicationClientProject(comp.getProject()))
-			return convertAppClientVersionStringToJ2EEVersionID(version);
-		return 0;
 	}
 */	
 	public static int convertVersionStringToInt(String version) {
