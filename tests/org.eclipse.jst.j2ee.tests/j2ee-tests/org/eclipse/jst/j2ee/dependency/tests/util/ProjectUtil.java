@@ -15,7 +15,6 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.EARFacetProjectCreationDataModelProvider;
@@ -26,7 +25,6 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCr
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.tests.OperationTestCase;
 
 /**
@@ -200,57 +198,11 @@ public class ProjectUtil {
         }	
 		return null;
 	}
-	
-	
-	
-	/**
-	 * @deprecated do not use
-	 * 
-	 * @see DoNotUseMeThisWillBeDeletedPost15
-	 */
-	public static final int MAX_WAIT_TIME = 30000;
 
 	public static void waitForClasspathUpdate() {
 		DependencyVerificationUtil.waitForClasspathUpdate();
     }
 
-	/**
-	 * @deprecated do not use
-	 * 
-	 * @see DoNotUseMeThisWillBeDeletedPost15
-	 */
-	 public static void waitForClasspathUpdate(int maxWait) {
-        long startTime = System.currentTimeMillis();
-        listener.isDone = false;
-        int waitIncrement = 10;
-        final J2EEComponentClasspathUpdater updater = J2EEComponentClasspathUpdater.getInstance();
-        boolean updatesQueued = false;
-        for(int i=0;i<50 && !updatesQueued ; i++){
-            updatesQueued = updater.projectsQueued();
-            if(!updatesQueued){
-                try{
-                    Thread.sleep(waitIncrement);
-                } catch (InterruptedException e) {
-                    J2EEPlugin.getDefault().getLogger().logError(e);
-                }
-            }
-        }
-        if(!updatesQueued){
-            return;
-        }
-        
-        long totalTime = 0;
-        try {
-            while (!listener.isDone && totalTime < maxWait) {
-                Thread.sleep(waitIncrement);
-                totalTime = System.currentTimeMillis() - startTime;
-            }
-        } catch (InterruptedException e) {
-            //J2EEPlugin.getDefault().getLogger().logError(e);
-        }
-        waitForClasspathUpdate(maxWait- (int)(System.currentTimeMillis()-startTime));
-    }
-    
 	private static ClasspathUpdateJobListener listener = new ClasspathUpdateJobListener();
     
 	private static class ClasspathUpdateJobListener extends JobChangeAdapter {
@@ -269,5 +221,4 @@ public class ProjectUtil {
 			}
 		}
     }
-}    
-
+}
