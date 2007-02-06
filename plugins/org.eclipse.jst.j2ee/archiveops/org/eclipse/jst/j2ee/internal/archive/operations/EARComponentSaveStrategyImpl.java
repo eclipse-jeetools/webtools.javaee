@@ -36,7 +36,6 @@ import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelPro
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
 public class EARComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl {
 
@@ -138,17 +137,6 @@ public class EARComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 			return getFilter().shouldSave(aFile.getURI(), getArchive());
 		}
 		return super.shouldSave(aFile);
-	}
-
-	/**
-	 * {@link DoNotUseMeThisWillBeDeletedPost15}
-	 * 
-	 * @deprecated
-	 * @param archive
-	 * @return
-	 */
-	protected boolean operationHandlesNested(Archive archive) {
-		return !shouldLinkAsComponentRef(archive);
 	}
 
 	protected boolean shouldLinkAsComponentRef(Archive archive) {

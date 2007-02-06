@@ -30,23 +30,14 @@ import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
-import org.eclipse.wst.common.componentcore.internal.resources.VirtualFolder;
 import org.eclipse.wst.common.componentcore.internal.util.IComponentImplFactory;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
-import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
 public class EARVirtualComponent extends VirtualComponent implements IComponentImplFactory {
-	
-	/**
-	 * @deprecated
-	 * @return
-	 * @see DoNotUseMeThisWillBeDeletedPost15
-	 */
-	protected IVirtualFolder defaultRootFolder;
 	
 	public EARVirtualComponent() {
 		super();
@@ -54,7 +45,6 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 
 	public EARVirtualComponent(IProject aProject, IPath aRuntimePath) {
 		super(aProject, aRuntimePath);
-		defaultRootFolder = new VirtualFolder(aProject, new Path("/")); //$NON-NLS-1$
 	}
 
 	public IVirtualComponent createArchiveComponent(IProject aProject, String archiveLocation, IPath aRuntimePath) {
@@ -195,14 +185,5 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 		}
 
 		return (IVirtualReference[]) hardReferences.toArray(new IVirtualReference[hardReferences.size()]);
-	}
-
-	/**
-	 * @deprecated
-	 * @return
-	 * @see DoNotUseMeThisWillBeDeletedPost15
-	 */
-	public IVirtualFolder getDefaultRootFolder() {
-		return defaultRootFolder;
 	}
 }

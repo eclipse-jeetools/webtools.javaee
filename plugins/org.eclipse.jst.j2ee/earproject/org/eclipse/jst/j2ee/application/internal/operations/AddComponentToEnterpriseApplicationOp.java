@@ -44,7 +44,6 @@ import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceCo
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
@@ -94,16 +93,6 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 			return super.getArchiveName(comp);
 		}
 		return ""; //$NON-NLS-1$
-	}
-
-	
-	/**
-	 * {@link DoNotUseMeThisWillBeDeletedPost15}
-	 * For each module component added to the ear, references are created for every manifest entry.
-	 * 
-	 * @param monitor
-	 */
-	protected void updateManifestReferences(IProgressMonitor monitor) {
 	}
 
 	protected void updateEARDD(IProgressMonitor monitor) {

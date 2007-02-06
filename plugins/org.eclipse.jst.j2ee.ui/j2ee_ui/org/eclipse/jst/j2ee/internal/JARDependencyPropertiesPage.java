@@ -37,7 +37,6 @@ import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.preference.IPreferencePage;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
@@ -75,7 +74,6 @@ import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
-import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
 import org.eclipse.wst.common.frameworks.internal.ui.WorkspaceModifyComposedOperation;
 
@@ -702,33 +700,6 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		} catch (CoreException ce) {
 		}
 		return composedOp;
-	}
-
-	/**
-	 * {@link DoNotUseMeThisWillBeDeletedPost15}
-	 * 
-	 * @deprecated
-	 * @return
-	 */
-	protected IRunnableWithProgress createBuildPathOperation() {
-		// IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
-		// return WTPUIPlugin.getRunnableWithProgress(new
-		// UpdateJavaBuildPathOperation(javaProject,getSelectedClassPathSelectionForWLPs(),
-		// getUnSelectedClassPathElementsForJ2EEDependency()));
-		return null;
-	}
-
-	/**
-	 * {@link DoNotUseMeThisWillBeDeletedPost15}
-	 * 
-	 * @deprecated
-	 * @return
-	 */
-	protected IRunnableWithProgress createWLPBuildPathOperation() {
-		// IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
-		// return WTPUIPlugin.getRunnableWithProgress(new
-		// UpdateJavaBuildPathOperation(javaProject,getSelectedClassPathSelectionForWLPs(),getUnSelectedClassPathElementsForWebDependency()));
-		return null;
 	}
 
 	protected ClassPathSelection getUnSelectedClassPathSelectionForWLPs() {

@@ -17,18 +17,13 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.ui.wizards.BuildPathDialogAccess;
-import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
-import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModelListener;
-import org.eclipse.jst.j2ee.internal.common.operations.UpdateJavaBuildPathOperation;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -42,8 +37,6 @@ import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
-import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
 import org.eclipse.wst.common.frameworks.internal.ui.WorkspaceModifyComposedOperation;
 
 public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage implements IClasspathTableOwner, Listener, ClasspathModelListener {
@@ -187,7 +180,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 		model.getComponent().addReferences(new IVirtualReference [] { ref });
 
 		ClasspathElement element = createClassPathElement(archive, archive.getName());
-		ClassPathSelection selection = createClassPathSelectionForExternalJar(element);
+//		ClassPathSelection selection = createClassPathSelectionForExternalJar(element);
 		model.getClassPathSelectionForWLPs().getClasspathElements().add(element);
 	}
 	
@@ -237,29 +230,17 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 		return element;
 	}
 
-	private ClassPathSelection createClassPathSelectionForExternalJar(ClasspathElement element) {
-		ClassPathSelection selection = new ClassPathSelection();
-		selection.getClasspathElements().add(element);
-		return selection;
-	}
+//	private ClassPathSelection createClassPathSelectionForExternalJar(ClasspathElement element) {
+//		ClassPathSelection selection = new ClassPathSelection();
+//		selection.getClasspathElements().add(element);
+//		return selection;
+//	}
 
-	private ClassPathSelection createClassPathSelectionForProjectJar(ClasspathElement element) {
-		ClassPathSelection selection = new ClassPathSelection();
-		selection.getClasspathElements().add(element);
-		return selection;
-	}
-
-	/**
-	 * {@link DoNotUseMeThisWillBeDeletedPost15}
-	 * 
-	 * @deprecated
-	 * @param selection
-	 * @return
-	 */
-	protected IRunnableWithProgress createBuildPathOperationForExternalJar(ClassPathSelection selection) {
-		IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
-		return WTPUIPlugin.getRunnableWithProgress(new UpdateJavaBuildPathOperation(javaProject, selection));
-	}
+//	private ClassPathSelection createClassPathSelectionForProjectJar(ClasspathElement element) {
+//		ClassPathSelection selection = new ClassPathSelection();
+//		selection.getClasspathElements().add(element);
+//		return selection;
+//	}
 
 	public void handleSelectProjectJarButton() {
 		if (J2EEProjectUtilities.isDynamicWebProject(project)) {
