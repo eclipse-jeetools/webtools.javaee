@@ -480,7 +480,9 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		resourceTreeAdapter = (ResourceTreeRootAdapter) ExtendedEcoreUtil
 				.getAdapter(aModule, aModule.eAdapters(),
 						ResourceTreeRootAdapter.SOURCE_ADAPTER_TYPE);
-		resourceTreeAdapter.setResourceTreeRoot(null);
+		if(null != resourceTreeAdapter){
+			resourceTreeAdapter.setResourceTreeRoot(null);
+		}
 
 	}
 
@@ -497,8 +499,12 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				StructureEdit core = StructureEdit
 						.getStructureEditForRead(delta[i].getResource()
 								.getProject());
-				WorkbenchComponent component = core.getComponent();
-				clearResourceTreeRootCache(component);
+				if(null != core){
+					WorkbenchComponent component = core.getComponent();
+					if(component != null){
+						clearResourceTreeRootCache(component);
+					}
+				}
 			} else {
 				findNode(delta[i].getAffectedChildren());
 			}

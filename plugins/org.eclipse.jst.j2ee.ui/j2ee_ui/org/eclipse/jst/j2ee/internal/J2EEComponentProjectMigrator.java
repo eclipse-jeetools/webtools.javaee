@@ -64,6 +64,7 @@ import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.SimpleValidateEdit;
 import org.eclipse.wst.project.facet.SimpleWebFacetInstallDataModelProvider;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerUtil;
@@ -91,14 +92,20 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 
 	public void migrateProject(IProject aProject) {
 		if (aProject.isAccessible()) {
-			project = aProject;
-			removeComponentBuilders(project);
-			if (multipleComponentsDetected())
-				createNewProjects();
-			String facetid = getFacetFromProject(project);
-			if (facetid.length() == 0)
-				addFacets(project);
-			J2EEComponentClasspathUpdater.getInstance().queueUpdate(project);
+			final List files = new ArrayList();
+			files.add(aProject.getFile(J2EEProjectUtilities.DOT_PROJECT));
+			files.add(aProject.getFile(J2EEProjectUtilities.DOT_CLASSPATH));
+			if(SimpleValidateEdit.validateEdit(files)){
+				project = aProject;
+				
+				removeComponentBuilders(project);
+				if (multipleComponentsDetected())
+					createNewProjects();
+				String facetid = getFacetFromProject(project);
+				if (facetid.length() == 0)
+					addFacets(project);
+				J2EEComponentClasspathUpdater.getInstance().queueUpdate(project);
+			}
 		}
 		ensureJ2EEContentExtensionsEnabled();
 	}
