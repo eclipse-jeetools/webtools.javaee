@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.eclipse.jst.web_ui.feature.source"
+      id="org.eclipse.jst.web_core.feature.patch"
       label="%featureName"
       version="1.5.3.qualifier"
       provider-name="%providerName">
@@ -21,14 +21,15 @@
       <update label="%updateSiteName" url="http://download.eclipse.org/webtools/updates/"/>
    </url>
 
-   <includes
-         id="org.eclipse.jst.web_core.feature.source"
-         version="0.0.0"/>
+   <requires>
+      <import feature="org.eclipse.jst.web_core.feature" version="1.5.2.v200610070620--87cMN7RkU-WXcu" patch="true"/>
+   </requires>
 
    <plugin
-         id="org.eclipse.jst.web_ui.feature.source"
+         id="org.eclipse.jst.j2ee.core"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>

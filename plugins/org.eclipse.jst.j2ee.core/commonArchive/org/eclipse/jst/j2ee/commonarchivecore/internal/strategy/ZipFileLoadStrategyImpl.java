@@ -21,6 +21,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 
 
 /**
@@ -32,7 +33,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 public class ZipFileLoadStrategyImpl extends LoadStrategyImpl {
 	protected java.io.File file;
 	protected ZipFile zipFile;
-
+	
 	/**
 	 * ZipFileLoadStrategy constructor comment.
 	 */
@@ -96,7 +97,7 @@ public class ZipFileLoadStrategyImpl extends LoadStrategyImpl {
 					aFile.setLastModified(entry.getTime());
 					list.add(aFile);
 				}
-			} else {
+			} else if(includeEmptyDirectories) {
 				File aFile = createDirectory(entry.getName());
 				aFile.setDirectoryEntry(true);
 				aFile.setSize(entry.getSize());
@@ -157,5 +158,31 @@ public class ZipFileLoadStrategyImpl extends LoadStrategyImpl {
 	 */
 	public void setZipFile(java.util.zip.ZipFile newZipFile) {
 		zipFile = newZipFile;
+	}
+
+	/**
+	 * This field is used to determine whether empty directories should be included in the 
+	 * file list of this archive.  The default value is set to {@link #ArchiveUtil.INCLUDE_EMPTY_DIRECTORIES}
+	 */
+	private boolean includeEmptyDirectories = ArchiveUtil.INCLUDE_EMPTY_DIRECTORIES;
+	
+	/**
+	 * If this value has not been set, the default is defined by {@link #ArchiveUtil.INCLUDE_EMPTY_DIRECTORIES}.
+	 * 
+	 * If this value is <code>true></code> then empty directories will be included in {@link #getFiles()}.
+	 * 
+	 * @see #setIncludeEmptyDirectories(boolean)
+	 */
+	public boolean isIncludeEmptyDirectories() {
+		return includeEmptyDirectories;
+	}
+
+	/**
+	 * If this value has not been set, the default is defined by {@link #ArchiveUtil.INCLUDE_EMPTY_DIRECTORIES}.
+	 * 
+	 * @see #isIncludeEmptyDirectories()
+	 */
+	public void setIncludeEmptyDirectories(boolean includeEmptyDirectories) {
+		this.includeEmptyDirectories = includeEmptyDirectories;
 	}
 }

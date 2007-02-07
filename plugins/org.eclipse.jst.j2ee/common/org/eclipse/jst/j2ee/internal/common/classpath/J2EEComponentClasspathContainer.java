@@ -73,7 +73,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	private static Map previousSelves = new Hashtable();
 	
 	private class LastUpdate {
-		private long dotClasspathTimeStamp = -1;
+		private long dotClasspathModificationStamp = -1;
 		private int refCount = 0;
 		private boolean[] isBinary = new boolean[refCount];
 		private IPath[] paths = new IPath[refCount];
@@ -93,8 +93,8 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		}
 		
 		IFile dotClasspath = javaProject.getProject().getFile(ProjectUtilities.DOT_CLASSPATH);
-		long dotClasspathTimeStamp = dotClasspath.exists() ? dotClasspath.getLocalTimeStamp() : 0;
-		if(dotClasspathTimeStamp != lastUpdate.dotClasspathTimeStamp){
+		long dotClasspathModificationStamp = dotClasspath.exists() ? dotClasspath.getModificationStamp() : 0;
+		if(dotClasspathModificationStamp != lastUpdate.dotClasspathModificationStamp){
 			return true;
 		}
 		
@@ -155,7 +155,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		}
 		
 		IFile dotClasspath = javaProject.getProject().getFile(ProjectUtilities.DOT_CLASSPATH);
-		lastUpdate.dotClasspathTimeStamp = dotClasspath.exists() ? dotClasspath.getLocalTimeStamp() : 0;
+		lastUpdate.dotClasspathModificationStamp = dotClasspath.exists() ? dotClasspath.getModificationStamp() : 0;
 		
 		IVirtualComponent comp = null;
 		IVirtualReference ref = null;

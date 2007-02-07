@@ -53,10 +53,14 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.impl.ResourceTreeRootAdapter;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPModulesResourceFactory;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
+import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 import org.eclipse.wst.common.project.facet.core.FacetedProjectFramework;
 
 public class J2EEComponentClasspathUpdater implements IResourceChangeListener, IResourceDeltaVisitor {
@@ -453,19 +457,62 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				case IResourceChangeEvent.POST_CHANGE:
 					scheduleJob = true;
 					event.getDelta().accept(this);
+					IResourceDelta[] d = event.getDelta().getAffectedChildren();
+					findNode(d);
+			
 					break;
 			}
 		} catch (CoreException e) {
 			J2EEPlugin.getDefault().getLogger().logError(e);
-		} finally {
+		} 
+		finally {
 			resumeUpdates(scheduleJob);
 		}
 	}
+	
+
+	public static void clearResourceTreeRootCache(WorkbenchComponent aModule) {
+
+		ResourceTreeRootAdapter resourceTreeAdapter = (ResourceTreeRootAdapter) ExtendedEcoreUtil
+				.getAdapter(aModule, aModule.eAdapters(),
+						ResourceTreeRootAdapter.DEPLOY_ADAPTER_TYPE);
+		resourceTreeAdapter.setResourceTreeRoot(null);
+		resourceTreeAdapter = (ResourceTreeRootAdapter) ExtendedEcoreUtil
+				.getAdapter(aModule, aModule.eAdapters(),
+						ResourceTreeRootAdapter.SOURCE_ADAPTER_TYPE);
+		if(null != resourceTreeAdapter){
+			resourceTreeAdapter.setResourceTreeRoot(null);
+		}
+
+	}
+
 
 	/*
 	 * Needs to notice changes to MANIFEST.MF in any J2EE projects, changes to
 	 * .component in any J2EE Projects, and any archive changes in EAR projects
 	 */
+	
+	public boolean findNode(IResourceDelta[] delta) {
+
+		for (int i = 0; i < delta.length; i++) {
+			if (delta[i].toString().indexOf(IJ2EEModuleConstants.COMPONENT_FILE_NAME) != -1) {
+				StructureEdit core = StructureEdit
+						.getStructureEditForRead(delta[i].getResource()
+								.getProject());
+				if(null != core){
+					WorkbenchComponent component = core.getComponent();
+					if(component != null){
+						clearResourceTreeRootCache(component);
+					}
+				}
+			} else {
+				findNode(delta[i].getAffectedChildren());
+			}
+		}
+
+		return true;
+	}
+	
 	public boolean visit(IResourceDelta delta) {
 		IResource resource = delta.getResource();
 		switch (resource.getType()) {

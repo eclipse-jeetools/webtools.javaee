@@ -54,6 +54,8 @@ public class ProjectSupportResourceHandler extends NLS {
 	public static String Update_ClassPath__UI_;	
 	public static String Set_ClassPath__UI_; 	
 	public static String Names_cannot_contain_whitespace_;
+	public static String Importing_archive;
+	public static String Exporting_archive;
 
 
 	static {

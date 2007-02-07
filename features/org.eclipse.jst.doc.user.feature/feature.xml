@@ -22,10 +22,6 @@
       <update label="%updateSiteName" url="http://download.eclipse.org/webtools/updates/"/>
    </url>
 
-   <requires>
-      <import plugin="org.eclipse.help"/>
-   </requires>
-
    <plugin
          id="org.eclipse.jst.ejb.doc.user"
          download-size="0"

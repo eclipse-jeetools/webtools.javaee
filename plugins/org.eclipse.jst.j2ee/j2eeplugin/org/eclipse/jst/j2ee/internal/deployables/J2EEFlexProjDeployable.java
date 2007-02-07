@@ -14,6 +14,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
@@ -45,6 +46,9 @@ import org.eclipse.jst.server.core.IJ2EEModule;
 import org.eclipse.jst.server.core.IWebModule;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.ComponentResource;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -61,9 +65,12 @@ import org.eclipse.wst.web.internal.deployables.ComponentDeployable;
  * J2EE module superclass.
  */
 public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EEModule, IEnterpriseApplication, IApplicationClientModule, IConnectorModule, IEJBModule, IWebModule {
-	private static final IPath WEB_CLASSES_PATH = new Path("WEB-INF").append("classes"); //$NON-NLS-1$ //$NON-NLS-2$
-	private static IPath WEBLIB = new Path("/WEB-INF/lib"); //$NON-NLS-1$
+	private static final IPath WEB_CLASSES_PATH = new Path(J2EEConstants.WEB_INF_CLASSES);
+	private static IPath WEBLIB = new Path(J2EEConstants.WEB_INF_LIB).makeAbsolute();
 	private IPackageFragmentRoot[] cachedSourceContainers;
+	private IContainer[] cachedOutputContainers;
+	private HashMap cachedOutputMappings;
+	private HashMap cachedSourceOutputPairs;
 
 	/**
 	 * Constructor for J2EEFlexProjDeployable.
@@ -109,7 +116,9 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	 * @return a possibly-empty array of Java output folders
 	 */
 	public IContainer[] getJavaOutputFolders() {
-		return getJavaOutputFolders(getProject());
+		if (cachedOutputContainers == null)
+			cachedOutputContainers = getJavaOutputFolders(getProject());
+		return cachedOutputContainers;
 	}
 	
 	public IContainer[] getJavaOutputFolders(IProject project) {
@@ -144,8 +153,13 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	public IModuleResource[] members() throws CoreException {
 		members.clear();
 		
+		// Handle binary components
 		if (component instanceof J2EEModuleVirtualArchiveComponent)
 			return getBinaryModuleMembers();
+		
+		// If j2ee project structure is a single root structure, just return optimized members
+		if (isSingleRootStructure())
+			return getOptimizedMembers();
 		
 		cachedSourceContainers = J2EEProjectUtilities.getSourceContainers(getProject());
 		try {
@@ -153,9 +167,8 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 			if (J2EEProjectUtilities.isDynamicWebProject(component.getProject()))
 				javaPath = WEB_CLASSES_PATH;
 			
-			IVirtualComponent vc = ComponentCore.createComponent(getProject());
-			if (vc != null) {
-				IVirtualFolder vFolder = vc.getRootFolder();
+			if (component != null) {
+				IVirtualFolder vFolder = component.getRootFolder();
 				IModuleResource[] mr = getMembers(vFolder, Path.EMPTY);
 				int size = mr.length;
 				for (int j = 0; j < size; j++) {
@@ -166,6 +179,9 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 			IContainer[] javaCont = getJavaOutputFolders();		
 			int size = javaCont.length;
 			for (int i = 0; i < size; i++) {
+				//If the java output is in the scope of the virtual component, ignore to avoid duplicates
+				if (ComponentCore.createResources(javaCont[i]).length > 0) 
+					continue;
 				IModuleResource[] mr = getMembers(javaCont[i], javaPath, javaPath, javaCont);
 				int size2 = mr.length;
 				for (int j = 0; j < size2; j++) {
@@ -173,9 +189,9 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				}
 			}
 			
-			if (vc != null) {
-				addUtilMembers(vc);
-				List consumableMembers = getConsumableReferencedMembers(vc);
+			if (component != null) {
+				addUtilMembers(component);
+				List consumableMembers = getConsumableReferencedMembers(component);
 				if (!consumableMembers.isEmpty())
 					members.addAll(consumableMembers);
 			}
@@ -185,6 +201,9 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 			return mr;
 		} finally {
 			cachedSourceContainers = null;
+			cachedOutputContainers = null;
+			cachedOutputMappings = null;
+			cachedSourceOutputPairs = null;
 		}
 	}
 	
@@ -406,20 +425,44 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     	return contextRoot;
     }
     
-    protected boolean isFileInSourceContainer(IFile file) {
-    	boolean result = false;
+    /**
+     * Find the source container, if any, for the given file.
+     * 
+     * @param file
+     * @return IPackageFragmentRoot sourceContainer for IFile
+     */
+    protected IPackageFragmentRoot getSourceContainer(IFile file) {
     	if (file == null)
-    		return false;
+    		return null;
     	IPackageFragmentRoot[] srcContainers = getSourceContainers();
     	for (int i=0; i<srcContainers.length; i++) {
     		IPath srcPath = srcContainers[i].getPath();
-    		result = srcPath.isPrefixOf(file.getFullPath());
-    		if (result)
-    			break;
+    		if (srcPath.isPrefixOf(file.getFullPath()))
+    			return srcContainers[i];
     	}
-    	return result;
+    	return null;
     }
-
+    
+    /**
+     * Either returns value from cache or stores result as value in cache for the corresponding
+     * output container for the given source container.
+     * 
+     * @param sourceContainer
+     * @return IContainer output container for given source container
+     */
+    protected IContainer getOutputContainer(IPackageFragmentRoot sourceContainer) {
+    	if (sourceContainer == null)
+    		return null;
+    	
+    	HashMap pairs = getCachedSourceOutputPairs();
+    	IContainer output = (IContainer) pairs.get(sourceContainer);
+    	if (output == null) {
+    		output = J2EEProjectUtilities.getOutputContainer(getProject(), sourceContainer);
+    		pairs.put(sourceContainer,output);
+    	}
+    	return output;
+    }
+    
 	private IPackageFragmentRoot[] getSourceContainers() {
 		if (cachedSourceContainers != null)
 			return cachedSourceContainers;
@@ -531,5 +574,249 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				result.add(refComponents[i]);
 		}
 		return (IVirtualReference[]) result.toArray(new IVirtualReference[result.size()]);
+	}
+	
+	/**
+	 * Returns <code>true</code> if this module has a simple structure based on a
+	 * single root folder, and <code>false</code> otherwise.
+	 * <p>
+	 * In a single root structure, all files that are contained within the root folder
+	 * are part of the module, and are already in the correct module structure. No
+	 * module resources exist outside of this single folder.
+	 * 
+	 * For J2EE, this method will check if the project is already in J2EE spec standard output form.  
+	 * The project must follow certain rules, but in general, the project's content roots must be source folders
+	 * and the output folder must also be the the content root folder.
+	 * </p>
+	 * 
+	 * @return <code>true</code> if this module has a single root structure, and
+	 *    <code>false</code> otherwise
+	 */
+	public boolean isSingleRootStructure() {
+		StructureEdit edit = null;
+		try {
+			edit = StructureEdit.getStructureEditForRead(getProject());
+			if (edit == null || edit.getComponent() == null)
+				return false;
+			WorkbenchComponent wbComp = edit.getComponent();
+			List resourceMaps = wbComp.getResources();
+			
+			if (J2EEProjectUtilities.isEARProject(getProject())) {
+				// Always return false for EARs so that members for EAR are always calculated and j2ee modules
+				// are filtered out
+				return false;
+			} else if (J2EEProjectUtilities.isDynamicWebProject(getProject())) {
+				// If there are any web lib jar references, this is not a standard project
+				IVirtualReference[] references = ((J2EEModuleVirtualComponent)component).getNonManifestReferences();
+				for (int i=0; i<references.length; i++) {
+					if (references[i].getReferencedComponent().isBinary())
+						return false;
+				}
+				// Ensure there are only basic component resource mappings -- one for the content folder 
+				// and any for src folders mapped to WEB-INF/classes
+				if (hasDefaultWebResourceMappings(resourceMaps)) {
+					// Verify only one java output folder
+					if (getJavaOutputFolders().length==1) {
+						// Verify the java output folder is to <content root>/WEB-INF/classes
+						IPath javaOutputPath = getJavaOutputFolders()[0].getProjectRelativePath();
+						IPath compRootPath = component.getRootFolder().getUnderlyingFolder().getProjectRelativePath();
+						if (compRootPath.append(J2EEConstants.WEB_INF_CLASSES).equals(javaOutputPath)) 
+							return true;
+					}
+				}
+				return false;
+			} else if (J2EEProjectUtilities.isEJBProject(getProject()) || J2EEProjectUtilities.isJCAProject(getProject())
+					|| J2EEProjectUtilities.isApplicationClientProject(getProject()) || J2EEProjectUtilities.isUtilityProject(getProject())) {
+				// Ensure there are only source folder component resource mappings to the root content folder
+				if (isRootResourceMapping(resourceMaps,false)) {
+					// Verify only one java outputfolder
+					if (getJavaOutputFolders().length==1) {
+						// At this point for utility projects, this project is optimized, we can just use the output folder
+						if (J2EEProjectUtilities.isUtilityProject(getProject()))
+							return true;
+						// Verify the java output folder is the same as one of the content roots
+						IPath javaOutputPath = getJavaOutputFolders()[0].getProjectRelativePath();
+						IContainer[] rootFolders = component.getRootFolder().getUnderlyingFolders();
+						for (int i=0; i<rootFolders.length; i++) {
+							IPath compRootPath = rootFolders[i].getProjectRelativePath();
+							if (javaOutputPath.equals(compRootPath))
+								return true;
+						}
+					}
+				}
+				return false;
+			}
+			return true;
+		} finally {
+			if (edit !=null)
+				edit.dispose();
+		}
+	}
+	
+	/**
+	 * Ensure that any component resource mappings are for source folders and 
+	 * that they map to the root content folder
+	 * 
+	 * @param resourceMaps
+	 * @return boolean
+	 */
+	private boolean isRootResourceMapping(List resourceMaps, boolean isForEAR) {
+		// If the list is empty, return false
+		if (resourceMaps.size()<1)
+			return false;
+		
+		for (int i=0; i<resourceMaps.size(); i++) {
+			ComponentResource resourceMap = (ComponentResource) resourceMaps.get(i);
+			// Verify it maps to "/" for the content root
+			if (!resourceMap.getRuntimePath().equals(Path.ROOT))
+				return false;
+			// If this is not for an EAR, verify it is also a src container
+			if (!isForEAR) {
+				IPath sourcePath = getProject().getFullPath().append(resourceMap.getSourcePath());
+				if (!isSourceContainer(sourcePath))
+					return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * Checks if the path argument is to a source container for the project.
+	 * 
+	 * @param a workspace relative full path
+	 * @return is path a source container?
+	 */
+	private boolean isSourceContainer(IPath path) {
+		IPackageFragmentRoot[] srcContainers = getSourceContainers();
+		for (int i=0; i<srcContainers.length; i++) {
+			if (srcContainers[i].getPath().equals(path))
+				return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Ensure the default web setup is correct with one resource map and any number of java 
+	 * resource maps to WEB-INF/classes
+	 * 
+	 * @param resourceMaps
+	 * @return boolean
+	 */
+	private boolean hasDefaultWebResourceMappings(List resourceMaps) {
+		int rootValidMaps = 0;
+		int javaValidRoots = 0;
+		
+		// If there aren't at least 2 maps, return false
+		if (resourceMaps.size()<2)
+			return false;
+		
+		IPath webInfClasses = new Path(J2EEConstants.WEB_INF_CLASSES).makeAbsolute();
+		for (int i=0; i<resourceMaps.size(); i++) {
+			ComponentResource resourceMap = (ComponentResource) resourceMaps.get(i);
+			IPath sourcePath = getProject().getFullPath().append(resourceMap.getSourcePath());
+			
+			// Verify if the map is for the content root
+			if (resourceMap.getRuntimePath().equals(Path.ROOT)) {
+				rootValidMaps++;
+			// Verify if the map is for a java src folder and is mapped to "WEB-INF/classes"
+			} else if (resourceMap.getRuntimePath().equals(webInfClasses) && isSourceContainer(sourcePath)) {
+				javaValidRoots++;
+			// Otherwise we bail because we have a non optimized map
+			} else {
+				return false;
+			}
+		}
+		// Make sure only one of the maps is the content root, and that at least one is for the java folder
+		return rootValidMaps==1 && javaValidRoots>0;
+	}
+	
+	/**
+	 * This method is added for performance reasons.
+	 * It assumes the virtual component is not using any flexible features and is in a standard J2EE format
+	 * with one component root folder and an output folder the same as its content folder.  This will bypass 
+	 * the virtual component API and just return the module resources as they are on disk.
+	 * 
+	 * @return array of ModuleResources
+	 * @throws CoreException
+	 */
+	private IModuleResource[] getOptimizedMembers() throws CoreException {
+		if (component != null) {
+			// For java utility modules, we can just use the output container, at this point we know there is only one
+			if (J2EEProjectUtilities.isUtilityProject(getProject())) {
+				return getModuleResources(Path.EMPTY, getJavaOutputFolders()[0]);
+			}
+			// For J2EE modules, we use the contents of the content root
+			else {
+				IVirtualFolder vFolder = component.getRootFolder();
+				return getModuleResources(Path.EMPTY, vFolder.getUnderlyingFolder());
+			}
+		}
+		return new IModuleResource[] {};
+	}
+	
+	/**
+	 * This method will return from cache or add to cache whether or not an output container
+	 * is mapped in the virtual component.
+	 * 
+	 * @param outputContainer
+	 * @return if output container is mapped
+	 */
+	private boolean isOutputContainerMapped(IContainer outputContainer) {
+		if (outputContainer == null)
+			return false;
+		
+		HashMap outputMaps = getCachedOutputMappings();
+		Boolean result = (Boolean) outputMaps.get(outputContainer);
+		if (result == null) {
+			// If there are any component resources for the container, we know it is mapped
+			if (ComponentCore.createResources(outputContainer).length > 0)
+				result = Boolean.TRUE;	
+			// Otherwise it is not mapped
+			else
+				result = Boolean.FALSE;
+			// Cache the result in the map for this output container
+			outputMaps.put(outputContainer, result);
+		}
+		return result.booleanValue();
+	}
+	
+	/**
+	 * Lazy initialize the cached output mappings
+	 * @return HashMap
+	 */
+	private HashMap getCachedOutputMappings() {
+		if (cachedOutputMappings==null)
+			cachedOutputMappings = new HashMap();
+		return cachedOutputMappings;
+	}
+	
+	/**
+	 * Lazy initialize the cached source - output pairings
+	 * @return HashMap
+	 */
+	private HashMap getCachedSourceOutputPairs() {
+		if (cachedSourceOutputPairs==null)
+			cachedSourceOutputPairs = new HashMap();
+		return cachedSourceOutputPairs;
+	}
+	
+	/**
+	 * This file should be added to the members list from the virtual component maps only if:
+	 * a) it is not in a source folder
+	 * b) it is in a source folder, and the corresponding output folder is a mapped component resource
+	 * 
+	 * @return boolean should file be added to members
+	 */
+	protected boolean shouldAddComponentFile(IFile file) {
+		IPackageFragmentRoot sourceContainer = getSourceContainer(file);
+		// If the file is not in a source container, return true
+		if (sourceContainer==null) {
+			return true;
+		// Else if it is a source container and the output container is mapped in the component, return true
+		// Otherwise, return false.
+		} else {
+			IContainer outputContainer = getOutputContainer(sourceContainer);
+			return outputContainer!=null && isOutputContainerMapped(outputContainer);		
+		}
 	}
 }

@@ -176,7 +176,55 @@ public class WarValidator extends J2EEValidator implements WARMessageConstants {
 
 
 		if (httpMethods == null) { // Need to construct the Hashtable, once
-			String[] mList = {"GET", "PUT", "HEAD", "TRACE", "POST", "DELETE", "OPTIONS"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
+			String[] mList = {
+				"GET", //$NON-NLS-1$
+				"PUT",  //$NON-NLS-1$
+				"HEAD",  //$NON-NLS-1$
+				"TRACE",  //$NON-NLS-1$
+				"POST",  //$NON-NLS-1$
+				"DELETE",  //$NON-NLS-1$
+				"OPTIONS", //$NON-NLS-1$
+				//WEBDAV
+				"ACK",  //$NON-NLS-1$
+				"ACL",  //$NON-NLS-1$
+				"BASELINE-CONTROL",  //$NON-NLS-1$
+				"BIND",  //$NON-NLS-1$
+				"BYE",  //$NON-NLS-1$
+				"CANCEL",  //$NON-NLS-1$
+				"CHECKIN",  //$NON-NLS-1$
+				"CHECKOUT",  //$NON-NLS-1$
+				"COPY",  //$NON-NLS-1$
+				"ERRORRESPONSE",  //$NON-NLS-1$
+				"INFO",  //$NON-NLS-1$
+				"INVITE",  //$NON-NLS-1$
+				"LABEL",  //$NON-NLS-1$
+				"LOCK",  //$NON-NLS-1$
+				"MERGE",  //$NON-NLS-1$
+				"MESSAGE",  //$NON-NLS-1$
+				"MKACTIVITY",  //$NON-NLS-1$
+				"MKCOL",  //$NON-NLS-1$
+				"MKWORKSPACE",  //$NON-NLS-1$
+				"MOVE",  //$NON-NLS-1$
+				"NOTIFY",  //$NON-NLS-1$
+				"PRACK",  //$NON-NLS-1$
+				"PROPFIND",  //$NON-NLS-1$
+				"PROPPATCH",  //$NON-NLS-1$
+				"PROVISIONALRESPONSE",  //$NON-NLS-1$
+				"PUBLISH",  //$NON-NLS-1$
+				"REBIND",  //$NON-NLS-1$
+				"REDIRECTRESPONSE",  //$NON-NLS-1$
+				"REGISTER",  //$NON-NLS-1$
+				"REPORT",  //$NON-NLS-1$
+				"REQUEST",  //$NON-NLS-1$
+				"RESPONSE",  //$NON-NLS-1$
+				"SEARCH",  //$NON-NLS-1$
+				"SUCCESSRESPONSE",  //$NON-NLS-1$
+				"UNBIND",  //$NON-NLS-1$
+				"UNCHECKOUT",  //$NON-NLS-1$
+				"UNLOCK",  //$NON-NLS-1$
+				"UPDATE",  //$NON-NLS-1$
+				"VERSION-CONTROL"//$NON-NLS-1$
+			}; 
 
 			httpMethods = new Hashtable();
 			for (int i = 0; i < mList.length; i++)

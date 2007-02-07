@@ -26,6 +26,7 @@ import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -109,51 +110,60 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 			IVirtualReference[] references = component.getReferences();
 			for (int i=0; i<references.length; i++) {
 				IVirtualComponent moduleComponent = references[i].getReferencedComponent();
-				// Is referenced component a J2EE binary module archive
+				// Is referenced component a J2EE binary module archive or binary utility project?
 				if (moduleComponent.isBinary()) {
-					// Ensure module URI exists on EAR DD for binary archive
+					// Check if module URI exists on EAR DD for binary j2ee archive
 					Module j2eeModule = app.getFirstModule(references[i].getArchiveName());
-					if (j2eeModule == null)
+					// If it is not a j2ee module and the component project is the ear, it is just an archive
+					// and we can ignore as it will be processed by the EAR deployable.members() method
+					if (j2eeModule == null && (moduleComponent.getProject() == component.getProject()))
 						continue;
-					ArtifactEdit moduleEdit = null;
-					try {
-						String moduleVersion = null;
-						String moduleType = null;
-						if (j2eeModule.isEjbModule()) {
-							moduleEdit = ComponentUtilities.getArtifactEditForRead(moduleComponent, J2EEProjectUtilities.EJB);
-							EJBJar ejbJar = (EJBJar) moduleEdit.getContentModelRoot();
-							moduleType = J2EEProjectUtilities.EJB;
-							moduleVersion = ejbJar.getVersion();
+					
+					String moduleVersion = null;
+					String moduleType = null;
+					// Handle the binary J2EE module case
+					if(j2eeModule != null){
+						ArtifactEdit moduleEdit = null;
+						try {
+							if (j2eeModule.isEjbModule()) {
+								moduleEdit = ComponentUtilities.getArtifactEditForRead(moduleComponent, J2EEProjectUtilities.EJB);
+								EJBJar ejbJar = (EJBJar) moduleEdit.getContentModelRoot();
+								moduleType = J2EEProjectUtilities.EJB;
+								moduleVersion = ejbJar.getVersion();
+							}
+							else if (j2eeModule.isWebModule()) {
+								moduleEdit = ComponentUtilities.getArtifactEditForRead(moduleComponent, J2EEProjectUtilities.DYNAMIC_WEB);
+								WebApp webApp = (WebApp) moduleEdit.getContentModelRoot();
+								moduleType = J2EEProjectUtilities.DYNAMIC_WEB;
+								moduleVersion = webApp.getVersion();
+							}
+							else if (j2eeModule.isConnectorModule()) {
+								moduleEdit = ComponentUtilities.getArtifactEditForRead(moduleComponent, J2EEProjectUtilities.JCA);
+								Connector connector = (Connector) moduleEdit.getContentModelRoot();
+								moduleType = J2EEProjectUtilities.JCA;
+								moduleVersion = connector.getVersion();
+							}
+							else if (j2eeModule.isJavaModule()) {
+								moduleEdit = ComponentUtilities.getArtifactEditForRead(moduleComponent, J2EEProjectUtilities.APPLICATION_CLIENT);
+								ApplicationClient appClient = (ApplicationClient) moduleEdit.getContentModelRoot();
+								moduleType = J2EEProjectUtilities.APPLICATION_CLIENT;
+								moduleVersion = appClient.getVersion();
+							}
+						} finally {
+							if (moduleEdit!=null)
+								moduleEdit.dispose();
 						}
-						else if (j2eeModule.isWebModule()) {
-							moduleEdit = ComponentUtilities.getArtifactEditForRead(moduleComponent, J2EEProjectUtilities.DYNAMIC_WEB);
-							WebApp webApp = (WebApp) moduleEdit.getContentModelRoot();
-							moduleType = J2EEProjectUtilities.DYNAMIC_WEB;
-							moduleVersion = webApp.getVersion();
-						}
-						else if (j2eeModule.isConnectorModule()) {
-							moduleEdit = ComponentUtilities.getArtifactEditForRead(moduleComponent, J2EEProjectUtilities.JCA);
-							Connector connector = (Connector) moduleEdit.getContentModelRoot();
-							moduleType = J2EEProjectUtilities.JCA;
-							moduleVersion = connector.getVersion();
-						}
-						else if (j2eeModule.isJavaModule()) {
-							moduleEdit = ComponentUtilities.getArtifactEditForRead(moduleComponent, J2EEProjectUtilities.APPLICATION_CLIENT);
-							ApplicationClient appClient = (ApplicationClient) moduleEdit.getContentModelRoot();
-							moduleType = J2EEProjectUtilities.APPLICATION_CLIENT;
-							moduleVersion = appClient.getVersion();
-						}
-						
-						IModule nestedModule = createModule(moduleComponent.getDeployedName(), moduleComponent.getDeployedName(), moduleType, moduleVersion, moduleComponent.getProject());
-						if (nestedModule!=null) {
-							J2EEFlexProjDeployable moduleDelegate = new J2EEFlexProjDeployable(moduleComponent.getProject(), moduleComponent);
-							moduleDelegates.put(nestedModule, moduleDelegate);
-							projectModules.add(nestedModule);
-							moduleDelegate.getURI(nestedModule);
-						}
-					} finally {
-						if (moduleEdit!=null)
-							moduleEdit.dispose();
+					} else { // Handle the binary utility component outside the EAR case.
+						moduleVersion = J2EEProjectUtilities.UTILITY;
+						moduleType = J2EEVersionConstants.VERSION_1_0_TEXT;
+					}
+					
+					IModule nestedModule = createModule(moduleComponent.getDeployedName(), moduleComponent.getDeployedName(), moduleType, moduleVersion, moduleComponent.getProject());
+					if (nestedModule!=null) {
+						J2EEFlexProjDeployable moduleDelegate = new J2EEFlexProjDeployable(moduleComponent.getProject(), moduleComponent);
+						moduleDelegates.put(nestedModule, moduleDelegate);
+						projectModules.add(nestedModule);
+						moduleDelegate.getURI(nestedModule);
 					}
 				}
 			}

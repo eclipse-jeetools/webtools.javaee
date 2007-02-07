@@ -19,6 +19,7 @@ import java.util.Map;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
@@ -41,10 +42,26 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 
 	protected EARArtifactEdit artifactEdit = null;
 
+	protected final int LINK_COMPONENTS_WORK = 10;
+	protected final int WEB_LIB_WORK = 10;
+	protected final int DISPOSE_WORK = 10;
+	
 	public EARComponentImportOperation(IDataModel model) {
 		super(model);
 	}
 
+	protected int computeTotalWork() {
+		int baseWork = super.computeTotalWork() + WEB_LIB_WORK + DISPOSE_WORK;
+		List modelsToImport = (List) model.getProperty(IEARComponentImportDataModelProperties.HANDLED_PROJECT_MODELS_LIST);
+		IDataModel importModel = null;
+		for (int i = 0; i < modelsToImport.size(); i++) {
+			importModel = (IDataModel) modelsToImport.get(i);
+			Archive nestedArchive = (Archive) importModel.getProperty(IEARComponentImportDataModelProperties.FILE);
+			baseWork += LINK_COMPONENTS_WORK + PROJECT_CREATION_WORK + nestedArchive.getFiles().size();
+		}
+		return baseWork;
+	}
+	
 	/**
 	 * Subclasses must override to performs the workbench modification steps that are to be
 	 * contained within a single logical workbench change.
@@ -89,6 +106,7 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 					}
 				}
 			}
+			monitor.worked(WEB_LIB_WORK);
 
 			List componentToAdd = new ArrayList();
 			Map componentToURIMap = new HashMap();
@@ -100,7 +118,7 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 				if (compCreationModel.isProperty(IJ2EEFacetProjectCreationDataModelProperties.MODULE_URI))
 					compCreationModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.MODULE_URI, nestedArchive.getURI());
 				try {
-					importModel.getDefaultOperation().execute(monitor, info);
+					importModel.getDefaultOperation().execute(new SubProgressMonitor(monitor, PROJECT_CREATION_WORK + nestedArchive.getFiles().size()), info);
 				} catch (ExecutionException e) {
 					Logger.getLogger().logError(e);
 				}
@@ -113,7 +131,7 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, virtualComponent);
 				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, componentToAdd);
 				addComponentsDM.setProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, componentToURIMap);
-				addComponentsDM.getDefaultOperation().execute(monitor, info);
+				addComponentsDM.getDefaultOperation().execute(new SubProgressMonitor(monitor, LINK_COMPONENTS_WORK), info);
 			}
 		} finally {
 			if (null != artifactEdit) {
@@ -121,6 +139,7 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 				artifactEdit = null;
 			}
 			resetDisposeImportModels();
+			monitor.worked(DISPOSE_WORK);
 		}
 	}
 

@@ -21,7 +21,10 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
+import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
+import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.jst.common.project.facet.JavaFacetUtils;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDataModelProvider;
@@ -36,6 +39,7 @@ import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.project.facet.ProductManager;
 import org.eclipse.wst.web.ui.internal.Logger;
 /**
  * Convert a simple static web project to a J2EE Dynamic Web Project
@@ -124,12 +128,22 @@ public class ConvertToWebModuleTypeAction extends Action implements IWorkbenchWi
 		IFacetedProject.Action uninstall = new IFacetedProject.Action(IFacetedProject.Action.Type.UNINSTALL, facetedProject.getInstalledVersion(webFacet), null);
 		IDataModel webModelCfg = DataModelFactory.createDataModel(new WebFacetInstallDataModelProvider());
 		webModelCfg.setBooleanProperty(IWebFacetInstallDataModelProperties.ADD_TO_EAR, false);
+		
+		IDataModel javaModelCfg = null;
+		if (ProductManager.shouldUseSingleRootStructure()){
+			javaModelCfg = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
+			String webRoot = webModelCfg.getStringProperty(IWebFacetInstallDataModelProperties.CONFIG_FOLDER);			
+			javaModelCfg.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME,
+					webRoot+"/"+ J2EEConstants.WEB_INF_CLASSES); //$NON-NLS-1$
+		}		
+		
 		IFacetedProject.Action install = new IFacetedProject.Action(IFacetedProject.Action.Type.INSTALL,webFv,webModelCfg);
-		IFacetedProject.Action javaInstall = new IFacetedProject.Action(IFacetedProject.Action.Type.INSTALL, javaFv, null);
+		IFacetedProject.Action javaInstall = new IFacetedProject.Action(IFacetedProject.Action.Type.INSTALL, javaFv, javaModelCfg);
 		Set set = new HashSet();
 		set.add(uninstall);
 		set.add(install);
 		set.add(javaInstall);
+		
 		facetedProject.modify(set, new NullProgressMonitor());
 	}
 }

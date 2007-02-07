@@ -327,17 +327,8 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 		public synchronized IReferenceCountedArchive openArchive(EnterpriseBinaryComponentHelper helper) throws OpenFailureException {
 			ArchiveOptions options = helper.getArchiveOptions();
 			String archiveURI = helper.getArchiveURI();
-			String filename = archiveURI.replace('/', java.io.File.separatorChar);
-			java.io.File file = new java.io.File(filename);
-			if (!file.exists()) {
-				throw new OpenFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.file_not_found_EXC_, (new Object[] { archiveURI, file.getAbsolutePath() }))); 
-			}
-			try {
-				BinaryZipFileLoadStrategy strategy = new BinaryZipFileLoadStrategy(file);
-				options.setLoadStrategy(strategy);
-			} catch (IOException ex) {
-				throw new OpenFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.could_not_open_EXC_, (new Object[] { archiveURI })), ex); 
-			}
+			
+			options.setLoadStrategy(createBinaryLoadStrategy(helper));
 
 			Archive anArchive = CommonarchiveFactory.eINSTANCE.primOpenArchive(options, archiveURI);
 
@@ -348,10 +339,26 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 				throw new OpenFailureException(discriminator.getUnableToOpenMessage());
 			}
 			IReferenceCountedArchive specificArchive = (IReferenceCountedArchive) discriminator.openArchive(anArchive);
+			specificArchive.setEnterpriseBinaryComponentHelper(helper);
 			specificArchive.initializeAfterOpen();
 			specificArchive.access();
 			componentsToArchives.put(helper.getComponent(), specificArchive);
 			return specificArchive;
+		}
+	}
+	
+	protected static BinaryZipFileLoadStrategy createBinaryLoadStrategy(EnterpriseBinaryComponentHelper helper) throws OpenFailureException {
+		String archiveURI = helper.getArchiveURI();
+		String filename = archiveURI.replace('/', java.io.File.separatorChar);
+		java.io.File file = new java.io.File(filename);
+		if (!file.exists()) {
+			throw new OpenFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.file_not_found_EXC_, (new Object[] { archiveURI, file.getAbsolutePath() }))); 
+		}
+		try {
+			BinaryZipFileLoadStrategy strategy = new BinaryZipFileLoadStrategy(file);
+			return strategy;
+		} catch (IOException ex) {
+			throw new OpenFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.could_not_open_EXC_, (new Object[] { archiveURI })), ex); 
 		}
 	}
 
@@ -365,6 +372,10 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 		public void access();
 
 		public void forceClose();
+		
+		public void setEnterpriseBinaryComponentHelper(EnterpriseBinaryComponentHelper helper);
+		
+		public EnterpriseBinaryComponentHelper getEnterpriseBinaryComponentHelper();
 		
 	}
 

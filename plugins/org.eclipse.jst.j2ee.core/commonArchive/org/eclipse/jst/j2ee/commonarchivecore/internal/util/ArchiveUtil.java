@@ -43,6 +43,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleRef;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.EmptyResourceException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveURIConverterImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipFileLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
@@ -85,6 +86,14 @@ public class ArchiveUtil {
 	protected static String tempDirectoryName;
 
 	protected static java.io.File tempDirectory;
+	
+	/**
+	 * Flag to indicate whether empty directories should be included during import; defaults to true.
+	 * 
+	 * @see ZipFileLoadStrategyImpl#isIncludeEmptyDirectories()
+	 */
+	public static boolean INCLUDE_EMPTY_DIRECTORIES = true;
+	
 
 	public static String classNameToJavaUri(String className) {
 		return className.replace('.', '/').concat(DOT_JAVA);
@@ -232,36 +241,15 @@ public class ArchiveUtil {
 			String parent = getFileNameParent(archiveUri);
 			if (parent == null || parent.equals("")) //$NON-NLS-1$
 				parent = "."; //$NON-NLS-1$
-			String workingDir = new java.io.File(".").getCanonicalPath().toLowerCase(); //$NON-NLS-1$
-			
-			String resolvedPath = new java.io.File(parent, classpathEntry).getCanonicalPath().toLowerCase();
+			String workingDir = new java.io.File(".").getCanonicalPath(); //$NON-NLS-1$
+
+			String resolvedPath = new java.io.File(parent, classpathEntry).getCanonicalPath();
 			if (!resolvedPath.startsWith(workingDir))
 				return null;
 			if (resolvedPath.equals(workingDir))
 				return null;
 			int start = workingDir.endsWith(java.io.File.separator) ? workingDir.length() : workingDir.length() + 1;
-			String lowerCaseEntry = resolvedPath.substring(start, resolvedPath.length()).replace(java.io.File.separatorChar, '/');
-			
-			char [] newEntry = lowerCaseEntry.toCharArray();
-			char [] oldEntry = classpathEntry.replace(java.io.File.separatorChar, '/').toCharArray();
-			int newIndex = 0;
-			int oldIndex = 0;
-			while(newIndex < newEntry.length && oldIndex < oldEntry.length){
-				char c1 = newEntry[newIndex];
-				char c2 = oldEntry[oldIndex];
-				if(c1 == c2){
-					newIndex ++;
-					oldIndex ++;
-				} else if(Character.toUpperCase(c1) == c2){
-					newEntry[newIndex] = c2;
-					newIndex ++;
-					oldIndex ++;
-				} else {
-					oldIndex ++;
-				}
-			}
-			String newEntryStr = new String(newEntry);
-			return newEntryStr;
+			return resolvedPath.substring(start, resolvedPath.length()).replace(java.io.File.separatorChar, '/');
 		} catch (java.io.IOException ex) {
 			//getCanonicalPath could throw this
 			return null;

@@ -16,15 +16,19 @@
  */
 package org.eclipse.jst.j2ee.commonarchivecore.internal.util;
 
+import java.security.ProtectionDomain;
 import java.util.List;
 
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile;
 
-
 public class RarFileDynamicClassLoader extends ArchiveFileDynamicClassLoader {
 
+    public RarFileDynamicClassLoader(Archive anArchive, ClassLoader parentCl, ClassLoader extraCl, ProtectionDomain pDomain) {
+        super(anArchive, parentCl, extraCl, pDomain);
+    }
+    
 	public RarFileDynamicClassLoader(Archive anArchive, ClassLoader parentCl, ClassLoader extraCl) {
 		super(anArchive, parentCl, extraCl);
 	}
