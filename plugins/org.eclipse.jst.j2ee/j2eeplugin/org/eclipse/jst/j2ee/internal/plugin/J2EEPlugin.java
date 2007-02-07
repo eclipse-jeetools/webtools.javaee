@@ -38,6 +38,8 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
@@ -48,6 +50,7 @@ import org.eclipse.jdt.core.IJavaModel;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.UIContextDetermination;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
@@ -507,6 +510,14 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener(J2EEComponentClasspathUpdater.getInstance());
+		try {
+			org.eclipse.core.runtime.Platform.getJobManager().join( J2EEElementChangedListener.PROJECT_COMPONENT_UPDATE_JOB_FAMILY,
+					new NullProgressMonitor() );
+		} catch (OperationCanceledException e) {
+			Logger.getLogger().logError(e.getMessage());
+		} catch (InterruptedException e) {
+			Logger.getLogger().logError(e.getMessage());
+		}		
 	}
 
 	/*
