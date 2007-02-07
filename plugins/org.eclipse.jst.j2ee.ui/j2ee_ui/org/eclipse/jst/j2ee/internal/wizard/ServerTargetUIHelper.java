@@ -22,14 +22,11 @@ import java.util.Arrays;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jst.j2ee.internal.common.CommonEditResourceHandler;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wst.server.core.IRuntime;
-import org.eclipse.wst.server.core.ServerCore;
 import org.eclipse.wst.server.core.ServerUtil;
 
 /**
@@ -70,31 +67,7 @@ public class ServerTargetUIHelper {
 	 * @return
 	 */
 	public static boolean setModuleServerTargetIfNecessary(IProject earProject, IProject moduleProject, Shell shell) {
-		IRuntime earRuntime = getProjectRuntime(earProject);
-		if (earRuntime != null) {
-			IRuntime moduleRuntime = getProjectRuntime(moduleProject);
-			if (moduleRuntime == null) {
-				return true;
-			} else if (!earRuntime.getId().equals(moduleRuntime.getId())) {
-				String dialogMessage = CommonEditResourceHandler.getString("Change_Module_Server_Target_Dialog_Message_UI_", new Object[]{earRuntime.getName(), moduleRuntime.getName()}); //$NON-NLS-1$
-				String dialogTitle = CommonEditResourceHandler.getString("Change_Server_Target_Dialog_Title_UI_"); //$NON-NLS-1$
-				MessageDialog dialog = new MessageDialog(shell, dialogTitle, null, dialogMessage, MessageDialog.QUESTION, new String[]{IDialogConstants.YES_LABEL, IDialogConstants.NO_LABEL}, 0);
-				dialog.open();
-				if (dialog.getReturnCode() == 0) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param project
-	 * @return IRuntime return the existing Target runtime on a IProject
-	 */
-	public static IRuntime getProjectRuntime(IProject project) {
-		return ServerCore.getProjectProperties(project).getRuntimeTarget();
+		return true;
 	}
 
 	//	private static String getEARJ2EELevel(IProject earProject) {

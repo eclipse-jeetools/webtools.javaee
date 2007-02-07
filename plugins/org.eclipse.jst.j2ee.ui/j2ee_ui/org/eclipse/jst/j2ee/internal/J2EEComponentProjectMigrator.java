@@ -31,7 +31,6 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
@@ -48,7 +47,6 @@ import org.eclipse.jst.j2ee.project.facet.IAppClientFacetInstallDataModelPropert
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.UtilityFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDataModelProvider;
-import org.eclipse.jst.server.core.FacetUtil;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.internal.Workbench;
@@ -68,7 +66,6 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.project.facet.SimpleWebFacetInstallDataModelProvider;
 import org.eclipse.wst.server.core.IRuntime;
-import org.eclipse.wst.server.core.ServerCore;
 import org.eclipse.wst.server.core.ServerUtil;
 
 public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
@@ -591,33 +588,6 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 					return target;
 			}
 			return null;
-		}
-		/**@deprecated 
-		 * If this method is not used it should be removed at a later time, marking as deprecated
-		 * Warning cleanup 12/07/2005
-		 */
-		private void setRuntime(IProject aProject,IDataModel facetModel) {
-
-			IRuntime runtime = ServerCore.getProjectProperties(aProject).getRuntimeTarget();
-			try {
-				if (runtime != null) {
-					IRuntime run = getRuntimeByID(runtime.getId());
-					org.eclipse.wst.common.project.facet.core.runtime.IRuntime facetRuntime = null;
-					try {
-						if (run != null)
-							facetRuntime = FacetUtil.getRuntime(run);
-					}
-					catch (IllegalArgumentException ex)
-					{}
-					if (facetRuntime != null) {
-						facetModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME,facetRuntime);
-					}
-				}
-				} catch (IllegalArgumentException e) {
-				Logger.getLogger().logError(e);
-			}
-		
-			
 		}
 
 		protected IDataModel setupEjbInstallAction(IProject aProject,String ejbVersion, boolean existing) {

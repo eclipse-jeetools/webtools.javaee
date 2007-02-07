@@ -16,8 +16,6 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.swt.SWT;
@@ -30,8 +28,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
-import org.eclipse.wst.server.core.IRuntime;
-import org.eclipse.wst.server.core.ServerCore;
+
 
 /**
  * This has been slated for removal post WTP 1.5. Do not use this class/interface
@@ -244,6 +241,7 @@ public class NewModuleGroup implements IJ2EEComponentCreationDataModelProperties
 		serverTargetText = new Text(parent, SWT.BORDER | SWT.READ_ONLY);
 		serverTargetText.setLayoutData((new GridData(GridData.FILL_HORIZONTAL)));
 		new Label(parent, SWT.NONE);
+/* bug 167633 - also note that this class is deprecated and will soon be deleted.
 		String projectName = moduleNameText.getText();
 		if (projectName!=null && projectName.length()!=0) {
 			IProject project = ProjectUtilities.getProject(projectName);
@@ -255,5 +253,6 @@ public class NewModuleGroup implements IJ2EEComponentCreationDataModelProperties
 				}	
 			}
 		}
+*/
 	}
 }

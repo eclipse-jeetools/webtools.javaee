@@ -18,11 +18,9 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 import java.io.File;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
-import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
 import org.eclipse.swt.SWT;
@@ -53,8 +51,6 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
-import org.eclipse.wst.server.core.IRuntime;
-import org.eclipse.wst.server.core.ServerCore;
 import org.eclipse.wst.server.ui.ServerUIUtil;
 
 
@@ -334,7 +330,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 		// set up project name entry field
 		projectNameCombo = new Combo(parent, SWT.NONE | SWT.READ_ONLY);
 		projectNameCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		
+/* bug 167633 - also note that this class is deprecated and will soon be deleted.		
 		projectNameCombo.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				String projectName = projectNameCombo.getText();
@@ -356,6 +352,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 
 			}
 		});
+*/
 	}
 
 	/**
