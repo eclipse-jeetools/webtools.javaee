@@ -35,10 +35,10 @@ import org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.IEjbFacetInstallDataModelProperties;
-import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
+import org.eclipse.jst.jee.internal.common.JEEVersionUtil;
+import org.eclipse.jst.jee.project.facet.IJEEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
-import org.eclipse.jst.jee.JEEVersionUtil;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
@@ -51,7 +51,7 @@ import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
-public class Ejb3FacetPostInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
+public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
 
 	public void execute(IProject project, IProjectFacetVersion fv, Object config, IProgressMonitor monitor) throws CoreException {
 
@@ -80,7 +80,7 @@ public class Ejb3FacetPostInstallDelegate extends J2EEFacetInstallDelegate imple
 
 					installAndAddModuletoEAR( j2eeVersionText,
 										earProjectName,
-										(IRuntime) model.getProperty(IJ2EEFacetInstallDataModelProperties.FACET_RUNTIME),
+										(IRuntime) model.getProperty(IJEEFacetInstallDataModelProperties.FACET_RUNTIME),
 										project,
 										moduleURI,
 										monitor );
@@ -102,7 +102,7 @@ public class Ejb3FacetPostInstallDelegate extends J2EEFacetInstallDelegate imple
 //					c.setMetaProperty(CreationConstants.CLIENT_JAR_URI, clientURI);
 //
 //
-//					org.eclipse.wst.common.project.facet.core.runtime.IRuntime rt = (IRuntime) model.getProperty(IJ2EEFacetInstallDataModelProperties.FACET_RUNTIME);
+//					org.eclipse.wst.common.project.facet.core.runtime.IRuntime rt = (IRuntime) model.getProperty(IJEEFacetInstallDataModelProperties.FACET_RUNTIME);
 //					try {
 //
 //						IDataModel dm = DataModelFactory.createDataModel(new EjbClientProjectCreationDataModelProvider());

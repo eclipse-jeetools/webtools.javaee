@@ -13,15 +13,16 @@
  	       </and>
     	</constraint>
       	<group-member id="modules"/>
-		<action type="install" id="jst.ejb#3.0#install">
-    		<delegate class="org.eclipse.jst.jee.ejb.project.facet.Ejb3FacetInstallDelegate"/>
-       	   	<config-factory class="org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetInstallDataModelProvider"/>
-      	</action>
-		<event-handler type="POST_INSTALL">
-			<delegate class="org.eclipse.jst.jee.ejb.project.facet.Ejb3FacetPostInstallDelegate"/>
-    	</event-handler>
     </project-facet-version>
     
+     <action facet="jst.ejb" version="3.0" type="INSTALL" id="jst.ejb#3.0#install">
+    		<delegate class="org.eclipse.jst.jee.ejb.project.facet.EjbFacetInstallDelegate"/>
+       	   	<config-factory class="org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetInstallDataModelProvider"/>
+    </action>
+    
+    <event-handler facet="jst.ejb" version="3.0" type="POST_INSTALL">
+			<delegate class="org.eclipse.jst.jee.ejb.project.facet.EjbFacetPostInstallDelegate"/>
+    </event-handler>
          
    </extension> 
 
