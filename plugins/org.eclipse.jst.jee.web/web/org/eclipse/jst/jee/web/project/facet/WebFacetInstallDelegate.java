@@ -29,13 +29,12 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.web.classpath.WebAppLibrariesContainer;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
+import org.eclipse.jst.jee.JEEConstants;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetDataModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -111,7 +110,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 				}
 			}
 			
-			IVirtualFile vf = c.getRootFolder().getFile(new Path(J2EEConstants.MANIFEST_URI));
+			IVirtualFile vf = c.getRootFolder().getFile(new Path(JEEConstants.MANIFEST_URI));
 			IFile manifestmf = vf.getUnderlyingFile();
 			if (manifestmf == null || !manifestmf.exists()) {
 				try {
@@ -171,7 +170,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		String outputFolder = null;
 		// If using single root structure, set the output folder to "<contentRoot>/WEB-INF/classes"
 		if (ProductManager.shouldUseSingleRootStructure())
-			outputFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER)+"/"+J2EEConstants.WEB_INF_CLASSES;
+			outputFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER)+"/"+JEEConstants.WEB_INF_CLASSES;
 		// Otherwise set the output folder to the product setting default
 		else
 			outputFolder = ProductManager.getProperty(IProductConstants.OUTPUT_FOLDER);

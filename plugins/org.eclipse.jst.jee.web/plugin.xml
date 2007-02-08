@@ -11,15 +11,6 @@
         </and>
       </constraint>
       <group-member id="modules"/>
-     <action type="INSTALL" id="jst.web#2.5#install">
-      <delegate class="org.eclipse.jst.jee.web.project.facet.WebFacetInstallDelegate"/>
-      <config-factory class="org.eclipse.jst.jee.web.project.facet.WebFacetInstallDataModelProvider"/>
-    </action>
-
-   
-    <event-handler type="POST_INSTALL" >
-      <delegate class="org.eclipse.jst.jee.web.project.facet.WebFacetPostInstallDelegate"/>
-    </event-handler>
     </project-facet-version>
     
    
@@ -29,6 +20,15 @@
     </event-handler>
   -->  
     
+   <action facet="jst.web" version="2.5" type="INSTALL" id="jst.web#2.5#install">
+      <delegate class="org.eclipse.jst.jee.web.project.facet.WebFacetInstallDelegate"/>
+      <config-factory class="org.eclipse.jst.jee.web.project.facet.WebFacetInstallDataModelProvider"/>
+    </action>
+
+     <event-handler facet="jst.web" version="2.5" type="POST_INSTALL" >
+      	<delegate class="org.eclipse.jst.jee.web.project.facet.WebFacetPostInstallDelegate"/>
+      </event-handler>
 
    </extension>
-</plugin>
+   
+ </plugin>
