@@ -14,16 +14,17 @@
         </and>
       </constraint>
       <group-member id="modules"/>     
-      <action type="INSTALL" id="jst.ear#5.0#install">
-      		<delegate class="org.eclipse.jst.jee.project.facet.Ear5FacetInstallDelegate"/>
-      		<config-factory class="org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider"/>
-	  </action>
-      
-   	  <event-handler type="POST_INSTALL">
-      		<delegate class="org.eclipse.jst.jee.project.facet.Ear5FacetPostInstallDelegate"/>
-      </event-handler>  
-       
+             
     </project-facet-version>
+
+    <action facet="jst.ear" version="5.0" type="INSTALL" id="jst.ear#5.0#install">
+      		<delegate class="org.eclipse.jst.jee.project.facet.EarFacetInstallDelegate"/>
+      		<config-factory class="org.eclipse.jst.jee.internal.earcreation.EarFacetInstallDataModelProvider"/>
+    </action>
+      
+    <event-handler facet="jst.ear" version="5.0" type="POST_INSTALL">
+      		<delegate class="org.eclipse.jst.jee.project.facet.EarFacetPostInstallDelegate"/>
+    </event-handler>  
          
          
     <project-facet-version facet="jst.appclient" version="5.0">
@@ -34,17 +35,19 @@
         </and>
       </constraint>
       <group-member id="modules"/>     
-      <action type="install" id="jst.appclient#5.0#install">
-      		<delegate class="org.eclipse.jst.jee.project.facet.AppClientFacetInstallDelegate"/>
-     	 	<config-factory class="org.eclipse.jst.jee.project.facet.AppClientFacetInstallDataModelProvider"/>
-      </action>
 	  
-      <event-handler type="POST_INSTALL">
-      		<delegate class="org.eclipse.jst.jee.project.facet.AppClientFacetPostInstallDelegate"/>
-      </event-handler>
          
     </project-facet-version>
-            
+        
+    <action type="install" facet="jst.appclient" version="5.0" id="jst.appclient#5.0#install">
+      		<delegate class="org.eclipse.jst.jee.project.facet.AppClientFacetInstallDelegate"/>
+     	 	<config-factory class="org.eclipse.jst.jee.project.facet.AppClientFacetInstallDataModelProvider"/>
+    </action>
+	  
+    <event-handler type="POST_INSTALL" facet="jst.appclient" version="5.0">
+      		<delegate class="org.eclipse.jst.jee.project.facet.AppClientFacetPostInstallDelegate"/>
+    </event-handler>
+        
     
     <!-- comment it for now, not sure if we need a new one
     <event-handler type="RUNTIME_CHANGED" facet="jst.appclient" version="5.0">

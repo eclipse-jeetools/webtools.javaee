@@ -1,0 +1,23 @@
+/*******************************************************************************
+ * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ * IBM Corporation - initial API and implementation
+ *******************************************************************************/
+package org.eclipse.jst.jee.project.facet;
+
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetInstallDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+
+public interface IJEEFacetInstallDataModelProperties extends IFacetInstallDataModelProperties {
+
+	//TODO this property should probably be deleted
+	public static final String RUNTIME_TARGET_ID = "IJEEFacetInstallDataModelProperties.RUNTIME_TARGET_ID"; //$NON-NLS-1$
+	
+	public static final String FACET_RUNTIME = IFacetProjectCreationDataModelProperties.FACET_RUNTIME; 
+	
+}

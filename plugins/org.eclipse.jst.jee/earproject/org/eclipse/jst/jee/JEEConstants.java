@@ -20,4 +20,8 @@ public interface JEEConstants extends JEEVersionConstants {
 
 	String APPLICATION_SCHEMA_LOC_5_0 	= "http://java.sun.com/xml/ns/javaee/application_5.xsd"; //$NON-NLS-1$
 
+	String WEB_INF_CLASSES				=	"WEB-INF/classes"; //$NON-NLS-1$
+
+	String MANIFEST_URI	 				=	"META-INF/MANIFEST.MF"; //$NON-NLS-1$
+
 }

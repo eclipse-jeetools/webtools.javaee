@@ -14,9 +14,12 @@
  * TODO To change the template for this generated file go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-package org.eclipse.jst.jee;
+package org.eclipse.jst.jee.internal.common;
 
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.jee.JEEVersionConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 /**
  * @author nagrawal
@@ -92,14 +95,12 @@ public class JEEVersionUtil {
 		else
 			return J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(version);
 	}
-/*
+
 	public static int convertConnectorVersionStringToJ2EEVersionID(String version) {
-		if (version.equals(J2EEVersionConstants.VERSION_1_5_TEXT))
-			return JEEVersionConstants.J2EE_5_0_ID;
-		else
-			return J2EEVersionUtil.convertConnectorVersionStringToJ2EEVersionID(version);
+		// 	default
+		return J2EEVersionUtil.convertConnectorVersionStringToJ2EEVersionID(version);
 	}
-*/
+
 	public static int convertJ2EEVersionIDToEJBVersionID(int j2eeVersionId) {
 		switch (j2eeVersionId) {
 			case JEEVersionConstants.J2EE_5_0_ID:
@@ -117,18 +118,12 @@ public class JEEVersionUtil {
 			return J2EEVersionUtil.convertJ2EEVersionIDToWebVersionID(j2eeVersionId);
 		}
 	}
-/*
+
 	public static int convertJ2EEVersionIDToConnectorVersionID(int j2eeVersionId) {
-		switch (j2eeVersionId) {
-			case J2EEVersionConstants.J2EE_1_3_ID:
-				return J2EEVersionConstants.JCA_1_0_ID;
-			case J2EEVersionConstants.J2EE_1_4_ID:
-				return J2EEVersionConstants.JCA_1_5_ID;
-		}
 		// default
-		return J2EEVersionConstants.JCA_1_5_ID;
+		return J2EEVersionUtil.convertJ2EEVersionIDToConnectorVersionID(j2eeVersionId);
 	}
-*/	
+	
 	public static int convertVersionStringToInt(String version) {
 		int nVersion = 0;
 		
@@ -237,6 +232,21 @@ public class JEEVersionUtil {
 
 */		return nVersion;
 		
+	}
+
+	public static int convertVersionStringToInt(IVirtualComponent comp) {
+		String version = J2EEProjectUtilities.getJ2EEProjectVersion(comp.getProject());
+		if (J2EEProjectUtilities.isDynamicWebProject(comp.getProject()))
+			return convertWebVersionStringToJ2EEVersionID(version);
+		if (J2EEProjectUtilities.isEJBProject(comp.getProject()))
+			return convertEJBVersionStringToJ2EEVersionID(version);
+		if (J2EEProjectUtilities.isEARProject(comp.getProject()))
+			return convertVersionStringToInt(version);
+		if (J2EEProjectUtilities.isJCAProject(comp.getProject()))
+			return convertConnectorVersionStringToJ2EEVersionID(version);
+		if (J2EEProjectUtilities.isApplicationClientProject(comp.getProject()))
+			return convertAppClientVersionStringToJ2EEVersionID(version);
+		return 0;
 	}
 	
 }
