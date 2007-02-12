@@ -211,15 +211,10 @@ public class J2EEDependenciesPage extends PropertyPage {
 	}
 	
 	private static void fillDescription(Composite c, String s) {
-		GridData data = new GridData();
-		data.horizontalSpan = 1;
-		data.horizontalIndent = 5;
-		data = new GridData(GridData.FILL_HORIZONTAL);
+		GridData data = new GridData(GridData.FILL_HORIZONTAL);
 		data.widthHint = 250;
-		Text text = new Text(c, SWT.MULTI | SWT.WRAP);
+		Text text = new Text(c, SWT.READ_ONLY | SWT.WRAP);
 		text.setLayoutData(data);
-		text.setTextLimit(80);
-		text.setEditable(false);
 		text.setText(s);
 	}
 }
