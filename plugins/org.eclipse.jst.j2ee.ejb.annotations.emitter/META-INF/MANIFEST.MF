@@ -1,11 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: EJB Emitter Plug-in
+Bundle-Name: %Bundle-Name.0
 Bundle-SymbolicName: org.eclipse.jst.j2ee.ejb.annotations.emitter; singleton:=true
 Bundle-Version: 1.1.1.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.EjbEmitterPlugin
-Bundle-Vendor: Eclipse.org
+Bundle-Vendor: %Bundle-Vendor.0
 Bundle-Localization: plugin
 Export-Package: org.eclipse.jst.j2ee.ejb.annotations.internal.classgen;x-internal:=true,
  org.eclipse.jst.j2ee.ejb.annotations.internal.emitter;x-internal:=true
