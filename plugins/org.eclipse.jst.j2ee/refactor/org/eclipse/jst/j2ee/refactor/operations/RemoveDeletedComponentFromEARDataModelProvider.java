@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.internal.operations.RemoveComponentFromEnterpriseApplicationDataModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
@@ -33,7 +32,7 @@ public class RemoveDeletedComponentFromEARDataModelProvider extends RemoveCompon
 			List components = (List) getProperty(TARGET_COMPONENT_LIST);
 			for (int i = 0; i < components.size(); i++) {
 				IVirtualComponent component = (IVirtualComponent) components.get(i);
-				IProject project = component.getProject();
+//				IProject project = component.getProject();
 				String name = component.getName();
 				if (_metadata.isWeb()) {
 					name += ".war"; //$NON-NLS-1$			

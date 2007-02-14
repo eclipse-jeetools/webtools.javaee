@@ -64,7 +64,7 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 	private void cleanJavaContribution(Set theCurrentChildren) {
 		IJavaElement element = null;
 		for (Iterator iter = theCurrentChildren.iterator(); iter.hasNext();) {
-			Object child = (Object) iter.next();
+			Object child = iter.next();
 			if (child instanceof IResource && ((element = JavaCore.create((IResource) child)) != null) && element.exists())
 				iter.remove();
 			else if (child instanceof IJavaElement)
@@ -136,7 +136,7 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 		
 		Set refreshTargets = aRefreshSynchronization.getRefreshTargets();
 		for (Iterator iter = refreshTargets.iterator(); iter.hasNext();) {
-			Object refreshTarget = (Object) iter.next();
+			Object refreshTarget = iter.next();
 			if (refreshTarget instanceof IPackageFragmentRoot) {
 				IPackageFragmentRoot sourceFolder = (IPackageFragmentRoot) refreshTarget;
 				CompressedJavaProject compressedNode = getCompressedNode(sourceFolder.getJavaProject());
@@ -156,7 +156,7 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 	public boolean interceptUpdate(PipelinedViewerUpdate anUpdateSynchronization) {
 		Set refreshTargets = anUpdateSynchronization.getRefreshTargets();
 		for (Iterator iter = refreshTargets.iterator(); iter.hasNext();) {
-			Object refreshTarget = (Object) iter.next();
+			Object refreshTarget = iter.next();
 			if (refreshTarget instanceof IPackageFragmentRoot) {
 				IPackageFragmentRoot sourceFolder = (IPackageFragmentRoot) refreshTarget;
 				if (sourceFolder.getJavaProject()!=null && sourceFolder.getJavaProject().exists() && sourceFolder.getJavaProject().isOpen()) {

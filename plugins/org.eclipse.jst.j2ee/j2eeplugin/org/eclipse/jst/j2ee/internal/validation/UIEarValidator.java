@@ -123,21 +123,23 @@ public class UIEarValidator extends EarValidator {
 	protected void cleanUpSubTaskMessages(EObject ref) {
 		String groupName = EJB_REF_GROUP_NAME;
 		if (ref instanceof EjbRef)
-			ref = (EjbRef) ref;
+		{
+//			ref = (EjbRef) ref;
+		}
 		else if (ref instanceof ResourceRef) {
-			ref = (ResourceRef) ref;
+//			ref = (ResourceRef) ref;
 			groupName = RES_REF_GROUP_NAME;
 		} else if (ref instanceof ServiceRef) {
-			ref = (ServiceRef) ref;
+//			ref = (ServiceRef) ref;
 			groupName = SERVICE_REF_GROUP_NAME;
 		} else if (ref instanceof ResourceEnvRef) {
-			ref = (ResourceEnvRef) ref;
+//			ref = (ResourceEnvRef) ref;
 			groupName = RES_ENV_REF_GROUP_NAME;
 		} else if (ref instanceof SecurityRoleRef) {
-			ref = (SecurityRoleRef) ref;
+//			ref = (SecurityRoleRef) ref;
 			groupName = SEC_ROLE_REF_GROUP_NAME;
 		} else if (ref instanceof MessageDestinationRef) {
-			ref = (MessageDestinationRef) ref;
+//			ref = (MessageDestinationRef) ref;
 			groupName = MESSAGE_REF_GROUP_NAME;
 		}
 		Resource res = ref.eResource();
@@ -208,13 +210,12 @@ public class UIEarValidator extends EarValidator {
 	}
 
 	public IStatus validateInJob(IValidationContext inHelper, IReporter inReporter) throws org.eclipse.wst.validation.internal.core.ValidationException {
-
+		IStatus status = IValidatorJob.OK_STATUS;
 		IProject proj = ((IWorkbenchContext) inHelper).getProject();
 		IVirtualComponent earModule = ComponentCore.createComponent(proj);
             if(J2EEProjectUtilities.isEARProject(proj)){
 				IVirtualFile ddFile = earModule.getRootFolder().getFile(J2EEConstants.APPLICATION_DD_URI);
 				if( ddFile.exists()) {	
-					IStatus status = IValidatorJob.OK_STATUS;
 					status = super.validateInJob(inHelper, inReporter);
 					validateModuleMaps(earModule);
 					validateManifests();
@@ -223,7 +224,7 @@ public class UIEarValidator extends EarValidator {
 	//				validateDocType(earEdit,earModule);					
 				}
             }
-		return IValidatorJob.OK_STATUS;
+		return status;
 	}	
 
 	public ISchedulingRule getSchedulingRule(IValidationContext helper) {

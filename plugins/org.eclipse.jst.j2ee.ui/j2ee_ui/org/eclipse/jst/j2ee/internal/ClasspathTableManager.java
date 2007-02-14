@@ -320,8 +320,6 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 			return;
 		availableJARsViewer.setAllChecked(false);
 		model.setAllClasspathElementsSelected(false);
-		ClasspathModelEvent evt = new ClasspathModelEvent(ClasspathModelEvent.CLASS_PATH_CHANGED);
-		
 	}
 
 	protected void selectAllButtonSelected() {
@@ -513,6 +511,5 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	public void setWLPEntry(boolean isWLPEntry) {
 		this.isWLPEntry = isWLPEntry;
 	}
-
 
 }

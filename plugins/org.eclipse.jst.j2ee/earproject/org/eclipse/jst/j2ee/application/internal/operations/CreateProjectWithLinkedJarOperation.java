@@ -38,7 +38,7 @@ public class CreateProjectWithLinkedJarOperation extends J2EEUtilityJarImportAss
 
 	private String linkedPathVariable;
 	private String projectRoot;
-	private boolean createAsBinary;
+//	private boolean createAsBinary;
 
 	public CreateProjectWithLinkedJarOperation(File utilityJar, String overridingProjectRoot, String linkedPathVariable) {
 		super(NLS.bind(EARCreationResourceHandler.CreateProjectWithLinkedJarOperation_Creating_project_with_linked_archiv_, utilityJar.getName()), utilityJar);
@@ -98,6 +98,5 @@ public class CreateProjectWithLinkedJarOperation extends J2EEUtilityJarImportAss
 	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		return Status.CANCEL_STATUS;
 	}
-	
 
 }

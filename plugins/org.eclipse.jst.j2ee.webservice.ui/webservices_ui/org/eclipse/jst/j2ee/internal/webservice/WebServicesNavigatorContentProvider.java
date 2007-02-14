@@ -129,21 +129,21 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 		return result;
 	}
 
-	private List getHandlerChildren(Object parentElement) {
-		List result = new ArrayList();
-		WebServiceNavigatorGroupType handlersGroup = (WebServiceNavigatorGroupType) parentElement;
-		// handle web service handlers case
-		if (handlersGroup.getWsdlService() != null) {
-			PortComponent port = getWebServicesManager().getPortComponent(handlersGroup.getWsdlService());
-			if (port != null && port.getHandlers() != null && !port.getHandlers().isEmpty())
-				result.addAll(port.getHandlers());
-		}
-		// handle service ref case
-		else if (handlersGroup.getServiceRef() != null) {
-			result.addAll(handlersGroup.getServiceRef().getHandlers());
-		}
-		return result;
-	}
+//	private List getHandlerChildren(Object parentElement) {
+//		List result = new ArrayList();
+//		WebServiceNavigatorGroupType handlersGroup = (WebServiceNavigatorGroupType) parentElement;
+//		// handle web service handlers case
+//		if (handlersGroup.getWsdlService() != null) {
+//			PortComponent port = getWebServicesManager().getPortComponent(handlersGroup.getWsdlService());
+//			if (port != null && port.getHandlers() != null && !port.getHandlers().isEmpty())
+//				result.addAll(port.getHandlers());
+//		}
+//		// handle service ref case
+//		else if (handlersGroup.getServiceRef() != null) {
+//			result.addAll(handlersGroup.getServiceRef().getHandlers());
+//		}
+//		return result;
+//	}
 
 	/*
 	 * (non-Javadoc)

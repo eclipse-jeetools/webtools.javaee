@@ -51,7 +51,7 @@ public abstract class ProjectRefactorOperation extends AbstractDataModelOperatio
 	 */
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		try {
-			final ProjectRefactorMetadata refactoredMetadata = (ProjectRefactorMetadata) getProjectMetadata();
+			final ProjectRefactorMetadata refactoredMetadata = getProjectMetadata();
 
 			// Update this project's metadata
 			if (refactoredMetadata.hasModuleCoreNature()) {

@@ -16,8 +16,6 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -75,7 +73,7 @@ public final class UtilityFacetInstallDelegate extends J2EEFacetInstallDelegate 
 				}
 			}
 
-			final IWorkspace ws = ResourcesPlugin.getWorkspace();
+//			final IWorkspace ws = ResourcesPlugin.getWorkspace();
 
 			final IVirtualFolder root = c.getRootFolder();
 

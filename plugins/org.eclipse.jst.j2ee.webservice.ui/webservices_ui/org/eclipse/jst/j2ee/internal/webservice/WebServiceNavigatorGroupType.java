@@ -152,7 +152,7 @@ public class WebServiceNavigatorGroupType implements IActionFilter {
 			case CLIENTS :
 				return WebServicesManager.getInstance().getAllWorkspaceServiceRefs().toArray();
 			case HANDLERS : {
-				List result = new ArrayList();
+//				List result = new ArrayList();
 				// handle web service handlers case
 				if (getWsdlService() != null) {
 					PortComponent port = WebServicesManager.getInstance().getPortComponent(getWsdlService());

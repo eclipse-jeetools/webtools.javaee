@@ -17,8 +17,6 @@ import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.ui.progress.UIJob;
 
 public class LoadingDDUIJob extends UIJob {
-	
-	private static final String[] NO_PROPERTIES = new String[0];
 
 	private static final long DELAY = 200;
 	  
@@ -42,6 +40,5 @@ public class LoadingDDUIJob extends UIJob {
 		return Status.OK_STATUS;
 		
 	}
- 
 
 }

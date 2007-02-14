@@ -14,14 +14,12 @@ package org.eclipse.jst.j2ee.internal.provider;
 import java.util.Collection;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.edit.provider.ItemProvider;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 public class J2EEItemProvider extends ItemProvider implements IAdaptable {
 
@@ -245,8 +243,8 @@ public class J2EEItemProvider extends ItemProvider implements IAdaptable {
 	/**
 	 * @return
 	 */
-	private IProject getProjectFromParent() {
-		return ProjectUtilities.getProject(getParent());
-	}
+//	private IProject getProjectFromParent() {
+//		return ProjectUtilities.getProject(getParent());
+//	}
 
 }

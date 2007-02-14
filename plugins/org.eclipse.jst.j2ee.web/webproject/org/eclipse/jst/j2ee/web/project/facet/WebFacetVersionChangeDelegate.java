@@ -14,8 +14,6 @@ package org.eclipse.jst.j2ee.web.project.facet;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
@@ -67,7 +65,7 @@ public final class WebFacetVersionChangeDelegate
             // Update the component version.
             
             
-            final IVirtualComponent c = ComponentCore.createComponent(project);
+//            final IVirtualComponent c = ComponentCore.createComponent(project);
             
 //            final StructureEdit edit 
 //                = StructureEdit.getStructureEditForWrite( project );

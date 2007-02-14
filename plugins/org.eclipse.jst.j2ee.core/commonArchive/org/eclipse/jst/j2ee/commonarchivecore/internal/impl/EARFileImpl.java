@@ -142,7 +142,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 
 		if (aModuleFile.isEARFile())
 			//If it's an ear then just treat it like any other archive
-			return (ModuleFile) super.addCopy(aModuleFile);
+			return super.addCopy(aModuleFile);
 		checkAddValid(aModuleFile);
 		ModuleFile copy = getCommonArchiveFactory().copy(aModuleFile);
 		Module newModule = createModuleForCopying(aModuleFile);

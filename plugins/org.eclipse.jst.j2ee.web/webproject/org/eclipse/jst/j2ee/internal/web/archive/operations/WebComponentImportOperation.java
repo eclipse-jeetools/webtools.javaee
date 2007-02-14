@@ -51,7 +51,7 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 		List selectedLibs = (List) model.getProperty(IWebComponentImportDataModelProperties.WEB_LIB_ARCHIVES_SELECTED);
 		List libProjects = (List) model.getProperty(IWebComponentImportDataModelProperties.WEB_LIB_MODELS);
 		IDataModel importModel = null;
-		IVirtualComponent nestedComponent = null;
+//		IVirtualComponent nestedComponent = null;
 		Archive libArchive = null;
 		for (int i = 0; null != libProjects && i < libProjects.size(); i++) {
 			importModel = (IDataModel) libProjects.get(i);

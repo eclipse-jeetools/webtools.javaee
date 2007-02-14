@@ -44,8 +44,6 @@ public class AppClientFacetPostInstallDelegate extends J2EEFacetInstallDelegate 
 			monitor.beginTask("", 1); //$NON-NLS-1$
 		try {
 			IDataModel model = (IDataModel) config;
-
-			final IVirtualComponent c = ComponentCore.createComponent(project);
 			
 			// Add main class if necessary
 			if (model.getBooleanProperty(IAppClientFacetInstallDataModelProperties.CREATE_DEFAULT_MAIN_CLASS))

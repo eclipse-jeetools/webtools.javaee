@@ -44,7 +44,6 @@ import com.ibm.icu.util.StringTokenizer;
  * type comments go to Window>Preferences>Java>Code Generation.
  */
 public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesConstants  {
-	private int newSelectedIndex;
 	protected IProject project = null;
 	private static final int SIZING_TEXT_FIELD_WIDTH = 250;
 	Text contextRootNameField, webContentFolderField;
@@ -189,7 +188,7 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 
         if (!(name.indexOf(' ') > -1)) {
             StringTokenizer stok = new StringTokenizer(name, "."); //$NON-NLS-1$
-            outer : while (stok.hasMoreTokens()) {
+            while (stok.hasMoreTokens()) {
                 String token = stok.nextToken();
                 for (int i = 0; i < token.length(); i++) {
                     if (!(token.charAt(i) == '_') && !(token.charAt(i) == '-') && !(token.charAt(i) == '/') && Character.isLetterOrDigit(token.charAt(i)) == false) {

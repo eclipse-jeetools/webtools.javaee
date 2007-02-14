@@ -675,11 +675,11 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 	private List removeHandledModels(List listToPrune, List modelsToCheck, boolean addModels) {
 		List newList = new ArrayList();
 		newList.addAll(listToPrune);
-		IDataModel localModel = null;
-		for (int i = 0; i < modelsToCheck.size(); i++) {
-			localModel = (IDataModel) modelsToCheck.get(i);
+//		IDataModel localModel = null;
+//		for (int i = 0; i < modelsToCheck.size(); i++) {
+//			localModel = (IDataModel) modelsToCheck.get(i);
 			// model.extractHandled(newList, addModels);
-		}
+//		}
 		return newList;
 	}
 

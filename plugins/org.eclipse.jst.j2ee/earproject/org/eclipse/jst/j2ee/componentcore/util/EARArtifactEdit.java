@@ -441,18 +441,18 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		return null;		
 	}
 
-	private String getJarURI(final ReferencedComponent ref, final IVirtualComponent moduleComp) {
-		String uri =  ref.getArchiveName();
-		if( uri == null || uri.length() < 0 ){
-			uri = moduleComp.getName()+IJ2EEModuleConstants.JAR_EXT;
-		}else{
-			String prefix = ref.getRuntimePath().makeRelative().toString();
-			if(prefix.length() > 0){
-				uri = prefix + "/" + uri; //$NON-NLS-1$
-			}
-		}
-		return uri;
-	}
+//	private String getJarURI(final ReferencedComponent ref, final IVirtualComponent moduleComp) {
+//		String uri =  ref.getArchiveName();
+//		if( uri == null || uri.length() < 0 ){
+//			uri = moduleComp.getName()+IJ2EEModuleConstants.JAR_EXT;
+//		}else{
+//			String prefix = ref.getRuntimePath().makeRelative().toString();
+//			if(prefix.length() > 0){
+//				uri = prefix + "/" + uri; //$NON-NLS-1$
+//			}
+//		}
+//		return uri;
+//	}
 	
 	public IVirtualComponent getModuleByManifestURI(final String uri) {
 		IVirtualComponent earComponent = ComponentCore.createComponent(getProject());

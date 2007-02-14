@@ -201,5 +201,4 @@ public class ImportJ2EEModuleDropAssistant extends AddProjectToEARDropAssistant 
 		return status;
 	}
 
- 
 }

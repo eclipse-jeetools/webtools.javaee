@@ -17,8 +17,6 @@
 package org.eclipse.jst.j2ee.internal.actions;
 
 
-import java.util.Collections;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -27,7 +25,6 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jst.j2ee.internal.dialogs.J2EERenameUIConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.internal.rename.RenameOptions;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
@@ -40,14 +37,14 @@ import org.eclipse.ltk.core.refactoring.RefactoringStatus;
  */
 public class J2EEModuleRenameChange extends Change {
 
-	private String newName;
+//	private String newName;
 	private IProject target;
-	private boolean renameDependencies;
+//	private boolean renameDependencies;
 
 	public J2EEModuleRenameChange(IProject target, String newName, boolean renameDependencies) {
 		this.target = target;
-		this.newName = newName;
-		this.renameDependencies = renameDependencies;
+//		this.newName = newName;
+//		this.renameDependencies = renameDependencies;
 	}
 
 	/*
@@ -126,17 +123,17 @@ public class J2EEModuleRenameChange extends Change {
 	 * If this method is not used it should be removed at a later time, marking as deprecated
 	 * Warning cleanup 12/07/2005
 	 */
-	private RenameOptions getRenameOptions() {
-		RenameOptions options = new RenameOptions();
-		options.setNewName(this.newName);
-		options.setSelectedProjects(Collections.singletonList(this.target));
-		// TODO check module type for EAR type
-		//options.setIsEARRename(EARNatureRuntime.getRuntime(this.target) != null);
-		options.setRenameModuleDependencies(this.renameDependencies);
-		options.setRenameModules(true);
-		options.setRenameProjects(false);
-		return options;
-	}
+//	private RenameOptions getRenameOptions() {
+//		RenameOptions options = new RenameOptions();
+//		options.setNewName(this.newName);
+//		options.setSelectedProjects(Collections.singletonList(this.target));
+//		// TODO check module type for EAR type
+//		//options.setIsEARRename(EARNatureRuntime.getRuntime(this.target) != null);
+//		options.setRenameModuleDependencies(this.renameDependencies);
+//		options.setRenameModules(true);
+//		options.setRenameProjects(false);
+//		return options;
+//	}
 
 	/*
 	 * (non-Javadoc)

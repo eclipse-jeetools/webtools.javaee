@@ -36,8 +36,7 @@ public class CreateProjectWithExtractedJarOperation extends J2EEUtilityJarImport
 //	private boolean createBinaryProject = false; 
 	private String newProjectName;
 	private String projectRoot;
-	private boolean createAsBinary;
-
+//	private boolean createAsBinary;
 
 	public CreateProjectWithExtractedJarOperation(File utilityJar, String overridingProjectRoot) {
 		super(NLS.bind(EARCreationResourceHandler.CreateProjectWithExtractedJarOperation_Create_project_with_extracted_conte_, utilityJar.getName()), utilityJar);
@@ -109,7 +108,5 @@ public class CreateProjectWithExtractedJarOperation extends J2EEUtilityJarImport
 	public void setNewProjectName(String newProjectName) {
 		this.newProjectName = newProjectName;
 	}
-
-
 
 }

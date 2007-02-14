@@ -400,7 +400,7 @@ public class EarValidator extends J2EEValidator  {
 				} else if(ref.isClient())
 					validateAppClientRefs(ref);
 			} catch (ArchiveWrappedException ex) {
-				Exception nested = ex.getNestedException();
+//				Exception nested = ex.getNestedException();
 				String[] params = new String[1];
 				params[0] = ref.getUri();
 				addError(EREF_CATEGORY, ERROR_MODULE_DD_FILE_NOT_FOUND, params);					

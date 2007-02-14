@@ -117,22 +117,16 @@ public class FlexibleEMFModelManager extends EMFModelManager implements EditMode
 			return null;
 		synchronized (artifactEdits) {
 			if (artifactEdits.size() ==0 && project.isAccessible()) {
-				StructureEdit moduleCore = getModuleCore();
-				WorkbenchComponent[] workBenchModules = moduleCore.getWorkbenchModules(); 
-			    for (int i = 0; i < workBenchModules.length; i++) {
-	                 WorkbenchComponent module = workBenchModules[i];
-	                 ArtifactEdit artifactEdit = null;
-	                 try{
-	                  	   artifactEdit = ArtifactEdit.getArtifactEditForRead(project);
-		                   if(artifactEdit != null) {
-		                   	artifactEdits.add(artifactEdit);
-			                artifactEdit.addListener(this);
-		                   }
-	                 }  catch(Exception e){
-	                      e.printStackTrace();
-	                 } 
-			    }
-			
+				ArtifactEdit artifactEdit = null;
+				try{
+					artifactEdit = ArtifactEdit.getArtifactEditForRead(project);
+					if(artifactEdit != null) {
+						artifactEdits.add(artifactEdit);
+						artifactEdit.addListener(this);
+					}
+				} catch(Exception e){
+					e.printStackTrace();
+				}
 			}
 		}
 		return artifactEdits;

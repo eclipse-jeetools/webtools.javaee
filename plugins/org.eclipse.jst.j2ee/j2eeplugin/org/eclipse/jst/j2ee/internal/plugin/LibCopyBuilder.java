@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -30,10 +29,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 
 /**
@@ -78,11 +73,11 @@ public class LibCopyBuilder extends IncrementalProjectBuilder {
 	 * The path of the output folder that we last copied class files into, or <code>null</code> if
 	 * this builder has not built this project before.
 	 */
-	private IPath lastOutputPath = null;
+//	private IPath lastOutputPath = null;
 
 	private List sourceContainers;
 
-	private boolean needOutputRefresh;
+//	private boolean needOutputRefresh;
 
 	/**
 	 * Creates a new instance of the library copying builder.
@@ -158,10 +153,10 @@ public class LibCopyBuilder extends IncrementalProjectBuilder {
 	/**
 	 *  
 	 */
-	private void refreshOutputIfNecessary(IFolder outputFolder) throws CoreException {
-		if (needOutputRefresh && outputFolder != null && outputFolder.exists())
-			outputFolder.refreshLocal(IResource.DEPTH_INFINITE, null);
-	}
+//	private void refreshOutputIfNecessary(IFolder outputFolder) throws CoreException {
+//		if (needOutputRefresh && outputFolder != null && outputFolder.exists())
+//			outputFolder.refreshLocal(IResource.DEPTH_INFINITE, null);
+//	}
 
 	private void copyAllClassFolders(IProgressMonitor monitor, IFolder[] classFolders, IFolder outputFolder) throws CoreException {
 		for (int i = 0; i < classFolders.length; i++) {
@@ -273,20 +268,20 @@ public class LibCopyBuilder extends IncrementalProjectBuilder {
 	 * @exception CoreException
 	 *                if something goes wrong
 	 */
-	private boolean checkBuilderOrdering() throws CoreException {
+//	private boolean checkBuilderOrdering() throws CoreException {
 		// determine relative builder position from project's buildspec
-		ICommand[] cs = getProject().getDescription().getBuildSpec();
-		int myIndex = -1;
-		int javaBuilderIndex = -1;
-		for (int i = 0; i < cs.length; i++) {
-			if (cs[i].getBuilderName().equals(JavaCore.BUILDER_ID)) {
-				javaBuilderIndex = i;
-			} else if (cs[i].getBuilderName().equals(BUILDER_ID)) {
-				myIndex = i;
-			}
-		}
-		return myIndex > javaBuilderIndex;
-	}
+//		ICommand[] cs = getProject().getDescription().getBuildSpec();
+//		int myIndex = -1;
+//		int javaBuilderIndex = -1;
+//		for (int i = 0; i < cs.length; i++) {
+//			if (cs[i].getBuilderName().equals(JavaCore.BUILDER_ID)) {
+//				javaBuilderIndex = i;
+//			} else if (cs[i].getBuilderName().equals(BUILDER_ID)) {
+//				myIndex = i;
+//			}
+//		}
+//		return myIndex > javaBuilderIndex;
+//	}
 
 	/**
 	 * Copies class files from the given source folder to the given destination folder. The
@@ -453,7 +448,7 @@ public class LibCopyBuilder extends IncrementalProjectBuilder {
 	private void synchronizeModificationStamps(File sourceFile, File destFile) {
 		if (destFile != null && sourceFile != null) {
 			destFile.setLastModified(sourceFile.lastModified());
-			needOutputRefresh = true;
+//			needOutputRefresh = true;
 		}
 	}
 
@@ -480,32 +475,32 @@ public class LibCopyBuilder extends IncrementalProjectBuilder {
 		folder.create(false, true, monitor);
 	}
 
-	private IFolder[] getClassesFolders() {
-		IProject project = getProject();
-		IJavaProject javaProj = JemProjectUtilities.getJavaProject(project);
-		if (javaProj == null)
-			return new IFolder[0];
-		List result = null;
-		IClasspathEntry[] entries;
-		try {
-			entries = javaProj.getResolvedClasspath(true);
-		} catch (JavaModelException e) {
-			return new IFolder[0];
-		}
-		for (int i = 0; i < entries.length; i++) {
-			IClasspathEntry entry = entries[i];
-			if (entry.getEntryKind() == IClasspathEntry.CPE_LIBRARY) {
-				IPath path = entry.getPath();
-				IResource res = project.getWorkspace().getRoot().findMember(path);
-				if (res != null && res.isAccessible() && res.getType() == IResource.FOLDER && res.getProject().equals(project)) {
-					if (result == null)
-						result = new ArrayList(1);
-					result.add(res);
-				}
-			}
-		}
-		if (result == null)
-			return new IFolder[0];
-		return (IFolder[]) result.toArray(new IFolder[result.size()]);
-	}
+//	private IFolder[] getClassesFolders() {
+//		IProject project = getProject();
+//		IJavaProject javaProj = JemProjectUtilities.getJavaProject(project);
+//		if (javaProj == null)
+//			return new IFolder[0];
+//		List result = null;
+//		IClasspathEntry[] entries;
+//		try {
+//			entries = javaProj.getResolvedClasspath(true);
+//		} catch (JavaModelException e) {
+//			return new IFolder[0];
+//		}
+//		for (int i = 0; i < entries.length; i++) {
+//			IClasspathEntry entry = entries[i];
+//			if (entry.getEntryKind() == IClasspathEntry.CPE_LIBRARY) {
+//				IPath path = entry.getPath();
+//				IResource res = project.getWorkspace().getRoot().findMember(path);
+//				if (res != null && res.isAccessible() && res.getType() == IResource.FOLDER && res.getProject().equals(project)) {
+//					if (result == null)
+//						result = new ArrayList(1);
+//					result.add(res);
+//				}
+//			}
+//		}
+//		if (result == null)
+//			return new IFolder[0];
+//		return (IFolder[]) result.toArray(new IFolder[result.size()]);
+//	}
 }
