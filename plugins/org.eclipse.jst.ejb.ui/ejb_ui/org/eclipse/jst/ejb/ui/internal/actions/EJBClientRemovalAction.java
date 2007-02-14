@@ -39,7 +39,6 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.ui.UIOperationHandler;
 import org.eclipse.wst.common.frameworks.internal.ui.WorkspaceModifyComposedOperation;
-import org.eclipse.wst.validation.internal.operations.ValidatorManager;
 import org.eclipse.wst.validation.internal.operations.ValidatorSubsetOperation;
 import org.eclipse.wst.validation.internal.ui.plugin.ValidationUIPlugin;
 
@@ -75,7 +74,7 @@ public class EJBClientRemovalAction extends AbstractClientJARAction {
 
 		final IProject clientProject = getClientProject();
 		
-		ValidatorManager validatorMgr = ValidatorManager.getManager();		
+//		ValidatorManager validatorMgr = ValidatorManager.getManager();
 		try{
 				//validatorMgr.suspendAllValidation(true);
 				
@@ -142,10 +141,10 @@ public class EJBClientRemovalAction extends AbstractClientJARAction {
 		}
 	}
 	
-	private void handleException(Shell shell, Exception e) {
-		Logger.getLogger().logError(e);
-		MessageDialog.openError(shell, REMOVE_ERROR_TITLE, ERROR_REMOVING_CLIENT);
-	}
+//	private void handleException(Shell shell, Exception e) {
+//		Logger.getLogger().logError(e);
+//		MessageDialog.openError(shell, REMOVE_ERROR_TITLE, ERROR_REMOVING_CLIENT);
+//	}
 
 	/**
 	 * @return

@@ -94,7 +94,7 @@ public class EjbFacetInstallDataModelProvider
 	    	model.notifyPropertyChange(CLIENT_URI, IDataModel.ENABLE_CHG);
 	    }else if (propertyName.equals(FACET_PROJECT_NAME)){
 	    	model.setStringProperty(CLIENT_NAME, (String)propertyValue + "Client");
-	    	model.setStringProperty(CLIENT_URI, (String)((String)(propertyValue + "Client.jar").replace(' ', '_')));
+	    	model.setStringProperty(CLIENT_URI, (propertyValue + "Client.jar").replace(' ', '_'));
 	    }else if(propertyName.equals(ADD_TO_EAR)){
 	    	boolean addToEar = ((Boolean)propertyValue).booleanValue();
 	    	if(!addToEar && isPropertySet(CREATE_CLIENT)){

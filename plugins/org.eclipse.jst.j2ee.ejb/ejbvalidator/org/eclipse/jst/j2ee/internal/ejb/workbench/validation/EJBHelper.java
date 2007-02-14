@@ -63,7 +63,6 @@ import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.validation.AWorkbenchMOFHelper;
-import org.eclipse.jst.j2ee.internal.validation.DependencyUtil;
 import org.eclipse.jst.j2ee.model.internal.validation.EJBValidator;
 import org.eclipse.jst.j2ee.model.internal.validation.EJBValidatorModelEnum;
 import org.eclipse.jst.j2ee.model.internal.validation.IEJBValidatorConstants;
@@ -83,9 +82,9 @@ import org.eclipse.wst.validation.internal.provisional.core.IReporter;
  */
 public class EJBHelper extends AWorkbenchMOFHelper {
 	//protected EJBProjectResources _projectResources = null;
-	private IJavaProject[] _dependentJavaProjects = null;
+//	private IJavaProject[] _dependentJavaProjects = null;
 	private IJavaProject[] _requiredJavaProjects = null;
-	private IJavaProject _javaProject = null; // this IProject, as an
+//	private IJavaProject _javaProject = null; // this IProject, as an
 	// IJavaProject
 	private Set _tempSet = null;
 	private Map _projectMap = null; // Key is IJavaProject instance, value is
@@ -159,17 +158,17 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 //			_projectResources = null;
 //		}
 		if (_projectMap != null) {
-			Iterator iterator = _projectMap.values().iterator();
-			while (iterator.hasNext()) {
-				Object value = iterator.next();
+//			Iterator iterator = _projectMap.values().iterator();
+//			while (iterator.hasNext()) {
+//				Object value = iterator.next();
 //				if (value instanceof EJBProjectResources) {
 //					((EJBProjectResources) value).cleanup();
 //				}
-			}
+//			}
 			_projectMap.clear();
 		}
-		_dependentJavaProjects = null;
-		_javaProject = null;
+//		_dependentJavaProjects = null;
+//		_javaProject = null;
 		ejbJar = null;
 		if (edit != null) {
 			edit.dispose();
@@ -641,8 +640,8 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 //		}
 //		_projectResources = new EJBProjectResources(getProject());
 		// Now build the cache of IJavaProjects which depend on this IProject.
-		_javaProject = JavaCore.create(getProject());
-		_dependentJavaProjects = DependencyUtil.getDependentJavaProjects(_javaProject);
+//		_javaProject = JavaCore.create(getProject());
+//		_dependentJavaProjects = DependencyUtil.getDependentJavaProjects(_javaProject);
 	}
 
 //	protected EJBProjectResources getProjectResources() {
@@ -686,23 +685,23 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 		return JDOMSearchHelper.findType(clazz.getJavaPackage().getName(), clazz.getName(), javaProj);
 	}
 
-	private void addBeans(JavaClass clazz, Set tempSet) {
-		
-		
-			IVirtualComponent comp = ComponentCore.createComponent(getProject());
-			ArtifactEdit edit = ComponentUtilities.getArtifactEditForRead(comp);
-			try {
-				EJBJar ejbJar = ((EJBArtifactEdit) edit).getEJBJar();
-				if (ejbJar == null) {
-					return;
-				}
-				tempSet.addAll(ejbJar.getEnterpriseBeansWithReference(clazz));
-			}finally {
-				if (edit != null) {
-					edit.dispose();
-				}
-			}
-	}
+//	private void addBeans(JavaClass clazz, Set tempSet) {
+//		
+//		
+//			IVirtualComponent comp = ComponentCore.createComponent(getProject());
+//			ArtifactEdit edit = ComponentUtilities.getArtifactEditForRead(comp);
+//			try {
+//				EJBJar ejbJar = ((EJBArtifactEdit) edit).getEJBJar();
+//				if (ejbJar == null) {
+//					return;
+//				}
+//				tempSet.addAll(ejbJar.getEnterpriseBeansWithReference(clazz));
+//			}finally {
+//				if (edit != null) {
+//					edit.dispose();
+//				}
+//			}
+//	}
 
 	// Can't assume that the IType is in the same project as the parent class
 	// (loadChildren).

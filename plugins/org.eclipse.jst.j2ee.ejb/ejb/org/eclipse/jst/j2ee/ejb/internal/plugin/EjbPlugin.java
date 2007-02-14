@@ -16,7 +16,6 @@ import java.text.MessageFormat;
 
 import org.eclipse.core.internal.boot.PlatformURLConnection;
 import org.eclipse.core.resources.IResourceStatus;
-import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
@@ -99,7 +98,7 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 	 * d:\installdir\plugin)
 	 */
 	public static IPath getPluginLocation(String pluginId) {
-		IExtensionRegistry registry = Platform.getExtensionRegistry();
+//		IExtensionRegistry registry = Platform.getExtensionRegistry();
 		Bundle bundle = Platform.getBundle(pluginId);
 		if (bundle != null) {
 			try {

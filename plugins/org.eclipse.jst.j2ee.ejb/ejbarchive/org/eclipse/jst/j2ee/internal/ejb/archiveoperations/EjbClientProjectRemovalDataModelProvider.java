@@ -12,9 +12,6 @@ package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
 import java.util.Set;
 
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
@@ -41,12 +38,9 @@ public class EjbClientProjectRemovalDataModelProvider
 	public Object getDefaultProperty(String propertyName) {
 		return super.getDefaultProperty(propertyName);
 	}
-	
-	
-    
-	private IStatus checkForValidProjectName(String aProjectName) {
-		return ResourcesPlugin.getWorkspace().validateName(aProjectName, IResource.PROJECT);
-	}
 
-   
+//	private IStatus checkForValidProjectName(String aProjectName) {
+//		return ResourcesPlugin.getWorkspace().validateName(aProjectName, IResource.PROJECT);
+//	}
+
 }
