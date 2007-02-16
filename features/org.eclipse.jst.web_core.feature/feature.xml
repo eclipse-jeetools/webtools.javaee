@@ -80,16 +80,16 @@
 
    <plugin
          id="javax.servlet"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
+         download-size="100"
+         install-size="100"
+         version="2.4.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="javax.servlet.jsp"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
+         download-size="52"
+         install-size="52"
+         version="2.0.0.qualifier"
          unpack="false"/>
 
          
