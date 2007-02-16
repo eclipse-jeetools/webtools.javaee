@@ -18,12 +18,12 @@
 package org.eclipse.jst.j2ee.internal;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Arrays;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
@@ -81,11 +81,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 
-/**
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+
 public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, Listener {
 
 	protected final IProject project;
@@ -381,6 +377,54 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		javaProjectsList = new ArrayList();
 	}
 	
+	/**
+	 * Adds a reference while avoiding name collisions
+	 * @param archive
+	 * @return
+	 */
+	private void addReference(IVirtualComponent archive){
+		IVirtualReference newRef = ComponentCore.createReference( earComponent, archive );
+		
+		IVirtualReference [] existingRefs = earComponent.getReferences();
+		String defaultArchiveName = new Path(newRef.getReferencedComponent().getName()).lastSegment();
+		
+		boolean dupeArchiveName = false;
+		//check for duplicates
+		for(int j=0;j<existingRefs.length;j++){
+			if(existingRefs[j].getReferencedComponent().getName().equals(newRef.getReferencedComponent().getName())){
+				return; //same exact component already referenced
+			} else if(existingRefs[j].getArchiveName().equals(defaultArchiveName)){
+				dupeArchiveName = true; //different archive with same archive name
+			}
+		}
+		
+		for(int j=1; dupeArchiveName; j++){ //ensure it doesn't have the runtime path
+			int lastDotIndex = defaultArchiveName.lastIndexOf('.');
+			String newArchiveName = null;
+			String increment = "_"+j;
+			if(lastDotIndex != -1){
+				newArchiveName = defaultArchiveName.substring(0, lastDotIndex) + increment + defaultArchiveName.substring(lastDotIndex);
+			} else {
+				newArchiveName = defaultArchiveName.substring(0)+increment;
+			}
+			
+			int k = 0;
+			for(;k<existingRefs.length; k++){
+				if(existingRefs[k].getArchiveName().equals(newArchiveName )){
+					break;
+				}
+			}
+			if(k == existingRefs.length){
+				dupeArchiveName = false;
+				newRef.setArchiveName(newArchiveName);
+			}
+		}
+		
+		earComponent.addReferences(new IVirtualReference[] {newRef });
+		j2eeComponentList.add(archive);
+		
+	}
+	
 	private void handleSelectExternalJarButton(){
 		IPath[] selected= BuildPathDialogAccess.chooseExternalJAREntries(propPage.getShell());
 
@@ -391,15 +435,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 				IVirtualComponent archive = ComponentCore.createArchiveComponent( earComponent.getProject(), type +
 							selected[i].toString());
 				
-				ArrayList vlist = new ArrayList();
-			
-				//To do: check if archive component already exists
-				IVirtualReference ref = ComponentCore.createReference( earComponent, archive );
-				vlist.add(ref);	
-				
-				IVirtualReference[] refs = (IVirtualReference[]) vlist.toArray(new IVirtualReference[vlist.size()]);
-				earComponent.addReferences(refs);
-				j2eeComponentList.add(archive);
+				addReference(archive);
 			}
 			refresh();
 		}
@@ -422,24 +458,8 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 					IVirtualComponent archive = ComponentCore.createArchiveComponent( earComponent.getProject(), type +
 								paths[i].toString());
 					
-					ArrayList vlist = new ArrayList();
-					IVirtualReference[] oldrefs = earComponent.getReferences();
-					for (int j = 0; j < oldrefs.length; j++) {
-						IVirtualReference ref = oldrefs[j];
-						vlist.add(ref);
-					}		
-				
-					//To do: check if archive component already exists
-					IVirtualReference ref = ComponentCore.createReference( earComponent, archive );
-					vlist.add(ref);	
+					addReference(archive);
 					
-					IVirtualReference[] refs = new IVirtualReference[vlist.size()];
-					for (int j = 0; j < vlist.size(); j++) {
-						IVirtualReference tmpref = (IVirtualReference) vlist.get(j);
-						refs[j] = tmpref;
-					}				
-					earComponent.setReferences(refs);
-					j2eeComponentList.add(archive);
 				}else{
 					//display error
 				}
@@ -672,16 +692,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 				String type = VirtualArchiveComponent.LIBARCHIVETYPE + IPath.SEPARATOR;
 				IVirtualComponent archive = ComponentCore.createArchiveComponent( earComponent.getProject(), type +
 							selected[i].makeRelative().toString());
-				
-				ArrayList vlist = new ArrayList();
-			
-				//To do: check if archive component already exists
-				IVirtualReference ref = ComponentCore.createReference( earComponent, archive );
-				vlist.add(ref);	
-				
-				IVirtualReference[] refs = (IVirtualReference[]) vlist.toArray(new IVirtualReference[vlist.size()]);
-				earComponent.addReferences(refs);
-				j2eeComponentList.add(archive);
+				addReference(archive);
 			}
 			refresh();
 		}
