@@ -11,25 +11,21 @@
 package org.eclipse.jem.java.internal.impl;
 /*
  *  $RCSfile: InitializerImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2005/09/14 23:30:32 $ 
+ *  $Revision: 1.2 $  $Date: 2007/02/19 05:31:23 $ 
  */
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import org.eclipse.jem.java.Block;
-import org.eclipse.jem.java.Initializer;
-import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jem.java.JavaRefPackage;
+import org.eclipse.jem.java.*;
 /**
  * @generated
  */
-public class InitializerImpl extends EObjectImpl implements Initializer{
+public class InitializerImpl extends EObjectImpl implements Initializer {
 
 	/**
 	 * The default value of the '{@link #getIsStatic() <em>Is Static</em>}' attribute.
@@ -67,7 +63,7 @@ public class InitializerImpl extends EObjectImpl implements Initializer{
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return JavaRefPackage.eINSTANCE.getInitializer();
+		return JavaRefPackage.Literals.INITIALIZER;
 	}
 
 	/**
@@ -92,7 +88,17 @@ public class InitializerImpl extends EObjectImpl implements Initializer{
 	 */
 	public JavaClass getJavaClass() {
 		if (eContainerFeatureID != JavaRefPackage.INITIALIZER__JAVA_CLASS) return null;
-		return (JavaClass)eContainer;
+		return (JavaClass)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetJavaClass(JavaClass newJavaClass, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newJavaClass, JavaRefPackage.INITIALIZER__JAVA_CLASS, msgs);
+		return msgs;
 	}
 
 	/**
@@ -101,15 +107,15 @@ public class InitializerImpl extends EObjectImpl implements Initializer{
 	 * @generated
 	 */
 	public void setJavaClass(JavaClass newJavaClass) {
-		if (newJavaClass != eContainer || (eContainerFeatureID != JavaRefPackage.INITIALIZER__JAVA_CLASS && newJavaClass != null)) {
+		if (newJavaClass != eInternalContainer() || (eContainerFeatureID != JavaRefPackage.INITIALIZER__JAVA_CLASS && newJavaClass != null)) {
 			if (EcoreUtil.isAncestor(this, newJavaClass))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newJavaClass != null)
 				msgs = ((InternalEObject)newJavaClass).eInverseAdd(this, JavaRefPackage.JAVA_CLASS__INITIALIZERS, JavaClass.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newJavaClass, JavaRefPackage.INITIALIZER__JAVA_CLASS, msgs);
+			msgs = basicSetJavaClass(newJavaClass, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -121,8 +127,8 @@ public class InitializerImpl extends EObjectImpl implements Initializer{
 	 */
 	public Block getSource() {
 		if (source != null && source.eIsProxy()) {
-			Block oldSource = source;
-			source = (Block)eResolveProxy((InternalEObject)source);
+			InternalEObject oldSource = (InternalEObject)source;
+			source = (Block)eResolveProxy(oldSource);
 			if (source != oldSource) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, JavaRefPackage.INITIALIZER__SOURCE, oldSource, source));
@@ -157,20 +163,14 @@ public class InitializerImpl extends EObjectImpl implements Initializer{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JavaRefPackage.INITIALIZER__JAVA_CLASS:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, JavaRefPackage.INITIALIZER__JAVA_CLASS, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case JavaRefPackage.INITIALIZER__JAVA_CLASS:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetJavaClass((JavaClass)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -178,16 +178,12 @@ public class InitializerImpl extends EObjectImpl implements Initializer{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JavaRefPackage.INITIALIZER__JAVA_CLASS:
-					return eBasicSetContainer(null, JavaRefPackage.INITIALIZER__JAVA_CLASS, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case JavaRefPackage.INITIALIZER__JAVA_CLASS:
+				return basicSetJavaClass(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -195,16 +191,12 @@ public class InitializerImpl extends EObjectImpl implements Initializer{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case JavaRefPackage.INITIALIZER__JAVA_CLASS:
-					return eContainer.eInverseRemove(this, JavaRefPackage.JAVA_CLASS__INITIALIZERS, JavaClass.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case JavaRefPackage.INITIALIZER__JAVA_CLASS:
+				return eInternalContainer().eInverseRemove(this, JavaRefPackage.JAVA_CLASS__INITIALIZERS, JavaClass.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -212,8 +204,8 @@ public class InitializerImpl extends EObjectImpl implements Initializer{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case JavaRefPackage.INITIALIZER__IS_STATIC:
 				return getIsStatic();
 			case JavaRefPackage.INITIALIZER__JAVA_CLASS:
@@ -222,29 +214,16 @@ public class InitializerImpl extends EObjectImpl implements Initializer{
 				if (resolve) return getSource();
 				return basicGetSource();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.INITIALIZER__IS_STATIC:
-				return IS_STATIC_EDEFAULT == null ? isStatic != null : !IS_STATIC_EDEFAULT.equals(isStatic);
-			case JavaRefPackage.INITIALIZER__JAVA_CLASS:
-				return getJavaClass() != null;
-			case JavaRefPackage.INITIALIZER__SOURCE:
-				return source != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case JavaRefPackage.INITIALIZER__IS_STATIC:
 				setIsStatic((Boolean)newValue);
 				return;
@@ -255,14 +234,16 @@ public class InitializerImpl extends EObjectImpl implements Initializer{
 				setSource((Block)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case JavaRefPackage.INITIALIZER__IS_STATIC:
 				setIsStatic(IS_STATIC_EDEFAULT);
 				return;
@@ -273,7 +254,24 @@ public class InitializerImpl extends EObjectImpl implements Initializer{
 				setSource((Block)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case JavaRefPackage.INITIALIZER__IS_STATIC:
+				return IS_STATIC_EDEFAULT == null ? isStatic != null : !IS_STATIC_EDEFAULT.equals(isStatic);
+			case JavaRefPackage.INITIALIZER__JAVA_CLASS:
+				return getJavaClass() != null;
+			case JavaRefPackage.INITIALIZER__SOURCE:
+				return source != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

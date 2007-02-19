@@ -11,7 +11,7 @@
 package org.eclipse.jem.java;
 /*
  *  $RCSfile: TypeKind.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.7 $  $Date: 2007/02/19 05:31:23 $ 
  */
 import java.util.Arrays;
 import java.util.Collections;
@@ -89,7 +89,7 @@ public final class TypeKind extends AbstractEnumerator
 	 * @generated
 	 * @ordered
 	 */
-  public static final TypeKind UNDEFINED_LITERAL = new TypeKind(UNDEFINED, "UNDEFINED");
+  public static final TypeKind UNDEFINED_LITERAL = new TypeKind(UNDEFINED, "UNDEFINED", "UNDEFINED");
 
 	/**
 	 * The '<em><b>CLASS</b></em>' literal object.
@@ -103,7 +103,7 @@ public final class TypeKind extends AbstractEnumerator
 	 * @generated
 	 * @ordered
 	 */
-  public static final TypeKind CLASS_LITERAL = new TypeKind(CLASS, "CLASS");
+  public static final TypeKind CLASS_LITERAL = new TypeKind(CLASS, "CLASS", "CLASS");
 
 	/**
 	 * The '<em><b>INTERFACE</b></em>' literal object.
@@ -117,7 +117,7 @@ public final class TypeKind extends AbstractEnumerator
 	 * @generated
 	 * @ordered
 	 */
-  public static final TypeKind INTERFACE_LITERAL = new TypeKind(INTERFACE, "INTERFACE");
+  public static final TypeKind INTERFACE_LITERAL = new TypeKind(INTERFACE, "INTERFACE", "INTERFACE");
 
 	/**
 	 * The '<em><b>EXCEPTION</b></em>' literal object.
@@ -131,7 +131,7 @@ public final class TypeKind extends AbstractEnumerator
 	 * @generated
 	 * @ordered
 	 */
-  public static final TypeKind EXCEPTION_LITERAL = new TypeKind(EXCEPTION, "EXCEPTION");
+  public static final TypeKind EXCEPTION_LITERAL = new TypeKind(EXCEPTION, "EXCEPTION", "EXCEPTION");
 
 	/**
 	 * An array of all the '<em><b>Type Kind</b></em>' enumerators.
@@ -156,15 +156,15 @@ public final class TypeKind extends AbstractEnumerator
   public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Type Kind</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Type Kind</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public static TypeKind get(String name) {
+  public static TypeKind get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			TypeKind result = VALUES_ARRAY[i];
-			if (result.toString().equals(name)) {
+			if (result.toString().equals(literal)) {
 				return result;
 			}
 		}
@@ -172,7 +172,23 @@ public final class TypeKind extends AbstractEnumerator
 	}
 
 	/**
-	 * Returns the '<em><b>Type Kind</b></em>' literal with the specified value.
+	 * Returns the '<em><b>Type Kind</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static TypeKind getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			TypeKind result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Type Kind</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -190,11 +206,11 @@ public final class TypeKind extends AbstractEnumerator
 	/**
 	 * Only this class can construct instances.
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  private TypeKind(int value, String name) {
-		super(value, name);
+	private TypeKind(int value, String name, String literal) {
+		super(value, name, literal);
 	}
 
 } //TypeKind

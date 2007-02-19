@@ -11,30 +11,21 @@
 package org.eclipse.jem.java.internal.impl;
 /*
  *  $RCSfile: JavaDataTypeImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2005/09/14 23:30:32 $ 
+ *  $Revision: 1.2 $  $Date: 2007/02/19 05:31:23 $ 
  */
 
-import java.util.Collection;
-
-import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.impl.EClassImpl;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.util.EContentsEList;
+import org.eclipse.emf.ecore.util.ECrossReferenceEList;
 
-import org.eclipse.jem.java.*;
-import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jem.java.JavaDataType;
-import org.eclipse.jem.java.JavaRefPackage;
 import org.eclipse.jem.internal.java.instantiation.IInstantiationInstance;
+import org.eclipse.jem.java.*;
 /**
  * @generated
  */
-public class JavaDataTypeImpl extends EClassImpl implements JavaDataType{
+public class JavaDataTypeImpl extends EClassImpl implements JavaDataType {
 
 	
 	static final String FALSE = "false";
@@ -55,7 +46,7 @@ public class JavaDataTypeImpl extends EClassImpl implements JavaDataType{
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return JavaRefPackage.eINSTANCE.getJavaDataType();
+		return JavaRefPackage.Literals.JAVA_DATA_TYPE;
 	}
 
 	/**
@@ -168,255 +159,31 @@ public class JavaDataTypeImpl extends EClassImpl implements JavaDataType{
 	public boolean isPrimitive() {
 		return true;
 	}
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JavaRefPackage.JAVA_DATA_TYPE__EANNOTATIONS:
-					return ((InternalEList)getEAnnotations()).basicAdd(otherEnd, msgs);
-				case JavaRefPackage.JAVA_DATA_TYPE__EPACKAGE:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, JavaRefPackage.JAVA_DATA_TYPE__EPACKAGE, msgs);
-				case JavaRefPackage.JAVA_DATA_TYPE__EOPERATIONS:
-					return ((InternalEList)getEOperations()).basicAdd(otherEnd, msgs);
-				case JavaRefPackage.JAVA_DATA_TYPE__ESTRUCTURAL_FEATURES:
-					return ((InternalEList)getEStructuralFeatures()).basicAdd(otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JavaRefPackage.JAVA_DATA_TYPE__EANNOTATIONS:
-					return ((InternalEList)getEAnnotations()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.JAVA_DATA_TYPE__EPACKAGE:
-					return eBasicSetContainer(null, JavaRefPackage.JAVA_DATA_TYPE__EPACKAGE, msgs);
-				case JavaRefPackage.JAVA_DATA_TYPE__EOPERATIONS:
-					return ((InternalEList)getEOperations()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.JAVA_DATA_TYPE__ESTRUCTURAL_FEATURES:
-					return ((InternalEList)getEStructuralFeatures()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case JavaRefPackage.JAVA_DATA_TYPE__EPACKAGE:
-					return eContainer.eInverseRemove(this, EcorePackage.EPACKAGE__ECLASSIFIERS, EPackage.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.JAVA_DATA_TYPE__EANNOTATIONS:
-				return getEAnnotations();
-			case JavaRefPackage.JAVA_DATA_TYPE__NAME:
-				return getName();
-			case JavaRefPackage.JAVA_DATA_TYPE__INSTANCE_CLASS_NAME:
-				return getInstanceClassName();
-			case JavaRefPackage.JAVA_DATA_TYPE__INSTANCE_CLASS:
-				return getInstanceClass();
-			case JavaRefPackage.JAVA_DATA_TYPE__DEFAULT_VALUE:
-				return getDefaultValue();
-			case JavaRefPackage.JAVA_DATA_TYPE__EPACKAGE:
-				return getEPackage();
-			case JavaRefPackage.JAVA_DATA_TYPE__ABSTRACT:
-				return isAbstract() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.JAVA_DATA_TYPE__INTERFACE:
-				return isInterface() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.JAVA_DATA_TYPE__ESUPER_TYPES:
-				return getESuperTypes();
-			case JavaRefPackage.JAVA_DATA_TYPE__EOPERATIONS:
-				return getEOperations();
-			case JavaRefPackage.JAVA_DATA_TYPE__EALL_ATTRIBUTES:
-				return getEAllAttributes();
-			case JavaRefPackage.JAVA_DATA_TYPE__EALL_REFERENCES:
-				return getEAllReferences();
-			case JavaRefPackage.JAVA_DATA_TYPE__EREFERENCES:
-				return getEReferences();
-			case JavaRefPackage.JAVA_DATA_TYPE__EATTRIBUTES:
-				return getEAttributes();
-			case JavaRefPackage.JAVA_DATA_TYPE__EALL_CONTAINMENTS:
-				return getEAllContainments();
-			case JavaRefPackage.JAVA_DATA_TYPE__EALL_OPERATIONS:
-				return getEAllOperations();
-			case JavaRefPackage.JAVA_DATA_TYPE__EALL_STRUCTURAL_FEATURES:
-				return getEAllStructuralFeatures();
-			case JavaRefPackage.JAVA_DATA_TYPE__EALL_SUPER_TYPES:
-				return getEAllSuperTypes();
-			case JavaRefPackage.JAVA_DATA_TYPE__EID_ATTRIBUTE:
-				return getEIDAttribute();
-			case JavaRefPackage.JAVA_DATA_TYPE__ESTRUCTURAL_FEATURES:
-				return getEStructuralFeatures();
-		}
-		return eDynamicGet(eFeature, resolve);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.JAVA_DATA_TYPE__EANNOTATIONS:
-				getEAnnotations().clear();
-				getEAnnotations().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.JAVA_DATA_TYPE__NAME:
-				setName((String)newValue);
-				return;
-			case JavaRefPackage.JAVA_DATA_TYPE__INSTANCE_CLASS_NAME:
-				setInstanceClassName((String)newValue);
-				return;
-			case JavaRefPackage.JAVA_DATA_TYPE__ABSTRACT:
-				setAbstract(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.JAVA_DATA_TYPE__INTERFACE:
-				setInterface(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.JAVA_DATA_TYPE__ESUPER_TYPES:
-				getESuperTypes().clear();
-				getESuperTypes().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.JAVA_DATA_TYPE__EOPERATIONS:
-				getEOperations().clear();
-				getEOperations().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.JAVA_DATA_TYPE__ESTRUCTURAL_FEATURES:
-				getEStructuralFeatures().clear();
-				getEStructuralFeatures().addAll((Collection)newValue);
-				return;
-		}
-		eDynamicSet(eFeature, newValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.JAVA_DATA_TYPE__EANNOTATIONS:
-				getEAnnotations().clear();
-				return;
-			case JavaRefPackage.JAVA_DATA_TYPE__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case JavaRefPackage.JAVA_DATA_TYPE__INSTANCE_CLASS_NAME:
-				setInstanceClassName(INSTANCE_CLASS_NAME_EDEFAULT);
-				return;
-			case JavaRefPackage.JAVA_DATA_TYPE__ABSTRACT:
-				setAbstract(ABSTRACT_EDEFAULT);
-				return;
-			case JavaRefPackage.JAVA_DATA_TYPE__INTERFACE:
-				setInterface(INTERFACE_EDEFAULT);
-				return;
-			case JavaRefPackage.JAVA_DATA_TYPE__ESUPER_TYPES:
-				getESuperTypes().clear();
-				return;
-			case JavaRefPackage.JAVA_DATA_TYPE__EOPERATIONS:
-				getEOperations().clear();
-				return;
-			case JavaRefPackage.JAVA_DATA_TYPE__ESTRUCTURAL_FEATURES:
-				getEStructuralFeatures().clear();
-				return;
-		}
-		eDynamicUnset(eFeature);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.JAVA_DATA_TYPE__EANNOTATIONS:
-				return eAnnotations != null && !eAnnotations.isEmpty();
-			case JavaRefPackage.JAVA_DATA_TYPE__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case JavaRefPackage.JAVA_DATA_TYPE__INSTANCE_CLASS_NAME:
-				return INSTANCE_CLASS_NAME_EDEFAULT == null ? instanceClassName != null : !INSTANCE_CLASS_NAME_EDEFAULT.equals(instanceClassName);
-			case JavaRefPackage.JAVA_DATA_TYPE__INSTANCE_CLASS:
-				return INSTANCE_CLASS_EDEFAULT == null ? getInstanceClass() != null : !INSTANCE_CLASS_EDEFAULT.equals(getInstanceClass());
-			case JavaRefPackage.JAVA_DATA_TYPE__DEFAULT_VALUE:
-				return DEFAULT_VALUE_EDEFAULT == null ? getDefaultValue() != null : !DEFAULT_VALUE_EDEFAULT.equals(getDefaultValue());
-			case JavaRefPackage.JAVA_DATA_TYPE__EPACKAGE:
-				return getEPackage() != null;
-			case JavaRefPackage.JAVA_DATA_TYPE__ABSTRACT:
-				return ((eFlags & ABSTRACT_EFLAG) != 0) != ABSTRACT_EDEFAULT;
-			case JavaRefPackage.JAVA_DATA_TYPE__INTERFACE:
-				return ((eFlags & INTERFACE_EFLAG) != 0) != INTERFACE_EDEFAULT;
-			case JavaRefPackage.JAVA_DATA_TYPE__ESUPER_TYPES:
-				return eSuperTypes != null && !eSuperTypes.isEmpty();
-			case JavaRefPackage.JAVA_DATA_TYPE__EOPERATIONS:
-				return eOperations != null && !eOperations.isEmpty();
-			case JavaRefPackage.JAVA_DATA_TYPE__EALL_ATTRIBUTES:
-				return !getEAllAttributes().isEmpty();
-			case JavaRefPackage.JAVA_DATA_TYPE__EALL_REFERENCES:
-				return !getEAllReferences().isEmpty();
-			case JavaRefPackage.JAVA_DATA_TYPE__EREFERENCES:
-				return !getEReferences().isEmpty();
-			case JavaRefPackage.JAVA_DATA_TYPE__EATTRIBUTES:
-				return !getEAttributes().isEmpty();
-			case JavaRefPackage.JAVA_DATA_TYPE__EALL_CONTAINMENTS:
-				return !getEAllContainments().isEmpty();
-			case JavaRefPackage.JAVA_DATA_TYPE__EALL_OPERATIONS:
-				return !getEAllOperations().isEmpty();
-			case JavaRefPackage.JAVA_DATA_TYPE__EALL_STRUCTURAL_FEATURES:
-				return !getEAllStructuralFeatures().isEmpty();
-			case JavaRefPackage.JAVA_DATA_TYPE__EALL_SUPER_TYPES:
-				return !getEAllSuperTypes().isEmpty();
-			case JavaRefPackage.JAVA_DATA_TYPE__EID_ATTRIBUTE:
-				return getEIDAttribute() != null;
-			case JavaRefPackage.JAVA_DATA_TYPE__ESTRUCTURAL_FEATURES:
-				return eStructuralFeatures != null && !eStructuralFeatures.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.java.JavaHelpers#getQualifiedNameForReflection()
 	 */
 	public String getQualifiedNameForReflection() {
 		return getJavaName();
 	}
+	@Override
+	  public EList<EObject> eContents()
+	  {
+	    if (eContents == null)
+	    {
+	      eContents = EContentsEList.createEContentsEList(this);
+	    }
+	    return eContents;
+	  }
+
+	  @Override
+	  public EList<EObject> eCrossReferences()
+	  {
+	    if (eCrossReferences == null)
+	    {
+	      eCrossReferences = ECrossReferenceEList.createECrossReferenceEList(this);
+	    }
+	    return eCrossReferences;
+	  }
 
 }
 

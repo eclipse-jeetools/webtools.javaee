@@ -12,7 +12,7 @@ package org.eclipse.jem.java;
 
 /*
  *  $RCSfile: JavaRefFactory.java,v $
- *  $Revision: 1.8 $  $Date: 2006/05/17 20:13:08 $ 
+ *  $Revision: 1.9 $  $Date: 2007/02/19 05:31:23 $ 
  */
 
 import org.eclipse.emf.common.util.URI;
@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 /**
  * @generated
  */
-public interface JavaRefFactory extends EFactory{
+public interface JavaRefFactory extends EFactory {
 
 	/**
 	 * The singleton instance of the factory.
@@ -30,7 +30,7 @@ public interface JavaRefFactory extends EFactory{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	JavaRefFactory eINSTANCE = new org.eclipse.jem.java.internal.impl.JavaRefFactoryImpl();
+	JavaRefFactory eINSTANCE = org.eclipse.jem.java.internal.impl.JavaRefFactoryImpl.init();
 
 
 	/**

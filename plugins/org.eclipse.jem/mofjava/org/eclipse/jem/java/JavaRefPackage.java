@@ -11,7 +11,7 @@
 package org.eclipse.jem.java;
 /*
  *  $RCSfile: JavaRefPackage.java,v $
- *  $Revision: 1.6 $  $Date: 2005/09/14 23:30:35 $ 
+ *  $Revision: 1.7 $  $Date: 2007/02/19 05:31:23 $ 
  */
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 /**
  * @lastgen interface JavaRefPackage extends EPackage {}
  */
-public interface JavaRefPackage extends EPackage{
+public interface JavaRefPackage extends EPackage {
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
@@ -275,7 +275,7 @@ public interface JavaRefPackage extends EPackage{
 	 */
 	int JAVA_CLASS__ALL_EVENTS = EcorePackage.ECLASS_FEATURE_COUNT + 13;
 	/**
-	 * The number of structural features of the the '<em>Java Class</em>' class.
+	 * The number of structural features of the '<em>Java Class</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -346,7 +346,7 @@ public interface JavaRefPackage extends EPackage{
 	int INITIALIZER__SOURCE = 2;
 
 	/**
-	 * The number of structural features of the the '<em>Initializer</em>' class.
+	 * The number of structural features of the '<em>Initializer</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -453,7 +453,7 @@ public interface JavaRefPackage extends EPackage{
 	 */
 	int JAVA_PARAMETER__PARAMETER_KIND = EcorePackage.EPARAMETER_FEATURE_COUNT + 1;
 	/**
-	 * The number of structural features of the the '<em>Java Parameter</em>' class.
+	 * The number of structural features of the '<em>Java Parameter</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -639,7 +639,7 @@ public interface JavaRefPackage extends EPackage{
 	 */
 	int METHOD__SOURCE = EcorePackage.EOPERATION_FEATURE_COUNT + 10;
 	/**
-	 * The number of structural features of the the '<em>Method</em>' class.
+	 * The number of structural features of the '<em>Method</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -772,7 +772,7 @@ public interface JavaRefPackage extends EPackage{
 	 */
 	int FIELD__INITIALIZER = EcorePackage.ETYPED_ELEMENT_FEATURE_COUNT + 6;
 	/**
-	 * The number of structural features of the the '<em>Field</em>' class.
+	 * The number of structural features of the '<em>Field</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -794,7 +794,7 @@ public interface JavaRefPackage extends EPackage{
 	int BLOCK__CONTENTS = 2;
 
 	/**
-	 * The number of structural features of the the '<em>Block</em>' class.
+	 * The number of structural features of the '<em>Block</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -816,7 +816,7 @@ public interface JavaRefPackage extends EPackage{
 	int COMMENT__CONTENTS = BLOCK__CONTENTS;
 
 	/**
-	 * The number of structural features of the the '<em>Comment</em>' class.
+	 * The number of structural features of the '<em>Comment</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -838,7 +838,7 @@ public interface JavaRefPackage extends EPackage{
 	int STATEMENT__CONTENTS = BLOCK__CONTENTS;
 
 	/**
-	 * The number of structural features of the the '<em>Statement</em>' class.
+	 * The number of structural features of the '<em>Statement</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -913,7 +913,7 @@ public interface JavaRefPackage extends EPackage{
 	 */
 	int JAVA_PACKAGE__JAVA_CLASSES = EcorePackage.EPACKAGE_FEATURE_COUNT + 0;
 	/**
-	 * The number of structural features of the the '<em>Java Package</em>' class.
+	 * The number of structural features of the '<em>Java Package</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1092,7 +1092,7 @@ public interface JavaRefPackage extends EPackage{
 	int JAVA_DATA_TYPE__ESTRUCTURAL_FEATURES = EcorePackage.ECLASS__ESTRUCTURAL_FEATURES;
 
 	/**
-	 * The number of structural features of the the '<em>Java Data Type</em>' class.
+	 * The number of structural features of the '<em>Java Data Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1345,7 +1345,7 @@ public interface JavaRefPackage extends EPackage{
 	 */
 	int ARRAY_TYPE__COMPONENT_TYPE = JAVA_CLASS_FEATURE_COUNT + 1;
 	/**
-	 * The number of structural features of the the '<em>Array Type</em>' class.
+	 * The number of structural features of the '<em>Array Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1502,7 +1502,7 @@ public interface JavaRefPackage extends EPackage{
 	int JAVA_EVENT__ECONTAINING_CLASS = EcorePackage.ESTRUCTURAL_FEATURE__ECONTAINING_CLASS;
 
 	/**
-	 * The number of structural features of the the '<em>Java Event</em>' class.
+	 * The number of structural features of the '<em>Java Event</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1962,6 +1962,535 @@ public interface JavaRefPackage extends EPackage{
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	JavaRefFactory getJavaRefFactory();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Defines literals for the meta objects that represent
+	 * <ul>
+	 *   <li>each class,</li>
+	 *   <li>each feature of each class,</li>
+	 *   <li>each enum,</li>
+	 *   <li>and each data type</li>
+	 * </ul>
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	interface Literals  {
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jem.java.internal.impl.JavaClassImpl <em>Java Class</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jem.java.internal.impl.JavaClassImpl
+		 * @see org.eclipse.jem.java.internal.impl.JavaRefPackageImpl#getJavaClass()
+		 * @generated
+		 */
+		EClass JAVA_CLASS = eINSTANCE.getJavaClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Kind</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JAVA_CLASS__KIND = eINSTANCE.getJavaClass_Kind();
+
+		/**
+		 * The meta object literal for the '<em><b>Public</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JAVA_CLASS__PUBLIC = eINSTANCE.getJavaClass_Public();
+
+		/**
+		 * The meta object literal for the '<em><b>Final</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JAVA_CLASS__FINAL = eINSTANCE.getJavaClass_Final();
+
+		/**
+		 * The meta object literal for the '<em><b>Implements Interfaces</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JAVA_CLASS__IMPLEMENTS_INTERFACES = eINSTANCE.getJavaClass_ImplementsInterfaces();
+
+		/**
+		 * The meta object literal for the '<em><b>Class Import</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JAVA_CLASS__CLASS_IMPORT = eINSTANCE.getJavaClass_ClassImport();
+
+		/**
+		 * The meta object literal for the '<em><b>Package Imports</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JAVA_CLASS__PACKAGE_IMPORTS = eINSTANCE.getJavaClass_PackageImports();
+
+		/**
+		 * The meta object literal for the '<em><b>Fields</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JAVA_CLASS__FIELDS = eINSTANCE.getJavaClass_Fields();
+
+		/**
+		 * The meta object literal for the '<em><b>Methods</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JAVA_CLASS__METHODS = eINSTANCE.getJavaClass_Methods();
+
+		/**
+		 * The meta object literal for the '<em><b>Initializers</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JAVA_CLASS__INITIALIZERS = eINSTANCE.getJavaClass_Initializers();
+
+		/**
+		 * The meta object literal for the '<em><b>Declared Classes</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JAVA_CLASS__DECLARED_CLASSES = eINSTANCE.getJavaClass_DeclaredClasses();
+
+		/**
+		 * The meta object literal for the '<em><b>Declaring Class</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JAVA_CLASS__DECLARING_CLASS = eINSTANCE.getJavaClass_DeclaringClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Java Package</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JAVA_CLASS__JAVA_PACKAGE = eINSTANCE.getJavaClass_JavaPackage();
+
+		/**
+		 * The meta object literal for the '<em><b>Events</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JAVA_CLASS__EVENTS = eINSTANCE.getJavaClass_Events();
+
+		/**
+		 * The meta object literal for the '<em><b>All Events</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JAVA_CLASS__ALL_EVENTS = eINSTANCE.getJavaClass_AllEvents();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jem.java.internal.impl.InitializerImpl <em>Initializer</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jem.java.internal.impl.InitializerImpl
+		 * @see org.eclipse.jem.java.internal.impl.JavaRefPackageImpl#getInitializer()
+		 * @generated
+		 */
+		EClass INITIALIZER = eINSTANCE.getInitializer();
+
+		/**
+		 * The meta object literal for the '<em><b>Is Static</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INITIALIZER__IS_STATIC = eINSTANCE.getInitializer_IsStatic();
+
+		/**
+		 * The meta object literal for the '<em><b>Java Class</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INITIALIZER__JAVA_CLASS = eINSTANCE.getInitializer_JavaClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INITIALIZER__SOURCE = eINSTANCE.getInitializer_Source();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jem.java.internal.impl.JavaParameterImpl <em>Java Parameter</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jem.java.internal.impl.JavaParameterImpl
+		 * @see org.eclipse.jem.java.internal.impl.JavaRefPackageImpl#getJavaParameter()
+		 * @generated
+		 */
+		EClass JAVA_PARAMETER = eINSTANCE.getJavaParameter();
+
+		/**
+		 * The meta object literal for the '<em><b>Final</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JAVA_PARAMETER__FINAL = eINSTANCE.getJavaParameter_Final();
+
+		/**
+		 * The meta object literal for the '<em><b>Parameter Kind</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JAVA_PARAMETER__PARAMETER_KIND = eINSTANCE.getJavaParameter_ParameterKind();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jem.java.internal.impl.MethodImpl <em>Method</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jem.java.internal.impl.MethodImpl
+		 * @see org.eclipse.jem.java.internal.impl.JavaRefPackageImpl#getMethod()
+		 * @generated
+		 */
+		EClass METHOD = eINSTANCE.getMethod();
+
+		/**
+		 * The meta object literal for the '<em><b>Abstract</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METHOD__ABSTRACT = eINSTANCE.getMethod_Abstract();
+
+		/**
+		 * The meta object literal for the '<em><b>Native</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METHOD__NATIVE = eINSTANCE.getMethod_Native();
+
+		/**
+		 * The meta object literal for the '<em><b>Synchronized</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METHOD__SYNCHRONIZED = eINSTANCE.getMethod_Synchronized();
+
+		/**
+		 * The meta object literal for the '<em><b>Final</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METHOD__FINAL = eINSTANCE.getMethod_Final();
+
+		/**
+		 * The meta object literal for the '<em><b>Constructor</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METHOD__CONSTRUCTOR = eINSTANCE.getMethod_Constructor();
+
+		/**
+		 * The meta object literal for the '<em><b>Static</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METHOD__STATIC = eINSTANCE.getMethod_Static();
+
+		/**
+		 * The meta object literal for the '<em><b>Java Visibility</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METHOD__JAVA_VISIBILITY = eINSTANCE.getMethod_JavaVisibility();
+
+		/**
+		 * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference METHOD__PARAMETERS = eINSTANCE.getMethod_Parameters();
+
+		/**
+		 * The meta object literal for the '<em><b>Java Exceptions</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference METHOD__JAVA_EXCEPTIONS = eINSTANCE.getMethod_JavaExceptions();
+
+		/**
+		 * The meta object literal for the '<em><b>Java Class</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference METHOD__JAVA_CLASS = eINSTANCE.getMethod_JavaClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference METHOD__SOURCE = eINSTANCE.getMethod_Source();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jem.java.internal.impl.FieldImpl <em>Field</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jem.java.internal.impl.FieldImpl
+		 * @see org.eclipse.jem.java.internal.impl.JavaRefPackageImpl#getField()
+		 * @generated
+		 */
+		EClass FIELD = eINSTANCE.getField();
+
+		/**
+		 * The meta object literal for the '<em><b>Final</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FIELD__FINAL = eINSTANCE.getField_Final();
+
+		/**
+		 * The meta object literal for the '<em><b>Static</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FIELD__STATIC = eINSTANCE.getField_Static();
+
+		/**
+		 * The meta object literal for the '<em><b>Java Visibility</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FIELD__JAVA_VISIBILITY = eINSTANCE.getField_JavaVisibility();
+
+		/**
+		 * The meta object literal for the '<em><b>Transient</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FIELD__TRANSIENT = eINSTANCE.getField_Transient();
+
+		/**
+		 * The meta object literal for the '<em><b>Volatile</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FIELD__VOLATILE = eINSTANCE.getField_Volatile();
+
+		/**
+		 * The meta object literal for the '<em><b>Java Class</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FIELD__JAVA_CLASS = eINSTANCE.getField_JavaClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Initializer</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FIELD__INITIALIZER = eINSTANCE.getField_Initializer();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jem.java.internal.impl.BlockImpl <em>Block</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jem.java.internal.impl.BlockImpl
+		 * @see org.eclipse.jem.java.internal.impl.JavaRefPackageImpl#getBlock()
+		 * @generated
+		 */
+		EClass BLOCK = eINSTANCE.getBlock();
+
+		/**
+		 * The meta object literal for the '<em><b>Source</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BLOCK__SOURCE = eINSTANCE.getBlock_Source();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BLOCK__NAME = eINSTANCE.getBlock_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Contents</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BLOCK__CONTENTS = eINSTANCE.getBlock_Contents();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jem.java.internal.impl.CommentImpl <em>Comment</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jem.java.internal.impl.CommentImpl
+		 * @see org.eclipse.jem.java.internal.impl.JavaRefPackageImpl#getComment()
+		 * @generated
+		 */
+		EClass COMMENT = eINSTANCE.getComment();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jem.java.internal.impl.StatementImpl <em>Statement</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jem.java.internal.impl.StatementImpl
+		 * @see org.eclipse.jem.java.internal.impl.JavaRefPackageImpl#getStatement()
+		 * @generated
+		 */
+		EClass STATEMENT = eINSTANCE.getStatement();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jem.java.internal.impl.JavaPackageImpl <em>Java Package</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jem.java.internal.impl.JavaPackageImpl
+		 * @see org.eclipse.jem.java.internal.impl.JavaRefPackageImpl#getJavaPackage()
+		 * @generated
+		 */
+		EClass JAVA_PACKAGE = eINSTANCE.getJavaPackage();
+
+		/**
+		 * The meta object literal for the '<em><b>Java Classes</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JAVA_PACKAGE__JAVA_CLASSES = eINSTANCE.getJavaPackage_JavaClasses();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jem.java.internal.impl.JavaDataTypeImpl <em>Java Data Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jem.java.internal.impl.JavaDataTypeImpl
+		 * @see org.eclipse.jem.java.internal.impl.JavaRefPackageImpl#getJavaDataType()
+		 * @generated
+		 */
+		EClass JAVA_DATA_TYPE = eINSTANCE.getJavaDataType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jem.java.internal.impl.ArrayTypeImpl <em>Array Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jem.java.internal.impl.ArrayTypeImpl
+		 * @see org.eclipse.jem.java.internal.impl.JavaRefPackageImpl#getArrayType()
+		 * @generated
+		 */
+		EClass ARRAY_TYPE = eINSTANCE.getArrayType();
+
+		/**
+		 * The meta object literal for the '<em><b>Array Dimensions</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ARRAY_TYPE__ARRAY_DIMENSIONS = eINSTANCE.getArrayType_ArrayDimensions();
+
+		/**
+		 * The meta object literal for the '<em><b>Component Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ARRAY_TYPE__COMPONENT_TYPE = eINSTANCE.getArrayType_ComponentType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jem.java.internal.impl.JavaEventImpl <em>Java Event</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jem.java.internal.impl.JavaEventImpl
+		 * @see org.eclipse.jem.java.internal.impl.JavaRefPackageImpl#getJavaEvent()
+		 * @generated
+		 */
+		EClass JAVA_EVENT = eINSTANCE.getJavaEvent();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jem.java.TypeKind <em>Type Kind</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jem.java.TypeKind
+		 * @see org.eclipse.jem.java.internal.impl.JavaRefPackageImpl#getTypeKind()
+		 * @generated
+		 */
+		EEnum TYPE_KIND = eINSTANCE.getTypeKind();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jem.java.JavaVisibilityKind <em>Java Visibility Kind</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jem.java.JavaVisibilityKind
+		 * @see org.eclipse.jem.java.internal.impl.JavaRefPackageImpl#getJavaVisibilityKind()
+		 * @generated
+		 */
+		EEnum JAVA_VISIBILITY_KIND = eINSTANCE.getJavaVisibilityKind();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jem.java.JavaParameterKind <em>Java Parameter Kind</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jem.java.JavaParameterKind
+		 * @see org.eclipse.jem.java.internal.impl.JavaRefPackageImpl#getJavaParameterKind()
+		 * @generated
+		 */
+		EEnum JAVA_PARAMETER_KIND = eINSTANCE.getJavaParameterKind();
+
+		/**
+		 * The meta object literal for the '<em>JType Java Helpers</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jem.java.JavaHelpers
+		 * @see org.eclipse.jem.java.internal.impl.JavaRefPackageImpl#getJTypeJavaHelpers()
+		 * @generated
+		 */
+		EDataType JTYPE_JAVA_HELPERS = eINSTANCE.getJTypeJavaHelpers();
+
+		/**
+		 * The meta object literal for the '<em>JType List</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.util.List
+		 * @see org.eclipse.jem.java.internal.impl.JavaRefPackageImpl#getJTypeList()
+		 * @generated
+		 */
+		EDataType JTYPE_LIST = eINSTANCE.getJTypeList();
+
+	}
 
 } //JavaRefPackage
 

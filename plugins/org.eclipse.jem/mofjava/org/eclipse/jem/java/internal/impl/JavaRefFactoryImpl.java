@@ -14,6 +14,7 @@ import java.util.List;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
@@ -28,6 +29,25 @@ import org.eclipse.jem.java.util.JavaContext;
  */
 public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	
+	/**
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static JavaRefFactory init() {
+		try {
+			JavaRefFactory theJavaRefFactory = (JavaRefFactory)EPackage.Registry.INSTANCE.getEFactory("java.xmi"); 
+			if (theJavaRefFactory != null) {
+				return theJavaRefFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new JavaRefFactoryImpl();
+	}
+
 	/**
 	 * Notes about Type URI's.
 	 * <p>
@@ -120,21 +140,12 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	 */
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case JavaRefPackage.TYPE_KIND: {
-				TypeKind result = TypeKind.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case JavaRefPackage.JAVA_VISIBILITY_KIND: {
-				JavaVisibilityKind result = JavaVisibilityKind.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case JavaRefPackage.JAVA_PARAMETER_KIND: {
-				JavaParameterKind result = JavaParameterKind.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
+			case JavaRefPackage.TYPE_KIND:
+				return createTypeKindFromString(eDataType, initialValue);
+			case JavaRefPackage.JAVA_VISIBILITY_KIND:
+				return createJavaVisibilityKindFromString(eDataType, initialValue);
+			case JavaRefPackage.JAVA_PARAMETER_KIND:
+				return createJavaParameterKindFromString(eDataType, initialValue);
 			case JavaRefPackage.JTYPE_JAVA_HELPERS:
 				return createJTypeJavaHelpersFromString(eDataType, initialValue);
 			case JavaRefPackage.JTYPE_LIST:
@@ -152,11 +163,11 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			case JavaRefPackage.TYPE_KIND:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertTypeKindToString(eDataType, instanceValue);
 			case JavaRefPackage.JAVA_VISIBILITY_KIND:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertJavaVisibilityKindToString(eDataType, instanceValue);
 			case JavaRefPackage.JAVA_PARAMETER_KIND:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertJavaParameterKindToString(eDataType, instanceValue);
 			case JavaRefPackage.JTYPE_JAVA_HELPERS:
 				return convertJTypeJavaHelpersToString(eDataType, instanceValue);
 			case JavaRefPackage.JTYPE_LIST:
@@ -281,6 +292,66 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	public ArrayType createArrayType() {
 		ArrayTypeImpl arrayType = new ArrayTypeImpl();
 		return arrayType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TypeKind createTypeKindFromString(EDataType eDataType, String initialValue) {
+		TypeKind result = TypeKind.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTypeKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JavaVisibilityKind createJavaVisibilityKindFromString(EDataType eDataType, String initialValue) {
+		JavaVisibilityKind result = JavaVisibilityKind.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertJavaVisibilityKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JavaParameterKind createJavaParameterKindFromString(EDataType eDataType, String initialValue) {
+		JavaParameterKind result = JavaParameterKind.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertJavaParameterKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

@@ -11,28 +11,14 @@
 package org.eclipse.jem.java.internal.impl;
 /*
  *  $RCSfile: ArrayTypeImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2005/09/15 20:28:04 $ 
+ *  $Revision: 1.3 $  $Date: 2007/02/19 05:31:23 $ 
  */
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.jem.java.*;
-import org.eclipse.jem.java.ArrayType;
-import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jem.java.JavaHelpers;
-import org.eclipse.jem.java.JavaRefPackage;
-import org.eclipse.jem.java.TypeKind;
 
 /**
  * Describes a Java Array type
@@ -46,7 +32,7 @@ import org.eclipse.jem.java.TypeKind;
  *   For this reason, the preferred way to create is through the JavaRefFactory factory method:
  *        createArrayType(JavaClass finalComponentType, int dimensions)
  */
-public class ArrayTypeImpl extends JavaClassImpl implements ArrayType, JavaClass{
+public class ArrayTypeImpl extends JavaClassImpl implements ArrayType, JavaClass {
 
 	/**
 	 * The default value of the '{@link #getArrayDimensions() <em>Array Dimensions</em>}' attribute.
@@ -87,7 +73,7 @@ public class ArrayTypeImpl extends JavaClassImpl implements ArrayType, JavaClass
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return JavaRefPackage.eINSTANCE.getArrayType();
+		return JavaRefPackage.Literals.ARRAY_TYPE;
 	}
 
 	/**
@@ -158,6 +144,71 @@ public class ArrayTypeImpl extends JavaClassImpl implements ArrayType, JavaClass
 		setComponentType((EClassifier) helperComponentType);		
 	}
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case JavaRefPackage.ARRAY_TYPE__ARRAY_DIMENSIONS:
+				return new Integer(getArrayDimensions());
+			case JavaRefPackage.ARRAY_TYPE__COMPONENT_TYPE:
+				if (resolve) return getComponentType();
+				return basicGetComponentType();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case JavaRefPackage.ARRAY_TYPE__ARRAY_DIMENSIONS:
+				setArrayDimensions(((Integer)newValue).intValue());
+				return;
+			case JavaRefPackage.ARRAY_TYPE__COMPONENT_TYPE:
+				setComponentType((EClassifier)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case JavaRefPackage.ARRAY_TYPE__ARRAY_DIMENSIONS:
+				setArrayDimensions(ARRAY_DIMENSIONS_EDEFAULT);
+				return;
+			case JavaRefPackage.ARRAY_TYPE__COMPONENT_TYPE:
+				setComponentType((EClassifier)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case JavaRefPackage.ARRAY_TYPE__ARRAY_DIMENSIONS:
+				return arrayDimensions != ARRAY_DIMENSIONS_EDEFAULT;
+			case JavaRefPackage.ARRAY_TYPE__COMPONENT_TYPE:
+				return componentType != null;
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
 	public int getArrayDimensions() {
@@ -172,256 +223,6 @@ public class ArrayTypeImpl extends JavaClassImpl implements ArrayType, JavaClass
 		arrayDimensions = newArrayDimensions;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.ARRAY_TYPE__ARRAY_DIMENSIONS, oldArrayDimensions, arrayDimensions));
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.ARRAY_TYPE__EANNOTATIONS:
-				return eAnnotations != null && !eAnnotations.isEmpty();
-			case JavaRefPackage.ARRAY_TYPE__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case JavaRefPackage.ARRAY_TYPE__INSTANCE_CLASS_NAME:
-				return INSTANCE_CLASS_NAME_EDEFAULT == null ? instanceClassName != null : !INSTANCE_CLASS_NAME_EDEFAULT.equals(instanceClassName);
-			case JavaRefPackage.ARRAY_TYPE__INSTANCE_CLASS:
-				return INSTANCE_CLASS_EDEFAULT == null ? getInstanceClass() != null : !INSTANCE_CLASS_EDEFAULT.equals(getInstanceClass());
-			case JavaRefPackage.ARRAY_TYPE__DEFAULT_VALUE:
-				return DEFAULT_VALUE_EDEFAULT == null ? getDefaultValue() != null : !DEFAULT_VALUE_EDEFAULT.equals(getDefaultValue());
-			case JavaRefPackage.ARRAY_TYPE__EPACKAGE:
-				return getEPackage() != null;
-			case JavaRefPackage.ARRAY_TYPE__ABSTRACT:
-				return ((eFlags & ABSTRACT_EFLAG) != 0) != ABSTRACT_EDEFAULT;
-			case JavaRefPackage.ARRAY_TYPE__INTERFACE:
-				return ((eFlags & INTERFACE_EFLAG) != 0) != INTERFACE_EDEFAULT;
-			case JavaRefPackage.ARRAY_TYPE__ESUPER_TYPES:
-				return eSuperTypes != null && !eSuperTypes.isEmpty();
-			case JavaRefPackage.ARRAY_TYPE__EOPERATIONS:
-				return eOperations != null && !eOperations.isEmpty();
-			case JavaRefPackage.ARRAY_TYPE__EALL_ATTRIBUTES:
-				return !getEAllAttributes().isEmpty();
-			case JavaRefPackage.ARRAY_TYPE__EALL_REFERENCES:
-				return !getEAllReferences().isEmpty();
-			case JavaRefPackage.ARRAY_TYPE__EREFERENCES:
-				return !getEReferences().isEmpty();
-			case JavaRefPackage.ARRAY_TYPE__EATTRIBUTES:
-				return !getEAttributes().isEmpty();
-			case JavaRefPackage.ARRAY_TYPE__EALL_CONTAINMENTS:
-				return !getEAllContainments().isEmpty();
-			case JavaRefPackage.ARRAY_TYPE__EALL_OPERATIONS:
-				return !getEAllOperations().isEmpty();
-			case JavaRefPackage.ARRAY_TYPE__EALL_STRUCTURAL_FEATURES:
-				return !getEAllStructuralFeatures().isEmpty();
-			case JavaRefPackage.ARRAY_TYPE__EALL_SUPER_TYPES:
-				return !getEAllSuperTypes().isEmpty();
-			case JavaRefPackage.ARRAY_TYPE__EID_ATTRIBUTE:
-				return getEIDAttribute() != null;
-			case JavaRefPackage.ARRAY_TYPE__ESTRUCTURAL_FEATURES:
-				return eStructuralFeatures != null && !eStructuralFeatures.isEmpty();
-			case JavaRefPackage.ARRAY_TYPE__KIND:
-				return kind != KIND_EDEFAULT;
-			case JavaRefPackage.ARRAY_TYPE__PUBLIC:
-				return ((eFlags & PUBLIC_EFLAG) != 0) != PUBLIC_EDEFAULT;
-			case JavaRefPackage.ARRAY_TYPE__FINAL:
-				return ((eFlags & FINAL_EFLAG) != 0) != FINAL_EDEFAULT;
-			case JavaRefPackage.ARRAY_TYPE__IMPLEMENTS_INTERFACES:
-				return implementsInterfaces != null && !implementsInterfaces.isEmpty();
-			case JavaRefPackage.ARRAY_TYPE__CLASS_IMPORT:
-				return classImport != null && !classImport.isEmpty();
-			case JavaRefPackage.ARRAY_TYPE__PACKAGE_IMPORTS:
-				return packageImports != null && !packageImports.isEmpty();
-			case JavaRefPackage.ARRAY_TYPE__FIELDS:
-				return fields != null && !fields.isEmpty();
-			case JavaRefPackage.ARRAY_TYPE__METHODS:
-				return methods != null && !methods.isEmpty();
-			case JavaRefPackage.ARRAY_TYPE__INITIALIZERS:
-				return initializers != null && !initializers.isEmpty();
-			case JavaRefPackage.ARRAY_TYPE__DECLARED_CLASSES:
-				return declaredClasses != null && !declaredClasses.isEmpty();
-			case JavaRefPackage.ARRAY_TYPE__DECLARING_CLASS:
-				return declaringClass != null;
-			case JavaRefPackage.ARRAY_TYPE__JAVA_PACKAGE:
-				return basicGetJavaPackage() != null;
-			case JavaRefPackage.ARRAY_TYPE__EVENTS:
-				return events != null && !events.isEmpty();
-			case JavaRefPackage.ARRAY_TYPE__ALL_EVENTS:
-				return !getAllEvents().isEmpty();
-			case JavaRefPackage.ARRAY_TYPE__ARRAY_DIMENSIONS:
-				return arrayDimensions != ARRAY_DIMENSIONS_EDEFAULT;
-			case JavaRefPackage.ARRAY_TYPE__COMPONENT_TYPE:
-				return componentType != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.ARRAY_TYPE__EANNOTATIONS:
-				getEAnnotations().clear();
-				getEAnnotations().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__NAME:
-				setName((String)newValue);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__INSTANCE_CLASS_NAME:
-				setInstanceClassName((String)newValue);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__ABSTRACT:
-				setAbstract(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.ARRAY_TYPE__INTERFACE:
-				setInterface(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.ARRAY_TYPE__ESUPER_TYPES:
-				getESuperTypes().clear();
-				getESuperTypes().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__EOPERATIONS:
-				getEOperations().clear();
-				getEOperations().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__ESTRUCTURAL_FEATURES:
-				getEStructuralFeatures().clear();
-				getEStructuralFeatures().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__KIND:
-				setKind((TypeKind)newValue);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__PUBLIC:
-				setPublic(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.ARRAY_TYPE__FINAL:
-				setFinal(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.ARRAY_TYPE__IMPLEMENTS_INTERFACES:
-				getImplementsInterfaces().clear();
-				getImplementsInterfaces().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__CLASS_IMPORT:
-				getClassImport().clear();
-				getClassImport().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__PACKAGE_IMPORTS:
-				getPackageImports().clear();
-				getPackageImports().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__FIELDS:
-				getFields().clear();
-				getFields().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__METHODS:
-				getMethods().clear();
-				getMethods().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__INITIALIZERS:
-				getInitializers().clear();
-				getInitializers().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__DECLARED_CLASSES:
-				getDeclaredClasses().clear();
-				getDeclaredClasses().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__DECLARING_CLASS:
-				setDeclaringClass((JavaClass)newValue);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__EVENTS:
-				getEvents().clear();
-				getEvents().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__ALL_EVENTS:
-				getAllEvents().clear();
-				getAllEvents().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__ARRAY_DIMENSIONS:
-				setArrayDimensions(((Integer)newValue).intValue());
-				return;
-			case JavaRefPackage.ARRAY_TYPE__COMPONENT_TYPE:
-				setComponentType((EClassifier)newValue);
-				return;
-		}
-		eDynamicSet(eFeature, newValue);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.ARRAY_TYPE__EANNOTATIONS:
-				getEAnnotations().clear();
-				return;
-			case JavaRefPackage.ARRAY_TYPE__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__INSTANCE_CLASS_NAME:
-				setInstanceClassName(INSTANCE_CLASS_NAME_EDEFAULT);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__ABSTRACT:
-				setAbstract(ABSTRACT_EDEFAULT);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__INTERFACE:
-				setInterface(INTERFACE_EDEFAULT);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__ESUPER_TYPES:
-				getESuperTypes().clear();
-				return;
-			case JavaRefPackage.ARRAY_TYPE__EOPERATIONS:
-				getEOperations().clear();
-				return;
-			case JavaRefPackage.ARRAY_TYPE__ESTRUCTURAL_FEATURES:
-				getEStructuralFeatures().clear();
-				return;
-			case JavaRefPackage.ARRAY_TYPE__KIND:
-				setKind(KIND_EDEFAULT);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__PUBLIC:
-				setPublic(PUBLIC_EDEFAULT);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__FINAL:
-				setFinal(FINAL_EDEFAULT);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__IMPLEMENTS_INTERFACES:
-				getImplementsInterfaces().clear();
-				return;
-			case JavaRefPackage.ARRAY_TYPE__CLASS_IMPORT:
-				getClassImport().clear();
-				return;
-			case JavaRefPackage.ARRAY_TYPE__PACKAGE_IMPORTS:
-				getPackageImports().clear();
-				return;
-			case JavaRefPackage.ARRAY_TYPE__FIELDS:
-				getFields().clear();
-				return;
-			case JavaRefPackage.ARRAY_TYPE__METHODS:
-				getMethods().clear();
-				return;
-			case JavaRefPackage.ARRAY_TYPE__INITIALIZERS:
-				getInitializers().clear();
-				return;
-			case JavaRefPackage.ARRAY_TYPE__DECLARED_CLASSES:
-				getDeclaredClasses().clear();
-				return;
-			case JavaRefPackage.ARRAY_TYPE__DECLARING_CLASS:
-				setDeclaringClass((JavaClass)null);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__EVENTS:
-				getEvents().clear();
-				return;
-			case JavaRefPackage.ARRAY_TYPE__ALL_EVENTS:
-				getAllEvents().clear();
-				return;
-			case JavaRefPackage.ARRAY_TYPE__ARRAY_DIMENSIONS:
-				setArrayDimensions(ARRAY_DIMENSIONS_EDEFAULT);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__COMPONENT_TYPE:
-				setComponentType((EClassifier)null);
-				return;
-		}
-		eDynamicUnset(eFeature);
 	}
 
 	/**
@@ -442,8 +243,8 @@ public class ArrayTypeImpl extends JavaClassImpl implements ArrayType, JavaClass
 	 */
 	public EClassifier getComponentTypeGen() {
 		if (componentType != null && componentType.eIsProxy()) {
-			EClassifier oldComponentType = componentType;
-			componentType = (EClassifier)eResolveProxy((InternalEObject)componentType);
+			InternalEObject oldComponentType = (InternalEObject)componentType;
+			componentType = (EClassifier)eResolveProxy(oldComponentType);
 			if (componentType != oldComponentType) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, JavaRefPackage.ARRAY_TYPE__COMPONENT_TYPE, oldComponentType, componentType));
@@ -476,183 +277,6 @@ public class ArrayTypeImpl extends JavaClassImpl implements ArrayType, JavaClass
 		componentType = newComponentType;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.ARRAY_TYPE__COMPONENT_TYPE, oldComponentType, componentType));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JavaRefPackage.ARRAY_TYPE__EANNOTATIONS:
-					return ((InternalEList)getEAnnotations()).basicAdd(otherEnd, msgs);
-				case JavaRefPackage.ARRAY_TYPE__EPACKAGE:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, JavaRefPackage.ARRAY_TYPE__EPACKAGE, msgs);
-				case JavaRefPackage.ARRAY_TYPE__EOPERATIONS:
-					return ((InternalEList)getEOperations()).basicAdd(otherEnd, msgs);
-				case JavaRefPackage.ARRAY_TYPE__ESTRUCTURAL_FEATURES:
-					return ((InternalEList)getEStructuralFeatures()).basicAdd(otherEnd, msgs);
-				case JavaRefPackage.ARRAY_TYPE__FIELDS:
-					return ((InternalEList)getFields()).basicAdd(otherEnd, msgs);
-				case JavaRefPackage.ARRAY_TYPE__METHODS:
-					return ((InternalEList)getMethods()).basicAdd(otherEnd, msgs);
-				case JavaRefPackage.ARRAY_TYPE__INITIALIZERS:
-					return ((InternalEList)getInitializers()).basicAdd(otherEnd, msgs);
-				case JavaRefPackage.ARRAY_TYPE__DECLARED_CLASSES:
-					return ((InternalEList)getDeclaredClasses()).basicAdd(otherEnd, msgs);
-				case JavaRefPackage.ARRAY_TYPE__DECLARING_CLASS:
-					if (declaringClass != null)
-						msgs = ((InternalEObject)declaringClass).eInverseRemove(this, JavaRefPackage.JAVA_CLASS__DECLARED_CLASSES, JavaClass.class, msgs);
-					return basicSetDeclaringClass((JavaClass)otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JavaRefPackage.ARRAY_TYPE__EANNOTATIONS:
-					return ((InternalEList)getEAnnotations()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.ARRAY_TYPE__EPACKAGE:
-					return eBasicSetContainer(null, JavaRefPackage.ARRAY_TYPE__EPACKAGE, msgs);
-				case JavaRefPackage.ARRAY_TYPE__EOPERATIONS:
-					return ((InternalEList)getEOperations()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.ARRAY_TYPE__ESTRUCTURAL_FEATURES:
-					return ((InternalEList)getEStructuralFeatures()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.ARRAY_TYPE__FIELDS:
-					return ((InternalEList)getFields()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.ARRAY_TYPE__METHODS:
-					return ((InternalEList)getMethods()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.ARRAY_TYPE__INITIALIZERS:
-					return ((InternalEList)getInitializers()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.ARRAY_TYPE__DECLARED_CLASSES:
-					return ((InternalEList)getDeclaredClasses()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.ARRAY_TYPE__DECLARING_CLASS:
-					return basicSetDeclaringClass(null, msgs);
-				case JavaRefPackage.ARRAY_TYPE__EVENTS:
-					return ((InternalEList)getEvents()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case JavaRefPackage.ARRAY_TYPE__EPACKAGE:
-					return eContainer.eInverseRemove(this, EcorePackage.EPACKAGE__ECLASSIFIERS, EPackage.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.ARRAY_TYPE__EANNOTATIONS:
-				return getEAnnotations();
-			case JavaRefPackage.ARRAY_TYPE__NAME:
-				return getName();
-			case JavaRefPackage.ARRAY_TYPE__INSTANCE_CLASS_NAME:
-				return getInstanceClassName();
-			case JavaRefPackage.ARRAY_TYPE__INSTANCE_CLASS:
-				return getInstanceClass();
-			case JavaRefPackage.ARRAY_TYPE__DEFAULT_VALUE:
-				return getDefaultValue();
-			case JavaRefPackage.ARRAY_TYPE__EPACKAGE:
-				return getEPackage();
-			case JavaRefPackage.ARRAY_TYPE__ABSTRACT:
-				return isAbstract() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.ARRAY_TYPE__INTERFACE:
-				return isInterface() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.ARRAY_TYPE__ESUPER_TYPES:
-				return getESuperTypes();
-			case JavaRefPackage.ARRAY_TYPE__EOPERATIONS:
-				return getEOperations();
-			case JavaRefPackage.ARRAY_TYPE__EALL_ATTRIBUTES:
-				return getEAllAttributes();
-			case JavaRefPackage.ARRAY_TYPE__EALL_REFERENCES:
-				return getEAllReferences();
-			case JavaRefPackage.ARRAY_TYPE__EREFERENCES:
-				return getEReferences();
-			case JavaRefPackage.ARRAY_TYPE__EATTRIBUTES:
-				return getEAttributes();
-			case JavaRefPackage.ARRAY_TYPE__EALL_CONTAINMENTS:
-				return getEAllContainments();
-			case JavaRefPackage.ARRAY_TYPE__EALL_OPERATIONS:
-				return getEAllOperations();
-			case JavaRefPackage.ARRAY_TYPE__EALL_STRUCTURAL_FEATURES:
-				return getEAllStructuralFeatures();
-			case JavaRefPackage.ARRAY_TYPE__EALL_SUPER_TYPES:
-				return getEAllSuperTypes();
-			case JavaRefPackage.ARRAY_TYPE__EID_ATTRIBUTE:
-				return getEIDAttribute();
-			case JavaRefPackage.ARRAY_TYPE__ESTRUCTURAL_FEATURES:
-				return getEStructuralFeatures();
-			case JavaRefPackage.ARRAY_TYPE__KIND:
-				return getKind();
-			case JavaRefPackage.ARRAY_TYPE__PUBLIC:
-				return isPublic() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.ARRAY_TYPE__FINAL:
-				return isFinal() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.ARRAY_TYPE__IMPLEMENTS_INTERFACES:
-				return getImplementsInterfaces();
-			case JavaRefPackage.ARRAY_TYPE__CLASS_IMPORT:
-				return getClassImport();
-			case JavaRefPackage.ARRAY_TYPE__PACKAGE_IMPORTS:
-				return getPackageImports();
-			case JavaRefPackage.ARRAY_TYPE__FIELDS:
-				return getFields();
-			case JavaRefPackage.ARRAY_TYPE__METHODS:
-				return getMethods();
-			case JavaRefPackage.ARRAY_TYPE__INITIALIZERS:
-				return getInitializers();
-			case JavaRefPackage.ARRAY_TYPE__DECLARED_CLASSES:
-				return getDeclaredClasses();
-			case JavaRefPackage.ARRAY_TYPE__DECLARING_CLASS:
-				if (resolve) return getDeclaringClass();
-				return basicGetDeclaringClass();
-			case JavaRefPackage.ARRAY_TYPE__JAVA_PACKAGE:
-				if (resolve) return getJavaPackage();
-				return basicGetJavaPackage();
-			case JavaRefPackage.ARRAY_TYPE__EVENTS:
-				return getEvents();
-			case JavaRefPackage.ARRAY_TYPE__ALL_EVENTS:
-				return getAllEvents();
-			case JavaRefPackage.ARRAY_TYPE__ARRAY_DIMENSIONS:
-				return new Integer(getArrayDimensions());
-			case JavaRefPackage.ARRAY_TYPE__COMPONENT_TYPE:
-				if (resolve) return getComponentType();
-				return basicGetComponentType();
-		}
-		return eDynamicGet(eFeature, resolve);
 	}
 
 	/* (non-Javadoc)

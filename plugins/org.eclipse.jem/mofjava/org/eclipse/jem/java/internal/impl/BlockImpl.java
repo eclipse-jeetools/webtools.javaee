@@ -12,7 +12,7 @@ package org.eclipse.jem.java.internal.impl;
 
 /*
  *  $RCSfile: BlockImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2005/09/14 23:30:32 $ 
+ *  $Revision: 1.2 $  $Date: 2007/02/19 05:31:23 $ 
  */
 
 import java.util.Collection;
@@ -21,7 +21,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
@@ -34,7 +33,7 @@ import org.eclipse.jem.java.JavaRefPackage;
 /**
  * @generated
  */
-public class BlockImpl extends EObjectImpl implements Block{
+public class BlockImpl extends EObjectImpl implements Block {
 
 	/**
 	 * The default value of the '{@link #getSource() <em>Source</em>}' attribute.
@@ -87,7 +86,7 @@ public class BlockImpl extends EObjectImpl implements Block{
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return JavaRefPackage.eINSTANCE.getBlock();
+		return JavaRefPackage.Literals.BLOCK;
 	}
 
 	/**
@@ -139,16 +138,12 @@ public class BlockImpl extends EObjectImpl implements Block{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JavaRefPackage.BLOCK__CONTENTS:
-					return ((InternalEList)getContents()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case JavaRefPackage.BLOCK__CONTENTS:
+				return ((InternalEList)getContents()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -156,8 +151,8 @@ public class BlockImpl extends EObjectImpl implements Block{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case JavaRefPackage.BLOCK__SOURCE:
 				return getSource();
 			case JavaRefPackage.BLOCK__NAME:
@@ -165,29 +160,16 @@ public class BlockImpl extends EObjectImpl implements Block{
 			case JavaRefPackage.BLOCK__CONTENTS:
 				return getContents();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.BLOCK__SOURCE:
-				return SOURCE_EDEFAULT == null ? source != null : !SOURCE_EDEFAULT.equals(source);
-			case JavaRefPackage.BLOCK__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case JavaRefPackage.BLOCK__CONTENTS:
-				return contents != null && !contents.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case JavaRefPackage.BLOCK__SOURCE:
 				setSource((String)newValue);
 				return;
@@ -199,14 +181,16 @@ public class BlockImpl extends EObjectImpl implements Block{
 				getContents().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case JavaRefPackage.BLOCK__SOURCE:
 				setSource(SOURCE_EDEFAULT);
 				return;
@@ -217,7 +201,24 @@ public class BlockImpl extends EObjectImpl implements Block{
 				getContents().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case JavaRefPackage.BLOCK__SOURCE:
+				return SOURCE_EDEFAULT == null ? source != null : !SOURCE_EDEFAULT.equals(source);
+			case JavaRefPackage.BLOCK__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case JavaRefPackage.BLOCK__CONTENTS:
+				return contents != null && !contents.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**

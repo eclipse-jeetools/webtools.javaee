@@ -12,36 +12,24 @@ package org.eclipse.jem.java.internal.impl;
 
 /*
  *  $RCSfile: JavaParameterImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2005/09/15 20:28:04 $ 
+ *  $Revision: 1.3 $  $Date: 2007/02/19 05:31:23 $ 
  */
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EOperation;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EParameterImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.InternalEList;
-
+import org.eclipse.emf.ecore.util.*;
 
 import org.eclipse.jem.internal.java.adapters.IJavaMethodAdapter;
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
-import org.eclipse.jem.java.JavaHelpers;
-import org.eclipse.jem.java.JavaParameter;
-import org.eclipse.jem.java.JavaParameterKind;
-import org.eclipse.jem.java.JavaRefPackage;
-import org.eclipse.jem.java.Method;
+import org.eclipse.jem.java.*;
 
 /**
  * @generated
  */
-public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
+public class JavaParameterImpl extends EParameterImpl implements JavaParameter {
 
 	/**
 	 * The default value of the '{@link #isFinal() <em>Final</em>}' attribute.
@@ -86,7 +74,7 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return JavaRefPackage.eINSTANCE.getJavaParameter();
+		return JavaRefPackage.Literals.JAVA_PARAMETER;
 	}
 
 	public JavaHelpers getJavaType() {
@@ -95,6 +83,70 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
   public String getQualifiedName() {
     return (eContainer() instanceof Method) ? ((Method)eContainer()).getName() + "." + this.getName() : this.getName();
   }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case JavaRefPackage.JAVA_PARAMETER__FINAL:
+				return isFinal() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.JAVA_PARAMETER__PARAMETER_KIND:
+				return getParameterKind();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case JavaRefPackage.JAVA_PARAMETER__FINAL:
+				setFinal(((Boolean)newValue).booleanValue());
+				return;
+			case JavaRefPackage.JAVA_PARAMETER__PARAMETER_KIND:
+				setParameterKind((JavaParameterKind)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case JavaRefPackage.JAVA_PARAMETER__FINAL:
+				setFinal(FINAL_EDEFAULT);
+				return;
+			case JavaRefPackage.JAVA_PARAMETER__PARAMETER_KIND:
+				setParameterKind(PARAMETER_KIND_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case JavaRefPackage.JAVA_PARAMETER__FINAL:
+				return ((eFlags & FINAL_EFLAG) != 0) != FINAL_EDEFAULT;
+			case JavaRefPackage.JAVA_PARAMETER__PARAMETER_KIND:
+				return parameterKind != PARAMETER_KIND_EDEFAULT;
+		}
+		return super.eIsSet(featureID);
+	}
+
 	/**
 	 * Is this parameter type an array type.
 	 */
@@ -197,112 +249,6 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.JAVA_PARAMETER__EANNOTATIONS:
-				return eAnnotations != null && !eAnnotations.isEmpty();
-			case JavaRefPackage.JAVA_PARAMETER__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case JavaRefPackage.JAVA_PARAMETER__ORDERED:
-				return ((eFlags & ORDERED_EFLAG) != 0) != ORDERED_EDEFAULT;
-			case JavaRefPackage.JAVA_PARAMETER__UNIQUE:
-				return ((eFlags & UNIQUE_EFLAG) != 0) != UNIQUE_EDEFAULT;
-			case JavaRefPackage.JAVA_PARAMETER__LOWER_BOUND:
-				return lowerBound != LOWER_BOUND_EDEFAULT;
-			case JavaRefPackage.JAVA_PARAMETER__UPPER_BOUND:
-				return upperBound != UPPER_BOUND_EDEFAULT;
-			case JavaRefPackage.JAVA_PARAMETER__MANY:
-				return isMany() != MANY_EDEFAULT;
-			case JavaRefPackage.JAVA_PARAMETER__REQUIRED:
-				return isRequired() != REQUIRED_EDEFAULT;
-			case JavaRefPackage.JAVA_PARAMETER__ETYPE:
-				return eType != null;
-			case JavaRefPackage.JAVA_PARAMETER__EOPERATION:
-				return getEOperation() != null;
-			case JavaRefPackage.JAVA_PARAMETER__FINAL:
-				return ((eFlags & FINAL_EFLAG) != 0) != FINAL_EDEFAULT;
-			case JavaRefPackage.JAVA_PARAMETER__PARAMETER_KIND:
-				return parameterKind != PARAMETER_KIND_EDEFAULT;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.JAVA_PARAMETER__EANNOTATIONS:
-				getEAnnotations().clear();
-				getEAnnotations().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.JAVA_PARAMETER__NAME:
-				setName((String)newValue);
-				return;
-			case JavaRefPackage.JAVA_PARAMETER__ORDERED:
-				setOrdered(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.JAVA_PARAMETER__UNIQUE:
-				setUnique(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.JAVA_PARAMETER__LOWER_BOUND:
-				setLowerBound(((Integer)newValue).intValue());
-				return;
-			case JavaRefPackage.JAVA_PARAMETER__UPPER_BOUND:
-				setUpperBound(((Integer)newValue).intValue());
-				return;
-			case JavaRefPackage.JAVA_PARAMETER__ETYPE:
-				setEType((EClassifier)newValue);
-				return;
-			case JavaRefPackage.JAVA_PARAMETER__FINAL:
-				setFinal(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.JAVA_PARAMETER__PARAMETER_KIND:
-				setParameterKind((JavaParameterKind)newValue);
-				return;
-		}
-		eDynamicSet(eFeature, newValue);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.JAVA_PARAMETER__EANNOTATIONS:
-				getEAnnotations().clear();
-				return;
-			case JavaRefPackage.JAVA_PARAMETER__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case JavaRefPackage.JAVA_PARAMETER__ORDERED:
-				setOrdered(ORDERED_EDEFAULT);
-				return;
-			case JavaRefPackage.JAVA_PARAMETER__UNIQUE:
-				setUnique(UNIQUE_EDEFAULT);
-				return;
-			case JavaRefPackage.JAVA_PARAMETER__LOWER_BOUND:
-				setLowerBound(LOWER_BOUND_EDEFAULT);
-				return;
-			case JavaRefPackage.JAVA_PARAMETER__UPPER_BOUND:
-				setUpperBound(UPPER_BOUND_EDEFAULT);
-				return;
-			case JavaRefPackage.JAVA_PARAMETER__ETYPE:
-				setEType((EClassifier)null);
-				return;
-			case JavaRefPackage.JAVA_PARAMETER__FINAL:
-				setFinal(FINAL_EDEFAULT);
-				return;
-			case JavaRefPackage.JAVA_PARAMETER__PARAMETER_KIND:
-				setParameterKind(PARAMETER_KIND_EDEFAULT);
-				return;
-		}
-		eDynamicUnset(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
@@ -314,101 +260,25 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 		result.append(')');
 		return result.toString();
 	}
+	@Override
+	  public EList<EObject> eContents()
+	  {
+	    if (eContents == null)
+	    {
+	      eContents = EContentsEList.createEContentsEList(this);
+	    }
+	    return eContents;
+	  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JavaRefPackage.JAVA_PARAMETER__EANNOTATIONS:
-					return ((InternalEList)getEAnnotations()).basicAdd(otherEnd, msgs);
-				case JavaRefPackage.JAVA_PARAMETER__EOPERATION:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, JavaRefPackage.JAVA_PARAMETER__EOPERATION, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JavaRefPackage.JAVA_PARAMETER__EANNOTATIONS:
-					return ((InternalEList)getEAnnotations()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.JAVA_PARAMETER__EOPERATION:
-					return eBasicSetContainer(null, JavaRefPackage.JAVA_PARAMETER__EOPERATION, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case JavaRefPackage.JAVA_PARAMETER__EOPERATION:
-					return eContainer.eInverseRemove(this, EcorePackage.EOPERATION__EPARAMETERS, EOperation.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.JAVA_PARAMETER__EANNOTATIONS:
-				return getEAnnotations();
-			case JavaRefPackage.JAVA_PARAMETER__NAME:
-				return getName();
-			case JavaRefPackage.JAVA_PARAMETER__ORDERED:
-				return isOrdered() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.JAVA_PARAMETER__UNIQUE:
-				return isUnique() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.JAVA_PARAMETER__LOWER_BOUND:
-				return new Integer(getLowerBound());
-			case JavaRefPackage.JAVA_PARAMETER__UPPER_BOUND:
-				return new Integer(getUpperBound());
-			case JavaRefPackage.JAVA_PARAMETER__MANY:
-				return isMany() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.JAVA_PARAMETER__REQUIRED:
-				return isRequired() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.JAVA_PARAMETER__ETYPE:
-				if (resolve) return getEType();
-				return basicGetEType();
-			case JavaRefPackage.JAVA_PARAMETER__EOPERATION:
-				return getEOperation();
-			case JavaRefPackage.JAVA_PARAMETER__FINAL:
-				return isFinal() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.JAVA_PARAMETER__PARAMETER_KIND:
-				return getParameterKind();
-		}
-		return eDynamicGet(eFeature, resolve);
-	}
+	  @Override
+	  public EList<EObject> eCrossReferences()
+	  {
+	    if (eCrossReferences == null)
+	    {
+	      eCrossReferences = ECrossReferenceEList.createECrossReferenceEList(this);
+	    }
+	    return eCrossReferences;
+	  }
 
 }
 

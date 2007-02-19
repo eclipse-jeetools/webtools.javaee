@@ -12,7 +12,7 @@ package org.eclipse.jem.java.internal.impl;
 
 /*
  *  $RCSfile: MethodImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2005/09/15 20:28:03 $ 
+ *  $Revision: 1.3 $  $Date: 2007/02/19 05:31:23 $ 
  */
 
 import java.util.Collection;
@@ -22,30 +22,14 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.InternalEObject;
-
+import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EOperationImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.InternalEList;
-
-import org.eclipse.jem.java.Block;
-import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jem.java.JavaHelpers;
-import org.eclipse.jem.java.JavaParameter;
-import org.eclipse.jem.java.JavaRefPackage;
-import org.eclipse.jem.java.JavaVisibilityKind;
-import org.eclipse.jem.java.Method;
-
+import org.eclipse.emf.ecore.util.*;
 
 import org.eclipse.jem.internal.java.adapters.IJavaMethodAdapter;
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
+import org.eclipse.jem.java.*;
 
 /**
  * @generated
@@ -231,7 +215,7 @@ public class MethodImpl extends EOperationImpl implements Method {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return JavaRefPackage.eINSTANCE.getMethod();
+		return JavaRefPackage.Literals.METHOD;
 	}
 
 	/**
@@ -643,6 +627,206 @@ public class MethodImpl extends EOperationImpl implements Method {
 		return (getReturnType() == null || "void".equals(getReturnType().getName()));
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case JavaRefPackage.METHOD__JAVA_CLASS:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetJavaClass((JavaClass)otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case JavaRefPackage.METHOD__PARAMETERS:
+				return ((InternalEList)getParameters()).basicRemove(otherEnd, msgs);
+			case JavaRefPackage.METHOD__JAVA_CLASS:
+				return basicSetJavaClass(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case JavaRefPackage.METHOD__JAVA_CLASS:
+				return eInternalContainer().eInverseRemove(this, JavaRefPackage.JAVA_CLASS__METHODS, JavaClass.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case JavaRefPackage.METHOD__ABSTRACT:
+				return isAbstract() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.METHOD__NATIVE:
+				return isNative() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.METHOD__SYNCHRONIZED:
+				return isSynchronized() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.METHOD__FINAL:
+				return isFinal() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.METHOD__CONSTRUCTOR:
+				return isConstructor() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.METHOD__STATIC:
+				return isStatic() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.METHOD__JAVA_VISIBILITY:
+				return getJavaVisibility();
+			case JavaRefPackage.METHOD__PARAMETERS:
+				return getParameters();
+			case JavaRefPackage.METHOD__JAVA_EXCEPTIONS:
+				return getJavaExceptions();
+			case JavaRefPackage.METHOD__JAVA_CLASS:
+				return getJavaClass();
+			case JavaRefPackage.METHOD__SOURCE:
+				if (resolve) return getSource();
+				return basicGetSource();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case JavaRefPackage.METHOD__ABSTRACT:
+				setAbstract(((Boolean)newValue).booleanValue());
+				return;
+			case JavaRefPackage.METHOD__NATIVE:
+				setNative(((Boolean)newValue).booleanValue());
+				return;
+			case JavaRefPackage.METHOD__SYNCHRONIZED:
+				setSynchronized(((Boolean)newValue).booleanValue());
+				return;
+			case JavaRefPackage.METHOD__FINAL:
+				setFinal(((Boolean)newValue).booleanValue());
+				return;
+			case JavaRefPackage.METHOD__CONSTRUCTOR:
+				setConstructor(((Boolean)newValue).booleanValue());
+				return;
+			case JavaRefPackage.METHOD__STATIC:
+				setStatic(((Boolean)newValue).booleanValue());
+				return;
+			case JavaRefPackage.METHOD__JAVA_VISIBILITY:
+				setJavaVisibility((JavaVisibilityKind)newValue);
+				return;
+			case JavaRefPackage.METHOD__PARAMETERS:
+				getParameters().clear();
+				getParameters().addAll((Collection)newValue);
+				return;
+			case JavaRefPackage.METHOD__JAVA_EXCEPTIONS:
+				getJavaExceptions().clear();
+				getJavaExceptions().addAll((Collection)newValue);
+				return;
+			case JavaRefPackage.METHOD__JAVA_CLASS:
+				setJavaClass((JavaClass)newValue);
+				return;
+			case JavaRefPackage.METHOD__SOURCE:
+				setSource((Block)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case JavaRefPackage.METHOD__ABSTRACT:
+				setAbstract(ABSTRACT_EDEFAULT);
+				return;
+			case JavaRefPackage.METHOD__NATIVE:
+				setNative(NATIVE_EDEFAULT);
+				return;
+			case JavaRefPackage.METHOD__SYNCHRONIZED:
+				setSynchronized(SYNCHRONIZED_EDEFAULT);
+				return;
+			case JavaRefPackage.METHOD__FINAL:
+				setFinal(FINAL_EDEFAULT);
+				return;
+			case JavaRefPackage.METHOD__CONSTRUCTOR:
+				setConstructor(CONSTRUCTOR_EDEFAULT);
+				return;
+			case JavaRefPackage.METHOD__STATIC:
+				setStatic(STATIC_EDEFAULT);
+				return;
+			case JavaRefPackage.METHOD__JAVA_VISIBILITY:
+				setJavaVisibility(JAVA_VISIBILITY_EDEFAULT);
+				return;
+			case JavaRefPackage.METHOD__PARAMETERS:
+				getParameters().clear();
+				return;
+			case JavaRefPackage.METHOD__JAVA_EXCEPTIONS:
+				getJavaExceptions().clear();
+				return;
+			case JavaRefPackage.METHOD__JAVA_CLASS:
+				setJavaClass((JavaClass)null);
+				return;
+			case JavaRefPackage.METHOD__SOURCE:
+				setSource((Block)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case JavaRefPackage.METHOD__ABSTRACT:
+				return ((eFlags & ABSTRACT_EFLAG) != 0) != ABSTRACT_EDEFAULT;
+			case JavaRefPackage.METHOD__NATIVE:
+				return ((eFlags & NATIVE_EFLAG) != 0) != NATIVE_EDEFAULT;
+			case JavaRefPackage.METHOD__SYNCHRONIZED:
+				return ((eFlags & SYNCHRONIZED_EFLAG) != 0) != SYNCHRONIZED_EDEFAULT;
+			case JavaRefPackage.METHOD__FINAL:
+				return ((eFlags & FINAL_EFLAG) != 0) != FINAL_EDEFAULT;
+			case JavaRefPackage.METHOD__CONSTRUCTOR:
+				return ((eFlags & CONSTRUCTOR_EFLAG) != 0) != CONSTRUCTOR_EDEFAULT;
+			case JavaRefPackage.METHOD__STATIC:
+				return ((eFlags & STATIC_EFLAG) != 0) != STATIC_EDEFAULT;
+			case JavaRefPackage.METHOD__JAVA_VISIBILITY:
+				return javaVisibility != JAVA_VISIBILITY_EDEFAULT;
+			case JavaRefPackage.METHOD__PARAMETERS:
+				return parameters != null && !parameters.isEmpty();
+			case JavaRefPackage.METHOD__JAVA_EXCEPTIONS:
+				return javaExceptions != null && !javaExceptions.isEmpty();
+			case JavaRefPackage.METHOD__JAVA_CLASS:
+				return getJavaClass() != null;
+			case JavaRefPackage.METHOD__SOURCE:
+				return source != null;
+		}
+		return super.eIsSet(featureID);
+	}
+
 	public JavaParameter[] listParametersWithoutReturn() {
 		Collection v = getParameters();
 		JavaParameter[] result = new JavaParameter[v.size()];
@@ -694,7 +878,17 @@ public class MethodImpl extends EOperationImpl implements Method {
 	 */
 	public JavaClass getJavaClass() {
 		if (eContainerFeatureID != JavaRefPackage.METHOD__JAVA_CLASS) return null;
-		return (JavaClass)eContainer;
+		return (JavaClass)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetJavaClass(JavaClass newJavaClass, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newJavaClass, JavaRefPackage.METHOD__JAVA_CLASS, msgs);
+		return msgs;
 	}
 
 	/**
@@ -703,15 +897,15 @@ public class MethodImpl extends EOperationImpl implements Method {
 	 * @generated
 	 */
 	public void setJavaClass(JavaClass newJavaClass) {
-		if (newJavaClass != eContainer || (eContainerFeatureID != JavaRefPackage.METHOD__JAVA_CLASS && newJavaClass != null)) {
+		if (newJavaClass != eInternalContainer() || (eContainerFeatureID != JavaRefPackage.METHOD__JAVA_CLASS && newJavaClass != null)) {
 			if (EcoreUtil.isAncestor(this, newJavaClass))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newJavaClass != null)
 				msgs = ((InternalEObject)newJavaClass).eInverseAdd(this, JavaRefPackage.JAVA_CLASS__METHODS, JavaClass.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newJavaClass, JavaRefPackage.METHOD__JAVA_CLASS, msgs);
+			msgs = basicSetJavaClass(newJavaClass, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -723,8 +917,8 @@ public class MethodImpl extends EOperationImpl implements Method {
 	 */
 	public Block getSource() {
 		if (source != null && source.eIsProxy()) {
-			Block oldSource = source;
-			source = (Block)eResolveProxy((InternalEObject)source);
+			InternalEObject oldSource = (InternalEObject)source;
+			source = (Block)eResolveProxy(oldSource);
 			if (source != oldSource) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, JavaRefPackage.METHOD__SOURCE, oldSource, source));
@@ -752,204 +946,6 @@ public class MethodImpl extends EOperationImpl implements Method {
 		source = newSource;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.METHOD__SOURCE, oldSource, source));
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.METHOD__EANNOTATIONS:
-				return eAnnotations != null && !eAnnotations.isEmpty();
-			case JavaRefPackage.METHOD__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case JavaRefPackage.METHOD__ORDERED:
-				return ((eFlags & ORDERED_EFLAG) != 0) != ORDERED_EDEFAULT;
-			case JavaRefPackage.METHOD__UNIQUE:
-				return ((eFlags & UNIQUE_EFLAG) != 0) != UNIQUE_EDEFAULT;
-			case JavaRefPackage.METHOD__LOWER_BOUND:
-				return lowerBound != LOWER_BOUND_EDEFAULT;
-			case JavaRefPackage.METHOD__UPPER_BOUND:
-				return upperBound != UPPER_BOUND_EDEFAULT;
-			case JavaRefPackage.METHOD__MANY:
-				return isMany() != MANY_EDEFAULT;
-			case JavaRefPackage.METHOD__REQUIRED:
-				return isRequired() != REQUIRED_EDEFAULT;
-			case JavaRefPackage.METHOD__ETYPE:
-				return eType != null;
-			case JavaRefPackage.METHOD__ECONTAINING_CLASS:
-				return getEContainingClass() != null;
-			case JavaRefPackage.METHOD__EPARAMETERS:
-				return eParameters != null && !eParameters.isEmpty();
-			case JavaRefPackage.METHOD__EEXCEPTIONS:
-				return eExceptions != null && !eExceptions.isEmpty();
-			case JavaRefPackage.METHOD__ABSTRACT:
-				return ((eFlags & ABSTRACT_EFLAG) != 0) != ABSTRACT_EDEFAULT;
-			case JavaRefPackage.METHOD__NATIVE:
-				return ((eFlags & NATIVE_EFLAG) != 0) != NATIVE_EDEFAULT;
-			case JavaRefPackage.METHOD__SYNCHRONIZED:
-				return ((eFlags & SYNCHRONIZED_EFLAG) != 0) != SYNCHRONIZED_EDEFAULT;
-			case JavaRefPackage.METHOD__FINAL:
-				return ((eFlags & FINAL_EFLAG) != 0) != FINAL_EDEFAULT;
-			case JavaRefPackage.METHOD__CONSTRUCTOR:
-				return ((eFlags & CONSTRUCTOR_EFLAG) != 0) != CONSTRUCTOR_EDEFAULT;
-			case JavaRefPackage.METHOD__STATIC:
-				return ((eFlags & STATIC_EFLAG) != 0) != STATIC_EDEFAULT;
-			case JavaRefPackage.METHOD__JAVA_VISIBILITY:
-				return javaVisibility != JAVA_VISIBILITY_EDEFAULT;
-			case JavaRefPackage.METHOD__PARAMETERS:
-				return parameters != null && !parameters.isEmpty();
-			case JavaRefPackage.METHOD__JAVA_EXCEPTIONS:
-				return javaExceptions != null && !javaExceptions.isEmpty();
-			case JavaRefPackage.METHOD__JAVA_CLASS:
-				return getJavaClass() != null;
-			case JavaRefPackage.METHOD__SOURCE:
-				return source != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.METHOD__EANNOTATIONS:
-				getEAnnotations().clear();
-				getEAnnotations().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.METHOD__NAME:
-				setName((String)newValue);
-				return;
-			case JavaRefPackage.METHOD__ORDERED:
-				setOrdered(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.METHOD__UNIQUE:
-				setUnique(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.METHOD__LOWER_BOUND:
-				setLowerBound(((Integer)newValue).intValue());
-				return;
-			case JavaRefPackage.METHOD__UPPER_BOUND:
-				setUpperBound(((Integer)newValue).intValue());
-				return;
-			case JavaRefPackage.METHOD__ETYPE:
-				setEType((EClassifier)newValue);
-				return;
-			case JavaRefPackage.METHOD__EPARAMETERS:
-				getEParameters().clear();
-				getEParameters().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.METHOD__EEXCEPTIONS:
-				getEExceptions().clear();
-				getEExceptions().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.METHOD__ABSTRACT:
-				setAbstract(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.METHOD__NATIVE:
-				setNative(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.METHOD__SYNCHRONIZED:
-				setSynchronized(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.METHOD__FINAL:
-				setFinal(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.METHOD__CONSTRUCTOR:
-				setConstructor(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.METHOD__STATIC:
-				setStatic(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.METHOD__JAVA_VISIBILITY:
-				setJavaVisibility((JavaVisibilityKind)newValue);
-				return;
-			case JavaRefPackage.METHOD__PARAMETERS:
-				getParameters().clear();
-				getParameters().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.METHOD__JAVA_EXCEPTIONS:
-				getJavaExceptions().clear();
-				getJavaExceptions().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.METHOD__JAVA_CLASS:
-				setJavaClass((JavaClass)newValue);
-				return;
-			case JavaRefPackage.METHOD__SOURCE:
-				setSource((Block)newValue);
-				return;
-		}
-		eDynamicSet(eFeature, newValue);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.METHOD__EANNOTATIONS:
-				getEAnnotations().clear();
-				return;
-			case JavaRefPackage.METHOD__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case JavaRefPackage.METHOD__ORDERED:
-				setOrdered(ORDERED_EDEFAULT);
-				return;
-			case JavaRefPackage.METHOD__UNIQUE:
-				setUnique(UNIQUE_EDEFAULT);
-				return;
-			case JavaRefPackage.METHOD__LOWER_BOUND:
-				setLowerBound(LOWER_BOUND_EDEFAULT);
-				return;
-			case JavaRefPackage.METHOD__UPPER_BOUND:
-				setUpperBound(UPPER_BOUND_EDEFAULT);
-				return;
-			case JavaRefPackage.METHOD__ETYPE:
-				setEType((EClassifier)null);
-				return;
-			case JavaRefPackage.METHOD__EPARAMETERS:
-				getEParameters().clear();
-				return;
-			case JavaRefPackage.METHOD__EEXCEPTIONS:
-				getEExceptions().clear();
-				return;
-			case JavaRefPackage.METHOD__ABSTRACT:
-				setAbstract(ABSTRACT_EDEFAULT);
-				return;
-			case JavaRefPackage.METHOD__NATIVE:
-				setNative(NATIVE_EDEFAULT);
-				return;
-			case JavaRefPackage.METHOD__SYNCHRONIZED:
-				setSynchronized(SYNCHRONIZED_EDEFAULT);
-				return;
-			case JavaRefPackage.METHOD__FINAL:
-				setFinal(FINAL_EDEFAULT);
-				return;
-			case JavaRefPackage.METHOD__CONSTRUCTOR:
-				setConstructor(CONSTRUCTOR_EDEFAULT);
-				return;
-			case JavaRefPackage.METHOD__STATIC:
-				setStatic(STATIC_EDEFAULT);
-				return;
-			case JavaRefPackage.METHOD__JAVA_VISIBILITY:
-				setJavaVisibility(JAVA_VISIBILITY_EDEFAULT);
-				return;
-			case JavaRefPackage.METHOD__PARAMETERS:
-				getParameters().clear();
-				return;
-			case JavaRefPackage.METHOD__JAVA_EXCEPTIONS:
-				getJavaExceptions().clear();
-				return;
-			case JavaRefPackage.METHOD__JAVA_CLASS:
-				setJavaClass((JavaClass)null);
-				return;
-			case JavaRefPackage.METHOD__SOURCE:
-				setSource((Block)null);
-				return;
-		}
-		eDynamicUnset(eFeature);
 	}
 
 	/**
@@ -997,137 +993,15 @@ public class MethodImpl extends EOperationImpl implements Method {
 		return javaExceptions;
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JavaRefPackage.METHOD__EANNOTATIONS:
-					return ((InternalEList)getEAnnotations()).basicAdd(otherEnd, msgs);
-				case JavaRefPackage.METHOD__ECONTAINING_CLASS:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, JavaRefPackage.METHOD__ECONTAINING_CLASS, msgs);
-				case JavaRefPackage.METHOD__EPARAMETERS:
-					return ((InternalEList)getEParameters()).basicAdd(otherEnd, msgs);
-				case JavaRefPackage.METHOD__JAVA_CLASS:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, JavaRefPackage.METHOD__JAVA_CLASS, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JavaRefPackage.METHOD__EANNOTATIONS:
-					return ((InternalEList)getEAnnotations()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.METHOD__ECONTAINING_CLASS:
-					return eBasicSetContainer(null, JavaRefPackage.METHOD__ECONTAINING_CLASS, msgs);
-				case JavaRefPackage.METHOD__EPARAMETERS:
-					return ((InternalEList)getEParameters()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.METHOD__PARAMETERS:
-					return ((InternalEList)getParameters()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.METHOD__JAVA_CLASS:
-					return eBasicSetContainer(null, JavaRefPackage.METHOD__JAVA_CLASS, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case JavaRefPackage.METHOD__ECONTAINING_CLASS:
-					return eContainer.eInverseRemove(this, EcorePackage.ECLASS__EOPERATIONS, EClass.class, msgs);
-				case JavaRefPackage.METHOD__JAVA_CLASS:
-					return eContainer.eInverseRemove(this, JavaRefPackage.JAVA_CLASS__METHODS, JavaClass.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.METHOD__EANNOTATIONS:
-				return getEAnnotations();
-			case JavaRefPackage.METHOD__NAME:
-				return getName();
-			case JavaRefPackage.METHOD__ORDERED:
-				return isOrdered() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.METHOD__UNIQUE:
-				return isUnique() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.METHOD__LOWER_BOUND:
-				return new Integer(getLowerBound());
-			case JavaRefPackage.METHOD__UPPER_BOUND:
-				return new Integer(getUpperBound());
-			case JavaRefPackage.METHOD__MANY:
-				return isMany() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.METHOD__REQUIRED:
-				return isRequired() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.METHOD__ETYPE:
-				if (resolve) return getEType();
-				return basicGetEType();
-			case JavaRefPackage.METHOD__ECONTAINING_CLASS:
-				return getEContainingClass();
-			case JavaRefPackage.METHOD__EPARAMETERS:
-				return getEParameters();
-			case JavaRefPackage.METHOD__EEXCEPTIONS:
-				return getEExceptions();
-			case JavaRefPackage.METHOD__ABSTRACT:
-				return isAbstract() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.METHOD__NATIVE:
-				return isNative() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.METHOD__SYNCHRONIZED:
-				return isSynchronized() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.METHOD__FINAL:
-				return isFinal() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.METHOD__CONSTRUCTOR:
-				return isConstructor() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.METHOD__STATIC:
-				return isStatic() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.METHOD__JAVA_VISIBILITY:
-				return getJavaVisibility();
-			case JavaRefPackage.METHOD__PARAMETERS:
-				return getParameters();
-			case JavaRefPackage.METHOD__JAVA_EXCEPTIONS:
-				return getJavaExceptions();
-			case JavaRefPackage.METHOD__JAVA_CLASS:
-				return getJavaClass();
-			case JavaRefPackage.METHOD__SOURCE:
-				if (resolve) return getSource();
-				return basicGetSource();
-		}
-		return eDynamicGet(eFeature, resolve);
-	}
+	  @Override
+	  public EList<EObject> eCrossReferences()
+	  {
+	    if (eCrossReferences == null)
+	    {
+	      eCrossReferences = ECrossReferenceEList.createECrossReferenceEList(this);
+	    }
+	    return eCrossReferences;
+	  }
 
 }
 

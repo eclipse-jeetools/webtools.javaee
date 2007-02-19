@@ -12,7 +12,7 @@ package org.eclipse.jem.java;
 
 /*
  *  $RCSfile: JavaParameterKind.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.7 $  $Date: 2007/02/19 05:31:23 $ 
  */
 import java.util.Arrays;
 import java.util.Collections;
@@ -89,7 +89,7 @@ public final class JavaParameterKind extends AbstractEnumerator
 	 * @generated
 	 * @ordered
 	 */
-  public static final JavaParameterKind IN_LITERAL = new JavaParameterKind(IN, "IN");
+  public static final JavaParameterKind IN_LITERAL = new JavaParameterKind(IN, "IN", "IN");
 
 	/**
 	 * The '<em><b>OUT</b></em>' literal object.
@@ -103,7 +103,7 @@ public final class JavaParameterKind extends AbstractEnumerator
 	 * @generated
 	 * @ordered
 	 */
-  public static final JavaParameterKind OUT_LITERAL = new JavaParameterKind(OUT, "OUT");
+  public static final JavaParameterKind OUT_LITERAL = new JavaParameterKind(OUT, "OUT", "OUT");
 
 	/**
 	 * The '<em><b>INOUT</b></em>' literal object.
@@ -117,7 +117,7 @@ public final class JavaParameterKind extends AbstractEnumerator
 	 * @generated
 	 * @ordered
 	 */
-  public static final JavaParameterKind INOUT_LITERAL = new JavaParameterKind(INOUT, "INOUT");
+  public static final JavaParameterKind INOUT_LITERAL = new JavaParameterKind(INOUT, "INOUT", "INOUT");
 
 	/**
 	 * The '<em><b>RETURN</b></em>' literal object.
@@ -131,7 +131,7 @@ public final class JavaParameterKind extends AbstractEnumerator
 	 * @generated
 	 * @ordered
 	 */
-  public static final JavaParameterKind RETURN_LITERAL = new JavaParameterKind(RETURN, "RETURN");
+  public static final JavaParameterKind RETURN_LITERAL = new JavaParameterKind(RETURN, "RETURN", "RETURN");
 
 	/**
 	 * An array of all the '<em><b>Java Parameter Kind</b></em>' enumerators.
@@ -156,15 +156,15 @@ public final class JavaParameterKind extends AbstractEnumerator
   public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Java Parameter Kind</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Java Parameter Kind</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc --> 
    * <!-- end-user-doc --> 
 	 * @generated
 	 */
-  public static JavaParameterKind get(String name) {
+  public static JavaParameterKind get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			JavaParameterKind result = VALUES_ARRAY[i];
-			if (result.toString().equals(name)) {
+			if (result.toString().equals(literal)) {
 				return result;
 			}
 		}
@@ -172,7 +172,23 @@ public final class JavaParameterKind extends AbstractEnumerator
 	}
 
 	/**
-	 * Returns the '<em><b>Java Parameter Kind</b></em>' literal with the specified value.
+	 * Returns the '<em><b>Java Parameter Kind</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static JavaParameterKind getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			JavaParameterKind result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Java Parameter Kind</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc --> 
    * <!-- end-user-doc --> 
 	 * @generated
@@ -189,12 +205,12 @@ public final class JavaParameterKind extends AbstractEnumerator
 
 	/**
 	 * Only this class can construct instances.
-	 * <!-- begin-user-doc --> 
-   * <!-- end-user-doc --> 
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  private JavaParameterKind(int value, String name) {
-		super(value, name);
+	private JavaParameterKind(int value, String name, String literal) {
+		super(value, name, literal);
 	}
 
 } //JavaParameterKind

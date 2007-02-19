@@ -10,12 +10,9 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassImpl.java,v $
- *  $Revision: 1.4 $  $Date: 2006/05/17 20:13:07 $ 
+ *  $Revision: 1.5 $  $Date: 2007/02/19 05:31:23 $ 
  */
 package org.eclipse.jem.java.internal.impl;
-
-import java.util.Collection;
-import java.util.List;
 
 import java.util.*;
 
@@ -23,24 +20,9 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.InternalEObject;
-
+import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.impl.EClassImpl;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
-import org.eclipse.jem.java.*;
-
-import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.*;
@@ -48,6 +30,7 @@ import org.eclipse.emf.ecore.util.*;
 import org.eclipse.jem.internal.java.adapters.*;
 import org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter;
 import org.eclipse.jem.internal.java.instantiation.IInstantiationInstance;
+import org.eclipse.jem.java.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -239,7 +222,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return JavaRefPackage.eINSTANCE.getJavaClass();
+		return JavaRefPackage.Literals.JAVA_CLASS;
 	}
 
 	/**
@@ -1079,6 +1062,241 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case JavaRefPackage.JAVA_CLASS__FIELDS:
+				return ((InternalEList)getFields()).basicAdd(otherEnd, msgs);
+			case JavaRefPackage.JAVA_CLASS__METHODS:
+				return ((InternalEList)getMethods()).basicAdd(otherEnd, msgs);
+			case JavaRefPackage.JAVA_CLASS__INITIALIZERS:
+				return ((InternalEList)getInitializers()).basicAdd(otherEnd, msgs);
+			case JavaRefPackage.JAVA_CLASS__DECLARED_CLASSES:
+				return ((InternalEList)getDeclaredClasses()).basicAdd(otherEnd, msgs);
+			case JavaRefPackage.JAVA_CLASS__DECLARING_CLASS:
+				if (declaringClass != null)
+					msgs = ((InternalEObject)declaringClass).eInverseRemove(this, JavaRefPackage.JAVA_CLASS__DECLARED_CLASSES, JavaClass.class, msgs);
+				return basicSetDeclaringClass((JavaClass)otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case JavaRefPackage.JAVA_CLASS__FIELDS:
+				return ((InternalEList)getFields()).basicRemove(otherEnd, msgs);
+			case JavaRefPackage.JAVA_CLASS__METHODS:
+				return ((InternalEList)getMethods()).basicRemove(otherEnd, msgs);
+			case JavaRefPackage.JAVA_CLASS__INITIALIZERS:
+				return ((InternalEList)getInitializers()).basicRemove(otherEnd, msgs);
+			case JavaRefPackage.JAVA_CLASS__DECLARED_CLASSES:
+				return ((InternalEList)getDeclaredClasses()).basicRemove(otherEnd, msgs);
+			case JavaRefPackage.JAVA_CLASS__DECLARING_CLASS:
+				return basicSetDeclaringClass(null, msgs);
+			case JavaRefPackage.JAVA_CLASS__EVENTS:
+				return ((InternalEList)getEvents()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case JavaRefPackage.JAVA_CLASS__KIND:
+				return getKind();
+			case JavaRefPackage.JAVA_CLASS__PUBLIC:
+				return isPublic() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.JAVA_CLASS__FINAL:
+				return isFinal() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.JAVA_CLASS__IMPLEMENTS_INTERFACES:
+				return getImplementsInterfaces();
+			case JavaRefPackage.JAVA_CLASS__CLASS_IMPORT:
+				return getClassImport();
+			case JavaRefPackage.JAVA_CLASS__PACKAGE_IMPORTS:
+				return getPackageImports();
+			case JavaRefPackage.JAVA_CLASS__FIELDS:
+				return getFields();
+			case JavaRefPackage.JAVA_CLASS__METHODS:
+				return getMethods();
+			case JavaRefPackage.JAVA_CLASS__INITIALIZERS:
+				return getInitializers();
+			case JavaRefPackage.JAVA_CLASS__DECLARED_CLASSES:
+				return getDeclaredClasses();
+			case JavaRefPackage.JAVA_CLASS__DECLARING_CLASS:
+				if (resolve) return getDeclaringClass();
+				return basicGetDeclaringClass();
+			case JavaRefPackage.JAVA_CLASS__JAVA_PACKAGE:
+				if (resolve) return getJavaPackage();
+				return basicGetJavaPackage();
+			case JavaRefPackage.JAVA_CLASS__EVENTS:
+				return getEvents();
+			case JavaRefPackage.JAVA_CLASS__ALL_EVENTS:
+				return getAllEvents();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case JavaRefPackage.JAVA_CLASS__KIND:
+				setKind((TypeKind)newValue);
+				return;
+			case JavaRefPackage.JAVA_CLASS__PUBLIC:
+				setPublic(((Boolean)newValue).booleanValue());
+				return;
+			case JavaRefPackage.JAVA_CLASS__FINAL:
+				setFinal(((Boolean)newValue).booleanValue());
+				return;
+			case JavaRefPackage.JAVA_CLASS__IMPLEMENTS_INTERFACES:
+				getImplementsInterfaces().clear();
+				getImplementsInterfaces().addAll((Collection)newValue);
+				return;
+			case JavaRefPackage.JAVA_CLASS__CLASS_IMPORT:
+				getClassImport().clear();
+				getClassImport().addAll((Collection)newValue);
+				return;
+			case JavaRefPackage.JAVA_CLASS__PACKAGE_IMPORTS:
+				getPackageImports().clear();
+				getPackageImports().addAll((Collection)newValue);
+				return;
+			case JavaRefPackage.JAVA_CLASS__FIELDS:
+				getFields().clear();
+				getFields().addAll((Collection)newValue);
+				return;
+			case JavaRefPackage.JAVA_CLASS__METHODS:
+				getMethods().clear();
+				getMethods().addAll((Collection)newValue);
+				return;
+			case JavaRefPackage.JAVA_CLASS__INITIALIZERS:
+				getInitializers().clear();
+				getInitializers().addAll((Collection)newValue);
+				return;
+			case JavaRefPackage.JAVA_CLASS__DECLARED_CLASSES:
+				getDeclaredClasses().clear();
+				getDeclaredClasses().addAll((Collection)newValue);
+				return;
+			case JavaRefPackage.JAVA_CLASS__DECLARING_CLASS:
+				setDeclaringClass((JavaClass)newValue);
+				return;
+			case JavaRefPackage.JAVA_CLASS__EVENTS:
+				getEvents().clear();
+				getEvents().addAll((Collection)newValue);
+				return;
+			case JavaRefPackage.JAVA_CLASS__ALL_EVENTS:
+				getAllEvents().clear();
+				getAllEvents().addAll((Collection)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case JavaRefPackage.JAVA_CLASS__KIND:
+				setKind(KIND_EDEFAULT);
+				return;
+			case JavaRefPackage.JAVA_CLASS__PUBLIC:
+				setPublic(PUBLIC_EDEFAULT);
+				return;
+			case JavaRefPackage.JAVA_CLASS__FINAL:
+				setFinal(FINAL_EDEFAULT);
+				return;
+			case JavaRefPackage.JAVA_CLASS__IMPLEMENTS_INTERFACES:
+				getImplementsInterfaces().clear();
+				return;
+			case JavaRefPackage.JAVA_CLASS__CLASS_IMPORT:
+				getClassImport().clear();
+				return;
+			case JavaRefPackage.JAVA_CLASS__PACKAGE_IMPORTS:
+				getPackageImports().clear();
+				return;
+			case JavaRefPackage.JAVA_CLASS__FIELDS:
+				getFields().clear();
+				return;
+			case JavaRefPackage.JAVA_CLASS__METHODS:
+				getMethods().clear();
+				return;
+			case JavaRefPackage.JAVA_CLASS__INITIALIZERS:
+				getInitializers().clear();
+				return;
+			case JavaRefPackage.JAVA_CLASS__DECLARED_CLASSES:
+				getDeclaredClasses().clear();
+				return;
+			case JavaRefPackage.JAVA_CLASS__DECLARING_CLASS:
+				setDeclaringClass((JavaClass)null);
+				return;
+			case JavaRefPackage.JAVA_CLASS__EVENTS:
+				getEvents().clear();
+				return;
+			case JavaRefPackage.JAVA_CLASS__ALL_EVENTS:
+				getAllEvents().clear();
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case JavaRefPackage.JAVA_CLASS__KIND:
+				return kind != KIND_EDEFAULT;
+			case JavaRefPackage.JAVA_CLASS__PUBLIC:
+				return ((eFlags & PUBLIC_EFLAG) != 0) != PUBLIC_EDEFAULT;
+			case JavaRefPackage.JAVA_CLASS__FINAL:
+				return ((eFlags & FINAL_EFLAG) != 0) != FINAL_EDEFAULT;
+			case JavaRefPackage.JAVA_CLASS__IMPLEMENTS_INTERFACES:
+				return implementsInterfaces != null && !implementsInterfaces.isEmpty();
+			case JavaRefPackage.JAVA_CLASS__CLASS_IMPORT:
+				return classImport != null && !classImport.isEmpty();
+			case JavaRefPackage.JAVA_CLASS__PACKAGE_IMPORTS:
+				return packageImports != null && !packageImports.isEmpty();
+			case JavaRefPackage.JAVA_CLASS__FIELDS:
+				return fields != null && !fields.isEmpty();
+			case JavaRefPackage.JAVA_CLASS__METHODS:
+				return methods != null && !methods.isEmpty();
+			case JavaRefPackage.JAVA_CLASS__INITIALIZERS:
+				return initializers != null && !initializers.isEmpty();
+			case JavaRefPackage.JAVA_CLASS__DECLARED_CLASSES:
+				return declaredClasses != null && !declaredClasses.isEmpty();
+			case JavaRefPackage.JAVA_CLASS__DECLARING_CLASS:
+				return declaringClass != null;
+			case JavaRefPackage.JAVA_CLASS__JAVA_PACKAGE:
+				return basicGetJavaPackage() != null;
+			case JavaRefPackage.JAVA_CLASS__EVENTS:
+				return events != null && !events.isEmpty();
+			case JavaRefPackage.JAVA_CLASS__ALL_EVENTS:
+				return !getAllEvents().isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
 	 * Check to make sure that the passed JavaClass is a valid super class (i.e., it does not create any cycles in the inheritance.
 	 * 
 	 * @param aJavaClass
@@ -1243,8 +1461,8 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 	 */
 	public JavaClass getDeclaringClass() {
 		if (declaringClass != null && declaringClass.eIsProxy()) {
-			JavaClass oldDeclaringClass = declaringClass;
-			declaringClass = (JavaClass)eResolveProxy((InternalEObject)declaringClass);
+			InternalEObject oldDeclaringClass = (InternalEObject)declaringClass;
+			declaringClass = (JavaClass)eResolveProxy(oldDeclaringClass);
 			if (declaringClass != oldDeclaringClass) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, JavaRefPackage.JAVA_CLASS__DECLARING_CLASS, oldDeclaringClass, declaringClass));
@@ -1341,240 +1559,6 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 
 	public EList getAllPropertiesGen() {
 		return allProperties;
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.JAVA_CLASS__EANNOTATIONS:
-				return eAnnotations != null && !eAnnotations.isEmpty();
-			case JavaRefPackage.JAVA_CLASS__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case JavaRefPackage.JAVA_CLASS__INSTANCE_CLASS_NAME:
-				return INSTANCE_CLASS_NAME_EDEFAULT == null ? instanceClassName != null : !INSTANCE_CLASS_NAME_EDEFAULT.equals(instanceClassName);
-			case JavaRefPackage.JAVA_CLASS__INSTANCE_CLASS:
-				return INSTANCE_CLASS_EDEFAULT == null ? getInstanceClass() != null : !INSTANCE_CLASS_EDEFAULT.equals(getInstanceClass());
-			case JavaRefPackage.JAVA_CLASS__DEFAULT_VALUE:
-				return DEFAULT_VALUE_EDEFAULT == null ? getDefaultValue() != null : !DEFAULT_VALUE_EDEFAULT.equals(getDefaultValue());
-			case JavaRefPackage.JAVA_CLASS__EPACKAGE:
-				return getEPackage() != null;
-			case JavaRefPackage.JAVA_CLASS__ABSTRACT:
-				return ((eFlags & ABSTRACT_EFLAG) != 0) != ABSTRACT_EDEFAULT;
-			case JavaRefPackage.JAVA_CLASS__INTERFACE:
-				return ((eFlags & INTERFACE_EFLAG) != 0) != INTERFACE_EDEFAULT;
-			case JavaRefPackage.JAVA_CLASS__ESUPER_TYPES:
-				return eSuperTypes != null && !eSuperTypes.isEmpty();
-			case JavaRefPackage.JAVA_CLASS__EOPERATIONS:
-				return eOperations != null && !eOperations.isEmpty();
-			case JavaRefPackage.JAVA_CLASS__EALL_ATTRIBUTES:
-				return !getEAllAttributes().isEmpty();
-			case JavaRefPackage.JAVA_CLASS__EALL_REFERENCES:
-				return !getEAllReferences().isEmpty();
-			case JavaRefPackage.JAVA_CLASS__EREFERENCES:
-				return !getEReferences().isEmpty();
-			case JavaRefPackage.JAVA_CLASS__EATTRIBUTES:
-				return !getEAttributes().isEmpty();
-			case JavaRefPackage.JAVA_CLASS__EALL_CONTAINMENTS:
-				return !getEAllContainments().isEmpty();
-			case JavaRefPackage.JAVA_CLASS__EALL_OPERATIONS:
-				return !getEAllOperations().isEmpty();
-			case JavaRefPackage.JAVA_CLASS__EALL_STRUCTURAL_FEATURES:
-				return !getEAllStructuralFeatures().isEmpty();
-			case JavaRefPackage.JAVA_CLASS__EALL_SUPER_TYPES:
-				return !getEAllSuperTypes().isEmpty();
-			case JavaRefPackage.JAVA_CLASS__EID_ATTRIBUTE:
-				return getEIDAttribute() != null;
-			case JavaRefPackage.JAVA_CLASS__ESTRUCTURAL_FEATURES:
-				return eStructuralFeatures != null && !eStructuralFeatures.isEmpty();
-			case JavaRefPackage.JAVA_CLASS__KIND:
-				return kind != KIND_EDEFAULT;
-			case JavaRefPackage.JAVA_CLASS__PUBLIC:
-				return ((eFlags & PUBLIC_EFLAG) != 0) != PUBLIC_EDEFAULT;
-			case JavaRefPackage.JAVA_CLASS__FINAL:
-				return ((eFlags & FINAL_EFLAG) != 0) != FINAL_EDEFAULT;
-			case JavaRefPackage.JAVA_CLASS__IMPLEMENTS_INTERFACES:
-				return implementsInterfaces != null && !implementsInterfaces.isEmpty();
-			case JavaRefPackage.JAVA_CLASS__CLASS_IMPORT:
-				return classImport != null && !classImport.isEmpty();
-			case JavaRefPackage.JAVA_CLASS__PACKAGE_IMPORTS:
-				return packageImports != null && !packageImports.isEmpty();
-			case JavaRefPackage.JAVA_CLASS__FIELDS:
-				return fields != null && !fields.isEmpty();
-			case JavaRefPackage.JAVA_CLASS__METHODS:
-				return methods != null && !methods.isEmpty();
-			case JavaRefPackage.JAVA_CLASS__INITIALIZERS:
-				return initializers != null && !initializers.isEmpty();
-			case JavaRefPackage.JAVA_CLASS__DECLARED_CLASSES:
-				return declaredClasses != null && !declaredClasses.isEmpty();
-			case JavaRefPackage.JAVA_CLASS__DECLARING_CLASS:
-				return declaringClass != null;
-			case JavaRefPackage.JAVA_CLASS__JAVA_PACKAGE:
-				return basicGetJavaPackage() != null;
-			case JavaRefPackage.JAVA_CLASS__EVENTS:
-				return events != null && !events.isEmpty();
-			case JavaRefPackage.JAVA_CLASS__ALL_EVENTS:
-				return !getAllEvents().isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.JAVA_CLASS__EANNOTATIONS:
-				getEAnnotations().clear();
-				getEAnnotations().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.JAVA_CLASS__NAME:
-				setName((String)newValue);
-				return;
-			case JavaRefPackage.JAVA_CLASS__INSTANCE_CLASS_NAME:
-				setInstanceClassName((String)newValue);
-				return;
-			case JavaRefPackage.JAVA_CLASS__ABSTRACT:
-				setAbstract(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.JAVA_CLASS__INTERFACE:
-				setInterface(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.JAVA_CLASS__ESUPER_TYPES:
-				getESuperTypes().clear();
-				getESuperTypes().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.JAVA_CLASS__EOPERATIONS:
-				getEOperations().clear();
-				getEOperations().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.JAVA_CLASS__ESTRUCTURAL_FEATURES:
-				getEStructuralFeatures().clear();
-				getEStructuralFeatures().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.JAVA_CLASS__KIND:
-				setKind((TypeKind)newValue);
-				return;
-			case JavaRefPackage.JAVA_CLASS__PUBLIC:
-				setPublic(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.JAVA_CLASS__FINAL:
-				setFinal(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.JAVA_CLASS__IMPLEMENTS_INTERFACES:
-				getImplementsInterfaces().clear();
-				getImplementsInterfaces().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.JAVA_CLASS__CLASS_IMPORT:
-				getClassImport().clear();
-				getClassImport().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.JAVA_CLASS__PACKAGE_IMPORTS:
-				getPackageImports().clear();
-				getPackageImports().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.JAVA_CLASS__FIELDS:
-				getFields().clear();
-				getFields().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.JAVA_CLASS__METHODS:
-				getMethods().clear();
-				getMethods().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.JAVA_CLASS__INITIALIZERS:
-				getInitializers().clear();
-				getInitializers().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.JAVA_CLASS__DECLARED_CLASSES:
-				getDeclaredClasses().clear();
-				getDeclaredClasses().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.JAVA_CLASS__DECLARING_CLASS:
-				setDeclaringClass((JavaClass)newValue);
-				return;
-			case JavaRefPackage.JAVA_CLASS__EVENTS:
-				getEvents().clear();
-				getEvents().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.JAVA_CLASS__ALL_EVENTS:
-				getAllEvents().clear();
-				getAllEvents().addAll((Collection)newValue);
-				return;
-		}
-		eDynamicSet(eFeature, newValue);
-	}
-
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.JAVA_CLASS__EANNOTATIONS:
-				getEAnnotations().clear();
-				return;
-			case JavaRefPackage.JAVA_CLASS__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case JavaRefPackage.JAVA_CLASS__INSTANCE_CLASS_NAME:
-				setInstanceClassName(INSTANCE_CLASS_NAME_EDEFAULT);
-				return;
-			case JavaRefPackage.JAVA_CLASS__ABSTRACT:
-				setAbstract(ABSTRACT_EDEFAULT);
-				return;
-			case JavaRefPackage.JAVA_CLASS__INTERFACE:
-				setInterface(INTERFACE_EDEFAULT);
-				return;
-			case JavaRefPackage.JAVA_CLASS__ESUPER_TYPES:
-				getESuperTypes().clear();
-				return;
-			case JavaRefPackage.JAVA_CLASS__EOPERATIONS:
-				getEOperations().clear();
-				return;
-			case JavaRefPackage.JAVA_CLASS__ESTRUCTURAL_FEATURES:
-				getEStructuralFeatures().clear();
-				return;
-			case JavaRefPackage.JAVA_CLASS__KIND:
-				setKind(KIND_EDEFAULT);
-				return;
-			case JavaRefPackage.JAVA_CLASS__PUBLIC:
-				setPublic(PUBLIC_EDEFAULT);
-				return;
-			case JavaRefPackage.JAVA_CLASS__FINAL:
-				setFinal(FINAL_EDEFAULT);
-				return;
-			case JavaRefPackage.JAVA_CLASS__IMPLEMENTS_INTERFACES:
-				getImplementsInterfaces().clear();
-				return;
-			case JavaRefPackage.JAVA_CLASS__CLASS_IMPORT:
-				getClassImport().clear();
-				return;
-			case JavaRefPackage.JAVA_CLASS__PACKAGE_IMPORTS:
-				getPackageImports().clear();
-				return;
-			case JavaRefPackage.JAVA_CLASS__FIELDS:
-				getFields().clear();
-				return;
-			case JavaRefPackage.JAVA_CLASS__METHODS:
-				getMethods().clear();
-				return;
-			case JavaRefPackage.JAVA_CLASS__INITIALIZERS:
-				getInitializers().clear();
-				return;
-			case JavaRefPackage.JAVA_CLASS__DECLARED_CLASSES:
-				getDeclaredClasses().clear();
-				return;
-			case JavaRefPackage.JAVA_CLASS__DECLARING_CLASS:
-				setDeclaringClass((JavaClass)null);
-				return;
-			case JavaRefPackage.JAVA_CLASS__EVENTS:
-				getEvents().clear();
-				return;
-			case JavaRefPackage.JAVA_CLASS__ALL_EVENTS:
-				getAllEvents().clear();
-				return;
-		}
-		eDynamicUnset(eFeature);
 	}
 
 	/**
@@ -1729,7 +1713,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 	 */
 	public JavaPackage getJavaPackageGen() {
 		JavaPackage javaPackage = basicGetJavaPackage();
-		return javaPackage == null ? null : (JavaPackage)eResolveProxy((InternalEObject)javaPackage);
+		return javaPackage != null && javaPackage.eIsProxy() ? (JavaPackage)eResolveProxy((InternalEObject)javaPackage) : javaPackage;
 	}
 
 	/*
@@ -1737,178 +1721,6 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 	 */
 	public JavaPackage basicGetJavaPackage() {
 		return getJavaPackage();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JavaRefPackage.JAVA_CLASS__EANNOTATIONS:
-					return ((InternalEList)getEAnnotations()).basicAdd(otherEnd, msgs);
-				case JavaRefPackage.JAVA_CLASS__EPACKAGE:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, JavaRefPackage.JAVA_CLASS__EPACKAGE, msgs);
-				case JavaRefPackage.JAVA_CLASS__EOPERATIONS:
-					return ((InternalEList)getEOperations()).basicAdd(otherEnd, msgs);
-				case JavaRefPackage.JAVA_CLASS__ESTRUCTURAL_FEATURES:
-					return ((InternalEList)getEStructuralFeatures()).basicAdd(otherEnd, msgs);
-				case JavaRefPackage.JAVA_CLASS__FIELDS:
-					return ((InternalEList)getFields()).basicAdd(otherEnd, msgs);
-				case JavaRefPackage.JAVA_CLASS__METHODS:
-					return ((InternalEList)getMethods()).basicAdd(otherEnd, msgs);
-				case JavaRefPackage.JAVA_CLASS__INITIALIZERS:
-					return ((InternalEList)getInitializers()).basicAdd(otherEnd, msgs);
-				case JavaRefPackage.JAVA_CLASS__DECLARED_CLASSES:
-					return ((InternalEList)getDeclaredClasses()).basicAdd(otherEnd, msgs);
-				case JavaRefPackage.JAVA_CLASS__DECLARING_CLASS:
-					if (declaringClass != null)
-						msgs = ((InternalEObject)declaringClass).eInverseRemove(this, JavaRefPackage.JAVA_CLASS__DECLARED_CLASSES, JavaClass.class, msgs);
-					return basicSetDeclaringClass((JavaClass)otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JavaRefPackage.JAVA_CLASS__EANNOTATIONS:
-					return ((InternalEList)getEAnnotations()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.JAVA_CLASS__EPACKAGE:
-					return eBasicSetContainer(null, JavaRefPackage.JAVA_CLASS__EPACKAGE, msgs);
-				case JavaRefPackage.JAVA_CLASS__EOPERATIONS:
-					return ((InternalEList)getEOperations()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.JAVA_CLASS__ESTRUCTURAL_FEATURES:
-					return ((InternalEList)getEStructuralFeatures()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.JAVA_CLASS__FIELDS:
-					return ((InternalEList)getFields()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.JAVA_CLASS__METHODS:
-					return ((InternalEList)getMethods()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.JAVA_CLASS__INITIALIZERS:
-					return ((InternalEList)getInitializers()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.JAVA_CLASS__DECLARED_CLASSES:
-					return ((InternalEList)getDeclaredClasses()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.JAVA_CLASS__DECLARING_CLASS:
-					return basicSetDeclaringClass(null, msgs);
-				case JavaRefPackage.JAVA_CLASS__EVENTS:
-					return ((InternalEList)getEvents()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case JavaRefPackage.JAVA_CLASS__EPACKAGE:
-					return eContainer.eInverseRemove(this, EcorePackage.EPACKAGE__ECLASSIFIERS, EPackage.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.JAVA_CLASS__EANNOTATIONS:
-				return getEAnnotations();
-			case JavaRefPackage.JAVA_CLASS__NAME:
-				return getName();
-			case JavaRefPackage.JAVA_CLASS__INSTANCE_CLASS_NAME:
-				return getInstanceClassName();
-			case JavaRefPackage.JAVA_CLASS__INSTANCE_CLASS:
-				return getInstanceClass();
-			case JavaRefPackage.JAVA_CLASS__DEFAULT_VALUE:
-				return getDefaultValue();
-			case JavaRefPackage.JAVA_CLASS__EPACKAGE:
-				return getEPackage();
-			case JavaRefPackage.JAVA_CLASS__ABSTRACT:
-				return isAbstract() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.JAVA_CLASS__INTERFACE:
-				return isInterface() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.JAVA_CLASS__ESUPER_TYPES:
-				return getESuperTypes();
-			case JavaRefPackage.JAVA_CLASS__EOPERATIONS:
-				return getEOperations();
-			case JavaRefPackage.JAVA_CLASS__EALL_ATTRIBUTES:
-				return getEAllAttributes();
-			case JavaRefPackage.JAVA_CLASS__EALL_REFERENCES:
-				return getEAllReferences();
-			case JavaRefPackage.JAVA_CLASS__EREFERENCES:
-				return getEReferences();
-			case JavaRefPackage.JAVA_CLASS__EATTRIBUTES:
-				return getEAttributes();
-			case JavaRefPackage.JAVA_CLASS__EALL_CONTAINMENTS:
-				return getEAllContainments();
-			case JavaRefPackage.JAVA_CLASS__EALL_OPERATIONS:
-				return getEAllOperations();
-			case JavaRefPackage.JAVA_CLASS__EALL_STRUCTURAL_FEATURES:
-				return getEAllStructuralFeatures();
-			case JavaRefPackage.JAVA_CLASS__EALL_SUPER_TYPES:
-				return getEAllSuperTypes();
-			case JavaRefPackage.JAVA_CLASS__EID_ATTRIBUTE:
-				return getEIDAttribute();
-			case JavaRefPackage.JAVA_CLASS__ESTRUCTURAL_FEATURES:
-				return getEStructuralFeatures();
-			case JavaRefPackage.JAVA_CLASS__KIND:
-				return getKind();
-			case JavaRefPackage.JAVA_CLASS__PUBLIC:
-				return isPublic() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.JAVA_CLASS__FINAL:
-				return isFinal() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.JAVA_CLASS__IMPLEMENTS_INTERFACES:
-				return getImplementsInterfaces();
-			case JavaRefPackage.JAVA_CLASS__CLASS_IMPORT:
-				return getClassImport();
-			case JavaRefPackage.JAVA_CLASS__PACKAGE_IMPORTS:
-				return getPackageImports();
-			case JavaRefPackage.JAVA_CLASS__FIELDS:
-				return getFields();
-			case JavaRefPackage.JAVA_CLASS__METHODS:
-				return getMethods();
-			case JavaRefPackage.JAVA_CLASS__INITIALIZERS:
-				return getInitializers();
-			case JavaRefPackage.JAVA_CLASS__DECLARED_CLASSES:
-				return getDeclaredClasses();
-			case JavaRefPackage.JAVA_CLASS__DECLARING_CLASS:
-				if (resolve) return getDeclaringClass();
-				return basicGetDeclaringClass();
-			case JavaRefPackage.JAVA_CLASS__JAVA_PACKAGE:
-				if (resolve) return getJavaPackage();
-				return basicGetJavaPackage();
-			case JavaRefPackage.JAVA_CLASS__EVENTS:
-				return getEvents();
-			case JavaRefPackage.JAVA_CLASS__ALL_EVENTS:
-				return getAllEvents();
-		}
-		return eDynamicGet(eFeature, resolve);
 	}
 
 	/**
@@ -1946,4 +1758,23 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 		JavaReflectionAdaptor ja = ((JavaReflectionAdaptor) getReadAdapter());
 		return ja != null ? ja.getReflectionSource() : null;
 	}
+	@Override
+	  public EList<EObject> eContents()
+	  {
+	    if (eContents == null)
+	    {
+	      eContents = EContentsEList.createEContentsEList(this);
+	    }
+	    return eContents;
+	  }
+
+	  @Override
+	  public EList<EObject> eCrossReferences()
+	  {
+	    if (eCrossReferences == null)
+	    {
+	      eCrossReferences = ECrossReferenceEList.createECrossReferenceEList(this);
+	    }
+	    return eCrossReferences;
+	  }
 }
