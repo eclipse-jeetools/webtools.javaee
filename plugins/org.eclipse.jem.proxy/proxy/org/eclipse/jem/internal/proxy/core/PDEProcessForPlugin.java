@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PDEProcessForPlugin.java,v $
- *  $Revision: 1.7 $  $Date: 2005/10/14 17:45:02 $ 
+ *  $Revision: 1.8 $  $Date: 2007/02/19 19:48:08 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -58,9 +58,12 @@ class PDEProcessForPlugin implements ProxyPlugin.IPDEProcessForPlugin {
 			// Now either first time, or it was there before, but now visible, but this time it is visible.
 			// We want it to become visible in that case. 
 			foundIds.pluginIds.put(pi.getId(), importVisible ? Boolean.TRUE : Boolean.FALSE);			
-			IPlugin pb = PDECore.getDefault().findPlugin(pi.getId(),
-				pi.getVersion(),
-				pi.getMatch());
+
+			// Quick fix for https://bugs.eclipse.org/bugs/show_bug.cgi?id=174648
+//			IPlugin pb = PDECore.getDefault().findPlugin(pi.getId(),
+//				pi.getVersion(),
+//				pi.getMatch());
+			IPlugin pb = null;
 			if (pb != null)
 				expandPlugin(pb, foundIds, importVisible, false);
 		}

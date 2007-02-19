@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PDEContributeClasspath.java,v $
- *  $Revision: 1.5 $  $Date: 2005/10/14 17:45:02 $ 
+ *  $Revision: 1.6 $  $Date: 2007/02/19 19:48:08 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -43,8 +43,15 @@ class PDEContributeClasspath implements IPDEContributeClasspath {
 	public void getPDEContributions(IConfigurationContributionController controller, IConfigurationContributionInfo info) throws CoreException {
 		if (!info.getPluginIds().isEmpty()) {
 			Collection pluginIds = info.getPluginIds().keySet();
-			PluginModelManager modelManager = PDECore.getDefault().getModelManager();
-			IFragmentModel[] fragments = modelManager.getFragments();
+			
+			
+			// Quick fix for https://bugs.eclipse.org/bugs/show_bug.cgi?id=174648
+			//PluginModelManager modelManager = PDECore.getDefault().getModelManager();
+			//IFragmentModel[] fragments = modelManager.getFragments();
+			IFragmentModel[] fragments = new IFragmentModel[0];
+			
+			
+			
 			for (int i = 0; i < fragments.length; i++) {
 				IFragment fragment = fragments[i].getFragment();
 				if (pluginIds.contains(fragment.getPluginId())) {
