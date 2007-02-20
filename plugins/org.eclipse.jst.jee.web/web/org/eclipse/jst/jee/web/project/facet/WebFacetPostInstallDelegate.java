@@ -14,11 +14,10 @@ package org.eclipse.jst.jee.web.project.facet;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
-import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
 import org.eclipse.jst.jee.internal.common.JEEVersionUtil;
+import org.eclipse.jst.jee.project.facet.JEEFacetInstallDelegate;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -26,7 +25,7 @@ import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
-public final class WebFacetPostInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
+public final class WebFacetPostInstallDelegate extends JEEFacetInstallDelegate implements IDelegate {
 
 	public void execute(final IProject project, final IProjectFacetVersion fv, final Object cfg, final IProgressMonitor monitor) throws CoreException {
 		if (monitor != null) {
@@ -68,4 +67,5 @@ public final class WebFacetPostInstallDelegate extends J2EEFacetInstallDelegate 
 			}
 		}
 	}
+	
 }

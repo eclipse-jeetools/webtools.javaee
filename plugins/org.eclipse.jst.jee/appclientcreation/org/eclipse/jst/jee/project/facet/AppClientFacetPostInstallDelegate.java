@@ -30,7 +30,6 @@ import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProv
 import org.eclipse.jst.j2ee.project.facet.IAppClientFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
-import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -41,7 +40,7 @@ import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
-public class AppClientFacetPostInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
+public class AppClientFacetPostInstallDelegate extends JEEFacetInstallDelegate implements IDelegate {
 
 	public void execute(IProject project, IProjectFacetVersion fv, Object config, IProgressMonitor monitor) throws CoreException {
 		if (monitor != null)
@@ -128,4 +127,16 @@ public class AppClientFacetPostInstallDelegate extends J2EEFacetInstallDelegate 
 			}
 		}
 	}	
+	
+    protected void installAndAddModuletoEAR(String versionText,
+    		String earProjectName, IRuntime runtime, IProject moduleProject,
+    		String moduleURI, IProgressMonitor monitor) {
+		
+    	installEARFacet(versionText,
+				earProjectName,
+				runtime,
+				monitor);
+
+    }
+
 }

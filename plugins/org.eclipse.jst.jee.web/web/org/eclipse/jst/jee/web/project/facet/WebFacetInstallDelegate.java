@@ -31,10 +31,9 @@ import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.jst.j2ee.internal.web.classpath.WebAppLibrariesContainer;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
-import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
-import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.jst.jee.JEEConstants;
+import org.eclipse.jst.jee.project.facet.JEEFacetInstallDelegate;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetDataModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -47,7 +46,7 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.project.facet.IProductConstants;
 import org.eclipse.wst.project.facet.ProductManager;
 
-public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
+public final class WebFacetInstallDelegate extends JEEFacetInstallDelegate implements IDelegate {
 
 	public void execute(final IProject project, final IProjectFacetVersion fv, final Object cfg, final IProgressMonitor monitor) throws CoreException {
 		if (monitor != null) {
