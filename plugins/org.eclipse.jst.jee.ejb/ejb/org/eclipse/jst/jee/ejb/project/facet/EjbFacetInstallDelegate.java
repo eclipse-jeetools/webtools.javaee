@@ -33,6 +33,7 @@ import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
+import org.eclipse.jst.jee.project.facet.JEEFacetInstallDelegate;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetDataModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -42,7 +43,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
-public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
+public class EjbFacetInstallDelegate extends JEEFacetInstallDelegate implements IDelegate {
 
 	public void execute(IProject project, IProjectFacetVersion fv, Object config, IProgressMonitor monitor) throws CoreException {
 

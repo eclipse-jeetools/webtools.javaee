@@ -35,10 +35,10 @@ import org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.IEjbFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.jee.internal.common.JEEVersionUtil;
 import org.eclipse.jst.jee.project.facet.IJEEFacetInstallDataModelProperties;
-import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
-import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
+import org.eclipse.jst.jee.project.facet.JEEFacetInstallDelegate;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
@@ -51,7 +51,7 @@ import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
-public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
+public class EjbFacetPostInstallDelegate extends JEEFacetInstallDelegate implements IDelegate {
 
 	public void execute(IProject project, IProjectFacetVersion fv, Object config, IProgressMonitor monitor) throws CoreException {
 
@@ -282,5 +282,5 @@ public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implem
 			if (ejbEdit != null)
 				ejbEdit.dispose();
 		}
-	}	
+	}
 }
