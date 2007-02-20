@@ -23,11 +23,6 @@
       <discovery label="%updateSiteName" url="http://update.eclipse.org/tools/ve/updates/1.0/"/>
    </url>
 
-   <requires>
-      <import feature="org.eclipse.jdt" version="3.1.0" match="compatible"/>
-      <import feature="org.eclipse.emf" version="2.2.0" match="compatible"/>
-   </requires>
-
    <plugin
          id="org.eclipse.jem.beaninfo"
          download-size="0"
@@ -51,13 +46,6 @@
 
    <plugin
          id="org.eclipse.jem.workbench"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.ibm.etools.emf.event"
          download-size="0"
          install-size="0"
          version="0.0.0"
