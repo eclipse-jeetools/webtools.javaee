@@ -16,8 +16,11 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.actions.BaseAction;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.ClientJARCreationConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 
 
 
@@ -38,21 +41,31 @@ public abstract class AbstractClientJARAction extends BaseAction implements Clie
 		return project;
 	}
 	
-	protected boolean  hasClientJar() {
+	protected boolean hasClientJar() {
 		IProject project = getProject();
-		if( project != null && project.exists() && project.isAccessible()){
-			EJBArtifactEdit edit = null;
-			try {
-					edit = EJBArtifactEdit.getEJBArtifactEditForRead(project);
-					if (edit != null && edit.hasEJBClientJARProject())
-						return true;
-			} finally {
-				if(edit != null)
-					edit.dispose();
-					  
+
+		if (project != null && project.exists() && project.isAccessible()) {
+			if (J2EEProjectUtilities.isEJBProject(project)) {
+				String projectVersion = J2EEProjectUtilities
+						.getJ2EEProjectVersion(project);
+				if (projectVersion != null
+						&& J2EEVersionUtil
+								.convertVersionStringToInt(projectVersion) <= J2EEVersionConstants.EJB_2_1_ID) {
+
+					EJBArtifactEdit edit = null;
+					try {
+						edit = EJBArtifactEdit
+								.getEJBArtifactEditForRead(project);
+						if (edit != null && edit.hasEJBClientJARProject())
+							return true;
+					} finally {
+						if (edit != null)
+							edit.dispose();
+
+					}
+				}
 			}
 		}
 		return false;
-	}	
-
+	}
 }
