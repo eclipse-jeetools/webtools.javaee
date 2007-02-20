@@ -105,13 +105,18 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 		List projectModules = new ArrayList();
 		EARArtifactEdit earEdit = null;
 		try {
-			earEdit = EARArtifactEdit.getEARArtifactEditForRead(component.getProject());
-			Application app = earEdit.getApplication();
+			Application app = null;
 			IVirtualReference[] references = component.getReferences();
 			for (int i=0; i<references.length; i++) {
 				IVirtualComponent moduleComponent = references[i].getReferencedComponent();
 				// Is referenced component a J2EE binary module archive or binary utility project?
 				if (moduleComponent.isBinary()) {
+					// create an ear edit, app only if the module is binary prevents exceptions when there
+					// is no deployment descriptor in many cases see bug 174711
+					if(earEdit == null){
+						earEdit = EARArtifactEdit.getEARArtifactEditForRead(component.getProject());
+						app = earEdit.getApplication();
+					}
 					// Check if module URI exists on EAR DD for binary j2ee archive
 					Module j2eeModule = app.getFirstModule(references[i].getArchiveName());
 					// If it is not a j2ee module and the component project is the ear, it is just an archive
