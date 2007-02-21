@@ -48,20 +48,23 @@ public abstract class AbstractClientJARAction extends BaseAction implements Clie
 			if (J2EEProjectUtilities.isEJBProject(project)) {
 				String projectVersion = J2EEProjectUtilities
 						.getJ2EEProjectVersion(project);
-				if (projectVersion != null
-						&& J2EEVersionUtil
-								.convertVersionStringToInt(projectVersion) <= J2EEVersionConstants.EJB_2_1_ID) {
+				if (projectVersion != null) {
+					int projectVersionInt = J2EEVersionUtil
+							.convertVersionStringToInt(projectVersion);
+					if (projectVersionInt != 0
+							&& projectVersionInt <= J2EEVersionConstants.EJB_2_1_ID) {
 
-					EJBArtifactEdit edit = null;
-					try {
-						edit = EJBArtifactEdit
-								.getEJBArtifactEditForRead(project);
-						if (edit != null && edit.hasEJBClientJARProject())
-							return true;
-					} finally {
-						if (edit != null)
-							edit.dispose();
+						EJBArtifactEdit edit = null;
+						try {
+							edit = EJBArtifactEdit
+									.getEJBArtifactEditForRead(project);
+							if (edit != null && edit.hasEJBClientJARProject())
+								return true;
+						} finally {
+							if (edit != null)
+								edit.dispose();
 
+						}
 					}
 				}
 			}
