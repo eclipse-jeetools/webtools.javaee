@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.jem; singleton:=true
-Bundle-Version: 1.2.1.qualifier
+Bundle-Version: 2.0.0.qualifier
 Bundle-Activator: org.eclipse.jem.internal.core.JEMPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
@@ -22,8 +22,8 @@ Export-Package: org.eclipse.jem.internal.core;x-friends:="org.eclipse.jem.beanin
  org.eclipse.jem.java.internal.impl;x-friends:="org.eclipse.jem.beaninfo,org.eclipse.jem.workbench",
  org.eclipse.jem.java.util
 Require-Bundle: org.eclipse.emf.ecore.xmi;bundle-version="[2.3.0,2.4.0)",
- org.eclipse.jem.proxy;bundle-version="[1.2.0,2.0.0)";resolution:=optional,
+ org.eclipse.jem.proxy;bundle-version="[2.0.0,3.0.0)";resolution:=optional,
  org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
- org.eclipse.jem.util;bundle-version="[1.2.0,2.0.0)"
+ org.eclipse.jem.util;bundle-version="[2.0.0,3.0.0)"
 Eclipse-LazyStart: true
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

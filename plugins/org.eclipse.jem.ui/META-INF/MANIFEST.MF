@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.jem.ui; singleton:=true
-Bundle-Version: 1.2.1.qualifier
+Bundle-Version: 2.0.0.qualifier
 Bundle-Activator: org.eclipse.jem.internal.ui.core.JEMUIPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
@@ -14,14 +14,14 @@ Require-Bundle: org.eclipse.core.resources;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.jdt.core;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.ui;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.jdt.ui;bundle-version="[3.2.0,4.0.0)",
- org.eclipse.jem.beaninfo;bundle-version="[1.2.0,2.0.0)",
+ org.eclipse.jem.beaninfo;bundle-version="[2.0.0,3.0.0)",
  org.eclipse.ui.ide;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.debug.ui;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.debug.core;bundle-version="[3.2.0,4.0.0)",
- org.eclipse.jem.proxy;bundle-version="[1.2.0,2.0.0)",
+ org.eclipse.jem.proxy;bundle-version="[2.0.0,3.0.0)",
  org.eclipse.jdt.launching;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.jdt.debug.ui;bundle-version="[3.2.0,4.0.0)",
- org.eclipse.jem.util;bundle-version="[1.2.0,2.0.0)",
+ org.eclipse.jem.util;bundle-version="[2.0.0,3.0.0)",
  org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.ui.editors;bundle-version="[3.2.0,4.0.0)"
 Eclipse-LazyStart: true
