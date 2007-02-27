@@ -17,8 +17,6 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.notify.AdapterFactory;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.Module;
@@ -205,7 +203,7 @@ public class ModulesItemProvider extends J2EEItemProvider {
 
 
 	/**
-	 * @see ItemProviderAdapter#getImage(Object)
+	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#getImage(Object)
 	 */
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("folder"); //$NON-NLS-1$
@@ -230,7 +228,7 @@ public class ModulesItemProvider extends J2EEItemProvider {
 
 
 	/**
-	 * @see IItemLabelProvider#getText(Object)
+	 * @see org.eclipse.emf.edit.provider.IItemLabelProvider#getText(Object)
 	 */
 	public String getText(Object object) {
 		return MODULES;

@@ -26,8 +26,6 @@ import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.notify.AdapterFactory;
-import org.eclipse.emf.edit.provider.ItemProvider;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.application.Application;
@@ -98,7 +96,7 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 	}
 
 	/**
-	 * @see ItemProvider#getChildren(Object)
+	 * @see org.eclipse.emf.edit.provider.ItemProvider#getChildren(Object)
 	 */
 	private void computeChildren() {
 		childrenLoaded = true;
@@ -170,14 +168,14 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 
 
 	/**
-	 * @see ItemProviderAdapter#getImage(Object)
+	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#getImage(Object)
 	 */
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("folder"); //$NON-NLS-1$
 	}
 
 	/**
-	 * @see ItemProviderAdapter#getText(Object)
+	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#getText(Object)
 	 */
 	public String getText(Object object) {
 		return UTILITY_JARS;

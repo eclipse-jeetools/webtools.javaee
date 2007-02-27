@@ -15,7 +15,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.ui.IWorkbench;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -76,11 +75,11 @@ public abstract class J2EEComponentCreationWizard extends J2EEArtifactCreationWi
 	/**
 	 * <p>
 	 * The selection stored in
-	 * {@link J2EEArtifactCreationWizard#init(IWorkbench, IStructuredSelection)}is used to
+	 * {@link J2EEArtifactCreationWizard#init(org.eclipse.ui.IWorkbench, IStructuredSelection)}is used to
 	 * pre-populate the EAR project in the Wizard dialog controls.
 	 * </p>
 	 * 
-	 * @see J2EEArtifactCreationWizard#init(IWorkbench, IStructuredSelection)
+	 * @see J2EEArtifactCreationWizard#init(org.eclipse.ui.IWorkbench, IStructuredSelection)
 	 * @see J2EEArtifactCreationWizard#doInit()
 	 */
 	protected void doInit() {

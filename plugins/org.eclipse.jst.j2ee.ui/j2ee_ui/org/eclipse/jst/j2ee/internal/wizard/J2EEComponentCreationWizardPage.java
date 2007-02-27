@@ -317,43 +317,6 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
     protected void createServerEarAndStandaloneGroup(Composite parent) {
         earGroup = new ServerEarAndStandaloneGroup(parent, getDataModel(), synchHelper);
     }
-    /**@deprecated 
-	 * If this method is not used it should be removed at a later time, marking as deprecated
-	 * Warning cleanup 12/07/2005
-	 */
-	private void createProjectsComboGroup(Composite parent) {
-		// set up project name label
-		
-		Label projectNameLabel = new Label(parent, SWT.NONE);
-		projectNameLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.MODULES_DEPENDENCY_PAGE_TABLE_PROJECT));
-		
-		// set up project name entry field
-		projectNameCombo = new Combo(parent, SWT.NONE | SWT.READ_ONLY);
-		projectNameCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-/* bug 167633 - also note that this class is deprecated and will soon be deleted.		
-		projectNameCombo.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				String projectName = projectNameCombo.getText();
-
-				//update the project location with this information, make it readable
-				//update Server info RUNTIME_TARGET_ID, make it readable
-				if (projectName!=null && projectName.length()!=0) {
-					IProject project = ProjectUtilities.getProject(projectName);
-					if (project !=null) {
-						IRuntime runtime = ServerCore.getProjectProperties(project).getRuntimeTarget();
-						if (runtime != null){
-							//serverTargetText.setText(runtime.getName());
-							synchHelper.getDataModel().setProperty(IJavaComponentCreationDataModelProperties.RUNTIME_TARGET_ID, runtime.getName());
-						}
-						synchHelper.getDataModel().setProperty(IComponentCreationDataModelProperties.PROJECT_NAME, projectName);
-						synchHelper.getDataModel().setProperty(IComponentCreationDataModelProperties.LOCATION, project.getLocation().toOSString());
-					}
-				}				
-
-			}
-		});
-*/
-	}
 
 	/**
 	 * @return

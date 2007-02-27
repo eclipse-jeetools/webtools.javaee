@@ -24,7 +24,6 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.internal.impl.ApplicationFactoryImpl;
@@ -49,7 +48,7 @@ public class J2EEApplicationItemProvider extends ApplicationItemProvider impleme
 	}
 
 	/**
-	 * @see ItemProviderAdapter#getChildren(Object)
+	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#getChildren(Object)
 	 */
 	public Collection getChildren(Object object) {
 		List localChildren = (List) children.get(object);

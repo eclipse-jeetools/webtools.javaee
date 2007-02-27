@@ -24,7 +24,6 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.ui.actions.SelectionDispatchAction;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
@@ -48,7 +47,6 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.actions.DeleteResourceAction;
-import org.eclipse.ui.actions.SelectionListenerAction;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
@@ -95,7 +93,7 @@ public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDel
 	}
 
 	/**
-	 * @see SelectionListenerAction#updateSelection(IStructuredSelection)
+	 * @see org.eclipse.ui.actions.SelectionListenerAction#updateSelection(IStructuredSelection)
 	 */
 	protected void updateSelection(IStructuredSelection selection) {
 		update(selection);
@@ -206,7 +204,7 @@ public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDel
 	}
 
 	/**
-	 * @see IAction#run()
+	 * @see org.eclipse.jface.action.IAction#run()
 	 */
 	public void run() {
 		try {

@@ -13,7 +13,6 @@ package org.eclipse.jst.j2ee.internal.dialogs;
 
 import java.util.Set;
 
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -39,7 +38,7 @@ public class RenameEARDialog extends J2EERenameDialog {
 
 
 	/**
-	 * @see MessageDialog#createCustomArea(Composite)
+	 * @see org.eclipse.jface.dialogs.MessageDialog#createCustomArea(Composite)
 	 */
 	protected Control createCustomArea(Composite parent) {
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(parent, IJ2EEUIContextIds.RENAME_EAR_DIALOG_1); //$NON-NLS-1$

@@ -25,7 +25,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jdt.ui.actions.SelectionDispatchAction;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -46,7 +45,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.RenameResourceAction;
-import org.eclipse.ui.actions.SelectionListenerAction;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
@@ -92,7 +90,7 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 	}
 
 	/**
-	 * @see SelectionListenerAction#updateSelection(IStructuredSelection)
+	 * @see org.eclipse.ui.actions.SelectionListenerAction#updateSelection(IStructuredSelection)
 	 */
 	protected void updateSelection(IStructuredSelection selection) {
 		super.update(selection);
@@ -192,7 +190,7 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 	}
 
 	/**
-	 * @see IAction#run()
+	 * @see org.eclipse.jface.action.IAction#run()
 	 */
 	public void run() {
 		try {

@@ -24,8 +24,6 @@ import java.util.Map;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
@@ -41,7 +39,6 @@ public class FlexibleEMFModelManager extends EMFModelManager implements EditMode
 	private List rootObjects = new ArrayList();
 	private static final Object[] EMPTY_OBJECT = new Object[0];
 	private final List artifactEdits = new ArrayList();
-	private StructureEdit moduleCore;
 	private final Map artifactEditToRootObject = new HashMap();
 	
 	/**
@@ -131,13 +128,6 @@ public class FlexibleEMFModelManager extends EMFModelManager implements EditMode
 		}
 		return artifactEdits;
 	}
-	
-	private StructureEdit getModuleCore() {
-		if (moduleCore == null) {
-			moduleCore = StructureEdit.getStructureEditForRead(getProject());
-		}
-		return moduleCore;
-	}
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.navigator.internal.EMFModelManager#dispose()
@@ -153,8 +143,6 @@ public class FlexibleEMFModelManager extends EMFModelManager implements EditMode
 				
 			}
 		}
-		if (moduleCore != null)
-			moduleCore.dispose();
 		rootObjects.clear();
 		
 	}

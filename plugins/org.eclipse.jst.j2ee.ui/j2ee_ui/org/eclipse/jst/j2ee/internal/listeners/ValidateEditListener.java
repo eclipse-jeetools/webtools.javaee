@@ -25,7 +25,6 @@ import org.eclipse.swt.events.ShellAdapter;
 import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -34,7 +33,6 @@ import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.IValidateEditContext;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidator;
-import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidatorPresenter;
 
 public class ValidateEditListener extends ShellAdapter implements IValidateEditListener, IValidateEditContext {
 	
@@ -118,7 +116,7 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	}
 
 	/**
-	 * @see ResourceStateValidatorPresenter#promptForInconsistentFileRefresh(List)
+	 * @see org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidatorPresenter#promptForInconsistentFileRefresh(List)
 	 */
 	public boolean promptForInconsistentFileRefresh(List inconsistentFiles) {
 		if (inconsistentFiles == null || inconsistentFiles.size() == 0) // this case should never
@@ -153,14 +151,14 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	}
 
 	/**
-	 * @see ResourceStateValidatorPresenter#getValidateEditContext()
+	 * @see org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidatorPresenter#getValidateEditContext()
 	 */
 	public Object getValidateEditContext() {
 		return getShell();
 	}
 
 	/**
-	 * @see IPartListener#partActivated(IWorkbenchPart)
+	 * @see org.eclipse.ui.IPartListener#partActivated(IWorkbenchPart)
 	 */
 	public void partActivated(IWorkbenchPart part) {
 		if (part == fPart) {
@@ -190,14 +188,14 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	}
 
 	/**
-	 * @see IPartListener#partBroughtToTop(IWorkbenchPart)
+	 * @see org.eclipse.ui.IPartListener#partBroughtToTop(IWorkbenchPart)
 	 */
 	public void partBroughtToTop(IWorkbenchPart part) {
 		//do nothing
 	}
 
 	/**
-	 * @see IPartListener#partClosed(IWorkbenchPart)
+	 * @see org.eclipse.ui.IPartListener#partClosed(IWorkbenchPart)
 	 */
 	public void partClosed(IWorkbenchPart part) {
 		if (part == fPart)
@@ -207,7 +205,7 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	}
 
 	/**
-	 * @see IPartListener#partDeactivated(IWorkbenchPart)
+	 * @see org.eclipse.ui.IPartListener#partDeactivated(IWorkbenchPart)
 	 */
 	public void partDeactivated(IWorkbenchPart part) {
 		if (part == fPart) {
@@ -226,7 +224,7 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	}
 
 	/**
-	 * @see IPartListener#partOpened(IWorkbenchPart)
+	 * @see org.eclipse.ui.IPartListener#partOpened(IWorkbenchPart)
 	 */
 	public void partOpened(IWorkbenchPart part) {
 		//do nothing
@@ -263,7 +261,7 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	}
 
 	/**
-	 * @see ResourceStateValidatorPresenter#promptForInconsistentFileOverwrite(List)
+	 * @see org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidatorPresenter#promptForInconsistentFileOverwrite(List)
 	 */
 	public boolean promptForInconsistentFileOverwrite(List inconsistentFiles) {
 		int size = inconsistentFiles.size();
