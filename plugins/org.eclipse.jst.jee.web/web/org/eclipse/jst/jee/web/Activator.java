@@ -1,12 +1,12 @@
 package org.eclipse.jst.jee.web;
 
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
  * The activator class controls the plug-in life cycle
  */
-public class Activator extends AbstractUIPlugin {
+public class Activator extends WTPPlugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.eclipse.jst.jee.web";
@@ -46,5 +46,15 @@ public class Activator extends AbstractUIPlugin {
 	public static Activator getDefault() {
 		return plugin;
 	}
+	
+	   /*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.wst.common.frameworks.internal.WTPPlugin#getPluginID()
+	 */
+	public String getPluginID() {
+		return PLUGIN_ID;
+	}
+	
 
 }
