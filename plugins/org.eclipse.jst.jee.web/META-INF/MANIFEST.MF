@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: JEE Web Plug-in
+Bundle-Name: %Bundle-Name.0
 Bundle-SymbolicName: org.eclipse.jst.jee.web;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.jst.jee.web.Activator
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wst.common.project.facet.core,
@@ -20,3 +20,5 @@ Require-Bundle: org.eclipse.core.runtime,
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.jst.jee.web,
  org.eclipse.jst.jee.web.project.facet
+Bundle-Localization: plugin
+Bundle-Vendor: %Bundle-Vendor.0

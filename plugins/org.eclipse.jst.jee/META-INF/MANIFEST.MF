@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: JEE common Plug-in
+Bundle-Name: %Bundle-Name.0
 Bundle-SymbolicName: org.eclipse.jst.jee;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.jst.jee.Activator
@@ -24,3 +24,5 @@ Export-Package: org.eclipse.jst.jee,
  org.eclipse.jst.jee.internal.common,
  org.eclipse.jst.jee.internal.earcreation,
  org.eclipse.jst.jee.project.facet
+Bundle-Vendor: %Bundle-Vendor.0
+Bundle-Localization: plugin
