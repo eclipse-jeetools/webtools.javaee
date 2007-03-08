@@ -11,17 +11,26 @@ import junit.framework.Test;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.earcreation.IEarFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.IAppClientFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetInstallDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
@@ -43,28 +52,72 @@ public class EARProjectCreationOperationTest extends org.eclipse.wst.common.test
     }
 
 	public void testUsingPublicAPI() throws Exception {
-    	String projName = "TestAPIEarProject";//$NON-NLS-1$
-    	IProjectFacet earFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE);
-		
 		IDataModel dataModel = DataModelFactory.createDataModel(IEarFacetInstallDataModelProperties.class);
+
+		String projName = "TestAPIEarProject";//$NON-NLS-1$
+		String appVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.J2EE_1_4_ID);
+		IProjectFacet earFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE);
+		IProjectFacetVersion earFacetVersion = earFacet.getVersion(appVersionString); //$NON-NLS-1$
+
+		addEarProjectProperties(dataModel, projName, earFacetVersion);
 		
+		dataModel.getDefaultOperation().execute( new NullProgressMonitor(), null);
+
+		validateEarProjectProperties(projName, earFacetVersion);
+		
+		validateEarDescriptorProperties(projName);		
+		
+    }
+
+	public void testUsingPublicAPIEar50() throws Exception {
+		IDataModel dataModel = DataModelFactory.createDataModel(IEarFacetInstallDataModelProperties.class);
+
+		String projName = "TestAPIEarProject";//$NON-NLS-1$
+		String appVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.JEE_5_0_ID);
+		IProjectFacet earFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE);
+		IProjectFacetVersion earFacetVersion = earFacet.getVersion(appVersionString); //$NON-NLS-1$
+
+		addEarProjectProperties(dataModel, projName, earFacetVersion);
+		
+		dataModel.getDefaultOperation().execute( new NullProgressMonitor(), null);
+
+		validateEarProjectProperties(projName, earFacetVersion);
+		
+    }
+
+	private void validateEarDescriptorProperties(String projName) {
+			// Test if op worked
+			IProject proj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
+			EARArtifactEdit ear = EARArtifactEdit.getEARArtifactEditForRead(proj);
+			Assert.assertNotNull(ear);
+			if (ear != null)
+			Assert.assertNotNull(ear.getApplication());
+		}
+	  
+		private void validateEarProjectProperties(String projName,
+				IProjectFacetVersion earFacetVersion) throws CoreException {
+			// Test if op worked
+			IProject proj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
+			Assert.assertTrue(proj.exists());
+			IVirtualComponent component = ComponentCore.createComponent(proj);
+			Assert.assertNotNull(component);
+			if (component != null)
+			Assert.assertNotNull(component.getName());
+			Assert.assertTrue(proj.exists(new Path("/ear333")));
+
+			// Test if facet is right version
+			IFacetedProject facetedProject = ProjectFacetsManager.create(proj);
+			Assert.assertTrue(facetedProject.hasProjectFacet(earFacetVersion));
+		}
+
+	private void addEarProjectProperties(IDataModel dataModel, String projName, IProjectFacetVersion earFacetVersion){
+
 		dataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, projName);
 		FacetDataModelMap map = (FacetDataModelMap) dataModel
 				.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 		IDataModel earmodel = (IDataModel) map.get(IModuleConstants.JST_EAR_MODULE);
-		IProjectFacetVersion ear14 = earFacet.getVersion("1.4"); //$NON-NLS-1$
-		earmodel.setProperty(IFacetInstallDataModelProperties.FACET_VERSION, ear14);
+		earmodel.setProperty(IFacetInstallDataModelProperties.FACET_VERSION, earFacetVersion);
 		earmodel.setStringProperty(IEarFacetInstallDataModelProperties.CONTENT_DIR,"ear333"); //$NON-NLS-1$
-        
-		dataModel.getDefaultOperation().execute( new NullProgressMonitor(), null);
-		// Test if op worked
-		IProject proj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
-		EARArtifactEdit ear = EARArtifactEdit.getEARArtifactEditForRead(proj);
-		Assert.assertNotNull(ear);
-		if (ear != null)
-		Assert.assertNotNull(ear.getApplication());
-		Assert.assertTrue(proj.exists(new Path("/ear333")));
-		
     }
 
 }
