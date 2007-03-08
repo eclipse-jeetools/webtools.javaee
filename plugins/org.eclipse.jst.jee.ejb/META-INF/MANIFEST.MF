@@ -5,7 +5,6 @@ Bundle-SymbolicName: org.eclipse.jst.jee.ejb;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.jst.jee.ejb.Activator
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.jst.j2ee.ejb,
  org.eclipse.wst.common.modulecore,
  org.eclipse.core.resources,
  org.eclipse.jdt.core,
@@ -18,7 +17,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jem.util,
  org.eclipse.jst.j2ee.core,
  org.eclipse.jst.jee,
- org.eclipse.core.commands
+ org.eclipse.core.commands,
+ org.eclipse.jst.j2ee.ejb
 Eclipse-LazyStart: true
 Bundle-Localization: plugin
 Bundle-Vendor: %Bundle-Vendor.0
