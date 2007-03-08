@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaReflectionSynchronizer.java,v $
- *  $Revision: 1.19 $  $Date: 2006/09/18 22:18:02 $ 
+ *  $Revision: 1.20 $  $Date: 2007/03/08 17:59:26 $ 
  */
 
 import java.util.ArrayList;
@@ -222,13 +222,9 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 	}
 	
 	protected String getFullNameFromElement(IClassFile cf) {
-		try {
-			return cf.getType().getFullyQualifiedName();
-		} catch (JavaModelException e) {
-			JavaPlugin.getDefault().getLogger().log(e, Level.WARNING);
-			String cfName = cf.getElementName();
-			return cfName.substring(0, cfName.length()-(".class".length()));
-		}
+		
+		return cf.getType().getFullyQualifiedName();
+		
 	}
 	
 	protected String getFullNameFromElement(IJavaElement element) {

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JDOMClassFinder.java,v $
- *  $Revision: 1.3 $  $Date: 2005/08/24 21:13:53 $ 
+ *  $Revision: 1.4 $  $Date: 2007/03/08 17:59:26 $ 
  */
 
 import java.io.File;
@@ -38,12 +38,10 @@ protected IPath getBinaryPathFromQualifiedName(String qualifiedName) {
 	return new Path(qualifiedName.replace('.', File.separatorChar) + ".class");//$NON-NLS-1$
 }
 public IType getBinaryType(String qualifiedName) {
-	try {
-		IJavaElement found = getJavaElement(qualifiedName);
+	
+	IJavaElement found = getJavaElement(qualifiedName);
+	if (found != null)
 		return ((IClassFile) found).getType();
-	} catch (JavaModelException jme) {
-		System.out.println(ResourceHandler.getString("Error_Looking_Up_Type_ERROR_", (new Object[] {qualifiedName, jme.getMessage()}))); //$NON-NLS-1$ = "Error looking up type: "
-	}
 	return null;
 }
 public IJavaElement getJavaElement(String qualifiedName) {
@@ -63,7 +61,6 @@ protected IJavaProject getSourceProject() {
 	return null;
 }
 public IType getType(String qualifiedName) {
-	try {
 		IJavaElement found = getJavaElement(qualifiedName);
 		if (found != null)
 			if (found instanceof IClassFile)
@@ -76,9 +73,6 @@ public IType getType(String qualifiedName) {
 					cuMainTypeName = cuMainTypeName.substring(0, cuMainTypeName.length() - 5);
 					return foundCU.getType(cuMainTypeName);
 				}
-	} catch (JavaModelException jme) {
-		System.out.println(ResourceHandler.getString("Error_Looking_Up_Type_ERROR_", (new Object[] {qualifiedName, jme.getMessage()}))); //$NON-NLS-1$ = "Error looking up type: "
-	}
 	return null;
 }
 /**

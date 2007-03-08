@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JDOMSearchHelper.java,v $
- *  $Revision: 1.8 $  $Date: 2006/05/17 20:13:58 $ 
+ *  $Revision: 1.9 $  $Date: 2007/03/08 17:59:26 $ 
  */
 
 import java.io.File;
@@ -314,45 +314,43 @@ public class JDOMSearchHelper {
 	}
 
 	public static IType findType(String qualifiedName, boolean useAdvancedForInners, IJavaProject javaProject, JDOMAdaptor adaptor) {
-		try {
-			IJavaElement found = null;
-			String resolvedName = qualifiedName;
-			if (useAdvancedForInners) {
-				Object[] result = findActualJavaElement(qualifiedName, javaProject, adaptor);
-				found = (IJavaElement) result[0];
-				resolvedName = (String) result[1];
-			} else
-				found = findJavaElement(qualifiedName, javaProject, adaptor);
-			if (found != null)
-				if (found instanceof IClassFile)
-					return ((IClassFile) found).getType();
-				else if (found instanceof ICompilationUnit) {
-					ICompilationUnit foundCU = (ICompilationUnit) found;
-					// strip the ".java", lifted from CompilationUnit.getMainTypeName()
-					String cuMainTypeName = foundCU.getElementName();
-					cuMainTypeName = cuMainTypeName.substring(0, cuMainTypeName.length() - 5);
-					return foundCU.getType(cuMainTypeName);
-				} else if (found instanceof IType) {
-					IType type = ((IType) found);
-					if (!type.getFullyQualifiedName('$').equals(resolvedName)) {
-						// I don't know why this is here. Sometime in the past for an inner class, the
-						// IType returned was for the outer class, so you would need to search again
-						// for the inner class against the outer class. I don't know how this now can
-						// happen. The code followed above is extremelly complicated, especially when
-						// it is an inner class that isn't fully-qualified that is inside a source file.
-						// It goes through some gyrations for that. I don't know what it would
-						// return in that case. But just in case, the test is here to be safe.
-						int index = resolvedName.lastIndexOf('$'); //$NON-NLS-1$
-						if (index > -1)
-							return type.getType(resolvedName.substring(index + 1, resolvedName.length()));
-						else
-							return type;
-					} else
+		
+		IJavaElement found = null;
+		String resolvedName = qualifiedName;
+		if (useAdvancedForInners) {
+			Object[] result = findActualJavaElement(qualifiedName, javaProject, adaptor);
+			found = (IJavaElement) result[0];
+			resolvedName = (String) result[1];
+		} else
+			found = findJavaElement(qualifiedName, javaProject, adaptor);
+		if (found != null)
+			if (found instanceof IClassFile)
+				return ((IClassFile) found).getType();
+			else if (found instanceof ICompilationUnit) {
+				ICompilationUnit foundCU = (ICompilationUnit) found;
+				// strip the ".java", lifted from CompilationUnit.getMainTypeName()
+				String cuMainTypeName = foundCU.getElementName();
+				cuMainTypeName = cuMainTypeName.substring(0, cuMainTypeName.length() - 5);
+				return foundCU.getType(cuMainTypeName);
+			} else if (found instanceof IType) {
+				IType type = ((IType) found);
+				if (!type.getFullyQualifiedName('$').equals(resolvedName)) {
+					// I don't know why this is here. Sometime in the past for an inner class, the
+					// IType returned was for the outer class, so you would need to search again
+					// for the inner class against the outer class. I don't know how this now can
+					// happen. The code followed above is extremelly complicated, especially when
+					// it is an inner class that isn't fully-qualified that is inside a source file.
+					// It goes through some gyrations for that. I don't know what it would
+					// return in that case. But just in case, the test is here to be safe.
+					int index = resolvedName.lastIndexOf('$'); //$NON-NLS-1$
+					if (index > -1)
+						return type.getType(resolvedName.substring(index + 1, resolvedName.length()));
+					else
 						return type;
-				}
-		} catch (JavaModelException jme) {
-			System.out.println(ResourceHandler.getString("Error_Looking_Up_Type_ERROR_", (new Object[] { qualifiedName, jme.getMessage()}))); //$NON-NLS-1$ = "Error looking up type: "
-		}
+				} else
+					return type;
+			}
+				
 		return null;
 	}
 	
