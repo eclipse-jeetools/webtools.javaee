@@ -21,13 +21,16 @@ public interface J2EEVersionConstants {
 	public int J2EE_1_2_ID = 12;
 	public int J2EE_1_3_ID = 13;
 	public int J2EE_1_4_ID = 14;
+	public int JEE_5_0_ID = 50;
 	public int EJB_1_0_ID = 10;	
 	public int EJB_1_1_ID = 11;	
 	public int EJB_2_0_ID = 20;	
 	public int EJB_2_1_ID = 21;	
+	public int EJB_3_0_ID = 30;
 	public int WEB_2_2_ID = 22;
 	public int WEB_2_3_ID = 23;
 	public int WEB_2_4_ID = 24;
+	public int WEB_2_5_ID = 25;
 	public int TAGLIB_1_1_ID = 11;
 	public int TAGLIB_1_2_ID = 12;
 	public int TAGLIB_2_0_ID = 20;
@@ -37,12 +40,14 @@ public interface J2EEVersionConstants {
 	public int SERVLET_2_2 = 22;
 	public int SERVLET_2_3 = 23;
 	public int SERVLET_2_4 = 24;
+	public int SERVLET_2_5 = 25;
 	public int JCA_1_0_ID = 10;
 	public int JCA_1_5_ID = 15;
 	public int WEBSERVICES_1_0_ID = 10;
 	public int WEBSERVICES_1_1_ID = 11;
 	public String J2EE_1_4_TEXT 		= "1.4"; //$NON-NLS-1$
 	
+
 
 	public int VERSION_1_0 = 10;	
 	public int VERSION_1_1 = 11;	
@@ -56,6 +61,8 @@ public interface J2EEVersionConstants {
 	public int VERSION_2_3 = 23;	
 	public int VERSION_2_4 = 24;	
 	public int VERSION_2_5 = 25; 
+	public int VERSION_3_0 = 30; 
+	public int VERSION_5_0 = 50; 
 	
 	public String VERSION_1_0_TEXT		= "1.0"; //$NON-NLS-1$
 	public String VERSION_1_1_TEXT    	= "1.1"; //$NON-NLS-1$
@@ -69,5 +76,7 @@ public interface J2EEVersionConstants {
 	public String VERSION_2_3_TEXT		= "2.3"; //$NON-NLS-1$
 	public String VERSION_2_4_TEXT		= "2.4"; //$NON-NLS-1$
 	public String VERSION_2_5_TEXT		= "2.5"; //$NON-NLS-1$
+	public String VERSION_3_0_TEXT		= "3.0"; //$NON-NLS-1$
+	public String VERSION_5_0_TEXT		= "5.0"; //$NON-NLS-1$
 					
 }

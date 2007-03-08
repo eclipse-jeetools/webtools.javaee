@@ -33,54 +33,13 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
-
+//TODO this is temporary until we have jee 5 model support ready
 public class AddComponentToEnterpriseApplicationOp extends org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationOp {
 	public static final String metaInfFolderDeployPath = "/"; //$NON-NLS-1$
 
 	public AddComponentToEnterpriseApplicationOp(IDataModel model) {
 		super(model);
 	}
-
-	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		if (monitor != null) {
-			monitor.beginTask("", 3);
-		}
-
-		try {
-			J2EEComponentClasspathUpdater.getInstance().pauseUpdates();
-			IStatus status = super.execute(submon(monitor, 1), info);
-			if (!status.isOK())
-				return Status.CANCEL_STATUS;
-			updateEARDD(submon(monitor, 1));
-			updateModuleRuntimes(submon(monitor, 1));
-			return OK_STATUS;
-		} finally {
-			if (monitor != null) {
-				monitor.done();
-			}
-			J2EEComponentClasspathUpdater.getInstance().resumeUpdates();
-		}
-	}
-
-	protected String getArchiveName(IVirtualComponent comp) {
-		boolean useArchiveURI = true;
-		IFacetedProject facetedProject = null;
-		try {
-			facetedProject = ProjectFacetsManager.create(comp.getProject());
-		} catch (CoreException e) {
-			useArchiveURI = false;
-		}
-
-		if (useArchiveURI && facetedProject != null && ProjectFacetsManager.isProjectFacetDefined(IModuleConstants.JST_UTILITY_MODULE)) {
-			IProjectFacet projectFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_UTILITY_MODULE);
-			useArchiveURI = projectFacet != null && facetedProject.hasProjectFacet(projectFacet);
-		}
-		if (useArchiveURI) {
-			return super.getArchiveName(comp);
-		}
-		return ""; //$NON-NLS-1$
-	}
-
 	protected void updateEARDD(IProgressMonitor monitor) {
 
 //		EARArtifactEdit earEdit = null;
@@ -160,50 +119,8 @@ public class AddComponentToEnterpriseApplicationOp extends org.eclipse.jst.j2ee.
 //		return existingModule;
 //	}
 
-	private void updateModuleRuntimes(final IProgressMonitor monitor) {
-		if (monitor != null) {
-			monitor.beginTask("", 10);
-		}
-
-		try {
-			final IVirtualComponent ear = (IVirtualComponent) this.model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
-
-			final IProject earpj = ear.getProject();
-
-			final List moduleComponents = (List) this.model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
-
-			final Set moduleProjects = new HashSet();
-
-			for (Iterator itr = moduleComponents.iterator(); itr.hasNext();) {
-				moduleProjects.add(((IVirtualComponent) itr.next()).getProject());
-			}
-
-			if (monitor != null) {
-				monitor.worked(1);
-			}
-
-			EarFacetRuntimeHandler.updateModuleProjectRuntime(earpj, moduleProjects, submon(monitor, 9));
-		} catch (Exception e) {
-			Logger.getLogger().logError(e);
-		} finally {
-			if (monitor != null) {
-				monitor.done();
-			}
-		}
-	}
-
 	private static IProgressMonitor submon(final IProgressMonitor parent, final int ticks) {
 		return (parent == null ? null : new SubProgressMonitor(parent, ticks));
-	}
-
-	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

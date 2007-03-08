@@ -21,8 +21,6 @@ Require-Bundle: org.eclipse.core.runtime,
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.jst.jee,
  org.eclipse.jst.jee.application.internal.operations,
- org.eclipse.jst.jee.internal.common,
- org.eclipse.jst.jee.internal.earcreation,
  org.eclipse.jst.jee.project.facet
 Bundle-Vendor: %Bundle-Vendor.0
 Bundle-Localization: plugin

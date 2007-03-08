@@ -14,9 +14,9 @@ package org.eclipse.jst.jee.web.project.facet;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
-import org.eclipse.jst.jee.internal.common.JEEVersionUtil;
 import org.eclipse.jst.jee.project.facet.JEEFacetInstallDelegate;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -45,7 +45,7 @@ public final class WebFacetPostInstallDelegate extends JEEFacetInstallDelegate i
 					
 					String ver = fv.getVersionString();
 					
-					String j2eeVersionText = JEEVersionUtil.convertVersionIntToString(JEEVersionUtil.convertWebVersionStringToJ2EEVersionID(ver));
+					String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(ver));
 					final String moduleURI = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.MODULE_URI);
 					
 					installAndAddModuletoEAR( j2eeVersionText,

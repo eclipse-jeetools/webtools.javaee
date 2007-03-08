@@ -12,17 +12,9 @@
       </constraint>
       <group-member id="modules"/>
     </project-facet-version>
-    
-   
-<!-- lets comment it for now
- <event-handler facet="jst.web" version="2.5" type="RUNTIME_CHANGED">
-      <delegate class="org.eclipse.jst.jee.web.project.facet.WebFacetRuntimeChangedDelegate"/>
-    </event-handler>
-  -->  
-    
+
    <action facet="jst.web" version="2.5" type="INSTALL" id="jst.web#2.5#install">
       <delegate class="org.eclipse.jst.jee.web.project.facet.WebFacetInstallDelegate"/>
-      <config-factory class="org.eclipse.jst.jee.web.project.facet.WebFacetInstallDataModelProvider"/>
     </action>
 
      <event-handler facet="jst.web" version="2.5" type="POST_INSTALL" >
@@ -30,5 +22,4 @@
       </event-handler>
 
    </extension>
-   
  </plugin>

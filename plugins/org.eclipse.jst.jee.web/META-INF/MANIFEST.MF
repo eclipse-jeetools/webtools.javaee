@@ -14,9 +14,10 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jem.util,
  org.eclipse.jst.common.frameworks,
  org.eclipse.jst.common.project.facet.core,
- org.eclipse.jst.j2ee.web,
  org.eclipse.jst.jee,
- org.eclipse.core.commands
+ org.eclipse.core.commands,
+ com.ibm.icu,
+ org.eclipse.jst.j2ee.web
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.jst.jee.web,
  org.eclipse.jst.jee.web.project.facet

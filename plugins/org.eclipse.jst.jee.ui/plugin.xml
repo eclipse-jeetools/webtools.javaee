@@ -3,7 +3,7 @@
 <plugin>
    <extension point="org.eclipse.wst.common.project.facet.ui.wizardPages">
     <wizard-pages action="jst.ear#5.0#install">
-      <page class="org.eclipse.jst.jee.ui.project.facet.EarFacetInstallPage"/>
+      <page class="org.eclipse.jst.j2ee.ui.project.facet.EarFacetInstallPage"/>
     </wizard-pages>
     <wizard-pages action="jst.appclient#5.0#install">
       <page class="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientFacetInstallPage"/>

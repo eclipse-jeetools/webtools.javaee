@@ -11,7 +11,7 @@
 package org.eclipse.jst.jee.application.internal.operations;
 
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
-
+//TODO this is temporary until we have jee 5 model support ready
 public class AddComponentToEnterpriseApplicationDataModelProvider extends org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider {
 
 	public AddComponentToEnterpriseApplicationDataModelProvider() {

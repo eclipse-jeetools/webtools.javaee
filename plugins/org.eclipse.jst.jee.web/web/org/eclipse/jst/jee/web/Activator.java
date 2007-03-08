@@ -1,5 +1,8 @@
 package org.eclipse.jst.jee.web;
 
+import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -56,5 +59,11 @@ public class Activator extends WTPPlugin {
 		return PLUGIN_ID;
 	}
 	
-
+	public static void log( final Exception e )
+	{
+		final ILog log = getDefault().getLog();
+		final String msg = "Encountered an unexpected exception.";
+		
+		log.log( new Status( IStatus.ERROR, PLUGIN_ID, IStatus.OK, msg, e ) );
+	}
 }

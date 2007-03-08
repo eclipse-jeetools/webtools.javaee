@@ -16,7 +16,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jem.util,
  org.eclipse.wst.web.ui,
  org.eclipse.wst.common.frameworks.ui,
- org.eclipse.emf.ecore
+ org.eclipse.emf.ecore,
+ org.eclipse.jst.j2ee
 Eclipse-LazyStart: true
 Bundle-Localization: plugin
 Bundle-Vendor: %Bundle-Vendor.0
