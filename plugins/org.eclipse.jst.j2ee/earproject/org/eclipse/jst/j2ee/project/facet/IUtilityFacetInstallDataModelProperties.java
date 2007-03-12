@@ -15,5 +15,5 @@ public interface IUtilityFacetInstallDataModelProperties extends IJ2EEModuleFace
 	/**
 	 * This field should not be used.  It is not part of the API and may be modified in the future.
 	 */
-	public static Class _provider_class = UtilityFacetInstallDataModelProvider.class;
+	public static Class _provider_class = org.eclipse.jst.j2ee.internal.project.facet.UtilityFacetInstallDataModelProvider.class;
 }

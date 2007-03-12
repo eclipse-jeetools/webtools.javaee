@@ -10,7 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.common.project.facet;
 
-public interface IJavaFacetInstallDataModelProperties {
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties;
+
+public interface IJavaFacetInstallDataModelProperties extends IDataModelProperties {
 
 	public static final String SOURCE_FOLDER_NAME = "IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME"; //$NON-NLS-1$
     public static final String DEFAULT_OUTPUT_FOLDER_NAME = "IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME"; //$NON-NLS-1$

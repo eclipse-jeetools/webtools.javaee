@@ -10,30 +10,15 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.project.facet;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider;
-import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
-import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
-import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
-import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
-
-public class EARFacetProjectCreationDataModelProvider extends FacetProjectCreationDataModelProvider {
+/**
+ * This class was not intended to be public API.  Please use {@link org.eclipse.jst.j2ee.earcreation.IEarFacetInstallDataModelProperties} 
+ * 
+ * @deprecated
+ * @see org.eclipse.jst.j2ee.internal.project.facet.EARFacetProjectCreationDataModelProvider
+ */
+public class EARFacetProjectCreationDataModelProvider extends org.eclipse.jst.j2ee.internal.project.facet.EARFacetProjectCreationDataModelProvider {
 
 	public EARFacetProjectCreationDataModelProvider() {
 		super();
-	}
-
-	public void init() {
-		super.init();
-		FacetDataModelMap map = (FacetDataModelMap) getProperty(FACET_DM_MAP);
-		IDataModel earFacet = DataModelFactory.createDataModel(new EarFacetInstallDataModelProvider());
-		map.add(earFacet);
-		
-		Collection requiredFacets = new ArrayList();
-		requiredFacets.add(ProjectFacetsManager.getProjectFacet(earFacet.getStringProperty(IFacetDataModelProperties.FACET_ID)));
-		setProperty(REQUIRED_FACETS_COLLECTION, requiredFacets);
 	}
 }

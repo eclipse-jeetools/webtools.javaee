@@ -10,7 +10,13 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.project.facet;
 
-public interface IJavaUtilityProjectCreationDataModelProperties {
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties;
+
+public interface IJavaUtilityProjectCreationDataModelProperties extends IDataModelProperties {
+	/**
+	 * This field should not be used.  It is not part of the API and may be modified in the future.
+	 */
+	public static Class _provider_class = JavaUtilityProjectCreationDataModelProvider.class;
 
 	public static final String PROJECT_NAME = "IJavaUtilityProjectCreationDataModelProperties.PROJECT_NAME"; //$NON-NLS-1$
 	
