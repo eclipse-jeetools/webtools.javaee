@@ -10,29 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.jee.application.internal.operations;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
-import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
-import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
-import org.eclipse.jst.j2ee.project.facet.EarFacetRuntimeHandler;
-import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.project.facet.core.IFacetedProject;
-import org.eclipse.wst.common.project.facet.core.IProjectFacet;
-import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 //TODO this is temporary until we have jee 5 model support ready
 public class AddComponentToEnterpriseApplicationOp extends org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationOp {
 	public static final String metaInfFolderDeployPath = "/"; //$NON-NLS-1$
