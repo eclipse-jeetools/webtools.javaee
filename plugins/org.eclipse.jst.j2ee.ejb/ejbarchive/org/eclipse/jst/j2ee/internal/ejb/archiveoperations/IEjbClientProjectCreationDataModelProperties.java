@@ -10,10 +10,14 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
-import org.eclipse.jst.j2ee.project.facet.IJavaUtilityProjectCreationDataModelProperties;
 
-public interface IEjbClientProjectCreationDataModelProperties extends IJavaUtilityProjectCreationDataModelProperties{
+/**
+ * This class has become public API.  Please use {@link org.eclipse.jst.j2ee.ejb.archiveoperations.IEjbClientProjectCreationDataModelProperties} 
+ * 
+ * @deprecated
+ * @see org.eclipse.jst.j2ee.ejb.archiveoperations.IEjbClientProjectCreationDataModelProperties
+ */
 
-	public static final String EJB_PROJECT_NAME = "IEjbClientProjectCreationDataModelProperties.EJB_PROJECT_NAME"; //$NON-NLS-1$
-	public static final String CLIENT_URI = "IEjbClientProjectCreationDataModelProperties.CLIENT_URI ";//$NON-NLS-1$	
+public interface IEjbClientProjectCreationDataModelProperties extends org.eclipse.jst.j2ee.ejb.archiveoperations.IEjbClientProjectCreationDataModelProperties {
+
 }
