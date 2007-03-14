@@ -11,7 +11,7 @@
 package org.eclipse.jem.tests.beaninfo;
 /*
  *  $RCSfile: BeanInfoSuite.java,v $
- *  $Revision: 1.12 $  $Date: 2006/05/17 20:13:56 $ 
+ *  $Revision: 1.13 $  $Date: 2007/03/14 17:26:59 $ 
  */
 import java.net.URL;
 
@@ -36,7 +36,7 @@ public class BeanInfoSuite extends TestSetup {
 	// Test cases to be include in the suite
 	private static final Class testsList[] =
 		{ TestReflection.class, // NOTE: This one must always be first because it does some tests that depend on this.
-		TestStandard.class, TestAWTSwingUI.class };
+		TestStandard.class, /*TestAWTSwingUI.class*/ };
 
 	/**
 	 * Constructor for BeanInfoSuite.
