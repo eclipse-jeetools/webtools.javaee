@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoDecoratorUtility.java,v $
- *  $Revision: 1.8 $  $Date: 2006/05/17 20:13:00 $ 
+ *  $Revision: 1.10 $  $Date: 2007/03/14 14:06:31 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
@@ -1285,7 +1285,7 @@ public class BeanInfoDecoratorUtility {
 	 * @since 1.1.0
 	 */
 	protected static List getFeatureChangeList(ChangeDescription cd, EObject object) {
-		List fcs = (List) cd.getObjectChanges().get(object); // Get the feature changes if any.
+		List fcs = cd.getObjectChanges().get(object); // Get the feature changes if any.
 		if (fcs == null) {
 			Map.Entry entry = ChangeFactory.eINSTANCE.createEObjectToChangesMapEntry(object);
 			cd.getObjectChanges().add(entry);
@@ -1344,7 +1344,7 @@ public class BeanInfoDecoratorUtility {
 		if (newValue) {
 			try {
 				addedValue = EcoreUtil.copy((EObject) addedValue);
-				cd.getObjectsToAttach().add(addedValue);
+				cd.getObjectsToAttach().add((EObject)addedValue);
 			} catch (ClassCastException e) {
 				// Normally should not occur, but if it does, it means we can't clone, so don't clone.
 			}
@@ -1442,7 +1442,7 @@ public class BeanInfoDecoratorUtility {
 		if (newValue) {
 			try {
 				setValue = EcoreUtil.copy((EObject) setValue);
-				cd.getObjectsToAttach().add(setValue);
+				cd.getObjectsToAttach().add((EObject)setValue);
 			} catch (ClassCastException e) {
 				// Normally should not occur, but if it does, it means we can't clone, so don't clone.
 			}

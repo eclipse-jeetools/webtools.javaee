@@ -11,30 +11,20 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: FeatureDecoratorImpl.java,v $
- *  $Revision: 1.13 $  $Date: 2006/05/17 20:13:00 $ 
+ *  $Revision: 1.14 $  $Date: 2007/03/14 01:22:51 $ 
  */
 
-
-import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EMap;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EModelElement;
-import org.eclipse.emf.ecore.ENamedElement;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.impl.EAnnotationImpl;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
-import org.eclipse.jem.internal.beaninfo.FeatureDecorator;
-import org.eclipse.jem.internal.beaninfo.ImplicitItem;
+import org.eclipse.jem.internal.beaninfo.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -345,7 +335,7 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return BeaninfoPackage.eINSTANCE.getFeatureDecorator();
+		return BeaninfoPackage.Literals.FEATURE_DECORATOR;
 	}
 
 	public String getDisplayName() {
@@ -370,6 +360,176 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	}
 	
 
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES:
+				return ((InternalEList)getAttributes()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case BeaninfoPackage.FEATURE_DECORATOR__DISPLAY_NAME:
+				return getDisplayName();
+			case BeaninfoPackage.FEATURE_DECORATOR__SHORT_DESCRIPTION:
+				return getShortDescription();
+			case BeaninfoPackage.FEATURE_DECORATOR__CATEGORY:
+				return getCategory();
+			case BeaninfoPackage.FEATURE_DECORATOR__EXPERT:
+				return isExpert() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.FEATURE_DECORATOR__HIDDEN:
+				return isHidden() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.FEATURE_DECORATOR__PREFERRED:
+				return isPreferred() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.FEATURE_DECORATOR__MERGE_INTROSPECTION:
+				return isMergeIntrospection() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				return isAttributesExplicitEmpty() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICITLY_SET_BITS:
+				return new Long(getImplicitlySetBits());
+			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				return getImplicitDecoratorFlag();
+			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES:
+				if (coreType) return getAttributes();
+				else return getAttributes().map();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case BeaninfoPackage.FEATURE_DECORATOR__DISPLAY_NAME:
+				setDisplayName((String)newValue);
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__SHORT_DESCRIPTION:
+				setShortDescription((String)newValue);
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__CATEGORY:
+				setCategory((String)newValue);
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__EXPERT:
+				setExpert(((Boolean)newValue).booleanValue());
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__HIDDEN:
+				setHidden(((Boolean)newValue).booleanValue());
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__PREFERRED:
+				setPreferred(((Boolean)newValue).booleanValue());
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__MERGE_INTROSPECTION:
+				setMergeIntrospection(((Boolean)newValue).booleanValue());
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				setAttributesExplicitEmpty(((Boolean)newValue).booleanValue());
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICITLY_SET_BITS:
+				setImplicitlySetBits(((Long)newValue).longValue());
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				setImplicitDecoratorFlag((ImplicitItem)newValue);
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES:
+				((EStructuralFeature.Setting)getAttributes()).set(newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case BeaninfoPackage.FEATURE_DECORATOR__DISPLAY_NAME:
+				unsetDisplayName();
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__SHORT_DESCRIPTION:
+				unsetShortDescription();
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__CATEGORY:
+				setCategory(CATEGORY_EDEFAULT);
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__EXPERT:
+				unsetExpert();
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__HIDDEN:
+				unsetHidden();
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__PREFERRED:
+				unsetPreferred();
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__MERGE_INTROSPECTION:
+				setMergeIntrospection(MERGE_INTROSPECTION_EDEFAULT);
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				setAttributesExplicitEmpty(ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT);
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICITLY_SET_BITS:
+				setImplicitlySetBits(IMPLICITLY_SET_BITS_EDEFAULT);
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				setImplicitDecoratorFlag(IMPLICIT_DECORATOR_FLAG_EDEFAULT);
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES:
+				getAttributes().clear();
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * Overriden.....
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case BeaninfoPackage.FEATURE_DECORATOR__SOURCE:
+				return isSourceSet();	// Override so that if set to the same as classname, then it is considered not set.
+			case BeaninfoPackage.FEATURE_DECORATOR__DISPLAY_NAME:
+				return isSetDisplayName();
+			case BeaninfoPackage.FEATURE_DECORATOR__SHORT_DESCRIPTION:
+				return isSetShortDescription();
+			case BeaninfoPackage.FEATURE_DECORATOR__CATEGORY:
+				return CATEGORY_EDEFAULT == null ? category != null : !CATEGORY_EDEFAULT.equals(category);
+			case BeaninfoPackage.FEATURE_DECORATOR__EXPERT:
+				return isSetExpert();
+			case BeaninfoPackage.FEATURE_DECORATOR__HIDDEN:
+				return isSetHidden();
+			case BeaninfoPackage.FEATURE_DECORATOR__PREFERRED:
+				return isSetPreferred();
+			case BeaninfoPackage.FEATURE_DECORATOR__MERGE_INTROSPECTION:
+				return ((eFlags & MERGE_INTROSPECTION_EFLAG) != 0) != MERGE_INTROSPECTION_EDEFAULT;
+			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				return ((eFlags & ATTRIBUTES_EXPLICIT_EMPTY_EFLAG) != 0) != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
+			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICITLY_SET_BITS:
+				return implicitlySetBits != IMPLICITLY_SET_BITS_EDEFAULT;
+			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				return implicitDecoratorFlag != IMPLICIT_DECORATOR_FLAG_EDEFAULT;
+			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES:
+				return attributes != null && !attributes.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -704,7 +864,7 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 */
 	public EMap getAttributes() {
 		if (attributes == null) {
-			attributes = new EcoreEMap(BeaninfoPackage.eINSTANCE.getFeatureAttributeMapEntry(), FeatureAttributeMapEntryImpl.class, this, BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES);
+			attributes = new EcoreEMap(BeaninfoPackage.Literals.FEATURE_ATTRIBUTE_MAP_ENTRY, FeatureAttributeMapEntryImpl.class, this, BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES);
 		}
 		return attributes;
 	}
@@ -743,245 +903,6 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case BeaninfoPackage.FEATURE_DECORATOR__EANNOTATIONS:
-					return ((InternalEList)getEAnnotations()).basicAdd(otherEnd, msgs);
-				case BeaninfoPackage.FEATURE_DECORATOR__EMODEL_ELEMENT:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, BeaninfoPackage.FEATURE_DECORATOR__EMODEL_ELEMENT, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case BeaninfoPackage.FEATURE_DECORATOR__EANNOTATIONS:
-					return ((InternalEList)getEAnnotations()).basicRemove(otherEnd, msgs);
-				case BeaninfoPackage.FEATURE_DECORATOR__DETAILS:
-					return ((InternalEList)getDetails()).basicRemove(otherEnd, msgs);
-				case BeaninfoPackage.FEATURE_DECORATOR__EMODEL_ELEMENT:
-					return eBasicSetContainer(null, BeaninfoPackage.FEATURE_DECORATOR__EMODEL_ELEMENT, msgs);
-				case BeaninfoPackage.FEATURE_DECORATOR__CONTENTS:
-					return ((InternalEList)getContents()).basicRemove(otherEnd, msgs);
-				case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES:
-					return ((InternalEList)getAttributes()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case BeaninfoPackage.FEATURE_DECORATOR__EMODEL_ELEMENT:
-					return eContainer.eInverseRemove(this, EcorePackage.EMODEL_ELEMENT__EANNOTATIONS, EModelElement.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case BeaninfoPackage.FEATURE_DECORATOR__EANNOTATIONS:
-				return getEAnnotations();
-			case BeaninfoPackage.FEATURE_DECORATOR__SOURCE:
-				return getSource();
-			case BeaninfoPackage.FEATURE_DECORATOR__DETAILS:
-				return getDetails();
-			case BeaninfoPackage.FEATURE_DECORATOR__EMODEL_ELEMENT:
-				return getEModelElement();
-			case BeaninfoPackage.FEATURE_DECORATOR__CONTENTS:
-				return getContents();
-			case BeaninfoPackage.FEATURE_DECORATOR__REFERENCES:
-				return getReferences();
-			case BeaninfoPackage.FEATURE_DECORATOR__DISPLAY_NAME:
-				return getDisplayName();
-			case BeaninfoPackage.FEATURE_DECORATOR__SHORT_DESCRIPTION:
-				return getShortDescription();
-			case BeaninfoPackage.FEATURE_DECORATOR__CATEGORY:
-				return getCategory();
-			case BeaninfoPackage.FEATURE_DECORATOR__EXPERT:
-				return isExpert() ? Boolean.TRUE : Boolean.FALSE;
-			case BeaninfoPackage.FEATURE_DECORATOR__HIDDEN:
-				return isHidden() ? Boolean.TRUE : Boolean.FALSE;
-			case BeaninfoPackage.FEATURE_DECORATOR__PREFERRED:
-				return isPreferred() ? Boolean.TRUE : Boolean.FALSE;
-			case BeaninfoPackage.FEATURE_DECORATOR__MERGE_INTROSPECTION:
-				return isMergeIntrospection() ? Boolean.TRUE : Boolean.FALSE;
-			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
-				return isAttributesExplicitEmpty() ? Boolean.TRUE : Boolean.FALSE;
-			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICITLY_SET_BITS:
-				return new Long(getImplicitlySetBits());
-			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICIT_DECORATOR_FLAG:
-				return getImplicitDecoratorFlag();
-			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES:
-				return getAttributes();
-		}
-		return eDynamicGet(eFeature, resolve);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case BeaninfoPackage.FEATURE_DECORATOR__EANNOTATIONS:
-				getEAnnotations().clear();
-				getEAnnotations().addAll((Collection)newValue);
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__SOURCE:
-				setSource((String)newValue);
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__DETAILS:
-				getDetails().clear();
-				getDetails().addAll((Collection)newValue);
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__EMODEL_ELEMENT:
-				setEModelElement((EModelElement)newValue);
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__CONTENTS:
-				getContents().clear();
-				getContents().addAll((Collection)newValue);
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__REFERENCES:
-				getReferences().clear();
-				getReferences().addAll((Collection)newValue);
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__DISPLAY_NAME:
-				setDisplayName((String)newValue);
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__SHORT_DESCRIPTION:
-				setShortDescription((String)newValue);
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__CATEGORY:
-				setCategory((String)newValue);
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__EXPERT:
-				setExpert(((Boolean)newValue).booleanValue());
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__HIDDEN:
-				setHidden(((Boolean)newValue).booleanValue());
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__PREFERRED:
-				setPreferred(((Boolean)newValue).booleanValue());
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__MERGE_INTROSPECTION:
-				setMergeIntrospection(((Boolean)newValue).booleanValue());
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
-				setAttributesExplicitEmpty(((Boolean)newValue).booleanValue());
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICITLY_SET_BITS:
-				setImplicitlySetBits(((Long)newValue).longValue());
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICIT_DECORATOR_FLAG:
-				setImplicitDecoratorFlag((ImplicitItem)newValue);
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES:
-				getAttributes().clear();
-				getAttributes().addAll((Collection)newValue);
-				return;
-		}
-		eDynamicSet(eFeature, newValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case BeaninfoPackage.FEATURE_DECORATOR__EANNOTATIONS:
-				getEAnnotations().clear();
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__SOURCE:
-				setSource(SOURCE_EDEFAULT);
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__DETAILS:
-				getDetails().clear();
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__EMODEL_ELEMENT:
-				setEModelElement((EModelElement)null);
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__CONTENTS:
-				getContents().clear();
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__REFERENCES:
-				getReferences().clear();
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__DISPLAY_NAME:
-				unsetDisplayName();
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__SHORT_DESCRIPTION:
-				unsetShortDescription();
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__CATEGORY:
-				setCategory(CATEGORY_EDEFAULT);
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__EXPERT:
-				unsetExpert();
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__HIDDEN:
-				unsetHidden();
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__PREFERRED:
-				unsetPreferred();
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__MERGE_INTROSPECTION:
-				setMergeIntrospection(MERGE_INTROSPECTION_EDEFAULT);
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
-				setAttributesExplicitEmpty(ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT);
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICITLY_SET_BITS:
-				setImplicitlySetBits(IMPLICITLY_SET_BITS_EDEFAULT);
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICIT_DECORATOR_FLAG:
-				setImplicitDecoratorFlag(IMPLICIT_DECORATOR_FLAG_EDEFAULT);
-				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES:
-				getAttributes().clear();
-				return;
-		}
-		eDynamicUnset(eFeature);
-	}
-	
-	/**
 	 * Called by overrides to eIsSet to test if source is set. This is because for the 
 	 * FeatureDecorator and subclasses, setting source to the classname is considered
 	 * to be not set since that is the new default for each class level. By doing this
@@ -995,64 +916,6 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 */
 	protected boolean isSourceSet() {
 		return source != null && !eClass().getInstanceClassName().equals(source);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.emf.ecore.EObject#eIsSet(org.eclipse.emf.ecore.EStructuralFeature)
-	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case BeaninfoPackage.FEATURE_DECORATOR__SOURCE:
-				return isSourceSet();	// Override so that if set to the same as classname, then it is considered not set.
-			default:
-				return eIsSetGen(eFeature);
-		}
-	}
-
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean eIsSetGen(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case BeaninfoPackage.FEATURE_DECORATOR__EANNOTATIONS:
-				return eAnnotations != null && !eAnnotations.isEmpty();
-			case BeaninfoPackage.FEATURE_DECORATOR__SOURCE:
-				return SOURCE_EDEFAULT == null ? source != null : !SOURCE_EDEFAULT.equals(source);
-			case BeaninfoPackage.FEATURE_DECORATOR__DETAILS:
-				return details != null && !details.isEmpty();
-			case BeaninfoPackage.FEATURE_DECORATOR__EMODEL_ELEMENT:
-				return getEModelElement() != null;
-			case BeaninfoPackage.FEATURE_DECORATOR__CONTENTS:
-				return contents != null && !contents.isEmpty();
-			case BeaninfoPackage.FEATURE_DECORATOR__REFERENCES:
-				return references != null && !references.isEmpty();
-			case BeaninfoPackage.FEATURE_DECORATOR__DISPLAY_NAME:
-				return isSetDisplayName();
-			case BeaninfoPackage.FEATURE_DECORATOR__SHORT_DESCRIPTION:
-				return isSetShortDescription();
-			case BeaninfoPackage.FEATURE_DECORATOR__CATEGORY:
-				return CATEGORY_EDEFAULT == null ? category != null : !CATEGORY_EDEFAULT.equals(category);
-			case BeaninfoPackage.FEATURE_DECORATOR__EXPERT:
-				return isSetExpert();
-			case BeaninfoPackage.FEATURE_DECORATOR__HIDDEN:
-				return isSetHidden();
-			case BeaninfoPackage.FEATURE_DECORATOR__PREFERRED:
-				return isSetPreferred();
-			case BeaninfoPackage.FEATURE_DECORATOR__MERGE_INTROSPECTION:
-				return ((eFlags & MERGE_INTROSPECTION_EFLAG) != 0) != MERGE_INTROSPECTION_EDEFAULT;
-			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
-				return ((eFlags & ATTRIBUTES_EXPLICIT_EMPTY_EFLAG) != 0) != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
-			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICITLY_SET_BITS:
-				return implicitlySetBits != IMPLICITLY_SET_BITS_EDEFAULT;
-			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICIT_DECORATOR_FLAG:
-				return implicitDecoratorFlag != IMPLICIT_DECORATOR_FLAG_EDEFAULT;
-			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES:
-				return attributes != null && !attributes.isEmpty();
-		}
-		return eDynamicIsSet(eFeature);
 	}
 
 }

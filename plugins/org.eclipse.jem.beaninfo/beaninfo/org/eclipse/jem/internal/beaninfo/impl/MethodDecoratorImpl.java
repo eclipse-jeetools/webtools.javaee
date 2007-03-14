@@ -11,32 +11,21 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: MethodDecoratorImpl.java,v $
- *  $Revision: 1.11 $  $Date: 2005/09/19 15:43:02 $ 
+ *  $Revision: 1.12 $  $Date: 2007/03/14 01:22:51 $ 
  */
 
-
-import java.util.Collection;
 
 import java.util.*;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EModelElement;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.eclipse.jem.internal.beaninfo.BeaninfoFactory;
-import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
-import org.eclipse.jem.internal.beaninfo.ImplicitItem;
-import org.eclipse.jem.internal.beaninfo.MethodDecorator;
-import org.eclipse.jem.internal.beaninfo.MethodProxy;
-import org.eclipse.jem.internal.beaninfo.ParameterDecorator;
+import org.eclipse.jem.internal.beaninfo.*;
 import org.eclipse.jem.java.JavaParameter;
 import org.eclipse.jem.java.Method;
 /**
@@ -109,7 +98,7 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return BeaninfoPackage.eINSTANCE.getMethodDecorator();
+		return BeaninfoPackage.Literals.METHOD_DECORATOR;
 	}
 
 	/**
@@ -234,6 +223,8 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 	public EList getParameterDescriptorsGen() {
 		// TODO: implement this method to return the 'Parameter Descriptors' reference list
 		// Ensure that you remove @generated or mark it @generated NOT
+		// The list is expected to implement org.eclipse.emf.ecore.util.InternalEList and org.eclipse.emf.ecore.EStructuralFeature.Setting
+		// so it's likely that an appropriate subclass of org.eclipse.emf.ecore.util.EcoreEList should be used.
 		throw new UnsupportedOperationException();
 	}
 
@@ -254,22 +245,12 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case BeaninfoPackage.METHOD_DECORATOR__EANNOTATIONS:
-					return ((InternalEList)getEAnnotations()).basicAdd(otherEnd, msgs);
-				case BeaninfoPackage.METHOD_DECORATOR__EMODEL_ELEMENT:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, BeaninfoPackage.METHOD_DECORATOR__EMODEL_ELEMENT, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case BeaninfoPackage.METHOD_DECORATOR__SER_PARM_DESC:
+				return ((InternalEList)getSerParmDesc()).basicRemove(otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -277,86 +258,8 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case BeaninfoPackage.METHOD_DECORATOR__EANNOTATIONS:
-					return ((InternalEList)getEAnnotations()).basicRemove(otherEnd, msgs);
-				case BeaninfoPackage.METHOD_DECORATOR__DETAILS:
-					return ((InternalEList)getDetails()).basicRemove(otherEnd, msgs);
-				case BeaninfoPackage.METHOD_DECORATOR__EMODEL_ELEMENT:
-					return eBasicSetContainer(null, BeaninfoPackage.METHOD_DECORATOR__EMODEL_ELEMENT, msgs);
-				case BeaninfoPackage.METHOD_DECORATOR__CONTENTS:
-					return ((InternalEList)getContents()).basicRemove(otherEnd, msgs);
-				case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES:
-					return ((InternalEList)getAttributes()).basicRemove(otherEnd, msgs);
-				case BeaninfoPackage.METHOD_DECORATOR__SER_PARM_DESC:
-					return ((InternalEList)getSerParmDesc()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case BeaninfoPackage.METHOD_DECORATOR__EMODEL_ELEMENT:
-					return eContainer.eInverseRemove(this, EcorePackage.EMODEL_ELEMENT__EANNOTATIONS, EModelElement.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case BeaninfoPackage.METHOD_DECORATOR__EANNOTATIONS:
-				return getEAnnotations();
-			case BeaninfoPackage.METHOD_DECORATOR__SOURCE:
-				return getSource();
-			case BeaninfoPackage.METHOD_DECORATOR__DETAILS:
-				return getDetails();
-			case BeaninfoPackage.METHOD_DECORATOR__EMODEL_ELEMENT:
-				return getEModelElement();
-			case BeaninfoPackage.METHOD_DECORATOR__CONTENTS:
-				return getContents();
-			case BeaninfoPackage.METHOD_DECORATOR__REFERENCES:
-				return getReferences();
-			case BeaninfoPackage.METHOD_DECORATOR__DISPLAY_NAME:
-				return getDisplayName();
-			case BeaninfoPackage.METHOD_DECORATOR__SHORT_DESCRIPTION:
-				return getShortDescription();
-			case BeaninfoPackage.METHOD_DECORATOR__CATEGORY:
-				return getCategory();
-			case BeaninfoPackage.METHOD_DECORATOR__EXPERT:
-				return isExpert() ? Boolean.TRUE : Boolean.FALSE;
-			case BeaninfoPackage.METHOD_DECORATOR__HIDDEN:
-				return isHidden() ? Boolean.TRUE : Boolean.FALSE;
-			case BeaninfoPackage.METHOD_DECORATOR__PREFERRED:
-				return isPreferred() ? Boolean.TRUE : Boolean.FALSE;
-			case BeaninfoPackage.METHOD_DECORATOR__MERGE_INTROSPECTION:
-				return isMergeIntrospection() ? Boolean.TRUE : Boolean.FALSE;
-			case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
-				return isAttributesExplicitEmpty() ? Boolean.TRUE : Boolean.FALSE;
-			case BeaninfoPackage.METHOD_DECORATOR__IMPLICITLY_SET_BITS:
-				return new Long(getImplicitlySetBits());
-			case BeaninfoPackage.METHOD_DECORATOR__IMPLICIT_DECORATOR_FLAG:
-				return getImplicitDecoratorFlag();
-			case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES:
-				return getAttributes();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case BeaninfoPackage.METHOD_DECORATOR__PARMS_EXPLICIT_EMPTY:
 				return isParmsExplicitEmpty() ? Boolean.TRUE : Boolean.FALSE;
 			case BeaninfoPackage.METHOD_DECORATOR__PARAMETER_DESCRIPTORS:
@@ -364,7 +267,7 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 			case BeaninfoPackage.METHOD_DECORATOR__SER_PARM_DESC:
 				return getSerParmDesc();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -372,64 +275,8 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case BeaninfoPackage.METHOD_DECORATOR__EANNOTATIONS:
-				getEAnnotations().clear();
-				getEAnnotations().addAll((Collection)newValue);
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__SOURCE:
-				setSource((String)newValue);
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__DETAILS:
-				getDetails().clear();
-				getDetails().addAll((Collection)newValue);
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__EMODEL_ELEMENT:
-				setEModelElement((EModelElement)newValue);
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__CONTENTS:
-				getContents().clear();
-				getContents().addAll((Collection)newValue);
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__REFERENCES:
-				getReferences().clear();
-				getReferences().addAll((Collection)newValue);
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__DISPLAY_NAME:
-				setDisplayName((String)newValue);
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__SHORT_DESCRIPTION:
-				setShortDescription((String)newValue);
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__CATEGORY:
-				setCategory((String)newValue);
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__EXPERT:
-				setExpert(((Boolean)newValue).booleanValue());
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__HIDDEN:
-				setHidden(((Boolean)newValue).booleanValue());
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__PREFERRED:
-				setPreferred(((Boolean)newValue).booleanValue());
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__MERGE_INTROSPECTION:
-				setMergeIntrospection(((Boolean)newValue).booleanValue());
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
-				setAttributesExplicitEmpty(((Boolean)newValue).booleanValue());
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__IMPLICITLY_SET_BITS:
-				setImplicitlySetBits(((Long)newValue).longValue());
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__IMPLICIT_DECORATOR_FLAG:
-				setImplicitDecoratorFlag((ImplicitItem)newValue);
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES:
-				getAttributes().clear();
-				getAttributes().addAll((Collection)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case BeaninfoPackage.METHOD_DECORATOR__PARMS_EXPLICIT_EMPTY:
 				setParmsExplicitEmpty(((Boolean)newValue).booleanValue());
 				return;
@@ -442,7 +289,7 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 				getSerParmDesc().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -450,59 +297,8 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case BeaninfoPackage.METHOD_DECORATOR__EANNOTATIONS:
-				getEAnnotations().clear();
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__SOURCE:
-				setSource(SOURCE_EDEFAULT);
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__DETAILS:
-				getDetails().clear();
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__EMODEL_ELEMENT:
-				setEModelElement((EModelElement)null);
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__CONTENTS:
-				getContents().clear();
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__REFERENCES:
-				getReferences().clear();
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__DISPLAY_NAME:
-				unsetDisplayName();
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__SHORT_DESCRIPTION:
-				unsetShortDescription();
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__CATEGORY:
-				setCategory(CATEGORY_EDEFAULT);
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__EXPERT:
-				unsetExpert();
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__HIDDEN:
-				unsetHidden();
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__PREFERRED:
-				unsetPreferred();
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__MERGE_INTROSPECTION:
-				setMergeIntrospection(MERGE_INTROSPECTION_EDEFAULT);
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
-				setAttributesExplicitEmpty(ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT);
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__IMPLICITLY_SET_BITS:
-				setImplicitlySetBits(IMPLICITLY_SET_BITS_EDEFAULT);
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__IMPLICIT_DECORATOR_FLAG:
-				setImplicitDecoratorFlag(IMPLICIT_DECORATOR_FLAG_EDEFAULT);
-				return;
-			case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES:
-				getAttributes().clear();
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case BeaninfoPackage.METHOD_DECORATOR__PARMS_EXPLICIT_EMPTY:
 				setParmsExplicitEmpty(PARMS_EXPLICIT_EMPTY_EDEFAULT);
 				return;
@@ -513,80 +309,27 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 				getSerParmDesc().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
-	}
-
-	/*
-	 * This is overridden so that we can do special is set tests:
-	 * 1) parameter descriptors: check if serParmDesc exists and not empty, since parameter descriptors is derived.
-	 * 2) serParmDesc: if flag set to default parm desc, then answer not set, else do normal isSet test. That way if set by default it won't serialize
-	 *    out the unneeded default parms. They can be reconstructed quickly when needed.
-	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case BeaninfoPackage.METHOD_DECORATOR__SOURCE:
-					return isSourceSet();	// Override so that if set to the same as classname, then it is considered not set.
-			case BeaninfoPackage.METHOD_DECORATOR__PARAMETER_DESCRIPTORS:
-				return eIsSetGen(BeaninfoPackage.eINSTANCE.getMethodDecorator_SerParmDesc());	// Let default serParmDesc is set work.
-			case BeaninfoPackage.METHOD_DECORATOR__SER_PARM_DESC:
-				if ((getImplicitlySetBits() & METHOD_PARAMETERS_DEFAULT) != 0)
-					return false;	// Not considered set if initialized by default.
-				else
-					return eIsSetGen(eFeature);	// Not set by default, so check true setting.
-			default:
-				return eIsSetGen(eFeature);	// Everything else use the gen method.
-		}
+		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * Overriden
 	 */
-	public boolean eIsSetGen(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case BeaninfoPackage.METHOD_DECORATOR__EANNOTATIONS:
-				return eAnnotations != null && !eAnnotations.isEmpty();
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case BeaninfoPackage.METHOD_DECORATOR__SOURCE:
-				return SOURCE_EDEFAULT == null ? source != null : !SOURCE_EDEFAULT.equals(source);
-			case BeaninfoPackage.METHOD_DECORATOR__DETAILS:
-				return details != null && !details.isEmpty();
-			case BeaninfoPackage.METHOD_DECORATOR__EMODEL_ELEMENT:
-				return getEModelElement() != null;
-			case BeaninfoPackage.METHOD_DECORATOR__CONTENTS:
-				return contents != null && !contents.isEmpty();
-			case BeaninfoPackage.METHOD_DECORATOR__REFERENCES:
-				return references != null && !references.isEmpty();
-			case BeaninfoPackage.METHOD_DECORATOR__DISPLAY_NAME:
-				return isSetDisplayName();
-			case BeaninfoPackage.METHOD_DECORATOR__SHORT_DESCRIPTION:
-				return isSetShortDescription();
-			case BeaninfoPackage.METHOD_DECORATOR__CATEGORY:
-				return CATEGORY_EDEFAULT == null ? category != null : !CATEGORY_EDEFAULT.equals(category);
-			case BeaninfoPackage.METHOD_DECORATOR__EXPERT:
-				return isSetExpert();
-			case BeaninfoPackage.METHOD_DECORATOR__HIDDEN:
-				return isSetHidden();
-			case BeaninfoPackage.METHOD_DECORATOR__PREFERRED:
-				return isSetPreferred();
-			case BeaninfoPackage.METHOD_DECORATOR__MERGE_INTROSPECTION:
-				return ((eFlags & MERGE_INTROSPECTION_EFLAG) != 0) != MERGE_INTROSPECTION_EDEFAULT;
-			case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
-				return ((eFlags & ATTRIBUTES_EXPLICIT_EMPTY_EFLAG) != 0) != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
-			case BeaninfoPackage.METHOD_DECORATOR__IMPLICITLY_SET_BITS:
-				return implicitlySetBits != IMPLICITLY_SET_BITS_EDEFAULT;
-			case BeaninfoPackage.METHOD_DECORATOR__IMPLICIT_DECORATOR_FLAG:
-				return implicitDecoratorFlag != IMPLICIT_DECORATOR_FLAG_EDEFAULT;
-			case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES:
-				return attributes != null && !attributes.isEmpty();
+				return isSourceSet();	// Override so that if set to the same as classname, then it is considered not set.
+			case BeaninfoPackage.METHOD_DECORATOR__PARAMETER_DESCRIPTORS:
+				return eIsSet(BeaninfoPackage.eINSTANCE.getMethodDecorator_SerParmDesc());	// Let default serParmDesc is set work.
+			case BeaninfoPackage.METHOD_DECORATOR__SER_PARM_DESC:
+				if ((getImplicitlySetBits() & METHOD_PARAMETERS_DEFAULT) != 0)
+					return false;	// Not considered set if initialized by default.
 			case BeaninfoPackage.METHOD_DECORATOR__PARMS_EXPLICIT_EMPTY:
 				return ((eFlags & PARMS_EXPLICIT_EMPTY_EFLAG) != 0) != PARMS_EXPLICIT_EMPTY_EDEFAULT;
-			case BeaninfoPackage.METHOD_DECORATOR__PARAMETER_DESCRIPTORS:
-				return !getParameterDescriptors().isEmpty();
-			case BeaninfoPackage.METHOD_DECORATOR__SER_PARM_DESC:
-				return serParmDesc != null && !serParmDesc.isEmpty();
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 }

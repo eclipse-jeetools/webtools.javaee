@@ -11,7 +11,7 @@
 package org.eclipse.jem.java;
 /*
  *  $RCSfile: JavaRefPackage.java,v $
- *  $Revision: 1.7 $  $Date: 2007/02/19 05:31:23 $ 
+ *  $Revision: 1.8 $  $Date: 2007/03/14 01:22:23 $ 
  */
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -74,6 +74,15 @@ public interface JavaRefPackage extends EPackage {
 	int JAVA_CLASS__DEFAULT_VALUE = EcorePackage.ECLASS__DEFAULT_VALUE;
 
 	/**
+	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_CLASS__INSTANCE_TYPE_NAME = EcorePackage.ECLASS__INSTANCE_TYPE_NAME;
+
+	/**
 	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -81,6 +90,15 @@ public interface JavaRefPackage extends EPackage {
 	 * @ordered
 	 */
 	int JAVA_CLASS__EPACKAGE = EcorePackage.ECLASS__EPACKAGE;
+
+	/**
+	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_CLASS__ETYPE_PARAMETERS = EcorePackage.ECLASS__ETYPE_PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
@@ -207,6 +225,24 @@ public interface JavaRefPackage extends EPackage {
 	 * @ordered
 	 */
 	int JAVA_CLASS__ESTRUCTURAL_FEATURES = EcorePackage.ECLASS__ESTRUCTURAL_FEATURES;
+
+	/**
+	 * The feature id for the '<em><b>EGeneric Super Types</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_CLASS__EGENERIC_SUPER_TYPES = EcorePackage.ECLASS__EGENERIC_SUPER_TYPES;
+
+	/**
+	 * The feature id for the '<em><b>EAll Generic Super Types</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_CLASS__EALL_GENERIC_SUPER_TYPES = EcorePackage.ECLASS__EALL_GENERIC_SUPER_TYPES;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
@@ -431,6 +467,15 @@ public interface JavaRefPackage extends EPackage {
 	int JAVA_PARAMETER__ETYPE = EcorePackage.EPARAMETER__ETYPE;
 
 	/**
+	 * The feature id for the '<em><b>EGeneric Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_PARAMETER__EGENERIC_TYPE = EcorePackage.EPARAMETER__EGENERIC_TYPE;
+
+	/**
 	 * The feature id for the '<em><b>EOperation</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -538,6 +583,15 @@ public interface JavaRefPackage extends EPackage {
 	int METHOD__ETYPE = EcorePackage.EOPERATION__ETYPE;
 
 	/**
+	 * The feature id for the '<em><b>EGeneric Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD__EGENERIC_TYPE = EcorePackage.EOPERATION__EGENERIC_TYPE;
+
+	/**
 	 * The feature id for the '<em><b>EContaining Class</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -545,6 +599,15 @@ public interface JavaRefPackage extends EPackage {
 	 * @ordered
 	 */
 	int METHOD__ECONTAINING_CLASS = EcorePackage.EOPERATION__ECONTAINING_CLASS;
+
+	/**
+	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD__ETYPE_PARAMETERS = EcorePackage.EOPERATION__ETYPE_PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>EParameters</b></em>' containment reference list.
@@ -563,6 +626,15 @@ public interface JavaRefPackage extends EPackage {
 	 * @ordered
 	 */
 	int METHOD__EEXCEPTIONS = EcorePackage.EOPERATION__EEXCEPTIONS;
+
+	/**
+	 * The feature id for the '<em><b>EGeneric Exceptions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD__EGENERIC_EXCEPTIONS = EcorePackage.EOPERATION__EGENERIC_EXCEPTIONS;
 
 	/**
 	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
@@ -722,6 +794,15 @@ public interface JavaRefPackage extends EPackage {
 	 * @ordered
 	 */
 	int FIELD__ETYPE = EcorePackage.ETYPED_ELEMENT__ETYPE;
+
+	/**
+	 * The feature id for the '<em><b>EGeneric Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIELD__EGENERIC_TYPE = EcorePackage.ETYPED_ELEMENT__EGENERIC_TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Final</b></em>' attribute.
@@ -957,6 +1038,15 @@ public interface JavaRefPackage extends EPackage {
 	int JAVA_DATA_TYPE__DEFAULT_VALUE = EcorePackage.ECLASS__DEFAULT_VALUE;
 
 	/**
+	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_DATA_TYPE__INSTANCE_TYPE_NAME = EcorePackage.ECLASS__INSTANCE_TYPE_NAME;
+
+	/**
 	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -964,6 +1054,15 @@ public interface JavaRefPackage extends EPackage {
 	 * @ordered
 	 */
 	int JAVA_DATA_TYPE__EPACKAGE = EcorePackage.ECLASS__EPACKAGE;
+
+	/**
+	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_DATA_TYPE__ETYPE_PARAMETERS = EcorePackage.ECLASS__ETYPE_PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
@@ -1092,6 +1191,24 @@ public interface JavaRefPackage extends EPackage {
 	int JAVA_DATA_TYPE__ESTRUCTURAL_FEATURES = EcorePackage.ECLASS__ESTRUCTURAL_FEATURES;
 
 	/**
+	 * The feature id for the '<em><b>EGeneric Super Types</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_DATA_TYPE__EGENERIC_SUPER_TYPES = EcorePackage.ECLASS__EGENERIC_SUPER_TYPES;
+
+	/**
+	 * The feature id for the '<em><b>EAll Generic Super Types</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_DATA_TYPE__EALL_GENERIC_SUPER_TYPES = EcorePackage.ECLASS__EALL_GENERIC_SUPER_TYPES;
+
+	/**
 	 * The number of structural features of the '<em>Java Data Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1136,6 +1253,15 @@ public interface JavaRefPackage extends EPackage {
 	int ARRAY_TYPE__DEFAULT_VALUE = JAVA_CLASS__DEFAULT_VALUE;
 
 	/**
+	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_TYPE__INSTANCE_TYPE_NAME = JAVA_CLASS__INSTANCE_TYPE_NAME;
+
+	/**
 	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1143,6 +1269,15 @@ public interface JavaRefPackage extends EPackage {
 	 * @ordered
 	 */
 	int ARRAY_TYPE__EPACKAGE = JAVA_CLASS__EPACKAGE;
+
+	/**
+	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_TYPE__ETYPE_PARAMETERS = JAVA_CLASS__ETYPE_PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
@@ -1269,6 +1404,24 @@ public interface JavaRefPackage extends EPackage {
 	 * @ordered
 	 */
 	int ARRAY_TYPE__ESTRUCTURAL_FEATURES = JAVA_CLASS__ESTRUCTURAL_FEATURES;
+
+	/**
+	 * The feature id for the '<em><b>EGeneric Super Types</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_TYPE__EGENERIC_SUPER_TYPES = JAVA_CLASS__EGENERIC_SUPER_TYPES;
+
+	/**
+	 * The feature id for the '<em><b>EAll Generic Super Types</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_TYPE__EALL_GENERIC_SUPER_TYPES = JAVA_CLASS__EALL_GENERIC_SUPER_TYPES;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
@@ -1428,6 +1581,15 @@ public interface JavaRefPackage extends EPackage {
 	 * @ordered
 	 */
 	int JAVA_EVENT__ETYPE = EcorePackage.ESTRUCTURAL_FEATURE__ETYPE;
+
+	/**
+	 * The feature id for the '<em><b>EGeneric Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_EVENT__EGENERIC_TYPE = EcorePackage.ESTRUCTURAL_FEATURE__EGENERIC_TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Changeable</b></em>' attribute.

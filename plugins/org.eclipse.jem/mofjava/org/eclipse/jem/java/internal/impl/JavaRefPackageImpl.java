@@ -11,7 +11,7 @@
 package org.eclipse.jem.java.internal.impl;
 /*
  *  $RCSfile: JavaRefPackageImpl.java,v $
- *  $Revision: 1.4 $  $Date: 2007/02/19 05:31:23 $ 
+ *  $Revision: 1.5 $  $Date: 2007/03/14 01:22:23 $ 
  */
 import java.util.List;
 
@@ -815,9 +815,9 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 		initEReference(getJavaClass_Events(), this.getJavaEvent(), null, "events", null, 0, -1, JavaClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getJavaClass_AllEvents(), this.getJavaEvent(), null, "allEvents", null, 0, -1, JavaClass.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(javaClassEClass, ecorePackage.getEBoolean(), "isNested", 0, 1);
+		EOperation op = addEOperation(javaClassEClass, ecorePackage.getEBoolean(), "isNested", 0, 1);
 
-		EOperation op = addEOperation(javaClassEClass, this.getField(), "getField", 0, 1);
+		op = addEOperation(javaClassEClass, this.getField(), "getField", 0, 1);
 		addEParameter(op, ecorePackage.getEString(), "fieldName", 0, 1);
 
 		op = addEOperation(javaClassEClass, this.getField(), "getFieldExtended", 0, 1);
@@ -826,19 +826,19 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 		op = addEOperation(javaClassEClass, this.getField(), "getFieldNamed", 0, 1);
 		addEParameter(op, ecorePackage.getEString(), "fieldName", 0, 1);
 
-		addEOperation(javaClassEClass, this.getJTypeList(), "getFieldsExtended", 0, 1);
+		op = addEOperation(javaClassEClass, this.getJTypeList(), "getFieldsExtended", 0, 1);
 
 		op = addEOperation(javaClassEClass, this.getMethod(), "getMethod", 0, 1);
 		addEParameter(op, ecorePackage.getEString(), "methodName", 0, 1);
 		addEParameter(op, this.getJTypeList(), "parameterTypes", 0, 1);
 
-		addEOperation(javaClassEClass, this.getJTypeList(), "getMethodElementSignatures", 0, 1);
+		op = addEOperation(javaClassEClass, this.getJTypeList(), "getMethodElementSignatures", 0, 1);
 
 		op = addEOperation(javaClassEClass, this.getMethod(), "getMethodExtended", 0, 1);
 		addEParameter(op, ecorePackage.getEString(), "methodName", 0, 1);
 		addEParameter(op, this.getJTypeList(), "parameterTypes", 0, 1);
 
-		addEOperation(javaClassEClass, this.getJTypeList(), "getMethodsExtended", 0, 1);
+		op = addEOperation(javaClassEClass, this.getJTypeList(), "getMethodsExtended", 0, 1);
 
 		op = addEOperation(javaClassEClass, this.getJTypeList(), "getOnlySpecificMethods", 0, 1);
 		addEParameter(op, ecorePackage.getEString(), "aMethodNamePrefix", 0, 1);
@@ -848,26 +848,26 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 		addEParameter(op, ecorePackage.getEString(), "methodName", 0, 1);
 		addEParameter(op, this.getJTypeList(), "parameterTypes", 0, 1);
 
-		addEOperation(javaClassEClass, this.getJTypeList(), "getPublicMethods", 0, 1);
+		op = addEOperation(javaClassEClass, this.getJTypeList(), "getPublicMethods", 0, 1);
 
-		addEOperation(javaClassEClass, this.getJTypeList(), "getPublicMethodsExtended", 0, 1);
+		op = addEOperation(javaClassEClass, this.getJTypeList(), "getPublicMethodsExtended", 0, 1);
 
 		op = addEOperation(javaClassEClass, this.getJTypeList(), "getPublicMethodsNamed", 0, 1);
 		addEParameter(op, ecorePackage.getEString(), "name", 0, 1);
 
-		addEOperation(javaClassEClass, this.getJavaClass(), "getSupertype", 0, 1);
+		op = addEOperation(javaClassEClass, this.getJavaClass(), "getSupertype", 0, 1);
 
 		op = addEOperation(javaClassEClass, ecorePackage.getEBoolean(), "implementsInterface", 0, 1);
 		addEParameter(op, this.getJavaClass(), "interfaceType", 0, 1);
 
-		addEOperation(javaClassEClass, ecorePackage.getEString(), "infoString", 0, 1);
+		op = addEOperation(javaClassEClass, ecorePackage.getEString(), "infoString", 0, 1);
 
 		op = addEOperation(javaClassEClass, ecorePackage.getEBoolean(), "inheritsFrom", 0, 1);
 		addEParameter(op, this.getJavaClass(), "javaClass", 0, 1);
 
-		addEOperation(javaClassEClass, ecorePackage.getEBoolean(), "isExistingType", 0, 1);
+		op = addEOperation(javaClassEClass, ecorePackage.getEBoolean(), "isExistingType", 0, 1);
 
-		addEOperation(javaClassEClass, ecorePackage.getEBoolean(), "isInterface", 0, 1);
+		op = addEOperation(javaClassEClass, ecorePackage.getEBoolean(), "isInterface", 0, 1);
 
 		op = addEOperation(javaClassEClass, null, "setSupertype");
 		addEParameter(op, this.getJavaClass(), "javaclass", 0, 1);
@@ -881,13 +881,13 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 		initEAttribute(getJavaParameter_Final(), ecorePackage.getEBoolean(), "final", null, 0, 1, JavaParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getJavaParameter_ParameterKind(), this.getJavaParameterKind(), "parameterKind", null, 0, 1, JavaParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(javaParameterEClass, ecorePackage.getEBoolean(), "isArray", 0, 1);
+		op = addEOperation(javaParameterEClass, ecorePackage.getEBoolean(), "isArray", 0, 1);
 
-		addEOperation(javaParameterEClass, ecorePackage.getEBoolean(), "isReturn", 0, 1);
+		op = addEOperation(javaParameterEClass, ecorePackage.getEBoolean(), "isReturn", 0, 1);
 
-		addEOperation(javaParameterEClass, this.getJTypeJavaHelpers(), "getJavaType", 0, 1);
+		op = addEOperation(javaParameterEClass, this.getJTypeJavaHelpers(), "getJavaType", 0, 1);
 
-		addEOperation(javaParameterEClass, ecorePackage.getEString(), "getQualifiedName", 0, 1);
+		op = addEOperation(javaParameterEClass, ecorePackage.getEString(), "getQualifiedName", 0, 1);
 
 		initEClass(methodEClass, Method.class, "Method", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMethod_Abstract(), ecorePackage.getEBoolean(), "abstract", null, 0, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -902,26 +902,26 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 		initEReference(getMethod_JavaClass(), this.getJavaClass(), this.getJavaClass_Methods(), "javaClass", null, 0, 1, Method.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMethod_Source(), this.getBlock(), null, "source", null, 0, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(methodEClass, this.getJavaClass(), "getContainingJavaClass", 0, 1);
+		op = addEOperation(methodEClass, this.getJavaClass(), "getContainingJavaClass", 0, 1);
 
-		addEOperation(methodEClass, ecorePackage.getEString(), "getMethodElementSignature", 0, 1);
+		op = addEOperation(methodEClass, ecorePackage.getEString(), "getMethodElementSignature", 0, 1);
 
 		op = addEOperation(methodEClass, this.getJavaParameter(), "getParameter", 0, 1);
 		addEParameter(op, ecorePackage.getEString(), "parameterName", 0, 1);
 
-		addEOperation(methodEClass, this.getJTypeJavaHelpers(), "getReturnType", 0, 1);
+		op = addEOperation(methodEClass, this.getJTypeJavaHelpers(), "getReturnType", 0, 1);
 
 		op = addEOperation(methodEClass, null, "setReturnType");
 		addEParameter(op, this.getJTypeJavaHelpers(), "type", 0, 1);
 
-		addEOperation(methodEClass, ecorePackage.getEString(), "getSignature", 0, 1);
+		op = addEOperation(methodEClass, ecorePackage.getEString(), "getSignature", 0, 1);
 
-		addEOperation(methodEClass, ecorePackage.getEBoolean(), "isGenerated", 0, 1);
+		op = addEOperation(methodEClass, ecorePackage.getEBoolean(), "isGenerated", 0, 1);
 
 		op = addEOperation(methodEClass, null, "setIsGenerated");
 		addEParameter(op, ecorePackage.getEBoolean(), "generated", 0, 1);
 
-		addEOperation(methodEClass, ecorePackage.getEBoolean(), "isVoid", 0, 1);
+		op = addEOperation(methodEClass, ecorePackage.getEBoolean(), "isVoid", 0, 1);
 
 		initEClass(fieldEClass, Field.class, "Field", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getField_Final(), ecorePackage.getEBoolean(), "final", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -932,9 +932,9 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 		initEReference(getField_JavaClass(), this.getJavaClass(), this.getJavaClass_Fields(), "javaClass", null, 0, 1, Field.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getField_Initializer(), this.getBlock(), null, "initializer", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(fieldEClass, this.getJavaClass(), "getContainingJavaClass", 0, 1);
+		op = addEOperation(fieldEClass, this.getJavaClass(), "getContainingJavaClass", 0, 1);
 
-		addEOperation(fieldEClass, ecorePackage.getEBoolean(), "isArray", 0, 1);
+		op = addEOperation(fieldEClass, ecorePackage.getEBoolean(), "isArray", 0, 1);
 
 		initEClass(blockEClass, Block.class, "Block", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBlock_Source(), ecorePackage.getEString(), "source", null, 0, 1, Block.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -950,17 +950,17 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 
 		initEClass(javaDataTypeEClass, JavaDataType.class, "JavaDataType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		addEOperation(javaDataTypeEClass, ecorePackage.getEString(), "getDefaultValueString", 0, 1);
+		op = addEOperation(javaDataTypeEClass, ecorePackage.getEString(), "getDefaultValueString", 0, 1);
 
 		initEClass(arrayTypeEClass, ArrayType.class, "ArrayType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getArrayType_ArrayDimensions(), ecorePackage.getEInt(), "arrayDimensions", null, 0, 1, ArrayType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getArrayType_ComponentType(), theEcorePackage.getEClassifier(), null, "componentType", null, 1, 1, ArrayType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(arrayTypeEClass, this.getJTypeJavaHelpers(), "getFinalComponentType", 0, 1);
+		op = addEOperation(arrayTypeEClass, this.getJTypeJavaHelpers(), "getFinalComponentType", 0, 1);
 
-		addEOperation(arrayTypeEClass, this.getJTypeJavaHelpers(), "getComponentTypeAsHelper", 0, 1);
+		op = addEOperation(arrayTypeEClass, this.getJTypeJavaHelpers(), "getComponentTypeAsHelper", 0, 1);
 
-		addEOperation(arrayTypeEClass, ecorePackage.getEBoolean(), "isPrimitiveArray", 0, 1);
+		op = addEOperation(arrayTypeEClass, ecorePackage.getEBoolean(), "isPrimitiveArray", 0, 1);
 
 		op = addEOperation(arrayTypeEClass, null, "setComponentType");
 		addEParameter(op, this.getJTypeJavaHelpers(), "helperComponentType", 0, 1);

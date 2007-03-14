@@ -11,37 +11,16 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: BeaninfoPackageImpl.java,v $
- *  $Revision: 1.10 $  $Date: 2005/09/15 20:09:51 $ 
+ *  $Revision: 1.11 $  $Date: 2007/03/14 01:22:51 $ 
  */
 
 import java.util.Map;
 
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EEnum;
-import org.eclipse.emf.ecore.EOperation;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.eclipse.emf.ecore.impl.EcorePackageImpl;
 
-import org.eclipse.jem.internal.beaninfo.BeanDecorator;
-import org.eclipse.jem.internal.beaninfo.BeanEvent;
-import org.eclipse.jem.internal.beaninfo.BeaninfoFactory;
-import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
-import org.eclipse.jem.internal.beaninfo.EventSetDecorator;
-import org.eclipse.jem.internal.beaninfo.FeatureDecorator;
-import org.eclipse.jem.internal.beaninfo.ImplicitItem;
-import org.eclipse.jem.internal.beaninfo.IndexedPropertyDecorator;
-import org.eclipse.jem.internal.beaninfo.MethodDecorator;
-import org.eclipse.jem.internal.beaninfo.MethodProxy;
-import org.eclipse.jem.internal.beaninfo.ParameterDecorator;
-import org.eclipse.jem.internal.beaninfo.PropertyDecorator;
-import org.eclipse.jem.internal.beaninfo.common.FeatureAttributeValue;
+import org.eclipse.jem.internal.beaninfo.*;
 import org.eclipse.jem.java.JavaRefPackage;
-import org.eclipse.jem.java.internal.impl.JavaRefPackageImpl;
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model <b>Package</b>.
@@ -191,8 +170,8 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 		isInited = true;
 
 		// Initialize simple dependencies
-		EcorePackageImpl.init();
-		JavaRefPackageImpl.init();
+		EcorePackage.eINSTANCE.eClass();
+		JavaRefPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theBeaninfoPackage.createPackageContents();
@@ -813,8 +792,8 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		EcorePackageImpl theEcorePackage = (EcorePackageImpl)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
-		JavaRefPackageImpl theJavaRefPackage = (JavaRefPackageImpl)EPackage.Registry.INSTANCE.getEPackage(JavaRefPackage.eNS_URI);
+		EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
+		JavaRefPackage theJavaRefPackage = (JavaRefPackage)EPackage.Registry.INSTANCE.getEPackage(JavaRefPackage.eNS_URI);
 
 		// Add supertypes to classes
 		featureDecoratorEClass.getESuperTypes().add(theEcorePackage.getEAnnotation());
@@ -841,7 +820,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 		initEAttribute(getFeatureDecorator_ImplicitDecoratorFlag(), this.getImplicitItem(), "implicitDecoratorFlag", null, 0, 1, FeatureDecorator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFeatureDecorator_Attributes(), this.getFeatureAttributeMapEntry(), null, "attributes", null, 0, -1, FeatureDecorator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(featureDecoratorEClass, ecorePackage.getEString(), "getName");
+		EOperation op = addEOperation(featureDecoratorEClass, ecorePackage.getEString(), "getName", 0, 1);
 
 		initEClass(beanDecoratorEClass, BeanDecorator.class, "BeanDecorator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBeanDecorator_MergeSuperProperties(), ecorePackage.getEBoolean(), "mergeSuperProperties", "true", 0, 1, BeanDecorator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -888,10 +867,10 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 		initEReference(getPropertyDecorator_WriteMethod(), theJavaRefPackage.getMethod(), null, "writeMethod", null, 0, 1, PropertyDecorator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPropertyDecorator_Field(), theJavaRefPackage.getField(), null, "field", null, 0, 1, PropertyDecorator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(propertyDecoratorEClass, theEcorePackage.getEClassifier(), "getPropertyType");
+		op = addEOperation(propertyDecoratorEClass, theEcorePackage.getEClassifier(), "getPropertyType", 0, 1);
 
-		EOperation op = addEOperation(propertyDecoratorEClass, null, "setPropertyType");
-		addEParameter(op, theEcorePackage.getEClassifier(), "propertyType");
+		op = addEOperation(propertyDecoratorEClass, null, "setPropertyType");
+		addEParameter(op, theEcorePackage.getEClassifier(), "propertyType", 0, 1);
 
 		initEClass(indexedPropertyDecoratorEClass, IndexedPropertyDecorator.class, "IndexedPropertyDecorator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getIndexedPropertyDecorator_IndexedReadMethod(), theJavaRefPackage.getMethod(), null, "indexedReadMethod", null, 0, 1, IndexedPropertyDecorator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -913,7 +892,14 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 		addEEnumLiteral(implicitItemEEnum, ImplicitItem.IMPLICIT_DECORATOR_AND_FEATURE_LITERAL);
 
 		// Initialize data types
-		initEDataType(featureAttributeValueEDataType, FeatureAttributeValue.class, "FeatureAttributeValue", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		Class instance = null;
+		try {
+			instance = Class.forName("org.eclipse.jem.internal.beaninfo.common.FeatureAttributeValue");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		initEDataType(featureAttributeValueEDataType, instance, "FeatureAttributeValue", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

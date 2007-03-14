@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: BeaninfoFactory.java,v $
- *  $Revision: 1.4 $  $Date: 2005/08/24 20:31:28 $ 
+ *  $Revision: 1.6 $  $Date: 2007/03/14 14:06:31 $ 
  */
 
 
@@ -33,7 +33,7 @@ public interface BeaninfoFactory extends EFactory{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	BeaninfoFactory eINSTANCE = new org.eclipse.jem.internal.beaninfo.impl.BeaninfoFactoryImpl();
+	BeaninfoFactory eINSTANCE = org.eclipse.jem.internal.beaninfo.impl.BeaninfoFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>Feature Decorator</em>'.
