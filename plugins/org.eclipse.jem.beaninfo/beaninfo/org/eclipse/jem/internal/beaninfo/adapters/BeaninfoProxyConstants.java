@@ -10,11 +10,12 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoProxyConstants.java,v $
- *  $Revision: 1.7 $  $Date: 2006/05/23 15:43:06 $ 
+ *  $Revision: 1.8 $  $Date: 2007/03/14 17:26:48 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
 import org.eclipse.jem.internal.proxy.core.*;
+
 
 /**
  * This holds the proxy constants for access in beaninfo. It is created on a per-registry basis and stored in the constants section of the registry so
