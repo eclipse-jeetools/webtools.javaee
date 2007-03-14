@@ -11,7 +11,7 @@
 package org.eclipse.jem.tests;
 /*
  *  $RCSfile: AllSuites.java,v $
- *  $Revision: 1.9 $  $Date: 2006/10/27 19:36:33 $ 
+ *  $Revision: 1.10 $  $Date: 2007/03/14 01:22:06 $ 
  */
 import org.eclipse.jem.tests.basic.BasicSuite;
 import org.eclipse.jem.tests.beaninfo.BeanInfoSuite;
@@ -29,7 +29,7 @@ public class AllSuites extends TestSuite {
 	// Testa cases to be include in the suite
 	private static Class suitesList[] = {
 		BasicSuite.class,
-//		JDK5ReflectionSuite.class,	Can't run right now because we don't use JDK 1.5 in our JUnit.
+		JDK5ReflectionSuite.class,
 		InitParserSuite.class,  
 		ASTParserSuite.class,
 		RemoteProxySuite.class,
