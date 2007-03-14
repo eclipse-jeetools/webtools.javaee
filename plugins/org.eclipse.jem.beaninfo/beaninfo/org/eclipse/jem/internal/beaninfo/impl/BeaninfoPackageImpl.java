@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: BeaninfoPackageImpl.java,v $
- *  $Revision: 1.11 $  $Date: 2007/03/14 01:22:51 $ 
+ *  $Revision: 1.12 $  $Date: 2007/03/14 14:06:31 $ 
  */
 
 import java.util.Map;
@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.eclipse.jem.internal.beaninfo.*;
+import org.eclipse.jem.internal.beaninfo.common.FeatureAttributeValue;
 import org.eclipse.jem.java.JavaRefPackage;
 /**
  * <!-- begin-user-doc -->
@@ -892,14 +893,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 		addEEnumLiteral(implicitItemEEnum, ImplicitItem.IMPLICIT_DECORATOR_AND_FEATURE_LITERAL);
 
 		// Initialize data types
-		Class instance = null;
-		try {
-			instance = Class.forName("org.eclipse.jem.internal.beaninfo.common.FeatureAttributeValue");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		initEDataType(featureAttributeValueEDataType, instance, "FeatureAttributeValue", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(featureAttributeValueEDataType, FeatureAttributeValue.class, "FeatureAttributeValue", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

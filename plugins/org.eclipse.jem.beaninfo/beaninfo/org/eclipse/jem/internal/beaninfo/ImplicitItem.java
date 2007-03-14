@@ -81,7 +81,7 @@ public final class ImplicitItem extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final ImplicitItem NOT_IMPLICIT_LITERAL = new ImplicitItem(NOT_IMPLICIT, "NOT_IMPLICIT", "NOT_IMPLICIT");
+	public static final ImplicitItem NOT_IMPLICIT_LITERAL = new ImplicitItem(NOT_IMPLICIT, "NOT_IMPLICIT");
 
 	/**
 	 * The '<em><b>IMPLICIT DECORATOR</b></em>' literal object.
@@ -91,7 +91,7 @@ public final class ImplicitItem extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final ImplicitItem IMPLICIT_DECORATOR_LITERAL = new ImplicitItem(IMPLICIT_DECORATOR, "IMPLICIT_DECORATOR", "IMPLICIT_DECORATOR");
+	public static final ImplicitItem IMPLICIT_DECORATOR_LITERAL = new ImplicitItem(IMPLICIT_DECORATOR, "IMPLICIT_DECORATOR");
 
 	/**
 	 * The '<em><b>IMPLICIT DECORATOR AND FEATURE</b></em>' literal object.
@@ -101,7 +101,7 @@ public final class ImplicitItem extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final ImplicitItem IMPLICIT_DECORATOR_AND_FEATURE_LITERAL = new ImplicitItem(IMPLICIT_DECORATOR_AND_FEATURE, "IMPLICIT_DECORATOR_AND_FEATURE", "IMPLICIT_DECORATOR_AND_FEATURE");
+	public static final ImplicitItem IMPLICIT_DECORATOR_AND_FEATURE_LITERAL = new ImplicitItem(IMPLICIT_DECORATOR_AND_FEATURE, "IMPLICIT_DECORATOR_AND_FEATURE");
 
 	/**
 	 * An array of all the '<em><b>Implicit Item</b></em>' enumerators.
@@ -125,31 +125,15 @@ public final class ImplicitItem extends AbstractEnumerator {
 	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Implicit Item</b></em>' literal with the specified literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static ImplicitItem get(String literal) {
-		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			ImplicitItem result = VALUES_ARRAY[i];
-			if (result.toString().equals(literal)) {
-				return result;
-			}
-		}
-		return null;
-	}
-
-	/**
 	 * Returns the '<em><b>Implicit Item</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static ImplicitItem getByName(String name) {
+	public static ImplicitItem get(String name) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			ImplicitItem result = VALUES_ARRAY[i];
-			if (result.getName().equals(name)) {
+			if (result.toString().equals(name)) {
 				return result;
 			}
 		}
@@ -157,7 +141,7 @@ public final class ImplicitItem extends AbstractEnumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Implicit Item</b></em>' literal with the specified integer value.
+	 * Returns the '<em><b>Implicit Item</b></em>' literal with the specified value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -168,7 +152,7 @@ public final class ImplicitItem extends AbstractEnumerator {
 			case IMPLICIT_DECORATOR: return IMPLICIT_DECORATOR_LITERAL;
 			case IMPLICIT_DECORATOR_AND_FEATURE: return IMPLICIT_DECORATOR_AND_FEATURE_LITERAL;
 		}
-		return null;
+		return null;	
 	}
 
 	/**
@@ -177,8 +161,8 @@ public final class ImplicitItem extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private ImplicitItem(int value, String name, String literal) {
-		super(value, name, literal);
+	private ImplicitItem(int value, String name) {
+		super(value, name);
 	}
 
 } //ImplicitItem

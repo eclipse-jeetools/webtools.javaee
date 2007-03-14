@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: EventSetDecoratorImpl.java,v $
- *  $Revision: 1.16 $  $Date: 2007/03/14 01:22:51 $ 
+ *  $Revision: 1.17 $  $Date: 2007/03/14 14:06:31 $ 
  */
 
 
@@ -21,10 +21,23 @@ import java.util.List;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.*;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EModelElement;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
+import org.eclipse.jem.internal.beaninfo.EventSetDecorator;
+import org.eclipse.jem.internal.beaninfo.ImplicitItem;
+import org.eclipse.jem.internal.beaninfo.MethodProxy;
+
+import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.java.Method;
 
 import org.eclipse.jem.internal.beaninfo.*;
 import org.eclipse.jem.java.*;
@@ -208,7 +221,7 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return BeaninfoPackage.Literals.EVENT_SET_DECORATOR;
+		return BeaninfoPackage.eINSTANCE.getEventSetDecorator();
 	}
 
 	/**
@@ -331,8 +344,8 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 */
 	public Method getAddListenerMethod() {
 		if (addListenerMethod != null && addListenerMethod.eIsProxy()) {
-			InternalEObject oldAddListenerMethod = (InternalEObject)addListenerMethod;
-			addListenerMethod = (Method)eResolveProxy(oldAddListenerMethod);
+			Method oldAddListenerMethod = addListenerMethod;
+			addListenerMethod = (Method)eResolveProxy((InternalEObject)addListenerMethod);
 			if (addListenerMethod != oldAddListenerMethod) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.EVENT_SET_DECORATOR__ADD_LISTENER_METHOD, oldAddListenerMethod, addListenerMethod));
@@ -378,8 +391,6 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	public EList getListenerMethodsGen() {
 		// TODO: implement this method to return the 'Listener Methods' reference list
 		// Ensure that you remove @generated or mark it @generated NOT
-		// The list is expected to implement org.eclipse.emf.ecore.util.InternalEList and org.eclipse.emf.ecore.EStructuralFeature.Setting
-		// so it's likely that an appropriate subclass of org.eclipse.emf.ecore.util.EcoreEList should be used.
 		throw new UnsupportedOperationException();
 	}
 
@@ -390,8 +401,8 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 */
 	public JavaClass getListenerType() {
 		if (listenerType != null && listenerType.eIsProxy()) {
-			InternalEObject oldListenerType = (InternalEObject)listenerType;
-			listenerType = (JavaClass)eResolveProxy(oldListenerType);
+			JavaClass oldListenerType = listenerType;
+			listenerType = (JavaClass)eResolveProxy((InternalEObject)listenerType);
 			if (listenerType != oldListenerType) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_TYPE, oldListenerType, listenerType));
@@ -474,8 +485,8 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 */
 	public Method getRemoveListenerMethod() {
 		if (removeListenerMethod != null && removeListenerMethod.eIsProxy()) {
-			InternalEObject oldRemoveListenerMethod = (InternalEObject)removeListenerMethod;
-			removeListenerMethod = (Method)eResolveProxy(oldRemoveListenerMethod);
+			Method oldRemoveListenerMethod = removeListenerMethod;
+			removeListenerMethod = (Method)eResolveProxy((InternalEObject)removeListenerMethod);
 			if (removeListenerMethod != oldRemoveListenerMethod) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.EVENT_SET_DECORATOR__REMOVE_LISTENER_METHOD, oldRemoveListenerMethod, removeListenerMethod));
@@ -512,8 +523,8 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 */
 	public JavaClass getEventAdapterClass() {
 		if (eventAdapterClass != null && eventAdapterClass.eIsProxy()) {
-			InternalEObject oldEventAdapterClass = (InternalEObject)eventAdapterClass;
-			eventAdapterClass = (JavaClass)eResolveProxy(oldEventAdapterClass);
+			JavaClass oldEventAdapterClass = eventAdapterClass;
+			eventAdapterClass = (JavaClass)eResolveProxy((InternalEObject)eventAdapterClass);
 			if (eventAdapterClass != oldEventAdapterClass) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.EVENT_SET_DECORATOR__EVENT_ADAPTER_CLASS, oldEventAdapterClass, eventAdapterClass));
@@ -560,12 +571,22 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case BeaninfoPackage.EVENT_SET_DECORATOR__SER_LIST_MTHD:
-				return ((InternalEList)getSerListMthd()).basicRemove(otherEnd, msgs);
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
+		if (featureID >= 0) {
+			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
+				case BeaninfoPackage.EVENT_SET_DECORATOR__EANNOTATIONS:
+					return ((InternalEList)getEAnnotations()).basicAdd(otherEnd, msgs);
+				case BeaninfoPackage.EVENT_SET_DECORATOR__EMODEL_ELEMENT:
+					if (eContainer != null)
+						msgs = eBasicRemoveFromContainer(msgs);
+					return eBasicSetContainer(otherEnd, BeaninfoPackage.EVENT_SET_DECORATOR__EMODEL_ELEMENT, msgs);
+				default:
+					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
+			}
 		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
+		if (eContainer != null)
+			msgs = eBasicRemoveFromContainer(msgs);
+		return eBasicSetContainer(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -573,8 +594,86 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
+		if (featureID >= 0) {
+			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
+				case BeaninfoPackage.EVENT_SET_DECORATOR__EANNOTATIONS:
+					return ((InternalEList)getEAnnotations()).basicRemove(otherEnd, msgs);
+				case BeaninfoPackage.EVENT_SET_DECORATOR__DETAILS:
+					return ((InternalEList)getDetails()).basicRemove(otherEnd, msgs);
+				case BeaninfoPackage.EVENT_SET_DECORATOR__EMODEL_ELEMENT:
+					return eBasicSetContainer(null, BeaninfoPackage.EVENT_SET_DECORATOR__EMODEL_ELEMENT, msgs);
+				case BeaninfoPackage.EVENT_SET_DECORATOR__CONTENTS:
+					return ((InternalEList)getContents()).basicRemove(otherEnd, msgs);
+				case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES:
+					return ((InternalEList)getAttributes()).basicRemove(otherEnd, msgs);
+				case BeaninfoPackage.EVENT_SET_DECORATOR__SER_LIST_MTHD:
+					return ((InternalEList)getSerListMthd()).basicRemove(otherEnd, msgs);
+				default:
+					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
+			}
+		}
+		return eBasicSetContainer(null, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
+		if (eContainerFeatureID >= 0) {
+			switch (eContainerFeatureID) {
+				case BeaninfoPackage.EVENT_SET_DECORATOR__EMODEL_ELEMENT:
+					return eContainer.eInverseRemove(this, EcorePackage.EMODEL_ELEMENT__EANNOTATIONS, EModelElement.class, msgs);
+				default:
+					return eDynamicBasicRemoveFromContainer(msgs);
+			}
+		}
+		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
+		switch (eDerivedStructuralFeatureID(eFeature)) {
+			case BeaninfoPackage.EVENT_SET_DECORATOR__EANNOTATIONS:
+				return getEAnnotations();
+			case BeaninfoPackage.EVENT_SET_DECORATOR__SOURCE:
+				return getSource();
+			case BeaninfoPackage.EVENT_SET_DECORATOR__DETAILS:
+				return getDetails();
+			case BeaninfoPackage.EVENT_SET_DECORATOR__EMODEL_ELEMENT:
+				return getEModelElement();
+			case BeaninfoPackage.EVENT_SET_DECORATOR__CONTENTS:
+				return getContents();
+			case BeaninfoPackage.EVENT_SET_DECORATOR__REFERENCES:
+				return getReferences();
+			case BeaninfoPackage.EVENT_SET_DECORATOR__DISPLAY_NAME:
+				return getDisplayName();
+			case BeaninfoPackage.EVENT_SET_DECORATOR__SHORT_DESCRIPTION:
+				return getShortDescription();
+			case BeaninfoPackage.EVENT_SET_DECORATOR__CATEGORY:
+				return getCategory();
+			case BeaninfoPackage.EVENT_SET_DECORATOR__EXPERT:
+				return isExpert() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__HIDDEN:
+				return isHidden() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__PREFERRED:
+				return isPreferred() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__MERGE_INTROSPECTION:
+				return isMergeIntrospection() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				return isAttributesExplicitEmpty() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__IMPLICITLY_SET_BITS:
+				return new Long(getImplicitlySetBits());
+			case BeaninfoPackage.EVENT_SET_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				return getImplicitDecoratorFlag();
+			case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES:
+				return getAttributes();
 			case BeaninfoPackage.EVENT_SET_DECORATOR__IN_DEFAULT_EVENT_SET:
 				return isInDefaultEventSet() ? Boolean.TRUE : Boolean.FALSE;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__UNICAST:
@@ -598,7 +697,7 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 			case BeaninfoPackage.EVENT_SET_DECORATOR__SER_LIST_MTHD:
 				return getSerListMthd();
 		}
-		return super.eGet(featureID, resolve, coreType);
+		return eDynamicGet(eFeature, resolve);
 	}
 
 	/**
@@ -606,8 +705,64 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
+	public void eSet(EStructuralFeature eFeature, Object newValue) {
+		switch (eDerivedStructuralFeatureID(eFeature)) {
+			case BeaninfoPackage.EVENT_SET_DECORATOR__EANNOTATIONS:
+				getEAnnotations().clear();
+				getEAnnotations().addAll((Collection)newValue);
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__SOURCE:
+				setSource((String)newValue);
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__DETAILS:
+				getDetails().clear();
+				getDetails().addAll((Collection)newValue);
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__EMODEL_ELEMENT:
+				setEModelElement((EModelElement)newValue);
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__CONTENTS:
+				getContents().clear();
+				getContents().addAll((Collection)newValue);
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__REFERENCES:
+				getReferences().clear();
+				getReferences().addAll((Collection)newValue);
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__DISPLAY_NAME:
+				setDisplayName((String)newValue);
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__SHORT_DESCRIPTION:
+				setShortDescription((String)newValue);
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__CATEGORY:
+				setCategory((String)newValue);
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__EXPERT:
+				setExpert(((Boolean)newValue).booleanValue());
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__HIDDEN:
+				setHidden(((Boolean)newValue).booleanValue());
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__PREFERRED:
+				setPreferred(((Boolean)newValue).booleanValue());
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__MERGE_INTROSPECTION:
+				setMergeIntrospection(((Boolean)newValue).booleanValue());
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				setAttributesExplicitEmpty(((Boolean)newValue).booleanValue());
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__IMPLICITLY_SET_BITS:
+				setImplicitlySetBits(((Long)newValue).longValue());
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				setImplicitDecoratorFlag((ImplicitItem)newValue);
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES:
+				getAttributes().clear();
+				getAttributes().addAll((Collection)newValue);
+				return;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__IN_DEFAULT_EVENT_SET:
 				setInDefaultEventSet(((Boolean)newValue).booleanValue());
 				return;
@@ -638,7 +793,7 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 				getSerListMthd().addAll((Collection)newValue);
 				return;
 		}
-		super.eSet(featureID, newValue);
+		eDynamicSet(eFeature, newValue);
 	}
 
 	/**
@@ -646,8 +801,59 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(int featureID) {
-		switch (featureID) {
+	public void eUnset(EStructuralFeature eFeature) {
+		switch (eDerivedStructuralFeatureID(eFeature)) {
+			case BeaninfoPackage.EVENT_SET_DECORATOR__EANNOTATIONS:
+				getEAnnotations().clear();
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__SOURCE:
+				setSource(SOURCE_EDEFAULT);
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__DETAILS:
+				getDetails().clear();
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__EMODEL_ELEMENT:
+				setEModelElement((EModelElement)null);
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__CONTENTS:
+				getContents().clear();
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__REFERENCES:
+				getReferences().clear();
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__DISPLAY_NAME:
+				unsetDisplayName();
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__SHORT_DESCRIPTION:
+				unsetShortDescription();
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__CATEGORY:
+				setCategory(CATEGORY_EDEFAULT);
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__EXPERT:
+				unsetExpert();
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__HIDDEN:
+				unsetHidden();
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__PREFERRED:
+				unsetPreferred();
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__MERGE_INTROSPECTION:
+				setMergeIntrospection(MERGE_INTROSPECTION_EDEFAULT);
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				setAttributesExplicitEmpty(ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT);
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__IMPLICITLY_SET_BITS:
+				setImplicitlySetBits(IMPLICITLY_SET_BITS_EDEFAULT);
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				setImplicitDecoratorFlag(IMPLICIT_DECORATOR_FLAG_EDEFAULT);
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES:
+				getAttributes().clear();
+				return;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__IN_DEFAULT_EVENT_SET:
 				unsetInDefaultEventSet();
 				return;
@@ -676,23 +882,71 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 				getSerListMthd().clear();
 				return;
 		}
-		super.eUnset(featureID);
+		eDynamicUnset(eFeature);
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * Overriden
+	/*
+	 * This is overridden so that we can do special is set tests:
+	 * 1) parameter descriptors: check if serParmDesc exists and not empty, since parameter descriptors is derived.
+	 * 2) serParmDesc: if flag set to default parm desc, then answer not set, else do normal isSet test. That way if set by default it won't serialize
+	 *    out the unneeded default parms. They can be reconstructed quickly when needed.
 	 */
-	public boolean eIsSet(int featureID) {
-		switch (featureID) {
+	public boolean eIsSet(EStructuralFeature eFeature) {
+		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case BeaninfoPackage.EVENT_SET_DECORATOR__SOURCE:
 				return isSourceSet();	// Override so that if set to the same as classname, then it is considered not set.
 			case BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_METHODS:
-				return eIsSet(BeaninfoPackage.eINSTANCE.getEventSetDecorator_SerListMthd());	// Let default serListMthd is set work.
+				return eIsSetGen(BeaninfoPackage.eINSTANCE.getEventSetDecorator_SerListMthd());	// Let default serListMthd is set work.
 			case BeaninfoPackage.EVENT_SET_DECORATOR__SER_LIST_MTHD:
 				if ((getImplicitlySetBits() & EVENT_LISTENERMETHODS_DEFAULT) != 0)
 					return false;	// Not considered set if initialized by default.
+				else
+					return eIsSetGen(eFeature);	// Not set by default, so check true setting.
+			default:
+				return eIsSetGen(eFeature);	// Everything else use the gen method.
+		}
+	}
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSetGen(EStructuralFeature eFeature) {
+		switch (eDerivedStructuralFeatureID(eFeature)) {
+			case BeaninfoPackage.EVENT_SET_DECORATOR__EANNOTATIONS:
+				return eAnnotations != null && !eAnnotations.isEmpty();
+			case BeaninfoPackage.EVENT_SET_DECORATOR__SOURCE:
+				return SOURCE_EDEFAULT == null ? source != null : !SOURCE_EDEFAULT.equals(source);
+			case BeaninfoPackage.EVENT_SET_DECORATOR__DETAILS:
+				return details != null && !details.isEmpty();
+			case BeaninfoPackage.EVENT_SET_DECORATOR__EMODEL_ELEMENT:
+				return getEModelElement() != null;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__CONTENTS:
+				return contents != null && !contents.isEmpty();
+			case BeaninfoPackage.EVENT_SET_DECORATOR__REFERENCES:
+				return references != null && !references.isEmpty();
+			case BeaninfoPackage.EVENT_SET_DECORATOR__DISPLAY_NAME:
+				return isSetDisplayName();
+			case BeaninfoPackage.EVENT_SET_DECORATOR__SHORT_DESCRIPTION:
+				return isSetShortDescription();
+			case BeaninfoPackage.EVENT_SET_DECORATOR__CATEGORY:
+				return CATEGORY_EDEFAULT == null ? category != null : !CATEGORY_EDEFAULT.equals(category);
+			case BeaninfoPackage.EVENT_SET_DECORATOR__EXPERT:
+				return isSetExpert();
+			case BeaninfoPackage.EVENT_SET_DECORATOR__HIDDEN:
+				return isSetHidden();
+			case BeaninfoPackage.EVENT_SET_DECORATOR__PREFERRED:
+				return isSetPreferred();
+			case BeaninfoPackage.EVENT_SET_DECORATOR__MERGE_INTROSPECTION:
+				return ((eFlags & MERGE_INTROSPECTION_EFLAG) != 0) != MERGE_INTROSPECTION_EDEFAULT;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				return ((eFlags & ATTRIBUTES_EXPLICIT_EMPTY_EFLAG) != 0) != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__IMPLICITLY_SET_BITS:
+				return implicitlySetBits != IMPLICITLY_SET_BITS_EDEFAULT;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				return implicitDecoratorFlag != IMPLICIT_DECORATOR_FLAG_EDEFAULT;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES:
+				return attributes != null && !attributes.isEmpty();
 			case BeaninfoPackage.EVENT_SET_DECORATOR__IN_DEFAULT_EVENT_SET:
 				return isSetInDefaultEventSet();
 			case BeaninfoPackage.EVENT_SET_DECORATOR__UNICAST:
@@ -701,14 +955,18 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 				return ((eFlags & LISTENER_METHODS_EXPLICIT_EMPTY_EFLAG) != 0) != LISTENER_METHODS_EXPLICIT_EMPTY_EDEFAULT;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__ADD_LISTENER_METHOD:
 				return addListenerMethod != null;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_METHODS:
+				return !getListenerMethods().isEmpty();
 			case BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_TYPE:
 				return listenerType != null;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__REMOVE_LISTENER_METHOD:
 				return removeListenerMethod != null;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__EVENT_ADAPTER_CLASS:
 				return eventAdapterClass != null;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__SER_LIST_MTHD:
+				return serListMthd != null && !serListMthd.isEmpty();
 		}
-		return super.eIsSet(featureID);
+		return eDynamicIsSet(eFeature);
 	}
 
 	/**

@@ -10,20 +10,25 @@
  *******************************************************************************/
 /*
  *  $RCSfile: FeatureAttributeMapEntryImpl.java,v $
- *  $Revision: 1.9 $  $Date: 2007/03/14 01:22:51 $ 
+ *  $Revision: 1.10 $  $Date: 2007/03/14 14:06:31 $ 
  */
 
 package org.eclipse.jem.internal.beaninfo.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EMap;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
+
 import org.eclipse.jem.internal.beaninfo.common.FeatureAttributeValue;
 
 /**
@@ -97,7 +102,7 @@ public class FeatureAttributeMapEntryImpl extends EObjectImpl implements BasicEM
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return BeaninfoPackage.Literals.FEATURE_ATTRIBUTE_MAP_ENTRY;
+		return BeaninfoPackage.eINSTANCE.getFeatureAttributeMapEntry();
 	}
 
 	/**
@@ -147,14 +152,14 @@ public class FeatureAttributeMapEntryImpl extends EObjectImpl implements BasicEM
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
+	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
+		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_MAP_ENTRY__KEY:
 				return getTypedKey();
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_MAP_ENTRY__VALUE:
 				return getTypedValue();
 		}
-		return super.eGet(featureID, resolve, coreType);
+		return eDynamicGet(eFeature, resolve);
 	}
 
 	/**
@@ -162,8 +167,8 @@ public class FeatureAttributeMapEntryImpl extends EObjectImpl implements BasicEM
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
+	public void eSet(EStructuralFeature eFeature, Object newValue) {
+		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_MAP_ENTRY__KEY:
 				setTypedKey((String)newValue);
 				return;
@@ -171,7 +176,7 @@ public class FeatureAttributeMapEntryImpl extends EObjectImpl implements BasicEM
 				setTypedValue((FeatureAttributeValue)newValue);
 				return;
 		}
-		super.eSet(featureID, newValue);
+		eDynamicSet(eFeature, newValue);
 	}
 
 	/**
@@ -179,8 +184,8 @@ public class FeatureAttributeMapEntryImpl extends EObjectImpl implements BasicEM
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(int featureID) {
-		switch (featureID) {
+	public void eUnset(EStructuralFeature eFeature) {
+		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_MAP_ENTRY__KEY:
 				setTypedKey(KEY_EDEFAULT);
 				return;
@@ -188,7 +193,7 @@ public class FeatureAttributeMapEntryImpl extends EObjectImpl implements BasicEM
 				setTypedValue(VALUE_EDEFAULT);
 				return;
 		}
-		super.eUnset(featureID);
+		eDynamicUnset(eFeature);
 	}
 
 	/**
@@ -196,14 +201,14 @@ public class FeatureAttributeMapEntryImpl extends EObjectImpl implements BasicEM
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(int featureID) {
-		switch (featureID) {
+	public boolean eIsSet(EStructuralFeature eFeature) {
+		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_MAP_ENTRY__KEY:
 				return KEY_EDEFAULT == null ? key != null : !KEY_EDEFAULT.equals(key);
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_MAP_ENTRY__VALUE:
 				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 		}
-		return super.eIsSet(featureID);
+		return eDynamicIsSet(eFeature);
 	}
 
 	/**
