@@ -17,9 +17,17 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.common,
  org.eclipse.wst.web,
  org.eclipse.jst.j2ee.core,
- org.eclipse.core.commands
+ org.eclipse.core.commands,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.xmi
 Eclipse-LazyStart: true
-Export-Package: org.eclipse.jst.jee,
+Export-Package: org.eclipse.jst.javaee.application,
+ org.eclipse.jst.javaee.applicationclient,
+ org.eclipse.jst.javaee.core,
+ org.eclipse.jst.javaee.ejb,
+ org.eclipse.jst.javaee.jsp,
+ org.eclipse.jst.javaee.web,
+ org.eclipse.jst.jee,
  org.eclipse.jst.jee.application.internal.operations,
  org.eclipse.jst.jee.project.facet
 Bundle-Vendor: %Bundle-Vendor.0
