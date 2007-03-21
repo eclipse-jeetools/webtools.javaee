@@ -56,7 +56,11 @@ public class ConnectorComponentLoadStrategyImpl extends ComponentLoadStrategyImp
 	};
 
 	public ConnectorComponentLoadStrategyImpl(IVirtualComponent vComponent) {
-		super(vComponent);
+		this(vComponent, true);
+	}
+	
+	public ConnectorComponentLoadStrategyImpl(IVirtualComponent vComponent, boolean includeClasspathComponents) {
+		super(vComponent, includeClasspathComponents);		
 		knownDD = vComponent.getRootFolder().getFile(J2EEConstants.RAR_DD_URI).getUnderlyingFile();
 	}
 

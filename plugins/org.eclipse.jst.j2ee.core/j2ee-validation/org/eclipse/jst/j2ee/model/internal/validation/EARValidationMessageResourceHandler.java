@@ -64,6 +64,8 @@ public class EARValidationMessageResourceHandler extends NLS {
 	public static String MESSAGE_INCOMPATIBLE_13_SPEC_WARNING_;
 	public static String MESSAGE_INCOMPATIBLE_14_SPEC_WARNING_;
 	public static String EAR_VALIDATION_INTERNAL_ERROR_UI_;
+	public static String CLASSPATH_COMPONENT_URI_MATCHES_ARCHIVE_URI;
+	public static String DUPLICATE_CLASSPATH_COMPONENT_URI;
 
 
 	static {

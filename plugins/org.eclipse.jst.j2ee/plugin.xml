@@ -327,6 +327,10 @@
                objectClass="org.eclipse.core.resources.IFile"
                nameFilter=".modulemaps">
          </filter>
+         <filter
+               objectClass="org.eclipse.core.resources.IFile"
+               nameFilter="org.eclipse.wst.common.component">
+         </filter>
          <dependentValidator
                depValValue="true">
          </dependentValidator>
@@ -344,6 +348,57 @@
     <extension
          id="EARValidatorMarker"
          name="%EAR_VALIDATION_PROBLEMMARKER_NAME"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.wst.validation.problemmarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+      <attribute
+            name="owner">
+      </attribute>
+      <attribute
+            name="validationSeverity">
+      </attribute>
+      <attribute
+            name="targetObject">
+      </attribute>
+      <attribute
+            name="groupName">
+      </attribute>
+      <attribute
+            name="messageId">
+      </attribute>
+   </extension>
+   <extension
+         id="ClasspathDependencyValidator"
+         name="%classpath_component_dependency_validator_UI_"
+         point="org.eclipse.wst.validation.validator">
+      <validator>
+         <facet
+               facetId="jst.java">
+         </facet>
+         <filter
+               objectClass="org.eclipse.core.resources.IFile"
+               nameFilter=".classpath">
+         </filter>
+         <dependentValidator depValValue="true">
+         </dependentValidator>
+         <markerId
+               markerIdValue="ClasspathDependencyValidatorMarker">
+         </markerId>
+         <helper
+               class="org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyValidatorHelper">
+         </helper>
+         <run
+               class="org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyValidator">
+         </run>
+      </validator>
+   </extension>
+   <extension
+         id="ClasspathDependencyValidatorMarker"
+         name="%classpath_dependency_validator_problemmarker_name"
          point="org.eclipse.core.resources.markers">
       <super
             type="org.eclipse.wst.validation.problemmarker">

@@ -518,7 +518,11 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 	}
 
 	public static Archive asArchive(String jarUri, IProject project, boolean exportSource) throws OpenFailureException {
-		JavaComponentLoadStrategyImpl strat = new JavaComponentLoadStrategyImpl(ComponentCore.createComponent(project));
+		return asArchive(jarUri, project, exportSource, true);		
+	}
+	
+	public static Archive asArchive(String jarUri, IProject project, boolean exportSource, boolean includeClasspathComponents) throws OpenFailureException {
+		JavaComponentLoadStrategyImpl strat = new JavaComponentLoadStrategyImpl(ComponentCore.createComponent(project), includeClasspathComponents);
 		strat.setExportSource(exportSource);
 		return CommonarchiveFactoryImpl.getActiveFactory().primOpenArchive(strat, jarUri);
 	}

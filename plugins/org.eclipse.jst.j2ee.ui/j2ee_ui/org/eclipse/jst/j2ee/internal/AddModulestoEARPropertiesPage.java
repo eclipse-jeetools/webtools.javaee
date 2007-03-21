@@ -48,6 +48,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterp
 import org.eclipse.jst.j2ee.application.internal.operations.RemoveComponentFromEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
+import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
@@ -146,6 +147,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		NullProgressMonitor monitor = new NullProgressMonitor();
 		addModulesToEAR(monitor);
 		removeModulesFromEAR(monitor);
+		refresh();
 		return true;
 	}
 	
@@ -167,6 +169,9 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		if (j2eeComponentList != null && !j2eeComponentList.isEmpty()){
 			for (int i = 0; i < j2eeComponentList.size(); i++){
 				IVirtualComponent handle = (IVirtualComponent)j2eeComponentList.get(i);
+				if (ClasspathDependencyUtil.isClasspathComponentDependency(handle)) {
+					continue;
+				}
 				if( !inEARAlready(handle))
 					newComps.add(handle);
 			}
@@ -558,12 +563,25 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		});
 	}
 
+	protected Object[] getCPComponentsInEar() {
+		List list = new ArrayList();
+		Map pathToComp = new HashMap();
+		IVirtualReference refs[] = earComponent.getReferences();
+		for( int i=0; i< refs.length; i++){
+			IVirtualReference ref = refs[i];
+			IVirtualComponent comp = ref.getReferencedComponent();
+			AvailableJ2EEComponentsForEARContentProvider.addClasspathComponentDependencies(list, pathToComp, comp);
+		}
+		return list.toArray();
+	}
+	
 	protected Object[] getComponentsInEar() {
 		List list = new ArrayList();
 		IVirtualReference refs[] = earComponent.getReferences();
 		for( int i=0; i< refs.length; i++){
 			IVirtualReference ref = refs[i];
-			list.add(ref.getReferencedComponent());
+			IVirtualComponent comp = ref.getReferencedComponent();
+			list.add(comp);
 		}
 		return list.toArray();
 	}
@@ -656,12 +674,16 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		TableItem [] items = availableComponentsViewer.getTable().getItems();
 		List list = new ArrayList();
 		//Object[] comps = getComponentsInEar();
-		
+				
 		if( j2eeComponentList.isEmpty() ){
 			Object[] comps = getComponentsInEar();
 			j2eeComponentList.addAll( Arrays.asList(comps));
-			}
-			Object[] comps = j2eeComponentList.toArray();
+		}
+		// get all Classpath contributions to the Ear
+		final Object[] cpComps = getCPComponentsInEar();
+		j2eeComponentList.addAll(Arrays.asList(cpComps));
+
+		Object[] comps = j2eeComponentList.toArray();
 		
 		for( int i=0; i< items.length; i++ ){
 			Object element = items[i].getData();
@@ -675,8 +697,10 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 				}
 			}	
 		}
-		
+
 		availableComponentsViewer.setCheckedElements(list.toArray());
+		availableComponentsViewer.setGrayedElements(cpComps);
+
 	//	j2eeComponentList.addAll(list);
 		GridData btndata = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_BEGINNING);
 		buttonColumn.setLayoutData(btndata);

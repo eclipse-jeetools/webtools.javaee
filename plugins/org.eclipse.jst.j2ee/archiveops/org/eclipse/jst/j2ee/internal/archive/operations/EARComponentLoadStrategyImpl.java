@@ -24,11 +24,13 @@ import java.util.Map;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
+import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipFileLoadStrategyImpl;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
@@ -45,6 +47,10 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 	public EARComponentLoadStrategyImpl(IVirtualComponent vComponent) {
 		super(vComponent);
 	}
+	
+	public EARComponentLoadStrategyImpl(IVirtualComponent vComponent, boolean includeClasspathComponents) {
+		super(vComponent, includeClasspathComponents);
+	}
 
 	public List getFiles() {
 		aggregateSourceFiles();
@@ -59,7 +65,7 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 		}
 		return super.getInputStream(uri);
 	}
-
+	
 	public void addModulesAndUtilities() {
 		EARArtifactEdit earArtifactEdit = null;
 		try {
@@ -79,19 +85,23 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 				}
 
 				boolean isModule = false;
+				boolean addClasspathComponentDependencies = false;
 				ArtifactEdit componentArtifactEdit = null;
 				try {
 					if (J2EEProjectUtilities.isApplicationClientComponent(referencedComponent)) {
 						componentArtifactEdit = AppClientArtifactEdit.getAppClientArtifactEditForRead(referencedComponent);
 					} else if (J2EEProjectUtilities.isEJBComponent(referencedComponent)) {
+						addClasspathComponentDependencies = true;
 						componentArtifactEdit = ArtifactEditRegistryReader.instance().getArtifactEdit(J2EEProjectUtilities.EJB).createArtifactEditForRead(referencedComponent);
 					} else if (J2EEProjectUtilities.isDynamicWebComponent(referencedComponent)) {
+						addClasspathComponentDependencies = true;
 						componentArtifactEdit = ArtifactEditRegistryReader.instance().getArtifactEdit(J2EEProjectUtilities.DYNAMIC_WEB).createArtifactEditForRead(referencedComponent);
 					} else if (J2EEProjectUtilities.isJCAComponent(referencedComponent)) {
+						addClasspathComponentDependencies = true;
 						componentArtifactEdit = ArtifactEditRegistryReader.instance().getArtifactEdit(J2EEProjectUtilities.JCA).createArtifactEditForRead(referencedComponent);
 					}
 					if (null != componentArtifactEdit) {
-						Archive archive = ((EnterpriseArtifactEdit) componentArtifactEdit).asArchive(exportSource);
+						Archive archive = ((EnterpriseArtifactEdit) componentArtifactEdit).asArchive(exportSource, includeClasspathComponents);
 						if (referencedComponent.isBinary()) {
 							artifactEditsToDispose.add(componentArtifactEdit);
 							archive.setLoadingContainer(getContainer());
@@ -100,6 +110,9 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 						archive.setURI(earArtifactEdit.getModuleURI(referencedComponent));
 						filesHolder.addFile(archive);
 						isModule = true;
+						if (addClasspathComponentDependencies) {
+							addClasspathComponentDependencies(referencedComponent);
+						}
 					}
 				} catch (OpenFailureException oe) {
 					Logger.getLogger().logError(oe);
@@ -116,9 +129,10 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 						try {
 							if (!referencedComponent.isBinary()) {
 								String uri = earArtifactEdit.getModuleURI(referencedComponent);
-								Archive archive = J2EEProjectUtilities.asArchive(uri, referencedComponent.getProject(), exportSource);
+								Archive archive = J2EEProjectUtilities.asArchive(uri, referencedComponent.getProject(), exportSource, includeClasspathComponents);
 								archive.setURI(uri);
 								filesHolder.addFile(archive);
+								addClasspathComponentDependencies(referencedComponent);
 							} else {
 
 
@@ -137,6 +151,28 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 		}
 	}
 
+	private void addClasspathComponentDependencies(final IVirtualComponent referencedComponent) {
+		// retrieve all Java classpath component dependencies
+		if (includeClasspathComponents && referencedComponent instanceof J2EEModuleVirtualComponent) {
+			final IVirtualReference[] cpRefs = ((J2EEModuleVirtualComponent) referencedComponent).getJavaClasspathReferences();
+			for (int j = 0; j < cpRefs.length; j++) {
+				final IVirtualReference ref = cpRefs[j];
+				// only ../ runtime paths contribute to the EAR
+				if (ref.getRuntimePath().equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
+					if (ref.getReferencedComponent() instanceof VirtualArchiveComponent) {
+						final VirtualArchiveComponent comp = (VirtualArchiveComponent) ref.getReferencedComponent();
+						File cpEntryFile = comp.getUnderlyingDiskFile();
+						if (!cpEntryFile.exists()) {
+							final IFile wbFile = comp.getUnderlyingWorkbenchFile();
+							cpEntryFile = new File(wbFile.getLocation().toOSString());
+						}
+						addExternalFile(ref.getArchiveName(), cpEntryFile);
+					}
+				}
+			}
+		}
+	}
+	
 	public void close() {
 		super.close();
 		Iterator it = artifactEditsToDispose.iterator();

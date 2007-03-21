@@ -196,6 +196,10 @@ public abstract class FlexibleProjectContainer
             IPath newPath = null;
             if (comp.isBinary()) {
                 VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
+                if (archiveComp.getArchiveType().equals(VirtualArchiveComponent.CLASSPATHARCHIVETYPE)) {
+                	// do not process components dynamically computed from the Java classpath
+                	continue;
+                }
                 java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
                 if (diskFile.exists()) {
                 	newPath =new Path(diskFile.getAbsolutePath());

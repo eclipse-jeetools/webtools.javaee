@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -42,6 +44,7 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.FileIterator;
@@ -49,6 +52,9 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.FileIteratorImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.ContainerImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyManifestUtil;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
@@ -61,6 +67,7 @@ import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveCom
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualContainer;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
@@ -76,6 +83,8 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	protected boolean exportSource;
 	private ArtifactEdit artifactEdit;
 	private List zipFiles = new ArrayList();
+	private List javaClasspathURIs = new ArrayList();
+	protected boolean includeClasspathComponents = true;
 
 	protected class FilesHolder {
 
@@ -187,10 +196,21 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
 	private Exception exception; //TEMP TODO REMOVE
 	
+	private IVirtualFile manifestFile = null;
+	 
 	public ComponentLoadStrategyImpl(IVirtualComponent vComponent) {
+		this(vComponent, true);
+	}
+	
+	public ComponentLoadStrategyImpl(IVirtualComponent vComponent, boolean includeClasspathComponents) {
 		this.vComponent = vComponent;
 		filesHolder = new FilesHolder();
 		exception = new Exception();
+		this.includeClasspathComponents = includeClasspathComponents;
+		if (includeClasspathComponents) {
+			this.manifestFile = vComponent.getRootFolder().getFile(new Path(J2EEConstants.MANIFEST_URI));
+			saveJavaClasspathReferences();
+		}
 	}
 
 	public boolean contains(String uri) {
@@ -212,6 +232,21 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		addUtilities();
 		return filesHolder.getFiles();
 	}
+	
+    protected void saveJavaClasspathReferences() {
+        if (vComponent instanceof J2EEModuleVirtualComponent) {
+        	final J2EEModuleVirtualComponent j2eeComp = (J2EEModuleVirtualComponent) vComponent;
+        	final IVirtualReference[] refs = j2eeComp.getJavaClasspathReferences();
+            if (refs == null) {
+                return;
+            }
+            for (int i = 0; i < refs.length; i++) {
+            	if (refs[i].getRuntimePath().equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
+            		javaClasspathURIs.add(refs[i].getArchiveName());
+            	}
+            }
+        }
+    }
 
 	protected void addUtilities() {
 		IVirtualReference[] components = vComponent.getReferences();
@@ -485,8 +520,21 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		File aFile = createFile(uri);
 		filesHolder.addFile(aFile, externalDiskFile);
 	}
-
+	
 	public InputStream getInputStream(String uri) throws IOException, FileNotFoundException {
+		// If the MANIFEST.MF of a module component is being requested and that module component references
+        // Java build path-based components, need to dynamically update the manifest classpath to reflect the resolved
+        // contributions from the build path
+		if (includeClasspathComponents && 
+			uri.equals(J2EEConstants.MANIFEST_URI) && !javaClasspathURIs.isEmpty() &&
+			manifestFile != null && manifestFile.getUnderlyingFile() != null && 
+			manifestFile.getUnderlyingFile().exists()) {
+			//update the manifest classpath for the component
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	        ClasspathDependencyManifestUtil.updateManifestClasspath(manifestFile.getUnderlyingFile(), javaClasspathURIs, baos);
+	        return new ByteArrayInputStream(baos.toByteArray());
+		}
+		
 		if (filesHolder.contains(uri)) {
 			return filesHolder.getInputStream(uri);
 		}

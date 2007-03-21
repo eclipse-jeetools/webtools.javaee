@@ -42,7 +42,9 @@ Export-Package: org.eclipse.jst.j2ee.application.internal.operations;x-internal:
  org.eclipse.jst.j2ee.project.facet,
  org.eclipse.jst.j2ee.refactor,
  org.eclipse.jst.j2ee.refactor.listeners,
- org.eclipse.jst.j2ee.refactor.operations
+ org.eclipse.jst.j2ee.refactor.operations,
+ org.eclipse.jst.j2ee.classpathdep,
+ org.eclipse.jst.j2ee.internal.classpathdep;x-internal:=true
 Require-Bundle: org.eclipse.emf.edit;bundle-version="[2.2.0,2.4.0)",
  org.eclipse.jem.workbench;bundle-version="[2.0.0,3.0.0)",
  org.eclipse.jst.j2ee.core;bundle-version="[1.1.0,1.2.0)",

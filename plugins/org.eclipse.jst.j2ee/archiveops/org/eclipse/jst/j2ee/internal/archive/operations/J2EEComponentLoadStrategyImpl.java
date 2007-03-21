@@ -17,5 +17,9 @@ public class J2EEComponentLoadStrategyImpl extends ComponentLoadStrategyImpl{
 	public J2EEComponentLoadStrategyImpl(IVirtualComponent component) {
 		super(component);
 	}
+	
+	public J2EEComponentLoadStrategyImpl(IVirtualComponent component, boolean includeClasspathComponents) {
+		super(component, includeClasspathComponents);
+	}
 
 }

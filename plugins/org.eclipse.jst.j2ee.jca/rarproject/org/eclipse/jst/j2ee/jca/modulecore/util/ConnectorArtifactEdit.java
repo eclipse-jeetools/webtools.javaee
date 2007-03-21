@@ -380,11 +380,11 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		return getConnectorArtifactEditForWrite(aComponent);
 	}
 
-	public Archive asArchive(boolean includeSource) throws OpenFailureException {
+	public Archive asArchive(boolean includeSource, boolean includeClasspathComponents) throws OpenFailureException {
 		if (isBinary()) {
 			return ((EnterpriseBinaryComponentHelper) getBinaryComponentHelper()).accessArchive();
 		} else {
-			ConnectorComponentLoadStrategyImpl loader = new ConnectorComponentLoadStrategyImpl(getComponent());
+			ConnectorComponentLoadStrategyImpl loader = new ConnectorComponentLoadStrategyImpl(getComponent(), includeClasspathComponents);
 			loader.setExportSource(includeSource);
 			String uri = ModuleURIUtil.getHandleString(getComponent());
 			return CommonarchiveFactory.eINSTANCE.openRARFile(loader, uri);

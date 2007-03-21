@@ -11,12 +11,16 @@
 package org.eclipse.jst.j2ee.internal.deployables;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -29,6 +33,8 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.Application;
+import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
+import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
@@ -36,7 +42,9 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
 import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyManifestUtil;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.server.core.IApplicationClientModule;
 import org.eclipse.jst.server.core.IConnectorModule;
@@ -49,6 +57,7 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -58,6 +67,7 @@ import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.ServerUtil;
 import org.eclipse.wst.server.core.internal.ModuleFile;
 import org.eclipse.wst.server.core.internal.ModuleFolder;
+import org.eclipse.wst.server.core.model.IModuleFile;
 import org.eclipse.wst.server.core.model.IModuleFolder;
 import org.eclipse.wst.server.core.model.IModuleResource;
 import org.eclipse.wst.web.internal.deployables.ComponentDeployable;
@@ -66,11 +76,13 @@ import org.eclipse.wst.web.internal.deployables.ComponentDeployable;
  */
 public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EEModule, IEnterpriseApplication, IApplicationClientModule, IConnectorModule, IEJBModule, IWebModule {
 	private static final IPath WEB_CLASSES_PATH = new Path(J2EEConstants.WEB_INF_CLASSES);
+	private static final IPath MANIFEST_PATH = new Path(J2EEConstants.MANIFEST_URI);
 	private static IPath WEBLIB = new Path(J2EEConstants.WEB_INF_LIB).makeAbsolute();
 	private IPackageFragmentRoot[] cachedSourceContainers;
 	private IContainer[] cachedOutputContainers;
 	private HashMap cachedOutputMappings;
 	private HashMap cachedSourceOutputPairs;
+	private List classpathComponentDependencyURIs = new ArrayList();
 
 	/**
 	 * Constructor for J2EEFlexProjDeployable.
@@ -137,6 +149,13 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 			return super.shouldIncludeUtilityComponent(virtualComp, references, edit);
 	}
 	
+	protected void addUtilMember(IVirtualComponent parent, IVirtualReference reference, IPath runtimePath) {
+		// do not add classpath dependencies whose runtime path (../) maps to the parent component
+		if (!runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
+			super.addUtilMember(parent, reference, runtimePath);
+		}
+	}
+	
 	protected IModuleResource[] getBinaryModuleMembers() {
 		IPath archivePath = ((J2EEModuleVirtualArchiveComponent)component).getWorkspaceRelativePath();
 		ModuleFile mf = null;
@@ -152,14 +171,43 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	
 	public IModuleResource[] members() throws CoreException {
 		members.clear();
-		
+		classpathComponentDependencyURIs.clear();
+
 		// Handle binary components
 		if (component instanceof J2EEModuleVirtualArchiveComponent)
 			return getBinaryModuleMembers();
+
+		if (J2EEProjectUtilities.isEARProject(component.getProject())) {
+			// If an EAR, add classpath contributions for all referenced modules
+			addReferencedComponentClasspathDependencies(component, false);
+		} else {
+			if (J2EEProjectUtilities.isDynamicWebProject(component.getProject())) {
+				// If a web, add classpath contributions for all WEB-INF/lib modules
+				addReferencedComponentClasspathDependencies(component, true);
+			}
+			if (canExportClasspathComponentDependencies(component)){
+				saveClasspathDependencyURIs(component);
+			}
+		}
 		
 		// If j2ee project structure is a single root structure, just return optimized members
-		if (isSingleRootStructure())
-			return getOptimizedMembers();
+		if (isSingleRootStructure()) {
+			final IModuleResource[] resources = getOptimizedMembers();
+			if (!classpathComponentDependencyURIs.isEmpty()) {
+				for (int i = 0; i < resources.length; i++) {
+					if (resources[i] instanceof IModuleFolder) {
+						IModuleFolder folder = (IModuleFolder) resources[i];
+						if (folder.getName().equals(J2EEConstants.META_INF)) {
+							IModuleResource[] files = folder.members();
+							for (int j = 0; j < files.length; j++) {
+								files[i] = replaceManifestFile((IModuleFile) files[j]);								
+							}
+						}
+					}
+				}
+			}
+			return resources;
+		}
 		
 		cachedSourceContainers = J2EEProjectUtilities.getSourceContainers(getProject());
 		try {
@@ -205,6 +253,44 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 			cachedOutputMappings = null;
 			cachedSourceOutputPairs = null;
 		}
+	}
+	
+	protected IModuleFile createModuleFile(IFile file, IPath path) {
+		// if this is the MANIFEST.MF file and we have classpath component dependencies, 
+		// update it
+		return replaceManifestFile(super.createModuleFile(file, path));
+	}
+	
+	protected IModuleFile replaceManifestFile(IModuleFile moduleFile) {
+		final IFile file = (IFile) moduleFile.getAdapter(IFile.class);
+		final IPath path = moduleFile.getModuleRelativePath();
+		// if the MANIFEST.MF is being requested and we have classpath component dependencies, 
+		// dynamically generate a customized MANIFEST.MF and return that 
+		if (path.append(file.getName()).equals(MANIFEST_PATH) && !classpathComponentDependencyURIs.isEmpty()) {
+			final IProject project = file.getProject();
+			final IPath workingLocation = project.getWorkingLocation(J2EEPlugin.PLUGIN_ID);
+			// create path to temp MANIFEST.MF
+			final IPath tempManifestPath = workingLocation.append(MANIFEST_PATH);
+			final File fsFile = tempManifestPath.toFile();
+			if (!fsFile.exists()) {
+				// create parent dirs for temp MANIFEST.MF
+				final File parent = fsFile.getParentFile();
+				if (!parent.exists()) {
+					if (!parent.mkdirs()) {
+						return moduleFile;
+					}
+				}
+			}
+			// create temp MANIFEST.MF using util method
+			try {
+				ClasspathDependencyManifestUtil.updateManifestClasspath(file, classpathComponentDependencyURIs, new FileOutputStream(fsFile));
+				// create new ModuleFile that points to temp MANIFEST.MF
+				return new ModuleFile(fsFile, file.getName(), path);
+			} catch (IOException ioe) {
+				return moduleFile;
+			}
+		}
+		return moduleFile;
 	}
 	
 	protected IModuleResource[] handleJavaPath(IPath path, IPath javaPath, IPath curPath, IContainer[] javaCont, IModuleResource[] mr, IContainer cc) throws CoreException {
@@ -574,6 +660,83 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				result.add(refComponents[i]);
 		}
 		return (IVirtualReference[]) result.toArray(new IVirtualReference[result.size()]);
+	}
+	
+	/*
+	 * Add any classpath component dependencies from this component
+	 */
+	private void addReferencedComponentClasspathDependencies(final IVirtualComponent component, final boolean web) {
+		final IVirtualReference[] refs = component.getReferences();
+		final Set absolutePaths = new HashSet();
+		for (int i = 0; i < refs.length; i++) {
+			final IVirtualReference reference = refs[i];
+			final IPath runtimePath = reference.getRuntimePath();
+			final IVirtualComponent referencedComponent = reference.getReferencedComponent();
+			
+			// if we are adding to a web project, only process references with the /WEB-INF/lib runtime path
+			if (web && !runtimePath.equals(WEBLIB)) {
+				continue;
+			}
+
+			// if the reference cannot export dependencies, skip
+			if (!canExportClasspathComponentDependencies(referencedComponent)) {
+				continue;
+			}
+			
+			if (!referencedComponent.isBinary() && referencedComponent instanceof J2EEModuleVirtualComponent) {
+				final IVirtualReference[] cpRefs = ((J2EEModuleVirtualComponent) referencedComponent).getJavaClasspathReferences();
+				for (int j = 0; j < cpRefs.length; j++) {
+					final IVirtualReference cpRef = cpRefs[j];
+
+					IPath cpRefRuntimePath = cpRef.getRuntimePath();
+					// only process references with ../ mapping
+					if (cpRefRuntimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
+						// runtime path within deployed app will be runtime path of parent component
+						cpRefRuntimePath = runtimePath;
+					} 
+					if (cpRef.getReferencedComponent() instanceof VirtualArchiveComponent) {
+						// want to avoid adding dups
+						final IPath absolutePath = ClasspathDependencyUtil.getClasspathVirtualReferenceLocation(cpRef);
+						if (absolutePaths.contains(absolutePath)) {
+							// have already added a member for this archive
+							continue;
+						} else {
+							addUtilMember(component, cpRef, cpRefRuntimePath);
+							absolutePaths.add(absolutePath);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	private boolean canExportClasspathComponentDependencies(IVirtualComponent component) {
+		final IProject project = component.getProject();
+		// check for valid project type
+		if (J2EEProjectUtilities.isEJBProject(project) 
+				|| J2EEProjectUtilities.isDynamicWebProject(project)
+				|| J2EEProjectUtilities.isJCAProject(project)
+    			|| J2EEProjectUtilities.isUtilityProject(project)) {
+			return true;
+		}
+		return false;
+	}
+	
+	private void saveClasspathDependencyURIs(IVirtualComponent component) {
+		if (!component.isBinary() && component instanceof J2EEModuleVirtualComponent) {
+			final IVirtualReference[] cpRefs = ((J2EEModuleVirtualComponent) component).getJavaClasspathReferences();
+			for (int j = 0; j < cpRefs.length; j++) {
+				final IVirtualReference cpRef = cpRefs[j];
+				// if we are adding to an EAR project, only process references with the root mapping
+				if (!cpRef.getRuntimePath().equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
+					// fails the runtime path test
+					continue;
+				}
+				if (cpRef.getReferencedComponent() instanceof VirtualArchiveComponent) {
+					classpathComponentDependencyURIs.add(cpRef.getArchiveName());
+				}
+			}
+		}
 	}
 	
 	/**

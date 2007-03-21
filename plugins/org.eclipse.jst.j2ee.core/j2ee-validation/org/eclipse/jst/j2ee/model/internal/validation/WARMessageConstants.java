@@ -52,6 +52,9 @@ public interface WARMessageConstants extends org.eclipse.jst.j2ee.model.internal
 	public static final String ERROR_EAR_DUPLICATE_ROLES = "ERROR_EAR_DUPLICATE_ROLES"; //$NON-NLS-1$
 	public static final String ERROR_EAR_UNCONTAINED_MODULE_FILE_EXCEPTION = "ERROR_EAR_UNCONTAINED_MODULE_FILE_EXCEPTION"; //$NON-NLS-1$
 	public static final String ERROR_INVALID_WAR_FILE = "ERROR_INVALID_WAR_FILE"; //$NON-NLS-1$
+	public static final String ERROR_DUPLICATE_WEB_INF_LIB= "ERROR_DUPLICATE_WEB_INF_LIB"; //$NON-NLS-1$
+	public static final String ERROR_DUPLICATE_WEB_INF_LIB_OTHER_PROJECT = "ERROR_DUPLICATE_WEB_INF_LIB_OTHER_PROJECT"; //$NON-NLS-1$
+	public static final String ERROR_DUPLICATE_CLASSPATH_COMPONENT_URI = "ERROR_DUPLICATE_CLASSPATH_COMPONENT_URI"; //$NON-NLS-1$
 	public static final String WAR_DD_PARSE_LINECOL = "WAR_DD_PARSE_LINECOL"; //$NON-NLS-1$
 	public static final String WAR_DD_PARSE_LINE = "WAR_DD_PARSE_LINE"; //$NON-NLS-1$
 	public static final String WAR_DD_CANNOT_OPEN_DD = "WAR_DD_CANNOT_OPEN_DD"; //$NON-NLS-1$

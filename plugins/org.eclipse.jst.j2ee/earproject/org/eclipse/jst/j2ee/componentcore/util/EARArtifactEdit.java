@@ -574,7 +574,11 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 
 	public Archive asArchive(boolean includeSource) throws OpenFailureException {
-		EARComponentLoadStrategyImpl loader = new EARComponentLoadStrategyImpl(getComponent());
+		return asArchive(includeSource, true);
+	}
+	
+	public Archive asArchive(boolean includeSource, boolean includeClasspathComponents) throws OpenFailureException {
+		EARComponentLoadStrategyImpl loader = new EARComponentLoadStrategyImpl(getComponent(), includeClasspathComponents);
 		loader.setExportSource(includeSource);
 		String uri = ModuleURIUtil.getHandleString(getComponent());
 		return CommonarchiveFactory.eINSTANCE.openEARFile(loader, uri);

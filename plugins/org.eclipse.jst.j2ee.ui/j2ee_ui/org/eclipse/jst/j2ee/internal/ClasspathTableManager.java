@@ -436,6 +436,9 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 		for (int i = 0; i < elements.size(); i++) {
 			ClasspathElement element = (ClasspathElement) elements.get(i);
 			availableJARsViewer.setChecked(element, element.isSelected());
+			if (element.isClasspathDependency()) {
+				availableJARsViewer.setGrayed(element, true);
+			}
 		}
 	}
 
@@ -466,6 +469,9 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 			for (int i = 0; i < elements.size(); i++) {
 				ClasspathElement element = (ClasspathElement) elements.get(i);
 				availableJARsViewer.setChecked(element, element.isSelected());
+				if (element.isClasspathDependency()) {
+					availableJARsViewer.setGrayed(element, true);
+				}
 			}
 		}
 	}

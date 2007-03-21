@@ -130,6 +130,15 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 		availableDependentJars.setText(ManifestUIResourceHandler.WEB_LIB_LIST_DESCRIPTION);
 		tableManager.refresh();
 	}
+	
+	/**
+	 * Called to refresh the UI when the classpath changes
+	 */
+	protected void handleClasspathChange() {
+		model.resetClassPathSelectionForWLPs();
+		super.handleClasspathChange();
+	}
+
 
 	public boolean performOk() {
 		if (model.getComponent() == null || !isValidWebModule()) {
@@ -145,6 +154,10 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 				createdComponentDependency = runWLPOp(createComponentDependencyOperations());
 				isDirty = false;
 			}
+			// treat as a classpath change for refresh purposes
+			// XXX this refresh is not working - suspect it is because the virtual component dependencies are
+			// not consistently being recomputed
+			//handleClasspathChange();
 			return createdComponentDependency;
 		} finally {
 			model.dispose();
@@ -157,7 +170,9 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 				new ProgressMonitorDialog(propPage.getShell()).run(true, true, composed);
 		} catch (InvocationTargetException ex) {
 			ex.printStackTrace();
-			ex.getCause().printStackTrace();
+			if (ex.getCause() != null) {
+				ex.getCause().printStackTrace();
+			}
 			String title = ManifestUIResourceHandler.An_internal_error_occurred_ERROR_;
 			String msg = title;
 			if (ex.getTargetException() != null && ex.getTargetException().getMessage() != null)

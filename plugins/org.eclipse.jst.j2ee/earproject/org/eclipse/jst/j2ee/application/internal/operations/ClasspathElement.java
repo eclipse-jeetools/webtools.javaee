@@ -58,6 +58,13 @@ public class ClasspathElement {
 	/** Indicates if this is selected in the view */
 	protected boolean selected;
 	protected boolean valid;
+	/** Indicates if this element represents a component dependency associated with a resolved Java classpath entry that is mapped to the virtual component api */
+	protected boolean isClasspathDependency = false; 
+	/** Indicates if this element represents a Java classpath entry */
+	protected boolean isClasspathEntry= false; 
+	/** For elments that represent a Java classpath entry, holds the entry */
+	protected IClasspathEntry classpathEntry = null;
+	
 	/**
 	 * The text that is an actual Class-Path entry in the Manifest; in the case of multi-segment
 	 * uris, might look like ../xxx
@@ -193,6 +200,52 @@ public class ClasspathElement {
 	 */
 	public boolean isSelected() {
 		return selected;
+	}
+
+	/**
+	 * Determines if this ClasspathElement is associated with a resolved Java classpath entry 
+	 * that is tagged as a component dependency.
+	 * @return True if a classpath component dependency.
+	 */
+	public boolean isClasspathDependency() {
+		return isClasspathDependency;
+	}
+	
+	/**
+	 * Sets whether this ClasspathElement is associated with a resolved Java classpath entry 
+	 * that is tagged as a component dependency.
+	 * @param classpathDependency True if a classpath component dependency.
+	 */
+	public void setClasspathDependency(final boolean classpathDependency) {
+		this.isClasspathDependency = classpathDependency;
+	}
+	
+	/**
+	 * Determines if this ClasspathElement is associated with a Java classpath entry 
+	 * that is either currently tagged or can be tagged as a component dependency.
+	 * @return True if a classpath component dependency.
+	 */
+	public boolean isClasspathEntry() {
+		return isClasspathEntry;
+	}
+	
+	/**
+	 * Sets whether this ClasspathElement is associated with a Java classpath entry 
+	 * that is either currently tagged or can be tagged as a component dependency.
+	 * @param isClasspathEntry True if a classpath entry.
+	 * @param entry The associated classpath entry.
+	 */
+	public void setClasspathEntry(final boolean isClasspathEntry, final IClasspathEntry entry) {
+		this.isClasspathEntry= isClasspathEntry;
+		this.classpathEntry = entry;
+	}
+	
+	/**
+	 * Retrieves any associated classpath entry.
+	 * @return Associated classpath entry, if there is one.
+	 */
+	public IClasspathEntry getClasspathEntry() {
+		return classpathEntry;
 	}
 
 	/**

@@ -57,12 +57,15 @@ public class J2EECommonMessages extends NLS {
 
 	public static String ERR_EMPTY_MODULE_NAME;
 	public static String ERR_EMPTY_PROJECT_NAME;
+	public static String ERR_PROJECT_INACCESSIBLE;
 	public static String ERR_PROJECT_NAME_EXISTS;
 	public static String ERR_VERSION_NOT_SUPPORTED;
 	public static String ERR_NOT_SUPPORTED;
 	public static String ERR_JAVA_CLASS_FOLDER_NOT_ABSOLUTE;
 
 	public static String J2EE_MODULE_CLASSPATH_CONTAINER_NAME;
+	
+	public static String CLASSPATH_ENTRY_DEPENDENCY_PREFIX;
 	
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, J2EECommonMessages.class);

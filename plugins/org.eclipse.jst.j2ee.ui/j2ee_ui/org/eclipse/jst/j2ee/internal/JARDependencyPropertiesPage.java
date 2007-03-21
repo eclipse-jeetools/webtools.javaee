@@ -22,27 +22,42 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.jar.Manifest;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.jdt.core.ElementChangedEvent;
+import org.eclipse.jdt.core.IClasspathAttribute;
+import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IElementChangedListener;
+import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IJavaElementDelta;
+import org.eclipse.jdt.core.IJavaModel;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
+import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
+import org.eclipse.jst.j2ee.classpathdep.UpdateClasspathAttributeUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModel;
@@ -58,6 +73,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
@@ -73,6 +89,7 @@ import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
 import org.eclipse.wst.common.frameworks.internal.ui.WorkspaceModifyComposedOperation;
 
@@ -82,7 +99,7 @@ import org.eclipse.wst.common.frameworks.internal.ui.WorkspaceModifyComposedOper
  * TODO To change the template for this generated type comment go to Window - Preferences - Java -
  * Code Style - Code Templates
  */
-public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IClasspathTableOwner, Listener, ClasspathModelListener {
+public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IClasspathTableOwner, Listener, ClasspathModelListener, IElementChangedListener {
 
 	protected final IProject project;
 	protected final J2EEDependenciesPage propPage;
@@ -97,7 +114,8 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	protected Label manifestLabel;
 	protected Label enterpriseApplicationLabel;
 	protected Label availableDependentJars;
-
+	private final Display display;
+	
 	/**
 	 * Constructor for JARDependencyPropertiesControl
 	 */
@@ -106,6 +124,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		J2EEComponentClasspathUpdater.getInstance().pauseUpdates();
 		this.project = project;
 		this.propPage = page;
+		this.display = propPage.getShell().getDisplay();
 	}
 
 	/**
@@ -119,9 +138,11 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 			updateModelManifest();
 			initializeValidateEditListener();
 		}
+		JavaCore.addElementChangedListener(this);
 	}
 
 	public void dispose() {
+		JavaCore.removeElementChangedListener(this);
 		J2EEComponentClasspathUpdater.getInstance().resumeUpdates();
 		if (model.earArtifactEdit != null) {
 			model.earArtifactEdit.dispose();
@@ -174,9 +195,71 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	}
 
 	public void setVisible(boolean visible) {
-		if (visible && caughtManifestException != null && !model.isDirty())
-			ManifestErrorPrompter.showManifestException(propPage.getShell(), ERROR_READING_MANIFEST_DIALOG_MESSAGE_PROP_PAGE, false, caughtManifestException);
+		if (visible) {
+			if (caughtManifestException != null && !model.isDirty()) {
+				ManifestErrorPrompter.showManifestException(propPage.getShell(), ERROR_READING_MANIFEST_DIALOG_MESSAGE_PROP_PAGE, false, caughtManifestException);
+			}
+		}
+	}
 
+	/**
+	 * Refreshes the ClasspathModel if the project classpath is changed.
+	 */
+	public void elementChanged(final ElementChangedEvent event) {
+		if (event.getType() == ElementChangedEvent.POST_CHANGE && classpathChanged(event.getDelta())) {
+			// trigger a recomputation and refresh for the currently selected EAR
+			display.asyncExec (new Runnable () {
+				public void run () {
+					handleClasspathChange();
+				}
+			});
+		}
+	}
+	
+	/**
+	 * Called to refresh the UI when the classpath changes
+	 */
+	protected void handleClasspathChange() {
+		model.resetClassPathSelection();
+		refresh();		
+	}
+	
+	private boolean classpathChanged(final IJavaElementDelta delta) {
+		final int kind = delta.getKind();
+		if (kind == IJavaElementDelta.CHANGED) {
+			final int flags = delta.getFlags();
+			final IJavaElement element = delta.getElement();
+			if (element instanceof IJavaModel) {
+				if ((flags & IJavaElementDelta.F_CHILDREN) == IJavaElementDelta.F_CHILDREN) {
+					final IJavaElementDelta[] children = delta.getChangedChildren();
+					for (int i = 0; i < children.length; i++) {
+						// check all of the IJavaProject children
+						if (classpathChanged(children[i])) {
+							return true;
+						}
+					}
+				}
+			} else if (element instanceof IJavaProject) {
+				// check if we either have a direct indication of a classpath change or a delta on the
+				// .classpath file (changes to classpath entry attributes only give us this...)
+				final IJavaProject jproject = (IJavaProject) element;
+				final IProject eventProject = jproject.getProject();
+				if (eventProject.equals(project)) {
+					if ((flags & IJavaElementDelta.F_CLASSPATH_CHANGED) != 0) {
+						return true; 	
+					}
+					final IResourceDelta[] deltas = delta.getResourceDeltas();
+					if (deltas != null) {
+						for (int i = 0; i < deltas.length; i++) {
+							if (deltas[i].getProjectRelativePath().toString().equals(".classpath")) { //$NON-NLS-1$
+								return true;
+							}
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 	public Composite createContents(Composite parent) {
@@ -433,8 +516,9 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		if (evt.getEventType() == ClasspathModelEvent.CLASS_PATH_CHANGED) {
 			isDirty = true;
 			refreshText();
-		} else if (evt.getEventType() == ClasspathModelEvent.EAR_PROJECT_CHANGED)
+		} else if (evt.getEventType() == ClasspathModelEvent.EAR_PROJECT_CHANGED) {			
 			tableManager.refresh();
+		}
 	}
 
 	public void performDefaults() {
@@ -457,6 +541,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 			return true;
 		WorkspaceModifyComposedOperation composed = new WorkspaceModifyComposedOperation(createManifestOperation());
 		
+		composed.addRunnable(createClasspathAttributeUpdateOperation(model.getClassPathSelection(), false));
 		try {
 			new ProgressMonitorDialog(propPage.getShell()).run(true, true, composed);
 		} catch (InvocationTargetException ex) {
@@ -631,12 +716,16 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 
 	protected WorkspaceModifyComposedOperation createComponentDependencyOperations() {
 		WorkspaceModifyComposedOperation composedOp = null;
-		List selected = getSelectedClassPathSelectionForWLPs().getClasspathElements();
+		final ClassPathSelection selectedWLPs = getSelectedClassPathSelectionForWLPs();
+		List selected = selectedWLPs.getClasspathElements();
 		List unselected = getUnSelectedClassPathElementsForWebDependency();
 
 		List targetComponentsHandles = new ArrayList();
 		for (int i = 0; i < selected.size(); i++) {
 			ClasspathElement element = (ClasspathElement) selected.get(i);
+			if (element.isClasspathDependency() || element.isClasspathEntry()) {
+				continue;
+			}
 			IProject elementProject = element.getProject();
 			if (elementProject != null) {
 				IVirtualComponent targetComp = ComponentCore.createComponent(elementProject);
@@ -650,6 +739,9 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		targetComponentsHandles = new ArrayList();
 		for (int i = 0; i < unselected.size(); i++) {
 			ClasspathElement element = (ClasspathElement) unselected.get(i);
+			if (element.isClasspathDependency() || element.isClasspathEntry()) {
+				continue;
+			}
 			IProject elementProject = element.getProject();
 			if (elementProject != null) {
 				if (ModuleCoreNature.isFlexibleProject(elementProject)) {
@@ -676,10 +768,17 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 			}
 		}
 		if (!targetComponentsHandles.isEmpty()) {
-			if (composedOp == null)
+			if (composedOp == null) {
 				composedOp = new WorkspaceModifyComposedOperation();
+			}
 			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.removeWLPReferenceComponentOperation(model.getComponent(), targetComponentsHandles)));
 		}
+
+		if (composedOp == null) {
+			composedOp = new WorkspaceModifyComposedOperation();
+		}
+		composedOp.addRunnable(createClasspathAttributeUpdateOperation(selectedWLPs, true));
+		
 		return composedOp;
 	}
 
@@ -748,6 +847,22 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 
 	protected UpdateManifestOperation createManifestOperation() {
 		return new UpdateManifestOperation(project.getName(), model.getClassPathSelection().toString(), true);
+	}
+	
+	protected IRunnableWithProgress createClasspathAttributeUpdateOperation(final ClassPathSelection selection, final boolean isWebApp) {
+		final Map entriesToRuntimePath = new HashMap();
+		final List selectedElements = selection.getSelectedClasspathElements();
+		for (int i = 0; i < selectedElements.size(); i++) {
+			final ClasspathElement element = (ClasspathElement) selectedElements.get(i);
+			if (element.isClasspathEntry() && element.isSelected()) {
+				final IClasspathEntry entry = element.getClasspathEntry();
+				final IClasspathAttribute attrib = ClasspathDependencyUtil.checkForComponentDependencyAttribute(entry);
+				final IPath runtimePath = ClasspathDependencyUtil.getRuntimePath(attrib, isWebApp);
+				entriesToRuntimePath.put(entry, runtimePath);
+			}
+		}
+		final IDataModelOperation op = UpdateClasspathAttributeUtil.createUpdateDependencyAttributesOperation(project.getName(), entriesToRuntimePath); 
+		return WTPUIPlugin.getRunnableWithProgress(op);
 	}
 
 	protected boolean isReadOnly() {

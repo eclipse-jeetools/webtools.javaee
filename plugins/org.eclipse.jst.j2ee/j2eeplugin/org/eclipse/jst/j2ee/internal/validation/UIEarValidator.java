@@ -15,14 +15,17 @@ package org.eclipse.jst.j2ee.internal.validation;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
@@ -37,6 +40,8 @@ import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.EjbModule;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.WebModule;
+import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
+import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.common.EjbRef;
 import org.eclipse.jst.j2ee.common.MessageDestinationRef;
 import org.eclipse.jst.j2ee.common.ResourceEnvRef;
@@ -50,6 +55,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ManifestExcepti
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -219,9 +225,10 @@ public class UIEarValidator extends EarValidator {
 					status = super.validateInJob(inHelper, inReporter);
 					validateModuleMaps(earModule);
 					validateManifests();
+					validateDuplicateClasspathComponentURIs(earModule);
 	//				validateUtilJarMaps(earEdit,earModule);
 	//				validateUriAlreadyExistsInEar(earEdit,earModule);
-	//				validateDocType(earEdit,earModule);					
+	//				validateDocType(earEdit,earModule);	
 				}
             }
 		return status;
@@ -240,14 +247,60 @@ public class UIEarValidator extends EarValidator {
 		return appDeploymentDescriptor;
 	}
 
+	public void validateDuplicateClasspathComponentURIs(final IVirtualComponent earComponent) {
+		if (earFile == null) {
+			return;
+		}
+		final Set moduleURIs = new HashSet();
+		final List archives = earFile.getArchiveFiles();
+		for (int i = 0; i < archives.size(); i++) {
+			final Archive anArchive = (Archive) archives.get(i);
+			moduleURIs.add(anArchive.getURI());
+		}
+
+		final Map archiveToPath = new HashMap();
+		final IVirtualReference[] components = earComponent.getReferences();
+		for (int i = 0; i < components.length; i++) {
+			IVirtualReference reference = components[i];
+			IVirtualComponent referencedComponent = reference.getReferencedComponent();
+
+			// retrieve all Java classpath component dependencies
+			if (referencedComponent instanceof J2EEModuleVirtualComponent) {
+				final IVirtualReference[] cpRefs = ((J2EEModuleVirtualComponent) referencedComponent).getJavaClasspathReferences();
+				for (int j = 0; j < cpRefs.length; j++) {
+					final IVirtualReference ref = cpRefs[j];
+					// only ../ runtime paths contribute to the EAR
+					if (ref.getRuntimePath().equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
+						String archiveName = ref.getArchiveName();
+						String[] params = {referencedComponent.getProject().getName(), archiveName};
+						if (moduleURIs.contains(archiveName)) {
+							String msg = NLS.bind(EARValidationMessageResourceHandler.CLASSPATH_COMPONENT_URI_MATCHES_ARCHIVE_URI, params);
+							addLocalizedError(msg, project);
+						} else {
+							IPath cpEntryPath= ClasspathDependencyUtil.getClasspathVirtualReferenceLocation(ref);
+							if (cpEntryPath != null) {
+								IPath existingPath = (IPath) archiveToPath.get(archiveName);
+								if (existingPath != null && !existingPath.equals(cpEntryPath)) {
+									String msg = NLS.bind(EARValidationMessageResourceHandler.DUPLICATE_CLASSPATH_COMPONENT_URI, params);
+									addLocalizedError(msg, project);
+								} else {
+									archiveToPath.put(archiveName, cpEntryPath);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
 	public void validateManifests() throws ValidationException {
 		if (earFile == null)
 			return;
 		List archives = earFile.getArchiveFiles();
 		for (int i = 0; i < archives.size(); i++) {
 
-			Archive anArchive = (Archive) archives.get(i);
-
+			final Archive anArchive = (Archive) archives.get(i);
 			IFile target = getManifestFile(anArchive);
 			if (target != null)
 				_reporter.removeMessageSubset(this, target, MANIFEST_GROUP_NAME);
