@@ -541,11 +541,11 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		return getEJBArtifactEditForWrite(aComponent);
 	}
 
-	public Archive asArchive(boolean includeSource) throws OpenFailureException {
+	public Archive asArchive(boolean includeSource, boolean includeClasspathComponents) throws OpenFailureException {
 		if (isBinary()) {
 			return ((EnterpriseBinaryComponentHelper) getBinaryComponentHelper()).accessArchive();
 		} else {
-			EJBComponentLoadStrategyImpl loader = new EJBComponentLoadStrategyImpl(getComponent());
+			EJBComponentLoadStrategyImpl loader = new EJBComponentLoadStrategyImpl(getComponent(), includeClasspathComponents);
 			loader.setExportSource(includeSource);
 			String uri = ModuleURIUtil.getHandleString(getComponent());
 			return CommonarchiveFactory.eINSTANCE.openEJBJarFile(loader, uri);

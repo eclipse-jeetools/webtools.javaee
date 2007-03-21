@@ -16,6 +16,10 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 public class EJBComponentLoadStrategyImpl extends J2EEComponentLoadStrategyImpl {
 
 	public EJBComponentLoadStrategyImpl(IVirtualComponent vComponent) {
-		super(vComponent);
+		this(vComponent, true);
+	}
+
+	public EJBComponentLoadStrategyImpl(IVirtualComponent vComponent, boolean includeClasspathComponents) {
+		super(vComponent, includeClasspathComponents);		
 	}
 }
