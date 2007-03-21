@@ -45,7 +45,6 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 		super(dataModel);
 	}
 	
-	@Override
 	public IStatus execute(final IProgressMonitor monitor, final IAdaptable info)
 			throws ExecutionException {
 		final IProject project = ProjectUtilities.getProject(model.getStringProperty(PROJECT_NAME));
