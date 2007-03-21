@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaMethodJDOMAdaptor.java,v $
- *  $Revision: 1.15 $  $Date: 2006/10/27 19:36:32 $ 
+ *  $Revision: 1.16 $  $Date: 2007/03/21 14:51:54 $ 
  */
 package org.eclipse.jem.internal.adapters.jdom;
 
@@ -415,6 +415,35 @@ public class JavaMethodJDOMAdaptor extends JDOMAdaptor implements IJavaMethodAda
 			//Failed to retrieve type parameters for any number of reasons.
 		}
 		ITypeParameter typeParam = null;
+		if (typeParameters != null && typeParameters.length > 0) {
+			for (int i = 0; i < typeParameters.length; i++) {
+				if (typeParameters[i].exists() && variableName.equals(typeParameters[i].getElementName())) {
+					typeParam = typeParameters[i];
+					break;
+				}
+			}
+			if (typeParam != null) {
+				String[] bounds = null;
+				try {
+					bounds = typeParam.getBounds();
+				} catch (JavaModelException e) {}
+				if (bounds != null && bounds.length > 0) {
+					return JDOMSearchHelper.getResolvedTypeName(bounds[0], getType(), getTypeResolutionCache());
+				} else {
+					return "java.lang.Object";
+				}
+			}
+		}
+
+		IJavaElement parent = method.getParent();
+		if (parent instanceof IType)
+		{
+			try {
+				typeParameters = ((IType)parent).getTypeParameters();
+			} catch (JavaModelException e1) {
+				//Failed to retrieve type parameters for any number of reasons.
+			}
+		}
 		if (typeParameters != null && typeParameters.length > 0) {
 			for (int i = 0; i < typeParameters.length; i++) {
 				if (typeParameters[i].exists() && variableName.equals(typeParameters[i].getElementName())) {
