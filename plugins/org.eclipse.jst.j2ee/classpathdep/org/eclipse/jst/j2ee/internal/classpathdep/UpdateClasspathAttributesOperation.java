@@ -29,7 +29,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
-import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
+import org.eclipse.jst.j2ee.classpathdep.UpdateClasspathAttributeUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
@@ -65,7 +65,7 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 							IPath runtimePath = (IPath) entriesToRuntimePath.get(entry);
 							IClasspathAttribute attrib = ClasspathDependencyUtil.checkForComponentDependencyAttribute(entry);
 							if (attrib == null) {
-								attrib = JavaCore.newClasspathAttribute(IClasspathDependencyConstants.CLASSPATH_COMPONENT_DEPENDENCY, runtimePath.toString());
+								attrib = UpdateClasspathAttributeUtil.createDependencyAttribute(runtimePath); 
 							}
 							entriesToAttrib.put(entry, attrib);
 						}
@@ -131,8 +131,8 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 						final boolean isWebApp = J2EEProjectUtilities.isDynamicWebProject(javaProject.getProject());
 						runtimePath = ClasspathDependencyUtil.getDefaultRuntimePath(isWebApp);
 					}
-					final IClasspathAttribute attrib = JavaCore.newClasspathAttribute(IClasspathDependencyConstants.CLASSPATH_COMPONENT_DEPENDENCY, runtimePath.toString());
-					entriesWithAttrib.put(entry, attrib);
+					final IClasspathAttribute attrib =  UpdateClasspathAttributeUtil.createDependencyAttribute(runtimePath);
+ 					entriesWithAttrib.put(entry, attrib);
 				}
 			} else {
 				IClasspathEntry matching = getMatchingEntryIgnoreAttributes(entriesWithAttrib, entry);
@@ -174,7 +174,7 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 		final List updatedClasspath = new ArrayList();
 		final IClasspathEntry[] rawClasspath = javaProject.getRawClasspath();
 		boolean needToUpdateClasspath = false;
-		IClasspathAttribute attrib = JavaCore.newClasspathAttribute(CLASSPATH_COMPONENT_DEPENDENCY, "");
+		IClasspathAttribute attrib = UpdateClasspathAttributeUtil.createDependencyAttribute();  
 		for (int i = 0; i < rawClasspath.length; i++) {
 			IClasspathEntry entry = rawClasspath[i];
 			final int kind = entry.getEntryKind();

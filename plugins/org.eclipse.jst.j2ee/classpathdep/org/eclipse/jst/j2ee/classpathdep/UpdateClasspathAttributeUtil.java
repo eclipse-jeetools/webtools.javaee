@@ -14,10 +14,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.internal.classpathdep.UpdateClasspathAttributesDataModelProperties;
 import org.eclipse.jst.j2ee.internal.classpathdep.UpdateClasspathAttributesDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -29,6 +32,54 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
  */
 public class UpdateClasspathAttributeUtil implements IClasspathDependencyConstants {
 
+	/**
+	 * Creates an IClasspathAttribute with the special WTP "org.eclipse.jst.component.dependency" name whose runtime path
+	 * (represented by the value) is unspecified and will therefore take the default value for the project in which it is
+	 * added. 
+	 * @return The created IClasspathAttribute.
+	 * @throws CoreException Thrown if a problem is encountered.
+	 */
+	public static IClasspathAttribute createDependencyAttribute() throws CoreException {
+		return createDependencyAttribute("");
+	}
+	
+	/**
+	 * Creates an IClasspathAttribute with the special WTP "org.eclipse.jst.component.dependency" name whose runtime path
+	 * (represented by the value) is set to the default for either a web project (/WEB-INF/lib) or non-web project (../).
+	 * @param isWebApp True if this attribute is being created for a classpath entry on a dynamic web project.
+	 * @return The created IClasspathAttribute.
+	 * @throws CoreException Thrown if a problem is encountered.
+	 */
+	public static IClasspathAttribute createDependencyAttribute(final boolean isWebApp) throws CoreException {
+		return createDependencyAttribute(ClasspathDependencyUtil.getDefaultRuntimePath(isWebApp));
+	}
+
+	/**
+	 * Creates an IClasspathAttribute with the special WTP "org.eclipse.jst.component.dependency" name with the
+	 * specified runtime path (will be used to set the attribute value).
+	 * @param runtimePath The runtime path in the deployed/exported module where resolved classpath components should
+	 * be added. Must be non-null.
+	 * @return The created IClasspathAttribute.
+	 * @throws CoreException Thrown if a problem is encountered.
+	 */
+	public static IClasspathAttribute createDependencyAttribute(final IPath runtimePath) throws CoreException {
+		return createDependencyAttribute(runtimePath.toString());
+	}
+	
+	private static IClasspathAttribute createDependencyAttribute(final String runtimePath) throws CoreException {
+		return JavaCore.newClasspathAttribute(IClasspathDependencyConstants.CLASSPATH_COMPONENT_DEPENDENCY, runtimePath);
+	}
+	
+	/**
+	 * Creates an IClasspathAttribute with the special WTP "org.eclipse.jst.component.nondependency" name. This attribute is
+	 * used on the resolved entries of classpath containers to prevent them from being exported/published.
+	 * @return The created IClasspathAttribute.
+	 * @throws CoreException Thrown if a problem is encountered.
+	 */
+	public static IClasspathAttribute createNonDependencyAttribute() throws CoreException {
+		return JavaCore.newClasspathAttribute(IClasspathDependencyConstants.CLASSPATH_COMPONENT_NON_DEPENDENCY, "");
+	}
+	
 	/**
 	 * Updates the specified Java project so that only the specified classpath entries have
 	 * the WTP component dependency attribute.
