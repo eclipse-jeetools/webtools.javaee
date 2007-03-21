@@ -649,4 +649,41 @@ public class JDK5ReflectionTests extends TestCase {
 //		assertEquals("test.dependents.Tester[][][]", returnType.getQualifiedName());
 //		assertEquals("Tester[][][]", returnType.getSimpleName());
 	}
+	/**
+	 * Test method test13 from Test class.
+	 * 
+	 * public void test13(Y param) (where Y is a class-level type parameter
+	 *
+	 */
+	public void test13() {
+		JavaHelpers testHelper = reflectClass("test.me.Test");
+		JavaClass testClass = (JavaClass) testHelper;
+		assertTrue((testClass).isExistingType());
+		
+		Method method = null;
+		List methods = testClass.getMethods();
+		for (int i = 0; i < methods.size(); i++) {
+			method = (Method) methods.get(i);
+			if (method.getName().equals("test13")) {
+				break;
+			} else {
+				method = null;
+			}
+		}
+		assertNotNull(method);
+		
+		//Verify parameters
+		List params = method.getParameters();
+		assertTrue(params.size() == 1);
+	
+		
+		// Verify Y param
+		JavaParameter param1 = (JavaParameter) params.get(0);
+		if (isReflectingSource)
+			assertTrue(param1.getName().equals("param"));
+		JavaHelpers param1Type = param1.getJavaType();
+		assertNotNull(param1Type);
+		assertEquals("java.io.Serializable", param1Type.getQualifiedName());
+		assertEquals("Serializable", param1Type.getSimpleName());
+	}
 }
