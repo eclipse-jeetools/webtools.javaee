@@ -6,6 +6,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.validation.test.internal.registry.TestcaseUtility;
 import org.eclipse.jst.validation.test.internal.registry.ValidatorTestcase;
 import org.eclipse.jst.validation.test.internal.util.BVTRunner;
+import org.eclipse.wst.validation.internal.operations.ValidatorManager;
 
 
 /**
@@ -51,6 +52,12 @@ public class ValidatorTest extends TestCase {
 			if(!getBuffer().isSuccessful(_tmd.getName())) {
 				fail(_tmd.getName() + " failed. Read the log for details. " + getBuffer().getLogFileName()); //$NON-NLS-1$
 			}
+			ValidatorManager vm = ValidatorManager.getManager();
+			ValidatorManager.addProjectBuildValidationSupport(project);
+			vm.enableValidator("ClasspathDependencyValidator");
+			vm.disableValidator("EarValidator");
+			vm.enableValidator("WarValidator", project, true, false);
+			vm.disableValidator("EJBValidator", project, true, true);
 		}
 		finally {
 			// Whether this test case fails or not, send its results to the log.
