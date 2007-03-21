@@ -238,5 +238,7 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 		return asArchive(includeSource, true);
 	}
 	
-	public abstract Archive asArchive(boolean includeSource, boolean includeClasspathComponents) throws OpenFailureException;
+	public Archive asArchive(boolean includeSource, boolean includeClasspathComponents) throws OpenFailureException {
+		return null;
+	}
 }
