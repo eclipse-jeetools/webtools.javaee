@@ -14,8 +14,11 @@ import java.io.File;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
@@ -29,6 +32,10 @@ public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 
 	public WebComponentLoadStrategyImpl(IVirtualComponent vComponent) {
 		super(vComponent);
+	}
+	
+	public WebComponentLoadStrategyImpl(IVirtualComponent vComponent, boolean includeClasspathComponents) {
+		super(vComponent, includeClasspathComponents);
 	}
 
 	public List getFiles() {
@@ -78,6 +85,8 @@ public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 					prefix += "/"; //$NON-NLS-1$
 				}
 
+				addClasspathComponentDependencies(looseComponent);
+				
 				String uri = prefix + name;
 				try {
 					Archive utilJAR = J2EEProjectUtilities.asArchive(uri, looseComponent.getProject(), isExportSource());
@@ -87,6 +96,29 @@ public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 				} catch (OpenFailureException oe) {
 					String message = ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.UNABLE_TO_LOAD_MODULE_ERROR_, new Object[]{uri, getComponent().getProject().getName(), oe.getConcatenatedMessages()}); //$NON-NLS-1$
 					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logTrace(message);
+				}
+			}
+		}
+	}
+	
+	private void addClasspathComponentDependencies(final IVirtualComponent referencedComponent) {
+		// retrieve all Java classpath component dependencies
+		if (includeClasspathComponents && referencedComponent instanceof J2EEModuleVirtualComponent) {
+			final IVirtualReference[] cpRefs = ((J2EEModuleVirtualComponent) referencedComponent).getJavaClasspathReferences();
+			for (int j = 0; j < cpRefs.length; j++) {
+				final IVirtualReference ref = cpRefs[j];
+				final IPath runtimePath = ref.getRuntimePath();
+				
+				// only process ../ mappings
+				if (ref.getReferencedComponent() instanceof VirtualArchiveComponent
+						&& runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
+					final VirtualArchiveComponent comp = (VirtualArchiveComponent) ref.getReferencedComponent();
+					File cpEntryFile = comp.getUnderlyingDiskFile();
+					if (!cpEntryFile.exists()) {
+						final IFile wbFile = comp.getUnderlyingWorkbenchFile();
+						cpEntryFile = new File(wbFile.getLocation().toOSString());
+					}
+					addExternalFile("WEB-INF/lib/" + ref.getArchiveName(), cpEntryFile);
 				}
 			}
 		}

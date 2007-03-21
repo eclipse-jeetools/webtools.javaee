@@ -36,6 +36,14 @@
                objectClass="org.eclipse.core.resources.IFile"
                nameFilter=".websettings">
          </filter>
+         <filter
+               objectClass="org.eclipse.core.resources.IFile"
+               nameFilter="org.eclipse.wst.common.component">
+         </filter>
+         <filter
+               objectClass="org.eclipse.core.resources.IFile"
+               nameFilter=".classpath">
+         </filter>
          <helper
                class="org.eclipse.jst.j2ee.internal.web.validation.UIWarHelper">
          </helper>

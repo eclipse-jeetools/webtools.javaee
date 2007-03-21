@@ -12,19 +12,38 @@ package org.eclipse.jst.j2ee.internal.web.validation;
 
 
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
+import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.WarValidator;
+import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
+import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
+import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
+import org.eclipse.wst.validation.internal.core.Message;
 import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.operations.IWorkbenchContext;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
 
@@ -87,13 +106,108 @@ public class UIWarValidator extends WarValidator {
 		IProject proj = ((IWorkbenchContext) warHelper).getProject();
 		IVirtualComponent wbModule = ComponentCore.createComponent(proj);
         if( wbModule != null && J2EEProjectUtilities.isDynamicWebProject(proj)) {           	
-			IVirtualFile webFile = wbModule.getRootFolder().getFile(J2EEConstants.WEBAPP_DD_URI);
+        	IVirtualFile webFile = wbModule.getRootFolder().getFile(J2EEConstants.WEBAPP_DD_URI);
 			if( webFile.exists()) {
-				status = super.validateInJob(inHelper, inReporter);				
+				status = super.validateInJob(inHelper, inReporter);
+				validateWebInfLibs(wbModule);
 			}
         }
         return status;
 	}	
+
+	/*
+	 * For web projects, need to validate that the classpath component dependencies (both
+	 * from this project's classpath and from the exported classpath entries of referenced
+	 * utility projects) do not conflict.
+	 */
+	private void validateWebInfLibs(final IVirtualComponent component) {
+
+		final Set webLibMappings = new HashSet();
+		
+		// get the libs currently in the WEB-INF/lib folder
+		final IVirtualFolder folder = component.getRootFolder().getFolder(WebArtifactEdit.WEBLIB);
+		try {
+			IVirtualResource[] resources = folder.members();
+			for (int i = 0; i < resources.length; i++) {
+				if (resources[i] instanceof IVirtualFile) {
+					IResource[] underlyingResources = resources[i].getUnderlyingResources();
+					for (int j = 0; j < resources.length; j++) {
+						webLibMappings.add(underlyingResources[j].getName());
+					}
+				}
+			}
+		} catch (CoreException ce) {
+			// swallow
+		}
+		final Map archiveToPath = new HashMap();
+		final IVirtualReference[] webLibs = getWebInfLibModules(component);
+		for (int i = 0; i < webLibs.length; i++) {
+			IVirtualComponent comp = webLibs[i].getReferencedComponent();
+			String name = null;
+			if (comp.isBinary()) {
+				VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
+				java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
+				if (!diskFile.exists()) {
+					IFile wbFile = archiveComp.getUnderlyingWorkbenchFile();
+					diskFile = new File(wbFile.getLocation().toOSString());
+				}
+				checkLibName(diskFile.getName(), null, webLibMappings, true);
+			} else {
+				String archiveName = webLibs[i].getArchiveName();
+				if (archiveName != null && archiveName.length() > 0) {
+					name = archiveName;
+				} else {
+					name = comp.getName() + ".jar"; //$NON-NLS-1$
+				}
+				checkLibName(name, comp.getProject(), webLibMappings, true);
+				if (comp instanceof J2EEModuleVirtualComponent) {
+					final IVirtualReference[] cpRefs = ((J2EEModuleVirtualComponent) comp).getJavaClasspathReferences();
+					for (int j = 0; j < cpRefs.length; j++) {
+						final IVirtualReference ref = cpRefs[j];
+						if (ref.getReferencedComponent() instanceof VirtualArchiveComponent) {
+							final String cpCompName = ref.getArchiveName();
+							checkLibName(cpCompName, comp.getProject(), webLibMappings, false);
+							IPath cpEntryPath= ClasspathDependencyUtil.getClasspathVirtualReferenceLocation(ref);
+							if (cpEntryPath != null) {
+								IPath existingPath = (IPath) archiveToPath.get(cpCompName);
+								if (existingPath != null && !existingPath.equals(cpEntryPath)) {
+									_reporter.addMessage(this, new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_DUPLICATE_CLASSPATH_COMPONENT_URI, new String[]{cpCompName, comp.getProject().getName()}));
+								} else {
+									archiveToPath.put(cpCompName, cpEntryPath);
+								}
+							}
+						}
+					}
+				}
+			}
+		}		
+	}
+	
+	private void checkLibName(final String name, final IProject project, final Set webLibNames, final boolean addName) {
+		if (webLibNames.contains(name)) {
+			if (project != null) {
+				_reporter.addMessage(this, new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_DUPLICATE_WEB_INF_LIB_OTHER_PROJECT, new String[]{name, project.getName()}));
+			} else {
+				_reporter.addMessage(this, new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_DUPLICATE_WEB_INF_LIB, new String[]{name}));
+			}
+		} else if (addName) {
+			webLibNames.add(name);
+		}
+	}
+	
+	private IVirtualReference[] getWebInfLibModules(final IVirtualComponent comp) {
+		WebArtifactEdit webArtifactEdit = null;
+		try {
+			webArtifactEdit = (WebArtifactEdit) ComponentUtilities.getArtifactEditForRead(comp);
+			if (webArtifactEdit != null) {
+				return webArtifactEdit.getLibModules();
+			}
+		} finally {
+			if (webArtifactEdit != null)
+				webArtifactEdit.dispose();
+		}
+		return new IVirtualReference[0];
+	}
 	
 	/**
 	 * Insert the method's description here. Creation date: (10/2/2001 6:49:26 PM)

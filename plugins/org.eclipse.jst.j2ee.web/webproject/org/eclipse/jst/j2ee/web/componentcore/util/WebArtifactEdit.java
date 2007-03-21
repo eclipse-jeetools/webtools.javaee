@@ -633,11 +633,11 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		return getWebArtifactEditForWrite(aComponent);
 	}
 
-	public Archive asArchive(boolean includeSource) throws OpenFailureException {
+	public Archive asArchive(boolean includeSource, boolean includeClasspathComponents) throws OpenFailureException {
 		if (isBinary()) {
 			return ((EnterpriseBinaryComponentHelper) getBinaryComponentHelper()).accessArchive();
 		} else {
-			WebComponentLoadStrategyImpl loader = new WebComponentLoadStrategyImpl(getComponent());
+			WebComponentLoadStrategyImpl loader = new WebComponentLoadStrategyImpl(getComponent(), includeClasspathComponents);
 			loader.setExportSource(includeSource);
 			String uri = ModuleURIUtil.getHandleString(getComponent());
 			return CommonarchiveFactory.eINSTANCE.openWARFile(loader, uri);
