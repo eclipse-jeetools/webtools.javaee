@@ -35,6 +35,7 @@
       <import plugin="org.eclipse.jst.j2ee.webservice"/>
       <import plugin="org.eclipse.jem.util"/>
       <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.jdt.launching"/>
       <import plugin="org.eclipse.wst.web"/>
       <import plugin="org.eclipse.wst.common.project.facet.core"/>
       <import plugin="org.eclipse.jst.server.core"/>

@@ -57,15 +57,15 @@ public class DependencyUtil {
 		IProject[] projects = ProjectUtility.getAllProjects();
 		for (int i = 0; i < projects.length; i++) {
 			final IProject p = projects[i];
-			final String family = p.getName() + OperationTestCase.VALIDATOR_JOB_FAMILY;
-			final Job[] jobs = jobMgr.find(family);
-			if (jobs.length > 0) {
-				try {
-					Platform.getJobManager().join(family, null);
-				} catch (InterruptedException ie) {
-				}
-			}
+			waitForValidationJobs(p);
 		}
+	}
+	
+	public static void waitForValidationJobs(final IProject project) {
+		// Wait for all validation jobs to end
+		final IJobManager jobMgr = Platform.getJobManager();
+		final String family = project.getName() + OperationTestCase.VALIDATOR_JOB_FAMILY;
+		waitForJobs(family);
 	}
 	
 	public static void waitForProjectRefactoringJobs() {
@@ -88,6 +88,9 @@ public class DependencyUtil {
 				try {
 					jobMgr.join(family, null);
 				} catch (InterruptedException ie) {
+					// make one last check for jobs before exiting
+					i = 999;
+					continue;
 				}
 				break;
 			}

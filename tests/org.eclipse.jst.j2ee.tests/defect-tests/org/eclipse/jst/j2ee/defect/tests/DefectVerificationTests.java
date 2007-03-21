@@ -199,10 +199,24 @@ public class DefectVerificationTests extends OperationTestCase {
 		}
 		runAndVerify(model);
 		IVirtualComponent component = (IVirtualComponent) model.getProperty(IEARComponentImportDataModelProperties.COMPONENT);
-		EARArtifactEdit artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
-		EARFile earFile = (EARFile) artifactEdit.asArchive(true);
-		earFile.getEJBReferences(true, false);
-		artifactEdit.dispose();
+		EARArtifactEdit artifactEdit = null;
+		try {
+			artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
+			EARFile earFile = null;
+			try {
+				earFile = (EARFile) artifactEdit.asArchive(true);
+				earFile.getEJBReferences(true, false);
+			} finally {
+				if (earFile != null) {
+					earFile.close();
+				}
+			}
+		} finally {
+			if (artifactEdit != null) {
+				artifactEdit.dispose();
+			}
+
+		}
 	}
 
 	/**

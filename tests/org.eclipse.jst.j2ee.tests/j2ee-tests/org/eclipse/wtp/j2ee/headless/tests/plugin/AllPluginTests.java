@@ -45,6 +45,7 @@ public class AllPluginTests extends TestSuite {
 	      addTest(ProjectMigrationTest.suite());
 	      addTest(AnnotationProviderTest.suite());
 	      addTest(org.eclipse.jst.j2ee.dependency.tests.AllTests.suite());
+	      addTest(org.eclipse.jst.j2ee.classpath.tests.AllTests.suite());
           addTest(WebAppLibrariesContainerTests.suite());
           addTest(DefectVerificationTestsSuite.suite());
     }
