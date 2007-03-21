@@ -11,10 +11,14 @@
 package org.eclipse.jst.j2ee.internal.jca.archive.operations;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -110,19 +114,20 @@ public class ConnectorComponentLoadStrategyImpl extends ComponentLoadStrategyImp
 
 		int sourceContainerSegmentCount = sourceContainer.getProjectRelativePath().segmentCount();
 		boolean isModuleRoot = knownDD.getProjectRelativePath().toString().startsWith(sourceContainer.getProjectRelativePath().toString());
-		List iFiles = new ArrayList();
-		boolean foundJava = gatherFilesForJAR(iFiles, sourceContainer, isModuleRoot, false, sourceContainerSegmentCount);
+		Set iFilesSet = new HashSet();
+		boolean foundJava = gatherFilesForJAR(iFilesSet, sourceContainer, isModuleRoot, false, sourceContainerSegmentCount);
 		if (!isModuleRoot || foundJava) {
-			for (int i = 0; i < iFiles.size(); i++) {
-				filesHolder.removeIFile((IFile) iFiles.get(i));
+			List iFilesList = Collections.list(Collections.enumeration(iFilesSet));
+			for (int i = 0; i < iFilesList.size(); i++) {
+				filesHolder.removeIFile((IFile) iFilesList.get(i));
 			}
-			File nestedArchive = createNestedArchive(iFiles, sourceContainer, javaOutputFolder);
+			File nestedArchive = createNestedArchive(iFilesList, sourceContainer, javaOutputFolder);
 			return nestedArchive;
 		}
 		return null;
 	}
 
-	private boolean gatherFilesForJAR(List iFiles, IContainer current, boolean isModuleRoot, boolean foundJava, int sourceContainerSegmentCount) {
+	private boolean gatherFilesForJAR(Collection iFiles, IContainer current, boolean isModuleRoot, boolean foundJava, int sourceContainerSegmentCount) {
 		IResource[] members;
 		try {
 			members = current.members();
@@ -138,7 +143,7 @@ public class ConnectorComponentLoadStrategyImpl extends ComponentLoadStrategyImp
 				if (belongsInNestedJAR(srcFile, isModuleRoot)) {
 					if (isJava(srcFile)) {
 						if (exportSource) {
-							iFiles.add(srcFile);
+							iFiles.add(srcFile); //don't need to check duplicates here
 						}
 						String className = srcFile.getProjectRelativePath().removeFirstSegments(sourceContainerSegmentCount).toString();
 						className = className.substring(0, className.length() - dotJavaLength);
@@ -147,11 +152,17 @@ public class ConnectorComponentLoadStrategyImpl extends ComponentLoadStrategyImp
 							Iterator iterator = classes.iterator();
 							while (iterator.hasNext()) {
 								IFile clazz = (IFile) iterator.next();
+								if(!iFiles.contains(clazz)){
+									//.class need to check for duplicates
 								iFiles.add(clazz);
 							}
 						}
+						}
 					} else {
+						if(!iFiles.contains(srcFile)){
+							//if it's not src, then it could be .class and need to check for duplicates
 						iFiles.add(srcFile);
+					}
 					}
 					if (isModuleRoot)
 						foundJava = foundJava || isJava(srcFile) || isClass(srcFile);
