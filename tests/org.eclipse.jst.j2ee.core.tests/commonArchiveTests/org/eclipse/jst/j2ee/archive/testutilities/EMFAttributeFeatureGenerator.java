@@ -117,6 +117,12 @@ public class EMFAttributeFeatureGenerator {
 			return "1.5";
 		else if (att.getFeature().isMany())
 			return createCollection(att);
+		else if (meta.getInstanceClassName().equals("java.lang.String"))
+			return  generateRandomAttributeString(att);
+		else if (meta.getInstanceClassName().equals("boolean"))
+			return  generateRandomBoolean(att);
+		else if (meta.getInstanceClassName().equals("java.util.List"))
+			return  createCollection(att);
 		switch (meta.getClassifierID()) {
 			case EcorePackage.ESTRING:
 				return generateRandomAttributeString(att);
@@ -218,8 +224,12 @@ public class EMFAttributeFeatureGenerator {
 				versionHolder = "1.3";
 				break;
 			}
-			else {
+			else if(version == VERSION_1_4){
 				versionHolder = "1.4";
+				break;
+			}
+			else {
+				versionHolder = "5.0";
 				break;
 			}
 		case APP_CLIENT :
@@ -231,8 +241,12 @@ public class EMFAttributeFeatureGenerator {
 				versionHolder = "1.3";
 				break;
 			}
-			else {
+			else if(version == VERSION_1_4) {
 				versionHolder = "1.4";
+				break;
+			}
+			else {
+				versionHolder = "5.0";
 				break;
 			}
 		case EJB :
@@ -244,8 +258,12 @@ public class EMFAttributeFeatureGenerator {
 				versionHolder = "2.0";
 				break;
 			}
-			else {
+			else if(version == VERSION_1_4) {
 				versionHolder = "2.1";
+				break;
+			}
+			else {
+				versionHolder = "3.0";
 				break;
 			}
 		case CONNECTOR :
@@ -270,8 +288,12 @@ public class EMFAttributeFeatureGenerator {
 				versionHolder = "2.3";
 				break;
 			}
-			else { 
+			else if(version == VERSION_1_4) {
 				versionHolder = "2.4";
+				break;
+			}
+			else { 
+				versionHolder = "2.5";
 				break;
 			}
 		}
@@ -344,7 +366,7 @@ public class EMFAttributeFeatureGenerator {
 
 	//REVISIT
     protected static Object generateRandomShort(EAttributeDescriptor att) {
-        return new Short(generateRandomAttributeString(att));
+        return Short.parseShort(String.valueOf(generateNumber(att)));
     }
 
     protected static Object generateRandomDouble() {

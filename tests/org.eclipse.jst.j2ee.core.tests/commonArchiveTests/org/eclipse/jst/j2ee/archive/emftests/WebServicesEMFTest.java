@@ -51,8 +51,8 @@ import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
 public class WebServicesEMFTest extends GeneralEMFPopulationTest {
-	EARFile earFile;
-	EJBJarFile ejbFile;
+	public EARFile earFile;
+	public EJBJarFile ejbFile;
 	int currentVersion = J2EEVersionConstants.J2EE_1_3_ID;
 	private int createdInterfaceMaps = 0;
 

@@ -15,6 +15,7 @@ import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.client.ClientPackage;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.jca.JcaPackage;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
@@ -46,7 +47,7 @@ public class J2EEVersionCheck {
 				populate_1_3List(type);
 			}
 		}
-		else if(version == VERSION_1_4){
+		else if(version == VERSION_1_4 || version == J2EEVersionConstants.JEE_5_0_ID){
 			return true;
 		}
 		
@@ -63,7 +64,7 @@ public class J2EEVersionCheck {
 				populate_1_3List(type);
 			}
 		}
-		else if(version == VERSION_1_4){
+		else if(version == VERSION_1_4 || version == J2EEVersionConstants.JEE_5_0_ID){
 			return true;
 		}
 		

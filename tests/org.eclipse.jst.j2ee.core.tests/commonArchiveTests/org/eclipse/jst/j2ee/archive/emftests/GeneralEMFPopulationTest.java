@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,10 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.util.BasicFeatureMap;
+import org.eclipse.emf.ecore.util.FeatureMapUtil;
 import org.eclipse.jem.java.JavaRefPackage;
+import org.eclipse.jst.j2ee.archive.testutilities.EAttributeDescriptor;
 import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
 import org.eclipse.jst.j2ee.archive.testutilities.J2EEVersionCheck;
 import org.eclipse.jst.j2ee.archive.testutilities.TestUtilities;
@@ -147,10 +151,22 @@ public class GeneralEMFPopulationTest extends BaseTestCase {
             return;
         if (ref.isMany()) {
             List list = (List) eObject.eGet(ref);
+            if (list instanceof BasicFeatureMap) {
+            	BasicFeatureMap aMap = (BasicFeatureMap)list;
+            	if (value instanceof Collection) {
+            		for (Iterator iterator = ((Collection)value).iterator(); iterator.hasNext();) {
+						Object obj = iterator.next();
+						aMap.add(FeatureMapUtil.createEntry(ref, obj));
+					}
+            	} else aMap.add(FeatureMapUtil.createEntry(ref, value));
+            	
+            } else {
             if (value instanceof Collection)
-                list.addAll((Collection) value);
+            	list.addAll((Collection) value);
+                
             else
                 list.add(value);
+            }
         } else {
             eObject.eSet(ref, value);
         }
@@ -172,6 +188,8 @@ public class GeneralEMFPopulationTest extends BaseTestCase {
             EAttribute att = (EAttribute) attributes.get(i);
             if (eObject instanceof EJBLocalRef && (att.equals(CommonPackage.eINSTANCE.getEjbRef_Home()) || att.equals(CommonPackage.eINSTANCE.getEjbRef_Remote())))
             	continue;
+            EAttributeDescriptor desc = new EAttributeDescriptor(att,eObject.eClass());
+            if (desc.getFeature().getName().equals("group")) continue;
             primPopulateAttrbute(eObject, att);
         }
     }
