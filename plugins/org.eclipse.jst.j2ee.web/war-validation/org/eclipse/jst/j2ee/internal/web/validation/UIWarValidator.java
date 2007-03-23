@@ -131,7 +131,7 @@ public class UIWarValidator extends WarValidator {
 			for (int i = 0; i < resources.length; i++) {
 				if (resources[i] instanceof IVirtualFile) {
 					IResource[] underlyingResources = resources[i].getUnderlyingResources();
-					for (int j = 0; j < resources.length; j++) {
+					for (int j = 0; j < underlyingResources.length; j++) {
 						webLibMappings.add(underlyingResources[j].getName());
 					}
 				}
