@@ -41,6 +41,7 @@
       <import plugin="org.eclipse.jst.server.core"/>
       <import plugin="org.eclipse.jst.common.annotations.core"/>
       <import plugin="org.eclipse.wst.validation"/>
+      <import plugin="org.eclipse.jst.jee"/>
    </requires>
    <extension
          point="org.eclipse.wst.common.tests.collector.suites">
