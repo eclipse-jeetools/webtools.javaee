@@ -40,7 +40,8 @@ public class AllTests extends TestSuite {
        addTest(WebProjectCreationOperationTest.suite());
        addTest(WebDeployTest.suite());
        //addTest(StaticWebProjectCreationOperationTest.suite());
-       addTest(AddServletOperationTest.suite());
+       //bug 179023 - comment out this test for now.
+       //addTest(AddServletOperationTest.suite());
        // addTest(WebComponentCreationTest.suite());
 		//addTest(new SimpleTestSuite(WebSaveStrategyTests.class));
     }
