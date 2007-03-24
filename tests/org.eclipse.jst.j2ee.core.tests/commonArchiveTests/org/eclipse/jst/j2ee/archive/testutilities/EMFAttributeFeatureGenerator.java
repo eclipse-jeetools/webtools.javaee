@@ -366,7 +366,7 @@ public class EMFAttributeFeatureGenerator {
 
 	//REVISIT
     protected static Object generateRandomShort(EAttributeDescriptor att) {
-        return Short.parseShort(String.valueOf(generateNumber(att)));
+        return new Short(Short.parseShort(String.valueOf(generateNumber(att))));
     }
 
     protected static Object generateRandomDouble() {
