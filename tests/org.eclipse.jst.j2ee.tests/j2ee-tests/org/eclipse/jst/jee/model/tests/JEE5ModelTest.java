@@ -45,7 +45,7 @@ public class JEE5ModelTest extends GeneralEMFPopulationTest {
         return new SimpleTestSuite(JEE5ModelTest.class);
     }
     
-    @Override
+    
 	protected void setUp() throws Exception {
 		// TODO Auto-generated method stub
 		super.setUp();
@@ -165,7 +165,7 @@ public class JEE5ModelTest extends GeneralEMFPopulationTest {
 
 
 
-	@Override
+	
 	protected void tearDown() throws Exception {
 		// Don't delete these files
 	}
