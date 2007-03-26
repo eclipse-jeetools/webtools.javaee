@@ -987,10 +987,8 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 						|| facetedProject.hasProjectFacet(jcaFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToConnectorVersionID(J2EEVersionConstants.J2EE_1_3_ID))))
 						);
 			} else if(isUtilityProject(facetedProject)){
-				IProjectFacet utilityFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_UTILITY_MODULE);
-				ret = (facetedProject.hasProjectFacet(utilityFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToConnectorVersionID(J2EEVersionConstants.J2EE_1_4_ID))))
-						|| facetedProject.hasProjectFacet(utilityFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToConnectorVersionID(J2EEVersionConstants.J2EE_1_3_ID))))
-						);
+				// not sure if there is a better way
+				ret = true;
 			} 
 		} catch (CoreException e) {
 			// TODO Auto-generated catch block
