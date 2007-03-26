@@ -8,7 +8,7 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.internal.deployables;
+package org.eclipse.jst.jee.internal.deployables;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +27,7 @@ import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -45,12 +46,12 @@ import org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate;
 /**
  * J2EE module factory.
  */
-public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
+public class JEEDeployableFactory extends ProjectModuleFactoryDelegate {
 	protected Map moduleDelegates = new HashMap(5);
 	
 	public static final String ID = "org.eclipse.jst.j2ee.server"; //$NON-NLS-1$
 
-	public J2EEDeployableFactory() {
+	public JEEDeployableFactory() {
 		super();
 	}
 
@@ -83,19 +84,20 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 	protected IModule[] createModuleDelegates(IVirtualComponent component) {
 		List projectModules = new ArrayList();
 		try {
-			if(J2EEProjectUtilities.isLegacyJ2EEProject(component.getProject())){
+			if(J2EEProjectUtilities.isJEEProject(component.getProject())) {
 				IModule module = null;
 				String type = J2EEProjectUtilities.getJ2EEProjectType(component.getProject());
-				String version = J2EEProjectUtilities.getJ2EEProjectVersion(component.getProject());
-				module = createModule(component.getDeployedName(), component.getDeployedName(), type, version, component.getProject());
-				J2EEFlexProjDeployable moduleDelegate = new J2EEFlexProjDeployable(component.getProject(), component);
-				moduleDelegates.put(module, moduleDelegate);
-				projectModules.add(module);
-
+				if (type != null && !type.equals("")) {
+					String version = J2EEProjectUtilities.getJ2EEProjectVersion(component.getProject());
+					module = createModule(component.getDeployedName(), component.getDeployedName(), type, version, component.getProject());
+					JEEFlexProjDeployable moduleDelegate = new JEEFlexProjDeployable(component.getProject(), component);
+					moduleDelegates.put(module, moduleDelegate);
+					projectModules.add(module);
+				}
 				// Check to add any binary modules
 				if (J2EEProjectUtilities.ENTERPRISE_APPLICATION.equals(type))
 					projectModules.addAll(Arrays.asList(createBinaryModules(component)));
-			} else  {
+			} else{
 				return null;
 			}
 		} catch (Exception e) {
@@ -104,6 +106,7 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 		return (IModule[]) projectModules.toArray(new IModule[projectModules.size()]);
 	}
 	
+
 	protected IModule[] createBinaryModules(IVirtualComponent component) {
 		List projectModules = new ArrayList();
 		EARArtifactEdit earEdit = null;

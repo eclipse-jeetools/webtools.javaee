@@ -111,5 +111,28 @@
       </package>
    </extension>
 
- 
+  <extension
+         point="org.eclipse.wst.server.core.moduleFactories">
+      <moduleFactory
+            projects="true"
+            class="org.eclipse.jst.jee.internal.deployables.JEEDeployableFactory"
+            id="org.eclipse.jst.jee.server">
+         <moduleType
+               types="jst.ear"
+               versions="5.0">
+         </moduleType>
+         <moduleType
+               types="jst.appclient"
+               versions="5.0">
+         </moduleType>
+         <moduleType
+               types="jst.web"
+               versions="2.5">
+         </moduleType>
+         <moduleType
+               types="jst.ejb"
+               versions="3.0">
+         </moduleType>
+      </moduleFactory>
+   </extension>
 </plugin>

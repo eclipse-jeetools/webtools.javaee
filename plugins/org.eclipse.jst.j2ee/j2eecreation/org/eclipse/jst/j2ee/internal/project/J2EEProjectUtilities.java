@@ -60,7 +60,9 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentLoadStrategyImpl;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.componentcore.AppClientBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.componentcore.EJBBinaryComponentHelper;
@@ -904,5 +906,96 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 	 */
 	public static void setServerContextRoot(IProject project, String contextRoot) {
 		ComponentUtilities.setServerContextRoot(project, contextRoot);
+	}
+	
+	/**
+	 * @param project
+	 * @return true, if jee version 5.0 (or their respective ejb, web, app versions)
+	 * , it must be noted that this method only looks at the facet & their versions to determine 
+	 * the jee level. It does not read deployment descriptors for performance reasons.
+	 */
+	public static boolean isJEEProject(IProject project){
+		boolean ret = false;
+		
+		IFacetedProject facetedProject;
+		try {
+			facetedProject = ProjectFacetsManager.create(project);
+			if (facetedProject == null)
+				return false;
+			if(isEARProject(facetedProject)){
+				IProjectFacet earFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE);
+				ret = facetedProject.hasProjectFacet(earFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.JEE_5_0_ID)));
+			} else if(isDynamicWebProject(facetedProject)){
+				IProjectFacet webFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE);
+				ret = facetedProject.hasProjectFacet(webFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToWebVersionID(J2EEVersionConstants.JEE_5_0_ID))));
+			} else if(isEJBProject(facetedProject)){
+				IProjectFacet ejbFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EJB_MODULE);
+				ret = facetedProject.hasProjectFacet(ejbFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToEJBVersionID(J2EEVersionConstants.JEE_5_0_ID))));
+			} else if(isApplicationClientProject(facetedProject)){
+				IProjectFacet appFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_APPCLIENT_MODULE);
+				ret = facetedProject.hasProjectFacet(appFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.JEE_5_0_ID)));
+			}
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	/**
+	 * @param project
+	 * @return true, if j2ee version 1.2, 1.3, 1.4 (or their respective ejb, web, app versions)
+	 * , it must be noted that this method only looks at the facet & their versions to determine 
+	 * the j2ee level. It does not read deployment descriptors for performance reasons.
+	 */
+	public static boolean isLegacyJ2EEProject(IProject project){
+		boolean ret = false;
+		
+		IFacetedProject facetedProject;
+		try {
+			facetedProject = ProjectFacetsManager.create(project);
+			if (facetedProject == null)
+				return false;
+			
+			if(isEARProject(facetedProject)){
+				IProjectFacet earFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE);
+				ret = (facetedProject.hasProjectFacet(earFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.J2EE_1_4_ID)))
+						|| facetedProject.hasProjectFacet(earFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.J2EE_1_3_ID)))
+						|| facetedProject.hasProjectFacet(earFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.J2EE_1_2_ID)))
+					);
+			} else if(isDynamicWebProject(facetedProject)){
+				IProjectFacet webFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE);
+				ret = (facetedProject.hasProjectFacet(webFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToWebVersionID(J2EEVersionConstants.J2EE_1_4_ID))))
+						|| facetedProject.hasProjectFacet(webFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToWebVersionID(J2EEVersionConstants.J2EE_1_3_ID))))
+						|| facetedProject.hasProjectFacet(webFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToWebVersionID(J2EEVersionConstants.J2EE_1_2_ID))))
+						);
+			} else if(isEJBProject(facetedProject)){
+				IProjectFacet ejbFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EJB_MODULE);
+				ret = (facetedProject.hasProjectFacet(ejbFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToEJBVersionID(J2EEVersionConstants.J2EE_1_4_ID))))
+						|| facetedProject.hasProjectFacet(ejbFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToEJBVersionID(J2EEVersionConstants.J2EE_1_3_ID))))
+						|| facetedProject.hasProjectFacet(ejbFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToEJBVersionID(J2EEVersionConstants.J2EE_1_2_ID))))
+						);
+			} else if(isApplicationClientProject(facetedProject)){
+				IProjectFacet appFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_APPCLIENT_MODULE);
+				ret = (facetedProject.hasProjectFacet(appFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.J2EE_1_4_ID)))
+						|| facetedProject.hasProjectFacet(appFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.J2EE_1_3_ID)))
+						|| facetedProject.hasProjectFacet(appFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.J2EE_1_2_ID)))
+						);
+			} else if(isJCAProject(facetedProject)){
+				IProjectFacet jcaFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_CONNECTOR_MODULE);
+				ret = (facetedProject.hasProjectFacet(jcaFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToConnectorVersionID(J2EEVersionConstants.J2EE_1_4_ID))))
+						|| facetedProject.hasProjectFacet(jcaFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToConnectorVersionID(J2EEVersionConstants.J2EE_1_3_ID))))
+						);
+			} else if(isUtilityProject(facetedProject)){
+				IProjectFacet utilityFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_UTILITY_MODULE);
+				ret = (facetedProject.hasProjectFacet(utilityFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToConnectorVersionID(J2EEVersionConstants.J2EE_1_4_ID))))
+						|| facetedProject.hasProjectFacet(utilityFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToConnectorVersionID(J2EEVersionConstants.J2EE_1_3_ID))))
+						);
+			} 
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ret;
 	}
 }

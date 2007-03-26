@@ -18,7 +18,10 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wst.web,
  org.eclipse.jst.j2ee.core,
  org.eclipse.core.commands,
+ org.eclipse.wst.server.core,
+ org.eclipse.wst.common.emfworkbench.integration,
  org.eclipse.emf.ecore,
+ org.eclipse.jst.server.core,
  org.eclipse.emf.ecore.xmi
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.jst.javaee.application,
