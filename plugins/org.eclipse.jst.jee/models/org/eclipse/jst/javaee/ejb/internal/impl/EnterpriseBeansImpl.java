@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: EnterpriseBeanImpl.java,v 1.1 2007/03/20 18:04:37 jsholl Exp $
+ * $Id: EnterpriseBeansImpl.java,v 1.1 2007/03/26 21:04:14 jsholl Exp $
  */
 package org.eclipse.jst.javaee.ejb.internal.impl;
 
@@ -22,28 +22,28 @@ import org.eclipse.emf.ecore.util.BasicFeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.eclipse.jst.javaee.ejb.EnterpriseBean;
+import org.eclipse.jst.javaee.ejb.EnterpriseBeans;
 
 import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Enterprise Bean</b></em>'.
+ * An implementation of the model object '<em><b>Enterprise Beans</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EnterpriseBeanImpl#getGroup <em>Group</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EnterpriseBeanImpl#getSessionBeans <em>Session Beans</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EnterpriseBeanImpl#getEntityBeans <em>Entity Beans</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EnterpriseBeanImpl#getMessageDrivenBeans <em>Message Driven Beans</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EnterpriseBeanImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EnterpriseBeansImpl#getGroup <em>Group</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EnterpriseBeansImpl#getSessionBeans <em>Session Beans</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EnterpriseBeansImpl#getEntityBeans <em>Entity Beans</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EnterpriseBeansImpl#getMessageDrivenBeans <em>Message Driven Beans</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EnterpriseBeansImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class EnterpriseBeanImpl extends EObjectImpl implements EnterpriseBean {
+public class EnterpriseBeansImpl extends EObjectImpl implements EnterpriseBeans {
 	/**
 	 * The cached value of the '{@link #getGroup() <em>Group</em>}' attribute list.
 	 * <!-- begin-user-doc -->
@@ -79,7 +79,7 @@ public class EnterpriseBeanImpl extends EObjectImpl implements EnterpriseBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EnterpriseBeanImpl() {
+	protected EnterpriseBeansImpl() {
 		super();
 	}
 
@@ -89,7 +89,7 @@ public class EnterpriseBeanImpl extends EObjectImpl implements EnterpriseBean {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return EjbPackage.Literals.ENTERPRISE_BEAN;
+		return EjbPackage.Literals.ENTERPRISE_BEANS;
 	}
 
 	/**
@@ -99,7 +99,7 @@ public class EnterpriseBeanImpl extends EObjectImpl implements EnterpriseBean {
 	 */
 	public FeatureMap getGroup() {
 		if (group == null) {
-			group = new BasicFeatureMap(this, EjbPackage.ENTERPRISE_BEAN__GROUP);
+			group = new BasicFeatureMap(this, EjbPackage.ENTERPRISE_BEANS__GROUP);
 		}
 		return group;
 	}
@@ -110,7 +110,7 @@ public class EnterpriseBeanImpl extends EObjectImpl implements EnterpriseBean {
 	 * @generated
 	 */
 	public List getSessionBeans() {
-		return ((FeatureMap)getGroup()).list(EjbPackage.Literals.ENTERPRISE_BEAN__SESSION_BEANS);
+		return ((FeatureMap)getGroup()).list(EjbPackage.Literals.ENTERPRISE_BEANS__SESSION_BEANS);
 	}
 
 	/**
@@ -119,7 +119,7 @@ public class EnterpriseBeanImpl extends EObjectImpl implements EnterpriseBean {
 	 * @generated
 	 */
 	public List getEntityBeans() {
-		return ((FeatureMap)getGroup()).list(EjbPackage.Literals.ENTERPRISE_BEAN__ENTITY_BEANS);
+		return ((FeatureMap)getGroup()).list(EjbPackage.Literals.ENTERPRISE_BEANS__ENTITY_BEANS);
 	}
 
 	/**
@@ -128,7 +128,7 @@ public class EnterpriseBeanImpl extends EObjectImpl implements EnterpriseBean {
 	 * @generated
 	 */
 	public List getMessageDrivenBeans() {
-		return ((FeatureMap)getGroup()).list(EjbPackage.Literals.ENTERPRISE_BEAN__MESSAGE_DRIVEN_BEANS);
+		return ((FeatureMap)getGroup()).list(EjbPackage.Literals.ENTERPRISE_BEANS__MESSAGE_DRIVEN_BEANS);
 	}
 
 	/**
@@ -149,7 +149,7 @@ public class EnterpriseBeanImpl extends EObjectImpl implements EnterpriseBean {
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.ENTERPRISE_BEAN__ID, oldId, id));
+			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.ENTERPRISE_BEANS__ID, oldId, id));
 	}
 
 	/**
@@ -159,13 +159,13 @@ public class EnterpriseBeanImpl extends EObjectImpl implements EnterpriseBean {
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case EjbPackage.ENTERPRISE_BEAN__GROUP:
+			case EjbPackage.ENTERPRISE_BEANS__GROUP:
 				return ((InternalEList)getGroup()).basicRemove(otherEnd, msgs);
-			case EjbPackage.ENTERPRISE_BEAN__SESSION_BEANS:
+			case EjbPackage.ENTERPRISE_BEANS__SESSION_BEANS:
 				return ((InternalEList)getSessionBeans()).basicRemove(otherEnd, msgs);
-			case EjbPackage.ENTERPRISE_BEAN__ENTITY_BEANS:
+			case EjbPackage.ENTERPRISE_BEANS__ENTITY_BEANS:
 				return ((InternalEList)getEntityBeans()).basicRemove(otherEnd, msgs);
-			case EjbPackage.ENTERPRISE_BEAN__MESSAGE_DRIVEN_BEANS:
+			case EjbPackage.ENTERPRISE_BEANS__MESSAGE_DRIVEN_BEANS:
 				return ((InternalEList)getMessageDrivenBeans()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -178,16 +178,16 @@ public class EnterpriseBeanImpl extends EObjectImpl implements EnterpriseBean {
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EjbPackage.ENTERPRISE_BEAN__GROUP:
+			case EjbPackage.ENTERPRISE_BEANS__GROUP:
 				if (coreType) return getGroup();
 				return ((FeatureMap.Internal)getGroup()).getWrapper();
-			case EjbPackage.ENTERPRISE_BEAN__SESSION_BEANS:
+			case EjbPackage.ENTERPRISE_BEANS__SESSION_BEANS:
 				return getSessionBeans();
-			case EjbPackage.ENTERPRISE_BEAN__ENTITY_BEANS:
+			case EjbPackage.ENTERPRISE_BEANS__ENTITY_BEANS:
 				return getEntityBeans();
-			case EjbPackage.ENTERPRISE_BEAN__MESSAGE_DRIVEN_BEANS:
+			case EjbPackage.ENTERPRISE_BEANS__MESSAGE_DRIVEN_BEANS:
 				return getMessageDrivenBeans();
-			case EjbPackage.ENTERPRISE_BEAN__ID:
+			case EjbPackage.ENTERPRISE_BEANS__ID:
 				return getId();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -200,22 +200,22 @@ public class EnterpriseBeanImpl extends EObjectImpl implements EnterpriseBean {
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EjbPackage.ENTERPRISE_BEAN__GROUP:
+			case EjbPackage.ENTERPRISE_BEANS__GROUP:
 				((FeatureMap.Internal)getGroup()).set(newValue);
 				return;
-			case EjbPackage.ENTERPRISE_BEAN__SESSION_BEANS:
+			case EjbPackage.ENTERPRISE_BEANS__SESSION_BEANS:
 				getSessionBeans().clear();
 				getSessionBeans().addAll((Collection)newValue);
 				return;
-			case EjbPackage.ENTERPRISE_BEAN__ENTITY_BEANS:
+			case EjbPackage.ENTERPRISE_BEANS__ENTITY_BEANS:
 				getEntityBeans().clear();
 				getEntityBeans().addAll((Collection)newValue);
 				return;
-			case EjbPackage.ENTERPRISE_BEAN__MESSAGE_DRIVEN_BEANS:
+			case EjbPackage.ENTERPRISE_BEANS__MESSAGE_DRIVEN_BEANS:
 				getMessageDrivenBeans().clear();
 				getMessageDrivenBeans().addAll((Collection)newValue);
 				return;
-			case EjbPackage.ENTERPRISE_BEAN__ID:
+			case EjbPackage.ENTERPRISE_BEANS__ID:
 				setId((String)newValue);
 				return;
 		}
@@ -229,19 +229,19 @@ public class EnterpriseBeanImpl extends EObjectImpl implements EnterpriseBean {
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EjbPackage.ENTERPRISE_BEAN__GROUP:
+			case EjbPackage.ENTERPRISE_BEANS__GROUP:
 				getGroup().clear();
 				return;
-			case EjbPackage.ENTERPRISE_BEAN__SESSION_BEANS:
+			case EjbPackage.ENTERPRISE_BEANS__SESSION_BEANS:
 				getSessionBeans().clear();
 				return;
-			case EjbPackage.ENTERPRISE_BEAN__ENTITY_BEANS:
+			case EjbPackage.ENTERPRISE_BEANS__ENTITY_BEANS:
 				getEntityBeans().clear();
 				return;
-			case EjbPackage.ENTERPRISE_BEAN__MESSAGE_DRIVEN_BEANS:
+			case EjbPackage.ENTERPRISE_BEANS__MESSAGE_DRIVEN_BEANS:
 				getMessageDrivenBeans().clear();
 				return;
-			case EjbPackage.ENTERPRISE_BEAN__ID:
+			case EjbPackage.ENTERPRISE_BEANS__ID:
 				setId(ID_EDEFAULT);
 				return;
 		}
@@ -255,15 +255,15 @@ public class EnterpriseBeanImpl extends EObjectImpl implements EnterpriseBean {
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EjbPackage.ENTERPRISE_BEAN__GROUP:
+			case EjbPackage.ENTERPRISE_BEANS__GROUP:
 				return group != null && !group.isEmpty();
-			case EjbPackage.ENTERPRISE_BEAN__SESSION_BEANS:
+			case EjbPackage.ENTERPRISE_BEANS__SESSION_BEANS:
 				return !getSessionBeans().isEmpty();
-			case EjbPackage.ENTERPRISE_BEAN__ENTITY_BEANS:
+			case EjbPackage.ENTERPRISE_BEANS__ENTITY_BEANS:
 				return !getEntityBeans().isEmpty();
-			case EjbPackage.ENTERPRISE_BEAN__MESSAGE_DRIVEN_BEANS:
+			case EjbPackage.ENTERPRISE_BEANS__MESSAGE_DRIVEN_BEANS:
 				return !getMessageDrivenBeans().isEmpty();
-			case EjbPackage.ENTERPRISE_BEAN__ID:
+			case EjbPackage.ENTERPRISE_BEANS__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		}
 		return super.eIsSet(featureID);
@@ -286,4 +286,4 @@ public class EnterpriseBeanImpl extends EObjectImpl implements EnterpriseBean {
 		return result.toString();
 	}
 
-} //EnterpriseBeanImpl
+} //EnterpriseBeansImpl

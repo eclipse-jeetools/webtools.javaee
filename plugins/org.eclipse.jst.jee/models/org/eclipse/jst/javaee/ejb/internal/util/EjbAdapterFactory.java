@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: EjbAdapterFactory.java,v 1.1 2007/03/20 18:04:41 jsholl Exp $
+ * $Id: EjbAdapterFactory.java,v 1.2 2007/03/26 21:04:15 jsholl Exp $
  */
 package org.eclipse.jst.javaee.ejb.internal.util;
 
@@ -108,8 +108,8 @@ public class EjbAdapterFactory extends AdapterFactoryImpl {
 			public Object caseEJBRelationshipRole(EJBRelationshipRole object) {
 				return createEJBRelationshipRoleAdapter();
 			}
-			public Object caseEnterpriseBean(EnterpriseBean object) {
-				return createEnterpriseBeanAdapter();
+			public Object caseEnterpriseBeans(EnterpriseBeans object) {
+				return createEnterpriseBeansAdapter();
 			}
 			public Object caseEntityBean(EntityBean object) {
 				return createEntityBeanAdapter();
@@ -355,16 +355,16 @@ public class EjbAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.ejb.EnterpriseBean <em>Enterprise Bean</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.ejb.EnterpriseBeans <em>Enterprise Beans</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.javaee.ejb.EnterpriseBean
+	 * @see org.eclipse.jst.javaee.ejb.EnterpriseBeans
 	 * @generated
 	 */
-	public Adapter createEnterpriseBeanAdapter() {
+	public Adapter createEnterpriseBeansAdapter() {
 		return null;
 	}
 

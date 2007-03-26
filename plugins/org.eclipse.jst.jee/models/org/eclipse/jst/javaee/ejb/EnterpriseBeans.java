@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: EnterpriseBean.java,v 1.1 2007/03/20 18:04:36 jsholl Exp $
+ * $Id: EnterpriseBeans.java,v 1.1 2007/03/26 21:04:16 jsholl Exp $
  */
 package org.eclipse.jst.javaee.ejb;
 
@@ -14,7 +14,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Enterprise Bean</b></em>'.
+ * A representation of the model object '<em><b>Enterprise Beans</b></em>'.
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
@@ -30,19 +30,19 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.javaee.ejb.EnterpriseBean#getGroup <em>Group</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.ejb.EnterpriseBean#getSessionBeans <em>Session Beans</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.ejb.EnterpriseBean#getEntityBeans <em>Entity Beans</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.ejb.EnterpriseBean#getMessageDrivenBeans <em>Message Driven Beans</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.ejb.EnterpriseBean#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.EnterpriseBeans#getGroup <em>Group</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.EnterpriseBeans#getSessionBeans <em>Session Beans</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.EnterpriseBeans#getEntityBeans <em>Entity Beans</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.EnterpriseBeans#getMessageDrivenBeans <em>Message Driven Beans</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.EnterpriseBeans#getId <em>Id</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEnterpriseBean()
+ * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEnterpriseBeans()
  * @extends JavaEEObject
  * @generated
  */
-public interface EnterpriseBean extends JavaEEObject {
+public interface EnterpriseBeans extends JavaEEObject {
 	/**
 	 * Returns the value of the '<em><b>Group</b></em>' attribute list.
 	 * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
@@ -53,7 +53,7 @@ public interface EnterpriseBean extends JavaEEObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Group</em>' attribute list.
-	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEnterpriseBean_Group()
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEnterpriseBeans_Group()
 	 * @generated
 	 */
 	FeatureMap getGroup();
@@ -68,7 +68,7 @@ public interface EnterpriseBean extends JavaEEObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Session Beans</em>' containment reference list.
-	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEnterpriseBean_SessionBeans()
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEnterpriseBeans_SessionBeans()
 	 * @generated
 	 */
 	List getSessionBeans();
@@ -83,7 +83,7 @@ public interface EnterpriseBean extends JavaEEObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Entity Beans</em>' containment reference list.
-	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEnterpriseBean_EntityBeans()
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEnterpriseBeans_EntityBeans()
 	 * @generated
 	 */
 	List getEntityBeans();
@@ -98,7 +98,7 @@ public interface EnterpriseBean extends JavaEEObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Message Driven Beans</em>' containment reference list.
-	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEnterpriseBean_MessageDrivenBeans()
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEnterpriseBeans_MessageDrivenBeans()
 	 * @generated
 	 */
 	List getMessageDrivenBeans();
@@ -113,13 +113,13 @@ public interface EnterpriseBean extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Id</em>' attribute.
 	 * @see #setId(String)
-	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEnterpriseBean_Id()
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEnterpriseBeans_Id()
 	 * @generated
 	 */
 	String getId();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.javaee.ejb.EnterpriseBean#getId <em>Id</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.javaee.ejb.EnterpriseBeans#getId <em>Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Id</em>' attribute.
@@ -128,4 +128,4 @@ public interface EnterpriseBean extends JavaEEObject {
 	 */
 	void setId(String value);
 
-} // EnterpriseBean
+} // EnterpriseBeans

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: EJBJarImpl.java,v 1.1 2007/03/20 18:04:37 jsholl Exp $
+ * $Id: EJBJarImpl.java,v 1.2 2007/03/26 21:04:14 jsholl Exp $
  */
 package org.eclipse.jst.javaee.ejb.internal.impl;
 
@@ -11,28 +11,21 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.DisplayName;
 import org.eclipse.jst.javaee.core.Icon;
-
 import org.eclipse.jst.javaee.ejb.AssemblyDescriptor;
 import org.eclipse.jst.javaee.ejb.EJBJar;
-import org.eclipse.jst.javaee.ejb.EnterpriseBean;
+import org.eclipse.jst.javaee.ejb.EnterpriseBeans;
 import org.eclipse.jst.javaee.ejb.InterceptorsType;
 import org.eclipse.jst.javaee.ejb.Relationships;
-
 import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
 
 /**
@@ -97,7 +90,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * @generated
 	 * @ordered
 	 */
-	protected EnterpriseBean enterpriseBeans = null;
+	protected EnterpriseBeans enterpriseBeans = null;
 
 	/**
 	 * The cached value of the '{@link #getInterceptors() <em>Interceptors</em>}' containment reference.
@@ -286,7 +279,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EnterpriseBean getEnterpriseBeans() {
+	public EnterpriseBeans getEnterpriseBeans() {
 		return enterpriseBeans;
 	}
 
@@ -295,8 +288,8 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetEnterpriseBeans(EnterpriseBean newEnterpriseBeans, NotificationChain msgs) {
-		EnterpriseBean oldEnterpriseBeans = enterpriseBeans;
+	public NotificationChain basicSetEnterpriseBeans(EnterpriseBeans newEnterpriseBeans, NotificationChain msgs) {
+		EnterpriseBeans oldEnterpriseBeans = enterpriseBeans;
 		enterpriseBeans = newEnterpriseBeans;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EjbPackage.EJB_JAR__ENTERPRISE_BEANS, oldEnterpriseBeans, newEnterpriseBeans);
@@ -310,7 +303,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setEnterpriseBeans(EnterpriseBean newEnterpriseBeans) {
+	public void setEnterpriseBeans(EnterpriseBeans newEnterpriseBeans) {
 		if (newEnterpriseBeans != enterpriseBeans) {
 			NotificationChain msgs = null;
 			if (enterpriseBeans != null)
@@ -665,7 +658,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 				getIcons().addAll((Collection)newValue);
 				return;
 			case EjbPackage.EJB_JAR__ENTERPRISE_BEANS:
-				setEnterpriseBeans((EnterpriseBean)newValue);
+				setEnterpriseBeans((EnterpriseBeans)newValue);
 				return;
 			case EjbPackage.EJB_JAR__INTERCEPTORS:
 				setInterceptors((InterceptorsType)newValue);
@@ -709,7 +702,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 				getIcons().clear();
 				return;
 			case EjbPackage.EJB_JAR__ENTERPRISE_BEANS:
-				setEnterpriseBeans((EnterpriseBean)null);
+				setEnterpriseBeans((EnterpriseBeans)null);
 				return;
 			case EjbPackage.EJB_JAR__INTERCEPTORS:
 				setInterceptors((InterceptorsType)null);

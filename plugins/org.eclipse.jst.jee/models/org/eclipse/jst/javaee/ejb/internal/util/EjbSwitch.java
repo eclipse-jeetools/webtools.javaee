@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: EjbSwitch.java,v 1.1 2007/03/20 18:04:41 jsholl Exp $
+ * $Id: EjbSwitch.java,v 1.2 2007/03/26 21:04:16 jsholl Exp $
  */
 package org.eclipse.jst.javaee.ejb.internal.util;
 
@@ -161,9 +161,9 @@ public class EjbSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EjbPackage.ENTERPRISE_BEAN: {
-				EnterpriseBean enterpriseBean = (EnterpriseBean)theEObject;
-				Object result = caseEnterpriseBean(enterpriseBean);
+			case EjbPackage.ENTERPRISE_BEANS: {
+				EnterpriseBeans enterpriseBeans = (EnterpriseBeans)theEObject;
+				Object result = caseEnterpriseBeans(enterpriseBeans);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -466,17 +466,17 @@ public class EjbSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Enterprise Bean</em>'.
+	 * Returns the result of interpretting the object as an instance of '<em>Enterprise Beans</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Enterprise Bean</em>'.
+	 * @return the result of interpretting the object as an instance of '<em>Enterprise Beans</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseEnterpriseBean(EnterpriseBean object) {
+	public Object caseEnterpriseBeans(EnterpriseBeans object) {
 		return null;
 	}
 

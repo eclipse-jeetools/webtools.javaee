@@ -2,12 +2,11 @@
  * <copyright>
  * </copyright>
  *
- * $Id: EjbFactory.java,v 1.1 2007/03/20 18:04:45 jsholl Exp $
+ * $Id: EjbFactory.java,v 1.2 2007/03/26 21:04:18 jsholl Exp $
  */
 package org.eclipse.jst.javaee.ejb.internal.metadata;
 
 import org.eclipse.emf.ecore.EFactory;
-
 import org.eclipse.jst.javaee.ejb.ActivationConfig;
 import org.eclipse.jst.javaee.ejb.ActivationConfigProperty;
 import org.eclipse.jst.javaee.ejb.ApplicationException;
@@ -20,7 +19,7 @@ import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.ejb.EJBJarDeploymentDescriptor;
 import org.eclipse.jst.javaee.ejb.EJBRelation;
 import org.eclipse.jst.javaee.ejb.EJBRelationshipRole;
-import org.eclipse.jst.javaee.ejb.EnterpriseBean;
+import org.eclipse.jst.javaee.ejb.EnterpriseBeans;
 import org.eclipse.jst.javaee.ejb.EntityBean;
 import org.eclipse.jst.javaee.ejb.ExcludeList;
 import org.eclipse.jst.javaee.ejb.InitMethodType;
@@ -167,13 +166,13 @@ public interface EjbFactory extends EFactory {
 	EJBRelationshipRole createEJBRelationshipRole();
 
 	/**
-	 * Returns a new object of class '<em>Enterprise Bean</em>'.
+	 * Returns a new object of class '<em>Enterprise Beans</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Enterprise Bean</em>'.
+	 * @return a new object of class '<em>Enterprise Beans</em>'.
 	 * @generated
 	 */
-	EnterpriseBean createEnterpriseBean();
+	EnterpriseBeans createEnterpriseBeans();
 
 	/**
 	 * Returns a new object of class '<em>Entity Bean</em>'.

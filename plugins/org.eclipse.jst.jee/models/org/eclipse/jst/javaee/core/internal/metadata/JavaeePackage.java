@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: JavaeePackage.java,v 1.1 2007/03/20 18:04:38 jsholl Exp $
+ * $Id: JavaeePackage.java,v 1.2 2007/03/26 21:04:16 jsholl Exp $
  */
 package org.eclipse.jst.javaee.core.internal.metadata;
 
@@ -4485,7 +4485,7 @@ public interface JavaeePackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	interface Literals {
+	interface Literals  {
 		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.internal.impl.DescriptionImpl <em>Description</em>}' class.
 		 * <!-- begin-user-doc -->

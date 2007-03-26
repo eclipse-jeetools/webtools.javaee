@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: EjbPackage.java,v 1.1 2007/03/20 18:04:45 jsholl Exp $
+ * $Id: EjbPackage.java,v 1.2 2007/03/26 21:04:18 jsholl Exp $
  */
 package org.eclipse.jst.javaee.ejb.internal.metadata;
 
@@ -1065,14 +1065,14 @@ public interface EjbPackage extends EPackage {
 	int EJB_RELATIONSHIP_ROLE_FEATURE_COUNT = 7;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.EnterpriseBeanImpl <em>Enterprise Bean</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.EnterpriseBeansImpl <em>Enterprise Beans</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EnterpriseBeanImpl
-	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getEnterpriseBean()
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EnterpriseBeansImpl
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getEnterpriseBeans()
 	 * @generated
 	 */
-	int ENTERPRISE_BEAN = 12;
+	int ENTERPRISE_BEANS = 12;
 
 	/**
 	 * The feature id for the '<em><b>Group</b></em>' attribute list.
@@ -1081,7 +1081,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENTERPRISE_BEAN__GROUP = 0;
+	int ENTERPRISE_BEANS__GROUP = 0;
 
 	/**
 	 * The feature id for the '<em><b>Session Beans</b></em>' containment reference list.
@@ -1090,7 +1090,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENTERPRISE_BEAN__SESSION_BEANS = 1;
+	int ENTERPRISE_BEANS__SESSION_BEANS = 1;
 
 	/**
 	 * The feature id for the '<em><b>Entity Beans</b></em>' containment reference list.
@@ -1099,7 +1099,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENTERPRISE_BEAN__ENTITY_BEANS = 2;
+	int ENTERPRISE_BEANS__ENTITY_BEANS = 2;
 
 	/**
 	 * The feature id for the '<em><b>Message Driven Beans</b></em>' containment reference list.
@@ -1108,7 +1108,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENTERPRISE_BEAN__MESSAGE_DRIVEN_BEANS = 3;
+	int ENTERPRISE_BEANS__MESSAGE_DRIVEN_BEANS = 3;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1117,16 +1117,16 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENTERPRISE_BEAN__ID = 4;
+	int ENTERPRISE_BEANS__ID = 4;
 
 	/**
-	 * The number of structural features of the '<em>Enterprise Bean</em>' class.
+	 * The number of structural features of the '<em>Enterprise Beans</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ENTERPRISE_BEAN_FEATURE_COUNT = 5;
+	int ENTERPRISE_BEANS_FEATURE_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.EntityBeanImpl <em>Entity Bean</em>}' class.
@@ -3942,69 +3942,69 @@ public interface EjbPackage extends EPackage {
 	EAttribute getEJBRelationshipRole_Id();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.ejb.EnterpriseBean <em>Enterprise Bean</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.ejb.EnterpriseBeans <em>Enterprise Beans</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Enterprise Bean</em>'.
-	 * @see org.eclipse.jst.javaee.ejb.EnterpriseBean
+	 * @return the meta object for class '<em>Enterprise Beans</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.EnterpriseBeans
 	 * @generated
 	 */
-	EClass getEnterpriseBean();
+	EClass getEnterpriseBeans();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.javaee.ejb.EnterpriseBean#getGroup <em>Group</em>}'.
+	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.javaee.ejb.EnterpriseBeans#getGroup <em>Group</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute list '<em>Group</em>'.
-	 * @see org.eclipse.jst.javaee.ejb.EnterpriseBean#getGroup()
-	 * @see #getEnterpriseBean()
+	 * @see org.eclipse.jst.javaee.ejb.EnterpriseBeans#getGroup()
+	 * @see #getEnterpriseBeans()
 	 * @generated
 	 */
-	EAttribute getEnterpriseBean_Group();
+	EAttribute getEnterpriseBeans_Group();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.EnterpriseBean#getSessionBeans <em>Session Beans</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.EnterpriseBeans#getSessionBeans <em>Session Beans</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Session Beans</em>'.
-	 * @see org.eclipse.jst.javaee.ejb.EnterpriseBean#getSessionBeans()
-	 * @see #getEnterpriseBean()
+	 * @see org.eclipse.jst.javaee.ejb.EnterpriseBeans#getSessionBeans()
+	 * @see #getEnterpriseBeans()
 	 * @generated
 	 */
-	EReference getEnterpriseBean_SessionBeans();
+	EReference getEnterpriseBeans_SessionBeans();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.EnterpriseBean#getEntityBeans <em>Entity Beans</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.EnterpriseBeans#getEntityBeans <em>Entity Beans</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Entity Beans</em>'.
-	 * @see org.eclipse.jst.javaee.ejb.EnterpriseBean#getEntityBeans()
-	 * @see #getEnterpriseBean()
+	 * @see org.eclipse.jst.javaee.ejb.EnterpriseBeans#getEntityBeans()
+	 * @see #getEnterpriseBeans()
 	 * @generated
 	 */
-	EReference getEnterpriseBean_EntityBeans();
+	EReference getEnterpriseBeans_EntityBeans();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.EnterpriseBean#getMessageDrivenBeans <em>Message Driven Beans</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.EnterpriseBeans#getMessageDrivenBeans <em>Message Driven Beans</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Message Driven Beans</em>'.
-	 * @see org.eclipse.jst.javaee.ejb.EnterpriseBean#getMessageDrivenBeans()
-	 * @see #getEnterpriseBean()
+	 * @see org.eclipse.jst.javaee.ejb.EnterpriseBeans#getMessageDrivenBeans()
+	 * @see #getEnterpriseBeans()
 	 * @generated
 	 */
-	EReference getEnterpriseBean_MessageDrivenBeans();
+	EReference getEnterpriseBeans_MessageDrivenBeans();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.EnterpriseBean#getId <em>Id</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.EnterpriseBeans#getId <em>Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Id</em>'.
-	 * @see org.eclipse.jst.javaee.ejb.EnterpriseBean#getId()
-	 * @see #getEnterpriseBean()
+	 * @see org.eclipse.jst.javaee.ejb.EnterpriseBeans#getId()
+	 * @see #getEnterpriseBeans()
 	 * @generated
 	 */
-	EAttribute getEnterpriseBean_Id();
+	EAttribute getEnterpriseBeans_Id();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.ejb.EntityBean <em>Entity Bean</em>}'.
@@ -6253,7 +6253,7 @@ public interface EjbPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	interface Literals {
+	interface Literals  {
 		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.ActivationConfigImpl <em>Activation Config</em>}' class.
 		 * <!-- begin-user-doc -->
@@ -6831,14 +6831,14 @@ public interface EjbPackage extends EPackage {
 		EAttribute EJB_RELATIONSHIP_ROLE__ID = eINSTANCE.getEJBRelationshipRole_Id();
 
 		/**
-		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.EnterpriseBeanImpl <em>Enterprise Bean</em>}' class.
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.EnterpriseBeansImpl <em>Enterprise Beans</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipse.jst.javaee.ejb.internal.impl.EnterpriseBeanImpl
-		 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getEnterpriseBean()
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.EnterpriseBeansImpl
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getEnterpriseBeans()
 		 * @generated
 		 */
-		EClass ENTERPRISE_BEAN = eINSTANCE.getEnterpriseBean();
+		EClass ENTERPRISE_BEANS = eINSTANCE.getEnterpriseBeans();
 
 		/**
 		 * The meta object literal for the '<em><b>Group</b></em>' attribute list feature.
@@ -6846,7 +6846,7 @@ public interface EjbPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ENTERPRISE_BEAN__GROUP = eINSTANCE.getEnterpriseBean_Group();
+		EAttribute ENTERPRISE_BEANS__GROUP = eINSTANCE.getEnterpriseBeans_Group();
 
 		/**
 		 * The meta object literal for the '<em><b>Session Beans</b></em>' containment reference list feature.
@@ -6854,7 +6854,7 @@ public interface EjbPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ENTERPRISE_BEAN__SESSION_BEANS = eINSTANCE.getEnterpriseBean_SessionBeans();
+		EReference ENTERPRISE_BEANS__SESSION_BEANS = eINSTANCE.getEnterpriseBeans_SessionBeans();
 
 		/**
 		 * The meta object literal for the '<em><b>Entity Beans</b></em>' containment reference list feature.
@@ -6862,7 +6862,7 @@ public interface EjbPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ENTERPRISE_BEAN__ENTITY_BEANS = eINSTANCE.getEnterpriseBean_EntityBeans();
+		EReference ENTERPRISE_BEANS__ENTITY_BEANS = eINSTANCE.getEnterpriseBeans_EntityBeans();
 
 		/**
 		 * The meta object literal for the '<em><b>Message Driven Beans</b></em>' containment reference list feature.
@@ -6870,7 +6870,7 @@ public interface EjbPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ENTERPRISE_BEAN__MESSAGE_DRIVEN_BEANS = eINSTANCE.getEnterpriseBean_MessageDrivenBeans();
+		EReference ENTERPRISE_BEANS__MESSAGE_DRIVEN_BEANS = eINSTANCE.getEnterpriseBeans_MessageDrivenBeans();
 
 		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
@@ -6878,7 +6878,7 @@ public interface EjbPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ENTERPRISE_BEAN__ID = eINSTANCE.getEnterpriseBean_Id();
+		EAttribute ENTERPRISE_BEANS__ID = eINSTANCE.getEnterpriseBeans_Id();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.EntityBeanImpl <em>Entity Bean</em>}' class.

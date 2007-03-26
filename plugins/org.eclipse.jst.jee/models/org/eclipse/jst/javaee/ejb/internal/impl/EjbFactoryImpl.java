@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: EjbFactoryImpl.java,v 1.1 2007/03/20 18:04:37 jsholl Exp $
+ * $Id: EjbFactoryImpl.java,v 1.2 2007/03/26 21:04:13 jsholl Exp $
  */
 package org.eclipse.jst.javaee.ejb.internal.impl;
 
@@ -81,7 +81,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 			case EjbPackage.EJB_JAR_DEPLOYMENT_DESCRIPTOR: return (EObject)createEJBJarDeploymentDescriptor();
 			case EjbPackage.EJB_RELATION: return (EObject)createEJBRelation();
 			case EjbPackage.EJB_RELATIONSHIP_ROLE: return (EObject)createEJBRelationshipRole();
-			case EjbPackage.ENTERPRISE_BEAN: return (EObject)createEnterpriseBean();
+			case EjbPackage.ENTERPRISE_BEANS: return (EObject)createEnterpriseBeans();
 			case EjbPackage.ENTITY_BEAN: return (EObject)createEntityBean();
 			case EjbPackage.EXCLUDE_LIST: return (EObject)createExcludeList();
 			case EjbPackage.INIT_METHOD_TYPE: return (EObject)createInitMethodType();
@@ -339,9 +339,9 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EnterpriseBean createEnterpriseBean() {
-		EnterpriseBeanImpl enterpriseBean = new EnterpriseBeanImpl();
-		return enterpriseBean;
+	public EnterpriseBeans createEnterpriseBeans() {
+		EnterpriseBeansImpl enterpriseBeans = new EnterpriseBeansImpl();
+		return enterpriseBeans;
 	}
 
 	/**

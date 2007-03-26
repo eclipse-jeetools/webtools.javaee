@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: EjbPackageImpl.java,v 1.1 2007/03/20 18:04:37 jsholl Exp $
+ * $Id: EjbPackageImpl.java,v 1.2 2007/03/26 21:04:06 jsholl Exp $
  */
 package org.eclipse.jst.javaee.ejb.internal.impl;
 
@@ -12,25 +12,15 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.eclipse.emf.ecore.xml.namespace.XMLNamespacePackage;
-
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
-
 import org.eclipse.jst.javaee.application.internal.impl.ApplicationPackageImpl;
-
 import org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage;
-
 import org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationclientPackageImpl;
-
 import org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage;
-
 import org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl;
-
 import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
-
 import org.eclipse.jst.javaee.ejb.ActivationConfig;
 import org.eclipse.jst.javaee.ejb.ActivationConfigProperty;
 import org.eclipse.jst.javaee.ejb.ApplicationException;
@@ -45,7 +35,7 @@ import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.ejb.EJBJarDeploymentDescriptor;
 import org.eclipse.jst.javaee.ejb.EJBRelation;
 import org.eclipse.jst.javaee.ejb.EJBRelationshipRole;
-import org.eclipse.jst.javaee.ejb.EnterpriseBean;
+import org.eclipse.jst.javaee.ejb.EnterpriseBeans;
 import org.eclipse.jst.javaee.ejb.EntityBean;
 import org.eclipse.jst.javaee.ejb.ExcludeList;
 import org.eclipse.jst.javaee.ejb.InitMethodType;
@@ -72,16 +62,11 @@ import org.eclipse.jst.javaee.ejb.SessionBean;
 import org.eclipse.jst.javaee.ejb.SessionType;
 import org.eclipse.jst.javaee.ejb.TransactionAttributeType;
 import org.eclipse.jst.javaee.ejb.TransactionType;
-
 import org.eclipse.jst.javaee.ejb.internal.metadata.EjbFactory;
 import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
-
 import org.eclipse.jst.javaee.jsp.internal.impl.JspPackageImpl;
-
 import org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage;
-
 import org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl;
-
 import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
 
 /**
@@ -180,7 +165,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass enterpriseBeanEClass = null;
+	private EClass enterpriseBeansEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1177,8 +1162,8 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getEnterpriseBean() {
-		return enterpriseBeanEClass;
+	public EClass getEnterpriseBeans() {
+		return enterpriseBeansEClass;
 	}
 
 	/**
@@ -1186,8 +1171,8 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEnterpriseBean_Group() {
-		return (EAttribute)enterpriseBeanEClass.getEStructuralFeatures().get(0);
+	public EAttribute getEnterpriseBeans_Group() {
+		return (EAttribute)enterpriseBeansEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1195,8 +1180,8 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEnterpriseBean_SessionBeans() {
-		return (EReference)enterpriseBeanEClass.getEStructuralFeatures().get(1);
+	public EReference getEnterpriseBeans_SessionBeans() {
+		return (EReference)enterpriseBeansEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1204,8 +1189,8 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEnterpriseBean_EntityBeans() {
-		return (EReference)enterpriseBeanEClass.getEStructuralFeatures().get(2);
+	public EReference getEnterpriseBeans_EntityBeans() {
+		return (EReference)enterpriseBeansEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1213,8 +1198,8 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEnterpriseBean_MessageDrivenBeans() {
-		return (EReference)enterpriseBeanEClass.getEStructuralFeatures().get(3);
+	public EReference getEnterpriseBeans_MessageDrivenBeans() {
+		return (EReference)enterpriseBeansEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1222,8 +1207,8 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEnterpriseBean_Id() {
-		return (EAttribute)enterpriseBeanEClass.getEStructuralFeatures().get(4);
+	public EAttribute getEnterpriseBeans_Id() {
+		return (EAttribute)enterpriseBeansEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -3189,12 +3174,12 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		createEReference(ejbRelationshipRoleEClass, EJB_RELATIONSHIP_ROLE__CMR_FIELD);
 		createEAttribute(ejbRelationshipRoleEClass, EJB_RELATIONSHIP_ROLE__ID);
 
-		enterpriseBeanEClass = createEClass(ENTERPRISE_BEAN);
-		createEAttribute(enterpriseBeanEClass, ENTERPRISE_BEAN__GROUP);
-		createEReference(enterpriseBeanEClass, ENTERPRISE_BEAN__SESSION_BEANS);
-		createEReference(enterpriseBeanEClass, ENTERPRISE_BEAN__ENTITY_BEANS);
-		createEReference(enterpriseBeanEClass, ENTERPRISE_BEAN__MESSAGE_DRIVEN_BEANS);
-		createEAttribute(enterpriseBeanEClass, ENTERPRISE_BEAN__ID);
+		enterpriseBeansEClass = createEClass(ENTERPRISE_BEANS);
+		createEAttribute(enterpriseBeansEClass, ENTERPRISE_BEANS__GROUP);
+		createEReference(enterpriseBeansEClass, ENTERPRISE_BEANS__SESSION_BEANS);
+		createEReference(enterpriseBeansEClass, ENTERPRISE_BEANS__ENTITY_BEANS);
+		createEReference(enterpriseBeansEClass, ENTERPRISE_BEANS__MESSAGE_DRIVEN_BEANS);
+		createEAttribute(enterpriseBeansEClass, ENTERPRISE_BEANS__ID);
 
 		entityBeanEClass = createEClass(ENTITY_BEAN);
 		createEReference(entityBeanEClass, ENTITY_BEAN__DESCRIPTIONS);
@@ -3506,7 +3491,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		initEReference(getEJBJar_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEJBJar_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEJBJar_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEJBJar_EnterpriseBeans(), this.getEnterpriseBean(), null, "enterpriseBeans", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEJBJar_EnterpriseBeans(), this.getEnterpriseBeans(), null, "enterpriseBeans", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEJBJar_Interceptors(), this.getInterceptorsType(), null, "interceptors", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEJBJar_Relationships(), this.getRelationships(), null, "relationships", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEJBJar_AssemblyDescriptor(), this.getAssemblyDescriptor(), null, "assemblyDescriptor", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -3537,12 +3522,12 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		initEReference(getEJBRelationshipRole_CmrField(), this.getCMRField(), null, "cmrField", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getEJBRelationshipRole_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
-		initEClass(enterpriseBeanEClass, EnterpriseBean.class, "EnterpriseBean", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getEnterpriseBean_Group(), ecorePackage.getEFeatureMapEntry(), "group", null, 0, -1, EnterpriseBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEnterpriseBean_SessionBeans(), this.getSessionBean(), null, "sessionBeans", null, 0, -1, EnterpriseBean.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEnterpriseBean_EntityBeans(), this.getEntityBean(), null, "entityBeans", null, 0, -1, EnterpriseBean.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEnterpriseBean_MessageDrivenBeans(), this.getMessageDrivenBean(), null, "messageDrivenBeans", null, 0, -1, EnterpriseBean.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEnterpriseBean_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EnterpriseBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEClass(enterpriseBeansEClass, EnterpriseBeans.class, "EnterpriseBeans", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getEnterpriseBeans_Group(), ecorePackage.getEFeatureMapEntry(), "group", null, 0, -1, EnterpriseBeans.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEnterpriseBeans_SessionBeans(), this.getSessionBean(), null, "sessionBeans", null, 0, -1, EnterpriseBeans.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEnterpriseBeans_EntityBeans(), this.getEntityBean(), null, "entityBeans", null, 0, -1, EnterpriseBeans.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEnterpriseBeans_MessageDrivenBeans(), this.getMessageDrivenBean(), null, "messageDrivenBeans", null, 0, -1, EnterpriseBeans.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEnterpriseBeans_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EnterpriseBeans.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(entityBeanEClass, EntityBean.class, "EntityBean", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getEntityBean_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -4388,21 +4373,21 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 			 "name", "id" //$NON-NLS-1$ //$NON-NLS-2$
 		   });			
 		addAnnotation
-		  (enterpriseBeanEClass, 
+		  (enterpriseBeansEClass, 
 		   source, 
 		   new String[] {
 			 "name", "enterprise-beansType", //$NON-NLS-1$ //$NON-NLS-2$
 			 "kind", "elementOnly" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
-		  (getEnterpriseBean_Group(), 
+		  (getEnterpriseBeans_Group(), 
 		   source, 
 		   new String[] {
 			 "kind", "group", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
-		  (getEnterpriseBean_SessionBeans(), 
+		  (getEnterpriseBeans_SessionBeans(), 
 		   source, 
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
@@ -4411,7 +4396,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
-		  (getEnterpriseBean_EntityBeans(), 
+		  (getEnterpriseBeans_EntityBeans(), 
 		   source, 
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
@@ -4420,7 +4405,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
-		  (getEnterpriseBean_MessageDrivenBeans(), 
+		  (getEnterpriseBeans_MessageDrivenBeans(), 
 		   source, 
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
@@ -4429,7 +4414,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
-		  (getEnterpriseBean_Id(), 
+		  (getEnterpriseBeans_Id(), 
 		   source, 
 		   new String[] {
 			 "kind", "attribute", //$NON-NLS-1$ //$NON-NLS-2$

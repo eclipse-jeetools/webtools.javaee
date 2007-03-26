@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: EJBJar.java,v 1.1 2007/03/20 18:04:36 jsholl Exp $
+ * $Id: EJBJar.java,v 1.2 2007/03/26 21:04:16 jsholl Exp $
  */
 package org.eclipse.jst.javaee.ejb;
 
@@ -114,11 +114,11 @@ public interface EJBJar extends JavaEEObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Enterprise Beans</em>' containment reference.
-	 * @see #setEnterpriseBeans(EnterpriseBean)
+	 * @see #setEnterpriseBeans(EnterpriseBeans)
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEJBJar_EnterpriseBeans()
 	 * @generated
 	 */
-	EnterpriseBean getEnterpriseBeans();
+	EnterpriseBeans getEnterpriseBeans();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.jst.javaee.ejb.EJBJar#getEnterpriseBeans <em>Enterprise Beans</em>}' containment reference.
@@ -128,7 +128,7 @@ public interface EJBJar extends JavaEEObject {
 	 * @see #getEnterpriseBeans()
 	 * @generated
 	 */
-	void setEnterpriseBeans(EnterpriseBean value);
+	void setEnterpriseBeans(EnterpriseBeans value);
 
 	/**
 	 * Returns the value of the '<em><b>Interceptors</b></em>' containment reference.
