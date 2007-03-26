@@ -113,7 +113,7 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 	protected void importModuleFile(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 		try {
 			monitor.beginTask(null, moduleFile.getFiles().size());
-			J2EEComponentSaveStrategyImpl aStrategy = (J2EEComponentSaveStrategyImpl) createSaveStrategy(virtualComponent);
+			ComponentSaveStrategyImpl aStrategy = (ComponentSaveStrategyImpl) createSaveStrategy(virtualComponent);
 			aStrategy.setProgressMonitor(monitor);
 			aStrategy.setOverwriteHandler((IOverwriteHandler) model.getProperty(IJ2EEComponentImportDataModelProperties.OVERWRITE_HANDLER));
 			aStrategy.setDataModel(model);
