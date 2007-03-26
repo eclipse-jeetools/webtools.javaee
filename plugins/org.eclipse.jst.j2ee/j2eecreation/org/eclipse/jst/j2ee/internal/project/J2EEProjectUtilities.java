@@ -82,6 +82,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.SimpleValidateEdit;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
@@ -281,10 +282,12 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 
 	private static void writeManifest(IProject aProject, IFile aFile, ArchiveManifest manifest) throws java.io.IOException {
 		if (aFile != null) {
-			OutputStream out = new WorkbenchByteArrayOutputStream(aFile);
-			manifest.writeSplittingClasspath(out);
-			out.close();
-			J2EEComponentClasspathUpdater.getInstance().queueUpdateModule(aProject);
+			if(SimpleValidateEdit.validateEdit(new IFile[] { aFile })){
+				OutputStream out = new WorkbenchByteArrayOutputStream(aFile);
+				manifest.writeSplittingClasspath(out);
+				out.close();
+				J2EEComponentClasspathUpdater.getInstance().queueUpdateModule(aProject);
+			}
 		}
 	}
 
