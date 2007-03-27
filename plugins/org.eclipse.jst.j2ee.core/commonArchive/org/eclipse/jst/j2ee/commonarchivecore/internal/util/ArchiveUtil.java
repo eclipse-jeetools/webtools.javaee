@@ -37,6 +37,7 @@ import org.eclipse.jem.java.JavaURL;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Container;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleRef;
@@ -207,6 +208,40 @@ public class ArchiveUtil {
 		return aList;
 	}
 
+	/**
+	 * <p>Alternate method for resolving class path entries.</p>
+	 * 
+	 * <p>Note: Not sure what this is for, as a classpath
+	 * entry such as "../targetJar.jar" seems invalid, as it
+	 * reaches outside of the EAR directory.</p>
+	 * 
+	 * <p>While this method will remove "./" from a classpath entry,
+	 * it will not remove "../", which will be added back when
+	 * deresolving the entry.  There is no meaningful name to assign
+	 * to an entity outside of the fileset of the container.</p>
+	 * 
+	 * <p>This implementation uses eclipse URI function, as opposed to the
+	 * implementation in <code>deriveEARRelativeURI</code>.</p>
+	 * 
+	 * @param classpathEntry The class-path entry which is to be resolved.
+	 * @param container The container against which to resolve the entry.
+	 * 
+	 * @return The text of the resolved entry.
+	 */
+	
+	public static String deriveRelativeURI(String classpathEntry, Container container)
+	{
+		URI containerURI = URI.createFileURI( container.getURI() );
+		// 'container.getURI()' returns a string.
+
+		URI entryURI = URI.createFileURI(classpathEntry);
+		
+		URI resolvedURI = entryURI.resolve(containerURI);
+		URI recoveredURI = resolvedURI.deresolve(containerURI);
+		
+		return recoveredURI.toFileString();
+	}
+	
 	/**
 	 * Leverage the java.io.File apis to resolve things like "./xxx" and "../xxx" into uris of
 	 * entries in the ear file
