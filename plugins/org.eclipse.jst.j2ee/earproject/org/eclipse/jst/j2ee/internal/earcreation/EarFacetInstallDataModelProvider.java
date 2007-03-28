@@ -44,6 +44,8 @@ public class EarFacetInstallDataModelProvider extends J2EEFacetInstallDataModelP
 			return ProductManager.getProperty(IProductConstants.APPLICATION_CONTENT_FOLDER);
 		} else if (propertyName.equals(J2EE_PROJECTS_LIST) || propertyName.equals(JAVA_PROJECT_LIST)) {
 			return Collections.EMPTY_LIST;
+		} else if(propertyName.equals(GENERATE_DD)){
+			return Boolean.FALSE;
 		}
 		return super.getDefaultProperty(propertyName);
 	}

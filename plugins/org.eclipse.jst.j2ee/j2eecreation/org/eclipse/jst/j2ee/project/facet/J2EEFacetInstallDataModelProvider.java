@@ -21,6 +21,8 @@ public abstract class J2EEFacetInstallDataModelProvider extends FacetInstallData
 		Set names = super.getPropertyNames();
 		names.add(RUNTIME_TARGET_ID);
 		names.add(FACET_RUNTIME);
+		// added for jee projects that make deployment descriptors optional
+		names.add(GENERATE_DD);
 		return names;
 	}
 

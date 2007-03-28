@@ -11,6 +11,8 @@
 
 package org.eclipse.jst.jee.web.project.facet;
 
+import java.io.ByteArrayInputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -31,6 +33,7 @@ import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.web.classpath.WebAppLibrariesContainer;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.jst.jee.project.facet.JEEFacetInstallDelegate;
@@ -47,6 +50,8 @@ import org.eclipse.wst.project.facet.IProductConstants;
 import org.eclipse.wst.project.facet.ProductManager;
 
 public final class WebFacetInstallDelegate extends JEEFacetInstallDelegate implements IDelegate {
+
+	
 
 	public void execute(final IProject project, final IProjectFacetVersion fv, final Object cfg, final IProgressMonitor monitor) throws CoreException {
 		if (monitor != null) {
@@ -91,12 +96,21 @@ public final class WebFacetInstallDelegate extends JEEFacetInstallDelegate imple
 			if (webroot.getProjectRelativePath().equals(new Path("/"))) //$NON-NLS-1$
 				webroot.createLink(new Path("/" + model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER)), 0, null); //$NON-NLS-1$
 
-			// Create the deployment descriptor (web.xml) if one doesn't exist
-//			if (!webinfFolder.getFile("web.xml").exists()) { //$NON-NLS-1$
-//				String ver = fv.getVersionString();
-//				int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
-//				WebArtifactEdit.createDeploymentDescriptor(project, nVer);
-//			}
+			if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
+				// Create the deployment descriptor (web.xml) if one doesn't exist
+				IFile webxmlFile = webinfFolder.getFile("web.xml");
+				if (!webxmlFile.exists()) {
+					try {
+						final String webXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-app id=\"WebApp_ID\" version=\"2.5\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd\">\n</web-app>"; //$NON-NLS-1$
+						webxmlFile.create(new ByteArrayInputStream(webXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
+					} catch (UnsupportedEncodingException e) {
+						Logger.getLogger().logError(e);
+					}
+//					String ver = fv.getVersionString();
+//					int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
+//					WebArtifactEdit.createDeploymentDescriptor(project, nVer);
+				}
+			}
 			
 			// Set entries for src folders
 			final IVirtualFolder jsrc = c.getRootFolder().getFolder("/WEB-INF/classes"); //$NON-NLS-1$

@@ -10,9 +10,14 @@
  *******************************************************************************/
 package org.eclipse.jst.jee.project.facet;
 
+import java.io.ByteArrayInputStream;
+import java.io.UnsupportedEncodingException;
+
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -25,6 +30,8 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetDataModelProvider;
@@ -96,12 +103,30 @@ public class AppClientFacetInstallDelegate extends JEEFacetInstallDelegate imple
 		IPath configFolderpath = pjpath.append(configFolderName);
 		sourceFolder = ws.getRoot().getFolder(configFolderpath);
 
-//		if (!sourceFolder.getFile(J2EEConstants.APP_CLIENT_DD_URI).exists()) {
-//			String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);
-//			int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
-//			AppClientArtifactEdit.createDeploymentDescriptor(project, nVer);
-//		}
-		
+		if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
+			// Create the deployment descriptor (web.xml) if one doesn't exist
+			IFile appClientFile = sourceFolder.getFile(new Path(J2EEConstants.APP_CLIENT_DD_URI));
+			if (!appClientFile.exists()) {
+				try {
+					if(!appClientFile.getParent().exists()
+							&& (appClientFile.getParent().getType() ==  IResource.FOLDER)){
+						((IFolder)appClientFile.getParent()).create(true, true, monitor);
+					}
+					final String appClientXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<application-client version=\"5\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application-client_5.xsd\">\n</application-client>"; //$NON-NLS-1$
+					appClientFile.create(new ByteArrayInputStream(appClientXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
+				} catch (UnsupportedEncodingException e) {
+					Logger.getLogger().logError(e);
+				}
+
+//				if (!sourceFolder.getFile(J2EEConstants.APP_CLIENT_DD_URI).exists()) {
+//				String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);
+//				int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
+//				AppClientArtifactEdit.createDeploymentDescriptor(project, nVer);
+//			}
+			
+			}
+		}
+
 		// add source folder maps
 		final IClasspathEntry[] cp = jproj.getRawClasspath();
 		for (int i = 0; i < cp.length; i++) {
