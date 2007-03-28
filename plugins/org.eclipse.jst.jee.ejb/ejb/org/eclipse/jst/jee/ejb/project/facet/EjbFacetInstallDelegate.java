@@ -12,6 +12,8 @@ package org.eclipse.jst.jee.ejb.project.facet;
 
 
 
+import java.io.ByteArrayInputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -31,6 +33,7 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.jee.project.facet.JEEFacetInstallDelegate;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -81,11 +84,7 @@ public class EjbFacetInstallDelegate extends JEEFacetInstallDelegate implements 
 			ejbFolder = ws.getRoot().getFolder(ejbFolderpath);
 
 
-//			if (!ejbFolder.getFile(J2EEConstants.EJBJAR_DD_URI).exists()) {
-//				String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);
-//				int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
-//				EJBArtifactEdit.createDeploymentDescriptor(project, nVer);
-//			}
+
 
 			IFile vf = ejbFolder.getFile(new Path(J2EEConstants.MANIFEST_URI));
 			if (vf == null || !vf.exists()) {
@@ -122,6 +121,24 @@ public class EjbFacetInstallDelegate extends JEEFacetInstallDelegate implements 
 				Logger.getLogger().logError(e);
 			}
 			
+			if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
+				// Create the deployment descriptor (ejb-jar.xml) if one doesn't exist
+				IFile ejbJarXmlFile = ejbFolder.getFile(J2EEConstants.EJBJAR_DD_URI);
+				if (!ejbJarXmlFile.exists()) {
+					try {
+						final String ejbJarXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ejb-jar version=\"3.0\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd\">\n</ejb-jar>"; //$NON-NLS-1$
+						ejbJarXmlFile.create(new ByteArrayInputStream(ejbJarXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
+					} catch (UnsupportedEncodingException e) {
+						Logger.getLogger().logError(e);
+					}
+//					if (!ejbFolder.getFile(J2EEConstants.EJBJAR_DD_URI).exists()) {
+//					String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);
+//					int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
+//					EJBArtifactEdit.createDeploymentDescriptor(project, nVer);
+//				}
+				}
+			}
+
 			if (monitor != null) {
 				monitor.worked(1);
 			}
