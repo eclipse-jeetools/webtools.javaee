@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jem.util.UIContextDetermination;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
@@ -40,6 +41,7 @@ import org.eclipse.wst.common.componentcore.internal.operation.FacetProjectCreat
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
@@ -139,7 +141,17 @@ public abstract class J2EEFacetInstallDelegate {
 		final IVirtualComponent c = ComponentCore.createComponent( moduleProject );
 		final IProject earProject = ProjectUtilities.getProject( earProjectName );
 		final IVirtualComponent earComp = ComponentCore.createComponent( earProject );
-		addToEar( earComp, c, moduleURI );
+		
+		if( UIContextDetermination.getCurrentContext() == UIContextDetermination.HEADLESS_CONTEXT ){
+			try{
+				RendererFactory.getDefaultRendererFactory().setValidating(false);
+				addToEar( earComp, c, moduleURI );
+			}finally{
+				RendererFactory.getDefaultRendererFactory().setValidating(true);
+			}
+		}
+		else
+		 addToEar( earComp, c, moduleURI );
     }
     
     /**
