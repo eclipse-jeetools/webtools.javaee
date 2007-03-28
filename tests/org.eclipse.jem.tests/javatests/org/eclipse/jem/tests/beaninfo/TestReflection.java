@@ -11,26 +11,17 @@
 package org.eclipse.jem.tests.beaninfo;
 /*
  *  $RCSfile: TestReflection.java,v $
- *  $Revision: 1.9 $  $Date: 2006/08/09 15:38:21 $ 
+ *  $Revision: 1.10 $  $Date: 2007/03/28 02:43:45 $ 
  */
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IWorkspaceRunnable;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.jdt.core.ICompilationUnit;
-import org.eclipse.jdt.core.IPackageFragment;
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.internal.beaninfo.PropertyDecorator;
 import org.eclipse.jem.internal.beaninfo.core.Utilities;
 import org.eclipse.jem.java.JavaClass;
@@ -195,6 +186,7 @@ public class TestReflection extends AbstractBeanInfoTestCase {
 	 * @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=153150
 	 *
 	 */
+	/* see https://bugs.eclipse.org/bugs/show_bug.cgi?id=179023 - we need to run HEADLESS tests as HEADLESS, and this test requires UI
 	public void test153150() throws CoreException {
 		// This tests that within a platform runnable, that if a class is reflected as not found, then is created and source type tested that
 		// it will now reflect as found. The source type test forces a flush if the type is now found. However, if didn't do source type test
@@ -235,6 +227,6 @@ public class TestReflection extends AbstractBeanInfoTestCase {
 			}
 		}
 	}
-	
+	*/
 	
 }

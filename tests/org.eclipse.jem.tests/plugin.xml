@@ -12,9 +12,9 @@
          </override>
       </registration>
 	</extension>
-     <extension
+     <!--extension
            point="org.eclipse.jem.util.uiTester">
         <uiTester className="org.eclipse.jem.tests.UITester"/>
-     </extension>
+     </extension-->
 
 </plugin>
