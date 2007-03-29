@@ -24,10 +24,9 @@
 	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.web:2.4]"/>
 			</and>
 		</enablement>
-         <filter
-               objectClass="org.eclipse.core.resources.IFile"
-               nameFilter="web.xml">
-         </filter>
+          <contentTypeBinding
+               contentTypeId="org.eclipse.jst.j2ee.webDD">
+         </contentTypeBinding>
          <filter
                objectClass="org.eclipse.core.resources.IFile"
                nameFilter="*.jar">

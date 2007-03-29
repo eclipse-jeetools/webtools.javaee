@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.project.facet;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetInstallDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 
-public interface IJ2EEFacetInstallDataModelProperties extends IFacetInstallDataModelProperties {
+public interface IJ2EEFacetInstallDataModelProperties extends IFacetInstallDataModelProperties, IJ2EEFacetConstants {
 
 	//TODO this property should probably be deleted
 	public static final String RUNTIME_TARGET_ID = "IJ2EEFacetInstallDataModelProperties.RUNTIME_TARGET_ID"; //$NON-NLS-1$

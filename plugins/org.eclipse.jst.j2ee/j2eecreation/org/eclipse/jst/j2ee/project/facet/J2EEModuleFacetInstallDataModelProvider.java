@@ -27,7 +27,6 @@ import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -55,8 +54,6 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		names.add(EAR_PROJECT_NAME);
 		names.add(LAST_EAR_NAME);
 		names.add(MODULE_URI);
-		// added for jee modules that make deployment descriptors optional
-		names.add(IJ2EEFacetInstallDataModelProperties.GENERATE_DD);
 		return names;
 	}
 
@@ -105,7 +102,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			IDataModel masterModel = (IDataModel) model.getProperty(MASTER_PROJECT_DM);
 			if (masterModel != null) {
 				FacetDataModelMap map = (FacetDataModelMap) masterModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-				IDataModel javaModel = map.getFacetDataModel(IModuleConstants.JST_JAVA);
+				IDataModel javaModel = map.getFacetDataModel(JAVA);
 				if (javaModel != null) {
 					javaModel.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, propertyValue);
 					// If applicable, react to the change in content folder to update the output folder for single root structures

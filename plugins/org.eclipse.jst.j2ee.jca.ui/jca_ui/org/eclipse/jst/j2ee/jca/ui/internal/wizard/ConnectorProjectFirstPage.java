@@ -13,9 +13,9 @@ package org.eclipse.jst.j2ee.jca.ui.internal.wizard;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentFacetCreationWizardPage;
 import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class ConnectorProjectFirstPage extends J2EEComponentFacetCreationWizardPage {
@@ -29,7 +29,7 @@ public class ConnectorProjectFirstPage extends J2EEComponentFacetCreationWizardP
 	}
 
 	protected String getModuleFacetID() {
-		return J2EEProjectUtilities.JCA;
+		return IJ2EEFacetConstants.JCA;
 	}
 
 }

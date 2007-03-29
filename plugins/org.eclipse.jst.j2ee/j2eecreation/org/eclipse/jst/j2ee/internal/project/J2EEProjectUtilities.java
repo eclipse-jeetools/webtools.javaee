@@ -69,6 +69,7 @@ import org.eclipse.jst.j2ee.internal.componentcore.EJBBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.componentcore.JCABinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.componentcore.WebBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationOperation;
@@ -88,21 +89,7 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.server.core.IRuntime;
 
-public class J2EEProjectUtilities extends ProjectUtilities {
-
-	public static final String ENTERPRISE_APPLICATION = IModuleConstants.JST_EAR_MODULE;
-
-	public static final String APPLICATION_CLIENT = IModuleConstants.JST_APPCLIENT_MODULE;
-
-	public static final String EJB = IModuleConstants.JST_EJB_MODULE;
-
-	public static final String DYNAMIC_WEB = IModuleConstants.JST_WEB_MODULE;
-
-	public static final String UTILITY = IModuleConstants.JST_UTILITY_MODULE;
-
-	public static final String JCA = IModuleConstants.JST_CONNECTOR_MODULE;
-
-	public static final String STATIC_WEB = IModuleConstants.WST_WEB_MODULE;
+public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacetConstants {
 
 	/**
 	 * Return the absolute path of a loose archive in a J2EE application or WAR file

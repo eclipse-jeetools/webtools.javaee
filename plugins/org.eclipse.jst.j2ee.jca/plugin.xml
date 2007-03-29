@@ -28,15 +28,14 @@
          <facet
                facetId="jst.connector">
          </facet>
+          <contentTypeBinding
+               contentTypeId="org.eclipse.jst.j2ee.connectorDD">
+         </contentTypeBinding>
          <filter
                objectClass="org.eclipse.core.resources.IFile"
                nameFilter="MANIFEST.MF">
          </filter>
-         <filter
-               objectClass="org.eclipse.core.resources.IFile"
-               nameFilter="rar.xml">
-         </filter>
-         <helper
+        <helper
                class="org.eclipse.jst.j2ee.internal.jca.validation.ConnectorHelper">
          </helper>
          <run

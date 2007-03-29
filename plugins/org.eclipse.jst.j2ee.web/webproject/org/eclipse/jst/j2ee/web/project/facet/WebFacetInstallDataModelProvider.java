@@ -18,13 +18,10 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
-import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEModuleFacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.project.facet.IProductConstants;
@@ -49,11 +46,11 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 		} else if (propertyName.equals(CONTEXT_ROOT)) {
 			return getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
 		} else if (propertyName.equals(FACET_ID)) {
-			return J2EEProjectUtilities.DYNAMIC_WEB;
+			return DYNAMIC_WEB;
 		} else if (propertyName.equals(MODULE_URI)) {
 			String projectName = model.getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
 			return projectName + IJ2EEModuleConstants.WAR_EXT;
-		} else if (propertyName.equals(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)) {
+		} else if (propertyName.equals(GENERATE_DD)) {
 			// for ee5 jee web projects default it to true so that we can create servlets, otherwise false
 			return Boolean.TRUE;
 		}
@@ -72,7 +69,7 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 				IDataModel masterModel = (IDataModel) model.getProperty(MASTER_PROJECT_DM);
 				if (masterModel != null) {
 					FacetDataModelMap map = (FacetDataModelMap) masterModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-					IDataModel javaModel = map.getFacetDataModel(IModuleConstants.JST_JAVA);
+					IDataModel javaModel = map.getFacetDataModel(JAVA);
 					if (javaModel != null)
 						javaModel.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME,propertyValue+"/"+J2EEConstants.WEB_INF_CLASSES); //$NON-NLS-1$
 				}
@@ -82,7 +79,7 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 			IDataModel masterModel = (IDataModel) model.getProperty(MASTER_PROJECT_DM);
 			if (masterModel != null) {
 				FacetDataModelMap map = (FacetDataModelMap) masterModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-				IDataModel javaModel = map.getFacetDataModel(IModuleConstants.JST_JAVA);
+				IDataModel javaModel = map.getFacetDataModel(JAVA);
 				if (javaModel != null)
 					javaModel.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, propertyValue);
 			}
