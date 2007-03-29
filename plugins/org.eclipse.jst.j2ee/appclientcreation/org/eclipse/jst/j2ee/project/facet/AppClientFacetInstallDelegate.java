@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
@@ -44,13 +45,13 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			monitor.beginTask("", 1); //$NON-NLS-1$
 		try {
 			IDataModel model = (IDataModel) config;
-//			final IJavaProject jproj = JavaCore.create(project);
+			final IJavaProject jproj = JavaCore.create(project);
 
 			// Add WTP natures.
 			WtpUtils.addNatures(project);
 
 			// Setup the flexible project structure.
-//			final IVirtualComponent c = createFlexibleProject(monitor, project, model, jproj);
+			final IVirtualComponent c = createFlexibleProject(monitor, project, model, jproj);
 
 			// Setup the classpath.
 			ClasspathHelper.removeClasspathEntries(project, fv);
