@@ -170,19 +170,39 @@
         point="org.eclipse.wst.common.modulecore.resourceFactories">
      <resourceFactory
            class="org.eclipse.jst.j2ee.webapplication.internal.impl.WebAppResourceFactory"
-           shortSegment="web.xml"/>
+           shortSegment="web.xml">
+        <contentTypeBinding
+      	  	contentTypeId="org.eclipse.jst.j2ee.webDD">
+        </contentTypeBinding>
+     </resourceFactory>
      <resourceFactory
            class="org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarResourceFactory"
-           shortSegment="ejb-jar.xml"/>
+           shortSegment="ejb-jar.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.j2ee.ejbDD">
+        </contentTypeBinding>
+     </resourceFactory>
      <resourceFactory
            class="org.eclipse.jst.j2ee.client.internal.impl.ApplicationClientResourceFactory"
-           shortSegment="application-client.xml"/>
+           shortSegment="application-client.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.j2ee.appClientDD">
+        </contentTypeBinding>
+     </resourceFactory>
      <resourceFactory
            class="org.eclipse.jst.j2ee.application.internal.impl.ApplicationResourceFactory"
-           shortSegment="application.xml"/>
+           shortSegment="application.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.j2ee.earDD">
+        </contentTypeBinding>
+     </resourceFactory>
      <resourceFactory
            class="org.eclipse.jst.j2ee.jca.internal.impl.ConnectorResourceFactory"
-           shortSegment="ra.xml"/>
+           shortSegment="ra.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.j2ee.connectorDD">
+        </contentTypeBinding>
+     </resourceFactory>
   </extension>
 
 </plugin>
