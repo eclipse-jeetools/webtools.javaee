@@ -54,6 +54,8 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		names.add(EAR_PROJECT_NAME);
 		names.add(LAST_EAR_NAME);
 		names.add(MODULE_URI);
+		// added for jee modules that make deployment descriptors optional
+		names.add(IJ2EEFacetInstallDataModelProperties.GENERATE_DD);
 		return names;
 	}
 
