@@ -143,11 +143,14 @@ public abstract class J2EEFacetInstallDelegate {
 		final IVirtualComponent earComp = ComponentCore.createComponent( earProject );
 		
 		if( UIContextDetermination.getCurrentContext() == UIContextDetermination.HEADLESS_CONTEXT ){
+			boolean isValidating = RendererFactory.getDefaultRendererFactory().isValidating();
 			try{
-				RendererFactory.getDefaultRendererFactory().setValidating(false);
+				if( isValidating ){
+					RendererFactory.getDefaultRendererFactory().setValidating(false);
+				}
 				addToEar( earComp, c, moduleURI );
 			}finally{
-				RendererFactory.getDefaultRendererFactory().setValidating(true);
+				RendererFactory.getDefaultRendererFactory().setValidating(isValidating);
 			}
 		}
 		else
