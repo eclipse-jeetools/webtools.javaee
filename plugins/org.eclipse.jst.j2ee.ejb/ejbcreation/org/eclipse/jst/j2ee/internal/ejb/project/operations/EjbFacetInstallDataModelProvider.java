@@ -16,9 +16,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.J2EEModuleFacetInstallDataModelProvider;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModelProviderNew;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
@@ -28,9 +26,9 @@ public class EjbFacetInstallDataModelProvider
 		extends J2EEModuleFacetInstallDataModelProvider 
 		implements IEjbFacetInstallDataModelProperties{
 
-	public static final IProjectFacetVersion EJB_11 = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EJB_MODULE).getVersion("1.1"); //$NON-NLS-1$
-	public static final IProjectFacetVersion EJB_20 = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EJB_MODULE).getVersion("2.0"); //$NON-NLS-1$
-	public static final IProjectFacetVersion EJB_21 = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EJB_MODULE).getVersion("2.1"); //$NON-NLS-1$	
+	public static final IProjectFacetVersion EJB_11 = ProjectFacetsManager.getProjectFacet(EJB).getVersion("1.1"); //$NON-NLS-1$
+	public static final IProjectFacetVersion EJB_20 = ProjectFacetsManager.getProjectFacet(EJB).getVersion("2.0"); //$NON-NLS-1$
+	public static final IProjectFacetVersion EJB_21 = ProjectFacetsManager.getProjectFacet(EJB).getVersion("2.1"); //$NON-NLS-1$	
 	
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
@@ -44,7 +42,7 @@ public class EjbFacetInstallDataModelProvider
 	
 	public Object getDefaultProperty(String propertyName) {
 		if(propertyName.equals(FACET_ID)){
-			return J2EEProjectUtilities.EJB;
+			return EJB;
 		}else if (propertyName.equals(CREATE_CLIENT)) {
 			return getProperty(ADD_TO_EAR);
 		} else if (propertyName.equals(CLIENT_SOURCE_FOLDER)) {
