@@ -38,7 +38,7 @@ public final class JEEContentDescriber implements IContentDescriber {
 		}
 			
 		//checking for various jee module versions here. if its not ee5, return true.
-		if((specString.equals("3.0") || specString.equals("2.5")) || specString.equals("5.0") || specString.equals("1.5")){
+		if((specString.equals("3.0") || specString.equals("2.5") || specString.equals("5.0") || specString.equals("1.5"))){
 			if(description != null){
 				description.setProperty(JEEVERSION, specString);
 				}

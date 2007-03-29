@@ -89,7 +89,7 @@ public class J2EESpecFinder {
 	                    if (null != map) {
 	                       Node schemaNode = map.getNamedItem("xsi:schemaLocation"); //$NON-NLS-1$
 	                       if (null != schemaNode) {
-	                          schemaName = schemaNode.getNodeValue();
+	                          schemaName = schemaNode.getNodeValue().trim();
 	                       }
 	                       Node versionNode = map.getNamedItem("version");//$NON-NLS-1$
 	                       if (null != versionNode) {
