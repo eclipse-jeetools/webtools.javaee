@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.2"?>
 <plugin>
+   <extension-point id="jeeModelExtension" name="JEE Model Extension" schema="schema/jeeModelExtension.exsd"/>
 
 	<!--J EE5  -->
    <extension
@@ -52,20 +53,36 @@
         point="org.eclipse.wst.common.modulecore.resourceFactories">
      <resourceFactory
            class="org.eclipse.jst.javaee.web.internal.util.WebResourceFactoryImpl"
-           shortSegment="web2.xml"
-           version="2.5"/>
+           isDefault="false"
+           shortSegment="web.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.jee.ee5webDD">
+        </contentTypeBinding>
+     </resourceFactory>
      <resourceFactory
            class="org.eclipse.jst.javaee.ejb.internal.util.EjbResourceFactoryImpl"
-           shortSegment="ejb-jar2.xml"
-           version="3.0"/>
+           isDefault="false"
+           shortSegment="ejb-jar.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.jee.ee5ejbDD">
+        </contentTypeBinding>
+     </resourceFactory>
      <resourceFactory
            class="org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationclientFactoryImpl"
-           shortSegment="application-client2.xml"
-           version="5.0"/>
+           isDefault="false"
+           shortSegment="application-client.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.jee.ee5appclientDD">
+        </contentTypeBinding>
+     </resourceFactory>
      <resourceFactory
            class="org.eclipse.jst.javaee.application.internal.util.ApplicationResourceFactoryImpl"
-           shortSegment="application2.xml"
-           version="5.0"/>
+           isDefault="false"
+           shortSegment="application.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.jee.ee5earDD">
+        </contentTypeBinding>
+     </resourceFactory>
   </extension>
   
   <extension
@@ -135,4 +152,61 @@
          </moduleType>
       </moduleFactory>
    </extension>
+   <extension
+         point="org.eclipse.core.runtime.contentTypes">
+      <content-type
+            file-names="ejb-jar.xml"
+            id="ee5ejbDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee5ejbEditorContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEEContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>   
+  	
+  	 <extension
+         point="org.eclipse.core.runtime.contentTypes">
+      <content-type
+            file-names="web.xml"
+            id="ee5webDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee5webEditorContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEEContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>   
+  	
+  	 <extension
+         point="org.eclipse.core.runtime.contentTypes">
+      <content-type
+            file-names="application.xml"
+            id="ee5earDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee5earEditorContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEEContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>   
+  	
+  	
+  	 <extension
+         point="org.eclipse.core.runtime.contentTypes">
+      <content-type
+            file-names="application-client.xml"
+            id="ee5appclientDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee5appclientEditorContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEEContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>   
+  	  
 </plugin>

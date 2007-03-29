@@ -311,10 +311,9 @@
         		<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.ear:1.4]"/>
 			</and>
 		</enablement> 
-         <filter
-               objectClass="org.eclipse.core.resources.IFile"
-               nameFilter="*.xml">
-         </filter>
+         <contentTypeBinding
+               contentTypeId="org.eclipse.jst.j2ee.earDD">
+         </contentTypeBinding>
          <filter
                objectClass="org.eclipse.core.resources.IFile"
                nameFilter="*.xmi">
@@ -843,5 +842,77 @@
             class="org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent">
       </componentimpl>
    </extension>
+   
+   <extension
+         point="org.eclipse.core.runtime.contentTypes">
+      <content-type
+            file-names="ejb-jar.xml"
+            id="ejbDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ejbEditorContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.j2ee.contenttype.J2EEContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>   
+  	
+  	 <extension
+         point="org.eclipse.core.runtime.contentTypes">
+      <content-type
+            file-names="web.xml"
+            id="webDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%webEditorContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.j2ee.contenttype.J2EEContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>   
+  	
+  	 <extension
+         point="org.eclipse.core.runtime.contentTypes">
+      <content-type
+            file-names="application.xml"
+            id="earDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%earEditorContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.j2ee.contenttype.J2EEContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>   
+  	
+  	
+  	 <extension
+         point="org.eclipse.core.runtime.contentTypes">
+      <content-type
+            file-names="application-client.xml"
+            id="appclientDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%appclientEditorContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.j2ee.contenttype.J2EEContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>   
+  	
+  	<extension
+         point="org.eclipse.core.runtime.contentTypes">
+      <content-type
+            file-names="rar.xml"
+            id="connectorDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%connectorEditorContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.j2ee.contenttype.J2EEContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>   
+  
 
 </plugin>
