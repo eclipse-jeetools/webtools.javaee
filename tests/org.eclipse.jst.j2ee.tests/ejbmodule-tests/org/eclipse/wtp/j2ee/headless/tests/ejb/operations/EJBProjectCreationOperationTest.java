@@ -14,6 +14,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.ejb.project.operations.IEjbFacetInstallDataModelProperties;
@@ -124,6 +125,14 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
 	private void validateEJBDescriptorProperties(String projName) {
 		// Test if op worked
 		IProject proj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
+		
+		// does underlying file for deployment descriptor exist
+		IVirtualComponent component = ComponentCore.createComponent(proj);
+		IFile deploymentDescriptorFile = component.getRootFolder().getFile(J2EEConstants.EJBJAR_DD_URI).getUnderlyingFile();
+		
+		Assert.assertTrue(deploymentDescriptorFile.exists());
+
+		// is it a valid artifact
 		EJBArtifactEdit jar = EJBArtifactEdit.getEJBArtifactEditForRead(proj);
 		Assert.assertNotNull(jar);
 		if (jar != null)

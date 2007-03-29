@@ -10,11 +10,13 @@ import junit.framework.Assert;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
@@ -140,6 +142,14 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
 	private void validateWebDescriptorProperties(String projName) {
 		// Test if op worked
 		IProject proj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
+		
+		// does underlying file for deployment descriptor exist
+		IVirtualComponent component = ComponentCore.createComponent(proj);
+		IFile deploymentDescriptorFile = component.getRootFolder().getFile(J2EEConstants.WEBAPP_DD_URI).getUnderlyingFile();
+		
+		Assert.assertTrue(deploymentDescriptorFile.exists());
+		
+		// is it a valid artifact
 		WebArtifactEdit web = WebArtifactEdit.getWebArtifactEditForRead(proj);
 		Assert.assertNotNull(web);
 		if (web != null)

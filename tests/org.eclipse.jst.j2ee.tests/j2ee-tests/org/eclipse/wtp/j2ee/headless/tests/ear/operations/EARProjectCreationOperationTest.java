@@ -9,12 +9,14 @@ package org.eclipse.wtp.j2ee.headless.tests.ear.operations;
 import junit.framework.Assert;
 import junit.framework.Test;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.earcreation.IEarFacetInstallDataModelProperties;
@@ -84,6 +86,14 @@ public class EARProjectCreationOperationTest extends org.eclipse.wst.common.test
 	private void validateEarDescriptorProperties(String projName) {
 			// Test if op worked
 			IProject proj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
+			
+			// does underlying file for deployment descriptor exist
+			IVirtualComponent component = ComponentCore.createComponent(proj);
+			IFile deploymentDescriptorFile = component.getRootFolder().getFile(J2EEConstants.APPLICATION_DD_URI).getUnderlyingFile();
+			
+			Assert.assertTrue(deploymentDescriptorFile.exists());
+
+			// is it a valid artifact
 			EARArtifactEdit ear = EARArtifactEdit.getEARArtifactEditForRead(proj);
 			Assert.assertNotNull(ear);
 			if (ear != null)

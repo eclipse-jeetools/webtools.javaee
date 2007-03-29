@@ -9,12 +9,14 @@ package org.eclipse.wtp.j2ee.headless.tests.appclient.operations;
 import junit.framework.Assert;
 import junit.framework.Test;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.project.facet.IAppClientFacetInstallDataModelProperties;
@@ -151,6 +153,17 @@ public class AppClientProjectCreationOperationTest extends ModuleProjectCreation
     private void validateAppDescriptorProperties(String projName) {
 		// Test if op worked
 		IProject proj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
+		
+		
+		// does underlying file for deployment descriptor exist
+		IVirtualComponent component = ComponentCore.createComponent(proj);
+		IFile deploymentDescriptorFile = component.getRootFolder().getFile(J2EEConstants.APP_CLIENT_DD_URI).getUnderlyingFile();
+		
+		Assert.assertTrue(deploymentDescriptorFile.exists());
+
+		// is it a valid artifact
+
+		
 		AppClientArtifactEdit appClient = AppClientArtifactEdit.getAppClientArtifactEditForRead(proj);
 		Assert.assertNotNull(appClient);
 		if (appClient != null)
