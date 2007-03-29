@@ -17,13 +17,12 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
-import org.eclipse.jst.j2ee.internal.earcreation.IEarFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.earcreation.IEarFacetInstallDataModelProperties;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetInstallDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -53,7 +52,7 @@ public class EARProjectCreationOperationTest extends org.eclipse.wst.common.test
 
 		String projName = "TestAPIEarProject";//$NON-NLS-1$
 		String appVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.J2EE_1_4_ID);
-		IProjectFacet earFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE);
+		IProjectFacet earFacet = ProjectFacetsManager.getProjectFacet(IEarFacetInstallDataModelProperties.ENTERPRISE_APPLICATION);
 		IProjectFacetVersion earFacetVersion = earFacet.getVersion(appVersionString); //$NON-NLS-1$
 
 		addEarProjectProperties(dataModel, projName, earFacetVersion);
@@ -71,7 +70,7 @@ public class EARProjectCreationOperationTest extends org.eclipse.wst.common.test
 
 		String projName = "TestAPIEarProject";//$NON-NLS-1$
 		String appVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.JEE_5_0_ID);
-		IProjectFacet earFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE);
+		IProjectFacet earFacet = ProjectFacetsManager.getProjectFacet(IEarFacetInstallDataModelProperties.ENTERPRISE_APPLICATION);
 		IProjectFacetVersion earFacetVersion = earFacet.getVersion(appVersionString); //$NON-NLS-1$
 
 		addEarProjectProperties(dataModel, projName, earFacetVersion);
@@ -112,7 +111,7 @@ public class EARProjectCreationOperationTest extends org.eclipse.wst.common.test
 		dataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, projName);
 		FacetDataModelMap map = (FacetDataModelMap) dataModel
 				.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-		IDataModel earmodel = (IDataModel) map.get(IModuleConstants.JST_EAR_MODULE);
+		IDataModel earmodel = (IDataModel) map.get(IEarFacetInstallDataModelProperties.ENTERPRISE_APPLICATION);
 		earmodel.setProperty(IFacetInstallDataModelProperties.FACET_VERSION, earFacetVersion);
 		earmodel.setStringProperty(IEarFacetInstallDataModelProperties.CONTENT_DIR,"ear333"); //$NON-NLS-1$
     }

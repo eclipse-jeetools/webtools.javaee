@@ -15,10 +15,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IAppClientFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
@@ -27,7 +25,6 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModel
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetInstallDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -62,13 +59,13 @@ public class AppClientProjectCreationOperationTest extends ModuleProjectCreation
     }
 
     public IDataModel getComponentCreationDataModel() {
-        return DataModelFactory.createDataModel(new AppClientFacetProjectCreationDataModelProvider());
+        return DataModelFactory.createDataModel(IAppClientFacetInstallDataModelProperties.class);
     }
     
     public IDataModel getComponentCreationDataModelWithEar() {
-        IDataModel model =  DataModelFactory.createDataModel(new AppClientFacetProjectCreationDataModelProvider());
+        IDataModel model =  getComponentCreationDataModel();
         FacetDataModelMap map = (FacetDataModelMap) model.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-        IDataModel facetDM = map.getFacetDataModel(J2EEProjectUtilities.APPLICATION_CLIENT);
+        IDataModel facetDM = map.getFacetDataModel(IAppClientFacetInstallDataModelProperties.APPLICATION_CLIENT);
         facetDM.setBooleanProperty( IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, true );
         return model;
     } 
@@ -77,7 +74,7 @@ public class AppClientProjectCreationOperationTest extends ModuleProjectCreation
 
 		String projName = "TestAPIAppClientProject";//$NON-NLS-1$
 		String appVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.J2EE_1_4_ID);
-		IProjectFacet appFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_APPCLIENT_MODULE);
+		IProjectFacet appFacet = ProjectFacetsManager.getProjectFacet(IAppClientFacetInstallDataModelProperties.APPLICATION_CLIENT);
 		IProjectFacetVersion appFacetVersion = appFacet.getVersion(appVersionString); //$NON-NLS-1$
 
 		addAppProjectProperties(dataModel, projName, appFacetVersion);
@@ -94,7 +91,7 @@ public class AppClientProjectCreationOperationTest extends ModuleProjectCreation
 
 		String projName = "TestAPIAppClientProject";//$NON-NLS-1$
 		String appVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.JEE_5_0_ID);
-		IProjectFacet appFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_APPCLIENT_MODULE);
+		IProjectFacet appFacet = ProjectFacetsManager.getProjectFacet(IAppClientFacetInstallDataModelProperties.APPLICATION_CLIENT);
 		IProjectFacetVersion appFacetVersion = appFacet.getVersion(appVersionString); //$NON-NLS-1$
 
 		addAppProjectProperties(dataModel, projName, appFacetVersion);
@@ -110,7 +107,7 @@ public class AppClientProjectCreationOperationTest extends ModuleProjectCreation
 
 		String projName = "TestAPIAppClientProject";//$NON-NLS-1$
 		String appVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.JEE_5_0_ID);
-		IProjectFacet appFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_APPCLIENT_MODULE);
+		IProjectFacet appFacet = ProjectFacetsManager.getProjectFacet(IAppClientFacetInstallDataModelProperties.APPLICATION_CLIENT);
 		IProjectFacetVersion appFacetVersion = appFacet.getVersion(appVersionString); //$NON-NLS-1$
 
 		addAppProjectProperties(dataModel, projName, appFacetVersion);
@@ -144,7 +141,7 @@ public class AppClientProjectCreationOperationTest extends ModuleProjectCreation
 		Assert.assertNotNull(references);
 		
 		// Test if ear facet version is right
-		IProjectFacet earFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE);
+		IProjectFacet earFacet = ProjectFacetsManager.getProjectFacet(IAppClientFacetInstallDataModelProperties.ENTERPRISE_APPLICATION);
 		IProjectFacetVersion earFacetVersion = earFacet.getVersion(earFacetVersionString); //$NON-NLS-1$
 		
 		IFacetedProject facetedEARProject = ProjectFacetsManager.create(earProj);
@@ -181,7 +178,7 @@ public class AppClientProjectCreationOperationTest extends ModuleProjectCreation
 		dataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, projName);
 		FacetDataModelMap map = (FacetDataModelMap) dataModel
 				.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-		IDataModel appmodel = (IDataModel) map.get(IModuleConstants.JST_APPCLIENT_MODULE);
+		IDataModel appmodel = (IDataModel) map.get(IAppClientFacetInstallDataModelProperties.APPLICATION_CLIENT);
 		appmodel.setProperty(IFacetInstallDataModelProperties.FACET_VERSION, appFacetVersion);
 		appmodel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER,"appcc333"); //$NON-NLS-1$
     }

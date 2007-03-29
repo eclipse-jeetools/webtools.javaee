@@ -17,8 +17,6 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
@@ -28,7 +26,6 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModel
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetInstallDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -58,13 +55,13 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
      * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleProjectCreationOperationTest#getProjectCreationDataModel()
      */
     public IDataModel getComponentCreationDataModel() {
-        return DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
+        return DataModelFactory.createDataModel(IWebFacetInstallDataModelProperties.class);
     }
     
     public IDataModel getComponentCreationDataModelWithEar() {
-        IDataModel model =  DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
+        IDataModel model =  DataModelFactory.createDataModel(IWebFacetInstallDataModelProperties.class);
         FacetDataModelMap map = (FacetDataModelMap) model.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-        IDataModel facetDM = map.getFacetDataModel(J2EEProjectUtilities.DYNAMIC_WEB);
+        IDataModel facetDM = map.getFacetDataModel(IWebFacetInstallDataModelProperties.DYNAMIC_WEB);
         facetDM.setBooleanProperty( IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, true );
         return model;
     } 
@@ -73,7 +70,7 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
 
 		String projName = "TestAPIWebProject";//$NON-NLS-1$
 		String webVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.WEB_2_4_ID);
-		IProjectFacet webFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE);
+		IProjectFacet webFacet = ProjectFacetsManager.getProjectFacet(IWebFacetInstallDataModelProperties.DYNAMIC_WEB);
 		IProjectFacetVersion webFacetVersion = webFacet.getVersion(webVersionString); //$NON-NLS-1$
 
 		addWebProjectProperties(dataModel, projName, webFacetVersion);
@@ -92,7 +89,7 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
 
 		String projName = "TestAPIWebProject";//$NON-NLS-1$
 		String webVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.WEB_2_5_ID);
-		IProjectFacet webFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE);
+		IProjectFacet webFacet = ProjectFacetsManager.getProjectFacet(IWebFacetInstallDataModelProperties.DYNAMIC_WEB);
 		IProjectFacetVersion webFacetVersion = webFacet.getVersion(webVersionString); //$NON-NLS-1$
 
 		addWebProjectProperties(dataModel, projName, webFacetVersion);
@@ -107,7 +104,7 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
 	
 		String projName = "TestAPIWebProject";//$NON-NLS-1$
 		String webVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.WEB_2_5_ID);
-		IProjectFacet webFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE);
+		IProjectFacet webFacet = ProjectFacetsManager.getProjectFacet(IWebFacetInstallDataModelProperties.DYNAMIC_WEB);
 		IProjectFacetVersion webFacetVersion = webFacet.getVersion(webVersionString); //$NON-NLS-1$
 	
 		addWebProjectProperties(dataModel, projName, webFacetVersion);
@@ -134,7 +131,7 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
 		dataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, projName);
 		FacetDataModelMap map = (FacetDataModelMap) dataModel
 				.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-		IDataModel webmodel = (IDataModel) map.get(IModuleConstants.JST_WEB_MODULE);
+		IDataModel webmodel = (IDataModel) map.get(IWebFacetInstallDataModelProperties.DYNAMIC_WEB);
 		webmodel.setProperty(IFacetInstallDataModelProperties.FACET_VERSION, web25);
 		webmodel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER,"web333"); //$NON-NLS-1$
         webmodel.setStringProperty(IWebFacetInstallDataModelProperties.SOURCE_FOLDER, "src444");
@@ -178,14 +175,10 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
 		Assert.assertNotNull(references);
 		
 		// Test if ear facet is right
-		IProjectFacet earFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE);
+		IProjectFacet earFacet = ProjectFacetsManager.getProjectFacet(IWebFacetInstallDataModelProperties.ENTERPRISE_APPLICATION);
 		IProjectFacetVersion earFacetVersion = earFacet.getVersion(earFacetVersionString); //$NON-NLS-1$
 		
 		IFacetedProject facetedProject = ProjectFacetsManager.create(earProj);
 		Assert.assertTrue(facetedProject.hasProjectFacet(earFacetVersion));
 	}
-
-
 }
-    
-

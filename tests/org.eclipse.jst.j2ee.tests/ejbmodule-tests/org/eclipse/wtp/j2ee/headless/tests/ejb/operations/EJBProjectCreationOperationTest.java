@@ -16,8 +16,7 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.IEjbFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.ejb.project.operations.IEjbFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
@@ -26,7 +25,6 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModel
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetInstallDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -55,7 +53,7 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
      * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleProjectCreationOperationTest#getProjectCreationDataModel()
      */
     public IDataModel getComponentCreationDataModel() {
-    	return DataModelFactory.createDataModel(new EjbFacetProjectCreationDataModelProvider());
+    	return DataModelFactory.createDataModel(IEjbFacetInstallDataModelProperties.class);
     }
     
     public void testFindFilesUtility() {
@@ -63,7 +61,7 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
     	IResource eclipseFile = null;
     	try {
     		testDefaults();
-    		IProject project = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.EJB)[0];
+    		IProject project = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(IEjbFacetInstallDataModelProperties.EJB)[0];
     		IVirtualComponent comp = ComponentCore.createComponent(project);
     		try {
     			if (!project.isSynchronized(IResource.DEPTH_INFINITE))
@@ -81,9 +79,9 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
     }
   
     public IDataModel getComponentCreationDataModelWithEar() {
-        IDataModel model =  DataModelFactory.createDataModel(new EjbFacetProjectCreationDataModelProvider());
+        IDataModel model =  getComponentCreationDataModel();
         FacetDataModelMap map = (FacetDataModelMap) model.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-        IDataModel facetDM = map.getFacetDataModel(J2EEProjectUtilities.EJB);
+        IDataModel facetDM = map.getFacetDataModel(IEjbFacetInstallDataModelProperties.EJB);
         facetDM.setBooleanProperty( IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, true );
         return model;
     }     
@@ -92,7 +90,7 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
 
 		String projName = "TestAPIEjbProject";//$NON-NLS-1$
 		String ejbVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.EJB_2_1_ID);
-		IProjectFacet ejbFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EJB_MODULE);
+		IProjectFacet ejbFacet = ProjectFacetsManager.getProjectFacet(IEjbFacetInstallDataModelProperties.EJB);
 		IProjectFacetVersion ejbFacetVersion = ejbFacet.getVersion(ejbVersionString); //$NON-NLS-1$
 
 		addEJBProjectProperties(dataModel, projName, ejbFacetVersion);
@@ -113,7 +111,7 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
 
 		String projName = "TestAPIEjbProject";//$NON-NLS-1$
 		String ejbVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.EJB_3_0_ID);
-		IProjectFacet ejbFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EJB_MODULE);
+		IProjectFacet ejbFacet = ProjectFacetsManager.getProjectFacet(IEjbFacetInstallDataModelProperties.EJB);
 		IProjectFacetVersion ejbFacetVersion = ejbFacet.getVersion(ejbVersionString); //$NON-NLS-1$
 
 		addEJBProjectProperties(dataModel, projName, ejbFacetVersion);
@@ -153,7 +151,7 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
 	
 		String projName = "TestAPIEjbProject";//$NON-NLS-1$
 		String ejbVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.EJB_3_0_ID);
-		IProjectFacet ejbFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EJB_MODULE);
+		IProjectFacet ejbFacet = ProjectFacetsManager.getProjectFacet(IEjbFacetInstallDataModelProperties.EJB);
 		IProjectFacetVersion ejbFacetVersion = ejbFacet.getVersion(ejbVersionString); //$NON-NLS-1$
 	
 		addEJBProjectProperties(dataModel, projName, ejbFacetVersion);
@@ -175,7 +173,7 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
 	
 		String projName = "TestAPIEjbProject";//$NON-NLS-1$
 		String ejbVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.EJB_3_0_ID);
-		IProjectFacet ejbFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EJB_MODULE);
+		IProjectFacet ejbFacet = ProjectFacetsManager.getProjectFacet(IEjbFacetInstallDataModelProperties.EJB);
 		IProjectFacetVersion ejbFacetVersion = ejbFacet.getVersion(ejbVersionString); //$NON-NLS-1$
 	
 		addEJBProjectProperties(dataModel, projName, ejbFacetVersion);
@@ -220,7 +218,7 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
 		Assert.assertNotNull(references);
 		
 		// Test if ear facet version is right
-		IProjectFacet earFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE);
+		IProjectFacet earFacet = ProjectFacetsManager.getProjectFacet(IEjbFacetInstallDataModelProperties.ENTERPRISE_APPLICATION);
 		IProjectFacetVersion earFacetVersion = earFacet.getVersion(earFacetVersionString); //$NON-NLS-1$
 		
 		IFacetedProject facetedEARProject = ProjectFacetsManager.create(earProj);
@@ -238,7 +236,7 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
 		dataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, projName);
 		FacetDataModelMap map = (FacetDataModelMap) dataModel
 				.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-		IDataModel appmodel = (IDataModel) map.get(IModuleConstants.JST_EJB_MODULE);
+		IDataModel appmodel = (IDataModel) map.get(IEjbFacetInstallDataModelProperties.EJB);
 		appmodel.setProperty(IFacetInstallDataModelProperties.FACET_VERSION, ejbFacetVersion);
 		appmodel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER,"ejb333"); //$NON-NLS-1$
     }
@@ -247,7 +245,7 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
 			String ejbClientName) {
 		FacetDataModelMap map = (FacetDataModelMap) dataModel
 		.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-		IDataModel appmodel = (IDataModel) map.get(IModuleConstants.JST_EJB_MODULE);
+		IDataModel appmodel = (IDataModel) map.get(IEjbFacetInstallDataModelProperties.EJB);
 
 		appmodel.setBooleanProperty(IEjbFacetInstallDataModelProperties.CREATE_CLIENT, true);
 		appmodel.setStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME, ejbClientName);

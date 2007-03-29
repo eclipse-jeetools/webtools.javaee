@@ -14,11 +14,11 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.operations.AddServletOperation;
 import org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProvider;
+import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
@@ -89,10 +89,10 @@ public class WebProjectCreationTomcatTest extends TestCase {
         IProject javaProject = ProjectUtility.getProject(projectName);
         String moduleName = projectName + "WebModule"; //$NON-NLS-1$
         String moduleDeployName = moduleName + ".war"; //$NON-NLS-1$
-        IDataModel model = DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
+        IDataModel model = DataModelFactory.createDataModel(IWebFacetInstallDataModelProperties.class);
         model.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, javaProject.getName());
         FacetDataModelMap map = (FacetDataModelMap) model.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-        IDataModel webModel = map.getFacetDataModel(J2EEProjectUtilities.DYNAMIC_WEB);
+        IDataModel webModel = map.getFacetDataModel(IWebFacetInstallDataModelProperties.DYNAMIC_WEB);
         webModel.setIntProperty(IFacetDataModelProperties.FACET_VERSION,j2eeVersion);
         return model;
     }

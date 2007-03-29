@@ -4,8 +4,7 @@ package org.eclipse.wtp.j2ee.headless.tests.jca.operations;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.jca.project.facet.ConnectorFacetProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.jca.project.facet.IConnectorFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
@@ -31,13 +30,13 @@ public class ConnectorProjectCreationOperationTest extends ModuleProjectCreation
      * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleProjectCreationOperationTest#getProjectCreationDataModel()
      */
     public IDataModel getComponentCreationDataModel() {
-        return DataModelFactory.createDataModel(new ConnectorFacetProjectCreationDataModelProvider());
+        return DataModelFactory.createDataModel(IConnectorFacetInstallDataModelProperties.class);
     }
     
     public IDataModel getComponentCreationDataModelWithEar() {
-        IDataModel model =  DataModelFactory.createDataModel(new ConnectorFacetProjectCreationDataModelProvider());
+        IDataModel model =  getComponentCreationDataModel();
         FacetDataModelMap map = (FacetDataModelMap) model.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-        IDataModel facetDM = map.getFacetDataModel(J2EEProjectUtilities.JCA);
+        IDataModel facetDM = map.getFacetDataModel(IConnectorFacetInstallDataModelProperties.JCA);
         facetDM.setBooleanProperty( IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, true );
         return model;
     }   
