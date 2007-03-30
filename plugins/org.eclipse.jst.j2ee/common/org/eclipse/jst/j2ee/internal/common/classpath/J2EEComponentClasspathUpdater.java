@@ -476,14 +476,15 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		ResourceTreeRootAdapter resourceTreeAdapter = (ResourceTreeRootAdapter) ExtendedEcoreUtil
 				.getAdapter(aModule, aModule.eAdapters(),
 						ResourceTreeRootAdapter.DEPLOY_ADAPTER_TYPE);
-		resourceTreeAdapter.setResourceTreeRoot(null);
+		if(null != resourceTreeAdapter) {
+			resourceTreeAdapter.setResourceTreeRoot(null);
+		}
 		resourceTreeAdapter = (ResourceTreeRootAdapter) ExtendedEcoreUtil
 				.getAdapter(aModule, aModule.eAdapters(),
 						ResourceTreeRootAdapter.SOURCE_ADAPTER_TYPE);
 		if(null != resourceTreeAdapter){
 			resourceTreeAdapter.setResourceTreeRoot(null);
 		}
-
 	}
 
 
