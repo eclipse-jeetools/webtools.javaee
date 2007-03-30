@@ -2,13 +2,10 @@ package org.eclipse.jst.j2ee.contenttype;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Reader;
 
-import org.eclipse.core.internal.content.IContentConstants;
 import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.core.runtime.content.IContentDescriber;
 import org.eclipse.core.runtime.content.IContentDescription;
-import org.eclipse.core.runtime.content.ITextContentDescriber;
 
 /**
  * A content describer for detecting a j2ee module
