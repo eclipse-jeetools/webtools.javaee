@@ -409,9 +409,11 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	 * Sets the manfest on the archive, updates the classpath selection, and notifies
 	 */
 	public void setManifest(ArchiveManifest manifest) {
-		archive.setManifest(manifest);
-		getClassPathSelection(); // Ensure the selection is initialized.
-		fireNotification(new ClasspathModelEvent(ClasspathModelEvent.MANIFEST_CHANGED));
+		if(archive != null){
+			archive.setManifest(manifest);
+			getClassPathSelection(); // Ensure the selection is initialized.
+			fireNotification(new ClasspathModelEvent(ClasspathModelEvent.MANIFEST_CHANGED));
+		}
 	}
 
 	public void selectEAR(int index) {
