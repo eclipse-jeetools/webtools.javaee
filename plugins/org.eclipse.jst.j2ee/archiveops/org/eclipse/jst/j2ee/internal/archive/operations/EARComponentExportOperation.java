@@ -56,7 +56,7 @@ public class EARComponentExportOperation extends J2EEArtifactExportOperation {
 	protected void runNecessaryBuilders(IVirtualComponent component, IProgressMonitor monitor) throws CoreException {
 		try {
 			IVirtualReference[] refs = component.getReferences();
-			int work = (JAVA_BUILDER_WORK + LIB_BUILDER_WORK) / refs.length + 1; 
+			int work = (JAVA_BUILDER_WORK + LIB_BUILDER_WORK) / (refs.length + 1); 
 			super.runNecessaryBuilders(component, new SubProgressMonitor(monitor, work));
 			for (int i = 0; i < refs.length; i++) {
 				IVirtualComponent refComp = refs[i].getReferencedComponent();
