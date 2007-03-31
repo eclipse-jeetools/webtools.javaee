@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMStandardBeanProxyFactory.java,v $
- *  $Revision: 1.16 $  $Date: 2005/08/24 20:39:07 $ 
+ *  $Revision: 1.17 $  $Date: 2007/03/31 19:38:11 $ 
  */
 
 
@@ -455,7 +455,7 @@ public IBeanProxy getBeanProxy(Commands.ValueObject value) throws ThrowableProxy
 		case Commands.THROW:
 			IREMBeanProxy newThrowProxy	= null;
 			try {
-				IREMBeanTypeProxy newThrowType = newThrowType = getBeanType(value.classID);
+				IREMBeanTypeProxy newThrowType =  getBeanType(value.classID);
 				newThrowProxy = newThrowType.newBeanProxy(new Integer(value.objectID));
 				if (newThrowProxy != null)
 					registerProxy(newThrowProxy);

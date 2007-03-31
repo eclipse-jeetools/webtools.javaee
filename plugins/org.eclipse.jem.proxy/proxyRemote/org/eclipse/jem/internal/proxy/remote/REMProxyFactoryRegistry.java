@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMProxyFactoryRegistry.java,v $
- *  $Revision: 1.28 $  $Date: 2006/05/23 15:43:03 $ 
+ *  $Revision: 1.29 $  $Date: 2007/03/31 19:38:11 $ 
  */
 
 
@@ -207,7 +207,7 @@ public class REMProxyFactoryRegistry extends BaseProxyFactoryRegistry {
 	 * @since 1.1.0
 	 */
 	public static void cancelAllTerminateJobs() {
-		IJobManager jobManager = Platform.getJobManager();
+		IJobManager jobManager = Job.getJobManager();
 		jobManager.cancel(TERMINATE_JOB_FAMILY);
 		try {
 			jobManager.join(TERMINATE_JOB_FAMILY, null);

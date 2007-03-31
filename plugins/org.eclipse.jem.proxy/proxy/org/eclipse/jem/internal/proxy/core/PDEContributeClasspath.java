@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PDEContributeClasspath.java,v $
- *  $Revision: 1.6 $  $Date: 2007/02/19 19:48:08 $ 
+ *  $Revision: 1.7 $  $Date: 2007/03/31 19:38:10 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -44,16 +44,18 @@ class PDEContributeClasspath implements IPDEContributeClasspath {
 		if (!info.getPluginIds().isEmpty()) {
 			Collection pluginIds = info.getPluginIds().keySet();
 			
+			PluginModelManager modelManager = PDECore.getDefault().getModelManager();
+			IPluginModelBase[] allModels = modelManager.getAllModels();
+			List fragments = new ArrayList();
+			for (int i = 0; i < allModels.length; i++) {
+				if (allModels[i].isFragmentModel()) {
+					fragments.add(allModels[i]);
+				}
+			}			
 			
-			// Quick fix for https://bugs.eclipse.org/bugs/show_bug.cgi?id=174648
-			//PluginModelManager modelManager = PDECore.getDefault().getModelManager();
-			//IFragmentModel[] fragments = modelManager.getFragments();
-			IFragmentModel[] fragments = new IFragmentModel[0];
-			
-			
-			
-			for (int i = 0; i < fragments.length; i++) {
-				IFragment fragment = fragments[i].getFragment();
+			for (Iterator itr = fragments.iterator(); itr.hasNext();) {
+				IFragmentModel fragmentModel = (IFragmentModel)itr.next();
+				IFragment fragment = fragmentModel.getFragment();
 				if (pluginIds.contains(fragment.getPluginId())) {
 					// We'll do a cheat for now and assume fragment is for same version of plugin. PDECore actually
 					// checks the version of the fragment against the version of the plugin to see they are for each

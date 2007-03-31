@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.60 $  $Date: 2006/05/17 20:13:05 $ 
+ *  $Revision: 1.61 $  $Date: 2007/03/31 19:38:10 $ 
  */
 
 
@@ -992,7 +992,7 @@ public class ProxyPlugin extends Plugin {
 					// Technically we expect the config elements to have a name of "contributor", but since that
 					// is all that can be there, we will ignore it. The content is what is important.
 					for (int k = 0; k < configs.length; k++) {
-						String containerPattern = configs[k].getAttributeAsIs(PI_CONTAINER);
+						String containerPattern = configs[k].getAttribute(PI_CONTAINER);
 						if (containerPattern != null) {
 							Object[] id_Pattern = (Object[]) patternStringToID_Pattern.get(containerPattern);
 							if (id_Pattern == null) {
@@ -1008,7 +1008,7 @@ public class ProxyPlugin extends Plugin {
 							result.containerPathContributions.addContribution((String) id_Pattern[0], (Pattern) id_Pattern[1], configs[k]);
 						}
 
-						String plugin = configs[k].getAttributeAsIs(PI_PLUGIN);
+						String plugin = configs[k].getAttribute(PI_PLUGIN);
 						if (plugin != null) {
 							List contributions = (List) result.pluginToContributions.get(plugin);
 							if (contributions == null) {
@@ -1359,7 +1359,7 @@ public class ProxyPlugin extends Plugin {
 		// (for example platform source and win32 platform source (which is a fragment of platform source).
 		IConfigurationElement[] ces = Platform.getExtensionRegistry().getConfigurationElementsFor("org.eclipse.pde.core.source"); //$NON-NLS-1$
 		for (int i = 0; i < ces.length; i++) {
-			IPath srcsrch = new Path(ces[i].getAttributeAsIs("path")).append(srcPath); //$NON-NLS-1$
+			IPath srcsrch = new Path(ces[i].getAttribute("path")).append(srcPath); //$NON-NLS-1$
 			Bundle srcBundle = Platform.getBundle(ces[i].getDeclaringExtension().getContributor().getName());
 			URL srcUrl = FileLocator.find(srcBundle, srcsrch, null);
 			if (srcUrl != null) {

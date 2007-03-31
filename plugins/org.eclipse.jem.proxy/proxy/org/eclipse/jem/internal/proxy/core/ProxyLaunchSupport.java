@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.33 $  $Date: 2006/05/17 20:13:05 $ 
+ *  $Revision: 1.34 $  $Date: 2007/03/31 19:38:10 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -633,7 +633,7 @@ public class ProxyLaunchSupport {
 				IConfigurationElement[] contributors = ProxyPlugin.getPlugin().getContainerExtensions(paths.getContainerId(), paths.getAllPaths());
 				if (contributors != null)
 					for (int i = 0; i < contributors.length; i++) {
-						if (registryID.equals(contributors[i].getAttributeAsIs(ProxyPlugin.PI_REGISTRY_TYPE))) {
+						if (registryID.equals(contributors[i].getAttribute(ProxyPlugin.PI_REGISTRY_TYPE))) {
 							try {
 								final IExtensionRegistration contributor = (IExtensionRegistration) contributors[i].createExecutableExtension(ProxyPlugin.PI_CLASS);
 								SafeRunner.run(new ISafeRunnable() {
@@ -660,7 +660,7 @@ public class ProxyLaunchSupport {
 				IConfigurationElement[] contributors = ProxyPlugin.getPlugin().getPluginExtensions(pluginId);
 				if (contributors != null)
 					for (int i = 0; i < contributors.length; i++) {
-						if (registryID.equals(contributors[i].getAttributeAsIs(ProxyPlugin.PI_REGISTRY_TYPE))) {
+						if (registryID.equals(contributors[i].getAttribute(ProxyPlugin.PI_REGISTRY_TYPE))) {
 							try {
 								final IExtensionRegistration contributor = (IExtensionRegistration) contributors[i].createExecutableExtension(ProxyPlugin.PI_CLASS);
 								SafeRunner.run(new ISafeRunnable() {
@@ -708,7 +708,7 @@ public class ProxyLaunchSupport {
 			} 
 		} else {
 			pm.beginTask("", 200); //$NON-NLS-1$
-			IJobManager jobManager = Platform.getJobManager();
+			IJobManager jobManager = Job.getJobManager();
 			Job currentJob = jobManager.currentJob();
 			if (currentJob == null || (!currentJob.belongsTo(ResourcesPlugin.FAMILY_AUTO_BUILD) && !currentJob.belongsTo(ResourcesPlugin.FAMILY_MANUAL_BUILD))) { 
 				if (jobManager.find(ResourcesPlugin.FAMILY_AUTO_BUILD).length > 0 || jobManager.find(ResourcesPlugin.FAMILY_MANUAL_BUILD).length >0) {

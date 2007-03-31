@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PDEProcessForPlugin.java,v $
- *  $Revision: 1.8 $  $Date: 2007/02/19 19:48:08 $ 
+ *  $Revision: 1.9 $  $Date: 2007/03/31 19:38:10 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -47,7 +47,7 @@ class PDEProcessForPlugin implements ProxyPlugin.IPDEProcessForPlugin {
 		return;
 	}
 	
-	private void expandPlugin(IPlugin plugin, FoundIDs foundIds, boolean visible, boolean first) {
+	private void expandPlugin(IPluginBase plugin, FoundIDs foundIds, boolean visible, boolean first) {
 		IPluginImport[] imports = plugin.getImports();
 		for (int i = 0; i < imports.length; i++) {
 			IPluginImport pi = imports[i];
@@ -59,13 +59,15 @@ class PDEProcessForPlugin implements ProxyPlugin.IPDEProcessForPlugin {
 			// We want it to become visible in that case. 
 			foundIds.pluginIds.put(pi.getId(), importVisible ? Boolean.TRUE : Boolean.FALSE);			
 
-			// Quick fix for https://bugs.eclipse.org/bugs/show_bug.cgi?id=174648
-//			IPlugin pb = PDECore.getDefault().findPlugin(pi.getId(),
-//				pi.getVersion(),
-//				pi.getMatch());
-			IPlugin pb = null;
-			if (pb != null)
-				expandPlugin(pb, foundIds, importVisible, false);
+			// Note: this search does not take into account the IPluginImport's version or match level
+			// but neither did the previous version
+			IPluginModelBase model = PDECore.getDefault().getModelManager().findModel(pi.getId());
+			if (model != null && model.isEnabled()) {
+				IPluginBase foundPlugin = model.getPluginBase();
+				if (foundPlugin != null) {
+					expandPlugin(foundPlugin, foundIds, importVisible, false);
+				}
+			}
 		}
 	}
 }
