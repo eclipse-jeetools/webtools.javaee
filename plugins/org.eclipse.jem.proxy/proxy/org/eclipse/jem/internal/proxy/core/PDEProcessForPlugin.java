@@ -10,13 +10,12 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PDEProcessForPlugin.java,v $
- *  $Revision: 1.9 $  $Date: 2007/03/31 19:38:10 $ 
+ *  $Revision: 1.10 $  $Date: 2007/03/31 20:02:54 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.pde.core.plugin.*;
-import org.eclipse.pde.internal.core.PDECore;
 
 import org.eclipse.jem.internal.proxy.core.ProxyPlugin.FoundIDs;
  
@@ -35,7 +34,7 @@ class PDEProcessForPlugin implements ProxyPlugin.IPDEProcessForPlugin {
 	 * @see org.eclipse.jem.internal.proxy.core.ProxyPlugin.IPDEProcessForPlugin#processPlugin(org.eclipse.jdt.core.IJavaProject, java.util.Map, boolean, boolean)
 	 */
 	public void findPlugins(IJavaProject project, FoundIDs foundIds, boolean visible, boolean first) {
-		IPluginModelBase m = PDECore.getDefault().getModelManager().findModel(project.getProject());
+		IPluginModelBase m = PluginRegistry.findModel(project.getProject());
 		if (m instanceof IPluginModel) {
 			// it is a plugin, process it.
 			IPlugin plugin = ((IPluginModel) m).getPlugin();
@@ -61,7 +60,7 @@ class PDEProcessForPlugin implements ProxyPlugin.IPDEProcessForPlugin {
 
 			// Note: this search does not take into account the IPluginImport's version or match level
 			// but neither did the previous version
-			IPluginModelBase model = PDECore.getDefault().getModelManager().findModel(pi.getId());
+			IPluginModelBase model = PluginRegistry.findModel(pi.getId());
 			if (model != null && model.isEnabled()) {
 				IPluginBase foundPlugin = model.getPluginBase();
 				if (foundPlugin != null) {

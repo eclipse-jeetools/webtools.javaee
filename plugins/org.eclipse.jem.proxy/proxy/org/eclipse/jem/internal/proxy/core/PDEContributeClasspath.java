@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PDEContributeClasspath.java,v $
- *  $Revision: 1.7 $  $Date: 2007/03/31 19:38:10 $ 
+ *  $Revision: 1.8 $  $Date: 2007/03/31 20:02:54 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -25,7 +25,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.pde.core.plugin.*;
-import org.eclipse.pde.internal.core.*;
+import org.eclipse.pde.internal.core.ClasspathUtilCore;
 
  
 
@@ -44,8 +44,7 @@ class PDEContributeClasspath implements IPDEContributeClasspath {
 		if (!info.getPluginIds().isEmpty()) {
 			Collection pluginIds = info.getPluginIds().keySet();
 			
-			PluginModelManager modelManager = PDECore.getDefault().getModelManager();
-			IPluginModelBase[] allModels = modelManager.getAllModels();
+			IPluginModelBase[] allModels = PluginRegistry.getAllModels();
 			List fragments = new ArrayList();
 			for (int i = 0; i < allModels.length; i++) {
 				if (allModels[i].isFragmentModel()) {
