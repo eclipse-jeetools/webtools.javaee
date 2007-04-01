@@ -10,11 +10,11 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ImageDisposer.java,v $
- *  $Revision: 1.1 $  $Date: 2005/09/26 20:26:59 $ 
+ *  $Revision: 1.2 $  $Date: 2007/04/01 03:27:42 $ 
  */
 package org.eclipse.jem.internal.beaninfo.ui;
 
-import org.eclipse.jface.util.Assert;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Image;

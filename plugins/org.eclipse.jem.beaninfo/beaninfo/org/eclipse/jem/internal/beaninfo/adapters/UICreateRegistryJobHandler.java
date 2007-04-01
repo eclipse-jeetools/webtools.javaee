@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: UICreateRegistryJobHandler.java,v $
- *  $Revision: 1.9 $  $Date: 2006/05/17 20:13:00 $ 
+ *  $Revision: 1.10 $  $Date: 2007/04/01 03:25:48 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
@@ -55,7 +55,7 @@ class UICreateRegistryJobHandler extends CreateRegistryJobHandler {
 				// This means a busy cursor instead of a possible progress dialog to keep the UI active. Only possible deadlock
 				// situation is if some other thread has the build rule (other than the build) and is doing an asyncExec or
 				// is waiting on something from the UI thread.
-				final IJobManager jobManager = Platform.getJobManager();
+				final IJobManager jobManager = Job.getJobManager();
 				Job currentJob = jobManager.currentJob();
 				if (currentJob == null || currentJob.getRule() == null || !currentJob.getRule().contains(buildRule)) {
 					// UI is not in a job, or it is and there is no rule, or there is a rule and it is not compatible with the buildRule.

@@ -11,7 +11,7 @@
 package org.eclipse.jem.java;
 /*
  *  $RCSfile: InheritanceCycleException.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.7 $  $Date: 2007/04/01 03:27:54 $ 
  */
 import java.text.MessageFormat;
 
@@ -36,7 +36,7 @@ public class InheritanceCycleException extends Exception {
 	 * 
 	 */
 	public InheritanceCycleException(JavaClass aSubclass, JavaClass aSuperclass) {
-		this(MessageFormat.format(MSG_PATTERN, new String[]{aSubclass.getQualifiedName(), aSuperclass.getQualifiedName()}));
+		this(MessageFormat.format(MSG_PATTERN, new Object[]{aSubclass.getQualifiedName(), aSuperclass.getQualifiedName()}));
 	}
 
 	/**

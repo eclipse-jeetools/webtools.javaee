@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.core;
 /*
  *  $RCSfile: BeaninfoPlugin.java,v $
- *  $Revision: 1.22 $  $Date: 2006/05/17 20:13:00 $ 
+ *  $Revision: 1.23 $  $Date: 2007/04/01 03:25:47 $ 
  */
 
 
@@ -320,9 +320,9 @@ public class BeaninfoPlugin extends Plugin {
 	 */
 	private void addOverrideEntry(Map map, boolean container, Object id, Pattern pattern, IConfigurationElement entry) {
 		
-		String packageName = entry.getAttributeAsIs(PI_PACKAGE);
+		String packageName = entry.getAttribute(PI_PACKAGE);
 		String plugin = null;
-		String pathString = entry.getAttributeAsIs(PI_PATH);
+		String pathString = entry.getAttribute(PI_PATH);
 		IPath fragment = null; 
 		if (packageName != null && packageName.length() > 0 && pathString != null && pathString.length() > 0) { 
 			fragment = new Path(packageName.replace('.', '/'));

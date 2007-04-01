@@ -10,14 +10,14 @@
  *******************************************************************************/
 /*
  *  $RCSfile: TypedElementSelectionValidator.java,v $
- *  $Revision: 1.1 $  $Date: 2005/10/03 23:06:42 $ 
+ *  $Revision: 1.2 $  $Date: 2007/04/01 03:27:42 $ 
  */
 package org.eclipse.jem.internal.beaninfo.ui;
 
 import java.util.Collection;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jface.util.Assert;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
  
 

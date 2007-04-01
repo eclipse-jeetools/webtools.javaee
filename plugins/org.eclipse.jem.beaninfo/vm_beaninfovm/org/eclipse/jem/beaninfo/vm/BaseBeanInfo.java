@@ -12,7 +12,7 @@ package org.eclipse.jem.beaninfo.vm;
 
 /*
  *  $RCSfile: BaseBeanInfo.java,v $
- *  $Revision: 1.15 $  $Date: 2007/03/14 17:26:47 $ 
+ *  $Revision: 1.16 $  $Date: 2007/04/01 03:25:48 $ 
  */
 
 import java.awt.Image;
@@ -420,7 +420,7 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo implements IBaseBeanIn
 	
 	static {
 		try {
-			GETCLASS = Object.class.getMethod("getClass", null); //$NON-NLS-1$
+			GETCLASS = Object.class.getMethod("getClass", (Class[]) null); //$NON-NLS-1$
 		} catch (SecurityException e) {
 		} catch (NoSuchMethodException e) {
 		}

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: CreateRegistryJobHandler.java,v $
- *  $Revision: 1.14 $  $Date: 2005/08/24 20:31:29 $ 
+ *  $Revision: 1.15 $  $Date: 2007/04/01 03:25:48 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
@@ -58,7 +58,7 @@ class CreateRegistryJobHandler {
 		// because we may already have the build rule locked by our thread. No way of testing this if beginRule was used.
 		// We can test if we are a build job (not an inline build), and if so, just go on.
 		// Maybe we can figure out in future if we find race condition happens significant amount of time.
-		IJobManager jobManager = Platform.getJobManager();
+		IJobManager jobManager = Job.getJobManager();
 		Job currentJob = jobManager.currentJob();
 		if (currentJob == null || (!currentJob.belongsTo(ResourcesPlugin.FAMILY_AUTO_BUILD) && !currentJob.belongsTo(ResourcesPlugin.FAMILY_MANUAL_BUILD))) {
 			// See if autojob is waiting or sleeping.
@@ -81,7 +81,7 @@ class CreateRegistryJobHandler {
 	}
 
 	private static boolean isAutoWaiting() {
-		Job[] autojobs = Platform.getJobManager().find(ResourcesPlugin.FAMILY_AUTO_BUILD);
+		Job[] autojobs = Job.getJobManager().find(ResourcesPlugin.FAMILY_AUTO_BUILD);
 		for (int i = 0; i < autojobs.length; i++) {
 			int state = autojobs[i].getState();
 			if (state == Job.WAITING || state == Job.SLEEPING) 
@@ -101,7 +101,7 @@ class CreateRegistryJobHandler {
 	 * @since 1.0.0
 	 */
 	protected void processCreateRegistry(final BeaninfoNature nature) {
-		IJobManager jobManager = Platform.getJobManager();
+		IJobManager jobManager = Job.getJobManager();
 		ISchedulingRule buildRule = ResourcesPlugin.getWorkspace().getRuleFactory().buildRule();
 		boolean gotRuleLocally = true;
 		try {

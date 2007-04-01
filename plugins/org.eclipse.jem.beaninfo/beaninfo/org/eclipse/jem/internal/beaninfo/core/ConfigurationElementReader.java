@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.core;
 /*
  *  $RCSfile: ConfigurationElementReader.java,v $
- *  $Revision: 1.5 $  $Date: 2005/08/24 20:31:29 $ 
+ *  $Revision: 1.6 $  $Date: 2007/04/01 03:25:47 $ 
  */
 
 import java.lang.reflect.Array;
@@ -67,7 +67,7 @@ class ConfigurationElementReader implements IReader {
 	 * @see IReader#getAttribute(Object, String)
 	 */
 	public String getAttribute(Object element, String attributeName) {
-		return (element instanceof IConfigurationElement) ? ((IConfigurationElement) element).getAttributeAsIs(attributeName) : null;
+		return (element instanceof IConfigurationElement) ? ((IConfigurationElement) element).getAttribute(attributeName) : null;
 	}
 
 }

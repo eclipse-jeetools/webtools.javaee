@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: FeatureAttributeValue.java,v $
- *  $Revision: 1.13 $  $Date: 2007/03/14 17:26:47 $ 
+ *  $Revision: 1.14 $  $Date: 2007/04/01 03:25:48 $ 
  */
 package org.eclipse.jem.internal.beaninfo.common;
 
@@ -641,11 +641,11 @@ public class FeatureAttributeValue implements Serializable {
 													// See if Beaninfo plugin is available (we are running under eclipse). If so, use it, else just print to error.
 													// We may be in the remote vm and so it won't be available.
 													Class biPluginClass = Class.forName("org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin"); //$NON-NLS-1$
-													Method getPlugin = biPluginClass.getMethod("getPlugin", null); //$NON-NLS-1$
-													Method getLogger = biPluginClass.getMethod("getLogger", null); //$NON-NLS-1$
+													Method getPlugin = biPluginClass.getMethod("getPlugin", (Class[]) null); //$NON-NLS-1$
+													Method getLogger = biPluginClass.getMethod("getLogger", (Class[]) null); //$NON-NLS-1$
 													Method log = getLogger.getReturnType().getMethod("log", new Class[] {Throwable.class, Level.class}); //$NON-NLS-1$
-													Object biPlugin = getPlugin.invoke(null, null);
-													Object logger = getLogger.invoke(biPlugin, null);
+													Object biPlugin = getPlugin.invoke(null, (Object[]) null);
+													Object logger = getLogger.invoke(biPlugin, (Object[]) null);
 													log.invoke(logger, new Object[] {e, Level.WARNING});
 													return InvalidObject.INSTANCE;
 												} catch (SecurityException e1) {
