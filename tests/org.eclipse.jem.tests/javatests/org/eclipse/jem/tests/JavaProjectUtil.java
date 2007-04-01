@@ -11,7 +11,7 @@
 package org.eclipse.jem.tests;
 /*
  *  $RCSfile: JavaProjectUtil.java,v $
- *  $Revision: 1.15 $  $Date: 2006/05/17 20:13:56 $ 
+ *  $Revision: 1.16 $  $Date: 2007/04/01 03:28:18 $ 
  */
 
 
@@ -23,6 +23,7 @@ import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
 import org.eclipse.core.runtime.jobs.IJobManager;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jdt.core.*;
 import org.osgi.framework.Bundle;
 
@@ -243,7 +244,7 @@ public class JavaProjectUtil {
 	}
 	
 	public static void waitForAutoBuild() throws CoreException {
-		IJobManager jobManager = Platform.getJobManager();
+		IJobManager jobManager = Job.getJobManager();
 		if (jobManager.find(ResourcesPlugin.FAMILY_AUTO_BUILD).length > 0) {
 			while (true) {
 				try {

@@ -154,7 +154,7 @@ public class TestStandard extends TestCase {
 		r.getContents().add(ji1);
 		// Bit of a kludge, but all references in java model are shared, so to serialize we need to get the 
 		// "set" setting and add to the resource so that it is contained somewhere.
-		r.getContents().add((EObject)ji1.eGet(ji1.eClass().getEStructuralFeature("set")));
+		r.getContents().add(ji1.eGet(ji1.eClass().getEStructuralFeature("set")));
 
 		ByteArrayOutputStream bo = new ByteArrayOutputStream();
 		r.save(bo, Collections.EMPTY_MAP);
