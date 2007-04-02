@@ -11,6 +11,8 @@
 
 package org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards;
 
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.preference.IPreferenceNode;
 import org.eclipse.jface.preference.PreferenceDialog;
@@ -196,40 +198,68 @@ public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 	}
 
 	private void addPreferenceLink(final Composite composite) {
-
-		Link link = new Link(composite, SWT.NONE);
-		link.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false, 3, 1));
-		link.setText(Messages.label_change_your_provider_preference);
-
-		link.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				if (showPreferencePage(composite)) {
+		/*
+		 * TODO: Bug 161150
+		 * 
+		 * If there's no preference mapping, don't link to a nonexistant page?
+		 * Perhaps add a combo here, letting the user select from the list of 
+		 * annotation providers, with a button next to it allowing them to edit 
+		 * that provider's preferences? 
+		 * 
+		 * Would we need eventually project-specific preferences? I don't know. 
+		 */
+		if( getPreferencePageId() != null ) {
+			Link link = new Link(composite, SWT.NONE);
+			link.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false, 3, 1));
+			link.setText(Messages.label_change_your_provider_preference);
+	
+			link.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent e) {
+					if (showPreferencePage(composite)) {
+					}
+					validateProvider();
 				}
-				validateProvider();
-			}
-
-			public void widgetDefaultSelected(SelectionEvent e) {
-				widgetSelected(e);
-			}
-		});
-
+	
+				public void widgetDefaultSelected(SelectionEvent e) {
+					widgetSelected(e);
+				}
+			});
+		}
 	}
 
 	protected boolean showPreferencePage(Composite composite) {
 		PreferenceManager manager = PlatformUI.getWorkbench().getPreferenceManager();
-		IPreferenceNode node = manager.find("org.eclipse.jst.j2ee.ejb.annotations.xdoclet.preference");
-		PreferenceManager manager2 = new PreferenceManager();
-		manager2.addToRoot(node);
-		final PreferenceDialog dialog = new PreferenceDialog(composite.getShell(), manager2);
-		final boolean[] result = new boolean[] { false };
-		BusyIndicator.showWhile(composite.getDisplay(), new Runnable() {
-			public void run() {
-				dialog.create();
-				if (dialog.open() == Window.OK)
-					result[0] = true;
+		String id = getPreferencePageId();
+		if( id != null ) {
+			IPreferenceNode node = manager.find(id);
+			PreferenceManager manager2 = new PreferenceManager();
+			manager2.addToRoot(node);
+			final PreferenceDialog dialog = new PreferenceDialog(composite.getShell(), manager2);
+			final boolean[] result = new boolean[] { false };
+			BusyIndicator.showWhile(composite.getDisplay(), new Runnable() {
+				public void run() {
+					dialog.create();
+					if (dialog.open() == Window.OK)
+						result[0] = true;
+				}
+			});
+			return result[0];
+		} 
+		return true;
+	}
+	
+	private String getPreferencePageId() {
+		String provider = AnnotationPreferenceStore.getProperty(AnnotationPreferenceStore.ANNOTATIONPROVIDER);
+		IConfigurationElement[] configurationElements = Platform.getExtensionRegistry().getConfigurationElementsFor(
+		"org.eclipse.jst.j2ee.ejb.annotations.ui.ProviderPreferenceMapping");
+		
+		for( int i = 0; i < configurationElements.length; i++ ) {
+			if( provider.equals(configurationElements[i].getAttribute("name"))) {
+				return configurationElements[i].getAttribute("preferencePage");
 			}
-		});
-		return result[0];
+		}
+		
+		return null;
 	}
 
 	private void validateProvider() {
