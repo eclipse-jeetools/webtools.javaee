@@ -808,4 +808,10 @@
       
     </extension>
 
+   <extension
+         point="org.eclipse.jst.j2ee.ejb.annotations.ui.ProviderPreferenceMapping">
+      <mapping
+            name="XDoclet"
+            preferencePage="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.preference"/>
+   </extension>
 </plugin>

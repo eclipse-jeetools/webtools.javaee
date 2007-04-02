@@ -26,15 +26,13 @@ public class RunXDocletAction extends XDocletActionDelegate {
 
 	public void run(IAction action) {
 
-		if (project != null
-				&& (J2EEProjectUtilities.isEJBProject(project.getProject()) || J2EEProjectUtilities.isDynamicWebProject(project
-						.getProject()))) {
+		if (project != null && (J2EEProjectUtilities.isEJBProject(project) || J2EEProjectUtilities.isDynamicWebProject(project))) {
 
 			Job buildJob = new Job("XDoclet") {
 				protected IStatus run(IProgressMonitor monitor) {
 					IStatus result = Status.OK_STATUS;
 					try {
-						XDocletAntProjectBuilder builder = XDocletAntProjectBuilder.Factory.newInstance(project.getProject());
+						XDocletAntProjectBuilder builder = XDocletAntProjectBuilder.Factory.newInstance(project);
 						IFile sourceFile = getFirstSourceFile();
 
 						builder.buildUsingAnt(sourceFile, new NullProgressMonitor());

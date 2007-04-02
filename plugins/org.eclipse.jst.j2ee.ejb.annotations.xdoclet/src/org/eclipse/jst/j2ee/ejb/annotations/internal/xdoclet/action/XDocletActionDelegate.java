@@ -67,7 +67,7 @@ public abstract class XDocletActionDelegate extends ActionDelegate {
 	}
 
 	protected IFile getFirstSourceFile() {
-		IFolder resource = (IFolder) J2EEProjectUtilities.getSourceFolderOrFirst(project.getProject(), null);
+		IFolder resource = (IFolder) J2EEProjectUtilities.getSourceFolderOrFirst(project, null);
 		SourceFinder finder = new SourceFinder();
 		try {
 
