@@ -9,6 +9,8 @@
 
 package org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.ejb.ui.project.facet.EjbProjectWizard;
@@ -20,8 +22,11 @@ import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProper
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 
 public class NewEjbClassWizardPage extends NewJavaClassWizardPage {
@@ -47,6 +52,24 @@ public class NewEjbClassWizardPage extends NewJavaClassWizardPage {
 			String newProjectName = aModel.getStringProperty( IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
 			this.setProjectName(newProjectName);
 		}
+	}
+	
+	protected boolean isProjectValid(IProject project) {
+		boolean result = super.isProjectValid(project);
+		if (result) {
+			// check additionally if the project has the jst.ejb.xdoclet facet
+			result = false;
+			IFacetedProject faceted = null;
+			try {
+				faceted = ProjectFacetsManager.create(project);
+				if (faceted != null && 
+					(faceted.hasProjectFacet(ProjectFacetsManager.getProjectFacet("jst.ejb.xdoclet")))) {
+					result = true;
+				}
+			} catch (CoreException e) {
+			}
+		}
+		return result;
 	}
 	
 }
