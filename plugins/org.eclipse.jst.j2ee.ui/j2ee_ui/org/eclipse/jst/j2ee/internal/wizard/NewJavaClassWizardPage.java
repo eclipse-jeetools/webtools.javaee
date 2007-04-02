@@ -201,6 +201,30 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		}
 		return null;
 	}
+	
+	/**
+	 * This method is used by the project list initializer. The method checks 
+	 * if the specified project is valid to include it in the project list.
+	 * 
+	 * <p>Subclasses of this wizard page should override this method to 
+	 * adjust filtering of the projects to their needs. </p>
+	 * 
+	 * @param project reference to the project to be checked
+	 * 
+	 * @return <code>true</code> if the project is valid to be included in 
+	 * 		   the project list, <code>false</code> - otherwise. 
+	 */
+	protected boolean isProjectValid(IProject project) {
+		boolean result;
+		try {
+			result = project.isAccessible() && 
+				project.hasNature(IModuleConstants.MODULE_NATURE_ID) && 
+			 	J2EEProjectUtilities.getJ2EEProjectType(project).equals(projectType);
+		} catch (CoreException ce) {
+			result = false;
+		}
+		return result;
+	}
 	 
 	/**
 	 * 
@@ -210,14 +234,8 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		List items = new ArrayList();
 		for (int i = 0; i < workspaceProjects.length; i++) {
 			IProject project = workspaceProjects[i];
-			try {
-				if (project.isAccessible() && project.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
-					if (J2EEProjectUtilities.getJ2EEProjectType(project).equals(projectType))
-						items.add(project.getName());
-				}
-			} catch (CoreException ce) {
-				// Ignore
-			}
+			if (isProjectValid(project))
+				items.add(project.getName());
 		}
 		if (items.isEmpty()) return;
 		String[] names = new String[items.size()];
