@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -162,7 +164,19 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 			String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_EMPTY_MODULE_NAME);
 			return WTPCommonPlugin.createErrorStatus(errorMessage);
 		}
-		return (ProjectCreationDataModelProviderNew.validateProjectName(earName));
+		
+		IStatus status = ProjectCreationDataModelProviderNew.validateProjectName(earName);
+		//check for the deleted case, the project is deleted from the workspace but still exists in the
+		//file system.
+		if( status.isOK()){
+			IProject earProject = ProjectUtilities.getProject(getStringProperty(EAR_PROJECT_NAME));
+			if( !earProject.exists() ){
+				IPath path = ResourcesPlugin.getWorkspace().getRoot().getLocation();
+				path = path.append(earName);
+				status = ProjectCreationDataModelProviderNew.validateExisting(earName, path.toOSString());
+			}
+		}
+		return status;
 	}
 
 }
