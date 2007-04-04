@@ -1337,20 +1337,52 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 		return new RuntimeClasspathEntry[]{createRuntimeClasspathEntry(absolutePath)};
 	}
 
-	protected RuntimeClasspathEntry[] getDependencyClassPathAtThisLevel() {
-		String absolutePath = internalGetBinariesPath();
-		if (absolutePath == null)
-			return emptyClasspath();
-		String parentPath = new java.io.File(absolutePath).getParentFile().getAbsolutePath();
-		String[] mfEntries = getManifest().getClassPathTokenized();
-		if (mfEntries.length == 0)
-			return emptyClasspath();
-		List entries = new ArrayList();
-		entries.addAll(createRuntimeClasspathEntries(mfEntries, parentPath));
+	
+ 	protected RuntimeClasspathEntry[] getDependencyClassPathAtThisLevel() {
+		// BZ 170532: Don't use the archive's absolute path when the
+		// archive is loosely mapped.  The current archive's absolute
+		// path, generally, will not be in a fixed location relative
+		// to the path of the parent application.
+		String parentPath = getParentPath();
+		if ( parentPath == null )
+ 			return emptyClasspath();
+		
+ 		String[] mfEntries = getManifest().getClassPathTokenized();
+		if ( mfEntries.length == 0 )
+ 			return emptyClasspath();
+		
+ 		List entries = new ArrayList();
+		entries.addAll( createRuntimeClasspathEntries(mfEntries, parentPath) );
+ 
+		return (RuntimeClasspathEntry[]) entries.toArray( new RuntimeClasspathEntry[ entries.size() ] );
+ 	}
 
-		return (RuntimeClasspathEntry[]) entries.toArray(new RuntimeClasspathEntry[entries.size()]);
+	/**
+	 * <p>Answer a parent path for use by the receiver.  Take into
+	 * account wehther the receiver is a loose application or not.
+	 * 
+	 * <p>Answer null in case an error is encountered while determining
+	 * the parent path.</p>
+	 * 
+	 * <p>Added for BZ 170532.</p>
+	 * 
+	 * @return A parent path for use by the receiver.  Null in case of an error.
+	 * 
+	 *  @see getDependencyClassPathAtThisLevel()
+	 */
+	protected String getParentPath() {
+		try {
+			if ( (getLoadStrategy().getLooseArchive() != null) && getContainer().isEARFile() ) {
+				return getEARFile().getBinariesPath();
+			} else {
+				return new java.io.File(getBinariesPath()).getParentFile().getAbsolutePath();
+			}
+		} catch (FileNotFoundException e) {
+			return null;
+		}
 	}
-
+	
+	
 	public RuntimeClasspathEntry[] getFullRuntimeClassPath() {
 		return concat(getLocalRuntimeClassPath(), getDependencyClassPath());
 	}
