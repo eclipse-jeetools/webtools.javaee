@@ -53,6 +53,7 @@ import org.eclipse.jst.j2ee.ejb.EJBResource;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.webservice.componentcore.util.WSCDDArtifactEdit;
@@ -74,6 +75,7 @@ import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
@@ -684,7 +686,25 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		List result = new ArrayList();
 		while (iter.hasNext()) {
 			WSCDDArtifactEdit wscArtifactEdit = (WSCDDArtifactEdit) iter.next();
-			ArtifactEdit artifactEdit = ArtifactEdit.getArtifactEditForRead(wscArtifactEdit.getProject());
+
+			IProject project = wscArtifactEdit.getProject(); 	
+			
+			String projectType = J2EEProjectUtilities.getJ2EEProjectType(project);
+			String projectVersion = J2EEProjectUtilities.getJ2EEProjectVersion(project);
+			int    j2eeLevel =  0;
+			if(IModuleConstants.JST_EJB_MODULE.equals(projectType)){
+				j2eeLevel = J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(projectVersion);
+			} else if(IModuleConstants.JST_WEB_MODULE.equals(projectType)){
+				j2eeLevel = J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(projectVersion);
+			} else if(IModuleConstants.JST_APPCLIENT_MODULE.equals(projectType)){
+				j2eeLevel = J2EEVersionUtil.convertAppClientVersionStringToJ2EEVersionID(projectVersion);
+			}
+			
+			// this method needs to check that project's j2ee level is 14
+			if(j2eeLevel !=  J2EEVersionConstants.J2EE_1_4_ID)
+				continue;
+			
+			ArtifactEdit artifactEdit = ArtifactEdit.getArtifactEditForRead(project);
 			try {
 				EObject rootObject = null;
 				if (artifactEdit!=null)
