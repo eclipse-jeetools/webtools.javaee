@@ -2,3 +2,5 @@ bin
 build.xml
 common_bin
 vm_bin
+javaCompiler.vm_remotevm.jar.args
+javaCompiler...args
