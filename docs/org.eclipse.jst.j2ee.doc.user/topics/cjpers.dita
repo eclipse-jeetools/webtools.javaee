@@ -11,7 +11,8 @@ or modules.</shortdesc>
 <keywords><indexterm>perspectives<indexterm>J2EE</indexterm></indexterm></keywords>
 </metadata></prolog>
 <conbody outputclass="id_conbody">
-<p outputclass="anchor_topictop">You can rearrange the location, tiling, and
+<p outputclass="anchor_topictop"></p>
+<p>You can rearrange the location, tiling, and
 size of the views within the perspective. You can also add other views to
 the J2EE perspective by clicking <menucascade><uicontrol>Window</uicontrol>
 <uicontrol>Show View</uicontrol></menucascade> and selecting the view.</p>

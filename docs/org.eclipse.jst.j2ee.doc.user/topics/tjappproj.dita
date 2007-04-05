@@ -11,8 +11,8 @@ project.</shortdesc>
 </keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
-<context outputclass="id_context"> <p outputclass="anchor_topictop">Application
-client projects contain the resources needed for application client modules.
+<context outputclass="id_context"> <p outputclass="anchor_topictop"></p>
+<p>Application client projects contain the resources needed for application client modules.
 Application client projects contain programs that run on networked client
 systems. An application client project is deployed as a JAR file.</p><p>Like
 the other types of projects, application client projects can contain one or

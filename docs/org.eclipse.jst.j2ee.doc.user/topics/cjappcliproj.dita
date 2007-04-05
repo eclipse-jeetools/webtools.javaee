@@ -11,19 +11,20 @@
 </keywords>
 </metadata></prolog>
 <conbody outputclass="id_conbody">
-<p outputclass="anchor_topictop"> Application client projects contain the
-resources needed for application client modules. An application client module
-is used to contain a full-function client <tm tmclass="special" tmowner="Sun Microsystems, Inc."
-tmtype="tm" trademark="Java">Java</tm> application (non Web-based) that connects
-to and uses the J2EE resources defined in your server. When you place the
-client code in an application client module instead of a simple JAR file,
-the application client benefits from the server's resources (it does not need
-to re-specify the class path to J2EE and server JAR files) as well as from
-easier JNDI lookup (the client container fills in the initial context and
-other parameters). The application client project allows you to work as if
-you are creating a standalone <tm tmclass="special" tmowner="Sun Microsystems, Inc."
-tmtype="tm" trademark="Java">Java</tm> application in a <tm tmclass="special"
-tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> project.</p>
+<p outputclass="anchor_topictop"></p>
+<p> Application client projects contain the resources needed for application
+client modules. An application client module is used to contain a full-function
+client <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> application (non Web-based) that connects to and
+uses the J2EE resources defined in your server. When you place the client
+code in an application client module instead of a simple JAR file, the application
+client benefits from the server's resources (it does not need to re-specify
+the class path to J2EE and server JAR files) as well as from easier JNDI lookup
+(the client container fills in the initial context and other parameters).
+The application client project allows you to work as if you are creating a
+standalone <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> application in a <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> project.</p>
 <p>An application client project enables you to do the following things:</p>
 <ul>
 <li>Develop the <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"

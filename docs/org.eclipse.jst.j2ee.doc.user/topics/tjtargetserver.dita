@@ -14,8 +14,8 @@ mechanism for setting the class path for J2EE projects.</shortdesc>
 servers</indexterm></keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
-<context outputclass="id_context"><p outputclass="anchor_topictop">In order
-to support different application servers that use different JDK levels for
+<context outputclass="id_context"><p outputclass="anchor_topictop"></p>
+<p>In order to support different application servers that use different JDK levels for
 their <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> Runtime
 Environment (JRE), the workbench prompts you for a target server setting for
 each J2EE project. For example, if you want to take advantage of the features

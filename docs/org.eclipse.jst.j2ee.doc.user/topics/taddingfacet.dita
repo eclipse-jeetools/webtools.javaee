@@ -11,8 +11,8 @@ to an existing project in your workspace.</shortdesc>
 </keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
-<context outputclass="id_context"><p outputclass="anchor_topictop">New projects
-generally have facets added to them when they are created. To add another
+<context outputclass="id_context"><p outputclass="anchor_topictop"></p>
+<p>New projects generally have facets added to them when they are created. To add another
 facet to a project that already exists, follow these steps:</p></context>
 <steps outputclass="id_steps">
 <step><cmd>In the Project Explorer view, right-click the project and then

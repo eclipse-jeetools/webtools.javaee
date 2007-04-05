@@ -11,8 +11,8 @@ systems (EISs).</shortdesc>
 </keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
-<context outputclass="id_context"> <p outputclass="anchor_topictop"> A connector
-is a J2EE standard extension mechanism for containers to provide connectivity
+<context outputclass="id_context"> <p outputclass="anchor_topictop"></p>
+<p>A connector is a J2EE standard extension mechanism for containers to provide connectivity
 to enterprise information systems (EISs). A connector is specific to an EIS
 and consists of a resource adapter and application development tools. A resource
 adapter is a system-level software driver that is used by an EJB container

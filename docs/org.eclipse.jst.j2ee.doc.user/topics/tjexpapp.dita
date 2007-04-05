@@ -10,8 +10,8 @@ project as a JAR file.</shortdesc>
 </keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
-<context outputclass="id_context"><p outputclass="anchor_topictop">To export
-an application client project from the workbench:</p></context>
+<context outputclass="id_context"><p outputclass="anchor_topictop"></p>
+<p>To export an application client project from the workbench:</p></context>
 <steps outputclass="id_steps">
 <step><cmd>In the J2EE perspective, click <menucascade><uicontrol>File</uicontrol>
 <uicontrol>Export</uicontrol></menucascade>.</cmd><stepresult>The Export window

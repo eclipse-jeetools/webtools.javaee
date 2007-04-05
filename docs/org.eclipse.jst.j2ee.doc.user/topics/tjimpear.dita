@@ -11,8 +11,8 @@ by importing it from a deployed EAR file.</shortdesc>
 <indexterm>EAR files<indexterm>importing</indexterm></indexterm></keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
-<context outputclass="id_context"> <p outputclass="anchor_topictop">You can
-also choose to import utility JAR files as utility <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+<context outputclass="id_context"> <p outputclass="anchor_topictop"></p>
+<p>You can also choose to import utility JAR files as utility <tm tmclass="special" tmowner="Sun Microsystems, Inc."
 tmtype="tm" trademark="Java">Java</tm> projects. You can also use the wizard
 to change the new project names for the EAR file and modules that will be
 imported.</p><p>To import an EAR file using the wizard:</p></context>

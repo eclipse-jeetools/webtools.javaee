@@ -12,11 +12,12 @@ for J2EE projects. </shortdesc>
 </keywords>
 </metadata></prolog>
 <conbody outputclass="id_conbody">
-<p outputclass="anchor_topictop">When you add a facet to a project, that project
-is configured to perform a certain task, fulfill certain requirements, or
-have certain characteristics. For example, the EAR facet sets up a project
-to function as an enterprise application by adding a deployment descriptor
-and setting up the project's classpath.</p>
+<p outputclass="anchor_topictop"></p>
+<p>When you add a facet to a project, that project is configured to perform
+a certain task, fulfill certain requirements, or have certain characteristics.
+For example, the EAR facet sets up a project to function as an enterprise
+application by adding a deployment descriptor and setting up the project's
+classpath.</p>
 <p>You can add facets only to J2EE projects and other types of projects that
 are based on J2EE projects, such as enterprise application projects, dynamic
 Web projects, and EJB projects. You cannot add facets to a <tm tmclass="special"

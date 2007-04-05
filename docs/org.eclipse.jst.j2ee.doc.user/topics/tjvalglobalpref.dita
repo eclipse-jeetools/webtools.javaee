@@ -11,9 +11,10 @@ the global validation preferences.</shortdesc>
 </keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
-<context outputclass="id_context"> <p outputclass="anchor_topictop">The default validation preferences
-are specified globally on the Validation page of the Preferences dialog. To
-allow projects to override these default validation preferences:</p></context>
+<context outputclass="id_context"> <p outputclass="anchor_topictop"></p> <p>The
+default validation preferences are specified globally on the Validation page
+of the Preferences dialog. To allow projects to override these default validation
+preferences:</p></context>
 <steps outputclass="id_steps">
 <step><cmd>Click <menucascade><uicontrol>Window</uicontrol><uicontrol>Preferences</uicontrol>
 </menucascade>.</cmd></step>

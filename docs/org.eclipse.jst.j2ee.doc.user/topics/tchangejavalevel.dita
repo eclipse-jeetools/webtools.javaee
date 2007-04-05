@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
- "task.dtd">
+ "ibm-task.dtd">
 <task id="tchangejavalevel" xml:lang="en-us">
 <title outputclass="id_title">Changing the Java compiler version for a J2EE
 project</title>
@@ -12,8 +12,8 @@ in a J2EE project by changing the value of the <uicontrol>Java</uicontrol> facet
 </keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
-<context outputclass="id_context"><p outputclass="anchor_topictop">The <uicontrol>Java</uicontrol> facet
-applies only to J2EE projects. To set the Java compiler level of a non-J2EE
+<context outputclass="id_context"><p outputclass="anchor_topictop"></p>
+<p>The <uicontrol>Java</uicontrol> facet applies only to J2EE projects. To set the Java compiler level of a non-J2EE
 project, such as a Java project, see <xref format="html" href="../../org.eclipse.jdt.doc.user/reference/ref-preferences-compiler.htm"
 scope="peer">Java Compiler</xref>.</p></context>
 <steps outputclass="id_steps">

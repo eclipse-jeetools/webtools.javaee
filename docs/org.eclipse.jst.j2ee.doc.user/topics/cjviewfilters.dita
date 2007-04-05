@@ -11,7 +11,8 @@ view to hide projects, folders, or files that you don't want to see.</shortdesc>
 </keywords>
 </metadata></prolog>
 <conbody outputclass="id_conbody">
-<p outputclass="anchor_topictop">To enable or disable filters, open the Select
+<p outputclass="anchor_topictop"></p>
+<p>To enable or disable filters, open the Select
 Common Navigator Filters window by clicking the <uicontrol>Filters</uicontrol> button
 from the drop-down menu at the top right corner of the view. This window lists
 the available filters.</p>

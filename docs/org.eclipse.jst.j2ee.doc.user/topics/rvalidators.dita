@@ -17,7 +17,7 @@ of each validator.</shortdesc>
 <tgroup cols="2" colsep="1" rowsep="1"><colspec colname="col1" colwidth="50*"/>
 <colspec colname="col2" colwidth="50*"/>
 <thead>
-<row outputclass="anchor_toprow">
+<row outputclass="id_toprow">
 <entry>Validator name</entry>
 <entry>Description</entry>
 </row>

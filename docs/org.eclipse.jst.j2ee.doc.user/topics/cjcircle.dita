@@ -11,7 +11,8 @@
 </keywords>
 </metadata></prolog>
 <conbody outputclass="id_conbody">
-<p outputclass="anchor_topictop">A cyclical dependency between two or more
+<p outputclass="anchor_topictop"></p>
+<p>A cyclical dependency between two or more
 modules in an enterprise application most commonly occurs when projects are
 imported from outside the Workbench. When a cycle exists between two or more
 modules in an enterprise application, the <tm tmclass="special" tmowner="Sun Microsystems, Inc."

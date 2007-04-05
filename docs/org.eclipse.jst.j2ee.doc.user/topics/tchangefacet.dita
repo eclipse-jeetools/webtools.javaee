@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
- "task.dtd">
+ "ibm-task.dtd">
 <task id="tchangefacet" xml:lang="en-us">
 <title outputclass="id_title">Changing the version of a facet</title>
 <shortdesc outputclass="id_shortdesc">You can change the version of a facet
@@ -13,8 +13,8 @@ in a J2EE project by editing the facets for the project.</shortdesc>
 <indexterm>facets<indexterm>version</indexterm></indexterm></keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
-<context outputclass="id_context"><p outputclass="anchor_topictop">Changing
-the Java compiler version of a J2EE project involves changing the version
+<context outputclass="id_context"><p outputclass="anchor_topictop"></p>
+<p>Changing the Java compiler version of a J2EE project involves changing the version
 of the <uicontrol>Java</uicontrol> facet. See <xref href="tchangejavalevel.dita"></xref>.</p></context>
 <steps outputclass="id_steps">
 <step><cmd>In the Project Explorer view, right-click the project and then

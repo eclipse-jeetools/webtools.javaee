@@ -12,8 +12,8 @@ run on manual validation, build validation, both, or neither. </shortdesc>
 </keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
-<context outputclass="id_context"><p outputclass="anchor_topictop">To choose the validators that you
-want to use for a project:</p></context>
+<context outputclass="id_context"><p outputclass="anchor_topictop"></p>
+<p>To choose the validators that you want to use for a project:</p></context>
 <steps outputclass="id_steps">
 <step><cmd>Click <menucascade><uicontrol>Window</uicontrol><uicontrol>Preferences</uicontrol>
 </menucascade>.</cmd></step>

@@ -11,12 +11,13 @@ provides a standard for developing multitier, enterprise services.</shortdesc>
 </keywords>
 </metadata></prolog>
 <conbody outputclass="id_conbody">
-<p outputclass="anchor_topictop">The economy and technology of today have
-intensified the need for faster, more efficient, and larger-scale information
-management solutions. The J2EE specification satisfies these challenges by
-providing a programming model that improves development productivity, standardizes
-the platform for hosting enterprise applications, and ensures portability
-of developed applications with an extensive test suite.</p>
+<p outputclass="anchor_topictop"></p>
+<p>The economy and technology of today have intensified the need for faster,
+more efficient, and larger-scale information management solutions. The J2EE
+specification satisfies these challenges by providing a programming model
+that improves development productivity, standardizes the platform for hosting
+enterprise applications, and ensures portability of developed applications
+with an extensive test suite.</p>
 <p>J2EE architecture supports component-based development of multi-tier enterprise
 applications. A J2EE application system typically includes the following tiers:</p>
 <ul>

@@ -11,8 +11,8 @@ file.</shortdesc>
 <indexterm>RAR files<indexterm>importing</indexterm></indexterm></keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
-<context outputclass="id_context"><p outputclass="anchor_topictop">To import
-a connector project RAR file using the wizard:</p></context>
+<context outputclass="id_context"><p outputclass="anchor_topictop"></p>
+<p>To import a connector project RAR file using the wizard:</p></context>
 <steps outputclass="id_steps">
 <step><cmd>In the J2EE perspective, click <menucascade><uicontrol>File</uicontrol>
 <uicontrol>Import</uicontrol></menucascade>. The Import window opens.</cmd>

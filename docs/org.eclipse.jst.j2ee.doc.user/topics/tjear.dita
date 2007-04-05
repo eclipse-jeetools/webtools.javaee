@@ -9,8 +9,8 @@
 </keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
-<context outputclass="id_context"><p outputclass="anchor_topictop">Enterprise
-application projects contain references to the resources needed for enterprise
+<context outputclass="id_context"><p outputclass="anchor_topictop"></p>
+<p>Enterprise application projects contain references to the resources needed for enterprise
 applications and can contain a combination of Web modules, JAR files, connector
 modules, EJB modules, and application client modules. An enterprise application
 project is deployed in the form of an EAR file, and is therefore sometimes

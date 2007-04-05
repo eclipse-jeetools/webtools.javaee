@@ -11,8 +11,8 @@ settings.</shortdesc>
 validation<indexterm>manual</indexterm></indexterm></keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
-<context outputclass="id_context"><p outputclass="anchor_topictop">The validators used depend on the
-global and project validation settings. When you validate a project manually,
+<context outputclass="id_context"><p outputclass="anchor_topictop"></p>
+<p>The validators used depend on the global and project validation settings. When you validate a project manually,
 the global settings are used unless both of the following are true:<ul>
 <li>The <uicontrol>Allow projects to override these preference settings</uicontrol> check
 box is selected on the global validation preferences page.</li>

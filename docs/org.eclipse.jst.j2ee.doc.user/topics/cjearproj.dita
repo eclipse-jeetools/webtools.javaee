@@ -13,7 +13,8 @@ together the resources that are required to deploy a J2EE enterprise application
 </keywords>
 </metadata></prolog>
 <conbody outputclass="id_conbody">
-<p outputclass="anchor_topictop">An enterprise application project contains
+<p outputclass="anchor_topictop"></p>
+<p>An enterprise application project contains
 a set of references to other J2EE modules and <tm tmclass="special" tmowner="Sun Microsystems, Inc."
 tmtype="tm" trademark="Java">Java</tm> projects that are combined to compose
 an EAR file. These projects can be Web modules, EJB modules, application client

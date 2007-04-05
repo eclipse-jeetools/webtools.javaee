@@ -13,8 +13,8 @@ validation<indexterm>enabling</indexterm></indexterm><indexterm>validation<index
 validation</indexterm></indexterm></keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
-<context outputclass="id_context"> <p outputclass="anchor_topictop">By default, the workbench validates
-your files automatically after any build, including automatic builds. You
+<context outputclass="id_context"> <p outputclass="anchor_topictop"></p>
+<p>By default, the workbench validates your files automatically after any build, including automatic builds. You
 can also begin the validation process manually without building.</p><p>On
 the workbench Properties window, you can enable or disable validators to be
 used on your projects. Also, you can enable or disable validators for each

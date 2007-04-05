@@ -11,7 +11,8 @@ J2EE projects and resources.</shortdesc>
 </keywords>
 </metadata></prolog>
 <conbody outputclass="id_conbody">
-<p outputclass="anchor_topictop">The Project Explorer view provides an integrated
+<p outputclass="anchor_topictop"></p>
+<p>The Project Explorer view provides an integrated
 view of all project resources, including models of J2EE deployment descriptors, <tm
 tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> artifacts,
 resources, Web services, databases, and dynamic Web project artifacts.</p>
