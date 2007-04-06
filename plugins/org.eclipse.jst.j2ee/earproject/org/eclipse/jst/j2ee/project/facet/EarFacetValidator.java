@@ -110,7 +110,7 @@ public final class EarFacetValidator
                  ! earRuntime.equals( moduleRuntime ) )
         {
             final String msg
-                = NLS.bind( Resources.targettingDifferentRuntimes,
+                = NLS.bind( Resources.targetingDifferentRuntimes,
                             module.getProject().getName() );
             
             final IMarker m = ear.createWarningMarker( MARKER_ID, msg );
@@ -126,7 +126,7 @@ public final class EarFacetValidator
         extends NLS
         
     {
-        public static String targettingDifferentRuntimes;
+        public static String targetingDifferentRuntimes;
         
         static
         {
