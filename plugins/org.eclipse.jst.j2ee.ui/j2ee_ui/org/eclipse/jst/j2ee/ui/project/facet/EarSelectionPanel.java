@@ -59,7 +59,7 @@ public final class EarSelectionPanel implements IWebFacetInstallDataModelPropert
         
         this.addToEar = new Button( group, SWT.CHECK );
         this.addToEar.setText( Resources.addToEarLabel );
-        this.addToEar.setLayoutData( gdhspan( gdhfill(), 3 ) );
+        this.addToEar.setLayoutData( gdhspan( new GridData(), 3 ) );
         synchhelper.synchCheckbox(addToEar, ADD_TO_EAR, null);
 
         label = new Label(group, SWT.NULL);
