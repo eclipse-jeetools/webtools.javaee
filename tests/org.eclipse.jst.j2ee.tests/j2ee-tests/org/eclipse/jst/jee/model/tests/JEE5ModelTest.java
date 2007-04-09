@@ -1,6 +1,7 @@
 package org.eclipse.jst.jee.model.tests;
 import junit.framework.Test;
 
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
@@ -16,9 +17,15 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
+import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.archive.emftests.GeneralEMFPopulationTest;
 import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.javaee.application.ApplicationDeploymentDescriptor;
 import org.eclipse.jst.javaee.application.internal.metadata.ApplicationFactory;
@@ -29,8 +36,19 @@ import org.eclipse.jst.javaee.ejb.EJBJarDeploymentDescriptor;
 import org.eclipse.jst.javaee.ejb.internal.metadata.EjbFactory;
 import org.eclipse.jst.javaee.ejb.internal.util.EjbResourceFactoryImpl;
 import org.eclipse.jst.javaee.ejb.internal.util.EjbResourceImpl;
+import org.eclipse.jst.javaee.web.WebAppDeploymentDescriptor;
+import org.eclipse.jst.javaee.web.internal.util.WebResourceImpl;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetInstallDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
+import org.eclipse.wst.common.project.facet.core.IProjectFacet;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
 
 public class JEE5ModelTest extends GeneralEMFPopulationTest {
@@ -123,6 +141,57 @@ public class JEE5ModelTest extends GeneralEMFPopulationTest {
 		
 
 	}
+    
+    public void testReadNewWebModel() throws Exception {
+		
+    	String projName = "TestEE5WebProject";//$NON-NLS-1$
+    	createWebProject(projName);
+    	
+    	
+    	EMFAttributeFeatureGenerator.reset();
+		String modelPathURI = J2EEConstants.WEBAPP_DD_URI;
+		URI uri = URI.createURI(modelPathURI);
+		ProjectResourceSet resSet = getResourceSet(projName);
+		
+
+		WebResourceImpl webRes = (WebResourceImpl) resSet.getResource(uri,true);
+		
+		if (webRes.getContents().size() > 0) {
+			WebAppDeploymentDescriptor ddRoot = (WebAppDeploymentDescriptor)webRes.getContents().get(0);
+			ddRoot.getWebApp();
+		}
+	
+		
+
+	}
+
+
+	private ProjectResourceSet getResourceSet(String projName) {
+		IProject proj = getProject(projName);
+		return (ProjectResourceSet)WorkbenchResourceHelperBase.getResourceSet(proj);
+	}
+
+
+	private IProject createWebProject(String projName) throws ExecutionException {
+		IDataModel dataModel = DataModelFactory.createDataModel(IWebFacetInstallDataModelProperties.class);
+		String webVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.WEB_2_5_ID);
+		IProjectFacet webFacet = ProjectFacetsManager.getProjectFacet(IWebFacetInstallDataModelProperties.DYNAMIC_WEB);
+		IProjectFacetVersion webFacetVersion = webFacet.getVersion(webVersionString); //$NON-NLS-1$
+		addWebProjectProperties(dataModel, projName, webFacetVersion);
+		dataModel.getDefaultOperation().execute( new NullProgressMonitor(), null);
+		IProject webProj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
+		return webProj;
+	}
+    private void addWebProjectProperties(IDataModel dataModel, String projName, IProjectFacetVersion web25){
+
+		dataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, projName);
+		FacetDataModelMap map = (FacetDataModelMap) dataModel
+				.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		IDataModel webmodel = (IDataModel) map.get(IWebFacetInstallDataModelProperties.DYNAMIC_WEB);
+		webmodel.setProperty(IFacetInstallDataModelProperties.FACET_VERSION, web25);
+		webmodel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER,"web333"); //$NON-NLS-1$
+        webmodel.setStringProperty(IWebFacetInstallDataModelProperties.SOURCE_FOLDER, "src444");
+    }
 
 
 	public void testNewEARModelPopulation() throws Exception {
@@ -150,6 +219,9 @@ public class JEE5ModelTest extends GeneralEMFPopulationTest {
 	}
 	public IProject getProject() {
 		return ResourcesPlugin.getWorkspace().getRoot().getProject(PROJECTNAME);
+	}
+	public IProject getProject(String projName) {
+		return ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
 	}
 
 
