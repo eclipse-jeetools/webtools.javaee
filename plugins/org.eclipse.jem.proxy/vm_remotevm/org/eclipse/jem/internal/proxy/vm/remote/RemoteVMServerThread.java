@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.vm.remote;
 /*
  *  $RCSfile: RemoteVMServerThread.java,v $
- *  $Revision: 1.13 $  $Date: 2005/12/14 21:23:46 $ 
+ *  $Revision: 1.14 $  $Date: 2007/04/10 01:09:24 $ 
  */
 
 
@@ -312,7 +312,7 @@ public class RemoteVMServerThread extends Thread implements IVMServer, IVMCallba
 		} catch (SocketException e) {
 			if (trying || server != null)
 				e.printStackTrace();	// Exception and not shutdown request, so print stack trace.
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		

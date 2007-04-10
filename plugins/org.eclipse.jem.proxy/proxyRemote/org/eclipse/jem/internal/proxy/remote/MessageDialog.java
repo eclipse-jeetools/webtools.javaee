@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: MessageDialog.java,v $
- *  $Revision: 1.4 $  $Date: 2005/08/24 20:39:06 $ 
+ *  $Revision: 1.5 $  $Date: 2007/04/10 01:09:24 $ 
  */
 
 import java.awt.*;
@@ -192,7 +192,7 @@ nextSeg:	while (message.length() > 95) {
 		aMessageDialog.dispose();
 
 		return aMessageDialog.result;
-	} catch (Throwable exception) {
+	} catch (Exception exception) {
 	}
 
 	return 2;

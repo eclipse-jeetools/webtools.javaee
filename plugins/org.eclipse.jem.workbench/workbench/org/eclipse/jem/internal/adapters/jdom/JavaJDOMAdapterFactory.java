@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaJDOMAdapterFactory.java,v $
- *  $Revision: 1.10 $  $Date: 2006/09/14 18:31:08 $ 
+ *  $Revision: 1.11 $  $Date: 2007/04/10 01:09:48 $ 
  */
 import java.util.*;
 
@@ -214,7 +214,7 @@ public void notifyContentChanged(ICompilationUnit targetCU) {
 				if (reflectionSource != null) {
 					try {
 					   adapterCU = reflectionSource.getCompilationUnit();
-					} catch (Throwable e) {} 
+					} catch (Exception e) {} 
 				}
 				if (adapterCU != null && targetCU.equals(adapterCU)) {
 			       adaptor.contentChanged();

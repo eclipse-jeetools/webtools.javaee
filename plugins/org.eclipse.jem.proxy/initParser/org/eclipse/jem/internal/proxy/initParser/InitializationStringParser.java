@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.initParser;
 /*
  *  $RCSfile: InitializationStringParser.java,v $
- *  $Revision: 1.5 $  $Date: 2005/08/24 20:39:07 $ 
+ *  $Revision: 1.6 $  $Date: 2007/04/10 01:09:24 $ 
  */
 
 
@@ -159,7 +159,7 @@ public Object evaluate() throws InitializationStringEvaluationException {
 		throw new EvaluationException(e);
 	} catch (EvaluationException e) {
 		throw e;	// Don't loose these
-	} catch (Throwable e) {
+	} catch (Exception e) {
 		throw new InitializationStringEvaluationException(e);
 	}
 

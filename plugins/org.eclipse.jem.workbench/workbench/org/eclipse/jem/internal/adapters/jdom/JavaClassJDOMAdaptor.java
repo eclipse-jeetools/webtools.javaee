@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.27 $  $Date: 2006/09/18 17:53:18 $ 
+ *  $Revision: 1.28 $  $Date: 2007/04/10 01:09:48 $ 
  */
 
 import java.util.*;
@@ -505,7 +505,7 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 					TimerTests.basicTest.startCumulativeStep(REFLECT_FIELDS);
 					addFields();
 					hasReflectedFields = true;
-				} catch (Throwable e) {
+				} catch (Exception e) {
 					hasReflectedFields = false;
 					Logger logger = Logger.getLogger();
 					if (logger.isLoggingLevel(Level.WARNING)) {
@@ -528,7 +528,7 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 				try {
 					TimerTests.basicTest.startCumulativeStep(REFLECT_METHODS);
 					hasReflectedMethods = addMethods();
-				} catch (Throwable e) {
+				} catch (Exception e) {
 					hasReflectedMethods = false;
 					Logger logger = Logger.getLogger();
 					if (logger.isLoggingLevel(Level.WARNING)) {

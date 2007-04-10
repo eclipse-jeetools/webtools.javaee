@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.adapters.jdk;
 /*
  *  $RCSfile: JDKAdaptor.java,v $
- *  $Revision: 1.7 $  $Date: 2005/08/24 20:20:25 $ 
+ *  $Revision: 1.8 $  $Date: 2007/04/10 01:10:17 $ 
  */
 
 import java.lang.reflect.Array;
@@ -272,7 +272,7 @@ public abstract class JDKAdaptor extends JavaReflectionAdaptor {
 					sb.append("[]"); //$NON-NLS-1$
 				}
 				return sb.toString();
-			} catch (Throwable e) { /*FALLTHRU*/
+			} catch (Exception e) { /*FALLTHRU*/
 			}
 		}
 		return type.getName();

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.adapters;
 /*
  *  $RCSfile: ReflectionAdaptor.java,v $
- *  $Revision: 1.14 $  $Date: 2006/05/17 20:13:07 $ 
+ *  $Revision: 1.15 $  $Date: 2007/04/10 01:10:17 $ 
  */
 import java.util.logging.Level;
 
@@ -143,7 +143,7 @@ public synchronized boolean reflectValuesIfNecessary() {
 				hasReflected = reflectValues();
 			else
 				hasReflected = false;	// AS long we are a proxy or is not in a valid resource or set, we won't reflect.
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			hasReflected = false;
 			Logger logger = Logger.getLogger();
 			if (logger.isLoggingLevel(Level.WARNING)) {

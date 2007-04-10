@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMCallbackThread.java,v $
- *  $Revision: 1.16 $  $Date: 2005/08/24 20:39:06 $ 
+ *  $Revision: 1.17 $  $Date: 2007/04/10 01:09:24 $ 
  */
 
 import java.io.*;
@@ -304,7 +304,7 @@ class REMCallbackThread extends Thread {
 		} catch (EOFException e) {
 			// This is ok. It means that the connection on the other side was terminated.
 			// So just accept this and go down.
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			if (!shuttingDown)
 				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "In REMCallbackThread", e)); //$NON-NLS-1$
 		} finally {
