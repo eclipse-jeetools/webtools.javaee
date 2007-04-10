@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: ParseTreeCreationFromAST.java,v $
- *  $Revision: 1.19 $  $Date: 2006/05/17 20:13:58 $ 
+
+
  */
 package org.eclipse.jem.workbench.utility;
 

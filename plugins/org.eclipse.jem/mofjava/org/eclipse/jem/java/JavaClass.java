@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.java;
 /*
- *  $RCSfile: JavaClass.java,v $
- *  $Revision: 1.7 $  $Date: 2005/09/15 13:42:04 $ 
+
+
  */
 import java.util.List;
 

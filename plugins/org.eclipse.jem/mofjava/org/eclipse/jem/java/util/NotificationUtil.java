@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: NotificationUtil.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:37:02 $ 
+
+
  */
 package org.eclipse.jem.java.util;
 

@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.java.adapters;
 /*
- *  $RCSfile: IJavaClassAdaptor.java,v $
- *  $Revision: 1.5 $  $Date: 2005/08/24 20:20:25 $ 
+
+
  */
 /**
  * Insert the type's description here.

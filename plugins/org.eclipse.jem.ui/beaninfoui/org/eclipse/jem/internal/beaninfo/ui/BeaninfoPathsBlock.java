@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: BeaninfoPathsBlock.java,v $
- *  $Revision: 1.19 $  $Date: 2006/05/17 20:13:57 $ 
+
+
  */
 package org.eclipse.jem.internal.beaninfo.ui;
 

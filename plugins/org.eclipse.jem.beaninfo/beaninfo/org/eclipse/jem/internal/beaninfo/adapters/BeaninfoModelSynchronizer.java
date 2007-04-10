@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
- *  $RCSfile: BeaninfoModelSynchronizer.java,v $
- *  $Revision: 1.13 $  $Date: 2006/09/18 17:53:20 $ 
+
+
  */
 
 import org.eclipse.core.runtime.IPath;

@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.instantiation.base;
 /*
- *  $RCSfile: IJavaInstance.java,v $
- *  $Revision: 1.7 $  $Date: 2005/10/03 19:20:42 $ 
+
+
  */
 
 import org.eclipse.emf.ecore.EObject;

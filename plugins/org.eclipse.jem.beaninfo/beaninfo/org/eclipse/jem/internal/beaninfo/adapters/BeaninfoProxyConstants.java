@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: BeaninfoProxyConstants.java,v $
- *  $Revision: 1.8 $  $Date: 2007/03/14 17:26:48 $ 
+
+
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 

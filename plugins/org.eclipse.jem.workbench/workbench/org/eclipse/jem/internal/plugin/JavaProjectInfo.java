@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.plugin;
 /*
- *  $RCSfile: JavaProjectInfo.java,v $
- *  $Revision: 1.3 $  $Date: 2005/08/24 21:13:53 $ 
+
+
  */
 /**
  * Insert the type's description here.

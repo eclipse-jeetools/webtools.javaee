@@ -11,8 +11,8 @@
 package org.eclipse.jem.beaninfo.vm;
 
 /*
- *  $RCSfile: BaseBeanInfo.java,v $
- *  $Revision: 1.16 $  $Date: 2007/04/01 03:25:48 $ 
+
+
  */
 
 import java.awt.Image;

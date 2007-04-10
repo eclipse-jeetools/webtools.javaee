@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.adapters.jdom;
 /*
- *  $RCSfile: JavaReflectionSynchronizer.java,v $
- *  $Revision: 1.20 $  $Date: 2007/03/08 17:59:26 $ 
+
+
  */
 
 import java.util.ArrayList;

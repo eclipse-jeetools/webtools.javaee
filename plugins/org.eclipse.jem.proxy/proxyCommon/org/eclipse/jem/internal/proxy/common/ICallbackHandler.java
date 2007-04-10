@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.common;
 /*
- *  $RCSfile: ICallbackHandler.java,v $
- *  $Revision: 1.8 $  $Date: 2005/08/24 20:39:07 $ 
+
+
  */
 
 /**

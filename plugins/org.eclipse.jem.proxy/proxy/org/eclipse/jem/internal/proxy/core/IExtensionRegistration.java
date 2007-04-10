@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: IExtensionRegistration.java,v $
- *  $Revision: 1.1 $  $Date: 2005/06/15 20:19:11 $ 
+
+
  */
 package org.eclipse.jem.internal.proxy.core;
  

@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
- *  $RCSfile: BeaninfoAdapterFactory.java,v $
- *  $Revision: 1.10 $  $Date: 2006/09/18 17:53:18 $ 
+
+
  */
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;

@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.core;
 /*
- *  $RCSfile: IConfigurationContributionController.java,v $
- *  $Revision: 1.11 $  $Date: 2005/10/26 18:48:19 $ 
+
+
  */
 
 import java.net.URL;

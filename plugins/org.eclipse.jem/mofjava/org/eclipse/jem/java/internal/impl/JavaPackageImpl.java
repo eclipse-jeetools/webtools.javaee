@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.java.internal.impl;
 /*
- *  $RCSfile: JavaPackageImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2007/02/19 05:31:23 $ 
+
+
  */
 
 import org.eclipse.emf.common.util.ECollections;

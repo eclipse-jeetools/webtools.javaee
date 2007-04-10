@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.instantiation;
 /*
- *  $RCSfile: InstantiationFactory.java,v $
- *  $Revision: 1.10 $  $Date: 2005/10/28 22:56:46 $ 
+
+
  */
 
 import org.eclipse.emf.ecore.EFactory;

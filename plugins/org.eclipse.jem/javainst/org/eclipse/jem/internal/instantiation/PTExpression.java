@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.instantiation;
 /*
- *  $RCSfile: PTExpression.java,v $
- *  $Revision: 1.3 $  $Date: 2005/08/24 20:20:24 $ 
+
+
  */
 import org.eclipse.emf.ecore.EObject;
 

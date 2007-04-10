@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: REMExpression.java,v $
- *  $Revision: 1.19 $  $Date: 2005/09/07 14:06:08 $ 
+
+
  */
 package org.eclipse.jem.internal.proxy.remote;
 

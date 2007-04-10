@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
- *  $RCSfile: SpecialResourceSet.java,v $
- *  $Revision: 1.9 $  $Date: 2005/08/24 20:31:29 $ 
+
+
  */
 
 import org.eclipse.jem.internal.util.emf.workbench.ProjectResourceSetImpl;

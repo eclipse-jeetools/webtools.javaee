@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: LocalFileConfigurationContributorController.java,v $
- *  $Revision: 1.13 $  $Date: 2005/10/26 18:48:19 $ 
+
+
  */
 package org.eclipse.jem.internal.proxy.remote;
 

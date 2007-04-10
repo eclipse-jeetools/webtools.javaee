@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.java.adapters;
 /*
- *  $RCSfile: ReadAdaptor.java,v $
- *  $Revision: 1.4 $  $Date: 2005/08/24 20:20:25 $ 
+
+
  */
 
 import org.eclipse.emf.ecore.EObject;

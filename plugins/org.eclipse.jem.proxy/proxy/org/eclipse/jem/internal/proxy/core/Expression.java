@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: Expression.java,v $
- *  $Revision: 1.15 $  $Date: 2005/11/11 15:49:30 $ 
+
+
  */
 package org.eclipse.jem.internal.proxy.core;
 

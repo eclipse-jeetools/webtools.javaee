@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: AmbiguousMethodException.java,v $
- *  $Revision: 1.3 $  $Date: 2005/06/16 17:46:14 $ 
+
+
  */
 package org.eclipse.jem.internal.proxy.common;
  

@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: IJavaMethodAdapter.java,v $
- *  $Revision: 1.4 $  $Date: 2005/08/24 20:20:25 $ 
+
+
  */
 package org.eclipse.jem.internal.java.adapters;
  

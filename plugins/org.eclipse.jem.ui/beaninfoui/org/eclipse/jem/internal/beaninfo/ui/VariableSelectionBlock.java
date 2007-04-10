@@ -23,8 +23,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.ui.PlatformUI;
 /*
- *  $RCSfile: VariableSelectionBlock.java,v $
- *  $Revision: 1.8 $  $Date: 2005/12/14 21:24:10 $ 
+
+
  */
 
 public class VariableSelectionBlock {

@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.core;
 /*
- *  $RCSfile: IBeaninfoSupplier.java,v $
- *  $Revision: 1.5 $  $Date: 2005/09/13 20:30:46 $ 
+
+
  */
 
 

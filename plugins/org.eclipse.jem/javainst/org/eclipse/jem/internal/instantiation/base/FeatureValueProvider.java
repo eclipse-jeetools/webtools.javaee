@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.instantiation.base;
 /*
- *  $RCSfile: FeatureValueProvider.java,v $
- *  $Revision: 1.8 $  $Date: 2005/08/24 20:20:24 $ 
+
+
  */
 
 import java.util.Iterator;

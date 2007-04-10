@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: IProxyMethod.java,v $
- *  $Revision: 1.1 $  $Date: 2005/05/11 19:01:12 $ 
+
+
  */
 package org.eclipse.jem.internal.proxy.core;
  

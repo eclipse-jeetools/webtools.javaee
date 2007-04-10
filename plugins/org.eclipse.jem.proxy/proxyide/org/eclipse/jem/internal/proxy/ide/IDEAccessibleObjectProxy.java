@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: IDEAccessibleObjectProxy.java,v $
- *  $Revision: 1.4 $  $Date: 2005/08/24 20:39:06 $ 
+
+
  */
 package org.eclipse.jem.internal.proxy.ide;
 

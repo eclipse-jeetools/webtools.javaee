@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: JavaMethodJDOMAdaptor.java,v $
- *  $Revision: 1.16 $  $Date: 2007/03/21 14:51:54 $ 
+
+
  */
 package org.eclipse.jem.internal.adapters.jdom;
 

@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: LocalLaunchProjectTab.java,v $
- *  $Revision: 1.8 $  $Date: 2006/05/17 20:13:57 $ 
+
+
  */
 package org.eclipse.jem.internal.ui.proxy.remote;
 

@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.java.adapters.jdk;
 /*
- *  $RCSfile: JavaMethodJDKAdaptor.java,v $
- *  $Revision: 1.9 $  $Date: 2005/09/14 23:30:35 $ 
+
+
  */
 
 import java.util.List;

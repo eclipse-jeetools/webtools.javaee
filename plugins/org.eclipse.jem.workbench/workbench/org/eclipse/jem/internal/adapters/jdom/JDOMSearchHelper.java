@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.adapters.jdom;
 /*
- *  $RCSfile: JDOMSearchHelper.java,v $
- *  $Revision: 1.9 $  $Date: 2007/03/08 17:59:26 $ 
+
+
  */
 
 import java.io.File;

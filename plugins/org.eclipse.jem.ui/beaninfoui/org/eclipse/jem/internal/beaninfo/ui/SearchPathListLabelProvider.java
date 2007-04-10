@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
- *  $RCSfile: SearchPathListLabelProvider.java,v $
- *  $Revision: 1.17 $  $Date: 2006/05/17 20:13:57 $ 
+
+
  */
 
 import java.net.URL;

@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo;
 /*
- *  $RCSfile: FeatureDecorator.java,v $
- *  $Revision: 1.9 $  $Date: 2005/09/15 20:09:51 $ 
+
+
  */
 
 

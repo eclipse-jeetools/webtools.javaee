@@ -11,8 +11,8 @@
 package org.eclipse.jem.java;
 
 /*
- *  $RCSfile: JavaRefFactory.java,v $
- *  $Revision: 1.9 $  $Date: 2007/02/19 05:31:23 $ 
+
+
  */
 
 import org.eclipse.emf.common.util.URI;

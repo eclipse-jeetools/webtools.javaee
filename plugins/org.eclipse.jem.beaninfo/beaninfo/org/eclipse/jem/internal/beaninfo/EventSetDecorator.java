@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo;
 /*
- *  $RCSfile: EventSetDecorator.java,v $
- *  $Revision: 1.8 $  $Date: 2005/10/06 15:18:38 $ 
+
+
  */
 
 

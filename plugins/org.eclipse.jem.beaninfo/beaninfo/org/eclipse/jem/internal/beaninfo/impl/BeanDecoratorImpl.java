@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
- *  $RCSfile: BeanDecoratorImpl.java,v $
- *  $Revision: 1.24 $  $Date: 2007/03/14 14:06:31 $ 
+
+
  */
 
 

@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
- *  $RCSfile: BeaninfosPropertyPage.java,v $
- *  $Revision: 1.10 $  $Date: 2005/09/26 20:26:59 $ 
+
+
  */
 
 import java.lang.reflect.InvocationTargetException;

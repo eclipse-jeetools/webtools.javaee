@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.instantiation;
 /*
- *  $RCSfile: InstantiationPackage.java,v $
- *  $Revision: 1.12 $  $Date: 2005/10/28 22:56:46 $ 
+
+
  */
 
 import org.eclipse.emf.ecore.EAttribute;

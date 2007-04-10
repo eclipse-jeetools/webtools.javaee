@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: FeatureRecord.java,v $
- *  $Revision: 1.4 $  $Date: 2007/03/14 17:26:47 $ 
+
+
  */
 package org.eclipse.jem.internal.beaninfo.common;
 

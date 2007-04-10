@@ -11,8 +11,8 @@
 package org.eclipse.jem.internal.beaninfo.vm;
 
 /*
- *  $RCSfile: ModelingBeanInfo.java,v $
- *  $Revision: 1.13 $  $Date: 2007/03/14 17:26:47 $ 
+
+
  */
 
 import java.beans.*;

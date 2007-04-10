@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: PDEProcessForPlugin.java,v $
- *  $Revision: 1.10 $  $Date: 2007/03/31 20:02:54 $ 
+
+
  */
 package org.eclipse.jem.internal.proxy.core;
 

@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.core;
 /*
- *  $RCSfile: IBeaninfosDocEntry.java,v $
- *  $Revision: 1.4 $  $Date: 2005/08/24 20:31:28 $ 
+
+
  */
 
 import org.eclipse.core.resources.IProject;

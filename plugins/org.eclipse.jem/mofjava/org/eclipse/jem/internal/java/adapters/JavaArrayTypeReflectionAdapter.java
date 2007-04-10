@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: JavaArrayTypeReflectionAdapter.java,v $
- *  $Revision: 1.8 $  $Date: 2005/09/14 23:30:35 $ 
+
+
  */
 package org.eclipse.jem.internal.java.adapters;
 

@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.core;
 /*
- *  $RCSfile: Utilities.java,v $
- *  $Revision: 1.10 $  $Date: 2006/05/23 15:43:06 $ 
+
+
  */
 import java.util.Iterator;
 

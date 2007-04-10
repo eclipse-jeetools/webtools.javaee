@@ -16,8 +16,8 @@ package org.eclipse.jem.internal.proxy.initParser;
 import java.text.MessageFormat;
 
 /*
- *  $RCSfile: PrimitiveOperation.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 20:39:07 $ 
+
+
  */
 
 public class PrimitiveOperation extends Expression {

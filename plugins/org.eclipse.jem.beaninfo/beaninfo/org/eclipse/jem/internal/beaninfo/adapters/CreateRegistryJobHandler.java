@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: CreateRegistryJobHandler.java,v $
- *  $Revision: 1.15 $  $Date: 2007/04/01 03:25:48 $ 
+
+
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 

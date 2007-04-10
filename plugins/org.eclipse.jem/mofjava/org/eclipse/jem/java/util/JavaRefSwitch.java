@@ -11,8 +11,8 @@
 package org.eclipse.jem.java.util;
 
 /*
- *  $RCSfile: JavaRefSwitch.java,v $
- *  $Revision: 1.7 $  $Date: 2005/08/24 20:20:24 $ 
+
+
  */
 import java.util.List;
 

@@ -11,8 +11,8 @@
 /*
  *  Created Apr 27, 2005 by Gili Mendel
  * 
- *  $RCSfile: OverlayComposite.java,v $
- *  $Revision: 1.2 $  $Date: 2005/08/24 21:07:12 $ 
+
+
  */
 package org.eclipse.jem.internal.beaninfo.ui;
 

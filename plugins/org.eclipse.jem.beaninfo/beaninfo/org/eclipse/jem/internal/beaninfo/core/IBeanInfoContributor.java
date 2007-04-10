@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: IBeanInfoContributor.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 20:31:28 $ 
+
+
  */
 package org.eclipse.jem.internal.beaninfo.core;
 

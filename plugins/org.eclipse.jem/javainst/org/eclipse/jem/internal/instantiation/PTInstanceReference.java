@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: PTInstanceReference.java,v $
- *  $Revision: 1.6 $  $Date: 2005/10/03 19:20:41 $ 
+
+
  */
 package org.eclipse.jem.internal.instantiation;
 

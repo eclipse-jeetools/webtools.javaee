@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: TypedViewerFilter.java,v $
- *  $Revision: 1.1 $  $Date: 2005/10/03 23:06:42 $ 
+
+
  */
 package org.eclipse.jem.internal.beaninfo.ui;
 

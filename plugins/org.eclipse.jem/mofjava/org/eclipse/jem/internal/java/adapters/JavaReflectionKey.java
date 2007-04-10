@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.java.adapters;
 /*
- *  $RCSfile: JavaReflectionKey.java,v $
- *  $Revision: 1.10 $  $Date: 2006/05/17 20:13:07 $ 
+
+
  */
 import java.util.*;
 

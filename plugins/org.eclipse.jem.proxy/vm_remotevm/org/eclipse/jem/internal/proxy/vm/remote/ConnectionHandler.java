@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.vm.remote;
 /*
- *  $RCSfile: ConnectionHandler.java,v $
- *  $Revision: 1.16 $  $Date: 2005/12/02 18:41:25 $ 
+
+
  */
 
 

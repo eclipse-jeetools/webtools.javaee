@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: ExpressionProcesser.java,v $
- *  $Revision: 1.24 $  $Date: 2006/05/18 16:52:16 $ 
+
+
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 

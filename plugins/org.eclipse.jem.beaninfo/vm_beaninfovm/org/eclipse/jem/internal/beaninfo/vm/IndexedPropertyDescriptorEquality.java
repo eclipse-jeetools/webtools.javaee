@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.vm;
 /*
- *  $RCSfile: IndexedPropertyDescriptorEquality.java,v $
- *  $Revision: 1.7 $  $Date: 2007/03/14 17:26:47 $ 
+
+
  */
 
 import java.beans.*;

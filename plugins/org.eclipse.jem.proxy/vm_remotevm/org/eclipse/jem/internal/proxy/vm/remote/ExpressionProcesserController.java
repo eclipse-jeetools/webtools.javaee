@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: ExpressionProcesserController.java,v $
- *  $Revision: 1.12 $  $Date: 2005/08/24 20:39:08 $ 
+
+
  */
 package org.eclipse.jem.internal.proxy.vm.remote;
 

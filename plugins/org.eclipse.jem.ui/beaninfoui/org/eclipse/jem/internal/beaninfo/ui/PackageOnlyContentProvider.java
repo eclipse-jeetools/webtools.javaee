@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
- *  $RCSfile: PackageOnlyContentProvider.java,v $
- *  $Revision: 1.4 $  $Date: 2005/08/24 21:07:12 $ 
+
+
  */
 
 

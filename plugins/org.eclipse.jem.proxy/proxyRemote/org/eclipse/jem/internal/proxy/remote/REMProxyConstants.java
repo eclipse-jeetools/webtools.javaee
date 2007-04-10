@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: REMProxyConstants.java,v $
- *  $Revision: 1.6 $  $Date: 2005/05/18 23:11:26 $ 
+
+
  */
 package org.eclipse.jem.internal.proxy.remote;
 

@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: UIRunner.java,v $
- *  $Revision: 1.4 $  $Date: 2005/08/24 20:39:05 $ 
+
+
  */
 package org.eclipse.jem.internal.proxy.core;
 

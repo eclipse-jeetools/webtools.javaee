@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: REMInitErrorBeanTypeProxy.java,v $
- *  $Revision: 1.10 $  $Date: 2005/08/24 20:39:07 $ 
+
+
  */package org.eclipse.jem.internal.proxy.remote;
 
 import org.eclipse.jem.internal.proxy.core.*;

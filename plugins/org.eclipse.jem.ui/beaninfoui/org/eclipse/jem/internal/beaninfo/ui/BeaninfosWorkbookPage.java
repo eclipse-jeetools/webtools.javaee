@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: BeaninfosWorkbookPage.java,v $
- *  $Revision: 1.11 $  $Date: 2005/10/04 17:59:17 $ 
+
+
  */
 package org.eclipse.jem.internal.beaninfo.ui;
 

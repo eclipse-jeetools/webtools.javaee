@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.java.internal.impl;
 /*
- *  $RCSfile: JavaRefPackageImpl.java,v $
- *  $Revision: 1.5 $  $Date: 2007/03/14 01:22:23 $ 
+
+
  */
 import java.util.List;
 

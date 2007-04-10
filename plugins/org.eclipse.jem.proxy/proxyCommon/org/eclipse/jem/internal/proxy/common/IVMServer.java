@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: IVMServer.java,v $
- *  $Revision: 1.3 $  $Date: 2005/07/08 17:51:47 $ 
+
+
  */
 package org.eclipse.jem.internal.proxy.common;
  

@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: ProxyFindSupport.java,v $
- *  $Revision: 1.5 $  $Date: 2006/05/17 20:13:05 $ 
+
+
  */
 package org.eclipse.jem.internal.proxy.core;
 

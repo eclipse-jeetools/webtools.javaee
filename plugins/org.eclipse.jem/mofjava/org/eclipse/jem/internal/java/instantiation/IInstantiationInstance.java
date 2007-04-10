@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.java.instantiation;
 /*
- *  $RCSfile: IInstantiationInstance.java,v $
- *  $Revision: 1.5 $  $Date: 2005/08/24 20:20:25 $ 
+
+
  */
 import org.eclipse.jem.java.JavaHelpers;
 

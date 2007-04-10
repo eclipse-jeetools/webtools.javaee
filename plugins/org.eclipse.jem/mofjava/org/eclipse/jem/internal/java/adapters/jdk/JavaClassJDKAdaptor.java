@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: JavaClassJDKAdaptor.java,v $
- *  $Revision: 1.15 $  $Date: 2005/12/01 22:02:00 $ 
+
+
  */
 
 package org.eclipse.jem.internal.java.adapters.jdk;

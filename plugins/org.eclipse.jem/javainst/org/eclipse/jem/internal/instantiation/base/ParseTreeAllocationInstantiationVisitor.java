@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: ParseTreeAllocationInstantiationVisitor.java,v $
- *  $Revision: 1.9 $  $Date: 2005/10/28 22:56:46 $ 
+
+
  */
 package org.eclipse.jem.internal.instantiation.base;
 

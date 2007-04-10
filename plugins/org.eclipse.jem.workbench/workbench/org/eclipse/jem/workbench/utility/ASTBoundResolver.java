@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: ASTBoundResolver.java,v $
- *  $Revision: 1.9 $  $Date: 2005/08/24 21:13:53 $ 
+
+
  */
 package org.eclipse.jem.workbench.utility;
 

@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: BeanInfoCacheController.java,v $
- *  $Revision: 1.19 $  $Date: 2006/05/23 15:43:06 $ 
+
+
  */
 package org.eclipse.jem.internal.beaninfo.core;
 

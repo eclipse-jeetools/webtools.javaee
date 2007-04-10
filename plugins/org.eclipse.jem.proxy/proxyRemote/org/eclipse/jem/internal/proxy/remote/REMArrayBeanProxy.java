@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.remote;
 /*
- *  $RCSfile: REMArrayBeanProxy.java,v $
- *  $Revision: 1.9 $  $Date: 2006/08/25 19:56:03 $ 
+
+
  */
 
 import java.lang.reflect.Array;

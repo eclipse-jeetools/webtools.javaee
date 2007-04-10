@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: Messages.java,v $
- *  $Revision: 1.1 $  $Date: 2006/02/15 18:43:38 $ 
+
+
  */
 package org.eclipse.jem.internal.proxy.common;
 

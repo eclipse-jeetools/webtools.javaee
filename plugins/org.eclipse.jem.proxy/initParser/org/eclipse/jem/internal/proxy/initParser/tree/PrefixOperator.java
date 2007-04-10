@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: PrefixOperator.java,v $
- *  $Revision: 1.2 $  $Date: 2005/05/18 23:11:26 $ 
+
+
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 

@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.java.adapters.jdk;
 /*
- *  $RCSfile: JavaFieldJDKAdaptor.java,v $
- *  $Revision: 1.7 $  $Date: 2005/08/24 20:20:25 $ 
+
+
  */
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EObject;

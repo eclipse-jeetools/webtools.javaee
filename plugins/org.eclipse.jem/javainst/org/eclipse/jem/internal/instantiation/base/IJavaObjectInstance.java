@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.instantiation.base;
 /*
- *  $RCSfile: IJavaObjectInstance.java,v $
- *  $Revision: 1.7 $  $Date: 2005/08/24 20:20:24 $ 
+
+
  */
 
 

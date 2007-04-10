@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.vm;
 /*
- *  $RCSfile: ParameterDescriptorEquality.java,v $
- *  $Revision: 1.1 $  $Date: 2007/03/14 03:13:03 $ 
+
+
  */
 
 import java.beans.*;

@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.ide.awt;
 /*
- *  $RCSfile: IDEDimensionBeanProxy.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 20:39:07 $ 
+
+
  */
 
 import java.awt.Dimension;

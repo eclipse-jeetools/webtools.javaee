@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
- *  $RCSfile: BeaninfoJavaReflectionKeyExtension.java,v $
- *  $Revision: 1.7 $  $Date: 2005/09/14 23:30:38 $ 
+
+
  */
 
 import java.util.Iterator;

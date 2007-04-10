@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.java.internal.impl;
 /*
- *  $RCSfile: ArrayTypeImpl.java,v $
- *  $Revision: 1.3 $  $Date: 2007/02/19 05:31:23 $ 
+
+
  */
 
 import org.eclipse.emf.common.notify.Notification;

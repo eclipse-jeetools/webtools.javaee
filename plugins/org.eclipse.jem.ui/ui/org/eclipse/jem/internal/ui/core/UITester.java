@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: UITester.java,v $
- *  $Revision: 1.1 $  $Date: 2006/08/09 15:38:16 $ 
+
+
  */
 package org.eclipse.jem.internal.ui.core;
 

@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.ide;
 /*
- *  $RCSfile: IDECallbackRegistry.java,v $
- *  $Revision: 1.10 $  $Date: 2005/08/24 20:39:06 $ 
+
+
  */
 
 import java.io.*;

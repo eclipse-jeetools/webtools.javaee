@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.remote;
 /*
- *  $RCSfile: MessageDialog.java,v $
- *  $Revision: 1.5 $  $Date: 2007/04/10 01:09:24 $ 
+
+
  */
 
 import java.awt.*;

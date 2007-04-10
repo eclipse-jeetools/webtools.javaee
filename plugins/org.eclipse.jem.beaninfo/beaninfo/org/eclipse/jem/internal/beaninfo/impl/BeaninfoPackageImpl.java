@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
- *  $RCSfile: BeaninfoPackageImpl.java,v $
- *  $Revision: 1.12 $  $Date: 2007/03/14 14:06:31 $ 
+
+
  */
 
 import java.util.Map;

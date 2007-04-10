@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.core;
 /*
- *  $RCSfile: ConfigurationElementReader.java,v $
- *  $Revision: 1.6 $  $Date: 2007/04/01 03:25:47 $ 
+
+
  */
 
 import java.lang.reflect.Array;

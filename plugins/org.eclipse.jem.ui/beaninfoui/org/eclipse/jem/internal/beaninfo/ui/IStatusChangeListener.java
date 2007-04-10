@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: IStatusChangeListener.java,v $
- *  $Revision: 1.1 $  $Date: 2005/09/26 20:26:59 $ 
+
+
  */
 package org.eclipse.jem.internal.beaninfo.ui;
 

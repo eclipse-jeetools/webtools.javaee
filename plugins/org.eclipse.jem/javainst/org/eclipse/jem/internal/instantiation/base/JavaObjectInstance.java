@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: JavaObjectInstance.java,v $
- *  $Revision: 1.18 $  $Date: 2005/08/23 21:13:01 $ 
+
+
  */
 package org.eclipse.jem.internal.instantiation.base;
  

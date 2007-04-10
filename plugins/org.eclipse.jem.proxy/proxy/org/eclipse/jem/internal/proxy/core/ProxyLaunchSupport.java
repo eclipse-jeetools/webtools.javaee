@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.34 $  $Date: 2007/03/31 19:38:10 $ 
+
+
  */
 package org.eclipse.jem.internal.proxy.core;
 

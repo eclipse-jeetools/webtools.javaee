@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: NoExpressionValueException.java,v $
- *  $Revision: 1.3 $  $Date: 2005/07/20 19:27:25 $ 
+
+
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
  

@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: TypedElementSelectionValidator.java,v $
- *  $Revision: 1.2 $  $Date: 2007/04/01 03:27:42 $ 
+
+
  */
 package org.eclipse.jem.internal.beaninfo.ui;
 

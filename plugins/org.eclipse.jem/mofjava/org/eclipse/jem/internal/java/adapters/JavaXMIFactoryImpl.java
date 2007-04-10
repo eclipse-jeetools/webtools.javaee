@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.java.adapters;
 /*
- *  $RCSfile: JavaXMIFactoryImpl.java,v $
- *  $Revision: 1.8 $  $Date: 2005/09/14 23:30:35 $ 
+
+
  */
 import java.io.IOException;
 import java.util.*;

@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.java;
 /*
- *  $RCSfile: InheritanceCycleException.java,v $
- *  $Revision: 1.7 $  $Date: 2007/04/01 03:27:54 $ 
+
+
  */
 import java.text.MessageFormat;
 

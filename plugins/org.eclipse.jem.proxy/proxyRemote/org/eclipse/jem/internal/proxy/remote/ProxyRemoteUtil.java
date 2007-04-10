@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.remote;
 /*
- *  $RCSfile: ProxyRemoteUtil.java,v $
- *  $Revision: 1.12 $  $Date: 2005/10/26 14:24:51 $ 
+
+
  */
 
 

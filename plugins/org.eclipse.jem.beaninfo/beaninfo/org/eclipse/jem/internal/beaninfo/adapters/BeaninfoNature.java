@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
- *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.45 $  $Date: 2006/09/14 18:31:09 $ 
+
+
  */
 
 import java.io.*;

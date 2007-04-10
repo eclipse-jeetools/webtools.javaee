@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.core;
 /*
- *  $RCSfile: BeaninfoPlugin.java,v $
- *  $Revision: 1.23 $  $Date: 2007/04/01 03:25:47 $ 
+
+
  */
 
 

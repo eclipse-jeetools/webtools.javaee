@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.adapters.jdom;
 /*
- *  $RCSfile: JavaFieldJDOMAdaptor.java,v $
- *  $Revision: 1.13 $  $Date: 2005/10/18 14:58:18 $ 
+
+
  */
 import java.util.Map;
 

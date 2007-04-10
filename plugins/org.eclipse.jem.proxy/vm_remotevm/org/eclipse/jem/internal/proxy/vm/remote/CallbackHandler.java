@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.vm.remote;
 /*
- *  $RCSfile: CallbackHandler.java,v $
- *  $Revision: 1.7 $  $Date: 2005/08/24 20:39:08 $ 
+
+
  */
 
 import java.net.Socket;

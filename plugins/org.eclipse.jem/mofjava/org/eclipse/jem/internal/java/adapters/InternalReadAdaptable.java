@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.java.adapters;
 /*
- *  $RCSfile: InternalReadAdaptable.java,v $
- *  $Revision: 1.3 $  $Date: 2005/08/24 20:20:25 $ 
+
+
  */
 
 public interface InternalReadAdaptable extends org.eclipse.emf.common.notify.Notifier {

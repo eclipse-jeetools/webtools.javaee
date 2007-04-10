@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
- *  $RCSfile: DOMReader.java,v $
- *  $Revision: 1.7 $  $Date: 2005/08/24 20:31:29 $ 
+
+
  */
 
 import org.w3c.dom.Element;

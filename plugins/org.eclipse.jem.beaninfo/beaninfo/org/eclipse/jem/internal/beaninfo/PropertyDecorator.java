@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo;
 /*
- *  $RCSfile: PropertyDecorator.java,v $
- *  $Revision: 1.10 $  $Date: 2005/09/15 20:09:51 $ 
+
+
  */
 
 

@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: DebugModeHelper.java,v $
- *  $Revision: 1.11 $  $Date: 2006/05/23 15:43:03 $ 
+
+
  */
 package org.eclipse.jem.internal.proxy.remote;
 

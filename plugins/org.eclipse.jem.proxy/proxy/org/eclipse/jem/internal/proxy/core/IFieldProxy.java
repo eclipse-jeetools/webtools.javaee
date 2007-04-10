@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.core;
 /*
- *  $RCSfile: IFieldProxy.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 20:39:06 $ 
+
+
  */
 
 

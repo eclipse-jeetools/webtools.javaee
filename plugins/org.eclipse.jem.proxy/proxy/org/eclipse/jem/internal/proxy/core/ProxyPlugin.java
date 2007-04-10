@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.core;
 /*
- *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.61 $  $Date: 2007/03/31 19:38:10 $ 
+
+
  */
 
 

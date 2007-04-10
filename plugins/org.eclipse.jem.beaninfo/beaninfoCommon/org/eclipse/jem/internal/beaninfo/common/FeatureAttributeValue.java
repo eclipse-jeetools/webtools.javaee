@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: FeatureAttributeValue.java,v $
- *  $Revision: 1.14 $  $Date: 2007/04/01 03:25:48 $ 
+
+
  */
 package org.eclipse.jem.internal.beaninfo.common;
 

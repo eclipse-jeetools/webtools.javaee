@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: IPDEContributeClasspath.java,v $
- *  $Revision: 1.4 $  $Date: 2005/10/14 17:45:02 $ 
+
+
  */
 package org.eclipse.jem.internal.proxy.core;
 

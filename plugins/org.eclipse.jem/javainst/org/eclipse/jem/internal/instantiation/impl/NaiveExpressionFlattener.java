@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: NaiveExpressionFlattener.java,v $
- *  $Revision: 1.11 $  $Date: 2006/08/16 18:32:28 $ 
+
+
  */
 package org.eclipse.jem.internal.instantiation.impl;
 

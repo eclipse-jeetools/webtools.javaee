@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: BeanInfoDecoratorUtility.java,v $
- *  $Revision: 1.10 $  $Date: 2007/03/14 14:06:31 $ 
+
+
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 

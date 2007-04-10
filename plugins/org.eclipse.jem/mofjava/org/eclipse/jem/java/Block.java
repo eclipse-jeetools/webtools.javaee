@@ -11,8 +11,8 @@
 package org.eclipse.jem.java;
 
 /*
- *  $RCSfile: Block.java,v $
- *  $Revision: 1.4 $  $Date: 2005/08/24 20:20:24 $ 
+
+
  */
 
 import org.eclipse.emf.common.util.EList;

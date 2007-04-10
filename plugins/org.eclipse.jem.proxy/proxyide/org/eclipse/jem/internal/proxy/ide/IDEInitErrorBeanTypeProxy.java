@@ -11,8 +11,8 @@
 package org.eclipse.jem.internal.proxy.ide;
 
 /*
- *  $RCSfile: IDEInitErrorBeanTypeProxy.java,v $
- *  $Revision: 1.7 $  $Date: 2005/08/24 20:39:06 $ 
+
+
  */
 
 import org.eclipse.jem.internal.proxy.core.*;

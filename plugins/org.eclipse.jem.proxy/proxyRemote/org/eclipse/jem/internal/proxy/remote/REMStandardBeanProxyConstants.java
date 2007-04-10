@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.remote;
 /*
- *  $RCSfile: REMStandardBeanProxyConstants.java,v $
- *  $Revision: 1.10 $  $Date: 2006/08/25 19:56:04 $ 
+
+
  */
 
 

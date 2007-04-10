@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.instantiation.base;
 /*
- *  $RCSfile: JavaInstantiationHandlerFactoryAdapter.java,v $
- *  $Revision: 1.6 $  $Date: 2005/09/14 23:30:35 $ 
+
+
  */
 
 import org.eclipse.emf.common.notify.impl.AdapterImpl;

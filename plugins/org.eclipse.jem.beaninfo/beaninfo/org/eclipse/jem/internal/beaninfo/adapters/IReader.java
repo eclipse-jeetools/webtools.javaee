@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
- *  $RCSfile: IReader.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 20:31:29 $ 
+
+
  */
 /**
  * This is internal interface for reading beaninfoConfig either through IConfigurationElements or

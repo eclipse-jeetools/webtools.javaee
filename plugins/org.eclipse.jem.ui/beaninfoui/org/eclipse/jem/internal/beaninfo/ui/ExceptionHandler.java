@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: ExceptionHandler.java,v $
- *  $Revision: 1.2 $  $Date: 2005/12/14 19:06:13 $ 
+
+
  */
 package org.eclipse.jem.internal.beaninfo.ui;
 

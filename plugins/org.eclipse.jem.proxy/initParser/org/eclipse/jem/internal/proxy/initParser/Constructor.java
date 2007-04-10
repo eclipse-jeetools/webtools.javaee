@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.initParser;
 /*
- *  $RCSfile: Constructor.java,v $
- *  $Revision: 1.6 $  $Date: 2006/05/17 20:13:05 $ 
+
+
  */
 
 

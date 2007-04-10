@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: IBaseBeanInfoConstants.java,v $
- *  $Revision: 1.7 $  $Date: 2007/03/14 17:26:48 $ 
+
+
  */
 package org.eclipse.jem.beaninfo.common;
 

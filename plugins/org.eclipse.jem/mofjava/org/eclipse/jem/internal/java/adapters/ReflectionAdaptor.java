@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.java.adapters;
 /*
- *  $RCSfile: ReflectionAdaptor.java,v $
- *  $Revision: 1.15 $  $Date: 2007/04/10 01:10:17 $ 
+
+
  */
 import java.util.logging.Level;
 

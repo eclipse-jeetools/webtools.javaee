@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: JavaClassImpl.java,v $
- *  $Revision: 1.5 $  $Date: 2007/02/19 05:31:23 $ 
+
+
  */
 package org.eclipse.jem.java.internal.impl;
 

@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.adapters.jdom;
 /*
- *  $RCSfile: JDOMAdaptor.java,v $
- *  $Revision: 1.9 $  $Date: 2007/01/30 14:39:13 $ 
+
+
  */
 
 import java.io.File;

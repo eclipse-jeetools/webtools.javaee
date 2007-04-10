@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: IJavaReflectionKey.java,v $
- *  $Revision: 1.1 $  $Date: 2005/09/14 23:30:32 $ 
+
+
  */
 package org.eclipse.jem.java.adapters;
 

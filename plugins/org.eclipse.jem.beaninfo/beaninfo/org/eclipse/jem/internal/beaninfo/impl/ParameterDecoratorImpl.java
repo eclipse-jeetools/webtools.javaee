@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: ParameterDecoratorImpl.java,v $
- *  $Revision: 1.13 $  $Date: 2007/03/14 14:06:31 $ 
+
+
  */
 package org.eclipse.jem.internal.beaninfo.impl;
 

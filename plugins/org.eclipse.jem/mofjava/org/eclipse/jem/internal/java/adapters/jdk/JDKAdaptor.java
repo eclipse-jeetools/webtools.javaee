@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.java.adapters.jdk;
 /*
- *  $RCSfile: JDKAdaptor.java,v $
- *  $Revision: 1.8 $  $Date: 2007/04/10 01:10:17 $ 
+
+
  */
 
 import java.lang.reflect.Array;

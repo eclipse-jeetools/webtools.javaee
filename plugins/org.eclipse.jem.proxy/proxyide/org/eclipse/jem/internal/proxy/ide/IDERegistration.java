@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.ide;
 /*
- *  $RCSfile: IDERegistration.java,v $
- *  $Revision: 1.13 $  $Date: 2006/05/17 20:13:05 $ 
+
+
  */
 
 import java.net.URL;

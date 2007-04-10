@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.java;
 /*
- *  $RCSfile: JavaRefPackage.java,v $
- *  $Revision: 1.8 $  $Date: 2007/03/14 01:22:23 $ 
+
+
  */
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;

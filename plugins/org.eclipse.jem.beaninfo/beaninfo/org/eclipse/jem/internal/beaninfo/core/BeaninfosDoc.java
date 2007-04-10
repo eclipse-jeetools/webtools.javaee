@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.core;
 /*
- *  $RCSfile: BeaninfosDoc.java,v $
- *  $Revision: 1.5 $  $Date: 2005/08/24 20:31:29 $ 
+
+
  */
 import java.util.ArrayList;
 

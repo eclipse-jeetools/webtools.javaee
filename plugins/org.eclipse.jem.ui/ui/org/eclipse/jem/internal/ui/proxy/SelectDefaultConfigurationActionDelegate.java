@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: SelectDefaultConfigurationActionDelegate.java,v $
- *  $Revision: 1.8 $  $Date: 2005/08/24 21:07:12 $ 
+
+
  */
 package org.eclipse.jem.internal.ui.proxy;
 

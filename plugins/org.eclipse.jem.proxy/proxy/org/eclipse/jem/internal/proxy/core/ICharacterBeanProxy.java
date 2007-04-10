@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.core;
 /*
- *  $RCSfile: ICharacterBeanProxy.java,v $
- *  $Revision: 1.5 $  $Date: 2005/08/24 20:39:05 $ 
+
+
  */
 
 

@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: ConfigurationContributorAdapter.java,v $
- *  $Revision: 1.3 $  $Date: 2005/08/24 20:39:05 $ 
+
+
  */
 package org.eclipse.jem.internal.proxy.core;
 

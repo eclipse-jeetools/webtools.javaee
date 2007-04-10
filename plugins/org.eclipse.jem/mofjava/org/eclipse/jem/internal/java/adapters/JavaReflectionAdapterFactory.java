@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.java.adapters;
 /*
- *  $RCSfile: JavaReflectionAdapterFactory.java,v $
- *  $Revision: 1.7 $  $Date: 2005/08/24 20:20:25 $ 
+
+
  */
 import java.util.ArrayList;
 import java.util.HashMap;

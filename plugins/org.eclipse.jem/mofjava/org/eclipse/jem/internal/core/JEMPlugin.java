@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: JEMPlugin.java,v $
- *  $Revision: 1.8 $  $Date: 2005/08/24 20:20:25 $ 
+
+
  */
 package org.eclipse.jem.internal.core;
 

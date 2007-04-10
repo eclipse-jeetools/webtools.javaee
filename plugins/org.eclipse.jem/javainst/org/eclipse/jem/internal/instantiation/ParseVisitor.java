@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: ParseVisitor.java,v $
- *  $Revision: 1.7 $  $Date: 2005/10/28 22:56:46 $ 
+
+
  */
 package org.eclipse.jem.internal.instantiation;
  

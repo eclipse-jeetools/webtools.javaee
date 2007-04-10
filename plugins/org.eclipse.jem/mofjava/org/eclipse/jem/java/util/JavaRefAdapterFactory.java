@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.java.util;
 /*
- *  $RCSfile: JavaRefAdapterFactory.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 20:20:24 $ 
+
+
  */
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;

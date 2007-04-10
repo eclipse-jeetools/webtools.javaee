@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.instantiation;
 /*
- *  $RCSfile: PTInfixOperator.java,v $
- *  $Revision: 1.5 $  $Date: 2005/09/15 21:02:19 $ 
+
+
  */
 import java.util.Arrays;
 import java.util.Collections;

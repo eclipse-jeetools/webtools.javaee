@@ -11,8 +11,8 @@
 package org.eclipse.jem.java;
 
 /*
- *  $RCSfile: Method.java,v $
- *  $Revision: 1.7 $  $Date: 2005/09/15 13:42:04 $ 
+
+
  */
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EOperation;

@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.core;
 /*
- *  $RCSfile: ListBeanProxyWrapper.java,v $
- *  $Revision: 1.9 $  $Date: 2005/12/14 21:22:50 $ 
+
+
  */
 
 

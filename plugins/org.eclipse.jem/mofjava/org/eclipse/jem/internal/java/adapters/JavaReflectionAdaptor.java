@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.java.adapters;
 /*
- *  $RCSfile: JavaReflectionAdaptor.java,v $
- *  $Revision: 1.15 $  $Date: 2006/05/17 20:13:07 $ 
+
+
  */
 import java.util.List;
 

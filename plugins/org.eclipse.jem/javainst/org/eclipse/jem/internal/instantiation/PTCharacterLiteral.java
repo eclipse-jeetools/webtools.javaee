@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: PTCharacterLiteral.java,v $
- *  $Revision: 1.6 $  $Date: 2005/09/15 21:02:19 $ 
+
+
  */
 package org.eclipse.jem.internal.instantiation;
 

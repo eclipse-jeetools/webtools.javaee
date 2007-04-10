@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
- *  $RCSfile: MethodProxyImpl.java,v $
- *  $Revision: 1.9 $  $Date: 2007/03/14 14:06:31 $ 
+
+
  */
 
 

@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
- *  $RCSfile: BeanEventImpl.java,v $
- *  $Revision: 1.10 $  $Date: 2007/03/14 14:06:31 $ 
+
+
  */
 
 import org.eclipse.emf.ecore.EClass;

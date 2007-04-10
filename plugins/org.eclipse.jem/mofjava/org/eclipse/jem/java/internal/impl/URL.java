@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.java.internal.impl;
 /*
- *  $RCSfile: URL.java,v $
- *  $Revision: 1.1 $  $Date: 2005/09/14 23:30:32 $ 
+
+
  */
 import java.util.ArrayList;
 import java.util.List;

@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: ICallbackRunnable.java,v $
- *  $Revision: 1.5 $  $Date: 2005/08/24 20:39:07 $ 
+
+
  */
 package org.eclipse.jem.internal.proxy.common;
 

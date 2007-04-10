@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.vm;
 /*
- *  $RCSfile: ModelingBeanInfoPre15.java,v $
- *  $Revision: 1.6 $  $Date: 2007/03/14 17:26:47 $ 
+
+
  */
 
 import java.beans.BeanInfo;

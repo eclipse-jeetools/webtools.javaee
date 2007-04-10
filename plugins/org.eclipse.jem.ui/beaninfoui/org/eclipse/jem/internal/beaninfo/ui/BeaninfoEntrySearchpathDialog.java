@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
- *  $RCSfile: BeaninfoEntrySearchpathDialog.java,v $
- *  $Revision: 1.9 $  $Date: 2005/10/04 17:59:17 $ 
+
+
  */
 
 import java.text.MessageFormat;

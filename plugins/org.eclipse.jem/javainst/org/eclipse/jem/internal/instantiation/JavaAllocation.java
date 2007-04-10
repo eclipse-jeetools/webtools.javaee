@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.instantiation;
 /*
- *  $RCSfile: JavaAllocation.java,v $
- *  $Revision: 1.7 $  $Date: 2005/10/03 19:20:41 $ 
+
+
  */
  
 import org.eclipse.emf.ecore.EObject;

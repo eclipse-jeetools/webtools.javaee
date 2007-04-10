@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.vm.remote;
 /*
- *  $RCSfile: RemoteVMServerThread.java,v $
- *  $Revision: 1.14 $  $Date: 2007/04/10 01:09:24 $ 
+
+
  */
 
 

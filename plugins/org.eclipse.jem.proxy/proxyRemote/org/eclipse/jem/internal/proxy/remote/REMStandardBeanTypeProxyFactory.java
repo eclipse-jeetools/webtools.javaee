@@ -11,8 +11,8 @@
 package org.eclipse.jem.internal.proxy.remote;
 
 /*
- *  $RCSfile: REMStandardBeanTypeProxyFactory.java,v $
- *  $Revision: 1.16 $  $Date: 2005/08/24 20:39:06 $ 
+
+
  */
 
 import java.text.MessageFormat;

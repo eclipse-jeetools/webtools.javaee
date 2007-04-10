@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
- *  $RCSfile: BPBeaninfoListElement.java,v $
- *  $Revision: 1.5 $  $Date: 2005/08/24 21:07:12 $ 
+
+
  */
 
 import org.eclipse.jem.internal.beaninfo.core.BeaninfoEntry;

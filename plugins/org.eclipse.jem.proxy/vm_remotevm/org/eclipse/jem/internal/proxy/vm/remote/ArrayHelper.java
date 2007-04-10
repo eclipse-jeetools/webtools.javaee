@@ -12,8 +12,8 @@ package org.eclipse.jem.internal.proxy.vm.remote;
 
 import java.util.Arrays;
 /*
- *  $RCSfile: ArrayHelper.java,v $
- *  $Revision: 1.4 $  $Date: 2006/08/25 19:56:04 $ 
+
+
  */
 
 

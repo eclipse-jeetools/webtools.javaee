@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.remote;
 /*
- *  $RCSfile: REMPrimitiveBeanTypeProxy.java,v $
- *  $Revision: 1.4 $  $Date: 2005/08/24 20:39:07 $ 
+
+
  */
 
 

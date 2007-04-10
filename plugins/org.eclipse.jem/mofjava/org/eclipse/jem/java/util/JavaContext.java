@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: JavaContext.java,v $
- *  $Revision: 1.1 $  $Date: 2006/01/13 23:46:51 $ 
+
+
  */
 package org.eclipse.jem.java.util;
 

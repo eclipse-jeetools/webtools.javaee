@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.adapters.jdom;
 /*
- *  $RCSfile: JavaModelListener.java,v $
- *  $Revision: 1.11 $  $Date: 2006/05/17 20:13:58 $ 
+
+
  */
 
 

@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.java.adapters.nls;
 /*
- *  $RCSfile: ResourceHandler.java,v $
- *  $Revision: 1.3 $  $Date: 2005/08/24 20:20:25 $ 
+
+
  */
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;

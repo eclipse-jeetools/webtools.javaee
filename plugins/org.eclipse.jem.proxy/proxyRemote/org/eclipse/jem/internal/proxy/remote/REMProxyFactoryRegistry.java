@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.remote;
 /*
- *  $RCSfile: REMProxyFactoryRegistry.java,v $
- *  $Revision: 1.29 $  $Date: 2007/03/31 19:38:11 $ 
+
+
  */
 
 
