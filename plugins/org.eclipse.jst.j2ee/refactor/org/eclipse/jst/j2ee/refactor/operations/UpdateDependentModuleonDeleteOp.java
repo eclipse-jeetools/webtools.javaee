@@ -108,6 +108,11 @@ public class UpdateDependentModuleonDeleteOp extends UpdateDependentProjectOp {
 			final String refactoredProjName = refactoredMetadata.getProjectName();
 			final IVirtualFile vf = dependentComp.getRootFolder().getFile(new Path(J2EEConstants.MANIFEST_URI) );
 			final IFile manifestmf = vf.getUnderlyingFile();
+			// adding this check for https://bugs.eclipse.org/bugs/show_bug.cgi?id=170074
+			// (some adopters have non-jst.ear module projects that are missing manifests)
+			if (!manifestmf.exists()) {  
+				return;
+			}
 			final IProgressMonitor monitor = new NullProgressMonitor();
 			final IDataModel updateManifestDataModel = DataModelFactory.createDataModel(new UpdateManifestDataModelProvider());
 			updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.PROJECT_NAME, dependentProjName);
