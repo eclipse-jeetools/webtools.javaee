@@ -580,6 +580,7 @@ public class ClassPathSelection {
 		final ClasspathElement element = createArchiveElement(archiveURI, J2EECommonMessages.CLASSPATH_ENTRY_DEPENDENCY_PREFIX + " " + elementName, elementName);
 		element.setProject(project);
 		element.setClasspathEntry(true, entry);
+		element.setValid(true);
 		return element;
 	}
 
