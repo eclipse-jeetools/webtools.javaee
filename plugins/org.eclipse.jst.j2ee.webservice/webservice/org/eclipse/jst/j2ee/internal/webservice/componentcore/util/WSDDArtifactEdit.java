@@ -464,7 +464,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 			// Ignore
 		}
 		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
-		if (res != null && res.isLoaded() && serviceHelper.isWSDLResource(res))
+		if (res != null && res.isLoaded() && serviceHelper != null && serviceHelper.isWSDLResource(res))
 			return res;
 		return null;
 	}
