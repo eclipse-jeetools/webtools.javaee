@@ -35,6 +35,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.navigator.ui.Messages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider;
@@ -142,7 +143,7 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 	 */
 	private IStatus validateProjectMayBeAdded(IProject earProject, IProject projectToAdd, int earVersion) {
 		
-		if(earProject == null || projectToAdd == null || earVersion < 0)
+		if (earProject == null || projectToAdd == null || earVersion < 0)
 			return J2EENavigatorPlugin.createErrorStatus(0, Messages.AddProjectToEARDropAssistant_Could_not_add_module_to_Enterprise_, null);
 		else if (!earProject.isAccessible()) {
 			return J2EENavigatorPlugin.createErrorStatus(0, NLS.bind(Messages.AddProjectToEARDropAssistant_The_project_0_cannot_be_accesse_, earProject.getName()), null);
@@ -231,11 +232,33 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 	protected IStatus validateProjectToAdd(IProject projectToAdd, int earVersion) {
 		IStatus status = null;
 		try {
+			// check if the project to add is not an EAR itself
 			IFacetedProject facetedProject = ProjectFacetsManager.create(projectToAdd);  
 			if( facetedProject.hasProjectFacet(EARFacetUtils.EAR_FACET) ) 
 				status = Status.CANCEL_STATUS;
 			else 
 				status = Status.OK_STATUS;
+			
+			// check if the project to add is with Java EE version equal or lesser than that of the EAR
+			String verStr = J2EEProjectUtilities.getJ2EEProjectVersion(projectToAdd);
+			if (verStr != null) {
+				int version;
+				if (J2EEProjectUtilities.isApplicationClientProject(projectToAdd))
+					version = J2EEVersionUtil.convertAppClientVersionStringToJ2EEVersionID(verStr);
+				else if (J2EEProjectUtilities.isEJBProject(projectToAdd))
+					version = J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(verStr);
+				else if (J2EEProjectUtilities.isDynamicWebProject(projectToAdd))
+					version = J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(verStr);
+				else if (J2EEProjectUtilities.isJCAProject(projectToAdd))
+					version = J2EEVersionUtil.convertConnectorVersionStringToJ2EEVersionID(verStr);
+				else 
+					version = J2EEVersionUtil.convertVersionStringToInt(verStr);
+				
+				if (version > earVersion) 
+					status = Status.CANCEL_STATUS;
+				else 
+					status = Status.OK_STATUS;
+			}
 		} catch (CoreException e) {
 			String msg = e.getMessage() != null ? e.getMessage() : e.toString();
 			status = J2EENavigatorPlugin.createErrorStatus(0, msg, e);
