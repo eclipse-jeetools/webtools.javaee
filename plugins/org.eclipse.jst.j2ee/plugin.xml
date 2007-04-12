@@ -906,7 +906,7 @@
             file-names="rar.xml"
             id="connectorDD"
             base-type="org.eclipse.core.runtime.xml"
-            name="%connectorEditorContentType"
+            name="%ConnectorContentType"
             priority="high">
          <describer
                class="org.eclipse.jst.j2ee.contenttype.J2EEContentDescriber">

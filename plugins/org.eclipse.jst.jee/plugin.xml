@@ -158,7 +158,7 @@
             file-names="ejb-jar.xml"
             id="ee5ejbDD"
             base-type="org.eclipse.core.runtime.xml"
-            name="%ee5ejbEditorContentType"
+            name="%ee5ejbContentType"
             priority="high">
          <describer
                class="org.eclipse.jst.jee.contenttype.JEEContentDescriber">
@@ -172,7 +172,7 @@
             file-names="web.xml"
             id="ee5webDD"
             base-type="org.eclipse.core.runtime.xml"
-            name="%ee5webEditorContentType"
+            name="%ee5webContentType"
             priority="high">
          <describer
                class="org.eclipse.jst.jee.contenttype.JEEContentDescriber">
@@ -186,7 +186,7 @@
             file-names="application.xml"
             id="ee5earDD"
             base-type="org.eclipse.core.runtime.xml"
-            name="%ee5earEditorContentType"
+            name="%ee5earContentType"
             priority="high">
          <describer
                class="org.eclipse.jst.jee.contenttype.JEEContentDescriber">
@@ -201,7 +201,7 @@
             file-names="application-client.xml"
             id="ee5appclientDD"
             base-type="org.eclipse.core.runtime.xml"
-            name="%ee5appclientEditorContentType"
+            name="%ee5appclientContentType"
             priority="high">
          <describer
                class="org.eclipse.jst.jee.contenttype.JEEContentDescriber">
