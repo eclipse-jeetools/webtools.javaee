@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
@@ -63,6 +64,8 @@ public class EJBDeployableArtifactAdapterUtil {
 			return getModuleObject((EnterpriseBean) obj);
 		else if (obj instanceof IProject) 
 			return  getModuleObject((IProject) obj);
+		else if (obj instanceof IJavaProject) 
+			return  getModuleObject(((IJavaProject) obj).getProject());
 		else if (obj instanceof IFile)
 			return getModuleObject((IFile) obj);
 		else if (obj instanceof ICompilationUnit)
