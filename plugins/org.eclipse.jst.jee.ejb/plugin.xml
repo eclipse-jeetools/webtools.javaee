@@ -22,7 +22,11 @@
     <event-handler facet="jst.ejb" version="3.0" type="POST_INSTALL">
 			<delegate class="org.eclipse.jst.jee.ejb.project.facet.EjbFacetPostInstallDelegate"/>
     </event-handler>
-         
+     
+    <event-handler facet="jst.ejb" version="3.0" type="RUNTIME_CHANGED">
+      <delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
+    </event-handler>
+    
    </extension> 
 
 </plugin>
