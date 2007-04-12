@@ -21,5 +21,9 @@
       	<delegate class="org.eclipse.jst.jee.web.project.facet.WebFacetPostInstallDelegate"/>
       </event-handler>
 
+	<event-handler facet="jst.web" version="2.5" type="RUNTIME_CHANGED">
+      <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetRuntimeChangedDelegate"/>
+    </event-handler>
+    
    </extension>
  </plugin>

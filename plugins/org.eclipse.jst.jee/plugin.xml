@@ -25,7 +25,11 @@
     <event-handler facet="jst.ear" version="5.0" type="POST_INSTALL">
       		<delegate class="org.eclipse.jst.jee.project.facet.EarFacetPostInstallDelegate"/>
     </event-handler>  
-         
+    
+    <event-handler facet="jst.ear" version="5.0" type="RUNTIME_CHANGED">
+      <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetRuntimeHandler$RuntimeChangedDelegate"/>
+	</event-handler>     
+
          
     <project-facet-version facet="jst.appclient" version="5.0">
       <constraint>
@@ -45,6 +49,10 @@
 	  
     <event-handler type="POST_INSTALL" facet="jst.appclient" version="5.0">
       		<delegate class="org.eclipse.jst.jee.project.facet.AppClientFacetPostInstallDelegate"/>
+    </event-handler>
+    
+    <event-handler type="RUNTIME_CHANGED" facet="jst.appclient" version="5.0">
+      <delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
     </event-handler>
     
    </extension>
