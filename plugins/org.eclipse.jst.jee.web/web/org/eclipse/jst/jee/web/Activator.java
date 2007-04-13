@@ -12,7 +12,7 @@ import org.osgi.framework.BundleContext;
 public class Activator extends WTPPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.eclipse.jst.jee.web";
+	public static final String PLUGIN_ID = "org.eclipse.jst.jee.web"; //$NON-NLS-1$
 
 	// The shared instance
 	private static Activator plugin;
@@ -62,7 +62,7 @@ public class Activator extends WTPPlugin {
 	public static void log( final Exception e )
 	{
 		final ILog log = getDefault().getLog();
-		final String msg = "Encountered an unexpected exception.";
+		final String msg = "Encountered an unexpected exception."; //$NON-NLS-1$
 		
 		log.log( new Status( IStatus.ERROR, PLUGIN_ID, IStatus.OK, msg, e ) );
 	}

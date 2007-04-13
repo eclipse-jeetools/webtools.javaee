@@ -98,7 +98,7 @@ public final class WebFacetInstallDelegate extends JEEFacetInstallDelegate imple
 
 			if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
 				// Create the deployment descriptor (web.xml) if one doesn't exist
-				IFile webxmlFile = webinfFolder.getFile("web.xml");
+				IFile webxmlFile = webinfFolder.getFile("web.xml"); //$NON-NLS-1$
 				if (!webxmlFile.exists()) {
 					try {
 						final String webXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-app id=\"WebApp_ID\" version=\"2.5\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd\">\n</web-app>"; //$NON-NLS-1$
@@ -180,7 +180,7 @@ public final class WebFacetInstallDelegate extends JEEFacetInstallDelegate imple
 		String outputFolder = null;
 		// If using single root structure, set the output folder to "<contentRoot>/WEB-INF/classes"
 		if (ProductManager.shouldUseSingleRootStructure())
-			outputFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER)+"/"+J2EEConstants.WEB_INF_CLASSES;
+			outputFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER)+"/"+J2EEConstants.WEB_INF_CLASSES; //$NON-NLS-1$
 		// Otherwise set the output folder to the product setting default
 		else
 			outputFolder = ProductManager.getProperty(IProductConstants.OUTPUT_FOLDER);

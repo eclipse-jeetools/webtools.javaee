@@ -130,7 +130,7 @@ public class EJBDeployableArtifactAdapterUtil {
 
 	protected static IModule getModule(IProject project, IVirtualComponent component) {
 		IModule deployable = null;
-		Iterator iterator = Arrays.asList(ServerUtil.getModules(J2EEProjectUtilities.EJB)).iterator();  //$NON-NLS-1$
+		Iterator iterator = Arrays.asList(ServerUtil.getModules(J2EEProjectUtilities.EJB)).iterator();  
 		String componentName = null;
 		if (component != null)
 			componentName = component.getName();
