@@ -116,14 +116,7 @@ public class AppClientFacetInstallDelegate extends JEEFacetInstallDelegate imple
 					appClientFile.create(new ByteArrayInputStream(appClientXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
 				} catch (UnsupportedEncodingException e) {
 					Logger.getLogger().logError(e);
-				}
-
-//				if (!sourceFolder.getFile(J2EEConstants.APP_CLIENT_DD_URI).exists()) {
-//				String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);
-//				int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
-//				AppClientArtifactEdit.createDeploymentDescriptor(project, nVer);
-//			}
-			
+				}			
 			}
 		}
 

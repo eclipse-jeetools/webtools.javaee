@@ -2,14 +2,18 @@
  * <copyright>
  * </copyright>
  *
- * $Id: EjbResourceImpl.java,v 1.2 2007/03/23 19:06:33 cbridgha Exp $
+ * $Id: EjbResourceImpl.java,v 1.3 2007/04/13 03:10:36 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.ejb.internal.util;
 
 import org.eclipse.emf.common.util.URI;
-
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.xmi.XMLHelper;
+import org.eclipse.emf.ecore.xmi.XMLLoad;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
+import org.eclipse.jst.javaee.core.JEEXMLLoadImpl;
+import org.eclipse.jst.javaee.ejb.EJBJar;
+import org.eclipse.jst.javaee.ejb.EJBJarDeploymentDescriptor;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,6 +34,16 @@ public class EjbResourceImpl extends XMLResourceImpl {
 		super(uri);
 	}
 	
+	protected XMLLoad createXMLLoad() {
+		 return new JEEXMLLoadImpl(createXMLHelper());
+	}
+
+	
+	protected XMLHelper createXMLHelper() {
+		
+		return new EjbXMLHelperImpl(this);
+	}
+	
 	/**
 	 * Return the first element in the EList.
 	 */
@@ -37,6 +51,15 @@ public class EjbResourceImpl extends XMLResourceImpl {
 		if (contents == null || contents.isEmpty())
 			return null;
 		return (EObject) getContents().get(0);
+	}
+	/**
+	 * Return the jar
+	 */
+	public EJBJar getEjbJar() {
+		if (getRootObject() != null)
+			return ((EJBJarDeploymentDescriptor)getRootObject()).getEjbJar();
+		return null;
+		
 	}
 
 } //EjbResourceImpl

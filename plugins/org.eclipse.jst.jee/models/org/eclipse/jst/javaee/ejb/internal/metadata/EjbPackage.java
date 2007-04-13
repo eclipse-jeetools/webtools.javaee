@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: EjbPackage.java,v 1.2 2007/03/26 21:04:18 jsholl Exp $
+ * $Id: EjbPackage.java,v 1.3 2007/04/13 03:10:37 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.ejb.internal.metadata;
 
@@ -305,7 +305,7 @@ public interface EjbPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://java.sun.com/xml/ns/javaee/ejb"; //$NON-NLS-1$
+	String eNS_URI = "http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.

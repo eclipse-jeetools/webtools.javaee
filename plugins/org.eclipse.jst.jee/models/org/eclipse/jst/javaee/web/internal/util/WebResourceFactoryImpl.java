@@ -2,17 +2,16 @@
  * <copyright>
  * </copyright>
  *
- * $Id: WebResourceFactoryImpl.java,v 1.1 2007/03/20 18:04:40 jsholl Exp $
+ * $Id: WebResourceFactoryImpl.java,v 1.2 2007/04/13 03:10:36 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.web.internal.util;
 
 import org.eclipse.emf.common.util.URI;
-
 import org.eclipse.emf.ecore.resource.Resource;
-
 import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
-
+import org.eclipse.emf.ecore.xmi.XMLOptions;
 import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.emf.ecore.xmi.impl.XMLOptionsImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -49,6 +48,12 @@ public class WebResourceFactoryImpl extends ResourceFactoryImpl {
 		result.getDefaultSaveOptions().put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);
 
 		result.getDefaultLoadOptions().put(XMLResource.OPTION_USE_LEXICAL_HANDLER, Boolean.TRUE);
+		XMLOptions xmlOptions = new XMLOptionsImpl();
+
+		xmlOptions.setProcessSchemaLocations(true);
+		    
+		result.getDefaultLoadOptions().put(XMLResource.OPTION_XML_OPTIONS, xmlOptions);
+		
 		return result;
 	}
 

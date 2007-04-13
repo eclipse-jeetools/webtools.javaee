@@ -2,13 +2,18 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ApplicationclientResourceImpl.java,v 1.1 2007/03/20 18:04:39 jsholl Exp $
+ * $Id: ApplicationclientResourceImpl.java,v 1.2 2007/04/13 03:10:36 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.applicationclient.internal.util;
 
 import org.eclipse.emf.common.util.URI;
-
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.xmi.XMLHelper;
+import org.eclipse.emf.ecore.xmi.XMLLoad;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
+import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
+import org.eclipse.jst.javaee.applicationclient.ApplicationClientDeploymentDescriptor;
+import org.eclipse.jst.javaee.core.JEEXMLLoadImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -27,6 +32,34 @@ public class ApplicationclientResourceImpl extends XMLResourceImpl {
 	 */
 	public ApplicationclientResourceImpl(URI uri) {
 		super(uri);
+	}
+	
+	protected XMLLoad createXMLLoad() {
+		 return new JEEXMLLoadImpl(createXMLHelper());
+	}
+
+	
+	protected XMLHelper createXMLHelper() {
+		
+		return new AppClientXMLHelperImpl(this);
+	}
+	
+	/**
+	 * Return the first element in the EList.
+	 */
+	public EObject getRootObject() {
+		if (contents == null || contents.isEmpty())
+			return null;
+		return (EObject) getContents().get(0);
+	}
+	/**
+	 * Return the ear
+	 */
+	public ApplicationClient getApplicationClient() {
+		if (getRootObject() != null)
+			return ((ApplicationClientDeploymentDescriptor)getRootObject()).getApplicationClient();
+		return null;
+		
 	}
 
 } //ApplicationclientResourceImpl

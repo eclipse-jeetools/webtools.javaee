@@ -78,13 +78,6 @@ public final class EarFacetInstallDelegate implements IDelegate {
 					} catch (UnsupportedEncodingException e) {
 						Logger.getLogger().logError(e);
 					}
-
-					// TODO commented on 12/13/2006 do not want to create ear xml file right now			
-					//			if (!project.getFile(JEEConstants.APPLICATION_DD_URI).exists()) {
-					//				String ver = fv.getVersionString();
-					//				int nVer = JEEVersionUtil.convertVersionStringToInt(ver);
-					//				EARArtifactEdit.createDeploymentDescriptor(project, nVer);
-					//			}
 				}
 			}
 

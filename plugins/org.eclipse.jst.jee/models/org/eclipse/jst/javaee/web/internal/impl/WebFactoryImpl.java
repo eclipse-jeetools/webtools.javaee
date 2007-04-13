@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: WebFactoryImpl.java,v 1.1 2007/03/20 18:04:37 jsholl Exp $
+ * $Id: WebFactoryImpl.java,v 1.2 2007/04/13 03:10:38 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.web.internal.impl;
 
@@ -616,6 +616,8 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 			catch (Exception e) {
 			}
 		}
+		String value = instanceValue.toString();
+		if (value != null) return value;
 		throw new IllegalArgumentException("Invalid value: '"+instanceValue+"' for datatype :"+eDataType.getName());
 	}
 

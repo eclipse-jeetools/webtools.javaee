@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ApplicationPackage.java,v 1.1 2007/03/20 18:04:47 jsholl Exp $
+ * $Id: ApplicationPackage.java,v 1.2 2007/04/13 03:10:36 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.application.internal.metadata;
 
@@ -304,7 +304,7 @@ public interface ApplicationPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://java.sun.com/xml/ns/javaee/application"; //$NON-NLS-1$
+	String eNS_URI = "http://java.sun.com/xml/ns/javaee/application_5.xsd"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.

@@ -106,9 +106,6 @@ public final class WebFacetInstallDelegate extends JEEFacetInstallDelegate imple
 					} catch (UnsupportedEncodingException e) {
 						Logger.getLogger().logError(e);
 					}
-//					String ver = fv.getVersionString();
-//					int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
-//					WebArtifactEdit.createDeploymentDescriptor(project, nVer);
 				}
 			}
 			
