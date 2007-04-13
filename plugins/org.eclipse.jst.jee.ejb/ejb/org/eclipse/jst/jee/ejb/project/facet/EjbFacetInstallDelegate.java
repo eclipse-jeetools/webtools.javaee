@@ -131,11 +131,6 @@ public class EjbFacetInstallDelegate extends JEEFacetInstallDelegate implements 
 					} catch (UnsupportedEncodingException e) {
 						Logger.getLogger().logError(e);
 					}
-//					if (!ejbFolder.getFile(J2EEConstants.EJBJAR_DD_URI).exists()) {
-//					String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);
-//					int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
-//					EJBArtifactEdit.createDeploymentDescriptor(project, nVer);
-//				}
 				}
 			}
 
