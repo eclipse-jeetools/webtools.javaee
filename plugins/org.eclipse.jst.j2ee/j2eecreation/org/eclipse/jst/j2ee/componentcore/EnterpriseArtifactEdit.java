@@ -21,6 +21,7 @@ import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyManager;
 import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
@@ -179,6 +180,9 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 		if (isReadOnly())
 			return null;
 		return getWorkingCopyManager().getWorkingCopy(cu, forNewCU);
+	}
+	protected boolean validProjectVersion(IProject project2) {
+		return J2EEProjectUtilities.isLegacyJ2EEProject(project2);
 	}
 
 	/**
