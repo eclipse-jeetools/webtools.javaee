@@ -12,6 +12,7 @@
 package org.eclipse.jst.j2ee.componentcore;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -27,6 +28,8 @@ import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 /**
  * <p>
@@ -181,8 +184,22 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 			return null;
 		return getWorkingCopyManager().getWorkingCopy(cu, forNewCU);
 	}
-	protected boolean validProjectVersion(IProject project2) {
-		return J2EEProjectUtilities.isLegacyJ2EEProject(project2);
+	protected boolean validProjectVersion(IProject project) {
+		
+		// Return true if project is being created
+		if (!project.exists()) return true;
+		IFacetedProject facetedProject = null;
+		try {
+			facetedProject = ProjectFacetsManager.create(project);
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (facetedProject == null)
+			// Return true if project facet is being created
+			return true;
+		//Only return true for legacy projects
+		return !J2EEProjectUtilities.isJEEProject(project);
 	}
 
 	/**
