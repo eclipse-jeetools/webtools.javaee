@@ -23,17 +23,14 @@ import java.util.logging.Level;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.pde.core.plugin.*;
-import org.eclipse.pde.internal.core.ClasspathUtilCore;
-
- 
 
 /**
  * Contribute to classpath PDE entries that are needed for a launch.
  * <p>
- * This is a special class that should not be referenced directly from code. Reference it through the
- * interface that it implements. 
+ * This is a special class that should not be referenced directly from code. Reference it through the interface that it implements.
  * 
  * @see org.eclipse.jem.internal.proxy.core.IPDEContributeClasspath
  * @since 1.0.2
@@ -43,17 +40,17 @@ class PDEContributeClasspath implements IPDEContributeClasspath {
 	public void getPDEContributions(IConfigurationContributionController controller, IConfigurationContributionInfo info) throws CoreException {
 		if (!info.getPluginIds().isEmpty()) {
 			Collection pluginIds = info.getPluginIds().keySet();
-			
+
 			IPluginModelBase[] allModels = PluginRegistry.getAllModels();
 			List fragments = new ArrayList();
 			for (int i = 0; i < allModels.length; i++) {
 				if (allModels[i].isFragmentModel()) {
 					fragments.add(allModels[i]);
 				}
-			}			
-			
+			}
+
 			for (Iterator itr = fragments.iterator(); itr.hasNext();) {
-				IFragmentModel fragmentModel = (IFragmentModel)itr.next();
+				IFragmentModel fragmentModel = (IFragmentModel) itr.next();
 				IFragment fragment = fragmentModel.getFragment();
 				if (pluginIds.contains(fragment.getPluginId())) {
 					// We'll do a cheat for now and assume fragment is for same version of plugin. PDECore actually
@@ -72,7 +69,7 @@ class PDEContributeClasspath implements IPDEContributeClasspath {
 					for (int j = 0; j < libraries.length; j++) {
 						IPluginLibrary library = libraries[j];
 						String name = library.getName();
-						String expandedName = ClasspathUtilCore.expandLibraryName(name);
+						String expandedName = expandLibraryName(name);
 
 						IPluginModelBase model = library.getPluginModel();
 						URL url = getPath(model, expandedName);
@@ -82,10 +79,10 @@ class PDEContributeClasspath implements IPDEContributeClasspath {
 				}
 			}
 		}
-		
+
 		return;
 	}
-	
+
 	private URL getPath(IPluginModelBase model, String libraryName) {
 		try {
 			IResource resource = model.getUnderlyingResource();
@@ -103,6 +100,27 @@ class PDEContributeClasspath implements IPDEContributeClasspath {
 		}
 		return null;
 	}
-	
 
+	/**
+	 * This utility method was originally copied from method of same name, in org.eclipse.pde.internal.core.ClasspathUtilCore. It was not API, and
+	 * seems safe enough to copy here. But, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=182555 
+	 * in case there is ever an API method provided to codify these Eclipse rules. 
+	 */
+	private static String expandLibraryName(String source) {
+		if (source == null || source.length() == 0)
+			return ""; //$NON-NLS-1$
+		if (source.indexOf("$ws$") != -1) //$NON-NLS-1$
+			source = source.replaceAll("\\$ws\\$", //$NON-NLS-1$
+					"ws" + IPath.SEPARATOR + TargetPlatform.getWS()); //$NON-NLS-1$
+		if (source.indexOf("$os$") != -1) //$NON-NLS-1$
+			source = source.replaceAll("\\$os\\$", //$NON-NLS-1$
+					"os" + IPath.SEPARATOR + TargetPlatform.getOS()); //$NON-NLS-1$
+		if (source.indexOf("$nl$") != -1) //$NON-NLS-1$
+			source = source.replaceAll("\\$nl\\$", //$NON-NLS-1$
+					"nl" + IPath.SEPARATOR + TargetPlatform.getNL()); //$NON-NLS-1$
+		if (source.indexOf("$arch$") != -1) //$NON-NLS-1$
+			source = source.replaceAll("\\$arch\\$", //$NON-NLS-1$
+					"arch" + IPath.SEPARATOR + TargetPlatform.getOSArch()); //$NON-NLS-1$
+		return source;
+	}
 }
