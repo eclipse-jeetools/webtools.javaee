@@ -1,34 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.eclipse.jst.enterprise_ui.feature.source"
-      label="%featureName"
-      version="1.5.1.qualifier"
-      provider-name="%providerName">
-
-   <description>
-      %description
-   </description>
-
-   <copyright>
-      %copyright
-   </copyright>
-
-   <license url="license.html">
-      %license
-   </license>
-
-   <url>
-      <update label="%updateSiteName" url="http://download.eclipse.org/webtools/updates/"/>
-   </url>
-
-   <includes
+	primary="false"
+	label="org.eclipse.jst.enterprise_ui.feature.source"
+	id="org.eclipse.jst.enterprise_ui.feature.source"
+	version="1.5.0.qualifier">
+	<description>
+		%description
+	</description>
+	<copyright url="http://www.example.com/copyright">
+		%copyright
+	</copyright>
+	<license url="license.html">%license</license>
+	
+	<includes
          id="org.eclipse.jst.enterprise_core.feature.source"
          version="0.0.0"/>
-
-   <plugin
+    <plugin
          id="org.eclipse.jst.enterprise_ui.feature.source"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
-
+         version="0.0.0"/>   
+                          
 </feature>
