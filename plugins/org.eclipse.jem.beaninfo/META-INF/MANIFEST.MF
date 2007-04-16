@@ -28,3 +28,4 @@ Require-Bundle: org.eclipse.jem.proxy;bundle-version="[1.2.0,2.0.0)",
  org.eclipse.jem.util;bundle-version="[1.2.0,2.0.0)",
  org.eclipse.emf.ecore.change;bundle-version="[2.2.0,3.0.0)"
 Eclipse-LazyStart: true
+Bundle-RequiredExecutionEnvironment: J2SE-1.4
