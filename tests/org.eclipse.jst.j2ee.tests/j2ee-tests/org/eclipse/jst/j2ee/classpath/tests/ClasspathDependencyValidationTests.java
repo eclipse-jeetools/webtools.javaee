@@ -268,7 +268,7 @@ public class ClasspathDependencyValidationTests extends AbstractTests {
     //RuntimeClasspathContainer=Invalid classpath component dependency {0}. Server Runtime classpath containers cannot be exposed.
     //JREContainer=Invalid classpath component dependency {0}. JRE classpath containers cannot be exposed.
     public void testInvalidContainerRules() throws Exception {
-    	final IProject project = ProjectUtil.createWebProject("TestWeb", "TestEAR");
+    	final IProject project = ProjectUtil.createWebProject("TestWeb", "TestEAR", true);
     	final IJavaProject javaProject = JavaCore.create(project);
     	final IVirtualComponent comp = ComponentCore.createComponent(project);
     	

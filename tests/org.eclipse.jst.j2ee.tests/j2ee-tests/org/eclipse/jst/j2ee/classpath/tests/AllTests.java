@@ -10,8 +10,8 @@ public class AllTests extends TestCase {
         
         suite.setName("All Classpath Dependency Tests");
         suite.addTest(ClasspathDependencyCreationTests.suite());
-        //suite.addTest(ClasspathDependencyValidationTests.suite());
-        //suite.addTest(ClasspathDependencyEARTests.suite());
+        suite.addTest(ClasspathDependencyValidationTests.suite());
+        suite.addTest(ClasspathDependencyEARTests.suite());
         suite.addTest(ClasspathDependencyWebTests.suite());
         
         return suite;

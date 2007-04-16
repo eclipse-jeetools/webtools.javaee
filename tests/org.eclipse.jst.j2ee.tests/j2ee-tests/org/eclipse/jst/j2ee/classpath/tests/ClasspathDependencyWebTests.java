@@ -163,12 +163,12 @@ public class ClasspathDependencyWebTests extends AbstractTests {
     
     private IVirtualComponent createProjects() throws Exception {
     	// create a Utility project
-    	final IProject util = ProjectUtil.createUtilityProject(UTIL_PROJECT, null);
+    	final IProject util = ProjectUtil.createUtilityProject(UTIL_PROJECT, null, true);
     	final IJavaProject utilJava = JavaCore.create(util);
     	final IVirtualComponent utilComp = ComponentCore.createComponent(util);
 
     	// create a Web project
-    	final IProject webProject = ProjectUtil.createWebProject(WEB_PROJECT, null);
+    	final IProject webProject = ProjectUtil.createWebProject(WEB_PROJECT, null, true);
     	final IJavaProject webJavaProject = JavaCore.create(webProject);
     	final IVirtualComponent webComp = ComponentCore.createComponent(webProject);
     	

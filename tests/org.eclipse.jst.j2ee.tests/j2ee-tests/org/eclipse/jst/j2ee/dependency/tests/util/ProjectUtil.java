@@ -99,8 +99,19 @@ public class ProjectUtil {
 	 * @throws Exception
 	 */
 	public static IProject createEARProject(final String name) throws Exception {
+		return createEARProject(name, false);
+    }
+	
+	/**
+	 * Creates an EAR project.
+	 * @param name EAR name.
+	 * @param waitForBuildToComplete True if the call should wait for the subsequent build to complete.
+	 * @return The EAR project.
+	 * @throws Exception
+	 */
+	public static IProject createEARProject(final String name, final boolean waitForBuildToComplete) throws Exception {
 		final IDataModel dataModel = getEARCreationDataModel(name);
-		return createAndVerify(dataModel, name, J2EEProjectUtilities.ENTERPRISE_APPLICATION, null);
+		return createAndVerify(dataModel, name, J2EEProjectUtilities.ENTERPRISE_APPLICATION, null, waitForBuildToComplete);
     }
 	
 	/**
@@ -111,8 +122,19 @@ public class ProjectUtil {
 	 * @throws Exception
 	 */
 	public static IProject createWebProject(final String name, final String earName) throws Exception {
+		return createWebProject(name, earName, false);
+    }
+	
+	/**
+	 * Creates a web project with optional EAR association.
+	 * @param name Web name.
+	 * @param earName EAR name; null for no EAR association.
+	 * @return The Web project.
+	 * @throws Exception
+	 */
+	public static IProject createWebProject(final String name, final String earName, final boolean waitForBuildToComplete) throws Exception {
 		final IDataModel dataModel = getWebCreationDataModel(name, earName);
-		return createAndVerify(dataModel, name, J2EEProjectUtilities.DYNAMIC_WEB, earName);
+		return createAndVerify(dataModel, name, J2EEProjectUtilities.DYNAMIC_WEB, earName, waitForBuildToComplete);
     }
 	
 	/**
@@ -123,8 +145,19 @@ public class ProjectUtil {
 	 * @throws Exception
 	 */
 	public static IProject createUtilityProject(final String name, final String earName) throws Exception {
+		return createUtilityProject(name, earName, false);
+	}
+	
+	/**
+	 * Creates a Utility project with optional EAR association.
+	 * @param name Util name.
+	 * @param earName EAR name; null for no EAR association.
+	 * @return The utility project.
+	 * @throws Exception
+	 */
+	public static IProject createUtilityProject(final String name, final String earName, final boolean waitForBuildToComplete) throws Exception {
 		final IDataModel dataModel = getUtilityCreationDataModel(name, earName);
-		return createAndVerify(dataModel, name, J2EEProjectUtilities.UTILITY, earName);
+		return createAndVerify(dataModel, name, J2EEProjectUtilities.UTILITY, earName, waitForBuildToComplete);
 	}
 	
 	/**
@@ -135,8 +168,19 @@ public class ProjectUtil {
 	 * @throws Exception
 	 */
 	public static IProject createEJBProject(final String name, final String earName) throws Exception {
+		return createEJBProject(name, earName, false);
+	}
+	
+	/**
+	 * Creates an EJB project with optional EAR association.
+	 * @param name EJB name.
+	 * @param earName EAR name; null for no EAR association.
+	 * @return The EJB project.
+	 * @throws Exception
+	 */
+	public static IProject createEJBProject(final String name, final String earName, final boolean waitForBuildToComplete) throws Exception {
 		final IDataModel dataModel = getEJBCreationDataModel(name, earName);
-		return createAndVerify(dataModel, name, J2EEProjectUtilities.EJB, earName);
+		return createAndVerify(dataModel, name, J2EEProjectUtilities.EJB, earName, waitForBuildToComplete);
 	}
 
 	private static IDataModel getEARCreationDataModel(final String name) {
@@ -144,7 +188,6 @@ public class ProjectUtil {
 		configure(model, name, J2EEProjectUtilities.ENTERPRISE_APPLICATION, null, J2EEVersionConstants.J2EE_1_4_ID);
 		return model;
 	}
-
 	
 	private static IDataModel getWebCreationDataModel(final String name, final String earName) {
 		final IDataModel model =  DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
@@ -178,9 +221,9 @@ public class ProjectUtil {
 		}
 	}
 
-	private static IProject createAndVerify(final IDataModel model, final String projectName, final String type, final String earName) throws Exception {
+	private static IProject createAndVerify(final IDataModel model, final String projectName, final String type, final String earName, final boolean waitForBuildToComplete) throws Exception {
 		// run the data model operation to create the projects
-		OperationTestCase.runAndVerify(model,false,true, true);
+		OperationTestCase.runAndVerify(model,false,true, waitForBuildToComplete);
         // wait for any classpath update jobs
         ProjectUtil.waitForClasspathUpdate();
 		// verify the EAR (if one was created)

@@ -248,13 +248,13 @@ public class ClasspathDependencyEARTests extends AbstractTests {
     
     private IVirtualComponent createProjects() throws Exception {
     	// create a Utility project
-    	final IProject util = ProjectUtil.createUtilityProject(UTIL_PROJECT, EAR_PROJECT);
+    	final IProject util = ProjectUtil.createUtilityProject(UTIL_PROJECT, EAR_PROJECT, true);
     	IFolder output = util.getFolder("build").getFolder("classes");
     	final IJavaProject utilJava = JavaCore.create(util);
     	final IVirtualComponent utilComp = ComponentCore.createComponent(util);
 
     	// create a Web project
-    	final IProject webProject = ProjectUtil.createWebProject(WEB_PROJECT, EAR_PROJECT);
+    	final IProject webProject = ProjectUtil.createWebProject(WEB_PROJECT, EAR_PROJECT, true);
     	final IJavaProject webJavaProject = JavaCore.create(webProject);
     	final IVirtualComponent webComp = ComponentCore.createComponent(webProject);
     	
