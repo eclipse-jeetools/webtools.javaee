@@ -129,23 +129,25 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 							IMessage.NORMAL_SEVERITY, "NonTaggedExportedClasses", new String[]{entry.getPath().toString()}, proj)); // $NON-NLS-1$	
 				}
 				
-				// validate all resolved entries
-				final Map referencedResolvedEntries = ClasspathDependencyUtil.getComponentClasspathDependencies(javaProject, isWebApp);  
-				i = referencedResolvedEntries.keySet().iterator();
-				while (i.hasNext()) {
-					final IClasspathEntry entry = (IClasspathEntry) i.next();
-					final IClasspathAttribute attrib = (IClasspathAttribute) referencedResolvedEntries.get(entry);
-					// compute the archive name
-					final String archivePath = ClasspathDependencyUtil.getArchiveName(entry);
-					if (archiveNames.contains(archivePath)) {
-						// Project cp entry
-						_reporter.addMessage(this, new Message("classpathdependencyvalidator", // $NON-NLS-1$
-								IMessage.HIGH_SEVERITY, "DuplicateArchiveName", new String[]{entry.getPath().toString()}, proj)); // $NON-NLS-1$				
-					} else {
-						archiveNames.add(archivePath);
+				// validate all resolved entries (only perform this if there are raw referenced entries)
+				if (!referencedRawEntries.isEmpty()) {
+					final Map referencedResolvedEntries = ClasspathDependencyUtil.getComponentClasspathDependencies(javaProject, isWebApp);  
+					i = referencedResolvedEntries.keySet().iterator();
+					while (i.hasNext()) {
+						final IClasspathEntry entry = (IClasspathEntry) i.next();
+						final IClasspathAttribute attrib = (IClasspathAttribute) referencedResolvedEntries.get(entry);
+						// compute the archive name
+						final String archivePath = ClasspathDependencyUtil.getArchiveName(entry);
+						if (archiveNames.contains(archivePath)) {
+							// Project cp entry
+							_reporter.addMessage(this, new Message("classpathdependencyvalidator", // $NON-NLS-1$
+									IMessage.HIGH_SEVERITY, "DuplicateArchiveName", new String[]{entry.getPath().toString()}, proj)); // $NON-NLS-1$				
+						} else {
+							archiveNames.add(archivePath);
+						}
+						IMessage[] msgs = validateVirtualComponentEntry(entry, attrib, isWebApp, proj);
+						reportMessages(msgs);
 					}
-					IMessage[] msgs = validateVirtualComponentEntry(entry, attrib, isWebApp, proj);
-					reportMessages(msgs);
 				}
 			}
 		} catch (CoreException e) {

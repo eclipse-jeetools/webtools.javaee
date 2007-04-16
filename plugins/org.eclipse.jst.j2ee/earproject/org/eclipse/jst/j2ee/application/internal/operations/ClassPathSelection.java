@@ -577,7 +577,7 @@ public class ClassPathSelection {
 	}
 	
 	public ClasspathElement createClasspathEntryElement(final IProject project, URI archiveURI, String elementName, IClasspathEntry entry) {
-		final ClasspathElement element = createArchiveElement(archiveURI, J2EECommonMessages.CLASSPATH_ENTRY_DEPENDENCY_PREFIX + " " + elementName, elementName);
+		final ClasspathElement element = createArchiveElement(archiveURI, elementName, elementName);
 		element.setProject(project);
 		element.setClasspathEntry(true, entry);
 		element.setValid(true);

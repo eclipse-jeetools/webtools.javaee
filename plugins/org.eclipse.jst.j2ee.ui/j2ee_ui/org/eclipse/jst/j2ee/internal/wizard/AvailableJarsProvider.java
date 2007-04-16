@@ -29,6 +29,7 @@ public class AvailableJarsProvider implements org.eclipse.jface.viewers.IStructu
 	protected static Image invalidImage;
 	protected static Image ejbImage;
 	protected static Image ejbClientImage;
+	protected static Image classpathImage;
 
 	/**
 	 * AvailableJarsContentProvider constructor comment.
@@ -77,7 +78,11 @@ public class AvailableJarsProvider implements org.eclipse.jface.viewers.IStructu
 		ClasspathElement cp = (ClasspathElement) element;
 		if (!cp.isValid())
 			return getInvalidImage();
-
+		
+		if (cp.isClasspathEntry()) {
+			return getClasspathDependencyImage();
+		}
+		
 		switch (cp.getJarType()) {
 			case ClasspathElement.EJB_JAR :
 				return getEjbImage();
@@ -120,6 +125,12 @@ public class AvailableJarsProvider implements org.eclipse.jface.viewers.IStructu
 		if (ejbClientImage == null)
 			ejbClientImage = getImageDescriptor("ejbclientjar_obj").createImage();//$NON-NLS-1$
 		return ejbClientImage;
+	}
+	
+	protected static Image getClasspathDependencyImage() {
+		if (classpathImage == null)
+			classpathImage = getImageDescriptor("CPDep").createImage();//$NON-NLS-1$
+		return classpathImage;
 	}
 
 	/**
