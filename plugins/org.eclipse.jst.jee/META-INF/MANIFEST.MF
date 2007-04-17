@@ -56,3 +56,4 @@ Export-Package: org.eclipse.jst.javaee.application,
  org.eclipse.jst.jee.project.facet
 Bundle-Vendor: %Bundle-Vendor.0
 Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
