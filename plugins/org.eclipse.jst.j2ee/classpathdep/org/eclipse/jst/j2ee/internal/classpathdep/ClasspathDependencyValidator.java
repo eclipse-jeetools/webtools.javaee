@@ -122,12 +122,16 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 				// generate warning messages for any potential entries; we warn for these since
 				// the classes are being exposed but will not be bundled into the exported/published module and
 				// therefore will not be available at runtime.
+				/* 
+				 // XXX per https://bugs.eclipse.org/bugs/show_bug.cgi?id=182975, do not generate this warning until
+				 // we have extension support in place to determine which containers should be filtered out of the potential list 
 				i = potentialRawEntries.iterator();
 				while (i.hasNext()) {
 					final IClasspathEntry entry = (IClasspathEntry) i.next();
 					_reporter.addMessage(this, new Message("classpathdependencyvalidator", // $NON-NLS-1$
 							IMessage.NORMAL_SEVERITY, "NonTaggedExportedClasses", new String[]{entry.getPath().toString()}, proj)); // $NON-NLS-1$	
 				}
+				*/
 				
 				// validate all resolved entries (only perform this if there are raw referenced entries)
 				if (!referencedRawEntries.isEmpty()) {
