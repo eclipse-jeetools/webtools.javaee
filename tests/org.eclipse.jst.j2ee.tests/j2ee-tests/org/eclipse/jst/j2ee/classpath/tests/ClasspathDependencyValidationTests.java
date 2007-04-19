@@ -38,7 +38,7 @@ public class ClasspathDependencyValidationTests extends AbstractTests {
         suite.addTest(new ClasspathDependencyValidationTests("testProjectEntryRule"));
         suite.addTest(new ClasspathDependencyValidationTests("testClassFolderRule"));
         suite.addTest(new ClasspathDependencyValidationTests("testNonWebNonExportedRule"));
-        suite.addTest(new ClasspathDependencyValidationTests("testDuplicateArchiveNamesRule"));
+        //suite.addTest(new ClasspathDependencyValidationTests("testDuplicateArchiveNamesRule"));
         suite.addTest(new ClasspathDependencyValidationTests("testRootMappingNonEARWARRefRule"));
         suite.addTest(new ClasspathDependencyValidationTests("testInvalidContainerRules"));
         // XXX remove until https://bugs.eclipse.org/bugs/show_bug.cgi?id=182975 is fixed
@@ -221,6 +221,7 @@ public class ClasspathDependencyValidationTests extends AbstractTests {
     	
     	// will have a validation error on the EAR and on the Web
     	DependencyUtil.waitForValidationJobs(webProject);
+    	DependencyUtil.waitForValidationJobs(earProject);
     	ClasspathDependencyTestUtil.verifyValidationError(webProject);
     	ClasspathDependencyTestUtil.verifyValidationError(earProject);
     	
@@ -229,6 +230,7 @@ public class ClasspathDependencyValidationTests extends AbstractTests {
 
     	// will have no validation errors on the EAR and on the Web
     	DependencyUtil.waitForValidationJobs(webProject);
+    	DependencyUtil.waitForValidationJobs(earProject);
     	ClasspathDependencyTestUtil.verifyNoValidationError(webProject);
     	ClasspathDependencyTestUtil.verifyNoValidationError(earProject);    	
     }
