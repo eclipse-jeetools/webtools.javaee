@@ -14,8 +14,11 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jst.j2ee.internal.webservice.helper.WebServiceEvent;
 import org.eclipse.jst.j2ee.internal.webservice.helper.WebServiceManagerListener;
@@ -91,11 +94,11 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 			case WebServiceEvent.REFRESH:
 
 				if(!hasNavigatorGroupBeenAdded()) {
-					if(!hasIndexJobBeenScheduled())
+					if(!hasIndexJobBeenScheduled()){
 						indexJob.schedule();
-					else {
-						new AddWebServicesNodeUIJob().schedule();
 					}
+					if(!hasNavigatorGroupBeenAdded())
+						new AddWebServicesNodeUIJob().schedule();
 				} else {
 					updateJob.schedule();
 				}
@@ -108,7 +111,6 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 
 	public void startIndexJob() {
 		indexJob.schedule();
-		
 	} 
 	
 	/**
@@ -200,19 +202,18 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 	}
 	
 	/* package */ boolean webServiceProjectsExist(IProgressMonitor monitor) { 	
-		
+		boolean ret = false;
 		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-		try {
-			monitor.beginTask("Searching for web service capable projects...", projects.length);
-			for (int i = 0; i < projects.length; i++) {
-				 if(isInteresting(projects[i]))
-					 return true;
-				 monitor.worked(1);
-			}
-		} finally {
-			monitor.done();
+		
+		monitor.beginTask("Searching for web service capable projects...", projects.length);
+		for (int i = 0; i < projects.length; i++) {
+			 if(isInteresting(projects[i])){
+				 ret = true;
+				 break;
+			 }	 
 		}
-		return false;
+		monitor.worked(1);
+		return ret;
 	}
 
 	/* package */ static boolean isInteresting(IProject project) {
@@ -229,12 +230,13 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 		}
 
 		protected IStatus run(IProgressMonitor monitor) {
-			monitor.beginTask(WebServiceUIResourceHandler.WS_NAV_JOB1, 4);
+			monitor.beginTask(WebServiceUIResourceHandler.WS_NAV_JOB1, 5);
   
-			if (webServiceProjectsExist(monitor) && indexWebServices(monitor)) {
-				new AddWebServicesNodeUIJob().schedule();
-			}
-
+			if (webServiceProjectsExist(monitor))
+					indexWebServices(monitor);
+			
+			monitor.done();
+			
 			return Status.OK_STATUS;
 		}
 	}

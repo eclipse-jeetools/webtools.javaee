@@ -87,19 +87,21 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 		
 		if (parentElement instanceof IWorkspaceRoot) {
 			// return new Object[]{ getWebServicesNavigatorGroup(parentElement) };
-			if (!viewerSynchronization.hasNavigatorGroupBeenAdded()) {
-				if (!viewerSynchronization.hasIndexJobBeenScheduled())
-					viewerSynchronization.startIndexJob();
-				return NO_CHILDREN;
-			} else {
-				return new Object[]{getNavigatorGroup()};
-			}
-		} else if (parentElement instanceof WebServiceNavigatorGroup)
+			viewerSynchronization.setNavigatorGroupAdded(true);
+			return new Object[]{getNavigatorGroup()};
+		} else if (parentElement instanceof WebServiceNavigatorGroup){
+			if (!viewerSynchronization.hasIndexJobBeenScheduled()) {
+				viewerSynchronization.startIndexJob();
+			} 
 			return new Object[]{getServicesGroup(), getClientsGroup()};
 
-		else if (parentElement instanceof WebServiceNavigatorGroupType) {
+		}else if (parentElement instanceof WebServiceNavigatorGroupType) {
+			if (!viewerSynchronization.hasIndexJobBeenScheduled()) {
+				viewerSynchronization.startIndexJob();
+			} 
 			WebServiceNavigatorGroupType wsGroupType = (WebServiceNavigatorGroupType) parentElement;
 			return wsGroupType.getChildren();
+		
 		} else if (WSDLServiceExtManager.getServiceHelper().isService(parentElement))
 			return getServiceLevelNodes(parentElement).toArray();
 
