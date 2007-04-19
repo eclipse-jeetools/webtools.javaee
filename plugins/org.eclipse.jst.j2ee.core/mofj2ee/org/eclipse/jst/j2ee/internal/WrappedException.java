@@ -51,6 +51,13 @@ public java.lang.Exception getNestedException() {
 	return nestedException;
 }
 /**
+ * Added to provide compatibility for the Java 1.4.2 addition of
+ * <code>Throwable.getCause()</code>.
+ */
+public java.lang.Throwable getCause() {
+	return getNestedException();
+}
+/**
  * Print out a stack trace to the system err.
  */
 public void printStackTrace() {
