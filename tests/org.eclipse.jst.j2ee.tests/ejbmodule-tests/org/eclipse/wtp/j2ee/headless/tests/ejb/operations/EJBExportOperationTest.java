@@ -70,8 +70,9 @@ public class EJBExportOperationTest extends ModuleExportOperationTestCase {
 				ejbJarFile = (EJBJarFile)ejbEdit.asArchive(true);
 				try {
 				Resource res = ejbJarFile.getDeploymentDescriptorResource();
+				assertNotNull(res);
 				} catch (Exception e) {
-					fail("EJB deployment descriptor is null.");
+					throw e;
 				}
 			}
 		} finally {

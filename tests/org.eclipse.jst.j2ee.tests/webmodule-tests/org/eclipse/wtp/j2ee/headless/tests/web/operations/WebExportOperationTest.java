@@ -115,8 +115,9 @@ public class WebExportOperationTest extends ModuleExportOperationTestCase {
 				warFile = (WARFile) webEdit.asArchive(true);
 				try {
 				Resource res = warFile.getDeploymentDescriptorResource();
+				assertNotNull(res);
 				} catch (Exception e) {
-					fail("Web deployment descriptor is null.");
+					throw e;
 				}
 			}
 		} finally {
