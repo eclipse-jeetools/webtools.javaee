@@ -70,7 +70,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
-import org.eclipse.ui.internal.Workbench;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
@@ -549,7 +548,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 	 * @return
 	 */
 	private IProject getSelectedProject() {
-		IWorkbenchWindow window = Workbench.getInstance().getActiveWorkbenchWindow();
+		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		if (window == null)
 			return null;
 		ISelection selection = window.getSelectionService().getSelection();
@@ -574,7 +573,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 	 * @return
 	 */
 	private IPackageFragment getSelectedPackageFragment() {
-		IWorkbenchWindow window = Workbench.getInstance().getActiveWorkbenchWindow();
+		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		if (window == null)
 			return null;
 		ISelection selection = window.getSelectionService().getSelection();
@@ -594,7 +593,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 	}
 	
 	private IPackageFragmentRoot getSelectedPackageFragmentRoot() {
-		IWorkbenchWindow window = Workbench.getInstance().getActiveWorkbenchWindow();
+		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		if (window == null)
 			return null;
 		ISelection selection = window.getSelectionService().getSelection();
@@ -642,9 +641,12 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 			}
 		}
 		if (jelem == null) {
-			IWorkbenchPart part = JavaPlugin.getActivePage().getActivePart();
+			IWorkbenchWindow window= PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+			if (window == null)
+				return null;
+			IWorkbenchPart part = window.getActivePage().getActivePart();
 			if (part instanceof ContentOutline) {
-				part = JavaPlugin.getActivePage().getActiveEditor();
+				part = window.getActivePage().getActiveEditor();
 			}
 
 			if (part instanceof IViewPartInputProvider) {

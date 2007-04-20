@@ -49,7 +49,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.Workbench;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
@@ -331,7 +330,7 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 	 */
 	protected void handleInterfaceAddButtonSelected() {
 		IProject project = (IProject) model.getProperty(INewJavaClassDataModelProperties.PROJECT);
-		IRunnableContext context = Workbench.getInstance().getActiveWorkbenchWindow();
+		IRunnableContext context = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
 		// this eliminates the non-exported classpath entries
 		final IJavaSearchScope scope = TypeSearchEngine.createJavaSearchScopeForAProject(javaProject, true, true);

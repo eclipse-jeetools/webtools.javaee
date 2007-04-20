@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.internal.Workbench;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.IValidateEditContext;
@@ -53,12 +53,12 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 		try {
 			Display.getDefault().asyncExec(new Runnable() {
 				public void run() {
-					IWorkbench wb = Workbench.getInstance();
+					IWorkbench wb = PlatformUI.getWorkbench();
 					if (wb == null) return;
 					IWorkbenchWindow window = wb.getActiveWorkbenchWindow();
-					if (window == null && Workbench.getInstance().getWorkbenchWindowCount()>0) {
-						for (int i=0; i<Workbench.getInstance().getWorkbenchWindows().length; i++) {
-							window = Workbench.getInstance().getWorkbenchWindows()[i];
+					if (window == null && wb.getWorkbenchWindowCount()>0) {
+						for (int i=0; i<wb.getWorkbenchWindows().length; i++) {
+							window = wb.getWorkbenchWindows()[i];
 							if (window != null)
 								break;
 						}
@@ -231,9 +231,9 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	}
 
 	public IStatus validateState() {
-		IWorkbench wb = Workbench.getInstance();
-		if ((fShell==null) && (wb != null && (Workbench.getInstance().getActiveWorkbenchWindow() != null)))
-			fShell=Workbench.getInstance().getActiveWorkbenchWindow().getShell();
+		IWorkbench wb = PlatformUI.getWorkbench();
+		if ((fShell==null) && (wb != null && (wb.getActiveWorkbenchWindow() != null)))
+			fShell=wb.getActiveWorkbenchWindow().getShell();
 		if (fNeedsStateValidation) {
 			setNeedsStateValidation(false);
 			try {

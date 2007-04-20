@@ -318,22 +318,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
         earGroup = new ServerEarAndStandaloneGroup(parent, getDataModel(), synchHelper);
     }
 
-	/**
-	 * @return
-	 */
-//	private IProject getSelectedProject() {
-//		IWorkbenchWindow window = Workbench.getInstance().getActiveWorkbenchWindow();
-//		if (window == null)
-//			return null;
-//		ISelection selection = window.getSelectionService().getSelection();
-//		if (selection == null || !(selection instanceof StructuredSelection))
-//			return null;
-//		StructuredSelection stucturedSelection = (StructuredSelection) selection;
-//		Object obj = stucturedSelection.getFirstElement();
-//		if (obj instanceof IProject)
-//			return (IProject) obj;
-//		return null;
-//	}
+
 	
     protected String[] getValidationPropertyNames() {
         return new String[]{IComponentCreationDataModelProperties.PROJECT_NAME, RUNTIME_TARGET_ID, COMPONENT_VERSION, COMPONENT_NAME, LOCATION, EAR_COMPONENT_NAME, ADD_TO_EAR, JAVASOURCE_FOLDER };    }

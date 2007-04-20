@@ -144,41 +144,7 @@ public class NewModuleGroup implements IJ2EEComponentCreationDataModelProperties
 //		synchHelper.synchCombo(projectNameCombo, PROJECT_NAME, new Control[]{projectNameLabel});
 //	}
 	
-	/**
-	 * @return
-	 */
-//	private IProject getSelectedProject() {
-//		IWorkbenchWindow window = Workbench.getInstance().getActiveWorkbenchWindow();
-//		if (window == null)
-//			return null;
-//		ISelection selection = window.getSelectionService().getSelection();
-//		if (selection == null || !(selection instanceof StructuredSelection))
-//			return null;
-//		StructuredSelection stucturedSelection = (StructuredSelection) selection;
-//		Object obj = stucturedSelection.getFirstElement();
-//		if (obj instanceof IProject)
-//			return (IProject) obj;
-//		return null;
-//	}
-//	
-	/**
-	 * 
-	 *
-	 */
-//	private void handleNewProjectSelected() {
-//		IDataModel projModel = DataModelFactory.createDataModel(new FlexibleJavaProjectCreationDataModelProvider());
-//		FlexibleProjectCreationWizard newProjectWizard = new FlexibleProjectCreationWizard(projModel);
-//		WizardDialog dialog = new WizardDialog(parentComposite.getShell(), newProjectWizard);
-//		if (Window.OK == dialog.open()) {
-//			String newProjectName = projModel.getStringProperty(PROJECT_NAME);
-//			projectNameCombo.add(newProjectName);
-//			projectNameCombo.setText(newProjectName);
-//			IProject project = ProjectUtilities.getProject(projectNameCombo.getText());
-//			IRuntime runtime = ServerCore.getProjectProperties(project).getRuntimeTarget();
-//			if (runtime != null)
-//				serverTargetText.setText(runtime.getName());
-//		}
-//	}
+	
 	
 	/**
 	 * 

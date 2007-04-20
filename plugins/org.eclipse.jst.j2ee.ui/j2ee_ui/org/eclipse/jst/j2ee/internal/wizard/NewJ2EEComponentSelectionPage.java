@@ -42,8 +42,8 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IPluginContribution;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.activities.WorkbenchActivityHelper;
-import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.wizards.IWizardDescriptor;
 import org.eclipse.ui.wizards.IWizardRegistry;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
@@ -390,7 +390,7 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                 protected IWizard createWizard() {
                     NewProjectDataModelFacetWizard result = null;
 
-                    IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
+                    IWizardRegistry newWizardRegistry = PlatformUI.getWorkbench().getNewWizardRegistry();
                     IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorProjectWizard"); //$NON-NLS-1$
                     try {
                         result = (NewProjectDataModelFacetWizard)descriptor.createWizard();
@@ -428,7 +428,7 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                 protected IWizard createWizard() {
                 	NewProjectDataModelFacetWizard result = null;
 
-                    IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
+                    IWizardRegistry newWizardRegistry = PlatformUI.getWorkbench().getNewWizardRegistry();
                     IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.ejb.ui.project.facet.EjbProjectWizard"); //$NON-NLS-1$
                     try {
                         result = (NewProjectDataModelFacetWizard)descriptor.createWizard();
@@ -465,7 +465,7 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                  */
                 protected IWizard createWizard() {
                 	NewProjectDataModelFacetWizard result = null;
-                    IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
+                    IWizardRegistry newWizardRegistry = PlatformUI.getWorkbench().getNewWizardRegistry();
                     IWizardDescriptor servletWizardDescriptor = newWizardRegistry.findWizard("org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard"); //$NON-NLS-1$
                     try {
                         result = (NewProjectDataModelFacetWizard)servletWizardDescriptor.createWizard();

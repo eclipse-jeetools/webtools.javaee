@@ -49,7 +49,7 @@ import org.eclipse.jst.j2ee.project.facet.UtilityFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDataModelProvider;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.internal.Workbench;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.navigator.INavigatorContentService;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
@@ -117,7 +117,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 	private void ensureJ2EEContentExtensionsEnabled() {
 		IViewPart view = null;
 		try {
-			view = Workbench.getInstance().getWorkbenchWindows()[0].getActivePage().findView(PROJECT_EXPLORER);
+			view = PlatformUI.getWorkbench().getWorkbenchWindows()[0].getActivePage().findView(PROJECT_EXPLORER);
 		} catch (Exception e) { 
 			//Just bail and return if there is no view
 		}
