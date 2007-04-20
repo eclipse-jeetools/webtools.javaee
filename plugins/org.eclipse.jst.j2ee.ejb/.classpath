@@ -7,6 +7,13 @@
 	<classpathentry kind="src" path="ejbvalidator/"/>
 	<classpathentry kind="src" path="property_files"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins">
+		<accessrules>
+			<accessrule kind="accessible" pattern="org/eclipse/wst/common/**"/>
+			<accessrule kind="accessible" pattern="org/eclipse/wst/validation/**"/>
+			<accessrule kind="accessible" pattern="org/eclipse/jem/**"/>
+			<accessrule kind="accessible" pattern="org/eclipse/jst/j2ee/**"/>
+		</accessrules>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
