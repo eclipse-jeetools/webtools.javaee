@@ -18,6 +18,14 @@ package org.eclipse.jst.j2ee.internal;
  * These constants are used with the XMLResource
  */
 public interface J2EEVersionConstants {
+	
+	public int UNKNOWN = -1;
+	public int EJB_TYPE = 0;
+	public int APPLICATION_TYPE = 1;
+	public int CONNECTOR_TYPE = 2;
+	public int APPLICATION_CLIENT_TYPE = 3;
+	public int WEB_TYPE = 4;
+	
 	public int J2EE_1_2_ID = 12;
 	public int J2EE_1_3_ID = 13;
 	public int J2EE_1_4_ID = 14;
