@@ -20,6 +20,7 @@
    <extension-point id="ExtendedModuleImport" name="ExtendedModuleImport" schema="schema/ExtendedModuleImport.exsd"/>
    <extension-point id="WSDLServiceHelper" name="WSDLServiceHelper" schema="schema/WSDLServiceHelper.exsd"/>
    <extension-point id="optionalRefactorHandler" name="optionalRefactorHandler" schema="schema/optionalRefactorHandler.exsd"/>
+   <extension-point id="classpathdep" name="classpathdep" schema="schema/ClasspathDep.exsd"/>
 
 <!--============================-->
 <!-- Module Core Nature         -->
@@ -914,5 +915,11 @@
       </content-type>
   	</extension>   
   
+  <extension point="org.eclipse.jst.j2ee.classpathdep">
+  	<filteredClasspathContainer containerID="org.eclipse.jst.j2ee.internal.module.container"/>
+  	<filteredClasspathContainer containerID="org.eclipse.jst.j2ee.internal.web.container"/>
+  	<filteredClasspathContainer containerID="org.eclipse.jst.server.core.container"/>
+  	<filteredClasspathContainer containerID="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  </extension>
 
 </plugin>

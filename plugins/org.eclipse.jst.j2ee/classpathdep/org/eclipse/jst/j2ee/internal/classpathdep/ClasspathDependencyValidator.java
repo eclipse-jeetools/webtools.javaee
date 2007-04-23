@@ -30,14 +30,11 @@ import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
-import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.server.core.internal.RuntimeClasspathContainer;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -122,16 +119,12 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 				// generate warning messages for any potential entries; we warn for these since
 				// the classes are being exposed but will not be bundled into the exported/published module and
 				// therefore will not be available at runtime.
-				/* 
-				 // XXX per https://bugs.eclipse.org/bugs/show_bug.cgi?id=182975, do not generate this warning until
-				 // we have extension support in place to determine which containers should be filtered out of the potential list 
 				i = potentialRawEntries.iterator();
 				while (i.hasNext()) {
 					final IClasspathEntry entry = (IClasspathEntry) i.next();
 					_reporter.addMessage(this, new Message("classpathdependencyvalidator", // $NON-NLS-1$
 							IMessage.NORMAL_SEVERITY, "NonTaggedExportedClasses", new String[]{entry.getPath().toString()}, proj)); // $NON-NLS-1$	
 				}
-				*/
 				
 				// validate all resolved entries (only perform this if there are raw referenced entries)
 				if (!referencedRawEntries.isEmpty()) {
@@ -199,29 +192,19 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 			return (IMessage[]) results.toArray(new IMessage[results.size()]);
 		} else if (kind == IClasspathEntry.CPE_CONTAINER) {
 
+			// get the set of classpath container IDs that should be filtered
+			List filteredIDs = ClasspathDependencyExtensions.get().getFilteredClasspathContainerIDs();
 			final IPath path = entry.getPath();
+			for (int i = 0; i < filteredIDs.size(); i++) {
+				final String id = (String) filteredIDs.get(i);
+				if (path.segment(0).equals(id)) {
+	        		// filtered classpath container
+	    			results.add(new Message("classpathdependencyvalidator", // $NON-NLS-1$
+	    					IMessage.HIGH_SEVERITY, "FilteredContainer", new String[]{entry.getPath().toString()}, project)); // $NON-NLS-1$
+	    			return (IMessage[]) results.toArray(new IMessage[results.size()]);					
+				}
+			}
 
-    		if (J2EEComponentClasspathContainer.CONTAINER_PATH.isPrefixOf(path)) {
-        		// EAR libraries container
-    			results.add(new Message("classpathdependencyvalidator", // $NON-NLS-1$
-    					IMessage.HIGH_SEVERITY, "EarLibrariesContainer", new String[]{entry.getPath().toString()}, project)); // $NON-NLS-1$
-    			return (IMessage[]) results.toArray(new IMessage[results.size()]);
-    		} else if (path.segment(0).equals("org.eclipse.jst.j2ee.internal.web.container")) { //$NON-NLS-1$
-        		// web app libraries container
-    			results.add(new Message("classpathdependencyvalidator", // $NON-NLS-1$
-    					IMessage.HIGH_SEVERITY, "WebAppLibrariesContainer", new String[]{entry.getPath().toString()}, project)); // $NON-NLS-1$
-    			return (IMessage[]) results.toArray(new IMessage[results.size()]);
-    		} else if (path.segment(0).equals(RuntimeClasspathContainer.SERVER_CONTAINER)) {
-    			// runtime classpath container
-    			results.add(new Message("classpathdependencyvalidator", // $NON-NLS-1$
-    					IMessage.HIGH_SEVERITY, "RuntimeClasspathContainer", new String[]{entry.getPath().toString()}, project)); // $NON-NLS-1$
-    			return (IMessage[]) results.toArray(new IMessage[results.size()]);
-    		} else if (path.segment(0).equals(JavaRuntime.JRE_CONTAINER)) {
-    			// JRE classpath container
-    			results.add(new Message("classpathdependencyvalidator", // $NON-NLS-1$
-    					IMessage.HIGH_SEVERITY, "JREContainer", new String[]{entry.getPath().toString()}, project)); // $NON-NLS-1$
-    			return (IMessage[]) results.toArray(new IMessage[results.size()]);
-    		}
 		} else if (kind == IClasspathEntry.CPE_LIBRARY) {
 			// does the path refer to a file or a folder?
 			final IPath entryPath = entry.getPath();
