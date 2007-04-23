@@ -41,8 +41,7 @@ public class ClasspathDependencyValidationTests extends AbstractTests {
         //suite.addTest(new ClasspathDependencyValidationTests("testDuplicateArchiveNamesRule"));
         suite.addTest(new ClasspathDependencyValidationTests("testRootMappingNonEARWARRefRule"));
         suite.addTest(new ClasspathDependencyValidationTests("testInvalidContainerRules"));
-        // XXX remove until https://bugs.eclipse.org/bugs/show_bug.cgi?id=182975 is fixed
-        //suite.addTest(new ClasspathDependencyValidationTests("testNonTaggedExportedClassesRule"));
+        suite.addTest(new ClasspathDependencyValidationTests("testNonTaggedExportedClassesRule"));
 
         return suite;
     }
