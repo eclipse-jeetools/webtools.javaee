@@ -83,21 +83,22 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 				final IProject project = jproject.getProject();
 				final List pathsToAdd = new ArrayList();
 				final List pathsToRemove = new ArrayList();
+				final List changedJavaPaths = new ArrayList();
 
 				// make certain this is a J2EE project
 				if (ModuleCoreNature.getModuleCoreNature(project) != null) {
 					IVirtualComponent c = ComponentCore.createComponent(project);
 					try {
 						// Did the classpath change?
-						if ((flags & IJavaElementDelta.F_CHILDREN) == IJavaElementDelta.F_CHILDREN
-								&& (flags & IJavaElementDelta.F_CLASSPATH_CHANGED) != 0) {
-							getJavaSrcMappings(c, delta.getAffectedChildren(), jproject, pathsToAdd, pathsToRemove);
+						if ((flags & IJavaElementDelta.F_CHILDREN) == IJavaElementDelta.F_CHILDREN) {
+							final boolean cpChanged = (flags & IJavaElementDelta.F_CLASSPATH_CHANGED) != 0; 
+							getJavaSrcMappings(c, delta.getAffectedChildren(), cpChanged, jproject, pathsToAdd, pathsToRemove, changedJavaPaths);
 						}
 
 						// Did a non-Java folder change name?
 						final IResourceDelta[] deltas = delta.getResourceDeltas();
 						if (deltas != null && deltas.length > 0) {
-							getNonJavaFolderMappings(deltas, c, pathsToAdd, pathsToRemove);
+							getNonJavaFolderMappings(deltas, c, pathsToAdd, pathsToRemove, changedJavaPaths);
 						}
 
 						// If there are corrections to the virtual path mappings, execute them in a Job
@@ -132,12 +133,12 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 			}
 		}
 	}
-
+	
 	/*
 	 * Computes the virtual component path mapping changes the need to be made due to 
 	 * Java src path changes.
 	 */ 
-	private void getJavaSrcMappings(final IVirtualComponent virtualComp, final IJavaElementDelta[] children, final IJavaProject jproject, final List pathsToAdd, final List pathsToRemove) 
+	private void getJavaSrcMappings(final IVirtualComponent virtualComp, final IJavaElementDelta[] children, final boolean cpChanged, final IJavaProject jproject, final List pathsToAdd, final List pathsToRemove, final List changedPaths) 
 		throws CoreException {
 		
 		// get the default destination folder
@@ -159,30 +160,40 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 				}
 				// only update if we know it is a src folder
 				if (cpeKind == IPackageFragmentRoot.K_SOURCE) {
-					// kind and flags for CP additions are somewhat sporadic; either:
-					// -kind is ADDED and flags are 0
-					//   or
-					// -kind is CHANGED and flags are F_ADDED_TO_CLASSPATH
-					int flags = delta.getFlags();
-					if (delta.getKind() == IJavaElementDelta.ADDED || 
-							(flags & IJavaElementDelta.F_ADDED_TO_CLASSPATH) == IJavaElementDelta.F_ADDED_TO_CLASSPATH) {
-						if (!abortAdd) {
-							final IPath pathToAdd = root.getPath().removeFirstSegments(1);
-							pathsToAdd.add(new Object[]{pathToAdd, defaultDestFolder});
-							// if the added src path was moved from another location, remove any mapping for that
-							// location
-							if ((flags & IJavaElementDelta.F_MOVED_FROM) == IJavaElementDelta.F_MOVED_FROM) {
-								final IJavaElement movedFromElement = delta.getMovedFromElement();
-								final IPath pathToRemove = movedFromElement.getPath().removeFirstSegments(1);
-								pathsToRemove.add(new Object[]{pathToRemove, defaultDestFolder});
-							}
+					final int kind = delta.getKind();					
+					if (!cpChanged) {
+						// if the classpath is not changed, save modifications to the Java src path
+						if (kind == IJavaElementDelta.CHANGED || kind == IJavaElementDelta.REMOVED) {
+							changedPaths.add(root.getPath().removeFirstSegments(1));		
 						}
-					// getting a kind = REMOVED and flags = 0 for removal of the folder (w/o removing the CPE), probably
-				    // should not be generated
-					} else if ((flags & IJavaElementDelta.F_REMOVED_FROM_CLASSPATH) == IJavaElementDelta.F_REMOVED_FROM_CLASSPATH) {
-						IPath path = root.getPath().removeFirstSegments(1);
-						pathsToRemove.add(new Object[]{path, defaultDestFolder});
-					}
+					} else {
+					
+						// kind and flags for CP additions are somewhat sporadic; either:
+						// -kind is ADDED and flags are 0
+						//   or
+						// -kind is CHANGED and flags are F_ADDED_TO_CLASSPATH
+						final int flags = delta.getFlags();
+
+						if (kind == IJavaElementDelta.ADDED || 
+								(flags & IJavaElementDelta.F_ADDED_TO_CLASSPATH) == IJavaElementDelta.F_ADDED_TO_CLASSPATH) {
+							if (!abortAdd) {
+								final IPath pathToAdd = root.getPath().removeFirstSegments(1);
+								pathsToAdd.add(new Object[]{pathToAdd, defaultDestFolder});
+								// if the added src path was moved from another location, remove any mapping for that
+								// location
+								if ((flags & IJavaElementDelta.F_MOVED_FROM) == IJavaElementDelta.F_MOVED_FROM) {
+									final IJavaElement movedFromElement = delta.getMovedFromElement();
+									final IPath pathToRemove = movedFromElement.getPath().removeFirstSegments(1);
+									pathsToRemove.add(new Object[]{pathToRemove, defaultDestFolder});
+								}
+							}
+							// getting a kind = REMOVED and flags = 0 for removal of the folder (w/o removing the CPE), probably
+							// should not be generated
+						} else if ((flags & IJavaElementDelta.F_REMOVED_FROM_CLASSPATH) == IJavaElementDelta.F_REMOVED_FROM_CLASSPATH) {
+							IPath path = root.getPath().removeFirstSegments(1);
+							pathsToRemove.add(new Object[]{path, defaultDestFolder});
+						} 
+					}			
 				}
 			}
 		}
@@ -192,26 +203,30 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 	 * Computes the virtual component path mapping changes the need to be made due to changes to
 	 * non-Java folders. 
 	 */ 
-	private void getNonJavaFolderMappings(final IResourceDelta[] deltas, final IVirtualComponent virtualComp, final List pathsToAdd, final List pathsToRemove) throws CoreException {
+	private void getNonJavaFolderMappings(final IResourceDelta[] deltas, final IVirtualComponent virtualComp, final List pathsToAdd, final List pathsToRemove, final List changedJavaPaths) throws CoreException {
 		final IVirtualFolder rootFolder = virtualComp.getRootFolder();
 		final Map sourceToRuntime = getResourceMappings(virtualComp.getProject());
 		for (int i = 0; i < deltas.length; i++) {
 			final IResourceDelta delta = deltas[i];
-			processResourceDelta(delta, rootFolder, sourceToRuntime, pathsToAdd, pathsToRemove);
+			processResourceDelta(delta, rootFolder, sourceToRuntime, pathsToAdd, pathsToRemove, changedJavaPaths);
 		}
 	}
 	
-	private void processResourceDelta(final IResourceDelta delta, final IVirtualFolder rootFolder, final Map sourceToRuntime, final List pathsToAdd, final List pathsToRemove) throws CoreException {
+	private void processResourceDelta(final IResourceDelta delta, final IVirtualFolder rootFolder, final Map sourceToRuntime, final List pathsToAdd, final List pathsToRemove, final List changedJavaPaths) throws CoreException {
 		final int kind = delta.getKind();
 		if (kind == IResourceDelta.CHANGED) {
 			IResourceDelta[] childDeltas = delta.getAffectedChildren();
 			for (int i = 0; i < childDeltas.length; i++) {
-				processResourceDelta(childDeltas[i], rootFolder, sourceToRuntime, pathsToAdd, pathsToRemove);
+				processResourceDelta(childDeltas[i], rootFolder, sourceToRuntime, pathsToAdd, pathsToRemove, changedJavaPaths);
 			}
 		} else {
 			final int flags = delta.getFlags();
 			if ((flags & IResourceDelta.MOVED_FROM) == IResourceDelta.MOVED_FROM) {
 				final IPath movedFrom = delta.getMovedFromPath().removeFirstSegments(1);
+				if (changedJavaPaths.contains(movedFrom)) {
+					// don't update renamed Java src paths
+					return;
+				}
 				final IPath movedTo = delta.getFullPath().removeFirstSegments(1);
 				final IPath runtimePath = (IPath) sourceToRuntime.get(movedFrom);
 				// does the old path have a virtual component mapping?
