@@ -28,7 +28,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.internal.core.JavaModelManager;
 import org.eclipse.jdt.internal.core.JavaProject;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyValidator;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
@@ -183,11 +182,9 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
         
 		final IClasspathEntry[] entries = javaProject.getResolvedClasspath(true);
         final JavaProject jProject = (JavaProject) javaProject;
-        final JavaModelManager.PerProjectInfo perProjectInfo = jProject.getPerProjectInfo(); 
-        final Map resolvedPathToRawEntries = perProjectInfo.resolvedPathToRawEntries;
-        
+        final Map resolvedPathToRawEntries = jProject.getPerProjectInfo().resolvedPathToRawEntries;
         // if the resolved-to-raw map is null or empty for some reason, return
-        if (resolvedPathToRawEntries == null || resolvedPathToRawEntries.isEmpty() || perProjectInfo == null) {
+        if (resolvedPathToRawEntries == null || resolvedPathToRawEntries.isEmpty()) {
         	return Collections.EMPTY_MAP;
         }
         
@@ -197,7 +194,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
         // entry
         for (int j = 0; j < entries.length; j++) {
             final IClasspathEntry entry = entries[j];
-            final IClasspathEntry rawEntry = (IClasspathEntry) perProjectInfo.resolvedPathToRawEntries.get(entry.getPath());            
+            final IClasspathEntry rawEntry = (IClasspathEntry) resolvedPathToRawEntries.get(entry.getPath());            
             if (rawEntry == null) {
             	continue;
             }
