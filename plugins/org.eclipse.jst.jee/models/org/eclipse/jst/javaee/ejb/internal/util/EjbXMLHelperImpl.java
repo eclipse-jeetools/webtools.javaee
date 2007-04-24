@@ -1,10 +1,10 @@
 package org.eclipse.jst.javaee.ejb.internal.util;
 
 import org.eclipse.emf.ecore.xmi.XMLResource;
-import org.eclipse.emf.ecore.xmi.impl.XMLHelperImpl;
+import org.eclipse.jst.javaee.core.internal.util.JEEXMLHelperImpl;
 import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
 
-public class EjbXMLHelperImpl extends XMLHelperImpl {
+public class EjbXMLHelperImpl extends JEEXMLHelperImpl {
 
 	public EjbXMLHelperImpl(XMLResource resource) {
 		super(resource);
@@ -18,5 +18,6 @@ public class EjbXMLHelperImpl extends XMLHelperImpl {
 		else
 			return super.getURI(prefix);
 	}
+
 
 }

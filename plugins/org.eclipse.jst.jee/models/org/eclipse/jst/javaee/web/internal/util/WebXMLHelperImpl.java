@@ -1,10 +1,10 @@
 package org.eclipse.jst.javaee.web.internal.util;
 
 import org.eclipse.emf.ecore.xmi.XMLResource;
-import org.eclipse.emf.ecore.xmi.impl.XMLHelperImpl;
+import org.eclipse.jst.javaee.core.internal.util.JEEXMLHelperImpl;
 import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
 
-public class WebXMLHelperImpl extends XMLHelperImpl {
+public class WebXMLHelperImpl extends JEEXMLHelperImpl {
 
 	public WebXMLHelperImpl(XMLResource resource) {
 		super(resource);
