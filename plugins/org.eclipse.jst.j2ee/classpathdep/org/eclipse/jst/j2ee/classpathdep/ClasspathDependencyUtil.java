@@ -182,7 +182,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
         
 		final IClasspathEntry[] entries = javaProject.getResolvedClasspath(true);
         final JavaProject jProject = (JavaProject) javaProject;
-        final Map resolvedPathToRawEntries = jProject.getPerProjectInfo().resolvedPathToRawEntries;
+        final Map resolvedPathToRawEntries = jProject.getPerProjectInfo().rootPathToRawEntries;
         // if the resolved-to-raw map is null or empty for some reason, return
         if (resolvedPathToRawEntries == null || resolvedPathToRawEntries.isEmpty()) {
         	return Collections.EMPTY_MAP;
