@@ -28,7 +28,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.internal.core.JavaProject;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyValidator;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
@@ -42,8 +42,8 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
  */
 public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	
-	private static final IPath WEB_INF_LIB = new Path("/WEB-INF/lib");
-	private static final IPath PARENT_MAPPING = new Path ("../");
+	private static final IPath WEB_INF_LIB = new Path("/WEB-INF/lib"); //$NON-NLS-1$
+	private static final IPath PARENT_MAPPING = new Path ("../"); //$NON-NLS-1$
 	
 	
 	/**
@@ -91,7 +91,6 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 		final IClasspathEntry[] entries = javaProject.getRawClasspath();
         for (int i = 0; i < entries.length; i++) {
             final IClasspathEntry entry = entries[i];
-            final int kind = entry.getEntryKind();
             final IClasspathAttribute attrib = checkForComponentDependencyAttribute(entry);
             if (attrib != null) {
             	continue; // already has the attribute
@@ -167,7 +166,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 			final IClasspathEntry entry = (IClasspathEntry) i.next();
 			final IClasspathAttribute attrib = (IClasspathAttribute) referencedRawEntries.get(entry);
 			if (!onlyValid || isValid(entry, attrib, isWebApp, javaProject.getProject())) {
-				validRawEntries.put(entry, referencedRawEntries.get(entry));
+				validRawEntries.put(entry, attrib);
 			}
 		}
 
@@ -175,49 +174,54 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 		if (validRawEntries.isEmpty()) {
         	return Collections.EMPTY_MAP;
 		}
+
+		// XXX Would like to replace the code below with use of a public JDT API that returns
+		// the raw IClasspathEntry for a given resolved IClasspathEntry (see see https://bugs.eclipse.org/bugs/show_bug.cgi?id=183995)
+		// The code must currently leverage IPackageFragmentRoot to determine this
+		// mapping and, because IPackageFragmentRoots do not maintain IClasspathEntry data, a prior
+		// call is needed to getResolvedClasspath() and the resolved IClasspathEntries have to be stored in a Map from IPath-to-IClasspathEntry to
+		// support retrieval using the resolved IPackageFragmentRoot
 		
-        // NOTE: if, despite the prohibition listed in the API, it is in fact OK to make a call directly into 
-        // IClasspathContainer.getClasspathEntries() in this context (and we can be certain that the container
-        // implementations will support necessary caching), we can remove the internal API usage 
-        
+		// retrieve the resolved classpath
 		final IClasspathEntry[] entries = javaProject.getResolvedClasspath(true);
-        final JavaProject jProject = (JavaProject) javaProject;
-        final Map resolvedPathToRawEntries = jProject.getPerProjectInfo().rootPathToRawEntries;
-        // if the resolved-to-raw map is null or empty for some reason, return
-        if (resolvedPathToRawEntries == null || resolvedPathToRawEntries.isEmpty()) {
-        	return Collections.EMPTY_MAP;
-        }
-        
-		final Map referencedEntries = new HashMap();        
-        
-        // collect the paths for all resolved entries that are associated with a raw dependent
-        // entry
-        for (int j = 0; j < entries.length; j++) {
-            final IClasspathEntry entry = entries[j];
-            final IClasspathEntry rawEntry = (IClasspathEntry) resolvedPathToRawEntries.get(entry.getPath());            
-            if (rawEntry == null) {
-            	continue;
-            }
-            if (!validRawEntries.containsKey(rawEntry)) {
-            	// missing entry from validRawEntries, skip
-            	continue;
-            }
-            IClasspathAttribute attrib = (IClasspathAttribute) validRawEntries.get(rawEntry);
-            final IClasspathAttribute resolvedAttrib = checkForComponentDependencyAttribute(entry);
-        	// attribute for the resolved entry must either be unspecified or it must be the
-        	// dependency attribute for it to be included
-            if (resolvedAttrib == null || resolvedAttrib.getName().equals(CLASSPATH_COMPONENT_DEPENDENCY)) {
-            	// filter out resolved entry if it doesn't pass the validation rules
-    			if (!onlyValid || isValid(entry, resolvedAttrib != null?resolvedAttrib:attrib,isWebApp, javaProject.getProject())) {
-    				if (resolvedAttrib != null) {
-    					// if there is an attribute on the sub-entry, use that
-    					attrib = resolvedAttrib;
-    				}
-    				referencedEntries.put(entry, attrib);
-    			}
-            } 
-        }
-        
+		final Map pathToResolvedEntry = new HashMap();
+		
+		// store in a map from path to entry
+		for (int j = 0; j < entries.length; j++) {
+			pathToResolvedEntry.put(entries[j].getPath(), entries[j]);
+		}
+
+		final Map referencedEntries = new HashMap();
+		
+		// grab all IPackageFragmentRoots
+		final IPackageFragmentRoot[] roots = javaProject.getPackageFragmentRoots();
+		for (int j = 0; j < roots.length; j++) {
+			final IPackageFragmentRoot root = roots[j];
+			final IClasspathEntry rawEntry = root.getRawClasspathEntry();
+			
+			// is the raw entry valid?
+			IClasspathAttribute attrib = (IClasspathAttribute) validRawEntries.get(rawEntry);
+			if (attrib == null) {
+				continue;
+			}
+			
+			final IPath pkgFragPath = root.getPath();
+			final IClasspathEntry resolvedEntry = (IClasspathEntry) pathToResolvedEntry.get(pkgFragPath);
+			final IClasspathAttribute resolvedAttrib = checkForComponentDependencyAttribute(resolvedEntry);
+			// attribute for the resolved entry must either be unspecified or it must be the
+			// dependency attribute for it to be included
+			if (resolvedAttrib == null || resolvedAttrib.getName().equals(CLASSPATH_COMPONENT_DEPENDENCY)) {
+				// filter out resolved entry if it doesn't pass the validation rules
+				if (!onlyValid || isValid(resolvedEntry, resolvedAttrib != null?resolvedAttrib:attrib,isWebApp, javaProject.getProject())) {
+					if (resolvedAttrib != null) {
+						// if there is an attribute on the sub-entry, use that
+						attrib = resolvedAttrib;
+					}
+					referencedEntries.put(resolvedEntry, attrib);
+				}
+			} 
+		}
+		
         return referencedEntries;
 	}
 	
