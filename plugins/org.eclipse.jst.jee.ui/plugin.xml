@@ -3,11 +3,17 @@
 <plugin>
    <extension point="org.eclipse.wst.common.project.facet.ui.wizardPages">
     <wizard-pages action="jst.ear#5.0#install">
-      <page class="org.eclipse.jst.j2ee.ui.project.facet.EarFacetInstallPage"/>
+      <page class="org.eclipse.jst.jee.ui.project.facet.EarJavaEEFacetInstallPage"/>
     </wizard-pages>
     <wizard-pages action="jst.appclient#5.0#install">
-      <page class="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientFacetInstallPage"/>
+      <page class="org.eclipse.jst.jee.ui.project.facet.appclient.AppClientJavaEEFacetInstallPage"/>
     </wizard-pages>
+    <wizard-pages action="jst.web#2.5#install">
+      <page class="org.eclipse.jst.jee.servlet.ui.project.facet.WebJavaEEFacetInstallPage"/>
+    </wizard-pages>
+      <wizard-pages action="jst.ejb#3.0#install">
+        <page class="org.eclipse.jst.jee.ejb.ui.project.facet.EjbJavaEEFacetInstallPage"/>
+      </wizard-pages>
   </extension>
 
    

@@ -61,7 +61,7 @@ import org.eclipse.wst.web.ui.internal.wizards.DataModelFacetInstallPage;
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
  */
 
-public final class EarFacetInstallPage extends DataModelFacetInstallPage implements IEarFacetInstallDataModelProperties {
+public class EarFacetInstallPage extends DataModelFacetInstallPage implements IEarFacetInstallDataModelProperties {
 	
 	private Button selectAllButton;
 	private Button deselectAllButton;

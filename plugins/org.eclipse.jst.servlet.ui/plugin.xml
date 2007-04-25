@@ -301,14 +301,6 @@
       <page class="org.eclipse.jst.servlet.ui.project.facet.WebFacetInstallPage"/>
     </wizard-pages>
   </extension>
-
-  <!-- same web facet install page for the new web 2.5 facet -->
-  <extension point="org.eclipse.wst.common.project.facet.ui.wizardPages">
-    <wizard-pages action="jst.web#2.5#install">
-      <page class="org.eclipse.jst.servlet.ui.project.facet.WebFacetInstallPage"/>
-    </wizard-pages>
-  </extension>
-
   
   <extension point="org.eclipse.wst.common.project.facet.ui.images">
     <image facet="jst.web" path="icons/war.gif"/>

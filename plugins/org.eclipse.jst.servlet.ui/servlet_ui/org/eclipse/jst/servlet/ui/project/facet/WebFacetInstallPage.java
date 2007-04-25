@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Text;
 /**
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
  */
-public final class WebFacetInstallPage extends J2EEModuleFacetInstallPage implements IWebFacetInstallDataModelProperties {
+public class WebFacetInstallPage extends J2EEModuleFacetInstallPage implements IWebFacetInstallDataModelProperties {
 	private Label contextRootLabel;
 	private Text contextRoot;
 	private Label contentDirLabel;
