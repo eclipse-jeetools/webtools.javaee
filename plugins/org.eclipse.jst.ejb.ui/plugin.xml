@@ -250,12 +250,6 @@
         <page class="org.eclipse.jst.ejb.ui.project.facet.EjbFacetInstallPage"/>
       </wizard-pages>
     </extension>   
-	<!-- same ejb facet install page for the new ejb 3.0 facet -->
-    <extension point="org.eclipse.wst.common.project.facet.ui.wizardPages">
-      <wizard-pages action="jst.ejb#3.0#install">
-        <page class="org.eclipse.jst.ejb.ui.project.facet.EjbFacetInstallPage"/>
-      </wizard-pages>
-    </extension>   
     
 <!-- ====================================================== -->
 <!--           EJB Client Action                            -->
