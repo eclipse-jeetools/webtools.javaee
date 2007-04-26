@@ -123,6 +123,9 @@ public class EMFAttributeFeatureGenerator {
 			return  generateRandomBoolean(att);
 		else if (meta.getInstanceClassName().equals("java.util.List"))
 			return  createCollection(att);
+		else if(meta.getName().equals("QName")){
+			return generateRandomQName(att);
+		}
 		switch (meta.getClassifierID()) {
 			case EcorePackage.ESTRING:
 				return generateRandomAttributeString(att);
@@ -394,6 +397,20 @@ public class EMFAttributeFeatureGenerator {
     	return new Integer(generateNumber(att));
     }
     
+    protected static char [] intToCharMapping = new char [] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j' };
+    protected static char [] charToIntMapping = new char [] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+    protected static Object generateRandomQName(EAttributeDescriptor att) {
+    	char [] charArray = Integer.toString(generateNumber(att)).toCharArray();
+    	for(int i=0;i<charArray.length;i++){
+    		for(int j=0;j<charToIntMapping.length; j++){
+    			if (charArray[i] == charToIntMapping[j]){
+    				charArray[i] = intToCharMapping[j];
+    				break;
+    			}
+    		}
+    	}
+    	return new String(charArray);
+    }
     
     protected static Object generateRandomBoolean(EAttributeDescriptor att) {
 		if (!booleanMap.containsKey(att)){
