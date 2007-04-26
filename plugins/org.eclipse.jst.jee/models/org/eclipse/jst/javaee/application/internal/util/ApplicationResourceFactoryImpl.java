@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ApplicationResourceFactoryImpl.java,v 1.2 2007/04/13 03:10:36 cbridgha Exp $
+ * $Id: ApplicationResourceFactoryImpl.java,v 1.3 2007/04/26 17:22:50 jsholl Exp $
  */
 package org.eclipse.jst.javaee.application.internal.util;
 
@@ -33,7 +33,6 @@ public class ApplicationResourceFactoryImpl extends ResourceFactoryImpl {
 	 * Creates an instance of the resource.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
 	public Resource createResource(URI uri) {
 		XMLResource result = new ApplicationResourceImpl(uri);
