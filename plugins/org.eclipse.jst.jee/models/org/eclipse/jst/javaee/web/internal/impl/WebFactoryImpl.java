@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: WebFactoryImpl.java,v 1.2 2007/04/13 03:10:38 cbridgha Exp $
+ * $Id: WebFactoryImpl.java,v 1.3 2007/04/26 17:12:51 jsholl Exp $
  */
 package org.eclipse.jst.javaee.web.internal.impl;
 
@@ -596,7 +596,6 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
 	public String convertLoadOnStartupTypeToString(EDataType eDataType, Object instanceValue) {
 		if (instanceValue == null) return null;

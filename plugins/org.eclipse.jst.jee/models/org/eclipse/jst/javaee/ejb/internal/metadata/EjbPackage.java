@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: EjbPackage.java,v 1.3 2007/04/13 03:10:37 cbridgha Exp $
+ * $Id: EjbPackage.java,v 1.4 2007/04/26 17:13:41 jsholl Exp $
  */
 package org.eclipse.jst.javaee.ejb.internal.metadata;
 
@@ -303,7 +303,6 @@ public interface EjbPackage extends EPackage {
 	 * The package namespace URI.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
 	String eNS_URI = "http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"; //$NON-NLS-1$
 
@@ -947,22 +946,13 @@ public interface EjbPackage extends EPackage {
 	int EJB_RELATION__EJB_RELATION_NAME = 1;
 
 	/**
-	 * The feature id for the '<em><b>Ejb Relationship Role</b></em>' containment reference.
+	 * The feature id for the '<em><b>Ejb Relationship Roles</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_RELATION__EJB_RELATIONSHIP_ROLE = 2;
-
-	/**
-	 * The feature id for the '<em><b>Ejb Relationship Role1</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EJB_RELATION__EJB_RELATIONSHIP_ROLE1 = 3;
+	int EJB_RELATION__EJB_RELATIONSHIP_ROLES = 2;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -971,7 +961,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_RELATION__ID = 4;
+	int EJB_RELATION__ID = 3;
 
 	/**
 	 * The number of structural features of the '<em>EJB Relation</em>' class.
@@ -980,7 +970,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_RELATION_FEATURE_COUNT = 5;
+	int EJB_RELATION_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.EJBRelationshipRoleImpl <em>EJB Relationship Role</em>}' class.
@@ -3822,26 +3812,15 @@ public interface EjbPackage extends EPackage {
 	EAttribute getEJBRelation_EjbRelationName();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.ejb.EJBRelation#getEjbRelationshipRole <em>Ejb Relationship Role</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.EJBRelation#getEjbRelationshipRoles <em>Ejb Relationship Roles</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Ejb Relationship Role</em>'.
-	 * @see org.eclipse.jst.javaee.ejb.EJBRelation#getEjbRelationshipRole()
+	 * @return the meta object for the containment reference list '<em>Ejb Relationship Roles</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.EJBRelation#getEjbRelationshipRoles()
 	 * @see #getEJBRelation()
 	 * @generated
 	 */
-	EReference getEJBRelation_EjbRelationshipRole();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.ejb.EJBRelation#getEjbRelationshipRole1 <em>Ejb Relationship Role1</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Ejb Relationship Role1</em>'.
-	 * @see org.eclipse.jst.javaee.ejb.EJBRelation#getEjbRelationshipRole1()
-	 * @see #getEJBRelation()
-	 * @generated
-	 */
-	EReference getEJBRelation_EjbRelationshipRole1();
+	EReference getEJBRelation_EjbRelationshipRoles();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.EJBRelation#getId <em>Id</em>}'.
@@ -6741,20 +6720,12 @@ public interface EjbPackage extends EPackage {
 		EAttribute EJB_RELATION__EJB_RELATION_NAME = eINSTANCE.getEJBRelation_EjbRelationName();
 
 		/**
-		 * The meta object literal for the '<em><b>Ejb Relationship Role</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Ejb Relationship Roles</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference EJB_RELATION__EJB_RELATIONSHIP_ROLE = eINSTANCE.getEJBRelation_EjbRelationshipRole();
-
-		/**
-		 * The meta object literal for the '<em><b>Ejb Relationship Role1</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EJB_RELATION__EJB_RELATIONSHIP_ROLE1 = eINSTANCE.getEJBRelation_EjbRelationshipRole1();
+		EReference EJB_RELATION__EJB_RELATIONSHIP_ROLES = eINSTANCE.getEJBRelation_EjbRelationshipRoles();
 
 		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.

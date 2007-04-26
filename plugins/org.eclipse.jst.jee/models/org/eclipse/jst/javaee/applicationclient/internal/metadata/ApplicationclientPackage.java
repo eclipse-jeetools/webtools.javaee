@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ApplicationclientPackage.java,v 1.2 2007/04/13 03:10:37 cbridgha Exp $
+ * $Id: ApplicationclientPackage.java,v 1.3 2007/04/26 17:12:28 jsholl Exp $
  */
 package org.eclipse.jst.javaee.applicationclient.internal.metadata;
 
@@ -303,7 +303,6 @@ public interface ApplicationclientPackage extends EPackage {
 	 * The package namespace URI.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
 	String eNS_URI = "http://java.sun.com/xml/ns/javaee/application-client_5.xsd"; //$NON-NLS-1$
 
@@ -823,7 +822,7 @@ public interface ApplicationclientPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	interface Literals {
+	interface Literals  {
 		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl <em>Application Client</em>}' class.
 		 * <!-- begin-user-doc -->

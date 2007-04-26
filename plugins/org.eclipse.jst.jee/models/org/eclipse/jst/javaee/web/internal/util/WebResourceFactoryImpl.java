@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: WebResourceFactoryImpl.java,v 1.2 2007/04/13 03:10:36 cbridgha Exp $
+ * $Id: WebResourceFactoryImpl.java,v 1.3 2007/04/26 17:12:51 jsholl Exp $
  */
 package org.eclipse.jst.javaee.web.internal.util;
 
@@ -35,7 +35,6 @@ public class WebResourceFactoryImpl extends ResourceFactoryImpl {
 	 * Creates an instance of the resource.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
 	public Resource createResource(URI uri) {
 		XMLResource result = new WebResourceImpl(uri);

@@ -2,14 +2,12 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ApplicationclientResourceFactoryImpl.java,v 1.2 2007/04/13 03:10:36 cbridgha Exp $
+ * $Id: ApplicationclientResourceFactoryImpl.java,v 1.3 2007/04/26 17:12:28 jsholl Exp $
  */
 package org.eclipse.jst.javaee.applicationclient.internal.util;
 
 import org.eclipse.emf.common.util.URI;
-
 import org.eclipse.emf.ecore.resource.Resource;
-
 import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
 
 import org.eclipse.emf.ecore.xmi.XMLOptions;
@@ -38,7 +36,6 @@ public class ApplicationclientResourceFactoryImpl extends ResourceFactoryImpl {
 	 * Creates an instance of the resource.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
 	public Resource createResource(URI uri) {
 		XMLResource result = new ApplicationclientResourceImpl(uri);

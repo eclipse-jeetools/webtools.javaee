@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: EjbPackageImpl.java,v 1.2 2007/03/26 21:04:06 jsholl Exp $
+ * $Id: EjbPackageImpl.java,v 1.3 2007/04/26 17:12:28 jsholl Exp $
  */
 package org.eclipse.jst.javaee.ejb.internal.impl;
 
@@ -1063,7 +1063,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEJBRelation_EjbRelationshipRole() {
+	public EReference getEJBRelation_EjbRelationshipRoles() {
 		return (EReference)ejbRelationEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1072,17 +1072,8 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEJBRelation_EjbRelationshipRole1() {
-		return (EReference)ejbRelationEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getEJBRelation_Id() {
-		return (EAttribute)ejbRelationEClass.getEStructuralFeatures().get(4);
+		return (EAttribute)ejbRelationEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -3161,8 +3152,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		ejbRelationEClass = createEClass(EJB_RELATION);
 		createEReference(ejbRelationEClass, EJB_RELATION__DESCRIPTIONS);
 		createEAttribute(ejbRelationEClass, EJB_RELATION__EJB_RELATION_NAME);
-		createEReference(ejbRelationEClass, EJB_RELATION__EJB_RELATIONSHIP_ROLE);
-		createEReference(ejbRelationEClass, EJB_RELATION__EJB_RELATIONSHIP_ROLE1);
+		createEReference(ejbRelationEClass, EJB_RELATION__EJB_RELATIONSHIP_ROLES);
 		createEAttribute(ejbRelationEClass, EJB_RELATION__ID);
 
 		ejbRelationshipRoleEClass = createEClass(EJB_RELATIONSHIP_ROLE);
@@ -3509,8 +3499,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		initEClass(ejbRelationEClass, EJBRelation.class, "EJBRelation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getEJBRelation_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getEJBRelation_EjbRelationName(), theXMLTypePackage.getToken(), "ejbRelationName", null, 0, 1, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEJBRelation_EjbRelationshipRole(), this.getEJBRelationshipRole(), null, "ejbRelationshipRole", null, 1, 1, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEJBRelation_EjbRelationshipRole1(), this.getEJBRelationshipRole(), null, "ejbRelationshipRole1", null, 1, 1, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEJBRelation_EjbRelationshipRoles(), this.getEJBRelationshipRole(), null, "ejbRelationshipRoles", null, 2, 2, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getEJBRelation_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(ejbRelationshipRoleEClass, EJBRelationshipRole.class, "EJBRelationshipRole", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
@@ -4288,15 +4277,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
-		  (getEJBRelation_EjbRelationshipRole(), 
-		   source, 
-		   new String[] {
-			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
-			 "name", "ejb-relationship-role", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
-		   });		
-		addAnnotation
-		  (getEJBRelation_EjbRelationshipRole1(), 
+		  (getEJBRelation_EjbRelationshipRoles(), 
 		   source, 
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$

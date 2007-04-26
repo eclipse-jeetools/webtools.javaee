@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: WebPackage.java,v 1.2 2007/04/13 03:10:37 cbridgha Exp $
+ * $Id: WebPackage.java,v 1.3 2007/04/26 17:12:51 jsholl Exp $
  */
 package org.eclipse.jst.javaee.web.internal.metadata;
 
@@ -366,7 +366,6 @@ public interface WebPackage extends EPackage {
 	 * The package namespace URI.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
 	String eNS_URI = "http://java.sun.com/xml/ns/j2ee/web-app_2_5.xsd"; //$NON-NLS-1$
 
@@ -3410,7 +3409,7 @@ public interface WebPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	interface Literals {
+	interface Literals  {
 		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.web.internal.impl.AuthConstraintImpl <em>Auth Constraint</em>}' class.
 		 * <!-- begin-user-doc -->

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: EJBRelation.java,v 1.1 2007/03/20 18:04:36 jsholl Exp $
+ * $Id: EJBRelation.java,v 1.2 2007/04/26 17:12:28 jsholl Exp $
  */
 package org.eclipse.jst.javaee.ejb;
 
@@ -35,8 +35,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <ul>
  *   <li>{@link org.eclipse.jst.javaee.ejb.EJBRelation#getDescriptions <em>Descriptions</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.EJBRelation#getEjbRelationName <em>Ejb Relation Name</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.ejb.EJBRelation#getEjbRelationshipRole <em>Ejb Relationship Role</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.ejb.EJBRelation#getEjbRelationshipRole1 <em>Ejb Relationship Role1</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.EJBRelation#getEjbRelationshipRoles <em>Ejb Relationship Roles</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.EJBRelation#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -71,7 +70,7 @@ public interface EJBRelation extends JavaEEObject {
 	 * 	    The ejb-relation-name element provides a unique name
 	 * 	    within the ejb-jar file for a relationship.
 	 * 
-	 * 	  
+	 * 	      
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Ejb Relation Name</em>' attribute.
 	 * @see #setEjbRelationName(String)
@@ -91,54 +90,19 @@ public interface EJBRelation extends JavaEEObject {
 	void setEjbRelationName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Ejb Relationship Role</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Ejb Relationship Roles</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.ejb.EJBRelationshipRole}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Ejb Relationship Role</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Ejb Relationship Roles</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Ejb Relationship Role</em>' containment reference.
-	 * @see #setEjbRelationshipRole(EJBRelationshipRole)
-	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEJBRelation_EjbRelationshipRole()
+	 * @return the value of the '<em>Ejb Relationship Roles</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEJBRelation_EjbRelationshipRoles()
 	 * @generated
 	 */
-	EJBRelationshipRole getEjbRelationshipRole();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.jst.javaee.ejb.EJBRelation#getEjbRelationshipRole <em>Ejb Relationship Role</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Ejb Relationship Role</em>' containment reference.
-	 * @see #getEjbRelationshipRole()
-	 * @generated
-	 */
-	void setEjbRelationshipRole(EJBRelationshipRole value);
-
-	/**
-	 * Returns the value of the '<em><b>Ejb Relationship Role1</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Ejb Relationship Role1</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Ejb Relationship Role1</em>' containment reference.
-	 * @see #setEjbRelationshipRole1(EJBRelationshipRole)
-	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEJBRelation_EjbRelationshipRole1()
-	 * @generated
-	 */
-	EJBRelationshipRole getEjbRelationshipRole1();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.jst.javaee.ejb.EJBRelation#getEjbRelationshipRole1 <em>Ejb Relationship Role1</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Ejb Relationship Role1</em>' containment reference.
-	 * @see #getEjbRelationshipRole1()
-	 * @generated
-	 */
-	void setEjbRelationshipRole1(EJBRelationshipRole value);
+	List getEjbRelationshipRoles();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: EJBRelationImpl.java,v 1.1 2007/03/20 18:04:37 jsholl Exp $
+ * $Id: EJBRelationImpl.java,v 1.2 2007/04/26 17:12:28 jsholl Exp $
  */
 package org.eclipse.jst.javaee.ejb.internal.impl;
 
@@ -39,8 +39,7 @@ import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
  * <ul>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EJBRelationImpl#getDescriptions <em>Descriptions</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EJBRelationImpl#getEjbRelationName <em>Ejb Relation Name</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EJBRelationImpl#getEjbRelationshipRole <em>Ejb Relationship Role</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EJBRelationImpl#getEjbRelationshipRole1 <em>Ejb Relationship Role1</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EJBRelationImpl#getEjbRelationshipRoles <em>Ejb Relationship Roles</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EJBRelationImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -79,24 +78,14 @@ public class EJBRelationImpl extends EObjectImpl implements EJBRelation {
 	protected String ejbRelationName = EJB_RELATION_NAME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getEjbRelationshipRole() <em>Ejb Relationship Role</em>}' containment reference.
+	 * The cached value of the '{@link #getEjbRelationshipRoles() <em>Ejb Relationship Roles</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEjbRelationshipRole()
+	 * @see #getEjbRelationshipRoles()
 	 * @generated
 	 * @ordered
 	 */
-	protected EJBRelationshipRole ejbRelationshipRole = null;
-
-	/**
-	 * The cached value of the '{@link #getEjbRelationshipRole1() <em>Ejb Relationship Role1</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEjbRelationshipRole1()
-	 * @generated
-	 * @ordered
-	 */
-	protected EJBRelationshipRole ejbRelationshipRole1 = null;
+	protected EList ejbRelationshipRoles = null;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -174,85 +163,11 @@ public class EJBRelationImpl extends EObjectImpl implements EJBRelation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EJBRelationshipRole getEjbRelationshipRole() {
-		return ejbRelationshipRole;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetEjbRelationshipRole(EJBRelationshipRole newEjbRelationshipRole, NotificationChain msgs) {
-		EJBRelationshipRole oldEjbRelationshipRole = ejbRelationshipRole;
-		ejbRelationshipRole = newEjbRelationshipRole;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLE, oldEjbRelationshipRole, newEjbRelationshipRole);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+	public List getEjbRelationshipRoles() {
+		if (ejbRelationshipRoles == null) {
+			ejbRelationshipRoles = new EObjectContainmentEList(EJBRelationshipRole.class, this, EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLES);
 		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setEjbRelationshipRole(EJBRelationshipRole newEjbRelationshipRole) {
-		if (newEjbRelationshipRole != ejbRelationshipRole) {
-			NotificationChain msgs = null;
-			if (ejbRelationshipRole != null)
-				msgs = ((InternalEObject)ejbRelationshipRole).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLE, null, msgs);
-			if (newEjbRelationshipRole != null)
-				msgs = ((InternalEObject)newEjbRelationshipRole).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLE, null, msgs);
-			msgs = basicSetEjbRelationshipRole(newEjbRelationshipRole, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLE, newEjbRelationshipRole, newEjbRelationshipRole));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EJBRelationshipRole getEjbRelationshipRole1() {
-		return ejbRelationshipRole1;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetEjbRelationshipRole1(EJBRelationshipRole newEjbRelationshipRole1, NotificationChain msgs) {
-		EJBRelationshipRole oldEjbRelationshipRole1 = ejbRelationshipRole1;
-		ejbRelationshipRole1 = newEjbRelationshipRole1;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLE1, oldEjbRelationshipRole1, newEjbRelationshipRole1);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setEjbRelationshipRole1(EJBRelationshipRole newEjbRelationshipRole1) {
-		if (newEjbRelationshipRole1 != ejbRelationshipRole1) {
-			NotificationChain msgs = null;
-			if (ejbRelationshipRole1 != null)
-				msgs = ((InternalEObject)ejbRelationshipRole1).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLE1, null, msgs);
-			if (newEjbRelationshipRole1 != null)
-				msgs = ((InternalEObject)newEjbRelationshipRole1).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLE1, null, msgs);
-			msgs = basicSetEjbRelationshipRole1(newEjbRelationshipRole1, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLE1, newEjbRelationshipRole1, newEjbRelationshipRole1));
+		return ejbRelationshipRoles;
 	}
 
 	/**
@@ -285,10 +200,8 @@ public class EJBRelationImpl extends EObjectImpl implements EJBRelation {
 		switch (featureID) {
 			case EjbPackage.EJB_RELATION__DESCRIPTIONS:
 				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
-			case EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLE:
-				return basicSetEjbRelationshipRole(null, msgs);
-			case EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLE1:
-				return basicSetEjbRelationshipRole1(null, msgs);
+			case EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLES:
+				return ((InternalEList)getEjbRelationshipRoles()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -304,10 +217,8 @@ public class EJBRelationImpl extends EObjectImpl implements EJBRelation {
 				return getDescriptions();
 			case EjbPackage.EJB_RELATION__EJB_RELATION_NAME:
 				return getEjbRelationName();
-			case EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLE:
-				return getEjbRelationshipRole();
-			case EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLE1:
-				return getEjbRelationshipRole1();
+			case EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLES:
+				return getEjbRelationshipRoles();
 			case EjbPackage.EJB_RELATION__ID:
 				return getId();
 		}
@@ -328,11 +239,9 @@ public class EJBRelationImpl extends EObjectImpl implements EJBRelation {
 			case EjbPackage.EJB_RELATION__EJB_RELATION_NAME:
 				setEjbRelationName((String)newValue);
 				return;
-			case EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLE:
-				setEjbRelationshipRole((EJBRelationshipRole)newValue);
-				return;
-			case EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLE1:
-				setEjbRelationshipRole1((EJBRelationshipRole)newValue);
+			case EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLES:
+				getEjbRelationshipRoles().clear();
+				getEjbRelationshipRoles().addAll((Collection)newValue);
 				return;
 			case EjbPackage.EJB_RELATION__ID:
 				setId((String)newValue);
@@ -354,11 +263,8 @@ public class EJBRelationImpl extends EObjectImpl implements EJBRelation {
 			case EjbPackage.EJB_RELATION__EJB_RELATION_NAME:
 				setEjbRelationName(EJB_RELATION_NAME_EDEFAULT);
 				return;
-			case EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLE:
-				setEjbRelationshipRole((EJBRelationshipRole)null);
-				return;
-			case EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLE1:
-				setEjbRelationshipRole1((EJBRelationshipRole)null);
+			case EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLES:
+				getEjbRelationshipRoles().clear();
 				return;
 			case EjbPackage.EJB_RELATION__ID:
 				setId(ID_EDEFAULT);
@@ -378,10 +284,8 @@ public class EJBRelationImpl extends EObjectImpl implements EJBRelation {
 				return descriptions != null && !descriptions.isEmpty();
 			case EjbPackage.EJB_RELATION__EJB_RELATION_NAME:
 				return EJB_RELATION_NAME_EDEFAULT == null ? ejbRelationName != null : !EJB_RELATION_NAME_EDEFAULT.equals(ejbRelationName);
-			case EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLE:
-				return ejbRelationshipRole != null;
-			case EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLE1:
-				return ejbRelationshipRole1 != null;
+			case EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLES:
+				return ejbRelationshipRoles != null && !ejbRelationshipRoles.isEmpty();
 			case EjbPackage.EJB_RELATION__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		}
