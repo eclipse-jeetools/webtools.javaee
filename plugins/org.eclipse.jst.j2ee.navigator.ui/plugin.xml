@@ -43,7 +43,7 @@
 						<or>
 							<test forcePluginActivation="true"
 								property="org.eclipse.wst.common.project.facet.core.projectFacet"
-								value="jst.ear" />
+								value="jst.ear:1.4]" />
 						</or>
 					</adapt>
 				</and>
@@ -316,7 +316,7 @@
 				<adapt type="org.eclipse.core.resources.IProject">
 					<test forcePluginActivation="true"
 						property="org.eclipse.wst.common.project.facet.core.projectFacet"
-						value="jst.appclient" />
+						value="jst.appclient:1.4]" />
 				</adapt>
 			</or>
 		</triggerPoints>
@@ -458,7 +458,7 @@
 				<adapt type="org.eclipse.core.resources.IProject">
 					<test forcePluginActivation="true"
 						property="org.eclipse.wst.common.project.facet.core.projectFacet"
-						value="jst.web" />
+						value="jst.web:2.4]" />
 				</adapt>
 			</or>
 		</triggerPoints>
@@ -678,7 +678,7 @@
 					<adapt type="org.eclipse.core.resources.IProject"> 
 						<test forcePluginActivation="true"
 							property="org.eclipse.wst.common.project.facet.core.projectFacet"
-							value="jst.ejb" />
+							value="jst.ejb:2.1]" />
 					</adapt>
 				</and>
 			</or>

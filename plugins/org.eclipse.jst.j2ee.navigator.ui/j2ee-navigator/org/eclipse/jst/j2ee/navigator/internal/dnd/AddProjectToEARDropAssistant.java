@@ -34,6 +34,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.navigator.ui.Messages;
@@ -168,7 +169,7 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 	 */
 	protected final int getEarVersion(IProject earProject) {
 		int earVersion = -1;
-		EARArtifactEdit earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
+		EnterpriseArtifactEdit earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
 		try {
 			if(earArtifactEdit != null)
 				earVersion = earArtifactEdit.getJ2EEVersion();
