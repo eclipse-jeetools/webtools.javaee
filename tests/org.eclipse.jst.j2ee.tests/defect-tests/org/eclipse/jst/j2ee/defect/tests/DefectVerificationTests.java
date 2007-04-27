@@ -14,9 +14,11 @@ import java.io.StringBufferInputStream;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -24,7 +26,10 @@ import junit.framework.Assert;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.IJobManager;
@@ -51,22 +56,40 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
+import org.eclipse.jst.j2ee.dependency.tests.util.ProjectUtil;
+import org.eclipse.jst.j2ee.ejb.project.operations.IEjbFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetInstallDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
+import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.project.facet.core.IProjectFacet;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
@@ -518,6 +541,125 @@ public class DefectVerificationTests extends OperationTestCase {
 		Assert.assertEquals("lib/foo/bar/A.jar", ArchiveUtil.deriveEARRelativeURI("./../bar/../../foo/./bar/A.jar", "lib/foo/bar/B.jar"));
 		Assert.assertEquals("lib/foo/bar/A.jar", ArchiveUtil.deriveEARRelativeURI("./A.jar", "lib/foo/bar/B.jar"));
 	}
+	
+	/**
+	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=184154
+	 */
+	public void test184154() throws Exception {
+
+		// Scenario 1 - create ejb project with add to ear and ejb client
+		
+		IDataModel dataModel = DataModelFactory.createDataModel(IEjbFacetInstallDataModelProperties.class);
+		
+		String projName = "TestAPIEjbProject";//$NON-NLS-1$
+		String ejbVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.EJB_2_1_ID);
+		IProjectFacet ejbFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EJB_MODULE);
+		IProjectFacetVersion ejbFacetVersion = ejbFacet.getVersion(ejbVersionString); //$NON-NLS-1$
+
+
+		dataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, projName);
+		FacetDataModelMap map = (FacetDataModelMap) dataModel
+				.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		IDataModel appmodel = (IDataModel) map.get(IModuleConstants.JST_EJB_MODULE);
+		appmodel.setProperty(IFacetInstallDataModelProperties.FACET_VERSION, ejbFacetVersion);
+		appmodel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER,"ejb333"); //$NON-NLS-1$
+
+		String ejbClientName =  projName + "Client"; //$NON-NLS-1$
+
+		map = (FacetDataModelMap) dataModel
+		.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		appmodel = (IDataModel) map.get(IModuleConstants.JST_EJB_MODULE);
+
+		appmodel.setBooleanProperty(IEjbFacetInstallDataModelProperties.CREATE_CLIENT, true);
+		appmodel.setStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME, ejbClientName);
+		
+		String clientURI = ejbClientName+"zzzzz"+IJ2EEModuleConstants.JAR_EXT;
+		
+		appmodel.setStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_URI, clientURI);
+
+		String earProjName =  projName + "EAR"; //$NON-NLS-1$
+
+		dataModel.setBooleanProperty(IJ2EEFacetProjectCreationDataModelProperties.ADD_TO_EAR, true);
+		
+		dataModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME, earProjName);
+
+	    runAndVerify(dataModel);
+
+	    IVirtualComponent component = ComponentUtilities.getComponent(earProjName);
+	    
+	    IVirtualComponent ejbClientComponent = ComponentUtilities.getComponent(ejbClientName);
+		
+	    IVirtualReference reference = component.getReference(ejbClientComponent.getName());
+		
+	    Assert.assertEquals(reference.getReferencedComponent(), ejbClientComponent);
+	    
+	    Assert.assertEquals(reference.getArchiveName(), clientURI);
+		
+		// Scenario 2 - create utility project with add to ear
+		
+	    String utilityProjectName = "TestUtilityProject";
+	    String utilEarProjectName     = utilityProjectName + "EAR"; //$NON-NLS-1$
+	    String utilityURI =  utilityProjectName + IJ2EEModuleConstants.JAR_EXT;
+	    
+        ProjectUtil.createUtilityProject(utilityProjectName	, utilEarProjectName);
+        
+	    IVirtualComponent earComponent = ComponentUtilities.getComponent(utilEarProjectName);
+	    
+	    IVirtualComponent utilClientComponent = ComponentUtilities.getComponent(utilityProjectName);
+		
+	    IVirtualReference reference1 = earComponent.getReference(utilClientComponent.getName());
+		
+	    Assert.assertEquals(reference1.getReferencedComponent(), utilClientComponent);
+	    
+	    Assert.assertEquals(reference1.getArchiveName(), utilityURI);
+       
+	    String javaProjectName = "TestJavaProject";
+	    
+	    // Scenario 3 - create java project add it as a j2ee module dependency for an ear project
+	    
+	    IProject proj = ResourcesPlugin.getWorkspace().getRoot().getProject(javaProjectName);
+	    proj.create(null);
+	    proj.open(null);
+	    
+	    IProjectDescription description = proj.getDescription();
+	    List natureList = new ArrayList();
+	    natureList.add(JavaCore.NATURE_ID);
+	    natureList.addAll(Arrays.asList(description.getNatureIds()));
+	    description.setNatureIds((String[]) natureList.toArray(new String[natureList.size()]));
+	    proj.setDescription(description, null);
+	    
+	    IJavaProject javaProject = JavaCore.create(proj);
+	    
+	    IDataModel migrationdm = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
+		migrationdm.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, proj.getName());
+		
+		runAndVerify(migrationdm);
+
+		String javaProjectURI = proj.getName() + IJ2EEModuleConstants.JAR_EXT;
+
+		IDataModel refdm = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
+		List targetCompList = (List) refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+
+		IVirtualComponent targetcomponent = ComponentCore.createComponent(proj);
+		targetCompList.add(targetcomponent);
+
+		refdm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComponent);
+		refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, targetCompList);
+		
+		// referenced java projects should have archiveName attribute
+		((Map)refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP)).put(targetcomponent, javaProjectURI);
+
+		runAndVerify(refdm);
+
+	    IVirtualReference reference2 = earComponent.getReference(targetcomponent.getName());
+		
+	    Assert.assertEquals(reference2.getReferencedComponent(), targetcomponent);
+	    
+	    Assert.assertEquals(reference2.getArchiveName(), javaProjectURI);
+
+
+	}
+
 	
 	/**
 	 * This defect was canceled.
