@@ -370,17 +370,26 @@ public class JEEFlexProjDeployable extends ComponentDeployable implements IJ2EEM
     	IVirtualComponent comp = ComponentCore.createComponent(module.getProject());
     	String aURI = null;
     	if (comp!=null && component!=null && J2EEProjectUtilities.isEARProject(component.getProject())) {
-			EARArtifactEdit earEdit = null;
-			try {
-				earEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
-				if (earEdit != null)
-					aURI = earEdit.getModuleURI(comp);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				if (earEdit != null)
-					earEdit.dispose();
-			}
+			//TODO when new JEE model api is available look at this code again
+    		// see bug 183320
+    		IVirtualReference [] refs = component.getReferences();
+    		for(int i=0; i<refs.length; i++){
+    			if(refs[i].getReferencedComponent().equals(comp)){
+    				aURI = refs[i].getArchiveName();
+    				break;
+    			}
+    		}
+//    		EARArtifactEdit earEdit = null;
+//			try {
+//				earEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
+//				if (earEdit != null)
+//					aURI = earEdit.getModuleURI(comp);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			} finally {
+//				if (earEdit != null)
+//					earEdit.dispose();
+//			}
     	}
     	if (aURI !=null && aURI.length()>1 && aURI.startsWith("/")) //$NON-NLS-1$
     		aURI = aURI.substring(1);
