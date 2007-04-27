@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005 BEA Systems, Inc.
+ * Copyright (c) 2005-2007 BEA Systems, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,10 +16,17 @@ import java.util.List;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.internal.Property;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -46,6 +53,8 @@ public class ProjectRenameOperation extends ProjectRefactorOperation {
 		
 		// Update the project's .component file
 		final ProjectRefactorMetadata refactoredMetadata = super.getProjectMetadata();
+		final String oldProjectName = originalMetadata.getProjectName();
+		final String newProjectName = refactoredMetadata.getProjectName();
 		StructureEdit core = null;
 		try {
 			core = StructureEdit.getStructureEditForWrite(refactoredMetadata.getProject());
@@ -60,11 +69,11 @@ public class ProjectRenameOperation extends ProjectRefactorOperation {
 			List propList = component.getProperties();
             for (int i = 0; i < propList.size(); i++) {
             	final Property prop = (Property) propList.get(i);
-            	if (prop.getName().equals("context-root") && prop.getValue().equals(originalMetadata.getProjectName())) {
+            	if (prop.getName().equals("context-root") && prop.getValue().equals(oldProjectName)) {
             		propList.remove(i);
             		final Property newProp = ComponentcoreFactory.eINSTANCE.createProperty();
 				    newProp.setName("context-root");
-				    newProp.setValue(refactoredMetadata.getProjectName());
+				    newProp.setValue(newProjectName);
 				    propList.add(newProp);
 				    break;
             	}
@@ -74,7 +83,35 @@ public class ProjectRenameOperation extends ProjectRefactorOperation {
 				core.saveIfNecessary(null);
 				core.dispose();
 			}
-		}	
+		}
+		
+		// if the deploy-name equals the old project name, update it in the module-specific deployment descriptor
+		ArtifactEdit edit = null;
+		try {
+			edit = ComponentUtilities.getArtifactEditForWrite(refactoredMetadata.getVirtualComponent());
+			if (edit == null || !(edit instanceof EnterpriseArtifactEdit)) {
+				return;
+			}
+			final Resource resource = ((EnterpriseArtifactEdit) edit).getDeploymentDescriptorResource();
+			if (resource != null) {
+				final EList list = resource.getContents();
+				if (list != null && !list.isEmpty()) {
+					final EObject root = (EObject) list.get(0);
+					if (root instanceof CompatibilityDescriptionGroup) {
+						// if current display-name equals old project name, then change to new project name
+						CompatibilityDescriptionGroup cdg = (CompatibilityDescriptionGroup) root;
+						if (cdg.getDisplayName().equals(oldProjectName)) {
+							cdg.setDisplayName(newProjectName);
+						}				
+					}
+				}
+			}
+		} finally {
+			if (edit != null) {
+				edit.saveIfNecessary(null);
+				edit.dispose();
+			}
+		}
 	}
 	
 	/**
