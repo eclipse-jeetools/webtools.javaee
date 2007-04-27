@@ -15,6 +15,7 @@
 
    <action facet="jst.web" version="2.5" type="INSTALL" id="jst.web#2.5#install">
       <delegate class="org.eclipse.jst.jee.web.project.facet.WebFacetInstallDelegate"/>
+      <config-factory class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDataModelProvider"/>
     </action>
 
      <event-handler facet="jst.web" version="2.5" type="POST_INSTALL" >

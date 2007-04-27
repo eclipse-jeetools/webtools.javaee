@@ -19,7 +19,8 @@
     </project-facet-version>
 
     <action facet="jst.ear" version="5.0" type="INSTALL" id="jst.ear#5.0#install">
-      		<delegate class="org.eclipse.jst.jee.project.facet.EarFacetInstallDelegate"/>
+      	   <delegate class="org.eclipse.jst.jee.project.facet.EarFacetInstallDelegate"/>
+  		   <config-factory class="org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider"/>
     </action>
       
     <event-handler facet="jst.ear" version="5.0" type="POST_INSTALL">
@@ -45,6 +46,7 @@
         
     <action type="install" facet="jst.appclient" version="5.0" id="jst.appclient#5.0#install">
       		<delegate class="org.eclipse.jst.jee.project.facet.AppClientFacetInstallDelegate"/>
+ 			<config-factory class="org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDataModelProvider"/>
     </action>
 	  
     <event-handler type="POST_INSTALL" facet="jst.appclient" version="5.0">
