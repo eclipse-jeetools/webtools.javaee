@@ -210,12 +210,16 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 				final IPath runtimePath = ClasspathDependencyUtil.getRuntimePath(attrib, isWebApp);				
 				boolean add = true;
 				final IPath entryLocation = ClasspathDependencyUtil.getEntryLocation(entry);
-				
-				for (int j = 0; j < hardRefPaths.length; j++) {
-					if (entryLocation.equals(hardRefPaths[j])) {
-						// entry resolves to same file as existing hard reference, can skip
-						add = false;
-						break;
+				if (entryLocation == null) {
+					// unable to retrieve location for cp entry, do not contribute as a virtual ref
+					add = false;
+				} else {
+					for (int j = 0; j < hardRefPaths.length; j++) {
+						if (entryLocation.equals(hardRefPaths[j])) {
+							// entry resolves to same file as existing hard reference, can skip
+							add = false;
+							break;
+						}
 					}
 				}
 
