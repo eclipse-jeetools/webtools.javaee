@@ -35,6 +35,7 @@ public class EjbClientProjectCreationDataModelProvider
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(EJB_PROJECT_NAME);
 		propertyNames.add(CLIENT_URI);
+		propertyNames.add(ADD_TO_EAR);
 		return propertyNames;
 	}
 	

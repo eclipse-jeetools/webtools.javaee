@@ -108,6 +108,9 @@ public class EjbClientJarCreationOperation
 			IDataModel javadm = map.getFacetDataModel( IModuleConstants.JST_JAVA );
 			IDataModel utildm = map.getFacetDataModel( J2EEProjectUtilities.UTILITY );
 			
+			// because we do not want utility->add to ear, as we are going to add it later to all referencing ear projects
+			utildm.setBooleanProperty(IUtilityFacetInstallDataModelProperties.ADD_TO_EAR, false);
+			
 			javadm.setProperty( JavaFacetInstallDataModelProvider.FACET_PROJECT_NAME,
 					projectName);
 			
