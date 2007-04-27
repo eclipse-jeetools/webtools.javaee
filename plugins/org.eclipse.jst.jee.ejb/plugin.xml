@@ -17,6 +17,7 @@
     
      <action facet="jst.ejb" version="3.0" type="INSTALL" id="jst.ejb#3.0#install">
     		<delegate class="org.eclipse.jst.jee.ejb.project.facet.EjbFacetInstallDelegate"/>
+            <config-factory class="org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetInstallDataModelProvider"/>
     </action>
     
     <event-handler facet="jst.ejb" version="3.0" type="POST_INSTALL">
