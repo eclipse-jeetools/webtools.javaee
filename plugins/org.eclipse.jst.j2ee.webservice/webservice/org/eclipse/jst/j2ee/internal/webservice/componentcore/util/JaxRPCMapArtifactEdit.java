@@ -380,4 +380,9 @@ public class JaxRPCMapArtifactEdit extends EnterpriseArtifactEdit {
 	public int getJ2EEVersion() {
 		throw new IllegalArgumentException(WebServicePlugin.getMessage("_UI_JaxRPCMissingModel")); //$NON-NLS-1$
 	}
+
+	// [182417] This ArtifactEdit works for all project versions, so just return true.
+	protected boolean validProjectVersion(IProject project) {
+		return true;
+	}
 }

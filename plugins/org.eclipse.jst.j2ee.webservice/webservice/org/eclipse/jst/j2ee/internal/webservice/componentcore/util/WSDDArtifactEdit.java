@@ -468,4 +468,9 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 			return res;
 		return null;
 	}
+
+	// [182417] This ArtifactEdit works for all project versions, so just return true.
+	protected boolean validProjectVersion(IProject project) {
+		return true;
+	}
 }
