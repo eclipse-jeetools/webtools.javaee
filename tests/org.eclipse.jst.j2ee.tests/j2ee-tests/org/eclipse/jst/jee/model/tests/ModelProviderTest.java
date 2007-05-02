@@ -1,5 +1,4 @@
 package org.eclipse.jst.jee.model.tests;
-import junit.framework.Assert;
 import junit.framework.Test;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -16,7 +15,6 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -26,23 +24,20 @@ import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.archive.emftests.GeneralEMFPopulationTest;
-import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
 import org.eclipse.jst.j2ee.earcreation.IEarFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.project.operations.IEjbFacetInstallDataModelProperties;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.facet.IAppClientFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.jst.javaee.application.Application;
-import org.eclipse.jst.javaee.application.internal.util.ApplicationResourceImpl;
 import org.eclipse.jst.javaee.ejb.EJBJar;
-import org.eclipse.jst.javaee.ejb.internal.util.EjbResourceImpl;
 import org.eclipse.jst.javaee.web.WebApp;
-import org.eclipse.jst.javaee.web.internal.util.WebResourceImpl;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetInstallDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
@@ -55,20 +50,18 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
-import org.eclipse.wst.project.facet.IProductConstants;
-import org.eclipse.wst.project.facet.ProductManager;
 
-public class JEE5ModelTest extends GeneralEMFPopulationTest {
+public class ModelProviderTest extends GeneralEMFPopulationTest {
 	
-	private static final String PROJECTNAME = "TestNewModels";
-	public JEE5ModelTest(String name) {
+	private static final String PROJECTNAME = "TestModelProviders";
+	public ModelProviderTest(String name) {
 		super(name);
 	}
-	
-	
+
     public static Test suite() {
-        return new SimpleTestSuite(JEE5ModelTest.class);
+        return new SimpleTestSuite(ModelProviderTest.class);
     }
+
     /**
 	 * @param eObject
 	 */
@@ -79,8 +72,7 @@ public class JEE5ModelTest extends GeneralEMFPopulationTest {
         else
             return super.primCreateAttributeValue(att, eObject);
     }
-    
-    
+
 	protected void setUp() throws Exception {
 		// TODO Auto-generated method stub
 		super.setUp();
@@ -89,7 +81,6 @@ public class JEE5ModelTest extends GeneralEMFPopulationTest {
         final IProjectDescription description = workspace
                 .newProjectDescription(PROJECTNAME);
         description.setLocation(null);
-
 
         // create the new project operation
         IHeadlessRunnableWithProgress op = new IHeadlessRunnableWithProgress() {
@@ -115,6 +106,7 @@ public class JEE5ModelTest extends GeneralEMFPopulationTest {
             return;
         }
 	}
+
     private void createProject(IProjectDescription description,
             IProject projectHandle, IProgressMonitor monitor)
             throws CoreException, OperationCanceledException {
@@ -134,154 +126,93 @@ public class JEE5ModelTest extends GeneralEMFPopulationTest {
         }
     }
 
+	public void testUseEar5Model() throws Exception {
 
-
-//    public void testNewEJBModelPopulation() throws Exception {
-//		
-//		EMFAttributeFeatureGenerator.reset();
-//		String newModelPathURI = "/testejbmodel.xml";
-//		URI uri = URI.createPlatformResourceURI("/" + getProject().getName() + newModelPathURI,false);
-//		ResourceSet resSet = getResourceSet();
-//		registerFactory(uri, resSet, new EjbResourceFactoryImpl());
-//
-//		EjbResourceImpl ejbRes = (EjbResourceImpl) resSet.createResource(uri);
-//		
-//		setVersion(J2EEVersionConstants.JEE_5_0_ID);
-//		
-//		EJBJarDeploymentDescriptor DDroot = EjbFactory.eINSTANCE.createEJBJarDeploymentDescriptor();
-//		EJBJar jar = EjbFactory.eINSTANCE.createEJBJar();
-//		ejbRes.getContents().add((EObjectImpl)DDroot);
-//		DDroot.setEjbJar(jar);
-//		populateRoot((EObjectImpl)jar);
-//		
-//		ejbRes.save(null);
-//		
-//
-//	}
-    
-//    public void testReadNewWebModel() throws Exception {
-//		
-//    	String projName = "TestEE5WebProject";//$NON-NLS-1$
-//    	createWebProject(projName);
-//    	
-//    	
-//    	EMFAttributeFeatureGenerator.reset();
-//		String modelPathURI = J2EEConstants.WEBAPP_DD_URI;
-//		URI uri = URI.createURI("web333/" + modelPathURI);
-//		ProjectResourceSet resSet = getResourceSet(projName);
-//		
-//
-//		WebResourceImpl webRes = (WebResourceImpl) resSet.getResource(uri,true);
-//		
-//		if (webRes.getContents().size() > 0) {
-//			WebAppDeploymentDescriptor ddRoot = (WebAppDeploymentDescriptor)webRes.getContents().get(0);
-//			Assert.assertTrue(ddRoot.getWebApp() != null);
-//		}
-//	
-//		
-//
-//	}
-public void testEJBModel() throws Exception {
+		String projName = "TestEE5EarProject";//$NON-NLS-1$
+		IProject earProj = createEarProject(projName, J2EEVersionConstants.JEE_5_0_ID);
 		
-	String projName = "TestEE5EjbProject";//$NON-NLS-1$
-	createEjbProject(projName);
-	
-	EMFAttributeFeatureGenerator.reset();
-	String modelPathURI = J2EEConstants.EJBJAR_DD_URI;
-	URI uri = URI.createURI(CreationConstants.DEFAULT_EJB_SOURCE_FOLDER + "/" + modelPathURI);
-	ProjectResourceSet resSet = getResourceSet(projName);
-	
-	resSet.getResource(uri,true);
-	EjbResourceImpl ejbRes = (EjbResourceImpl) resSet.getResource(uri,true);
-	Assert.assertTrue(ejbRes.getContents().size() > 0);
-	
-	if (ejbRes.getContents().size() > 0) {
-		EJBJar jar = ejbRes.getEjbJar();
-		populateRoot((EObjectImpl)jar);
-		ejbRes.save(null);
-	}
-	ejbRes.unload();
-	// OK now load again using a new Resource
-	ejbRes = (EjbResourceImpl) resSet.getResource(uri,true);
-	Assert.assertTrue(ejbRes.getContents().size() > 0);
-	
-	if (ejbRes.getContents().size() > 0) {
-		EJBJar jar = ejbRes.getEjbJar();
-		jar.getDescriptions();
-	}
-	
-
-}
-//public void testAppClientModel() throws Exception {
-//	
-//	String projName = "TestEE5AppClientProject";//$NON-NLS-1$
-//	createAppClientProject(projName);
-//	
-//	EMFAttributeFeatureGenerator.reset();
-//	String modelPathURI = J2EEConstants.APP_CLIENT_DD_URI;
-//	URI uri = URI.createURI(CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER + "/" + modelPathURI);
-//	ProjectResourceSet resSet = getResourceSet(projName);
-//	
-//	ApplicationclientResourceImpl appClientRes = (ApplicationclientResourceImpl) resSet.getResource(uri,true);
-//	Assert.assertTrue(appClientRes.getContents().size() > 0);
-//	
-//	if (appClientRes.getContents().size() > 0) {
-//		ApplicationClient client = appClientRes.getApplicationClient();
-//		populateRoot((EObjectImpl)client);
-//		appClientRes.save(null);
-//	}
-//
-//}
-public void testEarModel() throws Exception {
-	
-	String projName = "TestEE5EarProject";//$NON-NLS-1$
-	createEarProject(projName);
-	
-	EMFAttributeFeatureGenerator.reset();
-	String modelPathURI = J2EEConstants.APPLICATION_DD_URI;
-	URI uri = URI.createURI(ProductManager.getProperty(IProductConstants.APPLICATION_CONTENT_FOLDER) + "/" + modelPathURI);
-	ProjectResourceSet resSet = getResourceSet(projName);
-	
-	ApplicationResourceImpl earRes = (ApplicationResourceImpl) resSet.getResource(uri,true);
-	Assert.assertTrue(earRes.getContents().size() > 0);
-	
-	if (earRes.getContents().size() > 0) {
-		Application ear = earRes.getApplication();
-		populateRoot((EObjectImpl)ear);
-		earRes.save(null);
+		IModelProvider provider = ModelProviderManager.getModelProvider(earProj);
+		
+		Application ear = (Application)provider.getModelObject();
 	}
 
-}
-public void testWarModel() throws Exception {
+	public void testUseEar14Model() throws Exception {
+
+		String projName = "TestEE14EarProject";//$NON-NLS-1$
+		IProject earProj = createEarProject(projName, J2EEVersionConstants.J2EE_1_4_ID);
+		IModelProvider provider = ModelProviderManager.getModelProvider(earProj);
+		org.eclipse.jst.j2ee.application.Application ear = (org.eclipse.jst.j2ee.application.Application)provider.getModelObject();
+	}
 	
-	String projName = "TestEE5WarProject";//$NON-NLS-1$
-	createWebProject(projName);
-	
-	EMFAttributeFeatureGenerator.reset();
-	String modelPathURI = J2EEConstants.WEBAPP_DD_URI;
-	URI uri = URI.createURI("web333/" + modelPathURI);
-	ProjectResourceSet resSet = getResourceSet(projName);
-	
-	WebResourceImpl webRes = (WebResourceImpl) resSet.getResource(uri,true);
-	Assert.assertTrue(webRes.getContents().size() > 0);
-	
-	if (webRes.getContents().size() > 0) {
-		WebApp ear = webRes.getWebApp();
-		populateRoot((EObjectImpl)ear);
-		webRes.save(null);
+	public void testUseWeb25Model() throws Exception {
+
+		String projName = "TestEE5WebProject";//$NON-NLS-1$
+		IProject webProj = createWebProject(projName, J2EEVersionConstants.WEB_2_5_ID);
+
+		IModelProvider provider = ModelProviderManager.getModelProvider(webProj);
+
+		WebApp webApp = (WebApp)provider.getModelObject();
+
 	}
 
-}
+	public void testUseWeb24Model() throws Exception {
+		
+		String projName = "TestEE14WebProject";//$NON-NLS-1$
+		IProject webProj = createWebProject(projName, J2EEVersionConstants.WEB_2_4_ID);
+		IModelProvider provider = ModelProviderManager.getModelProvider(webProj);
+		org.eclipse.jst.j2ee.webapplication.WebApp webApp = (org.eclipse.jst.j2ee.webapplication.WebApp)provider.getModelObject();
+	
+	}
 
+	public void testUseEjb3Model() throws Exception {
+
+		String projName = "TestEE5EjbProject";//$NON-NLS-1$
+		IProject ejbProj = createEjbProject(projName, J2EEVersionConstants.EJB_3_0_ID);
+
+		IModelProvider provider = ModelProviderManager.getModelProvider(ejbProj);
+
+		EJBJar ejbJar = (EJBJar)provider.getModelObject();
+
+	}
+
+	public void testUseEjb21Model() throws Exception {
+		
+		String projName = "TestEE14EjbProject";//$NON-NLS-1$
+		IProject webProj = createEjbProject(projName, J2EEVersionConstants.EJB_2_1_ID);
+		IModelProvider provider = ModelProviderManager.getModelProvider(webProj);
+		org.eclipse.jst.j2ee.ejb.EJBJar ejbJar = (org.eclipse.jst.j2ee.ejb.EJBJar)provider.getModelObject();
+	
+	}
+	/* not yet working - comment out for now
+	public void testUseAppClient5Model() throws Exception {
+		
+		String projName = "TestEE5AppClientProject";//$NON-NLS-1$
+		IProject appClientProj = createAppClientProject(projName, J2EEVersionConstants.JEE_5_0_ID);
+		
+		IModelProvider provider = ModelProviderManager.getModelProvider(appClientProj);
+		
+		ApplicationClient appClient = (ApplicationClient)provider.getModelObject();
+			
+	
+	}
+
+	public void testUseAppClient14Model() throws Exception {
+		
+		String projName = "TestEE14AppClientProject";//$NON-NLS-1$
+		IProject appClientProj = createAppClientProject(projName, J2EEVersionConstants.J2EE_1_4_ID);
+		IModelProvider provider = ModelProviderManager.getModelProvider(appClientProj);
+		org.eclipse.jst.j2ee.client.ApplicationClient appClient = (org.eclipse.jst.j2ee.client.ApplicationClient)provider.getModelObject();
+	
+	}
+*/
 	private ProjectResourceSet getResourceSet(String projName) {
 		IProject proj = getProject(projName);
 		return (ProjectResourceSet)WorkbenchResourceHelperBase.getResourceSet(proj);
 	}
 
-
-	private IProject createWebProject(String projName) throws ExecutionException {
+	private IProject createWebProject(String projName, int vers) throws ExecutionException {
 		IDataModel dataModel = DataModelFactory.createDataModel(IWebFacetInstallDataModelProperties.class);
-		String webVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.WEB_2_5_ID);
+		String webVersionString = J2EEVersionUtil.convertVersionIntToString(vers);
 		IProjectFacet webFacet = ProjectFacetsManager.getProjectFacet(IWebFacetInstallDataModelProperties.DYNAMIC_WEB);
 		IProjectFacetVersion webFacetVersion = webFacet.getVersion(webVersionString); //$NON-NLS-1$
 		addWebProjectProperties(dataModel, projName, webFacetVersion);
@@ -293,9 +224,10 @@ public void testWarModel() throws Exception {
 		IProject webProj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
 		return webProj;
 	}
-	private IProject createEjbProject(String projName) throws ExecutionException {
+
+	private IProject createEjbProject(String projName, int vers) throws ExecutionException {
 		IDataModel dataModel = DataModelFactory.createDataModel(IEjbFacetInstallDataModelProperties.class);
-		String versionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.EJB_3_0_ID);
+		String versionString = J2EEVersionUtil.convertVersionIntToString(vers);
 		IProjectFacet facet = ProjectFacetsManager.getProjectFacet(IEjbFacetInstallDataModelProperties.EJB);
 		IProjectFacetVersion facetVersion = facet.getVersion(versionString); //$NON-NLS-1$
 		addVersionProperties(dataModel, projName, facetVersion,IJ2EEFacetInstallDataModelProperties.EJB);
@@ -307,9 +239,10 @@ public void testWarModel() throws Exception {
 		IProject webProj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
 		return webProj;
 	}
-	private IProject createEarProject(String projName) throws ExecutionException {
+
+	private IProject createEarProject(String projName, int vers) throws ExecutionException {
 		IDataModel dataModel = DataModelFactory.createDataModel(IEarFacetInstallDataModelProperties.class);
-		String versionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.JEE_5_0_ID);
+		String versionString = J2EEVersionUtil.convertVersionIntToString(vers);
 		IProjectFacet facet = ProjectFacetsManager.getProjectFacet(IEarFacetInstallDataModelProperties.ENTERPRISE_APPLICATION);
 		IProjectFacetVersion facetVersion = facet.getVersion(versionString); //$NON-NLS-1$
 		addVersionProperties(dataModel, projName, facetVersion,IJ2EEFacetInstallDataModelProperties.ENTERPRISE_APPLICATION);
@@ -318,9 +251,10 @@ public void testWarModel() throws Exception {
 		IProject webProj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
 		return webProj;
 	}
-	private IProject createAppClientProject(String projName) throws ExecutionException {
+
+	private IProject createAppClientProject(String projName , int vers) throws ExecutionException {
 		IDataModel dataModel = DataModelFactory.createDataModel(IAppClientFacetInstallDataModelProperties.class);
-		String versionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.JEE_5_0_ID);
+		String versionString = J2EEVersionUtil.convertVersionIntToString(vers);
 		IProjectFacet facet = ProjectFacetsManager.getProjectFacet(IAppClientFacetInstallDataModelProperties.APPLICATION_CLIENT);
 		IProjectFacetVersion facetVersion = facet.getVersion(versionString); //$NON-NLS-1$
 		addVersionProperties(dataModel, projName, facetVersion,IJ2EEFacetInstallDataModelProperties.APPLICATION_CLIENT);
@@ -332,6 +266,7 @@ public void testWarModel() throws Exception {
 		IProject webProj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
 		return webProj;
 	}
+
 	protected IDataModel setupJavaInstallAction(String aProjectName, String srcFolder) {
 		IDataModel dm = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
 		dm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProjectName);
@@ -340,6 +275,7 @@ public void testWarModel() throws Exception {
 		dm.setStringProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, srcFolder); //$NON-NLS-1$
 		return dm;
 	}
+
     private void addWebProjectProperties(IDataModel dataModel, String projName, IProjectFacetVersion web25){
 
 		dataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, projName);
@@ -350,7 +286,7 @@ public void testWarModel() throws Exception {
 		webmodel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER,"web333"); //$NON-NLS-1$
         webmodel.setStringProperty(IWebFacetInstallDataModelProperties.SOURCE_FOLDER, "src444");
     }
-    
+
     private void addVersionProperties(IDataModel dataModel, String projName, IProjectFacetVersion fv, String facetString){
 
 		dataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, projName);
@@ -362,55 +298,26 @@ public void testWarModel() throws Exception {
 		
     }
 
-
-//	public void testNewEARModelPopulation() throws Exception {
-//		
-//		EMFAttributeFeatureGenerator.reset();
-//		
-//		String newModelPathURI = "/testearmodel.xml";
-//		URI uri = URI.createPlatformResourceURI("/" + getProject().getName() + newModelPathURI,false);
-//		ResourceSet resSet = getResourceSet();
-//		registerFactory(uri, resSet, new ApplicationResourceFactoryImpl());
-//	
-//		ApplicationResourceImpl ejbRes = (ApplicationResourceImpl) resSet.createResource(uri);
-//		
-//		setVersion(J2EEVersionConstants.JEE_5_0_ID);
-//		
-//		ApplicationDeploymentDescriptor DDroot = ApplicationFactory.eINSTANCE.createApplicationDeploymentDescriptor();
-//		Application ear = ApplicationFactory.eINSTANCE.createApplication();
-//		ejbRes.getContents().add((EObjectImpl)DDroot);
-//		DDroot.setApplication(ear);
-//		populateRoot((EObjectImpl)ear);
-//		
-//		ejbRes.save(null);
-//		
-//	
-//	}
 	public IProject getProject() {
 		return ResourcesPlugin.getWorkspace().getRoot().getProject(PROJECTNAME);
 	}
+
 	public IProject getProject(String projName) {
 		return ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
 	}
-
 
 	private void registerFactory(URI uri, ResourceSet resSet, Resource.Factory factory) {
 		WTPResourceFactoryRegistry registry = (WTPResourceFactoryRegistry) resSet.getResourceFactoryRegistry();
 		registry.registerLastFileSegment(uri.lastSegment(), factory);
 	}
+
 	private ResourceSet getResourceSet() {
 		ResourceSet set = new ResourceSetImpl();
 		set.setResourceFactoryRegistry(WTPResourceFactoryRegistry.INSTANCE);
 		return set;
 	}
 
-
-
-	
 	protected void tearDown() throws Exception {
 		// Don't delete these files
 	}
-
-	
-
 }

@@ -25,6 +25,7 @@ import org.eclipse.jst.j2ee.common.SecurityRoleRef;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.core.internal.bindings.IJNDIBindingsHelper;
 import org.eclipse.jst.j2ee.core.internal.bindings.JNDIBindingsHelperManager;
@@ -69,7 +70,7 @@ public class BindingsHelperTest extends TestCase {
 	}
 
 	protected EARFile getEarFile() throws Exception {
-		EARArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
 			return (EARFile) edit.asArchive(true);

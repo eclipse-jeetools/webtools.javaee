@@ -8,6 +8,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
@@ -87,7 +88,7 @@ public class EarArtiFactEditFVTest extends TestCase {
 	}
 
 	private void validateResource() {
-		EARArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			edit = EARArtifactEdit.getEARArtifactEditForWrite(earProject);
 //			EList resourceList = wbComponent.getResources();

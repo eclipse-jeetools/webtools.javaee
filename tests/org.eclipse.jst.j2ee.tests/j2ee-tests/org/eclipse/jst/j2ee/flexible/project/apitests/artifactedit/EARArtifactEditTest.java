@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -33,7 +34,7 @@ public class EARArtifactEditTest extends TestCase {
 	}
 
 	public void testGetJ2EEVersion() {
-		EARArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
 			int version = edit.getJ2EEVersion();
@@ -60,7 +61,7 @@ public class EARArtifactEditTest extends TestCase {
 	}
 
 	public void testGetDeploymentDescriptorResource() {
-		EARArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
 			String uri = edit.getDeploymentDescriptorResource().getURI().toString();
@@ -74,7 +75,7 @@ public class EARArtifactEditTest extends TestCase {
 	}
 
 	public void testCreateModelRoot() {
-		EARArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			edit = EARArtifactEdit.getEARArtifactEditForWrite(earProject);
 			EObject object = edit.createModelRoot();
@@ -89,7 +90,7 @@ public class EARArtifactEditTest extends TestCase {
 
 
 	public void testCreateModelRootint() {
-		EARArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
 			EObject object = edit.createModelRoot(14);
@@ -106,7 +107,7 @@ public class EARArtifactEditTest extends TestCase {
 	public void testEARArtifactEditComponentHandleboolean() {
 		StructureEdit moduleCore = null;
 		WorkbenchComponent wbComponent = null;
-		EARArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			moduleCore = StructureEdit.getStructureEditForWrite(earProject);
 			wbComponent = moduleCore.getComponent();
@@ -122,7 +123,7 @@ public class EARArtifactEditTest extends TestCase {
 	}
 
 	public void testEARArtifactEditArtifactEditModel() {
-		EARArtifactEdit edit = new EARArtifactEdit(getArtifactEditModelforRead());
+		EnterpriseArtifactEdit edit = new EARArtifactEdit(getArtifactEditModelforRead());
 		assertNotNull(edit);
 		edit.dispose();
 	}
@@ -130,7 +131,7 @@ public class EARArtifactEditTest extends TestCase {
 
 	public void testGetEARArtifactEditForReadComponentHandle() {
 		StructureEdit moduleCore = null;
-		EARArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			moduleCore = StructureEdit.getStructureEditForRead(earProject);
 			WorkbenchComponent wbComponent = moduleCore.getComponent();
@@ -148,7 +149,7 @@ public class EARArtifactEditTest extends TestCase {
 
 
 	public void testGetEARArtifactEditForWriteComponentHandle() {
-		EARArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			edit = EARArtifactEdit.getEARArtifactEditForWrite(earProject);
 		} finally {
@@ -161,7 +162,7 @@ public class EARArtifactEditTest extends TestCase {
 
 
 	public void testGetEARArtifactEditForReadWorkbenchComponent() {
-		EARArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
 			assertTrue(edit != null);
@@ -174,7 +175,7 @@ public class EARArtifactEditTest extends TestCase {
 
 
 	public void testGetEARArtifactEditForWriteWorkbenchComponent() {
-		EARArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			edit = EARArtifactEdit.getEARArtifactEditForWrite(earProject);
 		} finally {
@@ -244,7 +245,7 @@ public class EARArtifactEditTest extends TestCase {
 	}
 
 	public void testAddApplicationIfNecessary() {
-		EARArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
 			
@@ -329,7 +330,7 @@ public class EARArtifactEditTest extends TestCase {
 
 
 
-	public EARArtifactEdit getArtifactEditForRead() {
+	public EnterpriseArtifactEdit getArtifactEditForRead() {
 		return new EARArtifactEdit(getArtifactEditModelforRead());
 	}
 

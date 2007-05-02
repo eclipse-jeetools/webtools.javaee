@@ -20,6 +20,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.ArchiveImpl;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.dependency.tests.util.DependencyCreationUtil;
 import org.eclipse.jst.j2ee.dependency.tests.util.ProjectUtil;
@@ -80,7 +81,7 @@ public class ClasspathDependencyEARTests extends AbstractTests {
     }
     
     private void verifyExportedEAR(final IVirtualComponent comp, final Set archiveNames, final boolean shouldHaveArchives) throws Exception {
-		EARArtifactEdit earEdit = null;
+		EnterpriseArtifactEdit earEdit = null;
 		EARFile earFile = null;
 		try {
 			earEdit = EARArtifactEdit.getEARArtifactEditForRead(comp);

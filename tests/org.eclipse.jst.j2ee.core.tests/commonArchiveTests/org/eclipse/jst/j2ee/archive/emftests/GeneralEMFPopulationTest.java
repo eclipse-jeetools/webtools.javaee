@@ -194,7 +194,7 @@ public class GeneralEMFPopulationTest extends BaseTestCase {
         }
     }
 
-	private void primPopulateAttrbute(EObject eObject, EAttribute att) {
+	protected void primPopulateAttrbute(EObject eObject, EAttribute att) {
             if (att.isChangeable() && J2EEVersionCheck.checkAttributeVersion(att, version, moduleType)) {
                 for (int j = 0 ; j < getDepthForAttribute(att);j++){
 	                Object value = createAttributeValue(att, eObject);
@@ -208,7 +208,7 @@ public class GeneralEMFPopulationTest extends BaseTestCase {
     /**
 	 * @param eObject
 	 */
-	private void populateAttributesQName(EObject eObject) {
+	protected void populateAttributesQName(EObject eObject) {
 		String prefix = (String)createAttributeValue(CommonPackage.eINSTANCE.getQName_InternalPrefixOrNsURI(), eObject);
 		String localPart = (String)createAttributeValue(CommonPackage.eINSTANCE.getQName_LocalPart(), eObject);
 		((QName)eObject).setValues(prefix, "http://www.ibm.com", localPart);

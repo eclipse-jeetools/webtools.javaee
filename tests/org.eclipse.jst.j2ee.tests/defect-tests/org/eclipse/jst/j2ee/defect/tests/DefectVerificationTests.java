@@ -53,6 +53,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.RuntimeClasspathEntry;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
@@ -222,7 +223,7 @@ public class DefectVerificationTests extends OperationTestCase {
 		}
 		runAndVerify(model);
 		IVirtualComponent component = (IVirtualComponent) model.getProperty(IEARComponentImportDataModelProperties.COMPONENT);
-		EARArtifactEdit artifactEdit = null;
+		EnterpriseArtifactEdit artifactEdit = null;
 		try {
 			artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
 			EARFile earFile = null;
@@ -301,7 +302,7 @@ public class DefectVerificationTests extends OperationTestCase {
 
 		runAndVerify(model);
 		IVirtualComponent comp = (IVirtualComponent) model.getProperty(IEARComponentImportDataModelProperties.COMPONENT);
-		EARArtifactEdit earEdit = EARArtifactEdit.getEARArtifactEditForRead(comp);
+		EnterpriseArtifactEdit earEdit = EARArtifactEdit.getEARArtifactEditForRead(comp);
 		EARFile earFile = (EARFile) earEdit.asArchive(false);
 		earFile.getEJBReferences(true, true);
 		earFile.getEJBReferences(true, false);

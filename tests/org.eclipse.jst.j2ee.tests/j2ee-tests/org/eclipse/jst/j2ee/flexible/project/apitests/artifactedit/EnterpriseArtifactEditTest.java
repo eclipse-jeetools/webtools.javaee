@@ -75,7 +75,7 @@ public class EnterpriseArtifactEditTest extends TestCase {
 
 
 
-	public EARArtifactEdit getArtifactEditForRead() {
+	public EnterpriseArtifactEdit getArtifactEditForRead() {
 		return new EARArtifactEdit(getArtifactEditModelforRead());
 	}
 
