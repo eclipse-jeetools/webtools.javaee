@@ -755,4 +755,19 @@
           context="UI"/>
   </extension>
 
+  <extension point="org.eclipse.jdt.ui.classpathAttributeConfiguration">
+    <classpathAttributeConfiguration
+      attributeName="org.eclipse.jst.component.dependency"
+      class="org.eclipse.jst.j2ee.internal.classpathdep.ui.ClasspathDependencyAttributeConfiguration">
+    </classpathAttributeConfiguration>
+ </extension>
+
+ <extension
+    point="org.eclipse.ui.ide.markerResolution">
+	<markerResolutionGenerator
+      markerType="org.eclipse.jst.j2ee.ClasspathDependencyValidatorMarker"
+      class="org.eclipse.jst.j2ee.internal.classpathdep.ui.ClasspathDependencyValidatorMarkerResolutions">
+    </markerResolutionGenerator>
+  </extension>
+
 </plugin>

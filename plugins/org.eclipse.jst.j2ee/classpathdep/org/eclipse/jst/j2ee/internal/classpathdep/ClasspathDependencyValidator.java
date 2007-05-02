@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006 BEA Systems, Inc. and others.
+ * Copyright (c) 2006 2007 BEA Systems, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -50,6 +50,18 @@ import org.eclipse.wst.validation.internal.provisional.core.IValidatorJob;
  */
 public class ClasspathDependencyValidator implements IValidatorJob {
 	
+	public static final String AppClientProject = "AppClientProject"; //$NON-NLS-1$
+	public static final String RootMappingNonEARWARRef = "RootMappingNonEARWARRef"; //$NON-NLS-1$
+	public static final String NonTaggedExportedClasses = "NonTaggedExportedClasses"; //$NON-NLS-1$
+	public static final String DuplicateArchiveName = "DuplicateArchiveName"; //$NON-NLS-1$
+	public static final String ProjectClasspathEntry = "ProjectClasspathEntry"; //$NON-NLS-1$
+	public static final String SourceEntry = "SourceEntry"; //$NON-NLS-1$
+	public static final String FilteredContainer = "FilteredContainer"; //$NON-NLS-1$
+	public static final String ClassFolderEntry = "ClassFolderEntry"; //$NON-NLS-1$
+	public static final String NonWebNonExported = "NonWebNonExported"; //$NON-NLS-1$
+	public static final String InvalidNonWebRuntimePath = "InvalidNonWebRuntimePath"; //$NON-NLS-1$
+	public static final String InvalidWebRuntimePath = "InvalidWebRuntimePath"; //$NON-NLS-1$
+	
 	protected IReporter _reporter;
 	
 	public ClasspathDependencyValidator() {
@@ -86,14 +98,19 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 						hasRootMapping = true;
 					}
 					IMessage[] msgs = validateVirtualComponentEntry(entry, attrib, isWebApp, proj);
+					final String cpEntryPath = entry.getPath().toString();
+					for (int j = 0; j < msgs.length; j++) {
+						msgs[j].setGroupName(cpEntryPath);
+					}
 					reportMessages(msgs);
 				}
 			
 				if (!referencedRawEntries.isEmpty()) {
 					if (J2EEProjectUtilities.isApplicationClientProject(proj)) { 
 						// classpath component dependencies are not supported for application client projects
-						_reporter.addMessage(this, new Message("classpathdependencyvalidator", // $NON-NLS-1$
-								IMessage.HIGH_SEVERITY, "AppClientProject", null, proj)); // $NON-NLS-1$	
+						final IMessage msg = new Message("classpathdependencyvalidator", // $NON-NLS-1$
+								IMessage.HIGH_SEVERITY, AppClientProject, null, proj);
+						_reporter.addMessage(this, msg);
 					}
 
 					// are there any root mappings
@@ -110,8 +127,9 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 						}
 						if (!referencedFromEARorWAR) {
 							// root mappings are only supported if the project is referenced by an EAR or a WAR
-							_reporter.addMessage(this, new Message("classpathdependencyvalidator", // $NON-NLS-1$
-									IMessage.HIGH_SEVERITY, "RootMappingNonEARWARRef", null, proj)); // $NON-NLS-1$
+							final IMessage msg =new Message("classpathdependencyvalidator", // $NON-NLS-1$
+									IMessage.HIGH_SEVERITY, RootMappingNonEARWARRef, null, proj); 
+							_reporter.addMessage(this, msg);
 						}
 					}
 				}
@@ -122,13 +140,15 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 				i = potentialRawEntries.iterator();
 				while (i.hasNext()) {
 					final IClasspathEntry entry = (IClasspathEntry) i.next();
-					_reporter.addMessage(this, new Message("classpathdependencyvalidator", // $NON-NLS-1$
-							IMessage.NORMAL_SEVERITY, "NonTaggedExportedClasses", new String[]{entry.getPath().toString()}, proj)); // $NON-NLS-1$	
+					final IMessage msg =new Message("classpathdependencyvalidator", // $NON-NLS-1$
+							IMessage.NORMAL_SEVERITY, NonTaggedExportedClasses, new String[]{entry.getPath().toString()}, proj);
+					msg.setGroupName(entry.getPath().toString());
+					_reporter.addMessage(this, msg); 
 				}
 				
 				// validate all resolved entries (only perform this if there are raw referenced entries)
 				if (!referencedRawEntries.isEmpty()) {
-					final Map referencedResolvedEntries = ClasspathDependencyUtil.getComponentClasspathDependencies(javaProject, isWebApp);  
+					final Map referencedResolvedEntries = ClasspathDependencyUtil.getComponentClasspathDependencies(javaProject, isWebApp, false);  
 					i = referencedResolvedEntries.keySet().iterator();
 					while (i.hasNext()) {
 						final IClasspathEntry entry = (IClasspathEntry) i.next();
@@ -137,8 +157,9 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 						final String archivePath = ClasspathDependencyUtil.getArchiveName(entry);
 						if (archiveNames.contains(archivePath)) {
 							// Project cp entry
-							_reporter.addMessage(this, new Message("classpathdependencyvalidator", // $NON-NLS-1$
-									IMessage.HIGH_SEVERITY, "DuplicateArchiveName", new String[]{entry.getPath().toString()}, proj)); // $NON-NLS-1$				
+							final IMessage msg = new Message("classpathdependencyvalidator", // $NON-NLS-1$
+									IMessage.HIGH_SEVERITY, DuplicateArchiveName, new String[]{entry.getPath().toString()}, proj);									
+							_reporter.addMessage(this, msg); 
 						} else {
 							archiveNames.add(archivePath);
 						}
@@ -178,9 +199,8 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 		if (kind == IClasspathEntry.CPE_PROJECT) {
 			
 			// Project cp entry
-			
 			results.add(new Message("classpathdependencyvalidator", // $NON-NLS-1$
-					IMessage.HIGH_SEVERITY, "ProjectClasspathEntry", new String[]{entry.getPath().toString()}, project)); // $NON-NLS-1$
+					IMessage.HIGH_SEVERITY, ProjectClasspathEntry, new String[]{entry.getPath().toString()}, project));
 
 			return (IMessage[]) results.toArray(new IMessage[results.size()]);
 		} else if (kind == IClasspathEntry.CPE_SOURCE) {
@@ -188,7 +208,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 			// Source cp entry
 			
 			results.add(new Message("classpathdependencyvalidator", // $NON-NLS-1$
-					IMessage.HIGH_SEVERITY, "SourceEntry", new String[]{entry.getPath().toString()}, project)); // $NON-NLS-1$
+					IMessage.HIGH_SEVERITY, SourceEntry, new String[]{entry.getPath().toString()}, project));
 			return (IMessage[]) results.toArray(new IMessage[results.size()]);
 		} else if (kind == IClasspathEntry.CPE_CONTAINER) {
 
@@ -200,7 +220,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 				if (path.segment(0).equals(id)) {
 	        		// filtered classpath container
 	    			results.add(new Message("classpathdependencyvalidator", // $NON-NLS-1$
-	    					IMessage.HIGH_SEVERITY, "FilteredContainer", new String[]{entry.getPath().toString()}, project)); // $NON-NLS-1$
+	    					IMessage.HIGH_SEVERITY, FilteredContainer, new String[]{entry.getPath().toString()}, project));
 	    			return (IMessage[]) results.toArray(new IMessage[results.size()]);					
 				}
 			}
@@ -221,7 +241,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 			if (!isFile) {
 				// Class folder reference
 				results.add(new Message("classpathdependencyvalidator", // $NON-NLS-1$
-						IMessage.HIGH_SEVERITY, "ClassFolderEntry", new String[]{entry.getPath().toString()}, project)); // $NON-NLS-1$
+						IMessage.HIGH_SEVERITY, ClassFolderEntry, new String[]{entry.getPath().toString()}, project));
 			}
 		}
 		
@@ -230,7 +250,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
     		// if not a web app, associated cp entry must be exported
 			
 			results.add(new Message("classpathdependencyvalidator", // $NON-NLS-1$
-					IMessage.HIGH_SEVERITY, "NonWebNonExported", new String[]{entry.getPath().toString()}, project)); // $NON-NLS-1$
+					IMessage.HIGH_SEVERITY, NonWebNonExported, new String[]{entry.getPath().toString()}, project));
 		}
     	
     	final IPath runtimePath = ClasspathDependencyUtil.getRuntimePath(attrib, isWebApp);
@@ -238,7 +258,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
     		// only a ../ mapping is currently legal in a non-web context
     		if (!runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
     			results.add(new Message("classpathdependencyvalidator", // $NON-NLS-1$
-    					IMessage.HIGH_SEVERITY, "InvalidNonWebRuntimePath", new String[]{entry.getPath().toString(), runtimePath.toString()}, project)); // $NON-NLS-1$
+    					IMessage.HIGH_SEVERITY, InvalidNonWebRuntimePath, new String[]{entry.getPath().toString(), runtimePath.toString()}, project));
     		}
     	} else {
     		String pathStr = runtimePath.toString();
@@ -247,7 +267,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
     			&& !pathStr.equals("/WEB-INF/lib")
     			&& !pathStr.equals("/WEB-INF/classes")) { 
     			results.add(new Message("classpathdependencyvalidator", // $NON-NLS-1$
-    					IMessage.HIGH_SEVERITY, "InvalidWebRuntimePath", new String[]{entry.getPath().toString(), pathStr}, project)); // $NON-NLS-1$
+    					IMessage.HIGH_SEVERITY, InvalidWebRuntimePath, new String[]{entry.getPath().toString(), pathStr}, project));
     		}
     	}
 

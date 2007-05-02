@@ -150,7 +150,8 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 *  
 	 * @param javaProject Java project whose component classpath dependencies are being retrieved.
 	 * @param isWebApp True if the target project is associated with a web project.
-	 * @param onlyValid If true, only valid dependencies will be returned.
+	 * @param onlyValid If true, only valid dependencies will be returned. If false, the raw entry must be valid but the
+	 * resolved can be invalid. 
 	 * @return Map from IClasspathEntry to IClasspathAttribute for classpath component dependencies.
 	 * @throws CoreException Thrown if an error is encountered accessing the unresolved classpath.
 	 */
@@ -165,7 +166,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 		while (i.hasNext()) {
 			final IClasspathEntry entry = (IClasspathEntry) i.next();
 			final IClasspathAttribute attrib = (IClasspathAttribute) referencedRawEntries.get(entry);
-			if (!onlyValid || isValid(entry, attrib, isWebApp, javaProject.getProject())) {
+			if (isValid(entry, attrib, isWebApp, javaProject.getProject())) {
 				validRawEntries.put(entry, attrib);
 			}
 		}
