@@ -35,6 +35,7 @@ import org.eclipse.jst.j2ee.internal.componentcore.EJBBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.componentcore.EnterpriseBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -560,5 +561,12 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		} finally {
 			ejbEdit.dispose();
 		}
+	}
+	public IModelProvider create(IProject project) {
+		return (IModelProvider)getEJBArtifactEditForRead(project);
+	}
+
+	public IModelProvider create(IVirtualComponent component) {
+		return (IModelProvider)getEJBArtifactEditForRead(component);
 	}
 }

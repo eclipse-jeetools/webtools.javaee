@@ -30,4 +30,11 @@
     
    </extension> 
 
+   <extension
+        point="org.eclipse.jst.j2ee.J2EEModelProvider">
+      	<provider>
+        	<modelProvider factoryClass="org.eclipse.jst.jee.model.internal.Ejb3ModelProviderFactory"/>	
+      		<facet id="jst.ejb" versions="3.0"/>
+      	</provider>
+   </extension>
 </plugin>

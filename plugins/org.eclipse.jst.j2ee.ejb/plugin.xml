@@ -206,4 +206,12 @@
             id="org.eclipse.jst.j2ee.refactor.operations.UpdateDependentModuleonRenameOp"
             postOperationClass="org.eclipse.jst.j2ee.internal.ejb.refactor.UpdateEJBClientRefOnRenameOp"/>
     </extension>
+
+   <extension
+        point="org.eclipse.jst.j2ee.J2EEModelProvider">
+        <provider>
+        	<modelProvider factoryClass="org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit"/>	
+      		<facet id="jst.ejb" versions="1.1,2.0,2.1"/>
+      	</provider>
+   </extension>
 </plugin>
