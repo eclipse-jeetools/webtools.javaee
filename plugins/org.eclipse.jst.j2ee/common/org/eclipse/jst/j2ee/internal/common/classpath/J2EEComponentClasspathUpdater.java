@@ -57,6 +57,7 @@ import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.impl.ResourceTreeRootAdapter;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPModulesResourceFactory;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -235,25 +236,15 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			Object[] earProjects = earQueue.getListeners();
 			for (int i = 0; i < earProjects.length; i++) {
 				IProject earProject = (IProject) earProjects[i];
-				EARArtifactEdit edit = null;
-				try {
-					edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
-					if(edit != null){
-						IVirtualReference[] refs = edit.getComponentReferences();
-						IVirtualComponent comp = null;
-						for (int j = 0; j < refs.length; j++) {
-							comp = refs[j].getReferencedComponent();
-							if (!comp.isBinary()) {
-								queueModule(comp.getProject());
-							}
-						}
-					}
-				} finally {
-					if (edit != null) {
-						edit.dispose();
+				IVirtualComponent earComponent = ComponentCore.createComponent(earProject); 
+				IVirtualReference[] refs = J2EEProjectUtilities.getComponentReferences(earComponent);
+				IVirtualComponent comp = null;
+				for (int j = 0; j < refs.length; j++) {
+					comp = refs[j].getReferencedComponent();
+					if (!comp.isBinary()) {
+						queueModule(comp.getProject());
 					}
 				}
-				IVirtualComponent earComponent = ComponentCore.createComponent(earProject);
 				if(null != earComponent){
 					EnterpriseBinaryComponentHelper.ArchiveCache.getInstance().clearDisconnectedArchivesInEAR(earComponent);	
 				}

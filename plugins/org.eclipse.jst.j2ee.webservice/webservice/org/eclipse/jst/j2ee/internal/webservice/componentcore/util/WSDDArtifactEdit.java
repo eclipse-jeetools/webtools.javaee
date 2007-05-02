@@ -27,6 +27,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServicePlugin;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
+import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServices;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddFactory;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddResource;
@@ -36,6 +37,8 @@ import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 /**
  * <p>
@@ -467,6 +470,13 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 		if (res != null && res.isLoaded() && serviceHelper != null && serviceHelper.isWSDLResource(res))
 			return res;
 		return null;
+	}
+	public IModelProvider create(IProject project) {
+		return (IModelProvider)getWSDDArtifactEditForRead(project);
+	}
+
+	public IModelProvider create(IVirtualComponent component) {
+		return (IModelProvider)getWSDDArtifactEditForRead(component);
 	}
 
 	// [182417] This ArtifactEdit works for all project versions, so just return true.

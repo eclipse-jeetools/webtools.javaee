@@ -32,6 +32,7 @@ import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.componentcore.AppClientBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.componentcore.EnterpriseBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -393,5 +394,12 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		} finally {
 			appClientEdit.dispose();
 		} 
+	}
+	public IModelProvider create(IProject project) {
+		return (IModelProvider)getAppClientArtifactEditForRead(project);
+	}
+
+	public IModelProvider create(IVirtualComponent component) {
+		return (IModelProvider)getAppClientArtifactEditForRead(component);
 	}
 }

@@ -47,12 +47,15 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ManifestExcepti
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
@@ -178,7 +181,12 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 			return;
 		}
 		try {
-			earFile = (EARFile) getEARArtifactEdit().asArchive(false, false);
+			IModelProvider provider = ModelProviderManager.getModelProvider(selectedEARComponent.getProject());
+			Object model = provider.getModelObject();
+			if (model instanceof org.eclipse.jst.j2ee.application.Application)
+			{
+				earFile = (EARFile) getEARArtifactEdit().asArchive(false, false);
+			}
 		} catch (OpenFailureException ex) {
 			handleOpenFailureException(ex);
 		}
@@ -240,7 +248,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 				}
 			}
 		} else {
-			EARArtifactEdit edit = null;
+			EnterpriseArtifactEdit edit = null;
 			try {
 				edit = EARArtifactEdit.getEARArtifactEditForRead(getProject());
 				archive = edit.asArchive(true);

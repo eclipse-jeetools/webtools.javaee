@@ -34,9 +34,11 @@ import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
-import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.model.IEARModelProvider;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -170,13 +172,10 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 				if (ClasspathDependencyUtil.isClasspathComponentDependency(comp)) {
 					return ClasspathDependencyUtil.getClasspathComponentDependencyDisplayString(comp);
 				}
-				EARArtifactEdit earEdit = null;
-				try{
-					earEdit = EARArtifactEdit.getEARArtifactEditForRead(earComponent.getProject());
-					name = earEdit.getModuleURI( comp );
-				}finally{
-					if (earEdit != null)
-						earEdit.dispose();
+				IModelProvider provider = ModelProviderManager.getModelProvider(earComponent.getProject());
+				if (provider instanceof IEARModelProvider)
+				{
+					name = ((IEARModelProvider)provider).getModuleURI(comp);
 				}
 				if( name == null || name == "" ){ //$NON-NLS-1$
 					name = comp.getName();

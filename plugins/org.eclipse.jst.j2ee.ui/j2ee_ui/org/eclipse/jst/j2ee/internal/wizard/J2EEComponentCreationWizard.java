@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -184,7 +185,7 @@ public abstract class J2EEComponentCreationWizard extends J2EEArtifactCreationWi
 	protected void preFillSelectedEARProject() {
 		IVirtualComponent earComponent = getSelectedEARModule();
 		if (earComponent != null) {
-			EARArtifactEdit earEdit = null;
+			EnterpriseArtifactEdit earEdit = null;
 			int j2eeVersion = 0;
 			try {
 				earEdit = EARArtifactEdit.getEARArtifactEditForRead(earComponent);

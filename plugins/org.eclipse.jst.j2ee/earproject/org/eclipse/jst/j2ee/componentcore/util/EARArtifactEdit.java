@@ -35,6 +35,8 @@ import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategy
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.model.IEARModelProvider;
+import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -59,7 +61,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
  * </p>
  */
 
-public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory {
+public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory, IEARModelProvider {
 
 	public static final Class ADAPTER_TYPE = EARArtifactEdit.class;
 	
@@ -493,14 +495,10 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * contained in this EAR application.
 	 * 
 	 * @return - an array of IVirtualReferences for J2EE modules in the EAR
+	 * @deprecated - see {@link J2EEProjectUtilities.getJ2EEModuleReferences(IVirtualComponent earComponent)}
 	 */
 	public IVirtualReference[] getJ2EEModuleReferences() {
-		List j2eeTypes = new ArrayList();
-		j2eeTypes.add(J2EEProjectUtilities.APPLICATION_CLIENT);
-		j2eeTypes.add(J2EEProjectUtilities.JCA);
-		j2eeTypes.add(J2EEProjectUtilities.EJB);
-		j2eeTypes.add(J2EEProjectUtilities.DYNAMIC_WEB);
-		return getComponentReferences(j2eeTypes);
+		return J2EEProjectUtilities.getJ2EEModuleReferences(getComponent());
 	}
 
 	/**
@@ -508,38 +506,28 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * this EAR application.
 	 * 
 	 * @return - an array of IVirtualReferences for components in the EAR
+	 * @deprecated - see {@link J2EEProjectUtilities.getComponentReferences(IVirtualComponent earComponent)}
 	 */
 	public IVirtualReference[] getComponentReferences() {
-		return getComponentReferences(Collections.EMPTY_LIST);
+		return J2EEProjectUtilities.getComponentReferences(getComponent());
 	}
 
 	/**
 	 * This method will return the IVirtualReference to the component of the given name
 	 * 
 	 * @return - IVirtualReference or null if not found
+	 * @deprecated - see {@link J2EEProjectUtilities.getComponentReference(IVirtualComponent earComponent, String componentName)}
 	 */
 	public IVirtualReference getComponentReference(String componentName) {
-		IVirtualReference[] refs = getComponentReferences(Collections.EMPTY_LIST);
-		for (int i = 0; i < refs.length; i++) {
-			IVirtualReference reference = refs[i];
-			if (reference.getReferencedComponent().getName().equals(componentName))
-				return reference;
-
-		}
-		return null;
+		return J2EEProjectUtilities.getComponentReference(getComponent(), componentName);
 	}
 
-	private IVirtualReference[] getComponentReferences(List componentTypes) {
-		List components = getComponentReferencesAsList(componentTypes);
-		if(components.size() > 0)
-			return (IVirtualReference[]) components.toArray(new IVirtualReference[components.size()]);
-		return NO_REFERENCES;
-	} 
-	
 	/**
 	 * 
 	 * @param componentTypes
 	 * @return A List of {@link IVirtualReference}s.
+	 * 
+	 * A copy of this method is now in J2EEProjectUtilities.  Any bug fixes should occur in both locations.
 	 */
 	private List getComponentReferencesAsList(List componentTypes) {
 		List components = new ArrayList();
@@ -585,7 +573,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 
 	public static void createDeploymentDescriptor(IProject project, int version) {
-		EARArtifactEdit earEdit = new EARArtifactEdit(project, false, true);
+		EnterpriseArtifactEdit earEdit = new EARArtifactEdit(project, false, true);
 		try {
 			earEdit.createModelRoot(version);
 			earEdit.save(null);
@@ -630,5 +618,12 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			if (webModule != null)
 				webModule.setContextRoot(aContextRoot);
 		}
+	}
+	public IModelProvider create(IProject project) {
+		return (IModelProvider)getEARArtifactEditForRead(project);
+	}
+
+	public IModelProvider create(IVirtualComponent component) {
+		return (IModelProvider)getEARArtifactEditForRead(component);
 	}
 }

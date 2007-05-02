@@ -55,6 +55,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ManifestExcepti
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -668,7 +669,7 @@ public class UIEarValidator extends EarValidator {
 	/**
 	 * Checks if the nature is consistent with doc type.
 	 */
-	protected void validateDocType(EARArtifactEdit edit,IVirtualComponent module) {
+	protected void validateDocType(EnterpriseArtifactEdit edit,IVirtualComponent module) {
 		if (edit == null)
 			return;
 		if (edit.getJ2EEVersion() >= J2EEVersionConstants.J2EE_1_3_ID && appDD.getVersionID() < J2EEVersionConstants.J2EE_1_3_ID) {

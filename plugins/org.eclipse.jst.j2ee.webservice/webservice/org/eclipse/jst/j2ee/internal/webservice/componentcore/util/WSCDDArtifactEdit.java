@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesResource;
 import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientFactory;
@@ -385,5 +386,12 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 		res.setModuleVersionID(version);
 		addWebServicesClientIfNecessary(res);
 		return getWebServicesClient();
+	}
+	public IModelProvider create(IProject project) {
+		return (IModelProvider)getWSCDDArtifactEditForRead(project);
+	}
+
+	public IModelProvider create(IVirtualComponent component) {
+		return (IModelProvider)getWSCDDArtifactEditForRead(component);
 	}
 }

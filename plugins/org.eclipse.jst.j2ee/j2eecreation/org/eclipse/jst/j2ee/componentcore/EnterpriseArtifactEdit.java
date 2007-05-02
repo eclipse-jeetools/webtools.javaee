@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.componentcore;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -23,6 +24,8 @@ import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.IModelProviderFactory;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
@@ -44,7 +47,7 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
  * implementation.
  * </p>
  */
-public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements WorkingCopyProvider {
+public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements WorkingCopyProvider, IModelProvider, IModelProviderFactory {
 
 	/**
 	 * 
@@ -261,5 +264,43 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	
 	public Archive asArchive(boolean includeSource, boolean includeClasspathComponents) throws OpenFailureException {
 		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.j2ee.model.IModelProvider#getModelObject()
+	 */
+	public Object getModelObject() {
+		
+		return getContentModelRoot();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.j2ee.model.IModelProvider#getModelObject(org.eclipse.core.runtime.IPath)
+	 */
+	public Object getModelObject(IPath modelPath) {
+		//TODO Need to implement
+		return null;
+	}
+
+	public IModelProvider create(IProject project) {
+		return (IModelProvider)getArtifactEditForRead(project);
+	}
+
+	public IModelProvider create(IVirtualComponent component) {
+		return (IModelProvider)getArtifactEditForRead(component);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.j2ee.model.IModelProvider#modify(java.lang.Runnable, org.eclipse.core.runtime.IPath)
+	 */
+	public void modify(Runnable runnable, IPath modelPath) {
+		//About to modify and save this model
+		
+		// call validateEdit()
+		// access model  (write count)
+		// run runnable
+		// save model
+		// release access count
+		
 	}
 }

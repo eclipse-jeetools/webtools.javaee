@@ -17,7 +17,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
-import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -31,9 +31,9 @@ public class EARComponentExportOperation extends J2EEArtifactExportOperation {
 
 	protected void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
 		IProgressMonitor subMonitor = new SubProgressMonitor(progressMonitor, EXPORT_WORK);
-		EARArtifactEdit artifactEdit = null;
+		EnterpriseArtifactEdit artifactEdit = null;
 		try {
-			artifactEdit = (EARArtifactEdit) ComponentUtilities.getArtifactEditForRead(getComponent());
+			artifactEdit = (EnterpriseArtifactEdit) ComponentUtilities.getArtifactEditForRead(getComponent());
 			EARFile archive = (EARFile) artifactEdit.asArchive(isExportSource());
 			String destination = getDestinationPath().toOSString();
 			archive.setURI(destination);

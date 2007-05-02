@@ -34,6 +34,7 @@ import org.eclipse.jst.j2ee.internal.componentcore.EnterpriseBinaryComponentHelp
 import org.eclipse.jst.j2ee.internal.componentcore.WebBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentLoadStrategyImpl;
+import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
@@ -652,5 +653,12 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		} finally {
 			webEdit.dispose();
 		}
+	}
+	public IModelProvider create(IProject project) {
+		return (IModelProvider)getWebArtifactEditForRead(project);
+	}
+
+	public IModelProvider create(IVirtualComponent component) {
+		return (IModelProvider)getWebArtifactEditForRead(component);
 	}
 }

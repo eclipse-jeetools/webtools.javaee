@@ -21,6 +21,7 @@
    <extension-point id="WSDLServiceHelper" name="WSDLServiceHelper" schema="schema/WSDLServiceHelper.exsd"/>
    <extension-point id="optionalRefactorHandler" name="optionalRefactorHandler" schema="schema/optionalRefactorHandler.exsd"/>
    <extension-point id="classpathdep" name="classpathdep" schema="schema/ClasspathDep.exsd"/>
+   <extension-point id="J2EEModelProvider" name="J2EE Model Provider" schema="schema/J2EEModelProvider.exsd"/>
 
 <!--============================-->
 <!-- Module Core Nature         -->
@@ -920,6 +921,20 @@
   	<filteredClasspathContainer containerID="org.eclipse.jst.j2ee.internal.web.container"/>
   	<filteredClasspathContainer containerID="org.eclipse.jst.server.core.container"/>
   	<filteredClasspathContainer containerID="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  </extension>
+  <extension
+        point="org.eclipse.jst.j2ee.J2EEModelProvider">
+        <provider>
+        	<modelProvider factoryClass="org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit"/>	
+      		<facet id="jst.ear" versions="1.2,1.3,1.4"/>
+      	</provider>
+  </extension>
+  <extension
+        point="org.eclipse.jst.j2ee.J2EEModelProvider">
+        <provider>
+        	<modelProvider factoryClass="org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit"/>	
+      		<facet id="jst.appclient" versions="1.2,1.3,1.4"/>
+      	</provider>
   </extension>
 
 </plugin>

@@ -41,6 +41,7 @@ Export-Package: org.eclipse.jst.j2ee.application.internal.operations;x-internal:
  org.eclipse.jst.j2ee.internal.servertarget;x-internal:=true,
  org.eclipse.jst.j2ee.internal.validation;x-internal:=true,
  org.eclipse.jst.j2ee.internal.webservices;x-internal:=true,
+ org.eclipse.jst.j2ee.model,
  org.eclipse.jst.j2ee.project.datamodel.properties,
  org.eclipse.jst.j2ee.project.facet,
  org.eclipse.jst.j2ee.refactor,

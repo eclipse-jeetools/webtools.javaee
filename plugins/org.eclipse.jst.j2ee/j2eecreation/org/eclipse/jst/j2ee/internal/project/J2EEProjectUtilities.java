@@ -80,6 +80,7 @@ import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -90,6 +91,7 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.server.core.IRuntime;
 
 public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacetConstants {
+	private static final IVirtualReference[] NO_REFERENCES = new IVirtualReference[0];
 
 	/**
 	 * Return the absolute path of a loose archive in a J2EE application or WAR file
@@ -985,5 +987,81 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 			e.printStackTrace();
 		}
 		return ret;
+	}
+
+	/**
+	 * This method will return the list of IVirtualReferences for the J2EE module components
+	 * contained in this EAR application.
+	 * 
+	 * @return - an array of IVirtualReferences for J2EE modules in the EAR
+	 */
+	public static IVirtualReference[] getJ2EEModuleReferences(IVirtualComponent earComponent) {
+		List j2eeTypes = new ArrayList();
+		j2eeTypes.add(J2EEProjectUtilities.APPLICATION_CLIENT);
+		j2eeTypes.add(J2EEProjectUtilities.JCA);
+		j2eeTypes.add(J2EEProjectUtilities.EJB);
+		j2eeTypes.add(J2EEProjectUtilities.DYNAMIC_WEB);
+		return getComponentReferences(earComponent, j2eeTypes);
+	}
+
+	/**
+	 * This method will return the list of IVirtualReferences for all of the components contained in
+	 * an EAR application.
+	 * 
+	 * @return - an array of IVirtualReferences for components in the EAR
+	 */
+	public static IVirtualReference[] getComponentReferences(IVirtualComponent earComponent) {
+		return getComponentReferences(earComponent, Collections.EMPTY_LIST);
+	}
+
+	/**
+	 * This method will return the IVirtualReference to the component of the given name
+	 * 
+	 * @return - IVirtualReference or null if not found
+	 */
+	public static IVirtualReference getComponentReference(IVirtualComponent earComponent, String componentName) {
+		IVirtualReference[] refs = getComponentReferences(earComponent, Collections.EMPTY_LIST);
+		for (int i = 0; i < refs.length; i++) {
+			IVirtualReference reference = refs[i];
+			if (reference.getReferencedComponent().getName().equals(componentName))
+				return reference;
+
+		}
+		return null;
+	}
+
+	private static IVirtualReference[] getComponentReferences(IVirtualComponent earComponent, List componentTypes) {
+		List components = getComponentReferencesAsList(earComponent, componentTypes);
+		if(components.size() > 0)
+			return (IVirtualReference[]) components.toArray(new IVirtualReference[components.size()]);
+		return NO_REFERENCES;
+	} 
+	
+	/**
+	 * 
+	 * @param componentTypes
+	 * @return A List of {@link IVirtualReference}s.
+	 * 
+	 * This method is copied from EARArtifactEdit.  Any bug fixes should occur in both locations.
+	 */
+	private static List getComponentReferencesAsList(IVirtualComponent earComponent, List componentTypes) {
+		List components = new ArrayList();
+		if (earComponent != null && J2EEProjectUtilities.isEARProject(earComponent.getProject())) {
+			IVirtualReference[] refComponents = earComponent.getReferences();
+			for (int i = 0; i < refComponents.length; i++) {
+				IVirtualComponent module = refComponents[i].getReferencedComponent();
+				if (module == null)
+					continue;
+				// if component types passed in is null then return all components
+				if (componentTypes == null || componentTypes.size() == 0)
+					components.add(refComponents[i]);
+				else {
+					if (componentTypes.contains(J2EEProjectUtilities.getJ2EEComponentType(module))) {
+						components.add(refComponents[i]);
+					}
+				}
+			}
+		}
+		return components;
 	}
 }

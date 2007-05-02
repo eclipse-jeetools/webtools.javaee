@@ -217,6 +217,22 @@
                class="org.eclipse.jst.jee.contenttype.JEEContentDescriber">
          </describer>
       </content-type>
-  	</extension>   
+  	</extension>  
+  	
+  	<extension
+        point="org.eclipse.jst.j2ee.J2EEModelProvider">
+      	<provider>
+        	<modelProvider factoryClass="org.eclipse.jst.jee.model.internal.EAR5ModelProviderFactory"/>	
+      		<facet id="jst.ear" versions="5.0"/>
+      	</provider>
+  </extension> 
+
+   <extension
+        point="org.eclipse.jst.j2ee.J2EEModelProvider">
+      	<provider>
+        	<modelProvider factoryClass="org.eclipse.jst.jee.model.internal.AppClient5ModelProviderFactory"/>	
+      		<facet id="jst.appclient" versions="5.0"/>
+      	</provider>
+   </extension>
   	  
 </plugin>

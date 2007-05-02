@@ -52,7 +52,7 @@ Export-Package: org.eclipse.jst.javaee.application,
  org.eclipse.jst.jee.application.internal.operations,
  org.eclipse.jst.jee.contenttype,
  org.eclipse.jst.jee.internal.deployables,
- org.eclipse.jst.jee.model.ext,
+ org.eclipse.jst.jee.model.internal,
  org.eclipse.jst.jee.project.facet
 Bundle-Vendor: %Bundle-Vendor.0
 Bundle-Localization: plugin
