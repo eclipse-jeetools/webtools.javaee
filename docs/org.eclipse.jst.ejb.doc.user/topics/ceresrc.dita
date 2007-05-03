@@ -6,7 +6,8 @@
 <shortdesc>This topic describes resources and development tools that are commonly
 used in EJB development.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>EJBs<indexterm>resources and tools</indexterm></indexterm>
+<keywords><indexterm>EJB<indexterm>developing<indexterm>resources</indexterm></indexterm></indexterm>
+<indexterm>resources<indexterm>EJB development</indexterm></indexterm>
 </keywords>
 </metadata></prolog>
 <conbody>

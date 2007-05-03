@@ -6,7 +6,8 @@
 <shortdesc>You can use a wizard to create session beans and message-driven
 beans that support XDoclet annotation.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>enterprise beans<indexterm>creating</indexterm></indexterm>
+<keywords><indexterm>EJB<indexterm>creating with XDoclet annotation support</indexterm></indexterm>
+<indexterm>XDoclet annotation support<indexterm>creating EJB</indexterm></indexterm>
 </keywords>
 </metadata></prolog>
 <taskbody>

@@ -7,7 +7,7 @@
 program needs to use the client view of the enterprise beans that are contained
 in the EJB module.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>EJB cleint JAR projects<indexterm>overview</indexterm></indexterm>
+<keywords><indexterm>EJB<indexterm>cleint JAR projects</indexterm></indexterm>
 </keywords>
 </metadata></prolog>
 <conbody>

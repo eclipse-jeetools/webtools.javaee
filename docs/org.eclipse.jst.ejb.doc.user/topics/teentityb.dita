@@ -8,9 +8,8 @@ annotation support</title>
 <shortdesc>You can use a wizard to create a CMP entity bean and add it to
 your project.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>container-managed persistence entity beans<indexterm>creating
-with XDoclet annotation support</indexterm></indexterm><indexterm>XDoclet
-annotation support<indexterm>creating entity beans</indexterm></indexterm>
+<keywords><indexterm>CMP entity beans<indexterm>XDoclet annotation support</indexterm></indexterm>
+<indexterm>XDoclet annotation support<indexterm>creating entity beans</indexterm></indexterm>
 </keywords>
 </metadata></prolog>
 <taskbody>

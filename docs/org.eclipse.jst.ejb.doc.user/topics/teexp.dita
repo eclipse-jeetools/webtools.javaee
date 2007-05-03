@@ -6,8 +6,8 @@
 <shortdesc>After you have tested your enterprise beans, you can export the
 module into an EJB JAR file.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>EJB projects<indexterm>exporting into EJB JAR files</indexterm></indexterm>
-<indexterm>EJB JAR files<indexterm>exporting EJB projects</indexterm></indexterm>
+<keywords><indexterm>EJB<indexterm>JAR files<indexterm>exporting projects</indexterm></indexterm></indexterm>
+<indexterm>EJB<indexterm>exporting projects</indexterm></indexterm>
 </keywords>
 </metadata></prolog>
 <taskbody>

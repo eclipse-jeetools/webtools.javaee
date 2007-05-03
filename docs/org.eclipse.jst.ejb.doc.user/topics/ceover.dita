@@ -11,7 +11,8 @@ specification. This product supports the Enterprise <tm tmclass="special"
 tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="JavaBeans">JavaBeans</tm> 1.1,
 2.0, and 2.1 specification levels.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>EJB development<indexterm>overview</indexterm></indexterm>
+<keywords><indexterm>applications<indexterm>EJB development</indexterm></indexterm>
+<indexterm>EJB<indexterm>developing<indexterm>applications</indexterm></indexterm></indexterm>
 </keywords>
 </metadata></prolog>
 <conbody>

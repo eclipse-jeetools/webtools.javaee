@@ -6,8 +6,8 @@
 <shortdesc>You can import beans and other metadata from an EJB JAR file into
 a new or existing EJB project.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>EJB JAR files<indexterm>importing</indexterm></indexterm>
-<indexterm>beans<indexterm>importing into projects</indexterm></indexterm>
+<keywords><indexterm>EJB<indexterm>importing JAR files</indexterm></indexterm>
+<indexterm>JAR files<indexterm>importing EJB</indexterm></indexterm>
 </keywords>
 </metadata></prolog>
 <taskbody>

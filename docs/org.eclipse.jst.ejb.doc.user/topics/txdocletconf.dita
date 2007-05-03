@@ -6,9 +6,9 @@
 <shortdesc>To use XDoclet annotation support, or to create enterprise beans,
 XDoclet must be installed on your system and configured to work with the workbench. </shortdesc>
 <prolog><metadata>
-<keywords><indexterm>XDoclet<indexterm>configuring</indexterm></indexterm>
-<indexterm>Java annotation support<indexterm>XDoclet</indexterm><indexterm>enterprise
-beans<indexterm>XDoclet</indexterm></indexterm></indexterm></keywords>
+<keywords><indexterm>Java annotation<indexterm>XDoclet annotation support</indexterm></indexterm>
+<indexterm>XDoclet annotation support<indexterm>configuring</indexterm></indexterm>
+</keywords>
 </metadata></prolog>
 <taskbody>
 <prereq>Download and install XDoclet from <xref href="http://xdoclet.sourceforge.net/xdoclet/index.html"

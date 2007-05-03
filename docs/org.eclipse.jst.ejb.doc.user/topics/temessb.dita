@@ -6,9 +6,9 @@
 <shortdesc>You can use a wizard to create a message-driven bean and add it
 to your project.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>message-driven beans<indexterm>creating with XDoclet
-annotation support</indexterm></indexterm><indexterm>XDoclet annotation support<indexterm>creating
-message-driven beans</indexterm></indexterm></keywords>
+<keywords><indexterm>message-driven beans<indexterm>XDoclet annotation support</indexterm></indexterm>
+<indexterm>XDoclet annotation support<indexterm>creating message-driven beans</indexterm></indexterm>
+</keywords>
 </metadata></prolog>
 <taskbody>
 <prereq><p>Before you can create an enterprise bean, you must:</p><ul>

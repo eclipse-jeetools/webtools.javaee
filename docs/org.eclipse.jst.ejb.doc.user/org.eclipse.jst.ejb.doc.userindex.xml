@@ -1,13 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <index>
-  <entry keyword="EJBs">
+  <entry keyword="applications">
+    <entry keyword="EJB development">
+      <topic href="topics/ceover.html#ceover" title="EJB application development"/>
+    </entry>
+  </entry>
+  <entry keyword="EJB">
+    <entry keyword="developing">
+      <entry keyword="applications">
+        <topic href="topics/ceover.html#ceover" title="EJB application development"/>
+      </entry>
+      <entry keyword="resources">
+        <topic href="topics/ceresrc.html#ceresrc" title="EJB development resources"/>
+      </entry>
+    </entry>
     <entry keyword="architecture overview">
       <topic href="topics/cearch.html#cearch" title="EJB architecture"/>
     </entry>
+    <entry keyword="projects">
+      <entry keyword="creating">
+        <topic href="topics/tecrtpro.html#tecrtpro" title="Creating EJB projects"/>
+      </entry>
+    </entry>
+    <entry keyword="cleint JAR projects">
+      <topic href="topics/ceclientjars.html#ceclientjars" title="EJB client JAR projects"/>
+    </entry>
+    <entry keyword="importing JAR files">
+      <topic href="topics/teimp.html#teimp" title="Importing EJB JAR files"/>
+    </entry>
+    <entry keyword="JAR files">
+      <entry keyword="exporting projects">
+        <topic href="topics/teexp.html#teexp" title="Exporting EJB projects to EJB JAR files"/>
+      </entry>
+    </entry>
+    <entry keyword="exporting projects">
+      <topic href="topics/teexp.html#teexp" title="Exporting EJB projects to EJB JAR files"/>
+    </entry>
+    <entry keyword="creating with XDoclet annotation support">
+      <topic href="topics/tecrte.html#tecrte" title="Creating enterprise beans with XDoclet annotation support"/>
+    </entry>
   </entry>
   <entry keyword="architecture">
-    <entry keyword="EJBs">
+    <entry keyword="EJB">
       <topic href="topics/cearch.html#cearch" title="EJB architecture"/>
+    </entry>
+  </entry>
+  <entry keyword="resources">
+    <entry keyword="EJB development">
+      <topic href="topics/ceresrc.html#ceresrc" title="EJB development resources"/>
+    </entry>
+  </entry>
+  <entry keyword="JAR files">
+    <entry keyword="importing EJB">
+      <topic href="topics/teimp.html#teimp" title="Importing EJB JAR files"/>
+    </entry>
+  </entry>
+  <entry keyword="XDoclet annotation support">
+    <entry keyword="creating EJB">
+      <topic href="topics/tecrte.html#tecrte" title="Creating enterprise beans with XDoclet annotation support"/>
+    </entry>
+    <entry keyword="creating session beans">
+      <topic href="topics/tesessb.html#tesessb" title="Creating session beans with XDoclet annotation support"/>
+    </entry>
+    <entry keyword="creating entity beans">
+      <topic href="topics/teentityb.html#temessb" title="Creating container-managed persistence (CMP) entity beans with XDoclet annotation support"/>
+    </entry>
+    <entry keyword="creating message-driven beans">
+      <topic href="topics/temessb.html#temessb" title="Creating message-driven beans with XDoclet annotation support"/>
+    </entry>
+    <entry keyword="configuring">
+      <topic href="topics/txdocletconf.html#configuringxdocletannotationsupport" title="Configuring XDoclet annotation support"/>
+    </entry>
+  </entry>
+  <entry keyword="session beans">
+    <entry keyword="creating with XDoclet annotation support">
+      <topic href="topics/tesessb.html#tesessb" title="Creating session beans with XDoclet annotation support"/>
+    </entry>
+  </entry>
+  <entry keyword="CMP entity beans">
+    <entry keyword="XDoclet annotation support">
+      <topic href="topics/teentityb.html#temessb" title="Creating container-managed persistence (CMP) entity beans with XDoclet annotation support"/>
+    </entry>
+  </entry>
+  <entry keyword="message-driven beans">
+    <entry keyword="XDoclet annotation support">
+      <topic href="topics/temessb.html#temessb" title="Creating message-driven beans with XDoclet annotation support"/>
+    </entry>
+  </entry>
+  <entry keyword="Java annotation">
+    <entry keyword="XDoclet annotation support">
+      <topic href="topics/txdocletconf.html#configuringxdocletannotationsupport" title="Configuring XDoclet annotation support"/>
     </entry>
   </entry>
 </index>
