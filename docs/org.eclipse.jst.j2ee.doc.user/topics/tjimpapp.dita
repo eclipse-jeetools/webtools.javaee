@@ -26,10 +26,9 @@ the location and name of the application client JAR file that you want to
 import. </cmd><info>You can click the <uicontrol>Browse</uicontrol> button
 to select the JAR file from the file system.</info></step>
 <step><cmd>In the <uicontrol>Application Client project</uicontrol> field,
-type a new project name or select an application client project from the drop-down
-list. </cmd><info>If you type a new name in this field, the application client
-project will be created based on the version of the application client JAR
-file, and it will use the default location.</info></step>
+type a new project name or accept the default project name. </cmd><info>The
+application client project will be created based on the version of the application
+client JAR file, and it will use the default location.</info></step>
 <step><cmd>In the <uicontrol>Target runtime</uicontrol> drop-down list, select
 the application server that you want to target for your development. This
 selection affects the run time settings by modifying the class path entries

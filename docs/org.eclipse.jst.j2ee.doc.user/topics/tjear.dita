@@ -5,7 +5,8 @@
 <title outputclass="id_title">Creating an enterprise application project</title>
 <shortdesc outputclass="id_shortdesc"></shortdesc>
 <prolog><metadata>
-<keywords><indexterm>enterprise application projects<indexterm>creating</indexterm></indexterm>
+<keywords><indexterm>enterprise applications<indexterm>projects<indexterm>creating</indexterm></indexterm></indexterm>
+<indexterm>J2EE<indexterm>enterprise application projects<indexterm>creating</indexterm></indexterm></indexterm>
 </keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">

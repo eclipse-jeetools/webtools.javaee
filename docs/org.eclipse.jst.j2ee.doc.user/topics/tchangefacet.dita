@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
- "ibm-task.dtd">
+ "task.dtd">
 <task id="tchangefacet" xml:lang="en-us">
 <title outputclass="id_title">Changing the version of a facet</title>
 <shortdesc outputclass="id_shortdesc">You can change the version of a facet
 in a J2EE project by editing the facets for the project.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>projects<indexterm>facets<indexterm>changing</indexterm></indexterm></indexterm>
-<indexterm>J2EE development<indexterm>project facets<indexterm>version</indexterm></indexterm></indexterm>
-<indexterm>J2EE modules<indexterm>project facets<indexterm>version</indexterm></indexterm></indexterm>
-<indexterm>projects<indexterm>facets<indexterm>version</indexterm></indexterm></indexterm>
-<indexterm>facets<indexterm>version</indexterm></indexterm></keywords>
+<keywords><indexterm>facets<indexterm>changing versions</indexterm></indexterm>
+<indexterm>J2EE<indexterm>changing facet versions</indexterm></indexterm>
+<indexterm>projects<indexterm>changing facet versions</indexterm></indexterm>
+</keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
 <context outputclass="id_context"><p outputclass="anchor_topictop"></p>

@@ -5,9 +5,8 @@
 <title outputclass="id_title">Application client projects</title>
 <shortdesc outputclass="id_shortdesc"></shortdesc>
 <prolog><metadata>
-<keywords><indexterm>projects<indexterm>application client</indexterm></indexterm>
-<indexterm>application client projects<indexterm>overview</indexterm></indexterm>
-<indexterm>J2EE modules<indexterm>application client</indexterm></indexterm>
+<keywords><indexterm>application client projects<indexterm>overview</indexterm></indexterm>
+<indexterm>J2EE<indexterm>application client projects</indexterm></indexterm>
 </keywords>
 </metadata></prolog>
 <conbody outputclass="id_conbody">

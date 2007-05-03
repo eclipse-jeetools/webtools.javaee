@@ -9,9 +9,10 @@ target server is specified during project creation and import, and it can
 be changed in the project properties. The target server setting is the default
 mechanism for setting the class path for J2EE projects.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>J2EE modules<indexterm>target servers</indexterm></indexterm>
-<indexterm>projects<indexterm>target servers</indexterm></indexterm><indexterm>target
-servers</indexterm></keywords>
+<keywords><indexterm>J2EE<indexterm>target servers</indexterm></indexterm>
+<indexterm>projects<indexterm>target servers</indexterm></indexterm>
+<indexterm>target servers<indexterm>J2EE applications</indexterm></indexterm>
+</keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
 <context outputclass="id_context"><p outputclass="anchor_topictop"></p>

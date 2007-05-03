@@ -6,8 +6,8 @@
 <shortdesc outputclass="id_shortdesc">You can filter the Project Explorer
 view to hide projects, folders, or files that you don't want to see.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>views<indexterm>Project Explorer<indexterm>filters</indexterm></indexterm></indexterm>
-<indexterm>filters<indexterm>Project Explorer view</indexterm></indexterm>
+<keywords><indexterm>filters<indexterm>Project Explorer view</indexterm></indexterm>
+<indexterm>views<indexterm>Project Explorer filters</indexterm></indexterm>
 </keywords>
 </metadata></prolog>
 <conbody outputclass="id_conbody">

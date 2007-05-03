@@ -6,10 +6,9 @@
 <shortdesc outputclass="id_shortdesc">An enterprise application project ties
 together the resources that are required to deploy a J2EE enterprise application.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>enterprise application projects<indexterm>overview</indexterm></indexterm>
-<indexterm>enterprise application projects<indexterm>artifacts</indexterm></indexterm>
-<indexterm>projects<indexterm>enterprise application</indexterm></indexterm>
-<indexterm>J2EE modules<indexterm>enterprise application projects</indexterm></indexterm>
+<keywords><indexterm>enterprise applications<indexterm>projects<indexterm>artifacts</indexterm></indexterm></indexterm>
+<indexterm>J2EE<indexterm>enterprise application projects<indexterm>overview</indexterm></indexterm></indexterm>
+<indexterm>projects<indexterm>enterprise applications</indexterm></indexterm>
 </keywords>
 </metadata></prolog>
 <conbody outputclass="id_conbody">

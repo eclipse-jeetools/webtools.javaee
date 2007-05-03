@@ -6,9 +6,8 @@
 <shortdesc outputclass="id_shortdesc">This topic outlines current known limitations
 and restrictions for J2EE tooling.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>J2EE tools<indexterm>limitations</indexterm></indexterm>
-<indexterm>limitations<indexterm>J2EE tools</indexterm></indexterm><indexterm>J2EE
-development<indexterm>limitations</indexterm></indexterm></keywords>
+<keywords><indexterm>J2EE<indexterm>tool limitations</indexterm></indexterm>
+</keywords>
 </metadata></prolog>
 <refbody outputclass="id_refbody">
 <section outputclass="id_spacesLimitation"><p outputclass="anchor_topictop"></p><title>Spaces

@@ -5,9 +5,9 @@
 <title outputclass="id_title">Cyclical dependencies between J2EE modules</title>
 <shortdesc outputclass="id_shortdesc"></shortdesc>
 <prolog><metadata>
-<keywords><indexterm>cyclical dependencies<indexterm>overview</indexterm></indexterm>
+<keywords><indexterm>dependencies<indexterm>cycles between modules</indexterm></indexterm>
+<indexterm>J2EE<indexterm>cyclical dependencies between modules</indexterm></indexterm>
 <indexterm>projects<indexterm>cyclical dependencies</indexterm></indexterm>
-<indexterm>J2EE modules<indexterm>cyclical dependencies</indexterm></indexterm>
 </keywords>
 </metadata></prolog>
 <conbody outputclass="id_conbody">

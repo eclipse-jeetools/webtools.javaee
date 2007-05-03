@@ -6,9 +6,8 @@
 <shortdesc outputclass="id_shortdesc">You may encounter these common error
 messages when you validate your projects.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>validation<indexterm>errors</indexterm></indexterm><indexterm>validation<indexterm>solutions
-to errors</indexterm></indexterm><indexterm>code validation<indexterm>errors</indexterm></indexterm>
-<indexterm>code validation<indexterm>solutions to errors</indexterm></indexterm>
+<keywords><indexterm>code validation<indexterm>error solutions</indexterm></indexterm>
+<indexterm>validation<indexterm>error solutions</indexterm></indexterm>
 </keywords>
 </metadata></prolog>
 <refbody outputclass="id_refbody">

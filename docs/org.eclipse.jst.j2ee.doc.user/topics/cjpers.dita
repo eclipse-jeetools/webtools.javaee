@@ -8,7 +8,9 @@ views that you can use when developing resources for enterprise applications,
 EJB modules, Web modules, application client modules, and connector projects
 or modules.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>perspectives<indexterm>J2EE</indexterm></indexterm></keywords>
+<keywords><indexterm>J2EE<indexterm>workbench perspectives</indexterm></indexterm>
+<indexterm>enterprise applications<indexterm>J2EE perspective</indexterm></indexterm>
+</keywords>
 </metadata></prolog>
 <conbody outputclass="id_conbody">
 <p outputclass="anchor_topictop"></p>

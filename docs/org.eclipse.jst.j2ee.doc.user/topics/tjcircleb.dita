@@ -7,9 +7,9 @@ is imported</title>
 <shortdesc outputclass="id_shortdesc">You can resolve cyclical dependencies
 after an EAR is imported.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>cyclical dependencies<indexterm>correcting</indexterm></indexterm>
+<keywords><indexterm>dependencies<indexterm>correcting cyclical</indexterm></indexterm>
+<indexterm>EAR<indexterm>correcting cyclical dependencies</indexterm></indexterm>
 <indexterm>projects<indexterm>correcting cyclical dependencies</indexterm></indexterm>
-<indexterm>J2EE modules<indexterm>correcting cyclical dependencies</indexterm></indexterm>
 </keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">

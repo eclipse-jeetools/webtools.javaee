@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
- "ibm-task.dtd">
+ "task.dtd">
 <task id="tchangejavalevel" xml:lang="en-us">
 <title outputclass="id_title">Changing the Java compiler version for a J2EE
 project</title>
 <shortdesc outputclass="id_shortdesc">You can change the version of Java used
 in a J2EE project by changing the value of the <uicontrol>Java</uicontrol> facet.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>projects<indexterm>facets<indexterm>Java compiler level</indexterm></indexterm></indexterm>
-<indexterm>Java compiler level<indexterm>J2EE projects</indexterm></indexterm>
+<keywords><indexterm>Java<indexterm>J2EE project compiler level</indexterm></indexterm>
+<indexterm>projects<indexterm>Java compiler level</indexterm></indexterm>
 </keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">

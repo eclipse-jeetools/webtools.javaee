@@ -6,11 +6,10 @@
 <shortdesc outputclass="id_shortdesc">The workbench includes validators that
 check certain files in your enterprise application module projects for errors.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>validation<indexterm>overview</indexterm></indexterm>
-<indexterm>code validation<indexterm>overview</indexterm></indexterm><indexterm>validation<indexterm>automatic</indexterm></indexterm>
-<indexterm>code validation<indexterm>automatic</indexterm></indexterm><indexterm>build
-validation<indexterm>enabling</indexterm></indexterm><indexterm>validation<indexterm>build
-validation</indexterm></indexterm></keywords>
+<keywords><indexterm>build validation<indexterm>enabling</indexterm></indexterm>
+<indexterm>code validation<indexterm>overview</indexterm></indexterm>
+<indexterm>validation<indexterm>overview</indexterm></indexterm>
+</keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
 <context outputclass="id_context"> <p outputclass="anchor_topictop"></p>

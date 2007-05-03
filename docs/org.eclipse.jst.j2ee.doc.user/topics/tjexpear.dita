@@ -8,8 +8,9 @@ EAR file</title>
 in the form of an EAR file. Use the Export wizard to export an enterprise
 application project into an EAR file for deployment.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>enterprise application projects<indexterm>exporting</indexterm></indexterm>
-<indexterm>EAR files<indexterm>exporting</indexterm></indexterm></keywords>
+<keywords><indexterm>EAR<indexterm>files<indexterm>exporting</indexterm></indexterm></indexterm>
+<indexterm>enterprise applications<indexterm>projects<indexterm>exporting</indexterm></indexterm></indexterm>
+</keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
 <context outputclass="id_context"> <p outputclass="anchor_topictop"></p>

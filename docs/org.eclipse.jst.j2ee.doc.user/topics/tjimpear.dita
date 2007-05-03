@@ -7,8 +7,9 @@
 deployed into EAR files. You can import an enterprise application project
 by importing it from a deployed EAR file.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>enterprise application projects<indexterm>importing</indexterm></indexterm>
-<indexterm>EAR files<indexterm>importing</indexterm></indexterm></keywords>
+<keywords><indexterm>EAR<indexterm>files<indexterm>importing</indexterm></indexterm></indexterm>
+<indexterm>enterprise applications<indexterm>projects<indexterm>importing</indexterm></indexterm></indexterm>
+</keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
 <context outputclass="id_context"> <p outputclass="anchor_topictop"></p>
