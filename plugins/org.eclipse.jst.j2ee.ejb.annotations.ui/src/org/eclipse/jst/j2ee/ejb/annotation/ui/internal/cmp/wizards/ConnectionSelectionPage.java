@@ -366,7 +366,7 @@ public class ConnectionSelectionPage extends DataModelWizardPage implements Sele
 		try {
 			IConnectionProfile connectionInfo = this.getSelectedConnection();
 			if (connectionInfo != null) {
-				isOK = this.getSelectedConnection().connect().isOK();
+				isOK = this.getSelectedConnection().isConnected();
 			}
 		} catch (Throwable e) {
 		}

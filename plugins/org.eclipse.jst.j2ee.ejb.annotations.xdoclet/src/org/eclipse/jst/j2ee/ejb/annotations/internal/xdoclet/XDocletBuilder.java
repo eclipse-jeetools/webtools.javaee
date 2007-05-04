@@ -31,6 +31,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.content.IContentDescription;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
+import org.eclipse.core.runtime.jobs.Job;
 
 public class XDocletBuilder extends IncrementalProjectBuilder implements IExecutableExtension {
 
@@ -79,11 +80,11 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 							IFile[] validateFiles = new IFile[] { descriptionFile };
 							IWorkspace workspace = descriptionFile.getWorkspace();
 							validateEditRule = workspace.getRuleFactory().validateEditRule(validateFiles);
-							Platform.getJobManager().beginRule(validateEditRule, monitor);
+							Job.getJobManager().beginRule(validateEditRule, monitor);
 							status = workspace.validateEdit(validateFiles, null);
 						} finally {
 							if (validateEditRule != null) {
-								Platform.getJobManager().endRule(validateEditRule);
+								Job.getJobManager().endRule(validateEditRule);
 							}
 						}
 					}
@@ -206,7 +207,7 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 		return new IProject[] { getProject() };
 	}
 
-	void build(int kind, Map args, IResource resource, IContentType[] types, IProgressMonitor monitor) {
+	void build(int kind, Map args, IResource resource, IContentType[] types, IProgressMonitor monitor) throws CoreException {
 		boolean validRuntime = resource != null && isValidRuntime(resource.getProject());
 		if (!monitor.isCanceled() && resource.getType() == IResource.FILE && validRuntime) {
 			XDocletAntProjectBuilder antProjectBuilder = XDocletAntProjectBuilder.Factory.newInstance(resource);
