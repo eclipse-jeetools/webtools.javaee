@@ -36,6 +36,10 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -47,7 +51,9 @@ import org.eclipse.jst.j2ee.client.ApplicationClientResource;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EJBResource;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.webservice.componentcore.util.WSCDDArtifactEdit;
@@ -69,6 +75,7 @@ import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
@@ -119,21 +126,47 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	private void addArtifactEdit(IProject handle) {
 		synchronized(wsArtifactEdits) {
 			if (!wsArtifactEdits.containsKey(handle)) {
-				ArtifactEdit edit = WSDDArtifactEdit.getWSDDArtifactEditForRead(handle);
+				WSDDArtifactEdit edit = WSDDArtifactEdit.getWSDDArtifactEditForRead(handle);
 				if (edit != null) {
-					edit.addListener(this);
-					wsArtifactEdits.put(handle, edit);
-					wsElementsChanged = true;
+					WebServices webServices = edit.getWebServices();
+					// If the project has a webservice.xml with internal services or 
+					// it has .wsil files with external services, we cache the artifact edit
+					if ((webServices != null && !webServices.getWebServiceDescriptions().isEmpty()) || !edit.getWSILResources().isEmpty()) {
+						edit.addListener(this);
+						wsArtifactEdits.put(handle, edit);
+						wsElementsChanged = true;
+					// Otherwise, dispose the artifact edit
+					} else {
+						edit.dispose();
+					}
 				}
 			}
 		}
 		synchronized (wsClientArtifactEdits) {
 			if (!wsClientArtifactEdits.containsKey(handle)) {
-				ArtifactEdit edit = WSCDDArtifactEdit.getWSCDDArtifactEditForRead(handle);
+				WSCDDArtifactEdit edit = WSCDDArtifactEdit.getWSCDDArtifactEditForRead(handle);
 				if (edit != null) {
-					edit.addListener(this);
-					wsClientArtifactEdits.put(handle, edit);
-					wsClientElementsChanged = true;
+					WebServicesResource res = edit.getWscddXmiResource();
+					boolean isInterested = false;
+					// Does the project have 1.3 web service clients?
+					if (res != null && res.isLoaded() && res.getWebServicesClient() != null)
+						isInterested = true;
+					
+					// Does the project have 1.4 web service clients?
+					List wsClientEdits = new ArrayList();
+					wsClientEdits.add(edit);
+					if (!getWorkspace14ServiceRefs(wsClientEdits).isEmpty())
+						isInterested = true;
+					
+					// If project has 1.3 or 1.4 web service clients, cache the artifact edit
+					if (isInterested) {
+						edit.addListener(this);
+						wsClientArtifactEdits.put(handle, edit);
+						wsClientElementsChanged = true;
+					// Otherwise, dispose the artifact edit	
+					} else {
+						edit.dispose();
+					}
 				}
 			}
 		}
@@ -645,11 +678,33 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	}
 
 	public List getWorkspace14ServiceRefs() {
+		return getWorkspace14ServiceRefs(getWSClientArtifactEdits());
+	}
+	
+	private List getWorkspace14ServiceRefs(List wsClientArtifactEdits) {
+		Iterator iter = wsClientArtifactEdits.iterator();
 		List result = new ArrayList();
-		Iterator iter = getWSClientArtifactEdits().iterator();
 		while (iter.hasNext()) {
 			WSCDDArtifactEdit wscArtifactEdit = (WSCDDArtifactEdit) iter.next();
-			ArtifactEdit artifactEdit = ArtifactEdit.getArtifactEditForRead(wscArtifactEdit.getProject());
+
+			IProject project = wscArtifactEdit.getProject(); 	
+			
+			String projectType = J2EEProjectUtilities.getJ2EEProjectType(project);
+			String projectVersion = J2EEProjectUtilities.getJ2EEProjectVersion(project);
+			int    j2eeLevel =  0;
+			if(IModuleConstants.JST_EJB_MODULE.equals(projectType)){
+				j2eeLevel = J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(projectVersion);
+			} else if(IModuleConstants.JST_WEB_MODULE.equals(projectType)){
+				j2eeLevel = J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(projectVersion);
+			} else if(IModuleConstants.JST_APPCLIENT_MODULE.equals(projectType)){
+				j2eeLevel = J2EEVersionUtil.convertAppClientVersionStringToJ2EEVersionID(projectVersion);
+			}
+			
+			// this method needs to check that project's j2ee level is 14
+			if(j2eeLevel !=  J2EEVersionConstants.J2EE_1_4_ID)
+				continue;
+			
+			ArtifactEdit artifactEdit = ArtifactEdit.getArtifactEditForRead(project);
 			try {
 				EObject rootObject = null;
 				if (artifactEdit!=null)
@@ -806,8 +861,9 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			if ((delta.getKind()==IResourceDelta.ADDED || (((delta.getFlags() & IResourceDelta.OPEN) != 0) && p.isAccessible()))) {
 				IVirtualComponent component = ComponentCore.createComponent(p);
 				if (component!=null && !J2EEProjectUtilities.isEARProject(p) && !J2EEProjectUtilities.isStaticWebProject(p)) {
-					addArtifactEdit(p);
-					notifyListeners(EditModelEvent.ADDED_RESOURCE);
+					Job job = new ProcessProjectsWithWSDL(p, EditModelEvent.ADDED_RESOURCE);
+					job.setRule(p);
+					job.schedule();
 					return false;
 				}
 			}
@@ -820,13 +876,19 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		}
 		
 		else if (resource.getType() == IResource.FILE && isInterrestedInFile((IFile) resource)) {
-			// Handle WSIL and WSDL File additions
+			// Handle WSIL and WSDL File additions as well as webservice.xml and webserviceclient.xml
 			if ((delta.getKind() == IResourceDelta.ADDED) || ((delta.getFlags() & IResourceDelta.MOVED_TO) != 0)) {
 				if (resource.getFileExtension().equals(WSDL_EXT))
 				    addedWsdl((IFile) resource);
 				else if (resource.getFileExtension().equals(WSIL_EXT))
 				    addedWsil((IFile)resource);
-			}
+				else if (resource.getName().equals(J2EEConstants.WEB_SERVICES_CLIENT_SHORTNAME) ||
+						resource.getName().equals(J2EEConstants.WEB_SERVICES_DD_URI)) {
+					Job job = new ProcessProjectsWithWSDL(resource.getProject(), EditModelEvent.LOADED_RESOURCE);
+					job.setRule(resource.getProject());
+					job.schedule();
+				}	
+			} 
 			// Handle WSIL or WSDL file removals
 			else if ((delta.getKind() == IResourceDelta.REMOVED) || ((delta.getFlags() & IResourceDelta.MOVED_FROM) != 0)) {
 				if (resource.getFileExtension().equals(WSDL_EXT) || resource.getFileExtension().equals(WSIL_EXT))
@@ -835,6 +897,25 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			return false;
 		}
 		return true;
+	}
+
+	private class ProcessProjectsWithWSDL extends Job
+	{
+		private IProject currentProject;
+		private int eventType;
+		
+		public ProcessProjectsWithWSDL(IProject p, int newEventType)
+		{
+			super("Loading artifact edit for project");
+			currentProject = p;
+			eventType = newEventType;
+		}
+		
+		protected IStatus run(IProgressMonitor monitor) {
+			addArtifactEdit(currentProject);
+			notifyListeners(eventType);
+			return Status.OK_STATUS;
+		}
 	}
 
 	protected void addedWsdl(IFile wsdl) {
@@ -866,7 +947,9 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	protected boolean isInterrestedInFile(IFile aFile) {
 		if (aFile != null && aFile.getFileExtension() != null) {
 			String extension = aFile.getFileExtension();
-			return extension.equals(WSDL_EXT) || extension.equals(WSIL_EXT);
+			return extension.equals(WSDL_EXT) || extension.equals(WSIL_EXT) 
+			|| aFile.getName().equals(J2EEConstants.WEB_SERVICES_CLIENT_SHORTNAME) 
+			|| aFile.getName().equals(J2EEConstants.WEB_SERVICES_DD_URI);
 		}
 		return false;
 	}

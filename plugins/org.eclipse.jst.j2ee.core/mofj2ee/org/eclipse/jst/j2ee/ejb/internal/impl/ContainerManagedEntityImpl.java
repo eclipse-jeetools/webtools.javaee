@@ -525,6 +525,24 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	}
 
 	/**
+	 * <p>Change for bugzilla 177397.  Provide access to the
+	 * initialization state of the key attributes attribute.</p>
+	 * 
+	 * <p>The initialization state is used while copying the
+	 * receiver.  If the key attributes attribute has not been
+	 * initialized, then the copy does not need to descend into the
+	 * key attributes.</p>
+	 * 
+	 * @return True if the key attributes have been initialized.
+	 *         Otherwise, false.
+	 * 
+	 * @generated NOT
+	 */
+	public boolean getIsInitializedKeyAttributes() {
+		return (keyAttributes == null);
+	}
+	
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated

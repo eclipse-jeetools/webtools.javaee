@@ -13,7 +13,6 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
-import com.ibm.icu.util.StringTokenizer;
 import java.util.Vector;
 
 import org.eclipse.core.resources.IContainer;
@@ -41,6 +40,8 @@ import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
+
+import com.ibm.icu.util.StringTokenizer;
 
 public class WebPropertiesUtil {
 	// private static final char[] BAD_CHARS = {'/', '\\', ':'};
@@ -526,7 +527,10 @@ public class WebPropertiesUtil {
 
 	public static IFolder getModuleServerRoot(IProject project) {
 		// TODO need to implement module server root properly
-		return project.getFolder("WebContent");
+		IPath compRootPath = ComponentCore.createComponent(project).getRootFolder().getUnderlyingFolder().getProjectRelativePath();
+		return project.getFolder(compRootPath);
+		//return project.getFolder("WebContent");
+		
 	}
 
 	public static IVirtualFolder getWebLibFolder(IVirtualComponent webComponent) {

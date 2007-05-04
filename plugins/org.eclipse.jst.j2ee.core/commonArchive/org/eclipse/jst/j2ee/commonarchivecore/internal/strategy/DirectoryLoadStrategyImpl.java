@@ -214,17 +214,33 @@ public abstract class DirectoryLoadStrategyImpl extends LoadStrategyImpl impleme
 		return path;
 	}
 
-	private String makeRelative(String fileName, String root) {
-		if (fileName == null || root == null)
-			return null;
-		String name = null;
-		for (; root.endsWith("/"); root = ArchiveUtil.truncateIgnoreCase(root, "/")); //$NON-NLS-1$ //$NON-NLS-2$
-		name = replaceSeparators(fileName);
-		if (name.startsWith(root))
-			name = name.substring(root.length() + 1);
-		else
-			name = null;
-		return name;
+	private String makeRelative(String fileName, String root)
+	{
+	    if ( (fileName == null) || (root == null) )
+	        return null;
+
+	    int offset = root.length();
+
+	    while ( (offset > 0) && root.charAt(offset - 1) == '/' )
+	        offset--;
+
+	    if ( offset < root.length() ) {
+	        offset++;
+
+	        if ( offset < root.length() )
+	            root = root.substring(0, offset);
+	    } else {
+	        root += '/';
+	    }
+
+	    String name = replaceSeparators(fileName);
+
+	    if ( name.startsWith(root) )
+	        name = name.substring( root.length() );
+	    else
+	        name = null;
+
+	    return name;
 	}
 
 	/**

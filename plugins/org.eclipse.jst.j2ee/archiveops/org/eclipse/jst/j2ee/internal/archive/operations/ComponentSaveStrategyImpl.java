@@ -109,8 +109,7 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 
 	public void save(File aFile, InputStream in) throws SaveFailureException {
 		try {
-			String displayString = EJBArchiveOpsResourceHandler.IMPORT_OPERATION_STRING;
-			progressMonitor.subTask(displayString + aFile.getURI());
+			progressMonitor.subTask(aFile.getURI());
 			
 			IPath projectRelativePath = getOutputPathForFile(aFile);
 			if (aFile.isArchive()) {
@@ -125,6 +124,8 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 		} catch (Exception e) {
 			String errorString = EJBArchiveOpsResourceHandler.ARCHIVE_OPERATION_SaveFile + aFile.getName();
 			throw new SaveFailureException(errorString, e);
+		} finally {
+			progressMonitor.worked(1);
 		}
 	}
 
@@ -196,6 +197,7 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 	 */
 	protected void saveAsArchiveComponent(Archive archive, IPath projectRelativePath, InputStream in) throws Exception {
 		IFile iFile = saveToOutputPathIFile(projectRelativePath, in);
+		//TODO investigate removing this block and related variables and linkArchiveComponents(); see bugzilla 159160
 		if (shouldLinkAsComponentRef(archive)) {
 			IVirtualComponent archiveComponent = ComponentCore.createArchiveComponent(vComponent.getProject(), VirtualArchiveComponent.LIBARCHIVETYPE + iFile.getFullPath().toString());
 			if (archiveComponents == null) {
@@ -209,7 +211,7 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 	}
 
 	protected boolean shouldLinkAsComponentRef(Archive archive) {
-		return true;
+		return false;
 	}
 
 	protected void linkArchiveComponents() {

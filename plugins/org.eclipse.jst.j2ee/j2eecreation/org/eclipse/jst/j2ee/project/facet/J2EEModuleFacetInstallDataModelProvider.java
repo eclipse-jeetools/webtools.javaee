@@ -102,8 +102,12 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			if (masterModel != null) {
 				FacetDataModelMap map = (FacetDataModelMap) masterModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 				IDataModel javaModel = map.getFacetDataModel(IModuleConstants.JST_JAVA);
-				if (javaModel != null)
+				if (javaModel != null) {
 					javaModel.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, propertyValue);
+					// If applicable, react to the change in content folder to update the output folder for single root structures
+					if (ProductManager.shouldUseSingleRootStructure())
+						javaModel.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME,propertyValue);
+				}
 			}
 		} else if ((EAR_PROJECT_NAME.equals(propertyName) || ADD_TO_EAR.equals(propertyName)) && getBooleanProperty(ADD_TO_EAR)) {
 			IStatus status = validateEAR(model.getStringProperty(EAR_PROJECT_NAME));

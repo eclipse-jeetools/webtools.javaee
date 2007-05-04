@@ -12,6 +12,8 @@
 package org.eclipse.jst.j2ee.web.project.facet;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
@@ -26,6 +28,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
@@ -86,7 +89,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			String contextRoot = model.getStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT);
 			setContextRootPropertyIfNeeded(c, contextRoot);
-			setJavaOutputPropertyIfNeeded(c);
+			setJavaOutputPropertyIfNeeded(model,c);
 
 			final IVirtualFolder webroot = c.getRootFolder();
 			if (webroot.getProjectRelativePath().equals(new Path("/"))) //$NON-NLS-1$
@@ -152,10 +155,71 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		}
 	}
 
-	private void setJavaOutputPropertyIfNeeded(final IVirtualComponent c) {
+	private void setJavaOutputPropertyIfNeeded(IDataModel model, final IVirtualComponent c) {
+		
+		// Make sure output folder is set properly for web projects, and the product setting for single root structure is maintained.
+		// We may need to change the existing setup
+
+		if (ProductManager.shouldUseSingleRootStructure()) {
+			String outputFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER)+"/"+J2EEConstants.WEB_INF_CLASSES;
+			
+			IJavaProject jproj = JavaCore.create(c.getProject());
+			IClasspathEntry[] current = null;
+			boolean webinf = false;
+			IPath pjpath = c.getProject().getFullPath();
+			try {
+				current = jproj.getRawClasspath();
+				List updatedList = new ArrayList();
+				IPath sourcePath = null;
+				boolean changeNeeded = false;
+				for (int i = 0; i < current.length; i++) {
+					IClasspathEntry entry = current[i];
+					if ((entry.getEntryKind() == IClasspathEntry.CPE_SOURCE) && (entry.getOutputLocation() != null && entry.getOutputLocation().toString().indexOf(J2EEConstants.WEB_INF_CLASSES) == -1)) {
+						//output different than J2EEConstants.WEB_INF_CLASSES
+						sourcePath = entry.getPath();
+						updatedList.add(JavaCore.newSourceEntry(sourcePath));
+						changeNeeded = true;
+					}
+					else
+						updatedList.add(entry);
+				}
+				IPath currentDefaultOutput = null;
+				currentDefaultOutput = jproj.getOutputLocation();
+				if (currentDefaultOutput.toString().indexOf(J2EEConstants.WEB_INF_CLASSES) == -1)
+					changeNeeded = true;
+				if (changeNeeded) {
+					IClasspathEntry[] updated = (IClasspathEntry[])updatedList.toArray(new IClasspathEntry[updatedList.size()]);
+					IPath outdir = pjpath.append(outputFolder); 
+					jproj.setRawClasspath(updated,outdir ,null);
+					jproj.save(null, true);
+				}
+			} catch (JavaModelException e) {
+				Logger.getLogger().logError(e);
+			}
+		}
+		// Now just set the property
 		String existing = c.getMetaProperties().getProperty("java-output-path"); //$NON-NLS-1$
 		if (existing == null)
-			c.setMetaProperty("java-output-path", ProductManager.getProperty(IProductConstants.OUTPUT_FOLDER)); //$NON-NLS-1$
+			setOutputFolder(model, c);
+	}
+	
+	/**
+	 * This overrides the default J2EE set output folder which sets the output folder to the content root
+	 * if the optimized single root structure is used.  For web projects, we need to switch this to
+	 * set the output folder to "<contentRoot>/WEB-INF/classes"
+	 * 
+	 * @param model
+	 * @param component
+	 */
+	protected void setOutputFolder(IDataModel model, IVirtualComponent component) {
+		String outputFolder = null;
+		// If using single root structure, set the output folder to "<contentRoot>/WEB-INF/classes"
+		if (ProductManager.shouldUseSingleRootStructure())
+			outputFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER)+"/"+J2EEConstants.WEB_INF_CLASSES;
+		// Otherwise set the output folder to the product setting default
+		else
+			outputFolder = ProductManager.getProperty(IProductConstants.OUTPUT_FOLDER);
+		component.setMetaProperty("java-output-path", outputFolder ); //$NON-NLS-1$
 	}
 
 	private void setContextRootPropertyIfNeeded(final IVirtualComponent c, String contextRoot) {
@@ -164,13 +228,6 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			c.setMetaProperty("context-root", contextRoot); //$NON-NLS-1$
 	}
 
-//	private IPath setSourcePropertyIfNeeded(final IDataModel model, final IPath pjpath, IProject project) {
-//		IVirtualComponent c = ComponentCore.createComponent(project);
-//		if (c.exists()) {
-//			return J2EEProjectUtilities.getSourcePathOrFirst(project, null).makeAbsolute();
-//		}
-//		return pjpath.append(model.getStringProperty(IWebFacetInstallDataModelProperties.SOURCE_FOLDER));
-//	}
 
 	private IPath setContentPropertyIfNeeded(final IDataModel model, final IPath pjpath, IProject project) {
 		IVirtualComponent c = ComponentCore.createComponent(project);

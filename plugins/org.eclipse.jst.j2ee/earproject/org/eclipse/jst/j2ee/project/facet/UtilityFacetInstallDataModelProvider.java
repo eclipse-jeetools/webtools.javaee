@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.project.facet;
 
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
@@ -18,6 +19,9 @@ public class UtilityFacetInstallDataModelProvider extends J2EEModuleFacetInstall
 	public Object getDefaultProperty(String propertyName) {
 		if (FACET_ID.equals(propertyName)) {
 			return J2EEProjectUtilities.UTILITY;
+		} else if (propertyName.equals(MODULE_URI)) {
+			String projectName = model.getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
+			return projectName + IJ2EEModuleConstants.JAR_EXT;
 		}
 		return super.getDefaultProperty(propertyName);
 	}

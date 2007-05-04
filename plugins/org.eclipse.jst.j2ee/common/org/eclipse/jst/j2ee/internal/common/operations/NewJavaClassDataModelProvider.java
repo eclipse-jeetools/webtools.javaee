@@ -286,7 +286,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 				return WTPCommonPlugin.createErrorStatus(msg);
 			} else if (javaStatus.getSeverity() == IStatus.WARNING) {
 				String msg = J2EECommonMessages.ERR_JAVA_PACKAGE_NAME_WARNING + javaStatus.getMessage();
-				return WTPCommonPlugin.createErrorStatus(msg);
+				return WTPCommonPlugin.createWarningStatus(msg);
 			}
 		}
 		// java package name is valid

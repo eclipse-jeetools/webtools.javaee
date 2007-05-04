@@ -15,6 +15,7 @@ import java.util.Collection;
 
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetProjectCreationDataModelProvider;
@@ -26,6 +27,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.project.facet.ProductManager;
 
 public class WebFacetProjectCreationDataModelProvider extends J2EEFacetProjectCreationDataModelProvider {
 
@@ -40,7 +42,12 @@ public class WebFacetProjectCreationDataModelProvider extends J2EEFacetProjectCr
 		map.add(javaFacet);
 		IDataModel webFacet = DataModelFactory.createDataModel(new WebFacetInstallDataModelProvider());
 		map.add(webFacet);
-		javaFacet.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME,webFacet.getStringProperty(IWebFacetInstallDataModelProperties.SOURCE_FOLDER));
+		String webRoot = webFacet.getStringProperty(IWebFacetInstallDataModelProperties.CONFIG_FOLDER);
+		String webSrc = webFacet.getStringProperty(IWebFacetInstallDataModelProperties.SOURCE_FOLDER);
+		javaFacet.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, webSrc);
+		// If using optimized single root structure, set the output folder to "<content folder>/WEB-INF/classes"
+		if (ProductManager.shouldUseSingleRootStructure())
+			javaFacet.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME, webRoot+"/"+J2EEConstants.WEB_INF_CLASSES); //$NON-NLS-1$
 		webFacet.addListener(new IDataModelListener() {
 			public void propertyChanged(DataModelEvent event) {
 				if (IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME.equals(event.getPropertyName())) {

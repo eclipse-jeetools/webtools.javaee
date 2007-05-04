@@ -32,7 +32,6 @@ public class NewProjectsListener implements IResourceChangeListener, IResourceDe
 		synchronization = sync;
 		if(synchronization.webServiceProjectsExist(new NullProgressMonitor())) {
 			synchronizing = true;
-			synchronization.start();
 		}
 		startListening();
 	} 

@@ -10,11 +10,15 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.componentcore;
 
+import java.io.IOException;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.War22ImportStrategyImpl;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
@@ -72,6 +76,24 @@ public class WebBinaryComponentHelper extends EnterpriseBinaryComponentHelper {
 		public void forceClose(){
 			count = 0;
 			super.close();
+		}
+		
+		private EnterpriseBinaryComponentHelper helper = null;
+		
+		public EnterpriseBinaryComponentHelper getEnterpriseBinaryComponentHelper() {
+			return helper;
+		}
+
+		public void setEnterpriseBinaryComponentHelper(EnterpriseBinaryComponentHelper helper) {
+			this.helper = helper;
+		}
+		
+		protected LoadStrategy createLoadStrategyForReopen(Archive parent) throws IOException {
+			try {
+				return createBinaryLoadStrategy(getEnterpriseBinaryComponentHelper());
+			} catch (OpenFailureException e) {
+				throw new IOException(e.getMessage());
+			}
 		}
 	}
 

@@ -32,7 +32,9 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.IJavaProject;
@@ -42,9 +44,13 @@ import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.FileIterator;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.FileIteratorImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.ContainerImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
@@ -234,11 +240,23 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		}
 	}
 
+	/**
+	 *	This is a cache of the IResource roots for all java source folders and is used by
+	 *  {@link #inJavaSrc(IVirtualResource)}.
+	 */
+	private IResource[] sourceRoots = null;
+	
 	protected void aggregateSourceFiles() {
 		try {
 			IVirtualFolder rootFolder = vComponent.getRootFolder();
 			IVirtualResource[] members = rootFolder.members();
-			aggregateFiles(members);
+			IPackageFragmentRoot[] srcPkgs = J2EEProjectUtilities.getSourceContainers(vComponent.getProject());
+			sourceRoots = new IResource[srcPkgs.length];
+			for (int i = 0; i < srcPkgs.length; i++) {
+				sourceRoots[i] = srcPkgs[i].getCorrespondingResource();
+			}
+			inJavaSrc = false;
+			aggregateFiles(members); 
 		} catch (CoreException e) {
 			Logger.getLogger().logError(e);
 		}
@@ -332,6 +350,11 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		return fileAdded;
 	}
 
+	/**
+	 * This is used to track whether {@link #aggregateFiles(IVirtualResource[])} is currently within a Java Source folder.
+	 */
+	private boolean inJavaSrc = false;
+	
 	protected boolean aggregateFiles(IVirtualResource[] virtualResources) throws CoreException {
 		boolean fileAdded = false;
 		for (int i = 0; i < virtualResources.length; i++) {
@@ -350,12 +373,15 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 			}
 			if (filesHolder.contains(uri))
 				continue;
-
+			
 			if (virtualResources[i].getType() == IVirtualResource.FILE) {
 				if (!shouldInclude(uri))
 					continue;
 				IResource resource = virtualResources[i].getUnderlyingResource();
-				if (resource.isDerived()) {
+				// want to ignore derived resources nested within Java src directories; this covers the case where
+				// a user has nested a Java output directory within a Java src directory (note: should ideally be 
+				// respecting Java src path exclusion filters)
+				if (inJavaSrc && resource.isDerived()) {
 					continue;
 				}
 				cFile = createFile(uri);
@@ -363,23 +389,62 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				filesHolder.addFile(cFile, resource);
 				fileAdded = true;
 			} else if (shouldInclude((IVirtualContainer) virtualResources[i])) {
-				IVirtualResource[] nestedVirtualResources = ((IVirtualContainer) virtualResources[i]).members();
-				aggregateFiles(nestedVirtualResources);
-				if(!filesHolder.contains(uri)){
-					if (!shouldInclude(uri))
-						continue;
-					IResource resource = virtualResources[i].getUnderlyingResource();
-					if (resource.isDerived()) {
-						continue;
+				boolean inJavaSrcAtThisLevel = inJavaSrc;
+				try {
+					if (!inJavaSrc) {
+						// if not already inside a Java src dir, check again
+						inJavaSrc = inJavaSrc(virtualResources[i]);
 					}
-					cFile = createDirectory(uri);
-					cFile.setLastModified(getLastModified(resource));
-					filesHolder.addDirectory(cFile);
-					fileAdded = true;
+					IVirtualResource[] nestedVirtualResources = ((IVirtualContainer) virtualResources[i]).members();
+					aggregateFiles(nestedVirtualResources);
+					if(!filesHolder.contains(uri)){
+						if (!shouldInclude(uri))
+							continue;
+						IResource resource = virtualResources[i].getUnderlyingResource();
+						if (inJavaSrc && resource.isDerived()) {
+							continue;
+						}
+						cFile = createDirectory(uri);
+						cFile.setLastModified(getLastModified(resource));
+						filesHolder.addDirectory(cFile);
+						fileAdded = true;
+					}
+				} finally {
+					inJavaSrc = inJavaSrcAtThisLevel;
 				}
 			}
 		}
 		return fileAdded;
+	}
+	
+	/**
+	 * Determines if the specified IVirtualResource maps to a IResource that is contained within a Java src root.
+	 * @param virtualResource IVirtualResource to check.
+	 * @param sourceRoots Current Java src roots.
+	 * @return True if contained in a Java src root, false otherwise.
+	 */
+	private boolean inJavaSrc(final IVirtualResource virtualResource) {
+		if (sourceRoots.length == 0) {
+			return false;
+		}
+		// all mapped resources must be associated with Java src for the resource to be considered in Java src
+		final IResource[] resources = virtualResource.getUnderlyingResources();
+		boolean inJavaSrc = false;
+		for (int i = 0; i < resources.length; i++) {
+			inJavaSrc = false;
+			for (int j = 0; j < sourceRoots.length; j++) {
+				if (sourceRoots[j].getFullPath().isPrefixOf(resources[i].getFullPath())) {
+					inJavaSrc = true;
+					break;
+				}
+			}
+			// if this one was not in Java src, can break
+			if (!inJavaSrc) {
+				break;
+			}
+		}
+		
+		return inJavaSrc;
 	}
 
 	protected long getLastModified(IResource aResource) {
@@ -417,10 +482,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	}
 
 	protected void addExternalFile(String uri, java.io.File externalDiskFile) {
-		File aFile = getArchiveFactory().createFile();
-		aFile.setURI(uri);
-		aFile.setOriginalURI(uri);
-		aFile.setLoadingContainer(getContainer());
+		File aFile = createFile(uri);
 		filesHolder.addFile(aFile, externalDiskFile);
 	}
 
@@ -475,6 +537,48 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		return vComponent;
 	}
 
+	protected IProgressMonitor monitor = null;
+	
+	public void setProgressMonitor(IProgressMonitor monitor){
+		this.monitor = monitor;
+	}
+	
+	protected final int FILE_SAVE_WORK = 100;
+	
+	public FileIterator getFileIterator() throws IOException {
+		return new FileIteratorImpl(getContainer().getFiles()){
+			protected SubProgressMonitor lastSubMon = null;
+			boolean firstVisit = true;
+			
+			public File next() {
+				if(firstVisit){
+					firstVisit = false;
+					if(monitor != null){
+						monitor.beginTask(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Exporting_archive, new Object [] { getContainer().getURI() }), files.size() * FILE_SAVE_WORK);
+					}
+				}
+				if(lastSubMon != null){
+					lastSubMon.done();
+					lastSubMon = null;
+				} else if(monitor != null){
+					monitor.worked(FILE_SAVE_WORK);
+				}
+				File file = super.next();
+				if(monitor != null){
+					if(file.isContainer() && ComponentLoadStrategyImpl.class.isInstance(((ContainerImpl)file).getLoadStrategy())){
+						ComponentLoadStrategyImpl ls = (ComponentLoadStrategyImpl)((ContainerImpl)file).getLoadStrategy();
+						lastSubMon = new SubProgressMonitor(monitor, FILE_SAVE_WORK, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK);
+						ls.setProgressMonitor(lastSubMon);
+					} else {
+						monitor.subTask(file.getURI());
+					}
+				}
+				return file;
+			}
+		};
+		
+	}
+	
 	public void close() {
 		if(Thread.currentThread().toString().toLowerCase().indexOf("finalizer") != -1){
 			System.err.println("Opener of Archive didn't close! "+this);

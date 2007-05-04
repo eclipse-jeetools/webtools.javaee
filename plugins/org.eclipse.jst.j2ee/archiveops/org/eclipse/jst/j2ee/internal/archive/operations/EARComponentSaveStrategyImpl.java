@@ -38,7 +38,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
-public class EARComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl {
+public class EARComponentSaveStrategyImpl extends ComponentSaveStrategyImpl {
 
 	protected Map createdComponentsMap;
 
