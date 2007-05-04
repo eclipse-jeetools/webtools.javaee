@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.jee.archive;
 
-public interface IArchiveSaveStrategy extends IArchiveStrategy {
+public interface IArchiveSaveAdapter extends IArchiveAdapter {
 
 	/**
 	 * Close and release any resources being held by this object

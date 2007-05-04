@@ -16,7 +16,7 @@ import java.io.InputStream;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.jee.archive.IArchive;
-import org.eclipse.jst.jee.archive.IArchiveLoadStrategy;
+import org.eclipse.jst.jee.archive.IArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 
 public class ArchiveResourceImpl implements IArchiveResource {
@@ -72,8 +72,8 @@ public class ArchiveResourceImpl implements IArchiveResource {
 	}
 
 	public InputStream getInputStream() throws FileNotFoundException, IOException {
-		IArchiveLoadStrategy loadStrategy = getArchive().getLoadStrategy();
-		return loadStrategy.getInputStream(this);
+		IArchiveLoadAdapter loadAdapter = getArchive().getLoadAdapter();
+		return loadAdapter.getInputStream(this);
 	}
 
 }

@@ -51,6 +51,6 @@ public interface IArchive extends IArchiveResource {
 
 	public ArchiveOptions getArchiveOptions();
 
-	public IArchiveLoadStrategy getLoadStrategy();
+	public IArchiveLoadAdapter getLoadAdapter();
 
 }

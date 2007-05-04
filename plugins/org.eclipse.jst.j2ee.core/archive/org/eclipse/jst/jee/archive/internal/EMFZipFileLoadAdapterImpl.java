@@ -18,15 +18,15 @@ import org.eclipse.jst.jee.archive.IArchive;
 
 
 
-public class EMFZipFileLoadStrategyImpl extends ZipFileLoadStrategyImpl {
+public class EMFZipFileLoadAdapterImpl extends ZipFileArchiveLoadAdapterImpl {
 
-	private EMFLoadStrategyHelper emfHelper = new EMFLoadStrategyHelper();
+	private EMFArchiveAdapterHelper emfHelper = new EMFArchiveAdapterHelper();
 
-	public EMFZipFileLoadStrategyImpl() {
+	public EMFZipFileLoadAdapterImpl() {
 		super();
 	}
 
-	public EMFZipFileLoadStrategyImpl(ZipFile zipFile) {
+	public EMFZipFileLoadAdapterImpl(ZipFile zipFile) {
 		super(zipFile);
 	}
 

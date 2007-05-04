@@ -19,20 +19,20 @@ import java.util.zip.ZipOutputStream;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jst.jee.archive.AbstractSaveStrategy;
+import org.eclipse.jst.jee.archive.AbstractSaveAdapter;
 import org.eclipse.jst.jee.archive.ArchiveSaveFailureException;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveResource;
-import org.eclipse.jst.jee.archive.IArchiveSaveStrategy;
+import org.eclipse.jst.jee.archive.IArchiveSaveAdapter;
 
 
 
 /**
- * This is a concrete implentation of SaveStrategy. All the contents of the archive, including xmi
+ * This is a concrete implentation of IArchiveSaveAdapter. All the contents of the archive, including xmi
  * resources, will be output to a ZipOutputStream. The output stream should be passed in by the
  * client.
  */
-public class ZipStreamSaveStrategyImpl extends AbstractSaveStrategy implements IArchiveSaveStrategy {
+public class ZipStreamArchiveSaveAdapterImpl extends AbstractSaveAdapter implements IArchiveSaveAdapter {
 	protected OutputStream destinationStream;
 	/** Used internally */
 	protected ZipOutputStream zipOutputStream;
@@ -40,7 +40,7 @@ public class ZipStreamSaveStrategyImpl extends AbstractSaveStrategy implements I
 	/**
 	 * Wraps a new zip output stream around the parameter
 	 */
-	public ZipStreamSaveStrategyImpl(OutputStream out) {
+	public ZipStreamArchiveSaveAdapterImpl(OutputStream out) {
 		setDestinationStream(out);
 		setZipOutputStream(new ZipOutputStream(out));
 	}
@@ -49,8 +49,8 @@ public class ZipStreamSaveStrategyImpl extends AbstractSaveStrategy implements I
 		getDestinationStream().close();
 	}
 
-	protected IArchiveSaveStrategy createNestedSaveStrategy(IArchive anArchive) {
-		return new ZipStreamSaveStrategyImpl(getZipOutputStream());
+	protected IArchiveSaveAdapter createNestedSaveAdapter(IArchive anArchive) {
+		return new ZipStreamArchiveSaveAdapterImpl(getZipOutputStream());
 	}
 
 	public void finish() throws IOException {
@@ -68,9 +68,6 @@ public class ZipStreamSaveStrategyImpl extends AbstractSaveStrategy implements I
 		return destinationStream;
 	}
 
-	/**
-	 * @see com.ibm.etools.archive.impl.SaveStrategyImpl
-	 */
 	protected java.io.OutputStream getOutputStreamForResource(Resource aResource) throws java.io.IOException {
 		return getZipOutputStream();
 	}

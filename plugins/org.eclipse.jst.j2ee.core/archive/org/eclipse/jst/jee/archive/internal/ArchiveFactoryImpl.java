@@ -21,7 +21,7 @@ import org.eclipse.jst.jee.archive.ArchiveSaveFailureException;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveFactory;
 import org.eclipse.jst.jee.archive.IArchiveHandler;
-import org.eclipse.jst.jee.archive.IArchiveSaveStrategy;
+import org.eclipse.jst.jee.archive.IArchiveSaveAdapter;
 
 
 public class ArchiveFactoryImpl implements IArchiveFactory {
@@ -38,9 +38,9 @@ public class ArchiveFactoryImpl implements IArchiveFactory {
 			ArchiveOpenFailureException openFailureException = new ArchiveOpenFailureException(e);
 			throw openFailureException;
 		}
-		ZipFileLoadStrategyImpl loadStrategy = new ZipFileLoadStrategyImpl(zipFile);
+		ZipFileArchiveLoadAdapterImpl loadAdapter = new ZipFileArchiveLoadAdapterImpl(zipFile);
 		ArchiveOptions archiveOptions = new ArchiveOptions();
-		archiveOptions.setOption(ArchiveOptions.LOAD_STRATEGY, loadStrategy);
+		archiveOptions.setOption(ArchiveOptions.LOAD_ADAPTER, loadAdapter);
 		return openArchive(archiveOptions);
 	}
 
@@ -70,15 +70,15 @@ public class ArchiveFactoryImpl implements IArchiveFactory {
 		java.io.File aFile = new java.io.File(aUri);
 		ArchiveUtil.checkWriteable(aFile);
 		boolean fileExisted = aFile.exists();
-		IArchiveSaveStrategy aSaveStrategy = null;
+		IArchiveSaveAdapter aSaveAdapter = null;
 		try {
 			try {
 				java.io.File destinationFile = fileExisted ? ArchiveUtil.createTempFile(aUri, aFile.getCanonicalFile().getParentFile()) : aFile;
-				aSaveStrategy = createSaveStrategyForJar(destinationFile);
-				aSaveStrategy.setArchive(archive);
-				save(aSaveStrategy);
+				aSaveAdapter = createSaveAdapterForJar(destinationFile);
+				aSaveAdapter.setArchive(archive);
+				save(aSaveAdapter);
 
-				aSaveStrategy.close();
+				aSaveAdapter.close();
 				closeArchive(archive);
 				if (fileExisted) {
 					ArchiveUtil.cleanupAfterTempSave(aUri, aFile, destinationFile);
@@ -90,8 +90,8 @@ public class ArchiveFactoryImpl implements IArchiveFactory {
 			}
 		} catch (ArchiveSaveFailureException failure) {
 			try {
-				if (aSaveStrategy != null)
-					aSaveStrategy.close();
+				if (aSaveAdapter != null)
+					aSaveAdapter.close();
 			} catch (IOException weTried) {
 				// Ignore
 			}
@@ -101,7 +101,7 @@ public class ArchiveFactoryImpl implements IArchiveFactory {
 		}
 	}
 
-	protected IArchiveSaveStrategy createSaveStrategyForJar(java.io.File aFile) throws java.io.IOException {
+	protected IArchiveSaveAdapter createSaveAdapterForJar(java.io.File aFile) throws java.io.IOException {
 		if (aFile.exists() && aFile.isDirectory()) {
 			// TODO throw new
 			// IOException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.file_exist_as_dir_EXC_,
@@ -112,15 +112,15 @@ public class ArchiveFactoryImpl implements IArchiveFactory {
 		if (parent != null)
 			parent.mkdirs();
 		java.io.OutputStream out = new java.io.FileOutputStream(aFile);
-		return new ZipStreamSaveStrategyImpl(out);
+		return new ZipStreamArchiveSaveAdapterImpl(out);
 	}
 
-	public void save(IArchiveSaveStrategy aStrategy) throws ArchiveSaveFailureException {
+	public void save(IArchiveSaveAdapter anAdapter) throws ArchiveSaveFailureException {
 		try {
-			aStrategy.save();
+			anAdapter.save();
 		} finally {
 			try {
-				aStrategy.close();
+				anAdapter.close();
 			} catch (IOException e) {
 				throw new ArchiveSaveFailureException(e);
 			}

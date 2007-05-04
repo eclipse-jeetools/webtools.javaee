@@ -35,8 +35,13 @@ import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegi
 
 
 
-public class EMFLoadStrategyHelper {
+public class EMFArchiveAdapterHelper {
 
+	public static final int USE_DOM_RENDERER = 0;
+	public static final int USE_SSE_RENDERER = 1;
+	
+	
+	
 	// TODO may not need this
 	private class EMFAddapter extends AdapterImpl {
 	};
@@ -47,10 +52,10 @@ public class EMFLoadStrategyHelper {
 
 	private IArchive archive = null;
 
-	public EMFLoadStrategyHelper() {
+	public EMFArchiveAdapterHelper() {
 	}
 
-	public EMFLoadStrategyHelper(IArchive anArchive) {
+	public EMFArchiveAdapterHelper(IArchive anArchive) {
 		setArchive(archive);
 	}
 
@@ -180,7 +185,7 @@ public class EMFLoadStrategyHelper {
 					archiveResource = getArchive().getArchiveResource(new Path(uri.toString()));
 					ioStream = archiveResource.getInputStream();
 
-					IContentDescription description = EMFLoadStrategyHelper.getContentDescription(ioStream);
+					IContentDescription description = EMFArchiveAdapterHelper.getContentDescription(ioStream);
 					return description;
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block

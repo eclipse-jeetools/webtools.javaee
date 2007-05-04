@@ -19,22 +19,22 @@ import org.eclipse.core.runtime.IPath;
 
 /**
  * This interface is not intended to be subclassed by clients. Clients may
- * subclass {@link AbstractLoadStrategy}.
+ * subclass {@link AbstractLoadAdapter}.
  * 
- * LoadStrategy knows how to load or read the contents of a container. This
+ * IArchiveLoadAdapter knows how to load or read the contents of a container. This
  * provides a delegation model for reading in the contents of an archive file.
  * 
- * By extending{@link AbstractLoadStrategy} and using {@link ArchiveOptions}
+ * By extending{@link AbstractLoadAdapter} and using {@link ArchiveOptions}
  * clients may "plug in" to an instance of an archive. Examples might include
  * reading from a zip file, from an input stream, from the local file system, or
  * from a workbench.
  */
-public interface IArchiveLoadStrategy extends IArchiveStrategy {
+public interface IArchiveLoadAdapter extends IArchiveAdapter {
 
 	public void close();
 
 	/**
-	 * Returns the specified file if this {@link IArchiveLoadStrategy} knows about it.
+	 * Returns the specified file if this {@link IArchiveLoadAdapter} knows about it.
 	 * Returns <code>null</code> if otherwise.
 	 * 
 	 * @param filePath

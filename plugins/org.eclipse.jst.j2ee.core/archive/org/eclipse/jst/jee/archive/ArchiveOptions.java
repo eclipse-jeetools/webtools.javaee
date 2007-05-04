@@ -17,9 +17,9 @@ public class ArchiveOptions {
 
 	// TODO add debug tracing support
 
-	public static final String LOAD_STRATEGY = "LOAD_STRATEGY"; //$NON-NLS-1$
+	public static final String LOAD_ADAPTER = "LOAD_ADAPTER"; //$NON-NLS-1$
 	
-	public static final String SAVE_STRATEGY = "SAVE_STRATEGY"; //$NON-NLS-1$
+	public static final String SAVE_ADAPTER = "SAVE_ADAPTER"; //$NON-NLS-1$
 
 	public static final String ARCHIVE_HANDLER = "ARCHIVE_HANDLER"; //$NON-NLS-1$
 

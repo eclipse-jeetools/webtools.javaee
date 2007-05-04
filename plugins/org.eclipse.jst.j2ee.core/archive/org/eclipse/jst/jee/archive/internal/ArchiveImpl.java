@@ -22,7 +22,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
 import org.eclipse.jst.jee.archive.IArchive;
-import org.eclipse.jst.jee.archive.IArchiveLoadStrategy;
+import org.eclipse.jst.jee.archive.IArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 
 
@@ -30,7 +30,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 
 	private ArchiveOptions archiveOptions;
 
-	private IArchiveLoadStrategy loadStrategy;
+	private IArchiveLoadAdapter loadAdapter;
 
 	private class ArchiveFileIndex {
 		private Map index = new HashMap();
@@ -108,8 +108,8 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 
 	public ArchiveImpl(ArchiveOptions archiveOptions) {
 		setArchiveOptions(archiveOptions);
-		loadStrategy = (IArchiveLoadStrategy) getArchiveOptions().getOption(ArchiveOptions.LOAD_STRATEGY);
-		loadStrategy.setArchive(this);
+		loadAdapter = (IArchiveLoadAdapter) getArchiveOptions().getOption(ArchiveOptions.LOAD_ADAPTER);
+		loadAdapter.setArchive(this);
 		openendBy = new FailedToCloseException();
 	}
 
@@ -119,7 +119,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 
 	public void close() {
 		openendBy = null;
-		loadStrategy.close();
+		loadAdapter.close();
 	}
 
 	public IArchiveResource getArchiveResource(IPath archiveRelativePath) throws FileNotFoundException {
@@ -127,7 +127,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 		if (archiveFileIndex.containsFile(archiveRelativePath)) {
 			aFile = archiveFileIndex.getFile(archiveRelativePath);
 		} else if (!archiveFileIndex.isFullyIndexed()) {
-			aFile = loadStrategy.getArchiveResource(archiveRelativePath);
+			aFile = loadAdapter.getArchiveResource(archiveRelativePath);
 			if (aFile == null) {
 				archiveFileIndex.noteEmptyFile(archiveRelativePath);
 			} else {
@@ -140,14 +140,14 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 	public List getArchiveResources() {
 		synchronized (this) {
 			if (!archiveFileIndex.isFullyIndexed()) {
-				archiveFileIndex.fullyIndex(loadStrategy.getArchiveResource());
+				archiveFileIndex.fullyIndex(loadAdapter.getArchiveResource());
 			}
 		}
 		return archiveFileIndex.getFullIndex();
 	}
 
-	public IArchiveLoadStrategy getLoadStrategy() {
-		return loadStrategy;
+	public IArchiveLoadAdapter getLoadAdapter() {
+		return loadAdapter;
 	}
 
 	protected void setArchiveOptions(ArchiveOptions archiveOptions) {
@@ -159,7 +159,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 	}
 
 	public String toString() {
-		return loadStrategy.toString();
+		return loadAdapter.toString();
 	}
 
 	protected void finalize() throws Throwable {
@@ -177,7 +177,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 	}
 
 	public boolean containsModelObject(IPath modelObjectPath) {
-		return getLoadStrategy().containsModelObject(modelObjectPath);
+		return getLoadAdapter().containsModelObject(modelObjectPath);
 	}
 
 	public Object getModelObject() throws ArchiveModelLoadException {
@@ -185,12 +185,12 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 	}
 
 	public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
-		return getLoadStrategy().getModelObject(modelObjectPath);
+		return getLoadAdapter().getModelObject(modelObjectPath);
 	}
 
 	public boolean containsArchiveResource(IPath archiveRelativePath) {
 		try {
-			return null != getLoadStrategy().getArchiveResource(archiveRelativePath);
+			return null != getLoadAdapter().getArchiveResource(archiveRelativePath);
 		} catch (FileNotFoundException e) {
 			// catch this exception
 		}
