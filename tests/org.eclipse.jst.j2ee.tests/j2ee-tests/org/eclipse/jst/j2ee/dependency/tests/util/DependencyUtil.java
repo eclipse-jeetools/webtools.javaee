@@ -223,12 +223,29 @@ public class DependencyUtil {
      * @throws CoreException
      */
     public static void verifyComponentMapping(final IProject project, final IPath projectPath, final boolean exists) throws CoreException {
+    	IPath runtimePath = Path.ROOT;
+    	if (J2EEProjectUtilities.isDynamicWebProject(project)) {
+    		// web projects map to WEB-INF/classes
+    		runtimePath = new Path(J2EEConstants.WEB_INF_CLASSES);
+    	}
+    	verifyComponentMapping(project, projectPath, runtimePath, exists);
+    	
+    }
+    
+    /**
+     * Verifies the existence (or absence) of the specified component path mapping.
+     * @param project
+     * @param projectPath
+     * @param runtimePath
+     * @param exists
+     * @throws CoreException
+     */
+    public static void verifyComponentMapping(final IProject project, final IPath projectPath, final IPath runtimePath, final boolean exists) throws CoreException {
     	final IVirtualComponent c = ComponentCore.createComponent(project);
     	c.create(0, null);
     	IVirtualFolder dest = c.getRootFolder();
-    	if (J2EEProjectUtilities.isDynamicWebProject(project)) {
-    		// web projects map to WEB-INF/classes
-    		dest = dest.getFolder(new Path(J2EEConstants.WEB_INF_CLASSES));
+    	if (!runtimePath.equals(Path.ROOT)) {
+    		dest = dest.getFolder(runtimePath);
     	}
     	IContainer[] mappedFolders = dest.getUnderlyingFolders();
     	boolean hasMapping = false;
