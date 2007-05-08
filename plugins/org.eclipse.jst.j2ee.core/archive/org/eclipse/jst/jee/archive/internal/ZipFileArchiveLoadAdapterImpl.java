@@ -47,6 +47,11 @@ public class ZipFileArchiveLoadAdapterImpl extends AbstractArchiveLoadAdapter {
 		}
 	}
 
+	public boolean containsArchiveResource(IPath resourcePath) {
+		ZipEntry entry = getZipFile().getEntry(resourcePath.toString());
+		return entry != null;
+	}
+	
 	public IArchiveResource getArchiveResource(IPath filePath) {
 		ZipEntry entry = getZipFile().getEntry(filePath.toString());
 		IArchiveResource aFile = null;
@@ -56,7 +61,7 @@ public class ZipFileArchiveLoadAdapterImpl extends AbstractArchiveLoadAdapter {
 		return aFile;
 	}
 
-	public java.util.List getArchiveResource() {
+	public java.util.List getArchiveResources() {
 		List list = new ArrayList();
 		Enumeration entries = getZipFile().entries();
 		while (entries.hasMoreElements()) {
@@ -115,5 +120,7 @@ public class ZipFileArchiveLoadAdapterImpl extends AbstractArchiveLoadAdapter {
 	public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
 		throw new ArchiveModelLoadException("Simple Zip Archives have no model objects."); //$NON-NLS-1$
 	}
+
+
 
 }

@@ -22,7 +22,7 @@ import org.eclipse.jst.jee.archive.ArchiveSaveFailureException;
 
 
 public class ArchiveUtil {
-
+	
 	protected static String tempDirectoryName;
 
 	protected static java.io.File tempDirectory;

@@ -13,6 +13,10 @@ package org.eclipse.jst.jee.archive;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Abstract implementation of {@link IArchiveSaveAdapter} intended for
+ * subclassing by clients. See {@link IArchiveSaveAdapter} for details.
+ */
 public abstract class AbstractArchiveSaveAdapter extends AbstractArchiveAdapter implements IArchiveSaveAdapter {
 
 	public void close() throws IOException {
@@ -40,8 +44,22 @@ public abstract class AbstractArchiveSaveAdapter extends AbstractArchiveAdapter 
 		}
 	}
 
+	/**
+	 * Subclasses should implement to perform the actual save on the specified
+	 * {@link IArchiveResource}.
+	 * 
+	 * @param file
+	 * @throws ArchiveSaveFailureException
+	 */
 	protected abstract void save(IArchiveResource file) throws ArchiveSaveFailureException;
 
+	/**
+	 * Subclassess should override to avoid saving the specified
+	 * {@link IArchiveResource}. e.g. to avoid saving source files.
+	 * 
+	 * @param file
+	 * @return
+	 */
 	protected boolean shouldSave(IArchiveResource file) {
 		return true;
 	}

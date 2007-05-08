@@ -11,12 +11,30 @@
 package org.eclipse.jst.jee.archive;
 
 /**
- * Represents a supertype for all the archive strategies.
+ * An {@link IArchiveAdapter} provides a bridge so any {@link Object} (or
+ * collection of {@link Object}s) may be represented as an {@link IArchive}.
+ * Each {@link IArchiveAdapter} should only be used by one {@link IArchive} at a
+ * time.
+ * 
+ * This interface is not intended to be implemented by or subclassed by clients.
+ * Clients should instead subclass {@link AbstractArchiveAdapter} or one if its
+ * subclasses.
  */
 public interface IArchiveAdapter {
 
+	/**
+	 * Returns the {@link IArchive} associated with this adapter. Every
+	 * {@link IArchiveAdapter} is associated with exactly one {@link IArchive}.
+	 * 
+	 * @return
+	 */
 	public IArchive getArchive();
 
+	/**
+	 * Sets the {@link IArchive} for this {@link IArchiveAdapter}.
+	 * 
+	 * @param archive
+	 */
 	public void setArchive(IArchive archive);
 
 }

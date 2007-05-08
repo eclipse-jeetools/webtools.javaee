@@ -13,13 +13,21 @@ package org.eclipse.jst.jee.archive;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.jee.archive.internal.ArchiveResourceImpl;
 
+/**
+ * Abstract implementation of {@link IArchiveLoadAdapter} intended for
+ * subclassing by clients. See {@link IArchiveLoadAdapter} for details.
+ */
 public abstract class AbstractArchiveLoadAdapter extends AbstractArchiveAdapter implements IArchiveLoadAdapter {
 
+	/**
+	 * Subclasses may wish to override.
+	 */
 	public void close() {
 	}
 
 	/**
-	 * Utility method for creating a directory
+	 * Utility method for creating an {@link IArchiveResource} representing a
+	 * directory entry for the passed {@link IPath}.
 	 * 
 	 * @param path
 	 * @return
@@ -34,7 +42,8 @@ public abstract class AbstractArchiveLoadAdapter extends AbstractArchiveAdapter 
 	}
 
 	/**
-	 * Utility method for creating a file
+	 * Utility method for creating an {@link IArchiveResource} representing a
+	 * file entry for the passed {@link IPath}.
 	 * 
 	 * @param path
 	 * @return
@@ -49,6 +58,4 @@ public abstract class AbstractArchiveLoadAdapter extends AbstractArchiveAdapter 
 		return aFile;
 	}
 
-
-	
 }

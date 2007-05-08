@@ -13,14 +13,31 @@ package org.eclipse.jst.jee.archive;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * {@link ArchiveOptions} is a means for passing data pertaining to opening and
+ * saving {@link IArchive}s. This class is simply a wapper around {@link Map}
+ * and a few well defined OptionKeys. Clients are welcome to define and set/get
+ * any options deemend necessary.
+ * 
+ * This class is not intended to be subclassed by clients.
+ */
 public class ArchiveOptions {
 
 	// TODO add debug tracing support
 
+	/**
+	 * An OptionKey used for specifing an {@link IArchiveLoadAdapter}.
+	 */
 	public static final String LOAD_ADAPTER = "LOAD_ADAPTER"; //$NON-NLS-1$
-	
+
+	/**
+	 * An OptionKey used for specifing an {@link IArchiveSaveAdapter}.
+	 */
 	public static final String SAVE_ADAPTER = "SAVE_ADAPTER"; //$NON-NLS-1$
 
+	/**
+	 * An OptionKey used for specifing an {@link IArchiveHandler};
+	 */
 	public static final String ARCHIVE_HANDLER = "ARCHIVE_HANDLER"; //$NON-NLS-1$
 
 	private Map optionsMap = new HashMap();

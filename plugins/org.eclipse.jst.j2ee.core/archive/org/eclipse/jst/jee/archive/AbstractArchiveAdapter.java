@@ -10,6 +10,12 @@
  *******************************************************************************/
 package org.eclipse.jst.jee.archive;
 
+/**
+ * Abstract implementation of {@link IArchiveAdapter} intended for subclassing
+ * by clients. See {@link IArchiveAdapter} for details. Clients will, however,
+ * most likely wish to subclss either {@link AbstractArchiveLoadAdapter} or
+ * {@link AbstractArchiveSaveAdapter} instead.
+ */
 public abstract class AbstractArchiveAdapter implements IArchiveAdapter {
 
 	protected IArchive archive = null;

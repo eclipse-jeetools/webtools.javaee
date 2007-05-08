@@ -25,7 +25,6 @@ import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 
-
 public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 
 	private ArchiveOptions archiveOptions;
@@ -140,7 +139,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 	public List getArchiveResources() {
 		synchronized (this) {
 			if (!archiveFileIndex.isFullyIndexed()) {
-				archiveFileIndex.fullyIndex(loadAdapter.getArchiveResource());
+				archiveFileIndex.fullyIndex(loadAdapter.getArchiveResources());
 			}
 		}
 		return archiveFileIndex.getFullIndex();
@@ -189,12 +188,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 	}
 
 	public boolean containsArchiveResource(IPath archiveRelativePath) {
-		try {
-			return null != getLoadAdapter().getArchiveResource(archiveRelativePath);
-		} catch (FileNotFoundException e) {
-			// catch this exception
-		}
-		return false;
+		return getLoadAdapter().containsArchiveResource(archiveRelativePath);
 	}
 
 }

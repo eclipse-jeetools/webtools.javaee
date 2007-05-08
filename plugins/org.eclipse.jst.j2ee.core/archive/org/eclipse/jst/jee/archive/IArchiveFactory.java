@@ -14,13 +14,16 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.jee.archive.internal.ArchiveFactoryImpl;
 
 /**
- * This interface is not intended to be implemented by clients
+ * {@link IArchiveFactory} is the where clients should open and save archives.
  * 
- * @author jasholl
- * 
+ * This interface is not intended to be implemented or subclassed by clients.
+ * Clients should access through {@link #INSTANCE}
  */
 public interface IArchiveFactory {
 
+	/**
+	 * A concrete implementation of {@link IArchiveFactory}.
+	 */
 	IArchiveFactory INSTANCE = new ArchiveFactoryImpl();
 
 	public IArchive openArchive(IPath archivePath) throws ArchiveOpenFailureException;
