@@ -13,7 +13,7 @@ package org.eclipse.jst.jee.archive;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class AbstractSaveAdapter extends AbstractArchiveAdapter implements IArchiveSaveAdapter {
+public abstract class AbstractArchiveSaveAdapter extends AbstractArchiveAdapter implements IArchiveSaveAdapter {
 
 	public void close() throws IOException {
 	}

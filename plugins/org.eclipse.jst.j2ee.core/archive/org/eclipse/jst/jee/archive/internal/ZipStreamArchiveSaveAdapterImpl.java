@@ -19,7 +19,7 @@ import java.util.zip.ZipOutputStream;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jst.jee.archive.AbstractSaveAdapter;
+import org.eclipse.jst.jee.archive.AbstractArchiveSaveAdapter;
 import org.eclipse.jst.jee.archive.ArchiveSaveFailureException;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveResource;
@@ -32,7 +32,7 @@ import org.eclipse.jst.jee.archive.IArchiveSaveAdapter;
  * resources, will be output to a ZipOutputStream. The output stream should be passed in by the
  * client.
  */
-public class ZipStreamArchiveSaveAdapterImpl extends AbstractSaveAdapter implements IArchiveSaveAdapter {
+public class ZipStreamArchiveSaveAdapterImpl extends AbstractArchiveSaveAdapter implements IArchiveSaveAdapter {
 	protected OutputStream destinationStream;
 	/** Used internally */
 	protected ZipOutputStream zipOutputStream;

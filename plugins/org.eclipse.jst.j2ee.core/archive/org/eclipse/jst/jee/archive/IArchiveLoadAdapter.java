@@ -19,12 +19,12 @@ import org.eclipse.core.runtime.IPath;
 
 /**
  * This interface is not intended to be subclassed by clients. Clients may
- * subclass {@link AbstractLoadAdapter}.
+ * subclass {@link AbstractArchiveLoadAdapter}.
  * 
  * IArchiveLoadAdapter knows how to load or read the contents of a container. This
  * provides a delegation model for reading in the contents of an archive file.
  * 
- * By extending{@link AbstractLoadAdapter} and using {@link ArchiveOptions}
+ * By extending{@link AbstractArchiveLoadAdapter} and using {@link ArchiveOptions}
  * clients may "plug in" to an instance of an archive. Examples might include
  * reading from a zip file, from an input stream, from the local file system, or
  * from a workbench.

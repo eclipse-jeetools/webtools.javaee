@@ -20,13 +20,13 @@ import java.util.zip.ZipFile;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.jee.archive.AbstractLoadAdapter;
+import org.eclipse.jst.jee.archive.AbstractArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 
 
 
-public class ZipFileArchiveLoadAdapterImpl extends AbstractLoadAdapter {
+public class ZipFileArchiveLoadAdapterImpl extends AbstractArchiveLoadAdapter {
 	protected ZipFile zipFile;
 
 	public ZipFileArchiveLoadAdapterImpl() {

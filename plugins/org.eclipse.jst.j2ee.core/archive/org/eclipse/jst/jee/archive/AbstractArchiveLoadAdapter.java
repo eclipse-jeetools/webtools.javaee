@@ -13,7 +13,7 @@ package org.eclipse.jst.jee.archive;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.jee.archive.internal.ArchiveResourceImpl;
 
-public abstract class AbstractLoadAdapter extends AbstractArchiveAdapter implements IArchiveLoadAdapter {
+public abstract class AbstractArchiveLoadAdapter extends AbstractArchiveAdapter implements IArchiveLoadAdapter {
 
 	public void close() {
 	}
