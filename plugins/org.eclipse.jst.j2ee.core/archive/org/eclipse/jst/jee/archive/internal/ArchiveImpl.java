@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
 import org.eclipse.jst.jee.archive.IArchive;
@@ -172,7 +171,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 	}
 
 	public boolean containsModelObject() {
-		return containsModelObject(new Path("/")); //$NON-NLS-1$
+		return containsModelObject(IArchive.EMPTY_MODEL_PATH);
 	}
 
 	public boolean containsModelObject(IPath modelObjectPath) {
@@ -180,7 +179,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 	}
 
 	public Object getModelObject() throws ArchiveModelLoadException {
-		return getModelObject(new Path("/")); //$NON-NLS-1$
+		return getModelObject(IArchive.EMPTY_MODEL_PATH);
 	}
 
 	public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
@@ -188,7 +187,13 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 	}
 
 	public boolean containsArchiveResource(IPath archiveRelativePath) {
-		return getLoadAdapter().containsArchiveResource(archiveRelativePath);
+		IArchiveResource aFile = null;
+		if (archiveFileIndex.containsFile(archiveRelativePath)) {
+			return true;
+		} else if (!archiveFileIndex.isFullyIndexed()) {
+			return loadAdapter.containsArchiveResource(archiveRelativePath);
+		}
+		return false;
 	}
 
 }

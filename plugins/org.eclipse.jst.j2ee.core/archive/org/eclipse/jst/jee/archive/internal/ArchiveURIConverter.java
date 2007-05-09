@@ -13,15 +13,14 @@ package org.eclipse.jst.jee.archive.internal;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.URIConverterImpl;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveResource;
-
-
 
 public class ArchiveURIConverter extends URIConverterImpl {
 
@@ -35,8 +34,31 @@ public class ArchiveURIConverter extends URIConverterImpl {
 		return archive;
 	}
 
+	protected Map uriToPathMap = new HashMap();
+
+	protected Map pathToURIMap = new HashMap();
+
+	public final URI getURI(IPath path) {
+		if (!pathToURIMap.containsKey(path)) {
+			URI uri = convertPathToURI(path);
+			uriToPathMap.put(uri, path);
+			pathToURIMap.put(path, uri);
+			return uri;
+		} else {
+			return (URI) pathToURIMap.get(path);
+		}
+	}
+
+	protected URI convertPathToURI(IPath path) {
+		return URI.createURI(path.toString());
+	}
+
+	public final IPath getPath(URI uri) {
+		return (IPath) uriToPathMap.get(uri);
+	}
+
 	public InputStream createInputStream(URI uri) throws IOException {
-		IPath path = new Path(uri.toString());
+		IPath path = getPath(uri);
 		try {
 			IArchiveResource archiveResource = getArchive().getArchiveResource(path);
 			return archiveResource.getInputStream();

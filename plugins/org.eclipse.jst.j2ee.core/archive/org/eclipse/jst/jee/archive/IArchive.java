@@ -13,6 +13,7 @@ package org.eclipse.jst.jee.archive;
 import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 
 /**
  * This interface is not intended to be implemented by clients.
@@ -21,6 +22,8 @@ import org.eclipse.core.runtime.IPath;
  */
 public interface IArchive extends IArchiveResource {
 
+	IPath EMPTY_MODEL_PATH = new Path("/");
+	
 	public boolean isOpen();
 
 	public boolean containsArchiveResource(IPath archiveRelativePath);

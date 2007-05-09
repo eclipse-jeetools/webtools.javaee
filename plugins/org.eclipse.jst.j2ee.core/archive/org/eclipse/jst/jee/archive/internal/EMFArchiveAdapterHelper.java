@@ -18,7 +18,6 @@ import java.util.Map;
 
 import org.eclipise.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.core.runtime.content.IContentDescription;
@@ -33,15 +32,12 @@ import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
 
-
-
 public class EMFArchiveAdapterHelper {
 
 	public static final int USE_DOM_RENDERER = 0;
+
 	public static final int USE_SSE_RENDERER = 1;
-	
-	
-	
+
 	// TODO may not need this
 	private class EMFAddapter extends AdapterImpl {
 	};
@@ -56,11 +52,11 @@ public class EMFArchiveAdapterHelper {
 	}
 
 	public EMFArchiveAdapterHelper(IArchive anArchive) {
-		setArchive(archive);
+		setArchive(anArchive);
 	}
 
-	public void setArchive(IArchive archive) {
-		this.archive = archive;
+	public void setArchive(IArchive anArchive) {
+		this.archive = anArchive;
 	}
 
 	public IArchive getArchive() {
@@ -68,11 +64,33 @@ public class EMFArchiveAdapterHelper {
 	}
 
 	public boolean containsModelObject(IPath modelObjectPath) {
-		return getArchive().containsArchiveResource(modelObjectPath) && null != getResourceSet().getResource(URI.createURI(modelObjectPath.toString()), false);
+		IArchive archive = getArchive();
+		if (archive.containsArchiveResource(modelObjectPath)) {
+			URI uri = getArchiveURIConverter().getURI(modelObjectPath);
+			//TODO figure out a way to figure this out without actually loading the resource
+			Resource resource = getResourceSet().getResource(uri, true); 
+			if (resource != null) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	protected ArchiveURIConverter archiveURIConverter;
+	
+	public void setArchiveURIConverter(ArchiveURIConverter archiveURIConverter){
+		this.archiveURIConverter = archiveURIConverter;
+	}
+	
+	public ArchiveURIConverter getArchiveURIConverter() {
+		if(archiveURIConverter == null){
+			archiveURIConverter = new ArchiveURIConverter(getArchive());
+		}
+		return archiveURIConverter;
 	}
 
 	public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
-		return getResourceSet().getResource(URI.createURI(modelObjectPath.toString()), true);
+		return getResourceSet().getResource(getArchiveURIConverter().getURI(modelObjectPath), true);
 	}
 
 	public ResourceSet getResourceSet() {
@@ -182,7 +200,8 @@ public class EMFArchiveAdapterHelper {
 				IArchiveResource archiveResource = null;
 				InputStream ioStream = null;
 				try {
-					archiveResource = getArchive().getArchiveResource(new Path(uri.toString()));
+					IPath path = getArchiveURIConverter().getPath(uri);
+					archiveResource = getArchive().getArchiveResource(path);
 					ioStream = archiveResource.getInputStream();
 
 					IContentDescription description = EMFArchiveAdapterHelper.getContentDescription(ioStream);
@@ -227,7 +246,7 @@ public class EMFArchiveAdapterHelper {
 		};
 		Resource.Factory.Registry reg = createResourceFactoryRegistry();
 		rs.setResourceFactoryRegistry(reg);
-		rs.setURIConverter(new ArchiveURIConverter(getArchive()));
+		rs.setURIConverter(getArchiveURIConverter());
 		setResourceSet(rs);
 	}
 
