@@ -50,5 +50,15 @@ public interface IArchiveResource {
 
 	public void setArchive(IArchive archive);
 
+	/**
+	 * Returns an input stream for this {@link IArchiveResource} if its type is
+	 * either a {@link #FILE_TYPE} or {@link #ARCHIVE_TYPE} as defined by
+	 * {@link #getType()}. <code>null</code> is returned if the type is
+	 * {@link #DIRECTORY_TYPE}.
+	 * 
+	 * @return
+	 * @throws java.io.FileNotFoundException
+	 * @throws java.io.IOException
+	 */
 	public InputStream getInputStream() throws java.io.FileNotFoundException, java.io.IOException;
 }

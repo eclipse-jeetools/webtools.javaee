@@ -22,7 +22,7 @@ import org.eclipse.core.runtime.Path;
  */
 public interface IArchive extends IArchiveResource {
 
-	IPath EMPTY_MODEL_PATH = new Path("/");
+	IPath EMPTY_MODEL_PATH = new Path("/"); //$NON-NLS-1$
 	
 	public boolean isOpen();
 
@@ -42,7 +42,7 @@ public interface IArchive extends IArchiveResource {
 	 * 
 	 * @return
 	 */
-	public List getArchiveResources();
+	public List <IArchiveResource> getArchiveResources();
 
 	public boolean containsModelObject();
 

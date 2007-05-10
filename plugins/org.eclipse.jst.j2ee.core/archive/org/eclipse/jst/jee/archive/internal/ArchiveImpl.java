@@ -31,9 +31,9 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 	private IArchiveLoadAdapter loadAdapter;
 
 	private class ArchiveFileIndex {
-		private Map index = new HashMap();
+		private Map <IPath, IArchiveResource> index = new HashMap <IPath, IArchiveResource> ();
 
-		private List fullIndex = null;
+		private List <IArchiveResource> fullIndex = null;
 
 		private boolean fullyIndexed = false;
 
@@ -45,7 +45,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 		}
 
 		public synchronized IArchiveResource getFile(IPath archiveRelativePath) {
-			IArchiveResource aFile = (IArchiveResource) index.get(archiveRelativePath);
+			IArchiveResource aFile = index.get(archiveRelativePath);
 			return aFile;
 		}
 
@@ -87,12 +87,12 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 			}
 		}
 
-		public synchronized List getFullIndex() {
+		public synchronized List <IArchiveResource> getFullIndex() {
 			if (!isFullyIndexed()) {
 				throw new RuntimeException("File list has not been fully indexed"); //$NON-NLS-1$
 			}
 			if (fullIndex == null) {
-				List list = new ArrayList();
+				List <IArchiveResource> list = new ArrayList <IArchiveResource> ();
 				list.addAll(index.values());
 				fullIndex = Collections.unmodifiableList(list);
 			}
@@ -135,7 +135,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 		return aFile;
 	}
 
-	public List getArchiveResources() {
+	public List <IArchiveResource> getArchiveResources() {
 		synchronized (this) {
 			if (!archiveFileIndex.isFullyIndexed()) {
 				archiveFileIndex.fullyIndex(loadAdapter.getArchiveResources());
@@ -187,7 +187,6 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 	}
 
 	public boolean containsArchiveResource(IPath archiveRelativePath) {
-		IArchiveResource aFile = null;
 		if (archiveFileIndex.containsFile(archiveRelativePath)) {
 			return true;
 		} else if (!archiveFileIndex.isFullyIndexed()) {

@@ -72,6 +72,9 @@ public class ArchiveResourceImpl implements IArchiveResource {
 	}
 
 	public InputStream getInputStream() throws FileNotFoundException, IOException {
+		if (getType() == IArchiveResource.DIRECTORY_TYPE) {
+			return null;
+		}
 		IArchiveLoadAdapter loadAdapter = getArchive().getLoadAdapter();
 		return loadAdapter.getInputStream(this);
 	}

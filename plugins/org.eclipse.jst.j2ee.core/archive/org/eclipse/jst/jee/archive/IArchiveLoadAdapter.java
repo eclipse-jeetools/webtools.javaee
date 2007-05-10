@@ -69,7 +69,7 @@ public interface IArchiveLoadAdapter extends IArchiveAdapter {
 	 * 
 	 * @return
 	 */
-	public List getArchiveResources();
+	public List <IArchiveResource> getArchiveResources();
 
 	/**
 	 * Returns an {@link InputStream} for the specified {@link IArchiveResource}.

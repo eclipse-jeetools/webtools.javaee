@@ -20,7 +20,6 @@ import org.eclipse.jst.jee.archive.ArchiveOptions;
 import org.eclipse.jst.jee.archive.ArchiveSaveFailureException;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveFactory;
-import org.eclipse.jst.jee.archive.IArchiveHandler;
 import org.eclipse.jst.jee.archive.IArchiveSaveAdapter;
 
 
@@ -48,15 +47,6 @@ public class ArchiveFactoryImpl implements IArchiveFactory {
 	// info in spec page 154
 	public IArchive openArchive(ArchiveOptions archiveOptions) throws ArchiveOpenFailureException {
 		IArchive archive = new ArchiveImpl(archiveOptions);
-		if (archiveOptions.hasOption(ArchiveOptions.ARCHIVE_HANDLER)) {
-			IArchiveHandler archiveHandler = (IArchiveHandler) archiveOptions.getOption(ArchiveOptions.ARCHIVE_HANDLER);
-			archive = archiveHandler.convertToSpecificArchive(archive);
-		} else {
-			IArchiveHandler archiveHandler = ArchiveHanderFactory.getInstance().getArchiveHandler(archive);
-			if (null != archiveHandler) {
-				archive = archiveHandler.convertToSpecificArchive(archive);
-			}
-		}
 		return archive;
 	}
 

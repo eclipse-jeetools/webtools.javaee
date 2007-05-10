@@ -27,10 +27,10 @@ public abstract class AbstractArchiveSaveAdapter extends AbstractArchiveAdapter 
 
 	public void save() throws ArchiveSaveFailureException {
 		try {
-			List files = getArchive().getArchiveResources();
+			List <IArchiveResource> files = getArchive().getArchiveResources();
 			IArchiveResource file = null;
 			for (int i = 0; i < files.size(); i++) {
-				file = (IArchiveResource) files.get(i);
+				file = files.get(i);
 				if (shouldSave(file)) {
 					save(file);
 				}

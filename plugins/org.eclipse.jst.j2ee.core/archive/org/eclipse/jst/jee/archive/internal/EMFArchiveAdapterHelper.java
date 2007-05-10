@@ -67,14 +67,20 @@ public class EMFArchiveAdapterHelper {
 		IArchive archive = getArchive();
 		if (archive.containsArchiveResource(modelObjectPath)) {
 			URI uri = getArchiveURIConverter().getURI(modelObjectPath);
-			//TODO figure out a way to figure this out without actually loading the resource
-			Resource resource = getResourceSet().getResource(uri, true); 
-			if (resource != null) {
-				return true;
-			}
+			return containsResource(uri);
 		}
 		return false;
 	}
+	
+	protected boolean containsResource(URI uri){
+		//TODO figure out a way to figure this out without actually loading the resource
+		Resource resource = getResourceSet().getResource(uri, true); 
+		if (resource != null) {
+			return true;
+		}
+		return false;
+	}
+	
 	
 	protected ArchiveURIConverter archiveURIConverter;
 	
@@ -90,7 +96,8 @@ public class EMFArchiveAdapterHelper {
 	}
 
 	public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
-		return getResourceSet().getResource(getArchiveURIConverter().getURI(modelObjectPath), true);
+		URI uri = getArchiveURIConverter().getURI(modelObjectPath);
+		return getResourceSet().getResource(uri, true);
 	}
 
 	public ResourceSet getResourceSet() {

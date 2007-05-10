@@ -35,11 +35,6 @@ public class ArchiveOptions {
 	 */
 	public static final String SAVE_ADAPTER = "SAVE_ADAPTER"; //$NON-NLS-1$
 
-	/**
-	 * An OptionKey used for specifing an {@link IArchiveHandler};
-	 */
-	public static final String ARCHIVE_HANDLER = "ARCHIVE_HANDLER"; //$NON-NLS-1$
-
 	private Map optionsMap = new HashMap();
 
 	public ArchiveOptions() {
@@ -53,6 +48,7 @@ public class ArchiveOptions {
 		return optionsMap.get(optionKey);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void setOption(Object optionKey, Object optionValue) {
 		optionsMap.put(optionKey, optionValue);
 	}

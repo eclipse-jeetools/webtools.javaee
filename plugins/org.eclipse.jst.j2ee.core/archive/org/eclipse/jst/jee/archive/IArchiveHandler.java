@@ -31,18 +31,4 @@ public interface IArchiveHandler {
 	 */
 	public boolean handlesArchive(IArchive archive);
 
-	/**
-	 * Returns a new {@link IArchive} from the passed {@link IArchive}. The
-	 * returned {@link IArchive} may the be cast to a more specific type as
-	 * defined by the specifie {@link IArchiveHandler} performing the
-	 * conversion. This method throws an {@link ArchiveOpenFailureException} if
-	 * this {@link IArchiveHandler} can not handle the passed IArchive as
-	 * specified by {@link #handlesArchive(IArchive)}.
-	 * 
-	 * @param archive
-	 * @return
-	 * @throws ArchiveOpenFailureException
-	 */
-	public IArchive convertToSpecificArchive(IArchive archive) throws ArchiveOpenFailureException;
-
 }
