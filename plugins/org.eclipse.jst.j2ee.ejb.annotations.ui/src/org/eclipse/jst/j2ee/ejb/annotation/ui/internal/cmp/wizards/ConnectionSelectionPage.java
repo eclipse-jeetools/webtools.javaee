@@ -248,7 +248,7 @@ public class ConnectionSelectionPage extends DataModelWizardPage implements Sele
 				// info.setPassword(pa);
 				// // try to connect
 				try {
-					this.getSelectedConnection().connect();
+					this.getSelectedConnection().connect(null);
 					reconnectButton.setEnabled(false);
 					connected = true;
 				} catch (Exception ex) {
