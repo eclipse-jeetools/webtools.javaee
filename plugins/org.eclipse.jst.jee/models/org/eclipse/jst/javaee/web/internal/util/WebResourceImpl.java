@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: WebResourceImpl.java,v 1.2 2007/04/13 03:10:36 cbridgha Exp $
+ * $Id: WebResourceImpl.java,v 1.3 2007/05/10 22:14:49 jsholl Exp $
  */
 package org.eclipse.jst.javaee.web.internal.util;
 
@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.eclipse.jst.javaee.core.JEEXMLLoadImpl;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.javaee.web.WebAppDeploymentDescriptor;
+import org.eclipse.wst.common.internal.emf.resource.IRootObjectResource;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,7 +23,7 @@ import org.eclipse.jst.javaee.web.WebAppDeploymentDescriptor;
  * @see org.eclipse.jst.javaee.web.internal.util.WebResourceFactoryImpl
  * @generated
  */
-public class WebResourceImpl extends XMLResourceImpl {
+public class WebResourceImpl extends XMLResourceImpl implements IRootObjectResource{
 	/**
 	 * Creates an instance of the resource.
 	 * <!-- begin-user-doc -->

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: EjbResourceImpl.java,v 1.3 2007/04/13 03:10:36 cbridgha Exp $
+ * $Id: EjbResourceImpl.java,v 1.4 2007/05/10 22:14:49 jsholl Exp $
  */
 package org.eclipse.jst.javaee.ejb.internal.util;
 
@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.eclipse.jst.javaee.core.JEEXMLLoadImpl;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.ejb.EJBJarDeploymentDescriptor;
+import org.eclipse.wst.common.internal.emf.resource.IRootObjectResource;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,7 +23,7 @@ import org.eclipse.jst.javaee.ejb.EJBJarDeploymentDescriptor;
  * @see org.eclipse.jst.javaee.ejb.internal.util.EjbResourceFactoryImpl
  * @generated
  */
-public class EjbResourceImpl extends XMLResourceImpl {
+public class EjbResourceImpl extends XMLResourceImpl implements IRootObjectResource {
 	/**
 	 * Creates an instance of the resource.
 	 * <!-- begin-user-doc -->

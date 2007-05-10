@@ -2,12 +2,11 @@
  * <copyright>
  * </copyright>
  *
- * $Id: JavaeeResourceImpl.java,v 1.1 2007/03/20 18:04:39 jsholl Exp $
+ * $Id: JavaeeResourceImpl.java,v 1.2 2007/05/10 22:14:49 jsholl Exp $
  */
 package org.eclipse.jst.javaee.core.internal.util;
 
 import org.eclipse.emf.common.util.URI;
-
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 
 /**
