@@ -21,10 +21,12 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.emf.ecore;bundle-version="[2.2.0,2.4.0)",
  org.eclipse.emf.ecore.xmi;bundle-version="[2.2.0,2.4.0)",
  org.eclipse.jst.j2ee.web;bundle-version="[1.1.0,1.2.0)",
- org.eclipse.jst.j2ee.core;bundle-version="[1.1.102,1.2.0)"
+ org.eclipse.jst.j2ee.core;bundle-version="[1.1.102,1.2.0)",
+ org.eclipse.wst.common.emf
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.jst.jee.model.internal,
  org.eclipse.jst.jee.web,
  org.eclipse.jst.jee.web.project.facet
 Bundle-Localization: plugin
 Bundle-Vendor: %Bundle-Vendor.0
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
