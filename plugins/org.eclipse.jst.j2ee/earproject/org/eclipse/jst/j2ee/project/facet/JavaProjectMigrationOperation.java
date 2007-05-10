@@ -57,6 +57,8 @@ public class JavaProjectMigrationOperation extends AbstractDataModelOperation im
 			udm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.0"); //$NON-NLS-1$
             udm.setProperty(IJ2EEModuleFacetInstallDataModelProperties.MODULE_URI,
                     model.getStringProperty(PROJECT_NAME) + ".jar"); //$NON-NLS-1$
+            // we do not want to add to ear by default
+            udm.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, false);
 		} catch (Exception e) {
 			Logger.getLogger().logError(e);
 		}

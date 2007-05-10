@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ModuleImpl.java,v 1.1 2007/03/20 18:04:42 jsholl Exp $
+ * $Id: ModuleImpl.java,v 1.2 2007/05/10 04:40:11 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.application.internal.impl;
 
@@ -186,6 +186,19 @@ public class ModuleImpl extends EObjectImpl implements Module {
 		connector = newConnector;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ApplicationPackage.MODULE__CONNECTOR, oldConnector, connector));
+	}
+	// Returns the uri of the given module type
+	public String getUri() {
+		if (eIsSet(ApplicationPackage.MODULE__EJB))
+			return getEjb();
+		else if (eIsSet(ApplicationPackage.MODULE__CONNECTOR))
+			return getConnector();
+		else if (eIsSet(ApplicationPackage.MODULE__JAVA))
+			return getJava();
+		else if (eIsSet(ApplicationPackage.MODULE__WEB))
+			return getWeb().getWebUri();
+		return null;
+		
 	}
 
 	/**

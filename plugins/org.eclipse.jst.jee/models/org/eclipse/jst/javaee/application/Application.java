@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: Application.java,v 1.1 2007/03/20 18:04:44 jsholl Exp $
+ * $Id: Application.java,v 1.2 2007/05/10 04:40:11 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.application;
 
@@ -239,5 +239,14 @@ public interface Application extends JavaEEObject {
 	 * @generated
 	 */
 	boolean isSetVersion();
+
+	/**
+	 * Gets the first module matching the specified uri
+	 * @param uri The uri of a module to find.
+	 * @return The first matching module or null if no module is found.
+	 */
+	public Module getFirstModule(String uri);
+
+	public Module getModule(String uri, String altDD);
 
 } // Application

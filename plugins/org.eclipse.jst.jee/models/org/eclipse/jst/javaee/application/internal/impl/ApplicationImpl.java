@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ApplicationImpl.java,v 1.1 2007/03/20 18:04:42 jsholl Exp $
+ * $Id: ApplicationImpl.java,v 1.2 2007/05/10 04:40:11 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.application.internal.impl;
 
@@ -11,27 +11,21 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.javaee.application.Module;
-
 import org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage;
-
 import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.DisplayName;
 import org.eclipse.jst.javaee.core.Icon;
 import org.eclipse.jst.javaee.core.SecurityRole;
+import org.eclipse.wst.common.internal.emf.utilities.StringUtil;
 
 /**
  * <!-- begin-user-doc -->
@@ -506,6 +500,31 @@ public class ApplicationImpl extends EObjectImpl implements Application {
 		if (versionESet) result.append(version); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(')');
 		return result.toString();
+	}
+
+	/**
+	 * Gets the first module matching the specified uri
+	 * @param uri The uri of a module to find.
+	 * @return The first matching module or null if no module is found.
+	 */
+	public Module getFirstModule(String uri){
+		if (uri == null) return null;
+		java.util.Iterator allModules = getModules().iterator();
+		while (allModules.hasNext()){
+			Module aModule = (Module)allModules.next();
+			if(uri.equals(aModule.getUri())) return aModule;
+		}
+		return null;
+	}
+
+	public Module getModule(String uri, String altDD) {
+		List allModules = getModules();
+		for (int i = 0; i < allModules.size(); i++) {
+			Module aModule = (Module) allModules.get(i);
+			if (StringUtil.stringsEqual(uri, aModule.getUri()) && StringUtil.stringsEqual(altDD, aModule.getAltDd()))
+				return aModule;
+		}
+		return null;
 	}
 
 } //ApplicationImpl

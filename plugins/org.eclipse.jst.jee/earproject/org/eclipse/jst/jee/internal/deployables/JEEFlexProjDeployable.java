@@ -28,20 +28,22 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
-import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.model.IEARModelProvider;
+import org.eclipse.jst.javaee.application.Application;
+import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.server.core.IApplicationClientModule;
 import org.eclipse.jst.server.core.IConnectorModule;
 import org.eclipse.jst.server.core.IEJBModule;
 import org.eclipse.jst.server.core.IEnterpriseApplication;
 import org.eclipse.jst.server.core.IJ2EEModule;
 import org.eclipse.jst.server.core.IWebModule;
-import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
@@ -124,14 +126,14 @@ public class JEEFlexProjDeployable extends ComponentDeployable implements IJ2EEM
 		return J2EEProjectUtilities.getOutputContainers(project);
 	}
 
-	protected boolean shouldIncludeUtilityComponent(IVirtualComponent virtualComp,IVirtualReference[] references, ArtifactEdit edit) {
+	protected boolean shouldIncludeUtilityComponent(IVirtualComponent virtualComp,IVirtualReference[] references, IEARModelProvider model) {
 		// If the component module is an EAR we know all archives are filtered out of virtual component members
 		// and we will return only those archives which are not binary J2EE modules in the EAR DD.  These J2EE modules will
 		// be returned by getChildModules()
 		if (J2EEProjectUtilities.isEARProject(component.getProject()))
-			return virtualComp != null && virtualComp.isBinary() && !isNestedJ2EEModule(virtualComp, references, (EARArtifactEdit)edit);
+			return virtualComp != null && virtualComp.isBinary() && !isNestedJ2EEModule(virtualComp, references, model);
 		else 
-			return super.shouldIncludeUtilityComponent(virtualComp, references, edit);
+			return super.shouldIncludeUtilityComponent(virtualComp, references, null);
 	}
 	
 	protected IModuleResource[] getBinaryModuleMembers() {
@@ -269,23 +271,17 @@ public class JEEFlexProjDeployable extends ComponentDeployable implements IJ2EEM
     public String getJNDIName(String ejbName) {
     	if (!J2EEProjectUtilities.isEJBProject(component.getProject()))
     		return null;
-//TODO  when new model does exist, use that
-//		EjbModuleExtensionHelper modHelper = null;
-//		EJBJar jar = null;
-//		ArtifactEdit ejbEdit = null;
-//		try {
-//			ejbEdit = ComponentUtilities.getArtifactEditForRead(component);
-//			if (ejbEdit != null) {
-//				jar = (EJBJar) ejbEdit.getContentModelRoot();
-//				modHelper = IEJBModelExtenderManager.INSTANCE.getEJBModuleExtension(null);
-//				return modHelper == null ? null : modHelper.getJNDIName(jar, jar.getEnterpriseBeanNamed(ejbName));
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			if (ejbEdit != null)
-//				ejbEdit.dispose();
+
+		EjbModuleExtensionHelper modHelper = null;
+		EJBJar jar = null;
+		
+//		IModelProvider model = ModelProviderManager.getModelProvider(component.getProject());
+//		if (model != null) {
+//			jar = (EJBJar) model.getModelObject();
+//			modHelper = IEJBModelExtenderManager.INSTANCE.getEJBModuleExtension(null);
+//			return modHelper == null ? null : modHelper.getJNDIName(jar, jar.getEnterpriseBeanNamed(ejbName));
 //		}
+		
 		return null;
 	}
 
@@ -379,17 +375,17 @@ public class JEEFlexProjDeployable extends ComponentDeployable implements IJ2EEM
     				break;
     			}
     		}
-//    		EARArtifactEdit earEdit = null;
-//			try {
-//				earEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
-//				if (earEdit != null)
-//					aURI = earEdit.getModuleURI(comp);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			} finally {
-//				if (earEdit != null)
-//					earEdit.dispose();
-//			}
+    		EARArtifactEdit earEdit = null;
+			try {
+				earEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
+				if (earEdit != null)
+					aURI = earEdit.getModuleURI(comp);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (earEdit != null)
+					earEdit.dispose();
+			}
     	}
     	if (aURI !=null && aURI.length()>1 && aURI.startsWith("/")) //$NON-NLS-1$
     		aURI = aURI.substring(1);
@@ -529,10 +525,10 @@ public class JEEFlexProjDeployable extends ComponentDeployable implements IJ2EEM
      * @param aComponent
      * @return boolean is passed in component a nested J2EE module on this EAR
      */
-    private boolean isNestedJ2EEModule(IVirtualComponent aComponent, IVirtualReference[] references, EARArtifactEdit edit) {
-    	if (edit==null) 
+    private boolean isNestedJ2EEModule(IVirtualComponent aComponent, IVirtualReference[] references, IEARModelProvider model) {
+    	if (model==null) 
 			return false;
-		Application app = edit.getApplication();
+		Application app = (Application)model.getModelObject();
 		IVirtualReference reference = getReferenceNamed(references,aComponent.getName());
 		// Ensure module URI exists on EAR DD for binary archive
 		return app.getFirstModule(reference.getArchiveName()) != null;
@@ -546,9 +542,6 @@ public class JEEFlexProjDeployable extends ComponentDeployable implements IJ2EEM
     	return null;
     }
     
-    protected ArtifactEdit getComponentArtifactEditForRead() {
-		return EARArtifactEdit.getEARArtifactEditForRead(component.getProject());
-	}
     
     /**
      * The references for J2EE module deployment are only those child modules of EARs or web modules

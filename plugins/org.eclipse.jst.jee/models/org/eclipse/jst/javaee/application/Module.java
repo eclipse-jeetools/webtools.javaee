@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: Module.java,v 1.1 2007/03/20 18:04:44 jsholl Exp $
+ * $Id: Module.java,v 1.2 2007/05/10 04:40:11 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.application;
 
@@ -217,5 +217,7 @@ public interface Module extends JavaEEObject {
 	 * @generated
 	 */
 	void setId(String value);
+
+	public String getUri();
 
 } // Module

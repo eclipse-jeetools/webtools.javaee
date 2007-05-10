@@ -38,13 +38,21 @@ private static final int DEFAULT_PRIORITY = 100;
 		return factory.create(project);
 	}
 
-	public static void registerProvider(IModelProviderFactory provider, IProjectFacetVersion v, String priority) {
-		
-		int newPriority = (priority != null) ? Integer.getInteger(priority).intValue() : DEFAULT_PRIORITY;
+	/**
+	 * Used to register an IModelProviderFactory against a facet version
+	 * @param providerFactory - {@link IModelProviderFactory}
+	 * @param v - {@link IProjectFacetVersion}
+	 * @param priority - {@link String}- Used to allow multiple instances, the highest priority is chosen
+	 */
+	public static void registerProvider(IModelProviderFactory providerFactory,
+			IProjectFacetVersion v, String priority) {
+
+		int newPriority = (priority != null) ? Integer.getInteger(priority)
+				.intValue() : DEFAULT_PRIORITY;
 		int currentPriority = getProviderPriority(v);
 		if (newPriority <= currentPriority) {
 			ModelProviderKey key = createProviderKey(v, newPriority);
-			providers.put(key, provider);
+			providers.put(key, providerFactory);
 		}
 	}
 
