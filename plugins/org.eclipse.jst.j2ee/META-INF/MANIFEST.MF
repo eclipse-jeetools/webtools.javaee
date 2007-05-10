@@ -20,6 +20,7 @@ Export-Package: org.eclipse.jst.j2ee.application.internal.operations;x-internal:
  org.eclipse.jst.j2ee.internal;x-internal:=true,
  org.eclipse.jst.j2ee.internal.application.common;x-internal:=true,
  org.eclipse.jst.j2ee.internal.application.provider;x-internal:=true,
+ org.eclipse.jst.j2ee.internal.archive,
  org.eclipse.jst.j2ee.internal.archive.operations;x-internal:=true,
  org.eclipse.jst.j2ee.internal.classpathdep;x-internal:=true,
  org.eclipse.jst.j2ee.internal.common;x-internal:=true,
