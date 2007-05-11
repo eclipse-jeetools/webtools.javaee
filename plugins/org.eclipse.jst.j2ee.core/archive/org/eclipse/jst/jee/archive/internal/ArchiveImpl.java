@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.jst.jee.archive.AbstractArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
 import org.eclipse.jst.jee.archive.IArchive;
@@ -31,9 +32,9 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 	private IArchiveLoadAdapter loadAdapter;
 
 	private class ArchiveFileIndex {
-		private Map <IPath, IArchiveResource> index = new HashMap <IPath, IArchiveResource> ();
+		private Map<IPath, IArchiveResource> index = new HashMap<IPath, IArchiveResource>();
 
-		private List <IArchiveResource> fullIndex = null;
+		private List<IArchiveResource> fullIndex = null;
 
 		private boolean fullyIndexed = false;
 
@@ -41,25 +42,25 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 		}
 
 		public synchronized boolean containsFile(IPath archiveRelativePath) {
+			AbstractArchiveLoadAdapter.verifyRelative(archiveRelativePath);
 			return index.containsKey(archiveRelativePath);
 		}
 
 		public synchronized IArchiveResource getFile(IPath archiveRelativePath) {
+			AbstractArchiveLoadAdapter.verifyRelative(archiveRelativePath);
 			IArchiveResource aFile = index.get(archiveRelativePath);
 			return aFile;
 		}
 
 		public synchronized void noteEmptyFile(IPath archiveRelativePath) {
-			if (isFullyIndexed()) {
-				throw new RuntimeException("Attempting to modify a fully indexed file list"); //$NON-NLS-1$
-			}
+			verifyNotFullyIndexed();
+			AbstractArchiveLoadAdapter.verifyRelative(archiveRelativePath);
 			index.put(archiveRelativePath, null);
 		}
 
 		public synchronized void addFile(IArchiveResource aFile) {
-			if (isFullyIndexed()) {
-				throw new RuntimeException("Attempting to modify a fully indexed file list"); //$NON-NLS-1$
-			}
+			verifyNotFullyIndexed();
+			AbstractArchiveLoadAdapter.verifyRelative(aFile.getPath());
 			index.put(aFile.getPath(), aFile);
 		}
 
@@ -70,15 +71,14 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 		public void fullyIndex(List files) {
 			synchronized (this) {
 				if (fullyIndexed) {
-					if (isFullyIndexed()) {
-						throw new RuntimeException("Attempting to modify a fully indexed file list"); //$NON-NLS-1$
-					}
+					verifyNotFullyIndexed();
 				}
 				fullyIndexed = true;
 			}
 
 			for (int i = 0; i < files.size(); i++) {
 				IArchiveResource aFile = (IArchiveResource) files.get(i);
+				AbstractArchiveLoadAdapter.verifyRelative(aFile.getPath());
 				synchronized (this) {
 					if (!index.containsKey(aFile.getPath())) {
 						index.put(aFile.getPath(), aFile);
@@ -87,16 +87,22 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 			}
 		}
 
-		public synchronized List <IArchiveResource> getFullIndex() {
+		public synchronized List<IArchiveResource> getFullIndex() {
 			if (!isFullyIndexed()) {
 				throw new RuntimeException("File list has not been fully indexed"); //$NON-NLS-1$
 			}
 			if (fullIndex == null) {
-				List <IArchiveResource> list = new ArrayList <IArchiveResource> ();
+				List<IArchiveResource> list = new ArrayList<IArchiveResource>();
 				list.addAll(index.values());
 				fullIndex = Collections.unmodifiableList(list);
 			}
 			return fullIndex;
+		}
+
+		private void verifyNotFullyIndexed() {
+			if (isFullyIndexed()) {
+				throw new RuntimeException("Attempting to modify a fully indexed file list"); //$NON-NLS-1$
+			}
 		}
 	};
 
@@ -121,6 +127,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 	}
 
 	public IArchiveResource getArchiveResource(IPath archiveRelativePath) throws FileNotFoundException {
+		AbstractArchiveLoadAdapter.verifyRelative(archiveRelativePath);
 		IArchiveResource aFile = null;
 		if (archiveFileIndex.containsFile(archiveRelativePath)) {
 			aFile = archiveFileIndex.getFile(archiveRelativePath);
@@ -135,7 +142,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 		return aFile;
 	}
 
-	public List <IArchiveResource> getArchiveResources() {
+	public List<IArchiveResource> getArchiveResources() {
 		synchronized (this) {
 			if (!archiveFileIndex.isFullyIndexed()) {
 				archiveFileIndex.fullyIndex(loadAdapter.getArchiveResources());
@@ -175,6 +182,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 	}
 
 	public boolean containsModelObject(IPath modelObjectPath) {
+		AbstractArchiveLoadAdapter.verifyRelative(modelObjectPath);
 		return getLoadAdapter().containsModelObject(modelObjectPath);
 	}
 
@@ -183,10 +191,12 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 	}
 
 	public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
+		AbstractArchiveLoadAdapter.verifyRelative(modelObjectPath);
 		return getLoadAdapter().getModelObject(modelObjectPath);
 	}
 
 	public boolean containsArchiveResource(IPath archiveRelativePath) {
+		AbstractArchiveLoadAdapter.verifyRelative(archiveRelativePath);
 		if (archiveFileIndex.containsFile(archiveRelativePath)) {
 			return true;
 		} else if (!archiveFileIndex.isFullyIndexed()) {

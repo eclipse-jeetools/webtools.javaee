@@ -23,13 +23,15 @@ import org.eclipse.core.runtime.Path;
 public interface IArchive extends IArchiveResource {
 
 	IPath EMPTY_MODEL_PATH = new Path("/"); //$NON-NLS-1$
-	
+
 	public boolean isOpen();
 
 	public boolean containsArchiveResource(IPath archiveRelativePath);
 
 	/**
-	 * Returns the {@link IArchiveResource} specified by the archive relative path.
+	 * Returns the {@link IArchiveResource} specified by the archive relative
+	 * path. Throws a {@link RuntimeException} if the specified path is not
+	 * relative.
 	 * 
 	 * @param archiveRelativePath
 	 * @return
@@ -42,7 +44,7 @@ public interface IArchive extends IArchiveResource {
 	 * 
 	 * @return
 	 */
-	public List <IArchiveResource> getArchiveResources();
+	public List<IArchiveResource> getArchiveResources();
 
 	public boolean containsModelObject();
 

@@ -32,10 +32,11 @@ public abstract class AbstractArchiveLoadAdapter extends AbstractArchiveAdapter 
 	 * @param path
 	 * @return
 	 */
-	protected IArchiveResource createDirectory(IPath path) {
+	protected IArchiveResource createDirectory(IPath archiveRelativePath) {
+		verifyRelative(archiveRelativePath);
 		IArchiveResource aFile = null;
 		aFile = new ArchiveResourceImpl();
-		aFile.setPath(path);
+		aFile.setPath(archiveRelativePath);
 		aFile.setType(IArchiveResource.DIRECTORY_TYPE);
 		aFile.setArchive(getArchive());
 		return aFile;
@@ -48,14 +49,21 @@ public abstract class AbstractArchiveLoadAdapter extends AbstractArchiveAdapter 
 	 * @param path
 	 * @return
 	 */
-	protected IArchiveResource createFile(IPath path) {
+	protected IArchiveResource createFile(IPath archiveRelativePath) {
+		verifyRelative(archiveRelativePath);
 		// TODO possibly handle the nested archive case here
 		IArchiveResource aFile = null;
 		aFile = new ArchiveResourceImpl();
-		aFile.setPath(path);
+		aFile.setPath(archiveRelativePath);
 		aFile.setType(IArchiveResource.FILE_TYPE);
 		aFile.setArchive(getArchive());
 		return aFile;
+	}
+
+	public static void verifyRelative(IPath archiveRelativePath) {
+		if (archiveRelativePath.isAbsolute() && !archiveRelativePath.equals(IArchive.EMPTY_MODEL_PATH)) {
+			throw new RuntimeException(archiveRelativePath + " must be relative."); //$NON-NLS-1$
+		}
 	}
 
 }

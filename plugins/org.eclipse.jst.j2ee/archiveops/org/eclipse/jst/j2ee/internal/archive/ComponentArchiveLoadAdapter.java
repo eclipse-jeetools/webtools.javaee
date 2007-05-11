@@ -66,10 +66,6 @@ import org.eclipse.wst.common.internal.emf.resource.IRootObjectResource;
 
 public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAdapter {
 
-	protected static final String DOT_CLASS = ".class"; //$NON-NLS-1$
-
-	protected static final String DOT_JAVA = ".java"; //$NON-NLS-1$
-
 	protected static final String DOT_SQLJ = ".sqlj"; //$NON-NLS-1$
 
 	protected static final String DOT_JSP = ".jsp"; //$NON-NLS-1$
@@ -84,7 +80,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 
 	protected IVirtualComponent vComponent;
 
-	protected boolean exportSource;
+	protected boolean exportSource = true;
 
 	private List zipFiles = new ArrayList();
 
@@ -405,7 +401,6 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 	protected boolean aggregateFiles(IVirtualResource[] virtualResources) throws CoreException {
 		boolean fileAdded = false;
 		for (int i = 0; i < virtualResources.length; i++) {
-			IArchiveResource cFile = null;
 			if (!virtualResources[i].exists()) {
 				continue;
 			}
@@ -415,10 +410,12 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 			IPath runtimePath = virtualResources[i].getRuntimePath();
 			if (runtimePath == null)
 				continue;
-			runtimePath = runtimePath.setDevice(null);
+			runtimePath = runtimePath.setDevice(null).makeRelative();
 			if (filesHolder.contains(runtimePath))
 				continue;
 
+			IArchiveResource cFile = null;
+			
 			if (virtualResources[i].getType() == IVirtualResource.FILE) {
 				if (!shouldInclude(runtimePath))
 					continue;
@@ -536,7 +533,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 	protected boolean isSource(IPath path) {
 		if (path == null)
 			return false;
-		return path.lastSegment().endsWith(DOT_JAVA) || path.lastSegment().endsWith(DOT_SQLJ);
+		return path.lastSegment().endsWith(JavaEEArchiveUtilities.DOT_JAVA) || path.lastSegment().endsWith(DOT_SQLJ);
 	}
 
 	protected void addExternalFile(IPath path, java.io.File externalDiskFile) {
