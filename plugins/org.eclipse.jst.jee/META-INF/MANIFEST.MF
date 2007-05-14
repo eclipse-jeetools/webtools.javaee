@@ -23,7 +23,7 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.emf.ecore;bundle-version="[2.2.0,2.4.0)",
  org.eclipse.jst.server.core;bundle-version="[1.0.0,1.1.0)",
  org.eclipse.emf.ecore.xmi;bundle-version="[2.2.0,2.4.0)",
- org.eclipse.wst.common.emf
+ org.eclipse.wst.common.emf;bundle-version="[1.1.103,2.0.0)"
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.jst.javaee.application,
  org.eclipse.jst.javaee.application.internal.impl,
