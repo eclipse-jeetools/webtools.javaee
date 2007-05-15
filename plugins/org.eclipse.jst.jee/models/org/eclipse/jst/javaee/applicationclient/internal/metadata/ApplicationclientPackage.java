@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ApplicationclientPackage.java,v 1.3 2007/04/26 17:12:28 jsholl Exp $
+ * $Id: ApplicationclientPackage.java,v 1.4 2007/05/15 23:17:39 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.applicationclient.internal.metadata;
 
@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory;
 
 /**
  * <!-- begin-user-doc -->
@@ -287,7 +288,7 @@ import org.eclipse.emf.ecore.EReference;
  *    http://www.w3.org/2005/08/xml.xsd will not change.
  *   
  * <!-- end-model-doc -->
- * @see org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientFactory
+ * @see org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory
  * @generated
  */
 public interface ApplicationclientPackage extends EPackage {

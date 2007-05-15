@@ -13,6 +13,8 @@ package org.eclipse.jst.j2ee.applicationclient.componentcore.util;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -108,6 +110,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 */
 
 	public Resource getDeploymentDescriptorResource() {
+		verifyOperationSupported();
 		if(isBinary()){
 			return getBinaryComponentHelper().getResource(J2EEConstants.APP_CLIENT_DD_URI_OBJ);
 		} 
@@ -125,6 +128,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 *  
 	 */
 	public EObject getDeploymentDescriptorRoot() {
+		verifyOperationSupported();
 		List contents = getDeploymentDescriptorResource().getContents();
 		if (contents.size() > 0)
 			return (EObject) contents.get(0);
@@ -142,6 +146,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 */
 
 	public ApplicationClientResource getApplicationClientXmiResource() {
+		verifyOperationSupported();
 		return (ApplicationClientResource) getDeploymentDescriptorResource();
 	}
 	
@@ -196,6 +201,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 *  
 	 */
 	public ApplicationClient getApplicationClient() {
+		verifyOperationSupported();
 		return (ApplicationClient) getDeploymentDescriptorRoot();
 	}
 	
@@ -209,6 +215,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 */
 
 	public int getJ2EEVersion() {
+		verifyOperationSupported();
 		return getApplicationClientXmiResource().getJ2EEVersionID();
 	}
 	
@@ -401,5 +408,19 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 
 	public IModelProvider create(IVirtualComponent component) {
 		return (IModelProvider)getAppClientArtifactEditForRead(component);
+	}
+	public void modify(Runnable runnable, IPath modelPath) {
+		setWritableEdit(getAppClientArtifactEditForWrite(getProject()));
+		try{
+			runnable.run();
+			if( getWritableEdit() != null ){
+				// Always save regardless of resource path passed - Artifactedits save resources as a unit
+				getWritableEdit().saveIfNecessary( new NullProgressMonitor() );
+			}
+			
+		} finally { //Properly dispose the write artifact edit
+			getWritableEdit().dispose();
+			setWritableEdit(null);
+		}
 	}
 }

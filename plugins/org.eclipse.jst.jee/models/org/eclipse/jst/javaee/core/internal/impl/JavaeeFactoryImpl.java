@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: JavaeeFactoryImpl.java,v 1.1 2007/03/20 18:04:35 jsholl Exp $
+ * $Id: JavaeeFactoryImpl.java,v 1.2 2007/05/15 23:17:36 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.core.internal.impl;
 
@@ -27,7 +27,6 @@ import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 
 import org.eclipse.jst.javaee.core.*;
 
-import org.eclipse.jst.javaee.core.internal.metadata.JavaeeFactory;
 import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
 
 /**

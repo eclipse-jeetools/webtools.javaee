@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: JspPackageImpl.java,v 1.1 2007/03/20 18:04:43 jsholl Exp $
+ * $Id: JspPackageImpl.java,v 1.2 2007/05/15 23:17:38 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.jsp.internal.impl;
 
@@ -35,10 +35,10 @@ import org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl;
 import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
 
 import org.eclipse.jst.javaee.jsp.JspConfig;
+import org.eclipse.jst.javaee.jsp.JspFactory;
 import org.eclipse.jst.javaee.jsp.JspPropertyGroup;
 import org.eclipse.jst.javaee.jsp.TagLib;
 
-import org.eclipse.jst.javaee.jsp.internal.metadata.JspFactory;
 import org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage;
 
 import org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl;

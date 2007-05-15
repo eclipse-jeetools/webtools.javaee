@@ -13,6 +13,8 @@ package org.eclipse.jst.j2ee.jca.modulecore.util;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -407,5 +409,19 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 
 	public IModelProvider create(IVirtualComponent component) {
 		return (IModelProvider)getConnectorArtifactEditForRead(component);
+	}
+	public void modify(Runnable runnable, IPath modelPath) {
+		setWritableEdit(getConnectorArtifactEditForWrite(getProject()));
+		try{
+			runnable.run();
+			if( getWritableEdit() != null ){
+				// Always save regardless of resource path passed - Artifactedits save resources as a unit
+				getWritableEdit().saveIfNecessary( new NullProgressMonitor() );
+			}
+			
+		} finally { //Properly dispose the write artifact edit
+			getWritableEdit().dispose();
+			setWritableEdit(null);
+		}
 	}
 }

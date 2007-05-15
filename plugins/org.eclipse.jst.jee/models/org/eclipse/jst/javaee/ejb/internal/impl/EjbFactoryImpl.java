@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: EjbFactoryImpl.java,v 1.2 2007/03/26 21:04:13 jsholl Exp $
+ * $Id: EjbFactoryImpl.java,v 1.3 2007/05/15 23:17:37 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.ejb.internal.impl;
 
@@ -18,12 +18,11 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.xml.type.XMLTypeFactory;
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 
-import org.eclipse.jst.javaee.core.internal.metadata.JavaeeFactory;
+import org.eclipse.jst.javaee.core.JavaeeFactory;
 import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
 
 import org.eclipse.jst.javaee.ejb.*;
 
-import org.eclipse.jst.javaee.ejb.internal.metadata.EjbFactory;
 import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
 
 /**

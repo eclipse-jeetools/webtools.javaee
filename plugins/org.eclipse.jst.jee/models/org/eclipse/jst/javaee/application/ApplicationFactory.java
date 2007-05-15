@@ -2,16 +2,13 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ApplicationFactory.java,v 1.1 2007/03/20 18:04:47 jsholl Exp $
+ * $Id: ApplicationFactory.java,v 1.1 2007/05/15 23:17:41 cbridgha Exp $
  */
-package org.eclipse.jst.javaee.application.internal.metadata;
+package org.eclipse.jst.javaee.application;
 
 import org.eclipse.emf.ecore.EFactory;
 
-import org.eclipse.jst.javaee.application.Application;
-import org.eclipse.jst.javaee.application.ApplicationDeploymentDescriptor;
-import org.eclipse.jst.javaee.application.Module;
-import org.eclipse.jst.javaee.application.Web;
+import org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage;
 
 /**
  * <!-- begin-user-doc -->

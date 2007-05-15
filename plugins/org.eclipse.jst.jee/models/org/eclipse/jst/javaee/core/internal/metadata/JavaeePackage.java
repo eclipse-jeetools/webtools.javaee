@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: JavaeePackage.java,v 1.2 2007/03/26 21:04:16 jsholl Exp $
+ * $Id: JavaeePackage.java,v 1.3 2007/05/15 23:17:37 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.core.internal.metadata;
 
@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.jst.javaee.core.JavaeeFactory;
 
 /**
  * <!-- begin-user-doc -->
@@ -206,7 +207,7 @@ import org.eclipse.emf.ecore.EReference;
  *    http://www.w3.org/2005/08/xml.xsd will not change.
  *   
  * <!-- end-model-doc -->
- * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeeFactory
+ * @see org.eclipse.jst.javaee.core.JavaeeFactory
  * @generated
  */
 public interface JavaeePackage extends EPackage {

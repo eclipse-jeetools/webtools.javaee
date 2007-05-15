@@ -2,14 +2,13 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ApplicationclientFactory.java,v 1.1 2007/03/20 18:04:45 jsholl Exp $
+ * $Id: ApplicationclientFactory.java,v 1.1 2007/05/15 23:17:38 cbridgha Exp $
  */
-package org.eclipse.jst.javaee.applicationclient.internal.metadata;
+package org.eclipse.jst.javaee.applicationclient;
 
 import org.eclipse.emf.ecore.EFactory;
 
-import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
-import org.eclipse.jst.javaee.applicationclient.ApplicationClientDeploymentDescriptor;
+import org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage;
 
 /**
  * <!-- begin-user-doc -->

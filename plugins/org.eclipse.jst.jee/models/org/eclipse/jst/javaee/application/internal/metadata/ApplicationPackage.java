@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ApplicationPackage.java,v 1.3 2007/04/26 17:11:46 jsholl Exp $
+ * $Id: ApplicationPackage.java,v 1.4 2007/05/15 23:17:38 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.application.internal.metadata;
 
@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.jst.javaee.application.ApplicationFactory;
 
 /**
  * <!-- begin-user-doc -->
@@ -286,7 +287,7 @@ import org.eclipse.emf.ecore.EReference;
  *    http://www.w3.org/2005/08/xml.xsd will not change.
  *   
  * <!-- end-model-doc -->
- * @see org.eclipse.jst.javaee.application.internal.metadata.ApplicationFactory
+ * @see org.eclipse.jst.javaee.application.ApplicationFactory
  * @generated
  */
 public interface ApplicationPackage extends EPackage {

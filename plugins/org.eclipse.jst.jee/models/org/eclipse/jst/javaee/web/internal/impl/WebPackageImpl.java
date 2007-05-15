@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: WebPackageImpl.java,v 1.1 2007/03/20 18:04:37 jsholl Exp $
+ * $Id: WebPackageImpl.java,v 1.2 2007/05/15 23:17:38 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.web.internal.impl;
 
@@ -62,10 +62,10 @@ import org.eclipse.jst.javaee.web.UserDataConstraint;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.javaee.web.WebAppDeploymentDescriptor;
 import org.eclipse.jst.javaee.web.WebAppVersionType;
+import org.eclipse.jst.javaee.web.WebFactory;
 import org.eclipse.jst.javaee.web.WebResourceCollection;
 import org.eclipse.jst.javaee.web.WelcomeFileList;
 
-import org.eclipse.jst.javaee.web.internal.metadata.WebFactory;
 import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
 
 import org.eclipse.jst.javaee.web.internal.util.WebValidator;

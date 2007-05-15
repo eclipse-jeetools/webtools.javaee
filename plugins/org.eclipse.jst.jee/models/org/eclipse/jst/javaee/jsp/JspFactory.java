@@ -2,15 +2,13 @@
  * <copyright>
  * </copyright>
  *
- * $Id: JspFactory.java,v 1.1 2007/03/20 18:04:44 jsholl Exp $
+ * $Id: JspFactory.java,v 1.1 2007/05/15 23:17:40 cbridgha Exp $
  */
-package org.eclipse.jst.javaee.jsp.internal.metadata;
+package org.eclipse.jst.javaee.jsp;
 
 import org.eclipse.emf.ecore.EFactory;
 
-import org.eclipse.jst.javaee.jsp.JspConfig;
-import org.eclipse.jst.javaee.jsp.JspPropertyGroup;
-import org.eclipse.jst.javaee.jsp.TagLib;
+import org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage;
 
 /**
  * <!-- begin-user-doc -->

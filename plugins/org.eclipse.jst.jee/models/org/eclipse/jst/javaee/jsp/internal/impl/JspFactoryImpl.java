@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: JspFactoryImpl.java,v 1.1 2007/03/20 18:04:43 jsholl Exp $
+ * $Id: JspFactoryImpl.java,v 1.2 2007/05/15 23:17:38 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.jsp.internal.impl;
 
@@ -15,12 +15,11 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
-import org.eclipse.jst.javaee.core.internal.metadata.JavaeeFactory;
+import org.eclipse.jst.javaee.core.JavaeeFactory;
 import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
 
 import org.eclipse.jst.javaee.jsp.*;
 
-import org.eclipse.jst.javaee.jsp.internal.metadata.JspFactory;
 import org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage;
 
 /**

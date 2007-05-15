@@ -2,39 +2,13 @@
  * <copyright>
  * </copyright>
  *
- * $Id: JavaeeFactory.java,v 1.1 2007/03/20 18:04:38 jsholl Exp $
+ * $Id: JavaeeFactory.java,v 1.1 2007/05/15 23:17:40 cbridgha Exp $
  */
-package org.eclipse.jst.javaee.core.internal.metadata;
+package org.eclipse.jst.javaee.core;
 
 import org.eclipse.emf.ecore.EFactory;
 
-import org.eclipse.jst.javaee.core.Description;
-import org.eclipse.jst.javaee.core.DisplayName;
-import org.eclipse.jst.javaee.core.EjbLocalRef;
-import org.eclipse.jst.javaee.core.EjbRef;
-import org.eclipse.jst.javaee.core.EmptyType;
-import org.eclipse.jst.javaee.core.EnvEntry;
-import org.eclipse.jst.javaee.core.Icon;
-import org.eclipse.jst.javaee.core.InjectionTarget;
-import org.eclipse.jst.javaee.core.LifecycleCallback;
-import org.eclipse.jst.javaee.core.Listener;
-import org.eclipse.jst.javaee.core.MessageDestination;
-import org.eclipse.jst.javaee.core.MessageDestinationRef;
-import org.eclipse.jst.javaee.core.ParamValue;
-import org.eclipse.jst.javaee.core.PersistenceContextRef;
-import org.eclipse.jst.javaee.core.PersistenceUnitRef;
-import org.eclipse.jst.javaee.core.PortComponentRef;
-import org.eclipse.jst.javaee.core.PropertyType;
-import org.eclipse.jst.javaee.core.ResourceEnvRef;
-import org.eclipse.jst.javaee.core.ResourceRef;
-import org.eclipse.jst.javaee.core.RunAs;
-import org.eclipse.jst.javaee.core.SecurityRole;
-import org.eclipse.jst.javaee.core.SecurityRoleRef;
-import org.eclipse.jst.javaee.core.ServiceRef;
-import org.eclipse.jst.javaee.core.ServiceRefHandler;
-import org.eclipse.jst.javaee.core.ServiceRefHandlerChain;
-import org.eclipse.jst.javaee.core.ServiceRefHandlerChains;
-import org.eclipse.jst.javaee.core.UrlPatternType;
+import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
 
 /**
  * <!-- begin-user-doc -->

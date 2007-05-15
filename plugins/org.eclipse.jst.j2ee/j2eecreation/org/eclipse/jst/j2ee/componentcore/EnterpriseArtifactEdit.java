@@ -14,6 +14,7 @@ package org.eclipse.jst.j2ee.componentcore;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -49,6 +50,8 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
  */
 public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements WorkingCopyProvider, IModelProvider, IModelProviderFactory {
 
+	private ArtifactEdit writableEdit =  null; 
+	
 	/**
 	 * 
 	 */
@@ -270,7 +273,8 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	 * @see org.eclipse.jst.j2ee.model.IModelProvider#getModelObject()
 	 */
 	public Object getModelObject() {
-		
+		if ( getWritableEdit() != null)
+			return getWritableEdit().getContentModelRoot();
 		return getContentModelRoot();
 	}
 
@@ -278,8 +282,13 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	 * @see org.eclipse.jst.j2ee.model.IModelProvider#getModelObject(org.eclipse.core.runtime.IPath)
 	 */
 	public Object getModelObject(IPath modelPath) {
-		//TODO Need to implement
-		return null;
+		if ( getWritableEdit() != null) {
+			Resource res = ((ArtifactEditModel)getWritableEdit().getAdapter(ArtifactEditModel.ADAPTER_TYPE)).getResource(URI.createURI(modelPath.toString()));
+			if (res != null && !res.getContents().isEmpty())
+				return res.getContents().get(0);
+			else return null;
+		}
+			return getContentModelRoot();
 	}
 
 	public IModelProvider create(IProject project) {
@@ -296,11 +305,31 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	public void modify(Runnable runnable, IPath modelPath) {
 		//About to modify and save this model
 		
-		// call validateEdit()
 		// access model  (write count)
+		// cache writable model (setWriteableEdit())
 		// run runnable
 		// save model
 		// release access count
+		// null Writable Edit
 		
+	}
+
+	public IStatus validateEdit(IPath modelPath, Object context) {
+		// ArtifactEdit will validate all files it manages, and uses its own context mechanism
+		return validateEdit();
+	}
+
+	/**
+	 * @param writableEdit the writableEdit to set
+	 */
+	protected void setWritableEdit(ArtifactEdit writableEdit) {
+		this.writableEdit = writableEdit;
+	}
+
+	/**
+	 * @return the writableEdit
+	 */
+	protected ArtifactEdit getWritableEdit() {
+		return writableEdit;
 	}
 }

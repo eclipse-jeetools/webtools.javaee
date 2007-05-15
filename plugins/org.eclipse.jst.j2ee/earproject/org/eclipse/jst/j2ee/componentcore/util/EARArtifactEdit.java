@@ -18,6 +18,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -266,6 +268,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * 
 	 */
 	public int getJ2EEVersion() {
+		verifyOperationSupported();
 		return getApplicationXmiResource().getJ2EEVersionID();
 	}
 
@@ -276,6 +279,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 
 	public ApplicationResource getApplicationXmiResource() {
+		verifyOperationSupported();
 		return (ApplicationResource) getDeploymentDescriptorResource();
 	}
 
@@ -290,6 +294,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 
 	public Application getApplication() {
+		verifyOperationSupported();
 		return (Application) getDeploymentDescriptorRoot();
 	}
 
@@ -303,6 +308,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 
 	public Resource getDeploymentDescriptorResource() {
+		verifyOperationSupported();
 		return getArtifactEditModel().getResource(J2EEConstants.APPLICATION_DD_URI_OBJ);
 	}
 
@@ -324,6 +330,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * </p>
 	 */
 	protected void addApplicationIfNecessary(XMLResource aResource) {
+		verifyOperationSupported();
 		if (aResource != null) {
 			if (aResource.getContents() == null || aResource.getContents().isEmpty()) {
 				Application newApp = ApplicationFactory.eINSTANCE.createApplication();
@@ -377,6 +384,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot()
 	 */
 	public EObject createModelRoot() {
+		verifyOperationSupported();
 		return createModelRoot(getJ2EEVersion());
 	}
 
@@ -386,6 +394,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(java.lang.Integer)
 	 */
 	public EObject createModelRoot(int version) {
+		verifyOperationSupported();
 		ApplicationResource res = (ApplicationResource) getDeploymentDescriptorResource();
 		res.setModuleVersionID(version);
 		addApplicationIfNecessary(res);
@@ -399,7 +408,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return - an array of IVirtualReferences for utility modules in the EAR
 	 */
 	public IVirtualReference[] getUtilityModuleReferences() {  
-		
+		verifyOperationSupported();
 		List explicitUtilityReferences = 
 			getComponentReferencesAsList(Collections.singletonList(J2EEProjectUtilities.UTILITY));
 		
@@ -562,10 +571,12 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 
 	public Archive asArchive(boolean includeSource) throws OpenFailureException {
+		verifyOperationSupported();
 		return asArchive(includeSource, true);
 	}
 	
 	public Archive asArchive(boolean includeSource, boolean includeClasspathComponents) throws OpenFailureException {
+		verifyOperationSupported();
 		EARComponentLoadStrategyImpl loader = new EARComponentLoadStrategyImpl(getComponent(), includeClasspathComponents);
 		loader.setExportSource(includeSource);
 		String uri = ModuleURIUtil.getHandleString(getComponent());
@@ -589,6 +600,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return contextRoot String
 	 */
 	public String getWebContextRoot(IProject webProject) {
+		verifyOperationSupported();
 		if (webProject == null || !J2EEProjectUtilities.isDynamicWebProject(webProject))
 			return null;
 		IVirtualComponent webComp = ComponentCore.createComponent(webProject);
@@ -609,6 +621,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @param aContextRoot
 	 */
 	public void setWebContextRoot(IProject webProject, String aContextRoot) {
+		verifyOperationSupported();
 		if (webProject == null || !J2EEProjectUtilities.isDynamicWebProject(webProject))
 			return;
 		IVirtualComponent webComp = ComponentCore.createComponent(webProject);
@@ -625,5 +638,22 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 
 	public IModelProvider create(IVirtualComponent component) {
 		return (IModelProvider)getEARArtifactEditForRead(component);
+	}
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit#modify(java.lang.Runnable, org.eclipse.core.runtime.IPath)
+	 */
+	public void modify(Runnable runnable, IPath modelPath) {
+		setWritableEdit(getEARArtifactEditForWrite(getProject()));
+		try {
+			runnable.run();
+			if( getWritableEdit() != null ){
+				// Always save regardless of resource path passed - Artifactedits save resources as a unit
+				getWritableEdit().saveIfNecessary( new NullProgressMonitor() );
+			}
+			
+		} finally {
+			getWritableEdit().dispose();
+			setWritableEdit(null);
+		}
 	}
 }

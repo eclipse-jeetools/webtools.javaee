@@ -18,6 +18,8 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceProxy;
 import org.eclipse.core.resources.IResourceProxyVisitor;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -480,5 +482,19 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	// [182417] This ArtifactEdit works for all project versions, so just return true.
 	protected boolean validProjectVersion(IProject project) {
 		return true;
+	}
+	public void modify(Runnable runnable, IPath modelPath) {
+		setWritableEdit(getWSDDArtifactEditForWrite(getProject()));
+		try{
+			runnable.run();
+			if( getWritableEdit() != null ){
+				// Always save regardless of resource path passed - Artifactedits save resources as a unit
+				getWritableEdit().saveIfNecessary( new NullProgressMonitor() );
+			}
+			
+		} finally { //Properly dispose the write artifact edit
+			getWritableEdit().dispose();
+			setWritableEdit(null);
+		}
 	}
 }

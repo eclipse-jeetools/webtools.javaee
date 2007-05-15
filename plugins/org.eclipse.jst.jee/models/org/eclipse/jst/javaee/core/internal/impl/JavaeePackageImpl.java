@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: JavaeePackageImpl.java,v 1.1 2007/03/20 18:04:34 jsholl Exp $
+ * $Id: JavaeePackageImpl.java,v 1.2 2007/05/15 23:17:36 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.core.internal.impl;
 
@@ -40,6 +40,7 @@ import org.eclipse.jst.javaee.core.EnvEntry;
 import org.eclipse.jst.javaee.core.EnvEntryType;
 import org.eclipse.jst.javaee.core.Icon;
 import org.eclipse.jst.javaee.core.InjectionTarget;
+import org.eclipse.jst.javaee.core.JavaeeFactory;
 import org.eclipse.jst.javaee.core.LifecycleCallback;
 import org.eclipse.jst.javaee.core.Listener;
 import org.eclipse.jst.javaee.core.MessageDestination;
@@ -64,7 +65,6 @@ import org.eclipse.jst.javaee.core.ServiceRefHandlerChain;
 import org.eclipse.jst.javaee.core.ServiceRefHandlerChains;
 import org.eclipse.jst.javaee.core.UrlPatternType;
 
-import org.eclipse.jst.javaee.core.internal.metadata.JavaeeFactory;
 import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
 
 import org.eclipse.jst.javaee.core.internal.util.JavaeeValidator;

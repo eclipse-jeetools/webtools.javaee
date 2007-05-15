@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: WebPackage.java,v 1.3 2007/04/26 17:12:51 jsholl Exp $
+ * $Id: WebPackage.java,v 1.4 2007/05/15 23:17:38 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.web.internal.metadata;
 
@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.jst.javaee.web.WebFactory;
 
 /**
  * <!-- begin-user-doc -->
@@ -350,7 +351,7 @@ import org.eclipse.emf.ecore.EReference;
  * 
  *     
  * <!-- end-model-doc -->
- * @see org.eclipse.jst.javaee.web.internal.metadata.WebFactory
+ * @see org.eclipse.jst.javaee.web.WebFactory
  * @generated
  */
 public interface WebPackage extends EPackage {

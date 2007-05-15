@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: WebFactoryImpl.java,v 1.3 2007/04/26 17:12:51 jsholl Exp $
+ * $Id: WebFactoryImpl.java,v 1.4 2007/05/15 23:17:38 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.web.internal.impl;
 
@@ -24,7 +24,6 @@ import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 
 import org.eclipse.jst.javaee.web.*;
 
-import org.eclipse.jst.javaee.web.internal.metadata.WebFactory;
 import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
 
 /**

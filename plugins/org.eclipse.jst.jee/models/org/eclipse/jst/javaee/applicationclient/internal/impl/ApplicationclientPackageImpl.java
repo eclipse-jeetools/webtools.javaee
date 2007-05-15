@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ApplicationclientPackageImpl.java,v 1.1 2007/03/20 18:04:43 jsholl Exp $
+ * $Id: ApplicationclientPackageImpl.java,v 1.2 2007/05/15 23:17:38 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.applicationclient.internal.impl;
 
@@ -23,8 +23,8 @@ import org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage;
 
 import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
 import org.eclipse.jst.javaee.applicationclient.ApplicationClientDeploymentDescriptor;
+import org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory;
 
-import org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientFactory;
 import org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage;
 
 import org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl;

@@ -310,6 +310,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * 
 	 */
 	public int getJ2EEVersion() {
+		verifyOperationSupported();
 		return ((WebAppResource) getDeploymentDescriptorResource()).getJ2EEVersionID();
 	}
 
@@ -324,6 +325,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * 
 	 */
 	public EObject getDeploymentDescriptorRoot() {
+		verifyOperationSupported();
 		List contents = getDeploymentDescriptorResource().getContents();
 		if (contents.size() > 0)
 			return (EObject) contents.get(0);
@@ -343,6 +345,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * 
 	 */
 	public Resource getDeploymentDescriptorResource() {
+		verifyOperationSupported();
 		if (isBinary()) {
 			return getBinaryComponentHelper().getResource(J2EEConstants.WEBAPP_DD_URI_OBJ);
 		}
@@ -358,6 +361,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * 
 	 */
 	public int getServletVersion() {
+		verifyOperationSupported();
 		return ((WebAppResource) getDeploymentDescriptorResource()).getModuleVersionID();
 	}
 
@@ -371,6 +375,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return an integer representation of the JSP level
 	 */
 	public int getJSPVersion() {
+		verifyOperationSupported();
 		int servletVersion = getServletVersion();
 		if (servletVersion == J2EEVersionConstants.WEB_2_2_ID)
 			return J2EEVersionConstants.JSP_1_1_ID;
@@ -397,6 +402,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * </p>
 	 */
 	protected void addWebAppIfNecessary(XMLResource aResource) {
+		verifyOperationSupported();
 		if (isBinary()) {
 			throwAttemptedBinaryEditModelAccess();
 		}
@@ -458,6 +464,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return the full IPath for the deployment descriptor resource
 	 */
 	public IPath getDeploymentDescriptorPath() {
+		verifyOperationSupported();
 		IFile file = WorkbenchResourceHelper.getFile(getDeploymentDescriptorResource());
 		if (file != null)
 			return file.getFullPath();
@@ -475,6 +482,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return the eObject instance of the model root
 	 */
 	public EObject createModelRoot() {
+		verifyOperationSupported();
 		if (isBinary()) {
 			throwAttemptedBinaryEditModelAccess();
 		}
@@ -492,6 +500,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return the eObject instance of the model root
 	 */
 	public EObject createModelRoot(int version) {
+		verifyOperationSupported();
 		if (isBinary()) {
 			throwAttemptedBinaryEditModelAccess();
 		}
@@ -620,6 +629,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return WebApp
 	 */
 	public WebApp getWebApp() {
+		verifyOperationSupported();
 
 		return (WebApp) getDeploymentDescriptorRoot();
 	}
@@ -635,6 +645,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 
 	public Archive asArchive(boolean includeSource, boolean includeClasspathComponents) throws OpenFailureException {
+		verifyOperationSupported();
 		if (isBinary()) {
 			return ((EnterpriseBinaryComponentHelper) getBinaryComponentHelper()).accessArchive();
 		} else {
@@ -661,4 +672,21 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public IModelProvider create(IVirtualComponent component) {
 		return (IModelProvider)getWebArtifactEditForRead(component);
 	}
+
+	public void modify(Runnable runnable, IPath modelPath) {
+		setWritableEdit(getWebArtifactEditForWrite(getProject()));
+		try{
+			runnable.run();
+			if( getWritableEdit() != null ){
+				// Always save regardless of resource path passed - Artifactedits save resources as a unit
+				getWritableEdit().saveIfNecessary( new NullProgressMonitor() );
+			}
+			
+		}finally{
+			getWritableEdit().dispose();
+			setWritableEdit(null);
+		}
+	}
+
+	
 }

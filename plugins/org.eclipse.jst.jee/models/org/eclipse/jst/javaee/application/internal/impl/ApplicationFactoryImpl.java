@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ApplicationFactoryImpl.java,v 1.1 2007/03/20 18:04:42 jsholl Exp $
+ * $Id: ApplicationFactoryImpl.java,v 1.2 2007/05/15 23:17:37 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.application.internal.impl;
 
@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 import org.eclipse.jst.javaee.application.*;
 
-import org.eclipse.jst.javaee.application.internal.metadata.ApplicationFactory;
 import org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage;
 
 /**

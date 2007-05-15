@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: JspPackage.java,v 1.1 2007/03/20 18:04:44 jsholl Exp $
+ * $Id: JspPackage.java,v 1.2 2007/05/15 23:17:37 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.jsp.internal.metadata;
 
@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.jst.javaee.jsp.JspFactory;
 
 /**
  * <!-- begin-user-doc -->
@@ -268,7 +269,7 @@ import org.eclipse.emf.ecore.EReference;
  *    http://www.w3.org/2005/08/xml.xsd will not change.
  *   
  * <!-- end-model-doc -->
- * @see org.eclipse.jst.javaee.jsp.internal.metadata.JspFactory
+ * @see org.eclipse.jst.javaee.jsp.JspFactory
  * @generated
  */
 public interface JspPackage extends EPackage {

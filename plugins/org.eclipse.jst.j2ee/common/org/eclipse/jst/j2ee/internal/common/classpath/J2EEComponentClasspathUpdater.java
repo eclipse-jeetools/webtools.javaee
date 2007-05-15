@@ -44,7 +44,6 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainer;
 import org.eclipse.jst.j2ee.application.internal.operations.IModuleExtensions;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
-import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.componentcore.EnterpriseBinaryComponentHelper;
@@ -415,24 +414,16 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 						if(ModuleCoreNature.isFlexibleProject((IProject) resource)){
 							if(J2EEProjectUtilities.isEARProject((IProject)resource)){
 								IProject earProject = (IProject) resource;
-								EARArtifactEdit edit = null;
-								try {
-									edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
-									if(edit != null){
-										IVirtualReference[] refs = edit.getComponentReferences();
-										IVirtualComponent comp = null;
-										for (int j = 0; j < refs.length; j++) {
-											comp = refs[j].getReferencedComponent();
-											if (!comp.isBinary()) {
-												queueUpdateModule(comp.getProject());
-											}
-										}
-									}
-								} finally {
-									if (edit != null) {
-										edit.dispose();
+								
+								IVirtualReference[] refs = J2EEProjectUtilities.getComponentReferences(ComponentCore.createComponent(earProject));
+								IVirtualComponent comp = null;
+								for (int j = 0; j < refs.length; j++) {
+									comp = refs[j].getReferencedComponent();
+									if (!comp.isBinary()) {
+										queueUpdateModule(comp.getProject());
 									}
 								}
+									
 							} else {
 								IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects((IProject)resource);
 								for(int i=0; i<earProjects.length; i++){

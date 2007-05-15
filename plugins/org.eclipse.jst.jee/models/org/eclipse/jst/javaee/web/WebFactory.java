@@ -2,30 +2,13 @@
  * <copyright>
  * </copyright>
  *
- * $Id: WebFactory.java,v 1.1 2007/03/20 18:04:46 jsholl Exp $
+ * $Id: WebFactory.java,v 1.1 2007/05/15 23:17:39 cbridgha Exp $
  */
-package org.eclipse.jst.javaee.web.internal.metadata;
+package org.eclipse.jst.javaee.web;
 
 import org.eclipse.emf.ecore.EFactory;
 
-import org.eclipse.jst.javaee.web.AuthConstraint;
-import org.eclipse.jst.javaee.web.ErrorPage;
-import org.eclipse.jst.javaee.web.Filter;
-import org.eclipse.jst.javaee.web.FilterMapping;
-import org.eclipse.jst.javaee.web.FormLoginConfig;
-import org.eclipse.jst.javaee.web.LocaleEncodingMapping;
-import org.eclipse.jst.javaee.web.LocaleEncodingMappingList;
-import org.eclipse.jst.javaee.web.LoginConfig;
-import org.eclipse.jst.javaee.web.MimeMapping;
-import org.eclipse.jst.javaee.web.SecurityConstraint;
-import org.eclipse.jst.javaee.web.Servlet;
-import org.eclipse.jst.javaee.web.ServletMapping;
-import org.eclipse.jst.javaee.web.SessionConfig;
-import org.eclipse.jst.javaee.web.UserDataConstraint;
-import org.eclipse.jst.javaee.web.WebApp;
-import org.eclipse.jst.javaee.web.WebAppDeploymentDescriptor;
-import org.eclipse.jst.javaee.web.WebResourceCollection;
-import org.eclipse.jst.javaee.web.WelcomeFileList;
+import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
 
 /**
  * <!-- begin-user-doc -->

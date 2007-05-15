@@ -13,6 +13,8 @@ package org.eclipse.jst.j2ee.internal.webservice.componentcore.util;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -393,5 +395,22 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 
 	public IModelProvider create(IVirtualComponent component) {
 		return (IModelProvider)getWSCDDArtifactEditForRead(component);
+	}
+	public void modify(Runnable runnable, IPath modelPath) {
+		setWritableEdit(getWSCDDArtifactEditForWrite(getProject()));
+		try{
+			runnable.run();
+			if( getWritableEdit() != null ){
+				// Always save regardless of resource path passed - Artifactedits save resources as a unit
+				getWritableEdit().saveIfNecessary( new NullProgressMonitor() );
+			}
+			
+		} finally { //Properly dispose the write artifact edit
+			getWritableEdit().dispose();
+			setWritableEdit(null);
+		}
+	}
+	protected boolean validProjectVersion(IProject project2) {
+		return true;
 	}
 }

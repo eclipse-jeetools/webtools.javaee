@@ -2,43 +2,12 @@
  * <copyright>
  * </copyright>
  *
- * $Id: EjbFactory.java,v 1.2 2007/03/26 21:04:18 jsholl Exp $
+ * $Id: EjbFactory.java,v 1.1 2007/05/15 23:17:39 cbridgha Exp $
  */
-package org.eclipse.jst.javaee.ejb.internal.metadata;
+package org.eclipse.jst.javaee.ejb;
 
 import org.eclipse.emf.ecore.EFactory;
-import org.eclipse.jst.javaee.ejb.ActivationConfig;
-import org.eclipse.jst.javaee.ejb.ActivationConfigProperty;
-import org.eclipse.jst.javaee.ejb.ApplicationException;
-import org.eclipse.jst.javaee.ejb.AroundInvokeType;
-import org.eclipse.jst.javaee.ejb.AssemblyDescriptor;
-import org.eclipse.jst.javaee.ejb.CMPField;
-import org.eclipse.jst.javaee.ejb.CMRField;
-import org.eclipse.jst.javaee.ejb.ContainerTransactionType;
-import org.eclipse.jst.javaee.ejb.EJBJar;
-import org.eclipse.jst.javaee.ejb.EJBJarDeploymentDescriptor;
-import org.eclipse.jst.javaee.ejb.EJBRelation;
-import org.eclipse.jst.javaee.ejb.EJBRelationshipRole;
-import org.eclipse.jst.javaee.ejb.EnterpriseBeans;
-import org.eclipse.jst.javaee.ejb.EntityBean;
-import org.eclipse.jst.javaee.ejb.ExcludeList;
-import org.eclipse.jst.javaee.ejb.InitMethodType;
-import org.eclipse.jst.javaee.ejb.InterceptorBindingType;
-import org.eclipse.jst.javaee.ejb.InterceptorOrderType;
-import org.eclipse.jst.javaee.ejb.InterceptorType;
-import org.eclipse.jst.javaee.ejb.InterceptorsType;
-import org.eclipse.jst.javaee.ejb.MessageDrivenBean;
-import org.eclipse.jst.javaee.ejb.MethodParams;
-import org.eclipse.jst.javaee.ejb.MethodPermission;
-import org.eclipse.jst.javaee.ejb.MethodType;
-import org.eclipse.jst.javaee.ejb.NamedMethodType;
-import org.eclipse.jst.javaee.ejb.Query;
-import org.eclipse.jst.javaee.ejb.QueryMethod;
-import org.eclipse.jst.javaee.ejb.RelationshipRoleSourceType;
-import org.eclipse.jst.javaee.ejb.Relationships;
-import org.eclipse.jst.javaee.ejb.RemoveMethodType;
-import org.eclipse.jst.javaee.ejb.SecurityIdentityType;
-import org.eclipse.jst.javaee.ejb.SessionBean;
+import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
 
 /**
  * <!-- begin-user-doc -->

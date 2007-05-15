@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ApplicationclientFactoryImpl.java,v 1.1 2007/03/20 18:04:43 jsholl Exp $
+ * $Id: ApplicationclientFactoryImpl.java,v 1.2 2007/05/15 23:17:38 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.applicationclient.internal.impl;
 
@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 import org.eclipse.jst.javaee.applicationclient.*;
 
-import org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientFactory;
 import org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage;
 
 /**
