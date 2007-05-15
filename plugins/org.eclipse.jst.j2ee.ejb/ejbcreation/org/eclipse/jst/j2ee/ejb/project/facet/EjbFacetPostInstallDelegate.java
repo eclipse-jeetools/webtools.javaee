@@ -30,6 +30,7 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.archiveoperations.IEjbClientProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarImpl;
@@ -269,7 +270,7 @@ public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implem
 
 		String clienturi = props.getProperty(CreationConstants.CLIENT_JAR_URI);
 
-		EJBArtifactEdit ejbEdit = null;
+		EnterpriseArtifactEdit ejbEdit = null;
 		try {
 			ejbEdit = new EJBArtifactEdit(ejbProj, false, true);
 

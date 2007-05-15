@@ -15,6 +15,8 @@ import java.util.Properties;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -137,6 +139,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 
 	public EJBResource getEJBJarXmiResource() {
+		verifyOperationSupported();
 		return (EJBResource) getDeploymentDescriptorResource();
 	}
 
@@ -197,6 +200,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 
 	public int getJ2EEVersion() {
+		verifyOperationSupported();
 		return getEJBJarXmiResource().getJ2EEVersionID();
 	}
 
@@ -210,6 +214,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 
 	public boolean hasEJBClientJARProject() {
+		verifyOperationSupported();
 
 		if (getEJBClientJarModule() != null)
 			return true;
@@ -224,6 +229,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return
 	 */
 	public Module createNewModule() {
+		verifyOperationSupported();
 		if (isBinary()) {
 			throwAttemptedBinaryEditModelAccess();
 		}
@@ -236,6 +242,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return WorkbenchComponent
 	 */
 	public IVirtualComponent getEJBClientJarModule() {
+		verifyOperationSupported();
 		EJBJar jar = getEJBJar();
 		IVirtualComponent ejbComponent, ejbClientComponent = null;
 		ejbComponent = ComponentCore.createComponent(getProject());
@@ -275,6 +282,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 
 	public Resource getDeploymentDescriptorResource() {
+		verifyOperationSupported();
 		if (isBinary()) {
 			return getBinaryComponentHelper().getResource(J2EEConstants.EJBJAR_DD_URI_OBJ);
 		}
@@ -287,6 +295,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * 
 	 */
 	public EJBJar getEJBJar() {
+		verifyOperationSupported();
 		return (EJBJar) getDeploymentDescriptorRoot();
 	}
 
@@ -301,6 +310,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * 
 	 */
 	public EObject getDeploymentDescriptorRoot() {
+		verifyOperationSupported();
 		List contents = getDeploymentDescriptorResource().getContents();
 		if (contents.size() > 0)
 			return (EObject) contents.get(0);
@@ -511,6 +521,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot()
 	 */
 	public EObject createModelRoot() {
+		verifyOperationSupported();
 		if (isBinary()) {
 			throwAttemptedBinaryEditModelAccess();
 		}
@@ -524,6 +535,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(int)
 	 */
 	public EObject createModelRoot(int version) {
+		verifyOperationSupported();
 		if (isBinary()) {
 			throwAttemptedBinaryEditModelAccess();
 		}
@@ -554,7 +566,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 
 	public static void createDeploymentDescriptor(IProject project, int version) {
-		EJBArtifactEdit ejbEdit = new EJBArtifactEdit(project, false, true);
+		EnterpriseArtifactEdit ejbEdit = new EJBArtifactEdit(project, false, true);
 		try {
 			ejbEdit.createModelRoot(version);
 			ejbEdit.save(null);
@@ -568,5 +580,19 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 
 	public IModelProvider create(IVirtualComponent component) {
 		return (IModelProvider)getEJBArtifactEditForRead(component);
+	}
+	public void modify(Runnable runnable, IPath modelPath) {
+		setWritableEdit(getEJBArtifactEditForWrite(getProject()));
+		try{
+			runnable.run();
+			if( getWritableEdit() != null ){
+				// Always save regardless of resource path passed - Artifactedits save resources as a unit
+				getWritableEdit().saveIfNecessary( new NullProgressMonitor() );
+			}
+			
+		} finally { //Properly dispose the write artifact edit
+			getWritableEdit().dispose();
+			setWritableEdit(null);
+		}
 	}
 }

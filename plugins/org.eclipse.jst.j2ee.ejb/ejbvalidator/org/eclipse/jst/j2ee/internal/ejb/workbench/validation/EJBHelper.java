@@ -50,6 +50,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.CommonRelationshipRole;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EJBRelation;
@@ -59,7 +60,6 @@ import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.MethodElement;
 import org.eclipse.jst.j2ee.ejb.MethodPermission;
 import org.eclipse.jst.j2ee.ejb.MethodTransaction;
-import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.validation.AWorkbenchMOFHelper;
@@ -546,7 +546,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 			edit = ComponentUtilities.getArtifactEditForRead(comp);
 			
 			try {
-				return  ((EJBArtifactEdit) edit).asArchive(false);
+				return  ((EnterpriseArtifactEdit) edit).asArchive(false);
 			} catch (OpenFailureException e1) {
 				Logger.getLogger().log(e1);
 			}
@@ -562,7 +562,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 			edit = ComponentUtilities.getArtifactEditForRead(comp);
 			
 			try {
-				ejbJarFile = (EJBJarFile)((EJBArtifactEdit) edit).asArchive(false);
+				ejbJarFile = (EJBJarFile)((EnterpriseArtifactEdit) edit).asArchive(false);
 				ejbJar = ejbJarFile.getDeploymentDescriptor();
 			} catch (OpenFailureException e1) {
 				Logger.getLogger().log(e1);

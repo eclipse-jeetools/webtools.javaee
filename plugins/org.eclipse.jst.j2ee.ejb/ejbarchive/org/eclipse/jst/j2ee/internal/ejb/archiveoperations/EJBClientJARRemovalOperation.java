@@ -39,6 +39,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -220,7 +221,7 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 	 * Remove the client JAR entry from the deployment descriptor
 	 */
 	private void updateDD() {
-		EJBArtifactEdit ejbEdit = null;
+		EnterpriseArtifactEdit ejbEdit = null;
 		try {
 			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite(ejbProject);
 

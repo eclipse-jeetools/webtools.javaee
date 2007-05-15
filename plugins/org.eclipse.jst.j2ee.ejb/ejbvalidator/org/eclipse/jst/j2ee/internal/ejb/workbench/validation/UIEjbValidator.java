@@ -15,6 +15,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -44,7 +45,7 @@ public class UIEjbValidator extends EJBValidator {
 
 		IProject proj = ((IWorkbenchContext) inHelper).getProject();
 		if (J2EEProjectUtilities.isEJBProject(proj)) {
-				EJBArtifactEdit edit = null;
+				EnterpriseArtifactEdit edit = null;
 				try {
 					edit = EJBArtifactEdit.getEJBArtifactEditForRead(proj);
 					if(edit != null && edit.getDeploymentDescriptorResource() != null)

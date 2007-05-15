@@ -17,6 +17,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarImpl;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
@@ -55,7 +56,7 @@ public abstract class UpdateEJBClientRefOp extends AbstractDataModelOperation
 
 		// Update the ejb client jar prop in the ejb-jar.xml
 		final String originalProjectName = originalMetadata.getProjectName();
-		EJBArtifactEdit ejbEdit = null;
+		EnterpriseArtifactEdit ejbEdit = null;
 		try{
 			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite(dependentMetadata.getProject());
 			if(ejbEdit != null) {
