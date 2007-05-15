@@ -9,6 +9,7 @@ package org.eclipse.wtp.j2ee.headless.tests.ejb.verifiers;
 import junit.framework.Assert;
 
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
@@ -29,7 +30,7 @@ public class EJBProjectCreationDataModelVerifier extends ModuleProjectCreationDa
      */
     public void verifyProjectCreationDataModel(IDataModel model) {
         Object key = new Object();
-        EJBArtifactEdit ejbEdit = null;
+        EnterpriseArtifactEdit ejbEdit = null;
 
         try {
             Object dd = null;

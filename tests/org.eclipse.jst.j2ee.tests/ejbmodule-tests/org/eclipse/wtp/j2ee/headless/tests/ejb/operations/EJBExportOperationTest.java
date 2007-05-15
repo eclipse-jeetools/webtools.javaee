@@ -15,6 +15,7 @@ import junit.framework.TestSuite;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -62,7 +63,7 @@ public class EJBExportOperationTest extends ModuleExportOperationTestCase {
 	}
 	
 	protected void testDDExported(IVirtualComponent component) throws Exception {
-		EJBArtifactEdit ejbEdit = null;
+		EnterpriseArtifactEdit ejbEdit = null;
 		EJBJarFile ejbJarFile = null;
 		try {
 			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(component);

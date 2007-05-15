@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.Module;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
@@ -31,7 +32,7 @@ public class EJBArtifactEditTest extends TestCase {
 	}
 
 	public void testGetJ2EEVersion() {
-		EJBArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			edit = EJBArtifactEdit.getEJBArtifactEditForRead(ejbProject);
 			String version = new Integer(edit.getJ2EEVersion()).toString();
@@ -44,7 +45,7 @@ public class EJBArtifactEditTest extends TestCase {
 	}
 
 	public void testGetDeploymentDescriptorResource() {
-		EJBArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			edit = EJBArtifactEdit.getEJBArtifactEditForRead(ejbProject);
 			String uri = edit.getDeploymentDescriptorResource().getURI().toString();
@@ -60,7 +61,7 @@ public class EJBArtifactEditTest extends TestCase {
 	// /////BUG in PlatformURL\\\\\\\\\\\
 
 	public void testGetDeploymentDescriptorRoot() {
-		EJBArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			edit = EJBArtifactEdit.getEJBArtifactEditForRead(ejbProject);
 			edit.getDeploymentDescriptorRoot();
@@ -82,7 +83,7 @@ public class EJBArtifactEditTest extends TestCase {
 
 
 	public void testCreateModelRoot() {
-		EJBArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			edit = EJBArtifactEdit.getEJBArtifactEditForWrite(ejbProject);
 			edit.createModelRoot();
@@ -105,7 +106,7 @@ public class EJBArtifactEditTest extends TestCase {
 	 */
 	// ///////////////BUG in PlatformURLModuleConnection
 	public void testCreateModelRootint() {
-		EJBArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			// ///////BUG in PlatformURLModuleConnection
 			edit = EJBArtifactEdit.getEJBArtifactEditForRead(ejbProject);
@@ -127,7 +128,7 @@ public class EJBArtifactEditTest extends TestCase {
 	 * Class under test for void EJBArtifactEdit(ComponentHandle, boolean)
 	 */
 	public void testEJBArtifactEditComponentHandleboolean() {
-		EJBArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			edit = new EJBArtifactEdit(ejbProject, true);
 			assertNotNull(edit);
@@ -142,7 +143,7 @@ public class EJBArtifactEditTest extends TestCase {
 	 * Class under test for void EJBArtifactEdit(ArtifactEditModel)
 	 */
 	public void testEJBArtifactEditArtifactEditModel() {
-		EJBArtifactEdit edit = new EJBArtifactEdit(getArtifactEditModelforRead());
+		EnterpriseArtifactEdit edit = new EJBArtifactEdit(getArtifactEditModelforRead());
 		assertNotNull(edit);
 		edit.dispose();
 	}
@@ -240,7 +241,7 @@ public class EJBArtifactEditTest extends TestCase {
 	}
 
 	public void testAddEJBJarIfNecessary() {
-		EJBArtifactEdit test = new EJBArtifactEdit(getArtifactEditModelforRead()) {
+		EnterpriseArtifactEdit test = new EJBArtifactEdit(getArtifactEditModelforRead()) {
 			protected void addEJBJarIfNecessary(XMLResource aResource) {
 				// TODO add test
 				super.addEJBJarIfNecessary(aResource);
@@ -257,7 +258,7 @@ public class EJBArtifactEditTest extends TestCase {
 	 * Class under test for EJBArtifactEdit getEJBArtifactEditForRead(ComponentHandle)
 	 */
 	public void testGetEJBArtifactEditForReadComponentHandle() {
-		EJBArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			edit = EJBArtifactEdit.getEJBArtifactEditForRead(ejbProject);
 			assertTrue(edit != null);
@@ -272,7 +273,7 @@ public class EJBArtifactEditTest extends TestCase {
 	 * Class under test for EJBArtifactEdit getEJBArtifactEditForWrite(ComponentHandle)
 	 */
 	public void testGetEJBArtifactEditForWriteComponentHandle() {
-		EJBArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			edit = EJBArtifactEdit.getEJBArtifactEditForWrite(ejbProject);
 		} finally {
@@ -287,7 +288,7 @@ public class EJBArtifactEditTest extends TestCase {
 	 * Class under test for EJBArtifactEdit getEJBArtifactEditForRead(WorkbenchComponent)
 	 */
 	public void testGetEJBArtifactEditForReadWorkbenchComponent() {
-		EJBArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			edit = EJBArtifactEdit.getEJBArtifactEditForRead(ejbProject);
 			assertTrue(edit != null);
@@ -302,7 +303,7 @@ public class EJBArtifactEditTest extends TestCase {
 	 * Class under test for EJBArtifactEdit getEJBArtifactEditForWrite(WorkbenchComponent)
 	 */
 	public void testGetEJBArtifactEditForWriteWorkbenchComponent() {
-		EJBArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			edit = EJBArtifactEdit.getEJBArtifactEditForWrite(ejbProject);
 		} finally {
@@ -324,7 +325,7 @@ public class EJBArtifactEditTest extends TestCase {
 		return new ArtifactEditModel(this.toString(), context, true, TestWorkspace.APP_CLIENT_MODULE_URI);
 	}
 
-	public EJBArtifactEdit getArtifactEditForRead() {
+	public EnterpriseArtifactEdit getArtifactEditForRead() {
 		return new EJBArtifactEdit(getArtifactEditModelforRead());
 	}
 

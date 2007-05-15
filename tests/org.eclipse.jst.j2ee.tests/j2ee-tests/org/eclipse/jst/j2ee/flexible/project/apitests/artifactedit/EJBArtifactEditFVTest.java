@@ -6,6 +6,7 @@ import junit.framework.TestCase;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
@@ -79,7 +80,7 @@ public class EJBArtifactEditFVTest extends TestCase {
 	}
 
 	private void validateResource() {
-		EJBArtifactEdit edit = null;
+		EnterpriseArtifactEdit edit = null;
 		try {
 			edit = EJBArtifactEdit.getEJBArtifactEditForWrite(ejbProject);
 //			EList resourceList = wbComponent.getResources();

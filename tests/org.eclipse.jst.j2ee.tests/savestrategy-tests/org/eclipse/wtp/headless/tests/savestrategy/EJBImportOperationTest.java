@@ -11,6 +11,7 @@ import junit.framework.TestSuite;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBComponentImportDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -39,7 +40,7 @@ public class EJBImportOperationTest extends ModuleImportOperationTestCase {
 		String fileName = getFullPathForEJBJar("Test13EJB.jar");
 		testImport(projectName, fileName);
 		IProject proj = ProjectUtilities.getProject(projectName);
-		EJBArtifactEdit ejbEdit = null;
+		EnterpriseArtifactEdit ejbEdit = null;
 		try {
 			//ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(proj);
 			ejbEdit = new EJBArtifactEdit(proj,true,true);

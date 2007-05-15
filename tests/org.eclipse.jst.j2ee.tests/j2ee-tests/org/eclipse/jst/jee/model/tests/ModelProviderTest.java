@@ -1,4 +1,5 @@
 package org.eclipse.jst.jee.model.tests;
+import junit.framework.Assert;
 import junit.framework.Test;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -11,6 +12,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
@@ -26,6 +28,7 @@ import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.archive.emftests.GeneralEMFPopulationTest;
 import org.eclipse.jst.j2ee.earcreation.IEarFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.project.operations.IEjbFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
@@ -36,6 +39,8 @@ import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.jst.javaee.application.Application;
+import org.eclipse.jst.javaee.core.Description;
+import org.eclipse.jst.javaee.core.JavaeeFactory;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
@@ -54,6 +59,7 @@ import org.eclipse.wst.common.tests.SimpleTestSuite;
 public class ModelProviderTest extends GeneralEMFPopulationTest {
 	
 	private static final String PROJECTNAME = "TestModelProviders";
+	private final String descText = "Testing setting the desc";
 	public ModelProviderTest(String name) {
 		super(name);
 	}
@@ -131,17 +137,64 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 		String projName = "TestEE5EarProject";//$NON-NLS-1$
 		IProject earProj = createEarProject(projName, J2EEVersionConstants.JEE_5_0_ID);
 		
-		IModelProvider provider = ModelProviderManager.getModelProvider(earProj);
+		final IModelProvider provider = ModelProviderManager.getModelProvider(earProj);
 		
-		Application ear = (Application)provider.getModelObject();
+	
+		provider.modify(new Runnable() {
+			public void run() {
+				Application ear = (Application)provider.getModelObject();
+				if (ear.getDescriptions().isEmpty())
+					ear.getDescriptions().add(JavaeeFactory.eINSTANCE.createDescription());
+				Description desc = (Description)ear.getDescriptions().get(0);
+				desc.setValue(descText);
+			}
+		}
+			, null);
+		
+		//Close project to force flush
+		earProj.close(new NullProgressMonitor());
+		//Re-open project
+		earProj.open(new NullProgressMonitor());
+		
+		
+		IModelProvider newProvider = ModelProviderManager.getModelProvider(earProj);
+		Application sameEar = (Application)newProvider.getModelObject();
+		Description desc = (Description)sameEar.getDescriptions().get(0);
+		Assert.assertEquals(descText, desc.getValue());
+		
 	}
 
 	public void testUseEar14Model() throws Exception {
 
 		String projName = "TestEE14EarProject";//$NON-NLS-1$
 		IProject earProj = createEarProject(projName, J2EEVersionConstants.J2EE_1_4_ID);
-		IModelProvider provider = ModelProviderManager.getModelProvider(earProj);
-		org.eclipse.jst.j2ee.application.Application ear = (org.eclipse.jst.j2ee.application.Application)provider.getModelObject();
+		final IModelProvider provider = ModelProviderManager.getModelProvider(earProj);
+		
+		// Test getting model through path api.
+		org.eclipse.jst.j2ee.application.Application ear = (org.eclipse.jst.j2ee.application.Application)provider.getModelObject(new Path(J2EEConstants.APPLICATION_DD_URI));
+		
+		
+		provider.modify(new Runnable() {
+			public void run() {
+				org.eclipse.jst.j2ee.application.Application ear = (org.eclipse.jst.j2ee.application.Application)provider.getModelObject();
+//				if (ear.getDescriptions().isEmpty())
+//					ear.getDescriptions().add(CommonFactory.eINSTANCE.createDescription());
+				ear.setDescription(descText);
+				
+			}
+		}
+			, null);
+		
+		//Close project to force flush
+		earProj.close(new NullProgressMonitor());
+		//Re-open project
+		earProj.open(new NullProgressMonitor());
+		
+		
+		IModelProvider newProvider = ModelProviderManager.getModelProvider(earProj);
+		org.eclipse.jst.j2ee.application.Application sameEar = (org.eclipse.jst.j2ee.application.Application)newProvider.getModelObject();
+		org.eclipse.jst.j2ee.common.Description desc = (org.eclipse.jst.j2ee.common.Description)sameEar.getDescriptions().get(0);
+		Assert.assertEquals(descText, desc.getValue());
 	}
 	
 	public void testUseWeb25Model() throws Exception {
@@ -149,9 +202,29 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 		String projName = "TestEE5WebProject";//$NON-NLS-1$
 		IProject webProj = createWebProject(projName, J2EEVersionConstants.WEB_2_5_ID);
 
-		IModelProvider provider = ModelProviderManager.getModelProvider(webProj);
-
-		WebApp webApp = (WebApp)provider.getModelObject();
+		final IModelProvider provider = ModelProviderManager.getModelProvider(webProj);
+		
+		provider.modify(new Runnable() {
+			public void run() {
+				WebApp webApp = (WebApp)provider.getModelObject();
+				if (webApp.getDescriptions().isEmpty())
+					webApp.getDescriptions().add(JavaeeFactory.eINSTANCE.createDescription());
+				Description desc = (Description)webApp.getDescriptions().get(0);
+				desc.setValue(descText);
+			}
+		}
+			, null);
+		
+		//Close project to force flush
+		webProj.close(new NullProgressMonitor());
+		//Re-open project
+		webProj.open(new NullProgressMonitor());
+		
+		
+		IModelProvider newProvider = ModelProviderManager.getModelProvider(webProj);
+		WebApp sameWebApp = (WebApp)newProvider.getModelObject();
+		Description desc = (Description)sameWebApp.getDescriptions().get(0);
+		Assert.assertEquals(descText, desc.getValue());
 
 	}
 
@@ -159,8 +232,30 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 		
 		String projName = "TestEE14WebProject";//$NON-NLS-1$
 		IProject webProj = createWebProject(projName, J2EEVersionConstants.WEB_2_4_ID);
-		IModelProvider provider = ModelProviderManager.getModelProvider(webProj);
-		org.eclipse.jst.j2ee.webapplication.WebApp webApp = (org.eclipse.jst.j2ee.webapplication.WebApp)provider.getModelObject();
+		final IModelProvider provider = ModelProviderManager.getModelProvider(webProj);
+		
+		provider.modify(new Runnable() {
+			public void run() {
+				org.eclipse.jst.j2ee.webapplication.WebApp webApp = (org.eclipse.jst.j2ee.webapplication.WebApp)provider.getModelObject();
+//				if (webApp.getDescriptions().isEmpty())
+//					webApp.getDescriptions().add(CommonFactory.eINSTANCE.createDescription());
+//				org.eclipse.jst.j2ee.common.Description desc = (org.eclipse.jst.j2ee.common.Description)webApp.getDescriptions().get(0);
+//				desc.setValue(descText);
+				webApp.setDescription(descText);
+			}
+		}
+			, null);
+		
+		//Close project to force flush
+		webProj.close(new NullProgressMonitor());
+		//Re-open project
+		webProj.open(new NullProgressMonitor());
+		
+		
+		IModelProvider newProvider = ModelProviderManager.getModelProvider(webProj);
+		org.eclipse.jst.j2ee.webapplication.WebApp sameWebApp = (org.eclipse.jst.j2ee.webapplication.WebApp)newProvider.getModelObject();
+		org.eclipse.jst.j2ee.common.Description desc = (org.eclipse.jst.j2ee.common.Description)sameWebApp.getDescriptions().get(0);
+		Assert.assertEquals(descText, desc.getValue());
 	
 	}
 
@@ -169,18 +264,60 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 		String projName = "TestEE5EjbProject";//$NON-NLS-1$
 		IProject ejbProj = createEjbProject(projName, J2EEVersionConstants.EJB_3_0_ID);
 
-		IModelProvider provider = ModelProviderManager.getModelProvider(ejbProj);
-
-		EJBJar ejbJar = (EJBJar)provider.getModelObject();
+		final IModelProvider provider = ModelProviderManager.getModelProvider(ejbProj);
+		
+		provider.modify(new Runnable() {
+			public void run() {
+				EJBJar ejbJar = (EJBJar)provider.getModelObject();
+				if (ejbJar.getDescriptions().isEmpty())
+					ejbJar.getDescriptions().add(JavaeeFactory.eINSTANCE.createDescription());
+				Description desc = (Description)ejbJar.getDescriptions().get(0);
+				desc.setValue(descText);
+			}
+		}
+			, null);
+		
+		//Close project to force flush
+		ejbProj.close(new NullProgressMonitor());
+		//Re-open project
+		ejbProj.open(new NullProgressMonitor());
+		
+		
+		IModelProvider newProvider = ModelProviderManager.getModelProvider(ejbProj);
+		EJBJar sameEjbJar = (EJBJar)newProvider.getModelObject();
+		Description desc = (Description)sameEjbJar.getDescriptions().get(0);
+		Assert.assertEquals(descText, desc.getValue());
 
 	}
 
 	public void testUseEjb21Model() throws Exception {
 		
 		String projName = "TestEE14EjbProject";//$NON-NLS-1$
-		IProject webProj = createEjbProject(projName, J2EEVersionConstants.EJB_2_1_ID);
-		IModelProvider provider = ModelProviderManager.getModelProvider(webProj);
-		org.eclipse.jst.j2ee.ejb.EJBJar ejbJar = (org.eclipse.jst.j2ee.ejb.EJBJar)provider.getModelObject();
+		IProject ejbProj = createEjbProject(projName, J2EEVersionConstants.EJB_2_1_ID);
+		final IModelProvider provider = ModelProviderManager.getModelProvider(ejbProj);
+		
+		provider.modify(new Runnable() {
+			public void run() {
+				org.eclipse.jst.j2ee.ejb.EJBJar ejbJar = (org.eclipse.jst.j2ee.ejb.EJBJar)provider.getModelObject();
+//				if (ejbJar.getDescriptions().isEmpty())
+//					ejbJar.getDescriptions().add(CommonFactory.eINSTANCE.createDescription());
+//				org.eclipse.jst.j2ee.common.Description desc = (org.eclipse.jst.j2ee.common.Description)ejbJar.getDescriptions().get(0);
+//				desc.setValue(descText);
+				ejbJar.setDescription(descText);
+			}
+		}
+			, null);
+		
+		//Close project to force flush
+		ejbProj.close(new NullProgressMonitor());
+		//Re-open project
+		ejbProj.open(new NullProgressMonitor());
+		
+		
+		IModelProvider newProvider = ModelProviderManager.getModelProvider(ejbProj);
+		org.eclipse.jst.j2ee.ejb.EJBJar sameEjbJar = (org.eclipse.jst.j2ee.ejb.EJBJar)newProvider.getModelObject();
+		org.eclipse.jst.j2ee.common.Description desc = (org.eclipse.jst.j2ee.common.Description)sameEjbJar.getDescriptions().get(0);
+		Assert.assertEquals(descText, desc.getValue());
 	
 	}
 	/* not yet working - comment out for now
