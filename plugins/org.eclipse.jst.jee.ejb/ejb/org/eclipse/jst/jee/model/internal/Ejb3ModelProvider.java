@@ -21,7 +21,7 @@ public class Ejb3ModelProvider extends JEE5ModelProvider implements IModelProvid
 	 */
 	public Object getModelObject(IPath modelPath) {
 		EjbResourceImpl ejbRes = (EjbResourceImpl)getModelResource(modelPath);
-		if (ejbRes.getContents().size() > 0) 
+		if (ejbRes != null && ejbRes.getContents().size() > 0) 
 			return ejbRes.getEjbJar();
 		return null;
 	}
