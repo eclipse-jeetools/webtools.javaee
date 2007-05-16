@@ -19,6 +19,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.AbstractOperation;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -37,9 +38,11 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.Signature;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
-import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation;
+import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
+import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
@@ -58,7 +61,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * 
  * This needs to be removed as it is legacy inherited from another team
  */
-public class NewJavaClassOperation extends ArtifactEditProviderOperation {
+public class NewJavaClassOperation extends AbstractDataModelOperation {
 
 	// Tokens for string buffer creation of default java class
 	protected static final String EMPTY_STRING = ""; //$NON-NLS-1$
@@ -857,4 +860,16 @@ public class NewJavaClassOperation extends ArtifactEditProviderOperation {
 	protected boolean implementImplementedMethod(IMethod method) {
 		return false;
 	}
+
+	@Override
+	public IStatus execute(IProgressMonitor monitor, IAdaptable info)
+			throws ExecutionException {
+		// TODO Auto-generated method stub
+		return doExecute(monitor, info);
+	}
+	
+	public IProject getTargetProject() {
+		String projectName = model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME);
+		return ProjectUtilities.getProject(projectName);
+	}		
 }
