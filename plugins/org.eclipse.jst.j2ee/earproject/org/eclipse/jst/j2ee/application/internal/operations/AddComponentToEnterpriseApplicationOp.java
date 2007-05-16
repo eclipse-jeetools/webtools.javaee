@@ -26,11 +26,13 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jem.util.UIContextDetermination;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
+import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.facet.EarFacetRuntimeHandler;
 import org.eclipse.jst.javaee.application.ApplicationFactory;
@@ -38,6 +40,7 @@ import org.eclipse.jst.javaee.application.Module;
 import org.eclipse.jst.javaee.application.Web;
 import org.eclipse.jst.jee.application.ICommonApplication;
 import org.eclipse.jst.jee.application.ICommonModule;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
@@ -63,12 +66,15 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		}
 		try {
 			J2EEComponentClasspathUpdater.getInstance().pauseUpdates();
-			IStatus status = super.execute(submon(monitor, 1), info);
-			if (!status.isOK())
-				return Status.CANCEL_STATUS;
-			updateEARDD(submon(monitor, 1));
-			updateModuleRuntimes(submon(monitor, 1));
-			return OK_STATUS;
+			IStatus  status = validateEditEAR();
+			if( status.isOK() ){
+				status = super.execute(submon(monitor, 1), info);
+				if (!status.isOK())
+					return Status.CANCEL_STATUS;
+				updateEARDD(submon(monitor, 1));
+				updateModuleRuntimes(submon(monitor, 1));
+			}
+			return status;
 		} finally {
 			if (monitor != null) {
 				monitor.done();
@@ -268,4 +274,20 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		return null;
 	}
 
+	protected IStatus validateEditEAR() {
+		IStatus status = OK_STATUS;
+		IVirtualComponent sourceComp = (IVirtualComponent) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
+		IProject project = sourceComp.getProject();
+
+		if (status.isOK()) {
+			
+			IModelProvider provider = ModelProviderManager.getModelProvider( project );
+			Object context = null;
+			if( UIContextDetermination.getCurrentContext() == UIContextDetermination.UI_CONTEXT ){
+				context = Display.getCurrent().getActiveShell();
+			}			
+			status = provider.validateEdit(null, context);
+		}
+		return status;
+	}	
 }
