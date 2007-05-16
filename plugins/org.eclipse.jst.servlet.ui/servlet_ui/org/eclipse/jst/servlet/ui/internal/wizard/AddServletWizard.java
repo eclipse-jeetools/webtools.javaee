@@ -16,9 +16,7 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jem.java.JavaRefFactory;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -96,19 +94,19 @@ public class AddServletWizard extends NewWebWizard {
 		//open new servlet class in java editor
 		WebArtifactEdit artifactEdit = null;
 		try {
-			JavaClass javaClass = null;
+
 			String className = getDataModel().getStringProperty(INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME);
 			IProject p = (IProject) getDataModel().getProperty(INewJavaClassDataModelProperties.PROJECT);
-			IVirtualComponent component = ComponentCore.createComponent(p);
 			boolean isServlet = getDataModel().getBooleanProperty(INewServletClassDataModelProperties.IS_SERVLET_TYPE);
 			if (isServlet) {
 				// servlet class
-				artifactEdit = WebArtifactEdit.getWebArtifactEditForRead(component);
-				ResourceSet resourceSet = artifactEdit.getDeploymentDescriptorResource().getResourceSet();
-				javaClass = (JavaClass) JavaRefFactory.eINSTANCE.reflectType(className,resourceSet);
-				J2EEEditorUtility.openInEditor(javaClass, p );
+				IJavaProject javaProject = J2EEEditorUtility.getJavaProject(p);
+				IFile file = (IFile) javaProject.findType(className).getResource();
+				openEditor(file);
+
 			} else {
 				// jsp
+				IVirtualComponent component = ComponentCore.createComponent(p);
 				IContainer webContent = component.getRootFolder().getUnderlyingFolder();
 				IFile file = webContent.getFile(new Path(className));
 				openEditor(file);

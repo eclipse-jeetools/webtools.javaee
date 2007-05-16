@@ -20,10 +20,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.jee.application.ICommonModule;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
@@ -95,7 +95,7 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 							if (referencedIVirtualComponent != null && referencedIVirtualComponent.exists()) {
 								String archiveName = null;
 								if (referencedComponent.getDependentObject() != null) {
-									archiveName = ((Module) referencedComponent.getDependentObject()).getUri();
+									archiveName = ((ICommonModule) referencedComponent.getDependentObject()).getUri();
 								} else {
 									if (referencedIVirtualComponent.isBinary()) {
 										archiveName = getJarURI(referencedComponent, referencedIVirtualComponent);

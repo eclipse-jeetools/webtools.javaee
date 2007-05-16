@@ -22,11 +22,11 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
-import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
-import org.eclipse.jst.j2ee.webapplication.Servlet;
-import org.eclipse.jst.j2ee.webapplication.WebApp;
-import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
@@ -319,19 +319,10 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		IProject project = ProjectUtilities.getProject(getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME));
 		String moduleName = getStringProperty(IArtifactEditOperationDataModelProperties.COMPONENT_NAME);
 		if (project == null || moduleName == null || moduleName.equals(""))return true; //$NON-NLS-1$
-		WebArtifactEdit webEdit = null;
-		try {
-			webEdit = WebArtifactEdit.getWebArtifactEditForRead(project);
-			if (webEdit == null)
-				return true;
-			return webEdit.getJ2EEVersion() > J2EEVersionConstants.VERSION_1_2;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		} finally {
-			if (webEdit != null)
-				webEdit.dispose();
-		}
+		int j2eeVersion = J2EEVersionUtil.convertVersionStringToInt(J2EEProjectUtilities.getJ2EEProjectVersion(project));
+		
+		return j2eeVersion > J2EEVersionConstants.VERSION_1_2;
+		
 	}
 
 	/**
@@ -555,20 +546,18 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		}
 		if (getTargetProject() == null || getTargetComponent() == null)
 			return WTPCommonPlugin.OK_STATUS;
-		ArtifactEdit edit = null;
-		try {
-			edit = getArtifactEditForRead();
-			if (edit == null)
-				return WTPCommonPlugin.OK_STATUS;
-			WebApp webApp = (WebApp) edit.getContentModelRoot();
-			if (webApp == null)
-				return WTPCommonPlugin.OK_STATUS;
+		
+		IModelProvider provider = ModelProviderManager.getModelProvider( getTargetProject() );
+		Object mObj = provider.getModelObject();
+		if( mObj instanceof org.eclipse.jst.j2ee.webapplication.WebApp ){
+			org.eclipse.jst.j2ee.webapplication.WebApp webApp = (org.eclipse.jst.j2ee.webapplication.WebApp) mObj;
+
 			List servlets = webApp.getServlets();
 			boolean exists = false;
 			// Ensure the display does not already exist in the web application
 			if (servlets != null && !servlets.isEmpty()) {
 				for (int i = 0; i < servlets.size(); i++) {
-					String name = ((Servlet) servlets.get(i)).getServletName();
+					String name = ((org.eclipse.jst.j2ee.webapplication.Servlet) servlets.get(i)).getServletName();
 					if (prop.equals(name))
 						exists = true;
 				}
@@ -577,12 +566,27 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 			if (exists) {
 				String msg = WebMessages.getResourceString(WebMessages.ERR_SERVLET_DISPLAY_NAME_EXIST, new String[]{prop});
 				return WTPCommonPlugin.createErrorStatus(msg);
-			}
-		} finally {
-			if (edit != null)
-				edit.dispose();
-		}
+			}			
+		}else if ( mObj instanceof org.eclipse.jst.javaee.web.WebApp){
+			org.eclipse.jst.javaee.web.WebApp webApp= (org.eclipse.jst.javaee.web.WebApp) mObj;
 
+			List servlets = webApp.getServlets();
+			boolean exists = false;
+			// Ensure the display does not already exist in the web application
+			if (servlets != null && !servlets.isEmpty()) {
+				for (int i = 0; i < servlets.size(); i++) {
+					String name = ((org.eclipse.jst.javaee.web.Servlet) servlets.get(i)).getServletName();
+					if (prop.equals(name))
+						exists = true;
+				}
+			}
+			// If the servlet name already exists, throw an error
+			if (exists) {
+				String msg = WebMessages.getResourceString(WebMessages.ERR_SERVLET_DISPLAY_NAME_EXIST, new String[]{prop});
+				return WTPCommonPlugin.createErrorStatus(msg);
+			}			
+		}
+		
 		// Otherwise, return OK
 		return WTPCommonPlugin.OK_STATUS;
 	}

@@ -45,12 +45,16 @@ import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataMode
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.WTPJETEmitter;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation;
+import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
@@ -91,7 +95,7 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
  * 
  * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
-public class NewServletClassOperation extends ArtifactEditProviderOperation {
+public class NewServletClassOperation extends AbstractDataModelOperation {
 
 	/**
 	 * XDoclet facet constants
@@ -417,4 +421,17 @@ public class NewServletClassOperation extends ArtifactEditProviderOperation {
 		// Return the source folder
 		return folder;
 	}
+
+	@Override
+	public IStatus execute(IProgressMonitor monitor, IAdaptable info)
+			throws ExecutionException {
+		return doExecute(monitor, info);
+	}
+	private IVirtualComponent getTargetComponent() {
+		return ComponentCore.createComponent(getTargetProject());
+	}	
+	public IProject getTargetProject() {
+		String projectName = model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME);
+		return ProjectUtilities.getProject(projectName);
+	}	
 }

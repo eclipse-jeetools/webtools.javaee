@@ -31,6 +31,8 @@ import org.eclipse.jst.j2ee.common.internal.util.CommonUtil;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionResource;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
+import org.eclipse.jst.jee.application.ICommonApplication;
+import org.eclipse.jst.jee.application.ICommonModule;
 import org.eclipse.wst.common.internal.emf.utilities.StringUtil;
 
 
@@ -38,7 +40,7 @@ import org.eclipse.wst.common.internal.emf.utilities.StringUtil;
  * The application element is the root element of a J2EE application deployment descriptor.
 
  */
-public class ApplicationImpl extends CompatibilityDescriptionGroupImpl implements Application {
+public class ApplicationImpl extends CompatibilityDescriptionGroupImpl implements Application, ICommonApplication {
 
 	/**
 	 * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
@@ -340,6 +342,12 @@ public boolean isVersion1_3Descriptor() {
 		result.append(version);
 		result.append(')');
 		return result.toString();
+	}
+	public List getEARModules() {
+		return getModules();
+	}
+	public ICommonModule getFirstEARModule(String uri) {
+		return (ICommonModule)getFirstModule(uri);
 	}
 
 }

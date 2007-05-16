@@ -14,11 +14,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.jem.util.UIContextDetermination;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.common.CommonFactory;
@@ -26,6 +30,8 @@ import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.common.ParamValue;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.webapplication.InitParam;
 import org.eclipse.jst.j2ee.webapplication.JSPType;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
@@ -33,7 +39,14 @@ import org.eclipse.jst.j2ee.webapplication.ServletMapping;
 import org.eclipse.jst.j2ee.webapplication.ServletType;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
+import org.eclipse.jst.javaee.core.DisplayName;
+import org.eclipse.jst.javaee.core.JavaeeFactory;
+import org.eclipse.jst.javaee.core.UrlPatternType;
+import org.eclipse.jst.javaee.web.WebFactory;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation;
+import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
+import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
@@ -64,8 +77,9 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * 
  * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
-public class AddServletOperation extends ArtifactEditProviderOperation {
+public class AddServletOperation extends AbstractDataModelOperation implements IArtifactEditOperationDataModelProperties{
 	
+	private IModelProvider provider = null;
 	/**
 	 * This is the constructor which should be used when creating the operation.
 	 * It will not accept null parameter.  It will not return null.
@@ -76,6 +90,7 @@ public class AddServletOperation extends ArtifactEditProviderOperation {
 	 */
 	public AddServletOperation(IDataModel dataModel) {
 		super(dataModel);
+		provider = ModelProviderManager.getModelProvider( getTargetProject() );
 	}
 
 	/**
@@ -170,12 +185,12 @@ public class AddServletOperation extends ArtifactEditProviderOperation {
 	 */
 	protected void generateServletMetaData(IDataModel aModel, String qualifiedClassName, boolean isServletType) {
 		// Set up the servlet modelled object
-		Servlet servlet = createServlet(qualifiedClassName, isServletType);
+		Object servlet = createServlet(qualifiedClassName, isServletType);
 
 		// Set up the InitParams if any
 		List initParamList = (List) aModel.getProperty(INewServletClassDataModelProperties.INIT_PARAM);
 		if (initParamList != null)
-			setUpInitParams(initParamList,servlet);
+			setUpInitParams(initParamList, servlet);
 		
 		// Set up the servlet URL mappings if any
 		List urlMappingList = (List) aModel.getProperty(INewServletClassDataModelProperties.URL_MAPPINGS);
@@ -196,33 +211,68 @@ public class AddServletOperation extends ArtifactEditProviderOperation {
 	 * @param isServletType
 	 * @return Servlet instance
 	 */
-	private Servlet createServlet(String qualifiedClassName, boolean isServletType) {
+	private Object createServlet(String qualifiedClassName, boolean isServletType) {
 		// Get values from data model
 		String displayName = model.getStringProperty(INewServletClassDataModelProperties.DISPLAY_NAME);
 		String description = model.getStringProperty(INewServletClassDataModelProperties.DESCRIPTION);
 		
 		// Create the servlet instance and set up the parameters from data model
-		Servlet servlet = WebapplicationFactory.eINSTANCE.createServlet();
-		servlet.setDisplayName(displayName);
-		servlet.setServletName(displayName);
-		servlet.setDescription(description);
-		// Handle servlet case
-		if (isServletType) {
-			ServletType servletType = WebapplicationFactory.eINSTANCE.createServletType();
-			servletType.setClassName(qualifiedClassName);
-			servlet.setWebType(servletType);
-		} 
-		// Handle JSP case
-		else {
-			JSPType jspType = WebapplicationFactory.eINSTANCE.createJSPType();
-			jspType.setJspFile(qualifiedClassName);
-			servlet.setWebType(jspType);
+		Object modelObject = provider.getModelObject();
+		if(modelObject instanceof org.eclipse.jst.j2ee.webapplication.WebApp ){
+		
+			Servlet servlet = WebapplicationFactory.eINSTANCE.createServlet();
+			servlet.setDisplayName(displayName);
+			servlet.setServletName(displayName);
+			servlet.setDescription(description);
+			// Handle servlet case
+			if (isServletType) {
+				ServletType servletType = WebapplicationFactory.eINSTANCE.createServletType();
+				servletType.setClassName(qualifiedClassName);
+				servlet.setWebType(servletType);
+			} 
+			// Handle JSP case
+			else {
+				JSPType jspType = WebapplicationFactory.eINSTANCE.createJSPType();
+				jspType.setJspFile(qualifiedClassName);
+				servlet.setWebType(jspType);
+			}
+			// Add the servlet to the web application model
+			
+			//WebApp webApp = (WebApp) artifactEdit.getContentModelRoot();
+			WebApp webApp = (WebApp) modelObject;
+			webApp.getServlets().add(servlet);
+			return servlet;
+		}else if(modelObject instanceof org.eclipse.jst.javaee.web.WebApp ){
+			
+			org.eclipse.jst.javaee.web.Servlet servlet = WebFactory.eINSTANCE.createServlet();
+
+			DisplayName displayNameObj = JavaeeFactory.eINSTANCE.createDisplayName();
+			displayNameObj.setValue(displayName);
+			servlet.getDisplayNames().add(displayNameObj);
+			
+			servlet.setServletName(displayName);
+			
+			org.eclipse.jst.javaee.core.Description descriptionObj = JavaeeFactory.eINSTANCE.createDescription();
+			descriptionObj.setValue(description);
+			servlet.getDescriptions().add(descriptionObj);
+			
+			// Handle servlet case
+			if (isServletType) {
+				servlet.setServletClass(qualifiedClassName);
+			} 
+			// Handle JSP case
+			else {
+				servlet.setJspFile(qualifiedClassName);
+			}
+			// Add the servlet to the web application model
+			
+			//WebApp webApp = (WebApp) artifactEdit.getContentModelRoot();
+			org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp)modelObject;
+			webApp.getServlets().add(servlet);	
+			return servlet;
 		}
-		// Add the servlet to the web application model
-		WebApp webApp = (WebApp) artifactEdit.getContentModelRoot();
-		webApp.getServlets().add(servlet);
 		// Return the servlet instance
-		return servlet;
+		return null;
 	}
 	
 	/**
@@ -235,42 +285,64 @@ public class AddServletOperation extends ArtifactEditProviderOperation {
 	 * @param initParamList
 	 * @param servlet
 	 */
-	private void setUpInitParams(List initParamList, Servlet servlet) {
+	private void setUpInitParams(List initParamList, Object servletObj) {
 		// Get the web app instance from the data model
-		WebApp webApp = (WebApp) artifactEdit.getContentModelRoot();
-		int nP = initParamList.size();
-		// If J2EE 1.4, add the param value and description info instances to the servlet init params
-		if (webApp.getJ2EEVersionID() >= J2EEVersionConstants.J2EE_1_4_ID) {
-			for (int iP = 0; iP < nP; iP++) {
+		Object modelObject = provider.getModelObject();
+		if(modelObject instanceof org.eclipse.jst.j2ee.webapplication.WebApp ){
+			WebApp webApp = (WebApp) modelObject;
+			Servlet servlet = (Servlet) servletObj;
+			
+			// If J2EE 1.4, add the param value and description info instances to the servlet init params
+			if (webApp.getJ2EEVersionID() >= J2EEVersionConstants.J2EE_1_4_ID) {
+				for (int iP = 0; iP < initParamList.size(); iP++) {
+					String[] stringArray = (String[]) initParamList.get(iP);
+					// Create 1.4 common param value
+					ParamValue param = CommonFactory.eINSTANCE.createParamValue();
+					param.setName(stringArray[0]);
+					param.setValue(stringArray[1]);
+					// Create 1.4 common descripton value
+					Description descriptionObj = CommonFactory.eINSTANCE.createDescription();
+					descriptionObj.setValue(stringArray[2]);
+					// Set the description on the param
+					param.getDescriptions().add(descriptionObj);
+					param.setDescription(stringArray[2]);
+					// Add the param to the servlet model list of init params
+					servlet.getInitParams().add(param);
+				}
+			}
+			// If J2EE 1.2 or 1.3, use the servlet specific init param instances
+			else {
+				for (int iP = 0; iP < initParamList.size(); iP++) {
+					String[] stringArray = (String[]) initParamList.get(iP);
+					// Create the web init param
+					InitParam ip = WebapplicationFactory.eINSTANCE.createInitParam();
+					// Set the param name
+					ip.setParamName(stringArray[0]);
+					// Set the param value
+					ip.setParamValue(stringArray[1]);
+					// Set the param description
+					ip.setDescription(stringArray[2]);
+					// Add the init param to the servlet model list of params
+					servlet.getParams().add(ip);
+				}
+			}
+		}else if(modelObject instanceof org.eclipse.jst.javaee.web.WebApp ){
+			org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) modelObject;
+			org.eclipse.jst.javaee.web.Servlet servlet = (org.eclipse.jst.javaee.web.Servlet) servletObj;
+
+			for (int iP = 0; iP < initParamList.size(); iP++) {
 				String[] stringArray = (String[]) initParamList.get(iP);
 				// Create 1.4 common param value
-				ParamValue param = CommonFactory.eINSTANCE.createParamValue();
-				param.setName(stringArray[0]);
-				param.setValue(stringArray[1]);
-				// Create 1.4 common descripton value
-				Description descriptionObj = CommonFactory.eINSTANCE.createDescription();
+				org.eclipse.jst.javaee.core.ParamValue param= JavaeeFactory.eINSTANCE.createParamValue();
+				param.setParamName(stringArray[0]);
+				param.setParamValue(stringArray[1]);
+
+				org.eclipse.jst.javaee.core.Description descriptionObj = JavaeeFactory.eINSTANCE.createDescription();
 				descriptionObj.setValue(stringArray[2]);
 				// Set the description on the param
 				param.getDescriptions().add(descriptionObj);
-				param.setDescription(stringArray[2]);
 				// Add the param to the servlet model list of init params
 				servlet.getInitParams().add(param);
-			}
-		}
-		// If J2EE 1.2 or 1.3, use the servlet specific init param instances
-		else {
-			for (int iP = 0; iP < nP; iP++) {
-				String[] stringArray = (String[]) initParamList.get(iP);
-				// Create the web init param
-				InitParam ip = WebapplicationFactory.eINSTANCE.createInitParam();
-				// Set the param name
-				ip.setParamName(stringArray[0]);
-				// Set the param value
-				ip.setParamValue(stringArray[1]);
-				// Set the param description
-				ip.setDescription(stringArray[2]);
-				// Add the init param to the servlet model list of params
-				servlet.getParams().add(ip);
 			}
 		}
 	}
@@ -286,22 +358,79 @@ public class AddServletOperation extends ArtifactEditProviderOperation {
 	 * @param urlMappingList
 	 * @param servlet
 	 */
-	private void setUpURLMappings(List urlMappingList, Servlet servlet) {
+	private void setUpURLMappings(List urlMappingList, Object servletObj) {
 		// Get the web app modelled object from the data model
-		WebApp webApp = (WebApp) artifactEdit.getContentModelRoot();
-		int nM = urlMappingList.size();
+		//WebApp webApp = (WebApp) artifactEdit.getContentModelRoot();
+		Object modelObject = provider.getModelObject();
+
 		// Create the servlet mappings if any
-		for (int iM = 0; iM < nM; iM++) {
-			String[] stringArray = (String[]) urlMappingList.get(iM);
-			// Create the servlet mapping instance from the web factory
-			ServletMapping mapping = WebapplicationFactory.eINSTANCE.createServletMapping();
-			// Set the servlet and servlet name
-			mapping.setServlet(servlet);
-			mapping.setName(servlet.getServletName());
-			// Set the URL pattern to map the servlet to
-			mapping.setUrlPattern(stringArray[0]);
-			// Add the servlet mapping to the web application modelled list
-			webApp.getServletMappings().add(mapping);
+		if(modelObject instanceof org.eclipse.jst.j2ee.webapplication.WebApp ){	
+			WebApp webApp = (WebApp) modelObject;
+			Servlet servlet = (Servlet) servletObj;
+			for (int iM = 0; iM < urlMappingList.size(); iM++) {
+					String[] stringArray = (String[]) urlMappingList.get(iM);
+					// Create the servlet mapping instance from the web factory
+					ServletMapping mapping = WebapplicationFactory.eINSTANCE.createServletMapping();
+					// Set the servlet and servlet name
+					mapping.setServlet(servlet);
+					mapping.setName(servlet.getServletName());
+					// Set the URL pattern to map the servlet to
+					mapping.setUrlPattern(stringArray[0]);
+					// Add the servlet mapping to the web application modelled list
+					webApp.getServletMappings().add(mapping);
+			}
+		}else if (modelObject instanceof org.eclipse.jst.javaee.web.WebApp ){
+			org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) modelObject;
+			org.eclipse.jst.javaee.web.Servlet servlet = (org.eclipse.jst.javaee.web.Servlet) servletObj;
+			for (int iM = 0; iM < urlMappingList.size(); iM++) {
+				// Create the servlet mapping instance from the web factory
+				org.eclipse.jst.javaee.web.ServletMapping mapping = WebFactory.eINSTANCE.createServletMapping();
+
+				mapping.setServletName(servlet.getServletName());
+				for (int i = 0; i < urlMappingList.size(); i++) {
+						String[] stringArray = (String[]) urlMappingList.get(i);
+						// Set the URL pattern to map the servlet to
+						UrlPatternType url = JavaeeFactory.eINSTANCE.createUrlPatternType();
+						url.setValue(stringArray[0]);
+						mapping.getUrlPatterns().add(url);
+					}
+					// Add the servlet mapping to the web application modelled list
+					webApp.getServletMappings().add(mapping);
+				}			
 		}
+	}
+
+	public IProject getTargetProject() {
+		String projectName = model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME);
+		return ProjectUtilities.getProject(projectName);
+	}
+	
+	@Override
+	public IStatus execute(final IProgressMonitor monitor, final IAdaptable info) throws ExecutionException {
+		Runnable runnable = null;
+		try {
+			Object ctx = null;
+			if( UIContextDetermination.getCurrentContext() == UIContextDetermination.UI_CONTEXT ){
+				ctx = Display.getCurrent().getActiveShell();
+			}
+
+			if (provider.validateEdit(null,ctx).isOK()){
+				runnable = new Runnable(){
+
+					public void run() {
+						try {
+							doExecute(monitor, info);
+						} catch (ExecutionException e) {
+							e.printStackTrace();
+						}
+					}
+				};
+				provider.modify(runnable, null);
+			}
+			//return doExecute(monitor, info);
+			return Status.CANCEL_STATUS;
+		} finally {
+
+		}		
 	}
 }

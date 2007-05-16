@@ -20,12 +20,13 @@ import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
+import org.eclipse.jst.jee.application.ICommonModule;
 
 /**
  * The module element represents a single J2EE module and contains an ejb, java, or web element, which indicates the module type and contains a path to the module file, and an optional alt-dd element, which specifies an optional URI to the post-assembly version of the deployment descriptor. The application deployment descriptor must have one module element for each J2EE module in the application package.
  * @generated
  */
-public class ModuleImpl extends J2EEEObjectImpl implements Module {
+public class ModuleImpl extends J2EEEObjectImpl implements Module, ICommonModule {
 
 	/**
 	 * The default value of the '{@link #getUri() <em>Uri</em>}' attribute.

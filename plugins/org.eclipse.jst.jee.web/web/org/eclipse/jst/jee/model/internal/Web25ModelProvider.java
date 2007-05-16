@@ -23,7 +23,7 @@ public class Web25ModelProvider extends JEE5ModelProvider implements IModelProvi
 	 */
 	public Object getModelObject(IPath modelPath) {
 		WebResourceImpl webRes = (WebResourceImpl)getModelResource(modelPath);
-		if (webRes.getContents().size() > 0) 
+		if (webRes != null && webRes.getContents().size() > 0) 
 			return webRes.getWebApp();
 		return null;
 	}
