@@ -411,7 +411,9 @@ public class AddServletOperation extends AbstractDataModelOperation implements I
 		try {
 			Object ctx = null;
 			if( UIContextDetermination.getCurrentContext() == UIContextDetermination.UI_CONTEXT ){
-				ctx = Display.getCurrent().getActiveShell();
+				Display display = Display.getCurrent();
+				if(display != null )
+					ctx = display.getActiveShell();
 			}
 
 			if (provider.validateEdit(null,ctx).isOK()){
