@@ -6,6 +6,8 @@ Bundle-Version: 2.0.0.qualifier
 Bundle-Activator: org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
+Bundle-ClassPath: .,
+ vm/beaninfovm.jar
 Export-Package: org.eclipse.jem.beaninfo.common,
  org.eclipse.jem.beaninfo.vm,
  org.eclipse.jem.internal.beaninfo,
