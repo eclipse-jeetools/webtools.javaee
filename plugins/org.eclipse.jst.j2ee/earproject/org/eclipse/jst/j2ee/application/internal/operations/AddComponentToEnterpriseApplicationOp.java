@@ -284,7 +284,9 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 			IModelProvider provider = ModelProviderManager.getModelProvider( project );
 			Object context = null;
 			if( UIContextDetermination.getCurrentContext() == UIContextDetermination.UI_CONTEXT ){
-				context = Display.getCurrent().getActiveShell();
+				Display display = Display.getCurrent();
+				if(display != null )
+					context = display.getActiveShell();
 			}			
 			status = provider.validateEdit(null, context);
 		}
