@@ -21,6 +21,10 @@
       <update label="%updateSiteName" url="http://download.eclipse.org/webtools/updates/"/>
    </url>
 
+   <requires>
+      <import feature="org.eclipse.emf.codegen" version="2.3.0.v200705110650"/>
+   </requires>
+
    <plugin
          id="org.eclipse.jst.common.annotations.core"
          download-size="0"
