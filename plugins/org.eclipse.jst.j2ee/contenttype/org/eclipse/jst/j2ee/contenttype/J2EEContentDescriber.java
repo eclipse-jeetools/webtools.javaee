@@ -12,6 +12,8 @@ package org.eclipse.jst.j2ee.contenttype;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 
 import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.core.runtime.content.IContentDescriber;
@@ -61,7 +63,13 @@ public final class J2EEContentDescriber implements IContentDescriber {
 
 	public QualifiedName[] getSupportedOptions() {
 		// this is not used
-		return null;
+		return new QualifiedName[] { JEEVERSION };
+	}
+
+
+
+	public List getValidVersions() {
+		return Arrays.asList( "1.0","1.1","2.0","2.1","2.2","2.3","2.4","1.2","1.3","1.4");
 	}
 	
 	

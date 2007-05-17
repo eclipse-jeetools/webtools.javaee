@@ -47,8 +47,7 @@ private static final int DEFAULT_PRIORITY = 100;
 	public static void registerProvider(IModelProviderFactory providerFactory,
 			IProjectFacetVersion v, String priority) {
 
-		int newPriority = (priority != null) ? Integer.getInteger(priority)
-				.intValue() : DEFAULT_PRIORITY;
+		int newPriority = (priority != null) ? Integer.parseInt(priority) : DEFAULT_PRIORITY;
 		int currentPriority = getProviderPriority(v);
 		if (newPriority <= currentPriority) {
 			ModelProviderKey key = createProviderKey(v, newPriority);
