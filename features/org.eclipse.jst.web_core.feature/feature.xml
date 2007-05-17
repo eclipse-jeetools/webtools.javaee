@@ -22,7 +22,7 @@
    </url>
 
    <requires>
-      <import feature="org.eclipse.emf.codegen" version="2.3.0.v200705110650"/>
+      <import feature="org.eclipse.emf.codegen" version="2.3.0" match="compatible"/>
    </requires>
 
    <plugin
