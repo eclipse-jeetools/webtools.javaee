@@ -14,16 +14,14 @@ import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.application.Application;
+import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
-import org.eclipse.jst.j2ee.model.IEARModelProvider;
-import org.eclipse.jst.j2ee.model.ModelProviderManager;
-import org.eclipse.jst.jee.application.ICommonApplication;
-import org.eclipse.jst.jee.application.ICommonModule;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentOperation;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -48,47 +46,46 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 		}
 	}
 
-	protected void updateEARDD(final IProgressMonitor monitor) {
-		final IVirtualComponent comp = (IVirtualComponent) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
-		if (!comp.getProject().isAccessible())
-			return;
-		J2EEComponentClasspathUpdater.getInstance().queueUpdateEAR(comp.getProject());
-		final IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(comp.getProject());
-		earModel.modify(new Runnable() {
-			public void run() {
-
-				ICommonApplication application = (ICommonApplication)earModel.getModelObject();
-				if (application == null)
-					return;
+	protected void updateEARDD(IProgressMonitor monitor) {
+		EARArtifactEdit earEdit = null;
+		try {
+			IVirtualComponent comp = (IVirtualComponent) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
+			if (!comp.getProject().isAccessible())
+				return;
+			J2EEComponentClasspathUpdater.getInstance().queueUpdateEAR(comp.getProject());
+			earEdit = EARArtifactEdit.getEARArtifactEditForWrite(comp.getProject());
+			if (earEdit != null) {
+				Application application = earEdit.getApplication();
 				List list = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 				if (list != null && list.size() > 0) {
 					for (int i = 0; i < list.size(); i++) {
 						IVirtualComponent wc = (IVirtualComponent) list.get(i);
-						String moduleURI = earModel.getModuleURI(wc);
+						String moduleURI = getModuleURI(earEdit, wc);
 						removeModule(application, moduleURI); 
 						IVirtualFile vFile = comp.getRootFolder().getFile(moduleURI);
 						IFile iFile = vFile.getUnderlyingFile();
 						if(iFile.exists()){
-							try {
-								iFile.delete(true, monitor);
-							} catch (CoreException e) {
-								e.printStackTrace();
-							}
+							iFile.delete(true, monitor);
 						}
 					}
 				}
-			
 			}
-		}, null);
+			earEdit.saveIfNecessary(monitor);
+		} catch (Exception e) {
+			Logger.getLogger().logError(e);
+		} finally {
+			if (earEdit != null)
+				earEdit.dispose();
+		}
 	}
 	
 	protected String getModuleURI(final EARArtifactEdit earEdit, final IVirtualComponent targetComponent) {
 		return earEdit.getModuleURI(targetComponent);
 	}
 
-	protected void removeModule(final ICommonApplication application, final String moduleURI) {
-		ICommonModule module = application.getFirstEARModule(moduleURI);
-		application.getEARModules().remove(module);
+	protected void removeModule(final Application application, final String moduleURI) {
+		Module module = application.getFirstModule(moduleURI);
+		application.getModules().remove(module);
 	}
 
 }
