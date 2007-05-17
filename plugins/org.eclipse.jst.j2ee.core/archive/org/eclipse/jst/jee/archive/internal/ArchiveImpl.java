@@ -111,6 +111,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 	private FailedToCloseException openendBy = null;
 
 	public ArchiveImpl(ArchiveOptions archiveOptions) {
+		setType(IArchiveResource.ARCHIVE_TYPE);
 		setArchiveOptions(archiveOptions);
 		loadAdapter = (IArchiveLoadAdapter) getArchiveOptions().getOption(ArchiveOptions.LOAD_ADAPTER);
 		loadAdapter.setArchive(this);
@@ -125,7 +126,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 		openendBy = null;
 		loadAdapter.close();
 	}
-
+	
 	public IArchiveResource getArchiveResource(IPath archiveRelativePath) throws FileNotFoundException {
 		AbstractArchiveLoadAdapter.verifyRelative(archiveRelativePath);
 		IArchiveResource aFile = null;

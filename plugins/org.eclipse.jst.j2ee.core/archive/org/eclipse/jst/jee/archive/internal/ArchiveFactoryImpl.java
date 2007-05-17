@@ -118,7 +118,26 @@ public class ArchiveFactoryImpl implements IArchiveFactory {
 	}
 
 	public void saveArchive(IArchive archive, ArchiveOptions archiveOptions) throws ArchiveSaveFailureException {
-		// TODO Auto-generated method stub
+		IArchiveSaveAdapter aSaveAdapter = (IArchiveSaveAdapter)archiveOptions.getOption(ArchiveOptions.SAVE_ADAPTER);
+		try {
+			aSaveAdapter.setArchive(archive);
+			save(aSaveAdapter);
+
+			aSaveAdapter.close();
+			closeArchive(archive);
+		} catch (ArchiveSaveFailureException failure) {
+			try {
+				if (aSaveAdapter != null)
+					aSaveAdapter.close();
+			} catch (IOException weTried) {
+				// Ignore
+			}
+			throw failure;
+		} catch (java.io.IOException ex) {
+			// TODO throw new
+			// SaveFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.error_saving_EXC_,
+			// (new Object[]{aUri})), ex); // = "Error saving "
+		}
 		
 	}
 

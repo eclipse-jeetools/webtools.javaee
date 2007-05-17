@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.internal.archive;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -18,6 +19,10 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
+import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
+import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
+import org.eclipse.jst.jee.archive.ArchiveOptions;
+import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -25,6 +30,8 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public class WebComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter {
 
+	public static IPath WEBLIB = new Path("/WEB-INF/lib"); //$NON-NLS-1$
+	
 	public WebComponentArchiveLoadAdapter(IVirtualComponent vComponent) {
 		super(vComponent);
 	}
@@ -33,24 +40,27 @@ public class WebComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 		super(vComponent, includeClasspathComponents);
 	}
 
-	public List <IArchiveResource>listgetArchiveResources() {
+	public List <IArchiveResource> getArchiveResources() {
 		super.getArchiveResources();
 		addLooseLibJARsToFiles();
 		return filesHolder.getFiles();
 	}
 
 	public IVirtualReference[] getLibModules() {
-		//TODO implement this
-//		WebArtifactEdit webArtifactEdit = null;
-//		try {
-//			webArtifactEdit = (WebArtifactEdit) ComponentUtilities.getArtifactEditForRead(getComponent());
-//			if (webArtifactEdit != null)
-//				return webArtifactEdit.getLibModules();
-//		} finally {
-//			if (webArtifactEdit != null)
-//				webArtifactEdit.dispose();
-//		}
-		return null;
+		List <IVirtualReference> result = new ArrayList<IVirtualReference>();
+		IVirtualReference[] refComponents = null;
+		if (!vComponent.isBinary())
+			refComponents = ((J2EEModuleVirtualComponent)vComponent).getNonManifestReferences();
+		else
+			refComponents = vComponent.getReferences();
+		// Check the deployed path to make sure it has a lib parent folder and matchs the web.xml
+		// base path
+		for (int i = 0; i < refComponents.length; i++) {
+			if (refComponents[i].getRuntimePath().equals(WEBLIB))
+				result.add(refComponents[i]);
+		}
+
+		return (IVirtualReference[]) result.toArray(new IVirtualReference[result.size()]);
 
 	}
 
@@ -82,17 +92,21 @@ public class WebComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 				}
 
 				addClasspathComponentDependencies(looseComponent);
-				//TODO implement this
-//				String uri = prefix + name;
-//				try {
-//					Archive utilJAR = J2EEProjectUtilities.asArchive(uri, looseComponent.getProject(), isExportSource());
-//					if (utilJAR == null)
-//						continue;
-//					filesHolder.addFile(utilJAR);
-//				} catch (OpenFailureException oe) {
-//					String message = ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.UNABLE_TO_LOAD_MODULE_ERROR_, new Object[]{uri, getComponent().getProject().getName(), oe.getConcatenatedMessages()}); //$NON-NLS-1$
-//					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logTrace(message);
-//				}
+				String uri = prefix + name;
+				
+				try {
+					JavaComponentArchiveLoadAdapter archiveLoadAdapter = new JavaComponentArchiveLoadAdapter(looseComponent);
+					archiveLoadAdapter.setExportSource(isExportSource());
+					ArchiveOptions webLibOptions = new ArchiveOptions();
+					webLibOptions.setOption(ArchiveOptions.LOAD_ADAPTER, archiveLoadAdapter);
+					IArchive webLibArchive;
+					webLibArchive = JavaEEArchiveUtilities.INSTANCE.openArchive(webLibOptions);
+					webLibArchive.setPath(new Path(uri));
+					filesHolder.addFile(webLibArchive);
+				} catch (ArchiveOpenFailureException e) {
+					String message = ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.UNABLE_TO_LOAD_MODULE_ERROR_, new Object[]{uri, getComponent().getProject().getName(), e.getMessage()});
+					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logTrace(message);
+				}
 			}
 		}
 	}
