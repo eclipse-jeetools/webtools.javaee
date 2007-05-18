@@ -51,7 +51,6 @@ public abstract class AbstractArchiveLoadAdapter extends AbstractArchiveAdapter 
 	 */
 	protected IArchiveResource createFile(IPath archiveRelativePath) {
 		verifyRelative(archiveRelativePath);
-		// TODO possibly handle the nested archive case here
 		IArchiveResource aFile = null;
 		aFile = new ArchiveResourceImpl();
 		aFile.setPath(archiveRelativePath);

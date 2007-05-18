@@ -36,6 +36,10 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
+import org.eclipse.jst.jee.archive.ArchiveOptions;
+import org.eclipse.jst.jee.archive.IArchive;
+import org.eclipse.jst.jee.archive.IArchiveFactory;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
@@ -66,7 +70,7 @@ public class ConnectorComponentArchiveLoadAdapter extends ComponentArchiveLoadAd
 		knownDD = vComponent.getRootFolder().getFile(J2EEConstants.RAR_DD_URI).getUnderlyingFile();
 	}
 
-	public List getFiles() {
+	public List<IArchiveResource> getArchiveResources() {
 		addNestedJARsFromSourceRoots();
 		aggregateSourceFiles();
 		return filesHolder.getFiles();
@@ -83,11 +87,13 @@ public class ConnectorComponentArchiveLoadAdapter extends ComponentArchiveLoadAd
 				}
 			} catch (JavaModelException e) {
 				Logger.getLogger().logError(e);
+			} catch (ArchiveOpenFailureException e) {
+				Logger.getLogger().logError(e);
 			}
 		}
 	}
 
-	private IArchiveResource getNestedJar(IPackageFragmentRoot sourceRoot) throws JavaModelException {
+	private IArchiveResource getNestedJar(IPackageFragmentRoot sourceRoot) throws JavaModelException, ArchiveOpenFailureException {
 		IPath outputPath = sourceRoot.getRawClasspathEntry().getOutputLocation();
 		if (outputPath == null) {
 			IProject project = vComponent.getProject();
@@ -113,7 +119,7 @@ public class ConnectorComponentArchiveLoadAdapter extends ComponentArchiveLoadAd
 		Set iFilesSet = new HashSet();
 		boolean foundJava = gatherFilesForJAR(iFilesSet, sourceContainer, isModuleRoot, false, sourceContainerSegmentCount);
 		if (!isModuleRoot || foundJava) {
-			List iFilesList = Collections.list(Collections.enumeration(iFilesSet));
+			List <IFile> iFilesList = Collections.list(Collections.enumeration(iFilesSet));
 			for (int i = 0; i < iFilesList.size(); i++) {
 				filesHolder.removeIFile((IFile) iFilesList.get(i));
 			}
@@ -141,7 +147,7 @@ public class ConnectorComponentArchiveLoadAdapter extends ComponentArchiveLoadAd
 					if (JavaEEArchiveUtilities.isJava(srcFile)) {
 						if (exportSource) {
 							iFiles.add(srcFile); // don't need to check
-													// duplicates here
+							// duplicates here
 						}
 						String className = srcFile.getProjectRelativePath().removeFirstSegments(sourceContainerSegmentCount).toString();
 						className = className.substring(0, className.length() - dotJavaLength);
@@ -171,18 +177,14 @@ public class ConnectorComponentArchiveLoadAdapter extends ComponentArchiveLoadAd
 		return foundJava;
 	}
 
-	private IArchiveResource createNestedArchive(List files, IContainer sourceContainer, IFolder javaOutputFolder) {
-		ConnectorComponentNestedJARArchiveLoadAdapter loader = new ConnectorComponentNestedJARArchiveLoadAdapter(files, sourceContainer, javaOutputFolder);
-		return null;
-		// TODO implement this
-		// ArchiveOptions options = ((Archive)
-		// getContainer()).getOptions().cloneWith(loader);
-		// String uri = computeUniqueArchiveURI(sourceContainer);
-		// try {
-		// return getArchiveFactory().primOpenArchive(options, uri);
-		// } catch (OpenFailureException ex) {
-		// throw new ArchiveRuntimeException(ex);
-		// }
+	private IArchive createNestedArchive(List <IFile> files, IContainer sourceContainer, IFolder javaOutputFolder) throws ArchiveOpenFailureException {
+		ConnectorComponentNestedJARArchiveLoadAdapter nestedLoader = new ConnectorComponentNestedJARArchiveLoadAdapter(files, sourceContainer, javaOutputFolder);
+		ArchiveOptions nestedOptions = new ArchiveOptions();
+		nestedOptions.setOption(ArchiveOptions.LOAD_ADAPTER, nestedLoader);
+		IArchive nestedArchive = IArchiveFactory.INSTANCE.openArchive(nestedOptions);
+		nestedArchive.setPath(new Path(computeUniqueArchiveURI(sourceContainer)));
+		nestedArchive.setArchive(archive);
+		return nestedArchive;
 	}
 
 	private String computeUniqueArchiveURI(IResource resource) {
@@ -212,8 +214,9 @@ public class ConnectorComponentArchiveLoadAdapter extends ComponentArchiveLoadAd
 		return true;
 	}
 
-	protected boolean shouldInclude(String uri) {
-		return !JavaEEArchiveUtilities.hasExtension(uri, JavaEEArchiveUtilities.DOT_CLASS) && !JavaEEArchiveUtilities.hasExtension(uri, JavaEEArchiveUtilities.DOT_JAVA);
+	protected boolean shouldInclude(IPath path) {
+		String lastSegment = path.lastSegment();
+		return null != lastSegment && !JavaEEArchiveUtilities.hasExtension(lastSegment, JavaEEArchiveUtilities.DOT_CLASS) && !JavaEEArchiveUtilities.hasExtension(lastSegment, JavaEEArchiveUtilities.DOT_JAVA);
 	}
 
 	/**
