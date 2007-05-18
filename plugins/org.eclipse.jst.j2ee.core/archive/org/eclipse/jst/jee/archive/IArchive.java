@@ -40,6 +40,23 @@ public interface IArchive extends IArchiveResource {
 	public IArchiveResource getArchiveResource(IPath archiveRelativePath) throws java.io.FileNotFoundException;
 
 	/**
+	 * Returns an {@link IArchive} for the specified archiveResource. If the
+	 * {@link IArchive} is successfully returned, it will be added to the list
+	 * returned by {@link #getNestedArchives()}. Also, the original
+	 * {@link IArchiveResource} will be removed from this {@link IArchive}'s
+	 * list of {@link IArchiveResource}s returned by
+	 * {@link #getArchiveResources()} and replaced with the returned
+	 * {@link IArchive}.
+	 * 
+	 * @param archiveResource
+	 * @return
+	 * @throws ArchiveOpenFailureException
+	 */
+	public IArchive getNestedArchive(IArchiveResource archiveResource) throws ArchiveOpenFailureException;
+
+	public List<IArchive> getNestedArchives();
+
+	/**
 	 * Returns a list of all {@link IArchiveResource}s in the archive.
 	 * 
 	 * @return

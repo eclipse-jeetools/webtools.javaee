@@ -624,9 +624,17 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 	}
 
 	protected IPath getDefaultModelObjectPath() {
-		return new Path("/");
+		return new Path("/"); //$NON-NLS-1$
 	}
 
+	public String toString(){
+		int packageLength = this.getClass().getPackage().getName().length() +1;
+		StringBuffer buffer = new StringBuffer(this.getClass().getName().substring(packageLength));
+		buffer.append(", Component: "); //$NON-NLS-1$
+		buffer.append(getComponent());
+		return buffer.toString();
+	}
+	
 	/**
 	 * protected IProgressMonitor monitor = null;
 	 * 

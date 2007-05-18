@@ -11,6 +11,10 @@
 package org.eclipse.jst.jee.archive.internal;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -20,8 +24,10 @@ import java.util.Map;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.jee.archive.AbstractArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
+import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
 import org.eclipse.jst.jee.archive.IArchive;
+import org.eclipse.jst.jee.archive.IArchiveFactory;
 import org.eclipse.jst.jee.archive.IArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 
@@ -34,11 +40,20 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 	private class ArchiveFileIndex {
 		private Map<IPath, IArchiveResource> index = new HashMap<IPath, IArchiveResource>();
 
+		private List<IArchive> nestedArchives = null;
+
 		private List<IArchiveResource> fullIndex = null;
 
 		private boolean fullyIndexed = false;
 
 		public ArchiveFileIndex() {
+		}
+
+		public synchronized List<IArchive> getNestedArchives() {
+			if (nestedArchives == null) {
+				nestedArchives = new ArrayList<IArchive>();
+			}
+			return nestedArchives;
 		}
 
 		public synchronized boolean containsFile(IPath archiveRelativePath) {
@@ -68,7 +83,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 			return fullyIndexed;
 		}
 
-		public void fullyIndex(List files) {
+		public void fullyIndex(List<IArchiveResource> files) {
 			synchronized (this) {
 				if (fullyIndexed) {
 					verifyNotFullyIndexed();
@@ -76,8 +91,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 				fullyIndexed = true;
 			}
 
-			for (int i = 0; i < files.size(); i++) {
-				IArchiveResource aFile = (IArchiveResource) files.get(i);
+			for (IArchiveResource aFile : files) {
 				AbstractArchiveLoadAdapter.verifyRelative(aFile.getPath());
 				synchronized (this) {
 					if (!index.containsKey(aFile.getPath())) {
@@ -124,9 +138,12 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 
 	public void close() {
 		openendBy = null;
+		for (IArchive nestedArchive : getNestedArchives()) {
+			IArchiveFactory.INSTANCE.closeArchive(nestedArchive);
+		}
 		loadAdapter.close();
 	}
-	
+
 	public IArchiveResource getArchiveResource(IPath archiveRelativePath) throws FileNotFoundException {
 		AbstractArchiveLoadAdapter.verifyRelative(archiveRelativePath);
 		IArchiveResource aFile = null;
@@ -165,7 +182,10 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 	}
 
 	public String toString() {
-		return loadAdapter.toString();
+		StringBuffer buffer = new StringBuffer(super.toString());
+		buffer.append(" Loaded by: "); //$NON-NLS-1$
+		buffer.append(loadAdapter);
+		return buffer.toString();
 	}
 
 	protected void finalize() throws Throwable {
@@ -204,6 +224,65 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 			return loadAdapter.containsArchiveResource(archiveRelativePath);
 		}
 		return false;
+	}
+
+	public IArchive getNestedArchive(IArchiveResource archiveResource) throws ArchiveOpenFailureException {
+		try {
+			if (archiveResource.getArchive() != this) {
+				throw new ArchiveOpenFailureException("Attempted to open nested IArchive " + archiveResource.getPath() + " using an IArchiveResource not contained in this IArchive."); //$NON-NLS-1$//$NON-NLS-2$
+			}
+			IArchiveResource cachedArchiveResource = getArchiveResource(archiveResource.getPath());
+
+			if (cachedArchiveResource.getType() == IArchiveResource.ARCHIVE_TYPE) {
+				IArchive nestedArchive = (IArchive) cachedArchiveResource;
+				if (!archiveFileIndex.getNestedArchives().contains(nestedArchive)) {
+					archiveFileIndex.getNestedArchives().add(nestedArchive);
+				}
+				return nestedArchive;
+			} else if (cachedArchiveResource.getType() == IArchiveResource.DIRECTORY_TYPE) {
+				throw new ArchiveOpenFailureException("Attempted to open nested IArchive " + cachedArchiveResource.getPath() + " using a directory."); //$NON-NLS-1$//$NON-NLS-2$
+			}
+			IArchiveLoadAdapter nestedLoadAdapter = null;
+
+			try {
+				java.io.File tempFile = null;
+				try {
+					tempFile = ArchiveUtil.createTempFile(cachedArchiveResource.getPath().toString());
+				} catch (IOException e) {
+					ArchiveUtil.inform("Warning: Unable to create temp file for " + cachedArchiveResource.getPath() + ".  This will impact performance."); //$NON-NLS-1$//$NON-NLS-2$
+				}
+				if (tempFile != null) {
+					InputStream in = cachedArchiveResource.getInputStream();
+					OutputStream out = new FileOutputStream(tempFile);
+					ArchiveUtil.copy(in, out);
+					nestedLoadAdapter = new TempZipFileArchiveLoadAdapterImpl(tempFile);
+				}
+			} catch (IOException e) {
+				throw new ArchiveOpenFailureException(e);
+			}
+
+			if (nestedLoadAdapter == null) {
+				// TODO implement a ZipStream reader if necessary
+			}
+
+			ArchiveOptions nestedArchiveOptions = new ArchiveOptions();
+			nestedArchiveOptions.setOption(ArchiveOptions.LOAD_ADAPTER, nestedLoadAdapter);
+			IArchive nestedArchive = IArchiveFactory.INSTANCE.openArchive(nestedArchiveOptions);
+			nestedArchive.setPath(cachedArchiveResource.getPath());
+			// replace the IArchiveResource with the nested IArchive and reset
+			// the index
+			archiveFileIndex.index.put(nestedArchive.getPath(), nestedArchive);
+			archiveFileIndex.getNestedArchives().add(nestedArchive);
+			archiveFileIndex.fullIndex = null;
+			return nestedArchive;
+
+		} catch (FileNotFoundException e) {
+			throw new ArchiveOpenFailureException(e);
+		}
+	}
+
+	public List<IArchive> getNestedArchives() {
+		return Collections.unmodifiableList(archiveFileIndex.getNestedArchives());
 	}
 
 }

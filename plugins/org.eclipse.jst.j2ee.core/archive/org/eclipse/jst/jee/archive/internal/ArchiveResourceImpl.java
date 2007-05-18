@@ -25,8 +25,6 @@ import org.eclipse.jst.jee.archive.IArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.jst.jee.archive.IArchiveSaveAdapter;
 
-
-
 public class ArchiveResourceImpl implements IArchiveResource {
 
 	private IArchive archive = null;
@@ -97,12 +95,31 @@ public class ArchiveResourceImpl implements IArchiveResource {
 			try {
 				IArchiveFactory.INSTANCE.saveArchive(thisArchive, archiveOptions);
 			} catch (ArchiveSaveFailureException e) {
-				throw new IOException("Unable to save nested Archive " + getPath() + " nested exception = " + e.getMessage());  //$NON-NLS-1$//$NON-NLS-2$
+				throw new IOException("Unable to save nested Archive " + getPath() + " nested exception = " + e.getMessage()); //$NON-NLS-1$//$NON-NLS-2$
 			}
 			return new ByteArrayInputStream(byteOut.toByteArray());
 
 		}
 		return null;
+	}
+
+	public String toString() {
+		StringBuffer buffer = new StringBuffer();
+		switch (getType()) {
+		case FILE_TYPE:
+			buffer.append("File: ");
+			break;
+		case DIRECTORY_TYPE:
+			buffer.append("Directory: ");
+			break;
+		case ARCHIVE_TYPE:
+			buffer.append("Archive: ");
+			break;
+		case UNKNOWN_TYPE:
+			buffer.append("Unknown: ");
+		}
+		buffer.append(getPath());
+		return buffer.toString();
 	}
 
 }

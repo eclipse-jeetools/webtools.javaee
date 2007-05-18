@@ -45,13 +45,6 @@ public class ArchiveUtil {
 		return tempDirectory;
 	}
 
-	public static java.io.File createTempDirectory(String baseName, java.io.File parentDirectory) throws IOException {
-		java.io.File tempFile = createTempFile(baseName, parentDirectory);
-		tempFile.delete();
-		tempFile.mkdir();
-		return tempFile;
-	}
-
 	public static java.io.File createTempFile(String baseName) throws IOException {
 		return createTempFile(baseName, getTempDirectory());
 	}
@@ -62,6 +55,7 @@ public class ArchiveUtil {
 			fileName = "WSTMP" + fileName; //$NON-NLS-1$
 		}
 		java.io.File tempFile = java.io.File.createTempFile(fileName, null, directory);
+		DeleteOnExitUtility.markForDeletion(tempFile);
 		return tempFile;
 	}
 
@@ -184,8 +178,10 @@ public class ArchiveUtil {
 		}
 		if (deleteWorked) {
 			for (int i = 0; i < 10; i++) {
-				if (destinationFile.renameTo(original))
+				if (destinationFile.renameTo(original)){
+					DeleteOnExitUtility.fileHasBeenDeleted(destinationFile);
 					return;
+				}
 				try {
 					Thread.sleep(250);
 				} catch (InterruptedException e) {
@@ -217,5 +213,9 @@ public class ArchiveUtil {
 			if (!(out instanceof ZipOutputStream))
 				out.close();
 		}
+	}
+	
+	public static void inform(String message) {
+		org.eclipse.jem.util.logger.proxy.Logger.getLogger().logInfo(message);
 	}
 }

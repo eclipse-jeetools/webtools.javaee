@@ -11,11 +11,6 @@
 package org.eclipse.jst.j2ee.commonarchivecore.internal.util;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 
 /**
@@ -26,90 +21,16 @@ import java.util.Set;
  */
 public class DeleteOnExitUtility {
 
-	private static Set tempFilesToDelete;
-	private static boolean initialized = false;
-	private static int cleanupCount = 0;
-	private static final int CLEANUP_THRESHOLD = 10000;
-
 	public static void markForDeletion(File file) {
-		if (!initialized) {
-			initialized = true;
-			try {
-				Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-					public void run() {
-						if (tempFilesToDelete != null) {
-							synchronized (tempFilesToDelete) {
-								Iterator iterator = tempFilesToDelete.iterator();
-								File file = null;
-								while (iterator.hasNext()) {
-									try {
-										file = (File) iterator.next();
-										if (file.exists()) {
-											file.delete();
-										}
-									} catch (SecurityException e) {
-									}
-								}
-							}
-						}
-					}
-				}));
-				tempFilesToDelete = new HashSet();
-			} catch (SecurityException e) {
-			}
-		}
-		if (tempFilesToDelete != null) {
-			synchronized (tempFilesToDelete) {
-				cleanupCount++;
-				tempFilesToDelete.add(file);
-			}
-			if (cleanupCount > CLEANUP_THRESHOLD) {
-				runCleanup();
-			}
-		}
+		org.eclipse.jst.jee.archive.internal.DeleteOnExitUtility.markForDeletion(file);
 	}
 
 	public static void fileHasBeenDeleted(File file) {
-		if (tempFilesToDelete != null) {
-			synchronized (tempFilesToDelete) {
-				cleanupCount++;
-				try {
-					if (!file.exists()) {
-						tempFilesToDelete.remove(file);
-					}
-				} catch (SecurityException e) {
-				}
-			}
-			if (cleanupCount > CLEANUP_THRESHOLD) {
-				runCleanup();
-			}
-		}
+		org.eclipse.jst.jee.archive.internal.DeleteOnExitUtility.fileHasBeenDeleted(file);
 	}
 
 	public static void runCleanup() {
-		if (tempFilesToDelete != null) {
-			synchronized (tempFilesToDelete) {
-				cleanupCount = 0;
-				List filesToRemove = null;
-				Iterator iterator = tempFilesToDelete.iterator();
-				File file = null;
-				while (iterator.hasNext()) {
-					try {
-						file = (File) iterator.next();
-						if (!file.exists()) {
-							if (filesToRemove == null) {
-								filesToRemove = new ArrayList();
-							}
-							filesToRemove.add(file);
-						}
-					} catch (SecurityException e) {
-					}
-				}
-				if (filesToRemove != null) {
-					tempFilesToDelete.removeAll(filesToRemove);
-				}
-			}
-		}
+		org.eclipse.jst.jee.archive.internal.DeleteOnExitUtility.runCleanup();
 	}
 
 
