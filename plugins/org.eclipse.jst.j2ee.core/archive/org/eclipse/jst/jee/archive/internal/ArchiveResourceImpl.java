@@ -11,6 +11,7 @@
 package org.eclipse.jst.jee.archive.internal;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,7 +25,7 @@ import org.eclipse.jst.jee.archive.IArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.jst.jee.archive.IArchiveSaveAdapter;
 
-import com.ibm.jvm.util.ByteArrayOutputStream;
+
 
 public class ArchiveResourceImpl implements IArchiveResource {
 
