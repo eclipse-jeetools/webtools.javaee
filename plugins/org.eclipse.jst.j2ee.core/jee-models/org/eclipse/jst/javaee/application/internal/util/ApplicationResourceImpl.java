@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ApplicationResourceImpl.java,v 1.1 2007/05/16 06:42:34 cbridgha Exp $
+ * $Id: ApplicationResourceImpl.java,v 1.2 2007/05/21 17:37:59 jsholl Exp $
  */
 package org.eclipse.jst.javaee.application.internal.util;
 
@@ -49,16 +49,17 @@ public class ApplicationResourceImpl extends XMLResourceImpl implements IRootObj
 	public EObject getRootObject() {
 		if (contents == null || contents.isEmpty())
 			return null;
-		return (EObject) getContents().get(0);
+		Object root = getContents().get(0);
+		if(root == null){
+			return null;
+		}
+		return (EObject)((ApplicationDeploymentDescriptor)getRootObject()).getApplication();
 	}
 	/**
 	 * Return the ear
 	 */
 	public Application getApplication() {
-		if (getRootObject() != null)
-			return ((ApplicationDeploymentDescriptor)getRootObject()).getApplication();
-		return null;
-		
+		return (Application)getRootObject();
 	}
 
 } //ApplicationResourceImpl

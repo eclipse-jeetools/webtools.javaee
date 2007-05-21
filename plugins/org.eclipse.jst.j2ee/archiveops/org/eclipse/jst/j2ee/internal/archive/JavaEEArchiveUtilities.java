@@ -1,14 +1,27 @@
 package org.eclipse.jst.j2ee.internal.archive;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.zip.ZipException;
+import java.util.zip.ZipFile;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
 import org.eclipse.jst.jee.archive.ArchiveSaveFailureException;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveFactory;
 import org.eclipse.jst.jee.archive.IArchiveLoadAdapter;
+import org.eclipse.jst.jee.archive.IArchiveResource;
+import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
+import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class JavaEEArchiveUtilities implements IArchiveFactory {
@@ -68,7 +81,63 @@ public class JavaEEArchiveUtilities implements IArchiveFactory {
 	}
 
 	public IArchive openArchive(IPath archivePath) throws ArchiveOpenFailureException {
-		return IArchiveFactory.INSTANCE.openArchive(archivePath);
+		IArchive simpleArchive = IArchiveFactory.INSTANCE.openArchive(archivePath);
+
+		String[] deploymentDescriptorsToCheck = new String[] { J2EEConstants.APPLICATION_DD_URI, J2EEConstants.APP_CLIENT_DD_URI, J2EEConstants.EJBJAR_DD_URI, J2EEConstants.WEBAPP_DD_URI };
+		int[] typeToVerify = new int[] { J2EEVersionConstants.APPLICATION_TYPE, J2EEVersionConstants.APPLICATION_CLIENT_TYPE, J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.WEB_TYPE };
+		int[] versionToVerify = new int[] { J2EEVersionConstants.JEE_5_0_ID, J2EEVersionConstants.JEE_5_0_ID, J2EEVersionConstants.EJB_3_0_ID, J2EEVersionConstants.WEB_2_5_ID };
+		for (int i = 0; i < deploymentDescriptorsToCheck.length; i++) {
+			final IPath deploymentDescriptorPath = new Path(deploymentDescriptorsToCheck[i]);
+			if (simpleArchive.containsArchiveResource(deploymentDescriptorPath)) {
+				InputStream in = null;
+				try {
+					IArchiveResource dd = simpleArchive.getArchiveResource(deploymentDescriptorPath);
+					in = dd.getInputStream();
+					JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(in);
+					if (quickPeek.getType() == typeToVerify[i] && quickPeek.getVersion() == versionToVerify[i]) {
+						try {
+							java.io.File file = new java.io.File(archivePath.toOSString());
+							ZipFile zipFile;
+							try {
+								zipFile = new ZipFile(file);
+							} catch (ZipException e) {
+								ArchiveOpenFailureException openFailureException = new ArchiveOpenFailureException(e);
+								throw openFailureException;
+							} catch (IOException e) {
+								ArchiveOpenFailureException openFailureException = new ArchiveOpenFailureException(e);
+								throw openFailureException;
+							}
+							IArchiveLoadAdapter loadAdapter = new JavaEEEMFZipFileLoadAdapterImpl(zipFile) {
+								public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
+									if (IArchive.EMPTY_MODEL_PATH == modelObjectPath) {
+										modelObjectPath = deploymentDescriptorPath;
+									}
+									return super.getModelObject(modelObjectPath);
+								}
+							};
+							ArchiveOptions archiveOptions = new ArchiveOptions();
+							archiveOptions.setOption(ArchiveOptions.LOAD_ADAPTER, loadAdapter);
+							return openArchive(archiveOptions);
+						} finally {
+							closeArchive(simpleArchive);
+						}
+					}
+				} catch (FileNotFoundException e) {
+					ArchiveUtil.warn(e);
+				} catch (IOException e) {
+					ArchiveUtil.warn(e);
+				} finally {
+					if (in != null) {
+						try {
+							in.close();
+						} catch (IOException e) {
+							ArchiveUtil.warn(e);
+						}
+					}
+				}
+			}
+		}
+		return simpleArchive;
 	}
 
 	public IArchive openArchive(ArchiveOptions archiveOptions) throws ArchiveOpenFailureException {

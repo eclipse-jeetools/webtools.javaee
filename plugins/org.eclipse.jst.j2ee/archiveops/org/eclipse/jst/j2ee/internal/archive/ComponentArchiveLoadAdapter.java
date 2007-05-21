@@ -50,7 +50,6 @@ import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.jst.jee.archive.internal.ArchiveURIConverter;
-import org.eclipse.jst.jee.archive.internal.EMFArchiveAdapterHelper;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.DependencyType;
@@ -62,7 +61,6 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
-import org.eclipse.wst.common.internal.emf.resource.IRootObjectResource;
 
 public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAdapter {
 
@@ -575,28 +573,11 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 		return vComponent;
 	}
 
-	protected EMFArchiveAdapterHelper emfHelper = null;
+	protected JavaEEEMFArchiveAdapterHelper emfHelper = null;
 
 	protected void initEMFHelper() {
 		if (emfHelper == null) {
-			emfHelper = new EMFArchiveAdapterHelper(getArchive()) {
-				@Override
-				protected boolean containsResource(URI uri) {
-					// TODO figure out a way to figure this out without actually
-					// loading the resource
-					IRootObjectResource resource = (IRootObjectResource) getResourceSet().getResource(uri, true);
-					if (resource != null && resource.getRootObject() != null) {
-						return true;
-					}
-					return false;
-				}
-
-				@Override
-				public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
-					IRootObjectResource resource = (IRootObjectResource) super.getModelObject(modelObjectPath);
-					return resource.getRootObject();
-				}
-			};
+			emfHelper = new JavaEEEMFArchiveAdapterHelper(getArchive());
 			emfHelper.setArchiveURIConverter(new ArchiveURIConverter(emfHelper.getArchive()) {
 				protected URI convertPathToURI(IPath modelObjectPath) {
 					// TODO find a better way to getplatformURI

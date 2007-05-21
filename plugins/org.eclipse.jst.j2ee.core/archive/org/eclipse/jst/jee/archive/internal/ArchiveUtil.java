@@ -215,7 +215,11 @@ public class ArchiveUtil {
 		}
 	}
 	
-	public static void inform(String message) {
-		org.eclipse.jem.util.logger.proxy.Logger.getLogger().logInfo(message);
+	public static void warn(Throwable e){
+		org.eclipse.jem.util.logger.proxy.Logger.getLogger().logWarning(e);
+	}
+	
+	public static void warn(String message) {
+		org.eclipse.jem.util.logger.proxy.Logger.getLogger().logWarning(message);
 	}
 }

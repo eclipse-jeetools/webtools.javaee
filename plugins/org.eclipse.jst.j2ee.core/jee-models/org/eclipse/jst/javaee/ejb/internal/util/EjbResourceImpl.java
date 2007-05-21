@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: EjbResourceImpl.java,v 1.1 2007/05/16 06:42:38 cbridgha Exp $
+ * $Id: EjbResourceImpl.java,v 1.2 2007/05/21 17:38:00 jsholl Exp $
  */
 package org.eclipse.jst.javaee.ejb.internal.util;
 
@@ -51,16 +51,17 @@ public class EjbResourceImpl extends XMLResourceImpl implements IRootObjectResou
 	public EObject getRootObject() {
 		if (contents == null || contents.isEmpty())
 			return null;
-		return (EObject) getContents().get(0);
+		Object root = getContents().get(0);
+		if(root == null){
+			return null;
+		}
+		return (EObject)((EJBJarDeploymentDescriptor)root).getEjbJar();
 	}
 	/**
 	 * Return the jar
 	 */
 	public EJBJar getEjbJar() {
-		if (getRootObject() != null)
-			return ((EJBJarDeploymentDescriptor)getRootObject()).getEjbJar();
-		return null;
-		
+		return (EJBJar)getRootObject();
 	}
 
 } //EjbResourceImpl

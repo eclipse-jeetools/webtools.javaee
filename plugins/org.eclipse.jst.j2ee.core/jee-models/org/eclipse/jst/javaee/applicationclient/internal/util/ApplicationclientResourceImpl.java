@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ApplicationclientResourceImpl.java,v 1.1 2007/05/16 06:42:41 cbridgha Exp $
+ * $Id: ApplicationclientResourceImpl.java,v 1.2 2007/05/21 17:38:00 jsholl Exp $
  */
 package org.eclipse.jst.javaee.applicationclient.internal.util;
 
@@ -51,15 +51,17 @@ public class ApplicationclientResourceImpl extends XMLResourceImpl implements IR
 	public EObject getRootObject() {
 		if (contents == null || contents.isEmpty())
 			return null;
-		return (EObject) getContents().get(0);
+		Object root = getContents().get(0);
+		if(root == null){
+			return null;
+		}
+		return (EObject)((ApplicationClientDeploymentDescriptor)getRootObject()).getApplicationClient();
 	}
 	/**
 	 * Return the ear
 	 */
 	public ApplicationClient getApplicationClient() {
-		if (getRootObject() != null)
-			return ((ApplicationClientDeploymentDescriptor)getRootObject()).getApplicationClient();
-		return null;
+		return (ApplicationClient)getRootObject();
 		
 	}
 

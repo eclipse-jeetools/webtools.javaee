@@ -249,7 +249,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 				try {
 					tempFile = ArchiveUtil.createTempFile(cachedArchiveResource.getPath().toString());
 				} catch (IOException e) {
-					ArchiveUtil.inform("Warning: Unable to create temp file for " + cachedArchiveResource.getPath() + ".  This will impact performance."); //$NON-NLS-1$//$NON-NLS-2$
+					ArchiveUtil.warn("Warning: Unable to create temp file for " + cachedArchiveResource.getPath() + ".  This will impact performance."); //$NON-NLS-1$//$NON-NLS-2$
 				}
 				if (tempFile != null) {
 					InputStream in = cachedArchiveResource.getInputStream();

@@ -8,7 +8,7 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.jee.archive.internal;
+package org.eclipse.jst.j2ee.internal.archive;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -29,10 +29,12 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveResource;
+import org.eclipse.jst.jee.archive.internal.ArchiveURIConverter;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
+import org.eclipse.wst.common.internal.emf.resource.IRootObjectResource;
 
-public class EMFArchiveAdapterHelper {
+public class JavaEEEMFArchiveAdapterHelper {
 
 	public static final int USE_DOM_RENDERER = 0;
 
@@ -48,10 +50,10 @@ public class EMFArchiveAdapterHelper {
 
 	private IArchive archive = null;
 
-	public EMFArchiveAdapterHelper() {
+	public JavaEEEMFArchiveAdapterHelper() {
 	}
 
-	public EMFArchiveAdapterHelper(IArchive anArchive) {
+	public JavaEEEMFArchiveAdapterHelper(IArchive anArchive) {
 		setArchive(anArchive);
 	}
 
@@ -72,15 +74,15 @@ public class EMFArchiveAdapterHelper {
 		return false;
 	}
 	
-	protected boolean containsResource(URI uri){
-		//TODO figure out a way to figure this out without actually loading the resource
-		Resource resource = getResourceSet().getResource(uri, true); 
-		if (resource != null) {
+	protected boolean containsResource(URI uri) {
+		// TODO figure out a way to figure this out without actually
+		// loading the resource
+		IRootObjectResource resource = (IRootObjectResource) getResourceSet().getResource(uri, true);
+		if (resource != null && resource.getRootObject() != null) {
 			return true;
 		}
 		return false;
 	}
-	
 	
 	protected ArchiveURIConverter archiveURIConverter;
 	
@@ -95,10 +97,16 @@ public class EMFArchiveAdapterHelper {
 		return archiveURIConverter;
 	}
 
+	
 	public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
 		URI uri = getArchiveURIConverter().getURI(modelObjectPath);
-		return getResourceSet().getResource(uri, true);
+		IRootObjectResource resource = (IRootObjectResource) getResourceSet().getResource(uri, true);
+		return resource.getRootObject();
 	}
+//	public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
+//		URI uri = getArchiveURIConverter().getURI(modelObjectPath);
+//		return getResourceSet().getResource(uri, true);
+//	}
 
 	public ResourceSet getResourceSet() {
 		if (resourceSet == null) {
@@ -211,7 +219,7 @@ public class EMFArchiveAdapterHelper {
 					archiveResource = getArchive().getArchiveResource(path);
 					ioStream = archiveResource.getInputStream();
 
-					IContentDescription description = EMFArchiveAdapterHelper.getContentDescription(ioStream);
+					IContentDescription description = JavaEEEMFArchiveAdapterHelper.getContentDescription(ioStream);
 					return description;
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block

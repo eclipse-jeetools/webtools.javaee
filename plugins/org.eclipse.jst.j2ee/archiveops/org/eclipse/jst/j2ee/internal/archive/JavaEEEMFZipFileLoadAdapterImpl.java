@@ -8,25 +8,24 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.jee.archive.internal;
+package org.eclipse.jst.j2ee.internal.archive;
 
 import java.util.zip.ZipFile;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.IArchive;
+import org.eclipse.jst.jee.archive.internal.ZipFileArchiveLoadAdapterImpl;
 
+public class JavaEEEMFZipFileLoadAdapterImpl extends ZipFileArchiveLoadAdapterImpl {
 
+	private JavaEEEMFArchiveAdapterHelper emfHelper = new JavaEEEMFArchiveAdapterHelper();
 
-public class EMFZipFileLoadAdapterImpl extends ZipFileArchiveLoadAdapterImpl {
-
-	private EMFArchiveAdapterHelper emfHelper = new EMFArchiveAdapterHelper();
-
-	public EMFZipFileLoadAdapterImpl() {
+	public JavaEEEMFZipFileLoadAdapterImpl() {
 		super();
 	}
 
-	public EMFZipFileLoadAdapterImpl(ZipFile zipFile) {
+	public JavaEEEMFZipFileLoadAdapterImpl(ZipFile zipFile) {
 		super(zipFile);
 	}
 
