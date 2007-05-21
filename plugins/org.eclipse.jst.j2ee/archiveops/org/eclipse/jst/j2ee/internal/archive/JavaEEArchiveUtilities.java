@@ -3,6 +3,8 @@ package org.eclipse.jst.j2ee.internal.archive;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
+import java.util.WeakHashMap;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
@@ -80,6 +82,44 @@ public class JavaEEArchiveUtilities implements IArchiveFactory {
 		IArchiveFactory.INSTANCE.closeArchive(archive);
 	}
 
+	private Map<IArchive, JavaEEQuickPeek> archiveToJavaEEQuickPeek = new WeakHashMap<IArchive, JavaEEQuickPeek>();
+
+	/**
+	 * Returns a utility for getting the type of Java EE archive, the Java EE
+	 * version, and the Module version
+	 * 
+	 * @param archive
+	 * @return
+	 */
+	public JavaEEQuickPeek getJavaEEQuickPeek(IArchive archive) {
+		if (archiveToJavaEEQuickPeek.containsKey(archive)) {
+			return archiveToJavaEEQuickPeek.get(archive);
+		} else {
+			String[] deploymentDescriptorsToCheck = new String[] { J2EEConstants.APPLICATION_DD_URI, J2EEConstants.APP_CLIENT_DD_URI, J2EEConstants.EJBJAR_DD_URI, J2EEConstants.WEBAPP_DD_URI,
+					J2EEConstants.RAR_DD_URI };
+			for (int i = 0; i < deploymentDescriptorsToCheck.length; i++) {
+				final IPath deploymentDescriptorPath = new Path(deploymentDescriptorsToCheck[i]);
+				if (archive.containsArchiveResource(deploymentDescriptorPath)) {
+					InputStream in = null;
+					IArchiveResource dd;
+					try {
+						dd = archive.getArchiveResource(deploymentDescriptorPath);
+						in = dd.getInputStream();
+						JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(in);
+						archiveToJavaEEQuickPeek.put(archive, quickPeek);
+						return quickPeek;
+					} catch (FileNotFoundException e) {
+						ArchiveUtil.warn(e);
+					} catch (IOException e) {
+						ArchiveUtil.warn(e);
+					}
+				}
+			}
+			archiveToJavaEEQuickPeek.put(archive, null);
+			return null;
+		}
+	}
+
 	public IArchive openArchive(IPath archivePath) throws ArchiveOpenFailureException {
 		IArchive simpleArchive = IArchiveFactory.INSTANCE.openArchive(archivePath);
 
@@ -117,7 +157,9 @@ public class JavaEEArchiveUtilities implements IArchiveFactory {
 							};
 							ArchiveOptions archiveOptions = new ArchiveOptions();
 							archiveOptions.setOption(ArchiveOptions.LOAD_ADAPTER, loadAdapter);
-							return openArchive(archiveOptions);
+							IArchive newArchive = openArchive(archiveOptions);
+							archiveToJavaEEQuickPeek.put(newArchive, quickPeek);
+							return newArchive;
 						} finally {
 							closeArchive(simpleArchive);
 						}
