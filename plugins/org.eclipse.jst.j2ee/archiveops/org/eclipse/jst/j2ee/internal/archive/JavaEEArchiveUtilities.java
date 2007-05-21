@@ -163,6 +163,8 @@ public class JavaEEArchiveUtilities implements IArchiveFactory {
 						} finally {
 							closeArchive(simpleArchive);
 						}
+					} else {
+						archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
 					}
 				} catch (FileNotFoundException e) {
 					ArchiveUtil.warn(e);
@@ -177,6 +179,7 @@ public class JavaEEArchiveUtilities implements IArchiveFactory {
 						}
 					}
 				}
+				return simpleArchive;
 			}
 		}
 		return simpleArchive;

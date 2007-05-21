@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ApplicationclientResourceImpl.java,v 1.2 2007/05/21 17:38:00 jsholl Exp $
+ * $Id: ApplicationclientResourceImpl.java,v 1.3 2007/05/21 19:07:25 jsholl Exp $
  */
 package org.eclipse.jst.javaee.applicationclient.internal.util;
 
@@ -55,7 +55,7 @@ public class ApplicationclientResourceImpl extends XMLResourceImpl implements IR
 		if(root == null){
 			return null;
 		}
-		return (EObject)((ApplicationClientDeploymentDescriptor)getRootObject()).getApplicationClient();
+		return (EObject)((ApplicationClientDeploymentDescriptor)root).getApplicationClient();
 	}
 	/**
 	 * Return the ear
