@@ -221,6 +221,9 @@ public final class XMLRootHandler extends DefaultHandler implements LexicalHandl
 	 */
 	public final void startElement(final String uri, final String elementName, final String qualifiedName, final Attributes attributes) throws SAXException {
 		elementFound = qualifiedName;
+		if(elementFound.indexOf(':') != -1){
+			elementFound = elementFound.substring(elementFound.indexOf(':')+1);
+		}
 		attributesFound = attributes;
 		throw new StopParsingException();
 	}

@@ -12,12 +12,11 @@ package org.eclipse.jst.j2ee.contenttype;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.List;
 
 import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.core.runtime.content.IContentDescriber;
 import org.eclipse.core.runtime.content.IContentDescription;
+import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 
 /**
  * A content describer for detecting a j2ee module
@@ -29,48 +28,50 @@ public final class J2EEContentDescriber implements IContentDescriber {
 
 	public final static QualifiedName JEEVERSION = new QualifiedName("jee-version", "1.4"); //$NON-NLS-1$
 
-	public int describe(InputStream contents, IContentDescription description)
-			throws IOException {
-		
-		String specString = new String();
-		
-		try {
-			specString = J2EESpecFinder.getFastSpecVersion(contents);
-		} catch (Exception e) {
-			// do nothing...exception is thrown during sax parse for badly formed file.
-			//This may happen when this is called during project creation. this is handled below.
+	public int describe(InputStream contents, IContentDescription description) throws IOException {
+
+		JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(contents);
+		switch (quickPeek.getType()) {
+		case JavaEEQuickPeek.APPLICATION_CLIENT_TYPE:
+		case JavaEEQuickPeek.APPLICATION_TYPE:
+			switch (quickPeek.getVersion()) {
+			case JavaEEQuickPeek.J2EE_1_2_ID:
+			case JavaEEQuickPeek.J2EE_1_3_ID:
+			case JavaEEQuickPeek.J2EE_1_4_ID:
+				return VALID;
+			}
+			return INVALID;
+		case JavaEEQuickPeek.CONNECTOR_TYPE:
+			switch (quickPeek.getVersion()) {
+			case JavaEEQuickPeek.JCA_1_0_ID:
+			case JavaEEQuickPeek.JCA_1_5_ID:
+				return VALID;
+			}
+			return INVALID;
+		case JavaEEQuickPeek.EJB_TYPE:
+			switch (quickPeek.getVersion()) {
+			case JavaEEQuickPeek.EJB_1_1_ID:
+			case JavaEEQuickPeek.EJB_2_0_ID:
+			case JavaEEQuickPeek.EJB_2_1_ID:
+				return VALID;
+			}
+			return INVALID;
+		case JavaEEQuickPeek.WEB_TYPE:
+			switch (quickPeek.getVersion()) {
+			case JavaEEQuickPeek.WEB_2_2_ID:
+			case JavaEEQuickPeek.WEB_2_3_ID:
+			case JavaEEQuickPeek.WEB_2_4_ID:
+				return VALID;
+			}
+			return INVALID;
 		}
 
-		if (specString == null) {
-			if(description != null){
-			description.setProperty(JEEVERSION, specString);
-			}
-			return INDETERMINATE;
-		}
-			
-		//checking for various jee module versions here. if its not ee5, return true.
-		if(!(specString.equals("3.0") || specString.equals("2.5") || specString.equals("5.0") || specString.equals("1.5"))){
-			if(description != null){
-				description.setProperty(JEEVERSION, specString);
-				}
-			return VALID;
-		}
-			
 		return INVALID;
 	}
-
-	
 
 	public QualifiedName[] getSupportedOptions() {
 		// this is not used
 		return new QualifiedName[] { JEEVERSION };
 	}
 
-
-
-	public List getValidVersions() {
-		return Arrays.asList( "1.0","1.1","2.0","2.1","2.2","2.3","2.4","1.2","1.3","1.4");
-	}
-	
-	
 }
