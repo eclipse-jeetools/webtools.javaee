@@ -186,7 +186,7 @@
            class="org.eclipse.jst.j2ee.client.internal.impl.ApplicationClientResourceFactory"
            shortSegment="application-client.xml">
         <contentTypeBinding
-              contentTypeId="org.eclipse.jst.j2ee.appClientDD">
+              contentTypeId="org.eclipse.jst.j2ee.appclientDD">
         </contentTypeBinding>
      </resourceFactory>
      <resourceFactory
