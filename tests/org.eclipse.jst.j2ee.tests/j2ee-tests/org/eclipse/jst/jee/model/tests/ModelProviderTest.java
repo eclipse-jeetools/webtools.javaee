@@ -26,6 +26,7 @@ import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.archive.emftests.GeneralEMFPopulationTest;
+import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.earcreation.IEarFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.project.operations.IEjbFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -457,4 +458,71 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 	protected void tearDown() throws Exception {
 		// Don't delete these files
 	}
+
+	public void testUseAppClient14Model() throws Exception {
+	
+			String projName = "TestEE14AppClientProject";//$NON-NLS-1$
+			IProject appClientProj = createAppClientProject(projName, J2EEVersionConstants.J2EE_1_4_ID);
+			final IModelProvider provider = ModelProviderManager.getModelProvider(appClientProj);
+			
+			// Test getting model through path api.
+			ApplicationClient client = (ApplicationClient)provider.getModelObject(new Path(J2EEConstants.APP_CLIENT_DD_URI));
+			
+			
+			provider.modify(new Runnable() {
+				public void run() {
+					ApplicationClient client = (ApplicationClient)provider.getModelObject();
+	//				if (ear.getDescriptions().isEmpty())
+	//					ear.getDescriptions().add(CommonFactory.eINSTANCE.createDescription());
+					client.setDescription(descText);
+					
+				}
+			}
+				, null);
+			
+			//Close project to force flush
+			appClientProj.close(new NullProgressMonitor());
+			//Re-open project
+			appClientProj.open(new NullProgressMonitor());
+			
+			
+			IModelProvider newProvider = ModelProviderManager.getModelProvider(appClientProj);
+			ApplicationClient sameEar = (ApplicationClient)newProvider.getModelObject();
+			org.eclipse.jst.j2ee.common.Description desc = (org.eclipse.jst.j2ee.common.Description)sameEar.getDescriptions().get(0);
+			Assert.assertEquals(descText, desc.getValue());
+		}
+
+	public void testUseAppClient5Model() throws Exception {
+	
+			String projName = "TestEE5AppClientProject";//$NON-NLS-1$
+			IProject appClientProj = createAppClientProject(projName, J2EEVersionConstants.JEE_5_0_ID);
+			final IModelProvider provider = ModelProviderManager.getModelProvider(appClientProj);
+			
+			// Test getting model through path api.
+			org.eclipse.jst.javaee.applicationclient.ApplicationClient client = (org.eclipse.jst.javaee.applicationclient.ApplicationClient)provider.getModelObject(new Path(J2EEConstants.APP_CLIENT_DD_URI));
+			
+			
+			provider.modify(new Runnable() {
+				public void run() {
+					org.eclipse.jst.javaee.applicationclient.ApplicationClient client = (org.eclipse.jst.javaee.applicationclient.ApplicationClient)provider.getModelObject();
+					if (client.getDescriptions().isEmpty())
+						client.getDescriptions().add(JavaeeFactory.eINSTANCE.createDescription());
+					Description desc = (Description)client.getDescriptions().get(0);
+					desc.setValue(descText);
+					
+				}
+			}
+				, null);
+			
+			//Close project to force flush
+			appClientProj.close(new NullProgressMonitor());
+			//Re-open project
+			appClientProj.open(new NullProgressMonitor());
+			
+			
+			IModelProvider newProvider = ModelProviderManager.getModelProvider(appClientProj);
+			org.eclipse.jst.javaee.applicationclient.ApplicationClient sameClient = (org.eclipse.jst.javaee.applicationclient.ApplicationClient)newProvider.getModelObject();
+			Description desc = (Description)sameClient.getDescriptions().get(0);
+			Assert.assertEquals(descText, desc.getValue());
+		}
 }
