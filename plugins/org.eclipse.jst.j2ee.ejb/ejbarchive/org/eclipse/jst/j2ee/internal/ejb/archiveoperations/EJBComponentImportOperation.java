@@ -19,6 +19,8 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBComponentImportDataModelProperties;
+import org.eclipse.jst.j2ee.internal.archive.ComponentArchiveSaveAdapter;
+import org.eclipse.jst.j2ee.internal.archive.EJBComponentArchiveSaveAdapter;
 import org.eclipse.jst.j2ee.internal.archive.operations.EJBComponentSaveStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperation;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -53,5 +55,9 @@ public class EJBComponentImportOperation extends J2EEArtifactImportOperation {
 	protected SaveStrategy createSaveStrategy(IVirtualComponent virtualComponent) {
 		EJBComponentSaveStrategyImpl saveStrat = new EJBComponentSaveStrategyImpl(virtualComponent);
 		return saveStrat;
+	}
+	
+	protected ComponentArchiveSaveAdapter getArchiveSaveAdapter(IVirtualComponent virtualComponent) {
+		return new EJBComponentArchiveSaveAdapter(virtualComponent);
 	}
 }
