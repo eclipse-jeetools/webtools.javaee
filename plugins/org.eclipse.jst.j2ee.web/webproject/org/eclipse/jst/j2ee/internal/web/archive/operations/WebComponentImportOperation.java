@@ -25,6 +25,8 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
+import org.eclipse.jst.j2ee.internal.archive.ComponentArchiveSaveAdapter;
+import org.eclipse.jst.j2ee.internal.archive.WebComponentArchiveSaveAdapter;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperation;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
@@ -125,5 +127,10 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 
 	protected SaveStrategy createSaveStrategy(IVirtualComponent aVirtualComponent) {
 		return new WebComponentSaveStrategyImpl(aVirtualComponent);
+	}
+
+	protected ComponentArchiveSaveAdapter getArchiveSaveAdapter(
+			IVirtualComponent virtualComponent) {
+		return new WebComponentArchiveSaveAdapter(virtualComponent);
 	}
 }
