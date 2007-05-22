@@ -65,6 +65,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
  */
 public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory {
 
+	private static final String EJB_CONTENT_TYPE = "org.eclipse.jst.j2ee.ejbDD";
 	/**
 	 * <p>
 	 * Identifier used to link EJBArtifactEdit to a EJBEditAdapterFactory {@see
@@ -594,5 +595,10 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			getWritableEdit().dispose();
 			setWritableEdit(null);
 		}
+	}
+
+	
+	protected String getContentTypeDescriber() {
+		return EJB_CONTENT_TYPE;
 	}
 }
