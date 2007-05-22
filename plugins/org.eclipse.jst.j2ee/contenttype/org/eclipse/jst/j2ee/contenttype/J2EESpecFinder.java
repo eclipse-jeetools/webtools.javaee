@@ -94,7 +94,10 @@ public class J2EESpecFinder {
 	}
 
 	private static boolean isEARFile(String name) {
-		return (name.indexOf(J2EEConstants.APPLICATION_DOCTYPE) != -1);
+		// First make sure its not app client
+		if (!(name.indexOf(J2EEConstants.APP_CLIENT_DOCTYPE) != -1))
+			return (name.indexOf(J2EEConstants.APPLICATION_DOCTYPE) != -1);
+		return false;
 	}
 
 	private static boolean isEJBJarFile(String name) {

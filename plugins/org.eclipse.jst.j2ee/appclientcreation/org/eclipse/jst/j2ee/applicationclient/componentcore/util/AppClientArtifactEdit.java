@@ -48,6 +48,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory {
 	
+	private static final String APPCLIENT_CONTENT_TYPE = "org.eclipse.jst.j2ee.appclientDD";
 	/**
 	 * <p>
 	 * Identifier used to link AppClientArtifactEdit to a AppClientEditAdapterFactory {@see
@@ -422,5 +423,11 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 			getWritableEdit().dispose();
 			setWritableEdit(null);
 		}
+	}
+
+	
+	protected String getContentTypeDescriber() {
+		
+		return APPCLIENT_CONTENT_TYPE;
 	}
 }

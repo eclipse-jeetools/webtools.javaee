@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
 import org.eclipse.jst.j2ee.application.ApplicationResource;
@@ -64,6 +65,8 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
  */
 
 public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory, IEARModelProvider {
+
+	private static final String EAR_CONTENT_TYPE = "org.eclipse.jst.j2ee.earDD";
 
 	public static final Class ADAPTER_TYPE = EARArtifactEdit.class;
 	
@@ -588,7 +591,10 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		try {
 			earEdit.createModelRoot(version);
 			earEdit.save(null);
-		} finally {
+		} finally {  // Make sure new resource is removed because it has wrong uri registered
+			Resource newRes = earEdit.getDeploymentDescriptorResource();
+			WorkbenchResourceHelperBase.getResourceSet(project).getResources().remove(newRes);
+			newRes.unload();
 			earEdit.dispose();
 		}
 	}
@@ -655,5 +661,10 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			getWritableEdit().dispose();
 			setWritableEdit(null);
 		}
+	}
+
+	
+	protected String getContentTypeDescriber() {
+		return EAR_CONTENT_TYPE;
 	}
 }

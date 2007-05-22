@@ -69,6 +69,7 @@ import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
  */
 public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory {
 
+	private static final String WEB_CONTENT_TYPE = "org.eclipse.jst.j2ee.webDD";
 	/**
 	 * <p>
 	 * Identifier used to link WebArtifactEdit to a WebEditAdapterFactory {@see
@@ -686,6 +687,11 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			getWritableEdit().dispose();
 			setWritableEdit(null);
 		}
+	}
+
+	
+	protected String getContentTypeDescriber() {
+		return WEB_CONTENT_TYPE;
 	}
 
 	
