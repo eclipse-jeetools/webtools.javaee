@@ -1,5 +1,6 @@
 package org.eclipse.jst.j2ee.internal.archive;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +25,7 @@ import org.eclipse.jst.jee.archive.IArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class JavaEEArchiveUtilities implements IArchiveFactory {
@@ -56,8 +58,20 @@ public class JavaEEArchiveUtilities implements IArchiveFactory {
 	}
 
 	public IArchive openArchive(IVirtualComponent virtualComponent) throws ArchiveOpenFailureException {
+		if (virtualComponent.isBinary()) {
+			VirtualArchiveComponent archiveComponent = (VirtualArchiveComponent) virtualComponent;
+			java.io.File diskFile = null;
+			diskFile = archiveComponent.getUnderlyingDiskFile();
+			if (!diskFile.exists()) {
+				IFile wbFile = archiveComponent.getUnderlyingWorkbenchFile();
+				diskFile = new File(wbFile.getLocation().toOSString());
+			}
+			IPath path = new Path(diskFile.getAbsolutePath());
+			return openArchive(path);
+		}
+
 		IArchiveLoadAdapter archiveLoadAdapter = null;
-		if (!virtualComponent.isBinary() && J2EEProjectUtilities.isEARProject(virtualComponent.getProject())) {
+		if (J2EEProjectUtilities.isEARProject(virtualComponent.getProject())) {
 			archiveLoadAdapter = new EARComponentArchiveLoadAdapter(virtualComponent);
 		} else if (J2EEProjectUtilities.isEJBComponent(virtualComponent)) {
 			archiveLoadAdapter = new EJBComponentArchiveLoadAdapter(virtualComponent);
@@ -115,16 +129,19 @@ public class JavaEEArchiveUtilities implements IArchiveFactory {
 					}
 				}
 			}
+			JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(null);
 			archiveToJavaEEQuickPeek.put(archive, null);
-			return null;
+			return quickPeek;
 		}
 	}
 
 	public IArchive openArchive(IPath archivePath) throws ArchiveOpenFailureException {
 		IArchive simpleArchive = IArchiveFactory.INSTANCE.openArchive(archivePath);
 
-		String[] deploymentDescriptorsToCheck = new String[] { J2EEConstants.APPLICATION_DD_URI, J2EEConstants.APP_CLIENT_DD_URI, J2EEConstants.EJBJAR_DD_URI, J2EEConstants.WEBAPP_DD_URI, J2EEConstants.RAR_DD_URI };
-		int[] typeToVerify = new int[] { J2EEVersionConstants.APPLICATION_TYPE, J2EEVersionConstants.APPLICATION_CLIENT_TYPE, J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.WEB_TYPE, J2EEConstants.CONNECTOR_TYPE };
+		String[] deploymentDescriptorsToCheck = new String[] { J2EEConstants.APPLICATION_DD_URI, J2EEConstants.APP_CLIENT_DD_URI, J2EEConstants.EJBJAR_DD_URI, J2EEConstants.WEBAPP_DD_URI,
+				J2EEConstants.RAR_DD_URI };
+		int[] typeToVerify = new int[] { J2EEVersionConstants.APPLICATION_TYPE, J2EEVersionConstants.APPLICATION_CLIENT_TYPE, J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.WEB_TYPE,
+				J2EEConstants.CONNECTOR_TYPE };
 		for (int i = 0; i < deploymentDescriptorsToCheck.length; i++) {
 			final IPath deploymentDescriptorPath = new Path(deploymentDescriptorsToCheck[i]);
 			if (simpleArchive.containsArchiveResource(deploymentDescriptorPath)) {
@@ -153,7 +170,7 @@ public class JavaEEArchiveUtilities implements IArchiveFactory {
 									}
 									return super.containsModelObject(modelObjectPath);
 								}
-								
+
 								public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
 									if (IArchive.EMPTY_MODEL_PATH == modelObjectPath) {
 										modelObjectPath = deploymentDescriptorPath;

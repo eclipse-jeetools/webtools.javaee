@@ -31,20 +31,26 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 	private XMLRootHandler handler = null;
 
 	public JavaEEQuickPeek(InputStream in) {
-		try {
-			InputSource inputSource = new InputSource(in);
-			handler = new XMLRootHandler();
-			handler.parseContents(inputSource);
-		} catch (Exception ex) {
-			// ignore
-		} finally {
+		if (in != null) {
 			try {
-				if (in != null) {
-					in.reset();
-				}
-			} catch (IOException ex) {
+				InputSource inputSource = new InputSource(in);
+				handler = new XMLRootHandler();
+				handler.parseContents(inputSource);
+			} catch (Exception ex) {
 				// ignore
+			} finally {
+				try {
+					if (in != null) {
+						in.reset();
+					}
+				} catch (IOException ex) {
+					// ignore
+				}
 			}
+		} else {
+			version = UNKNOWN;
+			javaEEVersion = UNKNOWN;
+			type = UNKNOWN;
 		}
 	}
 

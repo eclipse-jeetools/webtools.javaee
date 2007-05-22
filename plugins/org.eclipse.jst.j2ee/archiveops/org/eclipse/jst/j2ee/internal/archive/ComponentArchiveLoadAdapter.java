@@ -204,10 +204,17 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 	public ComponentArchiveLoadAdapter(IVirtualComponent vComponent, boolean includeClasspathComponents) {
 		this.vComponent = vComponent;
 		filesHolder = new FilesHolder();
+		setIncludeClasspathComponents(includeClasspathComponents);
+	}
+
+	public void setIncludeClasspathComponents(boolean includeClasspathComponents) {
 		this.includeClasspathComponents = includeClasspathComponents;
 		if (includeClasspathComponents) {
 			this.manifestFile = vComponent.getRootFolder().getFile(new Path(J2EEConstants.MANIFEST_URI));
 			saveJavaClasspathReferences();
+		} else {
+			this.manifestFile = null;
+			javaClasspathURIs.clear();
 		}
 	}
 
@@ -232,7 +239,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 		}
 	}
 
-	public List getArchiveResources() {
+	public List <IArchiveResource> getArchiveResources() {
 		initArchiveResources();
 		return filesHolder.getFiles();
 	}
