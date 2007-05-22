@@ -57,7 +57,7 @@ public class JavaEEArchiveUtilities implements IArchiveFactory {
 
 	public IArchive openArchive(IVirtualComponent virtualComponent) throws ArchiveOpenFailureException {
 		IArchiveLoadAdapter archiveLoadAdapter = null;
-		if (J2EEProjectUtilities.isEARProject(virtualComponent.getProject())) {
+		if (!virtualComponent.isBinary() && J2EEProjectUtilities.isEARProject(virtualComponent.getProject())) {
 			archiveLoadAdapter = new EARComponentArchiveLoadAdapter(virtualComponent);
 		} else if (J2EEProjectUtilities.isEJBComponent(virtualComponent)) {
 			archiveLoadAdapter = new EJBComponentArchiveLoadAdapter(virtualComponent);
@@ -123,9 +123,8 @@ public class JavaEEArchiveUtilities implements IArchiveFactory {
 	public IArchive openArchive(IPath archivePath) throws ArchiveOpenFailureException {
 		IArchive simpleArchive = IArchiveFactory.INSTANCE.openArchive(archivePath);
 
-		String[] deploymentDescriptorsToCheck = new String[] { J2EEConstants.APPLICATION_DD_URI, J2EEConstants.APP_CLIENT_DD_URI, J2EEConstants.EJBJAR_DD_URI, J2EEConstants.WEBAPP_DD_URI };
-		int[] typeToVerify = new int[] { J2EEVersionConstants.APPLICATION_TYPE, J2EEVersionConstants.APPLICATION_CLIENT_TYPE, J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.WEB_TYPE };
-		int[] versionToVerify = new int[] { J2EEVersionConstants.JEE_5_0_ID, J2EEVersionConstants.JEE_5_0_ID, J2EEVersionConstants.EJB_3_0_ID, J2EEVersionConstants.WEB_2_5_ID };
+		String[] deploymentDescriptorsToCheck = new String[] { J2EEConstants.APPLICATION_DD_URI, J2EEConstants.APP_CLIENT_DD_URI, J2EEConstants.EJBJAR_DD_URI, J2EEConstants.WEBAPP_DD_URI, J2EEConstants.RAR_DD_URI };
+		int[] typeToVerify = new int[] { J2EEVersionConstants.APPLICATION_TYPE, J2EEVersionConstants.APPLICATION_CLIENT_TYPE, J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.WEB_TYPE, J2EEConstants.CONNECTOR_TYPE };
 		for (int i = 0; i < deploymentDescriptorsToCheck.length; i++) {
 			final IPath deploymentDescriptorPath = new Path(deploymentDescriptorsToCheck[i]);
 			if (simpleArchive.containsArchiveResource(deploymentDescriptorPath)) {
@@ -134,7 +133,7 @@ public class JavaEEArchiveUtilities implements IArchiveFactory {
 					IArchiveResource dd = simpleArchive.getArchiveResource(deploymentDescriptorPath);
 					in = dd.getInputStream();
 					JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(in);
-					if (quickPeek.getType() == typeToVerify[i] && quickPeek.getVersion() == versionToVerify[i]) {
+					if (quickPeek.getType() == typeToVerify[i] && quickPeek.getVersion() != JavaEEQuickPeek.UNKNOWN) {
 						try {
 							java.io.File file = new java.io.File(archivePath.toOSString());
 							ZipFile zipFile;
@@ -148,6 +147,13 @@ public class JavaEEArchiveUtilities implements IArchiveFactory {
 								throw openFailureException;
 							}
 							IArchiveLoadAdapter loadAdapter = new JavaEEEMFZipFileLoadAdapterImpl(zipFile) {
+								public boolean containsModelObject(IPath modelObjectPath) {
+									if (IArchive.EMPTY_MODEL_PATH == modelObjectPath) {
+										modelObjectPath = deploymentDescriptorPath;
+									}
+									return super.containsModelObject(modelObjectPath);
+								}
+								
 								public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
 									if (IArchive.EMPTY_MODEL_PATH == modelObjectPath) {
 										modelObjectPath = deploymentDescriptorPath;
