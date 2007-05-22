@@ -34,13 +34,7 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 		try {
 			InputSource inputSource = new InputSource(in);
 			handler = new XMLRootHandler();
-			ClassLoader savedClassLoader = Thread.currentThread().getContextClassLoader();
-			try {
-				Thread.currentThread().setContextClassLoader(this.getClass().getClassLoader());
-				handler.parseContents(inputSource);
-			} finally {
-				Thread.currentThread().setContextClassLoader(savedClassLoader);
-			}
+			handler.parseContents(inputSource);
 		} catch (Exception ex) {
 			// ignore
 		} finally {

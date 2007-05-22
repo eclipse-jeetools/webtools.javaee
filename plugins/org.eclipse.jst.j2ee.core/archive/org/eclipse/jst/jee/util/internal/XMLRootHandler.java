@@ -17,7 +17,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.eclipse.core.internal.content.Activator;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -167,7 +166,7 @@ public final class XMLRootHandler extends DefaultHandler implements LexicalHandl
 	public boolean parseContents(InputSource contents) throws IOException, ParserConfigurationException, SAXException {
 		// Parse the file into we have what we need (or an error occurs).
 		try {
-			SAXParserFactory factory = Activator.getDefault().getFactory();
+			SAXParserFactory factory = SAXParserFactory.newInstance();
 			if (factory == null)
 				return false;
 			final SAXParser parser = createParser(factory);
@@ -221,7 +220,7 @@ public final class XMLRootHandler extends DefaultHandler implements LexicalHandl
 	 *      java.lang.String, java.lang.String, org.xml.sax.Attributes)
 	 */
 	public final void startElement(final String uri, final String elementName, final String qualifiedName, final Attributes attributes) throws SAXException {
-		elementFound = elementName;
+		elementFound = qualifiedName;
 		attributesFound = attributes;
 		throw new StopParsingException();
 	}
