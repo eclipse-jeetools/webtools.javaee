@@ -591,7 +591,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		try {
 			earEdit.createModelRoot(version);
 			earEdit.save(null);
-		} finally {  // Make sure new resource is removed because it has wrong uri registered
+		} finally {  // Make sure new resource is removed  - the uri used for creation shouldn't be cached
 			Resource newRes = earEdit.getDeploymentDescriptorResource();
 			WorkbenchResourceHelperBase.getResourceSet(project).getResources().remove(newRes);
 			newRes.unload();

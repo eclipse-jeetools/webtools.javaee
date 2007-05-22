@@ -19,6 +19,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
@@ -399,7 +400,10 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		try {
 			appClientEdit.createModelRoot(version);
 			appClientEdit.save(null);
-		} finally {
+		} finally { // Make sure new resource is removed  - the uri used for creation shouldn't be cached
+			Resource newRes = appClientEdit.getDeploymentDescriptorResource();
+			WorkbenchResourceHelperBase.getResourceSet(project).getResources().remove(newRes);
+			newRes.unload();
 			appClientEdit.dispose();
 		} 
 	}

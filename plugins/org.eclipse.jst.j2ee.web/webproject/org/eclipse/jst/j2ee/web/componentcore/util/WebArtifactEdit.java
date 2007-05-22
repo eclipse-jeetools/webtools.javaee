@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
@@ -662,7 +663,10 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		try {
 			webEdit.createModelRoot(version);
 			webEdit.save(null);
-		} finally {
+		} finally {  // Make sure new resource is removed  - the uri used for creation shouldn't be cached
+			Resource newRes = webEdit.getDeploymentDescriptorResource();
+			WorkbenchResourceHelperBase.getResourceSet(project).getResources().remove(newRes);
+			newRes.unload();
 			webEdit.dispose();
 		}
 	}
