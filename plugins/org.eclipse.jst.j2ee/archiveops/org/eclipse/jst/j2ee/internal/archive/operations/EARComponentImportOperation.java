@@ -19,6 +19,7 @@ import java.util.Map;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
@@ -71,6 +72,7 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 	 */
 	protected void doExecute(IProgressMonitor monitor) throws ExecutionException {
 		super.doExecute(monitor);
+		ExecutionException firstNestedException = null;
 		List modelsToImport = (List) model.getProperty(IEARComponentImportDataModelProperties.HANDLED_PROJECT_MODELS_LIST);
 		try {
 			IDataModel importModel = null;
@@ -118,8 +120,14 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 				if (compCreationModel.isProperty(IJ2EEFacetProjectCreationDataModelProperties.MODULE_URI))
 					compCreationModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.MODULE_URI, nestedArchive.getURI());
 				try {
-					importModel.getDefaultOperation().execute(new SubProgressMonitor(monitor, PROJECT_CREATION_WORK + nestedArchive.getFiles().size()), info);
+					IStatus nestedImportStatus = importModel.getDefaultOperation().execute(new SubProgressMonitor(monitor, PROJECT_CREATION_WORK + nestedArchive.getFiles().size()), info);
+					if(!nestedImportStatus.isOK() && nestedImportStatus.getSeverity() == IStatus.ERROR){
+						throw new ExecutionException(nestedImportStatus.getMessage(), nestedImportStatus.getException());
+					}
 				} catch (ExecutionException e) {
+					if(firstNestedException == null){
+						firstNestedException = e;
+					}
 					Logger.getLogger().logError(e);
 				}
 				IVirtualComponent component = (IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
@@ -140,6 +148,9 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 			}
 			resetDisposeImportModels();
 			monitor.worked(DISPOSE_WORK);
+		}
+		if(firstNestedException != null){
+			throw firstNestedException;
 		}
 	}
 
