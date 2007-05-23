@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.zip.ZipFile;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
@@ -23,16 +22,8 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.archive.ComponentArchiveSaveAdapter;
-import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
-import org.eclipse.jst.jee.archive.ArchiveOptions;
-import org.eclipse.jst.jee.archive.IArchive;
-import org.eclipse.jst.jee.archive.IArchiveFactory;
-import org.eclipse.jst.jee.archive.internal.ZipFileArchiveLoadAdapterImpl;
-import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -46,7 +37,7 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 	protected IVirtualComponent virtualComponent;
 	protected IAdaptable info;
 	protected final int PROJECT_CREATION_WORK = 30;
-	private static IArchiveFactory archiveFactory = IArchiveFactory.INSTANCE;
+
 	public J2EEArtifactImportOperation(IDataModel model) {
 		super(model);
 	}
@@ -109,11 +100,7 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 	 * appropriate save startegy for the kind of J2EE module project to import the archive
 	 */
 	protected abstract SaveStrategy createSaveStrategy(IVirtualComponent vc);
-	
-	protected ComponentArchiveSaveAdapter getArchiveSaveAdapter(IVirtualComponent virtualComponent){
-		return null;
-	}
-	
+
 	protected void modifyStrategy(SaveStrategy saveStrat) {
 	}
 
@@ -123,44 +110,19 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 	 * @throws java.lang.reflect.InvocationTargetException
 	 * @throws java.lang.InterruptedException
 	 */
-	protected void importModuleFile(IProgressMonitor monitor)
-			throws InvocationTargetException, InterruptedException {
+	protected void importModuleFile(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 		try {
-
 			monitor.beginTask(null, moduleFile.getFiles().size());
-
-			ComponentArchiveSaveAdapter adap = getArchiveSaveAdapter(virtualComponent);
-			//	the new import adapter handles old ejb jars as well. 
-
-			ZipFile zipFile = new ZipFile(moduleFile.getAbsolutePath());
-			ZipFileArchiveLoadAdapterImpl zipStrategy = new ZipFileArchiveLoadAdapterImpl(zipFile);
-			ArchiveOptions options = new ArchiveOptions();
-			options.setOption(ArchiveOptions.LOAD_ADAPTER, zipStrategy);
-			IArchive archive = archiveFactory.openArchive(options);
-			JavaEEArchiveUtilities jea = JavaEEArchiveUtilities.INSTANCE;
-			JavaEEQuickPeek jqp = jea.getJavaEEQuickPeek(archive);
-			if (jqp.getJavaEEVersion() == J2EEVersionConstants.JEE_5_0_ID) {
-				ArchiveOptions saveOptions = new ArchiveOptions();
-				saveOptions.setOption(ArchiveOptions.SAVE_ADAPTER, adap);
-				archiveFactory.saveArchive(archive, saveOptions);
-				
-			} else {
-				ComponentSaveStrategyImpl aStrategy = (ComponentSaveStrategyImpl) createSaveStrategy(virtualComponent);
-				aStrategy.setProgressMonitor(monitor);
-				aStrategy
-						.setOverwriteHandler((IOverwriteHandler) model
-								.getProperty(IJ2EEComponentImportDataModelProperties.OVERWRITE_HANDLER));
-				aStrategy.setDataModel(model);
-				modifyStrategy(aStrategy);
-				moduleFile.save(aStrategy);
-				archiveFactory.closeArchive(archive);
-			}
-
+			ComponentSaveStrategyImpl aStrategy = (ComponentSaveStrategyImpl) createSaveStrategy(virtualComponent);
+			aStrategy.setProgressMonitor(monitor);
+			aStrategy.setOverwriteHandler((IOverwriteHandler) model.getProperty(IJ2EEComponentImportDataModelProperties.OVERWRITE_HANDLER));
+			aStrategy.setDataModel(model);
+			modifyStrategy(aStrategy);
+			moduleFile.save(aStrategy);
 		} catch (OverwriteHandlerException oe) {
 			throw new InterruptedException();
 		} catch (Exception ex) {
-			throw new WFTWrappedException(ex,
-					EJBArchiveOpsResourceHandler.ERROR_IMPORTING_MODULE_FILE);
+			throw new WFTWrappedException(ex, EJBArchiveOpsResourceHandler.ERROR_IMPORTING_MODULE_FILE);
 		} finally {
 			monitor.done();
 		}
