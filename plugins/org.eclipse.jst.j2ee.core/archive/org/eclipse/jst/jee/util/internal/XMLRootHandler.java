@@ -220,7 +220,7 @@ public final class XMLRootHandler extends DefaultHandler implements LexicalHandl
 	 *      java.lang.String, java.lang.String, org.xml.sax.Attributes)
 	 */
 	public final void startElement(final String uri, final String elementName, final String qualifiedName, final Attributes attributes) throws SAXException {
-		elementFound = qualifiedName;
+		elementFound = elementName == null || elementName.length() == 0 ? qualifiedName: elementName;
 		if(elementFound.indexOf(':') != -1){
 			elementFound = elementFound.substring(elementFound.indexOf(':')+1);
 		}

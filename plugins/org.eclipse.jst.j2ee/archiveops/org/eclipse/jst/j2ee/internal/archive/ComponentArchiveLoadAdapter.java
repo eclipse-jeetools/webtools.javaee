@@ -142,7 +142,10 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 			} else if (pathsToWorkbenchResources != null && pathsToWorkbenchResources.containsKey(path)) {
 				IResource resource = (IResource) pathsToWorkbenchResources.get(path);
 				diskFile = new java.io.File(resource.getLocation().toOSString());
-			} else {
+			}
+			if (diskFile != null) {
+				return new FileInputStream(diskFile);
+			} else if (pathsToZipEntry.containsKey(path)) {
 				Map fileURIMap = (Map) pathsToZipEntry.get(path);
 				Iterator it = fileURIMap.keySet().iterator();
 
@@ -157,12 +160,14 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 				ZipEntry entry = zipFile.getEntry(sourceFileUri);
 				InputStream in = zipFile.getInputStream(entry);
 				return in;
+			} else {
+				IArchiveResource res = getArchiveResource(path);
+				return ComponentArchiveLoadAdapter.this.getSuperInputStream(res);
 			}
-			return new FileInputStream(diskFile);
 		}
 
-		public List <IArchiveResource> getFiles() {
-			return new ArrayList <IArchiveResource> (pathsToArchiveResources.values());
+		public List<IArchiveResource> getFiles() {
+			return new ArrayList<IArchiveResource>(pathsToArchiveResources.values());
 		}
 
 		public boolean contains(IPath path) {
@@ -239,7 +244,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 		}
 	}
 
-	public List <IArchiveResource> getArchiveResources() {
+	public List<IArchiveResource> getArchiveResources() {
 		initArchiveResources();
 		return filesHolder.getFiles();
 	}
@@ -420,7 +425,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 				continue;
 
 			IArchiveResource cFile = null;
-			
+
 			if (virtualResources[i].getType() == IVirtualResource.FILE) {
 				if (!shouldInclude(runtimePath))
 					continue;
@@ -546,6 +551,10 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 		filesHolder.addFile(aFile, externalDiskFile);
 	}
 
+	protected InputStream getSuperInputStream(IArchiveResource archiveResource) throws IOException, FileNotFoundException {
+		return super.getInputStream(archiveResource);
+	}
+
 	public InputStream getInputStream(IArchiveResource archiveResource) throws IOException, FileNotFoundException {
 		IPath path = archiveResource.getPath();
 		// If the MANIFEST.MF of a module component is being requested and that
@@ -615,14 +624,14 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 		return new Path("/"); //$NON-NLS-1$
 	}
 
-	public String toString(){
-		int packageLength = this.getClass().getPackage().getName().length() +1;
+	public String toString() {
+		int packageLength = this.getClass().getPackage().getName().length() + 1;
 		StringBuffer buffer = new StringBuffer(this.getClass().getName().substring(packageLength));
 		buffer.append(", Component: "); //$NON-NLS-1$
 		buffer.append(getComponent());
 		return buffer.toString();
 	}
-	
+
 	/**
 	 * protected IProgressMonitor monitor = null;
 	 * 

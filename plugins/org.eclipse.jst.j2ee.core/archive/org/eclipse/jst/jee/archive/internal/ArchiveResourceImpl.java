@@ -10,20 +10,14 @@
  *******************************************************************************/
 package org.eclipse.jst.jee.archive.internal;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.jst.jee.archive.ArchiveOptions;
-import org.eclipse.jst.jee.archive.ArchiveSaveFailureException;
 import org.eclipse.jst.jee.archive.IArchive;
-import org.eclipse.jst.jee.archive.IArchiveFactory;
 import org.eclipse.jst.jee.archive.IArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.IArchiveResource;
-import org.eclipse.jst.jee.archive.IArchiveSaveAdapter;
 
 public class ArchiveResourceImpl implements IArchiveResource {
 
@@ -83,22 +77,10 @@ public class ArchiveResourceImpl implements IArchiveResource {
 		case IArchiveResource.UNKNOWN_TYPE:
 			return null;
 		case IArchiveResource.FILE_TYPE:
+		case IArchiveResource.ARCHIVE_TYPE:
 			IArchiveLoadAdapter loadAdapter = null;
 			loadAdapter = getArchive().getLoadAdapter();
 			return loadAdapter.getInputStream(this);
-		case IArchiveResource.ARCHIVE_TYPE:
-			IArchive thisArchive = (IArchive) this;
-			ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
-			IArchiveSaveAdapter saveAdapter = new ZipStreamArchiveSaveAdapterImpl(byteOut);
-			ArchiveOptions archiveOptions = new ArchiveOptions();
-			archiveOptions.setOption(ArchiveOptions.SAVE_ADAPTER, saveAdapter);
-			try {
-				IArchiveFactory.INSTANCE.saveArchive(thisArchive, archiveOptions);
-			} catch (ArchiveSaveFailureException e) {
-				throw new IOException("Unable to save nested Archive " + getPath() + " nested exception = " + e.getMessage()); //$NON-NLS-1$//$NON-NLS-2$
-			}
-			return new ByteArrayInputStream(byteOut.toByteArray());
-
 		}
 		return null;
 	}

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.archive;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,7 +30,6 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.jee.archive.AbstractArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.IArchiveResource;
-import org.eclipse.jst.jee.archive.internal.ArchiveResourceImpl;
 
 public class ConnectorComponentNestedJARArchiveLoadAdapter extends AbstractArchiveLoadAdapter {
 
@@ -87,17 +84,7 @@ public class ConnectorComponentNestedJARArchiveLoadAdapter extends AbstractArchi
 			}
 			IPath manifestPath = new Path(J2EEConstants.MANIFEST_URI);
 			if (!pathsToIArchiveResources.containsKey(manifestPath)) {
-				verifyRelative(manifestPath);
-				IArchiveResource manifest = null;
-				manifest = new ArchiveResourceImpl() {
-					public InputStream getInputStream() throws FileNotFoundException, IOException {
-						String manifestContents = "Manifest-Version: 1.0\r\n\r\n"; //$NON-NLS-1$
-						return new BufferedInputStream(new ByteArrayInputStream(manifestContents.getBytes()));
-					}
-				};
-				manifest.setPath(manifestPath);
-				manifest.setType(IArchiveResource.FILE_TYPE);
-				manifest.setArchive(getArchive());
+				IArchiveResource manifest = createManifest(manifestPath);
 				pathsToIArchiveResources.put(manifest.getPath(), manifest);
 			}
 			List<IArchiveResource> list = new ArrayList();

@@ -20,9 +20,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.IArchive;
@@ -49,7 +51,13 @@ public class EARComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 	public List<IArchiveResource> getArchiveResources() {
 		aggregateSourceFiles();
 		addModulesAndUtilities();
-		return filesHolder.getFiles();
+		List<IArchiveResource> files = filesHolder.getFiles();
+		IPath manifestPath = new Path(J2EEConstants.MANIFEST_URI);
+		if (!filesHolder.contains(manifestPath)) {
+			IArchiveResource manifest = createManifest(manifestPath);
+			files.add(manifest);
+		}
+		return files;
 	}
 
 	public InputStream getInputStream(IArchiveResource archiveResource) throws IOException, FileNotFoundException {
@@ -78,8 +86,8 @@ public class EARComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 					if (!diskFile.exists()) {
 						IFile wbFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingWorkbenchFile();
 						diskFile = new File(wbFile.getLocation().toOSString());
-						binaryResourcesToDiskFiles.put(nestedModuleArchive, diskFile);
 					}
+					binaryResourcesToDiskFiles.put(nestedModuleArchive, diskFile);
 				} else {
 					JavaEEQuickPeek quickPeek = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(nestedModuleArchive);
 					switch (quickPeek.getType()) {
