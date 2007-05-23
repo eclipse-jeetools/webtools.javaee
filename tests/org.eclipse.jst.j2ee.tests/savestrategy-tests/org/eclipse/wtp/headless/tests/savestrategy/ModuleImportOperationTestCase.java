@@ -63,7 +63,7 @@ public abstract class ModuleImportOperationTestCase extends OperationTestCase {
 		dataModel.setProperty(IJ2EEComponentImportDataModelProperties.FILE_NAME, filename);
 		dataModel.setProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME, projectName);
 		if (dataModelShouldBeValid)
-			runDataModel(dataModel);
+			runAndVerify(dataModel);
 		else
 			verifyInvalidDataModel(dataModel);
 	}
