@@ -12,6 +12,7 @@ package org.eclipse.jst.jee.ui.internal.deployables;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -28,6 +29,8 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
@@ -290,47 +293,43 @@ public class WebDeployableArtifactUtil {
 	}
 
 	public static String getServletMapping(IResource resource, boolean isServlet, String typeName, String componentName) {
-//		if (typeName == null || typeName.equals("")) //$NON-NLS-1$
-//			return null;
-//
-//		IProject project = resource.getProject();
-//		WebArtifactEdit edit = null;
-//		WebApp webApp = null;
-//		try {
-//			edit = WebArtifactEdit.getWebArtifactEditForRead(project);
-//			edit.getDeploymentDescriptorRoot();
-//			webApp = edit.getWebApp();
-//			if (webApp == null)
-//				return null;
-//			Iterator iterator = webApp.getServlets().iterator();
-//			while (iterator.hasNext()) {
-//				Servlet servlet = (Servlet) iterator.next();
-//				boolean valid = false;
-//
-//				WebType webType = servlet.getWebType();
-//				if (webType.isServletType() && isServlet) {
-//					ServletType type = (ServletType) webType;
-//					if (typeName.equals(type.getClassName()))
-//						valid = true;
-//				} else if (webType.isJspType() && !isServlet) {
-//					JSPType type = (JSPType) webType;
-//					if (typeName.equals(type.getJspFile()))
-//						valid = true;
-//				}
-//				if (valid) {
-//					java.util.List mappings = servlet.getMappings();
-//					if (mappings != null && !mappings.isEmpty()) {
-//						ServletMapping map = (ServletMapping) mappings.get(0);
-//						return map.getUrlPattern();
-//					}
-//				}
-//			}
+		if (typeName == null || typeName.equals("")) //$NON-NLS-1$
 			return null;
-//		} finally {
-//			if (edit != null) {
-//				edit.dispose();
-//			}
-//		}
+		
+		IModelProvider provider = ModelProviderManager.getModelProvider( resource.getProject() );
+		Object mObj = provider.getModelObject();
+		
+		if ( mObj instanceof org.eclipse.jst.javaee.web.WebApp){
+			org.eclipse.jst.javaee.web.WebApp webApp= (org.eclipse.jst.javaee.web.WebApp) mObj;
+			List servlets = webApp.getServlets();
+			boolean exists = false;
+			// Ensure the display does not already exist in the web application
+			if (servlets != null && !servlets.isEmpty()) {
+				for (int i = 0; i < servlets.size(); i++) {
+					org.eclipse.jst.javaee.web.Servlet servlet = (org.eclipse.jst.javaee.web.Servlet)servlets.get(i);
+					if( servlet.getServletClass().equals(typeName)){
+				
+						java.util.List mappings = webApp.getServletMappings();
+						if (mappings != null && !mappings.isEmpty()) {
+							Iterator it = mappings.iterator();
+							while( it.hasNext() ){
+								org.eclipse.jst.javaee.web.ServletMapping map = (org.eclipse.jst.javaee.web.ServletMapping) it.next();
+								if( map.getServletName().equals(servlet.getServletClass())){
+									org.eclipse.jst.javaee.core.UrlPatternType urlPattern = (org.eclipse.jst.javaee.core.UrlPatternType)map.getUrlPatterns().get(0);
+									return  urlPattern.getValue();
+								}
+							}
+
+						}
+					}
+				
+				}
+			}
+
+			
+		}
+		return null;
+
 	}
 
 	protected static boolean hasInterestedComponents(IProject project) {

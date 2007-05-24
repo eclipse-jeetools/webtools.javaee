@@ -231,7 +231,11 @@
           
          <enablement>
            <with variable="selection">
-             <adapt type="org.eclipse.jdt.core.ICompilationUnit"/>
+             <adapt type="org.eclipse.jdt.core.ICompilationUnit">
+             <test forcePluginActivation="true"
+							property="org.eclipse.jst.j2ee.common.projectFacet"
+							value="jst.web:2.4]" />
+			</adapt>				             
            </with>
          </enablement>
        </moduleArtifactAdapter>

@@ -937,4 +937,13 @@
       	</provider>
   </extension>
 
+  <extension point="org.eclipse.core.expressions.propertyTesters">
+    <propertyTester
+      id="org.eclipse.jst.j2ee.common.internal.FacetedProjectPropertyTester"
+      type="org.eclipse.jdt.core.ICompilationUnit"
+      namespace="org.eclipse.jst.j2ee.common"
+      properties="projectFacet"
+      class="org.eclipse.jst.j2ee.internal.common.FacetedProjectPropertyTester">
+    </propertyTester>
+  </extension>
 </plugin>
