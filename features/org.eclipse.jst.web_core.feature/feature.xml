@@ -151,7 +151,7 @@
          id="javax.servlet"
          download-size="100"
          install-size="100"
-         version="2.4.0.qualifer"
+         version="2.4.0.qualifier"
          unpack="false"/>
 
    <plugin
