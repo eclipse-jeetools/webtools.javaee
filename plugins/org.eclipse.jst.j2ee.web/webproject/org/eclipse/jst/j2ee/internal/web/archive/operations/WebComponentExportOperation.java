@@ -44,7 +44,7 @@ public class WebComponentExportOperation extends J2EEArtifactExportOperation {
 			archiveFromComponent = JavaEEArchiveUtilities.INSTANCE.openArchive(getComponent());
 			JavaEEQuickPeek quickPeek = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archiveFromComponent);
 			if (quickPeek.getJavaEEVersion() == J2EEConstants.JEE_5_0_ID) {
-				saveArchive(archiveFromComponent, getDestinationPath().toOSString());
+				saveArchive(archiveFromComponent, getDestinationPath().toOSString(), subMonitor);
 			} else {
 				CommonarchiveFactory caf = ((CommonarchivePackage) EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI)).getCommonarchiveFactory();
 				WebComponentLoadStrategyImpl ls = new WebComponentLoadStrategyImpl(getComponent());

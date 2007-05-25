@@ -15,8 +15,10 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -31,34 +33,47 @@ import com.ibm.icu.util.StringTokenizer;
 public abstract class J2EEComponentArchiveSaveAdapter extends ComponentArchiveSaveAdapter {
 
 	protected final String DOT_CLASS = ".class"; //$NON-NLS-1$
+
 	protected final String DOT_JAVA = ".java"; //$NON-NLS-1$
-	protected final String IMPORTED_CLASSES = "ImportedClasses";  //$NON-NLS-1$
-	
+
+	protected final String IMPORTED_CLASSES = "ImportedClasses"; //$NON-NLS-1$
+
 	public J2EEComponentArchiveSaveAdapter(IVirtualComponent vComponent) {
 		super(vComponent);
 	}
 
-	public void save() throws ArchiveSaveFailureException {
-		super.save();
-		linkImportedClassesFolderIfNecessary();
+	public void save(IProgressMonitor monitor) throws ArchiveSaveFailureException {
+		final int SUPER_TICKS = 1000;
+		final int LOCAL_TICKS = 10;
+		final int REFRESH_TICKS = 100;
+		final int TOTAL_TICKS = SUPER_TICKS + LOCAL_TICKS + REFRESH_TICKS;
+
 		try {
-			vComponent.getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
-		} catch (CoreException ex) {
-			Logger.getLogger().logError(ex);
+			monitor.beginTask("Importing " + vComponent.getName(), TOTAL_TICKS);
+			super.save(new SubProgressMonitor(monitor, SUPER_TICKS));
+			linkImportedClassesFolderIfNecessary();
+			monitor.worked(LOCAL_TICKS);
+			try {
+				vComponent.getProject().refreshLocal(IResource.DEPTH_INFINITE, new SubProgressMonitor(monitor, REFRESH_TICKS));
+			} catch (CoreException ex) {
+				Logger.getLogger().logError(ex);
+			}
+		} finally {
+			monitor.done();
 		}
 	}
 
 	public boolean endsWithClassType(String aFileName) {
-		
+
 		if (aFileName != null && aFileName.endsWith(DOT_CLASS))
 			return true;
 		return false;
 	}
 
 	protected boolean shouldSave(IArchiveResource aFile) {
-		if (endsWithClassType(aFile.getPath().lastSegment())){
+		if (endsWithClassType(aFile.getPath().lastSegment())) {
 			boolean shouldSave = isClassWithoutSource(aFile);
-			if(shouldSave && !importedClassesFolderCreated){
+			if (shouldSave && !importedClassesFolderCreated) {
 				createImportedClassesFolder();
 			}
 			return shouldSave;
@@ -66,26 +81,17 @@ public abstract class J2EEComponentArchiveSaveAdapter extends ComponentArchiveSa
 		return super.shouldSave(aFile);
 	}
 
-/*	public void save(ArchiveManifest aManifest) throws SaveFailureException {
-		IVirtualFolder rootFolder = vComponent.getRootFolder();
-		IVirtualFile vFile = rootFolder.getFile(new Path(J2EEConstants.MANIFEST_URI));
-		IFile iFile = vFile.getUnderlyingFile();
-		validateEdit(iFile);
-		OutputStream out = new WorkbenchByteArrayOutputStream(iFile);
-		try {
-			aManifest.write(out);
-		} catch (IOException e) {
-			Logger.getLogger().logError(e);
-		} finally {
-			try {
-				out.close();
-			} catch (IOException e) {
-				Logger.getLogger().logError(e);
-			}
-		}
-	}
-*/
+	/*
+	 * public void save(ArchiveManifest aManifest) throws SaveFailureException {
+	 * IVirtualFolder rootFolder = vComponent.getRootFolder(); IVirtualFile
+	 * vFile = rootFolder.getFile(new Path(J2EEConstants.MANIFEST_URI)); IFile
+	 * iFile = vFile.getUnderlyingFile(); validateEdit(iFile); OutputStream out =
+	 * new WorkbenchByteArrayOutputStream(iFile); try { aManifest.write(out); }
+	 * catch (IOException e) { Logger.getLogger().logError(e); } finally { try {
+	 * out.close(); } catch (IOException e) { Logger.getLogger().logError(e); } } }
+	 */
 	protected boolean importedClassesFolderCreated = false;
+
 	protected IFolder importedClassesFolder;
 
 	protected void createImportedClassesFolder() {
@@ -98,7 +104,7 @@ public abstract class J2EEComponentArchiveSaveAdapter extends ComponentArchiveSa
 			Logger.getLogger().logError(e1);
 		}
 	}
-	
+
 	protected void linkImportedClassesFolderIfNecessary() {
 		if (importedClassesFolder != null) {
 			try {
@@ -128,12 +134,12 @@ public abstract class J2EEComponentArchiveSaveAdapter extends ComponentArchiveSa
 	}
 
 	protected IPath getOutputPathForFile(IArchiveResource aFile) {
-		if(endsWithClassType(aFile.getPath().lastSegment())){
+		if (endsWithClassType(aFile.getPath().lastSegment())) {
 			return importedClassesFolder.getFile(getImportedClassesURI(aFile)).getProjectRelativePath();
 		}
 		return super.getProjectRelativePath(aFile);
 	}
-	
+
 	protected IPath getImportedClassesURI(IArchiveResource aFile) {
 		return aFile.getPath();
 	}
@@ -144,7 +150,7 @@ public abstract class J2EEComponentArchiveSaveAdapter extends ComponentArchiveSa
 			return false;
 		return !archive.containsArchiveResource(new Path(javaUri));
 	}
-	
+
 	public String classUriToJavaUri(String classUri) {
 		if (classUri == null || !classUri.endsWith(DOT_CLASS))
 			return null;
@@ -155,7 +161,8 @@ public abstract class J2EEComponentArchiveSaveAdapter extends ComponentArchiveSa
 	}
 
 	/**
-	 * Return a substring of the first parameter, up to the last index of the second
+	 * Return a substring of the first parameter, up to the last index of the
+	 * second
 	 */
 	public static String truncateIgnoreCase(String aString, String trailingSubString) {
 		int index = aString.toLowerCase().lastIndexOf(trailingSubString.toLowerCase());

@@ -30,6 +30,23 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 
 	private XMLRootHandler handler = null;
 
+	public JavaEEQuickPeek(int type, int version) {
+		this(type, version, UNSET);
+	}
+
+	public JavaEEQuickPeek(int type, int version, int javaEEVersion) {
+		if (type == UNKNOWN) {
+			throw new RuntimeException("type must not be UNKNOWN");
+		} else if (version == UNKNOWN) {
+			throw new RuntimeException("version must not be UNKNONW");
+		} else if (javaEEVersion == UNKNOWN) {
+			throw new RuntimeException("javaEEVersion must not be UNKNONW");
+		}
+		this.type = type;
+		this.version = version;
+		this.javaEEVersion = javaEEVersion;
+	}
+
 	public JavaEEQuickPeek(InputStream in) {
 		if (in != null) {
 			try {

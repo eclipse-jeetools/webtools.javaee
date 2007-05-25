@@ -18,7 +18,11 @@ public class ArchiveModelLoadException extends ArchiveException {
 		super(message);
 	}
 	
-	public ArchiveModelLoadException(Exception exception){
-		super(exception);
+	public ArchiveModelLoadException(Throwable cause){
+		super(cause);
+	}
+	
+	public ArchiveModelLoadException(String message, Throwable cause){
+		super(message, cause);
 	}
 }

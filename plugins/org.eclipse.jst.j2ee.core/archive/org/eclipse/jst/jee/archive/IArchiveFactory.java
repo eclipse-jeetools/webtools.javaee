@@ -11,6 +11,7 @@
 package org.eclipse.jst.jee.archive;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.jee.archive.internal.ArchiveFactoryImpl;
 
 /**
@@ -32,8 +33,8 @@ public interface IArchiveFactory {
 
 	public void closeArchive(IArchive archive);
 
-	public void saveArchive(IArchive archive, IPath outputPath) throws ArchiveSaveFailureException;
+	public void saveArchive(IArchive archive, IPath outputPath, IProgressMonitor monitor) throws ArchiveSaveFailureException;
 
-	public void saveArchive(IArchive archive, ArchiveOptions archiveOptions) throws ArchiveSaveFailureException;
+	public void saveArchive(IArchive archive, ArchiveOptions archiveOptions, IProgressMonitor monitor) throws ArchiveSaveFailureException;
 
 }

@@ -11,6 +11,7 @@ import java.util.zip.ZipFile;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -69,25 +70,82 @@ public class JavaEEArchiveUtilities implements IArchiveFactory {
 			IPath path = new Path(diskFile.getAbsolutePath());
 			return openArchive(path);
 		}
-
+		int type = J2EEVersionConstants.UNKNOWN;
 		IArchiveLoadAdapter archiveLoadAdapter = null;
 		if (J2EEProjectUtilities.isEARProject(virtualComponent.getProject())) {
 			archiveLoadAdapter = new EARComponentArchiveLoadAdapter(virtualComponent);
+			type = J2EEVersionConstants.APPLICATION_TYPE;
 		} else if (J2EEProjectUtilities.isEJBComponent(virtualComponent)) {
 			archiveLoadAdapter = new EJBComponentArchiveLoadAdapter(virtualComponent);
+			type = J2EEVersionConstants.EJB_TYPE;
 		} else if (J2EEProjectUtilities.isApplicationClientComponent(virtualComponent)) {
 			archiveLoadAdapter = new AppClientComponentArchiveLoadAdapter(virtualComponent);
+			type = J2EEVersionConstants.APPLICATION_CLIENT_TYPE;
 		} else if (J2EEProjectUtilities.isJCAComponent(virtualComponent)) {
 			archiveLoadAdapter = new ConnectorComponentArchiveLoadAdapter(virtualComponent);
+			type = J2EEVersionConstants.CONNECTOR_TYPE;
 		} else if (J2EEProjectUtilities.isDynamicWebComponent(virtualComponent)) {
 			archiveLoadAdapter = new WebComponentArchiveLoadAdapter(virtualComponent);
+			type = J2EEVersionConstants.WEB_TYPE;
 		} else if (J2EEProjectUtilities.isUtilityProject(virtualComponent.getProject())) {
 			archiveLoadAdapter = new JavaComponentArchiveLoadAdapter(virtualComponent);
 		}
+
 		if (archiveLoadAdapter != null) {
 			ArchiveOptions options = new ArchiveOptions();
 			options.setOption(ArchiveOptions.LOAD_ADAPTER, archiveLoadAdapter);
-			return openArchive(options);
+			IArchive archive = openArchive(options);
+			if (type != J2EEVersionConstants.UNKNOWN) {
+				int version = J2EEVersionConstants.UNKNOWN;
+				String versionStr = J2EEProjectUtilities.getJ2EEProjectVersion(virtualComponent.getProject());
+				switch (type) {
+				case J2EEVersionConstants.APPLICATION_CLIENT_TYPE:
+				case J2EEVersionConstants.APPLICATION_TYPE:
+					if (versionStr.equals(J2EEVersionConstants.VERSION_1_2_TEXT)) {
+						version = J2EEVersionConstants.J2EE_1_2_ID;
+					} else if (versionStr.equals(J2EEVersionConstants.VERSION_1_3_TEXT)) {
+						version = J2EEVersionConstants.J2EE_1_3_ID;
+					} else if (versionStr.equals(J2EEVersionConstants.VERSION_1_4_TEXT)) {
+						version = J2EEVersionConstants.J2EE_1_4_ID;
+					} else if (versionStr.equals(J2EEVersionConstants.VERSION_5_0_TEXT)) {
+						version = J2EEVersionConstants.JEE_5_0_ID;
+					}
+					break;
+				case J2EEVersionConstants.CONNECTOR_TYPE:
+					if (versionStr.equals(J2EEVersionConstants.VERSION_1_0_TEXT)) {
+						version = J2EEVersionConstants.JCA_1_0_ID;
+					} else if (versionStr.equals(J2EEVersionConstants.VERSION_1_5_TEXT)) {
+						version = J2EEVersionConstants.JCA_1_5_ID;
+					}
+					break;
+				case J2EEVersionConstants.EJB_TYPE:
+					if (versionStr.equals(J2EEVersionConstants.VERSION_1_1_TEXT)) {
+						version = J2EEVersionConstants.EJB_1_1_ID;
+					} else if (versionStr.equals(J2EEVersionConstants.VERSION_2_0_TEXT)) {
+						version = J2EEVersionConstants.EJB_2_0_ID;
+					} else if (versionStr.equals(J2EEVersionConstants.VERSION_2_1_TEXT)) {
+						version = J2EEVersionConstants.EJB_2_1_ID;
+					} else if (versionStr.equals(J2EEVersionConstants.VERSION_3_0_TEXT)) {
+						version = J2EEVersionConstants.EJB_3_0_ID;
+					}
+					break;
+				case J2EEVersionConstants.WEB_TYPE:
+					if (versionStr.equals(J2EEVersionConstants.VERSION_2_2_TEXT)) {
+						version = J2EEVersionConstants.WEB_2_2_ID;
+					} else if (versionStr.equals(J2EEVersionConstants.VERSION_2_3_TEXT)) {
+						version = J2EEVersionConstants.WEB_2_3_ID;
+					} else if (versionStr.equals(J2EEVersionConstants.VERSION_2_4_TEXT)) {
+						version = J2EEVersionConstants.WEB_2_4_ID;
+					} else if (versionStr.equals(J2EEVersionConstants.VERSION_2_5_TEXT)) {
+						version = J2EEVersionConstants.WEB_2_5_ID;
+					}
+					break;
+				}
+				if (version != J2EEVersionConstants.UNKNOWN) {
+					archiveToJavaEEQuickPeek.put(archive, new JavaEEQuickPeek(type, version));
+				}
+			}
+			return archive;
 		}
 		return null;
 	}
@@ -212,12 +270,12 @@ public class JavaEEArchiveUtilities implements IArchiveFactory {
 		return IArchiveFactory.INSTANCE.openArchive(archiveOptions);
 	}
 
-	public void saveArchive(IArchive archive, IPath outputPath) throws ArchiveSaveFailureException {
-		IArchiveFactory.INSTANCE.saveArchive(archive, outputPath);
+	public void saveArchive(IArchive archive, IPath outputPath, IProgressMonitor monitor) throws ArchiveSaveFailureException {
+		IArchiveFactory.INSTANCE.saveArchive(archive, outputPath, monitor);
 	}
 
-	public void saveArchive(IArchive archive, ArchiveOptions archiveOptions) throws ArchiveSaveFailureException {
-		IArchiveFactory.INSTANCE.saveArchive(archive, archiveOptions);
+	public void saveArchive(IArchive archive, ArchiveOptions archiveOptions, IProgressMonitor monitor) throws ArchiveSaveFailureException {
+		IArchiveFactory.INSTANCE.saveArchive(archive, archiveOptions, monitor);
 	}
 
 }

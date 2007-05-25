@@ -18,8 +18,12 @@ public class ArchiveSaveFailureException extends ArchiveException {
 		super(message);
 	}
 
-	public ArchiveSaveFailureException(Exception exception) {
-		super(exception);
+	public ArchiveSaveFailureException(Throwable cause) {
+		super(cause);
+	}
+	
+	public ArchiveSaveFailureException(String message, Throwable cause) {
+		super(message, cause);
 	}
 
 }

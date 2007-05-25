@@ -13,6 +13,9 @@ package org.eclipse.jst.jee.archive;
 import java.io.IOException;
 import java.util.List;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.SubProgressMonitor;
+
 /**
  * Abstract implementation of {@link IArchiveSaveAdapter} intended for
  * subclassing by clients. See {@link IArchiveSaveAdapter} for details.
@@ -25,21 +28,36 @@ public abstract class AbstractArchiveSaveAdapter extends AbstractArchiveAdapter 
 	public void finish() throws IOException {
 	}
 
-	public void save() throws ArchiveSaveFailureException {
+	public void save(IProgressMonitor monitor) throws ArchiveSaveFailureException {
+		final int GATHER_RESOURCES_TICKS = 1000;
+		final int SAVE_RESOURCES_TICKS = 1000;
+		final int FINISH_TICKS = 10;
+		final int TOTAL_TICKS = GATHER_RESOURCES_TICKS + SAVE_RESOURCES_TICKS + FINISH_TICKS;
 		try {
-			List <IArchiveResource> files = getArchive().getArchiveResources();
-			IArchiveResource file = null;
-			for (int i = 0; i < files.size(); i++) {
-				file = files.get(i);
-				if (shouldSave(file)) {
-					save(file);
+			monitor.beginTask("Saving resources", TOTAL_TICKS);
+			List<IArchiveResource> files = getArchive().getArchiveResources();
+			monitor.worked(GATHER_RESOURCES_TICKS);
+			IProgressMonitor saveSubMonitor = new SubProgressMonitor(monitor, SAVE_RESOURCES_TICKS);
+			int SUB_SAVE_TICKS = 10;
+			int SUB_TOTAL_TICKS = SUB_SAVE_TICKS * files.size();
+			try {
+				saveSubMonitor.beginTask("Saving resources", SUB_TOTAL_TICKS);
+				for (IArchiveResource file : files) {
+					if (shouldSave(file)) {
+						save(file);
+					}
+					saveSubMonitor.worked(SUB_SAVE_TICKS);
 				}
+			} finally {
+				saveSubMonitor.done();
 			}
 		} finally {
 			try {
 				finish();
 			} catch (IOException e) {
 				throw new ArchiveSaveFailureException(e);
+			} finally {
+				monitor.done();
 			}
 		}
 	}

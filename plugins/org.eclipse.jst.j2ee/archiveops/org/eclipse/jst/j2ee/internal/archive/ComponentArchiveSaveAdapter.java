@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.internal.archive.operations.EJBArchiveOpsResourceHandler;
 import org.eclipse.jst.j2ee.internal.archive.operations.IOverwriteHandler;
@@ -48,16 +49,21 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
-//hari: make abstract
+// hari: make abstract
 public class ComponentArchiveSaveAdapter extends AbstractArchiveSaveAdapter {
 
 	protected IDataModel dataModel;
+
 	protected IVirtualComponent vComponent;
+
 	protected IOverwriteHandler overwriteHandler;
+
 	protected IProgressMonitor progressMonitor;
 
 	private String archiveComponentsDeployPath;
+
 	private List archiveComponents;
+
 	private Map archiveComponentURIMap;
 
 	public ComponentArchiveSaveAdapter(IVirtualComponent vComponent) {
@@ -95,26 +101,33 @@ public class ComponentArchiveSaveAdapter extends AbstractArchiveSaveAdapter {
 		return (overwriteHandler.isOverwriteResources() || overwriteHandler.isOverwriteAll() || overwriteHandler.shouldOverwrite(uri));
 	}
 
-	
-
 	protected OutputStream getOutputStreamForResource(Resource aResource) throws IOException {
 		// this method has no references in the hirarchy
 		return null;
 	}
 
-	public void save() throws ArchiveSaveFailureException {
-		super.save();
-		linkArchiveComponents();
+	public void save(IProgressMonitor monitor) throws ArchiveSaveFailureException {
+		final int SUPER_TICKS = 1000;
+		final int LOCAL_TICKS = 10;
+		final int TOTAL_TICKS = SUPER_TICKS + LOCAL_TICKS;
+		try {
+			monitor.beginTask("Importing " + vComponent.getName(), TOTAL_TICKS);
+			super.save(new SubProgressMonitor(monitor, SUPER_TICKS));
+			linkArchiveComponents();
+			monitor.worked(LOCAL_TICKS);
+		} finally {
+			monitor.done();
+		}
 	}
 
 	public void save(IArchiveResource aFile) throws ArchiveSaveFailureException {
 
 		try {
 			InputStream in = aFile.getInputStream();
-			if(progressMonitor == null)
+			if (progressMonitor == null)
 				progressMonitor = new NullProgressMonitor();
 			progressMonitor.subTask(aFile.getPath().toString());
-			
+
 			IPath projectRelativePath = getProjectRelativePath(aFile);
 			if (aFile.getType() == IArchiveResource.ARCHIVE_TYPE) {
 				saveAsArchiveComponent((IArchive) aFile, projectRelativePath, in);
@@ -133,7 +146,6 @@ public class ComponentArchiveSaveAdapter extends AbstractArchiveSaveAdapter {
 		}
 	}
 
-
 	/**
 	 * Returns the project relative path for where the specified file should be
 	 * saved.
@@ -144,16 +156,15 @@ public class ComponentArchiveSaveAdapter extends AbstractArchiveSaveAdapter {
 	protected IPath getProjectRelativePath(IArchiveResource aFile) {
 		IPath path = aFile.getPath();
 		IFile iFile = null;
-		if(path.lastSegment() != null && path.lastSegment().startsWith(IModuleConstants.DOT_SETTINGS)){
+		if (path.lastSegment() != null && path.lastSegment().startsWith(IModuleConstants.DOT_SETTINGS)) {
 			iFile = vComponent.getProject().getFile(path);
-		}else {
+		} else {
 			IVirtualFolder rootFolder = vComponent.getRootFolder();
 			IVirtualFile vFile = rootFolder.getFile(path);
 			iFile = vFile.getUnderlyingFile();
 		}
 		return iFile.getProjectRelativePath();
 	}
-
 
 	/**
 	 * Creates the IFolder specified by the project relative path.
@@ -183,8 +194,8 @@ public class ComponentArchiveSaveAdapter extends AbstractArchiveSaveAdapter {
 	}
 
 	/**
-	 * Save the specified Archive to the specified project relative path
-	 * using the passed input stream.
+	 * Save the specified Archive to the specified project relative path using
+	 * the passed input stream.
 	 * 
 	 * @param archive
 	 * @param projectRelativePath
@@ -193,7 +204,8 @@ public class ComponentArchiveSaveAdapter extends AbstractArchiveSaveAdapter {
 	 */
 	protected void saveAsArchiveComponent(IArchive archive, IPath projectRelativePath, InputStream in) throws Exception {
 		IFile iFile = saveToOutputPathIFile(projectRelativePath, in);
-		//TODO investigate removing this block and related variables and linkArchiveComponents(); see bugzilla 159160
+		// TODO investigate removing this block and related variables and
+		// linkArchiveComponents(); see bugzilla 159160
 		if (shouldLinkAsComponentRef(archive)) {
 			IVirtualComponent archiveComponent = ComponentCore.createArchiveComponent(vComponent.getProject(), VirtualArchiveComponent.LIBARCHIVETYPE + iFile.getFullPath().toString());
 			if (archiveComponents == null) {
@@ -248,7 +260,6 @@ public class ComponentArchiveSaveAdapter extends AbstractArchiveSaveAdapter {
 		return iFile;
 	}
 
-
 	protected void saveToIFile(IFile iFile, InputStream in) throws Exception {
 		validateEdit(iFile);
 		if (iFile.exists())
@@ -258,7 +269,6 @@ public class ComponentArchiveSaveAdapter extends AbstractArchiveSaveAdapter {
 			iFile.create(in, true, null);
 		}
 	}
-
 
 	protected void mkdirs(IPath path, IWorkspaceRoot root) throws CoreException {
 		if (path.segmentCount() <= 1)
@@ -270,5 +280,4 @@ public class ComponentArchiveSaveAdapter extends AbstractArchiveSaveAdapter {
 		}
 	}
 
-	
 }

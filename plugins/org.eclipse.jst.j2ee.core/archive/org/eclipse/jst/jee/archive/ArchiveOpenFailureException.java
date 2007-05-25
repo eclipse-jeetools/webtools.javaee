@@ -18,8 +18,12 @@ public class ArchiveOpenFailureException extends ArchiveException {
 		super(message);
 	}
 
-	public ArchiveOpenFailureException(Exception exception){
-		super(exception);
+	public ArchiveOpenFailureException(Throwable cause){
+		super(cause);
+	}
+	
+	public ArchiveOpenFailureException(String message, Throwable cause){
+		super(message, cause);
 	}
 	
 }

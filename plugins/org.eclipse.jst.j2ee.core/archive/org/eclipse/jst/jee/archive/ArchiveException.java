@@ -22,8 +22,12 @@ public class ArchiveException extends Exception {
 		super(message);
 	}
 
-	public ArchiveException(Exception exception) {
-		super(exception.getMessage());
+	public ArchiveException(Throwable cause) {
+		super(cause);
+	}
+	
+	public ArchiveException(String message, Throwable cause){
+		super(message, cause);
 	}
 
 }

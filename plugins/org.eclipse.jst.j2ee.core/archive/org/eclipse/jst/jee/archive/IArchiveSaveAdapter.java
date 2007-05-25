@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.jee.archive;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+
 public interface IArchiveSaveAdapter extends IArchiveAdapter {
 
 	/**
@@ -24,6 +26,6 @@ public interface IArchiveSaveAdapter extends IArchiveAdapter {
 	 */
 	public void finish() throws java.io.IOException;
 
-	public void save() throws ArchiveSaveFailureException;
+	public void save(IProgressMonitor monitor) throws ArchiveSaveFailureException;
 
 }

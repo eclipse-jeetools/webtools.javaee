@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jst.jee.archive.internal.ArchiveResourceImpl;
 import org.eclipse.jst.jee.archive.internal.ZipStreamArchiveSaveAdapterImpl;
 
@@ -107,7 +108,7 @@ public abstract class AbstractArchiveLoadAdapter extends AbstractArchiveAdapter 
 			ArchiveOptions archiveOptions = new ArchiveOptions();
 			archiveOptions.setOption(ArchiveOptions.SAVE_ADAPTER, saveAdapter);
 			try {
-				IArchiveFactory.INSTANCE.saveArchive(thisArchive, archiveOptions);
+				IArchiveFactory.INSTANCE.saveArchive(thisArchive, archiveOptions, new NullProgressMonitor());
 			} catch (ArchiveSaveFailureException e) {
 				throw new IOException("Unable to save nested Archive " + archiveResource.getPath() + " nested exception = " + e.getMessage()); //$NON-NLS-1$//$NON-NLS-2$
 			}

@@ -39,6 +39,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureExce
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
+import org.eclipse.jst.jee.archive.ArchiveSaveFailureException;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveFactory;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -228,14 +229,14 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 		return projs;
 	}
 	
-	protected void saveArchive(IArchive archiveToSave, String fileName) throws Exception {
+	protected void saveArchive(IArchive archiveToSave, String fileName, IProgressMonitor monitor) throws ArchiveSaveFailureException  {
 		String writeFileName = fileName;
 		File writeFile = new File(writeFileName);
 		if (writeFile.exists()) {
 			writeFile.delete();
 		}
 		IPath outputPath = new Path(writeFileName);
-		IArchiveFactory.INSTANCE.saveArchive(archiveToSave, outputPath);
+		IArchiveFactory.INSTANCE.saveArchive(archiveToSave, outputPath, monitor);
 	}
 
 
