@@ -37,21 +37,16 @@ public class EJBComponentExportOperation extends J2EEArtifactExportOperation {
 		super(model);
 	}
 
-	protected void export() throws SaveFailureException, CoreException,
-			InvocationTargetException, InterruptedException {
-		IProgressMonitor subMonitor = new SubProgressMonitor(progressMonitor,
-				EXPORT_WORK);
+	protected void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
+		IProgressMonitor subMonitor = new SubProgressMonitor(progressMonitor, EXPORT_WORK);
 		IArchive archiveFromComponent = null;
 		try {
-			createModuleFile();
-
-			archiveFromComponent = JavaEEArchiveUtilities.INSTANCE
-					.openArchive(getComponent());
-			JavaEEQuickPeek quickPeek = JavaEEArchiveUtilities.INSTANCE
-					.getJavaEEQuickPeek(archiveFromComponent);
+			archiveFromComponent = JavaEEArchiveUtilities.INSTANCE.openArchive(getComponent());
+			JavaEEQuickPeek quickPeek = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archiveFromComponent);
 			if (quickPeek.getJavaEEVersion() == J2EEConstants.JEE_5_0_ID) {
-				saveArchive(archiveFromComponent, getDestinationPath().toOSString());
+				saveArchive(archiveFromComponent, getDestinationPath().toOSString(), subMonitor);
 			} else {
+				createModuleFile();
 				((ComponentLoadStrategyImpl) (getModuleFile().getLoadStrategy())).setProgressMonitor(subMonitor);
 				getModuleFile().saveAsNoReopen(getDestinationPath().toOSString());
 			}
@@ -59,18 +54,16 @@ public class EJBComponentExportOperation extends J2EEArtifactExportOperation {
 		} catch (SaveFailureException ex) {
 			throw ex;
 		} catch (Exception e) {
-			throw new SaveFailureException(
-					EJBArchiveOpsResourceHandler.ARCHIVE_OPERATION_OpeningArchive,
-					e);
+			throw new SaveFailureException(EJBArchiveOpsResourceHandler.ARCHIVE_OPERATION_OpeningArchive, e);
 		} finally {
 			if (archiveFromComponent != null)
 				JavaEEArchiveUtilities.INSTANCE.closeArchive(archiveFromComponent);
 			subMonitor.done();
 		}
 	}
-	
+
 	protected String archiveString() {
-		return EJBArchiveOpsResourceHandler.EJB_Jar_File_UI_; 
+		return EJBArchiveOpsResourceHandler.EJB_Jar_File_UI_;
 	}
 
 	public void createModuleFile() throws SaveFailureException {
@@ -80,7 +73,7 @@ public class EJBComponentExportOperation extends J2EEArtifactExportOperation {
 			ls.setExportSource(isExportSource());
 			setModuleFile(caf.openEJBJarFile(ls, getDestinationPath().toOSString()));
 		} catch (Exception e) {
-			throw new SaveFailureException(EJBArchiveOpsResourceHandler.ARCHIVE_OPERATION_OpeningArchive, e); 
+			throw new SaveFailureException(EJBArchiveOpsResourceHandler.ARCHIVE_OPERATION_OpeningArchive, e);
 		}
 
 	}
