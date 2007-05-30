@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.refactor.operations;
 import java.util.Map;
 
 import org.eclipse.jst.j2ee.application.internal.operations.RemoveComponentFromEnterpriseApplicationOperation;
-import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -23,8 +23,8 @@ public class RemoveDeletedComponentFromEAROperation extends RemoveComponentFromE
 		super(model);
 	}
 		
-	protected String getModuleURI(final EARArtifactEdit earEdit, final IVirtualComponent targetComponent) {
-		String uri = earEdit.getModuleURI(targetComponent);
+	protected String getModuleURI(final IEARModelProvider earModel, final IVirtualComponent targetComponent) {
+		String uri = earModel.getModuleURI(targetComponent);
 		if (uri == null) {
 			Map compToURI = (Map) model.getProperty(RemoveDeletedComponentFromEARDataModelProvider.TARGET_COMPONENTS_TO_URI_MAP); 
 			uri = (String) compToURI.get(targetComponent);
