@@ -114,6 +114,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	protected Label enterpriseApplicationLabel;
 	protected Label availableDependentJars;
 	private final Display display;
+	private boolean isDisposed = false;
 	
 	/**
 	 * Constructor for JARDependencyPropertiesControl
@@ -137,10 +138,10 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 			updateModelManifest();
 			initializeValidateEditListener();
 		}
-		JavaCore.addElementChangedListener(this);
 	}
 
 	public void dispose() {
+		isDisposed = true;
 		JavaCore.removeElementChangedListener(this);
 		J2EEComponentClasspathUpdater.getInstance().resumeUpdates();
 		if (model.earArtifactEdit != null) {
@@ -207,11 +208,15 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	public void elementChanged(final ElementChangedEvent event) {
 		if (event.getType() == ElementChangedEvent.POST_CHANGE && classpathChanged(event.getDelta())) {
 			// trigger a recomputation and refresh for the currently selected EAR
-			display.asyncExec (new Runnable () {
-				public void run () {
-					handleClasspathChange();
-				}
-			});
+			if (!isDisposed) {
+				display.asyncExec (new Runnable () {
+					public void run () {
+						if (!isDisposed) {
+							handleClasspathChange();
+						}
+					}
+				});
+			}
 		}
 	}
 	
@@ -279,9 +284,18 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 			refresh();
 		}
 	    Dialog.applyDialogFont(parent);
+	    postCreateContents();
 		return composite;
 	}
 
+	/**
+	 * Called at the end of createContents().
+	 */
+	protected void postCreateContents() {
+		// register this object as an IElementChangedListener so that it will react to user changes to the Java build path
+		JavaCore.addElementChangedListener(this);	
+	}
+	
 	/**
 	 * @param comp
 	 * @return
@@ -499,7 +513,9 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 
 	protected void refresh() {
 		populateApps();
-		tableManager.refresh();
+		if (tableManager != null) {
+			tableManager.refresh();
+		}
 		refreshText();
 	}
 

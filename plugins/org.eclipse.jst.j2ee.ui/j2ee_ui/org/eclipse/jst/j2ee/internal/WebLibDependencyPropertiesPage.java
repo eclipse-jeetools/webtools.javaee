@@ -59,6 +59,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 			setEnablement();
 		}
 	    Dialog.applyDialogFont(parent);
+	    postCreateContents();
 		return composite;
 	}
 
