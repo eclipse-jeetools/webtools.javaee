@@ -1,16 +1,16 @@
 package org.eclipse.jst.j2ee.dependency.tests;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.dependency.tests.util.DependencyUtil;
 import org.eclipse.jst.j2ee.dependency.tests.util.ProjectUtil;
-import org.eclipse.wst.project.facet.IProductConstants;
-import org.eclipse.wst.project.facet.ProductManager;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
 
 /**
  * Tests refactoring logic that updates component mappings when source IClasspathEntries are 
@@ -74,7 +74,7 @@ public class ProjectClasspathRefactoringTests extends AbstractTests {
 	
 	public void testWebContentRename() throws Exception {
 		final IProject webProject = ProjectUtil.createWebProject("TestWeb", null);
-		final IPath webContent = new Path(ProductManager.getProperty(IProductConstants.WEB_CONTENT_FOLDER));
+		final IPath webContent = new Path(J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.WEB_CONTENT_FOLDER));
 		final IPath newWebContent = new Path("WebContent2");
 		
 		DependencyUtil.verifyComponentMapping(webProject, webContent, Path.ROOT, true);
@@ -91,7 +91,7 @@ public class ProjectClasspathRefactoringTests extends AbstractTests {
 	
 	public void testEarContentRename() throws Exception {
 		final IProject earProject = ProjectUtil.createEARProject("TestEAR");
-		final IPath earContent = new Path(ProductManager.getProperty(IProductConstants.APPLICATION_CONTENT_FOLDER));
+		final IPath earContent = new Path(J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.APPLICATION_CONTENT_FOLDER));
 		final IPath newEarContent = new Path("EarContent2");
 		
 		DependencyUtil.verifyComponentMapping(earProject, earContent, Path.ROOT, true);

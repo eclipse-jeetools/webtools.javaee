@@ -33,6 +33,8 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
 import org.eclipse.jst.j2ee.project.facet.IAppClientFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
@@ -55,8 +57,6 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
-import org.eclipse.wst.project.facet.IProductConstants;
-import org.eclipse.wst.project.facet.ProductManager;
 
 public class JEE5ModelTest extends GeneralEMFPopulationTest {
 	
@@ -239,7 +239,7 @@ public void testEarModel() throws Exception {
 	
 	EMFAttributeFeatureGenerator.reset();
 	String modelPathURI = J2EEConstants.APPLICATION_DD_URI;
-	URI uri = URI.createURI(ProductManager.getProperty(IProductConstants.APPLICATION_CONTENT_FOLDER) + "/" + modelPathURI);
+	URI uri = URI.createURI(J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.APPLICATION_CONTENT_FOLDER) + "/" + modelPathURI);
 	ProjectResourceSet resSet = getResourceSet(projName);
 	
 	ApplicationResourceImpl earRes = (ApplicationResourceImpl) resSet.getResource(uri,true);
