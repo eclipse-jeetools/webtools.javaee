@@ -12,6 +12,10 @@ package org.eclipse.jst.j2ee.project.facet;
 
 import java.util.Set;
 
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.wst.common.componentcore.datamodel.FacetInstallDataModelProvider;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
@@ -31,5 +35,15 @@ public abstract class J2EEFacetInstallDataModelProvider extends FacetInstallData
 	}
 
 	protected abstract int convertFacetVersionToJ2EEVersion(IProjectFacetVersion version);
-	
+
+	protected IStatus validateFolderName(String folderName) {
+		// the directory is not required, but if the name is entered ensure that it 
+		// contains only valid characters.
+		if (folderName == null || folderName.length() == 0) {
+			return OK_STATUS;
+		}
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		return workspace.validateName(folderName, IResource.FOLDER);
+	}
+
 }

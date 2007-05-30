@@ -29,6 +29,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jem.util.UIContextDetermination;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -47,7 +48,6 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject.Action.Type;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
-import org.eclipse.wst.project.facet.IProductConstants;
 import org.eclipse.wst.project.facet.ProductManager;
 
 public abstract class J2EEFacetInstallDelegate {
@@ -173,7 +173,7 @@ public abstract class J2EEFacetInstallDelegate {
 			outputFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
 		// Otherwise just use the product default for java output path
 		else
-			outputFolder = ProductManager.getProperty(IProductConstants.OUTPUT_FOLDER);
+			outputFolder = CommonFrameworksPlugin.getDefault().getPluginPreferences().getString(CommonFrameworksPlugin.OUTPUT_FOLDER);
 		component.setMetaProperty("java-output-path", outputFolder ); //$NON-NLS-1$
 	}
   
