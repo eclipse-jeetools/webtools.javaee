@@ -120,5 +120,10 @@
     <attribute name="compilerLevel"/>
     <persistent value="true"/>
   </extension>
+  <extension 
+         point="org.eclipse.core.runtime.preferences">
+         <initializer
+			class="org.eclipse.jst.common.frameworks.CommonFrameworksPreferenceInitializer" />
+   </extension>
   
 </plugin>

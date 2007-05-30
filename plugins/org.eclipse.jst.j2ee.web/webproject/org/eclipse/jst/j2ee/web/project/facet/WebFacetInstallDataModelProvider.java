@@ -18,13 +18,13 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.jst.j2ee.project.facet.J2EEModuleFacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
-import org.eclipse.wst.project.facet.IProductConstants;
 import org.eclipse.wst.project.facet.ProductManager;
 
 import com.ibm.icu.util.StringTokenizer;
@@ -40,7 +40,7 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(CONFIG_FOLDER)) {
-			return ProductManager.getProperty(IProductConstants.WEB_CONTENT_FOLDER);
+			return J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.WEB_CONTENT_FOLDER);
 		} else if (propertyName.equals(SOURCE_FOLDER)) {
 			return "src"; //$NON-NLS-1$
 		} else if (propertyName.equals(CONTEXT_ROOT)) {
@@ -51,8 +51,7 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 			String projectName = model.getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
 			return projectName + IJ2EEModuleConstants.WAR_EXT;
 		} else if (propertyName.equals(GENERATE_DD)) {
-			// for ee5 jee web projects default it to true so that we can create servlets, otherwise false
-			return Boolean.TRUE;
+			return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.DYNAMIC_WEB_GENERATE_DD));
 		}
 		return super.getDefaultProperty(propertyName);
 	}
@@ -98,7 +97,10 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 	public IStatus validate(String name) {
 		if (name.equals(CONTEXT_ROOT)) {
 			return validateContextRoot(getStringProperty(CONTEXT_ROOT));
+		} else if (name.equals(SOURCE_FOLDER)) {
+			return validateFolderName(getStringProperty(SOURCE_FOLDER));
 		}
+		// the superclass validates the content directory which is actually a "CONFIG_FOLDER"
 		return super.validate(name);
 	}
 

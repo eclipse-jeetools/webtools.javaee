@@ -14,10 +14,9 @@ import java.util.Hashtable;
 import java.util.Set;
 
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.wst.common.componentcore.datamodel.FacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.project.facet.IProductConstants;
-import org.eclipse.wst.project.facet.ProductManager;
 
 public class JavaFacetInstallDataModelProvider extends FacetInstallDataModelProvider implements IJavaFacetInstallDataModelProperties {
 
@@ -49,9 +48,9 @@ public class JavaFacetInstallDataModelProvider extends FacetInstallDataModelProv
 		   return JavaFacetUtils.JAVA_50;
 			
 		} else if (SOURCE_FOLDER_NAME.equals(propertyName)) {
-			return ProductManager.getProperty(IProductConstants.DEFAULT_SOURCE_FOLDER);
+			return CommonFrameworksPlugin.getDefault().getPluginPreferences().getString(CommonFrameworksPlugin.DEFAULT_SOURCE_FOLDER);
 		} else if (DEFAULT_OUTPUT_FOLDER_NAME.equals(propertyName)) {
-            return ProductManager.getProperty(IProductConstants.OUTPUT_FOLDER);
+            return CommonFrameworksPlugin.getDefault().getPluginPreferences().getString(CommonFrameworksPlugin.OUTPUT_FOLDER);
         }
         
 		return super.getDefaultProperty(propertyName);

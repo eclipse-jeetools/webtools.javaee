@@ -15,6 +15,7 @@ import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
+import org.eclipse.wst.project.facet.IProductConstants;
 
 public final class CommonFrameworksPlugin 
 
@@ -22,9 +23,10 @@ public final class CommonFrameworksPlugin
 
 {
     public static final String PLUGIN_ID = "org.eclipse.jst.common.frameworks"; //$NON-NLS-1$
-    
-    private static final CommonFrameworksPlugin inst
-        = new CommonFrameworksPlugin();
+	public static final String DEFAULT_SOURCE_FOLDER = IProductConstants.DEFAULT_SOURCE_FOLDER;
+	public static final String OUTPUT_FOLDER = IProductConstants.OUTPUT_FOLDER;
+   
+    private static CommonFrameworksPlugin inst;
 
     /**
      * Get the plugin singleton.
@@ -35,6 +37,11 @@ public final class CommonFrameworksPlugin
         return inst;
     }
     
+    public CommonFrameworksPlugin() {
+    	super();
+		if (inst == null)
+			inst = this;
+	}
     public String getPluginID() 
     {
         return PLUGIN_ID;

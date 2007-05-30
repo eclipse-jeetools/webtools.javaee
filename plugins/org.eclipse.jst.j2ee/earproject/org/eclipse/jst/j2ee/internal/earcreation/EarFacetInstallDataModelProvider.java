@@ -19,12 +19,11 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
-import org.eclipse.wst.project.facet.IProductConstants;
-import org.eclipse.wst.project.facet.ProductManager;
 
 public class EarFacetInstallDataModelProvider extends J2EEFacetInstallDataModelProvider implements IEarFacetInstallDataModelProperties {
 
@@ -40,11 +39,11 @@ public class EarFacetInstallDataModelProvider extends J2EEFacetInstallDataModelP
 		if (propertyName.equals(FACET_ID)) {
 			return ENTERPRISE_APPLICATION;
 		} else if (propertyName.equals(CONTENT_DIR)) {
-			return ProductManager.getProperty(IProductConstants.APPLICATION_CONTENT_FOLDER);
+			return J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.APPLICATION_CONTENT_FOLDER);
 		} else if (propertyName.equals(J2EE_PROJECTS_LIST) || propertyName.equals(JAVA_PROJECT_LIST)) {
 			return Collections.EMPTY_LIST;
 		} else if(propertyName.equals(GENERATE_DD)){
-			return Boolean.FALSE;
+			return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.APPLICATION_GENERATE_DD));
 		}
 		return super.getDefaultProperty(propertyName);
 	}
@@ -52,6 +51,8 @@ public class EarFacetInstallDataModelProvider extends J2EEFacetInstallDataModelP
 	public IStatus validate(String name) {
 		if (name.equals(J2EE_PROJECTS_LIST)) {
 			return validateTargetComponentVersion((List) model.getProperty(J2EE_PROJECTS_LIST));
+		} else if (name.equals(CONTENT_DIR)) {
+			return validateFolderName(getStringProperty(CONTENT_DIR));
 		}
 		return super.validate(name);
 	}

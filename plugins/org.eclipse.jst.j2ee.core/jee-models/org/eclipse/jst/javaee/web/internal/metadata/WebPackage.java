@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: WebPackage.java,v 1.1 2007/05/16 06:42:40 cbridgha Exp $
+ * $Id: WebPackage.java,v 1.2 2007/05/30 21:06:23 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.web.internal.metadata;
 
@@ -368,7 +368,7 @@ public interface WebPackage extends EPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 */
-	String eNS_URI = "http://java.sun.com/xml/ns/j2ee/web-app_2_5.xsd"; //$NON-NLS-1$
+	String eNS_URI = "http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.

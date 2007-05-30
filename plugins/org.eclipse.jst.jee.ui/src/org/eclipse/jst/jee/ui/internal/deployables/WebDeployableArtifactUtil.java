@@ -29,6 +29,8 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURL;
+import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURLExtensionReader;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -152,16 +154,17 @@ public class WebDeployableArtifactUtil {
 //			}
 		}
         resourcePath = resources[0].getRuntimePath();
-//TODO JSFFileURL should not refer to WebArtifactEdit for JEE Web 2.5 modules, see bug 182012	
-//		// Extension read to get the correct URL for Java Server Faces file if
-//		// the jsp is of type jsfaces.
-//		FileURL jspURL = FileURLExtensionReader.getInstance().getFilesURL();
-//		if (jspURL != null) {
-//			IPath correctJSPPath = jspURL.getFileURL(resource, resourcePath);
-//			if (correctJSPPath != null && correctJSPPath.toString().length() > 0)
-//				return new WebResource(getModule(resource.getProject(), component), correctJSPPath);
-//		}
-		// return Web resource type
+        
+		try {//adding try/catch to avoid future issues that would require commenting this out.
+			// Extension read to get the correct URL for Java Server Faces file if
+			// the jsp is of type jsfaces.
+			FileURL jspURL = FileURLExtensionReader.getInstance().getFilesURL();
+			if (jspURL != null) {
+				IPath correctJSPPath = jspURL.getFileURL(resource, resourcePath);
+				if (correctJSPPath != null && correctJSPPath.toString().length() > 0)
+					return new WebResource(getModule(resource.getProject(), component), correctJSPPath);
+			}
+		}catch (Exception e) {}
 		
 		return new WebResource(getModule(resource.getProject(), component), resourcePath);
 	}

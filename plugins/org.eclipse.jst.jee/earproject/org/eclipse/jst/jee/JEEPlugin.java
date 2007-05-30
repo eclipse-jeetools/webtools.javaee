@@ -6,18 +6,20 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class Activator extends WTPPlugin {
+public class JEEPlugin extends WTPPlugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.eclipse.jst.jee";
 
 	// The shared instance
-	private static Activator plugin;
+	private static JEEPlugin plugin;
+	
+	private JEEPreferences preferences = null;
 	
 	/**
 	 * The constructor
 	 */
-	public Activator() {
+	public JEEPlugin() {
 	}
 
 	/*
@@ -43,7 +45,7 @@ public class Activator extends WTPPlugin {
 	 *
 	 * @return the shared instance
 	 */
-	public static Activator getDefault() {
+	public static JEEPlugin getDefault() {
 		return plugin;
 	}
 
@@ -56,4 +58,17 @@ public class Activator extends WTPPlugin {
 		return PLUGIN_ID;
 	}
 	
+	/**
+	 * @return Returns the preferences.
+	 */
+	public JEEPreferences getJEEPreferences() {
+		if (this.preferences == null)
+			this.preferences = new JEEPreferences(this);
+		return this.preferences;
+	}
+	
+	protected void initializeDefaultPluginPreferences() {
+		getJEEPreferences().initializeDefaultPreferences();
+	}
+
 }

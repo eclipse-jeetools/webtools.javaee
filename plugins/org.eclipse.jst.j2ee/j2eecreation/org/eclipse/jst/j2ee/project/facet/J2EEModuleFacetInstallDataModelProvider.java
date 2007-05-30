@@ -21,6 +21,8 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -63,7 +65,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		if (propertyName.equals(PROHIBIT_ADD_TO_EAR)) {
 			return Boolean.FALSE;
 		} else if (propertyName.equals(ADD_TO_EAR)) {
-			return new Boolean( ProductManager.shouldAddToEARByDefault() && isEARSupportedByRuntime());
+			return new Boolean( J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.ADD_TO_EAR_BY_DEFAULT) && isEARSupportedByRuntime());
 		} else if (propertyName.equals(EAR_PROJECT_NAME)) {
 			if (model.isPropertySet(LAST_EAR_NAME)) {
 				IProject project = ProjectUtilities.getProject(getStringProperty(LAST_EAR_NAME));
@@ -82,8 +84,6 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			} else {
 				return getDataModel().getStringProperty(FACET_PROJECT_NAME) + "EAR"; //$NON-NLS-1$
 			}
-		} else if (propertyName.equals(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)) {
-			return Boolean.FALSE;
 		}
 		return super.getDefaultProperty(propertyName);
 	}
@@ -210,8 +210,11 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		} else if (name.equals(CONFIG_FOLDER)) {
 			String folderName = model.getStringProperty(CONFIG_FOLDER);
 			if (folderName == null || folderName.length() == 0) {
+				// all folders which meet the criteria of "CONFIG_FOLDER" are required
 				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.SOURCEFOLDER_EMPTY);
 				return WTPCommonPlugin.createErrorStatus(errorMessage);
+			} else {
+				return validateFolderName(folderName);
 			}
 		} else if (name.equals(ADD_TO_EAR)) {
 			if (!isEARSupportedByRuntime()) {
