@@ -45,7 +45,7 @@ public class EjbFacetInstallPage extends J2EEModuleFacetInstallPage
 	}
 	
 	protected String[] getValidationPropertyNames() {
-		return new String[]{EAR_PROJECT_NAME, CREATE_CLIENT, CLIENT_NAME, CLIENT_SOURCE_FOLDER, CLIENT_URI};
+		return new String[]{EAR_PROJECT_NAME, CREATE_CLIENT, CLIENT_NAME, CLIENT_SOURCE_FOLDER, CLIENT_URI, CONFIG_FOLDER};
 	}
 
 		
