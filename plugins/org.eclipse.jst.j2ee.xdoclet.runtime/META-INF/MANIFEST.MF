@@ -14,3 +14,4 @@ Eclipse-LazyStart: true
 Export-Package: org.eclipse.jst.j2ee.xdoclet.runtime.internal;x-internal:=true,
  org.eclipse.jst.j2ee.xdoclet.runtime.internal.server;x-internal:=true,
  org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks;x-internal:=true
+Bundle-RequiredExecutionEnvironment: J2SE-1.4
