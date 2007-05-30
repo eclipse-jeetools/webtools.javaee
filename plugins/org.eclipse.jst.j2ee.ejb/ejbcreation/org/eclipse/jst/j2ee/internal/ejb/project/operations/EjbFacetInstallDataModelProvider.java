@@ -16,6 +16,9 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEModuleFacetInstallDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModelProviderNew;
@@ -58,6 +61,8 @@ public class EjbFacetInstallDataModelProvider
 		} else if (propertyName.equals(MODULE_URI)) {
 			String projectName = model.getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
 			return projectName + IJ2EEModuleConstants.JAR_EXT; 
+		} else if (propertyName.equals(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)) {
+			return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EJB_GENERATE_DD));
 		}
 		return super.getDefaultProperty(propertyName);
 	}
