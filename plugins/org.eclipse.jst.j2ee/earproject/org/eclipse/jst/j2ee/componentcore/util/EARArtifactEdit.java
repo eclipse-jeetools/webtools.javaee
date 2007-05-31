@@ -486,6 +486,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * ".rar") which allows users to get a IVirtualComponent for a given entry in an application.xml
 	 * 
 	 * @return - a IVirtualComponent for module name
+	 * @deprecated - see {@link J2EEProjectUtilities.getModule(IVirtualComponent earComponent, String moduleName)}
 	 */
 	public IVirtualComponent getModule(String moduleName) {
 		if (moduleName == null)

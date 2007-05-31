@@ -13,6 +13,7 @@ import java.util.Set;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
@@ -36,6 +37,12 @@ private static final int DEFAULT_PRIORITY = 100;
 		
 		IModelProviderFactory factory = getProvider(vers);
 		return factory.create(project);
+	}
+
+	public static IModelProvider getModelProvider(IVirtualComponent aModule, IProjectFacetVersion vers) {
+
+		IModelProviderFactory factory = getProvider(vers);
+		return factory.create(aModule);
 	}
 
 	/**
@@ -95,6 +102,11 @@ private static final int DEFAULT_PRIORITY = 100;
 		
 	}
 
+	public static IModelProvider getModelProvider(IVirtualComponent aModule) {
+		IProjectFacetVersion facetVersion = getDefaultFacet(aModule);
+		return getModelProvider(aModule, facetVersion);		
+	}
+
 	private static IProjectFacetVersion getDefaultFacet(IProject proj) {
 		String type = J2EEProjectUtilities.getJ2EEProjectType(proj);
 		IProjectFacet facet = ProjectFacetsManager.getProjectFacet(type);
@@ -110,6 +122,29 @@ private static final int DEFAULT_PRIORITY = 100;
 		}
 		return null;
 			
+	}
+
+	private static IProjectFacetVersion getDefaultFacet(IVirtualComponent aModule) {
+		String type = J2EEProjectUtilities.getJ2EEComponentType(aModule);
+		IProjectFacet facet = ProjectFacetsManager.getProjectFacet(type);
+		IFacetedProject fp = null;
+		try {
+			if (aModule.isBinary())
+			{
+				
+			}
+			else
+			{
+				fp = ProjectFacetsManager.create(aModule.getProject());
+			}
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (fp != null && facet != null) {
+			return fp.getInstalledVersion(facet);
+		}
+		return null;			
 	}
 
 	private static HashMap<ModelProviderKey, IModelProviderFactory> getProviders() {

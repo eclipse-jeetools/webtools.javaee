@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.internal.common;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -40,22 +41,21 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DeploymentDescriptorLoadException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ManifestException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
-import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
+import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
@@ -72,9 +72,9 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 
 	protected IProject project;
 	protected IVirtualComponent selectedEARComponent;
-	protected EARFile earFile;
+	protected IArchive earFile;
 	protected IVirtualComponent component;
-	protected Archive archive;
+//	protected IArchive archive;
 	public EARArtifactEdit earArtifactEdit;
 	/** The EAR nature runtimes for all the open EAR projects in the workspace */
 	protected IVirtualComponent[] availableEARComponents = null;
@@ -155,11 +155,21 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 
 	public String getArchiveURI() {
 		if (selectedEARComponent != null) {
-			return getEARArtifactEdit().getModuleURI(getComponent());
+			IVirtualReference [] refs = selectedEARComponent.getReferences();
+			IVirtualComponent moduleComp = getComponent();
+			for(int i=0; i<refs.length; i++){
+				if(refs[i].getReferencedComponent().equals(moduleComp)){
+					return refs[i].getArchiveName();
+				}
+			}
 		}
 		return null;
 	}
 
+	/**
+	 * 
+	 * @deprecated - will be removed in WTP 3.0
+	 */
 	public EARArtifactEdit getEARArtifactEdit() {
 		if (earArtifactEdit == null || selectedEARComponentChanged())
 			earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(selectedEARComponent);
@@ -181,14 +191,10 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 			return;
 		}
 		try {
-			IModelProvider provider = ModelProviderManager.getModelProvider(selectedEARComponent.getProject());
-			Object model = provider.getModelObject();
-			if (model instanceof org.eclipse.jst.j2ee.application.Application)
-			{
-				earFile = (EARFile) getEARArtifactEdit().asArchive(false, false);
-			}
-		} catch (OpenFailureException ex) {
-			handleOpenFailureException(ex);
+			earFile = JavaEEArchiveUtilities.INSTANCE.openArchive(selectedEARComponent);
+		} catch (ArchiveOpenFailureException aofex)
+		{
+			handleOpenFailureException(aofex);
 		}
 	}
 
@@ -200,70 +206,58 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 			initializeEARFile();
 			initializeArchive();
 			if (!J2EEProjectUtilities.isEARProject(getProject())) {
-				if (archive != null) {
+				if (getProject() != null) {
 					if (existing == null) {
 						if (manifest != null)
-							archive.setManifest(manifest);
+						{
+							J2EEProjectUtilities.writeManifest(getProject(), manifest);
+						}
 						else
 							// Load it now because we're going to close the EAR;
 							// this might be a binary project
-							archive.getManifest();
+							manifest = J2EEProjectUtilities.readManifest(getProject());
 					} else
-						archive.setManifest(existing);
-					List archiveFiles = earFile.getArchiveFiles();
-					for (int i = 0; i < archiveFiles.size(); i++) {
-						Archive anArchive = (Archive) archiveFiles.get(i);
-						try {
-							if (anArchive.isEJBJarFile())
-								((EJBJarFile) anArchive).getDeploymentDescriptor();
-							anArchive.getManifest();
-						} catch (ManifestException mfEx) {
-							Logger.getLogger().logError(mfEx);
-							anArchive.setManifest((ArchiveManifest) new ArchiveManifestImpl());
-						} catch (DeploymentDescriptorLoadException ddException) {
-							Logger.getLogger().logError(ddException);
+					{
+						J2EEProjectUtilities.writeManifest(getProject(), existing);
+						manifest = existing;
+					}
+					if (selectedEARComponent != null) {
+						IVirtualReference[] archiveFiles = selectedEARComponent.getReferences();
+						IVirtualComponent anArchive = null;
+						for (int i = 0; i < archiveFiles.length; i++) {
+							anArchive = archiveFiles[i].getReferencedComponent();
+							try {
+								if (J2EEProjectUtilities.isEJBComponent(anArchive)) {
+									IModelProvider modelProvider = ModelProviderManager.getModelProvider(anArchive.getProject());
+									modelProvider.getModelObject();
+								}
+								J2EEProjectUtilities.readManifest(anArchive.getProject());
+							} catch (ManifestException mfEx) {
+								Logger.getLogger().logError(mfEx);
+								// anArchive.setManifest((ArchiveManifest) new ArchiveManifestImpl());
+							} catch (DeploymentDescriptorLoadException ddException) {
+								Logger.getLogger().logError(ddException);
+							}
 						}
 					}
 				}
 				createClassPathSelection();
 			}
+		} catch (IOException e) {
+			handleOpenFailureException(e);
 		} finally {
 			if (earFile != null)
-				earFile.close();
+				JavaEEArchiveUtilities.INSTANCE.closeArchive(earFile);
 		}
 	}
 
 	protected void initializeArchive() {
-		if (!J2EEProjectUtilities.isEARProject(getProject())) {
-			if (earFile == null) {
-				archive = null;
-				return;
-			}
-			String uri = getArchiveURI();
-			if (uri != null) {
-				try {
-					archive = (Archive) earFile.getFile(uri);
-				} catch (java.io.FileNotFoundException ex) {
-					archive = null;
-				}
-			}
-		} else {
-			EnterpriseArtifactEdit edit = null;
-			try {
-				edit = EARArtifactEdit.getEARArtifactEditForRead(getProject());
-				archive = edit.asArchive(true);
-			} catch (OpenFailureException oe) {
-				Logger.getLogger().log(oe);
-			} finally {
-				if (edit != null)
-					edit.dispose();
-			}
-		}
+		// do nothing now- just use the project
 	}
 
 	protected void createClassPathSelection() {
-		if (archive != null)
-			classPathSelection = new ClassPathSelection(archive, earFile);
+		if (getComponent() != null && selectedEARComponent != null )
+			classPathSelection = new ClassPathSelection(getComponent(), selectedEARComponent);
 		else
 			classPathSelection = null;
 	}
@@ -276,7 +270,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		return mofRoot.exists(new Path(aComponent.getRootFolder().getProjectRelativePath().toString() + "//" + J2EEConstants.APPLICATION_DD_URI)); //$NON-NLS-1$
 	}
 
-	protected void handleOpenFailureException(OpenFailureException ex) {
+	protected void handleOpenFailureException(Exception ex) {
 		org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
 	}
 
@@ -368,9 +362,10 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	 * Gets the archive.
 	 * 
 	 * @return Returns a Archive
+	 * @deprecated - use the project
 	 */
 	public Archive getArchive() {
-		return archive;
+		return null;
 	}
 
 	/**
@@ -379,7 +374,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	 */
 	public void updateManifestClasspath() {
 		if (classPathSelection != null && classPathSelection.isModified()) {
-			archive.getManifest().setClassPath(classPathSelection.toString());
+			manifest.setClassPath(classPathSelection.toString());
 			fireNotification(new ClasspathModelEvent(ClasspathModelEvent.CLASS_PATH_CHANGED));
 		}
 	}
@@ -389,7 +384,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	 * {@link ClasspathModelEvent#MAIN_CLASS_CHANGED}
 	 */
 	public void updateMainClass(String mainClass) {
-		archive.getManifest().setMainClass(mainClass);
+		manifest.setMainClass(mainClass);
 		fireNotification(new ClasspathModelEvent(ClasspathModelEvent.MAIN_CLASS_CHANGED));
 	}
 
@@ -398,7 +393,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	 * {@link ClasspathModelEvent#MAIN_CLASS_CHANGED}
 	 */
 	public void updateImplVersion(String implVersion) {
-		archive.getManifest().setImplemenationVersion(implVersion);
+		manifest.setImplemenationVersion(implVersion);
 		fireNotification(new ClasspathModelEvent(ClasspathModelEvent.IMPL_VERSION_CHANGED));
 	}
 
@@ -416,17 +411,19 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	/**
 	 * Sets the manfest on the archive, updates the classpath selection, and notifies
 	 */
-	public void setManifest(ArchiveManifest manifest) {
-		if(archive != null){
-			archive.setManifest(manifest);
-			getClassPathSelection(); // Ensure the selection is initialized.
-			fireNotification(new ClasspathModelEvent(ClasspathModelEvent.MANIFEST_CHANGED));
+	public void setManifest(ArchiveManifest newManifest) {
+		try {
+			J2EEProjectUtilities.writeManifest(getProject(), newManifest);
+		} catch (IOException e) {
+			handleOpenFailureException(e);
 		}
+		getClassPathSelection(); // Ensure the selection is initialized.
+		fireNotification(new ClasspathModelEvent(ClasspathModelEvent.MANIFEST_CHANGED));
 	}
 
 	public void selectEAR(int index) {
 		ArchiveManifest mf = new ArchiveManifestImpl((ArchiveManifestImpl) getArchive().getManifest());
-		earFile.close();
+		JavaEEArchiveUtilities.INSTANCE.closeArchive(earFile);
 		selectedEARComponent = availableEARComponents[index];
 		initializeSelection(mf);
 		fireNotification(new ClasspathModelEvent(ClasspathModelEvent.EAR_PROJECT_CHANGED));
@@ -444,8 +441,8 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 
 	public void refresh() {
 		ArchiveManifest mf = null;
-		if (archive != null)
-			mf = new ArchiveManifestImpl((ArchiveManifestImpl) getArchive().getManifest());
+		if (getComponent() != null)
+			mf = J2EEProjectUtilities.readManifest(getProject());
 		refreshAvailableEARs();
 		resetClassPathSelection(mf);
 	}

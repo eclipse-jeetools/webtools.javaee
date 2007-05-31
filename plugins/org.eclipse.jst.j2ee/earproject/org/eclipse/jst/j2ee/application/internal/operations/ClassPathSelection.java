@@ -15,6 +15,7 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -45,16 +46,19 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.Container;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ManifestException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipFileLoadStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
-import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
@@ -67,6 +71,8 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public class ClassPathSelection {
 	protected Archive archive;
+	protected org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest manifest;
+	protected IVirtualComponent component;
 	protected IProject earProject;
 	protected IVirtualComponent earComponent;
 	protected List classpathElements;
@@ -86,9 +92,24 @@ public class ClassPathSelection {
 		 * @see Comparator#compare(Object, Object)
 		 */
 		public int compare(Object o1, Object o2) {
-			Archive a1 = (Archive) o1;
-			Archive a2 = (Archive) o2;
-			return a1.getURI().compareTo(a2.getURI());
+			int retVal = 0;
+			if (o1 instanceof Archive)
+			{
+				Archive a1 = (Archive) o1;
+				Archive a2 = (Archive) o2;
+				retVal = a1.getURI().compareTo(a2.getURI());
+			}
+			else if (o1 instanceof IVirtualReference)
+			{
+				IVirtualReference ref1 = (IVirtualReference) o1;
+				IVirtualReference ref2 = (IVirtualReference) o2;
+				retVal = ref1.getArchiveName().compareTo(ref2.getArchiveName());
+			}
+			else
+			{
+				retVal = o1.toString().compareTo(o2.toString());
+			}
+			return retVal;
 		}
 	};
 
@@ -109,7 +130,18 @@ public class ClassPathSelection {
 		initializeEARProject(earFile);
 		initializeElements();
 	}
-	
+
+	/**
+	 * ClassPathSelection constructor comment.
+	 */
+	public ClassPathSelection(IVirtualComponent aComponent, IVirtualComponent anEarComponent) {
+		super();
+		component = aComponent;
+		earComponent = anEarComponent;
+		earProject = earComponent.getProject();
+		initializeElements();
+	}
+
 	/**
 	 * ClassPathSelection constructor comment.
 	 */
@@ -132,6 +164,31 @@ public class ClassPathSelection {
 		//element.setText(referencedArchive.getURI());
 		element.setText(uriString);
 		element.setTargetArchive(referencedArchive);
+		element.setEarProject(earProject);
+		if( earComponent != null ){
+			IContainer earConentFolder = earComponent.getRootFolder().getUnderlyingFolder();
+			if( earConentFolder.getType() == IResource.FOLDER ){
+				element.setEarContentFolder( earConentFolder.getName());
+			}else {
+				element.setEarContentFolder( "" );
+			}
+		}
+	
+		setProjectValues(element, referencedArchive);
+		if (cpEntry != null)
+			element.setValuesSelected(cpEntry);
+		setType(element, referencedArchive);
+		return element;
+	}
+
+	protected ClasspathElement createElement(IVirtualComponent referencingArchive, IVirtualReference referencedArchive, String cpEntry) {
+		ClasspathElement element = new ClasspathElement(referencingArchive);
+		element.setValid(true);
+				
+		String uriString = referencedArchive.getArchiveName();
+		
+		element.setText(uriString);
+		element.setTargetComponent(referencedArchive.getReferencedComponent());
 		element.setEarProject(earProject);
 		if( earComponent != null ){
 			IContainer earConentFolder = earComponent.getRootFolder().getUnderlyingFolder();
@@ -294,26 +351,24 @@ public class ClassPathSelection {
 	private void setInvalidProject(ClasspathElement element) {
 		IProject earProj = element.getEarProject();
 		//IVirtualComponent[] component = ComponentUtilities.getComponent(earProj.getName());
-		IVirtualComponent component = ComponentUtilities.getComponent(earProj.getName());
-		EARArtifactEdit edit = null;
-		try {
-			edit = EARArtifactEdit.getEARArtifactEditForRead(component);
-		if (edit != null) {
-			String moduleName = element.getRelativeText();
-			if(moduleName != null) {
-				IVirtualComponent modComponent = edit.getModule(moduleName);
-				if(modComponent != null) {
-				IProject mappedProject = modComponent.getProject();
-				element.setProject(mappedProject);
+		IVirtualComponent refEarComponent = ComponentUtilities.getComponent(earProj.getName());
+		
+		IVirtualReference[] references = J2EEProjectUtilities.getComponentReferences(refEarComponent);
+		String moduleName = element.getRelativeText();
+		if(moduleName != null) {
+			IVirtualComponent modComponent = null;
+			for (int cnt=0; cnt < references.length; cnt++)
+			{
+				if (moduleName.equals(references[cnt].getArchiveName()))
+				{
+					modComponent = references[cnt].getReferencedComponent();
 				}
 			}
+			if(modComponent != null) {
+				IProject mappedProject = modComponent.getProject();
+				element.setProject(mappedProject);
+			}
 		}
-	  } finally {
-		  if(edit != null) {
-			  edit.dispose();
-		    edit = null;
-		  }
-	  }
 	}
 
 	/**
@@ -442,28 +497,94 @@ public class ClassPathSelection {
 		return null;
 	}
 
+	protected IVirtualReference getVirtualReference(String uri, List archives) {
+		for (int i = 0; i < archives.size(); i++) {
+			IVirtualReference anArchive = (IVirtualReference) archives.get(i);
+			
+			String archiveURIString = anArchive.getArchiveName();
+			if (archiveURIString.equals(uri))
+				return anArchive;
+		}
+		return null;
+	}
+
+	public static boolean isValidDependency(IVirtualComponent referencedJAR, IVirtualComponent referencingJAR) {
+		//No other modules should reference wars
+		if (J2EEProjectUtilities.isDynamicWebComponent(referencedJAR))
+			return false;
+
+		if (referencedJAR == referencingJAR)
+			return false;
+
+		//Clients can reference all but the WARs, which we've already covered
+		// above; WARs and EJB JARs
+		//can reference all but WARs, above, or ApplicationClients
+		return J2EEProjectUtilities.isApplicationClientComponent(referencingJAR) || !J2EEProjectUtilities.isApplicationClientComponent(referencedJAR);
+	}
+
 	protected void initializeElements() {
-		ejbToClientJARs = J2EEProjectUtilities.collectEJBClientJARs(getEARFile());
+//		ejbToClientJARs = J2EEProjectUtilities.collectEJBClientJARs(getEARFile());
+		ejbToClientJARs = new HashMap();
+		IVirtualReference[] references = earComponent.getReferences();
+		IVirtualComponent currentComponent = null;
+		IVirtualComponent clientComponent = null;
+		Object rootModelObject = null;
+		IModelProvider modelProvider = null;
+		String ejbClientJarName = null;
+		for (int cnt=0; cnt<references.length; cnt++)
+		{
+			clientComponent = null;
+			modelProvider = null;
+			rootModelObject = null;
+			ejbClientJarName = null;
+			currentComponent = references[cnt].getReferencedComponent();
+			if (J2EEProjectUtilities.isEJBComponent(currentComponent))
+			{
+				modelProvider = ModelProviderManager.getModelProvider(currentComponent);
+				rootModelObject = modelProvider.getModelObject();
+				if (rootModelObject instanceof EJBJar)
+				{
+					ejbClientJarName = ((EJBJar)rootModelObject).getEjbClientJar();
+				}
+				else if (rootModelObject instanceof org.eclipse.jst.j2ee.ejb.EJBJar)
+				{
+					ejbClientJarName = ((org.eclipse.jst.j2ee.ejb.EJBJar)rootModelObject).getEjbClientJar();
+				}
+				if (ejbClientJarName != null)
+				{
+					clientComponent = J2EEProjectUtilities.getModule(earComponent, ejbClientJarName);
+				}
+				if (clientComponent != null)
+				{
+					ejbToClientJARs.put(currentComponent, clientComponent);
+				}
+			}
+		}
 		clientToEJBJARs = reverse(ejbToClientJARs);
 		classpathElements = new ArrayList();
 		urisToElements = new HashMap();
 		
 		String[] cp = new String[0];
 		try {
-			cp = archive.getManifest().getClassPathTokenized();
+//			cp = archive.getManifest().getClassPathTokenized();
+			manifest = J2EEProjectUtilities.readManifest(component.getProject());
+			cp = manifest.getClassPathTokenized();
 		} catch (ManifestException ex) {
 			Logger.getLogger().logError(ex);
 		}
-		List archives = getEARFile().getArchiveFiles();
+		String projectUri = earComponent.getReference(component.getName()).getArchiveName();
+//		List archives = getEARFile().getArchiveFiles();
+		List archives = new ArrayList(Arrays.asList(earComponent.getReferences()));
 		ClasspathElement element = null;
-		Archive other = null;
+//		Archive other = null;
+		IVirtualReference other;
 		for (int i = 0; i < cp.length; i++) {
 			String cpEntry = cp[i];
-			String uri = ArchiveUtil.deriveEARRelativeURI(cpEntry, archive);
+			String uri = ArchiveUtil.deriveEARRelativeURI(cpEntry, projectUri);
 
-			other = getArchive(uri, archives);
-			if (other != null && ArchiveUtil.isValidDependency(other, archive)) {
-				element = createElement(archive, other, cpEntry);
+			other = getVirtualReference(uri, archives);
+			if (other != null && isValidDependency(other.getReferencedComponent(), component)) {
+				element = createElement(component, other, cpEntry);
 				archives.remove(other);
 			} else {
 				element = createInvalidElement(cpEntry);
@@ -472,7 +593,7 @@ public class ClassPathSelection {
 					element.setProject(getProject(archive));
 				}
 				if (other != null)
-					element.setProject(getProject(other));
+					element.setProject(other.getReferencedComponent().getProject());
 				
 				if( other == null ){
 					//making a best guess for the project name
@@ -491,14 +612,14 @@ public class ClassPathSelection {
 		}
 		
 		// Add resolved contributions from tagged classpath entries
-		IVirtualComponent comp = getComponent(archive);
+//		IVirtualComponent comp = getComponent(archive);
 
 		// XXX Don't show resolved contributions from tagged classpath entries on this project's classpath; we should elements corresponding to the raw entries instead
 		//createClasspathComponentDependencyElements(comp);
 		
 		// Add elements for raw classpath entries (either already tagged or potentially taggable) 
 		try {
-		    createClasspathEntryElements(comp, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH);
+		    createClasspathEntryElements(component, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH);
 		} catch (CoreException ce) {
 			Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(ce);
 		}
@@ -507,14 +628,14 @@ public class ClassPathSelection {
 		//Anything that remains in the list of available archives that is valid should be
 		//available for selection
 		for (int i = 0; i < archives.size(); i++) {
-			other = (Archive) archives.get(i);
+			other = (IVirtualReference) archives.get(i);
 			
-			if (other != archive && ArchiveUtil.isValidDependency(other, archive)) {
-				IProject project = getProject(other);
+			if (other != archive && isValidDependency(other.getReferencedComponent(), component)) {
+				IProject project = other.getReferencedComponent().getProject();
 				if (null == targetProjectName || null == project || !project.getName().equals(targetProjectName)) {
-					element = createElement(archive, other, null);
-					element.setProject(getProject(other));
-					addClasspathElement(element, other.getURI());
+					element = createElement(component, other, null);
+					element.setProject(other.getReferencedComponent().getProject());
+					addClasspathElement(element, other.getArchiveName());
 				}
 			}
 		}
@@ -700,6 +821,15 @@ public class ClassPathSelection {
 			element.setJarType(ClasspathElement.EJB_JAR);
 	}
 
+	private void setType(ClasspathElement element, IVirtualReference other) {
+		if (other == null)
+			return;
+		else if (clientToEJBJARs.containsKey(other))
+			element.setJarType(ClasspathElement.EJB_CLIENT_JAR);
+		else if (J2EEProjectUtilities.isEJBComponent(other.getReferencedComponent()))
+			element.setJarType(ClasspathElement.EJB_JAR);
+	}
+
 	/**
 	 * @param localejbToClientJARs
 	 * @return
@@ -751,6 +881,38 @@ public class ClassPathSelection {
 		String[] cp = null;
 		try {
 			cp = referencedArchive.getManifest().getClassPathTokenized();
+		} catch (ManifestException mfEx) {
+			Logger.getLogger().logError(mfEx);
+			cp = new String[]{};
+		}
+		List paths = new ArrayList(cp.length);
+		for (int i = 0; i < cp.length; i++) {
+
+			IFile file = null;
+			try {
+				file = p.getFile(cp[i]);
+			} catch (IllegalArgumentException invalidPath) {
+				continue;
+			}
+			if (file.exists())
+				paths.add(file.getFullPath());
+		}
+		if (!paths.isEmpty())
+			element.setImportedJarPaths(paths);
+	}
+
+	protected void setProjectValues(ClasspathElement element, IVirtualReference referencedArchive) {
+		IProject p = referencedArchive.getReferencedComponent().getProject();
+		if (p == null)
+			return;
+
+		element.setProject(p);
+		//Handle the imported jars in the project
+		String[] cp = null;
+		try {
+//			cp = referencedArchive.getManifest().getClassPathTokenized();
+			ArchiveManifest referencedManifest = J2EEProjectUtilities.readManifest(p);
+			cp = referencedManifest.getClassPathTokenized();
 		} catch (ManifestException mfEx) {
 			Logger.getLogger().logError(mfEx);
 			cp = new String[]{};
@@ -847,6 +1009,17 @@ public class ClassPathSelection {
 		if (urisToElements == null)
 			return null;
 		return (ClasspathElement) urisToElements.get(uri);
+	}
+
+	public ClasspathElement getClasspathElement(IVirtualComponent archiveComponent) {
+		if (archiveComponent != null) {
+			for (int i = 0; i < classpathElements.size(); i++) {
+				ClasspathElement elmnt = (ClasspathElement) classpathElements.get(i);
+				if (archiveComponent.equals(elmnt.getComponent()))
+					return elmnt;
+			}
+		}
+		return null;
 	}
 
 	public ClasspathElement getClasspathElement(IProject archiveProject) {
@@ -986,22 +1159,22 @@ public class ClassPathSelection {
 	 */
 	public ClasspathElement getOppositeElement(ClasspathElement element) {
 		String uri = element.getText();
-		Archive target = element.getTargetArchive();
+		IVirtualComponent target = element.getTargetComponent();
 		if (uri == null || target == null)
 			return null;
-		Archive oppositeJAR = null;
+		IVirtualComponent oppositeJAR = null;
 		switch (element.getJarType()) {
 			case (ClasspathElement.EJB_CLIENT_JAR) :
-				oppositeJAR = (Archive) clientToEJBJARs.get(target);
+				oppositeJAR = (IVirtualComponent) clientToEJBJARs.get(target);
 				break;
 			case (ClasspathElement.EJB_JAR) :
-				oppositeJAR = (Archive) ejbToClientJARs.get(target);
+				oppositeJAR = (IVirtualComponent) ejbToClientJARs.get(target);
 				break;
 			default :
 				break;
 		}
 		if (oppositeJAR != null)
-			return getClasspathElement(oppositeJAR.getURI());
+			return getClasspathElement(oppositeJAR);
 
 		return null;
 	}
@@ -1017,8 +1190,8 @@ public class ClassPathSelection {
 	public boolean isMyClientJAR(ClasspathElement element) {
 		if (element == null || ejbToClientJARs == null)
 			return false;
-		Archive myClientJar = (Archive) ejbToClientJARs.get(archive);
-		return myClientJar != null && myClientJar == element.getTargetArchive();
+		IVirtualComponent myClientJar = (IVirtualComponent) ejbToClientJARs.get(component);
+		return myClientJar != null && myClientJar == element.getTargetComponent();
 	}
 
 	public Map getUrisToElements() {

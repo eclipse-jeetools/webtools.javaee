@@ -80,6 +80,8 @@ public class ClasspathElement {
 	protected ClassPathSelection parentSelection;
 	protected URI archiveURI;
 	protected String earContentFolder;
+	protected IVirtualComponent component;
+	protected IVirtualComponent targetComponent;
 
 	public ClasspathElement(Archive anArchive) {
 		super();
@@ -96,9 +98,34 @@ public class ClasspathElement {
 		archiveURI = aArchiveURI;
 	}	
 
+	public ClasspathElement(IVirtualComponent aComponent) {
+		super();
+		this.component = aComponent;
+		this.project = aComponent.getProject();
+	}
+
 	protected void computeRelativeText() {
 		if (archive != null) {
 			relativeText = J2EEProjectUtilities.computeRelativeText(archive.getURI(), getText());
+			if (relativeText == null)
+				relativeText = getText();
+		}
+		if (component != null)
+		{
+			IVirtualComponent earComponent = ComponentCore.createComponent(earProject);
+			IVirtualReference[] refs = earComponent.getReferences();
+			IVirtualReference reference = null;
+			String archiveURI = null;
+			for (int i = 0; i < refs.length; i++) {
+				reference = refs[i];
+				if( component.equals(reference.getReferencedComponent())){
+					archiveURI = reference.getArchiveName();
+				}
+			}
+			if (archiveURI != null)
+			{
+				relativeText = J2EEProjectUtilities.computeRelativeText(archiveURI, getText());
+			}
 			if (relativeText == null)
 				relativeText = getText();
 		}
@@ -513,10 +540,21 @@ public class ClasspathElement {
 	}
 
 	/**
+	 * @return
+	 */
+	public IVirtualComponent getTargetComponent() {
+		return targetComponent;
+	}
+
+	/**
 	 * @param archive
 	 */
 	public void setTargetArchive(Archive archive) {
 		targetArchive = archive;
+	}
+
+	public void setTargetComponent(IVirtualComponent aTargetComponent) {
+		targetComponent = aTargetComponent;
 	}
 
 	public URI getArchiveURI() {

@@ -234,17 +234,20 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			Object[] earProjects = earQueue.getListeners();
 			for (int i = 0; i < earProjects.length; i++) {
 				IProject earProject = (IProject) earProjects[i];
-				IVirtualComponent earComponent = ComponentCore.createComponent(earProject); 
-				IVirtualReference[] refs = J2EEProjectUtilities.getComponentReferences(earComponent);
-				IVirtualComponent comp = null;
-				for (int j = 0; j < refs.length; j++) {
-					comp = refs[j].getReferencedComponent();
-					if (!comp.isBinary()) {
-						queueModule(comp.getProject());
+				if (J2EEProjectUtilities.isEARProject(earProject))
+				{
+					IVirtualComponent earComponent = ComponentCore.createComponent(earProject); 
+					IVirtualReference[] refs = J2EEProjectUtilities.getComponentReferences(earComponent);
+					IVirtualComponent comp = null;
+					for (int j = 0; j < refs.length; j++) {
+						comp = refs[j].getReferencedComponent();
+						if (!comp.isBinary()) {
+							queueModule(comp.getProject());
+						}
 					}
-				}
-				if(null != earComponent){
-					EnterpriseBinaryComponentHelper.ArchiveCache.getInstance().clearDisconnectedArchivesInEAR(earComponent);	
+					if(null != earComponent){
+						EnterpriseBinaryComponentHelper.ArchiveCache.getInstance().clearDisconnectedArchivesInEAR(earComponent);	
+					}
 				}
 			}
 		}

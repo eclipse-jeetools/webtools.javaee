@@ -69,6 +69,7 @@ import org.eclipse.jst.j2ee.internal.componentcore.EJBBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.componentcore.JCABinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.componentcore.WebBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
@@ -987,6 +988,28 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 			e.printStackTrace();
 		}
 		return ret;
+	}
+
+	/**
+	 * This method will return the an IVirtualComponent for the given module name. The method take
+	 * either moduleName or moduleName + ".module_extension" (module_extension = ".jar" || ".war" ||
+	 * ".rar") which allows users to get a IVirtualComponent for a given entry in an application.xml
+	 * 
+	 * @return - a IVirtualComponent for module name
+	 */
+	public static IVirtualComponent getModule(IVirtualComponent earComponent, String moduleName) {
+		if (moduleName == null)
+			return null;
+		if (moduleName.endsWith(IJ2EEModuleConstants.JAR_EXT) || moduleName.endsWith(IJ2EEModuleConstants.WAR_EXT) || moduleName.endsWith(IJ2EEModuleConstants.RAR_EXT))
+			moduleName = moduleName.substring(0, (moduleName.length() - IJ2EEModuleConstants.JAR_EXT.length()));
+		IVirtualReference[] references = getComponentReferences(earComponent);
+		for (int i = 0; i < references.length; i++) {
+			IVirtualComponent component = references[i].getReferencedComponent();
+			if (component.getName().equals(moduleName)) {
+				return component;
+			}
+		}
+		return null;
 	}
 
 	/**
