@@ -650,7 +650,7 @@ public class DefectVerificationTests extends OperationTestCase {
 		// referenced java projects should have archiveName attribute
 		((Map)refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP)).put(targetcomponent, javaProjectURI);
 
-		runAndVerify(refdm);
+		runAndVerify(refdm, true, true, null, true, true);
 
 	    IVirtualReference reference2 = earComponent.getReference(targetcomponent.getName());
 		
