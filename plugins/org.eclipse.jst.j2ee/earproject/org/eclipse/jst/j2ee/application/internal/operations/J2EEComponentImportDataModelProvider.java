@@ -13,8 +13,8 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 import java.util.Set;
 
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelProperties;
+import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
 
 /**
  * This dataModel is a common super class used to import J2EE Modules.
@@ -34,25 +34,13 @@ public abstract class J2EEComponentImportDataModelProvider extends J2EEArtifactI
 	}
 
 	protected int getModuleSpecVersion() {
-		if (!isPropertySet(EXTENDED_IMPORT_FACTORY)) {
-			return ArchiveUtil.getFastSpecVersion(getModuleFile());
-		}
-		ExtendedImportFactory factory = (ExtendedImportFactory) getProperty(EXTENDED_IMPORT_FACTORY);
-		return factory.getSpecVersion(getModuleFile());
+		ArchiveWrapper wrapper = getArchiveWrapper();
+		return wrapper.getJavaEEQuickPeek().getVersion();
 	}
 
-//	public boolean propertySet(String propertyName, Object propertyValue) {
-//		boolean set = super.propertySet(propertyName, propertyValue);
-//		if (propertyName.equals(FILE)) {
-//			IDataModel moduleDM = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);
-//			if (getModuleFile() != null) {
-//				moduleDM.setIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, getModuleSpecVersion());
-//				model.notifyPropertyChange(PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
-//			}
-//		}
-//		return set;
-//	}
-
+	/**
+	 * @deprecated use #IARCHIVE_WRAPPER
+	 */
 	protected ModuleFile getModuleFile() {
 		return (ModuleFile) getArchiveFile();
 	}

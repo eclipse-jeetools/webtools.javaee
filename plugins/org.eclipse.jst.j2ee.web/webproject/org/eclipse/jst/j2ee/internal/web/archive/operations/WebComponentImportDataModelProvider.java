@@ -20,8 +20,9 @@ import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentImportD
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEUtilityJarImportDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -65,7 +66,7 @@ public final class WebComponentImportDataModelProvider extends J2EEComponentImpo
 	}
 
 	protected IStatus validateModuleType() {
-		if (getArchiveFile() instanceof WARFile)
+		if (getArchiveWrapper().getJavaEEQuickPeek().getType() == J2EEConstants.WEB_TYPE)
 			return OK_STATUS;
 
 		// TODO: STRING MOVE
@@ -74,10 +75,10 @@ public final class WebComponentImportDataModelProvider extends J2EEComponentImpo
 
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		super.propertySet(propertyName, propertyValue);
-		if (propertyName.equals(FILE)) {
+		if (propertyName.equals(ARCHIVE_WRAPPER)) {
 			
 			IDataModel moduleDM = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);
-			if (getModuleFile() != null) {
+			if (getArchiveWrapper() != null) {
 				
 				FacetDataModelMap map = (FacetDataModelMap) moduleDM.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 				IDataModel webFacetDataModel = map.getFacetDataModel( J2EEProjectUtilities.DYNAMIC_WEB );
@@ -88,14 +89,13 @@ public final class WebComponentImportDataModelProvider extends J2EEComponentImpo
 				model.notifyPropertyChange(PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
 			}			
 			
-			Archive archive = (Archive) propertyValue;
-			if (null != archive) {
-				WARFile war = (WARFile) archive;
-				List libs = war.getLibArchives();
+			ArchiveWrapper archiveWrapper = (ArchiveWrapper) propertyValue;
+			if (null != archiveWrapper) {
+				List <ArchiveWrapper> libs = archiveWrapper.getWebLibs();
 				List nestedModels = new ArrayList();
 				for (int i = 0; i < libs.size(); i++) {
 					IDataModel localModel = DataModelFactory.createDataModel(new J2EEUtilityJarImportDataModelProvider());
-					localModel.setProperty(FILE, libs.get(i));
+					localModel.setProperty(ARCHIVE_WRAPPER, libs.get(i));
 					localModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME));
 					nestedModels.add(localModel);
 				}

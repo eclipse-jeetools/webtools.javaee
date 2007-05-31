@@ -242,6 +242,7 @@ public class JavaEEArchiveUtilities implements IArchiveFactory {
 							archiveToJavaEEQuickPeek.put(newArchive, quickPeek);
 							return newArchive;
 						} finally {
+							//TODO streamline this so the underlying zip file is only openend once.
 							closeArchive(simpleArchive);
 						}
 					} else {

@@ -20,8 +20,8 @@ import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableLayout;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
+import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEImportPage;
@@ -48,7 +48,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 public class WebComponentImportWebLibsPage extends J2EEImportPage {
 	private Button deselectAllButton;
 	private Button selectAllButton;
-	protected WARFile warFile;
+	protected ArchiveWrapper archiveWrapper;
 	public CheckboxTableViewer availableJARsViewer;
 	public boolean utilJarSelectionChanged = false;
 
@@ -170,7 +170,7 @@ public class WebComponentImportWebLibsPage extends J2EEImportPage {
 
 	private void refreshEARFileIfNecessary() {
 		if (isEARFileChanged()) {
-			warFile = (WARFile) model.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
+			archiveWrapper = (ArchiveWrapper) model.getProperty(IJ2EEComponentImportDataModelProperties.ARCHIVE_WRAPPER);
 			refresh();
 		}
 	}
@@ -184,11 +184,11 @@ public class WebComponentImportWebLibsPage extends J2EEImportPage {
 	}
 
 	private void refresh() {
-		availableJARsViewer.setInput(warFile);
+		availableJARsViewer.setInput(archiveWrapper);
 	}
 
 	public boolean isEARFileChanged() {
-		return warFile != model.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
+		return archiveWrapper != model.getProperty(IJ2EEComponentImportDataModelProperties.ARCHIVE_WRAPPER);
 	}
 
 	protected void enter() {

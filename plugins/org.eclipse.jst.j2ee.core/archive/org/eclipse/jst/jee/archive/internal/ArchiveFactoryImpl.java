@@ -55,12 +55,11 @@ public class ArchiveFactoryImpl implements IArchiveFactory {
 		((ArchiveImpl) archive).close();
 		// TODO add tracing support
 	}
-
+	
 	public void saveArchive(IArchive archive, IPath outputPath, IProgressMonitor monitor) throws ArchiveSaveFailureException {
 		final int SAVE_TICKS = 198;
-		final int CLOSE_TICKS = 2;
 		final int CLEANUP_TICKS = 1;
-		final int TOTAL_TICKS = SAVE_TICKS + CLOSE_TICKS + CLEANUP_TICKS;
+		final int TOTAL_TICKS = SAVE_TICKS + CLEANUP_TICKS;
 		try {
 			monitor.beginTask("Saving archive to: " + outputPath.toOSString(), TOTAL_TICKS);
 			String aUri = outputPath.toOSString();
@@ -75,8 +74,6 @@ public class ArchiveFactoryImpl implements IArchiveFactory {
 				save(aSaveAdapter, new SubProgressMonitor(monitor, SAVE_TICKS));
 
 				aSaveAdapter.close();
-				closeArchive(archive);
-				monitor.worked(CLOSE_TICKS);
 				if (fileExisted) {
 					ArchiveUtil.cleanupAfterTempSave(aUri, aFile, destinationFile);
 				}
@@ -134,7 +131,6 @@ public class ArchiveFactoryImpl implements IArchiveFactory {
 				save(aSaveAdapter, new SubProgressMonitor(monitor, SAVE_TICKS));
 
 				aSaveAdapter.close();
-				closeArchive(archive);
 				monitor.worked(CLOSE_TICKS);
 			} catch (ArchiveSaveFailureException failure) {
 				try {

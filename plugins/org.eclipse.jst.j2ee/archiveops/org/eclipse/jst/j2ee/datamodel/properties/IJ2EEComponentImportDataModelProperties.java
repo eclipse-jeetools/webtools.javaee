@@ -41,6 +41,7 @@ public interface IJ2EEComponentImportDataModelProperties extends IDataModelPrope
 	/**
 	 * Optional, type Archive, used when a file is available as an object rather than a url (i.e.
 	 * using the FILE_NAME property will not work).
+	 * @deprecated use {@link #ARCHIVE_WRAPPER}
 	 */
 	public static final String FILE = "IJ2EEArtifactImportDataModelProperties.FILE"; //$NON-NLS-1$
 	/**
@@ -52,6 +53,13 @@ public interface IJ2EEComponentImportDataModelProperties extends IDataModelPrope
 	 * Unsettable property used to retreive the component after the operation has executed.
 	 */
 	public static final String COMPONENT = "IJ2EEComponentImportDataModelProperties.COMPONENT"; //$NON-NLS-1$
+	
+	/**
+	 * Unsettable property used for archive switch.
+	 */
+	public static final String ARCHIVE_WRAPPER = "IJ2EEComponentImportDataModelProperties.ARCHIVE_WRAPPER"; //$NON-NLS-1$
+
+	
 	/**
 	 * Optional, type IOverwriteHandler. Defines a IOverwriteHandler for the component in the
 	 * workspace if an existing component should be overwritten (OVERWRITE_COMPONENT).
@@ -60,6 +68,7 @@ public interface IJ2EEComponentImportDataModelProperties extends IDataModelPrope
 
 	/**
 	 * Optional, type SaveFilter, default is null
+	 * @deprecated
 	 */
 	public static final String SAVE_FILTER = "IJ2EEArtifactImportDataModelProperties.SAVE_FILTER"; //$NON-NLS-1$
 

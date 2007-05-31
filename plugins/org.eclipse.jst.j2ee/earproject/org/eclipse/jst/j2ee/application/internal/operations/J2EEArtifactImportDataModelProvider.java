@@ -19,6 +19,7 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
@@ -29,7 +30,13 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
+import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
+import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
+import org.eclipse.jst.jee.archive.IArchive;
+import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
@@ -54,7 +61,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	public static final String FACET_RUNTIME = "IJ2EEArtifactImportDataModelProperties.FACET_RUNTIME"; //$NON-NLS-1$	
 
 	private IDataModel componentCreationDM;
-	private OpenFailureException cachedOpenFailureException = null;
+	private Throwable archiveOpenFailure = null;
 
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
@@ -67,6 +74,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		propertyNames.add(PROJECT_NAME);
 		propertyNames.add(COMPONENT);
 		propertyNames.add( FACET_RUNTIME );
+		propertyNames.add(ARCHIVE_WRAPPER);
 		return propertyNames;
 	}
 
@@ -94,20 +102,34 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	private boolean settingFileName = false;
 
 	public boolean propertySet(String propertyName, Object propertyValue) {
-		if (propertyName.equals(FILE)) {
-			if (!settingFileName) {
-				setProperty(FILE_NAME, null);
+		if (propertyName.equals(ARCHIVE_WRAPPER)) {
+			if(propertyValue != null){
+				if (!settingFileName) {
+					setProperty(FILE_NAME, null);
+				}
+				updateDefaultComponentName();
 			}
-			updateDefaultComponentName();
 			return true;
-		} else if (propertyName.equals(SAVE_FILTER) && getArchiveFile() != null) {
-			getArchiveFile().setSaveFilter(getSaveFilter());
+		} else if(propertyName.equals(FILE)){
+			if(propertyValue != null){
+				if(!settingFileName) {
+					ArchiveWrapper archiveWrapper = getArchiveWrapper();
+					if(null == archiveWrapper || archiveWrapper.getCommonArchive() != propertyValue){
+						archiveWrapper = new ArchiveWrapper((Archive)propertyValue);
+						setProperty(ARCHIVE_WRAPPER, archiveWrapper);
+					}
+				}
+			}
+		} else if (propertyName.equals(SAVE_FILTER) && getArchiveWrapper() != null && getArchiveWrapper().getCommonArchive() != null) {
+			getArchiveWrapper().getCommonArchive().setSaveFilter(getSaveFilter());
 		} else if (FILE_NAME.equals(propertyName)) {
 			try {
-				cachedOpenFailureException = null;
+				archiveOpenFailure = null;
 				handleArchiveSetup((String) propertyValue);
 			} catch (OpenFailureException oe) {
-				cachedOpenFailureException = oe;
+				archiveOpenFailure = oe;
+			} catch (ArchiveOpenFailureException e) {
+				archiveOpenFailure = e;
 			}
 		} else if( COMPONENT.equals(propertyName)){
 			throw new RuntimeException(propertyName + " should not be set."); //$NON-NLS-1$
@@ -131,11 +153,11 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	private boolean doingComponentUpdate;
 
 	private void updateDefaultComponentName() {
-		Archive archive = getArchiveFile();
-		if (null != archive && getBooleanProperty(USE_DEFAULT_PROJECT_NAME)) {
+		ArchiveWrapper wrapper = getArchiveWrapper();
+		if (null != wrapper && getBooleanProperty(USE_DEFAULT_PROJECT_NAME)) {
 			try {
 				doingComponentUpdate = true;
-				Path path = new Path(archive.getURI());
+				IPath path = wrapper.getPath();
 				String defaultProjectName = path.segment(path.segmentCount() - 1);
 				if (defaultProjectName.indexOf('.') > 0) {
 					defaultProjectName = defaultProjectName.substring(0, defaultProjectName.lastIndexOf('.'));
@@ -148,45 +170,73 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		}
 	}
 
-	private boolean handleArchiveSetup(String fileName) throws OpenFailureException {
+	private boolean handleArchiveSetup(String fileName) throws OpenFailureException, ArchiveOpenFailureException {
 		try {
 			settingFileName = true;
-			Archive archive = getArchiveFile();
-			if (archive != null) {
-				archive.close();
+			ArchiveWrapper wrapper = getArchiveWrapper();
+			if (wrapper!= null) {
+				wrapper.close();
 				setProperty(FILE, null);
+				setProperty(ARCHIVE_WRAPPER, null);
 			}
 			String uri = getStringProperty(FILE_NAME);
 			if (!archiveExistsOnFile())
 				return false;
-			archive = openArchive(uri);
-			if (null != archive) {
-				archive.setSaveFilter(getSaveFilter());
+			wrapper = openArchiveWrapper(uri);
+			if(wrapper != null){
+				setProperty(ARCHIVE_WRAPPER, wrapper);
+				if(wrapper.getCommonArchive() != null){
+					setProperty(FILE, wrapper.getCommonArchive());
+				}
 			}
-			setProperty(FILE, archive);
-			return archive != null;
+			return wrapper!= null;
 		} finally {
 			settingFileName = false;
 		}
 
 	}
 
+	protected ArchiveWrapper openArchiveWrapper(String uri) throws OpenFailureException, ArchiveOpenFailureException{
+		IArchive archive = null;
+		boolean isEE5 = false;
+		try{
+			IPath path = new Path(uri);
+			archive = JavaEEArchiveUtilities.INSTANCE.openArchive(path);
+			archive.setPath(path);
+			JavaEEQuickPeek jqp = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive);
+			if(jqp.getJavaEEVersion() == J2EEConstants.JEE_5_0_ID){
+				isEE5 = true;
+				return new ArchiveWrapper(archive);
+			} else {
+				Archive commonArchive = openArchive(uri);
+				if (null != commonArchive) {
+					commonArchive.setSaveFilter(getSaveFilter());
+				}
+				return new ArchiveWrapper(commonArchive);
+			}
+		} finally {
+			if(!isEE5){
+				JavaEEArchiveUtilities.INSTANCE.closeArchive(archive);
+			}
+		}
+	}
+	
 	protected abstract Archive openArchive(String uri) throws OpenFailureException;
 
-	private boolean closeModuleFile() {
-		if (null != getArchiveFile()) {
-			getArchiveFile().close();
+	private boolean closeArchive() {
+		if (null != getArchiveWrapper()) {
+			getArchiveWrapper().close();
 		}
 		return true;
 	}
 
 	public IStatus validate(String propertyName) {
-		if (FILE_NAME.equals(propertyName) && !isPropertySet(FILE)) {
+		if (FILE_NAME.equals(propertyName) && !isPropertySet(ARCHIVE_WRAPPER)) {
 			String fileName = getStringProperty(propertyName);
 			if (fileName == null || fileName.length() == 0) {
 				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.ARCHIVE_FILE_NAME_EMPTY_ERROR, new Object[]{ArchiveUtil.getModuleFileTypeName(getType())}));
-			} else if (cachedOpenFailureException != null) {
-				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(cachedOpenFailureException.getMessage()));
+			} else if (archiveOpenFailure != null) {
+				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(archiveOpenFailure.getMessage()));
 			} else if (fileName != null && !archiveExistsOnFile()) {
 				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.FILE_DOES_NOT_EXIST_ERROR, new Object[]{ArchiveUtil.getModuleFileTypeName(getType())}));
 			}
@@ -224,14 +274,22 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 
 	public void dispose() {
 		if (getBooleanProperty(CLOSE_ARCHIVE_ON_DISPOSE))
-			closeModuleFile();
+			closeArchive();
 		super.dispose();
 	}
 
 	protected final void setArchiveFile(Archive archiveFile) {
 		setProperty(FILE, archiveFile);
 	}
-
+	
+	protected final ArchiveWrapper getArchiveWrapper(){
+		return (ArchiveWrapper)getProperty(ARCHIVE_WRAPPER);
+	}
+	
+	/**
+	 * @deprecated
+	 * @return use ARCHIVE_WRAPPER
+	 */
 	protected final Archive getArchiveFile() {
 		return (Archive) getProperty(FILE);
 	}
@@ -265,7 +323,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	 * @return
 	 */
 	protected IStatus validateVersionSupportedByServer(){
-		if( model.isPropertySet(FILE) && model.isPropertySet(IFacetProjectCreationDataModelProperties.FACET_RUNTIME)){
+		if( model.isPropertySet(ARCHIVE_WRAPPER) && model.isPropertySet(IFacetProjectCreationDataModelProperties.FACET_RUNTIME)){
 			IDataModel projectModel = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);
 			FacetDataModelMap map = (FacetDataModelMap) projectModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 			Collection projectFacets = (Collection)getProperty(FacetProjectCreationDataModelProvider.REQUIRED_FACETS_COLLECTION);

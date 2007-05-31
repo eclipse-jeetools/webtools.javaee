@@ -17,8 +17,7 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
+import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
 import org.eclipse.jst.j2ee.internal.wizard.AvailableJarsProvider;
 import org.eclipse.swt.graphics.Image;
 
@@ -28,8 +27,8 @@ public class AvailableWebLibProvider implements IStructuredContentProvider, ITab
 	}
 
 	public Object[] getElements(Object inputElement) {
-		if (inputElement instanceof WARFile) {
-			Object[] array = ((WARFile) inputElement).getLibArchives().toArray();
+		if (inputElement instanceof ArchiveWrapper) {
+			Object[] array = ((ArchiveWrapper) inputElement).getWebLibs().toArray();
 			Arrays.sort(array, new Comparator() {
 				public int compare(Object o1, Object o2) {
 					return getColumnText(o1, 0).compareTo(getColumnText(o2, 0));
@@ -46,8 +45,8 @@ public class AvailableWebLibProvider implements IStructuredContentProvider, ITab
 	}
 
 	public String getColumnText(Object element, int columnIndex) {
-		File file = (File) element;
-		return file.getName();
+		ArchiveWrapper wrapper = (ArchiveWrapper)element;
+		return wrapper.getName();
 	}
 
 	public void dispose() {

@@ -22,8 +22,13 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
+import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
+import org.eclipse.jst.j2ee.internal.archive.ComponentArchiveSaveAdapter;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
+import org.eclipse.jst.jee.archive.ArchiveOptions;
+import org.eclipse.jst.jee.archive.IArchive;
+import org.eclipse.jst.jee.archive.IArchiveFactory;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -33,10 +38,16 @@ import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedExc
 
 public abstract class J2EEArtifactImportOperation extends AbstractDataModelOperation {
 
+	/**
+	 * @deprecated use {@link #archiveWrapper}
+	 */
 	protected Archive moduleFile;
+	protected ArchiveWrapper archiveWrapper;
 	protected IVirtualComponent virtualComponent;
 	protected IAdaptable info;
 	protected final int PROJECT_CREATION_WORK = 30;
+	
+	private static IArchiveFactory archiveFactory = IArchiveFactory.INSTANCE;
 
 	public J2EEArtifactImportOperation(IDataModel model) {
 		super(model);
@@ -47,7 +58,8 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 			J2EEComponentClasspathUpdater.getInstance().pauseUpdates();
 			this.info = anInfo;
 			moduleFile = (Archive) model.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
-			monitor.beginTask(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Importing_archive, new Object [] { moduleFile.getURI() }), computeTotalWork());
+			archiveWrapper = (ArchiveWrapper)model.getProperty(IJ2EEComponentImportDataModelProperties.ARCHIVE_WRAPPER);
+			monitor.beginTask(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Importing_archive, new Object [] { archiveWrapper.getPath() }), computeTotalWork());
 			doExecute(monitor);
 			return OK_STATUS;
 		} finally {
@@ -64,7 +76,7 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 	}
 
 	protected int computeTotalWork() {
-		return PROJECT_CREATION_WORK + moduleFile.getFiles().size();
+		return PROJECT_CREATION_WORK + archiveWrapper.getSize();
 	}
 	
 	/**
@@ -76,7 +88,7 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 		virtualComponent = createVirtualComponent(model.getNestedModel(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION), new SubProgressMonitor(monitor, PROJECT_CREATION_WORK));
 
 		try {
-			importModuleFile(new SubProgressMonitor(monitor, moduleFile.getFiles().size()));
+			importModuleFile(new SubProgressMonitor(monitor, archiveWrapper.getSize()));
 		} catch (InvocationTargetException e) {
 			throw new ExecutionException(e.getMessage(), e);
 		} catch (InterruptedException e) {
@@ -103,6 +115,10 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 
 	protected void modifyStrategy(SaveStrategy saveStrat) {
 	}
+	
+	protected ComponentArchiveSaveAdapter getArchiveSaveAdapter(IVirtualComponent virtualComponent){
+		return null;
+	}
 
 	/**
 	 * perform the archive import operation
@@ -112,13 +128,22 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 	 */
 	protected void importModuleFile(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 		try {
-			monitor.beginTask(null, moduleFile.getFiles().size());
-			ComponentSaveStrategyImpl aStrategy = (ComponentSaveStrategyImpl) createSaveStrategy(virtualComponent);
-			aStrategy.setProgressMonitor(monitor);
-			aStrategy.setOverwriteHandler((IOverwriteHandler) model.getProperty(IJ2EEComponentImportDataModelProperties.OVERWRITE_HANDLER));
-			aStrategy.setDataModel(model);
-			modifyStrategy(aStrategy);
-			moduleFile.save(aStrategy);
+			monitor.beginTask(null, archiveWrapper.getSize());
+			if(archiveWrapper.getIArchive() != null){
+				IArchive archive = archiveWrapper.getIArchive();
+				ComponentArchiveSaveAdapter adap = getArchiveSaveAdapter(virtualComponent);
+				ArchiveOptions saveOptions = new ArchiveOptions();
+				saveOptions.setOption(ArchiveOptions.SAVE_ADAPTER, adap);
+				archiveFactory.saveArchive(archive, saveOptions,monitor);
+			}else{
+				ComponentSaveStrategyImpl aStrategy = (ComponentSaveStrategyImpl) createSaveStrategy(virtualComponent);
+				aStrategy.setProgressMonitor(monitor);
+				aStrategy.setOverwriteHandler((IOverwriteHandler) model.getProperty(IJ2EEComponentImportDataModelProperties.OVERWRITE_HANDLER));
+				aStrategy.setDataModel(model);
+				modifyStrategy(aStrategy);
+				archiveWrapper.getCommonArchive().save(aStrategy);
+			}
+			
 		} catch (OverwriteHandlerException oe) {
 			throw new InterruptedException();
 		} catch (Exception ex) {

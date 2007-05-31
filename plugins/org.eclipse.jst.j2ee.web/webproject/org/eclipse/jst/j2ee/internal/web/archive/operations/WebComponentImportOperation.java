@@ -22,9 +22,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
+import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
 import org.eclipse.jst.j2ee.internal.archive.ComponentArchiveSaveAdapter;
 import org.eclipse.jst.j2ee.internal.archive.WebComponentArchiveSaveAdapter;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperation;
@@ -53,13 +53,12 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 		List selectedLibs = (List) model.getProperty(IWebComponentImportDataModelProperties.WEB_LIB_ARCHIVES_SELECTED);
 		List libProjects = (List) model.getProperty(IWebComponentImportDataModelProperties.WEB_LIB_MODELS);
 		IDataModel importModel = null;
-//		IVirtualComponent nestedComponent = null;
-		Archive libArchive = null;
+		ArchiveWrapper libArchive = null;
 		for (int i = 0; null != libProjects && i < libProjects.size(); i++) {
 			importModel = (IDataModel) libProjects.get(i);
-			libArchive = (Archive) importModel.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
+			libArchive = (ArchiveWrapper) importModel.getProperty(IJ2EEComponentImportDataModelProperties.ARCHIVE_WRAPPER);
 			if (selectedLibs.contains(libArchive)) {
-				baseWork += LINK_COMPONENTS_WORK + PROJECT_CREATION_WORK + libArchive.getFiles().size();
+				baseWork += LINK_COMPONENTS_WORK + PROJECT_CREATION_WORK + libArchive.getSize();
 			}
 		}
 		
@@ -92,17 +91,17 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 		List libProjects = (List) model.getProperty(IWebComponentImportDataModelProperties.WEB_LIB_MODELS);
 		IDataModel importModel = null;
 		IVirtualComponent nestedComponent = null;
-		Archive libArchive = null;
+		ArchiveWrapper libArchive = null;
 		List targetComponents = new ArrayList();
 		Map compToURIMap = new HashMap();
 		for (int i = 0; null != libProjects && i < libProjects.size(); i++) {
 			importModel = (IDataModel) libProjects.get(i);
-			libArchive = (Archive) importModel.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
+			libArchive = (ArchiveWrapper) importModel.getProperty(IJ2EEComponentImportDataModelProperties.ARCHIVE_WRAPPER);
 			if (selectedLibs.contains(libArchive)) {
-				importModel.getDefaultOperation().execute(new SubProgressMonitor(monitor, PROJECT_CREATION_WORK + libArchive.getFiles().size()) , info);
+				importModel.getDefaultOperation().execute(new SubProgressMonitor(monitor, PROJECT_CREATION_WORK + libArchive.getSize()) , info);
 				nestedComponent = (IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
 				targetComponents.add(nestedComponent);
-				String archiveURI = libArchive.getURI();
+				String archiveURI = libArchive.getPath().toOSString();
 				int lastIndex = archiveURI.lastIndexOf('/');
 				if (-1 != lastIndex && lastIndex + 1 < archiveURI.length()) {
 					lastIndex++;

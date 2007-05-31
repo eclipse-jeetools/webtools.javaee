@@ -123,11 +123,11 @@ public class ComponentArchiveSaveAdapter extends AbstractArchiveSaveAdapter {
 	public void save(IArchiveResource aFile) throws ArchiveSaveFailureException {
 
 		try {
-			InputStream in = aFile.getInputStream();
 			if (progressMonitor == null)
 				progressMonitor = new NullProgressMonitor();
 			progressMonitor.subTask(aFile.getPath().toString());
-
+			InputStream in = aFile.getInputStream();
+			
 			IPath projectRelativePath = getProjectRelativePath(aFile);
 			if (aFile.getType() == IArchiveResource.ARCHIVE_TYPE) {
 				saveAsArchiveComponent((IArchive) aFile, projectRelativePath, in);
@@ -142,7 +142,9 @@ public class ComponentArchiveSaveAdapter extends AbstractArchiveSaveAdapter {
 			String errorString = EJBArchiveOpsResourceHandler.ARCHIVE_OPERATION_SaveFile + aFile.getPath();
 			throw new ArchiveSaveFailureException(errorString);
 		} finally {
-			progressMonitor.worked(1);
+			if(null != progressMonitor){
+				progressMonitor.worked(1);
+			}
 		}
 	}
 

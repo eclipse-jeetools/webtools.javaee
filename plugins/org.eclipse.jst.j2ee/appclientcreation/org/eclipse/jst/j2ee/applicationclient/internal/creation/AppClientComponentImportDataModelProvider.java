@@ -56,9 +56,9 @@ public final class AppClientComponentImportDataModelProvider extends J2EECompone
 
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		boolean set = super.propertySet(propertyName, propertyValue);
-		if (propertyName.equals(FILE)) {
+		if (propertyName.equals(ARCHIVE_WRAPPER)) {
 			IDataModel moduleDM = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);
-			if (getModuleFile() != null) {
+			if (getArchiveWrapper() != null) {
 				FacetDataModelMap map = (FacetDataModelMap) moduleDM.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 				IDataModel appClientFacetDataModel = map.getFacetDataModel( J2EEProjectUtilities.APPLICATION_CLIENT );
 

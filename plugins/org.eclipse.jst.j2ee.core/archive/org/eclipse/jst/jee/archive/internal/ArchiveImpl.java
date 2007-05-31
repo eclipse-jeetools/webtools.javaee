@@ -269,6 +269,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 			nestedArchiveOptions.setOption(ArchiveOptions.LOAD_ADAPTER, nestedLoadAdapter);
 			IArchive nestedArchive = IArchiveFactory.INSTANCE.openArchive(nestedArchiveOptions);
 			nestedArchive.setPath(cachedArchiveResource.getPath());
+			nestedArchive.setArchive(this);
 			// replace the IArchiveResource with the nested IArchive and reset
 			// the index
 			archiveFileIndex.index.put(nestedArchive.getPath(), nestedArchive);
