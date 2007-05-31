@@ -10,10 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 
-import java.util.List;
-
-import org.eclipse.jst.j2ee.application.internal.operations.ExtendedImportFactory;
-import org.eclipse.jst.j2ee.application.internal.operations.ExtendedImportRegistry;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
@@ -52,14 +48,15 @@ public final class EJBComponentImportDataModelProvider extends J2EEComponentImpo
 		} catch (OpenFailureException e) {
 			cachedException = e;
 		}
-		if (archive == null) {
-			List extendedFactories = ExtendedImportRegistry.getInstance().getFactories(ExtendedImportRegistry.EJB_TYPE);
-			for (int i = 0; null == getArchiveFile() && i < extendedFactories.size(); i++) {
-				ExtendedImportFactory factory = (ExtendedImportFactory) extendedFactories.get(i);
-				setArchiveFile(factory.openArchive(getArchiveOptions(), uri));
-				setProperty(EXTENDED_IMPORT_FACTORY, factory);
-			}
-		}
+		//TODO reinvestigate to see if we can remove this block forever -- if so, remove the entire framework for extended import
+//		if (archive == null) {
+//			List extendedFactories = ExtendedImportRegistry.getInstance().getFactories(ExtendedImportRegistry.EJB_TYPE);
+//			for (int i = 0; null == getArchiveFile() && i < extendedFactories.size(); i++) {
+//				ExtendedImportFactory factory = (ExtendedImportFactory) extendedFactories.get(i);
+//				setArchiveFile(factory.openArchive(getArchiveOptions(), uri));
+//				setProperty(EXTENDED_IMPORT_FACTORY, factory);
+//			}
+//		}
 		if (archive == null) {
 			if (cachedException != null) {
 				throw cachedException;
@@ -83,9 +80,9 @@ public final class EJBComponentImportDataModelProvider extends J2EEComponentImpo
 	
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		boolean set = super.propertySet(propertyName, propertyValue);
-		if (propertyName.equals(FILE)) {
+		if (propertyName.equals(ARCHIVE_WRAPPER)) {
 			IDataModel moduleDM = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);
-			if (getModuleFile() != null) {
+			if (getArchiveWrapper() != null) {
 				
 				FacetDataModelMap map = (FacetDataModelMap) moduleDM.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 				IDataModel ejbFacetDataModel = map.getFacetDataModel( J2EEProjectUtilities.EJB );
