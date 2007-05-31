@@ -128,7 +128,7 @@ public class HandlerItemProvider extends CompatibilityDescriptionGroupItemProvid
 			childrenReferences.add(WsddPackage.eINSTANCE.getHandler_InitParams());
 			childrenReferences.add(WsddPackage.eINSTANCE.getHandler_SoapHeaders());
 			childrenReferences.add(WsddPackage.eINSTANCE.getHandler_SoapRoles());
-			childrenReferences.add(WsddPackage.eINSTANCE.getHandler_HandlerClass());
+			//childrenReferences.add(WsddPackage.eINSTANCE.getHandler_HandlerClass());
 		}
 		return childrenReferences;
 	}
