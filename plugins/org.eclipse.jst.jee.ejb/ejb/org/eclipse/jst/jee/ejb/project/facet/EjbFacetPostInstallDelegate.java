@@ -35,9 +35,12 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbClientProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJavaUtilityProjectCreationDataModelProperties;
+import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.jee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.jee.project.facet.JEEFacetInstallDelegate;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -130,7 +133,7 @@ public class EjbFacetPostInstallDelegate extends JEEFacetInstallDelegate impleme
 								runAddClientToEAROperation(model, monitor);
 							runAddClientToEJBOperation(model, monitor);
 							modifyEJBModuleJarDependency(model, monitor);
-							//updateEJBDD(model, monitor);
+							updateEJBDD(model, monitor);
 						} catch (CoreException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -254,37 +257,28 @@ public class EjbFacetPostInstallDelegate extends JEEFacetInstallDelegate impleme
 	}
 
 
-	private void updateEJBDD(IDataModel model, IProgressMonitor monitor) {
+	private void updateEJBDD(final IDataModel model, IProgressMonitor monitor) {
 
 		String ejbprojectName = model.getStringProperty(IFacetDataModelProperties.FACET_PROJECT_NAME);
-		IProject ejbProj = ProjectUtilities.getProject(ejbprojectName);
+		final IProject ejbProj = ProjectUtilities.getProject(ejbprojectName);
 
-
-		String clientProjectName = model.getStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME);
-
-		IVirtualComponent c = ComponentCore.createComponent(ejbProj);
-		Properties props = c.getMetaProperties();
-
-		String clienturi = props.getProperty(CreationConstants.CLIENT_JAR_URI);
-
-//		EJBArtifactEdit ejbEdit = null;
-//		try {
-//			ejbEdit = new EJBArtifactEdit(ejbProj, false, true);
-//
-//			if (ejbEdit != null) {
-//				EJBJarImpl ejbres = (EJBJarImpl) ejbEdit.getDeploymentDescriptorRoot();
-//				if (clienturi != null && !clienturi.equals("")) { //$NON-NLS-1$
-//					ejbres.setEjbClientJar(clienturi);
-//				} else
-//					ejbres.setEjbClientJar(clientProjectName + ".jar");//$NON-NLS-1$
-//				ejbres.setEjbClientJar(clienturi);
-//				ejbEdit.saveIfNecessary(monitor);
-//			}
-//		} catch (Exception e) {
-//			Logger.getLogger().logError(e);
-//		} finally {
-//			if (ejbEdit != null)
-//				ejbEdit.dispose();
-//		}
+		IModelProvider ejbModel = ModelProviderManager.getModelProvider(ejbProj);
+		ejbModel.modify(new Runnable() {
+			public void run() {
+				String clientProjectName = model.getStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME);
+				IVirtualComponent c = ComponentCore.createComponent(ejbProj);
+				Properties props = c.getMetaProperties();
+				String clienturi = props.getProperty(CreationConstants.CLIENT_JAR_URI);
+				IModelProvider writableEjbModel = ModelProviderManager.getModelProvider(ejbProj);
+				EJBJar ejbres = (EJBJar) writableEjbModel.getModelObject();
+				if (ejbres != null) {// Could have no DD
+					if (clienturi != null && !clienturi.equals("")) { //$NON-NLS-1$
+						ejbres.setEjbClientJar(clienturi);
+					} else
+						ejbres.setEjbClientJar(clientProjectName + ".jar");//$NON-NLS-1$
+				}
+			}
+		},null);
+		
 	}
 }
