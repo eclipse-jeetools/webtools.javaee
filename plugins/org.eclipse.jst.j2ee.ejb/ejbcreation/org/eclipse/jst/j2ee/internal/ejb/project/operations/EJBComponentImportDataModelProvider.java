@@ -41,27 +41,7 @@ public final class EJBComponentImportDataModelProvider extends J2EEComponentImpo
 	}
 
 	protected Archive openArchive(String uri) throws OpenFailureException {
-		OpenFailureException cachedException = null;
-		Archive archive = null;
-		try {
-			archive = CommonarchiveFactory.eINSTANCE.openEJBJarFile(getArchiveOptions(), uri);
-		} catch (OpenFailureException e) {
-			cachedException = e;
-		}
-		//TODO reinvestigate to see if we can remove this block forever -- if so, remove the entire framework for extended import
-//		if (archive == null) {
-//			List extendedFactories = ExtendedImportRegistry.getInstance().getFactories(ExtendedImportRegistry.EJB_TYPE);
-//			for (int i = 0; null == getArchiveFile() && i < extendedFactories.size(); i++) {
-//				ExtendedImportFactory factory = (ExtendedImportFactory) extendedFactories.get(i);
-//				setArchiveFile(factory.openArchive(getArchiveOptions(), uri));
-//				setProperty(EXTENDED_IMPORT_FACTORY, factory);
-//			}
-//		}
-		if (archive == null) {
-			if (cachedException != null) {
-				throw cachedException;
-			}
-		}
+		Archive archive =  CommonarchiveFactory.eINSTANCE.openEJBJarFile(getArchiveOptions(), uri);
 		return archive;
 	}
 
@@ -90,6 +70,7 @@ public final class EJBComponentImportDataModelProvider extends J2EEComponentImpo
 				int version = getModuleSpecVersion();
 				String versionText = J2EEVersionUtil.getEJBTextVersion( version );
 				ejbFacetDataModel.setStringProperty(IFacetDataModelProperties.FACET_VERSION_STR, versionText);
+				updateJavaFacetVersion();
 				model.notifyPropertyChange(PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
 			}
 		}
