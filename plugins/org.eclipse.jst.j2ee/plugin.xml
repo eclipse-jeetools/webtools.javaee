@@ -17,7 +17,6 @@
    <extension-point id="resourceEnvRefType" name="Resource Environment Reference Type" schema="schema/resourceEnvRefType.exsd"/>
    <extension-point id="resourceRefType" name="Resource Reference Type" schema="schema/resourceRefType.exsd"/>
    <extension-point id="WebServiceClientGenerator" name="WebServiceClientGenerator" schema="schema/WebServiceClientGenerator.exsd"/>
-   <extension-point id="ExtendedModuleImport" name="ExtendedModuleImport" schema="schema/ExtendedModuleImport.exsd"/>
    <extension-point id="WSDLServiceHelper" name="WSDLServiceHelper" schema="schema/WSDLServiceHelper.exsd"/>
    <extension-point id="optionalRefactorHandler" name="optionalRefactorHandler" schema="schema/optionalRefactorHandler.exsd"/>
    <extension-point id="classpathdep" name="classpathdep" schema="schema/ClasspathDep.exsd"/>

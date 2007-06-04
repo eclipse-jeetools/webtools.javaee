@@ -26,10 +26,10 @@ import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableLayout;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
+import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -62,7 +62,7 @@ public class EARComponentImportOptionsPage extends DataModelWizardPage {
 	protected Button browseButton;
 	protected Button useAlternateRootBtn;
 	protected Text systemDefaultText;
-	protected EARFile earFile;
+	protected ArchiveWrapper aWrapper;
 	public CheckboxTableViewer availableJARsViewer;
 	public boolean utilJarSelectionChanged = false;
 
@@ -261,7 +261,7 @@ public class EARComponentImportOptionsPage extends DataModelWizardPage {
 
 	private void refreshEARFileIfNecessary() {
 		if (isEARFileChanged()) {
-			earFile = (EARFile) model.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
+			aWrapper = (ArchiveWrapper) model.getProperty(IJ2EEComponentImportDataModelProperties.ARCHIVE_WRAPPER);
 			refresh();
 		}
 	}
@@ -275,11 +275,11 @@ public class EARComponentImportOptionsPage extends DataModelWizardPage {
 	}
 
 	private void refresh() {
-		availableJARsViewer.setInput(earFile);
+		availableJARsViewer.setInput(aWrapper);
 	}
 
 	public boolean isEARFileChanged() {
-		return earFile != model.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
+		return aWrapper != model.getProperty(IJ2EEComponentImportDataModelProperties.ARCHIVE_WRAPPER);
 	}
 
 	protected void enter() {

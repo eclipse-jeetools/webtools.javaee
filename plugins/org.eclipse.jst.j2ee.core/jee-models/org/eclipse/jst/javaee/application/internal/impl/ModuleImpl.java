@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ModuleImpl.java,v 1.1 2007/05/16 06:42:40 cbridgha Exp $
+ * $Id: ModuleImpl.java,v 1.2 2007/06/04 20:58:50 cbridgha Exp $
  */
 package org.eclipse.jst.javaee.application.internal.impl;
 
@@ -469,5 +469,34 @@ public class ModuleImpl extends EObjectImpl implements Module, ICommonModule {
 		// TODO Auto-generated method stub
 		
 	}
+	public boolean isConnectorModule() {
+		if (eIsSet(ApplicationPackage.MODULE__CONNECTOR))
+			return true;
+		return false;
+	}
+	/* Returns false by default
+	 *
+	 */
+	public boolean isEjbModule() {
+		if (eIsSet(ApplicationPackage.MODULE__EJB) )
+			return true;
+		return false;
+	}
+	/* 
+	 * Returns false by default
+	 */
+	public boolean isJavaModule() {
+		if (eIsSet(ApplicationPackage.MODULE__JAVA))
+			return true;
+		return false;
+	}
+	/* 
+	 * Returns false by default
+	 */
+	public boolean isWebModule() {
+		if (eIsSet(ApplicationPackage.MODULE__WEB))
+			return true;
+		return false;
+	}	
 
 } //ModuleImpl

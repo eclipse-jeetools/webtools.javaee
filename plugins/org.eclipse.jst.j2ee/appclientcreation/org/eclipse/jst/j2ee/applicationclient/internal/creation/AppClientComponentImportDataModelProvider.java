@@ -65,6 +65,7 @@ public final class AppClientComponentImportDataModelProvider extends J2EECompone
 				int version = getModuleSpecVersion();
 				String versionText = J2EEVersionUtil.getJ2EETextVersion( version );
 				appClientFacetDataModel.setStringProperty(IFacetDataModelProperties.FACET_VERSION_STR, versionText);
+				updateJavaFacetVersion();
 				model.notifyPropertyChange(PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
 			}
 		}

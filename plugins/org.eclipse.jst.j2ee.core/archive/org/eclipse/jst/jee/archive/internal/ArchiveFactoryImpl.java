@@ -47,7 +47,8 @@ public class ArchiveFactoryImpl implements IArchiveFactory {
 	// TODO add tracing support
 	// info in spec page 154
 	public IArchive openArchive(ArchiveOptions archiveOptions) throws ArchiveOpenFailureException {
-		IArchive archive = new ArchiveImpl(archiveOptions);
+		ArchiveImpl archive = new ArchiveImpl(archiveOptions);
+		archive.setArchiveFactory(this);
 		return archive;
 	}
 

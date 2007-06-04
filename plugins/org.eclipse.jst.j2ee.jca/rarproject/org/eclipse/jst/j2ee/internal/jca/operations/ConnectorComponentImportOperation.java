@@ -24,6 +24,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.operations.ConnectorComponentSaveStrategyImpl;
@@ -50,7 +51,8 @@ public class ConnectorComponentImportOperation extends J2EEArtifactImportOperati
 	 */
 	protected void addAssociateArchivesToClassPath() {
 		List extraEntries = new ArrayList();
-		List archiveList = moduleFile.getArchiveFiles();
+		
+		List archiveList = ((ModuleFile)archiveWrapper.getUnderLyingArchive()).getArchiveFiles();
 		Iterator iterator = archiveList.iterator();
 		IVirtualFile vFile = null;
 		IFile file = null;

@@ -10,8 +10,23 @@
  *******************************************************************************/
 package org.eclipse.jst.jee.application.internal.operations;
 
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
+import org.eclipse.jst.j2ee.model.IEARModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.jee.application.ICommonApplication;
+import org.eclipse.jst.jee.application.ICommonModule;
+import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
+import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 //TODO this is temporary until we have jee 5 model support ready
 public class AddComponentToEnterpriseApplicationOp extends org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationOp {
@@ -21,48 +36,51 @@ public class AddComponentToEnterpriseApplicationOp extends org.eclipse.jst.j2ee.
 		super(model);
 	}
 	protected void updateEARDD(IProgressMonitor monitor) {
-
-//		EARArtifactEdit earEdit = null;
-//		StructureEdit se = null;
-//		try {
-//			IVirtualComponent sourceComp = (IVirtualComponent) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
-//			se = StructureEdit.getStructureEditForWrite(sourceComp.getProject());
-//			earEdit = EARArtifactEdit.getEARArtifactEditForWrite(sourceComp.getProject());
-//			if (earEdit != null) {
-//				Application application = earEdit.getApplication();
-//				List list = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
-//				Map map = (Map) model.getProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP);
-//				if (list != null && list.size() > 0) {
-//					for (int i = 0; i < list.size(); i++) {
-//						StructureEdit compse = null;
-//						IVirtualComponent wc = (IVirtualComponent) list.get(i);
-//						WorkbenchComponent earwc = se.getComponent();
-//						try {
-//							compse = StructureEdit.getStructureEditForWrite(wc.getProject());
-//							WorkbenchComponent refwc = compse.getComponent();
-//							ReferencedComponent ref = se.findReferencedComponent(earwc, refwc);
-//							Module mod = addModule(application, wc, (String) map.get(wc));
-//							if (ref!=null)
-//								ref.setDependentObject(mod);
-//						} finally {
-//							if (compse != null) {
-//								compse.saveIfNecessary(monitor);
-//								compse.dispose();
-//							}
-//						}
-//					}
-//				}
-//			}
-//			se.saveIfNecessary(monitor);
-//			earEdit.saveIfNecessary(monitor);
-//		} catch (Exception e) {
-//			Logger.getLogger().logError(e);
-//		} finally {
-//			if (earEdit != null)
-//				earEdit.dispose();
-//			if (se != null)
-//				se.dispose();
-//		}
+		
+		StructureEdit se = null;
+		try {
+			IVirtualComponent sourceComp = (IVirtualComponent) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
+			final IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(sourceComp.getProject());
+			
+			se = StructureEdit.getStructureEditForWrite(sourceComp.getProject());
+			if (earModel != null) {
+				List list = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+				final Map map = (Map) model.getProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP);
+				if (list != null && list.size() > 0) {
+					for (int i = 0; i < list.size(); i++) {
+						StructureEdit compse = null;
+						final IVirtualComponent wc = (IVirtualComponent) list.get(i);
+						WorkbenchComponent earwc = se.getComponent();
+						try {
+							compse = StructureEdit.getStructureEditForWrite(wc.getProject());
+							WorkbenchComponent refwc = compse.getComponent();
+							final ReferencedComponent ref = se.findReferencedComponent(earwc, refwc);
+							earModel.modify(new Runnable() {
+								public void run() {
+									final ICommonApplication application = (ICommonApplication)earModel.getModelObject();
+									if(application != null) {
+										ICommonModule mod = addModule(application, wc, (String) map.get(wc));
+										if (ref!=null)
+											ref.setDependentObject((EObject)mod);
+									}
+								}
+							}, null);
+						} finally {
+							if (compse != null) {
+								compse.saveIfNecessary(monitor);
+								compse.dispose();
+							}
+						}
+					}
+				}
+			}
+			se.saveIfNecessary(monitor);
+		} catch (Exception e) {
+			Logger.getLogger().logError(e);
+		} finally {
+			if (se != null)
+				se.dispose();
+		}
 	}
 
 //	protected Module createNewModule(IVirtualComponent wc) {

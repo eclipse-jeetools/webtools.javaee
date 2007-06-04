@@ -4,14 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
-import java.util.zip.ZipException;
-import java.util.zip.ZipFile;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -19,17 +17,18 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
-import org.eclipse.jst.jee.archive.ArchiveSaveFailureException;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveFactory;
 import org.eclipse.jst.jee.archive.IArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.IArchiveResource;
+import org.eclipse.jst.jee.archive.internal.ArchiveFactoryImpl;
+import org.eclipse.jst.jee.archive.internal.ArchiveImpl;
 import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
-public class JavaEEArchiveUtilities implements IArchiveFactory {
+public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchiveFactory {
 
 	private JavaEEArchiveUtilities() {
 	}
@@ -94,7 +93,7 @@ public class JavaEEArchiveUtilities implements IArchiveFactory {
 		if (archiveLoadAdapter != null) {
 			ArchiveOptions options = new ArchiveOptions();
 			options.setOption(ArchiveOptions.LOAD_ADAPTER, archiveLoadAdapter);
-			IArchive archive = openArchive(options);
+			IArchive archive = super.openArchive(options);
 			if (type != J2EEVersionConstants.UNKNOWN) {
 				int version = J2EEVersionConstants.UNKNOWN;
 				String versionStr = J2EEProjectUtilities.getJ2EEProjectVersion(virtualComponent.getProject());
@@ -150,15 +149,10 @@ public class JavaEEArchiveUtilities implements IArchiveFactory {
 		return null;
 	}
 
-	public void closeArchive(IArchive archive) {
-		IArchiveFactory.INSTANCE.closeArchive(archive);
-	}
-
 	private Map<IArchive, JavaEEQuickPeek> archiveToJavaEEQuickPeek = new WeakHashMap<IArchive, JavaEEQuickPeek>();
 
 	/**
-	 * Returns a utility for getting the type of Java EE archive, the Java EE
-	 * version, and the Module version
+	 * Returns a utility for getting the type of Java EE archive, the Java EE version, and the Module version
 	 * 
 	 * @param archive
 	 * @return
@@ -188,14 +182,17 @@ public class JavaEEArchiveUtilities implements IArchiveFactory {
 				}
 			}
 			JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(null);
-			archiveToJavaEEQuickPeek.put(archive, null);
+			archiveToJavaEEQuickPeek.put(archive, quickPeek);
 			return quickPeek;
 		}
 	}
 
-	public IArchive openArchive(IPath archivePath) throws ArchiveOpenFailureException {
-		IArchive simpleArchive = IArchiveFactory.INSTANCE.openArchive(archivePath);
+	public IArchive openArchive(ArchiveOptions archiveOptions) throws ArchiveOpenFailureException {
+		IArchive simpleArchive = super.openArchive(archiveOptions);
+		return refineForJavaEE(simpleArchive);
+	}
 
+	private IArchive refineForJavaEE(final IArchive simpleArchive) {
 		String[] deploymentDescriptorsToCheck = new String[] { J2EEConstants.APPLICATION_DD_URI, J2EEConstants.APP_CLIENT_DD_URI, J2EEConstants.EJBJAR_DD_URI, J2EEConstants.WEBAPP_DD_URI,
 				J2EEConstants.RAR_DD_URI };
 		int[] typeToVerify = new int[] { J2EEVersionConstants.APPLICATION_TYPE, J2EEVersionConstants.APPLICATION_CLIENT_TYPE, J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.WEB_TYPE,
@@ -204,50 +201,76 @@ public class JavaEEArchiveUtilities implements IArchiveFactory {
 			final IPath deploymentDescriptorPath = new Path(deploymentDescriptorsToCheck[i]);
 			if (simpleArchive.containsArchiveResource(deploymentDescriptorPath)) {
 				InputStream in = null;
+				IArchiveResource dd;
 				try {
-					IArchiveResource dd = simpleArchive.getArchiveResource(deploymentDescriptorPath);
+					dd = simpleArchive.getArchiveResource(deploymentDescriptorPath);
 					in = dd.getInputStream();
 					JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(in);
-					if (quickPeek.getType() == typeToVerify[i] && quickPeek.getVersion() != JavaEEQuickPeek.UNKNOWN) {
-						try {
-							java.io.File file = new java.io.File(archivePath.toOSString());
-							ZipFile zipFile;
-							try {
-								zipFile = new ZipFile(file);
-							} catch (ZipException e) {
-								ArchiveOpenFailureException openFailureException = new ArchiveOpenFailureException(e);
-								throw openFailureException;
-							} catch (IOException e) {
-								ArchiveOpenFailureException openFailureException = new ArchiveOpenFailureException(e);
-								throw openFailureException;
-							}
-							IArchiveLoadAdapter loadAdapter = new JavaEEEMFZipFileLoadAdapterImpl(zipFile) {
-								public boolean containsModelObject(IPath modelObjectPath) {
-									if (IArchive.EMPTY_MODEL_PATH == modelObjectPath) {
-										modelObjectPath = deploymentDescriptorPath;
-									}
-									return super.containsModelObject(modelObjectPath);
-								}
+					if (quickPeek.getType() == typeToVerify[i] && quickPeek.getVersion() != JavaEEQuickPeek.UNKNOWN && !simpleArchive.containsModelObject(deploymentDescriptorPath)) {
+						final IArchiveLoadAdapter simpleLoadAdapter = simpleArchive.getLoadAdapter();
+						IArchiveLoadAdapter wrappingEMFLoadAdapter = new IArchiveLoadAdapter() {
+							private JavaEEEMFArchiveAdapterHelper emfHelper = new JavaEEEMFArchiveAdapterHelper(simpleArchive);
 
-								public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
-									if (IArchive.EMPTY_MODEL_PATH == modelObjectPath) {
-										modelObjectPath = deploymentDescriptorPath;
-									}
-									return super.getModelObject(modelObjectPath);
+							public void close() {
+								simpleLoadAdapter.close();
+							}
+
+							public boolean containsArchiveResource(IPath resourcePath) {
+								return simpleLoadAdapter.containsArchiveResource(resourcePath);
+							}
+
+							public boolean containsModelObject(IPath modelObjectPath) {
+								if (simpleLoadAdapter.containsArchiveResource(modelObjectPath)) {
+									return true;
 								}
-							};
-							ArchiveOptions archiveOptions = new ArchiveOptions();
-							archiveOptions.setOption(ArchiveOptions.LOAD_ADAPTER, loadAdapter);
-							IArchive newArchive = openArchive(archiveOptions);
-							archiveToJavaEEQuickPeek.put(newArchive, quickPeek);
-							return newArchive;
-						} finally {
-							//TODO streamline this so the underlying zip file is only openend once.
-							closeArchive(simpleArchive);
-						}
-					} else {
-						archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
+								if (IArchive.EMPTY_MODEL_PATH == modelObjectPath) {
+									modelObjectPath = deploymentDescriptorPath;
+								}
+								return emfHelper.containsModelObject(modelObjectPath);
+							}
+
+							public IArchiveResource getArchiveResource(IPath resourcePath) throws FileNotFoundException {
+								return simpleLoadAdapter.getArchiveResource(resourcePath);
+							}
+
+							public List<IArchiveResource> getArchiveResources() {
+								return simpleLoadAdapter.getArchiveResources();
+							}
+
+							public InputStream getInputStream(IArchiveResource archiveResource) throws IOException, FileNotFoundException {
+								return simpleLoadAdapter.getInputStream(archiveResource);
+							}
+
+							public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
+								if (simpleLoadAdapter.containsModelObject(modelObjectPath)) {
+									return simpleLoadAdapter.getModelObject(modelObjectPath);
+								}
+								if (IArchive.EMPTY_MODEL_PATH == modelObjectPath) {
+									modelObjectPath = deploymentDescriptorPath;
+								}
+								return emfHelper.getModelObject(modelObjectPath);
+							}
+
+							public IArchive getArchive() {
+								return simpleLoadAdapter.getArchive();
+							}
+
+							public void setArchive(IArchive archive) {
+								simpleLoadAdapter.setArchive(archive);
+							}
+
+							public String toString() {
+								StringBuffer buffer = new StringBuffer(JavaEEArchiveUtilities.class.getName());
+								buffer.append(" wrapping: ");
+								buffer.append(simpleLoadAdapter.toString());
+								return buffer.toString();
+							}
+						};
+						simpleArchive.getArchiveOptions().setOption(ArchiveOptions.LOAD_ADAPTER, wrappingEMFLoadAdapter);
+						((ArchiveImpl) simpleArchive).setLoadAdapter(wrappingEMFLoadAdapter);
+						return simpleArchive;
 					}
+
 				} catch (FileNotFoundException e) {
 					ArchiveUtil.warn(e);
 				} catch (IOException e) {
@@ -261,22 +284,8 @@ public class JavaEEArchiveUtilities implements IArchiveFactory {
 						}
 					}
 				}
-				return simpleArchive;
 			}
 		}
 		return simpleArchive;
 	}
-
-	public IArchive openArchive(ArchiveOptions archiveOptions) throws ArchiveOpenFailureException {
-		return IArchiveFactory.INSTANCE.openArchive(archiveOptions);
-	}
-
-	public void saveArchive(IArchive archive, IPath outputPath, IProgressMonitor monitor) throws ArchiveSaveFailureException {
-		IArchiveFactory.INSTANCE.saveArchive(archive, outputPath, monitor);
-	}
-
-	public void saveArchive(IArchive archive, ArchiveOptions archiveOptions, IProgressMonitor monitor) throws ArchiveSaveFailureException {
-		IArchiveFactory.INSTANCE.saveArchive(archive, archiveOptions, monitor);
-	}
-
 }

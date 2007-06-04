@@ -169,6 +169,10 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 		return archiveFileIndex.getFullIndex();
 	}
 
+	public void setLoadAdapter(IArchiveLoadAdapter loadAdapter) {
+		this.loadAdapter = loadAdapter;
+	}
+	
 	public IArchiveLoadAdapter getLoadAdapter() {
 		return loadAdapter;
 	}
@@ -267,14 +271,9 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 
 			ArchiveOptions nestedArchiveOptions = new ArchiveOptions();
 			nestedArchiveOptions.setOption(ArchiveOptions.LOAD_ADAPTER, nestedLoadAdapter);
-			IArchive nestedArchive = IArchiveFactory.INSTANCE.openArchive(nestedArchiveOptions);
+			IArchive nestedArchive = archiveFactory.openArchive(nestedArchiveOptions);
 			nestedArchive.setPath(cachedArchiveResource.getPath());
 			nestedArchive.setArchive(this);
-			// replace the IArchiveResource with the nested IArchive and reset
-			// the index
-			archiveFileIndex.index.put(nestedArchive.getPath(), nestedArchive);
-			archiveFileIndex.getNestedArchives().add(nestedArchive);
-			archiveFileIndex.fullIndex = null;
 			return nestedArchive;
 
 		} catch (FileNotFoundException e) {
@@ -284,6 +283,28 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 
 	public List<IArchive> getNestedArchives() {
 		return Collections.unmodifiableList(archiveFileIndex.getNestedArchives());
+	}
+
+	/**
+	 * Internal
+	 * 
+	 * @param archiveResource
+	 */
+	void addArchiveResourceInternal(IArchiveResource archiveResource) {
+		archiveFileIndex.index.put(archiveResource.getPath(), archiveResource);
+		if(archiveResource.getType() == ARCHIVE_TYPE){
+			archiveFileIndex.getNestedArchives().add((IArchive)archiveResource);
+		}
+		archiveFileIndex.fullIndex = null;
+	}
+	
+	protected IArchiveFactory archiveFactory;
+	/**
+	 * Internal; clients should not call.
+	 * @param archiveFactory
+	 */
+	public void setArchiveFactory(IArchiveFactory archiveFactory){
+		this.archiveFactory = archiveFactory;
 	}
 
 }

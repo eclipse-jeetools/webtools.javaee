@@ -86,6 +86,7 @@ public final class WebComponentImportDataModelProvider extends J2EEComponentImpo
 				int version = getModuleSpecVersion();
 				String versionText = J2EEVersionUtil.getServletTextVersion( version );
 				webFacetDataModel.setStringProperty(IFacetDataModelProperties.FACET_VERSION_STR, versionText);
+				updateJavaFacetVersion();
 				model.notifyPropertyChange(PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
 			}			
 			

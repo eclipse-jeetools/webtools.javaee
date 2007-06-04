@@ -76,8 +76,8 @@ public class EARComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 
 			try {
 				IArchive nestedModuleArchive = JavaEEArchiveUtilities.INSTANCE.openArchive(referencedComponent);
-				nestedModuleArchive.setArchive(archive);
 				nestedModuleArchive.setPath(new Path(reference.getArchiveName()));
+				nestedModuleArchive.setArchive(archive);
 				filesHolder.addFile(nestedModuleArchive);
 
 				if (referencedComponent.isBinary()) {

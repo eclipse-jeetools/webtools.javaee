@@ -53,6 +53,7 @@ public class ArchiveResourceImpl implements IArchiveResource {
 
 	public void setArchive(IArchive archive) {
 		this.archive = archive;
+		((ArchiveImpl)archive).addArchiveResourceInternal(this);
 	}
 
 	public void setType(int type) {

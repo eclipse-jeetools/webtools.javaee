@@ -87,8 +87,12 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 	}
 
 	private void importWebLibraryProjects(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException, ExecutionException {
-		List selectedLibs = (List) model.getProperty(IWebComponentImportDataModelProperties.WEB_LIB_ARCHIVES_SELECTED);
-		List libProjects = (List) model.getProperty(IWebComponentImportDataModelProperties.WEB_LIB_MODELS);
+		List <ArchiveWrapper> selectedLibs = (List<ArchiveWrapper>) model.getProperty(IWebComponentImportDataModelProperties.WEB_LIB_ARCHIVES_SELECTED);
+		List <Object> selectedLibsUnderlyingArchives = new ArrayList();
+		for(ArchiveWrapper lib: selectedLibs){
+			selectedLibsUnderlyingArchives.add(lib.getUnderLyingArchive());
+		}
+		List <IDataModel> libProjects = (List <IDataModel>) model.getProperty(IWebComponentImportDataModelProperties.WEB_LIB_MODELS);
 		IDataModel importModel = null;
 		IVirtualComponent nestedComponent = null;
 		ArchiveWrapper libArchive = null;
@@ -97,7 +101,7 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 		for (int i = 0; null != libProjects && i < libProjects.size(); i++) {
 			importModel = (IDataModel) libProjects.get(i);
 			libArchive = (ArchiveWrapper) importModel.getProperty(IJ2EEComponentImportDataModelProperties.ARCHIVE_WRAPPER);
-			if (selectedLibs.contains(libArchive)) {
+			if (selectedLibsUnderlyingArchives.contains(libArchive.getUnderLyingArchive())) {
 				importModel.getDefaultOperation().execute(new SubProgressMonitor(monitor, PROJECT_CREATION_WORK + libArchive.getSize()) , info);
 				nestedComponent = (IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
 				targetComponents.add(nestedComponent);
