@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.project.facet;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -85,6 +86,7 @@ public abstract class J2EEFacetInstallDelegate {
 
 
 			facetProj.modify(actions, null);
+			facetProj.setFixedProjectFacets(Collections.singleton(EARFacetUtils.EAR_FACET));
 			
 			try {
 				FacetProjectCreationOperation.addDefaultFactets(facetProj, runtime);
