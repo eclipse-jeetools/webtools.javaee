@@ -945,4 +945,15 @@
       class="org.eclipse.jst.j2ee.internal.common.FacetedProjectPropertyTester">
     </propertyTester>
   </extension>
+  
+  <extension point="org.eclipse.core.expressions.propertyTesters">
+	<propertyTester
+  		id="org.eclipse.jst.j2ee.internal.provider.FacetedProjectPropertyTester"
+  		type="org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider"
+  		namespace="org.eclipse.jst.j2ee.provider"
+  		properties="projectFacet"
+  		class="org.eclipse.jst.j2ee.internal.provider.FacetedProjectPropertyTester">
+	</propertyTester>
+  </extension>
+  
 </plugin>
