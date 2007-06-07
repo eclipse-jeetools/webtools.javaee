@@ -378,8 +378,18 @@ public class ArchiveWrapper {
 		}
 		if (archive != null) {
 			try {
-				org.eclipse.jst.javaee.ejb.EJBJar edd = (org.eclipse.jst.javaee.ejb.EJBJar) ((IArchive) ejbWrapper.getUnderLyingArchive()).getModelObject();
-				String clientJar = edd.getEjbClientJar();
+				JavaEEQuickPeek jqp = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(ejbWrapper.archive);
+				String clientJar = null;
+				if(jqp.getVersion() == J2EEVersionConstants.EJB_3_0_ID){
+					org.eclipse.jst.javaee.ejb.EJBJar edd = (org.eclipse.jst.javaee.ejb.EJBJar) ejbWrapper.archive.getModelObject();
+					clientJar = edd.getEjbClientJar();
+				} else {
+					EJBJar jar = (EJBJar)ejbWrapper.archive.getModelObject();
+					if (jar != null) {
+						clientJar = jar.getEjbClientJar();
+					}
+				}
+				
 				if (null != clientJar) {
 					IArchiveResource ar = archive.getArchiveResource(new Path(clientJar));
 					if (ar.getType() == IArchiveResource.ARCHIVE_TYPE) {
