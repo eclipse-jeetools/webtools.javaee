@@ -29,4 +29,11 @@
          id="org.eclipse.jst.web_ui.feature.source"
          version="0.0.0"/>
 
+   <plugin
+         id="org.eclipse.jst.jsf.doc.dev"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>
