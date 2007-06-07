@@ -382,21 +382,23 @@ public class AddServletOperation extends AbstractDataModelOperation implements I
 		}else if (modelObject instanceof org.eclipse.jst.javaee.web.WebApp ){
 			org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) modelObject;
 			org.eclipse.jst.javaee.web.Servlet servlet = (org.eclipse.jst.javaee.web.Servlet) servletObj;
-			for (int iM = 0; iM < urlMappingList.size(); iM++) {
+			
+			// Create the servlet mappings if any
+			if (urlMappingList.size() > 0) {
 				// Create the servlet mapping instance from the web factory
 				org.eclipse.jst.javaee.web.ServletMapping mapping = WebFactory.eINSTANCE.createServletMapping();
 
 				mapping.setServletName(servlet.getServletName());
 				for (int i = 0; i < urlMappingList.size(); i++) {
-						String[] stringArray = (String[]) urlMappingList.get(i);
-						// Set the URL pattern to map the servlet to
-						UrlPatternType url = JavaeeFactory.eINSTANCE.createUrlPatternType();
-						url.setValue(stringArray[0]);
-						mapping.getUrlPatterns().add(url);
-					}
-					// Add the servlet mapping to the web application modelled list
-					webApp.getServletMappings().add(mapping);
-				}			
+					String[] stringArray = (String[]) urlMappingList.get(i);
+					// Set the URL pattern to map the servlet to
+					UrlPatternType url = JavaeeFactory.eINSTANCE.createUrlPatternType();
+					url.setValue(stringArray[0]);
+					mapping.getUrlPatterns().add(url);
+				}
+				// Add the servlet mapping to the web application model list
+				webApp.getServletMappings().add(mapping);
+			}			
 		}
 	}
 
