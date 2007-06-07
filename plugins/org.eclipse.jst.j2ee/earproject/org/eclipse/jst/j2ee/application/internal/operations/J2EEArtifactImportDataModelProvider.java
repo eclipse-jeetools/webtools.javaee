@@ -204,6 +204,11 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 			archive = JavaEEArchiveUtilities.INSTANCE.openArchive(path);
 			archive.setPath(path);
 			JavaEEQuickPeek jqp = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive);
+			
+			if(jqp.getJavaEEVersion() == J2EEConstants.UNKNOWN && jqp.getType() == J2EEConstants.UNKNOWN){
+				handleUnknownType(jqp);
+			}
+			
 			if(jqp.getJavaEEVersion() == J2EEConstants.JEE_5_0_ID){
 				isEE5 = true;
 				return new ArchiveWrapper(archive);
@@ -220,7 +225,13 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 			}
 		}
 	}
-	
+	/**
+	 * This method allows subclasses to handle an unknown archive type.
+	 * @param jqp
+	 */
+	protected void handleUnknownType(JavaEEQuickPeek jqp) {
+	}
+
 	protected abstract Archive openArchive(String uri) throws OpenFailureException;
 
 	private boolean closeArchive() {

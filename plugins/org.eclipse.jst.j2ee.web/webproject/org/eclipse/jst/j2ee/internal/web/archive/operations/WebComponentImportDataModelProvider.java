@@ -22,12 +22,14 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
+import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
@@ -64,6 +66,13 @@ public final class WebComponentImportDataModelProvider extends J2EEComponentImpo
 	protected int getType() {
 		return XMLResource.WEB_APP_TYPE;
 	}
+	
+	protected void handleUnknownType(JavaEEQuickPeek jqp) {
+		jqp.setType(J2EEVersionConstants.WEB_TYPE);
+		jqp.setVersion(J2EEVersionConstants.WEB_2_5_ID);
+		jqp.setJavaEEVersion(J2EEVersionConstants.JEE_5_0_ID);
+	}
+
 
 	protected IStatus validateModuleType() {
 		if (getArchiveWrapper().getJavaEEQuickPeek().getType() == J2EEConstants.WEB_TYPE)
