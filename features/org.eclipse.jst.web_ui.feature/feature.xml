@@ -22,6 +22,10 @@
    </url>
 
    <includes
+         id="org.eclipse.jst.web_userdoc.feature"
+         version="0.0.0"/>
+         
+   <includes
          id="org.eclipse.jst.web_core.feature"
          version="0.0.0"/>
 
@@ -94,5 +98,25 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+  <plugin
+         id="org.eclipse.jst.jsf.common.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jst.jsf.facesconfig.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+   <plugin
+         id="org.eclipse.jst.jsf.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 
 </feature>
