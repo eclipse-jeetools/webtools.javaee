@@ -110,6 +110,33 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 		return type;
 	}
 
+	public static String normalizeSchemaLocation(String schemaLocation){
+		char [] oldChars = schemaLocation.toCharArray();
+		char [] newChars = new char[oldChars.length];
+		int newCharIndex = 0;
+		boolean onWhiteSpace = true;
+		boolean afterWhiteSpace = false;
+		for(int oldCharIndex=0; oldCharIndex<oldChars.length; oldCharIndex++){
+			afterWhiteSpace = onWhiteSpace;
+			onWhiteSpace = Character.isWhitespace(oldChars[oldCharIndex]);
+			boolean shouldSkip = onWhiteSpace && afterWhiteSpace;
+			if(!shouldSkip){
+				newChars[newCharIndex++] = onWhiteSpace ? ' ' : oldChars[oldCharIndex];
+			}
+			boolean atEnd = ((oldCharIndex + 1) == oldChars.length);
+			if(atEnd && onWhiteSpace){
+				while(newCharIndex > 0  && newChars[newCharIndex-1] == ' '){
+					newCharIndex --;
+				}
+			}
+		}
+		if(newChars != null){
+			return new String(newChars, 0, newCharIndex);
+		} else {
+			return schemaLocation;
+		}
+	}
+	
 	/**
 	 * Returns the module version for this deployment descriptor type. For
 	 * example, if this is a EJB 3.0 deployment descriptor, this returns the
@@ -124,7 +151,7 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 			String schemaName = null;
 			if (publicID == null || systemID == null) {
 				if (handler.getRootAttributes() != null) {
-					schemaName = handler.getRootAttributes().getValue("xsi:schemaLocation"); //$NON-NLS-1$
+					schemaName = normalizeSchemaLocation(handler.getRootAttributes().getValue("xsi:schemaLocation")); //$NON-NLS-1$
 				}
 				if (schemaName == null) {
 					version = UNKNOWN;
@@ -281,4 +308,17 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 		}
 		return javaEEVersion;
 	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
+	public void setJavaEEVersion(int javaEEVersion) {
+		this.javaEEVersion = javaEEVersion;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
 }
