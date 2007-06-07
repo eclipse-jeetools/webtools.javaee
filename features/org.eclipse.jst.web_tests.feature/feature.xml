@@ -68,5 +68,53 @@
          download-size="0"
          install-size="0"
          version="0.0.0"/>
+   <plugin
+         id="org.eclipse.jst.jsf.core.tests"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
 
+   <plugin
+         id="org.eclipse.jst.jsf.ui.tests"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.jst.jsf.metadata.tests"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.jst.jsf.contentassist.tests"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.jst.jsf.metadataprocessingtests2"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+         
+   <plugin
+         id="org.eclipse.jst.jsf.designtime.tests"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+         
+    <plugin
+         id="org.eclipse.jst.jsf.context.symbol.tests"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.jst.jsf.test.util"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
 </feature>
