@@ -15,10 +15,12 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBComponentImportDataModelProperties;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBComponentImportOperation;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
@@ -45,6 +47,13 @@ public final class EJBComponentImportDataModelProvider extends J2EEComponentImpo
 		return archive;
 	}
 
+	@Override
+	protected void handleUnknownType(JavaEEQuickPeek jqp) {
+		jqp.setType(J2EEVersionConstants.EJB_TYPE);
+		jqp.setVersion(J2EEVersionConstants.EJB_3_0_ID);
+		jqp.setJavaEEVersion(J2EEVersionConstants.JEE_5_0_ID);
+	}
+	
 	public IDataModelOperation getDefaultOperation() {
 		return new EJBComponentImportOperation(model);
 	}
