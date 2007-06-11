@@ -28,7 +28,19 @@ public static class ModelProviderKey {
 		public ModelProviderKey() {
 			super();
 		}
+		public boolean equals(Object aOther){
+			if( this == aOther )
+				return true;
+			
+			ModelProviderKey otherKey = (ModelProviderKey)aOther;
+			if( version.equals( otherKey.version) )
+				return true;
+			return false;
+		}
 		
+		public int hashCode() {
+			return version.hashCode();
+		}		
 	}
 private static final int DEFAULT_PRIORITY = 100;
 	private static HashMap<ModelProviderKey, IModelProviderFactory> providers;
