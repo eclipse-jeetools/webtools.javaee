@@ -111,6 +111,9 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 	}
 
 	public static String normalizeSchemaLocation(String schemaLocation){
+		if(schemaLocation == null){
+			return null;
+		}
 		char [] oldChars = schemaLocation.toCharArray();
 		char [] newChars = new char[oldChars.length];
 		int newCharIndex = 0;
