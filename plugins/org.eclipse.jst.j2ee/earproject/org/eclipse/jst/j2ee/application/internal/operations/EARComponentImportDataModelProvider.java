@@ -654,6 +654,37 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 		}
 	}
 
+	/**
+	 * Do not use this it will be deleted post 2.0.  This method will be moved to a utility class.
+	 * @deprecated 
+	 * @param earFile
+	 * @return
+	 */
+	public static List getAllUtilities(org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile earFile) {
+		List files = earFile.getFiles();
+		List utilJars = new ArrayList();
+		for (int i = 0; i < files.size(); i++) {
+			org.eclipse.jst.j2ee.commonarchivecore.internal.impl.FileImpl file = (org.eclipse.jst.j2ee.commonarchivecore.internal.impl.FileImpl) files.get(i);
+			if (file.isArchive() && !file.isModuleFile() && file.getURI().endsWith(".jar")) { //$NON-NLS-1$
+				utilJars.add(file);
+			}
+			if (file.isWARFile()) {
+				utilJars.addAll(getWebLibs((org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile) file));
+			}
+		}
+		return utilJars;
+	}
+	
+	/**
+	 * Do not use this it will be deleted post 2.0  This method will be moved to a utility class.
+	 * @deprecated
+	 * @param warFile
+	 * @return
+	 */
+	public static List getWebLibs(org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile warFile) {
+		return ((org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl) warFile).getLibArchives();
+	}
+	
 	// TODO: Implement with J2EEArtifactImportDataModelProvider
 	/*
 	 * public J2EEArtifactImportDataModel getMatchingEJBJarOrClient(J2EEArtifactImportDataModel model) { if
