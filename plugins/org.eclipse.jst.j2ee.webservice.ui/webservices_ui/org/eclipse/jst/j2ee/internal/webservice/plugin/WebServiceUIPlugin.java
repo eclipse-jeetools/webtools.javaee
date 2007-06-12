@@ -21,6 +21,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.osgi.framework.BundleContext;
 
 /**
  * @author cbridgha
@@ -121,6 +122,10 @@ public class WebServiceUIPlugin extends AbstractUIPlugin {
 	public static IStatus createErrorStatus(int aCode, String aMessage,
 			Throwable exception) {
 		return createStatus(IStatus.ERROR, aCode, aMessage, exception);
+	}
+	
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
 	}
 
 }

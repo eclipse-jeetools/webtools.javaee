@@ -29,6 +29,7 @@ import org.eclipse.wst.common.project.facet.core.internal.FacetedProjectProperty
 
 public class WebServiceViewerSynchronization implements WebServiceManagerListener{
 	
+	public static final String ARE_THERE_WEBSERVICES = "areThereWebServices";
 
 	private WebServicesManager webServicesManager = null; 
 	
@@ -53,7 +54,7 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 	private Job removeJob = new RemoveWebServicesNodeUIJob(); 
 
 	private boolean navigatorGroupAdded = false;
-	private boolean indexJobScheduled = false;
+	boolean indexJobScheduled = false;
 	
 	private boolean initialized = false;
 	
@@ -95,14 +96,20 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 						indexJob.schedule();
 					}
 					if(!hasNavigatorGroupBeenAdded())
-						new AddWebServicesNodeUIJob().schedule();
+						addWebServiceNode();
 				} else {
 					updateJob.schedule();
 				}
 				break;
 			case WebServiceEvent.REMOVE:
-				removeJob.schedule();
+				if(hasNavigatorGroupBeenAdded())
+					removeJob.schedule();
 		}
+	}
+
+
+	void addWebServiceNode() {
+		new AddWebServicesNodeUIJob().schedule();
 	}
 
 
@@ -213,7 +220,23 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 		return ret;
 	}
 
-	/* package */ static boolean isInteresting(IProject project) {
+	public static void setAreThereWebServices(boolean isThereWebServices) {
+		// set the value of WebServiceViewerSynchronization.ARE_THERE_WEBSERVICES so that we do not index in future
+		WebServiceUIPlugin.getDefault().getPluginPreferences().setValue(ARE_THERE_WEBSERVICES, Boolean.toString(isThereWebServices));
+		WebServiceUIPlugin.getDefault().savePluginPreferences();
+	}
+	
+	public static boolean areThereWebServices() {
+		String val = WebServiceUIPlugin.getDefault().getPluginPreferences().getString(WebServiceViewerSynchronization.ARE_THERE_WEBSERVICES);
+		return Boolean.parseBoolean(val);
+	}
+
+	public static boolean isThereWebServicesPreferenceSet() {
+		return WebServiceUIPlugin.getDefault().getPluginPreferences().contains(WebServiceViewerSynchronization.ARE_THERE_WEBSERVICES);
+	}
+
+
+	/* package */ public static boolean isInteresting(IProject project) {
 		return hasFacet(project, WEB_FACET) || 
 			hasFacet(project, EJB_FACET) || 
 			hasFacet(project, APPCLIENT_FACET);
@@ -228,10 +251,17 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 
 		protected IStatus run(IProgressMonitor monitor) {
 			monitor.beginTask(WebServiceUIResourceHandler.WS_NAV_JOB1, 5);
-  
-			if (webServiceProjectsExist(monitor))
-					indexWebServices(monitor);
 			
+			boolean isThereWebServices = false;
+			if (webServiceProjectsExist(monitor)) {
+				isThereWebServices =  indexWebServices(monitor);	
+			}
+			if(!hasNavigatorGroupBeenAdded()){
+				if(isThereWebServices)
+					addWebServiceNode();
+			}
+			setAreThereWebServices(isThereWebServices);
+
 			monitor.done();
 			
 			return Status.OK_STATUS;
@@ -290,11 +320,18 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 			TreeViewer viewer = contentProvider.getViewer();
 
 			if(!viewer.getControl().isDisposed()) {
-				if (indexWebServices(monitor)) {
-					viewer.refresh(contentProvider.getNavigatorGroup());
-				} else {
-					viewer.remove(contentProvider.getNavigatorGroup());
-					setNavigatorGroupAdded(false);
+				if(hasNavigatorGroupBeenAdded()){
+					if (indexWebServices(monitor)) {
+						viewer.refresh(contentProvider.getNavigatorGroup());
+						setAreThereWebServices(true);
+					} else {
+						viewer.remove(contentProvider.getNavigatorGroup());
+						setNavigatorGroupAdded(false);
+						setAreThereWebServices(false);
+						if(!contentProvider.projectListener.isDisposed()
+								&& !contentProvider.projectListener.isListening())
+							contentProvider.projectListener.startListening();
+					}
 				}
 			}
 			return Status.OK_STATUS;

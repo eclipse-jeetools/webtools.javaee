@@ -110,6 +110,15 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		return INSTANCE;
 	}
 
+	public static  boolean isFileInteresting(IFile aFile) {
+		if (aFile != null && aFile.getFileExtension() != null) {
+			String extension = aFile.getFileExtension();
+			return extension.equals(WSDL_EXT) || extension.equals(WSIL_EXT) 
+			|| aFile.getName().equals(J2EEConstants.WEB_SERVICES_CLIENT_SHORTNAME) 
+			|| aFile.getName().equals(J2EEConstants.WEB_SERVICES_DD_URI);
+		}
+		return false;
+	}
 	/**
 	 * Default Constructor
 	 */
@@ -945,13 +954,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	}
 
 	protected boolean isInterrestedInFile(IFile aFile) {
-		if (aFile != null && aFile.getFileExtension() != null) {
-			String extension = aFile.getFileExtension();
-			return extension.equals(WSDL_EXT) || extension.equals(WSIL_EXT) 
-			|| aFile.getName().equals(J2EEConstants.WEB_SERVICES_CLIENT_SHORTNAME) 
-			|| aFile.getName().equals(J2EEConstants.WEB_SERVICES_DD_URI);
-		}
-		return false;
+		return isFileInteresting(aFile);
 	}
 	
 	/**

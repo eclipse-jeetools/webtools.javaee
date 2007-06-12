@@ -157,4 +157,8 @@
     </factory>
     
   </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup class="org.eclipse.jst.j2ee.internal.webservice.startup.WebserviceListener"/>
+   </extension>
 </plugin>
