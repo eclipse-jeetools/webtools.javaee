@@ -140,44 +140,51 @@ public class AddContainerManagedEntityEjbWizard extends NewEjbWizard {
 	 * @see org.eclipse.jface.wizard.Wizard#addPages()
 	 */
 	public void doAddPages() {
-		newJavaClassWizardPage = new NewEjbClassWizardPage(
-				getDataModel(),
-				PAGE_ONE_NAME,
-				IEJBAnnotationConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
-				IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_TITLE,
-				J2EEProjectUtilities.EJB);
-		newJavaClassWizardPage
-				.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_2);
-		addPage(newJavaClassWizardPage);
+		try {
+			newJavaClassWizardPage = new NewEjbClassWizardPage(
+					getDataModel(),
+					PAGE_ONE_NAME,
+					IEJBAnnotationConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
+					IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_TITLE,
+					J2EEProjectUtilities.EJB);
+			newJavaClassWizardPage
+					.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_2);
+			addPage(newJavaClassWizardPage);
 
-		addEntityBeanWizardPage = new AddContainerManagedEntityBeanWizardPage(
-				getDataModel(), PAGE_TWO_NAME);
-		addEntityBeanWizardPage
-				.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_4);
-		addPage(addEntityBeanWizardPage);
-		addEntityBeanWizardPage.setPageComplete(false);
+			addEntityBeanWizardPage = new AddContainerManagedEntityBeanWizardPage(
+					getDataModel(), PAGE_TWO_NAME);
+			addEntityBeanWizardPage
+					.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_4);
+			addPage(addEntityBeanWizardPage);
+			addEntityBeanWizardPage.setPageComplete(false);
 
-		// This adds the JDBC connection configuration page which allows user to
-		// configure the properties for a new JDBC connection.
-		connectionPage = new ConnectionSelectionPage(getDataModel(),
-				AddContainerManagedEntityEjbWizard.CONNECTION_PAGE);
-		addPage(connectionPage);
+			// This adds the JDBC connection configuration page which allows
+			// user to
+			// configure the properties for a new JDBC connection.
+			connectionPage = new ConnectionSelectionPage(getDataModel(),
+					AddContainerManagedEntityEjbWizard.CONNECTION_PAGE);
+			addPage(connectionPage);
 
-		// This adds the JDBC connection configuration page which allows user to
-		// configure the properties for a new JDBC connection.
-		tablePage = new ChooseTableWizardPage(getDataModel(),
-				AddContainerManagedEntityEjbWizard.CMP_TABLE_PAGE);
-		addPage(tablePage);
-		tablePage.setWizard(this);
+			// This adds the JDBC connection configuration page which allows
+			// user to
+			// configure the properties for a new JDBC connection.
+			tablePage = new ChooseTableWizardPage(getDataModel(),
+					AddContainerManagedEntityEjbWizard.CMP_TABLE_PAGE);
+			addPage(tablePage);
+			tablePage.setWizard(this);
 
-		newEjbClassOptionsWizardPage = new NewEjbClassOptionsWizardPage(
-				getDataModel(),
-				PAGE_THREE_NAME,
-				IEJBAnnotationConstants.NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC,
-				IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_TITLE);
-		newEjbClassOptionsWizardPage
-				.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_3);
-		addPage(newEjbClassOptionsWizardPage);
+			newEjbClassOptionsWizardPage = new NewEjbClassOptionsWizardPage(
+					getDataModel(),
+					PAGE_THREE_NAME,
+					IEJBAnnotationConstants.NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC,
+					IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_TITLE);
+			newEjbClassOptionsWizardPage
+					.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_3);
+			addPage(newEjbClassOptionsWizardPage);
+		} catch (NoClassDefFoundError noClassDef) {
+			//TODO: Externalize this string past 2.0
+			EjbAnnotationsUiPlugin.log("Ejb 2.1 cmp wizard needs DTP. Please install eclipse data tools.", noClassDef);
+		}
 
 	}
 

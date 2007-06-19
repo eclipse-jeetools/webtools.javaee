@@ -12,6 +12,8 @@ package org.eclipse.jst.j2ee.ejb.annotation.ui.internal;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -90,5 +92,10 @@ public class EjbAnnotationsUiPlugin extends AbstractUIPlugin {
 			resourceBundle = null;
 		}
 		return resourceBundle;
+	}
+	
+	public static void log(String message, Throwable throwable)
+	{
+		getDefault().getLog().log(new Status(IStatus.ERROR,PLUGINID,message,throwable ));
 	}
 }
