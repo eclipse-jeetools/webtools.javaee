@@ -111,8 +111,6 @@
       <import plugin="org.eclipse.emf.codegen" version="2.2.0"/>
       <import plugin="org.eclipse.wst.command.env.infopop"/>
       <import plugin="org.eclipse.wst.validation.ui" version="1.1.0" match="equivalent"/>
-      <import plugin="org.eclipse.datatools.connectivity"/>
-      <import plugin="org.eclipse.datatools.connectivity.ui.dse"/>
       <import plugin="org.eclipse.text" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.wst.common.core" version="1.1.0" match="equivalent"/>
       <import plugin="org.eclipse.jst.j2ee.ejb.annotations.emitter" version="1.1.0" match="equivalent"/>
