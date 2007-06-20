@@ -348,6 +348,7 @@
               <instanceof value="org.eclipse.jst.servlet.ui.internal.navigator.CompressedJavaProject"/>
               <instanceof value="org.eclipse.jdt.core.IPackageFragmentRoot"/>
               <instanceof value="org.eclipse.jdt.core.IPackageFragment"/>
+              <instanceof value="org.eclipse.core.resources.IFolder"/>
               <instanceof value="org.eclipse.jdt.internal.ui.packageview.ClassPathContainer"/>
               <instanceof value="org.eclipse.jst.servlet.ui.internal.navigator.CompressedJavaLibraries"/>
            </or>

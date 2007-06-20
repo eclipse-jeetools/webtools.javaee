@@ -16,11 +16,13 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.ui.ISharedImages;
 import org.eclipse.jdt.ui.JavaUI;
@@ -33,11 +35,11 @@ import org.eclipse.swt.graphics.Image;
 
 public class CompressedJavaProject implements ICompressedNode, IAdaptable { 
 	
-	private IJavaProject project;
+	private IProject project;
 	private CompressedJavaLibraries compressedLibraries;
 	private Image image; 
  
-	public CompressedJavaProject(StructuredViewer viewer, IJavaProject project) {
+	public CompressedJavaProject(StructuredViewer viewer, IProject project) {
 		this.project = project; 
 
 	}
@@ -66,7 +68,7 @@ public class CompressedJavaProject implements ICompressedNode, IAdaptable {
 		return NLS.bind(WEBUIMessages.Compressed_JavaResources, ((singleRoot != null) ? ": " + singleRoot.getElementName() : "")); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
-	public IJavaProject getProject() {
+	public IProject getProject() {
 		return project;
 	}
 
@@ -86,7 +88,8 @@ public class CompressedJavaProject implements ICompressedNode, IAdaptable {
 		List nonExternalSourceFolders = null;
 		IPackageFragmentRoot[] sourceFolders;
 		try {
-			sourceFolders = project.getPackageFragmentRoots();
+			IJavaProject jProject = JavaCore.create(project);
+			sourceFolders = jProject.getPackageFragmentRoots();
 			nonExternalSourceFolders = new ArrayList(Arrays.asList(sourceFolders));
 			for (Iterator iter = nonExternalSourceFolders.iterator(); iter.hasNext();) {
 				IPackageFragmentRoot root = (IPackageFragmentRoot) iter.next();
@@ -115,7 +118,7 @@ public class CompressedJavaProject implements ICompressedNode, IAdaptable {
 		if (nonExternalSourceFolders.size() == 1) {
 			return (IJavaElement) nonExternalSourceFolders.get(0);
 		}
-		return getProject();
+		return JavaCore.create(project);
 	}
 
 }
