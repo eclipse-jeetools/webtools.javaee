@@ -56,7 +56,7 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 	private TreeViewer viewer = null;
 
 	private WebServiceViewerSynchronization viewerSynchronization;
-	private NewProjectsListener projectListener;
+	NewProjectsListener projectListener;
 	
 
 	public WebServicesNavigatorContentProvider() {
@@ -87,8 +87,20 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 		
 		if (parentElement instanceof IWorkspaceRoot) {
 			// return new Object[]{ getWebServicesNavigatorGroup(parentElement) };
-			viewerSynchronization.setNavigatorGroupAdded(true);
-			return new Object[]{getNavigatorGroup()};
+			if(WebServiceViewerSynchronization.isThereWebServicesPreferenceSet()){
+				if(WebServiceViewerSynchronization.areThereWebServices()){
+					viewerSynchronization.setNavigatorGroupAdded(true);
+					return new Object[]{getNavigatorGroup()};
+				} else {
+					return NO_CHILDREN;
+				}
+			} else {
+				// first time on this workspace, let the job set the WebServiceViewerSynchronization.ARE_THERE_WEBSERVICES
+				if (!viewerSynchronization.hasIndexJobBeenScheduled()) {
+					viewerSynchronization.startIndexJob();
+				}
+				return NO_CHILDREN;
+			}
 		} else if (parentElement instanceof WebServiceNavigatorGroup){
 			if (!viewerSynchronization.hasIndexJobBeenScheduled()) {
 				viewerSynchronization.startIndexJob();
