@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.project.facet;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +46,8 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject.Action.Type;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
+import org.eclipse.wst.project.facet.IProductConstants;
+import org.eclipse.wst.project.facet.ProductManager;
 
 public abstract class J2EEFacetInstallDelegate {
 
@@ -81,6 +84,7 @@ public abstract class J2EEFacetInstallDelegate {
 
 
 			facetProj.modify(actions, null);
+			facetProj.setFixedProjectFacets(Collections.singleton(EARFacetUtils.EAR_FACET));
 			
 			try {
 				FacetProjectCreationOperation.addDefaultFactets(facetProj, runtime);
@@ -139,5 +143,25 @@ public abstract class J2EEFacetInstallDelegate {
 		final IVirtualComponent earComp = ComponentCore.createComponent( earProject );
 		addToEar( earComp, c, moduleURI );
     }
+    
+    /**
+     * This method will set the output property on the model element for the given component.
+     * If the single root structure is set for optimized use, the output folder will be the
+     * content root.  Otherwise the default will be used.  This may be overrided by specific
+     * J2EE modules to do more appropriate behaviour.
+     * 
+     * @param model
+     * @param component
+     */
+    protected void setOutputFolder(IDataModel model, IVirtualComponent component) {
+		String outputFolder = null;
+		// If using single root structure, set output folder to be the content folder
+		if (ProductManager.shouldUseSingleRootStructure())
+			outputFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
+		// Otherwise just use the product default for java output path
+		else
+			outputFolder = ProductManager.getProperty(IProductConstants.OUTPUT_FOLDER);
+		component.setMetaProperty("java-output-path", outputFolder ); //$NON-NLS-1$
+	}
   
 }

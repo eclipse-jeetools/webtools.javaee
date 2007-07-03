@@ -342,7 +342,9 @@ public class NewJavaClassOperation extends ArtifactEditProviderOperation {
 			int size = interfaces.size();
 			for (int i = 0; i < size; i++) {
 				String interfaceName = (String) interfaces.get(i);
-				importStatements.add(interfaceName);
+				if(!interfaceName.equals(JAVA_LANG_OBJECT) && !isSamePackage(pack, interfaceName)){
+					importStatements.add(interfaceName);
+				}
 			}
 		}
 	}
@@ -450,7 +452,7 @@ public class NewJavaClassOperation extends ArtifactEditProviderOperation {
 				if (superClassType != null) {
 					IMethod[] methods = superClassType.getMethods();
 					for (int j = 0; j < methods.length; j++) {
-						if (methods[j].isConstructor() && !Flags.isPrivate(methods[j].getFlags())) {
+						if (methods[j].isConstructor() && !Flags.isPrivate(methods[j].getFlags()) && !hasGenericParams(methods[j])) {
 							String methodStub = getMethodStub(methods[j], superclassName, className);
 							sb.append(methodStub);
 						}
@@ -479,6 +481,27 @@ public class NewJavaClassOperation extends ArtifactEditProviderOperation {
 		return sb.toString();
 	}
 
+	private boolean hasGenericParams(IMethod method) {
+		try {
+			IType parentType = method.getDeclaringType();
+			String[] paramTypes = method.getParameterTypes();
+			
+			int nP = paramTypes.length;
+			for (int i = 0; i < nP; i++) {
+				String type = paramTypes[i];
+				if (!isPrimitiveType(type)) {
+					type = JavaModelUtil.getResolvedTypeName(type, parentType);
+					if(type.indexOf(Signature.C_GENERIC_START, 0) != -1){
+						return true;
+					}
+				} 
+			}
+		} catch (JavaModelException e) {
+			Logger.getLogger().log(e);
+		}
+		return false;
+	}
+	
 	/**
 	 * This method is intended for internal use only.  This will retrieve method stubs for
 	 * unimplemented methods in the superclass that will need to be created in the new class.
@@ -571,12 +594,28 @@ public class NewJavaClassOperation extends ArtifactEditProviderOperation {
 	 * @throws JavaModelException
 	 */
 	private String resolveAndAdd(String refTypeSig, IType declaringType) throws JavaModelException {
-		String resolvedTypeName = JavaModelUtil.getResolvedTypeName(refTypeSig, declaringType);
-		// Could type not be resolved and is import statement missing?
+		if(refTypeSig.indexOf(Signature.C_GENERIC_START, 0) != -1){
+			getImportStatements(refTypeSig, declaringType);
+		} else {
+			String resolvedTypeName = JavaModelUtil.getResolvedTypeName(refTypeSig, declaringType);
+			// Could type not be resolved and is import statement missing?
+			if (resolvedTypeName != null && !importStatements.contains(resolvedTypeName) && !resolvedTypeName.startsWith("java.lang")) { //$NON-NLS-1$
+				importStatements.add(resolvedTypeName);
+			}
+		}
+		return Signature.toString(refTypeSig);
+	}
+	
+	private void getImportStatements(String signature, IType declaringType) throws JavaModelException{
+		String erasure = Signature.getTypeErasure(signature);
+		String resolvedTypeName = JavaModelUtil.getResolvedTypeName(erasure, declaringType);
 		if (resolvedTypeName != null && !importStatements.contains(resolvedTypeName) && !resolvedTypeName.startsWith("java.lang")) { //$NON-NLS-1$
 			importStatements.add(resolvedTypeName);
 		}
-		return Signature.toString(refTypeSig);
+		String [] params = Signature.getTypeArguments(signature);
+		for(int i=0;i<params.length; i++){
+			getImportStatements(params[i], declaringType);
+		}
 	}
 
 	/**
@@ -763,7 +802,7 @@ public class NewJavaClassOperation extends ArtifactEditProviderOperation {
 			return found;
 		}
 		// Check recursively
-		return JavaModelUtil.findMethodImplementationInHierarchy(tH, thisType, methodName, parameterTypes, isConstructor);
+		return JavaModelUtil.findMethodInHierarchy(tH, thisType, methodName, parameterTypes, isConstructor);
 	}
 
 	/**

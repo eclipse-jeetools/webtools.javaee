@@ -152,6 +152,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 				nestedModel = (IDataModel) projectModels.get(i);
 				nestedModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, propertyValue);
 			}
+			fixupJavaFacets();
 		}
 	}
 
@@ -181,6 +182,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 			if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
 				setBooleanProperty(USE_ANNOTATIONS, false);
 			model.notifyPropertyChange(USE_ANNOTATIONS, IDataModel.ENABLE_CHG);
+			fixupJavaFacets();
 		} else if (UTILITY_LIST.equals(propertyName)) {
 			updateUtilityModels((List) propertyValue);
 		} else if (USE_ANNOTATIONS.equals(propertyName)) {
@@ -276,6 +278,15 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 
 	protected boolean forceResetOnPreserveMetaData() {
 		return false;
+	}
+	
+	protected void fixupJavaFacets() {
+		List subProjects = getSelectedModels();
+		IDataModel subDataModel = null;
+		for (int i = 0; i < subProjects.size(); i++) {
+			subDataModel = (IDataModel) subProjects.get(i);
+			subDataModel.validateProperty(FACET_RUNTIME);
+		}
 	}
 
 	public IStatus validate(String propertyName) {

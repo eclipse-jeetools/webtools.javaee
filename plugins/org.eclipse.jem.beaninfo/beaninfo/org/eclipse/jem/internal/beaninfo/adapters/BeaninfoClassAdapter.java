@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.53 $  $Date: 2006/05/23 15:43:06 $ 
+ *  $Revision: 1.54 $  $Date: 2006/10/27 19:35:27 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -2068,7 +2068,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				sa.setAllOperationsCollectionModified(false); // Now built, so reset to not changed.
 			} finally {
 				synchronized(this) {
-					isDoingAllProperties = false;
+					isDoingAllOperations = false;
 				}
 			}
 		}

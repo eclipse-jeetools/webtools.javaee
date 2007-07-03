@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.jem.beaninfo; singleton:=true
-Bundle-Version: 1.2.0.qualifier
+Bundle-Version: 1.2.2.qualifier
 Bundle-Activator: org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
@@ -28,3 +28,4 @@ Require-Bundle: org.eclipse.jem.proxy;bundle-version="[1.2.0,2.0.0)",
  org.eclipse.jem.util;bundle-version="[1.2.0,2.0.0)",
  org.eclipse.emf.ecore.change;bundle-version="[2.2.0,3.0.0)"
 Eclipse-LazyStart: true
+Bundle-RequiredExecutionEnvironment: J2SE-1.4

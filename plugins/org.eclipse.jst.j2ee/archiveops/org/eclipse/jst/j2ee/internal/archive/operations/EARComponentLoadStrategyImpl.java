@@ -110,7 +110,7 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 				}
 				if (!isModule) {
 					if (referencedComponent.isBinary()) {
-						String uri = diskFile.getName();
+						String uri = reference.getArchiveName();
 						addExternalFile(uri, diskFile);
 					} else if (J2EEProjectUtilities.isUtilityProject(referencedComponent.getProject())) {
 						try {

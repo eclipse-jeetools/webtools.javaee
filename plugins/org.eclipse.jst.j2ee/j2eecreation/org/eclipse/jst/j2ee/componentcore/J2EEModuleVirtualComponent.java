@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -116,6 +117,10 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		List dynamicReferences = null;
 		String [] manifestClasspath = getManifestClasspath(moduleComponent); 
 
+		IVirtualReference foundRef = null;
+		String earArchiveURI = null; //The URI for this archive in the EAR
+		boolean simplePath = false;
+		
 		if (manifestClasspath != null && manifestClasspath.length > 0) {
 			IProject[] earProjects = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.ENTERPRISE_APPLICATION);
 			IVirtualReference[] earRefs = null;
@@ -125,6 +130,9 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 				for (int j = 0; j < tempEarRefs.length && earRefs == null; j++) {
 					if (tempEarRefs[j].getReferencedComponent().equals(moduleComponent)) {
 						earRefs = tempEarRefs;
+						foundRef = tempEarRefs[j];
+						earArchiveURI = foundRef.getArchiveName(); 
+						simplePath = earArchiveURI != null ? earArchiveURI.lastIndexOf("/") == -1 : true; //$NON-NLS-1$
 					}
 				}
 			}
@@ -133,24 +141,38 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 				for (int i = 0; i < manifestClasspath.length; i++) {
 					boolean found = false;
 					for (int j = 0; j < earRefs.length && !found; j++) {
-						String archiveName = earRefs[j].getArchiveName();
-						if (null != archiveName && archiveName.equals(manifestClasspath[i])) {
-							found = true;
-							boolean shouldInclude = true;
-							IVirtualComponent dynamicComponent = earRefs[j].getReferencedComponent();
-							if(null != hardReferences){
-								for (int k = 0; k < hardReferences.length && shouldInclude; k++) {
-									if (hardReferences[k].getReferencedComponent().equals(dynamicComponent)) {
-										shouldInclude = false;
+						if(foundRef != earRefs[j]){
+							String archiveName = earRefs[j].getArchiveName();
+							if (null != archiveName){
+								boolean shouldAdd = false;
+								if(simplePath && manifestClasspath[i].lastIndexOf("/") == -1){ //$NON-NLS-1$
+									shouldAdd = archiveName.equals(manifestClasspath[i]);	
+								} else {
+									String earRelativeURI = ArchiveUtil.deriveEARRelativeURI(manifestClasspath[i], earArchiveURI);
+									if(null != earRelativeURI){
+										shouldAdd = earRelativeURI.equals(archiveName);	
 									}
 								}
-							}
-							if (shouldInclude) {
-								IVirtualReference dynamicReference = ComponentCore.createReference(moduleComponent, dynamicComponent);
-								if (null == dynamicReferences) {
-									dynamicReferences = new ArrayList();
+								
+								if(shouldAdd){
+									found = true;
+									boolean shouldInclude = true;
+									IVirtualComponent dynamicComponent = earRefs[j].getReferencedComponent();
+									if(null != hardReferences){
+										for (int k = 0; k < hardReferences.length && shouldInclude; k++) {
+											if (hardReferences[k].getReferencedComponent().equals(dynamicComponent)) {
+												shouldInclude = false;
+											}
+										}
+									}
+									if (shouldInclude) {
+										IVirtualReference dynamicReference = ComponentCore.createReference(moduleComponent, dynamicComponent);
+										if (null == dynamicReferences) {
+											dynamicReferences = new ArrayList();
+										}
+										dynamicReferences.add(dynamicReference);
+									}
 								}
-								dynamicReferences.add(dynamicReference);
 							}
 						}
 					}
