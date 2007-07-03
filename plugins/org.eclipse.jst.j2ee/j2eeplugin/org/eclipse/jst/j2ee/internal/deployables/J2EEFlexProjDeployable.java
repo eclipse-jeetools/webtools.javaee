@@ -200,7 +200,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 						if (folder.getName().equals(J2EEConstants.META_INF)) {
 							IModuleResource[] files = folder.members();
 							for (int j = 0; j < files.length; j++) {
-								files[i] = replaceManifestFile((IModuleFile) files[j]);								
+								files[j] = replaceManifestFile((IModuleFile) files[j]);								
 							}
 						}
 					}
