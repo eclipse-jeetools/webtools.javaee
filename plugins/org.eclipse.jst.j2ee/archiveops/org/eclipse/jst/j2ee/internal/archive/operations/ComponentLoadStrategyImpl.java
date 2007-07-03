@@ -504,7 +504,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	}
 
 	protected boolean shouldInclude(String uri) {
-		if (DOT_PROJECT.equals(uri) || DOT_CLASSPATH.equals(uri) || uri.endsWith(DOT_CVS_IGORE) || uri.startsWith(DOT_SETTINGS)) {
+		if (uri.length() == 0 || DOT_PROJECT.equals(uri) || DOT_CLASSPATH.equals(uri) || uri.endsWith(DOT_CVS_IGORE) || uri.startsWith(DOT_SETTINGS)){
 			return false;
 		}
 		return isExportSource() || !isSource(uri);
