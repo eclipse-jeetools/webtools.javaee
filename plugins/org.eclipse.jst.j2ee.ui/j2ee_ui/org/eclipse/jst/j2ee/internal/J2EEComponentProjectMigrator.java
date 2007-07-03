@@ -27,10 +27,12 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IScopeContext;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
@@ -91,10 +93,21 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 	}
 
 	public void migrateProject(IProject aProject) {
-		if (aProject.isAccessible()) {
+		if (aProject.isAccessible() && (aProject.getFile(StructureEdit.MODULE_META_FILE_NAME).exists())) {
+			// The file corresponding to StructureEdit.MODULE_META_FILE_NAME is crucial to migration.
+			// If it does not exist, the project cannot be migrated. We should never fail the test for existence
+			// of the file, if we do then something has gone badly wrong.
+			Resource resource = WorkbenchResourceHelperBase.getResource(aProject.getFile(StructureEdit.MODULE_META_FILE_NAME), false);
+			if(resource != null && resource.isLoaded()){
+				// Unload the resource because the model inside the StructureEdit was cached when the 
+				// the project was imported, and files may have moved due to migration (.wtpmodules for example).
+				resource.unload();
+			}
+		
 			final List files = new ArrayList();
 			files.add(aProject.getFile(J2EEProjectUtilities.DOT_PROJECT));
 			files.add(aProject.getFile(J2EEProjectUtilities.DOT_CLASSPATH));
+			files.add(aProject.getFile(StructureEdit.MODULE_META_FILE_NAME));
 			if(SimpleValidateEdit.validateEdit(files)){
 				project = aProject;
 				
