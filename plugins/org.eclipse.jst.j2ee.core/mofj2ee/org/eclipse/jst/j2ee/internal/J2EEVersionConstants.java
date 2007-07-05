@@ -86,5 +86,6 @@ public interface J2EEVersionConstants {
 	public String VERSION_2_5_TEXT		= "2.5"; //$NON-NLS-1$
 	public String VERSION_3_0_TEXT		= "3.0"; //$NON-NLS-1$
 	public String VERSION_5_0_TEXT		= "5.0"; //$NON-NLS-1$
+	public String VERSION_5_TEXT        = "5";   //$NON-NLS-1$
 					
 }
