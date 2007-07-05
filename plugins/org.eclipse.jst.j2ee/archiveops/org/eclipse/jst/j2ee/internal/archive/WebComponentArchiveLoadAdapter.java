@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
@@ -133,6 +134,11 @@ public class WebComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 				}
 			}
 		}
+	}
+	
+	@Override
+	protected IPath getDefaultModelObjectPath() {
+		return new Path(J2EEConstants.WEBAPP_DD_URI);
 	}
 
 }

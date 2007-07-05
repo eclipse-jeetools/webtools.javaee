@@ -126,5 +126,10 @@ public class EARComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 			}
 		}
 	}
+	
+	@Override
+	protected IPath getDefaultModelObjectPath() {
+		return new Path(J2EEConstants.APPLICATION_DD_URI);
+	}
 
 }

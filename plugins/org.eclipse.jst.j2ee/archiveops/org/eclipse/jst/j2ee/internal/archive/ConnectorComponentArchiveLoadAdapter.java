@@ -279,4 +279,9 @@ public class ConnectorComponentArchiveLoadAdapter extends ComponentArchiveLoadAd
 	private boolean isDeploymentDescriptor(IFile iFile) {
 		return knownDD.equals(iFile);
 	}
+	
+	@Override
+	protected IPath getDefaultModelObjectPath() {
+		return new Path(J2EEConstants.RAR_DD_URI);
+	}
 }
