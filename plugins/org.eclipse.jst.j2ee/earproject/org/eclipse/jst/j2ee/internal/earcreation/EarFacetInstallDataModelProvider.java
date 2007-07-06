@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -43,7 +44,11 @@ public class EarFacetInstallDataModelProvider extends J2EEFacetInstallDataModelP
 		} else if (propertyName.equals(J2EE_PROJECTS_LIST) || propertyName.equals(JAVA_PROJECT_LIST)) {
 			return Collections.EMPTY_LIST;
 		} else if(propertyName.equals(GENERATE_DD)){
-			return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.APPLICATION_GENERATE_DD));
+			IProjectFacetVersion facetVersion = (IProjectFacetVersion)getProperty(FACET_VERSION);
+			if(facetVersion == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_50){
+				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.APPLICATION_GENERATE_DD));
+			}
+			return Boolean.TRUE;
 		}
 		return super.getDefaultProperty(propertyName);
 	}

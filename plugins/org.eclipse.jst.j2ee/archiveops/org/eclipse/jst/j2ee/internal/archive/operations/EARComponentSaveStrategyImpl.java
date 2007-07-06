@@ -11,15 +11,24 @@
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class EARComponentSaveStrategyImpl extends ComponentSaveStrategyImpl {
@@ -145,6 +154,25 @@ public class EARComponentSaveStrategyImpl extends ComponentSaveStrategyImpl {
 		return true;
 	}
 
+	public void save(ArchiveManifest aManifest) throws SaveFailureException {
+		IVirtualFolder rootFolder = vComponent.getRootFolder();
+		IVirtualFile vFile = rootFolder.getFile(new Path(J2EEConstants.MANIFEST_URI));
+		IFile iFile = vFile.getUnderlyingFile();
+		validateEdit(iFile);
+		OutputStream out = new WorkbenchByteArrayOutputStream(iFile);
+		try {
+			aManifest.write(out);
+		} catch (IOException e) {
+			Logger.getLogger().logError(e);
+		} finally {
+			try {
+				out.close();
+			} catch (IOException e) {
+				Logger.getLogger().logError(e);
+			}
+		}
+	}
+	
 
 //	/*
 //	 * Parse the manifest of the module file; for each cp entry 1) cananonicalize to a uri that
