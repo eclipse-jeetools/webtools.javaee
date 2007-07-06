@@ -128,16 +128,5 @@ public class AppClientFacetPostInstallDelegate extends JEEFacetInstallDelegate i
 			}
 		}
 	}	
-	
-    protected void installAndAddModuletoEAR(String versionText,
-    		String earProjectName, IRuntime runtime, IProject moduleProject,
-    		String moduleURI, IProgressMonitor monitor) {
-		
-    	installEARFacet(versionText,
-				earProjectName,
-				runtime,
-				monitor);
-
-    }
 
 }
