@@ -270,8 +270,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				}
 				IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(project);
 				if (earProjects.length == 0) {
-					removeContainerFromModuleIfNecessary(project);
-					return;
+					continue;
 				} 
 				
 				container = addContainerToModuleIfNecessary(project);
@@ -338,41 +337,11 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		return container;
 	}
 
-	private void removeContainerFromModuleIfNecessary(IProject moduleProject) {
-		IJavaProject jproj = JavaCore.create(moduleProject);
-		IClasspathEntry entry = getExistingContainer(jproj, J2EEComponentClasspathContainer.CONTAINER_PATH);
-		if (entry != null) {
-			try {
-				removeFromClasspath(jproj, entry);
-			} catch (CoreException e) {
-				J2EEPlugin.getDefault().getLogger().logError(e);
-			}
-		}
-	}
-
 	private void addToClasspath(final IJavaProject jproj, final IClasspathEntry entry) throws CoreException {
 		final IClasspathEntry[] current = jproj.getRawClasspath();
 		final IClasspathEntry[] updated = new IClasspathEntry[current.length + 1];
 		System.arraycopy(current, 0, updated, 0, current.length);
 		updated[current.length] = entry;
-		jproj.setRawClasspath(updated, null);
-	}
-
-	private void removeFromClasspath(final IJavaProject jproj, final IClasspathEntry entry) throws CoreException {
-		final IClasspathEntry[] current = jproj.getRawClasspath();
-		final IClasspathEntry[] updated = new IClasspathEntry[current.length - 1];
-		boolean removed = false;
-		for (int i = 0; i < current.length; i++) {
-			if (!removed) {
-				if (current[i] == entry) {
-					removed = true;
-				} else {
-					updated[i] = current[i];
-				}
-			} else {
-				updated[i - 1] = current[i];
-			}
-		}
 		jproj.setRawClasspath(updated, null);
 	}
 
