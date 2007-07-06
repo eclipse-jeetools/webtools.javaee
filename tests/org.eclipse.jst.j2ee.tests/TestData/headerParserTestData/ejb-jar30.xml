@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar id="ejb-jar_ID" version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd">
+	<display-name>
+	EAR5EJB</display-name>
+	<enterprise-beans>
+		<session id="S">
+			<ejb-name>S</ejb-name>
+			<home>ejbs.SHome</home>
+			<remote>ejbs.S</remote>
+			<ejb-class>ejbs.SBean</ejb-class>
+			<session-type>Stateless</session-type>
+			<transaction-type>Container</transaction-type>
+		</session>
+	</enterprise-beans>
+</ejb-jar>

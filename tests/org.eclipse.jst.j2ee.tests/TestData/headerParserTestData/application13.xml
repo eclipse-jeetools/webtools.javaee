@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE application PUBLIC "-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN" "http://java.sun.com/dtd/application_1_3.dtd">
+<application id="Application_ID">
+	<display-name>EAR13</display-name>
+	<module id="WebModule_1176405672843">
+		<web>
+			<web-uri>EAR13Web.war</web-uri>
+			<context-root>EAR13Web</context-root>
+		</web>
+	</module>
+	<module id="ConnectorModule_1176405672859">
+		<connector>EAR13Connector.rar</connector>
+	</module>
+	<module id="JavaClientModule_1176405672875">
+		<java>EAR13Client.jar</java>
+	</module>
+	<module id="EjbModule_1176405672875">
+		<ejb>EAR13EJB.jar</ejb>
+	</module>
+</application>

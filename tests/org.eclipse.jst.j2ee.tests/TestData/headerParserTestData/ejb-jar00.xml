@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ejb-jar PUBLIC "test" "test">
+<ejb-jar id="ejb-jar_ID">
+	<display-name>EAR12EJB</display-name>
+	<enterprise-beans>
+		<session id="S">
+			<ejb-name>S</ejb-name>
+			<home>ejbs.SHome</home>
+			<remote>ejbs.S</remote>
+			<ejb-class>ejbs.SBean</ejb-class>
+			<session-type>Stateless</session-type>
+			<transaction-type>Container</transaction-type>
+		</session>
+	</enterprise-beans>
+</ejb-jar>

@@ -31,6 +31,7 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
@@ -60,6 +61,7 @@ import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelPro
 import org.eclipse.jst.j2ee.dependency.tests.util.ProjectUtil;
 import org.eclipse.jst.j2ee.ejb.project.operations.IEjbFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
@@ -73,6 +75,7 @@ import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperti
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
+import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
@@ -97,6 +100,12 @@ import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
 
 public class DefectVerificationTests extends OperationTestCase {
 
+	public static String BASE_DATA_DIRECTORY = System.getProperty("user.dir") + java.io.File.separatorChar + "DefectTestData" + java.io.File.separatorChar;
+	
+	private static String getDataPath(String suffix) {
+		return BASE_DATA_DIRECTORY + "componentLoadAdapterTestData" + java.io.File.separatorChar + suffix;
+	}
+	
 	public static String getFullTestDataPath(String dataPath) {
 		try {
 			String defectTestDataPath = "DefectTestData" + fileSep + dataPath;
@@ -110,6 +119,7 @@ public class DefectVerificationTests extends OperationTestCase {
 		}
 		return "";
 	}
+	
 	/**
 	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=130657
 	 */
@@ -124,18 +134,29 @@ public class DefectVerificationTests extends OperationTestCase {
 		folder.create(true,true,null);
 		IFile fakeClassFile = folder.getFile("Fake.class");
 		fakeClassFile.create(new StringBufferInputStream(""),true,null);
-		IPath folderPath = folder.getProjectRelativePath();
+		Assert.assertTrue("Class file should have been created in project.",component.getProject().exists(fakeClassFile.getProjectRelativePath()));
 
 		final IVirtualFolder jsrc = component.getRootFolder().getFolder("/WEB-INF/classes");
 		jsrc.createLink(folder.getProjectRelativePath(), 0, null);
-
+		Assert.assertEquals("Should be a link for each class in imported_classes.",folder.members().length, jsrc.members().length);
+		
 		//Export war
 		IDataModel dataModel = DataModelFactory.createDataModel(new WebComponentExportDataModelProvider());
-		dataModel.setProperty(J2EEComponentExportDataModelProvider.ARCHIVE_DESTINATION, getFullTestDataPath("testblah.war"));
+		dataModel.setProperty(J2EEComponentExportDataModelProvider.ARCHIVE_DESTINATION, getDataPath("testblah.war"));
 		dataModel.setProperty(J2EEComponentExportDataModelProvider.COMPONENT, component);
 		dataModel.setBooleanProperty(J2EEComponentExportDataModelProvider.EXPORT_SOURCE_FILES, true);
 		dataModel.setBooleanProperty(J2EEComponentExportDataModelProvider.OVERWRITE_EXISTING, true);
-		dataModel.getDefaultOperation().execute(null, null);
+		IStatus status = dataModel.getDefaultOperation().execute(null, null);
+		Assert.assertEquals("Creating WAR failed " + status.getMessage(), IStatus.OK, status.getSeverity());
+		
+		IArchive archiveWAR = JavaEEArchiveUtilities.INSTANCE.openArchive(new Path(getDataPath("testblah.war")));
+		for(int i=0; i<jsrc.members().length; i++) {
+			Assert.assertTrue("Archive does not contain resource for each linked imported class.",
+				archiveWAR.containsArchiveResource((jsrc.members())[i].getRuntimePath().makeRelative()));
+		}
+		
+		//archiveWAR.
+		JavaEEArchiveUtilities.INSTANCE.closeArchive(archiveWAR);
 	}
 
 
@@ -149,10 +170,11 @@ public class DefectVerificationTests extends OperationTestCase {
 
 		IVirtualComponent component = ComponentUtilities.getComponent("Test120018");
 
+		
 		IVirtualFolder folder = component.getRootFolder().getFolder("imported_classes");
 		folder.create(IResource.NONE, null);
 		IPath folderPath = folder.getProjectRelativePath();
-
+	
 		final IVirtualFolder jsrc = component.getRootFolder().getFolder("/WEB-INF/classes");
 		jsrc.createLink(folder.getProjectRelativePath(), 0, null);
 		
@@ -229,7 +251,7 @@ public class DefectVerificationTests extends OperationTestCase {
 			EARFile earFile = null;
 			try {
 				earFile = (EARFile) artifactEdit.asArchive(true);
-				earFile.getEJBReferences(true, false);
+				earFile.getEJBReferences(false, false);
 			} finally {
 				if (earFile != null) {
 					earFile.close();
@@ -239,7 +261,6 @@ public class DefectVerificationTests extends OperationTestCase {
 			if (artifactEdit != null) {
 				artifactEdit.dispose();
 			}
-
 		}
 	}
 
@@ -258,7 +279,9 @@ public class DefectVerificationTests extends OperationTestCase {
 	}
 
 
-
+	/**
+	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=121158
+	 */
 	public void test121158() throws Exception {
 		String earFileName = getFullTestDataPath("EAR121158.ear"); //$NON-NLS-1$
 		EARFile earFile = null;
@@ -321,12 +344,17 @@ public class DefectVerificationTests extends OperationTestCase {
 
 
 	}
-
+	
+	/**
+	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=143483
+	 */
 	public void test143483() throws Exception {
 		checkDeploy("undeployed_DefaultApplication.ear");//$NON-NLS-1$
 	}
 
-
+	/**
+	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=144288
+	 */
 	public void test144288() throws Exception {
 		String earName = "WorkAreaFvtApp.ear";//$NON-NLS-1$
 		String earFileName = getFullTestDataPath(earName);
@@ -364,6 +392,9 @@ public class DefectVerificationTests extends OperationTestCase {
 		runAndVerify(export);
 	}
 
+	/**
+	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=145460
+	 */
 	public void test145460() throws Exception {
 		String warName = "Example1.war"; //$NON-NLS-1$
 		String warFileName = getFullTestDataPath(warName);
@@ -376,6 +407,9 @@ public class DefectVerificationTests extends OperationTestCase {
 		runAndVerify(dataModel);
 	}
 
+	/**
+	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=149995
+	 */
 	public void test149995() throws Exception {
 		String earName = "149995.ear";//$NON-NLS-1$
 		String earFileName = getFullTestDataPath(earName);
@@ -467,7 +501,9 @@ public class DefectVerificationTests extends OperationTestCase {
 //		}
 	}
 	
-	
+	/**
+	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=145031
+	 */
 	public void test145031() throws Exception {
 		String [] shortNames = new String [] { "JarTest.man.jar", "JarTest.auto.jar"};
 		
@@ -480,12 +516,22 @@ public class DefectVerificationTests extends OperationTestCase {
 			boolean foundResource = false;
 			while(resources.hasMoreElements()){
 				URL url = (URL)resources.nextElement();
+				
 				if(url.toString().indexOf(shortNames[i]) != -1){
 					System.out.println("  Found URL with URLClassLoader.getResources(\"META-INF/\") ");
 					System.out.println("  url = "+ url);
 					foundResource = true;
 				}
 			}
+			
+			//this is cheating because we know the the manual archive is first and does not have the directory info
+			// and that second index is auto and should have the directory info
+			if(i == 0) {
+				Assert.assertFalse("Should not have found URL with URLClassLoader.getResources(\"META-INF/\") ", foundResource);
+			} else if(i == 1) {
+				Assert.assertTrue("Didn't find URL with URLClassLoader.getResources(\"META-INF/\") ", foundResource);
+			}
+			
 			if(!foundResource){
 				System.out.println("  Didn't find URL with URLClassLoader.getResources(\"META-INF/\") ");
 			}
@@ -500,7 +546,9 @@ public class DefectVerificationTests extends OperationTestCase {
 		}
 	}
 	
-	
+	/**
+	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=159481
+	 */
 	public void test159481() throws Exception {
 		ArchiveOptions options = new ArchiveOptions();
 		options.setRendererType(ArchiveOptions.DOM);
@@ -508,6 +556,7 @@ public class DefectVerificationTests extends OperationTestCase {
 		CommonarchivePackage pkg = CommonarchivePackage.eINSTANCE;
 		WARFile warFile = pkg.getCommonarchiveFactory().openWARFile(options, earPath);
 		warFile.getDeploymentDescriptor();
+
 	}
 	
 	

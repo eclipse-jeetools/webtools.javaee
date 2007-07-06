@@ -1,0 +1,812 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ejb-jar_ID" version="3.0" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd">
+      <description>Contains the PlantsByWebSphere EJB</description>
+      <display-name>PlantsByWebSphere EJB Module</display-name>
+      <enterprise-beans>
+         <session id="Session_1">
+            <description>Bean that creates a new user</description>
+            <display-name>Login Session EJB</display-name>
+            <ejb-name>Login</ejb-name>
+            <home>com.ibm.websphere.samples.plantsbywebsphereejb.LoginHome</home>
+            <remote>com.ibm.websphere.samples.plantsbywebsphereejb.Login</remote>
+            <ejb-class>com.ibm.websphere.samples.plantsbywebsphereejb.LoginBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+            <ejb-local-ref id="EjbRef_2">
+               <ejb-ref-name>ejb/Customer</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>com.ibm.websphere.samples.plantsbywebsphereejb.CustomerHome</local-home>
+               <local>com.ibm.websphere.samples.plantsbywebsphereejb.Customer</local>
+            </ejb-local-ref>
+            <resource-ref id="ResourceRef_1">
+               <res-ref-name>plantsby/PlantsByWebSphereDataSource</res-ref-name>
+               <res-type>javax.sql.DataSource</res-type>
+               <res-auth>Application</res-auth>
+            </resource-ref>
+         </session>
+         <session id="Session_2">
+            <description>Bean to support a shopping session</description>
+            <display-name>Shopping Cart Session EJB</display-name>
+            <ejb-name>ShoppingCart</ejb-name>
+            <home>com.ibm.websphere.samples.plantsbywebsphereejb.ShoppingCartHome</home>
+            <remote>com.ibm.websphere.samples.plantsbywebsphereejb.ShoppingCart</remote>
+            <ejb-class>com.ibm.websphere.samples.plantsbywebsphereejb.ShoppingCartBean</ejb-class>
+            <session-type>Stateful</session-type>
+            <transaction-type>Container</transaction-type>
+            <ejb-local-ref id="EjbRef_1">
+               <ejb-ref-name>ejb/Customer</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>com.ibm.websphere.samples.plantsbywebsphereejb.CustomerHome</local-home>
+               <local>com.ibm.websphere.samples.plantsbywebsphereejb.Customer</local>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1044286400438">
+               <ejb-ref-name>ejb/Order</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>com.ibm.websphere.samples.plantsbywebsphereejb.OrderHome</local-home>
+               <local>com.ibm.websphere.samples.plantsbywebsphereejb.Order</local>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1047250867659">
+               <description/>
+               <ejb-ref-name>ejb/Inventory</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>com.ibm.websphere.samples.plantsbywebsphereejb.InventoryHome</local-home>
+               <local>com.ibm.websphere.samples.plantsbywebsphereejb.Inventory</local>
+               <ejb-link>Inventory</ejb-link>
+            </ejb-local-ref>
+            <resource-ref id="ResourceRef_2">
+               <res-ref-name>plantsby/PlantsByWebSphereDataSource</res-ref-name>
+               <res-type>javax.sql.DataSource</res-type>
+               <res-auth>Application</res-auth>
+            </resource-ref>
+         </session>
+         <session id="Session_3">
+            <description>Bean to interface the store inventory</description>
+            <display-name>Catalog Session EJB</display-name>
+            <ejb-name>Catalog</ejb-name>
+            <home>com.ibm.websphere.samples.plantsbywebsphereejb.CatalogHome</home>
+            <remote>com.ibm.websphere.samples.plantsbywebsphereejb.Catalog</remote>
+            <ejb-class>com.ibm.websphere.samples.plantsbywebsphereejb.CatalogBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+            <ejb-local-ref id="EjbRef_3">
+               <description/>
+               <ejb-ref-name>ejb/Inventory</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>com.ibm.websphere.samples.plantsbywebsphereejb.InventoryHome</local-home>
+               <local>com.ibm.websphere.samples.plantsbywebsphereejb.Inventory</local>
+            </ejb-local-ref>
+            <ejb-local-ref id="EjbRef_4">
+               <description/>
+               <ejb-ref-name>ejb/Order</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>com.ibm.websphere.samples.plantsbywebsphereejb.OrderHome</local-home>
+               <local>com.ibm.websphere.samples.plantsbywebsphereejb.Order</local>
+            </ejb-local-ref>
+            <resource-ref id="ResourceRef_3">
+               <res-ref-name>plantsby/PlantsByWebSphereDataSource</res-ref-name>
+               <res-type>javax.sql.DataSource</res-type>
+               <res-auth>Application</res-auth>
+            </resource-ref>
+         </session>
+         <entity id="ContainerManagedEntity_1">
+            <description>Customer entity bean</description>
+            <ejb-name>Customer</ejb-name>
+            <local-home>com.ibm.websphere.samples.plantsbywebsphereejb.CustomerHome</local-home>
+            <local>com.ibm.websphere.samples.plantsbywebsphereejb.Customer</local>
+            <ejb-class>com.ibm.websphere.samples.plantsbywebsphereejb.CustomerBean</ejb-class>
+            <persistence-type>Container</persistence-type>
+            <prim-key-class>com.ibm.websphere.samples.plantsbywebsphereejb.CustomerKey</prim-key-class>
+            <reentrant>false</reentrant>
+            <cmp-version>2.x</cmp-version>
+            <abstract-schema-name>Customer</abstract-schema-name>
+            <cmp-field id="Customer_customerID">
+               <field-name>customerID</field-name>
+            </cmp-field>
+            <cmp-field id="Customer_password">
+               <field-name>password</field-name>
+            </cmp-field>
+            <cmp-field id="Customer_firstName">
+               <field-name>firstName</field-name>
+            </cmp-field>
+            <cmp-field id="Customer_lastName">
+               <field-name>lastName</field-name>
+            </cmp-field>
+            <cmp-field id="Customer_addr1">
+               <field-name>addr1</field-name>
+            </cmp-field>
+            <cmp-field id="Customer_addr2">
+               <field-name>addr2</field-name>
+            </cmp-field>
+            <cmp-field id="Customer_addrCity">
+               <field-name>addrCity</field-name>
+            </cmp-field>
+            <cmp-field id="Customer_addrState">
+               <field-name>addrState</field-name>
+            </cmp-field>
+            <cmp-field id="Customer_addrZip">
+               <field-name>addrZip</field-name>
+            </cmp-field>
+            <cmp-field id="Customer_phone">
+               <field-name>phone</field-name>
+            </cmp-field>
+            <query>
+            	<description/>
+            	<query-method>
+            		<method-name>findByPrimaryKeyUpdate</method-name>
+            		<method-params>
+            			<method-param>java.lang.String</method-param>
+            		</method-params>
+            	</query-method>
+            	<ejb-ql>select object(o) from Customer o where  o.customerID = ?1</ejb-ql>
+            </query>
+         </entity>
+         <entity id="ContainerManagedEntity_2">
+            <description>Inventory entity bean</description>
+            <ejb-name>Inventory</ejb-name>
+            <local-home>com.ibm.websphere.samples.plantsbywebsphereejb.InventoryHome</local-home>
+            <local>com.ibm.websphere.samples.plantsbywebsphereejb.Inventory</local>
+            <ejb-class>com.ibm.websphere.samples.plantsbywebsphereejb.InventoryBean</ejb-class>
+            <persistence-type>Container</persistence-type>
+            <prim-key-class>com.ibm.websphere.samples.plantsbywebsphereejb.InventoryKey</prim-key-class>
+            <reentrant>false</reentrant>
+            <cmp-version>2.x</cmp-version>
+            <abstract-schema-name>Inventory</abstract-schema-name>
+            <cmp-field id="Inventory_inventoryID">
+               <field-name>inventoryID</field-name>
+            </cmp-field>
+            <cmp-field id="Inventory_name">
+               <field-name>name</field-name>
+            </cmp-field>
+            <cmp-field id="Inventory_heading">
+               <field-name>heading</field-name>
+            </cmp-field>
+            <cmp-field id="Inventory_description">
+               <field-name>description</field-name>
+            </cmp-field>
+            <cmp-field id="Inventory_pkginfo">
+               <field-name>pkginfo</field-name>
+            </cmp-field>
+            <cmp-field id="Inventory_image">
+               <field-name>image</field-name>
+            </cmp-field>
+            <cmp-field id="Inventory_imgbytes">
+               <field-name>imgbytes</field-name>
+            </cmp-field>
+            <cmp-field id="Inventory_price">
+               <field-name>price</field-name>
+            </cmp-field>
+            <cmp-field id="Inventory_cost">
+               <field-name>cost</field-name>
+            </cmp-field>
+            <cmp-field id="Inventory_category">
+               <field-name>category</field-name>
+            </cmp-field>
+            <cmp-field id="Inventory_quantity">
+               <field-name>quantity</field-name>
+            </cmp-field>
+            <cmp-field id="Inventory_notes">
+               <field-name>notes</field-name>
+            </cmp-field>
+            <cmp-field id="Inventory_isPublic">
+               <field-name>isPublic</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1047434765895">
+               <field-name>minThreshold</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1047434766065">
+               <field-name>maxThreshold</field-name>
+            </cmp-field>
+            <env-entry id="EnvEntry_5">
+               <env-entry-name>plantsby/InventoryTableName</env-entry-name>
+               <env-entry-type>java.lang.String</env-entry-type>
+               <env-entry-value>Inventory</env-entry-value>
+            </env-entry>
+            <ejb-ref id="EjbRef_1048871328665">
+               <description/>
+               <ejb-ref-name>ejb/BackOrderStock</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <home>com.ibm.websphere.samples.plantsbywebsphereejb.BackOrderStockHome</home>
+               <remote>com.ibm.websphere.samples.plantsbywebsphereejb.BackOrderStock</remote>
+               <ejb-link>BackOrderStock</ejb-link>
+            </ejb-ref>
+            <query id="Query_1">
+               <query-method id="QueryMethod_1">
+                  <method-name>findByCategory</method-name>
+                  <method-params>
+                     <method-param>int</method-param>
+                  </method-params>
+               </query-method>
+               <ejb-ql>SELECT OBJECT(i) FROM Inventory i WHERE i.category = ?1 ORDER BY i.inventoryID </ejb-ql>
+            </query>
+            <query id="Query_2">
+               <query-method id="QueryMethod_2">
+                  <method-name>findByNameLikeness</method-name>
+                  <method-params>
+                     <method-param>java.lang.String</method-param>
+                  </method-params>
+               </query-method>
+               <ejb-ql>SELECT OBJECT(i) FROM Inventory i WHERE i.name LIKE ?1</ejb-ql>
+            </query>
+            <query>
+            	<description/>
+            	<query-method>
+            		<method-name>findByPrimaryKeyUpdate</method-name>
+            		<method-params>
+            			<method-param>java.lang.String</method-param>
+            		</method-params>
+            	</query-method>
+            	<ejb-ql>select object(o) from Inventory o where  o.inventoryID = ?1</ejb-ql>
+            </query>
+         </entity>
+         <session id="Session_4">
+            <description>Bean to generate reports</description>
+            <display-name>Report Generator Session EJB</display-name>
+            <ejb-name>ReportGenerator</ejb-name>
+            <home>com.ibm.websphere.samples.plantsbywebsphereejb.ReportGeneratorHome</home>
+            <remote>com.ibm.websphere.samples.plantsbywebsphereejb.ReportGenerator</remote>
+            <ejb-class>com.ibm.websphere.samples.plantsbywebsphereejb.ReportGeneratorBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+            <env-entry id="EnvEntry_3">
+               <env-entry-name>plantsby/OrderItemsTableName</env-entry-name>
+               <env-entry-type>java.lang.String</env-entry-type>
+               <env-entry-value>OrderItem</env-entry-value>
+            </env-entry>
+            <env-entry id="EnvEntry_4">
+               <env-entry-name>plantsby/OrderInfoTableName</env-entry-name>
+               <env-entry-type>java.lang.String</env-entry-type>
+               <env-entry-value>Order1</env-entry-value>
+            </env-entry>
+            <ejb-local-ref id="EjbRef_5">
+               <ejb-ref-name>ejb/Order</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>com.ibm.websphere.samples.plantsbywebsphereejb.OrderHome</local-home>
+               <local>com.ibm.websphere.samples.plantsbywebsphereejb.Order</local>
+            </ejb-local-ref>
+            <resource-ref id="ResourceRef_5">
+               <res-ref-name>plantsby/PlantsByWebSphereDataSource</res-ref-name>
+               <res-type>javax.sql.DataSource</res-type>
+               <res-auth>Application</res-auth>
+            </resource-ref>
+         </session>
+         <session id="Session_5">
+            <description>Bean to interface mail</description>
+            <display-name>Mailer Session EJB</display-name>
+            <ejb-name>Mailer</ejb-name>
+            <home>com.ibm.websphere.samples.plantsbywebsphereejb.MailerHome</home>
+            <remote>com.ibm.websphere.samples.plantsbywebsphereejb.Mailer</remote>
+            <ejb-class>com.ibm.websphere.samples.plantsbywebsphereejb.MailerBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+            <resource-ref id="ResourceRef_7">
+               <res-ref-name>mail/PlantsByWebSphere</res-ref-name>
+               <res-type>javax.mail.Session</res-type>
+               <res-auth>Application</res-auth>
+            </resource-ref>
+         </session>
+         <entity id="Order">
+            <description>Order entity bean</description>
+            <ejb-name>Order</ejb-name>
+            <local-home>com.ibm.websphere.samples.plantsbywebsphereejb.OrderHome</local-home>
+            <local>com.ibm.websphere.samples.plantsbywebsphereejb.Order</local>
+            <ejb-class>com.ibm.websphere.samples.plantsbywebsphereejb.OrderBean</ejb-class>
+            <persistence-type>Container</persistence-type>
+            <prim-key-class>com.ibm.websphere.samples.plantsbywebsphereejb.OrderKey</prim-key-class>
+            <reentrant>false</reentrant>
+            <cmp-version>2.x</cmp-version>
+            <abstract-schema-name>Order</abstract-schema-name>
+            <cmp-field id="CMPAttribute_1045680776222">
+               <field-name>orderID</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776223">
+               <field-name>sellDate</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776232">
+               <field-name>billName</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776242">
+               <field-name>billAddr1</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776243">
+               <field-name>billAddr2</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776252">
+               <field-name>billCity</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776262">
+               <field-name>billState</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776263">
+               <field-name>billZip</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776272">
+               <field-name>billPhone</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776273">
+               <field-name>shipName</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776282">
+               <field-name>shipAddr1</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776292">
+               <field-name>shipAddr2</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776293">
+               <field-name>shipCity</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776302">
+               <field-name>shipState</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776303">
+               <field-name>shipZip</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776312">
+               <field-name>shipPhone</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776322">
+               <field-name>creditCard</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776323">
+               <field-name>ccNum</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776332">
+               <field-name>ccExpireMonth</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776333">
+               <field-name>ccExpireYear</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776342">
+               <field-name>cardHolder</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776343">
+               <field-name>shippingMethod</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776352">
+               <field-name>profit</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776353">
+               <field-name>customerID</field-name>
+            </cmp-field>
+            <ejb-local-ref id="EJBLocalRef_1046188969039">
+               <ejb-ref-name>ejb/OrderItem</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>com.ibm.websphere.samples.plantsbywebsphereejb.OrderItemHome</local-home>
+               <local>com.ibm.websphere.samples.plantsbywebsphereejb.OrderItem</local>
+               <ejb-link>OrderItem</ejb-link>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1046290450491">
+               <description/>
+               <ejb-ref-name>ejb/IdGenerator</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>com.ibm.websphere.samples.plantsbywebsphereejb.IdGeneratorHome</local-home>
+               <local>com.ibm.websphere.samples.plantsbywebsphereejb.IdGenerator</local>
+               <ejb-link>IdGenerator</ejb-link>
+            </ejb-local-ref>
+         </entity>
+         <entity id="OrderItem">
+            <description>Order item entity bean</description>
+            <ejb-name>OrderItem</ejb-name>
+            <local-home>com.ibm.websphere.samples.plantsbywebsphereejb.OrderItemHome</local-home>
+            <local>com.ibm.websphere.samples.plantsbywebsphereejb.OrderItem</local>
+            <ejb-class>com.ibm.websphere.samples.plantsbywebsphereejb.OrderItemBean</ejb-class>
+            <persistence-type>Container</persistence-type>
+            <prim-key-class>com.ibm.websphere.samples.plantsbywebsphereejb.OrderItemKey</prim-key-class>
+            <reentrant>false</reentrant>
+            <cmp-version>2.x</cmp-version>
+            <abstract-schema-name>OrderItem</abstract-schema-name>
+            <cmp-field id="CMPAttribute_1045680774109">
+               <field-name>inventoryID</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680775921">
+               <field-name>name</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680775961">
+               <field-name>pkginfo</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680775981">
+               <field-name>price</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776141">
+               <field-name>cost</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776162">
+               <field-name>category</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776163">
+               <field-name>quantity</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045680776172">
+               <field-name>sellDate</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1055372031972">
+               <field-name>order_orderID</field-name>
+            </cmp-field>
+            <ejb-local-ref id="EJBLocalRef_1046188969019">
+               <ejb-ref-name>ejb/Order</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>com.ibm.websphere.samples.plantsbywebsphereejb.OrderHome</local-home>
+               <local>com.ibm.websphere.samples.plantsbywebsphereejb.Order</local>
+               <ejb-link>Order</ejb-link>
+            </ejb-local-ref>
+         </entity>
+         <entity id="IdGenerator">
+            <ejb-name>IdGenerator</ejb-name>
+            <local-home>com.ibm.websphere.samples.plantsbywebsphereejb.IdGeneratorHome</local-home>
+            <local>com.ibm.websphere.samples.plantsbywebsphereejb.IdGenerator</local>
+            <ejb-class>com.ibm.websphere.samples.plantsbywebsphereejb.IdGeneratorBean</ejb-class>
+            <persistence-type>Container</persistence-type>
+            <prim-key-class>com.ibm.websphere.samples.plantsbywebsphereejb.IdGeneratorKey</prim-key-class>
+            <reentrant>false</reentrant>
+            <cmp-version>2.x</cmp-version>
+            <abstract-schema-name>IdGenerator</abstract-schema-name>
+            <cmp-field id="CMPAttribute_1046284504681">
+               <field-name>idName</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1046284325403">
+               <field-name>idValue</field-name>
+            </cmp-field>
+            <query>
+            	<description/>
+            	<query-method>
+            		<method-name>findByPrimaryKeyUpdate</method-name>
+            		<method-params>
+            			<method-param>java.lang.String</method-param>
+            		</method-params>
+            	</query-method>
+            	<ejb-ql>select object(o) from IdGenerator o where  o.idName = ?1</ejb-ql>
+            </query>
+         </entity>
+         <entity id="BackOrder">
+            <description>Back Order entity bean</description>
+            <display-name>BackOrder</display-name>
+            <ejb-name>BackOrder</ejb-name>
+            <home>com.ibm.websphere.samples.plantsbywebsphereejb.BackOrderHome</home>
+            <remote>com.ibm.websphere.samples.plantsbywebsphereejb.BackOrder</remote>
+            <local-home>com.ibm.websphere.samples.plantsbywebsphereejb.BackOrderLocalHome</local-home>
+            <local>com.ibm.websphere.samples.plantsbywebsphereejb.BackOrderLocal</local>
+            <ejb-class>com.ibm.websphere.samples.plantsbywebsphereejb.BackOrderBean</ejb-class>
+            <persistence-type>Container</persistence-type>
+            <prim-key-class>com.ibm.websphere.samples.plantsbywebsphereejb.BackOrderKey</prim-key-class>
+            <reentrant>false</reentrant>
+            <cmp-version>2.x</cmp-version>
+            <abstract-schema-name>BackOrder</abstract-schema-name>
+            <cmp-field id="CMPAttribute_1047434766126">
+               <field-name>backOrderID</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045081452934">
+               <field-name>inventoryID</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045081452182">
+               <field-name>quantity</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045081452933">
+               <field-name>status</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1047434766186">
+               <field-name>lowDate</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1047434766196">
+               <field-name>orderDate</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1045081452935">
+               <field-name>supplierOrderID</field-name>
+            </cmp-field>
+            <ejb-local-ref id="EJBLocalRef_1046493878456">
+               <ejb-ref-name>ejb/Inventory</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>com.ibm.websphere.samples.plantsbywebsphereejb.InventoryHome</local-home>
+               <local>com.ibm.websphere.samples.plantsbywebsphereejb.Inventory</local>
+               <ejb-link>Inventory</ejb-link>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1047435579405">
+               <description/>
+               <ejb-ref-name>ejb/IdGenerator</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>com.ibm.websphere.samples.plantsbywebsphereejb.IdGeneratorHome</local-home>
+               <local>com.ibm.websphere.samples.plantsbywebsphereejb.IdGenerator</local>
+               <ejb-link>IdGenerator</ejb-link>
+            </ejb-local-ref>
+            <query id="Query_3">
+               <query-method id="QueryMethod_3">
+                  <method-name>findAll</method-name>
+                  <method-params/>
+               </query-method>
+               <ejb-ql>SELECT OBJECT(i) FROM BackOrder i</ejb-ql>
+            </query>
+            <query id="Query_1055372032082">
+               <description/>
+               <query-method id="QueryMethod_1055372032082">
+                  <method-name>findByInventoryID</method-name>
+                  <method-params>
+                     <method-param>java.lang.String</method-param>
+                  </method-params>
+               </query-method>
+               <ejb-ql>select object(i) from BackOrder i where ((i.inventoryID = ?1) and (i.status = 'Order Stock'))</ejb-ql>
+            </query>
+            <query>
+            	<description/>
+            	<query-method>
+            		<method-name>findByInventoryIDUpdate</method-name>
+            		<method-params>
+            			<method-param>java.lang.String</method-param>
+            		</method-params>
+            	</query-method>
+            	<ejb-ql>select object(i) from BackOrder i where ((i.inventoryID = ?1) and (i.status = 'Order Stock'))</ejb-ql>
+            </query>
+            <query>
+            	<description/>
+            	<query-method>
+            		<method-name>findByPrimaryKeyUpdate</method-name>
+            		<method-params>
+            			<method-param>java.lang.String</method-param>
+            		</method-params>
+            	</query-method>
+            	<ejb-ql>select object(o) from BackOrder o where  o.backOrderID = ?1</ejb-ql>
+            </query>
+         </entity>
+         <session id="BackOrderStock">
+            <display-name>Back Order Stock Session EJB</display-name>
+            <ejb-name>BackOrderStock</ejb-name>
+            <home>com.ibm.websphere.samples.plantsbywebsphereejb.BackOrderStockHome</home>
+            <remote>com.ibm.websphere.samples.plantsbywebsphereejb.BackOrderStock</remote>
+            <ejb-class>com.ibm.websphere.samples.plantsbywebsphereejb.BackOrderStockBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+            <ejb-local-ref id="EJBLocalRef_1046563955293">
+               <description/>
+               <ejb-ref-name>ejb/BackOrder</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>com.ibm.websphere.samples.plantsbywebsphereejb.BackOrderLocalHome</local-home>
+               <local>com.ibm.websphere.samples.plantsbywebsphereejb.BackOrderLocal</local>
+               <ejb-link>BackOrder</ejb-link>
+            </ejb-local-ref>
+         </session>
+         <session id="ResetDB">
+         	<description>Reset Database</description>
+         	<display-name>Reset Database</display-name>
+         	<ejb-name>ResetDB</ejb-name>
+         	<home>com.ibm.websphere.samples.plantsbywebsphereejb.ResetDBHome</home>
+         	<remote>com.ibm.websphere.samples.plantsbywebsphereejb.ResetDB</remote>
+         	<ejb-class>com.ibm.websphere.samples.plantsbywebsphereejb.ResetDBBean</ejb-class>
+         	<session-type>Stateless</session-type>
+         	<transaction-type>Bean</transaction-type>
+         	<resource-ref id="ResourceRef_1073705753592">
+         		<description/>
+         		<res-ref-name>plantsby/PlantsByWebSphereDataSource</res-ref-name>
+         		<res-type>javax.sql.DataSource</res-type>
+         		<res-auth>Application</res-auth>
+         		<res-sharing-scope>Shareable</res-sharing-scope>
+         	</resource-ref>
+         </session>
+         <entity id="Supplier">
+         	<ejb-name>Supplier</ejb-name>
+         	<home>com.ibm.websphere.samples.plantsbywebsphereejb.SupplierHome</home>
+         	<remote>com.ibm.websphere.samples.plantsbywebsphereejb.Supplier</remote>
+         	<local-home>com.ibm.websphere.samples.plantsbywebsphereejb.SupplierLocalHome</local-home>
+         	<local>com.ibm.websphere.samples.plantsbywebsphereejb.SupplierLocal</local>
+         	<ejb-class>com.ibm.websphere.samples.plantsbywebsphereejb.SupplierBean</ejb-class>
+         	<persistence-type>Container</persistence-type>
+         	<prim-key-class>com.ibm.websphere.samples.plantsbywebsphereejb.SupplierKey</prim-key-class>
+         	<reentrant>false</reentrant>
+         	<cmp-version>2.x</cmp-version>
+         	<abstract-schema-name>Supplier</abstract-schema-name>
+         	<cmp-field id="CMPAttribute_1074178529340">
+         		<field-name>supplierID</field-name>
+         	</cmp-field>
+         	<cmp-field id="CMPAttribute_1074178529360">
+         		<field-name>name</field-name>
+         	</cmp-field>
+         	<cmp-field id="CMPAttribute_1074178529380">
+         		<field-name>street</field-name>
+         	</cmp-field>
+         	<cmp-field id="CMPAttribute_1074178529410">
+         		<field-name>city</field-name>
+         	</cmp-field>
+         	<cmp-field id="CMPAttribute_1074270819365">
+         		<field-name>usstate</field-name>
+         	</cmp-field>
+         	<cmp-field id="CMPAttribute_1074178529420">
+         		<field-name>zip</field-name>
+         	</cmp-field>
+         	<cmp-field id="CMPAttribute_1074178529440">
+         		<field-name>phone</field-name>
+         	</cmp-field>
+         	<cmp-field id="CMPAttribute_1074178529470">
+         		<field-name>url</field-name>
+         	</cmp-field>
+         	<query>
+         		<description/>
+         		<query-method>
+         			<method-name>findAll</method-name>
+         			<method-params>
+         			</method-params>
+         		</query-method>
+         		<ejb-ql>select object(o) from Supplier o</ejb-ql>
+         	</query>
+         </entity>
+         <session id="Suppliers">
+         	<ejb-name>Suppliers</ejb-name>
+         	<home>com.ibm.websphere.samples.plantsbywebsphereejb.SuppliersHome</home>
+         	<remote>com.ibm.websphere.samples.plantsbywebsphereejb.Suppliers</remote>
+         	<ejb-class>com.ibm.websphere.samples.plantsbywebsphereejb.SuppliersBean</ejb-class>
+         	<session-type>Stateless</session-type>
+         	<transaction-type>Container</transaction-type>
+         	<ejb-local-ref id="EJBLocalRef_1074282893210">
+         		<ejb-ref-name>ejb/Supplier</ejb-ref-name>
+         		<ejb-ref-type>Entity</ejb-ref-type>
+         		<local-home>com.ibm.websphere.samples.plantsbywebsphereejb.SupplierLocalHome</local-home>
+         		<local>com.ibm.websphere.samples.plantsbywebsphereejb.SupplierLocal</local>
+         		<ejb-link>Supplier</ejb-link>
+         	</ejb-local-ref>
+         </session>
+      </enterprise-beans>
+      <relationships id="Relationships_1055372032092">
+         <ejb-relation id="EJBRelation_1055372032102">
+            <description/>
+            <ejb-relation-name>Order-OrderItem</ejb-relation-name>
+            <ejb-relationship-role id="EJBRelationshipRole_1046189872618">
+               <ejb-relationship-role-name>order</ejb-relationship-role-name>
+               <multiplicity>Many</multiplicity>
+               <relationship-role-source id="RoleSource_1055372032102">
+                  <ejb-name>OrderItem</ejb-name>
+               </relationship-role-source>
+               <cmr-field id="CMRField_1055372032102">
+                  <cmr-field-name>order</cmr-field-name>
+               </cmr-field>
+            </ejb-relationship-role>
+            <ejb-relationship-role id="EJBRelationshipRole_1046189872698">
+               <ejb-relationship-role-name>orderitem</ejb-relationship-role-name>
+               <multiplicity>One</multiplicity>
+               <relationship-role-source id="RoleSource_1055372032103">
+                  <ejb-name>Order</ejb-name>
+               </relationship-role-source>
+               <cmr-field id="CMRField_1055372032103">
+                  <cmr-field-name>orderitem</cmr-field-name>
+                  <cmr-field-type>java.util.Collection</cmr-field-type>
+               </cmr-field>
+            </ejb-relationship-role>
+         </ejb-relation>
+      </relationships>
+      <assembly-descriptor id="AssemblyDescriptor_1">
+         <security-role id="SecurityRole_1055372032112">
+            <description>Samples Administrator</description>
+            <role-name>SampAdmin</role-name>
+         </security-role>
+         <method-permission id="MethodPermission_1055553141418">
+            <role-name>SampAdmin</role-name>
+            <method id="MethodElement_1055553141432">
+               <ejb-name>BackOrderStock</ejb-name>
+               <method-intf>Remote</method-intf>
+               <method-name>deleteBackOrder</method-name>
+               <method-params>
+                  <method-param>java.lang.String</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1055553141433">
+               <ejb-name>BackOrderStock</ejb-name>
+               <method-intf>Remote</method-intf>
+               <method-name>orderStock</method-name>
+               <method-params>
+                  <method-param>java.lang.String</method-param>
+                  <method-param>int</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1055553141436">
+               <ejb-name>BackOrderStock</ejb-name>
+               <method-intf>Remote</method-intf>
+               <method-name>updateStock</method-name>
+               <method-params>
+                  <method-param>java.lang.String</method-param>
+                  <method-param>int</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1065538692337">
+               <ejb-name>BackOrderStock</ejb-name>
+               <method-intf>Remote</method-intf>
+               <method-name>receiveConfirmation</method-name>
+               <method-params>
+                  <method-param>java.lang.String</method-param>
+               </method-params>
+            </method>
+         </method-permission>
+         <method-permission id="MethodPermission_1055553141438">
+            <role-name>SampAdmin</role-name>
+            <method id="MethodElement_1055553141445">
+               <ejb-name>BackOrder</ejb-name>
+               <method-intf>Home</method-intf>
+               <method-name>remove</method-name>
+            </method>
+            <method id="MethodElement_1055553141446">
+               <ejb-name>BackOrder</ejb-name>
+               <method-intf>Home</method-intf>
+               <method-name>remove</method-name>
+               <method-params>
+                  <method-param>java.lang.Object</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1055553141447">
+               <ejb-name>BackOrder</ejb-name>
+               <method-intf>Home</method-intf>
+               <method-name>remove</method-name>
+               <method-params>
+                  <method-param>javax.ejb.Handle</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1055553141448">
+               <ejb-name>BackOrder</ejb-name>
+               <method-intf>LocalHome</method-intf>
+               <method-name>remove</method-name>
+               <method-params>
+                  <method-param>java.lang.Object</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1055553141449">
+               <ejb-name>BackOrder</ejb-name>
+               <method-intf>Local</method-intf>
+               <method-name>remove</method-name>
+               <method-params/>
+            </method>
+            <method id="MethodElement_1055553141450">
+               <ejb-name>BackOrder</ejb-name>
+               <method-name>remove</method-name>
+               <method-params>
+                  <method-param>java.lang.Object</method-param>
+               </method-params>
+            </method>
+         </method-permission>
+         <method-permission>
+         	<role-name>SampAdmin</role-name>
+         	<method>
+         		<ejb-name>ResetDB</ejb-name>
+         		<method-name>*</method-name>
+         	</method>
+         </method-permission>
+         <container-transaction id="MethodTransaction_1">
+            <method id="MethodElement_1055553141451">
+               <ejb-name>BackOrder</ejb-name>
+               <method-name>*</method-name>
+            </method>
+            <method id="MethodElement_1055553141452">
+               <ejb-name>BackOrderStock</ejb-name>
+               <method-name>*</method-name>
+            </method>
+            <method id="MethodElement_5">
+               <ejb-name>Catalog</ejb-name>
+               <method-name>*</method-name>
+            </method>
+            <method id="MethodElement_3">
+               <ejb-name>Customer</ejb-name>
+               <method-name>*</method-name>
+            </method>
+            <method id="MethodElement_1055372032149">
+               <ejb-name>IdGenerator</ejb-name>
+               <method-name>*</method-name>
+            </method>
+            <method id="MethodElement_1055372032134">
+               <ejb-name>Inventory</ejb-name>
+               <method-name>*</method-name>
+            </method>
+            <method id="MethodElement_1">
+               <ejb-name>Login</ejb-name>
+               <method-name>*</method-name>
+            </method>
+            <method id="MethodElement_6">
+               <ejb-name>Mailer</ejb-name>
+               <method-name>*</method-name>
+            </method>
+            <method id="MethodElement_1055372032132">
+               <ejb-name>Order</ejb-name>
+               <method-name>*</method-name>
+            </method>
+            <method id="MethodElement_1055372032133">
+               <ejb-name>OrderItem</ejb-name>
+               <method-name>*</method-name>
+            </method>
+            <method id="MethodElement_2">
+               <ejb-name>ShoppingCart</ejb-name>
+               <method-name>*</method-name>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+         </container-transaction>
+      </assembly-descriptor>
+   </ejb-jar>

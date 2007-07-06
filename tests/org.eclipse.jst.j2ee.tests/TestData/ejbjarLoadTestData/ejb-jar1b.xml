@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ejb-jar_ID" version="3.0" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd">
+      <description>Contains the PlantsByWebSphere EJB</description>
+      <display-name>PlantsByWebSphere EJB Module</display-name>
+      <enterprise-beans>
+        <entity id="ContainerManagedEntity_1">
+            <description>Customer entity bean</description>
+            <ejb-name>Customer</ejb-name>
+            <local-home>com.ibm.websphere.samples.plantsbywebsphereejb.CustomerHome</local-home>
+            <local>com.ibm.websphere.samples.plantsbywebsphereejb.Customer</local>
+            <ejb-class>com.ibm.websphere.samples.plantsbywebsphereejb.CustomerBean</ejb-class>
+            <persistence-type>Container</persistence-type>
+            <prim-key-class>com.ibm.websphere.samples.plantsbywebsphereejb.CustomerKey</prim-key-class>
+            <reentrant>false</reentrant>
+            <cmp-version>2.x</cmp-version>
+            <abstract-schema-name>Customer</abstract-schema-name>
+            <cmp-field id="Customer_customerID">
+               <field-name>customerID</field-name>
+            </cmp-field>
+            <query>
+            	<description/>
+            	<query-method>
+            		<method-name>findByPrimaryKeyUpdate</method-name>
+            		<method-params>
+            			<method-param>java.lang.String</method-param>
+            		</method-params>
+            	</query-method>
+            	<ejb-ql>select object(o) from Customer o where  o.customerID = ?1</ejb-ql>
+            </query>
+         </entity>
+     </enterprise-beans>
+</ejb-jar>
+
