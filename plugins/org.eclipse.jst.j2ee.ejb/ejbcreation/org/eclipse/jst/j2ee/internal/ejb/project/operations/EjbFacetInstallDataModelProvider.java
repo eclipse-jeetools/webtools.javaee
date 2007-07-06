@@ -23,16 +23,11 @@ import org.eclipse.jst.j2ee.project.facet.J2EEModuleFacetInstallDataModelProvide
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModelProviderNew;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
-import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 public class EjbFacetInstallDataModelProvider
 		extends J2EEModuleFacetInstallDataModelProvider 
 		implements IEjbFacetInstallDataModelProperties{
 
-	public static final IProjectFacetVersion EJB_11 = ProjectFacetsManager.getProjectFacet(EJB).getVersion("1.1"); //$NON-NLS-1$
-	public static final IProjectFacetVersion EJB_20 = ProjectFacetsManager.getProjectFacet(EJB).getVersion("2.0"); //$NON-NLS-1$
-	public static final IProjectFacetVersion EJB_21 = ProjectFacetsManager.getProjectFacet(EJB).getVersion("2.1"); //$NON-NLS-1$	
-	
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
 		names.add(CONFIG_FOLDER);
@@ -62,7 +57,11 @@ public class EjbFacetInstallDataModelProvider
 			String projectName = model.getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
 			return projectName + IJ2EEModuleConstants.JAR_EXT; 
 		} else if (propertyName.equals(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)) {
-			return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EJB_GENERATE_DD));
+			IProjectFacetVersion facetVersion = (IProjectFacetVersion)getProperty(FACET_VERSION);
+			if(facetVersion == EJB_30){
+				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EJB_GENERATE_DD));
+			}
+			return Boolean.TRUE;
 		}
 		return super.getDefaultProperty(propertyName);
 	}
