@@ -11,11 +11,15 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 
+import junit.framework.Assert;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.j2ee.dependency.tests.util.ProjectUtil;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentImportDataModelProvider;
+import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
+import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.ProjectUtility;
@@ -53,11 +57,67 @@ public class WebImportOperationTest extends ModuleImportOperationTestCase {
 		String warPath = null;
 		for (Iterator iter = projects.iterator(); iter.hasNext();) {
 			String path = (String) iter.next();
-			if (path.indexOf("WebContainerClientApp.war") != -1)
+			if (path.indexOf("WebContainerClientApp.war") != -1){
 				warPath = path;
+				break;
+			}	
 		}
 		String projectName = warPath.substring(warPath.lastIndexOf(File.separator) + 1, warPath.length() - 4);
 		testImport(projectName,warPath);
 		
+	}
+	
+	public void test192752() throws Exception {
+		String warPath = null;
+		String projectName = null;
+		WebArtifactEdit webArtifactEditForRead = null;
+		
+		warPath = getWarFile("InvalidWebXML1.war");
+		projectName = warPath.substring(warPath.lastIndexOf(File.separator) + 1, warPath.length() - 4);
+		testImport(projectName,warPath);
+		webArtifactEditForRead = WebArtifactEdit.getWebArtifactEditForRead(ProjectUtil.getProject(projectName));
+		checkIfModelIsParsed(webArtifactEditForRead.getWebApp());
+
+		warPath = getWarFile("InvalidWebXML2.war");
+		projectName = warPath.substring(warPath.lastIndexOf(File.separator) + 1, warPath.length() - 4);
+		testImport(projectName,warPath);
+		webArtifactEditForRead = WebArtifactEdit.getWebArtifactEditForRead(ProjectUtil.getProject(projectName));
+		checkIfModelIsParsed(webArtifactEditForRead.getWebApp());
+
+		warPath = getWarFile("InvalidWebXML14_1.war");
+		projectName = warPath.substring(warPath.lastIndexOf(File.separator) + 1, warPath.length() - 4);
+		testImport(projectName,warPath);
+		webArtifactEditForRead = WebArtifactEdit.getWebArtifactEditForRead(ProjectUtil.getProject(projectName));
+		checkIfModelIsParsed(webArtifactEditForRead.getWebApp());
+
+		warPath = getWarFile("InvalidWebXML14_2.war");
+		projectName = warPath.substring(warPath.lastIndexOf(File.separator) + 1, warPath.length() - 4);
+		testImport(projectName,warPath);
+		webArtifactEditForRead = WebArtifactEdit.getWebArtifactEditForRead(ProjectUtil.getProject(projectName));
+		checkIfModelIsParsed(webArtifactEditForRead.getWebApp());
+
+}
+
+	private String getWarFile(String fileName) {
+		// Test for defect: 192752
+		List projects = getImportableArchiveFileNames();
+		String warPath = null;
+		for (Iterator iter = projects.iterator(); iter.hasNext();) {
+			String path = (String) iter.next();
+			if (path.indexOf(fileName) != -1){
+				warPath = path;
+				break;
+			}
+		}
+		return warPath;
+	}
+	
+	private void checkIfModelIsParsed(WebApp deploymentDescriptor1) {
+		// tests to ensure model is usable to a degree
+		Assert.assertNotNull(deploymentDescriptor1);
+		Assert.assertNotNull(deploymentDescriptor1.getConstraints());
+		Assert.assertFalse(deploymentDescriptor1.getConstraints().isEmpty());
+		Assert.assertNotNull(deploymentDescriptor1.getSecurityRoles());
+		Assert.assertFalse(deploymentDescriptor1.getSecurityRoles().isEmpty());
 	}
 }
