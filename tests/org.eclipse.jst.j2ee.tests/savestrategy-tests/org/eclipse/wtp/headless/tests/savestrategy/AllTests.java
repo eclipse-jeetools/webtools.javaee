@@ -24,12 +24,9 @@ public class AllTests extends TestSuite {
 	}
 
 	public AllTests() {
-		super("WEB Tests");
+		super("Save Strategy Tests");
 		addTest(new SimpleTestSuite(WebSaveStrategyTests.class));
 		addTest(new SimpleTestSuite(AppClientSaveStrategyTests.class));
-		addTest(new SimpleTestSuite(AppClientImportOperationTest.class));
-		addTest(new SimpleTestSuite(EJBImportOperationTest.class));
-		addTest(new SimpleTestSuite(WebImportOperationTest.class));
 		addTest(new SimpleTestSuite(ThreadingTest.class));
 	}
 

@@ -16,194 +16,199 @@
  */
 package org.eclipse.wtp.j2ee.headless.tests.appclient.operations;
 
-import junit.framework.Assert;
 import junit.framework.Test;
+import junit.framework.TestSuite;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientFacetProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IAppClientFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
-import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
-import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
-import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetInstallDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.project.facet.core.IFacetedProject;
-import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
-import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
-import org.eclipse.wst.common.tests.SimpleTestSuite;
+import org.eclipse.wst.common.tests.OperationTestCase;
+import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.JavaEEFacetConstants;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleProjectCreationOperationTest;
 
 /**
  * @author jsholl
- *
- * To change the template for this generated type comment go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
+ * @author Ian Tewksbury (ictewksb@us.ibm.com)
  */
-public class AppClientProjectCreationOperationTest extends ModuleProjectCreationOperationTest {
-
-    public static String DEFAULT_PROJECT_NAME = "SimpleAppClient";
-    
-    /**
-	 * @param name
-	 */
+public class AppClientProjectCreationOperationTest extends ModuleProjectCreationOperationTest {	
+	public AppClientProjectCreationOperationTest() {
+		super("AppClientProjectCreationOperationTests");
+	}
+	
 	public AppClientProjectCreationOperationTest(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
 	}
-
-	public static Test suite() {
-        return new SimpleTestSuite(AppClientProjectCreationOperationTest.class);
+	
+    public static Test suite() {
+        TestSuite suite = new TestSuite();
+        suite.addTestSuite(AppClientProjectCreationOperationTest.class);
+        return suite;
     }
-
-    public IDataModel getComponentCreationDataModel() {
-        return DataModelFactory.createDataModel(IAppClientFacetInstallDataModelProperties.class);
+ 
+    public void testAC12_Defaults() throws Exception{
+    	IDataModel dm = getAppClientCreationDataModel("randomApp", null, JavaEEFacetConstants.APP_CLIENT_12, true, true);
+    	OperationTestCase.runAndVerify(dm);
     }
     
-    public IDataModel getComponentCreationDataModelWithEar() {
-        IDataModel model =  getComponentCreationDataModel();
-        FacetDataModelMap map = (FacetDataModelMap) model.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-        IDataModel facetDM = map.getFacetDataModel(IAppClientFacetInstallDataModelProperties.APPLICATION_CLIENT);
-        facetDM.setBooleanProperty( IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, true );
-        return model;
-    } 
-    public void testUsingPublicAPI() throws Exception {
-		IDataModel dataModel = DataModelFactory.createDataModel(IAppClientFacetInstallDataModelProperties.class);
-
-		String projName = "TestAPIAppClientProject";//$NON-NLS-1$
-		String appVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.J2EE_1_4_ID);
-		IProjectFacet appFacet = ProjectFacetsManager.getProjectFacet(IAppClientFacetInstallDataModelProperties.APPLICATION_CLIENT);
-		IProjectFacetVersion appFacetVersion = appFacet.getVersion(appVersionString); //$NON-NLS-1$
-
-		addAppProjectProperties(dataModel, projName, appFacetVersion);
-		
-		dataModel.getDefaultOperation().execute( new NullProgressMonitor(), null);
-
-		validateAppProjectProperties(projName, appFacetVersion);
-		
-		validateAppDescriptorProperties(projName);		
+    public void testAC13_Defaults() throws Exception {
+    	IDataModel dm = getAppClientCreationDataModel("coolApp", null, JavaEEFacetConstants.APP_CLIENT_13, true, true);
+    	OperationTestCase.runAndVerify(dm);
     }
-
-    public void testUsingPublicAPIApp50() throws Exception {
-		IDataModel dataModel = DataModelFactory.createDataModel(IAppClientFacetInstallDataModelProperties.class);
-
-		String projName = "TestAPIAppClientProject";//$NON-NLS-1$
-		String appVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.JEE_5_0_ID);
-		IProjectFacet appFacet = ProjectFacetsManager.getProjectFacet(IAppClientFacetInstallDataModelProperties.APPLICATION_CLIENT);
-		IProjectFacetVersion appFacetVersion = appFacet.getVersion(appVersionString); //$NON-NLS-1$
-
-		addAppProjectProperties(dataModel, projName, appFacetVersion);
-		
-		dataModel.getDefaultOperation().execute( new NullProgressMonitor(), null);
-
-		validateAppProjectProperties(projName, appFacetVersion);
-		
+    
+    public void testAC14_Defaults() throws Exception {
+    	IDataModel dm = getAppClientCreationDataModel("awesomeApp", null, JavaEEFacetConstants.APP_CLIENT_14, true, true);
+    	OperationTestCase.runAndVerify(dm);
     }
-
-    public void testUsingPublicAPIApp50WithAddToEar() throws Exception {
-		IDataModel dataModel = DataModelFactory.createDataModel(IAppClientFacetInstallDataModelProperties.class);
-
-		String projName = "TestAPIAppClientProject";//$NON-NLS-1$
-		String appVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.JEE_5_0_ID);
-		IProjectFacet appFacet = ProjectFacetsManager.getProjectFacet(IAppClientFacetInstallDataModelProperties.APPLICATION_CLIENT);
-		IProjectFacetVersion appFacetVersion = appFacet.getVersion(appVersionString); //$NON-NLS-1$
-
-		addAppProjectProperties(dataModel, projName, appFacetVersion);
-		
-		String earProjName =  projName + "EAR"; //$NON-NLS-1$
-		
-		addEARProperties(dataModel, earProjName);
-		
-		dataModel.getDefaultOperation().execute( new NullProgressMonitor(), null);
-
-		validateAppProjectProperties(projName, appFacetVersion);
-		
-		validateEARProjectProperties(earProjName, appVersionString);
-
+    
+    public void testAC50_Defaults() throws Exception {
+    	IDataModel dm = getAppClientCreationDataModel("amazingApp", null, JavaEEFacetConstants.APP_CLIENT_5, true, false);
+    	OperationTestCase.runAndVerify(dm);
     }
-	private void addEARProperties(IDataModel dataModel, String earProjName) {
-		dataModel.setBooleanProperty(IJ2EEFacetProjectCreationDataModelProperties.ADD_TO_EAR, true);
-		
-		dataModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME, earProjName);
-	}
-
-	private void validateEARProjectProperties(String earProjName, String earFacetVersionString) throws CoreException {
-		// Test if ear exists
-		IProject earProj = ResourcesPlugin.getWorkspace().getRoot().getProject(earProjName);
-		Assert.assertTrue(earProj.exists());		
-		IVirtualComponent earComponent = ComponentCore.createComponent(earProj);
-		Assert.assertNotNull(earComponent);
-		if (earComponent != null)
-		Assert.assertNotNull(earComponent.getName());
-		IVirtualReference[] references = earComponent.getReferences();
-		Assert.assertNotNull(references);
-		
-		// Test if ear facet version is right
-		IProjectFacet earFacet = ProjectFacetsManager.getProjectFacet(IAppClientFacetInstallDataModelProperties.ENTERPRISE_APPLICATION);
-		IProjectFacetVersion earFacetVersion = earFacet.getVersion(earFacetVersionString); //$NON-NLS-1$
-		
-		IFacetedProject facetedEARProject = ProjectFacetsManager.create(earProj);
-		Assert.assertTrue(facetedEARProject.hasProjectFacet(earFacetVersion));
-	}
-
-    private void validateAppDescriptorProperties(String projName) {
-		// Test if op worked
-		IProject proj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
-		
-		
-		// does underlying file for deployment descriptor exist
-		IVirtualComponent component = ComponentCore.createComponent(proj);
-		IFile deploymentDescriptorFile = component.getRootFolder().getFile(J2EEConstants.APP_CLIENT_DD_URI).getUnderlyingFile();
-		
-		Assert.assertTrue(deploymentDescriptorFile.exists());
-
-		// is it a valid artifact
-
-		
-		AppClientArtifactEdit appClient = AppClientArtifactEdit.getAppClientArtifactEditForRead(proj);
-		Assert.assertNotNull(appClient);
-		if (appClient != null)
-		Assert.assertNotNull(appClient.getApplicationClient());
-	}
-  
-	private void validateAppProjectProperties(String projName,
-			IProjectFacetVersion appFacetVersion) throws CoreException {
-		// Test if op worked
-		IProject proj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
-		Assert.assertTrue(proj.exists());
-		IVirtualComponent component = ComponentCore.createComponent(proj);
-		Assert.assertNotNull(component);
-		if (component != null)
-		Assert.assertNotNull(component.getName());
-		Assert.assertTrue(proj.exists(new Path("/appcc333")));
-
-		// Test if facet is right version
-		IFacetedProject facetedProject = ProjectFacetsManager.create(proj);
-		Assert.assertTrue(facetedProject.hasProjectFacet(appFacetVersion));
-	}
-
-	private void addAppProjectProperties(IDataModel dataModel, String projName, IProjectFacetVersion appFacetVersion){
-
-		dataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, projName);
-		FacetDataModelMap map = (FacetDataModelMap) dataModel
-				.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-		IDataModel appmodel = (IDataModel) map.get(IAppClientFacetInstallDataModelProperties.APPLICATION_CLIENT);
-		appmodel.setProperty(IFacetInstallDataModelProperties.FACET_VERSION, appFacetVersion);
-		appmodel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER,"appcc333"); //$NON-NLS-1$
+    
+    public void testAC12_NoDefaultClass() throws Exception{
+    	IDataModel dm = getAppClientCreationDataModel("randomApp", null, JavaEEFacetConstants.APP_CLIENT_12, false, true);
+    	OperationTestCase.runAndVerify(dm);
     }
-
+    
+    public void testAC13_NoDefaultClass() throws Exception {
+    	IDataModel dm = getAppClientCreationDataModel("coolApp", null, JavaEEFacetConstants.APP_CLIENT_13, false, true);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testAC14_NoDefaultClass() throws Exception {
+    	IDataModel dm = getAppClientCreationDataModel("awesomeApp", null, JavaEEFacetConstants.APP_CLIENT_14, false, true);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testAC50_NoDefaultClass() throws Exception {
+    	IDataModel dm = getAppClientCreationDataModel("amazingApp", null, JavaEEFacetConstants.APP_CLIENT_5, false, false);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testAC12_AddToEAR() throws Exception {
+    	IDataModel dm = getAppClientCreationDataModel("fooAppToEar", "someEar", JavaEEFacetConstants.APP_CLIENT_12, true, true);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testAC13_AddToEAR() throws Exception {
+    	IDataModel dm = getAppClientCreationDataModel("fooAppToEar", "coolEar", JavaEEFacetConstants.APP_CLIENT_13, true, true);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testAC14_AddToEAR() throws Exception {
+    	IDataModel dm = getAppClientCreationDataModel("fooAppToEar", "sweetEar", JavaEEFacetConstants.APP_CLIENT_14, true, true);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testAC50_AddToEAR() throws Exception {
+    	IDataModel dm = getAppClientCreationDataModel("fooAppToEar", "netoEar", JavaEEFacetConstants.APP_CLIENT_5, true, false);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testAC12_InterestingName() throws Exception{
+    	IDataModel dm = getAppClientCreationDataModel("kd3(2k_djfD3", null, JavaEEFacetConstants.APP_CLIENT_12, true, true);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testAC13_InterestingName() throws Exception{
+    	IDataModel dm = getAppClientCreationDataModel("a_dD3dj8)f7", null, JavaEEFacetConstants.APP_CLIENT_13, true, true);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testAC14_InterestingName() throws Exception{
+    	IDataModel dm = getAppClientCreationDataModel("_Jid7dh)3a", null, JavaEEFacetConstants.APP_CLIENT_14, true, true);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testAC50_InterestingName() throws Exception{
+    	IDataModel dm = getAppClientCreationDataModel("a_1B2c()3D4", null, JavaEEFacetConstants.APP_CLIENT_5, true, false);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testAC12_AddToEAR_InterestingName() throws Exception{
+    	IDataModel dm = getAppClientCreationDataModel("kd(32k_djfD)3", "hFdf(8G_Fij))3", JavaEEFacetConstants.APP_CLIENT_12, true, true);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testAC13_AddToEAR_InterestingName() throws Exception{
+    	IDataModel dm = getAppClientCreationDataModel("adD__3dj8)df7", "(53_hdj(f8HD", JavaEEFacetConstants.APP_CLIENT_13, true, true);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testAC14_AddToEAR_InterestingName() throws Exception{
+    	IDataModel dm = getAppClientCreationDataModel("J_id7((dh3a_", "d_3Dk)j(f8", JavaEEFacetConstants.APP_CLIENT_14, true, true);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testAC50_AddToEAR_InterestingName() throws Exception{
+    	IDataModel dm = getAppClientCreationDataModel("a1B_2c)3D4", "4D_3c2)B1a", JavaEEFacetConstants.APP_CLIENT_5, true, false);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testAC50_WithDD() throws Exception {
+    	IDataModel dm = getAppClientCreationDataModel("insaneApp", null, JavaEEFacetConstants.APP_CLIENT_5, true, true);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testAC50_NoDefaultClass_WithDD() throws Exception {
+    	IDataModel dm = getAppClientCreationDataModel("insaneApp", null, JavaEEFacetConstants.APP_CLIENT_5, false, true);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testAC50_AddToEAR_WithDD() throws Exception {
+    	IDataModel dm = getAppClientCreationDataModel("appToEARwithDD", "bigEAR", JavaEEFacetConstants.APP_CLIENT_5, true, true);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testAC50_AddToEAR_InterestingName_WithDD() throws Exception {
+    	IDataModel dm = getAppClientCreationDataModel("D875)_DFj", "7D_3cF2)BaQ", JavaEEFacetConstants.APP_CLIENT_5, true, true);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    /**
+     * Creates and returns an Application Client Data Model with the given name and of the given version.
+     * If earName is not null then AppClient will be added to the EAR with earName, and if appropriate
+     * with or without a deployment descriptor.
+     * 
+     * @param projName name of the project to create
+     * @param earName name of the ear to add the project too, if NULL then don't add to an EAR
+     * @param version version of Application Client to use
+     * @param createDefaultMainClass if true then create default main class, else don't
+     * @param createDD only used if version is JEE5, if true then create DD else don't
+     * @return an Application Data Model with the appropriate properties set
+     */
+    public static IDataModel getAppClientCreationDataModel(String projName, String earName, IProjectFacetVersion version, boolean createDefaultMainClass, boolean createDD){
+    	IDataModel dm = DataModelFactory.createDataModel(new AppClientFacetProjectCreationDataModelProvider());
+    	dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, projName);
+    	
+    	if(earName != null) {
+        	dm.setProperty(IJ2EEFacetProjectCreationDataModelProperties.ADD_TO_EAR, true);
+        	dm.setProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME, earName);
+    	} else {
+    		dm.setProperty(IJ2EEFacetProjectCreationDataModelProperties.ADD_TO_EAR, false);
+    	}
+    	
+    	FacetDataModelMap facetMap = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+        IDataModel facetModel = facetMap.getFacetDataModel(J2EEProjectUtilities.APPLICATION_CLIENT);
+        facetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, version);
+        facetModel.setProperty(IAppClientFacetInstallDataModelProperties.CREATE_DEFAULT_MAIN_CLASS, createDefaultMainClass);
+        
+        //this option only exists if JEE5
+        if(version == JavaEEFacetConstants.APP_CLIENT_5){
+            facetModel.setBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, createDD);
+            
+            IDataModel javaFacetModel = facetMap.getFacetDataModel(J2EEProjectUtilities.JAVA);
+            javaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaEEFacetConstants.JAVA_5);
+        }
+        
+    	return dm;
+    }
 }

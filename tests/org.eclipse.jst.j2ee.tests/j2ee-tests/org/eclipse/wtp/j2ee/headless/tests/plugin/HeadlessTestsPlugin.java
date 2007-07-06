@@ -6,6 +6,9 @@ import java.util.ResourceBundle;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.wst.common.tests.DataModelVerifierFactory;
+import org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.DataModelVerifierListGenerator;
+import org.osgi.framework.BundleContext;
 
 /**
  * The main plugin class to be used in the desktop.
@@ -55,7 +58,15 @@ public class HeadlessTestsPlugin extends Plugin {
 			return key;
 		}
 	}
-
+	
+	@Override
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
+		
+		//needed so that jee operation tests will verify correctly
+		DataModelVerifierFactory.getInstance().addToDataModelVerifiersMap(DataModelVerifierListGenerator.getVerifiers());
+	}
+	
 	/**
 	 * Returns the plugin's resource bundle,
 	 */

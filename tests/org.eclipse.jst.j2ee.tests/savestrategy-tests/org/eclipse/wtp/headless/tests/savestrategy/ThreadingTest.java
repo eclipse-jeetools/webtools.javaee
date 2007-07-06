@@ -31,10 +31,11 @@ import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentImportDa
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
 
-public class ThreadingTest extends ModuleImportOperationTestCase {
+public class ThreadingTest extends OperationTestCase {
 
 	public final String WEB_TESTS_PATH;
 

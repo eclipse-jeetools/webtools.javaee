@@ -46,7 +46,6 @@ public class AllPluginTests extends TestSuite {
 
     public AllPluginTests() {
         super();
-		org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.DataModelVerifierFactory.getInstance();
 	      addTest(org.eclipse.wtp.j2ee.headless.tests.ejb.operations.AllTests.suite());
 	      addTest(org.eclipse.wtp.j2ee.headless.tests.web.operations.AllTests.suite());
 	      addTest(org.eclipse.wtp.j2ee.headless.tests.jca.operations.AllTests.suite());
