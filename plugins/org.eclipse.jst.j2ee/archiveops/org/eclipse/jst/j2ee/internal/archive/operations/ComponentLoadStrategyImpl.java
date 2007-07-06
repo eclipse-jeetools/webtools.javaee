@@ -508,7 +508,8 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		Iterator iterator = resources.iterator();
 		while (iterator.hasNext()) {
 			Resource res = (Resource) iterator.next();
-			if (res.getURI().toString().endsWith(IModuleConstants.COMPONENT_FILE_NAME))
+			//only remove component files that are in the settings directory
+			if (res.getURI().toString().endsWith(IModuleConstants.COMPONENT_FILE_NAME) && res.getURI().segmentsList().contains(IModuleConstants.DOT_SETTINGS))
 				resourcesToRemove.add(res);
 		}
 		if (null != resourcesToRemove) {
