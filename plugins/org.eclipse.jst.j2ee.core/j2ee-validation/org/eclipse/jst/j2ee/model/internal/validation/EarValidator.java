@@ -808,7 +808,7 @@ public class EarValidator extends J2EEValidator  {
 	 */
 	private void validateMessageDestinationRefs(ModuleRef moduleRef) {
 		List destinationsRefs = getMessageDestinationRefs(moduleRef);
-		clearUpSubTaskMessageDestinationMessages(destinationsRefs);
+		clearUpSubTaskMessageDestinationMessages(moduleRef,destinationsRefs);
 		for (int refNo = 0; refNo < destinationsRefs.size(); refNo++) {
 			MessageDestinationRef ref = (MessageDestinationRef) (destinationsRefs.get(refNo));
 			String link =  ref.getLink() ;
@@ -833,7 +833,13 @@ public class EarValidator extends J2EEValidator  {
 	}
 	
 	
-	private void clearUpSubTaskMessageDestinationMessages(List destinationsRefs) {
+	private void clearUpSubTaskMessageDestinationMessages(ModuleRef moduleRef, List destinationsRefs) {
+		try {
+			removeAllMessages(moduleRef.getDeploymentDescriptor(),MESSAGE_DESTINATION_REF_GROUP_NAME);
+		} catch (ArchiveWrappedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		for (int refNo = 0; refNo < destinationsRefs.size(); refNo++) {
 			MessageDestinationRef ref = (MessageDestinationRef) (destinationsRefs.get(refNo));
 			removeAllMessages(ref,MESSAGE_DESTINATION_REF_GROUP_NAME);
