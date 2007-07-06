@@ -135,7 +135,6 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 				addOKStatus(dep.getClass().getName());
 			} catch (CoreException ex) {
 				Logger.getLogger().logError(ex);
-				monitor.setCanceled(true);
 				Throwable statusException = (ex.getStatus().getException() != null) ? ex.getStatus().getException() : ex;
 				addErrorStatus(ex.getStatus(), dep.getClass().getName(), statusException);
 				continue;
