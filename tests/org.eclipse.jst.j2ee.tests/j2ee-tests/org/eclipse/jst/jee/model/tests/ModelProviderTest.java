@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
+import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.archive.emftests.GeneralEMFPopulationTest;
@@ -41,8 +42,9 @@ import org.eclipse.jst.j2ee.earcreation.IEarFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.project.operations.IEjbFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.facet.IAppClientFacetInstallDataModelProperties;
@@ -367,7 +369,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 		dataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, projName);
 		FacetDataModelMap map = (FacetDataModelMap) dataModel
 				.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-		map.add(setupJavaInstallAction(projName,CreationConstants.DEFAULT_WEB_SOURCE_FOLDER));
+		map.add(setupJavaInstallAction(projName,CommonFrameworksPlugin.getDefault().getPluginPreferences().getString(CommonFrameworksPlugin.DEFAULT_SOURCE_FOLDER)));
 		dataModel.getDefaultOperation().execute( new NullProgressMonitor(), null);
 		IProject webProj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
 		return webProj;
@@ -382,7 +384,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 		dataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, projName);
 		FacetDataModelMap map = (FacetDataModelMap) dataModel
 				.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-		map.add(setupJavaInstallAction(projName,CreationConstants.DEFAULT_EJB_SOURCE_FOLDER));
+		map.add(setupJavaInstallAction(projName,J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.EJB_CONTENT_FOLDER)));
 		dataModel.getDefaultOperation().execute( new NullProgressMonitor(), null);
 		IProject webProj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
 		return webProj;
@@ -409,7 +411,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 		dataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, projName);
 		FacetDataModelMap map = (FacetDataModelMap) dataModel
 				.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-		map.add(setupJavaInstallAction(projName,CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER));
+		map.add(setupJavaInstallAction(projName,J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.APP_CLIENT_CONTENT_FOLDER)));
 		dataModel.getDefaultOperation().execute( new NullProgressMonitor(), null);
 		IProject webProj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
 		return webProj;
