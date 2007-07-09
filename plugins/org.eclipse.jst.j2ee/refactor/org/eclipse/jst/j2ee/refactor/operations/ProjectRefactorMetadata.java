@@ -25,7 +25,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.model.IEARModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
@@ -142,19 +143,11 @@ public class ProjectRefactorMetadata {
 	}
 	
 	private String getModuleURI(final IProject earProject, final IVirtualComponent comp) {
-		EARArtifactEdit earEdit = null;
-		try {
-			earEdit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
-			if (earEdit != null) {
-				return earEdit.getModuleURI(comp); 
-			}
-		} catch (Exception e) {
-			Logger.getLogger().logError(e);
-		} finally {
-			if (earEdit != null) {
-				earEdit.dispose();
-			}
-		}
+		IEARModelProvider earModelProvider = null;
+		earModelProvider = (IEARModelProvider) ModelProviderManager.getModelProvider(earProject);
+		if (earModelProvider != null) {
+			return earModelProvider.getModuleURI(comp); 
+		}		
 		return null;
 	}
 	

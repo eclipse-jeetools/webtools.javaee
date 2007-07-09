@@ -22,8 +22,10 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.jee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.earcreation.IEarFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
+import org.eclipse.jst.j2ee.earcreation.IEarFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationOperation;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -57,10 +59,9 @@ public final class EarFacetPostInstallDelegate implements IDelegate {
 					IProject depProject = (IProject) iterator.next();
 					IVirtualComponent depComp = ComponentCore.createComponent(depProject);
 					if (depComp == null) {
-// TODO commenting this code due to compilation error						
-//						JavaProjectMigrationOperation utilOp = J2EEProjectUtilities.createFlexJavaProjectForProjectOperation(depProject);
-//						utilOp.execute(null, null);
-//						depComp = ComponentCore.createComponent(depProject);
+						JavaProjectMigrationOperation utilOp = J2EEProjectUtilities.createFlexJavaProjectForProjectOperation(depProject);
+						utilOp.execute(null, null);
+						depComp = ComponentCore.createComponent(depProject);
 					}
 
 					dependentComponents.add(depComp);
