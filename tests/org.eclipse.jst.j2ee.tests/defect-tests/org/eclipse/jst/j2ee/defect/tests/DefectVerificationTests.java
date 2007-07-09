@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.defect.tests;
 
+import java.io.File;
 import java.io.StringBufferInputStream;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -73,8 +74,10 @@ import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProp
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
+import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
@@ -97,10 +100,13 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
+import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebImportOperationTest;
 
 public class DefectVerificationTests extends OperationTestCase {
 
 	public static String BASE_DATA_DIRECTORY = System.getProperty("user.dir") + java.io.File.separatorChar + "DefectTestData" + java.io.File.separatorChar;
+	private static final String TEST_DATA_PATH = System.getProperty("user.dir") + java.io.File.separatorChar + "TestData" + java.io.File.separatorChar;
+	
 	
 	private static String getDataPath(String suffix) {
 		return BASE_DATA_DIRECTORY + "componentLoadAdapterTestData" + java.io.File.separatorChar + suffix;
@@ -708,6 +714,55 @@ public class DefectVerificationTests extends OperationTestCase {
 	    Assert.assertEquals(reference2.getArchiveName(), javaProjectURI);
 
 
+	}
+	
+	public void test192752() throws Exception {
+		String warPath = null;
+		String projectName = null;
+		WebArtifactEdit webArtifactEditForRead = null;
+		IDataModel model = null;
+		
+
+		warPath = getWarFile("InvalidWebXML1.war");
+		projectName = warPath.substring(warPath.lastIndexOf(File.separator) + 1, warPath.length() - 4);
+		model = WebImportOperationTest.getWebImportDataModel(warPath, projectName, null, null, true, null, null);
+		OperationTestCase.runAndVerify(model);
+		webArtifactEditForRead = WebArtifactEdit.getWebArtifactEditForRead(ProjectUtil.getProject(projectName));
+		checkIfModelIsParsed(webArtifactEditForRead.getWebApp());
+
+		warPath = getWarFile("InvalidWebXML2.war");
+		projectName = warPath.substring(warPath.lastIndexOf(File.separator) + 1, warPath.length() - 4);
+		model = WebImportOperationTest.getWebImportDataModel(warPath, projectName, null, null, true, null, null);
+		OperationTestCase.runAndVerify(model);
+		webArtifactEditForRead = WebArtifactEdit.getWebArtifactEditForRead(ProjectUtil.getProject(projectName));
+		checkIfModelIsParsed(webArtifactEditForRead.getWebApp());
+
+		warPath = getWarFile("InvalidWebXML14_1.war");
+		projectName = warPath.substring(warPath.lastIndexOf(File.separator) + 1, warPath.length() - 4);
+		model = WebImportOperationTest.getWebImportDataModel(warPath, projectName, null, null, true, null, null);
+		OperationTestCase.runAndVerify(model);
+		webArtifactEditForRead = WebArtifactEdit.getWebArtifactEditForRead(ProjectUtil.getProject(projectName));
+		checkIfModelIsParsed(webArtifactEditForRead.getWebApp());
+
+		warPath = getWarFile("InvalidWebXML14_2.war");
+		projectName = warPath.substring(warPath.lastIndexOf(File.separator) + 1, warPath.length() - 4);
+		model = WebImportOperationTest.getWebImportDataModel(warPath, projectName, null, null, true, null, null);
+		OperationTestCase.runAndVerify(model);
+		webArtifactEditForRead = WebArtifactEdit.getWebArtifactEditForRead(ProjectUtil.getProject(projectName));
+		checkIfModelIsParsed(webArtifactEditForRead.getWebApp());
+	}
+
+	private String getWarFile(String fileName) {
+		return TEST_DATA_PATH + "WarImportTests" + java.io.File.separatorChar + fileName;
+	}
+
+	private void checkIfModelIsParsed(WebApp deploymentDescriptor1) {
+		// tests to ensure model is usable to a degree
+		Assert.assertNotNull(deploymentDescriptor1);
+		Assert.assertNotNull(deploymentDescriptor1.getConstraints());
+		Assert.assertFalse(deploymentDescriptor1.getConstraints().isEmpty());
+		Assert.assertNotNull(deploymentDescriptor1.getSecurityRoles());
+		Assert.assertFalse(deploymentDescriptor1.getSecurityRoles().isEmpty());
 	}
 
 	
