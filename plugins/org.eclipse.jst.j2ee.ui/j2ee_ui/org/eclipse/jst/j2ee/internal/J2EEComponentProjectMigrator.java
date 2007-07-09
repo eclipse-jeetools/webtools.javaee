@@ -34,14 +34,16 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.jst.common.project.facet.WtpUtils;
-import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.IEjbFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.jca.project.facet.ConnectorFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDataModelProvider;
@@ -411,7 +413,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 			dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			FacetDataModelMap facetDMs = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-			facetDMs.add(setupJavaInstallAction(aProject,existing,CreationConstants.DEFAULT_CONNECTOR_SOURCE_FOLDER));
+			facetDMs.add(setupJavaInstallAction(aProject,existing,J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.JCA_CONTENT_FOLDER)));
 			IDataModel newModel = setupConnectorInstallAction(aProject,specVersion);
 			facetDMs.add(newModel);
 			try {
@@ -461,7 +463,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 			dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			FacetDataModelMap facetDMs = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-			facetDMs.add(setupJavaInstallAction(aProject,existing,CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER));
+			facetDMs.add(setupJavaInstallAction(aProject,existing,J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.APP_CLIENT_CONTENT_FOLDER)));
 			IDataModel newModel = setupAppClientInstallAction(aProject,specVersion);
 			facetDMs.add(newModel);
 			try {
@@ -487,7 +489,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 			dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, ejbProject2.getName());
 			FacetDataModelMap facetDMs = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-			facetDMs.add(setupJavaInstallAction(ejbProject2,existing,CreationConstants.DEFAULT_EJB_SOURCE_FOLDER));
+			facetDMs.add(setupJavaInstallAction(ejbProject2,existing,J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.EJB_CONTENT_FOLDER)));
 			IDataModel newModel = setupEjbInstallAction(ejbProject2,ejbVersion,existing);
 			facetDMs.add(newModel);
 			//setRuntime(ejbProject2,dm); //Setting runtime property
@@ -515,7 +517,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 			dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, webProj.getName());
 			FacetDataModelMap facetDMs = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-			facetDMs.add(setupJavaInstallAction(webProj,existing,CreationConstants.DEFAULT_WEB_SOURCE_FOLDER));
+			facetDMs.add(setupJavaInstallAction(webProj,existing, CommonFrameworksPlugin.getDefault().getPluginPreferences().getString(CommonFrameworksPlugin.DEFAULT_SOURCE_FOLDER)));
 			IDataModel newModel = setupWebInstallAction(webProj,specVersion);
 			facetDMs.add(newModel);
 			//setRuntime(webProj,dm); //Setting runtime property
@@ -617,7 +619,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			ejbFacetInstallDataModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR,false);
 			ejbFacetInstallDataModel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME,null);
 			if (!existing)
-				ejbFacetInstallDataModel.setProperty(IEjbFacetInstallDataModelProperties.CONFIG_FOLDER, CreationConstants.DEFAULT_EJB_SOURCE_FOLDER);
+				ejbFacetInstallDataModel.setProperty(IEjbFacetInstallDataModelProperties.CONFIG_FOLDER, J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.EJB_CONTENT_FOLDER));
 			return ejbFacetInstallDataModel;
 		}
 

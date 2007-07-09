@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.web.project.facet;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
@@ -43,7 +44,7 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 		if (propertyName.equals(CONFIG_FOLDER)) {
 			return J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.WEB_CONTENT_FOLDER);
 		} else if (propertyName.equals(SOURCE_FOLDER)) {
-			return "src"; //$NON-NLS-1$
+			return CommonFrameworksPlugin.getDefault().getPluginPreferences().getString(CommonFrameworksPlugin.DEFAULT_SOURCE_FOLDER);
 		} else if (propertyName.equals(CONTEXT_ROOT)) {
 			return getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
 		} else if (propertyName.equals(FACET_ID)) {
