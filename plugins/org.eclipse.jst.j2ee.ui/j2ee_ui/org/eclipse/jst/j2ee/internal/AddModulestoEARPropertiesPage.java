@@ -19,7 +19,6 @@ package org.eclipse.jst.j2ee.internal;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -611,7 +610,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		Object[] elements = availableComponentsViewer.getCheckedElements();
 		List list;
 		if (elements == null || elements.length == 0)
-			list = Collections.EMPTY_LIST;
+			list = new ArrayList(0); // Collections.EMPTY_LIST would cause UnsupportedOperationException when a later attempt to add to it is made
 		else {
 			list = new ArrayList();
 			for (int i = 0; i < elements.length; i++) {
@@ -627,7 +626,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		Object[] elements = availableComponentsViewer.getCheckedElements();
 		List list;
 		if (elements == null || elements.length == 0)
-			list = Collections.EMPTY_LIST;
+			list = new ArrayList(0); // Collections.EMPTY_LIST would cause UnsupportedOperationException when a later attempt to add to it is made
 		else {
 			list = new ArrayList();
 			for (int i = 0; i < elements.length; i++) {
