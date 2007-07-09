@@ -25,8 +25,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -88,7 +89,7 @@ public class DeployerRegistry {
 	}
 
 	/**
-	 * @return
+	 * @return a list of IVirtualComponent's
 	 */
 	public static List getSelectedModules(Object[] mySelections) {
 		List modules = new ArrayList();
@@ -99,23 +100,22 @@ public class DeployerRegistry {
 			}
 			if (object instanceof IProject) {
 				IVirtualComponent component = ComponentCore.createComponent((IProject)object);
-				EnterpriseArtifactEdit edit = null;
-				try {
-					edit = (EnterpriseArtifactEdit)ComponentUtilities.getArtifactEditForRead(component);
-					if (edit == null)
-						continue;
-					EObject root = edit.getDeploymentDescriptorRoot();
-					if (root == null || modules.contains(root))
-						continue;
-					// Order Ears first...
-					if (J2EEProjectUtilities.isEARProject(component.getProject()))
-						modules.add(0, root);
-					else
-						modules.add(root);
-				} finally {
-					if (edit != null)
-						edit.dispose();
-				}
+				IModelProvider modelProvider = null;
+					
+				modelProvider = ModelProviderManager.getModelProvider(component.getProject());
+				if (modelProvider == null)
+					continue;
+				// we just happen to know it
+				EObject root = (EObject) modelProvider.getModelObject();
+				
+				if (root == null || modules.contains(component))
+					continue;
+				// Order Ears first...
+				if (J2EEProjectUtilities.isEARProject(component.getProject()))
+					modules.add(0, component);
+				else
+					modules.add(component);
+			
 			}
 		}
 		return modules;
@@ -163,22 +163,32 @@ public class DeployerRegistry {
 	 */
 	public List getDeployModuleExtensions(EObject module, IRuntime runtime) {
 		IVirtualComponent comp = ComponentUtilities.findComponent(module);
+		return getDeployModuleExtensions(comp.getProject(), runtime);
+	}
+
+	/**
+	 * @param module
+	 * @param runtime
+	 * @return
+	 */
+	public List getDeployModuleExtensions(IProject project, IRuntime runtime) {
 		String typeID = ""; //$NON-NLS-1$
-		if (J2EEProjectUtilities.isEARProject(comp.getProject()))
+		if (J2EEProjectUtilities.isEARProject(project))
 			typeID = J2EEProjectUtilities.ENTERPRISE_APPLICATION;
-		else if (J2EEProjectUtilities.isApplicationClientProject(comp.getProject()))
+		else if (J2EEProjectUtilities.isApplicationClientProject(project))
 			typeID = J2EEProjectUtilities.APPLICATION_CLIENT;
-		else if (J2EEProjectUtilities.isDynamicWebProject(comp.getProject()))
+		else if (J2EEProjectUtilities.isDynamicWebProject(project))
 			typeID = J2EEProjectUtilities.DYNAMIC_WEB;
-		else if (J2EEProjectUtilities.isStaticWebProject(comp.getProject()))
+		else if (J2EEProjectUtilities.isStaticWebProject(project))
 			typeID = J2EEProjectUtilities.STATIC_WEB;
-		else if (J2EEProjectUtilities.isEJBProject(comp.getProject()))
+		else if (J2EEProjectUtilities.isEJBProject(project))
 			typeID = J2EEProjectUtilities.EJB;
-		else if (J2EEProjectUtilities.isJCAProject(comp.getProject()))
+		else if (J2EEProjectUtilities.isJCAProject(project))
 			typeID = J2EEProjectUtilities.JCA;
-		else if (J2EEProjectUtilities.isUtilityProject(comp.getProject()))
+		else if (J2EEProjectUtilities.isUtilityProject(project))
 			typeID = J2EEProjectUtilities.UTILITY;
 		String runtimeID = runtime.getRuntimeType().getId();
 		return getDeployers(typeID, runtimeID);
 	}
+
 }

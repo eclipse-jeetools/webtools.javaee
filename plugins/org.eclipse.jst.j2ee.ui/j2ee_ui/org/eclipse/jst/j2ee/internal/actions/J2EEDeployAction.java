@@ -25,8 +25,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -39,6 +37,7 @@ import org.eclipse.jst.j2ee.internal.dialogs.RuntimeSelectionDialog;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.internal.WTPResourceHandler;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.server.core.IRuntime;
@@ -112,10 +111,10 @@ public class J2EEDeployAction extends BaseAction {
 		try {
 			DeployerRegistry reg = DeployerRegistry.instance();
 
-			List modules = DeployerRegistry.getSelectedModules(selection.toArray());
-			for (int i = 0; i < modules.size(); i++) {
-				EObject module = (EObject) modules.get(i);
-				IProject proj = ProjectUtilities.getProject(module);
+			List components = DeployerRegistry.getSelectedModules(selection.toArray());
+			for (int i = 0; i < components.size(); i++) {
+				IVirtualComponent component = (IVirtualComponent) components.get(i);
+				IProject proj = component.getProject();
 				if (proj == null) {
 					displayMessageDialog(J2EEUIMessages.getResourceString("DEPLOY_PROJECT_NOT_FOUND") , shell);
 					return false;
@@ -135,7 +134,7 @@ public class J2EEDeployAction extends BaseAction {
 					if (runtime == null)
 						return false;
 				}
-				List visitors = reg.getDeployModuleExtensions(module, runtime);
+				List visitors = reg.getDeployModuleExtensions(proj, runtime);
 				if (visitors.isEmpty()) {
 					displayMessageDialog(MessageFormat.format(J2EEUIMessages.getResourceString("DEPLOY_PROJECT_NOT_SUPPORTED"), new String []{proj.getName()}), shell);
 					return false;
