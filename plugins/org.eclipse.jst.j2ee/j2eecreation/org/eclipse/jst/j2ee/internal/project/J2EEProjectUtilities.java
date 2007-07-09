@@ -858,8 +858,10 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 			}
 			if (found) {
 				IPath path = JavaCore.getClasspathVariable(classpathVar);
-				URI finaluri = URI.createURI(path.toOSString() + IPath.SEPARATOR + remainingPath);
-				return Path.fromOSString(finaluri.toString());
+				if (path != null ){
+					URI finaluri = URI.createURI(path.toOSString() + IPath.SEPARATOR + remainingPath);
+					return Path.fromOSString(finaluri.toString());
+				}
 			}
 		}
 		return null;
