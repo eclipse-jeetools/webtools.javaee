@@ -14,7 +14,6 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
@@ -44,9 +43,9 @@ public class EjbFacetInstallDataModelProvider
 		}else if (propertyName.equals(CREATE_CLIENT)) {
 			return getProperty(ADD_TO_EAR);
 		} else if (propertyName.equals(CLIENT_SOURCE_FOLDER)) {
-			return CreationConstants.DEFAULT_EJB_SOURCE_FOLDER;
+			return J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.EJB_CONTENT_FOLDER);
 		}else if (propertyName.equals(CONFIG_FOLDER)){
-			return CreationConstants.DEFAULT_EJB_SOURCE_FOLDER;
+			return J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.EJB_CONTENT_FOLDER);
 		}else if (propertyName.equals(CLIENT_NAME)){
 			String projectName = model.getStringProperty(FACET_PROJECT_NAME);
 			return projectName + "Client"; //$NON-NLS-1$ 
