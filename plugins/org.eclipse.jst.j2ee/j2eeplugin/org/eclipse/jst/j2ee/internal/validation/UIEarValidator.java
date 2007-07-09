@@ -29,6 +29,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
+import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -67,6 +68,7 @@ import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -236,6 +238,7 @@ public class UIEarValidator extends EarValidator {
 	}	
 
 	public ISchedulingRule getSchedulingRule(IValidationContext helper) {
+		ISchedulingRule combinedRule = null;
 		IProject project = ((IWorkbenchContext) helper).getProject();
 		IVirtualComponent comp = ComponentCore.createComponent( project );
 		IFile appDeploymentDescriptor = null;
@@ -243,9 +246,32 @@ public class UIEarValidator extends EarValidator {
 			IVirtualFile vf = comp.getRootFolder().getFile(new Path(J2EEConstants.APPLICATION_DD_URI));
 			if( vf!= null ){
 				appDeploymentDescriptor = vf.getUnderlyingFile();
+				combinedRule = MultiRule.combine(appDeploymentDescriptor, combinedRule);
 			}
+			IVirtualReference[] refs = comp.getReferences();
+			for( int i=0; i< refs.length; i++ ){
+				IVirtualComponent refComp = refs[i].getReferencedComponent();
+				if( refComp != null ){
+					String type = J2EEProjectUtilities.getJ2EEComponentType( refComp );
+					IVirtualFile refDDFile = null;
+					if( type.equals(IModuleConstants.JST_WEB_MODULE)){
+						refDDFile = refComp.getRootFolder().getFile(new Path(J2EEConstants.WEBAPP_DD_URI));
+					}else if ( type.equals(IModuleConstants.JST_CONNECTOR_MODULE)){
+						refDDFile = refComp.getRootFolder().getFile(new Path(J2EEConstants.RAR_DD_URI));
+					}else if( type.equals(IModuleConstants.JST_EJB_MODULE)){
+						refDDFile = refComp.getRootFolder().getFile(new Path(J2EEConstants.EJBJAR_DD_URI));
+					}else if( type.equals(IModuleConstants.JST_APPCLIENT_MODULE)){
+						refDDFile = refComp.getRootFolder().getFile(new Path(J2EEConstants.APPLICATION_DD_URI));
+					}
+					if( refDDFile!= null ){
+						IFile dd = refDDFile.getUnderlyingFile();
+						combinedRule = MultiRule.combine(dd, combinedRule);
+					}						
+				}
+			}
+			
 		}
-		return appDeploymentDescriptor;
+		return combinedRule;
 	}
 
 	public void validateDuplicateClasspathComponentURIs(final IVirtualComponent earComponent) {
