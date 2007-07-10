@@ -16,6 +16,7 @@ import junit.framework.TestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AppClientProjectCreationOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.ejb.operations.EJBProjectCreationOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.jca.operations.JCAProjectCreationOperationTest;
+import org.eclipse.wtp.j2ee.headless.tests.utility.operations.UtilityProjectCreationOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebProjectCreationOperationTest;
 
 public abstract class ModuleProjectCreationOperationTest extends JEEProjectCreationOperationTest {
@@ -33,7 +34,8 @@ public abstract class ModuleProjectCreationOperationTest extends JEEProjectCreat
         suite.addTestSuite(AppClientProjectCreationOperationTest.class);
         suite.addTestSuite(EJBProjectCreationOperationTest.class);
         suite.addTestSuite(WebProjectCreationOperationTest.class); 
-        suite.addTestSuite(JCAProjectCreationOperationTest.class); 
+        suite.addTestSuite(JCAProjectCreationOperationTest.class);
+        suite.addTestSuite(UtilityProjectCreationOperationTest.class);
         return suite;
     }
 }

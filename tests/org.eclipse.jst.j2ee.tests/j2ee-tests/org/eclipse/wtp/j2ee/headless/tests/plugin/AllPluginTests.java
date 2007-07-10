@@ -51,6 +51,7 @@ public class AllPluginTests extends TestSuite {
 	      addTest(org.eclipse.wtp.j2ee.headless.tests.jca.operations.AllTests.suite());
 	      addTest(org.eclipse.wtp.j2ee.headless.tests.ear.operations.AllTests.suite());
 	      addTest(org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AllTests.suite());
+	      addTest(org.eclipse.wtp.j2ee.headless.tests.utility.operations.AllTests.suite());
 	      addTest(org.eclipse.jst.j2ee.tests.modulecore.AllTests.suite());
 	      // model provider
 		  addTest(ModelProviderTest.suite());

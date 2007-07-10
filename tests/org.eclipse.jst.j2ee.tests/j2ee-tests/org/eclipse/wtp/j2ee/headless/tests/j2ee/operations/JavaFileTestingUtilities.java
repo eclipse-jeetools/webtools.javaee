@@ -36,12 +36,14 @@ public class JavaFileTestingUtilities {
 	private static final String APP_CLIENT_PACKAGE = "appClientSrc";
 	private static final String EJB_PACKAGE = "ejbSrc";
 	private static final String CONNECTOR_PACKAGE = "connectorSrc";
+	private static final String UTILITY_PACKAGE = "utilitySrc";
 	
 	//key is project name, value is array of java class names added to that project
 	private static Map<String, String[]> webProjectJavaFiles = new HashMap<String, String[]>();
 	private static Map<String, String[]> appClientProjectJavaFiles = new HashMap<String, String[]>();
 	private static Map<String, String[]> ejbProjectJavaFiles = new HashMap<String, String[]>();
 	private static Map<String, String[]> connectorProjectJavaFiles = new HashMap<String, String[]>();
+	private static Map<String, String[]> utilityProjectJavaFiles = new HashMap<String, String[]>();
 	
 	public static void addJavaFilesToAppClient(String projectName, String[] classNames, String prackageName) throws Exception {
 		IVirtualComponent projVirtComp = ComponentUtilities.getComponent(projectName);		
@@ -70,6 +72,12 @@ public class JavaFileTestingUtilities {
 	}
 	
 	public static void addJavaFilesToConnector(String projectName, String[] classNames, String prackageName) throws Exception {
+		IVirtualComponent projVirtComp = ComponentUtilities.getComponent(projectName);		
+		IVirtualFolder virtRootFolder = projVirtComp.getRootFolder();
+    	addJavaFilesToSrcFolder(virtRootFolder, classNames, prackageName);
+	}
+	
+	public static void addJavaFilesToUtility(String projectName, String[] classNames, String prackageName) throws Exception {
 		IVirtualComponent projVirtComp = ComponentUtilities.getComponent(projectName);		
 		IVirtualFolder virtRootFolder = projVirtComp.getRootFolder();
     	addJavaFilesToSrcFolder(virtRootFolder, classNames, prackageName);
@@ -251,6 +259,7 @@ public class JavaFileTestingUtilities {
 		IProject[] appClientProjects = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.APPLICATION_CLIENT);
 		IProject[] connectorProjects = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.JCA);
 		IProject[] ejbProjects = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.EJB);
+		IProject[] utilityProjects = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.UTILITY);
 		
 		String projectName = null;
 		int fileCount = 0;
@@ -293,6 +302,15 @@ public class JavaFileTestingUtilities {
 				ejbProjectJavaFiles.put(projectName, classNameList);
 			}
 		}
+		
+		for(IProject project : utilityProjects) {
+			if(referencedProjects.contains(project)) {
+				projectName = project.getName();
+				String[] classNameList = {"JavaFile" + (fileCount++), "Javafile" + (fileCount++)};
+				JavaFileTestingUtilities.addJavaFilesToUtility(projectName, classNameList, UTILITY_PACKAGE);
+				utilityProjectJavaFiles.put(projectName, classNameList);
+			}
+		}
 	}
 	
 	/**
@@ -328,13 +346,18 @@ public class JavaFileTestingUtilities {
 						nestedArchive = earArchive.getNestedArchive(resource);
 						nestedArchiveName = nestedArchive.getPath().removeFileExtension().lastSegment();
 						
+						//EJB, AppClients and Utilitys have the same extension, so if project isn't in AppClient list
+						// check EJB list, if not in EJB list check Utility list
 						classNames = appClientProjectJavaFiles.get(nestedArchiveName);
-						
-						//both EJB and AppClients have the same extension, so if project isn't in AppClient list
-						// it must be in EJB list
 						if(classNames == null) {
 							classNames = ejbProjectJavaFiles.get(nestedArchiveName);
-							verifyJavaFilesInJAR(nestedArchive, classNames, EJB_PACKAGE, withClassFiles, withSource);
+							
+							if(classNames != null) {
+								verifyJavaFilesInJAR(nestedArchive, classNames, EJB_PACKAGE, withClassFiles, withSource);
+							} else {
+								classNames = utilityProjectJavaFiles.get(nestedArchiveName);
+								verifyJavaFilesInJAR(nestedArchive, classNames, UTILITY_PACKAGE, withClassFiles, withSource);
+							}
 						} else {
 							verifyJavaFilesInJAR(nestedArchive, classNames, APP_CLIENT_PACKAGE, withClassFiles, withSource);
 						}

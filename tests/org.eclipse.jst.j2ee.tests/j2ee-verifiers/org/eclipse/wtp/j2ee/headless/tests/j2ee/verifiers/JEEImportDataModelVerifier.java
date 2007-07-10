@@ -96,22 +96,30 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 	protected abstract int getExportType();
 
 	private void verifyImportedProjectTypeAndVersion(IArchive archive) throws Exception {
-		boolean isEE5_withoutDD = JEEExportDataModelVerifier.isEE5WithoutDD(project);
-		
-		//TODO this need to be removed when https://bugs.eclipse.org/bugs/show_bug.cgi?id=194679 is fixed
-		if(!isEE5_withoutDD){
-		
-			JavaEEQuickPeek archiveQuickPeek = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive);
-			int type = archiveQuickPeek.getType();
+		if(J2EEProjectUtilities.isUtilityProject(project)){
+			System.err.println("TODO -- Utility types and versions should be recognized.");
+			System.err.println("     -- see https://bugs.eclipse.org/bugs/show_bug.cgi?id=194679");
+		} else {
+			boolean isEE5_withoutDD = JEEExportDataModelVerifier.isEE5WithoutDD(project);
 			
-			if(getExportType() != type){
-				AssertWarn.warnEquals("Archive type did not match imported project type", getExportType(), type);
+			//TODO this need to be removed when https://bugs.eclipse.org/bugs/show_bug.cgi?id=194679 is fixed
+			if(!isEE5_withoutDD){
+				
+				
+				JavaEEQuickPeek archiveQuickPeek = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive);
+				int type = archiveQuickPeek.getType();
+				
+				if(getExportType() != type){
+					AssertWarn.warnEquals("Archive type did not match imported project type", getExportType(), type);
+				}
+		
+				String sProjVersion = J2EEProjectUtilities.getJ2EEProjectVersion(project);
+				int iProjVersion = J2EEVersionUtil.convertVersionStringToInt(sProjVersion);
+				int iVersionConstant = archiveQuickPeek.getVersion();
+				if(iProjVersion != iVersionConstant){
+					AssertWarn.warnEquals("Archive version did not match imported project version", iProjVersion, iVersionConstant);
+				}
 			}
-	
-			String sProjVersion = J2EEProjectUtilities.getJ2EEProjectVersion(project);
-			int iProjVersion = J2EEVersionUtil.convertVersionStringToInt(sProjVersion);
-			int iVersionConstant = archiveQuickPeek.getVersion();
-			AssertWarn.warnEquals("Archive version did not match imported project version", iProjVersion, iVersionConstant);
 		}
 	}
 

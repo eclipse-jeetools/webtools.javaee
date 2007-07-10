@@ -57,7 +57,7 @@ public abstract class JEEImportOperationTest extends OperationTestCase {
 	 * @param closeArchiveOnDispose
 	 * @return
 	 */
-    protected abstract IDataModel getImportDataModel(String filePath, String projectName, IOverwriteHandler overwriteHandler, IDataModel creationModel, boolean closeArchiveOnDispose);
+    protected abstract IDataModel getImportDataModel(String filePath, String projectName, IOverwriteHandler overwriteHandler, IDataModel creationModel, boolean closeArchiveOnDispose) throws Exception;
     
     protected abstract IDataModel getExportDataModel(String projectName, String destination, boolean exportSource, boolean runBuild, boolean overwriteExisting);
     

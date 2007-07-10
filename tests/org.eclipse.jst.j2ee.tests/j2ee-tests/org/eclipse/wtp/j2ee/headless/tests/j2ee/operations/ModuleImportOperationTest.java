@@ -22,6 +22,7 @@ import junit.framework.TestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AppClientImportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.ejb.operations.EJBImportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.jca.operations.JCAImportOperationTest;
+import org.eclipse.wtp.j2ee.headless.tests.utility.operations.UtilityImportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebImportOperationTest;
 
 /**
@@ -48,6 +49,7 @@ public abstract class ModuleImportOperationTest extends JEEImportOperationTest {
 		suite.addTestSuite(EJBImportOperationTest.class);
 		suite.addTestSuite(WebImportOperationTest.class);
 		suite.addTestSuite(AppClientImportOperationTest.class);
+		suite.addTestSuite(UtilityImportOperationTest.class);
 		return suite;
 	}
 	

@@ -24,6 +24,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AppClientExportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.ejb.operations.EJBExportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.jca.operations.JCAExportOperationTest;
+import org.eclipse.wtp.j2ee.headless.tests.utility.operations.UtilityExportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebExportOperationTest;
 
 /**
@@ -50,6 +51,8 @@ public abstract class ModuleExportOperationTest extends JEEExportOperationTest {
 		suite.addTestSuite(EJBExportOperationTest.class);
 		suite.addTestSuite(WebExportOperationTest.class);
 		suite.addTestSuite(AppClientExportOperationTest.class);
+		suite.addTestSuite(UtilityExportOperationTest.class);
+		
 		return suite;
 	}
 	

@@ -36,11 +36,13 @@ import org.eclipse.wst.common.tests.DataModelVerifier;
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
 public abstract class JEEProjectCreationDataModelVerifier extends DataModelVerifier {
-
 	protected IDataModel model = null;
 	protected IProject project = null;
 	protected IVirtualComponent component = null;
 	protected String facetProjectType = null;
+	
+	//need this because Utility Projects don't have ModelProviders
+	protected boolean hasModelProvider = true;
 	
 	public void verify(IDataModel model) throws Exception {
 		super.verify(model);
@@ -56,7 +58,10 @@ public abstract class JEEProjectCreationDataModelVerifier extends DataModelVerif
 		this.verifyComponent();
 		
 		this.verifyProjectVersion();
-		this.verifyModelProvider();
+		
+		if(hasModelProvider) {
+			this.verifyModelProvider();
+		}
 	}
 	
 	protected abstract void setFacetProjectType();
