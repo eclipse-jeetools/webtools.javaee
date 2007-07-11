@@ -26,7 +26,8 @@ Require-Bundle: org.eclipse.ui;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.jst.j2ee.web;bundle-version="[1.1.0,1.2.0)",
  org.eclipse.jst.ejb.ui;bundle-version="[1.1.0,1.2.0)",
  org.eclipse.jst.j2ee.ejb;bundle-version="[1.1.103,1.2.0)",
- org.eclipse.jst.j2ee.core;bundle-version="[1.1.102,1.2.0)"
+ org.eclipse.jst.j2ee.core;bundle-version="[1.1.102,1.2.0)",
+ org.eclipse.wst.common.emf
 Eclipse-LazyStart: true
 Bundle-Localization: plugin
 Bundle-Vendor: %Bundle-Vendor.0

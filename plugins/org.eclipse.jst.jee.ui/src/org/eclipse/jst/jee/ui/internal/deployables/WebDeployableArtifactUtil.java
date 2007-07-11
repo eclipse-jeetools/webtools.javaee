@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.jee.ui.internal.deployables;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -21,6 +22,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
@@ -28,14 +30,21 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURL;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURLExtensionReader;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.javaee.core.UrlPatternType;
+import org.eclipse.jst.javaee.web.Servlet;
+import org.eclipse.jst.javaee.web.ServletMapping;
+import org.eclipse.jst.javaee.web.WebApp;
+import org.eclipse.jst.javaee.web.internal.impl.ServletImpl;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
@@ -63,37 +72,39 @@ public class WebDeployableArtifactUtil {
 		else if (obj instanceof IAdaptable)
 			resource = (IResource) ((IAdaptable) obj).getAdapter(IResource.class);
 		else if (obj instanceof EObject) {
-//TODO commented EMF artifacts
-//			resource = ProjectUtilities.getProject((EObject) obj);
-//			if (obj instanceof Servlet) {
-//				Servlet servlet = ((Servlet) obj);
-//				Resource servResource = servlet.eResource();
-//				IVirtualResource[] resources = null;
-//				try {
-//					IResource eclipeServResoruce = WorkbenchResourceHelper.getFile(servResource);
-//					resources = ComponentCore.createResources(eclipeServResoruce);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//				IVirtualComponent component = null;
-//				if (resources[0] != null)
-//					component = resources[0].getComponent();
-//				String mapping = null;
-//				java.util.List mappings = ((Servlet) obj).getMappings();
-//				if (mappings != null && !mappings.isEmpty()) {
-//					ServletMapping map = (ServletMapping) mappings.get(0);
-//					mapping = map.getUrlPattern();
-//				}
-//				if (mapping != null) {
-//					return new WebResource(getModule(resource.getProject(), component), new Path(mapping));
-//				}
+			resource = ProjectUtilities.getProject((EObject) obj);
+			if (obj instanceof Servlet) {
+				ServletImpl servlet = ((ServletImpl) obj);
+				Resource servResource = servlet.eResource();
+				IVirtualResource[] resources = null;
+				try {
+					IResource eclipeServResoruce = WorkbenchResourceHelper.getFile(servResource);
+					resources = ComponentCore.createResources(eclipeServResoruce);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				IVirtualComponent component = null;
+				if (resources[0] != null)
+					component = resources[0].getComponent();
+				String mapping = null;
+				java.util.List mappings = getServletMappings(resource, servlet.getServletName());
+
+				if (mappings != null && !mappings.isEmpty()) {
+					ServletMapping map = (ServletMapping) mappings.get(0);
+					UrlPatternType urlPattern = (UrlPatternType)map.getUrlPatterns().get(0);
+					mapping = urlPattern.getValue();
+				}
+				if (mapping != null) {
+					return new WebResource(getModule(resource.getProject(), component), new Path(mapping));
+				}
+				
 //				WebType webType = ((Servlet) obj).getWebType();
 //				if (webType.isJspType()) {
 //					resource = ((IProject) resource).getFile(((JSPType) webType).getJspFile()); //$NON-NLS-1$
 //				} else if (webType.isServletType()) {
 //					return new WebResource(getModule(resource.getProject(), component), new Path("servlet/" + ((ServletType) webType).getClassName())); //$NON-NLS-1$
 //				}
-//			}
+			}
 		}
 		if (resource == null)
 			return null;
@@ -339,4 +350,33 @@ public class WebDeployableArtifactUtil {
 		return J2EEProjectUtilities.isDynamicWebProject(project);
 	}
 
+	private static List getServletMappings(IResource resource, String typeName){ 
+		IModelProvider provider = ModelProviderManager.getModelProvider( resource.getProject() );
+		WebApp webApp = (WebApp)provider.getModelObject();
+		
+		List servlets = webApp.getServlets();
+		boolean exists = false;
+		List list = new ArrayList();
+
+		if (servlets != null && !servlets.isEmpty()) {
+			for (int i = 0; i < servlets.size(); i++) {
+				Servlet servlet = (Servlet)servlets.get(i);
+				if( servlet.getServletClass().equals(typeName)){
+			
+					java.util.List mappings = webApp.getServletMappings();
+					if (mappings != null && !mappings.isEmpty()) {
+						Iterator it = mappings.iterator();
+						while( it.hasNext() ){
+							org.eclipse.jst.javaee.web.ServletMapping map = (org.eclipse.jst.javaee.web.ServletMapping) it.next();
+							if( map.getServletName().equals(servlet.getServletClass())){
+								list.add(map);
+							}
+						}
+					}
+				}
+			
+			}
+		}
+		return list;
+	}
 }
