@@ -17,16 +17,14 @@ import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.OperationTestCase;
+import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.ear.operations.EARImportOperationTest;
+import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
 
 /**
  * @author itewk
  */
 public abstract class JEEImportOperationTest extends OperationTestCase {
-	protected static final String BASE_DATA_DIR = System.getProperty("user.dir") + java.io.File.separatorChar + "TestData" + java.io.File.separatorChar + "JEEImportOperationTests" + java.io.File.separatorChar;
-	private static final String TEMP_EXPORT_DIR = System.getProperty("user.dir") + java.io.File.separatorChar + "JEEExportOperationTests" + java.io.File.separatorChar;
-//	protected static TestResult result = null;
-	
 	
 	public JEEImportOperationTest() {
 		super("JEEImportOperationTests");
@@ -44,8 +42,21 @@ public abstract class JEEImportOperationTest extends OperationTestCase {
         return suite;
     }
 	
-	protected String getArchivePath(String archiveName) {
-		return BASE_DATA_DIR + this.getClass().getSimpleName() + java.io.File.separatorChar + archiveName;
+	protected String getTestDataDirectoryName() {
+		return this.getClass().getSimpleName();
+	}
+	
+	private static final String BASE_IMPORT_DIR = "TestData" + java.io.File.separatorChar + "JEEImportOperationTests" + java.io.File.separatorChar;
+	
+	protected String getArchivePath(String archiveName) throws Exception {
+		HeadlessTestsPlugin plugin = HeadlessTestsPlugin.getDefault();
+		String pluginRelativeFileName = BASE_IMPORT_DIR + getTestDataDirectoryName() + java.io.File.separatorChar + archiveName;
+		return ProjectUtility.getFullFileName(plugin, pluginRelativeFileName);
+	}
+
+	private static final String TEMP_EXPORT_DIR = System.getProperty("user.dir") + java.io.File.separatorChar + "JEEExportOperationTests" + java.io.File.separatorChar;
+	protected String getExportPath(String archiveName) throws Exception {
+		return TEMP_EXPORT_DIR + archiveName;
 	}
 	
 	/**
@@ -142,7 +153,7 @@ public abstract class JEEImportOperationTest extends OperationTestCase {
 		String projectName = importModel.getStringProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME);
 		String importedArchivePath = importModel.getStringProperty(IJ2EEComponentImportDataModelProperties.FILE_NAME);
 		
-		String exportDestination = TEMP_EXPORT_DIR + projectName + getModuleExtension();
+		String exportDestination = getExportPath(projectName + getModuleExtension());
 		
 		try {
 			IDataModel exportModel = getExportDataModel(projectName, exportDestination, exportSource, runBuild, true);
