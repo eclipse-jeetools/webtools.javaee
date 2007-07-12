@@ -8,7 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import junit.framework.Assert;
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -20,6 +22,12 @@ import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 
 public class HeaderParserTests extends TestCase {
 
+	public static Test suite() {
+        TestSuite suite = new TestSuite();
+        suite.addTestSuite(HeaderParserTests.class);
+        return suite;
+    }
+	
 	private static String getSpeedData(String suffix) {
 		return System.getProperty("user.dir") + java.io.File.separatorChar + "TestData" + java.io.File.separatorChar + "ejbjarLoadTestData" + java.io.File.separatorChar + suffix;
 	}
@@ -279,15 +287,10 @@ public class HeaderParserTests extends TestCase {
 	}
 
 	private String verifyNormalizeSchemaLocation(String normalizedSchemaLocation, String someSchemaLocation) {
-		Assert.fail("This code needs to be uncommented after RC3 is picked up.");
-		//TODO uncomment this once RAD picks up WTP RC3
-		/*
-				String normalizedString = JavaEEQuickPeek.normalizeSchemaLocation(someSchemaLocation);
+		String normalizedString = JavaEEQuickPeek.normalizeSchemaLocation(someSchemaLocation);
 		if(!normalizedSchemaLocation.equals(normalizedString)){
 			Assert.assertEquals(normalizedSchemaLocation, normalizedString);	
 		}
 		return normalizedString;
-		*/
-		return null;
 	} 
 }
