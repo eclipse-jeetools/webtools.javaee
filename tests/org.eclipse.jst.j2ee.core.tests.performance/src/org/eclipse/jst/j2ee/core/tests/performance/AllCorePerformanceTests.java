@@ -21,10 +21,10 @@ import org.eclipse.jst.j2ee.archive.emftests.WarEMFTest;
 import org.eclipse.jst.j2ee.archive.emftests.WebServicesEMFTest;
 import org.eclipse.jst.j2ee.tests.performance.BasePerformanceTestCase;
 import org.eclipse.jst.j2ee.tests.performance.PerformanceTestCaseWrapper;
-import org.eclipse.wtp.headless.tests.savestrategy.EJBImportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AppClientProjectCreationOperationTest;
+import org.eclipse.wtp.j2ee.headless.tests.ejb.operations.EJBImportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.ejb.operations.EJBProjectCreationOperationTest;
-import org.eclipse.wtp.j2ee.headless.tests.jca.operations.ConnectorProjectCreationOperationTest;
+import org.eclipse.wtp.j2ee.headless.tests.jca.operations.JCAProjectCreationOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebProjectCreationOperationTest;
 
 /**
@@ -67,7 +67,7 @@ public class AllCorePerformanceTests extends BasePerformanceTestCase{
 		//Creation tests
 		addPerformanceTest(suite, new EJBProjectCreationOperationTest("testDefaults"), PerformanceTestCaseWrapper.NONE, "EJB Component creation test" );
 		addPerformanceTest(suite, new AppClientProjectCreationOperationTest("testDefaults"), PerformanceTestCaseWrapper.LOCAL, "App Client Component creation test" );
-		addPerformanceTest(suite, new ConnectorProjectCreationOperationTest("testDefaults"), PerformanceTestCaseWrapper.GLOBAL, "Connector Component creation test" );
+		addPerformanceTest(suite, new JCAProjectCreationOperationTest("testDefaults"), PerformanceTestCaseWrapper.GLOBAL, "Connector Component creation test" );
 		addPerformanceTest(suite, new WebProjectCreationOperationTest("testDefaults"), PerformanceTestCaseWrapper.GLOBAL, "Web Component creation test" );
 		
 		addPerformanceTest(suite, new EJBImportOperationTest("testEJB21Import"), PerformanceTestCaseWrapper.NONE, "EJB Component import test" );
