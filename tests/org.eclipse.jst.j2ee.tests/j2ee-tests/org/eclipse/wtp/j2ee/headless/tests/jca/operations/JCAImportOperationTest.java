@@ -17,7 +17,6 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleImportOperationTest;
 
 /**
- * @author Administrator
  * @author Ian Tewksbury (ictewksb@us.ibm.com)
  * 
  * To change the template for this generated type comment go to Window - Preferences - Java - Code
@@ -40,35 +39,35 @@ public class JCAImportOperationTest extends ModuleImportOperationTest {
 	}
 	
 	public void testConnectorImport10_Defaults() throws Exception{
-		runImportTests_All();
+		runImportTests_All("testConnectorImport10_Defaults");
 	}
 
 	public void testConnectorImport15_Defaults() throws Exception{
-		runImportTests_All();
+		runImportTests_All("testConnectorImport15_Defaults");
 	}
 
 	public void testConnectorImport10_WithEAR() throws Exception{
-		runImportTests_All();
+		runImportTests_All("testConnectorImport10_WithEAR");
 	}
 
 	public void testConnectorImport15_WithEAR() throws Exception{
-		runImportTests_All();
+		runImportTests_All("testConnectorImport15_WithEAR");
 	}
 
 	public void testConnectorImport10_ChangedSourceFolder() throws Exception{
-		runImportTests_All();
+		runImportTests_All("testConnectorImport10_ChangedSourceFolder");
 	}
 
 	public void testConnectorImport15_ChangedSourceFolder() throws Exception{
-		runImportTests_All();
+		runImportTests_All("testConnectorImport15_ChangedSourceFolder");
 	}
 
 	public void testConnectorImport10_ChangedSourceFolder_WithEAR() throws Exception{
-		runImportTests_All();
+		runImportTests_All("testConnectorImport10_ChangedSourceFolder_WithEAR");
 	}
 
 	public void testConnectorImport15_ChangedSourceFolder_WithEAR() throws Exception{
-		runImportTests_All();
+		runImportTests_All("testConnectorImport15_ChangedSourceFolder_WithEAR");
 	}
 	
 	

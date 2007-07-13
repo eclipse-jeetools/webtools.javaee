@@ -44,27 +44,27 @@ public class UtilityImportOperationTest extends ModuleImportOperationTest {
 	}	
 	
     public void testUtilityImport_Defaults() throws Exception{
-    	runImportTests_All();
+    	runImportTests_All("testUtilityImport_Defaults");
     }
 	
     public void testUtilityImport_AddToExisitingEAR12() throws Exception {
-    	runImportTests_All();
+    	runImportTests_All("testUtilityImport_AddToExisitingEAR12");
     }
     
     public void testUtilityImport_AddToExisitingEAR13() throws Exception {
-    	runImportTests_All();
+    	runImportTests_All("testUtilityImport_AddToExisitingEAR13");
     }
     
     public void testUtilityImport_AddToExisitingEAR14() throws Exception {
-    	runImportTests_All();
+    	runImportTests_All("testUtilityImport_AddToExisitingEAR14");
     }
     
-//    public void testUtilityImport_AddToExisitingEAR5_WithoutDD() throws Exception {
-//    	runImportTests_All();
-//    }
+    public void testUtilityImport_AddToExisitingEAR5_WithoutDD() throws Exception {
+    	runImportTests_All("testUtilityImport_AddToExisitingEAR5_WithoutDD");
+    }
     
     public void testUtilityImport_AddToExisitingEAR5_WithDD() throws Exception {
-    	runImportTests_All();
+    	runImportTests_All("testUtilityImport_AddToExisitingEAR5_WithDD");
     }
 	
 	
@@ -88,7 +88,7 @@ public class UtilityImportOperationTest extends ModuleImportOperationTest {
 			String projectName, IOverwriteHandler overwriteHandler,
 			IDataModel creationModel, boolean closeArchiveOnDispose) throws Exception {
 		
-		//only makes sence to test utility projects exported/imported within an EAR
+		//only makes sense to test utility projects exported/imported within an EAR
 		IDataModel earImportModel = EARImportOperationTest.getEARImportDataModel(filePath, projectName, overwriteHandler, creationModel, closeArchiveOnDispose);
 
 		archive = null;
@@ -110,12 +110,16 @@ public class UtilityImportOperationTest extends ModuleImportOperationTest {
 	 * Should run all of the needed import tests for the child's type of import
 	 */
 	@Override
-	protected void runImportTests_All() throws Exception {
+	protected void runImportTests_All(String testName) throws Exception {
+		String archiveNamePrefix = getArchiveFileNamePrefix(testName);
+		String archiveName = null;
+		
 		//need to keep the archive open for as long as the ImportDataModel is alive, otherwise it crashes because the
 		// nested Utility archives get closed
-		
+
 		try {
-			runAndVerifyImport_ExportedDefaults();
+			archiveName = archiveNamePrefix + "_Defaults" + getModuleExtension();
+			runAndVerifyImport_ExportedDefaults(archiveName);
 			OperationTestCase.deleteAllProjects();
 		} finally {
 			if (null != archive) {
@@ -124,7 +128,8 @@ public class UtilityImportOperationTest extends ModuleImportOperationTest {
 		}
 		
 		try {
-			runAndVerifyImport_ExportedWithSource();
+			archiveName = archiveNamePrefix + "_WithSource" + getModuleExtension();
+			runAndVerifyImport_ExportedWithSource(archiveName);
 			OperationTestCase.deleteAllProjects();
 		} finally {
 			if (null != archive) {
@@ -133,7 +138,8 @@ public class UtilityImportOperationTest extends ModuleImportOperationTest {
 		}
 		
 		try {
-			runAndVerifyImport_ExportedWithDontRunBuild();
+			archiveName = archiveNamePrefix + "_DontRunBuild" + getModuleExtension();
+			runAndVerifyImport_ExportedWithDontRunBuild(archiveName);
 			OperationTestCase.deleteAllProjects();
 		} finally {
 			if (null != archive) {
@@ -142,7 +148,8 @@ public class UtilityImportOperationTest extends ModuleImportOperationTest {
 		}
 		
 		try {
-			runAndVerifyImport_ExportedWithSrouce_ExportedWithDontRunBuild();
+			archiveName = archiveNamePrefix + "_WithSource_DontRunBuild" + getModuleExtension();
+			runAndVerifyImport_ExportedWithSrouce_ExportedWithDontRunBuild(archiveName);
 			OperationTestCase.deleteAllProjects();
 		} finally {
 			if (null != archive) {

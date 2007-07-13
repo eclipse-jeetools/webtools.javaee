@@ -42,103 +42,99 @@ public class AppClientImportOperationTest extends ModuleImportOperationTest {
 	}	
 	
     public void testACImport12_Defaults() throws Exception{
-//    	runSubTests();
-    	runImportTests_All();
+    	runImportTests_All("testACImport12_Defaults");
     }
     
     public void testACImport13_Defaults() throws Exception {
-//    	runSubTests();
-    	runImportTests_All();
+    	runImportTests_All("testACImport13_Defaults");
     }
     
     public void testACImport14_Defaults() throws Exception {
-//    	runSubTests();
-    	runImportTests_All();
+    	runImportTests_All("testACImport14_Defaults");
     }
     
     public void testACImport50_Defaults() throws Exception {
-//    	runSubTests();
-    	runImportTests_All();
+    	runImportTests_All("testACImport50_Defaults");
     }
     
     public void testACImport12_NoDefaultClass() throws Exception{
-    	runImportTests_All();
+    	runImportTests_All("testACImport12_NoDefaultClass");
     }
     
     public void testACImport13_NoDefaultClass() throws Exception {
-    	runImportTests_All();
+    	runImportTests_All("testACImport13_NoDefaultClass");
     }
     
     public void testACImport14_NoDefaultClass() throws Exception {
-    	runImportTests_All();
+    	runImportTests_All("testACImport14_NoDefaultClass");
     }
     
     public void testACImport50_NoDefaultClass() throws Exception {
-    	runImportTests_All();
+    	runImportTests_All("testACImport50_NoDefaultClass");
     }
     
     public void testACImport12_AddToEAR() throws Exception {
-    	runImportTests_All();
+    	runImportTests_All("testACImport12_AddToEAR");
     }
     
     public void testACImport13_AddToEAR() throws Exception {
-    	runImportTests_All();
+    	runImportTests_All("testACImport13_AddToEAR");
     }
     
     public void testACImport14_AddToEAR() throws Exception {
-    	runImportTests_All();
+    	runImportTests_All("testACImport14_AddToEAR");
     }
     
     public void testACImport50_AddToEAR() throws Exception {
-    	runImportTests_All();
+    	runImportTests_All("testACImport50_AddToEAR");
     }
     
     public void testACImport12_InterestingName() throws Exception{
-    	runImportTests_All();
+    	runImportTests_All("testACImport12_InterestingName");
     }
     
     public void testACImport13_InterestingName() throws Exception{
-    	runImportTests_All();
+    	runImportTests_All("testACImport13_InterestingName");
     }
     
     public void testACImport14_InterestingName() throws Exception{
-    	runImportTests_All();
+    	runImportTests_All("testACImport14_InterestingName");
     }
     
     public void testACImport50_InterestingName() throws Exception{
-    	runImportTests_All();
+    	runImportTests_All("testACImport50_InterestingName");
     }
     
     public void testACImport12_AddToEAR_InterestingName() throws Exception{
-    	runImportTests_All();
+    	runImportTests_All("testACImport12_AddToEAR_InterestingName");
     }
     
     public void testACImport13_AddToEAR_InterestingName() throws Exception{
-    	runImportTests_All();
+    	runImportTests_All("testACImport13_AddToEAR_InterestingName");
     }
     
     public void testACImport14_AddToEAR_InterestingName() throws Exception{
-    	runImportTests_All();
+    	runImportTests_All("testACImport14_AddToEAR_InterestingName");
     }
     
     public void testACImport50_AddToEAR_InterestingName() throws Exception{
-    	runImportTests_All();
+    	runImportTests_All("testACImport50_AddToEAR_InterestingName");
     }
     
     public void testACImport50_WithDD() throws Exception {
-    	runImportTests_All();
+    	runImportTests_All("testACImport50_WithDD");
     }
     
     public void testACImport50_NoDefaultClass_WithDD() throws Exception {
-    	runImportTests_All();
+    	runImportTests_All("testACImport50_NoDefaultClass_WithDD");
     }
     
     public void testACImport50_AddToEAR_WithDD() throws Exception {
-    	runImportTests_All();
+    	runImportTests_All("testACImport50_AddToEAR_WithDD");
     }
     
     public void testACImport50_AddToEAR_InterestingName_WithDD() throws Exception {
-    	runImportTests_All();
+    	runImportTests_All("testACImport50_AddToEAR_InterestingName_WithDD");
     }
     
     @Override

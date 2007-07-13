@@ -46,6 +46,10 @@ public abstract class JEEImportOperationTest extends OperationTestCase {
 		return this.getClass().getSimpleName();
 	}
 	
+	protected String getArchiveFileNamePrefix(String testName) {
+		return this.getClass().getSimpleName() + "_" + testName;
+	}
+	
 	private static final String BASE_IMPORT_DIR = "TestData" + java.io.File.separatorChar + "JEEImportOperationTests" + java.io.File.separatorChar;
 	
 	protected String getArchivePath(String archiveName) throws Exception {
@@ -75,17 +79,24 @@ public abstract class JEEImportOperationTest extends OperationTestCase {
 	/**
 	 * Should run all of the needed import tests for the child's type of import
 	 */
-	protected void runImportTests_All() throws Exception {
-		runAndVerifyImport_ExportedDefaults();
+	protected void runImportTests_All(String testName) throws Exception {
+		String archiveNamePrefix = getArchiveFileNamePrefix(testName);
+		String archiveName = null;
+		
+		archiveName = archiveNamePrefix + "_Defaults" + getModuleExtension();
+		runAndVerifyImport_ExportedDefaults(archiveName);
 		OperationTestCase.deleteAllProjects();
 		
-		runAndVerifyImport_ExportedWithSource();
+		archiveName = archiveNamePrefix + "_WithSource" + getModuleExtension();
+		runAndVerifyImport_ExportedWithSource(archiveName);
 		OperationTestCase.deleteAllProjects();
 		
-		runAndVerifyImport_ExportedWithDontRunBuild();
+		archiveName = archiveNamePrefix + "_DontRunBuild" + getModuleExtension();
+		runAndVerifyImport_ExportedWithDontRunBuild(archiveName);
 		OperationTestCase.deleteAllProjects();
 		
-		runAndVerifyImport_ExportedWithSrouce_ExportedWithDontRunBuild();
+		archiveName = archiveNamePrefix + "_WithSource_DontRunBuild" + getModuleExtension();
+		runAndVerifyImport_ExportedWithSrouce_ExportedWithDontRunBuild(archiveName);
 		OperationTestCase.deleteAllProjects();
 	}
 	
@@ -98,8 +109,7 @@ public abstract class JEEImportOperationTest extends OperationTestCase {
 //		OperationTestCase.runAndVerify(importModel);
 //	}
 	
-	protected void runAndVerifyImport_ExportedDefaults() throws Exception {
-		String archiveName = this.getClass().getSimpleName() + "_" + this.getName() + "_Defaults" + getModuleExtension();
+	protected void runAndVerifyImport_ExportedDefaults(String archiveName) throws Exception {
 		String archivePath = getArchivePath(archiveName);
 		String projectName = "exportedDefaults";
 		
@@ -111,8 +121,7 @@ public abstract class JEEImportOperationTest extends OperationTestCase {
 		runAndVerifyReExportation(importModel, false, true);
 	}
 	
-	protected void runAndVerifyImport_ExportedWithSource() throws Exception {
-		String archiveName = this.getClass().getSimpleName() + "_" + this.getName() + "_WithSource" + getModuleExtension();
+	protected void runAndVerifyImport_ExportedWithSource(String archiveName) throws Exception {
 		String archivePath = getArchivePath(archiveName);
 		String projectName = "exportedWithSource";
 		
@@ -124,8 +133,7 @@ public abstract class JEEImportOperationTest extends OperationTestCase {
 		runAndVerifyReExportation(importModel, true, true);
 	}
 	
-	protected void runAndVerifyImport_ExportedWithDontRunBuild() throws Exception {
-		String archiveName = this.getClass().getSimpleName() + "_" + this.getName() + "_DontRunBuild" + getModuleExtension();
+	protected void runAndVerifyImport_ExportedWithDontRunBuild(String archiveName) throws Exception {
 		String archivePath = getArchivePath(archiveName);
 		String projectName = "exportedWithDontRunBuild";
 		
@@ -135,8 +143,7 @@ public abstract class JEEImportOperationTest extends OperationTestCase {
 		runAndVerify(importModel);
 	}
 	
-	protected void runAndVerifyImport_ExportedWithSrouce_ExportedWithDontRunBuild() throws Exception {
-		String archiveName = this.getClass().getSimpleName() + "_" + this.getName() + "_WithSource_DontRunBuild" + getModuleExtension();
+	protected void runAndVerifyImport_ExportedWithSrouce_ExportedWithDontRunBuild(String archiveName) throws Exception {
 		String archivePath = getArchivePath(archiveName);
 		String projectName = "exportedWithSourceAndDontRunBuild";
 		
