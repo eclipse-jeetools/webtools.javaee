@@ -243,7 +243,7 @@ public class UIEarValidator extends EarValidator {
 			IVirtualReference[] refs = comp.getReferences();
 			for( int i=0; i< refs.length; i++ ){
 				IVirtualComponent refComp = refs[i].getReferencedComponent();
-				if( refComp != null ){
+				if( refComp != null && !refComp.isBinary()){
 					String type = J2EEProjectUtilities.getJ2EEComponentType( refComp );
 					IVirtualFile refDDFile = null;
 					if( type.equals(IModuleConstants.JST_WEB_MODULE)){
