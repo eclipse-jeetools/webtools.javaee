@@ -294,8 +294,11 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	public void refresh(boolean force){
 		if(force || requiresUpdate()){
 			install(containerPath, javaProject);
-			// Update dependency graph
-			DependencyGraphManager.getInstance().forceRefresh();
+			if (J2EEComponentClasspathUpdater.shouldUpdateDependencyGraph())
+			{
+				// Update dependency graph
+				DependencyGraphManager.getInstance().forceRefresh();
+			}
 		}
 	}
 	

@@ -66,6 +66,7 @@ import org.eclipse.wst.common.project.facet.core.FacetedProjectFramework;
 public class J2EEComponentClasspathUpdater implements IResourceChangeListener, IResourceDeltaVisitor {
 
 	private static J2EEComponentClasspathUpdater instance = null;
+	private static boolean updateDependencyGraph = true;
 
 	private int pauseCount = 0;
 	
@@ -140,7 +141,15 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			if(runAsJob){
 				moduleUpdateJob.schedule(0);
 			} else {
-				moduleUpdateJob.run(new NullProgressMonitor());
+				try
+				{
+					updateDependencyGraph = false;
+					moduleUpdateJob.run(new NullProgressMonitor());
+				}
+				finally
+				{
+					updateDependencyGraph = true;
+				}
 			}
 		}
 	}
@@ -557,4 +566,8 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		return false;
 	}
 
+	public static boolean shouldUpdateDependencyGraph()
+	{
+		return updateDependencyGraph;
+	}
 }
