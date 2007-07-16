@@ -10,10 +10,13 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -31,8 +34,11 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveReferenceComponentOperation {
 
 
+	private  ArrayList binaryFiles = null;
+	
 	public RemoveComponentFromEnterpriseApplicationOperation(IDataModel model) {
 		super(model);
+		binaryFiles = new ArrayList();
 	}
 
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
@@ -40,6 +46,7 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 			J2EEComponentClasspathUpdater.getInstance().pauseUpdates();
 			updateEARDD(monitor);
 			super.execute(monitor, info);
+			deleteBinaryFiles(monitor);
 			return OK_STATUS;
 		} finally {
 			J2EEComponentClasspathUpdater.getInstance().resumeUpdates();
@@ -65,7 +72,7 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 						IVirtualFile vFile = comp.getRootFolder().getFile(moduleURI);
 						IFile iFile = vFile.getUnderlyingFile();
 						if(iFile.exists()){
-							iFile.delete(true, monitor);
+							binaryFiles.add(iFile);
 						}
 					}
 				}
@@ -87,5 +94,17 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 		Module module = application.getFirstModule(moduleURI);
 		application.getModules().remove(module);
 	}
+	
+	private void deleteBinaryFiles(IProgressMonitor monitor){
+		Iterator it = binaryFiles.iterator();
+		while( it.hasNext() ){
+			IFile iFile = (IFile)it.next();
+			try {
+				iFile.delete(true, monitor);
+			} catch (CoreException e) {
+				Logger.getLogger().logError(e);
+			}
+		}
 
+	}
 }
