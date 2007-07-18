@@ -18,7 +18,6 @@ import org.eclipse.jst.j2ee.jca.project.facet.IConnectorFacetInstallDataModelPro
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.tests.AssertWarn;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.ModuleProjectCreationDataModelVerifier;
 
 /**
@@ -48,9 +47,15 @@ public class JCAProjectCreationDataModelVerifier extends ModuleProjectCreationDa
 	
 	@Override
 	protected void verifyDD(Object modelObj) {
-		String version = J2EEProjectUtilities.getJ2EEProjectVersion(project);
+		String projectVersion = J2EEProjectUtilities.getJ2EEProjectVersion(project);
 		Connector connector = (Connector)modelObj;
-		AssertWarn.warnEquals("Invalid project version", version, connector.getVersion());
+		String modelVersion = connector.getVersion();
+		if(projectVersion != modelVersion){
+			//TODO see https://bugs.eclipse.org/bugs/show_bug.cgi?id=197014
+			System.err.println("TODO -- connector version incorrect.");
+			System.err.println("     -- see https://bugs.eclipse.org/bugs/show_bug.cgi?id=197014");
+			//AssertWarn.warnEquals("Invalid project version", projectVersion, modelVersion);
+		}
 	}
 	
     private void verifySourceFolder() {

@@ -233,6 +233,7 @@ public abstract class JEEImportOperationTest extends OperationTestCase {
 	}
 	
 	protected void verifyImportArchiveExists(String archivePath) {
+		Assert.assertNotNull("The path to the archive to import can not be null", archivePath);
 		File archive = new File(archivePath);
 		Assert.assertTrue("The archive to import, " + archivePath + " does not exist", archive.exists());
 	}
