@@ -27,11 +27,13 @@ public class ConnectorFacetInstallDataModelProvider extends J2EEModuleFacetInsta
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(FACET_ID)) {
 			return JCA;
-		} else if (propertyName.equals(CONFIG_FOLDER))
+		} else if (propertyName.equals(CONFIG_FOLDER)) {
 			return J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.JCA_CONTENT_FOLDER);
-		else if (propertyName.equals(MODULE_URI)) {
+		} else if (propertyName.equals(MODULE_URI)) {
 			String projectName = model.getStringProperty(FACET_PROJECT_NAME).replace(' ','_');
 			return projectName + IJ2EEModuleConstants.RAR_EXT; 
+		} else if(propertyName.equals(GENERATE_DD)){
+			return Boolean.TRUE;
 		}
 		return super.getDefaultProperty(propertyName);
 	}

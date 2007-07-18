@@ -121,5 +121,13 @@
       <fixed facet="jst.connector"/>
     </template>
 
+  </extension>
+  
+  <extension
+        point="org.eclipse.jst.j2ee.J2EEModelProvider">
+        <provider>
+        	<modelProvider factoryClass="org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit"/>	
+      		<facet id="jst.connector" versions="1.0,1.5"/>
+      	</provider>
   </extension>	
 </plugin>

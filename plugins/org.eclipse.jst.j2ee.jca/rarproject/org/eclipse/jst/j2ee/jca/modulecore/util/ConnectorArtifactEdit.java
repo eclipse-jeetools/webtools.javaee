@@ -51,6 +51,9 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
  * </p>
  */
 public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory {
+	
+	private static final String CONNECTOR_CONTENT_TYPE = "org.eclipse.jst.j2ee.connectorDD"; //$NON-NLS-1$
+	
 	/**
 	 * <p>
 	 * Identifier used to link ConnectorArtifactEdit to a ConnectorEditAdapterFactory
@@ -423,5 +426,10 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 			getWritableEdit().dispose();
 			setWritableEdit(null);
 		}
+	}
+	
+	@Override
+	protected String getContentTypeDescriber() {
+		return CONNECTOR_CONTENT_TYPE;
 	}
 }
