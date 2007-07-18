@@ -514,9 +514,9 @@ public class DefectVerificationTests extends OperationTestCase {
 		String [] shortNames = new String [] { "JarTest.man.jar", "JarTest.auto.jar"};
 		
 		for (int i = 0; i < shortNames.length; i++) {
-			System.out.println("trying shortName ="+shortNames[i]);
+			//System.out.println("trying shortName ="+shortNames[i]);
 			String longName = getFullTestDataPath(shortNames[i]);
-			System.out.println("longName ="+longName);
+			//System.out.println("longName ="+longName);
 			URLClassLoader jarCL = new URLClassLoader(new URL[] { new URL("file:\\"+longName) });
 			Enumeration resources = jarCL.getResources("META-INF/");
 			boolean foundResource = false;
@@ -524,8 +524,8 @@ public class DefectVerificationTests extends OperationTestCase {
 				URL url = (URL)resources.nextElement();
 				
 				if(url.toString().indexOf(shortNames[i]) != -1){
-					System.out.println("  Found URL with URLClassLoader.getResources(\"META-INF/\") ");
-					System.out.println("  url = "+ url);
+					//System.out.println("  Found URL with URLClassLoader.getResources(\"META-INF/\") ");
+					//System.out.println("  url = "+ url);
 					foundResource = true;
 				}
 			}

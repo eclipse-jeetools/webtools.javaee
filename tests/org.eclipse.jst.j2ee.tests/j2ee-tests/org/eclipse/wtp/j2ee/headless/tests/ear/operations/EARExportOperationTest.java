@@ -63,64 +63,6 @@ public class EARExportOperationTest extends JEEExportOperationTest {
 		return suite;
 	}
 	
-    public void testEARExport12_Defaults() throws Exception{
-    	IDataModel dm = EARProjectCreationOperationTest.getEARDataModel("aEAR", null, null, null, JavaEEFacetConstants.EAR_12, true);
-    	OperationTestCase.runDataModel(dm);
-    	
-    	runExportTests_All(dm);
-    }
-    
-    public void testEARExport13_Defaults() throws Exception{
-    	IDataModel dm = EARProjectCreationOperationTest.getEARDataModel("bEAR", null, null, null, JavaEEFacetConstants.EAR_13, true);
-    	OperationTestCase.runDataModel(dm);
-    	
-    	runExportTests_All(dm);
-    }
-    
-    public void testEARExport14_Defaults() throws Exception{
-    	IDataModel dm = EARProjectCreationOperationTest.getEARDataModel("cEAR", null, null, null, JavaEEFacetConstants.EAR_14, true);
-    	OperationTestCase.runDataModel(dm);
-    	
-    	runExportTests_All(dm);
-    }
-    
-    public void testEARExport50_Defaults() throws Exception{
-    	IDataModel dm = EARProjectCreationOperationTest.getEARDataModel("dEAR", null, null, null, JavaEEFacetConstants.EAR_5, false);
-    	OperationTestCase.runDataModel(dm);
-    	
-    	runExportTests_All(dm);
-    }
-    
-    
-    public void testEARExport12_ChangedContentDir() throws Exception{
-    	IDataModel dm = EARProjectCreationOperationTest.getEARDataModel("eEAR", "whosContent", null, null, JavaEEFacetConstants.EAR_12, true);
-    	OperationTestCase.runDataModel(dm);
-    	
-    	runExportTests_All(dm);
-    }
-    
-    public void testEARExport13_ChangedContentDir() throws Exception{
-    	IDataModel dm = EARProjectCreationOperationTest.getEARDataModel("fEAR", "myContent", null, null, JavaEEFacetConstants.EAR_13, true);
-    	OperationTestCase.runDataModel(dm);
-    	
-    	runExportTests_All(dm);
-    }
-    
-    public void testEARExport14_ChangedContentDir() throws Exception{
-    	IDataModel dm = EARProjectCreationOperationTest.getEARDataModel("gEAR", "yourContent", null, null, JavaEEFacetConstants.EAR_14, true);
-    	OperationTestCase.runDataModel(dm);
-    	
-    	runExportTests_All(dm);
-    }
-    
-    public void testEARExport50_ChangedContentDir() throws Exception{
-    	IDataModel dm = EARProjectCreationOperationTest.getEARDataModel("hEAR", "ourContent", null, null, JavaEEFacetConstants.EAR_5, false);
-    	OperationTestCase.runDataModel(dm);
-    	
-    	runExportTests_All(dm);
-    }
-    
-    
     public void testEARExport12_WithDependencies() throws Exception{
     	IDataModel dm = EARProjectCreationOperationTest.getEARDataModel("zEAR", null, EARProjectCreationOperationTest.getJ2EEDependencyList_12(), EARProjectCreationOperationTest.getJavaDependencyList_12(), JavaEEFacetConstants.EAR_12, true);
     	OperationTestCase.runDataModel(dm);
@@ -179,19 +121,6 @@ public class EARExportOperationTest extends JEEExportOperationTest {
     }
     
     
-    public void testEARExport50_Defaults_WithDD() throws Exception{
-    	IDataModel dm = EARProjectCreationOperationTest.getEARDataModel("myEAR", null, null, null, JavaEEFacetConstants.EAR_5, true);
-    	OperationTestCase.runDataModel(dm);
-    	
-    	runExportTests_All(dm);
-    }
-    
-    public void testEARExport50_ChangedContentDir_WithDD() throws Exception{
-    	IDataModel dm = EARProjectCreationOperationTest.getEARDataModel("yourEAR", "ourContent", null, null, JavaEEFacetConstants.EAR_5, true);
-    	OperationTestCase.runDataModel(dm);
-    	
-    	runExportTests_All(dm);
-    }
     
     public void testEARExport50_WithDependencies_WithDD() throws Exception{
     	IDataModel dm = EARProjectCreationOperationTest.getEARDataModel("anEAR", null, EARProjectCreationOperationTest.getJ2EEDependencyList_5(), EARProjectCreationOperationTest.getJavaDependencyList_5(), JavaEEFacetConstants.EAR_5, true);

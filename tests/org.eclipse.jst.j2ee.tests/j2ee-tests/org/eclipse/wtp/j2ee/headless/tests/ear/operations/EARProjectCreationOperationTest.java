@@ -222,8 +222,23 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
     
     
     
-    public static List getJ2EEDependencyList_12() {
-    	return Collections.emptyList();
+    public static List getJ2EEDependencyList_12() throws Exception {
+    	List dependencies = new ArrayList();
+    	List<IDataModel> models = new ArrayList<IDataModel>();
+    	
+    	models.add(AppClientProjectCreationOperationTest.getAppClientCreationDataModel(APP_CLIENT_PROJ_12, null, JavaEEFacetConstants.APP_CLIENT_12, true, true));
+    	
+    	models.add(EJBProjectCreationOperationTest.getEJBDataModel(EJB_PROJ_11, null, null, null, JavaEEFacetConstants.EJB_11, true));
+    	
+    	models.add(WebProjectCreationOperationTest.getWebDataModel(WEB_PROJ_22, null, null, null, null, JavaEEFacetConstants.WEB_22, true));
+    	
+    	for(int i = 0; i < models.size(); i++) {
+    		OperationTestCase.runDataModel(models.get(i));
+    	}
+    	
+    	dependencies.addAll(Arrays.asList(J2EEProjectUtilities.getAllProjects()));
+    	
+    	return dependencies;
     }
     
     public static List getJavaDependencyList_12() {
@@ -232,16 +247,14 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
     
     
     public static List getJ2EEDependencyList_13() throws Exception {
+    	getJ2EEDependencyList_12();
     	List dependencies = new ArrayList();
     	List<IDataModel> models = new ArrayList<IDataModel>();
     	
-    	models.add(AppClientProjectCreationOperationTest.getAppClientCreationDataModel(APP_CLIENT_PROJ_12, null, JavaEEFacetConstants.APP_CLIENT_12, true, true));
     	models.add(AppClientProjectCreationOperationTest.getAppClientCreationDataModel(APP_CLIENT_PROJ_13, null, JavaEEFacetConstants.APP_CLIENT_13, true, true));
     	
-    	models.add(EJBProjectCreationOperationTest.getEJBDataModel(EJB_PROJ_11, null, null, null, JavaEEFacetConstants.EJB_11, true));
     	models.add(EJBProjectCreationOperationTest.getEJBDataModel(EJB_PROJ_2, null, null, null, JavaEEFacetConstants.EJB_2, true));
     	
-    	models.add(WebProjectCreationOperationTest.getWebDataModel(WEB_PROJ_22, null, null, null, null, JavaEEFacetConstants.WEB_22, true));
     	models.add(WebProjectCreationOperationTest.getWebDataModel(WEB_PROJ_23, null, null, null, null, JavaEEFacetConstants.WEB_23, true));
     	
     	models.add(JCAProjectCreationOperationTest.getConnectorDataModel(CONNECTOR_PROJ_1, null, null, JavaEEFacetConstants.CONNECTOR_1));
@@ -300,8 +313,6 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
     	models.add(WebProjectCreationOperationTest.getWebDataModel(WEB_PROJ_25, null, null, null, null, JavaEEFacetConstants.WEB_25, false));
       	models.add(WebProjectCreationOperationTest.getWebDataModel(WEB_PROJ_25 + "_WithDD", null, null, null, null, JavaEEFacetConstants.WEB_25, true));
     	
-    	models.add(JCAProjectCreationOperationTest.getConnectorDataModel(CONNECTOR_PROJ_15, null, null, JavaEEFacetConstants.CONNECTOR_15));
-
     	for(int i = 0; i < models.size(); i++) {
     		OperationTestCase.runDataModel(models.get(i));
     	}

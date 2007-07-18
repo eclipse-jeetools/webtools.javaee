@@ -28,10 +28,6 @@ public class HeaderParserTests extends TestCase {
         return suite;
     }
 	
-	private static String getSpeedData(String suffix) {
-		return System.getProperty("user.dir") + java.io.File.separatorChar + "TestData" + java.io.File.separatorChar + "ejbjarLoadTestData" + java.io.File.separatorChar + suffix;
-	}
-
 	private static String getParserTestData(String suffix) {
 		return System.getProperty("user.dir") + java.io.File.separatorChar + "TestData" + java.io.File.separatorChar + "headerParserTestData" + java.io.File.separatorChar + suffix;
 	}
@@ -131,6 +127,28 @@ public class HeaderParserTests extends TestCase {
 
 	public void testJavaEE() throws Exception {
 
+		List data = getXMLData();
+
+		InputStream in = null;
+
+		for (int i = 0; i < data.size(); i++) {
+			try {
+				TestData testData = (TestData) data.get(i);
+				in = new FileInputStream(new File(getParserTestData(testData.fileName)));
+				JavaEEQuickPeek peek = new JavaEEQuickPeek(in);
+				Assert.assertEquals(testData.type, peek.getType());
+				Assert.assertEquals(testData.modVersion, peek.getVersion());
+				Assert.assertEquals(testData.eeVersion, peek.getJavaEEVersion());
+			} finally {
+				if (in != null) {
+					in.close();
+				}
+			}
+		}
+
+	}
+
+	private List getXMLData() {
 		List data = new ArrayList();
 		data.add(new TestData("application-client12.xml", J2EEVersionConstants.APPLICATION_CLIENT_TYPE, J2EEVersionConstants.J2EE_1_2_ID, J2EEVersionConstants.J2EE_1_2_ID));
 		data.add(new TestData("application-client13.xml", J2EEVersionConstants.APPLICATION_CLIENT_TYPE, J2EEVersionConstants.J2EE_1_3_ID, J2EEVersionConstants.J2EE_1_3_ID));
@@ -178,37 +196,18 @@ public class HeaderParserTests extends TestCase {
 		data.add(new TestData("web0.xml", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.UNKNOWN, J2EEVersionConstants.UNKNOWN));
 		data.add(new TestData("web00.xml", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.UNKNOWN, J2EEVersionConstants.UNKNOWN));
 		data.add(new TestData("web000.xml", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.UNKNOWN, J2EEVersionConstants.UNKNOWN));
+		return data;
+	}
 
+	public void testSpeed() throws Exception {
+		List data = getXMLData();
+		long[] times = new long[data.size()];
 		InputStream in = null;
 
 		for (int i = 0; i < data.size(); i++) {
 			try {
 				TestData testData = (TestData) data.get(i);
 				in = new FileInputStream(new File(getParserTestData(testData.fileName)));
-				JavaEEQuickPeek peek = new JavaEEQuickPeek(in);
-				Assert.assertEquals(testData.type, peek.getType());
-				Assert.assertEquals(testData.modVersion, peek.getVersion());
-				Assert.assertEquals(testData.eeVersion, peek.getJavaEEVersion());
-			} finally {
-				if (in != null) {
-					in.close();
-				}
-			}
-		}
-
-	}
-
-	public void testSpeed() throws Exception {
-		InputStream in = null;
-		String[] fileNames = new String[] { "ejb-jar2.xml", "ejb-jar3.xml" };
-		long[] times = new long[fileNames.length];
-
-		TestData testData = new TestData("", J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.EJB_3_0_ID, J2EEVersionConstants.JEE_5_0_ID);
-
-		for (int i = 0; i < fileNames.length; i++) {
-			try {
-
-				in = new FileInputStream(new File(getSpeedData(fileNames[i])));
 				long start = System.currentTimeMillis();
 				JavaEEQuickPeek peek = new JavaEEQuickPeek(in);
 				long end = System.currentTimeMillis();
@@ -219,7 +218,6 @@ public class HeaderParserTests extends TestCase {
 				Assert.assertEquals(testData.type, peek.getType());
 				Assert.assertEquals(testData.modVersion, peek.getVersion());
 				Assert.assertEquals(testData.eeVersion, peek.getJavaEEVersion());
-				// System.out.println("times[" + i + "] =" + times[i]);
 			} finally {
 				if (in != null) {
 					in.close();
@@ -232,6 +230,7 @@ public class HeaderParserTests extends TestCase {
 			Assert.fail();
 		}
 	}
+	
 	public void testNormalizeSchemaLocation() throws Exception {
 		verifyNormalizeSchemaLocation("", "");
 		verifyNormalizeSchemaLocation("", " ");
