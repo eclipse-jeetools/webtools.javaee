@@ -835,7 +835,9 @@ public class EarValidator extends J2EEValidator  {
 	
 	private void clearUpSubTaskMessageDestinationMessages(ModuleRef moduleRef, List destinationsRefs) {
 		try {
-			removeAllMessages(moduleRef.getDeploymentDescriptor(),MESSAGE_DESTINATION_REF_GROUP_NAME);
+			if( moduleRef != null && moduleRef.getDeploymentDescriptor() != null ){
+				removeAllMessages(moduleRef.getDeploymentDescriptor(),MESSAGE_DESTINATION_REF_GROUP_NAME);
+			}
 		} catch (ArchiveWrappedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
