@@ -59,9 +59,11 @@ public class UtilityImportOperationTest extends ModuleImportOperationTest {
     	runImportTests_All("testUtilityImport_AddToExisitingEAR14");
     }
     
+    /*
     public void testUtilityImport_AddToExisitingEAR5_WithoutDD() throws Exception {
     	runImportTests_All("testUtilityImport_AddToExisitingEAR5_WithoutDD");
     }
+    */
     
     public void testUtilityImport_AddToExisitingEAR5_WithDD() throws Exception {
     	runImportTests_All("testUtilityImport_AddToExisitingEAR5_WithDD");

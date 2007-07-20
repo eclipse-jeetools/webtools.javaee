@@ -83,6 +83,7 @@ public class EARImportOperationTest extends JEEImportOperationTest {
     	//runImportTests_All("testEARImport50_ChangedContentDir_WithDependencies");
     }
     
+    /*
     public void testEARImport50_WithDependencies_WithDD() throws Exception{
     	runImportTests_All("testEARImport50_WithDependencies_WithDD");
     }
@@ -90,7 +91,7 @@ public class EARImportOperationTest extends JEEImportOperationTest {
     public void testEARImport50_ChangedContentDir_WithDependencies_WithDD() throws Exception{
     	runImportTests_All("testEARImport50_ChangedContentDir_WithDependencies_WithDD");
     }
-	
+    */
 	
 	@Override
 	protected String getModuleExtension() {

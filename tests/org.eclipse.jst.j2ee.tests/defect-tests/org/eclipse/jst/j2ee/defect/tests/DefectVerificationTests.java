@@ -10,18 +10,18 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.defect.tests;
 
-import java.io.File;
+//import java.io.File;
 import java.io.StringBufferInputStream;
-import java.net.URL;
-import java.net.URLClassLoader;
+//import java.net.URL;
+//import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Enumeration;
+//import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
+//import java.util.zip.ZipEntry;
+//import java.util.zip.ZipFile;
 
 import junit.framework.Assert;
 
@@ -74,7 +74,7 @@ import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProp
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
-import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
+//import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -100,7 +100,7 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
-import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebImportOperationTest;
+//import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebImportOperationTest;
 
 public class DefectVerificationTests extends OperationTestCase {
 
@@ -510,6 +510,7 @@ public class DefectVerificationTests extends OperationTestCase {
 	/**
 	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=145031
 	 */
+	/*
 	public void test145031() throws Exception {
 		String [] shortNames = new String [] { "JarTest.man.jar", "JarTest.auto.jar"};
 		
@@ -551,6 +552,7 @@ public class DefectVerificationTests extends OperationTestCase {
 			
 		}
 	}
+	*/
 	
 	/**
 	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=159481
@@ -715,7 +717,8 @@ public class DefectVerificationTests extends OperationTestCase {
 
 
 	}
-	
+
+	/*
 	public void test192752() throws Exception {
 		String warPath = null;
 		String projectName = null;
@@ -751,6 +754,7 @@ public class DefectVerificationTests extends OperationTestCase {
 		webArtifactEditForRead = WebArtifactEdit.getWebArtifactEditForRead(ProjectUtil.getProject(projectName));
 		checkIfModelIsParsed(webArtifactEditForRead.getWebApp());
 	}
+	*/
 
 	private String getWarFile(String fileName) {
 		return TEST_DATA_PATH + "WarImportTests" + java.io.File.separatorChar + fileName;
