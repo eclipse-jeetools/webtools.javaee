@@ -27,7 +27,9 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -50,6 +52,7 @@ import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
@@ -179,45 +182,60 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		IStatus stat = OK_STATUS;
 		try {
 			if( earComponent != null ){
-				List list = newJ2EEModulesToAdd();				
-				if (list != null && !list.isEmpty()) {
-					IDataModel dm = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
-					
-					dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComponent);					
-					dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, list);
-					stat = dm.validateProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
-					if (stat != OK_STATUS)
-						return stat;
-					dm.getDefaultOperation().execute(monitor, null);
-				}
-				
-				if (!javaProjectsList.isEmpty()) {
-	
-					for (int i = 0; i < javaProjectsList.size(); i++) {
-						IProject proj = (IProject) javaProjectsList.get(i);
-						IDataModel migrationdm = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
-						migrationdm.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, proj.getName());
-						migrationdm.getDefaultOperation().execute(monitor, null);
-	
-	
-						IDataModel refdm = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
-						List targetCompList = (List) refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
-	
-						IVirtualComponent targetcomponent = ComponentCore.createComponent(proj);
-						targetCompList.add(targetcomponent);
-	
-						refdm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComponent);
-						refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, targetCompList);
-						
-						// referenced java projects should have archiveName attribute
-						((Map)refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP)).put(targetcomponent, proj.getName() + IJ2EEModuleConstants.JAR_EXT);
+				final List list = newJ2EEModulesToAdd();				
+				boolean shouldRun = (list != null && !list.isEmpty()) || !javaProjectsList.isEmpty();
+				if(shouldRun){
+					IWorkspaceRunnable runnable = new IWorkspaceRunnable(){
 
-						refdm.getDefaultOperation().execute(monitor, null);
-						j2eeComponentList.add(targetcomponent);
-					}
+						public void run(IProgressMonitor monitor) throws CoreException{
+							if (list != null && !list.isEmpty()) {
+								IDataModel dm = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
+								
+								dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComponent);					
+								dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, list);
+								IStatus stat = dm.validateProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+								if (stat != OK_STATUS)
+									throw new CoreException(stat);
+								try {
+									dm.getDefaultOperation().execute(monitor, null);
+								} catch (ExecutionException e) {
+									Logger.getLogger().log(e);
+								}
+							}
+							if (!javaProjectsList.isEmpty()) {
+								for (int i = 0; i < javaProjectsList.size(); i++) {
+									try {
+										IProject proj = (IProject) javaProjectsList.get(i);
+										IDataModel migrationdm = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
+										migrationdm.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, proj.getName());
+										migrationdm.getDefaultOperation().execute(monitor, null);
+
+
+										IDataModel refdm = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
+										List targetCompList = (List) refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+
+										IVirtualComponent targetcomponent = ComponentCore.createComponent(proj);
+										targetCompList.add(targetcomponent);
+
+										refdm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComponent);
+										refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, targetCompList);
+										
+										// referenced java projects should have archiveName attribute
+										((Map)refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP)).put(targetcomponent, proj.getName() + IJ2EEModuleConstants.JAR_EXT);
+
+										refdm.getDefaultOperation().execute(monitor, null);
+										j2eeComponentList.add(targetcomponent);
+									} catch (ExecutionException e) {
+										Logger.getLogger().log(e);
+									}
+								}
+							}
+
+						}
+					};
+					J2EEUIPlugin.getWorkspace().run(runnable, monitor);
 				}
 			}
-
 		} catch (Exception e) {
 			Logger.getLogger().log(e);
 		}
