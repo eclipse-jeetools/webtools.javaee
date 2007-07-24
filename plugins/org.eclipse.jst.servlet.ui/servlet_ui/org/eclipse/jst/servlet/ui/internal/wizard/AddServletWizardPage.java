@@ -64,12 +64,17 @@ public class AddServletWizardPage extends DataModelWizardPage {
 		composite.setLayoutData(data);
 
 		createNameDescription(composite);
-		new StringArrayTableWizardSection(composite, IWebWizardConstants.INIT_PARAM_LABEL, IWebWizardConstants.ADD_BUTTON_LABEL, IWebWizardConstants.EDIT_BUTTON_LABEL, 
+		
+		StringArrayTableWizardSectionCallback callback = new StringArrayTableWizardSectionCallback();
+		StringArrayTableWizardSection initSection = new StringArrayTableWizardSection(composite, IWebWizardConstants.INIT_PARAM_LABEL, IWebWizardConstants.ADD_BUTTON_LABEL, IWebWizardConstants.EDIT_BUTTON_LABEL, 
 				IWebWizardConstants.REMOVE_BUTTON_LABEL, new String[]{IWebWizardConstants.NAME_LABEL, IWebWizardConstants.VALUE_LABEL, IWebWizardConstants.DESCRIPTION_LABEL}, null,// WebPlugin.getDefault().getImage("initializ_parameter"),
 				model, INewServletClassDataModelProperties.INIT_PARAM);
+		initSection.setCallback(callback);
 		urlSection = new StringArrayTableWizardSection(composite, IWebWizardConstants.URL_MAPPINGS_LABEL, IWebWizardConstants.ADD_BUTTON_LABEL, IWebWizardConstants.EDIT_BUTTON_LABEL, IWebWizardConstants.REMOVE_BUTTON_LABEL,
 				new String[]{IWebWizardConstants.URL_PATTERN_LABEL}, null,// WebPlugin.getDefault().getImage("url_type"),
 				model, INewServletClassDataModelProperties.URL_MAPPINGS);
+		urlSection.setCallback(callback);
+		
 		String text = displayNameText.getText();
 		// Set default URL Pattern
 		List input = new ArrayList();

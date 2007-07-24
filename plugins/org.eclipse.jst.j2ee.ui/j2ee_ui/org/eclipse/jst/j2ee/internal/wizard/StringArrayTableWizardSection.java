@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
@@ -27,6 +28,8 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
@@ -76,7 +79,7 @@ public class StringArrayTableWizardSection extends Composite {
 		}
 	}
 
-	protected class AddStringArrayDialog extends Dialog {
+	protected class AddStringArrayDialog extends Dialog implements ModifyListener {
 		protected String windowTitle;
 		protected String[] labelsForTextField;
 		protected Text[] texts;
@@ -123,18 +126,34 @@ public class StringArrayTableWizardSection extends Composite {
 			Dialog.applyDialogFont(parent);
 			return composite;
 		}
+		
+		protected Control createContents(Composite parent) {
+			Composite composite = (Composite) super.createContents(parent);
+			
+			for (int i = 0; i < texts.length; i++) {
+				texts[i].addModifyListener(this);
+			}
+			
+			updateOKButton();
+			
+			return composite;
+		}
 
 		protected void okPressed() {
-			int n = labelsForTextField.length;
-			stringArray = new String[n];
-			for (int i = 0; i < n; i++) {
-				stringArray[i] = texts[i].getText();
-			}
+			stringArray = callback.retrieveResultStrings(texts);
 			super.okPressed();
 		}
 
 		public String[] getStringArray() {
 			return stringArray;
+		}
+		
+		public void modifyText(ModifyEvent e) {
+			updateOKButton();
+		}
+		
+		private void updateOKButton() {
+			getButton(IDialogConstants.OK_ID).setEnabled(callback.validate(texts));
 		}
 	}
 	
@@ -162,6 +181,67 @@ public class StringArrayTableWizardSection extends Composite {
 			return composite;
 		}
 	}
+	
+	/**
+	 * Callback interface used by the Add/Edit-StringArrayDialog classes. 
+	 */
+	public interface StringArrayDialogCallback {
+		
+		/**
+		 * Validates the text fields. 
+		 * <p>Used to decide wheather to enable the OK button of the dialog. 
+		 * If the method returns <code>true</code> the OK button is enabled, 
+		 * otherwise the OK button is disabled.</p> 
+		 * 
+		 * @param reference to the text fields in the dialog
+		 * 
+		 * @return <code>true</code> if the values in the text fields are 
+		 *         valid, <code>false</code> otherwise. 
+		 */
+		public boolean validate(Text[] texts);
+		
+		/**
+		 * Retrieves the strings from the text fields of the dialog. 
+		 * <p>Implementers of the callback can use these method to do some 
+		 * preprocessing (like trimming) of the data in the text fields before 
+		 * using it. The returned values will be the actual data that will be 
+		 * put in the table viewer.</p> 
+		 *  
+		 * @param texts reference to the text fields in the dialog
+		 * 
+		 * @return the values retreived from the text fields
+		 */
+		public String[] retrieveResultStrings(Text[] texts);
+		
+	}
+	
+	/**
+	 * Default adapter with basic implementation of the 
+	 * <code>StringArrayDialogCallback</code> interface. 
+	 */
+	protected class StringArrayDialogCallbackAdapter implements StringArrayDialogCallback {
+		
+		/**
+		 * Returns always <code>true</code>. 
+		 */
+		public boolean validate(Text[] texts) {
+			return true;
+		}
+
+		/**
+		 * Just retreives the unmodified values of the text fields as a 
+		 * string array. 
+		 */
+		public String[] retrieveResultStrings(Text[] texts) {
+			int n = texts.length;
+			String[] result = new String[n];
+			for (int i = 0; i < n; i++) {
+				result[i] = texts[i].getText();
+			}
+			return result;
+		}
+		
+	}
 
 	private TableViewer viewer;
 	private Button addButton;
@@ -172,6 +252,7 @@ public class StringArrayTableWizardSection extends Composite {
 	private IDataModel model;
 	private String propertyName;
 	private Image labelProviderImage;
+	private StringArrayDialogCallback callback;
 
 	public StringArrayTableWizardSection(Composite parent, String title, String addButtonLabel, String removeButtonLabel, 
 			String[] labelsForText, Image labelProviderImage, IDataModel model, String propertyName) {
@@ -268,6 +349,8 @@ public class StringArrayTableWizardSection extends Composite {
 				}
 			});
 		}
+		
+		callback = new StringArrayDialogCallbackAdapter();
 	}
 
 	private void handleAddButtonSelected() {
@@ -364,5 +447,14 @@ public class StringArrayTableWizardSection extends Composite {
 
 	public Button getRemoveButton() {
 		return removeButton;
+	}
+	
+	/**
+	 * Set callback for customizing the preprocessing of the user input. 
+	 * 
+	 * @param callback an implementation of the callback interface. 
+	 */
+	public void setCallback(StringArrayDialogCallback callback) {
+		this.callback = callback;
 	}
 }
