@@ -328,7 +328,7 @@ public class WebDeployableArtifactUtil {
 							Iterator it = mappings.iterator();
 							while( it.hasNext() ){
 								org.eclipse.jst.javaee.web.ServletMapping map = (org.eclipse.jst.javaee.web.ServletMapping) it.next();
-								if( map.getServletName().equals(servlet.getServletClass())){
+								if( map.getServletName().equals(servlet.getServletName())){
 									org.eclipse.jst.javaee.core.UrlPatternType urlPattern = (org.eclipse.jst.javaee.core.UrlPatternType)map.getUrlPatterns().get(0);
 									return  urlPattern.getValue();
 								}
