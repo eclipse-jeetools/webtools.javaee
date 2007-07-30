@@ -42,6 +42,8 @@ public interface IJ2EEFacetConstants {
 	public static final IProjectFacetVersion DYNAMIC_WEB_24 = ProjectFacetsManager.getProjectFacet(DYNAMIC_WEB).getVersion("2.4"); //$NON-NLS-1$
 	public static final IProjectFacetVersion DYNAMIC_WEB_25 = ProjectFacetsManager.getProjectFacet(DYNAMIC_WEB).getVersion("2.5"); //$NON-NLS-1$
 	
+	public static final String DYNAMIC_WEB_XDOCLET = "jst.web.xdoclet"; //$NON-NLS-1$
+	
 	public static final String UTILITY = IModuleConstants.JST_UTILITY_MODULE;
 
 	public static final String JCA = IModuleConstants.JST_CONNECTOR_MODULE;
