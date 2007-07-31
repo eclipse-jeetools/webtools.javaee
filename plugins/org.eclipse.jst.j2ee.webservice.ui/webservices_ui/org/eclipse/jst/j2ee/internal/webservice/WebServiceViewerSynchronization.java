@@ -254,13 +254,17 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 			
 			boolean isThereWebServices = false;
 			if (webServiceProjectsExist(monitor)) {
-				isThereWebServices =  indexWebServices(monitor);	
+				isThereWebServices =  indexWebServices(monitor);
+				if( isThereWebServices ){
+					setAreThereWebServices(isThereWebServices);		
+				}
+			}else{
+				setAreThereWebServices(false);
 			}
 			if(!hasNavigatorGroupBeenAdded()){
 				if(isThereWebServices)
 					addWebServiceNode();
 			}
-			setAreThereWebServices(isThereWebServices);
 
 			monitor.done();
 			
