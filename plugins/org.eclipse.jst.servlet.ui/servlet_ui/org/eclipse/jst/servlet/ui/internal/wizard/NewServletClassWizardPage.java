@@ -13,9 +13,11 @@ package org.eclipse.jst.servlet.ui.internal.wizard;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -23,6 +25,7 @@ import org.eclipse.jst.j2ee.internal.war.ui.util.WebServletGroupItemProvider;
 import org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
+import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.servlet.ui.internal.navigator.CompressedJavaProject;
 import org.eclipse.swt.SWT;
@@ -38,6 +41,9 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.IProjectFacet;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 public class NewServletClassWizardPage extends NewJavaClassWizardPage {
 
@@ -57,13 +63,15 @@ public class NewServletClassWizardPage extends NewJavaClassWizardPage {
 	 * Create annotations group and set default enablement
 	 */
 	private void createAnnotationsGroup(Composite parent) {
-		annotationsGroup = new AnnotationsStandaloneGroup(parent, model, J2EEProjectUtilities.EJB.equals(projectType),
-				J2EEProjectUtilities.DYNAMIC_WEB.equals(projectType));
-		if (!model.isPropertySet(IArtifactEditOperationDataModelProperties.PROJECT_NAME))
-			return;
-		IProject project = ProjectUtilities.getProject(model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME));
-		annotationsGroup.setEnablement(project);
-		// annotationsGroup.setUseAnnotations(true);
+		if (isWebDocletProject()) {
+			annotationsGroup = new AnnotationsStandaloneGroup(parent, model, J2EEProjectUtilities.EJB.equals(projectType),
+					J2EEProjectUtilities.DYNAMIC_WEB.equals(projectType));
+			if (!model.isPropertySet(IArtifactEditOperationDataModelProperties.PROJECT_NAME))
+				return;
+			IProject project = ProjectUtilities.getProject(model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME));
+			annotationsGroup.setEnablement(project);
+			// annotationsGroup.setUseAnnotations(true);
+		}
 	}
 	
 	protected Composite createTopLevelComposite(Composite parent) {
@@ -176,5 +184,16 @@ public class NewServletClassWizardPage extends NewJavaClassWizardPage {
 			return ((CompressedJavaProject)selection).getProject().getProject();
 		}
 		return super.getExtendedSelectedProject(selection);
+	}
+	
+	private boolean isWebDocletProject() {
+		IProject project = ProjectUtilities.getProject(model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME));
+		try {
+			IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+			return facetedProject.hasProjectFacet(WebFacetUtils.WEB_XDOCLET_FACET);
+		} catch (CoreException e) {
+			Logger.getLogger().log(e);
+		}
+		return false;
 	}
 }

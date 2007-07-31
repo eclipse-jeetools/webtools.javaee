@@ -45,6 +45,8 @@ import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataMode
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.WTPJETEmitter;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
+import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
@@ -101,7 +103,6 @@ public class NewServletClassOperation extends AbstractDataModelOperation {
 	 * XDoclet facet constants
 	 */
 	private static final String JST_WEB_XDOCLET_VERSION = "1.2.3"; //$NON-NLS-1$
-	private static final String JST_WEB_XDOCLET = "jst.web.xdoclet"; //$NON-NLS-1$
 
 	/**
 	 * The extension name for a java class
@@ -279,7 +280,7 @@ public class NewServletClassOperation extends AbstractDataModelOperation {
 		IFacetedProject facetedProject = ProjectFacetsManager.create(project);
 		Set fixedFacets = facetedProject.getFixedProjectFacets();
 		IDataModel dm = DataModelFactory.createDataModel(new FacetInstallDataModelProvider());
-		dm.setProperty(IFacetDataModelProperties.FACET_ID, JST_WEB_XDOCLET);
+		dm.setProperty(IFacetDataModelProperties.FACET_ID, IJ2EEFacetConstants.DYNAMIC_WEB_XDOCLET);
 		dm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, project.getName());
 		dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, JST_WEB_XDOCLET_VERSION);
 		IDataModel fdm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
@@ -312,13 +313,9 @@ public class NewServletClassOperation extends AbstractDataModelOperation {
 
 		// Otherwise check and see if the xdoclet facet is on the project yet
 		IFacetedProject facetedProject = ProjectFacetsManager.create(project);
-		Set facets = facetedProject.getProjectFacets();
-		for (Iterator iter = facets.iterator(); iter.hasNext();) {
-			IProjectFacetVersion facetVersion = (IProjectFacetVersion) iter.next();
-			String facetID = facetVersion.getProjectFacet().getId();
-			if (JST_WEB_XDOCLET.equals(facetID)) 
-				return;
-		}
+		if (!facetedProject.hasProjectFacet(WebFacetUtils.WEB_XDOCLET_FACET))
+			return;
+			
 		// Install xdoclet facet
 		installXDocletFacet(monitor, project);
 	}
