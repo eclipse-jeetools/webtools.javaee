@@ -164,7 +164,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 					// Does the project have 1.4 web service clients?
 					List wsClientEdits = new ArrayList();
 					wsClientEdits.add(edit);
-					if (!getWorkspace14ServiceRefs(wsClientEdits).isEmpty())
+					//if (!getWorkspace14ServiceRefs(wsClientEdits).isEmpty())
 						isInterested = true;
 					
 					// If project has 1.3 or 1.4 web service clients, cache the artifact edit
