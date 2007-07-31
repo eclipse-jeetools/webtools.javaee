@@ -17,21 +17,19 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
+import java.util.Iterator;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.IWizardPage;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.earcreation.IDefaultJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.project.facet.J2EEModuleFacetInstallDataModelProvider;
-import org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientProjectWizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.layout.GridData;
@@ -42,14 +40,10 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IPluginContribution;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.activities.WorkbenchActivityHelper;
+import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.wizards.IWizardDescriptor;
 import org.eclipse.ui.wizards.IWizardRegistry;
-import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
-import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
-import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
-import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 import org.eclipse.wst.common.frameworks.internal.ui.GenericWizardNode;
@@ -359,17 +353,7 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                  * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
                  */
                 protected IWizard createWizard() {
-                    IDataModel dm = DataModelFactory.createDataModel(new AppClientFacetProjectCreationDataModelProvider());
-                    FacetDataModelMap map = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-                    IDataModel model = map.getFacetDataModel(J2EEProjectUtilities.APPLICATION_CLIENT);
-                    model.setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);
-                    
-                    IDataModel nestedAppClientModel = getDataModel().getNestedModel(NESTED_MODEL_CLIENT);
-                    model.setProperty(J2EEModuleFacetInstallDataModelProvider.FACET_RUNTIME, nestedAppClientModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME));
-    				IDataModel appClientFacetModel = ((FacetDataModelMap)nestedAppClientModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP)).getFacetDataModel(J2EEProjectUtilities.APPLICATION_CLIENT);
-                    model.setProperty(J2EEModuleFacetInstallDataModelProvider.FACET_VERSION, appClientFacetModel.getProperty(IFacetDataModelProperties.FACET_VERSION));
-                    
-                    return new AppClientProjectWizard(dm);
+                	return createChildWizard("org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientProjectWizard", NESTED_MODEL_CLIENT); //$NON-NLS-1$
                 }
             };
         }
@@ -388,26 +372,7 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                  * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
                  */
                 protected IWizard createWizard() {
-                    NewProjectDataModelFacetWizard result = null;
-
-                    IWizardRegistry newWizardRegistry = PlatformUI.getWorkbench().getNewWizardRegistry();
-                    IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorProjectWizard"); //$NON-NLS-1$
-                    try {
-                        result = (NewProjectDataModelFacetWizard)descriptor.createWizard();
-                        IDataModel dm = result.getDataModel();
-                        FacetDataModelMap map = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-                        IDataModel model = map.getFacetDataModel(J2EEProjectUtilities.JCA);
-                        model.setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);
-                        
-                        IDataModel nestedJCAModel = getDataModel().getNestedModel(NESTED_MODEL_JCA);
-                        model.setProperty(J2EEModuleFacetInstallDataModelProvider.FACET_RUNTIME, nestedJCAModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME));
-        				IDataModel jcaFacetModel = ((FacetDataModelMap)nestedJCAModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP)).getFacetDataModel(J2EEProjectUtilities.JCA);
-                        model.setProperty(J2EEModuleFacetInstallDataModelProvider.FACET_VERSION, jcaFacetModel.getProperty(IFacetDataModelProperties.FACET_VERSION));
-                        
-                    } catch (CoreException ce) {
-                        Logger.getLogger().log(ce);
-                    }
-                    return result;
+                	return createChildWizard("org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorProjectWizard", NESTED_MODEL_JCA); //$NON-NLS-1$
                 }
             };
         }
@@ -426,26 +391,7 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                  * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
                  */
                 protected IWizard createWizard() {
-                	NewProjectDataModelFacetWizard result = null;
-
-                    IWizardRegistry newWizardRegistry = PlatformUI.getWorkbench().getNewWizardRegistry();
-                    IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.ejb.ui.project.facet.EjbProjectWizard"); //$NON-NLS-1$
-                    try {
-                        result = (NewProjectDataModelFacetWizard)descriptor.createWizard();
-                        IDataModel dm = result.getDataModel();
-                        FacetDataModelMap map = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-                        IDataModel model = map.getFacetDataModel(J2EEProjectUtilities.EJB);
-                        model.setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);
-                        
-                        IDataModel nestedEjbModel = getDataModel().getNestedModel(NESTED_MODEL_EJB);
-                        model.setProperty(J2EEModuleFacetInstallDataModelProvider.FACET_RUNTIME, nestedEjbModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME));
-        				IDataModel ejbFacetModel = ((FacetDataModelMap)nestedEjbModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP)).getFacetDataModel(J2EEProjectUtilities.EJB);
-                        model.setProperty(J2EEModuleFacetInstallDataModelProvider.FACET_VERSION, ejbFacetModel.getProperty(IFacetDataModelProperties.FACET_VERSION));
-                        
-                    } catch (CoreException ce) {
-                        Logger.getLogger().log(ce);
-                    }
-                    return result;
+                	return createChildWizard("org.eclipse.jst.ejb.ui.project.facet.EjbProjectWizard", NESTED_MODEL_EJB); //$NON-NLS-1$
                 }
             };
         }
@@ -464,29 +410,36 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                  * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
                  */
                 protected IWizard createWizard() {
-                	NewProjectDataModelFacetWizard result = null;
-                    IWizardRegistry newWizardRegistry = PlatformUI.getWorkbench().getNewWizardRegistry();
-                    IWizardDescriptor servletWizardDescriptor = newWizardRegistry.findWizard("org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard"); //$NON-NLS-1$
-                    try {
-                        result = (NewProjectDataModelFacetWizard)servletWizardDescriptor.createWizard();
-                        IDataModel dm = result.getDataModel();
-                        FacetDataModelMap map = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-                        IDataModel model = map.getFacetDataModel(J2EEProjectUtilities.DYNAMIC_WEB);
-                        model.setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);
-                        
-                        IDataModel nestedWebModel = getDataModel().getNestedModel(NESTED_MODEL_WEB);
-                        model.setProperty(J2EEModuleFacetInstallDataModelProvider.FACET_RUNTIME, nestedWebModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME));
-        				IDataModel webFacetModel = ((FacetDataModelMap)nestedWebModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP)).getFacetDataModel(J2EEProjectUtilities.DYNAMIC_WEB);
-                        model.setProperty(J2EEModuleFacetInstallDataModelProvider.FACET_VERSION, webFacetModel.getProperty(IFacetDataModelProperties.FACET_VERSION));
-                         
-                    } catch (CoreException ce) {
-                        Logger.getLogger().log(ce);
-                    }
-                    return result;
+                	return createChildWizard("org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard", NESTED_MODEL_WEB); //$NON-NLS-1$
                 }
             };
         }
         return webNode;
+    }
+    
+    private IWizard createChildWizard(String id, String parentWizModelName) {
+    	NewProjectDataModelFacetWizard wizard = null;
+    	IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
+    	IWizardDescriptor wizardDescriptor = newWizardRegistry.findWizard(id); 
+    	try {
+    		// retrieve the model of the parent wizard
+    		IDataModel parentWizModel = getDataModel().getNestedModel(parentWizModelName);
+
+    		// create the child wizard and retrieve its model
+    		wizard = (NewProjectDataModelFacetWizard) wizardDescriptor.createWizard();
+    		IDataModel childWizModel = wizard.getDataModel();
+
+    		// copy the properties of the parent wizard's model to the child wizard's model
+    		Iterator props = parentWizModel.getBaseProperties().iterator();
+    		while (props.hasNext()) {
+    			String prop = (String) props.next();
+    			childWizModel.setProperty(prop, parentWizModel.getProperty(prop));
+    		}
+    		int a = 1;
+    	} catch (CoreException ce) {
+    		Logger.getLogger().log(ce);
+    	}
+    	return wizard;
     }
 
     /**

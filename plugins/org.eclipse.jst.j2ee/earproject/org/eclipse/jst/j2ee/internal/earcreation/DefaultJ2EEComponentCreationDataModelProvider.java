@@ -27,7 +27,9 @@ import org.eclipse.jst.j2ee.internal.moduleextension.JcaModuleExtension;
 import org.eclipse.jst.j2ee.internal.moduleextension.WebModuleExtension;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.J2EEModuleFacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
@@ -103,6 +105,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 		model.addNestedModel(NESTED_MODEL_CLIENT, clientModel);
 		clientFacetModel = ((FacetDataModelMap)clientModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP)).getFacetDataModel(J2EEProjectUtilities.APPLICATION_CLIENT);
 		clientFacetModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, false);
+		clientFacetModel.setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);
 		
 		EjbModuleExtension ejbExt = EarModuleManager.getEJBModuleExtension();
 		if (ejbExt != null) {
@@ -111,6 +114,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 				model.addNestedModel(NESTED_MODEL_EJB, ejbModel);
 				ejbFacetModel = ((FacetDataModelMap)ejbModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP)).getFacetDataModel(J2EEProjectUtilities.EJB);
 				ejbFacetModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, false);
+				ejbFacetModel.setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);
 			}
 		}
 		WebModuleExtension webExt = EarModuleManager.getWebModuleExtension();
@@ -120,6 +124,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 				model.addNestedModel(NESTED_MODEL_WEB, webModel);
 				webFacetModel = ((FacetDataModelMap)webModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP)).getFacetDataModel(J2EEProjectUtilities.DYNAMIC_WEB);
 				webFacetModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, false);
+				webFacetModel.setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);
 			}
 		}
 		JcaModuleExtension rarExt = EarModuleManager.getJCAModuleExtension();
@@ -129,6 +134,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 				model.addNestedModel(NESTED_MODEL_JCA, jcaModel);
 				jcaFacetModel = ((FacetDataModelMap)jcaModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP)).getFacetDataModel(J2EEProjectUtilities.JCA);
 				jcaFacetModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, false);
+				jcaFacetModel.setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);
 			}
 		}
 	}
@@ -364,6 +370,21 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 			componentName = base + CONNECTOR_SUFFIX;
 		setDefaultNestedComponentName(componentName, RAR);
 		setProperty(CONNECTOR_COMPONENT_NAME, componentName);
+		
+		
+		// update the EAR Project Name field as well
+		if(webModel != null){
+			webModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME, base);
+		}
+		if(clientModel != null){
+			clientModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME, base);
+		}
+		if(ejbModel != null){
+			ejbModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME, base);
+		}
+		if(jcaModel != null){
+			jcaModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME, base);
+		}
 	}
 
 	private void setNestedJ2EEVersion(Object j2eeVersion) {
