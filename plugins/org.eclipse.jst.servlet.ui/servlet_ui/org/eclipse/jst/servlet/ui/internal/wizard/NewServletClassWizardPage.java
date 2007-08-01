@@ -42,7 +42,6 @@ import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOper
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
-import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 public class NewServletClassWizardPage extends NewJavaClassWizardPage {
