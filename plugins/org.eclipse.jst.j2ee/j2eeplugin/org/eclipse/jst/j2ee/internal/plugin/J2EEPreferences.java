@@ -19,6 +19,8 @@ package org.eclipse.jst.j2ee.internal.plugin;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Preferences;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.wst.project.facet.IProductConstants;
+import org.eclipse.wst.project.facet.ProductManager;
 
 
 /**
@@ -35,8 +37,8 @@ public class J2EEPreferences {
 		final static String J2EE_VERSION = "org.eclipse.jst.j2ee.ui.preference.j2eeVersion"; //$NON-NLS-1$
 		final static String EJB_CLIENT_JAR_CP_COMPATIBILITY = "org.eclipse.jst.j2ee.preference.clientjar.cp.compatibility"; //$NON-NLS-1$
 		final static String INCREMENTAL_DEPLOYMENT_SUPPORT = "org.eclipse.jst.j2ee.ui.preference.incrementalDeployment"; //$NON-NLS-1$
-
-
+		final static String USE_EAR_LIBRARIES = "org.eclipse.jst.j2ee.preferences.useEARLibraries";//$NON-NLS-1$
+		final static String USE_WEB_APP_LIBRARIES = "org.eclipse.jst.j2ee.preferences.useWebAppLibraries";//$NON-NLS-1$
 	}
 
 	public interface Values {
@@ -50,7 +52,6 @@ public class J2EEPreferences {
 	}
 
 	public interface Defaults {
-
 		final static String J2EE_WEB_CONTENT = Values.J2EE_WEB_CONTENT;
 		final static String STATIC_WEB_CONTENT = Values.STATIC_WEB_CONTENT;
 		final static String JAVA_SOURCE = Values.JAVA_SOURCE;
@@ -78,9 +79,38 @@ public class J2EEPreferences {
 		getPreferences().setDefault(Keys.CREATE_EJB_CLIENT_JAR, Defaults.CREATE_EJB_CLIENT_JAR);
 		getPreferences().setDefault(Keys.EJB_CLIENT_JAR_CP_COMPATIBILITY, Defaults.EJB_CLIENT_JAR_CP_COMPATIBILITY);
 		getPreferences().setDefault(Keys.INCREMENTAL_DEPLOYMENT_SUPPORT, Defaults.INCREMENTAL_DEPLOYMENT_SUPPORT);
-
+		
+		getPreferences().setDefault(Keys.USE_EAR_LIBRARIES, ProductManager.getProperty(IProductConstants.USE_EAR_LIBRARIES));
+		getPreferences().setDefault(Keys.USE_WEB_APP_LIBRARIES, ProductManager.getProperty(IProductConstants.USE_WEB_APP_LIBRARIES));
 	}
 
+	public String getSetting(String key){
+		return getPreferences().getString(key);
+	}
+	
+	public void setSetting(String key, String value){
+		getPreferences().setValue(key, value);
+		firePreferenceChanged();
+	}
+	
+	public boolean getUseEARLibraries() {
+		return getPreferences().getBoolean(Keys.USE_EAR_LIBRARIES);
+	}
+	
+	public void setUseEARLibraries(boolean value) {
+		getPreferences().setValue(Keys.USE_EAR_LIBRARIES, value);
+		firePreferenceChanged();
+	}
+	
+	public boolean getUseWebLibaries() {
+		return getPreferences().getBoolean(Keys.USE_WEB_APP_LIBRARIES);
+	}
+	
+	public void setUseWebLibraries(boolean value) {
+		getPreferences().setValue(Keys.USE_WEB_APP_LIBRARIES, value);
+		firePreferenceChanged();
+	}
+	
 	public String getJ2EEWebContentFolderName() {
 		return getPreferences().getString(Keys.J2EE_WEB_CONTENT);
 	}

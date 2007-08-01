@@ -746,4 +746,13 @@
           context="UI"/>
   </extension>
 
+  <extension
+    point="org.eclipse.jdt.ui.classpathContainerPage">
+    <classpathContainerPage
+      name="%earLibrariesContainerName"
+      class="org.eclipse.jst.j2ee.internal.wizard.EARLibrariesContainerPage"
+      id="org.eclipse.jst.j2ee.internal.module.container">
+    </classpathContainerPage>
+  </extension>
+
 </plugin>

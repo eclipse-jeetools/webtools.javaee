@@ -306,7 +306,19 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		refresh(false);
 	}
 
+	private boolean isUpdating = false;
+	
 	public IClasspathEntry[] getClasspathEntries() {
+		if(!isUpdating){
+			if(this != J2EEComponentClasspathContainerUtils.getInstalledEARLibrariesContainer(javaProject.getProject())){
+				try {
+					isUpdating = true;
+					update();
+				} finally{
+					isUpdating = false;
+				}
+			}
+		}
 		return entries;
 	}
 
