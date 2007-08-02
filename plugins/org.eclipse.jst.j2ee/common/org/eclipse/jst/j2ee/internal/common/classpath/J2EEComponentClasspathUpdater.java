@@ -68,7 +68,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 
 	private int pauseCount = 0;
 	
-	private IPath WEB_APP_LIBS_PATH = new Path("org.eclipse.jst.j2ee.internal.web.container");
+	public static IPath WEB_APP_LIBS_PATH = new Path("org.eclipse.jst.j2ee.internal.web.container"); //$NON-NLS-1$
 
 	public static J2EEComponentClasspathUpdater getInstance() {
 		if (instance == null) {
@@ -256,22 +256,61 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			Object[] projects = moduleQueue.getListeners();
 			for (int i = 0; i < projects.length; i++) {
 				IProject project = (IProject) projects[i];
-				IClasspathContainer container = getWebAppLibrariesContainer(project, false);
-				if (container != null && container instanceof FlexibleProjectContainer) {
-					((FlexibleProjectContainer) container).refresh();
+				if (J2EEProjectUtilities.isDynamicWebProject(project)) {
+					// this block is for Web app Libraries
+
+					IClasspathContainer webAppLibrariesContainer = null;
+					// The Web App Libraries container will only be auto added/removed from the classpath once.
+					// Thereafter the user controls the Web App Librareis container with the JDT UI.
+					boolean shouldConsiderModifyingWebAppLibraries = !J2EEComponentClasspathContainerUtils.isWebAppLibrariesProcessed(project);
+					if (shouldConsiderModifyingWebAppLibraries) {
+						J2EEComponentClasspathContainerUtils.setWebAppLibrariesProcessed(project, true);
+						boolean shouldAddWebAppLibraries = J2EEComponentClasspathContainerUtils.getDefaultUseWebAppLibraries();
+						if (shouldAddWebAppLibraries) {
+							webAppLibrariesContainer = addContainerToModuleIfNecessary(project, WEB_APP_LIBS_PATH);
+						} else {
+							removeContainerFromModuleIfNecessary(project, WEB_APP_LIBS_PATH);
+						}
 				}
-				IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(project);
-				if (earProjects.length == 0) {
-					continue;
+
+					// If the container was not just added, see if it is already present
+					if (null == webAppLibrariesContainer) {
+						webAppLibrariesContainer = J2EEComponentClasspathContainerUtils.getInstalledWebAppLibrariesContainer(project);
 				} 
 				
-				container = addContainerToModuleIfNecessary(project);
-				if (container != null && container instanceof J2EEComponentClasspathContainer) {
-					((J2EEComponentClasspathContainer) container).refresh(forceUpdateOnNextRun);
+					// If the container is present, refresh it
+					if (webAppLibrariesContainer != null) {
+						((FlexibleProjectContainer) webAppLibrariesContainer).refresh();
+					}
 				}
+
+				// ******************** The following is for EAR Libraries
+
+				IClasspathContainer earLibrariesContainer = null;
+				// The EAR Libraries container will only be auto added/removed from the classpath once.
+				// Thereafter the user controls the Ear Librareis container with the JDT UI.
+				boolean shouldConsiderModifyingEARLibraries = !J2EEComponentClasspathContainerUtils.isEARLibrariesProcessed(project);
+				if (shouldConsiderModifyingEARLibraries) {
+					J2EEComponentClasspathContainerUtils.setEARLibrariesProcessed(project, true);
+					boolean shouldAddEARLibraries = J2EEComponentClasspathContainerUtils.getDefaultUseEARLibraries();
+					if (shouldAddEARLibraries) {
+						earLibrariesContainer = addContainerToModuleIfNecessary(project, J2EEComponentClasspathContainer.CONTAINER_PATH);
+					} else {
+						removeContainerFromModuleIfNecessary(project, J2EEComponentClasspathContainer.CONTAINER_PATH);
 			}
 		}
 		
+				// If the container was not just added, see if it is already present
+				if (null == earLibrariesContainer) {
+					earLibrariesContainer = J2EEComponentClasspathContainerUtils.getInstalledEARLibrariesContainer(project);
+				}
+
+				// If the container is present, refresh it
+				if (earLibrariesContainer != null) {
+					((J2EEComponentClasspathContainer) earLibrariesContainer).refresh(forceUpdateOnNextRun);
+				}
+			}
+		}
 
 		protected IStatus run(IProgressMonitor monitor) {
 
@@ -309,12 +348,12 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		return container;
 	}
 	
-	private IClasspathContainer addContainerToModuleIfNecessary(IProject moduleProject) {
+	private IClasspathContainer addContainerToModuleIfNecessary(IProject moduleProject, IPath containerPath) {
 		IJavaProject jproj = JavaCore.create(moduleProject);
-		IClasspathEntry entry = getExistingContainer(jproj, J2EEComponentClasspathContainer.CONTAINER_PATH);
+		IClasspathEntry entry = getExistingContainer(jproj, containerPath);
 		if (entry == null) {
 			try {
-				entry = JavaCore.newContainerEntry(J2EEComponentClasspathContainer.CONTAINER_PATH, true);
+				entry = JavaCore.newContainerEntry(containerPath, true);
 				addToClasspath(jproj, entry);
 			} catch (CoreException e) {
 				J2EEPlugin.getDefault().getLogger().logError(e);
@@ -322,11 +361,23 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		}
 		IClasspathContainer container = null;
 		try {
-			container = JavaCore.getClasspathContainer(J2EEComponentClasspathContainer.CONTAINER_PATH, jproj);
+			container = JavaCore.getClasspathContainer(containerPath, jproj);
 		} catch (JavaModelException e) {
 			J2EEPlugin.getDefault().getLogger().logError(e);
 		}
 		return container;
+	}
+
+	private void removeContainerFromModuleIfNecessary(IProject moduleProject, IPath containerPath) {
+		IJavaProject jproj = JavaCore.create(moduleProject);
+		IClasspathEntry entry = getExistingContainer(jproj, containerPath);
+		if (entry != null) {
+			try {
+				removeFromClasspath(jproj, entry);
+			} catch (CoreException e) {
+				J2EEPlugin.getDefault().getLogger().logError(e);
+			}
+		}
 	}
 
 	private void addToClasspath(final IJavaProject jproj, final IClasspathEntry entry) throws CoreException {
@@ -337,32 +388,35 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		jproj.setRawClasspath(updated, null);
 	}
 
+	private void removeFromClasspath(final IJavaProject jproj, final IClasspathEntry entry) throws CoreException {
+		final IClasspathEntry[] current = jproj.getRawClasspath();
+		final IClasspathEntry[] updated = new IClasspathEntry[current.length - 1];
+		boolean removed = false;
+		for (int i = 0; i < current.length; i++) {
+			if (!removed) {
+				if (current[i] == entry) {
+					removed = true;
+				} else {
+					updated[i] = current[i];
+				}
+			} else {
+				updated[i - 1] = current[i];
+			}
+		}
+		jproj.setRawClasspath(updated, null);
+	}
+
 	/**
-	 * Returns the existing classpath container if it is already on the
-	 * classpath. This will not create a new container.
+	 * Returns the existing classpath container if it is already on the classpath. This will not
+	 * create a new container.
 	 * 
 	 * @param jproj
 	 * @param classpathContainerID
 	 * @return
 	 */
 	public IClasspathEntry getExistingContainer(IJavaProject jproj, IPath classpathContainerPath) {
-		try {
-			IClasspathEntry[] cpes;
-			cpes = jproj.getRawClasspath();
-			for (int j = 0; j < cpes.length; j++) {
-				final IClasspathEntry cpe = cpes[j];
-				if (cpe.getEntryKind() == IClasspathEntry.CPE_CONTAINER) {
-					if (cpe.getPath().equals(classpathContainerPath)) {
-						return cpe; // entry found
+		return J2EEComponentClasspathContainerUtils.getInstalledContainerEntry(jproj, classpathContainerPath);
 					}
-				}
-			}
-		} catch (JavaModelException e) {
-			J2EEPlugin.getDefault().getLogger().logError(e);
-		}
-		// entry not found
-		return null;
-	}
 
 	private Set knownProjects = new HashSet();
 	

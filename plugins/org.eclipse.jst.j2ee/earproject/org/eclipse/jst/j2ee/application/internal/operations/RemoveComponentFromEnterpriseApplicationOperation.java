@@ -63,6 +63,10 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 				if (list != null && list.size() > 0) {
 					for (int i = 0; i < list.size(); i++) {
 						IVirtualComponent wc = (IVirtualComponent) list.get(i);
+						IVirtualComponent moduleComponent = wc.getComponent();
+						if(!moduleComponent.isBinary()){
+							J2EEComponentClasspathUpdater.getInstance().queueUpdateModule(moduleComponent.getProject());
+						}
 						String moduleURI = getModuleURI(anotherEARModel, wc);
 						removeModule(application, moduleURI); 
 						IVirtualFile vFile = comp.getRootFolder().getFile(moduleURI);

@@ -46,6 +46,9 @@ public class J2EEPreferences {
 		static final String EJB_CLIENT_JAR_CP_COMPATIBILITY = "org.eclipse.jst.j2ee.preference.clientjar.cp.compatibility"; //$NON-NLS-1$
 		static final String INCREMENTAL_DEPLOYMENT_SUPPORT = "org.eclipse.jst.j2ee.ui.preference.incrementalDeployment"; //$NON-NLS-1$
 		
+		final static String USE_EAR_LIBRARIES = "org.eclipse.jst.j2ee.preferences.useEARLibraries";//$NON-NLS-1$
+		final static String USE_WEB_APP_LIBRARIES = "org.eclipse.jst.j2ee.preferences.useWebAppLibraries";//$NON-NLS-1$
+		
 		/**
 		 * @deprecated, 
 		 * but should it be deprecated ? is j2ee_web_content a better name than web_content_folder ?
@@ -179,9 +182,39 @@ public class J2EEPreferences {
 		getPreferences().setDefault(Keys.EJB_GENERATE_DD, false);
 		getPreferences().setDefault(Keys.APP_CLIENT_GENERATE_DD, false);	
 		
-		
+		getPreferences().setDefault(Keys.USE_EAR_LIBRARIES, ProductManager.getProperty(IProductConstants.USE_EAR_LIBRARIES));
+		getPreferences().setDefault(Keys.USE_WEB_APP_LIBRARIES, ProductManager.getProperty(IProductConstants.USE_WEB_APP_LIBRARIES));
 	}
 
+	
+	public String getSetting(String key){
+		return getPreferences().getString(key);
+	}
+	
+	public void setSetting(String key, String value){
+		getPreferences().setValue(key, value);
+		firePreferenceChanged();
+	}
+	
+	public boolean getUseEARLibraries() {
+		return getPreferences().getBoolean(Keys.USE_EAR_LIBRARIES);
+	}
+	
+	public void setUseEARLibraries(boolean value) {
+		getPreferences().setValue(Keys.USE_EAR_LIBRARIES, value);
+		firePreferenceChanged();
+	}
+	
+	public boolean getUseWebLibaries() {
+		return getPreferences().getBoolean(Keys.USE_WEB_APP_LIBRARIES);
+	}
+	
+	public void setUseWebLibraries(boolean value) {
+		getPreferences().setValue(Keys.USE_WEB_APP_LIBRARIES, value);
+		firePreferenceChanged();
+	}
+			
+	
 	public String getJ2EEWebContentFolderName() {
 		//return getPreferences().getString(Keys.J2EE_WEB_CONTENT);
 		//but should it be deprecated ? is j2ee_web_content a better name than web_content_folder ?
