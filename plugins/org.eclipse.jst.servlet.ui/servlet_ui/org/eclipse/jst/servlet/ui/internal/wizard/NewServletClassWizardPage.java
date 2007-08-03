@@ -19,6 +19,7 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.window.Window;
+import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.war.ui.util.WebServletGroupItemProvider;
@@ -70,6 +71,9 @@ public class NewServletClassWizardPage extends NewJavaClassWizardPage {
 			IProject project = ProjectUtilities.getProject(model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME));
 			annotationsGroup.setEnablement(project);
 			// annotationsGroup.setUseAnnotations(true);
+		} else {
+			// not a Web Doclet project - make sure that the USE_ANNOTATIONS property is off
+			model.setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, false);
 		}
 	}
 	
