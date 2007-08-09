@@ -50,6 +50,7 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
  */
 public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements WorkingCopyProvider, IModelProvider, IModelProviderFactory {
 
+	public static boolean SUPPORT_LEGACY_PROJECTS = true;
 	private ArtifactEdit writableEdit =  null; 
 	
 	/**
@@ -204,8 +205,8 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 		if (facetedProject == null)
 			// Return true if project facet is being created
 			return true;
-		//Only return true for legacy projects
-		return !J2EEProjectUtilities.isJEEProject(project);
+		//return true for legacy projects, or use preference.
+		return EnterpriseArtifactEdit.SUPPORT_LEGACY_PROJECTS || !J2EEProjectUtilities.isJEEProject(project);
 	}
 
 	/**
