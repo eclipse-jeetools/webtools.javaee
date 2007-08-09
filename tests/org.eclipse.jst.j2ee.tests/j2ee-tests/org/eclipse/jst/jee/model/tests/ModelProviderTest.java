@@ -13,6 +13,8 @@ import junit.framework.Assert;
 import junit.framework.Test;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
@@ -176,6 +178,43 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 		Assert.assertEquals(descText, desc.getValue());
 		
 	}
+	public void testUseEar5NoDDModel() throws Exception {
+
+		String projName = "TestEE5EarProject";//$NON-NLS-1$
+		IProject earProj = createEarProject(projName, J2EEVersionConstants.JEE_5_0_ID);
+		
+		IFolder contentFolder= earProj.getFolder(J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.APPLICATION_CONTENT_FOLDER));
+		IFile ddFile = contentFolder.getFile(J2EEConstants.APPLICATION_DD_URI);
+		if (ddFile.exists()) {
+			ddFile.delete(true, null);
+		}
+		
+		final IModelProvider provider = ModelProviderManager.getModelProvider(earProj);
+		
+	
+		provider.modify(new Runnable() {
+			public void run() {
+				Application ear = (Application)provider.getModelObject();
+				if (ear.getDescriptions().isEmpty())
+					ear.getDescriptions().add(JavaeeFactory.eINSTANCE.createDescription());
+				Description desc = (Description)ear.getDescriptions().get(0);
+				desc.setValue(descText);
+			}
+		}
+			, null);
+		
+		//Close project to force flush
+		earProj.close(new NullProgressMonitor());
+		//Re-open project
+		earProj.open(new NullProgressMonitor());
+		
+		
+		IModelProvider newProvider = ModelProviderManager.getModelProvider(earProj);
+		Application sameEar = (Application)newProvider.getModelObject();
+		Description desc = (Description)sameEar.getDescriptions().get(0);
+		Assert.assertEquals(descText, desc.getValue());
+		
+	}
 
 	public void testUseEar14Model() throws Exception {
 
@@ -240,6 +279,42 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 		Assert.assertEquals(descText, desc.getValue());
 
 	}
+	public void testUseWeb25NoDDModel() throws Exception {
+
+		String projName = "TestEE5WebProject";//$NON-NLS-1$
+		IProject webProj = createWebProject(projName, J2EEVersionConstants.WEB_2_5_ID);
+		
+		IFolder contentFolder= webProj.getFolder(J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.WEB_CONTENT_FOLDER));
+		IFile ddFile = contentFolder.getFile(J2EEConstants.WEBAPP_DD_URI);
+		if (ddFile.exists()) {
+			ddFile.delete(true, null);
+		}
+
+		final IModelProvider provider = ModelProviderManager.getModelProvider(webProj);
+		
+		provider.modify(new Runnable() {
+			public void run() {
+				WebApp webApp = (WebApp)provider.getModelObject();
+				if (webApp.getDescriptions().isEmpty())
+					webApp.getDescriptions().add(JavaeeFactory.eINSTANCE.createDescription());
+				Description desc = (Description)webApp.getDescriptions().get(0);
+				desc.setValue(descText);
+			}
+		}
+			, null);
+		
+		//Close project to force flush
+		webProj.close(new NullProgressMonitor());
+		//Re-open project
+		webProj.open(new NullProgressMonitor());
+		
+		
+		IModelProvider newProvider = ModelProviderManager.getModelProvider(webProj);
+		WebApp sameWebApp = (WebApp)newProvider.getModelObject();
+		Description desc = (Description)sameWebApp.getDescriptions().get(0);
+		Assert.assertEquals(descText, desc.getValue());
+
+	}
 
 	public void testUseWeb24Model() throws Exception {
 		
@@ -271,7 +346,42 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 		Assert.assertEquals(descText, desc.getValue());
 	
 	}
+	public void testUseEjb3NoDDModel() throws Exception {
 
+		String projName = "TestEE5EjbProject";//$NON-NLS-1$
+		IProject ejbProj = createEjbProject(projName, J2EEVersionConstants.EJB_3_0_ID);
+
+		IFolder ejbFolder= ejbProj.getFolder(J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.EJB_CONTENT_FOLDER));
+		IFile ejbJarXmlFile = ejbFolder.getFile(J2EEConstants.EJBJAR_DD_URI);
+		if (ejbJarXmlFile.exists()) {
+			ejbJarXmlFile.delete(true, null);
+		}
+		
+		final IModelProvider provider = ModelProviderManager.getModelProvider(ejbProj);
+		
+		provider.modify(new Runnable() {
+			public void run() {
+				EJBJar ejbJar = (EJBJar)provider.getModelObject();
+				if (ejbJar.getDescriptions().isEmpty())
+					ejbJar.getDescriptions().add(JavaeeFactory.eINSTANCE.createDescription());
+				Description desc = (Description)ejbJar.getDescriptions().get(0);
+				desc.setValue(descText);
+			}
+		}
+			, null);
+		
+		//Close project to force flush
+		ejbProj.close(new NullProgressMonitor());
+		//Re-open project
+		ejbProj.open(new NullProgressMonitor());
+		
+		
+		IModelProvider newProvider = ModelProviderManager.getModelProvider(ejbProj);
+		EJBJar sameEjbJar = (EJBJar)newProvider.getModelObject();
+		Description desc = (Description)sameEjbJar.getDescriptions().get(0);
+		Assert.assertEquals(descText, desc.getValue());
+
+	}
 	public void testUseEjb3Model() throws Exception {
 
 		String projName = "TestEE5EjbProject";//$NON-NLS-1$
@@ -333,28 +443,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 		Assert.assertEquals(descText, desc.getValue());
 	
 	}
-	/* not yet working - comment out for now
-	public void testUseAppClient5Model() throws Exception {
-		
-		String projName = "TestEE5AppClientProject";//$NON-NLS-1$
-		IProject appClientProj = createAppClientProject(projName, J2EEVersionConstants.JEE_5_0_ID);
-		
-		IModelProvider provider = ModelProviderManager.getModelProvider(appClientProj);
-		
-		ApplicationClient appClient = (ApplicationClient)provider.getModelObject();
-			
 	
-	}
-
-	public void testUseAppClient14Model() throws Exception {
-		
-		String projName = "TestEE14AppClientProject";//$NON-NLS-1$
-		IProject appClientProj = createAppClientProject(projName, J2EEVersionConstants.J2EE_1_4_ID);
-		IModelProvider provider = ModelProviderManager.getModelProvider(appClientProj);
-		org.eclipse.jst.j2ee.client.ApplicationClient appClient = (org.eclipse.jst.j2ee.client.ApplicationClient)provider.getModelObject();
-	
-	}
-*/
 	private ProjectResourceSet getResourceSet(String projName) {
 		IProject proj = getProject(projName);
 		return (ProjectResourceSet)WorkbenchResourceHelperBase.getResourceSet(proj);
@@ -537,4 +626,44 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 			Description desc = (Description)sameClient.getDescriptions().get(0);
 			Assert.assertEquals(descText, desc.getValue());
 		}
+	public void testUseAppClient5NoDDModel() throws Exception {
+		
+		String projName = "TestEE5AppClientProject";//$NON-NLS-1$
+		IProject appClientProj = createAppClientProject(projName, J2EEVersionConstants.JEE_5_0_ID);
+		
+		IFolder contentFolder= appClientProj.getFolder(J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.APP_CLIENT_CONTENT_FOLDER));
+		IFile ddFile = contentFolder.getFile(J2EEConstants.APP_CLIENT_DD_URI);
+		if (ddFile.exists()) {
+			ddFile.delete(true, null);
+		}
+		
+		final IModelProvider provider = ModelProviderManager.getModelProvider(appClientProj);
+		
+		// Test getting model through path api.
+		org.eclipse.jst.javaee.applicationclient.ApplicationClient client = (org.eclipse.jst.javaee.applicationclient.ApplicationClient)provider.getModelObject(new Path(J2EEConstants.APP_CLIENT_DD_URI));
+		
+		
+		provider.modify(new Runnable() {
+			public void run() {
+				org.eclipse.jst.javaee.applicationclient.ApplicationClient client = (org.eclipse.jst.javaee.applicationclient.ApplicationClient)provider.getModelObject();
+				if (client.getDescriptions().isEmpty())
+					client.getDescriptions().add(JavaeeFactory.eINSTANCE.createDescription());
+				Description desc = (Description)client.getDescriptions().get(0);
+				desc.setValue(descText);
+				
+			}
+		}
+			, null);
+		
+		//Close project to force flush
+		appClientProj.close(new NullProgressMonitor());
+		//Re-open project
+		appClientProj.open(new NullProgressMonitor());
+		
+		
+		IModelProvider newProvider = ModelProviderManager.getModelProvider(appClientProj);
+		org.eclipse.jst.javaee.applicationclient.ApplicationClient sameClient = (org.eclipse.jst.javaee.applicationclient.ApplicationClient)newProvider.getModelObject();
+		Description desc = (Description)sameClient.getDescriptions().get(0);
+		Assert.assertEquals(descText, desc.getValue());
+	}
 }
