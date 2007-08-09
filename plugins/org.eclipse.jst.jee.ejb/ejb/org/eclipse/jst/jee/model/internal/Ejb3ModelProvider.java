@@ -13,12 +13,19 @@ package org.eclipse.jst.jee.model.internal;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.javaee.ejb.EJBJar;
+import org.eclipse.jst.javaee.ejb.EJBJarDeploymentDescriptor;
+import org.eclipse.jst.javaee.ejb.EjbFactory;
 import org.eclipse.jst.javaee.ejb.internal.util.EjbResourceImpl;
 
 public class Ejb3ModelProvider extends JEE5ModelProvider implements IModelProvider {
 	
+	private static final String EJB3_CONTENT_TYPE = "org.eclipse.jst.jee.ee5ejbDD"; //$NON-NLS-1$
 	public Ejb3ModelProvider(IProject proj) {
 		super();
 		this.proj = proj;
@@ -34,6 +41,21 @@ public class Ejb3ModelProvider extends JEE5ModelProvider implements IModelProvid
 		if (ejbRes != null && ejbRes.getContents().size() > 0) 
 			return ejbRes.getEjbJar();
 		return null;
+	}
+	protected String getContentTypeDescriber() {
+		return EJB3_CONTENT_TYPE;
+	}
+
+
+	public void populateRoot(XMLResourceImpl res) {
+		EJBJarDeploymentDescriptor dd = EjbFactory.eINSTANCE.createEJBJarDeploymentDescriptor();
+		dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE_NS_URL);  //$NON-NLS-1$
+		dd.getXMLNSPrefixMap().put("xsi", J2EEConstants.XSI_NS_URL); //$NON-NLS-1$
+		dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.EJB_JAR_SCHEMA_LOC_3_0);
+		EJBJar jar = EjbFactory.eINSTANCE.createEJBJar();
+		dd.setEjbJar(jar);
+		jar.setVersion(J2EEVersionConstants.VERSION_3_0_TEXT);
+		res.getContents().add((EObject) dd);
 	}
 
 
