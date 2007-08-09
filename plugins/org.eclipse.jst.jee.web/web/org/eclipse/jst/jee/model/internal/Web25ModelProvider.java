@@ -14,14 +14,20 @@ package org.eclipse.jst.jee.model.internal;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.javaee.web.WebApp;
+import org.eclipse.jst.javaee.web.WebAppDeploymentDescriptor;
+import org.eclipse.jst.javaee.web.WebAppVersionType;
+import org.eclipse.jst.javaee.web.WebFactory;
 import org.eclipse.jst.javaee.web.internal.util.WebResourceImpl;
 
 public class Web25ModelProvider extends JEE5ModelProvider implements IModelProvider {
 	
 	private WebResourceImpl webResource = null;
-
+	private static final String WAR25_CONTENT_TYPE = "org.eclipse.jst.jee.ee5webDD"; //$NON-NLS-1$
 	public Web25ModelProvider(IProject proj) {
 		super();
 		this.proj = proj;
@@ -36,6 +42,19 @@ public class Web25ModelProvider extends JEE5ModelProvider implements IModelProvi
 		if (webRes != null && webRes.getContents().size() > 0) 
 			return webRes.getWebApp();
 		return null;
+	}
+	protected String getContentTypeDescriber() {
+		return WAR25_CONTENT_TYPE;
+	}
+	public void populateRoot(XMLResourceImpl res) {
+		WebAppDeploymentDescriptor dd = WebFactory.eINSTANCE.createWebAppDeploymentDescriptor();
+		dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE_NS_URL);  //$NON-NLS-1$
+		dd.getXMLNSPrefixMap().put("xsi", J2EEConstants.XSI_NS_URL); //$NON-NLS-1$
+		dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.WEB_APP_SCHEMA_LOC_2_5);
+		WebApp war = WebFactory.eINSTANCE.createWebApp();
+		dd.setWebApp(war);
+		war.setVersion(WebAppVersionType._25_LITERAL);
+		res.getContents().add((EObject) dd);
 	}
 
 }

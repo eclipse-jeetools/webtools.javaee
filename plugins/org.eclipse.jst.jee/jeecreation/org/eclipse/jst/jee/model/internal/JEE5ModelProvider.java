@@ -29,7 +29,9 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.content.IContentDescription;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -39,6 +41,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
@@ -92,7 +95,8 @@ public class JEE5ModelProvider implements IModelProvider{
 					resourceChangeListenerEnabled = true;
 					ResourcesPlugin.getWorkspace().addResourceChangeListener(new ResourceChangeListener(), IResourceChangeEvent.POST_CHANGE);
 				}
-			}
+			} else
+				return createModelResource(modelPath, resSet, uri);
 		} catch (WrappedException ex) {
 			if (ex.getCause() instanceof FileNotFoundException)
 				return null;
@@ -100,6 +104,27 @@ public class JEE5ModelProvider implements IModelProvider{
 		}
 		return res;
 	}
+
+	protected XMLResourceImpl createModelResource(IPath modelPath, ProjectResourceSet resourceSet, URI uri) {
+		
+		XMLResourceImpl res =  (XMLResourceImpl)resourceSet.createResource(uri,WTPResourceFactoryRegistry.INSTANCE.getFactory(uri, getContentType(getContentTypeDescriber())));
+		populateRoot(res);
+		return res;
+	}
+
+	public void populateRoot(XMLResourceImpl res) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private IContentDescription getContentType(String contentTypeDescriber) {
+		
+			if (contentTypeDescriber != null)
+				return Platform.getContentTypeManager().getContentType(contentTypeDescriber).getDefaultDescription();
+			else
+				return null;
+			
+		}
 
 	public IPath getDefaultResourcePath() {
 		return defaultResourcePath;
@@ -117,6 +142,16 @@ public class JEE5ModelProvider implements IModelProvider{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	/**
+	 * Used to optionally define an associated content type for XML file creation
+	 * @return
+	 */
+	protected String getContentTypeDescriber() {
+		
+		return null;
+	}
+	
 
 
 	public IStatus validateEdit(IPath modelPath, Object context) {
