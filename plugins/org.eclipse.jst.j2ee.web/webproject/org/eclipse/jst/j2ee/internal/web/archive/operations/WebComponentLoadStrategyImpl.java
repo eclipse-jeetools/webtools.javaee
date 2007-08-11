@@ -23,6 +23,7 @@ import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImp
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -99,6 +100,12 @@ public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 				}
 			}
 		}
+	}
+	protected synchronized ArtifactEdit getArtifactEditForRead() {
+		if(artifactEdit == null){
+			artifactEdit = WebArtifactEdit.getWebArtifactEditForRead(vComponent);
+		}
+		return artifactEdit;
 	}
 	
 	private void addClasspathComponentDependencies(final IVirtualComponent referencedComponent) {

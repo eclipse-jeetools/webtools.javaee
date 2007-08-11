@@ -81,7 +81,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
 	protected IVirtualComponent vComponent;
 	protected boolean exportSource;
-	private ArtifactEdit artifactEdit;
+	protected ArtifactEdit artifactEdit;
 	private List zipFiles = new ArrayList();
 	private List javaClasspathURIs = new ArrayList();
 	protected boolean includeClasspathComponents = true;

@@ -10,12 +10,21 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
+import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class AppClientComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 
 	public AppClientComponentLoadStrategyImpl(IVirtualComponent vComponent) {
 		super(vComponent);
+	}
+
+	protected synchronized ArtifactEdit getArtifactEditForRead() {
+		if(artifactEdit == null){
+			artifactEdit = AppClientArtifactEdit.getAppClientArtifactEditForRead(vComponent);
+		}
+		return artifactEdit;
 	}
 
 }

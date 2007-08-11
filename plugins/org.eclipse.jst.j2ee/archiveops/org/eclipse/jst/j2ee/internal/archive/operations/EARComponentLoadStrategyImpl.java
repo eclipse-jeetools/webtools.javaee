@@ -57,6 +57,12 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 		addModulesAndUtilities();
 		return filesHolder.getFiles();
 	}
+	protected synchronized ArtifactEdit getArtifactEditForRead() {
+		if(artifactEdit == null){
+			artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(vComponent);
+		}
+		return artifactEdit;
+	}
 
 	public InputStream getInputStream(String uri) throws IOException, FileNotFoundException {
 		if (binaryComponentURIsToDiskFileMap.containsKey(uri)) {

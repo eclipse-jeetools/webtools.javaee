@@ -95,7 +95,7 @@ public class JEE5ModelProvider implements IModelProvider{
 					resourceChangeListenerEnabled = true;
 					ResourcesPlugin.getWorkspace().addResourceChangeListener(new ResourceChangeListener(), IResourceChangeEvent.POST_CHANGE);
 				}
-			} else
+			} else //Create new Empty Resource if no file exists
 				return createModelResource(modelPath, resSet, uri);
 		} catch (WrappedException ex) {
 			if (ex.getCause() instanceof FileNotFoundException)
@@ -104,11 +104,14 @@ public class JEE5ModelProvider implements IModelProvider{
 		}
 		return res;
 	}
+	
 
 	protected XMLResourceImpl createModelResource(IPath modelPath, ProjectResourceSet resourceSet, URI uri) {
-		
+		// Create temp resource if no file exists
 		XMLResourceImpl res =  (XMLResourceImpl)resourceSet.createResource(uri,WTPResourceFactoryRegistry.INSTANCE.getFactory(uri, getContentType(getContentTypeDescriber())));
 		populateRoot(res);
+		//Remove this resource from resource set so its not re-used
+		res.getResourceSet().getResources().remove(res);
 		return res;
 	}
 

@@ -193,20 +193,23 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	}
 	protected boolean validProjectVersion(IProject project) {
 		
+		return EnterpriseArtifactEdit.SUPPORT_LEGACY_PROJECTS || primValidProjectVersion(project);
+	}
+protected boolean primValidProjectVersion(IProject project) {
+		
 		// Return true if project is being created
 		if (!project.exists()) return true;
 		IFacetedProject facetedProject = null;
 		try {
 			facetedProject = ProjectFacetsManager.create(project);
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// Do Nothing
 		}
 		if (facetedProject == null)
 			// Return true if project facet is being created
 			return true;
 		//return true for legacy projects, or use preference.
-		return EnterpriseArtifactEdit.SUPPORT_LEGACY_PROJECTS || !J2EEProjectUtilities.isJEEProject(project);
+		return !J2EEProjectUtilities.isJEEProject(project);
 	}
 
 	/**

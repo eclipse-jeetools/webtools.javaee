@@ -42,6 +42,8 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class ConnectorComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
@@ -208,6 +210,12 @@ public class ConnectorComponentLoadStrategyImpl extends ComponentLoadStrategyImp
 				return false;
 		}
 		return true;
+	}
+	protected synchronized ArtifactEdit getArtifactEditForRead() {
+		if(artifactEdit == null){
+			artifactEdit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(vComponent);
+		}
+		return artifactEdit;
 	}
 
 	protected boolean shouldInclude(String uri) {
