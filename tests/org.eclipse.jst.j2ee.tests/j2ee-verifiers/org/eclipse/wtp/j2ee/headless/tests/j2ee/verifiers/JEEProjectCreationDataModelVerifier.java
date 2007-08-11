@@ -14,7 +14,6 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
-import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
@@ -105,23 +104,25 @@ public abstract class JEEProjectCreationDataModelVerifier extends DataModelVerif
         	
         	FacetDataModelMap facetMap = (FacetDataModelMap) model.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
             IDataModel facetModel = facetMap.getFacetDataModel(facetProjectType);
-            boolean hasDD = facetModel.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD);
             
-            IFile deploymentDescriptorFile = this.getDDFile();
-            if(hasDD != deploymentDescriptorFile.exists()){
-            	Assert.fail("Deployment descriptor should exist if project is supposed to have a deployment descriptor");
-            }
+            //NOTE: Check to see if a DataModel should exist removed 7/9/07 because even without DD's all projects should return models
 
-            if(hasDD) {
+//            boolean hasDD = facetModel.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD);
+//            IFile deploymentDescriptorFile = this.getDDFile();
+//            if(hasDD != deploymentDescriptorFile.exists()){
+//            	Assert.fail("Deployment descriptor should exist if project is supposed to have a deployment descriptor");
+//            }
+
+//            if(hasDD) {
 				Assert.assertNotNull("Deployment Descriptor should not be null", modelObj);
 				this.verifyDD(modelObj);
 				
 				System.err.println("TODO -- //modelObj2 = archive.getModelObject();");
             	System.err.println("     -- see https://bugs.eclipse.org/bugs/show_bug.cgi?id=195670");
             	//modelObj2 = archive.getModelObject();
-			} else {
-				Assert.assertNull("Project should not have a Deployment Descriptor", modelObj);
-			}
+//			} else {
+//				Assert.assertNull("Project should not have a Deployment Descriptor", modelObj);
+//			}
             if(modelObj != modelObj2){
             	System.err.println("TODO -- Deployment Descriptor should be equal to its self");
             	System.err.println("     -- see https://bugs.eclipse.org/bugs/show_bug.cgi?id=195670");
