@@ -52,6 +52,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 /**
  * <p>
@@ -313,12 +314,15 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 	public EObject getDeploymentDescriptorRoot() {
 		verifyOperationSupported();
-		List contents = getDeploymentDescriptorResource().getContents();
+		Resource res = getDeploymentDescriptorResource();
+		List contents = res.getContents();
 		if (contents.size() > 0)
 			return (EObject) contents.get(0);
 		if (isBinary()) {
 			return null;
 		}
+		if (!WorkbenchResourceHelper.getFile(res).exists())
+			return null;
 		addEJBJarIfNecessary((EJBResource) getDeploymentDescriptorResource());
 		return (EObject) contents.get(0);
 	}

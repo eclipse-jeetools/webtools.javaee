@@ -10,7 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
+import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEComponentLoadStrategyImpl;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class EJBComponentLoadStrategyImpl extends J2EEComponentLoadStrategyImpl {
@@ -21,5 +23,11 @@ public class EJBComponentLoadStrategyImpl extends J2EEComponentLoadStrategyImpl 
 
 	public EJBComponentLoadStrategyImpl(IVirtualComponent vComponent, boolean includeClasspathComponents) {
 		super(vComponent, includeClasspathComponents);		
+	}
+	protected synchronized ArtifactEdit getArtifactEditForRead() {
+		if(artifactEdit == null){
+			artifactEdit = EJBArtifactEdit.getEJBArtifactEditForRead(vComponent);
+		}
+		return artifactEdit;
 	}
 }
