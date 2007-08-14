@@ -95,8 +95,10 @@ public class JEE5ModelProvider implements IModelProvider{
 					resourceChangeListenerEnabled = true;
 					ResourcesPlugin.getWorkspace().addResourceChangeListener(new ResourceChangeListener(), IResourceChangeEvent.POST_CHANGE);
 				}
-			} else //Create new Empty Resource if no file exists
-				return createModelResource(modelPath, resSet, uri);
+			} else {//Create new Empty Resource if no file exists
+				URI projectURI = URI.createURI(container.getWorkspaceRelativePath().toString() + IPath.SEPARATOR + modelPathURI);
+				return createModelResource(modelPath, resSet, projectURI);
+			}
 		} catch (WrappedException ex) {
 			if (ex.getCause() instanceof FileNotFoundException)
 				return null;
