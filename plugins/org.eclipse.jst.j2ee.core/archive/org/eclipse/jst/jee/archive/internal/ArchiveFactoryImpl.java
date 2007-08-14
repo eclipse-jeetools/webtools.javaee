@@ -41,6 +41,7 @@ public class ArchiveFactoryImpl implements IArchiveFactory {
 		ZipFileArchiveLoadAdapterImpl loadAdapter = new ZipFileArchiveLoadAdapterImpl(zipFile);
 		ArchiveOptions archiveOptions = new ArchiveOptions();
 		archiveOptions.setOption(ArchiveOptions.LOAD_ADAPTER, loadAdapter);
+		archiveOptions.setOption(ArchiveOptions.ARCHIVE_PATH, archivePath);
 		return openArchive(archiveOptions);
 	}
 

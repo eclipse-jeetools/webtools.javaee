@@ -202,6 +202,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		try{
 			IPath path = new Path(uri);
 			archive = JavaEEArchiveUtilities.INSTANCE.openArchive(path);
+			archive.getArchiveOptions().setOption(JavaEEArchiveUtilities.DISCRIMINATE_EJB_ANNOTATIONS, Boolean.TRUE);
 			archive.setPath(path);
 			JavaEEQuickPeek jqp = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive);
 			

@@ -332,14 +332,21 @@ public class ArchiveWrapper {
 		}
 		if (archive != null) {
 			IArchive earArchive = archive.getArchive();
-			Application application;
-			try {
-				application = (Application) earArchive.getModelObject();
-				String moduleName = archive.getPath().toString();
-				Module module = (Module) application.getFirstModule(moduleName);
-				cachedWebContextRoot[0] = module.getWeb().getContextRoot();				
-			} catch (ArchiveModelLoadException e) {
-				Logger.getLogger().logError(e);
+			if(earArchive.containsArchiveResource(new Path(J2EEConstants.APPLICATION_DD_URI))){
+				Application application;
+				try {
+					application = (Application) earArchive.getModelObject();
+					String moduleName = archive.getPath().toString();
+					Module module = (Module) application.getFirstModule(moduleName);
+					cachedWebContextRoot[0] = module.getWeb().getContextRoot();				
+				} catch (ArchiveModelLoadException e) {
+					Logger.getLogger().logError(e);
+				}
+			} else {
+				//J2EE spec 8.3.1.3.c (pg 149)
+				String contextRoot = archive.getPath().toString();
+				contextRoot = contextRoot.substring(0, contextRoot.lastIndexOf('.'));
+				cachedWebContextRoot[0] = contextRoot;
 			}
 			return cachedWebContextRoot[0];
 		}
@@ -381,8 +388,10 @@ public class ArchiveWrapper {
 				JavaEEQuickPeek jqp = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(ejbWrapper.archive);
 				String clientJar = null;
 				if(jqp.getVersion() == J2EEVersionConstants.EJB_3_0_ID){
-					org.eclipse.jst.javaee.ejb.EJBJar edd = (org.eclipse.jst.javaee.ejb.EJBJar) ejbWrapper.archive.getModelObject();
-					clientJar = edd.getEjbClientJar();
+					if(ejbWrapper.archive.containsArchiveResource(new Path(J2EEConstants.EJBJAR_DD_URI))){
+						org.eclipse.jst.javaee.ejb.EJBJar edd = (org.eclipse.jst.javaee.ejb.EJBJar) ejbWrapper.archive.getModelObject();
+						clientJar = edd.getEjbClientJar();
+					}
 				} else {
 					EJBJar jar = (EJBJar)ejbWrapper.archive.getModelObject();
 					if (jar != null) {

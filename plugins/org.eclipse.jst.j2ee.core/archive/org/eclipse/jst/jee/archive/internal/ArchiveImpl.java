@@ -18,6 +18,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -269,8 +270,9 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 				// TODO implement a ZipStream reader if necessary
 			}
 
-			ArchiveOptions nestedArchiveOptions = new ArchiveOptions();
+			ArchiveOptions nestedArchiveOptions = cloneUnknownOptions(archiveOptions);
 			nestedArchiveOptions.setOption(ArchiveOptions.LOAD_ADAPTER, nestedLoadAdapter);
+			nestedArchiveOptions.setOption(ArchiveOptions.ARCHIVE_PATH, cachedArchiveResource.getPath());
 			IArchive nestedArchive = archiveFactory.openArchive(nestedArchiveOptions);
 			nestedArchive.setPath(cachedArchiveResource.getPath());
 			nestedArchive.setArchive(this);
@@ -281,6 +283,21 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 		}
 	}
 
+	protected ArchiveOptions cloneUnknownOptions(ArchiveOptions archiveOptions){
+		ArchiveOptions newOptions = new ArchiveOptions();
+		Iterator iterator = archiveOptions.keySet().iterator();
+		while(iterator.hasNext()){
+			Object key = iterator.next();
+			if(key == ArchiveOptions.ARCHIVE_PATH || key == ArchiveOptions.LOAD_ADAPTER || key == ArchiveOptions.SAVE_ADAPTER){
+				continue;
+			} else {
+				newOptions.setOption(key, archiveOptions.getOption(key));
+			}
+		}
+		return newOptions;
+	}
+	
+	
 	public List<IArchive> getNestedArchives() {
 		return Collections.unmodifiableList(archiveFileIndex.getNestedArchives());
 	}
