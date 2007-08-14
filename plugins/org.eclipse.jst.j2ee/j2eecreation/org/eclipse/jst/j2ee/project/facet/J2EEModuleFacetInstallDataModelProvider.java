@@ -209,7 +209,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			}
 		} else if (name.equals(CONFIG_FOLDER)) {
 			String folderName = model.getStringProperty(CONFIG_FOLDER);
-			if (folderName == null || folderName.length() == 0) {
+			if (folderName == null || folderName.length() == 0 || folderName.equals("/") || folderName.equals("\\")) {
 				// all folders which meet the criteria of "CONFIG_FOLDER" are required
 				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.SOURCEFOLDER_EMPTY);
 				return WTPCommonPlugin.createErrorStatus(errorMessage);

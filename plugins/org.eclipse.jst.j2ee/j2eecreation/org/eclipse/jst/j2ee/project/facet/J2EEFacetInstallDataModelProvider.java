@@ -15,7 +15,9 @@ import java.util.Set;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.wst.common.componentcore.datamodel.FacetInstallDataModelProvider;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
@@ -43,7 +45,15 @@ public abstract class J2EEFacetInstallDataModelProvider extends FacetInstallData
 			return OK_STATUS;
 		}
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		return workspace.validateName(folderName, IResource.FOLDER);
+		IPath path = new Path(folderName);
+		for (int i = 0, max = path.segmentCount(); i < max; i++) {
+			IStatus status = workspace.validateName(path.segment(i), IResource.FOLDER);
+			if (! status.isOK())
+				return status;
+		}
+
+		// all of the potential segments of the folder have been verified
+		return OK_STATUS;
 	}
 
 }
