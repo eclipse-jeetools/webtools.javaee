@@ -13,7 +13,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.j2ee.application.internal.impl.WebModuleImpl;
+import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -83,7 +83,7 @@ public class WebProjectCreationDataModelVerifier extends ModuleProjectCreationDa
     	
 		//context root need only be tested if project added to EAR
 		if(addToEAR) {
-	    	String contextRoot = facetModel.getStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT);
+	    	String expectedContextRoot = facetModel.getStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT);
 			String earName = model.getStringProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME);
 			IProject ear = ProjectUtilities.getProject(earName);
 			
@@ -101,23 +101,22 @@ public class WebProjectCreationDataModelVerifier extends ModuleProjectCreationDa
 	    	IVirtualFile vFile = rootFolder.getFile(path);
 	    	if(vFile.exists()){
 		    	Object earModelObj = earProvider.getModelObject();
-		    	
-		    	//this test can only be preformed if EAR had DD
+		    	//this test can only be performed if EAR had DD
 		    	if(earModelObj != null) {
+		    		String actualContextRoot = null;
 			    	String projArchiveName = projRef.getArchiveName();
-			    	WebModuleImpl webModule = null;
 			    	String version = J2EEProjectUtilities.getJ2EEProjectVersion(project);
 					if(version.equals(J2EEVersionConstants.VERSION_2_5_TEXT)){
 						Application earApp = (Application)earModelObj;
 						Module projMod = earApp.getFirstModule(projArchiveName);
-						webModule = (WebModuleImpl)projMod;
+						actualContextRoot = projMod.getWeb().getContextRoot();
 					} else {
 						org.eclipse.jst.j2ee.application.Application earApp = (org.eclipse.jst.j2ee.application.Application)earModelObj;
 						org.eclipse.jst.j2ee.application.Module projMod = earApp.getFirstModule(projArchiveName);
-						webModule = (WebModuleImpl)projMod;
+						WebModule webModule = (WebModule)projMod;
+						actualContextRoot = webModule.getContextRoot();
 					}
-					
-					Assert.assertEquals("EAR should have module with context root: " + contextRoot, contextRoot, webModule.getContextRoot());
+					Assert.assertEquals("EAR should have module with context root: " + expectedContextRoot, expectedContextRoot, actualContextRoot);
 		    	}
 	    	}
 		}
