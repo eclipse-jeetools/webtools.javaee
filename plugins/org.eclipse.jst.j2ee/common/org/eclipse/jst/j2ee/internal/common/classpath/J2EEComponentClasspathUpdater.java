@@ -10,9 +10,11 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.common.classpath;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IContainer;
@@ -185,6 +187,10 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		return moduleUpdateJob.projectsQueued() || moduleUpdateJob.getState() != Job.NONE;
 	}
 	
+	public static final String COMPONENT_PROPERTY_UPDATE_JOB_NAME = "Component Property Update Job";
+	
+	public static final String MODULE_CORE_SAVE_JOB = "Module Core Save Job";
+	
 	private static final int MODULE_UPDATE_DELAY = 30;
 	public static final String MODULE_UPDATE_JOB_NAME = "EAR Libraries Update Job"; 
 
@@ -254,8 +260,10 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		
 		private void processModules(){
 			Object[] projects = moduleQueue.getListeners();
+			List <Runnable> delayedUpdates = null;
 			for (int i = 0; i < projects.length; i++) {
-				IProject project = (IProject) projects[i];
+				final IProject project = (IProject) projects[i];
+				boolean updateWebAppLibs = false;
 				if (J2EEProjectUtilities.isDynamicWebProject(project)) {
 					// this block is for Web app Libraries
 
@@ -264,19 +272,19 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 					// Thereafter the user controls the Web App Librareis container with the JDT UI.
 					boolean shouldConsiderModifyingWebAppLibraries = !J2EEComponentClasspathContainerUtils.isWebAppLibrariesProcessed(project);
 					if (shouldConsiderModifyingWebAppLibraries) {
-						J2EEComponentClasspathContainerUtils.setWebAppLibrariesProcessed(project, true);
+						updateWebAppLibs = true;
 						boolean shouldAddWebAppLibraries = J2EEComponentClasspathContainerUtils.getDefaultUseWebAppLibraries();
 						if (shouldAddWebAppLibraries) {
 							webAppLibrariesContainer = addContainerToModuleIfNecessary(project, WEB_APP_LIBS_PATH);
 						} else {
 							removeContainerFromModuleIfNecessary(project, WEB_APP_LIBS_PATH);
 						}
-				}
+					}
 
 					// If the container was not just added, see if it is already present
 					if (null == webAppLibrariesContainer) {
 						webAppLibrariesContainer = J2EEComponentClasspathContainerUtils.getInstalledWebAppLibrariesContainer(project);
-				} 
+					} 
 				
 					// If the container is present, refresh it
 					if (webAppLibrariesContainer != null) {
@@ -285,20 +293,20 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				}
 
 				// ******************** The following is for EAR Libraries
-
+				boolean updateEarLibs = false;
 				IClasspathContainer earLibrariesContainer = null;
 				// The EAR Libraries container will only be auto added/removed from the classpath once.
 				// Thereafter the user controls the Ear Librareis container with the JDT UI.
 				boolean shouldConsiderModifyingEARLibraries = !J2EEComponentClasspathContainerUtils.isEARLibrariesProcessed(project);
 				if (shouldConsiderModifyingEARLibraries) {
-					J2EEComponentClasspathContainerUtils.setEARLibrariesProcessed(project, true);
+					updateEarLibs = true;
 					boolean shouldAddEARLibraries = J2EEComponentClasspathContainerUtils.getDefaultUseEARLibraries();
 					if (shouldAddEARLibraries) {
 						earLibrariesContainer = addContainerToModuleIfNecessary(project, J2EEComponentClasspathContainer.CONTAINER_PATH);
 					} else {
 						removeContainerFromModuleIfNecessary(project, J2EEComponentClasspathContainer.CONTAINER_PATH);
-			}
-		}
+					}
+				}
 		
 				// If the container was not just added, see if it is already present
 				if (null == earLibrariesContainer) {
@@ -309,7 +317,126 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				if (earLibrariesContainer != null) {
 					((J2EEComponentClasspathContainer) earLibrariesContainer).refresh(forceUpdateOnNextRun);
 				}
+				
+				// This block along with the runDelayedUpdates method is for 199520
+				// The problem is the underly WTP lock structures for StructureEdit
+				// When saving EditModels StructureEdit acquires a lock on structureEdit
+				// first and then attempts to acquire the lock on the IResource.
+				// If the following isn't done from another job, the lock order is
+				// reversed resulting in deadlock if another thread is going down
+				// the edit model path.
+				if(updateWebAppLibs || updateEarLibs){
+					final boolean updateWL = updateWebAppLibs;
+					final boolean updateEAR = updateEarLibs;
+					Runnable markEarLibraries = new Runnable(){
+						public void run() {
+							//has the project already been deleted?
+							if(!project.exists()){
+								return;
+							}
+							//did another version of this thread already cause the update?
+							boolean needsUpdate = updateWL && !J2EEComponentClasspathContainerUtils.isWebAppLibrariesProcessed(project);
+							needsUpdate = needsUpdate || updateEAR && !J2EEComponentClasspathContainerUtils.isEARLibrariesProcessed(project);
+							if(needsUpdate){
+								boolean needsSave = false;
+								StructureEdit core = null;
+								try {
+						        	//get the structure edit lock first
+						            core = StructureEdit.getStructureEditForWrite(project);
+						            if(updateWL && !J2EEComponentClasspathContainerUtils.isWebAppLibrariesProcessed(project)){
+										J2EEComponentClasspathContainerUtils.setWebAppLibrariesProcessed(project, true);
+										needsSave = true;
+									}
+									if(updateEAR && !J2EEComponentClasspathContainerUtils.isEARLibrariesProcessed(project)){
+										J2EEComponentClasspathContainerUtils.setEARLibrariesProcessed(project, true);
+										needsSave = true;
+									}
+						        } finally {
+						            if(core != null){
+						            	//check again for the project delete
+						            	if(needsSave && project.exists()){
+						            		final StructureEdit finalCore = core;
+							            	final boolean finalNeedsSave = needsSave;
+							            		class ModuleCoreSaveJob extends Job{
+							    				public ModuleCoreSaveJob(){
+							    					super(MODULE_CORE_SAVE_JOB);
+							    					setRule(project); //get the project lock second to ensure no deadlock
+							    					setSystem(true);
+							    				}
+							    				
+							    				@Override
+							    				protected IStatus run(IProgressMonitor monitor) {
+							    					SafeRunner.run(new ISafeRunnable() {
+							    						public void handleException(Throwable e) {
+							    							J2EEPlugin.getDefault().getLogger().logError(e);
+							    						}
+	
+							    						public void run() throws Exception {
+							    							try{
+								    							if(finalNeedsSave && project.exists()){
+								    								finalCore.saveIfNecessary(null);
+												            	}
+							    							} finally{
+							    								finalCore.dispose();
+							    							}
+							    						}
+							    					});
+							    					return Status.OK_STATUS;
+							    				}
+							    			};
+							    			ModuleCoreSaveJob job = new ModuleCoreSaveJob();
+							    			job.schedule();
+						            	} else {
+						            		core.dispose();
+						            	}
+						            }
+						        }
+							}
+						}
+					};
+					if(delayedUpdates == null){
+						delayedUpdates = new ArrayList<Runnable>();
+					}
+					delayedUpdates.add(markEarLibraries);
+				}
+				
 			}
+			if(delayedUpdates != null){
+				runDelayedUpdates(delayedUpdates);
+			}
+		}
+		
+		protected void runDelayedUpdates(final List <Runnable>runnables){
+			//These updates can't run with a scheduling rule because
+			//once the StructureEdit lock is acquired, the IResource lock is
+			//later acquired.  Thus, if the IResource lock is acquired first
+			//a deadlock is waiting to happen if another thread acquires
+			//the StructureEdit
+			class ComponentPropertyUpdateJob extends Job{
+				public ComponentPropertyUpdateJob(){
+					super(COMPONENT_PROPERTY_UPDATE_JOB_NAME);
+					setRule(null);
+					setSystem(true);
+				}
+				
+				@Override
+				protected IStatus run(IProgressMonitor monitor) {
+					SafeRunner.run(new ISafeRunnable() {
+						public void handleException(Throwable e) {
+							J2EEPlugin.getDefault().getLogger().logError(e);
+						}
+
+						public void run() throws Exception {
+							for(Runnable runnable:runnables){
+								runnable.run();
+							}
+						}
+					});
+					return Status.OK_STATUS;
+				}
+			};
+			ComponentPropertyUpdateJob job = new ComponentPropertyUpdateJob();
+			job.schedule();
 		}
 
 		protected IStatus run(IProgressMonitor monitor) {
@@ -333,7 +460,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			return Status.OK_STATUS;
 		}
 	};
-
+	
 	public IClasspathContainer getWebAppLibrariesContainer(IProject webProject, boolean create) {
 		IJavaProject jproj = JavaCore.create(webProject);
 		IClasspathContainer container = null;
