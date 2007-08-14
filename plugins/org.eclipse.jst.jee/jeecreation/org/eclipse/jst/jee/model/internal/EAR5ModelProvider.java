@@ -84,7 +84,7 @@ public class EAR5ModelProvider extends JEE5ModelProvider implements IEARModelPro
 		dd.getXMLNSPrefixMap().put("xsi", J2EEConstants.XSI_NS_URL); //$NON-NLS-1$
 		dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.APPLICATION_SCHEMA_LOC_5);
 		Application ear = ApplicationFactory.eINSTANCE.createApplication();
-		ear.setVersion(J2EEVersionConstants.VERSION_5_0_TEXT);
+		ear.setVersion(J2EEVersionConstants.VERSION_5_TEXT);
 		dd.setApplication(ear);
 		res.getContents().add((EObject) dd);
 	}

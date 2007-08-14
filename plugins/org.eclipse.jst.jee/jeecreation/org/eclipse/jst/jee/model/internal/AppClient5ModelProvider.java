@@ -50,7 +50,7 @@ public class AppClient5ModelProvider extends JEE5ModelProvider {
 		dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.APP_CLIENT_SCHEMA_LOC_5);
 		ApplicationClient client = ApplicationclientFactory.eINSTANCE.createApplicationClient();
 		dd.setApplicationClient(client);
-		client.setVersion(J2EEVersionConstants.VERSION_5_0_TEXT);
+		client.setVersion(J2EEVersionConstants.VERSION_5_TEXT);
 		res.getContents().add((EObject) dd);
 	}
 
