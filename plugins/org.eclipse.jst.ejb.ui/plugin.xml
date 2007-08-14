@@ -264,19 +264,21 @@
             objectClass="org.eclipse.core.resources.IProject"
             adaptable="true"
             id="org.eclipse.jst.ejb.ui.internal.actions.IProject">
+        <!-- didnt work
          <menu
                label="%ejbClientJAR.menu_ui"
-               path="additions"
+               path="javeeUIPopupMenuCategory/slot3"
                id="clientJARParent">
             <separator
                   name="clientJARChildren">
             </separator>
          </menu>
+         -->
          <action
                label="%ejb.client.jar.creation.action.description_ui_"
                icon="icons/full/ctool16/ejbclientjar_wiz.gif"
                class="org.eclipse.jst.ejb.ui.internal.actions.EJBClientCreationAction"
-               menubarPath="clientJARParent/clientJARChildren"
+               menubarPath="javeeUIPopupMenuCategory/slot3"
                enablesFor="1"
                id="org.eclipse.jst.ejb.ui.internal.actions.EJBClientCreationAction">
          </action>         
@@ -284,7 +286,7 @@
                label="%ejb.client.jar.removal.action.description_ui_"
                icon="icons/full/ctool16/ejb_client_remove_action_obj.gif"
                class="org.eclipse.jst.ejb.ui.internal.actions.EJBClientRemovalAction"
-               menubarPath="clientJARParent/clientJARChildren"
+               menubarPath="javeeUIPopupMenuCategory/slot3"
                enablesFor="1"
                id="org.eclipse.jst.ejb.ui.internal.actions.EJBClientRemovalAction">
                
