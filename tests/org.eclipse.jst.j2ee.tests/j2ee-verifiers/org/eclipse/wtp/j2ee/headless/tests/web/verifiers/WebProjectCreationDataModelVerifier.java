@@ -29,6 +29,8 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.ModuleProjectCreationDataModelVerifier;
@@ -85,31 +87,38 @@ public class WebProjectCreationDataModelVerifier extends ModuleProjectCreationDa
 			String earName = model.getStringProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME);
 			IProject ear = ProjectUtilities.getProject(earName);
 			
-	    	IModelProvider earProvider = ModelProviderManager.getModelProvider(ear);
-	    	Object earModelObj = earProvider.getModelObject();
-	    	
 	    	IVirtualComponent earComponent = ComponentCore.createComponent(ear);
 	    	IVirtualReference projRef = J2EEProjectUtilities.getComponentReference(earComponent, project.getName());
 	    	IVirtualComponent projComponentFromEARRef = projRef.getReferencedComponent();
 	    	IProject projFromEARRef = projComponentFromEARRef.getProject();
 	    	Assert.assertTrue("EAR reference to the project should be identical to the project", project == projFromEARRef);
 	    	
-	    	//this test can only be preformed if EAR had DD
-	    	if(earModelObj != null) {
-		    	String projArchiveName = projRef.getArchiveName();
-		    	WebModuleImpl webModule = null;
-		    	String version = J2EEProjectUtilities.getJ2EEProjectVersion(project);
-				if(version.equals(J2EEVersionConstants.VERSION_2_5_TEXT)){
-					Application earApp = (Application)earModelObj;
-					Module projMod = earApp.getFirstModule(projArchiveName);
-					webModule = (WebModuleImpl)projMod;
-				} else {
-					org.eclipse.jst.j2ee.application.Application earApp = (org.eclipse.jst.j2ee.application.Application)earModelObj;
-					org.eclipse.jst.j2ee.application.Module projMod = earApp.getFirstModule(projArchiveName);
-					webModule = (WebModuleImpl)projMod;
-				}
-				
-				Assert.assertEquals("EAR should have module with context root: " + contextRoot, contextRoot, webModule.getContextRoot());
+	    	//TODO this check should be replaced with the proper API defined in https://bugs.eclipse.org/bugs/show_bug.cgi?id=199920
+	    	IModelProvider earProvider = ModelProviderManager.getModelProvider(ear);
+	    	System.err.println("TODO -- see https://bugs.eclipse.org/bugs/show_bug.cgi?id=199920");
+	    	IVirtualFolder rootFolder = earComponent.getRootFolder();
+	    	IPath path = new Path(J2EEConstants.APPLICATION_DD_URI);
+	    	IVirtualFile vFile = rootFolder.getFile(path);
+	    	if(vFile.exists()){
+		    	Object earModelObj = earProvider.getModelObject();
+		    	
+		    	//this test can only be preformed if EAR had DD
+		    	if(earModelObj != null) {
+			    	String projArchiveName = projRef.getArchiveName();
+			    	WebModuleImpl webModule = null;
+			    	String version = J2EEProjectUtilities.getJ2EEProjectVersion(project);
+					if(version.equals(J2EEVersionConstants.VERSION_2_5_TEXT)){
+						Application earApp = (Application)earModelObj;
+						Module projMod = earApp.getFirstModule(projArchiveName);
+						webModule = (WebModuleImpl)projMod;
+					} else {
+						org.eclipse.jst.j2ee.application.Application earApp = (org.eclipse.jst.j2ee.application.Application)earModelObj;
+						org.eclipse.jst.j2ee.application.Module projMod = earApp.getFirstModule(projArchiveName);
+						webModule = (WebModuleImpl)projMod;
+					}
+					
+					Assert.assertEquals("EAR should have module with context root: " + contextRoot, contextRoot, webModule.getContextRoot());
+		    	}
 	    	}
 		}
     }
