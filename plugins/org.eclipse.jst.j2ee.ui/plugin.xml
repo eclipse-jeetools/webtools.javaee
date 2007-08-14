@@ -336,7 +336,15 @@
          </view>
       </adapterFactory>
    </extension>
-   
+   <extension point="org.eclipse.ui.popupMenus">
+      <objectContribution objectClass="org.eclipse.core.resources.IProject" adaptable="true" id="org.eclipse.jst.j2ee.ui.popupMenu">
+         <menu label="%javaee.ui.popupMenu"  id="javeeUIPopupMenuCategory">
+            <separator name="slot1"/>
+            <separator name="slot2"/>
+            <separator name="slot3"/>
+         </menu>
+      </objectContribution>
+   </extension>
   <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
@@ -347,7 +355,7 @@
                label="%update-ear-libraries"
                tooltip="%update-ear-libraries-tooltip"
                class="org.eclipse.jst.j2ee.internal.actions.ForceClasspathUpdateAction"
-               menubarPath="additions"
+               menubarPath="javeeUIPopupMenuCategory/slot1"
                enablesFor="+"
                icon="icons/full/obj16/library_obj.gif"
                id="org.eclipse.jst.j2ee.internal.actions.ForceClasspathUpdateAction">

@@ -8,7 +8,7 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.jee.ui;
+package org.eclipse.jst.jee.ui.plugin;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -16,18 +16,18 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class Activator extends AbstractUIPlugin {
+public class JEEUIPlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.eclipse.jst.jee.ui"; //$NON-NLS-1$
 
 	// The shared instance
-	private static Activator plugin;
+	private static JEEUIPlugin plugin;
 	
 	/**
 	 * The constructor
 	 */
-	public Activator() {
+	public JEEUIPlugin() {
 	}
 
 	/*
@@ -53,7 +53,7 @@ public class Activator extends AbstractUIPlugin {
 	 *
 	 * @return the shared instance
 	 */
-	public static Activator getDefault() {
+	public static JEEUIPlugin getDefault() {
 		return plugin;
 	}
 
