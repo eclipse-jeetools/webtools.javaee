@@ -17,13 +17,12 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.ejb.EJBJarDeploymentDescriptor;
 import org.eclipse.jst.javaee.ejb.EjbFactory;
 import org.eclipse.jst.javaee.ejb.internal.util.EjbResourceImpl;
 
-public class Ejb3ModelProvider extends JEE5ModelProvider implements IModelProvider {
+public class Ejb3ModelProvider extends JEE5ModelProvider {
 	
 	private static final String EJB3_CONTENT_TYPE = "org.eclipse.jst.jee.ee5ejbDD"; //$NON-NLS-1$
 	public Ejb3ModelProvider(IProject proj) {
