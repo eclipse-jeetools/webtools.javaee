@@ -17,14 +17,13 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.javaee.web.WebAppDeploymentDescriptor;
 import org.eclipse.jst.javaee.web.WebAppVersionType;
 import org.eclipse.jst.javaee.web.WebFactory;
 import org.eclipse.jst.javaee.web.internal.util.WebResourceImpl;
 
-public class Web25ModelProvider extends JEE5ModelProvider implements IModelProvider {
+public class Web25ModelProvider extends JEE5ModelProvider {
 	
 	private WebResourceImpl webResource = null;
 	private static final String WAR25_CONTENT_TYPE = "org.eclipse.jst.jee.ee5webDD"; //$NON-NLS-1$

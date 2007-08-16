@@ -27,11 +27,13 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureExce
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProviderFactory;
+import org.eclipse.jst.j2ee.model.IModelProviderListener;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
@@ -335,5 +337,21 @@ protected boolean primValidProjectVersion(IProject project) {
 	 */
 	protected ArtifactEdit getWritableEdit() {
 		return writableEdit;
+	}
+	
+	public void addListener(IModelProviderListener listener)
+	{
+		if (listener instanceof EditModelListener)
+		{
+			addListener((EditModelListener)listener);
+		}
+	}
+
+	public void removeListener(IModelProviderListener listener)
+	{
+		if (listener instanceof EditModelListener)
+		{
+			removeListener((EditModelListener)listener);
+		}
 	}
 }

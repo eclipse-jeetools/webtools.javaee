@@ -50,4 +50,16 @@ public interface IModelProvider {
 	 * @return IStatus
 	 */
 	IStatus validateEdit(IPath modelPath, Object context);
+
+	/**
+	 * Add a listener to listen for model changes.
+	 * @param listener 
+	 */
+	void addListener(IModelProviderListener listener);
+
+	/**
+	 * Remove a listener from the list of model change listeners
+	 * @param listener
+	 */
+	void removeListener(IModelProviderListener listener);
 }

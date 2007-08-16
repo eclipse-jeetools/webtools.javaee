@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.IModelProviderListener;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -266,5 +267,15 @@ public class JEE5ModelProvider implements IModelProvider{
 				}
 			}
 		}
+	}
+
+	public void addListener(IModelProviderListener listener)
+	{
+		// do nothing for now
+	}
+
+	public void removeListener(IModelProviderListener listener)
+	{
+		// do nothing for now
 	}
 }
