@@ -56,7 +56,7 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 	private TreeViewer viewer = null;
 
 	private WebServiceViewerSynchronization viewerSynchronization;
-	private NewProjectsListener projectListener;
+	NewProjectsListener projectListener;
 	
 
 	public WebServicesNavigatorContentProvider() {
@@ -87,19 +87,33 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 		
 		if (parentElement instanceof IWorkspaceRoot) {
 			// return new Object[]{ getWebServicesNavigatorGroup(parentElement) };
-			if (!viewerSynchronization.hasNavigatorGroupBeenAdded()) {
-				if (!viewerSynchronization.hasIndexJobBeenScheduled())
-					viewerSynchronization.startIndexJob();
-				return NO_CHILDREN;
+			if(WebServiceViewerSynchronization.isThereWebServicesPreferenceSet()){
+				if(WebServiceViewerSynchronization.areThereWebServices()){
+					viewerSynchronization.setNavigatorGroupAdded(true);
+					return new Object[]{getNavigatorGroup()};
+				} else {
+					return NO_CHILDREN;
+				}
 			} else {
-				return new Object[]{getNavigatorGroup()};
+				// first time on this workspace, let the job set the WebServiceViewerSynchronization.ARE_THERE_WEBSERVICES
+				if (!viewerSynchronization.hasIndexJobBeenScheduled()) {
+					viewerSynchronization.startIndexJob();
+				}
+				return NO_CHILDREN;
 			}
-		} else if (parentElement instanceof WebServiceNavigatorGroup)
+		} else if (parentElement instanceof WebServiceNavigatorGroup){
+			if (!viewerSynchronization.hasIndexJobBeenScheduled()) {
+				viewerSynchronization.startIndexJob();
+			} 
 			return new Object[]{getServicesGroup(), getClientsGroup()};
 
-		else if (parentElement instanceof WebServiceNavigatorGroupType) {
+		}else if (parentElement instanceof WebServiceNavigatorGroupType) {
+			if (!viewerSynchronization.hasIndexJobBeenScheduled()) {
+				viewerSynchronization.startIndexJob();
+			} 
 			WebServiceNavigatorGroupType wsGroupType = (WebServiceNavigatorGroupType) parentElement;
 			return wsGroupType.getChildren();
+		
 		} else if (WSDLServiceExtManager.getServiceHelper().isService(parentElement))
 			return getServiceLevelNodes(parentElement).toArray();
 

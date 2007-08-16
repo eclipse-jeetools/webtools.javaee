@@ -109,8 +109,7 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 
 	public void save(File aFile, InputStream in) throws SaveFailureException {
 		try {
-			String displayString = EJBArchiveOpsResourceHandler.IMPORT_OPERATION_STRING;
-			progressMonitor.subTask(displayString + aFile.getURI());
+			progressMonitor.subTask(aFile.getURI());
 			
 			IPath projectRelativePath = getOutputPathForFile(aFile);
 			if (aFile.isArchive()) {
@@ -125,6 +124,8 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 		} catch (Exception e) {
 			String errorString = EJBArchiveOpsResourceHandler.ARCHIVE_OPERATION_SaveFile + aFile.getName();
 			throw new SaveFailureException(errorString, e);
+		} finally {
+			progressMonitor.worked(1);
 		}
 	}
 

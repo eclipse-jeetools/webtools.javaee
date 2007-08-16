@@ -20,7 +20,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
@@ -43,15 +43,38 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 		super(model);
 	}
 
+	protected final int LINK_COMPONENTS_WORK = 10;
+	protected final int LIB_FOLDER_WORK = 2;
+	
+	protected int computeTotalWork() {
+		int baseWork = super.computeTotalWork() + LIB_FOLDER_WORK;
+		List selectedLibs = (List) model.getProperty(IWebComponentImportDataModelProperties.WEB_LIB_ARCHIVES_SELECTED);
+		List libProjects = (List) model.getProperty(IWebComponentImportDataModelProperties.WEB_LIB_MODELS);
+		IDataModel importModel = null;
+		IVirtualComponent nestedComponent = null;
+		Archive libArchive = null;
+		for (int i = 0; null != libProjects && i < libProjects.size(); i++) {
+			importModel = (IDataModel) libProjects.get(i);
+			libArchive = (Archive) importModel.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
+			if (selectedLibs.contains(libArchive)) {
+				baseWork += LINK_COMPONENTS_WORK + PROJECT_CREATION_WORK + libArchive.getFiles().size();
+			}
+		}
+		
+		return baseWork;
+	}
+	
 	protected void doExecute(IProgressMonitor monitor) throws ExecutionException {
 		super.doExecute(monitor);
 		IVirtualFolder libFolder = virtualComponent.getRootFolder().getFolder(WebArtifactEdit.WEBLIB);
 		if (!libFolder.exists()) {
 			try {
-				libFolder.create(IResource.FORCE, new NullProgressMonitor());
+				libFolder.create(IResource.FORCE, new SubProgressMonitor(monitor, LIB_FOLDER_WORK));
 			} catch (CoreException e) {
 				Logger.getLogger().logError(e);
 			}
+		} else {
+			monitor.worked(LIB_FOLDER_WORK);
 		}
 		try {
 			importWebLibraryProjects(monitor);
@@ -74,7 +97,7 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 			importModel = (IDataModel) libProjects.get(i);
 			libArchive = (Archive) importModel.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
 			if (selectedLibs.contains(libArchive)) {
-				importModel.getDefaultOperation().execute(monitor, info);
+				importModel.getDefaultOperation().execute(new SubProgressMonitor(monitor, PROJECT_CREATION_WORK + libArchive.getFiles().size()) , info);
 				nestedComponent = (IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
 				targetComponents.add(nestedComponent);
 				String archiveURI = libArchive.getURI();
@@ -96,7 +119,7 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 			createRefComponentsModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH, "/WEB-INF/lib/"); //$NON-NLS-1$
 			createRefComponentsModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, targetComponents);
 			createRefComponentsModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, compToURIMap);
-			createRefComponentsModel.getDefaultOperation().execute(monitor, info);
+			createRefComponentsModel.getDefaultOperation().execute(new SubProgressMonitor(monitor, LINK_COMPONENTS_WORK * targetComponents.size()), info);
 		}
 	}
 

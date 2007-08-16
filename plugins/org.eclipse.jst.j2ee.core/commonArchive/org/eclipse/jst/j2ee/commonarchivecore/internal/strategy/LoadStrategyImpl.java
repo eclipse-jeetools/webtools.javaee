@@ -370,7 +370,24 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 		rs.setURIConverter(converter);
 		if (archive.shouldUseJavaReflection()) {
 			rs.getAdapterFactories().add(new JavaJDKAdapterFactory());
-			archive.initializeClassLoader();
+			
+			// TFB: Problem here:
+			// 'Archive.initializeClassLoader' calls
+			// 'Archive.getJavaAdapterFactory', which
+			// 'Archive.getResourceSet', which calls
+			// 'LoadStrategy.initializeResourceSet', which calls
+			// 'Archive.initializeClassLoader' all over again.
+			//
+			// This creates a second, redundant classloader,
+			// and places the first classloader in the JavaJDKAdapterFactory.
+			// Hence not only is the classloader created twice, but
+			// both copies are active.  When there are large classpaths,
+			// this will large duplicate structures.
+			//
+			// Since the classloader will be initialized by 'getClassLoader',
+			// the initialization, here, seems unnecessary.
+			
+			// archive.initializeClassLoader();
 		}
 	}
 

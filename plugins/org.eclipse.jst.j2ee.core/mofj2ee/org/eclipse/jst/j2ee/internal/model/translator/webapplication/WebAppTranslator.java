@@ -328,6 +328,7 @@ public class WebAppTranslator extends RootTranslator implements WarDeploymentDes
 	public static Translator createFilterMapping13Translator() {
 		GenericTranslator result = new GenericTranslator(FILTER_MAPPING, WEBAPP_PKG.getWebApp_FilterMappings());
 		result.setChildren(new Translator[] {
+			IDTranslator.INSTANCE,
 			new SourceLinkTranslator(FILTER_NAME, WEBAPP_PKG.getFilterMapping_Filter(), 
 						new TranslatorPath(new Translator[] {
 							new Translator(WEB_APP, Translator.CONTAINER_FEATURE), 
@@ -433,6 +434,7 @@ public class WebAppTranslator extends RootTranslator implements WarDeploymentDes
 	public static Translator createServletMappingTranslator() {
 		GenericTranslator result = new GenericTranslator(SERVLET_MAPPING, WEBAPP_PKG.getWebApp_ServletMappings());
 		result.setChildren(new Translator[] {
+			IDTranslator.INSTANCE,
 			new SourceLinkTranslator(SERVLET_NAME, WEBAPP_PKG.getServletMapping_Servlet(), 
 				new TranslatorPath(new Translator[] {
 					new Translator(WEB_APP, CONTAINER_FEATURE), 

@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.jst.web_ui.feature"
       label="%featureName"
-      version="1.6.0.qualifier"
+      version="1.5.5.qualifier"
       provider-name="%providerName">
 
    <description>
@@ -20,6 +20,10 @@
    <url>
       <update label="%updateSiteName" url="http://download.eclipse.org/webtools/updates/"/>
    </url>
+
+   <includes
+         id="org.eclipse.jst.web_userdoc.feature"
+         version="0.0.0"/>
 
    <requires>
       <import feature="org.eclipse.jst.web_core.feature" version="1.0.0" match="greaterOrEqual"/>

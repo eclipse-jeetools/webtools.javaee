@@ -28,6 +28,7 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphManager;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualFolder;
@@ -47,6 +48,8 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	 * @see DoNotUseMeThisWillBeDeletedPost15
 	 */
 	protected IVirtualFolder defaultRootFolder;
+	private IVirtualReference[] cachedReferences;
+	private long depGraphModStamp;
 	
 	public EARVirtualComponent() {
 		super();
@@ -187,14 +190,18 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	}
 
 	public IVirtualReference[] getReferences() {
+		
+		IVirtualReference[] cached = getCachedReferences();
+		if (cached != null)
+			return cached;
 		List hardReferences = getHardReferences(this);
 		List dynamicReferences = getLooseArchiveReferences(this, hardReferences);
 
 		if (dynamicReferences != null) {
 			hardReferences.addAll(dynamicReferences);
 		}
-
-		return (IVirtualReference[]) hardReferences.toArray(new IVirtualReference[hardReferences.size()]);
+		cachedReferences = (IVirtualReference[]) hardReferences.toArray(new IVirtualReference[hardReferences.size()]);
+		return cachedReferences;
 	}
 
 	/**
@@ -204,5 +211,18 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	 */
 	public IVirtualFolder getDefaultRootFolder() {
 		return defaultRootFolder;
+	}
+
+	// Returns cache if still valid or null
+	public IVirtualReference[] getCachedReferences() {
+		if (cachedReferences != null && checkIfStillValid())
+			return cachedReferences;
+		else
+			depGraphModStamp = DependencyGraphManager.getInstance().getModStamp();
+		return null;
+	}
+
+	private boolean checkIfStillValid() {
+		return DependencyGraphManager.getInstance().checkIfStillValid(depGraphModStamp);
 	}
 }

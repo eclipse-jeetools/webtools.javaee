@@ -18,6 +18,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLStreamHandler;
+import java.security.ProtectionDomain;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,24 +34,44 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeE
  * classes and those in the set are the only classes needed to resolve each one)
  */
 
-public class ArchiveFileDynamicClassLoader extends ClassLoader {
+public class ArchiveFileDynamicClassLoader extends ClassLoader {    
 	protected Archive archive = null;
 	protected ClassLoader extraClassLoader;
 	protected boolean inEARFile;
 	private static final String URL_PROTOCOL = "archive";
 	private ArchiveURLStreamHandler handler;
+    
+	protected ProtectionDomain protectionDomain;
+    
+    /**
+     * <p>This constructor accepts a protection domain, which is used
+     * by <code>findClass</code>.</p>
+     * 
+     * @see ArchiveFileDynamicClassLoader#findClass(String)
+     */
+    
+    public ArchiveFileDynamicClassLoader(Archive anArchive, ClassLoader parentCl, ClassLoader extraCl, ProtectionDomain pDomain) {
+        super(parentCl);
+        setArchive(anArchive);
+        setExtraClassLoader(extraCl);
+        inEARFile = anArchive.getContainer() != null && anArchive.getContainer().isEARFile();
+        handler = new ArchiveURLStreamHandler();
+        protectionDomain = pDomain;
+    }
 
-	public ArchiveFileDynamicClassLoader(Archive anArchive, ClassLoader parentCl, ClassLoader extraCl) {
-		super(parentCl);
-		setArchive(anArchive);
-		setExtraClassLoader(extraCl);
-		inEARFile = anArchive.getContainer() != null && anArchive.getContainer().isEARFile();
-		handler = new ArchiveURLStreamHandler();
+    public ArchiveFileDynamicClassLoader(Archive anArchive, ClassLoader parentCl, ClassLoader extraCl) {
+        this(anArchive, parentCl, extraCl, null);
 	}
 
 	/**
-	 * Loads a specified class. This gets called only after the parent class loader has had it's
-	 * chance, based on the Java2 delegation model
+	 * <p>Loads a specified class.  Called only after the parent class loader has had
+     * its chance to load the class, as per the Java2 delegation model.</p>
+     * 
+     * <p>When non-null, the receiver's protection
+     * domain is passed in to the call to <code>defineClass</code>.</p>
+     * 
+     * @see ClassLoader#defineClass(String, byte[], int)
+     * @see ClassLoader#defineClass(String, byte[], int, ProtectionDomain)
 	 */
 	protected Class findClass(String name) throws ClassNotFoundException {
 
@@ -59,7 +80,11 @@ public class ArchiveFileDynamicClassLoader extends ClassLoader {
 		byte[] bytes = getClassBytesFor(name);
 
 		if (bytes != null) {
-			result = defineClass(name, bytes, 0, bytes.length);
+            if ( protectionDomain == null ) {
+                result = defineClass(name, bytes, 0, bytes.length);
+            } else {
+                result = defineClass(name, bytes, 0, bytes.length, protectionDomain); 
+            }
 			if (result == null) {
 				throw new ClassNotFoundException(name);
 			} // endif

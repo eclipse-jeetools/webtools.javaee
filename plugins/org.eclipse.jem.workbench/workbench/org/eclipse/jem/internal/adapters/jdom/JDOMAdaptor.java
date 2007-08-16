@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JDOMAdaptor.java,v $
- *  $Revision: 1.8 $  $Date: 2005/10/18 14:58:18 $ 
+ *  $Revision: 1.9 $  $Date: 2007/01/30 14:39:13 $ 
  */
 
 import java.io.File;
@@ -303,11 +303,18 @@ public abstract class JDOMAdaptor extends JavaReflectionAdaptor {
 	 * Converts a type signature to a readable string.
 	 *
 	 * Uses Signature.toString(), then tries to undo bad replacement for inner classes.
+	 * 
+	 * Bug: 166226 [https://bugs.eclipse.org/bugs/show_bug.cgi?id=166226]
+	 * Update to use the erasure type from the signature in order to 
+	 * tolerate JDK 5 generics.
 	 *
 	 */
 	public static String signatureToString(String signature) throws IllegalArgumentException {
 		boolean hasDollar = (signature.indexOf(Signature.C_DOLLAR) != -1);
-		String result = Signature.toString(signature);
+		//begin 166226 fix
+		String result = Signature.getTypeErasure(signature);
+		result = Signature.toString(result);
+		//end 166226 fix
 		if (hasDollar) {
 			int newPos = result.lastIndexOf("."); //$NON-NLS-1$
 			if (newPos != -1) {

@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
+import org.eclipse.jst.j2ee.ejb.internal.impl.ContainerManagedEntityImpl;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.wst.common.internal.emf.utilities.EtoolsCopySession;
 import org.eclipse.wst.common.internal.emf.utilities.EtoolsCopyUtility;
@@ -94,9 +95,11 @@ public class ArchiveCopySessionUtility extends EtoolsCopySession {
 
 	protected void copyReference(EReference aReference, EObject aRefObject, String idSuffix, EObject copyRef) {
 		if (aReference.isMany()) {
-			List value = (List) aRefObject.eGet(aReference);
-			if (value != null)
-				copyManyReference(aReference, value, aRefObject, idSuffix, copyRef);
+			if (shouldCopyReference(aReference, aRefObject)) { // Bugzilla 177397
+				List value = (List) aRefObject.eGet(aReference);
+				if (value != null)
+					copyManyReference(aReference, value, aRefObject, idSuffix, copyRef);
+			}
 		} else if (aRefObject.eIsSet(aReference)) {
 			Object value = aRefObject.eGet(aReference);
 			if (value == null)
@@ -105,4 +108,40 @@ public class ArchiveCopySessionUtility extends EtoolsCopySession {
 		}
 	}
 
+    /**
+     * <p>Constant introduced for bugzilla 177397: The name of the CMP 'keyAttributes'
+     * attribute, which is not to be copied if in an uninitialized state.</p>
+     */
+    
+    public static final String CMP_KEY_ATTRIBUTES_NAME = "keyAttributes";
+
+    /**
+     * <p>Test introduced for bugzilla 177397: Tell if a specified reference
+     * should be copied.  This implementation checks for a CMP Bean, and for
+     * the key attributes attribute, and answers false when this attribute
+     * is in an uninitialized state.</p>
+     * 
+     * <p>This attribute is initialized using reflection; there are copy cases
+     * where the parent EJB Jar does not have its full classpath environment
+     * available, which prevents the loading of dependent classes.  Since the
+     * initialization is lazy, there is no need to resolve this when copying;
+     * access to the copy target can perform the initialization.</p>
+     *
+     * @param aReference The reference attribute being copied.
+     * @param aRefObject The model object being copied.
+     * 
+     * @return True if the reference attribute is to be copied.
+     *         False if the reference attribute is not to be copied.
+     */
+    
+    protected boolean shouldCopyReference(EReference aReference, EObject aRefObject)
+    {        
+        if ( !(aRefObject instanceof ContainerManagedEntityImpl) ||
+             !aReference.getName().equals(CMP_KEY_ATTRIBUTES_NAME) )
+            return true;    
+        
+        ContainerManagedEntityImpl cmpBean = (ContainerManagedEntityImpl) aRefObject;
+        
+        return cmpBean.getIsInitializedKeyAttributes();
+    }
 }

@@ -35,6 +35,8 @@ import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.viewers.CheckStateChangedEvent;
+import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
@@ -64,8 +66,12 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.FileSystemElement;
 import org.eclipse.ui.dialogs.WizardResourceImportPage;
+import org.eclipse.ui.internal.dialogs.DialogUtil;
 import org.eclipse.ui.internal.ide.dialogs.IElementFilter;
+import org.eclipse.ui.internal.ide.dialogs.ResourceTreeAndListGroup;
 import org.eclipse.ui.model.WorkbenchContentProvider;
+import org.eclipse.ui.model.WorkbenchLabelProvider;
+import org.eclipse.ui.model.WorkbenchViewerSorter;
 import org.eclipse.ui.wizards.datatransfer.FileSystemStructureProvider;
 import org.eclipse.ui.wizards.datatransfer.IImportStructureProvider;
 import org.eclipse.ui.wizards.datatransfer.ImportOperation;
@@ -163,6 +169,25 @@ class WizardClassesImportPage1 extends WizardResourceImportPage implements Liste
 			sourceNameField.setText(""); //$NON-NLS-1$
 	}
 
+	protected void createFileSelectionGroup(Composite parent) {
+
+		//Just create with a dummy root.
+		this.selectionGroup = new ResourceTreeAndListGroup(parent, new FileSystemElement("Dummy", null, true), //$NON-NLS-1$
+					getFolderProvider(), new WorkbenchLabelProvider(), getFileProvider(),
+					//new WorkbenchLabelProviderForClassImport(),
+					new WorkbenchLabelProvider(), SWT.NONE, DialogUtil.inRegularFontMode(parent));
+
+		ICheckStateListener listener = new ICheckStateListener() {
+			public void checkStateChanged(CheckStateChangedEvent event) {
+				updateWidgetEnablements();
+			}
+		};
+
+		WorkbenchViewerSorter sorter = new WorkbenchViewerSorter();
+		this.selectionGroup.setTreeSorter(sorter);
+		this.selectionGroup.setListSorter(sorter);
+		this.selectionGroup.addCheckStateListener(listener);
+	}
 
 	/**
 	 * Creates a new button with the given id.

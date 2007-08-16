@@ -135,7 +135,6 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 				addOKStatus(dep.getClass().getName());
 			} catch (CoreException ex) {
 				Logger.getLogger().logError(ex);
-				monitor.setCanceled(true);
 				Throwable statusException = (ex.getStatus().getException() != null) ? ex.getStatus().getException() : ex;
 				addErrorStatus(ex.getStatus(), dep.getClass().getName(), statusException);
 				continue;
@@ -165,11 +164,11 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 		Throwable mainCause = null;
 		if (exceptionStatus instanceof MultiStatus) {
 			IStatus[] stati = ((MultiStatus) exceptionStatus).getChildren();
-			for (int i = 0; 1 < stati.length; i++) {
+			for (int i = 0; i < stati.length; i++) {
 				addErrorStatus(stati[i], DeployerName, stati[i].getException());
 			}
 		}
-		mainCause = (ex.getCause() != null) ? ex.getCause() : ex;
+		mainCause = (ex != null && ex.getCause() != null) ? ex.getCause() : ex;
 			
 		//String errorNotes = (mainCause != null && mainCause.getMessage() != null) ? mainCause.getMessage() : "";
 

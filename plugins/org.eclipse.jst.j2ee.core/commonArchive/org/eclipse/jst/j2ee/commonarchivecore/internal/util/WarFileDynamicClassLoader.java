@@ -16,6 +16,7 @@
  */
 package org.eclipse.jst.j2ee.commonarchivecore.internal.util;
 
+import java.security.ProtectionDomain;
 import java.util.List;
 
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
@@ -35,9 +36,13 @@ public class WarFileDynamicClassLoader extends ArchiveFileDynamicClassLoader {
 
 	private boolean allowLoadingFromWAR = true;
 
-	public WarFileDynamicClassLoader(Archive anArchive, ClassLoader parentCl, ClassLoader extraCl) {
-		super(anArchive, parentCl, extraCl);
+	public WarFileDynamicClassLoader(Archive anArchive, ClassLoader parentCl, ClassLoader extraCl, ProtectionDomain pDomain) {
+		super(anArchive, parentCl, extraCl, pDomain);
 		allowLoadingFromWAR = anArchive.getOptions().getClassLoadingMode() == ArchiveOptions.LOAD_MODE_COMPAT;
+	}
+	
+	public WarFileDynamicClassLoader(Archive anArchive, ClassLoader parentCl, ClassLoader extraCl) {
+		this(anArchive, parentCl, extraCl, null);
 	}
 
 	protected File getFile(String name) {

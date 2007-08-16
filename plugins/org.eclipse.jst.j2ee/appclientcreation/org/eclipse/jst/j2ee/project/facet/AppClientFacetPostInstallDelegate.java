@@ -19,14 +19,13 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -86,12 +85,14 @@ public class AppClientFacetPostInstallDelegate extends J2EEFacetInstallDelegate 
 			mainClassDataModel.setProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME, project.getName());
 			mainClassDataModel.setProperty(INewJavaClassDataModelProperties.CLASS_NAME, "Main"); //$NON-NLS-1$
 			mainClassDataModel.setBooleanProperty(INewJavaClassDataModelProperties.MAIN_METHOD, true);
-			String projRelativeSourcePath = IPath.SEPARATOR + project.getName() + IPath.SEPARATOR + model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
-			mainClassDataModel.setProperty(INewJavaClassDataModelProperties.SOURCE_FOLDER, projRelativeSourcePath);
-			IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
-			mainClassDataModel.setProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE_FRAGMENT_ROOT, javaProject.getPackageFragmentRoots()[0]);
-			mainClassDataModel.getDefaultOperation().execute(monitor, null);
-			createManifestEntryForMainClass(monitor, model, project);
+
+			IContainer container = J2EEProjectUtilities.getSourceFolderOrFirst(project, null);
+			if( container != null ){
+				String projRelativeSourcePath = IPath.SEPARATOR + project.getName() + IPath.SEPARATOR + container.getName();
+				mainClassDataModel.setProperty(INewJavaClassDataModelProperties.SOURCE_FOLDER, projRelativeSourcePath);
+				mainClassDataModel.getDefaultOperation().execute(monitor, null);
+				createManifestEntryForMainClass(monitor, model, project);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

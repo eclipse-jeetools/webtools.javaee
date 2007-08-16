@@ -27,6 +27,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphManager;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualFolder;
 import org.eclipse.wst.common.componentcore.internal.util.IComponentImplFactory;
@@ -36,6 +37,9 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public class J2EEModuleVirtualComponent extends VirtualComponent implements IComponentImplFactory {
+	
+	private IVirtualReference[] cachedReferences;
+	private long depGraphModStamp;
 
 	public J2EEModuleVirtualComponent() {
 		super();
@@ -58,6 +62,10 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	}
 	
 	public IVirtualReference[] getReferences() {
+		IVirtualReference[] cached = getCachedReferences();
+		if (cached != null)
+			return cached;
+		
 		IVirtualReference[] hardReferences = getNonManifestReferences();
 		List dynamicReferences = J2EEModuleVirtualComponent.getManifestReferences(this, hardReferences);
 
@@ -71,11 +79,26 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 				references[hardReferences.length + i] = (IVirtualReference) dynamicReferences.get(i);
 			}
 		}
+		cachedReferences = references;
+		
 		return references;
 	}
 	
 	public IVirtualReference[] getNonManifestReferences() {
 		return super.getReferences();
+	}
+
+	private boolean checkIfStillValid() {
+		return (DependencyGraphManager.getInstance().getModStamp() == depGraphModStamp);
+	}
+
+	// Returns cache if still valid or null
+	public IVirtualReference[] getCachedReferences() {
+		if (cachedReferences != null && checkIfStillValid())
+			return cachedReferences;
+		else
+			depGraphModStamp = DependencyGraphManager.getInstance().getModStamp();
+		return null;
 	}
 
 	public static String [] getManifestClasspath(IVirtualComponent moduleComponent) {
@@ -132,7 +155,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 						earRefs = tempEarRefs;
 						foundRef = tempEarRefs[j];
 						earArchiveURI = foundRef.getArchiveName(); 
-						simplePath = earArchiveURI.lastIndexOf("/") == -1; //$NON-NLS-1$
+						simplePath = earArchiveURI != null ? earArchiveURI.lastIndexOf("/") == -1 : true; //$NON-NLS-1$
 					}
 				}
 			}

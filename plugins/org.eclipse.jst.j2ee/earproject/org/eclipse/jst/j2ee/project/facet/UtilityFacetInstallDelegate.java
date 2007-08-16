@@ -28,6 +28,8 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetDataModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -104,6 +106,11 @@ public final class UtilityFacetInstallDelegate extends J2EEFacetInstallDelegate 
 				// ClasspathHelper.addClasspathEntries( project, fv, <something> );
 			}
 
+			if(J2EEComponentClasspathContainerUtils.getDefaultUseEARLibraries()){
+				final IPath earLibContainer = new Path(J2EEComponentClasspathContainer.CONTAINER_ID);
+				addToClasspath(jproj, JavaCore.newContainerEntry(earLibContainer));
+			}
+			
 			try {
 				((IDataModelOperation) model.getProperty(FacetDataModelProvider.NOTIFICATION_OPERATION)).execute(monitor, null);
 			} catch (ExecutionException e) {
