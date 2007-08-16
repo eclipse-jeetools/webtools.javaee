@@ -34,6 +34,8 @@ import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
 import org.eclipse.jst.j2ee.internal.web.classpath.WebAppLibrariesContainer;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
@@ -135,9 +137,16 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			}
 
 			// Add the web libraries container.
+			
+			if(J2EEComponentClasspathContainerUtils.getDefaultUseWebAppLibraries()){
+				final IPath webLibContainer = new Path(WebAppLibrariesContainer.CONTAINER_ID);
+				addToClasspath(jproj, JavaCore.newContainerEntry(webLibContainer));
+			}
 
-			final IPath webLibContainer = new Path(WebAppLibrariesContainer.CONTAINER_ID);
-			addToClasspath(jproj, JavaCore.newContainerEntry(webLibContainer));
+			if(J2EEComponentClasspathContainerUtils.getDefaultUseEARLibraries()){
+				final IPath earLibContainer = new Path(J2EEComponentClasspathContainer.CONTAINER_ID);
+				addToClasspath(jproj, JavaCore.newContainerEntry(earLibContainer));
+			}
 
 			try {
 				((IDataModelOperation) model.getProperty(FacetDataModelProvider.NOTIFICATION_OPERATION)).execute(monitor, null);

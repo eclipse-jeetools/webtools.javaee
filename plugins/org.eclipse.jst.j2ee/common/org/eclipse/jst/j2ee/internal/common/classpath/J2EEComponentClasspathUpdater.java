@@ -275,28 +275,9 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			Object[] projects = moduleQueue.getListeners();
 			for (int i = 0; i < projects.length; i++) {
 				IProject project = (IProject) projects[i];
+				// this block is for Web app Libraries
 				if (J2EEProjectUtilities.isDynamicWebProject(project)) {
-					// this block is for Web app Libraries
-
-					IClasspathContainer webAppLibrariesContainer = null;
-					// The Web App Libraries container will only be auto added/removed from the classpath once.
-					// Thereafter the user controls the Web App Librareis container with the JDT UI.
-					boolean shouldConsiderModifyingWebAppLibraries = !J2EEComponentClasspathContainerUtils.isWebAppLibrariesProcessed(project);
-					if (shouldConsiderModifyingWebAppLibraries) {
-						J2EEComponentClasspathContainerUtils.setWebAppLibrariesProcessed(project, true);
-						boolean shouldAddWebAppLibraries = J2EEComponentClasspathContainerUtils.getDefaultUseWebAppLibraries();
-						if (shouldAddWebAppLibraries) {
-							webAppLibrariesContainer = addContainerToModuleIfNecessary(project, WEB_APP_LIBS_PATH);
-						} else {
-							removeContainerFromModuleIfNecessary(project, WEB_APP_LIBS_PATH);
-						}
-					}
-
-					// If the container was not just added, see if it is already present
-					if (null == webAppLibrariesContainer) {
-						webAppLibrariesContainer = J2EEComponentClasspathContainerUtils.getInstalledWebAppLibrariesContainer(project);
-					}
-
+					IClasspathContainer webAppLibrariesContainer = J2EEComponentClasspathContainerUtils.getInstalledWebAppLibrariesContainer(project);
 					// If the container is present, refresh it
 					if (webAppLibrariesContainer != null) {
 						((FlexibleProjectContainer) webAppLibrariesContainer).refresh();
@@ -304,26 +285,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				}
 
 				// ******************** The following is for EAR Libraries
-
-				IClasspathContainer earLibrariesContainer = null;
-				// The EAR Libraries container will only be auto added/removed from the classpath once.
-				// Thereafter the user controls the Ear Librareis container with the JDT UI.
-				boolean shouldConsiderModifyingEARLibraries = !J2EEComponentClasspathContainerUtils.isEARLibrariesProcessed(project);
-				if (shouldConsiderModifyingEARLibraries) {
-					J2EEComponentClasspathContainerUtils.setEARLibrariesProcessed(project, true);
-					boolean shouldAddEARLibraries = J2EEComponentClasspathContainerUtils.getDefaultUseEARLibraries();
-					if (shouldAddEARLibraries) {
-						earLibrariesContainer = addContainerToModuleIfNecessary(project, J2EEComponentClasspathContainer.CONTAINER_PATH);
-					} else {
-						removeContainerFromModuleIfNecessary(project, J2EEComponentClasspathContainer.CONTAINER_PATH);
-					}
-				}
-
-				// If the container was not just added, see if it is already present
-				if (null == earLibrariesContainer) {
-					earLibrariesContainer = J2EEComponentClasspathContainerUtils.getInstalledEARLibrariesContainer(project);
-				}
-
+				IClasspathContainer earLibrariesContainer = J2EEComponentClasspathContainerUtils.getInstalledEARLibrariesContainer(project);
 				// If the container is present, refresh it
 				if (earLibrariesContainer != null) {
 					((J2EEComponentClasspathContainer) earLibrariesContainer).refresh(forceUpdateOnNextRun);
