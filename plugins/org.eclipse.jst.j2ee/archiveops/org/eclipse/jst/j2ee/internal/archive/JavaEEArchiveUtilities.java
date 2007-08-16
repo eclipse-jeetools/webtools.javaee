@@ -49,21 +49,31 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchiveFactory {
 
 	/**
-	 * An ArchiveOption used to specify whether {@link #openArchive(ArchiveOptions)} should attempt
-	 * to discriminate between different Java EE archive types. The default behavior is to always
-	 * discriminate fully for all types except EJB 3.0 archives {@link #DISCRIMINATE_EJB_ANNOTATIONS}.
-	 * In order to fully discriminate EJB 3.0 archives, it is necessary to set both this flag
-	 * and {@link #DISCRIMINATE_EJB_ANNOTATIONS} to true.
+	 * Default value = Boolean.TRUE Valid values = Boolean.TRUE or Boolean.FALSE
+	 * 
+	 * An ArchiveOption used to specify whether
+	 * {@link #openArchive(ArchiveOptions)} should attempt to discriminate
+	 * between different Java EE archive types. The default behavior is to
+	 * always discriminate fully for all types except EJB 3.0 archives
+	 * {@link #DISCRIMINATE_EJB_ANNOTATIONS}. In order to fully discriminate
+	 * EJB 3.0 archives, it is necessary to set both this flag and
+	 * {@link #DISCRIMINATE_EJB_ANNOTATIONS} to true.
 	 */
 	public static final String DISCRIMINATE_JAVA_EE = "DISCRIMINATE_EJB"; //$NON-NLS-1$
 
 	/**
-	 * An ArchiveOption used to specify whether {@link #openArchive(ArchiveOptions)} should attempt
-	 * to fully discriminate a JAR file from an EJB JAR file. Unless this option is explicitly set
-	 * to <code>Boolean.TRUE</code> in the ArchiveOptions no attempt will be made to parse the
-	 * .class byte code for EJB 3.0 annotations.
+	 * Default value = Boolean.TRUE Valid values = Boolean.TRUE or Boolean.FALSE
+	 * 
+	 * An ArchiveOption used to specify whether
+	 * {@link #openArchive(ArchiveOptions)} should attempt to fully discriminate
+	 * a JAR file from an EJB JAR file. This option is only relevant if the
+	 * {@link #DISCRIMINATE_JAVA_EE} option is also set to Boolean.TRUE. If both
+	 * options are set to true then as a last resort all .class files byte codes
+	 * will be analyzed for EJB annotations in order to discriminate whether the
+	 * specified IArchive is an EJB 3.0 jar.
 	 */
 	public static final String DISCRIMINATE_EJB_ANNOTATIONS = "DISCRIMINATE_EJB_ANNOTATIONS"; //$NON-NLS-1$
+
 
 	private JavaEEArchiveUtilities() {
 	}
@@ -224,22 +234,27 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 	}
 
 	/**
-	 * Returns an IArchive. This method will attempt to discriminate the specific Java EE archive
-	 * type based on the following simple rules. Please note that these rules do not adhere exactly
-	 * to the Java EE specification because they are written for a tooling environment rather than a
-	 * runtime environment. Thus these rules attempt to compensate for user error with the
-	 * understanding that other areas of the tooling environment will help detect and correct these
-	 * errors.
+	 * Returns an IArchive. This method will attempt to discriminate the
+	 * specific Java EE archive type based on the following simple rules. Please
+	 * note that these rules do not adhere exactly to the Java EE specification
+	 * because they are written for a tooling environment rather than a runtime
+	 * environment. Thus these rules attempt to compensate for user error with
+	 * the understanding that other areas of the tooling environment will help
+	 * detect and correct these errors.
 	 * 
 	 * <ol>
-	 * <li> An archive containing a deployment descriptor is considered to be of that type </li>
+	 * <li> An archive containing a deployment descriptor is considered to be of
+	 * that type </li>
 	 * <li> An archive whose name ends with '.ear' is considered an EAR </li>
 	 * <li> An archive whose name ends with '.war' is considered a WAR </li>
-	 * <li> If the ArchiveOptions specify the {@link #DISCRIMINATE_EJB_ANNOTATIONS} as Boolean.TRUE then if the
-	 * archive contains any .class file with EJB annotations it is considered an EJB JAR. Be warned
-	 * that this full check does have performance implications and is not done by default.</li>
-	 * <li> An archive whose name ends with '.jar' and which contains a META-INF/MANIFEST.MF file
-	 * containing a Main-class attribute is considered an Application Client </li>
+	 * <li> An archive whose name ends with '.jar' and which contains a
+	 * META-INF/MANIFEST.MF file containing a Main-class attribute is considered
+	 * an Application Client </li>
+	 * <li> If the ArchiveOptions specify the
+	 * {@link #DISCRIMINATE_EJB_ANNOTATIONS} as Boolean.TRUE then if the archive
+	 * contains any .class file with EJB annotations it is considered an EJB
+	 * JAR. Be warned that this full check does have performance implications
+	 * and is not done by default.</li>
 	 * An archive whose name ends with '.jar' is considered a Utility </li>
 	 * </ol>
 	 */
@@ -313,15 +328,6 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 				wrapArchive(simpleArchive, new Path(J2EEConstants.WEBAPP_DD_URI));
 				return simpleArchive;
 			} else if(lastSegment.endsWith(DOT_JAR)){
-				Object discriminateEJB30 = simpleArchive.getArchiveOptions().getOption(DISCRIMINATE_EJB_ANNOTATIONS);
-				if(null != discriminateEJB30 && ((Boolean)discriminateEJB30).booleanValue()){
-					if(isEJBArchive(simpleArchive)){
-						JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.EJB_TYPE, JavaEEQuickPeek.EJB_3_0_ID, JavaEEQuickPeek.JEE_5_0_ID);
-						archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
-						wrapArchive(simpleArchive, new Path(J2EEConstants.EJBJAR_DD_URI));
-						return simpleArchive;
-					}
-				}
 				IPath manifestPath = new Path(J2EEConstants.MANIFEST_URI);
 				if(simpleArchive.containsArchiveResource(manifestPath)){
 					InputStream in = null;
@@ -351,6 +357,16 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 						}
 					}
 				}
+				Object discriminateEJB30 = simpleArchive.getArchiveOptions().getOption(DISCRIMINATE_EJB_ANNOTATIONS);
+				if(null == discriminateEJB30 || ((Boolean)discriminateEJB30).booleanValue()){
+					if(isEJBArchive(simpleArchive)){
+						JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.EJB_TYPE, JavaEEQuickPeek.EJB_3_0_ID, JavaEEQuickPeek.JEE_5_0_ID);
+						archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
+						wrapArchive(simpleArchive, new Path(J2EEConstants.EJBJAR_DD_URI));
+						return simpleArchive;
+					}
+				}
+				
 			}
 		}
 		
