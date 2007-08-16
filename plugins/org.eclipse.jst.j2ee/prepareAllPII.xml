@@ -1,0 +1,192 @@
+<project name="Build" default="All" basedir=".">
+
+<target name="com.ibm.etools.ejb.ui">
+				<echo message="com.ibm.etools.ejb.ui..."/>
+				<ant antfile="../com.ibm.etools.ejb.ui/prepareforpii.xml" target="main"/>	
+</target>
+
+<target name="com.ibm.wtp.ejb.ui">
+				<echo message="com.ibm.wtp.ejb.ui..."/>
+				<ant antfile="../com.ibm.wtp.ejb.ui/prepareforpii.xml" target="main"/>	
+</target>
+
+<target name="com.ibm.etools.emf.workbench.ui">
+				<echo message="com.ibm.etools.emf.workbench.ui..."/>
+				<ant antfile="../com.ibm.etools.emf.workbench.ui/prepareforpii.xml" target="main"/>	
+</target>
+
+<target name="com.ibm.etools.j2ee.core">
+				<echo message="com.ibm.etools.j2ee.core..."/>
+				<ant antfile="../com.ibm.etools.j2ee.core/prepareforpii.xml" target="main"/>	
+</target>
+
+<target name="com.ibm.etools.j2ee.reference.snippets">
+				<echo message="com.ibm.etools.j2ee.reference.snippets..."/>
+				<ant antfile="../com.ibm.etools.j2ee.reference.snippets/prepareforpii.xml" target="main"/>
+</target>
+
+<target name="com.ibm.etools.j2ee.ui">
+				<echo message="com.ibm.etools.j2ee.ui..."/>
+				<ant antfile="../com.ibm.etools.j2ee.ui/prepareforpii.xml" target="main"/>		
+</target>
+
+
+<target name="com.ibm.etools.validation">
+				<echo message="com.ibm.etools.validation..."/>
+				<ant antfile="../com.ibm.etools.validation/prepareforpii.xml" target="main"/>
+				
+</target>
+
+<target name="com.ibm.etools.validation.core">
+				<echo message="com.ibm.etools.validation.core..."/>
+				<ant antfile="../com.ibm.etools.validation.core/prepareforpii.xml" target="main"/>
+				
+</target>
+
+<target name="com.ibm.etools.validation.ui">
+				<echo message="com.ibm.etools.validation.ui..."/>
+				<ant antfile="../com.ibm.etools.validation.ui/prepareforpii.xml" target="main"/>
+</target>
+
+<target name="com.ibm.wtp.annotations.controller">
+				<echo message="com.ibm.wtp.annotations.controller..."/>
+				<ant antfile="../com.ibm.wtp.annotations.controller/prepareforpii.xml" target="main"/>
+</target>
+
+<target name="com.ibm.wtp.annotations.core">
+				<echo message="com.ibm.wtp.annotations.core..."/>
+				<ant antfile="../com.ibm.wtp.annotations.core/prepareforpii.xml" target="main"/>
+</target>
+
+<target name="com.ibm.wtp.annotations.ui">
+				<echo message="com.ibm.wtp.annotations.ui..."/>
+				<ant antfile="../com.ibm.wtp.annotations.ui/prepareforpii.xml" target="main"/>
+					
+</target>
+
+<target name="com.ibm.wtp.common">
+				<echo message="com.ibm.wtp.common..."/>
+				<ant antfile="../com.ibm.wtp.common/prepareforpii.xml" target="main"/>
+</target>
+
+<target name="com.ibm.wtp.common.navigator">
+				<echo message="com.ibm.wtp.common.navigator..."/>
+				<ant antfile="../com.ibm.wtp.common.navigator/prepareforpii.xml" target="main"/>
+</target>
+
+<target name="com.ibm.wtp.common.ui">
+				<echo message="com.ibm.wtp.common.ui..."/>
+				<ant antfile="../com.ibm.wtp.common.ui/prepareforpii.xml" target="main"/>
+</target>
+
+<target name="com.ibm.wtp.ejb">
+				<echo message="com.ibm.wtp.ejb.."/>
+				<ant antfile="../com.ibm.wtp.ejb/prepareforpii.xml" target="main"/>
+</target>
+
+<target name="com.ibm.wtp.emf">
+				<echo message="com.ibm.wtp.emf.."/>
+				<ant antfile="../com.ibm.wtp.emf/prepareforpii.xml" target="main"/>
+</target>
+
+<target name="com.ibm.wtp.emf.workbench">
+				<echo message="com.ibm.wtp.emf.workbench.."/>
+				<ant antfile="../com.ibm.wtp.emf.workbench/prepareforpii.xml" target="main"/>
+</target>
+
+<target name="com.ibm.wtp.emf.workbench.edit">
+				<echo message="com.ibm.wtp.emf.workbench.edit.."/>
+				<ant antfile="../com.ibm.wtp.emf.workbench.edit/prepareforpii.xml" target="main"/>
+</target>
+
+<target name="com.ibm.wtp.j2ee">
+				<echo message="com.ibm.wtp.j2ee.."/>
+				<ant antfile="../com.ibm.wtp.j2ee/prepareforpii.xml" target="main"/>
+</target>
+
+<target name="com.ibm.wtp.j2ee.ui">
+				<echo message="com.ibm.wtp.j2ee.ui.."/>
+				<ant antfile="../com.ibm.wtp.j2ee.ui/prepareforpii.xml" target="main"/>
+</target>
+
+
+<target name="com.ibm.wtp.jca">
+				<echo message="com.ibm.wtp.jca.."/>
+				<ant antfile="../com.ibm.wtp.jca/prepareforpii.xml" target="main"/>
+</target>
+
+<target name="com.ibm.wtp.web">
+				<echo message="com.ibm.wtp.web.."/>
+				<ant antfile="../com.ibm.wtp.web/prepareforpii.xml" target="main"/>
+</target>
+
+<target name="com.ibm.wtp.webservice">
+				<echo message="com.ibm.wtp.webservice.."/>
+				<ant antfile="../com.ibm.wtp.webservice/prepareforpii.xml" target="main"/>
+</target>
+
+<target name="com.ibm.etools.project.interchange">
+				<echo message="com.ibm.etools.project.interchange.."/>
+				<ant antfile="../com.ibm.etools.project.interchange/prepareforpii.xml" target="main"/>
+</target>
+
+<target name="com.ibm.etools.ejb.samples">
+				<echo message="com.ibm.etools.ejb.samples.."/>
+				<ant antfile="../com.ibm.etools.ejb.samples/prepareforpii.xml" target="main"/>
+</target>
+
+<target name="com.ibm.wtp.activities">
+				<echo message="com.ibm.wtp.activities.."/>
+				<ant antfile="../com.ibm.wtp.activities/prepareforpii.xml" target="main"/>
+</target>
+
+<target name="com.ibm.wtp.j2ee.ui.navigator">
+				<echo message="com.ibm.wtp.j2ee.ui.navigator.."/>
+				<ant antfile="../com.ibm.wtp.j2ee.ui.navigator/prepareforpii.xml" target="main"/>
+</target>
+
+<target name="org.eclipse.ui.views.navigator">
+				<echo message="org.eclipse.ui.views.navigator.."/>
+				<ant antfile="../org.eclipse.ui.views.navigator/prepareforpii.xml" target="main"/>
+</target>
+
+<target name="org.eclipse.ui.workbench.navigator">
+				<echo message="org.eclipse.ui.workbench.navigator.."/>
+				<ant antfile="../org.eclipse.ui.workbench.navigator/prepareforpii.xml" target="main"/>
+</target>
+
+<target name="All">
+				<antcall target="com.ibm.etools.ejb.ui"/>
+				<antcall target="com.ibm.wtp.ejb.ui"/>
+	 			<antcall target="com.ibm.etools.emf.workbench.ui"/>
+	 			<antcall target="com.ibm.etools.j2ee.core"/>
+	 			<antcall target="com.ibm.etools.j2ee.reference.snippets"/>
+				<antcall target="com.ibm.etools.j2ee.ui"/>
+				<antcall target="com.ibm.etools.validation"/>
+				<antcall target="com.ibm.etools.validation.ui"/>
+				<antcall target="com.ibm.wtp.annotations.controller"/>
+				<antcall target="com.ibm.wtp.annotations.core"/>
+				<antcall target="com.ibm.wtp.annotations.ui"/>
+				<antcall target="com.ibm.wtp.common"/>
+				<antcall target="com.ibm.wtp.ejb"/>
+				<antcall target="com.ibm.wtp.emf"/>
+				<antcall target="com.ibm.wtp.emf.workbench"/>
+				<antcall target="com.ibm.wtp.emf.workbench.edit"/>
+				<antcall target="com.ibm.wtp.j2ee"/>
+				<antcall target="com.ibm.wtp.j2ee.ui"/>
+				<antcall target="com.ibm.wtp.jca"/>
+				<antcall target="com.ibm.wtp.web"/>
+				<antcall target="com.ibm.wtp.webservice"/>
+				<antcall target="com.ibm.wtp.common.ui"/>
+				<antcall target="com.ibm.wtp.common.navigator"/>
+				<antcall target="com.ibm.etools.project.interchange"/>
+				<antcall target="com.ibm.etools.ejb.samples"/>	
+				<antcall target="com.ibm.wtp.activities"/>	
+				<antcall target="com.ibm.etools.validation.core"/>	
+				<antcall target="com.ibm.wtp.j2ee.ui.navigator"/>
+				<antcall target="org.eclipse.ui.views.navigator"/>
+				<antcall target="org.eclipse.ui.workbench.navigator"/>									
+</target>
+
+</project>
+

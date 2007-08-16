@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+    <head>
+        <meta
+            name="root"
+            content="../../../../../../../" />
+        <title>j2ee module common data model api overview</title>
+    </head>
+
+    <body>  
+		<abstract>
+        This package includes the api the common create, import and export j2ee modules. It also includes the enterprise application and applciation client creation, import and export api. The interfaces in this package
+        define the properties that can be set on the j2ee modules data models that are used to run the data model operations and drive the wizard data, validation.
+		</abstract>
+
+	<a href="#top">top</a>
+    </body>
+</html>    
+    

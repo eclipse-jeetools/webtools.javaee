@@ -1,0 +1,202 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Generator" content="Lotus Word Pro">
+   <meta name="GENERATOR" content="Mozilla/4.74 [en] (Windows NT 5.0; U) [Netscape]">
+   <title>Body</title>
+</head>
+<body bgcolor="#FFFFFF">
+
+<h2>
+J2EE (EJB) Smoke Test</h2>
+
+<ol>
+<li>
+Open an empty workbench.</li>
+
+<li>
+Switch to the J2EE perspective: Perspective->Open->Other->J2EE</li>
+
+<ol>
+<li>
+Verify that the J2EE toolbar actions appear (create an EJB, create a Servlet,
+create an EJB project, create an Application Client module, create a Web
+Project, create EJB to RDB mapping, create and Enterprise Application)</li>
+
+<li>
+Verify that the J2EE view appears in the navigator frame. It will probably
+be empty.</li>
+
+<li>
+Verify that the appropriate New menu items are visible, these are the project
+actions from the toolbar, plus create a new EJB example</li>
+</ol>
+
+<li>
+Create a new EJB project for testing EJB creation. Press the "New EJB Project"
+toolbar button. Call the project "TestEJBs", use the default location,
+check the "Add to an EAR" option and call the ear "default_ear".</li>
+
+<ol>
+<li>
+Verify that a new EJB project called "TestEJBs" is created.</li>
+
+<ol>
+<li>
+The corresponding module should appear in the J2EE view in the EJB Modules
+folder. (175916 - the module does not appear until it contains at least
+one EJB.)</li>
+</ol>
+
+<li>
+Verify that a new EAR project called "default_app" is created.</li>
+
+<ol>
+<li>
+The corresponding module should appear in the J2EE view in the Enterprise
+Applications folder. It should contain the nested EJB module.</li>
+</ol>
+
+<li>
+Open "default_app" by double-clicking in the J2EE view. The EAR editor
+should be opened. Verify that the application.xml source looks good in
+the source page.</li>
+
+<li>
+Modify the module display name in the source page, switch to the General
+page and verify that the change is reflected. Verify that save is enabled
+for the application.xml. Save and close the editor. Re-open the editor
+and verify the description change.</li>
+
+<li>
+Modify the display name on the general page, and verify it in the source
+page. Save should be enabled, and the resource tab should be marked dirty
+(with a "*").</li>
+</ol>
+
+<li>
+Add a new session bean to the EJB module.</li>
+
+<ol>
+<li>
+Press the Create an Enterprise Java Bean toolbar button.&nbsp; This will
+launch the new Enterprise Java Bean wizard.&nbsp; Name the bean "Hello",
+select "Session bean" as the EJB type.&nbsp; Verify that the target project
+is already selected.</li>
+
+<br><img SRC="construction3.gif" height=43 width=49>(175845) Project selection
+is not being picked up from the J2EE view, so you'll need to manually select
+the project for now.
+<li>
+Provide the package name for the generated classes by entering "testing"
+into the first package name field.&nbsp; Verify that it propogates to the
+other fields.</li>
+
+<li>
+Press Finish to generate the Session bean classes.</li>
+
+<li>
+Open the Java perspective: Perspective->Open Perspective->Other...->Java.</li>
+
+<br><img SRC="detour.gif" height=21 width=68 align=ABSCENTER> For now this
+has to be done in the Java perspective, the generated classes will appear
+in the J2EE view under the EJB when 175608 is implemented.
+<ol>
+<li>
+In the package view, verify that the package "testing" appears under "TestEJBs\ejbModule".</li>
+
+<li>
+Verify that the files hello.java, hellobean.java, and hellohome.java exist.</li>
+
+<li>
+Switch to the J2EE view, the new EJB should appear under the "Test_EJB"
+module in "EJB Modules".</li>
+</ol>
+
+<li>
+Add a test method to Hello.&nbsp; Open the java editor on hellobean.java
+by double-clicking on it.&nbsp; Add a new method String sayHello(String)
+using the Java tooling like so:</li>
+
+<br>&nbsp;&nbsp; public String sayHello(String message) {
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return "Hello, " + message + "!";
+<br>&nbsp;&nbsp; }
+<li>
+Add the method to the remote interface.</li>
+
+<br><img SRC="detour.gif" height=21 width=68 align=ABSCENTER> This is currently
+done manually, by copying and pasting the method into the remote interface.&nbsp;
+The method in the remote interface should appear like this:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public String sayHello(String
+message) throws java.rmi.RemoteException;
+<br>Use code assist, ctrl-Space to lookup RemoteException, to verify that
+the project's Java environment is working properly.
+<br>When 175610 is completed, there will be a "Promote to remote interface"
+menu item available on the specialized Bean class Java editor which will
+do this for you.</ol>
+
+<li>
+Open the EJB editor for "TestEJBs" by double-clicking on the module under
+"EJB Modules"</li>
+
+<ol>
+<li>
+The EJB editor should be opened. Verify that the source for the ejb-jar
+looks reasonable.</li>
+
+<br><img SRC="construction3.gif" height=43 width=49 align=TEXTTOP>(175817)
+Once we get our DTD's registered, add a step to use code-assist in the
+source page.
+<ol>
+<li>
+Verify that the EJB editor is working properly.&nbsp; Edit the display
+name field.&nbsp; When you tab out of that field, the display name in the
+J2EE view should be updated.&nbsp; Sitch to the source page and verify
+that the XML is also updated.</li>
+
+<br>Verify that source changes flow to the general page, too.&nbsp; In
+the source page, copy and paste the display-name element from the JAR to
+the Hello entity.&nbsp; The display-name element must be the first element
+under &lt;session>.&nbsp; Switch to the general tab, select Hello in the
+Enterprise Beans list, and verify the display name you entered.</ol>
+</ol>
+
+<li>
+Generate Deployed code for Hello.&nbsp; Select the project TestEJBs, pop-up
+Generate for enterprise beans...->Generate deployed code.&nbsp; Make sure
+Hello is checked on the prompter, and hit finish.</li>
+
+<ol>
+<li>
+Switch to the Java perspective, and verify that three new .java files were
+generated and do not have compile errors.&nbsp; They are EJSRemoteStatelessHello.java,
+EJBRemoteStatelessHelloHome.java, and EJSStatelessHelloHomeBean.java.</li>
+</ol>
+
+<li>
+Generate RMIC code for Hello.&nbsp; Select the project TestEJBs, pop-up
+Generate for enterprise beans...->Generate RMIC stub and tie code.&nbsp;
+Make sure Hello is checked on the prompter, and hit finish.</li>
+
+<ol>
+<li>
+Switch to the Java perspective, and verify that a whole slew of incomprehensible
+classes were generated in multiple packages, some of which have names like
+_Hello_Stub.java, and _HelloHome_stub.java.&nbsp; Check the task list and
+make sure there are no compile errors.&nbsp; Even better, make sure the
+corresponding .class files exist in \bin\....</li>
+</ol>
+
+<li>
+<img SRC="slippery.gif" height=66 width=76>Next, testing with the unit
+test environment...</li>
+
+<ol>
+<li>
+</li>
+</ol>
+</ol>
+
+</body>
+</html>
