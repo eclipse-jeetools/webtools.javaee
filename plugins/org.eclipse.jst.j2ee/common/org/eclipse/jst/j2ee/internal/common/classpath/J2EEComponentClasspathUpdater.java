@@ -310,64 +310,6 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		return container;
 	}
 	
-	private IClasspathContainer addContainerToModuleIfNecessary(IProject moduleProject, IPath containerPath) {
-		IJavaProject jproj = JavaCore.create(moduleProject);
-		IClasspathEntry entry = getExistingContainer(jproj, containerPath);
-		if (entry == null) {
-			try {
-				entry = JavaCore.newContainerEntry(containerPath, true);
-				addToClasspath(jproj, entry);
-			} catch (CoreException e) {
-				J2EEPlugin.getDefault().getLogger().logError(e);
-			}
-		}
-		IClasspathContainer container = null;
-		try {
-			container = JavaCore.getClasspathContainer(containerPath, jproj);
-		} catch (JavaModelException e) {
-			J2EEPlugin.getDefault().getLogger().logError(e);
-		}
-		return container;
-	}
-
-	private void removeContainerFromModuleIfNecessary(IProject moduleProject, IPath containerPath) {
-		IJavaProject jproj = JavaCore.create(moduleProject);
-		IClasspathEntry entry = getExistingContainer(jproj, containerPath);
-		if (entry != null) {
-			try {
-				removeFromClasspath(jproj, entry);
-			} catch (CoreException e) {
-				J2EEPlugin.getDefault().getLogger().logError(e);
-			}
-		}
-	}
-
-	private void addToClasspath(final IJavaProject jproj, final IClasspathEntry entry) throws CoreException {
-		final IClasspathEntry[] current = jproj.getRawClasspath();
-		final IClasspathEntry[] updated = new IClasspathEntry[current.length + 1];
-		System.arraycopy(current, 0, updated, 0, current.length);
-		updated[current.length] = entry;
-		jproj.setRawClasspath(updated, null);
-	}
-
-	private void removeFromClasspath(final IJavaProject jproj, final IClasspathEntry entry) throws CoreException {
-		final IClasspathEntry[] current = jproj.getRawClasspath();
-		final IClasspathEntry[] updated = new IClasspathEntry[current.length - 1];
-		boolean removed = false;
-		for (int i = 0; i < current.length; i++) {
-			if (!removed) {
-				if (current[i] == entry) {
-					removed = true;
-				} else {
-					updated[i] = current[i];
-				}
-			} else {
-				updated[i - 1] = current[i];
-			}
-		}
-		jproj.setRawClasspath(updated, null);
-	}
-
 	/**
 	 * Returns the existing classpath container if it is already on the classpath. This will not
 	 * create a new container.
@@ -378,7 +320,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 	 */
 	public IClasspathEntry getExistingContainer(IJavaProject jproj, IPath classpathContainerPath) {
 		return J2EEComponentClasspathContainerUtils.getInstalledContainerEntry(jproj, classpathContainerPath);
-					}
+	}
 
 	private Set knownProjects = new HashSet();
 	

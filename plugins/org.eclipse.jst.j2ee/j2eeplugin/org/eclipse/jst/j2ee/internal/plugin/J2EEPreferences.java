@@ -182,8 +182,8 @@ public class J2EEPreferences {
 		getPreferences().setDefault(Keys.EJB_GENERATE_DD, false);
 		getPreferences().setDefault(Keys.APP_CLIENT_GENERATE_DD, false);	
 		
-		getPreferences().setDefault(Keys.USE_EAR_LIBRARIES, ProductManager.getProperty(IProductConstants.USE_EAR_LIBRARIES));
-		getPreferences().setDefault(Keys.USE_WEB_APP_LIBRARIES, ProductManager.getProperty(IProductConstants.USE_WEB_APP_LIBRARIES));
+		getPreferences().setDefault(Keys.USE_EAR_LIBRARIES, true);
+		getPreferences().setDefault(Keys.USE_WEB_APP_LIBRARIES, true);
 	}
 
 	

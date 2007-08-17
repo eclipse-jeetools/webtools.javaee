@@ -1,7 +1,5 @@
 package org.eclipse.jst.j2ee.internal.common.classpath;
 
-import java.util.Properties;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IClasspathContainer;
@@ -11,54 +9,8 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainer;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class J2EEComponentClasspathContainerUtils {
-
-	public final static String EAR_LIBRARIES_PROCESSED = "ear_libraries_processed"; //$NON-NLS-1$
-
-	public final static String WEB_APP_LIBRARIES_PROCESSED = "web_app_libraries_processed"; //$NON-NLS-1$
-
-	public static boolean isWebAppLibrariesProcessed(IProject project) {
-		return isLibraryProcessed(project, WEB_APP_LIBRARIES_PROCESSED);
-	}
-
-	public static boolean isEARLibrariesProcessed(IProject project) {
-		return isLibraryProcessed(project, EAR_LIBRARIES_PROCESSED);
-	}
-
-	private static boolean isLibraryProcessed(IProject project, String propertyName) {
-		IVirtualComponent comp = ComponentCore.createComponent(project);
-		if (comp == null) {
-			return true;
-		}
-		Properties properties = comp.getMetaProperties();
-		String property = properties.getProperty(propertyName);
-		if (property == null) {
-			return false;
-		} else {
-			return parseBoolean(property);
-		}
-	}
-
-	private static boolean parseBoolean(String name) {
-		return ((name != null) && name.equalsIgnoreCase("true")); //$NON-NLS-1$
-	}
-
-	public static void setEARLibrariesProcessed(IProject project, boolean processed) {
-		setLibraryProcessed(project, processed, EAR_LIBRARIES_PROCESSED);
-	}
-
-	public static void setWebAppLibrariesProcessed(IProject project, boolean processed) {
-		setLibraryProcessed(project, processed, WEB_APP_LIBRARIES_PROCESSED);
-	}
-
-	private static void setLibraryProcessed(IProject project, boolean processed, String propertyName) {
-		IVirtualComponent comp = ComponentCore.createComponent(project);
-		String value = processed ? Boolean.TRUE.toString() : Boolean.FALSE.toString();
-		comp.setMetaProperty(propertyName, value);
-	}
 
 	public static boolean getDefaultUseEARLibraries() {
 		return J2EEPlugin.getDefault().getJ2EEPreferences().getUseEARLibraries();
