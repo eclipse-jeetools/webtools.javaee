@@ -47,6 +47,9 @@ import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.project.facet.ProductManager;
 
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
+
 public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
 
 	public void execute(final IProject project, final IProjectFacetVersion fv, final Object cfg, final IProgressMonitor monitor) throws CoreException {
@@ -133,8 +136,16 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			// Add the web libraries container.
 
-			final IPath webLibContainer = new Path(WebAppLibrariesContainer.CONTAINER_ID);
-			addToClasspath(jproj, JavaCore.newContainerEntry(webLibContainer));
+						
+			if(J2EEComponentClasspathContainerUtils.getDefaultUseWebAppLibraries()){
+				final IPath webLibContainer = new Path(WebAppLibrariesContainer.CONTAINER_ID);
+				addToClasspath(jproj, JavaCore.newContainerEntry(webLibContainer));
+			}
+
+			if(J2EEComponentClasspathContainerUtils.getDefaultUseEARLibraries()){
+				final IPath earLibContainer = new Path(J2EEComponentClasspathContainer.CONTAINER_ID);
+				addToClasspath(jproj, JavaCore.newContainerEntry(earLibContainer));
+			}
 
 			try {
 				((IDataModelOperation) model.getProperty(FacetDataModelProvider.NOTIFICATION_OPERATION)).execute(monitor, null);

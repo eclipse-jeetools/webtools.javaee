@@ -37,6 +37,8 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
@@ -166,7 +168,10 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 				// ClasspathHelper.addClasspathEntries( project, fv, <something> );
 			}
 
-
+			if(J2EEComponentClasspathContainerUtils.getDefaultUseEARLibraries()){
+				final IPath earLibContainer = new Path(J2EEComponentClasspathContainer.CONTAINER_ID);
+				addToClasspath(jproj, JavaCore.newContainerEntry(earLibContainer));
+			}
 
 			try {
 				((IDataModelOperation) model.getProperty(FacetDataModelProvider.NOTIFICATION_OPERATION)).execute(monitor, null);
