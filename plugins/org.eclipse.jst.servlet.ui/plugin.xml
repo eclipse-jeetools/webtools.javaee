@@ -332,16 +332,19 @@
               policy="InvokeOnlyIfSuppressedExtAlsoVisibleAndActive"
               suppressedExtensionId="org.eclipse.jdt.java.ui.javaContent"/>					   
         <triggerPoints>
-			<and>
-				<adapt
-					type="org.eclipse.core.resources.IProject">
-					<or> 
-						<test forcePluginActivation="true"
-							property="org.eclipse.wst.common.project.facet.core.projectFacet"
-							value="jst.web" />
-					</or>
-				</adapt>
-			</and>        
+        	<or>
+				<and>
+					<adapt
+						type="org.eclipse.core.resources.IProject">
+						<or> 
+							<test forcePluginActivation="true"
+								property="org.eclipse.wst.common.project.facet.core.projectFacet"
+								value="jst.web" />
+						</or>
+					</adapt>
+				</and>
+				<instanceof value="org.eclipse.jst.servlet.ui.internal.navigator.ICompressedNode" />
+			</or>        
         </triggerPoints>
         <possibleChildren>
            <or>
