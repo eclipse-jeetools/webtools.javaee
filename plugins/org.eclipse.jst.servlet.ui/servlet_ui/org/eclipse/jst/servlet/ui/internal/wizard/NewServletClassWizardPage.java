@@ -190,12 +190,15 @@ public class NewServletClassWizardPage extends NewJavaClassWizardPage {
 	}
 	
 	private boolean isWebDocletProject() {
-		IProject project = ProjectUtilities.getProject(model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME));
-		try {
-			IFacetedProject facetedProject = ProjectFacetsManager.create(project);
-			return facetedProject.hasProjectFacet(WebFacetUtils.WEB_XDOCLET_FACET);
-		} catch (CoreException e) {
-			Logger.getLogger().log(e);
+		String projectName = model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME);
+		if(projectName != null && !"".equals(projectName.trim())){
+			IProject project = ProjectUtilities.getProject(projectName);
+			try {
+				IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+				return facetedProject.hasProjectFacet(WebFacetUtils.WEB_XDOCLET_FACET);
+			} catch (CoreException e) {
+				Logger.getLogger().log(e);
+			}
 		}
 		return false;
 	}
