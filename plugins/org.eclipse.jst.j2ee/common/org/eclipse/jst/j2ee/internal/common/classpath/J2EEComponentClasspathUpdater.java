@@ -66,6 +66,8 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 
 	private static J2EEComponentClasspathUpdater instance = null;
 
+	private static boolean updateDependencyGraph = true;
+
 	private int pauseCount = 0;
 	
 	public static IPath WEB_APP_LIBS_PATH = new Path("org.eclipse.jst.j2ee.internal.web.container"); //$NON-NLS-1$
@@ -139,7 +141,15 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			if(runAsJob){
 				moduleUpdateJob.schedule(0);
 			} else {
-				moduleUpdateJob.run(new NullProgressMonitor());
+				try
+				{
+					updateDependencyGraph = false;
+					moduleUpdateJob.run(new NullProgressMonitor());
+				}
+				finally
+				{
+					updateDependencyGraph = true;
+				}
 			}
 		}
 	}
@@ -499,4 +509,8 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		return false;
 	}
 
+	public static boolean shouldUpdateDependencyGraph()
+	{
+		return updateDependencyGraph;
+	}
 }
