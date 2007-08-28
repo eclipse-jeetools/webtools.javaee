@@ -37,11 +37,13 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
+import org.eclipse.jst.j2ee.internal.archive.ComponentArchiveLoadAdapter;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.jst.jee.archive.ArchiveSaveFailureException;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveFactory;
+import org.eclipse.jst.jee.archive.IArchiveLoadAdapter;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
@@ -236,6 +238,12 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 			writeFile.delete();
 		}
 		IPath outputPath = new Path(writeFileName);
+		IArchiveLoadAdapter loadAdapter = archiveToSave.getLoadAdapter();
+		if(loadAdapter instanceof ComponentArchiveLoadAdapter){
+			ComponentArchiveLoadAdapter cLoadAdapter = (ComponentArchiveLoadAdapter)loadAdapter;
+			cLoadAdapter.setExportSource(getDataModel().getBooleanProperty(IJ2EEComponentExportDataModelProperties.EXPORT_SOURCE_FILES));
+			
+		}
 		IArchiveFactory.INSTANCE.saveArchive(archiveToSave, outputPath, monitor);
 	}
 

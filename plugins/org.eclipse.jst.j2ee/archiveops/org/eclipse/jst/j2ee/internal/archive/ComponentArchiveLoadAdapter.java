@@ -48,6 +48,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.jee.archive.AbstractArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.IArchive;
+import org.eclipse.jst.jee.archive.IArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.jst.jee.archive.internal.ArchiveURIConverter;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
@@ -245,6 +246,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 	}
 
 	public List<IArchiveResource> getArchiveResources() {
+
 		initArchiveResources();
 		return filesHolder.getFiles();
 	}
@@ -552,6 +554,13 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 	}
 
 	protected InputStream getSuperInputStream(IArchiveResource archiveResource) throws IOException, FileNotFoundException {
+		if (archiveResource.getType() == IArchive.ARCHIVE_TYPE) {
+			IArchiveLoadAdapter nestedLoadAdapter = (IArchiveLoadAdapter)((IArchive)archiveResource).getLoadAdapter();
+			if(nestedLoadAdapter instanceof ComponentArchiveLoadAdapter){
+				((ComponentArchiveLoadAdapter)nestedLoadAdapter).setExportSource(isExportSource());
+			}
+		}
+		
 		return super.getInputStream(archiveResource);
 	}
 
