@@ -62,6 +62,8 @@ public class J2EECommonMessages extends NLS {
 	public static String ERR_VERSION_NOT_SUPPORTED;
 	public static String ERR_NOT_SUPPORTED;
 	public static String ERR_JAVA_CLASS_FOLDER_NOT_ABSOLUTE;
+	public static String ERR_NO_MODEL_PROVIDER_FOR_PROJECT;
+	public static String ERR_NO_MODEL_PROVIDER_FOR_VIRTUAL_COMPONENT;
 
 	public static String J2EE_MODULE_CLASSPATH_CONTAINER_NAME;
 	

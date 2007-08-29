@@ -12,6 +12,8 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
@@ -45,16 +47,42 @@ public static class ModelProviderKey {
 private static final int DEFAULT_PRIORITY = 100;
 	private static HashMap<ModelProviderKey, IModelProviderFactory> providers;
 
+	/**
+	 * 
+	 * @param 
+	 * @param 
+	 * @return IModelProvider for the given project of the given version, NULL if no IModelProvider exists for project, version pair
+	 */
 	public static IModelProvider getModelProvider(IProject project, IProjectFacetVersion vers) {
 		
 		IModelProviderFactory factory = getProvider(vers);
-		return factory.create(project);
+		if(factory != null){
+			return factory.create(project);
+		}
+		
+		J2EEPlugin.INSTANCE.getLogger().logError(
+				J2EECommonMessages.getResourceString(
+						J2EECommonMessages.ERR_NO_MODEL_PROVIDER_FOR_PROJECT, new Object[] {project, vers}));
+		return null;
 	}
 
+	/**
+	 * 
+	 * @param 
+	 * @param 
+	 * @return IModelProvider for the given component of the given version, NULL if no IModelProvider exists for virtual component/version pair
+	 */
 	public static IModelProvider getModelProvider(IVirtualComponent aModule, IProjectFacetVersion vers) {
 
 		IModelProviderFactory factory = getProvider(vers);
-		return factory.create(aModule);
+		if(factory != null){
+			return factory.create(aModule);
+		}
+		
+		J2EEPlugin.INSTANCE.getLogger().logError(
+				J2EECommonMessages.getResourceString(
+						J2EECommonMessages.ERR_NO_MODEL_PROVIDER_FOR_VIRTUAL_COMPONENT, new Object[] {aModule, vers}));
+		return null;
 	}
 
 	/**
