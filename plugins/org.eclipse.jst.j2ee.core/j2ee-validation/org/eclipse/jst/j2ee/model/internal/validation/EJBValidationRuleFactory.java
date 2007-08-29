@@ -10,7 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.model.internal.validation;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 
 import org.eclipse.jem.java.JavaClass;
@@ -21,12 +23,15 @@ import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 
 /**
  * Core EJB Validation rules
  */
 public class EJBValidationRuleFactory extends AbstractEJBValidationRuleFactory {
 	private static EJBValidationRuleFactory _inst = null;
+	private static final Map contextMap = Collections.synchronizedMap(new HashMap());
+
 	private Logger logger = null;
 	
 	public EJBValidationRuleFactory() {
@@ -369,5 +374,31 @@ public class EJBValidationRuleFactory extends AbstractEJBValidationRuleFactory {
 			aLogger.write(Level.FINE, "Cannot load rule: !bean.isVersion1_X() && !bean.isVersion2_X()"); //$NON-NLS-1$
 		}
 		return null;
+	}
+	
+	public IValidationRule getRule(IEJBValidationContext vc, Object ruleId) {
+		Map ruleMap = (Map) contextMap.get(vc.getReporter());
+		if(ruleMap == null){
+			// instantiate a new set of rules for each instance of EJB validator as the rule classes
+			// are not thread safe, in case when multiple ejb validators run on multiple projects at
+			// the same time, rule objects can report incorrect errors see bug 187286
+			EJBValidationRuleFactory factory = new EJBValidationRuleFactory();
+			ruleMap = factory._ruleList;
+			contextMap.put(vc.getReporter(), ruleMap);
+		}
+		Object rule = ruleMap.get(ruleId);
+    	if(rule == null) {
+    		// No such ruleId registered.
+    		Logger logger = vc.getMsgLogger();
+    		if (logger != null && logger.isLoggingLevel(Level.FINE)) {
+    			logger.write(Level.FINE, "Cannot load rule from ruleId: " + ruleId); //$NON-NLS-1$
+    		}
+    		return null;
+    	}
+    	return (IValidationRule)rule;
+	}
+	
+	public void clearRuleMap(IReporter reporter){
+		contextMap.remove(reporter);
 	}
 }

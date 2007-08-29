@@ -525,6 +525,8 @@ public class EJBValidator extends AbstractEJBValidator {
 			ValidationRuleUtility.projectHelperMap.remove( helperMap );
 			helperMap = null;
 		}
+		// clear the map when the ejb validator is done see bug 187286
+		EJBValidationRuleFactory.getFactory().clearRuleMap(reporter);
 		super.cleanup(reporter);
 	}
 }
