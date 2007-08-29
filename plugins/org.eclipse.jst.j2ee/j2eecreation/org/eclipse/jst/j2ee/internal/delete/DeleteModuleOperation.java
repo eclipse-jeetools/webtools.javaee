@@ -16,7 +16,12 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 
-
+/**
+ * Do not use this.  It will be deleted in 3.0
+ * 
+ * @deprecated
+ *
+ */
 public class DeleteModuleOperation { //extends WTPOperation {
 
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
