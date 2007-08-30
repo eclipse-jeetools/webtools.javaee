@@ -10,8 +10,17 @@
  *******************************************************************************/
 package org.eclipse.jst.javaee.core.internal.util;
 
+import java.io.IOException;
+import java.util.Map;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
+import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
+import org.eclipse.jem.util.plugin.JEMUtilPlugin;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,6 +39,48 @@ public class JavaeeResourceImpl extends XMLResourceImpl {
 	 */
 	public JavaeeResourceImpl(URI uri) {
 		super(uri);
+	}
+	
+	public void save(Map options) throws IOException {
+		
+		IFile file = getPlatformFile();
+		
+		if (file == null || !file.exists()) return; // Only save if file existed
+		super.save(options);
+	}
+	
+	/**
+	 * Return the IFile for the <code>uri</code> within the Workspace. This URI is assumed to be
+	 * absolute in the following format: platform:/resource/....
+	 */
+	private IFile getPlatformFile(URI uri) {
+		if (WorkbenchResourceHelperBase.isPlatformResourceURI(uri)) {
+			String fileString = URI.decode(uri.path());
+			fileString = fileString.substring(JEMUtilPlugin.PLATFORM_RESOURCE.length() + 1);
+			return ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(fileString));
+		}
+		return null;
+	}
+
+	private IFile getPlatformFile() {
+		IFile file = null;
+		file = getPlatformFile(getURI());
+		if (file == null) {
+			if (getResourceSet() != null) {
+				URIConverter converter = getResourceSet().getURIConverter();
+				URI convertedUri = converter.normalize(uri);
+				if (!uri.equals(convertedUri))
+					file = getPlatformFile(convertedUri);
+			}
+		}
+		return file;
+	}
+
+	public void save(Map options, boolean force) throws IOException {
+		IFile file = getPlatformFile();
+		if (!force && (file == null || !file.exists())) return; // Only save if file existed
+		super.save(options);
+		if (force) getResourceSet().getResources().remove(this); //Remove initial resource
 	}
 
 } //JavaeeResourceImpl
