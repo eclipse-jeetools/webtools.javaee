@@ -142,14 +142,16 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 				return;
 			}
 			IResource resource = WorkbenchResourceHelper.getFile((EObject)srcObject);
-			if(resource != null){
+			if(resource != null && resource.exists()){
 				openAppropriateEditor(resource);
 			} else {
 				ModuleFile moduleFile = ArchiveUtil.getModuleFile(ro);
-				ArchiveOptions options = moduleFile.getOptions();
-				if(options instanceof ComponentArchiveOptions) {
-					IVirtualComponent component = ((ComponentArchiveOptions)options).getComponent();
-					openAppropriateEditor(component);
+				if (moduleFile != null) {
+					ArchiveOptions options = moduleFile.getOptions();
+					if(options instanceof ComponentArchiveOptions) {
+						IVirtualComponent component = ((ComponentArchiveOptions)options).getComponent();
+						openAppropriateEditor(component);
+					}
 				}
 			}
 		}
@@ -186,8 +188,10 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 				IContentType contentType = IDE.getContentType(file);
 				currentDescriptor = registry.getDefaultEditor(file.getName(), contentType);
 			} else {
-				String name = (new Path(((EObject)obj).eResource().getURI().toString())).lastSegment();
-				currentDescriptor = registry.getDefaultEditor(name, null);
+				if (((EObject)obj).eResource() != null) {
+					String name = (new Path(((EObject)obj).eResource().getURI().toString())).lastSegment();
+					currentDescriptor = registry.getDefaultEditor(name, null);
+				}
 			}
 		}
 		else if (obj instanceof Resource) {

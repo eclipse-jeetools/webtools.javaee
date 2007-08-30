@@ -21,6 +21,8 @@ import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
 import org.eclipse.jst.javaee.applicationclient.ApplicationClientDeploymentDescriptor;
 import org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory;
 import org.eclipse.jst.javaee.applicationclient.internal.util.ApplicationclientResourceImpl;
+import org.eclipse.jst.javaee.core.DisplayName;
+import org.eclipse.jst.javaee.core.JavaeeFactory;
 
 public class AppClient5ModelProvider extends JEE5ModelProvider {
 	
@@ -43,12 +45,15 @@ public class AppClient5ModelProvider extends JEE5ModelProvider {
 	protected String getContentTypeDescriber() {
 		return APPCLIENT5_CONTENT_TYPE;
 	}
-	public void populateRoot(XMLResourceImpl res) {
+	public void populateRoot(XMLResourceImpl res, String name) {
 		ApplicationClientDeploymentDescriptor dd = ApplicationclientFactory.eINSTANCE.createApplicationClientDeploymentDescriptor();
 		dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE_NS_URL);  //$NON-NLS-1$
 		dd.getXMLNSPrefixMap().put("xsi", J2EEConstants.XSI_NS_URL); //$NON-NLS-1$
 		dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.APP_CLIENT_SCHEMA_LOC_5);
 		ApplicationClient client = ApplicationclientFactory.eINSTANCE.createApplicationClient();
+		DisplayName dn = JavaeeFactory.eINSTANCE.createDisplayName();
+		dn.setValue(name);
+		client.getDisplayNames().add(dn);
 		dd.setApplicationClient(client);
 		client.setVersion(J2EEVersionConstants.VERSION_5_TEXT);
 		res.getContents().add((EObject) dd);

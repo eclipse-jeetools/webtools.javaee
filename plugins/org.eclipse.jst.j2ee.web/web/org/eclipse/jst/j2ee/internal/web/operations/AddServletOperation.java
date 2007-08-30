@@ -429,7 +429,7 @@ public class AddServletOperation extends AbstractDataModelOperation implements I
 						}
 					}
 				};
-				provider.modify(runnable, null);
+				provider.modify(runnable, IModelProvider.FORCESAVE);
 			}
 			//return doExecute(monitor, info);
 			return Status.CANCEL_STATUS;

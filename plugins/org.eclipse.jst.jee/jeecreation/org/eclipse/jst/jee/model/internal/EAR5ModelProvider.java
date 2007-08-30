@@ -24,6 +24,8 @@ import org.eclipse.jst.javaee.application.ApplicationDeploymentDescriptor;
 import org.eclipse.jst.javaee.application.ApplicationFactory;
 import org.eclipse.jst.javaee.application.Module;
 import org.eclipse.jst.javaee.application.internal.util.ApplicationResourceImpl;
+import org.eclipse.jst.javaee.core.DisplayName;
+import org.eclipse.jst.javaee.core.JavaeeFactory;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -78,12 +80,15 @@ public class EAR5ModelProvider extends JEE5ModelProvider implements IEARModelPro
 		}
 		return null;
 	}
-	public void populateRoot(XMLResourceImpl res) {
+	public void populateRoot(XMLResourceImpl res, String name) {
 		ApplicationDeploymentDescriptor dd = ApplicationFactory.eINSTANCE.createApplicationDeploymentDescriptor();
 		dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE_NS_URL);  //$NON-NLS-1$
 		dd.getXMLNSPrefixMap().put("xsi", J2EEConstants.XSI_NS_URL); //$NON-NLS-1$
 		dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.APPLICATION_SCHEMA_LOC_5);
 		Application ear = ApplicationFactory.eINSTANCE.createApplication();
+		DisplayName dn = JavaeeFactory.eINSTANCE.createDisplayName();
+		dn.setValue(name);
+		ear.getDisplayNames().add(dn);
 		ear.setVersion(J2EEVersionConstants.VERSION_5_TEXT);
 		dd.setApplication(ear);
 		res.getContents().add((EObject) dd);

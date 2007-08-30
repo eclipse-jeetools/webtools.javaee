@@ -12,12 +12,16 @@ package org.eclipse.jst.j2ee.model;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 
 /**
  * Simple J2EE model registration interface that serves to unify the various model access api's
  *
  */
 public interface IModelProvider {
+	
+	// Flag used to save in memory model when no file exists.
+	final static IPath FORCESAVE = new Path("FORCE"); //$NON-NLS-1$
 
 	/**
 	 * This returns the designated "default" model for the given context
