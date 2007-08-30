@@ -17,6 +17,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.javaee.core.DisplayName;
+import org.eclipse.jst.javaee.core.JavaeeFactory;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.ejb.EJBJarDeploymentDescriptor;
 import org.eclipse.jst.javaee.ejb.EjbFactory;
@@ -46,12 +48,15 @@ public class Ejb3ModelProvider extends JEE5ModelProvider {
 	}
 
 
-	public void populateRoot(XMLResourceImpl res) {
+	public void populateRoot(XMLResourceImpl res, String name) {
 		EJBJarDeploymentDescriptor dd = EjbFactory.eINSTANCE.createEJBJarDeploymentDescriptor();
 		dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE_NS_URL);  //$NON-NLS-1$
 		dd.getXMLNSPrefixMap().put("xsi", J2EEConstants.XSI_NS_URL); //$NON-NLS-1$
 		dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.EJB_JAR_SCHEMA_LOC_3_0);
 		EJBJar jar = EjbFactory.eINSTANCE.createEJBJar();
+		DisplayName dn = JavaeeFactory.eINSTANCE.createDisplayName();
+		dn.setValue(name);
+		jar.getDisplayNames().add(dn);
 		dd.setEjbJar(jar);
 		jar.setVersion(J2EEVersionConstants.VERSION_3_0_TEXT);
 		res.getContents().add((EObject) dd);
