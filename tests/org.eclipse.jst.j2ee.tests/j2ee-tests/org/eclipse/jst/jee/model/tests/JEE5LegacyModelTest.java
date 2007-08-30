@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
-import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
+import org.eclipse.jem.util.emf.workbench.FlexibleProjectResourceSet;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.archive.emftests.GeneralEMFPopulationTest;
 import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
@@ -137,7 +137,7 @@ public void testEJBModel() throws Exception {
 	EMFAttributeFeatureGenerator.reset();
 	String modelPathURI = J2EEConstants.EJBJAR_DD_URI;
 	URI uri = URI.createURI(J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.EJB_CONTENT_FOLDER) + "/" + modelPathURI);
-	ProjectResourceSet resSet = getResourceSet("TESTEJB3Import");
+	FlexibleProjectResourceSet resSet = getResourceSet("TESTEJB3Import");
 	
 	EJBResourceImpl ejbRes = (EJBResourceImpl) resSet.getResource(uri,true,EJBJarResourceFactory.getRegisteredFactory());
 	Assert.assertTrue(ejbRes.getContents().size() > 0);
@@ -173,9 +173,9 @@ public void testUsingEJBArtifactEdit() {
 		}
 	}
 }
-private ProjectResourceSet getResourceSet(String projName) {
+private FlexibleProjectResourceSet getResourceSet(String projName) {
 		IProject proj = getProject(projName);
-		return (ProjectResourceSet)WorkbenchResourceHelperBase.getResourceSet(proj);
+		return (FlexibleProjectResourceSet)WorkbenchResourceHelperBase.getResourceSet(proj);
 	}
 
 
