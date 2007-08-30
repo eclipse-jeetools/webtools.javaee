@@ -872,6 +872,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 				if (component!=null && !J2EEProjectUtilities.isEARProject(p) && !J2EEProjectUtilities.isStaticWebProject(p)) {
 					Job job = new ProcessProjectsWithWSDL(p, EditModelEvent.ADDED_RESOURCE);
 					job.setRule(p);
+					job.setSystem(true);
 					job.schedule();
 					return false;
 				}
