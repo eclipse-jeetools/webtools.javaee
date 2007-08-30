@@ -1,4 +1,4 @@
-package org.eclipse.jst.jee.ui.internal;
+package org.eclipse.jst.jee.project.facet;
 
 import java.util.Set;
 

@@ -19,6 +19,11 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.actions.BaseAction;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.jee.project.facet.IAppClientCreateDeploymentFilesDataModelProperties;
+import org.eclipse.jst.jee.project.facet.ICreateDeploymentFilesDataModelProperties;
+import org.eclipse.jst.jee.project.facet.IEJBCreateDeploymentFilesDataModelProperties;
+import org.eclipse.jst.jee.project.facet.IEarCreateDeploymentFilesDataModelProperties;
+import org.eclipse.jst.jee.project.facet.IWebCreateDeploymentFilesDataModelProperties;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -88,13 +93,27 @@ public class CreateDeploymentFilesActionDelegate extends BaseAction {
 		IProject project = ProjectUtilities.getProject(selection.getFirstElement());
 		if (!validateSelection(project, shell))
 			return;
-		IDataModel dataModel = DataModelFactory.createDataModel(ICreateDeploymentFilesDataModelProperties.class);
-		dataModel.setProperty(ICreateDeploymentFilesDataModelProperties.TARGET_PROJECT, project);
 		try {
-			dataModel.getDefaultOperation().execute( new NullProgressMonitor(), null);
+			getDataModel(project).getDefaultOperation().execute( new NullProgressMonitor(), null);
 		} catch (ExecutionException e) {
 			Logger.getLogger().logError(e);
 		}
+	}
+
+	private IDataModel getDataModel(IProject project) {
+		Class dataModelClass = null;
+		if(J2EEProjectUtilities.isEARProject(project)){
+			dataModelClass = IEarCreateDeploymentFilesDataModelProperties.class;
+		} else if(J2EEProjectUtilities.isEJBProject(project)){
+			dataModelClass = IEJBCreateDeploymentFilesDataModelProperties.class;
+		} else if(J2EEProjectUtilities.isDynamicWebProject(project)){
+			dataModelClass = IWebCreateDeploymentFilesDataModelProperties.class;
+		} else if(J2EEProjectUtilities.isApplicationClientProject(project)){
+			dataModelClass = IAppClientCreateDeploymentFilesDataModelProperties.class;
+		}
+		IDataModel dataModel = DataModelFactory.createDataModel(dataModelClass);
+		dataModel.setProperty(ICreateDeploymentFilesDataModelProperties.TARGET_PROJECT, project);
+		return dataModel;
 	}
 	
 	private boolean validateSelection(IProject project, Shell shell) {
