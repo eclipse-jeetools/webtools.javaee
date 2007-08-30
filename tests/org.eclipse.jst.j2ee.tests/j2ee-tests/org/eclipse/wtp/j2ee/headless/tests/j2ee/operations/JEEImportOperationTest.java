@@ -118,7 +118,7 @@ public abstract class JEEImportOperationTest extends OperationTestCase {
 		IDataModel importModel = getImportDataModel(archivePath, projectName, null, null, true);
 		OperationTestCase.runAndVerify(importModel);
 		
-		runAndVerifyReExportation(importModel, false, true);
+		runAndVerifyReExportation(importModel, true, true);
 	}
 	
 	protected void runAndVerifyImport_ExportedWithSource(String archiveName) throws Exception {

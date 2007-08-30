@@ -51,7 +51,6 @@ import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.facet.IAppClientFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
-import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.javaee.core.Description;
@@ -201,7 +200,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 				desc.setValue(descText);
 			}
 		}
-			, null);
+			, IModelProvider.FORCESAVE);
 		
 		//Close project to force flush
 		earProj.close(new NullProgressMonitor());
@@ -301,7 +300,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 				desc.setValue(descText);
 			}
 		}
-			, null);
+			, IModelProvider.FORCESAVE);
 		
 		//Close project to force flush
 		webProj.close(new NullProgressMonitor());
@@ -368,7 +367,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 				desc.setValue(descText);
 			}
 		}
-			, null);
+			, IModelProvider.FORCESAVE);
 		
 		//Close project to force flush
 		ejbProj.close(new NullProgressMonitor());
@@ -522,8 +521,8 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 				.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 		IDataModel webmodel = (IDataModel) map.get(IWebFacetInstallDataModelProperties.DYNAMIC_WEB);
 		webmodel.setProperty(IFacetInstallDataModelProperties.FACET_VERSION, web25);
-		webmodel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER,"web333"); //$NON-NLS-1$
-        webmodel.setStringProperty(IWebFacetInstallDataModelProperties.SOURCE_FOLDER, "src444");
+//		webmodel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER,"web333"); //$NON-NLS-1$
+//        webmodel.setStringProperty(IWebFacetInstallDataModelProperties.SOURCE_FOLDER, "src444");
     }
 
     private void addVersionProperties(IDataModel dataModel, String projName, IProjectFacetVersion fv, String facetString){
@@ -653,7 +652,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 				
 			}
 		}
-			, null);
+			, IModelProvider.FORCESAVE);
 		
 		//Close project to force flush
 		appClientProj.close(new NullProgressMonitor());
