@@ -43,271 +43,271 @@ public class WebImportOperationTest extends ModuleImportOperationTest {
 	}
 	
 	public void testWebImport22_Defaults() throws Exception {
-		runImportTests_All("testWebImport22_Defaults");
+		runImportTests_All("Web22_Defaults");
 	}
 	
 	public void testWebImport23_Defaults() throws Exception {
-		runImportTests_All("testWebImport23_Defaults");
+		runImportTests_All("Web23_Defaults");
 	}
 	
 	public void testWebImport24_Defaults() throws Exception {
-		runImportTests_All("testWebImport24_Defaults");
+		runImportTests_All("Web24_Defaults");
 	}
 	
 	public void testWebImport25_Defaults() throws Exception {
-		runImportTests_All("testWebImport25_Defaults");
+		runImportTests_All("Web25_Defaults");
 	}	
 	
-	public void testWebImport22_ChangedContentDir() throws Exception {
-		runImportTests_All("testWebImport22_ChangedContentDir");
+	public void testWebImport22_DiffContentDir() throws Exception {
+		runImportTests_All("Web22_DiffContentDir");
 	}
 	
-	public void testWebImport23_ChangedContentDir() throws Exception {
-		runImportTests_All("testWebImport23_ChangedContentDir");
+	public void testWebImport23_DiffContentDir() throws Exception {
+		runImportTests_All("Web23_DiffContentDir");
 	}
 	
-	public void testWebImport24_ChangedContentDir() throws Exception {
-		runImportTests_All("testWebImport24_ChangedContentDir");
+	public void testWebImport24_DiffContentDir() throws Exception {
+		runImportTests_All("Web24_DiffContentDir");
 	}
 	
-	public void testWebImport25_ChangedContentDir() throws Exception {
-		runImportTests_All("testWebImport25_ChangedContentDir");
-	}
-	
-	
-	public void testWebImport22_ChangedJavaSrcDir() throws Exception {
-		runImportTests_All("testWebImport22_ChangedJavaSrcDir");
-	}
-	
-	public void testWebImport23_ChangedJavaSrcDir() throws Exception {
-		runImportTests_All("testWebImport23_ChangedJavaSrcDir");
-	}
-	
-	public void testWebImport24_ChangedJavaSrcDir() throws Exception {
-		runImportTests_All("testWebImport24_ChangedJavaSrcDir");
-	}
-	
-	public void testWebImport25_ChangedJavaSrcDir() throws Exception {
-		runImportTests_All("testWebImport25_ChangedJavaSrcDir");
+	public void testWebImport25_DiffContentDir() throws Exception {
+		runImportTests_All("Web25_DiffContentDir");
 	}
 	
 	
-	public void testWebImport22_ChangedContentDir_ChangedJavaSrcDir() throws Exception {
-		runImportTests_All("testWebImport22_ChangedContentDir_ChangedJavaSrcDir");
+	public void testWebImport22_DiffSrcDir() throws Exception {
+		runImportTests_All("Web22_DiffSrcDir");
 	}
 	
-	public void testWebImport23_ChangedContentDir_ChangedJavaSrcDir() throws Exception {
-		runImportTests_All("testWebImport23_ChangedContentDir_ChangedJavaSrcDir");
+	public void testWebImport23_DiffSrcDir() throws Exception {
+		runImportTests_All("Web23_DiffSrcDir");
 	}
 	
-	public void testWebImport24_ChangedContentDir_ChangedJavaSrcDir() throws Exception {
-		runImportTests_All("testWebImport24_ChangedContentDir_ChangedJavaSrcDir");
+	public void testWebImport24_DiffSrcDir() throws Exception {
+		runImportTests_All("Web24_DiffSrcDir");
 	}
 	
-	public void testWebImport25_ChangedContentDir_ChangedJavaSrcDir() throws Exception {
-		runImportTests_All("testWebImport25_ChangedContentDir_ChangedJavaSrcDir");
+	public void testWebImport25_DiffSrcDir() throws Exception {
+		runImportTests_All("Web25_DiffSrcDir");
+	}
+	
+	
+	public void testWebImport22_DiffContentDir_DiffSrcDir() throws Exception {
+		runImportTests_All("Web22_DiffContentDir_DiffSrcDir");
+	}
+	
+	public void testWebImport23_DiffContentDir_DiffSrcDir() throws Exception {
+		runImportTests_All("Web23_DiffContentDir_DiffSrcDir");
+	}
+	
+	public void testWebImport24_DiffContentDir_DiffSrcDir() throws Exception {
+		runImportTests_All("Web24_DiffContentDir_DiffSrcDir");
+	}
+	
+	public void testWebImport25_DiffContentDir_DiffSrcDir() throws Exception {
+		runImportTests_All("Web25_DiffContentDir_DiffSrcDir");
 	}
 	
 	
 	public void testWebImport22_Defaults_WithEAR() throws Exception {
-		runImportTests_All("testWebImport22_Defaults_WithEAR");
+		runImportTests_All("Web22_Defaults_WithEAR");
 	}
 	
 	public void testWebImport23_Defaults_WithEAR() throws Exception {
-		runImportTests_All("testWebImport23_Defaults_WithEAR");
+		runImportTests_All("Web23_Defaults_WithEAR");
 	}
 	
 	public void testWebImport24_Defaults_WithEAR() throws Exception {
-		runImportTests_All("testWebImport24_Defaults_WithEAR");
+		runImportTests_All("Web24_Defaults_WithEAR");
 	}
 	
 	public void testWebImport25_Defaults_WithEAR() throws Exception {
-		runImportTests_All("testWebImport25_Defaults_WithEAR");
+		runImportTests_All("Web25_Defaults_WithEAR");
 	}
 	
 	
-	public void testWebImport22_ChangedContextRoot_WithEAR() throws Exception {
-		runImportTests_All("testWebImport22_ChangedContextRoot_WithEAR");
+	public void testWebImport22_DiffContextRoot_WithEAR() throws Exception {
+		runImportTests_All("Web22_DiffContextRoot_WithEAR");
 	}
 	
-	public void testWebImport23_ChangedContextRoot_WithEAR() throws Exception {
-		runImportTests_All("testWebImport23_ChangedContextRoot_WithEAR");
+	public void testWebImport23_DiffContextRoot_WithEAR() throws Exception {
+		runImportTests_All("Web23_DiffContextRoot_WithEAR");
 	}
 	
-	public void testWebImport24_ChangedContextRoot_WithEAR() throws Exception {
-		runImportTests_All("testWebImport24_ChangedContextRoot_WithEAR");
+	public void testWebImport24_DiffContextRoot_WithEAR() throws Exception {
+		runImportTests_All("Web24_DiffContextRoot_WithEAR");
 	}
 	
-	public void testWebImport25_ChangedContextRoot_WithEAR() throws Exception {
-		runImportTests_All("testWebImport25_ChangedContextRoot_WithEAR");
-	}
-	
-	
-	public void testWebImport22_ChangedContentDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport22_ChangedContentDir_WithEAR");
-	}
-	
-	public void testWebImport23_ChangedContentDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport23_ChangedContentDir_WithEAR");
-	}
-	
-	public void testWebImport24_ChangedContentDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport24_ChangedContentDir_WithEAR");
-	}
-	
-	public void testWebImport25_ChangedContentDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport25_ChangedContentDir_WithEAR");
+	public void testWebImport25_DiffContextRoot_WithEAR() throws Exception {
+		runImportTests_All("Web25_DiffContextRoot_WithEAR");
 	}
 	
 	
-	public void testWebImport22_ChangedJavaSrcDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport22_ChangedJavaSrcDir_WithEAR");
+	public void testWebImport22_DiffContentDir_WithEAR() throws Exception {
+		runImportTests_All("Web22_DiffContentDir_WithEAR");
 	}
 	
-	public void testWebImport23_ChangedJavaSrcDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport23_ChangedJavaSrcDir_WithEAR");
+	public void testWebImport23_DiffContentDir_WithEAR() throws Exception {
+		runImportTests_All("Web23_DiffContentDir_WithEAR");
 	}
 	
-	public void testWebImport24_ChangedJavaSrcDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport24_ChangedJavaSrcDir_WithEAR");
+	public void testWebImport24_DiffContentDir_WithEAR() throws Exception {
+		runImportTests_All("Web24_DiffContentDir_WithEAR");
 	}
 	
-	public void testWebImport25_ChangedJavaSrcDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport25_ChangedJavaSrcDir_WithEAR");
-	}
-	
-	
-	public void testWebImport22_ChangedContextRoot_ChangedContentDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport22_ChangedContextRoot_ChangedContentDir_WithEAR");
-	}
-	
-	public void testWebImport23_ChangedContextRoot_ChangedContentDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport23_ChangedContextRoot_ChangedContentDir_WithEAR");
-	}
-	
-	public void testWebImport24_ChangedContextRoot_ChangedContentDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport24_ChangedContextRoot_ChangedContentDir_WithEAR");
-	}
-	
-	public void testWebImport25_ChangedContextRoot_ChangedContentDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport25_ChangedContextRoot_ChangedContentDir_WithEAR");
+	public void testWebImport25_DiffContentDir_WithEAR() throws Exception {
+		runImportTests_All("Web25_DiffContentDir_WithEAR");
 	}
 	
 	
-	public void testWebImport22_ChangedContextRoot_ChangedJavaSrcDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport22_ChangedContextRoot_ChangedJavaSrcDir_WithEAR");
+	public void testWebImport22_DiffSrcDir_WithEAR() throws Exception {
+		runImportTests_All("Web22_DiffSrcDir_WithEAR");
 	}
 	
-	public void testWebImport23_ChangedContextRoot_ChangedJavaSrcDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport23_ChangedContextRoot_ChangedJavaSrcDir_WithEAR");
+	public void testWebImport23_DiffSrcDir_WithEAR() throws Exception {
+		runImportTests_All("Web23_DiffSrcDir_WithEAR");
 	}
 	
-	public void testWebImport24_ChangedContextRoot_ChangedJavaSrcDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport24_ChangedContextRoot_ChangedJavaSrcDir_WithEAR");
+	public void testWebImport24_DiffSrcDir_WithEAR() throws Exception {
+		runImportTests_All("Web24_DiffSrcDir_WithEAR");
 	}
 	
-	public void testWebImport25_ChangedContextRoot_ChangedJavaSrcDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport25_ChangedContextRoot_ChangedJavaSrcDir_WithEAR");
-	}
-	
-	
-	public void testWebImport22_ChangedContentDir_ChangedJavaSrcDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport22_ChangedContentDir_ChangedJavaSrcDir_WithEAR");
-	}
-	
-	public void testWebImport23_ChangedContentDir_ChangedJavaSrcDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport23_ChangedContentDir_ChangedJavaSrcDir_WithEAR");
-	}
-	
-	public void testWebImport24_ChangedContentDir_ChangedJavaSrcDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport24_ChangedContentDir_ChangedJavaSrcDir_WithEAR");
-	}
-	
-	public void testWebImport25_ChangedContentDir_ChangedJavaSrcDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport25_ChangedContentDir_ChangedJavaSrcDir_WithEAR");
+	public void testWebImport25_DiffSrcDir_WithEAR() throws Exception {
+		runImportTests_All("Web25_DiffSrcDir_WithEAR");
 	}
 	
 	
-	public void testWebImport22_ChangedContextRoot_ChangedContentDir_ChangedJavaSrcDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport22_ChangedContextRoot_ChangedContentDir_ChangedJavaSrcDir_WithEAR");
+	public void testWebImport22_DiffContextRoot_DiffContentDir_WithEAR() throws Exception {
+		runImportTests_All("Web22_DiffContextRoot_DiffContentDir_WithEAR");
 	}
 	
-	public void testWebImport23_ChangedContextRoot_ChangedContentDir_ChangedJavaSrcDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport23_ChangedContextRoot_ChangedContentDir_ChangedJavaSrcDir_WithEAR");
+	public void testWebImport23_DiffContextRoot_DiffContentDir_WithEAR() throws Exception {
+		runImportTests_All("Web23_DiffContextRoot_DiffContentDir_WithEAR");
 	}
 	
-	public void testWebImport24_ChangedContextRoot_ChangedContentDir_ChangedJavaSrcDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport24_ChangedContextRoot_ChangedContentDir_ChangedJavaSrcDir_WithEAR");
+	public void testWebImport24_DiffContextRoot_DiffContentDir_WithEAR() throws Exception {
+		runImportTests_All("Web24_DiffContextRoot_DiffContentDir_WithEAR");
 	}
 	
-	public void testWebImport25_ChangedContextRoot_ChangedContentDir_ChangedJavaSrcDir_WithEAR() throws Exception {
-		runImportTests_All("testWebImport25_ChangedContextRoot_ChangedContentDir_ChangedJavaSrcDir_WithEAR");
+	public void testWebImport25_DiffContextRoot_DiffContentDir_WithEAR() throws Exception {
+		runImportTests_All("Web25_DiffContextRoot_DiffContentDir_WithEAR");
+	}
+	
+	
+	public void testWebImport22_DiffContextRoot_DiffSrcDir_WithEAR() throws Exception {
+		runImportTests_All("Web22_DiffContextRoot_DiffSrcDir_WithEAR");
+	}
+	
+	public void testWebImport23_DiffContextRoot_DiffSrcDir_WithEAR() throws Exception {
+		runImportTests_All("Web23_DiffContextRoot_DiffSrcDir_WithEAR");
+	}
+	
+	public void testWebImport24_DiffContextRoot_DiffSrcDir_WithEAR() throws Exception {
+		runImportTests_All("Web24_DiffContextRoot_DiffSrcDir_WithEAR");
+	}
+	
+	public void testWebImport25_DiffContextRoot_DiffSrcDir_WithEAR() throws Exception {
+		runImportTests_All("Web25_DiffContextRoot_DiffSrcDir_WithEAR");
+	}
+	
+	
+	public void testWebImport22_DiffContentDir_DiffSrcDir_WithEAR() throws Exception {
+		runImportTests_All("Web22_DiffContentDir_DiffSrcDir_WithEAR");
+	}
+	
+	public void testWebImport23_DiffContentDir_DiffSrcDir_WithEAR() throws Exception {
+		runImportTests_All("Web23_DiffContentDir_DiffSrcDir_WithEAR");
+	}
+	
+	public void testWebImport24_DiffContentDir_DiffSrcDir_WithEAR() throws Exception {
+		runImportTests_All("Web24_DiffContentDir_DiffSrcDir_WithEAR");
+	}
+	
+	public void testWebImport25_DiffContentDir_DiffSrcDir_WithEAR() throws Exception {
+		runImportTests_All("Web25_DiffContentDir_DiffSrcDir_WithEAR");
+	}
+	
+	
+	public void testWebImport22_DiffContextRoot_DiffContentDir_DiffSrcDir_WithEAR() throws Exception {
+		runImportTests_All("Web22_DiffContextRoot_DiffContentDir_DiffSrcDir_WithEAR");
+	}
+	
+	public void testWebImport23_DiffContextRoot_DiffContentDir_DiffSrcDir_WithEAR() throws Exception {
+		runImportTests_All("Web23_DiffContextRoot_DiffContentDir_DiffSrcDir_WithEAR");
+	}
+	
+	public void testWebImport24_DiffContextRoot_DiffContentDir_DiffSrcDir_WithEAR() throws Exception {
+		runImportTests_All("Web24_DiffContextRoot_DiffContentDir_DiffSrcDir_WithEAR");
+	}
+	
+	public void testWebImport25_DiffContextRoot_DiffContentDir_DiffSrcDir_WithEAR() throws Exception {
+		runImportTests_All("Web25_DiffContextRoot_DiffContentDir_DiffSrcDir_WithEAR");
 	}
 	
 	
 	
 	public void testWebImport25_Defaults_WithDD() throws Exception {
-		runImportTests_All("testWebImport25_Defaults_WithDD");
+		runImportTests_All("Web25_Defaults_WithDD");
 	}
 
-	public void testWebImport25_ChangedContextRoot_WithDD() throws Exception {
-		runImportTests_All("testWebImport25_ChangedContextRoot_WithDD");
+	public void testWebImport25_DiffContextRoot_WithDD() throws Exception {
+		runImportTests_All("Web25_DiffContextRoot_WithDD");
 	}
 
-	public void testWebImport25_ChangedContentDir_WithDD() throws Exception {
-		runImportTests_All("testWebImport25_ChangedContentDir_WithDD");
+	public void testWebImport25_DiffContentDir_WithDD() throws Exception {
+		runImportTests_All("Web25_DiffContentDir_WithDD");
 	}
 
-	public void testWebImport25_ChangedJavaSrcDir_WithDD() throws Exception {
-		runImportTests_All("testWebImport25_ChangedJavaSrcDir_WithDD");
+	public void testWebImport25_DiffSrcDir_WithDD() throws Exception {
+		runImportTests_All("Web25_DiffSrcDir_WithDD");
 	}
 
-	public void testWebImport25_ChangedContextRoot_ChangedContentDir_WithDD() throws Exception {
-		runImportTests_All("testWebImport25_ChangedContextRoot_ChangedContentDir_WithDD");
+	public void testWebImport25_DiffContextRoot_DiffContentDir_WithDD() throws Exception {
+		runImportTests_All("Web25_DiffContextRoot_DiffContentDir_WithDD");
 	}
 
-	public void testWebImport25_ChangedContextRoot_ChangedJavaSrcDir_WithDD() throws Exception {
-		runImportTests_All("testWebImport25_ChangedContextRoot_ChangedJavaSrcDir_WithDD");
+	public void testWebImport25_DiffContextRoot_DiffSrcDir_WithDD() throws Exception {
+		runImportTests_All("Web25_DiffContextRoot_DiffSrcDir_WithDD");
 	}
 
-	public void testWebImport25_ChangedContentDir_ChangedJavaSrcDir_WithDD() throws Exception {
-		runImportTests_All("testWebImport25_ChangedContentDir_ChangedJavaSrcDir_WithDD");
+	public void testWebImport25_DiffContentDir_DiffSrcDir_WithDD() throws Exception {
+		runImportTests_All("Web25_DiffContentDir_DiffSrcDir_WithDD");
 	}
 
-	public void testWebImport25_ChangedContextRoot_ChangedContentDir_ChangedJavaSrcDir_WithDD() throws Exception {
-		runImportTests_All("testWebImport25_ChangedContextRoot_ChangedContentDir_ChangedJavaSrcDir_WithDD");
+	public void testWebImport25_DiffContextRoot_DiffContentDir_DiffSrcDir_WithDD() throws Exception {
+		runImportTests_All("Web25_DiffContextRoot_DiffContentDir_DiffSrcDir_WithDD");
 	}
 
 	public void testWebImport25_Defaults_WithEAR_WithDD() throws Exception {
-		runImportTests_All("testWebImport25_Defaults_WithEAR_WithDD");
+		runImportTests_All("Web25_Defaults_WithEAR_WithDD");
 	}
 
-	public void testWebImport25_ChangedContextRoot_WithEAR_WithDD() throws Exception {
-		runImportTests_All("testWebImport25_ChangedContextRoot_WithEAR_WithDD");
+	public void testWebImport25_DiffContextRoot_WithEAR_WithDD() throws Exception {
+		runImportTests_All("Web25_DiffContextRoot_WithEAR_WithDD");
 	}
 
-	public void testWebImport25_ChangedContentDir_WithEAR_WithDD() throws Exception {
-		runImportTests_All("testWebImport25_ChangedContentDir_WithEAR_WithDD");
+	public void testWebImport25_DiffContentDir_WithEAR_WithDD() throws Exception {
+		runImportTests_All("Web25_DiffContentDir_WithEAR_WithDD");
 	}
 
-	public void testWebImport25_ChangedJavaSrcDir_WithEAR_WithDD() throws Exception {
-		runImportTests_All("testWebImport25_ChangedJavaSrcDir_WithEAR_WithDD");
+	public void testWebImport25_DiffSrcDir_WithEAR_WithDD() throws Exception {
+		runImportTests_All("Web25_DiffSrcDir_WithEAR_WithDD");
 	}
 
-	public void testWebImport25_ChangedContextRoot_ChangedContentDir_WithEAR_WithDD() throws Exception {
-		runImportTests_All("testWebImport25_ChangedContextRoot_ChangedContentDir_WithEAR_WithDD");
+	public void testWebImport25_DiffContextRoot_DiffContentDir_WithEAR_WithDD() throws Exception {
+		runImportTests_All("Web25_DiffContextRoot_DiffContentDir_WithEAR_WithDD");
 	}
 
-	public void testWebImport25_ChangedContextRoot_ChangedJavaSrcDir_WithEAR_WithDD() throws Exception {
-		runImportTests_All("testWebImport25_ChangedContextRoot_ChangedJavaSrcDir_WithEAR_WithDD");
+	public void testWebImport25_DiffContextRoot_DiffSrcDir_WithEAR_WithDD() throws Exception {
+		runImportTests_All("Web25_DiffContextRoot_DiffSrcDir_WithEAR_WithDD");
 	}
 
-	public void testWebImport25_ChangedContentDir_ChangedJavaSrcDir_WithEAR_WithDD() throws Exception {
-		runImportTests_All("testWebImport25_ChangedContentDir_ChangedJavaSrcDir_WithEAR_WithDD");
+	public void testWebImport25_DiffContentDir_DiffSrcDir_WithEAR_WithDD() throws Exception {
+		runImportTests_All("Web25_DiffContentDir_DiffSrcDir_WithEAR_WithDD");
 	}
 
-	public void testWebImport25_ChangedContextRoot_ChangedContentDir_ChangedJavaSrcDir_WithEAR_WithDD() throws Exception {
-		runImportTests_All("testWebImport25_ChangedContextRoot_ChangedContentDir_ChangedJavaSrcDir_WithEAR_WithDD");
+	public void testWebImport25_DiffContextRoot_DiffContentDir_DiffSrcDir_WithEAR_WithDD() throws Exception {
+		runImportTests_All("Web25_DiffContextRoot_DiffContentDir_DiffSrcDir_WithEAR_WithDD");
 	}
 	
 	

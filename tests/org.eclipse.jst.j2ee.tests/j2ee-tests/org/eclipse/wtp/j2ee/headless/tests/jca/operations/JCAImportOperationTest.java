@@ -39,35 +39,35 @@ public class JCAImportOperationTest extends ModuleImportOperationTest {
 	}
 	
 	public void testConnectorImport10_Defaults() throws Exception{
-		runImportTests_All("testConnectorImport10_Defaults");
+		runImportTests_All("Connector10_Defaults");
 	}
 
 	public void testConnectorImport15_Defaults() throws Exception{
-		runImportTests_All("testConnectorImport15_Defaults");
+		runImportTests_All("Connector15_Defaults");
 	}
 
 	public void testConnectorImport10_WithEAR() throws Exception{
-		runImportTests_All("testConnectorImport10_WithEAR");
+		runImportTests_All("Connector10_WithEAR");
 	}
 
 	public void testConnectorImport15_WithEAR() throws Exception{
-		runImportTests_All("testConnectorImport15_WithEAR");
+		runImportTests_All("Connector15_WithEAR");
 	}
 
-	public void testConnectorImport10_ChangedSourceFolder() throws Exception{
-		runImportTests_All("testConnectorImport10_ChangedSourceFolder");
+	public void testConnectorImport10_DiffSourceFolder() throws Exception{
+		runImportTests_All("Connector10_DiffSourceFolder");
 	}
 
-	public void testConnectorImport15_ChangedSourceFolder() throws Exception{
-		runImportTests_All("testConnectorImport15_ChangedSourceFolder");
+	public void testConnectorImport15_DiffSourceFolder() throws Exception{
+		runImportTests_All("Connector15_DiffSourceFolder");
 	}
 
-	public void testConnectorImport10_ChangedSourceFolder_WithEAR() throws Exception{
-		runImportTests_All("testConnectorImport10_ChangedSourceFolder_WithEAR");
+	public void testConnectorImport10_DiffSourceFolder_WithEAR() throws Exception{
+		runImportTests_All("Connector10_DiffSourceFolder_WithEAR");
 	}
 
-	public void testConnectorImport15_ChangedSourceFolder_WithEAR() throws Exception{
-		runImportTests_All("testConnectorImport15_ChangedSourceFolder_WithEAR");
+	public void testConnectorImport15_DiffSourceFolder_WithEAR() throws Exception{
+		runImportTests_All("Connector15_DiffSourceFolder_WithEAR");
 	}
 	
 	

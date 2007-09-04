@@ -46,10 +46,6 @@ public abstract class JEEImportOperationTest extends OperationTestCase {
 		return this.getClass().getSimpleName();
 	}
 	
-	protected String getArchiveFileNamePrefix(String testName) {
-		return this.getClass().getSimpleName() + "_" + testName;
-	}
-	
 	private static final String BASE_IMPORT_DIR = "TestData" + java.io.File.separatorChar + "JEEImportOperationTests" + java.io.File.separatorChar;
 	
 	protected String getArchivePath(String archiveName) throws Exception {
@@ -80,22 +76,21 @@ public abstract class JEEImportOperationTest extends OperationTestCase {
 	 * Should run all of the needed import tests for the child's type of import
 	 */
 	protected void runImportTests_All(String testName) throws Exception {
-		String archiveNamePrefix = getArchiveFileNamePrefix(testName);
 		String archiveName = null;
 		
-		archiveName = archiveNamePrefix + "_Defaults" + getModuleExtension();
+		archiveName = testName + "_Defaults" + getModuleExtension();
 		runAndVerifyImport_ExportedDefaults(archiveName);
 		OperationTestCase.deleteAllProjects();
 		
-		archiveName = archiveNamePrefix + "_WithSource" + getModuleExtension();
+		archiveName = testName + "_Source" + getModuleExtension();
 		runAndVerifyImport_ExportedWithSource(archiveName);
 		OperationTestCase.deleteAllProjects();
 		
-		archiveName = archiveNamePrefix + "_DontRunBuild" + getModuleExtension();
+		archiveName = testName + "_NoBuild" + getModuleExtension();
 		runAndVerifyImport_ExportedWithDontRunBuild(archiveName);
 		OperationTestCase.deleteAllProjects();
 		
-		archiveName = archiveNamePrefix + "_WithSource_DontRunBuild" + getModuleExtension();
+		archiveName = testName + "_Source_NoBuild" + getModuleExtension();
 		runAndVerifyImport_ExportedWithSrouce_ExportedWithDontRunBuild(archiveName);
 		OperationTestCase.deleteAllProjects();
 	}
@@ -173,33 +168,53 @@ public abstract class JEEImportOperationTest extends OperationTestCase {
 			List<IArchiveResource> importedArchiveResources = importedArchive.getArchiveResources();
 			List<IArchiveResource> exportedArchiveResources = exportedArchive.getArchiveResources();
 			
-			List<IPath> importedArchiveResourcePaths = new ArrayList<IPath>();
-			List<IPath> exportedArchiveResourcePaths = new ArrayList<IPath>();
+			List<IPath> importedArchiveFileResourcePaths = new ArrayList<IPath>();
+			List<IPath> exportedArchiveFileResourcePaths = new ArrayList<IPath>();
+			
+			List<IPath> importedArchiveDirResourcePaths = new ArrayList<IPath>();
+			List<IPath> exportedArchiveDirResourcePaths = new ArrayList<IPath>();
 			
 			for(IArchiveResource importedArchiveResource : importedArchiveResources) {
-				importedArchiveResourcePaths.add(importedArchiveResource.getPath());
+				if(importedArchiveResource.getType() == IArchiveResource.DIRECTORY_TYPE) {
+					importedArchiveDirResourcePaths.add(importedArchiveResource.getPath());
+				} else {
+					importedArchiveFileResourcePaths.add(importedArchiveResource.getPath());
+				}
 			}
 			
 			for(IArchiveResource exportedArchiveResource : exportedArchiveResources) {
-				exportedArchiveResourcePaths.add(exportedArchiveResource.getPath());
+				if(exportedArchiveResource.getType() == IArchiveResource.DIRECTORY_TYPE) {
+					exportedArchiveDirResourcePaths.add(exportedArchiveResource.getPath());
+				} else {
+					exportedArchiveFileResourcePaths.add(exportedArchiveResource.getPath());
+				}
 			}
 			
-			if(exportedArchiveResourcePaths.contains(new Path("/"))){
+			if(exportedArchiveFileResourcePaths.contains(new Path("/"))){
 				Assert.fail("Exported Archive should not contain a root entry '/'");
 			}
 			
+			List<IPath>missingFromImport = new ArrayList<IPath>();
+			boolean exported;
+			for(IPath importedPath : importedArchiveDirResourcePaths) {
+				exported = exportedArchiveDirResourcePaths.contains(importedPath);
+				if(!exported){
+					if(importedPath.lastSegment() != null){ //don't include root entries
+						missingFromImport.add(importedPath);
+					}
+				}
+			}
+			
 			List<IPath> missingFromExport = new ArrayList<IPath>();
-			for(IPath importedPath : importedArchiveResourcePaths){
-				boolean exported = exportedArchiveResourcePaths.remove(importedPath);
+			for(IPath importedPath : importedArchiveFileResourcePaths){
+				exported = exportedArchiveFileResourcePaths.remove(importedPath);
 				if(!exported){
 					if(importedPath.lastSegment() != null){ //don't include root entries
 						missingFromExport.add(importedPath);
 					}
 				}
 			}
-			List<IPath>missingFromImport = new ArrayList<IPath>();
-			missingFromImport.addAll(exportedArchiveResourcePaths);
-			
+
 			if(!missingFromExport.isEmpty() || !missingFromImport.isEmpty()){
 				StringBuffer buffer = new StringBuffer();
 				if(!missingFromExport.isEmpty()){

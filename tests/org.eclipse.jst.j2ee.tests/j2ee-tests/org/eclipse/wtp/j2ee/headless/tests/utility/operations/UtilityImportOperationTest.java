@@ -44,29 +44,29 @@ public class UtilityImportOperationTest extends ModuleImportOperationTest {
 	}	
 	
     public void testUtilityImport_Defaults() throws Exception{
-    	runImportTests_All("testUtilityImport_Defaults");
+    	runImportTests_All("Utility_Defaults");
     }
 	
     public void testUtilityImport_AddToExisitingEAR12() throws Exception {
-    	runImportTests_All("testUtilityImport_AddToExisitingEAR12");
+    	runImportTests_All("Utility_AddToExisitingEAR12");
     }
     
     public void testUtilityImport_AddToExisitingEAR13() throws Exception {
-    	runImportTests_All("testUtilityImport_AddToExisitingEAR13");
+    	runImportTests_All("Utility_AddToExisitingEAR13");
     }
     
     public void testUtilityImport_AddToExisitingEAR14() throws Exception {
-    	runImportTests_All("testUtilityImport_AddToExisitingEAR14");
+    	runImportTests_All("Utility_AddToExisitingEAR14");
     }
     
     /*
     public void testUtilityImport_AddToExisitingEAR5_WithoutDD() throws Exception {
-    	runImportTests_All("testUtilityImport_AddToExisitingEAR5_WithoutDD");
+    	runImportTests_All("Utility_AddToExisitingEAR5_WithoutDD");
     }
     */
     
     public void testUtilityImport_AddToExisitingEAR5_WithDD() throws Exception {
-    	runImportTests_All("testUtilityImport_AddToExisitingEAR5_WithDD");
+    	runImportTests_All("Utility_AddToExisitingEAR5_WithDD");
     }
 	
 	
@@ -113,14 +113,13 @@ public class UtilityImportOperationTest extends ModuleImportOperationTest {
 	 */
 	@Override
 	protected void runImportTests_All(String testName) throws Exception {
-		String archiveNamePrefix = getArchiveFileNamePrefix(testName);
 		String archiveName = null;
 		
 		//need to keep the archive open for as long as the ImportDataModel is alive, otherwise it crashes because the
 		// nested Utility archives get closed
 
 		try {
-			archiveName = archiveNamePrefix + "_Defaults" + getModuleExtension();
+			archiveName = testName + "_Defaults" + getModuleExtension();
 			runAndVerifyImport_ExportedDefaults(archiveName);
 			OperationTestCase.deleteAllProjects();
 		} finally {
@@ -130,7 +129,7 @@ public class UtilityImportOperationTest extends ModuleImportOperationTest {
 		}
 		
 		try {
-			archiveName = archiveNamePrefix + "_WithSource" + getModuleExtension();
+			archiveName = testName + "_Source" + getModuleExtension();
 			runAndVerifyImport_ExportedWithSource(archiveName);
 			OperationTestCase.deleteAllProjects();
 		} finally {
@@ -140,7 +139,7 @@ public class UtilityImportOperationTest extends ModuleImportOperationTest {
 		}
 		
 		try {
-			archiveName = archiveNamePrefix + "_DontRunBuild" + getModuleExtension();
+			archiveName = testName + "_NoBuild" + getModuleExtension();
 			runAndVerifyImport_ExportedWithDontRunBuild(archiveName);
 			OperationTestCase.deleteAllProjects();
 		} finally {
@@ -150,7 +149,7 @@ public class UtilityImportOperationTest extends ModuleImportOperationTest {
 		}
 		
 		try {
-			archiveName = archiveNamePrefix + "_WithSource_DontRunBuild" + getModuleExtension();
+			archiveName = testName + "_Source_NoBuild" + getModuleExtension();
 			runAndVerifyImport_ExportedWithSrouce_ExportedWithDontRunBuild(archiveName);
 			OperationTestCase.deleteAllProjects();
 		} finally {

@@ -9,7 +9,6 @@ import java.util.List;
 
 import junit.framework.Assert;
 import junit.framework.Test;
-import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.IPath;
@@ -18,11 +17,14 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.jee.archive.IArchive;
+import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
+import org.eclipse.wst.common.tests.AssertWarn;
+import org.eclipse.wst.common.tests.BaseTestCase;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
 
-public class HeaderParserTests extends TestCase {
+public class HeaderParserTests extends BaseTestCase {
 
 	public static Test suite() {
         TestSuite suite = new TestSuite();
@@ -298,4 +300,118 @@ public class HeaderParserTests extends TestCase {
 		}
 		return normalizedString;
 	} 
+	
+    public void testEAR50Import_NoDD() throws Exception {
+    	List nestedArchiveData = new ArrayList();  	
+    	nestedArchiveData.add(new TestData("application-client12.jar", J2EEVersionConstants.APPLICATION_CLIENT_TYPE, J2EEVersionConstants.J2EE_1_2_ID, J2EEVersionConstants.J2EE_1_2_ID,
+				org.eclipse.jst.j2ee.client.ApplicationClient.class));
+    	nestedArchiveData.add(new TestData("application-client13.jar", J2EEVersionConstants.APPLICATION_CLIENT_TYPE, J2EEVersionConstants.J2EE_1_3_ID, J2EEVersionConstants.J2EE_1_3_ID,
+				org.eclipse.jst.j2ee.client.ApplicationClient.class));
+    	nestedArchiveData.add(new TestData("application-client14.jar", J2EEVersionConstants.APPLICATION_CLIENT_TYPE, J2EEVersionConstants.J2EE_1_4_ID, J2EEVersionConstants.J2EE_1_4_ID,
+				org.eclipse.jst.j2ee.client.ApplicationClient.class));
+    	nestedArchiveData.add(new TestData("AppClient5_NoDD.jar", J2EEVersionConstants.APPLICATION_CLIENT_TYPE, J2EEVersionConstants.JEE_5_0_ID, J2EEVersionConstants.JEE_5_0_ID,
+    			org.eclipse.jst.javaee.applicationclient.ApplicationClient.class));
+    	nestedArchiveData.add(new TestData("AppClient5_WithDD.jar", J2EEVersionConstants.APPLICATION_CLIENT_TYPE, J2EEVersionConstants.JEE_5_0_ID, J2EEVersionConstants.JEE_5_0_ID,
+    			org.eclipse.jst.javaee.applicationclient.ApplicationClient.class));
+    	
+    	nestedArchiveData.add(new TestData("ejb-jar11.jar", J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.EJB_1_1_ID, J2EEVersionConstants.J2EE_1_2_ID, org.eclipse.jst.j2ee.ejb.EJBJar.class));
+    	nestedArchiveData.add(new TestData("ejb-jar20.jar", J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.EJB_2_0_ID, J2EEVersionConstants.J2EE_1_3_ID, org.eclipse.jst.j2ee.ejb.EJBJar.class));
+    	nestedArchiveData.add(new TestData("ejb-jar21.jar", J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.EJB_2_1_ID, J2EEVersionConstants.J2EE_1_4_ID, org.eclipse.jst.j2ee.ejb.EJBJar.class));
+    	nestedArchiveData.add(new TestData("EJB3_NoDD_MessageDriven.jar", J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.EJB_3_0_ID, J2EEVersionConstants.JEE_5_0_ID, org.eclipse.jst.javaee.ejb.EJBJar.class));
+    	nestedArchiveData.add(new TestData("EJB3_NoDD_Stateful.jar", J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.EJB_3_0_ID, J2EEVersionConstants.JEE_5_0_ID, org.eclipse.jst.javaee.ejb.EJBJar.class));
+    	nestedArchiveData.add(new TestData("EJB3_NoDD_Stateless.jar", J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.EJB_3_0_ID, J2EEVersionConstants.JEE_5_0_ID, org.eclipse.jst.javaee.ejb.EJBJar.class));
+    	nestedArchiveData.add(new TestData("EJB3_WithDD.jar", J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.EJB_3_0_ID, J2EEVersionConstants.JEE_5_0_ID, org.eclipse.jst.javaee.ejb.EJBJar.class));
+    	
+    	nestedArchiveData.add(new TestData("ra10.rar", J2EEVersionConstants.CONNECTOR_TYPE, J2EEVersionConstants.JCA_1_0_ID, J2EEVersionConstants.J2EE_1_3_ID, org.eclipse.jst.j2ee.jca.Connector.class));
+    	nestedArchiveData.add(new TestData("ra15.rar", J2EEVersionConstants.CONNECTOR_TYPE, J2EEVersionConstants.JCA_1_5_ID, J2EEVersionConstants.J2EE_1_4_ID, org.eclipse.jst.j2ee.jca.Connector.class));
+
+    	nestedArchiveData.add(new TestData("web22.war", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_2_2_ID, J2EEVersionConstants.J2EE_1_2_ID, WebApp.class));
+    	nestedArchiveData.add(new TestData("web23.war", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_2_3_ID, J2EEVersionConstants.J2EE_1_3_ID, WebApp.class));
+    	nestedArchiveData.add(new TestData("web24.war", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_2_4_ID, J2EEVersionConstants.J2EE_1_4_ID, WebApp.class));
+    	nestedArchiveData.add(new TestData("Web25_NoDD.war", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_2_5_ID, J2EEVersionConstants.JEE_5_0_ID, org.eclipse.jst.javaee.web.WebApp.class));
+    	nestedArchiveData.add(new TestData("Web25_WithDD.war", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_2_5_ID, J2EEVersionConstants.JEE_5_0_ID, org.eclipse.jst.javaee.web.WebApp.class));
+    	
+    	TestData earData = new TestData("EAR5_NoDD.ear", J2EEVersionConstants.APPLICATION_TYPE, J2EEVersionConstants.JEE_5_0_ID, J2EEVersionConstants.JEE_5_0_ID,
+				org.eclipse.jst.javaee.application.Application.class);
+    	runEAR50Tests(earData, nestedArchiveData);
+    }
+    
+    public void testEAR50Import_WithDD() throws Exception {
+    	List nestedArchiveData = new ArrayList();  	
+    	nestedArchiveData.add(new TestData("application-client12.jar", J2EEVersionConstants.APPLICATION_CLIENT_TYPE, J2EEVersionConstants.J2EE_1_2_ID, J2EEVersionConstants.J2EE_1_2_ID,
+				org.eclipse.jst.j2ee.client.ApplicationClient.class));
+    	nestedArchiveData.add(new TestData("application-client13.jar", J2EEVersionConstants.APPLICATION_CLIENT_TYPE, J2EEVersionConstants.J2EE_1_3_ID, J2EEVersionConstants.J2EE_1_3_ID,
+				org.eclipse.jst.j2ee.client.ApplicationClient.class));
+    	nestedArchiveData.add(new TestData("application-client14.jar", J2EEVersionConstants.APPLICATION_CLIENT_TYPE, J2EEVersionConstants.J2EE_1_4_ID, J2EEVersionConstants.J2EE_1_4_ID,
+				org.eclipse.jst.j2ee.client.ApplicationClient.class));
+    	nestedArchiveData.add(new TestData("AppClient5_NoDD.jar", J2EEVersionConstants.APPLICATION_CLIENT_TYPE, J2EEVersionConstants.JEE_5_0_ID, J2EEVersionConstants.JEE_5_0_ID,
+    			org.eclipse.jst.javaee.applicationclient.ApplicationClient.class));
+    	nestedArchiveData.add(new TestData("AppClient5_WithDD.jar", J2EEVersionConstants.APPLICATION_CLIENT_TYPE, J2EEVersionConstants.JEE_5_0_ID, J2EEVersionConstants.JEE_5_0_ID,
+    			org.eclipse.jst.javaee.applicationclient.ApplicationClient.class));
+    	
+    	nestedArchiveData.add(new TestData("ejb-jar11.jar", J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.EJB_1_1_ID, J2EEVersionConstants.J2EE_1_2_ID, org.eclipse.jst.j2ee.ejb.EJBJar.class));
+    	nestedArchiveData.add(new TestData("ejb-jar20.jar", J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.EJB_2_0_ID, J2EEVersionConstants.J2EE_1_3_ID, org.eclipse.jst.j2ee.ejb.EJBJar.class));
+    	nestedArchiveData.add(new TestData("ejb-jar21.jar", J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.EJB_2_1_ID, J2EEVersionConstants.J2EE_1_4_ID, org.eclipse.jst.j2ee.ejb.EJBJar.class));
+    	nestedArchiveData.add(new TestData("EJB3_NoDD_MessageDriven.jar", J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.EJB_3_0_ID, J2EEVersionConstants.JEE_5_0_ID, org.eclipse.jst.javaee.ejb.EJBJar.class));
+    	nestedArchiveData.add(new TestData("EJB3_NoDD_Stateful.jar", J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.EJB_3_0_ID, J2EEVersionConstants.JEE_5_0_ID, org.eclipse.jst.javaee.ejb.EJBJar.class));
+    	nestedArchiveData.add(new TestData("EJB3_NoDD_Stateless.jar", J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.EJB_3_0_ID, J2EEVersionConstants.JEE_5_0_ID, org.eclipse.jst.javaee.ejb.EJBJar.class));
+    	nestedArchiveData.add(new TestData("EJB3_WithDD.jar", J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.EJB_3_0_ID, J2EEVersionConstants.JEE_5_0_ID, org.eclipse.jst.javaee.ejb.EJBJar.class));
+    	
+    	nestedArchiveData.add(new TestData("ra10.rar", J2EEVersionConstants.CONNECTOR_TYPE, J2EEVersionConstants.JCA_1_0_ID, J2EEVersionConstants.J2EE_1_3_ID, org.eclipse.jst.j2ee.jca.Connector.class));
+    	nestedArchiveData.add(new TestData("ra15.rar", J2EEVersionConstants.CONNECTOR_TYPE, J2EEVersionConstants.JCA_1_5_ID, J2EEVersionConstants.J2EE_1_4_ID, org.eclipse.jst.j2ee.jca.Connector.class));
+
+    	nestedArchiveData.add(new TestData("web22.war", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_2_2_ID, J2EEVersionConstants.J2EE_1_2_ID, WebApp.class));
+    	nestedArchiveData.add(new TestData("web23.war", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_2_3_ID, J2EEVersionConstants.J2EE_1_3_ID, WebApp.class));
+    	nestedArchiveData.add(new TestData("web24.war", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_2_4_ID, J2EEVersionConstants.J2EE_1_4_ID, WebApp.class));
+    	nestedArchiveData.add(new TestData("Web25_NoDD.war", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_2_5_ID, J2EEVersionConstants.JEE_5_0_ID, org.eclipse.jst.javaee.web.WebApp.class));
+    	nestedArchiveData.add(new TestData("Web25_WithDD.war", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_2_5_ID, J2EEVersionConstants.JEE_5_0_ID, org.eclipse.jst.javaee.web.WebApp.class));
+    
+    	TestData earData = new TestData("EAR5_WithDD.ear", J2EEVersionConstants.APPLICATION_TYPE, J2EEVersionConstants.JEE_5_0_ID, J2EEVersionConstants.JEE_5_0_ID,
+				org.eclipse.jst.javaee.application.Application.class);
+    	runEAR50Tests(earData, nestedArchiveData);
+    }
+    
+    private void runEAR50Tests(TestData earData, List<TestData> nestedArchiveData) throws Exception {
+    	IArchive earArchive = null;
+    	
+    	try {
+			String earLocation = getDataPath(earData.fileName);
+			IPath earPath = new Path(earLocation);
+    		earArchive = JavaEEArchiveUtilities.INSTANCE.openArchive(earPath);
+    		earArchive.getArchiveOptions().setOption(JavaEEArchiveUtilities.DISCRIMINATE_EJB_ANNOTATIONS, Boolean.TRUE);
+			JavaEEQuickPeek peek = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(earArchive);
+			Assert.assertEquals(earData.fileName + " type", earData.type, peek.getType());
+			Assert.assertEquals(earData.fileName + " mod version", earData.modVersion, peek.getVersion());
+			Assert.assertEquals(earData.fileName + " ee version", earData.eeVersion, peek.getJavaEEVersion());
+			
+			IArchiveResource innerArchiveResource;
+			IArchive innerArchive = null;
+			for(TestData testData : nestedArchiveData) {
+				innerArchiveResource = earArchive.getArchiveResource(new Path(testData.fileName));
+				innerArchive = earArchive.getNestedArchive(innerArchiveResource);
+				peek = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(innerArchive);
+				AssertWarn.warnEquals(testData.fileName + " type", testData.type, peek.getType());
+				AssertWarn.warnEquals(testData.fileName + " mod version", testData.modVersion, peek.getVersion());
+				AssertWarn.warnEquals(testData.fileName + " ee version", testData.eeVersion, peek.getJavaEEVersion());
+				
+		    	//TODO uncomment this block when this bug is resolved: https://bugs.eclipse.org/bugs/show_bug.cgi?id=199953
+		    	System.err.println("TODO -- can't getModelObject from inner archive of JEE5 EAR");
+		    	System.err.println("     -- see https://bugs.eclipse.org/bugs/show_bug.cgi?id=199953");
+//				Object modelObject = innerArchive.getModelObject();
+//				Class clazz = modelObject.getClass();
+//				boolean foundInterface = false;
+//				for (Class anInterface : clazz.getInterfaces()) {
+//					if (!foundInterface) {
+//						foundInterface = anInterface == testData.modelObjectInterface;
+//					}
+//				}
+//				Assert.assertTrue("Returned Model Object: " + modelObject.getClass().getName() + " does not implement " + testData.modelObjectInterface.getName(), foundInterface);
+			}
+			
+    	} finally {
+    		if(earArchive != null) {
+    			JavaEEArchiveUtilities.INSTANCE.closeArchive(earArchive);
+    		}
+    	}
+    }
 }

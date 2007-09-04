@@ -42,99 +42,99 @@ public class AppClientImportOperationTest extends ModuleImportOperationTest {
 	}	
 	
     public void testACImport12_Defaults() throws Exception{
-    	runImportTests_All("testACImport12_Defaults");
+    	runImportTests_All("AC12_Defaults");
     }
     
     public void testACImport13_Defaults() throws Exception {
-    	runImportTests_All("testACImport13_Defaults");
+    	runImportTests_All("AC13_Defaults");
     }
     
     public void testACImport14_Defaults() throws Exception {
-    	runImportTests_All("testACImport14_Defaults");
+    	runImportTests_All("AC14_Defaults");
     }
     
     public void testACImport50_Defaults() throws Exception {
-    	runImportTests_All("testACImport50_Defaults");
+    	runImportTests_All("AC50_Defaults");
     }
     
     public void testACImport12_NoDefaultClass() throws Exception{
-    	runImportTests_All("testACImport12_NoDefaultClass");
+    	runImportTests_All("AC12_NoDefaultClass");
     }
     
     public void testACImport13_NoDefaultClass() throws Exception {
-    	runImportTests_All("testACImport13_NoDefaultClass");
+    	runImportTests_All("AC13_NoDefaultClass");
     }
     
     public void testACImport14_NoDefaultClass() throws Exception {
-    	runImportTests_All("testACImport14_NoDefaultClass");
+    	runImportTests_All("AC14_NoDefaultClass");
     }
     
     public void testACImport50_NoDefaultClass() throws Exception {
-    	runImportTests_All("testACImport50_NoDefaultClass");
+    	runImportTests_All("AC50_NoDefaultClass");
     }
     
     public void testACImport12_AddToEAR() throws Exception {
-    	runImportTests_All("testACImport12_AddToEAR");
+    	runImportTests_All("AC12_AddToEAR");
     }
     
     public void testACImport13_AddToEAR() throws Exception {
-    	runImportTests_All("testACImport13_AddToEAR");
+    	runImportTests_All("AC13_AddToEAR");
     }
     
     public void testACImport14_AddToEAR() throws Exception {
-    	runImportTests_All("testACImport14_AddToEAR");
+    	runImportTests_All("AC14_AddToEAR");
     }
     
     public void testACImport50_AddToEAR() throws Exception {
-    	runImportTests_All("testACImport50_AddToEAR");
+    	runImportTests_All("AC50_AddToEAR");
     }
     
     public void testACImport12_InterestingName() throws Exception{
-    	runImportTests_All("testACImport12_InterestingName");
+    	runImportTests_All("AC12_InterestingName");
     }
     
     public void testACImport13_InterestingName() throws Exception{
-    	runImportTests_All("testACImport13_InterestingName");
+    	runImportTests_All("AC13_InterestingName");
     }
     
     public void testACImport14_InterestingName() throws Exception{
-    	runImportTests_All("testACImport14_InterestingName");
+    	runImportTests_All("AC14_InterestingName");
     }
     
     public void testACImport50_InterestingName() throws Exception{
-    	runImportTests_All("testACImport50_InterestingName");
+    	runImportTests_All("AC50_InterestingName");
     }
     
     public void testACImport12_AddToEAR_InterestingName() throws Exception{
-    	runImportTests_All("testACImport12_AddToEAR_InterestingName");
+    	runImportTests_All("AC12_AddToEAR_InterestingName");
     }
     
     public void testACImport13_AddToEAR_InterestingName() throws Exception{
-    	runImportTests_All("testACImport13_AddToEAR_InterestingName");
+    	runImportTests_All("AC13_AddToEAR_InterestingName");
     }
     
     public void testACImport14_AddToEAR_InterestingName() throws Exception{
-    	runImportTests_All("testACImport14_AddToEAR_InterestingName");
+    	runImportTests_All("AC14_AddToEAR_InterestingName");
     }
     
     public void testACImport50_AddToEAR_InterestingName() throws Exception{
-    	runImportTests_All("testACImport50_AddToEAR_InterestingName");
+    	runImportTests_All("AC50_AddToEAR_InterestingName");
     }
     
     public void testACImport50_WithDD() throws Exception {
-    	runImportTests_All("testACImport50_WithDD");
+    	runImportTests_All("AC50_WithDD");
     }
     
     public void testACImport50_NoDefaultClass_WithDD() throws Exception {
-    	runImportTests_All("testACImport50_NoDefaultClass_WithDD");
+    	runImportTests_All("AC50_NoDefaultClass_WithDD");
     }
     
     public void testACImport50_AddToEAR_WithDD() throws Exception {
-    	runImportTests_All("testACImport50_AddToEAR_WithDD");
+    	runImportTests_All("AC50_AddToEAR_WithDD");
     }
     
     public void testACImport50_AddToEAR_InterestingName_WithDD() throws Exception {
-    	runImportTests_All("testACImport50_AddToEAR_InterestingName_WithDD");
+    	runImportTests_All("AC50_AddToEAR_InterestingName_WithDD");
     }
     
     @Override

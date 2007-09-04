@@ -45,53 +45,200 @@ public class EARImportOperationTest extends JEEImportOperationTest {
 	}
 	
     public void testEARImport12_WithDependencies() throws Exception{
-    	runImportTests_All("testEARImport12_WithDependencies");
+    	runImportTests_All("EAR12");
     }
     
     public void testEARImport13_WithDependencies() throws Exception{
-    	runImportTests_All("testEARImport13_WithDependencies");
+    	runImportTests_All("EAR13");
     }
     
     public void testEARImport14_WithDependencies() throws Exception{
-    	runImportTests_All("testEARImport14_WithDependencies");
+    	runImportTests_All("EAR14");
     }
     
     public void testEARImport50_WithDependencies() throws Exception{
     	//TODO https://bugs.eclipse.org/bugs/show_bug.cgi?id=194679
     	System.err.println("TODO -- can't import EARs without DDs");
     	System.err.println("     -- see https://bugs.eclipse.org/bugs/show_bug.cgi?id=194679");
-    	//runImportTests_All("testEARImport50_WithDependencies");
+    	//runImportTests_All("EAR50");
     }
     
     
     public void testEARImport12_ChangedContentDir_WithDependencies() throws Exception{
-    	runImportTests_All("testEARImport12_ChangedContentDir_WithDependencies");
+    	runImportTests_All("EAR12_ChangedContentDir");
     }
     
     public void testEARImport13_ChangedContentDir_WithDependencies() throws Exception{
-    	runImportTests_All("testEARImport13_ChangedContentDir_WithDependencies");
+    	runImportTests_All("EAR13_ChangedContentDir");
     }
     
     public void testEARImport14_ChangedContentDir_WithDependencies() throws Exception{
-    	runImportTests_All("testEARImport14_ChangedContentDir_WithDependencies");
+    	runImportTests_All("EAR14_ChangedContentDir");
     }
     
     public void testEARImport50_ChangedContentDir_WithDependencies() throws Exception{
     	//TODO https://bugs.eclipse.org/bugs/show_bug.cgi?id=194679
     	System.err.println("TODO -- can't import EARs without DDs");
     	System.err.println("     -- see https://bugs.eclipse.org/bugs/show_bug.cgi?id=194679");
-    	//runImportTests_All("testEARImport50_ChangedContentDir_WithDependencies");
+    	//runImportTests_All("EAR50_ChangedContentDir");
     }
     
-    /*
-    public void testEARImport50_WithDependencies_WithDD() throws Exception{
-    	runImportTests_All("testEARImport50_WithDependencies_WithDD");
+    
+    public void testEARImport50_EAR5NoDD_DependincesNoDDs() throws Exception {
+    	String archiveName = "EAR5NoDD_DependincesNoDDs" + getModuleExtension();
+    	
+    	runAndVerifyImport_ExportedWithSource(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+    	runAndVerifyImport_DontExplodeAllModules(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+		runAndVerifyImport_DontExplodeAnyModules(archiveName);
+		OperationTestCase.deleteAllProjects();
     }
     
-    public void testEARImport50_ChangedContentDir_WithDependencies_WithDD() throws Exception{
-    	runImportTests_All("testEARImport50_ChangedContentDir_WithDependencies_WithDD");
+    public void testEARImport50_EAR5NoDD_DependincesNoDDs_WithUtil() throws Exception {
+    	String archiveName = "EAR5NoDD_DependincesNoDDs_WithUtil" + getModuleExtension();
+    	
+    	runAndVerifyImport_ExportedWithSource(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+    	runAndVerifyImport_DontExplodeAllModules(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+		runAndVerifyImport_DontExplodeAnyModules(archiveName);
+		OperationTestCase.deleteAllProjects();
     }
-    */
+    
+    public void testEARImport50_EAR5NoDD_DependincesWithDDs() throws Exception {
+    	String archiveName = "EAR5NoDD_DependincesWithDDs" + getModuleExtension();
+    	
+    	runAndVerifyImport_ExportedWithSource(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+    	runAndVerifyImport_DontExplodeAllModules(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+		runAndVerifyImport_DontExplodeAnyModules(archiveName);
+		OperationTestCase.deleteAllProjects();
+    }
+    
+    public void testEARImport50_EAR5NoDD_DependincesWithDDs_WithUtil() throws Exception {
+    	String archiveName = "EAR5NoDD_DependincesWithDDs_WithUtil" + getModuleExtension();
+    	
+    	runAndVerifyImport_ExportedWithSource(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+    	runAndVerifyImport_DontExplodeAllModules(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+		runAndVerifyImport_DontExplodeAnyModules(archiveName);
+		OperationTestCase.deleteAllProjects();
+    }
+    
+    public void testEARImport50_EAR5NoDD_DependincesNoDDsAndWithDDs() throws Exception {
+    	String archiveName = "EAR5NoDD_DependincesNoDDsAndWithDDs" + getModuleExtension();
+    	
+    	runAndVerifyImport_ExportedWithSource(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+    	runAndVerifyImport_DontExplodeAllModules(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+		runAndVerifyImport_DontExplodeAnyModules(archiveName);
+		OperationTestCase.deleteAllProjects();
+    }
+    
+    public void testEARImport50_EAR5NoDD_DependincesNoDDsAndWithDDs_WithUtil() throws Exception {
+    	String archiveName = "EAR5NoDD_DependincesNoDDsAndWithDDs_WithUtil" + getModuleExtension();
+    	
+    	runAndVerifyImport_ExportedWithSource(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+    	runAndVerifyImport_DontExplodeAllModules(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+		runAndVerifyImport_DontExplodeAnyModules(archiveName);
+		OperationTestCase.deleteAllProjects();
+    }
+    
+    public void testEARImport50_EAR5WithDD_DependincesNoDDs() throws Exception {
+    	String archiveName = "EAR5WithDD_DependincesNoDDs" + getModuleExtension();
+    	
+    	runAndVerifyImport_ExportedWithSource(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+    	runAndVerifyImport_DontExplodeAllModules(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+		runAndVerifyImport_DontExplodeAnyModules(archiveName);
+		OperationTestCase.deleteAllProjects();
+    }
+    
+    public void testEARImport50_EAR5WithDD_DependincesNoDDs_WithUtil() throws Exception {
+    	String archiveName = "EAR5WithDD_DependincesNoDDs_WithUtil" + getModuleExtension();
+    	
+    	runAndVerifyImport_ExportedWithSource(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+    	runAndVerifyImport_DontExplodeAllModules(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+		runAndVerifyImport_DontExplodeAnyModules(archiveName);
+		OperationTestCase.deleteAllProjects();
+    }
+    
+    public void testEARImport50_EAR5WithDD_DependincesWithDDs() throws Exception {
+    	String archiveName = "EAR5WithDD_DependincesWithDDs" + getModuleExtension();
+    	
+    	runAndVerifyImport_ExportedWithSource(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+    	runAndVerifyImport_DontExplodeAllModules(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+		runAndVerifyImport_DontExplodeAnyModules(archiveName);
+		OperationTestCase.deleteAllProjects();
+    }
+    
+    public void testEARImport50_EAR5WithDD_DependincesWithDDs_WithUtil() throws Exception {
+    	String archiveName = "EAR5WithDD_DependincesWithDDs_WithUtil" + getModuleExtension();
+    	
+    	runAndVerifyImport_ExportedWithSource(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+    	runAndVerifyImport_DontExplodeAllModules(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+		runAndVerifyImport_DontExplodeAnyModules(archiveName);
+		OperationTestCase.deleteAllProjects();
+    }
+    
+    public void testEARImport50_EAR5WithDD_DependincesNoDDsAndWithDDs() throws Exception {
+    	String archiveName = "EAR5WithDD_DependincesNoDDsAndWithDDs" + getModuleExtension();
+    	
+    	runAndVerifyImport_ExportedWithSource(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+    	runAndVerifyImport_DontExplodeAllModules(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+		runAndVerifyImport_DontExplodeAnyModules(archiveName);
+		OperationTestCase.deleteAllProjects();
+    }
+    
+    public void testEARImport50_EAR5WithDD_DependincesNoDDsAndWithDDs_WithUtil() throws Exception {
+    	String archiveName = "EAR5WithDD_DependincesNoDDsAndWithDDs_WithUtil" + getModuleExtension();
+    	
+    	runAndVerifyImport_ExportedWithSource(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+    	runAndVerifyImport_DontExplodeAllModules(archiveName);
+    	OperationTestCase.deleteAllProjects();
+    	
+		runAndVerifyImport_DontExplodeAnyModules(archiveName);
+		OperationTestCase.deleteAllProjects();
+    }    
 	
 	@Override
 	protected String getModuleExtension() {
@@ -157,17 +304,15 @@ public class EARImportOperationTest extends JEEImportOperationTest {
 	@Override
 	protected void runImportTests_All(String testName) throws Exception {
 		super.runImportTests_All(testName);
-		String archiveNamePrefix = getArchiveFileNamePrefix(testName);
 		
-		runAndVerifyImport_DontExplodeAllModules(archiveNamePrefix + "_WithSource" + getModuleExtension());
+		runAndVerifyImport_DontExplodeAllModules(testName + "_Source" + getModuleExtension());
 		OperationTestCase.deleteAllProjects();
 		
-		runAndVerifyImport_DontExplodeAnyModules(archiveNamePrefix + "_WithSource" + getModuleExtension());
+		runAndVerifyImport_DontExplodeAnyModules(testName + "_Source" + getModuleExtension());
 		OperationTestCase.deleteAllProjects();
 	}
 	
 	private void runAndVerifyImport_DontExplodeAllModules(String archiveName) throws Exception {
-//		String archiveName = this.getClass().getSimpleName() + "_" + this.getName() + "_WithSource" + getModuleExtension();
 		String archivePath = getArchivePath(archiveName);
 		String projectName = "exportedWithSource";
 		
@@ -187,7 +332,6 @@ public class EARImportOperationTest extends JEEImportOperationTest {
 	}
 	
 	private void runAndVerifyImport_DontExplodeAnyModules(String archiveName) throws Exception {
-//		String archiveName = this.getClass().getSimpleName() + "_" + this.getName() + "_WithSource" + getModuleExtension();
 		String archivePath = getArchivePath(archiveName);
 		String projectName = "exportedWithSource";
 		
