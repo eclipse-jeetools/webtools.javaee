@@ -24,10 +24,15 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.EditorManager;
 
 
 
+/**
+ * @author cbridgha
+ *
+ */
 public class CommonEditorUtility {
 
 	public static final Class IRESOURCE_CLASS = IResource.class;
@@ -95,6 +100,18 @@ public class CommonEditorUtility {
 		if (dirtyEditors.isEmpty())
 			return true;
 		return EditorManager.saveAll(dirtyEditors, true, true,false, J2EEUIPlugin.getActiveWorkbenchWindow());
+	}
+	
+	/**
+	 * This will close all editors without prompting for save.
+	 * @param dirtyEditors
+	 * @return true is succeeded, false if not
+	 */
+	public static void closeAllEditors() {
+		
+		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		page.closeAllEditors(false);
+		
 	}
 
 	public static boolean promptToSaveDirtyEditorsInProjects(List projects) {

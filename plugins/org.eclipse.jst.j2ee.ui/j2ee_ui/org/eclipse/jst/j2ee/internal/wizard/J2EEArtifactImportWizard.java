@@ -159,10 +159,8 @@ public abstract class J2EEArtifactImportWizard extends DataModelWizard implement
 		if (!CommonEditorUtility.promptToSaveAllDirtyEditors()) {
 			return false;
 		}
-		if (CommonEditorUtility.getDirtyEditors().length != 0) { // all checkboxes were not
-			// selected
-			return false;
-		}
+		//Must have selected to not save, but should close all remaining
+		CommonEditorUtility.closeAllEditors();
 		return super.prePerformFinish();
 	}
 
