@@ -5,12 +5,14 @@
      <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
-            uri="http:///org/eclipse/jem/internal/instantiation.ecore"
-            class="org.eclipse.jem.internal.instantiation.InstantiationPackage">
+            class="org.eclipse.jem.internal.instantiation.InstantiationPackage"
+            genModel="model/instance.genmodel"
+            uri="http:///org/eclipse/jem/internal/instantiation.ecore">
       </package>
       <package
-            uri="java.xmi"
-            class="org.eclipse.jem.java.JavaRefPackage">
+            class="org.eclipse.jem.java.JavaRefPackage"
+            genModel="model/javaModel.genmodel"
+            uri="java.xmi">
       </package>
    </extension>
    <extension
