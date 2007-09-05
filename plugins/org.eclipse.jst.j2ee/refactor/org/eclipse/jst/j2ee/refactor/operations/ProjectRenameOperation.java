@@ -14,19 +14,23 @@ package org.eclipse.jst.j2ee.refactor.operations;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
-import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
-import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.javaee.application.Application;
+import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
+import org.eclipse.jst.javaee.core.DisplayName;
+import org.eclipse.jst.javaee.core.JavaeeFactory;
+import org.eclipse.jst.javaee.ejb.EJBJar;
+import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.internal.Property;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -86,31 +90,43 @@ public class ProjectRenameOperation extends ProjectRefactorOperation {
 		}
 		
 		// if the deploy-name equals the old project name, update it in the module-specific deployment descriptor
-		ArtifactEdit edit = null;
-		try {
-			edit = ComponentUtilities.getArtifactEditForWrite(refactoredMetadata.getVirtualComponent());
-			if (edit == null || !(edit instanceof EnterpriseArtifactEdit)) {
-				return;
-			}
-			final Resource resource = ((EnterpriseArtifactEdit) edit).getDeploymentDescriptorResource();
-			if (resource != null) {
-				final EList list = resource.getContents();
-				if (list != null && !list.isEmpty()) {
-					final EObject root = (EObject) list.get(0);
-					if (root instanceof CompatibilityDescriptionGroup) {
-						// if current display-name equals old project name, then change to new project name
-						CompatibilityDescriptionGroup cdg = (CompatibilityDescriptionGroup) root;
+		final IProject refactoredProject = refactoredMetadata.getProject();
+		if (J2EEProjectUtilities.isUtilityProject(refactoredProject)) {
+			// skip if a utility project (will not have a ModelProvider and checking logs an error
+			return;
+		}
+		final IModelProvider model = (IModelProvider)ModelProviderManager.getModelProvider(refactoredProject);
+		if (model != null) {
+			model.modify(new Runnable() {
+				public void run() {
+					final Object modelObject = model.getModelObject();
+					if (modelObject instanceof CompatibilityDescriptionGroup) {
+						CompatibilityDescriptionGroup cdg = (CompatibilityDescriptionGroup) modelObject;
 						if (cdg.getDisplayName().equals(oldProjectName)) {
 							cdg.setDisplayName(newProjectName);
 						}				
+					} else {
+						DisplayName dn = JavaeeFactory.eINSTANCE.createDisplayName();
+						dn.setValue(newProjectName);
+						List displayNames = null;
+						if (modelObject instanceof Application) {
+							displayNames = ((Application) modelObject).getDisplayNames();
+						} else if (modelObject instanceof WebApp) {
+							displayNames = ((WebApp)modelObject).getDisplayNames();
+						} else if (modelObject instanceof ApplicationClient) {
+							displayNames = ((ApplicationClient)modelObject).getDisplayNames();		
+						} else if (modelObject instanceof EJBJar) {
+							displayNames = ((EJBJar)modelObject).getDisplayNames();
+						}
+						if (displayNames != null && !displayNames.isEmpty()) {
+							DisplayName oldDN = (DisplayName) displayNames.get(0);
+							if (oldDN.getValue().equals(oldProjectName)) {
+								displayNames.set(0, dn);
+							}
+						}
 					}
 				}
-			}
-		} finally {
-			if (edit != null) {
-				edit.saveIfNecessary(null);
-				edit.dispose();
-			}
+			}, null);
 		}
 	}
 	
