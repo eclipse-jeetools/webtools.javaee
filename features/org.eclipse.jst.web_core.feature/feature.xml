@@ -28,7 +28,7 @@
       <import plugin="org.eclipse.jdt.core" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.jem.workbench" version="2.0.0" match="compatible"/>
       <import plugin="org.eclipse.jem" version="2.0.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.ecore.xmi" version="2.2.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.ecore.xmi" version="2.3.0" match="equivalent"/>
       <import plugin="org.eclipse.debug.core" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.emf.ecore.change" version="2.2.0" match="compatible"/>
       <import plugin="org.eclipse.jdt.launching" version="3.2.0" match="compatible"/>
