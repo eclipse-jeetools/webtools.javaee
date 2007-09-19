@@ -328,9 +328,11 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 		Collection resources = getResourceSet().getResources();
 		if (resources.isEmpty())
 			return Collections.EMPTY_LIST;
-
-		List result = new ArrayList(resources.size());
-		Iterator iter = resources.iterator();
+		List copyResources = new ArrayList();
+		copyResources.addAll(resources);
+		
+		List result = new ArrayList(copyResources.size());
+		Iterator iter = copyResources.iterator();
 		while (iter.hasNext()) {
 			Resource res = (Resource) iter.next();
 			if (res.isLoaded())
