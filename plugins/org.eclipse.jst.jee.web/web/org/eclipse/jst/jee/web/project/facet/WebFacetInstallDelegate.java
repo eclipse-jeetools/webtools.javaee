@@ -35,6 +35,8 @@ import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
 import org.eclipse.jst.j2ee.internal.web.classpath.WebAppLibrariesContainer;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
@@ -141,6 +143,10 @@ public final class WebFacetInstallDelegate extends JEEFacetInstallDelegate imple
 				// ClasspathHelper.addClasspathEntries( project, fv, <something> );
 			}
 
+			if(J2EEComponentClasspathContainerUtils.getDefaultUseEARLibraries()){
+				final IPath earLibContainer = new Path(J2EEComponentClasspathContainer.CONTAINER_ID);
+				addToClasspath(jproj, JavaCore.newContainerEntry(earLibContainer));
+			}
 			// Add the web libraries container.
 
 			final IPath webLibContainer = new Path(WebAppLibrariesContainer.CONTAINER_ID);
