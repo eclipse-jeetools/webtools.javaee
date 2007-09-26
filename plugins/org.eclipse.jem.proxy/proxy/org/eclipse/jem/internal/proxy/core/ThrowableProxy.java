@@ -23,6 +23,11 @@ package org.eclipse.jem.internal.proxy.core;
  */
 public abstract class ThrowableProxy extends java.lang.Exception implements IBeanProxy {
    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+/**
     * Constructs an <code>Exception</code> with no specified detail message. 
     */
    public ThrowableProxy() {
