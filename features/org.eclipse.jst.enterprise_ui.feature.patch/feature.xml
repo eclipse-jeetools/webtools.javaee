@@ -18,7 +18,7 @@
    </license>
 
    <requires>
-      <import feature="org.eclipse.jst.enterprise_ui.feature" version="1.5.5.v200707311635" patch="true"/>
+      <import feature="org.eclipse.jst.enterprise_ui.feature" version="1.5.5.v200707311635-pEBqMgr5s5Phpf6" patch="true"/>
    </requires>
 
    <plugin
