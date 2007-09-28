@@ -18,4 +18,9 @@ public interface IJavaProjectMigrationDataModelProperties {
 	 */
 	public static final String PROJECT_NAME = "IJavaProjectMigrationDataModelProperties.PROJECT_NAME"; //$NON-NLS-1$
 	
+	/**
+	 * Optional
+	 */
+	public static final String ADD_TO_EAR = "IJavaProjectMigrationDataModelProperties.ADD_TO_EAR"; //$NON-NLS-1$
+	
 }

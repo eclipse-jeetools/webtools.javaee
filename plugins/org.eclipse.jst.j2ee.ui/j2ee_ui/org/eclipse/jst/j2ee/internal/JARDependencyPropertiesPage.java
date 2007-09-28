@@ -694,7 +694,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 				if (elementProject != null && !elementProject.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
 					if (composedOp == null)
 						composedOp = new WorkspaceModifyComposedOperation();
-					composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(J2EEProjectUtilities.createFlexJavaProjectForProjectOperation(elementProject)));
+					composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(J2EEProjectUtilities.createFlexJavaProjectForProjectOperation(elementProject, false)));
 				}
 			}
 		} catch (CoreException ce) {
