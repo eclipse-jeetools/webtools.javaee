@@ -65,11 +65,13 @@ public class WebAppLibrariesContainerPage
         IPath path = new Path( WebAppLibrariesContainer.CONTAINER_ID );
         
         final int index = this.projectsCombo.getSelectionIndex();
-        final String selectedProjectName = this.projectsCombo.getItem( index );
-        
-        if( ! selectedProjectName.equals( this.ownerProject.getName() ) )
-        {
-            path = path.append( selectedProjectName );
+        if(index != -1){
+	        final String selectedProjectName = this.projectsCombo.getItem( index );
+	        
+	        if( ! selectedProjectName.equals( this.ownerProject.getName() ) )
+	        {
+	            path = path.append( selectedProjectName );
+	        }
         }
         
         return JavaCore.newContainerEntry( path );
@@ -81,7 +83,9 @@ public class WebAppLibrariesContainerPage
         
         if( path == null || path.segmentCount() == 1 )
         {
-            this.libsProjectName = this.ownerProject.getName();
+        	if(ownerProject != null){
+        		this.libsProjectName = this.ownerProject.getName();
+        	}
         }
         else
         {
@@ -125,7 +129,11 @@ public class WebAppLibrariesContainerPage
     public void initialize( final IJavaProject project, 
                             final IClasspathEntry[] currentEntries ) 
     {
-        this.ownerProject = project.getProject();
+    	if(project != null){
+    		this.ownerProject = project.getProject();
+    	} else {
+    		this.ownerProject = null;
+    	}
     }
     
     private static String[] getWebProjects()
