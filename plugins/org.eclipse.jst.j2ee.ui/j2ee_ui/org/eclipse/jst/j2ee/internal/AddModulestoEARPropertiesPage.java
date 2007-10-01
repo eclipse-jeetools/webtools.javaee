@@ -230,7 +230,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 										refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, targetCompList);
 				
 										// referenced java projects should have archiveName attribute
-										((Map)refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP)).put(targetcomponent, proj.getName() + IJ2EEModuleConstants.JAR_EXT);
+										((Map)refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP)).put(targetcomponent, proj.getName().replace(' ', '_') + IJ2EEModuleConstants.JAR_EXT);
 				
 										refdm.getDefaultOperation().execute(monitor, null);
 										j2eeComponentList.add(targetcomponent);
