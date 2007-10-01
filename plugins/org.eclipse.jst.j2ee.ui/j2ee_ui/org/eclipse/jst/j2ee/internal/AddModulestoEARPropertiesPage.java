@@ -20,9 +20,11 @@ package org.eclipse.jst.j2ee.internal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
@@ -57,6 +59,7 @@ import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.facet.EarFacetRuntimeHandler;
 import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
 import org.eclipse.swt.SWT;
@@ -207,10 +210,11 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 								}
 							}
 							if (!javaProjectsList.isEmpty()) {
-				
+								Set moduleProjects = new HashSet();
 								for (int i = 0; i < javaProjectsList.size(); i++) {
 									try {
 										IProject proj = (IProject) javaProjectsList.get(i);
+										moduleProjects.add(proj);
 										IDataModel migrationdm = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
 										migrationdm.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, proj.getName());
 										migrationdm.getDefaultOperation().execute(monitor, null);
@@ -234,6 +238,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 										Logger.getLogger().log(e);
 									}
 								}
+								EarFacetRuntimeHandler.updateModuleProjectRuntime(earComponent.getProject(), moduleProjects, new NullProgressMonitor());
 							}
 						}
 					};
