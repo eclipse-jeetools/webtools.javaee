@@ -76,9 +76,6 @@ public class EnterpriseBeansTranslator extends MultiObjectTranslator implements 
 		else 
 			result = (Translator) delegates.get(domName);
 		
-		if (result == null) 
-			throw new IllegalStateException("Bean type delegate expected"); //$NON-NLS-1$
-		
 		return result;
 	}
 	
