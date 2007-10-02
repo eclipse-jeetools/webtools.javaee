@@ -53,6 +53,9 @@ public class JavaProjectMigrationOperation extends AbstractDataModelOperation im
 
 		IDataModel udm = DataModelFactory.createDataModel(new UtilityFacetInstallDataModelProvider());
 		try {
+			if(model.isPropertySet(ADD_TO_EAR)){
+				udm.setProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, model.getProperty(ADD_TO_EAR));
+			}
 			udm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, model.getStringProperty(PROJECT_NAME));
 			udm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.0"); //$NON-NLS-1$
             udm.setProperty(IJ2EEModuleFacetInstallDataModelProperties.MODULE_URI,

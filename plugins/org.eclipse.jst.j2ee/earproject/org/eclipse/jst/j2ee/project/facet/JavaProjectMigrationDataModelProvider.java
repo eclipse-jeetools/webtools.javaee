@@ -34,6 +34,7 @@ public class JavaProjectMigrationDataModelProvider extends AbstractDataModelProv
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(PROJECT_NAME);
+		propertyNames.add(ADD_TO_EAR);
 		return propertyNames;
 	}
 

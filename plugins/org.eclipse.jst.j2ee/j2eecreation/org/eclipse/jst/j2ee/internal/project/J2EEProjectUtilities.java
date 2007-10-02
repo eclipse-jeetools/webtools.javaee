@@ -747,6 +747,13 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 		model.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, project.getName());
 		return new JavaProjectMigrationOperation(model);
 	}
+	
+	public static JavaProjectMigrationOperation createFlexJavaProjectForProjectOperation(IProject project, boolean addToEAR) {
+		IDataModel model = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
+		model.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, project.getName());
+		model.setBooleanProperty(IJavaProjectMigrationDataModelProperties.ADD_TO_EAR, addToEAR);
+		return new JavaProjectMigrationOperation(model);
+	}
 
 	/**
 	 * Retrieve all the source containers for a given virtual workbench component
