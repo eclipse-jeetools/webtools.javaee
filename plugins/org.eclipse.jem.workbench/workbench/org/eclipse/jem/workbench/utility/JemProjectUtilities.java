@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.workbench.utility;
 /*
- * $RCSfile: JemProjectUtilities.java,v $ $Revision: 1.10 $ $Date: 2005/09/14 23:30:27 $
+ * $RCSfile: JemProjectUtilities.java,v $ $Revision: 1.11 $ $Date: 2007/10/05 19:57:08 $
  */
 
 import java.net.URL;
@@ -197,11 +197,15 @@ public class JemProjectUtilities extends ProjectUtilities {
 	 * @since 1.0.0
 	 */
 	public static IJavaProject getJavaProject(IProject p) {
-		try {
-			return (IJavaProject) p.getNature(JavaCore.NATURE_ID);
-		} catch (CoreException ignore) {
-			return null;
+		if (p != null)
+		{
+			try {
+				return (IJavaProject) p.getNature(JavaCore.NATURE_ID);
+			} catch (CoreException ignore) {
+				return null;
+			}
 		}
+		return null;
 	}
 
 	/**
