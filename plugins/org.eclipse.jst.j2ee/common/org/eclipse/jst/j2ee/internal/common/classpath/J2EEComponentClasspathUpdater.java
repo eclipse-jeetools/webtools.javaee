@@ -291,6 +291,8 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 					((J2EEComponentClasspathContainer) earLibrariesContainer).refresh(forceUpdateOnNextRun);
 				}
 			}
+			// [202820]
+			updateDependencyGraph = true;
 		}
 
 		protected IStatus run(IProgressMonitor monitor) {
@@ -585,5 +587,11 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 	public static boolean shouldUpdateDependencyGraph()
 	{
 		return updateDependencyGraph;
+	}
+	
+	// [202820]
+	public static void setUpdateDependencyGraph(boolean value)
+	{
+		updateDependencyGraph = value;
 	}
 }
