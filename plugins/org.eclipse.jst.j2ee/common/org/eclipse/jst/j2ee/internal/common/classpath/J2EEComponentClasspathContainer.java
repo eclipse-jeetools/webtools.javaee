@@ -298,8 +298,6 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			{
 				// Update dependency graph
 				DependencyGraphManager.getInstance().forceRefresh();
-				// [202820]
-				J2EEComponentClasspathUpdater.setUpdateDependencyGraph(false);
 			}
 		}
 	}
