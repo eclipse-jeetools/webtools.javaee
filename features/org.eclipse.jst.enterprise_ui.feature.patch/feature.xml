@@ -20,19 +20,20 @@
    <requires>
       <import feature="org.eclipse.jst.enterprise_ui.feature" version="1.5.5.v200707311635-pEBqMgr5s5Phpf6" patch="true"/>
    </requires>
-
-   <plugin
-         id="org.eclipse.jst.j2ee"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
+   
    <plugin
          id="org.eclipse.jst.servlet.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+   <plugin
+         id="org.eclipse.jst.j2ee"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
          
    <plugin
          id="org.eclipse.jst.j2ee.ui"
