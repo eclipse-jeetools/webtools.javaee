@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
+
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties;
@@ -41,6 +42,17 @@ public class NewServletClassOptionsWizardPage extends NewJavaClassOptionsWizardP
 	public NewServletClassOptionsWizardPage(IDataModel model, String pageName, String pageDesc, String pageTitle) {
 		super(model, pageName, pageDesc, pageTitle);
 	}
+	
+	protected void createModifierControls(Composite parent) {
+		super.createModifierControls(parent);
+		
+		// The user should not be able to change the public and abstract modifiers. 
+		// The servlet class must be always public and non-abstract. 
+		// Otherwise, the servlet container may not initialize it. 
+		publicButton.setEnabled(false);
+		abstractButton.setEnabled(false);
+	}
+	
 	/**
 	 * Create the composite with all the stubs
 	 */
