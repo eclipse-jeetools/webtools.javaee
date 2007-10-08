@@ -60,9 +60,12 @@ private static final int DEFAULT_PRIORITY = 100;
 			return factory.create(project);
 		}
 		
-		J2EEPlugin.INSTANCE.getLogger().logError(
-				J2EECommonMessages.getResourceString(
-						J2EECommonMessages.ERR_NO_MODEL_PROVIDER_FOR_PROJECT, new Object[] {project, vers}));
+		String errorMessage = J2EECommonMessages.getResourceString(
+				J2EECommonMessages.ERR_NO_MODEL_PROVIDER_FOR_PROJECT, new Object[] {project, vers});
+		Throwable error = new NullPointerException(errorMessage);
+		
+		J2EEPlugin.INSTANCE.getLogger().logError(error);
+				
 		return null;
 	}
 
@@ -79,9 +82,12 @@ private static final int DEFAULT_PRIORITY = 100;
 			return factory.create(aModule);
 		}
 		
-		J2EEPlugin.INSTANCE.getLogger().logError(
-				J2EECommonMessages.getResourceString(
-						J2EECommonMessages.ERR_NO_MODEL_PROVIDER_FOR_VIRTUAL_COMPONENT, new Object[] {aModule, vers}));
+		String errorMessage = J2EECommonMessages.getResourceString(
+				J2EECommonMessages.ERR_NO_MODEL_PROVIDER_FOR_PROJECT, new Object[] {aModule, vers});
+		Throwable error = new NullPointerException(errorMessage);
+		
+		J2EEPlugin.INSTANCE.getLogger().logError(error);
+		
 		return null;
 	}
 
