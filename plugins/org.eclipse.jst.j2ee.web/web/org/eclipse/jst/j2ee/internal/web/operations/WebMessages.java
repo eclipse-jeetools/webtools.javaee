@@ -52,7 +52,6 @@ public class WebMessages extends NLS {
 	public static String ERR_SERVLET_NAME_EXIST;
 	public static String ERR_SERVLET_DISPLAY_NAME_EXIST;
 	public static String ERR_SERVLET_CLASS_NAME_USED;
-	public static String ERR_SERVLET_JAVA_CLASS_NAME_INVALID;
 	public static String ERR_SERVLET_MAPPING_SERVLET_NOT_EXIST;
 	public static String ERR_SERVLET_PARAMETER_NAME_EMPTY;
 	public static String ERR_SERVLET_PARAMETER_NAME_EXIST;
