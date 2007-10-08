@@ -27,6 +27,7 @@ import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProv
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
@@ -406,6 +407,12 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 				String msg = WebMessages.ERR_DUPLICATED_URL_MAPPING;
 				return WTPCommonPlugin.createErrorStatus(msg);
 			}
+			String isValidValue = validateValue(prop);
+			if (isValidValue != null && isValidValue.length() > 0) {
+				NLS.bind(WebMessages.ERR_SERVLET_MAPPING_URL_PATTERN_INVALID, isValidValue);
+				String resourceString = WebMessages.getResourceString(WebMessages.ERR_SERVLET_MAPPING_URL_PATTERN_INVALID, new String[]{isValidValue});
+				return WTPCommonPlugin.createWarningStatus(resourceString);
+			}
 		} else {
 			String msg = WebMessages.ERR_SERVLET_MAPPING_URL_PATTERN_EMPTY;
 			return WTPCommonPlugin.createErrorStatus(msg);
@@ -413,6 +420,38 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		// Return OK
 		return WTPCommonPlugin.OK_STATUS;
 	}
+	
+	/**
+ 	 * This method is intended for internal use only. It provides a simple algorithm for detecting
+ 	 * if there are invalid pattern's value in a list. It will accept a null parameter.
+ 	 *
+ 	 * @see NewServletClassDataModelProvider#validateURLMappingList(List)
+ 	 *
+ 	 * @param input
+ 	 * @return String first invalid pattern's value?
+ 	 */
+	private String validateValue(List prop) {
+		if (prop == null) {
+			return "";
+		}
+		String urlPatternValue = "";
+		int size = prop.size();
+		for (int i = 0; i < size; i++) {
+			String urlMappingValue = ((String[]) prop.get(i))[0];
+			// correct pattern beginning with a ‘/’
+			boolean isSlashCorrect = urlMappingValue.startsWith("/");
+			// correct pattern beginning with a ‘*.’
+			boolean isAsteriskCorrect = urlMappingValue.startsWith("*.") && urlMappingValue.length() > 2;
+			
+			if (!isSlashCorrect && !isAsteriskCorrect) {
+				// no correct pattern
+				urlPatternValue = urlMappingValue;
+				break;
+			}
+		}
+		return urlPatternValue;
+	}
+
 
 	/**
 	 * This method is intended for internal use only. It provides a simple algorithm for detecting
