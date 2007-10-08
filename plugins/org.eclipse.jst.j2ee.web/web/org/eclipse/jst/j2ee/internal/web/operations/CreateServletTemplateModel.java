@@ -63,7 +63,7 @@ public class CreateServletTemplateModel {
 	}
 
 	public String getServletName() {
-		return getProperty(INewJavaClassDataModelProperties.CLASS_NAME);
+		return getProperty(INewServletClassDataModelProperties.DISPLAY_NAME);
 	}
 
 	public boolean isPublic() {
