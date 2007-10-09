@@ -47,11 +47,24 @@ public class EjbFacetInstallDataModelProvider
 		}else if (propertyName.equals(CONFIG_FOLDER)){
 			return J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.EJB_CONTENT_FOLDER);
 		}else if (propertyName.equals(CLIENT_NAME)){
-			String projectName = model.getStringProperty(FACET_PROJECT_NAME);
-			return projectName + "Client"; //$NON-NLS-1$ 
+			String clientProjectName = model.getStringProperty(FACET_PROJECT_NAME);
+			clientProjectName = clientProjectName + "Client";
+			
+			//check that the default name does not already exist, if it does try 1-9, if none of thouse work use orginal default
+			IStatus status = ProjectCreationDataModelProviderNew.validateName(clientProjectName);
+			int append = 0;
+			while(!status.isOK() && append <= 9) {
+				append++;
+				status = ProjectCreationDataModelProviderNew.validateName(clientProjectName + append);
+			}
+			if(append > 0 && append <= 9) {
+				clientProjectName = clientProjectName + append;
+			}
+			
+			return clientProjectName; //$NON-NLS-1$ 
 		}else if (propertyName.equals(CLIENT_URI)){
-			String projectName = model.getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
-			return projectName + "Client.jar"; //$NON-NLS-1$ 
+			String clientProjectURI = model.getStringProperty(CLIENT_NAME).replace(' ', '_');
+			return clientProjectURI + ".jar"; //$NON-NLS-1$ 
 		} else if (propertyName.equals(MODULE_URI)) {
 			String projectName = model.getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
 			return projectName + IJ2EEModuleConstants.JAR_EXT; 
@@ -94,8 +107,8 @@ public class EjbFacetInstallDataModelProvider
 	    	model.notifyPropertyChange(CLIENT_NAME, IDataModel.ENABLE_CHG);
 	    	model.notifyPropertyChange(CLIENT_URI, IDataModel.ENABLE_CHG);
 	    }else if (propertyName.equals(FACET_PROJECT_NAME)){
-	    	model.setStringProperty(CLIENT_NAME, (String)propertyValue + "Client");
-	    	model.setStringProperty(CLIENT_URI, (propertyValue + "Client.jar").replace(' ', '_'));
+	    	model.setStringProperty(CLIENT_NAME, (String)model.getDefaultProperty(CLIENT_NAME));
+	    	model.setStringProperty(CLIENT_URI, (String)model.getDefaultProperty(CLIENT_URI));
 	    }else if(propertyName.equals(ADD_TO_EAR)){
 	    	boolean addToEar = ((Boolean)propertyValue).booleanValue();
 	    	if(!addToEar && isPropertySet(CREATE_CLIENT)){
@@ -113,16 +126,25 @@ public class EjbFacetInstallDataModelProvider
 	
 	public IStatus validate(String propertyName) {
 		if (propertyName.equals(CLIENT_NAME)) {
-			String projectName = model.getStringProperty( CLIENT_NAME );
-			IStatus status = ProjectCreationDataModelProviderNew.validateName( projectName );
-			if (!status.isOK())
+			//should only validate on CLIENT_NAME if going to create a client
+			boolean createCleint = model.getBooleanProperty(CREATE_CLIENT);
+			if(createCleint) {
+				String projectName = model.getStringProperty( CLIENT_NAME );
+				IStatus status = ProjectCreationDataModelProviderNew.validateName( projectName );
 				return status;
+			} else {
+				return OK_STATUS;
+			}
 		}else if( propertyName.equals(CLIENT_URI)){
+			//should only validate on CLIENT_URI if going to create a client
+			boolean createCleint = model.getBooleanProperty(CREATE_CLIENT);
+			if(createCleint) {
 				String clientURI = model.getStringProperty( CLIENT_URI );
 				IStatus status = ProjectCreationDataModelProviderNew.validateName( clientURI );
-				if (!status.isOK())
-					return status;
-		
+				return status;
+			} else {
+				return OK_STATUS;
+			}
 		}
 		return super.validate(propertyName);
 	}
