@@ -24,13 +24,13 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.DisplayName;
 import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
+import org.eclipse.jst.j2ee.common.internal.impl.SecurityConstraintAdapter;
 import org.eclipse.jst.j2ee.webapplication.AuthConstraint;
 import org.eclipse.jst.j2ee.webapplication.SecurityConstraint;
 import org.eclipse.jst.j2ee.webapplication.UserDataConstraint;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebResourceCollection;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
-
 
 /**
  * The security-constraint element is used to associate security constraints with one or more web resource collections
@@ -85,6 +85,7 @@ public class SecurityConstraintImpl extends J2EEEObjectImpl implements SecurityC
 
 	public SecurityConstraintImpl() {
 		super();
+		eAdapters().add(new SecurityConstraintAdapter());
 	}
 	/**
 	 * <!-- begin-user-doc -->
