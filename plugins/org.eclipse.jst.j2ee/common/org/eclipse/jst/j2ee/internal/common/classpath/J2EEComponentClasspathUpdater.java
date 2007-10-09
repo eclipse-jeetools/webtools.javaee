@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.common.classpath;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -217,6 +218,9 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		private Queue moduleQueue = new Queue();
 
 		private Queue earQueue = new Queue();
+		
+		//a private queue for adding modules queued by the EAR
+		private Queue earAddedModuleQueue = new Queue();
 
 		public ModuleUpdateJob() {
 			super(MODULE_UPDATE_JOB_NAME);
@@ -264,7 +268,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 						for (int j = 0; j < refs.length; j++) {
 							comp = refs[j].getReferencedComponent();
 							if (!comp.isBinary()) {
-								queueModule(comp.getProject());
+								earAddedModuleQueue.add(comp.getProject());
 							}
 						}
 					}
@@ -312,10 +316,15 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 
 				public void run() throws Exception {
 					try {
-						Object[] projects = moduleQueue.getListeners();
-						queueReferencingEars(projects);
+						Object[] moduleProjects = moduleQueue.getListeners();
+						queueReferencingEars(moduleProjects);
 						processEars();
-						processModules(projects);
+						Object [] earQueuedModuleProjects = earAddedModuleQueue.getListeners();
+						Set modulesSet = new HashSet();
+						modulesSet.addAll(Arrays.asList(moduleProjects));
+						modulesSet.addAll(Arrays.asList(earQueuedModuleProjects));
+						Object [] modulesArray = modulesSet.toArray();
+						processModules(modulesArray);
 					} finally {
 						forceUpdateOnNextRun = false;
 					}
