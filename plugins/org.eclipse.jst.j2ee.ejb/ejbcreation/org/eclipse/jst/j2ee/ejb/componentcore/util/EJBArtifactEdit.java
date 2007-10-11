@@ -369,7 +369,8 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			aResource.setID(ejbJar, J2EEConstants.EJBJAR_ID);
 			// TODO add more mandatory elements
 			try {
-				aResource.saveIfNecessary();
+				if (aResource.isModified())
+					aResource.saveIfNecessary();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
