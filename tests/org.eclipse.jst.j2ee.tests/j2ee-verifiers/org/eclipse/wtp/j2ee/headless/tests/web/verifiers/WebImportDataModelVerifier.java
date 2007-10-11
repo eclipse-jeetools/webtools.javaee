@@ -6,6 +6,7 @@
  */
 package org.eclipse.wtp.j2ee.headless.tests.web.verifiers;
 
+import java.io.FileNotFoundException;
 import java.util.Collection;
 
 import junit.framework.Assert;
@@ -13,6 +14,9 @@ import junit.framework.Assert;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveResource;
@@ -60,7 +64,9 @@ public class WebImportDataModelVerifier extends ModuleImportDataModelVerifier {
 		for(IArchiveResource importedClassResource : importedClassesResources) {
 			resourcePath = importedClassResource.getPath().removeFirstSegments(2);
 			resourceFile = importedClassesFolder.getFile(resourcePath);
-			Assert.assertTrue("The imported class " + resourcePath + " should exist in the project", resourceFile.exists());
+			if(!resourceFile.exists()){
+				Assert.fail("The imported class " + resourcePath + " should exist in the project");
+			}
 		}
 		
 		for(IArchiveResource otherResource : otherResources) {
@@ -72,5 +78,49 @@ public class WebImportDataModelVerifier extends ModuleImportDataModelVerifier {
 		for(IArchive nestedArchive : nestedArchives) {
 			
 		}
+	}
+	
+	protected boolean isClassWithoutSource(IArchive archive, IArchiveResource aFile) {
+		String javaUri = ArchiveUtil.classUriToJavaUri(aFile.getPath().toString());
+		if (javaUri == null)
+			return true;
+		IPath javaPath = new Path(javaUri);
+		if (archive.containsArchiveResource(javaPath)) {
+			return false;
+		}
+		// see if it is a JSP
+		String jspUri = javaUri.substring(0, javaUri.indexOf(ArchiveUtil.DOT_JAVA));
+		int lastSlash = jspUri.lastIndexOf('/');
+		int _index = lastSlash == -1 ? ArchiveConstants.WEBAPP_CLASSES_URI.length() : lastSlash + 1;
+		if (jspUri.charAt(_index) == '_') {
+			jspUri = jspUri.substring(ArchiveConstants.WEBAPP_CLASSES_URI.length(), _index) + jspUri.substring(_index + 1) + ArchiveUtil.DOT_JSP;
+			IPath jspPath = new Path(jspUri);
+			if (archive.containsArchiveResource(jspPath)) {
+				return false;
+			}
+		}
+
+		//This is to handle archives created by an earlier version
+		//The format was to include the source files in a directory called source in WEB-INF
+		//Example: class  is in WEB-INF/classes/test/Foo.class
+		//         source is in WEB-INF/source/test/Foo.java
+		if(javaPath.segmentCount() > 2 && javaPath.segment(0).equals("WEB-INF") && javaPath.segment(1).equals("classes")){
+			String alternateJavaUri = javaUri.replaceFirst("classes", "source");
+			IPath alternateJavaPath = new Path(alternateJavaUri);
+			if (archive.containsArchiveResource(alternateJavaPath)){
+				IArchiveResource sourceFile;
+				try {
+					sourceFile = archive.getArchiveResource(alternateJavaPath);
+					if(sourceFile != null){
+						return false;
+					}
+				} catch (FileNotFoundException e) {
+				}
+				
+			}
+			
+		}
+		
+		return true;
 	}
 }

@@ -121,7 +121,7 @@ public abstract class JEEExportDataModelVerifier extends DataModelVerifier {
 				int type = archiveQuickPeek.getType();
 				AssertWarn.warnEquals("Archive type did not match exported type", getExportType(), type);
 				int iVersionConstant = archiveQuickPeek.getVersion();
-				String sProjVersion = J2EEProjectUtilities.getJ2EEProjectVersion(exportedProj);
+				String sProjVersion = J2EEProjectUtilities.getJ2EEDDProjectVersion(exportedProj);
 				int iProjVersion = J2EEVersionUtil.convertVersionStringToInt(sProjVersion);
 				AssertWarn.warnEquals("Archive version did not match exported project version", iProjVersion, iVersionConstant);
 			} finally {

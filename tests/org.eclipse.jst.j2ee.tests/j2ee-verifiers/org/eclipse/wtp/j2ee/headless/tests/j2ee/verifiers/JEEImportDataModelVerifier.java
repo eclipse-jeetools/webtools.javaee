@@ -8,9 +8,8 @@ package org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.StringTokenizer;
 
 import junit.framework.Assert;
 
@@ -113,7 +112,7 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 					AssertWarn.warnEquals("Archive type did not match imported project type", getExportType(), type);
 				}
 		
-				String sProjVersion = J2EEProjectUtilities.getJ2EEProjectVersion(project);
+				String sProjVersion = J2EEProjectUtilities.getJ2EEDDProjectVersion(project);
 				int iProjVersion = J2EEVersionUtil.convertVersionStringToInt(sProjVersion);
 				int iVersionConstant = archiveQuickPeek.getVersion();
 				if(iProjVersion != iVersionConstant){
@@ -127,6 +126,37 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 		Assert.assertTrue("A project with name, " + project.getName() + ", should have been created by import", project.exists());
 	}
 
+	
+	protected boolean isClassWithoutSource(IArchive archive, IArchiveResource aFile) {
+		String javaUri = classUriToJavaUri(aFile.getPath().toString());
+		if (javaUri == null)
+			return false;
+		return !archive.containsArchiveResource(new Path(javaUri));
+	}
+
+	protected final String DOT_CLASS = ".class"; //$NON-NLS-1$
+
+	protected final String DOT_JAVA = ".java"; //$NON-NLS-1$
+	
+	public String classUriToJavaUri(String classUri) {
+		if (classUri == null || !classUri.endsWith(DOT_CLASS))
+			return null;
+
+		String truncated = truncateIgnoreCase(classUri, DOT_CLASS);
+		StringTokenizer tok = new StringTokenizer(truncated, "$"); //$NON-NLS-1$
+		return tok.nextToken().concat(DOT_JAVA);
+	}
+	
+	/**
+	 * Return a substring of the first parameter, up to the last index of the
+	 * second
+	 */
+	public static String truncateIgnoreCase(String aString, String trailingSubString) {
+		int index = aString.toLowerCase().lastIndexOf(trailingSubString.toLowerCase());
+		if (index != -1)
+			return aString.substring(0, index);
+		return aString;
+	}
 	private void verifyAllFilesImported(IArchive archive) throws Exception {
 		List<IArchiveResource> resources = archive.getArchiveResources();
 		IPath resourcePath = null;
@@ -137,15 +167,14 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 		IFolder rootFolder = (IFolder)rootVirtFolder.getUnderlyingFolder();
 		Assert.assertTrue("The root folder " + rootFolder.getName() + " should exist in the project" , rootFolder.exists());
 		
-		//when the foreach loops is done the classesMap will contain only thouse classes that were imported,
+		// when the for loops is done the classes will contain only those classes that were imported,
 		// the sourceResources list will contain a list of all of the java source resources,
-		// the otherResources list will contain all other resources that arnt nested archives,
+		// the otherResources list will contain all other resources that are not nested archives,
 		// and any nested archive in this archive will have been set as a nested archive in 'archive'
-		Map<String,IArchiveResource> classesMap = new HashMap<String,IArchiveResource>();
+		List<IArchiveResource> classes = new ArrayList<IArchiveResource>();
 		List<IArchiveResource> sourceResources = new ArrayList<IArchiveResource>();
 		List<IArchiveResource> otherResources = new ArrayList<IArchiveResource>();
 		
-		String fileName = null;
 		String extension = null;
 		for(IArchiveResource resource : resources) {
 			resourcePath = resource.getPath();
@@ -154,18 +183,12 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 				case IArchiveResource.FILE_TYPE :
 					extension = resourcePath.getFileExtension();
 					
-					if(extension.equals(CLASS_EXTENSION) || extension.equals(JAVA_EXTENSION)) {
-						fileName = resourcePath.removeFileExtension().lastSegment();
-						if(classesMap.containsKey(fileName)) {
-							if(extension.equals(CLASS_EXTENSION)) {
-								sourceResources.add(classesMap.remove(fileName));
-							} else if(extension.equals(JAVA_EXTENSION)) {
-								sourceResources.add(resource);
-								classesMap.remove(fileName);
-							}
-						} else {
-							classesMap.put(fileName, resource);
+					if(extension.equals(CLASS_EXTENSION)){
+						if(isClassWithoutSource(archive, resource)){
+							classes.add(resource);
 						}
+					} else if(extension.equals(JAVA_EXTENSION)){
+						sourceResources.add(resource);
 					} else if(extension.equals(JAR_EXTENSION) || extension.equals(RAR_EXTENSION) || extension.equals(WAR_EXTENSION)) {
 						archive.getNestedArchive(resource);
 					} else {
@@ -182,10 +205,9 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 			}
 		}
 		
-		Collection<IArchiveResource> importedClassesResources = classesMap.values();
 		List<IArchive> nestedArchives = archive.getNestedArchives();
 		
-		verifyImportedResources(sourceResources, importedClassesResources, otherResources, nestedArchives, rootFolder, importedClassesFolder);
+		verifyImportedResources(sourceResources, classes, otherResources, nestedArchives, rootFolder, importedClassesFolder);
 	}
 	
 	protected abstract void verifyImportedResources(Collection<IArchiveResource> sourceResources, Collection<IArchiveResource> importedClassesResources, Collection<IArchiveResource> otherResources, Collection<IArchive> nestedArchives, IFolder rootFolder, IFolder importedClassesFolder) throws Exception;

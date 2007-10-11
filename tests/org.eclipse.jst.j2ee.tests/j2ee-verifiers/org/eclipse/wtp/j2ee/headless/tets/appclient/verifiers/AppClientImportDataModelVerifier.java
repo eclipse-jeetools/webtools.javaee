@@ -52,7 +52,9 @@ public class AppClientImportDataModelVerifier extends ModuleImportDataModelVerif
 		for(IArchiveResource sourceResource : sourceResources) {
 			resourcePath = sourceResource.getPath();
 			resourceFile = rootFolder.getFile(resourcePath);
-			Assert.assertTrue("The file " + resourcePath + " should exist in the project", resourceFile.exists());
+			if(!resourceFile.exists()){
+				Assert.fail("The file " + resourcePath + " should exist in the project");
+			}
 		}
 		
 		for(IArchiveResource importedClassResource : importedClassesResources) {
