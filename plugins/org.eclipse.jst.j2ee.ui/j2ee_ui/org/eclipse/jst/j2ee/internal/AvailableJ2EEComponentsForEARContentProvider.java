@@ -49,6 +49,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 public class AvailableJ2EEComponentsForEARContentProvider implements IStructuredContentProvider, ITableLabelProvider {
 	private int j2eeVersion;
 	private IVirtualComponent earComponent;
+	private boolean isEE5 = false;
 
 	public AvailableJ2EEComponentsForEARContentProvider(IVirtualComponent aEarComponent, int j2eeVersion) {
 		super();
@@ -62,6 +63,9 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 	 * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
 	 */
 	public Object[] getElements(Object inputElement) {
+		if (null != earComponent){
+			isEE5 = J2EEProjectUtilities.isJEEProject(earComponent.getProject());
+		}
 		Object[] empty = new Object[0];
 		if (!(inputElement instanceof IWorkspaceRoot))
 			return empty;
@@ -81,23 +85,21 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 						J2EEProjectUtilities.isJCAProject(project) ||
 						J2EEProjectUtilities.isUtilityProject(project) ){
 					int compJ2EEVersion = J2EEVersionUtil.convertVersionStringToInt(component);
-					if( compJ2EEVersion <= j2eeVersion)
-						//validCompList.add(component.getProject());
+					if( compJ2EEVersion <= j2eeVersion){
 						validCompList.add(component);
+					} else if(isEE5){
+						validCompList.add(component);
+					}
 				}else if(null != earComponent && J2EEProjectUtilities.isEARProject(project)){
 					//find the ArchiveComponent
 					if( component.equals( earComponent )){
 						IVirtualReference[] newrefs = component.getReferences();
 						for( int k=0; k< newrefs.length; k++ ){
 							IVirtualReference tmpref = newrefs[k];
-							//IVirtualComponent enclosingcomp = tmpref.getEnclosingComponent();
-							//boolean isBinary = enclosingcomp.isBinary();
 							IVirtualComponent referencedcomp = tmpref.getReferencedComponent();		
 							boolean isBinary = referencedcomp.isBinary();
 							if( isBinary ){
 								validCompList.add(referencedcomp);
-								//validCompList.add(referencedcomp.getProject());
-								//IPath path = ComponentUtilities.getResolvedPathForArchiveComponent(name);
 							} else {
 								addClasspathComponentDependencies(validCompList, pathToComp, referencedcomp);
 							}
