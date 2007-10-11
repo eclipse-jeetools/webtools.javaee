@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.UIContextDetermination;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
@@ -154,7 +155,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		ICommonModule newModule = null;
 		final IVirtualComponent ear = (IVirtualComponent) this.model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
 		final IProject earpj = ear.getProject();
-		boolean useNewModel = J2EEProjectUtilities.isJEEProject(earpj);
+		boolean useNewModel = J2EEProjectUtilities.getJ2EEDDProjectVersion(earpj).equals(J2EEVersionConstants.VERSION_5_0_TEXT);
 		if (J2EEProjectUtilities.isDynamicWebProject(wc.getProject())) {
 			Properties props = wc.getMetaProperties();
 			String contextroot = ""; //$NON-NLS-1$

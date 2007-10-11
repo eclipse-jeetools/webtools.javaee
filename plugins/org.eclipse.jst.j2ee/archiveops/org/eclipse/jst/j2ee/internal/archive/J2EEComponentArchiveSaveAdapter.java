@@ -141,13 +141,6 @@ public abstract class J2EEComponentArchiveSaveAdapter extends ComponentArchiveSa
 		return super.getProjectRelativePath(aFile);
 	}
 	
-	protected IPath getOutputPathForFile(IArchiveResource aFile) {
-		if (endsWithClassType(aFile.getPath().lastSegment())) {
-			return importedClassesFolder.getFile(getImportedClassesURI(aFile)).getProjectRelativePath();
-		}
-		return super.getProjectRelativePath(aFile);
-	}
-
 	protected IPath getImportedClassesURI(IArchiveResource aFile) {
 		return aFile.getPath();
 	}

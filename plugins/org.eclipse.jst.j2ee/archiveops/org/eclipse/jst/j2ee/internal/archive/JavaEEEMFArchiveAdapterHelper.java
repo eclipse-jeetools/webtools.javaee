@@ -185,6 +185,7 @@ public class JavaEEEMFArchiveAdapterHelper {
 						if (isTranslator) {
 							try {
 								Constructor constructor = resourceFactory.getClass().getConstructor(RendererFactory.class);
+								EMF2SAXRendererFactory.INSTANCE.setValidating(false);
 								resourceFactory = (Resource.Factory) constructor.newInstance(EMF2SAXRendererFactory.INSTANCE);
 							} catch (SecurityException e) {
 								ArchiveUtil.warn(e);

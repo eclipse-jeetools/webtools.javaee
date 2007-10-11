@@ -198,33 +198,17 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 
 	protected ArchiveWrapper openArchiveWrapper(String uri) throws OpenFailureException, ArchiveOpenFailureException{
 		IArchive archive = null;
-		boolean isEE5 = false;
-		try{
-			IPath path = new Path(uri);
-			archive = JavaEEArchiveUtilities.INSTANCE.openArchive(path);
-			archive.getArchiveOptions().setOption(JavaEEArchiveUtilities.DISCRIMINATE_EJB_ANNOTATIONS, Boolean.TRUE);
-			archive.setPath(path);
-			JavaEEQuickPeek jqp = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive);
-			
-			if(jqp.getJavaEEVersion() == J2EEConstants.UNKNOWN && jqp.getType() == J2EEConstants.UNKNOWN){
-				handleUnknownType(jqp);
-			}
-			
-			if(jqp.getJavaEEVersion() == J2EEConstants.JEE_5_0_ID){
-				isEE5 = true;
-				return new ArchiveWrapper(archive);
-			} else {
-				Archive commonArchive = openArchive(uri);
-				if (null != commonArchive) {
-					commonArchive.setSaveFilter(getSaveFilter());
-				}
-				return new ArchiveWrapper(commonArchive);
-			}
-		} finally {
-			if(!isEE5){
-				JavaEEArchiveUtilities.INSTANCE.closeArchive(archive);
-			}
+		IPath path = new Path(uri);
+		archive = JavaEEArchiveUtilities.INSTANCE.openArchive(path);
+		archive.getArchiveOptions().setOption(JavaEEArchiveUtilities.DISCRIMINATE_EJB_ANNOTATIONS, Boolean.TRUE);
+		archive.setPath(path);
+		JavaEEQuickPeek jqp = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive);
+		
+		if(jqp.getJavaEEVersion() == J2EEConstants.UNKNOWN && jqp.getType() == J2EEConstants.UNKNOWN){
+			handleUnknownType(jqp);
 		}
+		
+		return new ArchiveWrapper(archive);
 	}
 	/**
 	 * This method allows subclasses to handle an unknown archive type.
