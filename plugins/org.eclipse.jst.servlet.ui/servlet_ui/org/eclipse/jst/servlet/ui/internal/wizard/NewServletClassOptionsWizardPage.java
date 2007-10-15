@@ -7,7 +7,8 @@
  * 
  * Contributors:
  *     IBM Corporation - initial API and implementation
- *     David Schneider, david.schneider@unisys.com - [142500] WTP properties pages fonts don't follow Eclipse preferences
+ *     David Schneider, david.schneider@unisys.com - bug 142500
+ *     Kiril Mitov, k.mitov@sap.com	- bug 204160
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
@@ -30,15 +31,20 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * 
  */
 public class NewServletClassOptionsWizardPage extends NewJavaClassOptionsWizardPage {
+	
 	protected Button initButton;
-	protected Button toStringButton;
+	protected Button destroyButton;
+	protected Button getConfigButton;
 	protected Button getInfoButton;
+	protected Button serviceButton;
+	protected Button doGetButton;
 	protected Button doPostButton;
 	protected Button doPutButton;
 	protected Button doDeleteButton;
-	protected Button destroyButton;
-	protected Button doGetButton;
-
+	protected Button doHeadButton;
+	protected Button doOptionsButton;
+	protected Button doTraceButton;
+	
 	public NewServletClassOptionsWizardPage(IDataModel model, String pageName, String pageDesc, String pageTitle) {
 		super(model, pageName, pageDesc, pageTitle);
 	}
@@ -81,13 +87,17 @@ public class NewServletClassOptionsWizardPage extends NewJavaClassOptionsWizardP
 			public void widgetSelected(SelectionEvent e) {
 				boolean enable = inheritButton.getSelection();
 				initButton.setEnabled(enable);
-				toStringButton.setEnabled(enable);
+				destroyButton.setEnabled(enable);
+				getConfigButton.setEnabled(enable);
 				getInfoButton.setEnabled(enable);
+				serviceButton.setEnabled(enable);
+				doGetButton.setEnabled(enable);
 				doPostButton.setEnabled(enable);
 				doPutButton.setEnabled(enable);
 				doDeleteButton.setEnabled(enable);
-				destroyButton.setEnabled(enable);
-				doGetButton.setEnabled(enable);
+				doHeadButton.setEnabled(enable);
+				doOptionsButton.setEnabled(enable);
+				doTraceButton.setEnabled(enable);
 			}
 			public void widgetDefaultSelected(SelectionEvent e) {
 				//Do nothing
@@ -106,13 +116,25 @@ public class NewServletClassOptionsWizardPage extends NewJavaClassOptionsWizardP
 		initButton.setText("init"); //$NON-NLS-1$
 		synchHelper.synchCheckbox(initButton, INewServletClassDataModelProperties.INIT, null);
 
-		toStringButton = new Button(comp, SWT.CHECK);
-		toStringButton.setText("toString"); //$NON-NLS-1$
-		synchHelper.synchCheckbox(toStringButton, INewServletClassDataModelProperties.TO_STRING, null);
+		destroyButton = new Button(comp, SWT.CHECK);
+		destroyButton.setText("destroy"); //$NON-NLS-1$
+		synchHelper.synchCheckbox(destroyButton, INewServletClassDataModelProperties.DESTROY, null);
+
+		getConfigButton = new Button(comp, SWT.CHECK);
+		getConfigButton.setText("getServletConfig"); //$NON-NLS-1$
+		synchHelper.synchCheckbox(getConfigButton, INewServletClassDataModelProperties.GET_SERVLET_CONFIG, null);
 
 		getInfoButton = new Button(comp, SWT.CHECK);
 		getInfoButton.setText("getServletInfo"); //$NON-NLS-1$
 		synchHelper.synchCheckbox(getInfoButton, INewServletClassDataModelProperties.GET_SERVLET_INFO, null);
+		
+		serviceButton = new Button(comp, SWT.CHECK);
+		serviceButton.setText("service"); //$NON-NLS-1$
+		synchHelper.synchCheckbox(serviceButton, INewServletClassDataModelProperties.SERVICE, null);
+
+		doGetButton = new Button(comp, SWT.CHECK);
+		doGetButton.setText("doGet"); //$NON-NLS-1$
+		synchHelper.synchCheckbox(doGetButton, INewServletClassDataModelProperties.DO_GET, null);
 
 		doPostButton = new Button(comp, SWT.CHECK);
 		doPostButton.setText("doPost"); //$NON-NLS-1$
@@ -126,13 +148,17 @@ public class NewServletClassOptionsWizardPage extends NewJavaClassOptionsWizardP
 		doDeleteButton.setText("doDelete"); //$NON-NLS-1$
 		synchHelper.synchCheckbox(doDeleteButton, INewServletClassDataModelProperties.DO_DELETE, null);
 
-		destroyButton = new Button(comp, SWT.CHECK);
-		destroyButton.setText("destroy"); //$NON-NLS-1$
-		synchHelper.synchCheckbox(destroyButton, INewServletClassDataModelProperties.DESTROY, null);
+		doHeadButton = new Button(comp, SWT.CHECK);
+		doHeadButton.setText("doHead"); //$NON-NLS-1$
+		synchHelper.synchCheckbox(doHeadButton, INewServletClassDataModelProperties.DO_HEAD, null);
 
-		doGetButton = new Button(comp, SWT.CHECK);
-		doGetButton.setText("doGet"); //$NON-NLS-1$
-		synchHelper.synchCheckbox(doGetButton, INewServletClassDataModelProperties.DO_GET, null);
+		doOptionsButton = new Button(comp, SWT.CHECK);
+		doOptionsButton.setText("doOptions"); //$NON-NLS-1$
+		synchHelper.synchCheckbox(doOptionsButton, INewServletClassDataModelProperties.DO_OPTIONS, null);
+
+		doTraceButton = new Button(comp, SWT.CHECK);
+		doTraceButton.setText("doTrace"); //$NON-NLS-1$
+		synchHelper.synchCheckbox(doTraceButton, INewServletClassDataModelProperties.DO_TRACE, null);
 		
 	    Dialog.applyDialogFont(parent);
 	}

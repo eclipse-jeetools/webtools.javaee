@@ -7,6 +7,7 @@
  *
  * Contributors:
  * IBM Corporation - initial API and implementation
+ * Kiril Mitov, k.mitov@sap.com	- bug 204160
  *******************************************************************************/
 
 package org.eclipse.jst.j2ee.internal.web.operations;
@@ -131,13 +132,17 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		// Add servlet specific properties defined in this data model
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(INIT);
-		propertyNames.add(DO_POST);
 		propertyNames.add(DESTROY);
-		propertyNames.add(TO_STRING);
-		propertyNames.add(DO_PUT);
-		propertyNames.add(DO_GET);
+		propertyNames.add(GET_SERVLET_CONFIG);
 		propertyNames.add(GET_SERVLET_INFO);
+		propertyNames.add(SERVICE);
+		propertyNames.add(DO_GET);
+		propertyNames.add(DO_POST);
+		propertyNames.add(DO_PUT);
 		propertyNames.add(DO_DELETE);
+		propertyNames.add(DO_HEAD);
+		propertyNames.add(DO_OPTIONS);
+		propertyNames.add(DO_TRACE);
 		propertyNames.add(IS_SERVLET_TYPE);
 		propertyNames.add(INIT_PARAM);
 		propertyNames.add(URL_MAPPINGS);
@@ -169,6 +174,8 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		// Generate a doGet method by default
 		else if (propertyName.equals(DO_GET))
 			return Boolean.TRUE;
+		else if (propertyName.equals(SERVICE))
+			return Boolean.FALSE;
 		// Use servlet by default
 		else if (propertyName.equals(IS_SERVLET_TYPE))
 			return Boolean.TRUE;

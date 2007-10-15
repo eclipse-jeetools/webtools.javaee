@@ -3,6 +3,8 @@ if (model.getJavaPackageName()!=null && model.getJavaPackageName()!="") { %>pack
 
 import java.io.IOException;
 import javax.servlet.ServletException;
+<% if (model.shouldGenGetServletConfig()) { %>
+import javax.servlet.ServletConfig; <% } %>
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

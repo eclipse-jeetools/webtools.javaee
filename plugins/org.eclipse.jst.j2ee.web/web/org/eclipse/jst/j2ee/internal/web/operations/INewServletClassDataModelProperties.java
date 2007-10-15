@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     IBM Corporation - initial API and implementation
+ *     Kiril Mitov, k.mitov@sap.com	- bug 204160
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
@@ -21,47 +22,61 @@ public interface INewServletClassDataModelProperties extends INewJavaClassDataMo
 	public static final String INIT = "NewServletClassDataModel.INIT"; //$NON-NLS-1$
 	
 	/**
+	 * Optional, boolean property used to specify whether to generate the destroy method. The default is false.
+	 */
+	public static final String DESTROY = "NewServletClassDataModel.DESTROY";
+
+	/**
+	 * Optional, boolean property used to specify whether to generate the getServletInfo method. The default is false.
+	 */
+	public static final String GET_SERVLET_INFO = "NewServletClassDataModel.GET_SERVLET_INFO";
+
+	/**
+	 * Optional, boolean property used to specify whether to generate the getServletConfig method. The default is false.
+	 */
+	public static final String GET_SERVLET_CONFIG = "NewServletClassDataModel.GET_SERVLET_CONFIG";
+
+	/**
+	 * Optional, boolean property used to specify whether to generate the service method. The default is false.
+	 */
+	public static final String SERVICE = "NewServletClassDataModel.SERVICE";
+
+	/**
+	 * Optional, boolean property used to specify whether to generate the doGet method. The default is true.
+	 */
+	public static final String DO_GET = "NewServletClassDataModel.DO_GET";
+
+	/**
 	 * Optional, boolean property used to specify whether to generate the doPost method.
 	 * The default is true.
 	 */
 	public static final String DO_POST = "NewServletClassDataModel.DO_POST"; //$NON-NLS-1$
 	
 	/**
-	 * Optional, boolean property used to specify whether to generate the destroy method.
-	 * The default is false.
+	 * Optional, boolean property used to specify whether to generate the doPut method. The default is false.
 	 */
-	public static final String DESTROY = "NewServletClassDataModel.DESTROY"; //$NON-NLS-1$
+	public static final String DO_PUT = "NewServletClassDataModel.DO_PUT";
+
+	/**
+	 * Optional, boolean property used to specify whether to generate the doDelete method. The default is false.
+	 */
+	public static final String DO_DELETE = "NewServletClassDataModel.DO_DELETE";
 	
 	/**
-	 * Optional, boolean property used to specify whether to generate the toString method.
-	 * The default is false.
+	 * Optional, boolean property used to specify whether to generate the doHead method. The default is false.
 	 */
-	public static final String TO_STRING = "NewServletClassDataModel.TO_STRING"; //$NON-NLS-1$
+	public static final String DO_HEAD = "NewServletClassDataModel.DO_HEAD";
 	
 	/**
-	 * Optional, boolean property used to specify whether to generate the doPut method.
-	 * The default is false.
+	 * Optional, boolean property used to specify whether to generate the doOptions method. The default is false.
 	 */
-	public static final String DO_PUT = "NewServletClassDataModel.DO_PUT"; //$NON-NLS-1$
+	public static final String DO_OPTIONS = "NewServletClassDataModel.DO_OPTIONS";
 	
 	/**
-	 * Optional, boolean property used to specify whether to generate the doGet method.
-	 * The default is true.
+	 * Optional, boolean property used to specify whether to generate the doTrace method. The default is false.
 	 */
-	public static final String DO_GET = "NewServletClassDataModel.DO_GET"; //$NON-NLS-1$
-	
-	/**
-	 * Optional, boolean property used to specify whether to generate the getServletInfo method.
-	 * The default is false.
-	 */
-	public static final String GET_SERVLET_INFO = "NewServletClassDataModel.GET_SERVLET_INFO"; //$NON-NLS-1$
-	
-	/**
-	 * Optional, boolean property used to specify whether to generate the doDelete method.
-	 * The default is false.
-	 */
-	public static final String DO_DELETE = "NewServletClassDataModel.DO_DELETE"; //$NON-NLS-1$
-	
+	public static final String DO_TRACE = "NewServletClassDataModel.DO_TRACE";
+
 	/**
 	 * Optional, boolean property used to determine if building JSP or servlet.
 	 * The default is true.
