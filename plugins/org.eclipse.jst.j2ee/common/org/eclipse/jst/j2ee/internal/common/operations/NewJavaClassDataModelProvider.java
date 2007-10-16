@@ -348,7 +348,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 		}
 		IStatus status = validateJavaClassName(className);
 		// If unqualified super class name is valid, ensure validity of superclass itself
-		if (status.isOK()) {
+		if (status.getSeverity() != IStatus.ERROR) {
 			// If the superclass does not exist, throw an error
 			IJavaProject javaProject = JemProjectUtilities.getJavaProject(getTargetProject());
 			IType supertype = null;
