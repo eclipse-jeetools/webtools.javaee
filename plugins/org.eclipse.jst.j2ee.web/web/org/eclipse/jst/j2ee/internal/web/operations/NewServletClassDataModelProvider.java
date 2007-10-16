@@ -168,14 +168,29 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 	 * @return Object default value of property
 	 */
 	public Object getDefaultProperty(String propertyName) {
-		// Generate a doPost method by default
-		if (propertyName.equals(DO_POST))
-			return Boolean.TRUE;
-		// Generate a doGet method by default
-		else if (propertyName.equals(DO_GET))
-			return Boolean.TRUE;
-		else if (propertyName.equals(SERVICE))
-			return Boolean.FALSE;
+		// Generate a doPost and doGet methods by default only if a class 
+		// extending HttpServlet is selected
+		if (propertyName.equals(DO_POST) || propertyName.equals(DO_GET)) {
+			ServletSupertypesValidator validator = new ServletSupertypesValidator(getDataModel());
+			if (validator.isHttpServletSuperclass())
+				return Boolean.TRUE;
+		}
+		
+		// Generate a service method by default only if a class 
+		// not extending HttpServlet is selected
+		if (propertyName.equals(SERVICE)) {
+			ServletSupertypesValidator validator = new ServletSupertypesValidator(getDataModel());
+			if (!validator.isHttpServletSuperclass())
+				return Boolean.TRUE;
+		}
+		
+		if (propertyName.equals(INIT) || propertyName.equals(DESTROY) || 
+			propertyName.equals(GET_SERVLET_CONFIG) || propertyName.equals(GET_SERVLET_INFO)) {
+			ServletSupertypesValidator validator = new ServletSupertypesValidator(getDataModel());
+			if (!validator.isGenericServletSuperclass()) 
+				return Boolean.TRUE;
+		}
+		
 		// Use servlet by default
 		else if (propertyName.equals(IS_SERVLET_TYPE))
 			return Boolean.TRUE;
@@ -346,9 +361,9 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 	 */
 	public IStatus validate(String propertyName) {
 		IStatus result = Status.OK_STATUS;
-		// If our default is the superclass, we know it is ok
-		if (propertyName.equals(SUPERCLASS) && getStringProperty(propertyName).equals(SERVLET_SUPERCLASS))
-			return WTPCommonPlugin.OK_STATUS;
+		// Validate super class
+		if (propertyName.equals(SUPERCLASS)) 
+			return validateSuperClassName(getStringProperty(propertyName));
 		// Validate init params
 		if (propertyName.equals(INIT_PARAM))
 			return validateInitParamList((List) getProperty(propertyName));
@@ -371,6 +386,38 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		}
 		// Otherwise defer to super to validate the property
 		return super.validate(propertyName);
+	}
+	
+	/**
+	 * Subclasses may extend this method to provide their own validation of the specified java
+	 * classname. This implementation will ensure the class name is not set to Servlet and then will
+	 * forward on to the NewJavaClassDataModel to validate the class name as valid java. This method
+	 * does not accept null as a parameter. It will not return null. 
+	 * It will check if the super class extends the javax.servlet.Servlet interface also.
+	 * 
+	 * @see NewServletClassDataModelProvider#validateExistingClass(boolean)
+	 * @see NewJavaClassDataModelProvider#validateJavaClassName(String)
+	 * 
+	 * @param className
+	 * @return IStatus is java classname valid?
+	 */
+	protected IStatus validateSuperClassName(String superclassName) {
+		//If the servlet implements javax.servlet.Servlet, we do not need a super class
+		ServletSupertypesValidator validator = new ServletSupertypesValidator(getDataModel());
+		if (validator.isGenericServletSuperclass())
+			return WTPCommonPlugin.OK_STATUS;
+		
+		// Check the super class as a java class
+		if (superclassName.trim().length() > 0) {
+			IStatus status = super.validate(SUPERCLASS);
+			if (status.getSeverity() == IStatus.ERROR)
+				return status;
+		}
+		
+		if (!validator.isServletSuperclass())
+			return WTPCommonPlugin.createErrorStatus(WebMessages.ERR_SERVLET_INTERFACE);
+		
+		return WTPCommonPlugin.OK_STATUS;
 	}
 
 	/**
@@ -615,5 +662,9 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		if (useAnnotations)
 			return Boolean.TRUE;
 		return Boolean.FALSE;
+	}
+	
+	private boolean hasServletInterfaceToImplement(List newInterfacesList) {
+		return newInterfacesList != null && newInterfacesList.contains(SERVLET_INTERFACES[0]);		
 	}
 }

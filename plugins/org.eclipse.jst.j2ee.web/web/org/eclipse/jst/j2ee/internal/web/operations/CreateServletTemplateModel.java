@@ -50,11 +50,11 @@ public class CreateServletTemplateModel {
 	}
 
 	public String getServletClassName() {
-		return getProperty(INewJavaClassDataModelProperties.CLASS_NAME);
+		return getProperty(INewJavaClassDataModelProperties.CLASS_NAME).trim();
 	}
 
 	public String getJavaPackageName() {
-		return getProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE);
+		return getProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE).trim();
 	}
 
 	public String getQualifiedJavaClassName() {
@@ -62,11 +62,11 @@ public class CreateServletTemplateModel {
 	}
 
 	public String getSuperclassName() {
-		return getProperty(INewJavaClassDataModelProperties.SUPERCLASS);
+		return getProperty(INewJavaClassDataModelProperties.SUPERCLASS).trim();
 	}
 
 	public String getServletName() {
-		return getProperty(INewServletClassDataModelProperties.DISPLAY_NAME);
+		return getProperty(INewServletClassDataModelProperties.DISPLAY_NAME).trim();
 	}
 
 	public boolean isPublic() {
@@ -133,6 +133,16 @@ public class CreateServletTemplateModel {
 		return implementImplementedMethod(DO_TRACE);
 	}
 
+	public boolean isGenericServletSuperclass() {
+		ServletSupertypesValidator validator = new ServletSupertypesValidator(dataModel);
+		return validator.isGenericServletSuperclass();
+	}
+	
+	public boolean isHttpServletSuperclass() {
+		ServletSupertypesValidator validator = new ServletSupertypesValidator(dataModel);
+		return validator.isHttpServletSuperclass();
+	}
+	
 	public List getInitParams() {
 		return (List) dataModel.getProperty(INewServletClassDataModelProperties.INIT_PARAM);
 	}
