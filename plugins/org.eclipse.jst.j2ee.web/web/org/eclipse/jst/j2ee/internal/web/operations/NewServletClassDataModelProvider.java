@@ -398,8 +398,9 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 			return WTPCommonPlugin.OK_STATUS;
 		
 		// Check the super class as a java class
+		IStatus status = null;
 		if (superclassName.trim().length() > 0) {
-			IStatus status = super.validate(SUPERCLASS);
+			status = super.validate(SUPERCLASS);
 			if (status.getSeverity() == IStatus.ERROR)
 				return status;
 		}
@@ -407,7 +408,7 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		if (!validator.isServletSuperclass())
 			return WTPCommonPlugin.createErrorStatus(WebMessages.ERR_SERVLET_INTERFACE);
 		
-		return WTPCommonPlugin.OK_STATUS;
+		return status;
 	}
 
 	/**
