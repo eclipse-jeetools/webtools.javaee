@@ -16,6 +16,7 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 
 import java.util.List;
 
+import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -79,6 +80,10 @@ public class CreateServletTemplateModel {
 
 	public boolean isAbstract() {
 		return dataModel.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_ABSTRACT);
+	}
+	
+	public boolean isAnnotated() {
+		return dataModel.getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS);
 	}
 
 	protected String getProperty(String propertyName) {

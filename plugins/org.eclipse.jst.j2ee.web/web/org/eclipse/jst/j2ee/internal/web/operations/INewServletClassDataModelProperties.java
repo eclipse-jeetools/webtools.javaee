@@ -109,14 +109,4 @@ public interface INewServletClassDataModelProperties extends INewJavaClassDataMo
 	 */
 	public static final String USE_EXISTING_CLASS = "NewServletClassDataModel.USE_EXISTING_CLASS"; //$NON-NLS-1$
 	
-	/**
-	 * Do not set! The javajet template file used in creating the annotated servlet template class
-	 */
-	public static final String TEMPLATE_FILE = "NewServletClassDataModel.TEMPLATE_FILE"; //$NON-NLS-1$
-	
-	/**
-	 * Do not set! The javajet template file used in creating the non-annotated servlet template class
-	 */
-	public static final String NON_ANNOTATED_TEMPLATE_FILE = "NewServletClassDataModel.NON_ANNOTATED_TEMPLATE_FILE"; //$NON-NLS-1$
-	
 }

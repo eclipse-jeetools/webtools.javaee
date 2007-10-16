@@ -75,10 +75,6 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 	 */
 	private final static String[] SERVLET_INTERFACES = {"javax.servlet.Servlet"}; //$NON-NLS-1$
 
-	private final static String ANNOTATED_TEMPLATE_DEFAULT = "servletXDoclet.javajet"; //$NON-NLS-1$
-
-	private final static String NON_ANNOTATED_TEMPLATE_DEFAULT = "servletXDocletNonAnnotated.javajet"; //$NON-NLS-1$
-
 	/**
 	 * The cache of all the interfaces the servlet java class will implement.
 	 */
@@ -149,8 +145,6 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		propertyNames.add(USE_ANNOTATIONS);
 		propertyNames.add(DISPLAY_NAME);
 		propertyNames.add(DESCRIPTION);
-		propertyNames.add(NON_ANNOTATED_TEMPLATE_FILE);
-		propertyNames.add(TEMPLATE_FILE);
 		propertyNames.add(USE_EXISTING_CLASS);
 		return propertyNames;
 	}
@@ -214,10 +208,6 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 			return getServletInterfaces();
 		else if (propertyName.equals(SUPERCLASS))
 			return SERVLET_SUPERCLASS;
-		else if (propertyName.equals(TEMPLATE_FILE))
-			return ANNOTATED_TEMPLATE_DEFAULT;
-		else if (propertyName.equals(NON_ANNOTATED_TEMPLATE_FILE))
-			return NON_ANNOTATED_TEMPLATE_DEFAULT;
 		else if (propertyName.equals(USE_EXISTING_CLASS))
 			return Boolean.FALSE;
 		// Otherwise check super for default value for property
