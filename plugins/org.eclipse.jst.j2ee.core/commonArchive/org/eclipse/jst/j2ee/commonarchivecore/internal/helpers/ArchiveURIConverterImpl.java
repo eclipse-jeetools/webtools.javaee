@@ -99,7 +99,7 @@ public class ArchiveURIConverterImpl extends URIConverterImpl {
 	}
 
 	public URI normalize(URI uri) {
-		return getInternalURIMap().getURI(uri);
+		return ((URIConverterImpl.URIMap)getURIMap()).getURI(uri);
 	}
 
 	/**

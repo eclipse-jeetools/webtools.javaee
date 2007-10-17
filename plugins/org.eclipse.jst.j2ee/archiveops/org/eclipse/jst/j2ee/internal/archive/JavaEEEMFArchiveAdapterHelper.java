@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.content.IContentDescription;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.ContentHandler;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -165,6 +166,10 @@ public class JavaEEEMFArchiveAdapterHelper {
 			}
 
 			public Resource createResource(URI uri) {
+				return createResource(uri, ContentHandler.UNSPECIFIED_CONTENT_TYPE);
+			}
+			
+			public Resource createResource(URI uri, String contentType) {
 				IContentDescription description = getContentDescription(uri);
 
 				Resource.Factory resourceFactory = null;
