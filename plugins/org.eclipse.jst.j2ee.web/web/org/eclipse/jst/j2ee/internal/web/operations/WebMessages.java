@@ -42,10 +42,7 @@ public class WebMessages extends NLS {
 	public static String ERR_SERVLET_MAPPING_URL_PATTERN_EMPTY;
 	public static String ERR_SERVLET_MAPPING_URL_PATTERN_EXIST;
 	public static String ERR_SERVLET_MAPPING_URL_PATTERN_INVALID;
-	public static String KEY_3;
-	public static String KEY_4;
-	public static String KEY_5;
-	public static String KEY_6;
+	public static String ERR_FILTER_MAPPING_EMPTY;
 	public static String ERR_FILTER_PARAMETER_NAME_EXIST;
 	public static String ERR_FILTER_MAPPING_SERVLET_EXIST;
 	public static String ERR_FILTER_MAPPING_SERVLET_DISPATCHER_TYPES_EMPTY;

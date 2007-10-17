@@ -49,7 +49,7 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
       </wizard>
-      
+
       <!--new servlet contribution-->
  	  <wizard
             name="%ServletWebRegionWizard.name"
@@ -59,6 +59,18 @@
             id="org.eclipse.jst.servlet.ui.internal.wizard.AddServletWizard">
          <description>
             %ServletWebRegionWizard.description
+         </description>
+      </wizard>
+      
+      <!--new filter contribution-->      
+      <wizard
+            category="org.eclipse.wst.web.ui"
+            class="org.eclipse.jst.servlet.ui.internal.wizard.AddFilterWizard"
+            icon="icons/full/ctool16/newfilter_wiz.gif"
+            id="org.eclipse.jst.servlet.ui.internal.wizard.AddFilterWizard"
+            name="%FilterWebRegionWizard.name">
+         <description>
+            %FilterWebRegionWizard.description
          </description>
       </wizard>
       

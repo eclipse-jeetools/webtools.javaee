@@ -40,4 +40,3 @@ import javax.servlet.ServletRequestAttributeEvent;
  * Application Lifecycle Listener implementation class <%=model.getListenerClassName()%>
  *
  */
- 

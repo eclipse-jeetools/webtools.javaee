@@ -35,6 +35,18 @@ public interface IWebWizardConstants {
 	public final static String NEW_SERVLET_WIZARD_PAGE_DESC = WEBUIMessages.NEW_SERVLET_WIZARD_PAGE_DESC;
 	public final static String SERVLET_PACKAGE_LABEL = WEBUIMessages.SERVLET_PACKAGE_LABEL;
 	public final static String SERVLET_NAME_LABEL = WEBUIMessages.SERVLET_NAME_LABEL;
+	
+    // AddFilterWizard
+    public final static String ADD_FILTER_WIZARD_WINDOW_TITLE = WEBUIMessages.ADD_FILTER_WIZARD_WINDOW_TITLE;
+    public final static String ADD_FILTER_WIZARD_PAGE_TITLE = WEBUIMessages.ADD_FILTER_WIZARD_PAGE_TITLE;
+    public final static String ADD_FILTER_WIZARD_PAGE_DESC = WEBUIMessages.ADD_FILTER_WIZARD_PAGE_DESC;
+
+    public final static String USE_EXISTING_FILTER_CLASS = WEBUIMessages.USE_EXISTING_FILTER_CLASS;
+    public final static String CHOOSE_FILTER_CLASS = WEBUIMessages.CHOOSE_FILTER_CLASS;
+    public final static String SERVLET_MAPPINGS_LABEL = WEBUIMessages.SERVLET_MAPPINGS_LABEL;
+    
+    // NewFilterWizard
+    public final static String NEW_FILTER_WIZARD_WINDOW_TITLE = WEBUIMessages.NEW_FILTER_WIZARD_WINDOW_TITLE;
 
 	// AddListenerWizard
 	public final static String ADD_LISTENER_WIZARD_WINDOW_TITLE = WEBUIMessages.ADD_LISTENER_WIZARD_WINDOW_TITLE;

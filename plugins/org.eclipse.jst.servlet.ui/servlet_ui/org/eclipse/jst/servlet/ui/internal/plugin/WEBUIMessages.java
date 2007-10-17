@@ -24,6 +24,7 @@ public class WEBUIMessages extends NLS {
 	public static String NEW_SERVLET_WIZARD_PAGE_TITLE;
 	public static String FOLDER_LABEL;
 	public static String URL_MAPPINGS_LABEL;
+	public static String SERVLET_MAPPINGS_LABEL;
 	public static String JAVA_CLASS_MODIFIERS_LABEL;
 	public static String SUPERCLASS_LABEL;
 	public static String WEB_CONT_PAGE_TITLE;
@@ -32,6 +33,8 @@ public class WEBUIMessages extends NLS {
 	public static String JAVA_CLASS_ABSTRACT_CHECKBOX_LABEL;
 	public static String ADD_SERVLET_WIZARD_WINDOW_TITLE;
 	public static String ADD_SERVLET_WIZARD_PAGE_TITLE;
+    public static String ADD_FILTER_WIZARD_WINDOW_TITLE;
+    public static String ADD_FILTER_WIZARD_PAGE_TITLE;
 	public static String JAVA_CLASS_MAIN_CHECKBOX_LABEL;
 	public static String EMPTY_LIST_MSG;
 	public static String ExportWARAction_UI_;
@@ -50,10 +53,12 @@ public class WEBUIMessages extends NLS {
 	public static String CONTAINER_SELECTION_DIALOG_VALIDATOR_MESG;
 	public static String DESCRIPTION_LABEL;
 	public static String USE_EXISTING_SERVLET_CLASS;
+    public static String USE_EXISTING_FILTER_CLASS;
 	public static String JAVA_CLASS_FINAL_CHECKBOX_LABEL;
 	public static String INTERFACE_SELECTION_DIALOG_DESC;
 	public static String ADD_LABEL;
 	public static String ADD_SERVLET_WIZARD_PAGE_DESC;
+    public static String ADD_FILTER_WIZARD_PAGE_DESC;
 	public static String SELECT_CLASS_TITLE;
 	public static String JAVA_CLASS_BROWER_DIALOG_MESSAGE;
 	public static String ImportWARAction_UI_;
@@ -93,11 +98,13 @@ public class WEBUIMessages extends NLS {
 	public static String NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC;
 	public static String REMOVE_BUTTON_LABEL;
 	public static String NEW_SERVLET_WIZARD_WINDOW_TITLE;
+    public static String NEW_FILTER_WIZARD_WINDOW_TITLE;
 	public static String INTERFACE_SELECTION_DIALOG_TITLE;
 	public static String NAME_LABEL;
 	public static String VALUE_LABEL;
 	public static String WEB_CONT_PAGE_COMP_LABEL;
 	public static String CHOOSE_SERVLET_CLASS;
+	public static String CHOOSE_FILTER_CLASS;
 	public static String NEW_SERVLET_WIZARD_PAGE_DESC;
 	public static String JAVA_CLASS_INHERIT_CHECKBOX_LABEL;
 	public static String WEB_CONT_PAGE_DESCRIPTION;

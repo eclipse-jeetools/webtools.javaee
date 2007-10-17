@@ -23,6 +23,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -336,7 +337,7 @@ public class NewListenerClassOperation extends AbstractDataModelOperation {
 	 * @throws JETException
 	 */
 	private String generateTemplateSource(CreateListenerTemplateModel tempModel, IProgressMonitor monitor) throws JETException {
-		URL templateURL = WebPlugin.getDefault().find(new Path(TEMPLATE_FILE));
+		URL templateURL = FileLocator.find(WebPlugin.getDefault().getBundle(), new Path(TEMPLATE_FILE), null);
 		cleanUpOldEmitterProject();
 		WTPJETEmitter emitter = new WTPJETEmitter(templateURL.toString(), this.getClass().getClassLoader());
 		emitter.setIntelligentLinkingEnabled(true);

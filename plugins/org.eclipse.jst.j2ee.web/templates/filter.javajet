@@ -1,0 +1,48 @@
+<%@ jet package="org.eclipse.jst.j2ee.web" 
+	imports="org.eclipse.jst.j2ee.internal.web.operations.* java.util.* " 
+	class="FilterTemplate" 
+%><%@ include file="filterHeader.template" %>
+
+<%if (model.isPublic()) {%>public<%}%> <%if (model.isAbstract()) {%>abstract <%}%><%if (model.isFinal()) {%>final <%}
+%>class <%=model.getFilterClassName()%><%
+String superClass = model.getSuperclassName();
+if (superClass.trim().length() > 0) {%> extends <%=superClass%><%}%>
+<%
+ List interfaces = model.getInterfaces(); 
+ if (interfaces.size()>0) {%> implements <% }
+ for (int i=0; i<interfaces.size(); i++) {
+   String INTERFACE = (String) interfaces.get(i);
+   if (i>0) { %>, <%}%><%=INTERFACE%><%}%> {
+	<% if (model.shouldGenDestroy()) { %>	
+	/* (non-Javadoc)
+	 * @see javax.servlet.Filter#destroy()
+	 */
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	} <% } %> <% if (model.shouldGenDoFilter()) { %>
+	
+	/* (non-Javadoc)
+	 * @see javax.servlet.Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
+	 */
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		// TODO Auto-generated method stub
+		
+	} <% } %> 	<% if (model.shouldGenInit()) { %>
+	
+	/* (non-Javadoc)
+	 * @see javax.servlet.Filter#init(FilterConfig)
+	 */
+	public void init(FilterConfig fConfig) throws ServletException {
+		// TODO Auto-generated method stub
+		
+	} <% } %>  <% if (model.shouldGenToString()) { %>
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	} <% } %>
+}
