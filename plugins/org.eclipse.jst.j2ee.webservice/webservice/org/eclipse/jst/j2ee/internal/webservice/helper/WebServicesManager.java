@@ -23,9 +23,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -100,6 +102,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	private boolean isNotifying = false;
 	private boolean wsClientElementsChanged = true;
 	private boolean wsElementsChanged = true;
+	private ProcessProjectsWithWSDL processNewProjects;
 
 	public static final String WSDL_EXT = "wsdl"; //$NON-NLS-1$
 	public static final String WSIL_EXT = "wsil"; //$NON-NLS-1$
@@ -870,9 +873,12 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			if ((delta.getKind()==IResourceDelta.ADDED || (((delta.getFlags() & IResourceDelta.OPEN) != 0) && p.isAccessible()))) {
 				IVirtualComponent component = ComponentCore.createComponent(p);
 				if (component!=null && !J2EEProjectUtilities.isEARProject(p) && !J2EEProjectUtilities.isStaticWebProject(p)) {
-					Job job = new ProcessProjectsWithWSDL(p, EditModelEvent.ADDED_RESOURCE);
-					job.setRule(p);
-					job.schedule();
+					if (processNewProjects != null && (processNewProjects.getState() == Job.WAITING))
+						processNewProjects.addProject(p);
+					else {
+						processNewProjects = createProjectsJob(p);					
+						processNewProjects.schedule();
+					}
 					return false;
 				}
 			}
@@ -893,9 +899,12 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 				    addedWsil((IFile)resource);
 				else if (resource.getName().equals(J2EEConstants.WEB_SERVICES_CLIENT_SHORTNAME) ||
 						resource.getName().equals(J2EEConstants.WEB_SERVICES_DD_URI)) {
-					Job job = new ProcessProjectsWithWSDL(resource.getProject(), EditModelEvent.LOADED_RESOURCE);
-					job.setRule(resource.getProject());
-					job.schedule();
+					if (processNewProjects != null && (processNewProjects.getState() == Job.WAITING))
+						processNewProjects.addProject(resource.getProject());
+					else {
+						processNewProjects = createProjectsJob(resource.getProject());					
+						processNewProjects.schedule();
+					}
 				}	
 			} 
 			// Handle WSIL or WSDL file removals
@@ -908,21 +917,40 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		return true;
 	}
 
+	private ProcessProjectsWithWSDL createProjectsJob(IProject p) {
+		Set newSet = new HashSet();
+		newSet.add(p);
+		ProcessProjectsWithWSDL job = new ProcessProjectsWithWSDL(newSet, EditModelEvent.ADDED_RESOURCE);
+		job.setRule(p.getWorkspace().getRoot());
+		return job;
+	}
+
 	private class ProcessProjectsWithWSDL extends Job
 	{
-		private IProject currentProject;
+		private Set currentProjects;
 		private int eventType;
 		
-		public ProcessProjectsWithWSDL(IProject p, int newEventType)
+		public ProcessProjectsWithWSDL(Set p, int newEventType)
 		{
 			super("Loading artifact edit for project");
-			currentProject = p;
+			currentProjects = p;
 			eventType = newEventType;
 		}
 		
+		public void addProject(IProject p) {
+			synchronized(currentProjects) {
+				currentProjects.add(p);
+			}
+		}
+
 		protected IStatus run(IProgressMonitor monitor) {
-			addArtifactEdit(currentProject);
+			for (Iterator iterator = currentProjects.iterator(); iterator.hasNext();) {
+				IProject currentProject = (IProject) iterator.next();
+				addArtifactEdit(currentProject);
+			}
 			notifyListeners(eventType);
+			// Null out job for processing new projects
+			processNewProjects = null;
 			return Status.OK_STATUS;
 		}
 	}
