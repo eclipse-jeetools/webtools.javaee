@@ -36,7 +36,8 @@ public abstract class AbstractArchiveSaveAdapter extends AbstractArchiveAdapter 
 		Exception caughtException = null;
 		try {
 			monitor.beginTask("Saving resources", TOTAL_TICKS);
-			List<IArchiveResource> files = getArchive().getArchiveResources();
+			
+			List<IArchiveResource> files = getArchiveResourcesForSave();
 			monitor.worked(GATHER_RESOURCES_TICKS);
 			IProgressMonitor saveSubMonitor = new SubProgressMonitor(monitor, SAVE_RESOURCES_TICKS);
 			int SUB_SAVE_TICKS = 10;
@@ -66,6 +67,11 @@ public abstract class AbstractArchiveSaveAdapter extends AbstractArchiveAdapter 
 				}
 			}
 		}
+	}
+
+	protected List<IArchiveResource> getArchiveResourcesForSave() {
+		List<IArchiveResource> files = getArchive().getArchiveResources();
+		return files;
 	}
 
 	/**
