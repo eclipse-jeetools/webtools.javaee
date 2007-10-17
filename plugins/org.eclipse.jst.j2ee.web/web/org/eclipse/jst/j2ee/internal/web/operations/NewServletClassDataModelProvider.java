@@ -456,7 +456,7 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 			if (isValidValue != null && isValidValue.length() > 0) {
 				NLS.bind(WebMessages.ERR_SERVLET_MAPPING_URL_PATTERN_INVALID, isValidValue);
 				String resourceString = WebMessages.getResourceString(WebMessages.ERR_SERVLET_MAPPING_URL_PATTERN_INVALID, new String[]{isValidValue});
-				return WTPCommonPlugin.createWarningStatus(resourceString);
+				return WTPCommonPlugin.createErrorStatus(resourceString);
 			}
 		} else {
 			String msg = WebMessages.ERR_SERVLET_MAPPING_URL_PATTERN_EMPTY;
@@ -479,22 +479,49 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		if (prop == null) {
 			return "";
 		}
-		String urlPatternValue = "";
 		int size = prop.size();
 		for (int i = 0; i < size; i++) {
 			String urlMappingValue = ((String[]) prop.get(i))[0];
-			// correct pattern beginning with a ‘/’
-			boolean isSlashCorrect = urlMappingValue.startsWith("/");
-			// correct pattern beginning with a ‘*.’
-			boolean isAsteriskCorrect = urlMappingValue.startsWith("*.") && urlMappingValue.length() > 2;
-			
-			if (!isSlashCorrect && !isAsteriskCorrect) {
-				// no correct pattern
-				urlPatternValue = urlMappingValue;
-				break;
+			if (!isURLPatternValid(urlMappingValue))
+				return urlMappingValue;
+		}
+		return "";
+	}
+	
+	private boolean isURLPatternValid(String urlPattern) {
+		// URL Pattern must not be empty string
+		if (urlPattern.length() == 0)
+			return false;
+		
+		// URL Pattern must not contain Carriage Return characters
+		if (urlPattern.indexOf('\r') != -1) 
+			return false;
+		
+		// URL Pattern must not contain New Line characters
+		if (urlPattern.indexOf('\n') != -1) 
+			return false;
+		
+		// Path Mappings must not contain "*." character sequences
+		if (urlPattern.startsWith("/")) {
+			if (urlPattern.indexOf("*.") == -1) {
+				return true;
+			} else {
+				return false;
 			}
 		}
-		return urlPatternValue;
+		
+		// Extension Mappings must not contain '/' characters
+		if (urlPattern.startsWith("*.")) {
+			if (urlPattern.indexOf('/') == -1) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		// The URL Pattern is neither a Path Mapping, nor Extension Mapping
+		// Therefore, it is invalid
+		return false;
 	}
 
 
