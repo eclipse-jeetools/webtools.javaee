@@ -92,7 +92,6 @@
       <import plugin="org.eclipse.ui.workbench" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.emf.edit" version="2.2.0"/>
       <import plugin="org.eclipse.jst.ejb.ui" version="1.1.0" match="equivalent"/>
-      <import plugin="org.eclipse.jst.servlet.ui" version="1.1.0" match="equivalent"/>
       <import plugin="org.eclipse.jst.j2ee.jca.ui" version="1.1.0" match="equivalent"/>
       <import plugin="org.eclipse.jst.common.project.facet.core" version="1.1.0" match="equivalent"/>
       <import plugin="org.eclipse.core.expressions" version="3.2.0" match="compatible"/>
