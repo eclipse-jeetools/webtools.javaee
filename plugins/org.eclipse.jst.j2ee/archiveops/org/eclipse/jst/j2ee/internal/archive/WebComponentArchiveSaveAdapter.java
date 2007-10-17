@@ -11,7 +11,9 @@
 package org.eclipse.jst.j2ee.internal.archive;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
@@ -111,5 +113,20 @@ public class WebComponentArchiveSaveAdapter extends J2EEComponentArchiveSaveAdap
 		}
 		
 		return true;
+	}
+	
+	@Override
+	protected List<IArchiveResource> getArchiveResourcesForSave() {
+		List <IArchiveResource> sortedFiles = new ArrayList <IArchiveResource>();
+		int classIndex = 0;
+		for(IArchiveResource resource : super.getArchiveResourcesForSave()){
+			if(resource.getPath().lastSegment().endsWith(DOT_CLASS)){
+				sortedFiles.add(classIndex++, resource);
+			}
+			else {
+				sortedFiles.add(resource);
+			}
+		}
+		return sortedFiles;
 	}
 }
