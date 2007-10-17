@@ -60,7 +60,19 @@
          <description>
             %ServletWebRegionWizard.description
          </description>
-      </wizard>      
+      </wizard>
+      
+      <!--new listener contribution-->
+ 	  <wizard
+            name="%ListenerWebRegionWizard.name"
+            icon="icons/full/ctool16/newlistener_wiz.gif"
+            category="org.eclipse.wst.web.ui"
+            class="org.eclipse.jst.servlet.ui.internal.wizard.AddListenerWizard"
+            id="org.eclipse.jst.servlet.ui.internal.wizard.AddListenerWizard">
+         <description>
+            %ListenerWebRegionWizard.description
+         </description>
+      </wizard>
     </extension>
       
    <extension

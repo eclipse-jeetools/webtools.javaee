@@ -624,6 +624,20 @@
 				</or>
 			</enablement>
 		</commonWizard>
+		<!-- New Listener -->
+		<commonWizard
+        menuGroupId="org.eclipse.wst.web.ui"
+        type="new"
+        wizardId="org.eclipse.jst.servlet.ui.internal.wizard.AddListenerWizard">
+			<enablement>
+				<or>
+					<instanceof
+						value="org.eclipse.jst.j2ee.webapplication.WebApp" />
+					<instanceof
+						value="org.eclipse.jst.j2ee.internal.war.ui.util.WebListenerGroupItemProvider" />
+				</or>
+			</enablement>
+		</commonWizard>
 
 		<!-- The contribution of the New *.jsp wizard to Files, Folders, and Projects 
 			is handled in org.eclipse.jst.jsp.ui. This contribution adds the 

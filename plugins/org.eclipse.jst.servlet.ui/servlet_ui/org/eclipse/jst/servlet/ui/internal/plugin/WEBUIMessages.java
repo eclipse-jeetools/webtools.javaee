@@ -103,12 +103,25 @@ public class WEBUIMessages extends NLS {
 	public static String WEB_CONT_PAGE_DESCRIPTION;
 	public static String JAVA_CLASS_INTERFACES_LABEL;
 	public static String WEBCONTENT;
+	public static String SELECT_ALL_BUTTON;
+	public static String CLEAR_BUTTON;
 	
 	public static String Compressed_Libraries;
 	public static String Compressed_JavaResources;
 	
 	public static String ConvertToWebTitle;
 	public static String SelectWebVersion;
+	
+	public static String ADD_LISTENER_WIZARD_WINDOW_TITLE;
+	public static String ADD_LISTENER_WIZARD_PAGE_TITLE;
+	public static String ADD_LISTENER_WIZARD_PAGE_DESC;
+	public static String ADD_LISTENER_WIZARD_SERVLET_CONTEXT_EVENTS;
+	public static String ADD_LISTENER_WIZARD_HTTP_SESSION_EVENTS;
+	public static String ADD_LISTENER_WIZARD_SERVLET_REQUEST_EVENTS;
+	public static String ADD_LISTENER_WIZARD_LIFECYCLE;
+	public static String ADD_LISTENER_WIZARD_CHANGES_TO_ATTRIBUTES;
+	public static String ADD_LISTENER_WIZARD_SESSION_MIGRATION;
+	public static String ADD_LISTENER_WIZARD_OBJECT_BINDING;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, WEBUIMessages.class);

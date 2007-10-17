@@ -1,0 +1,43 @@
+<% CreateListenerTemplateModel model = (CreateListenerTemplateModel) argument; 
+if (model.getJavaPackageName()!=null && model.getJavaPackageName()!="") { %>package <%=model.getJavaPackageName()%>;<%}%>
+
+<% if (model.implementServletContextListener()) { %>
+import javax.servlet.ServletContextListener;
+import javax.servlet.ServletContextEvent;
+<% } %>
+<% if (model.implementServletContextAttributeListener()) { %>
+import javax.servlet.ServletContextAttributeListener;
+import javax.servlet.ServletContextAttributeEvent;
+<% } %>
+<% if (model.implementHttpSessionListener()) { %>
+import javax.servlet.http.HttpSessionListener;
+import javax.servlet.http.HttpSessionEvent;
+<% } %>
+<% if (model.implementHttpSessionAttributeListener()) { %>
+import javax.servlet.http.HttpSessionAttributeListener;
+import javax.servlet.http.HttpSessionBindingEvent;
+<% } %>
+<% if (model.implementHttpSessionActivationListener()) { %>
+import javax.servlet.http.HttpSessionActivationListener;
+<% if (!model.implementHttpSessionListener()) { %>
+import javax.servlet.http.HttpSessionEvent;
+<% } } %>
+<% if (model.implementHttpSessionBindingListener()) { %>
+import javax.servlet.http.HttpSessionBindingListener;
+<% if (!model.implementHttpSessionAttributeListener()) { %>
+import javax.servlet.http.HttpSessionBindingEvent;
+<% } } %>
+<% if (model.implementServletRequestListener()) { %>
+import javax.servlet.ServletRequestListener;
+import javax.servlet.ServletRequestEvent;
+<% } %>
+<% if (model.implementServletRequestAttributeListener()) { %>
+import javax.servlet.ServletRequestAttributeListener;
+import javax.servlet.ServletRequestAttributeEvent;
+<% } %>
+
+/**
+ * Application Lifecycle Listener implementation class <%=model.getListenerClassName()%>
+ *
+ */
+ 
