@@ -315,6 +315,8 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 
 		public RemoveWebServicesNodeUIJob() {
 			super(WebServiceUIResourceHandler.WS_NAV_JOB4);
+			// [204833]
+			setRule(ResourcesPlugin.getWorkspace().getRoot());
 		}
 
 		public IStatus runInUIThread(IProgressMonitor monitor) { 
