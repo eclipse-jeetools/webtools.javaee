@@ -246,7 +246,10 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 	
 		public WebServiceIndexJob() {
 			super(WebServiceUIResourceHandler.WS_NAV_JOB0);
-			setRule(new NonConflictingRule());
+			// [204833]
+			//setRule(new NonConflictingRule());
+			setRule(ResourcesPlugin.getWorkspace().getRoot());
+			setSystem(true);
 		}
 
 		protected IStatus run(IProgressMonitor monitor) {
@@ -317,6 +320,7 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 			super(WebServiceUIResourceHandler.WS_NAV_JOB4);
 			// [204833]
 			setRule(ResourcesPlugin.getWorkspace().getRoot());
+			setSystem(true);
 		}
 
 		public IStatus runInUIThread(IProgressMonitor monitor) { 
