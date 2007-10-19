@@ -17,7 +17,8 @@ Export-Package: org.eclipse.jst.j2ee.internal.web.archive.operations;x-internal:
  org.eclipse.jst.j2ee.internal.web.validation;x-internal:=true,
  org.eclipse.jst.j2ee.web.componentcore.util,
  org.eclipse.jst.j2ee.web.datamodel.properties,
- org.eclipse.jst.j2ee.web.project.facet
+ org.eclipse.jst.j2ee.web.project.facet,
+ org.eclipse.jst.j2ee.web.validation
 Require-Bundle: org.eclipse.jst.j2ee;bundle-version="[1.1.0,1.2.0)",
  org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.wst.server.core;bundle-version="[1.0.102,1.1.0)",

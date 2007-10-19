@@ -28,6 +28,7 @@ import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProv
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.web.validation.UrlPattern;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -482,49 +483,12 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		int size = prop.size();
 		for (int i = 0; i < size; i++) {
 			String urlMappingValue = ((String[]) prop.get(i))[0];
-			if (!isURLPatternValid(urlMappingValue))
+			if (!UrlPattern.isValid(urlMappingValue))
 				return urlMappingValue;
 		}
 		return "";
 	}
 	
-	private boolean isURLPatternValid(String urlPattern) {
-		// URL Pattern must not be empty string
-		if (urlPattern.length() == 0)
-			return false;
-		
-		// URL Pattern must not contain Carriage Return characters
-		if (urlPattern.indexOf('\r') != -1) 
-			return false;
-		
-		// URL Pattern must not contain New Line characters
-		if (urlPattern.indexOf('\n') != -1) 
-			return false;
-		
-		// Path Mappings must not contain "*." character sequences
-		if (urlPattern.startsWith("/")) {
-			if (urlPattern.indexOf("*.") == -1) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-		
-		// Extension Mappings must not contain '/' characters
-		if (urlPattern.startsWith("*.")) {
-			if (urlPattern.indexOf('/') == -1) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-		
-		// The URL Pattern is neither a Path Mapping, nor Extension Mapping
-		// Therefore, it is invalid
-		return false;
-	}
-
-
 	/**
 	 * This method is intended for internal use only. It provides a simple algorithm for detecting
 	 * if there are duplicate entries in a list. It will accept a null paramter. It will not return
