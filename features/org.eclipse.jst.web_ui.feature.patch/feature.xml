@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.jst.web_ui.feature.patch"
+      label="%featureName"
+      version="1.5.5.qualifier"
+      provider-name="%providerName">
+
+   <description>
+      %description
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <requires>
+      <import feature="org.eclipse.jst.web_ui.feature" version="1.5.5.v200708020120--2PD88Q8T9FAIAH" patch="true"/>
+   </requires>
+
+</feature>
