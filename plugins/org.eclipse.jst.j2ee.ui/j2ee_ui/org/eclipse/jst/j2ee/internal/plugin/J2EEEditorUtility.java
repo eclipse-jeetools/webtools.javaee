@@ -93,11 +93,7 @@ public class J2EEEditorUtility {
 		if (comp == null)
 			return null;
 		IEditorInput input = null;
-		try {
-			input = EditorUtility.getEditorInput(comp);
-		} catch (JavaModelException ex) {
-			return null;
-		}
+		input = EditorUtility.getEditorInput(comp);
 		if (input != null) {
 			return (IFile) input.getAdapter(IFile.class);
 		}
