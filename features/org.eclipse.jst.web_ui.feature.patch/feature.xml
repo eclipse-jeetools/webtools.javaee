@@ -21,4 +21,25 @@
       <import feature="org.eclipse.jst.web_ui.feature" version="1.5.5.v200708020120--2PD88Q8T9FAIAH" patch="true"/>
    </requires>
 
+   <plugin
+         id="org.eclipse.wst.sse.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.wst.html.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jst.jsp.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>
