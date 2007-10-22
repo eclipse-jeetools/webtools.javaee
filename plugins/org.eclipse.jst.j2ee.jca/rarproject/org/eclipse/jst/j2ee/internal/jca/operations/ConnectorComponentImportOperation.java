@@ -27,6 +27,7 @@ import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelPr
 import org.eclipse.jst.j2ee.internal.archive.operations.ConnectorComponentSaveStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperation;
 import org.eclipse.jst.jee.archive.IArchive;
+import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -48,14 +49,14 @@ public class ConnectorComponentImportOperation extends J2EEArtifactImportOperati
 	 * Adds all jar within the file to the classpath.
 	 */
 	protected void addAssociateArchivesToClassPath() {
-		List extraEntries = new ArrayList();
+		List <IClasspathEntry> extraEntries = new ArrayList <IClasspathEntry> ();
 		
-		List <IArchive> nestedArchives = ((IArchive)archiveWrapper.getUnderLyingArchive()).getNestedArchives();
+		List <IArchiveResource> archiveResources = ((IArchive)archiveWrapper.getUnderLyingArchive()).getArchiveResources();
 		IVirtualFile vFile = null;
 		IFile file = null;
-		for(IArchive nestedArchive : nestedArchives){
-			if(nestedArchive.getPath().lastSegment().endsWith(JAR_EXTENSION)){
-				vFile = virtualComponent.getRootFolder().getFile(nestedArchive.getPath());
+		for(IArchiveResource archiveResource : archiveResources){
+			if(archiveResource.getPath().lastSegment().endsWith(JAR_EXTENSION)){
+				vFile = virtualComponent.getRootFolder().getFile(archiveResource.getPath());
 				if (vFile.exists()) {
 					file = vFile.getUnderlyingFile();
 					extraEntries.add(JavaCore.newLibraryEntry(file.getFullPath(), file.getFullPath(), null, true));
