@@ -72,6 +72,13 @@
    </requires>
 
    <plugin
+         id="org.eclipse.wst.jsdt.web.support.jsp"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
          id="org.eclipse.jem.ui"
          download-size="0"
          install-size="0"
