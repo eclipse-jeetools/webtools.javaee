@@ -106,8 +106,34 @@ public final class WebComponentImportDataModelProvider extends J2EEComponentImpo
 			FacetDataModelMap map = (FacetDataModelMap) creationModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 			IDataModel webFacetDataModel = map.getFacetDataModel( J2EEProjectUtilities.DYNAMIC_WEB );
 			webFacetDataModel.setStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT, (String)propertyValue);
+		}else if(propertyName.equals(WEB_LIB_ARCHIVES_SELECTED)) {
+			validateLibModelRuntimes();
 		}
 		return true;
+	}
+
+	public IStatus validate(String propertyName) {
+		if(FACET_RUNTIME.equals(propertyName)){
+			super.validate(propertyName);
+			return validateLibModelRuntimes();
+		}
+		return super.validate(propertyName);
+	}
+	
+	private IStatus validateLibModelRuntimes() {
+		List libArchives = (List)getProperty(WEB_LIB_ARCHIVES_SELECTED);
+		List libModels = (List)getProperty(WEB_LIB_MODELS);
+		IStatus status = OK_STATUS;
+		for (int i=0; i < libModels.size(); i++) {
+			IDataModel libModel = (IDataModel)libModels.get(i);
+			if (libArchives.contains(libModel.getProperty(FILE))){
+				status = libModel.validateProperty(FACET_RUNTIME);
+			}
+			if(!status.isOK()){
+				return status;
+			}
+		}
+		return status;
 	}
 
 	protected Archive openArchive(String uri) throws OpenFailureException {
