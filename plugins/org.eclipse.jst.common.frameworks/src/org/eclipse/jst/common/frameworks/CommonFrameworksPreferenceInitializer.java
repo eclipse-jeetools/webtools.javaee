@@ -10,27 +10,62 @@
  *******************************************************************************/
 package org.eclipse.jst.common.frameworks;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
-import org.eclipse.wst.project.facet.IProductConstants;
-import org.eclipse.wst.project.facet.ProductManager;
-
-
 
 public class CommonFrameworksPreferenceInitializer extends
 		AbstractPreferenceInitializer {
 
-	public CommonFrameworksPreferenceInitializer() {
+    private static final String DEFAULT_SOURCE_FOLDER_VALUE = "src"; //$NON-NLS-1$
+    private static final String DEFAULT_OUTPUT_FOLDER_VALUE = "build/classes"; //$NON-NLS-1$
+
+    public CommonFrameworksPreferenceInitializer() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public void initializeDefaultPreferences() {
 		IEclipsePreferences node = new DefaultScope().getNode(CommonFrameworksPlugin.getDefault().getBundle().getSymbolicName());
 		
-		// migration preferences
-		node.put(CommonFrameworksPlugin.DEFAULT_SOURCE_FOLDER, ProductManager.getProperty(IProductConstants.DEFAULT_SOURCE_FOLDER));
-		node.put(CommonFrameworksPlugin.OUTPUT_FOLDER, ProductManager.getProperty(IProductConstants.OUTPUT_FOLDER));
+		node.put(CommonFrameworksPlugin.DEFAULT_SOURCE_FOLDER, getDefaultSourceFolder());
+		node.put(CommonFrameworksPlugin.OUTPUT_FOLDER, getDefaultOutputFolder());
 	}
-
+	
+	private static String getDefaultSourceFolder()
+	{
+	    String res = getProductProperty( CommonFrameworksPlugin.DEFAULT_SOURCE_FOLDER );
+	    
+	    if( res == null )
+	    {
+	        res = DEFAULT_SOURCE_FOLDER_VALUE;
+	    }
+	    
+	    return res;
+	}
+	
+	private static String getDefaultOutputFolder()
+	{
+        String res = getProductProperty( CommonFrameworksPlugin.OUTPUT_FOLDER );
+        
+        if( res == null )
+        {
+            res = DEFAULT_OUTPUT_FOLDER_VALUE;
+        }
+        
+        return res;
+	}
+	
+	private static String getProductProperty( final String propName )
+	{
+        String value = null;
+        
+        if( Platform.getProduct() != null )
+        {
+            value = Platform.getProduct().getProperty( propName );
+        }
+        
+        return value;
+	}
+	
 }
