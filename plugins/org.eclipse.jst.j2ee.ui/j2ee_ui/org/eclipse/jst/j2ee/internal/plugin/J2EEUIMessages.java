@@ -126,6 +126,8 @@ public class J2EEUIMessages extends Messages {
 	public static final String MODULE_VERSION_LABEL = "100"; //$NON-NLS-1$
 
 	public static final String J2EE_UTILITY_JAR_LISTEAR_IMPORT_SELECT_UTIL_JARS_TO_BE_PROJECTS = "97"; //$NON-NLS-1$
+	
+	public static final String J2EE_EXPORT_RUNTIME = "103"; //$NON-NLS-1$
 
 	public static final String FLEXIBLE_PROJECT_WIZ_TITLE = "FlexibleProjectCreationWizard.title"; //$NON-NLS-1$
 	public static final String FLEXIBLE_PROJECT_MAIN_PG_TITLE = "FlexibleProjectCreationWizard.mainPage.title"; //$NON-NLS-1$

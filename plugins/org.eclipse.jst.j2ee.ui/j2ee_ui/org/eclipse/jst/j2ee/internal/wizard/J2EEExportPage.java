@@ -20,8 +20,8 @@ package org.eclipse.jst.j2ee.internal.wizard;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.Dialog;
@@ -61,8 +61,10 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 	private static final String SOURCE_LABEL = "SOURCE"; //$NON-NLS-1$
 	protected static final String defBrowseButtonLabel = J2EEUIMessages.getResourceString(J2EEUIMessages.BROWSE_LABEL);
 	protected String LABEL_DESTINATION = J2EEUIMessages.getResourceString(J2EEUIMessages.J2EE_EXPORT_DESTINATION);
+	protected String LABEL_RUNTIME = J2EEUIMessages.getResourceString(J2EEUIMessages.J2EE_EXPORT_RUNTIME);
 	private Combo resourceNameCombo;
 	private Combo destinationNameCombo;
+	private Combo runtimeNameCombo;
 	private Button destinationBrowseButton;
 	protected Button overwriteExistingFilesCheckbox;
 	private Button sourceFilesCheckbox;
@@ -133,6 +135,7 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 		composite.setLayout(layout);
 		createExportComponentGroup(composite);
 		createDestinationGroup(composite);
+		createRuntimeGroup(composite);
 
 	}
     /**
@@ -144,6 +147,7 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
      * @see org.eclipse.swt.widgets.Composite
      */
     protected void createExportComponentGroup(Composite parent) {
+    	
         //Project label
         Label projectLabel = new Label(parent, SWT.NONE);
         projectLabel.setText(getComponentLabel());
@@ -153,6 +157,8 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
         data.widthHint = SIZING_TEXT_FIELD_WIDTH;
         resourceNameCombo.setLayoutData(data);
         synchHelper.synchCombo(resourceNameCombo, IJ2EEComponentExportDataModelProperties.PROJECT_NAME, null);
+
+        	
         new Label(parent, SWT.NONE);//Pad label
     }
 
@@ -183,6 +189,18 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
         destinationBrowseButton.setEnabled(true);
 
     }
+    
+    protected void createRuntimeGroup(org.eclipse.swt.widgets.Composite parent) {
+    	// Create runtime label
+    	Label runtimeLabel = new Label(parent, SWT.NONE);
+    	runtimeLabel.setText(LABEL_RUNTIME);
+    	// Create runtime combo
+        runtimeNameCombo = new Combo(parent, SWT.READ_ONLY | SWT.SINGLE | SWT.BORDER);
+        GridData data = new GridData(GridData.FILL_HORIZONTAL);
+        data.widthHint = SIZING_TEXT_FIELD_WIDTH;
+        runtimeNameCombo.setLayoutData(data);
+        synchHelper.synchCombo(runtimeNameCombo, IJ2EEComponentExportDataModelProperties.RUNTIME, null);
+	}
     
     /**
      * Create the export options specification widgets.

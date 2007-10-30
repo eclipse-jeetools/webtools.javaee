@@ -40,6 +40,7 @@ public final class EARArchiveOpsResourceHandler extends NLS {
 	public static String _jar_UI_;
 	public static String Updating_manifest_Class_Path__attributes_UI_;
 	public static String _preDeploy_ERROR_;
+	public static String noRuntimeSelectedLabel;
 	public static String MISSING_CLIENT_JAR;
 
 	static {
