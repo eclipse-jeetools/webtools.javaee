@@ -22,7 +22,6 @@ import org.eclipse.jst.j2ee.internal.webservice.helper.WebServiceManagerListener
 import org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager;
 import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServiceUIPlugin;
 import org.eclipse.jst.j2ee.navigator.internal.IJ2EENavigatorConstants;
-import org.eclipse.jst.j2ee.navigator.internal.NonConflictingRule;
 import org.eclipse.ui.progress.UIJob;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
 import org.eclipse.wst.common.project.facet.core.internal.FacetedProjectPropertyTester;
@@ -246,7 +245,10 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 	
 		public WebServiceIndexJob() {
 			super(WebServiceUIResourceHandler.WS_NAV_JOB0);
-			setRule(new NonConflictingRule());
+			// [204833]
+			//setRule(new NonConflictingRule());
+			setRule(ResourcesPlugin.getWorkspace().getRoot());
+			setSystem(true);
 		}
 
 		protected IStatus run(IProgressMonitor monitor) {
@@ -317,6 +319,7 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 			super(WebServiceUIResourceHandler.WS_NAV_JOB4);
 			// [204833]
 			setRule(ResourcesPlugin.getWorkspace().getRoot());
+			setSystem(true);
 		}
 
 		public IStatus runInUIThread(IProgressMonitor monitor) { 
