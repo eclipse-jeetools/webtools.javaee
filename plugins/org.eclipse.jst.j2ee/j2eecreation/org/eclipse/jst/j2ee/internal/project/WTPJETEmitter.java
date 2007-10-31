@@ -42,6 +42,7 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -50,6 +51,8 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.emf.codegen.CodeGenPlugin;
 import org.eclipse.emf.codegen.jet.JETCompiler;
 import org.eclipse.emf.codegen.jet.JETEmitter;
@@ -298,6 +301,10 @@ public class WTPJETEmitter extends JETEmitter {
 
 		// appended from previous implementation
 		createClasspathEntries(project);
+		
+		IScopeContext context = new ProjectScope( project );
+		IEclipsePreferences prefs = context.getNode( JavaCore.PLUGIN_ID );
+		prefs.put( JavaCore.COMPILER_PB_RAW_TYPE_REFERENCE, JavaCore.IGNORE );
 	}
 
 	/**
