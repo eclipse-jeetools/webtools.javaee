@@ -214,7 +214,8 @@ public class EARExportOperationTest extends JEEExportOperationTest {
 		IArchive earArchive = null;
 		try {
 			IDataModel exportModel = getExportDataModel(projectName, destination, true, true, true);
-			runAndVerify(exportModel);
+			//IMPROVE PERFORMENCE: don't need to verify export model again here, its already bean done in other tests
+			runDataModel(exportModel);
 			
 			earArchive = JavaEEArchiveUtilities.INSTANCE.openArchive(new Path(destination));
 			List<IArchiveResource> resources = earArchive.getArchiveResources();
@@ -254,7 +255,8 @@ public class EARExportOperationTest extends JEEExportOperationTest {
 					referencedArchiveExportModel = JCAExportOperationTest.getRARExportDataModel(referencedArchiveProjectName, referencedArchiveDestination, true, true, true);
 				}
 				
-				runAndVerify(referencedArchiveExportModel);
+				//IMPROVE PERFORMENCE: don't need to verify export model again here, its already bean done in other tests
+				runDataModel(referencedArchiveExportModel);
 				
 				referencedProjectsArchiveMap.put(referencedArchiveProjectName, new Path(referencedArchiveDestination));
 			}

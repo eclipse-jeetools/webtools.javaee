@@ -88,7 +88,6 @@ public abstract class JEEExportOperationTest extends OperationTestCase {
 		String archiveName = this.getClass().getSimpleName() + "_" + this.getName() + "_Defaults" + getModuleExtension();
 		String destination = getDataPath(archiveName);
 		
-
 		IDataModel exportModel = getExportDataModel(projectName, destination, false, true, false);
 		runAndVerify(exportModel);
 		
@@ -150,7 +149,8 @@ public abstract class JEEExportOperationTest extends OperationTestCase {
 		
 		try {
 			IDataModel exportModel = getExportDataModel(projectName, destination, false, true, false);
-			runAndVerify(exportModel);
+			//IMPROVE PERFORMENCE: don't need to verify export model again here, its already bean done in other tests
+			runDataModel(exportModel);
 		
 			IDataModel exportModelOverwrite = getExportDataModel(projectName, destination, false, true, false);
 			IStatus status = exportModelOverwrite.validate();
@@ -171,7 +171,8 @@ public abstract class JEEExportOperationTest extends OperationTestCase {
 		
 		try {
 			IDataModel exportModel = getExportDataModel(projectName, destination, false, true, true);
-			runAndVerify(exportModel);
+			//IMPROVE PERFORMENCE: don't need to verify export model again here, its already bean done in other tests
+			runDataModel(exportModel);
 			
 			IDataModel exportModelOverwrite = getExportDataModel(projectName, destination, false, true, true);
 			IStatus status = exportModelOverwrite.validate();

@@ -160,7 +160,8 @@ public abstract class JEEImportOperationTest extends OperationTestCase {
 		try {
 			IDataModel exportModel = getExportDataModel(projectName, exportDestination, exportSource, runBuild, true);
 
-			OperationTestCase.runAndVerify(exportModel);
+			//IMPROVE PERFORMENCE: don't need to verify export model again here, its already bean done in other tests
+			runDataModel(exportModel);
 			
 			importedArchive = JavaEEArchiveUtilities.INSTANCE.openArchive(new Path(importedArchivePath));
 			exportedArchive = JavaEEArchiveUtilities.INSTANCE.openArchive(new Path(exportDestination));

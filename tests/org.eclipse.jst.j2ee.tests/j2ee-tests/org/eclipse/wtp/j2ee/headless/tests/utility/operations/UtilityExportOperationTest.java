@@ -47,7 +47,8 @@ public class UtilityExportOperationTest extends ModuleExportOperationTest {
 	
     public void testUtilityExport_AddToExisitingEAR12() throws Exception {
     	IDataModel earModel = EARProjectCreationOperationTest.getEARDataModel(EAR_PROJECT_NAME, null, null, null, JavaEEFacetConstants.EAR_12, true);
-    	OperationTestCase.runAndVerify(earModel);
+    	//IMPROVE PERFORMENCE: don't need to verify export model again here, its already bean done in other tests
+		runDataModel(earModel);
     	
     	IDataModel dm = UtilityProjectCreationOperationTest.getUtilityDataModel("cJavaUtility", EAR_PROJECT_NAME);
     	OperationTestCase.runAndVerify(dm);
@@ -57,7 +58,8 @@ public class UtilityExportOperationTest extends ModuleExportOperationTest {
     
     public void testUtilityExport_AddToExisitingEAR13() throws Exception {
     	IDataModel earModel = EARProjectCreationOperationTest.getEARDataModel(EAR_PROJECT_NAME, null, null, null, JavaEEFacetConstants.EAR_13, true);
-    	OperationTestCase.runAndVerify(earModel);
+    	//IMPROVE PERFORMENCE: don't need to verify export model again here, its already bean done in other tests
+		runDataModel(earModel);
     	
     	IDataModel dm = UtilityProjectCreationOperationTest.getUtilityDataModel("dJavaUtility", EAR_PROJECT_NAME);
     	OperationTestCase.runAndVerify(dm);
@@ -67,7 +69,8 @@ public class UtilityExportOperationTest extends ModuleExportOperationTest {
     
     public void testUtilityExport_AddToExisitingEAR14() throws Exception {
     	IDataModel earModel = EARProjectCreationOperationTest.getEARDataModel(EAR_PROJECT_NAME, null, null, null, JavaEEFacetConstants.EAR_14, true);
-    	OperationTestCase.runAndVerify(earModel);
+    	//IMPROVE PERFORMENCE: don't need to verify export model again here, its already bean done in other tests
+		runDataModel(earModel);
     	
     	IDataModel dm = UtilityProjectCreationOperationTest.getUtilityDataModel("eJavaUtility", EAR_PROJECT_NAME);
     	OperationTestCase.runAndVerify(dm);
@@ -77,7 +80,8 @@ public class UtilityExportOperationTest extends ModuleExportOperationTest {
     
     public void testUtilityExport_AddToExisitingEAR5_WithoutDD() throws Exception {
     	IDataModel earModel = EARProjectCreationOperationTest.getEARDataModel(EAR_PROJECT_NAME, null, null, null, JavaEEFacetConstants.EAR_5, false);
-    	OperationTestCase.runAndVerify(earModel);
+    	//IMPROVE PERFORMENCE: don't need to verify export model again here, its already bean done in other tests
+		runDataModel(earModel);
     	
     	IDataModel dm = UtilityProjectCreationOperationTest.getUtilityDataModel("fJavaUtility", EAR_PROJECT_NAME);
     	OperationTestCase.runAndVerify(dm);
@@ -87,7 +91,8 @@ public class UtilityExportOperationTest extends ModuleExportOperationTest {
     
     public void testUtilityExport_AddToExisitingEAR5_WithDD() throws Exception {
     	IDataModel earModel = EARProjectCreationOperationTest.getEARDataModel(EAR_PROJECT_NAME, null, null, null, JavaEEFacetConstants.EAR_5, true);
-    	OperationTestCase.runAndVerify(earModel);
+    	//IMPROVE PERFORMENCE: don't need to verify export model again here, its already bean done in other tests
+		runDataModel(earModel);
     	
     	IDataModel dm = UtilityProjectCreationOperationTest.getUtilityDataModel("gJavaUtility", EAR_PROJECT_NAME);
     	OperationTestCase.runAndVerify(dm);
