@@ -342,7 +342,11 @@ public class ArchiveWrapper {
 						Application application = (Application) earArchive.getModelObject();
 						String moduleName = archive.getPath().toString();
 						Module module = (Module) application.getFirstModule(moduleName);
-						cachedWebContextRoot[0] = module.getWeb().getContextRoot();				
+						if(module != null){
+							cachedWebContextRoot[0] = module.getWeb().getContextRoot();
+						} else {
+							cachedWebContextRoot[0] = getDefaultContextRoot();
+						}
 					} catch (ArchiveModelLoadException e) {
 						Logger.getLogger().logError(e);
 					}
@@ -361,15 +365,19 @@ public class ArchiveWrapper {
 					}
 				}
 			} else {
-				//J2EE spec 8.3.1.3.c (pg 149)
-				String contextRoot = archive.getPath().toString();
-				contextRoot = contextRoot.substring(0, contextRoot.lastIndexOf('.'));
-				cachedWebContextRoot[0] = contextRoot;
+				cachedWebContextRoot[0] = getDefaultContextRoot();
 			}
 			return cachedWebContextRoot[0];
 		}
 		fail();
 		return null;
+	}
+
+	private String getDefaultContextRoot() {
+		//J2EE spec 8.3.1.3.c (pg 149)
+		String contextRoot = archive.getPath().toString();
+		contextRoot = contextRoot.substring(0, contextRoot.lastIndexOf('.'));
+		return contextRoot;
 	}
 
 	// This is an array so we can tell the difference between initialized and null vs not initialized
