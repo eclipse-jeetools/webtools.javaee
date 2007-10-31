@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.archive.emftests;
 
-import java.util.HashSet;
-
 import junit.framework.TestSuite;
 import junit.swingui.TestRunner;
 
@@ -20,20 +18,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
-import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.ApplicationResource;
 import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
-import org.eclipse.jst.j2ee.ejb.EjbFactory;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
+import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 
 
 public class EarEMFTest extends GeneralEMFPopulationTest {
@@ -45,33 +37,20 @@ public class EarEMFTest extends GeneralEMFPopulationTest {
     public EarEMFTest(String name) {
         super(name);
     }
-
-    public CommonarchiveFactory getArchiveFactory() {
-        return CommonarchivePackage.eINSTANCE.getCommonarchiveFactory();
+    
+    public EarEMFTest(String name, RendererFactory factory) {
+    	super(name, factory);
     }
-
-    public EjbFactory getEjbFactory() {
-        return EjbPackage.eINSTANCE.getEjbFactory();
-    }
-
-    public ApplicationFactory getApplicationFactory() {
-        return ApplicationPackage.eINSTANCE.getApplicationFactory();
-    }
-
-    public WebapplicationFactory getWebAppFactory() {
-        return WebapplicationPackage.eINSTANCE.getWebapplicationFactory();
-    }
-
+    
     public static void main(java.lang.String[] args) {
         String[] className = { "com.ibm.etools.archive.test.EarEMFTest", "-noloading" };
         TestRunner.main(className);
     }
-    public static junit.framework.Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.addTest(new EarEMFTest("testEARPopulation"));
-/* xsd problem - see bugzilla 152355
-		suite.addTest(new EarEMFTest("test14EARPopulation"));
-*/
+
+    public static junit.framework.Test suite(RendererFactory factory) {
+        TestSuite suite = new TestSuite(EarEMFTest.class.getName());
+        suite.addTest(new EarEMFTest("testEARPopulation", factory));
+		suite.addTest(new EarEMFTest("test14EARPopulation", factory));
         return suite;
     }
 
@@ -140,12 +119,6 @@ public class EarEMFTest extends GeneralEMFPopulationTest {
 		earFile = getArchiveFactory().openEARFile(in);
 		assertTrue(earFile.getDeploymentDescriptor() != null);
 	}
-	
-	public HashSet ignorableAttributes(){
-		HashSet set = new HashSet();
-		set.add("id");
-		return set;
-	}
 
     public EObject createInstance(EReference ref, EObject eObject) {
 		EClass eClassifier = (EClass)ref.getEType();
@@ -194,5 +167,4 @@ public class EarEMFTest extends GeneralEMFPopulationTest {
             return NUM_MODULES;
         return super.getDepthForAttribute(ref);
     }
-
 }

@@ -1,6 +1,5 @@
 package org.eclipse.jst.j2ee.archive.emftests;
 
-import java.util.HashSet;
 import java.util.List;
 
 import junit.framework.TestSuite;
@@ -10,24 +9,19 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.jst.j2ee.application.ApplicationFactory;
-import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
-import org.eclipse.jst.j2ee.ejb.EjbFactory;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.webapplication.ErrorPage;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.jst.j2ee.webapplication.WebType;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.internal.impl.FilterMappingImpl;
+import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 
 
 public class WarEMFEditTest extends GeneralEMFEditingTest {
@@ -40,30 +34,18 @@ public class WarEMFEditTest extends GeneralEMFEditingTest {
     public WarEMFEditTest(String name) {
         super(name);
     }
-
-    public CommonarchiveFactory getArchiveFactory() {
-        return CommonarchivePackage.eINSTANCE.getCommonarchiveFactory();
-    }
-
-    public EjbFactory getEjbFactory() {
-        return EjbPackage.eINSTANCE.getEjbFactory();
-    }
-
-    public ApplicationFactory getApplicationFactory() {
-        return ApplicationPackage.eINSTANCE.getApplicationFactory();
-    }
-
-    public WebapplicationFactory getWebAppFactory() {
-        return WebapplicationPackage.eINSTANCE.getWebapplicationFactory();
+    
+    public WarEMFEditTest(String name, RendererFactory factory) {
+    	super(name, factory);
     }
 
     public static void main(java.lang.String[] args) {
         String[] className = { "com.ibm.etools.archive.test.WarEMFTest", "-noloading" };
         TestRunner.main(className);
     }
-    public static junit.framework.Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.addTest(new WarEMFEditTest("testWAREdit"));
+    public static junit.framework.Test suite(RendererFactory factory) {
+        TestSuite suite = new TestSuite(WarEMFEditTest.class.getName());
+        suite.addTest(new WarEMFEditTest("testWAREdit",factory));
         return suite;
     }
 
@@ -153,11 +135,5 @@ public class WarEMFEditTest extends GeneralEMFEditingTest {
 			}
 		}
 		super.populateSharedReference(eObject, ref);
-	}
-	
-	public HashSet ignorableAttributes(){
-		HashSet set = new HashSet();
-		set.add("id");
-		return set;
 	}
 }

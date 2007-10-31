@@ -10,28 +10,19 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.archive.emftests;
 
-import java.util.HashSet;
-
 import junit.framework.TestSuite;
 import junit.swingui.TestRunner;
 
-import org.eclipse.jst.j2ee.application.ApplicationFactory;
-import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
 import org.eclipse.jst.j2ee.client.ApplicationClientResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
-import org.eclipse.jst.j2ee.ejb.EjbFactory;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
+import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 
 
 public class AppClientEMFTest extends GeneralEMFPopulationTest {
@@ -43,33 +34,20 @@ public class AppClientEMFTest extends GeneralEMFPopulationTest {
     public AppClientEMFTest(String name) {
         super(name);
     }
-
-    public CommonarchiveFactory getArchiveFactory() {
-        return CommonarchiveFactoryImpl.getActiveFactory();
+    
+    public AppClientEMFTest(String name, RendererFactory factory) {
+    	super(name, factory);
     }
-
-    public EjbFactory getEjbFactory() {
-        return EjbPackage.eINSTANCE.getEjbFactory();
-    }
-
-    public ApplicationFactory getApplicationFactory() {
-        return ApplicationPackage.eINSTANCE.getApplicationFactory();
-    }
-
-    public WebapplicationFactory getWebAppFactory() {
-        return WebapplicationPackage.eINSTANCE.getWebapplicationFactory();
-    }
-
+    
     public static void main(java.lang.String[] args) {
         String[] className = { "com.ibm.etools.archive.test.AppClientEMFTest", "-noloading" };
         TestRunner.main(className);
     }
-    public static junit.framework.Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.addTest(new AppClientEMFTest("testApplicationClientPopulation"));
-/* xsd problem - see bugzilla 152355
-        suite.addTest(new AppClientEMFTest("test14ApplicationClientPopulation"));
-*/
+
+    public static junit.framework.Test suite(RendererFactory factory) {
+        TestSuite suite = new TestSuite(AppClientEMFTest.class.getName());
+        suite.addTest(new AppClientEMFTest("testApplicationClientPopulation", factory));
+        suite.addTest(new AppClientEMFTest("test14ApplicationClientPopulation", factory));
         return suite;
     }
 
@@ -143,11 +121,4 @@ public class AppClientEMFTest extends GeneralEMFPopulationTest {
 		String in = AutomatedBVT.baseDirectory + "testOutput/TestAppEAR14/fooAPP";
 		appClientFile14 = getArchiveFactory().openApplicationClientFile(in);
 	}
-    
-    public HashSet ignorableAttributes(){
-    	HashSet set = new HashSet();
-    	set.add("id");
-    	return set;
-    }
-    
 }

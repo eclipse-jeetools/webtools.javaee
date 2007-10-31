@@ -1,24 +1,15 @@
 package org.eclipse.jst.j2ee.archive.emftests;
 
-import java.util.HashSet;
-
 import junit.framework.TestSuite;
 import junit.swingui.TestRunner;
 
-import org.eclipse.jst.j2ee.application.ApplicationFactory;
-import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
-import org.eclipse.jst.j2ee.ejb.EjbFactory;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.jca.ConnectorResource;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
+import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 
 
 public class RarEMFEditTest extends GeneralEMFEditingTest {
@@ -27,30 +18,19 @@ public class RarEMFEditTest extends GeneralEMFEditingTest {
     public RarEMFEditTest(String name) {
         super(name);
     }
-
-    public CommonarchiveFactory getArchiveFactory() {
-        return CommonarchivePackage.eINSTANCE.getCommonarchiveFactory();
+    
+    public RarEMFEditTest(String name, RendererFactory factory) {
+    	super(name, factory);
     }
-
-    public EjbFactory getEjbFactory() {
-        return EjbPackage.eINSTANCE.getEjbFactory();
-    }
-
-    public ApplicationFactory getApplicationFactory() {
-        return ApplicationPackage.eINSTANCE.getApplicationFactory();
-    }
-
-    public WebapplicationFactory getWebAppFactory() {
-        return WebapplicationPackage.eINSTANCE.getWebapplicationFactory();
-    }
-
+    
     public static void main(java.lang.String[] args) {
         String[] className = { "com.ibm.etools.archive.test.RarEMFEditTest", "-noloading" };
         TestRunner.main(className);
     }
-    public static junit.framework.Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.addTest(new RarEMFEditTest("testRAREdit"));
+
+    public static junit.framework.Test suite(RendererFactory factory) {
+        TestSuite suite = new TestSuite(RarEMFEditTest.class.getName());
+        suite.addTest(new RarEMFEditTest("testRAREdit",factory));
         return suite;
     }
 
@@ -80,9 +60,4 @@ public class RarEMFEditTest extends GeneralEMFEditingTest {
         rarFile = getArchiveFactory().openRARFile(in);
         assertTrue(rarFile.getDeploymentDescriptor() != null);
     }
-	public HashSet ignorableAttributes(){
-		HashSet set = new HashSet();
-		set.add("id");
-		return set;
-	}
 }

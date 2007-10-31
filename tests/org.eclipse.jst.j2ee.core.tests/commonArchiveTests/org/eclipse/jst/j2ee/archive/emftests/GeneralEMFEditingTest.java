@@ -39,10 +39,9 @@ import org.eclipse.jst.j2ee.archive.testutilities.TestUtilities;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
-import org.eclipse.wst.common.tests.BaseTestCase;
 
 
-public class GeneralEMFEditingTest extends BaseTestCase {
+public class GeneralEMFEditingTest extends GeneralEMFTest {
 	//inner class to handle deffered shared references
 	protected class DeferredSharedReferenceAction {
 		EObject owner;
@@ -83,6 +82,10 @@ public class GeneralEMFEditingTest extends BaseTestCase {
 	public GeneralEMFEditingTest(String name) {
 		super(name);
 	}
+	
+    public GeneralEMFEditingTest(String name, RendererFactory factory) {
+    	super(name, factory);
+    }
 
 	public void editRoot(EObject eObject) {
 		editFeatures(eObject);

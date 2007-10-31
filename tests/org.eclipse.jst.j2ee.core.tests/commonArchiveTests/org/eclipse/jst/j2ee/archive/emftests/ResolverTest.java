@@ -1,6 +1,5 @@
 package org.eclipse.jst.j2ee.archive.emftests;
 
-import java.util.HashSet;
 import java.util.List;
 
 import junit.framework.TestSuite;
@@ -11,14 +10,10 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.jst.j2ee.application.ApplicationFactory;
-import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.SecurityIdentity;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException;
@@ -31,8 +26,6 @@ import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.RoleSource;
 import org.eclipse.jst.j2ee.ejb.internal.impl.MethodPermissionImpl;
 import org.eclipse.jst.j2ee.ejb.internal.impl.QueryMethodImpl;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 
 
@@ -67,32 +60,19 @@ public class ResolverTest extends GeneralEMFEditingTest {
     public ResolverTest(String name) {
         super(name);
     }
-
-    public CommonarchiveFactory getArchiveFactory() {
-        return CommonarchivePackage.eINSTANCE.getCommonarchiveFactory();
-    }
-
-    public EjbFactory getEjbFactory() {
-        return EjbPackage.eINSTANCE.getEjbFactory();
-    }
-
-    public ApplicationFactory getApplicationFactory() {
-        return ApplicationPackage.eINSTANCE.getApplicationFactory();
-    }
-
-    public WebapplicationFactory getWebAppFactory() {
-        return WebapplicationPackage.eINSTANCE.getWebapplicationFactory();
+    
+    public ResolverTest(String name, RendererFactory factory) {
+    	super(name, factory);
     }
 
     public static void main(java.lang.String[] args) {
         junit.textui.TestRunner.main(new String[] { ResolverTest.class.getName()});
     }
 
-    public static junit.framework.Test suite() {
-        TestSuite suite = new TestSuite();
-        /*suite.addTest(new AllSAXTests("testSwitchRenderer"));*/
-        suite.addTest(new ResolverTest("testResolver"));
-        suite.addTest(new ResolverTest("testResolverNoSchemaLocation"));
+    public static junit.framework.Test suite(RendererFactory factory) {
+        TestSuite suite = new TestSuite(ResolverTest.class.getName());
+        suite.addTest(new ResolverTest("testResolver",factory));
+        suite.addTest(new ResolverTest("testResolverNoSchemaLocation",factory));
         return suite;
     }
 
@@ -263,12 +243,6 @@ public class ResolverTest extends GeneralEMFEditingTest {
             if (!mpFlag) { return; }
         }
         super.populateSharedReference(eObject, ref);
-    }
-
-    public HashSet ignorableAttributes() {
-        HashSet set = new HashSet();
-        set.add("id");
-        return set;
     }
 
     /*

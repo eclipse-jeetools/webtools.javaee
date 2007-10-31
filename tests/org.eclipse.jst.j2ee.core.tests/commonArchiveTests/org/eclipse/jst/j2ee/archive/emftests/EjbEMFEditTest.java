@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.archive.emftests;
 
-import java.util.HashSet;
 import java.util.List;
 
 import junit.framework.TestSuite;
@@ -21,14 +20,10 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.jst.j2ee.application.ApplicationFactory;
-import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.SecurityIdentity;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException;
@@ -42,8 +37,6 @@ import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.RoleSource;
 import org.eclipse.jst.j2ee.ejb.internal.impl.MethodPermissionImpl;
 import org.eclipse.jst.j2ee.ejb.internal.impl.QueryMethodImpl;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 import org.eclipse.wst.common.internal.emf.resource.EMF2SAXRendererFactory;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 
@@ -66,36 +59,19 @@ public class EjbEMFEditTest extends GeneralEMFEditingTest {
     public EjbEMFEditTest(String name) {
         super(name);
     }
-
-    public CommonarchiveFactory getArchiveFactory() {
-        return CommonarchivePackage.eINSTANCE.getCommonarchiveFactory();
+    
+    public EjbEMFEditTest(String name, RendererFactory factory) {
+    	super(name, factory);
     }
-
-    public EjbFactory getEjbFactory() {
-        return EjbPackage.eINSTANCE.getEjbFactory();
-    }
-
-    public ApplicationFactory getApplicationFactory() {
-        return ApplicationPackage.eINSTANCE.getApplicationFactory();
-    }
-
-    public WebapplicationFactory getWebAppFactory() {
-        return WebapplicationPackage.eINSTANCE.getWebapplicationFactory();
-    }
-
+    
     public static void main(java.lang.String[] args) {
 		junit.textui.TestRunner.main(new String[] { EjbEMFEditTest.class.getName() }); 
     }
-    public static junit.framework.Test suite() {
-        TestSuite suite = new TestSuite();
-        
-        /*System.out.println("Switching to SAX Renderer in " + EjbEMFEditTest.class.getName());
-		suite.addTest(new AllSAXTests("testSwitchRenderer"));*/
-		
-        suite.addTest(new EjbEMFEditTest("testEJBJarEdit"));
-        suite.addTest(new EjbEMFEditTest("testWCCMJar"));
-        /*suite.addTest(new EjbEMFEditTest("testWCCMProvidedCase"));*/
-        
+
+    public static junit.framework.Test suite(RendererFactory factory) {
+        TestSuite suite = new TestSuite(EjbEMFEditTest.class.getName());
+        suite.addTest(new EjbEMFEditTest("testEJBJarEdit",factory));
+        suite.addTest(new EjbEMFEditTest("testWCCMJar",factory));
         return suite;
     }
 
@@ -329,12 +305,6 @@ public class EjbEMFEditTest extends GeneralEMFEditingTest {
 		super.populateSharedReference(eObject, ref);
 	}
 
-	public HashSet ignorableAttributes(){
-		HashSet set = new HashSet();
-		set.add("id");
-		return set;
-	}
-
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#tearDown()
 	 */
@@ -348,5 +318,4 @@ public class EjbEMFEditTest extends GeneralEMFEditingTest {
 
 		super.tearDown();
 	}
-
 }

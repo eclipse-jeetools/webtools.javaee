@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.archive.emftests;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -20,21 +19,15 @@ import junit.framework.TestSuite;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.jst.j2ee.application.ApplicationFactory;
-import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
 import org.eclipse.jst.j2ee.common.ResAuthTypeBase;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
-import org.eclipse.jst.j2ee.ejb.EjbFactory;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.webapplication.ErrorPage;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
@@ -42,6 +35,7 @@ import org.eclipse.jst.j2ee.webapplication.WebType;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.internal.impl.FilterMappingImpl;
+import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 
 
 public class WarEMFTest extends GeneralEMFPopulationTest {
@@ -50,33 +44,23 @@ public class WarEMFTest extends GeneralEMFPopulationTest {
     protected int createdWebTypes = 0;
     protected int createdErrorPages = 0;
 	protected boolean fmFlag = false;
+	
     public WarEMFTest(String name) {
         super(name);
     }
-    public CommonarchiveFactory getArchiveFactory() {
-        return CommonarchivePackage.eINSTANCE.getCommonarchiveFactory();
-    }
-
-    public EjbFactory getEjbFactory() {
-        return EjbPackage.eINSTANCE.getEjbFactory();
-    }
-
-    public ApplicationFactory getApplicationFactory() {
-        return ApplicationPackage.eINSTANCE.getApplicationFactory();
-    }
-
-    public WebapplicationFactory getWebAppFactory() {
-        return WebapplicationPackage.eINSTANCE.getWebapplicationFactory();
+    
+    public WarEMFTest(String name, RendererFactory factory) {
+    	super(name, factory);
     }
 
     public static void main(java.lang.String[] args) {
-        
         junit.textui.TestRunner.main(new String[]{ WarEMFTest.class.getName() });
     }
-    public static junit.framework.Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.addTest(new WarEMFTest("testWARPopulation"));
-		suite.addTest(new WarEMFTest("test14WARPopulation"));
+    
+    public static junit.framework.Test suite(RendererFactory factory) {
+        TestSuite suite = new TestSuite(WarEMFTest.class.getName());
+        suite.addTest(new WarEMFTest("testWARPopulation",factory));
+		suite.addTest(new WarEMFTest("test14WARPopulation",factory));
         return suite;
     }
 
@@ -230,13 +214,6 @@ public class WarEMFTest extends GeneralEMFPopulationTest {
 		super.populateSharedReference(eObject, ref);
 	}
 	
-	public HashSet ignorableAttributes(){
-		HashSet set = new HashSet();
-		set.add("id");
-		return set;
-	}
-
-
 	protected boolean isValidAuth(ResAuthTypeBase auth) {
 		if (version == VERSION_1_2)
 			return auth == ResAuthTypeBase.SERVLET_LITERAL || auth == ResAuthTypeBase.CONTAINER_LITERAL;

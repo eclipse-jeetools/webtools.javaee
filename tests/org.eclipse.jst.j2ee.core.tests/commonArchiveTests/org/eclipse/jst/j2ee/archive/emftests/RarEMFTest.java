@@ -10,31 +10,22 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.archive.emftests;
 
-import java.util.HashSet;
-
 import junit.framework.TestSuite;
 import junit.swingui.TestRunner;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.application.ApplicationFactory;
-import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
-import org.eclipse.jst.j2ee.ejb.EjbFactory;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.jca.ConnectorResource;
 import org.eclipse.jst.j2ee.jca.JcaPackage;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
+import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 
 
 public class RarEMFTest extends GeneralEMFPopulationTest {
@@ -44,33 +35,20 @@ public class RarEMFTest extends GeneralEMFPopulationTest {
 	public RarEMFTest(String name) {
 		super(name);
 	}
-
-	public CommonarchiveFactory getArchiveFactory() {
-		return CommonarchivePackage.eINSTANCE.getCommonarchiveFactory();
-	}
-
-	public EjbFactory getEjbFactory() {
-		return EjbPackage.eINSTANCE.getEjbFactory();
-	}
-
-	public ApplicationFactory getApplicationFactory() {
-		return ApplicationPackage.eINSTANCE.getApplicationFactory();
-	}
-
-	public WebapplicationFactory getWebAppFactory() {
-		return WebapplicationPackage.eINSTANCE.getWebapplicationFactory();
-	}
+	
+    public RarEMFTest(String name, RendererFactory factory) {
+    	super(name, factory);
+    }
 
 	public static void main(java.lang.String[] args) {
 		String[] className = { "com.ibm.etools.archive.test.RarEMFTest", "-noloading" };
 		TestRunner.main(className);
 	}
-	public static junit.framework.Test suite() {
-		TestSuite suite = new TestSuite();
-		suite.addTest(new RarEMFTest("testRARPopulation"));
-/* xsd problem - see bugzilla 152355
-		suite.addTest(new RarEMFTest("test14RARPopulation"));
-*/
+
+	public static junit.framework.Test suite(RendererFactory factory) {
+		TestSuite suite = new TestSuite(RarEMFTest.class.getName());
+		suite.addTest(new RarEMFTest("testRARPopulation",factory));
+		suite.addTest(new RarEMFTest("test14RARPopulation",factory));
 		return suite;
 	}
 
@@ -146,12 +124,6 @@ public class RarEMFTest extends GeneralEMFPopulationTest {
 		assertTrue(earFile.getDeploymentDescriptor() != null);
 	}
 
-	public HashSet ignorableAttributes() {
-		HashSet set = new HashSet();
-		set.add("id");
-		return set;
-	}
-
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.archive.emftest.GeneralEMFPopulationTest#createAttributeValue(org.eclipse.emf.ecore.EAttribute)
 	 */
@@ -166,5 +138,4 @@ public class RarEMFTest extends GeneralEMFPopulationTest {
 		else
 			return super.createAttributeValue(att, eObject);
 	}
-
 }

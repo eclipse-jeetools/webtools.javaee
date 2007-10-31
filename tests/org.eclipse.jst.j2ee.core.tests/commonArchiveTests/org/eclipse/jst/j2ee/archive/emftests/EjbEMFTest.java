@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.archive.emftests;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -25,14 +24,10 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.jem.java.internal.impl.JavaClassImpl;
-import org.eclipse.jst.j2ee.application.ApplicationFactory;
-import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.SecurityIdentity;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException;
@@ -50,8 +45,7 @@ import org.eclipse.jst.j2ee.ejb.internal.impl.MethodPermissionImpl;
 import org.eclipse.jst.j2ee.ejb.internal.impl.QueryMethodImpl;
 import org.eclipse.jst.j2ee.internal.J2EEInit;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
+import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 
 
 public class EjbEMFTest extends GeneralEMFPopulationTest {
@@ -72,38 +66,23 @@ public class EjbEMFTest extends GeneralEMFPopulationTest {
 	protected int createdSecurityIdentities = 0;
 	boolean mpFlag = false;
 	boolean firstReturnTypeMapping = true;
+	
 	public EjbEMFTest(String name) {
 		super(name);
 	}
-
-	public CommonarchiveFactory getArchiveFactory() {
-		return CommonarchivePackage.eINSTANCE.getCommonarchiveFactory();
-	}
-
-	public EjbFactory getEjbFactory() {
-		return EJB_PKG.getEjbFactory();
-	}
-
-	public ApplicationFactory getApplicationFactory() {
-		return ApplicationPackage.eINSTANCE.getApplicationFactory();
-	}
-
-	public WebapplicationFactory getWebAppFactory() {
-		return WebapplicationPackage.eINSTANCE.getWebapplicationFactory();
-	}
-
+	
+    public EjbEMFTest(String name, RendererFactory factory) {
+    	super(name, factory);
+    }
+	
 	public static void main(java.lang.String[] args) {
 		junit.textui.TestRunner.main(new String[] { EjbEMFTest.class.getName()});
 	}
-	public static junit.framework.Test suite() {
-		TestSuite suite = new TestSuite();
 
-		/*System.out.println("Switching to SAX Renderer in " + EjbEMFTest.class.getName());
-		suite.addTest(new AllSAXTests("testSwitchRenderer"));*/
-		suite.addTest(new EjbEMFTest("testEJBJarPopulation"));
-/* xsd problem - see bugzilla 152355
-		suite.addTest(new EjbEMFTest("test14EJBJarPopulation"));
-*/
+	public static junit.framework.Test suite(RendererFactory factory) {
+		TestSuite suite = new TestSuite(EjbEMFTest.class.getName());
+		suite.addTest(new EjbEMFTest("testEJBJarPopulation",factory));
+		suite.addTest(new EjbEMFTest("test14EJBJarPopulation",factory));
 		return suite;
 	}
 
@@ -340,12 +319,6 @@ public class EjbEMFTest extends GeneralEMFPopulationTest {
 		super.populateSharedReference(eObject, ref);
 	}
 
-	public HashSet ignorableAttributes(){
-		HashSet set = new HashSet();
-		set.add("id");
-		return set;
-	}
-
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.archive.emftest.GeneralEMFPopulationTest#createAttributeValue(org.eclipse.emf.ecore.EAttribute, org.eclipse.emf.ecore.EObject)
 	 */
@@ -370,7 +343,5 @@ public class EjbEMFTest extends GeneralEMFPopulationTest {
 		entityBean = null;
 		secID = null;
 		roleSource = null;
-
-		
-}
+	}
 }

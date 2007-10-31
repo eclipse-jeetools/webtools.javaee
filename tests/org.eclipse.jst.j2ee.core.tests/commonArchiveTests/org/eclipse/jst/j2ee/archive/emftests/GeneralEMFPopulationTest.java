@@ -48,10 +48,10 @@ import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
 import org.eclipse.jst.j2ee.ejb.MethodElementKind;
-import org.eclipse.wst.common.tests.BaseTestCase;
+import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 
 
-public class GeneralEMFPopulationTest extends BaseTestCase {
+public class GeneralEMFPopulationTest extends GeneralEMFTest {
     //inner class to handle deffered shared references
     protected class DeferredSharedReferenceAction {
         EObject owner;
@@ -89,6 +89,10 @@ public class GeneralEMFPopulationTest extends BaseTestCase {
 
     public GeneralEMFPopulationTest(String name) {
         super(name);
+    }
+    
+    public GeneralEMFPopulationTest(String name, RendererFactory factory) {
+    	super(name, factory);
     }
 
     public void populateRoot(EObject eObject) {
