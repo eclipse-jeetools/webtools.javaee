@@ -280,11 +280,12 @@
             adaptable="true"
             id="org.eclipse.jst.jee.ui.CreateDeploymentFilesAction">
          <action
-               label="%create_deploy_files"
-               icon="icons/full/ctool16/dep_desc.gif"
                class="org.eclipse.jst.jee.ui.internal.CreateDeploymentFilesActionDelegate"
-               menubarPath="javeeUIPopupMenuCategory/slot1"
-               id="createDeploymentFiles">
+               enablesFor="1"
+               icon="icons/full/ctool16/dep_desc.gif"
+               id="createDeploymentFiles"
+               label="%create_deploy_files"
+               menubarPath="javeeUIPopupMenuCategory/slot1">
 		</action>
         <enablement>
             <or>

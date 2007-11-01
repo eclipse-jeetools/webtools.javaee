@@ -47,6 +47,7 @@ public class CreateDeploymentFilesActionDelegate extends BaseAction {
 			isEnabled = isValidSelection(project, null);
 		}
 		setEnabled(isEnabled);
+		action.setEnabled(isEnabled);
 	}
 
 	private boolean isValidSelection(IProject project, Shell shell) {
