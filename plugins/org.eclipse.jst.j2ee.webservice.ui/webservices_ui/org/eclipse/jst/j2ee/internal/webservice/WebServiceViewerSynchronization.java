@@ -22,7 +22,6 @@ import org.eclipse.jst.j2ee.internal.webservice.helper.WebServiceManagerListener
 import org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager;
 import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServiceUIPlugin;
 import org.eclipse.jst.j2ee.navigator.internal.IJ2EENavigatorConstants;
-import org.eclipse.jst.j2ee.navigator.internal.NonConflictingRule;
 import org.eclipse.ui.progress.UIJob;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
 import org.eclipse.wst.common.project.facet.core.internal.FacetedProjectPropertyTester;
