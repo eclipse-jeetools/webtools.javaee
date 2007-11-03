@@ -21,6 +21,7 @@
    <extension-point id="optionalRefactorHandler" name="optionalRefactorHandler" schema="schema/optionalRefactorHandler.exsd"/>
    <extension-point id="classpathdep" name="classpathdep" schema="schema/ClasspathDep.exsd"/>
    <extension-point id="J2EEModelProvider" name="J2EE Model Provider" schema="schema/J2EEModelProvider.exsd"/>
+   <extension-point id="archiveExportParticipants" name="Archive Export Participants Extension Point" schema="schema/archiveExportParticipants.exsd"/>
 
 <!--============================-->
 <!-- Module Core Nature         -->

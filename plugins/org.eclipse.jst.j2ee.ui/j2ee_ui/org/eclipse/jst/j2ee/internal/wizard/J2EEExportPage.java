@@ -19,6 +19,7 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -28,8 +29,11 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties.IArchiveExportParticipantData;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.ui.archive.IArchiveExportParticipantPanelFactory;
+import org.eclipse.jst.j2ee.ui.archive.internal.ArchiveExportParticipantPanelsExtensionPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -38,10 +42,14 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
 /**
@@ -64,6 +72,7 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 	protected String LABEL_RUNTIME = J2EEUIMessages.getResourceString(J2EEUIMessages.J2EE_EXPORT_RUNTIME);
 	private Combo resourceNameCombo;
 	private Combo destinationNameCombo;
+	private Button optimizeForRuntimeCheckbox;
 	private Combo runtimeNameCombo;
 	private Button destinationBrowseButton;
 	protected Button overwriteExistingFilesCheckbox;
@@ -116,6 +125,7 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 		composite.setLayout(layout);
 
 		createSourceAndDestinationGroup(composite);
+        createRuntimeGroup(composite);
 		createOptionsGroup(composite);
 
 		//setupBasedOnInitialSelections();
@@ -135,7 +145,6 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 		composite.setLayout(layout);
 		createExportComponentGroup(composite);
 		createDestinationGroup(composite);
-		createRuntimeGroup(composite);
 
 	}
     /**
@@ -190,17 +199,113 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 
     }
     
-    protected void createRuntimeGroup(org.eclipse.swt.widgets.Composite parent) {
-    	// Create runtime label
-    	Label runtimeLabel = new Label(parent, SWT.NONE);
-    	runtimeLabel.setText(LABEL_RUNTIME);
-    	// Create runtime combo
-        runtimeNameCombo = new Combo(parent, SWT.READ_ONLY | SWT.SINGLE | SWT.BORDER);
-        GridData data = new GridData(GridData.FILL_HORIZONTAL);
-        data.widthHint = SIZING_TEXT_FIELD_WIDTH;
-        runtimeNameCombo.setLayoutData(data);
-        synchHelper.synchCombo(runtimeNameCombo, IJ2EEComponentExportDataModelProperties.RUNTIME, null);
+    protected void createRuntimeGroup( final Composite parent ) 
+    {
+        final Group group = new Group( parent, SWT.NONE );
+        group.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ) );
+        group.setLayout( new GridLayout( 1, false ) );
+    	group.setText( LABEL_RUNTIME );
+
+    	this.optimizeForRuntimeCheckbox = new Button( group, SWT.CHECK );
+    	this.optimizeForRuntimeCheckbox.setText( "Optimize for a specific server runtime" );
+    	this.synchHelper.synchCheckbox( this.optimizeForRuntimeCheckbox, IJ2EEComponentExportDataModelProperties.OPTIMIZE_FOR_SPECIFIC_RUNTIME, null );
+    	
+    	final GridData gd = new GridData();
+    	gd.verticalIndent = 2;
+    	
+    	this.optimizeForRuntimeCheckbox.setLayoutData( gd );
+    	
+    	this.runtimeNameCombo = new Combo( group, SWT.READ_ONLY | SWT.SINGLE | SWT.BORDER );
+        this.runtimeNameCombo.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ) );
+        this.synchHelper.synchCombo( this.runtimeNameCombo, IJ2EEComponentExportDataModelProperties.RUNTIME, null );
+        
+        final Composite extComposite = new EnhancedComposite( group, SWT.NONE );
+        extComposite.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ) );
+        
+        final GridLayout layout = new GridLayout( 1, false );
+        layout.marginWidth = 10;
+        layout.marginHeight = 1;
+        
+        extComposite.setLayout( layout );
+        
+        getDataModel().addListener
+        (
+            new IDataModelListener()
+            {
+                public void propertyChanged( final DataModelEvent event )
+                {
+                    if( event.getPropertyName().equals( IJ2EEComponentExportDataModelProperties.RUNTIME ) && 
+                        event.getFlag() == IDataModel.VALUE_CHG )
+                    {
+                        refreshExtensionsComposite( extComposite );
+                    }
+                    else if( event.getPropertyName().equals( IJ2EEComponentExportDataModelProperties.OPTIMIZE_FOR_SPECIFIC_RUNTIME  ) &&
+                             event.getFlag() == IDataModel.VALUE_CHG )
+                    {
+                        final boolean optimize = ( (Boolean) event.getProperty() ).booleanValue();
+                        extComposite.setEnabled( optimize );
+                    }
+                }
+            }
+        );
+        
+        refreshExtensionsComposite( extComposite );
 	}
+    
+    private void refreshExtensionsComposite( final Composite extComposite )
+    {
+        for( Control child : extComposite.getChildren() )
+        {
+            child.dispose();
+        }
+        
+        final List<IArchiveExportParticipantData> extensions 
+            = (List<IArchiveExportParticipantData>) getDataModel().getProperty( IJ2EEComponentExportDataModelProperties.RUNTIME_SPECIFIC_PARTICIPANTS );
+        
+        if( extensions != null )
+        {
+            Composite innerComposite = null;
+            
+            for( IArchiveExportParticipantData extension : extensions )
+            {
+                final String id = extension.getId();
+                
+                final ArchiveExportParticipantPanelsExtensionPoint.PanelFactoryInfo panelExtInfo
+                    = ArchiveExportParticipantPanelsExtensionPoint.getExtension( id );
+                
+                if( panelExtInfo != null )
+                {
+                    final IArchiveExportParticipantPanelFactory panelFactory = panelExtInfo.loadPanelFactory();
+                    
+                    if( panelFactory != null )
+                    {
+                        if( innerComposite == null )
+                        {
+                            innerComposite = new EnhancedComposite( extComposite, SWT.NONE );
+                            innerComposite.setLayoutData( new GridData( GridData.FILL_BOTH ) );
+                            
+                            final GridLayout innerCompositeLayout = new GridLayout( 1, false );
+                            innerCompositeLayout.marginWidth = 0;
+                            innerCompositeLayout.marginHeight = 0;
+                            
+                            innerComposite.setLayout( innerCompositeLayout );
+                        }
+                        
+                        try
+                        {
+                            panelFactory.createPanel( innerComposite, extension.getDataModel() );
+                        }
+                        catch( Exception e )
+                        {
+                            J2EEUIPlugin.logError( -1, e.getMessage(), e );
+                        }
+                    }
+                }
+            }
+        }
+        
+        extComposite.getShell().layout( true, true );
+    }
     
     /**
      * Create the export options specification widgets.
@@ -417,6 +522,29 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 	 */
 	protected IDialogSettings getDialogSettings() {
 		return J2EEUIPlugin.getDefault().getDialogSettings();
+	}
+	
+	private static class EnhancedComposite
+
+	    extends Composite
+	    
+	{
+	    public EnhancedComposite( final Composite parent,
+	                              final int style )
+	    {
+	        super( parent, style );
+	    }
+	    
+	    @Override
+	    public void setEnabled( boolean enabled )
+	    {
+	        super.setEnabled( enabled );
+	        
+            for( Control child : getChildren() )
+            {
+                child.setEnabled( enabled );
+            }
+	    }
 	}
 
 }

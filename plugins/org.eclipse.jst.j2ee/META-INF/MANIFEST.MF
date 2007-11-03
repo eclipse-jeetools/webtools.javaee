@@ -10,6 +10,7 @@ Export-Package: org.eclipse.jst.j2ee.application.internal.operations;x-internal:
  org.eclipse.jst.j2ee.applicationclient.componentcore.util,
  org.eclipse.jst.j2ee.applicationclient.internal.creation;x-internal:=true,
  org.eclipse.jst.j2ee.applicationclient.internal.modulecore.util;x-internal:=true,
+ org.eclipse.jst.j2ee.archive,
  org.eclipse.jst.j2ee.classpathdep,
  org.eclipse.jst.j2ee.common.internal.provider;x-internal:=true,
  org.eclipse.jst.j2ee.componentcore,

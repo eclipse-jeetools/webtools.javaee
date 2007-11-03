@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -25,7 +25,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.j2ee.archive.IArchiveExportParticipant;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
+import org.eclipse.jst.j2ee.internal.archive.ArchiveExportParticipantsExtensionPoint;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
@@ -42,7 +44,29 @@ import org.eclipse.wst.common.project.facet.core.runtime.RuntimeManager;
 
 public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataModelProvider implements IJ2EEComponentExportDataModelProperties {
 
-	public HashMap componentMap;
+    private static final class ArchiveExportParticipantData implements IArchiveExportParticipantData
+    {
+        private String id = null;
+        private IArchiveExportParticipant extension = null;
+        private IDataModel datamodel = null;
+
+        public String getId()
+        {
+            return this.id;
+        }
+        
+        public IArchiveExportParticipant getParticipant()
+        {
+            return this.extension;
+        }
+        
+        public IDataModel getDataModel()
+        {
+            return this.datamodel;
+        }
+    }
+
+    public HashMap componentMap;
 
 	public J2EEArtifactExportDataModelProvider() {
 		super();
@@ -56,7 +80,9 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 		propertyNames.add(OVERWRITE_EXISTING);
 		propertyNames.add(RUN_BUILD);
 		propertyNames.add(COMPONENT);
+		propertyNames.add(OPTIMIZE_FOR_SPECIFIC_RUNTIME);
 		propertyNames.add(RUNTIME);
+		propertyNames.add(RUNTIME_SPECIFIC_PARTICIPANTS);
 		return propertyNames;
 	}
 
@@ -75,12 +101,31 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 			return Boolean.FALSE;
 		} else if (propertyName.equals(RUN_BUILD)) {
 			return Boolean.TRUE;
+		} else if (propertyName.equals(RUNTIME_SPECIFIC_PARTICIPANTS)) {
+		    return new ArrayList<IArchiveExportParticipantData>();
 		}
 		return super.getDefaultProperty(propertyName);
 	}
 	
-	public boolean propertySet(String propertyName, Object propertyValue) {
+	public boolean isPropertyEnabled( final String propertyName )
+	{
+	    if( propertyName.equals( OPTIMIZE_FOR_SPECIFIC_RUNTIME ) )
+	    {
+	        return getDataModel().getValidPropertyDescriptors( RUNTIME ).length > 0;
+	    }
+	    else if( propertyName.equals( RUNTIME ) )
+	    {
+	        return ( (Boolean) getProperty( OPTIMIZE_FOR_SPECIFIC_RUNTIME ) ).booleanValue();
+	    }
+	    
+	    return true;
+	}
+	
+	public boolean propertySet(String propertyName, Object propertyValue) 
+	{
 		boolean set = super.propertySet(propertyName, propertyValue);
+		final IDataModel dm = getDataModel();
+		
 		if (propertyName.equals(PROJECT_NAME)) {
 			if (getComponentMap().isEmpty())
 				intializeComponentMap();
@@ -91,41 +136,111 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 				setProperty(COMPONENT, null);
 			}
 
-            getDataModel().notifyPropertyChange( RUNTIME, IDataModel.VALID_VALUES_CHG );
+            dm.notifyPropertyChange( RUNTIME, IDataModel.VALID_VALUES_CHG );
+            
+            IFacetedProject fproj = null;
             
             if( component != null )
             {
                 try
                 {
-                    final IFacetedProject fproj = ProjectFacetsManager.create( component.getProject() );
-                    final IRuntime primary = fproj.getPrimaryRuntime();
-                    
-                    if( primary != null )
-                    {
-                        setProperty( RUNTIME, primary );
-                    }
-                    else
-                    {
-                        setProperty( RUNTIME, NO_RUNTIME_SELECTED );
-                    }
+                    fproj = ProjectFacetsManager.create( component.getProject() );
                 }
                 catch( CoreException e )
                 {
                     J2EEPlugin.logError( -1, e.getMessage(), e );
                 }
             }
-            else
+            
+            boolean optimize = false;
+            IRuntime runtime = null;
+            
+            if( fproj !=  null )
             {
-                setProperty( RUNTIME, NO_RUNTIME_SELECTED );
+                runtime = fproj.getPrimaryRuntime();
+                
+                if( runtime != null )
+                {
+                    optimize = true;
+                }
+                else
+                {
+                    final DataModelPropertyDescriptor[] validValues 
+                        = dm.getValidPropertyDescriptors( RUNTIME );
+                    
+                    if( validValues.length > 0 )
+                    {
+                        runtime = (IRuntime) validValues[ 0 ].getPropertyValue();
+                    }
+                }
             }
+
+            setProperty( OPTIMIZE_FOR_SPECIFIC_RUNTIME, optimize);
+            setProperty( RUNTIME, runtime );
+		}
+		else if( propertyName.equals( OPTIMIZE_FOR_SPECIFIC_RUNTIME ) )
+		{
+            dm.notifyPropertyChange( RUNTIME, IDataModel.ENABLE_CHG );
 		}
 		else if( propertyName.equals( RUNTIME ) )
 		{
-		    if( propertyValue == null )
+            final List<IArchiveExportParticipantData> currentExtDataList
+                = (List<IArchiveExportParticipantData>) getProperty( RUNTIME_SPECIFIC_PARTICIPANTS );
+            
+            if( currentExtDataList != null )
+            {
+                for( IArchiveExportParticipantData extData : currentExtDataList )
+                {
+                    dm.removeNestedModel( extData.getId() );
+                }
+            }
+            
+            final List<IArchiveExportParticipantData> extensions = new ArrayList<IArchiveExportParticipantData>();
+		    
+		    if( propertyValue != null )
 		    {
-		        setProperty( RUNTIME, NO_RUNTIME_SELECTED );
+		        final IProject project = getProject();
+		        
+		        if( project != null && propertyValue != null )
+		        {
+		            final IRuntime runtime = (IRuntime) propertyValue;
+		            
+		            for( ArchiveExportParticipantsExtensionPoint.ParticipantInfo partInfo 
+		                 : ArchiveExportParticipantsExtensionPoint.getExtensions( project, runtime ) )
+		            {
+                        ArchiveExportParticipantData partData = new ArchiveExportParticipantData();
+                        partData.id = partInfo.getId();
+                        partData.extension = partInfo.loadParticipant();
+		                
+		                if( partData.extension != null )
+		                {
+		                    try
+		                    {
+		                        partData.datamodel = partData.extension.createDataModel( dm );
+		                        dm.addNestedModel( partData.id, partData.datamodel );
+		                    }
+		                    catch( Exception e )
+		                    {
+		                        J2EEPlugin.logError( -1, e.getMessage(), e );
+		                        partData = null;
+		                    }
+		                }
+		                else
+		                {
+		                    partData = null;
+		                }
+		                
+		                if( partData != null )
+		                {
+		                    extensions.add( partData );
+		                }
+		            }
+		        }
 		    }
+		    
+		    setProperty( RUNTIME_SPECIFIC_PARTICIPANTS, Collections.unmodifiableList( extensions ) );
 		}
+		
 		return set;
 	}
 
@@ -171,6 +286,7 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 		}
 		else if( propertyName.equals( RUNTIME ) )
 		{
+            final List<IRuntime> runtimes = new ArrayList<IRuntime>();
 		    final IVirtualComponent component = (IVirtualComponent) getProperty( COMPONENT );
 		    
 		    if( component != null )
@@ -180,41 +296,25 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
                     try
                     {
                         final IFacetedProject fproj = ProjectFacetsManager.create( component.getProject() );
-                        final List runtimes = new ArrayList();
                         
-                        for( Iterator itr = RuntimeManager.getRuntimes().iterator(); itr.hasNext(); )
+                        for( IRuntime runtime : RuntimeManager.getRuntimes() )
                         {
-                            final IRuntime runtime = (IRuntime) itr.next();
-                            
                             if( fproj.isTargetable( runtime ) )
                             {
                                 runtimes.add( runtime );
                             }
                         }
                         
-                        final Comparator comparator = new Comparator()
+                        final Comparator<IRuntime> comparator = new Comparator<IRuntime>()
                         {
-                            public int compare( final Object obj1,
-                                                final Object obj2 )
+                            public int compare( final IRuntime r1,
+                                                final IRuntime r2 )
                             {
-                                final String rname1 = ( (IRuntime) obj1 ).getName();
-                                final String rname2 = ( (IRuntime) obj2 ).getName();
-                                return rname1.compareTo( rname2 );
+                                return r1.getName().compareTo( r2.getName() );
                             }
                         };
                         
                         Collections.sort( runtimes, comparator );
-                        
-                        final Object[] array = new Object[ runtimes.size() + 1 ];
-                        
-                        array[ 0 ] = NO_RUNTIME_SELECTED;
-                        
-                        for( int i = 0, n = runtimes.size(); i < n; i++ )
-                        {
-                            array[ i + 1 ] = runtimes.get( i );
-                        }
-                        
-                        return DataModelPropertyDescriptor.createDescriptors(array);
                     }
                     catch( CoreException e )
                     {
@@ -222,6 +322,8 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
                     }
                 }
 		    }
+		    
+		    return DataModelPropertyDescriptor.createDescriptors( runtimes.toArray() );		    
 		}
 		
 		return super.getValidPropertyDescriptors(propertyName);
@@ -321,6 +423,20 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 			return false;
 		}
 		return true;
+	}
+	
+	private IProject getProject()
+	{
+	    final IVirtualComponent component = (IVirtualComponent) getProperty( COMPONENT );
+	    
+	    if( component != null )
+	    {
+	        return component.getProject();
+	    }
+	    else
+	    {
+	        return null;
+	    }
 	}
 
 }

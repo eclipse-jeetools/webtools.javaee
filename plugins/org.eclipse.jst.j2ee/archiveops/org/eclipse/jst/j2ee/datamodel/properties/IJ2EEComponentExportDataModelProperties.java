@@ -10,7 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.datamodel.properties;
 
+import org.eclipse.jst.j2ee.archive.IArchiveExportParticipant;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARArchiveOpsResourceHandler;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties;
 /**
  * <p>
@@ -60,14 +62,34 @@ public interface IJ2EEComponentExportDataModelProperties extends IDataModelPrope
     
     public static final String COMPONENT = "IJ2EEComponentExportDataModelProperties.COMPONENT"; //$NON-NLS-1$
     
+    /**
+     * @since 3.0
+     */
+    
+    public static final String OPTIMIZE_FOR_SPECIFIC_RUNTIME = "IJ2EEComponentExportDataModelProperties.OPTIMIZE_FOR_SPECIFIC_RUNTIME";
+    
+    /**
+     * @since 3.0
+     */
+    
     public static final String RUNTIME = "IJ2EEComponentExportDataModelProperties.RUNTIME"; //$NON-NLS-1
     
-    public static final Object NO_RUNTIME_SELECTED = new Object()
+    /**
+     * @since 3.0
+     */
+    
+    public static final String RUNTIME_SPECIFIC_PARTICIPANTS 
+        = "IJ2EEComponentExportDataModelProperties.RUNTIME_SPECIFIC_PARTICIPANTS"; //$NON-NLS-1
+    
+    /**
+     * @since 3.0
+     */
+    
+    interface IArchiveExportParticipantData
     {
-        public String toString()
-        {
-            return EARArchiveOpsResourceHandler.noRuntimeSelectedLabel;
-        }
-    };
+        String getId();
+        IArchiveExportParticipant getParticipant();
+        IDataModel getDataModel();
+    }
     
 }
