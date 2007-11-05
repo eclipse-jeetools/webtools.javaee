@@ -18,17 +18,16 @@ import javax.servlet.http.HttpServletResponse;<% } %>
 <% if (model.isAnnotated()) { %>
  * @web.servlet
  *   name="<%=model.getServletName()%>"
- *   display-name="<%=model.getServletName()%>" <%
+ *   display-name="<%=model.getServletName()%>"<%
  if (model.getServletDescription() !=null && model.getServletDescription() != "") { %>
- *   description="<%=model.getServletDescription()%>" <% } %>
- *
- <% List mappings = model.getServletMappings();
+ *   description="<%=model.getServletDescription()%>"<% } %>
+ *<% List mappings = model.getServletMappings();
  if (mappings!=null && mappings.size()>0) {
       for (int i=0; i<mappings.size(); i++) {
       	 String map = model.getServletMapping(i); %>
  * @web.servlet-mapping
  *   url-pattern="<%=map%>"
- *  <% } } 
+ *<% } }
  List initParams = model.getInitParams();
  if (initParams!=null && initParams.size()>0) {
     for (int i=0; i<initParams.size(); i++) {
@@ -37,7 +36,7 @@ import javax.servlet.http.HttpServletResponse;<% } %>
       String description = model.getInitParam(i,CreateServletTemplateModel.DESCRIPTION); %>
  * @web.servlet-init-param
  *    name="<%=name%>"
- *    value="<%=value%>" <% if (description !=null && description!="") { %>
- *    description="<%=description%>" <%} %>
- * <% } } } %>
+ *    value="<%=value%>"<% if (description !=null && description!="") { %>
+ *    description="<%=description%>"<%} %>
+ *<% } } } %>
  */
