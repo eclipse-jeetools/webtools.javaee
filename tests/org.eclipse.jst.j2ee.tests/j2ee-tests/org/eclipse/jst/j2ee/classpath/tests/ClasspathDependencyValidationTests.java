@@ -170,15 +170,11 @@ public class ClasspathDependencyValidationTests extends AbstractTests {
 
     	ClasspathDependencyTestUtil.verifyNoPotentialClasspathEntries(javaProject);
     	ClasspathDependencyTestUtil.verifyClasspathAttributes(javaProject, entryPaths);
-    	ClasspathDependencyTestUtil.verifyNoClasspathDependencies(comp);
+    	final Set archiveNames = Collections.singleton(ClasspathDependencyTestUtil.TEST3_JAR);
+    	ClasspathDependencyTestUtil.verifyClasspathDependencies(comp, archiveNames);
     	
     	DependencyUtil.waitForValidationJobs(project);
-    	ClasspathDependencyTestUtil.verifyClasspathDependencyError(project);
-
-    	UpdateClasspathAttributeUtil.removeDependencyAttribute(null, project.getName(), entry);
-    	
-    	DependencyUtil.waitForValidationJobs(project);
-    	ClasspathDependencyTestUtil.verifyNoClasspathDependencyError(project);
+    	ClasspathDependencyTestUtil.verifyClasspathDependencyMarker(project);
     }
     
     //DuplicateArchiveName=Invalid classpath component dependency {0}. The project contains another classpath component dependency the same archive name.
@@ -262,7 +258,7 @@ public class ClasspathDependencyValidationTests extends AbstractTests {
     	UpdateClasspathAttributeUtil.addDependencyAttribute(null, project.getName(), entry);
 
     	DependencyUtil.waitForValidationJobs(project);
-    	ClasspathDependencyTestUtil.verifyClasspathDependencyError(project);
+    	ClasspathDependencyTestUtil.verifyClasspathDependencyMarker(project);
     	
     	ClasspathDependencyTestUtil.verifyNoPotentialClasspathEntries(javaProject);
     	ClasspathDependencyTestUtil.verifyClasspathAttributes(javaProject, entryPaths);
@@ -272,8 +268,6 @@ public class ClasspathDependencyValidationTests extends AbstractTests {
     	UpdateClasspathAttributeUtil.removeDependencyAttribute(null, project.getName(), entry);
     	
     	ClasspathDependencyTestUtil.verifyNoClasspathAttributes(javaProject);
-    	DependencyUtil.waitForValidationJobs(project);
-    	ClasspathDependencyTestUtil.verifyNoClasspathDependencyError(project);
     }
     
     //EarLibrariesContainer=Invalid classpath component dependency {0}. The EAR Libraries classpath container cannot be exposed.
