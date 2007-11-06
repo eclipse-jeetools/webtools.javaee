@@ -1,73 +1,91 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2007 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- * IBM Corporation - initial API and implementation
+ * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
  *******************************************************************************/
-/*
- * Created on Aug 6, 2004
- */
 package org.eclipse.jst.j2ee.internal.web.operations;
+
+import java.util.Collection;
 
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
+public class CreateListenerTemplateModel extends CreateWebClassTemplateModel {
+	
+	public static final String QUALIFIED_SERVLET_CONTEXT_LISTENER = "javax.servlet.ServletContextListener"; //$NON-NLS-1$
+	public static final String QUALIFIED_SERVLET_CONTEXT_EVENT = "javax.servlet.ServletContextEvent"; //$NON-NLS-1$
+	public static final String QUALIFIED_SERVLET_CONTEXT_ATTRIBUTE_LISTENER = "javax.servlet.ServletContextAttributeListener"; //$NON-NLS-1$
+	public static final String QUALIFIED_SERVLET_CONTEXT_ATTRIBUTE_EVENT = "javax.servlet.ServletContextAttributeEvent"; //$NON-NLS-1$
+	public static final String QUALIFIED_HTTP_SESSION_LISTENER = "javax.servlet.http.HttpSessionListener"; //$NON-NLS-1$
+	public static final String QUALIFIED_HTTP_SESSION_EVENT = "javax.servlet.http.HttpSessionEvent"; //$NON-NLS-1$
+	public static final String QUALIFIED_HTTP_SESSION_ATTRIBUTE_LISTENER = "javax.servlet.http.HttpSessionAttributeListener"; //$NON-NLS-1$
+	public static final String QUALIFIED_HTTP_SESSION_BINDING_EVENT = "javax.servlet.http.HttpSessionBindingEvent"; //$NON-NLS-1$
+	public static final String QUALIFIED_HTTP_SESSION_ACTIVATION_LISTENER = "javax.servlet.http.HttpSessionActivationListener"; //$NON-NLS-1$
+	public static final String QUALIFIED_HTTP_SESSION_BINDING_LISTENER = "javax.servlet.http.HttpSessionBindingListener"; //$NON-NLS-1$
+	public static final String QUALIFIED_SERVLET_REQUEST_LISTENER = "javax.servlet.ServletRequestListener"; //$NON-NLS-1$
+	public static final String QUALIFIED_SERVLET_REQUEST_EVENT = "javax.servlet.ServletRequestEvent"; //$NON-NLS-1$
+	public static final String QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER = "javax.servlet.ServletRequestAttributeListener"; //$NON-NLS-1$
+	public static final String QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_EVENT = "javax.servlet.ServletRequestAttributeEvent"; //$NON-NLS-1$
+	
+	public Collection<String> getImports() {
+		Collection<String> collection = super.getImports();
+		
+		if (implementServletContextListener()) {
+			collection.add(QUALIFIED_SERVLET_CONTEXT_LISTENER);
+			collection.add(QUALIFIED_SERVLET_CONTEXT_EVENT);
+		}
+		
+		if (implementServletContextAttributeListener()) {
+			collection.add(QUALIFIED_SERVLET_CONTEXT_ATTRIBUTE_LISTENER);
+			collection.add(QUALIFIED_SERVLET_CONTEXT_ATTRIBUTE_EVENT);
+		}
+		
+		if (implementHttpSessionListener()) {
+			collection.add(QUALIFIED_HTTP_SESSION_LISTENER);
+			collection.add(QUALIFIED_HTTP_SESSION_EVENT);
+		}
+		
+		if (implementHttpSessionAttributeListener()) {
+			collection.add(QUALIFIED_HTTP_SESSION_ATTRIBUTE_LISTENER);
+			collection.add(QUALIFIED_HTTP_SESSION_BINDING_EVENT);
+		}
+		
+		if (implementHttpSessionActivationListener()) {
+			collection.add(QUALIFIED_HTTP_SESSION_ACTIVATION_LISTENER);
+			collection.add(QUALIFIED_HTTP_SESSION_EVENT);
+		}
+		
+		if (implementHttpSessionBindingListener()) {
+			collection.add(QUALIFIED_HTTP_SESSION_BINDING_LISTENER);
+			collection.add(QUALIFIED_HTTP_SESSION_BINDING_EVENT);
+		}
+		
+		if (implementServletRequestListener()) {
+			collection.add(QUALIFIED_SERVLET_REQUEST_LISTENER);
+			collection.add(QUALIFIED_SERVLET_REQUEST_EVENT);
+		}
+		
+		if (implementServletRequestAttributeListener()) {
+			collection.add(QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER);
+			collection.add(QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_EVENT);
+		}
+		
+		return collection;
+	}
 
-/**
- * @author kraev
- */
-public class CreateListenerTemplateModel {
-
-	private IDataModel dataModel = null;
-
-	/**
-	 * Constructor
-	 */
 	public CreateListenerTemplateModel(IDataModel dataModel) {
-		super();
-		this.dataModel = dataModel;
-	}
-
-	public String getListenerClassName() {
-		return getProperty(INewJavaClassDataModelProperties.CLASS_NAME).trim();
-	}
-
-	public String getJavaPackageName() {
-		return getProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE).trim();
-	}
-
-	public String getQualifiedJavaClassName() {
-		return getJavaPackageName() + "." + getListenerClassName(); //$NON-NLS-1$
-	}
-
-	public String getSuperclassName() {
-		return getProperty(INewJavaClassDataModelProperties.SUPERCLASS).trim();
+		super(dataModel);
 	}
 
 	public String getListenerName() {
 		return getProperty(INewJavaClassDataModelProperties.CLASS_NAME).trim();
 	}
 
-	public boolean isPublic() {
-		return dataModel.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_PUBLIC);
-	}
-
-	public boolean isFinal() {
-		return dataModel.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_FINAL);
-	}
-
-	public boolean isAbstract() {
-		return dataModel.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_ABSTRACT);
-	}
-
-	protected String getProperty(String propertyName) {
-		return dataModel.getStringProperty(propertyName);
-	}
-	
 	public boolean implementServletContextListener() {
 		return dataModel.getBooleanProperty(INewListenerClassDataModelProperties.SERVLET_CONTEXT_LISTENER);
 	}

@@ -1,67 +1,64 @@
-/*
- * Created on Aug 6, 2004
- */
+/*******************************************************************************
+ * Copyright (c) 2007 SAP AG and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class CreateFilterTemplateModel {
+public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
+	
+	public static final String QUALIFIED_IO_EXCEPTION = "java.io.IOException"; //$NON-NLS-1$
+	public static final String QUALIFIED_SERVLET_EXCEPTION = "javax.servlet.ServletException"; //$NON-NLS-1$
+	public static final String QUALIFIED_SERVLET_REQUEST = "javax.servlet.ServletRequest"; //$NON-NLS-1$
+	public static final String QUALIFIED_SERVLET_RESPONSE = "javax.servlet.ServletResponse"; //$NON-NLS-1$
+	public static final String QUALIFIED_FILTER_CONFIG = "javax.servlet.FilterConfig"; //$NON-NLS-1$
+	public static final String QUALIFIED_FILTER_CHAIN = "javax.servlet.FilterChain"; //$NON-NLS-1$
 
-	IDataModel dataModel = null;
 	public static final String INIT = "init"; //$NON-NLS-1$
 	public static final String TO_STRING = "toString"; //$NON-NLS-1$
 	public static final String DO_FILTER = "doFilter"; //$NON-NLS-1$
 	public static final String DESTROY = "destroy"; //$NON-NLS-1$
-
+	
 	public static final int NAME = 0;
 	public static final int VALUE = 1;
 	public static final int DESCRIPTION = 2;
 
-	/**
-	 * Constructor
-	 */
 	public CreateFilterTemplateModel(IDataModel dataModel) {
-		super();
-		this.dataModel = dataModel;
+		super(dataModel);
 	}
-
-	public String getFilterClassName() {
-		return getProperty(INewJavaClassDataModelProperties.CLASS_NAME).trim();
-	}
-
-	public String getJavaPackageName() {
-		return getProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE).trim();
-	}
-
-	public String getQualifiedJavaClassName() {
-		return getJavaPackageName() + "." + getFilterClassName(); //$NON-NLS-1$
-	}
-
-	public String getSuperclassName() {
-		return getProperty(INewJavaClassDataModelProperties.SUPERCLASS).trim();
+	
+	public Collection<String> getImports() {
+		Collection<String> collection = super.getImports();
+		
+		if (shouldGenInit()) {
+			collection.add(QUALIFIED_FILTER_CONFIG);
+			collection.add(QUALIFIED_SERVLET_EXCEPTION);
+		}
+		
+		if (shouldGenDoFilter()) {
+			collection.add(QUALIFIED_SERVLET_REQUEST);
+			collection.add(QUALIFIED_SERVLET_RESPONSE);
+			collection.add(QUALIFIED_FILTER_CHAIN);
+			collection.add(QUALIFIED_IO_EXCEPTION);
+			collection.add(QUALIFIED_SERVLET_EXCEPTION);
+		}
+		
+		return collection;
 	}
 
 	public String getFilterName() {
 		return getProperty(INewJavaClassDataModelProperties.CLASS_NAME).trim();
-	}
-
-	public boolean isPublic() {
-		return dataModel.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_PUBLIC);
-	}
-
-	public boolean isFinal() {
-		return dataModel.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_FINAL);
-	}
-
-	public boolean isAbstract() {
-		return dataModel.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_ABSTRACT);
-	}
-
-	protected String getProperty(String propertyName) {
-		return dataModel.getStringProperty(propertyName);
 	}
 
 	public boolean shouldGenInit() {
@@ -108,10 +105,6 @@ public class CreateFilterTemplateModel {
 
 	public String getFilterDescription() {
 		return dataModel.getStringProperty(INewFilterClassDataModelProperties.DESCRIPTION);
-	}
-
-	public List getInterfaces() {
-		return (List) this.dataModel.getProperty(INewJavaClassDataModelProperties.INTERFACES);
 	}
 
 	protected boolean implementImplementedMethod(String methodName) {

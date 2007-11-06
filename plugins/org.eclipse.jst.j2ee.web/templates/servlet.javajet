@@ -4,7 +4,7 @@
 %><%@ include file="servletHeader.template" %>
 
 <%if (model.isPublic()) {%>public<%}%> <%if (model.isAbstract()) {%>abstract <%}%><%if (model.isFinal()) {%>final <%}
-%>class <%=model.getServletClassName()%><%String superClass = model.getSuperclassName();
+%>class <%=model.getClassName()%><%String superClass = model.getSuperclassName();
  if (! "".equals(superClass)) {%> extends <%=superClass%><%}%><%
  List interfaces = model.getInterfaces(); 
  if (interfaces.size()>0) {%> implements <% }
@@ -13,10 +13,10 @@
    if (i>0) { %>, <%}%><%=INTERFACE%><%}%> {
 	static final long serialVersionUID = 1L;
 
-    /* (non-Java-doc)
+    /* (non-Javadoc)
 	 * @see javax.servlet.http.HttpServlet#HttpServlet()
 	 */
-	public <%=model.getServletClassName()%>() {
+	public <%=model.getClassName()%>() {
 		super();
 	}<% if (model.shouldGenInit()) { %>
 
@@ -54,14 +54,14 @@
 		return null; <% } %>
 	}<% } %><% if (model.shouldGenService() && !model.isHttpServletSuperclass()) { %>
 
-	/* (non-Java-doc)
+	/* (non-Javadoc)
 	 * @see javax.servlet.GenericServlet#service(ServletRequest request, ServletResponse response)
 	 */
 	public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}<% } %><% if (model.shouldGenService() && model.isHttpServletSuperclass()) { %>
 
-	/* (non-Java-doc)
+	/* (non-Javadoc)
 	 * @see javax.servlet.http.HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -69,7 +69,7 @@
 		super.service(request, response);
 	}<% } %><% if (model.shouldGenDoGet()) { %>
 
-	/* (non-Java-doc)
+	/* (non-Javadoc)
 	 * @see javax.servlet.http.HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -77,7 +77,7 @@
 		super.doGet(request, response);
 	}<% } %><% if (model.shouldGenDoPost()) { %>
 
-	/* (non-Java-doc)
+	/* (non-Javadoc)
 	 * @see javax.servlet.http.HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -85,7 +85,7 @@
 		super.doPost(request, response);
 	}<% } %><% if (model.shouldGenDoPut()) { %>
 
-	/* (non-Java-doc)
+	/* (non-Javadoc)
 	 * @see javax.servlet.http.HttpServlet#doPut(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -93,7 +93,7 @@
 		super.doPut(request, response);
 	}<% } %><% if (model.shouldGenDoDelete()) { %>
 
-	/* (non-Java-doc)
+	/* (non-Javadoc)
 	 * @see javax.servlet.http.HttpServlet#doDelete(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -101,7 +101,7 @@
 		super.doDelete(request, response);
 	}<% } %><% if (model.shouldGenDoHead()) { %>
 
-	/* (non-Java-doc)
+	/* (non-Javadoc)
 	 * @see javax.servlet.http.HttpServlet#doHead(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	protected void doHead(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -109,7 +109,7 @@
 		super.doHead(request, response);
 	}<% } %><% if (model.shouldGenDoOptions()) { %>
 
-	/* (non-Java-doc)
+	/* (non-Javadoc)
 	 * @see javax.servlet.http.HttpServlet#doOptions(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	protected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -117,7 +117,7 @@
 		super.doOptions(request, response);
 	}<% } %><% if (model.shouldGenDoTrace()) { %>
 
-	/* (non-Java-doc)
+	/* (non-Javadoc)
 	 * @see javax.servlet.http.HttpServlet#doTrace(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	protected void doTrace(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

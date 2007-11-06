@@ -8,24 +8,32 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  * Kiril Mitov, k.mitov@sap.com	- bug 204160
+ * Kaloyan Raev, kaloyan.raev@sap.com
  *******************************************************************************/
 /*
  * Created on Aug 6, 2004
  */
 package org.eclipse.jst.j2ee.internal.web.operations;
 
+import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
  * @author jlanuti
  */
-public class CreateServletTemplateModel {
+public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 
-	IDataModel dataModel = null;
+	public static final String QUALIFIED_IO_EXCEPTION = "java.io.IOException"; //$NON-NLS-1$
+	public static final String QUALIFIED_SERVLET_EXCEPTION = "javax.servlet.ServletException"; //$NON-NLS-1$
+	public static final String QUALIFIED_SERVLET_CONFIG = "javax.servlet.ServletConfig"; //$NON-NLS-1$
+	public static final String QUALIFIED_SERVLET_REQUEST = "javax.servlet.ServletRequest"; //$NON-NLS-1$
+	public static final String QUALIFIED_SERVLET_RESPONSE = "javax.servlet.ServletResponse"; //$NON-NLS-1$
+	public static final String QUALIFIED_HTTP_SERVLET_REQUEST = "javax.servlet.http.HttpServletRequest"; //$NON-NLS-1$
+	public static final String QUALIFIED_HTTP_SERVLET_RESPONSE = "javax.servlet.http.HttpServletResponse"; //$NON-NLS-1$
+	
 	public static final String INIT = "init"; //$NON-NLS-1$
 	public static final String DESTROY = "destroy"; //$NON-NLS-1$
 	public static final String GET_SERVLET_CONFIG = "getServletConfig"; //$NON-NLS-1$
@@ -38,56 +46,54 @@ public class CreateServletTemplateModel {
 	public static final String DO_HEAD = "doHead"; //$NON-NLS-1$
 	public static final String DO_OPTIONS = "doOptions"; //$NON-NLS-1$
 	public static final String DO_TRACE = "doTrace"; //$NON-NLS-1$
+	
 	public static final int NAME = 0;
 	public static final int VALUE = 1;
 	public static final int DESCRIPTION = 2;
-
-	/**
-	 * Constructor
-	 */
+	
 	public CreateServletTemplateModel(IDataModel dataModel) {
-		super();
-		this.dataModel = dataModel;
+		super(dataModel);
 	}
-
-	public String getServletClassName() {
-		return getProperty(INewJavaClassDataModelProperties.CLASS_NAME).trim();
-	}
-
-	public String getJavaPackageName() {
-		return getProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE).trim();
-	}
-
-	public String getQualifiedJavaClassName() {
-		return getJavaPackageName() + "." + getServletClassName(); //$NON-NLS-1$
-	}
-
-	public String getSuperclassName() {
-		return getProperty(INewJavaClassDataModelProperties.SUPERCLASS).trim();
+	
+	public Collection<String> getImports() {
+		Collection<String> collection = super.getImports();
+		
+		if (shouldGenInit()) {
+			collection.add(QUALIFIED_SERVLET_CONFIG);
+			collection.add(QUALIFIED_SERVLET_EXCEPTION);
+		}
+		
+		if (shouldGenGetServletConfig()) {
+			collection.add(QUALIFIED_SERVLET_CONFIG);
+		}
+		
+		if (shouldGenService()) {
+			if (isHttpServletSuperclass()) {
+				collection.add(QUALIFIED_HTTP_SERVLET_REQUEST);
+				collection.add(QUALIFIED_HTTP_SERVLET_RESPONSE);
+			} else {
+				collection.add(QUALIFIED_SERVLET_REQUEST);
+				collection.add(QUALIFIED_SERVLET_RESPONSE);
+			}
+			
+			collection.add(QUALIFIED_SERVLET_EXCEPTION);
+			collection.add(QUALIFIED_IO_EXCEPTION);
+		}
+		
+		if (shouldGenDoGet() || shouldGenDoPost() || shouldGenDoPut() || 
+				shouldGenDoDelete() || shouldGenDoHead() || 
+				shouldGenDoOptions() || shouldGenDoTrace()) {
+			collection.add(QUALIFIED_HTTP_SERVLET_REQUEST);
+			collection.add(QUALIFIED_HTTP_SERVLET_RESPONSE);
+			collection.add(QUALIFIED_SERVLET_EXCEPTION);
+			collection.add(QUALIFIED_IO_EXCEPTION);
+		}
+		
+		return collection;
 	}
 
 	public String getServletName() {
 		return getProperty(INewServletClassDataModelProperties.DISPLAY_NAME).trim();
-	}
-
-	public boolean isPublic() {
-		return dataModel.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_PUBLIC);
-	}
-
-	public boolean isFinal() {
-		return dataModel.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_FINAL);
-	}
-
-	public boolean isAbstract() {
-		return dataModel.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_ABSTRACT);
-	}
-	
-	public boolean isAnnotated() {
-		return dataModel.getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS);
-	}
-
-	protected String getProperty(String propertyName) {
-		return dataModel.getStringProperty(propertyName);
 	}
 
 	public boolean shouldGenInit() {
@@ -176,10 +182,6 @@ public class CreateServletTemplateModel {
 
 	public String getServletDescription() {
 		return dataModel.getStringProperty(INewServletClassDataModelProperties.DESCRIPTION);
-	}
-
-	public List getInterfaces() {
-		return (List) this.dataModel.getProperty(INewJavaClassDataModelProperties.INTERFACES);
 	}
 
 	protected boolean implementImplementedMethod(String methodName) {

@@ -249,7 +249,7 @@ public class NewServletClassOperation extends AbstractDataModelOperation {
 		}
 		if (fragment != null) {
 			// Create the java file
-			String javaFileName = tempModel.getServletClassName() + DOT_JAVA;
+			String javaFileName = tempModel.getClassName() + DOT_JAVA;
 			ICompilationUnit cu = fragment.getCompilationUnit(javaFileName);
 			// Add the compilation unit to the java file
 			if (cu == null || !cu.exists())

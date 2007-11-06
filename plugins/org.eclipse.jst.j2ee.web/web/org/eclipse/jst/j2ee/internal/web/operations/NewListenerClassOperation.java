@@ -248,7 +248,7 @@ public class NewListenerClassOperation extends AbstractDataModelOperation {
 		}
 		if (fragment != null) {
 			// Create the java file
-			String javaFileName = tempModel.getListenerClassName() + DOT_JAVA;
+			String javaFileName = tempModel.getClassName() + DOT_JAVA;
 			ICompilationUnit cu = fragment.getCompilationUnit(javaFileName);
 			// Add the compilation unit to the java file
 			if (cu == null || !cu.exists())
