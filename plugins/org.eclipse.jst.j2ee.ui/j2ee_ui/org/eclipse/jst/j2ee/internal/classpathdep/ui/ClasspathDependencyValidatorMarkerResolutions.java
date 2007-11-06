@@ -73,10 +73,7 @@ public final class ClasspathDependencyValidatorMarkerResolutions implements IMar
 			return new IMarkerResolution[] { new UpdateClasspathDependencyAttributeResolution(cpEntryPath, false) };			
 		} else if (ClasspathDependencyValidator.NonTaggedExportedClasses.equals(messageId)) {
 			// quick fix adds the dependency
-			return new IMarkerResolution[] { new UpdateClasspathDependencyAttributeResolution(cpEntryPath, true) };			
-		} else if (ClasspathDependencyValidator.NonWebNonExported.equals(messageId)) {
-			// quick fix removes the dependency
-			return new IMarkerResolution[] { new UpdateClasspathDependencyAttributeResolution(cpEntryPath, false) };		
+			return new IMarkerResolution[] { new UpdateClasspathDependencyAttributeResolution(cpEntryPath, true) };	
 		} else if (ClasspathDependencyValidator.ProjectClasspathEntry.equals(messageId)) {
 			// quick fix removes the dependency
 			return new IMarkerResolution[] { new UpdateClasspathDependencyAttributeResolution(cpEntryPath, false) };	
