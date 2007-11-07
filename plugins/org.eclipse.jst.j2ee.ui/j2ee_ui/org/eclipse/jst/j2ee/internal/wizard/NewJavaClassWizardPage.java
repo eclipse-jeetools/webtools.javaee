@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
@@ -579,13 +580,16 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		ISelection selection = window.getSelectionService().getSelection();
 		if (selection == null)
 			return null;
-		// StructuredSelection stucturedSelection = (StructuredSelection)
-		// selection;
 		IJavaElement element = getInitialJavaElement(selection);
 		if (element != null) {
-			if (element.getElementType() == IJavaElement.PACKAGE_FRAGMENT)
+			if (element.getElementType() == IJavaElement.PACKAGE_FRAGMENT) {
 				return (IPackageFragment) element;
-			else if (element.getElementType() == IJavaElement.TYPE) {
+			} else if (element.getElementType() == IJavaElement.COMPILATION_UNIT) { 
+				IJavaElement parent = ((ICompilationUnit) element).getParent();
+				if (parent.getElementType() == IJavaElement.PACKAGE_FRAGMENT) {
+					return (IPackageFragment) parent;
+				}
+			} else if (element.getElementType() == IJavaElement.TYPE) {
 				return ((IType) element).getPackageFragment();
 			}
 		}
