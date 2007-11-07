@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.datamodel.properties;
 
 import org.eclipse.jst.j2ee.archive.IArchiveExportParticipant;
-import org.eclipse.jst.j2ee.internal.archive.operations.EARArchiveOpsResourceHandler;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties;
 /**
