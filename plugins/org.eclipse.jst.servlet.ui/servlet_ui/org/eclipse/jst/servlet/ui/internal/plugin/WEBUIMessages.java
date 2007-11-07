@@ -25,6 +25,9 @@ public class WEBUIMessages extends NLS {
 	public static String FOLDER_LABEL;
 	public static String URL_MAPPINGS_LABEL;
 	public static String SERVLET_MAPPINGS_LABEL;
+	public static String FILTER_MAPPINGS_LABEL;
+	public static String URL_SERVLET_LABEL;
+	public static String DISPATCHERS_LABEL;
 	public static String JAVA_CLASS_MODIFIERS_LABEL;
 	public static String SUPERCLASS_LABEL;
 	public static String WEB_CONT_PAGE_TITLE;
@@ -129,6 +132,11 @@ public class WEBUIMessages extends NLS {
 	public static String ADD_LISTENER_WIZARD_CHANGES_TO_ATTRIBUTES;
 	public static String ADD_LISTENER_WIZARD_SESSION_MIGRATION;
 	public static String ADD_LISTENER_WIZARD_OBJECT_BINDING;
+	
+	public static String DISPATCHER_REQUEST;
+	public static String DISPATCHER_FORWARD;
+	public static String DISPATCHER_INCLUDE;
+	public static String DISPATCHER_ERROR;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, WEBUIMessages.class);

@@ -455,12 +455,12 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 			}
 			String isValidValue = validateValue(prop);
 			if (isValidValue != null && isValidValue.length() > 0) {
-				NLS.bind(WebMessages.ERR_SERVLET_MAPPING_URL_PATTERN_INVALID, isValidValue);
-				String resourceString = WebMessages.getResourceString(WebMessages.ERR_SERVLET_MAPPING_URL_PATTERN_INVALID, new String[]{isValidValue});
+				NLS.bind(WebMessages.ERR_URL_PATTERN_INVALID, isValidValue);
+				String resourceString = WebMessages.getResourceString(WebMessages.ERR_URL_PATTERN_INVALID, new String[]{isValidValue});
 				return WTPCommonPlugin.createErrorStatus(resourceString);
 			}
 		} else {
-			String msg = WebMessages.ERR_SERVLET_MAPPING_URL_PATTERN_EMPTY;
+			String msg = WebMessages.ERR_URL_MAPPING_LIST_EMPTY;
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
 		// Return OK

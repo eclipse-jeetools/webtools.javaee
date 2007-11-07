@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.*;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jem.util.UIContextDetermination;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -186,15 +187,12 @@ public class AddFilterOperation extends AbstractDataModelOperation implements
 		if (initParamList != null)
 			setUpInitParams(initParamList, filter);
 
-		// Set up the filter URL mappings if any
-		 List urlMappingList = 
-		     (List) aModel.getProperty(INewFilterClassDataModelProperties.URL_MAPPINGS);
+		// Set up the filter mappings if any
+		 List filterMappingsList = 
+		     (List) aModel.getProperty(INewFilterClassDataModelProperties.FILTER_MAPPINGS);
 
-		 // Set up the filter servlet name mappings if any
-         List srvNameMappingList = 
-             (List) aModel.getProperty(INewFilterClassDataModelProperties.SERVLET_MAPPINGS);
-         if ((urlMappingList != null) || (srvNameMappingList != null))
-             setUpMappings(urlMappingList, srvNameMappingList, filter);
+         if (filterMappingsList != null && !filterMappingsList.isEmpty())
+             setUpMappings(filterMappingsList, filter);
 	}
 
 	/**
@@ -231,7 +229,6 @@ public class AddFilterOperation extends AbstractDataModelOperation implements
 			filter.setDisplayName(displayName);
 			filter.setDescription(description);
 			filter.setFilterClassName(qualifiedClassName);
-	
 
 			// Add the filter to the web application model
 			WebApp webApp = (WebApp) modelObject;
@@ -340,7 +337,7 @@ public class AddFilterOperation extends AbstractDataModelOperation implements
 	 * @param urlMappingList
 	 * @param filter
 	 */
-	private void setUpMappings(List urlMappingList, List servletMappingList, Object filterObj) {
+	private void setUpMappings(List filterMappingsList, Object filterObj) {
 		// Get the web app modelled object from the data model
 		// WebApp webApp = (WebApp) artifactEdit.getContentModelRoot();
 		Object modelObject = provider.getModelObject();
@@ -349,61 +346,76 @@ public class AddFilterOperation extends AbstractDataModelOperation implements
 		if (modelObject instanceof org.eclipse.jst.j2ee.webapplication.WebApp) {
 			WebApp webApp = (WebApp) modelObject;
 			Filter filter = (Filter) filterObj;
-			if (urlMappingList != null) for (int iM = 0; iM < urlMappingList.size(); iM++) {
-				String[] stringArray = (String[]) urlMappingList.get(iM);
-				// Create the filter mapping instance from the web factory
-				FilterMapping mapping = WebapplicationFactory.eINSTANCE.createFilterMapping();
-				// Set the filter
-				mapping.setFilter(filter);
-				//mapping.setName(filter.getName()); //TODO: icobgr: to check the name
-				// Set the URL pattern to map the filter to
-				mapping.setUrlPattern(stringArray[0]);
-				// Add the filter mapping to the web application modelled list
-				webApp.getFilterMappings().add(mapping);
-			}
-            if (servletMappingList != null) for (int iM = 0; iM < servletMappingList.size(); iM++) {
-                String[] stringArray = (String[]) servletMappingList.get(iM);
-                // Create the filter mapping instance from the web factory
-                FilterMapping mapping = WebapplicationFactory.eINSTANCE.createFilterMapping();
-                // Set the filter
-                mapping.setFilter(filter);
-                //mapping.setName(filter.getName()); //TODO: icobgr: to check the name
-                // Set the URL pattern to map the filter to
-                mapping.setServletName(stringArray[0]);
-                // Add the filter mapping to the web application modelled list
-                webApp.getFilterMappings().add(mapping);
-            }
+			if (filterMappingsList != null) 
+			    for (int iM = 0; iM < filterMappingsList.size(); iM++) {
+			        IFilterMappingItem filterMapping = (IFilterMappingItem) filterMappingsList.get(iM);
+			        // Create the filter mapping instance from the web factory
+			        FilterMapping mapping = WebapplicationFactory.eINSTANCE.createFilterMapping();
+			        // Set the filter
+			        mapping.setFilter(filter);
+			        if (filterMapping.getMappingType() == IFilterMappingItem.URL_PATTERN) {
+			            // Set the URL pattern to map the filter to
+			            mapping.setUrlPattern(filterMapping.getName());
+			        } else {
+                        // Set the Servlet Name to map the filter to
+			        	Servlet servlet = webApp.getServletNamed(filterMapping.getName());
+                        mapping.setServlet(servlet);
+			        }
+			        //Set dispatcher options for the filter mapping if any.
+			        int dispatchers = filterMapping.getDispatchers();
+			        EList dispatcherTypes = mapping.getDispatcherType();
+                    if ((dispatchers & IFilterMappingItem.REQUEST) > 0) {
+                        dispatcherTypes.add(DispatcherType.REQUEST_LITERAL);
+                    }
+                    if ((dispatchers & IFilterMappingItem.FORWARD) > 0) {
+                        dispatcherTypes.add(DispatcherType.FORWARD_LITERAL);
+                    }
+                    if ((dispatchers & IFilterMappingItem.INCLUDE) > 0) {
+                        dispatcherTypes.add(DispatcherType.INCLUDE_LITERAL);
+                    }
+                    if ((dispatchers & IFilterMappingItem.ERROR) > 0) {
+                        dispatcherTypes.add(DispatcherType.ERROR_LITERAL);
+                    }
+			        // Add the filter mapping to the web application modelled list
+			        webApp.getFilterMappings().add(mapping);
+			    }
 		} else if (modelObject instanceof org.eclipse.jst.javaee.web.WebApp) {
-			org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) modelObject;
-			org.eclipse.jst.javaee.web.Filter filter = (org.eclipse.jst.javaee.web.Filter) filterObj;
+		    org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) modelObject;
+		    org.eclipse.jst.javaee.web.Filter filter = (org.eclipse.jst.javaee.web.Filter) filterObj;
 
-            // Create the filter mapping instance from the web factory
+		    // Create the filter mapping instance from the web factory
             org.eclipse.jst.javaee.web.FilterMapping mapping = null;
 			// Create the filter mappings if any
-			if (urlMappingList != null && urlMappingList.size() > 0) {
-			    mapping = WebFactory.eINSTANCE.createFilterMapping();
-			    mapping.setFilterName(filter.getFilterName());
-				for (int i = 0; i < urlMappingList.size(); i++) {
-					String[] stringArray = (String[]) urlMappingList.get(i);
-					// Set the URL pattern to map the filter to
-					UrlPatternType url = JavaeeFactory.eINSTANCE.createUrlPatternType();
-					url.setValue(stringArray[0]);
-					mapping.getUrlPatterns().add(url);
+			if (filterMappingsList != null) {
+				for (int i = 0; i < filterMappingsList.size(); i++) {
+	                mapping = WebFactory.eINSTANCE.createFilterMapping();
+	                mapping.setFilterName(filter.getFilterName());
+	                IFilterMappingItem filterMapping = (IFilterMappingItem) filterMappingsList.get(i);
+	                if (filterMapping.getMappingType() == IFilterMappingItem.URL_PATTERN) {
+	                    // Set the URL pattern to map the filter to
+	                    UrlPatternType url = JavaeeFactory.eINSTANCE.createUrlPatternType();
+	                    url.setValue(filterMapping.getName());
+	                    mapping.getUrlPatterns().add(url);
+	                } else {
+	                    mapping.getServletNames().add(filterMapping.getName());
+	                }
+  			        //Set dispatcher options for the filter mapping if any.	
+                    int dispatchers = filterMapping.getDispatchers();
+                    if ((dispatchers & IFilterMappingItem.REQUEST) > 0) {
+                        mapping.getDispatchers().add(org.eclipse.jst.javaee.web.DispatcherType.REQUEST_LITERAL);
+                    }
+                    if ((dispatchers & IFilterMappingItem.FORWARD) > 0) {
+                        mapping.getDispatchers().add(org.eclipse.jst.javaee.web.DispatcherType.FORWARD_LITERAL);
+                    }
+                    if ((dispatchers & IFilterMappingItem.INCLUDE) > 0) {
+                        mapping.getDispatchers().add(org.eclipse.jst.javaee.web.DispatcherType.INCLUDE_LITERAL);
+                    }
+                    if ((dispatchers & IFilterMappingItem.ERROR) > 0) {
+                        mapping.getDispatchers().add(org.eclipse.jst.javaee.web.DispatcherType.ERROR_LITERAL);
+                    }
+                    // Add the filter mapping to the web application model list
+                    webApp.getFilterMappings().add(mapping);
 				}
-			}
-			if (servletMappingList != null && servletMappingList.size() > 0) {
-			    if (mapping == null) {
-			        mapping = WebFactory.eINSTANCE.createFilterMapping();
-			        mapping.setFilterName(filter.getFilterName());
-			    }
-			    for (int i = 0; i < servletMappingList.size(); i++) {
-			        String[] servletName = (String[]) servletMappingList.get(i);
-			        mapping.getServletNames().add(servletName[0]);
-			    }
-			}
-            // Add the filter mapping to the web application model list
-			if (mapping != null) {
-			    webApp.getFilterMappings().add(mapping);
 			}
 		}
 	}

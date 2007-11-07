@@ -5,8 +5,9 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.web.operations.FilterMappingItem;
+import org.eclipse.jst.j2ee.internal.web.operations.IFilterMappingItem;
 import org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.wizard.StringArrayTableWizardSection;
 import org.eclipse.jst.j2ee.model.IModelProvider;
@@ -17,13 +18,12 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.*;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+import org.eclipse.jface.dialogs.Dialog;
 
 /**
  * Filter Wizard Setting Page
@@ -33,8 +33,7 @@ public class AddFilterWizardPage extends DataModelWizardPage {
 
 	private Text displayNameText;
 
-	private StringArrayTableWizardSection urlSection;
-	private ServletNameArrayTableWizardSection servletSection;
+	FilterMappingsArrayTableWizardSection mappingSection;
 
 	public AddFilterWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
@@ -50,8 +49,7 @@ public class AddFilterWizardPage extends DataModelWizardPage {
 	protected String[] getValidationPropertyNames() {
 		return new String[]{INewFilterClassDataModelProperties.DISPLAY_NAME, 
 		        INewFilterClassDataModelProperties.INIT_PARAM, 
-		        INewFilterClassDataModelProperties.URL_MAPPINGS,
-		        INewFilterClassDataModelProperties.SERVLET_MAPPINGS};
+		        INewFilterClassDataModelProperties.FILTER_MAPPINGS};
 	}
 
 	protected Composite createTopLevelComposite(Composite parent) {
@@ -69,42 +67,25 @@ public class AddFilterWizardPage extends DataModelWizardPage {
 				model, INewFilterClassDataModelProperties.INIT_PARAM);
 		initSection.setCallback(callback);
 		
-		urlSection = new StringArrayTableWizardSection(composite, IWebWizardConstants.URL_MAPPINGS_LABEL, IWebWizardConstants.ADD_BUTTON_LABEL, IWebWizardConstants.EDIT_BUTTON_LABEL, IWebWizardConstants.REMOVE_BUTTON_LABEL,
-				new String[]{IWebWizardConstants.URL_PATTERN_LABEL}, null,// WebPlugin.getDefault().getImage("url_type"),
-				model, INewFilterClassDataModelProperties.URL_MAPPINGS);
-		urlSection.setCallback(callback);
+		String[] buttons = new String[] {
+		        IWebWizardConstants.ADD_BUTTON_LABEL, 
+		        IWebWizardConstants.EDIT_BUTTON_LABEL, 
+		        IWebWizardConstants.REMOVE_BUTTON_LABEL
+		};
+		String[] columnNames = new String[] {
+		        null,
+		        IWebWizardConstants.URL_SERVLET_LABEL,
+		        IWebWizardConstants.DISPATCHERS_LABEL
+		};
+		mappingSection = new FilterMappingsArrayTableWizardSection(composite, 
+		         model, INewFilterClassDataModelProperties.FILTER_MAPPINGS);
 
-		IProject p = (IProject) model.getProperty(INewJavaClassDataModelProperties.PROJECT);
-		IModelProvider provider = ModelProviderManager.getModelProvider(p);
-		Object mObj = provider.getModelObject();
-		ArrayList<String> servletsList = new ArrayList<String>();
-		if (mObj instanceof org.eclipse.jst.j2ee.webapplication.WebApp) {
-			org.eclipse.jst.j2ee.webapplication.WebApp webApp = (org.eclipse.jst.j2ee.webapplication.WebApp) mObj;
-			List<Servlet> servlets = webApp.getServlets();
-			for (Servlet servlet : servlets) {
-				servletsList.add(servlet.getServletName());
-			}
-		} else if (mObj instanceof org.eclipse.jst.javaee.web.WebApp) {
-			org.eclipse.jst.javaee.web.WebApp webApp= (org.eclipse.jst.javaee.web.WebApp) mObj;
-			List<org.eclipse.jst.javaee.web.Servlet> servlets = webApp.getServlets();
-			for (org.eclipse.jst.javaee.web.Servlet servlet : servlets) {
-				servletsList.add(servlet.getServletName());
-			}
-		}
-		ServletNamesArrayTableWizardSectionCallback callback1 =  new ServletNamesArrayTableWizardSectionCallback(servletsList);
-        servletSection = new ServletNameArrayTableWizardSection(composite, 
-                IWebWizardConstants.SERVLET_MAPPINGS_LABEL, IWebWizardConstants.ADD_BUTTON_LABEL, 
-                IWebWizardConstants.REMOVE_BUTTON_LABEL,
-                new String[]{IWebWizardConstants.SERVLET_NAME_LABEL}, null,
-                model, INewFilterClassDataModelProperties.SERVLET_MAPPINGS);
-        servletSection.setCallback(callback1);
-		
 		String text = displayNameText.getText();
 		// Set default URL Pattern
 		List input = new ArrayList();
-		input.add(new String[]{"/" + text}); //$NON-NLS-1$
-		if (urlSection != null)
-			urlSection.setInput(input);
+		input.add(new FilterMappingItem(IFilterMappingItem.URL_PATTERN, "/" + text)); //$NON-NLS-1$
+		if (mappingSection != null)
+		    mappingSection.setInput(input);
 		displayNameText.setFocus();
 
 		IStatus projectStatus = validateProjectName();
@@ -139,9 +120,9 @@ public class AddFilterWizardPage extends DataModelWizardPage {
 				String text = displayNameText.getText();
 				// Set default URL Pattern
 				List input = new ArrayList();
-				input.add(new String[]{"/" + text}); //$NON-NLS-1$
-				if (urlSection != null)
-					urlSection.setInput(input);
+				input.add(new FilterMappingItem(IFilterMappingItem.URL_PATTERN, "/" + text)); //$NON-NLS-1$
+				if (mappingSection != null)
+				    mappingSection.setInput(input);
 			}
 
 		});

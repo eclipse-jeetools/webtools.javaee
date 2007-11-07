@@ -44,6 +44,14 @@ public interface IWebWizardConstants {
     public final static String USE_EXISTING_FILTER_CLASS = WEBUIMessages.USE_EXISTING_FILTER_CLASS;
     public final static String CHOOSE_FILTER_CLASS = WEBUIMessages.CHOOSE_FILTER_CLASS;
     public final static String SERVLET_MAPPINGS_LABEL = WEBUIMessages.SERVLET_MAPPINGS_LABEL;
+    public final static String FILTER_MAPPINGS_LABEL = WEBUIMessages.FILTER_MAPPINGS_LABEL;
+    public final static String URL_SERVLET_LABEL = WEBUIMessages.URL_SERVLET_LABEL;
+    public final static String DISPATCHERS_LABEL = WEBUIMessages.DISPATCHERS_LABEL;
+    
+    public static String REQUEST = WEBUIMessages.DISPATCHER_REQUEST;
+    public static String FORWARD = WEBUIMessages.DISPATCHER_FORWARD; 
+    public static String INCLUDE = WEBUIMessages.DISPATCHER_INCLUDE; 
+    public static String ERROR = WEBUIMessages.DISPATCHER_ERROR; 
     
     // NewFilterWizard
     public final static String NEW_FILTER_WIZARD_WINDOW_TITLE = WEBUIMessages.NEW_FILTER_WIZARD_WINDOW_TITLE;

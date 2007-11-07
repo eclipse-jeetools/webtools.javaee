@@ -90,15 +90,14 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 		return null;
 	}
 
-	public List getFilterMappings() {
-		return (List) dataModel.getProperty(INewFilterClassDataModelProperties.URL_MAPPINGS);
+	public List<FilterMappingItem> getFilterMappings() {
+		return (List<FilterMappingItem>) dataModel.getProperty(INewFilterClassDataModelProperties.FILTER_MAPPINGS);
 	}
 
-	public String getFilterMapping(int index) {
-		List mappings = getFilterMappings();
+	public FilterMappingItem getFilterMapping(int index) {
+		List<FilterMappingItem> mappings = getFilterMappings();
 		if (index < mappings.size()) {
-			String[] map = (String[]) mappings.get(index);
-			return map[0];
+		    return mappings.get(index);
 		}
 		return null;
 	}

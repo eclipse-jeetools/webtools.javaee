@@ -32,16 +32,11 @@ public interface INewFilterClassDataModelProperties extends INewJavaClassDataMod
 	 * Optional, List property used to cache all the init params defined on the filter.
 	 */
 	public static final String INIT_PARAM = "NewFilterClassDataModel.INIT_PARAM"; //$NON-NLS-1$
-	
-	/**
-	 * Optional, List propety used to cache all the filter mappings for this filter on the web application.
-	 */
-	public static final String URL_MAPPINGS = "NewFilterClassDataModel.URL_MAPPINGS"; //$NON-NLS-1$
 
-	/**
+    /**
      * Optional, List propety used to cache all the filter mappings for this filter on the web application.
      */
-    public static final String SERVLET_MAPPINGS = "NewFilterClassDataModel.SERVLET_MAPPINGS"; //$NON-NLS-1$
+    public static final String FILTER_MAPPINGS = "NewFilterClassDataModel.FILTER_MAPPINGS"; //$NON-NLS-1$
 
 	/**
 	 * Required, String property of the display name for the filter

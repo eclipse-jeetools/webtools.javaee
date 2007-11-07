@@ -11,6 +11,8 @@ import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataMode
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.web.validation.UrlPattern;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
@@ -82,8 +84,7 @@ public class NewFilterClassDataModelProvider extends NewJavaClassDataModelProvid
 		propertyNames.add(TO_STRING);
 		propertyNames.add(DO_FILTER);
 		propertyNames.add(INIT_PARAM);
-		propertyNames.add(URL_MAPPINGS);
-        propertyNames.add(SERVLET_MAPPINGS);
+        propertyNames.add(FILTER_MAPPINGS);
 		propertyNames.add(USE_ANNOTATIONS);
 		propertyNames.add(DISPLAY_NAME);
 		propertyNames.add(DESCRIPTION);
@@ -116,8 +117,8 @@ public class NewFilterClassDataModelProvider extends NewJavaClassDataModelProvid
             return Boolean.TRUE;
         else if (propertyName.equals(INIT))
             return Boolean.TRUE;
-		else if (propertyName.equals(URL_MAPPINGS))
-			return getDefaultUrlMapping();
+		else if (propertyName.equals(FILTER_MAPPINGS))
+			return getDefaultFilterMapping();
 		else if (propertyName.equals(INTERFACES))
 			return getFilterInterfaces();
 		else if (propertyName.equals(SUPERCLASS))
@@ -133,14 +134,14 @@ public class NewFilterClassDataModelProvider extends NewJavaClassDataModelProvid
 	 * 
 	 * @return List containting the default Url Mapping
 	 */
-	private Object getDefaultUrlMapping() {
-		List urlMappings = null;
+	private Object getDefaultFilterMapping() {
+		List filterMappings = null;
 		String text = (String) getProperty(DISPLAY_NAME);
 		if (text != null) {
-			urlMappings = new ArrayList();
-			urlMappings.add(new String[]{"/" + text}); //$NON-NLS-1$
+		    filterMappings = new ArrayList();
+		    filterMappings.add(new FilterMappingItem(FilterMappingItem.URL_PATTERN, "/" + text)); //$NON-NLS-1$
 		}
-		return urlMappings;
+		return filterMappings;
 	}
 
 	/**
@@ -207,28 +208,6 @@ public class NewFilterClassDataModelProvider extends NewJavaClassDataModelProvid
 		// Return whether property was set
 		return result;
 	}
-
-	/**
-	 * This method is used to determine if annotations should try to enable based on workspace settings
-	 * @return does any valid annotation provider or xdoclet handler exist
-	 */
-	//TODO add this method back in for defect 146696
-//	protected boolean isAnnotationProviderDefined() {
-//		boolean isControllerEnabled = AnnotationsControllerManager.INSTANCE.isAnyAnnotationsSupported();
-//		final String preferred = AnnotationPreferenceStore.getProperty(AnnotationPreferenceStore.ANNOTATIONPROVIDER);
-//		IAnnotationProvider annotationProvider = null;
-//		boolean isProviderEnabled = false;
-//		if (preferred != null) {
-//			try {
-//				annotationProvider = AnnotationUtilities.findAnnotationProviderByName(preferred);
-//			} catch (Exception ex) { 
-//				//Default
-//			}
-//			if (annotationProvider != null && annotationProvider.isValid())
-//				isProviderEnabled = true;
-//		}
-//		return isControllerEnabled || isProviderEnabled;
-//	}
 	
 	/**
 	 * This method checks to see if valid annotation providers exist and if valid project version levels exist.
@@ -236,20 +215,6 @@ public class NewFilterClassDataModelProvider extends NewJavaClassDataModelProvid
 	 */
 	protected boolean isAnnotationsSupported() {
 	    return false;
-//		//TODO add this check back in for defect 146696
-////		if (!isAnnotationProviderDefined())
-////			return false;
-//		if (!getDataModel().isPropertySet(IArtifactEditOperationDataModelProperties.PROJECT_NAME))
-//			return true;
-//		if (getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME).equals("")) //$NON-NLS-1$
-//			return true;
-//		IProject project = ProjectUtilities.getProject(getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME));
-//		String moduleName = getStringProperty(IArtifactEditOperationDataModelProperties.COMPONENT_NAME);
-//		if (project == null || moduleName == null || moduleName.equals(""))return true; //$NON-NLS-1$
-//		int j2eeVersion = J2EEVersionUtil.convertVersionStringToInt(J2EEProjectUtilities.getJ2EEProjectVersion(project));
-//		
-//		return j2eeVersion > J2EEVersionConstants.VERSION_1_2;
-//		
 	}
 
 	/**
@@ -271,9 +236,9 @@ public class NewFilterClassDataModelProvider extends NewJavaClassDataModelProvid
 		// Validate init params
 		if (propertyName.equals(INIT_PARAM))
 			return validateInitParamList((List) getProperty(propertyName));
-		// Validate url pattern and servlet name mappings
-		if (propertyName.equals(URL_MAPPINGS) || propertyName.equals(SERVLET_MAPPINGS))
-			return validateFilterMappingList((List) getProperty(URL_MAPPINGS), (List) getProperty(SERVLET_MAPPINGS));
+        // Validate url pattern and servlet name mappings
+        if (propertyName.equals(FILTER_MAPPINGS))
+            return validateFilterMappingList((List) getProperty(FILTER_MAPPINGS));
 		// Validate the filter name in DD
 		if (propertyName.equals(DISPLAY_NAME))
 			return validateDisplayName(getStringProperty(propertyName));
@@ -316,42 +281,63 @@ public class NewFilterClassDataModelProvider extends NewJavaClassDataModelProvid
 	}
 
 	/**
-     * This method is intended for internal use only. This will validate the filter servlet name 
-     * mappings list and ensure there are not duplicate entries. It will accept a null parameter. 
-     * It will not return null.
+     * This method is intended for internal use only. This will validate the filter 
+     * mappings list and ensure there are not duplicate entries. It will accept 
+     * a null parameter. It will not return null.
      * 
      * @see NewFilterClassDataModelProvider#validate(String)
      * 
      * @param prop
-     * @return IStatus is filter's servlet name mapping list valid?
+     * @return IStatus is filter mapping list valid?
      */
-	private IStatus validateFilterMappingList(List urlProp, List servletsProp) {
-	    boolean isUrlPatternMappingsEmpty = false;
-	    boolean isServletMappingsEmpty = false;
-	    if (urlProp != null && !urlProp.isEmpty()) {
-            // Ensure there are not duplicates in the mapping list
-            boolean dup = hasDuplicatesInStringArrayList(urlProp);
-            if (dup) {
-                String msg = WebMessages.ERR_DUPLICATED_URL_MAPPING;
-                return WTPCommonPlugin.createErrorStatus(msg);
-            }
-        } else {
-            isUrlPatternMappingsEmpty = true;
-        }
-	    if (servletsProp == null || servletsProp.isEmpty()) {
-	        isServletMappingsEmpty = true;
-        }
-	    if (isUrlPatternMappingsEmpty && isServletMappingsEmpty) {
-	        String msg = WebMessages.ERR_FILTER_MAPPING_EMPTY;
-	        return WTPCommonPlugin.createErrorStatus(msg);
-	    }
-        // Return OK
-        return WTPCommonPlugin.OK_STATUS;
+	private IStatus validateFilterMappingList(List prop) {
+		if (prop != null && !prop.isEmpty()) {
+			// Ensure there are not duplicates in the mapping list
+			boolean dup = hasDuplicatesInStringArrayList(prop);
+			if (dup) {
+				String msg = WebMessages.ERR_DUPLICATED_URL_MAPPING;
+				return WTPCommonPlugin.createErrorStatus(msg);
+			}
+			String isValidValue = validateValue(prop);
+			if (isValidValue != null && isValidValue.length() > 0) {
+				NLS.bind(WebMessages.ERR_URL_PATTERN_INVALID, isValidValue);
+				String resourceString = WebMessages.getResourceString(WebMessages.ERR_URL_PATTERN_INVALID, new String[]{isValidValue});
+				return WTPCommonPlugin.createErrorStatus(resourceString);
+			}
+		} else {
+			String msg = WebMessages.ERR_FILTER_MAPPING_EMPTY;
+			return WTPCommonPlugin.createErrorStatus(msg);
+		}
+		// Return OK
+		return WTPCommonPlugin.OK_STATUS;
+	}
+	
+	/**
+ 	 * This method is intended for internal use only. It provides a simple algorithm for detecting
+ 	 * if there are invalid pattern's value in a list. It will accept a null parameter.
+ 	 *
+ 	 * @see NewFilterClassDataModelProvider#validateFilterMappingList(List)
+ 	 *
+ 	 * @param input
+ 	 * @return String first invalid pattern's value
+ 	 */
+	private String validateValue(List prop) {
+		if (prop == null) {
+			return "";
+		}
+		int size = prop.size();
+		for (int i = 0; i < size; i++) {
+			IFilterMappingItem filterMappingValue = (IFilterMappingItem) prop.get(i);
+			if (filterMappingValue.getMappingType() == IFilterMappingItem.URL_PATTERN && 
+					!UrlPattern.isValid(filterMappingValue.getName()))
+				return filterMappingValue.getName();
+		}
+		return "";
 	}
 
 	/**
 	 * This method is intended for internal use only. It provides a simple algorithm for detecting
-	 * if there are duplicate entries in a list. It will accept a null paramter. It will not return
+	 * if there are duplicate entries in a list. It will accept a null parameter. It will not return
 	 * null.
 	 * 
 	 * @see NewFilterClassDataModelProvider#validateInitParamList(List)
@@ -362,28 +348,40 @@ public class NewFilterClassDataModelProvider extends NewJavaClassDataModelProvid
 	 */
 	private boolean hasDuplicatesInStringArrayList(List input) {
 		// If list is null or empty return false
-		if (input == null)
-			return false;
+		if (input == null) return false;
 		int n = input.size();
 		boolean dup = false;
 		// nested for loops to check each element to see if other elements are the same
 		for (int i = 0; i < n; i++) {
-			String[] sArray1 = (String[]) input.get(i);
-			for (int j = i + 1; j < n; j++) {
-				String[] sArray2 = (String[]) input.get(j);
-				if (isTwoStringArraysEqual(sArray1, sArray2)) {
-					dup = true;
-					break;
-				}
-			}
-			if (dup)
-				break;
+		    Object object = input.get(i);
+		    if (object instanceof IFilterMappingItem) {
+		        IFilterMappingItem item = (IFilterMappingItem) object;
+		        for (int j = i + 1; j < n; j++) {
+		            IFilterMappingItem item2 = (IFilterMappingItem) input.get(j);
+                    if (item.getName().equals(item2.getName()) && 
+                    		item.getMappingType() == item2.getMappingType()) {
+                        dup = true;
+                        break;
+                    }
+                }
+                if (dup) break;
+		    } else {
+		        String[] sArray1 = (String[]) object;
+		        for (int j = i + 1; j < n; j++) {
+		            String[] sArray2 = (String[]) input.get(j);
+		            if (isTwoStringArraysEqual(sArray1, sArray2)) {
+		                dup = true;
+		                break;
+		            }
+		        }
+		        if (dup) break;
+		    }
 		}
 		// Return boolean status for duplicates
 		return dup;
 	}
 
-	/**
+    /**
 	 * This method is intended for internal use only. This checks to see if the two string arrays
 	 * are equal. If either of the arrays are null or empty, it returns false.
 	 * 
