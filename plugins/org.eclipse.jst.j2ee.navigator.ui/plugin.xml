@@ -598,62 +598,6 @@
 				</or>
 			</enablement>
 		</commonWizard>
-		<!-- New Servlet -->
-		<commonWizard
-        menuGroupId="org.eclipse.wst.web.ui"
-        type="new"
-        wizardId="org.eclipse.jst.servlet.ui.internal.wizard.AddServletWizard">
-			<enablement>
-				<or>
-					<instanceof
-						value="org.eclipse.core.resources.IWorkspaceRoot" />
-					<and>
-						<adapt
-							type="org.eclipse.core.resources.IProject">
-							<or>
-								<test forcePluginActivation="true"
-									property="org.eclipse.wst.common.project.facet.core.projectFacet"
-									value="jst.web" />
-							</or>
-						</adapt>
-					</and>
-					<instanceof
-						value="org.eclipse.jst.j2ee.webapplication.WebApp" />
-					<instanceof
-						value="org.eclipse.jst.j2ee.internal.war.ui.util.WebServletGroupItemProvider" />
-				</or>
-			</enablement>
-		</commonWizard>
-		<!-- New Filter -->
-		<commonWizard
-        menuGroupId="org.eclipse.wst.web.ui"
-        type="new"
-        wizardId="org.eclipse.jst.servlet.ui.internal.wizard.AddFilterWizard">
-			<enablement>
-				<or>
-					<instanceof
-						value="org.eclipse.jst.j2ee.webapplication.WebApp">
-					</instanceof>
-					<instanceof
-						value="org.eclipse.jst.j2ee.internal.war.ui.util.WebFiltersGroupItemProvider">
-					</instanceof>
-				</or>
-			</enablement>
-		</commonWizard>
-		<!-- New Listener -->
-		<commonWizard
-        menuGroupId="org.eclipse.wst.web.ui"
-        type="new"
-        wizardId="org.eclipse.jst.servlet.ui.internal.wizard.AddListenerWizard">
-			<enablement>
-				<or>
-					<instanceof
-						value="org.eclipse.jst.j2ee.webapplication.WebApp" />
-					<instanceof
-						value="org.eclipse.jst.j2ee.internal.war.ui.util.WebListenerGroupItemProvider" />
-				</or>
-			</enablement>
-		</commonWizard>
 
 		<!-- The contribution of the New *.jsp wizard to Files, Folders, and Projects 
 			is handled in org.eclipse.jst.jsp.ui. This contribution adds the 
@@ -687,6 +631,119 @@
 						value="org.eclipse.jst.j2ee.internal.war.ui.util.WebGroupItemProvider" />
 					<instanceof
 						value="org.eclipse.jst.j2ee.webapplication.WebApp" />
+				</or>
+			</enablement>
+		</commonWizard>
+		
+		<!-- New Servlet -->
+		<commonWizard
+        menuGroupId="org.eclipse.wst.web.ui.webclass"
+        type="new"
+        wizardId="org.eclipse.jst.servlet.ui.internal.wizard.AddServletWizard">
+			<enablement>
+				<or>
+					<and>
+						<adapt
+							type="org.eclipse.core.resources.IResource">
+							<or>
+								<test forcePluginActivation="true"
+									property="org.eclipse.wst.common.project.facet.core.projectFacet"
+									value="jst.web"/>
+							</or>
+						</adapt>
+						<or>
+							<instanceof value="org.eclipse.core.resources.IProject"/>
+							<instanceof value="org.eclipse.jdt.core.IPackageFragment"/>
+							<instanceof value="org.eclipse.jdt.core.IPackageFragmentRoot"/>
+							<instanceof value="org.eclipse.jdt.core.ICompilationUnit"/>
+						</or>
+					</and>
+					<instanceof
+						value="org.eclipse.jst.servlet.ui.internal.navigator.ICompressedNode"/>
+					<instanceof
+						value="org.eclipse.jst.j2ee.webapplication.WebApp"/>
+					<instanceof
+						value="org.eclipse.jst.j2ee.internal.war.ui.util.WebServletGroupItemProvider"/>
+					<instanceof
+						value="org.eclipse.jst.j2ee.webapplication.Servlet"/>
+					<instanceof
+						value="org.eclipse.jst.j2ee.internal.war.ui.util.WebServletMappingGroupItemProvider"/>
+					<instanceof
+						value="org.eclipse.jst.j2ee.webapplication.ServletMapping"/>
+				</or>
+			</enablement>
+		</commonWizard>
+		
+		<!-- New Filter -->
+		<commonWizard
+        menuGroupId="org.eclipse.wst.web.ui.webclass"
+        type="new"
+        wizardId="org.eclipse.jst.servlet.ui.internal.wizard.AddFilterWizard">
+			<enablement>
+				<or>
+					<and>
+						<adapt
+							type="org.eclipse.core.resources.IResource">
+							<or>
+								<test forcePluginActivation="true"
+									property="org.eclipse.wst.common.project.facet.core.projectFacet"
+									value="jst.web"/>
+							</or>
+						</adapt>
+						<or>
+							<instanceof value="org.eclipse.core.resources.IProject"/>
+							<instanceof value="org.eclipse.jdt.core.IPackageFragment"/>
+							<instanceof value="org.eclipse.jdt.core.IPackageFragmentRoot"/>
+							<instanceof value="org.eclipse.jdt.core.ICompilationUnit"/>
+						</or>
+					</and>
+					<instanceof
+						value="org.eclipse.jst.servlet.ui.internal.navigator.ICompressedNode"/>
+					<instanceof
+						value="org.eclipse.jst.j2ee.webapplication.WebApp"/>
+					<instanceof
+						value="org.eclipse.jst.j2ee.internal.war.ui.util.WebFiltersGroupItemProvider"/>
+					<instanceof
+						value="org.eclipse.jst.j2ee.webapplication.Filter"/>
+					<instanceof
+						value="org.eclipse.jst.j2ee.internal.war.ui.util.WebFilterMappingGroupItemProvider"/>
+					<instanceof
+						value="org.eclipse.jst.j2ee.webapplication.FilterMapping"/>
+				</or>
+			</enablement>
+		</commonWizard>
+		
+		<!-- New Listener -->
+		<commonWizard
+        menuGroupId="org.eclipse.wst.web.ui.webclass"
+        type="new"
+        wizardId="org.eclipse.jst.servlet.ui.internal.wizard.AddListenerWizard">
+			<enablement>
+				<or>
+					<and>
+						<adapt
+							type="org.eclipse.core.resources.IResource">
+							<or>
+								<test forcePluginActivation="true"
+									property="org.eclipse.wst.common.project.facet.core.projectFacet"
+									value="jst.web"/>
+							</or>
+						</adapt>
+						<or>
+							<instanceof value="org.eclipse.core.resources.IProject"/>
+							<instanceof value="org.eclipse.jdt.core.IPackageFragment"/>
+							<instanceof value="org.eclipse.jdt.core.IPackageFragmentRoot"/>
+							<instanceof value="org.eclipse.jdt.core.ICompilationUnit"/>
+						</or>
+					</and>
+					<instanceof
+						value="org.eclipse.jst.servlet.ui.internal.navigator.ICompressedNode"/>
+					<instanceof
+						value="org.eclipse.jst.j2ee.webapplication.WebApp"/>
+					<instanceof
+						value="org.eclipse.jst.j2ee.internal.war.ui.util.WebListenerGroupItemProvider"/>
+					<instanceof
+						value="org.eclipse.jst.j2ee.common.Listener"/>
 				</or>
 			</enablement>
 		</commonWizard>
