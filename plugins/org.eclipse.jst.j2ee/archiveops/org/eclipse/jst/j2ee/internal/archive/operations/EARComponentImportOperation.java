@@ -20,7 +20,6 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
@@ -30,7 +29,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
 import org.eclipse.jst.j2ee.internal.archive.ComponentArchiveSaveAdapter;
 import org.eclipse.jst.j2ee.internal.archive.EARComponentArchiveSaveAdapter;
@@ -39,7 +37,6 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenc
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -120,8 +117,12 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 			}
 			monitor.worked(WEB_LIB_WORK);
 
-			List componentToAdd = new ArrayList();
-			Map componentToURIMap = new HashMap();
+			List <String> ddSpecifiedURIs = ((ArchiveWrapper) model.getProperty(IEARComponentImportDataModelProperties.ARCHIVE_WRAPPER)).getDDMappedModuleURIs();
+			List componentToAddAsModules = new ArrayList();
+			Map componentToURIMapAsModules = new HashMap();
+			List componentToAddAsComponents = new ArrayList();
+			Map componentToURIMapAsComponents = new HashMap();
+			
 			for (int i = 0; i < modelsToImport.size(); i++) {
 				importModel = (IDataModel) modelsToImport.get(i);
 				ArchiveWrapper nestedArchive = (ArchiveWrapper) importModel.getProperty(IEARComponentImportDataModelProperties.ARCHIVE_WRAPPER);
@@ -141,23 +142,36 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 					Logger.getLogger().logError(e);
 				}
 				IVirtualComponent component = (IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
-				componentToAdd.add(component);
-				componentToURIMap.put(component, nestedArchive.getPath().toString());
-			}
-			if (componentToAdd.size() > 0) {
-				IDataModel addComponentsDM = null;
-				IVirtualFile dd = virtualComponent.getRootFolder().getFile(new Path(J2EEConstants.APPLICATION_DD_URI));
-				if(dd.exists()){
-					addComponentsDM = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
+				String uri = nestedArchive.getPath().toString();
+				if(ddSpecifiedURIs.contains(uri)){
+					componentToAddAsModules.add(component);
+					componentToURIMapAsModules.put(component, uri);
 				} else {
-					addComponentsDM = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
+					componentToAddAsComponents.add(component);
+					componentToURIMapAsComponents.put(component, uri);
 				}
-					
-				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, virtualComponent);
-				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, componentToAdd);
-				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, componentToURIMap);
-				addComponentsDM.getDefaultOperation().execute(new SubProgressMonitor(monitor, LINK_COMPONENTS_WORK), info);
 			}
+			
+			if (componentToAddAsModules.size() > 0) {
+				//this block adds the component references to the component file and the EAR DD
+				//this should only be called if the EAR DD already contains the module
+				//and is necessary to update the id attribute (for the dependency object)
+				IDataModel addComponentsDM = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
+				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, virtualComponent);
+				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, componentToAddAsModules);
+				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, componentToURIMapAsModules);
+				addComponentsDM.getDefaultOperation().execute(new SubProgressMonitor(monitor, LINK_COMPONENTS_WORK/2), info);
+			}
+			if (componentToAddAsComponents.size() > 0){
+				//this block only adds the component references to the component file
+				//this should only be called when they are not already linked into the EAR DD
+				IDataModel addComponentsDM = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
+				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, virtualComponent);
+				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, componentToAddAsComponents);
+				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, componentToURIMapAsComponents);
+				addComponentsDM.getDefaultOperation().execute(new SubProgressMonitor(monitor, LINK_COMPONENTS_WORK/2), info);
+			}
+		
 		} finally {
 			if (null != artifactEdit) {
 				artifactEdit.dispose();

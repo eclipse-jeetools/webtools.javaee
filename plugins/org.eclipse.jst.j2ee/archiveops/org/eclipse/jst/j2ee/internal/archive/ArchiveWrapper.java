@@ -199,6 +199,58 @@ public class ArchiveWrapper {
 		return null;
 	}
 
+	private List <String>cachedDDMappedModuleURIs = null;
+	
+	public List<String> getDDMappedModuleURIs() {
+		if(cachedDDMappedModuleURIs != null){
+			return cachedDDMappedModuleURIs;
+		}
+		if (jqp.getType() != J2EEVersionConstants.APPLICATION_TYPE) {
+			fail();
+		}
+		
+		cachedDDMappedModuleURIs = new ArrayList<String>();
+		
+		if (commonArchive != null) {
+			EARFile ear = (EARFile) commonArchive;
+			List earMods = ear.getModuleFiles();
+			for (int i = 0; i < earMods.size(); i++) {
+				cachedDDMappedModuleURIs.add(((Archive) earMods.get(i)).getURI());
+			}
+			return cachedDDMappedModuleURIs;
+		} else if(archive != null) {
+			if(archive.containsArchiveResource(new Path(J2EEConstants.APPLICATION_DD_URI))){
+				if(jqp.getJavaEEVersion() == JavaEEQuickPeek.JEE_5_0_ID){
+					try {
+						Application application = (Application) archive.getModelObject();
+						List modules = application.getModules();
+						for(int i=0;i<modules.size();i++){
+							Module module = (Module)modules.get(i);
+							String uri = module.getUri();
+							cachedDDMappedModuleURIs.add(uri);
+						}
+					} catch (ArchiveModelLoadException e) {
+						Logger.getLogger().logError(e);
+					}
+				} else { 
+					try{
+						org.eclipse.jst.j2ee.application.Application application = (org.eclipse.jst.j2ee.application.Application)archive.getModelObject();
+						List modules = application.getModules();
+						for(int i=0;i<modules.size();i++){
+							org.eclipse.jst.j2ee.application.Module module = (org.eclipse.jst.j2ee.application.Module)modules.get(i);
+							String uri = module.getUri();
+							cachedDDMappedModuleURIs.add(uri);
+						}
+					}catch (ArchiveModelLoadException e) {
+						Logger.getLogger().logError(e);
+					}
+				}
+			}
+		}
+		return cachedDDMappedModuleURIs;
+	}
+	
+	
 	private List<ArchiveWrapper> cachedEARModules;
 
 	public List<ArchiveWrapper> getEarModules() {
