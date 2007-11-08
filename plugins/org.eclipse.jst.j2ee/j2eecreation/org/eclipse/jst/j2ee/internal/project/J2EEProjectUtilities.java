@@ -765,6 +765,8 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 					}
 					
 				}
+				else
+					return J2EEVersionUtil.convertVersionIntToString(getJEEVersion(project));
 			}
 		}
 		
