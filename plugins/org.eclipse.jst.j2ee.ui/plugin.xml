@@ -627,6 +627,7 @@
          <perspectiveShortcut id="org.eclipse.debug.ui.DebugPerspective"/>
          <perspectiveShortcut id="org.eclipse.jdt.ui.JavaPerspective"/>
          <perspectiveShortcut id="org.eclipse.ui.resourcePerspective"/>
+         <actionSet id="org.eclipse.wst.server.ui.internal.webbrowser.actionSet"/>
       </perspectiveExtension>
       <perspectiveExtension targetID="org.eclipse.ui.resourcePerspective">
          <perspectiveShortcut id="org.eclipse.jst.j2ee.J2EEPerspective"/>
