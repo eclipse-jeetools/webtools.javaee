@@ -95,7 +95,8 @@ public class WebServicesEMFTest extends GeneralEMFPopulationTest {
 		earFile.close();
 
 	}
-	public void testJaxRPCMapPopulation() throws Exception {
+	
+	private void testJaxRPCMapPopulation() throws Exception {
 		currentVersion = J2EEVersionConstants.J2EE_1_3_ID;
 		EMFAttributeFeatureGenerator.reset();
 		createEAR();
