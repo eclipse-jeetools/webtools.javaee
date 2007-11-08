@@ -75,14 +75,14 @@ import org.eclipse.wst.web.internal.deployables.ComponentDeployable;
  * J2EE module superclass.
  */
 public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EEModule, IEnterpriseApplication, IApplicationClientModule, IConnectorModule, IEJBModule, IWebModule {
-	private static final IPath WEB_CLASSES_PATH = new Path(J2EEConstants.WEB_INF_CLASSES);
-	private static final IPath MANIFEST_PATH = new Path(J2EEConstants.MANIFEST_URI);
-	private static IPath WEBLIB = new Path(J2EEConstants.WEB_INF_LIB).makeAbsolute();
-	private IPackageFragmentRoot[] cachedSourceContainers;
-	private IContainer[] cachedOutputContainers;
-	private HashMap cachedOutputMappings;
-	private HashMap cachedSourceOutputPairs;
-	private List classpathComponentDependencyURIs = new ArrayList();
+	protected static final IPath WEB_CLASSES_PATH = new Path(J2EEConstants.WEB_INF_CLASSES);
+	protected static final IPath MANIFEST_PATH = new Path(J2EEConstants.MANIFEST_URI);
+	protected static IPath WEBLIB = new Path(J2EEConstants.WEB_INF_LIB).makeAbsolute();
+	protected IPackageFragmentRoot[] cachedSourceContainers;
+	protected IContainer[] cachedOutputContainers;
+	protected HashMap cachedOutputMappings;
+	protected HashMap cachedSourceOutputPairs;
+	protected List classpathComponentDependencyURIs = new ArrayList();
 
 	/**
 	 * Constructor for J2EEFlexProjDeployable.
@@ -442,7 +442,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     	return aURI;
 	}
     
-    private boolean isBinaryModuleArchive(IModule module) {
+    protected boolean isBinaryModuleArchive(IModule module) {
     	if (module!=null && module.getName().endsWith(IJ2EEModuleConstants.JAR_EXT) || module.getName().endsWith(IJ2EEModuleConstants.WAR_EXT) ||
     			module.getName().endsWith(IJ2EEModuleConstants.RAR_EXT)) {
     		if (component!=null && J2EEProjectUtilities.isEARProject(component.getProject()))
@@ -617,7 +617,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 		return app.getFirstModule(reference.getArchiveName()) != null;
     }
     
-    private IVirtualReference getReferenceNamed(IVirtualReference[] references, String name) {
+    protected IVirtualReference getReferenceNamed(IVirtualReference[] references, String name) {
     	for (int i=0; i<references.length; i++) {
     		if (references[i].getReferencedComponent().getName().equals(name))
     			return references[i];
