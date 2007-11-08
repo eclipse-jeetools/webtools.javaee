@@ -3,6 +3,8 @@ package org.eclipse.jst.j2ee.model;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
+
 public interface IModelProviderEvent {
 
 	// Used when the edit model is saved.
@@ -31,13 +33,17 @@ public interface IModelProviderEvent {
 
 	public abstract List<Object> getChangedResources();
 
-	public abstract Object getModel();
+	public abstract IModelProvider getModel();
+	
+	public abstract IProject getProject();
 
 	public abstract int getEventCode();
 
 	public abstract void setChangedResources(List<Object> newChangedResources);
 
-	public abstract void setModel(Object newModel);
+	public abstract void setModel(IModelProvider newModel);
+	
+	public abstract void setProject(IProject project);
 
 	public abstract void setEventCode(int newEventCode);
 

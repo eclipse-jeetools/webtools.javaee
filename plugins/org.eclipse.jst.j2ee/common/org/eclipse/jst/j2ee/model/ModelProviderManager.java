@@ -6,16 +6,27 @@
  */
 package org.eclipse.jst.j2ee.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
+import java.util.WeakHashMap;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.internal.emf.resource.CompatibilityXMIResource;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
@@ -27,6 +38,7 @@ public static class ModelProviderKey {
  		
 		protected IProjectFacetVersion version;
 		protected int priority;
+		
 		public ModelProviderKey() {
 			super();
 		}
@@ -44,8 +56,29 @@ public static class ModelProviderKey {
 			return version.hashCode();
 		}		
 	}
+private static class ResourceSetListener extends AdapterImpl {
+	/*
+	 * @see Adapter#notifyChanged(new ENotificationImpl((InternalEObject)Notifier,
+	 *      int,(EStructuralFeature) EObject, Object, Object, int))
+	 */
+	public void notifyChanged(Notification notification) {
+		switch (notification.getEventType()) {
+			case Notification.ADD :
+				addedResource((Resource) notification.getNewValue());
+				break;
+			case Notification.REMOVE :
+				removedResource((Resource) notification.getOldValue());
+				break;
+			case Notification.REMOVE_MANY :
+				removedResources((List) notification.getOldValue());
+				break;
+		}
+	}
+}
+private static WeakHashMap modelsProviders = new WeakHashMap();
 private static final int DEFAULT_PRIORITY = 100;
-	private static HashMap<ModelProviderKey, IModelProviderFactory> providers;
+private static HashMap providers;
+protected static HashMap resourceSetListeners;
 
 	/**
 	 * 
@@ -57,6 +90,7 @@ private static final int DEFAULT_PRIORITY = 100;
 		
 		IModelProviderFactory factory = getProvider(vers);
 		if(factory != null){
+			startListeningToResourceSet(project);
 			return factory.create(project);
 		}
 		
@@ -69,6 +103,7 @@ private static final int DEFAULT_PRIORITY = 100;
 		return null;
 	}
 
+
 	/**
 	 * 
 	 * @param 
@@ -79,7 +114,9 @@ private static final int DEFAULT_PRIORITY = 100;
 
 		IModelProviderFactory factory = getProvider(vers);
 		if(factory != null){
-			return factory.create(aModule);
+			IModelProvider mp = factory.create(aModule);
+			addProvider(mp);
+			return mp;
 		}
 		
 		String errorMessage = J2EECommonMessages.getResourceString(
@@ -90,6 +127,70 @@ private static final int DEFAULT_PRIORITY = 100;
 		
 		return null;
 	}
+	
+		
+		private static void addProvider(IModelProvider mp) {
+			modelsProviders.put(mp, null);
+			
+		}
+	
+		/**
+		 * Notify all editModels of the change.
+		 */
+		private static void addedResource(Resource addedResource) {
+			if ((addedResource != null) && (addedResource instanceof CompatibilityXMIResource))
+				((CompatibilityXMIResource) addedResource).setFormat(CompatibilityXMIResource.FORMAT_MOF5);
+			IProject proj = WorkbenchResourceHelper.getProject(addedResource);
+				IModelProviderEvent event = new ModelProviderEvent(IModelProviderEvent.ADDED_RESOURCE, null,proj);
+				event.addResource(addedResource);
+				notifyModelProviders(event);
+			
+		}
+		/**
+		 * Notify all editModels of the change.
+		 */
+		protected static void notifyModelProviders(IModelProviderEvent anEvent) {
+		if (anEvent == null)
+				return;
+			List aList = new ArrayList();
+			synchronized (modelsProviders) {
+				aList.addAll(modelsProviders.keySet());
+			}
+		
+		for (int i = 0; i < aList.size(); i++) {
+				IModelProviderListener mod;
+				mod = (IModelProviderListener) aList.get(i);
+				try {
+					mod.modelsChanged(anEvent);
+				} catch (Exception e) {
+					Logger.getLogger().logError(e);
+				}
+			}
+		}
+	
+		/**
+		 * Notify all editModels of the change.
+		 */
+		private static void removedResource(Resource removedResource) {
+			IProject proj = WorkbenchResourceHelper.getProject(removedResource);
+				IModelProviderEvent event = new ModelProviderEvent(IModelProviderEvent.REMOVED_RESOURCE, null,proj);
+				event.addResource(removedResource);
+				notifyModelProviders(event);
+			
+		}
+	
+		/**
+		 * Notify all editModels of the change.
+		 */
+		private static void removedResources(List removedResources) {
+			Resource firstRes = (Resource)removedResources.get(0);
+			IProject proj = WorkbenchResourceHelper.getProject(firstRes);
+				IModelProviderEvent event = new ModelProviderEvent(IModelProviderEvent.REMOVED_RESOURCE, null,proj);
+				event.addResources(removedResources);
+				notifyModelProviders(event);
+			
+		}
+		
 
 	/**
 	 * Used to register an IModelProviderFactory against a facet version
@@ -113,7 +214,7 @@ private static final int DEFAULT_PRIORITY = 100;
 		for (Iterator iterator = keys.iterator(); iterator.hasNext();) {
 			ModelProviderKey key = (ModelProviderKey) iterator.next();
 			if (key.version.equals(v))
-				return providers.get(key);
+				return (IModelProviderFactory)providers.get(key);
 		}
 		return null;
 	}
@@ -126,6 +227,16 @@ private static final int DEFAULT_PRIORITY = 100;
 		}
 		return DEFAULT_PRIORITY;
 	}
+	protected static Adapter getResourceSetListener(IProject project) {
+		if (resourceSetListeners == null)
+			resourceSetListeners = new HashMap();
+		Adapter listener = (Adapter)resourceSetListeners.get(project);
+		if (listener == null) {
+			listener = new ResourceSetListener();
+			resourceSetListeners.put(project, listener);
+		}
+		return listener;
+	}
 
 	private static J2EEModelProviderRegistry registry;
 
@@ -134,6 +245,11 @@ private static final int DEFAULT_PRIORITY = 100;
 		providers = new HashMap();
 		registry = J2EEModelProviderRegistry.getInstance();
 		
+	}
+	private static void startListeningToResourceSet(IProject project) {
+		ResourceSet set = WorkbenchResourceHelper.getResourceSet(project);
+		if (set != null)
+			set.eAdapters().add(getResourceSetListener(project));
 	}
 	private static ModelProviderKey createProviderKey(IProjectFacetVersion fv, int priority) {
 		ModelProviderKey key =  new ModelProviderKey();

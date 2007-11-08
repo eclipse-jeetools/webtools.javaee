@@ -14,50 +14,69 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceChangeEvent;
-import org.eclipse.core.resources.IResourceChangeListener;
-import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.content.IContentDescription;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.eclipse.jem.util.emf.workbench.FlexibleProjectResourceSet;
 import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.IModelProviderEvent;
 import org.eclipse.jst.j2ee.model.IModelProviderListener;
+import org.eclipse.jst.j2ee.model.ModelProviderEvent;
 import org.eclipse.jst.javaee.core.internal.util.JavaeeResourceImpl;
+import org.eclipse.jst.jee.JEEPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.impl.PlatformURLModuleConnection;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
+import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateInputProvider;
+import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidator;
+import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidatorImpl;
+import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidatorPresenter;
 
-public class JEE5ModelProvider implements IModelProvider{
+public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProvider, ResourceStateValidator, IModelProviderListener{
 
 	protected XMLResourceImpl writableResource;
 	protected IProject proj;
 	protected IPath defaultResourcePath;
-	private static boolean resourceChangeListenerEnabled = false;
-	private static HashMap<IProject, HashSet<IPath>> modelResources = new HashMap<IProject, HashSet<IPath>>();
+	protected ResourceStateValidator stateValidator;
+	protected ResourceAdapter resourceAdapter = new ResourceAdapter();
+	protected final ListenerList listeners = new ListenerList();
+	//private static boolean resourceChangeListenerEnabled = false;
 
+	private List modelResources = new ArrayList();
+	protected class ResourceAdapter extends AdapterImpl {
+		public void notifyChanged(Notification notification) {
+			if ( notification.getEventType() == Notification.SET && notification.getFeatureID(null) == Resource.RESOURCE__IS_LOADED) {
+				resourceIsLoadedChanged((Resource) notification.getNotifier(), notification.getOldBooleanValue(), notification.getNewBooleanValue());
+			}
+		}
+	}
+	
 	public JEE5ModelProvider() {
 		super();
 	}
@@ -73,6 +92,25 @@ public class JEE5ModelProvider implements IModelProvider{
 	public void setWritableResource(XMLResourceImpl writableResource) {
 		this.writableResource = writableResource;
 	}
+	protected void resourceIsLoadedChanged(Resource aResource, boolean oldValue, boolean newValue) {
+		if (hasListeners()) {
+			int eventCode = newValue ? ModelProviderEvent.LOADED_RESOURCE : ModelProviderEvent.UNLOADED_RESOURCE;
+			ModelProviderEvent evt = new ModelProviderEvent(eventCode, this, proj);
+			evt.addResource(aResource);
+			notifyListeners(evt);
+		}
+	}
+	private void addManagedResource(XMLResourceImpl res) {
+		modelResources.add(res);
+		if (!res.eAdapters().contains(resourceAdapter))
+			res.eAdapters().add(resourceAdapter);
+	}
+	/**
+	 * Returns true if there are any listeners
+	 */
+	public boolean hasListeners() {
+		return !listeners.isEmpty();
+	}
 	
 	private URI getModuleURI(URI uri) {
 		URI moduleuri = ModuleURIUtil.fullyQualifyURI(proj,getContentTypeDescriber());
@@ -82,8 +120,10 @@ public class JEE5ModelProvider implements IModelProvider{
 	}
 
 	protected XMLResourceImpl getModelResource(IPath modelPath) {
-		if (writableResource != null)
+		if (writableResource != null) {
+			addManagedResource(writableResource);
 			return writableResource;
+		}
 		if ((modelPath == null) || modelPath.equals(IModelProvider.FORCESAVE))
 			modelPath = getDefaultResourcePath();
 		ProjectResourceSet resSet = getResourceSet(proj);
@@ -101,20 +141,16 @@ public class JEE5ModelProvider implements IModelProvider{
 			if (proj.getFile(projURI.toString()).exists())
 			{
 				res = (XMLResourceImpl) resSet.getResource(getModuleURI(uri),true);
-				HashSet<IPath> currentResources = modelResources.get(proj);
-				if (currentResources == null)
-				{
-					currentResources = new HashSet<IPath>();
-				}
-				currentResources.add(new Path(uri.toString()));
-				modelResources.put(proj, currentResources);
-				if (!resourceChangeListenerEnabled)
-				{
-					resourceChangeListenerEnabled = true;
-					ResourcesPlugin.getWorkspace().addResourceChangeListener(new ResourceChangeListener(), IResourceChangeEvent.POST_CHANGE);
-				}
+				addManagedResource(res);
+//				if (!resourceChangeListenerEnabled)
+//				{
+//					resourceChangeListenerEnabled = true;
+//					ResourcesPlugin.getWorkspace().addResourceChangeListener(new ResourceChangeListener(), IResourceChangeEvent.POST_CHANGE);
+//				}
 			} else {//First find in resource set, then create if not found new Empty Resource.
-				return createModelResource(modelPath, resSet, projURI);
+				XMLResourceImpl newRes =  createModelResource(modelPath, resSet, projURI);
+				addManagedResource(newRes);
+				return newRes;
 			}
 		} catch (WrappedException ex) {
 			if (ex.getCause() instanceof FileNotFoundException)
@@ -217,87 +253,255 @@ public class JEE5ModelProvider implements IModelProvider{
 		
 	}
 
-	private class ResourceChangeListener implements IResourceChangeListener {
-		public void resourceChanged(IResourceChangeEvent event) {
-			IResourceDelta delta= event.getDelta();
-			// make sure that there is a delta (since some events don't have one)
-			if (delta != null)
-			{
-				IResourceDelta[] affectedChildren= delta.getAffectedChildren(IResourceDelta.CHANGED | IResourceDelta.REMOVED , IResource.FILE);
-				IResourceDelta projectDelta = null;
-				IResource changedResource = null; 
-				IProject changedProject = null;
-				IPath resourcePath = null;
+//	private class ResourceChangeListener implements IResourceChangeListener {
+//		public void resourceChanged(IResourceChangeEvent event) {
+//			IResourceDelta delta= event.getDelta();
+//			// make sure that there is a delta (since some events don't have one)
+//			if (delta != null)
+//			{
+//				IResourceDelta[] affectedChildren= delta.getAffectedChildren(IResourceDelta.CHANGED | IResourceDelta.REMOVED , IResource.FILE);
+//				IResourceDelta projectDelta = null;
+//				IResource changedResource = null; 
+//				IProject changedProject = null;
+//				IPath resourcePath = null;
+//
+//				for (int i= 0; i < affectedChildren.length; i++) {
+//					projectDelta = affectedChildren[i];
+//					changedResource = projectDelta.getResource(); 
+//					changedProject = changedResource.getProject();
+//					HashSet<IPath> currentResources = modelResources.get(changedProject);
+//					// only deal with the projects that have resources that have been loaded 
+//					if (currentResources != null)
+//					{
+//						// if this is a project deletion, remove the project from the HashMap.
+//						if (changedResource == changedProject && projectDelta.getKind() == IResourceDelta.REMOVED)
+//						{
+//							modelResources.remove(changedProject);
+//							// if modelResources is empty, we should self-destruct
+//							if (modelResources.isEmpty())
+//							{
+//								resourceChangeListenerEnabled = false;
+//								ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
+//							}
+//						}
+//						else
+//						{
+//							Iterator<IPath> iter = currentResources.iterator();
+//							ArrayList<IPath> toUnload = new ArrayList<IPath>();
+//							// check each resource that was loaded from the project to see if it is part of the change
+//							while (iter.hasNext())
+//							{
+//								resourcePath = iter.next();
+//								if (projectDelta.findMember(resourcePath) != null)
+//								{
+//									// limit the list of resources that need to be unloaded to those that have changed
+//									toUnload.add(resourcePath);
+//								}
+//							}
+//							if (toUnload.size() > 0)
+//							{
+//								Resource current = null;
+//								ProjectResourceSet resourceSet = getResourceSet(changedProject);
+//								URIConverter uriConverter = resourceSet.getURIConverter();
+//								HashSet<URI> resourceURIs = new HashSet<URI>();
+//								iter = toUnload.iterator();
+//								while (iter.hasNext())
+//								{
+//									// convert all of the resources to URIs - this is a faster match during the compare
+//									resourceURIs.add(uriConverter.normalize(URI.createURI(iter.next().toString())));
+//								}
+//								Iterator<Resource> iter2 = resourceSet.getResources().iterator();
+//								while (iter2.hasNext())
+//								{
+//									current = iter2.next();
+//									if (resourceURIs.contains(current.getURI()))
+//									{
+//										current.unload();
+//									}
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//	}
 
-				for (int i= 0; i < affectedChildren.length; i++) {
-					projectDelta = affectedChildren[i];
-					changedResource = projectDelta.getResource(); 
-					changedProject = changedResource.getProject();
-					HashSet<IPath> currentResources = modelResources.get(changedProject);
-					// only deal with the projects that have resources that have been loaded 
-					if (currentResources != null)
-					{
-						// if this is a project deletion, remove the project from the HashMap.
-						if (changedResource == changedProject && projectDelta.getKind() == IResourceDelta.REMOVED)
-						{
-							modelResources.remove(changedProject);
-							// if modelResources is empty, we should self-destruct
-							if (modelResources.isEmpty())
-							{
-								resourceChangeListenerEnabled = false;
-								ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
-							}
-						}
-						else
-						{
-							Iterator<IPath> iter = currentResources.iterator();
-							ArrayList<IPath> toUnload = new ArrayList<IPath>();
-							// check each resource that was loaded from the project to see if it is part of the change
-							while (iter.hasNext())
-							{
-								resourcePath = iter.next();
-								if (projectDelta.findMember(resourcePath) != null)
-								{
-									// limit the list of resources that need to be unloaded to those that have changed
-									toUnload.add(resourcePath);
-								}
-							}
-							if (toUnload.size() > 0)
-							{
-								Resource current = null;
-								ProjectResourceSet resourceSet = getResourceSet(changedProject);
-								URIConverter uriConverter = resourceSet.getURIConverter();
-								HashSet<URI> resourceURIs = new HashSet<URI>();
-								iter = toUnload.iterator();
-								while (iter.hasNext())
-								{
-									// convert all of the resources to URIs - this is a faster match during the compare
-									resourceURIs.add(uriConverter.normalize(URI.createURI(iter.next().toString())));
-								}
-								Iterator<Resource> iter2 = resourceSet.getResources().iterator();
-								while (iter2.hasNext())
-								{
-									current = iter2.next();
-									if (resourceURIs.contains(current.getURI()))
-									{
-										current.unload();
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	public void addListener(IModelProviderListener listener)
-	{
-		// do nothing for now
+	public void addListener(IModelProviderListener listener) {
+		
+		listeners.add(listener);
 	}
 
 	public void removeListener(IModelProviderListener listener)
 	{
-		// do nothing for now
+		listeners.remove(listener);
+	}
+	/**
+	 * Save only resources that need to be saved (i.e., no other references).
+	 */
+	public void modelsChanged(IModelProviderEvent anEvent) {
+		int code = anEvent.getEventCode();
+		switch (code) {
+			case IModelProviderEvent.REMOVED_RESOURCE : {
+				if (hasResourceReference(anEvent.getChangedResources()))
+					removeResources(anEvent.getChangedResources());
+				else
+					return;
+				break;
+			}
+		}
+		if (hasListeners()) {
+			anEvent.setModel(this);
+			notifyListeners(anEvent);
+		}
+	}
+	protected void removeResources(List aList) {
+		Resource res;
+		for (int i = 0; i < aList.size(); i++) {
+			res = (Resource) aList.get(i);
+			removeResource(res) ;
+		}
+	}
+	/**
+	 * Remove reference to the aResource.
+	 */
+	protected boolean removeResource(Resource aResource) {
+		if (aResource != null) {
+			aResource.eAdapters().remove(resourceAdapter);
+			return getResources().remove(aResource);
+		}
+		return false;
+	}
+	
+	/**
+	 * Return true if any Resource in the list of
+	 * 
+	 * @resources is referenced by me.
+	 */
+	protected boolean hasResourceReference(List tResources) {
+		for (int i = 0; i < tResources.size(); i++) {
+			if (hasResourceReference((Resource) tResources.get(i)))
+				return true;
+		}
+		return false;
+	}
+	/**
+	 * Return true if aResource is referenced by me.
+	 */
+	protected boolean hasResourceReference(Resource aResource) {
+		if (aResource != null)
+			return getResources().contains(aResource);
+		return false;
+	}
+	
+	/**
+	 * Notify listeners of
+	 * 
+	 * @anEvent.
+	 */
+	protected void notifyListeners(IModelProviderEvent anEvent) {
+		
+		NotifyRunner notifier = new NotifyRunner(anEvent); 
+		
+		Object[] notifyList = listeners.getListeners(); 
+		for (int i = 0; i < notifyList.length; i++) {
+			notifier.setListener( (IModelProviderListener) notifyList[i] );
+			SafeRunner.run(notifier);
+		}
+	}
+	public class NotifyRunner implements ISafeRunnable { 
+		
+		private final IModelProviderEvent event;
+		private IModelProviderListener listener;
+		
+		public NotifyRunner(IModelProviderEvent event) {
+			Assert.isNotNull(event);
+			this.event = event;
+		}
+		
+		
+		public void setListener(IModelProviderListener listener) {
+			this.listener = listener;
+		}
+
+		public void handleException(Throwable exception) { 
+			JEEPlugin.getDefault().getLog().log(new Status(IStatus.ERROR, JEEPlugin.PLUGIN_ID, 0, exception.getMessage(), exception));
+			
+		}
+
+		public void run() throws Exception {
+			if(listener != null)
+				listener.modelsChanged(event); 
+		}
+		
+	}
+	public ResourceStateValidator getStateValidator() {
+		if (stateValidator == null)
+			stateValidator = createStateValidator();
+		return stateValidator;
+	}
+
+	/**
+	 * Method createStateValidator.
+	 * 
+	 * @return ResourceStateValidator
+	 */
+	private ResourceStateValidator createStateValidator() {
+		return new ResourceStateValidatorImpl(this);
+	}
+
+	protected EnterpriseArtifactEdit createArtifactEdit() {
+		return null;
+	}
+
+	public void checkActivation(ResourceStateValidatorPresenter presenter) throws CoreException {
+		getStateValidator().checkActivation(presenter);
+		
+	}
+
+	public boolean checkReadOnly() {
+		return getStateValidator().checkReadOnly();
+	}
+
+	public boolean checkSave(ResourceStateValidatorPresenter presenter) throws CoreException {
+		return getStateValidator().checkSave(presenter);
+	}
+
+	public void lostActivation(ResourceStateValidatorPresenter presenter) throws CoreException {
+		getStateValidator().lostActivation(presenter);
+		
+	}
+
+	public IStatus validateState(ResourceStateValidatorPresenter presenter) throws CoreException {
+		if (presenter == null)
+			return Status.OK_STATUS;
+		return getStateValidator().validateState(presenter);
+	}
+
+	public void cacheNonResourceValidateState(List roNonResourceFiles) {
+		// do nothing
+	}
+
+	public List getNonResourceFiles() {
+		return null;
+	}
+
+	public List getNonResourceInconsistentFiles() {
+		return null;
+	}
+
+	public List getResources() {
+		return modelResources;
+	}
+
+
+	public boolean isDirty() {
+		
+			List list = getResources();
+			for (int i = 0; i < list.size(); i++) {
+				if (((Resource) list.get(i)).isModified())
+					return true;
+			}
+			return false;
 	}
 }
