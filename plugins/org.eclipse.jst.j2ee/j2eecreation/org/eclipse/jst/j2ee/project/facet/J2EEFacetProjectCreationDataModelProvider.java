@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.project.facet;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -20,7 +21,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
@@ -29,10 +29,23 @@ import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationData
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
+import org.eclipse.wst.common.project.facet.core.IProjectFacet;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreationDataModelProvider implements IJ2EEFacetProjectCreationDataModelProperties {
+    
+    private static Set<IProjectFacet> MODULE_FACETS = new HashSet<IProjectFacet>();
+    
+    static
+    {
+        for( IProjectFacetVersion fv : ProjectFacetsManager.getGroup( "modules" ).getMembers() )
+        {
+            MODULE_FACETS.add( fv.getProjectFacet() );
+        }
+    }
 
 	public J2EEFacetProjectCreationDataModelProvider() {
 		super();
@@ -114,16 +127,22 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 		return super.propertySet(propertyName, propertyValue);
 	}
 
-	protected IDataModel getJ2EEFacetModel() {
-		FacetDataModelMap map = (FacetDataModelMap) getProperty(FACET_DM_MAP);
-		String [] j2eeFacets = new String [] { J2EEProjectUtilities.APPLICATION_CLIENT, J2EEProjectUtilities.EJB, J2EEProjectUtilities.JCA, J2EEProjectUtilities.DYNAMIC_WEB, J2EEProjectUtilities.UTILITY};
-		IDataModel j2eeFacetDataModel = null;
-		for(int i=0;i<j2eeFacets.length; i++){
-			j2eeFacetDataModel = map.getFacetDataModel(j2eeFacets[i]);
-			if(null != j2eeFacetDataModel){
-				return j2eeFacetDataModel;
-			}
-		}
+	protected IDataModel getJ2EEFacetModel() 
+	{
+	    final IFacetedProjectWorkingCopy fpjwc
+	        = (IFacetedProjectWorkingCopy) this.model.getProperty( FACETED_PROJECT_WORKING_COPY );
+	    
+	    for( IProjectFacet moduleFacet : MODULE_FACETS )
+	    {
+	        if( fpjwc.hasProjectFacet( moduleFacet ) )
+	        {
+	            final IFacetedProject.Action action 
+	                = fpjwc.getProjectFacetAction( IFacetedProject.Action.Type.INSTALL, moduleFacet );
+	            
+	            return (IDataModel) action.getConfig();
+	        }
+	    }
+
 		return null;
 	}
 

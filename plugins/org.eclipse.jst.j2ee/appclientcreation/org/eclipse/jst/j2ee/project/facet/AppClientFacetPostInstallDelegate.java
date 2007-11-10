@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.project.facet;
 
+import static org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties.FACETED_PROJECT_WORKING_COPY;
+
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.resources.IContainer;
@@ -34,6 +36,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
+import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
@@ -58,9 +61,13 @@ public class AppClientFacetPostInstallDelegate extends J2EEFacetInstallDelegate 
 					String j2eeVersionText = ver;
 					installEARFacet(j2eeVersionText, earProjectName, (IRuntime) model.getProperty(IJ2EEFacetInstallDataModelProperties.FACET_RUNTIME), monitor);
 					final String moduleURI = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.MODULE_URI);
+					
+                    final IFacetedProjectWorkingCopy fpjwc
+                        = (IFacetedProjectWorkingCopy) model.getProperty( FACETED_PROJECT_WORKING_COPY );
+					
 					installAndAddModuletoEAR( j2eeVersionText,
 								earProjectName,
-								(IRuntime) model.getProperty(IJ2EEFacetInstallDataModelProperties.FACET_RUNTIME),
+								fpjwc.getPrimaryRuntime(),
 								project,
 								moduleURI,
 								monitor );

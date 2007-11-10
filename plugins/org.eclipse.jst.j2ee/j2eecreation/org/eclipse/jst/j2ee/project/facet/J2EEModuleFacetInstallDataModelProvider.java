@@ -36,6 +36,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationData
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 import org.eclipse.wst.project.facet.ProductManager;
@@ -202,8 +203,8 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			IStatus status = validateEAR(getStringProperty(EAR_PROJECT_NAME));
 			if (!status.isOK())
 				return status;
-			IDataModel masterDM = (IDataModel)getProperty(MASTER_PROJECT_DM);
-			if(masterDM.getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME).equals(getStringProperty(EAR_PROJECT_NAME))){
+			final IFacetedProjectWorkingCopy fpjwc = (IFacetedProjectWorkingCopy) getProperty(FACETED_PROJECT_WORKING_COPY);
+			if(fpjwc.getProjectName().equals(getStringProperty(EAR_PROJECT_NAME))){
 				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.SAME_MODULE_AND_EAR_NAME, new Object [] {getStringProperty(EAR_PROJECT_NAME) });
 				return WTPCommonPlugin.createErrorStatus(errorMessage);
 			}

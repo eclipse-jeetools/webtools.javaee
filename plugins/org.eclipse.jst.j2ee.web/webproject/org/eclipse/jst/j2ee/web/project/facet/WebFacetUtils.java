@@ -21,6 +21,7 @@ public class WebFacetUtils {
 	public static final IProjectFacetVersion WEB_22 = WEB_FACET.getVersion("2.2"); //$NON-NLS-1$
 	public static final IProjectFacetVersion WEB_23 = WEB_FACET.getVersion("2.3"); //$NON-NLS-1$
 	public static final IProjectFacetVersion WEB_24 = WEB_FACET.getVersion("2.4"); //$NON-NLS-1$
+	public static final IProjectFacetVersion WEB_25 = WEB_FACET.getVersion("2.5"); //$NON-NLS-1$
 	
 	public static final IProjectFacet WEB_XDOCLET_FACET = ProjectFacetsManager.getProjectFacet(IJ2EEFacetConstants.DYNAMIC_WEB_XDOCLET);
 

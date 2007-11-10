@@ -11,17 +11,20 @@
 
 package org.eclipse.jst.j2ee.web.project.facet;
 
+import static org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR;
+import static org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME;
+import static org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties.MODULE_URI;
+import static org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties.FACETED_PROJECT_WORKING_COPY;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
-import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
-import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
+import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
-import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 public final class WebFacetPostInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
 
@@ -34,20 +37,22 @@ public final class WebFacetPostInstallDelegate extends J2EEFacetInstallDelegate 
 			final IDataModel model = (IDataModel) cfg;
 
 			// Associate with an EAR, if necessary.
-			if ( model.getBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR) ) {
-				final String earProjectName = model.getStringProperty(
-							IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME);
+			if ( model.getBooleanProperty(ADD_TO_EAR) ) {
+				final String earProjectName = model.getStringProperty(EAR_PROJECT_NAME);
 				
 				if ( earProjectName != null && !earProjectName.equals("") ) { //$NON-NLS-1$
 					
 					String ver = fv.getVersionString();
 					
 					String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(ver));
-					final String moduleURI = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.MODULE_URI);
+					final String moduleURI = model.getStringProperty(MODULE_URI);
+					
+					final IFacetedProjectWorkingCopy fpjwc
+					    = (IFacetedProjectWorkingCopy) model.getProperty( FACETED_PROJECT_WORKING_COPY );
 					
 					installAndAddModuletoEAR( j2eeVersionText,
 								earProjectName,
-								(IRuntime) model.getProperty(IJ2EEFacetInstallDataModelProperties.FACET_RUNTIME),
+								fpjwc.getPrimaryRuntime(),
 								project,
 								moduleURI,
 								monitor );

@@ -723,17 +723,27 @@
       </constraint>
       <group-member id="modules"/>      
     </project-facet-version>
+    
+    <project-facet-version facet="jst.appclient" version="5.0">
+      <constraint>
+        <and>
+          <requires facet="jst.java" version="[5.0"/>
+          <conflicts group="modules"/>
+        </and>
+      </constraint>
+      <group-member id="modules"/>     
+    </project-facet-version>
             
-    <action type="install" facet="jst.appclient" version="[1.2-1.4]" id="jst.appclient.install">
+    <action type="install" facet="jst.appclient" version="[1.2-5.0]" id="jst.appclient.install">
       <delegate class="org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDelegate"/>
       <config-factory class="org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDataModelProvider"/>
     </action>
 	  
-    <event-handler type="POST_INSTALL" facet="jst.appclient" version="[1.2-1.4]">
+    <event-handler type="POST_INSTALL" facet="jst.appclient" version="[1.2-5.0]">
       <delegate class="org.eclipse.jst.j2ee.project.facet.AppClientFacetPostInstallDelegate"/>
     </event-handler>
         
-    <event-handler type="RUNTIME_CHANGED" facet="jst.appclient" version="[1.2-1.4]">
+    <event-handler type="RUNTIME_CHANGED" facet="jst.appclient" version="[1.2-5.0]">
       <delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
     </event-handler>
 	

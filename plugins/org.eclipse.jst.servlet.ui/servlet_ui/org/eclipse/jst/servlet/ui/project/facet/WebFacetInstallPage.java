@@ -15,6 +15,7 @@ package org.eclipse.jst.servlet.ui.project.facet;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleFacetInstallPage;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
 import org.eclipse.jst.servlet.ui.IWebUIContextIds;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
@@ -23,6 +24,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 /**
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
@@ -45,8 +47,6 @@ public class WebFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 		setInfopopID(IWebUIContextIds.NEW_DYNAMIC_WEB_PROJECT_PAGE3);
 		final Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));
-
-		//setupEarControl(composite);
 
 		this.contextRootLabel = new Label(composite, SWT.NONE);
 		this.contextRootLabel.setText(Resources.contextRootLabel);
@@ -74,10 +74,21 @@ public class WebFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 		this.sourceDir.setLayoutData(gdhfill());
 		this.sourceDir.setData("label", this.sourceDirLabel); //$NON-NLS-1$
 		synchHelper.synchText(sourceDir, SOURCE_FOLDER, null);
-        Dialog.applyDialogFont(parent);
+		
+		createGenerateDescriptorControl( composite );
+		registerFacetVersionChangeListener();
+		
+		Dialog.applyDialogFont(parent);
+        
 		return composite;
 	}
-
+	
+	protected void handleFacetVersionChangedEvent()
+	{
+	    final IProjectFacetVersion fv = (IProjectFacetVersion) this.model.getProperty( FACET_VERSION );
+	    this.addDD.setVisible( fv == WebFacetUtils.WEB_25 );
+	}
+	
 	protected String[] getValidationPropertyNames() {
 		return new String[]{EAR_PROJECT_NAME, CONTEXT_ROOT, CONFIG_FOLDER, SOURCE_FOLDER};
 	}
@@ -90,6 +101,7 @@ public class WebFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 		public static String contentDirLabel;
 		public static String contentDirLabelInvalid;
 		public static String sourceDirLabel;
+
 
 		static {
 			initializeMessages(WebFacetInstallPage.class.getName(), Resources.class);

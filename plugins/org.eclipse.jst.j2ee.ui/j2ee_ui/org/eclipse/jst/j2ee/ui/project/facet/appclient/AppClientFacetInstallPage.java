@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 public class AppClientFacetInstallPage extends J2EEModuleFacetInstallPage implements IAppClientFacetInstallDataModelProperties {
 
@@ -44,8 +45,6 @@ public class AppClientFacetInstallPage extends J2EEModuleFacetInstallPage implem
 		final Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));
 
-		//setupEarControl(composite);
-		
 		configFolderLabel = new Label(composite, SWT.NONE);
 		configFolderLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.SOURCEFOLDER));
 		configFolderLabel.setLayoutData(gdhfill());
@@ -58,8 +57,18 @@ public class AppClientFacetInstallPage extends J2EEModuleFacetInstallPage implem
 		createMainClass = new Button(composite, SWT.CHECK);
 		createMainClass.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_CREATE_MAIN));
 		synchHelper.synchCheckbox(createMainClass, CREATE_DEFAULT_MAIN_CLASS, null);
+		
+        createGenerateDescriptorControl( composite );
+        registerFacetVersionChangeListener();
+        
 	    Dialog.applyDialogFont(parent);
 		return composite;
 	}
+	
+    protected void handleFacetVersionChangedEvent()
+    {
+        final IProjectFacetVersion fv = (IProjectFacetVersion) this.model.getProperty( FACET_VERSION );
+        this.addDD.setVisible( fv == APPLICATION_CLIENT_50 );
+    }
 
 }

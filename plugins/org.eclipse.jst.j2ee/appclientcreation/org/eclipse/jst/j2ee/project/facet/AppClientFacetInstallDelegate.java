@@ -10,9 +10,14 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.project.facet;
 
+import java.io.ByteArrayInputStream;
+import java.io.UnsupportedEncodingException;
+
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -53,7 +58,7 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			WtpUtils.addNatures(project);
 
 			// Setup the flexible project structure.
-			final IVirtualComponent c = createFlexibleProject(monitor, project, model, jproj);
+			final IVirtualComponent c = createFlexibleProject(monitor, project, model, jproj, fv);
 
 			// Setup the classpath.
 			ClasspathHelper.removeClasspathEntries(project, fv);
@@ -88,7 +93,7 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		}
 	}
 
-	protected IVirtualComponent createFlexibleProject(IProgressMonitor monitor, IProject project, IDataModel model, IJavaProject jproj) throws Exception {
+	protected IVirtualComponent createFlexibleProject(IProgressMonitor monitor, IProject project, IDataModel model, IJavaProject jproj, IProjectFacetVersion fv) throws Exception {
 		// Create the directory structure.
 		final IWorkspace ws = ResourcesPlugin.getWorkspace();
 		final IPath pjpath = project.getFullPath();
@@ -106,10 +111,32 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		IPath configFolderpath = pjpath.append(configFolderName);
 		sourceFolder = ws.getRoot().getFolder(configFolderpath);
 
-		if (!sourceFolder.getFile(J2EEConstants.APP_CLIENT_DD_URI).exists()) {
-			String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);
-			int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
-			AppClientArtifactEdit.createDeploymentDescriptor(project, nVer);
+		if( fv == IJ2EEFacetConstants.APPLICATION_CLIENT_50 )
+		{
+	        if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
+	            // Create the deployment descriptor (web.xml) if one doesn't exist
+	            IFile appClientFile = sourceFolder.getFile(new Path(J2EEConstants.APP_CLIENT_DD_URI));
+	            if (!appClientFile.exists()) {
+	                try {
+	                    if(!appClientFile.getParent().exists()
+	                            && (appClientFile.getParent().getType() ==  IResource.FOLDER)){
+	                        ((IFolder)appClientFile.getParent()).create(true, true, monitor);
+	                    }
+	                    final String appClientXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<application-client version=\"5\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application-client_5.xsd\">\n</application-client>"; //$NON-NLS-1$
+	                    appClientFile.create(new ByteArrayInputStream(appClientXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
+	                } catch (UnsupportedEncodingException e) {
+	                    Logger.getLogger().logError(e);
+	                }           
+	            }
+	        }
+		}
+		else
+		{
+    		if (!sourceFolder.getFile(J2EEConstants.APP_CLIENT_DD_URI).exists()) {
+    			String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);
+    			int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
+    			AppClientArtifactEdit.createDeploymentDescriptor(project, nVer);
+    		}
 		}
 		
 		// add source folder maps

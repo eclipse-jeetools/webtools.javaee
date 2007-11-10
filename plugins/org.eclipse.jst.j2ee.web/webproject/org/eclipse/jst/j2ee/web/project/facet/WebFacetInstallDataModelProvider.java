@@ -15,6 +15,7 @@ import java.util.Set;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
+import org.eclipse.jst.common.project.facet.JavaFacetUtils;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
@@ -26,6 +27,8 @@ import org.eclipse.jst.j2ee.project.facet.J2EEModuleFacetInstallDataModelProvide
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.project.facet.ProductManager;
 
@@ -52,12 +55,6 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 		} else if (propertyName.equals(MODULE_URI)) {
 			String projectName = model.getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
 			return projectName + IJ2EEModuleConstants.WAR_EXT;
-		} else if (propertyName.equals(GENERATE_DD)) {
-			IProjectFacetVersion facetVersion = (IProjectFacetVersion)getProperty(FACET_VERSION);
-			if(facetVersion == IJ2EEFacetConstants.DYNAMIC_WEB_25){
-				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.DYNAMIC_WEB_GENERATE_DD));
-			}
-			return Boolean.TRUE;
 		}
 		return super.getDefaultProperty(propertyName);
 	}
@@ -70,26 +67,48 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 		} else if (propertyName.equals(CONFIG_FOLDER)) {
 			// If using optimized single root structure, update the output folder based on content folder change
 			// The output folder will be "<contentRoot>/WEB-INF/classes"
-			if (ProductManager.shouldUseSingleRootStructure()) {
-				IDataModel masterModel = (IDataModel) model.getProperty(MASTER_PROJECT_DM);
-				if (masterModel != null) {
-					FacetDataModelMap map = (FacetDataModelMap) masterModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-					IDataModel javaModel = map.getFacetDataModel(JAVA);
-					if (javaModel != null)
-						javaModel.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME,propertyValue+"/"+J2EEConstants.WEB_INF_CLASSES); //$NON-NLS-1$
-				}
+			if (ProductManager.shouldUseSingleRootStructure()) 
+			{
+	            final IDataModel javaModel = findJavaFacetInstallDataModel();
+	            
+	            if( javaModel != null )
+	            {
+	                javaModel.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME,propertyValue+"/"+J2EEConstants.WEB_INF_CLASSES); //$NON-NLS-1$
+	            }
 			}
 			return true;
-		} else if (propertyName.equals(SOURCE_FOLDER)) {
-			IDataModel masterModel = (IDataModel) model.getProperty(MASTER_PROJECT_DM);
-			if (masterModel != null) {
-				FacetDataModelMap map = (FacetDataModelMap) masterModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-				IDataModel javaModel = map.getFacetDataModel(JAVA);
-				if (javaModel != null)
-					javaModel.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, propertyValue);
+		} else if (propertyName.equals(SOURCE_FOLDER)) 
+		{
+		    final IDataModel javaModel = findJavaFacetInstallDataModel();
+		    
+		    if( javaModel != null )
+		    {
+		        javaModel.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, propertyValue);
 			}
 		}
+		else if( propertyName.equals( FACET_VERSION ) )
+		{
+		    if( propertyValue == WebFacetUtils.WEB_25 )
+		    {
+		        setProperty( GENERATE_DD, Boolean.FALSE );
+		    }
+		    else
+		    {
+		        setProperty( GENERATE_DD, Boolean.TRUE );
+		    }
+		}
 		return super.propertySet(propertyName, propertyValue);
+	}
+	
+	private IDataModel findJavaFacetInstallDataModel()
+	{
+        final IFacetedProjectWorkingCopy fpjwc 
+            = (IFacetedProjectWorkingCopy) this.model.getProperty( FACETED_PROJECT_WORKING_COPY );
+        
+        final IFacetedProject.Action javaInstallAction
+            = fpjwc.getProjectFacetAction( IFacetedProject.Action.Type.INSTALL, JavaFacetUtils.JAVA_FACET );
+        
+        return (IDataModel) javaInstallAction.getConfig();
 	}
 
 	public boolean isPropertyEnabled(String propertyName) {

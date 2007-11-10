@@ -28,6 +28,10 @@ import org.eclipse.jst.j2ee.ui.project.facet.EarSelectionPanel;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
+import org.eclipse.wst.common.project.facet.core.IProjectFacet;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.web.ui.internal.wizards.DataModelFacetCreationWizardPage;
 
 public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFacetCreationWizardPage implements IFacetProjectCreationDataModelProperties {
@@ -46,10 +50,18 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
 		return top;
 	}
 
-	private void createEarComposite(Composite top) {
-		FacetDataModelMap map = (FacetDataModelMap) model.getProperty(FACET_DM_MAP);
-		IDataModel facetModel = (IDataModel) map.get(getModuleFacetID());
-		earPanel = new EarSelectionPanel(facetModel, top);
+	private void createEarComposite(Composite top) 
+	{
+	    final IFacetedProjectWorkingCopy fpjwc
+	        = (IFacetedProjectWorkingCopy) this.model.getProperty( FACETED_PROJECT_WORKING_COPY );
+	    
+	    final String moduleFacetId = getModuleFacetID();
+	    final IProjectFacet moduleFacet = ProjectFacetsManager.getProjectFacet( moduleFacetId );
+	    
+	    final IFacetedProject.Action action
+	        = fpjwc.getProjectFacetAction( IFacetedProject.Action.Type.INSTALL, moduleFacet );
+	    
+		earPanel = new EarSelectionPanel( (IDataModel) action.getConfig(), top );
 	}
 
 	protected abstract String getModuleFacetID();

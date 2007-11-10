@@ -11,7 +11,11 @@
 
 package org.eclipse.jst.j2ee.web.project.facet;
 
+import java.io.ByteArrayInputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
@@ -33,6 +37,9 @@ import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.web.classpath.WebAppLibrariesContainer;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
@@ -49,6 +56,11 @@ import org.eclipse.wst.project.facet.ProductManager;
 
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
+import org.eclipse.jst.javaee.core.DisplayName;
+import org.eclipse.jst.javaee.core.JavaeeFactory;
+import org.eclipse.jst.javaee.web.WebApp;
+import org.eclipse.jst.javaee.web.WebFactory;
+import org.eclipse.jst.javaee.web.WelcomeFileList;
 
 public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
 
@@ -95,11 +107,20 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			if (webroot.getProjectRelativePath().equals(new Path("/"))) //$NON-NLS-1$
 				webroot.createLink(new Path("/" + model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER)), 0, null); //$NON-NLS-1$
 
-			// Create the deployment descriptor (web.xml) if one doesn't exist
-			if (!webinfFolder.getFile("web.xml").exists()) { //$NON-NLS-1$
-				String ver = fv.getVersionString();
-				int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
-				WebArtifactEdit.createDeploymentDescriptor(project, nVer);
+			if( fv == WebFacetUtils.WEB_25 )
+			{
+		         if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
+		                createWeb25DeploymentDescriptor(project, fv, webinfFolder, monitor);
+		            }
+			}
+			else
+			{
+    			// Create the deployment descriptor (web.xml) if one doesn't exist
+    			if (!webinfFolder.getFile("web.xml").exists()) { //$NON-NLS-1$
+    				String ver = fv.getVersionString();
+    				int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
+    				WebArtifactEdit.createDeploymentDescriptor(project, nVer);
+    			}
 			}
 			
 			// Set entries for src folders
@@ -212,6 +233,51 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		}
 		return pjpath.append(model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER));
 	}
+	
+    private void createWeb25DeploymentDescriptor(final IProject project, final IProjectFacetVersion fv, 
+                                               IFolder webinfFolder, IProgressMonitor monitor) throws CoreException {
+       // Create the deployment descriptor (web.xml) if one doesn't exist
+       IFile webxmlFile = webinfFolder.getFile("web.xml"); //$NON-NLS-1$
+       if (!webxmlFile.exists()) {
+           try {
+               // Create a minimal web.xml file, so the model can be initialized
+               final String webXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-app id=\"WebApp_ID\" version=\"2.5\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd\">\n</web-app>"; //$NON-NLS-1$
+               webxmlFile.create(new ByteArrayInputStream(webXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
+           
+               final IModelProvider provider = ModelProviderManager.getModelProvider(project, fv);
+               Runnable runnable = new Runnable(){
+   
+                   public void run() {
+                       WebApp webApp = (WebApp) provider.getModelObject();
+                       
+                       // Add the display-name tag
+                       DisplayName displayName = (DisplayName) JavaeeFactory.eINSTANCE.createDisplayName();
+                       displayName.setValue(project.getName());
+                       webApp.getDisplayNames().add(displayName);
+                       
+                       // welcome file list
+                       List<String> welcomeFiles = Arrays.asList(
+                               "index.html", //$NON-NLS-1$
+                               "index.htm", //$NON-NLS-1$
+                               "index.jsp", //$NON-NLS-1$
+                               "default.html", //$NON-NLS-1$
+                               "default.htm", //$NON-NLS-1$
+                               "default.jsp" //$NON-NLS-1$
+                       );
+                       
+                       // Add the welcome-file-list tag
+                       WelcomeFileList welcomeFileList = (WelcomeFileList) WebFactory.eINSTANCE.createWelcomeFileList();
+                       welcomeFileList.getWelcomeFiles().addAll(welcomeFiles); 
+                       webApp.getWelcomeFileLists().add(welcomeFileList);
+                   }
+               };
+               provider.modify(runnable, null);
+           } catch (UnsupportedEncodingException e) {
+               Logger.getLogger().logError(e);
+           }
+       }
+   }
+	
 
 	private static void mkdirs(final IFolder folder)
 
