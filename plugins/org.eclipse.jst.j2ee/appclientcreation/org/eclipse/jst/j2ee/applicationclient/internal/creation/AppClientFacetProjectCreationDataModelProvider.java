@@ -15,8 +15,10 @@ import java.util.Collection;
 
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
+import org.eclipse.jst.common.project.facet.JavaFacetUtils;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDataModelProvider;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
@@ -24,6 +26,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
+import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.project.facet.ProductManager;
 
@@ -35,11 +38,15 @@ public class AppClientFacetProjectCreationDataModelProvider extends J2EEFacetPro
 	
 	public void init() {
 		super.init();
+
+        Collection<IProjectFacet> requiredFacets = new ArrayList<IProjectFacet>();
+        requiredFacets.add(JavaFacetUtils.JAVA_FACET);
+        requiredFacets.add(IJ2EEFacetConstants.APPLICATION_CLIENT_FACET);
+        setProperty(REQUIRED_FACETS_COLLECTION, requiredFacets);
+		
 		FacetDataModelMap map = (FacetDataModelMap) getProperty(FACET_DM_MAP);
-		IDataModel javaFacet = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
-		map.add(javaFacet);
-		IDataModel appClientFacet = DataModelFactory.createDataModel(new AppClientFacetInstallDataModelProvider());
-		map.add(appClientFacet);
+		IDataModel javaFacet = map.getFacetDataModel(JavaFacetUtils.JAVA_FACET.getId());
+		IDataModel appClientFacet = map.getFacetDataModel(IJ2EEFacetConstants.APPLICATION_CLIENT_FACET.getId());
 		String appClientRoot = appClientFacet.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
 		javaFacet.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, appClientRoot);
 		// If using optimized single root structure, set the output folder to the content root
@@ -57,11 +64,6 @@ public class AppClientFacetProjectCreationDataModelProvider extends J2EEFacetPro
 				}
 			}
 		});	
-		
-		Collection requiredFacets = new ArrayList();
-		requiredFacets.add(ProjectFacetsManager.getProjectFacet(javaFacet.getStringProperty(IFacetDataModelProperties.FACET_ID)));
-		requiredFacets.add(ProjectFacetsManager.getProjectFacet(appClientFacet.getStringProperty(IFacetDataModelProperties.FACET_ID)));
-		setProperty(REQUIRED_FACETS_COLLECTION, requiredFacets);
 	}
 	
 	public boolean propertySet(String propertyName, Object propertyValue) {

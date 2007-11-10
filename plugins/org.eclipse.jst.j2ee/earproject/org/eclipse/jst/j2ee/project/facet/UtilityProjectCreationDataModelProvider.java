@@ -15,12 +15,14 @@ import java.util.Collection;
 
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
+import org.eclipse.jst.common.project.facet.JavaFacetUtils;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
+import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.project.facet.ProductManager;
 
@@ -32,14 +34,18 @@ public class UtilityProjectCreationDataModelProvider extends J2EEFacetProjectCre
 
 	public void init() {
 		super.init();
+
+        Collection<IProjectFacet> requiredFacets = new ArrayList<IProjectFacet>();
+        requiredFacets.add(JavaFacetUtils.JAVA_FACET);
+        requiredFacets.add(IJ2EEFacetConstants.UTILITY_FACET);
+        setProperty(REQUIRED_FACETS_COLLECTION, requiredFacets);
+		
 		FacetDataModelMap map = (FacetDataModelMap) getProperty(FACET_DM_MAP);
-		IDataModel javaFacet = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
+		IDataModel javaFacet = map.getFacetDataModel(JavaFacetUtils.JAVA_FACET.getId());
 		// If applicable, keep project structure optimized by making output directory the same as the content root
 		if (ProductManager.shouldUseSingleRootStructure())
 			javaFacet.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME, javaFacet.getStringProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME));
-		map.add(javaFacet);
-		IDataModel utilFacet = DataModelFactory.createDataModel(new UtilityFacetInstallDataModelProvider());
-		map.add(utilFacet);
+		IDataModel utilFacet = map.getFacetDataModel(IJ2EEFacetConstants.UTILITY_FACET.getId());
 		utilFacet.addListener(new IDataModelListener() {
 			public void propertyChanged(DataModelEvent event) {
 				if (IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME.equals(event.getPropertyName())) {
@@ -53,10 +59,6 @@ public class UtilityProjectCreationDataModelProvider extends J2EEFacetProjectCre
 			}
 		});	
 		
-		Collection requiredFacets = new ArrayList();
-		requiredFacets.add(ProjectFacetsManager.getProjectFacet(javaFacet.getStringProperty(IFacetDataModelProperties.FACET_ID)));
-		requiredFacets.add(ProjectFacetsManager.getProjectFacet(utilFacet.getStringProperty(IFacetDataModelProperties.FACET_ID)));
-		setProperty(REQUIRED_FACETS_COLLECTION, requiredFacets);
 	}
 
 	public boolean propertySet(String propertyName, Object propertyValue) {
