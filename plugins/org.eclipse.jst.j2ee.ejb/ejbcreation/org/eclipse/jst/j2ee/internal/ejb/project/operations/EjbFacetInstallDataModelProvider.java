@@ -68,16 +68,9 @@ public class EjbFacetInstallDataModelProvider
 		} else if (propertyName.equals(MODULE_URI)) {
 			String projectName = model.getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
 			return projectName + IJ2EEModuleConstants.JAR_EXT; 
-		} else if (propertyName.equals(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)) {
-			IProjectFacetVersion facetVersion = (IProjectFacetVersion)getProperty(FACET_VERSION);
-			if(facetVersion == EJB_30){
-				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EJB_GENERATE_DD));
-			}
-			return Boolean.TRUE;
 		}
 		return super.getDefaultProperty(propertyName);
 	}
-
 	
 	protected int convertFacetVersionToJ2EEVersion(IProjectFacetVersion version) {
 		if (EJB_11.equals(version)) {
@@ -121,6 +114,18 @@ public class EjbFacetInstallDataModelProvider
 	    	model.notifyPropertyChange(CREATE_CLIENT, IDataModel.ENABLE_CHG);
 
 	    }
+	    else if( propertyName.equals( FACET_VERSION ) )
+        {
+            if( propertyValue == EJB_30 )
+            {
+                setProperty( GENERATE_DD, Boolean.FALSE );
+            }
+            else
+            {
+                setProperty( GENERATE_DD, Boolean.TRUE );
+            }
+        }
+
 		return status;
 	}	
 	

@@ -12,6 +12,8 @@ package org.eclipse.jst.j2ee.ejb.project.facet;
 
 
 
+import static org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties.FACETED_PROJECT_WORKING_COPY;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
@@ -30,15 +32,14 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
-import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.archiveoperations.IEjbClientProjectCreationDataModelProperties;
-import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
-import org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarImpl;
 import org.eclipse.jst.j2ee.ejb.project.operations.IEjbFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbClientProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJavaUtilityProjectCreationDataModelProperties;
@@ -52,6 +53,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
+import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
@@ -82,9 +84,12 @@ public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implem
 					final String moduleURI = model.getStringProperty(
 								IJ2EEModuleFacetInstallDataModelProperties.MODULE_URI);
 
+                    final IFacetedProjectWorkingCopy fpjwc
+                        = (IFacetedProjectWorkingCopy) model.getProperty( FACETED_PROJECT_WORKING_COPY );
+                
 					installAndAddModuletoEAR( j2eeVersionText,
 										earProjectName,
-										(IRuntime) model.getProperty(IJ2EEFacetInstallDataModelProperties.FACET_RUNTIME),
+										fpjwc.getPrimaryRuntime(),
 										project,
 										moduleURI,
 										monitor );
@@ -257,37 +262,41 @@ public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implem
 	}
 
 
-	private void updateEJBDD(IDataModel model, IProgressMonitor monitor) {
+    private void updateEJBDD(final IDataModel model, IProgressMonitor monitor) {
 
-		String ejbprojectName = model.getStringProperty(IFacetDataModelProperties.FACET_PROJECT_NAME);
-		IProject ejbProj = ProjectUtilities.getProject(ejbprojectName);
+        String ejbprojectName = model.getStringProperty(IFacetDataModelProperties.FACET_PROJECT_NAME);
+        final IProject ejbProj = ProjectUtilities.getProject(ejbprojectName);
 
-
-		String clientProjectName = model.getStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME);
-
-		IVirtualComponent c = ComponentCore.createComponent(ejbProj);
-		Properties props = c.getMetaProperties();
-
-		String clienturi = props.getProperty(CreationConstants.CLIENT_JAR_URI);
-
-		EnterpriseArtifactEdit ejbEdit = null;
-		try {
-			ejbEdit = new EJBArtifactEdit(ejbProj, false, true);
-
-			if (ejbEdit != null) {
-				EJBJarImpl ejbres = (EJBJarImpl) ejbEdit.getDeploymentDescriptorRoot();
-				if (clienturi != null && !clienturi.equals("")) { //$NON-NLS-1$
-					ejbres.setEjbClientJar(clienturi);
-				} else
-					ejbres.setEjbClientJar(clientProjectName + ".jar");//$NON-NLS-1$
-				ejbres.setEjbClientJar(clienturi);
-				ejbEdit.saveIfNecessary(monitor);
-			}
-		} catch (Exception e) {
-			Logger.getLogger().logError(e);
-		} finally {
-			if (ejbEdit != null)
-				ejbEdit.dispose();
-		}
-	}	
+        IModelProvider ejbModel = ModelProviderManager.getModelProvider(ejbProj);
+        ejbModel.modify(new Runnable() {
+            public void run() {
+                String clientProjectName = model.getStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME);
+                IVirtualComponent c = ComponentCore.createComponent(ejbProj);
+                Properties props = c.getMetaProperties();
+                String clienturi = props.getProperty(CreationConstants.CLIENT_JAR_URI);
+                IModelProvider writableEjbModel = ModelProviderManager.getModelProvider(ejbProj);
+                Object modelObject = writableEjbModel.getModelObject();
+                
+                if( modelObject instanceof org.eclipse.jst.javaee.ejb.EJBJar )
+                {
+                    org.eclipse.jst.javaee.ejb.EJBJar ejbres = (org.eclipse.jst.javaee.ejb.EJBJar) writableEjbModel.getModelObject();
+                    if (ejbres != null) {// Could have no DD
+                        if (clienturi != null && !clienturi.equals("")) { //$NON-NLS-1$
+                            ejbres.setEjbClientJar(clienturi);
+                        } else
+                            ejbres.setEjbClientJar(clientProjectName + ".jar");//$NON-NLS-1$
+                    }
+                }
+                else
+                {
+                    org.eclipse.jst.j2ee.ejb.EJBJar ejbres = (org.eclipse.jst.j2ee.ejb.EJBJar) writableEjbModel.getModelObject();
+                    if (clienturi != null && !clienturi.equals("")) { //$NON-NLS-1$
+                        ejbres.setEjbClientJar(clienturi);
+                    } else
+                        ejbres.setEjbClientJar(clientProjectName + ".jar");//$NON-NLS-1$
+                }
+            }
+        },null);
+    }
+    
 }

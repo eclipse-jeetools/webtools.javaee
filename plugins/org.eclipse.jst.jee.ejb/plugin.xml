@@ -4,31 +4,6 @@
  	
           
     <!--EJB3  -->
-    <extension point="org.eclipse.wst.common.project.facet.core.facets">
-	<project-facet-version facet="jst.ejb" version="3.0">
-		<constraint>
- 	       <and>
- 		       	<requires facet="jst.java" version="[5.0"/>
- 	         	<conflicts group="modules"/>
- 	       </and>
-    	</constraint>
-      	<group-member id="modules"/>
-    </project-facet-version>
-    
-     <action facet="jst.ejb" version="3.0" type="INSTALL" id="jst.ejb#3.0#install">
-    		<delegate class="org.eclipse.jst.jee.ejb.project.facet.EjbFacetInstallDelegate"/>
-            <config-factory class="org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetInstallDataModelProvider"/>
-    </action>
-    
-    <event-handler facet="jst.ejb" version="3.0" type="POST_INSTALL">
-			<delegate class="org.eclipse.jst.jee.ejb.project.facet.EjbFacetPostInstallDelegate"/>
-    </event-handler>
-     
-    <event-handler facet="jst.ejb" version="3.0" type="RUNTIME_CHANGED">
-      <delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
-    </event-handler>
-    
-   </extension> 
 
    <extension
         point="org.eclipse.jst.j2ee.J2EEModelProvider">

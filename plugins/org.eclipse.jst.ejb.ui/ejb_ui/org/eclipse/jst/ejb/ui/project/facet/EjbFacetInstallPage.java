@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 
 
@@ -69,9 +70,20 @@ public class EjbFacetInstallPage extends J2EEModuleFacetInstallPage
 		createEJBClientGroup( composite );
 		createProjectNameGroup( composite );
 		createClientJarURISection( composite );
+		
+        createGenerateDescriptorControl( composite );
+        registerFacetVersionChangeListener();
+        
 	    Dialog.applyDialogFont(parent);
+	    
 		return composite;
 	}
+	
+    protected void handleFacetVersionChangedEvent()
+    {
+        final IProjectFacetVersion fv = (IProjectFacetVersion) this.model.getProperty( FACET_VERSION );
+        this.addDD.setVisible( fv == EJB_30 );
+    }
 
 	private void createEJBClientGroup(Composite parent) {
 		// Create Add Client checkbox
