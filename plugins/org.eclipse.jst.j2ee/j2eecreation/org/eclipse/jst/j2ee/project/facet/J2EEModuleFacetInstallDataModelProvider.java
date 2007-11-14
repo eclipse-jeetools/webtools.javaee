@@ -204,7 +204,8 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			if (!status.isOK())
 				return status;
 			final IFacetedProjectWorkingCopy fpjwc = (IFacetedProjectWorkingCopy) getProperty(FACETED_PROJECT_WORKING_COPY);
-			if(fpjwc.getProjectName().equals(getStringProperty(EAR_PROJECT_NAME))){
+			String fpjwcName = fpjwc.getProjectName();
+			if(fpjwcName != null && fpjwcName.equals(getStringProperty(EAR_PROJECT_NAME))){
 				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.SAME_MODULE_AND_EAR_NAME, new Object [] {getStringProperty(EAR_PROJECT_NAME) });
 				return WTPCommonPlugin.createErrorStatus(errorMessage);
 			}
