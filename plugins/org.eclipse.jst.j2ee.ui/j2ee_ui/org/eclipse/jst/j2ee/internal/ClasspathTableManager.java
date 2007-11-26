@@ -18,6 +18,7 @@ package org.eclipse.jst.j2ee.internal;
 
 import java.util.Arrays;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
@@ -106,6 +107,16 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 		createWLPButtonColumn(parent);
 	}
 	
+	public void fillWebRefComposite(Composite parent) {
+		GridLayout layout = new GridLayout();
+		layout.numColumns = 2;
+		layout.marginHeight = 0;
+		parent.setLayout(layout);
+		parent.setLayoutData(new GridData(GridData.FILL_BOTH));
+		createTable(parent);
+		createWebRefButtonColumn(parent);
+	}
+	
 	private void initializeEJBClientDefaults() {
 		if (model == null || model.getClassPathSelection() == null)
 			return;
@@ -181,6 +192,13 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 		createWLPPushButtons();
 	}
 	
+	protected void createWebRefButtonColumn(Composite parent) {
+		buttonColumn = owner.createButtonColumnComposite(parent);
+		GridData data = new GridData(GridData.HORIZONTAL_ALIGN_END);
+		buttonColumn.setLayoutData(data);
+		createWebRefPushButtons();
+	}
+	
 	protected void createTable(Composite parent) {
 		availableJARsViewer = owner.createAvailableJARsViewer(parent);
 		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.FILL_VERTICAL);
@@ -205,7 +223,15 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 			addVariableButton.setEnabled(false);
 		} 
 	}
-		
+	
+	protected void createWebRefPushButtons() {
+		selectAllButton = createPushButton(SELECT_ALL_BUTTON);
+		deselectAllButton = createPushButton(DE_SELECT_ALL_BUTTON);
+		if (isReadOnly()) {
+			selectAllButton.setEnabled(false);
+			deselectAllButton.setEnabled(false);
+		} 
+	}
 
 	protected void createPushButtons() {
 		upButton = createPushButton(UP_BUTTON);
@@ -443,7 +469,10 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	}
 
 	public void refresh() {
-		if (!isWLPEntry() && !J2EEProjectUtilities.isStandaloneProject(model.getComponent().getProject())) {
+		final IProject project = model.getComponent().getProject();
+		// if not a web project and it is either referenced by an EAR or a dynamic web project.
+		if (!isWLPEntry() && (!J2EEProjectUtilities.isStandaloneProject(project) || 
+				               (J2EEProjectUtilities.getReferencingWebProjects(project).length > 0))) {
 			availableJARsViewer.setInput(getClasspathSelection());
 			model.setWLPModel(false);
 			GridData data = new GridData(GridData.FILL_BOTH);

@@ -134,8 +134,26 @@ public class J2EEDependenciesPage extends PropertyPage {
 	
 	private Composite createNonEARContent(final Composite parent) {
 		controls = new IJ2EEDependenciesControl[1];
-		controls[0] = new JARDependencyPropertiesPage(project, this);
+		final boolean standalone = J2EEProjectUtilities.isStandaloneProject(project);
+		if (standalone) {
+			// if not referenced by an EAR, check if referenced by a dynamic web project
+			if (J2EEProjectUtilities.getReferencingWebProjects(project).length > 0) {
+				controls[0] = new WebRefDependencyPropertiesPage(project, this);
+			} else {
+				return getUnreferencedErrorComposite(parent);
+			}
+		} else { 
+			controls[0] = new JARDependencyPropertiesPage(project, this);			
+		}
+
 		return controls[0].createContents(parent);
+	}
+	
+	private Composite getUnreferencedErrorComposite(final Composite parent) {
+		final String msg = ManifestUIResourceHandler.Unreferenced_Module_Error;
+		setErrorMessage(msg);
+		setValid(false);
+		return getErrorComposite(parent, msg);		
 	}
 	
 	/* (non-Javadoc)

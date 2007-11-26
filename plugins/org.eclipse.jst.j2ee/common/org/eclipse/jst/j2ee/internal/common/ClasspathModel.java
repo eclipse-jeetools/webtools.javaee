@@ -256,10 +256,13 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	}
 
 	protected void createClassPathSelection() {
-		if (getComponent() != null && selectedEARComponent != null )
+		if (getComponent() != null && selectedEARComponent != null ) {
 			classPathSelection = new ClassPathSelection(getComponent(), selectedEARComponent);
-		else
+		} else if (selectedEARComponent == null) {
+			classPathSelection = new ClassPathSelection(getComponent());
+		} else {
 			classPathSelection = null;
+		}
 	}
 
 	protected boolean isDDInEAR(IVirtualComponent aComponent) {

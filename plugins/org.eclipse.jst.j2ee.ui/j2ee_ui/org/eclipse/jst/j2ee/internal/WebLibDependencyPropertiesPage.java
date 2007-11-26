@@ -132,14 +132,12 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 		tableManager.refresh();
 	}
 	
-	/**
-	 * Called to refresh the UI when the classpath changes
-	 */
+	@Override
 	protected void handleClasspathChange() {
 		model.resetClassPathSelectionForWLPs();
 		super.handleClasspathChange();
+		setEnablement();
 	}
-
 
 	public boolean performOk() {
 		if (model.getComponent() == null || !isValidWebModule()) {

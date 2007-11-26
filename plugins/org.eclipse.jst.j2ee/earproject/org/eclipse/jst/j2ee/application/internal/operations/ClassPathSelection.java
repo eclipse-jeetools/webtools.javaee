@@ -132,11 +132,19 @@ public class ClassPathSelection {
 	}
 
 	/**
+	 * Creates without an EAR component.
+	 */
+	public ClassPathSelection(IVirtualComponent aComponent) {
+		super();
+		component = aComponent;
+		initializeElements();
+	}
+	
+	/**
 	 * ClassPathSelection constructor comment.
 	 */
 	public ClassPathSelection(IVirtualComponent aComponent, IVirtualComponent anEarComponent) {
-		super();
-		component = aComponent;
+		this(aComponent);
 		earComponent = anEarComponent;
 		earProject = earComponent.getProject();
 		initializeElements();
@@ -525,95 +533,97 @@ public class ClassPathSelection {
 	protected void initializeElements() {
 //		ejbToClientJARs = J2EEProjectUtilities.collectEJBClientJARs(getEARFile());
 		ejbToClientJARs = new HashMap();
-		IVirtualReference[] references = earComponent.getReferences();
 		IVirtualComponent currentComponent = null;
 		IVirtualComponent clientComponent = null;
 		Object rootModelObject = null;
 		IModelProvider modelProvider = null;
 		String ejbClientJarName = null;
-		for (int cnt=0; cnt<references.length; cnt++)
-		{
-			clientComponent = null;
-			modelProvider = null;
-			rootModelObject = null;
-			ejbClientJarName = null;
-			currentComponent = references[cnt].getReferencedComponent();
-			if (J2EEProjectUtilities.isEJBComponent(currentComponent))
-			{
-				modelProvider = ModelProviderManager.getModelProvider(currentComponent);
-				rootModelObject = modelProvider.getModelObject();
-				if (rootModelObject instanceof EJBJar)
-				{
-					ejbClientJarName = ((EJBJar)rootModelObject).getEjbClientJar();
-				}
-				else if (rootModelObject instanceof org.eclipse.jst.j2ee.ejb.EJBJar)
-				{
-					ejbClientJarName = ((org.eclipse.jst.j2ee.ejb.EJBJar)rootModelObject).getEjbClientJar();
-				}
-				if (ejbClientJarName != null)
-				{
-					clientComponent = J2EEProjectUtilities.getModule(earComponent, ejbClientJarName);
-				}
-				if (clientComponent != null)
-				{
-					ejbToClientJARs.put(currentComponent, clientComponent);
-				}
-			}
-		}
-		clientToEJBJARs = reverse(ejbToClientJARs);
-		classpathElements = new ArrayList();
-		urisToElements = new HashMap();
-		
-		String[] cp = new String[0];
-		try {
-//			cp = archive.getManifest().getClassPathTokenized();
-			manifest = J2EEProjectUtilities.readManifest(component.getProject());
-			cp = manifest.getClassPathTokenized();
-		} catch (ManifestException ex) {
-			Logger.getLogger().logError(ex);
-		}
-		String projectUri = earComponent.getReference(component.getName()).getArchiveName();
-//		List archives = getEARFile().getArchiveFiles();
-		List archives = new ArrayList(Arrays.asList(earComponent.getReferences()));
+		List archives = null;
+		IVirtualReference other = null;
 		ClasspathElement element = null;
-//		Archive other = null;
-		IVirtualReference other;
-		for (int i = 0; i < cp.length; i++) {
-			String cpEntry = cp[i];
-			String uri = ArchiveUtil.deriveEARRelativeURI(cpEntry, projectUri);
-
-			other = getVirtualReference(uri, archives);
-			if (other != null && isValidDependency(other.getReferencedComponent(), component)) {
-				element = createElement(component, other, cpEntry);
-				archives.remove(other);
-			} else {
-				element = createInvalidElement(cpEntry);
-				if (element.representsImportedJar()) {
-					element.setValid(true);
-					element.setProject(getProject(archive));
-				}
-				if (other != null)
-					element.setProject(other.getReferencedComponent().getProject());
-				
-				if( other == null ){
-					//making a best guess for the project name
-					if( element.getProject() == null ){
-						int  index = cpEntry.indexOf(".jar"); //$NON-NLS-1$
-						if( index > 0 ){
-							String projectName = cpEntry.substring(0, index);
-							IProject project = ProjectUtilities.getProject( projectName );
-							if( project != null && project.exists() )
-								element.setProject( project );
-						}
+		String[] cp = new String[0];
+		
+		if (earComponent != null) {
+			IVirtualReference[] references = earComponent.getReferences();		
+			for (int cnt=0; cnt<references.length; cnt++)
+			{
+				clientComponent = null;
+				modelProvider = null;
+				rootModelObject = null;
+				ejbClientJarName = null;
+				currentComponent = references[cnt].getReferencedComponent();
+				if (J2EEProjectUtilities.isEJBComponent(currentComponent))
+				{
+					modelProvider = ModelProviderManager.getModelProvider(currentComponent);
+					rootModelObject = modelProvider.getModelObject();
+					if (rootModelObject instanceof EJBJar)
+					{
+						ejbClientJarName = ((EJBJar)rootModelObject).getEjbClientJar();
+					}
+					else if (rootModelObject instanceof org.eclipse.jst.j2ee.ejb.EJBJar)
+					{
+						ejbClientJarName = ((org.eclipse.jst.j2ee.ejb.EJBJar)rootModelObject).getEjbClientJar();
+					}
+					if (ejbClientJarName != null)
+					{
+						clientComponent = J2EEProjectUtilities.getModule(earComponent, ejbClientJarName);
+					}
+					if (clientComponent != null)
+					{
+						ejbToClientJARs.put(currentComponent, clientComponent);
 					}
 				}
 			}
-			addClasspathElement(element, uri);
+			clientToEJBJARs = reverse(ejbToClientJARs);
+			classpathElements = new ArrayList();
+			urisToElements = new HashMap();
+
+			
+			try {
+				//			cp = archive.getManifest().getClassPathTokenized();
+				manifest = J2EEProjectUtilities.readManifest(component.getProject());
+				cp = manifest.getClassPathTokenized();
+			} catch (ManifestException ex) {
+				Logger.getLogger().logError(ex);
+			}
+			String projectUri = earComponent.getReference(component.getName()).getArchiveName();
+			archives = new ArrayList(Arrays.asList(earComponent.getReferences()));
+			
+			for (int i = 0; i < cp.length; i++) {
+				String cpEntry = cp[i];
+				String uri = ArchiveUtil.deriveEARRelativeURI(cpEntry, projectUri);
+
+				other = getVirtualReference(uri, archives);
+				if (other != null && isValidDependency(other.getReferencedComponent(), component)) {
+					element = createElement(component, other, cpEntry);
+					archives.remove(other);
+				} else {
+					element = createInvalidElement(cpEntry);
+					if (element.representsImportedJar()) {
+						element.setValid(true);
+						element.setProject(getProject(archive));
+					}
+					if (other != null)
+						element.setProject(other.getReferencedComponent().getProject());
+
+					if( other == null ){
+						//making a best guess for the project name
+						if( element.getProject() == null ){
+							int  index = cpEntry.indexOf(".jar"); //$NON-NLS-1$
+							if( index > 0 ){
+								String projectName = cpEntry.substring(0, index);
+								IProject project = ProjectUtilities.getProject( projectName );
+								if( project != null && project.exists() )
+									element.setProject( project );
+							}
+						}
+					}
+				}
+				addClasspathElement(element, uri);
+			}
 		}
 		
 		// Add resolved contributions from tagged classpath entries
-//		IVirtualComponent comp = getComponent(archive);
-
 		// XXX Don't show resolved contributions from tagged classpath entries on this project's classpath; we should elements corresponding to the raw entries instead
 		//createClasspathComponentDependencyElements(comp);
 		
@@ -624,23 +634,22 @@ public class ClassPathSelection {
 			Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(ce);
 		}
 		
-		Collections.sort(archives, comparator);
-		//Anything that remains in the list of available archives that is valid should be
-		//available for selection
-		for (int i = 0; i < archives.size(); i++) {
-			other = (IVirtualReference) archives.get(i);
-			
-			if (other != archive && isValidDependency(other.getReferencedComponent(), component)) {
-				IProject project = other.getReferencedComponent().getProject();
-				if (null == targetProjectName || null == project || !project.getName().equals(targetProjectName)) {
-					element = createElement(component, other, null);
-					element.setProject(other.getReferencedComponent().getProject());
-					addClasspathElement(element, other.getArchiveName());
+		if (earComponent != null) {
+			Collections.sort(archives, comparator);
+			//Anything that remains in the list of available archives that is valid should be
+			//available for selection
+			for (int i = 0; i < archives.size(); i++) {
+				other = (IVirtualReference) archives.get(i);
+
+				if (other != archive && isValidDependency(other.getReferencedComponent(), component)) {
+					IProject project = other.getReferencedComponent().getProject();
+					if (null == targetProjectName || null == project || !project.getName().equals(targetProjectName)) {
+						element = createElement(component, other, null);
+						element.setProject(other.getReferencedComponent().getProject());
+						addClasspathElement(element, other.getArchiveName());
+					}
 				}
 			}
-		}
-		
-		if( earComponent!= null){
 			IVirtualReference[] newrefs = earComponent.getReferences();
 			for( int i=0; i < newrefs.length; i++){
 				IVirtualReference ref = newrefs[i];

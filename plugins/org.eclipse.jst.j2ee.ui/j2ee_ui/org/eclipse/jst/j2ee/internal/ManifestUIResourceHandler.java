@@ -45,12 +45,16 @@ public final class ManifestUIResourceHandler extends NLS {
 	public static String J2EE_Modules_Desc;
 	public static String Web_Libraries;
 	public static String Web_Libraries_Desc;
+	public static String Web_Ref_Desc;
 	public static String EAR_Module_Dep_Error;
+	public static String Unreferenced_Module_Error;
 	public static String Jar_Dep_One_Module_Error;
 	public static String Web_Lib_Error;
 	public static String REDIRECT_TEXT_EDITOR_UI_;
 	public static String Error_Checking_Project_Facets;
 	public static String WEB_LIB_LIST_DESCRIPTION;
+	public static String Dynamic_Web_Error;
+	public static String No_Web_Reference_Error;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, ManifestUIResourceHandler.class);

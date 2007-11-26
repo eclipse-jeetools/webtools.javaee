@@ -635,10 +635,13 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 	public static boolean isStandaloneProject(IProject project) {
 		return getReferencingEARProjects(project).length == 0;
 	}
-
 	
-	
-	public static IProject[] getReferencingEARProjects(IProject project) {
+	/**
+	 * Returns all referencing EAR projects.
+	 * @param project Project to check. If null or an EAR, returns a zero length array.
+	 * @return Array of referencing EAR projects.
+	 */
+	public static IProject[] getReferencingEARProjects(final IProject project) {
 		if(project != null && isEARProject(project)){
 			return new IProject[] {project};
 		}
@@ -653,6 +656,28 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 			}
 		}
 		return (IProject[]) result.toArray(new IProject[result.size()]);
+	}
+	
+	/**
+	 * Returns all referencing dynamic web projects.
+	 * @param project Project to check. If null or a dynamic web project, returns a zero length array.
+	 * @return Array of referencing dynamic web projects.
+	 */
+	public static IProject[] getReferencingWebProjects(final IProject project) {
+		if(project != null && isDynamicWebProject(project)){
+			return new IProject[] {project};
+		}
+		
+		List result = new ArrayList();
+		IVirtualComponent component = ComponentCore.createComponent(project);
+		if (component != null) {
+			IVirtualComponent[] refComponents = component.getReferencingComponents();
+			for (int i = 0; i < refComponents.length; i++) {
+				if (isDynamicWebProject(refComponents[i].getProject()))
+					result.add(refComponents[i].getProject());
+			}
+		}
+		return (IProject[]) result.toArray(new IProject[result.size()]);	
 	}
 
 	/**
