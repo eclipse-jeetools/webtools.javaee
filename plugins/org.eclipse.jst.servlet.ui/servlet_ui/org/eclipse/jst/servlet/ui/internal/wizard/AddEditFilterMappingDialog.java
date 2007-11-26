@@ -3,28 +3,29 @@ package org.eclipse.jst.servlet.ui.internal.wizard;
 /**
  * 
  */
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jdt.core.*;
-import org.eclipse.jdt.ui.ISharedImages;
-import org.eclipse.jdt.ui.JavaUI;
+import org.eclipse.jdt.core.IType;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableContext;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jst.j2ee.internal.dialogs.TwoArrayQuickSorter;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.web.operations.FilterMappingItem;
 import org.eclipse.jst.j2ee.internal.web.operations.IFilterMappingItem;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.internal.web.providers.WebAppEditResourceHandler;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.*;
@@ -33,7 +34,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.eclipse.ui.dialogs.SelectionStatusDialog;
 import org.eclipse.ui.internal.layout.CellLayout;
@@ -45,31 +45,16 @@ import org.eclipse.ui.part.PageBook;
  */
 public class AddEditFilterMappingDialog extends SelectionStatusDialog implements SelectionListener {	
 
-	private static class PackageRenderer extends LabelProvider {
-		private final Image PACKAGE_ICON = JavaUI.getSharedImages().getImage(ISharedImages.IMG_OBJS_PACKAGE); 
-
-		public String getText(Object element) {
-			IType type = (IType) element;
-			String p = type.getPackageFragment().getElementName();
-			if ("".equals(p)) //$NON-NLS-1$
-				p = IWebWizardConstants.DEFAULT_PACKAGE;
-			return (p + " - " + type.getPackageFragment().getParent().getPath().toString()); //$NON-NLS-1$
-		}
-		public Image getImage(Object element) {
-			return PACKAGE_ICON;
-		}
-	}
-
 	private static class TypeRenderer extends LabelProvider {
-		private final Image CLASS_ICON = JavaUI.getSharedImages().getImage(ISharedImages.IMG_OBJS_CLASS); 
+        private final Image SERVLET_ICON = 
+            ImageDescriptor.createFromURL((URL) WebPlugin.getDefault().getImage("servlet")).createImage();
 
 		public String getText(Object element) {
-			IType e = ((IType) element);
-			return e.getElementName();
+			return ((String) element);
 		}
 
 		public Image getImage(Object element) {
-			return CLASS_ICON;
+			return SERVLET_ICON;
 		}
 
 	}
@@ -87,20 +72,16 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 	// construction parameters
 	protected IRunnableContext fRunnableContext;
 	protected ILabelProvider fElementRenderer;
-	protected ILabelProvider fQualifierRenderer;
+	//protected ILabelProvider fQualifierRenderer;
 	private Object[] fElements;
 	private boolean fIgnoreCase = true;
 	private String fUpperListLabel;
 	private String fLowerListLabel;
 	// SWT widgets
 	private Table fUpperList;
-	private Table fLowerList;
-	protected Text fText;
 	protected Text fURLText;
-	private IType[] fIT;
+	private String[] fServletNames;
 	private String[] fRenderedStrings;
-	private int[] fElementMap;
-	private Integer[] fQualifierMap;
 	private int dispatchers;
 	private Button fRequest;
 	private Button fForward;
@@ -108,7 +89,7 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 	private Button fErorr;
 	private IFilterMappingItem selectedItem;
 
-	private ISelectionStatusValidator fLocalValidator = null;
+	//private ISelectionStatusValidator fLocalValidator = null;
 	/**
 	 * MultiSelectFilteredFileSelectionDialog constructor comment.
 	 * @param parent Shell
@@ -126,57 +107,48 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 		if (title == null)
 			setTitle(WebAppEditResourceHandler.getString("File_Selection_UI_")); //$NON-NLS-1$
 		else setTitle(title);
-		fLocalValidator = new SimpleTypedElementSelectionValidator(new Class[] { IFile.class }, false);
 		
 		Status currStatus = new Status(Status.OK, ServletUIPlugin.PLUGIN_ID, Status.OK, "", null);
 		
 		updateStatus(currStatus);
 		fElementRenderer = new TypeRenderer();
-		fQualifierRenderer = new PackageRenderer();
 		fRunnableContext = J2EEUIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow();
 		try {
-			IJavaElement jelem = null;
-			IProject proj = null;
-			jelem = (IJavaElement) project.getAdapter(IJavaElement.class);
-			if (jelem == null) {
-				IResource resource = (IResource) project.getAdapter(IResource.class);
-				if (resource != null) {
-					proj = resource.getProject();
-					if (proj != null) {
-						jelem = org.eclipse.jdt.core.JavaCore.create(proj);
-					}
-				}
-			}
-			IJavaProject jp = jelem.getJavaProject();
-
-			IType servletType = jp.findType("javax.servlet.Servlet"); //$NON-NLS-1$
-			// next 3 lines fix defect 177686
-			if (servletType == null) {
-				return;
-			}
-
-			ArrayList servletClasses = new ArrayList();
-			ITypeHierarchy tH = servletType.newTypeHierarchy(jp, null);
-			IType[] types = tH.getAllSubtypes(servletType);
-			for (int i = 0; i < types.length; i++) {
-				if (types[i].isClass() && !types[i].isBinary() && !servletClasses.contains(types[i])) {
-				    if (!types[i].equals(item != null ? item.getMapping() : null) && 
-				            isAlreadyAdded(types[i], elements)) continue;
-				    servletClasses.add(types[i]);
-				}
-			}
-			fIT = (IType[]) servletClasses.toArray(new IType[servletClasses.size()]);
-			servletClasses = null;
+	        IModelProvider provider = ModelProviderManager.getModelProvider(project);
+	        Object mObj = provider.getModelObject();
+	        ArrayList<String> servletsList = new ArrayList<String>();
+	        if (mObj instanceof org.eclipse.jst.j2ee.webapplication.WebApp) {
+	            org.eclipse.jst.j2ee.webapplication.WebApp webApp = (org.eclipse.jst.j2ee.webapplication.WebApp) mObj;
+	            List<Servlet> servlets = webApp.getServlets();
+	            for (Servlet servlet : servlets) {
+	                String servletName = servlet.getServletName();
+                    if (!servletName.equals(item != null ? item.getName() : null) && 
+                            isAlreadyAdded(servletName, elements)) continue;
+                    servletsList.add(servletName);
+	            }
+	        } else if (mObj instanceof org.eclipse.jst.javaee.web.WebApp) {
+	            org.eclipse.jst.javaee.web.WebApp webApp= (org.eclipse.jst.javaee.web.WebApp) mObj;
+	            List<org.eclipse.jst.javaee.web.Servlet> servlets = webApp.getServlets();
+	            for (org.eclipse.jst.javaee.web.Servlet servlet : servlets) {
+	                String servletName = servlet.getServletName();
+	                if (!servletName.equals(item != null ? item.getName() : null) && 
+                            isAlreadyAdded(servletName, elements)) continue;
+                    servletsList.add(servletName);
+	            }
+	        }
+	
+			fServletNames = (String[]) servletsList.toArray(new String[servletsList.size()]);
+			servletsList = null;
 		} catch (Exception exc) {
 			Logger.getLogger().logError(exc);
 		}
 	}
 	
-	private boolean isAlreadyAdded(IType type, List<IFilterMappingItem> elements) {
+	private boolean isAlreadyAdded(String servlet, List<IFilterMappingItem> elements) {
         for (Iterator iterator = elements.iterator(); iterator.hasNext();) {
             IFilterMappingItem item = (IFilterMappingItem) iterator.next();
             if (item.getMappingType() == IFilterMappingItem.SERVLET_NAME) {
-                if (item.getMapping().equals(type)) return true;
+                if (item.getName().equals(servlet)) return true;
             }
         }
         return false;
@@ -195,21 +167,19 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
             result.add(mappingItem);
             setResult(result);
 		} else {
-			IType type = (IType) getWidgetSelection();
-			if (type != null) {
-				if (type == null) {
-					String title = WebAppEditResourceHandler.getString("Select_Class_UI_"); //$NON-NLS-1$ = "Select Class"
-					String message = WebAppEditResourceHandler.getString("Could_not_uniquely_map_the_ERROR_"); //$NON-NLS-1$ = "Could not uniquely map the class name to a class."
-					MessageDialog.openError(getShell(), title, message);
-					setResult(null);
-				} else {
-				    dispatchers = getDispatchers();
-					java.util.List result = new ArrayList(1);
-					FilterMappingItem mappingItem = 
-					    new FilterMappingItem(FilterMappingItem.SERVLET_NAME, type, dispatchers);
-					result.add(mappingItem);
-					setResult(result);
-				}
+			String servletName = (String) getWidgetSelection();
+			if (servletName == null) {
+//			    String title = WebAppEditResourceHandler.getString("Select_Class_UI_"); //$NON-NLS-1$ = "Select Class"
+//			    String message = WebAppEditResourceHandler.getString("Could_not_uniquely_map_the_ERROR_"); //$NON-NLS-1$ = "Could not uniquely map the class name to a class."
+//			    MessageDialog.openError(getShell(), title, message);
+			    setResult(null);
+			} else {
+			    dispatchers = getDispatchers();
+			    java.util.List result = new ArrayList(1);
+			    FilterMappingItem mappingItem = 
+			        new FilterMappingItem(FilterMappingItem.SERVLET_NAME, servletName, dispatchers);
+			    result.add(mappingItem);
+			    setResult(result);
 			}
 		}
 	}
@@ -233,9 +203,7 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 	
 	public void create() {
 		super.create();
-		fText.setFocus();
-		rematch(""); //$NON-NLS-1$
-		if (selectedItem == null && (fIT != null && fIT.length > 0)) fSelection = SERVLET; 
+		if (selectedItem == null && (fServletNames != null && fServletNames.length > 0)) fSelection = SERVLET; 
 		updateOkState();
 	}
 	
@@ -316,6 +284,7 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 		fURLPatternButton.setLayoutData(gd);
 		fURLPatternButton.addSelectionListener(this);
 
+		//Create URL Pattern page
 		fPageBook = new PageBook(fChild, SWT.NONE);
 		gd = new GridData();
 		gd.horizontalAlignment = GridData.FILL;
@@ -325,7 +294,6 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 		gd.horizontalSpan = 2;
 		fPageBook.setLayoutData(gd);
 		
-		//fURLPatternControl = super.createDialogArea(fPageBook);
         Composite composite = new Composite(fPageBook, SWT.NONE);
         GridLayout layout = new GridLayout();
         layout.marginHeight = convertVerticalDLUsToPixels(IDialogConstants.VERTICAL_MARGIN);
@@ -356,6 +324,7 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
         fURLText.addListener(SWT.Modify, l);
         fURLPatternControl = composite;
 
+        //Create Servlet page
 		composite = new Composite(fPageBook, SWT.NONE);
 		layout = new GridLayout();
 		layout.marginHeight = convertVerticalDLUsToPixels(IDialogConstants.VERTICAL_MARGIN);
@@ -369,29 +338,15 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 		messageLabel = new Label(composite, SWT.NONE);
 		gd = new GridData();
 		messageLabel.setLayoutData(gd);
-		messageLabel.setText(WebAppEditResourceHandler.getString("Choose_a_servlet__1")); //$NON-NLS-1$
-
-		fText = createText(composite);
-
-		messageLabel = new Label(composite, SWT.NONE);
-		gd = new GridData();
-		messageLabel.setLayoutData(gd);
-		messageLabel.setText(WebAppEditResourceHandler.getString("Matching_servlets__2")); //$NON-NLS-1$
+		messageLabel.setText(WebAppEditResourceHandler.getString("Choose_a_servlet__2")); //$NON-NLS-1$
 
 		fUpperList = createUpperList(composite);
-
-		messageLabel = new Label(composite, SWT.NONE);
-		gd = new GridData();
-		messageLabel.setLayoutData(gd);
-		messageLabel.setText(WebAppEditResourceHandler.getString("Qualifier__3")); //$NON-NLS-1$
-
-		fLowerList = createLowerList(composite);
 
 		fServletControl = composite;
 
 	    //Create Dispatchers control
         Group dispatchers = new Group(fChild, SWT.SHADOW_IN);
-        dispatchers.setText("Select Dispatchers");
+        dispatchers.setText(WebAppEditResourceHandler.getString("Select_Dispatchers_UI_"));
         dispatchers.setLayout(new CellLayout(2).setMargins(10,10).setSpacing(5,5));
         GridData gridData = new GridData(GridData.FILL_HORIZONTAL | GridData.GRAB_HORIZONTAL);
         gridData.horizontalSpan = 2;
@@ -411,13 +366,19 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
             } else {
                 fSelection = SERVLET;
             }
+        } else {
+            if (fServletNames == null || fServletNames.length == 0) {
+                fSelection = URL_PATTERN;
+            }
         }
-        
+        updateUpperListWidget();
+
+        fServletButton.setEnabled(true);
 		if (fSelection == URL_PATTERN) {
 		    fURLPatternButton.setSelection(true);
 			fPageBook.showPage(fURLPatternControl);
-			if (fIT.length == 0) {
-			    fServletButton.setSelection(false);
+            fServletButton.setSelection(false);
+			if (fServletNames == null || fServletNames.length == 0) {
 	            fServletButton.setEnabled(false);
 			}
             if (selectedItem != null) {
@@ -425,11 +386,10 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
                 setDispatchers(selectedItem.getDispatchers());              
             }
 		} else {
-		    fServletButton.setEnabled(true);
 		    fServletButton.setSelection(true);
 			fPageBook.showPage(fServletControl);
 	        if (selectedItem != null) {
-	            fText.setText(selectedItem.getName());
+	            fUpperList.setSelection(getServletIndex(fUpperList, selectedItem.getName()));
 	            setDispatchers(selectedItem.getDispatchers());	            
 	        }
 		}
@@ -437,7 +397,16 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 		return parent;
 	}
 	
-	private void setDispatchers(int dispatchers) {
+	private int getServletIndex(Table list, String name) {
+	    TableItem[] items = list.getItems();
+	    for (int i = 0; i < items.length; i++) {
+            TableItem tableItem = items[i];
+            if (tableItem.getText().equals(name)) return i; 
+        }
+        return -1;
+    }
+
+    private void setDispatchers(int dispatchers) {
         if ((dispatchers & IFilterMappingItem.REQUEST) > 0) {
             fRequest.setSelection(true);
         }
@@ -452,61 +421,61 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
         }
     }
 
-    /**
-	 * Creates the list widget and sets layout data.
-	 * @return org.eclipse.swt.widgets.List
-	 */
-	private Table createLowerList(Composite parent) {
-		if (fLowerListLabel != null)
-			 (new Label(parent, SWT.NONE)).setText(fLowerListLabel);
-
-		Table list = new Table(parent, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
-		list.addListener(SWT.Selection, new Listener() {
-			public void handleEvent(Event evt) {
-				handleLowerSelectionChanged();
-			}
-		});
-		list.addListener(SWT.MouseDoubleClick, new Listener() {
-			public void handleEvent(Event evt) {
-				handleLowerDoubleClick();
-			}
-		});
-		list.addDisposeListener(new DisposeListener() {
-			public void widgetDisposed(DisposeEvent e) {
-				fQualifierRenderer.dispose();
-			}
-		});
-		GridData spec = new GridData();
-		spec.widthHint = convertWidthInCharsToPixels(50);
-		spec.heightHint = convertHeightInCharsToPixels(2);
-		spec.grabExcessVerticalSpace = true;
-		spec.grabExcessHorizontalSpace = true;
-		spec.horizontalAlignment = GridData.FILL;
-		spec.verticalAlignment = GridData.FILL;
-		list.setLayoutData(spec);
-		return list;
-	}
+//    /**
+//	 * Creates the list widget and sets layout data.
+//	 * @return org.eclipse.swt.widgets.List
+//	 */
+//	private Table createLowerList(Composite parent) {
+//		if (fLowerListLabel != null)
+//			 (new Label(parent, SWT.NONE)).setText(fLowerListLabel);
+//
+//		Table list = new Table(parent, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+//		list.addListener(SWT.Selection, new Listener() {
+//			public void handleEvent(Event evt) {
+//				handleLowerSelectionChanged();
+//			}
+//		});
+//		list.addListener(SWT.MouseDoubleClick, new Listener() {
+//			public void handleEvent(Event evt) {
+//				handleLowerDoubleClick();
+//			}
+//		});
+//		list.addDisposeListener(new DisposeListener() {
+//			public void widgetDisposed(DisposeEvent e) {
+//				fQualifierRenderer.dispose();
+//			}
+//		});
+//		GridData spec = new GridData();
+//		spec.widthHint = convertWidthInCharsToPixels(50);
+//		spec.heightHint = convertHeightInCharsToPixels(2);
+//		spec.grabExcessVerticalSpace = true;
+//		spec.grabExcessHorizontalSpace = true;
+//		spec.horizontalAlignment = GridData.FILL;
+//		spec.verticalAlignment = GridData.FILL;
+//		list.setLayoutData(spec);
+//		return list;
+//	}
 	
-	/**
-	 * Creates the text widget and sets layout data.
-	 * @return org.eclipse.swt.widgets.Text
-	 */
-	private Text createText(Composite parent) {
-		Text text = new Text(parent, SWT.BORDER);
-		GridData spec = new GridData();
-		spec.grabExcessVerticalSpace = false;
-		spec.grabExcessHorizontalSpace = true;
-		spec.horizontalAlignment = GridData.FILL;
-		spec.verticalAlignment = GridData.BEGINNING;
-		text.setLayoutData(spec);
-		Listener l = new Listener() {
-			public void handleEvent(Event evt) {
-				rematch(fText.getText());
-			}
-		};
-		text.addListener(SWT.Modify, l);
-		return text;
-	}
+//	/**
+//	 * Creates the text widget and sets layout data.
+//	 * @return org.eclipse.swt.widgets.Text
+//	 */
+//	private Text createText(Composite parent) {
+//		Text text = new Text(parent, SWT.BORDER);
+//		GridData spec = new GridData();
+//		spec.grabExcessVerticalSpace = false;
+//		spec.grabExcessHorizontalSpace = true;
+//		spec.horizontalAlignment = GridData.FILL;
+//		spec.verticalAlignment = GridData.BEGINNING;
+//		text.setLayoutData(spec);
+//		Listener l = new Listener() {
+//			public void handleEvent(Event evt) {
+//				rematch(fText.getText());
+//			}
+//		};
+//		text.addListener(SWT.Modify, l);
+//		return text;
+//	}
 	
 	/**
 	 * Creates the list widget and sets layout data.
@@ -517,11 +486,11 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 			 (new Label(parent, SWT.NONE)).setText(fUpperListLabel);
 
 		Table list = new Table(parent, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
-		list.addListener(SWT.Selection, new Listener() {
-			public void handleEvent(Event evt) {
-				handleUpperSelectionChanged();
-			}
-		});
+//		list.addListener(SWT.Selection, new Listener() {
+//		    public void handleEvent(Event evt) {
+//		        handleUpperSelectionChanged();
+//		    }
+//		});
 		list.addListener(SWT.MouseDoubleClick, new Listener() {
 			public void handleEvent(Event evt) {
 				handleUpperDoubleClick();
@@ -557,17 +526,8 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 	}
 	
 	protected Object getWidgetSelection() {
-		int i = fLowerList.getSelectionIndex();
-		if (fQualifierMap != null) {
-			if (fQualifierMap.length == 1)
-				i = 0;
-			if (i < 0) {
-				return null;
-			} 
-			Integer index = fQualifierMap[i];
-			return fElements[index.intValue()];
-		}
-		return null;
+	    int index = fUpperList.getSelectionIndex();
+	    return index >= 0 ? fElements[index] : null;
 	}
 	
 	protected final void handleLowerDoubleClick() {
@@ -584,55 +544,53 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 			buttonPressed(getDefaultButtonID());
 	}
 	
-	protected final void handleUpperSelectionChanged() {
-		int selection = fUpperList.getSelectionIndex();
-		if (selection >= 0) {
-			int i = fElementMap[selection];
-			int k = i;
-			int length = fRenderedStrings.length;
-			while (k < length && fRenderedStrings[k].equals(fRenderedStrings[i])) {
-				k++;
-			}
-			updateLowerListWidget(i, k);
-		} else
-			updateLowerListWidget(0, 0);
-	}
+//	protected final void handleUpperSelectionChanged() {
+//		int selection = fUpperList.getSelectionIndex();
+//		if (selection >= 0) {
+//			int i = fElementMap[selection];
+//			int k = i;
+//			int length = fRenderedStrings.length;
+//			while (k < length && fRenderedStrings[k].equals(fRenderedStrings[i])) {
+//				k++;
+//			}
+//		}
+//	}
 	
 	public int open() {
-		if (fIT == null || fIT.length == 0) {
+		if (fServletNames == null || fServletNames.length == 0) {
 		    fSelection = URL_PATTERN;
 		}
 
-		setElements(fIT);
+		setElements(fServletNames);
 		setInitialSelections(new Object[] { "" }); //$NON-NLS-1$
 		return super.open();
 	}
 	
-	/**
-	 * update the list to reflect a new match string.
-	 * @param matchString java.lang.String
-	 */
-	protected final void rematch(String matchString) {
-		int k = 0;
-		String text = fText.getText();
-		StringMatcher matcher = new StringMatcher(text + "*", fIgnoreCase, false); //$NON-NLS-1$
-		String lastString = null;
-		int length = fElements.length;
-		for (int i = 0; i < length; i++) {
-			while (i < length && fRenderedStrings[i].equals(lastString))
-				i++;
-			if (i < length) {
-				lastString = fRenderedStrings[i];
-				if (matcher.match(fRenderedStrings[i])) {
-					fElementMap[k] = i;
-					k++;
-				}
-			}
-		}
-		fElementMap[k] = -1;
-
-		updateUpperListWidget(fElementMap, k);
-	}
+//	/**
+//	 * update the list to reflect a new match string.
+//	 * @param matchString java.lang.String
+//	 */
+//	protected final void rematch(String matchString) {
+//		int k = 0;
+//		String text = fText.getText();
+//		StringMatcher matcher = new StringMatcher(text + "*", fIgnoreCase, false); //$NON-NLS-1$
+//		String lastString = null;
+//		int length = fElements.length;
+//		for (int i = 0; i < length; i++) {
+//			while (i < length && fRenderedStrings[i].equals(lastString))
+//				i++;
+//			if (i < length) {
+//				lastString = fRenderedStrings[i];
+//				if (matcher.match(fRenderedStrings[i])) {
+//					fElementMap[k] = i;
+//					k++;
+//				}
+//			}
+//		}
+//		fElementMap[k] = -1;
+//
+//		updateUpperListWidget(fElementMap, k);
+//	}
 	
 	/**
 	 * 
@@ -652,7 +610,6 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 	public void setElements(Object[] elements) {
 	    if (elements == null) elements = new Object[0]; 
 		fElements = elements;
-		fElementMap = new int[fElements.length + 1];
 		fRenderedStrings = renderStrings(fElements);
 	}
 
@@ -660,31 +617,31 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 		fSelection = newSelection;
 	}
 
-	private void updateLowerListWidget(int from, int to) {
-		fLowerList.removeAll();
-		fQualifierMap = new Integer[to - from];
-		String[] qualifiers = new String[to - from];
-		for (int i = from; i < to; i++) {
-			// XXX: 1G65LDG: JFUIF:WIN2000 - ILabelProvider used outside a viewer
-			qualifiers[i - from] = fQualifierRenderer.getText(fElements[i]);
-			fQualifierMap[i - from] = new Integer(i);
-		}
-
-		new TwoArrayQuickSorter(fIgnoreCase).sort(qualifiers, fQualifierMap);
-
-		for (int i = 0; i < to - from; i++) {
-			TableItem ti = new TableItem(fLowerList, i);
-			ti.setText(qualifiers[i]);
-			// XXX: 1G65LDG: JFUIF:WIN2000 - ILabelProvider used outside a viewer
-			Image img = fQualifierRenderer.getImage(fElements[from + i]);
-			if (img != null)
-				ti.setImage(img);
-		}
-
-		if (fLowerList.getItemCount() > 0)
-			fLowerList.setSelection(0);
-		updateOkState();
-	}
+//	private void updateLowerListWidget(int from, int to) {
+//		fLowerList.removeAll();
+//		fQualifierMap = new Integer[to - from];
+//		String[] qualifiers = new String[to - from];
+//		for (int i = from; i < to; i++) {
+//			// XXX: 1G65LDG: JFUIF:WIN2000 - ILabelProvider used outside a viewer
+//			qualifiers[i - from] = fQualifierRenderer.getText(fElements[i]);
+//			fQualifierMap[i - from] = new Integer(i);
+//		}
+//
+//		new TwoArrayQuickSorter(fIgnoreCase).sort(qualifiers, fQualifierMap);
+//
+//		for (int i = 0; i < to - from; i++) {
+//			TableItem ti = new TableItem(fLowerList, i);
+//			ti.setText(qualifiers[i]);
+//			// XXX: 1G65LDG: JFUIF:WIN2000 - ILabelProvider used outside a viewer
+//			Image img = fQualifierRenderer.getImage(fElements[from + i]);
+//			if (img != null)
+//				ti.setImage(img);
+//		}
+//
+//		if (fLowerList.getItemCount() > 0)
+//			fLowerList.setSelection(0);
+//		updateOkState();
+//	}
 	
 	private void updateOkState() {
 		Button okButton = getOkButton();
@@ -697,28 +654,20 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 		    }
 	}
 	
-	private void updateUpperListWidget(int[] indices, int size) {
+	private void updateUpperListWidget() {
 		fUpperList.setRedraw(false);
-		int itemCount = fUpperList.getItemCount();
-		if (size < itemCount)
-			fUpperList.remove(0, itemCount - size - 1);
-		TableItem[] items = fUpperList.getItems();
-		for (int i = 0; i < size; i++) {
-			TableItem ti = null;
-			if (i < itemCount)
-				ti = items[i];
-			else
-				ti = new TableItem(fUpperList, i);
-			ti.setText(fRenderedStrings[indices[i]]);
-			// XXX: 1G65LDG: JFUIF:WIN2000 - ILabelProvider used outside a viewer
-			Image img = fElementRenderer.getImage(fElements[indices[i]]);
-			if (img != null)
-				ti.setImage(img);
+		fUpperList.clearAll();
+		for (int i = 0; i < fRenderedStrings.length; i++) {
+		    TableItem ti = new TableItem(fUpperList, SWT.NONE);
+		    ti.setText(fRenderedStrings[i]);
+            // XXX: 1G65LDG: JFUIF:WIN2000 - ILabelProvider used outside a viewer
+            Image img = fElementRenderer.getImage(fRenderedStrings[i]);
+            ti.setImage(img);
 		}
-		if (fUpperList.getItemCount() > 0)
+		if (fUpperList.getItemCount() > 0) {
 			fUpperList.setSelection(0);
+		}
 		fUpperList.setRedraw(true);
-		handleUpperSelectionChanged();
 	}
 	
 	/**
@@ -757,13 +706,13 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 			fSelection = -1;
 	}
 	
-	/**
-	 * @see ElementTreeSelectionDialog#updateOKStatus()
-	 */
-	protected void updateOKStatus() {
-		Button okButton = getOkButton();
-		if (okButton != null)
-			okButton.setEnabled(fLocalValidator.validate(getResult()).isOK());
-	}
+//	/**
+//	 * @see ElementTreeSelectionDialog#updateOKStatus()
+//	 */
+//	protected void updateOKStatus() {
+//		Button okButton = getOkButton();
+//		if (okButton != null)
+//			okButton.setEnabled(fLocalValidator.validate(getResult()).isOK());
+//	}
 
 }

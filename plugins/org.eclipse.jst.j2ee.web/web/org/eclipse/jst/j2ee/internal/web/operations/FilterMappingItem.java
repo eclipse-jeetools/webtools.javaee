@@ -1,20 +1,19 @@
 package org.eclipse.jst.j2ee.internal.web.operations;
 
-import org.eclipse.jdt.core.IType;
 import org.eclipse.jst.j2ee.internal.web.providers.WebAppEditResourceHandler;
 
 public class FilterMappingItem implements IFilterMappingItem {
     
     private int mappingType;
     private int dispatchers;
-    private Object mapping;
+    private String mapping;
     
-    public FilterMappingItem(int type, Object mapping) {
+    public FilterMappingItem(int type, String mapping) {
         mappingType = type;
         this.mapping = mapping;
     }
 
-    public FilterMappingItem(int type, Object mapping, int dispatchers) {
+    public FilterMappingItem(int type, String mapping, int dispatchers) {
         this(type, mapping);
         this.dispatchers = dispatchers;
     }
@@ -44,15 +43,8 @@ public class FilterMappingItem implements IFilterMappingItem {
         return result.trim();
     }
 
-    public Object getMapping() {
-        return mapping;
-    }
-
     public String getName() {
-        if (mappingType == URL_PATTERN) {
-            return (String) mapping;
-        }
-        return ((IType) mapping).getElementName();
+        return mapping;
     }
 
 }

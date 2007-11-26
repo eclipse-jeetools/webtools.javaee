@@ -12,6 +12,5 @@ public interface IFilterMappingItem {
     public int getDispatchers();
     public String getDispatchersAsString();
     public int getMappingType();
-    public Object getMapping();
     public String getName();
 }
