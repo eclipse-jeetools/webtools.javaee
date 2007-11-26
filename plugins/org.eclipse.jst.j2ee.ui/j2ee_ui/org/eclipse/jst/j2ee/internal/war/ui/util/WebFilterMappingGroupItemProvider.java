@@ -62,7 +62,7 @@ public class WebFilterMappingGroupItemProvider extends WebGroupItemProvider {
 	 * @see org.eclipse.emf.edit.provider.ItemProvider#getText()
 	 */
 	public String getText(Object object) {
-		return WebAppEditResourceHandler.getString("FILTER_MAPPING"); //$NON-NLS-1$ 
+		return WebAppEditResourceHandler.getString("Filter_Mappings_1"); //$NON-NLS-1$ 
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.emf.edit.provider.ITreeItemContentProvider#hasChildren(java.lang.Object)

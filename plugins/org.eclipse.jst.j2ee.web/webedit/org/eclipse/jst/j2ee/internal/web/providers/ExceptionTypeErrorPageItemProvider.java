@@ -82,7 +82,12 @@ public class ExceptionTypeErrorPageItemProvider extends ErrorPageItemProvider im
 
 
 	public String getText(Object object) {
-		return WebAppEditResourceHandler.getString("15concat_UI_", (new Object[]{((ExceptionTypeErrorPage) object).getExceptionTypeName()})); //$NON-NLS-1$ = "ExceptionTypeErrorPage {0}"
+		//return WebAppEditResourceHandler.getString("15concat_UI_", (new Object[]{((ExceptionTypeErrorPage) object).getExceptionTypeName()})); //$NON-NLS-1$ = "ExceptionTypeErrorPage {0}"
+	    String typeName = ((ExceptionTypeErrorPage) object).getExceptionTypeName();
+	    if (typeName != null) {
+	        typeName = typeName.substring(typeName.lastIndexOf('.')+1);
+	    }
+	    return typeName + " -> " + ((ExceptionTypeErrorPage) object).getLocation(); 
 	}
 
 	/**

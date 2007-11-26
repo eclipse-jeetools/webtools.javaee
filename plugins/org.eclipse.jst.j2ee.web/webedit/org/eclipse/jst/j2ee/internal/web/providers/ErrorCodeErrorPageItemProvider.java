@@ -82,7 +82,8 @@ public class ErrorCodeErrorPageItemProvider extends ErrorPageItemProvider implem
 
 
 	public String getText(Object object) {
-		return WebAppEditResourceHandler.getString("14concat_UI_", (new Object[]{((ErrorCodeErrorPage) object).getErrorCode()})); //$NON-NLS-1$ = "ErrorCodeErrorPage {0}"
+		//return WebAppEditResourceHandler.getString("14concat_UI_", (new Object[]{((ErrorCodeErrorPage) object).getErrorCode()})); //$NON-NLS-1$
+		return ((ErrorCodeErrorPage) object).getErrorCode() + " -> " + ((ErrorCodeErrorPage) object).getLocation(); 
 	}
 
 	/**

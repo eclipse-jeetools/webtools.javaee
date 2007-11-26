@@ -142,7 +142,7 @@ public class FilterMappingItemProvider extends WebapplicationItemProviderAdapter
 		}
 		if (mapText == null)
 			mapText = "?"; //$NON-NLS-1$
-		return WebAppEditResourceHandler.getString("Filter_mapping_text", new Object[]{filterStr, mapText}); //$NON-NLS-1$
+		return WebAppEditResourceHandler.getString("Filter_mapping_text", new Object[]{mapText, filterStr}); //$NON-NLS-1$
 	}
 
 	/**

@@ -17,18 +17,17 @@
 package org.eclipse.jst.j2ee.internal.war.ui.util;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationWrapper;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.internal.web.providers.WebAppItemProvider;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
+import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient;
 import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
@@ -44,6 +43,7 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 
 	private List children = new ArrayList();
 	private boolean isInitializing = false;
+	private WebErrorPageGroupItemProvider webErrorPageGroup;
 	private WebServletGroupItemProvider webServletGroup;
 	private WebServletMappingGroupItemProvider webServletMappingGroup;
 	private WebFiltersGroupItemProvider webFiltersGroup;
@@ -52,6 +52,8 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 	private WebSecurityGroupItemProvider webSecurityGroup;
 	private J2EEWebServiceClientDDManager clientMgr;
 	private WebListenerGroupItemProvider webListenerGroup;
+	private WebWelcomeFileGroupItemProvider webWelcomeFileGroup;
+	private WebContextParamGroupItemProvider webContextParamGroup;
 
 	/**
 	 * Listen and fire updates for 1.3 web service clients
@@ -109,6 +111,9 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 		public void dispose() {
 			// TODO fix up notification
 			
+		    webErrorPageGroup.dispose();
+		    webContextParamGroup.dispose();
+		    webWelcomeFileGroup.dispose(); 
 			webServletGroup.dispose();
 			webServletMappingGroup.dispose();
 			webFiltersGroup.dispose();
@@ -121,7 +126,6 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 			 if (client != null)
 				 client.eAdapters().remove(this);
 			 children.clear();
-			
 		}
 	}
 
@@ -142,8 +146,60 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 		isInitializing = true;
 		try {
 			children.clear();
-			if (clientMgr == null)
+			if (clientMgr == null) {
 				clientMgr = new J2EEWebServiceClientDDManager(weakWebApp);
+			}
+//			if (!((WebApp)weakWebApp.get()).getErrorPages().isEmpty()) {
+//			    children.add(webErrorPageGroup = new WebErrorPageGroupItemProvider(adapterFactory, weakWebApp));
+//			} else {
+//			    WebErrorPageGroupItemProvider child = null;
+//			    for (int i=0; i < children.size(); i++) {
+//		            Object object = children.get(i);
+//		            if (object instanceof WebErrorPageGroupItemProvider) {
+//		                child = (WebErrorPageGroupItemProvider) object;
+//		                break;
+//		            }
+//		        }
+//			    if (child != null) {
+//			        child.dispose();
+//			    }
+//			}
+//            if (!((WebApp)weakWebApp.get()).getContextParams().isEmpty()) {
+//                children.add(webContextParamGroup = new WebContextParamGroupItemProvider(adapterFactory, weakWebApp));
+//            } else {
+//                WebContextParamGroupItemProvider child = null;
+//                for (int i=0; i < children.size(); i++) {
+//                    Object object = children.get(i);
+//                    if (object instanceof WebContextParamGroupItemProvider) {
+//                        child = (WebContextParamGroupItemProvider) object;
+//                        break;
+//                    }
+//                }
+//                if (child != null) {
+//                    child.dispose();
+//                }
+//            }
+//            WelcomeFileList welcomeFileList = ((WebApp)weakWebApp.get()).getFileList();
+//            if (welcomeFileList != null && !welcomeFileList.getFile().isEmpty()) {
+//                children.add(webWelcomeFileGroup = new WebWelcomeFileGroupItemProvider(adapterFactory, weakWebApp));
+//            } else {
+//                WebWelcomeFileGroupItemProvider child = null;
+//                for (int i=0; i < children.size(); i++) {
+//                    Object object = children.get(i);
+//                    if (object instanceof WebWelcomeFileGroupItemProvider) {
+//                        child = (WebWelcomeFileGroupItemProvider) object;
+//                        break;
+//                    }
+//                }
+//                if (child != null) {
+//                    child.dispose();
+//                }
+//            }
+            
+            children.add(webErrorPageGroup = new WebErrorPageGroupItemProvider(adapterFactory, weakWebApp));
+            children.add(webContextParamGroup = new WebContextParamGroupItemProvider(adapterFactory, weakWebApp));
+            children.add(webWelcomeFileGroup = new WebWelcomeFileGroupItemProvider(adapterFactory, weakWebApp));
+            
 			children.add(webServletGroup = new WebServletGroupItemProvider(adapterFactory, weakWebApp));
 			children.add(webServletMappingGroup = new WebServletMappingGroupItemProvider(adapterFactory, weakWebApp));
 			children.add(webFiltersGroup = new WebFiltersGroupItemProvider(adapterFactory, weakWebApp));
@@ -166,10 +222,41 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 				weakWebApp = new WeakReference(webApp);
 				initChildren();
 			}
+//			if (isInitializing) return children;
+//			isInitializing = true;
+//			updateContextParams(webApp);
+//			updateWelcomePages(webApp);
+//			isInitializing = false;
 			return children;			
 		} 
 		return Collections.EMPTY_LIST;
 	}
+
+    private void updateContextParams(WebApp webApp) {
+        EList contextParams = webApp.getContextParams();
+        if (contextParams == null || contextParams.isEmpty()) {
+            if (webContextParamGroup != null) { 
+                children.remove(webContextParamGroup);
+                webContextParamGroup.dispose();
+                webContextParamGroup = null;
+            }
+        } else if (webContextParamGroup == null) { 
+            children.add(webContextParamGroup = new WebContextParamGroupItemProvider(adapterFactory, weakWebApp));
+        }
+    }
+
+    private void updateWelcomePages(WebApp webApp) {
+        WelcomeFileList fileList = webApp.getFileList();
+        if (fileList == null || fileList.getFile().isEmpty()) {
+            if (webWelcomeFileGroup != null) { 
+                children.remove(webWelcomeFileGroup);
+                webWelcomeFileGroup.dispose();
+                webWelcomeFileGroup = null;
+            }
+        } else if (webWelcomeFileGroup == null) { 
+            children.add(webWelcomeFileGroup = new WebWelcomeFileGroupItemProvider(adapterFactory, weakWebApp));
+        }
+    }
 
 	/*
 	 * (non-Javadoc)
@@ -191,6 +278,15 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 		if (notification.getEventType() == Notification.ADD || notification.getEventType() == Notification.ADD_MANY || notification.getEventType() == Notification.REMOVE || notification.getEventType() == Notification.REMOVE_MANY) {
 			Object notifier = null;
 			switch (notification.getFeatureID(WebApp.class)) {
+			    case WebapplicationPackage.WEB_APP__ERROR_PAGES :
+			        notifier = webErrorPageGroup;
+			        break;
+                case WebapplicationPackage.WEB_APP__CONTEXT_PARAMS :
+                    notifier = webContextParamGroup;
+                    break;
+                case WebapplicationPackage.WEB_APP__FILE_LIST :
+                    notifier = webWelcomeFileGroup;
+                    break;
 				case WebapplicationPackage.WEB_APP__SERVLETS :
 					notifier = webServletGroup;
 					break;

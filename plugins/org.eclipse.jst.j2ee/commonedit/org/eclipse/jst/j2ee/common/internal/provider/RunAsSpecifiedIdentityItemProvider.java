@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.common.internal.provider;
 
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
@@ -70,11 +72,12 @@ public class RunAsSpecifiedIdentityItemProvider extends SecurityIdentityItemProv
 	 * {@link RemoveCommand}support in {@link #createCommand}.
 	 */
 	public Collection getChildrenReferences(Object object) {
-		if (childrenReferences == null) {
-			super.getChildrenReferences(object);
-			childrenReferences.add(CommonPackage.eINSTANCE.getRunAsSpecifiedIdentity_Identity());
-		}
-		return childrenReferences;
+	    return new ArrayList<EReference>();
+//		if (childrenReferences == null) {
+//			super.getChildrenReferences(object);
+//			childrenReferences.add(CommonPackage.eINSTANCE.getRunAsSpecifiedIdentity_Identity());
+//		}
+//		return childrenReferences;
 	}
 
 	/**
@@ -93,7 +96,7 @@ public class RunAsSpecifiedIdentityItemProvider extends SecurityIdentityItemProv
 
 	public String getText(Object object) {
 		RunAsSpecifiedIdentity runAsSpecifiedIdentity = ((RunAsSpecifiedIdentity) object);
-		return "RunAsSpecifiedIdentity " + runAsSpecifiedIdentity.getDescription(); //$NON-NLS-1$
+		return runAsSpecifiedIdentity.getIdentity().getRoleName();
 	}
 
 	/**

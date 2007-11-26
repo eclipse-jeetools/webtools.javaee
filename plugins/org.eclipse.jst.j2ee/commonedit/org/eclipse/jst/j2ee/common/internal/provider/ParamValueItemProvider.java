@@ -11,12 +11,14 @@
 package org.eclipse.jst.j2ee.common.internal.provider;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -113,15 +115,15 @@ public class ParamValueItemProvider extends ItemProviderAdapter implements IEdit
 	 * @generated
 	 */
 	public Collection getChildrenReferences(Object object) {
-		if (childrenReferences == null) {
-			super.getChildrenReferences(object);
-			childrenReferences.add(CommonPackage.eINSTANCE.getParamValue_Descriptions());
-		}
-		return childrenReferences;
+	    return new ArrayList<EReference>();
+//		if (childrenReferences == null) {
+//			super.getChildrenReferences(object);
+//			childrenReferences.add(CommonPackage.eINSTANCE.getParamValue_Descriptions());
+//		}
+//		return childrenReferences;
 	}
 
-
-	/**
+    /**
 	 * This returns ParamValue.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -138,8 +140,11 @@ public class ParamValueItemProvider extends ItemProviderAdapter implements IEdit
 	 */
 	public String getText(Object object) {
 		String label = ((ParamValue) object).getName();
-		return label == null || label.length() == 0 ? CommonEditResourceHandler.getString("_UI_ParamValue_type") : //$NON-NLS-1$
-					CommonEditResourceHandler.getString("_UI_ParamValue_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		String value = ((ParamValue) object).getValue();
+//		return label == null || label.length() == 0 ? CommonEditResourceHandler.getString("_UI_ParamValue_type") : //$NON-NLS-1$
+//					CommonEditResourceHandler.getString("_UI_ParamValue_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+        return label == null || label.length() == 0 ? CommonEditResourceHandler.getString("_UI_ParamValue_type") : //$NON-NLS-1$
+            label + " = " + (value != null ? value : CommonEditResourceHandler.getString("_UI_ParamValue_value")); //$NON-NLS-1$
 	}
 
 	/**
@@ -171,9 +176,9 @@ public class ParamValueItemProvider extends ItemProviderAdapter implements IEdit
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(CommonPackage.eINSTANCE.getParamValue_Descriptions(), CommonFactory.eINSTANCE.createDescription()));
-
-		newChildDescriptors.add(createChildParameter(CommonPackage.eINSTANCE.getParamValue_Descriptions(), WscommonFactory.eINSTANCE.createDescriptionType()));
+//		newChildDescriptors.add(createChildParameter(CommonPackage.eINSTANCE.getParamValue_Descriptions(), CommonFactory.eINSTANCE.createDescription()));
+//
+//		newChildDescriptors.add(createChildParameter(CommonPackage.eINSTANCE.getParamValue_Descriptions(), WscommonFactory.eINSTANCE.createDescriptionType()));
 	}
 
 	/**
