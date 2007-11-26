@@ -6,36 +6,10 @@
 <%if (model.isPublic()) {%>public<%}%> <%if (model.isAbstract()) {%>abstract <%}%><%if (model.isFinal()) {%>final <%}
 %>class <%=model.getClassName()%><%
  String superclassName = model.getSuperclassName();
- if (superclassName.length() > 0) {%> extends <%=superclassName%><% }
- List interfaces = new ArrayList();
- 
- if (model.implementServletContextListener()) {
-   interfaces.add("ServletContextListener");
- }
- if (model.implementServletContextAttributeListener()) {
-   interfaces.add("ServletContextAttributeListener");
- }
- if (model.implementHttpSessionListener()) {
-   interfaces.add("HttpSessionListener");
- }
- if (model.implementHttpSessionAttributeListener()) {
-   interfaces.add("HttpSessionAttributeListener");
- }
- if (model.implementHttpSessionActivationListener()) {
-   interfaces.add("HttpSessionActivationListener");
- }
- if (model.implementHttpSessionBindingListener()) {
-   interfaces.add("HttpSessionBindingListener");
- }
- if (model.implementServletRequestListener()) {
-   interfaces.add("ServletRequestListener");
- }
- if (model.implementServletRequestAttributeListener()) {
-   interfaces.add("ServletRequestAttributeListener");
- }
-  
- if (interfaces.size() > 0) {%> implements <% }
- for (int i = 0; i < interfaces.size(); i++) {
+ if (superclassName.length() > 0) {%> extends <%=superclassName%><% }%><%
+ List interfaces = model.getInterfaces(); 
+ if (interfaces.size()>0) {%> implements <% }
+ for (int i=0; i<interfaces.size(); i++) {
    String INTERFACE = (String) interfaces.get(i);
    if (i > 0) { %>, <% } %><%=INTERFACE%><% } %> {
 

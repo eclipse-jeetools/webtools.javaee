@@ -35,8 +35,9 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
  * New application lifecycle listener wizard
  */
 public class AddListenerWizard extends NewWebWizard {
-	private static final String PAGE_ONE = "pageOne"; //$NON-NLS-1$
-	private static final String PAGE_TWO = "pageTwo"; //$NON-NLS-1$
+	private static final String PAGE_ONE   = "pageOne"; //$NON-NLS-1$
+	private static final String PAGE_TWO   = "pageTwo"; //$NON-NLS-1$
+	private static final String PAGE_THREE = "pageThree"; //$NON-NLS-1$
 	/**
 	 * @param model
 	 */
@@ -64,6 +65,13 @@ public class AddListenerWizard extends NewWebWizard {
 		AddListenerWizardPage page2 = new AddListenerWizardPage(getDataModel(), PAGE_TWO);
 //		page2.setInfopopID(IWebUIContextIds.WEBEDITOR_SERVLET_PAGE_ADD_SERVLET_WIZARD_2);
 		addPage(page2);
+		NewListenerClassOptionsWizardPage page3 = new NewListenerClassOptionsWizardPage(
+				getDataModel(), 
+				PAGE_THREE,
+				IWebWizardConstants.NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC,
+				IWebWizardConstants.ADD_LISTENER_WIZARD_PAGE_TITLE);
+//		page3.setInfopopID(IWebUIContextIds.WEBEDITOR_SERVLET_PAGE_ADD_SERVLET_WIZARD_3);
+		addPage(page3);
 	}
 	
 	/* (non-Javadoc)

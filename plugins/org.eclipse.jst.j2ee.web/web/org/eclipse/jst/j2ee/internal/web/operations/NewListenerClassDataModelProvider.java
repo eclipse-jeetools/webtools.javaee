@@ -12,6 +12,7 @@
 package org.eclipse.jst.j2ee.internal.web.operations;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -22,6 +23,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
@@ -61,6 +63,57 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  */
 public class NewListenerClassDataModelProvider extends NewJavaClassDataModelProvider implements INewListenerClassDataModelProperties {
 
+	/**
+	 * <code>javax.servlet.ServletContextListener</code> interface. 
+	 */
+	public static final String SERVLET_CONTEXT_LISTENER = "javax.servlet.ServletContextListener"; //$NON-NLS-1$
+	
+	/**
+	 * <code>javax.servlet.ServletContextAttributeListener</code> interface. 
+	 */
+	public static final String SERVLET_CONTEXT_ATTRIBUTE_LISTENER = "javax.servlet.ServletContextAttributeListener"; //$NON-NLS-1$
+	
+	/**
+	 * <code>javax.servlet.http.HttpSessionListener</code> interface. 
+	 */
+	public static final String HTTP_SESSION_LISTENER = "javax.servlet.http.HttpSessionListener"; //$NON-NLS-1$
+	
+	/**
+	 * <code>javax.servlet.http.HttpSessionAttributeListener</code> interface. 
+	 */
+	public static final String HTTP_SESSION_ATTRIBUTE_LISTENER = "javax.servlet.http.HttpSessionAttributeListener"; //$NON-NLS-1$
+	
+	/**
+	 * <code>javax.servlet.http.HttpSessionActivationListener</code> interface. 
+	 */
+	public static final String HTTP_SESSION_ACTIVATION_LISTENER = "javax.servlet.http.HttpSessionActivationListener"; //$NON-NLS-1$
+	
+	/**
+	 * <code>javax.servlet.http.HttpSessionBindingListener</code> interface. 
+	 */
+	public static final String HTTP_SESSION_BINDING_LISTENER = "javax.servlet.http.HttpSessionBindingListener"; //$NON-NLS-1$
+	
+	/**
+	 * <code>javax.servlet.ServletRequestListener</code> interface. 
+	 */
+	public static final String SERVLET_REQUEST_LISTENER = "javax.servlet.ServletRequestListener"; //$NON-NLS-1$
+	
+	/**
+	 * <code>javax.servlet.ServletRequestAttributeListener</code> interface. 
+	 */
+	public static final String SERVLET_REQUEST_ATTRIBUTE_LISTENER = "javax.servlet.ServletRequestAttributeListener"; //$NON-NLS-1$
+	
+	public static final String[] LISTENER_INTERFACES = {
+		SERVLET_CONTEXT_LISTENER,	
+		SERVLET_CONTEXT_ATTRIBUTE_LISTENER,
+		HTTP_SESSION_LISTENER,
+		HTTP_SESSION_ATTRIBUTE_LISTENER,
+		HTTP_SESSION_ACTIVATION_LISTENER,
+		HTTP_SESSION_BINDING_LISTENER,
+		SERVLET_REQUEST_LISTENER,
+		SERVLET_REQUEST_ATTRIBUTE_LISTENER
+	};
+	
 	/**
 	 * The fully qualified default listener superclass.
 	 */
@@ -118,14 +171,6 @@ public class NewListenerClassDataModelProvider extends NewJavaClassDataModelProv
 	public Set getPropertyNames() {
 		// Add listener specific properties defined in this data model
 		Set propertyNames = super.getPropertyNames();
-		propertyNames.add(SERVLET_CONTEXT_LISTENER);
-		propertyNames.add(SERVLET_CONTEXT_ATTRIBUTE_LISTENER);
-		propertyNames.add(HTTP_SESSION_LISTENER);
-		propertyNames.add(HTTP_SESSION_ATTRIBUTE_LISTENER);
-		propertyNames.add(HTTP_SESSION_ACTIVATION_LISTENER);
-		propertyNames.add(HTTP_SESSION_BINDING_LISTENER);
-		propertyNames.add(SERVLET_REQUEST_LISTENER);
-		propertyNames.add(SERVLET_REQUEST_ATTRIBUTE_LISTENER);
 		propertyNames.add(USE_ANNOTATIONS);
 		propertyNames.add(USE_EXISTING_CLASS);
 		return propertyNames;
@@ -285,37 +330,29 @@ public class NewListenerClassDataModelProvider extends NewJavaClassDataModelProv
 			}
 			return result;
 		}
-		if (propIsListener(propertyName)) {
+		if (propertyName.equals(INTERFACES)) {
 			return validateListeners();
 		}
 		// Otherwise defer to super to validate the property
 		return super.validate(propertyName);
 	}
 	
-	private boolean propIsListener(String prop) {
-		return INewListenerClassDataModelProperties.SERVLET_CONTEXT_LISTENER.equals(prop) || 
-				INewListenerClassDataModelProperties.SERVLET_CONTEXT_ATTRIBUTE_LISTENER.equals(prop) || 
-				INewListenerClassDataModelProperties.HTTP_SESSION_LISTENER.equals(prop) || 
-				INewListenerClassDataModelProperties.HTTP_SESSION_ATTRIBUTE_LISTENER.equals(prop) || 
-				INewListenerClassDataModelProperties.HTTP_SESSION_ACTIVATION_LISTENER.equals(prop) || 
-				INewListenerClassDataModelProperties.HTTP_SESSION_BINDING_LISTENER.equals(prop) || 
-				INewListenerClassDataModelProperties.SERVLET_REQUEST_LISTENER.equals(prop) || 
-				INewListenerClassDataModelProperties.SERVLET_REQUEST_ATTRIBUTE_LISTENER.equals(prop);
-	}
-	
+
 	/**
 	 * Checks if at least one of the application lifecycle listeners is selected. 
 	 */
 	private IStatus validateListeners() {
-		boolean atLeastOneSelected = 
-			getBooleanProperty(INewListenerClassDataModelProperties.SERVLET_CONTEXT_LISTENER) || 
-			getBooleanProperty(INewListenerClassDataModelProperties.SERVLET_CONTEXT_ATTRIBUTE_LISTENER) || 
-			getBooleanProperty(INewListenerClassDataModelProperties.HTTP_SESSION_LISTENER) || 
-			getBooleanProperty(INewListenerClassDataModelProperties.HTTP_SESSION_ATTRIBUTE_LISTENER) || 
-			getBooleanProperty(INewListenerClassDataModelProperties.HTTP_SESSION_ACTIVATION_LISTENER) || 
-			getBooleanProperty(INewListenerClassDataModelProperties.HTTP_SESSION_BINDING_LISTENER) || 
-			getBooleanProperty(INewListenerClassDataModelProperties.SERVLET_REQUEST_LISTENER) || 
-			getBooleanProperty(INewListenerClassDataModelProperties.SERVLET_REQUEST_ATTRIBUTE_LISTENER);
+		boolean atLeastOneSelected = false;
+		Object value = model.getProperty(INewJavaClassDataModelProperties.INTERFACES);
+		if (value != null && (value instanceof List)) {
+			List interfaces = (List) value;
+			for (String iface : LISTENER_INTERFACES) {
+				if (interfaces.contains(iface)) { 
+					atLeastOneSelected = true;
+					break;
+				}
+			}
+		}
 		
 		if (atLeastOneSelected) {
 			return WTPCommonPlugin.OK_STATUS;

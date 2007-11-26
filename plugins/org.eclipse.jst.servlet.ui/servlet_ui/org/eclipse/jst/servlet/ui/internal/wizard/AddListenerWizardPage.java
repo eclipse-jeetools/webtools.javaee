@@ -1,8 +1,13 @@
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.eclipse.jdt.internal.ui.JavaPluginImages;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jst.j2ee.internal.web.operations.INewListenerClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.web.operations.NewListenerClassDataModelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -13,17 +18,25 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
 public class AddListenerWizardPage extends DataModelWizardPage {
 	
 	private static final Image IMG_INTERFACE = JavaPluginImages.get(JavaPluginImages.IMG_OBJS_INTERFACE);
+
+	protected ServletDataModelSyncHelper synchHelper;
 	
 	public AddListenerWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
 		setDescription(IWebWizardConstants.ADD_LISTENER_WIZARD_PAGE_DESC);
 		setTitle(IWebWizardConstants.ADD_LISTENER_WIZARD_PAGE_TITLE);
+		synchHelper = initializeSynchHelper(model);
+	}
+	
+	public ServletDataModelSyncHelper initializeSynchHelper(IDataModel dm) {
+		return new ServletDataModelSyncHelper(dm);
 	}
 
 	@Override
@@ -47,29 +60,28 @@ public class AddListenerWizardPage extends DataModelWizardPage {
 	@Override
 	protected String[] getValidationPropertyNames() {
 		return new String[] { 
-				INewListenerClassDataModelProperties.SERVLET_CONTEXT_LISTENER, 
-				INewListenerClassDataModelProperties.SERVLET_CONTEXT_ATTRIBUTE_LISTENER, 
-				INewListenerClassDataModelProperties.HTTP_SESSION_LISTENER, 
-				INewListenerClassDataModelProperties.HTTP_SESSION_ATTRIBUTE_LISTENER, 
-				INewListenerClassDataModelProperties.HTTP_SESSION_ACTIVATION_LISTENER, 
-				INewListenerClassDataModelProperties.HTTP_SESSION_BINDING_LISTENER, 
-				INewListenerClassDataModelProperties.SERVLET_REQUEST_LISTENER, 
-				INewListenerClassDataModelProperties.SERVLET_REQUEST_ATTRIBUTE_LISTENER
+				INewJavaClassDataModelProperties.INTERFACES
 		};
-	}
+	}	
 	
+	@Override
+	protected void enter() {
+		super.enter();
+		synchHelper.synchUIWithModel(INewJavaClassDataModelProperties.INTERFACES, DataModelEvent.VALUE_CHG);
+	}
+
 	private void createServletContextEvents(Composite parent) {
 		Group group = createGroup(parent, IWebWizardConstants.ADD_LISTENER_WIZARD_SERVLET_CONTEXT_EVENTS);
 
 		createEventListenerRow(group, 
 				IWebWizardConstants.ADD_LISTENER_WIZARD_LIFECYCLE, 
-				"javax.servlet.ServletContextListener", //$NON-NLS-1$
-				INewListenerClassDataModelProperties.SERVLET_CONTEXT_LISTENER);
+				NewListenerClassDataModelProvider.SERVLET_CONTEXT_LISTENER,
+				INewJavaClassDataModelProperties.INTERFACES);
 
 		createEventListenerRow(group, 
 				IWebWizardConstants.ADD_LISTENER_WIZARD_CHANGES_TO_ATTRIBUTES, 
-				"javax.servlet.ServletContextAttributeListener", //$NON-NLS-1$
-				INewListenerClassDataModelProperties.SERVLET_CONTEXT_ATTRIBUTE_LISTENER);
+				NewListenerClassDataModelProvider.SERVLET_CONTEXT_ATTRIBUTE_LISTENER, 
+				INewJavaClassDataModelProperties.INTERFACES);
 	}
 	
 	private void createHttpSessionEvents(Composite parent) {
@@ -77,23 +89,23 @@ public class AddListenerWizardPage extends DataModelWizardPage {
 		
 		createEventListenerRow(group, 
 				IWebWizardConstants.ADD_LISTENER_WIZARD_LIFECYCLE, 
-				"javax.servlet.http.HttpSessionListener", //$NON-NLS-1$
-				INewListenerClassDataModelProperties.HTTP_SESSION_LISTENER);
+				NewListenerClassDataModelProvider.HTTP_SESSION_LISTENER, 
+				INewJavaClassDataModelProperties.INTERFACES);
 		
 		createEventListenerRow(group, 
 				IWebWizardConstants.ADD_LISTENER_WIZARD_CHANGES_TO_ATTRIBUTES, 
-				"javax.servlet.http.HttpSessionAttributeListener", //$NON-NLS-1$
-				INewListenerClassDataModelProperties.HTTP_SESSION_ATTRIBUTE_LISTENER);
+				NewListenerClassDataModelProvider.HTTP_SESSION_ATTRIBUTE_LISTENER, 
+				INewJavaClassDataModelProperties.INTERFACES);
 		
 		createEventListenerRow(group, 
 				IWebWizardConstants.ADD_LISTENER_WIZARD_SESSION_MIGRATION, 
-				"javax.servlet.http.HttpSessionActivationListener", //$NON-NLS-1$
-				INewListenerClassDataModelProperties.HTTP_SESSION_ACTIVATION_LISTENER);
+				NewListenerClassDataModelProvider.HTTP_SESSION_ACTIVATION_LISTENER, 
+				INewJavaClassDataModelProperties.INTERFACES);
 		
 		createEventListenerRow(group, 
 				IWebWizardConstants.ADD_LISTENER_WIZARD_OBJECT_BINDING, 
-				"javax.servlet.http.HttpSessionBindingListener", //$NON-NLS-1$
-				INewListenerClassDataModelProperties.HTTP_SESSION_BINDING_LISTENER);
+				NewListenerClassDataModelProvider.HTTP_SESSION_BINDING_LISTENER, 
+				INewJavaClassDataModelProperties.INTERFACES);
 	}
 	
 	private void createServletRequestEvents(Composite parent) {
@@ -101,13 +113,13 @@ public class AddListenerWizardPage extends DataModelWizardPage {
 		
 		createEventListenerRow(group, 
 				IWebWizardConstants.ADD_LISTENER_WIZARD_LIFECYCLE, 
-				"javax.servlet.http.ServletRequestListener", //$NON-NLS-1$
-				INewListenerClassDataModelProperties.SERVLET_REQUEST_LISTENER);
+				NewListenerClassDataModelProvider.SERVLET_REQUEST_LISTENER, 
+				INewJavaClassDataModelProperties.INTERFACES);
 
 		createEventListenerRow(group, 
 				IWebWizardConstants.ADD_LISTENER_WIZARD_CHANGES_TO_ATTRIBUTES, 
-				"javax.servlet.http.ServletRequestAttributeListener", //$NON-NLS-1$
-				INewListenerClassDataModelProperties.SERVLET_REQUEST_ATTRIBUTE_LISTENER);
+				NewListenerClassDataModelProvider.SERVLET_REQUEST_ATTRIBUTE_LISTENER, 
+				INewJavaClassDataModelProperties.INTERFACES);
 	}
 	
 	private Group createGroup(Composite parent, String text) {
@@ -121,17 +133,17 @@ public class AddListenerWizardPage extends DataModelWizardPage {
 	}
 	
 	private void createEventListenerRow(Composite parent, String event, String listener, String property) {
-		createCheckbox(parent, event, property);
+		createCheckbox(parent, event, listener, property);
 		createInterfaceIcon(parent);
 		createInterfaceLabel(parent, listener);
 	}
 	
-	private Button createCheckbox(Composite parent, String text, String property) {
+	private Button createCheckbox(Composite parent, String text, String value, String property) {
 		Button button = new Button(parent, SWT.CHECK);
 		
 		button.setText(text);
 		button.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, true));
-		synchHelper.synchCheckbox(button, property, null);
+		synchHelper.synchCheckbox(button, value, property, null);
 		
 		return button;
 	}
@@ -178,25 +190,22 @@ public class AddListenerWizardPage extends DataModelWizardPage {
 	}
 
 	private void handleSelectAll() {
-		model.setBooleanProperty(INewListenerClassDataModelProperties.SERVLET_CONTEXT_LISTENER, true);
-		model.setBooleanProperty(INewListenerClassDataModelProperties.SERVLET_CONTEXT_ATTRIBUTE_LISTENER, true);
-		model.setBooleanProperty(INewListenerClassDataModelProperties.HTTP_SESSION_LISTENER, true);
-		model.setBooleanProperty(INewListenerClassDataModelProperties.HTTP_SESSION_ATTRIBUTE_LISTENER, true);
-		model.setBooleanProperty(INewListenerClassDataModelProperties.HTTP_SESSION_ACTIVATION_LISTENER, true);
-		model.setBooleanProperty(INewListenerClassDataModelProperties.HTTP_SESSION_BINDING_LISTENER, true);
-		model.setBooleanProperty(INewListenerClassDataModelProperties.SERVLET_REQUEST_LISTENER, true);
-		model.setBooleanProperty(INewListenerClassDataModelProperties.SERVLET_REQUEST_ATTRIBUTE_LISTENER, true);
+		List interfaces = (List) model.getProperty(INewJavaClassDataModelProperties.INTERFACES);
+		for (String iface : NewListenerClassDataModelProvider.LISTENER_INTERFACES) {
+			if (!interfaces.contains(iface)) {
+				interfaces.add(iface);
+			}
+		}
+		synchHelper.synchUIWithModel(INewJavaClassDataModelProperties.INTERFACES, DataModelEvent.VALUE_CHG);
+		model.notifyPropertyChange(INewJavaClassDataModelProperties.INTERFACES, DataModelEvent.VALUE_CHG);
 	}
 
 	private void handleSelectNone() {
-		model.setBooleanProperty(INewListenerClassDataModelProperties.SERVLET_CONTEXT_LISTENER, false);
-		model.setBooleanProperty(INewListenerClassDataModelProperties.SERVLET_CONTEXT_ATTRIBUTE_LISTENER, false);
-		model.setBooleanProperty(INewListenerClassDataModelProperties.HTTP_SESSION_LISTENER, false);
-		model.setBooleanProperty(INewListenerClassDataModelProperties.HTTP_SESSION_ATTRIBUTE_LISTENER, false);
-		model.setBooleanProperty(INewListenerClassDataModelProperties.HTTP_SESSION_ACTIVATION_LISTENER, false);
-		model.setBooleanProperty(INewListenerClassDataModelProperties.HTTP_SESSION_BINDING_LISTENER, false);
-		model.setBooleanProperty(INewListenerClassDataModelProperties.SERVLET_REQUEST_LISTENER, false);
-		model.setBooleanProperty(INewListenerClassDataModelProperties.SERVLET_REQUEST_ATTRIBUTE_LISTENER, false);
+		List interfaces = (List) model.getProperty(INewJavaClassDataModelProperties.INTERFACES);
+		interfaces.removeAll(Arrays.asList(NewListenerClassDataModelProvider.LISTENER_INTERFACES));
+		
+		synchHelper.synchUIWithModel(INewJavaClassDataModelProperties.INTERFACES, DataModelEvent.VALUE_CHG);
+		model.notifyPropertyChange(INewJavaClassDataModelProperties.INTERFACES, DataModelEvent.VALUE_CHG);
 	}
 
 }

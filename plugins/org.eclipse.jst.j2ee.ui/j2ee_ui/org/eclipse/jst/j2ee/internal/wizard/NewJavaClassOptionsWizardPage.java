@@ -233,6 +233,12 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 		constructorButton.setText(J2EEUIMessages.JAVA_CLASS_CONSTRUCTOR_CHECKBOX_LABEL);
 		synchHelper.synchCheckbox(constructorButton, INewJavaClassDataModelProperties.CONSTRUCTOR, null);
 	}
+	
+	protected void enter() {
+		super.enter();
+		//set the intefaces on every page enter (not only on viewer creation)
+		interfaceViewer.setInput(model.getProperty(INewJavaClassDataModelProperties.INTERFACES));
+	}
 
 	/**
 	 * @see IStatefulWizardPage#saveWidgetValues()
@@ -280,8 +286,8 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 		return new IStructuredContentProvider() {
 			public Object[] getElements(Object inputElement) {
 				Object[] ret = new Object[0];
-				if (inputElement instanceof ArrayList) {
-					ret = ((ArrayList) inputElement).toArray();
+				if (inputElement instanceof List) {
+					ret = ((List) inputElement).toArray();
 				}
 				return ret;
 			}
@@ -343,8 +349,7 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 				superclassFullPath = type.getFullyQualifiedName();
 			interfaceViewer.add(superclassFullPath);
 		}
-		List valueList = Arrays.asList(interfaceViewer.getList().getItems());
-		model.setProperty(INewJavaClassDataModelProperties.INTERFACES, valueList);
+		model.setProperty(INewJavaClassDataModelProperties.INTERFACES, getInterfaceViewerItems());
 	}
 
 	/**
@@ -354,17 +359,16 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 		IStructuredSelection selection = (IStructuredSelection) interfaceViewer.getSelection();
 		List items = selection.toList();
 		if (!items.isEmpty()) {
-			Object array[] = interfaceViewer.getList().getItems();
-			List valueList = new ArrayList();
-			
-			for (int i = 0; i < array.length; i++) {
-				valueList.add(array[i]);
-			}
+			List valueList = getInterfaceViewerItems();
 			for (int i=0; i<items.size(); i++) {
 				valueList.remove(items.get(i));
 			}
 			interfaceViewer.setInput(valueList);
 			model.setProperty(INewJavaClassDataModelProperties.INTERFACES, valueList);
 		}
+	}
+	
+	private List getInterfaceViewerItems() {
+		return new ArrayList(Arrays.asList(interfaceViewer.getList().getItems()));
 	}
 }
