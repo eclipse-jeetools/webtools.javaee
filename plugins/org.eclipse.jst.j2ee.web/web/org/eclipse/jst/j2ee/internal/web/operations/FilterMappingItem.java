@@ -21,6 +21,14 @@ public class FilterMappingItem implements IFilterMappingItem {
     public int getMappingType() {
         return mappingType;
     }
+    
+    public boolean isUrlPatternType() {
+    	return mappingType == IFilterMappingItem.URL_PATTERN;
+    }
+    
+    public boolean isServletNameType() {
+    	return mappingType == IFilterMappingItem.SERVLET_NAME;
+    }
 
     public int getDispatchers() {
         return dispatchers;

@@ -10,6 +10,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.jem.util.UIContextDetermination;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.model.IModelProvider;
@@ -100,11 +101,13 @@ public class AddFilterOperation extends AbstractDataModelOperation implements
 		String qualifiedClassName = model.getStringProperty(INewJavaClassDataModelProperties.CLASS_NAME);
 
 		// create the java class
-		if (!useExisting) qualifiedClassName = createFilterClass();
+		if (!useExisting) 
+			qualifiedClassName = createFilterClass();
 
-		// If the filter is not annotated, generate the filter metadata for
-		// the DD
-		generateFilterMetaData(model, qualifiedClassName);
+		// If the filter is not annotated, generate the filter metadata for the DD
+		if (!model.getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
+			generateFilterMetaData(model, qualifiedClassName);
+		
 		return OK_STATUS;
 	}
 
@@ -353,7 +356,7 @@ public class AddFilterOperation extends AbstractDataModelOperation implements
 			        FilterMapping mapping = WebapplicationFactory.eINSTANCE.createFilterMapping();
 			        // Set the filter
 			        mapping.setFilter(filter);
-			        if (filterMapping.getMappingType() == IFilterMappingItem.URL_PATTERN) {
+			        if (filterMapping.isUrlPatternType()) {
 			            // Set the URL pattern to map the filter to
 			            mapping.setUrlPattern(filterMapping.getName());
 			        } else {

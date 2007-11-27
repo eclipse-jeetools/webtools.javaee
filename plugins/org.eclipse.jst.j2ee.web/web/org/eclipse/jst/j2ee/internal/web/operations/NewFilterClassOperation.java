@@ -2,6 +2,7 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.util.Set;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.*;
@@ -13,15 +14,29 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.internal.annotations.controller.AnnotationsController;
 import org.eclipse.jst.common.internal.annotations.controller.AnnotationsControllerManager;
+import org.eclipse.jst.common.internal.annotations.controller.AnnotationsControllerManager.Descriptor;
+import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.WTPJETEmitter;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
+import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.datamodel.FacetInstallDataModelProvider;
+import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 /**
  * The NewFilterClassOperation is an IDataModelOperation following the
@@ -52,6 +67,11 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
 public class NewFilterClassOperation extends AbstractDataModelOperation {
+
+	/**
+	 * XDoclet facet constants
+	 */
+	private static final String JST_WEB_XDOCLET_VERSION = "1.2.3"; //$NON-NLS-1$
 
 	/**
 	 * The extension name for a java class
@@ -206,7 +226,59 @@ public class NewFilterClassOperation extends AbstractDataModelOperation {
                 controller.process(aFile);
         }
 	}
+	
 
+
+	/**
+	 * This method is intended for internal use only. This will add an webdoclet facet to the project.
+	 * 
+	 * @throws CoreException 
+	 * @throws ExecutionException 
+	 */
+	private void installXDocletFacet(IProgressMonitor monitor, IProject project) throws CoreException, ExecutionException {
+		IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+		Set fixedFacets = facetedProject.getFixedProjectFacets();
+		IDataModel dm = DataModelFactory.createDataModel(new FacetInstallDataModelProvider());
+		dm.setProperty(IFacetDataModelProperties.FACET_ID, IJ2EEFacetConstants.DYNAMIC_WEB_XDOCLET);
+		dm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, project.getName());
+		dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, JST_WEB_XDOCLET_VERSION);
+		IDataModel fdm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
+		fdm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, project.getName());
+
+		FacetDataModelMap map = (FacetDataModelMap) fdm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		map.add(dm);
+
+		fdm.getDefaultOperation().execute(monitor, null);
+		facetedProject.setFixedProjectFacets(fixedFacets);
+	}
+	
+	/**
+	 * This method is intended for internal use only. This will check to see if it needs to add an 
+	 * webdoclet facet to the project.
+	 * 
+	 * @throws CoreException 
+	 * @throws ExecutionException 
+	 */
+	private void installXDocletFacetIfNecessary(IProgressMonitor monitor, IProject project) throws CoreException, ExecutionException {
+
+		// If not using annotations, ignore the xdoclet facet
+		if (!model.getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
+			return;
+		
+		// If an extended annotations processor is added, ignore the default xdoclet one
+		Descriptor descriptor = AnnotationsControllerManager.INSTANCE.getDescriptor(getTargetComponent().getProject());
+		if (descriptor != null)
+			return;
+
+		// Otherwise check and see if the xdoclet facet is on the project yet
+		IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+		if (!facetedProject.hasProjectFacet(WebFacetUtils.WEB_XDOCLET_FACET))
+			return;
+			
+		// Install xdoclet facet
+		installXDocletFacet(monitor, project);
+	}
+	
 	/**
      * This method is intended for internal use only. This method will create an
      * instance of the CreateFilterTemplate model to be used in conjunction
@@ -306,5 +378,9 @@ public class NewFilterClassOperation extends AbstractDataModelOperation {
 	public IProject getTargetProject() {
 		String projectName = model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME);
 		return ProjectUtilities.getProject(projectName);
-	}	
+	}
+	
+	private IVirtualComponent getTargetComponent() {
+		return ComponentCore.createComponent(getTargetProject());
+	}
 }

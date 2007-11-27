@@ -189,7 +189,6 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		// Use servlet by default
 		else if (propertyName.equals(IS_SERVLET_TYPE))
 			return Boolean.TRUE;
-		// Create an annotated servlet java class by default
 		else if (propertyName.equals(USE_ANNOTATIONS))
 			return shouldDefaultAnnotations();
 		else if (propertyName.equals(DISPLAY_NAME)) {

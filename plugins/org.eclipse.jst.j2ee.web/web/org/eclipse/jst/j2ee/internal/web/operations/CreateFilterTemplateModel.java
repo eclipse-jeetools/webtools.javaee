@@ -10,10 +10,15 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.jst.j2ee.webapplication.DispatcherType;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
@@ -90,16 +95,45 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 		return null;
 	}
 
-	public List<FilterMappingItem> getFilterMappings() {
-		return (List<FilterMappingItem>) dataModel.getProperty(INewFilterClassDataModelProperties.FILTER_MAPPINGS);
+	public List<IFilterMappingItem> getFilterMappings() {
+		return (List<IFilterMappingItem>) dataModel.getProperty(INewFilterClassDataModelProperties.FILTER_MAPPINGS);
 	}
 
-	public FilterMappingItem getFilterMapping(int index) {
-		List<FilterMappingItem> mappings = getFilterMappings();
+	public IFilterMappingItem getFilterMapping(int index) {
+		List<IFilterMappingItem> mappings = getFilterMappings();
 		if (index < mappings.size()) {
 		    return mappings.get(index);
 		}
 		return null;
+	}
+	
+	public String getDispatcherList(IFilterMappingItem mapping) {
+		List<String> list = new ArrayList<String>();
+		
+		int dispatchers = mapping.getDispatchers();
+		if ((dispatchers & IFilterMappingItem.REQUEST) > 0) {
+            list.add(DispatcherType.REQUEST_LITERAL.getLiteral());
+        }
+        if ((dispatchers & IFilterMappingItem.FORWARD) > 0) {
+            list.add(DispatcherType.FORWARD_LITERAL.getLiteral());
+        }
+        if ((dispatchers & IFilterMappingItem.INCLUDE) > 0) {
+            list.add(DispatcherType.INCLUDE_LITERAL.getLiteral());
+        }
+        if ((dispatchers & IFilterMappingItem.ERROR) > 0) {
+            list.add(DispatcherType.ERROR_LITERAL.getLiteral());
+        }
+        
+        StringBuilder builder = new StringBuilder();
+        Iterator<String> iterator = list.iterator();
+        while (iterator.hasNext()) {
+        	builder.append(iterator.next());
+        	if (iterator.hasNext()) {
+        		builder.append(",");
+        	}
+        }
+		
+		return builder.toString();
 	}
 
 	public String getFilterDescription() {

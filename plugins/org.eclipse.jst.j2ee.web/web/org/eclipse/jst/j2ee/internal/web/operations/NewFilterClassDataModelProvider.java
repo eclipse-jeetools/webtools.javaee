@@ -5,14 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.web.validation.UrlPattern;
 import org.eclipse.osgi.util.NLS;
+import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
@@ -111,6 +117,8 @@ public class NewFilterClassDataModelProvider extends NewJavaClassDataModelProvid
 			className = className.substring(index+1);
 			return className;
 		}
+		else if (propertyName.equals(USE_ANNOTATIONS))
+			return shouldDefaultAnnotations();
         else if (propertyName.equals(DESTROY))
             return Boolean.TRUE;
 		else if (propertyName.equals(DO_FILTER))
@@ -214,7 +222,19 @@ public class NewFilterClassDataModelProvider extends NewJavaClassDataModelProvid
 	 * @return should annotations be supported for this project in this workspace
 	 */
 	protected boolean isAnnotationsSupported() {
-	    return false;
+		//TODO add this check back in for defect 146696
+//		if (!isAnnotationProviderDefined())
+//			return false;
+		if (!getDataModel().isPropertySet(IArtifactEditOperationDataModelProperties.PROJECT_NAME))
+			return true;
+		if (getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME).equals("")) //$NON-NLS-1$
+			return true;
+		IProject project = ProjectUtilities.getProject(getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME));
+		String moduleName = getStringProperty(IArtifactEditOperationDataModelProperties.COMPONENT_NAME);
+		if (project == null || moduleName == null || moduleName.equals(""))return true; //$NON-NLS-1$
+		int j2eeVersion = J2EEVersionUtil.convertVersionStringToInt(J2EEProjectUtilities.getJ2EEProjectVersion(project));
+		
+		return j2eeVersion > J2EEVersionConstants.VERSION_1_2;
 	}
 
 	/**
@@ -328,7 +348,7 @@ public class NewFilterClassDataModelProvider extends NewJavaClassDataModelProvid
 		int size = prop.size();
 		for (int i = 0; i < size; i++) {
 			IFilterMappingItem filterMappingValue = (IFilterMappingItem) prop.get(i);
-			if (filterMappingValue.getMappingType() == IFilterMappingItem.URL_PATTERN && 
+			if (filterMappingValue.isUrlPatternType() && 
 					!UrlPattern.isValid(filterMappingValue.getName()))
 				return filterMappingValue.getName();
 		}
@@ -494,4 +514,14 @@ public class NewFilterClassDataModelProvider extends NewJavaClassDataModelProvid
 		// Otherwise, return OK
 		return WTPCommonPlugin.OK_STATUS;
 	}
+
+	/**
+	 * @return boolean should the default annotations be true?
+	 */
+	private static Boolean shouldDefaultAnnotations() {
+		if (useAnnotations)
+			return Boolean.TRUE;
+		return Boolean.FALSE;
+	}
+	
 }

@@ -2,13 +2,19 @@ package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.window.Window;
+import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.war.ui.util.WebFiltersGroupItemProvider;
 import org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
+import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -20,10 +26,15 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 public class NewFilterClassWizardPage extends NewJavaClassWizardPage {
+	
+	private AnnotationsStandaloneGroup annotationsGroup;
     private Button existingButton;
     private Label existingClassLabel;
     private Text existingClassText;
@@ -35,11 +46,29 @@ public class NewFilterClassWizardPage extends NewJavaClassWizardPage {
 		//setFirstTimeToPage(false);
 	}
 	
+	/**
+	 * Create annotations group and set default enablement
+	 */
+	private void createAnnotationsGroup(Composite parent) {
+		if (isWebDocletProject()) {
+			annotationsGroup = new AnnotationsStandaloneGroup(parent, model, J2EEProjectUtilities.EJB.equals(projectType),
+					J2EEProjectUtilities.DYNAMIC_WEB.equals(projectType));
+			if (!model.isPropertySet(IArtifactEditOperationDataModelProperties.PROJECT_NAME))
+				return;
+			IProject project = ProjectUtilities.getProject(model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME));
+			annotationsGroup.setEnablement(project);
+			// annotationsGroup.setUseAnnotations(true);
+		} else {
+			// not a Web Doclet project - make sure that the USE_ANNOTATIONS property is off
+			model.setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, false);
+		}
+	}
+	
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = super.createTopLevelComposite(parent);
 		addSeperator(composite,3);
 		createUseExistingGroup(composite);
-//		createAnnotationsGroup(composite);
+		createAnnotationsGroup(composite);
 		return composite;
 	}
 
@@ -131,7 +160,17 @@ public class NewFilterClassWizardPage extends NewJavaClassWizardPage {
         superLabel.setEnabled(!enable);
     }
 	
-//	private boolean isWebDocletProject() {
-//		return false;
-//	}
+	private boolean isWebDocletProject() {
+		String projectName = model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME);
+		if(projectName != null && !"".equals(projectName.trim())){
+			IProject project = ProjectUtilities.getProject(projectName);
+			try {
+				IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+				return facetedProject.hasProjectFacet(WebFacetUtils.WEB_XDOCLET_FACET);
+			} catch (CoreException e) {
+				Logger.getLogger().log(e);
+			}
+		}
+		return false;
+	}
 }

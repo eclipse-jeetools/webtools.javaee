@@ -147,9 +147,8 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 	private boolean isAlreadyAdded(String servlet, List<IFilterMappingItem> elements) {
         for (Iterator iterator = elements.iterator(); iterator.hasNext();) {
             IFilterMappingItem item = (IFilterMappingItem) iterator.next();
-            if (item.getMappingType() == IFilterMappingItem.SERVLET_NAME) {
-                if (item.getName().equals(servlet)) return true;
-            }
+            if (item.isServletNameType() && item.getName().equals(servlet)) 
+            	return true;
         }
         return false;
     }
@@ -361,7 +360,7 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
         fErorr.setText(IWebWizardConstants.ERROR);
         
         if (selectedItem != null) {
-            if (selectedItem.getMappingType() == IFilterMappingItem.URL_PATTERN) {
+            if (selectedItem.isUrlPatternType()) {
                 fSelection = URL_PATTERN;
             } else {
                 fSelection = SERVLET;

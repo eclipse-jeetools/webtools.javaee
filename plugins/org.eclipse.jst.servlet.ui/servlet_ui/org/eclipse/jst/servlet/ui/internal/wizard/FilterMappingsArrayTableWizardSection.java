@@ -51,9 +51,9 @@ public class FilterMappingsArrayTableWizardSection extends Composite {
         public Image getColumnImage(Object element, int columnIndex) {
 		    if (columnIndex == 0) {
 		        FilterMappingItem item = (FilterMappingItem) element;
-		        if (item.getMappingType() == FilterMappingItem.SERVLET_NAME) {
+		        if (item.isServletNameType()) {
 		            return SERVLET_ICON;
-		        } else if (item.getMappingType() == FilterMappingItem.URL_PATTERN) {
+		        } else if (item.isUrlPatternType()) {
 		            return URL_PATTERN_ICON;
 		        }
 		        

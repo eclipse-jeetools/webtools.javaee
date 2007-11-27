@@ -414,9 +414,11 @@ public class NewServletClassOperation extends AbstractDataModelOperation {
 			throws ExecutionException {
 		return doExecute(monitor, info);
 	}
+	
 	private IVirtualComponent getTargetComponent() {
 		return ComponentCore.createComponent(getTargetProject());
-	}	
+	}
+	
 	public IProject getTargetProject() {
 		String projectName = model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME);
 		return ProjectUtilities.getProject(projectName);

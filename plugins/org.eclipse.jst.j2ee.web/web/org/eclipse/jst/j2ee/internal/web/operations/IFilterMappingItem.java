@@ -9,8 +9,10 @@ public interface IFilterMappingItem {
     public static int INCLUDE = 1 << 3;
     public static int ERROR = 1 << 4;
  
+    public String getName();
+    public int getMappingType();
+    public boolean isUrlPatternType();
+    public boolean isServletNameType();
     public int getDispatchers();
     public String getDispatchersAsString();
-    public int getMappingType();
-    public String getName();
 }
