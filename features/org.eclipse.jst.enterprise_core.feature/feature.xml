@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.jst.enterprise_core.feature"
       label="%featureName"
-      version="2.1.0.qualifier"
+      version="3.0.0.qualifier"
       provider-name="%providerName">
 
    <description>
@@ -22,38 +22,39 @@
    </url>
 
    <requires>
-      <import plugin="org.eclipse.jst.j2ee" version="1.1.0" />
-      <import plugin="org.eclipse.wst.common.frameworks" version="1.1.0" />
-      <import plugin="org.eclipse.wst.common.emfworkbench.integration" version="1.1.0" />
-      <import plugin="org.eclipse.jst.j2ee.core" version="1.1.0" />
-      <import plugin="org.eclipse.wst.common.emf" version="1.1.0" />
-      <import plugin="org.eclipse.emf.ecore.xmi" version="2.2.0"/>
-      <import plugin="org.eclipse.emf.edit" version="2.2.0"/>
       <import plugin="org.eclipse.jem" version="2.0.0" match="compatible"/>
       <import plugin="org.eclipse.jdt.core" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.core.runtime" version="3.2.0" match="compatible"/>
-      <import plugin="org.eclipse.jst.common.frameworks" version="1.1.0" />
       <import plugin="org.eclipse.core.resources" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.jface" version="3.2.0" match="compatible"/>
-      <import plugin="org.eclipse.wst.ws.parser" version="1.0.100" />
-      <import plugin="org.eclipse.wst.wsdl" version="1.1.0" />
-      <import plugin="javax.wsdl" version="1.4.0" />
       <import plugin="org.eclipse.jem.util" version="2.0.0" match="compatible"/>
       <import plugin="org.eclipse.core.commands" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.jem.workbench" version="2.0.0" match="compatible"/>
-      <import plugin="org.eclipse.wst.validation" version="1.1.0" />
-      <import plugin="org.eclipse.emf.ecore.edit" version="2.2.0"/>
-      <import plugin="org.eclipse.wst.server.core" version="1.0.102" />
-      <import plugin="org.eclipse.jst.server.core" version="1.0.102" />
-      <import plugin="org.eclipse.emf.ecore" version="2.2.0"/>
-      <import plugin="org.eclipse.wst.common.modulecore" version="1.1.0" />
-      <import plugin="org.eclipse.jst.common.project.facet.core" version="1.1.0" />
-      <import plugin="org.eclipse.wst.web" version="1.1.0" />
-      <import plugin="org.eclipse.wst.common.environment" version="1.0.100" />
+      <import plugin="org.eclipse.jst.j2ee" version="1.1.0" match="compatible"/>
+      <import plugin="org.eclipse.wst.common.frameworks" version="1.1.0" match="compatible"/>
+      <import plugin="org.eclipse.wst.common.emfworkbench.integration" version="1.1.0" match="compatible"/>
+      <import plugin="org.eclipse.jst.j2ee.core" version="1.1.0" match="compatible"/>
+      <import plugin="org.eclipse.wst.common.emf" version="1.1.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.ecore.xmi" version="2.2.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.edit" version="2.2.0" match="compatible"/>
+      <import plugin="org.eclipse.jst.common.frameworks" version="1.1.0" match="compatible"/>
+      <import plugin="org.eclipse.wst.ws.parser" version="1.0.100" match="compatible"/>
+      <import plugin="org.eclipse.wst.wsdl" version="1.1.0" match="compatible"/>
+      <import plugin="javax.wsdl" version="1.4.0" match="compatible"/>
+      <import plugin="org.eclipse.wst.common.project.facet.core" version="1.1.0" match="compatible"/>
+      <import plugin="org.eclipse.wst.validation" version="1.1.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.ecore.edit" version="2.2.0" match="compatible"/>
+      <import plugin="org.eclipse.wst.server.core" version="1.0.102" match="compatible"/>
+      <import plugin="org.eclipse.jst.server.core" version="1.0.102" match="compatible"/>
+      <import plugin="org.eclipse.emf.ecore" version="2.2.0" match="compatible"/>
+      <import plugin="org.eclipse.wst.common.modulecore" version="1.1.0" match="compatible"/>
+      <import plugin="org.eclipse.jst.common.project.facet.core" version="1.1.0" match="compatible"/>
+      <import plugin="org.eclipse.wst.web" version="1.1.0" match="compatible"/>
+      <import plugin="org.eclipse.wst.common.environment" version="1.0.100" match="compatible"/>
       <import plugin="org.eclipse.wst.common.project.facet.core" version="1.2.0" match="compatible"/>
-      <import plugin="org.eclipse.jst.jee" version="1.0.0" />
-      <import plugin="org.eclipse.emf.common" version="2.2.0"/>
-      <import plugin="org.eclipse.jst.j2ee.ejb" version="1.1.0" />
+      <import plugin="org.eclipse.jst.jee" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.common" version="2.2.0" match="compatible"/>
+      <import plugin="org.eclipse.jst.j2ee.ejb" version="1.1.0" match="compatible"/>
    </requires>
 
    <plugin
