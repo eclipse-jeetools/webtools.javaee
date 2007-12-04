@@ -106,7 +106,7 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
             = (IFacetedProjectWorkingCopy) this.model.getProperty( FACETED_PROJECT_WORKING_COPY );
         
         final IFacetedProject.Action javaInstallAction
-            = fpjwc.getProjectFacetAction( IFacetedProject.Action.Type.INSTALL, JavaFacetUtils.JAVA_FACET );
+            = fpjwc.getProjectFacetAction( JavaFacetUtils.JAVA_FACET );
         
         return (IDataModel) javaInstallAction.getConfig();
 	}

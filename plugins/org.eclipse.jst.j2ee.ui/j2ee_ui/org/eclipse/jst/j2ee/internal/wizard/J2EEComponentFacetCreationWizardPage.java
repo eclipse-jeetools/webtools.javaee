@@ -57,9 +57,7 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
 	    
 	    final String moduleFacetId = getModuleFacetID();
 	    final IProjectFacet moduleFacet = ProjectFacetsManager.getProjectFacet( moduleFacetId );
-	    
-	    final IFacetedProject.Action action
-	        = fpjwc.getProjectFacetAction( IFacetedProject.Action.Type.INSTALL, moduleFacet );
+	    final IFacetedProject.Action action = fpjwc.getProjectFacetAction( moduleFacet );
 	    
 		earPanel = new EarSelectionPanel( (IDataModel) action.getConfig(), top );
 	}
