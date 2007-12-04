@@ -191,17 +191,28 @@ public class AddListenerWizardPage extends DataModelWizardPage {
 
 	private void handleSelectAll() {
 		List interfaces = (List) model.getProperty(INewJavaClassDataModelProperties.INTERFACES);
+		if (interfaces == null) {
+			interfaces = new ArrayList();
+			model.setProperty(INewJavaClassDataModelProperties.INTERFACES, interfaces);
+		}
+		
 		for (String iface : NewListenerClassDataModelProvider.LISTENER_INTERFACES) {
 			if (!interfaces.contains(iface)) {
 				interfaces.add(iface);
 			}
 		}
+		
 		synchHelper.synchUIWithModel(INewJavaClassDataModelProperties.INTERFACES, DataModelEvent.VALUE_CHG);
 		model.notifyPropertyChange(INewJavaClassDataModelProperties.INTERFACES, DataModelEvent.VALUE_CHG);
 	}
 
 	private void handleSelectNone() {
 		List interfaces = (List) model.getProperty(INewJavaClassDataModelProperties.INTERFACES);
+		if (interfaces == null) {
+			interfaces = new ArrayList();
+			model.setProperty(INewJavaClassDataModelProperties.INTERFACES, interfaces);
+		}
+		
 		interfaces.removeAll(Arrays.asList(NewListenerClassDataModelProvider.LISTENER_INTERFACES));
 		
 		synchHelper.synchUIWithModel(INewJavaClassDataModelProperties.INTERFACES, DataModelEvent.VALUE_CHG);

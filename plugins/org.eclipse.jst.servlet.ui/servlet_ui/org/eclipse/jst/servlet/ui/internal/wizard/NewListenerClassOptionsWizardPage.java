@@ -12,9 +12,16 @@
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassOptionsWizardPage;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 
@@ -25,6 +32,15 @@ public class NewListenerClassOptionsWizardPage extends NewJavaClassOptionsWizard
 	
 	public NewListenerClassOptionsWizardPage(IDataModel model, String pageName, String pageDesc, String pageTitle) {
 		super(model, pageName, pageDesc, pageTitle);
+	}
+	
+	protected void enter() {
+		super.enter();
+		
+		String superClass = getDataModel().getStringProperty(INewFilterClassDataModelProperties.SUPERCLASS);
+		boolean hasSuperClass = (superClass == null) ? false : superClass.trim().length() > 0;
+		constructorButton.setEnabled(hasSuperClass);
+		if (!hasSuperClass) constructorButton.setSelection(false);
 	}
 	
 	protected void createModifierControls(Composite parent) {
@@ -43,7 +59,24 @@ public class NewListenerClassOptionsWizardPage extends NewJavaClassOptionsWizard
 	
 	
 	protected void createStubsComposite(Composite parent) {
-		//do not create stubs
+		Label stubLabel = new Label(parent, SWT.NONE);
+		stubLabel.setText(IWebWizardConstants.JAVA_CLASS_METHOD_STUBS_LABEL);
+		GridData data = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
+		data.horizontalSpan = 2;
+		stubLabel.setLayoutData(data);
+
+		Composite buttonCompo = new Composite(parent, SWT.NULL);
+		buttonCompo.setLayout(new GridLayout());
+		data = new GridData(GridData.FILL_HORIZONTAL);
+		data.horizontalSpan = 2;
+		data.horizontalIndent = 15;
+		buttonCompo.setLayoutData(data);
+
+		constructorButton = new Button(buttonCompo, SWT.CHECK);
+		constructorButton.setText(IWebWizardConstants.JAVA_CLASS_CONSTRUCTOR_CHECKBOX_LABEL);
+		synchHelper.synchCheckbox(constructorButton, INewJavaClassDataModelProperties.CONSTRUCTOR, null);
+		
+		Dialog.applyDialogFont(parent);
 	}
 	
 }

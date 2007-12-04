@@ -10,9 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -41,8 +39,8 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 
 	public CreateFilterTemplateModel(IDataModel dataModel) {
 		super(dataModel);
-	}
-	
+    }
+    
 	public Collection<String> getImports() {
 		Collection<String> collection = super.getImports();
 		

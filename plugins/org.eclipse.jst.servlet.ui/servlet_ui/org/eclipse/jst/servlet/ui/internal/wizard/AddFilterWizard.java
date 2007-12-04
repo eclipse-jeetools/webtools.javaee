@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2007 SAP AG and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import java.lang.reflect.InvocationTargetException;
@@ -28,6 +38,7 @@ public class AddFilterWizard extends NewWebWizard {
 
 	private static final String PAGE_ONE = "pageOne"; //$NON-NLS-1$
     private static final String PAGE_TWO = "pageTwo"; //$NON-NLS-1$
+    private static final String PAGE_THREE = "pageTree"; //$NON-NLS-1$
     
 	public AddFilterWizard(IDataModel model) {
 		super(model);
@@ -55,6 +66,14 @@ public class AddFilterWizard extends NewWebWizard {
 		AddFilterWizardPage page2 = new AddFilterWizardPage(getDataModel(), PAGE_TWO);
 //		page2.setInfopopID(IWebUIContextIds.WEBEDITOR_FILTER_PAGE_ADD_FILTER_WIZARD_2);
 		addPage(page2);
+        
+        NewFilterClassOptionsWizardPage page3 = new NewFilterClassOptionsWizardPage(
+                getDataModel(), 
+                PAGE_THREE,
+                IWebWizardConstants.NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC,
+                IWebWizardConstants.ADD_FILTER_WIZARD_PAGE_TITLE);
+//        page3.setInfopopID(IWebUIContextIds.WEBEDITOR_FILTER_PAGE_ADD_SERVLET_WIZARD_3);
+        addPage(page3);
 	}
 	
 	/* (non-Javadoc)
@@ -89,8 +108,9 @@ public class AddFilterWizard extends NewWebWizard {
       //open new filter class in java editor
         WebArtifactEdit artifactEdit = null;
         try {
-            String className = getDataModel().getStringProperty(INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME);
-            IProject p = (IProject) getDataModel().getProperty(INewJavaClassDataModelProperties.PROJECT);
+            IDataModel dataModel = getDataModel();
+            String className = dataModel.getStringProperty(INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME);
+            IProject p = (IProject) dataModel.getProperty(INewJavaClassDataModelProperties.PROJECT);
             // filter class
             IJavaProject javaProject = J2EEEditorUtility.getJavaProject(p);
             IFile file = (IFile) javaProject.findType(className).getResource();
