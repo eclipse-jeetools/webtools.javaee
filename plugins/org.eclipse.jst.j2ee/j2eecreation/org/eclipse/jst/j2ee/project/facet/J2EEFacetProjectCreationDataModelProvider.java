@@ -136,9 +136,7 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 	    {
 	        if( fpjwc.hasProjectFacet( moduleFacet ) )
 	        {
-	            final IFacetedProject.Action action 
-	                = fpjwc.getProjectFacetAction( IFacetedProject.Action.Type.INSTALL, moduleFacet );
-	            
+	            final IFacetedProject.Action action = fpjwc.getProjectFacetAction( moduleFacet );
 	            return (IDataModel) action.getConfig();
 	        }
 	    }
