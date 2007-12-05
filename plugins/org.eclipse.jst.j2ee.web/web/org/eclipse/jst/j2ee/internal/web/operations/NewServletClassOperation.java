@@ -122,6 +122,11 @@ public class NewServletClassOperation extends AbstractDataModelOperation {
 	 * folder location of the servlet creation templates diretory
 	 */
 	protected static final String TEMPLATE_DIR = "/templates/"; //$NON-NLS-1$
+	
+	/**
+	 * location of the servlet creation template file
+	 */
+	protected static final String TEMPLATE_FILE = "/templates/servlet.javajet"; //$NON-NLS-1$
 
 	/**
 	 * name of the template emitter to be used to generate the deployment
@@ -338,14 +343,7 @@ public class NewServletClassOperation extends AbstractDataModelOperation {
 	 * @throws JETException
 	 */
 	private String generateTemplateSource(CreateServletTemplateModel tempModel, IProgressMonitor monitor) throws JETException {
-		Path templateFilePath = null;
-		// If annotated, use annotated template
-		if (model.getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
-			templateFilePath = new Path(TEMPLATE_DIR + getDataModel().getStringProperty(INewServletClassDataModelProperties.TEMPLATE_FILE));
-		// Otherwise use non annotated template
-		else
-			templateFilePath = new Path(TEMPLATE_DIR + getDataModel().getStringProperty(INewServletClassDataModelProperties.NON_ANNOTATED_TEMPLATE_FILE));		
-		URL templateURL = FileLocator.find(WebPlugin.getDefault().getBundle(), templateFilePath, null);
+		URL templateURL = FileLocator.find(WebPlugin.getDefault().getBundle(), new Path(TEMPLATE_FILE), null);
 		cleanUpOldEmitterProject();
 		WTPJETEmitter emitter = new WTPJETEmitter(templateURL.toString(), this.getClass().getClassLoader());
 		emitter.setIntelligentLinkingEnabled(true);
