@@ -24,27 +24,27 @@ public interface INewServletClassDataModelProperties extends INewJavaClassDataMo
 	/**
 	 * Optional, boolean property used to specify whether to generate the destroy method. The default is false.
 	 */
-	public static final String DESTROY = "NewServletClassDataModel.DESTROY";
+	public static final String DESTROY = "NewServletClassDataModel.DESTROY"; //$NON-NLS-1$
 
 	/**
 	 * Optional, boolean property used to specify whether to generate the getServletInfo method. The default is false.
 	 */
-	public static final String GET_SERVLET_INFO = "NewServletClassDataModel.GET_SERVLET_INFO";
+	public static final String GET_SERVLET_INFO = "NewServletClassDataModel.GET_SERVLET_INFO"; //$NON-NLS-1$
 
 	/**
 	 * Optional, boolean property used to specify whether to generate the getServletConfig method. The default is false.
 	 */
-	public static final String GET_SERVLET_CONFIG = "NewServletClassDataModel.GET_SERVLET_CONFIG";
+	public static final String GET_SERVLET_CONFIG = "NewServletClassDataModel.GET_SERVLET_CONFIG"; //$NON-NLS-1$
 
 	/**
 	 * Optional, boolean property used to specify whether to generate the service method. The default is false.
 	 */
-	public static final String SERVICE = "NewServletClassDataModel.SERVICE";
+	public static final String SERVICE = "NewServletClassDataModel.SERVICE"; //$NON-NLS-1$
 
 	/**
 	 * Optional, boolean property used to specify whether to generate the doGet method. The default is true.
 	 */
-	public static final String DO_GET = "NewServletClassDataModel.DO_GET";
+	public static final String DO_GET = "NewServletClassDataModel.DO_GET"; //$NON-NLS-1$
 
 	/**
 	 * Optional, boolean property used to specify whether to generate the doPost method.
@@ -55,27 +55,32 @@ public interface INewServletClassDataModelProperties extends INewJavaClassDataMo
 	/**
 	 * Optional, boolean property used to specify whether to generate the doPut method. The default is false.
 	 */
-	public static final String DO_PUT = "NewServletClassDataModel.DO_PUT";
+	public static final String DO_PUT = "NewServletClassDataModel.DO_PUT"; //$NON-NLS-1$
 
 	/**
 	 * Optional, boolean property used to specify whether to generate the doDelete method. The default is false.
 	 */
-	public static final String DO_DELETE = "NewServletClassDataModel.DO_DELETE";
+	public static final String DO_DELETE = "NewServletClassDataModel.DO_DELETE"; //$NON-NLS-1$
 	
 	/**
 	 * Optional, boolean property used to specify whether to generate the doHead method. The default is false.
 	 */
-	public static final String DO_HEAD = "NewServletClassDataModel.DO_HEAD";
+	public static final String DO_HEAD = "NewServletClassDataModel.DO_HEAD"; //$NON-NLS-1$
 	
 	/**
 	 * Optional, boolean property used to specify whether to generate the doOptions method. The default is false.
 	 */
-	public static final String DO_OPTIONS = "NewServletClassDataModel.DO_OPTIONS";
+	public static final String DO_OPTIONS = "NewServletClassDataModel.DO_OPTIONS"; //$NON-NLS-1$
 	
 	/**
 	 * Optional, boolean property used to specify whether to generate the doTrace method. The default is false.
 	 */
-	public static final String DO_TRACE = "NewServletClassDataModel.DO_TRACE";
+	public static final String DO_TRACE = "NewServletClassDataModel.DO_TRACE"; //$NON-NLS-1$
+	
+	/**
+	 * Optional, boolean property used to specify whether to generate the doTrace method. The default is false.
+	 */
+	public static final String TO_STRING = "NewServletClassDataModel.TO_STRING"; //$NON-NLS-1$
 
 	/**
 	 * Optional, boolean property used to determine if building JSP or servlet.
@@ -108,5 +113,15 @@ public interface INewServletClassDataModelProperties extends INewJavaClassDataMo
 	 * The default is false.
 	 */
 	public static final String USE_EXISTING_CLASS = "NewServletClassDataModel.USE_EXISTING_CLASS"; //$NON-NLS-1$
+	
+	/**
+	 * Do not set! The javajet template file used in creating the annotated servlet template class
+	 */
+	public static final String TEMPLATE_FILE = "NewServletClassDataModel.TEMPLATE_FILE"; //$NON-NLS-1$
+	
+	/**
+	 * Do not set! The javajet template file used in creating the non-annotated servlet template class
+	 */
+	public static final String NON_ANNOTATED_TEMPLATE_FILE = "NewServletClassDataModel.NON_ANNOTATED_TEMPLATE_FILE"; //$NON-NLS-1$
 	
 }

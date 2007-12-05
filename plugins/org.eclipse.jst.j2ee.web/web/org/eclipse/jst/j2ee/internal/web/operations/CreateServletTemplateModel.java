@@ -46,6 +46,7 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 	public static final String DO_HEAD = "doHead"; //$NON-NLS-1$
 	public static final String DO_OPTIONS = "doOptions"; //$NON-NLS-1$
 	public static final String DO_TRACE = "doTrace"; //$NON-NLS-1$
+	public static final String TO_STRING = "toString"; //$NON-NLS-1$
 	
 	public static final int NAME = 0;
 	public static final int VALUE = 1;
@@ -152,6 +153,10 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 
 	public boolean shouldGenDoTrace() {
 		return implementImplementedMethod(DO_TRACE);
+	}
+	
+	public boolean shouldGenToString() {
+		return implementImplementedMethod(TO_STRING);
 	}
 
 	public boolean isGenericServletSuperclass() {
