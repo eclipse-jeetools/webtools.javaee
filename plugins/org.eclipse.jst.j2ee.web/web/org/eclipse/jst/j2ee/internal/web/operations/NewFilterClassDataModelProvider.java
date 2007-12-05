@@ -292,7 +292,7 @@ public class NewFilterClassDataModelProvider extends NewJavaClassDataModelProvid
 			// Ensure there are not duplicate entries in the list
 			boolean dup = hasDuplicatesInStringArrayList(prop);
 			if (dup) {
-				String msg = "WebMessages.ERR_DUPLICATED_INIT_PARAMETER";
+				String msg = WebMessages.ERR_DUPLICATED_INIT_PARAMETER;
 				return WTPCommonPlugin.createErrorStatus(msg);
 			}
 		}

@@ -39,12 +39,26 @@ public class WebMessages extends NLS {
 	public static String ERR_DUPLICATED_INIT_PARAMETER;
 	public static String ERR_DUPLICATED_URL_MAPPING;
 
+	public static String ERR_SERVLET_MAPPING_URL_PATTERN_EXIST;
+	public static String KEY_3;
+	public static String KEY_4;
+	public static String KEY_5;
+	public static String KEY_6;
+	public static String ERR_FILTER_PARAMETER_NAME_EXIST;
+	public static String ERR_FILTER_MAPPING_SERVLET_EXIST;
+	public static String ERR_FILTER_MAPPING_SERVLET_DISPATCHER_TYPES_EMPTY;
+	public static String ERR_SERVLET_MAPPING_URL_PATTERN_EMPTY;
 	public static String ERR_URL_MAPPING_LIST_EMPTY;
 	public static String ERR_URL_PATTERN_INVALID;
 	public static String ERR_FILTER_MAPPING_EMPTY;
 	public static String ERR_DISPLAY_NAME_EMPTY;
+	public static String ERR_SERVLET_JAVA_CLASS_NAME_INVALID;
+	public static String ERR_SERVLET_MAPPING_SERVLET_NOT_EXIST;
 	public static String ERR_SERVLET_NAME_EXIST;
 	public static String ERR_SERVLET_DISPLAY_NAME_EXIST;
+	public static String ERR_SERVLET_PARAMETER_NAME_EMPTY;
+	public static String ERR_SERVLET_PARAMETER_NAME_EXIST;
+	public static String ERR_SERVLET_PARAMETER_VALUE_EMPTY;
 	public static String ERR_SERVLET_ROLE_REF_NAME_EMPTY;
 	public static String ERR_SERVLET_ROLE_REF_NAME_EXIST;
 	public static String ERR_SERVLET_ROLE_LINK_EMPTY;

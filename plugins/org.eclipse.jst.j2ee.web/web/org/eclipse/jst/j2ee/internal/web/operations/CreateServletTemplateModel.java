@@ -95,6 +95,16 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 	public String getServletName() {
 		return getProperty(INewServletClassDataModelProperties.DISPLAY_NAME).trim();
 	}
+	
+	/**
+	 * @deprecated Use {@link #getClassName()} instead. Will be removed post WTP
+	 *             3.0.
+	 * 
+	 * @see CreateWebClassTemplateModel#getClassName()
+	 */
+	public String getServletClassName() {
+		return super.getClassName();
+	}
 
 	public boolean shouldGenInit() {
 		return implementImplementedMethod(INIT);
