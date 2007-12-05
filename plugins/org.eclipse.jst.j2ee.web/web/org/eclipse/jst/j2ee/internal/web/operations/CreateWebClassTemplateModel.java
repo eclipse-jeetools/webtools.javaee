@@ -38,10 +38,96 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class CreateWebClassTemplateModel {
 	
+	/**
+	 * Constant representing no compatibility flag.
+	 */
+	public static final int FLAG_NONE = 0x00000000;
+	
+	/**
+	 * Constant representing the <i>Qualified Superclass Name</i> compatibility
+	 * flag.
+	 * 
+	 * <p>
+	 * When this flag is set then the {@link #getSuperclassName()} method always
+	 * returns the qualified name of the superclass.
+	 * </p>
+	 * 
+	 * @see #getSuperclassName()
+	 */
+	public static final int FLAG_QUALIFIED_SUPERCLASS_NAME = 0x00000001;
+	
+	/**
+	 * Constant representing a combination of all possible compatibility flags.
+	 */
+	public static final int FLAG_ALL = 0xffffffff;
+	
 	protected IDataModel dataModel;
+	
+	/**
+	 * Compatibility flags. 
+	 * 
+	 * @see #addFlags(int)
+	 * @see #removeFlags(int)
+	 * @see #FLAG_NONE
+	 * @see #FLAG_QUALIFIED_SUPERCLASS_NAME
+	 * @see #FLAG_ALL
+	 */
+	protected int flags; 
 	
 	public CreateWebClassTemplateModel(IDataModel dataModel) {
 		this.dataModel = dataModel;
+		this.flags = FLAG_QUALIFIED_SUPERCLASS_NAME;
+	}
+	
+	/**
+	 * Adds compatibility flags represented by the given bitmask.
+	 * 
+	 * @param bitmask -
+	 *            represents the flags to add.
+	 *            
+	 * @see #addFlags(int)
+	 * @see #removeFlags(int)
+	 * @see #FLAG_NONE
+	 * @see #FLAG_QUALIFIED_SUPERCLASS_NAME
+	 * @see #FLAG_ALL
+	 */
+	public void addFlags(int bitmask) {
+		flags = flags | bitmask;
+	}
+	
+	/**
+	 * Removes compatibility flags represented by the given bitmask.
+	 * 
+	 * @param bitmask -
+	 *            represents the flags to remove.
+	 *            
+	 * @see #addFlags(int)
+	 * @see #removeFlags(int)
+	 * @see #FLAG_NONE
+	 * @see #FLAG_QUALIFIED_SUPERCLASS_NAME
+	 * @see #FLAG_ALL
+	 */
+	public void removeFlags(int bitmask) {
+		flags = flags & ~bitmask;
+	}
+	
+	/**
+	 * Check if compatibility flags, represented by the given bitmask, are set.
+	 * 
+	 * @param bitmask -
+	 *            represents the flags to check.
+	 * 
+	 * @return <code>true</code> - if all of the given flags are set,
+	 *         <code>false</code> - if any of the given flags is not set.  
+	 *            
+	 * @see #addFlags(int)
+	 * @see #removeFlags(int)
+	 * @see #FLAG_NONE
+	 * @see #FLAG_QUALIFIED_SUPERCLASS_NAME
+	 * @see #FLAG_ALL
+	 */
+	public boolean areFlagsSet(int bitmask) {
+		return (flags & bitmask) != 0;
 	}
 	
 	public Collection<String> getImports() {
@@ -50,7 +136,8 @@ public class CreateWebClassTemplateModel {
 		String className = getClassName();
 		String superclassName = getQualifiedSuperclassName();
 
-		if (superclassName != null && superclassName.length() > 0 && 
+		if (superclassName != null && superclassName.length() > 0 &&
+				!areFlagsSet(FLAG_QUALIFIED_SUPERCLASS_NAME) && 
 				!equalSimpleNames(className, superclassName) && 
 				!isImportInJavaLang(superclassName))
 			collection.add(superclassName);
@@ -93,7 +180,7 @@ public class CreateWebClassTemplateModel {
 
 	public String getSuperclassName() {
 		String qualified = getQualifiedSuperclassName();
-		if (equalSimpleNames(getClassName(), qualified)) {
+		if (areFlagsSet(FLAG_QUALIFIED_SUPERCLASS_NAME) || equalSimpleNames(getClassName(), qualified)) {
 			return qualified;
 		} else {
 			return Signature.getSimpleName(qualified);
