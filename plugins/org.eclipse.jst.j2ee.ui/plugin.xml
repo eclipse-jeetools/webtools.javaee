@@ -6,37 +6,6 @@
      id="archiveExportParticipantPanels" 
      name="Archive Export Participant Panels Extension Point" 
      schema="schema/archiveExportParticipantPanels.exsd"/>
-    
-<!-- ====================================================== -->
-<!--                                                        -->
-<!-- Purpose: Extension for the J2EE ACtion Sets            -->
-<!-- Extension point: org.eclipse.ui.actionSets             -->
-<!-- ====================================================== -->
-   <extension
-         point="org.eclipse.ui.actionSets">
-      <actionSet
-            label="%j2ee"
-            description="%j2ee.actions.description_ui_"
-            visible="false"
-            id="org.eclipse.jst.j2ee.J2eeMainActionSet">
-         <action
-               label="%create.client.module_ui_"
-               icon="icons/full/ctool16/newappclient_wiz.gif"
-               tooltip="%create.client.module_ui_"
-               class="org.eclipse.jst.j2ee.internal.actions.NewAppClientComponentAction"
-               toolbarPath="J2EEMain"
-               id="org.eclipse.jst.j2ee.internal.actions.NewAppClientComponent">
-         </action>
-         <action
-               label="%create.enterprise.application_ui_"
-               icon="icons/full/ctool16/newear_wiz.gif"
-               tooltip="%create.enterprise.application_ui_"
-               class="org.eclipse.jst.j2ee.internal.actions.NewEARComponentAction"
-               toolbarPath="J2EEMain"
-               id="org.eclipse.jst.j2ee.internal.actions.NewEARComponent">
-         </action>
-      </actionSet> 
-   </extension>
 
 <!--================================-->
 <!-- Project Wizard Contributions   -->
@@ -70,48 +39,54 @@
             name="%ear_component_ui_"
             icon="icons/full/ctool16/newear_wiz.gif"
             category="org.eclipse.jst.j2ee.internal"
-            class="org.eclipse.jst.j2ee.ui.project.facet.EarProjectWizard"
             project="true"
             finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
             id="org.eclipse.jst.j2ee.ui.project.facet.EarProjectWizard">
+         <class class="org.eclipse.jst.j2ee.ui.project.facet.EarProjectWizard">
+            <parameter name="javaeeproject" value="true" />
+            <parameter name="menuIndex" value="30" />
+         </class>
          <description>
             %new.ear.component.description_ui_
          </description>
          <selection
-               class="org.eclipse.core.resources.IResource">
-         </selection>
+               class="org.eclipse.core.resources.IResource" />
       </wizard>
 <!-- Application Client Component Wizard -->
       <wizard
             name="%appclient_component_ui_"
             icon="icons/full/ctool16/newappclient_wiz.gif"
             category="org.eclipse.jst.j2ee.internal"
-            class="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientProjectWizard"
             project="true"
             finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
             id="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientProjectWizard">
+         <class class="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientProjectWizard">
+            <parameter name="javaeeproject" value="true"/>
+            <parameter name="menuIndex" value="40" />
+         </class>
          <description>
             %new.appclient.component.description_ui_
          </description>
          <selection
-               class="org.eclipse.core.resources.IResource">
-         </selection>
+               class="org.eclipse.core.resources.IResource" />
       </wizard>
 <!-- Utility Component Wizard -->
       <wizard
       		name="%util-project-wizard-name"
       		icon="icons/util-wiz-icon.gif"
       		category="org.eclipse.jst.j2ee.internal"
-      		class="org.eclipse.jst.j2ee.ui.project.facet.UtilityProjectWizard"
       		project="true"
       		finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
       		id="org.eclipse.jst.j2ee.ui.project.facet.UtilityProjectWizard">
+      <class class="org.eclipse.jst.j2ee.ui.project.facet.UtilityProjectWizard">
+         <parameter name="javaeeproject" value="true"/>
+         <parameter name="menuIndex" value="60" />
+      </class>
       <description>
       	%util-project-wizard-description
       </description>
          <selection
-               class="org.eclipse.core.resources.IResource">
-         </selection>
+               class="org.eclipse.core.resources.IResource" />
     </wizard>
       
    </extension>

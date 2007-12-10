@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
-
-    
-<!-- ====================================================== -->
-<!--                                                        -->
-<!-- Purpose: Extension for the J2EE ACtion Sets            -->
-<!-- Extension point: org.eclipse.ui.actionSets             -->
-<!-- ====================================================== -->
+   <!-- Create Java EE Projects drop down toolbar button -->
    <extension
          point="org.eclipse.ui.actionSets">
       <actionSet
-            label="%web.category_ui_"
-            description="%web.actions.description_ui_"
+            label="%j2ee"
+            description="%j2ee.actions.description_ui_"
             visible="false"
-            id="org.eclipse.jst.j2ee.J2eeMainActionSet2">
-            <action
-               label="%create.web.module_ui_"
-               icon="icons/full/ctool16/newwar_wiz.gif"
-               tooltip="%create.web.module_ui_"
-               class="org.eclipse.jst.servlet.ui.internal.actions.NewWebComponentAction"
+            id="org.eclipse.jst.j2ee.J2eeMainActionSet">
+         <action
+               id="org.eclipse.jst.j2ee.internal.actions.NewJavaEEArtifact"
                toolbarPath="J2EEMain"
-               id="org.eclipse.jst.servlet.ui.internal.actions.NewWebComponent">
-         </action>
-      </actionSet>
-	</extension> 
-      
+               class="org.eclipse.jst.j2ee.internal.actions.NewJavaEEArtifactDropDownAction"
+               icon="icons/full/ctool16/newservlet_wiz.gif"
+               label="%ServletWebRegionWizard.name"
+               style="pulldown"
+               tooltip="%ServletWebRegionWizard.description" />
+         <action
+               id="org.eclipse.jst.j2ee.internal.actions.NewJavaEEProject"
+               toolbarPath="J2EEMain"
+               class="org.eclipse.jst.j2ee.internal.actions.NewJavaEEProjectDropDownAction"
+               icon="icons/full/ctool16/newwar_wiz.gif"
+               label="%web.project_ui_"
+               style="pulldown"
+               tooltip="%new.web.project.description_ui_" />
+      </actionSet> 
+   </extension>
+   
    <!-- Web Module Wizard -->
     <extension
          id="J2EEUIProjectWizards"
@@ -38,16 +40,18 @@
             name="%web.project_ui_"
             icon="icons/full/ctool16/newwar_wiz.gif"
             category="org.eclipse.wst.web.ui"
-            class="org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard"
             project="true"
             finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
             id="org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard">
+         <class class="org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard">
+            <parameter name="javaeeproject" value="true"/>
+            <parameter name="menuIndex" value="10" />
+         </class>
          <description>
             %new.web.project.description_ui_
          </description>
          <selection
-               class="org.eclipse.core.resources.IResource">
-         </selection>
+               class="org.eclipse.core.resources.IResource" />
       </wizard>
 
       <!--new servlet contribution-->
@@ -55,8 +59,11 @@
             name="%ServletWebRegionWizard.name"
             icon="icons/full/ctool16/newservlet_wiz.gif"
             category="org.eclipse.wst.web.ui"
-            class="org.eclipse.jst.servlet.ui.internal.wizard.AddServletWizard"
             id="org.eclipse.jst.servlet.ui.internal.wizard.AddServletWizard">
+         <class class="org.eclipse.jst.servlet.ui.internal.wizard.AddServletWizard">
+            <parameter name="javaeeartifact" value="true"/>
+            <parameter name="menuIndex" value="10" />
+         </class>
          <description>
             %ServletWebRegionWizard.description
          </description>
@@ -65,10 +72,13 @@
       <!--new filter contribution-->      
       <wizard
             category="org.eclipse.wst.web.ui"
-            class="org.eclipse.jst.servlet.ui.internal.wizard.AddFilterWizard"
             icon="icons/full/ctool16/newfilter_wiz.gif"
             id="org.eclipse.jst.servlet.ui.internal.wizard.AddFilterWizard"
             name="%FilterWebRegionWizard.name">
+         <class class="org.eclipse.jst.servlet.ui.internal.wizard.AddFilterWizard">
+            <parameter name="javaeeartifact" value="true"/>
+            <parameter name="menuIndex" value="20" />
+         </class>
          <description>
             %FilterWebRegionWizard.description
          </description>
@@ -79,8 +89,11 @@
             name="%ListenerWebRegionWizard.name"
             icon="icons/full/ctool16/newlistener_wiz.gif"
             category="org.eclipse.wst.web.ui"
-            class="org.eclipse.jst.servlet.ui.internal.wizard.AddListenerWizard"
             id="org.eclipse.jst.servlet.ui.internal.wizard.AddListenerWizard">
+         <class class="org.eclipse.jst.servlet.ui.internal.wizard.AddListenerWizard">
+            <parameter name="javaeeartifact" value="true"/>
+            <parameter name="menuIndex" value="30" />
+         </class>
          <description>
             %ListenerWebRegionWizard.description
          </description>

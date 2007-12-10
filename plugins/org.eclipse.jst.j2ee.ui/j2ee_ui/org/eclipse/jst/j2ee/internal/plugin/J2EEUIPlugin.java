@@ -29,6 +29,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.internal.wizard.ImportUtil;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -251,7 +252,14 @@ public class J2EEUIPlugin extends AbstractUIPlugin {
 
 	public static IWorkbench getPluginWorkbench() {
 		return getDefault().getWorkbench();
-
+	}
+	
+	public static Shell getActiveWorkbenchShell() {
+		 IWorkbenchWindow window = getActiveWorkbenchWindow();
+		 if (window != null) {
+		 	return window.getShell();
+		 }
+		 return null;
 	}
 
 	public static IStructuredSelection getCurrentSelection() {
