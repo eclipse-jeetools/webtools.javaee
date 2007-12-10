@@ -19,8 +19,11 @@
             name="%ejb.createbean_ui_"
             icon="icons/full/ctool16/newejb_wiz.gif"
             category="org.eclipse.jst.ejb.ui"
-            class="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards.AddEjbWizard"
             id="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards.AddEjbWizard">
+         <class class="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards.AddEjbWizard">
+            <parameter name="javaeeartifact" value="true"/>
+            <parameter name="menuIndex" value="40" />
+         </class>
          <description>
             %new.ejb.description_ui_
          </description>
