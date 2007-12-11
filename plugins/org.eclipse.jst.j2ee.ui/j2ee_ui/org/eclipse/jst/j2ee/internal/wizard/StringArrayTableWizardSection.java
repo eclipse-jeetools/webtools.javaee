@@ -273,8 +273,8 @@ public class StringArrayTableWizardSection extends Composite {
 	private Button addButton;
 	private Button editButton;
 	private Button removeButton;
-	private String title;
-	private String[] labelsForText;
+	private String dialogTitle;
+	private String[] fieldLabels;
 	private IDataModel model;
 	private String propertyName;
 	private Image labelProviderImage;
@@ -287,9 +287,14 @@ public class StringArrayTableWizardSection extends Composite {
 
 	public StringArrayTableWizardSection(Composite parent, String title, String addButtonLabel, String editButtonLabel, String removeButtonLabel, 
 			String[] labelsForText, Image labelProviderImage, IDataModel model, String propertyName) {
+		this(parent, title, title, addButtonLabel, editButtonLabel, removeButtonLabel, labelsForText, labelsForText, labelProviderImage, model, propertyName);
+	}
+
+	public StringArrayTableWizardSection(Composite parent, String componentLabel, String dialogTitle, String addButtonLabel, String editButtonLabel, String removeButtonLabel, 
+			String[] columnTitles, String[] fieldLabels, Image labelProviderImage, IDataModel model, String propertyName) {
 		super(parent, SWT.NONE);
-		this.title = title;
-		this.labelsForText = labelsForText;
+		this.dialogTitle = dialogTitle;
+		this.fieldLabels = fieldLabels;
 		this.labelProviderImage = labelProviderImage;
 		this.model = model;
 		this.propertyName = propertyName;
@@ -301,7 +306,7 @@ public class StringArrayTableWizardSection extends Composite {
 		this.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		Label titleLabel = new Label(this, SWT.LEFT);
-		titleLabel.setText(title);
+		titleLabel.setText(componentLabel);
 		GridData data = new GridData();
 		data.horizontalSpan = 2;
 		titleLabel.setLayoutData(data);
@@ -377,10 +382,10 @@ public class StringArrayTableWizardSection extends Composite {
 			});
 		}
 		
-		if (labelsForText.length > 1) {
-            for (int i = 0; i < labelsForText.length; i++) {
+		if (columnTitles.length > 1) {
+            for (int i = 0; i < columnTitles.length; i++) {
                 TableColumn tableColumn = new TableColumn(table, SWT.NONE);
-                tableColumn.setText(labelsForText[i]);
+                tableColumn.setText(columnTitles[i]);
             }
             table.setHeaderVisible(true);
             this.addControlListener(new ControlAdapter() {
@@ -432,7 +437,7 @@ public class StringArrayTableWizardSection extends Composite {
 	}
 
 	private void handleAddButtonSelected() {
-		AddStringArrayDialog dialog = new AddStringArrayDialog(getShell(), title, labelsForText);
+		AddStringArrayDialog dialog = new AddStringArrayDialog(getShell(), dialogTitle, fieldLabels);
 		dialog.open();
 		String[] stringArray = dialog.getStringArray();
 		addStringArray(stringArray);
@@ -449,7 +454,7 @@ public class StringArrayTableWizardSection extends Composite {
 		Object selectedObj = selection.getFirstElement();
 		String[] valuesForText = (String[]) selectedObj;
 		
-		EditStringArrayDialog dialog = new EditStringArrayDialog(getShell(), title, labelsForText, valuesForText);
+		EditStringArrayDialog dialog = new EditStringArrayDialog(getShell(), dialogTitle, fieldLabels, valuesForText);
 		dialog.open();
 		String[] stringArray = dialog.getStringArray();
 		editStringArray(valuesForText, stringArray);

@@ -62,9 +62,18 @@ public class AddFilterWizardPage extends DataModelWizardPage {
 		createNameDescription(composite);
 		
 		StringArrayTableWizardSectionCallback callback = new StringArrayTableWizardSectionCallback();
-		StringArrayTableWizardSection initSection = new StringArrayTableWizardSection(composite, IWebWizardConstants.INIT_PARAM_LABEL, IWebWizardConstants.ADD_BUTTON_LABEL, IWebWizardConstants.EDIT_BUTTON_LABEL, 
-				IWebWizardConstants.REMOVE_BUTTON_LABEL, new String[]{IWebWizardConstants.NAME_LABEL, IWebWizardConstants.VALUE_LABEL, IWebWizardConstants.DESCRIPTION_LABEL}, null,// WebPlugin.getDefault().getImage("initializ_parameter"),
-				model, INewFilterClassDataModelProperties.INIT_PARAM);
+		StringArrayTableWizardSection initSection = new StringArrayTableWizardSection(
+				composite, 
+				IWebWizardConstants.INIT_PARAM_LABEL, 
+				IWebWizardConstants.INIT_PARAM_TITLE, 
+				IWebWizardConstants.ADD_BUTTON_LABEL, 
+				IWebWizardConstants.EDIT_BUTTON_LABEL, 
+				IWebWizardConstants.REMOVE_BUTTON_LABEL, 
+				new String[] { IWebWizardConstants.NAME_TITLE, IWebWizardConstants.VALUE_TITLE, IWebWizardConstants.DESCRIPTION_TITLE }, 
+				new String[] { IWebWizardConstants.NAME_LABEL, IWebWizardConstants.VALUE_LABEL, IWebWizardConstants.DESCRIPTION_LABEL }, 
+				null,// WebPlugin.getDefault().getImage("initializ_parameter"),
+				model, 
+				INewFilterClassDataModelProperties.INIT_PARAM);
 		initSection.setCallback(callback);
 		
 		String[] buttons = new String[] {

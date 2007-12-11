@@ -23,6 +23,7 @@ public class WEBUIMessages extends NLS {
 
 	public static String NEW_SERVLET_WIZARD_PAGE_TITLE;
 	public static String FOLDER_LABEL;
+	public static String URL_MAPPINGS_TITLE;
 	public static String URL_MAPPINGS_LABEL;
 	public static String SERVLET_MAPPINGS_LABEL;
 	public static String FILTER_MAPPINGS_LABEL;
@@ -54,6 +55,7 @@ public class WEBUIMessages extends NLS {
 	public static String WEB_CONT_NAME;
 	public static String URL_PATTERN_TITLE;
 	public static String CONTAINER_SELECTION_DIALOG_VALIDATOR_MESG;
+	public static String DESCRIPTION_TITLE;
 	public static String DESCRIPTION_LABEL;
 	public static String USE_EXISTING_SERVLET_CLASS;
     public static String USE_EXISTING_FILTER_CLASS;
@@ -81,6 +83,7 @@ public class WEBUIMessages extends NLS {
 	public static String _3;
 	public static String _2;
 	public static String _1;
+	public static String INIT_PARAM_TITLE;
 	public static String INIT_PARAM_LABEL;
 	public static String SERVLET_NAME_LABEL;
 	public static String _0;
@@ -103,7 +106,9 @@ public class WEBUIMessages extends NLS {
 	public static String NEW_SERVLET_WIZARD_WINDOW_TITLE;
     public static String NEW_FILTER_WIZARD_WINDOW_TITLE;
 	public static String INTERFACE_SELECTION_DIALOG_TITLE;
+	public static String NAME_TITLE;
 	public static String NAME_LABEL;
+	public static String VALUE_TITLE;
 	public static String VALUE_LABEL;
 	public static String WEB_CONT_PAGE_COMP_LABEL;
 	public static String CHOOSE_SERVLET_CLASS;

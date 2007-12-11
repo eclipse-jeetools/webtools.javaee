@@ -25,7 +25,9 @@ public interface IWebWizardConstants {
 	public final static String EMPTY_LIST_MSG = WEBUIMessages.EMPTY_LIST_MSG;
 	public final static String ADD_LABEL = WEBUIMessages.ADD_LABEL;
 	public final static String USE_EXISTING_SERVLET_CLASS = WEBUIMessages.USE_EXISTING_SERVLET_CLASS;
+	public final static String INIT_PARAM_TITLE = WEBUIMessages.INIT_PARAM_TITLE;
 	public final static String INIT_PARAM_LABEL = WEBUIMessages.INIT_PARAM_LABEL;
+	public final static String URL_MAPPINGS_TITLE = WEBUIMessages.URL_MAPPINGS_TITLE;
 	public final static String URL_MAPPINGS_LABEL = WEBUIMessages.URL_MAPPINGS_LABEL;
 	public final static String CHOOSE_SERVLET_CLASS = WEBUIMessages.CHOOSE_SERVLET_CLASS;
 	
@@ -101,9 +103,12 @@ public interface IWebWizardConstants {
 	public final static String JAVA_CLASS_INHERIT_CHECKBOX_LABEL = WEBUIMessages.JAVA_CLASS_INHERIT_CHECKBOX_LABEL;
 	public final static String JAVA_CLASS_BROWER_DIALOG_TITLE = WEBUIMessages.JAVA_CLASS_BROWER_DIALOG_TITLE;
 	public final static String JAVA_CLASS_BROWER_DIALOG_MESSAGE = WEBUIMessages.JAVA_CLASS_BROWER_DIALOG_MESSAGE;
-	
+
+	public final static String NAME_TITLE = WEBUIMessages.NAME_TITLE;
 	public final static String NAME_LABEL = WEBUIMessages.NAME_LABEL;
+	public final static String DESCRIPTION_TITLE = WEBUIMessages.DESCRIPTION_TITLE;
 	public final static String DESCRIPTION_LABEL = WEBUIMessages.DESCRIPTION_LABEL;
+	public final static String VALUE_TITLE = WEBUIMessages.VALUE_TITLE;
 	public final static String VALUE_LABEL = WEBUIMessages.VALUE_LABEL;
 	public final static String EMPTY_STRING = ""; //$NON-NLS-1$
 	public final static String BROWSE_BUTTON_LABEL = WEBUIMessages.BROWSE_BUTTON_LABEL;
