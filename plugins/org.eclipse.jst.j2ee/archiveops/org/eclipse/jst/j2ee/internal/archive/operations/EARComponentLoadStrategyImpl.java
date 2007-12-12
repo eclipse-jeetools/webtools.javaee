@@ -32,6 +32,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipFileLoadStrat
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
@@ -165,8 +166,8 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 				final IVirtualReference ref = cpRefs[j];
 				// only ../ runtime paths contribute to the EAR
 				if (ref.getRuntimePath().equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
-					if (ref.getReferencedComponent() instanceof VirtualArchiveComponent) {
-						final VirtualArchiveComponent comp = (VirtualArchiveComponent) ref.getReferencedComponent();
+					if (ref.getReferencedComponent() instanceof ClasspathDependencyVirtualComponent) {
+						final ClasspathDependencyVirtualComponent comp = (ClasspathDependencyVirtualComponent) ref.getReferencedComponent();
 						File cpEntryFile = comp.getUnderlyingDiskFile();
 						if (!cpEntryFile.exists()) {
 							final IFile wbFile = comp.getUnderlyingWorkbenchFile();

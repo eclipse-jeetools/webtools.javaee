@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
@@ -44,6 +45,9 @@ public class WebComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 	public List <IArchiveResource> getArchiveResources() {
 		super.getArchiveResources();
 		addLooseLibJARsToFiles();
+		if (includeClasspathComponents) {
+			addMappedClassFolders(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_COMPONENT_PATH);		
+		}
 		return filesHolder.getFiles();
 	}
 
@@ -122,9 +126,9 @@ public class WebComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 				final IPath runtimePath = ref.getRuntimePath();
 				
 				// only process ../ mappings
-				if (ref.getReferencedComponent() instanceof VirtualArchiveComponent
+				if (ref.getReferencedComponent() instanceof ClasspathDependencyVirtualComponent
 						&& runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
-					final VirtualArchiveComponent comp = (VirtualArchiveComponent) ref.getReferencedComponent();
+					final ClasspathDependencyVirtualComponent comp = (ClasspathDependencyVirtualComponent) ref.getReferencedComponent();
 					File cpEntryFile = comp.getUnderlyingDiskFile();
 					if (!cpEntryFile.exists()) {
 						final IFile wbFile = comp.getUnderlyingWorkbenchFile();

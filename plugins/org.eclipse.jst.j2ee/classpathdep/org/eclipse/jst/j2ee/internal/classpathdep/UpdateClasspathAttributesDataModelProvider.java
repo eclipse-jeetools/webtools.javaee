@@ -34,6 +34,7 @@ public class UpdateClasspathAttributesDataModelProvider extends AbstractDataMode
 		propertyNames.add(ENTRIES_WITH_ATTRIBUTE);
 		propertyNames.add(ENTRIES_TO_ADD_ATTRIBUTE);
 		propertyNames.add(ENTRIES_TO_REMOVE_ATTRIBUTE);
+		propertyNames.add(MODIFY_CLASSPATH_COMPONENT_DEPENDENCY);
 		return propertyNames;
 	}
 
@@ -43,6 +44,8 @@ public class UpdateClasspathAttributesDataModelProvider extends AbstractDataMode
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(ENTRIES_WITH_ATTRIBUTE)) {
 			return new ArrayList();
+		} else if (propertyName.equals(MODIFY_CLASSPATH_COMPONENT_DEPENDENCY)) {
+			return Boolean.TRUE;
 		}
 		return super.getDefaultProperty(propertyName);
 	}

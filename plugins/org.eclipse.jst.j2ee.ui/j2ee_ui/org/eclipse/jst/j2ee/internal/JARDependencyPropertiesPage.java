@@ -874,7 +874,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 			if (element.isClasspathEntry() && element.isSelected()) {
 				final IClasspathEntry entry = element.getClasspathEntry();
 				final IClasspathAttribute attrib = ClasspathDependencyUtil.checkForComponentDependencyAttribute(entry);
-				final IPath runtimePath = ClasspathDependencyUtil.getRuntimePath(attrib, isWebApp);
+				final IPath runtimePath = ClasspathDependencyUtil.getRuntimePath(attrib, isWebApp, ClasspathDependencyUtil.isClassFolderEntry(entry));
 				entriesToRuntimePath.put(entry, runtimePath);
 			}
 		}

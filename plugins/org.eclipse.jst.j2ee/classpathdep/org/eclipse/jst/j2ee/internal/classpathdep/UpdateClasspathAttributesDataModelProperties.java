@@ -32,11 +32,16 @@ public interface UpdateClasspathAttributesDataModelProperties extends IClasspath
 	public static final String ENTRIES_TO_ADD_ATTRIBUTE = "UpdateClasspathAttributesDataModel.ENTRIES_TO_ADD_ATTRIBUTE"; //$NON-NLS-1$
 	
 	/**
-	 * Classpath entries to which the component dependency attribute should be added. 
+	 * Classpath entries to which the component dependency attribute should be removed. 
 	 * Map from IClasspathEntry to runtime IPath. If this property is specified, ENTRIES_WITH_ATTRIBUTE will be ignored. This attribute will be ignored if ENTRIES_TO_ADD_ATTRIBUTE is specified.
 	 */
 	public static final String ENTRIES_TO_REMOVE_ATTRIBUTE = "UpdateClasspathAttributesDataModel.ENTRIES_TO_REMOVE_ATTRIBUTE"; //$NON-NLS-1$
 
+	/**
+	 * Flag used to determine if the "org.eclipse.jst.component.dependency" or the "org.eclipse.jst.component.nondependency" attribute is being added/removed.
+	 * Will be true if the "org.eclipse.jst.component.dependency" attribute is being modified. Defaults to true.
+	 */
+	public static final String MODIFY_CLASSPATH_COMPONENT_DEPENDENCY = "UpdateClasspathAttributesDataModel.MODIFY_CLASSPATH_COMPONENT_DEPENDENCY"; //$NON-NLS-1$
 	
 	
 }

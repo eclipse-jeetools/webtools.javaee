@@ -43,6 +43,7 @@ import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
 import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyManifestUtil;
+import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -143,15 +144,18 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 		// If the component module is an EAR we know all archives are filtered out of virtual component members
 		// and we will return only those archives which are not binary J2EE modules in the EAR DD.  These J2EE modules will
 		// be returned by getChildModules()
-		if (J2EEProjectUtilities.isEARProject(component.getProject()))
+		if (J2EEProjectUtilities.isEARProject(component.getProject())) {
 			return virtualComp != null && virtualComp.isBinary() && !isNestedJ2EEModule(virtualComp, references, (EARArtifactEdit)edit);
-		else 
+		} else { 
 			return super.shouldIncludeUtilityComponent(virtualComp, references, edit);
+		}
 	}
 	
 	protected void addUtilMember(IVirtualComponent parent, IVirtualReference reference, IPath runtimePath) {
-		// do not add classpath dependencies whose runtime path (../) maps to the parent component
-		if (!runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
+		// do not add classpath dependencies whose runtime path (../) maps to the parent component or that represent
+		// class folders
+		if (!runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH) 
+				&& !ClasspathDependencyUtil.isClassFolderReference(reference)) {
 			super.addUtilMember(parent, reference, runtimePath);
 		}
 	}
@@ -188,6 +192,8 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 			if (canExportClasspathComponentDependencies(component)){
 				saveClasspathDependencyURIs(component);
 			}
+			// Add all Java output folders that have publish/export attributes
+			addClassFolderDependencies(component);
 		}
 		
 		// If j2ee project structure is a single root structure, just return optimized members
@@ -206,7 +212,11 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 					}
 				}
 			}
-			return resources;
+			// add to any potentially mapped Java class folders
+			for (int i = 0; i < resources.length; i++) {
+				members.add(resources[i]);
+			}
+			return (IModuleResource[]) members.toArray(new IModuleResource[members.size()]);
 		}
 		
 		cachedSourceContainers = J2EEProjectUtilities.getSourceContainers(getProject());
@@ -236,7 +246,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 					members.add(mr[j]);
 				}
 			}
-			
+									
 			if (component != null) {
 				addUtilMembers(component);
 				List consumableMembers = getConsumableReferencedMembers(component);
@@ -687,15 +697,19 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				final IVirtualReference[] cpRefs = ((J2EEModuleVirtualComponent) referencedComponent).getJavaClasspathReferences();
 				for (int j = 0; j < cpRefs.length; j++) {
 					final IVirtualReference cpRef = cpRefs[j];
-
 					IPath cpRefRuntimePath = cpRef.getRuntimePath();
-					// only process references with ../ mapping
-					if (cpRefRuntimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
-						// runtime path within deployed app will be runtime path of parent component
-						cpRefRuntimePath = runtimePath;
-					} 
-					if (cpRef.getReferencedComponent() instanceof VirtualArchiveComponent) {
+
+					if (cpRef.getReferencedComponent() instanceof ClasspathDependencyVirtualComponent) {
 						// want to avoid adding dups
+						ClasspathDependencyVirtualComponent cpComp = (ClasspathDependencyVirtualComponent) cpRef.getReferencedComponent();
+						// don't want to process class folder refs here
+						if (cpComp.isClassFolder()) {
+							continue;
+						}
+						if (cpRefRuntimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
+							// runtime path within deployed app will be runtime path of parent component
+							cpRefRuntimePath = runtimePath;
+						} 						
 						final IPath absolutePath = ClasspathDependencyUtil.getClasspathVirtualReferenceLocation(cpRef);
 						if (absolutePaths.contains(absolutePath)) {
 							// have already added a member for this archive
@@ -734,6 +748,35 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				}
 				if (cpRef.getReferencedComponent() instanceof VirtualArchiveComponent) {
 					classpathComponentDependencyURIs.add(cpRef.getArchiveName());
+				}
+			}
+		}
+	}
+	
+	private void addClassFolderDependencies(final IVirtualComponent component) throws CoreException {
+		if (!component.isBinary() && component instanceof J2EEModuleVirtualComponent) {
+			final IVirtualReference[] cpRefs = ((J2EEModuleVirtualComponent) component).getJavaClasspathReferences();
+			for (int i = 0; i < cpRefs.length; i++) {
+				final IVirtualReference cpRef = cpRefs[i];
+				final IPath runtimePath = cpRef.getRuntimePath();
+				final IVirtualComponent comp = cpRef.getReferencedComponent();
+				if (comp instanceof ClasspathDependencyVirtualComponent) {
+					final ClasspathDependencyVirtualComponent cpComp = (ClasspathDependencyVirtualComponent) comp;
+					if (cpComp.isClassFolder()) {
+						IPath targetPath = null;
+						if (runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_COMPONENT_PATH)) {
+							targetPath = Path.EMPTY;
+						} else if (runtimePath.equals(IClasspathDependencyConstants.WEB_INF_CLASSES_PATH)) {
+							targetPath =  WEB_CLASSES_PATH;
+						} else {
+							continue;
+						}
+						final IContainer container = cpComp.getClassFolder();
+						final IModuleResource[] mr = getMembers(container, targetPath, targetPath, new IContainer[]{container});
+						for (int j = 0; j < mr.length; j++) {
+							members.add(mr[j]);
+						}						
+					}
 				}
 			}
 		}

@@ -645,7 +645,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		try {
 			IClasspathContainer container = J2EEComponentClasspathUpdater.getInstance().getWebAppLibrariesContainer(component.getProject(), true);
 			IClasspathEntry[] containerEntries = null != container ? container.getClasspathEntries() : null;
-			IPath libPath = new Path("/WEB-INF/lib"); //$NON-NLS-1$
+			IPath libPath = new Path(J2EEConstants.WEB_INF_LIB).makeAbsolute();
 
 			HashSet hs = new HashSet();
 			hs.addAll(J2EEProjectUtilities.getAllJavaNonFlexProjects());
@@ -796,7 +796,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 				
 				// Add elements for raw classpath entries (either already tagged or potentially taggable) 
 				try {
-					classPathWLPSelection.createClasspathEntryElements(component, libPath);
+					classPathWLPSelection.createClasspathEntryElements(component, libPath, new Path(J2EEConstants.WEB_INF_CLASSES).makeAbsolute());
 				} catch (CoreException ce) {
 					Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(ce);
 				}

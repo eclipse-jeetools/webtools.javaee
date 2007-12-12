@@ -12,7 +12,6 @@
 package org.eclipse.jst.j2ee.internal.web.operations;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 

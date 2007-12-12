@@ -23,7 +23,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public class J2EEModuleVirtualArchiveComponent extends VirtualArchiveComponent {
 
-	private static final IVirtualReference[] NO_REFERENCES = new VirtualReference[0];
+	protected static final IVirtualReference[] NO_REFERENCES = new VirtualReference[0];
 
 	protected String[] manifestClasspath;
 

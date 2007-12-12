@@ -55,6 +55,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyManifestUtil;
+import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
@@ -233,6 +234,36 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		return filesHolder.getFiles();
 	}
 	
+	/**
+	 * Adds library cp entries that point to class folders and have been tagged with the publish/export attribute.
+	 */
+	protected void addMappedClassFolders(final IPath targetRuntimePath) {
+		// retrieve all mapped class folders
+		if (vComponent instanceof J2EEModuleVirtualComponent) {
+			try {
+				final J2EEModuleVirtualComponent j2eeComponent = (J2EEModuleVirtualComponent) vComponent;
+				final IVirtualReference[] cpRefs = j2eeComponent.getJavaClasspathReferences();
+				for (int j = 0; j < cpRefs.length; j++) {
+					final IVirtualReference ref = cpRefs[j];
+					final IPath runtimePath = ref.getRuntimePath();
+					// only process mappings with the specified runtime path
+					if (ref.getReferencedComponent() instanceof ClasspathDependencyVirtualComponent
+							&& runtimePath.equals(targetRuntimePath)) {
+						final ClasspathDependencyVirtualComponent comp = (ClasspathDependencyVirtualComponent) ref.getReferencedComponent();
+						if (comp.isClassFolder()) {
+							final IContainer classFolder = comp.getClassFolder();
+							if (classFolder != null && classFolder.exists()) {
+								aggregateOutputFiles(new IResource[]{classFolder}, runtimePath.makeRelative(), classFolder.getProjectRelativePath().segmentCount());
+							}
+						}
+					}
+				}
+			} catch (CoreException e) {
+				Logger.getLogger().logError(e);
+			}
+		}
+	}
+	
     protected void saveJavaClasspathReferences() {
         if (vComponent instanceof J2EEModuleVirtualComponent) {
         	final J2EEModuleVirtualComponent j2eeComp = (J2EEModuleVirtualComponent) vComponent;
@@ -253,7 +284,6 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		for (int i = 0; i < components.length; i++) {
 			IVirtualReference reference = components[i];
 			IVirtualComponent referencedComponent = reference.getReferencedComponent();
-
 			if (referencedComponent.isBinary() && reference.getDependencyType() == DependencyType.CONSUMES) {
 				java.io.File diskFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingDiskFile();
 				ZipFile zipFile;
@@ -311,7 +341,6 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 						outputPath = javaProject.getOutputLocation();
 					}
 				}
-
 				if (outputPath != null) {
 					IContainer javaOutputContainer = outputPath.segmentCount() > 1 ? (IContainer) ResourcesPlugin.getWorkspace().getRoot().getFolder(outputPath) : (IContainer) ResourcesPlugin.getWorkspace().getRoot().getProject(outputPath.lastSegment());
 					IPath runtimePath = null;
@@ -336,10 +365,9 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 					if (null == runtimePath) {
 						runtimePath = new Path(""); //$NON-NLS-1$
 					}
-
 					aggregateOutputFiles(new IResource[]{javaOutputContainer}, runtimePath, javaOutputContainer.getProjectRelativePath().segmentCount());
 				}
-			}
+			}				
 		} catch (CoreException e) {
 			Logger.getLogger().logError(e);
 		} finally {
@@ -348,7 +376,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 			}
 		}
 	}
-
+	
 	protected boolean aggregateOutputFiles(IResource[] resources, final IPath runtimePathPrefix, int outputFolderSegmentCount) throws CoreException {
 		boolean fileAdded = false;
 		for (int i = 0; i < resources.length; i++) {

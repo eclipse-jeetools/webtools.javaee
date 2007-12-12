@@ -42,6 +42,9 @@ public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 	public List getFiles() {
 		super.getFiles();
 		addLooseLibJARsToFiles();
+		if (includeClasspathComponents) {
+			addMappedClassFolders(IClasspathDependencyConstants.WEB_INF_CLASSES_PATH);
+		}
 		return filesHolder.getFiles();
 	}
 

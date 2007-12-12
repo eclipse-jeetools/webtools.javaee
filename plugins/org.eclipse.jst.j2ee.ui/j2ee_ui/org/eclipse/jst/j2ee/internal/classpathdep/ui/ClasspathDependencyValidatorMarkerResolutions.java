@@ -56,7 +56,7 @@ public final class ClasspathDependencyValidatorMarkerResolutions implements IMar
 		
 		if (ClasspathDependencyValidator.AppClientProject.equals(messageId)) {
 			// can apply to multiple cp entries so not currently supporting a quick fix...
-		} else if (ClasspathDependencyValidator.ClassFolderEntry.equals(messageId)) {
+		} else if (ClasspathDependencyValidator.DuplicateClassFolderEntry.equals(messageId)) {
 			// quick fix removes the dependency
 			return new IMarkerResolution[] { new UpdateClasspathDependencyAttributeResolution(cpEntryPath, false) };			
 		} else if (ClasspathDependencyValidator.DuplicateArchiveName.equals(messageId)) {
@@ -73,7 +73,8 @@ public final class ClasspathDependencyValidatorMarkerResolutions implements IMar
 			return new IMarkerResolution[] { new UpdateClasspathDependencyAttributeResolution(cpEntryPath, false) };			
 		} else if (ClasspathDependencyValidator.NonTaggedExportedClasses.equals(messageId)) {
 			// quick fix adds the dependency
-			return new IMarkerResolution[] { new UpdateClasspathDependencyAttributeResolution(cpEntryPath, true) };	
+			return new IMarkerResolution[] { new UpdateClasspathDependencyAttributeResolution(cpEntryPath, true),
+					new AddClasspathNonDependencyAttributeResolution(cpEntryPath)};	
 		} else if (ClasspathDependencyValidator.ProjectClasspathEntry.equals(messageId)) {
 			// quick fix removes the dependency
 			return new IMarkerResolution[] { new UpdateClasspathDependencyAttributeResolution(cpEntryPath, false) };	
@@ -140,9 +141,38 @@ public final class ClasspathDependencyValidatorMarkerResolutions implements IMar
         }        
     }
     
+	/* Resolution that adds the classpath nondependency attribute */
+    private static final class AddClasspathNonDependencyAttributeResolution implements IMarkerResolution {
+        private final String cpEntryPath;
+        public AddClasspathNonDependencyAttributeResolution(final String cpEntryPath) {
+            this.cpEntryPath = cpEntryPath;
+        }
+        
+        public String getLabel() {
+        	return Resources.addClasspathNonDependencyAttribute;	
+        }
+
+        public void run(final IMarker marker) {
+    	    final IProject proj = marker.getResource().getProject();
+	    	try {
+	    		final IClasspathEntry cpEntry = getClasspathEntryForMarker(marker, cpEntryPath);
+	    		UpdateClasspathAttributeUtil.addNonDependencyAttribute(null, proj.getName(), cpEntry);
+	    	} catch (CoreException ce){
+                ErrorDialog.openError(null, Resources.errorDialogTitle,
+                		Resources.errorDialogMessage,
+                		ce.getStatus());
+	    	} catch (ExecutionException ee){
+	    		ErrorDialog.openError(null, Resources.errorDialogTitle,
+	    				Resources.errorDialogMessage,
+	    				new Status(IStatus.ERROR, J2EEUIPlugin.PLUGIN_ID, 0, ee.getLocalizedMessage(), ee)); 
+	    	}
+        }        
+    }
+    
     private static final class Resources extends NLS {
         public static String removeClasspathDependencyAttribute;
         public static String addClasspathDependencyAttribute;
+        public static String addClasspathNonDependencyAttribute;
         public static String errorDialogTitle;
         public static String errorDialogMessage;
         

@@ -54,6 +54,7 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 				final IJavaProject javaProject = JavaCore.create(project);
 				validateEdit(project);
 				final Map entriesToAdd = (Map) model.getProperty(ENTRIES_TO_ADD_ATTRIBUTE);
+				final boolean modifyComponentDep = model.getBooleanProperty(MODIFY_CLASSPATH_COMPONENT_DEPENDENCY);
 				if (entriesToAdd == null) {
 					final Map entriesToRemove = (Map ) model.getProperty(ENTRIES_TO_REMOVE_ATTRIBUTE);
 					if (entriesToRemove == null) {
@@ -63,18 +64,24 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 						while (i.hasNext()) {
 							IClasspathEntry entry = (IClasspathEntry) i.next();
 							IPath runtimePath = (IPath) entriesToRuntimePath.get(entry);
-							IClasspathAttribute attrib = ClasspathDependencyUtil.checkForComponentDependencyAttribute(entry);
+							IClasspathAttribute attrib = ClasspathDependencyUtil.checkForComponentDependencyAttribute(entry, 
+									modifyComponentDep ? DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY : DependencyAttributeType.CLASSPATH_COMPONENT_NONDEPENDENCY);
 							if (attrib == null) {
-								attrib = UpdateClasspathAttributeUtil.createDependencyAttribute(runtimePath); 
+								if (modifyComponentDep) {
+									attrib = UpdateClasspathAttributeUtil.createDependencyAttribute(runtimePath);
+								} else {
+									attrib = UpdateClasspathAttributeUtil.createNonDependencyAttribute();
+								}
 							}
 							entriesToAttrib.put(entry, attrib);
 						}
-						updateDependencyAttributes(javaProject, entriesToAttrib); 
+						updateDependencyAttributes(javaProject, entriesToAttrib, modifyComponentDep); 
 					} else {
-						removeDependencyAttributes(javaProject, entriesToRemove); 
+						removeDependencyAttributes(javaProject, entriesToRemove, modifyComponentDep); 
 					}
 				} else {
-					addDependencyAttributes(javaProject, entriesToAdd); 
+					
+					addDependencyAttributes(javaProject, entriesToAdd, modifyComponentDep); 
 				}
 			}
 		} catch (CoreException ce) {
@@ -100,23 +107,25 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 	 * Adds the WTP component dependency attribute to the specified classpath entries.
 	 * @param javaProject Target Java project.
 	 * @param entries Classpath entries to which the component dependency attribute should be added.
+ 	 * @param modifyComponentDep True if adding the dependency attribute, false if adding the non-dependency attribute.
 	 * @throws CoreException Thrown if an error is encountered.
 	 */	
-	private void addDependencyAttributes(final IJavaProject javaProject, final Map entries) throws CoreException {
-		alterDependencyAttributes(javaProject, entries, true);
+	private void addDependencyAttributes(final IJavaProject javaProject, final Map entries, final boolean modifyComponentDep) throws CoreException {
+		alterDependencyAttributes(javaProject, entries, true, modifyComponentDep);
 	}
 	
 	/**
 	 * Removes the WTP component dependency attribute from the specified classpath entries.
 	 * @param javaProject Target Java project.
 	 * @param entries Classpath entries from which the component dependency attribute should be removed.
+	 * @param modifyComponentDep True if removing the dependency attribute, false if removing the non-dependency attribute.
 	 * @throws CoreException Thrown if an error is encountered.
 	 */	
-	private void removeDependencyAttributes(final IJavaProject javaProject, final Map entries) throws CoreException {
-		alterDependencyAttributes(javaProject, entries, false);
+	private void removeDependencyAttributes(final IJavaProject javaProject, final Map entries, final boolean modifyComponentDep) throws CoreException {
+		alterDependencyAttributes(javaProject, entries, false, modifyComponentDep);
 	}
 
-	private void alterDependencyAttributes(final IJavaProject javaProject, final Map entries, final boolean add) throws CoreException {
+	private void alterDependencyAttributes(final IJavaProject javaProject, final Map entries, final boolean add, final boolean modifyComponentDep) throws CoreException {
 		// initialize to the set of raw entries with the attrib
 		final Map entriesWithAttrib = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProject);
 		
@@ -129,9 +138,14 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 					if (runtimePath == null) {
 						// compute the default runtime path
 						final boolean isWebApp = J2EEProjectUtilities.isDynamicWebProject(javaProject.getProject());
-						runtimePath = ClasspathDependencyUtil.getDefaultRuntimePath(isWebApp);
+						runtimePath = ClasspathDependencyUtil.getDefaultRuntimePath(isWebApp, ClasspathDependencyUtil.isClassFolderEntry(entry));
 					}
-					final IClasspathAttribute attrib =  UpdateClasspathAttributeUtil.createDependencyAttribute(runtimePath);
+					IClasspathAttribute attrib = null;
+					if (modifyComponentDep) {
+						attrib = UpdateClasspathAttributeUtil.createDependencyAttribute(runtimePath);
+					} else {
+						attrib = UpdateClasspathAttributeUtil.createNonDependencyAttribute();
+					}
  					entriesWithAttrib.put(entry, attrib);
 				}
 			} else {
@@ -141,7 +155,7 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 				}
 			}
 		}
-		updateDependencyAttributes(javaProject, entriesWithAttrib);
+		updateDependencyAttributes(javaProject, entriesWithAttrib, modifyComponentDep);
 	}
 	
 	private IClasspathEntry getMatchingEntryIgnoreAttributes(final Map entries, final IClasspathEntry entry) {
@@ -164,9 +178,10 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 	 * @param javaProject Target Java project.
 	 * @param entries Classpath entries that should have the component dependency attribute. Map from IClasspathEntry
 	 * to the IClasspathAttribute for the WTP classpath component dependency.
+	 * @param modifyComponentDep True if modifying the dependency attribute, false if modifying the non-dependency attribute.
 	 * @throws CoreException Thrown if an error is encountered.
 	 */	
-	private void updateDependencyAttributes(final IJavaProject javaProject, final Map entriesWithAttrib) throws CoreException {
+	private void updateDependencyAttributes(final IJavaProject javaProject, final Map entriesWithAttrib, final boolean modifyComponentDep) throws CoreException {
 		if (javaProject == null || !javaProject.getProject().isAccessible()) {
 			return;
 		}
@@ -174,11 +189,15 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 		final List updatedClasspath = new ArrayList();
 		final IClasspathEntry[] rawClasspath = javaProject.getRawClasspath();
 		boolean needToUpdateClasspath = false;
-		IClasspathAttribute attrib = UpdateClasspathAttributeUtil.createDependencyAttribute();  
+		IClasspathAttribute attrib = UpdateClasspathAttributeUtil.createDependencyAttribute();
+		if (!modifyComponentDep) {
+			attrib = UpdateClasspathAttributeUtil.createNonDependencyAttribute();
+		}
 		for (int i = 0; i < rawClasspath.length; i++) {
 			IClasspathEntry entry = rawClasspath[i];
 			final int kind = entry.getEntryKind();
-			boolean hasAttribute = ClasspathDependencyUtil.checkForComponentDependencyAttribute(entry) != null;
+			boolean hasAttribute = ClasspathDependencyUtil.checkForComponentDependencyAttribute(entry, 
+					modifyComponentDep ? DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY : DependencyAttributeType.CLASSPATH_COMPONENT_NONDEPENDENCY) != null;
 			boolean shouldHaveAttribute = entriesWithAttrib.containsKey(entry);
 			boolean updateAttributes = false;
 			IClasspathAttribute[] updatedAttributes = null;

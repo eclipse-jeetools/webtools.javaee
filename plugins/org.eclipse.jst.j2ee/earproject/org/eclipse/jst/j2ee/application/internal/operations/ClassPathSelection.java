@@ -298,7 +298,7 @@ public class ClassPathSelection {
 		return newComponent;
 	}
 	
-	public ClasspathElement[] createClasspathEntryElements(final IVirtualComponent comp, final IPath targetRuntimePath) throws CoreException {
+	public ClasspathElement[] createClasspathEntryElements(final IVirtualComponent comp, final IPath archiveRuntimePath, final IPath classFolderRuntimePath) throws CoreException {
 		final List elements = new ArrayList();
 		if (comp != null && comp.getProject().isAccessible()) {
 			final IProject project = comp.getProject();
@@ -311,9 +311,10 @@ public class ClassPathSelection {
 				while (i.hasNext()) {
 					final IClasspathEntry entry = (IClasspathEntry) i.next();
 					final IClasspathAttribute attrib = (IClasspathAttribute) taggedEntries.get(entry);
-					final IPath runtimePath = ClasspathDependencyUtil.getRuntimePath(attrib, isWebApp);
-					// if runtime path does not match target runtime path, skip
-					if (runtimePath != null && !runtimePath.equals(targetRuntimePath)) {
+					final boolean isClassFolder = ClasspathDependencyUtil.isClassFolderEntry(entry);
+					final IPath runtimePath = ClasspathDependencyUtil.getRuntimePath(attrib, isWebApp, isClassFolder); 
+					if (runtimePath != null && ((isClassFolder && !runtimePath.equals(classFolderRuntimePath)) || (!isClassFolder && !runtimePath.equals(archiveRuntimePath)))) {
+						// if runtime path does not match target runtime path, skip
 						continue;
 					}
 					final ClasspathElement element = createClasspathElementForEntry(project, entry);
@@ -325,6 +326,10 @@ public class ClassPathSelection {
 				i = potentialEntries.iterator();
 				while (i.hasNext()) {
 					final IClasspathEntry entry = (IClasspathEntry) i.next();
+					if (isWebApp && classFolderRuntimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_COMPONENT_PATH) && ClasspathDependencyUtil.isClassFolderEntry(entry)) {
+						// don't display class folder dependencies for dynamic web projects on the non-web lib dependency page
+						continue;
+					}
 					final ClasspathElement element = createClasspathElementForEntry(project, entry);
 					element.setSelected(false);
 					addClasspathElement(element, element.getArchiveURI().toString());
@@ -629,7 +634,7 @@ public class ClassPathSelection {
 		
 		// Add elements for raw classpath entries (either already tagged or potentially taggable) 
 		try {
-		    createClasspathEntryElements(component, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH);
+		    createClasspathEntryElements(component, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_COMPONENT_PATH);
 		} catch (CoreException ce) {
 			Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(ce);
 		}

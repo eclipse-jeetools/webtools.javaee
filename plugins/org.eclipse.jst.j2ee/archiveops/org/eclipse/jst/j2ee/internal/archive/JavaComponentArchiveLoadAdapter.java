@@ -10,6 +10,10 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.archive;
 
+import java.util.List;
+
+import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
+import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class JavaComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter {
@@ -20,6 +24,14 @@ public class JavaComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter
 	
 	public JavaComponentArchiveLoadAdapter(IVirtualComponent vComponent, boolean includeClasspathComponents) {
 		super(vComponent, includeClasspathComponents);
+	}
+	
+	public List <IArchiveResource> getArchiveResources() {
+		super.getArchiveResources();
+		if (includeClasspathComponents) {
+			addMappedClassFolders(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_COMPONENT_PATH);		
+		}
+		return filesHolder.getFiles();
 	}
 	
 }

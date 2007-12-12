@@ -221,12 +221,16 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 				ref = (IVirtualReference)refsList.get(i);
 				comp = ref.getReferencedComponent();
 				lastUpdate.isBinary[i] = comp.isBinary();
-				shouldAdd = !(isWeb && ref.getRuntimePath().equals(WEBLIB));
+				shouldAdd = !(isWeb && ref.getRuntimePath().equals(WEBLIB)); 
 				if (!shouldAdd) {
 					continue;
 				}
 				if (comp.isBinary()) {
 					VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
+					if (archiveComp.getArchiveType().equals(VirtualArchiveComponent.CLASSPATHARCHIVETYPE)) {
+						// do not process components dynamically computed from the Java classpath
+						continue;
+					}
 					java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
 					if (diskFile.exists()) {
 						lastUpdate.paths[i] = new Path(diskFile.getAbsolutePath());

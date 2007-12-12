@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.IArchive;
@@ -113,8 +114,8 @@ public class EARComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 				final IVirtualReference ref = cpRefs[j];
 				// only ../ runtime paths contribute to the EAR
 				if (ref.getRuntimePath().equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
-					if (ref.getReferencedComponent() instanceof VirtualArchiveComponent) {
-						final VirtualArchiveComponent comp = (VirtualArchiveComponent) ref.getReferencedComponent();
+					if (ref.getReferencedComponent() instanceof ClasspathDependencyVirtualComponent) {
+						final ClasspathDependencyVirtualComponent comp = (ClasspathDependencyVirtualComponent) ref.getReferencedComponent();
 						File cpEntryFile = comp.getUnderlyingDiskFile();
 						if (!cpEntryFile.exists()) {
 							final IFile wbFile = comp.getUnderlyingWorkbenchFile();

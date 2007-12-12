@@ -44,6 +44,7 @@ import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARArchiveOpsResourceHandler;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyManifestUtil;
+import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.jee.archive.AbstractArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
@@ -251,6 +252,36 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 		return filesHolder.getFiles();
 	}
 
+	/**
+	 * Adds library cp entries that point to class folders and have been tagged with the publish/export attribute.
+	 */
+	protected void addMappedClassFolders(final IPath targetRuntimePath) {
+		// retrieve all mapped class folders
+		if (vComponent instanceof J2EEModuleVirtualComponent) {
+			try {
+				final J2EEModuleVirtualComponent j2eeComponent = (J2EEModuleVirtualComponent) vComponent;
+				final IVirtualReference[] cpRefs = j2eeComponent.getJavaClasspathReferences();
+				for (int j = 0; j < cpRefs.length; j++) {
+					final IVirtualReference ref = cpRefs[j];
+					final IPath runtimePath = ref.getRuntimePath();
+					// only process mappings with the specified runtime path
+					if (ref.getReferencedComponent() instanceof ClasspathDependencyVirtualComponent
+							&& runtimePath.equals(targetRuntimePath)) {
+						final ClasspathDependencyVirtualComponent comp = (ClasspathDependencyVirtualComponent) ref.getReferencedComponent();
+						if (comp.isClassFolder()) {
+							final IContainer classFolder = comp.getClassFolder();
+							if (classFolder != null && classFolder.exists()) {
+								aggregateOutputFiles(new IResource[]{classFolder}, runtimePath.makeRelative(), classFolder.getProjectRelativePath().segmentCount());
+							}
+						}
+					}
+				}
+			} catch (CoreException e) {
+				Logger.getLogger().logError(e);
+			}
+		}
+	}
+	
 	protected void saveJavaClasspathReferences() {
 		if (vComponent instanceof J2EEModuleVirtualComponent) {
 			final J2EEModuleVirtualComponent j2eeComp = (J2EEModuleVirtualComponent) vComponent;

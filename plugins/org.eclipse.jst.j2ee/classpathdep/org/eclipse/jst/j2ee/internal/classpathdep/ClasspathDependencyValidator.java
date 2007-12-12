@@ -18,9 +18,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
@@ -57,7 +57,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 	public static final String ProjectClasspathEntry = "ProjectClasspathEntry"; //$NON-NLS-1$
 	public static final String SourceEntry = "SourceEntry"; //$NON-NLS-1$
 	public static final String FilteredContainer = "FilteredContainer"; //$NON-NLS-1$
-	public static final String ClassFolderEntry = "ClassFolderEntry"; //$NON-NLS-1$
+	public static final String DuplicateClassFolderEntry = "DuplicateClassFolderEntry"; //$NON-NLS-1$
 	public static final String NonWebNonExported = "NonWebNonExported"; //$NON-NLS-1$
 	public static final String InvalidNonWebRuntimePath = "InvalidNonWebRuntimePath"; //$NON-NLS-1$
 	public static final String InvalidWebRuntimePath = "InvalidWebRuntimePath"; //$NON-NLS-1$
@@ -86,18 +86,20 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 				final Map referencedRawEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProject); 				
 				final List potentialRawEntries = ClasspathDependencyUtil.getPotentialComponentClasspathDependencies(javaProject);
 				final IVirtualComponent component = ComponentCore.createComponent(proj);				
+				final ClasspathDependencyValidatorData data = new ClasspathDependencyValidatorData(proj);
 				
 				// validate the raw referenced container entries
 				Iterator i =  referencedRawEntries.keySet().iterator();
 				boolean hasRootMapping = false;
 				while (i.hasNext()) {
 					final IClasspathEntry entry = (IClasspathEntry) i.next();
+					final boolean isClassFolder = ClasspathDependencyUtil.isClassFolderEntry(entry);
 					final IClasspathAttribute attrib = (IClasspathAttribute) referencedRawEntries.get(entry);
-					final IPath runtimePath = ClasspathDependencyUtil.getRuntimePath(attrib, isWebApp);
+					final IPath runtimePath = ClasspathDependencyUtil.getRuntimePath(attrib, isWebApp, isClassFolder);
 					if (runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
 						hasRootMapping = true;
 					}
-					IMessage[] msgs = validateVirtualComponentEntry(entry, attrib, isWebApp, proj);
+					IMessage[] msgs = validateVirtualComponentEntry(entry, attrib, isWebApp, proj, data);
 					final String cpEntryPath = entry.getPath().toString();
 					for (int j = 0; j < msgs.length; j++) {
 						msgs[j].setGroupName(cpEntryPath);
@@ -170,7 +172,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 						}
 						// validate the resolved entry if we didn't already validate as part of the raw entries
 						if (!referencedRawEntries.containsKey(entry)) {
-							IMessage[] msgs = validateVirtualComponentEntry(entry, attrib, isWebApp, proj);
+							IMessage[] msgs = validateVirtualComponentEntry(entry, attrib, isWebApp, proj, data);
 							reportMessages(msgs);
 						}
 					}
@@ -198,12 +200,51 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 	 * @return IMessages representing validation results.
 	 */
 	public static IMessage[] validateVirtualComponentEntry(final IClasspathEntry entry, final IClasspathAttribute attrib, final boolean isWebApp, final IProject project) {
+		return validateVirtualComponentEntry(entry, attrib, isWebApp, project, new ClasspathDependencyValidatorData(project));
+	}
+	
+	/**
+	 * Holds data required to validate classpath dependencies for a specific project. Can be computed once for the project and reused.
+	 *
+	 */
+	public static class ClasspathDependencyValidatorData {
+		private final IProject project;
+		// Class folders mapped via the component file (either directly or via src folders)
+		private final IContainer[] mappedClassFolders;
+		
+		public ClasspathDependencyValidatorData(final IProject project) {
+			this.project = project;
+			this.mappedClassFolders = J2EEProjectUtilities.getAllOutputContainers(project);
+		}
+		
+		public IProject getProject() {
+			return project;
+		}
+		
+		public IContainer[] getMappedClassFolders() {
+			return mappedClassFolders;
+		}
+	}
+	
+	/**
+	 * Checks if the specified Java classpath entry is a valid WTP virtual component reference.
+	 * Does not check the runtime path.
+	 * @param entry Raw or resolved classpath entry to validate. 
+	 * @param attrib The WTP classpath component dependency attribute. Null if it has not yet been set.
+	 * @param isWebApp True if the target project is associated with a web project.
+	 * @param project The parent project.
+	 * @param data Data required for validation. Can be computed once for the project and reused.
+	 * @return IMessages representing validation results.
+	 */
+	public static IMessage[] validateVirtualComponentEntry(final IClasspathEntry entry, final IClasspathAttribute attrib, final boolean isWebApp, final IProject project, 
+			final ClasspathDependencyValidatorData data) {
 		List results = new ArrayList();
 		if (entry == null) {
 			return (IMessage[]) results.toArray(new IMessage[results.size()]);
 		}
 		
 		final int kind = entry.getEntryKind();
+		final boolean isFile = !ClasspathDependencyUtil.isClassFolderEntry(entry);
 		if (kind == IClasspathEntry.CPE_PROJECT) {
 			
 			// Project cp entry
@@ -234,29 +275,34 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 			}
 
 		} else if (kind == IClasspathEntry.CPE_LIBRARY) {
-			// does the path refer to a file or a folder?
-			final IPath entryPath = entry.getPath();
-			IPath entryLocation = entryPath;
-			final IResource resource = ResourcesPlugin.getWorkspace().getRoot().findMember(entryPath);
-			if (resource != null) {
-				entryLocation = resource.getLocation();
-			}
-			boolean isFile = true; // by default, assume a jar file
-			if (entryLocation.toFile().isDirectory()) {
-				isFile = false;
-			}
-				
 			if (!isFile) {
-				// Class folder reference
-				results.add(new Message("classpathdependencyvalidator", // $NON-NLS-1$
-						IMessage.HIGH_SEVERITY, ClassFolderEntry, new String[]{entry.getPath().toString()}, project));
+				final IContainer[] mappedClassFolders = data.getMappedClassFolders();
+				final IResource resource = ClasspathDependencyUtil.getEntryResource(entry);
+				if (resource != null) {
+					final IPath fullClassFolderPath = resource.getFullPath();
+					boolean alreadyMapped = false;
+					for (int j = 0; j < mappedClassFolders.length; j++) {
+						if (fullClassFolderPath.equals(mappedClassFolders[j].getFullPath())) {
+							// entry resolves to same file as existing class folder mapping, skip
+							alreadyMapped = true;
+							break;
+						}
+					} 
+
+					// Class folder reference; ensure this is not already mapped via the component file.
+					if (alreadyMapped) {
+						results.add(new Message("classpathdependencyvalidator", // $NON-NLS-1$
+								IMessage.HIGH_SEVERITY, DuplicateClassFolderEntry, new String[]{entry.getPath().toString()}, project));
+					}
+				}
 			}
 		}
     	
-    	final IPath runtimePath = ClasspathDependencyUtil.getRuntimePath(attrib, isWebApp);
+    	final IPath runtimePath = ClasspathDependencyUtil.getRuntimePath(attrib, isWebApp, !isFile);
     	if (!isWebApp) {
-    		// only a ../ mapping is currently legal in a non-web context
-    		if (!runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
+    		// only a ../ or / mapping is currently legal in a non-web context
+    		if (!(runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH) 
+    				|| runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_COMPONENT_PATH))) { 
     			results.add(new Message("classpathdependencyvalidator", // $NON-NLS-1$
     					IMessage.HIGH_SEVERITY, InvalidNonWebRuntimePath, new String[]{entry.getPath().toString(), runtimePath.toString()}, project));
     		}
@@ -264,8 +310,8 @@ public class ClasspathDependencyValidator implements IValidatorJob {
     		String pathStr = runtimePath.toString();
     		// can only be ../, /WEB-INF/lib or /WEB-INF/classes
     		if (!runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH) 
-    			&& !pathStr.equals("/WEB-INF/lib")
-    			&& !pathStr.equals("/WEB-INF/classes")) { 
+    			&& !runtimePath.equals(IClasspathDependencyConstants.WEB_INF_LIB_PATH)
+    			&& !runtimePath.equals(IClasspathDependencyConstants.WEB_INF_CLASSES_PATH)) { 
     			results.add(new Message("classpathdependencyvalidator", // $NON-NLS-1$
     					IMessage.HIGH_SEVERITY, InvalidWebRuntimePath, new String[]{entry.getPath().toString(), pathStr}, project));
     		}

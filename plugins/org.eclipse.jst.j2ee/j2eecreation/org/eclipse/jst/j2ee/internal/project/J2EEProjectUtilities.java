@@ -891,9 +891,10 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 		}
 		return (IPackageFragmentRoot[]) list.toArray(new IPackageFragmentRoot[list.size()]);
 	}
-
+	
 	/**
-	 * Retrieve all the output containers for a given virtual component.
+	 * Retrieves the IContainers for all Java output folders that correspond to src folders that are mapped to the
+	 * virtual component tree via the component file.
 	 * 
 	 * @param vc
 	 * @return array of IContainers for the output folders
@@ -929,6 +930,53 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 		return null;
 	}
 
+	/**
+	 * Retrieve all Java output containers mapped into the virtual resource tree via the component file. Includes both directly
+	 * mapped class folders and the class folders associated with mapped source folders.
+	 * 
+	 * @param vc
+	 * @return the array of IPackageFragmentRoots
+	 */
+	public static IContainer[] getAllOutputContainers(IProject project) {
+		IJavaProject jProject = JemProjectUtilities.getJavaProject(project);
+		if (jProject == null)
+			return new IContainer[0];
+		List list = new ArrayList();
+		IContainer[] srcOutputContainers = getOutputContainers(project);
+		for (int i = 0; i < srcOutputContainers.length; i++) {
+			list.add(srcOutputContainers[i]);
+		}
+		IVirtualComponent vc = ComponentCore.createComponent(project);
+		IPackageFragmentRoot[] roots;
+		try {
+			roots = jProject.getPackageFragmentRoots();
+			for (int i = 0; i < roots.length; i++) {
+				if (roots[i].getKind() != IPackageFragmentRoot.K_BINARY)
+					continue;
+				IResource resource = roots[i].getResource();
+				if (null != resource) {
+					IVirtualResource[] vResources = ComponentCore.createResources(resource);
+					boolean found = false;
+					for (int j = 0; !found && j < vResources.length; j++) {
+						if (vResources[j].getComponent().equals(vc)) {
+							if (resource instanceof IContainer) {
+								IContainer outputContainer = (IContainer) resource;
+								if (!list.contains(outputContainer)) {
+									list.add(outputContainer);
+									found = true;
+								}
+							}
+						}
+					}
+				}
+			}
+		} catch (JavaModelException e) {
+			Logger.getLogger().logError(e);
+		}
+		return (IContainer[]) list.toArray(new IContainer[list.size()]);
+	}
+
+	
 	/**
 	 * 
 	 * @param name

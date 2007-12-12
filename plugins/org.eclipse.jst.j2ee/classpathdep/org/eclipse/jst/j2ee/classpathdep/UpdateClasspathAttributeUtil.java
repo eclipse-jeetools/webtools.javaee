@@ -47,11 +47,12 @@ public class UpdateClasspathAttributeUtil implements IClasspathDependencyConstan
 	 * Creates an IClasspathAttribute with the special WTP "org.eclipse.jst.component.dependency" name whose runtime path
 	 * (represented by the value) is set to the default for either a web project (/WEB-INF/lib) or non-web project (../).
 	 * @param isWebApp True if this attribute is being created for a classpath entry on a dynamic web project.
+	 * @param isClassFolder True if this attribute is being created for a class folder.
 	 * @return The created IClasspathAttribute.
 	 * @throws CoreException Thrown if a problem is encountered.
 	 */
-	public static IClasspathAttribute createDependencyAttribute(final boolean isWebApp) throws CoreException {
-		return createDependencyAttribute(ClasspathDependencyUtil.getDefaultRuntimePath(isWebApp));
+	public static IClasspathAttribute createDependencyAttribute(final boolean isWebApp, final boolean isClassFolder) throws CoreException {
+		return createDependencyAttribute(ClasspathDependencyUtil.getDefaultRuntimePath(isWebApp, isClassFolder));
 	}
 
 	/**
@@ -103,7 +104,7 @@ public class UpdateClasspathAttributeUtil implements IClasspathDependencyConstan
 	 * @return The operation.
 	 */
 	public static IDataModelOperation createUpdateDependencyAttributesOperation(final String projectName, final Map entryToRuntimePath) {
-		return createOperation(projectName, entryToRuntimePath, UpdateClasspathAttributesDataModelProperties.ENTRIES_WITH_ATTRIBUTE);
+		return createOperation(projectName, entryToRuntimePath, UpdateClasspathAttributesDataModelProperties.ENTRIES_WITH_ATTRIBUTE, true);
 	}
 	
 	/**
@@ -122,6 +123,22 @@ public class UpdateClasspathAttributeUtil implements IClasspathDependencyConstan
 	}
 	
 	/**
+	 * Adds the WTP component non-dependency attribute to the specified classpath entry using the default runtime path for the project. 
+	 * 
+	 * @param monitor Progress monitor. Can be null.
+	 * @param projectName Name of the target Java project.
+	 * @param entry Classpath entry to which the attribute should be added.
+	 * @return Status from the operation.
+	 * @throws ExecutionException Thrown if an error is encountered.
+	 */	
+	public static IStatus addNonDependencyAttribute(final IProgressMonitor monitor, final String projectName, final IClasspathEntry entry) 
+		throws ExecutionException {
+		final Map entryToRuntimePath = new HashMap();
+		entryToRuntimePath.put(entry, null);
+		return createOperation(projectName, entryToRuntimePath, UpdateClasspathAttributesDataModelProperties.ENTRIES_TO_ADD_ATTRIBUTE, false).execute(monitor, null);
+	}
+	
+	/**
 	 * Adds the WTP component dependency attribute to the specified classpath entry. Does NOT check that the
 	 * specified entry is a valid entry for the dependency attribute.
 	 * 
@@ -136,7 +153,7 @@ public class UpdateClasspathAttributeUtil implements IClasspathDependencyConstan
 		throws ExecutionException {
 		final Map entryToRuntimePath = new HashMap();
 		entryToRuntimePath.put(entry, runtimePath);
-		return createOperation(projectName, entryToRuntimePath, UpdateClasspathAttributesDataModelProperties.ENTRIES_TO_ADD_ATTRIBUTE).execute(monitor, null);
+		return createOperation(projectName, entryToRuntimePath, UpdateClasspathAttributesDataModelProperties.ENTRIES_TO_ADD_ATTRIBUTE, true).execute(monitor, null);
 	}
 	
 	/**
@@ -153,13 +170,14 @@ public class UpdateClasspathAttributeUtil implements IClasspathDependencyConstan
 	throws ExecutionException {
 		final Map entryToRuntimePath = new HashMap();
 		entryToRuntimePath.put(entry, null);
-		return createOperation(projectName, entryToRuntimePath, UpdateClasspathAttributesDataModelProperties.ENTRIES_TO_REMOVE_ATTRIBUTE).execute(monitor, null);
+		return createOperation(projectName, entryToRuntimePath, UpdateClasspathAttributesDataModelProperties.ENTRIES_TO_REMOVE_ATTRIBUTE, true).execute(monitor, null);
 	}
 	
-	private static IDataModelOperation createOperation(String projectName, final Map entryToRuntimePath, final String entryMapProperty) { 
+	private static IDataModelOperation createOperation(String projectName, final Map entryToRuntimePath, final String entryMapProperty, final boolean modifyComponentClasspathDependency) { 
 		IDataModel dataModel = DataModelFactory.createDataModel(new UpdateClasspathAttributesDataModelProvider());
 		dataModel.setProperty(UpdateClasspathAttributesDataModelProperties.PROJECT_NAME, projectName);
-		dataModel.setProperty(entryMapProperty, entryToRuntimePath); 
+		dataModel.setProperty(entryMapProperty, entryToRuntimePath);
+		dataModel.setProperty(UpdateClasspathAttributesDataModelProperties.MODIFY_CLASSPATH_COMPONENT_DEPENDENCY, new Boolean(modifyComponentClasspathDependency));
 		return dataModel.getDefaultOperation();
 	}
 	

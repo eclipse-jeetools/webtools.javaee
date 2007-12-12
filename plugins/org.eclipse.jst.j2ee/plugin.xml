@@ -384,6 +384,14 @@
                objectClass="org.eclipse.core.resources.IFile"
                nameFilter=".classpath">
          </filter>
+          <filter
+               objectClass="org.eclipse.core.resources.IFile"
+               nameFilter="org.eclipse.wst.common.component">
+         </filter>
+         <filter
+               objectClass="org.eclipse.core.resources.IFile"
+               nameFilter=".component">
+         </filter>
          <dependentValidator depValValue="true">
          </dependentValidator>
          <markerId

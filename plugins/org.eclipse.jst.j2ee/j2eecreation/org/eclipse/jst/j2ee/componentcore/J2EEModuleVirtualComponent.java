@@ -18,6 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -33,6 +34,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
@@ -202,18 +204,20 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 					hardRefPaths[j] = diskPath;
 				}
 			}
-
+			
+			IContainer[] mappedClassFolders = null;
 			final Iterator i = referencedEntries.keySet().iterator();
 			while (i.hasNext()) {
 				final IClasspathEntry entry = (IClasspathEntry) i.next();
 				final IClasspathAttribute attrib = (IClasspathAttribute) referencedEntries.get(entry);
-				final IPath runtimePath = ClasspathDependencyUtil.getRuntimePath(attrib, isWebApp);				
+				final boolean isClassFolder = ClasspathDependencyUtil.isClassFolderEntry(entry);
+				final IPath runtimePath = ClasspathDependencyUtil.getRuntimePath(attrib, isWebApp, isClassFolder);				
 				boolean add = true;
 				final IPath entryLocation = ClasspathDependencyUtil.getEntryLocation(entry);
 				if (entryLocation == null) {
 					// unable to retrieve location for cp entry, do not contribute as a virtual ref
 					add = false;
-				} else {
+				} else if (!isClassFolder) { // check hard archive refs
 					for (int j = 0; j < hardRefPaths.length; j++) {
 						if (entryLocation.equals(hardRefPaths[j])) {
 							// entry resolves to same file as existing hard reference, can skip
@@ -221,11 +225,32 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 							break;
 						}
 					}
+				} else { // check class folders mapped in component file as class folders associated with mapped src folders
+					if (mappedClassFolders == null) {
+						mappedClassFolders = J2EEProjectUtilities.getAllOutputContainers(getProject());
+					}
+					for (int j = 0; j < mappedClassFolders.length; j++) {
+						if (entryLocation.equals(mappedClassFolders[j].getFullPath())) {
+							// entry resolves to same file as existing class folder mapping, skip
+							add = false;
+							break;
+						}
+					} 
 				}
 
 				if (add) {
-					final String componentPath = VirtualArchiveComponent.CLASSPATHARCHIVETYPE + IPath.SEPARATOR + entryLocation.toPortableString();
-					final VirtualArchiveComponent entryComponent = (VirtualArchiveComponent) ComponentCore.createArchiveComponent(project, componentPath);
+					String componentPath = null;
+					ClasspathDependencyVirtualComponent entryComponent = null;
+					/*
+					if (entry.getEntryKind() == IClasspathEntry.CPE_PROJECT) {
+						componentPath = VirtualArchiveComponent.CLASSPATHARCHIVETYPE;
+						final IProject cpEntryProject = ResourcesPlugin.getWorkspace().getRoot().getProject(entry.getPath().lastSegment());
+						entryComponent = (VirtualArchiveComponent) ComponentCore.createArchiveComponent(cpEntryProject, componentPath);
+					} else {
+					*/
+					componentPath = VirtualArchiveComponent.CLASSPATHARCHIVETYPE + IPath.SEPARATOR + entryLocation.toPortableString();
+					entryComponent = new ClasspathDependencyVirtualComponent(project, componentPath, isClassFolder);
+					//}
 					final IVirtualReference entryReference = ComponentCore.createReference(this, entryComponent, runtimePath);
 					entryReference.setArchiveName(ClasspathDependencyUtil.getArchiveName(entry));
 					cpRefs.add(entryReference);

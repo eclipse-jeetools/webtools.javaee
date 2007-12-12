@@ -753,6 +753,13 @@
       class="org.eclipse.jst.j2ee.internal.classpathdep.ui.ClasspathDependencyAttributeConfiguration">
     </classpathAttributeConfiguration>
  </extension>
+ 
+ <extension point="org.eclipse.jdt.ui.classpathAttributeConfiguration">
+    <classpathAttributeConfiguration
+      attributeName="org.eclipse.jst.component.nondependency"
+      class="org.eclipse.jst.j2ee.internal.classpathdep.ui.ClasspathNonDependencyAttributeConfiguration">
+    </classpathAttributeConfiguration>
+ </extension>
 
  <extension
     point="org.eclipse.ui.ide.markerResolution">

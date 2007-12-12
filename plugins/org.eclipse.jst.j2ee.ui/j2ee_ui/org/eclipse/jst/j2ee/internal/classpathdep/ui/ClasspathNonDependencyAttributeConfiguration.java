@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 BEA Systems, Inc.
+ * Copyright (c) 2007 BEA Systems, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,7 +25,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Shell;
 
-public class ClasspathDependencyAttributeConfiguration extends ClasspathAttributeConfiguration {
+public class ClasspathNonDependencyAttributeConfiguration extends ClasspathAttributeConfiguration {
 
 	private static ImageDescriptor descriptor = null;
 	
@@ -67,16 +67,6 @@ public class ClasspathDependencyAttributeConfiguration extends ClasspathAttribut
 	 * @see org.eclipse.jdt.ui.wizards.ClasspathAttributeConfiguration#getValueLabel(org.eclipse.jdt.ui.wizards.ClasspathAttributeConfiguration.ClasspathAttributeAccess)
 	 */
 	public String getValueLabel(ClasspathAttributeAccess attribute) {
-		final IClasspathAttribute attrib = attribute.getClasspathAttribute();
-		if (attrib != null) {
-			final String value = attrib.getValue();
-			if (value != null) {
-				if (value.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER)) {
-					return Resources.containerMapping;
-				}
-				return value;
-			}
-		}
 		return Resources.unspecified;
 	}
 
@@ -93,16 +83,15 @@ public class ClasspathDependencyAttributeConfiguration extends ClasspathAttribut
 	 * @see org.eclipse.jdt.ui.wizards.ClasspathAttributeConfiguration#performRemove(org.eclipse.jdt.ui.wizards.ClasspathAttributeConfiguration.ClasspathAttributeAccess)
 	 */
 	public IClasspathAttribute performRemove(ClasspathAttributeAccess attribute) {
-		return JavaCore.newClasspathAttribute(IClasspathDependencyConstants.CLASSPATH_COMPONENT_DEPENDENCY, null);
+		return JavaCore.newClasspathAttribute(IClasspathDependencyConstants.CLASSPATH_COMPONENT_NON_DEPENDENCY, null);
 	}
 
 	private static final class Resources extends NLS {
         public static String nameLabel;
         public static String unspecified;
-        public static String containerMapping;
         static
         {
-            initializeMessages( ClasspathDependencyAttributeConfiguration.class.getName(), 
+            initializeMessages( ClasspathNonDependencyAttributeConfiguration.class.getName(), 
                                 Resources.class );
         }
     }
