@@ -98,11 +98,11 @@ public class NewSesionBeanClassDataModelProvider extends NewJavaClassDataModelPr
 		else if (propertyName.equals(BUSSNESINTERFACE_LIST)){
 			List<RemoteLocalInterface> listResult = new ArrayList<RemoteLocalInterface>();
 			String className = getStringProperty(QUALIFIED_CLASS_NAME);
-			if ((Boolean) getProperty(REMOTE_BI) && !className.isEmpty()){
+			if ((Boolean) getProperty(REMOTE_BI) && className.length() > 0){
 				RemoteLocalInterface remoteInterface = new RemoteLocalInterface(className + REMOTE,true,false);
 				listResult.add(remoteInterface);
 			}
-			if ((Boolean) getProperty(LOCAL_BI) && !className.isEmpty()){
+			if ((Boolean) getProperty(LOCAL_BI) && className.length() > 0){
 				RemoteLocalInterface localInterface = new RemoteLocalInterface(className + LOCAL,false,true);
 				listResult.add(localInterface);
 			}
