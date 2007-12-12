@@ -42,6 +42,10 @@ import org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType;
  *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getDescriptionType <em>Description Type</em>}</li>
  *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getDisplayNameType <em>Display Name Type</em>}</li>
  *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getIconType <em>Icon Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getWsdlService <em>Wsdl Service</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#isEnableMtom <em>Enable Mtom</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getProtocolBinding <em>Protocol Binding</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getHandlerChains <em>Handler Chains</em>}</li>
  * </ul>
  * </p>
  *
@@ -226,7 +230,7 @@ public interface PortComponent extends J2EEEObject {
 	 * @return the value of the '<em>Wsdl Port</em>' containment reference.
 	 * @see #setWsdlPort(WSDLPort)
 	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getPortComponent_WsdlPort()
-	 * @model containment="true" required="true"
+	 * @model containment="true"
 	 * @generated
 	 */
   WSDLPort getWsdlPort();
@@ -360,5 +364,110 @@ public interface PortComponent extends J2EEEObject {
 	 * @generated
 	 */
   void setIconType(IconType value);
+
+	/**
+	 * Returns the value of the '<em><b>Wsdl Service</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Wsdl Service</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Wsdl Service</em>' containment reference.
+	 * @see #setWsdlService(WSDLService)
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getPortComponent_WsdlService()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	WSDLService getWsdlService();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getWsdlService <em>Wsdl Service</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Wsdl Service</em>' containment reference.
+	 * @see #getWsdlService()
+	 * @generated
+	 */
+	void setWsdlService(WSDLService value);
+
+	/**
+	 * Returns the value of the '<em><b>Enable Mtom</b></em>' attribute.
+	 * The default value is <code>""</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Enable Mtom</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Enable Mtom</em>' attribute.
+	 * @see #setEnableMtom(boolean)
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getPortComponent_EnableMtom()
+	 * @model default=""
+	 * @generated
+	 */
+	boolean isEnableMtom();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#isEnableMtom <em>Enable Mtom</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Enable Mtom</em>' attribute.
+	 * @see #isEnableMtom()
+	 * @generated
+	 */
+	void setEnableMtom(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Protocol Binding</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Protocol Binding</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Protocol Binding</em>' attribute.
+	 * @see #setProtocolBinding(String)
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getPortComponent_ProtocolBinding()
+	 * @model
+	 * @generated
+	 */
+	String getProtocolBinding();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getProtocolBinding <em>Protocol Binding</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Protocol Binding</em>' attribute.
+	 * @see #getProtocolBinding()
+	 * @generated
+	 */
+	void setProtocolBinding(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Handler Chains</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Handler Chains</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Handler Chains</em>' containment reference.
+	 * @see #setHandlerChains(HandlersChains)
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getPortComponent_HandlerChains()
+	 * @model containment="true"
+	 * @generated
+	 */
+	HandlersChains getHandlerChains();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getHandlerChains <em>Handler Chains</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Handler Chains</em>' containment reference.
+	 * @see #getHandlerChains()
+	 * @generated
+	 */
+	void setHandlerChains(HandlersChains value);
 
 } // PortComponent

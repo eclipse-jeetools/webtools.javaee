@@ -40,10 +40,13 @@ import org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.WscommonPackageImp
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.EJBLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
+import org.eclipse.jst.j2ee.webservice.wsdd.HandlerChain;
+import org.eclipse.jst.j2ee.webservice.wsdd.HandlersChains;
 import org.eclipse.jst.j2ee.webservice.wsdd.PortComponent;
 import org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean;
 import org.eclipse.jst.j2ee.webservice.wsdd.ServletLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.WSDLPort;
+import org.eclipse.jst.j2ee.webservice.wsdd.WSDLService;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServices;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddFactory;
@@ -120,6 +123,27 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * @generated
 	 */
   private EClass beanLinkEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass wsdlServiceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass handlerChainEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass handlersChainsEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -473,6 +497,42 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPortComponent_WsdlService() {
+		return (EReference)portComponentEClass.getEStructuralFeatures().get(12);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPortComponent_EnableMtom() {
+		return (EAttribute)portComponentEClass.getEStructuralFeatures().get(13);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPortComponent_ProtocolBinding() {
+		return (EAttribute)portComponentEClass.getEStructuralFeatures().get(14);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPortComponent_HandlerChains() {
+		return (EReference)portComponentEClass.getEStructuralFeatures().get(15);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -617,6 +677,78 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getWSDLService() {
+		return wsdlServiceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getHandlerChain() {
+		return handlerChainEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getHandlerChain_ServiceNamePattern() {
+		return (EAttribute)handlerChainEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getHandlerChain_PortNamePattern() {
+		return (EAttribute)handlerChainEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getHandlerChain_ProtocolBindings() {
+		return (EAttribute)handlerChainEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getHandlerChain_Handlers() {
+		return (EReference)handlerChainEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getHandlersChains() {
+		return handlersChainsEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getHandlersChains_HandlerChain() {
+		return (EReference)handlersChainsEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -672,6 +804,10 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 		createEReference(portComponentEClass, PORT_COMPONENT__DESCRIPTION_TYPE);
 		createEReference(portComponentEClass, PORT_COMPONENT__DISPLAY_NAME_TYPE);
 		createEReference(portComponentEClass, PORT_COMPONENT__ICON_TYPE);
+		createEReference(portComponentEClass, PORT_COMPONENT__WSDL_SERVICE);
+		createEAttribute(portComponentEClass, PORT_COMPONENT__ENABLE_MTOM);
+		createEAttribute(portComponentEClass, PORT_COMPONENT__PROTOCOL_BINDING);
+		createEReference(portComponentEClass, PORT_COMPONENT__HANDLER_CHAINS);
 
 		wsdlPortEClass = createEClass(WSDL_PORT);
 
@@ -694,6 +830,17 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 		createEReference(handlerEClass, HANDLER__SOAP_ROLES);
 
 		beanLinkEClass = createEClass(BEAN_LINK);
+
+		wsdlServiceEClass = createEClass(WSDL_SERVICE);
+
+		handlerChainEClass = createEClass(HANDLER_CHAIN);
+		createEAttribute(handlerChainEClass, HANDLER_CHAIN__SERVICE_NAME_PATTERN);
+		createEAttribute(handlerChainEClass, HANDLER_CHAIN__PORT_NAME_PATTERN);
+		createEAttribute(handlerChainEClass, HANDLER_CHAIN__PROTOCOL_BINDINGS);
+		createEReference(handlerChainEClass, HANDLER_CHAIN__HANDLERS);
+
+		handlersChainsEClass = createEClass(HANDLERS_CHAINS);
+		createEReference(handlersChainsEClass, HANDLERS_CHAINS__HANDLER_CHAIN);
 	}
 
 	/**
@@ -722,6 +869,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 		// Obtain other dependent packages
 		CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
 		WscommonPackage theWscommonPackage = (WscommonPackage)EPackage.Registry.INSTANCE.getEPackage(WscommonPackage.eNS_URI);
+		EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
 
 		// Add supertypes to classes
 		webServicesEClass.getESuperTypes().add(theCommonPackage.getCompatibilityDescriptionGroup());
@@ -733,6 +881,9 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 		ejbLinkEClass.getESuperTypes().add(this.getBeanLink());
 		handlerEClass.getESuperTypes().add(theCommonPackage.getCompatibilityDescriptionGroup());
 		beanLinkEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		wsdlServiceEClass.getESuperTypes().add(theCommonPackage.getQName());
+		handlerChainEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		handlersChainsEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(webServicesEClass, WebServices.class, "WebServices", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -758,12 +909,16 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 		initEAttribute(getPortComponent_LargeIcon(), ecorePackage.getEString(), "largeIcon", null, 0, 1, PortComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPortComponent_Description(), ecorePackage.getEString(), "description", null, 0, 1, PortComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPortComponent_DisplayName(), ecorePackage.getEString(), "displayName", null, 0, 1, PortComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPortComponent_WsdlPort(), this.getWSDLPort(), null, "wsdlPort", null, 1, 1, PortComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPortComponent_WsdlPort(), this.getWSDLPort(), null, "wsdlPort", null, 0, 1, PortComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPortComponent_ServiceImplBean(), this.getServiceImplBean(), null, "serviceImplBean", null, 1, 1, PortComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPortComponent_Handlers(), this.getHandler(), null, "handlers", null, 0, -1, PortComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPortComponent_DescriptionType(), theWscommonPackage.getDescriptionType(), null, "descriptionType", null, 0, 1, PortComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPortComponent_DisplayNameType(), theWscommonPackage.getDisplayNameType(), null, "displayNameType", null, 0, 1, PortComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPortComponent_IconType(), theCommonPackage.getIconType(), null, "iconType", null, 0, 1, PortComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPortComponent_WsdlService(), this.getWSDLService(), null, "wsdlService", null, 1, 1, PortComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPortComponent_EnableMtom(), theEcorePackage.getEBoolean(), "enableMtom", "", 0, 1, PortComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPortComponent_ProtocolBinding(), ecorePackage.getEString(), "protocolBinding", null, 0, 1, PortComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPortComponent_HandlerChains(), this.getHandlersChains(), null, "handlerChains", null, 0, 1, PortComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(wsdlPortEClass, WSDLPort.class, "WSDLPort", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -786,6 +941,17 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 		initEReference(getHandler_SoapRoles(), theWscommonPackage.getSOAPRole(), null, "soapRoles", null, 0, -1, Handler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(beanLinkEClass, BeanLink.class, "BeanLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(wsdlServiceEClass, WSDLService.class, "WSDLService", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(handlerChainEClass, HandlerChain.class, "HandlerChain", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getHandlerChain_ServiceNamePattern(), ecorePackage.getEString(), "serviceNamePattern", null, 0, 1, HandlerChain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getHandlerChain_PortNamePattern(), ecorePackage.getEString(), "portNamePattern", null, 0, 1, HandlerChain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getHandlerChain_ProtocolBindings(), ecorePackage.getEString(), "protocolBindings", null, 0, -1, HandlerChain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getHandlerChain_Handlers(), this.getHandler(), null, "handlers", null, 1, -1, HandlerChain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(handlersChainsEClass, HandlersChains.class, "HandlersChains", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getHandlersChains_HandlerChain(), this.getHandlerChain(), null, "handlerChain", null, 0, -1, HandlersChains.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

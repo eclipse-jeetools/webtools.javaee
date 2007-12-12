@@ -111,6 +111,33 @@ public interface WsddFactory extends EFactory {
 	BeanLink createBeanLink();
 
 	/**
+	 * Returns a new object of class '<em>WSDL Service</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>WSDL Service</em>'.
+	 * @generated
+	 */
+	WSDLService createWSDLService();
+
+	/**
+	 * Returns a new object of class '<em>Handler Chain</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Handler Chain</em>'.
+	 * @generated
+	 */
+	HandlerChain createHandlerChain();
+
+	/**
+	 * Returns a new object of class '<em>Handlers Chains</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Handlers Chains</em>'.
+	 * @generated
+	 */
+	HandlersChains createHandlersChains();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * This method is NOT api, and may change in future releases.  

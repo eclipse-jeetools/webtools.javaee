@@ -406,5 +406,5 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="displayName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="J2EEEObject"/>
-  <eClassifiers xsi:type="ecore:EClass" name="J2EEEAttribute" eSuperTypes="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
+  <eClassifiers xsi:type="ecore:EClass" name="J2EEEAttribute" eSuperTypes="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
 </ecore:EPackage>

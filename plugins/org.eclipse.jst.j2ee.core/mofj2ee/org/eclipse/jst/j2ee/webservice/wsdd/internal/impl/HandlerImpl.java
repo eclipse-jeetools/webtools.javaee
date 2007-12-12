@@ -95,7 +95,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * @generated
 	 * @ordered
 	 */
-  protected EList initParams = null;
+  protected EList initParams;
 
 	/**
 	 * The cached value of the '{@link #getSoapHeaders() <em>Soap Headers</em>}' containment reference list.
@@ -105,7 +105,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * @generated
 	 * @ordered
 	 */
-  protected EList soapHeaders = null;
+  protected EList soapHeaders;
 
 	/**
 	 * The cached value of the '{@link #getSoapRoles() <em>Soap Roles</em>}' containment reference list.
@@ -115,7 +115,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * @generated
 	 * @ordered
 	 */
-  protected EList soapRoles = null;
+  protected EList soapRoles;
 
 	/**
 	 * <!-- begin-user-doc -->

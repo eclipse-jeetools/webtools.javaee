@@ -402,13 +402,49 @@ public interface WsddPackage extends EPackage {
   int PORT_COMPONENT__ICON_TYPE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 11;
 
 	/**
+	 * The feature id for the '<em><b>Wsdl Service</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_COMPONENT__WSDL_SERVICE = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 12;
+
+	/**
+	 * The feature id for the '<em><b>Enable Mtom</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_COMPONENT__ENABLE_MTOM = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 13;
+
+	/**
+	 * The feature id for the '<em><b>Protocol Binding</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_COMPONENT__PROTOCOL_BINDING = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 14;
+
+	/**
+	 * The feature id for the '<em><b>Handler Chains</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_COMPONENT__HANDLER_CHAINS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 15;
+
+	/**
 	 * The number of structural features of the '<em>Port Component</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int PORT_COMPONENT_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 12;
+  int PORT_COMPONENT_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 16;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WSDLPortImpl <em>WSDL Port</em>}' class.
@@ -715,6 +751,145 @@ public interface WsddPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WSDLServiceImpl <em>WSDL Service</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WSDLServiceImpl
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl#getWSDLService()
+	 * @generated
+	 */
+	int WSDL_SERVICE = 9;
+
+	/**
+	 * The feature id for the '<em><b>Namespace URI</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WSDL_SERVICE__NAMESPACE_URI = CommonPackage.QNAME__NAMESPACE_URI;
+
+	/**
+	 * The feature id for the '<em><b>Local Part</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WSDL_SERVICE__LOCAL_PART = CommonPackage.QNAME__LOCAL_PART;
+
+	/**
+	 * The feature id for the '<em><b>Combined QName</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WSDL_SERVICE__COMBINED_QNAME = CommonPackage.QNAME__COMBINED_QNAME;
+
+	/**
+	 * The feature id for the '<em><b>Internal Prefix Or Ns URI</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WSDL_SERVICE__INTERNAL_PREFIX_OR_NS_URI = CommonPackage.QNAME__INTERNAL_PREFIX_OR_NS_URI;
+
+	/**
+	 * The number of structural features of the '<em>WSDL Service</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WSDL_SERVICE_FEATURE_COUNT = CommonPackage.QNAME_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.HandlerChainImpl <em>Handler Chain</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.HandlerChainImpl
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl#getHandlerChain()
+	 * @generated
+	 */
+	int HANDLER_CHAIN = 10;
+
+	/**
+	 * The feature id for the '<em><b>Service Name Pattern</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HANDLER_CHAIN__SERVICE_NAME_PATTERN = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Port Name Pattern</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HANDLER_CHAIN__PORT_NAME_PATTERN = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Protocol Bindings</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HANDLER_CHAIN__PROTOCOL_BINDINGS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Handlers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HANDLER_CHAIN__HANDLERS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>Handler Chain</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HANDLER_CHAIN_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 4;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.HandlersChainsImpl <em>Handlers Chains</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.HandlersChainsImpl
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl#getHandlersChains()
+	 * @generated
+	 */
+	int HANDLERS_CHAINS = 11;
+
+	/**
+	 * The feature id for the '<em><b>Handler Chain</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HANDLERS_CHAINS__HANDLER_CHAIN = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Handlers Chains</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HANDLERS_CHAINS_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServices <em>Web Services</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1009,6 +1184,50 @@ public interface WsddPackage extends EPackage {
   EReference getPortComponent_IconType();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getWsdlService <em>Wsdl Service</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Wsdl Service</em>'.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getWsdlService()
+	 * @see #getPortComponent()
+	 * @generated
+	 */
+	EReference getPortComponent_WsdlService();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#isEnableMtom <em>Enable Mtom</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Enable Mtom</em>'.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#isEnableMtom()
+	 * @see #getPortComponent()
+	 * @generated
+	 */
+	EAttribute getPortComponent_EnableMtom();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getProtocolBinding <em>Protocol Binding</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Protocol Binding</em>'.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getProtocolBinding()
+	 * @see #getPortComponent()
+	 * @generated
+	 */
+	EAttribute getPortComponent_ProtocolBinding();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getHandlerChains <em>Handler Chains</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Handler Chains</em>'.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getHandlerChains()
+	 * @see #getPortComponent()
+	 * @generated
+	 */
+	EReference getPortComponent_HandlerChains();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wsdd.WSDLPort <em>WSDL Port</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1177,6 +1396,91 @@ public interface WsddPackage extends EPackage {
 	 * @generated
 	 */
   EClass getBeanLink();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wsdd.WSDLService <em>WSDL Service</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>WSDL Service</em>'.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WSDLService
+	 * @generated
+	 */
+	EClass getWSDLService();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wsdd.HandlerChain <em>Handler Chain</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Handler Chain</em>'.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.HandlerChain
+	 * @generated
+	 */
+	EClass getHandlerChain();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.HandlerChain#getServiceNamePattern <em>Service Name Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Service Name Pattern</em>'.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.HandlerChain#getServiceNamePattern()
+	 * @see #getHandlerChain()
+	 * @generated
+	 */
+	EAttribute getHandlerChain_ServiceNamePattern();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.HandlerChain#getPortNamePattern <em>Port Name Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Port Name Pattern</em>'.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.HandlerChain#getPortNamePattern()
+	 * @see #getHandlerChain()
+	 * @generated
+	 */
+	EAttribute getHandlerChain_PortNamePattern();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.j2ee.webservice.wsdd.HandlerChain#getProtocolBindings <em>Protocol Bindings</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Protocol Bindings</em>'.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.HandlerChain#getProtocolBindings()
+	 * @see #getHandlerChain()
+	 * @generated
+	 */
+	EAttribute getHandlerChain_ProtocolBindings();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.webservice.wsdd.HandlerChain#getHandlers <em>Handlers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Handlers</em>'.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.HandlerChain#getHandlers()
+	 * @see #getHandlerChain()
+	 * @generated
+	 */
+	EReference getHandlerChain_Handlers();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wsdd.HandlersChains <em>Handlers Chains</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Handlers Chains</em>'.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.HandlersChains
+	 * @generated
+	 */
+	EClass getHandlersChains();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.webservice.wsdd.HandlersChains#getHandlerChain <em>Handler Chain</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Handler Chain</em>'.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.HandlersChains#getHandlerChain()
+	 * @see #getHandlersChains()
+	 * @generated
+	 */
+	EReference getHandlersChains_HandlerChain();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1423,6 +1727,38 @@ public interface WsddPackage extends EPackage {
 		EReference PORT_COMPONENT__ICON_TYPE = eINSTANCE.getPortComponent_IconType();
 
 		/**
+		 * The meta object literal for the '<em><b>Wsdl Service</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PORT_COMPONENT__WSDL_SERVICE = eINSTANCE.getPortComponent_WsdlService();
+
+		/**
+		 * The meta object literal for the '<em><b>Enable Mtom</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PORT_COMPONENT__ENABLE_MTOM = eINSTANCE.getPortComponent_EnableMtom();
+
+		/**
+		 * The meta object literal for the '<em><b>Protocol Binding</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PORT_COMPONENT__PROTOCOL_BINDING = eINSTANCE.getPortComponent_ProtocolBinding();
+
+		/**
+		 * The meta object literal for the '<em><b>Handler Chains</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PORT_COMPONENT__HANDLER_CHAINS = eINSTANCE.getPortComponent_HandlerChains();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WSDLPortImpl <em>WSDL Port</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1561,6 +1897,76 @@ public interface WsddPackage extends EPackage {
 		 * @generated
 		 */
 		EClass BEAN_LINK = eINSTANCE.getBeanLink();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WSDLServiceImpl <em>WSDL Service</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WSDLServiceImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl#getWSDLService()
+		 * @generated
+		 */
+		EClass WSDL_SERVICE = eINSTANCE.getWSDLService();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.HandlerChainImpl <em>Handler Chain</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.HandlerChainImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl#getHandlerChain()
+		 * @generated
+		 */
+		EClass HANDLER_CHAIN = eINSTANCE.getHandlerChain();
+
+		/**
+		 * The meta object literal for the '<em><b>Service Name Pattern</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute HANDLER_CHAIN__SERVICE_NAME_PATTERN = eINSTANCE.getHandlerChain_ServiceNamePattern();
+
+		/**
+		 * The meta object literal for the '<em><b>Port Name Pattern</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute HANDLER_CHAIN__PORT_NAME_PATTERN = eINSTANCE.getHandlerChain_PortNamePattern();
+
+		/**
+		 * The meta object literal for the '<em><b>Protocol Bindings</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute HANDLER_CHAIN__PROTOCOL_BINDINGS = eINSTANCE.getHandlerChain_ProtocolBindings();
+
+		/**
+		 * The meta object literal for the '<em><b>Handlers</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference HANDLER_CHAIN__HANDLERS = eINSTANCE.getHandlerChain_Handlers();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.HandlersChainsImpl <em>Handlers Chains</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.HandlersChainsImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl#getHandlersChains()
+		 * @generated
+		 */
+		EClass HANDLERS_CHAINS = eINSTANCE.getHandlersChains();
+
+		/**
+		 * The meta object literal for the '<em><b>Handler Chain</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference HANDLERS_CHAINS__HANDLER_CHAIN = eINSTANCE.getHandlersChains_HandlerChain();
 
 	}
 

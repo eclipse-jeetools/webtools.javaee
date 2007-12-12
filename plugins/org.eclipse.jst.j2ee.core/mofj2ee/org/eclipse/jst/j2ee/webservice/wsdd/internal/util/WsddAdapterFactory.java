@@ -18,6 +18,7 @@ import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.common.DescriptionGroup;
 import org.eclipse.jst.j2ee.common.J2EEEObject;
 import org.eclipse.jst.j2ee.common.QName;
+import org.eclipse.jst.j2ee.webservice.wsdd.*;
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.EJBLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
@@ -113,6 +114,15 @@ public class WsddAdapterFactory extends AdapterFactoryImpl
 			}
 			public Object caseBeanLink(BeanLink object) {
 				return createBeanLinkAdapter();
+			}
+			public Object caseWSDLService(WSDLService object) {
+				return createWSDLServiceAdapter();
+			}
+			public Object caseHandlerChain(HandlerChain object) {
+				return createHandlerChainAdapter();
+			}
+			public Object caseHandlersChains(HandlersChains object) {
+				return createHandlersChainsAdapter();
 			}
 			public Object caseJ2EEEObject(J2EEEObject object) {
 				return createJ2EEEObjectAdapter();
@@ -267,6 +277,48 @@ public class WsddAdapterFactory extends AdapterFactoryImpl
 	 * @generated
 	 */
   public Adapter createBeanLinkAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wsdd.WSDLService <em>WSDL Service</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WSDLService
+	 * @generated
+	 */
+	public Adapter createWSDLServiceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wsdd.HandlerChain <em>Handler Chain</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.HandlerChain
+	 * @generated
+	 */
+	public Adapter createHandlerChainAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wsdd.HandlersChains <em>Handlers Chains</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.HandlersChains
+	 * @generated
+	 */
+	public Adapter createHandlersChainsAdapter() {
 		return null;
 	}
 

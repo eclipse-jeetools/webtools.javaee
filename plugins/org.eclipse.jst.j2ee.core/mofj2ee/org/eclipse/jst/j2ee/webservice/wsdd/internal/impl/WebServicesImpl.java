@@ -47,7 +47,7 @@ public class WebServicesImpl extends CompatibilityDescriptionGroupImpl implement
 	 * @generated
 	 * @ordered
 	 */
-  protected EList webServiceDescriptions = null;
+  protected EList webServiceDescriptions;
 
 	/**
 	 * <!-- begin-user-doc -->

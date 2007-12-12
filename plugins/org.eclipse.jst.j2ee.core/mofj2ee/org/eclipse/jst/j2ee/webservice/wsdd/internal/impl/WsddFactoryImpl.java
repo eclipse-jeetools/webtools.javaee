@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.jst.j2ee.webservice.wsdd.*;
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.EJBLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
@@ -81,6 +82,9 @@ public class WsddFactoryImpl extends EFactoryImpl implements WsddFactory
 			case WsddPackage.EJB_LINK: return createEJBLink();
 			case WsddPackage.HANDLER: return createHandler();
 			case WsddPackage.BEAN_LINK: return createBeanLink();
+			case WsddPackage.WSDL_SERVICE: return createWSDLService();
+			case WsddPackage.HANDLER_CHAIN: return createHandlerChain();
+			case WsddPackage.HANDLERS_CHAINS: return createHandlersChains();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -174,6 +178,36 @@ public class WsddFactoryImpl extends EFactoryImpl implements WsddFactory
 	public BeanLink createBeanLink() {
 		BeanLinkImpl beanLink = new BeanLinkImpl();
 		return beanLink;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public WSDLService createWSDLService() {
+		WSDLServiceImpl wsdlService = new WSDLServiceImpl();
+		return wsdlService;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public HandlerChain createHandlerChain() {
+		HandlerChainImpl handlerChain = new HandlerChainImpl();
+		return handlerChain;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public HandlersChains createHandlersChains() {
+		HandlersChainsImpl handlersChains = new HandlersChainsImpl();
+		return handlersChains;
 	}
 
 	/**

@@ -80,7 +80,7 @@ public class JaxrpcmapTranslator extends RootTranslator implements JaxrpcmapXmlM
 			new ConstantAttributeTranslator(XML_NS, J2EE_NS_URL),
 			new ConstantAttributeTranslator(XML_NS_XSI, XSI_NS_URL),
 			new ConstantAttributeTranslator(XSI_SCHEMA_LOCATION, J2EE_NS_URL+' '+WebServiceConstants.JAXRPCMAP_SCHEMA_LOC),
-			new ConstantAttributeTranslator(VERSION, WebServiceConstants.WEBSERVICE_SCHEMA_VERSION),			  			  
+			new ConstantAttributeTranslator(VERSION, WebServiceConstants.WEBSERVICE_SCHEMA_VERSION_1_1),			  			  
 			createPackageMappingTranslator(),
 			create11JavaXMLTypeMappingTranslator(),
 			create11ExceptionMappingTranslator(),

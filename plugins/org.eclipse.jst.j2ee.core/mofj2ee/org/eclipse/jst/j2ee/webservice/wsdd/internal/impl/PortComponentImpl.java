@@ -25,9 +25,11 @@ import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webservice.wscommon.DescriptionType;
 import org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType;
 import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
+import org.eclipse.jst.j2ee.webservice.wsdd.HandlersChains;
 import org.eclipse.jst.j2ee.webservice.wsdd.PortComponent;
 import org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean;
 import org.eclipse.jst.j2ee.webservice.wsdd.WSDLPort;
+import org.eclipse.jst.j2ee.webservice.wsdd.WSDLService;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
 
 
@@ -50,6 +52,10 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
  *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.PortComponentImpl#getDescriptionType <em>Description Type</em>}</li>
  *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.PortComponentImpl#getDisplayNameType <em>Display Name Type</em>}</li>
  *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.PortComponentImpl#getIconType <em>Icon Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.PortComponentImpl#getWsdlService <em>Wsdl Service</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.PortComponentImpl#isEnableMtom <em>Enable Mtom</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.PortComponentImpl#getProtocolBinding <em>Protocol Binding</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.PortComponentImpl#getHandlerChains <em>Handler Chains</em>}</li>
  * </ul>
  * </p>
  *
@@ -185,7 +191,7 @@ public class PortComponentImpl extends J2EEEObjectImpl implements PortComponent
 	 * @generated
 	 * @ordered
 	 */
-  protected WSDLPort wsdlPort = null;
+  protected WSDLPort wsdlPort;
 
 	/**
 	 * The cached value of the '{@link #getServiceImplBean() <em>Service Impl Bean</em>}' containment reference.
@@ -195,7 +201,7 @@ public class PortComponentImpl extends J2EEEObjectImpl implements PortComponent
 	 * @generated
 	 * @ordered
 	 */
-  protected ServiceImplBean serviceImplBean = null;
+  protected ServiceImplBean serviceImplBean;
 
 	/**
 	 * The cached value of the '{@link #getHandlers() <em>Handlers</em>}' containment reference list.
@@ -205,7 +211,7 @@ public class PortComponentImpl extends J2EEEObjectImpl implements PortComponent
 	 * @generated
 	 * @ordered
 	 */
-  protected EList handlers = null;
+  protected EList handlers;
 
 	/**
 	 * The cached value of the '{@link #getDescriptionType() <em>Description Type</em>}' containment reference.
@@ -215,7 +221,7 @@ public class PortComponentImpl extends J2EEEObjectImpl implements PortComponent
 	 * @generated
 	 * @ordered
 	 */
-  protected DescriptionType descriptionType = null;
+  protected DescriptionType descriptionType;
 
 	/**
 	 * The cached value of the '{@link #getDisplayNameType() <em>Display Name Type</em>}' containment reference.
@@ -225,7 +231,7 @@ public class PortComponentImpl extends J2EEEObjectImpl implements PortComponent
 	 * @generated
 	 * @ordered
 	 */
-  protected DisplayNameType displayNameType = null;
+  protected DisplayNameType displayNameType;
 
 	/**
 	 * The cached value of the '{@link #getIconType() <em>Icon Type</em>}' containment reference.
@@ -235,7 +241,67 @@ public class PortComponentImpl extends J2EEEObjectImpl implements PortComponent
 	 * @generated
 	 * @ordered
 	 */
-  protected IconType iconType = null;
+  protected IconType iconType;
+
+	/**
+	 * The cached value of the '{@link #getWsdlService() <em>Wsdl Service</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getWsdlService()
+	 * @generated
+	 * @ordered
+	 */
+	protected WSDLService wsdlService;
+
+	/**
+	 * The default value of the '{@link #isEnableMtom() <em>Enable Mtom</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnableMtom()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ENABLE_MTOM_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isEnableMtom() <em>Enable Mtom</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnableMtom()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean enableMtom = ENABLE_MTOM_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getProtocolBinding() <em>Protocol Binding</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getProtocolBinding()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String PROTOCOL_BINDING_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getProtocolBinding() <em>Protocol Binding</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getProtocolBinding()
+	 * @generated
+	 * @ordered
+	 */
+	protected String protocolBinding = PROTOCOL_BINDING_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getHandlerChains() <em>Handler Chains</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHandlerChains()
+	 * @generated
+	 * @ordered
+	 */
+	protected HandlersChains handlerChains;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -613,6 +679,134 @@ public class PortComponentImpl extends J2EEEObjectImpl implements PortComponent
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public WSDLService getWsdlService() {
+		return wsdlService;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetWsdlService(WSDLService newWsdlService, NotificationChain msgs) {
+		WSDLService oldWsdlService = wsdlService;
+		wsdlService = newWsdlService;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, WsddPackage.PORT_COMPONENT__WSDL_SERVICE, oldWsdlService, newWsdlService);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setWsdlService(WSDLService newWsdlService) {
+		if (newWsdlService != wsdlService) {
+			NotificationChain msgs = null;
+			if (wsdlService != null)
+				msgs = ((InternalEObject)wsdlService).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WsddPackage.PORT_COMPONENT__WSDL_SERVICE, null, msgs);
+			if (newWsdlService != null)
+				msgs = ((InternalEObject)newWsdlService).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - WsddPackage.PORT_COMPONENT__WSDL_SERVICE, null, msgs);
+			msgs = basicSetWsdlService(newWsdlService, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, WsddPackage.PORT_COMPONENT__WSDL_SERVICE, newWsdlService, newWsdlService));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isEnableMtom() {
+		return enableMtom;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEnableMtom(boolean newEnableMtom) {
+		boolean oldEnableMtom = enableMtom;
+		enableMtom = newEnableMtom;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, WsddPackage.PORT_COMPONENT__ENABLE_MTOM, oldEnableMtom, enableMtom));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getProtocolBinding() {
+		return protocolBinding;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setProtocolBinding(String newProtocolBinding) {
+		String oldProtocolBinding = protocolBinding;
+		protocolBinding = newProtocolBinding;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, WsddPackage.PORT_COMPONENT__PROTOCOL_BINDING, oldProtocolBinding, protocolBinding));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public HandlersChains getHandlerChains() {
+		return handlerChains;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetHandlerChains(HandlersChains newHandlerChains, NotificationChain msgs) {
+		HandlersChains oldHandlerChains = handlerChains;
+		handlerChains = newHandlerChains;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, WsddPackage.PORT_COMPONENT__HANDLER_CHAINS, oldHandlerChains, newHandlerChains);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setHandlerChains(HandlersChains newHandlerChains) {
+		if (newHandlerChains != handlerChains) {
+			NotificationChain msgs = null;
+			if (handlerChains != null)
+				msgs = ((InternalEObject)handlerChains).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WsddPackage.PORT_COMPONENT__HANDLER_CHAINS, null, msgs);
+			if (newHandlerChains != null)
+				msgs = ((InternalEObject)newHandlerChains).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - WsddPackage.PORT_COMPONENT__HANDLER_CHAINS, null, msgs);
+			msgs = basicSetHandlerChains(newHandlerChains, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, WsddPackage.PORT_COMPONENT__HANDLER_CHAINS, newHandlerChains, newHandlerChains));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WsddPackage.PORT_COMPONENT__WSDL_PORT:
@@ -627,6 +821,10 @@ public class PortComponentImpl extends J2EEEObjectImpl implements PortComponent
 				return basicSetDisplayNameType(null, msgs);
 			case WsddPackage.PORT_COMPONENT__ICON_TYPE:
 				return basicSetIconType(null, msgs);
+			case WsddPackage.PORT_COMPONENT__WSDL_SERVICE:
+				return basicSetWsdlService(null, msgs);
+			case WsddPackage.PORT_COMPONENT__HANDLER_CHAINS:
+				return basicSetHandlerChains(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -662,6 +860,14 @@ public class PortComponentImpl extends J2EEEObjectImpl implements PortComponent
 				return getDisplayNameType();
 			case WsddPackage.PORT_COMPONENT__ICON_TYPE:
 				return getIconType();
+			case WsddPackage.PORT_COMPONENT__WSDL_SERVICE:
+				return getWsdlService();
+			case WsddPackage.PORT_COMPONENT__ENABLE_MTOM:
+				return isEnableMtom() ? Boolean.TRUE : Boolean.FALSE;
+			case WsddPackage.PORT_COMPONENT__PROTOCOL_BINDING:
+				return getProtocolBinding();
+			case WsddPackage.PORT_COMPONENT__HANDLER_CHAINS:
+				return getHandlerChains();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -710,6 +916,18 @@ public class PortComponentImpl extends J2EEEObjectImpl implements PortComponent
 			case WsddPackage.PORT_COMPONENT__ICON_TYPE:
 				setIconType((IconType)newValue);
 				return;
+			case WsddPackage.PORT_COMPONENT__WSDL_SERVICE:
+				setWsdlService((WSDLService)newValue);
+				return;
+			case WsddPackage.PORT_COMPONENT__ENABLE_MTOM:
+				setEnableMtom(((Boolean)newValue).booleanValue());
+				return;
+			case WsddPackage.PORT_COMPONENT__PROTOCOL_BINDING:
+				setProtocolBinding((String)newValue);
+				return;
+			case WsddPackage.PORT_COMPONENT__HANDLER_CHAINS:
+				setHandlerChains((HandlersChains)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -757,6 +975,18 @@ public class PortComponentImpl extends J2EEEObjectImpl implements PortComponent
 			case WsddPackage.PORT_COMPONENT__ICON_TYPE:
 				setIconType((IconType)null);
 				return;
+			case WsddPackage.PORT_COMPONENT__WSDL_SERVICE:
+				setWsdlService((WSDLService)null);
+				return;
+			case WsddPackage.PORT_COMPONENT__ENABLE_MTOM:
+				setEnableMtom(ENABLE_MTOM_EDEFAULT);
+				return;
+			case WsddPackage.PORT_COMPONENT__PROTOCOL_BINDING:
+				setProtocolBinding(PROTOCOL_BINDING_EDEFAULT);
+				return;
+			case WsddPackage.PORT_COMPONENT__HANDLER_CHAINS:
+				setHandlerChains((HandlersChains)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -792,6 +1022,14 @@ public class PortComponentImpl extends J2EEEObjectImpl implements PortComponent
 				return displayNameType != null;
 			case WsddPackage.PORT_COMPONENT__ICON_TYPE:
 				return iconType != null;
+			case WsddPackage.PORT_COMPONENT__WSDL_SERVICE:
+				return wsdlService != null;
+			case WsddPackage.PORT_COMPONENT__ENABLE_MTOM:
+				return enableMtom != ENABLE_MTOM_EDEFAULT;
+			case WsddPackage.PORT_COMPONENT__PROTOCOL_BINDING:
+				return PROTOCOL_BINDING_EDEFAULT == null ? protocolBinding != null : !PROTOCOL_BINDING_EDEFAULT.equals(protocolBinding);
+			case WsddPackage.PORT_COMPONENT__HANDLER_CHAINS:
+				return handlerChains != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -817,6 +1055,10 @@ public class PortComponentImpl extends J2EEEObjectImpl implements PortComponent
 		result.append(description);
 		result.append(", displayName: ");
 		result.append(displayName);
+		result.append(", enableMtom: ");
+		result.append(enableMtom);
+		result.append(", protocolBinding: ");
+		result.append(protocolBinding);
 		result.append(')');
 		return result.toString();
 	}

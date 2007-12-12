@@ -85,6 +85,10 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
    {
       return (getModuleVersionID()==WebServiceConstants.WEBSERVICE_1_1_ID);  
    }
+   public boolean isWebService1_2()
+   {
+      return (getModuleVersionID()==WebServiceConstants.WEBSERVICE_1_2_ID);  
+   }
 
 	/* 
 	 * This directly sets the module version id
@@ -92,6 +96,9 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 	public void setModuleVersionID(int id) {
 	super.setVersionID(id);
 	switch (id) {
+			case (WebServiceConstants.WEBSERVICE_1_2_ID) :
+				super.setDoctypeValues(null, null);
+				break;
 			case (WebServiceConstants.WEBSERVICE_1_1_ID) :
 				super.setDoctypeValues(null, null);
 				break;
@@ -106,6 +113,10 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 	public void setJ2EEVersionID(int id) 
   {
     switch (id) {
+	    case (JEE_5_0_ID) :
+					primSetDoctypeValues(null, null);
+					primSetVersionID(WebServiceConstants.WEBSERVICE_1_2_ID);
+					break;
     	case (J2EE_1_4_ID) :
     				primSetDoctypeValues(null, null);
     				primSetVersionID(WebServiceConstants.WEBSERVICE_1_1_ID);
@@ -157,8 +168,10 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 				return J2EEVersionConstants.J2EE_1_3_ID;
 			case WebServiceConstants.WEBSERVICE_1_1_ID :
 				return J2EEVersionConstants.J2EE_1_4_ID;
+			case WebServiceConstants.WEBSERVICE_1_2_ID :
+				return J2EEVersionConstants.JEE_5_0_ID;
 			default :
-			return J2EEVersionConstants.J2EE_1_4_ID;
+			return J2EEVersionConstants.JEE_5_0_ID;
 		}
 	}
 
@@ -166,7 +179,7 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 	 * @see com.ibm.etools.emf2xml.impl.TranslatorResourceImpl#getDefaultVersionID()
 	 */
 	protected int getDefaultVersionID() {
-		return WebServiceConstants.WEBSERVICE_1_1_ID;
+		return WebServiceConstants.WEBSERVICE_1_2_ID;
 	}
 
 
@@ -174,6 +187,17 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
   {
     //Do nothing for now since the root object does not have a version.
   }
+
+
+public void setDoctypeValues(String publicId, String systemId) {
+	
+		int version = J2EE_1_4_ID;
+		if (systemId == null) 
+			version = getJ2EEVersionID();
+		super.setDoctypeValues(publicId, systemId);
+		setJ2EEVersionID(version);
+	
+}
 
   
     

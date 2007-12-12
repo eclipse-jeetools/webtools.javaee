@@ -48,7 +48,7 @@ public class ServiceImplBeanImpl extends J2EEEObjectImpl implements ServiceImplB
 	 * @generated
 	 * @ordered
 	 */
-  protected EJBLink eEJBLink = null;
+  protected EJBLink eEJBLink;
 
 	/**
 	 * The cached value of the '{@link #getEServletLink() <em>EServlet Link</em>}' containment reference.
@@ -58,7 +58,7 @@ public class ServiceImplBeanImpl extends J2EEEObjectImpl implements ServiceImplB
 	 * @generated
 	 * @ordered
 	 */
-  protected ServletLink eServletLink = null;
+  protected ServletLink eServletLink;
 
 	/**
 	 * The cached value of the '{@link #getBeanLink() <em>Bean Link</em>}' containment reference.
@@ -68,7 +68,7 @@ public class ServiceImplBeanImpl extends J2EEEObjectImpl implements ServiceImplB
 	 * @generated
 	 * @ordered
 	 */
-  protected BeanLink beanLink = null;
+  protected BeanLink beanLink;
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -62,8 +62,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="largeIcon" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="displayName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="wsdlPort" lowerBound="1"
-        eType="#//WSDLPort" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="wsdlPort" eType="#//WSDLPort"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="serviceImplBean" lowerBound="1"
         eType="#//ServiceImplBean" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="handlers" upperBound="-1"
@@ -73,6 +73,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="displayNameType" eType="ecore:EClass wscommon.ecore#//DisplayNameType"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="iconType" eType="ecore:EClass common.ecore#//IconType"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="wsdlService" lowerBound="1"
+        eType="#//WSDLService" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enableMtom" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+        defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="protocolBinding" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="handlerChains" eType="#//HandlersChains"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WSDLPort" eSuperTypes="common.ecore#//QName">
@@ -117,4 +124,27 @@
         eType="ecore:EClass wscommon.ecore#//SOAPRole" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BeanLink" eSuperTypes="common.ecore#//J2EEEObject"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WSDLService" eSuperTypes="common.ecore#//QName">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Defines the name space and local name part of the WSDL port QName.&#xD;&#xA;"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HandlerChain" eSuperTypes="common.ecore#//J2EEEObject">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Declares the handler for a port-component. Handlers can access the init-param name/value pairs using the HandlerInfo interface.&#xD;&#xA;&#xD;&#xA;Used in: port-component&#xD;&#xA;"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="serviceNamePattern" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="portNamePattern" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="protocolBindings" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="handlers" lowerBound="1"
+        upperBound="-1" eType="#//Handler" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HandlersChains" eSuperTypes="common.ecore#//J2EEEObject">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="The ejb-link element is used in the service-impl-bean element to specify that a Service Implementation Bean is defined as a Web Service Endpoint.&#xD;&#xA;&#xD;&#xA;The value of the ejb-link element must be the ejb-name of an enterprise bean in the same ejb-jar file.&#xD;&#xA;&#xD;&#xA;Used in: service-impl-bean&#xD;&#xA;&#xD;&#xA;Examples:&#xD;&#xA;&lt;ejb-link>EmployeeRecord&lt;/ejb-link>&#xD;&#xA;&#x9;&lt;ejb-link>../products/product.jar#ProductEJB&lt;/ejb-link>&#xD;&#xA;"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="handlerChain" upperBound="-1"
+        eType="#//HandlerChain" containment="true"/>
+  </eClassifiers>
 </ecore:EPackage>

@@ -18,6 +18,7 @@ import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.common.DescriptionGroup;
 import org.eclipse.jst.j2ee.common.J2EEEObject;
 import org.eclipse.jst.j2ee.common.QName;
+import org.eclipse.jst.j2ee.webservice.wsdd.*;
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.EJBLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
@@ -175,18 +176,40 @@ public class WsddSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case WsddPackage.WSDL_SERVICE: {
+				WSDLService wsdlService = (WSDLService)theEObject;
+				Object result = caseWSDLService(wsdlService);
+				if (result == null) result = caseQName(wsdlService);
+				if (result == null) result = caseJ2EEEObject(wsdlService);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case WsddPackage.HANDLER_CHAIN: {
+				HandlerChain handlerChain = (HandlerChain)theEObject;
+				Object result = caseHandlerChain(handlerChain);
+				if (result == null) result = caseJ2EEEObject(handlerChain);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case WsddPackage.HANDLERS_CHAINS: {
+				HandlersChains handlersChains = (HandlersChains)theEObject;
+				Object result = caseHandlersChains(handlersChains);
+				if (result == null) result = caseJ2EEEObject(handlersChains);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Web Services</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Web Services</em>'.
 	 * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Web Services</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Web Services</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -195,13 +218,13 @@ public class WsddSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Web Service Description</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Web Service Description</em>'.
 	 * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Web Service Description</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Web Service Description</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -210,13 +233,13 @@ public class WsddSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Port Component</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Port Component</em>'.
 	 * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Port Component</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Port Component</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -225,13 +248,13 @@ public class WsddSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>WSDL Port</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>WSDL Port</em>'.
 	 * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>WSDL Port</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>WSDL Port</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -240,13 +263,13 @@ public class WsddSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Service Impl Bean</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Service Impl Bean</em>'.
 	 * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Service Impl Bean</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Service Impl Bean</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -255,13 +278,13 @@ public class WsddSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Servlet Link</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Servlet Link</em>'.
 	 * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Servlet Link</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Servlet Link</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -270,13 +293,13 @@ public class WsddSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>EJB Link</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>EJB Link</em>'.
 	 * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>EJB Link</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>EJB Link</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -285,13 +308,13 @@ public class WsddSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Handler</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Handler</em>'.
 	 * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Handler</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Handler</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -300,13 +323,13 @@ public class WsddSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Bean Link</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Bean Link</em>'.
 	 * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Bean Link</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Bean Link</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -315,13 +338,58 @@ public class WsddSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>WSDL Service</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>J2EEE Object</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>WSDL Service</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseWSDLService(WSDLService object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Handler Chain</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Handler Chain</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseHandlerChain(HandlerChain object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Handlers Chains</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Handlers Chains</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseHandlersChains(HandlersChains object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>J2EEE Object</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>J2EEE Object</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -330,13 +398,13 @@ public class WsddSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Description Group</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Description Group</em>'.
 	 * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Description Group</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Description Group</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -345,13 +413,13 @@ public class WsddSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Compatibility Description Group</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Compatibility Description Group</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Compatibility Description Group</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Compatibility Description Group</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -360,13 +428,13 @@ public class WsddSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>QName</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>QName</em>'.
 	 * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>QName</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>QName</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -375,13 +443,13 @@ public class WsddSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>EObject</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch, but this is the last case anyway.
    * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>EObject</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
 	 */

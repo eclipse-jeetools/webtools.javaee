@@ -11,9 +11,11 @@
 
 package org.eclipse.jst.j2ee.internal.model.translator.webservices;
 
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.model.translator.common.BooleanTranslator;
 import org.eclipse.jst.j2ee.internal.model.translator.common.CommonTranslators;
 import org.eclipse.jst.j2ee.webservice.internal.WebServiceConstants;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
@@ -31,6 +33,7 @@ public class WsddTranslator extends RootTranslator implements WsddXmlMapperI, J2
 	public static WsddTranslator INSTANCE = new WsddTranslator();
 	private static Translator[] children10;
 	private static Translator[] children11;
+	private static Translator[] children12;
 
 	private static WsddPackage WSDD_PKG = WsddPackage.eINSTANCE;
 	private static WscommonPackage WSCOMMON_PKG = WscommonPackage.eINSTANCE;
@@ -55,12 +58,18 @@ public class WsddTranslator extends RootTranslator implements WsddXmlMapperI, J2
 					children10 = create10Children();
 				}
 				return children10;	
-			default :
+			case (J2EE_1_4_ID) :
 				if (children11 == null)
+					{
+						children11 = create11Children();
+					}
+					return children11; 
+			default :
+				if (children12 == null)
 				{
-					children11 = create11Children();
+					children12 = create12Children();
 				}
-				return children11; 
+				return children12; 
 		}
 	}
 
@@ -82,12 +91,27 @@ public class WsddTranslator extends RootTranslator implements WsddXmlMapperI, J2
 			IDTranslator.INSTANCE,
 			new ConstantAttributeTranslator(XML_NS, J2EE_NS_URL),
 			new ConstantAttributeTranslator(XML_NS_XSI, XSI_NS_URL),
-			new ConstantAttributeTranslator(XSI_SCHEMA_LOCATION, J2EE_NS_URL+' '+WebServiceConstants.WEBSERVICE_SCHEMA_LOC),
-			new ConstantAttributeTranslator(VERSION, WebServiceConstants.WEBSERVICE_SCHEMA_VERSION),			  
+			new ConstantAttributeTranslator(XSI_SCHEMA_LOCATION, J2EE_NS_URL+' '+WebServiceConstants.WEBSERVICE_SCHEMA_LOC_1_1),
+			new ConstantAttributeTranslator(VERSION, WebServiceConstants.WEBSERVICE_SCHEMA_VERSION_1_1),			  
 			CommonTranslators.DESCRIPTIONS_TRANSLATOR,
 			CommonTranslators.DISPLAYNAMES_TRANSLATOR,
 			CommonTranslators.ICONS_TRANSLATOR,			
 			create11WebServiceDescTranslator()
+		};
+	}
+	
+protected Translator[] create12Children() {
+		
+		return new Translator[] {
+			IDTranslator.INSTANCE,
+			new ConstantAttributeTranslator(XML_NS, J2EE_NS_URL),
+			new ConstantAttributeTranslator(XML_NS_XSI, XSI_NS_URL),
+			new ConstantAttributeTranslator(XSI_SCHEMA_LOCATION, J2EE_NS_URL+' '+WebServiceConstants.WEBSERVICE_SCHEMA_LOC_1_2),
+			new ConstantAttributeTranslator(VERSION, WebServiceConstants.WEBSERVICE_SCHEMA_VERSION_1_2),			  
+			CommonTranslators.DESCRIPTIONS_TRANSLATOR,
+			CommonTranslators.DISPLAYNAMES_TRANSLATOR,
+			CommonTranslators.ICONS_TRANSLATOR,			
+			create12WebServiceDescTranslator()
 		};
 	}
 
@@ -119,6 +143,22 @@ public class WsddTranslator extends RootTranslator implements WsddXmlMapperI, J2
 			new Translator(WSDL_FILE, WSDD_PKG.getWebServiceDescription_WsdlFile()),			
 			new Translator(JAXRPC_MAPPING_FILE, WSDD_PKG.getWebServiceDescription_JaxrpcMappingFile()),			
 			create11PortComponentTranslator()			  
+		});
+		return result;	
+	}
+	
+public Translator create12WebServiceDescTranslator() {
+	    
+		GenericTranslator result = new GenericTranslator(WEBSERVICE_DESCRIPTION, WSDD_PKG.getWebServices_WebServiceDescriptions());
+		result.setChildren(new Translator[] {
+			IDTranslator.INSTANCE,
+			create11DescriptionTranslator(WSDD_PKG.getWebServiceDescription_DescriptionType()),
+			create11DisplayNameTranslator(WSDD_PKG.getWebServiceDescription_DisplayNameType()),			
+			create11IconTranslator(WSDD_PKG.getWebServiceDescription_IconType()),			
+			new Translator(WEBSERVICE_DESCRIPTION_NAME, WSDD_PKG.getWebServiceDescription_WebServiceDescriptionName()),
+			new Translator(WSDL_FILE, WSDD_PKG.getWebServiceDescription_WsdlFile()),			
+			new Translator(JAXRPC_MAPPING_FILE, WSDD_PKG.getWebServiceDescription_JaxrpcMappingFile()),			
+			create12PortComponentTranslator()			  
 		});
 		return result;	
 	}
@@ -154,7 +194,27 @@ public class WsddTranslator extends RootTranslator implements WsddXmlMapperI, J2
 			CommonTranslators.createQNameTranslator(WSDL_PORT, WSDD_PKG.getPortComponent_WsdlPort()),
 			new Translator(SERVICE_ENPOINT_INTERFACE, WSDD_PKG.getPortComponent_ServiceEndpointInterface()),
 			createServiceImplBeanTranslator(),
-			createHandler11Translator()
+			createHandler11Translator(WSDD_PKG.getPortComponent_Handlers())
+		});
+		return result;	
+	}
+	public Translator create12PortComponentTranslator() {
+		GenericTranslator result = new GenericTranslator(PORT_COMPONENT, WSDD_PKG.getWebServiceDescription_PortComponents());
+		result.setChildren(new Translator[] {
+			IDTranslator.INSTANCE,
+			new Translator(DESCRIPTION, WSDD_PKG.getPortComponent_Description()),			
+			new Translator(DISPLAY_NAME, WSDD_PKG.getPortComponent_DisplayName()),			
+			new Translator(SMALL_ICON, WSDD_PKG.getPortComponent_SmallIcon()),			
+			new Translator(LARGE_ICON, WSDD_PKG.getPortComponent_LargeIcon()),				
+			new Translator(PORT_COMPONENT_NAME, WSDD_PKG.getPortComponent_PortComponentName()),
+			CommonTranslators.createQNameTranslator(WSDL_SERVICE, WSDD_PKG.getPortComponent_WsdlService()),
+			CommonTranslators.createQNameTranslator(WSDL_PORT, WSDD_PKG.getPortComponent_WsdlPort()),
+			new BooleanTranslator(ENABLE_MTOM, WSDD_PKG.getPortComponent_EnableMtom()),
+			new Translator(PROTOCOL_BINDING, WSDD_PKG.getPortComponent_ProtocolBinding()),
+			new Translator(SERVICE_ENPOINT_INTERFACE, WSDD_PKG.getPortComponent_ServiceEndpointInterface()),
+			createServiceImplBeanTranslator(),
+			createHandler11Translator(WSDD_PKG.getPortComponent_Handlers()),
+			createHandlerChains12Translator()
 		});
 		return result;	
 	}
@@ -168,8 +228,7 @@ public class WsddTranslator extends RootTranslator implements WsddXmlMapperI, J2
 		});
 		return result;	
 	}
-
-
+	
 	public Translator createServiceImplBeanTranslator() {
 		GenericTranslator result = new GenericTranslator(SERVICE_IMPL_BEAN, WSDD_PKG.getPortComponent_ServiceImplBean());
 		result.setChildren(new Translator[] {
@@ -198,8 +257,8 @@ public class WsddTranslator extends RootTranslator implements WsddXmlMapperI, J2
 		return result;	
 	}
 
-	public Translator createHandler11Translator() {
-		GenericTranslator result = new GenericTranslator(HANDLER, WSDD_PKG.getPortComponent_Handlers());
+	public Translator createHandler11Translator(EReference refType) {
+		GenericTranslator result = new GenericTranslator(HANDLER, refType);
 		result.setChildren(new Translator[] {
 			IDTranslator.INSTANCE,
 			CommonTranslators.DESCRIPTIONS_TRANSLATOR,
@@ -210,6 +269,26 @@ public class WsddTranslator extends RootTranslator implements WsddXmlMapperI, J2
 			create11InitParamTranslator(),
 			CommonTranslators.createQNameTranslator(SOAP_HEADER, WSDD_PKG.getHandler_SoapHeaders()),
 			new SOAPRoleTranslator()
+		});
+		return result;	
+	}
+	
+	public Translator createHandlerChains12Translator() {
+		GenericTranslator result = new GenericTranslator(HANDLER_CHAINS, WSDD_PKG.getPortComponent_HandlerChains());
+		result.setChildren(new Translator[] {	
+			IDTranslator.INSTANCE,
+			createHandlerChain12Translator()
+		});
+		return result;	
+	}
+	public Translator createHandlerChain12Translator() {
+		GenericTranslator result = new GenericTranslator(HANDLER_CHAIN, WSDD_PKG.getHandlersChains_HandlerChain());
+		result.setChildren(new Translator[] {	
+			IDTranslator.INSTANCE,
+			new Translator(SERVICE_NAME_PATTERN, WSDD_PKG.getHandlerChain_ServiceNamePattern()),
+			new Translator(PORT_NAME_PATTERN, WSDD_PKG.getHandlerChain_PortNamePattern()),
+			new Translator(PROTOCOL_BINDINGS, WSDD_PKG.getHandlerChain_ProtocolBindings()),
+			createHandler11Translator(WSDD_PKG.getHandlerChain_Handlers())
 		});
 		return result;	
 	}
@@ -226,6 +305,16 @@ public class WsddTranslator extends RootTranslator implements WsddXmlMapperI, J2
 	}
 
 	public Translator create11InitParamTranslator() {
+		GenericTranslator result = new GenericTranslator(INIT_PARAM, WSDD_PKG.getHandler_InitParams());
+		result.setChildren(new Translator[] {
+			IDTranslator.INSTANCE,
+			create11DescriptionTranslator(WSCOMMON_PKG.getInitParam_DescriptionTypes()),						  
+			new Translator(PARAM_NAME, WSCOMMON_PKG.getInitParam_ParamName()),
+			new Translator(PARAM_VALUE, WSCOMMON_PKG.getInitParam_ParamValue())
+		});
+		return result;	
+	}
+	public Translator create12InitParamTranslator() {
 		GenericTranslator result = new GenericTranslator(INIT_PARAM, WSDD_PKG.getHandler_InitParams());
 		result.setChildren(new Translator[] {
 			IDTranslator.INSTANCE,

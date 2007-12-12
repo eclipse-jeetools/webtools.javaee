@@ -208,7 +208,7 @@ public class WebServiceDescriptionImpl extends J2EEEObjectImpl implements WebSer
 	 * @generated
 	 * @ordered
 	 */
-  protected EList portComponents = null;
+  protected EList portComponents;
 
 	/**
 	 * The cached value of the '{@link #getDescriptionType() <em>Description Type</em>}' containment reference.
@@ -218,7 +218,7 @@ public class WebServiceDescriptionImpl extends J2EEEObjectImpl implements WebSer
 	 * @generated
 	 * @ordered
 	 */
-  protected DescriptionType descriptionType = null;
+  protected DescriptionType descriptionType;
 
 	/**
 	 * The cached value of the '{@link #getDisplayNameType() <em>Display Name Type</em>}' containment reference.
@@ -228,7 +228,7 @@ public class WebServiceDescriptionImpl extends J2EEEObjectImpl implements WebSer
 	 * @generated
 	 * @ordered
 	 */
-  protected DisplayNameType displayNameType = null;
+  protected DisplayNameType displayNameType;
 
 	/**
 	 * The cached value of the '{@link #getIconType() <em>Icon Type</em>}' containment reference.
@@ -238,7 +238,7 @@ public class WebServiceDescriptionImpl extends J2EEEObjectImpl implements WebSer
 	 * @generated
 	 * @ordered
 	 */
-  protected IconType iconType = null;
+  protected IconType iconType;
 
 	/**
 	 * <!-- begin-user-doc -->
