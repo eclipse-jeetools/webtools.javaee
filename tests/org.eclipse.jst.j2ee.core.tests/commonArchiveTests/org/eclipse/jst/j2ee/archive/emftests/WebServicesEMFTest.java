@@ -73,6 +73,7 @@ public class WebServicesEMFTest extends GeneralEMFPopulationTest {
 		suite.addTest(new WebServicesEMFTest("test13WebServicesClientPopulation",factory));
 		suite.addTest(new WebServicesEMFTest("test13WebServicesDDPopulation",factory));
 		suite.addTest(new WebServicesEMFTest("test14WebServicesDDPopulation",factory));
+		suite.addTest(new WebServicesEMFTest("test50WebServicesDDPopulation()",factory));
 		//suite.addTest(new WebServicesEMFTest("testJaxRPCMapPopulation",factory));
 		return suite;
 	}
@@ -160,6 +161,24 @@ public class WebServicesEMFTest extends GeneralEMFPopulationTest {
 		earFile.close();
 
 	}
+	public void test50WebServicesDDPopulation() throws Exception {
+		EMFAttributeFeatureGenerator.reset();
+		currentVersion = J2EEVersionConstants.JEE_5_0_ID;
+		createEAR();
+		createEJB();
+
+		WsddResource webserDD = (WsddResource)ejbFile.getResourceSet().createResource(URI.createURI("META-INF/webservices.xml"));
+		webserDD.getContents().add(WsddFactory.eINSTANCE.createWebServices());
+		//TODO: individual test for each version
+		webserDD.setVersionID(currentVersion);
+		setVersion(VERSION_5_0);
+		populateRoot(webserDD.getRootObject());
+		
+		String out = AutomatedBVT.baseDirectory +getProjectLocation();
+		earFile.extractTo(out, Archive.EXPAND_ALL);
+		earFile.close();
+
+	}
 	
 	public EObject createInstance(EReference ref,EObject eObject) {
 
@@ -184,8 +203,10 @@ public class WebServicesEMFTest extends GeneralEMFPopulationTest {
 	public String getProjectLocation() {
 		if (currentVersion == J2EEVersionConstants.J2EE_1_3_ID)
 			return "testOutput/TestWebServices";
-		else
+		if (currentVersion == J2EEVersionConstants.J2EE_1_4_ID)
 			return "testOutput/TestWebServices14";
+		else
+			return "testOutput/TestWebServices50";
 	}
 	public void getEJB() throws DuplicateObjectException, OpenFailureException {
 		String in = AutomatedBVT.baseDirectory +getProjectLocation() +"/fooWebServices";

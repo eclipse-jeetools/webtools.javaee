@@ -80,6 +80,7 @@ public class GeneralEMFPopulationTest extends GeneralEMFTest {
     public static final int VERSION_1_2 = 0;
     public static final int VERSION_1_3 = 1;
     public static final int VERSION_1_4 = 2;
+    public static final int VERSION_5_0 = 3;
 
     public static final int APPLICATION = 0;
     public static final int APP_CLIENT = 1;
