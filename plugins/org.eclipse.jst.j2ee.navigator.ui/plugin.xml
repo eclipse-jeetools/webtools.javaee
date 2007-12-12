@@ -937,6 +937,48 @@
 				</or>
 			</enablement>
 		</commonWizard>
+  		<commonWizard
+        		menuGroupId="org.eclipse.jst.ejb.ui"
+        		type="new"
+        		wizardId="org.eclipse.jst.ejb.ui.internal.wizard.AddSessionBeanWizard">
+     		<enablement>
+				<or>
+					<and>
+						<adapt
+							type="org.eclipse.core.resources.IResource">
+							<or>
+								<test forcePluginActivation="true"
+									property="org.eclipse.wst.common.project.facet.core.projectFacet"
+									value="jst.ejb:3.0"/>
+							</or>
+						</adapt>
+						<or>
+							<instanceof value="org.eclipse.core.resources.IProject"/>
+							<instanceof value="org.eclipse.jdt.core.IPackageFragment"/>
+							<instanceof value="org.eclipse.jdt.core.IPackageFragmentRoot"/>
+							<instanceof value="org.eclipse.jdt.core.ICompilationUnit"/>
+						</or>
+					</and>
+					<and>
+						<instanceof
+							value="org.eclipse.jst.j2ee.ejb.EJBJar" />
+						<adapt
+							type="org.eclipse.core.resources.IResource">
+							<test forcePluginActivation="true"
+								property="org.eclipse.wst.common.project.facet.core.projectFacet"
+								value="jst.ejb:3.0" />
+						</adapt>
+					</and>
+					<and>
+						<instanceof
+							value="org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider" />
+						<test forcePluginActivation="true"
+							property="org.eclipse.jst.j2ee.provider.projectFacet"
+							value="jst.ejb.xdoclet" />
+					</and>
+				</or>
+			</enablement>
+  		</commonWizard>
 	</navigatorContent>
 	<navigatorContent name="%extension.connector.name"
 		priority="highest" icon="icons/connectorgroup_obj.gif"
