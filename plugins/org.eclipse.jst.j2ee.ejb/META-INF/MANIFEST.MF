@@ -11,6 +11,7 @@ Export-Package: org.eclipse.jst.j2ee.ejb.archiveoperations,
  org.eclipse.jst.j2ee.ejb.datamodel.properties,
  org.eclipse.jst.j2ee.ejb.internal.deployables;x-internal:=true,
  org.eclipse.jst.j2ee.ejb.internal.modulecore.util;x-internal:=true,
+ org.eclipse.jst.j2ee.ejb.internal.operations,
  org.eclipse.jst.j2ee.ejb.internal.plugin;x-internal:=true,
  org.eclipse.jst.j2ee.ejb.project.facet,
  org.eclipse.jst.j2ee.ejb.project.operations,
@@ -44,6 +45,9 @@ Require-Bundle: org.eclipse.jst.j2ee;bundle-version="[1.1.0,1.2.0)",
  org.eclipse.wst.common.project.facet.core;bundle-version="[1.1.0,2.0.0)",
  org.eclipse.jst.common.project.facet.core;bundle-version="[1.1.0,1.2.0)",
  org.eclipse.wst.web;bundle-version="[1.1.0,1.2.0)",
- org.eclipse.wst.common.environment;bundle-version="[1.0.100,1.1.0)"
+ org.eclipse.wst.common.environment;bundle-version="[1.0.100,1.1.0)",
+ org.eclipse.emf.codegen,
+ org.eclipse.jst.common.annotations.controller,
+ org.eclipse.swt
 Eclipse-LazyStart: true
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

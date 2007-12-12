@@ -47,6 +47,20 @@
             %new.ejb.project.description_ui_
          </description>
       </wizard>
+      <wizard
+            category="org.eclipse.jst.ejb.ui"
+            class="org.eclipse.jst.ejb.ui.internal.wizard.AddSessionBeanWizard"
+            icon="icons/full/ctool16/newsessionejb_wiz.gif"
+            id="org.eclipse.jst.ejb.ui.internal.wizard.AddSessionBeanWizard"
+            name="%BeanEjbRegionWizard.name">
+         <class class="org.eclipse.jst.ejb.ui.internal.wizard.AddSessionBeanWizard">
+            <parameter name="javaeeartifact" value="true"/>
+            <parameter name="menuIndex" value="35" />
+         </class>
+         <description>
+            %BeanWebRegionWizard.description
+         </description>
+      </wizard>
    </extension>
 <!-- Navigator Object Contributions -->
 <!-- EJB Group Contributions 

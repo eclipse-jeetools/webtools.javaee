@@ -1,0 +1,14 @@
+<%@ jet package="org.eclipse.jst.j2ee.ejb" 
+	imports="org.eclipse.jst.j2ee.ejb.internal.operations.* java.util.* " 
+	class="RemoteHomeTemplate" 
+%>
+<% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; 
+if (model.getJavaPackageName()!=null && model.getJavaPackageName()!="") { %>package <%=model.getJavaPackageName()%>;<%}%>
+
+import javax.ejb.EJBLocalHome;
+
+public interface <%=model.getClassName()%>LocalHome extends EJBLocalHome {
+	<%if (model.getJavaPackageName()!=null && model.getJavaPackageName()!="") {%>
+	public <%=model.getJavaPackageName()%>.<%=model.getClassName()%>LocalComponent create() throws javax.ejb.CreateException, java.rmi.RemoteException;
+	<%}else{%>public <%=model.getClassName()%>LocalComponent create() throws javax.ejb.CreateException, java.rmi.RemoteException;<%}%>
+}

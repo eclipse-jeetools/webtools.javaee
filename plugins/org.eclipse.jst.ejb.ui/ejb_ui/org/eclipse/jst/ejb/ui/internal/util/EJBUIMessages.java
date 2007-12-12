@@ -57,6 +57,34 @@ public class EJBUIMessages extends NLS {
 	public static String pageTitle;
 	public static String pageDescription;
 	public static String configFolderLabel;
+	public static String IMAGE_ENTERPRISE_BEAN_WIZ;
+	
+	//common
+	public static String NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC;
+	public static String NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC;
+	
+	//EnterpriseBeans
+	public static String NO_EJB_PROJECTS;
+	public static String ADD_BEANS_WIZARD_PAGE_TITLE;
+	public static String STATE_TYPE_LABEL;
+	public static String CREATEBUSSINESINTERFACE;
+	public static String REMOTE_BUSSINES_INTERFACE;
+	public static String LOCAL_BUSSINES_INTERFACE;
+	public static String EJB_NAME;
+	public static String CONTAINER;
+	public static String BEAN;
+	public static String STATELESS;
+	public static String STATEFUL;
+	public static String chooseInterface;
+	public static String addAs;
+	public static String HOMECOMPONENTINTERFACE;
+	public static String MAPPED_NAME;
+	public static String TRANSACTION_TYPE;
+	public static String BUSSINESS_INTERFACE;
+	public static String ADD_INTERFACES;
+	public static String REMOVE_INTERFACES;
+	public static String ADD_SESSION_BEAN_WIZARD_PAGE_DESC;
+	
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, EJBUIMessages.class);
@@ -92,4 +120,5 @@ public class EJBUIMessages extends NLS {
 	public static final String Delete_Enterprise_Beans = KEY_27;
 	public static final String Delete_Options_Query = KEY_27;
 	public static final String NewEJBModuleAction = NewEJBModuleAction_UI_0;
+	public static final String ENTERPRISE_BEAN_WIZ = IMAGE_ENTERPRISE_BEAN_WIZ;
 }

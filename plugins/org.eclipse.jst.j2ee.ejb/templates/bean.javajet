@@ -1,0 +1,56 @@
+<%@ jet package="org.eclipse.jst.j2ee.ejb" 
+	imports="org.eclipse.jst.j2ee.ejb.internal.operations.* java.util.* " 
+	class="BTemplate" 
+%><%@ include file="beanHeader.template" %>
+
+<%=model.getBeanType()%>
+<%Map map = model.getAnnotationParameters();
+if(!map.isEmpty()){%>(<%
+ Iterator it = map.keySet().iterator();
+ boolean needComma = false;
+ while(it.hasNext() ){
+ String key = (String) it.next(); String value = (String) map.get(key);
+ if(needComma){%>, <%}needComma = true;
+ %><%=key%>="<%=value%>"<%}%>)
+ <%}
+if (!model.isContainerType()){%>
+@TransactionManagement(TransactionManagementType.BEAN)<%}
+List interfacesExternal = model.getBusnessLocalList();
+boolean needComma = false;
+if (interfacesExternal.size() > 0){%>
+@Local({<%
+		for (Iterator i = interfacesExternal.iterator();i.hasNext();){
+			RemoteLocalInterface element = (RemoteLocalInterface) i.next();
+			if (needComma){%>,<%}
+					%><%=element.getSimpleName()%>.class<%
+					needComma = true;
+				}
+		%>})<%}
+interfacesExternal = model.getBusnessRemoteList();
+needComma = false;
+if (interfacesExternal.size() > 0){%>
+@Remote({<%
+		for (Iterator i = interfacesExternal.iterator();i.hasNext();){
+			RemoteLocalInterface element = (RemoteLocalInterface) i.next();
+			if (needComma){%>,<%}
+					%><%=element.getSimpleName()%>.class<%
+					needComma = true;
+				}
+		%>})<%}
+if (model.isLocalHome()){%>
+@LocalHome(<%=model.getClassName()%>LocalHome.class)<%}%>
+<%if (model.isRemoteHome()){%>
+@RemoteHome(<%=model.getClassName()%>Home.class)<%}%>
+
+<%if (model.isPublic()) {%>public<%}%> <%if (model.isAbstract()) {%>abstract <%}%><%if (model.isFinal()) {%>final <%}
+%>class <%=model.getClassName()%><%
+String superClass = model.getSuperclassName();
+if (superClass.trim().length() > 0) {%> extends <%=superClass%><%}%>
+<%
+ List interfaces = model.getInterfaces(); 
+ if (interfaces.size()>0) {%> implements <% }
+ for (int i=0; i<interfaces.size(); i++) {
+   String INTERFACE = (String) interfaces.get(i);
+   if (i>0) { %>, <%}%><%=INTERFACE%><%}%> {
+
+}
