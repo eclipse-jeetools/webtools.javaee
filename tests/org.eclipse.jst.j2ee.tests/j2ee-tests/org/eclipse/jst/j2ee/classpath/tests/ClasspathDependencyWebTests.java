@@ -1,12 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2007 BEA Systems, Inc and others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     IBM Corporation - initial API and implementation
+ *    BEA Systems, Inc - initial API and implementation
  *******************************************************************************/
 package org.eclipse.jst.j2ee.classpath.tests;
 
@@ -15,8 +15,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -24,8 +27,10 @@ import org.eclipse.jst.j2ee.classpath.tests.util.ClasspathDependencyTestUtil;
 import org.eclipse.jst.j2ee.classpathdep.UpdateClasspathAttributeUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.FileImpl;
 import org.eclipse.jst.j2ee.dependency.tests.util.DependencyCreationUtil;
 import org.eclipse.jst.j2ee.dependency.tests.util.ProjectUtil;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -51,15 +56,25 @@ public class ClasspathDependencyWebTests extends AbstractTests {
     public static Test suite(){
         final TestSuite suite = new TestSuite();
         suite.setName("Classpath Dependency Web Tests" );
-        suite.addTest(new ClasspathDependencyWebTests("testWebExport"));
-        suite.addTest(new ClasspathDependencyWebTests("testWebPublish"));
+        suite.addTest(new ClasspathDependencyWebTests("testWebExportJ2EE"));
+        //suite.addTest(new ClasspathDependencyWebTests("testWebExportJEE5"));
+        suite.addTest(new ClasspathDependencyWebTests("testWebPublishJ2EE"));
+        suite.addTest(new ClasspathDependencyWebTests("testWebPublishJEE5"));
         return suite;
     }
     
-    public void testWebExport() throws Exception {
+    public void testWebExportJ2EE() throws Exception {
+        testWebExport(false);
+    }
+    
+    public void testWebExportJEE5() throws Exception {
+    	testWebExport(true);
+    }
+    
+    private void testWebExport(boolean JEE5) throws Exception {
 
     	// create the Web and utility projects
-    	IVirtualComponent webComp = createProjects();
+    	IVirtualComponent webComp = createProjects(JEE5);
     	
     	// verify that the exported WAR WEB-INF/lib does not contain the cp container jars from the Utility
     	final Set archiveNames = new HashSet();
@@ -74,7 +89,8 @@ public class ClasspathDependencyWebTests extends AbstractTests {
     	verifyExportedWebInfLibs(webComp, archiveNames, true);
     }
     
-    private void verifyExportedWebInfLibs(final IVirtualComponent comp, final Set archiveNames, final boolean shouldHaveArchives) throws Exception {
+    // TODO need to modify to work with both JEE5 model provider and J2EE ArtifactEdit logic 
+    private void verifyExportedWebInfLibs(final IVirtualComponent comp, final Set archiveNames, final boolean shouldHaveDependencies) throws Exception {
 		WebArtifactEdit webEdit = null;
 		WARFile warFile = null;
 		try {
@@ -94,11 +110,25 @@ public class ClasspathDependencyWebTests extends AbstractTests {
 							}
 						}
 					}
-					if (shouldHaveArchives) {
+					if (shouldHaveDependencies) {
 						assertTrue("Exported WAR missing classpath dependency Jar " + name, hasArchive);  					
 					} else {
 						assertFalse("Exported WAR has unexpected classpath dependency Jar " + name, hasArchive);
 					}
+				}
+				List webInfClasses = warFile.getClasses();
+				it = webInfClasses.iterator();
+				boolean hasNestedTest = false;
+				while (it.hasNext()) {
+					Object o = it.next();
+					if (o instanceof FileImpl && ((FileImpl)o).getURI().toString().equals("WEB-INF/classes/nested/test")) {
+						hasNestedTest = true;
+					}
+				}
+				if (shouldHaveDependencies) {
+					assertTrue("Exported WAR missing nested class folder file", hasNestedTest);  					
+				} else {
+					assertFalse("Exported WAR has unexpected nested class folder file", hasNestedTest);
 				}
 			}
 		} finally {
@@ -110,10 +140,18 @@ public class ClasspathDependencyWebTests extends AbstractTests {
 		}    	
     }
     
-    public void testWebPublish() throws Exception {
+    public void testWebPublishJ2EE() throws Exception {
+        testWebPublish(false);
+    }
+    
+    public void testWebPublishJEE5() throws Exception {
+        testWebPublish(true);
+    }
+    
+    private void testWebPublish(boolean JEE5) throws Exception {
 
     	// create the web and utility projects
-    	IVirtualComponent webComp = createProjects();
+    	IVirtualComponent webComp = createProjects(JEE5);
     	
     	// verify that the exported WAR WEB-INF/lib does not contain the cp container jars from the Utility
     	final Set archiveNames = new HashSet();
@@ -128,9 +166,10 @@ public class ClasspathDependencyWebTests extends AbstractTests {
     	verifyPublishedWebInfLibs(webComp, archiveNames, true);
     }
     
-    private void verifyPublishedWebInfLibs(final IVirtualComponent comp, final Set archiveNames, final boolean shouldHaveArchives) throws Exception {
+    private void verifyPublishedWebInfLibs(final IVirtualComponent comp, final Set archiveNames, final boolean shouldHaveDependencies) throws Exception {
     	// verify that the published WAR's WEB-INF/lib contains the cp container jars from the Utility
     	J2EEFlexProjDeployable deployable = new J2EEFlexProjDeployable(comp.getProject(), comp);
+    	
 		try {
 			IModuleResource[] members = deployable.members();
 			assertTrue(members.length==2);
@@ -154,10 +193,27 @@ public class ClasspathDependencyWebTests extends AbstractTests {
 										hasArchive= true;
 									}
 								}
-								if (shouldHaveArchives) {
+								if (shouldHaveDependencies) {
 									assertTrue("Published WAR missing classpath dependency Jar " + archiveName, hasArchive);  					
 								} else {
 									assertFalse("Published WAR has unexpected classpath dependency Jar " + archiveName, hasArchive);
+								}
+							}
+						} else if (webResource.getName().equals("classes")) {
+							IModuleResource[] webresMembers = ((ModuleFolder)webResource).members();
+							for (j = 0; j < webresMembers.length; j++) {
+								if (webresMembers[j].getName().equals("nested")) {
+									IModuleResource[] nestedMembers = ((ModuleFolder)webresMembers[j]).members();
+									assertTrue("Published WAR should have have nested folder without class folder dependency", shouldHaveDependencies);
+									boolean hasNestedTest = false;
+									if (nestedMembers.length == 1 && nestedMembers[0].getName().equals("test")) {
+										hasNestedTest = true;
+									}
+									if (shouldHaveDependencies) {
+										assertTrue("Published WAR missing nested class folder file", hasNestedTest);  					
+									} else {
+										assertFalse("Published WAR has unexpected nested class folder file", hasNestedTest);
+									}
 								}
 							}
 						}
@@ -171,16 +227,32 @@ public class ClasspathDependencyWebTests extends AbstractTests {
 		}    	
     }
     
-    private IVirtualComponent createProjects() throws Exception {
+    private IVirtualComponent createProjects(boolean JEE5) throws Exception {
     	// create a Utility project
     	final IProject util = ProjectUtil.createUtilityProject(UTIL_PROJECT, null, true);
     	final IJavaProject utilJava = JavaCore.create(util);
     	final IVirtualComponent utilComp = ComponentCore.createComponent(util);
 
     	// create a Web project
-    	final IProject webProject = ProjectUtil.createWebProject(WEB_PROJECT, null, true);
+    	// create a Web project
+    	int version = J2EEVersionConstants.SERVLET_2_5;
+    	if (!JEE5) {
+    		version = J2EEVersionConstants.SERVLET_2_4;
+    	}
+    	final IProject webProject = ProjectUtil.createWebProject(WEB_PROJECT, null, version, true);
     	final IJavaProject webJavaProject = JavaCore.create(webProject);
     	final IVirtualComponent webComp = ComponentCore.createComponent(webProject);
+    	// create a new "bin" folder
+    	final IPath binPath = new Path("bin");
+    	final IFolder webBin = webProject.getFolder(binPath);
+    	webBin.create(true, true, null);
+    	// create a nested folder
+    	final IFolder nested = webBin.getFolder("nested");
+    	nested.create(true, true, null);
+    	// add a file
+    	nested.getFile("test").create(new java.io.StringBufferInputStream("blah"), true, null);
+    	// add as a library cp entry
+    	ClasspathDependencyTestUtil.addLibraryEntry(webJavaProject, webBin.getFullPath(), true);
     	
     	// add a dependency from the Web to the Utility
     	DependencyCreationUtil.createWebLibDependency(webProject, util); 
@@ -195,6 +267,10 @@ public class ClasspathDependencyWebTests extends AbstractTests {
     	final IProject util = ProjectUtil.getProject(UTIL_PROJECT);
     	final IJavaProject utilJava = JavaCore.create(util);
     	final IVirtualComponent utilComp = ComponentCore.createComponent(util);
+    	final IProject web = ProjectUtil.getProject(WEB_PROJECT);
+    	final IJavaProject webJava = JavaCore.create(web);
+    	final IPath fullWebBinPath = web.getFullPath().append("bin");
+    	final IVirtualComponent webComp = ComponentCore.createComponent(web);
     	
     	final Set entryPaths = new HashSet();
     	entryPaths.add(ClasspathDependencyTestUtil.CUSTOM_CLASSPATH_CONTAINER);
@@ -210,5 +286,26 @@ public class ClasspathDependencyWebTests extends AbstractTests {
     	archiveNames.add(ClasspathDependencyTestUtil.TEST1_JAR);
     	archiveNames.add(ClasspathDependencyTestUtil.TEST2_JAR);
     	ClasspathDependencyTestUtil.verifyClasspathDependencies(utilComp, archiveNames);
+    	
+    	entryPaths.clear();
+    	entryPaths.add(fullWebBinPath);
+    	// verify that "bin" in the web project is a potential entry
+    	entries = ClasspathDependencyTestUtil.verifyPotentialClasspathEntries(webJava, entryPaths);
+    	// verify that no entries have the classpath attribute
+    	ClasspathDependencyTestUtil.verifyNoClasspathAttributes(webJava);
+    	// verify that there are no classpath dependencies
+    	ClasspathDependencyTestUtil.verifyNoClasspathDependencies(webComp);
+    	
+    	// add the dependency attribute to "bin"
+    	entry = (IClasspathEntry) entries.get(0);
+    	UpdateClasspathAttributeUtil.addDependencyAttribute(null, web.getName(), entry);
+    	// should no longer have potential entries
+    	ClasspathDependencyTestUtil.verifyNoPotentialClasspathEntries(webJava);
+    	// verify that "bin" has the attribute
+    	ClasspathDependencyTestUtil.verifyClasspathAttributes(webJava, entryPaths);
+    	// verify that "bin" is a dependency
+    	archiveNames.clear();
+    	archiveNames.add(fullWebBinPath.toString());
+    	ClasspathDependencyTestUtil.verifyClasspathDependencies(webComp, archiveNames);
     }
 }

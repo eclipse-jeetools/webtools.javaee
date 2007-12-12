@@ -1,12 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2007 BEA Systems, Inc and others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     IBM Corporation - initial API and implementation
+ *    BEA Systems, Inc - initial API and implementation
  *******************************************************************************/
 package org.eclipse.jst.j2ee.classpath.tests;
 
@@ -28,6 +28,7 @@ import org.eclipse.jst.j2ee.dependency.tests.util.ProjectUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -46,7 +47,7 @@ public class ClasspathDependencyValidationTests extends AbstractTests {
         suite.setName("Classpath Component Dependency Validation Tests" );
         suite.addTest(new ClasspathDependencyValidationTests("testSourceEntryRule"));
         suite.addTest(new ClasspathDependencyValidationTests("testProjectEntryRule"));
-        suite.addTest(new ClasspathDependencyValidationTests("testClassFolderRule"));
+        suite.addTest(new ClasspathDependencyValidationTests("testDuplicateClassFolderRule"));
         suite.addTest(new ClasspathDependencyValidationTests("testNonWebNonExportedRule"));
         //suite.addTest(new ClasspathDependencyValidationTests("testDuplicateArchiveNamesRule"));
         suite.addTest(new ClasspathDependencyValidationTests("testRootMappingNonEARWARRefRule"));
@@ -111,13 +112,18 @@ public class ClasspathDependencyValidationTests extends AbstractTests {
     	ClasspathDependencyTestUtil.verifyNoClasspathDependencyError(webProject);
     }
 
-    //ClassFolderEntry=Invalid classpath component dependency {0}. Class folders not supported.
-    public void testClassFolderRule() throws Exception {
+    //DuplicateClassFolderEntry
+    public void testDuplicateClassFolderRule() throws Exception {
     	final IProject project = ProjectUtil.createUtilityProject("TestUtil", "TestEAR", true);
     	final IJavaProject javaProject = JavaCore.create(project);
     	final IVirtualComponent comp = ComponentCore.createComponent(project);
+    	final IPath classFolderPath = project.getFullPath().append(ClasspathDependencyTestUtil.TEST3_BIN_PATH);
     	
-    	ClasspathDependencyTestUtil.addLibraryEntry(javaProject, ClasspathDependencyTestUtil.TEST3_BIN_PATH, true);
+    	// create a library classpath entry
+    	ClasspathDependencyTestUtil.addLibraryEntry(javaProject, classFolderPath, true);
+    	
+    	// link via the component file 
+    	comp.getRootFolder().createLink(ClasspathDependencyTestUtil.TEST3_BIN_PATH, IVirtualResource.FORCE, null);
     	
     	DependencyUtil.waitForValidationJobs(project);
     	ClasspathDependencyTestUtil.verifyNoValidationError(project);
@@ -133,9 +139,11 @@ public class ClasspathDependencyValidationTests extends AbstractTests {
     			break;
     		}
     	}
+    	
+    	// Mark that cp entry for publish/export
     	UpdateClasspathAttributeUtil.addDependencyAttribute(null, project.getName(), lib);
     	
-    	final Set entryPaths = Collections.singleton(ClasspathDependencyTestUtil.TEST3_BIN_PATH);
+    	final Set entryPaths = Collections.singleton(classFolderPath);
     	ClasspathDependencyTestUtil.verifyNoPotentialClasspathEntries(javaProject);
     	ClasspathDependencyTestUtil.verifyClasspathAttributes(javaProject, entryPaths);
     	ClasspathDependencyTestUtil.verifyNoClasspathDependencies(comp);
@@ -147,7 +155,6 @@ public class ClasspathDependencyValidationTests extends AbstractTests {
     	
     	DependencyUtil.waitForValidationJobs(project);
     	ClasspathDependencyTestUtil.verifyNoClasspathDependencyError(project);
-
     }
     
     //NonWebNonExported=Invalid classpath component dependency {0}. Classpath component dependencies for non-web projects must be exported.

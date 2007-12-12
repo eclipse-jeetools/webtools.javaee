@@ -1,12 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2007 BEA Systems, Inc and others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     IBM Corporation - initial API and implementation
+ *    BEA Systems, Inc - initial API and implementation
  *******************************************************************************/
 package org.eclipse.jst.j2ee.classpath.tests;
 
@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -43,6 +45,7 @@ public class ClasspathDependencyCreationTests extends AbstractTests {
         suite.addTest(new ClasspathDependencyCreationTests("testNoClasspathDependencies"));
         suite.addTest(new ClasspathDependencyCreationTests("testAddRemoveClasspathDependency"));
         suite.addTest(new ClasspathDependencyCreationTests("testLibraryClasspathDependency"));
+        suite.addTest(new ClasspathDependencyCreationTests("testClassFolderDependency"));
         return suite;
     }
     
@@ -113,6 +116,36 @@ public class ClasspathDependencyCreationTests extends AbstractTests {
     	ClasspathDependencyTestUtil.verifyClasspathAttributes(javaProject, entryPaths);
     	final Set archiveNames = new HashSet();
     	archiveNames.add(ClasspathDependencyTestUtil.TEST3_JAR);
+    	ClasspathDependencyTestUtil.verifyClasspathDependencies(comp, archiveNames);    	
+    }
+    
+    public void testClassFolderDependency() throws Exception {
+    	final IProject project = ProjectUtil.createWebProject("TestWeb", "TestEAR");
+    	final IJavaProject javaProject = JavaCore.create(project);
+    	final IVirtualComponent comp = ComponentCore.createComponent(project);
+    	final IPath binPath = new Path("bin");
+    	final IPath fullBinPath = project.getFullPath().append(binPath);
+    	project.getFolder(binPath).create(true, true, null);
+    	
+    	ClasspathDependencyTestUtil.verifyNoClasspathAttributes(javaProject);
+    	ClasspathDependencyTestUtil.verifyNoPotentialClasspathEntries(javaProject);
+    	ClasspathDependencyTestUtil.verifyNoClasspathDependencies(comp);
+    	
+    	ClasspathDependencyTestUtil.addLibraryEntry(javaProject, fullBinPath, true);
+    	
+    	final Set entryPaths = new HashSet();
+    	entryPaths.add(fullBinPath);
+    	List entries = ClasspathDependencyTestUtil.verifyPotentialClasspathEntries(javaProject, entryPaths);
+    	ClasspathDependencyTestUtil.verifyNoClasspathAttributes(javaProject);
+    	ClasspathDependencyTestUtil.verifyNoClasspathDependencies(comp);
+    	
+    	IClasspathEntry entry = (IClasspathEntry) entries.get(0);
+    	UpdateClasspathAttributeUtil.addDependencyAttribute(null, project.getName(), entry);
+    	
+    	ClasspathDependencyTestUtil.verifyNoPotentialClasspathEntries(javaProject);
+    	ClasspathDependencyTestUtil.verifyClasspathAttributes(javaProject, entryPaths);
+    	final Set archiveNames = new HashSet();
+    	archiveNames.add(fullBinPath.toString());
     	ClasspathDependencyTestUtil.verifyClasspathDependencies(comp, archiveNames);    	
     }
 }

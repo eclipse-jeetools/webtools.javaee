@@ -1,12 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2007 BEA Systems, Inc and others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     IBM Corporation - initial API and implementation
+ *    BEA Systems, Inc - initial API and implementation
  *******************************************************************************/
 package org.eclipse.jst.j2ee.classpath.tests.util;
 
@@ -54,7 +54,7 @@ public class ClasspathDependencyTestUtil extends DependencyUtil {
 	public static final IPath TEST2_JAR_PATH = getFullTestDataPath(TEST2_JAR);
 	public static final IPath TEST3_JAR_PATH = getFullTestDataPath(TEST3_JAR);
 	public static final IPath TEST3_JAR_OTHER_LOCATION_PATH = getFullTestDataPath(TEST3_JAR_OTHER_LOCATION);
-	public static final IPath TEST3_BIN_PATH = getFullTestDataPath(TEST3_BIN);
+	public static final IPath TEST3_BIN_PATH = new Path(TEST3_BIN);
 
 	public static final String CLASSPATH_DEPENDENCY_MARKER_TYPE = "org.eclipse.jst.j2ee.ClasspathDependencyValidatorMarker";
 	public static final String VALIDATION_MARKER_TYPE = "org.eclipse.wst.validation.problemmarker";

@@ -1,12 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2007 BEA Systems, Inc and others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     IBM Corporation - initial API and implementation
+ *    BEA Systems, Inc - initial API and implementation
  *******************************************************************************/
 package org.eclipse.jst.j2ee.dependency.tests.util;
 
@@ -120,9 +120,21 @@ public class ProjectUtil {
 	 * @throws Exception
 	 */
 	public static IProject createEARProject(final String name, final boolean waitForBuildToComplete) throws Exception {
-		final IDataModel dataModel = getEARCreationDataModel(name);
-		return createAndVerify(dataModel, name, J2EEProjectUtilities.ENTERPRISE_APPLICATION, null, waitForBuildToComplete);
+		return createEARProject(name, J2EEVersionConstants.J2EE_1_4_ID, waitForBuildToComplete);
     }
+	
+	/**
+	 * Creates an EAR project.
+	 * @param name EAR name.
+	 * @param waitForBuildToComplete True if the call should wait for the subsequent build to complete.
+	 * @param 
+	 * @return The EAR project.
+	 * @throws Exception
+	 */
+	public static IProject createEARProject(final String name, final int facetVersion, final boolean waitForBuildToComplete) throws Exception {
+		final IDataModel dataModel = getEARCreationDataModel(name, facetVersion);
+		return createAndVerify(dataModel, name, J2EEProjectUtilities.ENTERPRISE_APPLICATION, null, waitForBuildToComplete);
+	}
 	
 	/**
 	 * Creates a web project with optional EAR association.
@@ -135,6 +147,7 @@ public class ProjectUtil {
 		return createWebProject(name, earName, false);
     }
 	
+	
 	/**
 	 * Creates a web project with optional EAR association.
 	 * @param name Web name.
@@ -143,7 +156,19 @@ public class ProjectUtil {
 	 * @throws Exception
 	 */
 	public static IProject createWebProject(final String name, final String earName, final boolean waitForBuildToComplete) throws Exception {
-		final IDataModel dataModel = getWebCreationDataModel(name, earName);
+		return createWebProject(name, earName, J2EEVersionConstants.SERVLET_2_4, waitForBuildToComplete);
+    }
+	
+	/**
+	 * Creates a web project with optional EAR association.
+	 * @param name Web name.
+	 * @param earName EAR name; null for no EAR association.
+	 * @param facetVersion The facet version.
+	 * @return The Web project.
+	 * @throws Exception
+	 */
+	public static IProject createWebProject(final String name, final String earName, final int facetVersion, final boolean waitForBuildToComplete) throws Exception {
+		final IDataModel dataModel = getWebCreationDataModel(name, earName, facetVersion);
 		return createAndVerify(dataModel, name, J2EEProjectUtilities.DYNAMIC_WEB, earName, waitForBuildToComplete);
     }
 	
@@ -189,45 +214,61 @@ public class ProjectUtil {
 	 * @throws Exception
 	 */
 	public static IProject createEJBProject(final String name, final String earName, final boolean waitForBuildToComplete) throws Exception {
-		final IDataModel dataModel = getEJBCreationDataModel(name, earName);
+		return createEJBProject(name, earName, J2EEVersionConstants.EJB_2_1_ID, waitForBuildToComplete);
+	}
+	
+	/**
+	 * Creates an EJB project with optional EAR association.
+	 * @param name EJB name.
+	 * @param earName EAR name; null for no EAR association.
+	 * @param facetVersion The facet version.
+	 * @return The EJB project.
+	 * @throws Exception
+	 */
+	public static IProject createEJBProject(final String name, final String earName, final int facetVersion, final boolean waitForBuildToComplete) throws Exception {
+		final IDataModel dataModel = getEJBCreationDataModel(name, earName, facetVersion);
 		return createAndVerify(dataModel, name, J2EEProjectUtilities.EJB, earName, waitForBuildToComplete);
 	}
 
-	private static IDataModel getEARCreationDataModel(final String name) {
+	private static IDataModel getEARCreationDataModel(final String name, final int facetVersion) {
 		final IDataModel model =  DataModelFactory.createDataModel(new EARFacetProjectCreationDataModelProvider());
-		configure(model, name, J2EEProjectUtilities.ENTERPRISE_APPLICATION, null, J2EEVersionConstants.J2EE_1_4_ID);
+		configure(model, name, J2EEProjectUtilities.ENTERPRISE_APPLICATION, null, facetVersion, false);
 		return model;
 	}
 	
-	private static IDataModel getWebCreationDataModel(final String name, final String earName) {
+	private static IDataModel getWebCreationDataModel(final String name, final String earName, final int facetVersion) {
 		final IDataModel model =  DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
-		configure(model, name, J2EEProjectUtilities.DYNAMIC_WEB, earName, J2EEVersionConstants.SERVLET_2_4);
+		configure(model, name, J2EEProjectUtilities.DYNAMIC_WEB, earName, facetVersion, facetVersion == J2EEVersionConstants.SERVLET_2_5);
 		return model;
 	}
 		
 	private static IDataModel getUtilityCreationDataModel(final String name, final String earName) {
 		final IDataModel model =  DataModelFactory.createDataModel(new UtilityProjectCreationDataModelProvider());
-		configure(model, name, J2EEProjectUtilities.UTILITY, earName, 0);
+		configure(model, name, J2EEProjectUtilities.UTILITY, earName, 0, false);
 		return model;
 	}
 	
-	private static IDataModel getEJBCreationDataModel(final String name, final String earName) {
+	private static IDataModel getEJBCreationDataModel(final String name, final String earName, final int facetVersion) {
 		final IDataModel model =  DataModelFactory.createDataModel(new EjbFacetProjectCreationDataModelProvider());
-		configure(model, name, J2EEProjectUtilities.EJB, earName, J2EEVersionConstants.EJB_2_1_ID);
+		configure(model, name, J2EEProjectUtilities.EJB, earName, facetVersion, facetVersion == J2EEVersionConstants.EJB_3_0_ID);
 		return model;
 	}
 	
-	private static void configure(final IDataModel model, final String name, final String facet, final String earName, final int facetVersion) {
-		model.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, name);		
+	private static void configure(final IDataModel model, final String name, final String facet, final String earName, final int facetVersion, final boolean isJEE5) {
+		model.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, name);
+		final FacetDataModelMap map = (FacetDataModelMap) model.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		IDataModel facetDM = map.getFacetDataModel(facet);
 		if (earName != null) {
-			final FacetDataModelMap map = (FacetDataModelMap) model.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-			final IDataModel facetDM = map.getFacetDataModel(facet);
 			facetDM.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, true);
 			facetDM.setProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME, earName);
-			if (facetVersion != 0) {
-				String versionText = J2EEVersionUtil.getJ2EETextVersion(facetVersion);
-				facetDM.setStringProperty(IFacetDataModelProperties.FACET_VERSION_STR, versionText);
-			}
+		}
+		if (facetVersion != 0) {
+			String versionText = J2EEVersionUtil.convertVersionIntToString(facetVersion);
+			facetDM.setStringProperty(IFacetDataModelProperties.FACET_VERSION_STR, versionText);
+		}
+		if (isJEE5) {
+			facetDM = map.getFacetDataModel(J2EEProjectUtilities.JAVA);
+			facetDM.setStringProperty(IFacetDataModelProperties.FACET_VERSION_STR, J2EEVersionConstants.VERSION_5_0_TEXT);
 		}
 	}
 
