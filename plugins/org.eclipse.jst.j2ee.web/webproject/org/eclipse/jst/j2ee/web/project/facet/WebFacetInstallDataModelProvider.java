@@ -52,6 +52,12 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 		} else if (propertyName.equals(MODULE_URI)) {
 			String projectName = model.getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
 			return projectName + IJ2EEModuleConstants.WAR_EXT;
+		} else if (propertyName.equals(GENERATE_DD)) {
+			IProjectFacetVersion facetVersion = (IProjectFacetVersion)getProperty(FACET_VERSION);
+			if(facetVersion == WebFacetUtils.WEB_25){
+				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.DYNAMIC_WEB_GENERATE_DD));
+			}
+			return Boolean.TRUE;
 		}
 		return super.getDefaultProperty(propertyName);
 	}
@@ -87,7 +93,7 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 		{
 		    if( propertyValue == WebFacetUtils.WEB_25 )
 		    {
-		        setProperty( GENERATE_DD, Boolean.FALSE );
+		        setProperty( GENERATE_DD, Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.DYNAMIC_WEB_GENERATE_DD)) );
 		    }
 		    else
 		    {
