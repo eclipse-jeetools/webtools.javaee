@@ -397,9 +397,19 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	
 	/**
 	 * Retrieves the default runtime path to which the resolved classpath entry components will be
+	 * added within the deployed application. This method is only valid for non-class folder entries.
+	 * @param isWebApp True if the default runtime path for web apps should be returned, false otherwise.
+	 * @return The default runtime path. 
+	 */
+	public static IPath getDefaultRuntimePath(final boolean isWebApp) {
+		return getDefaultRuntimePath(isWebApp, false);
+	}
+	
+	/**
+	 * Retrieves the default runtime path to which the resolved classpath entry components will be
 	 * added within the deployed application.
 	 * @param isWebApp True if the default runtime path for web apps should be returned, false otherwise.
-	 * @param isClassFolder True if the 
+	 * @param isClassFolder True if the path is a class folder.
 	 * @return The default runtime path. 
 	 */
 	public static IPath getDefaultRuntimePath(final boolean isWebApp, final boolean isClassFolder) {
