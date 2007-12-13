@@ -73,7 +73,7 @@ public class WebServicesEMFTest extends GeneralEMFPopulationTest {
 		suite.addTest(new WebServicesEMFTest("test13WebServicesClientPopulation",factory));
 		suite.addTest(new WebServicesEMFTest("test13WebServicesDDPopulation",factory));
 		suite.addTest(new WebServicesEMFTest("test14WebServicesDDPopulation",factory));
-		suite.addTest(new WebServicesEMFTest("test50WebServicesDDPopulation()",factory));
+		suite.addTest(new WebServicesEMFTest("test50WebServicesDDPopulation",factory));
 		//suite.addTest(new WebServicesEMFTest("testJaxRPCMapPopulation",factory));
 		return suite;
 	}
