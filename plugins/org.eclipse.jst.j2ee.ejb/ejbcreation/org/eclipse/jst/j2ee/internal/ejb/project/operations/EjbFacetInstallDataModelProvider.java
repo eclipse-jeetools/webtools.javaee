@@ -68,6 +68,12 @@ public class EjbFacetInstallDataModelProvider
 		} else if (propertyName.equals(MODULE_URI)) {
 			String projectName = model.getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
 			return projectName + IJ2EEModuleConstants.JAR_EXT; 
+		} else if (propertyName.equals(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)) {
+			IProjectFacetVersion facetVersion = (IProjectFacetVersion)getProperty(FACET_VERSION);
+			if(facetVersion == EJB_30){
+				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EJB_GENERATE_DD));
+			}
+			return Boolean.TRUE;
 		}
 		return super.getDefaultProperty(propertyName);
 	}
@@ -118,7 +124,7 @@ public class EjbFacetInstallDataModelProvider
         {
             if( propertyValue == EJB_30 )
             {
-                setProperty( GENERATE_DD, Boolean.FALSE );
+                setProperty( GENERATE_DD, Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EJB_GENERATE_DD)) );
             }
             else
             {
