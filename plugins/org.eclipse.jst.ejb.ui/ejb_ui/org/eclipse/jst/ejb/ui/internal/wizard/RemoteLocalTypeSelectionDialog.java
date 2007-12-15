@@ -16,7 +16,7 @@ import org.eclipse.jdt.internal.ui.dialogs.OpenTypeSelectionDialog;
 import org.eclipse.jdt.ui.dialogs.TypeSelectionExtension;
 import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
-import org.eclipse.jst.j2ee.ejb.internal.operations.RemoteLocalInterface;
+import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -85,7 +85,7 @@ public class RemoteLocalTypeSelectionDialog extends OpenTypeSelectionDialog {
             label.setText(EJBUIMessages.addAs);
             label.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
             remoteRadio = new Button(area, SWT.RADIO);
-            remoteRadio.setText(EJBUIMessages.REMOTE_BUSSINES_INTERFACE);
+            remoteRadio.setText(EJBUIMessages.REMOTE_BUSINESS_INTERFACE);
             remoteRadio.setSelection(false);
             remoteRadio.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
             remoteRadio.addSelectionListener(new SelectionListener() {
@@ -100,7 +100,7 @@ public class RemoteLocalTypeSelectionDialog extends OpenTypeSelectionDialog {
 				}
             });
             localRadio = new Button(area, SWT.RADIO);
-            localRadio.setText(EJBUIMessages.LOCAL_BUSSINES_INTERFACE);
+            localRadio.setText(EJBUIMessages.LOCAL_BUSINESS_INTERFACE);
             localRadio.setSelection(true);
             localRadio.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
             localRadio.addSelectionListener(new SelectionListener() {
@@ -118,14 +118,14 @@ public class RemoteLocalTypeSelectionDialog extends OpenTypeSelectionDialog {
         return area;
     }
     
-    public RemoteLocalInterface[] getResult() {
+    public BusinessInterface[] getResult() {
         Object[] objects = super.getResult();
-        RemoteLocalInterface[] result = null;
+        BusinessInterface[] result = null;
         if (objects != null) {
-            result = new RemoteLocalInterface[objects.length];
+            result = new BusinessInterface[objects.length];
             for (int i = 0; i < objects.length; i++) {
                 IType type = (IType) objects[i];
-                result[i] = new RemoteLocalInterface(type, isRemote, isLocal);
+                result[i] = new BusinessInterface(type, isRemote, isLocal);
             }
         }
         return result;

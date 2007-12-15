@@ -1,39 +1,40 @@
 <%@ jet package="org.eclipse.jst.j2ee.ejb" 
 	imports="org.eclipse.jst.j2ee.ejb.internal.operations.* java.util.* " 
-	class="BTemplate" 
-%><%@ include file="beanHeader.template" %>
+	class="SessionBeanTemplate" 
+%><%@ include file="sessionBeanHeader.template" %>
 
-<%=model.getBeanType()%>
+<%=model.getClassAnnotation()%>
 <%Map map = model.getAnnotationParameters();
-if(!map.isEmpty()){%>(<%
- Iterator it = map.keySet().iterator();
- boolean needComma = false;
- while(it.hasNext() ){
- String key = (String) it.next(); String value = (String) map.get(key);
- if(needComma){%>, <%}needComma = true;
+if (!map.isEmpty()) {%>(<%
+  Iterator it = map.keySet().iterator();
+  boolean needComma = false;
+  while (it.hasNext() ){
+    String key = (String) it.next(); 
+    String value = (String) map.get(key);
+    if (needComma) { %>, <%
+    } 
+    needComma = true;
  %><%=key%>="<%=value%>"<%}%>)
  <%}
 if (!model.isContainerType()){%>
 @TransactionManagement(TransactionManagementType.BEAN)<%}
-List interfacesExternal = model.getBusnessLocalList();
+List<BusinessInterface> interfacesExternal = model.getBusinessLocalList();
 boolean needComma = false;
 if (interfacesExternal.size() > 0){%>
 @Local({<%
-		for (Iterator i = interfacesExternal.iterator();i.hasNext();){
-			RemoteLocalInterface element = (RemoteLocalInterface) i.next();
+		for (BusinessInterface iface : interfacesExternal) {
 			if (needComma){%>,<%}
-					%><%=element.getSimpleName()%>.class<%
+					%><%=iface.getSimpleName()%>.class<%
 					needComma = true;
 				}
 		%>})<%}
-interfacesExternal = model.getBusnessRemoteList();
+interfacesExternal = model.getBusinessRemoteList();
 needComma = false;
 if (interfacesExternal.size() > 0){%>
 @Remote({<%
-		for (Iterator i = interfacesExternal.iterator();i.hasNext();){
-			RemoteLocalInterface element = (RemoteLocalInterface) i.next();
+		for (BusinessInterface iface : interfacesExternal) {
 			if (needComma){%>,<%}
-					%><%=element.getSimpleName()%>.class<%
+					%><%=iface.getSimpleName()%>.class<%
 					needComma = true;
 				}
 		%>})<%}

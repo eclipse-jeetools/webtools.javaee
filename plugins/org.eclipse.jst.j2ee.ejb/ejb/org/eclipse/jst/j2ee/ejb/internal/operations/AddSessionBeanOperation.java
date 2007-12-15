@@ -30,8 +30,7 @@ import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 
-public class AddSessionBeanOperation extends AbstractDataModelOperation implements
-IArtifactEditOperationDataModelProperties {
+public class AddSessionBeanOperation extends AbstractDataModelOperation implements INewJavaClassDataModelProperties {
 
 	private IModelProvider provider;
 
@@ -89,8 +88,7 @@ IArtifactEditOperationDataModelProperties {
 	}
 
 	public IProject getTargetProject() {
-		String projectName = model
-		.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME);
+		String projectName = model.getStringProperty(PROJECT_NAME);
 		return ProjectUtilities.getProject(projectName);
 	}
 	
@@ -99,14 +97,14 @@ IArtifactEditOperationDataModelProperties {
 	 * bean java class. This implementation uses the NewBeanClassOperation
 	 * which is a subclass of the NewJavaClassOperation. The
 	 * NewSessionBeanClassOperation will use the same
-	 * NewSesionBeanClassDataModelProvider to retrieve the properties in order to
+	 * NewSessionBeanClassDataModelProvider to retrieve the properties in order to
 	 * create the java class accordingly. This method will not return null.
 	 * 
 	 * @see NewSessionBeanClassOperation
 	 * @see org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassOperation
-	 * @see NewSesionBeanClassDataModelProvider
+	 * @see NewSessionBeanClassDataModelProvider
 	 * 
-	 * @return String qualified bean classname
+	 * @return String qualified bean class name
 	 */
 	protected String createBeanClass() {
 		// Create bean java class file using the NewBeanClassOperation.
@@ -116,7 +114,7 @@ IArtifactEditOperationDataModelProperties {
 		} catch (Exception e) {
 			Logger.getLogger().log(e);
 		}
-		// Return the qualified classname of the newly created java class for
+		// Return the qualified class name of the newly created java class for
 		// the bean
 		return getQualifiedClassName();
 	}
@@ -134,10 +132,8 @@ IArtifactEditOperationDataModelProperties {
 	public final String getQualifiedClassName() {
 		// Use the java package name and unqualified class name to create a
 		// qualified java class name
-		String packageName = model
-				.getStringProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE);
-		String className = model
-				.getStringProperty(INewJavaClassDataModelProperties.CLASS_NAME);
+		String packageName = model.getStringProperty(JAVA_PACKAGE);
+		String className = model.getStringProperty(CLASS_NAME);
 		// Ensure the class is not in the default package before adding package
 		// name to qualified name
 		if (packageName != null && packageName.trim().length() > 0)

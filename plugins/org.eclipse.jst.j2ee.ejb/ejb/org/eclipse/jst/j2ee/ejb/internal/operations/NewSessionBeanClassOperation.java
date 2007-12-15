@@ -65,10 +65,10 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  * 
  * This operation is used by the AddBeansOperation to generate an
  * non annotated java class for an added enterprise bean. It shares the
- * NewSesionBeanClassDataModelProvider with the AddSessionBeanOperation to store the
+ * NewSessionBeanClassDataModelProvider with the AddSessionBeanOperation to store the
  * appropriate properties required to generate the new enterprise bean.
  * @see org.eclipse.jst.j2ee.ejb.internal.operations.AddSessionBeanOperation
- * @see org.eclipse.jst.j2ee.ejb.internal.operations.NewSesionBeanClassDataModelProvider
+ * @see org.eclipse.jst.j2ee.ejb.internal.operations.NewSessionBeanClassDataModelProvider
  * 
  * A WTPJetEmitter bean template is used to create the class with the bean template. 
  * @see org.eclipse.jst.j2ee.internal.project.WTPJETEmitter
@@ -81,13 +81,10 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  */
 public class NewSessionBeanClassOperation extends AbstractDataModelOperation {
 
-	private static final String LOCAL_HOME = "LocalHome"; //$NON-NLS-1$
-
-	private static final String LOCAL_HOME_COMPONENT = "LocalHomeComponent"; //$NON-NLS-1$
-
-	private static final String REMOTE_COMPONENT = "RemoteComponent"; //$NON-NLS-1$
-
-	private static final String REMOTE_HOME = "Home"; //$NON-NLS-1$
+	private static final String LOCAL_HOME_SUFFIX = "LocalHome"; //$NON-NLS-1$
+	private static final String LOCAL_COMPONENT_SUFFIX = "LocalComponent"; //$NON-NLS-1$
+	private static final String REMOTE_COMPONENT_SUFFIX = "RemoteComponent"; //$NON-NLS-1$
+	private static final String REMOTE_HOME_SUFFIX = "Home"; //$NON-NLS-1$
 
 	/**
 	 * The extension name for a java class
@@ -102,16 +99,16 @@ public class NewSessionBeanClassOperation extends AbstractDataModelOperation {
 	/**
 	 * folder location of the enterprise bean creation templates directory
 	 */
-	protected static final String TEMPLATE_FILE = "/templates/bean.javajet"; //$NON-NLS-1$
+	protected static final String TEMPLATE_FILE = "/templates/sessionBean.javajet"; //$NON-NLS-1$
 
-	protected static final String TEMPLATE_LOCAL_FILE = "/templates/localbean.javajet"; //$NON-NLS-1$
-	protected static final String TEMPLATE_REMOTE_FILE = "/templates/remotebean.javajet"; //$NON-NLS-1$
+	protected static final String TEMPLATE_LOCAL_FILE = "/templates/localBusinessInterface.javajet"; //$NON-NLS-1$
+	protected static final String TEMPLATE_REMOTE_FILE = "/templates/remoteBusinessInterface.javajet"; //$NON-NLS-1$
 
-	protected static final String TEMPLATE_LOCALHOME_FILE = "/templates/lhomebean.javajet"; //$NON-NLS-1$
-	protected static final String TEMPLATE_LOCALCOMPONENT_FILE = "/templates/lcomponentbean.javajet"; //$NON-NLS-1$
+	protected static final String TEMPLATE_LOCALHOME_FILE = "/templates/localHomeInterface.javajet"; //$NON-NLS-1$
+	protected static final String TEMPLATE_REMOTEHOME_FILE = "/templates/remoteHomeInterface.javajet"; //$NON-NLS-1$
 
-	protected static final String TEMPLATE_REMOTEHOME_FILE = "/templates/rhomebean.javajet"; //$NON-NLS-1$
-	protected static final String TEMPLATE_REMOTECOMPONENT_FILE = "/templates/rcomponentbean.javajet"; //$NON-NLS-1$
+	protected static final String TEMPLATE_LOCALCOMPONENT_FILE = "/templates/localComponentInterface.javajet"; //$NON-NLS-1$
+	protected static final String TEMPLATE_REMOTECOMPONENT_FILE = "/templates/remoteComponentInterface.javajet"; //$NON-NLS-1$
 
 	/**
 	 * name of the template emitter to be used to generate the deployment
@@ -128,7 +125,7 @@ public class NewSessionBeanClassOperation extends AbstractDataModelOperation {
 
 	/**
 	 * This is the constructor which should be used when creating a
-	 * NewSessionBeanClassOperation. An instance of the NewSesionBeanClassDataModelProvider
+	 * NewSessionBeanClassOperation. An instance of the NewSessionBeanClassDataModelProvider
 	 * should be passed in. This does not accept null parameter. It will not
 	 * return null.
 	 * 
@@ -211,11 +208,11 @@ public class NewSessionBeanClassOperation extends AbstractDataModelOperation {
 
 	/**
 	 * Subclasses may extend this method to provide their own template based
-	 * creation of an annotated bean java class file. This implementation
-	 * uses the creation of a CreateSessionBeanTemplateModel and the WTPJetEmitter
-	 * to create the java class with the annotated tags. This method accepts
-	 * null for monitor, it does not accept null for fragment. If annotations
-	 * are not being used the tags will be omitted from the class.
+	 * creation of an annotated bean java class file. This implementation uses
+	 * the creation of a CreateSessionBeanTemplateModel and the WTPJetEmitter to
+	 * create the java class with the annotated tags. This method accepts null
+	 * for monitor, it does not accept null for fragment. If annotations are not
+	 * being used the tags will be omitted from the class.
 	 * 
 	 * @see CreateSessionBeanTemplateModel
 	 * @see NewSessionBeanClassOperation#generateTemplateSource(CreateSessionBeanTemplateModel,
@@ -250,18 +247,18 @@ public class NewSessionBeanClassOperation extends AbstractDataModelOperation {
 			}
 			if ((Boolean) model.getProperty(INewSessionBeanClassDataModelProperties.REMOTE_HOME)){
 				String src = generateTemplateSource(tempModel, monitor, TEMPLATE_REMOTEHOME_FILE);
-				String localBeanName =  tempModel.getClassName() + REMOTE_HOME +  DOT_JAVA;
+				String localBeanName =  tempModel.getClassName() + REMOTE_HOME_SUFFIX + DOT_JAVA;
 				createJavaFile(monitor, fragment, src, localBeanName);
 				src = generateTemplateSource(tempModel, monitor, TEMPLATE_REMOTECOMPONENT_FILE);
-				localBeanName =  tempModel.getClassName() + REMOTE_COMPONENT +  DOT_JAVA;
+				localBeanName =  tempModel.getClassName() + REMOTE_COMPONENT_SUFFIX + DOT_JAVA;
 				createJavaFile(monitor, fragment, src, localBeanName);
 			}
 			if ((Boolean) model.getProperty(INewSessionBeanClassDataModelProperties.LOCAL_HOME)){
 				String src = generateTemplateSource(tempModel, monitor, TEMPLATE_LOCALHOME_FILE);
-				String localBeanName =  tempModel.getClassName() + LOCAL_HOME +  DOT_JAVA;
+				String localBeanName =  tempModel.getClassName() + LOCAL_HOME_SUFFIX + DOT_JAVA;
 				createJavaFile(monitor, fragment, src, localBeanName);
 				src = generateTemplateSource(tempModel, monitor, TEMPLATE_LOCALCOMPONENT_FILE);
-				localBeanName =  tempModel.getClassName() + LOCAL_HOME_COMPONENT +  DOT_JAVA;
+				localBeanName =  tempModel.getClassName() + LOCAL_COMPONENT_SUFFIX + DOT_JAVA;
 				createJavaFile(monitor, fragment, src, localBeanName);
 			}
 
@@ -279,17 +276,16 @@ public class NewSessionBeanClassOperation extends AbstractDataModelOperation {
 		}
 	}
 
-	private IFile createJavaFile(IProgressMonitor monitor,
-			IPackageFragment fragment, String source1, String localBeanName)
-	throws JavaModelException {
-		if (fragment != null){
+	private IFile createJavaFile(IProgressMonitor monitor, IPackageFragment fragment, String source1, String localBeanName) throws JavaModelException {
+		if (fragment != null) {
 			ICompilationUnit cu1 = fragment.getCompilationUnit(localBeanName);
 			// Add the compilation unit to the java file
 			if (cu1 == null || !cu1.exists())
-				cu1 = fragment.createCompilationUnit(localBeanName, source1, true, monitor);
+				cu1 = fragment.createCompilationUnit(localBeanName, source1,
+						true, monitor);
 			return (IFile) cu1.getResource();
 		}
-		return null;	
+		return null;
 	}
 
 	protected void createInheritedMethods (IType type) throws CoreException {

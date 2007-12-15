@@ -1,9 +1,9 @@
 <%@ jet package="org.eclipse.jst.j2ee.ejb" 
 	imports="org.eclipse.jst.j2ee.ejb.internal.operations.* java.util.* " 
-	class="RemoteBeanTemplate" 
+	class="RemoteBusinessInterfaceTemplate" 
 %>
 <% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; 
-if (model.getJavaPackageName()!=null && model.getJavaPackageName()!="") { %>package <%=model.getJavaPackageName()%>;<%}%>
+if (model.getJavaPackageName() != null && model.getJavaPackageName() != "") { %>package <%=model.getJavaPackageName()%>;<%}%>
 
 import javax.ejb.Remote;
 

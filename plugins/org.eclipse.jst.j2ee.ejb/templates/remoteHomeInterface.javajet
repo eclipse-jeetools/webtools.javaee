@@ -1,6 +1,6 @@
 <%@ jet package="org.eclipse.jst.j2ee.ejb" 
 	imports="org.eclipse.jst.j2ee.ejb.internal.operations.* java.util.* " 
-	class="RemoteHomeTemplate" 
+	class="RemoteHomeInterfaceTemplate" 
 %>
 <% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; 
 if (model.getJavaPackageName()!=null && model.getJavaPackageName()!="") { %>package <%=model.getJavaPackageName()%>;<%}%>

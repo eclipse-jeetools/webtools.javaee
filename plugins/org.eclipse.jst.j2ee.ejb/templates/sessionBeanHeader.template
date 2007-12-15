@@ -1,9 +1,9 @@
 <%@ jet package="org.eclipse.jst.j2ee.ejb" 
 	imports="org.eclipse.jst.j2ee.ejb.internal.operations.* java.util.* " 
-	class="BTemplate" 
+	class="SessionBeanTemplate" 
 %>
 <% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; 
-if (model.getJavaPackageName()!=null && model.getJavaPackageName()!="") { %>package <%=model.getJavaPackageName()%>;<%}%>
+if (model.getJavaPackageName() != null && model.getJavaPackageName() != "") { %>package <%=model.getJavaPackageName()%>;<%}%>
 
 <% Collection<String> imports = model.getImports();
 for (String anImport : imports) { %>
@@ -11,6 +11,6 @@ import <%=anImport%>;
 <% } %>
 
 /**
- * Beans implementation class for Bean: <%=model.getClassName()%>
+ * Session Bean implementation class for: <%=model.getClassName()%>
  *
  */

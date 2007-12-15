@@ -15,7 +15,7 @@ import java.util.List;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jst.j2ee.ejb.internal.operations.RemoteLocalInterface;
+import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface;
 
 public class InterfacesContentProvider implements IStructuredContentProvider {
 
@@ -27,8 +27,8 @@ public class InterfacesContentProvider implements IStructuredContentProvider {
 	}
 
 	public Object[] getElements(Object inputElement) {
-		if (inputElement instanceof RemoteLocalInterface){
-			return new RemoteLocalInterface[]{(RemoteLocalInterface) inputElement};
+		if (inputElement instanceof BusinessInterface){
+			return new BusinessInterface[]{(BusinessInterface) inputElement};
 		} else if (inputElement instanceof ArrayList){
 			return ((List<?>) inputElement).toArray();
 		}

@@ -15,17 +15,14 @@ import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelPro
 
 public interface INewSessionBeanClassDataModelProperties extends INewJavaClassDataModelProperties, IAnnotationsDataModel {
 	
-	public static final String USE_EXISTING_CLASS = "NewBeansClassDataModel.USE_EXISTING_CLASS"; //$NON-NLS-1$
+	public static final String BUSINESSINTERFACES = "INewSessionBeanClassDataModelProperties.BUSINESSINTERFACES"; //$NON-NLS-1$
+	public static final String EJB_NAME = "INewSessionBeanClassDataModelProperties.EJB_NAME"; //$NON-NLS-1$
+	public static final String REMOTE = "INewSessionBeanClassDataModelProperties.REMOTE"; //$NON-NLS-1$
+	public static final String LOCAL = "INewSessionBeanClassDataModelProperties.LOCAL"; //$NON-NLS-1$
+	public static final String STATE_TYPE = "INewSessionBeanClassDataModelProperties.STATE_TYPE"; //$NON-NLS-1$
 	
-	//Beans Properties
-	public static final String BUSSNESINTERFACE_LIST = "INewBeansClassDataModelProperties.BUSSNESINTERFACE_LIST"; //$NON-NLS-1$
-	public static final String EJB_NAME = "INewBeansClassDataModelProperties.EJB_NAME"; //$NON-NLS-1$
-	public static final String REMOTE_BI = "INewBeansClassDataModelProperties.REMOTE_BI"; //$NON-NLS-1$
-	public static final String LOCAL_BI = "INewBeansClassDataModelProperties.LOCAL_BI"; //$NON-NLS-1$
-	public static final String STATE_TYPE = "INewBeansClassDataModelProperties.STATE_TYPE"; //$NON-NLS-1$
-	
-	public static final String LOCAL_HOME = "INewBeansClassDataModelProperties.LOCAL_HOME"; //$NON-NLS-1$
-	public static final String REMOTE_HOME = "INewBeansClassDataModelProperties.REMOTE_HOME"; //$NON-NLS-1$
-	public static final String MAPPED_NAME = "INewBeansClassDataModelProperties.MAPPED_NAME"; //$NON-NLS-1$
-	public static final String TRANSACTION_TYPE = "INewBeansClassDataModelProperties.TRANSACTION_TYPE"; //$NON-NLS-1$
+	public static final String LOCAL_HOME = "INewSessionBeanClassDataModelProperties.LOCAL_HOME"; //$NON-NLS-1$
+	public static final String REMOTE_HOME = "INewSessionBeanClassDataModelProperties.REMOTE_HOME"; //$NON-NLS-1$
+	public static final String MAPPED_NAME = "INewSessionBeanClassDataModelProperties.MAPPED_NAME"; //$NON-NLS-1$
+	public static final String TRANSACTION_TYPE = "INewSessionBeanClassDataModelProperties.TRANSACTION_TYPE"; //$NON-NLS-1$
 }

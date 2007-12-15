@@ -13,172 +13,168 @@ package org.eclipse.jst.j2ee.ejb.internal.operations;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class CreateSessionBeanTemplateModel extends CreateEnterpriseBeanTemplateModel {
+public class CreateSessionBeanTemplateModel extends
+		CreateEnterpriseBeanTemplateModel implements
+		INewSessionBeanClassDataModelProperties {
 
-	private static final String MAP_NAME = "mappedName"; //$NON-NLS-1$
-	private static final String EJB_NAME = "name"; //$NON-NLS-1$
-	public static final String QUALIFIED_STATELESS_BEAN = "javax.ejb.Stateless"; //$NON-NLS-1$
-	public static final String QUALIFIED_STATEFUL_BEAN = "javax.ejb.Stateful"; //$NON-NLS-1$
+	private static final String ATT_MAPPED_NAME = "mappedName"; //$NON-NLS-1$
+	private static final String ATT_NAME = "name"; //$NON-NLS-1$
 	
-	public static final String QUALIFIED_REMOTE_HOME = "javax.ejb.RemoteHome"; //$NON-NLS-1$
-	public static final String QUALIFIED_LOCAL_HOME = "javax.ejb.LocalHome"; //$NON-NLS-1$
-	public static final String TRANSACTION_MANAGEMENT = "javax.ejb.TransactionManagement"; //$NON-NLS-1$
-	public static final String TRANSACTION_MANAGEMENT_TYPE = "javax.ejb.TransactionManagementType"; //$NON-NLS-1$
+	public static final String QUALIFIED_STATELESS = "javax.ejb.Stateless"; //$NON-NLS-1$
+	public static final String QUALIFIED_STATEFUL = "javax.ejb.Stateful"; //$NON-NLS-1$
 	public static final String QUALIFIED_LOCAL = "javax.ejb.Local"; //$NON-NLS-1$
 	public static final String QUALIFIED_REMOTE = "javax.ejb.Remote"; //$NON-NLS-1$
+	public static final String QUALIFIED_REMOTE_HOME = "javax.ejb.RemoteHome"; //$NON-NLS-1$
+	public static final String QUALIFIED_LOCAL_HOME = "javax.ejb.LocalHome"; //$NON-NLS-1$
+	public static final String QUALIFIED_TRANSACTION_MANAGEMENT = "javax.ejb.TransactionManagement"; //$NON-NLS-1$
+	public static final String QUALIFIED_TRANSACTION_MANAGEMENT_TYPE = "javax.ejb.TransactionManagementType"; //$NON-NLS-1$
 	
-	public static final String STATELESS_BEAN_TYPE = "@Stateless"; //$NON-NLS-1$
-	public static final String STATEFUL_BEAN_TYPE = "@Stateful"; //$NON-NLS-1$
+	public static final String STATELESS_ANNOTATION = "@Stateless"; //$NON-NLS-1$
+	public static final String STATEFUL_ANNOTATION = "@Stateful"; //$NON-NLS-1$
 
 	public CreateSessionBeanTemplateModel(IDataModel dataModel) {
 		super(dataModel);
 	}
 
-	@SuppressWarnings("unchecked")
 	public Collection<String> getImports() {
 		Collection<String> collection = super.getImports();
-		List<RemoteLocalInterface> biInterface = (List<RemoteLocalInterface>) this.dataModel.getProperty(INewSessionBeanClassDataModelProperties.BUSSNESINTERFACE_LIST);
-		for (Iterator i = biInterface.iterator();i.hasNext();){
-			RemoteLocalInterface tempInterface = (RemoteLocalInterface) i.next();
-			if (tempInterface.getInterfaceType() != null){
-				collection.add(tempInterface.getInterfaceName());
+		List<BusinessInterface> biInterfaces = (List<BusinessInterface>) dataModel.getProperty(BUSINESSINTERFACES);
+		for (BusinessInterface iface : biInterfaces) {
+			if (iface.getInterfaceType() != null) {
+				collection.add(iface.getInterfaceName());
 			}
 		}
-		String stateType = getProperty(INewSessionBeanClassDataModelProperties.STATE_TYPE);
-		if (stateType.equals("Stateless Session Bean")){
-			collection.add(QUALIFIED_STATELESS_BEAN);
+		
+		int stateType = dataModel.getIntProperty(STATE_TYPE);
+		if (stateType == NewSessionBeanClassDataModelProvider.STATE_TYPE_STATELESS_INDEX)
+			collection.add(QUALIFIED_STATELESS);
+		else if (stateType == NewSessionBeanClassDataModelProvider.STATE_TYPE_STATEFUL_INDEX)
+			collection.add(QUALIFIED_STATEFUL);
+		else
+			throw new IllegalStateException("illegal state type: " + stateType);
+		
+		if (!isContainerType()) {
+			collection.add(QUALIFIED_TRANSACTION_MANAGEMENT);
+			collection.add(QUALIFIED_TRANSACTION_MANAGEMENT_TYPE);
 		}
-		else {
-			collection.add(QUALIFIED_STATEFUL_BEAN);
-		}
-		if (!isContainerType()){
-			collection.add(TRANSACTION_MANAGEMENT);
-			collection.add(TRANSACTION_MANAGEMENT_TYPE);
-		}
-		if (isRemoteHome()){
+		
+		if (isRemoteHome()) {
 			collection.add(QUALIFIED_REMOTE_HOME);
 		}
-		if (isLocalHome()){
+		
+		if (isLocalHome()) {
 			collection.add(QUALIFIED_LOCAL_HOME);
 		}
-		if (getBusnessRemoteList().size() > 0){
+		
+		if (getBusinessRemoteList().size() > 0) {
 			collection.add(QUALIFIED_REMOTE);
 		}
-		if (getBusnessLocalList().size() > 0){
+		
+		if (getBusinessLocalList().size() > 0) {
 			collection.add(QUALIFIED_LOCAL);
 		}
+		
 		return collection;
 	}
 	
-	public String getBeanType() {
-		String stateType = getProperty(INewSessionBeanClassDataModelProperties.STATE_TYPE);
+	public String getClassAnnotation() {
+		int stateType = dataModel.getIntProperty(STATE_TYPE);
+		
 		String beanType;
-		if (stateType.equals("Stateless Session Bean")){
-			beanType = STATELESS_BEAN_TYPE;
-		}
-		else {
-			beanType = STATEFUL_BEAN_TYPE;
-		}
+		if (stateType == NewSessionBeanClassDataModelProvider.STATE_TYPE_STATELESS_INDEX)
+			beanType = STATELESS_ANNOTATION;
+		else if (stateType == NewSessionBeanClassDataModelProvider.STATE_TYPE_STATEFUL_INDEX)
+			beanType = STATEFUL_ANNOTATION;
+		else 
+			throw new IllegalStateException("illegal state type: " + stateType);
+		
 		return beanType;
 	}
-
-	public String getBeanDisplayName(){
-		return getProperty(INewSessionBeanClassDataModelProperties.EJB_NAME);
-	}
 	
-	@SuppressWarnings("unchecked")
-	public List<RemoteLocalInterface> getBusnessRemoteList(){
-		List<RemoteLocalInterface> list = (List<RemoteLocalInterface>) this.dataModel.getProperty(INewSessionBeanClassDataModelProperties.BUSSNESINTERFACE_LIST);
-		List listRemoteInterface = new ArrayList();
-		for (Iterator<RemoteLocalInterface> i = list.iterator();i.hasNext();){
-			RemoteLocalInterface tmp = (RemoteLocalInterface) i.next();
-			if (tmp.getInterfaceType() != null && tmp.isRemote()){
-				listRemoteInterface.add(tmp);
+	public List<BusinessInterface> getBusinessRemoteList() {
+		List<BusinessInterface> list = (List<BusinessInterface>) dataModel.getProperty(BUSINESSINTERFACES);
+		List<BusinessInterface> result = new ArrayList<BusinessInterface>();
+		for (BusinessInterface iface : list) {
+			if (iface.getInterfaceType() != null && iface.isRemote()) {
+				result.add(iface);
 			}
 		}
-		return listRemoteInterface; 
+		return result; 
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<RemoteLocalInterface> getBusnessLocalList(){
-		List<RemoteLocalInterface> list = (List<RemoteLocalInterface>) this.dataModel.getProperty(INewSessionBeanClassDataModelProperties.BUSSNESINTERFACE_LIST);
-		List listRemoteInterface = new ArrayList();
-		for (Iterator<RemoteLocalInterface> i = list.iterator();i.hasNext();){
-			RemoteLocalInterface tmp = (RemoteLocalInterface) i.next();
-			if (tmp.getInterfaceType() != null && tmp.isLocal()){
-				listRemoteInterface.add(tmp);
+	public List<BusinessInterface> getBusinessLocalList() {
+		List<BusinessInterface> list = (List<BusinessInterface>) dataModel.getProperty(BUSINESSINTERFACES);
+		List<BusinessInterface> result = new ArrayList<BusinessInterface>();
+		for (BusinessInterface iface : list) {
+			if (iface.getInterfaceType() != null && iface.isLocal()) {
+				result.add(iface);
 			}
 		}
-		return listRemoteInterface; 
+		return result; 
 	}
-	@SuppressWarnings("unchecked")
-	public List<String> getInterfaces(){
+	public List<String> getInterfaces() {
 		List<String> result = new ArrayList<String>();
 		List<String> superList = super.getInterfaces();
-		if (!superList.isEmpty()){
+		if (!superList.isEmpty()) {
 			result.addAll(superList);
 		}
-		List<RemoteLocalInterface> tmpList = (List<RemoteLocalInterface>) dataModel.getProperty(INewSessionBeanClassDataModelProperties.BUSSNESINTERFACE_LIST);
 		
-		for (Iterator<RemoteLocalInterface> i = tmpList.iterator();i.hasNext();){
-			RemoteLocalInterface tmp = (RemoteLocalInterface) i.next();
-			result.add(tmp.getSimpleName());
+		List<BusinessInterface> tmpList = (List<BusinessInterface>) dataModel.getProperty(BUSINESSINTERFACES);
+		for (BusinessInterface iface : tmpList) {
+			result.add(iface.getSimpleName());
 		}
+		
 		return result;
 	}
 
-	@SuppressWarnings("unchecked")
-	public String getRemoteInterface(){
+	public String getRemoteInterface() {
 		String result = null;
-		List<RemoteLocalInterface> biInterface = (List<RemoteLocalInterface>) this.dataModel.getProperty(INewSessionBeanClassDataModelProperties.BUSSNESINTERFACE_LIST);
-		for (Iterator<RemoteLocalInterface> i = biInterface.iterator();i.hasNext();){
-			RemoteLocalInterface tmp = (RemoteLocalInterface) i.next();
-			if ((tmp.getInterfaceType() == null) && (tmp.isRemote())){
-				result = tmp.getSimpleName();
+		List<BusinessInterface> biInterface = (List<BusinessInterface>) dataModel.getProperty(BUSINESSINTERFACES);
+		for (BusinessInterface iface : biInterface) {
+			if ((iface.getInterfaceType() == null) && (iface.isRemote())) {
+				result = iface.getSimpleName();
 			}
 		}
 		return result;
 	}
 
-	@SuppressWarnings("unchecked")
-	public String getLocalInterface(){
+	public String getLocalInterface() {
 		String result = null;
-		List<RemoteLocalInterface> biInterface = (List<RemoteLocalInterface>) this.dataModel.getProperty(INewSessionBeanClassDataModelProperties.BUSSNESINTERFACE_LIST);
-		for (Iterator<RemoteLocalInterface> i = biInterface.iterator();i.hasNext();){
-			RemoteLocalInterface tmp = (RemoteLocalInterface) i.next();
-			if ((tmp.getInterfaceType() == null) && (tmp.isLocal())){
-				result = tmp.getSimpleName();
+		List<BusinessInterface> biInterface = (List<BusinessInterface>) dataModel.getProperty(BUSINESSINTERFACES);
+		for (BusinessInterface iface : biInterface) {
+			if ((iface.getInterfaceType() == null) && (iface.isLocal())) {
+				result = iface.getSimpleName();
 			}
 		}
 		return result;
 	}
-	public Boolean isLocalHome(){
-		return (Boolean) this.dataModel.getProperty(INewSessionBeanClassDataModelProperties.LOCAL_HOME);
+	
+	public boolean isLocalHome() {
+		return dataModel.getBooleanProperty(LOCAL_HOME);
 	}
 	
-	public Boolean isRemoteHome(){
-		return (Boolean) this.dataModel.getProperty(INewSessionBeanClassDataModelProperties.REMOTE_HOME);
+	public boolean isRemoteHome() {
+		return dataModel.getBooleanProperty(REMOTE_HOME);
 	}
 	
-	public Boolean isContainerType(){
-		String transaction_type = this.dataModel.getStringProperty(INewSessionBeanClassDataModelProperties.TRANSACTION_TYPE);
-		return transaction_type.equals("Container");
+	public boolean isContainerType() {
+		int transactionType = dataModel.getIntProperty(TRANSACTION_TYPE);
+		return transactionType == NewSessionBeanClassDataModelProvider.TRANSACTION_TYPE_CONTAINER_INDEX;
 	}
-	public Map<String, String> getAnnotationParameters(){
+	
+	public Map<String, String> getAnnotationParameters() {
 		Map<String, String> result = new Hashtable<String, String>();
-		String dispName = this.dataModel.getStringProperty(INewSessionBeanClassDataModelProperties.EJB_NAME);
+		String dispName = getProperty(EJB_NAME);
 		if (!dispName.equals(getClassName()))
-			result.put(EJB_NAME, dispName);
-		String mapName = this.dataModel.getStringProperty(INewSessionBeanClassDataModelProperties.MAPPED_NAME).trim();
-		if (mapName != null && mapName.length() > 0){
-			result.put(MAP_NAME, mapName);
+			result.put(ATT_NAME, dispName);
+		String mappedName = getProperty(MAPPED_NAME).trim();
+		if (mappedName != null && mappedName.length() > 0) {
+			result.put(ATT_MAPPED_NAME, mappedName);
 		}
 		return result;
 	}

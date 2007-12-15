@@ -21,65 +21,68 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
 
-public class NewSessionBeanClassWizardPage extends NewJavaClassWizardPage {
+public class NewSessionBeanClassWizardPage extends NewJavaClassWizardPage
+		implements INewSessionBeanClassDataModelProperties {
 
 	@Override
 	protected IProject getExtendedSelectedProject(Object selection) {
-		
 		return super.getExtendedSelectedProject(selection);
 	}
 
 	private Label stateTypeLabel;
-	private Button remoteBussinesInterface;
-	private Button localBussinesInterface;
 	private Combo stateTypeCombo;
+	private Button remoteBusinessInterface;
+	private Button localBusinessInterface;
 
 	public NewSessionBeanClassWizardPage(IDataModel model, String pageName,
 			String pageDesc, String pageTitle, String moduleType) {
 		super(model, pageName, pageDesc, pageTitle, moduleType);
 	}
+	
+	public DataModelSynchHelper initializeSynchHelper(IDataModel dm) {
+		return new ComboIndexSynchHelper(dm);
+	}
 
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = super.createTopLevelComposite(parent);
-		createUseExistingGroup(composite);
+		createBusinessInterfacesGroup(composite);
 		return composite;
 	}
 
-	private void createUseExistingGroup(Composite composite) {
+	private void createBusinessInterfacesGroup(Composite composite) {
 
 		stateTypeLabel = new Label(composite, SWT.LEFT);
 		stateTypeLabel.setText(IEjbWizardConstants.STATE_TYPE_LABEL);
 
-		stateTypeCombo = new Combo(composite, SWT.None | SWT.READ_ONLY);
+		stateTypeCombo = new Combo(composite, SWT.READ_ONLY);
 		GridData gridData = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
 		gridData.horizontalSpan = 2;
 		stateTypeCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		stateTypeCombo.setItems(IEjbWizardConstants.BEAN_TYPE.LABELS);
-		synchHelper.synchCombo(stateTypeCombo,
-				INewSessionBeanClassDataModelProperties.STATE_TYPE, null);
+		stateTypeCombo.setItems(new String[] { 
+				IEjbWizardConstants.STATE_TYPE_STATELESS, 
+				IEjbWizardConstants.STATE_TYPE_STATEFUL
+		});
+		stateTypeCombo.select(0);
+		((ComboIndexSynchHelper) synchHelper).synchComboIndex(stateTypeCombo, STATE_TYPE, null);
 
 		addSeperator(composite, 3);
 
 		Label createBussinesInterface = new Label(composite, SWT.LEFT);
-		createBussinesInterface
-				.setText(IEjbWizardConstants.CREATE_BUSSINES_INTERFACE);
+		createBussinesInterface.setText(IEjbWizardConstants.CREATE_BUSINESS_INTERFACE);
 
 		GridData data = gridData;
 		data.horizontalSpan = 3;
 		
-		remoteBussinesInterface = new Button(composite, SWT.CHECK);
-		remoteBussinesInterface.setLayoutData(data);
-		remoteBussinesInterface
-				.setText(IEjbWizardConstants.REMOTE_BUSSINES_INTERFACE);
-		synchHelper.synchCheckbox(remoteBussinesInterface,
-				INewSessionBeanClassDataModelProperties.REMOTE_BI, null);
+		remoteBusinessInterface = new Button(composite, SWT.CHECK);
+		remoteBusinessInterface.setLayoutData(data);
+		remoteBusinessInterface.setText(IEjbWizardConstants.REMOTE_BUSINESS_INTERFACE);
+		synchHelper.synchCheckbox(remoteBusinessInterface, REMOTE, null);
 
-		localBussinesInterface = new Button(composite, SWT.CHECK);
-		localBussinesInterface
-				.setText(IEjbWizardConstants.LOCAL_BUSSINES_INTERFACE);
-		synchHelper.synchCheckbox(localBussinesInterface,
-				INewSessionBeanClassDataModelProperties.LOCAL_BI, null);
+		localBusinessInterface = new Button(composite, SWT.CHECK);
+		localBusinessInterface.setText(IEjbWizardConstants.LOCAL_BUSINESS_INTERFACE);
+		synchHelper.synchCheckbox(localBusinessInterface, LOCAL, null);
 	}
 
 	@Override

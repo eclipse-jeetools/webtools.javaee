@@ -11,7 +11,7 @@
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jst.j2ee.ejb.internal.operations.RemoteLocalInterface;
+import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.graphics.Image;
 
@@ -19,8 +19,8 @@ public class InterfacesLabelProvider extends LabelProvider {
 
 	@Override
 	public Image getImage(Object element) {
-		if (element instanceof RemoteLocalInterface){
-			if (((RemoteLocalInterface) element).isLocal()){
+		if (element instanceof BusinessInterface){
+			if (((BusinessInterface) element).isLocal()){
 				return J2EEUIPlugin.getDefault().getImage("local_interface_overlay_obj"); //$NON-NLS-1$
 			}
 			else
@@ -32,8 +32,8 @@ public class InterfacesLabelProvider extends LabelProvider {
 	@Override
 	public String getText(Object element) {
 		String retText = null;
-		if (element instanceof RemoteLocalInterface){
-			retText = ((RemoteLocalInterface) element).getInterfaceName();
+		if (element instanceof BusinessInterface){
+			retText = ((BusinessInterface) element).getInterfaceName();
 		}
 		return retText;
 	}

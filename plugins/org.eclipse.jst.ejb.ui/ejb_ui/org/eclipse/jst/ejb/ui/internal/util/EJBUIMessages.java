@@ -65,16 +65,16 @@ public class EJBUIMessages extends NLS {
 	
 	//EnterpriseBeans
 	public static String NO_EJB_PROJECTS;
-	public static String ADD_BEANS_WIZARD_PAGE_TITLE;
+	public static String ADD_SESSION_BEANS_WIZARD_PAGE_TITLE;
 	public static String STATE_TYPE_LABEL;
-	public static String CREATEBUSSINESINTERFACE;
-	public static String REMOTE_BUSSINES_INTERFACE;
-	public static String LOCAL_BUSSINES_INTERFACE;
+	public static String CREATE_BUSINESS_INTERFACE;
+	public static String REMOTE_BUSINESS_INTERFACE;
+	public static String LOCAL_BUSINESS_INTERFACE;
 	public static String EJB_NAME;
-	public static String CONTAINER;
-	public static String BEAN;
-	public static String STATELESS;
-	public static String STATEFUL;
+	public static String TRANSACTION_TYPE_CONTAINER;
+	public static String TRANSACTION_TYPE_BEAN;
+	public static String STATE_TYPE_STATELESS;
+	public static String STATE_TYPE_STATEFUL;
 	public static String chooseInterface;
 	public static String addAs;
 	public static String HOMECOMPONENTINTERFACE;

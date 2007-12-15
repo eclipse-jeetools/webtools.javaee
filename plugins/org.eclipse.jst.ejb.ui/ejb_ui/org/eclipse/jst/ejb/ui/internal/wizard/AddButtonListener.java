@@ -30,7 +30,7 @@ import org.eclipse.jdt.core.search.SearchEngine;
 import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties;
-import org.eclipse.jst.j2ee.ejb.internal.operations.RemoteLocalInterface;
+import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Shell;
@@ -48,18 +48,19 @@ public class AddButtonListener implements SelectionListener {
 		page = beanPage;
 		this.model = model;
 	}
+	
 	public void widgetSelected(SelectionEvent e) {
-		RemoteLocalInterface remInt = chooseEnclosingType(getRoots(), new String[] {"All_APIs"}, 
+		BusinessInterface remInt = chooseEnclosingType(getRoots(), new String[] { "All_APIs" }, 
 				page.getShell(), page.getWizard().getContainer(),
 				IJavaSearchConstants.INTERFACE, EMPTY);
 		if (remInt != null) {
 			IType type = remInt.getInterfaceType();
 			if (type != null) {
 				String text = type.getFullyQualifiedName();
-				List biList = (List) model.getProperty(INewSessionBeanClassDataModelProperties.BUSSNESINTERFACE_LIST);
+				List biList = (List) model.getProperty(INewSessionBeanClassDataModelProperties.BUSINESSINTERFACES);
 				if (!hasInterface(text, biList)) {
 					biList.add(remInt);
-					model.setProperty(INewSessionBeanClassDataModelProperties.BUSSNESINTERFACE_LIST, biList);
+					model.setProperty(INewSessionBeanClassDataModelProperties.BUSINESSINTERFACES, biList);
 					page.updateBusInterfacesList();
 				}
 			}
@@ -69,14 +70,14 @@ public class AddButtonListener implements SelectionListener {
 	private IPackageFragmentRoot[] getRoots() {
 		return null;
 	}
-	public RemoteLocalInterface chooseEnclosingType(
+	public BusinessInterface chooseEnclosingType(
             IPackageFragmentRoot[] root,
             String[] jdkTypes,
             Shell shell,
             IRunnableContext container,
             int type,
             String currentSelection) {
-            RemoteLocalInterface ret = null;
+            BusinessInterface ret = null;
             String currSelection = SEARCH_FILTER;
             IJavaSearchScope scope = buildJavaSearchScope(root, jdkTypes);
 
@@ -95,11 +96,11 @@ public class AddButtonListener implements SelectionListener {
                 public IStatus validate(Object[] selection) {
                     if (selection.length == 0)
                         return new Status(IStatus.ERROR, EMPTY, 0, EMPTY, null);
-                    RemoteLocalInterface type = null;
+                    BusinessInterface type = null;
                     if (selection[0] instanceof IType) {
-                        type = new RemoteLocalInterface((IType) selection[0], isRemote, isLocal);
+                        type = new BusinessInterface((IType) selection[0], isRemote, isLocal);
                     } else {
-                        type = (RemoteLocalInterface) selection[0];
+                        type = (BusinessInterface) selection[0];
                     }
                     try {
                         return checkInterface(type);
@@ -111,7 +112,7 @@ public class AddButtonListener implements SelectionListener {
             if (dialog.open() == RemoteLocalTypeSelectionDialog.OK) {
                 Object[] obj = dialog.getResult();
                 if (obj != null) {
-                    ret = (RemoteLocalInterface) obj[0];
+                    ret = (BusinessInterface) obj[0];
                     IStatus status = checkInterface(ret);
                     if (!status.isOK()) {
                         ret = null;
@@ -123,14 +124,14 @@ public class AddButtonListener implements SelectionListener {
         return ret;
     }
 	
-	private IStatus checkInterface(final RemoteLocalInterface remInt) throws JavaModelException {
+	private IStatus checkInterface(final BusinessInterface remInt) throws JavaModelException {
         return Status.OK_STATUS;
     }
 	
-	public boolean hasInterface(String text, List<RemoteLocalInterface> biList) {
+	public boolean hasInterface(String text, List<BusinessInterface> biList) {
 		
-        for (Iterator<RemoteLocalInterface> i = biList.iterator(); i.hasNext(); ) {
-            RemoteLocalInterface element = (RemoteLocalInterface) i.next();
+        for (Iterator<BusinessInterface> i = biList.iterator(); i.hasNext(); ) {
+            BusinessInterface element = (BusinessInterface) i.next();
             if (element.getInterfaceName().equals(text)){
             	return true;
             }

@@ -22,21 +22,17 @@ public interface IEjbWizardConstants {
 	
 	// New Enterprise Bean Wizard
 	public final static String NO_EJB_PROJECTS = EJBUIMessages.NO_EJB_PROJECTS;
-	public final static String ADD_BEANS_WIZARD_PAGE_TITLE = EJBUIMessages.ADD_BEANS_WIZARD_PAGE_TITLE;
+	public final static String ADD_SESSION_BEANS_WIZARD_PAGE_TITLE = EJBUIMessages.ADD_SESSION_BEANS_WIZARD_PAGE_TITLE;
 	public static final String STATE_TYPE_LABEL = EJBUIMessages.STATE_TYPE_LABEL;
-	public static final String CREATE_BUSSINES_INTERFACE = EJBUIMessages.CREATEBUSSINESINTERFACE;
-	public static final String REMOTE_BUSSINES_INTERFACE = EJBUIMessages.REMOTE_BUSSINES_INTERFACE;
-	public static final String LOCAL_BUSSINES_INTERFACE = EJBUIMessages.LOCAL_BUSSINES_INTERFACE;
+	public static final String CREATE_BUSINESS_INTERFACE = EJBUIMessages.CREATE_BUSINESS_INTERFACE;
+	public static final String REMOTE_BUSINESS_INTERFACE = EJBUIMessages.REMOTE_BUSINESS_INTERFACE;
+	public static final String LOCAL_BUSINESS_INTERFACE = EJBUIMessages.LOCAL_BUSINESS_INTERFACE;
 	public static final String EJB_NAME = EJBUIMessages.EJB_NAME;
 	
-	public final static class TRANSACTIONTYPE {
-	    public final static String CONTAINER = EJBUIMessages.CONTAINER;
-	    public final static String BEAN = EJBUIMessages.BEAN;
-	    public final static String[] LABELS = { CONTAINER, BEAN };
-	  }
-	public final static class BEAN_TYPE{
-		public final static String STATELESS = EJBUIMessages.STATELESS;
-		public final static String STATEFUL = EJBUIMessages.STATEFUL;
-		public final static String[] LABELS = {STATELESS, STATEFUL};
-	}
+	public final static String TRANSACTION_TYPE_CONTAINER = EJBUIMessages.TRANSACTION_TYPE_CONTAINER;
+	public final static String TRANSACTION_TYPE_BEAN = EJBUIMessages.TRANSACTION_TYPE_BEAN;
+	
+	public final static String STATE_TYPE_STATELESS = EJBUIMessages.STATE_TYPE_STATELESS;
+	public final static String STATE_TYPE_STATEFUL = EJBUIMessages.STATE_TYPE_STATEFUL;
+	
 }

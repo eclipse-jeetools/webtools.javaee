@@ -24,7 +24,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 /**
  * @author yavor.vasilev.boyadzhiev@sap.com
  */
-public class CreateEnterpriseBeanTemplateModel {
+public class CreateEnterpriseBeanTemplateModel implements INewJavaClassDataModelProperties {
 	
 	protected IDataModel dataModel;
 	
@@ -45,12 +45,9 @@ public class CreateEnterpriseBeanTemplateModel {
 		
 		List<String> interfaces = getQualifiedInterfaces();
 		if (interfaces != null) {
-			Iterator<?> iterator = interfaces.iterator();
-			while (iterator.hasNext()) {
-				String iface = (String) iterator.next();
-				if (!equalSimpleNames(getClassName(), iface)) {
+			for (String iface : interfaces) {
+				if (!equalSimpleNames(getClassName(), iface))
 					collection.add(iface);
-				}
 			}
 		}
 		
@@ -58,11 +55,11 @@ public class CreateEnterpriseBeanTemplateModel {
 	}
 
 	public String getClassName() {
-		return getProperty(INewJavaClassDataModelProperties.CLASS_NAME).trim();
+		return getProperty(CLASS_NAME).trim();
 	}
 
 	public String getJavaPackageName() {
-		return getProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE).trim();
+		return getProperty(JAVA_PACKAGE).trim();
 	}
 
 	public String getQualifiedJavaClassName() {
@@ -79,14 +76,14 @@ public class CreateEnterpriseBeanTemplateModel {
 	}
 	
 	public String getQualifiedSuperclassName() {
-		return getProperty(INewJavaClassDataModelProperties.SUPERCLASS).trim();
+		return getProperty(SUPERCLASS).trim();
 	}
 	
 	public List<String> getInterfaces() {
-		List<?> qualifiedInterfaces = getQualifiedInterfaces();
+		List<String> qualifiedInterfaces = getQualifiedInterfaces();
 		List<String> interfaces = new ArrayList<String>(qualifiedInterfaces.size());
 		
-		Iterator<?> iter = qualifiedInterfaces.iterator();
+		Iterator<String> iter = qualifiedInterfaces.iterator();
 		while (iter.hasNext()) {
 			String qualified = (String) iter.next();
 			if (equalSimpleNames(getClassName(), qualified)) {
@@ -99,9 +96,8 @@ public class CreateEnterpriseBeanTemplateModel {
 		return interfaces;
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<String> getQualifiedInterfaces() {
-		List<String> interfaces = (List<String>) this.dataModel.getProperty(INewJavaClassDataModelProperties.INTERFACES);
+		List<String> interfaces = (List<String>) dataModel.getProperty(INTERFACES);
 		if (interfaces == null){
 			return new ArrayList<String>();
 		} else
@@ -109,25 +105,21 @@ public class CreateEnterpriseBeanTemplateModel {
 	}
 	
 	public boolean isPublic() {
-		return dataModel.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_PUBLIC);
+		return dataModel.getBooleanProperty(MODIFIER_PUBLIC);
 	}
 
 	public boolean isFinal() {
-		return dataModel.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_FINAL);
+		return dataModel.getBooleanProperty(MODIFIER_FINAL);
 	}
 
 	public boolean isAbstract() {
-		return dataModel.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_ABSTRACT);
+		return dataModel.getBooleanProperty(MODIFIER_ABSTRACT);
 	}
 	
-	public boolean isAnnotated() {
-		return dataModel.getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS);
-	}
-
 	protected String getProperty(String propertyName) {
 		return dataModel.getStringProperty(propertyName);
 	}
-	
+
 	protected boolean equalSimpleNames(String name1, String name2) {
 		String simpleName1 = Signature.getSimpleName(name1);
 		String simpleName2 = Signature.getSimpleName(name2);

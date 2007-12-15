@@ -16,7 +16,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties;
-import org.eclipse.jst.j2ee.ejb.internal.operations.RemoteLocalInterface;
+import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -35,22 +35,30 @@ import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
-public class AddSessionBeanWizardPage extends DataModelWizardPage{
+public class AddSessionBeanWizardPage extends DataModelWizardPage implements
+		INewSessionBeanClassDataModelProperties {
 
 	private static final String EMPTY = ""; //$NON-NLS-1$
+	
 	private Text ejbNameText;
 	private Text mappedNameText;
-	private Combo transactionType;
+	private Combo transactionTypeCombo;
 	private TableViewer busInterfacesList;
 	private Button addButton;
 	private Button removeButton;
 	private ScrolledForm form;
+	
 	public AddSessionBeanWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
 		setDescription(IEjbWizardConstants.ADD_SESSION_BEAN_WIZARD_PAGE_DESC);
-		setTitle(IEjbWizardConstants.ADD_BEANS_WIZARD_PAGE_TITLE);
+		setTitle(IEjbWizardConstants.ADD_SESSION_BEANS_WIZARD_PAGE_TITLE);
+	}
+	
+	public DataModelSynchHelper initializeSynchHelper(IDataModel dm) {
+		return new ComboIndexSynchHelper(dm);
 	}
 
 	protected Composite createTopLevelComposite(Composite parent) {
@@ -68,22 +76,25 @@ public class AddSessionBeanWizardPage extends DataModelWizardPage{
 
 		ejbNameText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		ejbNameText.setLayoutData(data);
-		synchHelper.synchText(ejbNameText, INewSessionBeanClassDataModelProperties.EJB_NAME, null);
+		synchHelper.synchText(ejbNameText, EJB_NAME, null);
 
 		Label ejbMappedNameLabel = new Label(composite, SWT.LEFT);
 		ejbMappedNameLabel.setText(EJBUIMessages.MAPPED_NAME);
 
 		mappedNameText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		mappedNameText.setLayoutData(data);
-		synchHelper.synchText(mappedNameText,INewSessionBeanClassDataModelProperties.MAPPED_NAME, null);
+		synchHelper.synchText(mappedNameText,MAPPED_NAME, null);
 
 		Label transactionTypeLabel = new Label(composite, SWT.LEFT);
 		transactionTypeLabel.setText(EJBUIMessages.TRANSACTION_TYPE);
-		transactionType = new Combo(composite, SWT.None | SWT.READ_ONLY);
-		transactionType.setLayoutData(data);
-		transactionType.setItems(IEjbWizardConstants.TRANSACTIONTYPE.LABELS);
-		synchHelper.synchCombo(transactionType, INewSessionBeanClassDataModelProperties.TRANSACTION_TYPE, null);
-		transactionType.select(0);
+		transactionTypeCombo = new Combo(composite, SWT.None | SWT.READ_ONLY);
+		transactionTypeCombo.setLayoutData(data);
+		transactionTypeCombo.setItems(new String[] {
+				IEjbWizardConstants.TRANSACTION_TYPE_CONTAINER, 
+				IEjbWizardConstants.TRANSACTION_TYPE_BEAN
+		});
+		transactionTypeCombo.select(0);
+		((ComboIndexSynchHelper) synchHelper).synchComboIndex(transactionTypeCombo, TRANSACTION_TYPE, null);
 
 		createBussinesInterface(composite);
 
@@ -123,11 +134,11 @@ public class AddSessionBeanWizardPage extends DataModelWizardPage{
 		Composite sectionClient = toolkit.createComposite(section);
 		sectionClient.setLayout(new GridLayout());
 		Button button = new Button(sectionClient,SWT.CHECK);
-		button.setText(EJBUIMessages.LOCAL_BUSSINES_INTERFACE);
-		synchHelper.synchCheckbox(button, INewSessionBeanClassDataModelProperties.LOCAL_HOME, null);
+		button.setText(EJBUIMessages.LOCAL_BUSINESS_INTERFACE);
+		synchHelper.synchCheckbox(button, LOCAL_HOME, null);
 		Button button2 = new Button(sectionClient,SWT.CHECK);
-		button2.setText(EJBUIMessages.REMOTE_BUSSINES_INTERFACE);
-		synchHelper.synchCheckbox(button2, INewSessionBeanClassDataModelProperties.REMOTE_HOME, null);
+		button2.setText(EJBUIMessages.REMOTE_BUSINESS_INTERFACE);
+		synchHelper.synchCheckbox(button2, REMOTE_HOME, null);
 		section.setClient(sectionClient);
 	}
 
@@ -162,7 +173,7 @@ public class AddSessionBeanWizardPage extends DataModelWizardPage{
 		busInterfacesList.addSelectionChangedListener(new ISelectionChangedListener(){
 			public void selectionChanged(SelectionChangedEvent event) {
 				IStructuredSelection selection = (IStructuredSelection) busInterfacesList.getSelection();
-				RemoteLocalInterface element = (RemoteLocalInterface) selection.getFirstElement();
+				BusinessInterface element = (BusinessInterface) selection.getFirstElement();
 				removeButton.setEnabled(element != null);
 			}
 			
@@ -187,15 +198,13 @@ public class AddSessionBeanWizardPage extends DataModelWizardPage{
 		removeButton.addSelectionListener(new SelectionListener(){
 			public void widgetSelected(SelectionEvent e) {
 				IStructuredSelection selection = (IStructuredSelection) busInterfacesList.getSelection();
-				RemoteLocalInterface element = (RemoteLocalInterface) selection.getFirstElement();
+				BusinessInterface element = (BusinessInterface) selection.getFirstElement();
 				busInterfacesList.remove(element);
 				if (element.getInterfaceType() == null){
-					if (element.isLocal()){
-						model.setBooleanProperty(INewSessionBeanClassDataModelProperties.LOCAL_BI, false);
-					}
-					else{
-						model.setBooleanProperty(INewSessionBeanClassDataModelProperties.REMOTE_BI, false);
-					}
+					if (element.isLocal())
+						model.setBooleanProperty(LOCAL, false);
+					else
+						model.setBooleanProperty(REMOTE, false);
 				}
 			}
 
@@ -206,8 +215,7 @@ public class AddSessionBeanWizardPage extends DataModelWizardPage{
 	}
 
 	public void updateBusInterfacesList(){
-		Object biList = getDataModel().getProperty(
-				INewSessionBeanClassDataModelProperties.BUSSNESINTERFACE_LIST);		
+		Object biList = getDataModel().getProperty(BUSINESSINTERFACES);		
 		busInterfacesList.setInput(biList);
 	}
 
