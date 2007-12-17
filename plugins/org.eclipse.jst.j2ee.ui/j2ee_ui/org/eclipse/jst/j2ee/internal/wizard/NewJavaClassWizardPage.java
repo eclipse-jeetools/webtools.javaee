@@ -286,13 +286,16 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		synchHelper.synchText(folderText, INewJavaClassDataModelProperties.SOURCE_FOLDER, null);
 		
 		IPackageFragmentRoot root = getSelectedPackageFragmentRoot();
-		String targetProject = model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME); 
-		if (root == null || !root.getJavaProject().getElementName().equals(targetProject)) {
-			String folder = getDefaultJavaSourceFolder(ProjectUtilities.getProject(targetProject)).getFullPath().toOSString();
-			if (folder != null)
-				folderText.setText(folder);
-		} else {
-			folderText.setText(root.getPath().toString());
+		String projectName = model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME);
+		if (projectName != null && projectName.length() > 0) {
+			IProject targetProject = ProjectUtilities.getProject(projectName);
+			if (root == null || !root.getJavaProject().getProject().equals(targetProject)) {
+				IFolder folder = getDefaultJavaSourceFolder(targetProject);
+				if (folder != null)
+					folderText.setText(folder.getFullPath().toOSString());
+			} else {
+				folderText.setText(root.getPath().toString());
+			}
 		}
 		
 		folderButton = new Button(composite, SWT.PUSH);
