@@ -33,8 +33,8 @@ public class NewSessionBeanClassWizardPage extends NewJavaClassWizardPage
 
 	private Label stateTypeLabel;
 	private Combo stateTypeCombo;
-	private Button remoteBusinessInterface;
-	private Button localBusinessInterface;
+	private Button remoteCheckbox;
+	private Button localCheckbox;
 
 	public NewSessionBeanClassWizardPage(IDataModel model, String pageName,
 			String pageDesc, String pageTitle, String moduleType) {
@@ -69,20 +69,21 @@ public class NewSessionBeanClassWizardPage extends NewJavaClassWizardPage
 
 		addSeperator(composite, 3);
 
-		Label createBussinesInterface = new Label(composite, SWT.LEFT);
-		createBussinesInterface.setText(IEjbWizardConstants.CREATE_BUSINESS_INTERFACE);
-
 		GridData data = gridData;
 		data.horizontalSpan = 3;
 		
-		remoteBusinessInterface = new Button(composite, SWT.CHECK);
-		remoteBusinessInterface.setLayoutData(data);
-		remoteBusinessInterface.setText(IEjbWizardConstants.REMOTE_BUSINESS_INTERFACE);
-		synchHelper.synchCheckbox(remoteBusinessInterface, REMOTE, null);
+		Label businessInterfacesLabel = new Label(composite, SWT.LEFT);
+		businessInterfacesLabel.setLayoutData(data);
+		businessInterfacesLabel.setText(IEjbWizardConstants.CREATE_BUSINESS_INTERFACE);
+		
+		remoteCheckbox = new Button(composite, SWT.CHECK);
+		remoteCheckbox.setLayoutData(data);
+		remoteCheckbox.setText(IEjbWizardConstants.REMOTE_BUSINESS_INTERFACE);
+		synchHelper.synchCheckbox(remoteCheckbox, REMOTE, null);
 
-		localBusinessInterface = new Button(composite, SWT.CHECK);
-		localBusinessInterface.setText(IEjbWizardConstants.LOCAL_BUSINESS_INTERFACE);
-		synchHelper.synchCheckbox(localBusinessInterface, LOCAL, null);
+		localCheckbox = new Button(composite, SWT.CHECK);
+		localCheckbox.setText(IEjbWizardConstants.LOCAL_BUSINESS_INTERFACE);
+		synchHelper.synchCheckbox(localCheckbox, LOCAL, null);
 	}
 
 	@Override

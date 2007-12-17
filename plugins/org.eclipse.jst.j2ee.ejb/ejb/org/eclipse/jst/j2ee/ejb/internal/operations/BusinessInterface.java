@@ -18,52 +18,59 @@ import org.eclipse.jdt.core.Signature;
 
 public class BusinessInterface {
 	
-	private IType interfaceType;
-    private String interfaceName;
+	public enum BusinessInterfaceType {
+		LOCAL, REMOTE;
+	}
+	
+	private IType javaType;
+    private String name;
     
-    private boolean isRemote;
-    private boolean isLocal;
+    private BusinessInterfaceType type;
     
-    public BusinessInterface(IType type, boolean remote, boolean local) {
-        this.interfaceType = type;
-        this.interfaceName = interfaceType.getFullyQualifiedName(); 
-        this.isRemote = remote;
-        this.isLocal = local;
+    public BusinessInterface(IType javaType, BusinessInterfaceType type) {
+        this(javaType.getFullyQualifiedName(), type); 
+        this.javaType = javaType;
     }
     
-    public BusinessInterface(String name, boolean remote, boolean local) {
-        this.interfaceType = null;
-        this.interfaceName = name; 
-        this.isRemote = remote;
-        this.isLocal = local;
+    public BusinessInterface(String name, BusinessInterfaceType type) {
+        this.name = name; 
+        this.type = type;
     }
     
-    public IType getInterfaceType() {
-        return interfaceType;
+    public String getFullyQualifiedName() {
+        return name;
     }
     
-    public String getInterfaceName() {
-        return interfaceName;
+    public String getSimpleName() {
+		return Signature.getSimpleName(name);
+	}
+    
+    public IType getJavaType() {
+        return javaType;
     }
     
-    public boolean isRemote() {
-        return isRemote;
+    public boolean exists() {
+    	return javaType != null;
+    }
+    
+    public BusinessInterfaceType getType() {
+    	return type;
     }
     
     public boolean isLocal() {
-        return isLocal;
+        return type == BusinessInterfaceType.LOCAL;
     }
     
-    public String getSimpleName(){
-		return Signature.getSimpleName(interfaceName);
-	}
+    public boolean isRemote() {
+        return type == BusinessInterfaceType.REMOTE;
+    }
     
     public boolean hasUnimplementedMethod() throws JavaModelException {
-    	if (interfaceType != null){
-    		IMethod[] methods = interfaceType.getMethods();
-    		for (IMethod method : methods){
+    	if (javaType != null) {
+    		IMethod[] methods = javaType.getMethods();
+    		for (IMethod method : methods) {
     			boolean resolved = method.isResolved();
-    			if (!resolved){
+    			if (!resolved) {
     				int flags = method.getFlags();
     				if (Flags.isAbstract(flags) || Flags.isInterface(flags)) {
     					method.getParameterTypes();

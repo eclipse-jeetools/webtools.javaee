@@ -18,6 +18,7 @@ import java.util.Set;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.Signature;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
+import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface.BusinessInterfaceType;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
@@ -51,7 +52,7 @@ public class NewSessionBeanClassDataModelProvider extends NewJavaClassDataModelP
 		// Add Bean specific properties defined in this data model
 		Set<String> propertyNames = (Set<String>) super.getPropertyNames();
 
-		propertyNames.add(BUSINESSINTERFACES);
+		propertyNames.add(BUSINESS_INTERFACES);
 		propertyNames.add(EJB_NAME);
 		propertyNames.add(REMOTE);
 		propertyNames.add(LOCAL);
@@ -94,18 +95,18 @@ public class NewSessionBeanClassDataModelProvider extends NewJavaClassDataModelP
 			return NewSessionBeanClassDataModelProvider.STATE_TYPE_STATELESS_INDEX; 
 		else if (propertyName.equals(SUPERCLASS))
 			return "";
-		else if (propertyName.equals(TRANSACTION_TYPE)){
+		else if (propertyName.equals(TRANSACTION_TYPE)) {
 			return NewSessionBeanClassDataModelProvider.TRANSACTION_TYPE_CONTAINER_INDEX;
 		}
-		else if (propertyName.equals(BUSINESSINTERFACES)){
+		else if (propertyName.equals(BUSINESS_INTERFACES)) {
 			List<BusinessInterface> listResult = new ArrayList<BusinessInterface>();
 			String className = getStringProperty(QUALIFIED_CLASS_NAME);
-			if ((Boolean) getProperty(REMOTE) && className.length() > 0){
-				BusinessInterface remoteInterface = new BusinessInterface(className + REMOTE_SUFFIX,true,false);
+			if ((Boolean) getProperty(REMOTE) && className.length() > 0) {
+				BusinessInterface remoteInterface = new BusinessInterface(className + REMOTE_SUFFIX, BusinessInterfaceType.REMOTE);
 				listResult.add(remoteInterface);
 			}
-			if ((Boolean) getProperty(LOCAL) && className.length() > 0){
-				BusinessInterface localInterface = new BusinessInterface(className + LOCAL_SUFFIX,false,true);
+			if ((Boolean) getProperty(LOCAL) && className.length() > 0) {
+				BusinessInterface localInterface = new BusinessInterface(className + LOCAL_SUFFIX, BusinessInterfaceType.LOCAL);
 				listResult.add(localInterface);
 			}
 			return listResult;
@@ -154,41 +155,41 @@ public class NewSessionBeanClassDataModelProvider extends NewJavaClassDataModelP
 			getDataModel().notifyPropertyChange(EJB_NAME, IDataModel.DEFAULT_CHG);
 			getDataModel().notifyPropertyChange(REMOTE, IDataModel.DEFAULT_CHG);
 		}
-		if (propertyName.equals(REMOTE)){
-			if (!getDataModel().isPropertySet(BUSINESSINTERFACES)){
-				getDataModel().notifyPropertyChange(BUSINESSINTERFACES, IDataModel.DEFAULT_CHG);
+		if (propertyName.equals(REMOTE)) {
+			if (!getDataModel().isPropertySet(BUSINESS_INTERFACES)) {
+				getDataModel().notifyPropertyChange(BUSINESS_INTERFACES, IDataModel.DEFAULT_CHG);
 			}else{
-				updateBussnesInterfaces(REMOTE);
+				updateBusinessInterfaces(REMOTE);
 			}
 				
 		}
-		if (propertyName.equals(LOCAL)  && !getDataModel().isPropertySet(BUSINESSINTERFACES)){
-			getDataModel().notifyPropertyChange(BUSINESSINTERFACES, IDataModel.DEFAULT_CHG);
+		if (propertyName.equals(LOCAL)  && !getDataModel().isPropertySet(BUSINESS_INTERFACES)) {
+			getDataModel().notifyPropertyChange(BUSINESS_INTERFACES, IDataModel.DEFAULT_CHG);
 		}
-		if (propertyName.equals(BUSINESSINTERFACES)){
+		if (propertyName.equals(BUSINESS_INTERFACES)) {
 			//Should uncheck Remote && Local BI in case list is Empty
 		}
 		return result;
 	}
 
-	private void updateBussnesInterfaces(String propertyName) {
-		List<BusinessInterface> list = (List<BusinessInterface>) getProperty(BUSINESSINTERFACES);
-		if (propertyName.equals(REMOTE)){
-			if (getBooleanProperty(propertyName)){
+	private void updateBusinessInterfaces(String propertyName) {
+		List<BusinessInterface> list = (List<BusinessInterface>) getProperty(BUSINESS_INTERFACES);
+		if (propertyName.equals(REMOTE)) {
+			if (getBooleanProperty(propertyName)) {
 				// should be add remote property
 				String className = Signature.getSimpleName(getStringProperty(CLASS_NAME));
-				list.add(new BusinessInterface(className + REMOTE_SUFFIX,true,false));
-			}else{
+				list.add(new BusinessInterface(className + REMOTE_SUFFIX, BusinessInterfaceType.REMOTE));
+			} else {
 				BusinessInterface remoteInterface = getRemoteProperty();
 				int indexOf = list.indexOf(remoteInterface);
 				list.remove(indexOf);
 			}
-		} else if (propertyName.equals(LOCAL)){
-			if (getBooleanProperty(propertyName)){
+		} else if (propertyName.equals(LOCAL)) {
+			if (getBooleanProperty(propertyName)) {
 				// should be add remote property
 				String className = Signature.getSimpleName(getStringProperty(CLASS_NAME));
-				list.add(new BusinessInterface(className + LOCAL_SUFFIX,true,false));
-			}else{
+				list.add(new BusinessInterface(className + LOCAL_SUFFIX, BusinessInterfaceType.LOCAL));
+			} else {
 				BusinessInterface localInterface = getLocalProperty();
 				int indexOf = list.indexOf(localInterface);
 				list.remove(indexOf);
@@ -196,26 +197,22 @@ public class NewSessionBeanClassDataModelProvider extends NewJavaClassDataModelP
 		}
 	}
 
-	public BusinessInterface getRemoteProperty(){
-		BusinessInterface result = null;
-		List<BusinessInterface> busnesInterfaceList = (List<BusinessInterface>) getProperty(BUSINESSINTERFACES);
-		for (Iterator<BusinessInterface> i =busnesInterfaceList.iterator();i.hasNext(); ){
-			BusinessInterface element = (BusinessInterface) i.next();
-			if ((element.getInterfaceType() == null) && (element.isRemote())){
-				result = element;
+	private BusinessInterface getRemoteProperty() {
+		List<BusinessInterface> businessInterfaces = (List<BusinessInterface>) getProperty(BUSINESS_INTERFACES);
+		for (BusinessInterface iface : businessInterfaces) {
+			if ((iface.getJavaType() == null) && (iface.isRemote())) {
+				return iface;
 			}
 		}
-		return result;
+		return null;
 	}
-	public BusinessInterface getLocalProperty(){
-		BusinessInterface result = null;
-		List<BusinessInterface> busnesInterfaceList = (List<BusinessInterface>) getProperty(BUSINESSINTERFACES);
-		for (Iterator<BusinessInterface> i =busnesInterfaceList.iterator();i.hasNext(); ){
-			BusinessInterface element = (BusinessInterface) i.next();
-			if ((element.getInterfaceType() == null) && (element.isLocal())){
-				result = element;
+	private BusinessInterface getLocalProperty() {
+		List<BusinessInterface> businessInterfaces = (List<BusinessInterface>) getProperty(BUSINESS_INTERFACES);
+		for (BusinessInterface iface : businessInterfaces) {
+			if ((iface.getJavaType() == null) && (iface.isLocal())) {
+				return iface;
 			}
 		}
-		return result;
+		return null;
 	}
 }

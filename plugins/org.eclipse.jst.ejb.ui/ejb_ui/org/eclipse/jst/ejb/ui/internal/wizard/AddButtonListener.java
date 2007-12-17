@@ -31,6 +31,7 @@ import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface;
+import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface.BusinessInterfaceType;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Shell;
@@ -41,27 +42,29 @@ public class AddButtonListener implements SelectionListener {
 
 	private static final String SEARCH_FILTER = "**"; //$NON-NLS-1$
 	private static final String EMPTY = ""; //$NON-NLS-1$
+	
 	private AddSessionBeanWizardPage page;
 	private IDataModel model;
 	
-	public AddButtonListener(AddSessionBeanWizardPage beanPage, IDataModel model){
-		page = beanPage;
+	public AddButtonListener(AddSessionBeanWizardPage page, IDataModel model) {
+		this.page = page;
 		this.model = model;
 	}
 	
 	public void widgetSelected(SelectionEvent e) {
-		BusinessInterface remInt = chooseEnclosingType(getRoots(), new String[] { "All_APIs" }, 
+		BusinessInterface iface = chooseEnclosingType(getRoots(), new String[] { "All_APIs" }, 
 				page.getShell(), page.getWizard().getContainer(),
 				IJavaSearchConstants.INTERFACE, EMPTY);
-		if (remInt != null) {
-			IType type = remInt.getInterfaceType();
+		
+		if (iface != null) {
+			IType type = iface.getJavaType();
 			if (type != null) {
 				String text = type.getFullyQualifiedName();
-				List biList = (List) model.getProperty(INewSessionBeanClassDataModelProperties.BUSINESSINTERFACES);
+				List<BusinessInterface> biList = (List<BusinessInterface>) model.getProperty(INewSessionBeanClassDataModelProperties.BUSINESS_INTERFACES);
 				if (!hasInterface(text, biList)) {
-					biList.add(remInt);
-					model.setProperty(INewSessionBeanClassDataModelProperties.BUSINESSINTERFACES, biList);
-					page.updateBusInterfacesList();
+					biList.add(iface);
+					model.setProperty(INewSessionBeanClassDataModelProperties.BUSINESS_INTERFACES, biList);
+					page.updateBusinessInterfacesList();
 				}
 			}
 		}
@@ -70,69 +73,39 @@ public class AddButtonListener implements SelectionListener {
 	private IPackageFragmentRoot[] getRoots() {
 		return null;
 	}
+	
 	public BusinessInterface chooseEnclosingType(
-            IPackageFragmentRoot[] root,
-            String[] jdkTypes,
-            Shell shell,
-            IRunnableContext container,
-            int type,
-            String currentSelection) {
-            BusinessInterface ret = null;
-            String currSelection = SEARCH_FILTER;
-            IJavaSearchScope scope = buildJavaSearchScope(root, jdkTypes);
+			IPackageFragmentRoot[] root,
+			String[] jdkTypes, 
+			Shell shell, 
+			IRunnableContext container,
+			int type, 
+			String currentSelection) {
+		
+		BusinessInterface ret = null;
+		String currSelection = SEARCH_FILTER;
+		IJavaSearchScope scope = buildJavaSearchScope(root, jdkTypes);
 
         if (currentSelection != null && !currentSelection.equals(EMPTY)) {
             currSelection = currentSelection;
         }
         
-        try {
-            RemoteLocalTypeSelectionDialog dialog = new RemoteLocalTypeSelectionDialog(shell, false, null, scope, type, true);
-            dialog.setTitle(EJBUIMessages.chooseInterface);
-            dialog.setMessage(EJBUIMessages.chooseInterface);
-            dialog.setInitialPattern(currSelection);
-            final boolean isRemote = dialog.isRemoteInterface();
-            final boolean isLocal = dialog.isLocalInterface();
-            dialog.setValidator(new ISelectionStatusValidator() {
-                public IStatus validate(Object[] selection) {
-                    if (selection.length == 0)
-                        return new Status(IStatus.ERROR, EMPTY, 0, EMPTY, null);
-                    BusinessInterface type = null;
-                    if (selection[0] instanceof IType) {
-                        type = new BusinessInterface((IType) selection[0], isRemote, isLocal);
-                    } else {
-                        type = (BusinessInterface) selection[0];
-                    }
-                    try {
-                        return checkInterface(type);
-                    } catch (JavaModelException e) {
-                        return Status.OK_STATUS;
-                    }
-                }
-            });
-            if (dialog.open() == RemoteLocalTypeSelectionDialog.OK) {
-                Object[] obj = dialog.getResult();
-                if (obj != null) {
-                    ret = (BusinessInterface) obj[0];
-                    IStatus status = checkInterface(ret);
-                    if (!status.isOK()) {
-                        ret = null;
-                    }
-                }
-            }
-        } catch (JavaModelException e) {
+        BusinessInterfaceSelectionDialog dialog = new BusinessInterfaceSelectionDialog(shell, false, null, scope, type);
+        dialog.setTitle(EJBUIMessages.chooseInterface);
+        dialog.setMessage(EJBUIMessages.chooseInterface);
+        dialog.setInitialPattern(currSelection);
+        if (dialog.open() == BusinessInterfaceSelectionDialog.OK) {
+            ret = dialog.getResult()[0];
         }
+        
         return ret;
-    }
-	
-	private IStatus checkInterface(final BusinessInterface remInt) throws JavaModelException {
-        return Status.OK_STATUS;
     }
 	
 	public boolean hasInterface(String text, List<BusinessInterface> biList) {
 		
         for (Iterator<BusinessInterface> i = biList.iterator(); i.hasNext(); ) {
             BusinessInterface element = (BusinessInterface) i.next();
-            if (element.getInterfaceName().equals(text)){
+            if (element.getFullyQualifiedName().equals(text)) {
             	return true;
             }
         }
@@ -141,6 +114,7 @@ public class AddButtonListener implements SelectionListener {
 
 	public void widgetDefaultSelected(SelectionEvent e) {
 	}
+	
 	private static IJavaSearchScope buildJavaSearchScope(IPackageFragmentRoot[] root, String[] jdkTypes) {
         IJavaProject project = null;
         ArrayList<IPackageFragmentRoot> pkgRoots = new ArrayList<IPackageFragmentRoot>();
@@ -152,15 +126,16 @@ public class AddButtonListener implements SelectionListener {
             } else
                 pkgRoots.addAll(Arrays.asList(root));
         }
+        
         if (jdkTypes != null) {
             IJavaProject[] prjs = { project };
-            if (project == null){
+            if (project == null) {
             	IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-            	List<IJavaProject> javaPrjcts = new ArrayList<IJavaProject>();
-            	for (int i =0;i<projects.length;i++){
-            		javaPrjcts.add(JavaCore.create(projects[i]));
+            	List<IJavaProject> javaProjects = new ArrayList<IJavaProject>();
+            	for (IProject p : projects) {
+            		javaProjects.add(JavaCore.create(p));
             	}
-            	prjs = (IJavaProject[]) javaPrjcts.toArray(new IJavaProject[javaPrjcts.size()]);
+            	prjs = (IJavaProject[]) javaProjects.toArray(new IJavaProject[javaProjects.size()]);
             }
 
             for (int i = 0; prjs != null && (i < prjs.length); i++) {
@@ -178,6 +153,7 @@ public class AddButtonListener implements SelectionListener {
         } catch (ArrayStoreException e) {
             return null;
         }
+        
         return SearchEngine.createJavaSearchScope(roots);
     }
 }

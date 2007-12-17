@@ -38,15 +38,16 @@ public class CreateEnterpriseBeanTemplateModel implements INewJavaClassDataModel
 		String className = getClassName();
 		String superclassName = getQualifiedSuperclassName();
 
-		if (superclassName != null && superclassName.length() > 0 && 
-				!equalSimpleNames(className, superclassName)) {
+		if (superclassName != null && superclassName.length() > 0 &&
+				!equalSimpleNames(className, superclassName) && 
+				!isImportInJavaLang(superclassName))
 			collection.add(superclassName);
-		}
 		
 		List<String> interfaces = getQualifiedInterfaces();
 		if (interfaces != null) {
 			for (String iface : interfaces) {
-				if (!equalSimpleNames(getClassName(), iface))
+				if (!equalSimpleNames(getClassName(), iface) && 
+						!isImportInJavaLang(iface)) 
 					collection.add(iface);
 			}
 		}
@@ -83,9 +84,7 @@ public class CreateEnterpriseBeanTemplateModel implements INewJavaClassDataModel
 		List<String> qualifiedInterfaces = getQualifiedInterfaces();
 		List<String> interfaces = new ArrayList<String>(qualifiedInterfaces.size());
 		
-		Iterator<String> iter = qualifiedInterfaces.iterator();
-		while (iter.hasNext()) {
-			String qualified = (String) iter.next();
+		for (String qualified : qualifiedInterfaces) {
 			if (equalSimpleNames(getClassName(), qualified)) {
 				interfaces.add(qualified);
 			} else {
@@ -98,7 +97,7 @@ public class CreateEnterpriseBeanTemplateModel implements INewJavaClassDataModel
 
 	public List<String> getQualifiedInterfaces() {
 		List<String> interfaces = (List<String>) dataModel.getProperty(INTERFACES);
-		if (interfaces == null){
+		if (interfaces == null) {
 			return new ArrayList<String>();
 		} else
 			return interfaces;
@@ -125,4 +124,8 @@ public class CreateEnterpriseBeanTemplateModel implements INewJavaClassDataModel
 		String simpleName2 = Signature.getSimpleName(name2);
 		return simpleName1.equals(simpleName2);
 	}
+	
+    private boolean isImportInJavaLang(String arg) {
+    	return arg.startsWith("java.lang."); 
+    }
 }

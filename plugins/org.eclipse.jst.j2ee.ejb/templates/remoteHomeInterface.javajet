@@ -3,12 +3,17 @@
 	class="RemoteHomeInterfaceTemplate" 
 %>
 <% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; 
-if (model.getJavaPackageName()!=null && model.getJavaPackageName()!="") { %>package <%=model.getJavaPackageName()%>;<%}%>
+if (model.getJavaPackageName() != null && model.getJavaPackageName() != "") { 
+%>package <%=model.getJavaPackageName()%>;<% 
+} %>
 
+import java.rmi.RemoteException;
+
+import javax.ejb.CreateException;
 import javax.ejb.EJBHome;
 
 public interface <%=model.getClassName()%>Home extends EJBHome {
-	<%if (model.getJavaPackageName()!=null && model.getJavaPackageName()!="") {%>
-	public <%=model.getJavaPackageName()%>.<%=model.getClassName()%>RemoteComponent create() throws javax.ejb.CreateException, java.rmi.RemoteException;
-	<%}else{%>public <%=model.getClassName()%>RemoteComponent create() throws javax.ejb.CreateException, java.rmi.RemoteException;<%}%>
+
+	public <%=model.getQualifiedJavaClassName()%>RemoteComponent create() throws CreateException, RemoteException;
+	
 }

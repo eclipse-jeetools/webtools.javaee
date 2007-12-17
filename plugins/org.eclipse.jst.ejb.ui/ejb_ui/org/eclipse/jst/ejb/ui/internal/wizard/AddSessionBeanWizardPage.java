@@ -46,7 +46,7 @@ public class AddSessionBeanWizardPage extends DataModelWizardPage implements
 	private Text ejbNameText;
 	private Text mappedNameText;
 	private Combo transactionTypeCombo;
-	private TableViewer busInterfacesList;
+	private TableViewer businessnterfacesList;
 	private Button addButton;
 	private Button removeButton;
 	private ScrolledForm form;
@@ -166,19 +166,19 @@ public class AddSessionBeanWizardPage extends DataModelWizardPage implements
 		gridData.grabExcessHorizontalSpace = true;
 		gridData.grabExcessVerticalSpace = true;
 
-		busInterfacesList = new TableViewer(composite, SWT.BORDER);
-		busInterfacesList.setContentProvider(new InterfacesContentProvider());
-		busInterfacesList.setLabelProvider(new InterfacesLabelProvider());
-		busInterfacesList.getControl().setLayoutData(gridData);
-		busInterfacesList.addSelectionChangedListener(new ISelectionChangedListener(){
+		businessnterfacesList = new TableViewer(composite, SWT.BORDER);
+		businessnterfacesList.setContentProvider(new BusinessInterfaceContentProvider());
+		businessnterfacesList.setLabelProvider(new BusinessInterfaceLabelProvider());
+		businessnterfacesList.getControl().setLayoutData(gridData);
+		businessnterfacesList.addSelectionChangedListener(new ISelectionChangedListener() {
 			public void selectionChanged(SelectionChangedEvent event) {
-				IStructuredSelection selection = (IStructuredSelection) busInterfacesList.getSelection();
+				IStructuredSelection selection = (IStructuredSelection) businessnterfacesList.getSelection();
 				BusinessInterface element = (BusinessInterface) selection.getFirstElement();
 				removeButton.setEnabled(element != null);
 			}
 			
 		});
-		updateBusInterfacesList();
+		updateBusinessInterfacesList();
 
 		Composite buttonComposite = new Composite(composite, SWT.BEGINNING);
 		GridLayout buttonLayout = new GridLayout(1,true);
@@ -195,12 +195,12 @@ public class AddSessionBeanWizardPage extends DataModelWizardPage implements
 		removeButton.setText(EJBUIMessages.REMOVE_INTERFACES);
 		removeButton.setEnabled(false);
 		removeButton.setLayoutData(buttonGridData);
-		removeButton.addSelectionListener(new SelectionListener(){
+		removeButton.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
-				IStructuredSelection selection = (IStructuredSelection) busInterfacesList.getSelection();
+				IStructuredSelection selection = (IStructuredSelection) businessnterfacesList.getSelection();
 				BusinessInterface element = (BusinessInterface) selection.getFirstElement();
-				busInterfacesList.remove(element);
-				if (element.getInterfaceType() == null){
+				businessnterfacesList.remove(element);
+				if (element.getJavaType() == null) {
 					if (element.isLocal())
 						model.setBooleanProperty(LOCAL, false);
 					else
@@ -214,15 +214,15 @@ public class AddSessionBeanWizardPage extends DataModelWizardPage implements
 		});
 	}
 
-	public void updateBusInterfacesList(){
-		Object biList = getDataModel().getProperty(BUSINESSINTERFACES);		
-		busInterfacesList.setInput(biList);
+	public void updateBusinessInterfacesList() {
+		Object biList = getDataModel().getProperty(BUSINESS_INTERFACES);		
+		businessnterfacesList.setInput(biList);
 	}
 
 	@Override
 	protected void updateControls() {
 		super.updateControls();
-		updateBusInterfacesList();
+		updateBusinessInterfacesList();
 	}
 
 	@Override

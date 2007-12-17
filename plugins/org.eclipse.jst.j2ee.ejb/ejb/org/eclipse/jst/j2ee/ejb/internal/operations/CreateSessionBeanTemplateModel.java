@@ -41,14 +41,9 @@ public class CreateSessionBeanTemplateModel extends
 		super(dataModel);
 	}
 
+	@Override
 	public Collection<String> getImports() {
 		Collection<String> collection = super.getImports();
-		List<BusinessInterface> biInterfaces = (List<BusinessInterface>) dataModel.getProperty(BUSINESSINTERFACES);
-		for (BusinessInterface iface : biInterfaces) {
-			if (iface.getInterfaceType() != null) {
-				collection.add(iface.getInterfaceName());
-			}
-		}
 		
 		int stateType = dataModel.getIntProperty(STATE_TYPE);
 		if (stateType == NewSessionBeanClassDataModelProvider.STATE_TYPE_STATELESS_INDEX)
@@ -63,23 +58,36 @@ public class CreateSessionBeanTemplateModel extends
 			collection.add(QUALIFIED_TRANSACTION_MANAGEMENT_TYPE);
 		}
 		
-		if (isRemoteHome()) {
+		if (isRemoteHomeChecked()) {
 			collection.add(QUALIFIED_REMOTE_HOME);
 		}
 		
-		if (isLocalHome()) {
+		if (isLocalHomeChecked()) {
 			collection.add(QUALIFIED_LOCAL_HOME);
 		}
 		
-		if (getBusinessRemoteList().size() > 0) {
-			collection.add(QUALIFIED_REMOTE);
-		}
-		
-		if (getBusinessLocalList().size() > 0) {
-			collection.add(QUALIFIED_LOCAL);
+		List<BusinessInterface> interfaces = getBusinessInterfaces();
+		for (BusinessInterface iface : interfaces) {
+			if (iface.isLocal() && iface.exists()) {
+				collection.add(QUALIFIED_LOCAL);
+			} else if (iface.isRemote() && iface.exists()) { 
+				collection.add(QUALIFIED_REMOTE);
+			}
 		}
 		
 		return collection;
+	}
+	
+	@Override
+	public List<String> getQualifiedInterfaces() {
+		List<String> result = new ArrayList<String>();
+		
+		List<BusinessInterface> interfaces = getBusinessInterfaces();
+		for (BusinessInterface iface : interfaces) {
+			result.add(iface.getFullyQualifiedName());
+		}
+		
+		return result;
 	}
 	
 	public String getClassAnnotation() {
@@ -96,78 +104,7 @@ public class CreateSessionBeanTemplateModel extends
 		return beanType;
 	}
 	
-	public List<BusinessInterface> getBusinessRemoteList() {
-		List<BusinessInterface> list = (List<BusinessInterface>) dataModel.getProperty(BUSINESSINTERFACES);
-		List<BusinessInterface> result = new ArrayList<BusinessInterface>();
-		for (BusinessInterface iface : list) {
-			if (iface.getInterfaceType() != null && iface.isRemote()) {
-				result.add(iface);
-			}
-		}
-		return result; 
-	}
-	
-	public List<BusinessInterface> getBusinessLocalList() {
-		List<BusinessInterface> list = (List<BusinessInterface>) dataModel.getProperty(BUSINESSINTERFACES);
-		List<BusinessInterface> result = new ArrayList<BusinessInterface>();
-		for (BusinessInterface iface : list) {
-			if (iface.getInterfaceType() != null && iface.isLocal()) {
-				result.add(iface);
-			}
-		}
-		return result; 
-	}
-	public List<String> getInterfaces() {
-		List<String> result = new ArrayList<String>();
-		List<String> superList = super.getInterfaces();
-		if (!superList.isEmpty()) {
-			result.addAll(superList);
-		}
-		
-		List<BusinessInterface> tmpList = (List<BusinessInterface>) dataModel.getProperty(BUSINESSINTERFACES);
-		for (BusinessInterface iface : tmpList) {
-			result.add(iface.getSimpleName());
-		}
-		
-		return result;
-	}
-
-	public String getRemoteInterface() {
-		String result = null;
-		List<BusinessInterface> biInterface = (List<BusinessInterface>) dataModel.getProperty(BUSINESSINTERFACES);
-		for (BusinessInterface iface : biInterface) {
-			if ((iface.getInterfaceType() == null) && (iface.isRemote())) {
-				result = iface.getSimpleName();
-			}
-		}
-		return result;
-	}
-
-	public String getLocalInterface() {
-		String result = null;
-		List<BusinessInterface> biInterface = (List<BusinessInterface>) dataModel.getProperty(BUSINESSINTERFACES);
-		for (BusinessInterface iface : biInterface) {
-			if ((iface.getInterfaceType() == null) && (iface.isLocal())) {
-				result = iface.getSimpleName();
-			}
-		}
-		return result;
-	}
-	
-	public boolean isLocalHome() {
-		return dataModel.getBooleanProperty(LOCAL_HOME);
-	}
-	
-	public boolean isRemoteHome() {
-		return dataModel.getBooleanProperty(REMOTE_HOME);
-	}
-	
-	public boolean isContainerType() {
-		int transactionType = dataModel.getIntProperty(TRANSACTION_TYPE);
-		return transactionType == NewSessionBeanClassDataModelProvider.TRANSACTION_TYPE_CONTAINER_INDEX;
-	}
-	
-	public Map<String, String> getAnnotationParameters() {
+	public Map<String, String> getClassAnnotationParams() {
 		Map<String, String> result = new Hashtable<String, String>();
 		String dispName = getProperty(EJB_NAME);
 		if (!dispName.equals(getClassName()))
@@ -178,4 +115,47 @@ public class CreateSessionBeanTemplateModel extends
 		}
 		return result;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<BusinessInterface> getBusinessInterfaces() {
+		return (List<BusinessInterface>) dataModel.getProperty(BUSINESS_INTERFACES);
+	}
+	
+	public List<BusinessInterface> getExistingLocalBusinessInterfaces() {
+		List<BusinessInterface> result = new ArrayList<BusinessInterface>();
+		
+		List<BusinessInterface> interfaces = getBusinessInterfaces();
+		for (BusinessInterface iface : interfaces) {
+			if (iface.isLocal() && iface.exists())
+				result.add(iface);
+		}
+		
+		return result;
+	}
+	
+	public List<BusinessInterface> getExistingRemoteBusinessInterfaces() {
+		List<BusinessInterface> result = new ArrayList<BusinessInterface>();
+		
+		List<BusinessInterface> interfaces = getBusinessInterfaces();
+		for (BusinessInterface iface : interfaces) {
+			if (iface.isRemote() && iface.exists())
+				result.add(iface);
+		}
+		
+		return result;
+	}
+	
+	public boolean isLocalHomeChecked() {
+		return dataModel.getBooleanProperty(LOCAL_HOME);
+	}
+	
+	public boolean isRemoteHomeChecked() {
+		return dataModel.getBooleanProperty(REMOTE_HOME);
+	}
+	
+	public boolean isContainerType() {
+		int transactionType = dataModel.getIntProperty(TRANSACTION_TYPE);
+		return transactionType == NewSessionBeanClassDataModelProvider.TRANSACTION_TYPE_CONTAINER_INDEX;
+	}
+	
 }

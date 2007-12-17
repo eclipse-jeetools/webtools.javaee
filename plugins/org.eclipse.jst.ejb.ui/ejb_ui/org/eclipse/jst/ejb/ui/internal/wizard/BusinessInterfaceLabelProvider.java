@@ -15,12 +15,12 @@ import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.graphics.Image;
 
-public class InterfacesLabelProvider extends LabelProvider {
+public class BusinessInterfaceLabelProvider extends LabelProvider {
 
 	@Override
 	public Image getImage(Object element) {
-		if (element instanceof BusinessInterface){
-			if (((BusinessInterface) element).isLocal()){
+		if (element instanceof BusinessInterface) {
+			if (((BusinessInterface) element).isLocal()) {
 				return J2EEUIPlugin.getDefault().getImage("local_interface_overlay_obj"); //$NON-NLS-1$
 			}
 			else
@@ -32,8 +32,8 @@ public class InterfacesLabelProvider extends LabelProvider {
 	@Override
 	public String getText(Object element) {
 		String retText = null;
-		if (element instanceof BusinessInterface){
-			retText = ((BusinessInterface) element).getInterfaceName();
+		if (element instanceof BusinessInterface) {
+			retText = ((BusinessInterface) element).getFullyQualifiedName();
 		}
 		return retText;
 	}

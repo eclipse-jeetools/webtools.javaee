@@ -17,7 +17,7 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface;
 
-public class InterfacesContentProvider implements IStructuredContentProvider {
+public class BusinessInterfaceContentProvider implements IStructuredContentProvider {
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.viewers.IContentProvider#dispose()
@@ -27,10 +27,10 @@ public class InterfacesContentProvider implements IStructuredContentProvider {
 	}
 
 	public Object[] getElements(Object inputElement) {
-		if (inputElement instanceof BusinessInterface){
-			return new BusinessInterface[]{(BusinessInterface) inputElement};
-		} else if (inputElement instanceof ArrayList){
-			return ((List<?>) inputElement).toArray();
+		if (inputElement instanceof BusinessInterface) {
+			return new BusinessInterface[] {(BusinessInterface) inputElement};
+		} else if (inputElement instanceof ArrayList) {
+			return ((List) inputElement).toArray();
 		}
 		return new Object[0];
 	}
