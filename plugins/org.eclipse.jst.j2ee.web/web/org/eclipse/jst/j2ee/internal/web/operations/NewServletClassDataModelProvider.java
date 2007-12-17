@@ -84,6 +84,9 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 	 * The cache of all the interfaces the servlet java class will implement.
 	 */
 	private List interfaceList;
+	
+	private String classNameCache;
+	private String existingClassNameCache;
 
 	private static boolean useAnnotations = false;
 
@@ -297,11 +300,16 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		}
 		if (propertyName.equals(USE_EXISTING_CLASS)) {
 			getDataModel().notifyPropertyChange(USE_ANNOTATIONS, IDataModel.ENABLE_CHG);
-			if (((Boolean)propertyValue).booleanValue())
-				setProperty(USE_ANNOTATIONS,Boolean.FALSE);
-			setProperty(JAVA_PACKAGE, null);
-			setProperty(CLASS_NAME, null);
+			
+			if (((Boolean) propertyValue).booleanValue()) {
+				classNameCache = getStringProperty(CLASS_NAME);
+				setProperty(CLASS_NAME, existingClassNameCache);
+			} else {
+				existingClassNameCache = getStringProperty(CLASS_NAME);
+				setProperty(CLASS_NAME, classNameCache);
+			}
 		}
+		
 		// Return whether property was set
 		return result;
 	}

@@ -59,6 +59,7 @@ public class WEBUIMessages extends NLS {
 	public static String DESCRIPTION_LABEL;
 	public static String USE_EXISTING_SERVLET_CLASS;
     public static String USE_EXISTING_FILTER_CLASS;
+    public static String USE_EXISTING_LISTENER_CLASS;
 	public static String JAVA_CLASS_FINAL_CHECKBOX_LABEL;
 	public static String INTERFACE_SELECTION_DIALOG_DESC;
 	public static String ADD_LABEL;

@@ -121,16 +121,12 @@ public class NewServletClassWizardPage extends NewJavaClassWizardPage {
 	
 	private void handleExistingButtonSelected() {
 		boolean enable = existingButton.getSelection();
-		if (!enable) {
-			existingClassText.setText(""); //$NON-NLS-1$
-		}
 		existingClassLabel.setEnabled(enable);
 		existingClassButton.setEnabled(enable);
 		packageText.setEnabled(!enable);
 		packageButton.setEnabled(!enable);
 		packageLabel.setEnabled(!enable);
 		classText.setEnabled(!enable);
-		classText.setText(""); //$NON-NLS-1$
 		classLabel.setEnabled(!enable);
 		superText.setEnabled(!enable);
 		superButton.setEnabled(!enable);

@@ -83,7 +83,7 @@ public class NewListenerClassWizardPage extends NewJavaClassWizardPage {
 
 	private void createUseExistingGroup(Composite composite) {
 		existingButton = new Button(composite, SWT.CHECK);
-		existingButton.setText(IWebWizardConstants.USE_EXISTING_SERVLET_CLASS);
+		existingButton.setText(IWebWizardConstants.USE_EXISTING_LISTENER_CLASS);
 		GridData data = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
 		data.horizontalSpan = 3;
 		existingButton.setLayoutData(data);
@@ -118,16 +118,12 @@ public class NewListenerClassWizardPage extends NewJavaClassWizardPage {
 	
 	private void handleExistingButtonSelected() {
 		boolean enable = existingButton.getSelection();
-		if (!enable) {
-			existingClassText.setText(""); //$NON-NLS-1$
-		}
 		existingClassLabel.setEnabled(enable);
 		existingClassButton.setEnabled(enable);
 		packageText.setEnabled(!enable);
 		packageButton.setEnabled(!enable);
 		packageLabel.setEnabled(!enable);
 		classText.setEnabled(!enable);
-		classText.setText(""); //$NON-NLS-1$
 		classLabel.setEnabled(!enable);
 		superText.setEnabled(!enable);
 		superButton.setEnabled(!enable);
