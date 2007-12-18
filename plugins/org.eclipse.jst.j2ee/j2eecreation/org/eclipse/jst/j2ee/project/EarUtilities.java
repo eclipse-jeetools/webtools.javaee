@@ -11,16 +11,23 @@
 package org.eclipse.jst.j2ee.project;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
+import org.eclipse.jst.j2ee.model.IEARModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
+import org.eclipse.jst.jee.application.ICommonApplication;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -135,7 +142,7 @@ public class EarUtilities extends JavaEEProjectUtilities {
 	 *            currentURI - The current uri of the module.
 	 * @return boolean
 	 */
-	public boolean uriExists(String currentURI, IProject earProject) {
+	public static boolean uriExists(String currentURI, IProject earProject) {
 		StructureEdit edit = null;
 		try {
 			edit = StructureEdit.getStructureEditForRead(earProject);
@@ -183,5 +190,55 @@ public class EarUtilities extends JavaEEProjectUtilities {
 
 	public static boolean isStandaloneProject(IProject project) {
 		return getReferencingEARProjects(project).length == 0;
+	}
+
+	/**
+	 * This method will return the list of IVirtualReferences for all of the utility modules
+	 * contained in the EAR application
+	 * 
+	 * @return - an array of IVirtualReferences for utility modules in the EAR
+	 */
+	public static IVirtualReference[] getUtilityModuleReferences(IVirtualComponent earComponent) {
+		if (earComponent != null && isEARProject(earComponent.getProject())) {
+			List explicitUtilityReferences = 
+				getComponentReferencesAsList(earComponent, Collections.singletonList(IJ2EEFacetConstants.UTILITY));
+			
+			// fetch other Utility Jars attached to the EAR project 
+			List implicitUtilityReferenceTypes =
+				Arrays.asList(new String[] {  IModuleConstants.JST_APPCLIENT_MODULE, 
+											   IModuleConstants.JST_WEB_MODULE,  
+											   IModuleConstants.JST_EJB_MODULE }); 
+	
+			List implicitUtilityReferences = 
+				getComponentReferencesAsList(earComponent, implicitUtilityReferenceTypes);
+			
+			IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(earComponent.getProject());
+			ICommonApplication application = (ICommonApplication)earModel.getModelObject();
+			Object module = null;
+			IVirtualReference reference = null;
+			for (Iterator referenceItr = implicitUtilityReferences.iterator(); referenceItr.hasNext(); ) {
+				module = null;
+				reference = (IVirtualReference) referenceItr.next();
+				if (application instanceof org.eclipse.jst.javaee.application.internal.impl.ApplicationImpl)
+				{
+					module = ((org.eclipse.jst.javaee.application.internal.impl.ApplicationImpl)application).getFirstModule(reference.getArchiveName());
+				}
+				else if (application instanceof org.eclipse.jst.j2ee.application.internal.impl.ApplicationImpl)
+				{
+					module = ((org.eclipse.jst.j2ee.application.internal.impl.ApplicationImpl)application).getFirstModule(reference.getArchiveName()); 
+				}
+				if(module != null) 
+					referenceItr.remove(); 
+			}
+			
+			List allUtilityModuleReferences = new ArrayList();
+			allUtilityModuleReferences.addAll(explicitUtilityReferences);
+			allUtilityModuleReferences.addAll(implicitUtilityReferences);
+			
+			if(allUtilityModuleReferences.size() > 0)
+				return (IVirtualReference[]) allUtilityModuleReferences.toArray(new IVirtualReference[allUtilityModuleReferences.size()]);
+		}
+		return NO_REFERENCES;
+		
 	}
 }
