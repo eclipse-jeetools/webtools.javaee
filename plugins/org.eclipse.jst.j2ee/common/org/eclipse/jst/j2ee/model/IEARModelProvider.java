@@ -33,4 +33,11 @@ public interface IEARModelProvider extends IModelProvider {
 	 */
 	public String getWebContextRoot(IProject webProject);
 
+	/**
+	 * This method will set the context root on the application for the passed in contextRoot.
+	 * 
+	 * @param webProject
+	 * @param aContextRoot
+	 */
+	public void setWebContextRoot(IProject webProject, String aContextRoot);
 }

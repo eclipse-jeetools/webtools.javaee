@@ -37,9 +37,11 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.project.EarUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -88,9 +90,9 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		super(aProject, toAccessAsReadOnly);
 	}
 
-	// This should be revereted to protected when 115924 is fixed
+	// This should be reverted to protected when 115924 is fixed
 	public EARArtifactEdit(IProject aProject, boolean toAccessAsReadOnly, boolean forCreate) throws IllegalArgumentException {
-		super(aProject, toAccessAsReadOnly, forCreate, J2EEProjectUtilities.ENTERPRISE_APPLICATION);
+		super(aProject, toAccessAsReadOnly, forCreate, IJ2EEFacetConstants.ENTERPRISE_APPLICATION);
 	}
 
 	/**
@@ -228,7 +230,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public static boolean isValidEARModule(IVirtualComponent aModule) throws UnresolveableURIException {
 		if (!isValidEditableModule(aModule))
 			return false;
-		return J2EEProjectUtilities.isEARProject(aModule.getProject());
+		return JavaEEProjectUtilities.isEARProject(aModule.getProject());
 	}
 
 	/**
@@ -413,7 +415,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public IVirtualReference[] getUtilityModuleReferences() {  
 		verifyOperationSupported();
 		List explicitUtilityReferences = 
-			getComponentReferencesAsList(Collections.singletonList(J2EEProjectUtilities.UTILITY));
+			getComponentReferencesAsList(Collections.singletonList(IJ2EEFacetConstants.UTILITY));
 		
 		// fetch other Utility Jars attached to the EAR project 
 		List implicitUtilityReferenceTypes =
@@ -508,10 +510,10 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * contained in this EAR application.
 	 * 
 	 * @return - an array of IVirtualReferences for J2EE modules in the EAR
-	 * @deprecated - see {@link J2EEProjectUtilities.getJ2EEModuleReferences(IVirtualComponent earComponent)}
+	 * @deprecated - see {@link EarUtilities.getJ2EEModuleReferences(IVirtualComponent earComponent)}
 	 */
 	public IVirtualReference[] getJ2EEModuleReferences() {
-		return J2EEProjectUtilities.getJ2EEModuleReferences(getComponent());
+		return EarUtilities.getJ2EEModuleReferences(getComponent());
 	}
 
 	/**
@@ -519,20 +521,20 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * this EAR application.
 	 * 
 	 * @return - an array of IVirtualReferences for components in the EAR
-	 * @deprecated - see {@link J2EEProjectUtilities.getComponentReferences(IVirtualComponent earComponent)}
+	 * @deprecated - see {@link EarUtilities.getComponentReferences(IVirtualComponent earComponent)}
 	 */
 	public IVirtualReference[] getComponentReferences() {
-		return J2EEProjectUtilities.getComponentReferences(getComponent());
+		return EarUtilities.getComponentReferences(getComponent());
 	}
 
 	/**
 	 * This method will return the IVirtualReference to the component of the given name
 	 * 
 	 * @return - IVirtualReference or null if not found
-	 * @deprecated - see {@link J2EEProjectUtilities.getComponentReference(IVirtualComponent earComponent, String componentName)}
+	 * @deprecated - see {@link EarUtilities.getComponentReference(IVirtualComponent earComponent, String componentName)}
 	 */
 	public IVirtualReference getComponentReference(String componentName) {
-		return J2EEProjectUtilities.getComponentReference(getComponent(), componentName);
+		return EarUtilities.getComponentReference(getComponent(), componentName);
 	}
 
 	/**
@@ -545,7 +547,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	private List getComponentReferencesAsList(List componentTypes) {
 		List components = new ArrayList();
 		IVirtualComponent earComponent = getComponent();
-		if (earComponent != null && J2EEProjectUtilities.isEARProject(earComponent.getProject())) {
+		if (earComponent != null && JavaEEProjectUtilities.isEARProject(earComponent.getProject())) {
 			IVirtualReference[] refComponents = earComponent.getReferences();
 			for (int i = 0; i < refComponents.length; i++) {
 				IVirtualComponent module = refComponents[i].getReferencedComponent();
@@ -555,7 +557,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 				if (componentTypes == null || componentTypes.size() == 0)
 					components.add(refComponents[i]);
 				else {
-					if (componentTypes.contains(J2EEProjectUtilities.getJ2EEComponentType(module))) {
+					if (componentTypes.contains(JavaEEProjectUtilities.getJ2EEComponentType(module))) {
 						components.add(refComponents[i]);
 					}
 				}
@@ -608,7 +610,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 	public String getWebContextRoot(IProject webProject) {
 		verifyOperationSupported();
-		if (webProject == null || !J2EEProjectUtilities.isDynamicWebProject(webProject))
+		if (webProject == null || !JavaEEProjectUtilities.isDynamicWebProject(webProject))
 			return null;
 		IVirtualComponent webComp = ComponentCore.createComponent(webProject);
 		String webModuleURI = getModuleURI(webComp);
@@ -629,7 +631,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 	public void setWebContextRoot(IProject webProject, String aContextRoot) {
 		verifyOperationSupported();
-		if (webProject == null || !J2EEProjectUtilities.isDynamicWebProject(webProject))
+		if (webProject == null || !JavaEEProjectUtilities.isDynamicWebProject(webProject))
 			return;
 		IVirtualComponent webComp = ComponentCore.createComponent(webProject);
 		String webModuleURI = getModuleURI(webComp);

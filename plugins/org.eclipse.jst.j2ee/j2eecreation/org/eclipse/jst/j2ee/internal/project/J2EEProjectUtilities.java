@@ -70,6 +70,8 @@ import org.eclipse.jst.j2ee.internal.componentcore.JCABinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.componentcore.WebBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
+import org.eclipse.jst.j2ee.project.EarUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
@@ -524,19 +526,11 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 		return CommonarchiveFactoryImpl.getActiveFactory().primOpenArchive(strat, jarUri);
 	}
 
+	/**
+	 * @deprecated - see {@link JavaEEProjectUtilities.isProjectOfType(IProject project, String typeID)}
+	 */
 	public static boolean isProjectOfType(IProject project, String typeID) {
-		IFacetedProject facetedProject = null;
-		try {
-			facetedProject = ProjectFacetsManager.create(project);
-		} catch (CoreException e) {
-			return false;
-		}
-
-		if (facetedProject != null && ProjectFacetsManager.isProjectFacetDefined(typeID)) {
-			IProjectFacet projectFacet = ProjectFacetsManager.getProjectFacet(typeID);
-			return projectFacet != null && facetedProject.hasProjectFacet(projectFacet);
-		}
-		return false;
+		return JavaEEProjectUtilities.isProjectOfType(project,typeID);
 	}
 
 	private static boolean isProjectOfType(IFacetedProject facetedProject, String typeID) {
@@ -576,64 +570,88 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 		return isProjectOfType(project, UTILITY);
 	}
 
+	/**
+	 * @deprecated - see {@link JavaEEProjectUtilities.isEARProject(IProject project)}
+	 */
 	public static boolean isEARProject(IProject project) {
-		return isProjectOfType(project, ENTERPRISE_APPLICATION);
+		return JavaEEProjectUtilities.isEARProject(project);
 	}
 
+	/**
+	 * @deprecated - see {@link JavaEEProjectUtilities.isDynamicWebComponent(IVirtualComponent component)}
+	 */
 	public static boolean isDynamicWebComponent(IVirtualComponent component) {
-		if (component.isBinary()) {
-			return WebBinaryComponentHelper.handlesComponent(component);
-		}
-		return isProjectOfType(component.getProject(), DYNAMIC_WEB);
+		return JavaEEProjectUtilities.isDynamicWebComponent(component);
 	}
 
+	/**
+	 * @deprecated - see {@link JavaEEProjectUtilities.isDynamicWebProject(IProject project)}
+	 */
 	public static boolean isDynamicWebProject(IProject project) {
-		return isProjectOfType(project, DYNAMIC_WEB);
+		return JavaEEProjectUtilities.isDynamicWebProject(project);
 	}
 
+	/**
+	 * @deprecated - see {@link JavaEEProjectUtilities.isStaticWebProject(IProject project)}
+	 */
 	public static boolean isStaticWebProject(IProject project) {
-		return isProjectOfType(project, STATIC_WEB);
+		return JavaEEProjectUtilities.isStaticWebProject(project);
 	}
 
+	/**
+	 * @deprecated - see {@link JavaEEProjectUtilities.isEJBComponent(IVirtualComponent component)}
+	 */
 	public static boolean isEJBComponent(IVirtualComponent component) {
-		if (component.isBinary()) {
-			return EJBBinaryComponentHelper.handlesComponent(component);
-		}
-		return isProjectOfType(component.getProject(), EJB);
+		return JavaEEProjectUtilities.isEJBComponent(component);
 	}
 
+	/**
+	 * @deprecated - see {@link JavaEEProjectUtilities.isEJBProject(IProject project)}
+	 */
 	public static boolean isEJBProject(IProject project) {
-		return isProjectOfType(project, EJB);
+		return JavaEEProjectUtilities.isEJBProject(project);
 	}
 
+	/**
+	 * @deprecated - see {@link JavaEEProjectUtilities.isJCAComponent(IVirtualComponent component)}
+	 */
 	public static boolean isJCAComponent(IVirtualComponent component) {
-		if (component.isBinary()) {
-			return JCABinaryComponentHelper.handlesComponent(component);
-		}
-		return isProjectOfType(component.getProject(), JCA);
+		return JavaEEProjectUtilities.isJCAComponent(component);
 	}
 
+	/**
+	 * @deprecated - see {@link JavaEEProjectUtilities.isJCAProject(IProject project)}
+	 */
 	public static boolean isJCAProject(IProject project) {
-		return isProjectOfType(project, JCA);
+		return JavaEEProjectUtilities.isJCAProject(project);
 	}
 
+	/**
+	 * @deprecated - see {@link JavaEEProjectUtilities.isApplicationClientComponent(IVirtualComponent component)}
+	 */
 	public static boolean isApplicationClientComponent(IVirtualComponent component) {
-		if (component.isBinary()) {
-			return AppClientBinaryComponentHelper.handlesComponent(component);
-		}
-		return isProjectOfType(component.getProject(), APPLICATION_CLIENT);
+		return JavaEEProjectUtilities.isApplicationClientComponent(component);
 	}
 
+	/**
+	 * @deprecated - see {@link JavaEEProjectUtilities.isApplicationClientProject(IProject project)}
+	 */
 	public static boolean isApplicationClientProject(IProject project) {
-		return isProjectOfType(project, APPLICATION_CLIENT);
+		return JavaEEProjectUtilities.isApplicationClientProject(project);
 	}
 
+	/**
+	 * @deprecated - see {@link JavaEEProjectUtilities.isUtilityProject(IProject project)}
+	 */
 	public static boolean isUtilityProject(IProject project) {
-		return isProjectOfType(project, UTILITY);
+		return JavaEEProjectUtilities.isUtilityProject(project);
 	}
 
+	/**
+	 * @deprecated - see {@link EarUtilities.isStandaloneProject(IProject project)}
+	 */
 	public static boolean isStandaloneProject(IProject project) {
-		return getReferencingEARProjects(project).length == 0;
+		return EarUtilities.isStandaloneProject(project);
 	}
 	
 	/**
@@ -686,128 +704,33 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 	 * @param type -
 	 *            use one of the static strings on this class as a type
 	 * @return IProject[]
+	 * @deprecated - see {@link JavaEEProjectUtilities.getAllProjectsInWorkspaceOfType(String type)}
 	 */
 	public static IProject[] getAllProjectsInWorkspaceOfType(String type) {
-		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-		List result = new ArrayList();
-		for (int i = 0; i < projects.length; i++) {
-			if (isProjectOfType(projects[i], type))
-				result.add(projects[i]);
-		}
-		return (IProject[]) result.toArray(new IProject[result.size()]);
+		return JavaEEProjectUtilities.getAllProjectsInWorkspaceOfType(type);
 	}
 
+	/**
+	 * @deprecated - see {@link JavaEEProjectUtilities.getJ2EEComponentType(IVirtualComponent component)}
+	 */
 	public static String getJ2EEComponentType(IVirtualComponent component) {
-		if (null != component) {
-			if (component.isBinary()) {
-				if (isApplicationClientComponent(component))
-					return APPLICATION_CLIENT;
-				else if (isDynamicWebComponent(component))
-					return DYNAMIC_WEB;
-				else if (isEJBComponent(component))
-					return EJB;
-				else if (isJCAComponent(component))
-					return JCA;
-				else
-					return UTILITY;
-			}
-			return getJ2EEProjectType(component.getProject());
-		}
-		return ""; //$NON-NLS-1$
+		return JavaEEProjectUtilities.getJ2EEComponentType(component);
 	}
 
+	/**
+	 * @deprecated - see {@link JavaEEProjectUtilities.getJ2EEProjectType(IProject project)}
+	 */
 	public static String getJ2EEProjectType(IProject project) {
-		if (null != project && project.isAccessible()) {
-			IFacetedProject facetedProject = null;
-			try {
-				facetedProject = ProjectFacetsManager.create(project);
-			} catch (CoreException e) {
-				return ""; //$NON-NLS-1$
-			}
-			if (isApplicationClientProject(facetedProject))
-				return APPLICATION_CLIENT;
-			else if (isDynamicWebProject(facetedProject))
-				return DYNAMIC_WEB;
-			else if (isEJBProject(facetedProject))
-				return EJB;
-			else if (isEARProject(facetedProject))
-				return ENTERPRISE_APPLICATION;
-			else if (isJCAProject(facetedProject))
-				return JCA;
-			else if (isStaticWebProject(facetedProject))
-				return STATIC_WEB;
-			else if (isUtilityProject(facetedProject))
-				return UTILITY;
-		}
-		return ""; //$NON-NLS-1$
+		return JavaEEProjectUtilities.getJ2EEProjectType(project);
 	}
 	/**
 	 * Returns the J2EE Module version based on the DD XML file
 	 * @param project
 	 * @return version String
+	 * @deprecated - see {@link JavaEEProjectUtilities.getJ2EEDDProjectVersion(IProject project)}
 	 */
 	public static String getJ2EEDDProjectVersion(IProject project) {
-		int type = J2EEVersionConstants.UNKNOWN;
-		String ddURI = null;
-		if (J2EEProjectUtilities.isEARProject(project)) {
-			type = J2EEVersionConstants.APPLICATION_TYPE;
-			ddURI = J2EEConstants.APPLICATION_DD_URI;
-		} else if (J2EEProjectUtilities.isEJBProject(project)) {
-			type = J2EEVersionConstants.EJB_TYPE;
-			ddURI = J2EEConstants.EJBJAR_DD_URI;
-		} else if (J2EEProjectUtilities.isApplicationClientProject(project)) {
-			type = J2EEVersionConstants.APPLICATION_CLIENT_TYPE;
-			ddURI = J2EEConstants.APP_CLIENT_DD_URI;
-		} else if (J2EEProjectUtilities.isJCAProject(project)) {
-			type = J2EEVersionConstants.CONNECTOR_TYPE;
-			ddURI = J2EEConstants.RAR_DD_URI;
-		} else if (J2EEProjectUtilities.isDynamicWebProject(project)) {
-			type = J2EEVersionConstants.WEB_TYPE;
-			ddURI = J2EEConstants.WEBAPP_DD_URI;
-		} 
-
-		if(type != J2EEVersionConstants.UNKNOWN){
-			IVirtualComponent comp = ComponentCore.createComponent(project);
-			if (comp != null) {
-				IVirtualFile vFile = comp.getRootFolder().getFile(new Path(ddURI));
-				if(vFile.exists()){
-					InputStream in= null;
-					try{
-						in = vFile.getUnderlyingFile().getContents();
-						JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(in);
-						int vers = (quickPeek.getVersion() == J2EEVersionConstants.UNKNOWN) ? getJEEVersion(project) : quickPeek.getVersion();
-						return J2EEVersionUtil.convertVersionIntToString(vers);
-					} catch (CoreException e) {
-						Logger.getLogger().logError(e);
-					} finally {
-						if(in != null){
-							try {
-								in.close();
-							} catch (IOException e) {
-								Logger.getLogger().logError(e);
-							}
-						}
-					}
-					
-				}
-				else
-					return J2EEVersionUtil.convertVersionIntToString(getJEEVersion(project));
-			}
-		}
-		
-		return null;
-	}
-
-
-	private static int getJEEVersion(IProject project) {
-		if (isEARProject(project) || isApplicationClientProject(project))
-			return J2EEVersionConstants.VERSION_5_0;
-		if (isEJBProject(project))
-			return J2EEVersionConstants.VERSION_3_0;
-		if (isDynamicWebProject(project))
-			return J2EEVersionConstants.VERSION_2_5;
-		return J2EEVersionConstants.UNKNOWN;
-			
+		return JavaEEProjectUtilities.getJ2EEDDProjectVersion(project);
 	}
 
 	public static IRuntime getServerRuntime(IProject project) throws CoreException {
@@ -1153,20 +1076,10 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 	 * ".rar") which allows users to get a IVirtualComponent for a given entry in an application.xml
 	 * 
 	 * @return - a IVirtualComponent for module name
+	 * @deprecated - see {@link EarUtilities.getModule(IVirtualComponent earComponent, String moduleName)}
 	 */
 	public static IVirtualComponent getModule(IVirtualComponent earComponent, String moduleName) {
-		if (moduleName == null)
-			return null;
-		if (moduleName.endsWith(IJ2EEModuleConstants.JAR_EXT) || moduleName.endsWith(IJ2EEModuleConstants.WAR_EXT) || moduleName.endsWith(IJ2EEModuleConstants.RAR_EXT))
-			moduleName = moduleName.substring(0, (moduleName.length() - IJ2EEModuleConstants.JAR_EXT.length()));
-		IVirtualReference[] references = getComponentReferences(earComponent);
-		for (int i = 0; i < references.length; i++) {
-			IVirtualComponent component = references[i].getReferencedComponent();
-			if (component.getName().equals(moduleName)) {
-				return component;
-			}
-		}
-		return null;
+		return EarUtilities.getModule(earComponent, moduleName);
 	}
 
 	/**
@@ -1174,14 +1087,10 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 	 * contained in this EAR application.
 	 * 
 	 * @return - an array of IVirtualReferences for J2EE modules in the EAR
+	 * @deprecated - see {@link EarUtilities.getJ2EEModuleReferences(IVirtualComponent earComponent)}
 	 */
 	public static IVirtualReference[] getJ2EEModuleReferences(IVirtualComponent earComponent) {
-		List j2eeTypes = new ArrayList();
-		j2eeTypes.add(J2EEProjectUtilities.APPLICATION_CLIENT);
-		j2eeTypes.add(J2EEProjectUtilities.JCA);
-		j2eeTypes.add(J2EEProjectUtilities.EJB);
-		j2eeTypes.add(J2EEProjectUtilities.DYNAMIC_WEB);
-		return getComponentReferences(earComponent, j2eeTypes);
+		return EarUtilities.getJ2EEModuleReferences(earComponent);
 	}
 
 	/**
@@ -1189,59 +1098,19 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 	 * an EAR application.
 	 * 
 	 * @return - an array of IVirtualReferences for components in the EAR
+	 * @deprecated - see {@link EarUtilities.getComponentReferences(IVirtualComponent earComponent)}
 	 */
 	public static IVirtualReference[] getComponentReferences(IVirtualComponent earComponent) {
-		return getComponentReferences(earComponent, Collections.EMPTY_LIST);
+		return EarUtilities.getComponentReferences(earComponent);
 	}
 
 	/**
 	 * This method will return the IVirtualReference to the component of the given name
 	 * 
 	 * @return - IVirtualReference or null if not found
+	 * @deprecated - see {@link EarUtilities.getComponentReference(IVirtualComponent earComponent, String componentName)}
 	 */
 	public static IVirtualReference getComponentReference(IVirtualComponent earComponent, String componentName) {
-		IVirtualReference[] refs = getComponentReferences(earComponent, Collections.EMPTY_LIST);
-		for (int i = 0; i < refs.length; i++) {
-			IVirtualReference reference = refs[i];
-			if (reference.getReferencedComponent().getName().equals(componentName))
-				return reference;
-
-		}
-		return null;
-	}
-
-	private static IVirtualReference[] getComponentReferences(IVirtualComponent earComponent, List componentTypes) {
-		List components = getComponentReferencesAsList(earComponent, componentTypes);
-		if(components.size() > 0)
-			return (IVirtualReference[]) components.toArray(new IVirtualReference[components.size()]);
-		return NO_REFERENCES;
-	} 
-	
-	/**
-	 * 
-	 * @param componentTypes
-	 * @return A List of {@link IVirtualReference}s.
-	 * 
-	 * This method is copied from EARArtifactEdit.  Any bug fixes should occur in both locations.
-	 */
-	private static List getComponentReferencesAsList(IVirtualComponent earComponent, List componentTypes) {
-		List components = new ArrayList();
-		if (earComponent != null && J2EEProjectUtilities.isEARProject(earComponent.getProject())) {
-			IVirtualReference[] refComponents = earComponent.getReferences();
-			for (int i = 0; i < refComponents.length; i++) {
-				IVirtualComponent module = refComponents[i].getReferencedComponent();
-				if (module == null)
-					continue;
-				// if component types passed in is null then return all components
-				if (componentTypes == null || componentTypes.size() == 0)
-					components.add(refComponents[i]);
-				else {
-					if (componentTypes.contains(J2EEProjectUtilities.getJ2EEComponentType(module))) {
-						components.add(refComponents[i]);
-					}
-				}
-			}
-		}
-		return components;
+		return EarUtilities.getComponentReference(earComponent, componentName);
 	}
 }

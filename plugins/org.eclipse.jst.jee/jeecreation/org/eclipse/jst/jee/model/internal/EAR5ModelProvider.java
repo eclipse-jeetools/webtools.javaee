@@ -15,6 +15,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
+import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -94,4 +95,22 @@ public class EAR5ModelProvider extends JEE5ModelProvider implements IEARModelPro
 		res.getContents().add((EObject) dd);
 	}
 
+	/**
+	 * This method will set the context root on the application for the passed in contextRoot.
+	 * 
+	 * @param webProject
+	 * @param aContextRoot
+	 */
+	public void setWebContextRoot(IProject webProject, String aContextRoot) {
+		if (webProject == null || !J2EEProjectUtilities.isDynamicWebProject(webProject))
+			return;
+		IVirtualComponent webComp = ComponentCore.createComponent(webProject);
+		String webModuleURI = getModuleURI(webComp);
+		if (webModuleURI != null) {
+			WebModule webModule = (WebModule) ((Application)getModelObject()).getModule(webModuleURI, null);
+			if (webModule != null)
+				webModule.setContextRoot(aContextRoot);
+			// TODO - should this method save?  Or should the caller be required to save?
+		}
+	}
 }
