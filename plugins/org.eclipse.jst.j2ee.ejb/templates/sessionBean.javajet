@@ -61,4 +61,19 @@ if (superClass.trim().length() > 0) {%> extends <%=superClass%><%}%>
    String INTERFACE = (String) interfaces.get(i);
    if (i>0) { %>, <%}%><%=INTERFACE%><%}%> {
 
+<%
+for (Method method : model.getUnimplementedMethods()) { %>
+
+	/**
+     * @see <%=method.getContainingJavaClass()%>#<%=method.getName()%>(<%=method.getParamsForJavadoc()%>)
+     */
+    public <%=method.getReturnType()%> <%=method.getName()%>(<%=method.getParamsForDeclaration()%>) {
+        // TODO Auto-generated method stub
+<% String defaultReturnValue = method.getDefaultReturnValue();
+	if (defaultReturnValue != null) { %>
+		return <%=defaultReturnValue%>;
+<%  } %>
+    }
+<% } %>
+
 }
