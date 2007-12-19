@@ -56,13 +56,15 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 
 	protected IModule[] createModules(IProject project) {
 		try {
-			ModuleCoreNature nature = (ModuleCoreNature) project.getNature(IModuleConstants.MODULE_NATURE_ID);
-			if (nature != null)
-				return createModules(nature);
-		} catch (CoreException e) {
-			Logger.getLogger().write(e);
-		}
-		return null;
+			if (project.exists()) {
+				ModuleCoreNature nature = (ModuleCoreNature) project.getNature(IModuleConstants.MODULE_NATURE_ID);
+				if (nature != null)
+					return createModules(nature);
+			}
+			} catch (CoreException e) {
+				Logger.getLogger().write(e);
+			}
+			return null;
 	}
 
 	protected IModule[] createModules(ModuleCoreNature nature) {
