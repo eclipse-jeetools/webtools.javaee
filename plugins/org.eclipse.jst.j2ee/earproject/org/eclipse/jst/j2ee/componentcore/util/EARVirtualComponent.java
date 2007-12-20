@@ -223,6 +223,6 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	}
 
 	private boolean checkIfStillValid() {
-		return DependencyGraphManager.getInstance().checkIfModuleTimeStampsStillValid(depGraphModStamp);		
+		return DependencyGraphManager.getInstance().checkIfStillValid(depGraphModStamp);
 	}
 }
