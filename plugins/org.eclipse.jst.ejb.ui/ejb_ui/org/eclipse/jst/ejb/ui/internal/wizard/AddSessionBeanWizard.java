@@ -11,6 +11,7 @@
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -22,6 +23,7 @@ import org.eclipse.jst.ejb.ui.internal.plugin.EJBUIPlugin;
 import org.eclipse.jst.j2ee.ejb.internal.operations.NewSessionBeanClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEEditorUtility;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
@@ -46,8 +48,8 @@ public class AddSessionBeanWizard extends NewEnterpriseBeansWizard {
 	}
 
 	private ImageDescriptor getWizBan() {
-		return EJBUIPlugin.imageDescriptorFromPlugin(EJBUIPlugin.PLUGIN_ID,
-				"icons/full/wizban/newejb_wiz_ban.gif");
+		URL url = (URL) J2EEPlugin.getDefault().getImage("session_bean_wiz"); //$NON-NLS-1$
+		return ImageDescriptor.createFromURL(url);
 	}
 
 	public AddSessionBeanWizard() {

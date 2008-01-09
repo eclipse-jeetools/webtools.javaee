@@ -50,7 +50,7 @@
       <wizard
             category="org.eclipse.jst.ejb.ui"
             class="org.eclipse.jst.ejb.ui.internal.wizard.AddSessionBeanWizard"
-            icon="icons/full/ctool16/newsessionejb_wiz.gif"
+            icon="icons/full/ctool16/sessionbean_wiz.gif"
             id="org.eclipse.jst.ejb.ui.internal.wizard.AddSessionBeanWizard"
             name="%BeanEjbRegionWizard.name">
          <class class="org.eclipse.jst.ejb.ui.internal.wizard.AddSessionBeanWizard">
