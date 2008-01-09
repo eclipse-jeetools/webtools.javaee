@@ -21,7 +21,6 @@ public interface IEjbWizardConstants {
 	
 	
 	// New Enterprise Bean Wizard
-	public final static String NO_EJB_PROJECTS = EJBUIMessages.NO_EJB_PROJECTS;
 	public final static String ADD_SESSION_BEANS_WIZARD_PAGE_TITLE = EJBUIMessages.ADD_SESSION_BEANS_WIZARD_PAGE_TITLE;
 	public static final String STATE_TYPE_LABEL = EJBUIMessages.STATE_TYPE_LABEL;
 	public static final String CREATE_BUSINESS_INTERFACE = EJBUIMessages.CREATE_BUSINESS_INTERFACE;

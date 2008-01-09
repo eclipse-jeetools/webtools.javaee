@@ -57,14 +57,12 @@ public class EJBUIMessages extends NLS {
 	public static String pageTitle;
 	public static String pageDescription;
 	public static String configFolderLabel;
-	public static String IMAGE_ENTERPRISE_BEAN_WIZ;
 	
 	//common
 	public static String NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC;
 	public static String NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC;
 	
 	//EnterpriseBeans
-	public static String NO_EJB_PROJECTS;
 	public static String ADD_SESSION_BEANS_WIZARD_PAGE_TITLE;
 	public static String STATE_TYPE_LABEL;
 	public static String CREATE_BUSINESS_INTERFACE;
@@ -120,5 +118,4 @@ public class EJBUIMessages extends NLS {
 	public static final String Delete_Enterprise_Beans = KEY_27;
 	public static final String Delete_Options_Query = KEY_27;
 	public static final String NewEJBModuleAction = NewEJBModuleAction_UI_0;
-	public static final String ENTERPRISE_BEAN_WIZ = IMAGE_ENTERPRISE_BEAN_WIZ;
 }
