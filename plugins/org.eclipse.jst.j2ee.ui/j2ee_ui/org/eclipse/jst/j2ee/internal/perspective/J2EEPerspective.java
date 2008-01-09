@@ -63,9 +63,6 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 
 	public void defineActions(IPageLayout layout) {
 		layout.addActionSet("org.eclipse.jst.j2ee.J2eeMainActionSet"); //$NON-NLS-1$
-		layout.addActionSet("org.eclipse.jst.j2ee.J2eeMainActionSet2"); //$NON-NLS-1$
-		layout.addActionSet("org.eclipse.jst.j2ee.J2eeMainActionSet3"); //$NON-NLS-1$
-		layout.addActionSet("org.eclipse.jst.j2ee.J2eeMainActionSet4"); //$NON-NLS-1$
 		layout.addActionSet("org.eclipse.jdt.ui.JavaActionSet"); //$NON-NLS-1$
 
 		layout.addActionSet(IDebugUIConstants.LAUNCH_ACTION_SET);
