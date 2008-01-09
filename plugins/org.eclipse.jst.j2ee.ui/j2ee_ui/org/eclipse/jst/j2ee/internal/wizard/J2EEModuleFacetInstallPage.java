@@ -19,7 +19,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 import org.eclipse.wst.web.ui.internal.wizards.DataModelFacetInstallPage;
@@ -72,15 +71,7 @@ public abstract class J2EEModuleFacetInstallPage extends DataModelFacetInstallPa
                 if( event.getFlag() == DataModelEvent.VALUE_CHG &&
                     event.getPropertyName().equals( FACET_VERSION ) )
                 {
-                    final Runnable runnable = new Runnable()
-                    {
-                        public void run()
-                        {
-                            handleFacetVersionChangedEvent();
-                        }
-                    };
-                    
-                    Display.getDefault().syncExec( runnable );
+                    handleFacetVersionChangedEvent();
                 }
             }
         };
