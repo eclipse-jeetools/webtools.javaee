@@ -7,6 +7,7 @@
  *
  * Contributors:
  * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
+ * Carl Anderson, ccc@us.ibm.com - handle null superclass (no runtime) (bug 214950)
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
@@ -252,22 +253,24 @@ public class CreateWebClassTemplateModel {
             if (javaProject != null) {
                 try {
                     IType type = javaProject.findType(superclass);
-                    if (type.isBinary()) {
-                        IMethod[] methods = type.getMethods();
-                        for (IMethod method : methods) {
-                            if (method.isConstructor()) 
-                                constrs.add(new BinaryConstructor(method));
-                        }
-                    } else {
-                    	ICompilationUnit compilationUnit = type.getCompilationUnit();
-                        TypeDeclaration declarationFromType = getTypeDeclarationFromType(superclass, compilationUnit);
-                        if (declarationFromType != null) {
-                            MethodDeclaration[] methods = declarationFromType.getMethods();
-                            for (MethodDeclaration method : methods) {
-                                if (method.isConstructor()) 
-                                    constrs.add(new SourceConstructor(method));
-                            }
-                        }
+                    if (type != null) {
+	                    if (type.isBinary()) {
+	                        IMethod[] methods = type.getMethods();
+	                        for (IMethod method : methods) {
+	                            if (method.isConstructor()) 
+	                                constrs.add(new BinaryConstructor(method));
+	                        }
+	                    } else {
+	                    	ICompilationUnit compilationUnit = type.getCompilationUnit();
+	                        TypeDeclaration declarationFromType = getTypeDeclarationFromType(superclass, compilationUnit);
+	                        if (declarationFromType != null) {
+	                            MethodDeclaration[] methods = declarationFromType.getMethods();
+	                            for (MethodDeclaration method : methods) {
+	                                if (method.isConstructor()) 
+	                                    constrs.add(new SourceConstructor(method));
+	                            }
+	                        }
+	                    }
                     }
                 } catch (JavaModelException e) {
                     Logger.getLogger().log(e);
