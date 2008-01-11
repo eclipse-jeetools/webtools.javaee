@@ -2,8 +2,8 @@ package org.eclipse.jst.validation.test;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 
-import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.util.logger.proxyrender.DefaultPluginTraceRenderer;
@@ -27,13 +27,11 @@ public class BVTValidationPlugin extends Plugin {
 		super();
 		inst = this;
 	}
+	
 	public static BVTValidationPlugin getPlugin() {
 		return inst;
 	}
 	
-	public BVTValidationPlugin(IPluginDescriptor pd) {
-		this();
-	}
 	public String getPluginID() {
 	    return PLUGIN_ID;
 	}
@@ -93,5 +91,14 @@ public class BVTValidationPlugin extends Plugin {
 		super.stop(context);
 		inst = null;
 		resourceBundle = null;
+	}
+
+	public void handleException(Throwable e) {
+		getMsgLogger().log(e);		
+	}
+
+	public void log(Level severe, String msg) {
+		// TODO Auto-generated method stub
+		
 	}
 }

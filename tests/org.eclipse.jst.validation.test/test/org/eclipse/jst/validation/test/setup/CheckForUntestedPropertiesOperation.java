@@ -12,7 +12,6 @@ import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.IPluginRegistry;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.sample.parser.PropertyLine;
 import org.eclipse.jst.validation.sample.workbenchimpl.PluginPropertyFile;
 import org.eclipse.jst.validation.test.BVTValidationPlugin;
@@ -58,10 +57,7 @@ public final class CheckForUntestedPropertiesOperation implements IWorkspaceRunn
 				}
 			}
 		} catch (InstantiationException exc) {
-			Logger logger = BVTValidationPlugin.getPlugin().getMsgLogger();
-			if (logger.isLoggingLevel(Level.SEVERE)) {
-				logger.write(Level.SEVERE, exc);
-			}
+			BVTValidationPlugin.getPlugin().handleException(exc);
 		}
 		return null;
 	}
@@ -91,11 +87,9 @@ public final class CheckForUntestedPropertiesOperation implements IWorkspaceRunn
 		monitor.subTask("Attempting to load file: " + propFileName); //$NON-NLS-1$
 		String pluginId = getPluginId(vmd);
 		if (pluginId == null) {
-			monitor.subTask("Cannot load plugin id for validator " + vmd.getValidatorDisplayName()); //$NON-NLS-1$
-			Logger logger = BVTValidationPlugin.getPlugin().getMsgLogger();
-			if (logger.isLoggingLevel(Level.SEVERE)) {
-				logger.write(Level.SEVERE, "Cannot load plugin id for validator " + vmd.getValidatorDisplayName()); //$NON-NLS-1$
-			}
+			String msg = "Cannot load plugin id for validator " + vmd.getValidatorDisplayName();//$NON-NLS-1$	
+			monitor.subTask(msg); 		
+			BVTValidationPlugin.getPlugin().log(Level.SEVERE, msg); 
 			return;
 		}
 		PluginPropertyFile pFile = new PluginPropertyFile(pluginId, propFileName);

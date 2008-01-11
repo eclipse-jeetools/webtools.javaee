@@ -7,14 +7,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.test.BVTValidationPlugin;
 import org.eclipse.jst.validation.test.internal.registry.MessageUtility;
 import org.eclipse.wst.validation.internal.TaskListUtility;
@@ -65,10 +63,7 @@ public final class TestCaseGeneratorOperation implements IWorkspaceRunnable {
 			generate(getProjects());
 		}
 		catch(Throwable exc) {
-			Logger logger = BVTValidationPlugin.getPlugin().getMsgLogger();
-			if(logger.isLoggingLevel(Level.SEVERE)) {
-				logger.write(Level.SEVERE, exc);
-			}
+			BVTValidationPlugin.getPlugin().handleException(exc);
 			getBuffer().write("A Throwable was caught; could not generate the test case. Check the LoggingUtil.log file for details."); //$NON-NLS-1$
 		}
 		finally {

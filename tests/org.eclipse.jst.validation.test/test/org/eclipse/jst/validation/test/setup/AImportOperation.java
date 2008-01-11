@@ -36,10 +36,7 @@ public abstract class AImportOperation implements IImportOperation {
 				existingProject.delete(true, null); // null=no progress mon (don't scare users)
 			}
 			catch (CoreException exc) {
-				Logger logger = BVTValidationPlugin.getPlugin().getMsgLogger();
-				if(logger.isLoggingLevel(Level.SEVERE)) {
-					logger.write(Level.SEVERE, exc);
-				}
+				BVTValidationPlugin.getPlugin().handleException(exc);
 			}
 		}
 	}

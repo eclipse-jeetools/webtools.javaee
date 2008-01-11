@@ -1,30 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin
-   id="org.eclipse.jst.validation.test"
-   name="Validation Testing Component"
-   version="1.1.0"
-   class="org.eclipse.jst.validation.test.BVTValidationPlugin">
-
-   <runtime>
-      <library name="validationtest.jar">
-         <export name="*"/>
-      </library>
-   </runtime>
-   <requires>
-      <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.wst.validation"/>
-      <import plugin="org.eclipse.jst.validation.sample"/>
-      <import plugin="org.junit"/>
-      <import plugin="org.eclipse.jem.workbench"/>
-      <import plugin="org.eclipse.jem.util"/>
-      <import plugin="org.eclipse.jdt.core"/>
-      <import plugin="org.eclipse.wst.common.frameworks"/>
-      <import plugin="org.eclipse.jem"/>
-      <import plugin="org.eclipse.emf.ecore"/>
-      <import plugin="org.eclipse.jst.j2ee"/>
-   </requires>
-
+<?eclipse version="3.0"?>
+<plugin>
 
 <!--============================-->
 <!-- Validation Contributions   -->
@@ -438,6 +414,105 @@
                text="ABCD0110I: Add a terminating apostrophe at column 36. The { and } characters must be enclosed in apostrophes.">
          </message>
       </test>
+   </extension>
+    <extension
+         point="org.eclipse.wst.validation.validatorV2"
+         id="Test1" name="%Test1.Validator.Name">
+      <validator
+            build="true"
+            class="org.eclipse.wst.validation.tests.TestValidator">
+         <include>
+            <rules>
+               <fileext
+                     ext="test1">
+               </fileext>
+            </rules>
+         </include>
+      </validator>
+   </extension>
+   
+   <extension
+         point="org.eclipse.wst.validation.validatorV2"
+         id="Test2" name="%Test2.Validator.Name">
+      <validator
+            class="org.eclipse.wst.validation.tests.TestValidator2">
+         <include>
+            <rules>
+               <fileext
+                     ext="jsp">
+               </fileext>
+               <file
+                     name="somefile.txt"
+                     type="file">
+               </file>
+               <fileext
+                     ext="jspx">
+               </fileext>
+               <fileext
+                     ext="java">
+               </fileext>
+               <fileext
+                     ext="test2">
+               </fileext>
+            </rules>
+         </include>
+         <include>
+            <rules>
+               <projectNature id="org.eclipse.sample" />
+               <facet id="com.ibm.vf.test.facet2"/>
+            </rules>
+         </include>
+         <include>
+            <rules>
+               <contentType
+                     id="com.ibm.vf.test.contentType2">
+               </contentType>
+            </rules>
+         </include>
+         <exclude>
+            <rules>
+               <facet
+                     id="org.eclipse.wst.wid.facet">
+               </facet>
+            </rules>
+         </exclude>
+      </validator>
+   </extension>
+   
+   <extension
+         point="org.eclipse.wst.validation.validatorV2"
+         id="Test3" name="%Test3.Validator.Name">
+      <validator
+            build="true"
+            class="org.eclipse.wst.validation.tests.TestValidator3"
+            manual="true">
+         <include>
+            <rules>
+               <fileext
+                     ext="html">
+               </fileext>
+               <fileext
+                     ext="htm">
+               </fileext>
+            </rules>
+         </include>
+      </validator>
+   </extension>
+   
+   <extension
+         point="org.eclipse.wst.validation.validatorV2"
+         id="Test4" name="%Test4.Validator.Name">
+      <validator
+            build="true"
+            class="org.eclipse.wst.validation.tests.TestValidator4">
+         <include>
+            <rules>
+               <fileext
+                     ext="test4">
+               </fileext>
+            </rules>
+         </include>
+      </validator>
    </extension>
    
 </plugin>

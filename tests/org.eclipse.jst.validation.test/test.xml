@@ -12,7 +12,7 @@
   <!--==============================================================-->
   <property name="plugin-name" value="org.eclipse.jst.validation.test"/>
   <property name="library-file"
-            value="${eclipse-home}/plugins/org.eclipse.test_3.1.0/library.xml"/>
+            value="${eclipse-home}/plugins/org.eclipse.test_3.2.0/library.xml"/>
   <property name="extraVMargs" value="-Xmx700M"/>
 
   <!--===============================================================-->
@@ -31,15 +31,15 @@
   <!-- This target defines the tests that need to run.              -->
   <!--==============================================================-->
   <target name="suite">
-      <property name="workspace" value="${eclipse-home}/jst_folder"/>
-      <delete dir="${workspace}" quiet="true"/>
-      <ant target="core-test" antfile="${library-file}" dir="${eclipse-home}">
-      <property name="data-dir" value="${workspace}"/>
-      <property name="plugin-name" value="${plugin-name}"/>
-      <property name="classname" value="org.eclipse.jst.validation.test.junit.AutomatedValidationBVT"/>
-   	  <property name="plugin-path" value="${eclipse-home}/plugins/${plugin-name}"/>
-   	  <property name="extraVMargs" value="${extraVMargs}"/>
-    </ant>
+	<property name="workspace" value="${eclipse-home}/jst_folder"/>
+	<delete dir="${workspace}" quiet="true"/>
+	<ant target="ui-test" antfile="${library-file}" dir="${eclipse-home}">
+      	<property name="data-dir" value="${workspace}"/>
+      	<property name="plugin-name" value="${plugin-name}"/>
+      	<property name="classname" value="org.eclipse.jst.validation.test.junit.AutomatedValidationBVT"/>
+   	  	<property name="plugin-path" value="${eclipse-home}/plugins/${plugin-name}"/>
+   	  	<property name="extraVMargs" value="${extraVMargs}"/>
+	</ant>
   </target>
 
   <!--==================================================================-->

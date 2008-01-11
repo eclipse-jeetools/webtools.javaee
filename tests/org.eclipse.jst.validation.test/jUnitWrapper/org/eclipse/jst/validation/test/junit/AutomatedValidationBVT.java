@@ -6,12 +6,6 @@
  */
 package org.eclipse.jst.validation.test.junit;
 
-/**
- * @author jialin
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 
 import java.io.File;
 import java.net.URL;
@@ -20,16 +14,16 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-import org.eclipse.core.runtime.IPluginDescriptor;
-import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.jst.validation.api.test.ApiTestsSuite;
+import org.eclipse.jst.validation.test.BVTValidationPlugin;
+import org.eclipse.wst.validation.tests.testcase.Framework;
 
 
 /**
  * @author jsholl
+ * @author jialin
  *
- * To change this generated comment go to 
- * Window>Preferences>Java>Code Generation>Code and Comments
  */
 public class AutomatedValidationBVT extends TestSuite {
 
@@ -37,9 +31,8 @@ public class AutomatedValidationBVT extends TestSuite {
     
     static {
         try {
-            IPluginDescriptor pluginDescriptor = Platform.getPluginRegistry().getPluginDescriptor("org.eclipse.jst.validation.test");
-            URL url = pluginDescriptor.getInstallURL(); 
-        	AutomatedValidationBVT.baseDirectory = Platform.asLocalURL(url).getFile() + "validationResources" + File.separatorChar;
+        	URL url = BVTValidationPlugin.getPlugin().getBundle().getEntry("/");
+        	AutomatedValidationBVT.baseDirectory = FileLocator.toFileURL(url).getFile() + "validationResources" + File.separatorChar;
 		} catch (Exception e) { 
 			System.err.println("Using working directory since a workspace URL could not be located.");
 		} 
@@ -67,6 +60,7 @@ public class AutomatedValidationBVT extends TestSuite {
         TestSuite suite = new TestSuite("Test for org.eclipse.jst.validation.test");
         //suite.addTest(BVTSuite.suite());
 		suite.addTest(ApiTestsSuite.suite());
+		suite.addTest(Framework.suite());
         return suite;
     }
 }

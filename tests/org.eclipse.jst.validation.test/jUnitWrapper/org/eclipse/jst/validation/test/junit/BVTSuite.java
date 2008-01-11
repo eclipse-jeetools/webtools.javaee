@@ -3,14 +3,12 @@ package org.eclipse.jst.validation.test.junit;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.Level;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jst.validation.test.BVTValidationPlugin;
 import org.eclipse.jst.validation.test.internal.registry.OperationTestcase;
 import org.eclipse.jst.validation.test.internal.registry.ValidatorTestcase;
 import org.eclipse.jst.validation.test.internal.util.BVTValidationUtility;
@@ -74,8 +72,6 @@ public class BVTSuite extends TestSuite {
 	}
 
 	public static Test suite() {
-		// Turn logging to SEVERE
-		BVTValidationPlugin.getPlugin().getMsgLogger().setLevel(Level.SEVERE);
 		return new BVTSuite();
 	}
 

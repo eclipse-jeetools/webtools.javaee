@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
-import java.util.logging.Level;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -25,7 +24,6 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.test.BVTValidationPlugin;
 import org.eclipse.wst.validation.internal.operations.ValidatorManager;
 
@@ -94,10 +92,7 @@ public class JARImportOperation extends AImportOperation {
 			ValidatorManager.addProjectBuildValidationSupport(project);
 		}
 		catch(JavaModelException exc) {
-			Logger logger = BVTValidationPlugin.getPlugin().getMsgLogger();
-			if(logger.isLoggingLevel(Level.SEVERE)) {
-				logger.write(Level.SEVERE, exc);
-			}
+			BVTValidationPlugin.getPlugin().handleException(exc);
 		}
 	}
 	
@@ -112,10 +107,7 @@ public class JARImportOperation extends AImportOperation {
 			configureProject(monitor, project);
 		}
 		catch(CoreException exc) {
-			Logger logger = BVTValidationPlugin.getPlugin().getMsgLogger();
-			if(logger.isLoggingLevel(Level.SEVERE)) {
-				logger.write(Level.SEVERE, exc);
-			}
+			BVTValidationPlugin.getPlugin().handleException(exc);
 		}
 		return project;
 	}
@@ -165,17 +157,11 @@ public class JARImportOperation extends AImportOperation {
 			return true;
 		}
 		catch(IOException exc) {
-			Logger logger = BVTValidationPlugin.getPlugin().getMsgLogger();
-			if(logger.isLoggingLevel(Level.SEVERE)) {
-				logger.write(Level.SEVERE, exc);
-			}
+			BVTValidationPlugin.getPlugin().handleException(exc);
 			return false;
 		}
 		catch(CoreException exc) {
-			Logger logger = BVTValidationPlugin.getPlugin().getMsgLogger();
-			if(logger.isLoggingLevel(Level.SEVERE)) {
-				logger.write(Level.SEVERE, exc);
-			}
+			BVTValidationPlugin.getPlugin().handleException(exc);
 			return false;
 		}
 	}
