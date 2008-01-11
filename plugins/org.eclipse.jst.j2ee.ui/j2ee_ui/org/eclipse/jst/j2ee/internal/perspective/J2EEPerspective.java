@@ -94,7 +94,6 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
         layout.addNewWizardShortcut(ID_EAR_PROJECT_WIZARD);
 
 		// Add "new wizards"
-        layout.addNewWizardShortcut("org.eclipse.ui.wizards.new.project");//$NON-NLS-1$
         layout.addNewWizardShortcut("org.eclipse.ui.wizards.new.folder");//$NON-NLS-1$
         layout.addNewWizardShortcut("org.eclipse.ui.wizards.new.file");//$NON-NLS-1$
 
