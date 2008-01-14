@@ -145,7 +145,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		addClassnameGroup(composite);
 		addSuperclassGroup(composite);
 
-		folderText.setFocus();
+		classText.setFocus();
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(composite, getInfopopID());
 	    Dialog.applyDialogFont(parent);
 		return composite;
