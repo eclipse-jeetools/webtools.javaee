@@ -31,3 +31,4 @@ Export-Package: org.eclipse.jst.validation.api.test,
  org.eclipse.wst.validation.tests.testcase,
  org.eclipse.wst.validation.tests.util
 Bundle-ClassPath: validationtest.jar
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
