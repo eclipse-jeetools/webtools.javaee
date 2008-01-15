@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2008 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -63,7 +63,7 @@ public class EJBUIMessages extends NLS {
 	public static String NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC;
 	
 	//EnterpriseBeans
-	public static String ADD_SESSION_BEANS_WIZARD_PAGE_TITLE;
+	public static String ADD_SESSION_BEAN_WIZARD_PAGE_TITLE;
 	public static String STATE_TYPE_LABEL;
 	public static String CREATE_BUSINESS_INTERFACE;
 	public static String REMOTE_BUSINESS_INTERFACE;
@@ -82,6 +82,13 @@ public class EJBUIMessages extends NLS {
 	public static String ADD_INTERFACES;
 	public static String REMOVE_INTERFACES;
 	public static String ADD_SESSION_BEAN_WIZARD_PAGE_DESC;
+	public static String ADD_MESSAGE_DRIVEN_BEAN_WIZARD_PAGE_TITLE;
+	public static String DESTINATION_LABEL;
+	public static String DESTINATION_TYPE_QUEUE;
+	public static String DESTINATION_TYPE_TOPIC;
+	public static String JMS;
+	public static String DESTINATION_NAME_LABEL;
+	public static String ADD_MESSAGE_DRIVEN_BEAN_WIZARD_PAGE_DESC;
 	
 
 	static {

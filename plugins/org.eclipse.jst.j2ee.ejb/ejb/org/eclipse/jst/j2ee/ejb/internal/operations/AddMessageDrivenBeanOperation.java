@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 SAP AG and others.
+ * Copyright (c) 2008 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,14 +12,11 @@ package org.eclipse.jst.j2ee.ejb.internal.operations;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 
-public class AddSessionBeanOperation extends AddEnterpriseBeanOperation {
-
-	private IModelProvider provider;
+public class AddMessageDrivenBeanOperation extends AddEnterpriseBeanOperation {
 
 	/**
 	 * This is the constructor which should be used when creating the operation.
@@ -30,7 +27,7 @@ public class AddSessionBeanOperation extends AddEnterpriseBeanOperation {
 	 * @param dataModel
 	 * @return AddBeansOperation
 	 */
-	public AddSessionBeanOperation(IDataModel dataModel) {
+	public AddMessageDrivenBeanOperation(IDataModel dataModel) {
 		super(dataModel);
 	}
 
@@ -38,19 +35,19 @@ public class AddSessionBeanOperation extends AddEnterpriseBeanOperation {
 	 * Subclasses may extend this method to add their own creation of the actual
 	 * bean java class. This implementation uses the NewBeanClassOperation
 	 * which is a subclass of the NewJavaClassOperation. The
-	 * NewSessionBeanClassOperation will use the same
-	 * NewSessionBeanClassDataModelProvider to retrieve the properties in order to
+	 * NewMessageDrivenBeanClassOperation will use the same
+	 * NewMessageDrivenBeanClassDataModelProvider to retrieve the properties in order to
 	 * create the java class accordingly. This method will not return null.
 	 * 
-	 * @see NewSessionBeanClassOperation
+	 * @see NewMessageDrivenBeanClassOperation
 	 * @see org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassOperation
-	 * @see NewSessionBeanClassDataModelProvider
+	 * @see NewMessageDrivenBeanClassDataModelProvider
 	 * 
 	 * @return String qualified bean class name
 	 */
 	protected String createBeanClass() {
 		// Create bean java class file using the NewBeanClassOperation.
-		NewSessionBeanClassOperation op = new NewSessionBeanClassOperation(model);
+		NewMessageDrivenBeanClassOperation op = new NewMessageDrivenBeanClassOperation(model);
 		try {
 			op.execute(new NullProgressMonitor(), null);
 		} catch (Exception e) {
@@ -60,4 +57,5 @@ public class AddSessionBeanOperation extends AddEnterpriseBeanOperation {
 		// the bean
 		return getQualifiedClassName();
 	}
+
 }

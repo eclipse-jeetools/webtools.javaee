@@ -61,6 +61,27 @@
             %BeanWebRegionWizard.description
          </description>
       </wizard>
+      <wizard
+            category="org.eclipse.jst.ejb.ui"
+            class="org.eclipse.jst.ejb.ui.internal.wizard.AddMessageDrivenBeanWizard"
+            icon="icons/full/ctool16/msgdrivenbean_wiz.gif"
+            id="org.eclipse.jst.ejb.ui.internal.wizard.AddMessageDrivenBeanWizard"
+            name="%MDBEjbRegionWizard.name">
+         <class
+               class="org.eclipse.jst.ejb.ui.internal.wizard.AddMessageDrivenBeanWizard">
+            <parameter
+                  name="javaeeartifact"
+                  value="true">
+            </parameter>
+            <parameter
+                  name="menuIndex"
+                  value="36">
+            </parameter>
+         </class>
+         <description>
+            %MDBEjbRegionWizard.description
+         </description>
+      </wizard>
    </extension>
 <!-- Navigator Object Contributions -->
 <!-- EJB Group Contributions 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 SAP AG and others.
+ * Copyright (c) 2007, 2008 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,8 +15,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
-import org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface;
+import org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -54,7 +54,7 @@ public class AddSessionBeanWizardPage extends DataModelWizardPage implements
 	public AddSessionBeanWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
 		setDescription(IEjbWizardConstants.ADD_SESSION_BEAN_WIZARD_PAGE_DESC);
-		setTitle(IEjbWizardConstants.ADD_SESSION_BEANS_WIZARD_PAGE_TITLE);
+		setTitle(IEjbWizardConstants.ADD_SESSION_BEAN_WIZARD_PAGE_TITLE);
 	}
 	
 	public DataModelSynchHelper initializeSynchHelper(IDataModel dm) {

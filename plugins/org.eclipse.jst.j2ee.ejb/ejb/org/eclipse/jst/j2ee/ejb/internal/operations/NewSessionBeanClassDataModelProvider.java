@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 SAP AG and others.
+ * Copyright (c) 2007, 2008 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,29 +11,20 @@
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.Signature;
-import org.eclipse.jst.j2ee.ejb.TransactionType;
 import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface.BusinessInterfaceType;
-import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
-import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
-public class NewSessionBeanClassDataModelProvider extends NewJavaClassDataModelProvider implements INewSessionBeanClassDataModelProperties {
+public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClassDataModelProvider implements INewSessionBeanClassDataModelProperties {
 
 	public static final int STATE_TYPE_STATELESS_INDEX = 0;
 	public static final int STATE_TYPE_STATEFUL_INDEX = 1;
-	
-	public static final int TRANSACTION_TYPE_CONTAINER_INDEX = 0;
-	public static final int TRANSACTION_TYPE_BEAN_INDEX = 1;
 	
 	private static final String LOCAL_SUFFIX = "Local"; //$NON-NLS-1$
 	private static final String REMOTE_SUFFIX = "Remote"; //$NON-NLS-1$
@@ -53,14 +44,11 @@ public class NewSessionBeanClassDataModelProvider extends NewJavaClassDataModelP
 		Set<String> propertyNames = (Set<String>) super.getPropertyNames();
 
 		propertyNames.add(BUSINESS_INTERFACES);
-		propertyNames.add(EJB_NAME);
 		propertyNames.add(REMOTE);
 		propertyNames.add(LOCAL);
 		propertyNames.add(STATE_TYPE);
 		propertyNames.add(REMOTE_HOME);
 		propertyNames.add(LOCAL_HOME);
-		propertyNames.add(MAPPED_NAME);
-		propertyNames.add(TRANSACTION_TYPE);
 
 		return propertyNames;
 	}
@@ -77,13 +65,7 @@ public class NewSessionBeanClassDataModelProvider extends NewJavaClassDataModelP
 	 * @return Object default value of property
 	 */
 	public Object getDefaultProperty(String propertyName) {
-		if (propertyName.equals(EJB_NAME)) {
-			String className = getStringProperty(CLASS_NAME);
-			int index = className.lastIndexOf("."); //$NON-NLS-1$
-			className = className.substring(index+1);
-			return className;
-		}
-		else if (propertyName.equals(REMOTE_HOME))
+		if (propertyName.equals(REMOTE_HOME))
 			return Boolean.FALSE;
 		else if (propertyName.equals(LOCAL_HOME))
 			return Boolean.FALSE;
@@ -93,11 +75,6 @@ public class NewSessionBeanClassDataModelProvider extends NewJavaClassDataModelP
 			return Boolean.TRUE;
 		else if (propertyName.equals(STATE_TYPE))
 			return NewSessionBeanClassDataModelProvider.STATE_TYPE_STATELESS_INDEX; 
-		else if (propertyName.equals(SUPERCLASS))
-			return "";
-		else if (propertyName.equals(TRANSACTION_TYPE)) {
-			return NewSessionBeanClassDataModelProvider.TRANSACTION_TYPE_CONTAINER_INDEX;
-		}
 		else if (propertyName.equals(BUSINESS_INTERFACES)) {
 			List<BusinessInterface> listResult = new ArrayList<BusinessInterface>();
 			String className = getStringProperty(QUALIFIED_CLASS_NAME);
@@ -113,23 +90,6 @@ public class NewSessionBeanClassDataModelProvider extends NewJavaClassDataModelP
 		}
 		// Otherwise check super for default value for property
 		return super.getDefaultProperty(propertyName);
-	}
-
-	@Override
-	public IStatus validate(String propertyName) {
-
-		if (propertyName.equals(SUPERCLASS)) {
-			String value = getStringProperty(propertyName);
-			if (value == null || value.trim().length() == 0)
-				return WTPCommonPlugin.OK_STATUS;
-		} else if (propertyName.equals(JAVA_PACKAGE)) {
-			String value = getStringProperty(propertyName);
-			if (value == null || value.trim().length() == 0) {
-				String msg = EJBCreationResourceHandler.Bean_Class_Cannot_Be_In_UI_;
-				return WTPCommonPlugin.createErrorStatus(msg);
-			}
-		}
-		return super.validate(propertyName);
 	}
 
 	/**
@@ -150,11 +110,7 @@ public class NewSessionBeanClassDataModelProvider extends NewJavaClassDataModelP
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		// Call super to set the property on the data model
 		boolean result = super.propertySet(propertyName, propertyValue);
-		// If class name is changed, update the display name to be the same
-		if (propertyName.equals(CLASS_NAME) && !getDataModel().isPropertySet(EJB_NAME)) {
-			getDataModel().notifyPropertyChange(EJB_NAME, IDataModel.DEFAULT_CHG);
-			getDataModel().notifyPropertyChange(REMOTE, IDataModel.DEFAULT_CHG);
-		}
+		
 		if (propertyName.equals(REMOTE)) {
 			if (!getDataModel().isPropertySet(BUSINESS_INTERFACES)) {
 				getDataModel().notifyPropertyChange(BUSINESS_INTERFACES, IDataModel.DEFAULT_CHG);
@@ -166,9 +122,7 @@ public class NewSessionBeanClassDataModelProvider extends NewJavaClassDataModelP
 		if (propertyName.equals(LOCAL)  && !getDataModel().isPropertySet(BUSINESS_INTERFACES)) {
 			getDataModel().notifyPropertyChange(BUSINESS_INTERFACES, IDataModel.DEFAULT_CHG);
 		}
-		if (propertyName.equals(BUSINESS_INTERFACES)) {
-			//Should uncheck Remote && Local BI in case list is Empty
-		}
+
 		return result;
 	}
 

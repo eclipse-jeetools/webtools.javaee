@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 SAP AG and others.
+ * Copyright (c) 2008 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,12 +10,25 @@
  *******************************************************************************/
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
+import java.lang.reflect.InvocationTargetException;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.ide.IDE;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
 
@@ -48,6 +61,40 @@ public abstract class NewEnterpriseBeansWizard extends DataModelWizard implement
 			}
 		}
 		return null;
+	}
+
+	@Override
+	protected void postPerformFinish() throws InvocationTargetException {
+		String className = getDataModel().getStringProperty(INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME);
+		IProject p = (IProject) getDataModel().getProperty(INewJavaClassDataModelProperties.PROJECT);
+		IJavaProject javaProject = J2EEEditorUtility.getJavaProject(p);
+		IFile file;
+		try {
+			file = (IFile) javaProject.findType(className).getResource();
+			openEditor(file);
+		} catch (JavaModelException e) {
+			Logger.getLogger().log(e);
+		}
+	}
+
+	private void openEditor(final IFile file) {
+		if (file != null) {
+			getShell().getDisplay().asyncExec(new Runnable() {
+				public void run() {
+					try {
+						IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+						IDE.openEditor(page, file, true);
+					} catch (PartInitException e) {
+						Logger.getLogger().log(e);
+					}
+				}
+			});
+		}
+	}
+
+	@Override
+	public boolean canFinish() {
+		return getDataModel().isValid();
 	}
 
 }

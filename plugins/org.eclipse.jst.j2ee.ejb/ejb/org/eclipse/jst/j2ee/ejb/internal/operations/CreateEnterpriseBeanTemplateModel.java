@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 SAP AG and others.
+ * Copyright (c) 2008 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -36,10 +36,12 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-/**
- * @author yavor.vasilev.boyadzhiev@sap.com
- */
-public class CreateEnterpriseBeanTemplateModel implements INewJavaClassDataModelProperties {
+public class CreateEnterpriseBeanTemplateModel implements INewJavaClassDataModelProperties, INewMessageDrivenBeanClassDataModelProperties {
+	
+	protected static final String ATT_MAPPED_NAME = "mappedName"; //$NON-NLS-1$
+	protected static final String ATT_NAME = "name"; //$NON-NLS-1$
+	
+	protected static final String QUOTATION_STRING = "\"";
 	
 	protected IDataModel dataModel;
 	
@@ -137,16 +139,18 @@ public class CreateEnterpriseBeanTemplateModel implements INewJavaClassDataModel
 	public Collection<Method> getUnimplementedMethods() {
         Collection<Method> unimplementedMethods = new HashSet<Method>();
         
-        IJavaProject javaProject = getJavaProject();
-        List<String> interfaces = getQualifiedInterfaces();
-        for (String iface : interfaces) {
-        	try {
-	        	IType type = javaProject.findType(iface);
-	        	if (type != null)
-	        		getUnimplementedMethod0(type, unimplementedMethods);
-        	} catch (JavaModelException e) {
-                Logger.getLogger().log(e);
-            }
+        if (shouldImplementAbstractMethods()) {
+        	IJavaProject javaProject = getJavaProject();
+    	    List<String> interfaces = getQualifiedInterfaces();
+	        for (String iface : interfaces) {
+        		try {
+		        	IType type = javaProject.findType(iface);
+		        	if (type != null)
+	        			getUnimplementedMethod0(type, unimplementedMethods);
+        		} catch (JavaModelException e) {
+        	        Logger.getLogger().log(e);
+    	        }
+	        }
         }
         
         return unimplementedMethods;
@@ -154,7 +158,6 @@ public class CreateEnterpriseBeanTemplateModel implements INewJavaClassDataModel
 	
 	private void getUnimplementedMethod0(IType type, Collection<Method> unimplementedMethods) throws JavaModelException {
 		IJavaProject javaProject = getJavaProject();
-		
 		if (type.isBinary()) {
 		    IMethod[] methods = type.getMethods();
 		    for (IMethod method : methods) {
@@ -187,9 +190,6 @@ public class CreateEnterpriseBeanTemplateModel implements INewJavaClassDataModel
 					getUnimplementedMethod0(superInterfaceType, unimplementedMethods);
 		    }
 		}
-		
-		
-		
 	}
 
 	protected String getProperty(String propertyName) {
@@ -235,5 +235,13 @@ public class CreateEnterpriseBeanTemplateModel implements INewJavaClassDataModel
         parser.setStatementsRecovery(true);
         return parser.createAST(null);
     }
+
+    public boolean shouldImplementAbstractMethods(){
+		return dataModel.getBooleanProperty(ABSTRACT_METHODS);
+	}
     
+    public boolean isContainerType() {
+		int transactionType = dataModel.getIntProperty(TRANSACTION_TYPE);
+		return transactionType == NewSessionBeanClassDataModelProvider.TRANSACTION_TYPE_CONTAINER_INDEX;
+	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 SAP AG and others.
+ * Copyright (c) 2007, 2008 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,9 +22,6 @@ public class CreateSessionBeanTemplateModel extends
 		CreateEnterpriseBeanTemplateModel implements
 		INewSessionBeanClassDataModelProperties {
 
-	private static final String ATT_MAPPED_NAME = "mappedName"; //$NON-NLS-1$
-	private static final String ATT_NAME = "name"; //$NON-NLS-1$
-	
 	public static final String QUALIFIED_STATELESS = "javax.ejb.Stateless"; //$NON-NLS-1$
 	public static final String QUALIFIED_STATEFUL = "javax.ejb.Stateful"; //$NON-NLS-1$
 	public static final String QUALIFIED_LOCAL = "javax.ejb.Local"; //$NON-NLS-1$
@@ -104,18 +101,6 @@ public class CreateSessionBeanTemplateModel extends
 		return beanType;
 	}
 	
-	public Map<String, String> getClassAnnotationParams() {
-		Map<String, String> result = new Hashtable<String, String>();
-		String dispName = getProperty(EJB_NAME);
-		if (!dispName.equals(getClassName()))
-			result.put(ATT_NAME, dispName);
-		String mappedName = getProperty(MAPPED_NAME).trim();
-		if (mappedName != null && mappedName.length() > 0) {
-			result.put(ATT_MAPPED_NAME, mappedName);
-		}
-		return result;
-	}
-	
 	@SuppressWarnings("unchecked")
 	public List<BusinessInterface> getBusinessInterfaces() {
 		return (List<BusinessInterface>) dataModel.getProperty(BUSINESS_INTERFACES);
@@ -153,9 +138,15 @@ public class CreateSessionBeanTemplateModel extends
 		return dataModel.getBooleanProperty(REMOTE_HOME);
 	}
 	
-	public boolean isContainerType() {
-		int transactionType = dataModel.getIntProperty(TRANSACTION_TYPE);
-		return transactionType == NewSessionBeanClassDataModelProvider.TRANSACTION_TYPE_CONTAINER_INDEX;
+	public Map<String, String> getClassAnnotationParams() {
+		Map<String, String> result = new Hashtable<String, String>();
+		String dispName = getProperty(EJB_NAME);
+		if (!dispName.equals(getClassName()))
+			result.put(ATT_NAME, dispName);
+		String mappedName = getProperty(MAPPED_NAME).trim();
+		if (mappedName != null && mappedName.length() > 0) {
+			result.put(ATT_MAPPED_NAME, mappedName);
+		}
+		return result;
 	}
-	
 }

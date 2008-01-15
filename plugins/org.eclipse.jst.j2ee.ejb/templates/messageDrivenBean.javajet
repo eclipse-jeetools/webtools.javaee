@@ -1,66 +1,64 @@
 <%@ jet package="org.eclipse.jst.j2ee.ejb" 
 	imports="org.eclipse.jst.j2ee.ejb.internal.operations.* java.util.* " 
-	class="SessionBeanTemplate" 
-%><%@ include file="sessionBeanHeader.template" %>
-<%=model.getClassAnnotation()%>
+	class="MessageDrivenBeanTemplate" 
+%><%@ include file="messageDrivenBeanHeader.template" %>
+@MessageDriven
 <%
 Map<String, String> params = model.getClassAnnotationParams();
 if (!params.isEmpty()) { 
 %>(<%
   Set<String> keys = params.keySet();
+  boolean needNewLine = keys.contains(CreateMessageDrivenBeanTemplateModel.ATT_ACTIVATION_CONFIG);
   boolean needComma = false;
   for (String key : keys) {
-    if (needComma) {%>, <%}
+    if (needComma) { 
+    	%>, <%
+    	if (needNewLine) {
+    		%>
+		
+<%
+		} 
+    }
     String value = params.get(key);
-    %><%=key%> = "<%=value%>"<%
+    if (key.equals(CreateMessageDrivenBeanTemplateModel.ATT_ACTIVATION_CONFIG)) {
+		%>
+		activationConfig = { @ActivationConfigProperty(
+				propertyName = "destinationType", propertyValue = "<%=value%>"
+		) }<%
+	} else {
+    	%><%=key%> = <%=value%><%
+    }
     needComma = true;
   } %>)
 <%}
 
 if (!model.isContainerType()) {%>
 @TransactionManagement(TransactionManagementType.BEAN)<%
-}
-
-List<BusinessInterface> localInterfaces = model.getExistingLocalBusinessInterfaces();
-if (!localInterfaces.isEmpty()) {%>
-@Local( { <%
-  boolean needComma = false;
-  for (BusinessInterface iface : localInterfaces) {
-    if (needComma) {%>, <%}
-    %><%=iface.getSimpleName()%>.class<%
-    needComma = true;
-  }
-%>})<%
-}
-
-List<BusinessInterface> remoteInterfaces = model.getExistingRemoteBusinessInterfaces();
-if (!remoteInterfaces.isEmpty()) {%>
-@Remote( { <%
-  boolean needComma = false;
-  for (BusinessInterface iface : remoteInterfaces) {
-    if (needComma) {%>, <%}
-    %><%=iface.getSimpleName()%>.class<%
-    needComma = true;
-  }
-%>})<%}
-if (model.isLocalHomeChecked()) {%>
-@LocalHome(<%=model.getClassName()%>LocalHome.class)<%}%>
-<%if (model.isRemoteHomeChecked()) {%>
-@RemoteHome(<%=model.getClassName()%>Home.class)<%}%>
+}%>
 
 <%if (model.isPublic()) {%>public<%}%> <%if (model.isAbstract()) {%>abstract <%}%><%if (model.isFinal()) {%>final <%}
 %>class <%=model.getClassName()%><%
 String superClass = model.getSuperclassName();
-if (superClass.trim().length() > 0) {%> extends <%=superClass%><%}%>
-<%
+if (superClass.trim().length() > 0) {%> extends <%=superClass%><%}
  List interfaces = model.getInterfaces(); 
- if (interfaces.size() > 0) {%> implements <% }
- for (int i = 0; i<interfaces.size(); i++) {
+ if (interfaces.size() > 0) {%> implements <%}
+ for (int i = 0; i < interfaces.size(); i++) {
    String INTERFACE = (String) interfaces.get(i);
    if (i > 0) { %>, <% } %><%=INTERFACE%><% } %> {
 <%
 if (model.shouldImplementAbstractMethods()) {
-	for (Method method : model.getUnimplementedMethods()) { %>
+Collection<Method> unimplementedMethods = model.getUnimplementedMethods();
+if (model.isJMS()) { %>
+	
+	/**
+     * @see MessageListener#onMessage(Message)
+     */
+    public void onMessage(Message message) {
+        // TODO Auto-generated method stub
+        
+    }
+<%}
+for (Method method : unimplementedMethods) { %>
 
 	/**
      * @see <%=method.getContainingJavaClass()%>#<%=method.getName()%>(<%=method.getParamsForJavadoc()%>)

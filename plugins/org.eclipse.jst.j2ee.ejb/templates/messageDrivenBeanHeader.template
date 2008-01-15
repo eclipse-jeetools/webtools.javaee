@@ -1,0 +1,18 @@
+<%@ jet package="org.eclipse.jst.j2ee.ejb" 
+	imports="org.eclipse.jst.j2ee.ejb.internal.operations.* java.util.* " 
+	class="MessageDrivenBeanTemplate" 
+%>
+<% CreateMessageDrivenBeanTemplateModel model = (CreateMessageDrivenBeanTemplateModel) argument; 
+if (model.getJavaPackageName() != null && model.getJavaPackageName() != "") { 
+%>package <%=model.getJavaPackageName()%>;<% 
+} %>
+
+<% Collection<String> imports = model.getImports();
+for (String anImport : imports) { %>
+import <%=anImport%>;
+<% } %>
+
+/**
+ * Message-Driven Bean implementation class for: <%=model.getClassName()%>
+ *
+ */
