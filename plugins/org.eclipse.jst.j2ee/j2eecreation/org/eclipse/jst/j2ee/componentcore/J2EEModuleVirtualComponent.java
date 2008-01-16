@@ -89,7 +89,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	}
 
 	private boolean checkIfStillValid() {
-		return (DependencyGraphManager.getInstance().getModStamp() == depGraphModStamp);
+		return DependencyGraphManager.getInstance().checkIfStillValid(depGraphModStamp);
 	}
 
 	// Returns cache if still valid or null
