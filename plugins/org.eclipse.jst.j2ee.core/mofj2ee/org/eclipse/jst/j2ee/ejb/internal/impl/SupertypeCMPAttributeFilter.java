@@ -18,11 +18,6 @@ import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
 
 
-/**
- * Insert the type's description here.
- * Creation date: (11/28/2000 6:54:26 PM)
- * @author: Administrator
- */
 public abstract class SupertypeCMPAttributeFilter extends ContainerManagedEntityFilter {
 /**
  * SupertypeCMPAttributeFilter constructor comment.
@@ -30,10 +25,8 @@ public abstract class SupertypeCMPAttributeFilter extends ContainerManagedEntity
 public SupertypeCMPAttributeFilter() {
 	super();
 }
-/**
- * filter method comment.
- */
-public List filter(ContainerManagedEntity cmp) {
+
+protected List filterNotcached(ContainerManagedEntity cmp) {
 	ContainerManagedEntity supertype = null;
 	EjbModuleExtensionHelper extensionHelper = getEjbModuleExtHelper(cmp);
 	if(extensionHelper != null)
@@ -45,7 +38,7 @@ public List filter(ContainerManagedEntity cmp) {
 /**
  * filter method comment.
  */
-protected java.util.List filterUsingSupertype(ContainerManagedEntity cmp, ContainerManagedEntity supertype) {
+protected List filterUsingSupertype(ContainerManagedEntity cmp, ContainerManagedEntity supertype) {
 	ContainerManagedEntity superEntity = supertype;
 	List result = new ArrayList();
 	Iterator it = getSourceAttributes(cmp).iterator();
@@ -60,7 +53,7 @@ protected java.util.List filterUsingSupertype(ContainerManagedEntity cmp, Contai
 /**
  * Return the proper list of attributes from cmpExt.
  */
-protected abstract java.util.List getSourceAttributes(ContainerManagedEntity cmp) ;
+protected abstract List getSourceAttributes(ContainerManagedEntity cmp) ;
 /**
  * Return a boolean indicating whether anAttribute also exists in the superEntity.
  */

@@ -237,7 +237,9 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 			}
 		}
 		
-		List cmpFields = cmp.getFilteredFeatures(LocalModelledPersistentAttributeFilter.singleton());
+		LocalModelledPersistentAttributeFilter filter = LocalModelledPersistentAttributeFilter.singleton();
+		filter.enableCache(true);
+		List cmpFields = cmp.getFilteredFeatures(filter);
 		if(cmpFields != null && !cmpFields.isEmpty()) {
 		iterator = cmpFields.iterator();
 		while(iterator.hasNext()) {
@@ -247,6 +249,7 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 			}
 		  }
 		}
+		filter.clearCache();
 	}
 	
 	public void validateEjbCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws ValidationCancelledException, InvalidInputException, ValidationException {
