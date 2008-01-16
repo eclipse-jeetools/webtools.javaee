@@ -84,7 +84,8 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 	 * {@link J2EEVersionConstants#APPLICATION_TYPE},
 	 * {@link J2EEVersionConstants#EJB_TYPE},
 	 * {@link J2EEVersionConstants#CONNECTOR_TYPE},
-	 * {@link J2EEVersionConstants#WEB_TYPE}
+	 * {@link J2EEVersionConstants#WEB_TYPE},
+	 * {@link J2EEVersionConstants#WEBSERVICES_TYPE}
 	 * 
 	 * @return
 	 */
@@ -103,7 +104,9 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 				type = CONNECTOR_TYPE;
 			} else if (rootName.equals(J2EEConstants.WEBAPP_DOCTYPE)) {
 				type = WEB_TYPE;
-			} else {
+			} else if (rootName.equals(J2EEConstants.WEB_SERVICES_DOCTYPE)) {
+				type = WEBSERVICES_TYPE;
+			}else {
 				type = UNKNOWN;
 			}
 		}
@@ -237,6 +240,19 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 					}
 				}
 				break;
+			case WEBSERVICES_TYPE:
+				if (publicID != null && systemID != null) {
+					if (publicID.equals(J2EEConstants.WEBSERVICE_PUBLICID) && (systemID.equals(J2EEConstants.WEBSERVICE_SYSTEMID))) {
+						version = J2EEVersionConstants.WEBSERVICES_1_0_ID;
+					}
+				} else if (schemaName != null) {
+					if (schemaName.equals(J2EEConstants.WEBSERVICE_SCHEMA_1_1)) {
+						version = J2EEVersionConstants.WEBSERVICES_1_1_ID;
+					} else if (schemaName.equals(J2EEConstants.WEBSERVICE_SCHEMA_1_2)) {
+						version = J2EEVersionConstants.WEBSERVICES_1_2_ID;
+					}
+				}
+				break;
 			default:
 				break;
 			}
@@ -304,7 +320,19 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 					javaEEVersion = J2EEVersionConstants.JEE_5_0_ID;
 				}
 				break;
+		case WEBSERVICES_TYPE:
+			switch (version) {
+			case J2EEVersionConstants.WEBSERVICES_1_0_ID:
+				javaEEVersion = J2EEVersionConstants.J2EE_1_3_ID;
+				break;
+			case J2EEVersionConstants.WEBSERVICES_1_1_ID:
+				javaEEVersion = J2EEVersionConstants.J2EE_1_4_ID;
+				break;
+			case J2EEVersionConstants.WEBSERVICES_1_2_ID:
+				javaEEVersion = J2EEVersionConstants.JEE_5_0_ID;
 			}
+			break;
+		}
 			if (javaEEVersion == UNSET) {
 				javaEEVersion = UNKNOWN;
 			}

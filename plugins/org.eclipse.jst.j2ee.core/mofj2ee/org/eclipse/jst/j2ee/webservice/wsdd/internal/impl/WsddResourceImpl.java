@@ -11,6 +11,10 @@
 package org.eclipse.jst.j2ee.webservice.wsdd.internal.impl;
 
 
+import java.io.InputStream;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jst.j2ee.common.internal.impl.XMLResourceImpl;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -18,8 +22,11 @@ import org.eclipse.jst.j2ee.internal.model.translator.webservices.WsddTranslator
 import org.eclipse.jst.j2ee.webservice.internal.WebServiceConstants;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServices;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddResource;
+import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.internal.emf.resource.Renderer;
 import org.eclipse.wst.common.internal.emf.resource.Translator;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
+import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
 
 public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 {
@@ -179,7 +186,7 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 	 * @see com.ibm.etools.emf2xml.impl.TranslatorResourceImpl#getDefaultVersionID()
 	 */
 	protected int getDefaultVersionID() {
-		return WebServiceConstants.WEBSERVICE_1_2_ID;
+		return WebServiceConstants.WEBSERVICE_1_0_ID;
 	}
 
 
@@ -191,12 +198,28 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 
 public void setDoctypeValues(String publicId, String systemId) {
 	
-		int version = J2EE_1_4_ID;
-		if (systemId == null) 
-			version = getJ2EEVersionID();
+		int myVersion = J2EE_1_4_ID;
+		if (systemId == null) {
+			myVersion = primGetVersionID();
+			setModuleVersionID(myVersion);
+			return;
+		}
 		super.setDoctypeValues(publicId, systemId);
-		setJ2EEVersionID(version);
-	
+		
+}
+
+private int primGetVersionID() {
+	IFile afile = WorkbenchResourceHelper.getFile(this);
+	InputStream in = null;
+	JavaEEQuickPeek quickPeek = null;
+		try {
+			in = afile.getContents();
+			quickPeek = new JavaEEQuickPeek(in);
+		}
+		catch (CoreException e) {
+			J2EECorePlugin.logError(e);
+		}
+	return quickPeek.getVersion();
 }
 
   

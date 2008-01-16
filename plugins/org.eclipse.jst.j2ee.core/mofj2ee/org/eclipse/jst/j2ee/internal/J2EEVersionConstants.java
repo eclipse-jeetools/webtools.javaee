@@ -25,6 +25,7 @@ public interface J2EEVersionConstants {
 	public int CONNECTOR_TYPE = 2;
 	public int APPLICATION_CLIENT_TYPE = 3;
 	public int WEB_TYPE = 4;
+	public int WEBSERVICES_TYPE = 5;
 	
 	public int J2EE_1_2_ID = 12;
 	public int J2EE_1_3_ID = 13;
@@ -53,6 +54,7 @@ public interface J2EEVersionConstants {
 	public int JCA_1_5_ID = 15;
 	public int WEBSERVICES_1_0_ID = 10;
 	public int WEBSERVICES_1_1_ID = 11;
+	public int WEBSERVICES_1_2_ID = 12;
 	public String J2EE_1_4_TEXT 		= "1.4"; //$NON-NLS-1$
 	
 

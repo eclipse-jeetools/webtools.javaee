@@ -14,6 +14,11 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.util.logger.proxyrender.DefaultPluginTraceRenderer;
 import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.osgi.framework.BundleContext;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
+import java.lang.Throwable;
+import org.eclipse.core.runtime.CoreException;
 
 /*
  * Created on Nov 25, 2003
@@ -65,6 +70,22 @@ public class J2EECorePlugin extends Plugin {
 	 */
 	protected void setRenderer(Logger aLogger) {
 		new DefaultPluginTraceRenderer(aLogger);
+	}
+
+	public static IStatus createStatus(int severity, String message, Throwable exception) {
+		return new Status(severity, PLUGIN_ID, message, exception);
+	}
+
+	public static IStatus createStatus(int severity, String message) {
+		return createStatus(severity, message, null);
+	}
+
+	public static void logError(Throwable exception) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( createStatus(IStatus.ERROR, exception.getMessage(), exception));
+	}
+
+	public static void logError(CoreException exception) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( exception.getStatus() );
 	}
 	
 }

@@ -143,7 +143,7 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 	 * @see com.ibm.etools.emf2xml.TranslatorResource#usesDTD()
 	 */
 	public boolean usesDTD() {
-		return getVersionID() != J2EE_1_4_ID;
+		return (getVersionID() == J2EE_1_2_ID) || (getVersionID() == J2EE_1_3_ID);
 	}
 	
 	/* (non-Javadoc)

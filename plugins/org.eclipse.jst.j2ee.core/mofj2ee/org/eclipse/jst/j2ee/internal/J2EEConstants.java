@@ -148,12 +148,20 @@ public interface J2EEConstants extends J2EEVersionConstants {
     URI WEB_SERVICES_CLIENT_META_INF_DD_URI_OBJ     =       URI.createURI(WEB_SERVICES_CLIENT_META_INF_DD_URI);
     URI WEB_SERVICES_CLIENT_WEB_INF_DD_URI_OBJ      =       URI.createURI(WEB_SERVICES_CLIENT_WEB_INF_DD_URI);
     
+    /** Doc type for webservices deployment descriptors */
+    String WEB_SERVICES_DOCTYPE      		= "webservices";  //$NON-NLS-1$
     String WEB_SERVICES_DD_URI                      =       "webservices.xml"; //$NON-NLS-1$
     String WEB_SERVICES_META_INF_DD_URI     =   "META-INF/webservices.xml"; //$NON-NLS-1$
     String WEB_SERVICES_WEB_INF_DD_URI      =   "WEB-INF/webservices.xml"; //$NON-NLS-1$
     URI WEB_SERVICES_DD_URI_OBJ                     =       URI.createURI(WEB_SERVICES_DD_URI);
     URI WEB_SERVICES_META_INF_DD_URI_OBJ    = URI.createURI(WEB_SERVICES_META_INF_DD_URI);
     URI WEB_SERVICES_WEB_INF_DD_URI_OBJ     =       URI.createURI(WEB_SERVICES_WEB_INF_DD_URI);
+    String WEBSERVICE_SYSTEMID    = "http://www.ibm.com/webservices/dtd/j2ee_web_services_1_0.dtd"; //$NON-NLS-1$
+    String WEBSERVICE_PUBLICID = "-//IBM Corporation, Inc.//DTD J2EE Web services 1.0//EN"; //$NON-NLS-1$  
+    String WEBSERVICE_SCHEMA_1_1 = "http://java.sun.com/xml/ns/j2ee http://www.ibm.com/webservices/xsd/j2ee_web_services_1_1.xsd";//$NON-NLS-1$
+    String WEBSERVICE_SCHEMA_LOC_SUN_1_1 = "http://java.sun.com/xml/ns/j2ee/j2ee_web_services_1_1.xsd";//$NON-NLS-1$
+    String WEBSERVICE_SCHEMA_1_2 = "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/javaee_web_services_1_2.xsd";//$NON-NLS-1$
+    String WEBSERVICE_SCHEMA_LOC_SUN_1_2 = "http://java.sun.com/xml/ns/javaee/javaee_web_services_1_2.xsd";//$NON-NLS-1$
     
     //Miscellaneous constants
     /** "UTF-8"                                                                                                                             */
