@@ -57,7 +57,7 @@ public abstract class J2EEModuleFacetInstallPage extends DataModelFacetInstallPa
 	{
         this.addDD = new Button(parent, SWT.CHECK);
         this.addDD.setText(Resources.generateDeploymentDescriptor);
-        synchHelper.synchCheckbox(addDD, GENERATE_DD, null);
+        //synchHelper.synchCheckbox(addDD, GENERATE_DD, null); bug 215284 - see enter()
         GridData gd = new GridData(GridData.FILL_HORIZONTAL);
         gd.horizontalSpan = 2;
         this.addDD.setLayoutData(gd);
@@ -103,5 +103,13 @@ public abstract class J2EEModuleFacetInstallPage extends DataModelFacetInstallPa
             initializeMessages(J2EEModuleFacetInstallPage.class.getName(), Resources.class);
         }
     }
-    
+
+    protected void enter() {
+    	if (isFirstTimeToPage())
+    	{
+    		synchHelper.synchCheckbox(addDD, GENERATE_DD, null);
+    	}
+    	super.enter();
+    }
+
 }

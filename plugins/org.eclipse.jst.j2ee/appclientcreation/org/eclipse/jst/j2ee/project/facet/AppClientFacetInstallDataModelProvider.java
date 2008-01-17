@@ -49,23 +49,7 @@ public class AppClientFacetInstallDataModelProvider extends J2EEModuleFacetInsta
 		}
 		return super.getDefaultProperty(propertyName);
 	}
-	
-    public boolean propertySet(String propertyName, Object propertyValue) {
-        if( propertyName.equals( FACET_VERSION ) )
-        {
-            if( propertyValue == APPLICATION_CLIENT_50 )
-            {
-                setProperty( GENERATE_DD, Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.APP_CLIENT_GENERATE_DD)) );
-            }
-            else
-            {
-                setProperty( GENERATE_DD, Boolean.TRUE );
-            }
-        }
-        return super.propertySet(propertyName, propertyValue);
-    }
-	
-	
+
 	protected int convertFacetVersionToJ2EEVersion(IProjectFacetVersion version) {
 		return J2EEVersionUtil.convertAppClientVersionStringToJ2EEVersionID(version.getVersionString());
 	}

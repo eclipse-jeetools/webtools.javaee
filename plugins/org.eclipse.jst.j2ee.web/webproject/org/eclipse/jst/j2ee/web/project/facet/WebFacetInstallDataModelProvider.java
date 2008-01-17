@@ -89,17 +89,6 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 		        javaModel.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, propertyValue);
 			}
 		}
-		else if( propertyName.equals( FACET_VERSION ) )
-		{
-		    if( propertyValue == WebFacetUtils.WEB_25 )
-		    {
-		        setProperty( GENERATE_DD, Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.DYNAMIC_WEB_GENERATE_DD)) );
-		    }
-		    else
-		    {
-		        setProperty( GENERATE_DD, Boolean.TRUE );
-		    }
-		}
 		return super.propertySet(propertyName, propertyValue);
 	}
 	
