@@ -212,6 +212,7 @@ private int primGetVersionID() {
 	IFile afile = WorkbenchResourceHelper.getFile(this);
 	InputStream in = null;
 	JavaEEQuickPeek quickPeek = null;
+	if (afile != null && afile.exists()) {
 		try {
 			in = afile.getContents();
 			quickPeek = new JavaEEQuickPeek(in);
@@ -220,6 +221,8 @@ private int primGetVersionID() {
 			J2EECorePlugin.logError(e);
 		}
 	return quickPeek.getVersion();
+	}
+	return getModuleVersionID();
 }
 
   
