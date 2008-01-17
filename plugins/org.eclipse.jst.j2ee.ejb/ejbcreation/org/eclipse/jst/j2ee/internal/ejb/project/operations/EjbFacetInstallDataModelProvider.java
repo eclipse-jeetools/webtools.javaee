@@ -120,17 +120,6 @@ public class EjbFacetInstallDataModelProvider
 	    	model.notifyPropertyChange(CREATE_CLIENT, IDataModel.ENABLE_CHG);
 
 	    }
-	    else if( propertyName.equals( FACET_VERSION ) )
-        {
-            if( propertyValue == EJB_30 )
-            {
-                setProperty( GENERATE_DD, Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EJB_GENERATE_DD)) );
-            }
-            else
-            {
-                setProperty( GENERATE_DD, Boolean.TRUE );
-            }
-        }
 
 		return status;
 	}	
