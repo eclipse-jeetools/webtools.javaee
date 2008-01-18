@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -207,38 +206,6 @@ public class HeaderParserTests extends BaseTestCase {
 		return data;
 	}
 
-	public void testSpeed() throws Exception {
-		List data = getXMLData();
-		long[] times = new long[data.size()];
-		InputStream in = null;
-
-		for (int i = 0; i < data.size(); i++) {
-			try {
-				TestData testData = (TestData) data.get(i);
-				in = new FileInputStream(new File(getDataPath(testData.fileName)));
-				long start = System.currentTimeMillis();
-				JavaEEQuickPeek peek = new JavaEEQuickPeek(in);
-				long end = System.currentTimeMillis();
-				times[i] = end - start;
-				if (times[i] == 0) {
-					times[i] = 10; // stub in a minimum time
-				}
-				Assert.assertEquals(testData.type, peek.getType());
-				Assert.assertEquals(testData.modVersion, peek.getVersion());
-				Assert.assertEquals(testData.eeVersion, peek.getJavaEEVersion());
-			} finally {
-				if (in != null) {
-					in.close();
-				}
-			}
-		}
-		// all times should be the same
-		Arrays.sort(times);
-		if (times[0] * 2 < times[times.length - 1]) {
-			Assert.fail();
-		}
-	}
-	
 	public void testNormalizeSchemaLocation() throws Exception {
 		verifyNormalizeSchemaLocation("", "");
 		verifyNormalizeSchemaLocation("", " ");
