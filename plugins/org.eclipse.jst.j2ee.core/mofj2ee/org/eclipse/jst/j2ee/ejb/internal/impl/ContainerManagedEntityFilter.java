@@ -12,7 +12,9 @@ package org.eclipse.jst.j2ee.ejb.internal.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
@@ -23,25 +25,26 @@ import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
 import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 
-
-/**
- * Insert the type's description here. Creation date: (11/28/2000 6:28:39 PM)
- * @author: Administrator
- */
 public abstract class ContainerManagedEntityFilter implements EJBExtensionFilter {
- 
+ 	
+	private static ThreadLocal<CMPCache> _cache = new ThreadLocal<CMPCache>();
 
-    /**
-     * AttributeFilter constructor comment.
-     */
-    public ContainerManagedEntityFilter() {
-        super();
+    public List filter(ContainerManagedEntity cmp){
+    	List list = getCache(this, cmp);
+    	if (list != null)return list;
+    	
+    	list = filterNotcached(cmp);
+    	setCache(this, cmp, list);
+    	return list;
     }
-
+    
     /**
-     * filter method comment.
+     * Subclasses that don't implement the filter method need to override this method 
+     * to provided the filtered results. 
      */
-    public abstract List filter(ContainerManagedEntity cmp);
+    protected List filterNotcached(ContainerManagedEntity cmp){
+    	return new ArrayList();
+    }
 
     /**
      * All CMPAttributeFilters only operate on ContainerManagedEntityExtension
@@ -98,4 +101,100 @@ public abstract class ContainerManagedEntityFilter implements EJBExtensionFilter
         if(extensionHelper != null)
             collectRelationshipRoles((ContainerManagedEntity) extensionHelper.getSuperType(cmp), extensionHelper, containerList);        
     }
+    
+    /**
+     * Clear the cache and turn off caching.
+     */
+	public void clearCache(){
+		if (_cache == null)return;
+		getCache().clear();
+		getCache().setEnabled(false);
+	}
+	
+	
+	protected void setCache(ContainerManagedEntityFilter filter, ContainerManagedEntity cmp, List list) {
+		getCache().set(filter, cmp, list);
+	}
+
+
+	protected List getCache(ContainerManagedEntityFilter filter, ContainerManagedEntity cmp) {
+		return getCache().get(filter, cmp);
+	}
+	
+	/**
+	 * Answer the CMPCache for this thread.
+	 * @return
+	 */
+	private CMPCache getCache(){
+		CMPCache cache = _cache.get();
+		if (cache == null){
+			cache = new CMPCache();
+			_cache.set(cache);
+		}
+		return cache;
+	}
+	
+	/**
+	 * This method needs to be called (with the parameter true) if you wish the 
+	 * filter results to be cached. By default the results are not cached.
+	 * <p>
+	 * The cache is thread based. When done the clearCache method should be called.
+	 * 
+	 * @param isEnabled set this to true to have the filter results cached.
+	 */
+	public void enableCache(boolean isEnabled){
+		getCache().setEnabled(isEnabled);
+	}
+
+    /**
+     * Keep a thread local cache of filtered results.
+     * @author karasiuk
+     *
+     */
+	private static class CMPCache {
+		
+		/*
+		 * We discovered some very deep code paths when validating EJBs. In one example project that 
+		 * only had a few beans, it took 12 hours to validate. Keeping a cache during validation
+		 * reduced the time to seconds.
+		 */
+		
+		private Map 		_map = new HashMap(30);
+		
+		/** Is the cache turned on, by default it is not. */
+		private boolean		_enabled;
+		
+		public void setEnabled(boolean isEnabled){
+			_enabled = isEnabled;
+		}
+
+		public List get(ContainerManagedEntityFilter filter, ContainerManagedEntity cmp) {
+			if (!_enabled)return null;
+			
+			Map map = (Map)_map.get(filter);
+			if (map == null){
+				map = new HashMap(100);
+				_map.put(filter, map);
+			}
+			return (List)map.get(cmp);
+		}
+
+		public void set(ContainerManagedEntityFilter filter, ContainerManagedEntity cmp, List list) {
+			if (!_enabled)return; 
+			
+			Map map = (Map)_map.get(filter);
+			if (map == null){
+				map = new HashMap(100);
+				_map.put(filter, map);
+			}
+			
+			map.put(cmp, list);			
+		}
+		
+		public void clear(){
+			_map.clear();
+		}
+		
+	}
+
 }

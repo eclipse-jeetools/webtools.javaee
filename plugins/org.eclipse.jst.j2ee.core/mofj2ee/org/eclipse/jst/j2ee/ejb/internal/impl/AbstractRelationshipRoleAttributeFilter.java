@@ -9,6 +9,7 @@
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.impl;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,84 +17,29 @@ import java.util.List;
 import org.eclipse.jst.j2ee.ejb.CommonRelationshipRole;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 
-
-/**
- * Insert the type's description here.
- * Creation date: (11/28/2000 7:06:49 PM)
- * @author: Administrator
- */
-public abstract class AbstractRelationshipRoleAttributeFilter extends ContainerManagedEntityFilter {
-/**
- * AbstractRelationshipRoleAttributeFilter constructor comment.
- */
-public AbstractRelationshipRoleAttributeFilter() {
-	super();
-}
-/**
- * filter method comment.
- */
-public List filter(ContainerManagedEntity cmp) {
-	List attributes = new ArrayList();
-	Iterator it = getSourceRoles(cmp).iterator();
-	CommonRelationshipRole role;
-	while (it.hasNext()) {
-		role = (CommonRelationshipRole) it.next();
-		attributes.addAll(role.getAttributes());
+public abstract class AbstractRelationshipRoleAttributeFilter extends
+		ContainerManagedEntityFilter {
+	/**
+	 * AbstractRelationshipRoleAttributeFilter constructor comment.
+	 */
+	public AbstractRelationshipRoleAttributeFilter() {
+		super();
 	}
-	return attributes;
+
+	protected List filterNotcached(ContainerManagedEntity cmp) {
+		List attributes = new ArrayList();
+		Iterator it = getSourceRoles(cmp).iterator();
+		CommonRelationshipRole role;
+		while (it.hasNext()) {
+			role = (CommonRelationshipRole) it.next();
+			attributes.addAll(role.getAttributes());
+		}
+		return attributes;
+	}
+
+	/**
+	 * Return the proper list of roles from cmpExt.
+	 */
+	protected abstract java.util.List getSourceRoles(
+			ContainerManagedEntity cmpExt);
 }
-/**
- * Return the proper list of roles from cmpExt.
- */
-protected abstract java.util.List getSourceRoles(ContainerManagedEntity cmpExt) ;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
