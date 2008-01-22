@@ -38,6 +38,7 @@ import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.jst.common.project.facet.WtpUtils;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetInstallDataModelProvider;
@@ -587,9 +588,15 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			try {
 				current = jproj.getRawClasspath();
 				List updatedList = new ArrayList();
+				boolean useDefaultWebAppLibraries = J2EEComponentClasspathContainerUtils.getDefaultUseWebAppLibraries();
 				for (int i = 0; i < current.length; i++) {
 					IClasspathEntry entry = current[i];
-					if ((entry.getPath().toString().indexOf(WEB_LIB_CONTAINER) == -1) && (entry.getPath().toString().indexOf(WEB_LIB_PATH) == -1))
+					// the web container is added to the classpath if:
+					// 1. they don't have an entry for WEB_LIB_CONTAINER AND
+					// 2. they have an entry for WEB_LIB_PATH BUT
+					// they do not have the preference checked to use the Web App classpath container
+					if ((entry.getPath().toString().indexOf(WEB_LIB_CONTAINER) == -1) && 
+							((entry.getPath().toString().indexOf(WEB_LIB_PATH) == -1) || !useDefaultWebAppLibraries))
 						updatedList.add(entry);
 				}
 				IClasspathEntry[] updated = (IClasspathEntry[])updatedList.toArray(new IClasspathEntry[updatedList.size()]);
