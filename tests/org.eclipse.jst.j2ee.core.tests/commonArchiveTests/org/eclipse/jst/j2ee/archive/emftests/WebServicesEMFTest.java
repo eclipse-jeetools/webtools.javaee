@@ -74,7 +74,7 @@ public class WebServicesEMFTest extends GeneralEMFPopulationTest {
 		suite.addTest(new WebServicesEMFTest("test13WebServicesDDPopulation",factory));
 		suite.addTest(new WebServicesEMFTest("test14WebServicesDDPopulation",factory));
 		suite.addTest(new WebServicesEMFTest("test50WebServicesDDPopulation",factory));
-		//suite.addTest(new WebServicesEMFTest("testJaxRPCMapPopulation",factory));
+		suite.addTest(new WebServicesEMFTest("testJaxRPCMapPopulation",factory));
 		return suite;
 	}
 	
@@ -96,8 +96,8 @@ public class WebServicesEMFTest extends GeneralEMFPopulationTest {
 		earFile.close();
 
 	}
-	
-	private void testJaxRPCMapPopulation() throws Exception {
+
+	public void testJaxRPCMapPopulation() throws Exception {
 		currentVersion = J2EEVersionConstants.J2EE_1_3_ID;
 		EMFAttributeFeatureGenerator.reset();
 		createEAR();
