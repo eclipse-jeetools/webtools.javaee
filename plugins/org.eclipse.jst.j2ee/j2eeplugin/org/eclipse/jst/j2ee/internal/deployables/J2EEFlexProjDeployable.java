@@ -431,15 +431,24 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 			aURI = component.getDeployedName()+IJ2EEModuleConstants.EAR_EXT;
     	} 
     	// We have child components but could not find valid ears
-    	else if (component!=null && J2EEProjectUtilities.isDynamicWebProject(component.getProject())) {
-    		if (module != null && J2EEProjectUtilities.isUtilityProject(module.getProject())) {
-    			IVirtualComponent webComp = ComponentCore.createComponent(component.getProject());
-    			IVirtualReference reference = webComp.getReference(module.getProject().getName());
-    			aURI = ComponentUtilities.getDeployUriOfUtilComponent(reference);
-    		}else{
-    			aURI = component.getDeployedName()+IJ2EEModuleConstants.WAR_EXT;
-    		}
-    	} 
+    	else if (component != null && J2EEProjectUtilities.isDynamicWebProject(component.getProject())) {
+			if (module != null) {
+				IVirtualComponent webComp = ComponentCore.createComponent(component.getProject());
+				IVirtualReference reference = webComp.getReference(module.getProject().getName());
+				if (J2EEProjectUtilities.isDynamicWebProject(module.getProject())) {
+					aURI = ComponentUtilities.getDeployUriOfComponent(reference, IJ2EEModuleConstants.WAR_EXT);
+				}
+				else if (J2EEProjectUtilities.isJCAProject(module.getProject())) {
+					aURI = ComponentUtilities.getDeployUriOfComponent(reference, IJ2EEModuleConstants.RAR_EXT);
+				}
+				else {
+					aURI = ComponentUtilities.getDeployUriOfComponent(reference, IJ2EEModuleConstants.JAR_EXT);
+				}
+			}
+			else {
+				aURI = component.getDeployedName() + IJ2EEModuleConstants.WAR_EXT;
+			}
+		} 
     	else if (component!=null && (J2EEProjectUtilities.isEJBProject(component.getProject()) || J2EEProjectUtilities.isApplicationClientProject(component.getProject()))) {
     		aURI = component.getDeployedName()+IJ2EEModuleConstants.JAR_EXT;
     	} 
