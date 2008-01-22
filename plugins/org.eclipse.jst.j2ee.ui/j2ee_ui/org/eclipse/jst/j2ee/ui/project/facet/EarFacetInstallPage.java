@@ -66,9 +66,11 @@ public class EarFacetInstallPage extends DataModelFacetInstallPage implements IE
 	private Button selectAllButton;
 	private Button deselectAllButton;
 	private Button newModuleButton;
-	private CheckboxTableViewer moduleProjectsViewer;
-	private boolean ignoreCheckedState = false;
 	
+	private Label moduleProjectsLabel; 
+	private CheckboxTableViewer moduleProjectsViewer;
+	
+	private boolean ignoreCheckedState = false;
 	
 	private Label contentDirLabel;
 	private Text contentDir;
@@ -117,6 +119,10 @@ public class EarFacetInstallPage extends DataModelFacetInstallPage implements IE
 	 * @param modulesGroup
 	 */
 	private void createModuleProjectOptions(Composite modulesGroup) {
+		moduleProjectsLabel = new Label(modulesGroup, SWT.NONE);
+		moduleProjectsLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.J2EE_MODULE_DEPENDENCIES_LABEL));
+		moduleProjectsLabel.setLayoutData(gdhfill());
+		
 		moduleProjectsViewer = CheckboxTableViewer.newCheckList(modulesGroup, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
 		GridData gData = new GridData(GridData.FILL_BOTH);
 		gData.widthHint = 200;
