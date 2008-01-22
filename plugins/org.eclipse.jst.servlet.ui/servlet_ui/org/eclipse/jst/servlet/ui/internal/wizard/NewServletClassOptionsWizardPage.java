@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2008 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *     David Schneider, david.schneider@unisys.com - bug 142500
  *     Kiril Mitov, k.mitov@sap.com	- bug 204160
+ *     Kaloyan Raev, kaloyan.raev@sap.com
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
@@ -19,10 +20,8 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.operations.ServletSupertypesValidator;
-import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassOptionsWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -30,13 +29,9 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-/**
- * 
- */
-public class NewServletClassOptionsWizardPage extends NewJavaClassOptionsWizardPage implements ISelectionChangedListener {
+public class NewServletClassOptionsWizardPage extends NewWebClassOptionsWizardPage implements ISelectionChangedListener {
 	
 	protected Button initButton;
 	protected Button destroyButton;
@@ -55,11 +50,9 @@ public class NewServletClassOptionsWizardPage extends NewJavaClassOptionsWizardP
 		super(model, pageName, pageDesc, pageTitle);
 	}
 	
+	@Override
 	protected void enter() {
 		super.enter();
-		
-		interfaceViewer.getList().deselectAll();
-		removeButton.setEnabled(false);
 		
 		ServletSupertypesValidator validator = new ServletSupertypesValidator(getDataModel());
 		
@@ -83,40 +76,13 @@ public class NewServletClassOptionsWizardPage extends NewJavaClassOptionsWizardP
 		doTraceButton.setVisible(httpServlet);
 	}
 	
-	protected void createModifierControls(Composite parent) {
-		super.createModifierControls(parent);
-		
-		// The user should not be able to change the public and abstract modifiers. 
-		// The servlet class must be always public and non-abstract. 
-		// Otherwise, the servlet container may not initialize it. 
-		publicButton.setEnabled(false);
-		abstractButton.setEnabled(false);
-	}
-	
 	/**
 	 * Create the composite with all the stubs
 	 */
+	@Override
 	protected void createStubsComposite(Composite parent) {
-		Label stubLabel = new Label(parent, SWT.NONE);
-		stubLabel.setText(IWebWizardConstants.JAVA_CLASS_METHOD_STUBS_LABEL);
-		GridData data = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-		data.horizontalSpan = 2;
-		stubLabel.setLayoutData(data);
-
-		Composite buttonCompo = new Composite(parent, SWT.NULL);
-		buttonCompo.setLayout(new GridLayout());
-		data = new GridData(GridData.FILL_HORIZONTAL);
-		data.horizontalSpan = 2;
-		data.horizontalIndent = 15;
-		buttonCompo.setLayoutData(data);
-
-		constructorButton = new Button(buttonCompo, SWT.CHECK);
-		constructorButton.setText(IWebWizardConstants.JAVA_CLASS_CONSTRUCTOR_CHECKBOX_LABEL);
-		synchHelper.synchCheckbox(constructorButton, INewJavaClassDataModelProperties.CONSTRUCTOR, null);
-
-		inheritButton = new Button(buttonCompo, SWT.CHECK);
-		inheritButton.setText(IWebWizardConstants.JAVA_CLASS_INHERIT_CHECKBOX_LABEL);
-		synchHelper.synchCheckbox(inheritButton, INewJavaClassDataModelProperties.ABSTRACT_METHODS, null);
+		super.createStubsComposite(parent);
+		
 		inheritButton.addSelectionListener(new SelectionListener() {
 			private ServletSupertypesValidator validator = new ServletSupertypesValidator(getDataModel());
 			
@@ -151,12 +117,12 @@ public class NewServletClassOptionsWizardPage extends NewJavaClassOptionsWizardP
 			}
 		});
 		
-		Composite comp = new Composite(buttonCompo, SWT.NULL);
+		Composite comp = new Composite(methodStubs, SWT.NULL);
 		GridLayout layout = new GridLayout(3, false);
 		layout.marginWidth = 0;
 		layout.makeColumnsEqualWidth = true;
 		comp.setLayout(layout);
-		data = new GridData(GridData.FILL_BOTH);
+		GridData data = new GridData(GridData.FILL_BOTH);
 		comp.setLayoutData(data);
 		
 		initButton = new Button(comp, SWT.CHECK);
@@ -212,10 +178,6 @@ public class NewServletClassOptionsWizardPage extends NewJavaClassOptionsWizardP
 	    Dialog.applyDialogFont(parent);
 	}
 
-	protected String[] getValidationPropertyNames() {
-		return new String[] { INewJavaClassDataModelProperties.INTERFACES };
-	}
-	
 	public void selectionChanged(SelectionChangedEvent event) {
 		StructuredSelection selection = (StructuredSelection) event.getSelection();
 		

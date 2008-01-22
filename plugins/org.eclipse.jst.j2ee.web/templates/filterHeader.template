@@ -14,8 +14,8 @@ import <%=anImport%>;
  * @web.filter
  *   name="<%=model.getFilterName()%>"
  *   display-name="<%=model.getFilterName()%>"<%
- if (model.getFilterDescription() != null && model.getFilterDescription() != "") { %>
- *   description="<%=model.getFilterDescription()%>"<% } %>
+ if (model.getDescription() != null && model.getDescription() != "") { %>
+ *   description="<%=model.getDescription()%>"<% } %>
  *<% List<IFilterMappingItem> mappings = model.getFilterMappings();
  for (IFilterMappingItem mapping : mappings) { %>
  * @web.filter-mapping<%

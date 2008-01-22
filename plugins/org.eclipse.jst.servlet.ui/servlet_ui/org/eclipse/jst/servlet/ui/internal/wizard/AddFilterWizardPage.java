@@ -1,34 +1,43 @@
+/*******************************************************************************
+ * Copyright (c) 2007, 2008 SAP AG and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jst.j2ee.internal.web.operations.FilterMappingItem;
 import org.eclipse.jst.j2ee.internal.web.operations.IFilterMappingItem;
 import org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.wizard.StringArrayTableWizardSection;
-import org.eclipse.jst.j2ee.model.IModelProvider;
-import org.eclipse.jst.j2ee.model.ModelProviderManager;
-import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.*;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
-import org.eclipse.jface.dialogs.Dialog;
 
 /**
  * Filter Wizard Setting Page
  */
 public class AddFilterWizardPage extends DataModelWizardPage {
+	
 	final static String[] FILTEREXTENSIONS = {"java"}; //$NON-NLS-1$
 
 	private Text displayNameText;
@@ -38,7 +47,7 @@ public class AddFilterWizardPage extends DataModelWizardPage {
 	public AddFilterWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
 		setDescription(IWebWizardConstants.ADD_FILTER_WIZARD_PAGE_DESC);
-		this.setTitle(IWebWizardConstants.ADD_FILTER_WIZARD_PAGE_TITLE);
+		setTitle(IWebWizardConstants.ADD_FILTER_WIZARD_PAGE_TITLE);
 	}
 
 	/*
@@ -47,9 +56,9 @@ public class AddFilterWizardPage extends DataModelWizardPage {
 	 * @see org.eclipse.jem.util.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{INewFilterClassDataModelProperties.DISPLAY_NAME, 
+		return new String[] { INewWebClassDataModelProperties.DISPLAY_NAME, 
 		        INewFilterClassDataModelProperties.INIT_PARAM, 
-		        INewFilterClassDataModelProperties.FILTER_MAPPINGS};
+		        INewFilterClassDataModelProperties.FILTER_MAPPINGS };
 	}
 
 	protected Composite createTopLevelComposite(Composite parent) {
@@ -135,7 +144,7 @@ public class AddFilterWizardPage extends DataModelWizardPage {
 			}
 
 		});
-		synchHelper.synchText(displayNameText, INewFilterClassDataModelProperties.DISPLAY_NAME, null);
+		synchHelper.synchText(displayNameText, INewWebClassDataModelProperties.DISPLAY_NAME, null);
 
 		// description
 		Label descLabel = new Label(composite, SWT.LEFT);
@@ -143,7 +152,7 @@ public class AddFilterWizardPage extends DataModelWizardPage {
 		descLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
 		Text descText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		descText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchText(descText, INewFilterClassDataModelProperties.DESCRIPTION, null);
+		synchHelper.synchText(descText, INewWebClassDataModelProperties.DESCRIPTION, null);
 	}
 
 	public String getDisplayName() {
@@ -151,7 +160,7 @@ public class AddFilterWizardPage extends DataModelWizardPage {
 	}
 	
 	public boolean canFlipToNextPage() {
-		if (model.getBooleanProperty(INewFilterClassDataModelProperties.USE_EXISTING_CLASS))
+		if (model.getBooleanProperty(INewWebClassDataModelProperties.USE_EXISTING_CLASS))
 			return false;
 		return super.canFlipToNextPage();
 	}

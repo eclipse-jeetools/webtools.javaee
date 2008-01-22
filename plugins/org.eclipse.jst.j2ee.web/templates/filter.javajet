@@ -24,7 +24,6 @@ if (superClass.trim().length() > 0) {%> extends <%=superClass%><%}%>
 <% } %>
 <% if (model.shouldGenSuperclassConstructors()) {
      List<Constructor> constructors = model.getConstructors();
-     int constrCount = constructors.size();
      for (Constructor constructor : constructors) {
        if (constructor.isPublic() || constructor.isProtected()) { %>
        
@@ -57,14 +56,6 @@ if (superClass.trim().length() > 0) {%> extends <%=superClass%><%}%>
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
 		// TODO Auto-generated method stub
-	}<% } %><% if (model.shouldGenToString()) { %>
-
-	/**
-	 * @see java.lang.Object#toString()
-	 */
-	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
 	}<% } %>
 
 }

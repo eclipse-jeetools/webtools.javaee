@@ -23,7 +23,6 @@
 <% } %>
 <% if (model.shouldGenSuperclassConstructors()) {
      List<Constructor> constructors = model.getConstructors();
-     int constrCount = constructors.size();
      for (Constructor constructor : constructors) {
        if (constructor.isPublic() || constructor.isProtected()) { %>
        

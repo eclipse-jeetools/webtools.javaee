@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 SAP AG and others.
+ * Copyright (c) 2007, 2008 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,7 +17,7 @@ import org.eclipse.jdt.core.Flags;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.Signature;
-import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 
 public class BinaryConstructor implements Constructor {
 	
@@ -42,7 +42,7 @@ public class BinaryConstructor implements Constructor {
 		try {
 			flags = method.getFlags();
 		} catch (JavaModelException e) {
-			Logger.getLogger().log(e);
+			WebPlugin.log(e);
 			flags = 0;
 		}
         return Flags.isPublic(flags);
@@ -56,7 +56,7 @@ public class BinaryConstructor implements Constructor {
 		try {
 			flags = method.getFlags();
 		} catch (JavaModelException e) {
-			Logger.getLogger().log(e);
+			WebPlugin.log(e);
 			flags = 0;
 		}
         return Flags.isProtected(flags);
@@ -84,9 +84,9 @@ public class BinaryConstructor implements Constructor {
 	}
 	
 	/**
-	 * @see Constructor#getNonPrimitveParameterTypes()
+	 * @see Constructor#getNonPrimitiveParameterTypes()
 	 */
-	public List<String> getNonPrimitveParameterTypes() {
+	public List<String> getNonPrimitiveParameterTypes() {
 		List<String> result = new ArrayList<String>();
 		
 		String[] parameterTypes = method.getParameterTypes();
@@ -107,7 +107,7 @@ public class BinaryConstructor implements Constructor {
 		try {
 			parameterNames = method.getParameterNames();
 		} catch (JavaModelException e) {
-			Logger.getLogger().log(e);
+			WebPlugin.log(e);
 			
 			parameterNames = new String[parameterTypes.length];
 			for (int i = 0; i < parameterNames.length; i++) {

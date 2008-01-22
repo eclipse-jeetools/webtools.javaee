@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2008 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -8,13 +8,11 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *     Kiril Mitov, k.mitov@sap.com	- bug 204160
+ *     Kaloyan Raev, kaloyan.raev@sap.com
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
-import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
-import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
-
-public interface INewServletClassDataModelProperties extends INewJavaClassDataModelProperties, IAnnotationsDataModel {
+public interface INewServletClassDataModelProperties extends INewWebClassDataModelProperties {
 	/**
 	 * Optional, boolean property used to specify whether to generate the init method.
 	 * The default is false.
@@ -100,17 +98,23 @@ public interface INewServletClassDataModelProperties extends INewJavaClassDataMo
 
 	/**
 	 * Required, String property of the display name for the servlet
+	 * 
+	 * @deprecated use {@link INewWebClassDataModelProperties#DISPLAY_NAME} instead
 	 */
 	public static final String DISPLAY_NAME = "NewServletClassDataModel.DISPLAY_NAME"; //$NON-NLS-1$
 	
 	/**
 	 * Optional, String property of the description info for the servlet
+	 * 
+	 * @deprecated use {@link INewWebClassDataModelProperties#DESCRIPTION} instead
 	 */
 	public static final String DESCRIPTION = "NewServletClassDataModel.DESCRIPTION"; //$NON-NLS-1$
 	
 	/**
 	 * Optional, boolean property used to specify whether or not to gen a new java class.
 	 * The default is false.
+	 * 
+	 * @deprecated use {@link INewWebClassDataModelProperties#USE_EXISTING_CLASS} instead
 	 */
 	public static final String USE_EXISTING_CLASS = "NewServletClassDataModel.USE_EXISTING_CLASS"; //$NON-NLS-1$
 	

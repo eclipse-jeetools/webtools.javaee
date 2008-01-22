@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2008 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,7 +24,8 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 /**
  * @author jlanuti
  */
-public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
+public class CreateServletTemplateModel extends CreateWebClassTemplateModel
+		implements INewServletClassDataModelProperties {
 
 	public static final String QUALIFIED_IO_EXCEPTION = "java.io.IOException"; //$NON-NLS-1$
 	public static final String QUALIFIED_SERVLET_EXCEPTION = "javax.servlet.ServletException"; //$NON-NLS-1$
@@ -94,7 +95,7 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 	}
 
 	public String getServletName() {
-		return getProperty(INewServletClassDataModelProperties.DISPLAY_NAME).trim();
+		return super.getDisplayName();
 	}
 	
 	/**
@@ -170,7 +171,7 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 	}
 	
 	public List getInitParams() {
-		return (List) dataModel.getProperty(INewServletClassDataModelProperties.INIT_PARAM);
+		return (List) dataModel.getProperty(INIT_PARAM);
 	}
 
 	public String getInitParam(int index, int type) {
@@ -183,7 +184,7 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 	}
 
 	public List getServletMappings() {
-		return (List) dataModel.getProperty(INewServletClassDataModelProperties.URL_MAPPINGS);
+		return (List) dataModel.getProperty(URL_MAPPINGS);
 	}
 
 	public String getServletMapping(int index) {
@@ -195,12 +196,18 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 		return null;
 	}
 
+	/**
+	 * @deprecated Use {@link #getDescription()} instead. Will be removed post
+	 *             WTP 3.0.
+	 * 
+	 * @see CreateWebClassTemplateModel#getDescription()
+	 */
 	public String getServletDescription() {
-		return dataModel.getStringProperty(INewServletClassDataModelProperties.DESCRIPTION);
+		return super.getDescription();
 	}
 
 	protected boolean implementImplementedMethod(String methodName) {
-		if (dataModel.getBooleanProperty(INewJavaClassDataModelProperties.ABSTRACT_METHODS)) {
+		if (dataModel.getBooleanProperty(ABSTRACT_METHODS)) {
 			if (methodName.equals(INIT))
 				return dataModel.getBooleanProperty(INewServletClassDataModelProperties.INIT);
 			else if (methodName.equals(DESTROY))

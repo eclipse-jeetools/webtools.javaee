@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 SAP AG and others.
+ * Copyright (c) 2007, 2008 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,8 +19,8 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class AbstractSupertypesValidator {
@@ -68,7 +68,7 @@ public class AbstractSupertypesValidator {
 				}
 			}
 		} catch (JavaModelException e) {
-			Logger.getLogger().log(e);
+			WebPlugin.log(e);
 		}
 		
 		return false;
@@ -85,7 +85,7 @@ public class AbstractSupertypesValidator {
 				}
 			}
 		} catch (JavaModelException e) {
-			Logger.getLogger().log(e);
+			WebPlugin.log(e);
 		}
 		
 		return false;

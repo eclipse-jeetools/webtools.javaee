@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2008 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -8,6 +8,7 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *     David Schneider, david.schneider@unisys.com - [142500] WTP properties pages fonts don't follow Eclipse preferences
+ *     Kaloyan Raev, kaloyan.raev@sap.com
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
@@ -17,6 +18,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.wizard.StringArrayTableWizardSection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -53,7 +55,7 @@ public class AddServletWizardPage extends DataModelWizardPage {
 	 * @see org.eclipse.jem.util.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{INewServletClassDataModelProperties.DISPLAY_NAME, INewServletClassDataModelProperties.INIT_PARAM, INewServletClassDataModelProperties.URL_MAPPINGS};
+		return new String[] { INewWebClassDataModelProperties.DISPLAY_NAME, INewServletClassDataModelProperties.INIT_PARAM, INewServletClassDataModelProperties.URL_MAPPINGS };
 	}
 
 	protected Composite createTopLevelComposite(Composite parent) {
@@ -139,7 +141,7 @@ public class AddServletWizardPage extends DataModelWizardPage {
 			}
 
 		});
-		synchHelper.synchText(displayNameText, INewServletClassDataModelProperties.DISPLAY_NAME, null);
+		synchHelper.synchText(displayNameText, INewWebClassDataModelProperties.DISPLAY_NAME, null);
 
 		// description
 		Label descLabel = new Label(composite, SWT.LEFT);
@@ -147,7 +149,7 @@ public class AddServletWizardPage extends DataModelWizardPage {
 		descLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
 		Text descText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		descText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchText(descText, INewServletClassDataModelProperties.DESCRIPTION, null);
+		synchHelper.synchText(descText, INewWebClassDataModelProperties.DESCRIPTION, null);
 	}
 
 	public String getDisplayName() {
@@ -155,7 +157,7 @@ public class AddServletWizardPage extends DataModelWizardPage {
 	}
 	
 	public boolean canFlipToNextPage() {
-		if (model.getBooleanProperty(INewServletClassDataModelProperties.USE_EXISTING_CLASS))
+		if (model.getBooleanProperty(INewWebClassDataModelProperties.USE_EXISTING_CLASS))
 			return false;
 		return super.canFlipToNextPage();
 	}

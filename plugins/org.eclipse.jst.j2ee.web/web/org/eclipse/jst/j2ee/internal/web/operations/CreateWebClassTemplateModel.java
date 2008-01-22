@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 SAP AG and others.
+ * Copyright (c) 2007, 2008 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -32,12 +32,14 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class CreateWebClassTemplateModel {
+public class CreateWebClassTemplateModel implements
+		INewWebClassDataModelProperties, INewJavaClassDataModelProperties,
+		IAnnotationsDataModel {
 	
 	/**
 	 * Constant representing no compatibility flag.
@@ -156,7 +158,7 @@ public class CreateWebClassTemplateModel {
 		
 		List<Constructor> constructors = getConstructors();
 		for (Constructor constructor : constructors) {
-			List<String> types = constructor.getNonPrimitveParameterTypes();
+			List<String> types = constructor.getNonPrimitiveParameterTypes();
 			for (String type : types) {
 				if (!isImportInJavaLang(type))
 					collection.add(type);
@@ -168,11 +170,11 @@ public class CreateWebClassTemplateModel {
 	}
 
 	public String getClassName() {
-		return getProperty(INewJavaClassDataModelProperties.CLASS_NAME).trim();
+		return getProperty(CLASS_NAME).trim();
 	}
 
 	public String getJavaPackageName() {
-		return getProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE).trim();
+		return getProperty(JAVA_PACKAGE).trim();
 	}
 
 	public String getQualifiedJavaClassName() {
@@ -189,7 +191,7 @@ public class CreateWebClassTemplateModel {
 	}
 	
 	public String getQualifiedSuperclassName() {
-		return getProperty(INewJavaClassDataModelProperties.SUPERCLASS).trim();
+		return getProperty(SUPERCLASS).trim();
 	}
 	
 	public List getInterfaces() {
@@ -210,27 +212,35 @@ public class CreateWebClassTemplateModel {
 	}
 
 	public List getQualifiedInterfaces() {
-		return (List) this.dataModel.getProperty(INewJavaClassDataModelProperties.INTERFACES);
+		return (List) this.dataModel.getProperty(INTERFACES);
+	}
+	
+	public String getDisplayName() {
+		return dataModel.getStringProperty(DISPLAY_NAME);
+	}
+	
+	public String getDescription() {
+		return dataModel.getStringProperty(DESCRIPTION);
 	}
 
 	public boolean isPublic() {
-		return dataModel.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_PUBLIC);
+		return dataModel.getBooleanProperty(MODIFIER_PUBLIC);
 	}
 
 	public boolean isFinal() {
-		return dataModel.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_FINAL);
+		return dataModel.getBooleanProperty(MODIFIER_FINAL);
 	}
 
 	public boolean isAbstract() {
-		return dataModel.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_ABSTRACT);
+		return dataModel.getBooleanProperty(MODIFIER_ABSTRACT);
 	}
 	
 	public boolean isAnnotated() {
-		return dataModel.getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS);
+		return dataModel.getBooleanProperty(USE_ANNOTATIONS);
 	}
 	
 	public boolean shouldGenSuperclassConstructors() {
-		return dataModel.getBooleanProperty(INewJavaClassDataModelProperties.CONSTRUCTOR);
+		return dataModel.getBooleanProperty(CONSTRUCTOR);
 	}
 
     public boolean hasEmptySuperclassConstructor() {
@@ -246,9 +256,9 @@ public class CreateWebClassTemplateModel {
     public List<Constructor> getConstructors() {
         List<Constructor> constrs = new ArrayList<Constructor>();
         
-        String superclass = dataModel.getStringProperty(INewFilterClassDataModelProperties.SUPERCLASS);
+        String superclass = dataModel.getStringProperty(SUPERCLASS);
         if (superclass != null && superclass.length() > 0) {
-            IProject p = (IProject) dataModel.getProperty(INewJavaClassDataModelProperties.PROJECT);
+            IProject p = (IProject) dataModel.getProperty(PROJECT);
             IJavaProject javaProject = JavaCore.create(p);
             if (javaProject != null) {
                 try {
@@ -273,7 +283,7 @@ public class CreateWebClassTemplateModel {
 	                    }
                     }
                 } catch (JavaModelException e) {
-                    Logger.getLogger().log(e);
+                	WebPlugin.log(e);
                 }
             }
         }
@@ -321,7 +331,7 @@ public class CreateWebClassTemplateModel {
     }
     
     private boolean isImportInJavaLang(String arg) {
-    	return arg.startsWith("java.lang."); 
+    	return arg.startsWith("java.lang."); //$NON-NLS-1$
     }
 
 }

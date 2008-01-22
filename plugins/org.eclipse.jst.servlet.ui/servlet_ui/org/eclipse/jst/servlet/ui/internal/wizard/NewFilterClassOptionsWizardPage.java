@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 SAP AG and others.
+ * Copyright (c) 2007, 2008 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,22 +16,16 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.operations.FilterSupertypesValidator;
 import org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties;
-import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassOptionsWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-/**
- * 
- */
-public class NewFilterClassOptionsWizardPage extends NewJavaClassOptionsWizardPage implements ISelectionChangedListener {
+public class NewFilterClassOptionsWizardPage extends NewWebClassOptionsWizardPage implements ISelectionChangedListener {
 	
 	protected Button initButton;
 	protected Button destroyButton;
@@ -44,15 +38,9 @@ public class NewFilterClassOptionsWizardPage extends NewJavaClassOptionsWizardPa
 		validator = new FilterSupertypesValidator(model);
 	}
 	
+	@Override
 	protected void enter() {
 		super.enter();
-		
-		interfaceViewer.getList().deselectAll();
-		removeButton.setEnabled(false);
-		String superClass = getDataModel().getStringProperty(INewFilterClassDataModelProperties.SUPERCLASS);
-		boolean hasSuperClass = (superClass == null) ? false : superClass.trim().length() > 0;
-		constructorButton.setEnabled(hasSuperClass);
-		if (!hasSuperClass) constructorButton.setSelection(false);
 		
 		inheritButton.setSelection(true);
 		inheritButton.setEnabled(false);
@@ -67,47 +55,19 @@ public class NewFilterClassOptionsWizardPage extends NewJavaClassOptionsWizardPa
         doFilterButton.setEnabled(false);
 	}
 	
-	protected void createModifierControls(Composite parent) {
-		super.createModifierControls(parent);
-		
-		// The user should not be able to change the public and abstract modifiers. 
-		// The filter class must be always public and non-abstract. 
-		// Otherwise, the servlet container may not initialize it. 
-		publicButton.setEnabled(false);
-		abstractButton.setEnabled(false);
-	}
-	
 	/**
 	 * Create the composite with all the stubs
 	 */
+	@Override
 	protected void createStubsComposite(Composite parent) {
-		Label stubLabel = new Label(parent, SWT.NONE);
-		stubLabel.setText(IWebWizardConstants.JAVA_CLASS_METHOD_STUBS_LABEL);
-		GridData data = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-		data.horizontalSpan = 2;
-		stubLabel.setLayoutData(data);
+		super.createStubsComposite(parent);
 
-		Composite buttonCompo = new Composite(parent, SWT.NULL);
-		buttonCompo.setLayout(new GridLayout());
-		data = new GridData(GridData.FILL_HORIZONTAL);
-		data.horizontalSpan = 2;
-		data.horizontalIndent = 15;
-		buttonCompo.setLayoutData(data);
-
-		constructorButton = new Button(buttonCompo, SWT.CHECK);
-		constructorButton.setText(IWebWizardConstants.JAVA_CLASS_CONSTRUCTOR_CHECKBOX_LABEL);
-		synchHelper.synchCheckbox(constructorButton, INewJavaClassDataModelProperties.CONSTRUCTOR, null);
-		
-		inheritButton = new Button(buttonCompo, SWT.CHECK);
-		inheritButton.setText(IWebWizardConstants.JAVA_CLASS_INHERIT_CHECKBOX_LABEL);
-		synchHelper.synchCheckbox(inheritButton, INewJavaClassDataModelProperties.ABSTRACT_METHODS, null);
-
-		Composite comp = new Composite(buttonCompo, SWT.NULL);
+		Composite comp = new Composite(methodStubs, SWT.NULL);
 		GridLayout layout = new GridLayout(3, false);
 		layout.marginWidth = 0;
 		layout.makeColumnsEqualWidth = true;
 		comp.setLayout(layout);
-		data = new GridData(GridData.FILL_BOTH);
+		GridData data = new GridData(GridData.FILL_BOTH);
 		comp.setLayoutData(data);
 		
 		initButton = new Button(comp, SWT.CHECK);
@@ -127,10 +87,6 @@ public class NewFilterClassOptionsWizardPage extends NewJavaClassOptionsWizardPa
 	    Dialog.applyDialogFont(parent);
 	}
 
-	protected String[] getValidationPropertyNames() {
-		return new String[] { INewJavaClassDataModelProperties.INTERFACES };
-	}
-	
 	public void selectionChanged(SelectionChangedEvent event) {
 		StructuredSelection selection = (StructuredSelection) event.getSelection();
 		

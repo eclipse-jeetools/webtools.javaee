@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 SAP AG and others.
+ * Copyright (c) 2007, 2008 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -73,10 +73,10 @@ public class SourceConstructor implements Constructor {
 	}
 
 	/**
-	 * @see Constructor#getNonPrimitveParameterTypes()
+	 * @see Constructor#getNonPrimitiveParameterTypes()
 	 */
 	@SuppressWarnings("unchecked")
-	public List<String> getNonPrimitveParameterTypes() {
+	public List<String> getNonPrimitiveParameterTypes() {
 		List<String> result = new ArrayList<String>();
 		
 		List<SingleVariableDeclaration> parameters = method.parameters();

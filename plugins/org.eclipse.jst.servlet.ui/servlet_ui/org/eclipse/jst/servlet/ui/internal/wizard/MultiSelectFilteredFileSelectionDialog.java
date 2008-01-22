@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2008 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  * IBM Corporation - initial API and implementation
+ * Kaloyan Raev, kaloyan.raev@sap.com
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
@@ -25,7 +26,6 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
 import org.eclipse.jdt.ui.ISharedImages;
 import org.eclipse.jdt.ui.JavaUI;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableContext;
@@ -34,7 +34,6 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jst.j2ee.internal.dialogs.FilteredFileSelectionDialog;
 import org.eclipse.jst.j2ee.internal.dialogs.TwoArrayQuickSorter;
 import org.eclipse.jst.j2ee.internal.dialogs.TypedFileViewerFilter;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.web.providers.WebAppEditResourceHandler;
 import org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin;
 import org.eclipse.swt.SWT;
@@ -151,7 +150,7 @@ public class MultiSelectFilteredFileSelectionDialog extends FilteredFileSelectio
 		updateStatus(currStatus);
 		fElementRenderer = new TypeRenderer();
 		fQualifierRenderer = new PackageRenderer();
-		fRunnableContext = J2EEUIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow();
+		fRunnableContext = ServletUIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow();
 		try {
 			IJavaElement jelem = null;
 			IProject proj = null;
@@ -183,8 +182,8 @@ public class MultiSelectFilteredFileSelectionDialog extends FilteredFileSelectio
 			fIT = (IType[]) servletClasses.toArray(new IType[servletClasses.size()]);
 			servletClasses = null;
 
-		} catch (Exception exc) {
-			Logger.getLogger().logError(exc);
+		} catch (Exception e) {
+			ServletUIPlugin.log(e);
 		}
 	}
 	

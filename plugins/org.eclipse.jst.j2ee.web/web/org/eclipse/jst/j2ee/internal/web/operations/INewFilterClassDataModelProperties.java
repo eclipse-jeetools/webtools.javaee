@@ -1,9 +1,17 @@
+/*******************************************************************************
+ * Copyright (c) 2007, 2008 SAP AG and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
-import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
-import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
-
-public interface INewFilterClassDataModelProperties extends INewJavaClassDataModelProperties, IAnnotationsDataModel {
+public interface INewFilterClassDataModelProperties extends INewWebClassDataModelProperties {
+	
 	/**
 	 * Optional, boolean property used to specify whether to generate the init method.
 	 * The default is false.
@@ -15,12 +23,6 @@ public interface INewFilterClassDataModelProperties extends INewJavaClassDataMod
 	 * The default is false.
 	 */
 	public static final String DESTROY = "NewFilterClassDataModel.DESTROY"; //$NON-NLS-1$
-	
-	/**
-	 * Optional, boolean property used to specify whether to generate the toString method.
-	 * The default is false.
-	 */
-	public static final String TO_STRING = "NewFilterClassDataModel.TO_STRING"; //$NON-NLS-1$
 	
 	/**
 	 * Optional, boolean property used to specify whether to generate the doFilter method.
@@ -37,21 +39,5 @@ public interface INewFilterClassDataModelProperties extends INewJavaClassDataMod
      * Optional, List propety used to cache all the filter mappings for this filter on the web application.
      */
     public static final String FILTER_MAPPINGS = "NewFilterClassDataModel.FILTER_MAPPINGS"; //$NON-NLS-1$
-
-	/**
-	 * Required, String property of the display name for the filter
-	 */
-	public static final String DISPLAY_NAME = "NewFilterClassDataModel.DISPLAY_NAME"; //$NON-NLS-1$
-	
-	/**
-	 * Optional, String property of the description info for the filter
-	 */
-	public static final String DESCRIPTION = "NewFilterClassDataModel.DESCRIPTION"; //$NON-NLS-1$
-	
-    /**
-	 * Optional, boolean property used to specify whether or not to gen a new java class.
-	 * The default is false.
-	 */
-	public static final String USE_EXISTING_CLASS = "NewFilterClassDataModel.USE_EXISTING_CLASS"; //$NON-NLS-1$
 	
 }

@@ -1,29 +1,43 @@
+/*******************************************************************************
+ * Copyright (c) 2007, 2008 SAP AG and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.*;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.jem.util.UIContextDetermination;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
-import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
-import org.eclipse.jst.j2ee.webapplication.*;
+import org.eclipse.jst.j2ee.webapplication.DispatcherType;
+import org.eclipse.jst.j2ee.webapplication.Filter;
+import org.eclipse.jst.j2ee.webapplication.FilterMapping;
+import org.eclipse.jst.j2ee.webapplication.InitParam;
+import org.eclipse.jst.j2ee.webapplication.Servlet;
+import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.javaee.core.DisplayName;
 import org.eclipse.jst.javaee.core.JavaeeFactory;
 import org.eclipse.jst.javaee.core.UrlPatternType;
 import org.eclipse.jst.javaee.web.WebFactory;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
-import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
@@ -54,10 +68,8 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * 
  * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
-public class AddFilterOperation extends AbstractDataModelOperation implements
-		IArtifactEditOperationDataModelProperties {
-
-	private IModelProvider provider = null;
+public class AddFilterOperation extends AddWebClassOperation implements
+		INewWebClassDataModelProperties, INewFilterClassDataModelProperties {
 
 	/**
 	 * This is the constructor which should be used when creating the operation.
@@ -97,15 +109,15 @@ public class AddFilterOperation extends AbstractDataModelOperation implements
 	public IStatus doExecute(IProgressMonitor monitor, IAdaptable info)
 			throws ExecutionException {
 		// Retrieve values set in the newfilterclass data model
-	    boolean useExisting = model.getBooleanProperty(INewFilterClassDataModelProperties.USE_EXISTING_CLASS);
-		String qualifiedClassName = model.getStringProperty(INewJavaClassDataModelProperties.CLASS_NAME);
+	    boolean useExisting = model.getBooleanProperty(USE_EXISTING_CLASS);
+		String qualifiedClassName = model.getStringProperty(CLASS_NAME);
 
 		// create the java class
 		if (!useExisting) 
 			qualifiedClassName = createFilterClass();
 
 		// If the filter is not annotated, generate the filter metadata for the DD
-		if (!model.getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
+		if (!model.getBooleanProperty(USE_ANNOTATIONS))
 			generateFilterMetaData(model, qualifiedClassName);
 		
 		return OK_STATUS;
@@ -132,35 +144,11 @@ public class AddFilterOperation extends AbstractDataModelOperation implements
 		try {
 			op.execute(new NullProgressMonitor(), null);
 		} catch (Exception e) {
-			Logger.getLogger().log(e);
+			WebPlugin.log(e);
 		}
 		// Return the qualified classname of the newly created java class for
 		// the fitler
 		return getQualifiedClassName();
-	}
-
-	/**
-	 * This method will return the qualified java class name as specified by the
-	 * class name and package name properties in the data model. This method
-	 * should not return null.
-	 * 
-	 * @see INewJavaClassDataModelProperties#CLASS_NAME
-	 * @see INewJavaClassDataModelProperties#JAVA_PACKAGE
-	 * 
-	 * @return String qualified java classname
-	 */
-	public final String getQualifiedClassName() {
-		// Use the java package name and unqualified class name to create a
-		// qualified java class name
-		String packageName = model
-				.getStringProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE);
-		String className = model
-				.getStringProperty(INewJavaClassDataModelProperties.CLASS_NAME);
-		// Ensure the class is not in the default package before adding package
-		// name to qualified name
-		if (packageName != null && packageName.trim().length() > 0)
-			return packageName + "." + className; //$NON-NLS-1$
-		return className;
 	}
 
 	/**
@@ -186,13 +174,13 @@ public class AddFilterOperation extends AbstractDataModelOperation implements
 
 		// Set up the InitParams if any
 		List initParamList = 
-		    (List) aModel.getProperty(INewFilterClassDataModelProperties.INIT_PARAM);
+		    (List) aModel.getProperty(INIT_PARAM);
 		if (initParamList != null)
 			setUpInitParams(initParamList, filter);
 
 		// Set up the filter mappings if any
 		 List filterMappingsList = 
-		     (List) aModel.getProperty(INewFilterClassDataModelProperties.FILTER_MAPPINGS);
+		     (List) aModel.getProperty(FILTER_MAPPINGS);
 
          if (filterMappingsList != null && !filterMappingsList.isEmpty())
              setUpMappings(filterMappingsList, filter);
@@ -220,9 +208,9 @@ public class AddFilterOperation extends AbstractDataModelOperation implements
 	private Object createFilter(String qualifiedClassName) {
 		// Get values from data model
 		String displayName = 
-		    model.getStringProperty(INewFilterClassDataModelProperties.DISPLAY_NAME);
+		    model.getStringProperty(DISPLAY_NAME);
 		String description = 
-		    model.getStringProperty(INewFilterClassDataModelProperties.DESCRIPTION);
+		    model.getStringProperty(DESCRIPTION);
 
 		// Create the filter instance and set up the parameters from data model
 		Object modelObject = provider.getModelObject();
@@ -423,41 +411,4 @@ public class AddFilterOperation extends AbstractDataModelOperation implements
 		}
 	}
 
-	public IProject getTargetProject() {
-		String projectName = model
-				.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME);
-		return ProjectUtilities.getProject(projectName);
-	}
-
-	@Override
-	public IStatus execute(final IProgressMonitor monitor, final IAdaptable info)
-			throws ExecutionException {
-		Runnable runnable = null;
-		try {
-			Object ctx = null;
-			if (UIContextDetermination.getCurrentContext() == UIContextDetermination.UI_CONTEXT) {
-				Display display = Display.getCurrent();
-				if (display != null)
-					ctx = display.getActiveShell();
-			}
-
-			if (provider.validateEdit(null, ctx).isOK()) {
-				runnable = new Runnable() {
-
-					public void run() {
-						try {
-							doExecute(monitor, info);
-						} catch (ExecutionException e) {
-							e.printStackTrace();
-						}
-					}
-				};
-				provider.modify(runnable, null);
-			}
-			// return doExecute(monitor, info);
-			return Status.CANCEL_STATUS;
-		} finally {
-
-		}
-	}
 }
