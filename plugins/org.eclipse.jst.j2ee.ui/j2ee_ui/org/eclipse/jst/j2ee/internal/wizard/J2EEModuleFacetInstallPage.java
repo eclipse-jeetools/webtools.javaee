@@ -105,7 +105,7 @@ public abstract class J2EEModuleFacetInstallPage extends DataModelFacetInstallPa
     }
 
     protected void enter() {
-    	if (isFirstTimeToPage())
+    	if (isFirstTimeToPage() && addDD != null)
     	{
     		synchHelper.synchCheckbox(addDD, GENERATE_DD, null);
     	}
