@@ -12,7 +12,6 @@ package org.eclipse.jst.validation.test.fwk;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Level;
 
@@ -33,6 +32,7 @@ import org.eclipse.jst.validation.test.internal.util.BVTRunner;
 import org.eclipse.jst.validation.test.setup.IBuffer;
 import org.eclipse.wst.validation.internal.ConfigurationManager;
 import org.eclipse.wst.validation.internal.GlobalConfiguration;
+import org.eclipse.wst.validation.internal.Misc;
 import org.eclipse.wst.validation.internal.ProjectConfiguration;
 import org.eclipse.wst.validation.internal.TaskListUtility;
 import org.eclipse.wst.validation.internal.ValidationConfiguration;
@@ -40,7 +40,6 @@ import org.eclipse.wst.validation.internal.ValidationRegistryReader;
 import org.eclipse.wst.validation.internal.ValidatorMetaData;
 import org.eclipse.wst.validation.internal.operations.EnabledValidatorsOperation;
 import org.eclipse.wst.validation.internal.operations.ValidatorManager;
-import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 
 /**
@@ -106,8 +105,7 @@ public final class VALFWK02Operation implements IOperationRunnable {
 			GlobalConfiguration gconf = ConfigurationManager.getManager().getGlobalConfiguration();
 			ProjectConfiguration pconf = ConfigurationManager.getManager().getProjectConfiguration(project);
 			GlobalConfiguration origGconf = new GlobalConfiguration(gconf); // copy the original values so that they can be restored in the finally block
-			ProjectConfiguration origPconf = new ProjectConfiguration(pconf); // copy the original valuse so that they can be restored in the finally block
-			Level level = ValidationPlugin.getPlugin().getMsgLogger().getLevel();
+			ProjectConfiguration origPconf = new ProjectConfiguration(pconf); // copy the original values so that they can be restored in the finally block
 			boolean autoBuildEnabled = ResourcesPlugin.getWorkspace().isAutoBuilding();
 				
 			ValidatorMetaData[] configuredValidators = pconf.getValidators();
@@ -172,7 +170,7 @@ public final class VALFWK02Operation implements IOperationRunnable {
 			try {
 				// Set level to FINEST so that the launch validators are accumulated in ValidationOperation.
 				// (See ValidationOperation::getLaunchedValidators())
-				ValidationPlugin.getPlugin().getMsgLogger().setLevel(Level.FINEST); 
+				Misc.setForceLogging(true);
 				
 				getBuffer().write("testPropNotOverride"); //$NON-NLS-1$
 				int allowPass = testPropNotOverride(monitor, project, gconf, pconf, propTMD);
@@ -208,7 +206,6 @@ public final class VALFWK02Operation implements IOperationRunnable {
 				
 				JDTUtility.setAutoBuild(autoBuildEnabled);
 	
-				ValidationPlugin.getPlugin().getMsgLogger().setLevel(level);
 			}
 		}
 		catch(InvocationTargetException exc) {
@@ -466,7 +463,7 @@ public final class VALFWK02Operation implements IOperationRunnable {
 			EnabledValidatorsOperation validOp = new EnabledValidatorsOperation(project,false);
 			ResourcesPlugin.getWorkspace().run(validOp, monitor);
 			// Launched validators should be configured, enabled, and had files to validate on the project.
-			Set launchedValidators = validOp.getLaunchedValidators();
+			Set<ValidatorMetaData> launchedValidators = validOp.getLaunchedValidators();
 			
 			// Since a full validation was run, the launched validators should be equivalent
 			// to the configured enabled valdiators.
@@ -488,9 +485,7 @@ public final class VALFWK02Operation implements IOperationRunnable {
 			
 			if(passed == false) {
 				getBuffer().write("launched validators are the following:"); //$NON-NLS-1$
-				Iterator iterator = launchedValidators.iterator();
-				while(iterator.hasNext()) {
-					ValidatorMetaData vmd = (ValidatorMetaData)iterator.next();
+				for(ValidatorMetaData vmd : launchedValidators) {
 					getBuffer().write("\t" + vmd.getValidatorDisplayName()); //$NON-NLS-1$
 				}
 				getBuffer().write("end of launched validators"); //$NON-NLS-1$
@@ -707,11 +702,6 @@ public final class VALFWK02Operation implements IOperationRunnable {
 				}
 				return false;
 			}
-			
-			IMarker[] messages = TaskListUtility.getValidationTasks(project, IMessage.ALL_MESSAGES);
-			//if(messages.length <= vconf.getMaximumNumberOfMessages()+1) { // add one for the IWAD3000 message, i.e., "Validation was terminated because the maximum number of messages ..."
-			//	return true;
-			//}
 			
 			return false;
 		}

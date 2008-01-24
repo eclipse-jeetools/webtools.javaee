@@ -25,8 +25,6 @@ public class TestValidator2 extends AbstractValidator {
 	
 	@Override
 	public ValidationResult validate(IResource resource, int kind, ValidationState state, IProgressMonitor monitor){
-		System.err.println(getName() + " validating: " + resource);
-
 		ValidationResult vr = new ValidationResult();
 		ValidatorMessage vm = ValidatorMessage.create("A sample message from Test2", resource);
 		vm.setAttribute(IMarker.LINE_NUMBER, 1);

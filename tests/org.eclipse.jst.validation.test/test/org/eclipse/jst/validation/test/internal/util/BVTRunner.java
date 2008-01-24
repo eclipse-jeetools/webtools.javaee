@@ -23,8 +23,8 @@ import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jem.util.logger.LogEntry;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.test.BVTValidationException;
 import org.eclipse.jst.validation.test.BVTValidationPlugin;
@@ -335,7 +335,6 @@ public final class BVTRunner {
 	public boolean setupTests(IBuffer buffer, ITestcaseMetaData tmd, boolean verbose) {
 		int executionMap = 0x0;
 		boolean imported = true;
-		Logger logger = BVTValidationPlugin.getPlugin().getMsgLogger();
 		try {
 			BVTValidationRegistryReader reader = BVTValidationRegistryReader.getReader();
 	
@@ -347,12 +346,7 @@ public final class BVTRunner {
 				buffer.write(message);
 				executionMap |= 0x1;
 				imported = false;
-				if(logger.isLoggingLevel(Level.SEVERE)) {
-					LogEntry entry = ValidationPlugin.getLogEntry();
-					entry.setExecutionMap(executionMap);
-					entry.setText(message);
-					logger.write(Level.SEVERE, entry);
-				}
+				ValidationPlugin.getPlugin().logMessage(IStatus.ERROR, message);
 			}
 			else {
 				buffer.getProgressMonitor().beginTask("Importing files; please wait...", setup.length); //$NON-NLS-1$
@@ -362,12 +356,7 @@ public final class BVTRunner {
 						// One of the input files couldn't be imported.
 						executionMap |= 0x2;
 						imported = false;
-						if(logger.isLoggingLevel(Level.SEVERE)) {
-							LogEntry entry = ValidationPlugin.getLogEntry();
-							entry.setExecutionMap(executionMap);
-							entry.setText("Import failed for dir " + dir); //$NON-NLS-1$
-							logger.write(Level.SEVERE, entry);
-						}
+						ValidationPlugin.getPlugin().logMessage(IStatus.ERROR, "Import failed for dir " + dir); //$NON-NLS-1$
 						continue;
 					}
 					buffer.getProgressMonitor().worked(1);
@@ -378,10 +367,8 @@ public final class BVTRunner {
 		finally {
 			if(!imported) {
 				String tmdName = (tmd == null) ? "?" : tmd.getName(); //$NON-NLS-1$
-				LogEntry entry = ValidationPlugin.getLogEntry();
-				entry.setExecutionMap(executionMap);
-				entry.setText("Test setup for " + tmdName + " was unsuccessful."); //$NON-NLS-1$ //$NON-NLS-2$
-				logger.write(Level.SEVERE, entry);
+				ValidationPlugin.getPlugin().logMessage(IStatus.ERROR, 
+					"Test setup for " + tmdName + " was unsuccessful."); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 		}
 		return imported;

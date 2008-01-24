@@ -23,7 +23,7 @@ import org.eclipse.wst.validation.ValidatorMessage;
 /**
  * Simple test validator. 
  * <p>
- * This validator process a file looking for certain magic tokens:
+ * This validator processes a file looking for certain magic tokens:
  * <ul>
  * <li>include fileName - open the file with name fileName and process it as an include
  * <li>error - create an error marker for this line
@@ -40,7 +40,6 @@ public class TestValidator extends AbstractValidator {
 	}
 	
 	public ValidationResult validate(IResource resource, int kind, ValidationState state, IProgressMonitor monitor){
-		Misc.log(getName() + " validating: " + resource);
 		ValidationResult vr = new ValidationResult();
 		InputStream in = null;
 		try {

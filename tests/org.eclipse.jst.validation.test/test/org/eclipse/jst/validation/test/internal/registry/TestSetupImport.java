@@ -5,7 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jem.util.logger.LogEntry;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.test.BVTValidationPlugin;
 import org.eclipse.jst.validation.test.setup.IImportOperation;
@@ -49,7 +49,6 @@ public class TestSetupImport {
 	 * Return true if the file was found and imported successfully.
 	 */
 	public boolean importFile(IProgressMonitor monitor, String dir) {
-		Logger logger = BVTValidationPlugin.getPlugin().getMsgLogger();
 		int executionMap = 0x0;
 		boolean imported = true;
 		try {
@@ -64,41 +63,24 @@ public class TestSetupImport {
 			catch (InterruptedException exc) {
 				executionMap |= 0x8;
 				imported = false;
-				if(logger.isLoggingLevel(Level.SEVERE)) {
-					LogEntry entry = ValidationPlugin.getLogEntry();
-					entry.setTargetException(exc);
-					logger.write(Level.SEVERE, entry);
-				}
+				ValidationPlugin.getPlugin().handleException(exc);
 			}
 			catch (InvocationTargetException exc) {
 				executionMap |= 0x10;
 				imported = false;
-				if(logger.isLoggingLevel(Level.SEVERE)) {
-					LogEntry entry = ValidationPlugin.getLogEntry();
-					entry.setTargetException(exc);
-					logger.write(Level.SEVERE, entry);
-					if(exc.getTargetException() != null) {
-						entry.setTargetException(exc.getTargetException());
-						logger.write(Level.SEVERE, entry);
-					}
-				}
+				ValidationPlugin.getPlugin().handleException(exc);
+				ValidationPlugin.getPlugin().handleException(exc.getTargetException());
 			}
 			catch (Throwable exc) {
 				executionMap |= 0x20;
 				imported = false;
-				if(logger.isLoggingLevel(Level.SEVERE)) {
-					LogEntry entry = ValidationPlugin.getLogEntry();
-					entry.setTargetException(exc);
-					logger.write(Level.SEVERE, entry);
-				}
+				ValidationPlugin.getPlugin().handleException(exc);
 			}
 		}
 		finally {
 			if(!imported) {
-				LogEntry entry = ValidationPlugin.getLogEntry();
-				entry.setExecutionMap(executionMap);
-				entry.setText("TestSetup for " + dir + " was unsuccessful."); //$NON-NLS-1$ //$NON-NLS-2$
-				logger.write(Level.SEVERE, entry);
+				ValidationPlugin.getPlugin().logMessage(IStatus.ERROR, 
+						"TestSetup for " + dir + " was unsuccessful."); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			
 		}
