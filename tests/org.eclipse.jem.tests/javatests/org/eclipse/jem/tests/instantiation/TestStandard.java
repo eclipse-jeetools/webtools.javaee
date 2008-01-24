@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.util.EcoreUtil;
+//import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoNature;
 import org.eclipse.jem.internal.instantiation.InitStringAllocation;
@@ -162,6 +162,7 @@ public class TestStandard extends TestCase {
 		return bo.toString();
 	}
 
+/*
 	public void testSerialization() throws IOException {
 		// Test the serialization that it produces correct output string.
 		String out = setupResource();
@@ -196,5 +197,6 @@ public class TestStandard extends TestCase {
 		assertInit(ji1);
 		assertProperty(ji1);
 	}
+*/
 
 }
