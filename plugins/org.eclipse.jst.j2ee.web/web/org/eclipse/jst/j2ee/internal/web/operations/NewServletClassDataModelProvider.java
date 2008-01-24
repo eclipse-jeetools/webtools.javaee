@@ -169,7 +169,7 @@ public class NewServletClassDataModelProvider extends NewWebClassDataModelProvid
 		// Use servlet by default
 		else if (propertyName.equals(IS_SERVLET_TYPE))
 			return Boolean.TRUE;
-		else if (propertyName.equals(INewWebClassDataModelProperties.DISPLAY_NAME)) {
+		else if (propertyName.equals(DISPLAY_NAME)) {
 			String className = getStringProperty(CLASS_NAME);
 			if (className.endsWith(".jsp")) { //$NON-NLS-1$
 				int index = className.lastIndexOf("/"); //$NON-NLS-1$
@@ -218,7 +218,7 @@ public class NewServletClassDataModelProvider extends NewWebClassDataModelProvid
 		if (propertyName.equals(URL_MAPPINGS))
 			return validateURLMappingList((List) getProperty(propertyName));
 		// Validate the servlet name in DD
-		if (propertyName.equals(INewWebClassDataModelProperties.DISPLAY_NAME))
+		if (propertyName.equals(DISPLAY_NAME))
 			return validateDisplayName(getStringProperty(propertyName));
 
 		// Otherwise defer to super to validate the property
@@ -262,7 +262,7 @@ public class NewServletClassDataModelProvider extends NewWebClassDataModelProvid
 	 */
 	private Object getDefaultUrlMapping() {
 		List urlMappings = null;
-		String text = (String) getProperty(INewWebClassDataModelProperties.DISPLAY_NAME);
+		String text = (String) getProperty(DISPLAY_NAME);
 		if (text != null) {
 			urlMappings = new ArrayList();
 			urlMappings.add(new String[] {"/" + text}); //$NON-NLS-1$

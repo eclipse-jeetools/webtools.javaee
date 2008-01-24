@@ -18,17 +18,17 @@ public interface INewWebClassDataModelProperties extends INewJavaClassDataModelP
 	/**
 	 * Required, String property of the display name for the filter
 	 */
-	public static final String DISPLAY_NAME = "NewWebClassDataModel.DISPLAY_NAME"; //$NON-NLS-1$
+	public static final String DISPLAY_NAME = "NewServletClassDataModel.DISPLAY_NAME"; //$NON-NLS-1$
 	
 	/**
 	 * Optional, String property of the description info for the filter
 	 */
-	public static final String DESCRIPTION = "NewWebClassDataModel.DESCRIPTION"; //$NON-NLS-1$
+	public static final String DESCRIPTION = "NewServletClassDataModel.DESCRIPTION"; //$NON-NLS-1$
 	
 	/**
 	 * Optional, boolean property used to specify whether or not to generate a new java class.
 	 * The default is false.
 	 */
-	public static final String USE_EXISTING_CLASS = "NewWebClassDataModel.USE_EXISTING_CLASS"; //$NON-NLS-1$
+	public static final String USE_EXISTING_CLASS = "NewServletClassDataModel.USE_EXISTING_CLASS"; //$NON-NLS-1$
 	
 }

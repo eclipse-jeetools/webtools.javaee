@@ -37,9 +37,7 @@ import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelPro
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class CreateWebClassTemplateModel implements
-		INewWebClassDataModelProperties, INewJavaClassDataModelProperties,
-		IAnnotationsDataModel {
+public class CreateWebClassTemplateModel implements INewWebClassDataModelProperties {
 	
 	/**
 	 * Constant representing no compatibility flag.

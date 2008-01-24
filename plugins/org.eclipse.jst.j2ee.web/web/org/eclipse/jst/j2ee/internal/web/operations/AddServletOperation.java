@@ -105,7 +105,7 @@ public class AddServletOperation extends AddWebClassOperation implements INewSer
 	public IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		//Retrieve values set in the newservletclass data model
 		boolean isServletType = model.getBooleanProperty(IS_SERVLET_TYPE);
-		boolean useExisting = model.getBooleanProperty(INewWebClassDataModelProperties.USE_EXISTING_CLASS);
+		boolean useExisting = model.getBooleanProperty(USE_EXISTING_CLASS);
 		String qualifiedClassName = model.getStringProperty(CLASS_NAME);
 		
 		// If it is servlet type, create the java class
@@ -187,8 +187,8 @@ public class AddServletOperation extends AddWebClassOperation implements INewSer
 	 */
 	private Object createServlet(String qualifiedClassName, boolean isServletType) {
 		// Get values from data model
-		String displayName = model.getStringProperty(INewWebClassDataModelProperties.DISPLAY_NAME);
-		String description = model.getStringProperty(INewWebClassDataModelProperties.DESCRIPTION);
+		String displayName = model.getStringProperty(DISPLAY_NAME);
+		String description = model.getStringProperty(DESCRIPTION);
 		
 		// Create the servlet instance and set up the parameters from data model
 		Object modelObject = provider.getModelObject();

@@ -97,28 +97,6 @@ public interface INewServletClassDataModelProperties extends INewWebClassDataMod
 	public static final String URL_MAPPINGS = "NewServletClassDataModel.URL_MAPPINGS"; //$NON-NLS-1$
 
 	/**
-	 * Required, String property of the display name for the servlet
-	 * 
-	 * @deprecated use {@link INewWebClassDataModelProperties#DISPLAY_NAME} instead
-	 */
-	public static final String DISPLAY_NAME = "NewServletClassDataModel.DISPLAY_NAME"; //$NON-NLS-1$
-	
-	/**
-	 * Optional, String property of the description info for the servlet
-	 * 
-	 * @deprecated use {@link INewWebClassDataModelProperties#DESCRIPTION} instead
-	 */
-	public static final String DESCRIPTION = "NewServletClassDataModel.DESCRIPTION"; //$NON-NLS-1$
-	
-	/**
-	 * Optional, boolean property used to specify whether or not to gen a new java class.
-	 * The default is false.
-	 * 
-	 * @deprecated use {@link INewWebClassDataModelProperties#USE_EXISTING_CLASS} instead
-	 */
-	public static final String USE_EXISTING_CLASS = "NewServletClassDataModel.USE_EXISTING_CLASS"; //$NON-NLS-1$
-	
-	/**
 	 * Do not set! The javajet template file used in creating the annotated servlet template class
 	 */
 	public static final String TEMPLATE_FILE = "NewServletClassDataModel.TEMPLATE_FILE"; //$NON-NLS-1$

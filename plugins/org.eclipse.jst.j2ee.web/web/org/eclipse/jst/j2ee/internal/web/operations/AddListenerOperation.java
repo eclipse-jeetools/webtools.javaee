@@ -18,16 +18,13 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.Listener;
-import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.javaee.core.JavaeeFactory;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation;
-import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
@@ -59,7 +56,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
 public class AddListenerOperation extends AddWebClassOperation implements
-		INewWebClassDataModelProperties {
+		INewListenerClassDataModelProperties {
 	
 	/**
 	 * This is the constructor which should be used when creating the operation.

@@ -69,7 +69,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
 public class AddFilterOperation extends AddWebClassOperation implements
-		INewWebClassDataModelProperties, INewFilterClassDataModelProperties {
+		INewFilterClassDataModelProperties {
 
 	/**
 	 * This is the constructor which should be used when creating the operation.
