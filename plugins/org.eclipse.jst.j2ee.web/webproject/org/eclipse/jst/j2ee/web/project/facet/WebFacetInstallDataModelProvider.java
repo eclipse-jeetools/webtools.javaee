@@ -97,10 +97,15 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
         final IFacetedProjectWorkingCopy fpjwc 
             = (IFacetedProjectWorkingCopy) this.model.getProperty( FACETED_PROJECT_WORKING_COPY );
         
-        final IFacetedProject.Action javaInstallAction
-            = fpjwc.getProjectFacetAction( JavaFacetUtils.JAVA_FACET );
+        if( fpjwc != null )
+        {
+            final IFacetedProject.Action javaInstallAction
+                = fpjwc.getProjectFacetAction( JavaFacetUtils.JAVA_FACET );
+            
+            return (IDataModel) javaInstallAction.getConfig();
+        }
         
-        return (IDataModel) javaInstallAction.getConfig();
+        return null;
 	}
 
 	public boolean isPropertyEnabled(String propertyName) {
