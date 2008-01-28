@@ -152,7 +152,6 @@ public class J2EEDependenciesPage extends PropertyPage {
 	private Composite getUnreferencedErrorComposite(final Composite parent) {
 		final String msg = ManifestUIResourceHandler.Unreferenced_Module_Error;
 		setErrorMessage(msg);
-		setValid(false);
 		return getErrorComposite(parent, msg);		
 	}
 	
