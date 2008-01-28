@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.internal.plugin.JavaEMFNature;
 import org.eclipse.jem.util.logger.LogEntry;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.validation.internal.operations.WorkbenchContext;
 import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
@@ -59,9 +60,9 @@ public abstract class AWorkbenchMOFHelper extends WorkbenchContext {
 		try {
 			desc = project.getDescription();
 		} catch (CoreException exc) {
-			Logger logger = ValidationPlugin.getPlugin().getMsgLogger();
+			Logger logger = J2EEPlugin.getDefault().getMsgLogger();
 			if (logger.isLoggingLevel(Level.FINE)) {
-				LogEntry entry = ValidationPlugin.getLogEntry();
+				LogEntry entry = J2EEPlugin.getLogEntry();
 				entry.setSourceID("WorkbenchContext.getMOFNature(IProject)"); //$NON-NLS-1$
 				entry.setTargetException(exc);
 				logger.write(Level.FINE, entry);
@@ -78,9 +79,9 @@ public abstract class AWorkbenchMOFHelper extends WorkbenchContext {
 				}
 			} catch (CoreException exc) {
 				// log and attempt next nature
-				Logger logger = ValidationPlugin.getPlugin().getMsgLogger();
+				Logger logger = J2EEPlugin.getDefault().getMsgLogger();
 				if (logger.isLoggingLevel(Level.FINE)) {
-					LogEntry entry = ValidationPlugin.getLogEntry();
+					LogEntry entry = J2EEPlugin.getLogEntry();
 					entry.setSourceID("WorkbenchContext.getMOFNature(IProject)"); //$NON-NLS-1$
 					entry.setTargetException(exc);
 					logger.write(Level.FINE, entry);

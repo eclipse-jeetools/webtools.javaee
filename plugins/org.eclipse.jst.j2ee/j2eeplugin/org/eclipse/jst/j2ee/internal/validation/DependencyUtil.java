@@ -22,6 +22,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.LogEntry;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
 
 /**
@@ -109,9 +110,9 @@ public final class DependencyUtil {
 			System.arraycopy(temp, 0, result, 0, count);
 			return result;
 		} catch (CoreException exc) {
-			Logger logger = ValidationPlugin.getPlugin().getMsgLogger();
+			Logger logger = J2EEPlugin.getDefault().getMsgLogger();
 			if (logger.isLoggingLevel(Level.SEVERE)) {
-				LogEntry entry = ValidationPlugin.getLogEntry();
+				LogEntry entry = J2EEPlugin.getDefault().getLogEntry();
 				entry.setSourceID("DependencyCache::getRequiredProjects(" + project.getName() + ")"); //$NON-NLS-1$  //$NON-NLS-2$
 				entry.setTargetException(exc);
 				logger.write(Level.SEVERE, exc);
@@ -148,9 +149,9 @@ public final class DependencyUtil {
 			tempSet.toArray(dependency);
 			return dependency;
 		} catch (JavaModelException exc) {
-			Logger logger = ValidationPlugin.getPlugin().getMsgLogger();
+			Logger logger = J2EEPlugin.getDefault().getMsgLogger();
 			if (logger.isLoggingLevel(Level.SEVERE)) {
-				LogEntry entry = ValidationPlugin.getLogEntry();
+				LogEntry entry = J2EEPlugin.getDefault().getLogEntry();
 				entry.setSourceID("DependencyCache::getDependentJavaProjects(" + javaproject.getProject().getName() + ")"); //$NON-NLS-1$  //$NON-NLS-2$
 				entry.setTargetException(exc);
 				logger.write(Level.SEVERE, exc);
@@ -171,9 +172,9 @@ public final class DependencyUtil {
 		try {
 			IJavaModel jm = javaproject.getJavaModel();
 			if (jm == null) {
-				Logger logger = ValidationPlugin.getPlugin().getMsgLogger();
+				Logger logger = J2EEPlugin.getDefault().getMsgLogger();
 				if (logger.isLoggingLevel(Level.SEVERE)) {
-					LogEntry entry = ValidationPlugin.getLogEntry();
+					LogEntry entry = J2EEPlugin.getDefault().getLogEntry();
 					entry.setSourceID("DependencyCache::getRequiredJavaProjects(" + javaproject.getProject().getName() + ")"); //$NON-NLS-1$  //$NON-NLS-2$
 					//entry.setText("IJavaModel == null"); //$NON-NLS-1$
 					logger.write(Level.SEVERE, "IJavaModel == null"); //$NON-NLS-1$
@@ -205,9 +206,9 @@ public final class DependencyUtil {
 
 					temp[count++] = jp;
 				} catch (CoreException exc) {
-					Logger logger = ValidationPlugin.getPlugin().getMsgLogger();
+					Logger logger = J2EEPlugin.getDefault().getMsgLogger();
 					if (logger.isLoggingLevel(Level.SEVERE)) {
-						LogEntry entry = ValidationPlugin.getLogEntry();
+						LogEntry entry = J2EEPlugin.getDefault().getLogEntry();
 						entry.setSourceID("DependencyCache::getRequiredJavaProjects(" + javaproject.getProject().getName() + ")"); //$NON-NLS-1$  //$NON-NLS-2$
 						entry.setTargetException(exc);
 						logger.write(Level.SEVERE, exc);
@@ -228,9 +229,9 @@ public final class DependencyUtil {
 			System.arraycopy(temp, 0, result, 0, count);
 			return result;
 		} catch (JavaModelException exc) {
-			Logger logger = ValidationPlugin.getPlugin().getMsgLogger();
+			Logger logger = J2EEPlugin.getDefault().getMsgLogger();
 			if (logger.isLoggingLevel(Level.SEVERE)) {
-				LogEntry entry = ValidationPlugin.getLogEntry();
+				LogEntry entry = J2EEPlugin.getDefault().getLogEntry();
 				entry.setSourceID("DependencyCache::getRequiredJavaProjects(" + javaproject.getProject().getName() + ")"); //$NON-NLS-1$  //$NON-NLS-2$
 				entry.setTargetException(exc);
 				logger.write(Level.SEVERE, exc);

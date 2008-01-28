@@ -18,6 +18,7 @@ import java.net.URL;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Vector;
@@ -50,6 +51,7 @@ import org.eclipse.jdt.core.IJavaModel;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.UIContextDetermination;
+import org.eclipse.jem.util.logger.LogEntry;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
@@ -127,6 +129,8 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 
 	private J2EEPreferences preferences = null;
 	public static J2EEPlugin INSTANCE;
+	
+	private static LogEntry _entry;
 
 	/**
 	 * Create the J2EE plugin and cache its default instance
@@ -328,6 +332,17 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 			return model.getJavaProject(project.getName());
 		return null;
 	}
+	
+	public static LogEntry getLogEntry() {
+		if (_entry == null)_entry = new LogEntry();
+		else _entry.reset();
+		
+		// Always set the log entry's Locale before you use it
+		// because the user can reset it on the fly.
+		_entry.setLocaleOfOrigin(Locale.getDefault().toString());
+		return _entry;
+	}
+
 
 	/**
 	 * Retrieves a hashtable of a logger's preferences initially from the
