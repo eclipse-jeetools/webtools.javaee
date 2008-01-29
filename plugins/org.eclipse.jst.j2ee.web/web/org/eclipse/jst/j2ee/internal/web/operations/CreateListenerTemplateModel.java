@@ -11,28 +11,13 @@
 package org.eclipse.jst.j2ee.internal.web.operations;
 
 
+import java.util.Collection;
 import java.util.List;
 
-import java.util.Collection;
-import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class CreateListenerTemplateModel extends CreateWebClassTemplateModel {
-	
-	public static final String QUALIFIED_SERVLET_CONTEXT_LISTENER = "javax.servlet.ServletContextListener"; //$NON-NLS-1$
-	public static final String QUALIFIED_SERVLET_CONTEXT_EVENT = "javax.servlet.ServletContextEvent"; //$NON-NLS-1$
-	public static final String QUALIFIED_SERVLET_CONTEXT_ATTRIBUTE_LISTENER = "javax.servlet.ServletContextAttributeListener"; //$NON-NLS-1$
-	public static final String QUALIFIED_SERVLET_CONTEXT_ATTRIBUTE_EVENT = "javax.servlet.ServletContextAttributeEvent"; //$NON-NLS-1$
-	public static final String QUALIFIED_HTTP_SESSION_LISTENER = "javax.servlet.http.HttpSessionListener"; //$NON-NLS-1$
-	public static final String QUALIFIED_HTTP_SESSION_EVENT = "javax.servlet.http.HttpSessionEvent"; //$NON-NLS-1$
-	public static final String QUALIFIED_HTTP_SESSION_ATTRIBUTE_LISTENER = "javax.servlet.http.HttpSessionAttributeListener"; //$NON-NLS-1$
-	public static final String QUALIFIED_HTTP_SESSION_BINDING_EVENT = "javax.servlet.http.HttpSessionBindingEvent"; //$NON-NLS-1$
-	public static final String QUALIFIED_HTTP_SESSION_ACTIVATION_LISTENER = "javax.servlet.http.HttpSessionActivationListener"; //$NON-NLS-1$
-	public static final String QUALIFIED_HTTP_SESSION_BINDING_LISTENER = "javax.servlet.http.HttpSessionBindingListener"; //$NON-NLS-1$
-	public static final String QUALIFIED_SERVLET_REQUEST_LISTENER = "javax.servlet.ServletRequestListener"; //$NON-NLS-1$
-	public static final String QUALIFIED_SERVLET_REQUEST_EVENT = "javax.servlet.ServletRequestEvent"; //$NON-NLS-1$
-	public static final String QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER = "javax.servlet.ServletRequestAttributeListener"; //$NON-NLS-1$
-	public static final String QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_EVENT = "javax.servlet.ServletRequestAttributeEvent"; //$NON-NLS-1$
+public class CreateListenerTemplateModel extends CreateWebClassTemplateModel implements IServletConstants {
 	
 	public Collection<String> getImports() {
 		Collection<String> collection = super.getImports();
@@ -85,35 +70,35 @@ public class CreateListenerTemplateModel extends CreateWebClassTemplateModel {
 	}
 
 	public boolean implementServletContextListener() {
-		return implementInterface(NewListenerClassDataModelProvider.SERVLET_CONTEXT_LISTENER);
+		return implementInterface(QUALIFIED_SERVLET_CONTEXT_LISTENER);
 	}
 	
 	public boolean implementServletContextAttributeListener() {
-		return implementInterface(NewListenerClassDataModelProvider.SERVLET_CONTEXT_ATTRIBUTE_LISTENER);
+		return implementInterface(QUALIFIED_SERVLET_CONTEXT_ATTRIBUTE_LISTENER);
 	}
 	
 	public boolean implementHttpSessionListener() {
-		return implementInterface(NewListenerClassDataModelProvider.HTTP_SESSION_LISTENER);
+		return implementInterface(QUALIFIED_HTTP_SESSION_LISTENER);
 	}
 	
 	public boolean implementHttpSessionAttributeListener() {
-		return implementInterface(NewListenerClassDataModelProvider.HTTP_SESSION_ATTRIBUTE_LISTENER);
+		return implementInterface(QUALIFIED_HTTP_SESSION_ATTRIBUTE_LISTENER);
 	}
 	
 	public boolean implementHttpSessionActivationListener() {
-		return implementInterface(NewListenerClassDataModelProvider.HTTP_SESSION_ACTIVATION_LISTENER);
+		return implementInterface(QUALIFIED_HTTP_SESSION_ACTIVATION_LISTENER);
 	}
 	
 	public boolean implementHttpSessionBindingListener() {
-		return implementInterface(NewListenerClassDataModelProvider.HTTP_SESSION_BINDING_LISTENER);
+		return implementInterface(QUALIFIED_HTTP_SESSION_BINDING_LISTENER);
 	}
 	
 	public boolean implementServletRequestListener() {
-		return implementInterface(NewListenerClassDataModelProvider.SERVLET_REQUEST_LISTENER);
+		return implementInterface(QUALIFIED_SERVLET_REQUEST_LISTENER);
 	}
 	
 	public boolean implementServletRequestAttributeListener() {
-		return implementInterface(NewListenerClassDataModelProvider.SERVLET_REQUEST_ATTRIBUTE_LISTENER);
+		return implementInterface(QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER);
 	}
 	
 	private boolean implementInterface(String iface) {

@@ -22,6 +22,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.operations.ServletSupertypesValidator;
+import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -31,7 +32,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class NewServletClassOptionsWizardPage extends NewWebClassOptionsWizardPage implements ISelectionChangedListener {
+public class NewServletClassOptionsWizardPage extends
+		NewWebClassOptionsWizardPage implements ISelectionChangedListener,
+		IServletConstants {
 	
 	protected Button initButton;
 	protected Button destroyButton;
@@ -199,7 +202,7 @@ public class NewServletClassOptionsWizardPage extends NewWebClassOptionsWizardPa
 		// then the remove button is disabled only if the Servlet interface is in the selection
 		Iterator iter = selection.iterator();
 		while (iter.hasNext()) {
-			if (ServletSupertypesValidator.SERVLET_INTERFACE_NAME.equals(iter.next()))
+			if (QUALIFIED_SERVLET.equals(iter.next()))
 			removeButton.setEnabled(false);
 			return;
 		}

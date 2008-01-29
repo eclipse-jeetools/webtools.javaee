@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
+import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
@@ -51,58 +52,19 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  * 
  * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
-public class NewListenerClassDataModelProvider extends NewWebClassDataModelProvider implements INewListenerClassDataModelProperties {
+public class NewListenerClassDataModelProvider extends
+		NewWebClassDataModelProvider implements
+		INewListenerClassDataModelProperties, IServletConstants {
 
-	/**
-	 * <code>javax.servlet.ServletContextListener</code> interface.
-	 */
-	public static final String SERVLET_CONTEXT_LISTENER = "javax.servlet.ServletContextListener"; //$NON-NLS-1$
-	
-	/**
-	 * <code>javax.servlet.ServletContextAttributeListener</code> interface.
-	 */
-	public static final String SERVLET_CONTEXT_ATTRIBUTE_LISTENER = "javax.servlet.ServletContextAttributeListener"; //$NON-NLS-1$
-	
-	/**
-	 * <code>javax.servlet.http.HttpSessionListener</code> interface.
-	 */
-	public static final String HTTP_SESSION_LISTENER = "javax.servlet.http.HttpSessionListener"; //$NON-NLS-1$
-	
-	/**
-	 * <code>javax.servlet.http.HttpSessionAttributeListener</code> interface.
-	 */
-	public static final String HTTP_SESSION_ATTRIBUTE_LISTENER = "javax.servlet.http.HttpSessionAttributeListener"; //$NON-NLS-1$
-	
-	/**
-	 * <code>javax.servlet.http.HttpSessionActivationListener</code>
-	 * interface.
-	 */
-	public static final String HTTP_SESSION_ACTIVATION_LISTENER = "javax.servlet.http.HttpSessionActivationListener"; //$NON-NLS-1$
-	
-	/**
-	 * <code>javax.servlet.http.HttpSessionBindingListener</code> interface.
-	 */
-	public static final String HTTP_SESSION_BINDING_LISTENER = "javax.servlet.http.HttpSessionBindingListener"; //$NON-NLS-1$
-	
-	/**
-	 * <code>javax.servlet.ServletRequestListener</code> interface.
-	 */
-	public static final String SERVLET_REQUEST_LISTENER = "javax.servlet.ServletRequestListener"; //$NON-NLS-1$
-	
-	/**
-	 * <code>javax.servlet.ServletRequestAttributeListener</code> interface.
-	 */
-	public static final String SERVLET_REQUEST_ATTRIBUTE_LISTENER = "javax.servlet.ServletRequestAttributeListener"; //$NON-NLS-1$
-	
 	public static final String[] LISTENER_INTERFACES = {
-		SERVLET_CONTEXT_LISTENER,	
-		SERVLET_CONTEXT_ATTRIBUTE_LISTENER,
-		HTTP_SESSION_LISTENER,
-		HTTP_SESSION_ATTRIBUTE_LISTENER,
-		HTTP_SESSION_ACTIVATION_LISTENER,
-		HTTP_SESSION_BINDING_LISTENER,
-		SERVLET_REQUEST_LISTENER,
-		SERVLET_REQUEST_ATTRIBUTE_LISTENER
+		QUALIFIED_SERVLET_CONTEXT_LISTENER,	
+		QUALIFIED_SERVLET_CONTEXT_ATTRIBUTE_LISTENER,
+		QUALIFIED_HTTP_SESSION_LISTENER,
+		QUALIFIED_HTTP_SESSION_ATTRIBUTE_LISTENER,
+		QUALIFIED_HTTP_SESSION_ACTIVATION_LISTENER,
+		QUALIFIED_HTTP_SESSION_BINDING_LISTENER,
+		QUALIFIED_SERVLET_REQUEST_LISTENER,
+		QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER
 	};
 	
 	/**

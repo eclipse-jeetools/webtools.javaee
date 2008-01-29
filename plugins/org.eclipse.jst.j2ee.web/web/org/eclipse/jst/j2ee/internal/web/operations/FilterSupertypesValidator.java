@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 SAP AG and others.
+ * Copyright (c) 2007, 2008 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,22 +10,22 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
+import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class FilterSupertypesValidator extends AbstractSupertypesValidator {
-
-	public static final String FILTER_INTERFACE_NAME = "javax.servlet.Filter";
+public class FilterSupertypesValidator extends AbstractSupertypesValidator
+		implements IServletConstants {
 	
 	public FilterSupertypesValidator(IDataModel dataModel) {
 		super(dataModel);
 	}
 	
 	public boolean isFilterSuperclass() {
-		if (hasSuperInterface(getSuperclass(), FILTER_INTERFACE_NAME))
+		if (hasSuperInterface(getSuperclass(), QUALIFIED_FILTER))
 			return true;
 		
 		for (Object iface : getInterfaces()) {
-			if (hasSuperInterface((String) iface, FILTER_INTERFACE_NAME)) 
+			if (hasSuperInterface((String) iface, QUALIFIED_FILTER)) 
 				return true;
 		}
 		

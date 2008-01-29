@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2008 SAP AG and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import java.util.ArrayList;
@@ -8,6 +18,7 @@ import org.eclipse.jdt.internal.ui.JavaPluginImages;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.operations.NewListenerClassDataModelProvider;
+import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -22,7 +33,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
-public class AddListenerWizardPage extends DataModelWizardPage {
+public class AddListenerWizardPage extends DataModelWizardPage implements IServletConstants {
 	
 	private static final Image IMG_INTERFACE = JavaPluginImages.get(JavaPluginImages.IMG_OBJS_INTERFACE);
 
@@ -75,12 +86,12 @@ public class AddListenerWizardPage extends DataModelWizardPage {
 
 		createEventListenerRow(group, 
 				IWebWizardConstants.ADD_LISTENER_WIZARD_LIFECYCLE, 
-				NewListenerClassDataModelProvider.SERVLET_CONTEXT_LISTENER,
+				QUALIFIED_SERVLET_CONTEXT_LISTENER,
 				INewJavaClassDataModelProperties.INTERFACES);
 
 		createEventListenerRow(group, 
 				IWebWizardConstants.ADD_LISTENER_WIZARD_CHANGES_TO_ATTRIBUTES, 
-				NewListenerClassDataModelProvider.SERVLET_CONTEXT_ATTRIBUTE_LISTENER, 
+				QUALIFIED_SERVLET_CONTEXT_ATTRIBUTE_LISTENER, 
 				INewJavaClassDataModelProperties.INTERFACES);
 	}
 	
@@ -89,22 +100,22 @@ public class AddListenerWizardPage extends DataModelWizardPage {
 		
 		createEventListenerRow(group, 
 				IWebWizardConstants.ADD_LISTENER_WIZARD_LIFECYCLE, 
-				NewListenerClassDataModelProvider.HTTP_SESSION_LISTENER, 
+				QUALIFIED_HTTP_SESSION_LISTENER, 
 				INewJavaClassDataModelProperties.INTERFACES);
 		
 		createEventListenerRow(group, 
 				IWebWizardConstants.ADD_LISTENER_WIZARD_CHANGES_TO_ATTRIBUTES, 
-				NewListenerClassDataModelProvider.HTTP_SESSION_ATTRIBUTE_LISTENER, 
+				QUALIFIED_HTTP_SESSION_ATTRIBUTE_LISTENER, 
 				INewJavaClassDataModelProperties.INTERFACES);
 		
 		createEventListenerRow(group, 
 				IWebWizardConstants.ADD_LISTENER_WIZARD_SESSION_MIGRATION, 
-				NewListenerClassDataModelProvider.HTTP_SESSION_ACTIVATION_LISTENER, 
+				QUALIFIED_HTTP_SESSION_ACTIVATION_LISTENER, 
 				INewJavaClassDataModelProperties.INTERFACES);
 		
 		createEventListenerRow(group, 
 				IWebWizardConstants.ADD_LISTENER_WIZARD_OBJECT_BINDING, 
-				NewListenerClassDataModelProvider.HTTP_SESSION_BINDING_LISTENER, 
+				QUALIFIED_HTTP_SESSION_BINDING_LISTENER, 
 				INewJavaClassDataModelProperties.INTERFACES);
 	}
 	
@@ -113,12 +124,12 @@ public class AddListenerWizardPage extends DataModelWizardPage {
 		
 		createEventListenerRow(group, 
 				IWebWizardConstants.ADD_LISTENER_WIZARD_LIFECYCLE, 
-				NewListenerClassDataModelProvider.SERVLET_REQUEST_LISTENER, 
+				QUALIFIED_SERVLET_REQUEST_LISTENER, 
 				INewJavaClassDataModelProperties.INTERFACES);
 
 		createEventListenerRow(group, 
 				IWebWizardConstants.ADD_LISTENER_WIZARD_CHANGES_TO_ATTRIBUTES, 
-				NewListenerClassDataModelProvider.SERVLET_REQUEST_ATTRIBUTE_LISTENER, 
+				QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER, 
 				INewJavaClassDataModelProperties.INTERFACES);
 	}
 	

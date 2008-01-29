@@ -15,6 +15,7 @@ Export-Package: org.eclipse.jst.j2ee.internal.web.archive.operations;x-internal:
  org.eclipse.jst.j2ee.internal.web.providers;x-internal:=true,
  org.eclipse.jst.j2ee.internal.web.util;x-internal:=true,
  org.eclipse.jst.j2ee.internal.web.validation;x-internal:=true,
+ org.eclipse.jst.j2ee.web,
  org.eclipse.jst.j2ee.web.componentcore.util,
  org.eclipse.jst.j2ee.web.datamodel.properties,
  org.eclipse.jst.j2ee.web.project.facet,

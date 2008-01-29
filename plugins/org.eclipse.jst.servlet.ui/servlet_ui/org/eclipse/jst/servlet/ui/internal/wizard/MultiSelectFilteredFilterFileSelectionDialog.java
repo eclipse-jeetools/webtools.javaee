@@ -34,6 +34,7 @@ import org.eclipse.jst.j2ee.internal.dialogs.FilteredFileSelectionDialog;
 import org.eclipse.jst.j2ee.internal.dialogs.TwoArrayQuickSorter;
 import org.eclipse.jst.j2ee.internal.dialogs.TypedFileViewerFilter;
 import org.eclipse.jst.j2ee.internal.web.providers.WebAppEditResourceHandler;
+import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
@@ -61,7 +62,8 @@ import org.eclipse.ui.part.PageBook;
  * Insert the type's description here.
  * Creation date: (7/30/2001 11:16:36 AM)
  */
-public class MultiSelectFilteredFilterFileSelectionDialog extends FilteredFileSelectionDialog {
+public class MultiSelectFilteredFilterFileSelectionDialog extends
+		FilteredFileSelectionDialog implements IServletConstants {
 	
 
 	private static class PackageRenderer extends LabelProvider {
@@ -157,7 +159,7 @@ public class MultiSelectFilteredFilterFileSelectionDialog extends FilteredFileSe
 				}
 			}
 			IJavaProject jp = jelem.getJavaProject();
-			 IType filterType = jp.findType("javax.servlet.Filter"); //$NON-NLS-1$
+			 IType filterType = jp.findType(QUALIFIED_FILTER); //$NON-NLS-1$
 			// next 3 lines fix defect 177686
 			if (filterType == null) {
 			    return;

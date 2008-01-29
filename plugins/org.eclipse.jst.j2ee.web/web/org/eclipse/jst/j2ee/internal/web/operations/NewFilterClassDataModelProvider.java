@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.jst.j2ee.web.validation.UrlPattern;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -25,13 +26,15 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
-public class NewFilterClassDataModelProvider extends NewWebClassDataModelProvider implements INewFilterClassDataModelProperties {
+public class NewFilterClassDataModelProvider extends
+		NewWebClassDataModelProvider implements
+		INewFilterClassDataModelProperties, IServletConstants {
 
 	/**
 	 * String array of the default, minimum required fully qualified Filter
 	 * interfaces
 	 */
-	private final static String[] FILTER_INTERFACES = { "javax.servlet.Filter" }; //$NON-NLS-1$
+	private final static String[] FILTER_INTERFACES = { QUALIFIED_FILTER }; 
     
 	/**
 	 * Subclasses may extend this method to provide their own default operation

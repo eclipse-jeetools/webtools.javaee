@@ -18,6 +18,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jst.j2ee.internal.web.operations.FilterSupertypesValidator;
 import org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties;
+import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -25,7 +26,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class NewFilterClassOptionsWizardPage extends NewWebClassOptionsWizardPage implements ISelectionChangedListener {
+public class NewFilterClassOptionsWizardPage extends
+		NewWebClassOptionsWizardPage implements ISelectionChangedListener,
+		IServletConstants {
 	
 	protected Button initButton;
 	protected Button destroyButton;
@@ -108,7 +111,7 @@ public class NewFilterClassOptionsWizardPage extends NewWebClassOptionsWizardPag
 		// disabled only if the Filter interface is in the selection
 		Iterator iter = selection.iterator();
 		while (iter.hasNext()) {
-			if (FilterSupertypesValidator.FILTER_INTERFACE_NAME.equals(iter.next()))
+			if (QUALIFIED_FILTER.equals(iter.next()))
 			removeButton.setEnabled(false);
 			return;
 		}

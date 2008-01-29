@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.Signature;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.jst.j2ee.web.validation.UrlPattern;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -63,18 +64,20 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  * specific attributes. They should also provide their own validation methods,
  * properties interface, and default values for the properties they add.
  */
-public class NewServletClassDataModelProvider extends NewWebClassDataModelProvider implements INewServletClassDataModelProperties {
+public class NewServletClassDataModelProvider extends
+		NewWebClassDataModelProvider implements
+		INewServletClassDataModelProperties, IServletConstants {
 
 	/**
 	 * The fully qualified default servlet superclass: HttpServlet.
 	 */
-	private final static String SERVLET_SUPERCLASS = "javax.servlet.http.HttpServlet"; //$NON-NLS-1$
+	private final static String SERVLET_SUPERCLASS = QUALIFIED_HTTP_SERVLET;
 	
 	/**
 	 * String array of the default, minimum required fully qualified Servlet
 	 * interfaces
 	 */
-	private final static String[] SERVLET_INTERFACES = { "javax.servlet.Servlet" }; //$NON-NLS-1$
+	private final static String[] SERVLET_INTERFACES = { QUALIFIED_SERVLET }; 
 
 	private final static String ANNOTATED_TEMPLATE_DEFAULT = "servlet.javajet"; //$NON-NLS-1$
 
@@ -225,6 +228,21 @@ public class NewServletClassDataModelProvider extends NewWebClassDataModelProvid
 		return super.validate(propertyName);
 	}
 	
+	@Override
+	public boolean propertySet(String propertyName, Object propertyValue) {
+		boolean result = false;
+		
+		if (SUPERCLASS.equals(propertyName)) {
+			ServletSupertypesValidator validator = new ServletSupertypesValidator(model);
+			if (!validator.isServletSuperclass()) {
+				List ifaces = (List) model.getProperty(INTERFACES);
+				ifaces.add(QUALIFIED_SERVLET);
+			}
+		}
+		
+		return result || super.propertySet(propertyName, propertyValue);
+	}
+	
 	/**
 	 * Subclasses may extend this method to provide their own validation of the specified java
 	 * classname. This implementation will ensure the class name is not set to Servlet and then will
@@ -365,6 +383,12 @@ public class NewServletClassDataModelProvider extends NewWebClassDataModelProvid
 			for (int i = 0; i < SERVLET_INTERFACES.length; i++) {
 				interfaceList.add(SERVLET_INTERFACES[i]);
 			}
+			// Remove the javax.servlet.Servlet interface from the list if the
+			// superclass already implements it
+			ServletSupertypesValidator validator = new ServletSupertypesValidator(model);
+			if (validator.isServletSuperclass()) {
+				interfaceList.remove(QUALIFIED_SERVLET);
+			}
 		}
 		// Return interface list
 		return interfaceList;
@@ -435,8 +459,4 @@ public class NewServletClassDataModelProvider extends NewWebClassDataModelProvid
 		return WTPCommonPlugin.OK_STATUS;
 	}
 
-	private boolean hasServletInterfaceToImplement(List newInterfacesList) {
-		return newInterfacesList != null && newInterfacesList.contains(SERVLET_INTERFACES[0]);		
-	}
-	
 }

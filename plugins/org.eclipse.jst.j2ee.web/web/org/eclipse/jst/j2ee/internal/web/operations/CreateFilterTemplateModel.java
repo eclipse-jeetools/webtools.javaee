@@ -15,23 +15,12 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.jst.j2ee.webapplication.DispatcherType;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class CreateFilterTemplateModel extends CreateWebClassTemplateModel
-		implements INewFilterClassDataModelProperties {
-	
-	public static final String QUALIFIED_IO_EXCEPTION = "java.io.IOException"; //$NON-NLS-1$
-	public static final String QUALIFIED_SERVLET_EXCEPTION = "javax.servlet.ServletException"; //$NON-NLS-1$
-	public static final String QUALIFIED_SERVLET_REQUEST = "javax.servlet.ServletRequest"; //$NON-NLS-1$
-	public static final String QUALIFIED_SERVLET_RESPONSE = "javax.servlet.ServletResponse"; //$NON-NLS-1$
-	public static final String QUALIFIED_FILTER_CONFIG = "javax.servlet.FilterConfig"; //$NON-NLS-1$
-	public static final String QUALIFIED_FILTER_CHAIN = "javax.servlet.FilterChain"; //$NON-NLS-1$
-
-	public static final String INIT = "init"; //$NON-NLS-1$
-	public static final String DO_FILTER = "doFilter"; //$NON-NLS-1$
-	public static final String DESTROY = "destroy"; //$NON-NLS-1$
+		implements INewFilterClassDataModelProperties, IServletConstants {
 	
 	public static final int NAME = 0;
 	public static final int VALUE = 1;
@@ -65,15 +54,15 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel
 	}
 
 	public boolean shouldGenInit() {
-		return implementImplementedMethod(INIT);
+		return implementImplementedMethod(METHOD_INIT);
 	}
 
 	public boolean shouldGenDoFilter() {
-		return implementImplementedMethod(DO_FILTER);
+		return implementImplementedMethod(METHOD_DO_FILTER);
 	}
 
 	public boolean shouldGenDestroy() {
-		return implementImplementedMethod(DESTROY);
+		return implementImplementedMethod(METHOD_DESTROY);
 	}
 
 	public List getInitParams() {
@@ -132,12 +121,12 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel
 
 	protected boolean implementImplementedMethod(String methodName) {
 		if (dataModel.getBooleanProperty(ABSTRACT_METHODS)) {
-			if (methodName.equals(INIT))
-				return dataModel.getBooleanProperty(INewFilterClassDataModelProperties.INIT);
-			else if (methodName.equals(DO_FILTER))
-				return dataModel.getBooleanProperty(INewFilterClassDataModelProperties.DO_FILTER);
-			else if (methodName.equals(DESTROY))
-				return dataModel.getBooleanProperty(INewFilterClassDataModelProperties.DESTROY);
+			if (methodName.equals(METHOD_INIT))
+				return dataModel.getBooleanProperty(INIT);
+			else if (methodName.equals(METHOD_DO_FILTER))
+				return dataModel.getBooleanProperty(DO_FILTER);
+			else if (methodName.equals(METHOD_DESTROY))
+				return dataModel.getBooleanProperty(DESTROY);
 		}		
 		return false;
 	}
