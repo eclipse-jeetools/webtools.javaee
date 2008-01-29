@@ -24,9 +24,14 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
+import org.eclipse.jem.util.emf.workbench.FlexibleProjectResourceSet;
+import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
+import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.archive.emftests.GeneralEMFPopulationTest;
@@ -36,6 +41,8 @@ import org.eclipse.jst.j2ee.ejb.project.operations.IEjbFacetInstallDataModelProp
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
@@ -594,5 +601,58 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 
 	protected void tearDown() throws Exception {
 		// Don't delete these files
+	}
+	private ProjectResourceSet getResourceSet(String projName) {
+		IProject proj = getProject(projName);
+		return (ProjectResourceSet)WorkbenchResourceHelperBase.getResourceSet(proj);
+	}
+
+	public void testListener() throws Exception {
+	
+		String projName = "TestEE5EjbProject";//$NON-NLS-1$
+		IProject ejbProj = createEjbProject(projName, J2EEVersionConstants.EJB_3_0_ID, true);
+		
+		//Add description
+		final IModelProvider provider = ModelProviderManager.getModelProvider(ejbProj);
+
+		provider.modify(new Runnable() {
+			public void run() {
+				EJBJar ejbJar = (EJBJar)provider.getModelObject();
+				Description desc = JavaeeFactory.eINSTANCE.createDescription();
+				desc.setValue(descText);
+				ejbJar.getDescriptions().add(desc);
+			}
+		}
+		, null);
+		
+	
+		EJBJar jar = (EJBJar)provider.getModelObject();
+		Description oldDesc = (Description)jar.getDescriptions().get(0);
+		String oldString = oldDesc.getValue();
+		
+		//set Name via manual resource loading
+		String modelPathURI = J2EEConstants.EJBJAR_DD_URI;
+		URI uri = URI.createURI(J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.EJB_CONTENT_FOLDER) + "/" + modelPathURI);
+		FlexibleProjectResourceSet resSet = (FlexibleProjectResourceSet)getResourceSet(projName);
+		
+		Resource ejbRes = (Resource) resSet.getResource(uri,true);
+		
+		EJBJar editJar = (EJBJar)ejbRes.getContents().get(0);
+		if (editJar.getDescriptions().isEmpty())
+			editJar.getDescriptions().add(JavaeeFactory.eINSTANCE.createDescription());
+		Description desc = (Description)editJar.getDescriptions().get(0);
+		desc.setValue(oldString + "ChangeME");
+		ejbRes.save(null);
+		ejbRes.unload();
+		
+		
+		jar = (EJBJar)provider.getModelObject();
+		Description newDesc = (Description)jar.getDescriptions().get(0);
+		String newString = newDesc.getValue();
+		
+		Assert.assertEquals(oldString + "ChangeME", newString);
+		
+
+	
 	}
 }
