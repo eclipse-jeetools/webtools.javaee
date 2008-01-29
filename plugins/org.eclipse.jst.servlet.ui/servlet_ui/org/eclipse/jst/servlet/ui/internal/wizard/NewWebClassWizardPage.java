@@ -17,6 +17,7 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
 import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
@@ -35,7 +36,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
-public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage {
+public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage implements INewWebClassDataModelProperties {
 
 	protected AnnotationsStandaloneGroup annotationsGroup;
 	
@@ -83,14 +84,14 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage {
 		if (isWebDocletProject()) {
 			annotationsGroup = new AnnotationsStandaloneGroup(parent, model, J2EEProjectUtilities.EJB.equals(projectType),
 					J2EEProjectUtilities.DYNAMIC_WEB.equals(projectType));
-			if (!model.isPropertySet(IArtifactEditOperationDataModelProperties.PROJECT_NAME))
+			if (!model.isPropertySet(PROJECT_NAME))
 				return;
-			IProject project = ProjectUtilities.getProject(model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME));
+			IProject project = ProjectUtilities.getProject(model.getStringProperty(PROJECT_NAME));
 			annotationsGroup.setEnablement(project);
 			// annotationsGroup.setUseAnnotations(true);
 		} else {
 			// not a Web Doclet project - make sure that the USE_ANNOTATIONS property is off
-			model.setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, false);
+			model.setProperty(USE_ANNOTATIONS, false);
 		}
 	}
 
@@ -115,7 +116,7 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage {
 		existingClassText = new Text(composite, SWT.SINGLE | SWT.BORDER | SWT.READ_ONLY);
 		existingClassText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		existingClassText.setEnabled(false);
-		synchHelper.synchText(existingClassText, INewJavaClassDataModelProperties.CLASS_NAME, null);
+		synchHelper.synchText(existingClassText, CLASS_NAME, null);
 
 		existingClassButton = new Button(composite, SWT.PUSH);
 		existingClassButton.setText(IWebWizardConstants.BROWSE_BUTTON_LABEL);
@@ -143,7 +144,7 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage {
 	}
 
 	private boolean isWebDocletProject() {
-		String projectName = model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME);
+		String projectName = model.getStringProperty(PROJECT_NAME);
 		if(projectName != null && !"".equals(projectName.trim())){
 			IProject project = ProjectUtilities.getProject(projectName);
 			try {
