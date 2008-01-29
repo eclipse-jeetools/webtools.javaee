@@ -31,15 +31,11 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.jdt.core.IClasspathContainer;
-import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
+import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DeploymentDescriptorLoadException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ManifestException;
@@ -49,7 +45,6 @@ import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
-import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
@@ -58,8 +53,9 @@ import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.internal.ModuleStructuralModel;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
-import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -98,10 +94,15 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 
 
 	public ClasspathModel(ArchiveManifest initialManifest) {
+		this(initialManifest, false);
+	}
+	
+	public ClasspathModel(ArchiveManifest initialManifest, boolean isWLPModel) {
 		super();
 		manifest = initialManifest;
+		this.isWLPModel = isWLPModel;
 	}
-
+	
 	public IProject getProject() {
 		return project;
 	}
@@ -469,16 +470,22 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 
 	protected void initNonResourceFiles() {
 		// Might be opened from a JAR
-		if (getComponent() == null)
+		if (getComponent() == null){
 			return;
-		nonResourceFiles = new ArrayList(3);
-		nonResourceFiles.add(getComponent().getProject().getFile(ProjectUtilities.DOT_PROJECT));
-		nonResourceFiles.add(getComponent().getProject().getFile(ProjectUtilities.DOT_CLASSPATH));
-		IFile mf = J2EEProjectUtilities.getManifestFile(getComponent().getProject());
-		if (mf != null)
-			nonResourceFiles.add(mf);
+		} 
+		nonResourceFiles = new ArrayList(1);
+		if(isWLPModel){
+			IFile dotProject = getComponent().getProject().getFile(ProjectUtilities.DOT_PROJECT);
+			if(dotProject != null){
+				nonResourceFiles.add(dotProject);
+			}
+		} else {
+			IFile mf = J2EEProjectUtilities.getManifestFile(getComponent().getProject());
+			if (mf != null){
+				nonResourceFiles.add(mf);
+			}
+		}
 	}
-
 
 	/**
 	 * @see com.ibm.etools.emf.workbench.ResourceStateInputProvider#getNonResourceInconsistentFiles()
@@ -515,7 +522,26 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	 * @see com.ibm.etools.emf.workbench.ResourceStateInputProvider#getResources()
 	 */
 	public List getResources() {
-		return Collections.EMPTY_LIST;
+		if(isWLPModel){
+			StructureEdit sEdit = null;
+			try {
+				sEdit = StructureEdit.getStructureEditForWrite(project);
+				ModuleStructuralModel structuralModel = sEdit.getModuleStructuralModel();
+				List resources = new ArrayList();
+				resources.addAll(structuralModel.getResources());
+				return resources;
+			} catch(Exception e){
+				e.printStackTrace();
+				return Collections.EMPTY_LIST;	
+			}
+			finally {
+				if (sEdit !=null){
+					sEdit.dispose();
+				}
+			}
+		} else {
+			return Collections.EMPTY_LIST;
+		}
 	}
 
 	public boolean selectDependencyIfNecessary(IProject referencedProject) {
@@ -640,170 +666,119 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		return classPathWLPSelection;
 	}
 
+	//copied from WebArtifactEdit
+	private static IPath WEBLIB =  new Path(J2EEConstants.WEB_INF_LIB).makeAbsolute();
+	private static IVirtualReference[] getLibModules(IProject project) {
+		List result = new ArrayList();
+		IVirtualComponent comp = ComponentCore.createComponent(project);
+		IVirtualReference[] refComponents = null;
+		if (!comp.isBinary())
+			refComponents = ((J2EEModuleVirtualComponent)comp).getNonManifestReferences();
+		else
+			refComponents = comp.getReferences();
+		// Check the deployed path to make sure it has a lib parent folder and matchs the web.xml
+		// base path
+		for (int i = 0; i < refComponents.length; i++) {
+			if (refComponents[i].getRuntimePath().equals(WEBLIB))
+				result.add(refComponents[i]);
+		}
+
+		return (IVirtualReference[]) result.toArray(new IVirtualReference[result.size()]);
+	}
+	
 	private void initializeSelectionForWLPs() {
 		classPathWLPSelection = new ClassPathSelection();
-		try {
-			IClasspathContainer container = J2EEComponentClasspathUpdater.getInstance().getWebAppLibrariesContainer(component.getProject(), true);
-			IClasspathEntry[] containerEntries = null != container ? container.getClasspathEntries() : null;
-			IPath libPath = new Path(J2EEConstants.WEB_INF_LIB).makeAbsolute();
-
-			HashSet hs = new HashSet();
-			hs.addAll(J2EEProjectUtilities.getAllJavaNonFlexProjects());
-			IProject[] utilityProjects = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.UTILITY);
-			hs.addAll(Arrays.asList(utilityProjects));
-			
-			IProject[] ejbProjects = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.EJB);
-			hs.addAll(Arrays.asList(ejbProjects));
-			
-			Map pathToComp = new HashMap();
-			
-			for (Iterator it = hs.iterator(); it.hasNext();) {
-				Object item = it.next();
-				IProject utilProject = null;
-				IVirtualComponent comp = null;				
-				if (item instanceof IProject) {
-					utilProject = (IProject) item;
-					comp = ComponentCore.createComponent(utilProject);
-					if (utilProject.getName().startsWith(".")) { //$NON-NLS-1$
-						continue;
+		classPathWLPSelection.setFilterLevel(ClassPathSelection.FILTER_NONE);
+		//this is the set of all projects that are already mapped as web library projects
+		HashSet existingWebLibProjects = new HashSet();
+		List otherExistingWebLibRefs = new ArrayList();
+		IVirtualReference [] libModules = getLibModules(component.getProject());
+		for(int i=0;i<libModules.length; i++){
+			IVirtualComponent comp = libModules[i].getReferencedComponent();
+			if(comp != null && comp.exists()){
+				if(comp.isBinary()){
+					otherExistingWebLibRefs.add(libModules[i]);
+				} else {
+					IProject p = comp.getProject();
+					if(p != null && p.exists()){
+						existingWebLibProjects.add(p);
 					}
-				} else if (item instanceof IVirtualComponent) {
-					utilProject = ((IVirtualComponent) item).getProject();
-					comp = (IVirtualComponent) item;
-				}
-				boolean existingEntry = false;
-				if (containerEntries != null) {
-					for (int j = 0; j < containerEntries.length; j++) {
-						IClasspathEntry eachEntry = containerEntries[j];
-						if (eachEntry.getEntryKind() == IClasspathEntry.CPE_PROJECT && eachEntry.getPath().toString().equals("/" + utilProject.getName())) { //$NON-NLS-1$
-							IVirtualReference ref = component.getReference(utilProject.getName());
-							if (ref != null && ref.getRuntimePath().equals(libPath)) {
-								existingEntry = true;
-							}
-							break;
-						}
-					}
-				}
-				if( !existingEntry ){
-					IJavaProject javaProject = JavaCore.create( component.getProject() );
-					if( javaProject!= null ){
-						IClasspathEntry[] entry = javaProject.getRawClasspath();
-						for (int j = 0; j < entry.length; j++) {
-							IClasspathEntry eachEntry = entry[j];
-							if (eachEntry.getEntryKind() == IClasspathEntry.CPE_PROJECT && 
-									eachEntry.getPath().toString().equals("/" + utilProject.getName())) { //$NON-NLS-1$
-								IVirtualReference ref = component.getReference(utilProject.getName());
-								if( ref != null && ref.getRuntimePath().equals( libPath )){
-									existingEntry = true;
-								}						
-								break;
-							}
-						}
-					}
-				}
-				
-				if (existingEntry) {
-					// build of map of all unique classpath component contributions from dependent projects
-					classPathWLPSelection.buildClasspathComponentDependencyMap(comp, pathToComp);
-				}
-				
-				classPathWLPSelection.createProjectElement(utilProject, existingEntry);
-				classPathWLPSelection.setFilterLevel(ClassPathSelection.FILTER_NONE);
-			}
-			
-			// add ClasspathElements for all dependent project cp dependencies
-			final Iterator it = pathToComp.values().iterator();
-			while (it.hasNext()) {
-				final IVirtualComponent c = (IVirtualComponent) it.next();
-				final URI archiveURI = URI.createURI(ModuleURIUtil.getHandleString(c));
-				String unresolvedURI = null;
-				try {
-					unresolvedURI = ModuleURIUtil.getArchiveName(archiveURI);
-				} catch (UnresolveableURIException e) {
-					e.printStackTrace();
-				}
-				if (unresolvedURI != null) {
-					final ClasspathElement element = classPathWLPSelection.createClasspathArchiveElement(c.getProject(), archiveURI, unresolvedURI);
-					classPathWLPSelection.addClasspathElement(element, unresolvedURI);
 				}
 			}
-
-			if (component != null && J2EEProjectUtilities.isDynamicWebProject( component.getProject()) && component instanceof J2EEModuleVirtualComponent) {
-				J2EEModuleVirtualComponent j2eeComp = (J2EEModuleVirtualComponent) component;
-				IVirtualReference[] newrefs = j2eeComp.getNonJavaReferences();
-				for (int i = 0; i < newrefs.length; i++) {
-					IVirtualReference ref = newrefs[i];
-					IVirtualComponent referencedComponent = ref.getReferencedComponent();
-					if (referencedComponent == null)
-						continue;
-					boolean isBinary = referencedComponent.isBinary();
-					if (isBinary) {
-						String unresolvedURI = ""; //$NON-NLS-1$
-						try {
-							unresolvedURI = ModuleURIUtil.getArchiveName(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)));
-						} catch (UnresolveableURIException e) {
-							e.printStackTrace();
-						}
-						
-						URI archiveURI = URI.createURI(unresolvedURI);
-
-						boolean alreadyInList = false;
-						Iterator iter = classPathWLPSelection.getClasspathElements().iterator();
-						while (iter.hasNext()) {
-							ClasspathElement tmpelement = (ClasspathElement) iter.next();
-							if (tmpelement.getText().equals(archiveURI.lastSegment())) {
-								alreadyInList = true;
-								break;
-							}
-						}
-						ClasspathElement element = null;
-						if (!alreadyInList) {
-							boolean inContainer = false;
-							if (containerEntries != null) {
-								String lastSegment = archiveURI.lastSegment();
-								for (int j = 0; !inContainer && j < containerEntries.length; j++) {
-									if (containerEntries[j].getPath().lastSegment().equals(lastSegment)) {
-										inContainer = true;
-									}
-								}
-							}
-							
-							if( !inContainer ){
-								IJavaProject javaProject = JavaCore.create( component.getProject() );
-									if( javaProject != null ){
-									VirtualArchiveComponent vComp = (VirtualArchiveComponent) referencedComponent;
-					                java.io.File diskFile = vComp.getUnderlyingDiskFile();
-					                IPath path = null;
-					                if ( diskFile.exists() ) {
-					                	path = new Path( diskFile.getAbsolutePath() );
-					                } else {
-					                    IFile iFile = vComp.getUnderlyingWorkbenchFile();
-					                    path = iFile.getFullPath();
-					                }								
-									inContainer=  inClassPath(javaProject, path );
-								}
-							}
-							if (inContainer) {
-								element = classPathWLPSelection.createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)), referencedComponent.getName(), archiveURI.lastSegment());
-								classPathWLPSelection.addClasspathElement(element, unresolvedURI);
-							} else {
-								element = classPathWLPSelection.createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)), archiveURI.lastSegment(), null);
-								classPathWLPSelection.addClasspathElement(element, unresolvedURI);
-							}
-						}
-					}
-				} // for
-				
-				// Add elements for raw classpath entries (either already tagged or potentially taggable) 
-				try {
-					classPathWLPSelection.createClasspathEntryElements(component, libPath, new Path(J2EEConstants.WEB_INF_CLASSES).makeAbsolute());
-				} catch (CoreException ce) {
-					Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(ce);
-				}
-			}
-		} catch (CoreException e) {
-		} catch (Exception e) {
+		}
+		
+		//this is the list of all projects that should show up in the list
+		HashSet possibleWebLibs = new HashSet();
+		try{
+			List javaProjects = J2EEProjectUtilities.getAllJavaNonFlexProjects();
+			possibleWebLibs.addAll(javaProjects);
+		} catch(CoreException e){
 			Logger.getLogger().logError(e);
+		}
+		IProject[] utilityProjects = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.UTILITY);
+		possibleWebLibs.addAll(Arrays.asList(utilityProjects));
+		IProject[] ejbProjects = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.EJB);
+		possibleWebLibs.addAll(Arrays.asList(ejbProjects));
+		
+		Map pathToComp = new HashMap();
+		
+		//first handle the projects case
+		for(Iterator iterator = possibleWebLibs.iterator(); iterator.hasNext();){
+			IProject possibleWebLib = (IProject)iterator.next();
+			if(possibleWebLib.getName().startsWith(".")){ //$NON-NLS-1$
+				continue;
+			}
+			boolean isExistingWebLib = existingWebLibProjects.contains(possibleWebLib);
+			classPathWLPSelection.createProjectElement(possibleWebLib, isExistingWebLib);
+			// build of map of all unique classpath component contributions from dependent projects
+			if(isExistingWebLib){
+				IVirtualComponent component = ComponentCore.createComponent(possibleWebLib);
+				if(component != null){
+					classPathWLPSelection.buildClasspathComponentDependencyMap(component, pathToComp);
+				}
+			}
+		}
+		//next handle entries for all other web lib refs
+		//e.g. to jars in other projects, or outside the workspace or relative to a var
+		for(Iterator iterator = otherExistingWebLibRefs.iterator(); iterator.hasNext();){
+			IVirtualReference ref = (IVirtualReference)iterator.next();
+			IVirtualComponent referencedComponent = ref.getReferencedComponent();
+			// do not add if this is a classpath entry dependency
+			if (ClasspathDependencyUtil.isClasspathComponentDependency(referencedComponent)) {
+				continue;
+			}
+			try {
+				String unresolvedURI = ModuleURIUtil.getArchiveName(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)));
+				URI archiveURI = URI.createURI(unresolvedURI);
+				ClasspathElement element = classPathWLPSelection.createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)), referencedComponent.getName(), archiveURI.lastSegment());
+				classPathWLPSelection.addClasspathElement(element, unresolvedURI);
+			} catch (UnresolveableURIException e) {
+				Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(e);
+			}
+		}
+		
+		// add ClasspathElements for all dependent project cp dependencies
+		final Iterator it = pathToComp.values().iterator();
+		while (it.hasNext()) {
+			final IVirtualComponent c = (IVirtualComponent) it.next();
+			final URI archiveURI = URI.createURI(ModuleURIUtil.getHandleString(c));
+			String unresolvedURI = null;
+			try {
+				unresolvedURI = ModuleURIUtil.getArchiveName(archiveURI);
+			} catch (UnresolveableURIException e) {
+				Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(e);
+			}
+			if (unresolvedURI != null) {
+				final ClasspathElement element = classPathWLPSelection.createClasspathArchiveElement(c.getProject(), archiveURI, unresolvedURI);
+				classPathWLPSelection.addClasspathElement(element, unresolvedURI);
+			}
+		}
+		
+		// Add elements for raw classpath entries (either already tagged or potentially taggable) 
+		try {
+			classPathWLPSelection.createClasspathEntryElements(component, WEBLIB, WEBLIB);
+		} catch (CoreException ce) {
+			Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(ce);
 		}
 	}
 
@@ -811,28 +786,12 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		return isWLPModel;
 	}
 
+	/**
+	 * @deprecated do not use this method
+	 * @param isWLPModel
+	 */
 	public void setWLPModel(boolean isWLPModel) {
 		this.isWLPModel = isWLPModel;
 	}
-
-	private boolean inClassPath(IJavaProject javaProject, IPath path ){
-		boolean existingEntry = false;
-		IClasspathEntry[] entry = null;
-		try {
-			entry = javaProject.getRawClasspath();
-		} catch (JavaModelException e) {
-			Logger.getLogger().logError(e);
-		}
-		for (int j = 0; j < entry.length; j++) {
-			IClasspathEntry eachEntry = entry[j];
-			if (eachEntry.getEntryKind() == IClasspathEntry.CPE_LIBRARY || eachEntry.getEntryKind() == IClasspathEntry.CPE_VARIABLE ) {
-				IClasspathEntry classPathEntry = JavaCore.getResolvedClasspathEntry( eachEntry );
-				if( classPathEntry != null && classPathEntry.getPath().equals(path) ){
-					existingEntry = true;
-					break;
-				}
-			}
-		}
-		return existingEntry;
-	}
+	
 }

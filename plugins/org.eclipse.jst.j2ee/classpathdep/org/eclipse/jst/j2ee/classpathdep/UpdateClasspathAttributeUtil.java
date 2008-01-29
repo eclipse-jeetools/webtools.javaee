@@ -108,6 +108,28 @@ public class UpdateClasspathAttributeUtil implements IClasspathDependencyConstan
 	}
 	
 	/**
+	 * Creates the IDataModelOperation that will update the classpath for the specified Java project so that
+	 * the WTP component dependency attribute will be added to the specified list of classpath entries. 
+	 * @param projectName Name of the target Java project.
+	 * @param entryToRuntimePath Map from IClasspathEntry to runtime path for all entries that should have the attribute added.
+	 * @return The operation.
+	 */
+	public static IDataModelOperation createAddDependencyAttributesOperation(final String projectName, final Map entryToRuntimePath) {
+		return createOperation(projectName, entryToRuntimePath, UpdateClasspathAttributesDataModelProperties.ENTRIES_TO_ADD_ATTRIBUTE, true);
+	}
+	
+	/**
+	 * Creates the IDataModelOperation that will update the classpath for the specified Java project so that
+	 * the WTP component dependency attribute will be removed from the specified list of classpath entries. 
+	 * @param projectName Name of the target Java project.
+	 * @param entryToRuntimePath Map from IClasspathEntry to runtime path for all entries that should have the attribute removed.
+	 * @return The operation.
+	 */
+	public static IDataModelOperation createRemoveDependencyAttributesOperation(final String projectName, final Map entryToRuntimePath) {
+		return createOperation(projectName, entryToRuntimePath, UpdateClasspathAttributesDataModelProperties.ENTRIES_TO_REMOVE_ATTRIBUTE, true);
+	}
+	
+	/**
 	 * Adds the WTP component dependency attribute to the specified classpath entry using the default runtime path for the project. Does NOT check that the
 	 * specified entry is a valid entry for the dependency attribute.
 	 * 
