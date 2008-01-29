@@ -150,7 +150,7 @@ protected static HashMap resourceSetListeners;
 		 * Notify all editModels of the change.
 		 */
 		protected static void notifyModelProviders(IModelProviderEvent anEvent) {
-		if (anEvent == null)
+		if ((anEvent == null) || (modelsProviders.size() == 0))
 				return;
 			List aList = new ArrayList();
 			synchronized (modelsProviders) {

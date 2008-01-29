@@ -1,5 +1,6 @@
 package org.eclipse.jst.j2ee.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -10,6 +11,7 @@ public class ModelProviderEvent implements IModelProviderEvent {
 	private IModelProvider model;
 	private IProject proj;
 	private int event;
+	private List changedResources = new ArrayList();
 
 	public ModelProviderEvent(int anEventCode, IModelProvider model, IProject proj) {
 		setEventCode(anEventCode);
@@ -23,18 +25,18 @@ public class ModelProviderEvent implements IModelProviderEvent {
 	}
 
 	public void addResource(Object resource) {
-		// TODO Auto-generated method stub
+		changedResources.add(resource);
 
 	}
 
 	public void addResources(Collection<Object> someResources) {
-		// TODO Auto-generated method stub
+		changedResources.addAll(someResources);
 
 	}
 
 	public List<Object> getChangedResources() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return changedResources;
 	}
 
 	public int getEventCode() {
@@ -48,7 +50,7 @@ public class ModelProviderEvent implements IModelProviderEvent {
 	}
 
 	public void setChangedResources(List<Object> newChangedResources) {
-		// TODO Auto-generated method stub
+		changedResources = newChangedResources;
 
 	}
 

@@ -60,6 +60,7 @@ import org.eclipse.jst.j2ee.application.internal.impl.ApplicationFactoryImpl;
 import org.eclipse.jst.j2ee.applicationclient.internal.modulecore.util.AppClientEditAdapterFactory;
 import org.eclipse.jst.j2ee.common.internal.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveInit;
+import org.eclipse.jst.j2ee.core.internal.plugin.CatalogJ2EEXmlDtDEntityResolver;
 import org.eclipse.jst.j2ee.internal.common.VirtualArchiveComponentAdapterFactory;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EarEditAdapterFactory;

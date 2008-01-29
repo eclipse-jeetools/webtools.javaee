@@ -9,16 +9,17 @@
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
 package org.eclipse.jst.j2ee.core.internal.plugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.util.logger.proxyrender.DefaultPluginTraceRenderer;
 import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
+import org.eclipse.jst.j2ee.internal.xml.J2EEXmlDtDEntityResolver;
+import org.eclipse.wst.common.internal.emf.utilities.DOMUtilities;
 import org.osgi.framework.BundleContext;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Platform;
-import java.lang.Throwable;
-import org.eclipse.core.runtime.CoreException;
 
 /*
  * Created on Nov 25, 2003
@@ -47,6 +48,9 @@ public class J2EECorePlugin extends Plugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		IEJBModelExtenderManager.INSTANCE.setProvider(EclipseEJBModelExtenderProvider.getInstance());
+		// No that we can register against OSGI dependencies - lets re-use the catalog resolver
+		J2EEXmlDtDEntityResolver.INSTANCE = new CatalogJ2EEXmlDtDEntityResolver();
+		DOMUtilities.setDefaultEntityResolver(J2EEXmlDtDEntityResolver.INSTANCE); 
 	}
 	
 	public static J2EECorePlugin getPlugin(){

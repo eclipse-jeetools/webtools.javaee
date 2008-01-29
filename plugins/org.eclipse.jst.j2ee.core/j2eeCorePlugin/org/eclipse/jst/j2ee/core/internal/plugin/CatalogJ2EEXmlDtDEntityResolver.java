@@ -8,7 +8,7 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.internal.plugin;
+package org.eclipse.jst.j2ee.core.internal.plugin;
 
 import java.io.IOException;
 
