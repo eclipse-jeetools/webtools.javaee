@@ -668,6 +668,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 
 	//copied from WebArtifactEdit
 	private static IPath WEBLIB =  new Path(J2EEConstants.WEB_INF_LIB).makeAbsolute();
+	private static IPath WEBINF_CLASSES =  new Path(J2EEConstants.WEB_INF_CLASSES).makeAbsolute();
 	private static IVirtualReference[] getLibModules(IProject project) {
 		List result = new ArrayList();
 		IVirtualComponent comp = ComponentCore.createComponent(project);
@@ -776,7 +777,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		
 		// Add elements for raw classpath entries (either already tagged or potentially taggable) 
 		try {
-			classPathWLPSelection.createClasspathEntryElements(component, WEBLIB, WEBLIB);
+			classPathWLPSelection.createClasspathEntryElements(component, WEBLIB, WEBINF_CLASSES);
 		} catch (CoreException ce) {
 			Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(ce);
 		}
