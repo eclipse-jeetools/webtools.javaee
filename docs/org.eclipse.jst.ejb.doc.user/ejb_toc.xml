@@ -1,19 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
-<?NLS  TYPE="org.eclipse.help.toc"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?NLS TYPE="org.eclipse.help.toc"?>
+
 <toc label="EJB applications" topic="topics/ceover.html">
-   <topic label="EJB application development" href="topics/ceover.html">
-      <topic label="EJB architecture" href="topics/cearch.html"/>
-      <topic label="EJB development resources" href="topics/ceresrc.html"/>
-   </topic>
-   <topic label="Creating EJB projects" href="topics/tecrtpro.html">
-      <topic label="EJB client JAR projects" href="topics/ceclientjars.html"/>
-   </topic>
-   <topic label="Importing EJB JAR files" href="topics/teimp.html"/>
-   <topic label="Exporting EJB projects to EJB JAR files" href="topics/teexp.html"/>
-   <topic label="Creating enterprise beans with XDoclet annotation support" href="topics/tecrte.html">
-      <topic label="Creating session beans with XDoclet annotation support" href="topics/tesessb.html"/>
-      <topic label="Creating container-managed persistence (CMP) entity beans with XDoclet annotation support" href="topics/teentityb.html"/>
-      <topic label="Creating message-driven beans with XDoclet annotation support" href="topics/temessb.html"/>
-      <topic label="Configuring XDoclet annotation support" href="topics/txdocletconf.html"/>
-   </topic>
+<topic label="EJB application development" href="topics/ceover.html">
+<topic label="EJB architecture" href="topics/cearch.html"/>
+<topic label="EJB development resources" href="topics/ceresrc.html"/>
+</topic>
+<topic label="Creating EJB projects" href="topics/tecrtpro.html">
+<topic label="EJB client JAR projects" href="topics/ceclientjars.html"/>
+</topic>
+<topic label="Importing EJB JAR files" href="topics/teimp.html"/>
+<topic label="Exporting EJB projects to EJB JAR files" href="topics/teexp.html"/>
+<topic label="Creating enterprise beans with XDoclet annotation support" href="topics/tecrte.html">
+<topic label="Creating session beans with XDoclet annotation support" href="topics/tesessb.html"/>
+<topic label="Creating container-managed persistence (CMP) entity beans with XDoclet annotation support" href="topics/teentityb.html"/>
+<topic label="Creating message-driven beans with XDoclet annotation support" href="topics/temessb.html"/>
+<topic label="Configuring XDoclet annotation support" href="topics/txdocletconf.html"/>
+</topic>
 </toc>
