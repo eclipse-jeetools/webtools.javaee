@@ -52,6 +52,7 @@ import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.JavaeeFactory;
 import org.eclipse.jst.javaee.ejb.EJBJar;
+import org.eclipse.jst.javaee.ejb.EJBJarDeploymentDescriptor;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.jee.project.facet.IAppClientCreateDeploymentFilesDataModelProperties;
 import org.eclipse.jst.jee.project.facet.ICreateDeploymentFilesDataModelProperties;
@@ -637,7 +638,12 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 		
 		Resource ejbRes = (Resource) resSet.getResource(uri,true);
 		
-		EJBJar editJar = (EJBJar)ejbRes.getContents().get(0);
+		EObject root = ejbRes.getContents().get(0);
+		EJBJar editJar = null;
+		if (root instanceof EJBJarDeploymentDescriptor)
+			editJar = ((EJBJarDeploymentDescriptor)root).getEjbJar();
+		else
+			editJar = (EJBJar)root;
 		if (editJar.getDescriptions().isEmpty())
 			editJar.getDescriptions().add(JavaeeFactory.eINSTANCE.createDescription());
 		Description desc = (Description)editJar.getDescriptions().get(0);
