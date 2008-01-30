@@ -14,7 +14,7 @@
 <context id="APPCLIENT_IMPORT_APPCLIENT_WIZARD_PAGE1">
 <description>Use this wizard to import an application client JAR file. Locate the application client JAR file on your file system using the <b>Browse</b> button. Optionally, modify the project name provided.
 
-Use the <b>Target server</b> field to specify the application server that the imported project will be developed for. 
+Use the <b>Target runtimes</b> field to specify the application server that the imported project will be developed for. 
 
 You can also specify whether or not to add the imported application client module to an enterprise application project. Choose an existing project or use the <b>New</b> button to create a new project.
 </description>
@@ -26,7 +26,7 @@ You can also specify whether or not to add the imported application client modul
     <!-- wizard broken at time of this writing -->
 <description>Use this wizard to import an enterprise application EAR file.  Locate the enterprise application EAR file on your file system using the <b>Browse</b> button. Optionally, modify the project name provided.
 
-Use the <b>Target server</b> field to specify the application server that the resulting projects will be developed for. 
+Use the <b>Target runtimes</b> field to specify the application server that the resulting projects will be developed for. 
 </description>
 <!--topic label="Importing an enterprise application EAR file" href="../com.ibm.etools.j2eeapp.doc/topics/tjimpear.html"/-->
 <!--topic label="Creating an enterprise application project" href="../com.ibm.etools.j2eeapp.doc/topics/tjear.html"/-->
@@ -36,7 +36,7 @@ Use the <b>Target server</b> field to specify the application server that the re
 <context id="EJB_IMPORT_EJB_WIZARD_PAGE1">
 <description>Use this wizard to import an EJB JAR file. Locate the EJB JAR file on your file system using the <b>Browse</b> button. Optionally, modify the module name provided.
 
-Use the <b>Target server</b> field to specify the application server that the imported project will be developed for. 
+Use the <b>Target runtimes</b> field to specify the application server that the imported project will be developed for. 
 
 You can also specify whether or not to add the imported EJB module to an enterprise application project. Choose an existing project or use the <b>New</b> button to create a new project.
 </description>
@@ -47,7 +47,7 @@ You can also specify whether or not to add the imported EJB module to an enterpr
 <context id="IMPORT_RAR_WIZARD_PAGE">
 <description>Use this wizard to import a JCA Connector RAR file. Locate the Connector RAR file on your file system using the <b>Browse</b> button. Optionally, modify the module name provided.
 
-Use the <b>Target server</b> field to specify the application server that the imported project will be developed for. 
+Use the <b>Target runtimes</b> field to specify the application server that the imported project will be developed for. 
 
 You can also specify whether or not to add the imported connector module to an enterprise application project. Choose an existing project or use the <b>New</b> button to create a new project.
 </description>
