@@ -61,6 +61,9 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	protected ClasspathModel model;
 	protected CheckboxTableViewer availableJARsViewer;
 	protected IValidateEditListener validateEditListener;
+	/**
+	 * @deprecated this field should be removed
+	 */
 	protected boolean isWLPEntry;
 	protected Group radioGroup;
 	
@@ -74,9 +77,7 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	 * Constructor for ButtonBarManager.
 	 */
 	public ClasspathTableManager(IClasspathTableOwner owner, ClasspathModel model) {
-		super();
-		this.owner = owner;
-		this.model = model;
+		this(owner, model, null);
 	}
 	
 	public ClasspathTableManager(IClasspathTableOwner owner, ClasspathModel model, IValidateEditListener listener) {
@@ -444,7 +445,6 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	public void refresh() {
 		if (!isWLPEntry() && !J2EEProjectUtilities.isStandaloneProject(model.getComponent().getProject())) {
 			availableJARsViewer.setInput(getClasspathSelection());
-			model.setWLPModel(false);
 			GridData data = new GridData(GridData.FILL_BOTH);
 			int numlines = Math.min(10, availableJARsViewer.getTable().getItemCount());
 			data.heightHint = availableJARsViewer.getTable().getItemHeight() * numlines;
@@ -453,7 +453,6 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 			updateButtonEnablements();
 		} else {
 			availableJARsViewer.setInput(model.getClassPathSelectionForWLPs());
-			model.setWLPModel(true);
 			GridData data = new GridData(GridData.FILL_BOTH);
 			int numlines = Math.min(10, availableJARsViewer.getTable().getItemCount());
 			data.heightHint = availableJARsViewer.getTable().getItemHeight() * numlines;
@@ -507,9 +506,13 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	}
 
 	public boolean isWLPEntry() {
-		return isWLPEntry;
+		return model.isWLPModel();
 	}
 
+	/**
+	 * @deprecated do not use this method
+	 * @param isWLPEntry
+	 */
 	public void setWLPEntry(boolean isWLPEntry) {
 		this.isWLPEntry = isWLPEntry;
 	}

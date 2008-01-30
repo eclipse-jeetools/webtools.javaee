@@ -24,7 +24,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.jar.Manifest;
 
-import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -71,6 +70,7 @@ import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
@@ -112,7 +112,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	 * Returns false if page should not be displayed for the project.
 	 */
 	protected void initialize() {
-		model = new ClasspathModel(null);
+		model = createClasspathModel();
 		model.setProject(project);
 		if (model.getComponent() != null) {
 			model.addListener(this);
@@ -121,6 +121,10 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		}
 	}
 
+	protected ClasspathModel createClasspathModel(){
+		return new ClasspathModel(null, false);
+	}
+	
 	public void dispose() {
 		J2EEComponentClasspathUpdater.getInstance().resumeUpdates();
 		if (model.earArtifactEdit != null) {
@@ -132,37 +136,34 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	private void updateModelManifest() {
 		if (JemProjectUtilities.isBinaryProject(project) || model.getAvailableEARComponents().length == 0)
 			return;
-		IContainer root = null;
-		IFile manifestFile = null;
-		if (project != null)
-			root = project;
-		else
-			root = JemProjectUtilities.getSourceFolderOrFirst(project, null);
-
-		if (root != null)
-			manifestFile = root.getFile(new Path(J2EEConstants.MANIFEST_URI));
-
-		if (manifestFile == null || !manifestFile.exists())
-			return;
-
-		InputStream in = null;
-		try {
-			in = manifestFile.getContents();
-			ArchiveManifest mf = new ArchiveManifestImpl(new Manifest(in));
-			model.primSetManifest(mf);
-		} catch (CoreException e) {
-			Logger.getLogger().logError(e);
-			model.primSetManifest(new ArchiveManifestImpl());
-		} catch (IOException iox) {
-			Logger.getLogger().logError(iox);
-			model.primSetManifest(new ArchiveManifestImpl());
-			caughtManifestException = iox;
-		} finally {
-			if (in != null) {
-				try {
-					in.close();
-				} catch (IOException weTried) {
-					// Ignore
+		
+		IVirtualComponent component = ComponentCore.createComponent(project);
+		if(component != null){
+			IVirtualFile vManifest = component.getRootFolder().getFile(new Path(J2EEConstants.MANIFEST_URI));
+			if(vManifest.exists()){
+				IFile iManifest = vManifest.getUnderlyingFile();
+				if(iManifest != null && iManifest.exists()){
+					InputStream in = null;
+					try {
+						in = iManifest.getContents();
+						ArchiveManifest mf = new ArchiveManifestImpl(new Manifest(in));
+						model.primSetManifest(mf);
+					} catch (CoreException e) {
+						Logger.getLogger().logError(e);
+						model.primSetManifest(new ArchiveManifestImpl());
+					} catch (IOException iox) {
+						Logger.getLogger().logError(iox);
+						model.primSetManifest(new ArchiveManifestImpl());
+						caughtManifestException = iox;
+					} finally {
+						if (in != null) {
+							try {
+								in.close();
+							} catch (IOException weTried) {
+								// Ignore
+							}
+						}
+					}
 				}
 			}
 		}
@@ -535,6 +536,10 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	}
 
 
+	/**
+	 * @deprecated don't use this method it will be deleted
+	 * @return
+	 */
 	List getUnSelectedClassPathElementsForWebDependency() {
 		List unselectedForWLP = getUnSelectedClassPathSelectionForWLPs().getClasspathElements();
 		List unselected = new ArrayList();
@@ -629,11 +634,14 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		return composedOp;
 	}
 
-
+	/**
+	 * This should be moved to the {@link WebLibDependencyPropertiesPage} because it is only used there.
+	 * @return
+	 */
 	protected WorkspaceModifyComposedOperation createComponentDependencyOperations() {
 		WorkspaceModifyComposedOperation composedOp = null;
 		List selected = getSelectedClassPathSelectionForWLPs().getClasspathElements();
-		List unselected = getUnSelectedClassPathElementsForWebDependency();
+		List unselected = getUnSelectedClassPathSelectionForWLPs().getClasspathElements();
 
 		List targetComponentsHandles = new ArrayList();
 		for (int i = 0; i < selected.size(); i++) {

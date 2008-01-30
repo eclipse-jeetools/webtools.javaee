@@ -25,6 +25,7 @@ import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
+import org.eclipse.jst.j2ee.internal.common.ClasspathModel;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModelListener;
 import org.eclipse.jst.j2ee.internal.common.operations.UpdateJavaBuildPathOperation;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -49,6 +50,10 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 	public WebLibDependencyPropertiesPage(final IProject project, final J2EEDependenciesPage page) {
 		super(project, page);
 	}
+	
+	protected ClasspathModel createClasspathModel() {
+		return new ClasspathModel(null, true);
+	}
 
 	public Composite createContents(Composite parent) {
 		initialize();
@@ -60,7 +65,6 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 			// createProjectLabelsGroup(composite);
 			createListGroup(composite);
 			handleWLPSupport();
-			model.setWLPModel(true);
 			setEnablement();
 		}
 		return composite;
@@ -130,7 +134,6 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 	}
 
 	private void handleWLPSupport() {
-		tableManager.setWLPEntry(true);
 		availableDependentJars.setText(ManifestUIResourceHandler.WEB_LIB_LIST_DESCRIPTION);
 		tableManager.refresh();
 	}
