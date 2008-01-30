@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--Arbortext, Inc., 1988-2005, v.4002-->
+<!--Arbortext, Inc., 1988-2006, v.4002-->
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN"
  "map.dtd">
 <map id="jstj2eetoc" title="J2EE applications - WTP">
 <anchor id="map_top"/>
-<topicref href="topics/ph-j2eeapp.dita" navtitle="J2EE Applications">
+<topicref href="topics/ph-j2eeapp.dita" navtitle="J2EE applications">
 <anchor id="before_intro_topics"/>
 <topicref href="topics/cjarch.dita" navtitle="J2EE architecture"></topicref>
-<topicref href="topics/cjpers.dita" navtitle="J2EE perspective"></topicref>
-<topicref href="topics/cjview.dita" navtitle="Project Explorer view in the J2EE perspective">
+<topicref href="topics/cjpers.dita" navtitle="Java EE perspective"></topicref>
+<topicref href="topics/cjview.dita" navtitle="Project Explorer view in the Java EE perspective">
 </topicref>
 <anchor id="after_intro_topics"/>
 <anchor id="before_filters"/>
-<topicref href="topics/cjviewfilters.dita" navtitle="Filters in the Project Explorer view">
+<topicref href="topics/tjviewfilters.dita" navtitle="Filtering in the Project Explorer view">
 </topicref>
 <anchor id="after_filters"/>
 <anchor id="before_projects"/>
@@ -37,7 +37,7 @@
 </topicref>
 <topicref href="topics/tchangefacet.dita" navtitle="Changing the version of a facet">
 </topicref>
-<topicref href="topics/tchangejavalevel.dita" navtitle="Changing the Java compiler version">
+<topicref href="topics/tchangejavalevel.dita" navtitle="Changing the Java compiler version for a J2EE project">
 </topicref>
 <anchor id="childof_J2EEProjectFacets"/></topicref>
 <anchor id="J2EEProjectFacets"/>
@@ -61,8 +61,8 @@
 <anchor id="before_dependencies"/>
 <topicref href="topics/cjcircle.dita" navtitle="Cyclical dependencies between J2EE modules">
 </topicref>
-<topicref href="topics/tjcircleb.dita" navtitle="Correcting cyclical dependencies after an EAR is imported">
-</topicref>
+<topicref href="topics/tjcircleb.dita" navtitle="Correcting cyclical dependencies after an EAR
+is imported"></topicref>
 <anchor id="after_dependencies"/>
 <anchor id="importexport_bottom"/></topicref>
 <anchor id="after_importexport"/></topicref>

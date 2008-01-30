@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
 <!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN"
  "reference.dtd">
 <reference id="rvalerr" xml:lang="en-us">
 <title outputclass="id_title">Common validation errors and solutions</title>
-<shortdesc outputclass="id_shortdesc">You may encounter these common error
-messages when you validate your projects.</shortdesc>
+<shortdesc outputclass="id_shortdesc">This table lists the common error messages<?Pub Caret?>
+you may encounter when you validate your projects.</shortdesc>
 <prolog><metadata>
 <keywords><indexterm>code validation<indexterm>error solutions</indexterm></indexterm>
-<indexterm>validation<indexterm>error solutions</indexterm></indexterm>
-</keywords>
+<indexterm>validation<indexterm>error solutions</indexterm></indexterm></keywords>
 </metadata></prolog>
 <refbody outputclass="id_refbody">
 <example outputclass="anchor_topictop"></example>
@@ -188,3 +188,4 @@ the project.</entry>
 <example outputclass="anchor_topicbottom"></example>
 </refbody>
 </reference>
+<?Pub *0000008883?>

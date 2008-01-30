@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
 <!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
  "task.dtd">
 <task id="tjvalselect" xml:lang="en-us">
@@ -12,20 +13,20 @@ run on manual validation, build validation, both, or neither. </shortdesc>
 </keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
-<context outputclass="id_context"><p outputclass="anchor_topictop"></p>
-<p>To choose the validators that you want to use for a project:</p></context>
+<context outputclass="id_context"><p outputclass="anchor_topictop"></p><p>To
+choose the validators that you want to use for a project, complete the following
+steps:</p></context>
 <steps outputclass="id_steps">
 <step><cmd>Click <menucascade><uicontrol>Window</uicontrol><uicontrol>Preferences</uicontrol>
-</menucascade>.</cmd></step>
-<step><cmd>In the Preferences window, click <uicontrol>Validation</uicontrol> in
-the left pane.</cmd><stepresult>The Validation page of the Preferences window
-lists the validators available in your project and their settings.</stepresult>
-</step>
+</menucascade> and select <uicontrol>Validation</uicontrol> in the left pane.</cmd>
+<stepresult>The Validation page of the Preferences window lists the validators
+available in your project and their settings.</stepresult></step>
 <step><cmd>Clear the <uicontrol>Suspend all validators</uicontrol> check box.</cmd>
 </step>
-<step><cmd>If you want to set individual validation settings for one or more
-of your projects, select the <uicontrol>Allow projects to override these preference
-settings</uicontrol> check box.</cmd></step>
+<step importance="optional"><cmd><?Pub Caret1?>If you want to set individual
+validation settings for one or more of your projects, select the <uicontrol>Allow
+projects to override these preference settings</uicontrol> check box.</cmd>
+</step>
 <step><cmd>In the list of validators, select the check boxes next to each
 validator you want to use at the global level.</cmd><info>Each validator has
 a check box to specify whether it is used on manual validation or on a build.<note>If
@@ -33,14 +34,14 @@ you deselect any validator that is currently selected, any messages associated
 with the deselected validator will be removed from the task list.</note></info>
 </step>
 <step><cmd>Choose an alternate implementation for a validator by clicking
-the button in the <uicontrol>Settings</uicontrol> column.</cmd><info>Not all
-validators have alternate implementations.</info></step>
-<step><cmd>Click <uicontrol>OK</uicontrol>.</cmd></step>
-<step><cmd>If you want to set individual validation settings for one or more
-of your projects, see <xref href="tjvalglobalpref.dita"></xref>.</cmd><info>Like
-the global validation preferences, you can set validators at the project level
-to run on manual validation, build validation, both, or neither.</info></step>
+the button in the <uicontrol>Settings</uicontrol> column, then click <uicontrol>OK</uicontrol>.</cmd>
+<info>Not all validators have alternate implementations.</info></step>
 </steps>
+<result>If you want to set individual validation settings for one or more
+of your projects, see <xref href="tjvalglobalpref.dita"></xref>. Like the
+global validation preferences, you can set validators at the project level
+to run on manual validation, build validation, both, or neither.</result>
 <postreq outputclass="id_postreq"><p outputclass="anchor_topicbottom"></p></postreq>
 </taskbody>
 </task>
+<?Pub *0000002685?>

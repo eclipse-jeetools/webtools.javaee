@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
 <!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
  "task.dtd">
 <task id="tchangejavalevel" xml:lang="en-us">
-<title outputclass="id_title">Changing the Java compiler version for a J2EE
-project</title>
-<shortdesc outputclass="id_shortdesc">You can change the version of Java used
+<title outputclass="id_title">Changing the <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> compiler version for a J2EE project</title>
+<shortdesc outputclass="id_shortdesc">You can change the version of <tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> used
 in a J2EE project by changing the value of the <uicontrol>Java</uicontrol> facet.</shortdesc>
 <prolog><metadata>
 <keywords><indexterm>Java<indexterm>J2EE project compiler level</indexterm></indexterm>
@@ -12,23 +14,28 @@ in a J2EE project by changing the value of the <uicontrol>Java</uicontrol> facet
 </keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
-<context outputclass="id_context"><p outputclass="anchor_topictop"></p>
-<p>The <uicontrol>Java</uicontrol> facet applies only to J2EE projects. To set the Java compiler level of a non-J2EE
-project, such as a Java project, see <xref format="html" href="../../org.eclipse.jdt.doc.user/reference/ref-preferences-compiler.htm"
-scope="peer">Java Compiler</xref>.</p></context>
+<context outputclass="id_context"><p outputclass="anchor_topictop"></p> <p>The <uicontrol>Java</uicontrol> facet
+applies only to J2EE projects. To set the <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> compiler level of a non-J2EE project,
+such as a <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> project, see <xref format="html" href="../../org.eclipse.jdt.doc.user/reference/ref-preferences-compiler.htm"
+scope="peer"><tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> Compiler</xref>.</p><p>To change the <tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> compiler
+version, complete the following steps:</p></context>
 <steps outputclass="id_steps">
-<step><cmd>In the Project Explorer view, right-click the project and then
-click <uicontrol>Properties</uicontrol>.</cmd></step>
-<step><cmd>In the Properties window, click <uicontrol>Project Facets</uicontrol>.</cmd>
-<stepresult>The Project Facets page lists the facets in the project. </stepresult>
-</step>
-<step><cmd>Click <uicontrol>Add/Remove Project Facets</uicontrol>.</cmd></step>
-<step><cmd>In the Add/Remove Project Facets window, click the <uicontrol>Java</uicontrol> facet
-to select it.</cmd></step>
-<step><cmd>Select the level of Java compiler to use from the drop-down box
-next to the <uicontrol>Java</uicontrol> facet.</cmd></step>
-<step><cmd>Click <uicontrol>Finish</uicontrol>.</cmd></step>
-<step><cmd>Click <uicontrol>OK</uicontrol>.</cmd></step>
+<step><cmd>In the Project Explorer view of the <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> EE perspective, right-click the project
+and then select <uicontrol>Properties</uicontrol>.</cmd></step>
+<step><cmd>Select the <uicontrol>Project Facets</uicontrol> page in the in
+the Properties window.</cmd><info> This page lists the facets in the project
+and their versions.</info></step>
+<step><cmd>Click <uicontrol>Modify Project</uicontrol>.</cmd></step>
+<step><cmd>Double click the version number next to the<uicontrol>Java</uicontrol> facet
+to select a different level of <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> compiler.</cmd></step>
+<step><cmd>Click <uicontrol>Finish</uicontrol> to close the Modify Faceted
+Project window and then click <uicontrol>OK</uicontrol>.</cmd></step>
 </steps>
 <postreq outputclass="id_postreq"><p outputclass="anchor_topicbottom"></p></postreq>
 </taskbody>

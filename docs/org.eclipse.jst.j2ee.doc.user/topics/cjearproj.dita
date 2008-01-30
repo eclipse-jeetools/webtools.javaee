@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
  "concept.dtd">
 <concept id="cjearproj" xml:lang="en-us">
@@ -13,11 +14,11 @@ together the resources that are required to deploy a J2EE enterprise application
 </metadata></prolog>
 <conbody outputclass="id_conbody">
 <p outputclass="anchor_topictop"></p>
-<p>An enterprise application project contains
-a set of references to other J2EE modules and <tm tmclass="special" tmowner="Sun Microsystems, Inc."
-tmtype="tm" trademark="Java">Java</tm> projects that are combined to compose
-an EAR file. These projects can be Web modules, EJB modules, application client
-modules, connector modules, general utility <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+<p>An enterprise application project contains a set of references to other
+J2EE modules and <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> projects that are combined to compose an EAR file.
+These projects can be Web modules, EJB modules, application client modules,
+connector modules, general utility <tm tmclass="special" tmowner="Sun Microsystems, Inc."
 tmtype="tm" trademark="Java">Java</tm> JAR files, and EJB client JAR files.
 Enterprise application projects created in the workbench include a deployment
 descriptor, as well as files that are common to all J2EE modules that are
@@ -32,9 +33,9 @@ such as Web archive (WAR) files and EJB JAR files.</p>
 <p>An enterprise application can contain utility JAR files that are to be
 used by the contained modules. This allows sharing of code at the application
 level by multiple Web, EJB, or application client modules. These JAR files
-are commonly referred to as <i>utility JAR files.</i> The utility JAR files
-defined for an enterprise application project can be actual JAR files in the
-project, or you can include utility <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+are commonly referred to as utility JAR files. The utility JAR files defined
+for an enterprise application project can be actual JAR files in the project,
+or you can include utility <tm tmclass="special" tmowner="Sun Microsystems, Inc."
 tmtype="tm" trademark="Java">Java</tm> projects that are designated to become
 the utility JAR files during assembly and deployment.</p>
 <p>To start developing J2EE applications, you typically first create an enterprise

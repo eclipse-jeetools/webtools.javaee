@@ -2,17 +2,17 @@
 <html lang="en-us" xml:lang="en-us">
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<meta name="copyright" content="Copyright (c) 2000, 2006 IBM Corporation and others. All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html. Contributors: IBM Corporation - initial API and implementation" />
-<meta name="DC.rights.owner" content="(C) Copyright 2000, 2006" />
+<meta name="copyright" content="Copyright (c) 2000, 2008 IBM Corporation and others. All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html. Contributors: IBM Corporation - initial API and implementation" />
+<meta name="DC.rights.owner" content="(C) Copyright 2000, 2008" />
 <meta content="public" name="security" />
 <meta content="index,follow" name="Robots" />
 <meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
 <meta content="reference" name="DC.Type" />
 <meta name="DC.Title" content="Common validation errors and solutions" />
-<meta name="abstract" content="You may encounter these common error messages when you validate your projects." />
-<meta name="description" content="You may encounter these common error messages when you validate your projects." />
-<meta content="validation, errors, solutions to errors, code validation, solutions to errors" name="DC.subject" />
-<meta content="validation, errors, solutions to errors, code validation, solutions to errors" name="keywords" />
+<meta name="abstract" content="This table lists the common error messages you may encounter when you validate your projects." />
+<meta name="description" content="This table lists the common error messages you may encounter when you validate your projects." />
+<meta content="code validation, error solutions, validation" name="DC.subject" />
+<meta content="code validation, error solutions, validation" name="keywords" />
 <meta scheme="URI" name="DC.Relation" content="../topics/rvalidators.html" />
 <meta scheme="URI" name="DC.Relation" content="../topics/tjval.html" />
 <meta content="XHTML" name="DC.Format" />
@@ -24,43 +24,43 @@
 <body id="rvalerr"><a name="rvalerr"><!-- --></a>
 
 
-<h1 class="topictitle1" id="title">Common validation errors and solutions</h1>
+<h1 class="id_title">Common validation errors and solutions</h1>
 
 
 
-<div id="refbody"><div id="shortdesc">You may encounter these common error
-messages when you validate your projects.</div>
+<div class="id_refbody"><p class="id_shortdesc">This table lists the common error messages
+you may encounter when you validate your projects.</p>
 
-<anchor id="topictop"></anchor>
+<div class="anchor_topictop" />
 
 
 <div class="tablenoborder"><table summary="" cellspacing="0" cellpadding="4" frame="border" border="1" rules="all">
 
 <thead align="left">
-<tr id="tableHeadRow">
-<th valign="top" width="20.27027027027027%" id="N1008D">Message prefix</th>
+<tr class="id_tableHeadRow">
+<th valign="top" width="20.27027027027027%" id="N10078">Message prefix</th>
 
-<th valign="top" width="24.324324324324326%" id="N10094">Message</th>
+<th valign="top" width="24.324324324324326%" id="N1007F">Message</th>
 
-<th valign="top" width="55.4054054054054%" id="N1009B">Explanation</th>
+<th valign="top" width="55.4054054054054%" id="N10086">Explanation</th>
 
 </tr>
 
 </thead>
 
 <tbody>
-<tr id="appclientValidator">
-<td colspan="3" valign="top" headers="N1008D N10094 N1009B "><span class="uicontrol">Application Client validator</span></td>
+<tr class="id_appclientValidator">
+<td colspan="3" valign="top" headers="N10078 N1007F N10086 "><span class="uicontrol">Application Client validator</span></td>
 
 </tr>
 
-<tr id="CHKJ1000">
-<td valign="top" width="20.27027027027027%" headers="N1008D ">CHKJ1000</td>
+<tr class="id_CHKJ1000">
+<td valign="top" width="20.27027027027027%" headers="N10078 ">CHKJ1000</td>
 
-<td valign="top" width="24.324324324324326%" headers="N10094 ">Validation failed because the application client file
+<td valign="top" width="24.324324324324326%" headers="N1007F ">Validation failed because the application client file
 is not valid. Ensure that the deployment descriptor is valid.</td>
 
-<td valign="top" width="55.4054054054054%" headers="N1009B ">The application-client.xml file cannot be loaded. The
+<td valign="top" width="55.4054054054054%" headers="N10086 ">The application-client.xml file cannot be loaded. The
 project metadata cannot be initialized from the application-client.xml file.
   <ol>
 <li>Ensure the following:  <ul>
@@ -85,17 +85,17 @@ rebuild the project. The project metadata will refresh.</li>
 
 </tr>
 
-<tr id="EARValidator">
-<td colspan="3" valign="top" headers="N1008D N10094 N1009B "><span class="uicontrol">EAR validator</span></td>
+<tr class="id_EARValidator">
+<td colspan="3" valign="top" headers="N10078 N1007F N10086 "><span class="uicontrol">EAR validator</span></td>
 
 </tr>
 
-<tr id="CHKJ1001">
-<td valign="top" width="20.27027027027027%" headers="N1008D ">CHKJ1001</td>
+<tr class="id_CHKJ1001">
+<td valign="top" width="20.27027027027027%" headers="N10078 ">CHKJ1001</td>
 
-<td valign="top" width="24.324324324324326%" headers="N10094 ">The EAR project {0} is invalid.</td>
+<td valign="top" width="24.324324324324326%" headers="N1007F ">The EAR project {0} is invalid.</td>
 
-<td valign="top" width="55.4054054054054%" headers="N1009B ">The application.xml file cannot be loaded. The project
+<td valign="top" width="55.4054054054054%" headers="N10086 ">The application.xml file cannot be loaded. The project
 metadata cannot be initialized from the application.xml file.  <ol>
 <li>Ensure the following:  <ul>
 <li>that the META-INF folder exists in the EAR project</li>
@@ -119,17 +119,17 @@ rebuild the project. The project metadata will refresh.</li>
 
 </tr>
 
-<tr id="EJBValidator">
-<td colspan="3" valign="top" headers="N1008D N10094 N1009B "><span class="uicontrol">EJB validator</span></td>
+<tr class="id_EJBValidator">
+<td colspan="3" valign="top" headers="N10078 N1007F N10086 "><span class="uicontrol">EJB validator</span></td>
 
 </tr>
 
-<tr id="CHKJ2019">
-<td valign="top" width="20.27027027027027%" headers="N1008D ">CHKJ2019</td>
+<tr class="id_CHKJ2019">
+<td valign="top" width="20.27027027027027%" headers="N10078 ">CHKJ2019</td>
 
-<td valign="top" width="24.324324324324326%" headers="N10094 ">The {0} key class must be serializable at runtime. </td>
+<td valign="top" width="24.324324324324326%" headers="N1007F ">The {0} key class must be serializable at runtime. </td>
 
-<td rowspan="3" valign="top" width="55.4054054054054%" headers="N1009B ">The EJB is compliant with the EJB specification. This
+<td rowspan="3" valign="top" width="55.4054054054054%" headers="N10086 ">The EJB is compliant with the EJB specification. This
 message is a warning that problems may occur. The warning appears when a type
 needs to be serializable at runtime and when serializability cannot be verified
 at compile-time. A type is serializable if, at runtime, it is a primitive
@@ -139,57 +139,57 @@ make the object serializable at compile-time or ignore the warning. </td>
 
 </tr>
 
-<tr id="CHKJ2412">
-<td valign="top" width="20.27027027027027%" headers="N1008D ">CHKJ2412</td>
+<tr class="id_CHKJ2412">
+<td valign="top" width="20.27027027027027%" headers="N10078 ">CHKJ2412</td>
 
-<td valign="top" width="24.324324324324326%" headers="N10094 ">The return type must be serializable at runtime. </td>
-
-</tr>
-
-<tr id="CHKJ2413">
-<td valign="top" width="20.27027027027027%" headers="N1008D ">CHKJ2413</td>
-
-<td valign="top" width="24.324324324324326%" headers="N10094 ">Argument {1} of {0} must be serializable at runtime.</td>
+<td valign="top" width="24.324324324324326%" headers="N1007F ">The return type must be serializable at runtime. </td>
 
 </tr>
 
-<tr id="CHKJ2102">
-<td valign="top" width="20.27027027027027%" headers="N1008D ">CHKJ2102</td>
+<tr class="id_CHKJ2413">
+<td valign="top" width="20.27027027027027%" headers="N10078 ">CHKJ2413</td>
 
-<td valign="top" width="24.324324324324326%" headers="N10094 ">Either a finder descriptor, or a matching custom finder method on the
+<td valign="top" width="24.324324324324326%" headers="N1007F ">Argument {1} of {0} must be serializable at runtime.</td>
+
+</tr>
+
+<tr class="id_CHKJ2102">
+<td valign="top" width="20.27027027027027%" headers="N10078 ">CHKJ2102</td>
+
+<td valign="top" width="24.324324324324326%" headers="N1007F ">Either a finder descriptor, or a matching custom finder method on the
 {0} class, must be defined.</td>
 
-<td valign="top" width="55.4054054054054%" headers="N1009B ">A finder descriptor must exist for every finder method. </td>
+<td valign="top" width="55.4054054054054%" headers="N10086 ">A finder descriptor must exist for every finder method. </td>
 
 </tr>
 
-<tr id="CHKJ2873">
-<td valign="top" width="20.27027027027027%" headers="N1008D ">CHKJ2873</td>
+<tr class="id_CHKJ2873">
+<td valign="top" width="20.27027027027027%" headers="N10078 ">CHKJ2873</td>
 
-<td valign="top" width="24.324324324324326%" headers="N10094 ">Migrate this bean's datasource binding to a CMP Connection Factory
+<td valign="top" width="24.324324324324326%" headers="N1007F ">Migrate this bean's datasource binding to a CMP Connection Factory
 binding.</td>
 
-<td valign="top" width="55.4054054054054%" headers="N1009B ">&nbsp;</td>
+<td valign="top" width="55.4054054054054%" headers="N10086 ">&nbsp;</td>
 
 </tr>
 
-<tr id="CHKJ2874">
-<td valign="top" width="20.27027027027027%" headers="N1008D ">CHKJ2874</td>
+<tr class="id_CHKJ2874">
+<td valign="top" width="20.27027027027027%" headers="N10078 ">CHKJ2874</td>
 
-<td valign="top" width="24.324324324324326%" headers="N10094 ">Migrate this EJB module's default datasource binding to a default CMP
+<td valign="top" width="24.324324324324326%" headers="N1007F ">Migrate this EJB module's default datasource binding to a default CMP
 Connection Factory binding.</td>
 
-<td valign="top" width="55.4054054054054%" headers="N1009B ">&nbsp;</td>
+<td valign="top" width="55.4054054054054%" headers="N10086 ">&nbsp;</td>
 
 </tr>
 
-<tr id="CHKJ2875E">
-<td valign="top" width="20.27027027027027%" headers="N1008D ">CHKJ2875E       </td>
+<tr class="id_CHKJ2875E">
+<td valign="top" width="20.27027027027027%" headers="N10078 ">CHKJ2875E       </td>
 
-<td valign="top" width="24.324324324324326%" headers="N10094 ">&lt;ejb-client-jar&gt; {0} must exist in every EAR file
+<td valign="top" width="24.324324324324326%" headers="N1007F ">&lt;ejb-client-jar&gt; {0} must exist in every EAR file
 that contains this EJB module.</td>
 
-<td valign="top" width="55.4054054054054%" headers="N1009B ">If <samp class="codeph">&lt;ejb-client-jar&gt;</samp> is specified
+<td valign="top" width="55.4054054054054%" headers="N10086 ">If <samp class="codeph">&lt;ejb-client-jar&gt;</samp> is specified
 in <span class="filepath">ejb-jar.xml</span>, a corresponding EJB client project must
 contain the home and remote interfaces and any other types that a client will
 need. If these types are all contained in a single EJB project, delete the <samp class="codeph">&lt;ejb-client-jar&gt;</samp> line
@@ -199,13 +199,13 @@ EJB project as a module.</td>
 
 </tr>
 
-<tr id="CHKJ2905">
-<td valign="top" width="20.27027027027027%" headers="N1008D ">CHKJ2905</td>
+<tr class="id_CHKJ2905">
+<td valign="top" width="20.27027027027027%" headers="N10078 ">CHKJ2905</td>
 
-<td valign="top" width="24.324324324324326%" headers="N10094 ">The EJB validator did not run because ejb-jar.xml could not be loaded.
+<td valign="top" width="24.324324324324326%" headers="N1007F ">The EJB validator did not run because ejb-jar.xml could not be loaded.
 Run the XML validator for more information.</td>
 
-<td valign="top" width="55.4054054054054%" headers="N1009B ">CHKJ2905 means that the project's metadata could not be initialized
+<td valign="top" width="55.4054054054054%" headers="N10086 ">CHKJ2905 means that the project's metadata could not be initialized
 from ejb-jar.xml. <ol>
 <li>Ensure the following:  <ul>
 <li>that the META-INF folder exists in the EJB project</li>
@@ -228,17 +228,17 @@ rebuild the project. The project metadata will refresh.</li>
 
 </tr>
 
-<tr id="JSPValidator">
-<td colspan="3" valign="top" headers="N1008D N10094 N1009B "><span class="uicontrol">JSP validator</span></td>
+<tr class="id_JSPValidator">
+<td colspan="3" valign="top" headers="N10078 N1007F N10086 "><span class="uicontrol">JSP validator</span></td>
 
 </tr>
 
-<tr id="IWAW0482">
-<td valign="top" width="20.27027027027027%" headers="N1008D ">IWAW0482</td>
+<tr class="id_IWAW0482">
+<td valign="top" width="20.27027027027027%" headers="N10078 ">IWAW0482</td>
 
-<td valign="top" width="24.324324324324326%" headers="N10094 ">No valid JspTranslator</td>
+<td valign="top" width="24.324324324324326%" headers="N1007F ">No valid JspTranslator</td>
 
-<td valign="top" width="55.4054054054054%" headers="N1009B ">There is a path problem with the project; the JSP Validator
+<td valign="top" width="55.4054054054054%" headers="N10086 ">There is a path problem with the project; the JSP Validator
 needs access to the WAS runtime code. If IWAW0482E appears on all web projects,
 check the Variable or JRE path:   <ol>
 <li>Check the global preferences (<span class="uicontrol">Window &gt; Preferences &gt; Java &gt;Installed
@@ -253,17 +253,17 @@ Java &gt; Classpath Variables</span>) are set correctly.</li>
 
 </tr>
 
-<tr id="WARValidator">
-<td colspan="3" valign="top" headers="N1008D N10094 N1009B "><span class="uicontrol">WAR validator</span></td>
+<tr class="id_WARValidator">
+<td colspan="3" valign="top" headers="N10078 N1007F N10086 "><span class="uicontrol">WAR validator</span></td>
 
 </tr>
 
-<tr id="CHKJ3008">
-<td valign="top" width="20.27027027027027%" headers="N1008D ">CHKJ3008</td>
+<tr class="id_CHKJ3008">
+<td valign="top" width="20.27027027027027%" headers="N10078 ">CHKJ3008</td>
 
-<td valign="top" width="24.324324324324326%" headers="N10094 ">Missing or invalid WAR file.</td>
+<td valign="top" width="24.324324324324326%" headers="N1007F ">Missing or invalid WAR file.</td>
 
-<td valign="top" width="55.4054054054054%" headers="N1009B ">The web.xml file cannot be loaded. The project metadata
+<td valign="top" width="55.4054054054054%" headers="N10086 ">The web.xml file cannot be loaded. The project metadata
 cannot be initialized from the web.xml file.   <ol>
 <li>Ensure the following:  <ul>
 <li>that the WEB-INF folder exists in the web project</li>
@@ -286,18 +286,18 @@ rebuild the project. The project metadata will refresh.</li>
 
 </tr>
 
-<tr id="XMLValidator">
-<td colspan="3" valign="top" headers="N1008D N10094 N1009B "><span class="uicontrol">XML validator</span></td>
+<tr class="id_XMLValidator">
+<td colspan="3" valign="top" headers="N10078 N1007F N10086 "><span class="uicontrol">XML validator</span></td>
 
 </tr>
 
 <tr>
-<td valign="top" width="20.27027027027027%" headers="N1008D "> </td>
+<td valign="top" width="20.27027027027027%" headers="N10078 "> </td>
 
-<td valign="top" width="24.324324324324326%" headers="N10094 ">The content of element type "ejb-jar" is incomplete, it must match
+<td valign="top" width="24.324324324324326%" headers="N1007F ">The content of element type "ejb-jar" is incomplete, it must match
 "(description?,display-name?,small-icon?,large-icon?,enterprise-beans,assembly-descriptor?,ejb-client-jar?)".</td>
 
-<td valign="top" width="55.4054054054054%" headers="N1009B ">The EJB 1.1 and 2.0 specifications mandate that at least one enterprise
+<td valign="top" width="55.4054054054054%" headers="N10086 ">The EJB 1.1 and 2.0 specifications mandate that at least one enterprise
 bean must exist in an EJB .jar file. This error message is normal during development
 of EJB .jar files and can be ignored until you perform a production action,
 such as exporting or deploying code. Define at least one enterprise bean in
@@ -310,7 +310,7 @@ the project.</td>
 </table>
 </div>
 
-<anchor id="topicbottom"></anchor>
+<div class="anchor_topicbottom" />
 
 </div>
 

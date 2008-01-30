@@ -5,7 +5,7 @@
       <topic href="topics/cjarch.html#cjarch" title="J2EE architecture"/>
     </entry>
     <entry keyword="workbench perspectives">
-      <topic href="topics/cjpers.html#cjpers" title="J2EE perspective"/>
+      <topic href="topics/cjpers.html#cjpers" title="Java EE perspective"/>
     </entry>
     <entry keyword="enterprise application projects">
       <entry keyword="overview">
@@ -37,9 +37,12 @@
       <topic href="topics/rjlimitcurrent.html#rjlimitcurrent" title="Limitations of J2EE development tools"/>
     </entry>
   </entry>
+  <entry keyword="Java EE">
+    <topic href="topics/cjarch.html#cjarch" title="J2EE architecture"/>
+  </entry>
   <entry keyword="enterprise applications">
-    <entry keyword="J2EE perspective">
-      <topic href="topics/cjpers.html#cjpers" title="J2EE perspective"/>
+    <entry keyword="Java EE perspective">
+      <topic href="topics/cjpers.html#cjpers" title="Java EE perspective"/>
     </entry>
     <entry keyword="projects">
       <entry keyword="artifacts">
@@ -58,15 +61,15 @@
   </entry>
   <entry keyword="views">
     <entry keyword="Project Explorer">
-      <topic href="topics/cjview.html#cjview" title="Project Explorer view in the J2EE perspective"/>
+      <topic href="topics/cjview.html#cjview" title="Project Explorer view in the Java EE perspective"/>
     </entry>
     <entry keyword="Project Explorer filters">
-      <topic href="topics/cjviewfilters.html#cjviewfilters" title="Filters in the Project Explorer view"/>
+      <topic href="topics/cjviewfilters.html#cjviewfiltersCait" title="Filters in the project explorer view"/>
     </entry>
   </entry>
   <entry keyword="filters">
     <entry keyword="Project Explorer view">
-      <topic href="topics/cjviewfilters.html#cjviewfilters" title="Filters in the Project Explorer view"/>
+      <topic href="topics/cjviewfilters.html#cjviewfiltersCait" title="Filters in the project explorer view"/>
     </entry>
   </entry>
   <entry keyword="projects">

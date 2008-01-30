@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
 <!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
  "task.dtd">
 <task id="tchangefacet" xml:lang="en-us">
@@ -12,22 +13,24 @@ in a J2EE project by editing the facets for the project.</shortdesc>
 </keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
-<context outputclass="id_context"><p outputclass="anchor_topictop"></p>
-<p>Changing the Java compiler version of a J2EE project involves changing the version
-of the <uicontrol>Java</uicontrol> facet. See <xref href="tchangejavalevel.dita"></xref>.</p></context>
+<context outputclass="id_context"><p outputclass="anchor_topictop"></p> <p>Changing
+the <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> compiler
+version of a J2EE project involves changing the version of the <uicontrol>Java</uicontrol> facet.
+For more information, see <xref href="tchangejavalevel.dita"></xref>.</p><p>To
+change the version of a facet in your project, complete the following steps:</p></context>
 <steps outputclass="id_steps">
-<step><cmd>In the Project Explorer view, right-click the project and then
-click <uicontrol>Properties</uicontrol>.</cmd></step>
-<step><cmd>In the Properties window, click <uicontrol>Project Facets</uicontrol>.</cmd>
-<stepresult>The Project Facets page lists the facets in the project. </stepresult>
-</step>
-<step><cmd>Click <uicontrol>Add/Remove Project Facets</uicontrol>.</cmd></step>
-<step><cmd>In the Add/Remove Project Facets window, click the facet you want
-to change to select it.</cmd></step>
+<step><cmd>In the Project Explorer view of the <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> EE perspective, right-click the project
+and then select <uicontrol>Properties</uicontrol>.</cmd></step>
+<step><cmd>Select the <uicontrol>Project Facets</uicontrol> page in the in
+the Properties window.</cmd><info> This page lists the facets in the project
+and their versions.</info></step>
+<step><cmd>Click <uicontrol>Modify Project</uicontrol> and click the facet
+you want to change.</cmd></step>
 <step><cmd>Select the version of the facet from the drop-down box next to
 the facet's name.</cmd></step>
-<step><cmd>Click <uicontrol>Finish</uicontrol>.</cmd></step>
-<step><cmd>Click <uicontrol>OK</uicontrol>.</cmd></step>
+<step><cmd>Click <uicontrol>Finish</uicontrol> to close the Modify Faceted
+Project window and then click <uicontrol>OK</uicontrol>.</cmd></step>
 </steps>
 <postreq outputclass="id_postreq"><p outputclass="anchor_topicbottom"></p></postreq>
 </taskbody>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
  "concept.dtd">
 <concept id="cfacets" xml:lang="en-us">
 <title outputclass="id_title">Project facets</title>
 <shortdesc outputclass="id_shortdesc">Facets define characteristics and requirements
-for J2EE projects. </shortdesc>
+for J2EE projects and are used as part of the runtime configuration. </shortdesc>
 <prolog><metadata>
 <keywords><indexterm>J2EE<indexterm>project facets</indexterm></indexterm>
 <indexterm>JavaServer Faces (JSF)<indexterm>project facets</indexterm></indexterm>
@@ -13,8 +14,8 @@ for J2EE projects. </shortdesc>
 </metadata></prolog>
 <conbody outputclass="id_conbody">
 <p outputclass="anchor_topictop"></p>
-<p>When you add a facet to a project, that project is configured to perform
-a certain task, fulfill certain requirements, or have certain characteristics.
+<p id="aboutfacet">When you add a facet to a project, that project is configured
+to perform a certain task, fulfill certain requirements, or have certain characteristics.
 For example, the EAR facet sets up a project to function as an enterprise
 application by adding a deployment descriptor and setting up the project's
 classpath.</p>

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
 <!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
  "task.dtd">
 <task id="tjtargetserver" xml:lang="en-us">
@@ -10,24 +11,23 @@ be changed in the project properties. The target server setting is the default
 mechanism for setting the class path for J2EE projects.</shortdesc>
 <prolog><metadata>
 <keywords><indexterm>J2EE<indexterm>target servers</indexterm></indexterm>
-<indexterm>projects<indexterm>target servers</indexterm></indexterm>
-<indexterm>target servers<indexterm>J2EE applications</indexterm></indexterm>
-</keywords>
+<indexterm>projects<indexterm>target servers</indexterm></indexterm><indexterm>target
+servers<indexterm>J2EE applications</indexterm></indexterm></keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
-<context outputclass="id_context"><p outputclass="anchor_topictop"></p>
-<p>In order to support different application servers that use different JDK levels for
-their <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> Runtime
-Environment (JRE), the workbench prompts you for a target server setting for
-each J2EE project. For example, if you want to take advantage of the features
-of JDK 1.4.2, your applications require different class path entries than
-those that were used in previous versions of the workbench. By prompting you
-to specify a target server, the workbench enforces that proper entries are
-added for running on the server you choose.</p><p>You can also add more than
-one target server for your project. In this case, the workbench prevents you
-from adding any facets not supported by all of the target servers. If you
-add more than one target server, one of those servers must be the primary
-server, the server that will contribute to the project's class path.</p><p>When
+<context outputclass="id_context"><p outputclass="anchor_topictop"></p> <p>In
+order to support different application servers that use different JDK levels
+for their <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> Runtime Environment (JRE), the workbench prompts
+you for a target server setting for each J2EE project. For example, if you
+want to take advantage of the features of JDK 1.4.2, your applications require
+different class path entries than those that were used in previous versions
+of the workbench. By prompting you to specify a target server, the workbench
+enforces that proper entries are added for running on the server you choose.</p><p>You
+can also add more than one target server for your project. In this case, the
+workbench prevents you from adding any facets not supported by all of the
+target servers. If you add more than one target server, choose a server that
+will contribute to the project's class path as the primary server.</p><p>When
 the project is created, the class path of the project is updated with two
 class path containers. One container is the JDK container and the other is
 the server container. The JDK container points to the directory that contains
@@ -54,31 +54,31 @@ tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">
 that are added to an application are targeted to the same target server as
 the application. Web library projects that are added to a Web project are
 targeted to the same target server as the Web project.</note><p>To modify
-the target runtime and default server for an existing project:</p></context>
+the target runtime and default server for an existing project, complete the
+following steps:</p></context>
 <steps outputclass="id_steps">
-<step><cmd>In the Project Explorer view of the J2EE perspective, right-click
-the enterprise application or module project, and select <uicontrol>Properties</uicontrol> from
-the pop-up menu.</cmd><stepresult>The Properties dialog for the project opens.</stepresult>
+<step><cmd>In the Project Explorer view of the <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> EE perspective, right-click the enterprise
+application or module project, and select <uicontrol>Properties</uicontrol>.</cmd>
 </step>
-<step><cmd>Select the <uicontrol>Targeted Runtimes</uicontrol> page on the
+<step><cmd>Select the <uicontrol>Targeted Runtimes</uicontrol> page in the
 Properties dialog.</cmd></step>
-<step><cmd>In the <uicontrol>Runtimes</uicontrol> list, select the check boxes
-next to each of the runtimes that you want to develop the project for.</cmd>
-<info><p>Only the runtimes compatible with the project's facets are shown.
-You can select the <uicontrol>Show all runtimes</uicontrol> check box to display
-the runtimes not compatible with the project's current facet configuration.
-These runtimes are grayed out.</p><p>If you don't see the runtime that you
-want to use, you need to add it to the runtimes in the workbench. See <xref
-format="html" href="../org.eclipse.wst.server.ui.doc.user/topics/twinstprf.html"
-scope="peer">Defining the installed server runtime environments</xref>.</p></info>
-</step>
+<step><cmd>In the <uicontrol>Targeted Runtimes</uicontrol> list, select the
+check boxes next to each of the runtimes that you want to develop the project
+for. If you don't see the runtime that you want to use, you need to add it
+to the runtimes in the workbench. For more information, see <xref format="html"
+href="../org.eclipse.wst.server.ui.doc.user/topics/twinstprf.html" scope="peer">Defining
+the installed server runtime environments</xref>.</cmd><info><note>Only the
+runtimes compatible with the project's facets are shown. You can select the <uicontrol>Show
+all runtimes</uicontrol> check box to display the runtimes not compatible
+with the project's current facet configuration. These runtimes are grayed
+out.</note></info></step>
 <step><cmd>To select the primary runtime, click on a runtime and then click
-the <uicontrol>Make Primary</uicontrol> button.</cmd><info><p>If you select
-any runtimes for the project, you must make one of those runtimes the primary
+the <uicontrol>Make Primary</uicontrol> button.</cmd><info>If you select any
+runtimes for the project, you must make one of those runtimes the primary
 runtime for the project. If you select only one runtime from the list, that
 runtime is automatically made the primary runtime. The primary runtime is
-shown in bold text.</p></info></step>
-<step><cmd>Click <uicontrol>Finish</uicontrol>.</cmd></step>
+shown in bold text.</info></step>
 <step><cmd>Click <uicontrol>OK</uicontrol>.</cmd></step>
 </steps>
 <postreq outputclass="id_postreq"><p outputclass="anchor_topicbottom"></p></postreq>

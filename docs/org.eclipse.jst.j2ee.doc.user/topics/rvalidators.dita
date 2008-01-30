@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
 <!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN"
  "reference.dtd">
 <reference id="rvalidators" xml:lang="en-us">
@@ -68,8 +69,8 @@ of the module projects with respect to the enterprise application project.</p></
 beans contained in an EJB project comply with the Sun Enterprise <tm tmclass="special"
 tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="JavaBeans">JavaBeans</tm> Specifications
 (1.1, 2.0, and 2.1), depending on the level of the bean. Code validation for
-the EJB 1.0 specification is not supported.   <p>Specifically, the EJB Validator
-validates the following resources: </p>  <ul>
+the EJB 1.0 specification is not supported. Specifically, the EJB Validator
+validates the following resources: <ul>
 <li><tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> .class
 files that are members of an enterprise bean (home interface, remote interface,
 enterprise bean class, and, if the bean is an entity bean, the key class)</li>
@@ -140,10 +141,6 @@ Structures<desc></desc></xref> from the W3C Web site.</entry>
 is well-formed. It also verifies if an XML file is valid - that is, it follows
 the constraints established in the DTD or XML schema the XML file is associated
 with.</entry>
-</row>
-<row outputclass="anchor_bottomrow">
-<entry colname="col1"></entry>
-<entry colname="col2"></entry>
 </row>
 </tbody>
 </tgroup>

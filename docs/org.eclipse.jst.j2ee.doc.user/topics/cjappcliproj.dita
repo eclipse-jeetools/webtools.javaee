@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
  "concept.dtd">
 <concept id="cjappcliproj" xml:lang="en-us">
 <title outputclass="id_title">Application client projects</title>
-<shortdesc outputclass="id_shortdesc"></shortdesc>
+<shortdesc outputclass="id_shortdesc">Application client projects contain
+programs that run on networked client systems so the project can benefit from
+a server's tools.</shortdesc>
 <prolog><metadata>
 <keywords><indexterm>application client projects<indexterm>overview</indexterm></indexterm>
 <indexterm>J2EE<indexterm>application client projects</indexterm></indexterm>
@@ -38,8 +41,8 @@ tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> class
 files. When you create a new application client project, the environment is
 set up for <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
 trademark="Java">Java</tm> development. A <tm tmclass="special" tmowner="Sun Microsystems, Inc."
-tmtype="tm" trademark="Java">Java</tm> <i>builder</i> is associated with the
-project so the <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+tmtype="tm" trademark="Java">Java</tm> builder is associated with the project
+so the <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
 trademark="Java">Java</tm> source can be incrementally compiled as it is updated.
 The application client project contains information about the type hierarchy
 and <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> elements.
