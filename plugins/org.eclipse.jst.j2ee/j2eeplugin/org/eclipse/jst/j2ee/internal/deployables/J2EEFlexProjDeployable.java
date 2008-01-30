@@ -631,6 +631,9 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     	if (edit==null) 
 			return false;
 		Application app = edit.getApplication();
+		if (app == null) { // if no application.xml, return false
+			return false;
+		}
 		IVirtualReference reference = getReferenceNamed(references,aComponent.getName());
 		// Ensure module URI exists on EAR DD for binary archive
 		return app.getFirstModule(reference.getArchiveName()) != null;
