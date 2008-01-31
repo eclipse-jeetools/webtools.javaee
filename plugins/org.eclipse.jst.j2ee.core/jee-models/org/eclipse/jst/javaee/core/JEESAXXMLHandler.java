@@ -27,7 +27,13 @@ public class JEESAXXMLHandler extends SAXXMIHandler {
 	}
 
 	protected EPackage getPackageForURI(String uriString) {
+		EPackage defPackage;
 		// Grab the schema location because all JEE DD files share a common namespace
+		if (urisToLocations == null) {//uriMap not initialized yet
+			defPackage = super.getPackageForURI(uriString);
+			if (urisToLocations == null)// if still not initialized.. then just return defPackage
+				return defPackage;
+		}
 		URI uri = urisToLocations.get(uriString);
 		String locString = (uri == null) ? uriString : uri.toString();
 		EPackage ePackage = packageRegistry.getEPackage(locString);
