@@ -44,16 +44,13 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentExportDataModelProvider;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.RuntimeClasspathEntry;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
@@ -360,7 +357,7 @@ public class DefectVerificationTests extends OperationTestCase {
 
 	/**
 	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=144288
-	 */
+
 	public void test144288() throws Exception {
 		String earName = "WorkAreaFvtApp.ear";//$NON-NLS-1$
 		String earFileName = getFullTestDataPath(earName);
@@ -397,6 +394,7 @@ public class DefectVerificationTests extends OperationTestCase {
 		export.setProperty(IEARComponentExportDataModelProperties.ARCHIVE_DESTINATION, earOutputName);
 		runAndVerify(export);
 	}
+	*/
 
 	/**
 	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=145460
