@@ -203,7 +203,7 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 			if (archiveComponents == null) {
 				archiveComponents = new ArrayList();
 				archiveComponentURIMap = new HashMap();
-				archiveComponentsDeployPath = IPath.SEPARATOR + projectRelativePath.removeLastSegments(1).toString();
+				archiveComponentsDeployPath = IPath.SEPARATOR + (new Path(archive.getURI())).removeLastSegments(1).toString();
 			}
 			archiveComponents.add(archiveComponent);
 			archiveComponentURIMap.put(archiveComponent, iFile.getName());
