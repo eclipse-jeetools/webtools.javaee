@@ -139,6 +139,7 @@ public class JavaEEEMFArchiveAdapterHelper {
 
 	public void initializeResourceSet() {
 		ResourceSet rs = new ResourceSetImpl() {
+			final String JAVA_PROTOCOL_URI_SCHEME = "java";
 			private IContentDescription getContentDescription(URI uri) {
 				IArchiveResource archiveResource = null;
 				InputStream ioStream = null;
@@ -170,7 +171,9 @@ public class JavaEEEMFArchiveAdapterHelper {
 			}
 			
 			public Resource createResource(URI uri, String contentType) {
-				IContentDescription description = getContentDescription(uri);
+				IContentDescription description = null;
+				if (!isJavaURI(uri))
+					description = getContentDescription(uri);
 
 				Resource.Factory resourceFactory = null;
 				if (null != description) {
@@ -219,6 +222,10 @@ public class JavaEEEMFArchiveAdapterHelper {
 				} else {
 					return null;
 				}
+			}
+
+			private boolean isJavaURI(URI uri) {
+				return JAVA_PROTOCOL_URI_SCHEME.equals(uri.scheme());
 			}
 		};
 		rs.setResourceFactoryRegistry(WTPResourceFactoryRegistry.INSTANCE);
