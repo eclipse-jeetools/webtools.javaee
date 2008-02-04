@@ -80,7 +80,7 @@ public abstract class J2EEModuleFacetInstallPage extends DataModelFacetInstallPa
                         }
                     };
                     
-                    Display.getDefault().syncExec( runnable );
+                    Display.getDefault().asyncExec( runnable );
                 }
             }
         };
