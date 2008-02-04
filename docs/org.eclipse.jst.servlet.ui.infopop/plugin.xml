@@ -19,6 +19,14 @@
 <extension point="org.eclipse.help.contexts">
       <contexts file="ServletWizContexts.xml" plugin ="org.eclipse.jst.servlet.ui"/>
    <contexts file="DynWebWizContexts.xml" plugin ="org.eclipse.jst.servlet.ui"/>
+   <contexts
+         file="ListenerWizContexts.xml"
+         plugin="org.eclipse.jst.servlet.ui">
+   </contexts>
+   <contexts
+         file="FilterWizContexts.xml"
+         plugin="org.eclipse.jst.servlet.ui">
+   </contexts>
 
 </extension>
 

@@ -15,6 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.operations.NewFilterClassDataModelProvider;
+import org.eclipse.jst.servlet.ui.IWebUIContextIds;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 
@@ -49,11 +50,11 @@ public class AddFilterWizard extends NewWebArtifactWizard {
 		        IWebWizardConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
 				IWebWizardConstants.ADD_FILTER_WIZARD_PAGE_TITLE, 
 				J2EEProjectUtilities.DYNAMIC_WEB);
-//		page1.setInfopopID(IWebUIContextIds.WEBEDITOR_FILTER_PAGE_ADD_FILTER_WIZARD_1);
+		page1.setInfopopID(IWebUIContextIds.WEBEDITOR_FILTER_PAGE_ADD_FILTER_WIZARD_1);
 		addPage(page1);
 
 		AddFilterWizardPage page2 = new AddFilterWizardPage(getDataModel(), PAGE_TWO);
-//		page2.setInfopopID(IWebUIContextIds.WEBEDITOR_FILTER_PAGE_ADD_FILTER_WIZARD_2);
+		page2.setInfopopID(IWebUIContextIds.WEBEDITOR_FILTER_PAGE_ADD_FILTER_WIZARD_2);
 		addPage(page2);
         
         NewFilterClassOptionsWizardPage page3 = new NewFilterClassOptionsWizardPage(
@@ -61,7 +62,7 @@ public class AddFilterWizard extends NewWebArtifactWizard {
                 PAGE_THREE,
                 IWebWizardConstants.NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC,
                 IWebWizardConstants.ADD_FILTER_WIZARD_PAGE_TITLE);
-//        page3.setInfopopID(IWebUIContextIds.WEBEDITOR_FILTER_PAGE_ADD_SERVLET_WIZARD_3);
+        page3.setInfopopID(IWebUIContextIds.WEBEDITOR_FILTER_PAGE_ADD_FILTER_WIZARD_3);
         addPage(page3);
 	}
     

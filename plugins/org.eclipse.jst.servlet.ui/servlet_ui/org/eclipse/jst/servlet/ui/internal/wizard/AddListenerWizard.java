@@ -15,6 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.operations.NewListenerClassDataModelProvider;
+import org.eclipse.jst.servlet.ui.IWebUIContextIds;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 
@@ -48,17 +49,17 @@ public class AddListenerWizard extends NewWebArtifactWizard {
 				PAGE_ONE,
 				IWebWizardConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
 				IWebWizardConstants.ADD_LISTENER_WIZARD_PAGE_TITLE, J2EEProjectUtilities.DYNAMIC_WEB);
-//		page1.setInfopopID(IWebUIContextIds.WEBEDITOR_SERVLET_PAGE_ADD_SERVLET_WIZARD_1);
+		page1.setInfopopID(IWebUIContextIds.WEBEDITOR_LISTENER_PAGE_ADD_LISTENER_WIZARD_1);
 		addPage(page1);
 		AddListenerWizardPage page2 = new AddListenerWizardPage(getDataModel(), PAGE_TWO);
-//		page2.setInfopopID(IWebUIContextIds.WEBEDITOR_SERVLET_PAGE_ADD_SERVLET_WIZARD_2);
+		page2.setInfopopID(IWebUIContextIds.WEBEDITOR_LISTENER_PAGE_ADD_LISTENER_WIZARD_2);
 		addPage(page2);
 		NewListenerClassOptionsWizardPage page3 = new NewListenerClassOptionsWizardPage(
 				getDataModel(), 
 				PAGE_THREE,
 				IWebWizardConstants.NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC,
 				IWebWizardConstants.ADD_LISTENER_WIZARD_PAGE_TITLE);
-//		page3.setInfopopID(IWebUIContextIds.WEBEDITOR_SERVLET_PAGE_ADD_SERVLET_WIZARD_3);
+		page3.setInfopopID(IWebUIContextIds.WEBEDITOR_LISTENER_PAGE_ADD_LISTENER_WIZARD_3);
 		addPage(page3);
 	}
 	
