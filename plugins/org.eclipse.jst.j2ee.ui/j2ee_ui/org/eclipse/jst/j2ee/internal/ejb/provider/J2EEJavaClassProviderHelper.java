@@ -29,6 +29,7 @@ import org.eclipse.wst.common.frameworks.internal.ui.OverlayIcon;
 public abstract class J2EEJavaClassProviderHelper implements IAdaptable {
 	private EnterpriseBean ejb;
 	public static final Class IRESOURCE_CLASS = IResource.class;
+	public static final Class IPROJECT_CLASS = IProject.class;
 
 	/**
 	 * J2EEJavaClassProviderHelper constructor comment.
@@ -137,6 +138,8 @@ public abstract class J2EEJavaClassProviderHelper implements IAdaptable {
 	public Object getAdapter(Class adapter) {
 		if (adapter == IRESOURCE_CLASS)
 			return J2EEEditorUtility.getFile(getJavaClass());
+		if (adapter == IPROJECT_CLASS)
+			return getProject();
 		return null;
 	}
 
