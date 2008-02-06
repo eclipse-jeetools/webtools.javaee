@@ -217,6 +217,27 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			} catch (JavaModelException e) {
 				Logger.getLogger().logError(e);
 			}
+			//the default behavior is to always export these dependencies
+			boolean exportEntries = true;
+			boolean useJDTToControlExport = J2EEComponentClasspathContainerUtils.getDefaultUseEARLibrariesJDTExport();
+			if(useJDTToControlExport){
+				//if the default is not enabled, then check whether the container is being exported
+				try{
+					IClasspathEntry [] rawEntries = javaProject.getRawClasspath();
+					for(int i=0;i<rawEntries.length; i++){
+						IClasspathEntry entry = rawEntries[i];
+						if(entry.getEntryKind() == IClasspathEntry.CPE_CONTAINER){
+							if(entry.getPath().equals(CONTAINER_PATH)){
+								exportEntries = entry.isExported();
+								break;
+							}
+						}
+					}
+				}  catch (JavaModelException e) {
+					Logger.getLogger().logError(e);
+				}
+			}
+			
 			for (int i = 0; i < refsList.size(); i++) {
 				ref = (IVirtualReference)refsList.get(i);
 				comp = ref.getReferencedComponent();
@@ -248,13 +269,13 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 				            attrs = dec.getExtraAttributes();
 				        }
 			        
-				        entriesList.add(JavaCore.newLibraryEntry( lastUpdate.paths[i], srcpath, srcrootpath, access, attrs, true ));
+				        entriesList.add(JavaCore.newLibraryEntry( lastUpdate.paths[i], srcpath, srcrootpath, access, attrs, exportEntries ));
 					}
 				} else {
 					IProject project = comp.getProject();
 					lastUpdate.paths[i] = project.getFullPath();
 					if (!isAlreadyOnClasspath(existingEntries, lastUpdate.paths[i])) {
-						entriesList.add(JavaCore.newProjectEntry(lastUpdate.paths[i], true));
+						entriesList.add(JavaCore.newProjectEntry(lastUpdate.paths[i], exportEntries));
 					}
 				}
 			}

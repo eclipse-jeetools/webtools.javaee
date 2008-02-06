@@ -39,6 +39,7 @@ public class J2EEPreferences {
 		final static String INCREMENTAL_DEPLOYMENT_SUPPORT = "org.eclipse.jst.j2ee.ui.preference.incrementalDeployment"; //$NON-NLS-1$
 		final static String USE_EAR_LIBRARIES = "org.eclipse.jst.j2ee.preferences.useEARLibraries";//$NON-NLS-1$
 		final static String USE_WEB_APP_LIBRARIES = "org.eclipse.jst.j2ee.preferences.useWebAppLibraries";//$NON-NLS-1$
+		final static String USE_EAR_LIBRARIES_JDT_EXPORT = "org.eclipse.jst.j2ee.preferences.useEARLibrariesJDTExport";//$NON-NLS-1$
 	}
 
 	public interface Values {
@@ -60,6 +61,7 @@ public class J2EEPreferences {
 		final static boolean CREATE_EJB_CLIENT_JAR = false;
 		final static boolean EJB_CLIENT_JAR_CP_COMPATIBILITY = true;
 		final static boolean INCREMENTAL_DEPLOYMENT_SUPPORT = true;
+		final static boolean USE_EAR_LIBRARIES_JDT_EXPORT = false;
 	}
 
 	private Plugin owner = null;
@@ -82,6 +84,8 @@ public class J2EEPreferences {
 		
 		getPreferences().setDefault(Keys.USE_EAR_LIBRARIES, ProductManager.getProperty(IProductConstants.USE_EAR_LIBRARIES));
 		getPreferences().setDefault(Keys.USE_WEB_APP_LIBRARIES, ProductManager.getProperty(IProductConstants.USE_WEB_APP_LIBRARIES));
+		getPreferences().setDefault(Keys.USE_EAR_LIBRARIES_JDT_EXPORT, Defaults.USE_EAR_LIBRARIES_JDT_EXPORT);
+		
 	}
 
 	public String getSetting(String key){
@@ -99,6 +103,15 @@ public class J2EEPreferences {
 	
 	public void setUseEARLibraries(boolean value) {
 		getPreferences().setValue(Keys.USE_EAR_LIBRARIES, value);
+		firePreferenceChanged();
+	}
+	
+	public boolean getUseEARLibrariesJDTExport() {
+		return getPreferences().getBoolean(Keys.USE_EAR_LIBRARIES_JDT_EXPORT);
+	}
+	
+	public void setUseEARLibrariesJDTExport(boolean value) {
+		getPreferences().setValue(Keys.USE_EAR_LIBRARIES_JDT_EXPORT, value);
 		firePreferenceChanged();
 	}
 	
