@@ -8,39 +8,40 @@
 <meta content="index,follow" name="Robots" />
 <meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
 <meta content="concept" name="DC.Type" />
-<meta name="DC.Title" content="EJB development resources" />
-<meta name="abstract" content="This topic describes resources and development tools that are commonly used in EJB development." />
-<meta name="description" content="This topic describes resources and development tools that are commonly used in EJB development." />
+<meta name="DC.Title" content="EJB 2.x development resources" />
+<meta name="abstract" content="This topic describes resources and development tools that are commonly used in EJB vesion 2.x development." />
+<meta name="description" content="This topic describes resources and development tools that are commonly used in EJB vesion 2.x development." />
 <meta content="EJB, developing, resources, EJB development" name="DC.subject" />
 <meta content="EJB, developing, resources, EJB development" name="keywords" />
 <meta scheme="URI" name="DC.Relation" content="../topics/ceover.html" />
 <meta content="XHTML" name="DC.Format" />
 <meta content="ceresrc" name="DC.Identifier" />
 <meta content="en-us" name="DC.Language" />
-<link href="../../org.eclipse.wst.doc.user/common.css" type="text/css" rel="stylesheet" />
-<title>EJB development resources</title>
+<link href="../../../org.eclipse.wst.doc.user/common.css" type="text/css" rel="stylesheet" />
+<title>EJB 2.x development resources</title>
 </head>
 <body id="ceresrc"><a name="ceresrc"><!-- --></a>
 
 
-<h1 class="topictitle1">EJB development resources</h1>
+<h1 class="topictitle1">EJB 2.x development resources</h1>
 
 
 
 <div><p>This topic describes resources and development tools that are commonly
-used in EJB development.</p>
+used in EJB vesion 2.x development.</p>
 
 <dl>
 <dt class="dlterm"><strong>EJB modules</strong></dt>
 
-<dd> <p>EJB modules are displayed in the Project Explorer view of the J2EE
-perspective, and they correspond to EJB projects.</p>
-<p>An EJB module is used
-to assemble one or more enterprise beans into a single deployable unit. An
-EJB module is developed in an EJB project, and it can be exported as either
-a standalone EJB JAR file, or it can be combined with other EJB or Web modules
-within an enterprise application. An EJB JAR file uses the format of a standard Java™ archive
-file. An EJB module contains the following: </p>
+<dd> <p>EJB modules are displayed in the Project Explorer view
+of the Java EE perspective, and they correspond to EJB projects.</p>
+<p>An
+EJB module is used to assemble one or more enterprise beans into a single
+deployable unit. An EJB module is developed in an EJB project, and it can
+either be exported as a standalone EJB JAR file, or combined with other EJB
+or Web modules within an enterprise application. An EJB JAR file uses the
+format of a standard Java™ archive file. An EJB module contains
+the following: </p>
 <ul>
 <li>One or more enterprise beans and their associated .class and .java files.</li>
 
@@ -51,9 +52,10 @@ Extensible Markup Language (XML). This file declares the contents of the EJB
 module, defines the structure of the beans in the module, and provides a description
 of how the beans are to be used at run time. </li>
 
-<li>A MANIFEST.MF file in the META-INF directory. The manifest file can contain
-a class path entry, with references to other JAR files or EJB modules in a
-J2EE enterprise application. It defines the module's external dependencies.</li>
+<li>A MANIFEST.MF file in the <span class="uicontrol">META-INF</span> directory. The
+manifest file can contain a class path entry, with references to other JAR
+files or EJB modules in a J2EE enterprise application. It defines the module's
+external dependencies.</li>
 
 </ul>
 <p>An EJB module is installed and runs in an EJB container.</p>
@@ -84,15 +86,15 @@ folder is named <strong>ejbModule</strong>, but you can change that name when yo
 the project or new source folders. When you publish or deploy the project,
 the contents of the folder or folders are aggregated. </p>
 <p>You cannot use
-the EJB project as the source folder; doing so will cause errors. Also, though
+the EJB project as the source folder, doing so will cause errors. Also, though
 you can have more than one source folder in the project, only one of these
-source folders can contain the META-INF folder in which the MANIFEST.MF and
-deployment descriptor files reside.</p>
-<div class="note"><span class="notetitle">Note:</span> If you choose to create an EJB
-client JAR file for your EJB module, the client interface classes for the
-enterprise beans will not be included in the EJB project, but in separate
-EJB client JAR project. EJB client JAR projects are displayed in the Project
-Explorer as Java projects under the <strong>Other Projects</strong> node.</div>
+source folders can contain the <span class="uicontrol">META-INF</span> folder in which
+the MANIFEST.MF and deployment descriptor files reside.</p>
+<div class="note"><span class="notetitle">Note:</span> If you choose
+to create an EJB client JAR file for your EJB module, the client interface
+classes for the enterprise beans will not be included in the EJB project,
+but in separate EJB client JAR project. EJB client JAR projects are displayed
+in the Project Explorer as Java projects under the <strong>Other Projects</strong> node.</div>
 </dd>
 
 
@@ -135,10 +137,10 @@ code. This can include writing to databases or XML files, for example.</dd>
 
 <dt class="dlterm"><strong>Session beans</strong></dt>
 
-<dd>Session beans do not <em>require</em> database access, though they can obtain
-it indirectly (as needed) by accessing entity beans. Session beans can also
-obtain direct access to databases (and other resources) through the use of
-resource references.</dd>
+<dd>Session beans do not require database access, though they can obtain it
+indirectly (as needed) by accessing entity beans. Session beans can also obtain
+direct access to databases (and other resources) through the use of resource
+references.</dd>
 
 
 <dt class="dlterm"><strong>Message-driven beans</strong></dt>
@@ -198,7 +200,7 @@ deployment descriptors, one for each module in the application.</p>
 
 <div>
 <div class="familylinks">
-<div class="parentlink"><strong>Parent topic:</strong> <a href="../topics/ceover.html" title="The workbench provides a specialized environment that you can use to develop and test enterprise beans that conform to the distributed component architecture defined in the Sun Microsystems Enterprise JavaBeans (EJB) specification. This product supports the Enterprise JavaBeans 1.1, 2.0, and 2.1 specification levels.">EJB application development</a></div>
+<div class="parentlink"><strong>Parent topic:</strong> <a href="../topics/ceover.html" title="The workbench provides a specialized environment that you can use to develop and test enterprise beans that conform to the distributed component architecture defined in the Sun Microsystems Enterprise JavaBeans (EJB) version specification. This product supports the Enterprise JavaBeans 1.1, 2.0, and 2.1 specification levels.">EJB 2.x application development</a></div>
 </div>
 </div>
 

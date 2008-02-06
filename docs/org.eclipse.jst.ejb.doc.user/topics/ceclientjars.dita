@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--Arbortext, Inc., 1988-2005, v.4002-->
-<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"  "concept.dtd">
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+ "concept.dtd">
 <concept id="ceclientjars" xml:lang="en-us">
-<title>EJB client JAR projects</title>
+<title>EJB 2.x <?Pub Caret?>client JAR projects</title>
 <shortdesc>An EJB client JAR project contains all the class files that a client
 program needs to use the client view of the enterprise beans that are contained
 in the EJB module.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>EJB<indexterm>cleint JAR projects</indexterm></indexterm>
+<keywords><indexterm>EJB<indexterm>client JAR projects</indexterm></indexterm>
 </keywords>
 </metadata></prolog>
 <conbody>
@@ -42,4 +43,4 @@ the application.</p>
 <note conref="teexp.dita#teexp/exportEJBClientJAR"></note>
 </conbody>
 </concept>
-<?Pub *0000002694?>
+<?Pub *0000002683?>

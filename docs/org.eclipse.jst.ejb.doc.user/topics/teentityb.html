@@ -17,7 +17,7 @@
 <meta content="XHTML" name="DC.Format" />
 <meta content="temessb" name="DC.Identifier" />
 <meta content="en-us" name="DC.Language" />
-<link href="../../org.eclipse.wst.doc.user/common.css" type="text/css" rel="stylesheet" />
+<link href="../../../org.eclipse.wst.doc.user/common.css" type="text/css" rel="stylesheet" />
 <title>Creating container-managed persistence (CMP) entity beans with XDoclet
 annotation support</title>
 </head>
@@ -34,136 +34,135 @@ your project.</p>
 
 <div class="p"><p>Before you can create an enterprise bean, you must:</p>
 <ul>
-<li>Define an EJB project to contain the enterprise bean. See <a href="tecrtpro.html" title="An EJB project is used to organize the resources contained in an&#10;EJB module.">Creating EJB projects</a>.</li>
+<li>Define an EJB project to contain the enterprise bean. See <a href="tecrtpro.html" title="An EJB project is used to organize the resources contained in an&#10;EJB module.">Creating EJB 2.x projects</a>.</li>
 
 <li>Install XDoclet annotation support and enable it. See <a href="txdocletconf.html" title="To use XDoclet annotation support, or to create enterprise beans,&#10;XDoclet must be installed on your system and configured to work with the workbench. ">Configuring XDoclet annotation support</a>.</li>
 
 </ul>
 </div>
 
-<div class="section"><p>To create a CMP entity bean:</p>
+<div class="section"><p>To create a CMP entity bean, complete the following steps:</p>
 </div>
 
 <ol>
-<li class="stepexpand"><span>In the J2EE perspective, click <strong>File &gt; New &gt; Other &gt; EJB &gt; XDoclet
-Enterprise JavaBean</strong>. The Create an Enterprise JavaBean wizard appears.</span>
+<li class="stepexpand"><span>In the Java EE perspective, click <span class="menucascade"><span class="uicontrol">File</span>
+ &gt; <span class="uicontrol">New</span> &gt; <span class="uicontrol">Other</span></span>.
+Select <span class="menucascade"><span class="uicontrol">EJB</span> &gt; <span class="uicontrol">XDoclet Enterprise
+JavaBean</span></span> and click <span class="uicontrol">Next</span>.</span>
 </li>
 
-<li class="stepexpand"><span>Select <strong>ContainerManagedEntityBean</strong>.</span></li>
+<li class="stepexpand"><span>Select <span class="uicontrol">Container Managed Entity Bean</span> and
+click <span class="uicontrol">Next</span>.</span></li>
 
-<li class="stepexpand"><span>Click <strong>Next</strong>.</span></li>
-
-<li class="stepexpand"><span>Select the <strong>Project</strong> that will contain the new bean. </span>
-</li>
-
-<li class="stepexpand"><span>In the <strong>Folder</strong> field, select the folder for the new bean. </span>
-</li>
-
-<li class="stepexpand"><span>In the <strong>Java package</strong> field, enter the package name for the
+<li class="stepexpand"><span>Select the <span class="uicontrol">Project</span> that will contain the
 new bean. </span></li>
 
-<li class="stepexpand"><span>In the <strong>Class name</strong> field, type a name for the enterprise
-bean. By convention, bean names should begin with an uppercase letter. </span>
- <div class="note"><span class="notetitle">Note:</span> You can use Unicode characters for the bean name, but Unicode
-characters are not supported for enterprise bean packages and classes associated
-with enterprise beans.</div>
+<li class="stepexpand"><span>In the <span class="uicontrol">Folder</span> field, select the folder for
+the new bean. </span></li>
+
+<li class="stepexpand"><span>In the <span class="uicontrol">Java package</span> field, enter the package
+name for the new bean. </span></li>
+
+<li class="stepexpand"><span>In the <span class="uicontrol">Class name</span> field, type a name for
+the enterprise bean. By convention, bean names should begin with an uppercase
+letter. </span> <div class="note"><span class="notetitle">Note:</span> You can use Unicode characters for the bean name,
+but Unicode characters are not supported for enterprise bean packages and
+classes associated with enterprise beans.</div>
 </li>
 
-<li class="stepexpand"><span>Change the <strong>Superclass</strong> for the bean if you want it to inherit
-from a class other than <samp class="codeph">java.lang.Object</samp> .</span></li>
+<li class="stepexpand"><strong>Optional: </strong><span>Change the <span class="uicontrol">Superclass</span> for
+the bean if you want it to inherit from a class other than <samp class="codeph">java.lang.Object</samp> and
+click <span class="uicontrol">Next</span>.</span></li>
 
-<li class="stepexpand"><span>Click <strong>Next</strong>.</span></li>
+<li class="stepexpand"><span>Provide an <span class="uicontrol">EJB Name</span> for the bean. This is
+the name of the enterprise bean class. </span></li>
 
-<li class="stepexpand"><span>Provide an <strong>EJB Name</strong> for the bean. This is the name of the
-enterprise bean class. </span></li>
+<li class="stepexpand"><span>Provide a <span class="uicontrol">Schema</span> name to specify the abstract
+schema of the bean.</span></li>
 
-<li class="stepexpand"><span>Provide a <strong>Schema</strong> name to specify the abstract schema of
-the bean.</span></li>
+<li class="stepexpand"><span>Provide a <span class="uicontrol">Display Name</span> for the bean. This
+is a short name for the enterprise bean that is used by tools.</span></li>
 
-<li class="stepexpand"><span>Provide a <strong>Display Name</strong> for the bean. This is a short name
-for the enterprise bean that is used by tools.</span></li>
+<li class="stepexpand"><span>Provide a text <span class="uicontrol">Description</span> for the bean.</span>
+</li>
 
-<li class="stepexpand"><span>Provide a text <strong>Description</strong> for the bean.</span></li>
-
-<li class="stepexpand"><span>Select a <strong>CMP Version</strong> for the new bean:</span>
+<li class="stepexpand"><span>Select a <span class="uicontrol">CMP Version</span> for the new bean:</span>
 <ul>
-<li><strong>1.x</strong> specifies you are adding the bean to an EJB 1.0 or later
-project.</li>
+<li><span class="uicontrol">1.x</span> specifies you are adding the bean to an
+EJB 1.0 or later project.</li>
 
-<li><strong>2.x</strong> specifies you are adding the bean to an EJB 2.0 or later
-project.</li>
+<li><span class="uicontrol">2.x</span> specifies you are adding the bean to an
+EJB 2.0 or later project.</li>
 
 </ul>
 
 </li>
 
-<li class="stepexpand"><span>Select a <strong>Usecase</strong> for the new bean:</span>
+<li class="stepexpand"><span>Select a <span class="uicontrol">Usecase</span> for the new bean:</span>
 <ul>
-<li><strong>Import attributes from table</strong> specifies that the CMP entity
-bean attributes will be imported from a database table. Click <strong>Next</strong>.<ol type="a">
-<li>Perform one of the following:<ul>
-<li>To select an available connection definition, click a connection in the <strong>Available
-Connection Definitions</strong> list. Click <strong>Next</strong>.</li>
+<li><span class="uicontrol">Import attributes from table</span> specifies that
+the CMP entity bean attributes will be imported from a database table. Click <span class="uicontrol">Next</span> and
+do one of the following:<ul>
+<li>To select an available connection definition, click a connection in the <span class="uicontrol">Available
+Connection Definitions</span> list. Click <span class="uicontrol">Next</span>.</li>
 
-<li>To create a new JDBC connection definition, click <strong>New</strong>. In the <strong>Connection
-Parameters</strong> window, specify the required JDBC connection parameters on
-the Connection parameters page of the New Connection wizard. Select a database
-manager, a JDBC driver, and specify other connection details. To specify JDBC
-connection filters, clear the <strong>Disable filter</strong> check box and specify
-appropriate connection filters. Click <strong>Finish</strong>.</li>
+<li>To create a new JDBC connection definition, click <span class="uicontrol">New</span> and
+complete the following steps: <ol type="a">
+<li>Select a database manager in the Connection Profile Type window and click <span class="uicontrol">Next</span>.</li>
 
-</ul>
-</li>
+<li>Enter a name and description for the new connection definition and click <span class="uicontrol">Next</span>.</li>
 
-</ol>
-</li>
+<li>Select a JDBC driver from the drop-down menu or click the <span class="uicontrol">...</span> button
+to add, edit, or remove driver definitions.</li>
 
-<li><strong>Define new attributes</strong> specifies that the CMP entity bean attributes
-will be user-defined. Click <strong>Next</strong>.<ol type="a">
-<li>To create a CMP attribute for the entity bean, click <strong>Add</strong>.</li>
-
-<li>To specify a name for the attribute, click in the <strong>Name</strong> field and
-enter a name.</li>
-
-<li>To specify a type for the attribute, click in the <strong>Type</strong> field and
-enter a type.</li>
-
-<li>To make the attribute a key field for the entity bean, select the <strong>Primary
-Key</strong> check box.</li>
-
-<li>To specify a table name for the entity bean, enter a name in the <strong>Table</strong> field.</li>
-
-<li>To add more attributes, repeat procedures a to d.</li>
+<li>Specify the other connection details in this window, test the connection,
+and click <span class="uicontrol">Finish</span> and then click <span class="uicontrol">Next</span>.</li>
 
 </ol>
 </li>
 
 </ul>
-
 </li>
 
-<li class="stepexpand"><span>Click <strong>Next</strong>.</span></li>
+<li><span class="uicontrol">Define new attributes</span> specifies that the CMP
+entity bean attributes will be user-defined. Click <span class="uicontrol">Next</span> and
+complete the following steps:<ol type="a">
+<li>To specify a table name for the entity bean, enter a name in the <span class="uicontrol">Table</span> field.</li>
 
-<li class="stepexpand"><span>Select the type of <strong>Modifiers</strong> to use for the class. Choices
-are <strong>Public</strong>, <strong>Abstract</strong>, and <strong>Final</strong>. </span></li>
+<li>To create a CMP attribute for the entity bean, click <span class="uicontrol">Add</span>.</li>
 
-<li class="stepexpand"><span>Select the <strong>Interfaces</strong> you want the bean to implement:</span>
- <ul>
-<li>Click the <strong>Add</strong> button to open the Type Selection dialog box where
-you can select the interface that you want to implement. </li>
+<li>To specify a name for the attribute, click in the <span class="uicontrol">Name</span> field
+and enter a name.</li>
 
-<li>If you added an interface that you no longer want to implement, select
-the interface in the list and click <strong>Remove</strong>.</li>
+<li>To specify a type for the attribute, click in the <span class="uicontrol">Type</span> field
+and enter a type.</li>
+
+<li>To make the attribute a key field for the entity bean, select the <span class="uicontrol">Primary
+Key</span> check box.</li>
+
+<li>To add more attributes, repeat procedures b to e
+and click <span class="uicontrol">Next</span>.</li>
+
+</ol>
+</li>
 
 </ul>
+
 </li>
 
-<li class="stepexpand"><span>Select the method stubs that you want the wizard to create. Choices
-include <strong>main</strong>, <strong>Inherited abstract methods</strong>, and <strong>Constructors
-from the superclass</strong>.</span></li>
+<li class="stepexpand"><span>Select the type of <span class="uicontrol">Modifiers</span> to use for
+the class.</span></li>
 
-<li class="stepexpand"><span>Click <strong>Finish</strong>. The new bean is added to the specified EJB
-project.</span></li>
+<li class="stepexpand"><strong>Optional: </strong><span>Select the <strong>Interfaces</strong> you want the
+bean to implement. Click <span class="uicontrol">Add</span> to select interfaces that
+you want to implement and click <span class="uicontrol">Remove</span> to take away
+interfaces that you no longer want to implement.</span></li>
+
+<li class="stepexpand"><span>Select the method stubs that you want the wizard to create.</span>
+</li>
+
+<li class="stepexpand"><span>Click <span class="uicontrol">Finish</span> to add the new bean to the
+specified EJB project.</span></li>
 
 </ol>
 

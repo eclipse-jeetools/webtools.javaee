@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--Arbortext, Inc., 1988-2005, v.4002-->
-<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
+ "task.dtd">
 <task id="tecrtpro" xml:lang="en-us">
-<title>Creating EJB projects</title>
+<title>Creating EJB 2.x projects</title>
 <shortdesc>An EJB project is used to organize the resources contained in an
 EJB module.</shortdesc>
 <prolog><metadata>
@@ -24,44 +25,55 @@ EJB module contains the following:</p><ul>
 file. This file declares the contents of the module, defines the structure
 and external dependencies of the beans in the module, and describes how the
 enterprise beans are to be used at run time.</li>
-</ul><p>To create a new EJB project:</p></context>
+</ul><p>To create a new EJB project, complete the following steps:</p></context>
 <steps>
-<step><cmd>In the J2EE perspective, select <b>File > New > Other > EJB > EJB
-Project</b>. The New EJB Project wizard opens.</cmd></step>
-<step><cmd>In the <b>Project Name</b> field, type a name for the EJB project. </cmd>
-<info></info></step>
-<step importance="optional"><cmd>To use a different workspace directory for
-your EJB project, modify the settings for <b>Project contents.</b> </cmd>
-<info><b>Important</b>: If you specify a non-default project location that
-is already being used by another project, the project creation will fail.</info>
+<step><cmd>In the Java EE perspective, select <menucascade><uicontrol>File</uicontrol>
+<uicontrol>New</uicontrol><uicontrol>Other<?Pub Caret?></uicontrol></menucascade>.</cmd>
 </step>
-<step><cmd>In the <b>Target runtime</b> drop-down list, select the application
-server that you want to target for your development. This selection affects
-the compilation and runtime settings by modifying the class path entries for
-the project. Use the <b>New</b> button if a target runtime does not exist,
-or if you want to use a different one.</cmd></step>
-<step importance="optional"><cmd>Select the <b>Add project to an EAR </b> check
+<step><cmd>In the New Project Wizard, select <menucascade><uicontrol>EJB</uicontrol>
+<uicontrol>EJB Project</uicontrol></menucascade> and click <uicontrol>Next</uicontrol>.</cmd>
+</step>
+<step><cmd>In the <uicontrol>Project Name</uicontrol> field, type a name for
+the EJB project.</cmd></step>
+<step importance="optional"><cmd>To use a different workspace directory for
+your EJB project, modify the settings for <uicontrol>Project contents.</uicontrol> </cmd>
+<info><note type="note">If you specify a non-default project location that
+is already being used by another project, the project creation will fail.</note></info>
+</step>
+<step><cmd>In the <uicontrol>Target runtime</uicontrol> drop-down list, select
+the application server that you want to target for your development. This
+selection affects the compilation and runtime settings by modifying the class
+path entries for the project. Use the <uicontrol>New</uicontrol> button if
+a target runtime does not exist, or if you want to use a different one.</cmd>
+</step>
+<step importance="optional"><cmd>Select the <uicontrol>Add project to an EAR </uicontrol> check
 box to add the new module to an enterprise application (EAR) project.</cmd>
 <info>Type a new project name or select an existing enterprise application
-project from the drop-down list in the <b>EAR Project </b> combination box.
-Or, click the <b>New</b> button to launch the New Enterprise Application Project
-wizard.</info></step>
-<step><cmd>Click <b>Next</b>.</cmd></step>
-<step><cmd>Select the appropriate <b>Project Facets</b> for your EJB project.
-A project facet is a set of internal functions that add support for a given
-technology. </cmd></step>
-<step><cmd>Click <b>Next</b>.</cmd></step>
-<step importance="optional"><cmd>Change the value of <b>Source Folder</b> to
+project from the drop-down list in the <uicontrol>EAR Project</uicontrol> combination
+box. Or, click the <uicontrol>New</uicontrol> button to launch the New Enterprise
+Application Project wizard. Click <uicontrol>Next</uicontrol>.<note>If you
+type a new EAR project name, the EAR project will be created in the default
+location with the lowest compatible J2EE version based on the version of the
+project being created. If you want to specify a different version or a different
+location for the enterprise application, you must use the New Enterprise Application
+Project wizard.</note></info></step>
+<step importance="optional"><cmd>Change the value of <uicontrol>Source Folder</uicontrol> to
 change the directory where the Java source files are stored. </cmd></step>
-<step importance="optional"><cmd>Select the <b>Create an EJB Client JAR Project
-to hold the client interfaces and classes</b> check box if you want the client
-interface classes for your enterprise beans to be kept in a separate EJB client
-JAR file. This EJB client JAR file will be added to the enterprise application
-as a project utility JAR file. You can also modify the <b>Name </b> of the
-EJB Client JAR project, or the name (<b>Client JAR URI)</b> of the client
-JAR file. </cmd></step>
-<step><cmd>Click <b>Finish</b>.</cmd></step>
+<step importance="optional"><cmd>Select the <uicontrol>Create an EJB Client
+JAR Project to hold the client interfaces and classes</uicontrol> check box
+if you want the client interface classes for your enterprise beans to be kept
+in a separate EJB client JAR file. This EJB client JAR file will be added
+to the enterprise application as a project utility JAR file. You can also
+modify the <uicontrol>Name</uicontrol> of the EJB Client JAR project, or the
+name (<uicontrol>Client JAR URI</uicontrol>) of the client JAR file. </cmd>
+</step>
+<step><cmd>Click <uicontrol>Finish</uicontrol>.</cmd></step>
 </steps>
+<postreq outputclass="id_postreq"><note>The New Project Wizard will automatically
+add default facets to your project. You can change these facets or add new
+ones in the <uicontrol>Preferences</uicontrol> window. For more information,
+see <xref href="../../org.eclipse.jst.j2ee.doc.user/topics/taddingfacet.dita"></xref>.</note><p
+outputclass="anchor_topicbottom"></p></postreq>
 </taskbody>
 </task>
-<?Pub *0000003884?>
+<?Pub *0000004817?>

@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--Arbortext, Inc., 1988-2005, v.4002-->
+<!--Arbortext, Inc., 1988-2006, v.4002-->
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN"
  "map.dtd">
-<map title="EJB applications">
-<topicref href="topics/ceover.dita" navtitle="EJB application development"
+<map title="EJB 2.x applications">
+<topicref href="topics/ceover.dita" navtitle="EJB 2.x application development"
 type="concept">
-<topicref href="topics/cearch.dita" navtitle="EJB architecture" type="concept">
+<topicref href="topics/cearch.dita" navtitle="EJB 2.x architecture" type="concept">
 </topicref>
-<topicref href="topics/ceresrc.dita" navtitle="EJB development resources"
+<topicref href="topics/ceresrc.dita" navtitle="EJB 2.x development resources"
 type="concept"></topicref>
 </topicref>
-<topicref href="topics/tecrtpro.dita" navtitle="Creating EJB projects" type="task">
-<topicref href="topics/ceclientjars.dita" navtitle="EJB client JAR projects"
+<topicref href="topics/tecrtpro.dita" navtitle="Creating EJB 2.x projects"
+type="task">
+<topicref href="topics/ceclientjars.dita" navtitle="EJB 2.x client JAR projects"
 type="concept"></topicref>
 </topicref>
-<topicref href="topics/teimp.dita" navtitle="Importing EJB JAR files" type="task">
-</topicref>
-<topicref href="topics/teexp.dita" navtitle="Exporting EJB projects to EJB JAR files"
+<topicref href="topics/teimp.dita" navtitle="Importing EJB 2.x JAR files"
+type="task"></topicref>
+<topicref href="topics/teexp.dita" navtitle="Exporting EJB 2.x projects to EJB JAR files"
 type="task"></topicref>
 <topicref href="topics/tecrte.dita" navtitle="Creating enterprise beans with XDoclet annotation support"
 type="task">
@@ -30,3 +31,4 @@ type="task"></topicref>
 type="task"></topicref>
 </topicref>
 </map>
+<?Pub *0000001550?>

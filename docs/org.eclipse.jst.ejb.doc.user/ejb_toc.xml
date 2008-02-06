@@ -2,16 +2,16 @@
 
 <?NLS TYPE="org.eclipse.help.toc"?>
 
-<toc label="EJB applications" topic="topics/ceover.html">
-<topic label="EJB application development" href="topics/ceover.html">
-<topic label="EJB architecture" href="topics/cearch.html"/>
-<topic label="EJB development resources" href="topics/ceresrc.html"/>
+<toc label="EJB 2.x applications" topic="topics/ceover.html">
+<topic label="EJB 2.x application development" href="topics/ceover.html">
+<topic label="EJB 2.x architecture" href="topics/cearch.html"/>
+<topic label="EJB 2.x development resources" href="topics/ceresrc.html"/>
 </topic>
-<topic label="Creating EJB projects" href="topics/tecrtpro.html">
-<topic label="EJB client JAR projects" href="topics/ceclientjars.html"/>
+<topic label="Creating EJB 2.x projects" href="topics/tecrtpro.html">
+<topic label="EJB 2.x client JAR projects" href="topics/ceclientjars.html"/>
 </topic>
-<topic label="Importing EJB JAR files" href="topics/teimp.html"/>
-<topic label="Exporting EJB projects to EJB JAR files" href="topics/teexp.html"/>
+<topic label="Importing EJB 2.x JAR files" href="topics/teimp.html"/>
+<topic label="Exporting EJB 2.x projects to EJB JAR files" href="topics/teexp.html"/>
 <topic label="Creating enterprise beans with XDoclet annotation support" href="topics/tecrte.html">
 <topic label="Creating session beans with XDoclet annotation support" href="topics/tesessb.html"/>
 <topic label="Creating container-managed persistence (CMP) entity beans with XDoclet annotation support" href="topics/teentityb.html"/>

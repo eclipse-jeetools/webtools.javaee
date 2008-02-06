@@ -1,35 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--Arbortext, Inc., 1988-2005, v.4002-->
-<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"  "concept.dtd">
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+ "concept.dtd">
 <concept id="ceresrc" xml:lang="en-us">
-<title>EJB development resources</title>
+<title>EJB 2.x development resources</title>
 <shortdesc>This topic describes resources and development tools that are commonly
-used in EJB development.</shortdesc>
+used in EJB vesion 2.x development.</shortdesc>
 <prolog><metadata>
 <keywords><indexterm>EJB<indexterm>developing<indexterm>resources</indexterm></indexterm></indexterm>
-<indexterm>resources<indexterm>EJB development</indexterm></indexterm>
-</keywords>
+<indexterm>resources<indexterm>EJB development</indexterm></indexterm></keywords>
 </metadata></prolog>
 <conbody>
 <dl><dlentry>
 <dt><b>EJB modules</b></dt>
-<dd> <p>EJB modules are displayed in the Project Explorer view of the J2EE
-perspective, and they correspond to EJB projects.</p><p>An EJB module is used
-to assemble one or more enterprise beans into a single deployable unit. An
-EJB module is developed in an EJB project, and it can be exported as either
-a standalone EJB JAR file, or it can be combined with other EJB or Web modules
-within an enterprise application. An EJB JAR file uses the format of a standard <tm
-tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> archive
-file. An EJB module contains the following: </p><ul>
+<dd> <p>EJB modules are displayed in the<?Pub Caret?> Project Explorer view
+of the Java EE perspective, and they correspond to EJB projects.</p><p>An
+EJB module is used to assemble one or more enterprise beans into a single
+deployable unit. An EJB module is developed in an EJB project, and it can
+either be exported as a standalone EJB JAR file, or combined with other EJB
+or Web modules within an enterprise application. An EJB JAR file uses the
+format of a standard <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> archive file. An EJB module contains
+the following: </p><ul>
 <li>One or more enterprise beans and their associated .class and .java files.</li>
 <li>Graphics and other files depending on the need of the enterprise bean. </li>
 <li>A deployment descriptor. The file type for the deployment descriptor is
 Extensible Markup Language (XML). This file declares the contents of the EJB
 module, defines the structure of the beans in the module, and provides a description
 of how the beans are to be used at run time. </li>
-<li>A MANIFEST.MF file in the META-INF directory. The manifest file can contain
-a class path entry, with references to other JAR files or EJB modules in a
-J2EE enterprise application. It defines the module's external dependencies.</li>
+<li>A MANIFEST.MF file in the <uicontrol>META-INF</uicontrol> directory. The
+manifest file can contain a class path entry, with references to other JAR
+files or EJB modules in a J2EE enterprise application. It defines the module's
+external dependencies.</li>
 </ul><p>An EJB module is installed and runs in an EJB container.</p><p>An
 enterprise bean is a <tm tmclass="special" tmowner="Sun Microsystems, Inc."
 tmtype="tm" trademark="Java">Java</tm> component that can be combined with
@@ -52,15 +54,15 @@ contain the source and output files for the project. By default, the source
 folder is named <b>ejbModule</b>, but you can change that name when you create
 the project or new source folders. When you publish or deploy the project,
 the contents of the folder or folders are aggregated. </p><p>You cannot use
-the EJB project as the source folder; doing so will cause errors. Also, though
+the EJB project as the source folder, doing so will cause errors. Also, though
 you can have more than one source folder in the project, only one of these
-source folders can contain the META-INF folder in which the MANIFEST.MF and
-deployment descriptor files reside.</p><note>If you choose to create an EJB
-client JAR file for your EJB module, the client interface classes for the
-enterprise beans will not be included in the EJB project, but in separate
-EJB client JAR project. EJB client JAR projects are displayed in the Project
-Explorer as <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
-trademark="Java">Java</tm> projects under the <b>Other Projects</b> node.</note></dd>
+source folders can contain the <uicontrol>META-INF</uicontrol> folder in which
+the MANIFEST.MF and deployment descriptor files reside.</p><note>If you choose
+to create an EJB client JAR file for your EJB module, the client interface
+classes for the enterprise beans will not be included in the EJB project,
+but in separate EJB client JAR project. EJB client JAR projects are displayed
+in the Project Explorer as <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> projects under the <b>Other Projects</b> node.</note></dd>
 </dlentry><dlentry>
 <dt><b>EJB client projects</b></dt>
 <dd> <p>The EJB tooling supports the creation of EJB client JAR projects for
@@ -92,10 +94,10 @@ persistence manage permanent data in whichever manner is defined in the bean
 code. This can include writing to databases or XML files, for example.</dd>
 </dlentry><dlentry>
 <dt><b>Session beans</b></dt>
-<dd>Session beans do not <i>require</i> database access, though they can obtain
-it indirectly (as needed) by accessing entity beans. Session beans can also
-obtain direct access to databases (and other resources) through the use of
-resource references.</dd>
+<dd>Session beans do not require database access, though they can obtain it
+indirectly (as needed) by accessing entity beans. Session beans can also obtain
+direct access to databases (and other resources) through the use of resource
+references.</dd>
 </dlentry><dlentry>
 <dt><b>Message-driven beans</b></dt>
 <dd>Message-driven beans are a special kind of enterprise bean that act as
@@ -135,4 +137,4 @@ deployment descriptors, one for each module in the application.</p></dd>
 </dlentry></dl>
 </conbody>
 </concept>
-<?Pub *0000008669?>
+<?Pub *0000008802?>

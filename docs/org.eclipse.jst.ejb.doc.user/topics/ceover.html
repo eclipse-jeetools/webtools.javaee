@@ -8,9 +8,9 @@
 <meta content="index,follow" name="Robots" />
 <meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
 <meta content="concept" name="DC.Type" />
-<meta name="DC.Title" content="EJB application development" />
-<meta name="abstract" content="The workbench provides a specialized environment that you can use to develop and test enterprise beans that conform to the distributed component architecture defined in the Sun Microsystems Enterprise JavaBeans (EJB) specification. This product supports the Enterprise JavaBeans 1.1, 2.0, and 2.1 specification levels." />
-<meta name="description" content="The workbench provides a specialized environment that you can use to develop and test enterprise beans that conform to the distributed component architecture defined in the Sun Microsystems Enterprise JavaBeans (EJB) specification. This product supports the Enterprise JavaBeans 1.1, 2.0, and 2.1 specification levels." />
+<meta name="DC.Title" content="EJB 2.x application development" />
+<meta name="abstract" content="The workbench provides a specialized environment that you can use to develop and test enterprise beans that conform to the distributed component architecture defined in the Sun Microsystems Enterprise JavaBeans (EJB) version specification. This product supports the Enterprise JavaBeans 1.1, 2.0, and 2.1 specification levels." />
+<meta name="description" content="The workbench provides a specialized environment that you can use to develop and test enterprise beans that conform to the distributed component architecture defined in the Sun Microsystems Enterprise JavaBeans (EJB) version specification. This product supports the Enterprise JavaBeans 1.1, 2.0, and 2.1 specification levels." />
 <meta content="applications, EJB development, EJB, developing" name="DC.subject" />
 <meta content="applications, EJB development, EJB, developing" name="keywords" />
 <meta scheme="URI" name="DC.Relation" content="../topics/cearch.html" />
@@ -18,60 +18,53 @@
 <meta content="XHTML" name="DC.Format" />
 <meta content="ceover" name="DC.Identifier" />
 <meta content="en-us" name="DC.Language" />
-<link href="../../org.eclipse.wst.doc.user/common.css" type="text/css" rel="stylesheet" />
-<title>EJB application development</title>
+<link href="../../../org.eclipse.wst.doc.user/common.css" type="text/css" rel="stylesheet" />
+<title>EJB 2.x application development</title>
 </head>
 <body id="ceover"><a name="ceover"><!-- --></a>
 
 
-<h1 class="topictitle1">EJB application development</h1>
+<h1 class="topictitle1">EJB 2.x application development</h1>
 
 
 
 <div><p>The workbench provides a specialized environment that you can use
 to develop and test enterprise beans that conform to the distributed component
 architecture defined in the Sun Microsystems Enterprise JavaBeans™ (EJB)
-specification. This product supports the Enterprise JavaBeans 1.1,
+version specification. This product supports the Enterprise JavaBeans 1.1,
 2.0, and 2.1 specification levels.</p>
 
 <p>The complete Enterprise JavaBeans specifications and descriptions
 of the technology are available from the <a href="http://java.sun.com/products/ejb/docs.html#specs" target="_blank" title="">java.sun.com</a> Web site.</p>
 
 <p>If you are not familiar with enterprise beans or related EJB technology,
-see <a href="cearch.html#cearch" title="This topic provides a high-level overview of the distributed component&#10;architecture defined in the Sun Microsystems Enterprise JavaBeans (EJB)&#10;architecture specification.">EJB architecture</a> for a brief description
+see <a href="cearch.html#cearch" title="This topic provides a high-level overview of the distributed component&#10;architecture defined in the Sun Microsystems Enterprise JavaBeans (EJB)&#10;version 2.x architecture specification.">EJB 2.x architecture</a> for a brief description
 of key EJB concepts.</p>
 
 <p>The EJB development environment includes the following tools:</p>
 
-<ul>
-<li>The J2EE perspective</li>
-
-<li>Tools for importing existing EJB JAR files</li>
-
-<li>Tools for exporting existing EJB projects into JAR files </li>
-
-<li>Tools for creating session and message-driven enterprise beans </li>
-
-<li>Tools for validating your enterprise beans for specification compliance</li>
-
-</ul>
-
 <dl>
-<dt class="dlterm"><strong>J2EE perspective</strong></dt>
+<dt class="dlterm"><strong>The Java EE perspective</strong></dt>
 
-<dd>All of the EJB tools are accessible from the J2EE perspective. This perspective
-provides a layout in which the most commonly used actions, views, and wizards
-for J2EE and EJB development are easily accessible</dd>
+<dd>All of the EJB tools are accessible from the Java EE perspective. This
+perspective provides a layout in which the most commonly used actions, views,
+and wizards for Java EE and EJB development are easily accessible</dd>
 
 
 <dt class="dlterm"><strong>Creating enterprise beans</strong></dt>
 
 <dd>The EJB tools help you create enterprise beans, such as session beans
-or message-driven beans. <p>You can also accomplish complementary enterprise
-bean development activities, such as writing and editing business logic, importing
-or exporting enterprise beans, and maintaining both your enterprise bean source
-code and generated code using the built in Java™ development tools, along with the team
-and version control capabilities of the workbench.</p>
+or message-driven beans. You can accomplish the following complementary enterprise
+bean development activities:<ul>
+<li>Writing and editing business logic.</li>
+
+<li>Importing or exporting enterprise beans.</li>
+
+<li>Maintaining enterprise bean source code and generated code using build
+in Java™ development
+tools, and team and version control capabilities of the workbench.</li>
+
+</ul>
  </dd>
 
 
@@ -83,16 +76,28 @@ Code verification occurs whenever an enterprise bean or its properties are
 changed. Errors and warnings are displayed in the Problems view of the workbench.
 Files with errors also display error icons. </dd>
 
+
+<dt class="dlterm"><strong>Importing existing EJB JAR files</strong></dt>
+
+<dd>EJB Tools allow beans and other metadata from an EJB JAR file to be imported
+into a new or existing EJB project.</dd>
+
+
+<dt class="dlterm"><strong>Exporting existing EJB projects into JAR files</strong></dt>
+
+<dd>EJB tools can export your EJB project so that it may be deployed to an
+application server.</dd>
+
 </dl>
 
 </div>
 
 <div>
 <ul class="ullinks">
-<li class="ulchildlink"><strong><a href="../topics/cearch.html">EJB architecture</a></strong><br />
-This topic provides a high-level overview of the distributed component architecture defined in the Sun Microsystems Enterprise JavaBeans (EJB) architecture specification.</li>
-<li class="ulchildlink"><strong><a href="../topics/ceresrc.html">EJB development resources</a></strong><br />
-This topic describes resources and development tools that are commonly used in EJB development.</li>
+<li class="ulchildlink"><strong><a href="../topics/cearch.html">EJB 2.x architecture</a></strong><br />
+This topic provides a high-level overview of the distributed component architecture defined in the Sun Microsystems Enterprise JavaBeans (EJB) version 2.x architecture specification.</li>
+<li class="ulchildlink"><strong><a href="../topics/ceresrc.html">EJB 2.x development resources</a></strong><br />
+This topic describes resources and development tools that are commonly used in EJB vesion 2.x development.</li>
 </ul>
 </div>
 

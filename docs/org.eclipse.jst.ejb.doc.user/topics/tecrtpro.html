@@ -8,7 +8,7 @@
 <meta content="index,follow" name="Robots" />
 <meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
 <meta content="task" name="DC.Type" />
-<meta name="DC.Title" content="Creating EJB projects" />
+<meta name="DC.Title" content="Creating EJB 2.x projects" />
 <meta name="abstract" content="An EJB project is used to organize the resources contained in an EJB module." />
 <meta name="description" content="An EJB project is used to organize the resources contained in an EJB module." />
 <meta content="EJB, projects, creating" name="DC.subject" />
@@ -17,13 +17,13 @@
 <meta content="XHTML" name="DC.Format" />
 <meta content="tecrtpro" name="DC.Identifier" />
 <meta content="en-us" name="DC.Language" />
-<link href="../../org.eclipse.wst.doc.user/common.css" type="text/css" rel="stylesheet" />
-<title>Creating EJB projects</title>
+<link href="../../../org.eclipse.wst.doc.user/common.css" type="text/css" rel="stylesheet" />
+<title>Creating EJB 2.x projects</title>
 </head>
 <body id="tecrtpro"><a name="tecrtpro"><!-- --></a>
 
 
-<h1 class="topictitle1">Creating EJB projects</h1>
+<h1 class="topictitle1">Creating EJB 2.x projects</h1>
 
 
 
@@ -48,63 +48,76 @@ and external dependencies of the beans in the module, and describes how the
 enterprise beans are to be used at run time.</li>
 
 </ul>
-<p>To create a new EJB project:</p>
+<p>To create a new EJB project, complete the following steps:</p>
 </div>
 
 <ol>
-<li class="stepexpand"><span>In the J2EE perspective, select <strong>File &gt; New &gt; Other &gt; EJB &gt; EJB
-Project</strong>. The New EJB Project wizard opens.</span></li>
-
-<li class="stepexpand"><span>In the <strong>Project Name</strong> field, type a name for the EJB project. </span>
- </li>
-
-<li class="stepexpand"><strong>Optional: </strong><span>To use a different workspace directory for
-your EJB project, modify the settings for <strong>Project contents.</strong> </span>
- <strong>Important</strong>: If you specify a non-default project location that
-is already being used by another project, the project creation will fail.
+<li class="stepexpand"><span>In the Java EE perspective, select <span class="menucascade"><span class="uicontrol">File</span>
+ &gt; <span class="uicontrol">New</span> &gt; <span class="uicontrol">Other</span></span>.</span>
 </li>
 
-<li class="stepexpand"><span>In the <strong>Target runtime</strong> drop-down list, select the application
-server that you want to target for your development. This selection affects
-the compilation and runtime settings by modifying the class path entries for
-the project. Use the <strong>New</strong> button if a target runtime does not exist,
-or if you want to use a different one.</span></li>
+<li class="stepexpand"><span>In the New Project Wizard, select <span class="menucascade"><span class="uicontrol">EJB</span>
+ &gt; <span class="uicontrol">EJB Project</span></span> and click <span class="uicontrol">Next</span>.</span>
+</li>
 
-<li class="stepexpand"><strong>Optional: </strong><span>Select the <strong>Add project to an EAR </strong> check
+<li class="stepexpand"><span>In the <span class="uicontrol">Project Name</span> field, type a name for
+the EJB project.</span></li>
+
+<li class="stepexpand"><strong>Optional: </strong><span>To use a different workspace directory for
+your EJB project, modify the settings for <span class="uicontrol">Project contents.</span> </span>
+ <div class="note"><span class="notetitle">Note:</span> If you specify a non-default project location that
+is already being used by another project, the project creation will fail.</div>
+
+</li>
+
+<li class="stepexpand"><span>In the <span class="uicontrol">Target runtime</span> drop-down list, select
+the application server that you want to target for your development. This
+selection affects the compilation and runtime settings by modifying the class
+path entries for the project. Use the <span class="uicontrol">New</span> button if
+a target runtime does not exist, or if you want to use a different one.</span>
+</li>
+
+<li class="stepexpand"><strong>Optional: </strong><span>Select the <span class="uicontrol">Add project to an EAR </span> check
 box to add the new module to an enterprise application (EAR) project.</span>
  Type a new project name or select an existing enterprise application
-project from the drop-down list in the <strong>EAR Project </strong> combination box.
-Or, click the <strong>New</strong> button to launch the New Enterprise Application Project
-wizard.</li>
+project from the drop-down list in the <span class="uicontrol">EAR Project</span> combination
+box. Or, click the <span class="uicontrol">New</span> button to launch the New Enterprise
+Application Project wizard. Click <span class="uicontrol">Next</span>.<div class="note"><span class="notetitle">Note:</span> If you
+type a new EAR project name, the EAR project will be created in the default
+location with the lowest compatible J2EE version based on the version of the
+project being created. If you want to specify a different version or a different
+location for the enterprise application, you must use the New Enterprise Application
+Project wizard.</div>
+</li>
 
-<li class="stepexpand"><span>Click <strong>Next</strong>.</span></li>
-
-<li class="stepexpand"><span>Select the appropriate <strong>Project Facets</strong> for your EJB project.
-A project facet is a set of internal functions that add support for a given
-technology. </span></li>
-
-<li class="stepexpand"><span>Click <strong>Next</strong>.</span></li>
-
-<li class="stepexpand"><strong>Optional: </strong><span>Change the value of <strong>Source Folder</strong> to
+<li class="stepexpand"><strong>Optional: </strong><span>Change the value of <span class="uicontrol">Source Folder</span> to
 change the directory where the Java source files are stored. </span></li>
 
-<li class="stepexpand"><strong>Optional: </strong><span>Select the <strong>Create an EJB Client JAR Project
-to hold the client interfaces and classes</strong> check box if you want the client
-interface classes for your enterprise beans to be kept in a separate EJB client
-JAR file. This EJB client JAR file will be added to the enterprise application
-as a project utility JAR file. You can also modify the <strong>Name </strong> of the
-EJB Client JAR project, or the name (<strong>Client JAR URI)</strong> of the client
-JAR file. </span></li>
+<li class="stepexpand"><strong>Optional: </strong><span>Select the <span class="uicontrol">Create an EJB Client
+JAR Project to hold the client interfaces and classes</span> check box
+if you want the client interface classes for your enterprise beans to be kept
+in a separate EJB client JAR file. This EJB client JAR file will be added
+to the enterprise application as a project utility JAR file. You can also
+modify the <span class="uicontrol">Name</span> of the EJB Client JAR project, or the
+name (<span class="uicontrol">Client JAR URI</span>) of the client JAR file. </span>
+</li>
 
-<li class="stepexpand"><span>Click <strong>Finish</strong>.</span></li>
+<li class="stepexpand"><span>Click <span class="uicontrol">Finish</span>.</span></li>
 
 </ol>
+
+<div class="id_postreq"><div class="note"><span class="notetitle">Note:</span> The New Project Wizard will automatically
+add default facets to your project. You can change these facets or add new
+ones in the <span class="uicontrol">Preferences</span> window. For more information,
+see <a href="../../org.eclipse.jst.j2ee.doc.user/topics/taddingfacet.html" title="This topic explains how to add a facet&#10;to an existing project in your workspace.">Adding a facet to a J2EE project</a>.</div>
+<p class="anchor_topicbottom" />
+</div>
 
 </div>
 
 <div>
 <ul class="ullinks">
-<li class="ulchildlink"><strong><a href="../topics/ceclientjars.html">EJB client JAR projects</a></strong><br />
+<li class="ulchildlink"><strong><a href="../topics/ceclientjars.html">EJB 2.x client JAR projects</a></strong><br />
 An EJB client JAR project contains all the class files that a client program needs to use the client view of the enterprise beans that are contained in the EJB module.</li>
 </ul>
 </div>

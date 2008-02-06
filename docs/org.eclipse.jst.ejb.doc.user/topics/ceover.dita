@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--Arbortext, Inc., 1988-2005, v.4002-->
-<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"  "concept.dtd">
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+ "concept.dtd">
 <concept id="ceover" xml:lang="en-us">
-<title>EJB application development</title>
+<title>EJB 2.x application development</title>
 <shortdesc>The workbench provides a specialized environment that you can use
 to develop and test enterprise beans that conform to the distributed component
 architecture defined in the Sun Microsystems Enterprise <tm tmclass="special"
 tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="JavaBeans">JavaBeans</tm> (EJB)
-specification. This product supports the Enterprise <tm tmclass="special"
-tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="JavaBeans">JavaBeans</tm> 1.1,
+version <?Pub Caret?>specification. This product supports the Enterprise <tm
+tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="JavaBeans">JavaBeans</tm> 1.1,
 2.0, and 2.1 specification levels.</shortdesc>
 <prolog><metadata>
 <keywords><indexterm>applications<indexterm>EJB development</indexterm></indexterm>
@@ -24,27 +25,22 @@ scope="external">java.sun.com<desc></desc></xref> Web site.</p>
 see <xref href="cearch.dita#cearch" type="concept"></xref> for a brief description
 of key EJB concepts.</p>
 <p>The EJB development environment includes the following tools:</p>
-<ul>
-<li>The J2EE perspective</li>
-<li>Tools for importing existing EJB JAR files</li>
-<li>Tools for exporting existing EJB projects into JAR files </li>
-<li>Tools for creating session and message-driven enterprise beans </li>
-<li>Tools for validating your enterprise beans for specification compliance</li>
-</ul>
 <dl><dlentry>
-<dt><b>J2EE perspective</b></dt>
-<dd>All of the EJB tools are accessible from the J2EE perspective. This perspective
-provides a layout in which the most commonly used actions, views, and wizards
-for J2EE and EJB development are easily accessible</dd>
+<dt><b>The Java EE perspective</b></dt>
+<dd>All of the EJB tools are accessible from the Java EE perspective. This
+perspective provides a layout in which the most commonly used actions, views,
+and wizards for Java EE and EJB development are easily accessible</dd>
 </dlentry><dlentry>
 <dt><b>Creating enterprise beans</b></dt>
 <dd>The EJB tools help you create enterprise beans, such as session beans
-or message-driven beans. <p>You can also accomplish complementary enterprise
-bean development activities, such as writing and editing business logic, importing
-or exporting enterprise beans, and maintaining both your enterprise bean source
-code and generated code using the built in <tm tmclass="special" tmowner="Sun Microsystems, Inc."
-tmtype="tm" trademark="Java">Java</tm> development tools, along with the team
-and version control capabilities of the workbench.</p> </dd>
+or message-driven beans. You can accomplish the following complementary enterprise
+bean development activities:<ul>
+<li>Writing and editing business logic.</li>
+<li>Importing or exporting enterprise beans.</li>
+<li>Maintaining enterprise bean source code and generated code using build
+in <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> development
+tools, and team and version control capabilities of the workbench.</li>
+</ul> </dd>
 </dlentry><dlentry>
 <dt><b>Validating enterprise bean code</b></dt>
 <dd>The EJB tools automatically validate that your enterprise bean code is
@@ -53,7 +49,15 @@ tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="JavaBe
 Code verification occurs whenever an enterprise bean or its properties are
 changed. Errors and warnings are displayed in the Problems view of the workbench.
 Files with errors also display error icons. </dd>
+</dlentry><dlentry>
+<dt><b>Importing existing EJB JAR files</b></dt>
+<dd>EJB Tools allow beans and other metadata from an EJB JAR file to be imported
+into a new or existing EJB project.</dd>
+</dlentry><dlentry>
+<dt><b>Exporting existing EJB projects into JAR files</b></dt>
+<dd>EJB tools can export your EJB project so that it may be deployed to an
+application server.</dd>
 </dlentry></dl>
 </conbody>
 </concept>
-<?Pub *0000003316?>
+<?Pub *0000003496?>
