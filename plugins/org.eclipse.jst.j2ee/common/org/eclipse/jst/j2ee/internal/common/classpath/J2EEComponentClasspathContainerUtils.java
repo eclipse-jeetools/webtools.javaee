@@ -16,6 +16,10 @@ public class J2EEComponentClasspathContainerUtils {
 		return J2EEPlugin.getDefault().getJ2EEPreferences().getUseEARLibraries();
 	}
 
+	public static boolean getDefaultUseEARLibrariesJDTExport() {
+		return J2EEPlugin.getDefault().getJ2EEPreferences().getUseEARLibrariesJDTExport();
+	}
+	
 	public static boolean getDefaultUseWebAppLibraries() {
 		return J2EEPlugin.getDefault().getJ2EEPreferences().getUseWebLibaries();
 	}
