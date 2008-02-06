@@ -321,8 +321,11 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 				// does the old path have a virtual component mapping?
 				if (runtimePath != null) {
 					final IVirtualFolder folder = rootFolder.getFolder(runtimePath);
-					pathsToRemove.add(new Object[]{movedFrom, folder});
-					pathsToAdd.add(new Object[]{movedTo, folder});
+					// only add if the project relative paths are not equal (these can be equal when the root folder is mapped and the project is renamed)
+					if (!movedFrom.equals(movedTo)) {
+						pathsToRemove.add(new Object[]{movedFrom, folder});
+						pathsToAdd.add(new Object[]{movedTo, folder});
+					}
 				}
 			}
 		}
