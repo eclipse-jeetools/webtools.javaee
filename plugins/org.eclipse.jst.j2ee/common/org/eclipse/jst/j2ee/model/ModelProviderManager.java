@@ -205,7 +205,7 @@ protected static HashMap resourceSetListeners;
 		int currentPriority = getProviderPriority(v);
 		if (newPriority <= currentPriority) {
 			ModelProviderKey key = createProviderKey(v, newPriority);
-			providers.put(key, providerFactory);
+			getProviders().put(key, providerFactory);
 		}
 	}
 
@@ -219,7 +219,7 @@ protected static HashMap resourceSetListeners;
 		return null;
 	}
 	private static int getProviderPriority(IProjectFacetVersion v) {
-		Set<ModelProviderKey> keys = providers.keySet();
+		Set<ModelProviderKey> keys = getProviders().keySet();
 		for (Iterator iterator = keys.iterator(); iterator.hasNext();) {
 			ModelProviderKey key = (ModelProviderKey) iterator.next();
 			if (key.version.equals(v))
