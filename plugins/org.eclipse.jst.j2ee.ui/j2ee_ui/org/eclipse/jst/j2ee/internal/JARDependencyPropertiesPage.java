@@ -580,27 +580,6 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		return true;
 	}
 
-	// private boolean runWLPOp(WorkspaceModifyComposedOperation composed) {
-	// try {
-	// if (composed != null)
-	// new ProgressMonitorDialog(getShell()).run(true, true, composed);
-	// } catch (InvocationTargetException ex) {
-	// String title = ManifestUIResourceHandler.getString("An_internal_error_occurred_ERROR_");
-	// //$NON-NLS-1$
-	// String msg = title;
-	// if (ex.getTargetException() != null && ex.getTargetException().getMessage() != null)
-	// msg = ex.getTargetException().getMessage();
-	// MessageDialog.openError(this.getShell(), title, msg);
-	// org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
-	// return false;
-	// } catch (InterruptedException e) {
-	// // cancelled
-	// return false;
-	// }
-	// return true;
-	// }
-
-
 	List getUnSelectedClassPathElementsForJ2EEDependency() {
 		List unselectedForJ2EE = getUnSelectedClassPathSelection().getClasspathElements();
 
@@ -810,18 +789,20 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 
 	protected WorkspaceModifyComposedOperation createFlexProjectOperations() {
 		WorkspaceModifyComposedOperation composedOp = null;
-		try {
-			Object[] elements = tableManager.availableJARsViewer.getCheckedElements();
-			for (int i = 0; i < elements.length; i++) {
-				ClasspathElement element = (ClasspathElement) elements[i];
-				IProject elementProject = element.getProject();
+		Object[] elements = tableManager.availableJARsViewer.getCheckedElements();
+		for (int i = 0; i < elements.length; i++) {
+			ClasspathElement element = (ClasspathElement) elements[i];
+			IProject elementProject = element.getProject();
+			try {
 				if (elementProject != null && !elementProject.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
-					if (composedOp == null)
+					if (composedOp == null) {
 						composedOp = new WorkspaceModifyComposedOperation();
+					}
 					composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(J2EEProjectUtilities.createFlexJavaProjectForProjectOperation(elementProject, false)));
 				}
+			} catch (CoreException e) {
+				Logger.getLogger().logError(e);
 			}
-		} catch (CoreException ce) {
 		}
 		return composedOp;
 	}
