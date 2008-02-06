@@ -30,6 +30,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathContainer;
@@ -601,9 +602,19 @@ public class ClassPathSelection {
 						int  index = cpEntry.indexOf(".jar"); //$NON-NLS-1$
 						if( index > 0 ){
 							String projectName = cpEntry.substring(0, index);
-							IProject project = ProjectUtilities.getProject( projectName );
-							if( project != null && project.exists() )
-								element.setProject( project );
+							IPath projectPath = new Path(projectName);
+							//if there are multiple segments and no reference archive is found
+							//then either this is pointing to a jar in the EAR that doesn't exist
+							//or the DependecyGraphManager is stale
+							if(projectPath.segmentCount() > 1){
+								if(earComponent != null && earComponent.getProject() != null){
+									element.setProject(earComponent.getProject());
+								}
+							} else {
+								IProject project = ProjectUtilities.getProject( projectName );
+								if( project != null && project.exists() )
+									element.setProject( project );
+							}
 						}
 					}
 				}
