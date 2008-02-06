@@ -26,6 +26,7 @@ import java.util.jar.Manifest;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -315,7 +316,6 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		GridData gData = new GridData(GridData.FILL_BOTH);
 		composite.setLayoutData(gData);
 		tableManager = new ClasspathTableManager(this, model, validateEditListener);
-		tableManager.setReadOnly(isReadOnly());
 		tableManager.fillComposite(composite);
 	}
 
@@ -787,7 +787,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	}
 
 	protected boolean isReadOnly() {
-		return JemProjectUtilities.isBinaryProject(project);
+		return JemProjectUtilities.isBinaryProject(project) && (project.findMember(IModuleConstants.COMPONENT_FILE_PATH) == null) ;
 	}
 
 }
