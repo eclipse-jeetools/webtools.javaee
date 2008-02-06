@@ -26,6 +26,8 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
@@ -38,6 +40,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ManifestExcepti
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.NestedArchiveLoadStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipFileLoadStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
@@ -302,6 +305,12 @@ public class ClassPathSelection {
 		LoadStrategy loader = anArchive.getLoadStrategy();
 		if (loader instanceof ComponentLoadStrategyImpl)
 			return ((ComponentLoadStrategyImpl) loader).getComponent().getProject();
+		if(loader instanceof NestedArchiveLoadStrategyImpl) {
+			LoadStrategy parent = ((NestedArchiveLoadStrategyImpl)loader).getParent();
+			if(parent != null && parent instanceof ComponentLoadStrategyImpl){
+				return ((ComponentLoadStrategyImpl) parent).getComponent().getProject();
+			}
+		}
 		return null;
 	}
 
@@ -361,9 +370,19 @@ public class ClassPathSelection {
 						int  index = cpEntry.indexOf(".jar"); //$NON-NLS-1$
 						if( index > 0 ){
 							String projectName = cpEntry.substring(0, index);
-							IProject project = ProjectUtilities.getProject( projectName );
-							if( project != null && project.exists() )
-								element.setProject( project );
+							IPath projectPath = new Path(projectName);
+							//if there are multiple segments and no reference archive is found
+							//then either this is pointing to a jar in the EAR that doesn't exist
+							//or the DependecyGraphManager is stale
+							if(projectPath.segmentCount() > 1){
+								if(earComponent != null && earComponent.getProject() != null){
+									element.setProject(earComponent.getProject());
+								}
+							} else {
+								IProject project = ProjectUtilities.getProject( projectName );
+								if( project != null && project.exists() )
+									element.setProject( project );
+							}
 						}
 					}
 				}
