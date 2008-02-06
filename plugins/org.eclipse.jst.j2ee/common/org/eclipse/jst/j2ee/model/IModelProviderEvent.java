@@ -8,24 +8,24 @@ import org.eclipse.core.resources.IProject;
 public interface IModelProviderEvent {
 
 	// Used when the edit model is saved.
-	public static final int SAVE = 1;
+	public static final int SAVE = 0x1;
 	// Used when the command stack becomes dirty.
-	public static final int DIRTY = 2;
+	public static final int DIRTY = 0x2;
 	// Used when a referenced resource is removed from the ResourceSet.
-	public static final int REMOVED_RESOURCE = 3;
+	public static final int REMOVED_RESOURCE = 0x4;
 	// Used when a referenced resource is added to the ResourceSet.
-	public static final int ADDED_RESOURCE = 4;
+	public static final int ADDED_RESOURCE = 0x8;
 	// Used when the edit model is disposed
-	public static final int PRE_DISPOSE = 5;
+	public static final int PRE_DISPOSE = 0x10;
 	// Used when a Resource is loaded or the first object
 	// is added to the contents when created.
-	public static final int LOADED_RESOURCE = 6;
+	public static final int LOADED_RESOURCE = 0x20;
 	// Used when a Resource is unloaded.
-	public static final int UNLOADED_RESOURCE = 7;
+	public static final int UNLOADED_RESOURCE = 0x40;
 	// Indicates that the list of known resources managed by the edit model is about to change
-	public static final int KNOWN_RESOURCES_ABOUT_TO_CHANGE = 8;
+	public static final int KNOWN_RESOURCES_ABOUT_TO_CHANGE = 0x80;
 	// Indicates that the list of known resources managed by the edit model has changed
-	public static final int KNOWN_RESOURCES_CHANGED = 9;
+	public static final int KNOWN_RESOURCES_CHANGED = 0x100;
 
 	public abstract void addResource(Object aResource);
 
