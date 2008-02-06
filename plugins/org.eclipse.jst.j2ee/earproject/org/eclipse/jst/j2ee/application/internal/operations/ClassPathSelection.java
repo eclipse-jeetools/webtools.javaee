@@ -542,6 +542,9 @@ public class ClassPathSelection {
 			if (J2EEProjectUtilities.isEJBComponent(currentComponent))
 			{
 				modelProvider = ModelProviderManager.getModelProvider(currentComponent);
+				if(modelProvider==null) {
+					continue;
+				}
 				rootModelObject = modelProvider.getModelObject();
 				if (rootModelObject instanceof EJBJar)
 				{
