@@ -2,6 +2,7 @@ package org.eclipse.wst.validation.tests.testcase;
 
 import java.io.UnsupportedEncodingException;
 
+import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -20,26 +21,40 @@ import org.eclipse.wst.validation.ValidationFramework;
 import org.eclipse.wst.validation.ValidationResults;
 import org.eclipse.wst.validation.Validator;
 import org.eclipse.wst.validation.internal.ValConstants;
+import org.eclipse.wst.validation.internal.ValManager;
+import org.eclipse.wst.validation.internal.ValPrefManagerGlobal;
 import org.eclipse.wst.validation.tests.TestValidator;
 import org.eclipse.wst.validation.tests.util.TestEnvironment;
 
 public class Framework extends TestCase {
 	
-	private TestEnvironment _env;
-	private IProject		_testProject;
+	private static TestEnvironment _env;
+	private static IProject		_testProject;
 	
 	public static Test suite() {
-		return new TestSuite(Framework.class);
+		TestSuite suite = new TestSuite(Framework.class);
+		TestSetup wrapper = new TestSetup(suite){
+			@Override
+			protected void setUp() throws Exception {
+				oneTimeSetUp();
+			}
+			
+			@Override
+			protected void tearDown() throws Exception {
+				oneTimeTearDown();
+			}
+		};
+		return wrapper;
 	} 
 	
 	public Framework(String name){
 		super(name);
 	}
 	
-
-	protected void setUp() throws Exception {
-		super.setUp();
+	private static void oneTimeSetUp() throws Exception {
+		if (_env != null)return;
 		_env = new TestEnvironment();
+		turnoffOtherValidators();
 		_testProject = _env.createProject("TestProject");
 		IPath folder = _env.addFolder(_testProject.getFullPath(), "source");
 		_env.addFile(folder, "first.test1", "include map.test1\ninfo - information\nwarning - warning\nerror - error\n\n" +
@@ -50,9 +65,24 @@ public class Framework extends TestCase {
 		_env.addFile(folder, "first.test2", "# sample file");
 	}
 
-	protected void tearDown() throws Exception {
+	/**
+	 * Since other plug-ins can add and remove validators, turn off all the ones that are not part of
+	 * these tests.
+	 */
+	private static void turnoffOtherValidators() {
+		Validator[] vals = ValManager.getDefault().getValidators();
+		for (Validator v : vals){
+			if (!v.getValidatorClassname().startsWith("org.eclipse.wst.validation.tests")){
+				v.setBuildValidation(false);
+				v.setManualValidation(false);
+			}
+		}
+		ValPrefManagerGlobal gp = new ValPrefManagerGlobal();
+		gp.saveAsPrefs(vals);		
+	}
+
+	private static void oneTimeTearDown() throws Exception {
 		_env.dispose();
-		super.tearDown();
 	}
 	
 	public void testIndex(){
@@ -133,15 +163,15 @@ public class Framework extends TestCase {
 
 	private void checkFirstPass(IResource resource, ValidationResults vr) throws CoreException {
 		assertTrue("We expect there to be exactly two error messages, but errors=" + vr.getSeverityError(), vr.getSeverityError() == 2);
-		assertTrue("We expect there to be exactly two warning message, but warnings=" + vr.getSeverityWarning(), vr.getSeverityWarning() == 2);
-		assertTrue("We expect there to be exactly two info message, but info=" + vr.getSeverityInfo(), vr.getSeverityInfo() == 2);
+		assertTrue("We expect there to be exactly two warning messages, but warnings=" + vr.getSeverityWarning(), vr.getSeverityWarning() == 2);
+		assertTrue("We expect there to be exactly two info messages, but info=" + vr.getSeverityInfo(), vr.getSeverityInfo() == 2);
 		
 		assertTrue("We expect six messages, but got back: "+vr.getMessages().length , vr.getMessages().length == 6);
 		
 		IMarker[] markers = resource.findMarkers(ValConstants.ProblemMarker, false, IResource.DEPTH_ZERO);
 		int errors =0, warnings=0, info=0;
-		for (int i=0; i<markers.length; i++){
-			int severity = markers[i].getAttribute(IMarker.SEVERITY, -1);
+		for (IMarker marker : markers){
+			int severity = marker.getAttribute(IMarker.SEVERITY, -1);
 			switch (severity){
 				case IMarker.SEVERITY_ERROR: errors++;
 				break;
