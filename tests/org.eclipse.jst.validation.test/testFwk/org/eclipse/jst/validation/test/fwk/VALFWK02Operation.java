@@ -32,9 +32,9 @@ import org.eclipse.jst.validation.test.internal.util.BVTRunner;
 import org.eclipse.jst.validation.test.setup.IBuffer;
 import org.eclipse.wst.validation.internal.ConfigurationManager;
 import org.eclipse.wst.validation.internal.GlobalConfiguration;
-import org.eclipse.wst.validation.internal.Misc;
 import org.eclipse.wst.validation.internal.ProjectConfiguration;
 import org.eclipse.wst.validation.internal.TaskListUtility;
+import org.eclipse.wst.validation.internal.Tracing;
 import org.eclipse.wst.validation.internal.ValidationConfiguration;
 import org.eclipse.wst.validation.internal.ValidationRegistryReader;
 import org.eclipse.wst.validation.internal.ValidatorMetaData;
@@ -170,7 +170,7 @@ public final class VALFWK02Operation implements IOperationRunnable {
 			try {
 				// Set level to FINEST so that the launch validators are accumulated in ValidationOperation.
 				// (See ValidationOperation::getLaunchedValidators())
-				Misc.setForceLogging(true);
+				Tracing.setForceLogging(true);
 				
 				getBuffer().write("testPropNotOverride"); //$NON-NLS-1$
 				int allowPass = testPropNotOverride(monitor, project, gconf, pconf, propTMD);
