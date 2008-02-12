@@ -85,6 +85,9 @@ public class MethodElementItemProvider extends EjbItemProviderAdapter implements
 		if (gen.isLocalHome()) {
 			overlayString = "local_home_ovr"; //$NON-NLS-1$
 		}
+		if (gen.isService()) {
+			overlayString = "service_interface_ovr"; //$NON-NLS-1$
+		}
 		if (gen.isUnspecified()) { //$NON-NLS-1$ = "Common Methods"
 			return base;
 		}
