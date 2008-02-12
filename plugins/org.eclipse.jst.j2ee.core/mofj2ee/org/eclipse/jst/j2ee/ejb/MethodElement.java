@@ -218,6 +218,7 @@ boolean isRemote() ;
 boolean isUnspecified() ;
 boolean isLocalHome() ;
 boolean isLocal() ;
+boolean isService();
 /**
  * Return true if this MethodElement represents one or more
  * methods.

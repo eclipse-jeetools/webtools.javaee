@@ -596,6 +596,9 @@ public boolean isLocalHome() {
 public boolean isLocal() {
 	return getType().getValue() == MethodElementKind.LOCAL;
 }
+public boolean isService() {
+	return getType().getValue() == MethodElementKind.SERVICE_ENDPOINT;
+}
 /**
  * Return true if this MethodElement represents one or more
  * methods.
