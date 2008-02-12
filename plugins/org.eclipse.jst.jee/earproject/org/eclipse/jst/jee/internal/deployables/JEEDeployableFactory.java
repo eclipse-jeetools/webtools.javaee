@@ -123,6 +123,10 @@ public class JEEDeployableFactory extends ProjectModuleFactoryDelegate {
 						earEdit = EARArtifactEdit.getEARArtifactEditForRead(component.getProject());
 						app = earEdit.getApplication();
 					}
+					// if we are missing the application.xml, cannot check for module URI so assume an archive
+					if (app == null) {
+						continue;
+					}
 					// Check if module URI exists on EAR DD for binary j2ee archive
 					Module j2eeModule = app.getFirstModule(references[i].getArchiveName());
 					// If it is not a j2ee module and the component project is the ear, it is just an archive
