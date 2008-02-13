@@ -68,8 +68,11 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
 	
 	private static final String CONNECTOR_PROJ_1 = "myConnector_1";
 	private static final String CONNECTOR_PROJ_15 = "myConnector_15";
-	
-	
+
+	public EARProjectCreationOperationTest(String name) {
+		super(name);
+	}
+
     public static Test suite() {
     	return new SimpleTestSuite(EARProjectCreationOperationTest.class);
     }

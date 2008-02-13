@@ -79,10 +79,11 @@ public  class PerformanceTestCaseWrapper extends PerformanceTestCase {
 				runTest();
 				stopMeasuring();
 			}
-		}
-		finally {
+			
 			commitMeasurements();
 			assertPerformance();
+		}
+		finally {
 			tearDown();
 		}
 	}

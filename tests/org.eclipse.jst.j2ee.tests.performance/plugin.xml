@@ -19,6 +19,7 @@
       <import plugin="org.eclipse.test.performance"/>
       <import plugin="org.junit"/>
       <import plugin="org.eclipse.wst.common.tests"/>
+      <import plugin="org.eclipse.jst.j2ee.tests"/>
    </requires>
 
 </plugin>

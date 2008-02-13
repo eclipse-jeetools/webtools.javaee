@@ -18,7 +18,6 @@ import org.eclipse.jst.j2ee.archive.emftests.AllTests;
 import org.eclipse.jst.j2ee.tests.bvt.AutomatedBVT;
 import org.eclipse.wst.common.frameworks.artifactedit.tests.ArtifactEditAPITests;
 import org.eclipse.wst.common.frameworks.datamodel.tests.DataModelAPITests;
-import org.eclipse.wtp.j2ee.headless.tests.plugin.AllPluginTests;
 
 
 /**
