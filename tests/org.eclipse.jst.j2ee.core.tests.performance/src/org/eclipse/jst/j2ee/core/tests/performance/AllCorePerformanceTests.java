@@ -65,12 +65,12 @@ public class AllCorePerformanceTests extends BasePerformanceTestCase{
 		
 		
 		//Creation tests
-		addPerformanceTest(suite, new EJBProjectCreationOperationTest("testDefaults"), PerformanceTestCaseWrapper.NONE, "EJB Component creation test" );
-		addPerformanceTest(suite, new AppClientProjectCreationOperationTest("testDefaults"), PerformanceTestCaseWrapper.LOCAL, "App Client Component creation test" );
-		addPerformanceTest(suite, new JCAProjectCreationOperationTest("testDefaults"), PerformanceTestCaseWrapper.GLOBAL, "Connector Component creation test" );
-		addPerformanceTest(suite, new WebProjectCreationOperationTest("testDefaults"), PerformanceTestCaseWrapper.GLOBAL, "Web Component creation test" );
+		addPerformanceTest(suite, new EJBProjectCreationOperationTest("testEJB21_Defaults"), PerformanceTestCaseWrapper.NONE, "EJB Component creation test" );
+		addPerformanceTest(suite, new AppClientProjectCreationOperationTest("testAC50_Defaults"), PerformanceTestCaseWrapper.LOCAL, "App Client Component creation test" );
+		addPerformanceTest(suite, new JCAProjectCreationOperationTest("testConnector15_Defaults"), PerformanceTestCaseWrapper.GLOBAL, "Connector Component creation test" );
+		addPerformanceTest(suite, new WebProjectCreationOperationTest("testWeb24_Defaults"), PerformanceTestCaseWrapper.GLOBAL, "Web Component creation test" );
 		
-		addPerformanceTest(suite, new EJBImportOperationTest("testEJB21Import"), PerformanceTestCaseWrapper.NONE, "EJB Component import test" );
+		addPerformanceTest(suite, new EJBImportOperationTest("testEJBImport21_Defaults"), PerformanceTestCaseWrapper.NONE, "EJB Component import test" );
 		return suite;
 	}
 
