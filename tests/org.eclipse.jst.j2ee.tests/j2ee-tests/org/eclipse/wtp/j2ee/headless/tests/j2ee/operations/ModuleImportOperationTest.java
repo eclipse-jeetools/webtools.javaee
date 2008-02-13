@@ -44,7 +44,7 @@ public abstract class ModuleImportOperationTest extends JEEImportOperationTest {
 	}
 	
 	public static Test suite() {
-		TestSuite suite = new TestSuite();
+		TestSuite suite = new TestSuite("All Module Import Operation Tests");
 		suite.addTestSuite(JCAImportOperationTest.class);
 		suite.addTestSuite(EJBImportOperationTest.class);
 		suite.addTestSuite(WebImportOperationTest.class);

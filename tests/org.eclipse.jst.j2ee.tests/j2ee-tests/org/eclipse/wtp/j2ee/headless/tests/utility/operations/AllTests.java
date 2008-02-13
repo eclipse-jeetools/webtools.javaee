@@ -12,7 +12,7 @@ public class AllTests extends TestSuite {
     }
     
     public AllTests(){
-        super("Java Utility Tests");
+        super("Java Utility Operation Tests");
         addTest(UtilityProjectCreationOperationTest.suite());
         addTest(UtilityExportOperationTest.suite());
         addTest(UtilityImportOperationTest.suite());

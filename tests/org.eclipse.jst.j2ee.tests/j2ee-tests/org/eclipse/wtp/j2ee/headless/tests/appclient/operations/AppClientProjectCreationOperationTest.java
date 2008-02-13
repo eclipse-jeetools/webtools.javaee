@@ -17,11 +17,10 @@
 package org.eclipse.wtp.j2ee.headless.tests.appclient.operations;
 
 import junit.framework.Test;
-import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientFacetProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IAppClientFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
@@ -31,6 +30,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.tests.OperationTestCase;
+import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.JavaEEFacetConstants;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleProjectCreationOperationTest;
 
@@ -48,9 +48,7 @@ public class AppClientProjectCreationOperationTest extends ModuleProjectCreation
 	}
 	
     public static Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.addTestSuite(AppClientProjectCreationOperationTest.class);
-        return suite;
+    	return new SimpleTestSuite(AppClientProjectCreationOperationTest.class);
     }
  
     public void testAC12_Defaults() throws Exception{
@@ -197,7 +195,7 @@ public class AppClientProjectCreationOperationTest extends ModuleProjectCreation
     	}
     	
     	FacetDataModelMap facetMap = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-        IDataModel facetModel = facetMap.getFacetDataModel(J2EEProjectUtilities.APPLICATION_CLIENT);
+        IDataModel facetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.APPLICATION_CLIENT);
         facetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, version);
         facetModel.setProperty(IAppClientFacetInstallDataModelProperties.CREATE_DEFAULT_MAIN_CLASS, createDefaultMainClass);
         
@@ -205,7 +203,7 @@ public class AppClientProjectCreationOperationTest extends ModuleProjectCreation
         if(version == JavaEEFacetConstants.APP_CLIENT_5){
             facetModel.setBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, createDD);
             
-            IDataModel javaFacetModel = facetMap.getFacetDataModel(J2EEProjectUtilities.JAVA);
+            IDataModel javaFacetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.JAVA);
             javaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaEEFacetConstants.JAVA_5);
         }
         

@@ -9,7 +9,6 @@ package org.eclipse.wtp.j2ee.headless.tests.web.operations;
 import java.util.List;
 
 import junit.framework.Test;
-import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.operations.IOverwriteHandler;
@@ -18,6 +17,7 @@ import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataMode
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleImportOperationTest;
 
 /**
@@ -37,9 +37,7 @@ public class WebImportOperationTest extends ModuleImportOperationTest {
 	}
 	
 	public static Test suite() {
-		TestSuite suite = new TestSuite();
-		suite.addTestSuite(WebImportOperationTest.class);
-		return suite;
+		return new SimpleTestSuite(WebImportOperationTest.class);
 	}
 	
 	public void testWebImport22_Defaults() throws Exception {

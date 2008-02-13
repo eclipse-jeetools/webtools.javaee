@@ -4,7 +4,6 @@
 package org.eclipse.wtp.j2ee.headless.tests.utility.operations;
 
 import junit.framework.Test;
-import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.UtilityProjectCreationDataModelProvider;
@@ -12,6 +11,7 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCr
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.OperationTestCase;
+import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.ear.operations.EARProjectCreationOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.JavaEEFacetConstants;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleProjectCreationOperationTest;
@@ -29,9 +29,7 @@ public class UtilityProjectCreationOperationTest extends ModuleProjectCreationOp
 	}
 	
     public static Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.addTestSuite(UtilityProjectCreationOperationTest.class);
-        return suite;
+    	return new SimpleTestSuite(UtilityProjectCreationOperationTest.class);
     }
     
     public void testUtility_Defaults() throws Exception{

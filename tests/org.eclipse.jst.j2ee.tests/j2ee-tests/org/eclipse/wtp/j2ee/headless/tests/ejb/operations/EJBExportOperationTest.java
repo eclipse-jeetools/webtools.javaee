@@ -17,12 +17,12 @@
 package org.eclipse.wtp.j2ee.headless.tests.ejb.operations;
 
 import junit.framework.Test;
-import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBComponentExportDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.JavaEEFacetConstants;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.JavaFileTestingUtilities;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleExportOperationTest;
@@ -44,9 +44,7 @@ public class EJBExportOperationTest extends ModuleExportOperationTest {
 	}
 	
 	public static Test suite() {
-		TestSuite suite = new TestSuite();
-		suite.addTestSuite(EJBExportOperationTest.class);
-		return suite;
+		return new SimpleTestSuite(EJBExportOperationTest.class);
 	}
 	
 	public void testEJBExport11_Defaults() throws Exception {

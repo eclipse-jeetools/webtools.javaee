@@ -32,7 +32,7 @@ public class AllTests extends TestSuite {
     }
     
     public AllTests(){
-        super("EAR Tests");
+        super("EAR Operation Tests");
         addTest(EARExportOperationTest.suite());
         addTest(EARImportOperationTest.suite());
         addTest(EARProjectCreationOperationTest.suite());

@@ -43,7 +43,7 @@ public class AllTests extends TestSuite {
     }
     
     public AllTests(){
-        super("WEB Tests");
+        super("Web Operation, Servlet, & Deploy Tests");
        addTest(WebImportOperationTest.suite());
        addTest(WebExportOperationTest.suite());
        addTest(WebProjectCreationOperationTest.suite());

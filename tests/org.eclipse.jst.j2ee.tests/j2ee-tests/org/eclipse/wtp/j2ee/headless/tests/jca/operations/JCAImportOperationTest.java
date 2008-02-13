@@ -7,13 +7,13 @@
 package org.eclipse.wtp.j2ee.headless.tests.jca.operations;
 
 import junit.framework.Test;
-import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.operations.IOverwriteHandler;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentImportDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleImportOperationTest;
 
 /**
@@ -33,9 +33,7 @@ public class JCAImportOperationTest extends ModuleImportOperationTest {
 	}
 	
 	public static Test suite() {
-		TestSuite suite = new TestSuite();
-		suite.addTestSuite(JCAImportOperationTest.class);
-		return suite;
+		return new SimpleTestSuite(JCAImportOperationTest.class);
 	}
 	
 	public void testConnectorImport10_Defaults() throws Exception{

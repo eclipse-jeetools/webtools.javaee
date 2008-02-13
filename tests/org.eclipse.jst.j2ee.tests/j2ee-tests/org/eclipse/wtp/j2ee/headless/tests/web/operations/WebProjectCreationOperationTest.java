@@ -17,10 +17,9 @@
 package org.eclipse.wtp.j2ee.headless.tests.web.operations;
 
 import junit.framework.Test;
-import junit.framework.TestSuite;
 
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
@@ -32,6 +31,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.tests.OperationTestCase;
+import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.JavaEEFacetConstants;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleProjectCreationOperationTest;
 
@@ -47,9 +47,7 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
 	}
 
 	public static Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.addTestSuite(WebProjectCreationOperationTest.class);
-        return suite;
+		return new SimpleTestSuite(WebProjectCreationOperationTest.class);
     }
 	
 	public void testWeb22_Defaults() throws Exception {
@@ -412,7 +410,7 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
     	}
     	
     	FacetDataModelMap facetMap = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-    	IDataModel facetModel = facetMap.getFacetDataModel(J2EEProjectUtilities.DYNAMIC_WEB);
+    	IDataModel facetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.DYNAMIC_WEB);
     	facetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, version);
     	
     	//if no contextRoot provided use default, contextRoot only matters if adding to EAR
@@ -434,7 +432,7 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
     	if(version == JavaEEFacetConstants.WEB_25){
     		facetModel.setBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, createDD);
     		
-            IDataModel javaFacetModel = facetMap.getFacetDataModel(J2EEProjectUtilities.JAVA);
+            IDataModel javaFacetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.JAVA);
             javaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaEEFacetConstants.JAVA_5);
     	}
     	

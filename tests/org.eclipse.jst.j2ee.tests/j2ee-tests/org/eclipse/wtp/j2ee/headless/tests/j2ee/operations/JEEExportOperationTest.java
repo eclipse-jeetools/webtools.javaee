@@ -37,7 +37,7 @@ public abstract class JEEExportOperationTest extends OperationTestCase {
 	}
 	
 	public static Test suite() {
-        TestSuite suite = new TestSuite();
+        TestSuite suite = new TestSuite("All JEE Export Operation Tests");
         suite.addTest(ModuleExportOperationTest.suite());
         suite.addTest(EARExportOperationTest.suite());
 

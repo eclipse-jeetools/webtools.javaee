@@ -5,7 +5,6 @@ import java.util.List;
 
 import junit.framework.Assert;
 import junit.framework.Test;
-import junit.framework.TestSuite;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
@@ -21,6 +20,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.OperationTestCase;
+import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.JEEImportOperationTest;
 
 /**
@@ -39,9 +39,7 @@ public class EARImportOperationTest extends JEEImportOperationTest {
 	}
 	
 	public static Test suite() {
-		TestSuite suite = new TestSuite();
-		suite.addTestSuite(EARImportOperationTest.class);
-		return suite;
+		return new SimpleTestSuite(EARImportOperationTest.class);
 	}
 	
     public void testEARImport12_WithDependencies() throws Exception{

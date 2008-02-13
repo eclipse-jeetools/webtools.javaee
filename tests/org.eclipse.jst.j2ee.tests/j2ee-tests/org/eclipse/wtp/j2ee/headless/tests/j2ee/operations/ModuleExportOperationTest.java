@@ -46,7 +46,7 @@ public abstract class ModuleExportOperationTest extends JEEExportOperationTest {
 	}
 	
 	public static Test suite() {
-		TestSuite suite = new TestSuite();
+		TestSuite suite = new TestSuite("All Module ExportOperation Tests");
 		suite.addTestSuite(JCAExportOperationTest.class);
 		suite.addTestSuite(EJBExportOperationTest.class);
 		suite.addTestSuite(WebExportOperationTest.class);

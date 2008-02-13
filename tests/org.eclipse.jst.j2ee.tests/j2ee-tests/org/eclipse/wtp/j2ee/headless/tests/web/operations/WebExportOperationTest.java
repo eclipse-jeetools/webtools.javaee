@@ -17,7 +17,6 @@
 package org.eclipse.wtp.j2ee.headless.tests.web.operations;
 
 import junit.framework.Test;
-import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentExportDataModelProvider;
@@ -25,6 +24,7 @@ import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentExportDataMode
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.OperationTestCase;
+import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.JavaEEFacetConstants;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.JavaFileTestingUtilities;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleExportOperationTest;
@@ -46,9 +46,7 @@ public class WebExportOperationTest extends ModuleExportOperationTest {
 	}
 	
 	public static Test suite() {
-		TestSuite suite = new TestSuite();
-		suite.addTestSuite(WebExportOperationTest.class);
-		return suite;
+		return new SimpleTestSuite(WebExportOperationTest.class);
 	}
 	
 	public void testWebExport22_Defaults() throws Exception {

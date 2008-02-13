@@ -7,13 +7,13 @@
 package org.eclipse.wtp.j2ee.headless.tests.jca.operations;
 
 import junit.framework.Test;
-import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentExportDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.OperationTestCase;
+import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.JavaEEFacetConstants;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.JavaFileTestingUtilities;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleExportOperationTest;
@@ -35,9 +35,7 @@ public class JCAExportOperationTest extends ModuleExportOperationTest {
 	}
 	
 	public static Test suite() {
-		TestSuite suite = new TestSuite();
-		suite.addTestSuite(JCAExportOperationTest.class);
-		return suite;
+		return new SimpleTestSuite(JCAExportOperationTest.class);
 	}
 	
 	public void testConnectorExport10_Defaults() throws Exception{

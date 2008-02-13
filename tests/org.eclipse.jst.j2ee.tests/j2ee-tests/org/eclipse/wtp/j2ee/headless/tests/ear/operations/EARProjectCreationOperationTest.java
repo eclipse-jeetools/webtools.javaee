@@ -22,11 +22,10 @@ import java.util.Collections;
 import java.util.List;
 
 import junit.framework.Test;
-import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.earcreation.IEarFacetInstallDataModelProperties;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.facet.EARFacetProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetInstallDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
@@ -35,6 +34,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.tests.OperationTestCase;
+import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AppClientProjectCreationOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.ejb.operations.EJBProjectCreationOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.JEEProjectCreationOperationTest;
@@ -71,9 +71,7 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
 	
 	
     public static Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.addTestSuite(EARProjectCreationOperationTest.class);
-        return suite;
+    	return new SimpleTestSuite(EARProjectCreationOperationTest.class);
     }
     
     public void testEAR12_Defaults() throws Exception{
@@ -236,7 +234,7 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
     		OperationTestCase.runDataModel(models.get(i));
     	}
     	
-    	dependencies.addAll(Arrays.asList(J2EEProjectUtilities.getAllProjects()));
+    	dependencies.addAll(Arrays.asList(JavaEEProjectUtilities.getAllProjects()));
     	
     	return dependencies;
     }
@@ -263,7 +261,7 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
     		OperationTestCase.runDataModel(models.get(i));
     	}
     	
-    	dependencies.addAll(Arrays.asList(J2EEProjectUtilities.getAllProjects()));
+    	dependencies.addAll(Arrays.asList(JavaEEProjectUtilities.getAllProjects()));
     	
     	return dependencies;
     }
@@ -289,7 +287,7 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
     		OperationTestCase.runDataModel(models.get(i));
     	}
     	
-    	dependencies.addAll(Arrays.asList(J2EEProjectUtilities.getAllProjects()));
+    	dependencies.addAll(Arrays.asList(JavaEEProjectUtilities.getAllProjects()));
     	
     	return dependencies;
     }
@@ -317,7 +315,7 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
     		OperationTestCase.runDataModel(models.get(i));
     	}
     	
-    	dependencies.addAll(Arrays.asList(J2EEProjectUtilities.getAllProjects()));
+    	dependencies.addAll(Arrays.asList(JavaEEProjectUtilities.getAllProjects()));
     	
     	return dependencies;
     }

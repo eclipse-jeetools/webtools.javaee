@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 import junit.framework.Test;
-import junit.framework.TestSuite;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
@@ -19,7 +18,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveResource;
@@ -28,6 +27,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.AssertWarn;
 import org.eclipse.wst.common.tests.OperationTestCase;
+import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AppClientExportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.ejb.operations.EJBExportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ArchiveTestsUtil;
@@ -58,9 +58,7 @@ public class EARExportOperationTest extends JEEExportOperationTest {
     }
     
 	public static Test suite() {
-		TestSuite suite = new TestSuite();
-		suite.addTestSuite(EARExportOperationTest.class);
-		return suite;
+		return new SimpleTestSuite(EARExportOperationTest.class);
 	}
 	
     public void testEARExport12_WithDependencies() throws Exception{
@@ -173,7 +171,7 @@ public class EARExportOperationTest extends JEEExportOperationTest {
 		String archiveName = null;
 		String archivePath = null;
 		
-		IProject earProject = J2EEProjectUtilities.getProject(projectName);
+		IProject earProject = JavaEEProjectUtilities.getProject(projectName);
 		JavaFileTestingUtilities.addJavaFilesToAllProjectsInEAR(earProject);
 		
 		archiveName = runAndVerifyExport_Defaults(projectName);
@@ -228,7 +226,7 @@ public class EARExportOperationTest extends JEEExportOperationTest {
 				}
 			}
 			
-			IProject earProject = J2EEProjectUtilities.getProject(projectName);
+			IProject earProject = JavaEEProjectUtilities.getProject(projectName);
 			IProject[] referencedProjects = earProject.getReferencedProjects();
 			String referencedProjectType = null;
 			String referencedArchiveProjectName = null;
@@ -236,7 +234,7 @@ public class EARExportOperationTest extends JEEExportOperationTest {
 			IDataModel referencedArchiveExportModel = null;
 			Map<String, IPath> referencedProjectsArchiveMap = new HashMap<String, IPath>();
 			for(IProject referencedProject : referencedProjects) {
-				referencedProjectType = J2EEProjectUtilities.getJ2EEProjectType(referencedProject);
+				referencedProjectType = JavaEEProjectUtilities.getJ2EEProjectType(referencedProject);
 				
 				referencedArchiveProjectName = referencedProject.getName();
 				referencedArchiveDestination = getDataPath(referencedArchiveProjectName);

@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.List;
 
 import junit.framework.Test;
-import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
@@ -16,6 +15,7 @@ import org.eclipse.jst.j2ee.internal.archive.operations.IOverwriteHandler;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.OperationTestCase;
+import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.ear.operations.EARExportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.ear.operations.EARImportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleImportOperationTest;
@@ -38,9 +38,7 @@ public class UtilityImportOperationTest extends ModuleImportOperationTest {
 	}
 	
 	public static Test suite() {
-		TestSuite suite = new TestSuite();
-		suite.addTestSuite(UtilityImportOperationTest.class);
-		return suite;
+		return new SimpleTestSuite(UtilityImportOperationTest.class);
 	}	
 	
     public void testUtilityImport_Defaults() throws Exception{

@@ -12,11 +12,10 @@
 package org.eclipse.wtp.j2ee.headless.tests.ejb.operations;
 
 import junit.framework.Test;
-import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.ejb.project.operations.IEjbFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
@@ -25,6 +24,7 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCr
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.JavaEEFacetConstants;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleProjectCreationOperationTest;
 
@@ -39,9 +39,7 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
 	}
 	
     public static Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.addTestSuite(EJBProjectCreationOperationTest.class);
-        return suite;
+    	return new SimpleTestSuite(EJBProjectCreationOperationTest.class);
     }
     
     public void testEJB11_Defaults() throws Exception {
@@ -220,7 +218,7 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
     	dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, projName);
     	
     	FacetDataModelMap facetMap = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-        IDataModel facetModel = facetMap.getFacetDataModel(J2EEProjectUtilities.EJB);
+        IDataModel facetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.EJB);
         facetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, version);
     	
     	if(earName != null) {
@@ -245,7 +243,7 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
         if(version == JavaEEFacetConstants.EJB_3){
             facetModel.setBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, createDD);
             
-            IDataModel javaFacetModel = facetMap.getFacetDataModel(J2EEProjectUtilities.JAVA);
+            IDataModel javaFacetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.JAVA);
             javaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaEEFacetConstants.JAVA_5);
         }
         
@@ -273,7 +271,7 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
     	IDataModel dm = getEJBDataModel(projName, clientName, clientSourceFolder, earName, version, createDD);
     	
     	FacetDataModelMap facetMap = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-    	IDataModel facetModel = facetMap.getFacetDataModel(J2EEProjectUtilities.EJB);
+    	IDataModel facetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.EJB);
     	facetModel.setBooleanProperty(IEjbFacetInstallDataModelProperties.CREATE_CLIENT, createCleint);
         
     	return dm;

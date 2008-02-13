@@ -12,11 +12,10 @@
 package org.eclipse.wtp.j2ee.headless.tests.jca.operations;
 
 import junit.framework.Test;
-import junit.framework.TestSuite;
 
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.jca.project.facet.ConnectorFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.jca.project.facet.IConnectorFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
@@ -25,6 +24,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.tests.OperationTestCase;
+import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.JavaEEFacetConstants;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleProjectCreationOperationTest;
 
@@ -39,9 +39,7 @@ public class JCAProjectCreationOperationTest extends ModuleProjectCreationOperat
 	}
 
     public static Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.addTestSuite(JCAProjectCreationOperationTest.class);
-        return suite;
+    	return new SimpleTestSuite(JCAProjectCreationOperationTest.class);
     }
     
     public void testConnector10_Defaults() throws Exception{
@@ -107,7 +105,7 @@ public class JCAProjectCreationOperationTest extends ModuleProjectCreationOperat
     	}
     	
     	FacetDataModelMap facetMap = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-        IDataModel facetModel = facetMap.getFacetDataModel(J2EEProjectUtilities.JCA);
+        IDataModel facetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.JCA);
         facetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, version);
         
         if(sourceFolder != null) {
@@ -116,7 +114,7 @@ public class JCAProjectCreationOperationTest extends ModuleProjectCreationOperat
         
         //be sure to use Java5 with JEE5
         if(version == JavaEEFacetConstants.CONNECTOR_15){
-            IDataModel javaFacetModel = facetMap.getFacetDataModel(J2EEProjectUtilities.JAVA);
+            IDataModel javaFacetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.JAVA);
             javaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaEEFacetConstants.JAVA_5);
         }
         

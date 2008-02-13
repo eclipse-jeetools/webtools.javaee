@@ -4,12 +4,12 @@
 package org.eclipse.wtp.j2ee.headless.tests.utility.operations;
 
 import junit.framework.Test;
-import junit.framework.TestSuite;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.OperationTestCase;
+import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.ear.operations.EARExportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.ear.operations.EARProjectCreationOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.JavaEEFacetConstants;
@@ -32,9 +32,7 @@ public class UtilityExportOperationTest extends ModuleExportOperationTest {
 	}
 	
 	public static Test suite() {
-		TestSuite suite = new TestSuite();
-		suite.addTestSuite(UtilityExportOperationTest.class);
-		return suite;
+		return new SimpleTestSuite(UtilityExportOperationTest.class);
 	}
 	
 	
@@ -106,7 +104,7 @@ public class UtilityExportOperationTest extends ModuleExportOperationTest {
 			String[] classNames, String prackageName) throws Exception {
 		
 		//will be exporting the utility project within an EAR thus use utitilities for EARs to added files
-		IProject earProject = J2EEProjectUtilities.getProject(EAR_PROJECT_NAME);
+		IProject earProject = JavaEEProjectUtilities.getProject(EAR_PROJECT_NAME);
 		JavaFileTestingUtilities.addJavaFilesToAllProjectsInEAR(earProject);
 	}
 

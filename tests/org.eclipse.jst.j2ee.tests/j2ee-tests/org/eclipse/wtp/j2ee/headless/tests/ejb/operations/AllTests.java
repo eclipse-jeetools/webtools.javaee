@@ -23,7 +23,7 @@ public class AllTests extends TestSuite {
     }
     
     public AllTests(){
-        super("EJB Tests");
+        super("EJB Operation Tests");
         addTest(EJBExportOperationTest.suite());
         addTest(EJBImportOperationTest.suite());
         addTest(EJBProjectCreationOperationTest.suite());

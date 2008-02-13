@@ -22,7 +22,7 @@ public class AllTests extends TestSuite {
     }
     
     public AllTests(){
-        super("App Client Tests");
+        super("Application Client Operation Tests");
         addTest(AppClientExportOperationTest.suite());
         addTest(AppClientImportOperationTest.suite());
         addTest(AppClientProjectCreationOperationTest.suite());

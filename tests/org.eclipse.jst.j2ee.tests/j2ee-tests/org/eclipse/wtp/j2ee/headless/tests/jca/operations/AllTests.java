@@ -22,7 +22,7 @@ public class AllTests extends TestSuite {
     }
     
     public AllTests(){
-        super("JCA Tests");
+        super("JCA Operation Tests");
         addTest(JCAProjectCreationOperationTest.suite());
         addTest(JCAExportOperationTest.suite());
         addTest(JCAImportOperationTest.suite());

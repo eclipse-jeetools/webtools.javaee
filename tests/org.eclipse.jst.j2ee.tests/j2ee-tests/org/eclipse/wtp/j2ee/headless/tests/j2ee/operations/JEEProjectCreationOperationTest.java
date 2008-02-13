@@ -30,7 +30,7 @@ public class JEEProjectCreationOperationTest extends OperationTestCase {
 	}
 	
 	public static Test suite() {
-        TestSuite suite = new TestSuite();
+        TestSuite suite = new TestSuite("All JEE Project Creation Operation Tests");
         suite.addTest(ModuleProjectCreationOperationTest.suite());
         suite.addTest(EARProjectCreationOperationTest.suite());
 

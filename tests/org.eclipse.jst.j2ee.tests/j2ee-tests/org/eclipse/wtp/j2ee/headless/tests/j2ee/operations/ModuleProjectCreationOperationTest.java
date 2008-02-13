@@ -30,7 +30,7 @@ public abstract class ModuleProjectCreationOperationTest extends JEEProjectCreat
 	}
 
 	public static Test suite() {
-        TestSuite suite = new TestSuite();
+        TestSuite suite = new TestSuite("All Module Project Creation Operation Tests");
         suite.addTestSuite(AppClientProjectCreationOperationTest.class);
         suite.addTestSuite(EJBProjectCreationOperationTest.class);
         suite.addTestSuite(WebProjectCreationOperationTest.class); 
