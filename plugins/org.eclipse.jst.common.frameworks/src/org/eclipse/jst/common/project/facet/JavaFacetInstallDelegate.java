@@ -90,21 +90,24 @@ public final class JavaFacetInstallDelegate implements IDelegate {
 				// Setup the classpath.
                 
                 JavaFacetUtils.resetClasspath( project, null, fv );
+                JavaFacetUtils.setCompilerLevel(project, fv);
 			}
-            
-			// Set the compiler comliance level for the project. Ignore whether
-			// this might already be set so at the workspace level in case
-			// workspace settings change later or the project is included in a
-			// different workspace.
-			String oldCompilerLevel = JavaFacetUtils.getCompilerLevel(project);
-			JavaFacetUtils.setCompilerLevel(project, fv);
-			
-			String newCompilerLevel = JavaFacetUtils.getCompilerLevel(project);
-			
-			// Schedule a full build of the project if the compiler level changed
-			// because we want classes in the project to be recompiled.
-			if(newCompilerLevel != null && !newCompilerLevel.equals(oldCompilerLevel))
-				JavaFacetUtils.scheduleFullBuild(project);
+			else
+			{
+				// Set the compiler compliance level for the project. Ignore whether
+				// this might already be set so at the workspace level in case
+				// workspace settings change later or the project is included in a
+				// different workspace.
+				String oldCompilerLevel = JavaFacetUtils.getCompilerLevel(project);
+				JavaFacetUtils.setCompilerLevel(project, fv);
+				
+				String newCompilerLevel = JavaFacetUtils.getCompilerLevel(project);
+				
+				// Schedule a full build of the project if the compiler level changed
+				// because we want classes in the project to be recompiled.
+				if(newCompilerLevel != null && !newCompilerLevel.equals(oldCompilerLevel))
+					JavaFacetUtils.scheduleFullBuild(project);	
+			}
 
 			if (monitor != null) {
 				monitor.worked(1);
