@@ -23,7 +23,6 @@ public class PerformanceTestSuite extends TestSuite {
 		super(name);
 	}
 	
-	@Override
 	public void addTest(Test test) {
 		//must be a BaseTestCase so it can be wrapped in a PerformanceTestCaseWrapper
 		if(test instanceof BaseTestCase) {
