@@ -10,18 +10,22 @@ import org.eclipse.wst.validation.ValidationState;
 import org.eclipse.wst.validation.ValidatorMessage;
 
 /**
- * A simple test validator that always returns and error marker and a warning marker.
+ * A simple test validator that always returns an error marker and a warning marker.
  * @author karasiuk
  *
  */
 public class TestValidator2 extends AbstractValidator {
 	
+//	private MessageSeveritySetting[] _messages;
+	
 	public String getName() {
 		return "TestValidator2";
 	}
+	
 	public static String id(){
 		return BVTValidationPlugin.PLUGIN_ID +".Test2";
 	}
+	
 	
 	@Override
 	public ValidationResult validate(IResource resource, int kind, ValidationState state, IProgressMonitor monitor){
@@ -38,5 +42,17 @@ public class TestValidator2 extends AbstractValidator {
 				
 		return vr;
 	}
+	
+//	@Override
+//	public MessageSeveritySetting[] getMessageSettings() {
+//		if (_messages == null){
+//			_messages = new MessageSeveritySetting[]{
+//				new MessageSeveritySetting("bad","Really bad things", MessageSeveritySetting.Severity.Error),
+//				new MessageSeveritySetting("sortof", "Sort of bad things", MessageSeveritySetting.Severity.Warning),
+//				new MessageSeveritySetting("nice", "Nice things", MessageSeveritySetting.Severity.Ignore)
+//			};
+//		}
+//		return _messages;
+//	}
 
 }

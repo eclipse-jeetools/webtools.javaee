@@ -514,5 +514,24 @@
          </include>
       </validator>
    </extension>
+   <extension id="Test5" name="%Test5.Validator.Name" point="org.eclipse.wst.validation.validatorV2">
+      <validator class="org.eclipse.wst.validation.tests.TestValidator5">
+         <include>
+            <rules>
+               <fileext
+                     ext="test5">
+               </fileext>
+            </rules>
+         </include>
+      </validator>
+   </extension>
+   <extension
+         point="org.eclipse.wst.validation.validatorDelegates">
+      <delegate
+            class="org.eclipse.wst.validation.tests.TestValidator5D"
+            name="%Test5D.Validator.Name"
+            target="org.eclipse.wst.validation.tests.TestValidator5">
+      </delegate>
+   </extension>
    
 </plugin>

@@ -3,22 +3,19 @@ package org.eclipse.wst.validation.tests;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jst.validation.test.BVTValidationPlugin;
+import org.eclipse.wst.validation.AbstractValidator;
 import org.eclipse.wst.validation.ValidationResult;
 import org.eclipse.wst.validation.ValidationState;
 
 /**
- * A slower validator. This validator takes at least 2 seconds to run.
+ * This is a delegating validator.
  * @author karasiuk
  *
  */
-public class TestValidator4 extends TestValidator {
+public class TestValidator5D extends AbstractValidator {
 	
+	private static int _calledCount;
 	private static ValCounters _counters = new ValCounters();
-	
-	public static String id(){
-		return BVTValidationPlugin.PLUGIN_ID +".Test4";
-	}
 	
 	public static ValCounters getCounters() {
 		return _counters;
@@ -35,19 +32,20 @@ public class TestValidator4 extends TestValidator {
 		if (project == null)_counters.finishedCount++;
 		else _counters.finishedProjectCount++;
 	}
-		
+
+	public String getName() {
+		return "TestValidator5D";
+	}
+
 	@Override
 	public ValidationResult validate(IResource resource, int kind, ValidationState state, IProgressMonitor monitor) {
-		ValidationResult vr = super.validate(resource, kind, state, monitor);
-		long j = 0;
-		try {
-			for (long i=0; i< 10000000; i++)j = i + 1;
-			Thread.sleep(2000);
-		}
-		catch (InterruptedException e){
-			// eat it
-		}
-		j++; // just to get rid of the compiler warning
+		ValidationResult vr = new ValidationResult();
+		_calledCount++;
 		return vr;
 	}
+
+	public static int getCalledCount() {
+		return _calledCount;
+	}
+
 }

@@ -9,13 +9,13 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceDescription;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.wst.validation.internal.operations.ValidatorManager;
 
 public class TestEnvironment {
@@ -42,23 +42,13 @@ public class TestEnvironment {
 		getWorkspace().build(IncrementalProjectBuilder.INCREMENTAL_BUILD, null);
 	}
 	
+	/**
+	 * Do a full build.
+	 */
 	public void fullBuild() throws CoreException{
 		getWorkspace().build(IncrementalProjectBuilder.FULL_BUILD, null);
 	}
 	
-	public void waitForBuild(){
-		boolean wasInterrupted = false;
-		do {
-			try {
-				Job.getJobManager().join(ResourcesPlugin.FAMILY_MANUAL_BUILD, null);
-				wasInterrupted = false;
-			}
-			catch (InterruptedException e){
-				wasInterrupted = true;
-			}
-		} while(wasInterrupted);
-	}
-
 	private IFolder createFolder(IPath path) throws CoreException {
 		if (path.segmentCount() <= 1)return null;
 		
@@ -110,6 +100,21 @@ public class TestEnvironment {
 	
 	public IWorkspace getWorkspace(){
 		return _workspace;
+	}
+
+	public IProject findProject(String name) {
+		IProject project = _workspace.getRoot().getProject(name);
+		if (project.exists())return project;
+		return null;
+	}
+
+	public void turnoffAutoBuild() throws CoreException {
+		IWorkspaceDescription wd = _workspace.getDescription();
+		if (wd.isAutoBuilding()){
+			wd.setAutoBuilding(false);
+			_workspace.setDescription(wd);
+		}
+		
 	}
 
 }

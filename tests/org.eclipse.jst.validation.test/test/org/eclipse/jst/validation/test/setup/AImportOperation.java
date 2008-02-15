@@ -10,7 +10,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jst.validation.test.BVTValidationPlugin;
 import org.eclipse.jst.validation.test.internal.util.BVTValidationUtility;
-import org.eclipse.wst.validation.internal.operations.ValidatorManager;
+import org.eclipse.wst.validation.ValidationFramework;
 import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
 
 /**
@@ -19,11 +19,11 @@ import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
  */
 public abstract class AImportOperation implements IImportOperation {
 	private void preRun(IProgressMonitor monitor) {
-		ValidatorManager.getManager().suspendAllValidation(true);
+		ValidationFramework.getDefault().suspendAllValidation(true);
 	}
 	
 	private void postRun(IProgressMonitor monitor) {
-		ValidatorManager.getManager().suspendAllValidation(false);
+		ValidationFramework.getDefault().suspendAllValidation(false);
 	}
 	
 	protected void deleteOldProject(IProgressMonitor monitor, String projectName) {

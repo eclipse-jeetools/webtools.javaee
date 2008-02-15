@@ -2,7 +2,6 @@ package org.eclipse.wst.validation.tests.testcase;
 
 import java.io.UnsupportedEncodingException;
 
-import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -24,36 +23,31 @@ import org.eclipse.wst.validation.internal.ValConstants;
 import org.eclipse.wst.validation.internal.ValManager;
 import org.eclipse.wst.validation.internal.ValPrefManagerGlobal;
 import org.eclipse.wst.validation.tests.TestValidator;
+import org.eclipse.wst.validation.tests.TestValidator4;
+import org.eclipse.wst.validation.tests.TestValidator5D;
+import org.eclipse.wst.validation.tests.ValCounters;
 import org.eclipse.wst.validation.tests.util.TestEnvironment;
 
 public class Framework extends TestCase {
 	
-	private static TestEnvironment _env;
-	private static IProject		_testProject;
+	private TestEnvironment _env;
+	private IProject		_testProject;
 	
 	public static Test suite() {
-		TestSuite suite = new TestSuite(Framework.class);
-		TestSetup wrapper = new TestSetup(suite){
-			@Override
-			protected void setUp() throws Exception {
-				oneTimeSetUp();
-			}
-			
-			@Override
-			protected void tearDown() throws Exception {
-				oneTimeTearDown();
-			}
-		};
-		return wrapper;
+		return new TestSuite(Framework.class);
 	} 
 	
 	public Framework(String name){
 		super(name);
 	}
 	
-	private static void oneTimeSetUp() throws Exception {
-		if (_env != null)return;
+
+	protected void setUp() throws Exception {
+		super.setUp();
 		_env = new TestEnvironment();
+		_testProject = _env.findProject("TestProject");
+		if (_testProject != null)return;
+		_env.turnoffAutoBuild();
 		turnoffOtherValidators();
 		_testProject = _env.createProject("TestProject");
 		IPath folder = _env.addFolder(_testProject.getFullPath(), "source");
@@ -63,6 +57,9 @@ public class Framework extends TestCase {
 			"t1error - extra error\nt1warning - extra warning");
 		_env.addFile(folder, "map.test1", "# will hold future mappings");
 		_env.addFile(folder, "first.test2", "# sample file");
+		_env.addFile(folder, "third.test4", "# Doesn't really matter\nWe just want to make the build a bit slower.");
+		_env.addFile(folder, "fourth.test4", "# Doesn't really matter");
+		_env.addFile(folder, "fifth.test5", "# Doesn't really matter");
 	}
 
 	/**
@@ -81,8 +78,9 @@ public class Framework extends TestCase {
 		gp.saveAsPrefs(vals);		
 	}
 
-	private static void oneTimeTearDown() throws Exception {
+	protected void tearDown() throws Exception {
 		_env.dispose();
+		super.tearDown();
 	}
 	
 	public void testIndex(){
@@ -91,7 +89,7 @@ public class Framework extends TestCase {
 		assertNotNull(index);
 	}
 	
-	public void testIndex2() throws CoreException{
+	public void testIndex2() throws CoreException, InterruptedException {
 		ValidationFramework vf = ValidationFramework.getDefault();
 		IDependencyIndex index = vf.getDependencyIndex();
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
@@ -99,7 +97,7 @@ public class Framework extends TestCase {
 		IResource r = root.findMember("TestProject/source/map.test1");
 		IProject p = r.getProject();
 		p.build(IncrementalProjectBuilder.FULL_BUILD, new NullProgressMonitor());
-		_env.waitForBuild();
+		ValidationFramework.getDefault().join(null);
 
 		r = root.findMember("TestProject/source/first.test1");
 		assertFalse(index.isDependedOn(r));		
@@ -119,7 +117,7 @@ public class Framework extends TestCase {
 		assertEquals(1, count);
 	}
 	
-	public void testTest1() throws CoreException, UnsupportedEncodingException {
+	public void testTest1() throws CoreException, UnsupportedEncodingException, InterruptedException {
 		ValidationFramework vf = ValidationFramework.getDefault();
 		IProject[] projects = {_testProject};
 		ValidationResults vr = vf.validate(projects, true, false, new NullProgressMonitor());
@@ -129,13 +127,29 @@ public class Framework extends TestCase {
 		
 		// add a first build so that we know that only the map file has changed
 		_env.incrementalBuild();
-		_env.waitForBuild();
+		ValidationFramework.getDefault().join(null);
 		
 		IPath folder = _env.addFolder(_testProject.getFullPath(), "source");
 		_env.addFile(folder, "map.test1", "# will hold future mappings");
 		
+		TestValidator4.getCounters().reset();
+		TestValidator5D.getCounters().reset();
 		_env.incrementalBuild();
-		_env.waitForBuild();
+		ValidationFramework.getDefault().join(null);
+		ValCounters vc = TestValidator4.getCounters();
+		assertEquals(vc.startingCount, vc.finishedCount);
+		assertEquals(vc.startingProjectCount, vc.finishedProjectCount);
+		assertEquals(vc.startingCount, 1);
+		assertEquals(vc.finishedCount, 1);
+		
+		vc = TestValidator5D.getCounters();
+		assertEquals(vc.startingCount, vc.finishedCount);
+		assertEquals(vc.startingProjectCount, vc.finishedProjectCount);
+		assertEquals(vc.startingCount, 1);
+		assertEquals(vc.finishedCount, 1);
+				
+		assertTrue("We expect the delegating validator Test5D to be called at least once", 
+			TestValidator5D.getCalledCount()>0);
 		
 		checkSecondPass(resource);		
 	}
@@ -159,6 +173,25 @@ public class Framework extends TestCase {
 			if (id.equals(TestValidator.id()))found = true;
 		}
 		assertTrue(found);
+	}
+	
+	public void testSuspend() throws CoreException, InterruptedException {
+		long start = System.currentTimeMillis();
+		_env.fullBuild();
+		ValidationFramework.getDefault().join(null);
+		long first = System.currentTimeMillis();
+		long valBuild = first-start;
+		assertTrue("We expect the build to take longer than 3s, but it completed in " + valBuild + "ms", valBuild > 3000);
+		
+		ValidationFramework.getDefault().suspendAllValidation(true);
+		_env.fullBuild();
+		ValidationFramework.getDefault().join(null);
+		long second = System.currentTimeMillis();
+		ValidationFramework.getDefault().suspendAllValidation(false);
+		long novalBuild = second - first;
+		assertTrue("We except the build to go faster with validation turned off, but it was " + (novalBuild-valBuild) +
+				" ms faster" , novalBuild < valBuild);
+
 	}
 
 	private void checkFirstPass(IResource resource, ValidationResults vr) throws CoreException {
