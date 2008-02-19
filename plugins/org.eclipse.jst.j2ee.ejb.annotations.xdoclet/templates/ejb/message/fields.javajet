@@ -1,5 +1,11 @@
-<%@ jet package="org.eclipse.gmf.templates.messageDriven" class="FieldGenerator"  imports="java.util.* org.eclipse.jst.j2ee.ejb.annotation.internal.model.*"%>
-<% IMessageDrivenBean mdb  = (IMessageDrivenBean)argument; %>
+<%@ jet package="org.eclipse.gmf.templates.messageDriven" class="FieldGenerator" %>
+
+/** 
+ * <!-- begin-xdoclet-definition --> 
+ * <!-- end-xdoclet-definition --> 
+ * @generated
+ */
+private static final long serialVersionUID = 1L;
 
 /** 
 * <!-- begin-user-doc -->

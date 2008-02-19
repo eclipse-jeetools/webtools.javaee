@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.jst.j2ee.ejb" 
-	imports="org.eclipse.jst.j2ee.ejb.internal.operations.* java.util.* " 
+	imports="org.eclipse.jst.j2ee.ejb.internal.operations.* " 
 	class="RemoteHomeInterfaceTemplate" 
 %>
 <% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; 

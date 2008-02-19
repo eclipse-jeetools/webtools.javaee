@@ -93,6 +93,7 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 		String comment = ""; //$NON-NLS-1$
 		String stub = ""; //$NON-NLS-1$
 		String method = ""; //$NON-NLS-1$
+		String fields = ""; //$NON-NLS-1$
 
 		IConfigurationElement preferredAnnotation = EmitterUtilities.findEmitter("XDoclet"); //$NON-NLS-1$
 
@@ -103,6 +104,7 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 			comment = applyRuntimeAnnotations(delegate, comment);
 			stub = ejbEmitter.emitTypeStub(delegate);
 			method = ejbEmitter.emitInterfaceMethods(delegate);
+			fields = ejbEmitter.emitFields(delegate);
 			ejbEmitter.deleteProject();
 		} catch (CoreException e) {
 			throw e;
@@ -121,7 +123,7 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 		ejbBuilder.setTypeComment(comment);
 		ejbBuilder.setTypeStub(stub);
 		ejbBuilder.setMethodStub(method);
-		ejbBuilder.setFields("");
+		ejbBuilder.setFields(fields);
 		ejbBuilder.setCreateInheritedMethods(dataModel.getBooleanProperty(INewJavaClassDataModelProperties.ABSTRACT_METHODS));
 		ejbBuilder.setCreateInheritedConstructors(dataModel.getBooleanProperty(INewJavaClassDataModelProperties.CONSTRUCTOR));
 

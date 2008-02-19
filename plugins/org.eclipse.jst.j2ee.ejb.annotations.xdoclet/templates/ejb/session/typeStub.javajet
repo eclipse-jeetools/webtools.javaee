@@ -1,4 +1,4 @@
-<%@ jet package="org.eclipse.jst.j2ee.ejb.gmf.templates.session" class="TypeStubGenerator" imports="java.util.* org.eclipse.jst.j2ee.ejb.annotation.internal.model.* org.eclipse.jst.j2ee.internal.common.operations.*"%>
+<%@ jet package="org.eclipse.jst.j2ee.ejb.gmf.templates.session" class="TypeStubGenerator" imports="org.eclipse.jst.j2ee.ejb.annotation.internal.model.* org.eclipse.jst.j2ee.internal.common.operations.*"%>
 <%  ISessionBean session  = (ISessionBean)argument; 
 
       String superclass = ""+session.getDataModel().getProperty(INewJavaClassDataModelProperties.SUPERCLASS);
