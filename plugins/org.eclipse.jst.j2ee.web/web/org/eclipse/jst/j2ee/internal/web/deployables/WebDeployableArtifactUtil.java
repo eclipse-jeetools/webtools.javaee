@@ -119,8 +119,9 @@ public class WebDeployableArtifactUtil {
 		IPath resourcePath = resource.getFullPath();
 		IVirtualResource[] resources = ComponentCore.createResources(resource);
 		IVirtualComponent component = null;
-		if (resources[0] != null || resources.length <= 0)
-			component = resources[0].getComponent();
+		if (resources.length <= 0 || resources[0] == null )
+			return null;
+		component = resources[0].getComponent();
 		String className = getServletClassName(resource);
 		if (className != null && component != null) {
 			String mapping = getServletMapping(resource, true, className, component.getName());
