@@ -102,7 +102,7 @@ public class CreateListenerTemplateModel extends CreateWebClassTemplateModel imp
 	}
 	
 	private boolean implementInterface(String iface) {
-		List interfaces = getQualifiedInterfaces();
+		List<String> interfaces = getQualifiedInterfaces();
 		if (interfaces != null) {
 			return interfaces.contains(iface);
 		}

@@ -16,14 +16,14 @@ import <%=anImport%>;
  *   display-name="<%=model.getServletName()%>"<%
  if (model.getDescription() != null && model.getDescription() != "") { %>
  *   description="<%=model.getDescription()%>"<% } %>
- *<% List mappings = model.getServletMappings();
+ *<% List<String[]> mappings = model.getServletMappings();
  if (mappings != null && mappings.size() > 0) {
       for (int i = 0; i < mappings.size(); i++) {
       	 String map = model.getServletMapping(i); %>
  * @web.servlet-mapping
  *   url-pattern="<%=map%>"
  *<% } }
- List initParams = model.getInitParams();
+ List<String[]> initParams = model.getInitParams();
  if (initParams != null && initParams.size() > 0) {
     for (int i = 0; i < initParams.size(); i++) {
       String name = model.getInitParam(i, CreateServletTemplateModel.NAME);

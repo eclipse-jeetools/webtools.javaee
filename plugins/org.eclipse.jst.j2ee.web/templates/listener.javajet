@@ -7,7 +7,7 @@
 %>class <%=model.getClassName()%><%
  String superclassName = model.getSuperclassName();
  if (superclassName.length() > 0) {%> extends <%=superclassName%><% }%><%
- List interfaces = model.getInterfaces(); 
+ List<String> interfaces = model.getInterfaces(); 
  if (interfaces.size()>0) {%> implements <% }
  for (int i=0; i<interfaces.size(); i++) {
    String INTERFACE = (String) interfaces.get(i);

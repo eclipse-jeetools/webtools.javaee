@@ -65,14 +65,14 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel
 		return implementImplementedMethod(METHOD_DESTROY);
 	}
 
-	public List getInitParams() {
+	public List<String[]> getInitParams() {
 		return (List) dataModel.getProperty(INIT_PARAM);
 	}
 
 	public String getInitParam(int index, int type) {
-		List params = getInitParams();
+		List<String[]> params = getInitParams();
 		if (index < params.size()) {
-			String[] stringArray = (String[]) params.get(index);
+			String[] stringArray = params.get(index);
 			return stringArray[type];
 		}
 		return null;

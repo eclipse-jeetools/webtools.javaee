@@ -32,8 +32,6 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
-import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
-import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -143,11 +141,9 @@ public class CreateWebClassTemplateModel implements INewWebClassDataModelPropert
 				!isImportInJavaLang(superclassName))
 			collection.add(superclassName);
 		
-		List interfaces = getQualifiedInterfaces();
+		List<String> interfaces = getQualifiedInterfaces();
 		if (interfaces != null) {
-			Iterator iterator = interfaces.iterator();
-			while (iterator.hasNext()) {
-				String iface = (String) iterator.next();
+			for (String iface : interfaces) {
 				if (!equalSimpleNames(getClassName(), iface) && 
 						!isImportInJavaLang(iface)) 
 					collection.add(iface);
@@ -192,13 +188,11 @@ public class CreateWebClassTemplateModel implements INewWebClassDataModelPropert
 		return getProperty(SUPERCLASS).trim();
 	}
 	
-	public List getInterfaces() {
-		List qualifiedInterfaces = getQualifiedInterfaces();
-		List interfaces = new ArrayList(qualifiedInterfaces.size());
+	public List<String> getInterfaces() {
+		List<String> qualifiedInterfaces = getQualifiedInterfaces();
+		List<String> interfaces = new ArrayList<String>(qualifiedInterfaces.size());
 		
-		Iterator iter = qualifiedInterfaces.iterator();
-		while (iter.hasNext()) {
-			String qualified = (String) iter.next();
+		for (String qualified : qualifiedInterfaces) {
 			if (equalSimpleNames(getClassName(), qualified)) {
 				interfaces.add(qualified);
 			} else {
@@ -209,7 +203,7 @@ public class CreateWebClassTemplateModel implements INewWebClassDataModelPropert
 		return interfaces;
 	}
 
-	public List getQualifiedInterfaces() {
+	public List<String> getQualifiedInterfaces() {
 		return (List) this.dataModel.getProperty(INTERFACES);
 	}
 	

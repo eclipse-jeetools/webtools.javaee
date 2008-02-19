@@ -28,7 +28,7 @@ import <%=anImport%>;
  if (dispatcher.length() > 0) {%>
  *   dispatcher="<%=dispatcher%>"<% } %>
  *<% } 
- List initParams = model.getInitParams();
+ List<String[]> initParams = model.getInitParams();
  if (initParams != null && initParams.size() > 0) {
     for (int i = 0; i < initParams.size(); i++) {
       String name = model.getInitParam(i, CreateFilterTemplateModel.NAME);

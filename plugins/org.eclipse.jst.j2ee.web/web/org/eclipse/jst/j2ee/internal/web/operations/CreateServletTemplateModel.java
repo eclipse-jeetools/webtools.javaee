@@ -146,27 +146,27 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel
 		return ServletSupertypesValidator.isHttpServletSuperclass(dataModel);
 	}
 	
-	public List getInitParams() {
+	public List<String[]> getInitParams() {
 		return (List) dataModel.getProperty(INIT_PARAM);
 	}
 
 	public String getInitParam(int index, int type) {
-		List params = getInitParams();
+		List<String[]> params = getInitParams();
 		if (index < params.size()) {
-			String[] stringArray = (String[]) params.get(index);
+			String[] stringArray = params.get(index);
 			return stringArray[type];
 		}
 		return null;
 	}
 
-	public List getServletMappings() {
+	public List<String[]> getServletMappings() {
 		return (List) dataModel.getProperty(URL_MAPPINGS);
 	}
 
 	public String getServletMapping(int index) {
-		List mappings = getServletMappings();
+		List<String[]> mappings = getServletMappings();
 		if (index < mappings.size()) {
-			String[] map = (String[]) mappings.get(index);
+			String[] map = mappings.get(index);
 			return map[0];
 		}
 		return null;
