@@ -41,7 +41,8 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
 
-public class AddMessageDrivenBeanWizardPage extends NewJavaClassOptionsWizardPage implements
+public class AddMessageDrivenBeanWizardPage extends
+		NewJavaClassOptionsWizardPage implements
 		INewMessageDrivenBeanClassDataModelProperties {
 
 	private Text ejbNameText;
@@ -49,13 +50,13 @@ public class AddMessageDrivenBeanWizardPage extends NewJavaClassOptionsWizardPag
 	private TableViewer businessnterfacesList;
 	private Button addButton;
 	private Button removeButton;
-	
+
 	public AddMessageDrivenBeanWizardPage(IDataModel model, String pageName) {
-		super(model,pageName,
+		super(model, pageName,
 				IEjbWizardConstants.ADD_MESSAGE_DRIVEN_BEAN_WIZARD_PAGE_DESC,
 				IEjbWizardConstants.ADD_MESSAGE_DRIVEN_BEANS_WIZARD_PAGE_TITLE);
 	}
-	
+
 	public DataModelSynchHelper initializeSynchHelper(IDataModel dm) {
 		return new ComboIndexSynchHelper(dm);
 	}
@@ -89,12 +90,10 @@ public class AddMessageDrivenBeanWizardPage extends NewJavaClassOptionsWizardPag
 		((ComboIndexSynchHelper) synchHelper).synchComboIndex(transactionTypeCombo, TRANSACTION_TYPE, null);
 
 		addSeperator(composite, 3);
-		
+
 		createInterfaceControls(composite);
-		
+
 		createStubsComposite(composite);
-		
-		this.mainMethodButton.dispose();
 
 		return composite;
 	}
@@ -135,6 +134,30 @@ public class AddMessageDrivenBeanWizardPage extends NewJavaClassOptionsWizardPag
 			}
 		}
 		model.setProperty(INewJavaClassDataModelProperties.INTERFACES,new ArrayList(Arrays.asList(interfaceViewer.getList().getItems())));
+	}
+
+	@Override
+	protected void createStubsComposite(Composite parent) {
+		Label stubLabel = new Label(parent, SWT.NONE);
+		stubLabel.setText(J2EEUIMessages.JAVA_CLASS_METHOD_STUBS_LABEL);
+		GridData data = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
+		data.horizontalSpan = 2;
+		stubLabel.setLayoutData(data);
+
+		Composite buttonCompo = new Composite(parent, SWT.NULL);
+		buttonCompo.setLayout(new GridLayout());
+		data = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
+		data.horizontalSpan = 2;
+		data.horizontalIndent = 15;
+		buttonCompo.setLayoutData(data);
+
+		inheritButton = new Button(buttonCompo, SWT.CHECK);
+		inheritButton.setText(J2EEUIMessages.JAVA_CLASS_INHERIT_CHECKBOX_LABEL);
+		synchHelper.synchCheckbox(inheritButton, INewJavaClassDataModelProperties.ABSTRACT_METHODS, null);
+
+		constructorButton = new Button(buttonCompo, SWT.CHECK);
+		constructorButton.setText(J2EEUIMessages.JAVA_CLASS_CONSTRUCTOR_CHECKBOX_LABEL);
+		synchHelper.synchCheckbox(constructorButton, INewJavaClassDataModelProperties.CONSTRUCTOR, null);
 	}
 
 }
