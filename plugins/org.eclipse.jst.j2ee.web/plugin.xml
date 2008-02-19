@@ -347,6 +347,12 @@
 		<DataModelProvider
             class="org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProvider"
             id="org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProvider"/>
+		<DataModelProvider
+            class="org.eclipse.jst.j2ee.internal.web.operations.NewFilterClassDataModelProvider"
+            id="org.eclipse.jst.j2ee.internal.web.operations.NewFilterClassDataModelProvider"/>
+		<DataModelProvider
+            class="org.eclipse.jst.j2ee.internal.web.operations.NewListenerClassDataModelProvider"
+            id="org.eclipse.jst.j2ee.internal.web.operations.NewListenerClassDataModelProvider"/>
 	</extension>
 	
   <extension point="org.eclipse.jdt.core.classpathContainerInitializer">
