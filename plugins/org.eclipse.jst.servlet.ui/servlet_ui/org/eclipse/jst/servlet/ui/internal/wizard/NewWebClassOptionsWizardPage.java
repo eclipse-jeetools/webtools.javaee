@@ -12,7 +12,7 @@ package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
-import org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassOptionsWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -36,22 +36,6 @@ public class NewWebClassOptionsWizardPage extends NewJavaClassOptionsWizardPage 
 		
 		interfaceViewer.getList().deselectAll();
 		removeButton.setEnabled(false);
-		
-		String superClass = getDataModel().getStringProperty(INewFilterClassDataModelProperties.SUPERCLASS);
-		boolean hasSuperClass = (superClass == null) ? false : superClass.trim().length() > 0;
-		constructorButton.setEnabled(hasSuperClass);
-		if (!hasSuperClass) constructorButton.setSelection(false);
-	}
-	
-	@Override
-	protected void createModifierControls(Composite parent) {
-		super.createModifierControls(parent);
-		
-		// The user should not be able to change the public and abstract modifiers. 
-		// The servlet class must be always public and non-abstract. 
-		// Otherwise, the servlet container may not initialize it. 
-		publicButton.setEnabled(false);
-		abstractButton.setEnabled(false);
 	}
 	
 	@Override

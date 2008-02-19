@@ -10,54 +10,51 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class ServletSupertypesValidator extends AbstractSupertypesValidator
 		implements IServletConstants {
 	
-	public ServletSupertypesValidator(IDataModel dataModel) {
-		super(dataModel);
-	}
-	
-	public boolean isHttpServletSuperclass() {
-		if (QUALIFIED_HTTP_SERVLET.equals(getSuperclass()))
+	public static boolean isHttpServletSuperclass(IDataModel dataModel) {
+		if (QUALIFIED_HTTP_SERVLET.equals(getSuperclass(dataModel)))
 			return true;
 		
-		if (hasSuperclass(getSuperclass(), QUALIFIED_HTTP_SERVLET))
+		if (hasSuperclass(dataModel, getSuperclass(dataModel), QUALIFIED_HTTP_SERVLET))
 			return true;
 		
 		return false;
 	}
 
-	public boolean isGenericServletSuperclass() {
-		if (QUALIFIED_HTTP_SERVLET.equals(getSuperclass()))
+	public static boolean isGenericServletSuperclass(IDataModel dataModel) {
+		if (QUALIFIED_HTTP_SERVLET.equals(getSuperclass(dataModel)))
 			return true;
 		
-		if (QUALIFIED_GENERIC_SERVLET.equals(getSuperclass()))
+		if (QUALIFIED_GENERIC_SERVLET.equals(getSuperclass(dataModel)))
 			return true;
 		
-		if (hasSuperclass(getSuperclass(), QUALIFIED_GENERIC_SERVLET))
+		if (hasSuperclass(dataModel, getSuperclass(dataModel), QUALIFIED_GENERIC_SERVLET))
 			return true;
 		
 		return false;
 	}
 	
-	public boolean isServletSuperclass() {
-		if (QUALIFIED_HTTP_SERVLET.equals(getSuperclass()))
+	public static boolean isServletSuperclass(IDataModel dataModel) {
+		if (QUALIFIED_HTTP_SERVLET.equals(getSuperclass(dataModel)))
 			return true;
 		
-		if (QUALIFIED_GENERIC_SERVLET.equals(getSuperclass()))
+		if (QUALIFIED_GENERIC_SERVLET.equals(getSuperclass(dataModel)))
 			return true;
 		
-		if (getInterfaces().contains(QUALIFIED_SERVLET))
+		if (getInterfaces(dataModel).contains(QUALIFIED_SERVLET))
 			return true;
 		
-		if (hasSuperInterface(getSuperclass(), QUALIFIED_SERVLET))
+		if (hasSuperInterface(dataModel, getSuperclass(dataModel), QUALIFIED_SERVLET))
 			return true;
 		
-		for (Object iface : getInterfaces()) {
-			if (hasSuperInterface((String) iface, QUALIFIED_SERVLET)) 
+		for (Object iface : getInterfaces(dataModel)) {
+			if (hasSuperInterface(dataModel, (String) iface, QUALIFIED_SERVLET)) 
 				return true;
 		}
 		

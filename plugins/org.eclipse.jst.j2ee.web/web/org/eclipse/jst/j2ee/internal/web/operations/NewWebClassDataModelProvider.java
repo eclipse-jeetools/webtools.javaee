@@ -78,7 +78,7 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 	private String existingClassNameCache;
 
 	private static boolean useAnnotations = false;
-
+	
 	/**
 	 * Subclasses may extend this method to provide their own determination of
 	 * whether or not certain properties should be disabled or enabled. This
@@ -96,9 +96,13 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 	public boolean isPropertyEnabled(String propertyName) {
 		// Annotations should only be enabled on a valid j2ee project of version 1.3 or higher
 		if (USE_ANNOTATIONS.equals(propertyName)) {
-			if (getBooleanProperty(USE_EXISTING_CLASS) || !isAnnotationsSupported())
-				return false;
-			return true;
+			return !getBooleanProperty(USE_EXISTING_CLASS) && isAnnotationsSupported();
+		} else if (MODIFIER_PUBLIC.equals(propertyName)) {
+			return false;
+		} else if (MODIFIER_ABSTRACT.equals(propertyName)) {
+			return false;
+		} else if (CONSTRUCTOR.equals(propertyName)) {
+			return hasSuperClass();
 		}
 		// Otherwise return super implementation
 		return super.isPropertyEnabled(propertyName);
@@ -145,6 +149,8 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 			return DEFAULT_SUPERCLASS;
 		else if (propertyName.equals(USE_EXISTING_CLASS))
 			return Boolean.FALSE;
+		else if (propertyName.equals(CONSTRUCTOR))
+			return hasSuperClass();
 		
 		// Otherwise check super for default value for property
 		return super.getDefaultProperty(propertyName);
@@ -168,13 +174,12 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 	 */
 	@Override
 	public boolean propertySet(String propertyName, Object propertyValue) {
-
 		// If annotations is changed, notify an enablement change
 		if (propertyName.equals(USE_ANNOTATIONS)) {
 			useAnnotations = ((Boolean) propertyValue).booleanValue();
 			if (useAnnotations && !isAnnotationsSupported())
 				return true;
-			getDataModel().notifyPropertyChange(USE_ANNOTATIONS, IDataModel.ENABLE_CHG);
+			model.notifyPropertyChange(USE_ANNOTATIONS, IDataModel.ENABLE_CHG);
 		}
 		// If the source folder is changed, ensure we have the correct project name
 		if (propertyName.equals(SOURCE_FOLDER)) {
@@ -193,13 +198,13 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 		// Call super to set the property on the data model
 		boolean result = super.propertySet(propertyName, propertyValue);
 		// If class name is changed, update the display name to be the same
-		if (propertyName.equals(CLASS_NAME) && !getDataModel().isPropertySet(DISPLAY_NAME)) {
-			getDataModel().notifyPropertyChange(DISPLAY_NAME, IDataModel.DEFAULT_CHG);
+		if (propertyName.equals(CLASS_NAME) && !model.isPropertySet(DISPLAY_NAME)) {
+			model.notifyPropertyChange(DISPLAY_NAME, IDataModel.DEFAULT_CHG);
 		}
 		// After the property is set, if project changed, update the nature and the annotations
 		// enablement
 		if (propertyName.equals(COMPONENT_NAME)) {
-			getDataModel().notifyPropertyChange(USE_ANNOTATIONS, IDataModel.ENABLE_CHG);
+			model.notifyPropertyChange(USE_ANNOTATIONS, IDataModel.ENABLE_CHG);
 		}
 		// After property is set, if annotations is set to true, update its value based on the new
 		// level of the project
@@ -208,7 +213,7 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 				setBooleanProperty(USE_ANNOTATIONS, false);
 		}
 		if (propertyName.equals(USE_EXISTING_CLASS)) {
-			getDataModel().notifyPropertyChange(USE_ANNOTATIONS, IDataModel.ENABLE_CHG);
+			model.notifyPropertyChange(USE_ANNOTATIONS, IDataModel.ENABLE_CHG);
 			
 			if (((Boolean) propertyValue).booleanValue()) {
 				classNameCache = getStringProperty(CLASS_NAME);
@@ -217,6 +222,15 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 				existingClassNameCache = getStringProperty(CLASS_NAME);
 				setProperty(CLASS_NAME, classNameCache);
 			}
+		}
+		// if super class is changed, notify the constructor checkbox to update
+		// its enabled state
+		if (SUPERCLASS.equals(propertyName)) {
+			model.notifyPropertyChange(CONSTRUCTOR, IDataModel.ENABLE_CHG);
+			if (!hasSuperClass()) {
+				model.setProperty(CONSTRUCTOR, null);
+			}
+			model.notifyPropertyChange(CONSTRUCTOR, IDataModel.DEFAULT_CHG);
 		}
 		
 		// Return whether property was set
@@ -258,7 +272,7 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 		//TODO add this check back in for defect 146696
 //		if (!isAnnotationProviderDefined())
 //			return false;
-		if (!getDataModel().isPropertySet(PROJECT_NAME))
+		if (!model.isPropertySet(PROJECT_NAME))
 			return true;
 		if (getStringProperty(PROJECT_NAME).equals("")) //$NON-NLS-1$
 			return true;
@@ -368,6 +382,11 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 		return true;
 	}
 
+	protected boolean hasSuperClass() {
+		String superClass = model.getStringProperty(INewWebClassDataModelProperties.SUPERCLASS);
+		return (superClass == null) ? false : superClass.trim().length() > 0;
+	}
+
 	/**
 	 * @return boolean should the default annotations be true?
 	 */
@@ -376,4 +395,5 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 			return Boolean.TRUE;
 		return Boolean.FALSE;
 	}
+	
 }

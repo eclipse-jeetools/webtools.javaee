@@ -95,7 +95,7 @@ public class NewServletClassDataModelProvider extends
 	 */
 	@Override
 	public IDataModelOperation getDefaultOperation() {
-		return new AddServletOperation(getDataModel());
+		return new AddServletOperation(model);
 	}
 
 	/**
@@ -130,6 +130,34 @@ public class NewServletClassDataModelProvider extends
 		
 		return propertyNames;
 	}
+	
+	@Override
+	public boolean isPropertyEnabled(String propertyName) {
+		if (ABSTRACT_METHODS.equals(propertyName)) {
+			return ServletSupertypesValidator.isGenericServletSuperclass(model);
+		} else if (INIT.equals(propertyName) || 
+				DESTROY.equals(propertyName) || 
+				GET_SERVLET_CONFIG.equals(propertyName) ||
+				GET_SERVLET_INFO.equals(propertyName) || 
+				SERVICE.equals(propertyName)) {
+			boolean genericServlet = ServletSupertypesValidator.isGenericServletSuperclass(model);
+			boolean inherit = model.getBooleanProperty(ABSTRACT_METHODS);
+			return genericServlet && inherit;
+		} else if (DO_GET.equals(propertyName) || 
+				DO_POST.equals(propertyName) ||
+				DO_PUT.equals(propertyName) ||
+				DO_DELETE.equals(propertyName) ||
+				DO_HEAD.equals(propertyName) ||
+				DO_OPTIONS.equals(propertyName) ||
+				DO_TRACE.equals(propertyName)) {
+			boolean httpServlet = ServletSupertypesValidator.isHttpServletSuperclass(model);
+			boolean inherit = model.getBooleanProperty(ABSTRACT_METHODS);
+			return httpServlet && inherit;
+		}
+		
+		// Otherwise return super implementation
+		return super.isPropertyEnabled(propertyName);
+	}
 
 	/**
 	 * Subclasses may extend this method to provide their own default values for
@@ -149,23 +177,20 @@ public class NewServletClassDataModelProvider extends
 		// Generate a doPost and doGet methods by default only if a class 
 		// extending HttpServlet is selected
 		if (propertyName.equals(DO_POST) || propertyName.equals(DO_GET)) {
-			ServletSupertypesValidator validator = new ServletSupertypesValidator(getDataModel());
-			if (validator.isHttpServletSuperclass())
+			if (ServletSupertypesValidator.isHttpServletSuperclass(model))
 				return Boolean.TRUE;
 		}
 		
 		// Generate a service method by default only if a class 
 		// not extending HttpServlet is selected
 		if (propertyName.equals(SERVICE)) {
-			ServletSupertypesValidator validator = new ServletSupertypesValidator(getDataModel());
-			if (!validator.isHttpServletSuperclass())
+			if (!ServletSupertypesValidator.isHttpServletSuperclass(model))
 				return Boolean.TRUE;
 		}
 		
 		if (propertyName.equals(INIT) || propertyName.equals(DESTROY) || 
 			propertyName.equals(GET_SERVLET_CONFIG) || propertyName.equals(GET_SERVLET_INFO)) {
-			ServletSupertypesValidator validator = new ServletSupertypesValidator(getDataModel());
-			if (!validator.isGenericServletSuperclass()) 
+			if (!ServletSupertypesValidator.isGenericServletSuperclass(model)) 
 				return Boolean.TRUE;
 		}
 		
@@ -233,8 +258,51 @@ public class NewServletClassDataModelProvider extends
 		boolean result = false;
 		
 		if (SUPERCLASS.equals(propertyName)) {
-			ServletSupertypesValidator validator = new ServletSupertypesValidator(model);
-			if (!validator.isServletSuperclass()) {
+			model.notifyPropertyChange(ABSTRACT_METHODS, IDataModel.ENABLE_CHG);
+			model.notifyPropertyChange(INIT, IDataModel.ENABLE_CHG);
+			model.notifyPropertyChange(DESTROY, IDataModel.ENABLE_CHG);
+			model.notifyPropertyChange(GET_SERVLET_CONFIG, IDataModel.ENABLE_CHG);
+			model.notifyPropertyChange(GET_SERVLET_INFO, IDataModel.ENABLE_CHG);
+			model.notifyPropertyChange(SERVICE, IDataModel.ENABLE_CHG);
+			model.notifyPropertyChange(DO_GET, IDataModel.ENABLE_CHG);
+			model.notifyPropertyChange(DO_POST, IDataModel.ENABLE_CHG);
+			model.notifyPropertyChange(DO_PUT, IDataModel.ENABLE_CHG);
+			model.notifyPropertyChange(DO_DELETE, IDataModel.ENABLE_CHG);
+			model.notifyPropertyChange(DO_HEAD, IDataModel.ENABLE_CHG);
+			model.notifyPropertyChange(DO_OPTIONS, IDataModel.ENABLE_CHG);
+			model.notifyPropertyChange(DO_TRACE, IDataModel.ENABLE_CHG);
+			
+			if (!hasSuperClass()) {
+				model.setProperty(ABSTRACT_METHODS, null);
+				model.setProperty(INIT, null);
+				model.setProperty(DESTROY, null);
+				model.setProperty(GET_SERVLET_CONFIG, null);
+				model.setProperty(GET_SERVLET_INFO, null);
+				model.setProperty(SERVICE, null);
+				model.setProperty(DO_GET, null);
+				model.setProperty(DO_POST, null);
+				model.setProperty(DO_PUT, null);
+				model.setProperty(DO_DELETE, null);
+				model.setProperty(DO_HEAD, null);
+				model.setProperty(DO_OPTIONS, null);
+				model.setProperty(DO_TRACE, null);
+			}
+			
+			model.notifyPropertyChange(ABSTRACT_METHODS, IDataModel.DEFAULT_CHG);
+			model.notifyPropertyChange(INIT, IDataModel.DEFAULT_CHG);
+			model.notifyPropertyChange(DESTROY, IDataModel.DEFAULT_CHG);
+			model.notifyPropertyChange(GET_SERVLET_CONFIG, IDataModel.DEFAULT_CHG);
+			model.notifyPropertyChange(GET_SERVLET_INFO, IDataModel.DEFAULT_CHG);
+			model.notifyPropertyChange(SERVICE, IDataModel.DEFAULT_CHG);
+			model.notifyPropertyChange(DO_GET, IDataModel.DEFAULT_CHG);
+			model.notifyPropertyChange(DO_POST, IDataModel.DEFAULT_CHG);
+			model.notifyPropertyChange(DO_PUT, IDataModel.DEFAULT_CHG);
+			model.notifyPropertyChange(DO_DELETE, IDataModel.DEFAULT_CHG);
+			model.notifyPropertyChange(DO_HEAD, IDataModel.DEFAULT_CHG);
+			model.notifyPropertyChange(DO_OPTIONS, IDataModel.DEFAULT_CHG);
+			model.notifyPropertyChange(DO_TRACE, IDataModel.DEFAULT_CHG);
+			
+			if (!ServletSupertypesValidator.isServletSuperclass(model)) {
 				List ifaces = (List) model.getProperty(INTERFACES);
 				ifaces.add(QUALIFIED_SERVLET);
 			}
@@ -255,8 +323,7 @@ public class NewServletClassDataModelProvider extends
 	 */
 	protected IStatus validateSuperClassName(String superclassName) {
 		//If the servlet implements javax.servlet.Servlet, we do not need a super class
-		ServletSupertypesValidator validator = new ServletSupertypesValidator(getDataModel());
-		if (validator.isGenericServletSuperclass())
+		if (ServletSupertypesValidator.isGenericServletSuperclass(model))
 			return WTPCommonPlugin.OK_STATUS;
 		
 		// Check the super class as a java class
@@ -267,7 +334,7 @@ public class NewServletClassDataModelProvider extends
 				return status;
 		}
 		
-		if (!validator.isServletSuperclass())
+		if (!ServletSupertypesValidator.isServletSuperclass(model))
 			return WTPCommonPlugin.createErrorStatus(WebMessages.ERR_SERVLET_INTERFACE);
 		
 		return status;
@@ -385,8 +452,7 @@ public class NewServletClassDataModelProvider extends
 			}
 			// Remove the javax.servlet.Servlet interface from the list if the
 			// superclass already implements it
-			ServletSupertypesValidator validator = new ServletSupertypesValidator(model);
-			if (validator.isServletSuperclass()) {
+			if (ServletSupertypesValidator.isServletSuperclass(model)) {
 				interfaceList.remove(QUALIFIED_SERVLET);
 			}
 		}

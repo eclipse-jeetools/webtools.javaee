@@ -57,19 +57,7 @@ public class NewServletClassOptionsWizardPage extends
 	protected void enter() {
 		super.enter();
 		
-		ServletSupertypesValidator validator = new ServletSupertypesValidator(getDataModel());
-		
-		boolean genericServlet = validator.isGenericServletSuperclass();
-		inheritButton.setEnabled(genericServlet);
-		
-		boolean inherit = getDataModel().getBooleanProperty(INewServletClassDataModelProperties.ABSTRACT_METHODS);
-		initButton.setEnabled(genericServlet && inherit);
-		destroyButton.setEnabled(genericServlet && inherit);
-		getConfigButton.setEnabled(genericServlet && inherit);
-		getInfoButton.setEnabled(genericServlet && inherit);
-		serviceButton.setEnabled(genericServlet && inherit);
-		
-		boolean httpServlet = validator.isHttpServletSuperclass();
+		boolean httpServlet = ServletSupertypesValidator.isHttpServletSuperclass(model);
 		doGetButton.setVisible(httpServlet);
 		doPostButton.setVisible(httpServlet);
 		doPutButton.setVisible(httpServlet);
@@ -87,8 +75,6 @@ public class NewServletClassOptionsWizardPage extends
 		super.createStubsComposite(parent);
 		
 		inheritButton.addSelectionListener(new SelectionListener() {
-			private ServletSupertypesValidator validator = new ServletSupertypesValidator(getDataModel());
-			
 			public void widgetSelected(SelectionEvent e) {
 				boolean enable = inheritButton.getSelection();
 				enableGenericServletButtons(enable);
@@ -100,7 +86,7 @@ public class NewServletClassOptionsWizardPage extends
 			}
 			
 			private void enableGenericServletButtons(boolean enable) {
-				if (validator.isGenericServletSuperclass()) {
+				if (ServletSupertypesValidator.isGenericServletSuperclass(model)) {
 					initButton.setEnabled(enable);
 					destroyButton.setEnabled(enable);
 					getConfigButton.setEnabled(enable);
@@ -192,8 +178,7 @@ public class NewServletClassOptionsWizardPage extends
 		
 		// if the selection is non-empty and the servlet extends GenericServlet, then
 		// the remove button is enabled
-		ServletSupertypesValidator validator = new ServletSupertypesValidator(getDataModel());
-		if (validator.isGenericServletSuperclass()) {
+		if (ServletSupertypesValidator.isGenericServletSuperclass(model)) {
 			removeButton.setEnabled(true);
 			return;
 		} 

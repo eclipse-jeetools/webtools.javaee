@@ -139,13 +139,11 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel
 	}
 
 	public boolean isGenericServletSuperclass() {
-		ServletSupertypesValidator validator = new ServletSupertypesValidator(dataModel);
-		return validator.isGenericServletSuperclass();
+		return ServletSupertypesValidator.isGenericServletSuperclass(dataModel);
 	}
 	
 	public boolean isHttpServletSuperclass() {
-		ServletSupertypesValidator validator = new ServletSupertypesValidator(dataModel);
-		return validator.isHttpServletSuperclass();
+		return ServletSupertypesValidator.isHttpServletSuperclass(dataModel);
 	}
 	
 	public List getInitParams() {

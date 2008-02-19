@@ -13,7 +13,6 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
@@ -25,43 +24,26 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class AbstractSupertypesValidator {
 	
-	private IDataModel dataModel;
+	private static ITypeHierarchy typeHierarchyCache = null;
 	
-	private String superclass;
-	private List interfaces;
-	private IJavaProject javaProject;
-	
-	public AbstractSupertypesValidator(IDataModel dataModel) {
-		this.dataModel = dataModel;
+	protected static String getSuperclass(IDataModel dataModel) {
+		return dataModel.getStringProperty(INewJavaClassDataModelProperties.SUPERCLASS);
 	}
 	
-	protected String getSuperclass() {
-		if (superclass == null) {
-			superclass = dataModel.getStringProperty(INewServletClassDataModelProperties.SUPERCLASS);
-		}
-		return superclass;
+	protected static List getInterfaces(IDataModel dataModel) {
+		return (List) dataModel.getProperty(INewJavaClassDataModelProperties.INTERFACES);
 	}
 	
-	protected List getInterfaces() {
-		if (interfaces == null) {
-			interfaces = (List) dataModel.getProperty(INewServletClassDataModelProperties.INTERFACES);
-		}
-		return interfaces;
+	protected static IJavaProject getJavaProject(IDataModel dataModel) {
+		return JavaCore.create((IProject) dataModel.getProperty(INewJavaClassDataModelProperties.PROJECT));
 	}
 	
-	protected IJavaProject getJavaProject() {
-		if (javaProject == null) {
-			javaProject = JavaCore.create((IProject) dataModel.getProperty(
-					INewJavaClassDataModelProperties.PROJECT));
-		}
-		return javaProject;
-	}
-	
-	protected boolean hasSuperclass(String typeName, String superTypeName) {
+	protected static boolean hasSuperclass(IDataModel dataModel,
+			String typeName, String superTypeName) {
 		try {
-			IType type = getJavaProject().findType(typeName);
+			IType type = getJavaProject(dataModel).findType(typeName);
 			if (type != null) {
-				ITypeHierarchy typeHierarchy = type.newTypeHierarchy(new NullProgressMonitor());
+				ITypeHierarchy typeHierarchy = getTypeHierarchy(type);
 				for (IType superType : typeHierarchy.getAllSuperclasses(type)) {
 					if (superTypeName.equals(superType.getFullyQualifiedName()))
 						return true;
@@ -74,11 +56,12 @@ public class AbstractSupertypesValidator {
 		return false;
 	}
 	
-	protected boolean hasSuperInterface(String typeName, String superTypeName) {
+	protected static boolean hasSuperInterface(IDataModel dataModel,
+			String typeName, String superTypeName) {
 		try {
-			IType type = getJavaProject().findType(typeName);
+			IType type = getJavaProject(dataModel).findType(typeName);
 			if (type != null) {
-				ITypeHierarchy typeHierarchy = type.newTypeHierarchy(new NullProgressMonitor());
+				ITypeHierarchy typeHierarchy = getTypeHierarchy(type);
 				for (IType superType : typeHierarchy.getAllSuperInterfaces(type)) {
 					if (superTypeName.equals(superType.getFullyQualifiedName()))
 						return true;
@@ -89,6 +72,13 @@ public class AbstractSupertypesValidator {
 		}
 		
 		return false;
+	}
+	
+	private static ITypeHierarchy getTypeHierarchy(IType type) throws JavaModelException {
+		if (typeHierarchyCache == null || !type.equals(typeHierarchyCache.getType())) {
+			typeHierarchyCache = type.newTypeHierarchy(null);
+		}
+		return typeHierarchyCache;
 	}
 
 }

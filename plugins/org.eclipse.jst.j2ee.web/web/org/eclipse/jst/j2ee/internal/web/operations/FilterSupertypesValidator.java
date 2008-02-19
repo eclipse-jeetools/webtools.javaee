@@ -10,22 +10,19 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class FilterSupertypesValidator extends AbstractSupertypesValidator
 		implements IServletConstants {
 	
-	public FilterSupertypesValidator(IDataModel dataModel) {
-		super(dataModel);
-	}
-	
-	public boolean isFilterSuperclass() {
-		if (hasSuperInterface(getSuperclass(), QUALIFIED_FILTER))
+	public static boolean isFilterSuperclass(IDataModel dataModel) {
+		if (hasSuperInterface(dataModel, getSuperclass(dataModel), QUALIFIED_FILTER))
 			return true;
 		
-		for (Object iface : getInterfaces()) {
-			if (hasSuperInterface((String) iface, QUALIFIED_FILTER)) 
+		for (Object iface : getInterfaces(dataModel)) {
+			if (hasSuperInterface(dataModel, (String) iface, QUALIFIED_FILTER)) 
 				return true;
 		}
 		

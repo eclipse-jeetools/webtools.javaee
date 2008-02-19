@@ -35,6 +35,21 @@ public class NewFilterClassDataModelProvider extends
 	 * interfaces
 	 */
 	private final static String[] FILTER_INTERFACES = { QUALIFIED_FILTER }; 
+	
+	@Override
+	public boolean isPropertyEnabled(String propertyName) {
+		if (ABSTRACT_METHODS.equals(propertyName)) {
+			return false;
+		} else if (INIT.equals(propertyName)) {
+			return false;
+		} else if (DESTROY.equals(propertyName)) {
+			return false;
+		} else if (DO_FILTER.equals(propertyName)) {
+			return false;
+		}
+		// Otherwise return super implementation
+		return super.isPropertyEnabled(propertyName);
+	}
     
 	/**
 	 * Subclasses may extend this method to provide their own default operation

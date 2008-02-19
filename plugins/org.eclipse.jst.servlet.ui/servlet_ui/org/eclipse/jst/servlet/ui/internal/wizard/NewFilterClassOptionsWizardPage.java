@@ -34,28 +34,8 @@ public class NewFilterClassOptionsWizardPage extends
 	protected Button destroyButton;
 	protected Button doFilterButton;
 	
-	private FilterSupertypesValidator validator;
-	
 	public NewFilterClassOptionsWizardPage(IDataModel model, String pageName, String pageDesc, String pageTitle) {
 		super(model, pageName, pageDesc, pageTitle);
-		validator = new FilterSupertypesValidator(model);
-	}
-	
-	@Override
-	protected void enter() {
-		super.enter();
-		
-		inheritButton.setSelection(true);
-		inheritButton.setEnabled(false);
-		
-        initButton.setSelection(true);
-        initButton.setEnabled(false);
-
-        destroyButton.setSelection(true);
-        destroyButton.setEnabled(false);
-		
-        doFilterButton.setSelection(true);
-        doFilterButton.setEnabled(false);
 	}
 	
 	/**
@@ -101,7 +81,7 @@ public class NewFilterClassOptionsWizardPage extends
 		
 		// if the selection is non-empty and the filter extends a class which
 		// implements javax.servlet.Filter, then the remove button is enabled
-		if (validator.isFilterSuperclass()) {
+		if (FilterSupertypesValidator.isFilterSuperclass(model)) {
 			removeButton.setEnabled(true);
 			return;
 		} 
