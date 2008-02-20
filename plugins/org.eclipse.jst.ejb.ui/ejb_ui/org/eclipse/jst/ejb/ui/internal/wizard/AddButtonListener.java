@@ -17,8 +17,6 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
@@ -31,11 +29,9 @@ import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface;
-import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface.BusinessInterfaceType;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class AddButtonListener implements SelectionListener {

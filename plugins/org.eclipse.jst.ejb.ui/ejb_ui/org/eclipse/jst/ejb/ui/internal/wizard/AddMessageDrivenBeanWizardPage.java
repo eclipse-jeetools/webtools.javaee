@@ -21,7 +21,6 @@ import org.eclipse.jdt.core.search.IJavaSearchScope;
 import org.eclipse.jdt.internal.ui.dialogs.FilteredTypesSelectionDialog;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jface.operation.IRunnableContext;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.ejb.internal.operations.INewMessageDrivenBeanClassDataModelProperties;
@@ -47,9 +46,6 @@ public class AddMessageDrivenBeanWizardPage extends
 
 	private Text ejbNameText;
 	private Combo transactionTypeCombo;
-	private TableViewer businessnterfacesList;
-	private Button addButton;
-	private Button removeButton;
 
 	public AddMessageDrivenBeanWizardPage(IDataModel model, String pageName) {
 		super(model, pageName,

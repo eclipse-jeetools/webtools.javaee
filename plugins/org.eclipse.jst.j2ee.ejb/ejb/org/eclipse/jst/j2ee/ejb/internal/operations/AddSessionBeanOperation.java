@@ -12,14 +12,11 @@ package org.eclipse.jst.j2ee.ejb.internal.operations;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 
 public class AddSessionBeanOperation extends AddEnterpriseBeanOperation {
-
-	private IModelProvider provider;
 
 	/**
 	 * This is the constructor which should be used when creating the operation.
