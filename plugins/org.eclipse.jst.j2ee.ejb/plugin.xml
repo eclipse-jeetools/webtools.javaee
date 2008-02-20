@@ -131,6 +131,20 @@
       		providerType="jst.ejb.builder"
       		providerID="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
 	</extension>
+    <extension
+          point="org.eclipse.wst.common.frameworks.DataModelProviderExtension">
+       <DataModelProvider
+             class="org.eclipse.jst.j2ee.ejb.internal.operations.NewSessionBeanClassDataModelProvider"
+             id="org.eclipse.jst.j2ee.ejb.internal.operations.NewSessionBeanClassDataModelProvider">
+       </DataModelProvider>
+    </extension>
+    <extension
+          point="org.eclipse.wst.common.frameworks.DataModelProviderExtension">
+       <DataModelProvider
+             class="org.eclipse.jst.j2ee.ejb.internal.operations.NewMessageDrivenBeanClassDataModelProvider"
+             id="org.eclipse.jst.j2ee.ejb.internal.operations.NewMessageDrivenBeanClassDataModelProvider">
+       </DataModelProvider>
+    </extension>
 	
 	
   <!-- Project Facets -->
