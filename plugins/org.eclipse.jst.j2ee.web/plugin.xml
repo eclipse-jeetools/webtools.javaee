@@ -347,13 +347,21 @@
 		<DataModelProvider
             class="org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProvider"
             id="org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProvider"/>
-		<DataModelProvider
-            class="org.eclipse.jst.j2ee.internal.web.operations.NewFilterClassDataModelProvider"
-            id="org.eclipse.jst.j2ee.internal.web.operations.NewFilterClassDataModelProvider"/>
-		<DataModelProvider
-            class="org.eclipse.jst.j2ee.internal.web.operations.NewListenerClassDataModelProvider"
-            id="org.eclipse.jst.j2ee.internal.web.operations.NewListenerClassDataModelProvider"/>
 	</extension>
+ <extension
+       point="org.eclipse.wst.common.frameworks.DataModelProviderExtension">
+    <DataModelProvider
+          class="org.eclipse.jst.j2ee.internal.web.operations.NewFilterClassDataModelProvider"
+          id="org.eclipse.jst.j2ee.internal.web.operations.NewFilterClassDataModelProvider">
+    </DataModelProvider>
+ </extension>
+ <extension
+       point="org.eclipse.wst.common.frameworks.DataModelProviderExtension">
+    <DataModelProvider
+          class="org.eclipse.jst.j2ee.internal.web.operations.NewListenerClassDataModelProvider"
+          id="org.eclipse.jst.j2ee.internal.web.operations.NewListenerClassDataModelProvider">
+    </DataModelProvider>
+ </extension>
 	
   <extension point="org.eclipse.jdt.core.classpathContainerInitializer">
     <classpathContainerInitializer
@@ -438,5 +446,5 @@
         	<modelProvider factoryClass="org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit"/>	
       		<facet id="jst.web" versions="2.2,2.3,2.4"/>
       	</provider>
-   </extension>	
+   </extension>
 </plugin>
