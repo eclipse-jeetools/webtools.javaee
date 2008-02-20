@@ -54,7 +54,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.eclipse.ui.dialogs.SelectionStatusDialog;
 import org.eclipse.ui.internal.layout.CellLayout;
 import org.eclipse.ui.part.PageBook;
@@ -79,8 +78,6 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 
 	}
 	
-	private ISelectionStatusValidator fValidator = null;
-	
     public final static int SERVLET = 0;
 	public final static int URL_PATTERN = 1;
 	protected Button fServletButton;
@@ -96,7 +93,7 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 	private Object[] fElements;
 	private boolean fIgnoreCase = true;
 	private String fUpperListLabel;
-	private String fLowerListLabel;
+
 	// SWT widgets
 	private Table fUpperList;
 	protected Text fURLText;

@@ -12,7 +12,6 @@ package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
-import org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassOptionsWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;

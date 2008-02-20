@@ -241,6 +241,26 @@ public class JavaEEEMFArchiveAdapterHelper {
 		public SAXFactoryKey(URI uri, IContentDescription description) {
 			this.uri = uri;
 			this.description = description;
+			if(uri == null){
+				throw new NullPointerException();
+			}
+			if(description == null){
+				throw new NullPointerException();
+			}
+		}
+		
+		@Override
+		public boolean equals(Object obj){
+			if(obj == null || !(obj instanceof SAXFactoryKey)){
+				return false;
+			}
+			SAXFactoryKey other = (SAXFactoryKey)obj;
+			return uri.equals(other.uri) && description.equals(other.description);
+		}
+
+		@Override
+		public int hashCode() {
+			return uri.hashCode() + description.hashCode();
 		}
 	}
 
@@ -248,7 +268,7 @@ public class JavaEEEMFArchiveAdapterHelper {
 
 	private static Resource.Factory getSAXResourceFactory(SAXFactoryKey key) {
 		synchronized (localFactoryMap) {
-			return localFactoryMap.get(localFactoryMap);
+			return localFactoryMap.get(key);
 		}
 	}
 
@@ -257,5 +277,4 @@ public class JavaEEEMFArchiveAdapterHelper {
 			localFactoryMap.put(key, resourceFactory);
 		}
 	}
-
 }

@@ -66,11 +66,6 @@ public class NewListenerClassDataModelProvider extends
 		QUALIFIED_SERVLET_REQUEST_LISTENER,
 		QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER
 	};
-	
-	/**
-	 * The fully qualified default listener superclass.
-	 */
-	private final static String LISTENER_SUPERCLASS = ""; //$NON-NLS-1$ 
 
 	/**
 	 * Subclasses may extend this method to provide their own default operation

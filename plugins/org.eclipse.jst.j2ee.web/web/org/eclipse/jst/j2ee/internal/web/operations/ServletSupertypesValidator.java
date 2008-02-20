@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 

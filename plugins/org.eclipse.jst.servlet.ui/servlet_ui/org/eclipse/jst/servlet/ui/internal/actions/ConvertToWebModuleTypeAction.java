@@ -110,7 +110,7 @@ public class ConvertToWebModuleTypeAction extends Action implements IWorkbenchWi
 			if (dialog.getReturnCode() == Window.CANCEL)
 				return;
 			
-			doConvert(dialog.getSelectedVersion());
+			doConvert(ConvertToWebModuleTypeDialog.getSelectedVersion());
 			
 		} catch (Exception e) {
 			Logger.logException(e);

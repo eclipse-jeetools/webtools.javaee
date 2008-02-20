@@ -64,26 +64,19 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
-import org.eclipse.jst.j2ee.internal.componentcore.AppClientBinaryComponentHelper;
-import org.eclipse.jst.j2ee.internal.componentcore.EJBBinaryComponentHelper;
-import org.eclipse.jst.j2ee.internal.componentcore.JCABinaryComponentHelper;
-import org.eclipse.jst.j2ee.internal.componentcore.WebBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
-import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationOperation;
-import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.jst.server.core.FacetUtil;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
@@ -96,7 +89,6 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.server.core.IRuntime;
 
 public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacetConstants {
-	private static final IVirtualReference[] NO_REFERENCES = new IVirtualReference[0];
 
 	/**
 	 * Return the absolute path of a loose archive in a J2EE application or WAR file
@@ -548,10 +540,6 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 
 	private static boolean isDynamicWebProject(IFacetedProject project) {
 		return isProjectOfType(project, DYNAMIC_WEB);
-	}
-
-	private static boolean isStaticWebProject(IFacetedProject project) {
-		return isProjectOfType(project, STATIC_WEB);
 	}
 
 	private static boolean isEJBProject(IFacetedProject project) {

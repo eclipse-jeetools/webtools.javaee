@@ -25,7 +25,6 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.validation.internal.operations.WorkbenchContext;
-import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
 
 
 /**

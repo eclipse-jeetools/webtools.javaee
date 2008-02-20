@@ -284,12 +284,6 @@ public class FilterMappingsArrayTableWizardSection extends Composite {
 		setInput(valueList);
 	}
 
-	private void removeFilterMapping(Object selectedFilterMapping) {
-		List valueList = (List) viewer.getInput();
-		valueList.remove(selectedFilterMapping);
-		setInput(valueList);
-	}
-	
 	private void removeFilterMappings(Collection selectedFilterMappings) {
 		List valueList = (List) viewer.getInput();
 		valueList.removeAll(selectedFilterMappings);

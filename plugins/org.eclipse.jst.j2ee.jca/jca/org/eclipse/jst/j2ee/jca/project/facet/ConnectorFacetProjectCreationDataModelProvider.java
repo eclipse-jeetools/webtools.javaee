@@ -14,19 +14,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
-import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.jst.common.project.facet.JavaFacetUtils;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetProjectCreationDataModelProvider;
-import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
-import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
-import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.project.facet.ProductManager;
 
 public class ConnectorFacetProjectCreationDataModelProvider extends J2EEFacetProjectCreationDataModelProvider {
@@ -68,7 +63,7 @@ public class ConnectorFacetProjectCreationDataModelProvider extends J2EEFacetPro
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		if( propertyName.equals( MODULE_URI )){
 			FacetDataModelMap map = (FacetDataModelMap) getProperty(FACET_DM_MAP);
-			IDataModel rarFacet = map.getFacetDataModel( J2EEProjectUtilities.JCA );	
+			IDataModel rarFacet = map.getFacetDataModel( IJ2EEFacetConstants.JCA );	
 			rarFacet.setProperty( IJ2EEModuleFacetInstallDataModelProperties.MODULE_URI, propertyValue );
 		}
 		return super.propertySet(propertyName, propertyValue);

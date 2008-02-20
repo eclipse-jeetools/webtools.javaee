@@ -86,20 +86,5 @@ public class UpdateProjectClasspath {
 		catch (JavaModelException e) {
 			Logger.getLogger().logError(e);
 		}
-	}	
-
-	private static IClasspathEntry[] getProjectDependency(IProject clientProj){
-		IClasspathEntry projectEntry = JavaCore.newProjectEntry(clientProj.getFullPath(), true);
-			return new IClasspathEntry[]{projectEntry};	
 	}
-	
-	private static boolean entryToChange(final IClasspathEntry entry, final IClasspathEntry[] entriesToChange) {
-		for (int i = 0; i < entriesToChange.length; i++) {
-			if (entriesToChange[i].equals(entry)) {
-				return true;
-			}
-		}
-		return false;
-	}	
-
 }
