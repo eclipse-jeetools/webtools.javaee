@@ -18,12 +18,14 @@ import java.util.Iterator;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.operations.ServletSupertypesValidator;
 import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -168,31 +170,51 @@ public class NewServletClassOptionsWizardPage extends
 	}
 
 	public void selectionChanged(SelectionChangedEvent event) {
-		StructuredSelection selection = (StructuredSelection) event.getSelection();
-		
-		// if the selection is empty, then the remove button is disabled
+		IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+		removeButton.setEnabled(canRemoveSelectedInterfaces(selection));
+	}
+	
+	@Override
+	protected KeyListener getInterfaceKeyListener() {
+		return new KeyListener() {
+
+			public void keyPressed(KeyEvent e) {
+			}
+
+			public void keyReleased(KeyEvent e) {
+				if (e.keyCode == SWT.DEL) {
+					IStructuredSelection selection = (IStructuredSelection) interfaceViewer.getSelection();
+					if (canRemoveSelectedInterfaces(selection)) {
+						handleInterfaceRemoveButtonSelected();
+					}
+				}
+			}
+			
+		};
+	}
+	
+	private boolean canRemoveSelectedInterfaces(IStructuredSelection selection) {
+		// if the selection is empty, then remove is not possible
 		if (selection.isEmpty()) {
-			removeButton.setEnabled(false);
-			return;
+			return false;
 		}
 		
 		// if the selection is non-empty and the servlet extends GenericServlet, then
-		// the remove button is enabled
+		// remove is possible 
 		if (ServletSupertypesValidator.isGenericServletSuperclass(model)) {
-			removeButton.setEnabled(true);
-			return;
+			return true;
 		} 
 		
 		// if the selection is non-empty and the servlet does not extend GenericServlet, 
-		// then the remove button is disabled only if the Servlet interface is in the selection
+		// then remove is not possible only if the Servlet interface is in the selection
 		Iterator iter = selection.iterator();
 		while (iter.hasNext()) {
-			if (QUALIFIED_SERVLET.equals(iter.next()))
-			removeButton.setEnabled(false);
-			return;
+			if (QUALIFIED_SERVLET.equals(iter.next())) {
+				return false;
+			}
 		}
 
-		// in all other cases the remove button is enabled
-		removeButton.setEnabled(true);
+		// in all other cases remove is possible
+		return true;
 	}
 }

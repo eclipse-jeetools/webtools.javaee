@@ -12,7 +12,6 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
@@ -20,6 +19,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
 import org.eclipse.jdt.core.search.IJavaSearchScope;
+import org.eclipse.jdt.internal.ui.JavaPluginImages;
 import org.eclipse.jdt.internal.ui.dialogs.FilteredTypesSelectionDialog;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jface.dialogs.Dialog;
@@ -30,16 +30,17 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.dialogs.TypeSearchEngine;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
@@ -48,6 +49,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
@@ -63,7 +65,7 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 	protected Button publicButton;
 	protected Button abstractButton;
 	protected Button finalButton;
-	protected ListViewer interfaceViewer;
+	protected TableViewer interfaceViewer;
 	protected Button addButton;
 	protected Button removeButton;
 	protected Button inheritButton;
@@ -158,10 +160,11 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 		composite.setLayout(layout);
 		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-		interfaceViewer = new ListViewer(composite);
-		interfaceViewer.getList().setLayoutData(new GridData(GridData.FILL_BOTH));
+		interfaceViewer = new TableViewer(composite, SWT.BORDER | SWT.MULTI);
+		interfaceViewer.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
 		interfaceViewer.setContentProvider(getInterfaceContentProvider());
 		interfaceViewer.setLabelProvider(getInterfaceLabelProvider());
+		interfaceViewer.getControl().addKeyListener(getInterfaceKeyListener());
 		interfaceViewer.setInput(model.getProperty(INewJavaClassDataModelProperties.INTERFACES));
 
 		Composite buttonCompo = new Composite(composite, SWT.NULL);
@@ -306,7 +309,7 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 	protected ILabelProvider getInterfaceLabelProvider() {
 		return new ILabelProvider() {
 			public Image getImage(Object element) {
-				return J2EEUIPlugin.getDefault().getImage("full/obj16/interface_obj"); //$NON-NLS-1$
+				return JavaPluginImages.get(JavaPluginImages.IMG_OBJS_INTERFACE); 
 			}
 
 			public String getText(Object element) {
@@ -330,6 +333,21 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 			}
 		};
 	}
+	
+	protected KeyListener getInterfaceKeyListener() {
+		return new KeyListener() {
+
+			public void keyPressed(KeyEvent e) {
+			}
+
+			public void keyReleased(KeyEvent e) {
+				if (e.keyCode == SWT.DEL) {
+					handleInterfaceRemoveButtonSelected();
+				}
+			}
+			
+		};
+	}
 
 	/**
 	 * Browse for a new Super Interface Class
@@ -344,12 +362,16 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 		dialog.setTitle(J2EEUIMessages.INTERFACE_SELECTION_DIALOG_TITLE);
 		if (dialog.open() == Window.OK) {
 			IType type = (IType) dialog.getFirstResult();
-			String superclassFullPath = ""; //$NON-NLS-1$
-			if (type != null)
-				superclassFullPath = type.getFullyQualifiedName();
-			interfaceViewer.add(superclassFullPath);
+			String newInterface = ""; //$NON-NLS-1$
+			if (type != null) {
+				newInterface = type.getFullyQualifiedName();
+				List valueList = getInterfaceViewerItems();
+				if (!valueList.contains(newInterface)) {
+					interfaceViewer.add(newInterface);
+					model.setProperty(INewJavaClassDataModelProperties.INTERFACES, getInterfaceViewerItems());
+				}
+			}
 		}
-		model.setProperty(INewJavaClassDataModelProperties.INTERFACES, getInterfaceViewerItems());
 	}
 
 	/**
@@ -360,7 +382,7 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 		List items = selection.toList();
 		if (!items.isEmpty()) {
 			List valueList = getInterfaceViewerItems();
-			for (int i=0; i<items.size(); i++) {
+			for (int i = 0; i < items.size(); i++) {
 				valueList.remove(items.get(i));
 			}
 			interfaceViewer.setInput(valueList);
@@ -369,6 +391,11 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 	}
 	
 	private List getInterfaceViewerItems() {
-		return new ArrayList(Arrays.asList(interfaceViewer.getList().getItems()));
+		ArrayList<String> list = new ArrayList<String>();
+		TableItem[] items = interfaceViewer.getTable().getItems();
+		for (TableItem item : items) {
+			list.add(item.getText());
+		}
+		return list;
 	}
 }

@@ -30,14 +30,6 @@ public class NewWebClassOptionsWizardPage extends NewJavaClassOptionsWizardPage 
 	}
 	
 	@Override
-	protected void enter() {
-		super.enter();
-		
-		interfaceViewer.getList().deselectAll();
-		removeButton.setEnabled(false);
-	}
-	
-	@Override
 	protected String[] getValidationPropertyNames() {
 		return new String[] { INewJavaClassDataModelProperties.INTERFACES };
 	}
