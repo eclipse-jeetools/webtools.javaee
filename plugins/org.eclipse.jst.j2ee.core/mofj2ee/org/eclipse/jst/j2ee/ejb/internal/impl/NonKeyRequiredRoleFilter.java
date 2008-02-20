@@ -24,20 +24,11 @@ import org.eclipse.jst.j2ee.ejb.CommonRelationshipRole;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 
 
-/**
- * @author jlanuti
- * 
- * To change the template for this generated type comment go to
- * Window>Preferences>Java>Code Generation>Code and Comments
- */
 public class NonKeyRequiredRoleFilter extends ContainerManagedEntityFilter {
 
     private static NonKeyRequiredRoleFilter singleton;
 
-    /**
-     * filter method comment.
-     */
-    public List filter(ContainerManagedEntity cmp) {
+    protected List filterNotcached(ContainerManagedEntity cmp) {
         List roles = new ArrayList();
         Iterator it = getRelationshipRoles(cmp).iterator();
         CommonRelationshipRole role;

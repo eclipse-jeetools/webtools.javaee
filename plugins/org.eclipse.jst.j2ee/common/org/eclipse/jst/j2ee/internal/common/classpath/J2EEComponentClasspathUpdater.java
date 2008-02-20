@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.common.classpath;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -167,12 +168,6 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 
 	public void queueUpdateModule(IProject project) {
 		moduleUpdateJob.queueModule(project);
-		if(!isKnown(project)){
-			IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(project);
-			for (int i = 0; i < earProjects.length; i++) {
-				moduleUpdateJob.queueEAR(earProjects[i]);
-			}
-		} 
 		synchronized (this) {
 			if (pauseCount > 0) {
 				return;
@@ -222,6 +217,9 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 
 		private Queue earQueue = new Queue();
 
+		//a private queue for adding modules queued by the EAR
+		private Queue earAddedModuleQueue = new Queue();
+		
 		public ModuleUpdateJob() {
 			super(MODULE_UPDATE_JOB_NAME); 
 			setRule(ResourcesPlugin.getWorkspace().getRoot());
@@ -240,6 +238,21 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			return !earQueue.isEmpty() || !moduleQueue.isEmpty();
 		}
 
+		/**
+		 * Add referenced EARs from the queued modules into the EARs queue
+		 */
+		private void queueReferencingEars(Object[] projects) {
+			for (int p = 0; p < projects.length; p++) {
+				IProject project = (IProject) projects[p];
+				if (!isKnown(project)) {
+					IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(project);
+					for (int i = 0; i < earProjects.length; i++) {
+						queueEAR(earProjects[i]);
+					}
+				} 
+			}
+		}
+		
 		private void processEars() {
 			Object[] earProjects = earQueue.getListeners();
 			for (int i = 0; i < earProjects.length; i++) {
@@ -252,7 +265,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 					for (int j = 0; j < refs.length; j++) {
 						comp = refs[j].getReferencedComponent();
 						if (!comp.isBinary()) {
-							queueModule(comp.getProject());
+							earAddedModuleQueue.add(comp.getProject());
 						}
 					}
 					if(null != earComponent){
@@ -262,8 +275,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			}
 		}
 		
-		private void processModules() {
-			Object[] projects = moduleQueue.getListeners();
+		private void processModules(Object[] projects) {
 			for (int i = 0; i < projects.length; i++) {
 				IProject project = (IProject) projects[i];
 				// this block is for Web app Libraries
@@ -282,6 +294,8 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 					((J2EEComponentClasspathContainer) earLibrariesContainer).refresh(forceUpdateOnNextRun);
 				}
 			}
+			// [202820]
+			updateDependencyGraph = true;
 		}
 		
 		protected IStatus run(IProgressMonitor monitor) {
@@ -293,8 +307,15 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 
 				public void run() throws Exception {
 					try {
+						Object[] moduleProjects = moduleQueue.getListeners();
+						queueReferencingEars(moduleProjects);
 						processEars();
-						processModules();
+						Object [] earQueuedModuleProjects = earAddedModuleQueue.getListeners();
+						Set modulesSet = new HashSet();
+						modulesSet.addAll(Arrays.asList(moduleProjects));
+						modulesSet.addAll(Arrays.asList(earQueuedModuleProjects));
+						Object [] modulesArray = modulesSet.toArray();
+						processModules(modulesArray);
 					} finally {
 						forceUpdateOnNextRun = false;
 					}
@@ -512,5 +533,11 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 	public static boolean shouldUpdateDependencyGraph()
 	{
 		return updateDependencyGraph;
+	}
+	
+	// [202820]
+	public static void setUpdateDependencyGraph(boolean value)
+	{
+		updateDependencyGraph = value;
 	}
 }

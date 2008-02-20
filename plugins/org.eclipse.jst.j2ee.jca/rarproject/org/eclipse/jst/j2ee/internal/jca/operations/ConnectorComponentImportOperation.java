@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.internal.jca.operations;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -23,12 +22,12 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.operations.ConnectorComponentSaveStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperation;
+import org.eclipse.jst.jee.archive.IArchive;
+import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -50,16 +49,14 @@ public class ConnectorComponentImportOperation extends J2EEArtifactImportOperati
 	 * Adds all jar within the file to the classpath.
 	 */
 	protected void addAssociateArchivesToClassPath() {
-		List extraEntries = new ArrayList();
+		List <IClasspathEntry> extraEntries = new ArrayList <IClasspathEntry> ();
 		
-		List archiveList = ((ModuleFile)archiveWrapper.getUnderLyingArchive()).getArchiveFiles();
-		Iterator iterator = archiveList.iterator();
+		List <IArchiveResource> archiveResources = ((IArchive)archiveWrapper.getUnderLyingArchive()).getArchiveResources();
 		IVirtualFile vFile = null;
 		IFile file = null;
-		while (iterator.hasNext()) {
-			Archive anArchive = (Archive) iterator.next();
-			if (anArchive.getName().endsWith(JAR_EXTENSION)) {
-				vFile = virtualComponent.getRootFolder().getFile(anArchive.getURI());
+		for(IArchiveResource archiveResource : archiveResources){
+			if(archiveResource.getPath().lastSegment().endsWith(JAR_EXTENSION)){
+				vFile = virtualComponent.getRootFolder().getFile(archiveResource.getPath());
 				if (vFile.exists()) {
 					file = vFile.getUnderlyingFile();
 					extraEntries.add(JavaCore.newLibraryEntry(file.getFullPath(), file.getFullPath(), null, true));

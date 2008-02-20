@@ -27,10 +27,7 @@ public abstract class AbstractRequiredRelationshipRoleFilter extends ContainerMa
 public AbstractRequiredRelationshipRoleFilter() {
 	super();
 }
-/**
- * filter method comment.
- */
-public List filter(ContainerManagedEntity cmp) {
+protected List filterNotcached(ContainerManagedEntity cmp) {
 	List roles = new ArrayList();
 	List allRoles = getRolesToFilter(cmp);
 	CommonRelationshipRole role;

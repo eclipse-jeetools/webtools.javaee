@@ -366,35 +366,6 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 	}
 
 	/**
-	 * Subclasses may extend this method to provide their own validation of the specified java
-	 * classname. This implementation will ensure the class name is not set to Servlet and then will
-	 * forward on to the NewJavaClassDataModel to validate the class name as valid java. This method
-	 * does not accept null as a parameter. It will not return null.
-	 * 
-	 * @see NewServletClassDataModelProvider#validateExistingClass(boolean)
-	 * @see NewJavaClassDataModelProvider#validateJavaClassName(String)
-	 * 
-	 * @param className
-	 * @return IStatus is java classname valid?
-	 */
-	protected IStatus validateJavaClassName(String className) {
-		if (getBooleanProperty(USE_EXISTING_CLASS))
-			return WTPCommonPlugin.OK_STATUS;
-		// First use the NewJavaClassDataModel to validate the classname as proper java syntax
-		IStatus status = super.validateJavaClassName(className);
-		if (status.isOK()) {
-			// Do not allow the name to be "Servlet"
-			if (className.equals("Servlet")) { //$NON-NLS-1$
-				String msg = WebMessages.ERR_SERVLET_JAVA_CLASS_NAME_INVALID;
-				return WTPCommonPlugin.createErrorStatus(msg);
-			}
-			return WTPCommonPlugin.OK_STATUS;
-		}
-		// Return the status
-		return status;
-	}
-
-	/**
 	 * This method is intended for internal use only. It will be used to validate the init params
 	 * list to ensure there are not any duplicates. This method will accept a null paramter. It will
 	 * not return null.

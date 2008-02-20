@@ -24,6 +24,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
 import org.eclipse.jst.j2ee.internal.archive.ComponentArchiveSaveAdapter;
+import org.eclipse.jst.j2ee.internal.archive.ConnectorComponentArchiveSaveAdapter;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
@@ -85,7 +86,9 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 	 * @throws ExecutionException
 	 */
 	protected void doExecute(IProgressMonitor monitor) throws ExecutionException {
-		virtualComponent = createVirtualComponent(model.getNestedModel(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION), new SubProgressMonitor(monitor, PROJECT_CREATION_WORK));
+		IDataModel nestedModel = model.getNestedModel(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION);
+		IProgressMonitor subMonitor = new SubProgressMonitor(monitor, PROJECT_CREATION_WORK);
+		virtualComponent = createVirtualComponent(nestedModel, subMonitor);
 
 		try {
 			importModuleFile(new SubProgressMonitor(monitor, archiveWrapper.getSize()));
@@ -117,7 +120,7 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 	}
 	
 	protected ComponentArchiveSaveAdapter getArchiveSaveAdapter(IVirtualComponent virtualComponent){
-		return null;
+		return new ConnectorComponentArchiveSaveAdapter(virtualComponent);
 	}
 
 	/**

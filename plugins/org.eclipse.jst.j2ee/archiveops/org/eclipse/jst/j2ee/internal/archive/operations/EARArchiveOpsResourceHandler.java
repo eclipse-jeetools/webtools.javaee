@@ -15,7 +15,7 @@ import org.eclipse.osgi.util.NLS;
 public final class EARArchiveOpsResourceHandler extends NLS {
 
 	private static final String BUNDLE_NAME = "eararchiveops";//$NON-NLS-1$
-
+	
 	private EARArchiveOpsResourceHandler() {
 		// Do not instantiate
 	}
@@ -40,6 +40,7 @@ public final class EARArchiveOpsResourceHandler extends NLS {
 	public static String _jar_UI_;
 	public static String Updating_manifest_Class_Path__attributes_UI_;
 	public static String _preDeploy_ERROR_;
+	public static String MISSING_CLIENT_JAR;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, EARArchiveOpsResourceHandler.class);

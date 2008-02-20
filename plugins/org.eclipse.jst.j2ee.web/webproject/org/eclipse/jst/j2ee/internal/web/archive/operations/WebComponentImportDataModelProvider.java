@@ -35,6 +35,7 @@ import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
@@ -118,10 +119,37 @@ public final class WebComponentImportDataModelProvider extends J2EEComponentImpo
 			FacetDataModelMap map = (FacetDataModelMap) creationModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 			IDataModel webFacetDataModel = map.getFacetDataModel( J2EEProjectUtilities.DYNAMIC_WEB );
 			webFacetDataModel.setStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT, (String)propertyValue);
+		}else if(propertyName.equals(WEB_LIB_ARCHIVES_SELECTED)) {
+			validateLibModelRuntimes();
 		}
 		return true;
 	}
-
+	
+	@Override
+	public IStatus validate(String propertyName) {
+		if(FACET_RUNTIME.equals(propertyName)){
+			super.validate(propertyName);
+			return validateLibModelRuntimes();
+		}
+		return super.validate(propertyName);
+	}
+	
+	private IStatus validateLibModelRuntimes() {
+		List libArchives = (List)getProperty(WEB_LIB_ARCHIVES_SELECTED);
+		List libModels = (List)getProperty(WEB_LIB_MODELS);
+		IStatus status = OK_STATUS;
+		for (int i=0; i < libModels.size(); i++) {
+			IDataModel libModel = (IDataModel)libModels.get(i);
+			if (libArchives.contains(libModel.getProperty(ARCHIVE_WRAPPER))){
+				status = libModel.validateProperty(FACET_RUNTIME);
+			}
+			if(!status.isOK()){
+				return status;
+			}
+		}
+		return status;
+	}
+	
 	protected Archive openArchive(String uri) throws OpenFailureException {
 		Archive archive = CommonarchiveFactory.eINSTANCE.openWARFile(getArchiveOptions(), uri);
 		return archive;
@@ -141,5 +169,18 @@ public final class WebComponentImportDataModelProvider extends J2EEComponentImpo
 		FacetDataModelMap map = (FacetDataModelMap) componentCreationDM.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 		IDataModel webFacet = map.getFacetDataModel( IJ2EEFacetConstants.DYNAMIC_WEB );	
 		webFacet.setBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, false);
+	}
+	
+	public void propertyChanged(DataModelEvent event) {
+		super.propertyChanged(event);
+		if (event.getPropertyName().equals(IFacetProjectCreationDataModelProperties.FACET_RUNTIME) && event.getDataModel() == model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION)) {
+			Object propertyValue = event.getProperty();
+			IDataModel nestedModel = null;
+			List projectModels = (List) getProperty(WEB_LIB_MODELS);
+			for (int i = 0; i < projectModels.size(); i++) {
+				nestedModel = (IDataModel) projectModels.get(i);
+				nestedModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, propertyValue);
+			}
+		}
 	}
 }

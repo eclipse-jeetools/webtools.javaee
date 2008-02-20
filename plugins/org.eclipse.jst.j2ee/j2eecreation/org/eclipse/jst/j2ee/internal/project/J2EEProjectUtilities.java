@@ -74,12 +74,14 @@ import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationOperation;
+import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.jst.server.core.FacetUtil;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
@@ -714,6 +716,74 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 		}
 		return ""; //$NON-NLS-1$
 	}
+	/**
+	 * Returns the J2EE Module version based on the DD XML file
+	 * @param project
+	 * @return version String
+	 */
+	public static String getJ2EEDDProjectVersion(IProject project) {
+		int type = J2EEVersionConstants.UNKNOWN;
+		String ddURI = null;
+		if (J2EEProjectUtilities.isEARProject(project)) {
+			type = J2EEVersionConstants.APPLICATION_TYPE;
+			ddURI = J2EEConstants.APPLICATION_DD_URI;
+		} else if (J2EEProjectUtilities.isEJBProject(project)) {
+			type = J2EEVersionConstants.EJB_TYPE;
+			ddURI = J2EEConstants.EJBJAR_DD_URI;
+		} else if (J2EEProjectUtilities.isApplicationClientProject(project)) {
+			type = J2EEVersionConstants.APPLICATION_CLIENT_TYPE;
+			ddURI = J2EEConstants.APP_CLIENT_DD_URI;
+		} else if (J2EEProjectUtilities.isJCAProject(project)) {
+			type = J2EEVersionConstants.CONNECTOR_TYPE;
+			ddURI = J2EEConstants.RAR_DD_URI;
+		} else if (J2EEProjectUtilities.isDynamicWebProject(project)) {
+			type = J2EEVersionConstants.WEB_TYPE;
+			ddURI = J2EEConstants.WEBAPP_DD_URI;
+		} 
+
+		if(type != J2EEVersionConstants.UNKNOWN){
+			IVirtualComponent comp = ComponentCore.createComponent(project);
+			if (comp != null) {
+				IVirtualFile vFile = comp.getRootFolder().getFile(new Path(ddURI));
+				if(vFile.exists()){
+					InputStream in= null;
+					try{
+						in = vFile.getUnderlyingFile().getContents();
+						JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(in);
+						int vers = (quickPeek.getVersion() == J2EEVersionConstants.UNKNOWN) ? getJEEVersion(project) : quickPeek.getVersion();
+						return J2EEVersionUtil.convertVersionIntToString(vers);
+					} catch (CoreException e) {
+						Logger.getLogger().logError(e);
+					} finally {
+						if(in != null){
+							try {
+								in.close();
+							} catch (IOException e) {
+								Logger.getLogger().logError(e);
+							}
+						}
+					}
+					
+				}
+				else
+					return J2EEVersionUtil.convertVersionIntToString(getJEEVersion(project));
+			}
+		}
+		
+		return null;
+	}
+
+
+	private static int getJEEVersion(IProject project) {
+		if (isEARProject(project) || isApplicationClientProject(project))
+			return J2EEVersionConstants.VERSION_5_0;
+		if (isEJBProject(project))
+			return J2EEVersionConstants.VERSION_3_0;
+		if (isDynamicWebProject(project))
+			return J2EEVersionConstants.VERSION_2_5;
+		return J2EEVersionConstants.UNKNOWN;
+			
+	}
 
 	public static IRuntime getServerRuntime(IProject project) throws CoreException {
 		if (project == null)
@@ -727,6 +797,11 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 		return FacetUtil.getRuntime(runtime);
 	}
 
+	/**
+	 * Returns the J2EE Module version based on the project Facet installed
+	 * @param project
+	 * @return version String
+	 */
 	public static String getJ2EEProjectVersion(IProject project) {
 		String type = getJ2EEProjectType(project);
 		IFacetedProject facetedProject = null;
@@ -745,6 +820,13 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 	public static JavaProjectMigrationOperation createFlexJavaProjectForProjectOperation(IProject project) {
 		IDataModel model = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
 		model.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, project.getName());
+		return new JavaProjectMigrationOperation(model);
+	}
+	
+	public static JavaProjectMigrationOperation createFlexJavaProjectForProjectOperation(IProject project, boolean addToEAR) {
+		IDataModel model = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
+		model.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, project.getName());
+		model.setBooleanProperty(IJavaProjectMigrationDataModelProperties.ADD_TO_EAR, addToEAR);
 		return new JavaProjectMigrationOperation(model);
 	}
 

@@ -65,12 +65,14 @@ public class WebAppLibrariesContainerPage
         IPath path = new Path( WebAppLibrariesContainer.CONTAINER_ID );
         
         final int index = this.projectsCombo.getSelectionIndex();
-        final String selectedProjectName = this.projectsCombo.getItem( index );
-        
-        if( this.ownerProject == null || 
-            ! selectedProjectName.equals( this.ownerProject.getName() ) )
-        {
-            path = path.append( selectedProjectName );
+        if(index != -1){
+	        final String selectedProjectName = this.projectsCombo.getItem( index );
+	        
+	        if( this.ownerProject == null || 
+	            ! selectedProjectName.equals( this.ownerProject.getName() ) )
+	        {
+	            path = path.append( selectedProjectName );
+	        }
         }
         
         return JavaCore.newContainerEntry( path );

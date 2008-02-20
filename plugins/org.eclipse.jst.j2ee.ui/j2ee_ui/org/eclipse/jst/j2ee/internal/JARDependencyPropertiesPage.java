@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.jar.Manifest;
 
-import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResourceDelta;
@@ -49,13 +48,13 @@ import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
+import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.classpathdep.UpdateClasspathAttributeUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
@@ -87,6 +86,7 @@ import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
@@ -131,13 +131,17 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	 * Returns false if page should not be displayed for the project.
 	 */
 	protected void initialize() {
-		model = new ClasspathModel(null);
+		model = createClasspathModel();
 		model.setProject(project);
 		if (model.getComponent() != null) {
 			model.addListener(this);
 			updateModelManifest();
 			initializeValidateEditListener();
 		}
+	}
+
+	protected ClasspathModel createClasspathModel(){
+		return new ClasspathModel(null, false);
 	}
 
 	public void dispose() {
@@ -153,41 +157,39 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	private void updateModelManifest() {
 		if (JemProjectUtilities.isBinaryProject(project) || model.getAvailableEARComponents().length == 0)
 			return;
-		IContainer root = null;
-		IFile manifestFile = null;
-		if (project != null)
-			root = project;
-		else
-			root = JemProjectUtilities.getSourceFolderOrFirst(project, null);
-
-		if (root != null)
-			manifestFile = root.getFile(new Path(J2EEConstants.MANIFEST_URI));
-
-		if (manifestFile == null || !manifestFile.exists())
-			return;
-
-		InputStream in = null;
-		try {
-			in = manifestFile.getContents();
-			ArchiveManifest mf = new ArchiveManifestImpl(new Manifest(in));
-			model.primSetManifest(mf);
-		} catch (CoreException e) {
-			Logger.getLogger().logError(e);
-			model.primSetManifest(new ArchiveManifestImpl());
-		} catch (IOException iox) {
-			Logger.getLogger().logError(iox);
-			model.primSetManifest(new ArchiveManifestImpl());
-			caughtManifestException = iox;
-		} finally {
-			if (in != null) {
-				try {
-					in.close();
-				} catch (IOException weTried) {
-					// Ignore
+		
+		IVirtualComponent component = ComponentCore.createComponent(project);
+		if(component != null){
+			IVirtualFile vManifest = component.getRootFolder().getFile(new Path(J2EEConstants.MANIFEST_URI));
+			if(vManifest.exists()){
+				IFile iManifest = vManifest.getUnderlyingFile();
+				if(iManifest != null && iManifest.exists()){
+					InputStream in = null;
+					try {
+						in = iManifest.getContents();
+						ArchiveManifest mf = new ArchiveManifestImpl(new Manifest(in));
+						model.primSetManifest(mf);
+					} catch (CoreException e) {
+						Logger.getLogger().logError(e);
+						model.primSetManifest(new ArchiveManifestImpl());
+					} catch (IOException iox) {
+						Logger.getLogger().logError(iox);
+						model.primSetManifest(new ArchiveManifestImpl());
+						caughtManifestException = iox;
+					} finally {
+						if (in != null) {
+							try {
+								in.close();
+							} catch (IOException weTried) {
+								// Ignore
+							}
+						}
+					}
 				}
 			}
 		}
 	}
+
 
 	protected void initializeValidateEditListener() {
 		validateEditListener = new ValidateEditListener(null, model);
@@ -557,8 +559,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		if (!isDirty)
 			return true;
 		WorkspaceModifyComposedOperation composed = new WorkspaceModifyComposedOperation(createManifestOperation());
-		
-		composed.addRunnable(createClasspathAttributeUpdateOperation(model.getClassPathSelection(), false));
+		createClasspathAttributeUpdateOperation(composed, model.getClassPathSelection(), false);
 		try {
 			new ProgressMonitorDialog(propPage.getShell()).run(true, true, composed);
 		} catch (InvocationTargetException ex) {
@@ -636,6 +637,10 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	}
 
 
+	/**
+	 * @deprecated don't use this method it will be deleted
+	 * @return
+	 */
 	List getUnSelectedClassPathElementsForWebDependency() {
 		List unselectedForWLP = getUnSelectedClassPathSelectionForWLPs().getClasspathElements();
 		List unselected = new ArrayList();
@@ -731,11 +736,15 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	}
 
 
+	/**
+	 * This should be moved to the {@link WebLibDependencyPropertiesPage} because it is only used there.
+	 * @return
+	 */
 	protected WorkspaceModifyComposedOperation createComponentDependencyOperations() {
 		WorkspaceModifyComposedOperation composedOp = null;
 		final ClassPathSelection selectedWLPs = getSelectedClassPathSelectionForWLPs();
 		List selected = selectedWLPs.getClasspathElements();
-		List unselected = getUnSelectedClassPathElementsForWebDependency();
+		List unselected = getUnSelectedClassPathSelectionForWLPs().getClasspathElements();
 
 		List targetComponentsHandles = new ArrayList();
 		for (int i = 0; i < selected.size(); i++) {
@@ -794,7 +803,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		if (composedOp == null) {
 			composedOp = new WorkspaceModifyComposedOperation();
 		}
-		composedOp.addRunnable(createClasspathAttributeUpdateOperation(selectedWLPs, true));
+		createClasspathAttributeUpdateOperation(composedOp, model.getClassPathSelectionForWLPs(), true);
 		
 		return composedOp;
 	}
@@ -809,7 +818,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 				if (elementProject != null && !elementProject.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
 					if (composedOp == null)
 						composedOp = new WorkspaceModifyComposedOperation();
-					composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(J2EEProjectUtilities.createFlexJavaProjectForProjectOperation(elementProject)));
+					composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(J2EEProjectUtilities.createFlexJavaProjectForProjectOperation(elementProject, false)));
 				}
 			}
 		} catch (CoreException ce) {
@@ -866,20 +875,44 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		return new UpdateManifestOperation(project.getName(), model.getClassPathSelection().toString(), true);
 	}
 	
-	protected IRunnableWithProgress createClasspathAttributeUpdateOperation(final ClassPathSelection selection, final boolean isWebApp) {
-		final Map entriesToRuntimePath = new HashMap();
-		final List selectedElements = selection.getSelectedClasspathElements();
-		for (int i = 0; i < selectedElements.size(); i++) {
-			final ClasspathElement element = (ClasspathElement) selectedElements.get(i);
-			if (element.isClasspathEntry() && element.isSelected()) {
+	protected void createClasspathAttributeUpdateOperation(final WorkspaceModifyComposedOperation composedOp, final ClassPathSelection selection, final boolean isWebApp) {
+		final Map selectedEntriesToRuntimePath = new HashMap();
+		final Map unselectedEntriesToRuntimePath = new HashMap();
+		final List elements = selection.getClasspathElements();
+		for (int i = 0; i < elements.size(); i++) {
+			final ClasspathElement element = (ClasspathElement) elements.get(i);
+			if (element.isClasspathEntry()) {
 				final IClasspathEntry entry = element.getClasspathEntry();
 				final IClasspathAttribute attrib = ClasspathDependencyUtil.checkForComponentDependencyAttribute(entry);
+				boolean hasDepAttrib = false;
+				if (attrib != null && attrib.getName().equals(IClasspathDependencyConstants.CLASSPATH_COMPONENT_DEPENDENCY)) {
+					hasDepAttrib = true;
+				}
 				final IPath runtimePath = ClasspathDependencyUtil.getRuntimePath(attrib, isWebApp);
-				entriesToRuntimePath.put(entry, runtimePath);
+				if (element.isSelected()) {
+					// only add if we don't already have the attribute
+					if (!hasDepAttrib) {
+						selectedEntriesToRuntimePath.put(entry, runtimePath);
+					}
+				} else {
+					// only add if we already have the attribute
+					if (hasDepAttrib) {
+						unselectedEntriesToRuntimePath.put(entry, runtimePath);
+					}
+				}
 			}
 		}
-		final IDataModelOperation op = UpdateClasspathAttributeUtil.createUpdateDependencyAttributesOperation(project.getName(), entriesToRuntimePath); 
-		return WTPUIPlugin.getRunnableWithProgress(op);
+		
+		// if there are any attributes to add, create an operation to add all necessary attributes 
+		if (!selectedEntriesToRuntimePath.isEmpty()) {
+			IDataModelOperation op = UpdateClasspathAttributeUtil.createAddDependencyAttributesOperation(project.getName(), selectedEntriesToRuntimePath); 
+			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(op));
+		}
+		// if there are any attributes to remove, create an operation to remove all necessary attributes
+		if (!unselectedEntriesToRuntimePath.isEmpty()) {
+			IDataModelOperation op = UpdateClasspathAttributeUtil.createRemoveDependencyAttributesOperation(project.getName(), unselectedEntriesToRuntimePath); 
+			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(op));
+		}
 	}
 
 	protected boolean isReadOnly() {

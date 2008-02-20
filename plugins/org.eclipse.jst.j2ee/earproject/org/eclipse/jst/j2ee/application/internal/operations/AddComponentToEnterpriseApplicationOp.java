@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.UIContextDetermination;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
@@ -41,14 +42,19 @@ import org.eclipse.jst.javaee.application.Web;
 import org.eclipse.jst.jee.application.ICommonApplication;
 import org.eclipse.jst.jee.application.ICommonModule;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
+import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsOp;
+import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
+import org.eclipse.wst.common.internal.emfworkbench.validateedit.IValidateEditContext;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
@@ -154,7 +160,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		ICommonModule newModule = null;
 		final IVirtualComponent ear = (IVirtualComponent) this.model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
 		final IProject earpj = ear.getProject();
-		boolean useNewModel = J2EEProjectUtilities.isJEEProject(earpj);
+		boolean useNewModel = J2EEProjectUtilities.getJ2EEDDProjectVersion(earpj).equals(J2EEVersionConstants.VERSION_5_0_TEXT);
 		if (J2EEProjectUtilities.isDynamicWebProject(wc.getProject())) {
 			Properties props = wc.getMetaProperties();
 			String contextroot = ""; //$NON-NLS-1$
@@ -291,5 +297,23 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 			status = provider.validateEdit(null, context);
 		}
 		return status;
-	}	
+	}
+	
+	protected IStatus validateEdit() {
+		IStatus status = super.validateEdit();
+		if (status.isOK()) {
+			IValidateEditContext validator = (IValidateEditContext) UIContextDetermination.createInstance(IValidateEditContext.CLASS_KEY);
+			IVirtualComponent sourceComp = (IVirtualComponent) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
+			IProject project = sourceComp.getProject();
+			ArtifactEdit edit = null;
+			try {
+				edit = ComponentUtilities.getArtifactEditForWrite(sourceComp);
+				status = validator.validateState((EditModel) edit.getAdapter(ArtifactEditModel.ADAPTER_TYPE));
+			} finally {
+				if (edit != null)
+					edit.dispose();
+			}
+		}
+		return status;
+	}
 }

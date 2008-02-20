@@ -145,7 +145,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		addClassnameGroup(composite);
 		addSuperclassGroup(composite);
 
-		folderText.setFocus();
+		classText.setFocus();
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(composite, getInfopopID());
 	    Dialog.applyDialogFont(parent);
 		return composite;
@@ -283,9 +283,16 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		folderText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		folderText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		synchHelper.synchText(folderText, INewJavaClassDataModelProperties.SOURCE_FOLDER, null);
+		
 		IPackageFragmentRoot root = getSelectedPackageFragmentRoot();
-		if (root != null)
-			folderText.setText(root.getPath().toString());
+		String targetProject = model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME); 
+		if (root == null || !root.getJavaProject().getElementName().equals(targetProject)) {
+			String folder = getDefaultJavaSourceFolder(ProjectUtilities.getProject(targetProject)).getFullPath().toOSString();
+			if (folder != null)
+				folderText.setText(folder);
+		} else {
+ 			folderText.setText(root.getPath().toString());
+		}
 		
 		folderButton = new Button(composite, SWT.PUSH);
 		folderButton.setText(J2EEUIMessages.BROWSE_BUTTON_LABEL);
@@ -312,15 +319,18 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 
 		packageText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		packageText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		synchHelper.synchText(packageText, INewJavaClassDataModelProperties.JAVA_PACKAGE, null);
+		
 		IPackageFragment packageFragment = getSelectedPackageFragment();
-		if (packageFragment != null && packageFragment.exists()) {
+		String targetProject = model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME); 
+		if (packageFragment != null && packageFragment.exists() && 
+				packageFragment.getJavaProject().getElementName().equals(targetProject)) {
 			IPackageFragmentRoot root = getPackageFragmentRoot(packageFragment);
 			if (root != null)
 				folderText.setText(root.getPath().toString());
 			model.setProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE, packageFragment.getElementName());
 		}
 
-		synchHelper.synchText(packageText, INewJavaClassDataModelProperties.JAVA_PACKAGE, null);
 
 		packageButton = new Button(composite, SWT.PUSH);
 		packageButton.setText(J2EEUIMessages.BROWSE_BUTTON_LABEL);

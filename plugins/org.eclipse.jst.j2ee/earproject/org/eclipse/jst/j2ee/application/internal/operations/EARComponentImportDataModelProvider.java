@@ -158,7 +158,8 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 		if (NESTED_MODULE_ROOT.equals(propertyName)) {
 			updateModuleRoot();
 		} else if (FILE_NAME.equals(propertyName)) {
-			setProperty(MODULE_MODELS_LIST, getModuleModels());
+			List nestedModels = getModuleModels();
+			setProperty(MODULE_MODELS_LIST, nestedModels);
 			updateModuleRoot();
 			setProperty(UTILITY_LIST, null);
 
@@ -168,8 +169,20 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 				IDataModel earFacetDataModel = map.getFacetDataModel(J2EEProjectUtilities.ENTERPRISE_APPLICATION);
 
 				JavaEEQuickPeek quickPeek = getArchiveWrapper().getJavaEEQuickPeek();
-				int version = quickPeek.getVersion();
-				String versionText = J2EEVersionUtil.getJ2EETextVersion(version);
+				int minimumVersion = quickPeek.getVersion();
+				if(nestedModels != null){
+					//increase the JavaEE facet version to accommodate the highest module version
+					for(int i=0;i<nestedModels.size(); i++){
+						IDataModel nestedModel = (IDataModel)nestedModels.get(i);
+						ArchiveWrapper nestedWrapper = (ArchiveWrapper)nestedModel.getProperty(ARCHIVE_WRAPPER);
+						int nestedEEVersion = nestedWrapper.getJavaEEQuickPeek().getJavaEEVersion();
+						if(nestedEEVersion > minimumVersion){
+							minimumVersion = nestedEEVersion;
+						}
+					}
+				}
+				
+				String versionText = J2EEVersionUtil.getJ2EETextVersion(minimumVersion);
 				earFacetDataModel.setStringProperty(IFacetDataModelProperties.FACET_VERSION_STR, versionText);
 			}
 

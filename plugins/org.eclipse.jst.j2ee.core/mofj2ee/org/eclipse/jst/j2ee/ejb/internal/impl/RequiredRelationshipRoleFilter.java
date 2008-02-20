@@ -18,18 +18,11 @@ import org.eclipse.jst.j2ee.ejb.CommonRelationshipRole;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 
 
-/**
- * Insert the type's description here. Creation date: (8/6/2001 11:26:10 AM)
- * @author: Administrator
- */
 public class RequiredRelationshipRoleFilter extends ContainerManagedEntityFilter {
 
     private static RequiredRelationshipRoleFilter singleton;
 
-    /**
-     * filter method comment.
-     */
-    public List filter(ContainerManagedEntity cmp) {
+    protected List filterNotcached(ContainerManagedEntity cmp) {
         List roles = new ArrayList();
         Iterator it = getRelationshipRoles(cmp).iterator();
         CommonRelationshipRole role;

@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -25,10 +26,20 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.emf.ecore.xmi.XMIResource;
+import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.core.search.IJavaSearchConstants;
+import org.eclipse.jdt.core.search.IJavaSearchScope;
+import org.eclipse.jdt.core.search.SearchEngine;
+import org.eclipse.jdt.core.search.SearchPattern;
+import org.eclipse.jdt.core.search.TypeNameRequestor;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jem.java.JavaParameter;
 import org.eclipse.jem.java.Method;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
@@ -37,6 +48,7 @@ import org.eclipse.jst.j2ee.ejb.MethodElement;
 import org.eclipse.jst.j2ee.ejb.MethodElementKind;
 import org.eclipse.jst.j2ee.ejb.Session;
 import org.eclipse.jst.j2ee.ejb.internal.util.MethodElementHelper;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 import com.ibm.icu.util.StringTokenizer;
 
@@ -635,46 +647,92 @@ protected boolean parmsEqual(MethodElement me) {
 	}
 	return true;
 }
-/**
- * Parse @aSignature setting the name and the params.
- * A signature example:  setTwoParamMethod(java.lang.String, java.lang.String)
- */
-protected void parseSignature(String aSignature) {
-	int index = aSignature.indexOf(RIGHT_PAREN);
+	/**
+	 * Parse @aSignature setting the name and the params.
+	 * A signature example:  setTwoParamMethod(java.lang.String, java.lang.String)
+	 */
+	protected void parseSignature(String aSignature) {
+		int index = aSignature.indexOf(RIGHT_PAREN);
 
-	int endIndex = aSignature.indexOf(LEFT_PAREN);
-	if (endIndex < 0)
-	{
-		endIndex = aSignature.length() - 1;	
-	}	
+		int endIndex = aSignature.indexOf(LEFT_PAREN);
+		if (endIndex < 0) {
+			endIndex = aSignature.length() - 1;
+		}
 
-	if (index < 0){
-		setName(aSignature);
-		setParms(null); //There are no parameters in the sig so set to null
-	}
-	else {
-		String sigName = aSignature.substring(0, index);
+		if (index < 0) {
+			setName(aSignature);
+			setParms(null); // There are no parameters in the sig so set to null
+		} else {
+			String sigName = aSignature.substring(0, index);
 
-		setName(sigName);
-		String sigParms = aSignature.substring(index + 1, endIndex);
+			setName(sigName);
+			String sigParms = aSignature.substring(index + 1, endIndex);
 
-		if (sigParms.length() > 0) {
-			char commaChar = COMMA.charAt(0);
-			char[] sigParmsChars = sigParms.toCharArray();
-			StringBuffer buf = new StringBuffer();
-			for (int i = 0; i < sigParmsChars.length; i++) {
-				if (sigParmsChars[i] != commaChar) {
-					buf.append(sigParmsChars[i]);
-				} else {
-					addMethodParams(buf.toString());
-					buf = new StringBuffer();
+			if (sigParms.lastIndexOf(".") != -1) { //$NON-NLS-1$
+				String testParent = sigParms.substring(0, sigParms.lastIndexOf(".")); //$NON-NLS-1$
+				if (!Character.isLowerCase(testParent.substring(testParent.lastIndexOf(".") + 1, testParent.length()).charAt(0))) { //$NON-NLS-1$
+					class MyTypeNameRequestor extends TypeNameRequestor {
+						boolean isNested = false;
+
+						public void acceptType(int modifiers, char[] packageName, char[] simpleTypeName, char[][] enclosingTypeNames, String path) {
+							isNested = true;
+						}
+
+						public boolean isNested() {
+							return isNested;
+						}
+					}
+					IJavaProject javaProject = JavaCore.create(WorkbenchResourceHelper.getProject(getEnterpriseBean().eResource()));
+					IJavaElement javaElements[] = new IJavaElement[] { javaProject };
+					final IJavaSearchScope scope = SearchEngine.createJavaSearchScope(javaElements, true);
+		
+					String newString = sigParms.substring(sigParms.lastIndexOf(".") + 1, sigParms.length()); //$NON-NLS-1$
+
+					while (testParent.length() > 0) {
+						String temp = null;
+						temp = testParent.substring(testParent.lastIndexOf(".") + 1, testParent.length()); //$NON-NLS-1$
+								
+						MyTypeNameRequestor requestor = new MyTypeNameRequestor();
+						int matchMode = SearchPattern.R_EXACT_MATCH | SearchPattern.R_CASE_SENSITIVE;
+						try {
+							new SearchEngine().searchAllTypeNames(null, matchMode, temp.toCharArray(), matchMode, IJavaSearchConstants.TYPE, scope, requestor,
+									IJavaSearchConstants.WAIT_UNTIL_READY_TO_SEARCH, new NullProgressMonitor());
+							if (requestor.isNested()) {
+								newString = temp + "$" + newString; //$NON-NLS-1$
+							} else {
+								newString = temp + "." + newString; //$NON-NLS-1$
+							}
+							if (testParent.lastIndexOf(".") != -1) //$NON-NLS-1$
+								testParent = testParent.substring(0, testParent.lastIndexOf(".")); //$NON-NLS-1$
+							else
+								testParent = ""; //$NON-NLS-1$
+
+						} catch (JavaModelException e) {
+							Logger.getLogger().logError(e);
+						}
+					}
+					sigParms = newString;
 				}
+
 			}
-			addMethodParams(buf.toString());
-		} else
-			applyZeroParams();
+
+			if (sigParms.length() > 0) {
+				char commaChar = COMMA.charAt(0);
+				char[] sigParmsChars = sigParms.toCharArray();
+				StringBuffer buf = new StringBuffer();
+				for (int i = 0; i < sigParmsChars.length; i++) {
+					if (sigParmsChars[i] != commaChar) {
+						buf.append(sigParmsChars[i]);
+					} else {
+						addMethodParams(buf.toString());
+						buf = new StringBuffer();
+					}
+				}
+				addMethodParams(buf.toString());
+			} else
+				applyZeroParams();
+		}
 	}
-}
 public void removeMethodParams(String param) { 
 	String myParams = getParms();
 	if (myParams == null || myParams.length() == 0) {

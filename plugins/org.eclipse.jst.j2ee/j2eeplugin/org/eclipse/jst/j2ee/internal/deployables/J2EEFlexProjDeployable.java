@@ -75,14 +75,14 @@ import org.eclipse.wst.web.internal.deployables.ComponentDeployable;
  * J2EE module superclass.
  */
 public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EEModule, IEnterpriseApplication, IApplicationClientModule, IConnectorModule, IEJBModule, IWebModule {
-	private static final IPath WEB_CLASSES_PATH = new Path(J2EEConstants.WEB_INF_CLASSES);
-	private static final IPath MANIFEST_PATH = new Path(J2EEConstants.MANIFEST_URI);
-	private static IPath WEBLIB = new Path(J2EEConstants.WEB_INF_LIB).makeAbsolute();
-	private IPackageFragmentRoot[] cachedSourceContainers;
-	private IContainer[] cachedOutputContainers;
-	private HashMap cachedOutputMappings;
-	private HashMap cachedSourceOutputPairs;
-	private List classpathComponentDependencyURIs = new ArrayList();
+	protected static final IPath WEB_CLASSES_PATH = new Path(J2EEConstants.WEB_INF_CLASSES);
+	protected static final IPath MANIFEST_PATH = new Path(J2EEConstants.MANIFEST_URI);
+	protected static IPath WEBLIB = new Path(J2EEConstants.WEB_INF_LIB).makeAbsolute();
+	protected IPackageFragmentRoot[] cachedSourceContainers;
+	protected IContainer[] cachedOutputContainers;
+	protected HashMap cachedOutputMappings;
+	protected HashMap cachedSourceOutputPairs;
+	protected List classpathComponentDependencyURIs = new ArrayList();
 
 	/**
 	 * Constructor for J2EEFlexProjDeployable.
@@ -422,13 +422,19 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     	} 
     	// We have child components but could not find valid ears
     	else if (component!=null && J2EEProjectUtilities.isDynamicWebProject(component.getProject())) {
-    		if (module != null && J2EEProjectUtilities.isUtilityProject(module.getProject())) {
-    			IVirtualComponent webComp = ComponentCore.createComponent(component.getProject());
-    			IVirtualReference reference = webComp.getReference(module.getProject().getName());
-    			aURI = ComponentUtilities.getDeployUriOfUtilComponent(reference);
-    		}else{
-    			aURI = component.getDeployedName()+IJ2EEModuleConstants.WAR_EXT;
-    		}
+    		if (module != null) {
+				IVirtualComponent webComp = ComponentCore.createComponent(component.getProject());
+				IVirtualReference reference = webComp.getReference(module.getProject().getName());
+				if (J2EEProjectUtilities.isDynamicWebProject(module.getProject())) {
+					aURI = ComponentUtilities.getDeployUriOfComponent(reference, IJ2EEModuleConstants.WAR_EXT);
+				}
+				else if (J2EEProjectUtilities.isJCAProject(module.getProject())) {
+					aURI = ComponentUtilities.getDeployUriOfComponent(reference, IJ2EEModuleConstants.RAR_EXT);
+				}
+				else {
+					aURI = ComponentUtilities.getDeployUriOfComponent(reference, IJ2EEModuleConstants.JAR_EXT);
+				}
+			}
     	} 
     	else if (component!=null && (J2EEProjectUtilities.isEJBProject(component.getProject()) || J2EEProjectUtilities.isApplicationClientProject(component.getProject()))) {
     		aURI = component.getDeployedName()+IJ2EEModuleConstants.JAR_EXT;
@@ -442,7 +448,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     	return aURI;
 	}
     
-    private boolean isBinaryModuleArchive(IModule module) {
+    protected boolean isBinaryModuleArchive(IModule module) {
     	if (module!=null && module.getName().endsWith(IJ2EEModuleConstants.JAR_EXT) || module.getName().endsWith(IJ2EEModuleConstants.WAR_EXT) ||
     			module.getName().endsWith(IJ2EEModuleConstants.RAR_EXT)) {
     		if (component!=null && J2EEProjectUtilities.isEARProject(component.getProject()))
@@ -612,12 +618,15 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     	if (edit==null) 
 			return false;
 		Application app = edit.getApplication();
+		if (app == null) { // if no application.xml, return false
+			return false;
+		}
 		IVirtualReference reference = getReferenceNamed(references,aComponent.getName());
 		// Ensure module URI exists on EAR DD for binary archive
 		return app.getFirstModule(reference.getArchiveName()) != null;
     }
     
-    private IVirtualReference getReferenceNamed(IVirtualReference[] references, String name) {
+    protected IVirtualReference getReferenceNamed(IVirtualReference[] references, String name) {
     	for (int i=0; i<references.length; i++) {
     		if (references[i].getReferencedComponent().getName().equals(name))
     			return references[i];
