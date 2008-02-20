@@ -263,11 +263,11 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
 
     public void createWebProject(String projectName, IProjectFacetVersion version) throws Exception {
     	IDataModel dm = WebProjectCreationOperationTest.getWebDataModel(
-				WEB_PROJECT_NAME, null, null, null, null, version, false);
+				projectName, null, null, null, null, version, false);
     	runAndVerify(dm);
     }
 
-    public void addServlet_Defaults() throws Exception {
+    private void addServlet_Defaults() throws Exception {
     	IDataModel dm = DataModelFactory.createDataModel(NewServletClassDataModelProvider.class);
     	dm.setProperty(PROJECT_NAME, WEB_PROJECT_NAME);
     	dm.setProperty(JAVA_PACKAGE, PACKAGE);
@@ -275,7 +275,7 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
         runAndVerify(dm);
     }
     
-    public void addFilter_Defaults() throws Exception {
+    private void addFilter_Defaults() throws Exception {
     	IDataModel dm = DataModelFactory.createDataModel(NewFilterClassDataModelProvider.class);
     	dm.setProperty(PROJECT_NAME, WEB_PROJECT_NAME);
     	dm.setProperty(JAVA_PACKAGE, PACKAGE);
@@ -283,7 +283,7 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
         runAndVerify(dm);
     }
     
-    public void addListener_Defaults() throws Exception {
+    private void addListener_Defaults() throws Exception {
     	IDataModel dm = DataModelFactory.createDataModel(NewListenerClassDataModelProvider.class);
     	dm.setProperty(PROJECT_NAME, WEB_PROJECT_NAME);
     	dm.setProperty(JAVA_PACKAGE, PACKAGE);
