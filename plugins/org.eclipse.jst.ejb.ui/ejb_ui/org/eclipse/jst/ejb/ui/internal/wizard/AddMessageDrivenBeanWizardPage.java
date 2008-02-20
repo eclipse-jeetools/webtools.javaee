@@ -10,22 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import org.eclipse.core.resources.IProject;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.IType;
-import org.eclipse.jdt.core.search.IJavaSearchConstants;
-import org.eclipse.jdt.core.search.IJavaSearchScope;
-import org.eclipse.jdt.internal.ui.dialogs.FilteredTypesSelectionDialog;
-import org.eclipse.jem.workbench.utility.JemProjectUtilities;
-import org.eclipse.jface.operation.IRunnableContext;
-import org.eclipse.jface.window.Window;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.ejb.internal.operations.INewMessageDrivenBeanClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
-import org.eclipse.jst.j2ee.internal.dialogs.TypeSearchEngine;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassOptionsWizardPage;
 import org.eclipse.swt.SWT;
@@ -36,7 +23,6 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
 
@@ -109,27 +95,6 @@ public class AddMessageDrivenBeanWizardPage extends
 	@Override
 	protected String[] getValidationPropertyNames() {
 		return null;
-	}
-
-	@Override
-	protected void handleInterfaceAddButtonSelected() {
-		IProject project = (IProject) model.getProperty(INewJavaClassDataModelProperties.PROJECT);
-		IRunnableContext context = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
-		// this eliminates the non-exported classpath entries
-		final IJavaSearchScope scope = TypeSearchEngine.createJavaSearchScopeForAProject(javaProject, true, true);
-		FilteredTypesSelectionDialog dialog = new FilteredTypesSelectionDialog(getShell(),false, context, scope,IJavaSearchConstants.INTERFACE);
-		dialog.setTitle(J2EEUIMessages.INTERFACE_SELECTION_DIALOG_TITLE);
-		if (dialog.open() == Window.OK) {
-			IType type = (IType) dialog.getFirstResult();
-			String superclassFullPath = ""; //$NON-NLS-1$
-			if (type != null)
-				superclassFullPath = type.getFullyQualifiedName();
-			if (interfaceViewer.testFindItem(superclassFullPath) == null){
-				interfaceViewer.add(superclassFullPath);
-			}
-		}
-		model.setProperty(INewJavaClassDataModelProperties.INTERFACES,new ArrayList(Arrays.asList(interfaceViewer.getList().getItems())));
 	}
 
 	@Override
