@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.wst.validation.IDependencyIndex;
+import org.eclipse.wst.validation.MessageSeveritySetting;
 import org.eclipse.wst.validation.ValidationFramework;
 import org.eclipse.wst.validation.ValidationResults;
 import org.eclipse.wst.validation.Validator;
@@ -23,8 +24,10 @@ import org.eclipse.wst.validation.internal.ValConstants;
 import org.eclipse.wst.validation.internal.ValManager;
 import org.eclipse.wst.validation.internal.ValPrefManagerGlobal;
 import org.eclipse.wst.validation.tests.TestValidator;
+import org.eclipse.wst.validation.tests.TestValidator2;
 import org.eclipse.wst.validation.tests.TestValidator4;
 import org.eclipse.wst.validation.tests.TestValidator5D;
+import org.eclipse.wst.validation.tests.TestValidator6;
 import org.eclipse.wst.validation.tests.ValCounters;
 import org.eclipse.wst.validation.tests.util.TestEnvironment;
 
@@ -74,7 +77,7 @@ public class Framework extends TestCase {
 				v.setManualValidation(false);
 			}
 		}
-		ValPrefManagerGlobal gp = new ValPrefManagerGlobal();
+		ValPrefManagerGlobal gp = ValPrefManagerGlobal.getDefault();
 		gp.saveAsPrefs(vals);		
 	}
 
@@ -175,25 +178,45 @@ public class Framework extends TestCase {
 		assertTrue(found);
 	}
 	
+	/**
+	 * Test if we can get a message that was defined through the extension point.
+	 */
+	public void testMessages() {
+		ValidationFramework vf = ValidationFramework.getDefault();
+		Validator v = vf.getValidator(TestValidator2.id(), null);
+		assertNotNull("We expected to find TestValidator2", v);
+		MessageSeveritySetting ms = v.getMessage("bad");
+		assertNotNull("We expected to find a message for 'bad'", ms);
+		assertEquals(MessageSeveritySetting.Severity.Error, ms.getCurrent());
+		assertEquals(4, v.getMessageSettings().size());
+	}
+	
 	public void testSuspend() throws CoreException, InterruptedException {
+		ValidationFramework vf = ValidationFramework.getDefault();
 		long start = System.currentTimeMillis();
 		_env.fullBuild();
-		ValidationFramework.getDefault().join(null);
+		
+		vf.join(null);
 		long first = System.currentTimeMillis();
 		long valBuild = first-start;
 		assertTrue("We expect the build to take longer than 3s, but it completed in " + valBuild + "ms", valBuild > 3000);
 		
-		ValidationFramework.getDefault().suspendAllValidation(true);
+		Validator v = vf.getValidator(TestValidator6.id(), null);
+		TestValidator6 t6 = (TestValidator6)v.asV2Validator().getValidator();
+		IResource projectFile = _testProject.findMember(".project");
+		assertFalse("We should not be validating the .product file", t6.getSet().contains(projectFile));
+		
+		vf.suspendAllValidation(true);
 		_env.fullBuild();
-		ValidationFramework.getDefault().join(null);
+		vf.join(null);
 		long second = System.currentTimeMillis();
-		ValidationFramework.getDefault().suspendAllValidation(false);
+		vf.suspendAllValidation(false);
 		long novalBuild = second - first;
 		assertTrue("We except the build to go faster with validation turned off, but it was " + (novalBuild-valBuild) +
 				" ms faster" , novalBuild < valBuild);
 
 	}
-
+	
 	private void checkFirstPass(IResource resource, ValidationResults vr) throws CoreException {
 		assertTrue("We expect there to be exactly two error messages, but errors=" + vr.getSeverityError(), vr.getSeverityError() == 2);
 		assertTrue("We expect there to be exactly two warning messages, but warnings=" + vr.getSeverityWarning(), vr.getSeverityWarning() == 2);

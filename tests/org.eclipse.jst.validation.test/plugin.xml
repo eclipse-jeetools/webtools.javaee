@@ -475,7 +475,12 @@
                      id="org.eclipse.wst.wid.facet">
                </facet>
             </rules>
-         </exclude>
+         </exclude>         
+         <messageCategory id="bad" label="%Message.bad" severity="error"/>
+         <messageCategory id="sortof" label="%Message.sortof" severity="warning"/>
+         <messageCategory id="nice" label="%Message.nice" severity="ignore"/>
+         <messageCategory id="long" label="%Message.long" severity="ignore"/>
+         
       </validator>
    </extension>
    
@@ -532,6 +537,31 @@
             name="%Test5D.Validator.Name"
             target="org.eclipse.wst.validation.tests.TestValidator5">
       </delegate>
+   </extension>
+   <extension
+         id="Test6"
+         name="%Test6.Validator.Name"
+         point="org.eclipse.wst.validation.validatorV2">
+      <validator
+            class="org.eclipse.wst.validation.tests.TestValidator6">
+         <include>
+            <rules>
+               <contentType id="org.eclipse.core.runtime.xml"></contentType>
+               <contentType id="org.eclipse.wst.xml.core.xmlsource"></contentType>
+               <contentType id="org.eclipse.wst.xml.core.xslsource"></contentType>
+               <contentType id="org.eclipse.jst.jsp.core.tldsource"></contentType>
+            </rules>
+         </include>
+         <exclude>
+            <rules>
+               <file
+                     caseSensitive="true"
+                     name=".project"
+                     type="file">
+               </file>
+            </rules>
+         </exclude>
+      </validator>
    </extension>
    
 </plugin>
