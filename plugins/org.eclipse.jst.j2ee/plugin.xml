@@ -451,6 +451,7 @@
     <project-facet id="jst.utility">
       <label>%UTILITY_FACET_LABEL</label>
       <description>%UTILITY_FACET_DESCRIPTION</description>
+      <property name="hide.version" value="true"/>
     </project-facet>
 
     <project-facet-version facet="jst.utility" version="1.0">

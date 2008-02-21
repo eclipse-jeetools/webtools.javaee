@@ -11,13 +11,20 @@
 
 package org.eclipse.jst.servlet.ui.project.facet;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.eclipse.jst.common.project.facet.JavaFacetUtils;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentFacetCreationWizardPage;
+import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
 import org.eclipse.jst.servlet.ui.IWebUIContextIds;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 public class WebProjectFirstPage extends J2EEComponentFacetCreationWizardPage {
 
@@ -31,6 +38,29 @@ public class WebProjectFirstPage extends J2EEComponentFacetCreationWizardPage {
 
 	protected String getModuleFacetID() {
 		return J2EEProjectUtilities.DYNAMIC_WEB;
+	}
+	
+	protected Set<IProjectFacetVersion> getFacetConfiguration( final IProjectFacetVersion primaryFacetVersion )
+	{
+	    final Set<IProjectFacetVersion> facets = new HashSet<IProjectFacetVersion>( 2 );
+	    
+	    facets.add( primaryFacetVersion );
+	    
+	    if( primaryFacetVersion == WebFacetUtils.WEB_25 )
+	    {
+	        facets.add( JavaFacetUtils.JAVA_50 );
+	    }
+	    else if( primaryFacetVersion == WebFacetUtils.WEB_24 )
+	    {
+	        facets.add( JavaFacetUtils.JAVA_14 );
+	    }
+	    else if( primaryFacetVersion == WebFacetUtils.WEB_23 ||
+	             primaryFacetVersion == WebFacetUtils.WEB_22 )
+	    {
+	        facets.add( JavaFacetUtils.JAVA_13 );
+	    }
+	    
+	    return Collections.unmodifiableSet( facets );
 	}
 
 }

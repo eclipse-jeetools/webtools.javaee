@@ -174,7 +174,6 @@ public class NewServletClassOptionsWizardPage extends
 		removeButton.setEnabled(canRemoveSelectedInterfaces(selection));
 	}
 	
-	@Override
 	protected KeyListener getInterfaceKeyListener() {
 		return new KeyListener() {
 
