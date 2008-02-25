@@ -111,9 +111,8 @@ public class NewEnterpriseBeanClassOperation extends AbstractDataModelOperation 
 	 */
 	protected final IPackageFragment createJavaPackage() {
 		// Retrieve the package name from the java class data model
-		String packageName = model.getStringProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE);
-		IPackageFragmentRoot packRoot = (IPackageFragmentRoot) model
-		.getProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE_FRAGMENT_ROOT);
+		String packageName = model.getStringProperty(JAVA_PACKAGE);
+		IPackageFragmentRoot packRoot = (IPackageFragmentRoot) model.getProperty(JAVA_PACKAGE_FRAGMENT_ROOT);
 		IPackageFragment pack = packRoot.getPackageFragment(packageName);
 		// Handle default package
 		if (pack == null) {
@@ -133,14 +132,14 @@ public class NewEnterpriseBeanClassOperation extends AbstractDataModelOperation 
 		return pack;
 	}
 
-	protected IFile createJavaFile(IProgressMonitor monitor, IPackageFragment fragment, String source1, String localBeanName) throws JavaModelException {
+	protected IFile createJavaFile(IProgressMonitor monitor, IPackageFragment fragment, String source, String localBeanName) throws JavaModelException {
 		if (fragment != null) {
-			ICompilationUnit cu1 = fragment.getCompilationUnit(localBeanName);
+			ICompilationUnit cu = fragment.getCompilationUnit(localBeanName);
 			// Add the compilation unit to the java file
-			if (cu1 == null || !cu1.exists())
-				cu1 = fragment.createCompilationUnit(localBeanName, source1,
+			if (cu == null || !cu.exists())
+				cu = fragment.createCompilationUnit(localBeanName, source,
 						true, monitor);
-			return (IFile) cu1.getResource();
+			return (IFile) cu.getResource();
 		}
 		return null;
 	}
@@ -175,9 +174,7 @@ public class NewEnterpriseBeanClassOperation extends AbstractDataModelOperation 
 	 */
 	protected final IFolder createJavaSourceFolder() {
 		// Get the source folder name from the data model
-		String folderFullPath = model.getStringProperty(SOURCE_FOLDER);
-		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-		IFolder folder = root.getFolder(new Path(folderFullPath));
+		IFolder folder = getSourceFolder();
 		// If folder does not exist, create the folder with the specified path
 		if (!folder.exists()) {
 			try {
@@ -193,6 +190,12 @@ public class NewEnterpriseBeanClassOperation extends AbstractDataModelOperation 
 	public IProject getTargetProject() {
 		String projectName = model.getStringProperty(PROJECT_NAME);
 		return ProjectUtilities.getProject(projectName);
+	}
+	
+	protected IFolder getSourceFolder() {
+		String folderFullPath = model.getStringProperty(SOURCE_FOLDER);
+		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+		return root.getFolder(new Path(folderFullPath));
 	}
 
 	@Override
