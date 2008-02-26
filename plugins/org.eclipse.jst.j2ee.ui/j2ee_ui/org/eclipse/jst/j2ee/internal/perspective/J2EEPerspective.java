@@ -18,6 +18,8 @@ package org.eclipse.jst.j2ee.internal.perspective;
 
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.jdt.ui.JavaUI;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.PlatformUI;
@@ -47,6 +49,10 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 
 	public J2EEPerspective() {
 		super();
+		//If preference exists for alternate view, replace.
+		String viewerID = J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.ID_PERSPECTIVE_HIERARCHY_VIEW);
+		if (viewerID != null)
+			ID_J2EE_HIERARCHY_VIEW = viewerID;
 	}
 
 	/*

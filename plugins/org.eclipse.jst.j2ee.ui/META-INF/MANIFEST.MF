@@ -9,6 +9,7 @@ Bundle-Localization: plugin
 Export-Package: org.eclipse.jst.common.jdt.internal.integration.ui;x-internal:=true,
  org.eclipse.jst.j2ee.internal;x-internal:=true,
  org.eclipse.jst.j2ee.internal.actions;x-internal:=true,
+ org.eclipse.jst.j2ee.internal.classpathdep.ui,
  org.eclipse.jst.j2ee.internal.client.actions;x-internal:=true,
  org.eclipse.jst.j2ee.internal.command;x-internal:=true,
  org.eclipse.jst.j2ee.internal.deployables;x-internal:=true,
@@ -24,6 +25,7 @@ Export-Package: org.eclipse.jst.common.jdt.internal.integration.ui;x-internal:=t
  org.eclipse.jst.j2ee.internal.war.ui.util;x-internal:=true,
  org.eclipse.jst.j2ee.internal.wizard;x-internal:=true,
  org.eclipse.jst.j2ee.ui.archive,
+ org.eclipse.jst.j2ee.ui.archive.internal,
  org.eclipse.jst.j2ee.ui.project.facet,
  org.eclipse.jst.j2ee.ui.project.facet.appclient
 Require-Bundle: org.eclipse.ui.ide;bundle-version="[3.2.0,4.0.0)",

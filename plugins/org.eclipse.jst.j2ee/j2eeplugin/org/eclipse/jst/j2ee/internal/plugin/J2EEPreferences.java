@@ -102,6 +102,10 @@ public class J2EEPreferences {
 		 * @since 2.0
 		 */
 		static final String APP_CLIENT_GENERATE_DD = "app_client_generate_dd"; //$NON-NLS-1$
+		/**
+		 * @since 3.0
+		 */
+		static String ID_PERSPECTIVE_HIERARCHY_VIEW = "perspective_hierarchy_view_id"; //$NON-NLS-1$
 
 	}
 
@@ -144,6 +148,7 @@ public class J2EEPreferences {
 		final static boolean EJB_CLIENT_JAR_CP_COMPATIBILITY = true;
 		final static boolean INCREMENTAL_DEPLOYMENT_SUPPORT = true;
 		final static boolean USE_EAR_LIBRARIES_JDT_EXPORT = false;
+		final static String ID_PERSPECTIVE_HIERARCHY_VIEW = "org.eclipse.ui.navigator.ProjectExplorer"; //$NON-NLS-1$
 	}
 
 	private Plugin owner = null;
@@ -187,6 +192,8 @@ public class J2EEPreferences {
 		getPreferences().setDefault(Keys.USE_EAR_LIBRARIES, true);
 		getPreferences().setDefault(Keys.USE_WEB_APP_LIBRARIES, true);
 		getPreferences().setDefault(Keys.USE_EAR_LIBRARIES_JDT_EXPORT, Defaults.USE_EAR_LIBRARIES_JDT_EXPORT);
+		String perspectiveID = ProductManager.getProperty(IProductConstants.ID_PERSPECTIVE_HIERARCHY_VIEW);
+		getPreferences().setDefault(Keys.ID_PERSPECTIVE_HIERARCHY_VIEW, (perspectiveID != null) ? perspectiveID : Defaults.ID_PERSPECTIVE_HIERARCHY_VIEW);
 	}
 
 	
