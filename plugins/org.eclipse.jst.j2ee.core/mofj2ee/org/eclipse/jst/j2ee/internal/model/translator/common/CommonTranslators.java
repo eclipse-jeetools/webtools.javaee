@@ -236,6 +236,7 @@ public class CommonTranslators implements DeploymentDescriptorXmlMapperI {
 			IDTranslator.INSTANCE,
 			new Translator(DESCRIPTION, COMMON_PKG.getSecurityIdentity_Description()),
 			//new DependencyTranslator(DES,)
+			new DependencyTranslator(DESCRIPTION, COMMON_PKG.getIdentity_Description(), COMMON_PKG.getRunAsSpecifiedIdentity_Identity()),
 			RUNAS_ROLE_NAME_TRANSLATOR
 		});
 		return result;

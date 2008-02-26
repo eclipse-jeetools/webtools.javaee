@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -74,7 +75,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 		super(aProject, toAccessAsReadOnly);
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	/**
 	 * <p>
 	 * Creates an instance facade for the given {@see ArtifactEditModel}.
@@ -136,6 +137,19 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 
 	public Resource getDeploymentDescriptorResource() {
 		return getArtifactEditModel().getResource(getWebServicesXmlResourceURI());
+	}
+	
+	public static void createDeploymentDescriptor(IProject project, int version) {
+		EnterpriseArtifactEdit wsDDEdit = new WSDDArtifactEdit(project, false);
+		try {
+			wsDDEdit.createModelRoot(version);
+			wsDDEdit.save(null);
+		} finally {  // Make sure new resource is removed  - the uri used for creation shouldn't be cached
+			Resource newRes = wsDDEdit.getDeploymentDescriptorResource();
+			WorkbenchResourceHelperBase.getResourceSet(project).getResources().remove(newRes);
+			newRes.unload();
+			wsDDEdit.dispose();
+		}
 	}
 
 	public URI getWebServicesXmlResourceURI() {

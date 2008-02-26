@@ -105,9 +105,11 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 	switch (id) {
 			case (WebServiceConstants.WEBSERVICE_1_2_ID) :
 				super.setDoctypeValues(null, null);
+				primSetVersionID(WebServiceConstants.WEBSERVICE_1_2_ID);
 				break;
 			case (WebServiceConstants.WEBSERVICE_1_1_ID) :
 				super.setDoctypeValues(null, null);
+				primSetVersionID(WebServiceConstants.WEBSERVICE_1_1_ID);
 				break;
 			case (WebServiceConstants.WEBSERVICE_1_0_ID) :
 				super.setDoctypeValues(getJ2EE_1_3_PublicID(), getJ2EE_1_3_SystemID());
