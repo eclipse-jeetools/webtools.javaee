@@ -603,6 +603,18 @@
          <perspectiveShortcut id="org.eclipse.jdt.ui.JavaPerspective"/>
          <perspectiveShortcut id="org.eclipse.ui.resourcePerspective"/>
          <perspectiveShortcut id="org.eclipse.wst.web.ui.webDevPerspective"/>
+       
+ 		<newWizardShortcut id="org.eclipse.jst.j2ee.ui.project.facet.EarProjectWizard"/>
+		<newWizardShortcut id="org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard"/>
+		<newWizardShortcut id="org.eclipse.jst.ejb.ui.project.facet.EjbProjectWizard"/>
+		<newWizardShortcut id="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorProjectWizard"/>
+		<newWizardShortcut id="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientProjectWizard"/>
+		<newWizardShortcut id="org.eclipse.wst.web.ui.internal.wizards.SimpleWebProjectWizard"/>				
+				
+		<newWizardShortcut id="org.eclipse.ui.wizards.new.folder"/>
+		<newWizardShortcut id="org.eclipse.ui.wizards.new.file"/>
+		
+                     
          <actionSet id="org.eclipse.wst.server.ui.internal.webbrowser.actionSet"/>
       </perspectiveExtension>
       <perspectiveExtension targetID="org.eclipse.ui.resourcePerspective">
