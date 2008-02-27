@@ -22,6 +22,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.internal.plugin.ErrorDialog;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
@@ -35,10 +36,6 @@ import org.eclipse.ui.IWorkbenchWindow;
  * To change this generated comment go to Window>Preferences>Java>Code Generation>Code and Comments
  */
 public abstract class BaseAction extends Action implements IActionDelegate {
-
-	private final static String ERROR_OCCURRED_TITLE = "!!!!Error"; //$NON-NLS-1$
-
-	private final static String ERROR_OCCURRED_MESSAGE = "!!@!!Error"; //$NON-NLS-1$
 
 	protected IStructuredSelection selection = null;
 
@@ -63,6 +60,8 @@ public abstract class BaseAction extends Action implements IActionDelegate {
 			this.selection = null;
 		} catch (Throwable t) {
 			Logger.getLogger().logError(t);
+			String ERROR_OCCURRED_TITLE = J2EEUIMessages.getResourceString("ERROR_OCCURRED_TITLE"); //$NON-NLS-1$
+			String ERROR_OCCURRED_MESSAGE = J2EEUIMessages.getResourceString("ERROR_OCCURRED_MESSAGE"); //$NON-NLS-1$
 			ErrorDialog.openError(shell, ERROR_OCCURRED_TITLE, ERROR_OCCURRED_MESSAGE, t, 0, false);
 		}
 
