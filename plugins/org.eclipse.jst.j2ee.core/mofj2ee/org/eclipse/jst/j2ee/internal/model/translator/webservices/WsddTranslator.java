@@ -104,9 +104,9 @@ protected Translator[] create12Children() {
 		
 		return new Translator[] {
 			IDTranslator.INSTANCE,
-			new ConstantAttributeTranslator(XML_NS, J2EE_NS_URL),
+			new ConstantAttributeTranslator(XML_NS, JAVAEE_NS_URL),
 			new ConstantAttributeTranslator(XML_NS_XSI, XSI_NS_URL),
-			new ConstantAttributeTranslator(XSI_SCHEMA_LOCATION, J2EE_NS_URL+' '+WebServiceConstants.WEBSERVICE_SCHEMA_LOC_1_2),
+			new ConstantAttributeTranslator(XSI_SCHEMA_LOCATION, JAVAEE_NS_URL+' '+WebServiceConstants.WEBSERVICE_SCHEMA_LOC_1_2),
 			new ConstantAttributeTranslator(VERSION, WebServiceConstants.WEBSERVICE_SCHEMA_VERSION_1_2),			  
 			CommonTranslators.DESCRIPTIONS_TRANSLATOR,
 			CommonTranslators.DISPLAYNAMES_TRANSLATOR,

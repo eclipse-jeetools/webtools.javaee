@@ -101,7 +101,7 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 	 * This directly sets the module version id
 	 */
 	public void setModuleVersionID(int id) {
-	super.setVersionID(id);
+	//super.setVersionID(id);
 	switch (id) {
 			case (WebServiceConstants.WEBSERVICE_1_2_ID) :
 				super.setDoctypeValues(null, null);
