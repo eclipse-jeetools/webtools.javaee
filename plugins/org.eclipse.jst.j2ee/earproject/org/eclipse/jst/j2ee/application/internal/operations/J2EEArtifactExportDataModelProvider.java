@@ -103,6 +103,8 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 			return Boolean.TRUE;
 		} else if (propertyName.equals(RUNTIME_SPECIFIC_PARTICIPANTS)) {
 		    return new ArrayList<IArchiveExportParticipantData>();
+		} else if(propertyName.equals(OPTIMIZE_FOR_SPECIFIC_RUNTIME)){
+			return Boolean.FALSE;
 		}
 		return super.getDefaultProperty(propertyName);
 	}
@@ -115,7 +117,7 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 	    }
 	    else if( propertyName.equals( RUNTIME ) )
 	    {
-	        return ( (Boolean) getProperty( OPTIMIZE_FOR_SPECIFIC_RUNTIME ) ).booleanValue();
+	        return getBooleanProperty(OPTIMIZE_FOR_SPECIFIC_RUNTIME); 
 	    }
 	    
 	    return true;
