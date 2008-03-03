@@ -18,6 +18,12 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.internal.ui.javaeditor.EditorUtility;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -32,6 +38,7 @@ import org.eclipse.jst.j2ee.internal.componentcore.ComponentArchiveOptions;
 import org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -42,6 +49,7 @@ import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorRegistry;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.part.FileEditorInput;
@@ -134,6 +142,44 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			((J2EEJavaClassProviderHelper) srcObject).openInEditor();
 			return;
 		}
+		
+		if( srcObject instanceof org.eclipse.jst.javaee.ejb.SessionBean ||
+			srcObject instanceof org.eclipse.jst.javaee.ejb.MessageDrivenBean ||
+			srcObject instanceof org.eclipse.jst.javaee.ejb.EntityBean ){
+			
+			String name = ""; //$NON-NLS-1$
+			if( srcObject instanceof org.eclipse.jst.javaee.ejb.SessionBean ){
+				org.eclipse.jst.javaee.ejb.SessionBean bean = (org.eclipse.jst.javaee.ejb.SessionBean)srcObject;
+				name = bean.getEjbClass();
+			}else if(srcObject instanceof org.eclipse.jst.javaee.ejb.MessageDrivenBean){
+				org.eclipse.jst.javaee.ejb.MessageDrivenBean  bean = (org.eclipse.jst.javaee.ejb.MessageDrivenBean)srcObject;
+				name = bean.getEjbClass();
+			}else if(srcObject instanceof org.eclipse.jst.javaee.ejb.EntityBean){
+				org.eclipse.jst.javaee.ejb.EntityBean bean = (org.eclipse.jst.javaee.ejb.EntityBean)srcObject;
+				name = bean.getEjbClass();
+			}
+
+			IResource resource = WorkbenchResourceHelper.getFile((EObject)srcObject);
+			IProject project = resource.getProject();
+
+			
+			IJavaProject javaProject = JavaCore.create(project);
+			if(javaProject.exists()){
+				IType type;
+				try {
+					type = javaProject.findType( name );
+					ICompilationUnit cu = type.getCompilationUnit();
+					EditorUtility.openInEditor(cu);					
+				} catch (JavaModelException e) {
+					J2EEUIPlugin.logError(-1, e.getMessage(), e);
+				} catch (PartInitException e) {
+					J2EEUIPlugin.logError(-1, e.getMessage(), e);
+				}
+
+			}
+			return;
+		}
+		
 		if (srcObject instanceof EObject) {
 			EObject ro = (EObject) srcObject;
 			IProject p = ProjectUtilities.getProject(ro);
