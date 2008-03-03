@@ -57,6 +57,18 @@
 </topicref>
 <topicref href="topics/tjimprar.dita" navtitle="Importing a connector project RAR file">
 </topicref>
+<topicref format="html" href="../org.eclipse.wst.webtools.doc.user/topics/twimpwar.html"
+linking="targetonly" locktitle="yes" navtitle="Importing Web archive (WAR) files"
+scope="peer" toc="no"></topicref>
+<topicref format="html" href="../org.eclipse.wst.webtools.doc.user/topics/twcrewar.html"
+linking="targetonly" locktitle="yes" navtitle="Exporting Web Archive (WAR) files"
+scope="peer" toc="no"></topicref>
+<topicref format="html" href="../org.eclipse.jst.ejb.doc.user/topics/teimp.html"
+linking="targetonly" locktitle="yes" navtitle="Importing EJB JAR files" scope="peer"
+toc="no"></topicref>
+<topicref format="html" href="../org.eclipse.jst.ejb.doc.user/topics/teexp.html"
+linking="targetonly" locktitle="yes" navtitle="Exporting EJB projects to EJB JAR files"
+scope="peer" toc="no"></topicref>
 <anchor id="import_types"/>
 <anchor id="before_dependencies"/>
 <topicref href="topics/cjcircle.dita" navtitle="Cyclical dependencies between J2EE modules">
