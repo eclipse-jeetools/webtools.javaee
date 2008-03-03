@@ -16,4 +16,5 @@ public interface IJavaFacetInstallDataModelProperties extends IDataModelProperti
 
 	public static final String SOURCE_FOLDER_NAME = "IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME"; //$NON-NLS-1$
     public static final String DEFAULT_OUTPUT_FOLDER_NAME = "IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME"; //$NON-NLS-1$
+    public static final String JAVA_FACET_INSTALL_CONFIG = "IJavaFacetInstallDataModelProperties.JAVA_FACET_INSTALL_CONFIG";
 }
