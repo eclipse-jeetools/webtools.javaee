@@ -39,7 +39,15 @@ public class WebProjectWizard extends NewProjectDataModelFacetWizard {
 	}
 	
 	protected IDataModel createDataModel() {
-		return DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
+	    try
+	    {
+	        return DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
+	    }
+	    catch( Exception e )
+	    {
+	        e.printStackTrace();
+	        return null;
+	    }
 	}
 
 	protected IFacetedProjectTemplate getTemplate() {

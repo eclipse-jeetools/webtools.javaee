@@ -10,13 +10,14 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.web.project.facet;
 
+import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
-import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.common.project.facet.JavaFacetUtils;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.common.project.facet.core.JavaFacetInstallConfig;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -44,7 +45,9 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 		if (propertyName.equals(CONFIG_FOLDER)) {
 			return J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.WEB_CONTENT_FOLDER);
 		} else if (propertyName.equals(SOURCE_FOLDER)) {
-			return CommonFrameworksPlugin.getDefault().getPluginPreferences().getString(CommonFrameworksPlugin.DEFAULT_SOURCE_FOLDER);
+            final JavaFacetInstallConfig javaModel = findJavaFacetInstallConfig();
+            final List<IPath> sourceFolders = javaModel.getSourceFolders();
+            return ( sourceFolders.isEmpty() ? null : sourceFolders.get( 0 ).toPortableString() );
 		} else if (propertyName.equals(CONTEXT_ROOT)) {
 			return getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
 		} else if (propertyName.equals(FACET_ID)) {
@@ -72,27 +75,33 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 			// The output folder will be "<contentRoot>/WEB-INF/classes"
 			if (ProductManager.shouldUseSingleRootStructure()) 
 			{
-	            final IDataModel javaModel = findJavaFacetInstallDataModel();
+	            final JavaFacetInstallConfig javaModel = findJavaFacetInstallConfig();
 	            
 	            if( javaModel != null )
 	            {
-	                javaModel.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME,propertyValue+"/"+J2EEConstants.WEB_INF_CLASSES); //$NON-NLS-1$
+	                final IPath outputFolder
+                        = propertyValue == null ? null : new Path( (String) propertyValue );
+
+	                javaModel.setDefaultOutputFolder( outputFolder );
 	            }
 			}
 			return true;
 		} else if (propertyName.equals(SOURCE_FOLDER)) 
 		{
-		    final IDataModel javaModel = findJavaFacetInstallDataModel();
+		    final JavaFacetInstallConfig javaModel = findJavaFacetInstallConfig();
 		    
 		    if( javaModel != null )
 		    {
-		        javaModel.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, propertyValue);
+		        final IPath sourceFolder
+		            = propertyValue == null ? null : new Path( (String) propertyValue );
+		        
+		        javaModel.setSourceFolder( sourceFolder );
 			}
 		}
 		return super.propertySet(propertyName, propertyValue);
 	}
 	
-	private IDataModel findJavaFacetInstallDataModel()
+	private JavaFacetInstallConfig findJavaFacetInstallConfig()
 	{
         final IFacetedProjectWorkingCopy fpjwc 
             = (IFacetedProjectWorkingCopy) this.model.getProperty( FACETED_PROJECT_WORKING_COPY );
@@ -102,7 +111,7 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
             final IFacetedProject.Action javaInstallAction
                 = fpjwc.getProjectFacetAction( JavaFacetUtils.JAVA_FACET );
             
-            return (IDataModel) javaInstallAction.getConfig();
+            return (JavaFacetInstallConfig) javaInstallAction.getConfig();
         }
         
         return null;
