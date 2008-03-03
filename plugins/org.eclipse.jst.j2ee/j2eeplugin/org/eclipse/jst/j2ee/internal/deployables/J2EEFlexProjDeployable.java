@@ -826,12 +826,6 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				// are filtered out
 				return false;
 			} else if (J2EEProjectUtilities.isDynamicWebProject(getProject())) {
-				// If there are any web lib jar references, this is not a standard project
-				IVirtualReference[] references = ((J2EEModuleVirtualComponent)component).getNonManifestReferences();
-				for (int i=0; i<references.length; i++) {
-					if (references[i].getReferencedComponent().isBinary())
-						return false;
-				}
 				// Ensure there are only basic component resource mappings -- one for the content folder 
 				// and any for src folders mapped to WEB-INF/classes
 				if (hasDefaultWebResourceMappings(resourceMaps)) {
