@@ -42,18 +42,7 @@ the root directory for all of the projects that will be imported or created
 during import, and click <uicontrol>Next</uicontrol>.</cmd></step>
 <step><cmd>On the EAR Module and Utility JAR Projects page, select the projects
 that you want to import with the EAR file. You can edit the new project name
-for each module and utility project to be imported.</cmd><info><note type="tip">The
-selection buttons on this page can help you select the projects to import
-when you are importing for partial EAR development. For example, if you are
-importing to a workspace where some projects are attached to a repository
-and other projects are in binary form, these buttons help you make the proper
-selections for which projects to import:<ul>
-<li><uicontrol>Select New</uicontrol>: Selects the projects that are currently
-not in your workspace.</li>
-<li><uicontrol>Select All</uicontrol>: Selects all projects for import.</li>
-<li><uicontrol>Deselect All</uicontrol>: Clears all module and utility projects
-for import.</li>
-</ul></note></info></step>
+for each module and utility project to be imported.</cmd><info></info></step>
 <step><cmd>Click <uicontrol>Finish</uicontrol> to import the contents of the
 EAR file.</cmd></step>
 </steps>
