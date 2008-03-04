@@ -16,6 +16,7 @@ import java.util.Set;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jst.common.project.facet.JavaFacetUtils;
 import org.eclipse.jst.common.project.facet.core.JavaFacetInstallConfig;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
@@ -111,7 +112,16 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
             final IFacetedProject.Action javaInstallAction
                 = fpjwc.getProjectFacetAction( JavaFacetUtils.JAVA_FACET );
             
-            return (JavaFacetInstallConfig) javaInstallAction.getConfig();
+            final Object config = javaInstallAction.getConfig();
+            
+            if( config instanceof JavaFacetInstallConfig )
+            {
+                return (JavaFacetInstallConfig) config;
+            }
+            else
+            {
+                return (JavaFacetInstallConfig) Platform.getAdapterManager().getAdapter( config, JavaFacetInstallConfig.class );
+            }
         }
         
         return null;
