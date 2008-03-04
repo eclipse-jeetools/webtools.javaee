@@ -79,8 +79,11 @@ public abstract class J2EEModuleFacetInstallPage extends DataModelFacetInstallPa
                             handleFacetVersionChangedEvent();
                         }
                     };
-                    
-                    Display.getDefault().asyncExec( runnable );
+                    if(Thread.currentThread() == Display.getDefault().getThread()){
+                    	runnable.run();
+                    } else {
+                    	Display.getDefault().asyncExec( runnable );
+                    }
                 }
             }
         };
