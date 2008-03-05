@@ -12,8 +12,6 @@ package org.eclipse.jst.ejb.ui.internal.wizard;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.ejb.internal.operations.INewMessageDrivenBeanClassDataModelProperties;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -24,9 +22,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
 
-public class NewMessageDrivenBeanClassWizardPage extends NewJavaClassWizardPage
+public class NewMessageDrivenBeanClassWizardPage extends NewEnterpriseBeanClassWizardPage
 		implements INewMessageDrivenBeanClassDataModelProperties {
 
 	@Override
@@ -43,10 +40,6 @@ public class NewMessageDrivenBeanClassWizardPage extends NewJavaClassWizardPage
 			String pageDesc, String pageTitle, String moduleType) {
 		super(model, pageName, pageDesc, pageTitle, moduleType);
 	}
-	
-	public DataModelSynchHelper initializeSynchHelper(IDataModel dm) {
-		return new ComboIndexSynchHelper(dm);
-	}
 
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = super.createTopLevelComposite(parent);
@@ -57,7 +50,6 @@ public class NewMessageDrivenBeanClassWizardPage extends NewJavaClassWizardPage
 		destinationText = new Text(composite,SWT.SINGLE | SWT.BORDER);
 		destinationText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		synchHelper.synchText(destinationText, MAPPED_NAME, null);
-		
 		
 		createJMSGroup(composite);
 		return composite;
@@ -92,13 +84,6 @@ public class NewMessageDrivenBeanClassWizardPage extends NewJavaClassWizardPage
 		destinationTypeCombo.select(0);
 		((ComboIndexSynchHelper) synchHelper).synchComboIndex(destinationTypeCombo, DESTINATION_TYPE, null);
 		destinationTypeCombo.setEnabled(false);
-	}
-
-	@Override
-	protected boolean isProjectValid(IProject project) {
-		boolean result = super.isProjectValid(project);
-		result = result && J2EEProjectUtilities.isJEEProject(project);
-		return result;
 	}
 	
 	@Override

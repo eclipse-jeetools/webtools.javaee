@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
+import org.eclipse.jdt.internal.ui.preferences.ScrolledPageContent;
+import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -25,45 +27,31 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
-import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.ScrolledForm;
-import org.eclipse.ui.forms.widgets.Section;
-import org.eclipse.ui.forms.widgets.TableWrapData;
-import org.eclipse.ui.forms.widgets.TableWrapLayout;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
-import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
-public class AddSessionBeanWizardPage extends DataModelWizardPage implements
+public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage implements
 		INewSessionBeanClassDataModelProperties {
 
-	private static final String EMPTY = ""; //$NON-NLS-1$
-	
 	private Text ejbNameText;
 	private Text mappedNameText;
 	private Combo transactionTypeCombo;
-	private TableViewer businessnterfacesList;
-	private Button addButton;
-	private Button removeButton;
-	private ScrolledForm form;
 	
 	public AddSessionBeanWizardPage(IDataModel model, String pageName) {
-		super(model, pageName);
-		setDescription(IEjbWizardConstants.ADD_SESSION_BEAN_WIZARD_PAGE_DESC);
-		setTitle(IEjbWizardConstants.ADD_SESSION_BEAN_WIZARD_PAGE_TITLE);
-	}
-	
-	public DataModelSynchHelper initializeSynchHelper(IDataModel dm) {
-		return new ComboIndexSynchHelper(dm);
+		super(model, pageName, 
+				IEjbWizardConstants.ADD_SESSION_BEAN_WIZARD_PAGE_DESC, 
+				IEjbWizardConstants.ADD_SESSION_BEAN_WIZARD_PAGE_TITLE);
 	}
 
 	protected Composite createTopLevelComposite(Composite parent) {
-
-		Composite composite = new Composite(parent, SWT.NULL);
+		
+		ScrolledPageContent pageContent = new ScrolledPageContent(parent);
+		Composite composite = pageContent.getBody();
 		composite.setLayout(new GridLayout(3, false));
 
 		Label ejbNameLabel = new Label(composite, SWT.LEFT);
@@ -95,66 +83,50 @@ public class AddSessionBeanWizardPage extends DataModelWizardPage implements
 		});
 		transactionTypeCombo.select(0);
 		((ComboIndexSynchHelper) synchHelper).synchComboIndex(transactionTypeCombo, TRANSACTION_TYPE, null);
-
-		createBussinesInterface(composite);
-
+		
 		addSeperator(composite, 3);
 
-		Composite bottomComposite = new Composite(composite,SWT.None);
-		bottomComposite.setLayout(new GridLayout());
-		GridData bottomDataLayout = new GridData();
-		bottomDataLayout.horizontalSpan = 3;
-		bottomComposite.setLayoutData(bottomDataLayout);
-		createExpandableComposite(bottomComposite);
+		createInterfaceControls(composite);
+		createExpandableComposite(composite);
+		createStubsComposite(composite);
 
-		return composite;
+		return pageContent;
 	}
 
-	private void createExpandableComposite(Composite composite) {
-		
-		FormToolkit toolkit = new FormToolkit(composite.getDisplay());
-		toolkit.setBackground(composite.getBackground());
-		form = toolkit.createScrolledForm(composite);
-		form.setText(EMPTY);
-		TableWrapLayout layout = new TableWrapLayout();
-		layout.numColumns = 1;
-		form.getBody().setLayout(layout);
-		Section section = toolkit.createSection(form.getBody(), 
-				Section.TWISTIE|Section.COMPACT);
-		TableWrapData td = new TableWrapData(TableWrapData.FILL);
-		td.colspan = 1;
-		section.setLayoutData(td);
-		section.addExpansionListener(new ExpansionAdapter() {
+	private ExpandableComposite createExpandableComposite(Composite composite) {
+		ExpandableComposite excomposite = new ExpandableComposite(composite, SWT.NONE, ExpandableComposite.TWISTIE | ExpandableComposite.CLIENT_INDENT);
+		excomposite.setText(EJBUIMessages.HOMECOMPONENTINTERFACE);
+		excomposite.setExpanded(false);
+		excomposite.setFont(JFaceResources.getFontRegistry().getBold(JFaceResources.DIALOG_FONT));
+		excomposite.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, false, 3, 1));
+		excomposite.addExpansionListener(new ExpansionAdapter() {
 			public void expansionStateChanged(ExpansionEvent e) {
-				form.reflow(true);
+				expandedStateChanged((ExpandableComposite) e.getSource());
 			}
 		});
-		section.setText(EJBUIMessages.HOMECOMPONENTINTERFACE);
-		toolkit.createCompositeSeparator(section);
-		Composite sectionClient = toolkit.createComposite(section);
-		sectionClient.setLayout(new GridLayout());
-		Button button = new Button(sectionClient,SWT.CHECK);
+		
+		Composite othersComposite = new Composite(excomposite, SWT.NONE);
+		excomposite.setClient(othersComposite);
+		othersComposite.setLayout(new GridLayout(1, false));
+		
+		Button button = new Button(othersComposite, SWT.CHECK);
 		button.setText(EJBUIMessages.LOCAL_BUSINESS_INTERFACE);
 		synchHelper.synchCheckbox(button, LOCAL_HOME, null);
-		Button button2 = new Button(sectionClient,SWT.CHECK);
+		Button button2 = new Button(othersComposite, SWT.CHECK);
 		button2.setText(EJBUIMessages.REMOTE_BUSINESS_INTERFACE);
 		synchHelper.synchCheckbox(button2, REMOTE_HOME, null);
-		section.setClient(sectionClient);
+		
+		return excomposite;
 	}
 
-	protected void addSeperator(Composite composite, int horSpan) {
-		GridData data = new GridData();
-		data.verticalAlignment = GridData.FILL;
-		data.horizontalAlignment = GridData.FILL;
-		data.widthHint = 300;
-		// Separator label
-		Label seperator = new Label(composite, SWT.HORIZONTAL | SWT.SEPARATOR);
-		data = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-		data.horizontalSpan = horSpan;
-		seperator.setLayoutData(data);
+	@Override
+	protected void enter() {
+		super.enter();
+		updateBusinessInterfacesList();
 	}
-
-	private void createBussinesInterface(Composite composite) {
+	
+	@Override
+	protected void createInterfaceControls(Composite composite) {
 
 		Label bussinessInterfaces = new Label(composite,SWT.TOP);
 		bussinessInterfaces.setText(EJBUIMessages.BUSSINESS_INTERFACE);
@@ -166,13 +138,13 @@ public class AddSessionBeanWizardPage extends DataModelWizardPage implements
 		gridData.grabExcessHorizontalSpace = true;
 		gridData.grabExcessVerticalSpace = true;
 
-		businessnterfacesList = new TableViewer(composite, SWT.BORDER);
-		businessnterfacesList.setContentProvider(new BusinessInterfaceContentProvider());
-		businessnterfacesList.setLabelProvider(new BusinessInterfaceLabelProvider());
-		businessnterfacesList.getControl().setLayoutData(gridData);
-		businessnterfacesList.addSelectionChangedListener(new ISelectionChangedListener() {
+		interfaceViewer = new TableViewer(composite, SWT.BORDER);
+		interfaceViewer.setContentProvider(new BusinessInterfaceContentProvider());
+		interfaceViewer.setLabelProvider(new BusinessInterfaceLabelProvider());
+		interfaceViewer.getControl().setLayoutData(gridData);
+		interfaceViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			public void selectionChanged(SelectionChangedEvent event) {
-				IStructuredSelection selection = (IStructuredSelection) businessnterfacesList.getSelection();
+				IStructuredSelection selection = (IStructuredSelection) interfaceViewer.getSelection();
 				BusinessInterface element = (BusinessInterface) selection.getFirstElement();
 				removeButton.setEnabled(element != null);
 			}
@@ -197,9 +169,9 @@ public class AddSessionBeanWizardPage extends DataModelWizardPage implements
 		removeButton.setLayoutData(buttonGridData);
 		removeButton.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
-				IStructuredSelection selection = (IStructuredSelection) businessnterfacesList.getSelection();
+				IStructuredSelection selection = (IStructuredSelection) interfaceViewer.getSelection();
 				BusinessInterface element = (BusinessInterface) selection.getFirstElement();
-				businessnterfacesList.remove(element);
+				interfaceViewer.remove(element);
 				if (element.getJavaType() == null) {
 					if (element.isLocal())
 						model.setBooleanProperty(LOCAL, false);
@@ -216,7 +188,7 @@ public class AddSessionBeanWizardPage extends DataModelWizardPage implements
 
 	public void updateBusinessInterfacesList() {
 		Object biList = getDataModel().getProperty(BUSINESS_INTERFACES);		
-		businessnterfacesList.setInput(biList);
+		interfaceViewer.setInput(biList);
 	}
 
 	@Override
@@ -225,9 +197,22 @@ public class AddSessionBeanWizardPage extends DataModelWizardPage implements
 		updateBusinessInterfacesList();
 	}
 
-	@Override
-	protected String[] getValidationPropertyNames() {
+	protected ScrolledPageContent getParentScrolledComposite(Control control) {
+		Control parent= control.getParent();
+		while (!(parent instanceof ScrolledPageContent) && parent != null) {
+			parent= parent.getParent();
+		}
+		if (parent instanceof ScrolledPageContent) {
+			return (ScrolledPageContent) parent;
+		}
 		return null;
-	};
+	}
+	
+	protected final void expandedStateChanged(ExpandableComposite expandable) {
+		ScrolledPageContent parentScrolledComposite = getParentScrolledComposite(expandable);
+		if (parentScrolledComposite != null) {
+			parentScrolledComposite.reflow(true);
+		}
+	}
 }
 

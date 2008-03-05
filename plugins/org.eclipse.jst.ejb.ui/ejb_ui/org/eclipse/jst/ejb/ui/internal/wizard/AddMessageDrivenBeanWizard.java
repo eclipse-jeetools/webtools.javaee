@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 
-public class AddMessageDrivenBeanWizard extends NewEnterpriseBeansWizard {
+public class AddMessageDrivenBeanWizard extends NewEnterpriseBeanWizard {
 
 
 	private static final String PAGE_ONE = "pageOne"; //$NON-NLS-1$

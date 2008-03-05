@@ -12,18 +12,17 @@ package org.eclipse.jst.ejb.ui.internal.wizard;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
 
-public class NewSessionBeanClassWizardPage extends NewJavaClassWizardPage
+public class NewSessionBeanClassWizardPage extends NewEnterpriseBeanClassWizardPage
 		implements INewSessionBeanClassDataModelProperties {
 
 	@Override
@@ -41,56 +40,50 @@ public class NewSessionBeanClassWizardPage extends NewJavaClassWizardPage
 		super(model, pageName, pageDesc, pageTitle, moduleType);
 	}
 	
-	public DataModelSynchHelper initializeSynchHelper(IDataModel dm) {
-		return new ComboIndexSynchHelper(dm);
-	}
-
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = super.createTopLevelComposite(parent);
+		
 		createBusinessInterfacesGroup(composite);
+		
 		return composite;
 	}
 
 	private void createBusinessInterfacesGroup(Composite composite) {
 
+		addSeperator(composite, 3);
+
 		stateTypeLabel = new Label(composite, SWT.LEFT);
 		stateTypeLabel.setText(IEjbWizardConstants.STATE_TYPE_LABEL);
 
 		stateTypeCombo = new Combo(composite, SWT.READ_ONLY);
-		GridData gridData = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-		gridData.horizontalSpan = 2;
-		stateTypeCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		stateTypeCombo.setLayoutData(gdhspan(1));
 		stateTypeCombo.setItems(new String[] { 
 				IEjbWizardConstants.STATE_TYPE_STATELESS, 
 				IEjbWizardConstants.STATE_TYPE_STATEFUL
 		});
 		stateTypeCombo.select(0);
 		((ComboIndexSynchHelper) synchHelper).synchComboIndex(stateTypeCombo, STATE_TYPE, null);
-
-		addSeperator(composite, 3);
-
-		GridData data = gridData;
-		data.horizontalSpan = 3;
 		
-		Label businessInterfacesLabel = new Label(composite, SWT.LEFT);
-		businessInterfacesLabel.setLayoutData(data);
-		businessInterfacesLabel.setText(IEjbWizardConstants.CREATE_BUSINESS_INTERFACE);
+		Group group = new Group(composite, SWT.NONE);
+        group.setLayoutData(gdhspan(2));
+        group.setLayout(new GridLayout(2, false));
+        group.setText(IEjbWizardConstants.CREATE_BUSINESS_INTERFACE);
 		
-		remoteCheckbox = new Button(composite, SWT.CHECK);
-		remoteCheckbox.setLayoutData(data);
+		remoteCheckbox = new Button(group, SWT.CHECK);
+		remoteCheckbox.setLayoutData(gdhspan(3));
 		remoteCheckbox.setText(IEjbWizardConstants.REMOTE_BUSINESS_INTERFACE);
 		synchHelper.synchCheckbox(remoteCheckbox, REMOTE, null);
 
-		localCheckbox = new Button(composite, SWT.CHECK);
+		localCheckbox = new Button(group, SWT.CHECK);
+		localCheckbox.setLayoutData(gdhspan(3));
 		localCheckbox.setText(IEjbWizardConstants.LOCAL_BUSINESS_INTERFACE);
 		synchHelper.synchCheckbox(localCheckbox, LOCAL, null);
 	}
 
-	@Override
-	protected boolean isProjectValid(IProject project) {
-		boolean result = super.isProjectValid(project);
-		result = result && J2EEProjectUtilities.isJEEProject(project);
-		return result;
+	private static GridData gdhspan(int span) {
+		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
+		gd.horizontalSpan = span;
+		return gd;
 	}
 	
 }

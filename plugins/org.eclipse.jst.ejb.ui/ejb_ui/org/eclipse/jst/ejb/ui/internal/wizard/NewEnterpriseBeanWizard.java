@@ -32,19 +32,19 @@ import org.eclipse.ui.ide.IDE;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
 
-public abstract class NewEnterpriseBeansWizard extends DataModelWizard implements INewWizard {
+public abstract class NewEnterpriseBeanWizard extends DataModelWizard implements INewWizard {
 
 	/**
 	 * @param model
 	 */
-	public NewEnterpriseBeansWizard(IDataModel model) {
+	public NewEnterpriseBeanWizard(IDataModel model) {
 		super(model);
 	}
 	
 	/**
 	 * Default constructor
 	 */
-	public NewEnterpriseBeansWizard() {
+	public NewEnterpriseBeanWizard() {
 		super();
 	}
 
