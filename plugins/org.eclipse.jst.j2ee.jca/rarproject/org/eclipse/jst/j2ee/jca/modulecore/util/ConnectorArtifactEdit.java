@@ -428,7 +428,6 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		}
 	}
 	
-	@Override
 	protected String getContentTypeDescriber() {
 		return CONNECTOR_CONTENT_TYPE;
 	}

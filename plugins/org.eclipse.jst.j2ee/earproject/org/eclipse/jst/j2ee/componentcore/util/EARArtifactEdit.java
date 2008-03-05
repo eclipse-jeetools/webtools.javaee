@@ -670,4 +670,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	protected String getContentTypeDescriber() {
 		return EAR_CONTENT_TYPE;
 	}
+	protected URI getRootURI() {
+		return J2EEConstants.APPLICATION_DD_URI_OBJ;
+	}
 }

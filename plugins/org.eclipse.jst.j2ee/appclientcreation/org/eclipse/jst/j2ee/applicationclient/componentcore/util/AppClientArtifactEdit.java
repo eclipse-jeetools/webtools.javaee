@@ -114,9 +114,9 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	public Resource getDeploymentDescriptorResource() {
 		verifyOperationSupported();
 		if(isBinary()){
-			return getBinaryComponentHelper().getResource(J2EEConstants.APP_CLIENT_DD_URI_OBJ);
+			return getBinaryComponentHelper().getResource(getRootURI());
 		} 
-		return getArtifactEditModel().getResource(J2EEConstants.APP_CLIENT_DD_URI_OBJ);
+		return getArtifactEditModel().getResource(getRootURI());
 	}
 	
 	/**
@@ -434,4 +434,9 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		
 		return APPCLIENT_CONTENT_TYPE;
 	}
+	protected URI getRootURI() {
+		return J2EEConstants.APP_CLIENT_DD_URI_OBJ;
+	}
+	
+	
 }

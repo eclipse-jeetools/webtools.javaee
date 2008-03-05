@@ -697,6 +697,9 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	protected String getContentTypeDescriber() {
 		return WEB_CONTENT_TYPE;
 	}
+	protected URI getRootURI() {
+		return J2EEConstants.WEBAPP_DD_URI_OBJ;
+	}
 
 	
 }

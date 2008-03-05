@@ -31,6 +31,18 @@ public class JavaArtifactEditModel extends ArtifactEditModel implements WorkingC
 
 	private WorkingCopyManager workingCopyManager = null;
 
+	public JavaArtifactEditModel(String anEditModelId, EMFWorkbenchContext context, boolean toMakeReadOnly,
+			boolean toAccessUnknownResourcesAsReadOnly, URI moduleURI, URI rootURI, String rootContentType) {
+		super(anEditModelId, context, toMakeReadOnly, toAccessUnknownResourcesAsReadOnly, moduleURI, rootURI, rootContentType);
+		// TODO Auto-generated constructor stub
+	}
+
+	public JavaArtifactEditModel(String editModelID, EMFWorkbenchContext context, boolean toMakeReadOnly, URI moduleURI, URI rootURI,
+			String rootContentType) {
+		super(editModelID, context, toMakeReadOnly, moduleURI, rootURI, rootContentType);
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * @param anEditModelId
 	 * @param aContext
