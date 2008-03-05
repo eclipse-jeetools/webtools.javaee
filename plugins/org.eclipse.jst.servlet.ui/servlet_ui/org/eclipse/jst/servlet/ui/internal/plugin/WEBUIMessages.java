@@ -153,7 +153,7 @@ public class WEBUIMessages extends NLS {
 	public static final String WEB_VERSION_LBL = _2;
 	public static final String WEB_PROJECT_MAIN_PG_TITLE = _3;
 	public static final String WEB_PROJECT_MAIN_PG_DESC = _4;
-	public static final String EJB_PROJECT_LBL = _5;
+	public static final String WEB_PROJECT_LBL = _5;
 	public static final String WEB_FILE_LBL = _6;
 	public static final String WEB_IMPORT_MAIN_PG_DESC = _7;
 	public static final String WEB_IMPORT_MAIN_PG_TITLE = _8;

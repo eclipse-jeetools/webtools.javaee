@@ -21,6 +21,7 @@ import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
 import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
 import org.eclipse.jst.servlet.ui.internal.navigator.CompressedJavaProject;
 import org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin;
+import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -49,6 +50,8 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage imple
 	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = super.createTopLevelComposite(parent);
+		
+		projectNameLabel.setText(WEBUIMessages.WEB_PROJECT_LBL);
 		
 		addSeperator(composite, 3);
 		createUseExistingGroup(composite);

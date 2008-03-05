@@ -95,6 +95,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 	protected Text superText;
 	protected Button superButton;
 	protected Label superLabel;
+	protected Label projectNameLabel;
 	private Combo projectNameCombo;	
 	protected String projectType;
 	private String projectName;
@@ -157,7 +158,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 	 */
 	private void addProjectNameGroup(Composite parent) {
 		// set up project name label
-		Label projectNameLabel = new Label(parent, SWT.NONE);
+		projectNameLabel = new Label(parent, SWT.NONE);
 		projectNameLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.MODULES_DEPENDENCY_PAGE_TABLE_PROJECT)); //$NON-NLS-1$
 		GridData data = new GridData();
 		projectNameLabel.setLayoutData(data);

@@ -54,7 +54,7 @@ public class WebComponentImportPage extends J2EEModuleImportPage {
 	}
 
 	protected String getProjectImportLabel() {
-		return WEBUIMessages.EJB_PROJECT_LBL;
+		return WEBUIMessages.WEB_PROJECT_LBL;
 	}
 
 	protected void createAnnotationsStandaloneGroup(Composite composite) {
