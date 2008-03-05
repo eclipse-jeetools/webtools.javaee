@@ -610,4 +610,8 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	protected String getContentTypeDescriber() {
 		return EJB_CONTENT_TYPE;
 	}
+	protected URI getRootURI() {
+		return J2EEConstants.EJBJAR_DD_URI_OBJ;
+	}
+	
 }
