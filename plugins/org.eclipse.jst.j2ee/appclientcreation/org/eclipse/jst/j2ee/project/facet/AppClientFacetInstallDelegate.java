@@ -122,8 +122,9 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 	                            && (appClientFile.getParent().getType() ==  IResource.FOLDER)){
 	                        ((IFolder)appClientFile.getParent()).create(true, true, monitor);
 	                    }
-	                    final String appClientXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<application-client version=\"5\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application-client_5.xsd\">\n</application-client>"; //$NON-NLS-1$
+	                    final String appClientXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<application-client version=\"5\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application-client_5.xsd\">\n <display-name> \n" + project.getName() +  "</display-name> \n </application-client>"; //$NON-NLS-1$
 	                    appClientFile.create(new ByteArrayInputStream(appClientXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
+	                   
 	                } catch (UnsupportedEncodingException e) {
 	                    Logger.getLogger().logError(e);
 	                }           
