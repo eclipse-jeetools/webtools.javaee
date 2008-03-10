@@ -66,7 +66,7 @@ public class WebMessages extends NLS {
 	public static String ERR_SERVLET_ROLE_LINK_EMPTY;
 	public static String ERR_SERVLET_INTERFACE;
 
-	public static String ERR_FILTER_DISPLAY_NAME_EXIST;
+	public static String ERR_FILTER_NAME_EXIST;
 	public static String ERR_FILTER_CLASS_NAME_USED;
 	public static String ERR_FILTER_CLASS_NAME_INVALID;
 	public static String ERR_LISTENER_DISPLAY_NAME_EXIST;

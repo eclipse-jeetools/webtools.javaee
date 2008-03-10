@@ -498,7 +498,7 @@ public class NewServletClassDataModelProvider extends
 			}
 			// If the servlet name already exists, throw an error
 			if (exists) {
-				String msg = WebMessages.getResourceString(WebMessages.ERR_SERVLET_DISPLAY_NAME_EXIST, new String[]{prop});
+				String msg = WebMessages.getResourceString(WebMessages.ERR_SERVLET_NAME_EXIST, new String[]{prop});
 				return WTPCommonPlugin.createErrorStatus(msg);
 			}			
 		} else if (mObj instanceof org.eclipse.jst.javaee.web.WebApp) {
@@ -516,7 +516,7 @@ public class NewServletClassDataModelProvider extends
 			}
 			// If the servlet name already exists, throw an error
 			if (exists) {
-				String msg = WebMessages.getResourceString(WebMessages.ERR_SERVLET_DISPLAY_NAME_EXIST, new String[]{prop});
+				String msg = WebMessages.getResourceString(WebMessages.ERR_SERVLET_NAME_EXIST, new String[]{prop});
 				return WTPCommonPlugin.createErrorStatus(msg);
 			}			
 		}
