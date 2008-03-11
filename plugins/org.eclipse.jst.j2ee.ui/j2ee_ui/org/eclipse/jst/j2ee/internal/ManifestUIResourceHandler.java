@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2000, 2006 IBM Corporation and others.
+ * Copyright (c) 2000, 2008 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     IBM Corporation - initial API and implementation
+ *     Stefan Dimov, stefan.dimov@sap.com - bug 207826
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal;
 
@@ -38,6 +39,7 @@ public final class ManifestUIResourceHandler extends NLS {
 	public static String Available_dependent_JARs__UI_;
 	public static String Manifest_Class_Path__UI_;
 	public static String JAR_Module_UI_;
+	public static String Packed_In_Lib_UI_;
 	public static String Project_UI_;
 	public static String EAR_Modules;
 	public static String EAR_Modules_Desc;

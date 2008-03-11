@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2008 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -8,13 +8,8 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *	   David Schneider, david.schneider@unisys.com - [142500] WTP properties pages fonts don't follow Eclipse preferences
+ *     Stefan Dimov, stefan.dimov@sap.com - bug 207826
  *******************************************************************************/
-/*
- * Created on Jan 17, 2005
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 package org.eclipse.jst.j2ee.internal;
 
 import java.util.ArrayList;
@@ -53,15 +48,24 @@ import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataMo
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
+import org.eclipse.jst.j2ee.internal.dialogs.ChangeLibDirDialog;
+import org.eclipse.jst.j2ee.internal.dialogs.DependencyConflictResolveDialog;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.internal.ui.DoubleCheckboxTableItem;
+import org.eclipse.jst.j2ee.internal.ui.DoubleCheckboxTableViewer;
+import org.eclipse.jst.j2ee.model.IEARModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.facet.EarFacetRuntimeHandler;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
+import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -75,6 +79,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphManager;
@@ -82,11 +87,15 @@ import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceCo
 import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jst.jee.project.facet.EarCreateDeploymentFilesDataModelProvider;
+import org.eclipse.jst.jee.project.facet.ICreateDeploymentFilesDataModelProperties;
 
 
 public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, Listener {
@@ -102,11 +111,19 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	protected Button projectJarButton;
 	protected Button externalJarButton;
 	protected Button addVariableButton;
+	protected Button changeLibPathButton;
 	protected Composite buttonColumn;
 
+	protected String libDir = null;
+	protected String oldLibDir;
 	protected List j2eeComponentList = new ArrayList();
 	protected List javaProjectsList = new ArrayList();
+	protected List j2eeLibElementList = new ArrayList();
+	protected List javaLibProjectsList = new ArrayList();	
 	protected static final IStatus OK_STATUS = IDataModelProvider.OK_STATUS;
+	protected boolean isVersion5;
+	protected Set libsToUncheck;
+
 
 	/**
 	 * Constructor for AddModulestoEARPropertiesControl.
@@ -115,6 +132,13 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		this.project = project;
 		this.propPage = page;
 		earComponent = ComponentCore.createComponent(project);
+		isVersion5 = J2EEProjectUtilities.isJEEProject(project);
+		if (isVersion5) {
+			oldLibDir = ((Application)ModelProviderManager.getModelProvider(project).getModelObject()).getLibraryDirectory();
+			if (oldLibDir == null) oldLibDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
+			libDir = oldLibDir;
+		}
+		libsToUncheck = new HashSet();
 	}
 	
 	public Composite createContents(final Composite parent) { 
@@ -151,8 +175,29 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 
 	public boolean performOk() {
 		NullProgressMonitor monitor = new NullProgressMonitor();
+		if (isVersion5) {
+			if (libDir.length() == 0) {
+				
+				MessageDialog dlg = new MessageDialog(null,  
+						J2EEUIMessages.getResourceString(J2EEUIMessages.BLANK_LIB_DIR),
+			            null, J2EEUIMessages.getResourceString(J2EEUIMessages.BLANK_LIB_DIR_WARN_QUESTION), 
+			            MessageDialog.QUESTION, new String[] {J2EEUIMessages.YES_BUTTON, 
+																J2EEUIMessages.NO_BUTTON, 
+																J2EEUIMessages.CANCEL_BUTTON}, 1);
+				switch (dlg.open()) {
+					case 0: break; 
+					case 1: {
+						handleChangeLibDirButton(false);
+						return false;
+					}
+					case 2: return false;
+					default: return false;
+				}			
+			}			
+			updateLibDir(monitor);
+		}
+		removeModulesFromEAR(monitor);		
 		addModulesToEAR(monitor);
-		removeModulesFromEAR(monitor);
 		refresh();
 		return true;
 	}
@@ -170,11 +215,13 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	public void setVisible(boolean visible) {
 	}
 	
-	private List newJ2EEModulesToAdd(){
+	private List newJ2EEModulesToAdd(boolean inLibFolder){
+		if (inLibFolder && !isVersion5) return null;
 		List newComps = new ArrayList();
-		if (j2eeComponentList != null && !j2eeComponentList.isEmpty()){
-			for (int i = 0; i < j2eeComponentList.size(); i++){
-				IVirtualComponent handle = (IVirtualComponent)j2eeComponentList.get(i);
+		List comps = inLibFolder ? j2eeLibElementList : j2eeComponentList;
+		if (comps != null && !comps.isEmpty()){
+			for (int i = 0; i < comps.size(); i++){
+				IVirtualComponent handle = (IVirtualComponent)comps.get(i);
 				if (ClasspathDependencyUtil.isClasspathComponentDependency(handle)) {
 					continue;
 				}
@@ -184,62 +231,107 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		}
 		return newComps;
 	}
+		
+	private void updateLibDir(IProgressMonitor monitor) {
+		if (libDir.equals(oldLibDir)) return;
+		final IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(project);
+		final Application app = (Application)ModelProviderManager.getModelProvider(project).getModelObject();
+		oldLibDir = app.getLibraryDirectory();
+		if (oldLibDir == null) oldLibDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
+		earModel.modify(new Runnable() {
+			public void run() {			
+			app.setLibraryDirectory(libDir);
+		}}, null);
+	}
+	
+	protected void createDD(IProgressMonitor monitor) {
+		if( earComponent != null ){
+			IDataModelOperation op = generateEARDDOperation();
+			try {
+				op.execute(monitor, null);
+			} catch (ExecutionException e) {
+				Logger.getLogger().log(e);
+			}
+		}
+	}
+	
+	private void execAddOp(IProgressMonitor monitor, List list, String path) throws CoreException {
+		if (list == null || list.isEmpty()) return;
+		IDataModel dm = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
+		
+		dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComponent);					
+		dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, list);
+        if (isVersion5) dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH, path);
+
+		IStatus stat = dm.validateProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+		if (stat != OK_STATUS)
+			throw new CoreException(stat);
+		try {
+			dm.getDefaultOperation().execute(monitor, null);
+		} catch (ExecutionException e) {
+			Logger.getLogger().log(e);
+		}		
+	}
+	
+	private void execAddOp1(IProgressMonitor monitor, List jProjList, List j2eeCompList, String path)
+													throws CoreException {
+		if (!jProjList.isEmpty()) {
+			Set moduleProjects = new HashSet();
+			for (int i = 0; i < jProjList.size(); i++) {
+				try {
+					IProject proj = (IProject) jProjList.get(i);
+					moduleProjects.add(proj);
+					IDataModel migrationdm = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
+					migrationdm.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, proj.getName());
+					migrationdm.getDefaultOperation().execute(monitor, null);
+
+
+					IDataModel refdm = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
+					List targetCompList = (List) refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+
+					IVirtualComponent targetcomponent = ComponentCore.createComponent(proj);
+					targetCompList.add(targetcomponent);
+
+					refdm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComponent);
+					refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, targetCompList);
+					if (isVersion5) refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH, path);
+					
+
+					// referenced java projects should have archiveName attribute
+					((Map)refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP)).put(targetcomponent, proj.getName().replace(' ', '_') + IJ2EEModuleConstants.JAR_EXT);
+
+					refdm.getDefaultOperation().execute(monitor, null);
+					j2eeCompList.add(targetcomponent);
+				} catch (ExecutionException e) {
+					Logger.getLogger().log(e);
+				}
+			}
+			EarFacetRuntimeHandler.updateModuleProjectRuntime(earComponent.getProject(), moduleProjects, new NullProgressMonitor());
+		} // end 
+		
+	}
 	
 	private IStatus addModulesToEAR(IProgressMonitor monitor) {
 		IStatus stat = OK_STATUS;
 		try {
 			if( earComponent != null ){
-				final List list = newJ2EEModulesToAdd();				
-				boolean shouldRun = (list != null && !list.isEmpty()) || !javaProjectsList.isEmpty();
-				if(shouldRun){
+				final List list = newJ2EEModulesToAdd(false);
+				final List bndList = newJ2EEModulesToAdd(true);
+				final boolean shouldRun = (list != null && !list.isEmpty()) || !javaProjectsList.isEmpty();
+				final boolean shouldBndRun = isVersion5 && 
+											((bndList != null && !bndList.isEmpty()) || !javaLibProjectsList.isEmpty());
+				if(shouldRun || shouldBndRun){
 					IWorkspaceRunnable runnable = new IWorkspaceRunnable(){
 
 						public void run(IProgressMonitor monitor) throws CoreException{
-							if (list != null && !list.isEmpty()) {
-								IDataModel dm = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
-								
-								dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComponent);					
-								dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, list);
-								IStatus stat = dm.validateProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
-								if (stat != OK_STATUS)
-									throw new CoreException(stat);
-								try {
-									dm.getDefaultOperation().execute(monitor, null);
-								} catch (ExecutionException e) {
-									Logger.getLogger().log(e);
-								}
-							}
-							if (!javaProjectsList.isEmpty()) {
-								Set moduleProjects = new HashSet();
-								for (int i = 0; i < javaProjectsList.size(); i++) {
-									try {
-										IProject proj = (IProject) javaProjectsList.get(i);
-										moduleProjects.add(proj);
-										IDataModel migrationdm = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
-										migrationdm.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, proj.getName());
-										migrationdm.getDefaultOperation().execute(monitor, null);
-					
-					
-										IDataModel refdm = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
-										List targetCompList = (List) refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
-					
-										IVirtualComponent targetcomponent = ComponentCore.createComponent(proj);
-										targetCompList.add(targetcomponent);
-					
-										refdm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComponent);
-										refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, targetCompList);
-				
-										// referenced java projects should have archiveName attribute
-										((Map)refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP)).put(targetcomponent, proj.getName().replace(' ', '_') + IJ2EEModuleConstants.JAR_EXT);
-				
-										refdm.getDefaultOperation().execute(monitor, null);
-										j2eeComponentList.add(targetcomponent);
-									} catch (ExecutionException e) {
-										Logger.getLogger().log(e);
-									}
-								}
-								EarFacetRuntimeHandler.updateModuleProjectRuntime(earComponent.getProject(), moduleProjects, new NullProgressMonitor());
-							}
+							if (shouldRun) {
+								execAddOp(monitor, list, J2EEConstants.EAR_ROOT_DIR);
+								execAddOp1(monitor, javaProjectsList, j2eeComponentList, J2EEConstants.EAR_ROOT_DIR);								
+							} 
+							if (shouldBndRun) {
+								execAddOp(monitor, bndList, libDir);
+								execAddOp1(monitor, javaLibProjectsList, j2eeLibElementList, libDir);																
+							} 
 						}
 					};
 					J2EEUIPlugin.getWorkspace().run(runnable, monitor);
@@ -251,23 +343,36 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		return OK_STATUS;
 	}
 	
+	private void remComps(List list, String path) {
+		if( !list.isEmpty()){
+			try {
+				// retrieve all dependencies on these components within the scope of the EAR
+				Map dependentComps = getEARModuleDependencies(earComponent, list);
+				// remove the components from the EAR
+				IDataModelOperation op = removeComponentFromEAROperation(earComponent, list, path);
+				op.execute(null, null);
+				// if that succeeded, remove all EAR-scope J2EE dependencies on these components
+				J2EEComponentClasspathUpdater.getInstance().queueUpdateEAR(earComponent.getProject());
+				removeEARComponentDependencies(dependentComps);
+			} catch (ExecutionException e) {
+				Logger.getLogger().log(e);
+			}
+		}	
+	}
+	
 	private IStatus removeModulesFromEAR(IProgressMonitor monitor) {
 		IStatus stat = OK_STATUS;
-		if( earComponent != null && j2eeComponentList != null){
-			List list = getComponentsToRemove();
-			if( !list.isEmpty()){
-				try {
-					// retrieve all dependencies on these components within the scope of the EAR
-					Map dependentComps = getEARModuleDependencies(earComponent, list);
-					// remove the components from the EAR
-					IDataModelOperation op = removeComponentFromEAROperation(earComponent, list);
-					op.execute(null, null);
-					// if that succeeded, remove all EAR-scope J2EE dependencies on these components
-					J2EEComponentClasspathUpdater.getInstance().queueUpdateEAR(earComponent.getProject());
-					removeEARComponentDependencies(dependentComps);
-				} catch (ExecutionException e) {
-					Logger.getLogger().log(e);
-				}
+		if (!isVersion5) {
+			if(earComponent != null && j2eeComponentList != null) {
+				List list = getComponentsToRemove();
+				remComps(list, J2EEConstants.EAR_ROOT_DIR);
+			}			
+		} else {	
+			if( earComponent != null && j2eeComponentList != null) {
+				List[] list = getComponentsToRemoveUpdate(!libDir.equals(oldLibDir)); 
+				remComps(list[0], J2EEConstants.EAR_ROOT_DIR);
+				
+				remComps(list[1], oldLibDir);
 			}
 		}
 		return stat;
@@ -336,7 +441,14 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	private void removeManifestDependency(final IVirtualComponent source, final IVirtualComponent target) 
 		throws ExecutionException {
 		final String sourceProjName = source.getProject().getName();
-		final String targetProjName = target.getProject().getName();
+		String targetProjName; 
+		if (target instanceof J2EEModuleVirtualArchiveComponent) {
+			targetProjName = ((J2EEModuleVirtualArchiveComponent)target).getName();
+			String[] pathSegments = targetProjName.split("" + IPath.SEPARATOR);
+			targetProjName = pathSegments[pathSegments.length - 1];
+		} else {
+			targetProjName = target.getProject().getName();
+		}
 		final IProgressMonitor monitor = new NullProgressMonitor();
 		final IFile manifestmf = J2EEProjectUtilities.getManifestFile(source.getProject());
 		final ArchiveManifest mf = J2EEProjectUtilities.readManifest(source.getProject());
@@ -348,7 +460,9 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.MANIFEST_FILE, manifestmf);
 		String[] cp = mf.getClassPathTokenized();
 		List cpList = new ArrayList();
-		String cpToRemove = targetProjName + ".jar";//$NON-NLS-1$
+		String cpToRemove = (targetProjName.endsWith(".jar")) ? 
+				targetProjName : 
+					targetProjName + ".jar";//$NON-NLS-1$
 		for (int i = 0; i < cp.length; i++) {
 			if (!cp[i].equals(cpToRemove)) {
 				cpList.add(cp[i]);
@@ -358,12 +472,20 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		updateManifestDataModel.getDefaultOperation().execute(monitor, null );
 	}
 	
-	protected IDataModelOperation removeComponentFromEAROperation(IVirtualComponent sourceComponent, List targetComponentsHandles) {
+	protected IDataModelOperation generateEARDDOperation() {		
+		IDataModel model = DataModelFactory.createDataModel(new EarCreateDeploymentFilesDataModelProvider());
+		model.setProperty(ICreateDeploymentFilesDataModelProperties.GENERATE_DD, earComponent);					
+		model.setProperty(ICreateDeploymentFilesDataModelProperties.TARGET_PROJECT, project);		
+		return model.getDefaultOperation();
+	}
+	
+	protected IDataModelOperation removeComponentFromEAROperation(IVirtualComponent sourceComponent, List targetComponentsHandles, String dir) {
 		IDataModel model = DataModelFactory.createDataModel(new RemoveComponentFromEnterpriseApplicationDataModelProvider());
 		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, sourceComponent);
 		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 		modHandlesList.addAll(targetComponentsHandles);
 		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modHandlesList);
+        model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH, dir);		
 		return model.getDefaultOperation();
 	}
 	
@@ -375,8 +497,31 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 			for (int j = 0; j < oldrefs.length; j++) {
 				IVirtualReference ref = oldrefs[j];
 				IVirtualComponent handle = ref.getReferencedComponent();
-				if( !j2eeComponentList.contains(handle)){
+				if(!j2eeComponentList.contains(handle) && (isVersion5 ? !j2eeLibElementList.contains(handle) : true)){
 					list.add(handle);
+				}
+			}
+		}
+		return list;		
+	}
+	
+	// EAR5 case
+	protected List[] getComponentsToRemoveUpdate(boolean dirUpdated){
+		//j2eeComponentList = getCheckedJ2EEElementsAsList();
+		List[] list = new ArrayList[2];
+		list[0] = new ArrayList();
+		list[1] = new ArrayList();
+		if( earComponent != null && list != null ){
+			IVirtualReference[] oldrefs = earComponent.getReferences();
+			for (int j = 0; j < oldrefs.length; j++) {
+				IVirtualReference ref = oldrefs[j];
+				IVirtualComponent handle = ref.getReferencedComponent();
+				if(!j2eeComponentList.contains(handle) && ref.getRuntimePath().isRoot()) {
+					list[0].add(handle);
+				}
+				if((!j2eeLibElementList.contains(handle) || dirUpdated) &&
+						ref.getRuntimePath().toString().equals(oldLibDir)) {	
+					list[1].add(handle);
 				}
 			}
 		}
@@ -394,19 +539,34 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		else if(event.widget == externalJarButton)
 			handleSelectExternalJarButton();
 		else if(event.widget == addVariableButton)
-			handleSelectVariableButton();		
+			handleSelectVariableButton();
+		else if(event.widget == changeLibPathButton) {
+			this.handleChangeLibDirButton(true);
+		}
 	}
 
 	private void handleSelectAllButtonPressed() {
 		availableComponentsViewer.setAllChecked(true);
-		j2eeComponentList = getCheckedJ2EEElementsAsList();
-		javaProjectsList = getCheckedJavaProjectsAsList();
+		j2eeComponentList = getCheckedJ2EEElementsAsList(true);
+		javaProjectsList = getCheckedJavaProjectsAsList(true);		
+		if (isVersion5) {
+			j2eeLibElementList = getCheckedJ2EEElementsAsList(false);
+			javaLibProjectsList = getCheckedJavaProjectsAsList(false);			
+		} 
 	}
 
 	private void handleDeselectAllButtonPressed() {
 		availableComponentsViewer.setAllChecked(false);
+		if (isVersion5) {
+			((DoubleCheckboxTableViewer)availableComponentsViewer).setAllSecondChecked(false);
+			libsToUncheck.clear();
+		}
 		j2eeComponentList = new ArrayList();
 		javaProjectsList = new ArrayList();
+		if (isVersion5) {
+			j2eeLibElementList = new ArrayList();
+			javaLibProjectsList = new ArrayList();			
+		}
 	}
 	
 	/**
@@ -500,6 +660,33 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		}	
 	}
 	
+	private void handleChangeLibDirButton(boolean warnBlank) {					
+		IVirtualFolder root = earComponent.getRootFolder();
+		String earContentRoot = root.getUnderlyingResource().getName();
+		String ddFullPath = IPath.SEPARATOR + earContentRoot + IPath.SEPARATOR + J2EEConstants.APPLICATION_DD_URI;
+		if (!project.getFile(ddFullPath).exists()) {
+			if (!MessageDialog.openQuestion(null, 
+					J2EEUIMessages.getResourceString(J2EEUIMessages.NO_DD_MSG_TITLE), 
+					J2EEUIMessages.getResourceString(J2EEUIMessages.GEN_DD_QUESTION))) return;
+			createDD(new NullProgressMonitor());
+		}
+		Application app = (Application)ModelProviderManager.getModelProvider(project).getModelObject();
+		if (libDir == null) {
+			libDir = app.getLibraryDirectory();
+			if (libDir == null) libDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
+		}
+		
+		ChangeLibDirDialog dlg = new ChangeLibDirDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+                .getShell(), libDir, warnBlank);
+		if (dlg.open() == Dialog.CANCEL) return;
+		libDir = dlg.getValue().trim();
+		if (libDir.length() > 0) {
+			if (!libDir.startsWith(J2EEConstants.EAR_ROOT_DIR)) libDir = IPath.SEPARATOR + libDir;
+		}
+				
+	}
+
+	
 	protected void createTableComposite(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
 		GridData gData = new GridData(GridData.FILL_BOTH);
@@ -527,9 +714,10 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	protected void createPushButtons() {
 		selectAllButton = createPushButton(SELECT_ALL_BUTTON);
 		deselectAllButton = createPushButton(DE_SELECT_ALL_BUTTON);
-		projectJarButton = createPushButton(J2EEUIMessages.getResourceString("PROJECT_JAR"));//$NON-NLS-1$
-		externalJarButton = createPushButton(J2EEUIMessages.getResourceString("EXTERNAL_JAR"));//$NON-NLS-1$
-		addVariableButton = createPushButton(J2EEUIMessages.getResourceString("ADDVARIABLE"));//$NON-NLS-1$
+		projectJarButton = createPushButton(J2EEUIMessages.getResourceString(J2EEUIMessages.PROJECT_JAR));//$NON-NLS-1$
+		externalJarButton = createPushButton(J2EEUIMessages.getResourceString(J2EEUIMessages.EXTERNAL_JAR));//$NON-NLS-1$
+		addVariableButton = createPushButton(J2EEUIMessages.getResourceString(J2EEUIMessages.ADDVARIABLE));//$NON-NLS-1$
+		if (isVersion5) changeLibPathButton = createPushButton(J2EEUIMessages.getResourceString(J2EEUIMessages.CHANGE_LIB_DIR));//$NON-NLS-1$
 	}
 
 	protected Button createPushButton(String label) {
@@ -583,32 +771,76 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	protected void addCheckStateListener() {
 		availableComponentsViewer.addCheckStateListener(new ICheckStateListener() {
 			public void checkStateChanged(CheckStateChangedEvent event) {
-				j2eeComponentList = getCheckedJ2EEElementsAsList();
-				javaProjectsList = getCheckedJavaProjectsAsList();
-
+				if (!(event instanceof SecondCheckBoxStateChangedEvent) && (isVersion5)) {
+					DoubleCheckboxTableViewer vr = (DoubleCheckboxTableViewer)event.getSource();
+					Object[] items = vr.getUncheckedItems();					
+					for (int i = 0; i < items.length; i++) {
+						DoubleCheckboxTableItem item = (DoubleCheckboxTableItem)items[i];
+						if (item.getSecondChecked()) {
+							item.setSecondChecked(false);
+							libsToUncheck.remove(event.getElement());
+						}
+					}
+				}
+				if ((event instanceof SecondCheckBoxStateChangedEvent)) {
+					SecondCheckBoxStateChangedEvent evt = (SecondCheckBoxStateChangedEvent)event;
+					DoubleCheckboxTableItem tblItem = evt.getTableItem();
+					if (tblItem.getSecondChecked() && isConflict((IVirtualComponent)tblItem.getData())) {
+						DependencyConflictResolveDialog dlg = new DependencyConflictResolveDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+				                .getShell(), DependencyConflictResolveDialog.DLG_TYPE_2);
+						if (dlg.open() == DependencyConflictResolveDialog.BTN_ID_CANCEL) {
+							tblItem.setSecondChecked(false);
+							return;
+						}
+					}	
+					if (tblItem.getSecondChecked()) {
+						if (!tblItem.getChecked())
+							tblItem.setChecked(true);						
+						libsToUncheck.add(event.getElement());	
+					} else {
+						libsToUncheck.remove(event.getElement());
+					}
+				}
+				j2eeComponentList = getCheckedJ2EEElementsAsList(true);
+				javaProjectsList = getCheckedJavaProjectsAsList(true);		
+				if (isVersion5) {
+					j2eeLibElementList = getCheckedJ2EEElementsAsList(false);
+					javaLibProjectsList = getCheckedJavaProjectsAsList(false);					
+					
+				} 
 			}
 		});
 	}
-
-	protected Object[] getCPComponentsInEar() {
+	
+	protected Object[] getCPComponentsInEar(boolean inLibFolder) {
 		List list = new ArrayList();
 		Map pathToComp = new HashMap();
 		IVirtualReference refs[] = earComponent.getReferences();
 		for( int i=0; i< refs.length; i++){
 			IVirtualReference ref = refs[i];
-			IVirtualComponent comp = ref.getReferencedComponent();
-			AvailableJ2EEComponentsForEARContentProvider.addClasspathComponentDependencies(list, pathToComp, comp);
+			if ((ref.getRuntimePath().isRoot() && !inLibFolder) ||
+				(!ref.getRuntimePath().isRoot() && inLibFolder) ||
+				!isVersion5) {
+				
+				IVirtualComponent comp = ref.getReferencedComponent();
+				AvailableJ2EEComponentsForEARContentProvider.addClasspathComponentDependencies(list, pathToComp, comp);
+			}
 		}
 		return list.toArray();
 	}
 	
-	protected Object[] getComponentsInEar() {
+	protected Object[] getComponentsInEar(boolean inLibFolder) {
 		List list = new ArrayList();
 		IVirtualReference refs[] = earComponent.getReferences();
 		for( int i=0; i< refs.length; i++){
 			IVirtualReference ref = refs[i];
-			IVirtualComponent comp = ref.getReferencedComponent();
-			list.add(comp);
+			if ((ref.getRuntimePath().isRoot() && !inLibFolder) ||
+				(!ref.getRuntimePath().isRoot() && inLibFolder) ||
+				!isVersion5) {
+				
+				IVirtualComponent comp = ref.getReferencedComponent();
+				list.add(comp);
+			}
 		}
 		return list.toArray();
 	}
@@ -628,9 +860,17 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		}	
 		return false;
 	}
-	
-	protected List getCheckedJ2EEElementsAsList() {
-		Object[] elements = availableComponentsViewer.getCheckedElements();
+		
+	// The next two are used in EAR5 case
+	protected List getCheckedJ2EEElementsAsList(boolean singleChecked) {		
+		Object[] elements;
+		if (isVersion5) {
+			elements = singleChecked ? ((DoubleCheckboxTableViewer)availableComponentsViewer).getSingleCheckedElements():
+									   ((DoubleCheckboxTableViewer)availableComponentsViewer).getDoubleCheckedElements();
+				
+		} else {
+			elements = availableComponentsViewer.getCheckedElements();
+		}
 		List list;
 		if (elements == null || elements.length == 0)
 			list = new ArrayList(0); // Collections.EMPTY_LIST would cause UnsupportedOperationException when a later attempt to add to it is made
@@ -644,9 +884,16 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		}
 		return list;
 	}
-
-	protected List getCheckedJavaProjectsAsList() {
-		Object[] elements = availableComponentsViewer.getCheckedElements();
+	
+	protected List getCheckedJavaProjectsAsList(boolean single) {
+		Object[] elements;
+		if (isVersion5) {
+			elements = single ? ((DoubleCheckboxTableViewer)availableComponentsViewer).getSingleCheckedElements() :
+								((DoubleCheckboxTableViewer)availableComponentsViewer).getDoubleCheckedElements();
+		} else {
+			elements = availableComponentsViewer.getCheckedElements();
+		}
+		
 		List list;
 		if (elements == null || elements.length == 0)
 			list = new ArrayList(0); // Collections.EMPTY_LIST would cause UnsupportedOperationException when a later attempt to add to it is made
@@ -660,17 +907,35 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		}
 		return list;
 	}
+		
+	protected List getLibFolderLibsAsList() {
+		Object[] items = ((DoubleCheckboxTableViewer)availableComponentsViewer).getSecondCheckedItems();
+		List list;
+		if (items == null || items.length == 0)
+			list = new ArrayList(0); // Collections.EMPTY_LIST would cause UnsupportedOperationException when a later attempt to add to it is made
+		else {
+			list = new ArrayList();
+			for (int i = 0; i < items.length; i++) {
+				Object element = ((DoubleCheckboxTableItem)items[i]).getData();
+				if (element instanceof IProject) {
+					list.add(element);
+				}
+			}
+		}
+		return list;
+	}
 
 	public CheckboxTableViewer createavailableComponentsViewer(Composite parent) {
 		int flags = SWT.CHECK | SWT.BORDER | SWT.FULL_SELECTION | SWT.MULTI;
 
-		Table table = new Table(parent, flags);
-		availableComponentsViewer = new CheckboxTableViewer(table);
+		Table table = isVersion5 ? new Table(parent, flags) : new Table(parent, flags);
+		availableComponentsViewer = isVersion5 ? new DoubleCheckboxTableViewer(table, 2) : new CheckboxTableViewer(table);
 
 		// set up table layout
 		TableLayout tableLayout = new org.eclipse.jface.viewers.TableLayout();
 		tableLayout.addColumnData(new ColumnWeightData(200, true));
 		tableLayout.addColumnData(new ColumnWeightData(200, true));
+		if (isVersion5) tableLayout.addColumnData(new ColumnWeightData(200, true));
 		table.setLayout(tableLayout);
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
@@ -684,11 +949,29 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		TableColumn projectColumn = new TableColumn(table, SWT.NONE, 1);
 		projectColumn.setText(ManifestUIResourceHandler.Project_UI_); 
 		projectColumn.setResizable(true);
+		
+		if (isVersion5) {
+			TableColumn bndColumn = new TableColumn(table, SWT.NONE, 2);
+			bndColumn.setText(ManifestUIResourceHandler.Packed_In_Lib_UI_); 
+			bndColumn.setResizable(true);			
+		}
+			
 		tableLayout.layout(table, true);
 		return availableComponentsViewer;
 
 	}
 
+	private boolean shouldBeDisabled(IVirtualComponent component) {
+		if (J2EEProjectUtilities.isApplicationClientComponent(component)) return true;
+		if (J2EEProjectUtilities.isEARProject(component.getProject()) && component.isBinary()) return false;
+		if (J2EEProjectUtilities.isEJBComponent(component)) return true;
+		if (J2EEProjectUtilities.isDynamicWebComponent(component)) return true;
+		if (J2EEProjectUtilities.isJCAComponent(component)) return true;
+		if (J2EEProjectUtilities.isStaticWebProject(component.getProject())) return true;
+		if (J2EEProjectUtilities.isProjectOfType(component.getProject(), IJ2EEFacetConstants.JAVA)) return false;
+		return false;
+	}
+	
 	public void refresh() {
 
 		IWorkspaceRoot input = ResourcesPlugin.getWorkspace().getRoot();
@@ -701,32 +984,61 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		TableItem [] items = availableComponentsViewer.getTable().getItems();
 		List list = new ArrayList();
 		//Object[] comps = getComponentsInEar();
+		Object[] cpComps;
+		Object[] cpLibComps = new Object[0];
+		HashSet j2eeComponentSet = new HashSet();
+		HashSet j2eeLibComponentSet = new HashSet();		
+		if (isVersion5) {
+			if( j2eeComponentList.isEmpty() ){
+				Object[] comps = getComponentsInEar(false);
+				j2eeComponentList.addAll( Arrays.asList(comps));
+			}
+			if( j2eeLibElementList.isEmpty() ){
+				Object[] comps = getComponentsInEar(true);
+				j2eeLibElementList.addAll( Arrays.asList(comps));
+			}			
+			// get all Classpath contributions to the Ear
+			cpComps = getCPComponentsInEar(false);
+			j2eeComponentList.addAll(Arrays.asList(cpComps));	
+			cpLibComps = getCPComponentsInEar(true);
+			j2eeLibElementList.addAll(Arrays.asList(cpLibComps));	
+			for (int i = 0; i < j2eeLibElementList.size(); i++) {
+				j2eeLibComponentSet.add(j2eeLibElementList.get(i));
+			}
 				
-		if( j2eeComponentList.isEmpty() ){
-			Object[] comps = getComponentsInEar();
-			j2eeComponentList.addAll( Arrays.asList(comps));
+		} else {
+			if( j2eeComponentList.isEmpty() ){
+				Object[] comps = getComponentsInEar(false);
+				j2eeComponentList.addAll( Arrays.asList(comps));
+			}
+			// get all Classpath contributions to the Ear
+			cpComps = getCPComponentsInEar(false);
+			j2eeComponentList.addAll(Arrays.asList(cpComps));			
 		}
-		// get all Classpath contributions to the Ear
-		final Object[] cpComps = getCPComponentsInEar();
-		j2eeComponentList.addAll(Arrays.asList(cpComps));
-
-		Object[] comps = j2eeComponentList.toArray();
-		
+		for (int i = 0; i < j2eeComponentList.size(); i++) {
+			j2eeComponentSet.add(j2eeComponentList.get(i));
+		}
+				
 		for( int i=0; i< items.length; i++ ){
 			Object element = items[i].getData();
 			if( element instanceof IVirtualComponent){
 				IVirtualComponent comp = (IVirtualComponent)element;
-				for( int j=0; j< comps.length; j++ ){
-					IVirtualComponent tempcomp = (IVirtualComponent)comps[j];
-					if( comp.equals(tempcomp)){
-						list.add(comp);
-					}
+				if (j2eeComponentSet.contains(comp)) {
+					list.add(comp);
 				}
-			}	
-		}
-
+				if (isVersion5) {
+					DoubleCheckboxTableItem dcbItem = (DoubleCheckboxTableItem)items[i]; 
+					boolean secondEnabled = dcbItem.getSecondEnabled();
+					if (shouldBeDisabled(comp) == secondEnabled) dcbItem.setSecondEnabled(!secondEnabled);						
+					dcbItem.setSecondChecked(j2eeLibComponentSet.contains(comp));
+					if (j2eeLibComponentSet.contains(comp)) list.add(comp);
+				}
+			}
+		}		
+		
 		availableComponentsViewer.setCheckedElements(list.toArray());
 		availableComponentsViewer.setGrayedElements(cpComps);
+		if (isVersion5) availableComponentsViewer.setGrayedElements(cpLibComps);
 
 	//	j2eeComponentList.addAll(list);
 		GridData btndata = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_BEGINNING);
@@ -734,6 +1046,28 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 
 	}
 
+	private boolean isConflict(IVirtualComponent lib) {
+		IProject earProject = earComponent.getProject();	
+		try {			
+			IVirtualComponent cmp = ComponentCore.createComponent(earProject);
+			IProject[] earRefProjects = earProject.getReferencedProjects();
+			for (int i = 0; i < earRefProjects.length; i++) {	
+				if (!J2EEProjectUtilities.isEARProject(earRefProjects[i]) &&
+						!earRefProjects[i].equals(lib.getProject())) {
+					IVirtualComponent cmp1 = ComponentCore.createComponent(earRefProjects[i]);
+					IVirtualReference[] refs = cmp1.getReferences();
+					for (int j = 0; j < refs.length; j++) {
+						if (refs[j].getReferencedComponent().getProject().equals(lib.getProject())) return true;
+					}
+				}	
+			}
+			return false;
+		} catch (CoreException ce) {
+			Logger.getLogger().log(ce);
+		}		
+		return false;
+	}	
+	
 	private void handleSelectProjectJarButton(){
 		IPath[] selected= BuildPathDialogAccess.chooseJAREntries(propPage.getShell(), project.getLocation(), new IPath[0]);
 	

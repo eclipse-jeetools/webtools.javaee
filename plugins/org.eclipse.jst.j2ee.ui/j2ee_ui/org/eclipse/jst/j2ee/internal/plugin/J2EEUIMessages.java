@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2008 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     IBM Corporation - initial API and implementation
+ *     Stefan Dimov, stefan.dimov@sap.com - bug 207826
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.plugin;
 
@@ -175,6 +176,10 @@ public class J2EEUIMessages extends Messages {
 	public final static String JAVA_CLASS_INHERIT_CHECKBOX_LABEL = getResourceString("JAVA_CLASS_INHERIT_CHECKBOX_LABEL"); //$NON-NLS-1$
 	public final static String ADD_BUTTON_LABEL = getResourceString("ADD_BUTTON_LABEL"); //$NON-NLS-1$
 	public static final String REMOVE_BUTTON = getResourceString("REMOVE_BUTTON"); //$NON-NLS-1$
+	public static final String YES_BUTTON = getResourceString("YES_BUTTON"); //$NON-NLS-1$
+	public static final String NO_BUTTON = getResourceString("NO_BUTTON"); //$NON-NLS-1$
+	public static final String OK_BUTTON = getResourceString("OK_BUTTON"); //$NON-NLS-1$
+	public static final String CANCEL_BUTTON = getResourceString("CANCEL_BUTTON"); //$NON-NLS-1$
 	public static final String BINARY = getResourceString("BINARY"); //$NON-NLS-1$
 	public final static String INTERFACE_SELECTION_DIALOG_TITLE = getResourceString("INTERFACE_SELECTION_DIALOG_TITLE"); //$NON-NLS-1$
 
@@ -185,6 +190,22 @@ public class J2EEUIMessages extends Messages {
 	public static final String EXTERNAL_JAR="EXTERNAL_JAR";//$NON-NLS-1$
 	public static final String PROJECT_JAR="PROJECT_JAR";//$NON-NLS-1$
 	public static final String ADDVARIABLE="ADDVARIABLE";//$NON-NLS-1$
+	public static final String CHANGE_LIB_DIR ="CHANGE_LIB_DIR";//$NON-NLS-1$
+	public static final String NO_DD_MSG_TITLE = "NO_DD_MSG_TITLE";//$NON-NLS-1$
+	public static final String GEN_DD_QUESTION = "GEN_DD_QUESTION";//$NON-NLS-1$
+
+	public static final String CHANGE_LIB_DIR_HEAD = "CHANGE_LIB_DIR_HEAD";//$NON-NLS-1$
+	public static final String NEW_LIB_DIR_PROPMPT = "NEW_LIB_DIR_PROPMPT";//$NON-NLS-1$
+	public static final String BLANK_LIB_DIR = "BLANK_LIB_DIR";//$NON-NLS-1$
+	public static final String BLANK_LIB_DIR_CONFIRM = "BLANK_LIB_DIR_CONFIRM";//$NON-NLS-1$
+	public static final String BLANK_LIB_DIR_WARN_QUESTION = "BLANK_LIB_DIR_WARN_QUESTION";//$NON-NLS-1$	
+	public static final String INVALID_PATH = "INVALID_PATH";//$NON-NLS-1$
+	public static final String INVALID_PATH_MSG = "INVALID_PATH_MSG";//$NON-NLS-1$
+	public static final String DEPENDENCY_CONFLICT_TITLE = "DEPENDENCY_CONFLICT_TITLE";//$NON-NLS-1$
+	public static final String DEPENDENCY_CONFLICT_MSG_1 = "DEPENDENCY_CONFLICT_MSG_1";//$NON-NLS-1$
+	public static final String DEPENDENCY_CONFLICT_MSG_2 = "DEPENDENCY_CONFLICT_MSG_2";//$NON-NLS-1$	
+	public static final String DO_NOT_SHOW_WARNING_AGAIN = "DO_NOT_SHOW_WARNING_AGAIN";//$NON-NLS-1$
+	
 	public static final String SUPPORTMULTIPLEMODULES="SUPPORTMULTIPLEMODULES";//$NON-NLS-1$
 	public static final String SOURCEFOLDER="SOURCEFOLDER";//$NON-NLS-1$
 	public static final String CONTENT_FOLDER = "102"; //$NON-NLS-1$

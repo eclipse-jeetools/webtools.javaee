@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2007 IBM Corporation and others.
+ * Copyright (c) 2001, 2008 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  * IBM Corporation - initial API and implementation
+ * Stefan Dimov, stefan.dimov@sap.com - bug 207826
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal;
 
@@ -97,6 +98,11 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String EJBJAR_SCHEMA_2_1_NS     =   "http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd";//$NON-NLS-1$
     String EJBJAR_SCHEMA_3_0        =   "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"; //$NON-NLS-1$ // EJB3
     String EJBJAR_SCHEMA_3_0_NS     =   "http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"; //$NON-NLS-1$ // EJB3
+    
+    // EAR constants
+    
+    String EAR_ROOT_DIR				=	"/";
+    String EAR_DEFAULT_LIB_DIR		=	"/lib";
     
     //Web app Constants
     /** "WebApp_ID"                                                                                                                 */

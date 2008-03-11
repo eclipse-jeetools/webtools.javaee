@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     IBM Corporation - initial API and implementation
+ *     Stefan Dimov, stefan.dimov@sap.com - bug 207826
  *******************************************************************************/
 /*
  * Created on Jan 17, 2005
@@ -17,6 +18,11 @@
 package org.eclipse.jst.j2ee.internal;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
@@ -27,6 +33,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModel;
 import org.eclipse.jst.j2ee.internal.listeners.IValidateEditListener;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -40,7 +47,13 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModelEvent;
+import org.eclipse.jst.j2ee.internal.dialogs.DependencyConflictResolveDialog;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 
 /**
  * @author jialin
@@ -73,6 +86,8 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	protected Button externalJarButton;
 	protected Button projectJarButton;
 	protected Button addVariableButton;	
+	
+	protected Set compsToUncheck = new HashSet();
 
 	/**
 	 * Constructor for ButtonBarManager.
@@ -347,17 +362,37 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 			return;
 		availableJARsViewer.setAllChecked(false);
 		model.setAllClasspathElementsSelected(false);
+		compsToUncheck.clear();
 	}
 
 	protected void selectAllButtonSelected() {
 		if (!validatateEdit())
 			return;
 		availableJARsViewer.setAllChecked(true);
-		model.setAllClasspathElementsSelected(Arrays.asList(availableJARsViewer.getCheckedElements()), true);
+		Object[] elements = availableJARsViewer.getCheckedElements(); 
+		model.setAllClasspathElementsSelected(Arrays.asList(elements), true);
+		for (int i = 0; i < elements.length; i++) {
+			ClasspathElement el = (ClasspathElement)elements[i];
+			el.getComponent().getAdapter(IVirtualComponent.class);
+			IVirtualComponent ar = el.getTargetComponent();
+			IVirtualComponent comp = (ar instanceof J2EEModuleVirtualArchiveComponent) ? ar : el.getComponent();
+			if (isLibrary(comp)) 
+				compsToUncheck.add(comp);
+		}
 	}
 
 	protected java.util.List getSelectionAsList() {
 		return ((IStructuredSelection) availableJARsViewer.getSelection()).toList();
+	}
+	
+	protected java.util.List getCheckedLibsAsList() {
+		List res = new LinkedList();
+		Iterator it = compsToUncheck.iterator();
+		while (it.hasNext()) {
+			IVirtualComponent comp = (IVirtualComponent)it.next();
+			res.add(comp);
+		}
+		return res;
 	}
 
 	protected void downButtonSelected() {
@@ -417,7 +452,40 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 		});
 	}
 
+	private boolean isLibrary(IVirtualComponent component) {
+		if (J2EEProjectUtilities.isApplicationClientComponent(component)) return false;
+		if (J2EEProjectUtilities.isEARProject(component.getProject()) && component.isBinary()) return true;
+		if (J2EEProjectUtilities.isEJBComponent(component)) return false;
+		if (J2EEProjectUtilities.isDynamicWebComponent(component)) return false;
+		if (J2EEProjectUtilities.isJCAComponent(component)) return false;
+		if (J2EEProjectUtilities.isStaticWebProject(component.getProject())) return false;
+		if (J2EEProjectUtilities.isProjectOfType(component.getProject(), IJ2EEFacetConstants.JAVA)) return true;
+		return true;
+	}			
+	
 	protected void availableJARCheckStateChanged(CheckStateChangedEvent event) {
+		ClasspathElement el = (ClasspathElement)event.getElement();
+		el.getComponent().getAdapter(IVirtualComponent.class);
+		IVirtualComponent ar = el.getTargetComponent();
+		IVirtualComponent comp = (ar instanceof J2EEModuleVirtualArchiveComponent) ? ar : el.getComponent();
+		CheckboxTableViewer v = (CheckboxTableViewer)event.getSource();
+		if (isLibrary(comp) && event.getChecked()) {
+			if (isConflict(comp)) {
+				DependencyConflictResolveDialog dlg = new DependencyConflictResolveDialog(PlatformUI.
+						getWorkbench().
+							getActiveWorkbenchWindow().
+								getShell(), 
+					  DependencyConflictResolveDialog.DLG_TYPE_1);
+				if (dlg.open() == dlg.BTN_ID_CANCEL) {
+					v.setChecked(el, false);
+					return;
+				}
+				
+			}
+			compsToUncheck.add(comp);
+		} else if (!event.getChecked()) {
+			compsToUncheck.remove(comp);
+		}
 		if (!J2EEProjectUtilities.isStandaloneProject(model.getComponent().getProject()) && (isReadOnly() || !validatateEdit() || (isMyClientJAR(event) && !event.getChecked()))) {
 			availableJARsViewer.setChecked(event.getElement(), !event.getChecked());
 			return;
@@ -426,6 +494,26 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 		model.setSelection(element, event.getChecked());
 	}
 
+	
+	private boolean isConflict(IVirtualComponent lib) {
+		IProject[] ears = J2EEProjectUtilities.getReferencingEARProjects(lib.getProject());
+		for (int i = 0; i < ears.length; i++) {
+			if (J2EEProjectUtilities.isJEEProject(ears[i])) {
+				IVirtualComponent cmp = ComponentCore.createComponent(ears[i]);
+				IVirtualReference[] refs = cmp.getReferences();
+				for (int j = 0; j < refs.length; j++) {	
+					if (model.getProject().equals(refs[j].getReferencedComponent().getProject())) {
+						IVirtualReference ref = cmp.getReference(lib.getName());
+						if (!ref.getRuntimePath().isRoot()) return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	
+	
 	/**
 	 * @param event
 	 * @return

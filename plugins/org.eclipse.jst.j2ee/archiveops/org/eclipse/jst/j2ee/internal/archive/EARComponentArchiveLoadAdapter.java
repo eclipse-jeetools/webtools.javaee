@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2008 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  * IBM Corporation - initial API and implementation
+ * Stefan Dimov, stefan.dimov@sap.com - bug 207826
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.archive;
 
@@ -77,7 +78,12 @@ public class EARComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 
 			try {
 				IArchive nestedModuleArchive = JavaEEArchiveUtilities.INSTANCE.openArchive(referencedComponent);
-				nestedModuleArchive.setPath(new Path(reference.getArchiveName()));
+				String sPath = reference.getArchiveName();
+				String srtp = reference.getRuntimePath().toString();
+				if (srtp.startsWith("" + IPath.SEPARATOR)) srtp = srtp.substring(1);
+				String spt = srtp + IPath.SEPARATOR + sPath;
+				if (spt.startsWith("" + IPath.SEPARATOR)) spt = spt.substring(1);
+				nestedModuleArchive.setPath(new Path(spt));
 				nestedModuleArchive.setArchive(archive);
 				filesHolder.addFile(nestedModuleArchive);
 

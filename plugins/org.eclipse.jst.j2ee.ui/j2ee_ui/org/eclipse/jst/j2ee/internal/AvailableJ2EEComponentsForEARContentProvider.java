@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2008 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,13 +7,8 @@
  *
  * Contributors:
  *     IBM Corporation - initial API and implementation
+ *     Stefan Dimov, stefan.dimov@sap.com - bug 207826
  *******************************************************************************/
-/*
- * Created on Mar 18, 2005
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 package org.eclipse.jst.j2ee.internal;
 
 import java.util.ArrayList;
@@ -183,11 +178,17 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 					name = comp.getName();
 				}
 				return name;
-			}
-			if( columnIndex == 1  )
+			} else if (columnIndex == 1) {
 				return comp.getProject().getName();
-		}else if(element instanceof IProject){
-			return ((IProject)element).getName();
+			} else if (columnIndex == 2) {
+				return "";
+			}
+		} else if (element instanceof IProject){
+			if (columnIndex != 2) {
+				return ((IProject)element).getName();
+			} else {
+				return "";
+			}
 		}		
 		return null;
 	}	
