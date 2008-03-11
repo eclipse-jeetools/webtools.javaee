@@ -27,5 +27,6 @@ Eclipse-LazyStart: true
 Bundle-Localization: plugin
 Bundle-Vendor: %Bundle-Vendor.0
 Export-Package: org.eclipse.jst.jee.ejb,
- org.eclipse.jst.jee.model.internal
+ org.eclipse.jst.jee.model.internal,
+ org.eclipse.jst.jee.model.internal.mergers
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
