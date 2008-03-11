@@ -17,7 +17,6 @@ import junit.textui.TestRunner;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.jst.validation.api.test.ApiTestsSuite;
 import org.eclipse.jst.validation.test.BVTValidationPlugin;
-import org.eclipse.wst.validation.tests.testcase.Framework;
 
 
 /**
@@ -60,7 +59,6 @@ public class AutomatedValidationBVT extends TestSuite {
         TestSuite suite = new TestSuite("Test for org.eclipse.jst.validation.test");
         //suite.addTest(BVTSuite.suite());
 		suite.addTest(ApiTestsSuite.suite());
-		suite.addTest(Framework.suite());
         return suite;
     }
 }
