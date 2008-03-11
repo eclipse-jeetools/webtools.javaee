@@ -14,16 +14,23 @@
  */
 package org.eclipse.jst.j2ee.ejb.internal.impl;
 
+import java.io.InputStream;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jst.j2ee.common.internal.impl.XMLResourceImpl;
+import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EJBResource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.model.translator.ejb.EJBJarTranslator;
+import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.internal.emf.resource.Renderer;
 import org.eclipse.wst.common.internal.emf.resource.Translator;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 /**
  * @author schacher
@@ -139,6 +146,8 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 				return J2EEVersionConstants.J2EE_1_3_ID;
 			case J2EEVersionConstants.EJB_2_1_ID :
 				return J2EEVersionConstants.J2EE_1_4_ID;
+			case J2EEVersionConstants.EJB_3_0_ID :
+				return J2EEVersionConstants.JEE_5_0_ID;
 			default :
 			return J2EEVersionConstants.J2EE_1_4_ID;
 		}
@@ -161,8 +170,13 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	public void setModuleVersionID(int id) {
 		super.setVersionID(id);
 		switch (id) {
+				case (EJB_3_0_ID) :
+					super.setDoctypeValues(null, null);
+					primSetVersionID(EJB_3_0_ID);
+					break;
 				case (EJB_2_1_ID) :
 					super.setDoctypeValues(null, null);
+					primSetVersionID(EJB_2_1_ID);
 					break;
 				case (EJB_2_0_ID) :
 					super.setDoctypeValues(getJ2EE_1_3_PublicID(), getJ2EE_1_3_SystemID());
@@ -181,6 +195,10 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	 */
 	public void setJ2EEVersionID(int id) {
 	switch (id) {
+		case (JEE_5_0_ID) :
+					primSetDoctypeValues(null, null);
+					primSetVersionID(EJB_3_0_ID);
+					break;
 		case (J2EE_1_4_ID) :
 					primSetDoctypeValues(null, null);
 					primSetVersionID(EJB_2_1_ID);
@@ -218,6 +236,34 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	public boolean isBatchMode() {
 		return renderer.isBatchMode();
 	}
+	public void setDoctypeValues(String publicId, String systemId) {
+		
+		int myVersion = J2EE_1_4_ID;
+		if (systemId == null) {
+			myVersion = primGetVersionID();
+			setModuleVersionID(myVersion);
+			return;
+		}
+		super.setDoctypeValues(publicId, systemId);
+		
+}
+
+private int primGetVersionID() {
+	IFile afile = WorkbenchResourceHelper.getFile(this);
+	InputStream in = null;
+	JavaEEQuickPeek quickPeek = null;
+	if (afile != null && afile.exists()) {
+		try {
+			in = afile.getContents();
+			quickPeek = new JavaEEQuickPeek(in);
+		}
+		catch (CoreException e) {
+			J2EECorePlugin.logError(e);
+		}
+	return quickPeek.getVersion();
+	}
+	return getModuleVersionID();
+}
 
 
 }
