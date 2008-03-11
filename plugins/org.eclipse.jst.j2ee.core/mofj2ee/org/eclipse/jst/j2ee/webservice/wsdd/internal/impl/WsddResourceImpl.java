@@ -11,12 +11,16 @@
 package org.eclipse.jst.j2ee.webservice.wsdd.internal.impl;
 
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jst.j2ee.common.internal.impl.XMLResourceImpl;
+import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.model.translator.webservices.WsddTranslator;
 import org.eclipse.jst.j2ee.webservice.internal.WebServiceConstants;
@@ -26,7 +30,6 @@ import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.internal.emf.resource.Renderer;
 import org.eclipse.wst.common.internal.emf.resource.Translator;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
-import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
 
 public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 {
@@ -222,7 +225,27 @@ private int primGetVersionID() {
 		catch (CoreException e) {
 			J2EECorePlugin.logError(e);
 		}
-	return quickPeek.getVersion();
+		return quickPeek.getVersion();
+	} else{
+		String path = getURI().devicePath();
+		try {
+			in = new FileInputStream(path);
+			if( in != null ){
+	
+				quickPeek = new JavaEEQuickPeek(in);
+				return quickPeek.getVersion();
+			}		
+		} catch (FileNotFoundException e1) {
+			J2EECorePlugin.logError(e1);
+		}finally{
+			if( in != null ){
+				try {
+					in.close();
+				} catch (IOException e) {
+					J2EECorePlugin.logError(e);
+				}
+			}
+		}
 	}
 	return getModuleVersionID();
 }
