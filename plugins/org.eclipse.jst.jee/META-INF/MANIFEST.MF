@@ -29,6 +29,8 @@ Export-Package: org.eclipse.jst.jee,
  org.eclipse.jst.jee.contenttype,
  org.eclipse.jst.jee.internal.deployables,
  org.eclipse.jst.jee.model.internal,
+ org.eclipse.jst.jee.model.internal.common,
+ org.eclipse.jst.jee.model.internal.mergers,
  org.eclipse.jst.jee.project.facet
 Bundle-Vendor: %Bundle-Vendor.0
 Bundle-Localization: plugin
