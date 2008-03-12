@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS type="org.eclipse.help.contexts"?>
+
+
+<contexts>
+<context id="messbw1100">
+<description>
+Specify the <b>Project</b> and <b>Folder</b> where the message – driven bean will be placed. The message – driven bean should be stored in the Java source directory, which you specified when you created the EJB Project (for example ejbModule).
+
+Specify the <b>Java package</b> that the class will belong to. <b>Note:</b> The bean class cannot be added into a default package.
+
+Specify the <b>Class name</b> of the message - driven bean (for example MyMessageBean).
+
+In the field <b>Superclass</b> specify the superclass for the message - driven bean, only if it is derived from one. Click <b>Browse</b> to choose from the available, already existing or created, superclasses. (This field is optional).
+
+In the field <b>Destination name</b> specify the global JNDI name of the Queue/Topic JMS Resource.
+
+Check <b>JMS</b> to specify the destination type of the Java Message Service (JMS):
+ <b>- Queue</b> is used as a destination for point–to–point messaging. 
+ <b>- Topic</b> is used as a destination for publish/subscribe messaging. 
+</description>
+<topic label="Creating Messsage-driven Beans" href="../org.eclipse.jst.ejb.doc.user/topics/messbwiz.html"/>
+<topic label="EJB 2.x architecture" href="../org.eclipse.jst.ejb.doc.user/topics/cearch.html"/>
+<topic label="EJB 2.x development resource" href="../org.eclipse.jst.ejb.doc.user/topics/ceresrc.html"/>
+</context>
+
+<context id="messbw1200">
+<description>
+Note that the <b>Class name</b> value provided in the first page of the wizard is automatically mapped to the <b>Bean name</b> field on this page.
+
+In the field <b>Transaction type</b> specify whether the transaction is handled by the <b>Container</b> or the <b>Bean</b>.
+
+Note that, if you specify the destination type of the JMS in the previous page of the wizard, the <b>javax.jms.MessageListener</b> interface is automatically mapped to the <b>Interfaces</b> field on this page. You can click the <b>Add</b> button to add additional interfaces to implement.
+
+If the <b>Inherited abstract methods</b> option is checked, it means that you want to override the methods provided by the interface, which is defined in the <b>Interfaces</b> field.
+
+Using the option <b>Constructors from superclass</b> you can choose whether to override the constructor of the class, which you specified as superclass in the first page of the wizard.
+</description>
+<topic label="Creating Messsage-driven Beans" href="../org.eclipse.jst.ejb.doc.user/topics/messbwiz.html"/>
+<topic label="EJB 2.x architecture" href="../org.eclipse.jst.ejb.doc.user/topics/cearch.html"/>
+<topic label="EJB 2.x development resource" href="../org.eclipse.jst.ejb.doc.user/topics/ceresrc.html"/>
+</context>
+
+</contexts>
