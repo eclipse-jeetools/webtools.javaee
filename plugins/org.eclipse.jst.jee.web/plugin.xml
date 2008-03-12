@@ -4,7 +4,8 @@
    <extension
         point="org.eclipse.jst.j2ee.J2EEModelProvider">
       	<provider>
-        	<modelProvider factoryClass="org.eclipse.jst.jee.model.internal.Web25MergedModelProviderFactory"/>	
+        	<!--<modelProvider factoryClass="org.eclipse.jst.jee.model.internal.Web25MergedModelProviderFactory"/>-->
+        	<modelProvider factoryClass="org.eclipse.jst.jee.model.internal.Web25ModelProviderFactory"/>	
       		<facet id="jst.web" versions="2.5"/>
       	</provider>
    </extension>
