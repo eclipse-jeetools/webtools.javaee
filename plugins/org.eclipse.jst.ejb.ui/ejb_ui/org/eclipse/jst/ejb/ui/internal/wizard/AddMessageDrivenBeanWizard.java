@@ -13,6 +13,7 @@ package org.eclipse.jst.ejb.ui.internal.wizard;
 import java.net.URL;
 
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jst.ejb.ui.context.ids.IEJBUIContextIds;
 import org.eclipse.jst.j2ee.ejb.internal.operations.NewMessageDrivenBeanClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -51,8 +52,10 @@ public class AddMessageDrivenBeanWizard extends NewEnterpriseBeanWizard {
 				IEjbWizardConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
 				IEjbWizardConstants.ADD_MESSAGE_DRIVEN_BEANS_WIZARD_PAGE_TITLE, 
 				J2EEProjectUtilities.EJB);
+		page1.setInfopopID(IEJBUIContextIds.EJB_MESSAGE_BEAN_WIZARD_ADD_MESSAGE_BEAN_PAGE_1);
 		addPage(page1);
 		page2 = new AddMessageDrivenBeanWizardPage(getDataModel(), PAGE_TWO);
+		page2.setInfopopID(IEJBUIContextIds.EJB_MESSAGE_BEAN_WIZARD_ADD_MESSAGE_BEAN_PAGE_2);
 		addPage(page2);
 	}
 
