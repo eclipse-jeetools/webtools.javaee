@@ -16,6 +16,7 @@
     </entry>
     <entry keyword="architecture overview">
       <topic href="topics/cearch.html#cearch" title="EJB architecture"/>
+      <topic href="topics/ejbarch.html#ejbarch" title="EJB 3.0 architecture"/>
     </entry>
     <entry keyword="projects">
       <entry keyword="creating">
@@ -43,6 +44,7 @@
   <entry keyword="architecture">
     <entry keyword="EJB">
       <topic href="topics/cearch.html#cearch" title="EJB architecture"/>
+      <topic href="topics/ejbarch.html#ejbarch" title="EJB 3.0 architecture"/>
     </entry>
   </entry>
   <entry keyword="resources">
@@ -61,12 +63,14 @@
     </entry>
     <entry keyword="creating session beans">
       <topic href="topics/tesessb.html#tesessb" title="Creating session beans with XDoclet annotation support"/>
+      <topic href="topics/sessbwiz.html#sessbwiz" title="Creating session beans"/>
     </entry>
     <entry keyword="creating entity beans">
       <topic href="topics/teentityb.html#temessb" title="Creating container-managed persistence (CMP) entity beans with XDoclet annotation support"/>
     </entry>
     <entry keyword="creating message-driven beans">
       <topic href="topics/temessb.html#temessb" title="Creating message-driven beans with XDoclet annotation support"/>
+      <topic href="topics/messbwiz.html#messbwiz" title="Creating message-driven beans"/>
     </entry>
     <entry keyword="configuring">
       <topic href="topics/txdocletconf.html#configuringxdocletannotationsupport" title="Configuring XDoclet annotation support"/>
@@ -75,6 +79,8 @@
   <entry keyword="session beans">
     <entry keyword="creating with XDoclet annotation support">
       <topic href="topics/tesessb.html#tesessb" title="Creating session beans with XDoclet annotation support"/>
+      <topic href="topics/sessbwiz.html#sessbwiz" title="Creating session beans"/>
+      <topic href="topics/sessb.html#sessb" title="Session beans"/>
     </entry>
   </entry>
   <entry keyword="CMP entity beans">
@@ -85,6 +91,8 @@
   <entry keyword="message-driven beans">
     <entry keyword="XDoclet annotation support">
       <topic href="topics/temessb.html#temessb" title="Creating message-driven beans with XDoclet annotation support"/>
+      <topic href="topics/messbwiz.html#messbwiz" title="Creating message-driven beans"/>
+      <topic href="topics/messb.html#messb" title="Message-driven beans"/>
     </entry>
   </entry>
   <entry keyword="Java annotation">

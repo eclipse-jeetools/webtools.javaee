@@ -18,4 +18,14 @@
 <topic label="Creating message-driven beans with XDoclet annotation support" href="topics/temessb.html"/>
 <topic label="Configuring XDoclet annotation support" href="topics/txdocletconf.html"/>
 </topic>
+<topic href="topics/ejbarch.html" label="EJB 3.0 architecture">
+   <topic href="topics/sessbwiz.html" label="Creating session beans">
+      <topic href="topics/sessb.html" label="Session beans">
+      </topic>
+   </topic>
+   <topic href="topics/messbwiz.html" label="Creating message-driven beans">
+      <topic href="topics/messb.html" label="Message-driven beans">
+      </topic>
+   </topic>
+</topic>
 </toc>

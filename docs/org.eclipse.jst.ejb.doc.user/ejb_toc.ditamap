@@ -29,6 +29,17 @@ type="task">
 type="task"></topicref>
 <topicref href="topics/txdocletconf.dita" navtitle="Configuring XDoclet annotation support"
 type="task"></topicref>
+<topicref href="topics/ejbarch.dita" navtitle="EJB 3.0 architecture"
+type="concept">
+<topicref href="topics/sessbwiz.dita" navtitle="Creating session beans" type="task">
+<topicref href="topics/sessb.dita" navtitle="Session beans" type="concept">
+</topicref>
+</topicref>
+<topicref href="topics/messbwiz.dita" navtitle="Creating message-driven beans" type="task">
+<topicref href="topics/messb.dita" navtitle="Message-driven beans"
+type="concept"></topicref>
+</topicref>
+</topicref>
 </topicref>
 </map>
 <?Pub *0000001550?>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
+ "task.dtd">
+<task id="sessbwiz" xml:lang="en-us">
+<title>Creating Session Beans</title>
+<shortdesc>You can use a wizard to create a session bean and add it to your
+project.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>session beans</indexterm><indexterm>creating
+session beans</keywords>
+</metadata></prolog>
+<taskbody>
+<context><p>The session bean wizard helps you create an Enterprise session bean by
+walking you through the creation process and by providing you with
+output files that you can use or that you can modify for use with your
+application.</p>
+<p>To create a session bean, complete the following steps:</p></context>
+<steps>
+<step><cmd>From the J2EE perspective, expand your  EJB project in the Project Explorer view.</cmd></step>
+<step><cmd>Right click on the <b>Session Bean</b> icon, and select <menucascade>
+<uicontrol>New</uicontrol><uicontrol>Session Bean</uicontrol></menucascade> from
+the pop-up menu.</cmd><stepresult> The <uicontrol>Create Session Bean</uicontrol> wizard
+appears.</stepresult></step>
+<step><cmd>Follow the project wizard prompts.</cmd></step>
+</steps>
+<postreq><p><b>General Information</b></p><dl><dlentry>
+<dt><b>State type</b></dt>
+<dd>A session beans are divided in two types: stateless session
+	beans and stateful session beans.<p> <ul>
+<li><b>Stateless session beans</b><br />
+ A stateless session bean is a collection of related services, each
+		represented by a method; the bean maintains no state from one method
+		invocation to the next. When you invoke a method on a stateless
+		session bean, it executes the method and returns the result without
+		knowing or caring what other requests have gone before or might
+		follow. Stateless session beans have longer lives because they do
+		not maintain any conversational state.</li>
+<li><b>Stateful session beans</b><br />
+A stateful session bean performs tasks on behalf of a client and
+		maintains state related to that client. This state is called
+		conversational state because it represents a continuing conversation
+		between the stateful session bean and the client. Methods invoked on a
+		stateful session bean can write and read data to and from this
+		conversational state, which is shared among all methods in the bean.
+		Stateful session beans have timeout periods.</li>
+</ul></p></dd>
+</dlentry></dl>
+<dl><dlentry>
+<dt><b>Business interface</b></dt>
+<dd>A business interface of a session bean is an ordinary Java
+	interface that contains the business methods for the bean. A reference
+	to a session bean's business interface can be passed as a
+	parameter or as a return value of a business interface method. It
+	contains methods to initialize a session bean's state and to notify the EJB
+	container when the reference is no more needed and can be removed. The
+	business interfaces are two types:<p> <ul>
+<li><b>Remote business interface:</b><br />
+ The client can run on a different machine or different Java virtual
+		machine than the enterprise bean it accesses and the location of the
+		bean is transparent.</li>
+<li><b>Local business interface:</b><br />
+The client must run on the same Java virtual machine as the bean it
+		accesses and the location of the enterprise bean is not transparent.</li>
+</ul></p></dd>
+</dlentry></dl>
+<dl><dlentry>
+<dt><b>Mapped name</b></dt>
+<dd>Specifies the bean's global JNDI name. The use of mappedName
+	attribute allows you to assign names which you can use to search the
+	EJB bean through the remote client.</dd>
+</dlentry></dl>
+<dl><dlentry>
+<dt><b>Transaction type</b></dt>
+<dd>The <b>Transaction type</b> field is used to specify
+	whether the transaction is handled by the <b>Container</b> or the <b>Bean</b>.</dd>
+</dlentry></dl>
+<dl><dlentry>
+<dt><b>Home and Components Interfaces</b></dt>
+<dd>Home and component interfaces are used only for EJB 2.x
+	session beans.<p> <ul>
+<li><b>Home interface:</b><br />
+ The home interface allows a client to create, remove and find
+		existing instances of enterprise beans.</li>
+<li><b>Component interface:</b><br />
+The component interface allows a client to access the business
+		methods of the enterprise bean.</li>
+</ul></p></dd>
+</dlentry></dl></postreq>
+</steps>
+</taskbody>
+</task>
+
