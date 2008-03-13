@@ -83,8 +83,8 @@ public class TestStandard extends TestCase {
 		return (JavaClass) JavaRefFactory.eINSTANCE.reflectType("org.eclipse.jem.tests.beaninfo.Test1Class", rset); //$NON-NLS-1$
 	}
 
-/*
-	public void testInit() {
+	public void testInit() { }
+/*		
 		JavaClass test1Class = getTest1Class();
 
 		// Test instantiate an instance.
