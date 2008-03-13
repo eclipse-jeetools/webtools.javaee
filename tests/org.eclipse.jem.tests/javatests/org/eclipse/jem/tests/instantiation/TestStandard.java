@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 //import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoNature;
-import org.eclipse.jem.internal.instantiation.InitStringAllocation;
+//import org.eclipse.jem.internal.instantiation.InitStringAllocation;
 import org.eclipse.jem.internal.instantiation.InstantiationFactory;
 import org.eclipse.jem.internal.instantiation.base.IJavaDataTypeInstance;
 import org.eclipse.jem.internal.instantiation.base.IJavaObjectInstance;
@@ -83,6 +83,7 @@ public class TestStandard extends TestCase {
 		return (JavaClass) JavaRefFactory.eINSTANCE.reflectType("org.eclipse.jem.tests.beaninfo.Test1Class", rset); //$NON-NLS-1$
 	}
 
+/*
 	public void testInit() {
 		JavaClass test1Class = getTest1Class();
 
@@ -128,7 +129,7 @@ public class TestStandard extends TestCase {
 		InitStringAllocation alloc = (InitStringAllocation) dtv.getAllocation();
 		assertEquals("true", alloc.getInitString());
 	}
-
+*/
 	protected IJavaObjectInstance setupInstance() {
 		// Setup the standard test instance without the assertions. For use in other tests.
 		JavaClass test1Class = getTest1Class();
