@@ -26,10 +26,7 @@ import org.eclipse.core.resources.IResourceProxyVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jdt.core.ICompilationUnit;
@@ -422,9 +419,9 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 	 * 
 	 */
 	public void dispose() {
-		Job disposeJob = new Job(Messages.getString("EJBAnnotationReader.DisposeEjbAnnotationReader")) { //$NON-NLS-1$
-			@Override
-			protected IStatus run(IProgressMonitor monitor) {
+//		Job disposeJob = new Job(Messages.getString("EJBAnnotationReader.DisposeEjbAnnotationReader")) { //$NON-NLS-1$
+//			@Override
+//			protected IStatus run(IProgressMonitor monitor) {
 				IModelProviderEvent modelEvent = createModelProviderEvent();
 				modelEvent.addResource(facetedProject.getProject());
 				modelEvent.setEventCode(modelEvent.getEventCode() | IModelProviderEvent.PRE_DISPOSE);
@@ -434,11 +431,10 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 				modelObject = null;
 				notifyListeners(modelEvent);
 				clearListeners();
-				return Status.OK_STATUS;
-			}
-
-		};
-		disposeJob.schedule();
+//				return Status.OK_STATUS;
+//	}
+//		};
+//		disposeJob.schedule();
 	}
 
 	/**

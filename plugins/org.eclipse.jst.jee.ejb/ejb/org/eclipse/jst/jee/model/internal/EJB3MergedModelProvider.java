@@ -113,11 +113,19 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 		 */
 		if (mergedModel == null)
 			getMergedModel();
+
+		EJBJar backup = mergedModel;
+		mergedModel = (EJBJar) ddProvider.getModelObject(); 
 		ddProvider.modify(runnable, modelPath);
+		if(isDisposed()){
+			return;
+		}
+		mergedModel = backup;
+		clearModel(mergedModel);
+
 		/*
 		 * Reload the model.
 		 */
-		mergedModel = null;
 		getMergedModel();
 	}
 
@@ -176,7 +184,7 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 	 * @return true if the model provider is to be treated as disposed
 	 */
 	protected boolean isDisposed() {
-		return ddProvider == null && contentReader == null;
+		return isOnceDisposed || (ddProvider == null && contentReader == null);
 	}
 
 	/**
@@ -194,11 +202,18 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 		ddProvider = null;
 		contentReader = null;
 		mergedModel = null;
+		isOnceDisposed = true;
 	}
 
 	@Override
 	protected EJBJar merge(EJBJar ddModel, EJBJar annotationsModel) {
-		mergedModel = (EJBJar) EjbFactory.eINSTANCE.createEJBJar();
+		if(mergedModel == null){
+			mergedModel = (EJBJar) EjbFactory.eINSTANCE.createEJBJar();
+		} else {
+			clearModel(mergedModel);
+
+		}
+
 		mergedModel.setEnterpriseBeans(EjbFactory.eINSTANCE.createEnterpriseBeans());
 		try {
 			EjbJarMerger merger = new EjbJarMerger(mergedModel, ddModel, ModelElementMerger.ADD);
@@ -209,6 +224,17 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 			e.printStackTrace();
 		}
 		return mergedModel;
+	}
+
+	private void clearModel(EJBJar jar) {
+		jar.setAssemblyDescriptor(null);
+		jar.setEnterpriseBeans(null);
+		jar.getDescriptions().clear();
+		jar.getDisplayNames().clear();
+		jar.setRelationships(null);
+		jar.setEjbClientJar(null);
+		jar.setInterceptors(null);
+		jar.getIcons().clear();
 	}
 
 }
