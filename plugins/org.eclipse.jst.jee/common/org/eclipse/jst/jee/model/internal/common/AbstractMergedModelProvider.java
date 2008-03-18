@@ -29,6 +29,8 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 
 	protected IModelProvider ddProvider;
 
+	protected boolean isOnceDisposed = false;
+
 	private class AnnotationModelListener implements IModelProviderListener {
 		public void modelsChanged(IModelProviderEvent event) {
 			AbstractMergedModelProvider.this.annotationModelChanged(event);
@@ -148,6 +150,7 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 		annotationModelListener = new AnnotationModelListener();
 		annotationModelProvider.addListener(annotationModelListener);
 		mergedModel = merge(ddModel, annotationModel);
+		isOnceDisposed = false;
 	}
 
 	protected void notifyListeners(IModelProviderEvent event) {

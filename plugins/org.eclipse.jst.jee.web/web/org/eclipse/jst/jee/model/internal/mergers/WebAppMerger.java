@@ -16,6 +16,8 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jst.j2ee.webapplication.WelcomeFile;
+import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.jst.javaee.core.Listener;
 import org.eclipse.jst.javaee.core.RunAs;
@@ -70,6 +72,9 @@ public class WebAppMerger  extends ModelElementMerger {
   @Override
   public List process() throws ModelException {
     List warnings = new ArrayList();
+    if(getToMergeWebApp() == null || getBaseWebApp() == null){
+      return warnings;
+    }
     try {
       mergeServlets(warnings);
       mergeFilters(warnings);
@@ -176,46 +181,46 @@ public class WebAppMerger  extends ModelElementMerger {
     copyJavaEEGroup();
 
     if (getToMergeWebApp().getContextParams() != null && getToMergeWebApp().getContextParams().size() > 0){
-      copyAllContentInBase(getToMergeWebApp().getContextParams(), getBaseWebApp().getContextParams());
+      copyMissingContentInBase(getToMergeWebApp().getContextParams(), getBaseWebApp().getContextParams());
     }
 
     if (getToMergeWebApp().getDistributables() != null){
-      copyAllContentInBase(getToMergeWebApp().getDistributables(), getBaseWebApp().getDistributables());
+      copyMissingContentInBase(getToMergeWebApp().getDistributables(), getBaseWebApp().getDistributables());
     }
 
     if (getToMergeWebApp().getErrorPages() != null){
-      copyAllContentInBase(getToMergeWebApp().getErrorPages(), getBaseWebApp().getErrorPages());
+      copyMissingContentInBase(getToMergeWebApp().getErrorPages(), getBaseWebApp().getErrorPages());
     }
 
     if (getToMergeWebApp().getJspConfigs() != null){
-      copyAllContentInBase(getToMergeWebApp().getJspConfigs(), getBaseWebApp().getJspConfigs());
+      copyMissingContentInBase(getToMergeWebApp().getJspConfigs(), getBaseWebApp().getJspConfigs());
     }
 
     if (getToMergeWebApp().getLocalEncodingMappingsLists() != null){
-      copyAllContentInBase(getToMergeWebApp().getLocalEncodingMappingsLists(), getBaseWebApp().getLocalEncodingMappingsLists());
+      copyMissingContentInBase(getToMergeWebApp().getLocalEncodingMappingsLists(), getBaseWebApp().getLocalEncodingMappingsLists());
     }
 
 
     if (getToMergeWebApp().getLoginConfigs() != null){
-      copyAllContentInBase(getToMergeWebApp().getLoginConfigs(), getBaseWebApp().getLoginConfigs());
+      copyMissingContentInBase(getToMergeWebApp().getLoginConfigs(), getBaseWebApp().getLoginConfigs());
     }
 
 
     if (getToMergeWebApp().getMessageDestinations() != null){
-      copyAllContentInBase(getToMergeWebApp().getMessageDestinations(), getBaseWebApp().getMessageDestinations());
+      copyMissingContentInBase(getToMergeWebApp().getMessageDestinations(), getBaseWebApp().getMessageDestinations());
     }
 
 
     if (getToMergeWebApp().getMimeMappings() != null){
-      copyAllContentInBase(getToMergeWebApp().getMimeMappings(), getBaseWebApp().getMimeMappings());
+      copyMissingContentInBase(getToMergeWebApp().getMimeMappings(), getBaseWebApp().getMimeMappings());
     }
 
     if (getToMergeWebApp().getSessionConfigs() != null){
-      copyAllContentInBase(getToMergeWebApp().getSessionConfigs(), getBaseWebApp().getSessionConfigs());
+      copyMissingContentInBase(getToMergeWebApp().getSessionConfigs(), getBaseWebApp().getSessionConfigs());
     }
 
     if (getToMergeWebApp().getWelcomeFileLists() != null){
-      copyAllContentInBase(getToMergeWebApp().getWelcomeFileLists(), getBaseWebApp().getWelcomeFileLists());
+      copyMissingContentInBase(getToMergeWebApp().getWelcomeFileLists(), getBaseWebApp().getWelcomeFileLists());
     }
 
 
@@ -251,6 +256,14 @@ public class WebAppMerger  extends ModelElementMerger {
         if(((Filter) targetArtifact).getFilterName().equals(((Filter)javaEEObject).getFilterName())){
           return true;
         }
+      } else if (javaEEObject instanceof Description){
+        if(((Description) targetArtifact).getValue().equals(((Description)javaEEObject).getValue())){
+          return true;
+        }
+      } else if (javaEEObject instanceof WelcomeFile){
+        if(((WelcomeFile) targetArtifact).getWelcomeFile().equals(((WelcomeFile)javaEEObject).getWelcomeFile())){
+          return true;
+        }
       }
         
       
@@ -269,6 +282,10 @@ public class WebAppMerger  extends ModelElementMerger {
 
     if (getToMergeWebApp().getIcons() != null){
       copyAllContentInBase(getToMergeWebApp().getIcons(), getBaseWebApp().getIcons());
+    }
+    
+    if (getToMergeWebApp().isSetVersion()){
+      getBaseWebApp().setVersion(getToMergeWebApp().getVersion());
     }
   }
 

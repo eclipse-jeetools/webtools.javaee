@@ -57,7 +57,7 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 	}
 
 	private WebApp getAnnotationWebApp() {
-		return (WebApp) annotationReader.getModelObject();
+		return (WebApp) getAnnotationReader().getModelObject();
 	}
 
 	private WebApp getXmlWebApp() {
@@ -79,13 +79,60 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 		 * the model is becoming the ddModel. After modifying the model is
 		 * unloaded.
 		 */
-		mergedModel = (WebApp) ddProvider.getModelObject();
+		WebApp backup = mergedModel;
+		mergedModel = (WebApp) ddProvider.getModelObject(); 
 		ddProvider.modify(runnable, modelPath);
-		
-		/*
-		 * Reload the model next time it is wanted.
-		 */
-		mergedModel = null;
+		if(isDisposed()){
+			return;
+		}
+		mergedModel = backup;
+		clearModel(mergedModel);
+		try {
+			WebAppMerger merger = new WebAppMerger(mergedModel,(WebApp) ddProvider.getModelObject(), ModelElementMerger.ADD);
+			merger.process();
+			merger = new WebAppMerger(mergedModel, getAnnotationWebApp(), ModelElementMerger.ADD);
+			merger.process();
+		} catch (ModelException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private void clearModel(WebApp app) {
+		if(app == null){
+			return;
+		}
+		app.getContextParams().clear();
+		app.getDescriptions().clear();
+		app.getDisplayNames().clear();
+		app.getDistributables().clear();
+		app.getEjbLocalRefs().clear();
+		app.getEjbRefs().clear();
+		app.getEnvEntries().clear();
+		app.getErrorPages().clear();
+		app.getFilterMappings().clear();
+		app.getFilters().clear();
+		app.getIcons().clear();
+		app.getJspConfigs().clear();
+		app.getListeners().clear();
+		app.getLocalEncodingMappingsLists().clear();
+		app.getLoginConfigs().clear();
+		app.getMessageDestinationRefs().clear();
+		app.getMessageDestinations().clear();
+		app.getMimeMappings().clear();
+		app.getPersistenceContextRefs().clear();
+		app.getPersistenceUnitRefs().clear();
+		app.getPostConstructs().clear();
+		app.getPreDestroys().clear();
+		app.getResourceEnvRefs().clear();
+		app.getResourceRefs().clear();
+		app.getSecurityConstraints().clear();
+		app.getSecurityRoles().clear();
+		app.getServiceRefs().clear();
+		app.getServletMappings().clear();
+		app.getServlets().clear();
+		app.getSessionConfigs().clear();
+		app.getWelcomeFileLists().clear();
 	}
 
 	protected void annotationModelChanged(IModelProviderEvent event) {
@@ -93,7 +140,14 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 	}
 
 	protected void xmlModelChanged(IModelProviderEvent event) {
-		internalModelChanged(event);
+		if (isDisposed())
+			return;
+		if (shouldDispose(event)) {
+			dispose();
+			notifyListeners(event);
+			return;
+		}
+		notifyListeners(event);
 	}
 
 	/*
@@ -122,7 +176,8 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 	 * @return true if the model provider is to be treated as disposed
 	 */
 	protected boolean isDisposed() {
-		return ddProvider == null && annotationReader == null;
+
+		return isOnceDisposed || ddProvider == null && annotationReader == null;
 	}
 
 	/**
@@ -140,14 +195,24 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 		ddProvider = null;
 		annotationReader = null;
 		mergedModel = null;
+		isOnceDisposed = true;
 	}
 
 	@Override
 	protected WebApp merge(WebApp ddModel, WebApp annotationsModel) {
-		mergedModel = (WebApp) WebFactory.eINSTANCE.createWebApp();
+
 		try {
-			WebAppMerger merger = new WebAppMerger(mergedModel, ddModel, ModelElementMerger.ADD);
+			WebAppMerger merger;
+			if(mergedModel == null){
+				mergedModel = (WebApp) WebFactory.eINSTANCE.createWebApp();
+			} else {
+				clearModel(mergedModel);
+
+			}
+			merger = new WebAppMerger(mergedModel, ddModel, ModelElementMerger.ADD);
 			merger.process();
+
+
 			merger = new WebAppMerger(mergedModel, annotationsModel, ModelElementMerger.ADD);
 			merger.process();
 		} catch (ModelException e) {
@@ -155,4 +220,18 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 		}
 		return mergedModel;
 	}
+
+	private WebAnnotationReader getAnnotationReader() {
+		if(annotationReader == null){
+			try {
+				loadModel();
+			} catch (CoreException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return annotationReader;
+	}
+
+
 }
