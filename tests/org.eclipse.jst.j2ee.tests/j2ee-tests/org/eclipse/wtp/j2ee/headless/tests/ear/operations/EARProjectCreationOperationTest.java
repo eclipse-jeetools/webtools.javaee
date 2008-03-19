@@ -170,7 +170,7 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
     	IDataModel dm = getEARDataModel("yourEAR", "ourContent", null, null, JavaEEFacetConstants.EAR_5, true);
     	OperationTestCase.runAndVerify(dm);
     }
-/*    
+    
     public void testEAR50_WithDependencies_WithDD() throws Exception{
     	IDataModel dm = getEARDataModel("anEAR", null, getJ2EEDependencyList_5(), getJavaDependencyList_5(), JavaEEFacetConstants.EAR_5, true);
     	OperationTestCase.runAndVerify(dm);
@@ -180,7 +180,6 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
     	IDataModel dm = getEARDataModel("theirEAR", "gotContent", getJ2EEDependencyList_5(), getJavaDependencyList_5(), JavaEEFacetConstants.EAR_5, true);
     	OperationTestCase.runAndVerify(dm);
     }
-*/
     
     /**
      * Creates and returns an EAR Data Model with the given name and of the given version 
