@@ -38,12 +38,12 @@ public class REMConnection implements IREMConnection, IREMExpressionConnection {
 	protected Socket fSocket = null;
 	protected DataInputStream in = null;
 	protected DataOutputStream out = null;
-	private static final int TIME_OUT = 1000 * 30;	// Wait up to half minute before timeout.
+	private static final int TIME_OUT = 1000 * 60;	// Wait up to a minute before timeout.
 	
 	public REMConnection(Socket socket, boolean noTimeouts) {
 		try {
 			fSocket = socket;
-			fSocket.setSoLinger(true, 10);	// Wait 10 seconds if necessary for the final stuff to go out after closing.
+			fSocket.setSoLinger(true, 30);	// Wait 30 seconds if necessary for the final stuff to go out after closing.
 			if (!noTimeouts)
 				fSocket.setSoTimeout(TIME_OUT);	// Timeout period
 			Integer bufSize = Integer.getInteger("proxyvm.bufsize"); //$NON-NLS-1$
