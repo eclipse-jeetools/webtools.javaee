@@ -45,6 +45,12 @@ public class Messages extends NLS {
 	public static String RESOURCE_ENVIROMENT_ENTRIES;
 	public static String RESOURCE_REFERENCES;
 	public static String SERVICE_REFERENCES;
+	public static String AddProjectToEARDropAssistant_The_dragged_project_cannot_be_added_;
+	public static String AddProjectToEARDropAssistant_The_project_0_cannot_be_accesse_;
+	public static String AddProjectToEARDropAssistant_Could_not_add_module_to_Enterprise_;
+	public static String AddModuleToEarDropAssistant_Adding_module_to_ea_;
+	public static String ImportJEEModuleDropAssistant_Importing_Java_Enterprise_Edition_artifacts;
+	public static String ImportJEEModuleDropAssistant_Could_not_recognize_extension_0_;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

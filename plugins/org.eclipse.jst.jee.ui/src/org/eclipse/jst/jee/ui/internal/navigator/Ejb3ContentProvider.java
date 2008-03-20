@@ -59,7 +59,7 @@ public class Ejb3ContentProvider extends J2EEContentProvider implements IModelPr
   private static HashMap<IProject, IModelProvider> groupProvidersMap = new HashMap<IProject, IModelProvider>();
 
   public Object[] getChildren(Object aParentElement) {
-
+ 
     List<Object> children = new ArrayList<Object>();
     IProject project = null;
 
@@ -275,5 +275,10 @@ public class Ejb3ContentProvider extends J2EEContentProvider implements IModelPr
     projectChanged(event.getProject());
 
   }
+
+@Override
+public void dispose() {
+	groupProvidersMap.clear();
+}
 
 }

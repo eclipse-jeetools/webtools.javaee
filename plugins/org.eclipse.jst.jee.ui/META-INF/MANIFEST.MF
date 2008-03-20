@@ -34,7 +34,9 @@ Require-Bundle: org.eclipse.ui;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.emf.edit;bundle-version="2.4.0",
  org.eclipse.jst.j2ee.navigator.ui;bundle-version="1.1.102",
  org.eclipse.emf.edit.ui;bundle-version="2.4.0",
- org.eclipse.ui.navigator.resources;bundle-version="3.3.100"
+ org.eclipse.ui.navigator.resources;bundle-version="3.3.100",
+ org.eclipse.jst.common.frameworks;bundle-version="1.1.102",
+ org.eclipse.jst.j2ee.jca;bundle-version="1.1.200"
 Eclipse-LazyStart: true
 Bundle-Localization: plugin
 Bundle-Vendor: %Bundle-Vendor.0

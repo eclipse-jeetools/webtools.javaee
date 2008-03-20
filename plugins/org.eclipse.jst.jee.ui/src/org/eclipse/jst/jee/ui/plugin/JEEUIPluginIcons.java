@@ -19,5 +19,7 @@ public class JEEUIPluginIcons {
 	public static String REMOTE_HOME = "ovr/home_ovr"; //$NON-NLS-1$
 	public static String LOCAL = "ovr/local_ovr"; //$NON-NLS-1$
 	public static String LOCAL_HOME = "ovr/local_home_ovr"; //$NON-NLS-1$
+	public static String EAR_IMAGE="ear_50"; //$NON-NLS-1$
+	public static String APP_CLIENT50="appclient_50"; //$NON-NLS-1$
 
 }

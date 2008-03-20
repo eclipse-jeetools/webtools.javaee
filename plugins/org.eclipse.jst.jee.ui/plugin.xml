@@ -303,6 +303,18 @@
 		    </or>
          </enablement>         		   		
       </objectContribution>
+      <objectContribution
+            id="show_dep_prop_page"
+            nameFilter="*"
+            objectClass="org.eclipse.jst.jee.ui.internal.navigator.ear.ModulesNode">
+         <action
+               class="org.eclipse.jst.jee.ui.internal.navigator.ear.ShowDepPropPageAction"
+               enablesFor="1"
+               id="show_dep_prop_page"
+               label="Add/Remove"
+               menubarPath="additions">
+         </action>
+      </objectContribution>
    </extension>
    
    <!--
@@ -346,6 +358,9 @@
    <instanceof
          value="org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider">
    </instanceof>
+   <instanceof
+         value="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+   </instanceof>
         </or>
      </triggerPoints>
      <possibleChildren>
@@ -373,6 +388,12 @@
               <instanceof
                     value="org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider">
               </instanceof>
+              <instanceof
+                    value="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+              </instanceof>
+              <instanceof
+                    value="org.eclipse.jst.jee.ui.internal.navigator.appclient.GroupAppClientProvider">
+              </instanceof>
            </or>
         </enablement>
      </actionProvider>
@@ -395,6 +416,9 @@
        </instanceof>
        <instanceof
              value="org.eclipse.jst.jee.ui.internal.navigator.web.AbstractSubWebProviders">
+       </instanceof>
+       <instanceof
+             value="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
        </instanceof></or>
 			</enablement>
 	 </actionProvider>
@@ -601,6 +625,149 @@
            </or></enablement>
      </commonWizard>
   </navigatorContent>
+  <navigatorContent
+        activeByDefault="true"
+        contentProvider="org.eclipse.jst.jee.ui.internal.navigator.Ear5ContentProvider"
+        id="org.eclipse.jst.navigator.j2ee.ui.ear50"
+        labelProvider="org.eclipse.jst.jee.ui.internal.navigator.Ear5LabelProvider"
+        name="JEE Navigator Content EAR"
+        priority="highest">
+     <triggerPoints>
+        <or>
+           <instanceof
+                 value="org.eclipse.core.resources.IProject">
+           </instanceof>
+           <adapt
+                 type="org.eclipse.core.resources.IProject">
+              <test
+                    forcePluginActivation="true"
+                    property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                    value="jst.ear:5.0">
+              </test>
+           </adapt>
+           <instanceof
+                 value="org.eclipse.jst.jee.ui.internal.navigator.ear.ModulesNode">
+           </instanceof>
+           <instanceof
+                 value="org.eclipse.jst.jee.navigator.internal.BundledLibsNode">
+           </instanceof>
+        </or>
+     </triggerPoints>
+     <possibleChildren>
+        <or>
+           <instanceof
+                 value="java.io.File">
+           </instanceof>
+           <instanceof
+                 value="org.eclipse.jst.jee.ui.internal.navigator.ear.ModulesNode">
+           </instanceof>
+           <adapt
+                 type="org.eclipse.core.resources.IProject">
+              <or>
+                 <test
+                       forcePluginActivation="true"
+                       property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                       value="jst.web">
+                 </test>
+                 <test
+                       forcePluginActivation="true"
+                       property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                       value="jst.ejb">
+                 </test>
+                 <test
+                       forcePluginActivation="true"
+                       property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                       value="jst.utility">
+                 </test>
+                 <test
+                       forcePluginActivation="true"
+                       property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                       value="jst.ear">
+                 </test>
+                 <test
+                       forcePluginActivation="true"
+                       property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                       value="jst.appclient">
+                 </test>
+                 <test
+                       forcePluginActivation="true"
+                       property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                       value="jst.connector">
+                 </test>
+              </or>
+           </adapt>
+        </or>
+     </possibleChildren>
+     <commonSorter
+           class="org.eclipse.jst.j2ee.navigator.internal.ApplicationViewerSorter"
+           id="org.eclipse.jst.jee.navigator.internal.ApplicationViewerSorter">
+     </commonSorter>
+     <dropAssistant
+           class="org.eclipse.jst.jee.ui.internal.navigator.dnd.AddProjectToEARDropAssistant"
+           id="org.eclipse.jst.jee.navigator.ui.AddModulesToEAR">
+        <possibleDropTargets>
+           <or>
+              <adapt
+                    type="org.eclipse.core.resources.IProject">
+                 <test
+                       forcePluginActivation="true"
+                       property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                       value="jst.ear">
+                 </test>
+              </adapt>
+              <instanceof
+                    value="org.eclipse.jst.javaee.application.Application">
+              </instanceof>
+              <instanceof
+                    value="org.eclipse.jst.jee.ui.internal.navigator.ear.ModulesNode">
+              </instanceof>
+           </or>
+        </possibleDropTargets>
+     </dropAssistant>
+  </navigatorContent>
+  <navigatorContent
+        activeByDefault="true"
+        contentProvider="org.eclipse.jst.jee.ui.internal.navigator.AppClient5ContentProvider"
+        id="org.eclipse.jst.navigator.j2ee.ui.appclient50"
+        labelProvider="org.eclipse.jst.jee.ui.internal.navigator.AppClient5LabelProvider"
+        name="JEE Navigator Content App Client"
+        priority="highest">
+     <triggerPoints>
+        <or>
+           <instanceof
+                 value="org.eclipse.core.resources.IProject">
+           </instanceof>
+           <adapt
+                 type="org.eclipse.core.resources.IProject">
+              <test
+                    forcePluginActivation="true"
+                    property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                    value="jst.appclient:5.0">
+              </test>
+           </adapt>
+           <instanceof
+                 value="org.eclipse.jst.javaee.core.JavaEEObject">
+           </instanceof>
+        </or>
+     </triggerPoints>
+     <possibleChildren>
+        <or>
+           <instanceof
+                 value="org.eclipse.jst.javaee.core.JavaEEObject">
+           </instanceof>
+           <adapt
+                 type="org.eclipse.core.resources.IProject">
+              <or>
+                 <test
+                       forcePluginActivation="true"
+                       property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                       value="jst.appclient:5.0">
+                 </test>
+              </or>
+           </adapt>
+        </or>
+     </possibleChildren>
+  </navigatorContent>
 	</extension>
    <extension
          point="org.eclipse.wst.server.core.moduleArtifactAdapters">
@@ -693,4 +860,57 @@
          </description>
       </decorator>
    </extension>  
+      <extension
+   		 point="org.eclipse.ui.navigator.viewer">
+      <viewerContentBinding
+         viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+           <contentExtension pattern="org.eclipse.jst.navigator.jee.ui.*"/>
+           <contentExtension pattern="org.eclipse.jst.jee.navigator.ui.filters.*"/>
+         </includes>
+      </viewerContentBinding>
+   </extension>
+   
+      
+<!-- ====================================================== -->
+<!--           Label Decorators                             -->
+<!-- ====================================================== -->
+   <extension
+         point="org.eclipse.ui.decorators">
+      <decorator
+            adaptable="true"
+            location="TOP_LEFT"
+            lightweight="true"
+            label="%jeeProjectDecorator"
+            state="true"
+            class="org.eclipse.jst.j2ee.navigator.internal.J2EEProjectDecorator"
+            id="org.eclipse.jst.jee.navigator.internal.JEEProjectDecorator">
+         <enablement>
+           <or>
+            <objectClass name="org.eclipse.core.resources.IProject"/>
+            <objectClass name="org.eclipse.jdt.core.IJavaProject"/>
+           </or>
+         </enablement>
+         <description>
+            %jeeProjectDecorator.description
+         </description>
+      </decorator>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.decorators">
+      <decorator
+            adaptable="true"
+            label="%RESOURCE_DECORATOR"
+            state="true"
+            class="org.eclipse.jdt.ui.ProblemsLabelDecorator"
+            id="org.eclipse.jst.jee.navigator.ui.java.resource.decorator">
+            <enablement>
+                <objectClass name="org.eclipse.core.resources.IResource"/> 
+            </enablement>
+      </decorator>
+   </extension>  
+      
+      
+      
    </plugin>

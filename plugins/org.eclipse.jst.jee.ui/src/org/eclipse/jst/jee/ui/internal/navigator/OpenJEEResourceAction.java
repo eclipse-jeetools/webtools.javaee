@@ -37,6 +37,8 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.jst.javaee.ejb.SessionBean;
+import org.eclipse.jst.jee.ui.internal.navigator.appclient.GroupAppClientProvider;
+import org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanInterfaceNode;
 import org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanNode;
 import org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider;
@@ -215,7 +217,18 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 			if (file.isAccessible()){				
 				openAppropriateEditor(file);
 			}
-		} else if (srcObject instanceof Resource)
+		} else if (srcObject instanceof GroupEARProvider) {
+			IFile file = ((GroupEARProvider) srcObject).getDDFile();
+			if (file.isAccessible()){
+				openAppropriateEditor(file);
+			}
+		}
+		 else if (srcObject instanceof GroupAppClientProvider) {
+				IFile file = ((GroupAppClientProvider) srcObject).getDDFile();
+				if (file.isAccessible()){
+					openAppropriateEditor(file);
+				}
+			}else if (srcObject instanceof Resource)
 			openAppropriateEditor(WorkbenchResourceHelper
 					.getFile((Resource) srcObject));
 	}
@@ -266,6 +279,30 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 			IContentType contentType = IDE.getContentType(file);
 			currentDescriptor = registry.getDefaultEditor(file.getName(),
 					contentType);
+		} else if (obj instanceof GroupEARProvider) {
+			IFile file = ((GroupEARProvider) obj).getDDFile();
+			if (file.isAccessible()){
+				IEditorRegistry registry = PlatformUI.getWorkbench()
+				.getEditorRegistry();
+				IContentType contentType = IDE.getContentType(file);
+				currentDescriptor = registry.getDefaultEditor(file.getName(),
+						contentType);
+			}else{
+				currentDescriptor = null;
+				return false;
+			}
+		} else if (obj instanceof GroupAppClientProvider) {
+			IFile file = ((GroupAppClientProvider) obj).getDDFile();
+			if (file.isAccessible()){
+				IEditorRegistry registry = PlatformUI.getWorkbench()
+				.getEditorRegistry();
+				IContentType contentType = IDE.getContentType(file);
+				currentDescriptor = registry.getDefaultEditor(file.getName(),
+						contentType);
+			}else{
+				currentDescriptor = null;
+				return false;
+			}
 		} else if (obj instanceof WebAppProvider) {
 			IFile file = ((WebAppProvider) obj).getDDFile();
 			if (file.isAccessible()){
@@ -276,42 +313,42 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 						contentType);
 			}
 		} else if (obj instanceof BeanNode) {
-		  
-		  IEditorRegistry registry = PlatformUI.getWorkbench()
-          .getEditorRegistry();
-		  JavaEEObject enterpriseBean = ((BeanNode) obj).getEnterpriseBean();
-          IFile file = WorkbenchResourceHelper.getFile((EObject)enterpriseBean);
-          if (file != null) {
-              IContentType contentType = IDE.getContentType(file);
-              currentDescriptor = registry.getDefaultEditor(file.getName(),
-                      contentType);
-          } else {
-              if(((EObject) enterpriseBean).eResource() != null){
-                  String name = (new Path(((EObject) enterpriseBean).eResource().getURI()
-                          .toString())).lastSegment();
-                  currentDescriptor = registry.getDefaultEditor(name, null);
-              }
-          }      
-          } else  if (obj instanceof BeanInterfaceNode) {
-            
-            IEditorRegistry registry = PlatformUI.getWorkbench()
-            .getEditorRegistry();
-            JavaEEObject beanInterface = (JavaEEObject) ((BeanInterfaceNode) obj).getAdapterNode();
-            IFile file = WorkbenchResourceHelper.getFile((EObject)beanInterface);
-            if (file != null) {
-                IContentType contentType = IDE.getContentType(file);
-                currentDescriptor = registry.getDefaultEditor(file.getName(),
-                        contentType);
-            } else {
-                if(((EObject) beanInterface).eResource() != null){
-                    String name = (new Path(((EObject) beanInterface).eResource().getURI()
-                            .toString())).lastSegment();
-                    currentDescriptor = registry.getDefaultEditor(name, null);
-                }
-            }      
-            } else {
-			currentDescriptor = null;
-			return false;
+
+			IEditorRegistry registry = PlatformUI.getWorkbench()
+			.getEditorRegistry();
+			JavaEEObject enterpriseBean = ((BeanNode) obj).getEnterpriseBean();
+			IFile file = WorkbenchResourceHelper.getFile((EObject)enterpriseBean);
+			if (file != null) {
+				IContentType contentType = IDE.getContentType(file);
+				currentDescriptor = registry.getDefaultEditor(file.getName(),
+						contentType);
+			} else {
+				if(((EObject) enterpriseBean).eResource() != null){
+					String name = (new Path(((EObject) enterpriseBean).eResource().getURI()
+							.toString())).lastSegment();
+					currentDescriptor = registry.getDefaultEditor(name, null);
+				}
+			}      
+		} else  if (obj instanceof BeanInterfaceNode) {
+
+			IEditorRegistry registry = PlatformUI.getWorkbench()
+			.getEditorRegistry();
+			JavaEEObject beanInterface = (JavaEEObject) ((BeanInterfaceNode) obj).getAdapterNode();
+			IFile file = WorkbenchResourceHelper.getFile((EObject)beanInterface);
+			if (file != null) {
+				IContentType contentType = IDE.getContentType(file);
+				currentDescriptor = registry.getDefaultEditor(file.getName(),
+						contentType);
+			} else {
+				if(((EObject) beanInterface).eResource() != null){
+					String name = (new Path(((EObject) beanInterface).eResource().getURI()
+							.toString())).lastSegment();
+					currentDescriptor = registry.getDefaultEditor(name, null);
+				} else {
+					currentDescriptor = null;
+					return false;
+				}
+			}
 		}
 		setAttributesFromDescriptor();
 		srcObject = obj;

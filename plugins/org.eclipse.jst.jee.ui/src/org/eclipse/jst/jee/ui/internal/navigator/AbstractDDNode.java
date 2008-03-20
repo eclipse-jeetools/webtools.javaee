@@ -16,8 +16,8 @@ import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.swt.graphics.Image;
 
 /**
- * Abstract Deployment Descriptor Node is an abstract wraper class for the nodes in the Deployment
- * Descriptor it can contain information for the label provider some description fot tool tip, an image
+ * Abstract Deployment Descriptor Node is an abstract wrapper class for the nodes in the Deployment
+ * Descriptor it can contain information for the label provider some description for tool tip, an image
  * and the object that it is wrapping.
  * 
  * @author Dimitar Giormov
