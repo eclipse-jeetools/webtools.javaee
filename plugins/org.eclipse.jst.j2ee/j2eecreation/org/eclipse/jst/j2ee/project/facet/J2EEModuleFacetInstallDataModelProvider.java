@@ -13,7 +13,10 @@ package org.eclipse.jst.j2ee.project.facet;
 import java.util.ArrayList;
 import java.util.Set;
 
+import org.eclipse.core.internal.resources.ResourceStatus;
+import org.eclipse.core.internal.utils.Messages;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -24,6 +27,7 @@ import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
@@ -216,7 +220,16 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.SOURCEFOLDER_EMPTY);
 				return WTPCommonPlugin.createErrorStatus(errorMessage);
 			} else {
-				return validateFolderName(folderName);
+				IStatus status = validateFolderName(folderName);
+				if (status.isOK())
+				{
+					/* bug 223072 test invalid character - URI.FRAGMENT_SEPARATOR */
+					if (folderName.indexOf('#') != -1) { //$NON-NLS-1$
+						String message = NLS.bind(Messages.resources_invalidCharInName, "#", folderName); //$NON-NLS-1$
+						status = new ResourceStatus(IResourceStatus.INVALID_VALUE, null, message);
+					}
+				}
+				return status;
 			}
 		} else if (name.equals(ADD_TO_EAR)) {
 			if (!isEARSupportedByRuntime()) {
