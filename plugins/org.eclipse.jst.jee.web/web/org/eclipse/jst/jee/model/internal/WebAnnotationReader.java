@@ -128,7 +128,7 @@ public class WebAnnotationReader extends AbstractAnnotationModelProvider<WebApp>
 		for (Iterator iter = ddApp.getServlets().iterator(); iter.hasNext();) {
 			Servlet servlet = (Servlet) iter.next();
 			if (rootType.getFullyQualifiedName().equals(servlet.getServletClass()))
-				return annotationFactory.createServlet(rootType);
+				return annotationFactory.createServlet(rootType, servlet.getServletName());
 		}
 		for (Iterator iter = ddApp.getListeners().iterator(); iter.hasNext();) {
 			Listener listener = (Listener) iter.next();
@@ -138,7 +138,7 @@ public class WebAnnotationReader extends AbstractAnnotationModelProvider<WebApp>
 		for (Iterator iter = ddApp.getFilters().iterator(); iter.hasNext();) {
 			Filter filter = (Filter) iter.next();
 			if (rootType.getFullyQualifiedName().equals(filter.getFilterClass())) {
-				return annotationFactory.createFilter(rootType);
+				return annotationFactory.createFilter(rootType, filter.getFilterName());
 			}
 		}
 		return null;

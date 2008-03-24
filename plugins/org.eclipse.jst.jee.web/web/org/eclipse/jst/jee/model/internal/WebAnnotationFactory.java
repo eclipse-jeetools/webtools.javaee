@@ -52,10 +52,10 @@ public class WebAnnotationFactory extends AbstractAnnotationFactory {
 		return new WebAnnotationFactory();
 	}
 
-	public Result createServlet(IType rootType) throws JavaModelException {
+	public Result createServlet(IType rootType, String servletName) throws JavaModelException {
 		Result result = new Result();
 		Servlet servlet = WebFactory.eINSTANCE.createServlet();
-		servlet.setServletName(rootType.getElementName());
+		servlet.setServletName(servletName);
 		servlet.setServletClass(rootType.getFullyQualifiedName());
 		result.setMainObject(servlet);
 		processTypeAnnotations(result, rootType);
@@ -75,9 +75,10 @@ public class WebAnnotationFactory extends AbstractAnnotationFactory {
 		return result;
 	}
 
-	public Result createFilter(IType rootType) throws JavaModelException {
+	public Result createFilter(IType rootType, String filterName) throws JavaModelException {
 		Result result = new Result();
 		Filter filter = WebFactory.eINSTANCE.createFilter();
+		filter.setFilterName(filterName);
 		filter.setFilterClass(rootType.getFullyQualifiedName());
 		result.setMainObject(filter);
 		processTypeAnnotations(result, rootType);
