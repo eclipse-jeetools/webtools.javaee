@@ -39,6 +39,8 @@ public class Messages extends NLS {
 	
 	public static String REFERENCES;
 	public static String BUNDLED_LIBRARIES_NODE;
+	public static String LIBRARY_DIRECTORY;
+	public static String EAR_MODULES_NODE;
 	public static String EJBLOCAL_REFERENCES;
 	public static String EJB_REFERENCES;
 	public static String ENVIROMENT_ENTRIES;

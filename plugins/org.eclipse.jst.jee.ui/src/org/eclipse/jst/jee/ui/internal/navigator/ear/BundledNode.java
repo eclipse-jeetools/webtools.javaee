@@ -10,8 +10,9 @@
  ***********************************************************************/
 package org.eclipse.jst.jee.ui.internal.navigator.ear;
 
+import java.util.List;
+
 import org.eclipse.core.resources.IProject;
-import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 /**
  * 
@@ -22,18 +23,27 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
  */
 public class BundledNode extends AbstractEarNode {
 
-	public BundledNode(IProject earProject, IVirtualReference[] modules) {
+	private final String nodeName;
+	private final BundledNode bundledLibsDirectoryNode;
+
+	public BundledNode(IProject earProject, List modules, String nodeName, BundledNode bundledLibsDirectoryNode) {
 		super(earProject, modules);
+		this.nodeName = nodeName;
+		this.bundledLibsDirectoryNode = bundledLibsDirectoryNode;
 		type = LIBS_TYPE;
 	}
 
 	@Override
 	public String toString() {
-	    return "Bundled library"; //$NON-NLS-1$
+	    return nodeName;
 	}
 
 	@Override
 	public String getText() {
-		return "Bundled library"; //$NON-NLS-1$
+		return nodeName;
+	}
+
+	public BundledNode getBundledLibsDirectoryNode() {
+		return bundledLibsDirectoryNode;
 	}
 }

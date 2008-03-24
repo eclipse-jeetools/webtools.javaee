@@ -699,7 +699,7 @@
         </or>
      </possibleChildren>
      <commonSorter
-           class="org.eclipse.jst.j2ee.navigator.internal.ApplicationViewerSorter"
+           class="org.eclipse.jst.jee.ui.internal.navigator.ear.Application5ViewerSorter"
            id="org.eclipse.jst.jee.navigator.internal.ApplicationViewerSorter">
      </commonSorter>
      <dropAssistant

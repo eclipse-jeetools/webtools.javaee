@@ -10,8 +10,10 @@
  ***********************************************************************/
 package org.eclipse.jst.jee.ui.internal.navigator.ear;
 
+import java.util.List;
+
 import org.eclipse.core.resources.IProject;
-import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
+import org.eclipse.jst.jee.ui.internal.Messages;
 
 /**
  * 
@@ -22,18 +24,18 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
  */
 public class ModulesNode extends AbstractEarNode {
 
-	public ModulesNode(IProject earProject, IVirtualReference[] modules) {
+	public ModulesNode(IProject earProject, List modules) {
 		super(earProject, modules);
 		type = MODULES_TYPE;
 	}
 
 	@Override
 	public String toString() {
-	    return "Modules"; //$NON-NLS-1$
+	    return Messages.EAR_MODULES_NODE;
 	}
 
 	@Override
 	public String getText() {
-		return "Modules"; //$NON-NLS-1$
+		return Messages.EAR_MODULES_NODE;
 	}
 }

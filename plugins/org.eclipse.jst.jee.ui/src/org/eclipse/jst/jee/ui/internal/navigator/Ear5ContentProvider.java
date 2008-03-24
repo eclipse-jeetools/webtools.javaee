@@ -32,6 +32,8 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.provider.J2EEUtilityJarItemProvider;
 import org.eclipse.jst.j2ee.navigator.internal.J2EEContentProvider;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.jst.jee.ui.internal.Messages;
 import org.eclipse.jst.jee.ui.internal.navigator.ear.AbstractEarNode;
 import org.eclipse.jst.jee.ui.internal.navigator.ear.BundledNode;
 import org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider;
@@ -53,198 +55,195 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
  */
 public class Ear5ContentProvider  extends J2EEContentProvider implements IResourceChangeListener, IResourceDeltaVisitor{
 
-    private static final Class IPROJECT_CLASS = IProject.class;
-    public final static String EAR_DEFAULT_LIB = "lib"; //$NON-NLS-1$
-    
-    private Viewer viewer;
+	private static final Class IPROJECT_CLASS = IProject.class;
+	public final static String EAR_DEFAULT_LIB = "lib"; //$NON-NLS-1$
 
-    private List getComponentReferencesAsList(List componentTypes, IVirtualComponent virtualComponent, IPath runtimePath) {
-        List components = new ArrayList();
-        IVirtualComponent earComponent = virtualComponent;
-        if (earComponent != null ) {
-            IVirtualReference[] refComponents = earComponent.getReferences();
-            for (int i = 0; i < refComponents.length; i++) {
-                IVirtualComponent module = refComponents[i].getReferencedComponent();
-                if (module == null) continue;
-                // if component types passed in is null then return all components
-                if (componentTypes == null || componentTypes.size() == 0) {
-                    components.add(refComponents[i]);
-                } else {
-                    IPath runPath = refComponents[i].getRuntimePath();
-                    if (runPath != null) {
-                        if (runPath.equals(runtimePath)) components.add(refComponents[i]);
-                    } else if (componentTypes.contains(J2EEProjectUtilities.getJ2EEComponentType(module))) {
-                        components.add(refComponents[i]);
-                    }
-                }
-            }
-        }
-        return components;
-    }
+	private Viewer viewer;
 
-    public IVirtualReference[] getUtilityModuleReferences(IVirtualComponent component) {  
-        List explicitUtilityReferences = 
-            getComponentReferencesAsList(Collections.singletonList(J2EEProjectUtilities.UTILITY), component, null);
+	private List getComponentReferencesAsList(List componentTypes, IVirtualComponent virtualComponent, IPath runtimePath) {
+		List components = new ArrayList();
+		IVirtualComponent earComponent = virtualComponent;
+		if (earComponent != null ) {
+			IVirtualReference[] refComponents = earComponent.getReferences();
+			for (int i = 0; i < refComponents.length; i++) {
+				IVirtualComponent module = refComponents[i].getReferencedComponent();
+				if (module == null) continue;
+				// if component types passed in is null then return all components
+				if (componentTypes == null || componentTypes.size() == 0) {
+					components.add(refComponents[i]);
+				} else {
+					//                    IPath runPath = refComponents[i].getRuntimePath();
+					//                    if (runPath != null) {
+					//                        if (runPath.equals(runtimePath) && componentTypes.contains(JavaEEProjectUtilities.getJ2EEComponentType(module))) components.add(refComponents[i]);
+					//                    } else 
+					if (componentTypes.contains(JavaEEProjectUtilities.getJ2EEComponentType(module))) {
+						components.add(refComponents[i]);
+					}
+				}
+			}
+		}
+		return components;
+	}
 
-        // fetch other Utility Jars attached to the EAR project 
-        List implicitUtilityReferenceTypes =
-            Arrays.asList(new String[] {  
-                    IModuleConstants.JST_APPCLIENT_MODULE,
-                    IModuleConstants.JST_WEB_MODULE,	 
-                    IModuleConstants.JST_EJB_MODULE 
-            });
+	public IVirtualReference[] getUtilityModuleReferences(IVirtualComponent component) {  
+		List explicitUtilityReferences = 
+			getComponentReferencesAsList(Collections.singletonList(J2EEProjectUtilities.UTILITY), component, null);
 
-        List implicitUtilityReferences = 
-            getComponentReferencesAsList(implicitUtilityReferenceTypes, component, null);
+		// fetch other Utility Jars attached to the EAR project 
+		List implicitUtilityReferenceTypes =
+			Arrays.asList(new String[] {  
+					IModuleConstants.JST_APPCLIENT_MODULE,
+					IModuleConstants.JST_WEB_MODULE,	 
+					IModuleConstants.JST_EJB_MODULE 
+			});
 
-        List allUtilityModuleReferences = new ArrayList();
-        allUtilityModuleReferences.addAll(explicitUtilityReferences);
-        allUtilityModuleReferences.addAll(implicitUtilityReferences);
+		List implicitUtilityReferences = 
+			getComponentReferencesAsList(implicitUtilityReferenceTypes, component, null);
 
-        if(allUtilityModuleReferences.size() > 0)
-            return (IVirtualReference[]) allUtilityModuleReferences.toArray(new IVirtualReference[allUtilityModuleReferences.size()]);
-        return new IVirtualReference[0];
+		List allUtilityModuleReferences = new ArrayList();
+		allUtilityModuleReferences.addAll(explicitUtilityReferences);
+		allUtilityModuleReferences.addAll(implicitUtilityReferences);
 
-    }
+		if(allUtilityModuleReferences.size() > 0)
+			return (IVirtualReference[]) allUtilityModuleReferences.toArray(new IVirtualReference[allUtilityModuleReferences.size()]);
+		return new IVirtualReference[0];
 
-    public Object[] getChildren(Object aParentElement) {
-        IProject project = null;
-        List children = new ArrayList();
-        if (aParentElement instanceof GroupEARProvider) {
-            project = (IProject) ((GroupEARProvider)aParentElement).getProject();
-            
-            IVirtualComponent projectComponent = ComponentCore.createComponent(project);
-            try {
-                IFacetedProject facetedProject = ProjectFacetsManager.create(project);
-                if (facetedProject != null && 
-                        facetedProject.hasProjectFacet(
-                                ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE).getVersion(
-                                        J2EEVersionConstants.VERSION_5_0_TEXT))) {
+	}
 
-                    List libs = getComponentReferencesAsList(Collections.singletonList(J2EEProjectUtilities.UTILITY), projectComponent,
-                            new Path("/" + EAR_DEFAULT_LIB)); //$NON-NLS-1$
+	public Object[] getChildren(Object aParentElement) {
+		IProject project = null;
+		List children = new ArrayList();
+		if (aParentElement instanceof GroupEARProvider) {
+			project = (IProject) ((GroupEARProvider)aParentElement).getProject();
 
-                    ArrayList bundledLibs = new ArrayList();
-                    ArrayList appLibsInTheRoot = new ArrayList();
+			IVirtualComponent projectComponent = ComponentCore.createComponent(project);
+			try {
+				IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+				if (facetedProject != null && 
+						facetedProject.hasProjectFacet(
+								ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE).getVersion(
+										J2EEVersionConstants.VERSION_5_0_TEXT))) {
 
-                    for (int i = 0; i < libs.size(); i++) {
-                        IVirtualReference reference = (IVirtualReference) libs.get(i);
-                        IPath runtimePath = reference.getRuntimePath();
+					List libs = getComponentReferencesAsList(Collections.singletonList(J2EEProjectUtilities.UTILITY), projectComponent,
+							new Path("/" + EAR_DEFAULT_LIB)); //$NON-NLS-1$
 
-                        if (runtimePath != null && runtimePath.segment(0) != null && 
-                                runtimePath.equals(new Path("/" + EAR_DEFAULT_LIB))) { //$NON-NLS-1$
-                            bundledLibs.add(libs.get(i));
-                        } else {
-                            appLibsInTheRoot.add(libs.get(i));
-                        }
-                    }
+							ArrayList bundledLibs = new ArrayList();
+							ArrayList appLibsInTheRoot = new ArrayList();
 
-                    IVirtualReference[] libReferences = (IVirtualReference[]) bundledLibs.toArray(new IVirtualReference[bundledLibs.size()]);
-                    BundledNode bundledLibsNode = new BundledNode(project, libReferences);
+							for (int i = 0; i < libs.size(); i++) {
+								IVirtualReference reference = (IVirtualReference) libs.get(i);
+								IPath runtimePath = reference.getRuntimePath();
 
-                    List implicitUtilityReferenceTypes =
-                        Arrays.asList(new String[] {  
-                                IModuleConstants.JST_APPCLIENT_MODULE,
-                                IModuleConstants.JST_WEB_MODULE,
-                                IModuleConstants.JST_EJB_MODULE,
-                                IModuleConstants.JST_CONNECTOR_MODULE});
+								if (runtimePath != null && runtimePath.segment(0) != null && 
+										runtimePath.equals(new Path("/" + EAR_DEFAULT_LIB))) { //$NON-NLS-1$
+									bundledLibs.add(libs.get(i));
+								} else {
+									appLibsInTheRoot.add(libs.get(i));
+								}
+							}
+
+							BundledNode bundledLibsDirectoryNode = new BundledNode(project, bundledLibs, Messages.LIBRARY_DIRECTORY + ": /" + EAR_DEFAULT_LIB, null);							 //$NON-NLS-1$
+							appLibsInTheRoot.add(bundledLibsDirectoryNode);
+							BundledNode bundledLibsNode = new BundledNode(project, appLibsInTheRoot, Messages.BUNDLED_LIBRARIES_NODE, bundledLibsDirectoryNode);
+							
+							List implicitUtilityReferenceTypes =
+								Arrays.asList(new String[] {  
+										IModuleConstants.JST_APPCLIENT_MODULE,
+										IModuleConstants.JST_WEB_MODULE,
+										IModuleConstants.JST_EJB_MODULE,
+										IModuleConstants.JST_CONNECTOR_MODULE});
 
 
-                    List modules = getComponentReferencesAsList(implicitUtilityReferenceTypes, projectComponent, new Path("/")); //$NON-NLS-1$
+							List modules = getComponentReferencesAsList(implicitUtilityReferenceTypes, projectComponent, new Path("/")); //$NON-NLS-1$
+							ModulesNode modulesNode = new ModulesNode(project, modules);
 
-                    modules.addAll(appLibsInTheRoot);
+							children.add(modulesNode);
+							children.add(bundledLibsNode);
+				}
+			} catch (CoreException e) {
+				String msg = "Error in the JEEContentProvider.getChildren() for parent:" +  aParentElement; //$NON-NLS-1$
+				JEEUIPlugin.getDefault().logError(msg, e);
+			}
+		} else if (aParentElement instanceof AbstractEarNode) {
+			return ((AbstractEarNode) aParentElement).getModules().toArray();
+		} else if (aParentElement instanceof IAdaptable) {
+			project = (IProject) ((IAdaptable) aParentElement).getAdapter(IPROJECT_CLASS);
+			if (project != null && J2EEProjectUtilities.isEARProject(project)) {
+				IFacetedProject facetedProject;
+				try {
+					facetedProject = ProjectFacetsManager.create(project);
+					if (facetedProject != null && 
+							facetedProject.hasProjectFacet(
+									ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE).getVersion(
+											J2EEVersionConstants.VERSION_5_0_TEXT))) {
+						IVirtualComponent component = ComponentCore.createComponent(project);
+						GroupEARProvider element = new GroupEARProvider((EARVirtualComponent)component);
+						children.add(element);
+					}
+				} catch (CoreException e) {
+					String msg = "Error in the JEEContentProvider.getChildren() for parent:" +  aParentElement; //$NON-NLS-1$
+					JEEUIPlugin.getDefault().logError(msg, e);
+				}
+			}
+		}
+		return children.toArray();
+	}
 
-                    IVirtualReference[] moduleReferences = (IVirtualReference[]) modules.toArray(new IVirtualReference[modules.size()]);
+	public void inputChanged(Viewer aViewer, Object anOldInput, Object aNewInput) {
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(this, IResourceChangeEvent.POST_CHANGE);
+		viewer = aViewer;
+	}
 
-                    ModulesNode modulesNode = new ModulesNode(project, moduleReferences);
+	@Override
+	public void dispose() {
+		ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
+	}
 
-                    children.add(modulesNode);
-                    children.add(bundledLibsNode);
-                }
-            } catch (CoreException e) {
-                String msg = "Error in the JEEContentProvider.getChildren() for parent:" +  aParentElement; //$NON-NLS-1$
-                JEEUIPlugin.getDefault().logError(msg, e);
-            }
-        } else if (aParentElement instanceof AbstractEarNode) {
-            return ((AbstractEarNode) aParentElement).getModules();
-        } else if (aParentElement instanceof IAdaptable) {
-            project = (IProject) ((IAdaptable) aParentElement).getAdapter(IPROJECT_CLASS);
-            if (project != null && J2EEProjectUtilities.isEARProject(project)) {
-                IFacetedProject facetedProject;
-                try {
-                    facetedProject = ProjectFacetsManager.create(project);
-                    if (facetedProject != null && 
-                            facetedProject.hasProjectFacet(
-                                    ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE).getVersion(
-                                            J2EEVersionConstants.VERSION_5_0_TEXT))) {
-                        IVirtualComponent component = ComponentCore.createComponent(project);
-                        GroupEARProvider element = new GroupEARProvider((EARVirtualComponent)component);
-                        children.add(element);
-                    }
-                } catch (CoreException e) {
-                    String msg = "Error in the JEEContentProvider.getChildren() for parent:" +  aParentElement; //$NON-NLS-1$
-                    JEEUIPlugin.getDefault().logError(msg, e);
-                }
-            }
-        }
-        return children.toArray();
-    }
+	public void resourceChanged(IResourceChangeEvent event) {
+		try {
+			event.getDelta().accept(this);
+		} catch (CoreException e) {
+			String msg = "Error in the JEEContentProvider.resourceChanged()"; //$NON-NLS-1$
+			JEEUIPlugin.getDefault().logError(msg, e);
+		}
+	}
 
-    public void inputChanged(Viewer aViewer, Object anOldInput, Object aNewInput) {
-        ResourcesPlugin.getWorkspace().addResourceChangeListener(this, IResourceChangeEvent.POST_CHANGE);
-        viewer = aViewer;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.core.resources.IResourceDeltaVisitor#visit(org.eclipse.core.resources.IResourceDelta)
+	 */
+	public boolean visit(IResourceDelta delta) {
+		if (delta.getResource().getType() == IResource.FILE) {
+			IResource resource = delta.getResource();
+			if (J2EEUtilityJarItemProvider.isComponentFile(resource)) {
+				Runnable refreshThread = new Runnable(){
+					public void run(){
+						if (viewer != null && ! viewer.getControl().isDisposed()){
+							viewer.refresh();
+						}
+					}
+				};
+				Display.getDefault().asyncExec(refreshThread);
+				return false;
+			}
+		}
+		return true;
+	}
 
-    @Override
-    public void dispose() {
-        ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
-    }
+	@Override
+	public boolean hasChildren(Object element) {
+		if (element instanceof AbstractEarNode) {
+			return ((AbstractEarNode) element).getModules().size() > 0;
+		} else if (element instanceof GroupEARProvider){
+			return true;
+		} else return false;
+	}
 
-    public void resourceChanged(IResourceChangeEvent event) {
-        try {
-            event.getDelta().accept(this);
-        } catch (CoreException e) {
-            String msg = "Error in the JEEContentProvider.resourceChanged()"; //$NON-NLS-1$
-            JEEUIPlugin.getDefault().logError(msg, e);
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.core.resources.IResourceDeltaVisitor#visit(org.eclipse.core.resources.IResourceDelta)
-     */
-    public boolean visit(IResourceDelta delta) {
-        if (delta.getResource().getType() == IResource.FILE) {
-            IResource resource = delta.getResource();
-            if (J2EEUtilityJarItemProvider.isComponentFile(resource)) {
-                Runnable refreshThread = new Runnable(){
-                    public void run(){
-                        if (viewer != null && ! viewer.getControl().isDisposed()){
-                            viewer.refresh();
-                        }
-                    }
-                };
-                Display.getDefault().asyncExec(refreshThread);
-                return false;
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public boolean hasChildren(Object element) {
-        if (element instanceof AbstractEarNode) {
-            return ((AbstractEarNode) element).getModules().length > 0;
-        } else if (element instanceof GroupEARProvider){
-            return true;
-        } else return false;
-    }
-
-    public Object getParent(Object object) {
-        if (object instanceof AbstractEarNode){
-            return ((AbstractEarNode) object).getEarProject(); 
-        }
-        return null;
-    }
+	public Object getParent(Object object) {
+		if (object instanceof AbstractEarNode){
+			return ((AbstractEarNode) object).getEarProject(); 
+		}
+		return null;
+	}
 }

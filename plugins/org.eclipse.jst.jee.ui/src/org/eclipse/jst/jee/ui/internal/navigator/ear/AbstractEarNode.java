@@ -10,8 +10,9 @@
  ***********************************************************************/
 package org.eclipse.jst.jee.ui.internal.navigator.ear;
 
+import java.util.List;
+
 import org.eclipse.core.resources.IProject;
-import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public abstract class AbstractEarNode {
     public static int MODULES_TYPE = 0;    
@@ -20,9 +21,10 @@ public abstract class AbstractEarNode {
     protected int type;
     
     private IProject earProject;
-    private IVirtualReference[] modules;
+//    private IVirtualReference[] modules;
+    private List modules;
     
-    public AbstractEarNode(IProject earProject, IVirtualReference[] modules) {
+    public AbstractEarNode(IProject earProject, List modules) {
         this.earProject = earProject;
         this.modules = modules;
     }
@@ -31,8 +33,8 @@ public abstract class AbstractEarNode {
         return earProject;
     }
     
-    public IVirtualReference[] getModules() {
-        return modules;
+    public List getModules() {
+      return modules;
     }
 
     public int getType() {
