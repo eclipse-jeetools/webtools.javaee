@@ -49,7 +49,7 @@ import org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate;
 public class JEEDeployableFactory extends ProjectModuleFactoryDelegate {
 	protected Map moduleDelegates = new HashMap(5);
 	
-	public static final String ID = "org.eclipse.jst.j2ee.server"; //$NON-NLS-1$
+	public static final String ID = "org.eclipse.jst.jee.server"; //$NON-NLS-1$
 
 	public JEEDeployableFactory() {
 		super();
