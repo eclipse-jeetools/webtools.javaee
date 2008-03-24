@@ -65,8 +65,6 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 
 	private IProject clientProject;
 
-	private EJBAnnotationReader contentReader;
-
 	public EJB3MergedModelProvider(IProject project) {
 		super(project);
 	}
@@ -76,26 +74,25 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 	 * 
 	 * @see org.eclipse.jst.jee.model.internal.common.AbstractMergedModelProvider#loadModel()
 	 */
-	protected final synchronized void loadModel() throws CoreException {
-		super.loadModel();
+	protected final synchronized EJBJar loadModel() throws CoreException {
+		return super.loadModel();
 	}
 
 	@Override
 	protected IModelProvider loadAnnotationModel(EJBJar ddModel) throws CoreException {
 		if (ddModel.getEjbClientJar() != null)
-			clientProject = ResourcesPlugin.getWorkspace().getRoot().getProject(ddModel.getEjbClientJar());
-		contentReader = new EJBAnnotationReader(ProjectFacetsManager.create(project), clientProject);
-		return contentReader;
+			clientProject = ResourcesPlugin.getWorkspace().getRoot().getProject(
+					getClientNameFromJarName(ddModel.getEjbClientJar()));
+		return new EJBAnnotationReader(ProjectFacetsManager.create(project), clientProject);
 	}
 
 	@Override
 	protected IModelProvider loadDeploymentDescriptorModel() throws CoreException {
-		ddProvider = new Ejb3ModelProvider(project);
-		return ddProvider;
+		return new Ejb3ModelProvider(project);
 	}
 
 	protected EJBJar getAnnotationEjbJar() {
-		return contentReader.getConcreteModel();
+		return (EJBJar) annotationModelProvider.getModelObject();
 	}
 
 	protected EJBJar getXmlEjbJar() {
@@ -115,9 +112,9 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 			getMergedModel();
 
 		EJBJar backup = mergedModel;
-		mergedModel = (EJBJar) ddProvider.getModelObject(); 
+		mergedModel = (EJBJar) ddProvider.getModelObject();
 		ddProvider.modify(runnable, modelPath);
-		if(isDisposed()){
+		if (isDisposed()) {
 			return;
 		}
 		mergedModel = backup;
@@ -126,7 +123,8 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 		/*
 		 * Reload the model.
 		 */
-		getMergedModel();
+		// getMergedModel();
+		merge(getXmlEjbJar(), getAnnotationEjbJar());
 	}
 
 	protected void annotationModelChanged(IModelProviderEvent event) {
@@ -151,67 +149,43 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 			return;
 		}
 		/*
-		 * The client project was changed. Reload the whole model.
+		 * The client project was changed. Reload the annotation model.
 		 */
 		if (clientProject == null && getXmlEjbJar().getEjbClientJar() != null) {
-			mergedModel = null;
-			getModelObject();
-			return;
+			reloadAnnotationModel();
 		} else if (clientProject != null
 				&& !clientProject.getName().equals(getClientNameFromJarName(getXmlEjbJar().getEjbClientJar()))) {
-			mergedModel = null;
-			getModelObject();
-			return;
+			reloadAnnotationModel();
 		}
 		merge(getXmlEjbJar(), getAnnotationEjbJar());
 		notifyListeners(event);
+	}
+
+	private void reloadAnnotationModel() {
+		try {
+			disableInternalNotifications();
+			((EJBAnnotationReader) annotationModelProvider).dispose();
+			annotationModelProvider = loadAnnotationModel(getXmlEjbJar());
+			enableInternalNotifications();
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private String getClientNameFromJarName(String jarName) {
 		if (jarName == null)
 			return null;
 		if (jarName.endsWith(".jar")) //$NON-NLS-1$
-			return jarName.substring(jarName.lastIndexOf(".jar")); //$NON-NLS-1$
+			return jarName.substring(0, jarName.lastIndexOf(".jar")); //$NON-NLS-1$
 		return jarName;
-	}
-
-	/**
-	 * Returns the dispose state of this model provider. When the provider is
-	 * disposed it can not be used until getModelObject is called again.
-	 * 
-	 * Subclasses may override this method.
-	 * 
-	 * @return true if the model provider is to be treated as disposed
-	 */
-	protected boolean isDisposed() {
-		return isOnceDisposed || (ddProvider == null && contentReader == null);
-	}
-
-	/**
-	 * Dispose the model provider. If the provider is already disposed the
-	 * method has no effect.
-	 * 
-	 * Subclasses may override this method.
-	 * 
-	 * @see #isDisposed()
-	 */
-	protected void dispose() {
-		if (isDisposed())
-			return;
-		contentReader.dispose();
-		ddProvider = null;
-		contentReader = null;
-		mergedModel = null;
-		isOnceDisposed = true;
 	}
 
 	@Override
 	protected EJBJar merge(EJBJar ddModel, EJBJar annotationsModel) {
-		if(mergedModel == null){
+		if (mergedModel == null) {
 			mergedModel = (EJBJar) EjbFactory.eINSTANCE.createEJBJar();
 		} else {
 			clearModel(mergedModel);
-
 		}
 
 		mergedModel.setEnterpriseBeans(EjbFactory.eINSTANCE.createEnterpriseBeans());
