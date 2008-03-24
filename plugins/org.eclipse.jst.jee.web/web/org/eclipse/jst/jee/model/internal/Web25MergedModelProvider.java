@@ -29,8 +29,6 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
  */
 public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp> {
 
-	private WebAnnotationReader annotationReader;
-
 	public Web25MergedModelProvider(IProject project) {
 		super(project);
 	}
@@ -40,24 +38,22 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 	 * 
 	 * @see org.eclipse.jst.jee.model.internal.common.AbstractMergedModelProvider#loadModel()
 	 */
-	protected final synchronized void loadModel() throws CoreException {
-		super.loadModel();
+	protected final synchronized WebApp loadModel() throws CoreException {
+		return super.loadModel();
 	}
 
 	@Override
 	protected IModelProvider loadAnnotationModel(WebApp ddModel) throws CoreException {
-		annotationReader = new WebAnnotationReader(ProjectFacetsManager.create(project), ddModel);
-		return annotationReader;
+		return new WebAnnotationReader(ProjectFacetsManager.create(project), ddModel);
 	}
 
 	@Override
 	protected IModelProvider loadDeploymentDescriptorModel() throws CoreException {
-		ddProvider = new Web25ModelProvider(project);
-		return ddProvider;
+		return new Web25ModelProvider(project);
 	}
 
 	private WebApp getAnnotationWebApp() {
-		return (WebApp) getAnnotationReader().getModelObject();
+		return (WebApp) annotationModelProvider.getModelObject();
 	}
 
 	private WebApp getXmlWebApp() {
@@ -80,15 +76,16 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 		 * unloaded.
 		 */
 		WebApp backup = mergedModel;
-		mergedModel = (WebApp) ddProvider.getModelObject(); 
+		mergedModel = (WebApp) ddProvider.getModelObject();
 		ddProvider.modify(runnable, modelPath);
-		if(isDisposed()){
+		if (isDisposed()) {
 			return;
 		}
 		mergedModel = backup;
 		clearModel(mergedModel);
 		try {
-			WebAppMerger merger = new WebAppMerger(mergedModel,(WebApp) ddProvider.getModelObject(), ModelElementMerger.ADD);
+			WebAppMerger merger = new WebAppMerger(mergedModel, (WebApp) ddProvider.getModelObject(),
+					ModelElementMerger.ADD);
 			merger.process();
 			merger = new WebAppMerger(mergedModel, getAnnotationWebApp(), ModelElementMerger.ADD);
 			merger.process();
@@ -99,7 +96,7 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 	}
 
 	private void clearModel(WebApp app) {
-		if(app == null){
+		if (app == null) {
 			return;
 		}
 		app.getContextParams().clear();
@@ -167,43 +164,12 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 		notifyListeners(event);
 	}
 
-	/**
-	 * Returns the dispose state of this model provider. When the provider is
-	 * disposed it can not be used until getModelObject is called again.
-	 * 
-	 * Subclasses may override this method.
-	 * 
-	 * @return true if the model provider is to be treated as disposed
-	 */
-	protected boolean isDisposed() {
-
-		return isOnceDisposed || ddProvider == null && annotationReader == null;
-	}
-
-	/**
-	 * Dispose the model provider. If the provider is already disposed the
-	 * method has no effect.
-	 * 
-	 * Subclasses may override this method.
-	 * 
-	 * @see #isDisposed()
-	 */
-	protected void dispose() {
-		if (isDisposed())
-			return;
-		annotationReader.dispose();
-		ddProvider = null;
-		annotationReader = null;
-		mergedModel = null;
-		isOnceDisposed = true;
-	}
-
 	@Override
 	protected WebApp merge(WebApp ddModel, WebApp annotationsModel) {
 
 		try {
 			WebAppMerger merger;
-			if(mergedModel == null){
+			if (mergedModel == null) {
 				mergedModel = (WebApp) WebFactory.eINSTANCE.createWebApp();
 			} else {
 				clearModel(mergedModel);
@@ -212,7 +178,6 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 			merger = new WebAppMerger(mergedModel, ddModel, ModelElementMerger.ADD);
 			merger.process();
 
-
 			merger = new WebAppMerger(mergedModel, annotationsModel, ModelElementMerger.ADD);
 			merger.process();
 		} catch (ModelException e) {
@@ -220,18 +185,5 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 		}
 		return mergedModel;
 	}
-
-	private WebAnnotationReader getAnnotationReader() {
-		if(annotationReader == null){
-			try {
-				loadModel();
-			} catch (CoreException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return annotationReader;
-	}
-
 
 }
