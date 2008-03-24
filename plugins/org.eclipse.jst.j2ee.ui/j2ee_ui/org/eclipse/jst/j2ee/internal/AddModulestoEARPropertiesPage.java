@@ -8,7 +8,7 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *	   David Schneider, david.schneider@unisys.com - [142500] WTP properties pages fonts don't follow Eclipse preferences
- *     Stefan Dimov, stefan.dimov@sap.com - bug 207826
+ *     Stefan Dimov, stefan.dimov@sap.com - bugs 207826, 222651
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal;
 
@@ -785,7 +785,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 				if ((event instanceof SecondCheckBoxStateChangedEvent)) {
 					SecondCheckBoxStateChangedEvent evt = (SecondCheckBoxStateChangedEvent)event;
 					DoubleCheckboxTableItem tblItem = evt.getTableItem();
-					if (tblItem.getSecondChecked() && isConflict((IVirtualComponent)tblItem.getData())) {
+					if (tblItem.getSecondChecked() && isConflict(tblItem.getData())) {
 						DependencyConflictResolveDialog dlg = new DependencyConflictResolveDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 				                .getShell(), DependencyConflictResolveDialog.DLG_TYPE_2);
 						if (dlg.open() == DependencyConflictResolveDialog.BTN_ID_CANCEL) {
@@ -1046,18 +1046,19 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 
 	}
 
-	private boolean isConflict(IVirtualComponent lib) {
+	private boolean isConflict(Object lib) {
+		IProject libProj = (lib instanceof IProject) ? (IProject)lib : ((IVirtualComponent)lib).getProject(); 
 		IProject earProject = earComponent.getProject();	
 		try {			
 			IVirtualComponent cmp = ComponentCore.createComponent(earProject);
 			IProject[] earRefProjects = earProject.getReferencedProjects();
 			for (int i = 0; i < earRefProjects.length; i++) {	
 				if (!J2EEProjectUtilities.isEARProject(earRefProjects[i]) &&
-						!earRefProjects[i].equals(lib.getProject())) {
+						!earRefProjects[i].equals(libProj)) {
 					IVirtualComponent cmp1 = ComponentCore.createComponent(earRefProjects[i]);
 					IVirtualReference[] refs = cmp1.getReferences();
 					for (int j = 0; j < refs.length; j++) {
-						if (refs[j].getReferencedComponent().getProject().equals(lib.getProject())) return true;
+						if (refs[j].getReferencedComponent().getProject().equals(libProj)) return true;
 					}
 				}	
 			}
