@@ -321,6 +321,7 @@
             <separator name="slot1"/>
             <separator name="slot2"/>
             <separator name="slot3"/>
+            <separator name="slot4"/>
          </menu>
       </objectContribution>
    </extension>
