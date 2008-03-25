@@ -22,7 +22,7 @@ import org.eclipse.jst.javaee.core.JavaeeFactory;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.ejb.EJBJarDeploymentDescriptor;
 import org.eclipse.jst.javaee.ejb.EjbFactory;
-import org.eclipse.jst.javaee.ejb.internal.util.EjbResourceImpl;
+import org.eclipse.jst.javaee.ejb.IEJBResource;
 
 public class Ejb3ModelProvider extends JEE5ModelProvider {
 	
@@ -38,8 +38,8 @@ public class Ejb3ModelProvider extends JEE5ModelProvider {
 	 * @see org.eclipse.jst.j2ee.model.IModelProvider#getModelObject(org.eclipse.core.runtime.IPath)
 	 */
 	public Object getModelObject(IPath modelPath) {
-		EjbResourceImpl ejbRes = (EjbResourceImpl)getModelResource(modelPath);
-		if (ejbRes != null && ejbRes.getContents().size() > 0) 
+		IEJBResource ejbRes = (IEJBResource)getModelResource(modelPath);
+		if (ejbRes != null && ejbRes.getRootObject() != null) 
 			return ejbRes.getEjbJar();
 		return null;
 	}
