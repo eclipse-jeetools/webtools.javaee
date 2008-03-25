@@ -10,26 +10,14 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
-import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
-
-import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.codegen.jet.JETEmitter;
-import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
-import org.eclipse.jst.j2ee.internal.project.WTPJETEmitter;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
-import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
  * The NewMessageDrivenBeanClassOperation is an IDataModelOperation following the
@@ -58,7 +46,7 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  * generateUsingTemplates is exposed.
  * 
  */
-public class NewMessageDrivenBeanClassOperation extends NewEnterpriseBeanClassOperation implements INewMessageDrivenBeanClassDataModelProperties {
+public class NewMessageDrivenBeanClassOperation extends NewEnterpriseBeanClassOperation {
 
 	/**
 	 * folder location of the enterprise bean creation templates directory
@@ -80,38 +68,6 @@ public class NewMessageDrivenBeanClassOperation extends NewEnterpriseBeanClassOp
 	 */
 	public NewMessageDrivenBeanClassOperation(IDataModel dataModel) {
 		super(dataModel);
-	}
-
-	/**
-	 * Subclasses may extend this method to add their own actions during
-	 * execution. The implementation of the execute method drives the running of
-	 * the operation. This implementation will create the java source folder,
-	 * create the java package, and then the enterprise bean java class file will be created 
-	 * using templates. Optionally, subclasses may extend the
-	 * generateUsingTemplates or createJavaFile method rather than extend the
-	 * execute method. This method will accept a null parameter.
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
-	 * @see NewMessageDrivenBeanClassOperation#generateUsingTemplates(IProgressMonitor,
-	 *      IPackageFragment)
-	 * 
-	 * @param monitor
-	 * @throws CoreException
-	 * @throws InterruptedException
-	 * @throws InvocationTargetException
-	 */
-	public IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		// Create source folder if it does not exist
-		createJavaSourceFolder();
-		// Create java package if it does not exist
-		IPackageFragment pack = createJavaPackage();
-		// Generate bean classes using templates
-		try {
-			generateUsingTemplates(monitor, pack);
-		} catch (Exception e) {
-			return WTPCommonPlugin.createErrorStatus(e.toString());
-		}
-		return OK_STATUS;
 	}
 
 	/**
@@ -138,7 +94,7 @@ public class NewMessageDrivenBeanClassOperation extends NewEnterpriseBeanClassOp
 		try {
 			if (fragment != null) {
 				// Create the session bean java file
-				String source = generateTemplateSource(tempModel, monitor, TEMPLATE_FILE);
+				String source = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_FILE, monitor);
 				String javaFileName = tempModel.getClassName() + DOT_JAVA;
 				IFile aFile = createJavaFile(monitor, fragment, source, javaFileName);
 			}
@@ -159,44 +115,7 @@ public class NewMessageDrivenBeanClassOperation extends NewEnterpriseBeanClassOp
 	 * @return CreateBeanTemplateModel
 	 */
 	private CreateMessageDrivenBeanTemplateModel createTemplateModel() {
-		// Create the CreateBeanTemplateModel instance with the new bean
-		// class data model
-		CreateMessageDrivenBeanTemplateModel templateModel = new CreateMessageDrivenBeanTemplateModel(model);
-		return templateModel;
-	}
-
-	/**
-	 * This method is intended for internal use only. This will use the
-	 * WTPJETEmitter to create an annotated java file based on the passed in
-	 * bean class template model. This method does not accept null
-	 * parameters. It will not return null. If annotations are not used, it will
-	 * use the non annotated template to omit the annotated tags.
-	 * 
-	 * @see NewMessageDrivenBeanClassOperation#generateUsingTemplates(IProgressMonitor,
-	 *      IPackageFragment)
-	 * @see JETEmitter#generate(org.eclipse.core.runtime.IProgressMonitor,
-	 *      java.lang.Object[])
-	 * @see CreateMessageDrivenBeanTemplateModel
-	 * 
-	 * @param tempModel
-	 * @param monitor
-	 * @param template_file2 
-	 * @return String the source for the java file
-	 * @throws JETException
-	 */
-	private String generateTemplateSource(CreateMessageDrivenBeanTemplateModel tempModel, IProgressMonitor monitor, String template_file) throws JETException {
-		URL templateURL = FileLocator.find(EjbPlugin.getDefault().getBundle(), new Path(template_file), null);
-		cleanUpOldEmitterProject();
-		WTPJETEmitter emitter = new WTPJETEmitter(templateURL.toString(), this.getClass().getClassLoader());
-		emitter.setIntelligentLinkingEnabled(true);
-		emitter.addVariable(EJB_PLUGIN, EjbPlugin.PLUGIN_ID);
-		return emitter.generate(monitor, new Object[] { tempModel });
-	}
-
-	@Override
-	public IStatus execute(IProgressMonitor monitor, IAdaptable info)
-	throws ExecutionException {
-		return doExecute(monitor, info);
+		return new CreateMessageDrivenBeanTemplateModel(model);
 	}
 
 }

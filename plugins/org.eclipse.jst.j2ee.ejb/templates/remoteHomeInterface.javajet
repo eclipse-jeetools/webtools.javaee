@@ -2,18 +2,15 @@
 	imports="org.eclipse.jst.j2ee.ejb.internal.operations.* " 
 	class="RemoteHomeInterfaceTemplate" 
 %>
-<% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; 
-if (model.getJavaPackageName() != null && model.getJavaPackageName() != "") { 
-%>package <%=model.getJavaPackageName()%>;<% 
-} %>
-
+<% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; %>
+<%@ include file="_package.template" %>
 import java.rmi.RemoteException;
 
 import javax.ejb.CreateException;
 import javax.ejb.EJBHome;
 
-public interface <%=model.getClassName()%>Home extends EJBHome {
+public interface <%= model.getClassName() %>Home extends EJBHome {
 
-	public <%=model.getQualifiedJavaClassName()%>RemoteComponent create() throws CreateException, RemoteException;
+	public <%= model.getClassName() %>RemoteComponent create() throws CreateException, RemoteException;
 	
 }

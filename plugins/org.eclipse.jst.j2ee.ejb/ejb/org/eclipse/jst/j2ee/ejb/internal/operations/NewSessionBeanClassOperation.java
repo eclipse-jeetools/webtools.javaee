@@ -10,8 +10,12 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.BUSINESS_INTERFACES;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_HOME;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_HOME;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.JAVA_PACKAGE;
+
 import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -20,13 +24,10 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
@@ -34,12 +35,10 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
-import org.eclipse.jst.j2ee.internal.project.WTPJETEmitter;
 import org.eclipse.jst.j2ee.project.EJBUtilities;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
-import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
  * The NewSessionBeanClassOperation is an IDataModelOperation following the
@@ -68,7 +67,7 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  * generateUsingTemplates is exposed.
  * 
  */
-public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperation implements INewSessionBeanClassDataModelProperties {
+public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperation {
 
 	private static final String LOCAL_HOME_SUFFIX = "LocalHome"; //$NON-NLS-1$
 	private static final String LOCAL_COMPONENT_SUFFIX = "LocalComponent"; //$NON-NLS-1$
@@ -89,6 +88,8 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 	protected static final String TEMPLATE_LOCALCOMPONENT_FILE = "/templates/localComponentInterface.javajet"; //$NON-NLS-1$
 	protected static final String TEMPLATE_REMOTECOMPONENT_FILE = "/templates/remoteComponentInterface.javajet"; //$NON-NLS-1$
 	
+	protected IPackageFragment clientPack;
+	
 	/**
 	 * This is the constructor which should be used when creating a
 	 * NewSessionBeanClassOperation. An instance of the NewSessionBeanClassDataModelProvider
@@ -103,12 +104,6 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 	 */
 	public NewSessionBeanClassOperation(IDataModel dataModel) {
 		super(dataModel);
-	}
-
-	@Override
-	public IStatus execute(IProgressMonitor monitor, IAdaptable info)
-	throws ExecutionException {
-		return doExecute(monitor, info);
 	}
 
 	/**
@@ -130,24 +125,18 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 	 * @throws InvocationTargetException
 	 */
 	public IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		// Create source folder if it does not exist
-		createJavaSourceFolder();
-		// Create java package if it does not exist
-		IPackageFragment pack = createJavaPackage();
-		IPackageFragment clientPack = null;
-		
 		if (hasInterfacesToGenerate() && EJBUtilities.hasEJBClientJARProject(getTargetProject())) {
 			createJavaSourceFolderInClientJar();
 			clientPack = createJavaPackageInClientJar();
 		}
 		
-		// Generate bean classes using templates
-		try {
-			generateUsingTemplates(monitor, pack, clientPack);
-		} catch (Exception e) {
-			return WTPCommonPlugin.createErrorStatus(e.toString());
-		}
-		return OK_STATUS;
+		return super.doExecute(monitor, info);
+	}
+
+	@Override
+	protected void generateUsingTemplates(IProgressMonitor monitor, IPackageFragment fragment) 
+			throws WFTWrappedException, CoreException {
+		this.generateUsingTemplates(monitor, fragment, clientPack);
 	}
 
 	/**
@@ -181,7 +170,7 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 				}
 				
 				// Create the session bean java file
-				String source = generateTemplateSource(tempModel, monitor, TEMPLATE_FILE);
+				String source = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_FILE, monitor);
 				String javaFileName = tempModel.getClassName() + DOT_JAVA;
 				IFile aFile = createJavaFile(monitor, fragment, source, javaFileName);
 			}
@@ -196,12 +185,12 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 			if (!iface.exists()) {
 				if (iface.isLocal()) {
 					// Create the java files for the non-exising Local Business interfaces
-					String src = generateTemplateSource(tempModel, monitor, TEMPLATE_LOCAL_FILE);
+					String src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_LOCAL_FILE, monitor);
 					String fileName = iface.getSimpleName() + DOT_JAVA;
 					createJavaFile(monitor, fragment, src, fileName);
 				} else if (iface.isRemote()) {
 					// Create the java files for the non-exising Remote Business interfaces
-					String src = generateTemplateSource(tempModel, monitor, TEMPLATE_REMOTE_FILE);
+					String src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_REMOTE_FILE, monitor);
 					String fileName = iface.getSimpleName() + DOT_JAVA;
 					createJavaFile(monitor, fragment, src, fileName);
 				}
@@ -209,21 +198,21 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 		}
 
 		// Create the EJB 2.x compatible Remote Home and Component interface java files
-		if (model.getBooleanProperty(INewSessionBeanClassDataModelProperties.REMOTE_HOME)) {
-			String src = generateTemplateSource(tempModel, monitor, TEMPLATE_REMOTEHOME_FILE);
+		if (model.getBooleanProperty(REMOTE_HOME)) {
+			String src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_REMOTEHOME_FILE, monitor);
 			String fileName =  tempModel.getClassName() + REMOTE_HOME_SUFFIX + DOT_JAVA;
 			createJavaFile(monitor, fragment, src, fileName);
-			src = generateTemplateSource(tempModel, monitor, TEMPLATE_REMOTECOMPONENT_FILE);
+			src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_REMOTECOMPONENT_FILE, monitor);
 			fileName =  tempModel.getClassName() + REMOTE_COMPONENT_SUFFIX + DOT_JAVA;
 			createJavaFile(monitor, fragment, src, fileName);
 		}
 		
 		// Create the EJB 2.x compatible Local Home and Component interface java files
-		if (model.getBooleanProperty(INewSessionBeanClassDataModelProperties.LOCAL_HOME)) {
-			String src = generateTemplateSource(tempModel, monitor, TEMPLATE_LOCALHOME_FILE);
+		if (model.getBooleanProperty(LOCAL_HOME)) {
+			String src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_LOCALHOME_FILE, monitor);
 			String fileName =  tempModel.getClassName() + LOCAL_HOME_SUFFIX + DOT_JAVA;
 			createJavaFile(monitor, fragment, src, fileName);
-			src = generateTemplateSource(tempModel, monitor, TEMPLATE_LOCALCOMPONENT_FILE);
+			src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_LOCALCOMPONENT_FILE, monitor);
 			fileName =  tempModel.getClassName() + LOCAL_COMPONENT_SUFFIX + DOT_JAVA;
 			createJavaFile(monitor, fragment, src, fileName);
 		}
@@ -286,38 +275,10 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 		return templateModel;
 	}
 
-	/**
-	 * This method is intended for internal use only. This will use the
-	 * WTPJETEmitter to create an annotated java file based on the passed in
-	 * bean class template model. This method does not accept null
-	 * parameters. It will not return null. If annotations are not used, it will
-	 * use the non annotated template to omit the annotated tags.
-	 * 
-	 * @see NewSessionBeanClassOperation#generateUsingTemplates(IProgressMonitor,
-	 *      IPackageFragment)
-	 * @see JETEmitter#generate(org.eclipse.core.runtime.IProgressMonitor,
-	 *      java.lang.Object[])
-	 * @see CreateSessionBeanTemplateModel
-	 * 
-	 * @param tempModel
-	 * @param monitor
-	 * @param template_file2 
-	 * @return String the source for the java file
-	 * @throws JETException
-	 */
-	private String generateTemplateSource(CreateSessionBeanTemplateModel tempModel, IProgressMonitor monitor, String template_file) throws JETException {
-		URL templateURL = FileLocator.find(EjbPlugin.getDefault().getBundle(), new Path(template_file), null);
-		cleanUpOldEmitterProject();
-		WTPJETEmitter emitter = new WTPJETEmitter(templateURL.toString(), this.getClass().getClassLoader());
-		emitter.setIntelligentLinkingEnabled(true);
-		emitter.addVariable(EJB_PLUGIN, EjbPlugin.PLUGIN_ID);
-		return emitter.generate(monitor, new Object[] { tempModel });
-	}
-	
 	private boolean hasInterfacesToGenerate() {
 		List<BusinessInterface> businessInterfaces = (List<BusinessInterface>) model.getProperty(BUSINESS_INTERFACES);
-		boolean remoteHome = model.getBooleanProperty(INewSessionBeanClassDataModelProperties.REMOTE_HOME);
-		boolean localHome = model.getBooleanProperty(INewSessionBeanClassDataModelProperties.LOCAL_HOME);
+		boolean remoteHome = model.getBooleanProperty(REMOTE_HOME);
+		boolean localHome = model.getBooleanProperty(LOCAL_HOME);
 		return businessInterfaces.size() > 0 || remoteHome || localHome;
 	}
 	

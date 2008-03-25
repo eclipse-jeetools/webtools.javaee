@@ -10,8 +10,10 @@
  *******************************************************************************/
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.EJB_NAME;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.TRANSACTION_TYPE;
+
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
-import org.eclipse.jst.j2ee.ejb.internal.operations.INewMessageDrivenBeanClassDataModelProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -22,8 +24,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class AddMessageDrivenBeanWizardPage extends
-		AddEnterpriseBeanWizardPage implements
-		INewMessageDrivenBeanClassDataModelProperties {
+		AddEnterpriseBeanWizardPage {
 
 	private Text ejbNameText;
 	private Combo transactionTypeCombo;

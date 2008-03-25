@@ -10,7 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
-import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.ABSTRACT_METHODS;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CONSTRUCTOR;
+
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassOptionsWizardPage;
 import org.eclipse.swt.SWT;
@@ -50,11 +52,11 @@ public class AddEnterpriseBeanWizardPage extends NewJavaClassOptionsWizardPage {
 
 		inheritButton = new Button(buttonCompo, SWT.CHECK);
 		inheritButton.setText(J2EEUIMessages.JAVA_CLASS_INHERIT_CHECKBOX_LABEL);
-		synchHelper.synchCheckbox(inheritButton, INewJavaClassDataModelProperties.ABSTRACT_METHODS, null);
+		synchHelper.synchCheckbox(inheritButton, ABSTRACT_METHODS, null);
 
 		constructorButton = new Button(buttonCompo, SWT.CHECK);
 		constructorButton.setText(J2EEUIMessages.JAVA_CLASS_CONSTRUCTOR_CHECKBOX_LABEL);
-		synchHelper.synchCheckbox(constructorButton, INewJavaClassDataModelProperties.CONSTRUCTOR, null);
+		synchHelper.synchCheckbox(constructorButton, CONSTRUCTOR, null);
 	}
 
 	@Override

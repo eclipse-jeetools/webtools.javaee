@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.PROJECT;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME;
+
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.resources.IFile;
@@ -19,7 +22,6 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.ui.INewWizard;
@@ -65,8 +67,8 @@ public abstract class NewEnterpriseBeanWizard extends DataModelWizard implements
 
 	@Override
 	protected void postPerformFinish() throws InvocationTargetException {
-		String className = getDataModel().getStringProperty(INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME);
-		IProject p = (IProject) getDataModel().getProperty(INewJavaClassDataModelProperties.PROJECT);
+		String className = getDataModel().getStringProperty(QUALIFIED_CLASS_NAME);
+		IProject p = (IProject) getDataModel().getProperty(PROJECT);
 		IJavaProject javaProject = J2EEEditorUtility.getJavaProject(p);
 		IFile file;
 		try {

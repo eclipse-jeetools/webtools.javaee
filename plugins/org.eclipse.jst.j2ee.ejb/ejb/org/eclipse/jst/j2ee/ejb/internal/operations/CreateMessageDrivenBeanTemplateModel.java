@@ -10,15 +10,21 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.EJB_NAME;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.MAPPED_NAME;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewMessageDrivenBeanClassDataModelProperties.DESTINATION_TYPE;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewMessageDrivenBeanClassDataModelProperties.JMS;
+
 import java.util.Collection;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Map;
 
+import org.eclipse.jst.j2ee.internal.common.operations.Method;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class CreateMessageDrivenBeanTemplateModel extends
-		CreateEnterpriseBeanTemplateModel implements
-		INewMessageDrivenBeanClassDataModelProperties {
+		CreateEnterpriseBeanTemplateModel {
 
 	public static final String QUALIFIED_ACTIVATION_CONFIG_PROPERTY = "javax.ejb.ActivationConfigProperty"; //$NON-NLS-1$
 	public static final String QUALIFIED_TRANSACTION_MANAGEMENT = "javax.ejb.TransactionManagement"; //$NON-NLS-1$
@@ -71,20 +77,21 @@ public class CreateMessageDrivenBeanTemplateModel extends
 	}
 
 	public boolean isJMS(){
-		return dataModel.getBooleanProperty(INewMessageDrivenBeanClassDataModelProperties.JMS);
+		return dataModel.getBooleanProperty(JMS);
 	}
-
-
 
 	@Override
 	public Collection<Method> getUnimplementedMethods() {
 		Collection<Method> unimplementedMethods = super.getUnimplementedMethods();
-		for (Method method : unimplementedMethods) {
+		Iterator<Method> iterator = unimplementedMethods.iterator();
+		
+		while (iterator.hasNext()) {
+			Method method = iterator.next();
 			if (ON_MESSAGE.equals(method.getName()) && ON_MESSAGE_SIGNATURE.equals(method.getSignature())) {
-				unimplementedMethods.remove(method);
-				break;
+				iterator.remove();
 			}
 		}
+		
 		return unimplementedMethods;
 	}
 

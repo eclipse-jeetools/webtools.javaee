@@ -1,77 +1,14 @@
 <%@ jet package="org.eclipse.jst.j2ee.ejb" 
-	imports="org.eclipse.jst.j2ee.ejb.internal.operations.* java.util.* " 
+	imports="java.util.* org.eclipse.jst.j2ee.internal.common.operations.* org.eclipse.jst.j2ee.ejb.internal.operations.*" 
 	class="SessionBeanTemplate" 
-%><%@ include file="sessionBeanHeader.template" %>
-<%=model.getClassAnnotation()%>
-<%
-Map<String, String> params = model.getClassAnnotationParams();
-if (!params.isEmpty()) { 
-%>(<%
-  Set<String> keys = params.keySet();
-  boolean needComma = false;
-  for (String key : keys) {
-    if (needComma) {%>, <%}
-    String value = params.get(key);
-    %><%=key%> = "<%=value%>"<%
-    needComma = true;
-  } %>)
-<%}
-
-if (!model.isContainerType()) {%>
-@TransactionManagement(TransactionManagementType.BEAN)<%
-}
-
-List<BusinessInterface> localInterfaces = model.getExistingLocalBusinessInterfaces();
-if (!localInterfaces.isEmpty()) {%>
-@Local( { <%
-  boolean needComma = false;
-  for (BusinessInterface iface : localInterfaces) {
-    if (needComma) {%>, <%}
-    %><%=iface.getSimpleName()%>.class<%
-    needComma = true;
-  }
-%>})<%
-}
-
-List<BusinessInterface> remoteInterfaces = model.getExistingRemoteBusinessInterfaces();
-if (!remoteInterfaces.isEmpty()) {%>
-@Remote( { <%
-  boolean needComma = false;
-  for (BusinessInterface iface : remoteInterfaces) {
-    if (needComma) {%>, <%}
-    %><%=iface.getSimpleName()%>.class<%
-    needComma = true;
-  }
-%>})<%}
-if (model.isLocalHomeChecked()) {%>
-@LocalHome(<%=model.getClassName()%>LocalHome.class)<%}%>
-<%if (model.isRemoteHomeChecked()) {%>
-@RemoteHome(<%=model.getClassName()%>Home.class)<%}%>
-
-<%if (model.isPublic()) {%>public<%}%> <%if (model.isAbstract()) {%>abstract <%}%><%if (model.isFinal()) {%>final <%}
-%>class <%=model.getClassName()%><%
-String superClass = model.getSuperclassName();
-if (superClass.trim().length() > 0) {%> extends <%=superClass%><%}%>
-<%
- List<String> interfaces = model.getInterfaces(); 
- if (interfaces.size() > 0) {%> implements <% }
- for (int i = 0; i<interfaces.size(); i++) {
-   String INTERFACE = (String) interfaces.get(i);
-   if (i > 0) { %>, <% } %><%=INTERFACE%><% } %> {
-<%
-if (model.shouldImplementAbstractMethods()) {
-	for (Method method : model.getUnimplementedMethods()) { %>
-
-	/**
-     * @see <%=method.getContainingJavaClass()%>#<%=method.getName()%>(<%=method.getParamsForJavadoc()%>)
-     */
-    public <%=method.getReturnType()%> <%=method.getName()%>(<%=method.getParamsForDeclaration()%>) {
-        // TODO Auto-generated method stub
-<% String defaultReturnValue = method.getDefaultReturnValue();
-	if (defaultReturnValue != null) { %>
-		return <%=defaultReturnValue%>;
-<%  } %>
-    }
-<% }} %>
+%>
+<% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; %>
+<%@ include file="_flags.template" %>
+<%@ include file="_package.template" %>
+<%@ include file="_imports.template" %>
+<%@ include file="sessionBean_classHeader.template" %>
+<%@ include file="_class.template" %>
+<%@ include file="_constructors.template" %>
+<%@ include file="_methods.template" %>
 
 }

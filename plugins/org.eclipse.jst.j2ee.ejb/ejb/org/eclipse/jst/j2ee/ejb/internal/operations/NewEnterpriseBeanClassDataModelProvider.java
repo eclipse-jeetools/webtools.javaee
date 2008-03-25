@@ -10,6 +10,13 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.EJB_NAME;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.MAPPED_NAME;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.TRANSACTION_TYPE;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CLASS_NAME;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.JAVA_PACKAGE;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SUPERCLASS;
+
 import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
@@ -19,7 +26,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
-public class NewEnterpriseBeanClassDataModelProvider extends NewJavaClassDataModelProvider implements INewEnterpriseBeanClassDataModelProperties {
+public class NewEnterpriseBeanClassDataModelProvider extends NewJavaClassDataModelProvider {
 
 	public static final int TRANSACTION_TYPE_CONTAINER_INDEX = 0;
 	public static final int TRANSACTION_TYPE_BEAN_INDEX = 1;

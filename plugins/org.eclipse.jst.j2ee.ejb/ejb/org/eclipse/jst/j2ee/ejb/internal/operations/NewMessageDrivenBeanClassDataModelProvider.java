@@ -10,6 +10,11 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewMessageDrivenBeanClassDataModelProperties.DESTINATION_TYPE;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewMessageDrivenBeanClassDataModelProperties.JMS;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SUPERCLASS;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +23,7 @@ import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProv
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 
-public class NewMessageDrivenBeanClassDataModelProvider extends NewEnterpriseBeanClassDataModelProvider implements INewMessageDrivenBeanClassDataModelProperties {
+public class NewMessageDrivenBeanClassDataModelProvider extends NewEnterpriseBeanClassDataModelProvider {
 
 	public static final String QUALIFIED_JMS_MESSAGELISTENER = "javax.jms.MessageListener"; //$NON-NLS-1$
 

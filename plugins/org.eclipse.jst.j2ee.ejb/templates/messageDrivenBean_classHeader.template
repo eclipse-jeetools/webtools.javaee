@@ -1,0 +1,47 @@
+/**
+ * Message-Driven Bean implementation class for: <%=model.getClassName()%>
+ *
+ */
+@MessageDriven
+<%
+	Map<String, String> params = model.getClassAnnotationParams();
+	if (!params.isEmpty()) { 
+%>(
+<%
+		Set<String> keys = params.keySet();
+		boolean needNewLine = keys.contains(CreateMessageDrivenBeanTemplateModel.ATT_ACTIVATION_CONFIG);
+		boolean needComma = false;
+		for (String key : keys) {
+			if (needComma) { 
+%>, 
+<%
+				if (needNewLine) {
+%>
+		
+<%
+				} 
+			}
+			
+			String value = params.get(key);
+			if (key.equals(CreateMessageDrivenBeanTemplateModel.ATT_ACTIVATION_CONFIG)) {
+%>
+		activationConfig = { @ActivationConfigProperty(
+				propertyName = "destinationType", propertyValue = "<%= value %>"
+		) }
+<%
+			} else {
+%><%= key %> = <%= value %>
+<%
+			}
+			needComma = true;
+		} 
+%>)
+<%
+	}
+	
+	if (!model.isContainerType()) {
+%>
+@TransactionManagement(TransactionManagementType.BEAN)
+<%
+	}
+%>

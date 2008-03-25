@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 SAP AG and others.
+ * Copyright (c) 2007, 2008 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,8 @@
  * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
  *******************************************************************************/
 package org.eclipse.jst.ejb.ui.internal.wizard;
+
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.BUSINESS_INTERFACES;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,7 +29,6 @@ import org.eclipse.jdt.core.search.IJavaSearchScope;
 import org.eclipse.jdt.core.search.SearchEngine;
 import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
-import org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -56,10 +57,10 @@ public class AddButtonListener implements SelectionListener {
 			IType type = iface.getJavaType();
 			if (type != null) {
 				String text = type.getFullyQualifiedName();
-				List<BusinessInterface> biList = (List<BusinessInterface>) model.getProperty(INewSessionBeanClassDataModelProperties.BUSINESS_INTERFACES);
+				List<BusinessInterface> biList = (List<BusinessInterface>) model.getProperty(BUSINESS_INTERFACES);
 				if (!hasInterface(text, biList)) {
 					biList.add(iface);
-					model.setProperty(INewSessionBeanClassDataModelProperties.BUSINESS_INTERFACES, biList);
+					model.setProperty(BUSINESS_INTERFACES, biList);
 					page.updateBusinessInterfacesList();
 				}
 			}

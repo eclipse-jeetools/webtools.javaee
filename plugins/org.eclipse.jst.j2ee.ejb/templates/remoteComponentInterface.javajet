@@ -2,13 +2,10 @@
 	imports="org.eclipse.jst.j2ee.ejb.internal.operations.* " 
 	class="RemoteComponentInterfaceTemplate" 
 %>
-<% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; 
-if (model.getJavaPackageName() != null && model.getJavaPackageName() != "") { 
-%>package <%=model.getJavaPackageName()%>;<% 
-} %>
-
+<% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; %>
+<%@ include file="_package.template" %>
 import javax.ejb.EJBObject;
 
-public interface <%=model.getClassName()%>RemoteComponent extends EJBObject {
+public interface <%= model.getClassName() %>RemoteComponent extends EJBObject {
 
 }

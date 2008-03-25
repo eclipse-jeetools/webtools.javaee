@@ -10,8 +10,11 @@
  *******************************************************************************/
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.MAPPED_NAME;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewMessageDrivenBeanClassDataModelProperties.DESTINATION_TYPE;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewMessageDrivenBeanClassDataModelProperties.JMS;
+
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.ejb.internal.operations.INewMessageDrivenBeanClassDataModelProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -23,8 +26,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class NewMessageDrivenBeanClassWizardPage extends NewEnterpriseBeanClassWizardPage
-		implements INewMessageDrivenBeanClassDataModelProperties {
+public class NewMessageDrivenBeanClassWizardPage extends NewEnterpriseBeanClassWizardPage {
 
 	@Override
 	protected IProject getExtendedSelectedProject(Object selection) {
