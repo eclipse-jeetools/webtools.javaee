@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.dependency.tests.util;
 
+import java.util.Map;
+
 import junit.framework.Assert;
 
 import org.eclipse.core.resources.IProject;
@@ -21,6 +23,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
+import org.eclipse.jst.j2ee.ejb.project.operations.IEjbFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
@@ -28,6 +31,8 @@ import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetProjectCreat
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.EARFacetProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.UtilityProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
@@ -227,6 +232,63 @@ public class ProjectUtil {
 	 */
 	public static IProject createEJBProject(final String name, final String earName, final int facetVersion, final boolean waitForBuildToComplete) throws Exception {
 		final IDataModel dataModel = getEJBCreationDataModel(name, earName, facetVersion);
+		return createAndVerify(dataModel, name, J2EEProjectUtilities.EJB, earName, waitForBuildToComplete);
+	}
+	
+	/**
+	 * Creates an EJB project with optional EAR association.
+	 * 
+	 * @param name
+	 *            EJB name.
+	 * @param earName
+	 *            EAR name; null for no EAR association.
+	 * @param facetModelProperties
+	 *            this properties will be added to the facet model retrieved by
+	 *            <code> FacetDataModelMap facetMap = (FacetDataModelMap) dataModel
+				.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		IDataModel facetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.EJB);</code>
+	 *            This gives you the opportunity to control the creation of the
+	 *            project without introducing new create* methods.
+	 * @param facetVersion
+	 *            The facet version.
+	 * @return The EJB project.
+	 * @throws Exception
+	 */
+	public static IProject createEJBProject(final String name, final String earName,
+			Map<String, Object> facetModelProperties, final int facetVersion, final boolean waitForBuildToComplete)
+			throws Exception {
+		final IDataModel dataModel = getEJBCreationDataModel(name, earName, facetVersion);
+		FacetDataModelMap facetMap = (FacetDataModelMap) dataModel
+				.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		IDataModel facetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.EJB);
+		for (Map.Entry<String, Object> entry : facetModelProperties.entrySet()) {
+			facetModel.setProperty(entry.getKey(), entry.getValue());
+		}
+		return createAndVerify(dataModel, name, J2EEProjectUtilities.EJB, earName, waitForBuildToComplete);
+	}
+	
+	/**
+	 * Creates an EJB project with optional EAR association.
+	 * @param name EJB name.
+	 * @param earName EAR name; null for no EAR association.
+	 * @param clientName Client name; null for no client. 
+	 * @param facetVersion The facet version.
+	 * @param waitForBuildToComplete
+	 * @return The EJB project.
+	 * @throws Exception
+	 */
+	public static IProject createEJBProject(final String name, final String earName, final String clientName,
+			final int facetVersion, final boolean waitForBuildToComplete) throws Exception {
+		final IDataModel dataModel = getEJBCreationDataModel(name, earName, facetVersion);
+		FacetDataModelMap facetMap = (FacetDataModelMap) dataModel
+				.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		IDataModel facetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.EJB);
+		facetModel.setBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, true);
+		// only create client if given a client name, and is added to EAR
+		if (clientName != null && earName != null) {
+			facetModel.setBooleanProperty(IEjbFacetInstallDataModelProperties.CREATE_CLIENT, true);
+			facetModel.setStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME, clientName);
+		}
 		return createAndVerify(dataModel, name, J2EEProjectUtilities.EJB, earName, waitForBuildToComplete);
 	}
 
