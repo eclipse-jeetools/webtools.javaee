@@ -61,7 +61,6 @@ import org.eclipse.jst.j2ee.applicationclient.internal.modulecore.util.AppClient
 import org.eclipse.jst.j2ee.common.internal.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveInit;
 import org.eclipse.jst.j2ee.core.internal.plugin.CatalogJ2EEXmlDtDEntityResolver;
-import org.eclipse.jst.j2ee.internal.common.J2EEDependencyListener;
 import org.eclipse.jst.j2ee.internal.common.VirtualArchiveComponentAdapterFactory;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EarEditAdapterFactory;
@@ -82,6 +81,7 @@ import org.eclipse.wst.validation.internal.operations.ValidatorManager;
 import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import java.lang.Throwable;
 
 /**
  * This is a top-level class of the j2ee plugin.
@@ -522,7 +522,6 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		JavaCore.addElementChangedListener(new J2EEElementChangedListener(), ElementChangedEvent.POST_CHANGE);
 		
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(J2EEComponentClasspathUpdater.getInstance(), IResourceChangeEvent.POST_CHANGE | IResourceChangeEvent.PRE_CLOSE | IResourceChangeEvent.PRE_DELETE);
-		ResourcesPlugin.getWorkspace().addResourceChangeListener(J2EEDependencyListener.INSTANCE, IResourceChangeEvent.POST_CHANGE | IResourceChangeEvent.PRE_CLOSE | IResourceChangeEvent.PRE_DELETE);
 	}
 	
 	public void stop(BundleContext context) throws Exception {
