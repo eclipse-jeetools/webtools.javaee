@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
-/**
- * 
- */
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_FILTER;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.DEFAULT_PACKAGE;
+
 import java.util.ArrayList;
 
 import org.eclipse.core.resources.IFile;
@@ -34,7 +34,6 @@ import org.eclipse.jst.j2ee.internal.dialogs.FilteredFileSelectionDialog;
 import org.eclipse.jst.j2ee.internal.dialogs.TwoArrayQuickSorter;
 import org.eclipse.jst.j2ee.internal.dialogs.TypedFileViewerFilter;
 import org.eclipse.jst.j2ee.internal.web.providers.WebAppEditResourceHandler;
-import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
@@ -63,7 +62,7 @@ import org.eclipse.ui.part.PageBook;
  * Creation date: (7/30/2001 11:16:36 AM)
  */
 public class MultiSelectFilteredFilterFileSelectionDialog extends
-		FilteredFileSelectionDialog implements IServletConstants {
+		FilteredFileSelectionDialog {
 	
 
 	private static class PackageRenderer extends LabelProvider {
@@ -73,7 +72,7 @@ public class MultiSelectFilteredFilterFileSelectionDialog extends
 			IType type = (IType) element;
 			String p = type.getPackageFragment().getElementName();
 			if ("".equals(p)) //$NON-NLS-1$
-				p = IWebWizardConstants.DEFAULT_PACKAGE;
+				p = DEFAULT_PACKAGE;
 			return (p + " - " + type.getPackageFragment().getParent().getPath().toString()); //$NON-NLS-1$
 		}
 		public Image getImage(Object element) {

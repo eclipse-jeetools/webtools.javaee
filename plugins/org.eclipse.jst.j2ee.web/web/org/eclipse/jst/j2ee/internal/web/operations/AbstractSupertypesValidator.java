@@ -10,6 +10,10 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.PROJECT;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SUPERCLASS;
+
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
@@ -18,7 +22,6 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -27,15 +30,15 @@ public class AbstractSupertypesValidator {
 	private static ITypeHierarchy typeHierarchyCache = null;
 	
 	protected static String getSuperclass(IDataModel dataModel) {
-		return dataModel.getStringProperty(INewJavaClassDataModelProperties.SUPERCLASS);
+		return dataModel.getStringProperty(SUPERCLASS);
 	}
 	
 	protected static List getInterfaces(IDataModel dataModel) {
-		return (List) dataModel.getProperty(INewJavaClassDataModelProperties.INTERFACES);
+		return (List) dataModel.getProperty(INTERFACES);
 	}
 	
 	protected static IJavaProject getJavaProject(IDataModel dataModel) {
-		return JavaCore.create((IProject) dataModel.getProperty(INewJavaClassDataModelProperties.PROJECT));
+		return JavaCore.create((IProject) dataModel.getProperty(PROJECT));
 	}
 	
 	protected static boolean hasSuperclass(IDataModel dataModel,

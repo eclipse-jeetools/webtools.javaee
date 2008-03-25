@@ -10,12 +10,17 @@
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
+import static org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel.USE_ANNOTATIONS;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CLASS_NAME;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.BROWSE_BUTTON_LABEL;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.CLASS_NAME_LABEL;
+import static org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties.PROJECT_NAME;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
 import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
@@ -34,7 +39,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
-public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage implements INewWebClassDataModelProperties {
+public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage {
 
 	protected AnnotationsStandaloneGroup annotationsGroup;
 	
@@ -109,7 +114,7 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage imple
 		});
 		
 		existingClassLabel = new Label(composite, SWT.LEFT);
-		existingClassLabel.setText(IWebWizardConstants.CLASS_NAME_LABEL);
+		existingClassLabel.setText(CLASS_NAME_LABEL);
 		existingClassLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
 		existingClassLabel.setEnabled(false);
 
@@ -119,7 +124,7 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage imple
 		synchHelper.synchText(existingClassText, CLASS_NAME, null);
 
 		existingClassButton = new Button(composite, SWT.PUSH);
-		existingClassButton.setText(IWebWizardConstants.BROWSE_BUTTON_LABEL);
+		existingClassButton.setText(BROWSE_BUTTON_LABEL);
 		existingClassButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 		existingClassButton.setEnabled(false);
 		existingClassButton.addSelectionListener(new SelectionAdapter() {

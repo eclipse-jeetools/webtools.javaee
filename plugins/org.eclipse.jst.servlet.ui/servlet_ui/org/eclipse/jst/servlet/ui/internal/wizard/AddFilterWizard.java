@@ -10,6 +10,11 @@
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.ADD_FILTER_WIZARD_PAGE_TITLE;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.ADD_FILTER_WIZARD_WINDOW_TITLE;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC;
+
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -34,7 +39,7 @@ public class AddFilterWizard extends NewWebArtifactWizard {
 
 	@Override
 	protected String getTitle() {
-		return IWebWizardConstants.ADD_FILTER_WIZARD_WINDOW_TITLE;
+		return ADD_FILTER_WIZARD_WINDOW_TITLE;
 	}
 
 	@Override
@@ -47,8 +52,8 @@ public class AddFilterWizard extends NewWebArtifactWizard {
 		NewFilterClassWizardPage page1 = new NewFilterClassWizardPage(
 		        getDataModel(),
 		        PAGE_ONE,
-		        IWebWizardConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
-				IWebWizardConstants.ADD_FILTER_WIZARD_PAGE_TITLE, 
+		        NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
+				ADD_FILTER_WIZARD_PAGE_TITLE, 
 				J2EEProjectUtilities.DYNAMIC_WEB);
 		page1.setInfopopID(IWebUIContextIds.WEBEDITOR_FILTER_PAGE_ADD_FILTER_WIZARD_1);
 		addPage(page1);
@@ -60,8 +65,8 @@ public class AddFilterWizard extends NewWebArtifactWizard {
         NewFilterClassOptionsWizardPage page3 = new NewFilterClassOptionsWizardPage(
                 getDataModel(), 
                 PAGE_THREE,
-                IWebWizardConstants.NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC,
-                IWebWizardConstants.ADD_FILTER_WIZARD_PAGE_TITLE);
+                NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC,
+                ADD_FILTER_WIZARD_PAGE_TITLE);
         page3.setInfopopID(IWebUIContextIds.WEBEDITOR_FILTER_PAGE_ADD_FILTER_WIZARD_3);
         addPage(page3);
 	}

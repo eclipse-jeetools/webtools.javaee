@@ -1,83 +1,84 @@
 <%@ jet package="org.eclipse.jst.j2ee.web" 
-	imports="org.eclipse.jst.j2ee.internal.web.operations.* java.util.* " 
+	imports="java.util.* org.eclipse.jst.j2ee.internal.common.operations.* org.eclipse.jst.j2ee.internal.web.operations.*" 
 	class="ServletTemplate" 
-%><%@ include file="servletHeader.template" %>
-
-<%if (model.isPublic()) {%>public<%}%> <%if (model.isAbstract()) {%>abstract <%}%><%if (model.isFinal()) {%>final <%}
-%>class <%=model.getClassName()%><%String superClass = model.getSuperclassName();
- if (! "".equals(superClass)) {%> extends <%=superClass%><%}%><%
- List<String> interfaces = model.getInterfaces(); 
- if (interfaces.size()>0) {%> implements <% }
- for (int i=0; i<interfaces.size(); i++) {
-   String INTERFACE = (String) interfaces.get(i);
-   if (i>0) { %>, <%}%><%=INTERFACE%><%}%> {
-<% if (model.isGenericServletSuperclass()) { %>
+%>
+<% CreateServletTemplateModel model = (CreateServletTemplateModel) argument; %>
+<%@ include file="_flags.template" %>
+<%@ include file="_package.template" %>
+<%@ include file="_imports.template" %>
+<%@ include file="servlet_classHeader.template" %>
+<%@ include file="_class.template" %>
+<% 
+	if (model.isGenericServletSuperclass()) { 
+%>
 	private static final long serialVersionUID = 1L;
-<% } %>
-<% if (!model.hasEmptySuperclassConstructor()) { %>
-
-    /**
-     * Default constructor. 
-     */
-    public <%=model.getClassName()%>() {
-        // TODO Auto-generated constructor stub
-    }
-<% } %>
-<% if (model.shouldGenSuperclassConstructors()) {
-     List<Constructor> constructors = model.getConstructors();
-     for (Constructor constructor : constructors) {
-       if (constructor.isPublic() || constructor.isProtected()) { %>
-       
-    /**
-     * @see <%=model.getSuperclassName()%>#<%=model.getSuperclassName()%>(<%=constructor.getParamsForJavadoc()%>)
-     */
-    public <%=model.getClassName()%>(<%=constructor.getParamsForDeclaration()%>) {
-        super(<%=constructor.getParamsForCall()%>);
-        // TODO Auto-generated constructor stub
-    }
-<% } } } %>
+<% 
+	} 
+%>
+<%@ include file="_constructors.template" %>
+<%@ include file="_methods.template" %>
 <% if (model.shouldGenInit()) { %>
 
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub<% if (model.isGenericServletSuperclass()) { %>
-		super.init();<% } %>
-	}<% } %><% if (model.shouldGenDestroy()) { %>
+		// TODO Auto-generated method stub
+<%		if (model.isGenericServletSuperclass()) { %>
+		super.init();
+<%		} %>
+	}
+<% } %>
+<% if (model.shouldGenDestroy()) { %>
 
 	/**
 	 * @see Servlet#destroy()
 	 */
 	public void destroy() {
-		// TODO Auto-generated method stub<% if (model.isGenericServletSuperclass()) { %>
-		super.destroy();<% } %>
-	}<% } %><% if (model.shouldGenGetServletConfig()) { %>
+		// TODO Auto-generated method stub
+<% 		if (model.isGenericServletSuperclass()) { %>
+		super.destroy();
+<% 		} %>
+	}
+<% } %>
+<% if (model.shouldGenGetServletConfig()) { %>
 
 	/**
 	 * @see Servlet#getServletConfig()
 	 */
 	public ServletConfig getServletConfig() {
-		// TODO Auto-generated method stub<% if (model.isGenericServletSuperclass()) { %>
-		return super.getServletConfig();<% } else { %>
-		return null; <% } %>
-	}<% } %><% if (model.shouldGenGetServletInfo()) { %>
+		// TODO Auto-generated method stub
+<%		if (model.isGenericServletSuperclass()) { %>
+		return super.getServletConfig();
+<% 		} else { %>
+		return null;
+<%		} %>
+	}
+<% } %>
+<% if (model.shouldGenGetServletInfo()) { %>
 
 	/**
 	 * @see Servlet#getServletInfo()
 	 */
 	public String getServletInfo() {
-		// TODO Auto-generated method stub<% if (model.isGenericServletSuperclass()) { %>
-		return super.getServletInfo();<% } else { %>
-		return null; <% } %>
-	}<% } %><% if (model.shouldGenService() && !model.isHttpServletSuperclass()) { %>
+		// TODO Auto-generated method stub
+<% 		if (model.isGenericServletSuperclass()) { %>
+		return super.getServletInfo();
+<% 		} else { %>
+		return null; 
+<% 		} %>
+	}
+<% } %>
+<% if (model.shouldGenService() && !model.isHttpServletSuperclass()) { %>
 
 	/**
 	 * @see Servlet#service(ServletRequest request, ServletResponse response)
 	 */
 	public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	}<% } %><% if (model.shouldGenService() && model.isHttpServletSuperclass()) { %>
+	}
+<% } %>
+<% if (model.shouldGenService() && model.isHttpServletSuperclass()) { %>
 
 	/**
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
@@ -85,7 +86,9 @@
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		super.service(request, response);
-	}<% } %><% if (model.shouldGenDoGet()) { %>
+	}
+<% } %>
+<% if (model.shouldGenDoGet()) { %>
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -93,7 +96,9 @@
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		super.doGet(request, response);
-	}<% } %><% if (model.shouldGenDoPost()) { %>
+	}
+<% } %>
+<% if (model.shouldGenDoPost()) { %>
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -101,7 +106,9 @@
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		super.doPost(request, response);
-	}<% } %><% if (model.shouldGenDoPut()) { %>
+	}
+<% } %>
+<% if (model.shouldGenDoPut()) { %>
 
 	/**
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
@@ -109,7 +116,9 @@
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		super.doPut(request, response);
-	}<% } %><% if (model.shouldGenDoDelete()) { %>
+	}
+<% } %>
+<% if (model.shouldGenDoDelete()) { %>
 
 	/**
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
@@ -117,7 +126,9 @@
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		super.doDelete(request, response);
-	}<% } %><% if (model.shouldGenDoHead()) { %>
+	}
+<% } %>
+<% if (model.shouldGenDoHead()) { %>
 
 	/**
 	 * @see HttpServlet#doHead(HttpServletRequest, HttpServletResponse)
@@ -125,7 +136,9 @@
 	protected void doHead(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		super.doHead(request, response);
-	}<% } %><% if (model.shouldGenDoOptions()) { %>
+	}
+<% } %>
+<% if (model.shouldGenDoOptions()) { %>
 
 	/**
 	 * @see HttpServlet#doOptions(HttpServletRequest, HttpServletResponse)
@@ -133,7 +146,9 @@
 	protected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		super.doOptions(request, response);
-	}<% } %><% if (model.shouldGenDoTrace()) { %>
+	}
+<% } %>
+<% if (model.shouldGenDoTrace()) { %>
 
 	/**
 	 * @see HttpServlet#doTrace(HttpServletRequest, HttpServletResponse)
@@ -141,6 +156,7 @@
 	protected void doTrace(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		super.doTrace(request, response);
-	}<% } %>
+	}
+<% } %>
 
 }

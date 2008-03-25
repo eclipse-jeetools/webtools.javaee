@@ -10,9 +10,12 @@
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
-/**
- * 
- */
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.ERROR;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.FORWARD;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.INCLUDE;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.REQUEST;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.URL_PATTERN_LABEL;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -322,7 +325,7 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
         Label messageLabel = new Label(composite, SWT.NONE);
         gd = new GridData();
         messageLabel.setLayoutData(gd);
-        messageLabel.setText(IWebWizardConstants.URL_PATTERN_LABEL); //$NON-NLS-1$
+        messageLabel.setText(URL_PATTERN_LABEL); //$NON-NLS-1$
 
         fURLText = new Text(composite, SWT.BORDER);
         GridData spec = new GridData();
@@ -367,13 +370,13 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
         gridData.horizontalSpan = 2;
         dispatchers.setLayoutData(gridData);
         fRequest = new Button(dispatchers, SWT.CHECK);
-        fRequest.setText(IWebWizardConstants.REQUEST);
+        fRequest.setText(REQUEST);
         fForward = new Button(dispatchers, SWT.CHECK);
-        fForward.setText(IWebWizardConstants.FORWARD);
+        fForward.setText(FORWARD);
         fInclude = new Button(dispatchers, SWT.CHECK);
-        fInclude.setText(IWebWizardConstants.INCLUDE);
+        fInclude.setText(INCLUDE);
         fErorr = new Button(dispatchers, SWT.CHECK);
-        fErorr.setText(IWebWizardConstants.ERROR);
+        fErorr.setText(ERROR);
         
         if (selectedItem != null) {
             if (selectedItem.isUrlPatternType()) {

@@ -11,6 +11,13 @@
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.PROJECT;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.IS_SERVLET_TYPE;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.USE_EXISTING_CLASS;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.CHOOSE_SERVLET_CLASS;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.NEW_SERVLET_WIZARD_WINDOW_TITLE;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.USE_EXISTING_SERVLET_CLASS;
+
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -18,10 +25,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.window.Window;
-import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.war.ui.util.WebServletGroupItemProvider;
-import org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties;
-import org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
@@ -39,12 +43,12 @@ public class NewServletClassWizardPage extends NewWebClassWizardPage {
 	
 	@Override
 	protected String getUseExistingCheckboxText() {
-		return IWebWizardConstants.USE_EXISTING_SERVLET_CLASS;
+		return USE_EXISTING_SERVLET_CLASS;
 	}
 	
 	@Override
 	protected String getUseExistingProperty() {
-		return INewWebClassDataModelProperties.USE_EXISTING_CLASS;
+		return USE_EXISTING_CLASS;
 	}
 
 	@Override
@@ -60,12 +64,12 @@ public class NewServletClassWizardPage extends NewWebClassWizardPage {
 	@Override
 	protected void handleClassButtonSelected() {
 		getControl().setCursor(new Cursor(getShell().getDisplay(), SWT.CURSOR_WAIT));
-		IProject project = (IProject) model.getProperty(INewJavaClassDataModelProperties.PROJECT);
+		IProject project = (IProject) model.getProperty(PROJECT);
 		IVirtualComponent component = ComponentCore.createComponent(project);
 		MultiSelectFilteredFileSelectionDialog ms = new MultiSelectFilteredFileSelectionDialog(
 				getShell(),
-				IWebWizardConstants.NEW_SERVLET_WIZARD_WINDOW_TITLE,
-				IWebWizardConstants.CHOOSE_SERVLET_CLASS, 
+				NEW_SERVLET_WIZARD_WINDOW_TITLE,
+				CHOOSE_SERVLET_CLASS, 
 				JSPEXTENSIONS, 
 				false, 
 				project);
@@ -83,7 +87,7 @@ public class NewServletClassWizardPage extends NewWebClassWizardPage {
 						IPath pBase = root.getFullPath();
 						IPath path = pFull.removeFirstSegments(pBase.segmentCount());
 						qualifiedClassName = path.makeAbsolute().toString();
-						model.setProperty(INewServletClassDataModelProperties.IS_SERVLET_TYPE, new Boolean(false));
+						model.setProperty(IS_SERVLET_TYPE, new Boolean(false));
 					}
 				}
 			} 
@@ -91,7 +95,7 @@ public class NewServletClassWizardPage extends NewWebClassWizardPage {
 				IType type = (IType) ms.getFirstResult();
 				if (type != null) {
 					qualifiedClassName = type.getFullyQualifiedName();
-					model.setProperty(INewServletClassDataModelProperties.IS_SERVLET_TYPE, new Boolean(true));
+					model.setProperty(IS_SERVLET_TYPE, new Boolean(true));
 				}
 			}
 			existingClassText.setText(qualifiedClassName);

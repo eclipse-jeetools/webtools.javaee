@@ -10,14 +10,27 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SESSION_ACTIVATION_LISTENER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SESSION_ATTRIBUTE_LISTENER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SESSION_BINDING_EVENT;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SESSION_BINDING_LISTENER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SESSION_EVENT;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SESSION_LISTENER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_CONTEXT_ATTRIBUTE_EVENT;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_CONTEXT_ATTRIBUTE_LISTENER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_CONTEXT_EVENT;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_CONTEXT_LISTENER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_EVENT;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST_EVENT;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST_LISTENER;
 
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class CreateListenerTemplateModel extends CreateWebClassTemplateModel implements IServletConstants {
+public class CreateListenerTemplateModel extends CreateWebClassTemplateModel {
 	
 	public Collection<String> getImports() {
 		Collection<String> collection = super.getImports();

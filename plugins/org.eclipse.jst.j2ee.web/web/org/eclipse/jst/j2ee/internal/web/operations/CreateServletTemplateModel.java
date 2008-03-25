@@ -15,17 +15,65 @@
  */
 package org.eclipse.jst.j2ee.internal.web.operations;
 
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.ABSTRACT_METHODS;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.DESTROY;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.DO_DELETE;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.DO_GET;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.DO_HEAD;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.DO_OPTIONS;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.DO_POST;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.DO_PUT;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.DO_TRACE;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.GET_SERVLET_CONFIG;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.GET_SERVLET_INFO;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.INIT;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.INIT_PARAM;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.SERVICE;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.URL_MAPPINGS;
+import static org.eclipse.jst.j2ee.web.IServletConstants.DESTROY_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.DO_DELETE_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.DO_GET_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.DO_HEAD_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.DO_POST_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.DO_PUT_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.DO_TRACE_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.GET_SERVLET_CONFIG_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.GET_SERVLET_INFO_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.HTTP_SERVICE_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_DESTROY;
+import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_DO_DELETE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_DO_GET;
+import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_DO_HEAD;
+import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_DO_OPTIONS;
+import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_DO_POST;
+import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_DO_PUT;
+import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_DO_TRACE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_GET_SERVLET_CONFIG;
+import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_GET_SERVLET_INFO;
+import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_INIT;
+import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_SERVICE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_TO_STRING;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SERVLET_REQUEST;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SERVLET_RESPONSE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_IO_EXCEPTION;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_CONFIG;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_EXCEPTION;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_RESPONSE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.SERVICE_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.SERVLET_INIT_SIGNATURE;
+
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.jst.j2ee.web.IServletConstants;
+import org.eclipse.jst.j2ee.internal.common.operations.Method;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
  * @author jlanuti
  */
-public class CreateServletTemplateModel extends CreateWebClassTemplateModel
-		implements INewServletClassDataModelProperties, IServletConstants {
+public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 
 	public static final int NAME = 0;
 	public static final int VALUE = 1;
@@ -210,6 +258,33 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel
 				return dataModel.getBooleanProperty(DO_TRACE);
 		}
 		return false;
+	}
+
+	@Override
+	public Collection<Method> getUnimplementedMethods() {
+		Collection<Method> unimplementedMethods = super.getUnimplementedMethods();
+		Iterator<Method> iterator = unimplementedMethods.iterator();
+		
+		while (iterator.hasNext()) {
+			Method method = iterator.next();
+			if ((METHOD_INIT.equals(method.getName()) && SERVLET_INIT_SIGNATURE.equals(method.getSignature())) || 
+					(METHOD_DESTROY.equals(method.getName()) && DESTROY_SIGNATURE.equals(method.getSignature())) ||
+					(METHOD_GET_SERVLET_CONFIG.equals(method.getName()) && GET_SERVLET_CONFIG_SIGNATURE.equals(method.getSignature())) ||
+					(METHOD_GET_SERVLET_INFO.equals(method.getName()) && GET_SERVLET_INFO_SIGNATURE.equals(method.getSignature())) ||
+					(METHOD_SERVICE.equals(method.getName()) && SERVICE_SIGNATURE.equals(method.getSignature())) ||
+					(METHOD_SERVICE.equals(method.getName()) && HTTP_SERVICE_SIGNATURE.equals(method.getSignature())) ||
+					(METHOD_DO_GET.equals(method.getName()) && DO_GET_SIGNATURE.equals(method.getSignature())) ||
+					(METHOD_DO_POST.equals(method.getName()) && DO_POST_SIGNATURE.equals(method.getSignature())) ||
+					(METHOD_DO_PUT.equals(method.getName()) && DO_PUT_SIGNATURE.equals(method.getSignature())) ||
+					(METHOD_DO_DELETE.equals(method.getName()) && DO_DELETE_SIGNATURE.equals(method.getSignature())) ||
+					(METHOD_DO_HEAD.equals(method.getName()) && DO_HEAD_SIGNATURE.equals(method.getSignature())) ||
+					(METHOD_DO_OPTIONS.equals(method.getName()) && METHOD_DO_OPTIONS.equals(method.getSignature())) ||
+					(METHOD_DO_TRACE.equals(method.getName()) && DO_TRACE_SIGNATURE.equals(method.getSignature()))) {
+				iterator.remove();
+			}
+		}
+		
+		return unimplementedMethods;
 	}
 
 }

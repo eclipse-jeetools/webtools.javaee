@@ -10,18 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
-import java.lang.reflect.InvocationTargetException;
-
-import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.Listener;
-import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
-import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.internal.common.operations.NewJavaEEArtifactClassOperation;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.javaee.core.JavaeeFactory;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation;
@@ -55,8 +46,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * 
  * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
-public class AddListenerOperation extends AddWebClassOperation implements
-		INewListenerClassDataModelProperties {
+public class AddListenerOperation extends AddWebClassOperation {
 	
 	/**
 	 * This is the constructor which should be used when creating the operation.
@@ -68,61 +58,11 @@ public class AddListenerOperation extends AddWebClassOperation implements
 	 */
 	public AddListenerOperation(IDataModel dataModel) {
 		super(dataModel);
-		provider = ModelProviderManager.getModelProvider( getTargetProject() );
 	}
 
-	/**
-	 * Subclasses may extend this method to add their own actions during execution.
-	 * The implementation of the execute method drives the running of the operation. This
-	 * implementation will create the listener class, and then if the listener is not
-	 * annotated, it will create the listener metadata for the web deployment descriptor.
-	 * This method will accept null as a parameter.
-	 * @see org.eclipse.core.commands.operations.AbstractOperation#execute(org.eclipse.core.runtime.IProgressMonitor, org.eclipse.core.runtime.IAdaptable)
-	 * @see AddListenerOperation#createListenerClass()
-	 * @see AddListenerOperation#generateListenerMetaData(IDataModel, String)
-	 * 
-	 * @param monitor IProgressMonitor
-	 * @param info IAdaptable
-	 * @throws CoreException
-	 * @throws InterruptedException
-	 * @throws InvocationTargetException
-	 */
-	public IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		//Retrieve values set in the NewListenerClassDataModel
-		boolean useExisting = model.getBooleanProperty(USE_EXISTING_CLASS);
-		String qualifiedClassName = model.getStringProperty(CLASS_NAME);
-		
-		if (!useExisting)
-			qualifiedClassName = createListenerClass();
-
-		// If the listener is not annotated, generate the listener metadata for the DD
-		if (!model.getBooleanProperty(USE_ANNOTATIONS))
-			generateListenerMetaData(model, qualifiedClassName);
-		
-		return OK_STATUS;
-	}
-	
-	/**
-	 * Subclasses may extend this method to add their own creation of the actual listener java class.
-	 * This implementation uses the NewListenerClassOperation which is a subclass of the NewJavaClassOperation.
-	 * The NewListenerClassOperation will use the same NewListenerClassDataModelProvider to retrieve the properties in
-	 * order to create the java class accordingly.  This method will not return null.
-	 * @see NewListenerClassOperation
-	 * @see org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassOperation
-	 * @see NewListenerClassDataModelProvider
-	 * 
-	 * @return String qualified listener class name
-	 */
-	protected String createListenerClass() {
-		//	Create listener java class file using the NewListenerClassOperation. The same data model is shared.
-		NewListenerClassOperation op = new NewListenerClassOperation(model);
-		try {
-			op.execute(new NullProgressMonitor(), null);
-		} catch (Exception e) {
-			WebPlugin.log(e);
-		} 
-		// Return the qualified class name of the newly created java class for the listener
-		return getQualifiedClassName();
+	@Override
+	protected NewJavaEEArtifactClassOperation getNewClassOperation() {
+		return new NewListenerClassOperation(getDataModel());
 	}
 
 	/**
@@ -136,7 +76,7 @@ public class AddListenerOperation extends AddWebClassOperation implements
 	 * @param aModel
 	 * @param qualifiedClassName
 	 */
-	protected void generateListenerMetaData(IDataModel aModel, String qualifiedClassName) {
+	protected void generateMetaData(IDataModel aModel, String qualifiedClassName) {
 		// Set up the listener modeled object
 		createListener(qualifiedClassName);
 	}

@@ -10,10 +10,12 @@
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
+import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.USE_EXISTING_CLASS;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.USE_EXISTING_LISTENER_CLASS;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.war.ui.util.WebListenerGroupItemProvider;
-import org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -26,12 +28,12 @@ public class NewListenerClassWizardPage extends NewWebClassWizardPage {
 	
 	@Override
 	protected String getUseExistingCheckboxText() {
-		return IWebWizardConstants.USE_EXISTING_LISTENER_CLASS;
+		return USE_EXISTING_LISTENER_CLASS;
 	}
 	
 	@Override
 	protected String getUseExistingProperty() {
-		return INewWebClassDataModelProperties.USE_EXISTING_CLASS;
+		return USE_EXISTING_CLASS;
 	}
 	
 	@Override
@@ -46,7 +48,7 @@ public class NewListenerClassWizardPage extends NewWebClassWizardPage {
 	@Override
 	protected IProject getExtendedSelectedProject(Object selection) {
 		if (selection instanceof WebListenerGroupItemProvider) {
-			WebApp webApp = (WebApp)((WebListenerGroupItemProvider)selection).getParent();
+			WebApp webApp = (WebApp)((WebListenerGroupItemProvider) selection).getParent();
 			return ProjectUtilities.getProject(webApp);
 		}
 		

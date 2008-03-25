@@ -10,6 +10,22 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.common.operations;
 
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.ABSTRACT_METHODS;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CLASS_NAME;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CONSTRUCTOR;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.JAVA_PACKAGE;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.JAVA_PACKAGE_FRAGMENT_ROOT;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.JAVA_SOURCE_FOLDER;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.MAIN_METHOD;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.MODIFIER_ABSTRACT;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.MODIFIER_FINAL;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.MODIFIER_PUBLIC;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.PROJECT;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SOURCE_FOLDER;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SUPERCLASS;
+
 import java.lang.reflect.Modifier;
 import java.util.Set;
 
@@ -59,7 +75,7 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  * 
  * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
-public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataModelProvider implements INewJavaClassDataModelProperties {
+public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataModelProvider {
 
 	/**
 	 * Subclasses may extend this method to perform their own validation. This method should not
@@ -218,8 +234,8 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	 * This method will return the qualified java class name as specified by the class name and
 	 * package name properties in the data model. This method should not return null.
 	 * 
-	 * @see INewJavaClassDataModelProperties#CLASS_NAME
-	 * @see INewJavaClassDataModelProperties#JAVA_PACKAGE
+	 * @see #CLASS_NAME
+	 * @see #JAVA_PACKAGE
 	 * 
 	 * @return String qualified java classname
 	 */
@@ -454,7 +470,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	 * This will return the IFolder instance for the specified folder name in the data model. This
 	 * method may return null.
 	 * 
-	 * @see INewJavaClassDataModelProperties#SOURCE_FOLDER
+	 * @see #SOURCE_FOLDER
 	 * @see NewJavaClassDataModelProvider#getAllSourceFolders()
 	 * 
 	 * @return IFolder java source folder

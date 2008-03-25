@@ -10,6 +10,11 @@
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
+import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.DESTROY;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.DO_FILTER;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.INIT;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_FILTER;
+
 import java.util.Iterator;
 
 import org.eclipse.jface.dialogs.Dialog;
@@ -17,8 +22,6 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jst.j2ee.internal.web.operations.FilterSupertypesValidator;
-import org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties;
-import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -27,8 +30,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class NewFilterClassOptionsWizardPage extends
-		NewWebClassOptionsWizardPage implements ISelectionChangedListener,
-		IServletConstants {
+		NewWebClassOptionsWizardPage implements ISelectionChangedListener {
 	
 	protected Button initButton;
 	protected Button destroyButton;
@@ -55,15 +57,15 @@ public class NewFilterClassOptionsWizardPage extends
 		
 		initButton = new Button(comp, SWT.CHECK);
 		initButton.setText("&init"); //$NON-NLS-1$
-		synchHelper.synchCheckbox(initButton, INewFilterClassDataModelProperties.INIT, null);
+		synchHelper.synchCheckbox(initButton, INIT, null);
 
 		destroyButton = new Button(comp, SWT.CHECK);
 		destroyButton.setText("destro&y"); //$NON-NLS-1$
-		synchHelper.synchCheckbox(destroyButton, INewFilterClassDataModelProperties.DESTROY, null);
+		synchHelper.synchCheckbox(destroyButton, DESTROY, null);
 
 		doFilterButton = new Button(comp, SWT.CHECK);
 		doFilterButton.setText("do&Filter"); //$NON-NLS-1$
-		synchHelper.synchCheckbox(doFilterButton, INewFilterClassDataModelProperties.DO_FILTER, null);
+		synchHelper.synchCheckbox(doFilterButton, DO_FILTER, null);
 		
 		interfaceViewer.addSelectionChangedListener(this);
 		

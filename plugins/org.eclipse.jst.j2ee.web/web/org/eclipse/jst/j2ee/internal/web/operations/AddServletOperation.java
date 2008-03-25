@@ -11,21 +11,19 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
-import java.lang.reflect.InvocationTargetException;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.INIT_PARAM;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.IS_SERVLET_TYPE;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.URL_MAPPINGS;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.DESCRIPTION;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.DISPLAY_NAME;
+
 import java.util.List;
 
-import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.common.ParamValue;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
-import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.internal.common.operations.NewJavaEEArtifactClassOperation;
 import org.eclipse.jst.j2ee.webapplication.InitParam;
 import org.eclipse.jst.j2ee.webapplication.JSPType;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
@@ -68,7 +66,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * 
  * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
-public class AddServletOperation extends AddWebClassOperation implements INewServletClassDataModelProperties {
+public class AddServletOperation extends AddWebClassOperation {
 	
 	/**
 	 * This is the constructor which should be used when creating the operation.
@@ -80,65 +78,19 @@ public class AddServletOperation extends AddWebClassOperation implements INewSer
 	 */
 	public AddServletOperation(IDataModel dataModel) {
 		super(dataModel);
-		provider = ModelProviderManager.getModelProvider( getTargetProject() );
 	}
 
-	/**
-	 * Subclasses may extend this method to add their own actions during execution.
-	 * The implementation of the execute method drives the running of the operation. This
-	 * implementation will create the servlet class, and then if the servlet is not
-	 * annotated, it will create the servlet metadata for the web deployment descriptor.
-	 * This method will accept null as a parameter.
-	 * @see org.eclipse.core.commands.operations.AbstractOperation#execute(org.eclipse.core.runtime.IProgressMonitor, org.eclipse.core.runtime.IAdaptable)
-	 * @see AddServletOperation#createServletClass()
-	 * @see AddServletOperation#generateServletMetaData(NewServletClassDataModel, String, boolean)
-	 * 
-	 * @param monitor IProgressMonitor
-	 * @param info IAdaptable
-	 * @throws CoreException
-	 * @throws InterruptedException
-	 * @throws InvocationTargetException
-	 */
-	public IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		//Retrieve values set in the newservletclass data model
-		boolean isServletType = model.getBooleanProperty(IS_SERVLET_TYPE);
-		boolean useExisting = model.getBooleanProperty(USE_EXISTING_CLASS);
-		String qualifiedClassName = model.getStringProperty(CLASS_NAME);
-		
-		// If it is servlet type, create the java class
-		if (isServletType && !useExisting)
-			qualifiedClassName = createServletClass();
-
-		// If the servlet is not annotated, generate the servlet metadata for the DD
-		if (!model.getBooleanProperty(USE_ANNOTATIONS))
-			generateServletMetaData(model, qualifiedClassName, isServletType);
-		
-		return OK_STATUS;
+	@Override
+	protected NewJavaEEArtifactClassOperation getNewClassOperation() {
+		return new NewServletClassOperation(getDataModel());
 	}
 	
-	/**
-	 * Subclasses may extend this method to add their own creation of the actual servlet java class.
-	 * This implementation uses the NewServletClassOperation which is a subclass of the NewJavaClassOperation.
-	 * The NewServletClassOperation will use the same NewServletClassDataModelProvider to retrieve the properties in
-	 * order to create the java class accordingly.  This method will not return null.
-	 * @see NewServletClassOperation
-	 * @see org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassOperation
-	 * @see NewServletClassDataModelProvider
-	 * 
-	 * @return String qualified servlet classname
-	 */
-	protected String createServletClass() {
-		// Create servlet java class file using the NewServletClassOperation.  The same data model is shared.
-		NewServletClassOperation op = new NewServletClassOperation(model);
-		try {
-			op.execute(new NullProgressMonitor(), null);
-		} catch (Exception e) {
-			WebPlugin.log(e);
-		} 
-		// Return the qualified classname of the newly created java class for the servlet
-		return getQualifiedClassName();
+	@Override
+	protected void generateMetaData(IDataModel model, String qualifiedClassName) {
+		boolean isServletType = model.getBooleanProperty(IS_SERVLET_TYPE);
+		generateMetaData(model, qualifiedClassName, isServletType);
 	}
-
+	
 	/**
 	 * Subclasses may extend this method to add their own generation steps for the creation of the
 	 * metadata for the web deployment descriptor.  This implementation uses the J2EE models to create
@@ -154,17 +106,17 @@ public class AddServletOperation extends AddWebClassOperation implements INewSer
 	 * @param qualifiedClassName
 	 * @param isServletType
 	 */
-	protected void generateServletMetaData(IDataModel aModel, String qualifiedClassName, boolean isServletType) {
+	protected void generateMetaData(IDataModel aModel, String qualifiedClassName, boolean isServletType) {
 		// Set up the servlet modelled object
 		Object servlet = createServlet(qualifiedClassName, isServletType);
 
 		// Set up the InitParams if any
-		List initParamList = (List) aModel.getProperty(INewServletClassDataModelProperties.INIT_PARAM);
+		List initParamList = (List) aModel.getProperty(INIT_PARAM);
 		if (initParamList != null)
 			setUpInitParams(initParamList, servlet);
 		
 		// Set up the servlet URL mappings if any
-		List urlMappingList = (List) aModel.getProperty(INewServletClassDataModelProperties.URL_MAPPINGS);
+		List urlMappingList = (List) aModel.getProperty(URL_MAPPINGS);
 		if (urlMappingList != null)
 			setUpURLMappings(urlMappingList, servlet);
 	}
@@ -189,7 +141,7 @@ public class AddServletOperation extends AddWebClassOperation implements INewSer
 		
 		// Create the servlet instance and set up the parameters from data model
 		Object modelObject = provider.getModelObject();
-		if(modelObject instanceof org.eclipse.jst.j2ee.webapplication.WebApp ){
+		if (modelObject instanceof org.eclipse.jst.j2ee.webapplication.WebApp) {
 		
 			Servlet servlet = WebapplicationFactory.eINSTANCE.createServlet();
 			servlet.setDisplayName(displayName);
@@ -213,7 +165,7 @@ public class AddServletOperation extends AddWebClassOperation implements INewSer
 			WebApp webApp = (WebApp) modelObject;
 			webApp.getServlets().add(servlet);
 			return servlet;
-		}else if(modelObject instanceof org.eclipse.jst.javaee.web.WebApp ){
+		} else if (modelObject instanceof org.eclipse.jst.javaee.web.WebApp) {
 			
 			org.eclipse.jst.javaee.web.Servlet servlet = WebFactory.eINSTANCE.createServlet();
 
@@ -259,7 +211,7 @@ public class AddServletOperation extends AddWebClassOperation implements INewSer
 	private void setUpInitParams(List initParamList, Object servletObj) {
 		// Get the web app instance from the data model
 		Object modelObject = provider.getModelObject();
-		if(modelObject instanceof org.eclipse.jst.j2ee.webapplication.WebApp ){
+		if (modelObject instanceof org.eclipse.jst.j2ee.webapplication.WebApp) {
 			WebApp webApp = (WebApp) modelObject;
 			Servlet servlet = (Servlet) servletObj;
 			
@@ -297,7 +249,7 @@ public class AddServletOperation extends AddWebClassOperation implements INewSer
 					servlet.getParams().add(ip);
 				}
 			}
-		}else if(modelObject instanceof org.eclipse.jst.javaee.web.WebApp ){
+		} else if (modelObject instanceof org.eclipse.jst.javaee.web.WebApp) {
 			org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) modelObject;
 			org.eclipse.jst.javaee.web.Servlet servlet = (org.eclipse.jst.javaee.web.Servlet) servletObj;
 
@@ -335,7 +287,7 @@ public class AddServletOperation extends AddWebClassOperation implements INewSer
 		Object modelObject = provider.getModelObject();
 
 		// Create the servlet mappings if any
-		if(modelObject instanceof org.eclipse.jst.j2ee.webapplication.WebApp ){	
+		if (modelObject instanceof org.eclipse.jst.j2ee.webapplication.WebApp) {	
 			WebApp webApp = (WebApp) modelObject;
 			Servlet servlet = (Servlet) servletObj;
 			for (int iM = 0; iM < urlMappingList.size(); iM++) {
@@ -350,7 +302,7 @@ public class AddServletOperation extends AddWebClassOperation implements INewSer
 				// Add the servlet mapping to the web application modelled list
 				webApp.getServletMappings().add(mapping);
 			}
-		}else if (modelObject instanceof org.eclipse.jst.javaee.web.WebApp ){
+		} else if (modelObject instanceof org.eclipse.jst.javaee.web.WebApp) {
 			org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) modelObject;
 			org.eclipse.jst.javaee.web.Servlet servlet = (org.eclipse.jst.javaee.web.Servlet) servletObj;
 			

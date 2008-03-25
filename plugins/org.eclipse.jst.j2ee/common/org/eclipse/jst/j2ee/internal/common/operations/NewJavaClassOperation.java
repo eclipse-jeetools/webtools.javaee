@@ -10,6 +10,18 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.common.operations;
 
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.ABSTRACT_METHODS;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CLASS_NAME;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CONSTRUCTOR;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.JAVA_PACKAGE;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.JAVA_PACKAGE_FRAGMENT_ROOT;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.MODIFIER_ABSTRACT;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.MODIFIER_FINAL;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.MODIFIER_PUBLIC;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SOURCE_FOLDER;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SUPERCLASS;
+
 import java.io.ByteArrayInputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -143,14 +155,14 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 	/**
 	 * This method will return the java source folder as specified in the java class data model. 
 	 * It will create the java source folder if it does not exist.  This method may return null.
-	 * @see INewJavaClassDataModelProperties#SOURCE_FOLDER
+	 * @see #SOURCE_FOLDER
 	 * @see IFolder#create(boolean, boolean, org.eclipse.core.runtime.IProgressMonitor)
 	 * 
 	 * @return IFolder the java source folder
 	 */
 	protected final IFolder createJavaSourceFolder() {
 		// Get the source folder name from the data model
-		String folderFullPath = model.getStringProperty(INewJavaClassDataModelProperties.SOURCE_FOLDER);
+		String folderFullPath = model.getStringProperty(SOURCE_FOLDER);
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		IFolder folder = root.getFolder(new Path(folderFullPath));
 		// If folder does not exist, create the folder with the specified path
@@ -169,15 +181,15 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 	 * This method will return the java package as specified by the new java class data model.
 	 * If the package does not exist, it will create the package.  This method should not return
 	 * null.
-	 * @see INewJavaClassDataModelProperties#JAVA_PACKAGE
+	 * @see #JAVA_PACKAGE
 	 * @see IPackageFragmentRoot#createPackageFragment(java.lang.String, boolean, org.eclipse.core.runtime.IProgressMonitor)
 	 * 
 	 * @return IPackageFragment the java package
 	 */
 	protected final IPackageFragment createJavaPackage() {
 		// Retrieve the package name from the java class data model
-		String packageName = model.getStringProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE);
-		IPackageFragmentRoot packRoot = (IPackageFragmentRoot) model.getProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE_FRAGMENT_ROOT);
+		String packageName = model.getStringProperty(JAVA_PACKAGE);
+		IPackageFragmentRoot packRoot = (IPackageFragmentRoot) model.getProperty(JAVA_PACKAGE_FRAGMENT_ROOT);
 		IPackageFragment pack =	packRoot.getPackageFragment(packageName);
 		// Handle default package
 		if (pack == null) {
@@ -203,7 +215,7 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 	 * built up using a string buffer.  The method getJavaFileContent will handle the building
 	 * of the string buffer while this method will write those contents to the file.
 	 * This method does not accept null parameters.
-	 * @see INewJavaClassDataModelProperties#CLASS_NAME
+	 * @see #CLASS_NAME
 	 * @see NewJavaClassOperation#getJavaFileContent(IPackageFragment, String)
 	 * 
 	 * @param sourceFolder
@@ -211,8 +223,8 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 	 */
 	protected void createJavaFile(IFolder sourceFolder, IPackageFragment pack) {
 		// Retrieve properties from the java class data model
-		String packageName = model.getStringProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE);
-		String className = model.getStringProperty(INewJavaClassDataModelProperties.CLASS_NAME);
+		String packageName = model.getStringProperty(JAVA_PACKAGE);
+		String className = model.getStringProperty(CLASS_NAME);
 		String fileName = className + ".java"; //$NON-NLS-1$
 		//ICompilationUnit cu = null;
 		try {
@@ -250,8 +262,8 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 	 */
 	private String getJavaFileContent(IPackageFragment pack, String className) {
 		// Create the superclass name
-		String superclassName = model.getStringProperty(INewJavaClassDataModelProperties.SUPERCLASS);
-		List interfaces = (List) model.getProperty(INewJavaClassDataModelProperties.INTERFACES);
+		String superclassName = model.getStringProperty(SUPERCLASS);
+		List interfaces = (List) model.getProperty(INTERFACES);
 		String packageStatement = getPackageStatement(pack);
 		// Create the import statements
 		setupImportStatements(pack, superclassName, interfaces);
@@ -366,11 +378,11 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 	private String getClassDeclaration(String superclassName, String className, List interfaces) {
 		StringBuffer sb = new StringBuffer();
 		// Append appropriate modifiers
-		if (model.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_PUBLIC))
+		if (model.getBooleanProperty(MODIFIER_PUBLIC))
 			sb.append(PUBLIC);
-		if (model.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_ABSTRACT))
+		if (model.getBooleanProperty(MODIFIER_ABSTRACT))
 			sb.append(ABSTRACT);
-		if (model.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_FINAL))
+		if (model.getBooleanProperty(MODIFIER_FINAL))
 			sb.append(FINAL);
 		// Add the class token 
 		sb.append(CLASS);
@@ -429,7 +441,7 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 	private String getMethodStubs(String superclassName, String className) {
 		StringBuffer sb = new StringBuffer();
 		IJavaProject javaProj = JemProjectUtilities.getJavaProject(getTargetProject());
-		if (model.getBooleanProperty(INewJavaClassDataModelProperties.MAIN_METHOD)) {
+		if (model.getBooleanProperty(MAIN_METHOD)) {
 			// Add main method
 			sb.append(MAIN_METHOD);
 			sb.append(lineSeparator);
@@ -441,7 +453,7 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 		}
 
 		IType superClassType = null;
-		if (model.getBooleanProperty(INewJavaClassDataModelProperties.CONSTRUCTOR) || model.getBooleanProperty(INewJavaClassDataModelProperties.ABSTRACT_METHODS)) {
+		if (model.getBooleanProperty(CONSTRUCTOR) || model.getBooleanProperty(ABSTRACT_METHODS)) {
 			// Find super class type
 			try {
 				superClassType = javaProj.findType(superclassName);
@@ -449,7 +461,7 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 				Logger.getLogger().log(e);
 			}
 		}
-		if (model.getBooleanProperty(INewJavaClassDataModelProperties.CONSTRUCTOR)) {
+		if (model.getBooleanProperty(CONSTRUCTOR)) {
 			// Implement constructors from superclass
 			try {
 				if (superClassType != null) {
@@ -466,7 +478,7 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 			}
 		}
 		// Add unimplemented methods defined in the interfaces list
-		if (model.getBooleanProperty(INewJavaClassDataModelProperties.ABSTRACT_METHODS) && superClassType != null) {
+		if (model.getBooleanProperty(ABSTRACT_METHODS) && superClassType != null) {
 			String methodStub = getUnimplementedMethodsFromSuperclass(superClassType, className);
 			if (methodStub != null && methodStub.trim().length() > 0)
 				sb.append(methodStub);
@@ -551,7 +563,7 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 		StringBuffer sb = new StringBuffer();
 		try {
 			// Implement defined methods from interfaces
-			List interfaces = (List) model.getProperty(INewJavaClassDataModelProperties.INTERFACES);
+			List interfaces = (List) model.getProperty(INTERFACES);
 			if (interfaces != null) {
 				for (int i = 0; i < interfaces.size(); i++) {
 					String qualifiedClassName = (String) interfaces.get(i);

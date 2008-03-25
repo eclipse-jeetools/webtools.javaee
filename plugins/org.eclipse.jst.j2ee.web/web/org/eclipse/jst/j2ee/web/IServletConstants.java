@@ -58,5 +58,21 @@ public interface IServletConstants {
 	public static final String METHOD_DO_TRACE = "doTrace"; //$NON-NLS-1$
 	public static final String METHOD_TO_STRING = "toString"; //$NON-NLS-1$
 	public static final String METHOD_DO_FILTER = "doFilter"; //$NON-NLS-1$
+	
+	public static final String SERVLET_INIT_SIGNATURE = "(Ljavax/servlet/ServletConfig;)V"; //$NON-NLS-1$
+	public static final String DESTROY_SIGNATURE = "()V"; //$NON-NLS-1$
+	public static final String GET_SERVLET_CONFIG_SIGNATURE = "()Ljavax/servlet/ServletConfig;"; //$NON-NLS-1$
+	public static final String GET_SERVLET_INFO_SIGNATURE = "()Ljava/lang/String;"; //$NON-NLS-1$
+	public static final String SERVICE_SIGNATURE = "(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V"; //$NON-NLS-1$
+	public static final String HTTP_SERVICE_SIGNATURE = "(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V"; //$NON-NLS-1$
+	public static final String DO_GET_SIGNATURE = "(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V"; //$NON-NLS-1$
+	public static final String DO_POST_SIGNATURE = "(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V"; //$NON-NLS-1$
+	public static final String DO_PUT_SIGNATURE = "(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V"; //$NON-NLS-1$
+	public static final String DO_DELETE_SIGNATURE = "(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V"; //$NON-NLS-1$
+	public static final String DO_HEAD_SIGNATURE = "(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V"; //$NON-NLS-1$
+	public static final String DO_OPTIONS_SIGNATURE = "(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V"; //$NON-NLS-1$
+	public static final String DO_TRACE_SIGNATURE = "(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V"; //$NON-NLS-1$
+	public static final String FILTER_INIT_SIGNATURE = "(Ljavax/servlet/FilterConfig;)V"; //$NON-NLS-1$
+	public static final String DO_FILTER_SIGNATURE = "(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V"; //$NON-NLS-1$
 
 }

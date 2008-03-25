@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.PROJECT;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME;
+
 import java.net.URL;
 
 import org.eclipse.core.resources.IContainer;
@@ -18,7 +21,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin;
@@ -63,8 +65,8 @@ public abstract class NewWebArtifactWizard extends NewWebWizard {
 	
 	protected void openJavaClass() {
 		try {
-			String className = getDataModel().getStringProperty(INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME);
-			IProject p = (IProject) getDataModel().getProperty(INewJavaClassDataModelProperties.PROJECT);
+			String className = getDataModel().getStringProperty(QUALIFIED_CLASS_NAME);
+			IProject p = (IProject) getDataModel().getProperty(PROJECT);
 			IJavaProject javaProject = J2EEEditorUtility.getJavaProject(p);
 			IFile file = (IFile) javaProject.findType(className).getResource();
 			openEditor(file);
@@ -75,8 +77,8 @@ public abstract class NewWebArtifactWizard extends NewWebWizard {
 	
 	protected void openWebFile() {
 		try {
-			String className = getDataModel().getStringProperty(INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME);
-			IProject p = (IProject) getDataModel().getProperty(INewJavaClassDataModelProperties.PROJECT);
+			String className = getDataModel().getStringProperty(QUALIFIED_CLASS_NAME);
+			IProject p = (IProject) getDataModel().getProperty(PROJECT);
 			IVirtualComponent component = ComponentCore.createComponent(p);
 			IContainer webContent = component.getRootFolder().getUnderlyingFolder();
 			IFile file = webContent.getFile(new Path(className));

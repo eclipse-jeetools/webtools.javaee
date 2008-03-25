@@ -10,6 +10,11 @@
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.ADD_LISTENER_WIZARD_PAGE_TITLE;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.ADD_LISTENER_WIZARD_WINDOW_TITLE;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC;
+
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -34,7 +39,7 @@ public class AddListenerWizard extends NewWebArtifactWizard {
 
 	@Override
 	protected String getTitle() {
-		return IWebWizardConstants.ADD_LISTENER_WIZARD_WINDOW_TITLE;
+		return ADD_LISTENER_WIZARD_WINDOW_TITLE;
 	}
 
 	@Override
@@ -47,8 +52,8 @@ public class AddListenerWizard extends NewWebArtifactWizard {
 		NewListenerClassWizardPage page1 = new NewListenerClassWizardPage(
 				getDataModel(), 
 				PAGE_ONE,
-				IWebWizardConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
-				IWebWizardConstants.ADD_LISTENER_WIZARD_PAGE_TITLE, J2EEProjectUtilities.DYNAMIC_WEB);
+				NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
+				ADD_LISTENER_WIZARD_PAGE_TITLE, J2EEProjectUtilities.DYNAMIC_WEB);
 		page1.setInfopopID(IWebUIContextIds.WEBEDITOR_LISTENER_PAGE_ADD_LISTENER_WIZARD_1);
 		addPage(page1);
 		AddListenerWizardPage page2 = new AddListenerWizardPage(getDataModel(), PAGE_TWO);
@@ -57,8 +62,8 @@ public class AddListenerWizard extends NewWebArtifactWizard {
 		NewListenerClassOptionsWizardPage page3 = new NewListenerClassOptionsWizardPage(
 				getDataModel(), 
 				PAGE_THREE,
-				IWebWizardConstants.NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC,
-				IWebWizardConstants.ADD_LISTENER_WIZARD_PAGE_TITLE);
+				NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC,
+				ADD_LISTENER_WIZARD_PAGE_TITLE);
 		page3.setInfopopID(IWebUIContextIds.WEBEDITOR_LISTENER_PAGE_ADD_LISTENER_WIZARD_3);
 		addPage(page3);
 	}

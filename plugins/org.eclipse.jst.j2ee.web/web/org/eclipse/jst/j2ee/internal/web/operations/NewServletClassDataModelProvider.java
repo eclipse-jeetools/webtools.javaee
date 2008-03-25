@@ -12,6 +12,32 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.ABSTRACT_METHODS;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CLASS_NAME;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SUPERCLASS;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.DESTROY;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.DO_DELETE;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.DO_GET;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.DO_HEAD;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.DO_OPTIONS;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.DO_POST;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.DO_PUT;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.DO_TRACE;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.GET_SERVLET_CONFIG;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.GET_SERVLET_INFO;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.INIT;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.INIT_PARAM;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.IS_SERVLET_TYPE;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.NON_ANNOTATED_TEMPLATE_FILE;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.SERVICE;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.TEMPLATE_FILE;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.TO_STRING;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.URL_MAPPINGS;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.DISPLAY_NAME;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SERVLET;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -20,7 +46,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.Signature;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
-import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.jst.j2ee.web.validation.UrlPattern;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -65,8 +90,7 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  * properties interface, and default values for the properties they add.
  */
 public class NewServletClassDataModelProvider extends
-		NewWebClassDataModelProvider implements
-		INewServletClassDataModelProperties, IServletConstants {
+		NewWebClassDataModelProvider {
 
 	/**
 	 * The fully qualified default servlet superclass: HttpServlet.
@@ -439,7 +463,7 @@ public class NewServletClassDataModelProvider extends
 	 * initialization to the minimum interfaces required by the data model
 	 * SERVLET_INTERFACES. This method will not return null.
 	 * 
-	 * @see INewServletClassDataModelProperties#SERVLET_INTERFACES
+	 * @see #SERVLET_INTERFACES
 	 * 
 	 * @return List of servlet interfaces to be implemented
 	 */

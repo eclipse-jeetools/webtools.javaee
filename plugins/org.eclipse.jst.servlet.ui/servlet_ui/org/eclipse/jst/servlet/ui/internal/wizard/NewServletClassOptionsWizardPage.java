@@ -13,6 +13,7 @@
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET;
 
 import java.util.Iterator;
 
@@ -22,7 +23,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.operations.ServletSupertypesValidator;
-import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -35,8 +35,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class NewServletClassOptionsWizardPage extends
-		NewWebClassOptionsWizardPage implements ISelectionChangedListener,
-		IServletConstants {
+		NewWebClassOptionsWizardPage implements ISelectionChangedListener {
 	
 	protected Button initButton;
 	protected Button destroyButton;

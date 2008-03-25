@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
-import org.eclipse.jst.j2ee.web.IServletConstants;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_FILTER;
+
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class FilterSupertypesValidator extends AbstractSupertypesValidator
-		implements IServletConstants {
+public class FilterSupertypesValidator extends AbstractSupertypesValidator {
 	
 	public static boolean isFilterSuperclass(IDataModel dataModel) {
 		if (hasSuperInterface(dataModel, getSuperclass(dataModel), QUALIFIED_FILTER))

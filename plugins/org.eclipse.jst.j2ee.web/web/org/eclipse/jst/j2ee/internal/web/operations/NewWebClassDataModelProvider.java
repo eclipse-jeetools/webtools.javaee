@@ -10,6 +10,17 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
+import static org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel.USE_ANNOTATIONS;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CLASS_NAME;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CONSTRUCTOR;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.MODIFIER_ABSTRACT;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.MODIFIER_PUBLIC;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SOURCE_FOLDER;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SUPERCLASS;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.DESCRIPTION;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.DISPLAY_NAME;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.USE_EXISTING_CLASS;
+
 import java.io.File;
 import java.util.List;
 import java.util.Set;
@@ -61,7 +72,7 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  * 
  * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
-public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModelProvider implements INewWebClassDataModelProperties {
+public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModelProvider  {
 	
 	/**
 	 * The fully qualified default superclass.
@@ -383,7 +394,7 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 	}
 
 	protected boolean hasSuperClass() {
-		String superClass = model.getStringProperty(INewWebClassDataModelProperties.SUPERCLASS);
+		String superClass = model.getStringProperty(SUPERCLASS);
 		return (superClass == null) ? false : superClass.trim().length() > 0;
 	}
 

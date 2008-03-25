@@ -10,14 +10,18 @@
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.PROJECT;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.USE_EXISTING_CLASS;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.CHOOSE_FILTER_CLASS;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.NEW_FILTER_WIZARD_WINDOW_TITLE;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.USE_EXISTING_FILTER_CLASS;
+
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.window.Window;
-import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.war.ui.util.WebFiltersGroupItemProvider;
-import org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
@@ -35,18 +39,18 @@ public class NewFilterClassWizardPage extends NewWebClassWizardPage {
 	
 	@Override
 	protected String getUseExistingCheckboxText() {
-		return IWebWizardConstants.USE_EXISTING_FILTER_CLASS;
+		return USE_EXISTING_FILTER_CLASS;
 	}
 	
 	@Override
 	protected String getUseExistingProperty() {
-		return INewWebClassDataModelProperties.USE_EXISTING_CLASS;
+		return USE_EXISTING_CLASS;
 	}
 	
 	@Override
 	protected IProject getExtendedSelectedProject(Object selection) {
 		if (selection instanceof WebFiltersGroupItemProvider) {
-			WebApp webApp = (WebApp)((WebFiltersGroupItemProvider)selection).getParent();
+			WebApp webApp = (WebApp)((WebFiltersGroupItemProvider) selection).getParent();
 			return ProjectUtilities.getProject(webApp);
 		}
 		
@@ -56,12 +60,12 @@ public class NewFilterClassWizardPage extends NewWebClassWizardPage {
 	@Override
 	protected void handleClassButtonSelected() {
         getControl().setCursor(new Cursor(getShell().getDisplay(), SWT.CURSOR_WAIT));
-        IProject project = (IProject) model.getProperty(INewJavaClassDataModelProperties.PROJECT);
+        IProject project = (IProject) model.getProperty(PROJECT);
         IVirtualComponent component = ComponentCore.createComponent(project);
         MultiSelectFilteredFilterFileSelectionDialog ms = new MultiSelectFilteredFilterFileSelectionDialog(
                 getShell(),
-                IWebWizardConstants.NEW_FILTER_WIZARD_WINDOW_TITLE,
-                IWebWizardConstants.CHOOSE_FILTER_CLASS, 
+                NEW_FILTER_WIZARD_WINDOW_TITLE,
+                CHOOSE_FILTER_CLASS, 
                 FILTEREXTENSIONS, 
                 false, 
                 project);

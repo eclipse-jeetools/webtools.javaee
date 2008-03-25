@@ -10,6 +10,17 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.ABSTRACT_METHODS;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SUPERCLASS;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.DESTROY;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.DO_FILTER;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.FILTER_MAPPINGS;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.INIT;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.INIT_PARAM;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.DISPLAY_NAME;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_FILTER;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +29,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
-import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.jst.j2ee.web.validation.UrlPattern;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -27,8 +37,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public class NewFilterClassDataModelProvider extends
-		NewWebClassDataModelProvider implements
-		INewFilterClassDataModelProperties, IServletConstants {
+		NewWebClassDataModelProvider {
 
 	/**
 	 * String array of the default, minimum required fully qualified Filter
@@ -268,7 +277,7 @@ public class NewFilterClassDataModelProvider extends
 	 * initialization to the minimum interfaces required by the data model
 	 * FILTER_INTERFACES. This method will not return null.
 	 * 
-	 * @see INewFilterClassDataModelProperties#FILTER_INTERFACES
+	 * @see #FILTER_INTERFACES
 	 * 
 	 * @return List of servlet interfaces to be implemented
 	 */

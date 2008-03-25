@@ -1,4 +1,22 @@
+/*******************************************************************************
+ * Copyright (c) 2008 SAP AG and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
+
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.PROJECT;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.ADD_BUTTON_LABEL;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.DISPATCHERS_LABEL;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.EDIT_BUTTON_LABEL;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.FILTER_MAPPINGS_LABEL;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.REMOVE_BUTTON_LABEL;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.URL_SERVLET_LABEL;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -7,20 +25,36 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.viewers.*;
-import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.ITableLabelProvider;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.j2ee.internal.web.operations.FilterMappingItem;
 import org.eclipse.jst.j2ee.internal.web.operations.IFilterMappingItem;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.internal.web.providers.WebAppEditResourceHandler;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.*;
+import org.eclipse.swt.events.ControlAdapter;
+import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.*;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class FilterMappingsArrayTableWizardSection extends Composite {
@@ -98,7 +132,7 @@ public class FilterMappingsArrayTableWizardSection extends Composite {
         this.setLayoutData(new GridData(GridData.FILL_BOTH));
 
         Label titleLabel = new Label(this, SWT.LEFT);
-        titleLabel.setText(IWebWizardConstants.FILTER_MAPPINGS_LABEL);
+        titleLabel.setText(FILTER_MAPPINGS_LABEL);
         GridData data = new GridData();
         data.horizontalSpan = 2;
         titleLabel.setLayoutData(data);
@@ -116,7 +150,7 @@ public class FilterMappingsArrayTableWizardSection extends Composite {
         buttonCompo.setLayoutData(new GridData(GridData.FILL_VERTICAL | GridData.VERTICAL_ALIGN_BEGINNING));
 
         addButton = new Button(buttonCompo, SWT.PUSH);
-        addButton.setText(IWebWizardConstants.ADD_BUTTON_LABEL);
+        addButton.setText(ADD_BUTTON_LABEL);
         addButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
         addButton.addSelectionListener(new SelectionListener() {
             public void widgetSelected(SelectionEvent event) {
@@ -128,7 +162,7 @@ public class FilterMappingsArrayTableWizardSection extends Composite {
         });
 
         editButton = new Button(buttonCompo, SWT.PUSH);
-        editButton.setText(IWebWizardConstants.EDIT_BUTTON_LABEL);
+        editButton.setText(EDIT_BUTTON_LABEL);
         editButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
         editButton.addSelectionListener(new SelectionListener() {
             public void widgetSelected(SelectionEvent event) {
@@ -141,7 +175,7 @@ public class FilterMappingsArrayTableWizardSection extends Composite {
         editButton.setEnabled(false);
 
         removeButton = new Button(buttonCompo, SWT.PUSH);
-        removeButton.setText(IWebWizardConstants.REMOVE_BUTTON_LABEL);
+        removeButton.setText(REMOVE_BUTTON_LABEL);
         removeButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
         removeButton.addSelectionListener(new SelectionListener() {
             public void widgetSelected(SelectionEvent event) {
@@ -176,10 +210,10 @@ public class FilterMappingsArrayTableWizardSection extends Composite {
 		tableColumn.setWidth(ICON_WIDTH);
 		tableColumn.setResizable(false);
 		tableColumn = new TableColumn(table, SWT.NONE);
-        tableColumn.setText(IWebWizardConstants.URL_SERVLET_LABEL);
+        tableColumn.setText(URL_SERVLET_LABEL);
         tableColumn.setResizable(true);
         tableColumn = new TableColumn(table, SWT.NONE);
-        tableColumn.setText(IWebWizardConstants.DISPATCHERS_LABEL);
+        tableColumn.setText(DISPATCHERS_LABEL);
         tableColumn.setWidth(DISPATCHERS_WIDTH);
         tableColumn.setResizable(false);
         viewer.setColumnProperties(new String[] {ICON_PROP, NAME_PROP, DISPATCHERS_PROP});
@@ -220,7 +254,7 @@ public class FilterMappingsArrayTableWizardSection extends Composite {
 
 	private void handleAddButtonSelected() {
 	    String title = WebAppEditResourceHandler.getString("Add_Filter_Mapping_Title_UI_");
-	    IProject p = (IProject) model.getProperty(INewJavaClassDataModelProperties.PROJECT);
+	    IProject p = (IProject) model.getProperty(PROJECT);
 	    List valueList = (List) viewer.getInput();
 	    AddEditFilterMappingDialog dialog = 
 	        new AddEditFilterMappingDialog(getShell(), title, p, valueList, null);
@@ -241,7 +275,7 @@ public class FilterMappingsArrayTableWizardSection extends Composite {
 		List valueList = (List) viewer.getInput();
 		Object selectedObj = selection.getFirstElement();
 		FilterMappingItem value = (FilterMappingItem) selectedObj;
-		IProject p = (IProject) model.getProperty(INewJavaClassDataModelProperties.PROJECT);
+		IProject p = (IProject) model.getProperty(PROJECT);
 		AddEditFilterMappingDialog dialog = 
             new AddEditFilterMappingDialog(getShell(), title, p, valueList, value);
 		dialog.open();

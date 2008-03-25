@@ -8,7 +8,7 @@
  * Contributors:
  * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.internal.web.operations;
+package org.eclipse.jst.j2ee.internal.common.operations;
 
 import java.util.List;
 

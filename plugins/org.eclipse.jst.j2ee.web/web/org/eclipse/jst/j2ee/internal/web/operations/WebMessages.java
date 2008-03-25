@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2008 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  * IBM Corporation - initial API and implementation
+ * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
  *******************************************************************************/
 /*
  * Created on Jan 13, 2004
@@ -66,6 +67,7 @@ public class WebMessages extends NLS {
 	public static String ERR_SERVLET_ROLE_LINK_EMPTY;
 	public static String ERR_SERVLET_INTERFACE;
 
+	public static String ERR_FILTER_DISPLAY_NAME_EXIST;
 	public static String ERR_FILTER_NAME_EXIST;
 	public static String ERR_FILTER_CLASS_NAME_USED;
 	public static String ERR_FILTER_CLASS_NAME_INVALID;

@@ -10,11 +10,13 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
-import org.eclipse.jst.j2ee.web.IServletConstants;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_GENERIC_SERVLET;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SERVLET;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET;
+
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class ServletSupertypesValidator extends AbstractSupertypesValidator
-		implements IServletConstants {
+public class ServletSupertypesValidator extends AbstractSupertypesValidator {
 	
 	public static boolean isHttpServletSuperclass(IDataModel dataModel) {
 		if (QUALIFIED_HTTP_SERVLET.equals(getSuperclass(dataModel)))

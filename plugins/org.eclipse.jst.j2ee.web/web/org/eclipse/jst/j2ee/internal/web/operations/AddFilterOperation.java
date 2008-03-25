@@ -10,19 +10,16 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
-import java.lang.reflect.InvocationTargetException;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.FILTER_MAPPINGS;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.INIT_PARAM;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.DESCRIPTION;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.DISPLAY_NAME;
+
 import java.util.List;
 
-import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
-import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.internal.common.operations.NewJavaEEArtifactClassOperation;
 import org.eclipse.jst.j2ee.webapplication.DispatcherType;
 import org.eclipse.jst.j2ee.webapplication.Filter;
 import org.eclipse.jst.j2ee.webapplication.FilterMapping;
@@ -65,8 +62,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * 
  * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
-public class AddFilterOperation extends AddWebClassOperation implements
-		INewFilterClassDataModelProperties {
+public class AddFilterOperation extends AddWebClassOperation {
 
 	/**
 	 * This is the constructor which should be used when creating the operation.
@@ -79,73 +75,11 @@ public class AddFilterOperation extends AddWebClassOperation implements
 	 */
 	public AddFilterOperation(IDataModel dataModel) {
 		super(dataModel);
-		provider = ModelProviderManager.getModelProvider(getTargetProject());
 	}
-
-	/**
-	 * Subclasses may extend this method to add their own actions during
-	 * execution. The implementation of the execute method drives the running of
-	 * the operation. This implementation will create the filter class, and
-	 * then it will create the filter metadata for the web deployment descriptor. 
-	 * This method will accept null as a parameter.
-	 * 
-	 * @see org.eclipse.core.commands.operations.AbstractOperation#execute(org.eclipse.core.runtime.IProgressMonitor,
-	 *      org.eclipse.core.runtime.IAdaptable)
-	 * @see AddFilterOperation#createFilterClass()
-	 * @see AddFilterOperation#generateFilterMetaData(NewFilterClassDataModel,
-	 *      String)
-	 * 
-	 * @param monitor
-	 *            IProgressMonitor
-	 * @param info
-	 *            IAdaptable
-	 * @throws CoreException
-	 * @throws InterruptedException
-	 * @throws InvocationTargetException
-	 */
-	public IStatus doExecute(IProgressMonitor monitor, IAdaptable info)
-			throws ExecutionException {
-		// Retrieve values set in the newfilterclass data model
-	    boolean useExisting = model.getBooleanProperty(USE_EXISTING_CLASS);
-		String qualifiedClassName = model.getStringProperty(CLASS_NAME);
-
-		// create the java class
-		if (!useExisting) 
-			qualifiedClassName = createFilterClass();
-
-		// If the filter is not annotated, generate the filter metadata for the DD
-		if (!model.getBooleanProperty(USE_ANNOTATIONS))
-			generateFilterMetaData(model, qualifiedClassName);
-		
-		return OK_STATUS;
-	}
-
-	/**
-	 * Subclasses may extend this method to add their own creation of the actual
-	 * filter java class. This implementation uses the NewFilterClassOperation
-	 * which is a subclass of the NewJavaClassOperation. The
-	 * NewFilterClassOperation will use the same
-	 * NewFilterClassDataModelProvider to retrieve the properties in order to
-	 * create the java class accordingly. This method will not return null.
-	 * 
-	 * @see NewFilterClassOperation
-	 * @see org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassOperation
-	 * @see NewFilterClassDataModelProvider
-	 * 
-	 * @return String qualified filter classname
-	 */
-	protected String createFilterClass() {
-		// Create filter java class file using the NewFilterClassOperation.
-		// The same data model is shared.
-		NewFilterClassOperation op = new NewFilterClassOperation(model);
-		try {
-			op.execute(new NullProgressMonitor(), null);
-		} catch (Exception e) {
-			WebPlugin.log(e);
-		}
-		// Return the qualified classname of the newly created java class for
-		// the fitler
-		return getQualifiedClassName();
+	
+	@Override
+	protected NewJavaEEArtifactClassOperation getNewClassOperation() {
+		return new NewFilterClassOperation(getDataModel());
 	}
 
 	/**
@@ -164,8 +98,8 @@ public class AddFilterOperation extends AddWebClassOperation implements
 	 * @param aModel
 	 * @param qualifiedClassName
 	 */
-	protected void generateFilterMetaData(IDataModel aModel,
-			String qualifiedClassName) {
+	@Override
+	protected void generateMetaData(IDataModel aModel, String qualifiedClassName) {
 		// Set up the filter modelled object
 		Object filter = createFilter(qualifiedClassName);
 

@@ -8,58 +8,47 @@
  * Contributors:
  * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.internal.web.operations;
+package org.eclipse.jst.j2ee.internal.common.operations;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.jdt.core.Flags;
-import org.eclipse.jdt.core.IMethod;
-import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jdt.core.Signature;
-import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
+import org.eclipse.jdt.core.dom.ITypeBinding;
+import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.Modifier;
+import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
+import org.eclipse.jdt.core.dom.Type;
 
-public class BinaryConstructor implements Constructor {
+public class SourceConstructor implements Constructor {
 	
-	private IMethod method;
-
-	public BinaryConstructor(IMethod method) {
+	private MethodDeclaration method;
+	
+	public SourceConstructor(MethodDeclaration method) {
 		this.method = method;
 	}
-
+	
 	/**
 	 * @see Constructor#isParameterless()
 	 */
 	public boolean isParameterless() {
-		return method.getNumberOfParameters() == 0;
+		return method.parameters().size() == 0;
 	}
 
 	/**
 	 * @see Constructor#isPublic()
 	 */
 	public boolean isPublic() {
-		int flags;
-		try {
-			flags = method.getFlags();
-		} catch (JavaModelException e) {
-			WebPlugin.log(e);
-			flags = 0;
-		}
-        return Flags.isPublic(flags);
+		int modifiers = method.getModifiers();
+        return Modifier.isPublic(modifiers);
 	}
 
 	/**
 	 * @see Constructor#isProtected()
 	 */
 	public boolean isProtected() {
-		int flags;
-		try {
-			flags = method.getFlags();
-		} catch (JavaModelException e) {
-			WebPlugin.log(e);
-			flags = 0;
-		}
-        return Flags.isProtected(flags);
+		int modifiers = method.getModifiers();
+        return Modifier.isProtected(modifiers);
 	}
 
 	/**
@@ -77,59 +66,54 @@ public class BinaryConstructor implements Constructor {
 	}
 
 	/**
-	 * @see Constructor#getParamsForJavadoc()()
+	 * @see Constructor#getParamsForJavadoc()
 	 */
 	public String getParamsForJavadoc() {
 		return this.getParams(true, false);
 	}
-	
+
 	/**
 	 * @see Constructor#getNonPrimitiveParameterTypes()
 	 */
+	@SuppressWarnings("unchecked")
 	public List<String> getNonPrimitiveParameterTypes() {
 		List<String> result = new ArrayList<String>();
 		
-		String[] parameterTypes = method.getParameterTypes();
-		for (String parameterType : parameterTypes) {
-			if (Signature.getTypeSignatureKind(parameterType) != Signature.BASE_TYPE_SIGNATURE) {
-				result.add(Signature.toString(parameterType));
+		List<SingleVariableDeclaration> parameters = method.parameters();
+		for (SingleVariableDeclaration parameter : parameters) {
+			Type type =  parameter.getType();
+			if (!type.isPrimitiveType()) {
+				ITypeBinding binding = type.resolveBinding();
+				if (binding != null)
+					result.add(binding.getQualifiedName());
 			}
 		}
 		
 		return result;
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	private String getParams(boolean types, boolean names) {
 		StringBuilder result = new StringBuilder();
 		
-        String[] parameterTypes = method.getParameterTypes();
-        String[] parameterNames;
-		try {
-			parameterNames = method.getParameterNames();
-		} catch (JavaModelException e) {
-			WebPlugin.log(e);
-			
-			parameterNames = new String[parameterTypes.length];
-			for (int i = 0; i < parameterNames.length; i++) {
-				parameterNames[i] = "arg" + i;
-			}
-		}
-        
-        for (int i = 0; i < parameterTypes.length; i++) {
+		Iterator<SingleVariableDeclaration> iterator = method.parameters().iterator();
+        while (iterator.hasNext()) {
+        	SingleVariableDeclaration parameter = iterator.next();
+        	
         	if (types) 
-        		result.append(Signature.getSignatureSimpleName(parameterTypes[i]));
+        		result.append(parameter.getType());
         	
         	if (types && names) 
         		result.append(" "); //$NON-NLS-1$
         	
         	if (names) 
-        		result.append(parameterNames[i]);
+        		result.append(parameter.getName());
         	
-            if (i < parameterNames.length - 1)
+            if (iterator.hasNext())
                 result.append(", "); //$NON-NLS-1$
         }
-		
-		return result.toString();
+        
+        return result.toString();
 	}
 
 }
