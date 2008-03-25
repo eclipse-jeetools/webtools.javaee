@@ -18,6 +18,7 @@ import org.eclipse.jst.javaee.core.JEEXMLLoadImpl;
 import org.eclipse.jst.javaee.core.internal.util.JavaeeResourceImpl;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.ejb.EJBJarDeploymentDescriptor;
+import org.eclipse.jst.javaee.ejb.IEJBResource;
 import org.eclipse.wst.common.internal.emf.resource.IRootObjectResource;
 
 /**
@@ -27,7 +28,7 @@ import org.eclipse.wst.common.internal.emf.resource.IRootObjectResource;
  * @see org.eclipse.jst.javaee.ejb.internal.util.EjbResourceFactoryImpl
  * @generated
  */
-public class EjbResourceImpl extends JavaeeResourceImpl implements IRootObjectResource {
+public class EjbResourceImpl extends JavaeeResourceImpl implements IRootObjectResource, IEJBResource {
 	/**
 	 * Creates an instance of the resource.
 	 * <!-- begin-user-doc -->
@@ -49,8 +50,8 @@ public class EjbResourceImpl extends JavaeeResourceImpl implements IRootObjectRe
 		return new EjbXMLHelperImpl(this);
 	}
 	
-	/**
-	 * Return the first element in the EList.
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.javaee.ejb.internal.util.IEJBResource#getRootObject()
 	 */
 	public EObject getRootObject() {
 		if (contents == null || contents.isEmpty())
@@ -61,8 +62,8 @@ public class EjbResourceImpl extends JavaeeResourceImpl implements IRootObjectRe
 		}
 		return (EObject)((EJBJarDeploymentDescriptor)root).getEjbJar();
 	}
-	/**
-	 * Return the jar
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.javaee.ejb.internal.util.IEJBResource#getEjbJar()
 	 */
 	public EJBJar getEjbJar() {
 		return (EJBJar)getRootObject();

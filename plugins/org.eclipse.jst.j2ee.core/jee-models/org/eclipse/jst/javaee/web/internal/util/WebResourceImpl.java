@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.xmi.XMLHelper;
 import org.eclipse.emf.ecore.xmi.XMLLoad;
 import org.eclipse.jst.javaee.core.JEEXMLLoadImpl;
 import org.eclipse.jst.javaee.core.internal.util.JavaeeResourceImpl;
+import org.eclipse.jst.javaee.web.IWebResource;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.javaee.web.WebAppDeploymentDescriptor;
 import org.eclipse.wst.common.internal.emf.resource.IRootObjectResource;
@@ -27,7 +28,7 @@ import org.eclipse.wst.common.internal.emf.resource.IRootObjectResource;
  * @see org.eclipse.jst.javaee.web.internal.util.WebResourceFactoryImpl
  * @generated
  */
-public class WebResourceImpl extends JavaeeResourceImpl implements IRootObjectResource{
+public class WebResourceImpl extends JavaeeResourceImpl implements IRootObjectResource, IWebResource{
 	/**
 	 * Creates an instance of the resource.
 	 * <!-- begin-user-doc -->
@@ -47,8 +48,8 @@ public class WebResourceImpl extends JavaeeResourceImpl implements IRootObjectRe
 		
 		return new WebXMLHelperImpl(this);
 	}
-	/**
-	 * Return the first element in the EList.
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.javaee.web.internal.util.IWebResource#getRootObject()
 	 */
 	public EObject getRootObject() {
 		if (contents == null || contents.isEmpty())
@@ -59,8 +60,8 @@ public class WebResourceImpl extends JavaeeResourceImpl implements IRootObjectRe
 		}
 		return (EObject)((WebAppDeploymentDescriptor)root).getWebApp();
 	}
-	/**
-	 * Return the war
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.javaee.web.internal.util.IWebResource#getWebApp()
 	 */
 	public WebApp getWebApp() {
 		return (WebApp)getRootObject();

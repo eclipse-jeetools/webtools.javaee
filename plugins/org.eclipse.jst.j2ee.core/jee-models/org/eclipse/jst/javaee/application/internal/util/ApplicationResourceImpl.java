@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.xmi.XMLHelper;
 import org.eclipse.emf.ecore.xmi.XMLLoad;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.javaee.application.ApplicationDeploymentDescriptor;
+import org.eclipse.jst.javaee.application.IApplicationResource;
 import org.eclipse.jst.javaee.core.JEEXMLLoadImpl;
 import org.eclipse.jst.javaee.core.internal.util.JavaeeResourceImpl;
 import org.eclipse.wst.common.internal.emf.resource.IRootObjectResource;
@@ -27,7 +28,7 @@ import org.eclipse.wst.common.internal.emf.resource.IRootObjectResource;
  * @see org.eclipse.jst.javaee.application.internal.util.ApplicationResourceFactoryImpl
  * @generated
  */
-public class ApplicationResourceImpl extends JavaeeResourceImpl implements IRootObjectResource {
+public class ApplicationResourceImpl extends JavaeeResourceImpl implements IRootObjectResource, IApplicationResource {
 	/**
 	 * Creates an instance of the resource.
 	 * <!-- begin-user-doc -->
@@ -47,8 +48,8 @@ public class ApplicationResourceImpl extends JavaeeResourceImpl implements IRoot
 		
 		return new EarXMLHelperImpl(this);
 	}
-	/**
-	 * Return the first element in the EList.
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.javaee.application.internal.util.IApplicationResource#getRootObject()
 	 */
 	public EObject getRootObject() {
 		if (contents == null || contents.isEmpty())
@@ -59,8 +60,8 @@ public class ApplicationResourceImpl extends JavaeeResourceImpl implements IRoot
 		}
 		return (EObject)((ApplicationDeploymentDescriptor)root).getApplication();
 	}
-	/**
-	 * Return the ear
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.javaee.application.internal.util.IApplicationResource#getApplication()
 	 */
 	public Application getApplication() {
 		return (Application)getRootObject();

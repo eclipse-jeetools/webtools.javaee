@@ -23,8 +23,8 @@ import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.javaee.application.ApplicationDeploymentDescriptor;
 import org.eclipse.jst.javaee.application.ApplicationFactory;
+import org.eclipse.jst.javaee.application.IApplicationResource;
 import org.eclipse.jst.javaee.application.Module;
-import org.eclipse.jst.javaee.application.internal.util.ApplicationResourceImpl;
 import org.eclipse.jst.javaee.core.DisplayName;
 import org.eclipse.jst.javaee.core.JavaeeFactory;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -47,8 +47,8 @@ public class EAR5ModelProvider extends JEE5ModelProvider implements IEARModelPro
 	 * @see org.eclipse.jst.j2ee.model.IModelProvider#getModelObject(org.eclipse.core.runtime.IPath)
 	 */
 	public Object getModelObject(IPath modelPath) {
-		ApplicationResourceImpl earRes = (ApplicationResourceImpl)getModelResource(modelPath);
-		if (earRes != null && earRes.getContents().size() > 0) 
+		IApplicationResource earRes = (IApplicationResource)getModelResource(modelPath);
+		if (earRes != null && earRes.getRootObject() != null) 
 			return earRes.getApplication();
 		return null;
 	}

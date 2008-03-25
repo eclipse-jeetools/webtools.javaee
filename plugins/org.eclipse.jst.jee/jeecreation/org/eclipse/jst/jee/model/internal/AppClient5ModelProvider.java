@@ -20,7 +20,7 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
 import org.eclipse.jst.javaee.applicationclient.ApplicationClientDeploymentDescriptor;
 import org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory;
-import org.eclipse.jst.javaee.applicationclient.internal.util.ApplicationclientResourceImpl;
+import org.eclipse.jst.javaee.applicationclient.IApplicationClientResource;
 import org.eclipse.jst.javaee.core.DisplayName;
 import org.eclipse.jst.javaee.core.JavaeeFactory;
 
@@ -37,8 +37,8 @@ public class AppClient5ModelProvider extends JEE5ModelProvider {
 	 * @see org.eclipse.jst.j2ee.model.IModelProvider#getModelObject(org.eclipse.core.runtime.IPath)
 	 */
 	public Object getModelObject(IPath modelPath) {
-		ApplicationclientResourceImpl appRes = (ApplicationclientResourceImpl)getModelResource(modelPath);
-		if (appRes != null && appRes.getContents().size() > 0) 
+		IApplicationClientResource appRes = (IApplicationClientResource)getModelResource(modelPath);
+		if (appRes != null && appRes.getRootObject() != null) 
 			return appRes.getApplicationClient();
 		return null;
 	}

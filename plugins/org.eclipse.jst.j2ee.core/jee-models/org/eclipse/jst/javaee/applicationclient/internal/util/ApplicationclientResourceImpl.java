@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.xmi.XMLHelper;
 import org.eclipse.emf.ecore.xmi.XMLLoad;
 import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
 import org.eclipse.jst.javaee.applicationclient.ApplicationClientDeploymentDescriptor;
+import org.eclipse.jst.javaee.applicationclient.IApplicationClientResource;
 import org.eclipse.jst.javaee.core.JEEXMLLoadImpl;
 import org.eclipse.jst.javaee.core.internal.util.JavaeeResourceImpl;
 import org.eclipse.wst.common.internal.emf.resource.IRootObjectResource;
@@ -27,7 +28,7 @@ import org.eclipse.wst.common.internal.emf.resource.IRootObjectResource;
  * @see org.eclipse.jst.javaee.applicationclient.internal.util.ApplicationclientResourceFactoryImpl
  * @generated
  */
-public class ApplicationclientResourceImpl extends JavaeeResourceImpl implements IRootObjectResource{
+public class ApplicationclientResourceImpl extends JavaeeResourceImpl implements IRootObjectResource, IApplicationClientResource{
 	/**
 	 * Creates an instance of the resource.
 	 * <!-- begin-user-doc -->
@@ -49,8 +50,8 @@ public class ApplicationclientResourceImpl extends JavaeeResourceImpl implements
 		return new AppClientXMLHelperImpl(this);
 	}
 	
-	/**
-	 * Return the first element in the EList.
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.javaee.applicationclient.internal.util.IApplicationClientResource#getRootObject()
 	 */
 	public EObject getRootObject() {
 		if (contents == null || contents.isEmpty())
@@ -61,8 +62,8 @@ public class ApplicationclientResourceImpl extends JavaeeResourceImpl implements
 		}
 		return (EObject)((ApplicationClientDeploymentDescriptor)root).getApplicationClient();
 	}
-	/**
-	 * Return the ear
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.javaee.applicationclient.internal.util.IApplicationClientResource#getApplicationClient()
 	 */
 	public ApplicationClient getApplicationClient() {
 		return (ApplicationClient)getRootObject();
