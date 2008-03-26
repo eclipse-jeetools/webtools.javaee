@@ -61,8 +61,6 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 		if(!isPhysicallyOpen()){
 			physicallyOpen = true;
 			setZipFile(new ZipFile(file));
-			System.err.println("PhysicallyOpen");
-			Thread.dumpStack();
 		}
 	}
 	
@@ -75,8 +73,6 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 			catch (Throwable t) {
 				//Ignore
 			}
-			System.err.println("PhysicallyClose");
-			Thread.dumpStack();
 		} 
 	}
 	
