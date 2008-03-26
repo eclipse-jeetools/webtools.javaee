@@ -31,12 +31,14 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.actions.AbstractOpenAction;
 import org.eclipse.jst.j2ee.internal.actions.ComponentEditorInput;
+import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
 import org.eclipse.jst.j2ee.internal.componentcore.ComponentArchiveOptions;
 import org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.jst.javaee.ejb.SessionBean;
+import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.ui.internal.navigator.appclient.GroupAppClientProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanInterfaceNode;
@@ -204,6 +206,14 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 						IVirtualComponent component = ((ComponentArchiveOptions) options)
 						.getComponent();
 						openAppropriateEditor(component);
+					}
+				} else {
+					IArchive archive = JavaEEArchiveUtilities.findArchive(ro);
+					if(archive != null){
+						IVirtualComponent component = JavaEEArchiveUtilities.findComponent(archive);
+						if(component != null){
+							openAppropriateEditor(component);
+						}
 					}
 				}
 			}

@@ -21,8 +21,11 @@ import java.util.Map;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.content.IContentDescription;
+import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ContentHandler;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -40,8 +43,24 @@ import org.eclipse.wst.common.internal.emf.resource.TranslatorResourceFactory;
 
 public class JavaEEEMFArchiveAdapterHelper {
 
-	// TODO may not need this
+	public static IArchive findArchive(EObject eObject){
+		EList <Adapter> adapters = eObject.eResource().getResourceSet().eAdapters();
+		for(Adapter adapter:adapters){
+			if(adapter instanceof EMFAddapter){
+				return ((EMFAddapter) adapter).getHelper().getArchive();
+			}
+		}
+		return null;
+	}
+	
 	private class EMFAddapter extends AdapterImpl {
+		private JavaEEEMFArchiveAdapterHelper helper;
+		public EMFAddapter(JavaEEEMFArchiveAdapterHelper helper){
+			this.helper = helper;
+		}
+		public JavaEEEMFArchiveAdapterHelper getHelper() {
+			return this.helper;
+		}
 	};
 
 	protected ResourceSet resourceSet;
@@ -118,7 +137,7 @@ public class JavaEEEMFArchiveAdapterHelper {
 		if (resourceSet == null) {
 			initializeResourceSet();
 			if (null == adapter) {
-				adapter = new EMFAddapter();
+				adapter = new EMFAddapter(this);
 			}
 			resourceSet.eAdapters().add(adapter);
 		}
@@ -134,7 +153,7 @@ public class JavaEEEMFArchiveAdapterHelper {
 			// add as adapter to new resource set if necessary
 			if (newResourceSet != null && !newResourceSet.eAdapters().contains(adapter)) {
 				if (adapter == null) {
-					adapter = new EMFAddapter();
+					adapter = new EMFAddapter(this);
 				}
 				newResourceSet.eAdapters().add(adapter);
 			}

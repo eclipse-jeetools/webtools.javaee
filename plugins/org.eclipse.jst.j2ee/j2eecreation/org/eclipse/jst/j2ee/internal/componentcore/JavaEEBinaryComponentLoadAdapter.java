@@ -15,14 +15,21 @@ import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 
+/**
+ * @author jsholl
+ *
+ */
 public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapterImpl {
 
 	private java.io.File file = null;
 	private IPath archivePath;
 	private boolean physicallyOpen = true;
 	
+	private VirtualArchiveComponent archiveComponent;
+	
 	public JavaEEBinaryComponentLoadAdapter(VirtualArchiveComponent archiveComponent) throws ArchiveOpenFailureException {
 		super();
+		this.archiveComponent = archiveComponent;
 		java.io.File diskFile = null;
 		diskFile = archiveComponent.getUnderlyingDiskFile();
 		if (!diskFile.exists()) {
@@ -115,6 +122,7 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 		}
 	}
 
-	
-	
+	public VirtualArchiveComponent getArchiveComponent() {
+		return archiveComponent;
+	}	
 }

@@ -23,6 +23,7 @@ import java.util.jar.Manifest;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jdt.core.ToolFactory;
 import org.eclipse.jdt.core.util.IAnnotation;
 import org.eclipse.jdt.core.util.IClassFileAttribute;
@@ -376,6 +377,28 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 
 		return simpleArchive;
 	}
+	
+	public static IArchive findArchive(Object modelObject){
+		if(modelObject instanceof EObject){
+			EObject eObject = (EObject)modelObject;
+			return JavaEEEMFArchiveAdapterHelper.findArchive(eObject);
+		}
+		return null;
+	}
+	
+	public static IVirtualComponent findComponent(IArchive anArchive){
+		IArchiveLoadAdapter loadAdapter = null;
+		if(anArchive.getArchiveOptions().hasOption(WRAPPED_LOAD_ADAPTER)){
+			loadAdapter = (IArchiveLoadAdapter)anArchive.getArchiveOptions().getOption(WRAPPED_LOAD_ADAPTER);
+		} else {
+			loadAdapter = (IArchiveLoadAdapter)anArchive.getArchiveOptions().getOption(ArchiveOptions.LOAD_ADAPTER);
+		}
+		if(loadAdapter instanceof JavaEEBinaryComponentLoadAdapter){
+			return ((JavaEEBinaryComponentLoadAdapter)loadAdapter).getArchiveComponent();
+		}
+		return null;
+	}
+	
 
 	public static class JavaEEWrappingLoadAdapter implements IArchiveLoadAdapter {
 
