@@ -15,18 +15,31 @@ import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.javaee.ejb.EJBJar;
+import org.eclipse.jst.javaee.ejb.EntityBean;
+import org.eclipse.jst.javaee.ejb.MessageDrivenBean;
+import org.eclipse.jst.javaee.ejb.SessionBean;
+import org.eclipse.jst.jee.internal.deployables.JEEFlexProjDeployable;
+import org.eclipse.jst.server.core.EJBBean;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
+import org.eclipse.wst.server.core.model.ModuleDelegate;
 import org.eclipse.wst.server.core.util.NullModuleArtifact;
 
 /**
@@ -44,10 +57,14 @@ public class EJBDeployableArtifactAdapterUtil {
 	public static IModuleArtifact getModuleObject(Object obj) {
 		if (obj == null)
 			return null;
-//		else if (obj instanceof EJBJar)
-//			return getModuleObject((EJBJar) obj);
-//		else if (obj instanceof EnterpriseBean)
-//			return getModuleObject((EnterpriseBean) obj);
+		else if (obj instanceof EJBJar)
+			return getModuleObject((EJBJar) obj);
+		else if (obj instanceof SessionBean)
+			return getModuleObject((SessionBean) obj);
+		else if (obj instanceof MessageDrivenBean)
+			return getModuleObject((MessageDrivenBean) obj);
+		else if (obj instanceof EntityBean)
+			return getModuleObject((EntityBean) obj);
 		else if (obj instanceof IProject) 
 			return  getModuleObject((IProject) obj);
 		else if (obj instanceof IJavaProject) 
@@ -78,16 +95,15 @@ public class EJBDeployableArtifactAdapterUtil {
 		return null;
 	}
 
-//	protected static IModuleArtifact getModuleObject(EJBJar ejbJar) {
-//		IModule dep = getModule(ejbJar);
-//		return createModuleObject(dep, null, false, false);
-//	}
-//
-//	protected static IModuleArtifact getModuleObject(EnterpriseBean ejb) {
-//
-//		IModule dep = getModule(ejb);
-//		return createModuleObject(dep, ejb.getName(), ejb.hasRemoteClient(), ejb.hasLocalClient());
-//	}
+	protected static IModuleArtifact getModuleObject(EJBJar ejbJar) {
+		IModule dep = getModule((EObject)ejbJar);
+		return createModuleObject(dep, null, false, false);
+	}
+
+	protected static IModuleArtifact getModuleObject(SessionBean ejb) {
+		IModule dep = getModule((EObject)ejb);
+		return createModuleObject(dep, ejb.getEjbName(), false, false);
+	}
 
 	protected static IModuleArtifact getModuleObject(IProject project) {
 		if (hasInterestedComponents(project)) {
@@ -112,21 +128,21 @@ public class EJBDeployableArtifactAdapterUtil {
 		return null;
 	}
 
-//	protected static IModule getModule(EObject refObject) {
-//		IProject proj = ProjectUtilities.getProject(refObject);
-//		Resource refResource = refObject.eResource();
-//		IVirtualResource[] resources = null;
-//		IVirtualComponent component = null;
-//		try {
-//			IResource eclipeServResoruce = WorkbenchResourceHelper.getFile(refResource);
-//			resources = ComponentCore.createResources(eclipeServResoruce);
-//			if (resources[0] != null)
-//				component = resources[0].getComponent();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return getModule(proj, component);
-//	}
+	protected static IModule getModule(EObject refObject) {
+		IProject proj = ProjectUtilities.getProject(refObject);
+		Resource refResource = refObject.eResource();
+		IVirtualResource[] resources = null;
+		IVirtualComponent component = null;
+		try {
+			IResource eclipeServResoruce = WorkbenchResourceHelper.getFile(refResource);
+			resources = ComponentCore.createResources(eclipeServResoruce);
+			if (resources[0] != null)
+				component = resources[0].getComponent();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return getModule(proj, component);
+	}
 
 	protected static IModule getModule(IProject project, IVirtualComponent component) {
 		IModule deployable = null;
@@ -201,10 +217,10 @@ public class EJBDeployableArtifactAdapterUtil {
 		if (module != null) {
 			String jndiName = null;
 			if (ejbName != null) {
-//				module.loadAdapter(ModuleDelegate.class, new NullProgressMonitor());
-//				JEEFlexProjDeployable moduleDelegate = (JEEFlexProjDeployable)module.getAdapter(ModuleDelegate.class);
-//				jndiName = moduleDelegate.getJNDIName(ejbName);
-//				return new EJBBean(module, jndiName, remote, local);
+				module.loadAdapter(ModuleDelegate.class, new NullProgressMonitor());
+				JEEFlexProjDeployable moduleDelegate = (JEEFlexProjDeployable)module.getAdapter(ModuleDelegate.class);
+				jndiName = moduleDelegate.getJNDIName(ejbName);
+				return new EJBBean(module, jndiName, remote, local);
 			}
 			return new NullModuleArtifact(module);
 		}

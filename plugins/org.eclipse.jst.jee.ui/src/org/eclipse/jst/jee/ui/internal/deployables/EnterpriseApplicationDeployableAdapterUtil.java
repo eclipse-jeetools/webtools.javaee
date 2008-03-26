@@ -15,11 +15,17 @@ import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
@@ -44,8 +50,8 @@ public class EnterpriseApplicationDeployableAdapterUtil {
 	 *            obj - Object to adapt.
 	 */
 	public static IModuleArtifact getModuleObject(Object obj) {
-//		if (obj instanceof Application)
-//			return getModuleObject((Application) obj);
+		if (obj instanceof Application)
+			return getModuleObject((Application) obj);
 		if (obj instanceof IProject)
 			return getModuleObject((IProject) obj);
 		if (obj instanceof IFile)
@@ -53,16 +59,16 @@ public class EnterpriseApplicationDeployableAdapterUtil {
 		return null;
 	}// getDeployableObject
 
-//	/**
-//	 * Gets the deployable object for ear instance.
-//	 * 
-//	 * @param Application
-//	 *            application - EAR instance.
-//	 */
-//	protected static IModuleArtifact getModuleObject(Application application) {
-//		IModule dep = getModule(application);
-//		return createModuleObject(dep);
-//	}// getDeployableObject
+	/**
+	 * Gets the deployable object for ear instance.
+	 * 
+	 * @param Application
+	 *            application - EAR instance.
+	 */
+	protected static IModuleArtifact getModuleObject(Application application) {
+		IModule dep = getModule((EObject)application);
+		return createModuleObject(dep);
+	}
 
 	/**
 	 * Gets the deployable object for project instances.
@@ -96,28 +102,28 @@ public class EnterpriseApplicationDeployableAdapterUtil {
 		return null;
 	}// getModuleObject
 
-//	/**
-//	 * Gets the deployable object.
-//	 * 
-//	 * @param EObject
-//	 *            refObject - The current refObject.
-//	 * @return IModule
-//	 */
-//	protected static IModule getModule(EObject refObject) {
-//		IProject proj = ProjectUtilities.getProject(refObject);
-//		Resource servResource = refObject.eResource();
-//		IVirtualResource[] resources = null;
-//		try {
-//			IResource eclipeServResoruce = WorkbenchResourceHelper.getFile(servResource);
-//			resources = ComponentCore.createResources(eclipeServResoruce);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		IVirtualComponent component = null;
-//		if (resources[0] != null)
-//			component = resources[0].getComponent();
-//		return getModule(proj,component);
-//	}// getModule
+	/**
+	 * Gets the deployable object.
+	 * 
+	 * @param EObject
+	 *            refObject - The current refObject.
+	 * @return IModule
+	 */
+	protected static IModule getModule(EObject refObject) {
+		IProject proj = ProjectUtilities.getProject(refObject);
+		Resource servResource = refObject.eResource();
+		IVirtualResource[] resources = null;
+		try {
+			IResource eclipeServResoruce = WorkbenchResourceHelper.getFile(servResource);
+			resources = ComponentCore.createResources(eclipeServResoruce);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		IVirtualComponent component = null;
+		if (resources[0] != null)
+			component = resources[0].getComponent();
+		return getModule(proj,component);
+	}
 
 
 

@@ -19,28 +19,28 @@
              adaptableType="org.eclipse.core.resources.IFile">
             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
        </factory>
-<!--
+
         <factory
              class="org.eclipse.jst.jee.ui.internal.deployables.EnterpriseDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.jst.j2ee.application.Application">
+             adaptableType="org.eclipse.jst.javaee.application.Application">
              <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
         </factory>
- -->
+
    </extension> 
    
    <extension
          point="org.eclipse.wst.server.core.moduleArtifactAdapters">
-<!--    
+  
     <moduleArtifactAdapter
-           id="org.eclipse.jst.j2ee.server.ear1"
+           id="org.eclipse.jst.jee.server.ear1"
            class="org.eclipse.jst.jee.ui.internal.deployables.EnterpriseDeployableArtifactAdapterFactory">
          <enablement>
            <with variable="selection">
-             <adapt type="org.eclipse.jst.j2ee.application.Application"/>
+             <adapt type="org.eclipse.jst.javaee.application.Application"/>
            </with>
          </enablement>
       </moduleArtifactAdapter>
-  --> 
+ 
      <moduleArtifactAdapter
             id="org.eclipse.jst.jee.server.ear2"
             class="org.eclipse.jst.jee.ui.internal.deployables.EnterpriseDeployableArtifactAdapterFactory">
@@ -187,18 +187,30 @@
              adaptableType="org.eclipse.core.resources.IFile">
             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
        </factory>
-       <!--
-       <factory
-             class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.jst.j2ee.ejb.EnterpriseBean">
-             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
-       </factory>
-       <factory
-             class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.jst.j2ee.ejb.EJBJar">
-             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
-       </factory>
-       -->
+
+	   	<factory
+	    	class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+	     	adaptableType="org.eclipse.jst.javaee.ejb.EJBJar">
+	     	<adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
+		</factory>
+		
+		<factory
+			class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+	     	adaptableType="org.eclipse.jst.javaee.ejb.SessionBean">
+	     	<adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
+	   	</factory>
+	   		
+		<factory
+			class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+	     	adaptableType="org.eclipse.jst.javaee.ejb.MessageDrivenBean">
+	     	<adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
+	   	</factory>	
+	   	
+	   	<factory
+			class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+	     	adaptableType="org.eclipse.jst.javaee.ejb.EntityBean">
+	     	<adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
+	   	</factory>       
    </extension>
    
    <!-- ==================================================================== -->
@@ -207,26 +219,26 @@
 <!-- ==================================================================== -->
    <extension
          point="org.eclipse.wst.server.core.moduleArtifactAdapters">
-<!--         
+       
       <moduleArtifactAdapter
             id="org.eclipse.jst.j2ee.server.ejb"
-            class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory">
+            class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory">
          <enablement>
            <with variable="selection">
-             <adapt type="org.eclipse.jst.j2ee.ejb.EJBJar"/>
+             <adapt type="org.eclipse.jst.javaee.ejb.EJBJar"/>
            </with>
          </enablement>
       </moduleArtifactAdapter>
       <moduleArtifactAdapter
             id="org.eclipse.jst.j2ee.server.ejb2"
-            class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory">
+            class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory">
          <enablement>
            <with variable="selection">
-             <adapt type="org.eclipse.jst.j2ee.ejb.EnterpriseBean"/>
+             <adapt type="org.eclipse.jst.javaee.ejb.SessionBean"/>
            </with>
          </enablement>
       </moduleArtifactAdapter>
--->      
+     
       <moduleArtifactAdapter
             id="org.eclipse.jst.jee.server.ejb3"
              class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory">
@@ -262,6 +274,26 @@
            </with>
          </enablement>
       </moduleArtifactAdapter>
+      
+      <moduleArtifactAdapter
+            id="org.eclipse.jst.j2ee.server.ejb6"
+            class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory">
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.jst.javaee.ejb.MessageDrivenBean"/>
+           </with>
+         </enablement>
+      </moduleArtifactAdapter>
+      
+      <moduleArtifactAdapter
+            id="org.eclipse.jst.j2ee.server.ejb7"
+            class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory">
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.jst.javaee.ejb.EntityBean"/>
+           </with>
+         </enablement>
+      </moduleArtifactAdapter>
       </extension>
   
   <extension
@@ -276,7 +308,7 @@
                icon="icons/full/ctool16/dep_desc.gif"
                id="createDeploymentFiles"
                label="%create_deploy_files"
-               menubarPath="javeeUIPopupMenuCategory/slot1">
+               menubarPath="javeeUIPopupMenuCategory/slot2">
 		</action>
         <enablement>
             <or>
@@ -373,55 +405,8 @@
    </instanceof>
         </or>
      </possibleChildren>
-     <actionProvider
-           class="org.eclipse.jst.jee.ui.internal.navigator.JEEActionProvider"
-           id="org.eclipse.jst.javaee.ui.JEEActionProvider">
-        <enablement>
-           <or>
-              <instanceof value="org.eclipse.jst.jee.ui.internal.navigator.AbstractDDNode"/>
-              <instanceof value="org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanNode"/>
-              <instanceof value="org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanInterfaceNode"/>
-              <instanceof value="org.eclipse.jst.javaee.core.JavaEEObject" />
-              <instanceof
-                    value="org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider">
-              </instanceof>
-              <instanceof
-                    value="org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider">
-              </instanceof>
-              <instanceof
-                    value="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
-              </instanceof>
-              <instanceof
-                    value="org.eclipse.jst.jee.ui.internal.navigator.appclient.GroupAppClientProvider">
-              </instanceof>
-           </or>
-        </enablement>
-     </actionProvider>
-     <actionProvider
-			class="org.eclipse.ui.internal.navigator.resources.actions.NewActionProvider"
-			id="org.eclipse.ui.navigator.resources.JEENewActions">
-			<enablement>
-    <or>
-       <instanceof
-             value="org.eclipse.jst.jee.ui.internal.navigator.AbstractDDNode">
-       </instanceof>
-       <instanceof
-             value="org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider">
-       </instanceof>
-       <instanceof
-             value="org.eclipse.jst.javaee.core.JavaEEObject">
-       </instanceof>
-       <instanceof
-             value="org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider">
-       </instanceof>
-       <instanceof
-             value="org.eclipse.jst.jee.ui.internal.navigator.web.AbstractSubWebProviders">
-       </instanceof>
-       <instanceof
-             value="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
-       </instanceof></or>
-			</enablement>
-	 </actionProvider>
+    
+
      <commonWizard
            menuGroupId="org.eclipse.jst.ejb.ui"
            type="new"
@@ -451,6 +436,58 @@
               </instanceof>
            </or></enablement>
      </commonWizard>
+     
+     
+     <actionProvider
+           class="org.eclipse.jst.jee.ui.internal.navigator.JEEActionProvider"
+           id="org.eclipse.jst.javaee.ui.JEEActionProvider">
+        <enablement>
+           <or>
+              <instanceof value="org.eclipse.jst.jee.ui.internal.navigator.AbstractDDNode"/>
+              <instanceof value="org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanNode"/>
+              <instanceof value="org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanInterfaceNode"/>
+              <instanceof value="org.eclipse.jst.javaee.core.JavaEEObject" />
+              <instanceof
+                    value="org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider">
+              </instanceof>
+              <instanceof
+                    value="org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider">
+              </instanceof>
+              <instanceof
+                    value="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+              </instanceof>
+              <instanceof
+                    value="org.eclipse.jst.jee.ui.internal.navigator.appclient.GroupAppClientProvider">
+              </instanceof>
+           </or>
+        </enablement>
+     </actionProvider>
+     
+
+     <actionProvider
+			class="org.eclipse.ui.internal.navigator.resources.actions.NewActionProvider"
+			id="org.eclipse.ui.navigator.resources.JEENewActions">
+			<enablement>
+    <or>
+       <instanceof
+             value="org.eclipse.jst.jee.ui.internal.navigator.AbstractDDNode">
+       </instanceof>
+       <instanceof
+             value="org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider">
+       </instanceof>
+
+       <instanceof
+             value="org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider">
+       </instanceof>
+       <instanceof
+             value="org.eclipse.jst.jee.ui.internal.navigator.web.AbstractSubWebProviders">
+       </instanceof>
+       <instanceof
+             value="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+       </instanceof></or>
+			</enablement>
+	 </actionProvider>
+    
      <actionProvider
            class="org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider"
            id="org.eclipse.ui.navigator.resources.actions.JEEResourceMgmtAction">
@@ -462,9 +499,7 @@
               <instanceof
                     value="org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider">
               </instanceof>
-              <instanceof
-                    value="org.eclipse.jst.javaee.core.JavaEEObject">
-              </instanceof>
+
            </or>
         </enablement>
      </actionProvider>
@@ -479,9 +514,11 @@
               <instanceof
                     value="org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider">
               </instanceof>
-              <instanceof
-                    value="org.eclipse.jst.javaee.core.JavaEEObject">
-              </instanceof>
+
+		       <instanceof
+		             value="org.eclipse.jst.javaee.core.JavaEEObject">
+		       </instanceof>
+
            </or>
         </enablement>
      </actionProvider>
@@ -496,13 +533,14 @@
               <instanceof
                     value="org.eclipse.jst.jee.ui.internal.navigator.AbstractDDNode">
               </instanceof>
-              <instanceof
-                    value="org.eclipse.jst.javaee.core.JavaEEObject">
-              </instanceof>
+
            </or>
         </enablement>
      </actionProvider>
+     	 
+     	 
   </navigatorContent>
+  
   <navigatorContent
         contentProvider="org.eclipse.jst.jee.ui.internal.navigator.Web25ContentProvider"
         id="org.eclipse.jst.navigator.j2ee.ui.web25"
@@ -537,6 +575,8 @@
            </instanceof>
         </or>
      </possibleChildren>
+     
+     
      <actionProvider
            class="org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider"
            id="org.eclipse.ui.internal.navigator.resources.actions.JEEWebResourceMgmtAction">
@@ -562,9 +602,11 @@
               <instanceof
                     value="org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider">
               </instanceof>
-              <instanceof
-                    value="org.eclipse.jst.javaee.core.JavaEEObject">
-              </instanceof>
+
+		       <instanceof
+		             value="org.eclipse.jst.javaee.core.JavaEEObject">
+		       </instanceof>
+
            </or>
         </enablement>
      </actionProvider>
@@ -582,6 +624,7 @@
            </or>
         </enablement>
      </actionProvider>
+     
      <commonWizard
            menuGroupId="org.eclipse.wst.web.ui"
            type="new"
@@ -824,6 +867,14 @@
                type="org.eclipse.debug.ui.actions.ILaunchable">
          </adapter>
       </factory>
+      
+    
+    <factory
+          adaptableType="org.eclipse.jst.javaee.core.JavaEEObject"
+          class="org.eclipse.jst.j2ee.navigator.internal.J2EEEMFAdapterFactory">
+       <adapter type="org.eclipse.core.resources.IResource"/>
+    </factory>
+      
    </extension>
    <extension
          point="org.eclipse.ui.navigator.viewer">
