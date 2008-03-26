@@ -34,11 +34,12 @@ import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
-import org.eclipse.jst.j2ee.internal.componentcore.EJBBinaryComponentHelper;
-import org.eclipse.jst.j2ee.internal.componentcore.EnterpriseBinaryComponentHelper;
+import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.jee.archive.ArchiveOptions;
+import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -89,7 +90,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 
 	protected BinaryComponentHelper initBinaryComponentHelper(IVirtualComponent binaryModule) {
-		return new EJBBinaryComponentHelper(binaryModule);
+		return new JavaEEBinaryComponentHelper(binaryModule);
 	}
 
 	/**
@@ -563,7 +564,15 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 
 	public Archive asArchive(boolean includeSource, boolean includeClasspathComponents) throws OpenFailureException {
 		if (isBinary()) {
-			return ((EnterpriseBinaryComponentHelper) getBinaryComponentHelper()).accessArchive();
+			JavaEEBinaryComponentHelper helper = (JavaEEBinaryComponentHelper)getBinaryComponentHelper();
+			IArchive iArchive = null;
+			try{
+				iArchive = helper.accessArchive();
+				IPath path = (IPath)iArchive.getArchiveOptions().getOption(ArchiveOptions.ARCHIVE_PATH);
+				return CommonarchiveFactory.eINSTANCE.openEJBJarFile(path.toOSString());
+			} finally {
+				helper.releaseArchive(iArchive);
+			}
 		} else {
 			EJBComponentLoadStrategyImpl loader = new EJBComponentLoadStrategyImpl(getComponent(), includeClasspathComponents);
 			loader.setExportSource(includeSource);
