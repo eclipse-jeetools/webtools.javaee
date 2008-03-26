@@ -27,6 +27,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
@@ -99,17 +100,28 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
         		assertJavaFileExists(SERVLET_CLASS_NAME);
         		
         		Servlet servlet = webApp.getServletNamed(SERVLET_NAME);
-        		assertNotNull(servlet);
-        		assertEquals(webApp, servlet.getWebApp());
-        		assertEquals(SERVLET_NAME, servlet.getServletName());
-        		assertEquals(SERVLET_NAME, servlet.getDisplayName());
+        		assertNotNull("Servlet " + SERVLET_NAME + " not found in the model", servlet);
+        		assertEquals("Servlet points to an unexpected deployment descriptor object", 
+        				webApp, servlet.getWebApp());
+        		assertEquals("Servlet name is expected to be " + SERVLET_NAME + ", but it is " + servlet.getServletName(), 
+        				SERVLET_NAME, servlet.getServletName());
+        		assertEquals("Display name is expected to be " + SERVLET_NAME + ", but it is " + servlet.getDisplayName(), 
+        				SERVLET_NAME, servlet.getDisplayName());
+        		
+        		List params = servlet.getInitParams();
+        		assertNotNull("List of initialization parameters cannot be retrieved", params);
+        		assertEquals("None initialization parameter is expected, but " + params.size() + " are found", 
+        				0, params.size());
         		
         		List mappings = servlet.getMappings();
         		assertEquals(1, mappings.size());
         		ServletMapping mapping = (ServletMapping) mappings.get(0);
-        		assertEquals(SERVLET_NAME, mapping.getName());
-        		assertEquals(SERVLET_DEFAULT_MAPPING, mapping.getUrlPattern());
-        		assertEquals(servlet, mapping.getServlet());
+        		assertEquals("Servlet name of the mapping is expected to be " + SERVLET_NAME + ", but it is " + mapping.getName(), 
+        				SERVLET_NAME, mapping.getName());
+        		assertEquals("Servlet mapping URL pattern value is expected to be " + SERVLET_DEFAULT_MAPPING + ", but it is " + mapping.getUrlPattern(),
+        				SERVLET_DEFAULT_MAPPING, mapping.getUrlPattern());
+        		assertEquals("Servlet mapping is expected to point to servlet " + servlet.getServletName() + ", but it points to servlet " + mapping.getServlet().getServletName(), 
+        				servlet, mapping.getServlet());
         	}
     	} finally {
     		if (webEdit != null)
@@ -129,27 +141,37 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
     	assertJavaFileExists(SERVLET_CLASS_NAME);
     	
     	List servlets = webApp.getServlets();
-    	assertEquals(1, servlets.size());
+    	assertEquals("Exactly one filter is expected in the model, but " + servlets.size() + " are found", 
+    			1, servlets.size());
     	org.eclipse.jst.javaee.web.Servlet servlet = (org.eclipse.jst.javaee.web.Servlet) servlets.get(0);
-    	assertEquals(SERVLET_NAME, servlet.getServletName());
-    	assertEquals(SERVLET_CLASS_NAME, servlet.getServletClass());
+    	assertEquals("Servlet name is expected to be " + SERVLET_NAME + ", but it is " + servlet.getServletName(), 
+    			SERVLET_NAME, servlet.getServletName());
+    	assertEquals("Servlet class name is expected to be " + SERVLET_CLASS_NAME + ", but it is " + servlet.getServletClass(), 
+    			SERVLET_CLASS_NAME, servlet.getServletClass());
     	List displayNames = servlet.getDisplayNames();
-    	assertEquals(1, displayNames.size());
+    	assertEquals("Exactly one display name is expected, but " + displayNames.size() + " are found", 
+    			1, displayNames.size());
     	DisplayName displayName = (DisplayName) displayNames.get(0);
-    	assertEquals(SERVLET_NAME, displayName.getValue());
+    	assertEquals("Display name is expected to be " + SERVLET_NAME + ", but it is " + displayName.getValue(), 
+    			SERVLET_NAME, displayName.getValue());
 		
 		List params = servlet.getInitParams();
-		assertNotNull(params);
-		assertEquals(0, params.size());
+		assertNotNull("List of initialization parameters cannot be retrieved", params);
+		assertEquals("None initialization parameter is expected, but " + params.size() + " are found", 
+				0, params.size());
     	
     	List mappings = webApp.getServletMappings();
-    	assertEquals(1, mappings.size());
+    	assertEquals("Exactly one servlet mapping is expected, but " + mappings.size() + " are found", 
+    			1, mappings.size());
     	org.eclipse.jst.javaee.web.ServletMapping mapping = (org.eclipse.jst.javaee.web.ServletMapping) mappings.get(0);
-    	assertEquals(SERVLET_NAME, mapping.getServletName());
+    	assertEquals("Servlet name of the mapping is expected to be " + SERVLET_NAME + ", but it is " + mapping.getServletName(), 
+    			SERVLET_NAME, mapping.getServletName());
     	List urlPatterns = mapping.getUrlPatterns();
-    	assertEquals(1, urlPatterns.size());
+    	assertEquals("Exactly one URL pattern is expected in the mapping, but " + urlPatterns.size() + " are found", 
+    			1, urlPatterns.size());
     	UrlPatternType urlPattern = (UrlPatternType) urlPatterns.get(0);
-    	assertEquals(SERVLET_DEFAULT_MAPPING, urlPattern.getValue());
+    	assertEquals("Servlet mapping URL pattern value is expected to be " + SERVLET_DEFAULT_MAPPING + ", but it is " + urlPattern.getValue(), 
+    			SERVLET_DEFAULT_MAPPING, urlPattern.getValue());
     }
     
     public void testAddFilter_Web24_Defaults() throws Exception {
@@ -164,24 +186,34 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
         		assertJavaFileExists(FILTER_CLASS_NAME);
         		
         		Filter filter = webApp.getFilterNamed(FILTER_NAME);
-        		assertNotNull(filter);
-        		assertEquals(FILTER_NAME, filter.getName());
-        		assertEquals(FILTER_NAME, filter.getDisplayName());
-        		assertEquals(FILTER_CLASS_NAME, filter.getFilterClassName());
+        		assertNotNull("Filter " + FILTER_NAME + " not found in the model", filter);
+        		assertEquals("Filter name is expected to be " + FILTER_NAME + ", but it is " + filter.getName(), 
+        				FILTER_NAME, filter.getName());
+        		assertEquals("Display name is expected to be " + FILTER_NAME + ", but it is " + filter.getDisplayName(), 
+        				FILTER_NAME, filter.getDisplayName());
+        		assertEquals("Filter class name is expected to be " + FILTER_CLASS_NAME + ", but it is " + filter.getFilterClassName(), 
+        				FILTER_CLASS_NAME, filter.getFilterClassName());
         		
         		List params = filter.getInitParams();
-        		assertNotNull(params);
-        		assertEquals(0, params.size());
+        		assertNotNull("List of initialization parameters cannot be retrieved", params);
+        		assertEquals("None initialization parameter is expected, but " + params.size() + " are found", 
+        				0, params.size());
         		
         		List mappings = webApp.getFilterMappings();
-        		assertEquals(1, mappings.size());
+        		assertEquals("Exactly one filter mapping is expected, but " + mappings.size() + " are found", 
+        				1, mappings.size());
         		FilterMapping mapping = (FilterMapping) mappings.get(0);
-        		assertEquals(filter, mapping.getFilter());
-        		assertEquals(FILTER_DEFAULT_MAPPING, mapping.getUrlPattern());
-        		assertEquals(null, mapping.getServlet());
-        		assertEquals(null, mapping.getServletName());
+        		assertEquals("Filter of the mapping is expected to be " + filter.getName() + ", but it is " + mapping.getFilter().getName(), 
+        				filter, mapping.getFilter());
+        		assertEquals("Filter mapping URL pattern value is expected to be " + FILTER_DEFAULT_MAPPING + ", but it is " + mapping.getUrlPattern(), 
+        				FILTER_DEFAULT_MAPPING, mapping.getUrlPattern());
+        		assertEquals("The filter mapping is not expected to point to a servlet, but it points to servlet " + mapping.getServlet(), 
+        				null, mapping.getServlet());
+        		assertEquals("The filter mapping is not expected to point to a servlet, but it points to servlet " + mapping.getServlet(),
+        				null, mapping.getServletName());
         		List dispatchers = mapping.getDispatcherType();
-        		assertEquals(0, dispatchers.size());
+        		assertEquals("None dispatcher is expected in the filter mapping, but " + dispatchers.size() + " are found", 
+        				0, dispatchers.size());
         	}
     	} finally {
     		if (webEdit != null)
@@ -201,25 +233,41 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
 		assertJavaFileExists(FILTER_CLASS_NAME);
     	
     	List filters = webApp.getFilters();
-    	assertEquals(1, filters.size());
+    	assertEquals("Exactly one filter is expected in the model, but " + filters.size() + " are found", 
+    			1, filters.size());
     	org.eclipse.jst.javaee.web.Filter filter = (org.eclipse.jst.javaee.web.Filter) filters.get(0);
-    	assertEquals(FILTER_NAME, filter.getFilterName());
-    	assertEquals(FILTER_CLASS_NAME, filter.getFilterClass());
+    	assertEquals("Filter name is expected to be " + FILTER_NAME + ", but it is " + filter.getFilterName(), 
+    			FILTER_NAME, filter.getFilterName());
+    	assertEquals("Filter class name is expected to be " + FILTER_CLASS_NAME + ", but it is " + filter.getFilterClass(), 
+    			FILTER_CLASS_NAME, filter.getFilterClass());
     	List displayNames = filter.getDisplayNames();
-    	assertEquals(1, displayNames.size());
+    	assertEquals("Exactly one display name is expected, but " + displayNames.size() + " are found", 
+    			1, displayNames.size());
     	DisplayName displayName = (DisplayName) displayNames.get(0);
-    	assertEquals(FILTER_NAME, displayName.getValue());
+    	assertEquals("Display name is expected to be " + FILTER_NAME + ", but it is " + displayName.getValue(), 
+    			FILTER_NAME, displayName.getValue());
+    	
+    	List params = filter.getInitParams();
+		assertNotNull("List of initialization parameters cannot be retrieved", params);
+		assertEquals("None initialization parameter is expected, but " + params.size() + " are found", 
+				0, params.size());
     	
     	List mappings = webApp.getFilterMappings();
-    	assertEquals(1, mappings.size());
+    	assertEquals("Exactly one filter mapping is expected, but " + mappings.size() + " are found", 
+    			1, mappings.size());
     	org.eclipse.jst.javaee.web.FilterMapping mapping = (org.eclipse.jst.javaee.web.FilterMapping) mappings.get(0);
-    	assertEquals(FILTER_NAME, mapping.getFilterName());
+    	assertEquals("Filter name of the mapping is expected to be " + FILTER_NAME + ", but it is " + mapping.getFilterName(), 
+    			FILTER_NAME, mapping.getFilterName());
     	List urlPatterns = mapping.getUrlPatterns();
-    	assertEquals(1, urlPatterns.size());
+    	assertEquals("Exactly one URL pattern is expected in the mapping, but " + urlPatterns.size() + " are found", 
+    			1, urlPatterns.size());
     	UrlPatternType urlPattern = (UrlPatternType) urlPatterns.get(0);
-    	assertEquals(FILTER_DEFAULT_MAPPING, urlPattern.getValue());
-    	assertEquals(0, mapping.getServletNames().size());
-    	assertEquals(0, mapping.getDispatchers().size());
+    	assertEquals("Filter mapping URL pattern value is expected to be " + FILTER_DEFAULT_MAPPING + ", but it is " + urlPattern.getValue(), 
+    			FILTER_DEFAULT_MAPPING, urlPattern.getValue());
+    	assertEquals("None servlet name is expected in the filter mapping, but " + mapping.getServletNames().size() + " are found", 
+    			0, mapping.getServletNames().size());
+    	assertEquals("None dispatcher is expected in the filter mapping, but " + mapping.getDispatchers().size() + " are found", 
+    			0, mapping.getDispatchers().size());
     }
     
     public void testAddListener_Web24_Defaults() throws Exception {
@@ -234,9 +282,11 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
         		assertJavaFileExists(LISTENER_CLASS_NAME);
         		
         		List listeners = webApp.getListeners();
-        		assertEquals(1, listeners.size()); 
+        		assertEquals("Exactly one listener is expected in the model, but " + listeners.size() + " are found", 
+        				1, listeners.size());
         		Listener listener = (Listener) listeners.get(0);
-        		assertEquals(LISTENER_CLASS_NAME, listener.getListenerClassName());
+        		assertEquals("Listener " + LISTENER_CLASS_NAME + " is expected in the model, but " + listener.getListenerClassName() + " is found", 
+            			LISTENER_CLASS_NAME, listener.getListenerClassName());
         	}
     	} finally {
     		if (webEdit != null)
@@ -256,9 +306,11 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
 		assertJavaFileExists(LISTENER_CLASS_NAME);
     	
     	List listeners = webApp.getListeners();
-    	assertEquals(1, listeners.size());
+    	assertEquals("Exactly one listener is expected in the model, but " + listeners.size() + " are found", 
+    			1, listeners.size());
     	org.eclipse.jst.javaee.core.Listener listener = (org.eclipse.jst.javaee.core.Listener) listeners.get(0);
-    	assertEquals(LISTENER_CLASS_NAME, listener.getListenerClass());
+    	assertEquals("Listener " + LISTENER_CLASS_NAME + " is expected in the model, but " + listener.getListenerClass() + " is found", 
+    			LISTENER_CLASS_NAME, listener.getListenerClass());
     }
 
     public void createWebProject(String projectName, IProjectFacetVersion version) throws Exception {
@@ -298,9 +350,11 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
 		IJavaProject javaProject = JavaCore.create(
 				ResourcesPlugin.getWorkspace().getRoot())
 				.getJavaModel().getJavaProject(WEB_PROJECT_NAME);
-		assertNotNull(javaProject);
-		IFile file = (IFile) javaProject.findType(fullyQualifiedName).getResource();
-		assertNotNull(file);
+		assertNotNull("Java project " + WEB_PROJECT_NAME + " not found", javaProject);
+		IType type = javaProject.findType(fullyQualifiedName);
+		assertNotNull("Java type " + fullyQualifiedName + " not found", type);
+		IFile file = (IFile) type.getResource();
+		assertNotNull("Source file for Java type " + fullyQualifiedName + " not found", file);
 		assertTrue(file.exists());
     }
 	

@@ -7,6 +7,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
@@ -95,9 +96,11 @@ public class AddEJBeanOperationTest extends OperationTestCase implements
 		IJavaProject javaProject = JavaCore.create(
 				ResourcesPlugin.getWorkspace().getRoot())
 				.getJavaModel().getJavaProject(EJB_PROJECT_NAME);
-		assertNotNull(javaProject);
-		IFile file = (IFile) javaProject.findType(fullyQualifiedName).getResource();
-		assertNotNull(file);
+		assertNotNull("Java project " + EJB_PROJECT_NAME + " not found", javaProject);
+		IType type = javaProject.findType(fullyQualifiedName);
+		assertNotNull("Java type " + fullyQualifiedName + " not found", type);
+		IFile file = (IFile) type.getResource();
+		assertNotNull("Source file for Java type " + fullyQualifiedName + " not found", file);
 		assertTrue(file.exists());
     }
 
