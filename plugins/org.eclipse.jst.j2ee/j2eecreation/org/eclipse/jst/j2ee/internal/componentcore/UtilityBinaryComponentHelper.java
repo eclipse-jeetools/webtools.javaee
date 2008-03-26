@@ -22,6 +22,11 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ImportStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
+/**
+ * @deprecated see {@link JavaEEBinaryComponentHelper}
+ * @author jasholl
+ *
+ */
 public class UtilityBinaryComponentHelper extends EnterpriseBinaryComponentHelper {
 
 	public UtilityBinaryComponentHelper(IVirtualComponent component) {

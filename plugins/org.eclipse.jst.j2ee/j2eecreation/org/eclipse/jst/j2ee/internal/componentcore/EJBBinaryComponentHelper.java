@@ -22,6 +22,11 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.EjbJar11ImportSt
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
+/**
+ * @deprecated see {@link JavaEEBinaryComponentHelper}
+ * @author jasholl
+ *
+ */
 public class EJBBinaryComponentHelper extends EnterpriseBinaryComponentHelper {
 
 	public static boolean handlesComponent(IVirtualComponent component) {

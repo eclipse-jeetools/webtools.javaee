@@ -47,7 +47,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.IModuleExtensions;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.componentcore.EnterpriseBinaryComponentHelper;
+import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -269,7 +269,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 						}
 					}
 					if(null != earComponent){
-						EnterpriseBinaryComponentHelper.ArchiveCache.getInstance().clearDisconnectedArchivesInEAR(earComponent);	
+						JavaEEBinaryComponentHelper.clearDisconnectedArchivesInEAR(earComponent);	
 					}
 				}
 			}
@@ -393,7 +393,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 							}
 							forgetProject((IProject)resource);
 						}
-						EnterpriseBinaryComponentHelper.ArchiveCache.getInstance().clearAllArchivesInProject((IProject)resource);
+						JavaEEBinaryComponentHelper.clearAllArchivesInProject((IProject)resource);
 					}
 					break;
 				case IResourceChangeEvent.POST_CHANGE:

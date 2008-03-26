@@ -36,12 +36,16 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipFileLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.BinaryComponentHelper;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
+/**
+ * @deprecated see {@link JavaEEBinaryComponentHelper}
+ * @author jasholl
+ *
+ */
 public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHelper {
 
 	public static EnterpriseBinaryComponentHelper getHelper(IVirtualComponent aComponent){
@@ -166,7 +170,7 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 		return resource;
 	}
 
-	public void releaseAccess(ArtifactEdit edit) {
+	public void releaseAccess() {
 		dispose();
 	}
 

@@ -64,19 +64,24 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
+import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationOperation;
+import org.eclipse.jst.jee.archive.IArchive;
+import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.jst.server.core.FacetUtil;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
@@ -276,7 +281,74 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 			}
 		}
 	}
-
+	
+	public static ArchiveManifest readManifest(IVirtualComponent component) {
+		if (!component.isBinary()) {
+			IVirtualFile vManifest = component.getRootFolder().getFile(J2EEConstants.MANIFEST_URI);
+			if (vManifest.exists()) {
+				IFile manifestFile = vManifest.getUnderlyingFile();
+				InputStream in = null;
+				try {
+					in = manifestFile.getContents();
+					return new ArchiveManifestImpl(in);
+				} catch (IOException e) {
+					J2EEPlugin.logError(e);
+				} catch (CoreException e) {
+					J2EEPlugin.logError(e);
+				} finally {
+					if (in != null) {
+						try {
+							in.close();
+							in = null;
+						} catch (IOException e) {
+							J2EEPlugin.logError(e);
+						}
+					}
+				}
+			}
+		} else {
+			JavaEEBinaryComponentHelper helper = null;
+			try{
+				helper = new JavaEEBinaryComponentHelper(component);
+				if(helper != null){
+					IArchive archive = null;
+					InputStream in = null;
+					try{
+						archive = helper.accessArchive();
+						if(null != archive){
+							IArchiveResource manifestResource = archive.getArchiveResource(new Path(J2EEConstants.MANIFEST_URI));
+							if(manifestResource != null){
+								in = manifestResource.getInputStream();
+								ArchiveManifest manifest = new ArchiveManifestImpl(in);
+								return manifest;
+							}
+						}
+					} catch (FileNotFoundException e) {
+						J2EEPlugin.logError(e);
+					} catch (IOException e) {
+						J2EEPlugin.logError(e);
+					} finally{
+						if (in != null) {
+							try {
+								in.close();
+								in = null;
+							} catch (IOException e) {
+								J2EEPlugin.logError(e);
+							}
+						}
+						if(archive != null){
+							helper.releaseArchive(archive);
+						}
+					}
+				}
+			} finally{
+				if(helper != null){
+					helper.dispose();
+				}
+			}
+		}
+		return null;
+	}
 	/**
 	 * Keys are the EJB JAR files and the values are the respective client JARs; includes only key
 	 * value pairs for which EJB Client JARs are defined and exist.

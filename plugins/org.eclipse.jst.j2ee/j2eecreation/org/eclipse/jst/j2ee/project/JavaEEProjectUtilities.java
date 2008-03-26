@@ -24,10 +24,7 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
-import org.eclipse.jst.j2ee.internal.componentcore.AppClientBinaryComponentHelper;
-import org.eclipse.jst.j2ee.internal.componentcore.EJBBinaryComponentHelper;
-import org.eclipse.jst.j2ee.internal.componentcore.JCABinaryComponentHelper;
-import org.eclipse.jst.j2ee.internal.componentcore.WebBinaryComponentHelper;
+import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -103,7 +100,7 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 
 	public static boolean isDynamicWebComponent(IVirtualComponent component) {
 		if (component.isBinary()) {
-			return WebBinaryComponentHelper.handlesComponent(component);
+			return isBinaryType(component, JavaEEQuickPeek.WEB_TYPE);
 		}
 		return isProjectOfType(component.getProject(), DYNAMIC_WEB);
 	}
@@ -118,7 +115,7 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 
 	public static boolean isEJBComponent(IVirtualComponent component) {
 		if (component.isBinary()) {
-			return EJBBinaryComponentHelper.handlesComponent(component);
+			return isBinaryType(component, JavaEEQuickPeek.EJB_TYPE);
 		}
 		return isProjectOfType(component.getProject(), EJB);
 	}
@@ -129,7 +126,7 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 
 	public static boolean isJCAComponent(IVirtualComponent component) {
 		if (component.isBinary()) {
-			return JCABinaryComponentHelper.handlesComponent(component);
+			return isBinaryType(component, JavaEEQuickPeek.CONNECTOR_TYPE);
 		}
 		return isProjectOfType(component.getProject(), JCA);
 	}
@@ -140,7 +137,7 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 
 	public static boolean isApplicationClientComponent(IVirtualComponent component) {
 		if (component.isBinary()) {
-			return AppClientBinaryComponentHelper.handlesComponent(component);
+			return isBinaryType(component, JavaEEQuickPeek.APPLICATION_CLIENT_TYPE);
 		}
 		return isProjectOfType(component.getProject(), APPLICATION_CLIENT);
 	}
@@ -170,19 +167,30 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 		return (IProject[]) result.toArray(new IProject[result.size()]);
 	}
 
+	private static boolean isBinaryType(IVirtualComponent aBinaryComponent, int quickPeekType){
+		JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(aBinaryComponent);
+		int type = qp.getType();
+		return quickPeekType == type;
+	}
+	
 	public static String getJ2EEComponentType(IVirtualComponent component) {
 		if (null != component) {
 			if (component.isBinary()) {
-				if (isApplicationClientComponent(component))
+				JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(component);
+				switch(qp.getType()){
+				case JavaEEQuickPeek.APPLICATION_CLIENT_TYPE:
 					return APPLICATION_CLIENT;
-				else if (isDynamicWebComponent(component))
+				case JavaEEQuickPeek.WEB_TYPE:
 					return DYNAMIC_WEB;
-				else if (isEJBComponent(component))
+				case JavaEEQuickPeek.EJB_TYPE:
 					return EJB;
-				else if (isJCAComponent(component))
+				case JavaEEQuickPeek.CONNECTOR_TYPE:
 					return JCA;
-				else
+				case JavaEEQuickPeek.APPLICATION_TYPE:
+					return ENTERPRISE_APPLICATION;
+				default:
 					return UTILITY;
+				}
 			}
 			return getJ2EEProjectType(component.getProject());
 		}
@@ -288,4 +296,5 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 		int retVal = 0;
 		return retVal;
 	}
+	
 }

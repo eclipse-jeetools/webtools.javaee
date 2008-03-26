@@ -13,6 +13,8 @@ package org.eclipse.jst.j2ee.internal.archive;
 import java.util.zip.ZipFile;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.internal.ZipFileArchiveLoadAdapterImpl;
@@ -34,11 +36,25 @@ public class JavaEEEMFZipFileLoadAdapterImpl extends ZipFileArchiveLoadAdapterIm
 		emfHelper.setArchive(archive);
 	}
 
+	public Resource getResource(IPath resourcePath) throws ArchiveModelLoadException {
+		return emfHelper.getResource(resourcePath);
+	}
+	
 	public boolean containsModelObject(IPath modelObjectPath) {
 		return emfHelper.containsModelObject(modelObjectPath);
 	}
 
 	public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
 		return emfHelper.getModelObject(modelObjectPath);
+	}
+	
+	@Override
+	public void close() {
+		super.close();
+		WorkbenchResourceHelperBase.removeAndUnloadAll(emfHelper.getResourceSet().getResources(), emfHelper.getResourceSet());
+	}
+	
+	protected JavaEEEMFArchiveAdapterHelper getEMFHelper() {
+		return emfHelper;
 	}
 }

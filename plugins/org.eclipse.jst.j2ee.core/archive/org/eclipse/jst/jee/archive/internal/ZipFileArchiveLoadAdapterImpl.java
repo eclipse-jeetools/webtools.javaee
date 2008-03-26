@@ -121,6 +121,4 @@ public class ZipFileArchiveLoadAdapterImpl extends AbstractArchiveLoadAdapter {
 		throw new ArchiveModelLoadException("Simple Zip Archives have no model objects."); //$NON-NLS-1$
 	}
 
-
-
 }

@@ -20,13 +20,9 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.Module;
-import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
-import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
-import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
-import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -260,41 +256,17 @@ public class ModulesItemProvider extends J2EEItemProvider {
 				IVirtualComponent component = refs[j].getReferencedComponent();
 				if (component.isBinary()) {
 					if (refs[j].getArchiveName().equals(moduleURI)) {
-						ArtifactEdit edit = null;
+						foundBinary = true;
+						JavaEEBinaryComponentHelper helper = null;
 						try {
-							foundBinary = true;
-							Object binaryModule = null;
-							if (module.isWebModule()) {
-								WebArtifactEdit webEdit = WebArtifactEdit.getWebArtifactEditForRead(component);
-								if (webEdit != null) {
-									edit = webEdit;
-									binaryModule = webEdit.getWebApp();
-								}
-							} else if (module.isJavaModule()) {
-								AppClientArtifactEdit appClientEdit = AppClientArtifactEdit.getAppClientArtifactEditForRead(component);
-								if (appClientEdit != null) {
-									edit = appClientEdit;
-									binaryModule = appClientEdit.getApplicationClient();
-								}
-							} else if (module.isEjbModule()) {
-								EJBArtifactEdit ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(component);
-								if (ejbEdit != null) {
-									edit = ejbEdit;
-									binaryModule = ejbEdit.getEJBJar();
-								}
-							} else if (module.isConnectorModule()) {
-								ConnectorArtifactEdit connectorEdit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(component);
-								if (connectorEdit != null) {
-									edit = connectorEdit;
-									binaryModule = connectorEdit.getConnector();
-								}
-							}
+							helper = new JavaEEBinaryComponentHelper(component);
+							Object binaryModule = helper.getPrimaryRootObject();
 							if (binaryModule != null) {
 								binaryModules.add(binaryModule);
 							}
 						} finally {
-							if (null != edit) {
-								edit.dispose();
+							if(helper != null){
+								helper.dispose();
 							}
 						}
 					}

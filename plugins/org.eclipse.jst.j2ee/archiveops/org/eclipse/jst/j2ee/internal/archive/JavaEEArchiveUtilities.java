@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.archive;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +30,7 @@ import org.eclipse.jdt.core.util.IClassFileReader;
 import org.eclipse.jdt.core.util.IRuntimeVisibleAnnotationsAttribute;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentLoadAdapter;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
@@ -74,6 +74,13 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 	 */
 	public static final String DISCRIMINATE_EJB_ANNOTATIONS = "DISCRIMINATE_EJB_ANNOTATIONS"; //$NON-NLS-1$
 
+	/**
+	 * Default value = null
+	 * 
+	 * An ArchiveOption used to specify the original load adapter in the case it
+	 * swapped out with an {@link #JavaEEWrappingLoadAdapter}.
+	 */
+	public static final String WRAPPED_LOAD_ADAPTER = "WRAPPED_LOAD_ADAPTER"; //$NON-NLS-1$
 
 	private JavaEEArchiveUtilities() {
 	}
@@ -105,14 +112,11 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 	public IArchive openArchive(IVirtualComponent virtualComponent) throws ArchiveOpenFailureException {
 		if (virtualComponent.isBinary()) {
 			VirtualArchiveComponent archiveComponent = (VirtualArchiveComponent) virtualComponent;
-			java.io.File diskFile = null;
-			diskFile = archiveComponent.getUnderlyingDiskFile();
-			if (!diskFile.exists()) {
-				IFile wbFile = archiveComponent.getUnderlyingWorkbenchFile();
-				diskFile = new File(wbFile.getLocation().toOSString());
-			}
-			IPath path = new Path(diskFile.getAbsolutePath());
-			return openArchive(path);
+			JavaEEBinaryComponentLoadAdapter loadAdapter = new JavaEEBinaryComponentLoadAdapter(archiveComponent);
+			ArchiveOptions archiveOptions = new ArchiveOptions();
+			archiveOptions.setOption(ArchiveOptions.LOAD_ADAPTER, loadAdapter);
+			archiveOptions.setOption(ArchiveOptions.ARCHIVE_PATH, loadAdapter.getArchivePath());
+			return openArchive(archiveOptions);
 		}
 		int type = J2EEVersionConstants.UNKNOWN;
 		IArchiveLoadAdapter archiveLoadAdapter = null;
@@ -197,8 +201,8 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 	private Map<IArchive, JavaEEQuickPeek> archiveToJavaEEQuickPeek = new WeakHashMap<IArchive, JavaEEQuickPeek>();
 
 	/**
-	 * Returns a utility for getting the type of Java EE archive, the Java EE version, and the
-	 * Module version
+	 * Returns a utility for getting the type of Java EE archive, the Java EE
+	 * version, and the Module version
 	 * 
 	 * @param archive
 	 * @return
@@ -261,18 +265,18 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 	public IArchive openArchive(ArchiveOptions archiveOptions) throws ArchiveOpenFailureException {
 		IArchive simpleArchive = super.openArchive(archiveOptions);
 		Object discriminateJavaEE = archiveOptions.getOption(DISCRIMINATE_JAVA_EE);
-		if(discriminateJavaEE != null && !((Boolean)discriminateJavaEE).booleanValue()){
+		if (discriminateJavaEE != null && !((Boolean) discriminateJavaEE).booleanValue()) {
 			return simpleArchive;
 		}
 		return refineForJavaEE(simpleArchive);
 	}
 
 	private static final String DOT_EAR = ".ear";//$NON-NLS-1$
-	
+
 	private static final String DOT_WAR = ".war";//$NON-NLS-1$
-	
+
 	private static final String DOT_JAR = ".jar";//$NON-NLS-1$
-	
+
 	private IArchive refineForJavaEE(final IArchive simpleArchive) {
 		String[] deploymentDescriptorsToCheck = new String[] { J2EEConstants.APPLICATION_DD_URI, J2EEConstants.APP_CLIENT_DD_URI, J2EEConstants.EJBJAR_DD_URI, J2EEConstants.WEBAPP_DD_URI,
 				J2EEConstants.RAR_DD_URI };
@@ -308,36 +312,36 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 			}
 		}
 		IPath archivePath = simpleArchive.getPath();
-		if(archivePath == null){
+		if (archivePath == null) {
 			Object obj = simpleArchive.getArchiveOptions().getOption(ArchiveOptions.ARCHIVE_PATH);
-			if(null != obj){
-				archivePath = (IPath)obj;
+			if (null != obj) {
+				archivePath = (IPath) obj;
 			}
 		}
-		
-		if(archivePath != null){
+
+		if (archivePath != null) {
 			String lastSegment = archivePath.lastSegment().toLowerCase();
-			if(lastSegment.endsWith(DOT_EAR)){
+			if (lastSegment.endsWith(DOT_EAR)) {
 				JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.APPLICATION_TYPE, JavaEEQuickPeek.JEE_5_0_ID, JavaEEQuickPeek.JEE_5_0_ID);
 				archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
 				wrapArchive(simpleArchive, new Path(J2EEConstants.APPLICATION_DD_URI));
 				return simpleArchive;
-			} else if(lastSegment.endsWith(DOT_WAR)){
+			} else if (lastSegment.endsWith(DOT_WAR)) {
 				JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.WEB_TYPE, JavaEEQuickPeek.WEB_2_5_ID, JavaEEQuickPeek.JEE_5_0_ID);
 				archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
 				wrapArchive(simpleArchive, new Path(J2EEConstants.WEBAPP_DD_URI));
 				return simpleArchive;
-			} else if(lastSegment.endsWith(DOT_JAR)){
+			} else if (lastSegment.endsWith(DOT_JAR)) {
 				IPath manifestPath = new Path(J2EEConstants.MANIFEST_URI);
-				if(simpleArchive.containsArchiveResource(manifestPath)){
+				if (simpleArchive.containsArchiveResource(manifestPath)) {
 					InputStream in = null;
-					try{
+					try {
 						IArchiveResource manifestResource = simpleArchive.getArchiveResource(manifestPath);
 						in = manifestResource.getInputStream();
 						Manifest manifest = new Manifest(in);
 						Attributes attributes = manifest.getMainAttributes();
 						String mainClassName = attributes.getValue("Main-Class");
-						if(mainClassName != null){
+						if (mainClassName != null) {
 							JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.APPLICATION_CLIENT_TYPE, JavaEEQuickPeek.JEE_5_0_ID, JavaEEQuickPeek.JEE_5_0_ID);
 							archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
 							wrapArchive(simpleArchive, new Path(J2EEConstants.APPLICATION_DD_URI));
@@ -358,83 +362,100 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 					}
 				}
 				Object discriminateEJB30 = simpleArchive.getArchiveOptions().getOption(DISCRIMINATE_EJB_ANNOTATIONS);
-				if(null == discriminateEJB30 || ((Boolean)discriminateEJB30).booleanValue()){
-					if(isEJBArchive(simpleArchive)){
+				if (null == discriminateEJB30 || ((Boolean) discriminateEJB30).booleanValue()) {
+					if (isEJBArchive(simpleArchive)) {
 						JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.EJB_TYPE, JavaEEQuickPeek.EJB_3_0_ID, JavaEEQuickPeek.JEE_5_0_ID);
 						archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
 						wrapArchive(simpleArchive, new Path(J2EEConstants.EJBJAR_DD_URI));
 						return simpleArchive;
 					}
 				}
-				
+
 			}
 		}
-		
+
 		return simpleArchive;
 	}
 
+	public static class JavaEEWrappingLoadAdapter implements IArchiveLoadAdapter {
+
+		private IArchive simpleArchive;
+		private IArchiveLoadAdapter simpleLoadAdapter;
+		private IPath deploymentDescriptorPath;
+		private JavaEEEMFArchiveAdapterHelper emfHelper;
+
+		public JavaEEWrappingLoadAdapter(IArchive simpleArchive, IPath deploymentDescriptorPath) {
+			this.simpleArchive = simpleArchive;
+			this.simpleLoadAdapter = this.simpleArchive.getLoadAdapter();
+			this.deploymentDescriptorPath = deploymentDescriptorPath;
+			this.emfHelper = new JavaEEEMFArchiveAdapterHelper(this.simpleArchive);
+		}
+
+		public void close() {
+			simpleLoadAdapter.close();
+		}
+
+		public boolean containsArchiveResource(IPath resourcePath) {
+			return simpleLoadAdapter.containsArchiveResource(resourcePath);
+		}
+
+		public boolean containsModelObject(IPath modelObjectPath) {
+			if (simpleLoadAdapter.containsArchiveResource(modelObjectPath)) {
+				return true;
+			}
+			if (IArchive.EMPTY_MODEL_PATH == modelObjectPath) {
+				modelObjectPath = deploymentDescriptorPath;
+			}
+			return emfHelper.containsModelObject(modelObjectPath);
+		}
+
+		public IArchiveResource getArchiveResource(IPath resourcePath) throws FileNotFoundException {
+			return simpleLoadAdapter.getArchiveResource(resourcePath);
+		}
+
+		public List<IArchiveResource> getArchiveResources() {
+			return simpleLoadAdapter.getArchiveResources();
+		}
+
+		public InputStream getInputStream(IArchiveResource archiveResource) throws IOException, FileNotFoundException {
+			return simpleLoadAdapter.getInputStream(archiveResource);
+		}
+
+		public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
+			if (simpleLoadAdapter.containsModelObject(modelObjectPath)) {
+				return simpleLoadAdapter.getModelObject(modelObjectPath);
+			}
+			if (IArchive.EMPTY_MODEL_PATH == modelObjectPath) {
+				modelObjectPath = deploymentDescriptorPath;
+			}
+			return emfHelper.getModelObject(modelObjectPath);
+		}
+
+		public IArchive getArchive() {
+			return simpleLoadAdapter.getArchive();
+		}
+
+		public void setArchive(IArchive archive) {
+			simpleLoadAdapter.setArchive(archive);
+		}
+
+		public IArchiveLoadAdapter getWrappedLoadAdatper() {
+			return simpleLoadAdapter;
+		}
+
+		public String toString() {
+			StringBuffer buffer = new StringBuffer(JavaEEArchiveUtilities.class.getName());
+			buffer.append(" wrapping: ");
+			buffer.append(simpleLoadAdapter.toString());
+			return buffer.toString();
+		}
+
+	};
+
 	private static void wrapArchive(final IArchive simpleArchive, final IPath deploymentDescriptorPath) {
-		final IArchiveLoadAdapter simpleLoadAdapter = simpleArchive.getLoadAdapter();
-
-		IArchiveLoadAdapter wrappingEMFLoadAdapter = new IArchiveLoadAdapter() {
-			private JavaEEEMFArchiveAdapterHelper emfHelper = new JavaEEEMFArchiveAdapterHelper(simpleArchive);
-
-			public void close() {
-				simpleLoadAdapter.close();
-			}
-
-			public boolean containsArchiveResource(IPath resourcePath) {
-				return simpleLoadAdapter.containsArchiveResource(resourcePath);
-			}
-
-			public boolean containsModelObject(IPath modelObjectPath) {
-				if (simpleLoadAdapter.containsArchiveResource(modelObjectPath)) {
-					return true;
-				}
-				if (IArchive.EMPTY_MODEL_PATH == modelObjectPath) {
-					modelObjectPath = deploymentDescriptorPath;
-				}
-				return emfHelper.containsModelObject(modelObjectPath);
-			}
-
-			public IArchiveResource getArchiveResource(IPath resourcePath) throws FileNotFoundException {
-				return simpleLoadAdapter.getArchiveResource(resourcePath);
-			}
-
-			public List<IArchiveResource> getArchiveResources() {
-				return simpleLoadAdapter.getArchiveResources();
-			}
-
-			public InputStream getInputStream(IArchiveResource archiveResource) throws IOException, FileNotFoundException {
-				return simpleLoadAdapter.getInputStream(archiveResource);
-			}
-
-			public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
-				if (simpleLoadAdapter.containsModelObject(modelObjectPath)) {
-					return simpleLoadAdapter.getModelObject(modelObjectPath);
-				}
-				if (IArchive.EMPTY_MODEL_PATH == modelObjectPath) {
-					modelObjectPath = deploymentDescriptorPath;
-				}
-				return emfHelper.getModelObject(modelObjectPath);
-			}
-
-			public IArchive getArchive() {
-				return simpleLoadAdapter.getArchive();
-			}
-
-			public void setArchive(IArchive archive) {
-				simpleLoadAdapter.setArchive(archive);
-			}
-
-			public String toString() {
-				StringBuffer buffer = new StringBuffer(JavaEEArchiveUtilities.class.getName());
-				buffer.append(" wrapping: ");
-				buffer.append(simpleLoadAdapter.toString());
-				return buffer.toString();
-			}
-		};
+		IArchiveLoadAdapter wrappingEMFLoadAdapter = new JavaEEWrappingLoadAdapter(simpleArchive, deploymentDescriptorPath);
 		simpleArchive.getArchiveOptions().setOption(ArchiveOptions.LOAD_ADAPTER, wrappingEMFLoadAdapter);
+		simpleArchive.getArchiveOptions().setOption(WRAPPED_LOAD_ADAPTER, simpleArchive.getLoadAdapter());
 		((ArchiveImpl) simpleArchive).setLoadAdapter(wrappingEMFLoadAdapter);
 	}
 
@@ -445,7 +466,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 	private static final char[] STATEFUL = "Ljavax/ejb/Stateful;".toCharArray();//$NON-NLS-1$
 
 	private static final char[] MESSAGEDRIVEN = "Ljavax/ejb/MessageDriven;".toCharArray();//$NON-NLS-1$
-	
+
 	public boolean isEJBArchive(IArchive archive) {
 		// first check for the deployment descriptor
 		if (archiveToJavaEEQuickPeek.containsKey(archive)) {
@@ -453,7 +474,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 			if (qp.getType() == JavaEEQuickPeek.EJB_TYPE) {
 				return true;
 			}
-		} 
+		}
 
 		List<IArchiveResource> archiveResources = archive.getArchiveResources();
 		for (IArchiveResource archiveResource : archiveResources) {
@@ -495,5 +516,31 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 			}
 		}
 		return false;
+	}
+
+	public Manifest getManifest(IArchive archive) {
+		Manifest manifest = null;
+		IPath manifestPath = new Path(J2EEConstants.MANIFEST_URI);
+		if (archive.containsArchiveResource(manifestPath)) {
+			InputStream in = null;
+			try {
+				IArchiveResource manifestResource = archive.getArchiveResource(manifestPath);
+				in = manifestResource.getInputStream();
+				manifest = new Manifest(in);
+			} catch (FileNotFoundException e) {
+				ArchiveUtil.warn(e);
+			} catch (IOException e) {
+				ArchiveUtil.warn(e);
+			} finally {
+				if (in != null) {
+					try {
+						in.close();
+					} catch (IOException e) {
+						ArchiveUtil.warn(e);
+					}
+				}
+			}
+		}
+		return manifest;
 	}
 }

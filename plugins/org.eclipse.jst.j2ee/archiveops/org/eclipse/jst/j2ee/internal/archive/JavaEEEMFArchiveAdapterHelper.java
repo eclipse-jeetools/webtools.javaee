@@ -97,9 +97,14 @@ public class JavaEEEMFArchiveAdapterHelper {
 		return archiveURIConverter;
 	}
 
+	public Resource getResource(IPath resourcePath) throws ArchiveModelLoadException {
+		URI uri = getArchiveURIConverter().getURI(resourcePath);
+		Resource resource = getResourceSet().getResource(uri, true);
+		return resource;
+	}
+	
 	public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
-		URI uri = getArchiveURIConverter().getURI(modelObjectPath);
-		IRootObjectResource resource = (IRootObjectResource) getResourceSet().getResource(uri, true);
+		IRootObjectResource resource = (IRootObjectResource) getResource(modelObjectPath);
 		return resource.getRootObject();
 	}
 

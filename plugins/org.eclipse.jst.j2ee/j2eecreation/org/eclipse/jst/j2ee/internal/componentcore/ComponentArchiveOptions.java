@@ -13,6 +13,11 @@ package org.eclipse.jst.j2ee.internal.componentcore;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
+/**
+ * @deprecated see {@link JavaEEBinaryComponentHelper}
+ * @author jasholl
+ *
+ */
 public class ComponentArchiveOptions extends ArchiveOptions {
 
 	private IVirtualComponent component;

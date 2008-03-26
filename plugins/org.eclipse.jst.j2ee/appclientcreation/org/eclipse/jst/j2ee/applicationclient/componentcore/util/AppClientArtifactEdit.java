@@ -32,10 +32,11 @@ import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.AppClientComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
-import org.eclipse.jst.j2ee.internal.componentcore.AppClientBinaryComponentHelper;
-import org.eclipse.jst.j2ee.internal.componentcore.EnterpriseBinaryComponentHelper;
+import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.jee.archive.ArchiveOptions;
+import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -71,7 +72,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	}
 	
 	protected BinaryComponentHelper initBinaryComponentHelper(IVirtualComponent binaryModule) {
-		return new AppClientBinaryComponentHelper(binaryModule);
+		return new JavaEEBinaryComponentHelper(binaryModule);
 	}
 	
 	
@@ -386,7 +387,15 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 
 	public Archive asArchive(boolean includeSource, boolean includeClasspathComponents) throws OpenFailureException{
 		if (isBinary()) {
-			return ((EnterpriseBinaryComponentHelper) getBinaryComponentHelper()).accessArchive();
+			JavaEEBinaryComponentHelper helper = (JavaEEBinaryComponentHelper)getBinaryComponentHelper();
+			IArchive iArchive = null;
+			try{
+				iArchive = helper.accessArchive();
+				IPath path = (IPath)iArchive.getArchiveOptions().getOption(ArchiveOptions.ARCHIVE_PATH);
+				return CommonarchiveFactory.eINSTANCE.openApplicationClientFile(path.toOSString());
+			} finally {
+				helper.releaseArchive(iArchive);
+			}
 		} else {
 			AppClientComponentLoadStrategyImpl loader = new AppClientComponentLoadStrategyImpl(getComponent());
 			loader.setExportSource(includeSource);
