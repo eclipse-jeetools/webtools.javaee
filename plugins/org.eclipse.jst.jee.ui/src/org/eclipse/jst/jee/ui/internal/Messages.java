@@ -35,6 +35,11 @@ public class Messages extends NLS {
 	public static String FILTERS_ITEM_PROVIDER;
 	public static String FILTER_MAPPING_ITEM_PROVIDER;
 	public static String SERVLET_MAPPING_ITEM_PROVIDER;
+	public static String ERROR_PAGES_ITEM_PROVIDER;
+	public static String WELCOME_PAGES_ITEM_PROVIDER;
+	public static String CONTEXT_PARAMS_ITEM_PROVIDER;
+	
+	
 	
 	
 	public static String REFERENCES;

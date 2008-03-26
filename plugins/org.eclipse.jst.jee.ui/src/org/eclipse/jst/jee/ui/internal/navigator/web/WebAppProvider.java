@@ -36,12 +36,14 @@ public class WebAppProvider {
 	private static final String PROJECT_RELATIVE_PATH = "WEB-INF/web.xml"; //$NON-NLS-1$
 	
 	
+	private GroupErrorPagesItemProvider errors;
 	private GroupServletItemProvider servlets;
 	private GroupFiltersItemProvider filters;
 	private GroupListenerItemProvider listeners;
 	private GroupServletMappingItemProvider servletMapping;
 	private GroupFilterMappingItemProvider filterMapping;
 	private GroupReferenceItemProvider references;
+	private GroupWelcomePagesItemProvider welcome;
 	
 	private List<Object> children = new ArrayList<Object>();
 	
@@ -52,6 +54,9 @@ public class WebAppProvider {
 	private IFile ddFile = null;
 
 
+  private GroupContextParamsItemProvider contextParams;
+
+
   
 	
 	
@@ -59,18 +64,24 @@ public class WebAppProvider {
 	
 	public WebAppProvider(WebApp webApp, IProject project) {
 		text = Messages.DEPLOYMENT_DESCRIPTOR + project.getName();
+		contextParams = new GroupContextParamsItemProvider(webApp);
+		errors = new GroupErrorPagesItemProvider(webApp);
 		servlets = new GroupServletItemProvider(webApp);
 		servletMapping = new GroupServletMappingItemProvider(webApp);
 		filters = new GroupFiltersItemProvider(webApp);
 		filterMapping = new GroupFilterMappingItemProvider(webApp);
 		listeners = new GroupListenerItemProvider(webApp);
 		references = new GroupReferenceItemProvider(webApp);
+		welcome = new GroupWelcomePagesItemProvider(webApp);
+		children.add(contextParams);
+		children.add(errors);
 		children.add(servlets);
 		children.add(filters);
 		children.add(listeners);
 		children.add(servletMapping);
 		children.add(filterMapping);
 		children.add(references);
+		children.add(welcome);
 		prjct = project;
 	}
 	public List getChildren(){

@@ -12,17 +12,22 @@ package org.eclipse.jst.jee.ui.internal.navigator;
 
 import org.eclipse.jst.j2ee.navigator.internal.J2EELabelProvider;
 import org.eclipse.jst.javaee.core.Listener;
+import org.eclipse.jst.javaee.core.ParamValue;
 import org.eclipse.jst.javaee.core.UrlPatternType;
+import org.eclipse.jst.javaee.web.ErrorPage;
 import org.eclipse.jst.javaee.web.Filter;
 import org.eclipse.jst.javaee.web.FilterMapping;
 import org.eclipse.jst.javaee.web.Servlet;
 import org.eclipse.jst.javaee.web.ServletMapping;
+import org.eclipse.jst.jee.ui.internal.navigator.web.GroupContextParamsItemProvider;
+import org.eclipse.jst.jee.ui.internal.navigator.web.GroupErrorPagesItemProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.web.GroupFilterMappingItemProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.web.GroupFiltersItemProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.web.GroupListenerItemProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.web.GroupServletItemProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.web.GroupServletMappingItemProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider;
+import org.eclipse.jst.jee.ui.internal.navigator.web.WebArtifactNode;
 import org.eclipse.swt.graphics.Image;
 
 
@@ -53,7 +58,15 @@ public class Web25LabelProvider extends J2EELabelProvider {
 			ret = GroupListenerItemProvider.getListenersImage();
 		} else if (element instanceof FilterMapping){
 			ret = GroupFilterMappingItemProvider.getFilterMappingImage();
-		}
+		} else if (element instanceof WebArtifactNode){
+		  ret = ((WebArtifactNode)element).getImage();
+		} else if (element instanceof ErrorPage){
+		  ret = GroupErrorPagesItemProvider.getErrorPagesImage((ErrorPage)element); 
+        } else if (element instanceof ParamValue){
+          ret = GroupContextParamsItemProvider.getContextParamsImage(); 
+        } else {
+          ret = super.getImage(element);
+        }
 		return ret;
 	}
 
@@ -66,30 +79,39 @@ public class Web25LabelProvider extends J2EELabelProvider {
 			ret = ((AbstractGroupProvider) element).getText();
 		} else if (element instanceof Servlet){
 			ret = ((Servlet) element).getServletName();
-		} else if (element instanceof ServletMapping){
-			ret = "Servlet mapping (" + getServletMappingDisplay((ServletMapping) element)+")"; //$NON-NLS-1$ //$NON-NLS-2$
+		} else if (element instanceof ServletMapping) {
+			ret = getServletMappingDisplay((ServletMapping) element);
 		} else if (element instanceof Filter){
 			ret = ((Filter) element).getFilterName();
 		} else if (element instanceof Listener){
 			ret = ((Listener) element).getListenerClass();
-		} else if (element instanceof FilterMapping){
-			ret = "Filter mapping (" + getFilterMappingDisplay((FilterMapping)element) + ")"; //$NON-NLS-1$ //$NON-NLS-2$
-		}
+		} else if (element instanceof FilterMapping) {
+			ret = getFilterMappingDisplay((FilterMapping) element);
+		} else if (element instanceof WebArtifactNode) {
+            ret = ((WebArtifactNode) element).getText(); 
+        } else if (element instanceof ErrorPage ){
+        	ErrorPage page = ((ErrorPage) element);
+			if (page.getErrorCode() == null) {
+				ret = page.getExceptionType() + " -> " + page.getLocation(); //$NON-NLS-1$
+			} else {
+				ret = page.getErrorCode() + " -> " + page.getLocation(); //$NON-NLS-1$
+			}
+        } else if (element instanceof ParamValue){
+        	ret = ((ParamValue)element).getParamName() + " = " + ((ParamValue)element).getParamValue();//$NON-NLS-1$ 
+        } else {
+        	ret = super.getText(element);
+        }
 		return ret;
 	}
 
 	private String getFilterMappingDisplay(FilterMapping element) {
-		String returnValue = ""; //$NON-NLS-1$
 		UrlPatternType urlPatterns = (UrlPatternType) element.getUrlPatterns().get(0);
-		returnValue = element.getFilterName() + "-> " + urlPatterns.getValue(); //$NON-NLS-1$
-		return returnValue;
+		return urlPatterns.getValue() + "-> " + element.getFilterName(); //$NON-NLS-1$
 	}
 
 	private String getServletMappingDisplay(ServletMapping element) {
-		String retValue = "-> " + element.getServletName(); //$NON-NLS-1$
 		UrlPatternType urlPatterns = (UrlPatternType) element.getUrlPatterns().get(0);
-		retValue = urlPatterns.getValue() + retValue;
-		return retValue;
+		return urlPatterns.getValue() + "-> " + element.getServletName(); //$NON-NLS-1$;
 	}
 
 }
