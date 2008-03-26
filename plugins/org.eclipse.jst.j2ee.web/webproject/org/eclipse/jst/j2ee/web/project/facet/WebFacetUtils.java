@@ -23,7 +23,7 @@ public class WebFacetUtils {
 	public static final IProjectFacetVersion WEB_24 = WEB_FACET.getVersion("2.4"); //$NON-NLS-1$
 	public static final IProjectFacetVersion WEB_25 = WEB_FACET.getVersion("2.5"); //$NON-NLS-1$
 	
-	public static final IProjectFacet WEB_XDOCLET_FACET = ProjectFacetsManager.getProjectFacet(IJ2EEFacetConstants.DYNAMIC_WEB_XDOCLET); 
+	public static final IProjectFacet WEB_XDOCLET_FACET = getWebDocletFacet();
 	
 	public static IProjectFacet getProjectFacet(String id) {
 		try {
@@ -31,6 +31,15 @@ public class WebFacetUtils {
 		} catch (IllegalArgumentException e) {
 			return null;
 		} 
+	}
+	
+	private static IProjectFacet getWebDocletFacet() {
+		try {
+			return ProjectFacetsManager.getProjectFacet(IJ2EEFacetConstants.DYNAMIC_WEB_XDOCLET);
+		} catch (IllegalArgumentException e) {
+			// the web doclet facet is not defined
+			return null;
+		}
 	}
 
 }
