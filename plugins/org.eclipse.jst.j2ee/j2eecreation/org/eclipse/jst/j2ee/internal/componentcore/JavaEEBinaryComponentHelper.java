@@ -168,11 +168,11 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 	}
 
 	public static void clearDisconnectedArchivesInEAR(IVirtualComponent earComponent) {
-		ArchiveCache.instance.clearDisconnectedArchivesInEAR(earComponent);
+		ArchiveCache.getInstance().clearDisconnectedArchivesInEAR(earComponent);
 	}
 
 	public static void clearAllArchivesInProject(IProject earProject) {
-		ArchiveCache.instance.clearAllArchivesInProject(earProject);
+		ArchiveCache.getInstance().clearAllArchivesInProject(earProject);
 	}
 
 	/**
