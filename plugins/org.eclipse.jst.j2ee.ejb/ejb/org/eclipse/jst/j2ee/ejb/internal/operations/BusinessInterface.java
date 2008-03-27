@@ -80,4 +80,8 @@ public class BusinessInterface {
     	}
     	return false;
     }
+
+    public void setFullyQualifiedName(String newName) {
+        name = newName;
+    }
 }

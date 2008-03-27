@@ -67,7 +67,11 @@ public class EJBUIMessages extends NLS {
 	public static String STATE_TYPE_LABEL;
 	public static String CREATE_BUSINESS_INTERFACE;
 	public static String REMOTE_BUSINESS_INTERFACE;
+	public static String REMOTE_BUSINESS_INTERFACE_LABEL;
+	public static String REMOTE_HOME_INTERFACE_LABEL;
 	public static String LOCAL_BUSINESS_INTERFACE;
+	public static String LOCAL_BUSINESS_INTERFACE_LABEL;
+	public static String LOCAL_HOME_INTERFACE_LABEL;
 	public static String EJB_NAME;
 	public static String TRANSACTION_TYPE_CONTAINER;
 	public static String TRANSACTION_TYPE_BEAN;

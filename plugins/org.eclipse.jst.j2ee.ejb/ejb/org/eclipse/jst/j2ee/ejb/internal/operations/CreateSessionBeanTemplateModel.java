@@ -23,6 +23,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jdt.core.Signature;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class CreateSessionBeanTemplateModel extends
@@ -40,6 +41,10 @@ public class CreateSessionBeanTemplateModel extends
 	public static final String STATELESS_ANNOTATION = "@Stateless"; //$NON-NLS-1$
 	public static final String STATEFUL_ANNOTATION = "@Stateful"; //$NON-NLS-1$
 
+	protected BusinessInterface currentBusinessInterface = null;
+	protected String localHomeClassName = null;
+	protected String remoteHomeClassName = null;
+	
 	public CreateSessionBeanTemplateModel(IDataModel dataModel) {
 		super(dataModel);
 	}
@@ -63,10 +68,12 @@ public class CreateSessionBeanTemplateModel extends
 		
 		if (isRemoteHomeChecked()) {
 			collection.add(QUALIFIED_REMOTE_HOME);
+			collection.add(remoteHomeClassName);
 		}
 		
 		if (isLocalHomeChecked()) {
 			collection.add(QUALIFIED_LOCAL_HOME);
+			collection.add(localHomeClassName);
 		}
 		
 		List<BusinessInterface> interfaces = getBusinessInterfaces();
@@ -154,5 +161,54 @@ public class CreateSessionBeanTemplateModel extends
 			result.put(ATT_MAPPED_NAME, mappedName);
 		}
 		return result;
+	}
+
+	public void setCurrentBusinessInterface(BusinessInterface newBI)
+	{
+		currentBusinessInterface = newBI;
+	}
+
+	public String getBusinessInterfaceJavaPackageName() {
+		String packageName = null;
+		if (currentBusinessInterface != null)
+		{
+			packageName = Signature.getQualifier(currentBusinessInterface.getFullyQualifiedName());
+		}
+		return packageName;
+	}
+
+	public String getBusinessInterfaceClassName() {
+		String className = null;
+		if (currentBusinessInterface != null)
+		{
+			className = currentBusinessInterface.getSimpleName();
+		}
+		return className;
+	}
+
+	public String getLocalHomePackage() {
+		return Signature.getQualifier(localHomeClassName);
+	}
+
+	public String getLocalHomeClassSimpleName()
+	{
+		return Signature.getSimpleName(localHomeClassName);
+	}
+
+	public void setLocalHomeClassName(String localHomeClassName) {
+		this.localHomeClassName = localHomeClassName;
+	}
+
+	public String getRemoteHomePackage() {
+		return Signature.getQualifier(remoteHomeClassName);
+	}
+
+	public String getRemoteHomeClassSimpleName()
+	{
+		return Signature.getSimpleName(remoteHomeClassName);
+	}
+
+	public void setRemoteHomeClassName(String remoteHomeClassName) {
+		this.remoteHomeClassName = remoteHomeClassName;
 	}
 }

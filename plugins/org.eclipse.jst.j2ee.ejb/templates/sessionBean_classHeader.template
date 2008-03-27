@@ -70,13 +70,13 @@
 	
 	if (model.isLocalHomeChecked()) {
 %>
-@LocalHome(<%= model.getClassName() %>LocalHome.class)
+@LocalHome(<%=model.getLocalHomeClassSimpleName()%>.class)
 <%
 	}
 
 	if (model.isRemoteHomeChecked()) {
 %>
-@RemoteHome(<%= model.getClassName() %>Home.class)
+@RemoteHome(<%=model.getRemoteHomeClassSimpleName()%>.class)
 <%
 	}
 %>

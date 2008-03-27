@@ -3,10 +3,16 @@
 	class="RemoteBusinessInterfaceTemplate" 
 %>
 <% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; %>
-<%@ include file="_package.template" %>
+<%
+	if (model.getBusinessInterfaceJavaPackageName() != null && model.getBusinessInterfaceJavaPackageName().length() > 0) {
+%>
+package <%=model.getBusinessInterfaceJavaPackageName()%>;
+<%
+	}
+%>
 import javax.ejb.Remote;
 
 @Remote
-public interface <%= model.getClassName() %>Remote {
+public interface <%=model.getBusinessInterfaceClassName()%> {
 
 }

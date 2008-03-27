@@ -16,8 +16,10 @@ import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanCla
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.BUSINESS_INTERFACES;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_HOME;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_HOME_INTERFACE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_HOME;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_HOME_INTERFACE;
 
 import org.eclipse.jdt.internal.ui.preferences.ScrolledPageContent;
 import org.eclipse.jface.resource.JFaceResources;
@@ -45,6 +47,8 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 
+	private Text remoteInterfaceName;
+	private Text localInterfaceName;
 	private Text ejbNameText;
 	private Text mappedNameText;
 	private Combo transactionTypeCombo;
@@ -114,14 +118,27 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 		
 		Composite othersComposite = new Composite(excomposite, SWT.NONE);
 		excomposite.setClient(othersComposite);
-		othersComposite.setLayout(new GridLayout(1, false));
+		othersComposite.setLayout(new GridLayout(2, false));
+		GridData data2 = new GridData(GridData.FILL_HORIZONTAL);
 		
 		Button button = new Button(othersComposite, SWT.CHECK);
 		button.setText(EJBUIMessages.LOCAL_BUSINESS_INTERFACE);
+		button.setLayoutData(gdhspan(2));
 		synchHelper.synchCheckbox(button, LOCAL_HOME, null);
+		Label localHomeLabel = new Label(othersComposite, SWT.LEFT);
+		localHomeLabel.setText(EJBUIMessages.LOCAL_HOME_INTERFACE_LABEL);
+		localInterfaceName = new Text(othersComposite, SWT.SINGLE | SWT.BORDER);
+		localInterfaceName.setLayoutData(data2);
+		synchHelper.synchText(localInterfaceName, LOCAL_HOME_INTERFACE, null);
 		Button button2 = new Button(othersComposite, SWT.CHECK);
 		button2.setText(EJBUIMessages.REMOTE_BUSINESS_INTERFACE);
+		button2.setLayoutData(gdhspan(2));
 		synchHelper.synchCheckbox(button2, REMOTE_HOME, null);
+		Label remoteHomeLabel = new Label(othersComposite, SWT.LEFT);
+		remoteHomeLabel.setText(EJBUIMessages.REMOTE_HOME_INTERFACE_LABEL);
+		remoteInterfaceName = new Text(othersComposite, SWT.SINGLE | SWT.BORDER);
+		remoteInterfaceName.setLayoutData(data2);
+		synchHelper.synchText(remoteInterfaceName, REMOTE_HOME_INTERFACE, null);
 		
 		return excomposite;
 	}
@@ -221,5 +238,14 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 			parentScrolledComposite.reflow(true);
 		}
 	}
-}
 
+	private static GridData gdhspan(int span) {
+		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
+		gd.horizontalSpan = span;
+		return gd;
+	}
+
+	protected String[] getValidationPropertyNames() {
+		return new String[]{LOCAL_HOME_INTERFACE, REMOTE_HOME_INTERFACE};
+	}
+}

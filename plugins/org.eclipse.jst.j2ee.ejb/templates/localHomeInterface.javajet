@@ -3,13 +3,19 @@
 	class="LocalHomeInterfaceTemplate" 
 %>
 <% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; %>
-<%@ include file="_package.template" %>
+<%
+	if (model.getLocalHomePackage() != null && model.getLocalHomePackage().length() > 0) {
+%>
+package <%=model.getLocalHomePackage()%>;
+<%
+	}
+%>
 import java.rmi.RemoteException;
 
 import javax.ejb.CreateException;
 import javax.ejb.EJBLocalHome;
 
-public interface <%= model.getClassName() %>LocalHome extends EJBLocalHome {
+public interface <%=model.getLocalHomeClassSimpleName()%> extends EJBLocalHome {
 
 	public <%= model.getClassName() %>LocalComponent create() throws CreateException, RemoteException;
 	

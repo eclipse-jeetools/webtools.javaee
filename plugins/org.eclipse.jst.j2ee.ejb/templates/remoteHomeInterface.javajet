@@ -3,13 +3,20 @@
 	class="RemoteHomeInterfaceTemplate" 
 %>
 <% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; %>
-<%@ include file="_package.template" %>
+<%
+	if (model.getRemoteHomePackage() != null && model.getRemoteHomePackage().length() > 0) {
+%>
+package <%=model.getRemoteHomePackage()%>
+<%
+	}
+%>
+
 import java.rmi.RemoteException;
 
 import javax.ejb.CreateException;
 import javax.ejb.EJBHome;
 
-public interface <%= model.getClassName() %>Home extends EJBHome {
+public interface <%=model.getRemoteHomeClassSimpleName()%> extends EJBHome {
 
 	public <%= model.getClassName() %>RemoteComponent create() throws CreateException, RemoteException;
 	

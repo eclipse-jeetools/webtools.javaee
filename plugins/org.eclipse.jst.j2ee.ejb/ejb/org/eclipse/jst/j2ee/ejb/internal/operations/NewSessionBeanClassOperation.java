@@ -14,6 +14,7 @@ import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassD
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_HOME;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_HOME;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.JAVA_PACKAGE;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.JAVA_PACKAGE_FRAGMENT_ROOT;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -34,7 +35,9 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.core.Signature;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.project.EJBUtilities;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -69,10 +72,8 @@ import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedExc
  */
 public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperation {
 
-	private static final String LOCAL_HOME_SUFFIX = "LocalHome"; //$NON-NLS-1$
 	private static final String LOCAL_COMPONENT_SUFFIX = "LocalComponent"; //$NON-NLS-1$
 	private static final String REMOTE_COMPONENT_SUFFIX = "RemoteComponent"; //$NON-NLS-1$
-	private static final String REMOTE_HOME_SUFFIX = "Home"; //$NON-NLS-1$
 
 	/**
 	 * folder location of the enterprise bean creation templates directory
@@ -89,6 +90,7 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 	protected static final String TEMPLATE_REMOTECOMPONENT_FILE = "/templates/remoteComponentInterface.javajet"; //$NON-NLS-1$
 	
 	protected IPackageFragment clientPack;
+	protected IPackageFragment pack;
 	
 	/**
 	 * This is the constructor which should be used when creating a
@@ -125,9 +127,13 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 	 * @throws InvocationTargetException
 	 */
 	public IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		// Retrieve the package name from the java class data model
+		String packageName = model.getStringProperty(JAVA_PACKAGE);
+		// Create java package if it does not exist
+		pack = createJavaPackage(packageName);
 		if (hasInterfacesToGenerate() && EJBUtilities.hasEJBClientJARProject(getTargetProject())) {
 			createJavaSourceFolderInClientJar();
-			clientPack = createJavaPackageInClientJar();
+			clientPack = createJavaPackageInClientJar(packageName);
 		}
 		
 		return super.doExecute(monitor, info);
@@ -136,7 +142,7 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 	@Override
 	protected void generateUsingTemplates(IProgressMonitor monitor, IPackageFragment fragment) 
 			throws WFTWrappedException, CoreException {
-		this.generateUsingTemplates(monitor, fragment, clientPack);
+		this.generateUsingTemplates(monitor, pack, clientPack);
 	}
 
 	/**
@@ -180,28 +186,34 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 	}
 	
 	protected void generateInterfacesUsingTemplates(IProgressMonitor monitor, IPackageFragment fragment, CreateSessionBeanTemplateModel tempModel) throws JETException, JavaModelException {
+		boolean useClientJar = EJBUtilities.hasEJBClientJARProject(getTargetProject());
 		List<BusinessInterface> interfaces = tempModel.getBusinessInterfaces();
 		for (BusinessInterface iface : interfaces) {
 			if (!iface.exists()) {
+				tempModel.setCurrentBusinessInterface(iface);
 				if (iface.isLocal()) {
 					// Create the java files for the non-exising Local Business interfaces
 					String src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_LOCAL_FILE, monitor);
 					String fileName = iface.getSimpleName() + DOT_JAVA;
-					createJavaFile(monitor, fragment, src, fileName);
+					createJavaFile(monitor, getPackageFragment(useClientJar, iface.getFullyQualifiedName()), src, fileName);
 				} else if (iface.isRemote()) {
 					// Create the java files for the non-exising Remote Business interfaces
 					String src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_REMOTE_FILE, monitor);
 					String fileName = iface.getSimpleName() + DOT_JAVA;
-					createJavaFile(monitor, fragment, src, fileName);
+					createJavaFile(monitor, getPackageFragment(useClientJar, iface.getFullyQualifiedName()), src, fileName);
 				}
 			}
 		}
 
 		// Create the EJB 2.x compatible Remote Home and Component interface java files
 		if (model.getBooleanProperty(REMOTE_HOME)) {
+			String remoteFullName =  model.getStringProperty(INewSessionBeanClassDataModelProperties.REMOTE_HOME_INTERFACE);
+			IPackageFragment remoteFragment = null;
+			String fileName = Signature.getSimpleName(remoteFullName)+ DOT_JAVA;
+			remoteFragment = getPackageFragment(useClientJar, remoteFullName);
+			tempModel.setRemoteHomeClassName(remoteFullName);
 			String src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_REMOTEHOME_FILE, monitor);
-			String fileName =  tempModel.getClassName() + REMOTE_HOME_SUFFIX + DOT_JAVA;
-			createJavaFile(monitor, fragment, src, fileName);
+			createJavaFile(monitor, remoteFragment, src, fileName);
 			src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_REMOTECOMPONENT_FILE, monitor);
 			fileName =  tempModel.getClassName() + REMOTE_COMPONENT_SUFFIX + DOT_JAVA;
 			createJavaFile(monitor, fragment, src, fileName);
@@ -209,13 +221,30 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 		
 		// Create the EJB 2.x compatible Local Home and Component interface java files
 		if (model.getBooleanProperty(LOCAL_HOME)) {
+			String localFullName =  model.getStringProperty(INewSessionBeanClassDataModelProperties.LOCAL_HOME_INTERFACE);
+			IPackageFragment localFragment = null;
+			String fileName = Signature.getSimpleName(localFullName)+ DOT_JAVA;
+			localFragment = getPackageFragment(useClientJar, localFullName);
+			tempModel.setLocalHomeClassName(localFullName);
 			String src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_LOCALHOME_FILE, monitor);
-			String fileName =  tempModel.getClassName() + LOCAL_HOME_SUFFIX + DOT_JAVA;
-			createJavaFile(monitor, fragment, src, fileName);
+			createJavaFile(monitor, localFragment, src, fileName);
 			src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_LOCALCOMPONENT_FILE, monitor);
 			fileName =  tempModel.getClassName() + LOCAL_COMPONENT_SUFFIX + DOT_JAVA;
 			createJavaFile(monitor, fragment, src, fileName);
 		}
+	}
+
+	protected IPackageFragment getPackageFragment(boolean useClientJar, String fullName) {
+		IPackageFragment fragment;
+		String packageName = Signature.getQualifier(fullName);
+		if (useClientJar) {
+			fragment = createJavaPackageInClientJar(packageName);
+		}
+		else
+		{
+			fragment = createJavaPackage(packageName);
+		}
+		return fragment;
 	}
 
 	protected IFolder createJavaSourceFolderInClientJar() {
@@ -233,9 +262,7 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 		return folder;
 	}
 
-	protected IPackageFragment createJavaPackageInClientJar() {
-		// Retrieve the package name from the java class data model
-		String packageName = model.getStringProperty(JAVA_PACKAGE);
+	protected IPackageFragment createJavaPackageInClientJar(String packageName) {
 		IPackageFragmentRoot packRoot = getClientPackageFragmentRoot();
 		
 		IPackageFragment pack = packRoot.getPackageFragment(packageName);
@@ -296,5 +323,36 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 		IJavaProject clientJavaProject = JavaCore.create(clientProject);
 		return clientJavaProject.getPackageFragmentRoot(folder);
 	}
-	
+
+	/**
+	 * This method will return the java package as specified by the new java
+	 * class data model. If the package does not exist, it will create the
+	 * package. This method should not return null.
+	 * 
+	 * @see INewJavaClassDataModelProperties#JAVA_PACKAGE
+	 * @see IPackageFragmentRoot#createPackageFragment(java.lang.String,
+	 *      boolean, org.eclipse.core.runtime.IProgressMonitor)
+	 * 
+	 * @return IPackageFragment the java package
+	 */
+	protected IPackageFragment createJavaPackage(String packageName) {
+		IPackageFragmentRoot packRoot = (IPackageFragmentRoot) model.getProperty(JAVA_PACKAGE_FRAGMENT_ROOT);
+		IPackageFragment pack = packRoot.getPackageFragment(packageName);
+		// Handle default package
+		if (pack == null) {
+			pack = packRoot.getPackageFragment(""); //$NON-NLS-1$
+		}
+
+		// Create the package fragment if it does not exist
+		if (!pack.exists()) {
+			String packName = pack.getElementName();
+			try {
+				pack = packRoot.createPackageFragment(packName, true, null);
+			} catch (JavaModelException e) {
+				J2EEPlugin.logError(e);
+			}
+		}
+		// Return the package
+		return pack;
+	}
 }

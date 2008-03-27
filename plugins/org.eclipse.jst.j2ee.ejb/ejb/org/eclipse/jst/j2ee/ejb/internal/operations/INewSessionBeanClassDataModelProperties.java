@@ -21,6 +21,14 @@ public interface INewSessionBeanClassDataModelProperties extends INewEnterpriseB
 	 */
 	public static final String BUSINESS_INTERFACES = "INewSessionBeanClassDataModelProperties.BUSINESS_INTERFACES"; //$NON-NLS-1$
 	
+	public static final String REMOTE_BUSINESS_INTERFACE = "INewSessionBeanClassDataModelProperties.REMOTE_BUSINESS_INTERFACE"; //$NON-NLS-1$
+	
+	public static final String LOCAL_BUSINESS_INTERFACE = "INewSessionBeanClassDataModelProperties.LOCAL_BUSINESS_INTERFACE"; //$NON-NLS-1$
+
+	public static final String REMOTE_HOME_INTERFACE = "INewSessionBeanClassDataModelProperties.REMOTE_HOME_INTERFACE"; //$NON-NLS-1$
+	
+	public static final String LOCAL_HOME_INTERFACE = "INewSessionBeanClassDataModelProperties.LOCAL_HOME_INTERFACE"; //$NON-NLS-1$
+	
 	/**
 	 * Optional, boolean property used to specify whether to generate a remote
 	 * business interface. The default is false.

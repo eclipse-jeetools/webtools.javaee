@@ -11,24 +11,33 @@
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.BUSINESS_INTERFACES;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_BUSINESS_INTERFACE;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_BUSINESS_INTERFACE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_HOME;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_HOME_INTERFACE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_HOME;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_HOME_INTERFACE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.STATE_TYPE;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CLASS_NAME;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.JAVA_PACKAGE;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jdt.core.JavaConventions;
 import org.eclipse.jdt.core.Signature;
 import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface.BusinessInterfaceType;
+import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClassDataModelProvider {
 
@@ -37,6 +46,8 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 	
 	private static final String LOCAL_SUFFIX = "Local"; //$NON-NLS-1$
 	private static final String REMOTE_SUFFIX = "Remote"; //$NON-NLS-1$
+	private static final String LOCAL_HOME_SUFFIX = "LocalHome"; //$NON-NLS-1$
+	private static final String REMOTE_HOME_SUFFIX = "Home"; //$NON-NLS-1$
 
 	public IDataModelOperation getDefaultOperation() {
 		return new AddSessionBeanOperation(getDataModel());
@@ -53,11 +64,15 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		Set<String> propertyNames = (Set<String>) super.getPropertyNames();
 
 		propertyNames.add(BUSINESS_INTERFACES);
+		propertyNames.add(REMOTE_BUSINESS_INTERFACE);
+		propertyNames.add(LOCAL_BUSINESS_INTERFACE);
 		propertyNames.add(REMOTE);
 		propertyNames.add(LOCAL);
 		propertyNames.add(STATE_TYPE);
 		propertyNames.add(REMOTE_HOME);
 		propertyNames.add(LOCAL_HOME);
+		propertyNames.add(REMOTE_HOME_INTERFACE);
+		propertyNames.add(LOCAL_HOME_INTERFACE);
 
 		return propertyNames;
 	}
@@ -88,14 +103,32 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 			List<BusinessInterface> listResult = new ArrayList<BusinessInterface>();
 			String className = getStringProperty(QUALIFIED_CLASS_NAME);
 			if ((Boolean) getProperty(REMOTE) && className.length() > 0) {
-				BusinessInterface remoteInterface = new BusinessInterface(className + REMOTE_SUFFIX, BusinessInterfaceType.REMOTE);
+				BusinessInterface remoteInterface = new BusinessInterface(getStringProperty(REMOTE_BUSINESS_INTERFACE), BusinessInterfaceType.REMOTE);
 				listResult.add(remoteInterface);
 			}
 			if ((Boolean) getProperty(LOCAL) && className.length() > 0) {
-				BusinessInterface localInterface = new BusinessInterface(className + LOCAL_SUFFIX, BusinessInterfaceType.LOCAL);
+				BusinessInterface localInterface = new BusinessInterface(getStringProperty(LOCAL_BUSINESS_INTERFACE), BusinessInterfaceType.LOCAL);
 				listResult.add(localInterface);
 			}
 			return listResult;
+		}
+		else if (REMOTE_BUSINESS_INTERFACE.equals(propertyName)) {
+			String className = getStringProperty(QUALIFIED_CLASS_NAME);
+			return className + REMOTE_SUFFIX;
+		}
+		else if (LOCAL_BUSINESS_INTERFACE.equals(propertyName)) {
+			String className = getStringProperty(QUALIFIED_CLASS_NAME);
+			return className + LOCAL_SUFFIX;
+		}
+		else if (REMOTE_HOME_INTERFACE.equals(propertyName))
+		{
+			String className = getStringProperty(QUALIFIED_CLASS_NAME);
+			return className + REMOTE_HOME_SUFFIX;
+		}
+		else if (LOCAL_HOME_INTERFACE.equals(propertyName))
+		{
+			String className = getStringProperty(QUALIFIED_CLASS_NAME);
+			return className + LOCAL_HOME_SUFFIX;
 		}
 		// Otherwise check super for default value for property
 		return super.getDefaultProperty(propertyName);
@@ -123,6 +156,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		if (propertyName.equals(REMOTE)) {
 			if (!getDataModel().isPropertySet(BUSINESS_INTERFACES)) {
 				getDataModel().notifyPropertyChange(BUSINESS_INTERFACES, IDataModel.DEFAULT_CHG);
+				getDataModel().notifyPropertyChange(REMOTE_BUSINESS_INTERFACE, IDataModel.DEFAULT_CHG);
 			}else{
 				updateBusinessInterfaces(REMOTE);
 			}
@@ -130,6 +164,35 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		}
 		if (propertyName.equals(LOCAL)  && !getDataModel().isPropertySet(BUSINESS_INTERFACES)) {
 			getDataModel().notifyPropertyChange(BUSINESS_INTERFACES, IDataModel.DEFAULT_CHG);
+			getDataModel().notifyPropertyChange(LOCAL_BUSINESS_INTERFACE, IDataModel.DEFAULT_CHG);
+			// TODO - ccc- shouldn't there be an updateBusinessInterfaces(LOCAL) here?
+		}
+		if (REMOTE_BUSINESS_INTERFACE.equals(propertyName))
+		{
+			getRemoteProperty().setFullyQualifiedName(propertyValue.toString());
+		}
+		else if (LOCAL_BUSINESS_INTERFACE.equals(propertyName))
+		{
+			getLocalProperty().setFullyQualifiedName(propertyName);
+		}
+		else if (CLASS_NAME.equals(propertyName) || JAVA_PACKAGE.equals(propertyName))
+		{
+			IDataModel dataModel = getDataModel();
+			String className = getStringProperty(QUALIFIED_CLASS_NAME);
+			BusinessInterface remoteInterface = getRemoteProperty();
+			if (remoteInterface != null)
+			{
+				remoteInterface.setFullyQualifiedName(className + REMOTE_SUFFIX);
+				dataModel.notifyPropertyChange(REMOTE_BUSINESS_INTERFACE, IDataModel.DEFAULT_CHG);
+			}
+			BusinessInterface localInterface = getLocalProperty();
+			if (localInterface != null)
+			{
+				localInterface.setFullyQualifiedName(className + LOCAL_SUFFIX);
+				dataModel.notifyPropertyChange(LOCAL_BUSINESS_INTERFACE, IDataModel.DEFAULT_CHG);
+			}
+			dataModel.notifyPropertyChange(REMOTE_HOME_INTERFACE, IDataModel.DEFAULT_CHG);
+			dataModel.notifyPropertyChange(LOCAL_HOME_INTERFACE, IDataModel.DEFAULT_CHG);
 		}
 
 		return result;
@@ -140,8 +203,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		if (propertyName.equals(REMOTE)) {
 			if (getBooleanProperty(propertyName)) {
 				// should be add remote property
-				String className = Signature.getSimpleName(getStringProperty(CLASS_NAME));
-				list.add(new BusinessInterface(className + REMOTE_SUFFIX, BusinessInterfaceType.REMOTE));
+				list.add(new BusinessInterface(getStringProperty(REMOTE_BUSINESS_INTERFACE), BusinessInterfaceType.REMOTE));
 			} else {
 				BusinessInterface remoteInterface = getRemoteProperty();
 				int indexOf = list.indexOf(remoteInterface);
@@ -151,7 +213,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 			if (getBooleanProperty(propertyName)) {
 				// should be add remote property
 				String className = Signature.getSimpleName(getStringProperty(CLASS_NAME));
-				list.add(new BusinessInterface(className + LOCAL_SUFFIX, BusinessInterfaceType.LOCAL));
+				list.add(new BusinessInterface(getStringProperty(LOCAL_BUSINESS_INTERFACE), BusinessInterfaceType.LOCAL));
 			} else {
 				BusinessInterface localInterface = getLocalProperty();
 				int indexOf = list.indexOf(localInterface);
@@ -177,5 +239,33 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public IStatus validate(String propertyName) {
+
+		IStatus currentStatus = null;
+		if (LOCAL_HOME_INTERFACE.equals(propertyName) || REMOTE_HOME_INTERFACE.equals(propertyName)
+				|| LOCAL_BUSINESS_INTERFACE.equals(propertyName) || REMOTE_BUSINESS_INTERFACE.equals(propertyName)) {
+			String value = getStringProperty(propertyName);
+			currentStatus = validateJavaTypeName(value);
+			if (!currentStatus.isOK()) {
+				return currentStatus;
+			}
+		}
+		return super.validate(propertyName);
+	}
+
+	protected IStatus validateJavaTypeName(String className) {
+		// Check Java class name by standard java conventions
+		IStatus javaStatus = JavaConventions.validateJavaTypeName(className);
+		if (javaStatus.getSeverity() == IStatus.ERROR) {
+			String msg = J2EECommonMessages.ERR_JAVA_CLASS_NAME_INVALID + javaStatus.getMessage();
+			return WTPCommonPlugin.createErrorStatus(msg);
+		} else if (javaStatus.getSeverity() == IStatus.WARNING) {
+			String msg = J2EECommonMessages.ERR_JAVA_CLASS_NAME_WARNING + javaStatus.getMessage();
+			return WTPCommonPlugin.createWarningStatus(msg);
+		}
+		return WTPCommonPlugin.OK_STATUS;
 	}
 }
