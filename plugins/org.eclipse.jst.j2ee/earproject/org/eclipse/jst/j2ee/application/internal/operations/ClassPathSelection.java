@@ -560,11 +560,16 @@ public class ClassPathSelection {
 				currentComponent = references[cnt].getReferencedComponent();
 				if (J2EEProjectUtilities.isEJBComponent(currentComponent))
 				{
-					modelProvider = ModelProviderManager.getModelProvider(currentComponent);
-					if(modelProvider==null) {
+					if(currentComponent.isBinary()){
+						//TODO add binary support
 						continue;
+					} else {
+						modelProvider = ModelProviderManager.getModelProvider(currentComponent);
+						if(modelProvider==null) {
+							continue;
+						}
+						rootModelObject = modelProvider.getModelObject();
 					}
-					rootModelObject = modelProvider.getModelObject();
 					if (rootModelObject instanceof EJBJar)
 					{
 						ejbClientJarName = ((EJBJar)rootModelObject).getEjbClientJar();

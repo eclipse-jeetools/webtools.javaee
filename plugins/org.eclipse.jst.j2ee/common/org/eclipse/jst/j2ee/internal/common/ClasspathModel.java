@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -36,21 +35,11 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DeploymentDescriptorLoadException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ManifestException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
-import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.model.IModelProvider;
-import org.eclipse.jst.j2ee.model.ModelProviderManager;
-import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
-import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ModuleStructuralModel;
@@ -68,11 +57,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 
 	protected IProject project;
 	protected IVirtualComponent selectedEARComponent;
-	protected IArchive earFile;
 	protected IVirtualComponent component;
-//	protected IArchive archive;
-	public EARArtifactEdit earArtifactEdit;
-	/** The EAR nature runtimes for all the open EAR projects in the workspace */
 	protected IVirtualComponent[] availableEARComponents = null;
 	protected ClassPathSelection classPathSelection;
 	protected List listeners;
@@ -91,7 +76,6 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 			return e1.getProject().getName().compareTo(e2.getProject().getName());
 		}
 	};
-
 
 	public ClasspathModel(ArchiveManifest initialManifest) {
 		this(initialManifest, false);
@@ -140,11 +124,6 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		return availableEARComponents;
 	}
 
-	/**
-	 * Gets the selectedEARComponent.
-	 * 
-	 * @return Returns a EARNatureRuntime
-	 */
 	public IVirtualComponent getSelectedEARComponent() {
 		return selectedEARComponent;
 	}
@@ -167,93 +146,15 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		return null;
 	}
 
-	/**
-	 * 
-	 * @deprecated - will be removed in WTP 3.0
-	 */
-	public EARArtifactEdit getEARArtifactEdit() {
-		if (earArtifactEdit == null || selectedEARComponentChanged())
-			earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(selectedEARComponent);
-		return earArtifactEdit;
-	}
-
-	private boolean selectedEARComponentChanged() {
-		if (earArtifactEdit != null && !earArtifactEdit.getComponent().getName().equals(selectedEARComponent.getName())) {
-			earArtifactEdit.dispose();
-			earArtifactEdit = null;
-			return true;
-		}
-		return false;
-	}
-
-	protected void initializeEARFile() {
-		if (selectedEARComponent == null || !isDDInEAR(selectedEARComponent)) {
-			earFile = null;
-			return;
-		}
-		try {
-			earFile = JavaEEArchiveUtilities.INSTANCE.openArchive(selectedEARComponent);
-		} catch (ArchiveOpenFailureException aofex)
-		{
-			handleOpenFailureException(aofex);
-		}
-	}
-
-	/**
-	 * initializeSelection method comment.
-	 */
 	protected void initializeSelection(ArchiveManifest existing) {
-		try {
-			initializeEARFile();
-			initializeArchive();
 			if (!J2EEProjectUtilities.isEARProject(getProject())) {
 				if (getProject() != null) {
-					if (existing == null) {
-						if (manifest != null)
-						{
-							J2EEProjectUtilities.writeManifest(getProject(), manifest);
-						}
-						else
-							// Load it now because we're going to close the EAR;
-							// this might be a binary project
-							manifest = J2EEProjectUtilities.readManifest(getProject());
-					} else
-					{
-						J2EEProjectUtilities.writeManifest(getProject(), existing);
+					if(existing != null){
 						manifest = existing;
-					}
-					if (selectedEARComponent != null) {
-						IVirtualReference[] archiveFiles = selectedEARComponent.getReferences();
-						IVirtualComponent anArchive = null;
-						for (int i = 0; i < archiveFiles.length; i++) {
-							anArchive = archiveFiles[i].getReferencedComponent();
-							try {
-								if (J2EEProjectUtilities.isEJBComponent(anArchive)) {
-									IModelProvider modelProvider = ModelProviderManager.getModelProvider(anArchive.getProject());
-									modelProvider.getModelObject();
-								}
-								J2EEProjectUtilities.readManifest(anArchive.getProject());
-							} catch (ManifestException mfEx) {
-								Logger.getLogger().logError(mfEx);
-								// anArchive.setManifest((ArchiveManifest) new ArchiveManifestImpl());
-							} catch (DeploymentDescriptorLoadException ddException) {
-								Logger.getLogger().logError(ddException);
-							}
-						}
 					}
 				}
 				createClassPathSelection();
 			}
-		} catch (IOException e) {
-			handleOpenFailureException(e);
-		} finally {
-			if (earFile != null)
-				JavaEEArchiveUtilities.INSTANCE.closeArchive(earFile);
-		}
-	}
-
-	protected void initializeArchive() {
-		// do nothing now- just use the project
 	}
 
 	protected void createClassPathSelection() {
@@ -266,23 +167,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		}
 	}
 
-	protected boolean isDDInEAR(IVirtualComponent aComponent) {
-		IContainer mofRoot = aComponent.getProject();
-		if (mofRoot == null || !mofRoot.exists())
-			return false;
-
-		return mofRoot.exists(new Path(aComponent.getRootFolder().getProjectRelativePath().toString() + "//" + J2EEConstants.APPLICATION_DD_URI)); //$NON-NLS-1$
-	}
-
-	protected void handleOpenFailureException(Exception ex) {
-		org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
-	}
-
 	public void dispose() {
-		if (earArtifactEdit != null) {
-			earArtifactEdit.dispose();
-			earArtifactEdit = null;
-		}
 	}
 
 	public ClassPathSelection getClassPathSelection() {
@@ -363,16 +248,6 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	}
 
 	/**
-	 * Gets the archive.
-	 * 
-	 * @return Returns a Archive
-	 * @deprecated - use the project
-	 */
-	public Archive getArchive() {
-		return null;
-	}
-
-	/**
 	 * Updates the manifest Class-Path:, and sends out a notification of type
 	 * {@link ClasspathModelEvent#CLASS_PATH_CHANGED}
 	 */
@@ -419,17 +294,15 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		try {
 			J2EEProjectUtilities.writeManifest(getProject(), newManifest);
 		} catch (IOException e) {
-			handleOpenFailureException(e);
+			J2EEPlugin.logError(e);
 		}
 		getClassPathSelection(); // Ensure the selection is initialized.
 		fireNotification(new ClasspathModelEvent(ClasspathModelEvent.MANIFEST_CHANGED));
 	}
 
 	public void selectEAR(int index) {
-		ArchiveManifest mf = new ArchiveManifestImpl((ArchiveManifestImpl) getArchive().getManifest());
-		JavaEEArchiveUtilities.INSTANCE.closeArchive(earFile);
 		selectedEARComponent = availableEARComponents[index];
-		initializeSelection(mf);
+		initializeSelection(null);
 		fireNotification(new ClasspathModelEvent(ClasspathModelEvent.EAR_PROJECT_CHANGED));
 	}
 
@@ -451,13 +324,11 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		resetClassPathSelection(mf);
 	}
 
-
 	/**
 	 * @see com.ibm.etools.emf.workbench.ResourceStateInputProvider#cacheNonResourceValidateState(List)
 	 */
 	public void cacheNonResourceValidateState(List roNonResourceFiles) {
 	}
-
 
 	/**
 	 * @see com.ibm.etools.emf.workbench.ResourceStateInputProvider#getNonResourceFiles()
@@ -470,7 +341,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 
 	protected void initNonResourceFiles() {
 		// Might be opened from a JAR
-		if (getComponent() == null){
+		if (getComponent() == null || getComponent().isBinary()){
 			return;
 		} 
 		nonResourceFiles = new ArrayList(1);
@@ -787,12 +658,4 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		return isWLPModel;
 	}
 
-	/**
-	 * @deprecated do not use this method
-	 * @param isWLPModel
-	 */
-	public void setWLPModel(boolean isWLPModel) {
-		this.isWLPModel = isWLPModel;
-	}
-	
 }

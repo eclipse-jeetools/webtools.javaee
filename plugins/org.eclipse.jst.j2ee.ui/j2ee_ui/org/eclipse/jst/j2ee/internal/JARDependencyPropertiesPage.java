@@ -167,10 +167,6 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		isDisposed = true;
 		JavaCore.removeElementChangedListener(this);
 		J2EEComponentClasspathUpdater.getInstance().resumeUpdates();
-		if (model.earArtifactEdit != null) {
-			model.earArtifactEdit.dispose();
-			model.earArtifactEdit = null;
-		}
 	}
 
 	private void updateModelManifest() {
