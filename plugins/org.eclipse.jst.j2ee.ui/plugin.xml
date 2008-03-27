@@ -324,6 +324,15 @@
             <separator name="slot4"/>
          </menu>
       </objectContribution>
+        <!-- additional object contribution -->
+      <objectContribution objectClass="org.eclipse.jdt.core.IJavaElement" adaptable="true" id="org.eclipse.jst.j2ee.ui.javaElement.popupMenu">
+         <menu label="%javaee.ui.popupMenu" id="javeeUIPopupMenuCategory.javaElement">
+            <separator name="slot1"/>
+            <separator name="slot2"/>
+            <separator name="slot3"/>
+            <separator name="slot4"/>
+         </menu>
+      </objectContribution>
    </extension>
   <extension
          point="org.eclipse.ui.popupMenus">
