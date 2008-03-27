@@ -14,7 +14,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -39,6 +38,9 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 		try {
 			helper = new JavaEEBinaryComponentHelper(aBinaryComponent);
 			IArchive archive = helper.getArchive();
+			if(archive == null){
+				return new JavaEEQuickPeek(null);
+			}
 			JavaEEQuickPeek qp = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive);
 			return qp;
 		} finally {
@@ -145,7 +147,7 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 		try {
 			return openArchive();
 		} catch (ArchiveOpenFailureException e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 		}
 		return null;
 	}

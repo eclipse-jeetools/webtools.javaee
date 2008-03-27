@@ -42,10 +42,10 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 		try {
 			zipFile = new ZipFile(file);
 		} catch (ZipException e) {
-			ArchiveOpenFailureException openFailureException = new ArchiveOpenFailureException(e);
+			ArchiveOpenFailureException openFailureException = new ArchiveOpenFailureException(file.getAbsolutePath(), e);
 			throw openFailureException;
 		} catch (IOException e) {
-			ArchiveOpenFailureException openFailureException = new ArchiveOpenFailureException(e);
+			ArchiveOpenFailureException openFailureException = new ArchiveOpenFailureException(file.getAbsolutePath(), e);
 			throw openFailureException;
 		}
 		setZipFile(zipFile);
