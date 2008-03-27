@@ -441,7 +441,7 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 	private String getMethodStubs(String superclassName, String className) {
 		StringBuffer sb = new StringBuffer();
 		IJavaProject javaProj = JemProjectUtilities.getJavaProject(getTargetProject());
-		if (model.getBooleanProperty(MAIN_METHOD)) {
+		if (model.getBooleanProperty(INewJavaClassDataModelProperties.MAIN_METHOD)) {
 			// Add main method
 			sb.append(MAIN_METHOD);
 			sb.append(lineSeparator);
