@@ -24,7 +24,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
 import org.eclipse.jst.j2ee.internal.archive.ComponentArchiveSaveAdapter;
-import org.eclipse.jst.j2ee.internal.archive.ConnectorComponentArchiveSaveAdapter;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
@@ -120,7 +119,7 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 	}
 	
 	protected ComponentArchiveSaveAdapter getArchiveSaveAdapter(IVirtualComponent virtualComponent){
-		return new ConnectorComponentArchiveSaveAdapter(virtualComponent);
+		return new ComponentArchiveSaveAdapter(virtualComponent);
 	}
 
 	/**
