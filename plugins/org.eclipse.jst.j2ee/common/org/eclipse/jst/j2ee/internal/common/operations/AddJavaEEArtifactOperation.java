@@ -59,7 +59,7 @@ public abstract class AddJavaEEArtifactOperation extends AbstractDataModelOperat
 					}
 				}
 			};
-			provider.modify(runnable, IModelProvider.FORCESAVE);
+			provider.modify(runnable, null);
 		}
 		//return doExecute(monitor, info);
 		return Status.CANCEL_STATUS;
