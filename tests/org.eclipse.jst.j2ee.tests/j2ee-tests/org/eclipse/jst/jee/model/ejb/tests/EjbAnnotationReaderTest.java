@@ -7,7 +7,7 @@
  * it only in accordance with the terms of the license agreement you entered
  * into with SAP.
  * 
- * $Id: EjbAnnotationReaderTest.java,v 1.3 2008/03/25 11:54:26 kraev Exp $
+ * $Id: EjbAnnotationReaderTest.java,v 1.4 2008/03/28 19:57:50 canderson Exp $
  ***********************************************************************/
 package org.eclipse.jst.jee.model.ejb.tests;
 
@@ -19,6 +19,7 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
@@ -57,9 +58,13 @@ public class EjbAnnotationReaderTest extends AbstractAnnotationModelTest {
 	}
 
 	public static void setUpProject() throws Exception {
-		IProject project = ProjectUtil.createEJBProject(EjbAnnotationReaderTest.class.getSimpleName(), null,
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(EjbAnnotationReaderTest.class.getSimpleName());
+		if (!project.exists())
+		{
+			project = ProjectUtil.createEJBProject(EjbAnnotationReaderTest.class.getSimpleName(), null,
 				J2EEVersionConstants.EJB_3_0_ID, true);
-		createProjectContent(project);
+			createProjectContent(project);
+		}
 	}
 
 	public static void tearDownAfterClass() throws InterruptedException {
@@ -105,12 +110,15 @@ public class EjbAnnotationReaderTest extends AbstractAnnotationModelTest {
 		AbstractTest.saveFile(file, content);
 	}
 
-	public void setUp() throws Exception {
+	@Override
+	protected void setUp() throws Exception {
+		setUpProject();
 		super.setUp();
 		fixture = new EJBAnnotationReader(facetedProject, clientProject);
 	}
 
-	public void tearDown() throws Exception {
+	@Override
+	protected void tearDown() throws Exception {
 		((AbstractAnnotationModelProvider) fixture).dispose();
 	}
 

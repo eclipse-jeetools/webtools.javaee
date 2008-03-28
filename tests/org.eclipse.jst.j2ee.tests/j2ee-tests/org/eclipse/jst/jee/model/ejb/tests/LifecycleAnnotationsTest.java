@@ -48,16 +48,21 @@ public class LifecycleAnnotationsTest extends AbstractAnnotationFactoryTest {
 	}
 
 	@Override
-	public void setUp() throws Exception {
+	protected void setUp() throws Exception {
+		setUpProject();
 		super.setUp();
 		facetedProject =ProjectFacetsManager.create(ResourcesPlugin.getWorkspace().getRoot().getProject(this.getClass().getSimpleName())); 
 	}
 
 	// @BeforeClass
 	public static void setUpProject() throws Exception {
-		IProject project = ProjectUtil.createEJBProject(LifecycleAnnotationsTest.class.getSimpleName(), null,
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(LifecycleAnnotationsTest.class.getSimpleName());
+		if (!project.exists())
+		{
+			project = ProjectUtil.createEJBProject(LifecycleAnnotationsTest.class.getSimpleName(), null,
 				J2EEVersionConstants.EJB_3_0_ID, true);
-		createProjectContent(project);
+			createProjectContent(project);
+		}
 	}
 
 	// @AfterClass

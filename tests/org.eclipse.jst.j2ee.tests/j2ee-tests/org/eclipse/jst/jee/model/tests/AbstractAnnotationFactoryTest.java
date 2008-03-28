@@ -28,12 +28,14 @@ public class AbstractAnnotationFactoryTest extends TestCase{
 	protected EjbAnnotationFactory fixture;
 
 //	@Before
-	public void setUp() throws Exception {
+	@Override
+	protected void setUp() throws Exception {
 		fixture = EjbAnnotationFactory.createFactory();
 	}
 
 //	@After
-	public void tearDown() {
+	@Override
+	protected void tearDown() {
 	}
 
 	protected ICompilationUnit createCompilationUnit(final String name, final String content) throws JavaModelException {

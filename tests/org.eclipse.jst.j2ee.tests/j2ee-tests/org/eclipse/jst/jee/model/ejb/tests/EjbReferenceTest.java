@@ -15,6 +15,7 @@ import junit.framework.TestSuite;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -45,9 +46,13 @@ public class EjbReferenceTest extends AbstractAnnotationModelTest {
 
 	// @BeforeClass
 	public static void setUpProject() throws Exception {
-		IProject project = ProjectUtil.createEJBProject(EjbReferenceTest.class.getSimpleName(), null,
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(EjbReferenceTest.class.getSimpleName());
+		if (!project.exists())
+		{
+			project = ProjectUtil.createEJBProject(EjbReferenceTest.class.getSimpleName(), null,
 				J2EEVersionConstants.EJB_3_0_ID, true);
-		createProjectContent(project);
+			createProjectContent(project);
+		}
 	}
 
 	private static void createProjectContent(IProject project) throws Exception {
@@ -64,13 +69,16 @@ public class EjbReferenceTest extends AbstractAnnotationModelTest {
 	}
 
 	// @Before
-	public void setUp() throws Exception {
+	@Override
+	protected void setUp() throws Exception {
+		setUpProject();
 		super.setUp();
 		fixture = new EJBAnnotationReader(facetedProject, clientProject);
 	}
 
 	// @After
-	public void tearDown() throws Exception {
+	@Override
+	protected void tearDown() throws Exception {
 		((AbstractAnnotationModelProvider) fixture).dispose();
 	}
 

@@ -16,6 +16,7 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
@@ -54,8 +55,12 @@ public class WebAnnotationReaderTest extends AbstractAnnotationModelTest {
 
 	// @BeforeClass
 	public static void setUpProject() throws Exception {
-		IFacetedProject facetedProject = AbstractTest.createWebProject(WebAnnotationReaderTest.class.getSimpleName());
-		createProjectContent(facetedProject.getProject());
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(WebAnnotationReaderTest.class.getSimpleName());
+		if (!project.exists())
+		{
+			IFacetedProject facetedProject = AbstractTest.createWebProject(WebAnnotationReaderTest.class.getSimpleName());
+			createProjectContent(facetedProject.getProject());
+		}
 	}
 
 	// @AfterClass
@@ -94,7 +99,9 @@ public class WebAnnotationReaderTest extends AbstractAnnotationModelTest {
 	private WebApp ddApp;
 
 	// @Before
-	public void setUp() throws Exception {
+	@Override
+	protected void setUp() throws Exception {
+		setUpProject();
 		super.setUp();
 		ddApp = WebFactory.eINSTANCE.createWebApp();
 		addServlet(ddApp, "ServletWithSecurity", "com.sap.ServletWithSecurity");
@@ -103,7 +110,8 @@ public class WebAnnotationReaderTest extends AbstractAnnotationModelTest {
 	}
 
 	// @After
-	public void tearDown() throws Exception {
+	@Override
+	protected void tearDown() throws Exception {
 		((WebAnnotationReader) fixture).dispose();
 	}
 

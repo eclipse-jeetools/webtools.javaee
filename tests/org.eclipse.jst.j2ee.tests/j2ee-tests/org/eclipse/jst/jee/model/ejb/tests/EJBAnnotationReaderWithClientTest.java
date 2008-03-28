@@ -50,12 +50,16 @@ public class EJBAnnotationReaderWithClientTest extends AbstractAnnotationModelTe
 
 	// @BeforeClass
 	public static void setUpProject() throws Exception {
-		ProjectUtil.createEARProject(ejbProjectName + "ear", true);
-		IProject project = ProjectUtil.createEJBProject(ejbProjectName, earProjectName, clientName,
-				J2EEVersionConstants.EJB_3_0_ID, true);
-		IProject clientProject = ResourcesPlugin.getWorkspace().getRoot().getProject(clientName);
-		createProjectContent(project);
-		createClientProjectContent(clientProject);
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(ejbProjectName);
+		if (!project.exists())
+		{
+			ProjectUtil.createEARProject(ejbProjectName + "ear", true);
+			project = ProjectUtil.createEJBProject(ejbProjectName, earProjectName, clientName,
+					J2EEVersionConstants.EJB_3_0_ID, true);
+			IProject clientProject = ResourcesPlugin.getWorkspace().getRoot().getProject(clientName);
+			createProjectContent(project);
+			createClientProjectContent(clientProject);
+		}
 	}
 
 	private static void createClientProjectContent(IProject clientProject) throws Exception {
@@ -82,14 +86,16 @@ public class EJBAnnotationReaderWithClientTest extends AbstractAnnotationModelTe
 	}
 
 	// @Before
-	public void setUp() throws Exception {
+	@Override
+	protected void setUp() throws Exception {
 		super.setUp();
 		clientProject = ResourcesPlugin.getWorkspace().getRoot().getProject(clientName);
 		fixture = new EJBAnnotationReader(facetedProject, clientProject);
 	}
 
 	// @After
-	public void tearDown() throws Exception {
+	@Override
+	protected void tearDown() throws Exception {
 		((AbstractAnnotationModelProvider) fixture).dispose();
 	}
 

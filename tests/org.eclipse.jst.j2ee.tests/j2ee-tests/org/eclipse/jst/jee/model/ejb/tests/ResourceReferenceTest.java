@@ -15,6 +15,7 @@ import junit.framework.TestSuite;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -45,8 +46,12 @@ public class ResourceReferenceTest extends AbstractAnnotationModelTest {
 
 	// @BeforeClass
 	public static void setUpProject() throws Exception {
-		IFacetedProject facetedProject = AbstractTest.createEjbProject(ResourceReferenceTest.class.getSimpleName());
-		createProjectContent(facetedProject.getProject());
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(ResourceReferenceTest.class.getSimpleName());
+		if (!project.exists())
+		{
+			IFacetedProject facetedProject = AbstractTest.createEjbProject(ResourceReferenceTest.class.getSimpleName());
+			createProjectContent(facetedProject.getProject());
+		}
 	}
 
 	private static void createProjectContent(IProject project) throws Exception {
@@ -63,7 +68,9 @@ public class ResourceReferenceTest extends AbstractAnnotationModelTest {
 	}
 
 	// @Before
-	public void setUp() throws Exception {
+	@Override
+	protected void setUp() throws Exception {
+		setUpProject();
 		super.setUp();
 		fixture = new EJBAnnotationReader(facetedProject, clientProject);
 	}

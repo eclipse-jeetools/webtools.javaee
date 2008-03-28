@@ -14,6 +14,8 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
@@ -49,14 +51,20 @@ public class Web25MergedModelProviderTest extends TestCase {
 	}
 
 	// @Before
-	public void setUp() {
+	@Override
+	protected void setUp() throws Exception {
+		setUpProject();
 		fixture = ModelProviderManager.getModelProvider(facetedProject.getProject());
 	}
 
 	// @BeforeClass
 	public static void setUpProject() throws Exception {
-		facetedProject = AbstractTest.createWebProject(Web25MergedModelProviderTest.class.getSimpleName());
-		createProjectContent();
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(Web25MergedModelProviderTest.class.getSimpleName());
+		if (!project.exists())
+		{
+			facetedProject = AbstractTest.createWebProject(Web25MergedModelProviderTest.class.getSimpleName());
+			createProjectContent();
+		}
 	}
 
 	// @AfterClass

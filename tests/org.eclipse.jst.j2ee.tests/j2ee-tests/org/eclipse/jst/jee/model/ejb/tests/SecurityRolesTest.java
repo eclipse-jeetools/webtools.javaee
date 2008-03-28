@@ -15,6 +15,7 @@ import junit.framework.TestSuite;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -47,8 +48,12 @@ public class SecurityRolesTest extends AbstractAnnotationModelTest {
 	
 	// @BeforeClass
 	public static void setUpProject() throws Exception {
-		IProject project = ProjectUtil.createEJBProject(SecurityRolesTest.class.getSimpleName(), null, J2EEVersionConstants.EJB_3_0_ID, true);
-		createProjectContent(project);
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(SecurityRolesTest.class.getSimpleName());
+		if (!project.exists())
+		{
+			project = ProjectUtil.createEJBProject(SecurityRolesTest.class.getSimpleName(), null, J2EEVersionConstants.EJB_3_0_ID, true);
+			createProjectContent(project);
+		}
 	}
 
 	// @AfterClass
@@ -65,13 +70,16 @@ public class SecurityRolesTest extends AbstractAnnotationModelTest {
 	}
 
 	// @Before
-	public void setUp() throws Exception {
+	@Override
+	protected void setUp() throws Exception {
+		setUpProject();
 		super.setUp();
 		fixture = new EJBAnnotationReader(facetedProject, clientProject);
 	}
 
 	// @After
-	public void tearDown() throws Exception {
+	@Override
+	protected void tearDown() throws Exception {
 		((AbstractAnnotationModelProvider) fixture).dispose();
 	}
 
