@@ -17,6 +17,7 @@ import java.util.List;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.javaee.ejb.EJBJar;
+import org.eclipse.jst.javaee.ejb.EnterpriseBeans;
 import org.eclipse.jst.jee.ui.internal.Messages;
 import org.eclipse.jst.jee.ui.internal.navigator.AbstractDDNode;
 import org.eclipse.swt.graphics.Image;
@@ -37,7 +38,11 @@ public class GroupEjbSession extends AbstractDDNode {
 
 	public List getChildren() {
 		List children = new ArrayList();
-		 List sessionBeans = ((EJBJar) adapterNode).getEnterpriseBeans().getSessionBeans();
+		List sessionBeans = null;
+		 EnterpriseBeans enterpriseBeans = ((EJBJar) adapterNode).getEnterpriseBeans();
+		 if (enterpriseBeans != null)
+			 sessionBeans = enterpriseBeans.getSessionBeans();
+		 
 		if (sessionBeans != null && sessionBeans.size()>0){
 			children.addAll(sessionBeans);
 		}

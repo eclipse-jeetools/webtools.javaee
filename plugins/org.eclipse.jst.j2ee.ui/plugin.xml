@@ -318,10 +318,10 @@
    <extension point="org.eclipse.ui.popupMenus">
       <objectContribution objectClass="org.eclipse.core.resources.IProject" adaptable="true" id="org.eclipse.jst.j2ee.ui.popupMenu">
          <menu label="%javaee.ui.popupMenu"  id="javeeUIPopupMenuCategory">
-            <separator name="slot1"/>
-            <separator name="slot2"/>
-            <separator name="slot3"/>
-            <separator name="slot4"/>
+            <separator name="slot1"/> <!-- New/featured Java EE actions  -->
+            <separator name="slot2"/> <!-- Create files category  -->
+            <separator name="slot3"/> <!-- Project creation(clients)  -->
+            <separator name="slot4"/> <!-- Legacy(J2EE) actions  -->
          </menu>
       </objectContribution>
         <!-- additional object contribution -->

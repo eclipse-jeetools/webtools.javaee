@@ -17,6 +17,7 @@ import java.util.List;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.javaee.ejb.EJBJar;
+import org.eclipse.jst.javaee.ejb.EnterpriseBeans;
 import org.eclipse.jst.jee.ui.internal.Messages;
 import org.eclipse.jst.jee.ui.internal.navigator.AbstractDDNode;
 import org.eclipse.swt.graphics.Image;
@@ -37,7 +38,10 @@ public class GroupEjbEntity extends AbstractDDNode {
 
 	public List getChildren() {
 		List children = new ArrayList();
-		List entities = ((EJBJar) adapterNode).getEnterpriseBeans().getEntityBeans();
+		List entities = null;
+		 EnterpriseBeans enterpriseBeans = ((EJBJar) adapterNode).getEnterpriseBeans();
+		 if (enterpriseBeans != null)
+			 entities = enterpriseBeans.getEntityBeans();
 		if (entities != null && entities.size() >0){
 			children.addAll(entities);
 		}
