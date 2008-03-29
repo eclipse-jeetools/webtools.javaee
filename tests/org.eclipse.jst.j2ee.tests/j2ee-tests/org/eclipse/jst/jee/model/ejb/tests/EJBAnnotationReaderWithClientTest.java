@@ -88,6 +88,7 @@ public class EJBAnnotationReaderWithClientTest extends AbstractAnnotationModelTe
 	// @Before
 	@Override
 	protected void setUp() throws Exception {
+		setUpProject();
 		super.setUp();
 		clientProject = ResourcesPlugin.getWorkspace().getRoot().getProject(clientName);
 		fixture = new EJBAnnotationReader(facetedProject, clientProject);
