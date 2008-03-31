@@ -45,6 +45,7 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -66,6 +67,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.osgi.util.ManifestElement;
 import org.osgi.framework.Bundle;
@@ -440,8 +442,12 @@ public class WTPJETEmitter extends JETEmitter {
 		IPath runtimeLibFullPath = null;
 		URL fullurl = null;
 		if (elements == null) {
-			if (bundle.getLocation().endsWith(".jar")) //$NON-NLS-1$
-				runtimeLibFullPath = getJarredPluginPath(bundle);
+			if (bundle.getLocation().endsWith(".jar"))
+				try {
+					runtimeLibFullPath = getJarredPluginPath(bundle);
+				} catch (IOException e) {
+					J2EEPlugin.logError(e);
+				}
 			appendToClassPath(runtimeLibFullPath,project);
 			return;
 		}
@@ -458,8 +464,12 @@ public class WTPJETEmitter extends JETEmitter {
 				Logger.getLogger().logError(e);
 			}
 			//TODO handle jar'ed plugins, this is a hack for now, need to find proper bundle API
-			if (bundle.getLocation().endsWith(".jar")) //$NON-NLS-1$
-				runtimeLibFullPath = getJarredPluginPath(bundle);
+			if (bundle.getLocation().endsWith(".jar"))
+				try {
+					runtimeLibFullPath = getJarredPluginPath(bundle);
+				} catch (IOException e) {
+					J2EEPlugin.logError(e);
+				}
 			if (!"jar".equals(runtimeLibFullPath.getFileExtension()) && !"zip".equals(runtimeLibFullPath.getFileExtension())) //$NON-NLS-1$ //$NON-NLS-2$
 				continue;
 			appendToClassPath(runtimeLibFullPath,project);
@@ -479,9 +489,9 @@ public class WTPJETEmitter extends JETEmitter {
 		}
 	}
 	
-	private IPath getJarredPluginPath(Bundle bundle) {
+	private IPath getJarredPluginPath(Bundle bundle) throws IOException {
 		Path runtimeLibFullPath = null;
-		String jarPluginLocation = bundle.getLocation().substring(7);
+		String jarPluginLocation = FileLocator.getBundleFile(bundle).getPath();
 		Path jarPluginPath = new Path(jarPluginLocation);
 		// handle case where jars are installed outside of eclipse installation
 		if (jarPluginPath.isAbsolute())
