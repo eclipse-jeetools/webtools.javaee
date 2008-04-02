@@ -19,6 +19,7 @@ package org.eclipse.jst.jee.ui.internal.deployables;
 
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.debug.ui.actions.ILaunchable;
+import org.eclipse.jst.javaee.ejb.SessionBean;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.model.ModuleArtifactAdapterDelegate;
 
@@ -34,6 +35,15 @@ public class EJBDeployableArtifactAdapterFactory extends ModuleArtifactAdapterDe
 
 	public IModuleArtifact getModuleArtifact(Object obj) {
 		return EJBDeployableArtifactAdapterUtil.getModuleObject(obj);
+	}
+	public IModuleArtifact[] getModuleArtifacts(Object obj) {
+		
+		 if (obj instanceof SessionBean)
+			return EJBDeployableArtifactAdapterUtil.getModuleObjects((SessionBean) obj);
+		 IModuleArtifact artifact = getModuleArtifact(obj);
+			if (artifact != null)
+				return new IModuleArtifact[] { artifact };
+		 return null;
 	}
 
 }

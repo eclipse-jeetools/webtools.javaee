@@ -10,8 +10,10 @@
  *******************************************************************************/
 package org.eclipse.jst.jee.ui.internal.deployables;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -104,6 +106,22 @@ public class EJBDeployableArtifactAdapterUtil {
 		IModule dep = getModule((EObject)ejb);
 		return createModuleObject(dep, ejb.getEjbName(), false, false);
 	}
+	protected static IModuleArtifact[] getModuleObjects(SessionBean ejb) {
+		List modArtifacts = new ArrayList();
+		IModule dep = getModule((EObject)ejb);
+		List busLocals = ejb.getBusinessLocals();
+		List busRemotes = ejb.getBusinessRemotes();
+		for (Iterator iterator = busLocals.iterator(); iterator.hasNext();) {
+			String localName = (String) iterator.next();
+			modArtifacts.add(createModuleObject(dep, localName, true, false));
+			
+		}
+		for (Iterator iterator = busRemotes.iterator(); iterator.hasNext();) {
+			String remoteName = (String) iterator.next();
+			modArtifacts.add(createModuleObject(dep, remoteName, false, true));
+		}
+		return (IModuleArtifact[])modArtifacts.toArray(new IModuleArtifact[modArtifacts.size()]);
+	}
 
 	protected static IModuleArtifact getModuleObject(IProject project) {
 		if (hasInterestedComponents(project)) {
@@ -181,37 +199,9 @@ public class EJBDeployableArtifactAdapterUtil {
 	protected static IModuleArtifact getModuleJavaObject(IFile file) {
 
 			IVirtualComponent comp = (IVirtualComponent)file.getAdapter(IVirtualComponent.class);
-			if (comp != null) {
-//			JavaClass javaClass = JemProjectUtilities.getJavaClass(file);
-//			if (javaClass != null) {
-//				EJBArtifactEdit edit = null;
-//				try {
-//				edit = EJBArtifactEdit.getEJBArtifactEditForRead(comp);
-//				EJBJar jar = edit.getEJBJar();
-//				if (jar != null) {
-//					EnterpriseBean ejb = jar.getEnterpriseBeanWithReference(javaClass);
-//					return createModuleObject(getModule(comp.getProject(), comp), ejb.getName(), isRemote(ejb, javaClass), isLocal(ejb, javaClass));
-//				}
-//				} finally {
-//					if (edit != null)
-//						edit.dispose();
-//				}
-//			}
-			}
+			// TODO what do we return for Java class?
 		return null;
 	}
-
-//	protected static boolean isRemote(EnterpriseBean ejb, JavaClass javaClass) {
-//		if (javaClass.equals(ejb.getHomeInterface()) || javaClass.equals(ejb.getRemoteInterface()))
-//			return true;
-//		return false;
-//	}
-//
-//	protected static boolean isLocal(EnterpriseBean ejb, JavaClass javaClass) {
-//		if (javaClass.equals(ejb.getLocalHomeInterfaceName()) || javaClass.equals(ejb.getLocalInterface()))
-//			return true;
-//		return false;
-//	}
 
 	protected static IModuleArtifact createModuleObject(IModule module, String ejbName, boolean remote, boolean local) {
 		if (module != null) {
@@ -220,7 +210,7 @@ public class EJBDeployableArtifactAdapterUtil {
 				module.loadAdapter(ModuleDelegate.class, new NullProgressMonitor());
 				JEEFlexProjDeployable moduleDelegate = (JEEFlexProjDeployable)module.getAdapter(ModuleDelegate.class);
 				jndiName = moduleDelegate.getJNDIName(ejbName);
-				return new EJBBean(module, jndiName, remote, local);
+				return new EJBBean(module, jndiName, remote, local,EJBBean.EJB_30);
 			}
 			return new NullModuleArtifact(module);
 		}

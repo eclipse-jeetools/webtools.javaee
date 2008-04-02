@@ -10,16 +10,23 @@
  *******************************************************************************/
 package org.eclipse.jst.jee.internal.deployables;
 
+import java.util.Iterator;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
+import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.javaee.ejb.EJBJar;
+import org.eclipse.jst.javaee.ejb.EnterpriseBeans;
+import org.eclipse.jst.javaee.ejb.SessionBean;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -60,22 +67,37 @@ public class JEEFlexProjDeployable extends J2EEFlexProjDeployable {
 			return super.shouldIncludeUtilityComponent(virtualComp, references, null);
 	}
 	    
-    public String getJNDIName(String ejbName) {
+    public String getJNDIName(String ejbName, String interfaceName) {
     	if (!J2EEProjectUtilities.isEJBProject(component.getProject()))
     		return null;
 
 		EjbModuleExtensionHelper modHelper = null;
 		EJBJar jar = null;
 		
-//		IModelProvider model = ModelProviderManager.getModelProvider(component.getProject());
-//		if (model != null) {
-//			jar = (EJBJar) model.getModelObject();
-//			modHelper = IEJBModelExtenderManager.INSTANCE.getEJBModuleExtension(null);
-//			return modHelper == null ? null : modHelper.getJNDIName(jar, jar.getEnterpriseBeanNamed(ejbName));
-//		}
+		IModelProvider model = ModelProviderManager.getModelProvider(component.getProject());
+		if (model != null) {
+			jar = (EJBJar) model.getModelObject();
+			SessionBean bean = getSessionBeanNamed(jar, ejbName);
+			modHelper = IEJBModelExtenderManager.INSTANCE.getEJBModuleExtension(null);
+			return modHelper == null ? null : modHelper.getJavaEEJNDIName(jar, bean, interfaceName);
+		}
 		
 		return null;
 	}
+    /**
+     * Return List of Session beans in this jar.
+     * @return java.util.List
+     */
+    public SessionBean getSessionBeanNamed(EJBJar jar, String beanName) {
+    	
+    	EnterpriseBeans allBeans = jar.getEnterpriseBeans();
+    	for (Iterator iterator = allBeans.getSessionBeans().iterator(); iterator.hasNext();) {
+			SessionBean bean = (SessionBean) iterator.next();
+    		if (bean.getEjbName().equals(beanName))
+    			return bean;
+    	}
+    	return null;
+    }
 
     
     

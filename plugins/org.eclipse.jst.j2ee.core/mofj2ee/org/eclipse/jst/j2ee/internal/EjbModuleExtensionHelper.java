@@ -39,5 +39,5 @@ public interface EjbModuleExtensionHelper extends J2EEModuleExtensionHelper {
 	List getRelationships_cmp11(EJBJar jar);
 	List getLocalRelationshipRoles_cmp11(ContainerManagedEntity cmp);
 	boolean isEJBInheritanceSupported();
-	String getJNDIName(org.eclipse.jst.javaee.ejb.EJBJar jar, String interfaceClassName); 
+	String getJavaEEJNDIName(org.eclipse.jst.javaee.ejb.EJBJar jar, org.eclipse.jst.javaee.ejb.SessionBean bean, String interfaceClassName);
 }
