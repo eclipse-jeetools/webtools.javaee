@@ -43,6 +43,7 @@ import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.jst.jee.archive.internal.ArchiveFactoryImpl;
 import org.eclipse.jst.jee.archive.internal.ArchiveImpl;
 import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
+import org.eclipse.jst.jee.archive.internal.ZipFileArchiveLoadAdapterImpl;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -292,10 +293,12 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 					dd = simpleArchive.getArchiveResource(deploymentDescriptorPath);
 					in = dd.getInputStream();
 					JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(in);
-					if (quickPeek.getType() == typeToVerify[i] && quickPeek.getVersion() != JavaEEQuickPeek.UNKNOWN && !simpleArchive.containsModelObject(deploymentDescriptorPath)) {
-						archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
-						wrapArchive(simpleArchive, deploymentDescriptorPath);
-						return simpleArchive;
+					if (quickPeek.getType() == typeToVerify[i] && quickPeek.getVersion() != JavaEEQuickPeek.UNKNOWN){
+						if(isBinary(simpleArchive) || !simpleArchive.containsModelObject(deploymentDescriptorPath)){
+							archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
+							wrapArchive(simpleArchive, deploymentDescriptorPath);
+							return simpleArchive;
+						}
 					}
 				} catch (FileNotFoundException e) {
 					ArchiveUtil.warn(e);
@@ -376,6 +379,21 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 		}
 
 		return simpleArchive;
+	}
+	
+	public static boolean isBinary(IArchive anArchive){
+		IArchiveLoadAdapter loadAdapter = null;
+		if(anArchive.getArchiveOptions().hasOption(WRAPPED_LOAD_ADAPTER)){
+			loadAdapter = (IArchiveLoadAdapter)anArchive.getArchiveOptions().getOption(WRAPPED_LOAD_ADAPTER);
+		} else {
+			loadAdapter = (IArchiveLoadAdapter)anArchive.getArchiveOptions().getOption(ArchiveOptions.LOAD_ADAPTER);
+		}
+		if(loadAdapter instanceof JavaEEBinaryComponentLoadAdapter){
+			return true;
+		} else if(loadAdapter instanceof ZipFileArchiveLoadAdapterImpl){
+			return true;
+		}
+		return false;
 	}
 	
 	public static IArchive findArchive(Object modelObject){
