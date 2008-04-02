@@ -2,30 +2,27 @@
 
 <?NLS TYPE="org.eclipse.help.toc"?>
 
-<toc label="EJB 2.x applications" topic="topics/ceover.html">
+<toc label="Developing EJB applications" topic="topics/ceover.html">
 <topic label="EJB 2.x application development" href="topics/ceover.html">
+<topic label="EJB v3.0 architecture" href="topics/ejbarch.html"/>
 <topic label="EJB 2.x architecture" href="topics/cearch.html"/>
 <topic label="EJB 2.x development resources" href="topics/ceresrc.html"/>
-</topic>
 <topic label="Creating EJB 2.x projects" href="topics/tecrtpro.html">
 <topic label="EJB 2.x client JAR projects" href="topics/ceclientjars.html"/>
 </topic>
 <topic label="Importing EJB 2.x JAR files" href="topics/teimp.html"/>
 <topic label="Exporting EJB 2.x projects to EJB JAR files" href="topics/teexp.html"/>
+<topic label="Creating EJB Session Beans" href="topics/sessbwiz.html">
+<topic label="Session Beans" href="topics/sessb.html"/>
+</topic>
+<topic label="Creating Message-driven Beans" href="topics/messbwiz.html">
+<topic label="Message-driven Beans" href="topics/messb.html"/>
+</topic>
 <topic label="Creating enterprise beans with XDoclet annotation support" href="topics/tecrte.html">
 <topic label="Creating session beans with XDoclet annotation support" href="topics/tesessb.html"/>
 <topic label="Creating container-managed persistence (CMP) entity beans with XDoclet annotation support" href="topics/teentityb.html"/>
 <topic label="Creating message-driven beans with XDoclet annotation support" href="topics/temessb.html"/>
 <topic label="Configuring XDoclet annotation support" href="topics/txdocletconf.html"/>
 </topic>
-<topic href="topics/ejbarch.html" label="EJB 3.0 architecture">
-   <topic href="topics/sessbwiz.html" label="Creating session beans">
-      <topic href="topics/sessb.html" label="Session beans">
-      </topic>
-   </topic>
-   <topic href="topics/messbwiz.html" label="Creating message-driven beans">
-      <topic href="topics/messb.html" label="Message-driven beans">
-      </topic>
-   </topic>
 </topic>
 </toc>

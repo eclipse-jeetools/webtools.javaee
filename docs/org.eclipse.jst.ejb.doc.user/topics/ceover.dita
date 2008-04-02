@@ -8,9 +8,9 @@
 to develop and test enterprise beans that conform to the distributed component
 architecture defined in the Sun Microsystems Enterprise <tm tmclass="special"
 tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="JavaBeans">JavaBeans</tm> (EJB)
-version <?Pub Caret?>specification. This product supports the Enterprise <tm
-tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="JavaBeans">JavaBeans</tm> 1.1,
-2.0, and 2.1 specification levels.</shortdesc>
+version specification. This product supports the Enterprise <tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="JavaBeans">JavaBeans</tm> 1.1,
+2.0, 2.1, and 3.0 specification levels.</shortdesc>
 <prolog><metadata>
 <keywords><indexterm>applications<indexterm>EJB development</indexterm></indexterm>
 <indexterm>EJB<indexterm>developing<indexterm>applications</indexterm></indexterm></indexterm>
@@ -26,10 +26,13 @@ see <xref href="cearch.dita#cearch" type="concept"></xref> for a brief descripti
 of key EJB concepts.</p>
 <p>The EJB development environment includes the following tools:</p>
 <dl><dlentry>
-<dt><b>The Java EE perspective</b></dt>
-<dd>All of the EJB tools are accessible from the Java EE perspective. This
-perspective provides a layout in which the most commonly used actions, views,
-and wizards for Java EE and EJB development are easily accessible</dd>
+<dt><b>The <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> EE perspective</b></dt>
+<dd>All of the EJB tools are accessible from the <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> EE perspective. This perspective provides
+a layout in which the most commonly used actions, views, and wizards for <tm
+tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> EE
+and EJB development are easily accessible</dd>
 </dlentry><dlentry>
 <dt><b>Creating enterprise beans</b></dt>
 <dd>The EJB tools help you create enterprise beans, such as session beans
@@ -60,4 +63,3 @@ application server.</dd>
 </dlentry></dl>
 </conbody>
 </concept>
-<?Pub *0000003496?>

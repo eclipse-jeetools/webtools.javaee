@@ -2,7 +2,6 @@
 <!--Arbortext, Inc., 1988-2006, v.4002-->
 <!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
  "task.dtd">
-<?Pub Inc?>
 <task id="temessb" xml:lang="en-us">
 <title>Creating container-managed persistence (CMP) entity beans with XDoclet
 annotation support</title>
@@ -20,11 +19,11 @@ your project.</shortdesc>
 </ul></prereq>
 <context><p>To create a CMP entity bean, complete the following steps:</p></context>
 <steps>
-<step><cmd>In the Java EE perspective, click <menucascade><uicontrol>File</uicontrol>
-<uicontrol>New</uicontrol><uicontrol>Other<?Pub Caret?></uicontrol></menucascade>.
-Select <menucascade><uicontrol>EJB</uicontrol><uicontrol>XDoclet Enterprise
-JavaBean</uicontrol></menucascade> and click <uicontrol>Next</uicontrol>.</cmd>
-</step>
+<step><cmd>In the <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> EE perspective, click <menucascade><uicontrol>File</uicontrol>
+<uicontrol>New</uicontrol><uicontrol>Other</uicontrol></menucascade>. Select <menucascade>
+<uicontrol>EJB</uicontrol><uicontrol>XDoclet Enterprise JavaBean</uicontrol>
+</menucascade> and click <uicontrol>Next</uicontrol>.</cmd></step>
 <step><cmd>Select <uicontrol>Container Managed Entity Bean</uicontrol> and
 click <uicontrol>Next</uicontrol>.</cmd></step>
 <step><cmd>Select the <uicontrol>Project</uicontrol> that will contain the
@@ -103,4 +102,3 @@ specified EJB project.</cmd></step>
 </steps>
 </taskbody>
 </task>
-<?Pub *0000005899?>

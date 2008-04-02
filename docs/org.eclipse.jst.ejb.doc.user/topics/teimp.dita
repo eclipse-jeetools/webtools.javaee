@@ -14,8 +14,9 @@ a new or existing EJB project.</shortdesc>
 <context> <p>To import an EJB JAR file into an EJB project using the Import
 wizard, complete the following steps:</p></context>
 <steps>
-<step><cmd>In the Project Explorer view of the Java EE perspective, select <menucascade>
-<uicontrol>File</uicontrol><uicontrol>Import<?Pub Caret?></uicontrol></menucascade>.</cmd>
+<step><cmd>In the Project Explorer view of the <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> EE perspective, select <menucascade>
+<uicontrol>File</uicontrol><uicontrol>Import</uicontrol></menucascade>.</cmd>
 </step>
 <step><cmd>Under <uicontrol>Select an import source</uicontrol>, click <menucascade>
 <uicontrol>EJB</uicontrol><uicontrol>EJB JAR file</uicontrol></menucascade> and
@@ -55,4 +56,3 @@ new EJB module to this EAR.</note><note>The .ser files in an EJB 1.0 JAR are
 converted into the ejb-jar.xml file for EJB 1.1 during an import.</note></result>
 </taskbody>
 </task>
-<?Pub *0000003537?>

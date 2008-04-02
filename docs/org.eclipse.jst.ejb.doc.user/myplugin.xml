@@ -19,6 +19,7 @@
        <toc file="ejb_toc.xml" />
        <index path="index/"/>
    </extension>
+
    <extension point="org.eclipse.help.index">
 		<index file="org.eclipse.jst.ejb.doc.userindex.xml"/>
 	</extension>

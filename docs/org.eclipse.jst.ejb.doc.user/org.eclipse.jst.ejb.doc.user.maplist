@@ -3,5 +3,6 @@
     <map file="ejb_toc.ditamap"/>
   </nav>
   <link>
+    <map file="ejb_toc.ditamap"/>
   </link>
 </maplist>

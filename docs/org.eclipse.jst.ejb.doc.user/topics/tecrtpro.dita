@@ -27,8 +27,9 @@ and external dependencies of the beans in the module, and describes how the
 enterprise beans are to be used at run time.</li>
 </ul><p>To create a new EJB project, complete the following steps:</p></context>
 <steps>
-<step><cmd>In the Java EE perspective, select <menucascade><uicontrol>File</uicontrol>
-<uicontrol>New</uicontrol><uicontrol>Other<?Pub Caret?></uicontrol></menucascade>.</cmd>
+<step><cmd>In the <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> EE perspective, select <menucascade><uicontrol>File</uicontrol>
+<uicontrol>New</uicontrol><uicontrol>Other</uicontrol></menucascade>.</cmd>
 </step>
 <step><cmd>In the New Project Wizard, select <menucascade><uicontrol>EJB</uicontrol>
 <uicontrol>EJB Project</uicontrol></menucascade> and click <uicontrol>Next</uicontrol>.</cmd>
@@ -58,7 +59,8 @@ project being created. If you want to specify a different version or a different
 location for the enterprise application, you must use the New Enterprise Application
 Project wizard.</note></info></step>
 <step importance="optional"><cmd>Change the value of <uicontrol>Source Folder</uicontrol> to
-change the directory where the Java source files are stored. </cmd></step>
+change the directory where the <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> source files are stored. </cmd></step>
 <step importance="optional"><cmd>Select the <uicontrol>Create an EJB Client
 JAR Project to hold the client interfaces and classes</uicontrol> check box
 if you want the client interface classes for your enterprise beans to be kept
@@ -76,4 +78,3 @@ see <xref href="../../org.eclipse.jst.j2ee.doc.user/topics/taddingfacet.dita"></
 outputclass="anchor_topicbottom"></p></postreq>
 </taskbody>
 </task>
-<?Pub *0000004817?>

@@ -3,7 +3,7 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
  "concept.dtd">
 <concept id="cearch" xml:lang="en-us">
-<title>EJB 2.x <?Pub Caret?>architecture</title>
+<title>EJB 2.x architecture</title>
 <shortdesc>This topic provides a high-level overview of the distributed component
 architecture defined in the Sun Microsystems Enterprise <tm tmclass="special"
 tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="JavaBeans">JavaBeans</tm> (EJB)
@@ -151,4 +151,3 @@ be provided by, for example, a database or application server.</dd>
 </dlentry></dl>
 </conbody>
 </concept>
-<?Pub *0000009085?>

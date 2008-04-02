@@ -2,59 +2,84 @@
 <index>
   <entry keyword="applications">
     <entry keyword="EJB development">
-      <topic href="topics/ceover.html#ceover" title="EJB application development"/>
+      <topic href="topics/ceover.html#ceover" title="EJB 2.x application development"/>
     </entry>
   </entry>
   <entry keyword="EJB">
     <entry keyword="developing">
       <entry keyword="applications">
-        <topic href="topics/ceover.html#ceover" title="EJB application development"/>
+        <topic href="topics/ceover.html#ceover" title="EJB 2.x application development"/>
       </entry>
       <entry keyword="resources">
-        <topic href="topics/ceresrc.html#ceresrc" title="EJB development resources"/>
+        <topic href="topics/ceresrc.html#ceresrc" title="EJB 2.x development resources"/>
       </entry>
     </entry>
     <entry keyword="architecture overview">
-      <topic href="topics/cearch.html#cearch" title="EJB architecture"/>
-      <topic href="topics/ejbarch.html#ejbarch" title="EJB 3.0 architecture"/>
+      <topic href="topics/cearch.html#cearch" title="EJB 2.x architecture"/>
     </entry>
     <entry keyword="projects">
       <entry keyword="creating">
-        <topic href="topics/tecrtpro.html#tecrtpro" title="Creating EJB projects"/>
+        <topic href="topics/tecrtpro.html#tecrtpro" title="Creating EJB 2.x projects"/>
       </entry>
     </entry>
-    <entry keyword="cleint JAR projects">
-      <topic href="topics/ceclientjars.html#ceclientjars" title="EJB client JAR projects"/>
+    <entry keyword="client JAR projects">
+      <topic href="topics/ceclientjars.html#ceclientjars" title="EJB 2.x client JAR projects"/>
     </entry>
     <entry keyword="importing JAR files">
-      <topic href="topics/teimp.html#teimp" title="Importing EJB JAR files"/>
+      <topic href="topics/teimp.html#teimp" title="Importing EJB 2.x JAR files"/>
     </entry>
     <entry keyword="JAR files">
       <entry keyword="exporting projects">
-        <topic href="topics/teexp.html#teexp" title="Exporting EJB projects to EJB JAR files"/>
+        <topic href="topics/teexp.html#teexp" title="Exporting EJB 2.x projects to EJB JAR files"/>
       </entry>
     </entry>
     <entry keyword="exporting projects">
-      <topic href="topics/teexp.html#teexp" title="Exporting EJB projects to EJB JAR files"/>
+      <topic href="topics/teexp.html#teexp" title="Exporting EJB 2.x projects to EJB JAR files"/>
     </entry>
     <entry keyword="creating with XDoclet annotation support">
       <topic href="topics/tecrte.html#tecrte" title="Creating enterprise beans with XDoclet annotation support"/>
     </entry>
   </entry>
   <entry keyword="architecture">
+    <entry keyword="EJB v3.0">
+      <topic href="topics/ejbarch.html#ejbarch" title="EJB v3.0 architecture"/>
+    </entry>
     <entry keyword="EJB">
-      <topic href="topics/cearch.html#cearch" title="EJB architecture"/>
-      <topic href="topics/ejbarch.html#ejbarch" title="EJB 3.0 architecture"/>
+      <topic href="topics/cearch.html#cearch" title="EJB 2.x architecture"/>
+    </entry>
+  </entry>
+  <entry keyword="EJB v3.0">
+    <entry keyword="architecture overview">
+      <topic href="topics/ejbarch.html#ejbarch" title="EJB v3.0 architecture"/>
     </entry>
   </entry>
   <entry keyword="resources">
     <entry keyword="EJB development">
-      <topic href="topics/ceresrc.html#ceresrc" title="EJB development resources"/>
+      <topic href="topics/ceresrc.html#ceresrc" title="EJB 2.x development resources"/>
     </entry>
   </entry>
   <entry keyword="JAR files">
     <entry keyword="importing EJB">
-      <topic href="topics/teimp.html#teimp" title="Importing EJB JAR files"/>
+      <topic href="topics/teimp.html#teimp" title="Importing EJB 2.x JAR files"/>
+    </entry>
+  </entry>
+  <entry keyword="session beans">
+    <topic href="topics/sessbwiz.html#sessbwiz" title="Creating EJB Session Beans"/>
+    <topic href="topics/sessb.html#sessb" title="Session Beans"/>
+    <entry keyword="creating with XDoclet annotation support">
+      <topic href="topics/tesessb.html#tesessb" title="Creating session beans with XDoclet annotation support"/>
+    </entry>
+  </entry>
+  <entry keyword="creating EJB session beans">
+    <topic href="topics/sessbwiz.html#sessbwiz" title="Creating EJB Session Beans"/>
+  </entry>
+  <entry keyword="message-driven beans">
+    <topic href="topics/messb.html#messb" title="Message-driven Beans"/>
+    <entry keyword="creating">
+      <topic href="topics/messbwiz.html#messbwiz" title="Creating Message-driven Beans"/>
+    </entry>
+    <entry keyword="XDoclet annotation support">
+      <topic href="topics/temessb.html#temessb" title="Creating message-driven beans with XDoclet annotation support"/>
     </entry>
   </entry>
   <entry keyword="XDoclet annotation support">
@@ -63,36 +88,20 @@
     </entry>
     <entry keyword="creating session beans">
       <topic href="topics/tesessb.html#tesessb" title="Creating session beans with XDoclet annotation support"/>
-      <topic href="topics/sessbwiz.html#sessbwiz" title="Creating session beans"/>
     </entry>
     <entry keyword="creating entity beans">
       <topic href="topics/teentityb.html#temessb" title="Creating container-managed persistence (CMP) entity beans with XDoclet annotation support"/>
     </entry>
     <entry keyword="creating message-driven beans">
       <topic href="topics/temessb.html#temessb" title="Creating message-driven beans with XDoclet annotation support"/>
-      <topic href="topics/messbwiz.html#messbwiz" title="Creating message-driven beans"/>
     </entry>
     <entry keyword="configuring">
       <topic href="topics/txdocletconf.html#configuringxdocletannotationsupport" title="Configuring XDoclet annotation support"/>
     </entry>
   </entry>
-  <entry keyword="session beans">
-    <entry keyword="creating with XDoclet annotation support">
-      <topic href="topics/tesessb.html#tesessb" title="Creating session beans with XDoclet annotation support"/>
-      <topic href="topics/sessbwiz.html#sessbwiz" title="Creating session beans"/>
-      <topic href="topics/sessb.html#sessb" title="Session beans"/>
-    </entry>
-  </entry>
   <entry keyword="CMP entity beans">
     <entry keyword="XDoclet annotation support">
       <topic href="topics/teentityb.html#temessb" title="Creating container-managed persistence (CMP) entity beans with XDoclet annotation support"/>
-    </entry>
-  </entry>
-  <entry keyword="message-driven beans">
-    <entry keyword="XDoclet annotation support">
-      <topic href="topics/temessb.html#temessb" title="Creating message-driven beans with XDoclet annotation support"/>
-      <topic href="topics/messbwiz.html#messbwiz" title="Creating message-driven beans"/>
-      <topic href="topics/messb.html#messb" title="Message-driven beans"/>
     </entry>
   </entry>
   <entry keyword="Java annotation">
