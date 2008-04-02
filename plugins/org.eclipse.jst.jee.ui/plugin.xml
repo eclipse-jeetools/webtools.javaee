@@ -365,7 +365,7 @@
    <navigatorContent
         activeByDefault="true"
         contentProvider="org.eclipse.jst.jee.ui.internal.navigator.Ejb3ContentProvider"
-        id="org.eclipse.jst.navigator.j2ee.ui.ejb30"
+        id="org.eclipse.jst.jee.ui.ejb"
         labelProvider="org.eclipse.jst.jee.ui.internal.navigator.Ejb3LabelProvider"
         name="JEE Navigator Content EJB"
         priority="highest">
@@ -543,7 +543,7 @@
   
   <navigatorContent
         contentProvider="org.eclipse.jst.jee.ui.internal.navigator.Web25ContentProvider"
-        id="org.eclipse.jst.navigator.j2ee.ui.web25"
+        id="org.eclipse.jst.jee.ui.web"
         labelProvider="org.eclipse.jst.jee.ui.internal.navigator.Web25LabelProvider"
         name="JEE Navigator Content WEB"
         priority="highest">
@@ -671,7 +671,7 @@
   <navigatorContent
         activeByDefault="true"
         contentProvider="org.eclipse.jst.jee.ui.internal.navigator.Ear5ContentProvider"
-        id="org.eclipse.jst.navigator.j2ee.ui.ear50"
+        id="org.eclipse.jst.jee.ui.ear"
         labelProvider="org.eclipse.jst.jee.ui.internal.navigator.Ear5LabelProvider"
         name="JEE Navigator Content EAR"
         priority="highest">
@@ -771,7 +771,7 @@
   <navigatorContent
         activeByDefault="true"
         contentProvider="org.eclipse.jst.jee.ui.internal.navigator.AppClient5ContentProvider"
-        id="org.eclipse.jst.navigator.j2ee.ui.appclient50"
+        id="org.eclipse.jst.jee.ui.appclient"
         labelProvider="org.eclipse.jst.jee.ui.internal.navigator.AppClient5LabelProvider"
         name="JEE Navigator Content App Client"
         priority="highest">
@@ -916,8 +916,8 @@
       <viewerContentBinding
          viewerId="org.eclipse.ui.navigator.ProjectExplorer">
          <includes>
-           <contentExtension pattern="org.eclipse.jst.navigator.jee.ui.*"/>
-           <contentExtension pattern="org.eclipse.jst.jee.navigator.ui.filters.*"/>
+           <contentExtension pattern="org.eclipse.jst.jee.ui.*"/>
+           <contentExtension pattern="org.eclipse.jst.jee.ui.filters.*"/>
          </includes>
       </viewerContentBinding>
    </extension>
