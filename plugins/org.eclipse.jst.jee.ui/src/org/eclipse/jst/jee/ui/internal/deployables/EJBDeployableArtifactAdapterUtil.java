@@ -106,6 +106,14 @@ public class EJBDeployableArtifactAdapterUtil {
 		IModule dep = getModule((EObject)ejb);
 		return createModuleObject(dep, ejb.getEjbName(), false, false);
 	}
+	protected static IModuleArtifact getModuleObject(EntityBean ejb) {
+		IModule dep = getModule((EObject)ejb);
+		return createModuleObject(dep, ejb.getEjbName(), false, false);
+	}
+	protected static IModuleArtifact getModuleObject(MessageDrivenBean ejb) {
+		IModule dep = getModule((EObject)ejb);
+		return createModuleObject(dep, ejb.getEjbName(), false, false);
+	}
 	protected static IModuleArtifact[] getModuleObjects(SessionBean ejb) {
 		List modArtifacts = new ArrayList();
 		IModule dep = getModule((EObject)ejb);
