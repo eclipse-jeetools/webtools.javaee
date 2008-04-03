@@ -108,7 +108,6 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 		GridData gData = new GridData(GridData.FILL_BOTH);
 		composite.setLayoutData(gData);
 		tableManager = new ClasspathTableManager(this, model, validateEditListener);
-		tableManager.setReadOnly(isReadOnly());
 		tableManager.fillWLPComposite(composite);
 	}
 

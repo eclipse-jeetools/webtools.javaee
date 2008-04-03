@@ -428,7 +428,6 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		GridData gData = new GridData(GridData.FILL_BOTH);
 		composite.setLayoutData(gData);
 		tableManager = new ClasspathTableManager(this, model, validateEditListener);
-		tableManager.setReadOnly(isReadOnly());
 		tableManager.fillComposite(composite);
 	}
 
@@ -913,7 +912,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	}
 
 	protected boolean isReadOnly() {
-		return JemProjectUtilities.isBinaryProject(project);
+		return JemProjectUtilities.isBinaryProject(project) && (project.findMember(IModuleConstants.COMPONENT_FILE_PATH) == null) ;
 	}
 	
 	protected void modifyEARBundledLibs() {
