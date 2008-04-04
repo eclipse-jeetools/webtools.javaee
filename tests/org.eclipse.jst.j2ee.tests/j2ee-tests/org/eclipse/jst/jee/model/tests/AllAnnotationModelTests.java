@@ -22,7 +22,6 @@ import org.eclipse.jst.jee.model.ejb.tests.EJBAnnotationReaderWithClientTest;
 import org.eclipse.jst.jee.model.ejb.tests.EjbAnnotationFactoryTest;
 import org.eclipse.jst.jee.model.ejb.tests.EjbAnnotationReaderTest;
 import org.eclipse.jst.jee.model.ejb.tests.EjbReferenceTest;
-import org.eclipse.jst.jee.model.ejb.tests.GenerateDDTest;
 import org.eclipse.jst.jee.model.ejb.tests.LifecycleAnnotationsTest;
 import org.eclipse.jst.jee.model.ejb.tests.NotifyCloseProjectTest;
 import org.eclipse.jst.jee.model.ejb.tests.ResourceReferenceTest;
@@ -65,7 +64,7 @@ public class AllAnnotationModelTests {
 			suite.addTest(DeleteWebProjectTest.suite());
 			suite.addTest(NotifyCloseProjectTest.suite());
 			suite.addTest(Web25MergedModelProviderTest.suite());
-			suite.addTest(GenerateDDTest.suite());
+//			suite.addTest(GenerateDDTest.suite());
 			suite.addTest(EJB3MergedModelProviderFactoryTest.suite());
 			suite.addTest(EJB3MergedModelProviderTest.suite());
 			return suite;
