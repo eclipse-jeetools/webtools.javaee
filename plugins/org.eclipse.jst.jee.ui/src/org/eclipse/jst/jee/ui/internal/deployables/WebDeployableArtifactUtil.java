@@ -87,7 +87,7 @@ public class WebDeployableArtifactUtil {
 				if (resources[0] != null)
 					component = resources[0].getComponent();
 				String mapping = null;
-				java.util.List mappings = getServletMappings(resource, servlet.getServletName());
+				java.util.List mappings = getServletMappings(resource, servlet.getServletClass());
 
 				if (mappings != null && !mappings.isEmpty()) {
 					ServletMapping map = (ServletMapping) mappings.get(0);
@@ -369,7 +369,7 @@ public class WebDeployableArtifactUtil {
 						Iterator it = mappings.iterator();
 						while( it.hasNext() ){
 							org.eclipse.jst.javaee.web.ServletMapping map = (org.eclipse.jst.javaee.web.ServletMapping) it.next();
-							if( map.getServletName().equals(servlet.getServletClass())){
+							if( map.getServletName().equals(servlet.getServletName())){
 								list.add(map);
 							}
 						}
