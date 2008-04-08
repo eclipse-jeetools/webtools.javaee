@@ -37,7 +37,10 @@ import org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
 import org.eclipse.jst.javaee.core.JavaEEObject;
+import org.eclipse.jst.javaee.core.Listener;
 import org.eclipse.jst.javaee.ejb.SessionBean;
+import org.eclipse.jst.javaee.web.Filter;
+import org.eclipse.jst.javaee.web.Servlet;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.ui.internal.navigator.appclient.GroupAppClientProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider;
@@ -191,6 +194,21 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 		}
 		if (srcObject instanceof SessionBean){
 			openAppropriateEditor(((SessionBean)srcObject).getEjbClass());
+			return;
+		}
+		if(srcObject instanceof Servlet){
+			openAppropriateEditor(((Servlet)srcObject).getServletClass());
+			return;
+		}
+		
+        if(srcObject instanceof Filter){
+        	openAppropriateEditor(((Filter)srcObject).getFilterClass());
+        	return;
+		}
+        
+        if(srcObject instanceof Listener){
+        	openAppropriateEditor(((Listener)srcObject).getListenerClass());
+        	return;
 		}
 		if (srcObject instanceof EObject) {
 			EObject ro = (EObject) srcObject;
@@ -219,24 +237,29 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 			}
 		} else if (srcObject instanceof BeanInterfaceNode) {
 			openAppropriateEditor(((BeanInterfaceNode) srcObject).get_fqn());
+			return;
 		} else if (srcObject instanceof BeanNode) {
 			openAppropriateEditor(((BeanNode) srcObject).getEjbClassQualifiedName());
+			return;
 
 		} else if (srcObject instanceof WebAppProvider) {
 			IFile file = ((WebAppProvider) srcObject).getDDFile();
 			if (file.isAccessible()){				
 				openAppropriateEditor(file);
+				return;
 			}
 		} else if (srcObject instanceof GroupEARProvider) {
 			IFile file = ((GroupEARProvider) srcObject).getDDFile();
 			if (file.isAccessible()){
 				openAppropriateEditor(file);
+				return;
 			}
 		}
 		 else if (srcObject instanceof GroupAppClientProvider) {
 				IFile file = ((GroupAppClientProvider) srcObject).getDDFile();
 				if (file.isAccessible()){
 					openAppropriateEditor(file);
+					return;
 				}
 			}else if (srcObject instanceof Resource)
 			openAppropriateEditor(WorkbenchResourceHelper
