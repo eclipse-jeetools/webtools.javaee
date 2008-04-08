@@ -13,6 +13,9 @@ package org.eclipse.jst.jee.model.internal;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProviderEvent;
 import org.eclipse.jst.javaee.web.WebApp;
@@ -171,6 +174,12 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 			WebAppMerger merger;
 			if (mergedModel == null) {
 				mergedModel = (WebApp) WebFactory.eINSTANCE.createWebApp();
+				Resource resourceDD = ((EObject)ddModel).eResource();
+				Resource resourceMM = ((EObject)mergedModel).eResource();
+				if (resourceDD != null && resourceMM == null){
+				  ResourceImpl resRes = new ResourceImpl(resourceDD.getURI());
+				  resRes.getContents().add((EObject)mergedModel);
+			    }
 			} else {
 				clearModel(mergedModel);
 
