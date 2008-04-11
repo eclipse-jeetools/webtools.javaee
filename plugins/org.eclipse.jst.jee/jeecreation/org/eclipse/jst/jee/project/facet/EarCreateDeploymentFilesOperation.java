@@ -25,29 +25,30 @@ public class EarCreateDeploymentFilesOperation extends
 		super(model);
 	}
 	
-	protected void createDeploymentFiles(IProject project, IProgressMonitor monitor) {
+	protected void createDeploymentFiles(IProject project, final IProgressMonitor monitor) {
 		final IVirtualComponent component = ComponentCore.createComponent(project);
 		final IModelProvider provider = ModelProviderManager.getModelProvider(project);
 			provider.modify(new Runnable(){
 				public void run() {
+					IVirtualReference[] componentReferences = J2EEProjectUtilities.getJ2EEModuleReferences(component);
+					if(componentReferences != null && componentReferences.length > 0){					
+						final IDataModel dataModel = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
+						dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, component);
+						List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+						for(int i = 0; i < componentReferences.length; i++) {
+							IVirtualComponent referencedComponent = componentReferences[i].getReferencedComponent();
+							modList.add(referencedComponent);
+						}
+						dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
+						try {
+							dataModel.getDefaultOperation().execute(monitor, null);
+						} catch (ExecutionException e) {
+							Logger.getLogger().logError(e);
+						}
+					}
 				}
 			}, IModelProvider.FORCESAVE);
-			IVirtualReference[] componentReferences = J2EEProjectUtilities.getJ2EEModuleReferences(component);
-			if(componentReferences != null && componentReferences.length > 0){					
-				final IDataModel dataModel = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
-				dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, component);
-				List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
-				for(int i = 0; i < componentReferences.length; i++) {
-					IVirtualComponent referencedComponent = componentReferences[i].getReferencedComponent();
-					modList.add(referencedComponent);
-				}
-				dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
-				try {
-					dataModel.getDefaultOperation().execute(monitor, null);
-				} catch (ExecutionException e) {
-					Logger.getLogger().logError(e);
-				}
-			}	
+				
 		
 	}
 
