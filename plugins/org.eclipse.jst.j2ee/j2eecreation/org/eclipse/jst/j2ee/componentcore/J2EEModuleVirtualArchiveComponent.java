@@ -41,7 +41,9 @@ public class J2EEModuleVirtualArchiveComponent extends VirtualArchiveComponent {
 	public String[] getManifestClasspath() {
 		if (null == manifestClasspath) {
 			ArchiveManifest manifest = J2EEProjectUtilities.readManifest(this);
-			manifestClasspath = manifest.getClassPathTokenized();
+			if (manifest != null) {
+				manifestClasspath = manifest.getClassPathTokenized();
+			}
 			if (manifestClasspath == null) {
 				manifestClasspath = new String[0];
 			}
