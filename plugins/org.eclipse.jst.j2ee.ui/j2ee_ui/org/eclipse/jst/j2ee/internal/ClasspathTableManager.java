@@ -465,6 +465,12 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	
 	protected void availableJARCheckStateChanged(CheckStateChangedEvent event) {
 		ClasspathElement el = (ClasspathElement)event.getElement();
+		//226823 targeting a regular java project from web libs
+		if(el.getComponent() == null){
+			ClasspathElement element = (ClasspathElement) event.getElement();
+			model.setSelection(element, event.getChecked());
+			return;
+		}
 		el.getComponent().getAdapter(IVirtualComponent.class);
 		IVirtualComponent ar = el.getTargetComponent();
 		IVirtualComponent comp = (ar instanceof J2EEModuleVirtualArchiveComponent) ? ar : el.getComponent();
