@@ -138,6 +138,7 @@ public class ClassPathSelection {
 	public ClassPathSelection(IVirtualComponent aComponent) {
 		super();
 		component = aComponent;
+		targetProjectName = aComponent.getProject().getName();
 		initializeElements();
 	}
 	
