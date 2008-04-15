@@ -14,6 +14,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProviderEvent;
 import org.eclipse.jst.j2ee.model.IModelProviderListener;
@@ -184,6 +185,7 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 	protected EJBJar merge(EJBJar ddModel, EJBJar annotationsModel) {
 		if (mergedModel == null) {
 			mergedModel = (EJBJar) EjbFactory.eINSTANCE.createEJBJar();
+			initMergedModelResource((EObject) ddModel);
 		} else {
 			clearModel(mergedModel);
 		}
