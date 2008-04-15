@@ -11,22 +11,12 @@
 package org.eclipse.jst.jee.ui.internal.navigator;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.StructuredViewer;
-import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.j2ee.model.IModelProvider;
-import org.eclipse.jst.j2ee.model.IModelProviderEvent;
-import org.eclipse.jst.j2ee.model.IModelProviderListener;
-import org.eclipse.jst.j2ee.model.ModelProviderManager;
-import org.eclipse.jst.j2ee.navigator.internal.J2EEContentProvider;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.ejb.EntityBean;
@@ -38,7 +28,6 @@ import org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanInterfaceNode;
 import org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanNode;
 import org.eclipse.jst.jee.ui.internal.navigator.ejb.GroupEJBProvider;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
@@ -49,236 +38,189 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
  * 
  * @author Dimitar Giormov
  */
-public class Ejb3ContentProvider extends J2EEContentProvider implements IModelProviderListener{
+public class Ejb3ContentProvider extends JEE5ContentProvider {
 
 
-  private static final Class IPROJECT_CLASS = IProject.class;
+	public Object[] getChildren(Object aParentElement) {
+		List<Object> children = new ArrayList<Object>();
+		IProject project = null;
 
-  private Viewer viewer;
+		if (aParentElement instanceof AbstractGroupProvider) {
+			List lst = ((AbstractGroupProvider) aParentElement).getChildren();
+			children.addAll(lst);
+		} else if (aParentElement instanceof AbstractDDNode) {
+			List lst = ((AbstractDDNode) aParentElement).getChildren();
+			children.addAll(lst);
+		} else if (aParentElement instanceof SessionBean) {
+			SessionBean sb = ((SessionBean)aParentElement);
+			addSessionBeanSubNodes(sb, children);
 
-  private static HashMap<IProject, IModelProvider> groupProvidersMap = new HashMap<IProject, IModelProvider>();
+		} else if (aParentElement instanceof EntityBean) {
+			EntityBean eb = ((EntityBean)aParentElement);
 
-  public Object[] getChildren(Object aParentElement) {
- 
-    List<Object> children = new ArrayList<Object>();
-    IProject project = null;
+			addEntityBeanSubNodes(eb, children);
 
-    if (aParentElement instanceof AbstractGroupProvider) {
-      List lst = ((AbstractGroupProvider) aParentElement).getChildren();
-      children.addAll(lst);
-    } else if (aParentElement instanceof AbstractDDNode) {
-      List lst = ((AbstractDDNode) aParentElement).getChildren();
-      children.addAll(lst);
-    } else if (aParentElement instanceof SessionBean) {
-      SessionBean sb = ((SessionBean)aParentElement);
-      addSessionBeanSubNodes(sb, children);
+		} else if (aParentElement instanceof MessageDrivenBean) {
+			Object msgBean = new BeanNode((MessageDrivenBean) aParentElement);
+			addActivationConfigProperties((MessageDrivenBean) aParentElement, children);
+			children.add(msgBean);
+		} else 
+			if (aParentElement instanceof IAdaptable) {
+				project = (IProject) ((IAdaptable) aParentElement)
+				.getAdapter(IPROJECT_CLASS);
+				if (project != null) {
+					if (isEjbModuleProject(project)) {
+						IModelProvider modelProvider = getCachedModelProvider(project);
+						GroupEJBProvider element = new GroupEJBProvider((EJBJar) modelProvider.getModelObject());
+						element.setProjectName(project.getName());
+						children.add(element);
+					}
+				}
+			}
+		return children.toArray();
+	}
 
-    } else if (aParentElement instanceof EntityBean) {
-      EntityBean eb = ((EntityBean)aParentElement);
-      
-      addEntityBeanSubNodes(eb, children);
+	private void addActivationConfigProperties(MessageDrivenBean parentElement,
+			List<Object> children) {
+		if (parentElement.getActivationConfig() != null && parentElement.getActivationConfig().getActivationConfigProperties() != null && !parentElement.getActivationConfig().getActivationConfigProperties().isEmpty()){
+			children.add(new ActivationConfigProperties(parentElement.getActivationConfig().getActivationConfigProperties()));
+		}
+	}
 
-    } else if (aParentElement instanceof MessageDrivenBean) {
-      Object msgBean = new BeanNode((MessageDrivenBean) aParentElement);
-      addActivationConfigProperties((MessageDrivenBean) aParentElement, children);
-      children.add(msgBean);
-    } else 
-      if (aParentElement instanceof IAdaptable) {
-        project = (IProject) ((IAdaptable) aParentElement)
-        .getAdapter(IPROJECT_CLASS);
-        if (project != null) {
-          if (isEjbModuleProject(project)) {
-            IModelProvider modelProvider = (IModelProvider) groupProvidersMap.get(project);
-            if (modelProvider != null) {
-              GroupEJBProvider element = new GroupEJBProvider((EJBJar) modelProvider.getModelObject());
-              element.setProjectName(project.getName());
-              children.add(element);
-            } else {
-              modelProvider = ModelProviderManager.getModelProvider(project);
-              modelProvider.addListener(this);
-              GroupEJBProvider element = new GroupEJBProvider((EJBJar) modelProvider.getModelObject());
-              element.setProjectName(project.getName());
-              children.add(element);
-              groupProvidersMap.put(project, modelProvider);
-            }
-          }
-        }
-      }
-    return children.toArray();
-  }
+	private void addEntityBeanSubNodes(EntityBean eb, List<Object> children) {
+		if (eb.getLocal() != null) {
+			children.add(new BeanInterfaceNode(eb, (String)eb.getLocal(), BeanInterfaceNode.KINDS.LOCAL));
+		}
+		if (eb.getLocalHome() != null) {
+			children.add(new BeanInterfaceNode(eb, (String)eb.getLocalHome(), BeanInterfaceNode.KINDS.LOCAL_HOME));
+		}
 
-  private void addActivationConfigProperties(MessageDrivenBean parentElement,
-      List<Object> children) {
-    if (parentElement.getActivationConfig() != null && parentElement.getActivationConfig().getActivationConfigProperties() != null && !parentElement.getActivationConfig().getActivationConfigProperties().isEmpty()){
-      children.add(new ActivationConfigProperties(parentElement.getActivationConfig().getActivationConfigProperties()));
-    }
-  }
-
-  private void addEntityBeanSubNodes(EntityBean eb, List<Object> children) {
-    if (eb.getLocal() != null) {
-      children.add(new BeanInterfaceNode(eb, (String)eb.getLocal(), BeanInterfaceNode.KINDS.LOCAL));
-    }
-    if (eb.getLocalHome() != null) {
-      children.add(new BeanInterfaceNode(eb, (String)eb.getLocalHome(), BeanInterfaceNode.KINDS.LOCAL_HOME));
-    }
-
-    if (eb.getRemote() != null) {
-      children.add(new BeanInterfaceNode(eb, (String)eb.getRemote(), BeanInterfaceNode.KINDS.REMOTE));
-    }
-    if (eb.getHome() != null) {
-      children.add(new BeanInterfaceNode(eb, (String)eb.getHome(), BeanInterfaceNode.KINDS.REMOTE_HOME));
-    }
+		if (eb.getRemote() != null) {
+			children.add(new BeanInterfaceNode(eb, (String)eb.getRemote(), BeanInterfaceNode.KINDS.REMOTE));
+		}
+		if (eb.getHome() != null) {
+			children.add(new BeanInterfaceNode(eb, (String)eb.getHome(), BeanInterfaceNode.KINDS.REMOTE_HOME));
+		}
 
 
-    children.add(new BeanNode((EntityBean) eb));
-    
-  }
+		children.add(new BeanNode((EntityBean) eb));
 
-  private void addSessionBeanSubNodes(SessionBean sb, List children) {
-    addClassRelatedInfo(sb, children);
-    addSessionJNDIRefInfo(sb, children);
-  }
+	}
 
-  private void addSessionJNDIRefInfo(SessionBean sb, List children) {
-    if (sb.getEjbLocalRefs() != null && !sb.getEjbLocalRefs().isEmpty()){
-      children.add(new JndiRefNode(sb.getEjbLocalRefs(), KINDS.EJBLOCALREF));
-    }
-    
-    if (sb.getEjbRefs() != null && !sb.getEjbRefs().isEmpty()){
-      children.add(new JndiRefNode(sb.getEjbRefs(), KINDS.EJBREF));
-    }
-    
-    if (sb.getResourceEnvRefs() != null && !sb.getResourceEnvRefs().isEmpty()){
-      children.add(new JndiRefNode(sb.getResourceEnvRefs(), KINDS.RESENVENTY));
-    }
-    if (sb.getEnvEntries() != null && !sb.getEnvEntries().isEmpty()){
-      children.add(new JndiRefNode(sb.getEnvEntries(), KINDS.ENVENTRY));
-    }
-    
-    if (sb.getResourceRefs() != null && !sb.getResourceRefs().isEmpty()){
-      children.add(new JndiRefNode(sb.getResourceRefs(), KINDS.RESREF));
-    }
-    
-    if (sb.getServiceRefs() != null && !sb.getServiceRefs().isEmpty()){
-      children.add(new JndiRefNode(sb.getServiceRefs(), KINDS.SERVICEREF));
-    }
-  }
-  
-  private void addSessionJNDIRefInfo(EntityBean eb, List children) {
-    if (eb.getEjbLocalRefs() != null && !eb.getEjbLocalRefs().isEmpty()){
-      children.add(new JndiRefNode(eb.getEjbLocalRefs(), KINDS.EJBLOCALREF));
-    }
-    
-    if (eb.getEjbRefs() != null && !eb.getEjbRefs().isEmpty()){
-      children.add(new JndiRefNode(eb.getEjbRefs(), KINDS.EJBREF));
-    }
-    
-    if (eb.getResourceEnvRefs() != null && !eb.getResourceEnvRefs().isEmpty()){
-      children.add(new JndiRefNode(eb.getResourceEnvRefs(), KINDS.RESENVENTY));
-    }
-    if (eb.getEnvEntries() != null && !eb.getEnvEntries().isEmpty()){
-      children.add(new JndiRefNode(eb.getEnvEntries(), KINDS.ENVENTRY));
-    }
-    
-    if (eb.getResourceRefs() != null && !eb.getResourceRefs().isEmpty()){
-      children.add(new JndiRefNode(eb.getResourceRefs(), KINDS.RESREF));
-    }
-    
-    if (eb.getServiceRefs() != null && !eb.getServiceRefs().isEmpty()){
-      children.add(new JndiRefNode(eb.getServiceRefs(), KINDS.SERVICEREF));
-    }
-  }
+	private void addSessionBeanSubNodes(SessionBean sb, List children) {
+		addClassRelatedInfo(sb, children);
+		addSessionJNDIRefInfo(sb, children);
+	}
 
-  private void addClassRelatedInfo(SessionBean sb, List children) {
-    if (sb.getLocal() != null) {
-      children.add(new BeanInterfaceNode(sb, (String)sb.getLocal(), BeanInterfaceNode.KINDS.LOCAL));
-    }
-    if (sb.getLocalHome() != null) {
-      children.add(new BeanInterfaceNode(sb, (String)sb.getLocalHome(), BeanInterfaceNode.KINDS.LOCAL_HOME));
-    }
+	private void addSessionJNDIRefInfo(SessionBean sb, List children) {
+		if (sb.getEjbLocalRefs() != null && !sb.getEjbLocalRefs().isEmpty()){
+			children.add(new JndiRefNode(sb.getEjbLocalRefs(), KINDS.EJBLOCALREF));
+		}
 
-    if (sb.getRemote() != null) {
-      children.add(new BeanInterfaceNode(sb, (String)sb.getRemote(), BeanInterfaceNode.KINDS.REMOTE));
-    }
-    if (sb.getHome() != null) {
-      children.add(new BeanInterfaceNode(sb, (String)sb.getHome(), BeanInterfaceNode.KINDS.REMOTE_HOME));
-    }
+		if (sb.getEjbRefs() != null && !sb.getEjbRefs().isEmpty()){
+			children.add(new JndiRefNode(sb.getEjbRefs(), KINDS.EJBREF));
+		}
+
+		if (sb.getResourceEnvRefs() != null && !sb.getResourceEnvRefs().isEmpty()){
+			children.add(new JndiRefNode(sb.getResourceEnvRefs(), KINDS.RESENVENTY));
+		}
+		if (sb.getEnvEntries() != null && !sb.getEnvEntries().isEmpty()){
+			children.add(new JndiRefNode(sb.getEnvEntries(), KINDS.ENVENTRY));
+		}
+
+		if (sb.getResourceRefs() != null && !sb.getResourceRefs().isEmpty()){
+			children.add(new JndiRefNode(sb.getResourceRefs(), KINDS.RESREF));
+		}
+
+		if (sb.getServiceRefs() != null && !sb.getServiceRefs().isEmpty()){
+			children.add(new JndiRefNode(sb.getServiceRefs(), KINDS.SERVICEREF));
+		}
+	}
+
+	private void addSessionJNDIRefInfo(EntityBean eb, List children) {
+		if (eb.getEjbLocalRefs() != null && !eb.getEjbLocalRefs().isEmpty()){
+			children.add(new JndiRefNode(eb.getEjbLocalRefs(), KINDS.EJBLOCALREF));
+		}
+
+		if (eb.getEjbRefs() != null && !eb.getEjbRefs().isEmpty()){
+			children.add(new JndiRefNode(eb.getEjbRefs(), KINDS.EJBREF));
+		}
+
+		if (eb.getResourceEnvRefs() != null && !eb.getResourceEnvRefs().isEmpty()){
+			children.add(new JndiRefNode(eb.getResourceEnvRefs(), KINDS.RESENVENTY));
+		}
+		if (eb.getEnvEntries() != null && !eb.getEnvEntries().isEmpty()){
+			children.add(new JndiRefNode(eb.getEnvEntries(), KINDS.ENVENTRY));
+		}
+
+		if (eb.getResourceRefs() != null && !eb.getResourceRefs().isEmpty()){
+			children.add(new JndiRefNode(eb.getResourceRefs(), KINDS.RESREF));
+		}
+
+		if (eb.getServiceRefs() != null && !eb.getServiceRefs().isEmpty()){
+			children.add(new JndiRefNode(eb.getServiceRefs(), KINDS.SERVICEREF));
+		}
+	}
+
+	private void addClassRelatedInfo(SessionBean sb, List children) {
+		if (sb.getLocal() != null) {
+			children.add(new BeanInterfaceNode(sb, (String)sb.getLocal(), BeanInterfaceNode.KINDS.LOCAL));
+		}
+		if (sb.getLocalHome() != null) {
+			children.add(new BeanInterfaceNode(sb, (String)sb.getLocalHome(), BeanInterfaceNode.KINDS.LOCAL_HOME));
+		}
+
+		if (sb.getRemote() != null) {
+			children.add(new BeanInterfaceNode(sb, (String)sb.getRemote(), BeanInterfaceNode.KINDS.REMOTE));
+		}
+		if (sb.getHome() != null) {
+			children.add(new BeanInterfaceNode(sb, (String)sb.getHome(), BeanInterfaceNode.KINDS.REMOTE_HOME));
+		}
 
 
-    children.add(new BeanNode((SessionBean) sb));
-    List r = sb.getBusinessLocals();
-    for (Object locals : r) {
-      children.add(new BeanInterfaceNode(sb, (String)locals, BeanInterfaceNode.KINDS.BUSSINESS_LOCAL));
-    }
-    r = sb.getBusinessRemotes();
-    for (Object locals : r) {
-      children.add(new BeanInterfaceNode(sb, (String)locals, BeanInterfaceNode.KINDS.BUSSINESS_REMOTE));
-    }
-  }
+		children.add(new BeanNode((SessionBean) sb));
+		List r = sb.getBusinessLocals();
+		for (Object locals : r) {
+			children.add(new BeanInterfaceNode(sb, (String)locals, BeanInterfaceNode.KINDS.BUSSINESS_LOCAL));
+		}
+		r = sb.getBusinessRemotes();
+		for (Object locals : r) {
+			children.add(new BeanInterfaceNode(sb, (String)locals, BeanInterfaceNode.KINDS.BUSSINESS_REMOTE));
+		}
+	}
 
-  private boolean isEjbModuleProject(IProject project) {
-    try {
-      IFacetedProject facetedProject = ProjectFacetsManager.create(project);
-      IProjectFacetVersion installedVersion = facetedProject.getInstalledVersion(ProjectFacetsManager.getProjectFacet(IJ2EEFacetConstants.EJB).getVersion(IJ2EEFacetConstants.EJB_30.getVersionString()).getProjectFacet());
-      return installedVersion != null;
-    } catch (CoreException e) {
-      JEEUIPlugin.logError("Can not acces project", e); //$NON-NLS-1$
-    }
-    return false;
-  }
+	private boolean isEjbModuleProject(IProject project) {
+		try {
+			IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+			IProjectFacetVersion installedVersion = facetedProject.getInstalledVersion(ProjectFacetsManager.getProjectFacet(IJ2EEFacetConstants.EJB).getVersion(IJ2EEFacetConstants.EJB_30.getVersionString()).getProjectFacet());
+			return installedVersion != null;
+		} catch (CoreException e) {
+			JEEUIPlugin.logError("Can not acces project", e); //$NON-NLS-1$
+		}
+		return false;
+	}
 
-  public void inputChanged(Viewer aViewer, Object anOldInput, Object aNewInput) {
-    viewer = aViewer;
-  }
+	public boolean hasChildren(Object element) {
+		if (element instanceof AbstractGroupProvider) {
+			return ((AbstractGroupProvider) element).hasChildren();
+		} else if (element instanceof AbstractDDNode) {
+			return ((AbstractDDNode) element).hasChildren();
+		} else if (element instanceof SessionBean) {
+			return true;
+		} else if (element instanceof EntityBean) {
+			return true;
+		}else if (element instanceof MessageDrivenBean) {
+			return true;
+		} else
+			return false;
+	}
 
-  @Override
-  public boolean hasChildren(Object element) {
-    if (element instanceof AbstractGroupProvider) {
-      return ((AbstractGroupProvider) element).hasChildren();
-    } else if (element instanceof AbstractDDNode) {
-      return ((AbstractDDNode) element).hasChildren();
-    } else if (element instanceof SessionBean) {
-      return true;
-    } else if (element instanceof EntityBean) {
-      return true;
-    }else if (element instanceof MessageDrivenBean) {
-      return true;
-    } else
-      return false;
-  }
+	public Object getParent(Object element) {
+		return null;
+	}
 
-  public void projectChanged(final IProject project) {
-    // TODO refresh only the Deployment Description tree of the affected
-    // project instead of the DD tree of all projects.
-    //		j2eeRefreshContent();
-
-    try {
-      Runnable refreshThread = new Runnable() {
-        public void run() {
-          if (viewer != null) {
-            ISelection sel = ((TreeViewer) viewer).getSelection();
-            ITreeContentProvider contentProvider = ((ITreeContentProvider) ((TreeViewer) viewer)
-                .getContentProvider());
-            contentProvider.getChildren(project);
-            ((StructuredViewer) viewer).refresh(project);
-            ((TreeViewer) viewer).setSelection(sel);
-          }
-        }
-      };
-      Display.getDefault().asyncExec(refreshThread);
-    } catch (Exception e) {
-      JEEUIPlugin.logError("Error during refresh", e); //$NON-NLS-1$
-    }
-  }
-
-  public void modelsChanged(IModelProviderEvent event) {
-    projectChanged(event.getProject());
-
-  }
-
-@Override
-public void dispose() {
-	groupProvidersMap.clear();
-}
+	public Object[] getElements(Object inputElement) {
+		return getChildren(inputElement);
+	}
 
 }

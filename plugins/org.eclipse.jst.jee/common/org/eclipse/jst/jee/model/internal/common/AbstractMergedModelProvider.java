@@ -17,6 +17,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProviderEvent;
 import org.eclipse.jst.j2ee.model.IModelProviderListener;
@@ -209,6 +212,16 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 		enableInternalNotifications();
 		isOnceDisposed = false;
 		return merge(ddModel, annotationModel);
+	}
+	
+	protected void initMergedModelResource(EObject ddModel) {
+		Resource resourceDD = ddModel.eResource();
+		Resource resourceMM = ((EObject)mergedModel).eResource();
+		if (resourceDD != null && resourceMM == null){
+		  ResourceImpl resRes = new ResourceImpl(resourceDD.getURI());
+		  resRes.getContents().add((EObject)mergedModel);
+	    }
+		
 	}
 
 	/**

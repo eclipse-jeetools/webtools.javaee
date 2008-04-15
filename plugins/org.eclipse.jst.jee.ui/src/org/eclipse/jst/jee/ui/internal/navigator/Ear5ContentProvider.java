@@ -16,22 +16,13 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceChangeEvent;
-import org.eclipse.core.resources.IResourceChangeListener;
-import org.eclipse.core.resources.IResourceDelta;
-import org.eclipse.core.resources.IResourceDeltaVisitor;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.internal.provider.J2EEUtilityJarItemProvider;
-import org.eclipse.jst.j2ee.navigator.internal.J2EEContentProvider;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.jee.ui.internal.Messages;
 import org.eclipse.jst.jee.ui.internal.navigator.ear.AbstractEarNode;
@@ -39,7 +30,6 @@ import org.eclipse.jst.jee.ui.internal.navigator.ear.BundledNode;
 import org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.ear.ModulesNode;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -53,12 +43,9 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
  * 
  * @author Dimitar Giormov
  */
-public class Ear5ContentProvider  extends J2EEContentProvider implements IResourceChangeListener, IResourceDeltaVisitor{
+public class Ear5ContentProvider extends JEE5ContentProvider {
 
-	private static final Class IPROJECT_CLASS = IProject.class;
 	public final static String EAR_DEFAULT_LIB = "lib"; //$NON-NLS-1$
-
-	private Viewer viewer;
 
 	private List getComponentReferencesAsList(List componentTypes, IVirtualComponent virtualComponent, IPath runtimePath) {
 		List components = new ArrayList();
@@ -72,10 +59,6 @@ public class Ear5ContentProvider  extends J2EEContentProvider implements IResour
 				if (componentTypes == null || componentTypes.size() == 0) {
 					components.add(refComponents[i]);
 				} else {
-					//                    IPath runPath = refComponents[i].getRuntimePath();
-					//                    if (runPath != null) {
-					//                        if (runPath.equals(runtimePath) && componentTypes.contains(JavaEEProjectUtilities.getJ2EEComponentType(module))) components.add(refComponents[i]);
-					//                    } else 
 					if (componentTypes.contains(JavaEEProjectUtilities.getJ2EEComponentType(module))) {
 						components.add(refComponents[i]);
 					}
@@ -189,49 +172,6 @@ public class Ear5ContentProvider  extends J2EEContentProvider implements IResour
 		return children.toArray();
 	}
 
-	public void inputChanged(Viewer aViewer, Object anOldInput, Object aNewInput) {
-		ResourcesPlugin.getWorkspace().addResourceChangeListener(this, IResourceChangeEvent.POST_CHANGE);
-		viewer = aViewer;
-	}
-
-	@Override
-	public void dispose() {
-		ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
-	}
-
-	public void resourceChanged(IResourceChangeEvent event) {
-		try {
-			event.getDelta().accept(this);
-		} catch (CoreException e) {
-			String msg = "Error in the JEEContentProvider.resourceChanged()"; //$NON-NLS-1$
-			JEEUIPlugin.getDefault().logError(msg, e);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.core.resources.IResourceDeltaVisitor#visit(org.eclipse.core.resources.IResourceDelta)
-	 */
-	public boolean visit(IResourceDelta delta) {
-		if (delta.getResource().getType() == IResource.FILE) {
-			IResource resource = delta.getResource();
-			if (J2EEUtilityJarItemProvider.isComponentFile(resource)) {
-				Runnable refreshThread = new Runnable(){
-					public void run(){
-						if (viewer != null && ! viewer.getControl().isDisposed()){
-							viewer.refresh();
-						}
-					}
-				};
-				Display.getDefault().asyncExec(refreshThread);
-				return false;
-			}
-		}
-		return true;
-	}
-
-	@Override
 	public boolean hasChildren(Object element) {
 		if (element instanceof AbstractEarNode) {
 			return ((AbstractEarNode) element).getModules().size() > 0;
@@ -245,5 +185,9 @@ public class Ear5ContentProvider  extends J2EEContentProvider implements IResour
 			return ((AbstractEarNode) object).getEarProject(); 
 		}
 		return null;
+	}
+
+	public Object[] getElements(Object inputElement) {
+		return getChildren(inputElement);
 	}
 }

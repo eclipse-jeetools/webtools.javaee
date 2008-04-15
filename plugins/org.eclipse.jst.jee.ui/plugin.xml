@@ -881,9 +881,6 @@
       <viewerActionBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
          <includes>
             <actionExtension pattern="org.eclipse.jst.javaee.ui.JEEActionProvider"/>
-            <actionExtension
-                  pattern="org.eclipse.ui.navigator.resources.SAPNewActions">
-            </actionExtension>
          </includes>
       </viewerActionBinding>
    </extension>

@@ -46,6 +46,7 @@ import org.eclipse.jst.jee.ui.internal.navigator.appclient.GroupAppClientProvide
 import org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanInterfaceNode;
 import org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanNode;
+import org.eclipse.jst.jee.ui.internal.navigator.ejb.GroupEJBProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
 import org.eclipse.ui.IEditorDescriptor;
@@ -106,6 +107,9 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 			IType findType;
 			try {
 				findType = JavaCore.create(project).findType(c);
+				if(findType == null){
+					return;
+				}
 				openAppropriateEditor(findType.getResource());
 			} catch (JavaModelException e) {
 				JEEUIPlugin.logError("Error during open editor", e); //$NON-NLS-1$
@@ -211,30 +215,7 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
         	return;
 		}
 		if (srcObject instanceof EObject) {
-			EObject ro = (EObject) srcObject;
-			IResource resource = WorkbenchResourceHelper
-			.getFile((EObject) srcObject);
-			if (resource != null) {
-				openAppropriateEditor(resource);
-			} else {
-				ModuleFile moduleFile = ArchiveUtil.getModuleFile(ro);
-				if (moduleFile != null) {
-					ArchiveOptions options = moduleFile.getOptions();
-					if (options instanceof ComponentArchiveOptions) {
-						IVirtualComponent component = ((ComponentArchiveOptions) options)
-						.getComponent();
-						openAppropriateEditor(component);
-					}
-				} else {
-					IArchive archive = JavaEEArchiveUtilities.findArchive(ro);
-					if(archive != null){
-						IVirtualComponent component = JavaEEArchiveUtilities.findComponent(archive);
-						if(component != null){
-							openAppropriateEditor(component);
-						}
-					}
-				}
-			}
+			openEObject((EObject) srcObject);
 		} else if (srcObject instanceof BeanInterfaceNode) {
 			openAppropriateEditor(((BeanInterfaceNode) srcObject).get_fqn());
 			return;
@@ -248,6 +229,8 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 				openAppropriateEditor(file);
 				return;
 			}
+		} else if (srcObject instanceof GroupEJBProvider) {
+			openEObject((EObject) ((GroupEJBProvider)srcObject).getEjbJar());
 		} else if (srcObject instanceof GroupEARProvider) {
 			IFile file = ((GroupEARProvider) srcObject).getDDFile();
 			if (file.isAccessible()){
@@ -264,6 +247,34 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 			}else if (srcObject instanceof Resource)
 			openAppropriateEditor(WorkbenchResourceHelper
 					.getFile((Resource) srcObject));
+	}
+
+	private void openEObject(EObject _srcObject) {
+		EObject ro = (EObject) _srcObject;
+		IResource resource = WorkbenchResourceHelper
+		.getFile((EObject) _srcObject);
+		if (resource != null) {
+			openAppropriateEditor(resource);
+		} else {
+			ModuleFile moduleFile = ArchiveUtil.getModuleFile(ro);
+			if (moduleFile != null) {
+				ArchiveOptions options = moduleFile.getOptions();
+				if (options instanceof ComponentArchiveOptions) {
+					IVirtualComponent component = ((ComponentArchiveOptions) options)
+					.getComponent();
+					openAppropriateEditor(component);
+				}
+			} else {
+				IArchive archive = JavaEEArchiveUtilities.findArchive(ro);
+				if(archive != null){
+					IVirtualComponent component = JavaEEArchiveUtilities.findComponent(archive);
+					if(component != null){
+						openAppropriateEditor(component);
+					}
+				}
+			}
+		}
+		
 	}
 
 	/**
@@ -374,12 +385,17 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 						contentType);
 			} else {
 				if(((EObject) beanInterface).eResource() != null){
-					String name = (new Path(((EObject) beanInterface).eResource().getURI()
-							.toString())).lastSegment();
+					String name = (new Path(((EObject) beanInterface).eResource().getURI().toString())).lastSegment();
 					currentDescriptor = registry.getDefaultEditor(name, null);
 				} else {
-					currentDescriptor = null;
-					return false;
+					String fqn = ((BeanInterfaceNode) obj).get_fqn();
+					if (fqn != null){
+						currentDescriptor = registry.getDefaultEditor(((BeanInterfaceNode) obj).getText(), null);
+//						return true;
+					} else {
+						return false;
+					}
+					
 				}
 			}
 		}
