@@ -22,10 +22,10 @@ import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
+import org.eclipse.jst.j2ee.project.WebUtilities;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
-import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -49,17 +49,7 @@ public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 	}
 
 	public IVirtualReference[] getLibModules() {
-		WebArtifactEdit webArtifactEdit = null;
-		try {
-			webArtifactEdit = (WebArtifactEdit) ComponentUtilities.getArtifactEditForRead(getComponent());
-			if (webArtifactEdit != null)
-				return webArtifactEdit.getLibModules();
-		} finally {
-			if (webArtifactEdit != null)
-				webArtifactEdit.dispose();
-		}
-		return null;
-
+		return WebUtilities.getLibModules(getComponent());
 	}
 
 	public void addLooseLibJARsToFiles() {

@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.web.componentcore.util;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -26,7 +25,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
-import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -35,6 +33,7 @@ import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.project.WebUtilities;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
@@ -514,27 +513,11 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 
 	/**
-	 * This method will return the list of dependent modules which are utility jars in the web lib
-	 * folder of the deployed path of the module. It will not return null.
-	 * 
-	 * @return array of the web library dependent modules
+	 * @deprecated
+	 * use {@link WebUtilities}{@link #getLibModules()}
 	 */
 	public IVirtualReference[] getLibModules() {
-		List result = new ArrayList();
-		IVirtualComponent comp = ComponentCore.createComponent(getProject());
-		IVirtualReference[] refComponents = null;
-		if (!comp.isBinary())
-			refComponents = ((J2EEModuleVirtualComponent)comp).getNonManifestReferences();
-		else
-			refComponents = comp.getReferences();
-		// Check the deployed path to make sure it has a lib parent folder and matchs the web.xml
-		// base path
-		for (int i = 0; i < refComponents.length; i++) {
-			if (refComponents[i].getRuntimePath().equals(WEBLIB))
-				result.add(refComponents[i]);
-		}
-
-		return (IVirtualReference[]) result.toArray(new IVirtualReference[result.size()]);
+		return WebUtilities.getLibModules(getProject());
 	}
 
 	/**

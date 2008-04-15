@@ -31,10 +31,10 @@ import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.WarValidator;
+import org.eclipse.jst.j2ee.project.WebUtilities;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
-import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -140,7 +140,7 @@ public class UIWarValidator extends WarValidator {
 			// swallow
 		}
 		final Map archiveToPath = new HashMap();
-		final IVirtualReference[] webLibs = getWebInfLibModules(component);
+		final IVirtualReference[] webLibs = WebUtilities.getLibModules(component);
 		for (int i = 0; i < webLibs.length; i++) {
 			IVirtualComponent comp = webLibs[i].getReferencedComponent();
 			String name = null;
@@ -193,20 +193,6 @@ public class UIWarValidator extends WarValidator {
 		} else if (addName) {
 			webLibNames.add(name);
 		}
-	}
-	
-	private IVirtualReference[] getWebInfLibModules(final IVirtualComponent comp) {
-		WebArtifactEdit webArtifactEdit = null;
-		try {
-			webArtifactEdit = (WebArtifactEdit) ComponentUtilities.getArtifactEditForRead(comp);
-			if (webArtifactEdit != null) {
-				return webArtifactEdit.getLibModules();
-			}
-		} finally {
-			if (webArtifactEdit != null)
-				webArtifactEdit.dispose();
-		}
-		return new IVirtualReference[0];
 	}
 	
 	/**

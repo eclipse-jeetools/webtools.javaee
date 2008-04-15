@@ -83,14 +83,13 @@ public class WebUtilities extends JavaEEProjectUtilities {
 	 * 
 	 * @return array of the web library dependent modules
 	 */
-	public static IVirtualReference[] getLibModules(IProject webProject) {
+	public static IVirtualReference[] getLibModules(IVirtualComponent webComponent){
 		List result = new ArrayList();
-		IVirtualComponent comp = ComponentCore.createComponent(webProject);
 		IVirtualReference[] refComponents = null;
-		if (!comp.isBinary())
-			refComponents = ((J2EEModuleVirtualComponent)comp).getNonManifestReferences();
+		if (!webComponent.isBinary())
+			refComponents = ((J2EEModuleVirtualComponent)webComponent).getNonManifestReferences();
 		else
-			refComponents = comp.getReferences();
+			refComponents = webComponent.getReferences();
 		// Check the deployed path to make sure it has a lib parent folder and matchs the web.xml
 		// base path
 		for (int i = 0; i < refComponents.length; i++) {
@@ -99,5 +98,16 @@ public class WebUtilities extends JavaEEProjectUtilities {
 		}
 
 		return (IVirtualReference[]) result.toArray(new IVirtualReference[result.size()]);
+	}
+	
+	/**
+	 * This method will return the list of dependent modules which are utility jars in the web lib
+	 * folder of the deployed path of the module. It will not return null.
+	 * 
+	 * @return array of the web library dependent modules
+	 */
+	public static IVirtualReference[] getLibModules(IProject webProject) {
+		IVirtualComponent webComponent = ComponentCore.createComponent(webProject);
+		return getLibModules(webComponent);
 	}
 }
