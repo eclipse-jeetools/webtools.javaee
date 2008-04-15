@@ -23,6 +23,8 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jst.j2ee.internal.war.ui.util.WebFiltersGroupItemProvider;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.jst.jee.ui.internal.navigator.web.GroupFiltersItemProvider;
+import org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -51,6 +53,11 @@ public class NewFilterClassWizardPage extends NewWebClassWizardPage {
 	protected IProject getExtendedSelectedProject(Object selection) {
 		if (selection instanceof WebFiltersGroupItemProvider) {
 			WebApp webApp = (WebApp)((WebFiltersGroupItemProvider) selection).getParent();
+			return ProjectUtilities.getProject(webApp);
+		}else if(selection instanceof WebAppProvider){
+			return ((WebAppProvider) selection).getProject();
+		} if(selection instanceof GroupFiltersItemProvider){
+			org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) ((GroupFiltersItemProvider) selection).getJavaEEObject();
 			return ProjectUtilities.getProject(webApp);
 		}
 		

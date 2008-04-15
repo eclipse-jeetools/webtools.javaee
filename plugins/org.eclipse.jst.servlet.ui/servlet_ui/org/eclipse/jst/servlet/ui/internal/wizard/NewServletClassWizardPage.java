@@ -27,6 +27,8 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jst.j2ee.internal.war.ui.util.WebServletGroupItemProvider;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.jst.jee.ui.internal.navigator.web.GroupServletItemProvider;
+import org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -56,7 +58,12 @@ public class NewServletClassWizardPage extends NewWebClassWizardPage {
 		if (selection instanceof WebServletGroupItemProvider) {
 			WebApp webApp = (WebApp) ((WebServletGroupItemProvider) selection).getParent();
 			return ProjectUtilities.getProject(webApp);
-		} 
+		} else if(selection instanceof WebAppProvider){
+			return ((WebAppProvider) selection).getProject();
+		} else if(selection instanceof GroupServletItemProvider){
+			org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) ((GroupServletItemProvider) selection).getJavaEEObject();
+			return ProjectUtilities.getProject(webApp);
+		}
 		
 		return super.getExtendedSelectedProject(selection);
 	}

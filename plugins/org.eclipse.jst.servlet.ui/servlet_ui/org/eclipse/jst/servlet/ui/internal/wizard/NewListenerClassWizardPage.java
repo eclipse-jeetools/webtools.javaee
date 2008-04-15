@@ -17,6 +17,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.war.ui.util.WebListenerGroupItemProvider;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.jst.jee.ui.internal.navigator.web.GroupListenerItemProvider;
+import org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -49,6 +51,11 @@ public class NewListenerClassWizardPage extends NewWebClassWizardPage {
 	protected IProject getExtendedSelectedProject(Object selection) {
 		if (selection instanceof WebListenerGroupItemProvider) {
 			WebApp webApp = (WebApp)((WebListenerGroupItemProvider) selection).getParent();
+			return ProjectUtilities.getProject(webApp);
+		}else if(selection instanceof WebAppProvider){
+			return ((WebAppProvider) selection).getProject();
+		} else if(selection instanceof GroupListenerItemProvider){
+			org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) ((GroupListenerItemProvider) selection).getJavaEEObject();
 			return ProjectUtilities.getProject(webApp);
 		}
 		

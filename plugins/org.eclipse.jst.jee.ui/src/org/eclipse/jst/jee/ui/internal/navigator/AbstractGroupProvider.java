@@ -48,4 +48,8 @@ public abstract class AbstractGroupProvider {
     return !getChildren().isEmpty();
   }
 
+  public JavaEEObject getJavaEEObject() {
+	  return javaee;
+  }
+
 }

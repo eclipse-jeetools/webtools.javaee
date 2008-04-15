@@ -39,6 +39,7 @@ Require-Bundle: org.eclipse.core.resources;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.ui.navigator.resources;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.ui.navigator;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.ui.ide;bundle-version="[3.2.0,4.0.0)",
- org.eclipse.emf.edit;bundle-version="[2.2.0,3.0.0)"
+ org.eclipse.emf.edit;bundle-version="[2.2.0,3.0.0)",
+ org.eclipse.jst.jee.ui;bundle-version="1.0.100"
 Eclipse-LazyStart: true
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
