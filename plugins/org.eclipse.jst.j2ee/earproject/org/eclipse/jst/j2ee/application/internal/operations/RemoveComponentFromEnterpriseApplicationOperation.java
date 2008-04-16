@@ -52,11 +52,10 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 		if (!comp.getProject().isAccessible())
 			return;
 		J2EEComponentClasspathUpdater.getInstance().queueUpdateEAR(comp.getProject());
-		IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(comp.getProject());
+		final IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(comp.getProject());
 		earModel.modify(new Runnable() {
 			public void run() {
-				IEARModelProvider anotherEARModel = (IEARModelProvider)ModelProviderManager.getModelProvider(comp.getProject());
-				ICommonApplication application = (ICommonApplication)anotherEARModel.getModelObject();
+				ICommonApplication application = (ICommonApplication)earModel.getModelObject();
 				if (application == null)
 					return;
 				List list = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
@@ -67,7 +66,7 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 						if(!moduleComponent.isBinary()){
 							J2EEComponentClasspathUpdater.getInstance().queueUpdateModule(moduleComponent.getProject());
 						}
-						String moduleURI = getModuleURI(anotherEARModel, wc);
+						String moduleURI = getModuleURI(earModel, wc);
 						removeModule(application, moduleURI); 
 						IVirtualFile vFile = comp.getRootFolder().getFile(moduleURI);
 						IFile iFile = vFile.getUnderlyingFile();

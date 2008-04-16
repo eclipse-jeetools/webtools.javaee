@@ -248,8 +248,9 @@ protected static HashMap resourceSetListeners;
 	}
 	private static void startListeningToResourceSet(IProject project) {
 		ResourceSet set = WorkbenchResourceHelper.getResourceSet(project);
-		if (set != null)
-			set.eAdapters().add(getResourceSetListener(project));
+		Adapter listener = getResourceSetListener(project);
+		if (set != null && !set.eAdapters().contains(listener))
+			set.eAdapters().add(listener);
 	}
 	private static ModelProviderKey createProviderKey(IProjectFacetVersion fv, int priority) {
 		ModelProviderKey key =  new ModelProviderKey();

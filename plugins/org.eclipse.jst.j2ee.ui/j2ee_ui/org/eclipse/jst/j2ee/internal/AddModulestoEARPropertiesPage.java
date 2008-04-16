@@ -37,6 +37,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.ui.wizards.BuildPathDialogAccess;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
@@ -61,11 +62,14 @@ import org.eclipse.jst.j2ee.internal.ui.DoubleCheckboxTableItem;
 import org.eclipse.jst.j2ee.internal.ui.DoubleCheckboxTableViewer;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.EarFacetRuntimeHandler;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
 import org.eclipse.jst.javaee.application.Application;
+import org.eclipse.jst.jee.project.facet.EarCreateDeploymentFilesDataModelProvider;
+import org.eclipse.jst.jee.project.facet.ICreateDeploymentFilesDataModelProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -93,9 +97,6 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jst.jee.project.facet.EarCreateDeploymentFilesDataModelProvider;
-import org.eclipse.jst.jee.project.facet.ICreateDeploymentFilesDataModelProperties;
 
 
 public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, Listener {
@@ -132,9 +133,12 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		this.project = project;
 		this.propPage = page;
 		earComponent = ComponentCore.createComponent(project);
-		isVersion5 = J2EEProjectUtilities.isJEEProject(project);
-		if (isVersion5) {
-			oldLibDir = ((Application)ModelProviderManager.getModelProvider(project).getModelObject()).getLibraryDirectory();
+		String earDDVersion = JavaEEProjectUtilities.getJ2EEDDProjectVersion(project);
+		if (earDDVersion.equals(J2EEVersionConstants.VERSION_5_0_TEXT)) {
+			isVersion5 = true;
+			Application app = (Application)ModelProviderManager.getModelProvider(project).getModelObject();
+			if (app != null)
+				oldLibDir = app.getLibraryDirectory();
 			if (oldLibDir == null) oldLibDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
 			libDir = oldLibDir;
 		}
