@@ -6,7 +6,7 @@
 <%
 	if (model.getRemoteHomePackage() != null && model.getRemoteHomePackage().length() > 0) {
 %>
-package <%=model.getRemoteHomePackage()%>
+package <%=model.getRemoteHomePackage()%>;
 <%
 	}
 %>
