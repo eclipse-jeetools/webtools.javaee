@@ -69,9 +69,12 @@ public class EjbFacetInstallDataModelProvider
 			String projectName = model.getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
 			return projectName + IJ2EEModuleConstants.JAR_EXT; 
 		} else if (propertyName.equals(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)) {
+			if (getBooleanProperty(CREATE_CLIENT)) {
+				return Boolean.TRUE;
+			}
 			IProjectFacetVersion facetVersion = (IProjectFacetVersion)getProperty(FACET_VERSION);
-			if(facetVersion == EJB_30){
-				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EJB_GENERATE_DD));
+			if (facetVersion == EJB_30) {
+				return J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EJB_GENERATE_DD);
 			}
 			return Boolean.TRUE;
 		}
@@ -88,12 +91,14 @@ public class EjbFacetInstallDataModelProvider
 	}
 		
 	public boolean isPropertyEnabled(String propertyName) {
-		if ( CLIENT_NAME.equals(propertyName )) {
+		if (CLIENT_NAME.equals(propertyName)) {
 			return getBooleanProperty(CREATE_CLIENT);
-		}else if( CLIENT_URI.equals(propertyName )){
+		} else if (CLIENT_URI.equals(propertyName)) {
 			return getBooleanProperty(CREATE_CLIENT);
-		}else if(CREATE_CLIENT.equals(propertyName)){
+		} else if (CREATE_CLIENT.equals(propertyName)) {
 			return getBooleanProperty(ADD_TO_EAR);
+		} else if (GENERATE_DD.equals(propertyName)) {
+			return !getBooleanProperty(CREATE_CLIENT);
 		}
 		return super.isPropertyEnabled(propertyName);
 	}
@@ -102,23 +107,34 @@ public class EjbFacetInstallDataModelProvider
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		boolean status = super.propertySet(propertyName, propertyValue);
 		
-		if (propertyName.equals(CREATE_CLIENT)){
+		if (propertyName.equals(CREATE_CLIENT)) {
 	    	model.notifyPropertyChange(CLIENT_NAME, IDataModel.ENABLE_CHG);
 	    	model.notifyPropertyChange(CLIENT_URI, IDataModel.ENABLE_CHG);
-	    }else if (propertyName.equals(FACET_PROJECT_NAME)){
-	    	model.setStringProperty(CLIENT_NAME, (String)model.getDefaultProperty(CLIENT_NAME));
-	    	model.setStringProperty(CLIENT_URI, (String)model.getDefaultProperty(CLIENT_URI));
-	    }else if(propertyName.equals(ADD_TO_EAR)){
-	    	boolean addToEar = ((Boolean)propertyValue).booleanValue();
-	    	if(!addToEar && isPropertySet(CREATE_CLIENT)){
+	    	model.notifyPropertyChange(GENERATE_DD, IDataModel.ENABLE_CHG);
+	    	if ((Boolean) propertyValue && isPropertySet(GENERATE_DD)) {
+    			model.setBooleanProperty(GENERATE_DD, true);
+    		} else {
+    	    	model.notifyPropertyChange(GENERATE_DD, IDataModel.DEFAULT_CHG);
+    		}
+	    } else if (propertyName.equals(FACET_PROJECT_NAME)) {
+	    	model.setStringProperty(CLIENT_NAME, (String) model.getDefaultProperty(CLIENT_NAME));
+	    	model.setStringProperty(CLIENT_URI, (String) model.getDefaultProperty(CLIENT_URI));
+	    } else if (propertyName.equals(ADD_TO_EAR)) {
+	    	boolean addToEar = (Boolean) propertyValue;
+	    	if (!addToEar && isPropertySet(CREATE_CLIENT)) {
 	    		model.setBooleanProperty(CREATE_CLIENT, false);
 	    	} else {
 	    		model.notifyPropertyChange(CREATE_CLIENT, IDataModel.DEFAULT_CHG);
 		    	model.notifyPropertyChange(CLIENT_NAME, IDataModel.ENABLE_CHG);
 		    	model.notifyPropertyChange(CLIENT_URI, IDataModel.ENABLE_CHG);
+		    	model.notifyPropertyChange(GENERATE_DD, IDataModel.ENABLE_CHG);
+		    	if ((Boolean) getProperty(CREATE_CLIENT) && isPropertySet(GENERATE_DD)) {
+	    			model.setBooleanProperty(GENERATE_DD, true);
+	    		} else {
+	    	    	model.notifyPropertyChange(GENERATE_DD, IDataModel.DEFAULT_CHG);
+	    		}
 	    	}
 	    	model.notifyPropertyChange(CREATE_CLIENT, IDataModel.ENABLE_CHG);
-
 	    }
 
 		return status;
