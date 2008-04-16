@@ -17,12 +17,21 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
+import org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory;
+import org.eclipse.jst.javaee.core.DisplayName;
+import org.eclipse.jst.javaee.core.JavaeeFactory;
+import org.eclipse.jst.javaee.ejb.EJBJar;
+import org.eclipse.jst.javaee.ejb.EjbFactory;
+import org.eclipse.jst.javaee.web.WebApp;
+import org.eclipse.jst.javaee.web.WebFactory;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveFactory;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.BinaryComponentHelper;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -38,7 +47,7 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 		try {
 			helper = new JavaEEBinaryComponentHelper(aBinaryComponent);
 			IArchive archive = helper.getArchive();
-			if(archive == null){
+			if (archive == null) {
 				return new JavaEEQuickPeek(null);
 			}
 			JavaEEQuickPeek qp = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive);
@@ -73,10 +82,44 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 			break;
 		}
 		if (ddPath != null) {
-			try {
-				return (EObject) getArchive().getModelObject(ddPath);
-			} catch (ArchiveModelLoadException e) {
-				J2EEPlugin.logError(e);
+			if (getArchive().containsArchiveResource(ddPath)) {
+				try {
+					return (EObject) getArchive().getModelObject(ddPath);
+				} catch (ArchiveModelLoadException e) {
+					J2EEPlugin.logError(e);
+				}
+			} else {
+				String displayName = getComponent().getName();
+				//because this component is binary, its project must be the EAR.
+				IVirtualComponent earComponent = ComponentCore.createComponent(getComponent().getProject());
+				IVirtualReference [] refs = earComponent.getReferences();
+				for(IVirtualReference ref:refs){
+					if(ref.getReferencedComponent().equals(getComponent())){
+						displayName = ref.getArchiveName();
+						break;
+					}
+				}
+				DisplayName dn = JavaeeFactory.eINSTANCE.createDisplayName();
+				dn.setValue(displayName);
+				EObject root = null;
+				switch (qp.getType()) {
+				case JavaEEQuickPeek.APPLICATION_CLIENT_TYPE:
+					ApplicationClient applicationClient = ApplicationclientFactory.eINSTANCE.createApplicationClient();
+					applicationClient.getDisplayNames().add(dn);
+					root = (EObject) applicationClient;
+					break;
+				case JavaEEQuickPeek.EJB_TYPE:
+					EJBJar ejbJar = EjbFactory.eINSTANCE.createEJBJar();
+					ejbJar.getDisplayNames().add(dn);
+					root = (EObject) ejbJar;
+					break;
+				case JavaEEQuickPeek.WEB_TYPE:
+					WebApp webApp = WebFactory.eINSTANCE.createWebApp();
+					webApp.getDisplayNames().add(dn);
+					root = (EObject) webApp;
+					break;
+				}
+				return root;
 			}
 		}
 		return null;
