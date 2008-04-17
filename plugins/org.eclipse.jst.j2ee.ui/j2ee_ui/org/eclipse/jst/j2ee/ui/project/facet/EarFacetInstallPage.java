@@ -54,6 +54,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.common.project.facet.core.internal.FacetedProjectWorkingCopy;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 import org.eclipse.wst.web.ui.internal.wizards.DataModelFacetInstallPage;
 
@@ -307,7 +308,8 @@ public class EarFacetInstallPage extends DataModelFacetInstallPage implements IE
 		int j2eeVersion = getJ2EEVersion();
 		defaultModel.setProperty(IDefaultJ2EEComponentCreationDataModelProperties.J2EE_VERSION, new Integer(j2eeVersion));
 		
-		IRuntime rt = (IRuntime) model.getProperty(FACET_RUNTIME);
+		FacetedProjectWorkingCopy fpwc = (FacetedProjectWorkingCopy)model.getProperty(FACETED_PROJECT_WORKING_COPY);
+		IRuntime rt = fpwc.getPrimaryRuntime();
 		defaultModel.setProperty(IDefaultJ2EEComponentCreationDataModelProperties.FACET_RUNTIME, rt);
 		
 		return defaultModel;
