@@ -30,6 +30,7 @@ import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveFactory;
+import org.eclipse.jst.jee.archive.IArchiveLoadAdapter;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.BinaryComponentHelper;
@@ -129,7 +130,14 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 	public Resource getResource(URI uri) {
 		IPath path = new Path(uri.toString());
 		try {
-			return (Resource) ((JavaEEBinaryComponentLoadAdapter) getArchive().getLoadAdapter()).getModelObject(path);
+			IArchiveLoadAdapter loadAdapter = null;
+			if(getArchive().getArchiveOptions().hasOption(JavaEEArchiveUtilities.WRAPPED_LOAD_ADAPTER)){
+				loadAdapter = (IArchiveLoadAdapter)getArchive().getArchiveOptions().getOption(JavaEEArchiveUtilities.WRAPPED_LOAD_ADAPTER);
+			} else {
+				loadAdapter = (IArchiveLoadAdapter)getArchive().getArchiveOptions().getOption(ArchiveOptions.LOAD_ADAPTER);
+			}
+			EObject modelRoot = (EObject)((JavaEEBinaryComponentLoadAdapter) loadAdapter).getModelObject(path); 
+			return modelRoot.eResource();
 		} catch (ArchiveModelLoadException e) {
 			J2EEPlugin.logError(e);
 		}
