@@ -60,11 +60,13 @@ public class CreateMessageDrivenBeanTemplateModel extends
 	public Map<String, String> getClassAnnotationParams() {
 		Map<String, String> result = new Hashtable<String, String>();
 		if (isJMS()){
-			if (dataModel.getProperty(DESTINATION_TYPE) == DestinationType.QUEUE){
+			String destinationType = dataModel.getStringProperty(DESTINATION_TYPE);
+			if (destinationType.equals(DestinationType.QUEUE.toString())) 
 				result.put(ATT_ACTIVATION_CONFIG, "javax.jms.Queue");
-			} else{
+			else if (destinationType.equals(DestinationType.TOPIC.toString())) 
 				result.put(ATT_ACTIVATION_CONFIG, "javax.jms.Topic");
-			}
+			else 
+				throw new IllegalStateException("illegal destination type: " + destinationType);
 		}
 		String dispName = getProperty(EJB_NAME);
 		if (!dispName.equals(getClassName()))

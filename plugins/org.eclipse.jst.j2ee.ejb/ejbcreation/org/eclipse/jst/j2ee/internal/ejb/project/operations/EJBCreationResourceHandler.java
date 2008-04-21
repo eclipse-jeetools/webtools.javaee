@@ -143,6 +143,12 @@ public final class EJBCreationResourceHandler extends NLS {
 	public static String EJB_Client_JAR_Creation_Error_;
 	public static String Cannot_Be_Binary_Project_For_Client_;
 	public static String Cannot_Be_StandAlone_Project_For_Client_;
+	public static String TRANSACTION_TYPE_CONTAINER;
+	public static String TRANSACTION_TYPE_BEAN;
+	public static String STATE_TYPE_STATELESS;
+	public static String STATE_TYPE_STATEFUL;
+	public static String DESTINATION_TYPE_QUEUE;
+	public static String DESTINATION_TYPE_TOPIC;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, EJBCreationResourceHandler.class);

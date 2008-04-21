@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class NewMessageDrivenBeanClassWizardPage extends NewEnterpriseBeanClassWizardPage {
@@ -79,12 +80,12 @@ public class NewMessageDrivenBeanClassWizardPage extends NewEnterpriseBeanClassW
 
 		destinationTypeCombo = new Combo(composite, SWT.READ_ONLY);
 		destinationTypeCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		destinationTypeCombo.setItems(new String[] { 
-				IEjbWizardConstants.DESTINATION_TYPE_QUEUE, 
-				IEjbWizardConstants.DESTINATION_TYPE_TOPIC
-		});
+		DataModelPropertyDescriptor[] descriptors = model.getValidPropertyDescriptors(DESTINATION_TYPE);
+		for (DataModelPropertyDescriptor descriptor : descriptors) {
+			destinationTypeCombo.add(descriptor.getPropertyDescription());
+		}
 		destinationTypeCombo.select(0);
-		((ComboIndexSynchHelper) synchHelper).synchComboIndex(destinationTypeCombo, DESTINATION_TYPE, null);
+		synchHelper.synchCombo(destinationTypeCombo, DESTINATION_TYPE, null);
 		destinationTypeCombo.setEnabled(false);
 	}
 	

@@ -53,10 +53,10 @@ public class CreateSessionBeanTemplateModel extends
 	public Collection<String> getImports() {
 		Collection<String> collection = super.getImports();
 		
-		int stateType = dataModel.getIntProperty(STATE_TYPE);
-		if (stateType == NewSessionBeanClassDataModelProvider.STATE_TYPE_STATELESS_INDEX)
+		String stateType = dataModel.getStringProperty(STATE_TYPE);
+		if (stateType.equals(StateType.STATELESS.toString()))
 			collection.add(QUALIFIED_STATELESS);
-		else if (stateType == NewSessionBeanClassDataModelProvider.STATE_TYPE_STATEFUL_INDEX)
+		else if (stateType.equals(StateType.STATEFUL.toString()))
 			collection.add(QUALIFIED_STATEFUL);
 		else
 			throw new IllegalStateException("illegal state type: " + stateType);
@@ -101,12 +101,12 @@ public class CreateSessionBeanTemplateModel extends
 	}
 	
 	public String getClassAnnotation() {
-		int stateType = dataModel.getIntProperty(STATE_TYPE);
+		String stateType = dataModel.getStringProperty(STATE_TYPE);
 		
 		String beanType;
-		if (stateType == NewSessionBeanClassDataModelProvider.STATE_TYPE_STATELESS_INDEX)
+		if (stateType.equals(StateType.STATELESS.toString()))
 			beanType = STATELESS_ANNOTATION;
-		else if (stateType == NewSessionBeanClassDataModelProvider.STATE_TYPE_STATEFUL_INDEX)
+		else if (stateType.equals(StateType.STATEFUL.toString()))
 			beanType = STATEFUL_ANNOTATION;
 		else 
 			throw new IllegalStateException("illegal state type: " + stateType);

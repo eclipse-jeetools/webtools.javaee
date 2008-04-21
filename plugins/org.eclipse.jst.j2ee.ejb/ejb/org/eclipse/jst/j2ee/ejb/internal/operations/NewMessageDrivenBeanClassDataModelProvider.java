@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 
@@ -67,7 +69,7 @@ public class NewMessageDrivenBeanClassDataModelProvider extends NewEnterpriseBea
 		else if (propertyName.equals(JMS))
 			return Boolean.FALSE;
 		else if (propertyName.equals(DESTINATION_TYPE)) {
-			return DestinationType.QUEUE;
+			return DestinationType.QUEUE.toString();
 		}
 
 		// Otherwise check super for default value for property
@@ -107,6 +109,23 @@ public class NewMessageDrivenBeanClassDataModelProvider extends NewEnterpriseBea
 				getDataModel().setProperty(JMS, false);
 		}
 		return result;
+	}
+	
+	@Override
+	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
+		if (propertyName.equals(DESTINATION_TYPE)) {
+			return DataModelPropertyDescriptor.createDescriptors(
+					new String[] { 
+							DestinationType.QUEUE.toString(), 
+							DestinationType.TOPIC.toString()
+					}, 
+					new String[] {
+							EJBCreationResourceHandler.DESTINATION_TYPE_QUEUE, 
+							EJBCreationResourceHandler.DESTINATION_TYPE_TOPIC
+					});
+		} 
+		
+		return super.getValidPropertyDescriptors(propertyName);
 	}
 
 	private void updateInterfaces(String property, Boolean propertyValue) {

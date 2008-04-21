@@ -28,7 +28,12 @@ public class CreateEnterpriseBeanTemplateModel extends
 	}
     
     public boolean isContainerType() {
-		int transactionType = dataModel.getIntProperty(TRANSACTION_TYPE);
-		return transactionType == NewSessionBeanClassDataModelProvider.TRANSACTION_TYPE_CONTAINER_INDEX;
+		String transactionType = dataModel.getStringProperty(TRANSACTION_TYPE);
+		if (transactionType.equals(TransactionType.CONTAINER.toString()))
+			return true;
+		else if (transactionType.equals(TransactionType.BEAN.toString()))
+			return false;
+		else 
+			throw new IllegalStateException("illegal transaction type: " + transactionType);
 	}
 }

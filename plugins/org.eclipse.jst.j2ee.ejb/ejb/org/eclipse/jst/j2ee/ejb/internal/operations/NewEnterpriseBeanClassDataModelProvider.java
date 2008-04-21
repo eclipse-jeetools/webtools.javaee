@@ -22,16 +22,13 @@ import java.util.Set;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public class NewEnterpriseBeanClassDataModelProvider extends NewJavaClassDataModelProvider {
 
-	public static final int TRANSACTION_TYPE_CONTAINER_INDEX = 0;
-	public static final int TRANSACTION_TYPE_BEAN_INDEX = 1;
-
-	
 	/**
 	 * Subclasses may extend this method to add their own data model's properties as valid base
 	 * properties.
@@ -68,8 +65,8 @@ public class NewEnterpriseBeanClassDataModelProvider extends NewJavaClassDataMod
 			return className;
 		} else if (propertyName.equals(SUPERCLASS)){
 			return "";
-		}else if (propertyName.equals(TRANSACTION_TYPE)) {
-			return NewEnterpriseBeanClassDataModelProvider.TRANSACTION_TYPE_CONTAINER_INDEX;
+		} else if (propertyName.equals(TRANSACTION_TYPE)) {
+			return TransactionType.CONTAINER.toString();
 		} 
 
 		// Otherwise check super for default value for property
@@ -118,4 +115,22 @@ public class NewEnterpriseBeanClassDataModelProvider extends NewJavaClassDataMod
 		}
 		return result;
 	}
+	
+	@Override
+	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
+		if (propertyName.equals(TRANSACTION_TYPE)) {
+			return DataModelPropertyDescriptor.createDescriptors(
+					new String[] { 
+							TransactionType.CONTAINER.toString(), 
+							TransactionType.BEAN.toString()
+					}, 
+					new String[] {
+							EJBCreationResourceHandler.TRANSACTION_TYPE_CONTAINER, 
+							EJBCreationResourceHandler.TRANSACTION_TYPE_BEAN
+					});
+		} 
+		
+		return super.getValidPropertyDescriptors(propertyName);
+	}
+	
 }

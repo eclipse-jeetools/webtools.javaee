@@ -26,6 +26,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class NewSessionBeanClassWizardPage extends NewEnterpriseBeanClassWizardPage {
@@ -64,12 +65,12 @@ public class NewSessionBeanClassWizardPage extends NewEnterpriseBeanClassWizardP
 
 		stateTypeCombo = new Combo(composite, SWT.READ_ONLY);
 		stateTypeCombo.setLayoutData(gdhspan(1));
-		stateTypeCombo.setItems(new String[] { 
-				IEjbWizardConstants.STATE_TYPE_STATELESS, 
-				IEjbWizardConstants.STATE_TYPE_STATEFUL
-		});
+		DataModelPropertyDescriptor[] descriptors = model.getValidPropertyDescriptors(STATE_TYPE);
+		for (DataModelPropertyDescriptor descriptor : descriptors) {
+			stateTypeCombo.add(descriptor.getPropertyDescription());
+		}
 		stateTypeCombo.select(0);
-		((ComboIndexSynchHelper) synchHelper).synchComboIndex(stateTypeCombo, STATE_TYPE, null);
+		synchHelper.synchCombo(stateTypeCombo, STATE_TYPE, null);
 		
 		Group group = new Group(composite, SWT.NONE);
         group.setLayoutData(gdhspan(2));

@@ -43,6 +43,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
@@ -88,12 +89,12 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 		transactionTypeLabel.setText(EJBUIMessages.TRANSACTION_TYPE);
 		transactionTypeCombo = new Combo(composite, SWT.None | SWT.READ_ONLY);
 		transactionTypeCombo.setLayoutData(data);
-		transactionTypeCombo.setItems(new String[] {
-				IEjbWizardConstants.TRANSACTION_TYPE_CONTAINER, 
-				IEjbWizardConstants.TRANSACTION_TYPE_BEAN
-		});
+		DataModelPropertyDescriptor[] descriptors = model.getValidPropertyDescriptors(TRANSACTION_TYPE);
+		for (DataModelPropertyDescriptor descriptor : descriptors) {
+			transactionTypeCombo.add(descriptor.getPropertyDescription());
+		}
 		transactionTypeCombo.select(0);
-		((ComboIndexSynchHelper) synchHelper).synchComboIndex(transactionTypeCombo, TRANSACTION_TYPE, null);
+		synchHelper.synchCombo(transactionTypeCombo, TRANSACTION_TYPE, null);
 		
 		addSeperator(composite, 3);
 

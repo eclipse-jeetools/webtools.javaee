@@ -11,12 +11,12 @@
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.BUSINESS_INTERFACES;
-import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_BUSINESS_INTERFACE;
-import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_BUSINESS_INTERFACE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_BUSINESS_INTERFACE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_HOME;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_HOME_INTERFACE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_BUSINESS_INTERFACE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_HOME;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_HOME_INTERFACE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.STATE_TYPE;
@@ -34,6 +34,8 @@ import org.eclipse.jdt.core.Signature;
 import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface.BusinessInterfaceType;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
@@ -41,9 +43,6 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClassDataModelProvider {
 
-	public static final int STATE_TYPE_STATELESS_INDEX = 0;
-	public static final int STATE_TYPE_STATEFUL_INDEX = 1;
-	
 	private static final String LOCAL_SUFFIX = "Local"; //$NON-NLS-1$
 	private static final String REMOTE_SUFFIX = "Remote"; //$NON-NLS-1$
 	private static final String LOCAL_HOME_SUFFIX = "LocalHome"; //$NON-NLS-1$
@@ -98,7 +97,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		else if (propertyName.equals(LOCAL))
 			return Boolean.TRUE;
 		else if (propertyName.equals(STATE_TYPE))
-			return NewSessionBeanClassDataModelProvider.STATE_TYPE_STATELESS_INDEX; 
+			return StateType.STATELESS.toString(); 
 		else if (propertyName.equals(BUSINESS_INTERFACES)) {
 			List<BusinessInterface> listResult = new ArrayList<BusinessInterface>();
 			String className = getStringProperty(QUALIFIED_CLASS_NAME);
@@ -196,6 +195,23 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		}
 
 		return result;
+	}
+	
+	@Override
+	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
+		if (propertyName.equals(STATE_TYPE)) {
+			return DataModelPropertyDescriptor.createDescriptors(
+					new String[] { 
+							StateType.STATELESS.toString(), 
+							StateType.STATEFUL.toString()
+					}, 
+					new String[] {
+							EJBCreationResourceHandler.STATE_TYPE_STATELESS, 
+							EJBCreationResourceHandler.STATE_TYPE_STATEFUL
+					});
+		} 
+		
+		return super.getValidPropertyDescriptors(propertyName);
 	}
 
 	private void updateBusinessInterfaces(String propertyName) {

@@ -16,17 +16,12 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
 
 public class NewEnterpriseBeanClassWizardPage extends NewJavaClassWizardPage {
 	
 	public NewEnterpriseBeanClassWizardPage(IDataModel model, String pageName,
 			String pageDesc, String pageTitle, String moduleType) {
 		super(model, pageName, pageDesc, pageTitle, moduleType);
-	}
-	
-	public DataModelSynchHelper initializeSynchHelper(IDataModel dm) {
-		return new ComboIndexSynchHelper(dm);
 	}
 	
 	@Override

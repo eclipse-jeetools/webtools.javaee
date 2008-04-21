@@ -22,7 +22,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
 
 public class AddEnterpriseBeanWizardPage extends NewJavaClassOptionsWizardPage {
 	
@@ -30,11 +29,6 @@ public class AddEnterpriseBeanWizardPage extends NewJavaClassOptionsWizardPage {
 		super(model, pageName, pageDesc, pageTitle);
 	}
 	
-	@Override
-	public DataModelSynchHelper initializeSynchHelper(IDataModel dm) {
-		return new ComboIndexSynchHelper(dm);
-	}
-
 	@Override
 	protected void createStubsComposite(Composite parent) {
 		Label stubLabel = new Label(parent, SWT.NONE);
