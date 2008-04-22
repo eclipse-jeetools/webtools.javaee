@@ -24,6 +24,7 @@ import org.eclipse.jst.j2ee.dependency.tests.util.ProjectUtil;
 import org.eclipse.jst.j2ee.ejb.internal.operations.AddSessionBeanOperation;
 import org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.internal.operations.NewSessionBeanClassDataModelProvider;
+import org.eclipse.jst.j2ee.ejb.internal.operations.StateType;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
@@ -250,8 +251,8 @@ public class EJB3MergedModelProviderTest extends AbstractAnnotationModelTest {
 		NewSessionBeanClassDataModelProvider dataProvider = new NewSessionBeanClassDataModelProvider();
 		IDataModel dataModel = DataModelFactory.createDataModel(dataProvider);
 		dataModel.setStringProperty(INewSessionBeanClassDataModelProperties.CLASS_NAME, className);
-		dataModel.setIntProperty(INewSessionBeanClassDataModelProperties.STATE_TYPE,
-				NewSessionBeanClassDataModelProvider.STATE_TYPE_STATELESS_INDEX);
+		dataModel.setStringProperty(INewSessionBeanClassDataModelProperties.STATE_TYPE,
+				StateType.STATELESS.toString());
 		dataModel.setStringProperty(INewSessionBeanClassDataModelProperties.EJB_NAME, className);
 		dataModel.setStringProperty(INewSessionBeanClassDataModelProperties.JAVA_PACKAGE, javaPackage);
 		dataModel.setStringProperty(INewSessionBeanClassDataModelProperties.PROJECT_NAME, projectName);
