@@ -638,7 +638,11 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			try{
 				iArchive = helper.accessArchive();
 				IPath path = (IPath)iArchive.getArchiveOptions().getOption(ArchiveOptions.ARCHIVE_PATH);
-				return CommonarchiveFactory.eINSTANCE.openWARFile(path.toOSString());
+				org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions options = new org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions();
+				options.setIsReadOnly(true);
+				options.setRendererType(org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions.SAX);
+				options.setUseJavaReflection(false);
+				return CommonarchiveFactory.eINSTANCE.openWARFile(options, path.toOSString());
 			} finally {
 				helper.releaseArchive(iArchive);
 			}
