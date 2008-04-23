@@ -15,9 +15,12 @@ import java.rmi.RemoteException;
 
 import javax.ejb.CreateException;
 import javax.ejb.EJBHome;
+<% if(!model.getRemoteComponentPackage().equals(model.getRemoteHomePackage())){%>
+import <%= model.getRemoteComponentPackage() %>.<%= model.getRemoteComponentClassSimpleName() %>;
+<%}%>
 
 public interface <%=model.getRemoteHomeClassSimpleName()%> extends EJBHome {
 
-	public <%= model.getClassName() %>RemoteComponent create() throws CreateException, RemoteException;
+	public <%= model.getRemoteComponentClassSimpleName() %> create() throws CreateException, RemoteException;
 	
 }

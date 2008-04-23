@@ -149,6 +149,18 @@ public final class EJBCreationResourceHandler extends NLS {
 	public static String STATE_TYPE_STATEFUL;
 	public static String DESTINATION_TYPE_QUEUE;
 	public static String DESTINATION_TYPE_TOPIC;
+	
+	public static String ERR_BEAN_ALREADY_EXISTS;
+	public static String ERR_COULD_NOT_RESOLVE_INTERFACE;
+	public static String ERR_LOCAL_HOME_MISSING_CREATE_METHOD;
+	public static String ERR_REMOTE_HOME_MISSING_CREATE_METHOD;
+	public static String ERR_LOCAL_HOME_CREATE_METHOD_RETURN_TYPE_INVALID;
+	public static String ERR_REMOTE_HOME_CREATE_METHOD_RETURN_TYPE_INVALID;
+	public static String ERR_LOCAL_COMPONENT_NOT_INTERFACE;
+	public static String ERR_LOCAL_HOME_NOT_INTERFACE;
+	public static String ERR_REMOTE_COMPONENT_NOT_INTERFACE;
+	public static String ERR_REMOTE_HOME_NOT_INTERFACE;
+
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, EJBCreationResourceHandler.class);

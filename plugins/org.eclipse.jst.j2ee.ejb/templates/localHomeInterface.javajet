@@ -14,9 +14,12 @@ import java.rmi.RemoteException;
 
 import javax.ejb.CreateException;
 import javax.ejb.EJBLocalHome;
+<% if(!model.getLocalComponentPackage().equals(model.getLocalHomePackage())){%>
+import <%= model.getLocalComponentPackage()%>.<%= model.getLocalComponentClassSimpleName()%>;
+<%}%>
 
 public interface <%=model.getLocalHomeClassSimpleName()%> extends EJBLocalHome {
 
-	public <%= model.getClassName() %>LocalComponent create() throws CreateException, RemoteException;
+	public <%= model.getLocalComponentClassSimpleName() %> create() throws CreateException, RemoteException;
 	
 }

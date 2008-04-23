@@ -33,6 +33,7 @@ import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.Signature;
@@ -71,9 +72,6 @@ import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedExc
  * 
  */
 public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperation {
-
-	private static final String LOCAL_COMPONENT_SUFFIX = "LocalComponent"; //$NON-NLS-1$
-	private static final String REMOTE_COMPONENT_SUFFIX = "RemoteComponent"; //$NON-NLS-1$
 
 	/**
 	 * folder location of the enterprise bean creation templates directory
@@ -208,29 +206,63 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 		// Create the EJB 2.x compatible Remote Home and Component interface java files
 		if (model.getBooleanProperty(REMOTE_HOME)) {
 			String remoteFullName =  model.getStringProperty(INewSessionBeanClassDataModelProperties.REMOTE_HOME_INTERFACE);
+			String remoteComponentFullName = model.getStringProperty(INewSessionBeanClassDataModelProperties.REMOTE_COMPONENT_INTERFACE);
+			
+			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(model.getStringProperty(INewSessionBeanClassDataModelProperties.PROJECT_NAME));
+			IJavaProject javaProject = JavaCore.create(project);
+			IType type = javaProject.findType(remoteFullName);
+			
 			IPackageFragment remoteFragment = null;
 			String fileName = Signature.getSimpleName(remoteFullName)+ DOT_JAVA;
-			remoteFragment = getPackageFragment(useClientJar, remoteFullName);
+			
 			tempModel.setRemoteHomeClassName(remoteFullName);
-			String src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_REMOTEHOME_FILE, monitor);
-			createJavaFile(monitor, remoteFragment, src, fileName);
-			src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_REMOTECOMPONENT_FILE, monitor);
-			fileName =  tempModel.getClassName() + REMOTE_COMPONENT_SUFFIX + DOT_JAVA;
-			createJavaFile(monitor, fragment, src, fileName);
+			tempModel.setRemoteComponentClassName(remoteComponentFullName);
+			String src = "";
+			if(type == null){
+				remoteFragment = getPackageFragment(useClientJar, remoteFullName);
+				src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_REMOTEHOME_FILE, monitor);
+				createJavaFile(monitor, remoteFragment, src, fileName);
+			}
+			
+			String fileComponentName = Signature.getSimpleName(remoteComponentFullName)+ DOT_JAVA;			
+			
+			type = javaProject.findType(remoteComponentFullName);
+			if(type == null){
+				IPackageFragment remoteComponentFragment = getPackageFragment(useClientJar, remoteComponentFullName);
+				src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_REMOTECOMPONENT_FILE, monitor);
+				createJavaFile(monitor, remoteComponentFragment, src, fileComponentName);
+			}
 		}
 		
 		// Create the EJB 2.x compatible Local Home and Component interface java files
 		if (model.getBooleanProperty(LOCAL_HOME)) {
 			String localFullName =  model.getStringProperty(INewSessionBeanClassDataModelProperties.LOCAL_HOME_INTERFACE);
+			String localComponentFullName = model.getStringProperty(INewSessionBeanClassDataModelProperties.LOCAL_COMPONENT_INTERFACE);
+			
+			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(model.getStringProperty(INewSessionBeanClassDataModelProperties.PROJECT_NAME));
+			IJavaProject javaProject = JavaCore.create(project);
+			IType type = javaProject.findType(localFullName);			
+			
 			IPackageFragment localFragment = null;
 			String fileName = Signature.getSimpleName(localFullName)+ DOT_JAVA;
-			localFragment = getPackageFragment(useClientJar, localFullName);
 			tempModel.setLocalHomeClassName(localFullName);
-			String src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_LOCALHOME_FILE, monitor);
-			createJavaFile(monitor, localFragment, src, fileName);
-			src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_LOCALCOMPONENT_FILE, monitor);
-			fileName =  tempModel.getClassName() + LOCAL_COMPONENT_SUFFIX + DOT_JAVA;
-			createJavaFile(monitor, fragment, src, fileName);
+			tempModel.setLocalComponentClassName(localComponentFullName);
+			
+			String src = "";
+			if(type == null){
+				localFragment = getPackageFragment(useClientJar, localFullName);
+				src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_LOCALHOME_FILE, monitor);
+				createJavaFile(monitor, localFragment, src, fileName);
+			}
+			
+			String fileComponentName = Signature.getSimpleName(localComponentFullName)+ DOT_JAVA;
+			
+			type = javaProject.findType(localComponentFullName);
+			if(type == null){
+				IPackageFragment localComponentFragment = getPackageFragment(useClientJar, localComponentFullName);
+				src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_LOCALCOMPONENT_FILE, monitor);
+				createJavaFile(monitor, localComponentFragment, src, fileComponentName);
+			}
 		}
 	}
 

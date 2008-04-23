@@ -43,7 +43,9 @@ public class CreateSessionBeanTemplateModel extends
 
 	protected BusinessInterface currentBusinessInterface = null;
 	protected String localHomeClassName = null;
+	protected String localComponentClassName = null;
 	protected String remoteHomeClassName = null;
+	protected String remoteComponentClassName = null;
 	
 	public CreateSessionBeanTemplateModel(IDataModel dataModel) {
 		super(dataModel);
@@ -199,6 +201,24 @@ public class CreateSessionBeanTemplateModel extends
 		this.localHomeClassName = localHomeClassName;
 	}
 
+	
+	
+	public String getLocalComponentPackage() {
+		return Signature.getQualifier(localComponentClassName);
+	}
+
+	public String getLocalComponentClassSimpleName()
+	{
+		return Signature.getSimpleName(localComponentClassName);
+	}
+
+	public void setLocalComponentClassName(String localComponentClassName) {
+		this.localComponentClassName = localComponentClassName;
+	}
+
+	
+	
+	
 	public String getRemoteHomePackage() {
 		return Signature.getQualifier(remoteHomeClassName);
 	}
@@ -210,5 +230,22 @@ public class CreateSessionBeanTemplateModel extends
 
 	public void setRemoteHomeClassName(String remoteHomeClassName) {
 		this.remoteHomeClassName = remoteHomeClassName;
+	}
+	
+	
+	
+	
+	
+	public String getRemoteComponentPackage() {
+		return Signature.getQualifier(remoteComponentClassName);
+	}
+
+	public String getRemoteComponentClassSimpleName()
+	{
+		return Signature.getSimpleName(remoteComponentClassName);
+	}
+
+	public void setRemoteComponentClassName(String remoteComponentClassName) {
+		this.remoteComponentClassName = remoteComponentClassName;
 	}
 }

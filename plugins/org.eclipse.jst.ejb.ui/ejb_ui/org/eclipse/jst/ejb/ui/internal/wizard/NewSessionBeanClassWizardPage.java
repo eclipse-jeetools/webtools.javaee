@@ -18,6 +18,8 @@ import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassD
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -78,27 +80,48 @@ public class NewSessionBeanClassWizardPage extends NewEnterpriseBeanClassWizardP
         group.setText(IEjbWizardConstants.CREATE_BUSINESS_INTERFACE);
 		
 		remoteCheckbox = new Button(group, SWT.CHECK);
-		remoteCheckbox.setLayoutData(gdhspan(3));
+		remoteCheckbox.setLayoutData(gdhspan(1));
 		remoteCheckbox.setText(IEjbWizardConstants.REMOTE_BUSINESS_INTERFACE);
-		synchHelper.synchCheckbox(remoteCheckbox, REMOTE, null);
-		Label remoteInterfaceLabel = new Label(group, SWT.LEFT);
-		remoteInterfaceLabel.setText(IEjbWizardConstants.REMOTE_BUSINESS_INTERFACE_LABEL);
-		remoteInterfaceName = new Text(group, SWT.SINGLE | SWT.BORDER);
 		GridData data2 = new GridData(GridData.FILL_HORIZONTAL);
-//		data2.horizontalSpan = 2;
+		data2.horizontalSpan = 1;
+		remoteInterfaceName = new Text(group, SWT.SINGLE | SWT.BORDER);
+		synchHelper.synchCheckbox(remoteCheckbox, REMOTE, null);
+		
 		remoteInterfaceName.setLayoutData(data2);
+//		remoteInterfaceName.setText("");
 		synchHelper.synchText(remoteInterfaceName, REMOTE_BUSINESS_INTERFACE, null);
 
 		localCheckbox = new Button(group, SWT.CHECK);
-		localCheckbox.setLayoutData(gdhspan(3));
+		localCheckbox.setLayoutData(gdhspan(1));
 		localCheckbox.setText(IEjbWizardConstants.LOCAL_BUSINESS_INTERFACE);
-		localCheckbox.setLayoutData(gdhspan(3));
 		synchHelper.synchCheckbox(localCheckbox, LOCAL, null);
-		Label localInterfaceLabel = new Label(group, SWT.LEFT);
-		localInterfaceLabel.setText(IEjbWizardConstants.LOCAL_BUSINESS_INTERFACE_LABEL);
 		localInterfaceName = new Text(group, SWT.SINGLE | SWT.BORDER);
 		localInterfaceName.setLayoutData(data2);
 		synchHelper.synchText(localInterfaceName, LOCAL_BUSINESS_INTERFACE, null);
+		
+		remoteCheckbox.addSelectionListener(new SelectionListener(){
+
+			public void widgetDefaultSelected(SelectionEvent e) {
+				remoteInterfaceName.setEnabled(((Button)e.getSource()).getSelection());
+			}
+
+			public void widgetSelected(SelectionEvent e) {					
+				remoteInterfaceName.setEnabled(((Button)e.getSource()).getSelection());
+			}
+			
+		});
+		localCheckbox.addSelectionListener(new SelectionListener(){
+
+			public void widgetDefaultSelected(SelectionEvent e) {
+				localInterfaceName.setEnabled(((Button)e.getSource()).getSelection());
+			}
+
+			public void widgetSelected(SelectionEvent e) {					
+				localInterfaceName.setEnabled(((Button)e.getSource()).getSelection());
+			}
+			
+		});
+		remoteInterfaceName.setEnabled(false);
 	}
 
 	private static GridData gdhspan(int span) {

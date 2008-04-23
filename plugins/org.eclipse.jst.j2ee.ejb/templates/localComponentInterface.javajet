@@ -6,6 +6,6 @@
 <%@ include file="_package.template" %>
 import javax.ejb.EJBLocalObject;
 
-public interface <%= model.getClassName() %>LocalComponent extends EJBLocalObject {
+public interface <%= model.getLocalComponentClassSimpleName() %> extends EJBLocalObject {
 
 }

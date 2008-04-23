@@ -6,6 +6,6 @@
 <%@ include file="_package.template" %>
 import javax.ejb.EJBObject;
 
-public interface <%= model.getClassName() %>RemoteComponent extends EJBObject {
+public interface <%= model.getRemoteComponentClassSimpleName() %> extends EJBObject {
 
 }
