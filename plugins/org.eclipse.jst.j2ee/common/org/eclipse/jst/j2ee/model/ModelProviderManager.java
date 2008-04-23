@@ -158,10 +158,13 @@ protected static HashMap resourceSetListeners;
 			}
 		
 		for (int i = 0; i < aList.size(); i++) {
-				IModelProviderListener mod;
-				mod = (IModelProviderListener) aList.get(i);
+				IModelProvider mod;
+				mod = (IModelProvider) aList.get(i);
 				try {
-					mod.modelsChanged(anEvent);
+					if (mod instanceof IModelProviderListener)
+					{
+						((IModelProviderListener)mod).modelsChanged(anEvent);
+					}
 				} catch (Exception e) {
 					Logger.getLogger().logError(e);
 				}
