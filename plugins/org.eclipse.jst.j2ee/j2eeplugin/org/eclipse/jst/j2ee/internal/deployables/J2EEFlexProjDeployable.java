@@ -44,9 +44,11 @@ import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyManifestUtil;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
+import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.jst.server.core.IApplicationClientModule;
 import org.eclipse.jst.server.core.IConnectorModule;
 import org.eclipse.jst.server.core.IEJBModule;
@@ -638,7 +640,8 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 		}
 		IVirtualReference reference = getReferenceNamed(references,aComponent.getName());
 		// Ensure module URI exists on EAR DD for binary archive
-		return app.getFirstModule(reference.getArchiveName()) != null;
+		boolean inDD = app.getFirstModule(reference.getArchiveName()) != null;
+		return inDD && JavaEEBinaryComponentHelper.getJavaEEQuickPeek(aComponent).getType() != JavaEEQuickPeek.UNKNOWN;
     }
     
     protected IVirtualReference getReferenceNamed(IVirtualReference[] references, String name) {
