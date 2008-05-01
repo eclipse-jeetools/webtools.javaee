@@ -29,6 +29,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
 /**
  * Contains utility code for executing the UpdateClasspathAttributeOperation.
+ * @since 3.0
  */
 public class UpdateClasspathAttributeUtil implements IClasspathDependencyConstants {
 
@@ -53,6 +54,17 @@ public class UpdateClasspathAttributeUtil implements IClasspathDependencyConstan
 	 */
 	public static IClasspathAttribute createDependencyAttribute(final boolean isWebApp, final boolean isClassFolder) throws CoreException {
 		return createDependencyAttribute(ClasspathDependencyUtil.getDefaultRuntimePath(isWebApp, isClassFolder));
+	}
+
+	/**
+	 * Creates an IClasspathAttribute with the special WTP "org.eclipse.jst.component.dependency" name whose runtime path
+	 * (represented by the value) is set to the default for either a web project (/WEB-INF/lib) or non-web project (../).
+	 * @param isWebApp True if this attribute is being created for a classpath entry on a dynamic web project.
+	 * @return The created IClasspathAttribute.
+	 * @throws CoreException Thrown if a problem is encountered.
+	 */
+	public static IClasspathAttribute createDependencyAttribute(final boolean isWebApp) throws CoreException {
+		return createDependencyAttribute(ClasspathDependencyUtil.getDefaultRuntimePath(isWebApp));
 	}
 
 	/**
