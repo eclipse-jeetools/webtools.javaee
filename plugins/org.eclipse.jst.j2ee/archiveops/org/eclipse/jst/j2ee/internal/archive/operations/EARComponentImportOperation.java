@@ -115,8 +115,10 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 				Archive nestedArchive = (Archive) importModel.getProperty(IEARComponentImportDataModelProperties.FILE);
 				importModel.setProperty(IJ2EEComponentImportDataModelProperties.CLOSE_ARCHIVE_ON_DISPOSE, Boolean.FALSE);
 				IDataModel compCreationModel = importModel.getNestedModel(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION);
-				if (compCreationModel.isProperty(IJ2EEFacetProjectCreationDataModelProperties.MODULE_URI))
+				if (compCreationModel.isProperty(IJ2EEFacetProjectCreationDataModelProperties.MODULE_URI)){
 					compCreationModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.MODULE_URI, nestedArchive.getURI());
+				}
+				compCreationModel.setBooleanProperty(IJ2EEFacetProjectCreationDataModelProperties.ADD_TO_EAR, false);
 				try {
 					importModel.getDefaultOperation().execute(new SubProgressMonitor(monitor, PROJECT_CREATION_WORK + nestedArchive.getFiles().size()), info);
 				} catch (ExecutionException e) {
