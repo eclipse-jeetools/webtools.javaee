@@ -20,7 +20,9 @@ import java.util.Properties;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -37,6 +39,7 @@ import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
 import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.server.core.IApplicationClientModule;
 import org.eclipse.jst.server.core.IConnectorModule;
@@ -584,7 +587,65 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 		}
 		return (IVirtualReference[]) result.toArray(new IVirtualReference[result.size()]);
 	}
-	
+
+	/*
+	 * If the resource to check is a file then this method will return true if the file is linked. If the resource to
+	 * check is a folder then this method will return true if it, any of its sub directories, or any file contained
+	 * with-in this directory of any of it's sub directories are linked. Otherwise false is returned.
+	 */
+	private boolean hasLinkedContent(final IResource resourceToCheck) throws CoreException {
+
+		if ((resourceToCheck != null) && resourceToCheck.isAccessible()) {
+			// skip non-accessible files
+			if (resourceToCheck.isLinked()) {
+				return true;
+			}
+			else {
+				switch (resourceToCheck.getType()) {
+					case IResource.FOLDER:
+						// recursively check sub directory contents
+						final IResource[] subDirContents = ((IFolder) resourceToCheck).members();
+						for (int i = 0; i < subDirContents.length; i++) {
+							if (hasLinkedContent(subDirContents[i])) {
+								return true;
+							}
+						}
+						break;
+					case IResource.FILE:
+						return resourceToCheck.isLinked();
+					default:
+						// skip as we only care about files and folders
+						break;
+				}
+			}
+		}
+		return false;
+	}
+
+	/*
+	 * This method returns true if the root folders of this component have any linked resources (folder or file);
+	 * Otherwise false is returned.
+	 */
+	private boolean rootFoldersHaveLinkedContent() {
+
+		if (this.component != null) {
+			final IContainer[] rootFolders = this.component.getRootFolder().getUnderlyingFolders();
+			for (int i = 0; i < rootFolders.length; i++) {
+				try {
+					boolean hasLinkedContent = this.hasLinkedContent(rootFolders[i]);
+					if (hasLinkedContent) {
+						return true;
+					}
+				}
+				catch (CoreException coreEx) {
+					// log any exception that occurs
+					J2EEPlugin.getDefault().log(coreEx.getStatus());
+				}
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * Returns <code>true</code> if this module has a simple structure based on a
 	 * single root folder, and <code>false</code> otherwise.
@@ -615,6 +676,10 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				// are filtered out
 				return false;
 			} else if (J2EEProjectUtilities.isDynamicWebProject(getProject())) {
+				// if there are any linked resources then this is not a singleroot module
+				if (this.rootFoldersHaveLinkedContent()) {
+					return false;
+				}
 				// Ensure there are only basic component resource mappings -- one for the content folder 
 				// and any for src folders mapped to WEB-INF/classes
 				if (hasDefaultWebResourceMappings(resourceMaps)) {
@@ -630,6 +695,10 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				return false;
 			} else if (J2EEProjectUtilities.isEJBProject(getProject()) || J2EEProjectUtilities.isJCAProject(getProject())
 					|| J2EEProjectUtilities.isApplicationClientProject(getProject()) || J2EEProjectUtilities.isUtilityProject(getProject())) {
+				// if there are any linked resources then this is not a singleroot module
+				if (this.rootFoldersHaveLinkedContent()) {
+					return false;
+				}
 				// Ensure there are only source folder component resource mappings to the root content folder
 				if (isRootResourceMapping(resourceMaps,false)) {
 					// Verify only one java outputfolder
