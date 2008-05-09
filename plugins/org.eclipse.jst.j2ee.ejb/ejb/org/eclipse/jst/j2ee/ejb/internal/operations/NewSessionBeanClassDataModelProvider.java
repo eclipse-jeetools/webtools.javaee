@@ -320,7 +320,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 			}
 			if (LOCAL_COMPONENT_INTERFACE.equals(propertyName) || REMOTE_COMPONENT_INTERFACE.equals(propertyName)
 					|| LOCAL_HOME_INTERFACE.equals(propertyName) || REMOTE_HOME_INTERFACE.equals(propertyName)){
-				currentStatus = validateComponentHomeInterdaces();
+				currentStatus = validateComponentHomeInterfaces();
 				if (!currentStatus.isOK()) {
 					return currentStatus;
 				}
@@ -331,35 +331,41 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 	}
 
 	private IStatus validateEjbName() {
-		IModelProvider provider = ModelProviderManager.getModelProvider(ResourcesPlugin.getWorkspace().getRoot().getProject(getStringProperty(PROJECT_NAME)));
-		EJBJar modelObject = (EJBJar) provider.getModelObject();
-		List sessionBeans = modelObject.getEnterpriseBeans().getSessionBeans();
-		for (Object object : sessionBeans) {
-			SessionBean session = (SessionBean) object;
-			if (session.getEjbName().equals(getDataModel().getStringProperty(EJB_NAME))){
-				return new Status(IStatus.ERROR, EjbPlugin.PLUGIN_ID, EJBCreationResourceHandler.ERR_BEAN_ALREADY_EXISTS);
+		String projectName = getStringProperty(PROJECT_NAME);
+		if (projectName != null && projectName.length() > 0) {
+			IModelProvider provider = ModelProviderManager.getModelProvider(ResourcesPlugin.getWorkspace().getRoot().getProject(projectName));
+			EJBJar modelObject = (EJBJar) provider.getModelObject();
+			List sessionBeans = modelObject.getEnterpriseBeans().getSessionBeans();
+			for (Object object : sessionBeans) {
+				SessionBean session = (SessionBean) object;
+				if (session.getEjbName().equals(getDataModel().getStringProperty(EJB_NAME))){
+					return new Status(IStatus.ERROR, EjbPlugin.PLUGIN_ID, EJBCreationResourceHandler.ERR_BEAN_ALREADY_EXISTS);
+				}
 			}
 		}
 		return Status.OK_STATUS;
 	}
 
-	protected IStatus validateComponentHomeInterdaces() {
-		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(getStringProperty(PROJECT_NAME));
-		IJavaProject javaProject = JavaCore.create(project);
+	protected IStatus validateComponentHomeInterfaces() {
 		IStatus result = Status.OK_STATUS;
-		try {
-			if (getBooleanProperty(REMOTE)){
-				result = validate2xInterfaces(javaProject, getStringProperty(REMOTE_HOME_INTERFACE), getStringProperty(REMOTE_COMPONENT_INTERFACE), false);
-				if (!result.isOK()){
-					return result;
-				}	
+		String projectName = getStringProperty(PROJECT_NAME);
+		if (projectName != null && projectName.length() > 0) {
+			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+			IJavaProject javaProject = JavaCore.create(project);
+			try {
+				if (getBooleanProperty(REMOTE)){
+					result = validate2xInterfaces(javaProject, getStringProperty(REMOTE_HOME_INTERFACE), getStringProperty(REMOTE_COMPONENT_INTERFACE), false);
+					if (!result.isOK()){
+						return result;
+					}	
+				}
+	
+				if (getBooleanProperty(LOCAL)){
+					result = validate2xInterfaces(javaProject, getStringProperty(LOCAL_HOME_INTERFACE), getStringProperty(LOCAL_COMPONENT_INTERFACE), true);
+				}
+			} catch (JavaModelException e) {
+				return new Status(IStatus.ERROR, EjbPlugin.PLUGIN_ID, EJBCreationResourceHandler.ERR_COULD_NOT_RESOLVE_INTERFACE + e.getMessage());
 			}
-
-			if (getBooleanProperty(LOCAL)){
-				result = validate2xInterfaces(javaProject, getStringProperty(LOCAL_HOME_INTERFACE), getStringProperty(LOCAL_COMPONENT_INTERFACE), true);
-			}
-		} catch (JavaModelException e) {
-			return new Status(IStatus.ERROR, EjbPlugin.PLUGIN_ID, EJBCreationResourceHandler.ERR_COULD_NOT_RESOLVE_INTERFACE + e.getMessage());
 		}
 		return result;
 	}
