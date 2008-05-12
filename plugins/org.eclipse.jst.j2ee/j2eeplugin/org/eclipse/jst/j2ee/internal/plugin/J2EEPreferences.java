@@ -19,6 +19,7 @@ package org.eclipse.jst.j2ee.internal.plugin;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Preferences;
 import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
+import org.eclipse.jst.common.project.facet.core.FacetCorePlugin;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.project.facet.IProductConstants;
 import org.eclipse.wst.project.facet.ProductManager;
@@ -170,7 +171,7 @@ public class J2EEPreferences {
 		getPreferences().setDefault(Keys.J2EE_WEB_CONTENT, ProductManager.getProperty(IProductConstants.WEB_CONTENT_FOLDER));
 		getPreferences().setDefault(Keys.STATIC_WEB_CONTENT, ProductManager.getProperty(IProductConstants.WEB_CONTENT_FOLDER));
 		// since 2.0
-		getPreferences().setDefault(Keys.JAVA_SOURCE, CommonFrameworksPlugin.getDefault().getPluginPreferences().getString(CommonFrameworksPlugin.DEFAULT_SOURCE_FOLDER));
+		getPreferences().setDefault(Keys.JAVA_SOURCE, FacetCorePlugin.getJavaSrcFolder());
 		// done in CommonFrameworksPref..Initializer
 		//getPreferences().setDefault(Keys.DEFAULT_SOURCE_FOLDER, ProductManager.getProperty(IProductConstants.DEFAULT_SOURCE_FOLDER));
 		getPreferences().setDefault(Keys.APPLICATION_CONTENT_FOLDER, ProductManager.getProperty(IProductConstants.APPLICATION_CONTENT_FOLDER));
@@ -252,7 +253,7 @@ public class J2EEPreferences {
 	public String getJavaSourceFolderName() {
 		//return getPreferences().getString(Keys.JAVA_SOURCE);
 		// TODO is JAVA_SOURCE a better name or is DEFAULT_SOURCE...
-		return CommonFrameworksPlugin.getDefault().getPluginPreferences().getString(CommonFrameworksPlugin.DEFAULT_SOURCE_FOLDER);
+        return FacetCorePlugin.getJavaSrcFolder();
 	}
 
 	public String getHighestJ2EEVersionSetting() {
@@ -283,8 +284,8 @@ public class J2EEPreferences {
 	public void setJavaSourceFolderName(String value) {
 		//getPreferences().setValue(Keys.JAVA_SOURCE, value);
 		// TODO is JAVA_SOURCE a better name or is DEFAULT_SOURCE...
-		CommonFrameworksPlugin.getDefault().getPluginPreferences().setValue(CommonFrameworksPlugin.DEFAULT_SOURCE_FOLDER, value);
-		CommonFrameworksPlugin.getDefault().savePluginPreferences();
+        FacetCorePlugin.getDefault().getPluginPreferences().setValue(FacetCorePlugin.PROD_PROP_SOURCE_FOLDER_LEGACY, value);
+        FacetCorePlugin.getDefault().savePluginPreferences();		
 		firePreferenceChanged();
 	}
 
