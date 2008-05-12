@@ -27,4 +27,8 @@ public class EARExportDataModelVerifier extends JEEExportDataModelVerifier {
 	protected int getExportType() {
 		return J2EEVersionConstants.APPLICATION_TYPE;
 	}
+	
+	protected boolean checkManifest() {
+		return false;
+	}
 }
