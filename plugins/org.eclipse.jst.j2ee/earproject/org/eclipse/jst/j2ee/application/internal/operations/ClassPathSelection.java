@@ -528,8 +528,8 @@ public class ClassPathSelection {
 		if (J2EEProjectUtilities.isDynamicWebComponent(referencedJAR))
 			return false;
 
-		if (referencedJAR == referencingJAR)
-			return false;
+		if ( referencedJAR.getName().equals( referencingJAR.getName() ) )
+			return false;		
 
 		//Clients can reference all but the WARs, which we've already covered
 		// above; WARs and EJB JARs
