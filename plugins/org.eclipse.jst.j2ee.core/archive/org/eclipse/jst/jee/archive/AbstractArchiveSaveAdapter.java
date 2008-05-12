@@ -13,7 +13,9 @@ package org.eclipse.jst.jee.archive;
 import java.io.IOException;
 import java.util.List;
 
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
 
 /**
@@ -28,6 +30,9 @@ public abstract class AbstractArchiveSaveAdapter extends AbstractArchiveAdapter 
 	public void finish() throws IOException {
 	}
 
+	protected IArchiveResource manifest = null; 
+	protected IArchiveResource metaInf = null; 
+	
 	public void save(IProgressMonitor monitor) throws ArchiveSaveFailureException {
 		final int GATHER_RESOURCES_TICKS = 1000;
 		final int SAVE_RESOURCES_TICKS = 1000;
@@ -38,12 +43,29 @@ public abstract class AbstractArchiveSaveAdapter extends AbstractArchiveAdapter 
 			monitor.beginTask("Saving resources", TOTAL_TICKS);
 			
 			List<IArchiveResource> files = getArchiveResourcesForSave();
+			IPath manifestPath = new Path("META-INF/MANIFEST.MF");
+			if(getArchive().containsArchiveResource(manifestPath)){
+				manifest = getArchive().getArchiveResource(manifestPath);
+			}
+			IPath metaInfPath = manifestPath.removeFirstSegments(1);
+			if(getArchive().containsArchiveResource(metaInfPath)){
+				metaInf = getArchive().getArchiveResource(metaInfPath);
+			}
+				
 			monitor.worked(GATHER_RESOURCES_TICKS);
 			IProgressMonitor saveSubMonitor = new SubProgressMonitor(monitor, SAVE_RESOURCES_TICKS);
 			int SUB_SAVE_TICKS = 10;
-			int SUB_TOTAL_TICKS = SUB_SAVE_TICKS * files.size();
+			int SUB_TOTAL_TICKS = SUB_SAVE_TICKS * (files.size() + 2);
 			try {
 				saveSubMonitor.beginTask("Saving resources", SUB_TOTAL_TICKS);
+				if(manifest != null){
+					save(manifest);
+				}
+				saveSubMonitor.worked(SUB_SAVE_TICKS);
+				if(metaInf != null){
+					save(metaInf);
+				}
+				saveSubMonitor.worked(SUB_SAVE_TICKS);
 				for (IArchiveResource file : files) {
 					if (shouldSave(file)) {
 						save(file);
@@ -91,6 +113,9 @@ public abstract class AbstractArchiveSaveAdapter extends AbstractArchiveAdapter 
 	 * @return
 	 */
 	protected boolean shouldSave(IArchiveResource file) {
+		if(file == manifest || file == metaInf){
+			return false;
+		}
 		return true;
 	}
 
