@@ -50,6 +50,7 @@ import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceH
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.javaee.ejb.EJBJar;
+import org.eclipse.jst.javaee.ejb.EnterpriseBeans;
 import org.eclipse.jst.javaee.ejb.SessionBean;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -335,11 +336,15 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		if (projectName != null && projectName.length() > 0) {
 			IModelProvider provider = ModelProviderManager.getModelProvider(ResourcesPlugin.getWorkspace().getRoot().getProject(projectName));
 			EJBJar modelObject = (EJBJar) provider.getModelObject();
-			List sessionBeans = modelObject.getEnterpriseBeans().getSessionBeans();
-			for (Object object : sessionBeans) {
-				SessionBean session = (SessionBean) object;
-				if (session.getEjbName().equals(getDataModel().getStringProperty(EJB_NAME))){
-					return new Status(IStatus.ERROR, EjbPlugin.PLUGIN_ID, EJBCreationResourceHandler.ERR_BEAN_ALREADY_EXISTS);
+			EnterpriseBeans enterpriseBeans = modelObject.getEnterpriseBeans();
+			if (enterpriseBeans != null)
+			{
+				List sessionBeans = enterpriseBeans.getSessionBeans();
+				for (Object object : sessionBeans) {
+					SessionBean session = (SessionBean) object;
+					if (session.getEjbName().equals(getDataModel().getStringProperty(EJB_NAME))){
+						return new Status(IStatus.ERROR, EjbPlugin.PLUGIN_ID, EJBCreationResourceHandler.ERR_BEAN_ALREADY_EXISTS);
+					}
 				}
 			}
 		}
