@@ -79,6 +79,14 @@ public interface INewJavaClassDataModelProperties extends IArtifactEditOperation
 	public static final String ABSTRACT_METHODS = "NewJavaClassDataModel.ABSTRACT_METHODS"; //$NON-NLS-1$
 	
 	/**
+	 * Optional, boolean property used to set whether the new java class should
+	 * be open in the default editor. The default value is true. The value could
+	 * be changed to false if opening the java class in the editor is not
+	 * desired.
+	 */
+	public static final String OPEN_IN_EDITOR = "NewJavaClassDataModel.OPEN_IN_EDITOR"; //$NON-NLS-1$
+	
+	/**
 	 * THIS PROPERTY SHOULD NOT BE SET, it's value is meant to be determined as a helper method
 	 */
 	public static final String JAVA_PACKAGE_FRAGMENT_ROOT = "NewJavaClassDataModel.JAVA_PACKAGE_FRAGMENT_ROOT"; //$NON-NLS-1$
@@ -97,4 +105,5 @@ public interface INewJavaClassDataModelProperties extends IArtifactEditOperation
 	 * THIS PROPERTY SHOULD NOT BE SET, it's value is meant to be determined as a helper method
 	 */
 	public static final String QUALIFIED_CLASS_NAME = "NewJavaClassDataModel.QUALIFIED_CLASS_NAME"; //$NON-NLS-1$
+	
 }

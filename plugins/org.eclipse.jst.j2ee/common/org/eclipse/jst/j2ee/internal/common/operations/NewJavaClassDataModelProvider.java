@@ -21,6 +21,7 @@ import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataM
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.MODIFIER_ABSTRACT;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.MODIFIER_FINAL;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.MODIFIER_PUBLIC;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.OPEN_IN_EDITOR;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.PROJECT;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SOURCE_FOLDER;
@@ -183,6 +184,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 		propertyNames.add(MAIN_METHOD);
 		propertyNames.add(CONSTRUCTOR);
 		propertyNames.add(ABSTRACT_METHODS);
+		propertyNames.add(OPEN_IN_EDITOR);
 		propertyNames.add(JAVA_PACKAGE_FRAGMENT_ROOT);
 		propertyNames.add(JAVA_SOURCE_FOLDER);
 		propertyNames.add(PROJECT);
@@ -212,13 +214,16 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 			return new String("java.lang.Object"); //$NON-NLS-1$
 		// Use public as default visibility
 		else if (propertyName.equals(MODIFIER_PUBLIC))
-			return new Boolean(true);
+			return Boolean.TRUE;
 		// Generate constructors from the superclass by default
 		else if (propertyName.equals(CONSTRUCTOR))
-			return new Boolean(true);
+			return Boolean.TRUE;
 		// Generate unimplemented methods from declared interfaces by default
 		else if (propertyName.equals(ABSTRACT_METHODS))
-			return new Boolean(true);
+			return Boolean.TRUE;
+		// Open the generated java class in the editor by default
+		else if (propertyName.equals(OPEN_IN_EDITOR))
+			return Boolean.TRUE;
 		else if (propertyName.equals(PROJECT))
 			return getTargetProject();
 		else if (propertyName.equals(JAVA_SOURCE_FOLDER))
