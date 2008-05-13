@@ -183,4 +183,10 @@ public class AddServletWizardPage extends DataModelWizardPage {
 			return false;
 		return super.canFlipToNextPage();
 	}
+	
+	@Override
+	protected boolean showValidationErrorsOnEnter() {
+		return true;
+	}
+	
 }
