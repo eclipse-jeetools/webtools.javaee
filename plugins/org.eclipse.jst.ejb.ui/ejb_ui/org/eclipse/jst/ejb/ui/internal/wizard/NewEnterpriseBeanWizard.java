@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.OPEN_IN_EDITOR;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.PROJECT;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME;
 
@@ -80,17 +81,19 @@ public abstract class NewEnterpriseBeanWizard extends DataModelWizard implements
 	}
 
 	private void openEditor(final IFile file) {
-		if (file != null) {
-			getShell().getDisplay().asyncExec(new Runnable() {
-				public void run() {
-					try {
-						IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-						IDE.openEditor(page, file, true);
-					} catch (PartInitException e) {
-						Logger.getLogger().log(e);
+		if (getDataModel().getBooleanProperty(OPEN_IN_EDITOR)) {
+			if (file != null) {
+				getShell().getDisplay().asyncExec(new Runnable() {
+					public void run() {
+						try {
+							IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+							IDE.openEditor(page, file, true);
+						} catch (PartInitException e) {
+							Logger.getLogger().log(e);
+						}
 					}
-				}
-			});
+				});
+			}
 		}
 	}
 
