@@ -208,6 +208,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 										IProject proj = (IProject) javaProjectsList.get(i);
 										IDataModel migrationdm = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
 										migrationdm.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, proj.getName());
+										
 										migrationdm.getDefaultOperation().execute(monitor, null);
 
 
@@ -216,12 +217,12 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 
 										IVirtualComponent targetcomponent = ComponentCore.createComponent(proj);
 										targetCompList.add(targetcomponent);
-
+										
 										refdm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComponent);
 										refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, targetCompList);
 										
 										// referenced java projects should have archiveName attribute
-										((Map)refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP)).put(targetcomponent, proj.getName() + IJ2EEModuleConstants.JAR_EXT);
+										((Map)refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP)).put(targetcomponent, proj.getName().replace(' ', '_') + IJ2EEModuleConstants.JAR_EXT);
 
 										refdm.getDefaultOperation().execute(monitor, null);
 										j2eeComponentList.add(targetcomponent);

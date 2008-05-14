@@ -58,8 +58,9 @@ public class JavaProjectMigrationOperation extends AbstractDataModelOperation im
 			}
 			udm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, model.getStringProperty(PROJECT_NAME));
 			udm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.0"); //$NON-NLS-1$
-            udm.setProperty(IJ2EEModuleFacetInstallDataModelProperties.MODULE_URI,
-                    model.getStringProperty(PROJECT_NAME) + ".jar"); //$NON-NLS-1$
+			String moduleURI = model.getStringProperty(PROJECT_NAME) + ".jar"; //$NON-NLS-1$
+			moduleURI = moduleURI.replace(' ', '_'); //$NON-NLS-1$ //$NON-NLS-2$
+			udm.setProperty(IJ2EEModuleFacetInstallDataModelProperties.MODULE_URI, moduleURI); 		
 		} catch (Exception e) {
 			Logger.getLogger().logError(e);
 		}
