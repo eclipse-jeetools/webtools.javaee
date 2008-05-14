@@ -1,4 +1,4 @@
 #This is a generated file; do not edit.
-#Tue May 08 15:30:13 EDT 2007
-lucene=1.4.103.v20060601
-analyzer=org.eclipse.help.base\#3.2.2.R322_v20061207?locale\=en
+#Tue May 13 21:31:58 EDT 2008
+lucene=1.9.1.v200803061811
+analyzer=org.eclipse.help.base\#3.3.100.v20080425?locale\=en

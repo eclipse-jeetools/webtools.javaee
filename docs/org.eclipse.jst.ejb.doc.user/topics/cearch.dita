@@ -9,8 +9,9 @@ architecture defined in the Sun Microsystems Enterprise <tm tmclass="special"
 tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="JavaBeans">JavaBeans</tm> (EJB)
 version 2.x architecture specification.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>architecture<indexterm>EJB</indexterm></indexterm><indexterm>EJB<indexterm>architecture
-overview</indexterm></indexterm></keywords>
+<keywords><indexterm>architecture<indexterm>EJB 2.x</indexterm></indexterm>
+<indexterm>EJB<indexterm>architecture<indexterm>2.x</indexterm></indexterm></indexterm>
+</keywords>
 </metadata></prolog>
 <conbody>
 <p>The complete Enterprise <tm tmclass="special" tmowner="Sun Microsystems, Inc."

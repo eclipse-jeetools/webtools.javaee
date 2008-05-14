@@ -6,7 +6,8 @@
 <title>Message-driven Beans</title>
 <shortdesc></shortdesc>
 <prolog><metadata>
-<keywords><indexterm>message-driven beans</indexterm></keywords>
+<keywords><indexterm>message-driven beans<indexterm>overview</indexterm></indexterm>
+</keywords>
 </metadata></prolog>
 <conbody>
 <p>A <b>message-driven bean</b> is an enterprise bean that allows <tm tmclass="special"

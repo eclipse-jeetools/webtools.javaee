@@ -3,7 +3,7 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
  "concept.dtd">
 <concept id="ceclientjars" xml:lang="en-us">
-<title>EJB 2.x <?Pub Caret?>client JAR projects</title>
+<title>EJB 2.x client JAR projects</title>
 <shortdesc>An EJB client JAR project contains all the class files that a client
 program needs to use the client view of the enterprise beans that are contained
 in the EJB module.</shortdesc>
@@ -30,9 +30,9 @@ interfaces. If the objects are not present, compilation errors will result. </p>
 is exported. The EJB client JAR file is specified in the deployment descriptor
 of the EJB JAR file using the optional <codeph>ejb-client-jar</codeph> element.
 The value of the <codeph>ejb-client-jar</codeph> element is the path name
-specifying the location of the EJB client JAR file in the containing J2EE
-Enterprise Application Archive (.ear) file. The value of the path name is
-a URI relative to the EJB JAR file within the application. <note>The relative
+specifying the location of the EJB client JAR file in the containing Java
+EE Enterprise Application Archive (.ear) file. The value of the path name
+is a URI relative to the EJB JAR file within the application. <note>The relative
 URI path for the EJB client JAR file should be the same in all applications
 that the EJB project belongs to.</note></p>
 <p>When you create an EJB client JAR project for an EJB project, the EJB client
@@ -43,4 +43,3 @@ the application.</p>
 <note conref="teexp.dita#teexp/exportEJBClientJAR"></note>
 </conbody>
 </concept>
-<?Pub *0000002683?>

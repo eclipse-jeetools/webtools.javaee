@@ -8,7 +8,7 @@
 to your project.</shortdesc>
 <prolog><metadata>
 <keywords><indexterm>message-driven beans<indexterm>XDoclet annotation support</indexterm></indexterm>
-<indexterm>XDoclet annotation support<indexterm>creating message-driven beans</indexterm></indexterm>
+<indexterm>XDoclet annotation support<indexterm>message-driven beans</indexterm></indexterm>
 </keywords>
 </metadata></prolog>
 <taskbody>

@@ -2,15 +2,32 @@
 <!--Arbortext, Inc., 1988-2006, v.4002-->
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN"
  "map.dtd">
-<map id="wtpejbdocumentation" title="Developing EJB applications">
-<topicref href="topics/ceover.dita" navtitle="Developing EJB applications"
-type="concept">
+<map id="ejbtoc" locktitle="yes" title="Developing EJB applications" toc="yes">
 <topicref href="topics/ejbarch.dita" navtitle="EJB 3.0 architecture" type="concept">
+<topicref href="topics/cpojosandee5.dita" navtitle="POJOs (Plain old Java objects)">
 </topicref>
+<topicref href="topics/cejb3vejb21.dita" navtitle="EJB 3.0 versus EJB 2.1">
+</topicref>
+</topicref>
+<topicref href="topics/cejb3.dita" navtitle="Developing EJB 3.0 Applications">
+<topicref href="topics/tecrtpro.dita" navtitle="Creating EJB projects">
+<topicref href="topics/tcreatingentitybeans3.dita" navtitle="Creating an entity bean">
+</topicref>
+<topicref href="topics/tcreatingsessbeans3.dita" navtitle="Creating a session bean">
+</topicref>
+<topicref href="topics/tcreatinmessbeans3.dita" navtitle="Creating a message-driven bean">
+</topicref>
+</topicref>
+<topicref href="topics/ccontentassist3.dita" navtitle="Content assist and EJB 3.0">
+</topicref>
+</topicref>
+<topicref href="topics/ceover.dita" navtitle="EJB 2.x application development"
+type="concept">
 <topicref href="topics/cearch.dita" navtitle="EJB 2.x architecture" type="concept">
 </topicref>
 <topicref href="topics/ceresrc.dita" navtitle="EJB 2.x development resources"
 type="concept"></topicref>
+</topicref>
 <topicref href="topics/tecrtpro.dita" navtitle="Creating EJB 2.x projects"
 type="task">
 <topicref href="topics/ceclientjars.dita" navtitle="EJB 2.x client JAR projects"
@@ -20,15 +37,6 @@ type="concept"></topicref>
 type="task"></topicref>
 <topicref href="topics/teexp.dita" navtitle="Exporting EJB 2.x projects to EJB JAR files"
 type="task"></topicref>
-<topicref href="topics/sessbwiz.dita" navtitle="Creating session beans" type="task">
-<topicref href="topics/sessb.dita" navtitle="Session beans" type="concept">
-</topicref>
-</topicref>
-<topicref href="topics/messbwiz.dita" navtitle="Creating message-driven beans"
-type="task">
-<topicref href="topics/messb.dita" navtitle="Message-driven beans" type="concept">
-</topicref>
-</topicref>
 <topicref href="topics/tecrte.dita" navtitle="Creating enterprise beans with XDoclet annotation support"
 type="task">
 <topicref href="topics/tesessb.dita" navtitle="Creating session beans with XDoclet annotation support">
@@ -39,6 +47,5 @@ type="task">
 type="task"></topicref>
 <topicref href="topics/txdocletconf.dita" navtitle="Configuring XDoclet annotation support"
 type="task"></topicref>
-</topicref>
 </topicref>
 </map>

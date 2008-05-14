@@ -11,8 +11,8 @@
 <meta name="DC.Title" content="Session Beans" />
 <meta name="abstract" content="" />
 <meta name="description" content="" />
-<meta content="session beans" name="DC.subject" />
-<meta content="session beans" name="keywords" />
+<meta content="session beans, overview" name="DC.subject" />
+<meta content="session beans, overview" name="keywords" />
 <meta scheme="URI" name="DC.Relation" content="../topics/sessbwiz.html" />
 <meta content="XHTML" name="DC.Format" />
 <meta content="sessb" name="DC.Identifier" />
@@ -29,15 +29,29 @@
 
 <div><p />
 
-<p>A <strong>session bean</strong> is a type of enterprise bean. It is created by a client and usually exists only for the duration of a single client-server session.</p>
+<p>A <strong>session bean</strong> is a type of enterprise bean. It is created by a
+client and usually exists only for the duration of a single client-server
+session.</p>
 
-<p>Session beans are useful for describing interactions between other beans (taskflow) and for implementing particular tasks. They do not represent data in the database, but they can access data, so we can use session beans to read, update, and insert data in a business process. Session beans access data that spans concepts, is not shared, and is usually read-only. Session beans contain business logic, and entities model persistent data. Session beans are divided in two types: stateless session beans and stateful session beans.</p>
+<p>Session beans are useful for describing interactions between other beans
+(taskflow) and for implementing particular tasks. They do not represent data
+in the database, but they can access data, so we can use session beans to
+read, update, and insert data in a business process. Session beans access
+data that spans concepts, is not shared, and is usually read-only. Session
+beans contain business logic, and entities model persistent data. Session
+beans are divided in two types: stateless session beans and stateful session
+beans.</p>
 
 <ul>
-<li><strong>Stateless session beans</strong> <p>A stateless session bean is pooled by the container to handle multiple requests from multiple clients and does not maintain any conversational state.</p>
+<li><strong>Stateless session beans</strong> <p>A stateless session bean is pooled by
+the container to handle multiple requests from multiple clients and does not
+maintain any conversational state.</p>
  </li>
 
-<li> <strong>Stateful session beans</strong> <p>A stateful session bean acts on behalf of a single client and maintains client-specific session information (called conversational state) across multiple method calls and transactions. It exists for the duration of a single client/server session.</p>
+<li> <strong>Stateful session beans</strong> <p>A stateful session bean acts on behalf
+of a single client and maintains client-specific session information (called
+conversational state) across multiple method calls and transactions. It exists
+for the duration of a single client/server session.</p>
  </li>
 
 </ul>

@@ -7,8 +7,8 @@
 <shortdesc>You can use a wizard to create a session bean and add it to your
 project.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>session beans</indexterm><indexterm>creating EJB session
-beans</indexterm></keywords>
+<keywords><indexterm>session beans</indexterm><indexterm>creating</indexterm>
+</keywords>
 </metadata></prolog>
 <taskbody>
 <context><p>The session bean wizard helps you create an Enterprise session

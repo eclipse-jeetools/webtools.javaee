@@ -7,9 +7,9 @@
 <shortdesc>You can use a wizard to create a session bean and add it to your
 project.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>session beans<indexterm>creating with XDoclet annotation
-support</indexterm></indexterm><indexterm>XDoclet annotation support<indexterm>creating
-session beans</indexterm></indexterm></keywords>
+<keywords><indexterm>session beans<indexterm>XDoclet annotation support</indexterm></indexterm>
+<indexterm>XDoclet annotation support<indexterm>session beans</indexterm></indexterm>
+</keywords>
 </metadata></prolog>
 <taskbody>
 <prereq><p>Before you can create an enterprise bean, you must:</p><ul>
