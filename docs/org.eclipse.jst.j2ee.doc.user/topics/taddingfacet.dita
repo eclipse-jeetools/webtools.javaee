@@ -3,12 +3,13 @@
 <!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
  "task.dtd">
 <task id="taddingfacet" xml:lang="en-us">
-<title outputclass="id_title">Adding a facet to a J2EE project</title>
+<title outputclass="id_title">Adding a facet to a Java EE project</title>
 <shortdesc outputclass="id_shortdesc">This topic explains how to add a facet
 to an existing project in your workspace.</shortdesc>
 <prolog><metadata>
 <keywords><indexterm>projects<indexterm>facets<indexterm>adding</indexterm></indexterm></indexterm>
-<indexterm>J2EE<indexterm>adding project facets</indexterm></indexterm></keywords>
+<indexterm>Java EE<indexterm>adding project facets</indexterm></indexterm>
+</keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
 <context outputclass="id_context"><p outputclass="anchor_topictop"></p><p

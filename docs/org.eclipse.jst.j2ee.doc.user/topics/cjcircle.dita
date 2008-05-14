@@ -3,13 +3,13 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
  "concept.dtd">
 <concept id="cjcircle" xml:lang="en-us">
-<title outputclass="id_title">Cyclical dependencies between J2EE modules</title>
+<title outputclass="id_title">Cyclical dependencies between Java EE modules</title>
 <shortdesc outputclass="id_shortdesc">A cyclical dependency between two or
 more modules in an enterprise application most commonly occurs when projects
 are imported from outside the Workbench.</shortdesc>
 <prolog><metadata>
 <keywords><indexterm>dependencies<indexterm>cycles between modules</indexterm></indexterm>
-<indexterm>J2EE<indexterm>cyclical dependencies between modules</indexterm></indexterm>
+<indexterm>Java EE<indexterm>cyclical dependencies between modules</indexterm></indexterm>
 <indexterm>projects<indexterm>cyclical dependencies</indexterm></indexterm>
 </keywords>
 </metadata></prolog>

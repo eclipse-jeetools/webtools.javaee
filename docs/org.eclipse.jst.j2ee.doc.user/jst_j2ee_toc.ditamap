@@ -4,8 +4,18 @@
  "map.dtd">
 <map id="jstj2eetoc" title="J2EE applications - WTP">
 <anchor id="map_top"/>
-<topicref href="topics/ph-j2eeapp.dita" navtitle="J2EE applications">
+<topicref href="topics/ph-j2eeapp.dita" navtitle="Java EE applications">
 <anchor id="before_intro_topics"/>
+<topicref href="topics/cjavaee5.dita" navtitle="Developing Java EE 5 Applications">
+<topicref href="topics/cjee5overview.dita" navtitle="Java EE 5: Overview">
+</topicref>
+<topicref href="topics/cannotations.dita" navtitle="Java EE 5 support for annotations">
+<topicref href="topics/tdefiningannotations.dita" navtitle="Defining and using Annotations">
+<topicref href="topics/ctypesofanno.dita" navtitle="Types of annotations">
+</topicref>
+</topicref>
+</topicref>
+</topicref>
 <topicref href="topics/cjarch.dita" navtitle="J2EE architecture"></topicref>
 <topicref href="topics/cjpers.dita" navtitle="Java EE perspective"></topicref>
 <topicref href="topics/cjview.dita" navtitle="Project Explorer view in the Java EE perspective">
@@ -33,11 +43,11 @@
 </topicref>
 <anchor id="target_servers"/>
 <topicref href="topics/cfacets.dita" navtitle="Project facets">
-<topicref href="topics/taddingfacet.dita" navtitle="Adding a facet to a J2EE project">
+<topicref href="topics/taddingfacet.dita" navtitle="Adding a facet to a Java EE project">
 </topicref>
 <topicref href="topics/tchangefacet.dita" navtitle="Changing the version of a facet">
 </topicref>
-<topicref href="topics/tchangejavalevel.dita" navtitle="Changing the Java compiler version for a J2EE project">
+<topicref href="topics/tchangejavalevel.dita" navtitle="Changing the Java compiler version for a Java EE project">
 </topicref>
 <anchor id="childof_J2EEProjectFacets"/></topicref>
 <anchor id="J2EEProjectFacets"/>
@@ -71,7 +81,7 @@ linking="targetonly" locktitle="yes" navtitle="Exporting EJB projects to EJB JAR
 scope="peer" toc="no"></topicref>
 <anchor id="import_types"/>
 <anchor id="before_dependencies"/>
-<topicref href="topics/cjcircle.dita" navtitle="Cyclical dependencies between J2EE modules">
+<topicref href="topics/cjcircle.dita" navtitle="Cyclical dependencies between Java EE modules">
 </topicref>
 <topicref href="topics/tjcircleb.dita" navtitle="Correcting cyclical dependencies after an EAR
 is imported"></topicref>

@@ -11,7 +11,7 @@ that you can use when developing resources for enterprise applications, EJB
 modules, Web modules, application client modules, and connector projects or
 modules.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>J2EE<indexterm>workbench perspectives</indexterm></indexterm>
+<keywords><indexterm>Java EE<indexterm>workbench perspectives</indexterm></indexterm>
 <indexterm>enterprise applications<indexterm>Java EE perspective</indexterm></indexterm>
 </keywords>
 </metadata></prolog>

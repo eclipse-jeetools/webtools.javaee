@@ -4,19 +4,19 @@
  "task.dtd">
 <task id="tchangejavalevel" xml:lang="en-us">
 <title outputclass="id_title">Changing the <tm tmclass="special" tmowner="Sun Microsystems, Inc."
-tmtype="tm" trademark="Java">Java</tm> compiler version for a J2EE project</title>
+tmtype="tm" trademark="Java">Java</tm> compiler version for a Java EE project</title>
 <shortdesc outputclass="id_shortdesc">You can change the version of <tm tmclass="special"
 tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> used
-in a J2EE project by changing the value of the <uicontrol>Java</uicontrol> facet.</shortdesc>
+in a Java EE project by changing the value of the <uicontrol>Java</uicontrol> facet.</shortdesc>
 <prolog><metadata>
-<keywords><indexterm>Java<indexterm>J2EE project compiler level</indexterm></indexterm>
+<keywords><indexterm>Java EE<indexterm>project compiler level</indexterm></indexterm>
 <indexterm>projects<indexterm>Java compiler level</indexterm></indexterm>
 </keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
 <context outputclass="id_context"><p outputclass="anchor_topictop"></p> <p>The <uicontrol>Java</uicontrol> facet
 applies only to J2EE projects. To set the <tm tmclass="special" tmowner="Sun Microsystems, Inc."
-tmtype="tm" trademark="Java">Java</tm> compiler level of a non-J2EE project,
+tmtype="tm" trademark="Java">Java</tm> compiler level of a non-Java EE project,
 such as a <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
 trademark="Java">Java</tm> project, see <xref format="html" href="../../org.eclipse.jdt.doc.user/reference/ref-preferences-compiler.htm"
 scope="peer"><tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"

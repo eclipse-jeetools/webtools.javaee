@@ -9,7 +9,7 @@ is imported</title>
 after an EAR is imported.</shortdesc>
 <prolog><metadata>
 <keywords><indexterm>dependencies<indexterm>correcting cyclical</indexterm></indexterm>
-<indexterm>EAR<indexterm>correcting cyclical dependencies</indexterm></indexterm>
+<indexterm>EAR files<indexterm>correcting cyclical dependencies</indexterm></indexterm>
 <indexterm>projects<indexterm>correcting cyclical dependencies</indexterm></indexterm>
 </keywords>
 </metadata></prolog>

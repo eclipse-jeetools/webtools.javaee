@@ -5,9 +5,9 @@
 <concept id="cfacets" xml:lang="en-us">
 <title outputclass="id_title">Project facets</title>
 <shortdesc outputclass="id_shortdesc">Facets define characteristics and requirements
-for J2EE projects and are used as part of the runtime configuration. </shortdesc>
+for Java EE projects and are used as part of the runtime configuration. </shortdesc>
 <prolog><metadata>
-<keywords><indexterm>J2EE<indexterm>project facets</indexterm></indexterm>
+<keywords><indexterm>Java EE<indexterm>project facets</indexterm></indexterm>
 <indexterm>JavaServer Faces (JSF)<indexterm>project facets</indexterm></indexterm>
 <indexterm>projects<indexterm>facets<indexterm>overview</indexterm></indexterm></indexterm>
 </keywords>
@@ -19,9 +19,9 @@ to perform a certain task, fulfill certain requirements, or have certain charact
 For example, the EAR facet sets up a project to function as an enterprise
 application by adding a deployment descriptor and setting up the project's
 classpath.</p>
-<p>You can add facets only to J2EE projects and other types of projects that
-are based on J2EE projects, such as enterprise application projects, dynamic
-Web projects, and EJB projects. You cannot add facets to a <tm tmclass="special"
+<p>You can add facets only to Java EE projects and other types of projects
+that are based on J2EE projects, such as enterprise application projects,
+dynamic Web projects, and EJB projects. You cannot add facets to a <tm tmclass="special"
 tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> project
 or plug-in project, for example. Typically, a facet-enabled project has at
 least one facet when it is created, allowing you to add more facets if necessary.

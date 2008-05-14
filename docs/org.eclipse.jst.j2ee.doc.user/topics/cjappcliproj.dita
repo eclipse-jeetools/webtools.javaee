@@ -9,7 +9,7 @@ programs that run on networked client systems so the project can benefit from
 a server's tools.</shortdesc>
 <prolog><metadata>
 <keywords><indexterm>application client projects<indexterm>overview</indexterm></indexterm>
-<indexterm>J2EE<indexterm>application client projects</indexterm></indexterm>
+<indexterm>Java EE<indexterm>application client projects</indexterm></indexterm>
 </keywords>
 </metadata></prolog>
 <conbody outputclass="id_conbody">
@@ -18,11 +18,11 @@ a server's tools.</shortdesc>
 client modules. An application client module is used to contain a full-function
 client <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
 trademark="Java">Java</tm> application (non Web-based) that connects to and
-uses the J2EE resources defined in your server. When you place the client
+uses the Java EE resources defined in your server. When you place the client
 code in an application client module instead of a simple JAR file, the application
 client benefits from the server's resources (it does not need to re-specify
-the class path to J2EE and server JAR files) as well as from easier JNDI lookup
-(the client container fills in the initial context and other parameters).
+the class path to Java EE and server JAR files) as well as from easier JNDI
+lookup (the client container fills in the initial context and other parameters).
 The application client project allows you to work as if you are creating a
 standalone <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
 trademark="Java">Java</tm> application in a <tm tmclass="special" tmowner="Sun Microsystems, Inc."
@@ -61,12 +61,13 @@ tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">
 files, and deployment descriptor information and any meta-data extensions
 and bindings files.</p>
 <p>Application client projects are typically run on networked client systems
-connected to J2EE (EJB) servers. The point of entry for the application client
-is a <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> main-class,
-which is simply a <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
-trademark="Java">Java</tm> class that contains a static main method. The class
-is declared in the manifest file of the client module. </p>
-<p>A J2EE application client container provides access to the J2EE service
+connected to Java EE (EJB) servers. The point of entry for the application
+client is a <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> main-class, which is simply a <tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> class
+that contains a static main method. The class is declared in the manifest
+file of the client module. </p>
+<p>A Java EE application client container provides access to the Java EE service
 (JNDI naming services, deployment services, transaction services, and security
 services) and communications APIs (internet protocols, Remote Method Invocation
 protocols, Object Management Group protocols, Messaging protocols, and data

@@ -4,8 +4,16 @@
 
 <toc label="J2EE applications - WTP" topic="topics/ph-j2eeapp.html">
 <anchor id="map_top"/>
-<topic label="J2EE applications" href="topics/ph-j2eeapp.html">
+<topic label="Java EE applications" href="topics/ph-j2eeapp.html">
 <anchor id="before_intro_topics"/>
+<topic label="Developing Java EE 5 Applications" href="topics/cjavaee5.html">
+<topic label="Java EE 5: Overview" href="topics/cjee5overview.html"/>
+<topic label="Java EE 5 support for annotations" href="topics/cannotations.html">
+<topic label="Defining and using annotations" href="topics/tdefiningannotations.html">
+<topic label="Types of annotations" href="topics/ctypesofanno.html"/>
+</topic>
+</topic>
+</topic>
 <topic label="J2EE architecture" href="topics/cjarch.html"/>
 <topic label="Java EE perspective" href="topics/cjpers.html"/>
 <topic label="Project Explorer view in the Java EE perspective" href="topics/cjview.html"/>
@@ -25,9 +33,9 @@
 <topic label="Specifying target servers for J2EE projects" href="topics/tjtargetserver.html"/>
 <anchor id="target_servers"/>
 <topic label="Project facets" href="topics/cfacets.html">
-<topic label="Adding a facet to a J2EE project" href="topics/taddingfacet.html"/>
+<topic label="Adding a facet to a Java EE project" href="topics/taddingfacet.html"/>
 <topic label="Changing the version of a facet" href="topics/tchangefacet.html"/>
-<topic label="Changing the Java compiler version for a J2EE project" href="topics/tchangejavalevel.html"/>
+<topic label="Changing the Java compiler version for a Java EE project" href="topics/tchangejavalevel.html"/>
 <anchor id="childof_J2EEProjectFacets"/>
 </topic>
 <anchor id="J2EEProjectFacets"/>
@@ -43,7 +51,7 @@
 <topic label="Importing a connector project RAR file" href="topics/tjimprar.html"/>
 <anchor id="import_types"/>
 <anchor id="before_dependencies"/>
-<topic label="Cyclical dependencies between J2EE modules" href="topics/cjcircle.html"/>
+<topic label="Cyclical dependencies between Java EE modules" href="topics/cjcircle.html"/>
 <topic label="Correcting cyclical dependencies after an EAR is imported" href="topics/tjcircleb.html"/>
 <anchor id="after_dependencies"/>
 <anchor id="importexport_bottom"/>

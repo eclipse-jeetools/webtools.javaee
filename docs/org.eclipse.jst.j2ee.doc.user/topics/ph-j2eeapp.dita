@@ -3,10 +3,10 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
  "topic.dtd">
 <topic id="ph-j2eeapp" xml:lang="en-us">
-<title outputclass="id_title">J2EE applications</title>
+<title outputclass="id_title">Java EE applications</title>
 <shortdesc outputclass="id_shortdesc">These topics deal with the <tm tmclass="special"
-tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> 2
-Platform, Enterprise Edition (J2EE).</shortdesc>
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> Enterprise
+Edition (Java EE).</shortdesc>
 <prolog><metadata>
 <keywords></keywords>
 </metadata></prolog>

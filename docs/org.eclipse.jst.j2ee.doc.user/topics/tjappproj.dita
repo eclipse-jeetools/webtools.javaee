@@ -26,9 +26,9 @@ create a J2EE application client project, complete the following steps:</p></con
 trademark="Java">Java</tm> EE perspective, click <menucascade><uicontrol>File</uicontrol>
 <uicontrol>New</uicontrol><uicontrol>Project</uicontrol></menucascade>.</cmd>
 </step>
-<step><cmd>In the New Project Wizard, select <menucascade><uicontrol>J2EE</uicontrol>
-<uicontrol>Application Client Project</uicontrol></menucascade> and click <uicontrol>Next</uicontrol>.</cmd>
-</step>
+<step><cmd>In the New Project Wizard, select <menucascade><uicontrol>Java
+EE</uicontrol><uicontrol>Application Client Project</uicontrol></menucascade> and
+click <uicontrol>Next</uicontrol>.</cmd></step>
 <step><cmd>In the <uicontrol>Project Name</uicontrol> field, type a name for
 the application client project. </cmd></step>
 <step importance="optional"><cmd>To change the default project location, clear
@@ -37,7 +37,7 @@ contents</uicontrol> and select a new location with the <uicontrol>Browse</uicon
 <info>If you specify a non-default project location that is already being
 used by another project, the project creation will fail.<note>If you type
 a new EAR project name, the EAR project will be created in the default location
-with the lowest compatible J2EE version based on the version of the project
+with the lowest compatible Java EE version based on the version of the project
 being created. If you want to specify a different version or a different location
 for the enterprise application, you must use the New Enterprise Application
 Project wizard.</note></info></step>
@@ -50,7 +50,7 @@ the new project will be the same as that of the EAR project.</info></step>
 <step><cmd>In the <uicontrol>Target runtime</uicontrol> field, select the
 target runtime for the project.</cmd></step>
 <step importance="optional"><cmd>To use a predefined configuration for your
-project, select a configuration in the <uicontrol>Configuration</uicontrol> list.
+project, select a configuration in the <uicontrol>Configurations</uicontrol> list.
 You can click the <uicontrol>Modify</uicontrol> button to do the following:</cmd>
 <info><ul>
 <li>Customize project facets. Select the check boxes next to the facets you

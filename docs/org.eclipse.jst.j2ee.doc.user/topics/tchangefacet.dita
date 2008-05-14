@@ -5,17 +5,17 @@
 <task id="tchangefacet" xml:lang="en-us">
 <title outputclass="id_title">Changing the version of a facet</title>
 <shortdesc outputclass="id_shortdesc">You can change the version of a facet
-in a J2EE project by editing the facets for the project.</shortdesc>
+in a Java EE project by editing the facets for the project.</shortdesc>
 <prolog><metadata>
 <keywords><indexterm>facets<indexterm>changing versions</indexterm></indexterm>
-<indexterm>J2EE<indexterm>changing facet versions</indexterm></indexterm>
+<indexterm>Java EE<indexterm>changing facet versions</indexterm></indexterm>
 <indexterm>projects<indexterm>changing facet versions</indexterm></indexterm>
 </keywords>
 </metadata></prolog>
 <taskbody outputclass="id_taskbody">
 <context outputclass="id_context"><p outputclass="anchor_topictop"></p> <p>Changing
 the <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> compiler
-version of a J2EE project involves changing the version of the <uicontrol>Java</uicontrol> facet.
+version of a Java EE project involves changing the version of the <uicontrol>Java</uicontrol> facet.
 For more information, see <xref href="tchangejavalevel.dita"></xref>.</p><p>To
 change the version of a facet in your project, complete the following steps:</p></context>
 <steps outputclass="id_steps">
