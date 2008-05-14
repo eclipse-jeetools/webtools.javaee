@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <index>
+  <entry keyword="Java Enterprise Edition 5">
+    <entry keyword="Overview">
+      <topic href="topics/cjavaee5.html#cjavaee5" title="Developing Java EE 5 Applications"/>
+    </entry>
+  </entry>
+  <entry keyword="Java EE 5">
+    <topic href="topics/cjee5overview.html#cjavaee5" title="Java EE 5: Overview"/>
+    <entry keyword="annotations">
+      <topic href="topics/cannotations.html#cjavaee5" title="Java EE 5 support for annotations"/>
+      <topic href="topics/tdefiningannotations.html#tjimpear" title="Defining and using annotations"/>
+      <entry keyword="types">
+        <topic href="topics/ctypesofanno.html#cjavaee5" title="Types of annotations"/>
+      </entry>
+    </entry>
+    <entry keyword="defining">
+      <topic href="topics/tdefiningannotations.html#tjimpear" title="Defining and using annotations"/>
+    </entry>
+  </entry>
+  <entry keyword="Oerview">
+    <topic href="topics/cjee5overview.html#cjavaee5" title="Java EE 5: Overview"/>
+  </entry>
   <entry keyword="J2EE">
     <entry keyword="architecture">
       <topic href="topics/cjarch.html#cjarch" title="J2EE architecture"/>
-    </entry>
-    <entry keyword="workbench perspectives">
-      <topic href="topics/cjpers.html#cjpers" title="Java EE perspective"/>
     </entry>
     <entry keyword="enterprise application projects">
       <entry keyword="overview">
@@ -15,23 +33,8 @@
         <topic href="topics/tjear.html#tjear" title="Creating an enterprise application project"/>
       </entry>
     </entry>
-    <entry keyword="application client projects">
-      <topic href="topics/cjappcliproj.html#cjappcliproj" title="Application client projects"/>
-    </entry>
     <entry keyword="target servers">
       <topic href="topics/tjtargetserver.html#tjtargetserver" title="Specifying target servers for J2EE projects"/>
-    </entry>
-    <entry keyword="project facets">
-      <topic href="topics/cfacets.html#cfacets" title="Project facets"/>
-    </entry>
-    <entry keyword="adding project facets">
-      <topic href="topics/taddingfacet.html#taddingfacet" title="Adding a facet to a J2EE project"/>
-    </entry>
-    <entry keyword="changing facet versions">
-      <topic href="topics/tchangefacet.html#tchangefacet" title="Changing the version of a facet"/>
-    </entry>
-    <entry keyword="cyclical dependencies between modules">
-      <topic href="topics/cjcircle.html#cjcircle" title="Cyclical dependencies between J2EE modules"/>
     </entry>
     <entry keyword="tool limitations">
       <topic href="topics/rjlimitcurrent.html#rjlimitcurrent" title="Limitations of J2EE development tools"/>
@@ -39,6 +42,27 @@
   </entry>
   <entry keyword="Java EE">
     <topic href="topics/cjarch.html#cjarch" title="J2EE architecture"/>
+    <entry keyword="workbench perspectives">
+      <topic href="topics/cjpers.html#cjpers" title="Java EE perspective"/>
+    </entry>
+    <entry keyword="application client projects">
+      <topic href="topics/cjappcliproj.html#cjappcliproj" title="Application client projects"/>
+    </entry>
+    <entry keyword="project facets">
+      <topic href="topics/cfacets.html#cfacets" title="Project facets"/>
+    </entry>
+    <entry keyword="adding project facets">
+      <topic href="topics/taddingfacet.html#taddingfacet" title="Adding a facet to a Java EE project"/>
+    </entry>
+    <entry keyword="changing facet versions">
+      <topic href="topics/tchangefacet.html#tchangefacet" title="Changing the version of a facet"/>
+    </entry>
+    <entry keyword="project compiler level">
+      <topic href="topics/tchangejavalevel.html#tchangejavalevel" title="Changing the Java compiler version for a Java EE project"/>
+    </entry>
+    <entry keyword="cyclical dependencies between modules">
+      <topic href="topics/cjcircle.html#cjcircle" title="Cyclical dependencies between Java EE modules"/>
+    </entry>
   </entry>
   <entry keyword="enterprise applications">
     <entry keyword="Java EE perspective">
@@ -64,15 +88,18 @@
       <topic href="topics/cjview.html#cjview" title="Project Explorer view in the Java EE perspective"/>
     </entry>
     <entry keyword="Project Explorer filters">
-      <topic href="topics/cjviewfilters.html#cjviewfiltersCait" title="Filters in the project explorer view"/>
+      <topic href="topics/tjviewfilters.html#cjviewfiltersCait" title="Filtering in the Project Explorer view"/>
     </entry>
   </entry>
   <entry keyword="filters">
     <entry keyword="Project Explorer view">
-      <topic href="topics/cjviewfilters.html#cjviewfiltersCait" title="Filters in the project explorer view"/>
+      <topic href="topics/tjviewfilters.html#cjviewfiltersCait" title="Filtering in the Project Explorer view"/>
     </entry>
   </entry>
   <entry keyword="projects">
+    <entry keyword="filtering">
+      <topic href="topics/tjviewfilters.html#cjviewfiltersCait" title="Filtering in the Project Explorer view"/>
+    </entry>
     <entry keyword="enterprise applications">
       <topic href="topics/cjearproj.html#cjearproj" title="Enterprise application projects"/>
     </entry>
@@ -84,17 +111,17 @@
         <topic href="topics/cfacets.html#cfacets" title="Project facets"/>
       </entry>
       <entry keyword="adding">
-        <topic href="topics/taddingfacet.html#taddingfacet" title="Adding a facet to a J2EE project"/>
+        <topic href="topics/taddingfacet.html#taddingfacet" title="Adding a facet to a Java EE project"/>
       </entry>
     </entry>
     <entry keyword="changing facet versions">
       <topic href="topics/tchangefacet.html#tchangefacet" title="Changing the version of a facet"/>
     </entry>
     <entry keyword="Java compiler level">
-      <topic href="topics/tchangejavalevel.html#tchangejavalevel" title="Changing the Java compiler version for a J2EE project"/>
+      <topic href="topics/tchangejavalevel.html#tchangejavalevel" title="Changing the Java compiler version for a Java EE project"/>
     </entry>
     <entry keyword="cyclical dependencies">
-      <topic href="topics/cjcircle.html#cjcircle" title="Cyclical dependencies between J2EE modules"/>
+      <topic href="topics/cjcircle.html#cjcircle" title="Cyclical dependencies between Java EE modules"/>
     </entry>
     <entry keyword="correcting cyclical dependencies">
       <topic href="topics/tjcircleb.html#tjcircleb" title="Correcting cyclical dependencies after an EAR is imported"/>
@@ -140,11 +167,6 @@
       <topic href="topics/tchangefacet.html#tchangefacet" title="Changing the version of a facet"/>
     </entry>
   </entry>
-  <entry keyword="Java">
-    <entry keyword="J2EE project compiler level">
-      <topic href="topics/tchangejavalevel.html#tchangejavalevel" title="Changing the Java compiler version for a J2EE project"/>
-    </entry>
-  </entry>
   <entry keyword="EAR">
     <entry keyword="files">
       <entry keyword="exporting">
@@ -153,9 +175,6 @@
       <entry keyword="importing">
         <topic href="topics/tjimpear.html#tjimpear" title="Importing an enterprise application EAR file"/>
       </entry>
-    </entry>
-    <entry keyword="correcting cyclical dependencies">
-      <topic href="topics/tjcircleb.html#tjcircleb" title="Correcting cyclical dependencies after an EAR is imported"/>
     </entry>
   </entry>
   <entry keyword="RAR files">
@@ -168,9 +187,14 @@
   </entry>
   <entry keyword="dependencies">
     <entry keyword="cycles between modules">
-      <topic href="topics/cjcircle.html#cjcircle" title="Cyclical dependencies between J2EE modules"/>
+      <topic href="topics/cjcircle.html#cjcircle" title="Cyclical dependencies between Java EE modules"/>
     </entry>
     <entry keyword="correcting cyclical">
+      <topic href="topics/tjcircleb.html#tjcircleb" title="Correcting cyclical dependencies after an EAR is imported"/>
+    </entry>
+  </entry>
+  <entry keyword="EAR files">
+    <entry keyword="correcting cyclical dependencies">
       <topic href="topics/tjcircleb.html#tjcircleb" title="Correcting cyclical dependencies after an EAR is imported"/>
     </entry>
   </entry>
