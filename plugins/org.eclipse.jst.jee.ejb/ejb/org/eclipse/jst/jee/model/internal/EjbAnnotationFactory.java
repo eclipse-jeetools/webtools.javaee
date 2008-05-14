@@ -52,6 +52,7 @@ import org.eclipse.jst.jee.model.internal.common.Result;
  */
 public class EjbAnnotationFactory extends AbstractAnnotationFactory {
 
+	
 	private static final String INIT = "Init"; //$NON-NLS-1$
 	private static final String RUN_AS = "RunAs"; //$NON-NLS-1$
 	private static final String RESOURCES = "Resources"; //$NON-NLS-1$
@@ -86,6 +87,8 @@ public class EjbAnnotationFactory extends AbstractAnnotationFactory {
 	private static final String MESSAGE_DRIVEN = "MessageDriven"; //$NON-NLS-1$
 	private static final String JAVAX_EJB_STATELESS = "javax.ejb.Stateless"; //$NON-NLS-1$
 	private static final String STATELESS = "Stateless"; //$NON-NLS-1$
+	
+	private static final String CREATE_METHOD = "create"; //$NON-NLS-1$
 
 	public static EjbAnnotationFactory createFactory() {
 		return new EjbAnnotationFactory();
@@ -232,6 +235,17 @@ public class EjbAnnotationFactory extends AbstractAnnotationFactory {
 			if (interfaceType != null) {
 				sessionBean.setHome(interfaceType.getFullyQualifiedName());
 				dependedTypes.add(interfaceType);
+				IMethod method = interfaceType.getMethod(CREATE_METHOD, null);
+				if (method != null && !Signature.SIG_VOID.equals(method.getReturnType()) ){
+					String componentType = Signature.toString(method.getReturnType());
+					String[][] resolveType = interfaceType.resolveType(componentType);
+					if (resolveType[0].length == 2){
+						componentType = resolveType[0][0]+"." + resolveType[0][1]; //$NON-NLS-1$
+					}
+					
+					
+					sessionBean.setRemote(componentType);
+				}
 			} else
 				sessionBean.setHome(value);
 		}
@@ -375,6 +389,15 @@ public class EjbAnnotationFactory extends AbstractAnnotationFactory {
 			if (interfaceType != null) {
 				sessionBean.setLocalHome(interfaceType.getFullyQualifiedName());
 				dependedTypes.add(interfaceType);
+				IMethod method = interfaceType.getMethod(CREATE_METHOD, null);
+				if (method != null && !Signature.SIG_VOID.equals(method.getReturnType()) ){
+					String componentType = Signature.toString(method.getReturnType());
+					String[][] resolveType = interfaceType.resolveType(componentType);
+					if (resolveType[0].length == 2){
+						componentType = resolveType[0][0]+"." + resolveType[0][1]; //$NON-NLS-1$
+					}
+					sessionBean.setLocal(componentType);	
+				}
 			} else
 				sessionBean.setLocalHome(value);
 		}
