@@ -624,7 +624,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
 		if (wsdlService == null || serviceHelper.getServicePorts(wsdlService).isEmpty())
 			return null;
-		if (serviceHelper.getServicePorts(wsdlService).size() == 1) {
+		if (serviceHelper.getServicePorts(wsdlService).size() > 0) {
 			Object port = serviceHelper.getServicePorts(wsdlService).values().toArray()[0];
 			String qName = serviceHelper.getPortBindingNamespaceURI(port);
 			return getPortComponent(qName, ProjectUtilities.getProject(wsdlService));
