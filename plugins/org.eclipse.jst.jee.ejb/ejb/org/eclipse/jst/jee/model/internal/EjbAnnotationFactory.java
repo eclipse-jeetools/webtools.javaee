@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.Flags;
 import org.eclipse.jdt.core.IAnnotation;
@@ -235,16 +236,20 @@ public class EjbAnnotationFactory extends AbstractAnnotationFactory {
 			if (interfaceType != null) {
 				sessionBean.setHome(interfaceType.getFullyQualifiedName());
 				dependedTypes.add(interfaceType);
-				IMethod method = interfaceType.getMethod(CREATE_METHOD, null);
-				if (method != null && !Signature.SIG_VOID.equals(method.getReturnType()) ){
-					String componentType = Signature.toString(method.getReturnType());
-					String[][] resolveType = interfaceType.resolveType(componentType);
-					if (resolveType[0].length == 2){
-						componentType = resolveType[0][0]+"." + resolveType[0][1]; //$NON-NLS-1$
+				try {
+					IMethod method = interfaceType.getMethod(CREATE_METHOD, null);
+					if (method != null && !Signature.SIG_VOID.equals(method.getReturnType()) ){
+						String componentType = Signature.toString(method.getReturnType());
+						String[][] resolveType = interfaceType.resolveType(componentType);
+						if (resolveType[0].length == 2){
+							componentType = resolveType[0][0]+"." + resolveType[0][1]; //$NON-NLS-1$
+						}
+
+
+						sessionBean.setRemote(componentType);
 					}
-					
-					
-					sessionBean.setRemote(componentType);
+				} catch (CoreException e) {
+					// nothing to do create method is missing and component interface cannot be extracted 
 				}
 			} else
 				sessionBean.setHome(value);
@@ -389,14 +394,18 @@ public class EjbAnnotationFactory extends AbstractAnnotationFactory {
 			if (interfaceType != null) {
 				sessionBean.setLocalHome(interfaceType.getFullyQualifiedName());
 				dependedTypes.add(interfaceType);
-				IMethod method = interfaceType.getMethod(CREATE_METHOD, null);
-				if (method != null && !Signature.SIG_VOID.equals(method.getReturnType()) ){
-					String componentType = Signature.toString(method.getReturnType());
-					String[][] resolveType = interfaceType.resolveType(componentType);
-					if (resolveType[0].length == 2){
-						componentType = resolveType[0][0]+"." + resolveType[0][1]; //$NON-NLS-1$
+				try {
+					IMethod method = interfaceType.getMethod(CREATE_METHOD, null);
+					if (method != null && !Signature.SIG_VOID.equals(method.getReturnType()) ){
+						String componentType = Signature.toString(method.getReturnType());
+						String[][] resolveType = interfaceType.resolveType(componentType);
+						if (resolveType[0].length == 2){
+							componentType = resolveType[0][0]+"." + resolveType[0][1]; //$NON-NLS-1$
+						}
+						sessionBean.setLocal(componentType);	
 					}
-					sessionBean.setLocal(componentType);	
+				} catch (CoreException e) {
+					// nothing to do create method is missing and component interface cannot be extracted 
 				}
 			} else
 				sessionBean.setLocalHome(value);
