@@ -36,6 +36,8 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.EarUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
@@ -74,18 +76,18 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	 * @return IVirtualReferences for all non-Java classpath entry references.
 	 */
 	public IVirtualReference[] getNonJavaReferences() {
-		return getReferences(false);
+		return getReferences(false, false);
 	}
 	
 	public IVirtualReference[] getReferences() {
-		return getReferences(true);
+		return getReferences(true, false);
 	}
 	
-	private IVirtualReference[] getReferences(final boolean getJavaRefs) {
+	public IVirtualReference[] getReferences(final boolean getJavaRefs, final boolean findFuzzyEARRefs) {
 		IVirtualReference[] hardReferences = getNonManifestReferences(getJavaRefs);
 		
 		// retrieve the dynamic references specified via the MANIFEST.MF classpath 
-		List dynamicReferences = J2EEModuleVirtualComponent.getManifestReferences(this, hardReferences);
+		List dynamicReferences = J2EEModuleVirtualComponent.getManifestReferences(this, hardReferences, findFuzzyEARRefs);
 		
 		IVirtualReference[] references = null;
 		if (dynamicReferences == null) {
@@ -265,6 +267,10 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	}
 
 	public static List getManifestReferences(IVirtualComponent moduleComponent, IVirtualReference[] hardReferences) {
+		return getManifestReferences(moduleComponent, hardReferences, false);
+	}
+	
+	public static List getManifestReferences(IVirtualComponent moduleComponent, IVirtualReference[] hardReferences, boolean findFuzzyEARRefs) {
 		List dynamicReferences = null;
 		String [] manifestClasspath = getManifestClasspath(moduleComponent); 
 
@@ -273,10 +279,20 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		boolean simplePath = false;
 		
 		if (manifestClasspath != null && manifestClasspath.length > 0) {
-			IProject[] earProjects = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.ENTERPRISE_APPLICATION);
-			IVirtualReference[] earRefs = null;
-			for (int i = 0; i < earProjects.length && null == earRefs; i++) {
-				IVirtualComponent tempEARComponent = ComponentCore.createComponent(earProjects[i]);
+			boolean [] foundRefAlready = findFuzzyEARRefs ? new boolean[manifestClasspath.length]: null;
+			if(null != foundRefAlready){
+				for(int i=0; i<foundRefAlready.length; i++){
+					foundRefAlready[i] = false;
+				}
+			}
+			
+			IProject [] earProjects = EarUtilities.getReferencingEARProjects(moduleComponent.getProject());
+			for (IProject earProject : earProjects) {
+				if(!JavaEEProjectUtilities.isEARProject(earProject)){
+					continue;
+				}
+				IVirtualReference[] earRefs = null;
+				IVirtualComponent tempEARComponent = ComponentCore.createComponent(earProject);
 				IVirtualReference[] tempEarRefs = tempEARComponent.getReferences();
 				for (int j = 0; j < tempEarRefs.length && earRefs == null; j++) {
 					if (tempEarRefs[j].getReferencedComponent().equals(moduleComponent)) {
@@ -286,45 +302,64 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 						simplePath = earArchiveURI != null ? earArchiveURI.lastIndexOf("/") == -1 : true; //$NON-NLS-1$
 					}
 				}
-			}
-
-			if (null != earRefs) {
-				for (int i = 0; i < manifestClasspath.length; i++) {
-					boolean found = false;
-					for (int j = 0; j < earRefs.length && !found; j++) {
-						if(foundRef != earRefs[j]){
-							String archiveName = earRefs[j].getArchiveName();
-							if (null != archiveName){
-								boolean shouldAdd = false;
-								if(simplePath && manifestClasspath[i].lastIndexOf("/") == -1){ //$NON-NLS-1$
-									shouldAdd = archiveName.equals(manifestClasspath[i]);	
-								} else {
-									String earRelativeURI = ArchiveUtil.deriveEARRelativeURI(manifestClasspath[i], earArchiveURI);
-									if(null != earRelativeURI){
-										shouldAdd = earRelativeURI.equals(archiveName);	
+				if (null != earRefs) {
+					for (int manifestIndex = 0; manifestIndex < manifestClasspath.length; manifestIndex++) {
+						boolean found = false;
+						if(foundRefAlready != null && foundRefAlready[manifestIndex]){
+							continue;
+						}
+						for (int j = 0; j < earRefs.length && !found; j++) {
+							if(foundRef != earRefs[j]){
+								String archiveName = earRefs[j].getArchiveName();
+								if (null != archiveName){
+									boolean shouldAdd = false;
+									if(simplePath && manifestClasspath[manifestIndex].lastIndexOf("/") == -1){ //$NON-NLS-1$
+										shouldAdd = archiveName.equals(manifestClasspath[manifestIndex]);	
+									} else {
+										String earRelativeURI = ArchiveUtil.deriveEARRelativeURI(manifestClasspath[manifestIndex], earArchiveURI);
+										if(null != earRelativeURI){
+											shouldAdd = earRelativeURI.equals(archiveName);	
+										}
 									}
-								}
-								
-								if(shouldAdd){
-									found = true;
-									boolean shouldInclude = true;
-									IVirtualComponent dynamicComponent = earRefs[j].getReferencedComponent();
-									if(null != hardReferences){
-										for (int k = 0; k < hardReferences.length && shouldInclude; k++) {
-											if (hardReferences[k].getReferencedComponent().equals(dynamicComponent)) {
-												shouldInclude = false;
+									
+									if(shouldAdd){
+										if(findFuzzyEARRefs){
+											foundRefAlready[manifestIndex] = true;
+										}
+										found = true;
+										boolean shouldInclude = true;
+										IVirtualComponent dynamicComponent = earRefs[j].getReferencedComponent();
+										if(null != hardReferences){
+											for (int k = 0; k < hardReferences.length && shouldInclude; k++) {
+												if (hardReferences[k].getReferencedComponent().equals(dynamicComponent)) {
+													shouldInclude = false;
+												}
 											}
 										}
-									}
-									if (shouldInclude) {
-										IVirtualReference dynamicReference = ComponentCore.createReference(moduleComponent, dynamicComponent);
-										if (null == dynamicReferences) {
-											dynamicReferences = new ArrayList();
+										if (shouldInclude) {
+											IVirtualReference dynamicReference = ComponentCore.createReference(moduleComponent, dynamicComponent);
+											if (null == dynamicReferences) {
+												dynamicReferences = new ArrayList();
+											}
+											dynamicReferences.add(dynamicReference);
 										}
-										dynamicReferences.add(dynamicReference);
 									}
 								}
 							}
+						}
+						
+					}
+					if(!findFuzzyEARRefs){
+						break;
+					} else {
+						boolean foundAll = true;
+						for(int i = 0; i < foundRefAlready.length && foundAll; i++){
+							if(!foundRefAlready[i]){
+								foundAll = false;
+							}
+						}
+						if(foundAll){
+							break;
 						}
 					}
 				}

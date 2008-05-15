@@ -38,6 +38,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.jdt.internal.classpath.ClasspathDecorations;
 import org.eclipse.jst.common.jdt.internal.classpath.ClasspathDecorationsManager;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -98,7 +99,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			return true;
 		}
 		
-		IVirtualReference[] refs = component.getReferences();
+		IVirtualReference[] refs = component instanceof J2EEModuleVirtualComponent ? ((J2EEModuleVirtualComponent)component).getReferences(true, true): component.getReferences();
 		IVirtualComponent comp = null;
 
 		// avoid updating the container if references haven't changed
@@ -160,7 +161,8 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		IVirtualComponent comp = null;
 		IVirtualReference ref = null;
 		
-		IVirtualReference[] refs = component.getReferences();
+		IVirtualReference[] refs = component instanceof J2EEModuleVirtualComponent ? ((J2EEModuleVirtualComponent)component).getReferences(true, true): component.getReferences();
+
 		List refsList = new ArrayList();
 		Set refedComps = new HashSet();
 		refedComps.add(component);
