@@ -42,7 +42,9 @@ public abstract class ModuleExportDataModelVerifier extends JEEExportDataModelVe
 					fIn.close();
 				}
 			}
-			Assert.assertNotNull(mf);
+			if(null == mf){
+				Assert.assertNotNull(mf);
+			}
 		}
 	}
 
