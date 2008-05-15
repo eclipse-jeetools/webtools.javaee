@@ -183,10 +183,15 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 		IJavaProject javaProject = JavaCore.create(child.getProject());
 		IPackageFragmentRoot[] packageFragmentRoots = javaProject.getPackageFragmentRoots();
 	
-		for (int i = 0; i < packageFragmentRoots.length; i++) {
-			if(!packageFragmentRoots[i].isReadOnly() && !packageFragmentRoots[i].isExternal()){
-				if (packageFragmentRoots[i].getPackageFragment(child.getName())!= null){
-					return packageFragmentRoots[i].getPackageFragment(child.getName());
+		IJavaElement elem = JavaCore.create(child);
+		if (elem instanceof IPackageFragment) {
+			IPackageFragment packageFragment = (IPackageFragment)elem;
+			for (IJavaElement javaElem = packageFragment ; javaElem != null ; javaElem = javaElem.getParent()) {
+				if (javaElem instanceof IPackageFragmentRoot) {
+					IPackageFragmentRoot fragmentRoot = (IPackageFragmentRoot)javaElem;
+					if (!fragmentRoot.isReadOnly() && !fragmentRoot.isExternal()) {
+						return packageFragment;
+					}
 				}
 			}
 		}
