@@ -121,12 +121,12 @@ public class EJBDeployableArtifactAdapterUtil {
 		List busRemotes = ejb.getBusinessRemotes();
 		for (Iterator iterator = busLocals.iterator(); iterator.hasNext();) {
 			String localName = (String) iterator.next();
-			modArtifacts.add(createModuleObject(dep, localName, true, false));
+			modArtifacts.add(createModuleObjectForSessionBean(dep, ejb.getEjbName(), localName, false,true));
 			
 		}
 		for (Iterator iterator = busRemotes.iterator(); iterator.hasNext();) {
 			String remoteName = (String) iterator.next();
-			modArtifacts.add(createModuleObject(dep, remoteName, false, true));
+			modArtifacts.add(createModuleObjectForSessionBean(dep, ejb.getEjbName(), remoteName, true, false));
 		}
 		return (IModuleArtifact[])modArtifacts.toArray(new IModuleArtifact[modArtifacts.size()]);
 	}
@@ -225,6 +225,19 @@ public class EJBDeployableArtifactAdapterUtil {
 		return null;
 	}
 
+	protected static IModuleArtifact createModuleObjectForSessionBean(IModule module, String ejbName, String interfaceName, boolean remote, boolean local) {
+		if (module != null) {
+			String jndiName = null;
+			if (ejbName != null) {
+				module.loadAdapter(ModuleDelegate.class, new NullProgressMonitor());
+				JEEFlexProjDeployable moduleDelegate = (JEEFlexProjDeployable)module.getAdapter(ModuleDelegate.class);
+				jndiName = moduleDelegate.getJNDIName(ejbName, interfaceName);
+				return new EJBBean(module, jndiName, remote, local,EJBBean.EJB_30, interfaceName);
+			}
+			return new NullModuleArtifact(module);
+		}
+		return null;
+	}
 
 
 }
