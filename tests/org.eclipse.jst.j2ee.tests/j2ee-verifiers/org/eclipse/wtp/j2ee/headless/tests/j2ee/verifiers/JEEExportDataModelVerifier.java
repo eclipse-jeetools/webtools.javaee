@@ -107,27 +107,22 @@ public abstract class JEEExportDataModelVerifier extends DataModelVerifier {
 			}
 		}
 		
-		boolean isEE5_withoutDD = isEE5WithoutDD(exportedProj);
+		String archivePath = model.getStringProperty(IJ2EEComponentExportDataModelProperties.ARCHIVE_DESTINATION);
+		IArchive zipArchive = null;
 		
-		//TODO this need to be removed when https://bugs.eclipse.org/bugs/show_bug.cgi?id=194679 is fixed
-		if(!isEE5_withoutDD){
-			String archivePath = model.getStringProperty(IJ2EEComponentExportDataModelProperties.ARCHIVE_DESTINATION);
-			IArchive zipArchive = null;
+		try {
+			zipArchive = JavaEEArchiveUtilities.INSTANCE.openArchive(new Path(archivePath));
 			
-			try {
-				zipArchive = JavaEEArchiveUtilities.INSTANCE.openArchive(new Path(archivePath));
-				
-				JavaEEQuickPeek archiveQuickPeek = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(zipArchive);
-				int type = archiveQuickPeek.getType();
-				AssertWarn.warnEquals("Archive type did not match exported type", getExportType(), type);
-				int iVersionConstant = archiveQuickPeek.getVersion();
-				String sProjVersion = J2EEProjectUtilities.getJ2EEDDProjectVersion(exportedProj);
-				int iProjVersion = J2EEVersionUtil.convertVersionStringToInt(sProjVersion);
-				AssertWarn.warnEquals("Archive version did not match exported project version", iProjVersion, iVersionConstant);
-			} finally {
-				if (null != zipArchive) {
-					JavaEEArchiveUtilities.INSTANCE.closeArchive(zipArchive);
-				}
+			JavaEEQuickPeek archiveQuickPeek = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(zipArchive);
+			int type = archiveQuickPeek.getType();
+			AssertWarn.warnEquals("Archive type did not match exported type", getExportType(), type);
+			int iVersionConstant = archiveQuickPeek.getVersion();
+			String sProjVersion = J2EEProjectUtilities.getJ2EEDDProjectVersion(exportedProj);
+			int iProjVersion = J2EEVersionUtil.convertVersionStringToInt(sProjVersion);
+			AssertWarn.warnEquals("Archive version did not match exported project version", iProjVersion, iVersionConstant);
+		} finally {
+			if (null != zipArchive) {
+				JavaEEArchiveUtilities.INSTANCE.closeArchive(zipArchive);
 			}
 		}
 	}

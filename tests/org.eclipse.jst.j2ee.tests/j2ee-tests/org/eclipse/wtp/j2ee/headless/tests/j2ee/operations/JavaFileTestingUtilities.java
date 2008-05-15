@@ -48,13 +48,19 @@ public class JavaFileTestingUtilities {
 	public static void addJavaFilesToAppClient(String projectName, String[] classNames, String prackageName) throws Exception {
 		IVirtualComponent projVirtComp = ComponentUtilities.getComponent(projectName);		
 		IVirtualFolder virtRootFolder = projVirtComp.getRootFolder();
-    	addJavaFilesToSrcFolder(virtRootFolder, classNames, prackageName);
+    	addJavaFilesToSrcFolder(virtRootFolder, classNames, prackageName, null);
 	}
 	
 	public static void addJavaFilesToEJB(String projectName, String[] classNames, String prackageName) throws Exception {
 		IVirtualComponent projVirtComp = ComponentUtilities.getComponent(projectName);		
 		IVirtualFolder virtRootFolder = projVirtComp.getRootFolder();
-    	addJavaFilesToSrcFolder(virtRootFolder, classNames, prackageName);
+    	addJavaFilesToSrcFolder(virtRootFolder, classNames, prackageName, null);
+	}
+	
+	public static void addJavaFileToEJB(String projectName, String className, String packageName, String classContents) throws Exception {
+		IVirtualComponent projVirtComp = ComponentUtilities.getComponent(projectName);		
+		IVirtualFolder virtRootFolder = projVirtComp.getRootFolder();
+    	addJavaFilesToSrcFolder(virtRootFolder, new String [] {className }, packageName, classContents);
 	}
 	
 	public static void addJavaFilesToWeb(String projectName, String[] classNames, String prackageName) throws Exception {
@@ -68,19 +74,19 @@ public class JavaFileTestingUtilities {
 		
 		IFolder srcFolder = proj.getFolder(srcRootProjectRelitivePath);
 		
-		addJavaFilesToSrcFolder(srcFolder, classNames, prackageName);
+		addJavaFilesToSrcFolder(srcFolder, classNames, prackageName, null);
 	}
 	
 	public static void addJavaFilesToConnector(String projectName, String[] classNames, String prackageName) throws Exception {
 		IVirtualComponent projVirtComp = ComponentUtilities.getComponent(projectName);		
 		IVirtualFolder virtRootFolder = projVirtComp.getRootFolder();
-    	addJavaFilesToSrcFolder(virtRootFolder, classNames, prackageName);
+    	addJavaFilesToSrcFolder(virtRootFolder, classNames, prackageName, null);
 	}
 	
 	public static void addJavaFilesToUtility(String projectName, String[] classNames, String prackageName) throws Exception {
 		IVirtualComponent projVirtComp = ComponentUtilities.getComponent(projectName);		
 		IVirtualFolder virtRootFolder = projVirtComp.getRootFolder();
-    	addJavaFilesToSrcFolder(virtRootFolder, classNames, prackageName);
+    	addJavaFilesToSrcFolder(virtRootFolder, classNames, prackageName, null);
 	}
 	
 	public static void verifyJavaFilesInJAR(String archivePath, String[] classNames, String packageName, boolean withClassFiles, boolean withSource) throws Exception {
@@ -156,7 +162,7 @@ public class JavaFileTestingUtilities {
 		verifyJavaFilesExported(nestedArchive, srcDirectoryPath, classNames, withClassFiles, withSource);
 	}
 	
-	protected static void addJavaFilesToSrcFolder(IVirtualFolder virtSrcFolder, String[] classNames, String prackageName) throws Exception {
+	protected static void addJavaFilesToSrcFolder(IVirtualFolder virtSrcFolder, String[] classNames, String prackageName, String classContents) throws Exception {
 		IVirtualFolder packageVirtFolder = virtSrcFolder.getFolder(prackageName);
 		packageVirtFolder.create(0, null);
 		
@@ -167,10 +173,10 @@ public class JavaFileTestingUtilities {
 			filesList.add(virtFile.getUnderlyingFile());
 		}
 		
-		addJavaFilesToSrcFolder(filesList, prackageName);
+		addJavaFilesToSrcFolder(filesList, prackageName, classContents);
 	}
 	
-	protected static void addJavaFilesToSrcFolder(IFolder srcFolder, String[] classNames, String prackageName) throws Exception {
+	protected static void addJavaFilesToSrcFolder(IFolder srcFolder, String[] classNames, String prackageName, String classContents) throws Exception {
 		IFolder packageFolder = srcFolder.getFolder(prackageName);
 		packageFolder.create(0, true, null);
 		
@@ -181,10 +187,10 @@ public class JavaFileTestingUtilities {
 			filesList.add(file);
 		}
 		
-		addJavaFilesToSrcFolder(filesList, prackageName);
+		addJavaFilesToSrcFolder(filesList, prackageName, classContents);
 	}
 	
-	protected static void addJavaFilesToSrcFolder(List<IFile> filesList, String packageName) throws Exception {
+	protected static void addJavaFilesToSrcFolder(List<IFile> filesList, String packageName, String classContents) throws Exception {
 		int maxWait = MAX_FILE_CREATION_WAIT;
 		String fileContents = null;
 		String className = null;
@@ -200,7 +206,11 @@ public class JavaFileTestingUtilities {
 			//create Java files
 			for(int i = 0; i < filesList.size(); i++) {
 				className = filesList.get(i).getProjectRelativePath().removeFileExtension().lastSegment();
-				fileContents = generateJavaFileContent(className, packageName);
+				if(classContents == null){
+					fileContents = generateJavaFileContent(className, packageName);
+				} else {
+					fileContents = classContents;
+				}
 				filesList.get(i).create(new StringBufferInputStream(fileContents),true,null);
 			}
 			

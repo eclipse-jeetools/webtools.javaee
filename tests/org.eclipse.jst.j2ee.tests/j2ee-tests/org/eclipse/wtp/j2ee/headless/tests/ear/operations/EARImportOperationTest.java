@@ -55,10 +55,7 @@ public class EARImportOperationTest extends JEEImportOperationTest {
     }
     
     public void testEARImport50_WithDependencies() throws Exception{
-    	//TODO https://bugs.eclipse.org/bugs/show_bug.cgi?id=194679
-    	System.err.println("TODO -- can't import EARs without DDs");
-    	System.err.println("     -- see https://bugs.eclipse.org/bugs/show_bug.cgi?id=194679");
-    	//runImportTests_All("EAR50");
+    	runImportTests_All("EAR50");
     }
     
     
@@ -75,10 +72,7 @@ public class EARImportOperationTest extends JEEImportOperationTest {
     }
     
     public void testEARImport50_ChangedContentDir_WithDependencies() throws Exception{
-    	//TODO https://bugs.eclipse.org/bugs/show_bug.cgi?id=194679
-    	System.err.println("TODO -- can't import EARs without DDs");
-    	System.err.println("     -- see https://bugs.eclipse.org/bugs/show_bug.cgi?id=194679");
-    	//runImportTests_All("EAR50_ChangedContentDir");
+    	runImportTests_All("EAR50_ChangedContentDir");
     }
     
     
