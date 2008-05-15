@@ -48,8 +48,11 @@ public class AppClientFacetPostInstallDelegate extends J2EEFacetInstallDelegate 
 			IDataModel model = (IDataModel) config;
 			
 			// Add main class if necessary
-			if (model.getBooleanProperty(IAppClientFacetInstallDataModelProperties.CREATE_DEFAULT_MAIN_CLASS))
+			if (model.getBooleanProperty(IAppClientFacetInstallDataModelProperties.CREATE_DEFAULT_MAIN_CLASS)){
 				addMainClass(monitor, model, project);			
+			} else {
+				createManifestEntryForMainClass(monitor, model, project);
+			}
 
 			// Associate with an EAR, if necessary.
 			final String earProjectName = (String) model.getProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME);
@@ -113,11 +116,11 @@ public class AppClientFacetPostInstallDelegate extends J2EEFacetInstallDelegate 
 			} catch (Exception e) {
 				Logger.getLogger().logError(e);
 			}
+		}
+		if (model.getBooleanProperty(IAppClientFacetInstallDataModelProperties.CREATE_DEFAULT_MAIN_CLASS)) {
 			String manifestFolder = IPath.SEPARATOR + model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER) + IPath.SEPARATOR + J2EEConstants.META_INF;
 			IContainer container = project.getFolder(manifestFolder);
 			manifestmf = container.getFile(new Path(J2EEConstants.MANIFEST_SHORT_NAME));
-		}
-		if (model.getBooleanProperty(IAppClientFacetInstallDataModelProperties.CREATE_DEFAULT_MAIN_CLASS)) {
 			IDataModel dm = DataModelFactory.createDataModel(UpdateManifestDataModelProvider.class);
 			dm.setProperty(UpdateManifestDataModelProperties.PROJECT_NAME, project.getName());
 			dm.setBooleanProperty(UpdateManifestDataModelProperties.MERGE, false);
