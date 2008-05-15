@@ -315,7 +315,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 					}
 					if (projects.containsKey(tempProjectName)) {
 						return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_2, new Object[] { tempProjectName,
-								tempArchive.getPath(), ((Archive) projects.get(tempProjectName)).getURI() }));
+								tempArchive.getPath(), ((ArchiveWrapper) projects.get(tempProjectName)).getPath() }));
 					} else if (!WTPPlugin.isPlatformCaseSensitive()) {
 						String lowerCaseProjectName = tempProjectName.toLowerCase();
 						String currentKey = null;
