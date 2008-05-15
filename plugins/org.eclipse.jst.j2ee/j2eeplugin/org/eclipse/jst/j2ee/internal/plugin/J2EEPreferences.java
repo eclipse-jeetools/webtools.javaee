@@ -19,7 +19,7 @@ package org.eclipse.jst.j2ee.internal.plugin;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Preferences;
 import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
-import org.eclipse.jst.common.project.facet.core.FacetCorePlugin;
+import org.eclipse.jst.common.project.facet.core.internal.FacetCorePlugin;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.project.facet.IProductConstants;
 import org.eclipse.wst.project.facet.ProductManager;

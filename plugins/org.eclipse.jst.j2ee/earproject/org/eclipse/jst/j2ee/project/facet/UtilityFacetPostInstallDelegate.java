@@ -15,7 +15,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
@@ -32,33 +31,14 @@ public final class UtilityFacetPostInstallDelegate extends J2EEFacetInstallDeleg
 
 			final IDataModel model = (IDataModel) cfg;
 
-
 			// Associate with an EAR, if necessary.
 			if (model.getBooleanProperty(IUtilityFacetInstallDataModelProperties.ADD_TO_EAR)) {
 				final String earProjectName = model.getStringProperty(IUtilityFacetInstallDataModelProperties.EAR_PROJECT_NAME);
-				if (earProjectName != null && earProjectName != "") { //$NON-NLS-1$
-//					IProject earProject = ProjectUtilities.getProject(earProjectName);
-//					if (earProject.exists()) {
-//						IVirtualComponent earComp = ComponentCore.createComponent(earProject);
-//
-//						IDataModel dataModel = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
-//						dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp);
-//						List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
-//						modList.add(c);
-//						dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
-//						try {
-//							dataModel.getDefaultOperation().execute(null, null);
-//						} catch (ExecutionException e) {
-//							Logger.getLogger().logError(e);
-//						}
-//					}
-					
-
+				if (earProjectName != null && earProjectName != "") //$NON-NLS-1$
+				{
 					final String moduleURI = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.MODULE_URI);
 					
-					//final String moduleURI = project.getName() + ".jar";
-						
-					installAndAddModuletoEAR( J2EEVersionConstants.VERSION_1_4_TEXT,
+					installAndAddModuletoEAR( null,
 								earProjectName,
 								(IRuntime) model.getProperty(IJ2EEFacetInstallDataModelProperties.FACET_RUNTIME),
 								project,
@@ -66,8 +46,6 @@ public final class UtilityFacetPostInstallDelegate extends J2EEFacetInstallDeleg
 								monitor );					
 				}
 			}
-
-
 		} catch (Exception e) {
 			Logger.getLogger().logError(e);
 		} finally {
