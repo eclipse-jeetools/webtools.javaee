@@ -84,7 +84,7 @@ name (<uicontrol>Client JAR URI</uicontrol>) of the client JAR file. </cmd>
 <postreq outputclass="id_postreq"><note>The New Project Wizard will automatically
 add default facets to your project. You can change these facets or add new
 ones in the <uicontrol>Preferences</uicontrol> window. For more information,
-see <xref href="../../org.eclipse.jst.j2ee.doc.user/topics/taddingfacet.dita"></xref>.</note><p
-outputclass="anchor_topicbottom"></p></postreq>
+see <xref href="../../org.eclipse.jst.j2ee.doc.user/topics/taddingfacet.dita"
+scope="peer">Adding a facet to a Java EE project</xref>.</note><p outputclass="anchor_topicbottom"></p></postreq>
 </taskbody>
 </task>

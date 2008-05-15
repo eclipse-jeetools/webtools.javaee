@@ -55,7 +55,7 @@
 			<property name="clean.temp" value="true" />
 			<property name="dita.extname" value=".dita" />
 			<property name="dita.temp.dir" location="temp" />
-			<property name="output.dir" location="../" />
+			<property name="output.dir" location="" />
 			<property name="transtype" value="eclipsehelp" />
 		</ant>
 		<copy file="myplugin.xml" tofile="plugin.xml" overwrite="yes" />
