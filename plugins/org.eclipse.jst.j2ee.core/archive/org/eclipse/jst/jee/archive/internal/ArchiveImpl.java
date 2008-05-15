@@ -271,6 +271,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 			}
 
 			ArchiveOptions nestedArchiveOptions = cloneUnknownOptions(archiveOptions);
+			nestedArchiveOptions.setOption(ArchiveOptions.PARENT_ARCHIVE, this);
 			nestedArchiveOptions.setOption(ArchiveOptions.LOAD_ADAPTER, nestedLoadAdapter);
 			nestedArchiveOptions.setOption(ArchiveOptions.ARCHIVE_PATH, cachedArchiveResource.getPath());
 			IArchive nestedArchive = archiveFactory.openArchive(nestedArchiveOptions);

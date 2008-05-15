@@ -280,39 +280,115 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 	private static final String DOT_JAR = ".jar";//$NON-NLS-1$
 
 	private IArchive refineForJavaEE(final IArchive simpleArchive) {
+		//Check to see if this archive is actually being opened as a nested archive from within an EAR
+		//if it is then the EAR's DD needs to be checked to see exactly what type of archive this is.
+		if (simpleArchive.getArchiveOptions().hasOption(ArchiveOptions.PARENT_ARCHIVE)) {
+			IArchive parent = (IArchive) simpleArchive.getArchiveOptions().getOption(ArchiveOptions.PARENT_ARCHIVE);
+			JavaEEQuickPeek qp = getJavaEEQuickPeek(parent);
+
+			if (qp.getType() == JavaEEQuickPeek.APPLICATION_TYPE) {
+				IPath ddPath = new Path(J2EEConstants.APPLICATION_DD_URI);
+				if (parent.containsArchiveResource(ddPath)) {
+					try {
+						Object ddObj = parent.getModelObject(ddPath);
+						IPath archivePath = simpleArchive.getPath();
+						if (archivePath == null) {
+							Object obj = simpleArchive.getArchiveOptions().getOption(ArchiveOptions.ARCHIVE_PATH);
+							if (null != obj) {
+								archivePath = (IPath) obj;
+							}
+						}
+						int definedType = J2EEVersionConstants.UNKNOWN;
+						if (qp.getVersion() == JavaEEQuickPeek.JEE_5_0_ID) {
+							org.eclipse.jst.javaee.application.Application app = (org.eclipse.jst.javaee.application.Application) ddObj;
+							org.eclipse.jst.javaee.application.Module module = app.getFirstModule(archivePath.toString());
+							if (null != module) {
+								if (module.getEjb() != null) {
+									definedType = J2EEVersionConstants.EJB_TYPE;
+								} else if (module.getConnector() != null) {
+									definedType = J2EEVersionConstants.CONNECTOR_TYPE;
+								} else if (module.getJava() != null) {
+									definedType = J2EEVersionConstants.APPLICATION_CLIENT_TYPE;
+								} else if (module.getWeb() != null) {
+									definedType = J2EEVersionConstants.WEB_TYPE;
+								}
+							}
+						} else {
+							org.eclipse.jst.j2ee.application.Application app = (org.eclipse.jst.j2ee.application.Application) ddObj;
+							org.eclipse.jst.j2ee.application.Module module = app.getFirstModule(archivePath.toString());
+							if (null != module) {
+								if (module.isEjbModule()) {
+									definedType = J2EEVersionConstants.EJB_TYPE;
+								} else if (module.isConnectorModule()) {
+									definedType = J2EEVersionConstants.CONNECTOR_TYPE;
+								} else if (module.isJavaModule()) {
+									definedType = J2EEVersionConstants.APPLICATION_CLIENT_TYPE;
+								} else if (module.isWebModule()) {
+									definedType = J2EEVersionConstants.WEB_TYPE;
+								}
+							}
+						}
+						if (definedType != J2EEVersionConstants.UNKNOWN) {
+							String ddToCheck = null;
+							switch (definedType) {
+							case J2EEVersionConstants.EJB_TYPE:
+								ddToCheck = J2EEConstants.EJBJAR_DD_URI;
+								break;
+							case J2EEVersionConstants.CONNECTOR_TYPE:
+								ddToCheck = J2EEConstants.RAR_DD_URI;
+								break;
+							case J2EEVersionConstants.APPLICATION_CLIENT_TYPE:
+								ddToCheck = J2EEConstants.APP_CLIENT_DD_URI;
+								break;
+							case J2EEVersionConstants.WEB_TYPE:
+								ddToCheck = J2EEConstants.WEBAPP_DD_URI;
+								break;
+							}
+							IArchive wrappedForDD = wrapForDD(simpleArchive, definedType, new Path(ddToCheck));
+							if (wrappedForDD != null) {
+								return wrappedForDD;
+							}
+							// else there is no DD and we need to decide on a
+							// version (letting RARs fall through)
+							switch (definedType) {
+							case J2EEVersionConstants.EJB_TYPE: {
+								JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.EJB_TYPE, JavaEEQuickPeek.EJB_3_0_ID, JavaEEQuickPeek.JEE_5_0_ID);
+								archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
+								wrapArchive(simpleArchive, new Path(J2EEConstants.EJBJAR_DD_URI));
+								return simpleArchive;
+							}
+							case J2EEVersionConstants.APPLICATION_CLIENT_TYPE: {
+								JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.APPLICATION_CLIENT_TYPE, JavaEEQuickPeek.JEE_5_0_ID, JavaEEQuickPeek.JEE_5_0_ID);
+								archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
+								wrapArchive(simpleArchive, new Path(J2EEConstants.APPLICATION_DD_URI));
+								return simpleArchive;
+							}
+							case J2EEVersionConstants.WEB_TYPE: {
+								JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.WEB_TYPE, JavaEEQuickPeek.WEB_2_5_ID, JavaEEQuickPeek.JEE_5_0_ID);
+								archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
+								wrapArchive(simpleArchive, new Path(J2EEConstants.WEBAPP_DD_URI));
+								return simpleArchive;
+							}
+							}
+						}
+					} catch (ArchiveModelLoadException e) {
+						org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+					}
+				}
+			}
+		}
+		
+		
 		String[] deploymentDescriptorsToCheck = new String[] { J2EEConstants.APPLICATION_DD_URI, J2EEConstants.APP_CLIENT_DD_URI, J2EEConstants.EJBJAR_DD_URI, J2EEConstants.WEBAPP_DD_URI,
 				J2EEConstants.RAR_DD_URI };
 		int[] typeToVerify = new int[] { J2EEVersionConstants.APPLICATION_TYPE, J2EEVersionConstants.APPLICATION_CLIENT_TYPE, J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.WEB_TYPE,
 				J2EEConstants.CONNECTOR_TYPE };
 		for (int i = 0; i < deploymentDescriptorsToCheck.length; i++) {
+			final int currentType = typeToVerify[i];
 			final IPath deploymentDescriptorPath = new Path(deploymentDescriptorsToCheck[i]);
-			if (simpleArchive.containsArchiveResource(deploymentDescriptorPath)) {
-				InputStream in = null;
-				IArchiveResource dd;
-				try {
-					dd = simpleArchive.getArchiveResource(deploymentDescriptorPath);
-					in = dd.getInputStream();
-					JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(in);
-					if (quickPeek.getType() == typeToVerify[i] && quickPeek.getVersion() != JavaEEQuickPeek.UNKNOWN){
-						if(isBinary(simpleArchive) || !simpleArchive.containsModelObject(deploymentDescriptorPath)){
-							archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
-							wrapArchive(simpleArchive, deploymentDescriptorPath);
-							return simpleArchive;
-						}
-					}
-				} catch (FileNotFoundException e) {
-					ArchiveUtil.warn(e);
-				} catch (IOException e) {
-					ArchiveUtil.warn(e);
-				} finally {
-					if (in != null) {
-						try {
-							in.close();
-						} catch (IOException e) {
-							ArchiveUtil.warn(e);
-						}
-					}
-				}
+			IArchive wrappedForDD = wrapForDD(simpleArchive, currentType, deploymentDescriptorPath);
+			if(wrappedForDD != null){
+				return wrappedForDD;
 			}
 		}
 		IPath archivePath = simpleArchive.getPath();
@@ -380,7 +456,39 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 
 		return simpleArchive;
 	}
-	
+
+	private IArchive wrapForDD(final IArchive simpleArchive, final int currentType, final IPath deploymentDescriptorPath) {
+		if (simpleArchive.containsArchiveResource(deploymentDescriptorPath)) {
+			InputStream in = null;
+			IArchiveResource dd;
+			try {
+				dd = simpleArchive.getArchiveResource(deploymentDescriptorPath);
+				in = dd.getInputStream();
+				JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(in);
+				if (quickPeek.getType() == currentType && quickPeek.getVersion() != JavaEEQuickPeek.UNKNOWN){
+					if(isBinary(simpleArchive) || !simpleArchive.containsModelObject(deploymentDescriptorPath)){
+						archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
+						wrapArchive(simpleArchive, deploymentDescriptorPath);
+						return simpleArchive;
+					}
+				}
+			} catch (FileNotFoundException e) {
+				ArchiveUtil.warn(e);
+			} catch (IOException e) {
+				ArchiveUtil.warn(e);
+			} finally {
+				if (in != null) {
+					try {
+						in.close();
+					} catch (IOException e) {
+						ArchiveUtil.warn(e);
+					}
+				}
+			}
+		}
+		return null;
+	}
+		
 	public static boolean isBinary(IArchive anArchive){
 		IArchiveLoadAdapter loadAdapter = null;
 		if(anArchive.getArchiveOptions().hasOption(WRAPPED_LOAD_ADAPTER)){

@@ -41,7 +41,11 @@ public class ArchiveOptions {
 	 */
 	public static final String ARCHIVE_PATH = "ARCHIVE_PATH"; //$NON-NLS-1$
 	
-
+	/**
+	 * An OptionKey used to specify the parent Archive used when opening nested Archives.
+	 */
+	public static final String PARENT_ARCHIVE = "PARENT_ARCHIVE"; //$NON-NLS-1$
+	
 	private Map optionsMap = new HashMap();
 
 	public ArchiveOptions() {
