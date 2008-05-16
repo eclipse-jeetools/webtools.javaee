@@ -13,8 +13,10 @@ package org.eclipse.jst.j2ee.project.facet;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IContainer;
@@ -32,20 +34,22 @@ import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
+import org.eclipse.wst.common.componentcore.internal.operation.FacetProjectCreationOperation;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
-import org.eclipse.wst.common.project.facet.core.FacetedProjectFramework;
-import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject.Action.Type;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
-import org.eclipse.wst.common.project.facet.core.runtime.IRuntimeComponent;
 import org.eclipse.wst.project.facet.ProductManager;
-import org.eclipse.wst.web.internal.facet.RuntimePresetMappingRegistry;
 
 public abstract class J2EEFacetInstallDelegate {
 
@@ -57,74 +61,41 @@ public abstract class J2EEFacetInstallDelegate {
 		jproj.setRawClasspath(updated, null);
 	}
 
-    protected void installEARFacet( final String j2eeVersionText, 
-                                    final String earProjectName, 
-                                    final IRuntime runtime, 
-                                    final IProgressMonitor monitor )
-    {
+	protected void installEARFacet(String j2eeVersionText, String earProjectName, IRuntime runtime, IProgressMonitor monitor){
+
 		IProject project = ProjectUtilities.getProject(earProjectName); 
 		if( project.exists())
 			return;
 		
-		final IFacetedProjectWorkingCopy fpjwc = FacetedProjectFramework.createNewProject();
-		
-		fpjwc.setProjectName( earProjectName );
-		
-		if( runtime != null )
-		{
-		    fpjwc.setTargetedRuntimes( Collections.singleton( runtime ) );
-		}
-		
-		fpjwc.setFixedProjectFacets( Collections.singleton( EARFacetUtils.EAR_FACET ) );
-		fpjwc.setSelectedPreset( FacetedProjectFramework.DEFAULT_CONFIGURATION_PRESET_ID );
-		
-		if( j2eeVersionText != null )
-		{
-		    final IProjectFacetVersion defaultEarFacetVersion
-		        = fpjwc.getProjectFacetVersion( EARFacetUtils.EAR_FACET );
-		    
-		    if( ! defaultEarFacetVersion.getVersionString().equals( j2eeVersionText ) )
-		    {
-		        String presetId = null;
-		        
-		        for( IRuntimeComponent rc : runtime.getRuntimeComponents() )
-		        {
-		            presetId = RuntimePresetMappingRegistry.INSTANCE.getPresetID
-		            ( 
-		                rc.getRuntimeComponentType().getId(),
-		                rc.getRuntimeComponentVersion().getVersionString(), 
-		                EARFacetUtils.EAR_FACET.getId(), 
-		                j2eeVersionText 
-		            );
-		            
-		            if( presetId != null )
-		            {
-		                break;
-		            }
-		        }
-		        
-		        if( presetId != null )
-		        {
-		            fpjwc.setSelectedPreset( presetId );
-		        }
-		        else
-		        {
-		            final IProjectFacetVersion earFacetVersion
-		                = EARFacetUtils.EAR_FACET.getVersion( j2eeVersionText );
-		            
-		            fpjwc.setProjectFacets( Collections.singleton( earFacetVersion ) );
-		        }
-		    }
-		}
-		
-		try
-		{
-		    fpjwc.commitChanges( null );
-		}
-		catch( CoreException e )
-		{
-		    Logger.getLogger().logError( e );
-		}
+		IFacetedProject facetProj;
+		try {
+			facetProj = ProjectFacetsManager.create(earProjectName,
+					null, monitor);
+			if(null != runtime){
+				facetProj.setRuntime(runtime, monitor);
+			}
+			
+			IDataModel earFacetInstallDataModel = DataModelFactory.createDataModel(new EarFacetInstallDataModelProvider());
+			earFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, earProjectName);
+			earFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, j2eeVersionText);
+			
+			Set actions = new HashSet();
+			actions.add(new IFacetedProject.Action((Type) earFacetInstallDataModel.getProperty(IFacetDataModelProperties.FACET_TYPE),
+				(IProjectFacetVersion) earFacetInstallDataModel.getProperty(IFacetDataModelProperties.FACET_VERSION),
+				earFacetInstallDataModel));
+
+
+			facetProj.modify(actions, null);
+			facetProj.setFixedProjectFacets(Collections.singleton(EARFacetUtils.EAR_FACET));
+			
+			try {
+				FacetProjectCreationOperation.addDefaultFactets(facetProj, runtime);
+			} catch (ExecutionException e) {
+				Logger.getLogger().logError(e);
+			}			
+		} catch (CoreException e) {
+			Logger.getLogger().logError(e);
+		}		
 	}
 	
     protected void createManifest(IProject project, IContainer aFolder, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
