@@ -146,9 +146,9 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 		for (int i = 0; i < size; i++) {
 			signature = (String) signatures.get(i);
 			me = (MethodElement) getEjbFactory().create((EClass)getEjbPackage().getEClassifier(meTypeName));
-			me.initializeFromSignature(signature);
 			me.setEnterpriseBean(this);
 			me.setType((MethodElementKind)aType);
+			me.initializeFromSignature(signature);
 			methodElements.add(me);
 		}
 		return methodElements;
