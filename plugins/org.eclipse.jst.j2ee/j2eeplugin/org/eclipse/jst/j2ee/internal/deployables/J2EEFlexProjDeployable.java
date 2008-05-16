@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -50,6 +51,7 @@ import org.eclipse.jst.server.core.IWebModule;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
+import org.eclipse.wst.common.componentcore.internal.Property;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
@@ -70,6 +72,7 @@ import org.eclipse.wst.web.internal.deployables.ComponentDeployable;
 public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EEModule, IEnterpriseApplication, IApplicationClientModule, IConnectorModule, IEJBModule, IWebModule {
 	private static final IPath WEB_CLASSES_PATH = new Path(J2EEConstants.WEB_INF_CLASSES);
 	private static IPath WEBLIB = new Path(J2EEConstants.WEB_INF_LIB).makeAbsolute();
+	private static String USE_SINGLE_ROOT_PROPERTY = "useSingleRoot"; //$NON-NLS-1$
 	private IPackageFragmentRoot[] cachedSourceContainers;
 	private IContainer[] cachedOutputContainers;
 	private HashMap cachedOutputMappings;
@@ -670,6 +673,22 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				return false;
 			WorkbenchComponent wbComp = edit.getComponent();
 			List resourceMaps = wbComp.getResources();
+			
+			// 229650 - check to see if the property 'useSingleRoot' is defined. If it is set and
+			// the value of the property is true then it will override the logic checks below
+			final List componentProperties = wbComp.getProperties();
+			if (componentProperties != null) {
+				final Iterator componentPropertiesIterator = componentProperties.iterator();
+				while (componentPropertiesIterator.hasNext()) {
+					Property wbProperty = (Property) componentPropertiesIterator.next();
+					if (J2EEFlexProjDeployable.USE_SINGLE_ROOT_PROPERTY.equals(wbProperty.getName())) {
+						boolean useSingleRoot = Boolean.valueOf(wbProperty.getValue()).booleanValue();
+						if (useSingleRoot) {
+							return true;
+						}
+					}
+				}
+			}
 			
 			if (J2EEProjectUtilities.isEARProject(getProject())) {
 				// Always return false for EARs so that members for EAR are always calculated and j2ee modules
