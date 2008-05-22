@@ -1237,7 +1237,7 @@
          point="org.eclipse.ui.decorators">
       <decorator
             adaptable="true"
-            label="%RESOURCE_DECORATOR"
+            label="%PROBLEM_MARKER_LABEL_RESOURCE_DECORATOR"
             state="true"
             class="org.eclipse.jdt.ui.ProblemsLabelDecorator"
             id="org.eclipse.jst.j2ee.navigator.ui.java.resource.decorator">
