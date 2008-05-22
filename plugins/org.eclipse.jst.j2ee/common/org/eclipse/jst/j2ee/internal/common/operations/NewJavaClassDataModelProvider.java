@@ -325,6 +325,11 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	 * @return IStatus of if java class name is valid
 	 */
 	protected IStatus validateJavaClassName(String className) {
+		// Ensure the class name is not empty
+		if (className == null || className.trim().length() == 0) {
+			String msg = J2EECommonMessages.ERR_JAVA_CLASS_NAME_EMPTY;
+			return WTPCommonPlugin.createErrorStatus(msg);
+		}
 		// Do not allow qualified name
 		if (className.lastIndexOf('.') != -1) {
 			String msg = J2EECommonMessages.ERR_JAVA_CLASS_NAME_QUALIFIED;
