@@ -57,6 +57,7 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 	private String archiveComponentsDeployPath;
 	private List archiveComponents;
 	private Map archiveComponentURIMap;
+	private Map archiveComponentDeployPathMap;
 
 	public ComponentSaveStrategyImpl(IVirtualComponent vComponent) {
 		super();
@@ -203,10 +204,12 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 			if (archiveComponents == null) {
 				archiveComponents = new ArrayList();
 				archiveComponentURIMap = new HashMap();
+				archiveComponentDeployPathMap = new HashMap();
 				archiveComponentsDeployPath = IPath.SEPARATOR + (new Path(archive.getURI())).removeLastSegments(1).toString();
 			}
 			archiveComponents.add(archiveComponent);
 			archiveComponentURIMap.put(archiveComponent, iFile.getName());
+			archiveComponentDeployPathMap.put(archiveComponent, IPath.SEPARATOR + (new Path(archive.getURI())).removeLastSegments(1).toString());
 		}
 	}
 
@@ -219,6 +222,7 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 			IDataModel createReferencesDataModel = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
 			createReferencesDataModel.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, vComponent);
 			createReferencesDataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH, archiveComponentsDeployPath);
+			createReferencesDataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH_MAP, archiveComponentDeployPathMap);
 			createReferencesDataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, archiveComponents);
 			createReferencesDataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, archiveComponentURIMap);
 			try {
