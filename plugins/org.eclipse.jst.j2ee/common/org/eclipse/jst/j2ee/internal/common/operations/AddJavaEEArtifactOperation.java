@@ -21,12 +21,10 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jem.util.UIContextDetermination;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -42,14 +40,7 @@ public abstract class AddJavaEEArtifactOperation extends AbstractDataModelOperat
 	@Override
 	public IStatus execute(final IProgressMonitor monitor, final IAdaptable info) throws ExecutionException {
 		Runnable runnable = null;
-		Object ctx = null;
-		if (UIContextDetermination.getCurrentContext() == UIContextDetermination.UI_CONTEXT) {
-			Display display = Display.getCurrent();
-			if (display != null)
-				ctx = display.getActiveShell();
-		}
-
-		if (provider.validateEdit(null, ctx).isOK()) {
+		if (provider.validateEdit(null, null).isOK()) {
 			runnable = new Runnable(){
 				public void run() {
 					try {

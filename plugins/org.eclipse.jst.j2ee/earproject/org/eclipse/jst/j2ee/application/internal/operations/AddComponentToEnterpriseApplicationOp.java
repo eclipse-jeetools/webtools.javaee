@@ -26,7 +26,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jem.util.UIContextDetermination;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -41,7 +40,6 @@ import org.eclipse.jst.javaee.application.Module;
 import org.eclipse.jst.javaee.application.Web;
 import org.eclipse.jst.jee.application.ICommonApplication;
 import org.eclipse.jst.jee.application.ICommonModule;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
@@ -279,18 +277,8 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		IStatus status = OK_STATUS;
 		IVirtualComponent sourceComp = (IVirtualComponent) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
 		IProject project = sourceComp.getProject();
-
-		if (status.isOK()) {
-			
-			IModelProvider provider = ModelProviderManager.getModelProvider( project );
-			Object context = null;
-			if( UIContextDetermination.getCurrentContext() == UIContextDetermination.UI_CONTEXT ){
-				Display display = Display.getCurrent();
-				if(display != null )
-					context = display.getActiveShell();
-			}			
-			status = provider.validateEdit(null, context);
-		}
+		IModelProvider provider = ModelProviderManager.getModelProvider( project );
+		status = provider.validateEdit(null, null);
 		return status;
 	}
 	
