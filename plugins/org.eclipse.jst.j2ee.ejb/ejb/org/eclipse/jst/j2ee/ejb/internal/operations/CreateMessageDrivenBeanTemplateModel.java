@@ -14,12 +14,15 @@ import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanCla
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.MAPPED_NAME;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewMessageDrivenBeanClassDataModelProperties.DESTINATION_TYPE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewMessageDrivenBeanClassDataModelProperties.JMS;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewMessageDrivenBeanClassDataModelProperties.MESSAGE_LISTENER_INTERFACE;
 
 import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jdt.core.Signature;
 import org.eclipse.jst.j2ee.internal.common.operations.Method;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -32,9 +35,12 @@ public class CreateMessageDrivenBeanTemplateModel extends
 	public static final String QUALIFIED_JSM_MESSAGE = "javax.jms.Message"; //$NON-NLS-1$
 	public static final String QUALIFIED_MESSAGE_DRIVEN = "javax.ejb.MessageDriven"; //$NON-NLS-1$
 	public static final String ATT_ACTIVATION_CONFIG = "activationConfig"; //$NON-NLS-1$
+	public static final String ATT_MESSAGE_LISTENER_INTERFACE = "messageListenerInterface"; //$NON-NLS-1$
 	public static final String ON_MESSAGE = "onMessage"; //$NON-NLS-1$
 	public static final String ON_MESSAGE_SIGNATURE = "(Ljavax/jms/Message;)V"; //$NON-NLS-1$
 
+	private static final String CLASS_SUFFIX = ".class"; //$NON-NLS-1$
+	
 	public CreateMessageDrivenBeanTemplateModel(IDataModel dataModel) {
 		super(dataModel);
 	}
@@ -53,6 +59,8 @@ public class CreateMessageDrivenBeanTemplateModel extends
 			collection.add(QUALIFIED_TRANSACTION_MANAGEMENT);
 			collection.add(QUALIFIED_TRANSACTION_MANAGEMENT_TYPE);
 		}
+		
+		collection.add(dataModel.getStringProperty(MESSAGE_LISTENER_INTERFACE));
 
 		return collection;
 	}
@@ -75,6 +83,14 @@ public class CreateMessageDrivenBeanTemplateModel extends
 		if (mappedName != null && mappedName.length() > 0) {
 			result.put(ATT_MAPPED_NAME, QUOTATION_STRING + mappedName + QUOTATION_STRING);
 		}
+		String messageListenerInterface = getProperty(MESSAGE_LISTENER_INTERFACE);
+		
+		List<String> interfaces = getQualifiedInterfaces();
+		if (interfaces.size() != 1 || !interfaces.contains(messageListenerInterface)) {
+			result.put(ATT_MESSAGE_LISTENER_INTERFACE, 
+					Signature.getSimpleName(messageListenerInterface) + CLASS_SUFFIX);
+		}
+			
 		return result;
 	}
 

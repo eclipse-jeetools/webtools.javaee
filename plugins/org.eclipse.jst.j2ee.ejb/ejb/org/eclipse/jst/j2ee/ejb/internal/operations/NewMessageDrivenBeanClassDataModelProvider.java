@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.ejb.internal.operations;
 
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewMessageDrivenBeanClassDataModelProperties.DESTINATION_TYPE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewMessageDrivenBeanClassDataModelProperties.JMS;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewMessageDrivenBeanClassDataModelProperties.MESSAGE_LISTENER_INTERFACE;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SUPERCLASS;
 
@@ -19,11 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public class NewMessageDrivenBeanClassDataModelProvider extends NewEnterpriseBeanClassDataModelProvider {
 
@@ -45,6 +48,7 @@ public class NewMessageDrivenBeanClassDataModelProvider extends NewEnterpriseBea
 
 		propertyNames.add(DESTINATION_TYPE);
 		propertyNames.add(JMS);
+		propertyNames.add(MESSAGE_LISTENER_INTERFACE);
 
 		return propertyNames;
 	}
@@ -71,7 +75,6 @@ public class NewMessageDrivenBeanClassDataModelProvider extends NewEnterpriseBea
 		else if (propertyName.equals(DESTINATION_TYPE)) {
 			return DestinationType.QUEUE.toString();
 		}
-
 		// Otherwise check super for default value for property
 		return super.getDefaultProperty(propertyName);
 	}
@@ -92,25 +95,28 @@ public class NewMessageDrivenBeanClassDataModelProvider extends NewEnterpriseBea
 	 * @return boolean was property set?
 	 */
 	public boolean propertySet(String propertyName, Object propertyValue) {
-
-		// Call super to set the property on the data model
-		boolean result = super.propertySet(propertyName, propertyValue);
+		boolean result = false;
 		
-		if (propertyName.equals(JMS)){
-			updateInterfaces(JMS, (Boolean) propertyValue);
+		if (propertyName.equals(JMS)) {
+			updateInterfaces();
+			updateMessageListenerInterfaces();
+			result = true;
 		}
-		if (propertyName.equals(INTERFACES)){
-			boolean isAlreadyExist = ((List<String>) propertyValue).contains(QUALIFIED_JMS_MESSAGELISTENER);
-			if (isAlreadyExist && !getBooleanProperty(JMS)){
-				getDataModel().setProperty(JMS, true);
-				return true;
-			}
-			if (!isAlreadyExist && getBooleanProperty(JMS))
-				getDataModel().setProperty(JMS, false);
+		
+		if (propertyName.equals(INTERFACES)) {
+			updateMessageListenerInterfaces();
 		}
-		return result;
+		
+		if (propertyName.equals(MESSAGE_LISTENER_INTERFACE)) {
+			boolean needSetJMS = QUALIFIED_JMS_MESSAGELISTENER.equals(propertyValue);
+			if (getDataModel().getBooleanProperty(JMS) != needSetJMS)
+				getDataModel().setProperty(JMS, needSetJMS);
+			result = true;
+		}
+		
+		return result || super.propertySet(propertyName, propertyValue);
 	}
-	
+
 	@Override
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
 		if (propertyName.equals(DESTINATION_TYPE)) {
@@ -124,19 +130,49 @@ public class NewMessageDrivenBeanClassDataModelProvider extends NewEnterpriseBea
 							EJBCreationResourceHandler.DESTINATION_TYPE_TOPIC
 					});
 		} 
-		
+
 		return super.getValidPropertyDescriptors(propertyName);
 	}
 
-	private void updateInterfaces(String property, Boolean propertyValue) {
+	@Override
+	public IStatus validate(String propertyName) {
+		if (propertyName.equals(MESSAGE_LISTENER_INTERFACE)) {
+			String value = (String) getProperty(MESSAGE_LISTENER_INTERFACE);
+			if (value == null || value.trim().length() == 0){
+				List<String> interfaces = (List<String>) getProperty(INTERFACES);
+				return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.ERR_NO_MESSAGE_LISTENER_INTERFACE);
+			}
+		}
+		return super.validate(propertyName);
+	}
+
+	private void updateInterfaces() {
 		List<String> interfacesList = (List<String>) getDataModel().getProperty(INTERFACES);
-		boolean isAlreadyExist = interfacesList.contains(QUALIFIED_JMS_MESSAGELISTENER);
-		if (propertyValue){
-			if (!isAlreadyExist)
+		boolean isJMS = getDataModel().getBooleanProperty(JMS);
+		if (isJMS) {
+			if (!interfacesList.contains(QUALIFIED_JMS_MESSAGELISTENER))
 				interfacesList.add(QUALIFIED_JMS_MESSAGELISTENER);
-		}else
-			if (isAlreadyExist)
-				interfacesList.remove(QUALIFIED_JMS_MESSAGELISTENER);
+		} else {
+			interfacesList.remove(QUALIFIED_JMS_MESSAGELISTENER);
+		}
 		getDataModel().setProperty(INTERFACES, interfacesList);
 	}
+
+	private void updateMessageListenerInterfaces() {
+		boolean isJMS = getDataModel().getBooleanProperty(JMS);
+		if (isJMS){
+			getDataModel().setProperty(MESSAGE_LISTENER_INTERFACE, QUALIFIED_JMS_MESSAGELISTENER);
+		} else {
+			String value = getStringProperty(MESSAGE_LISTENER_INTERFACE);
+			if (value == null || value.length() == 0 || QUALIFIED_JMS_MESSAGELISTENER.equals(value)) {
+				List<String> interfaces = (List<String>) getProperty(INTERFACES);
+				String messageListenerInterface = null;
+				if (interfaces.size() > 0) {
+					messageListenerInterface = interfaces.get(0);
+				}
+				getDataModel().setProperty(MESSAGE_LISTENER_INTERFACE, messageListenerInterface);
+			}
+		}
+	}
+
 }

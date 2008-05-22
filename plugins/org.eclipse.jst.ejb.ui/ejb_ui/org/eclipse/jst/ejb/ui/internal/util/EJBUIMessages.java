@@ -93,6 +93,9 @@ public class EJBUIMessages extends NLS {
 	public static String JMS;
 	public static String DESTINATION_NAME_LABEL;
 	public static String ADD_MESSAGE_DRIVEN_BEAN_WIZARD_PAGE_DESC;
+	public static String MESSAGE_LISTENER_INTERFACE_HYPERLINK;
+	public static String MESSAGE_LISTENER_INTERFACE_HYPERLINK_TOOLTIP;
+	public static String CLICK_TO_SELECT;
 	
 
 	static {

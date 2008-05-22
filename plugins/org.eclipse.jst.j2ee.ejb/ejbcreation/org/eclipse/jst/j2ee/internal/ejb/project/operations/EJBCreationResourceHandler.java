@@ -160,6 +160,7 @@ public final class EJBCreationResourceHandler extends NLS {
 	public static String ERR_LOCAL_HOME_NOT_INTERFACE;
 	public static String ERR_REMOTE_COMPONENT_NOT_INTERFACE;
 	public static String ERR_REMOTE_HOME_NOT_INTERFACE;
+	public static String ERR_NO_MESSAGE_LISTENER_INTERFACE;
 
 
 	static {

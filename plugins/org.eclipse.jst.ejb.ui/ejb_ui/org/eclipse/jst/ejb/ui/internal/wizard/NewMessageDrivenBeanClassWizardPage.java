@@ -90,6 +90,15 @@ public class NewMessageDrivenBeanClassWizardPage extends NewEnterpriseBeanClassW
 	}
 	
 	@Override
+	protected String[] getValidationPropertyNames() {
+		String[] base = super.getValidationPropertyNames();
+		String[] result = new String[base.length + 1];
+		System.arraycopy(base, 0, result, 0, base.length);
+		result[base.length] = JMS;
+		return result;
+	}
+	
+	@Override
 	protected void updateControls() {
 		super.updateControls();
 		destinationTypeCombo.setEnabled(jmsCheckbox.getSelection());
