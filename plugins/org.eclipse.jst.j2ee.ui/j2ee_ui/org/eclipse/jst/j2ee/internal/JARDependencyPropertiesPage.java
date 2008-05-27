@@ -128,7 +128,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	
 	public void dispose() {
 		J2EEComponentClasspathUpdater.getInstance().resumeUpdates();
-		if (model.earArtifactEdit != null) {
+		if (model != null && model.earArtifactEdit != null) {
 			model.earArtifactEdit.dispose();
 			model.earArtifactEdit = null;
 		}
