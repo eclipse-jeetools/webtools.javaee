@@ -15,7 +15,7 @@ check certain files in your enterprise application module projects for errors.</
 <context outputclass="id_context"> <p outputclass="anchor_topictop"></p> <p>By
 default, the workbench validates your files automatically after any build,
 including automatic builds. You can also begin the validation process manually
-without building.</p><p>On the workbench Properties window, you can enable
+without building.</p><p>On the workbench Preferences window, you can enable
 or disable validators to be used on your projects. Also, you can enable or
 disable validators for each enterprise application module project individually
 on the Properties page for that project.</p><p>Each validator can apply to
@@ -41,19 +41,21 @@ projects.</chdesc></chrow>
 validation at the global level.</chdesc></chrow>
 <chrow><choption>Save all modified resources automatically prior to validating</choption>
 <chdesc>Select to save resources you have modified before the validation begins.</chdesc>
+</chrow><chrow><choption>Show a confirmation dialog when performing manual validation</choption>
+<chdesc>Select to show an informational dialog after a manual validation request has completed.</chdesc>
 </chrow>
 </choicetable>
 </step>
 <step><cmd>In the list of validators, select the check boxes next to each
 validator you want to use at the global level.</cmd><info>Each validator has
-a check box to specify whether it is used on manual validation or on build
+a check box to specify whether it is used on manual validation and/or on build
 validation.</info></step>
-<step><cmd>Choose an alternate implementation for a validator by clicking
-the button in the <uicontrol>Settings</uicontrol> column, then click <uicontrol>OK</uicontrol>.</cmd>
-<info>Not all validators have alternate implementations.</info></step>
+<step><cmd>Tune a validator by clicking
+the button in the <uicontrol>Settings</uicontrol> column.</cmd>
+<info>Not all validators have additional settings.</info></step>
 <step><cmd>Begin the validation process by one of the following methods:</cmd>
 <choices>
-<choice>Right-click a project and click <uicontrol>Run Validation</uicontrol>.</choice>
+<choice>Right-click a project and click <uicontrol>Validate</uicontrol>.</choice>
 <choice>Start a build.</choice>
 </choices>
 </step>

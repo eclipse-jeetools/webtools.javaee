@@ -48,7 +48,9 @@ scope="peer"></topicref>
 <topicref href="topics/tjvalselect.dita" navtitle="Selecting code validators">
 </topicref>
 </relcell>
-<relcell></relcell>
+<relcell>
+<topicref href="topics/rtunevalidat.dita" navtitle="Tuning validators"></topicref>
+</relcell>
 </relrow>
 <relrow>
 <relcell collection-type="family">

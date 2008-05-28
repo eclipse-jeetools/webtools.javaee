@@ -62,6 +62,7 @@
 <anchor id="before_validation"/>
 <topic label="Validating code in enterprise applications" href="topics/tjval.html">
 <anchor id="validation_top"/>
+<topic label="Tuning validators" href="topics/rtunevalidat.html"/>
 <topic label="Common validation errors and solutions" href="topics/rvalerr.html"/>
 <topic label="J2EE Validators" href="topics/rvalidators.html">
 <anchor id="childof_validators"/>

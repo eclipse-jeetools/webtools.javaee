@@ -31,11 +31,12 @@ projects to override these preference settings</uicontrol> check box.</cmd>
 validator you want to use at the global level.</cmd><info>Each validator has
 a check box to specify whether it is used on manual validation or on a build.<note>If
 you deselect any validator that is currently selected, any messages associated
-with the deselected validator will be removed from the task list.</note></info>
+with the deselected validator will be removed from the task list,
+the next time you perform a full build.</note></info>
 </step>
-<step><cmd>Choose an alternate implementation for a validator by clicking
-the button in the <uicontrol>Settings</uicontrol> column, then click <uicontrol>OK</uicontrol>.</cmd>
-<info>Not all validators have alternate implementations.</info></step>
+<step><cmd>Tune a validator by clicking
+the button in the <uicontrol>Settings</uicontrol> column.</cmd>
+<info>Not all validators have additional settings.</info></step>
 </steps>
 <result>If you want to set individual validation settings for one or more
 of your projects, see <xref href="tjvalglobalpref.dita"></xref>. Like the

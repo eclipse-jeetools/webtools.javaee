@@ -26,7 +26,7 @@ run a manual validation.</p><p>To manually invoke an immediate code validation,
 complete the following steps<?Pub Caret?>:</p></context>
 <steps outputclass="id_steps">
 <step><cmd>Select the project that you want to validate.</cmd></step>
-<step><cmd>Right-click the project and then click <uicontrol>Run Validation</uicontrol>.</cmd>
+<step><cmd>Right-click the project and then click <uicontrol>Validate</uicontrol>.</cmd>
 <info>If this option is not available, validation is disabled or there are
 no validators enabled for the project. To enable validation at the global
 level, see <xref href="tjval.dita"></xref>. To enable validators for this

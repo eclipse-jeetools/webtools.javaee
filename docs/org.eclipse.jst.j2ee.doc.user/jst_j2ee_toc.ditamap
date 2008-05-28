@@ -92,6 +92,7 @@ is imported"></topicref>
 <anchor id="before_validation"/>
 <topicref href="topics/tjval.dita" navtitle="Validating code in enterprise applications">
 <anchor id="validation_top"/>
+<topicref href="topics/rtunevalidat.dita" navtitle="Tuning validators"></topicref>
 <topicref href="topics/rvalerr.dita" navtitle="Common validation errors and solutions">
 </topicref>
 <topicref href="topics/rvalidators.dita" navtitle="J2EE Validators">
