@@ -13,6 +13,7 @@ package org.eclipse.jst.ejb.ui.internal.wizard;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.EJB_NAME;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.TRANSACTION_TYPE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewMessageDrivenBeanClassDataModelProperties.MESSAGE_LISTENER_INTERFACE;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jdt.core.IJavaProject;
@@ -71,12 +72,22 @@ public class AddMessageDrivenBeanWizardPage extends
 						}
 					});
 				}
+			} else if (INTERFACES.equals(propertyName)) {
+				if(Thread.currentThread() == Display.getDefault().getThread()) {
+					updateInterfaces();
+				} else {
+					Display.getDefault().asyncExec(new Runnable() {
+						public void run() {
+							updateInterfaces();
+						}
+					});
+				}
 			}
 			
 			super.synchUIWithModel(propertyName, flag);
 		}
 		
-		public void setHyperlinkText() {
+		private void setHyperlinkText() {
 			if (null != messageListenerInterfaceHyperlink) {
 				String value = getDataModel().getStringProperty(MESSAGE_LISTENER_INTERFACE);
 				if (value == null || value.trim().length() == 0) {
@@ -85,6 +96,12 @@ public class AddMessageDrivenBeanWizardPage extends
 				messageListenerInterfaceHyperlink.setText(NLS.bind(
 						IEjbWizardConstants.MESSAGE_LISTENER_INTERFACE_HYPERLINK,
 						value));
+			}
+		}
+
+		private void updateInterfaces() {
+			if (null != interfaceViewer) {
+				interfaceViewer.setInput(getDataModel().getProperty(INTERFACES));
 			}
 		}
 		

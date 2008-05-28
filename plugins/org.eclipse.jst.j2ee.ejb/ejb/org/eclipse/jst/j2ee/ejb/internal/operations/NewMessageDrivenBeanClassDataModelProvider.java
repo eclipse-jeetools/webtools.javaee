@@ -23,6 +23,7 @@ import java.util.Set;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
@@ -159,6 +160,7 @@ public class NewMessageDrivenBeanClassDataModelProvider extends NewEnterpriseBea
 			interfacesList.remove(QUALIFIED_JMS_MESSAGELISTENER);
 		}
 		getDataModel().setProperty(INTERFACES, interfacesList);
+		getDataModel().notifyPropertyChange(INTERFACES, DataModelEvent.VALUE_CHG);
 	}
 
 	private void updateMessageListenerInterfaces() {
