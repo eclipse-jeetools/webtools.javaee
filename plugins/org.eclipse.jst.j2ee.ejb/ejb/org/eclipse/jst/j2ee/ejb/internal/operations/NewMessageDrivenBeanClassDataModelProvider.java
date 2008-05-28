@@ -67,13 +67,16 @@ public class NewMessageDrivenBeanClassDataModelProvider extends NewEnterpriseBea
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(INTERFACES)){
 			List<String> list = new ArrayList<String>();
+			list.add(QUALIFIED_JMS_MESSAGELISTENER);
 			return list;
-		} else if (propertyName.equals(SUPERCLASS))
+		} else if (propertyName.equals(SUPERCLASS)) {
 			return "";
-		else if (propertyName.equals(JMS))
-			return Boolean.FALSE;
-		else if (propertyName.equals(DESTINATION_TYPE)) {
+		} else if (propertyName.equals(JMS)) {
+			return Boolean.TRUE;
+		} else if (propertyName.equals(DESTINATION_TYPE)) {
 			return DestinationType.QUEUE.toString();
+		} else if (propertyName.equals(MESSAGE_LISTENER_INTERFACE)) {
+			return QUALIFIED_JMS_MESSAGELISTENER;
 		}
 		// Otherwise check super for default value for property
 		return super.getDefaultProperty(propertyName);
@@ -166,7 +169,7 @@ public class NewMessageDrivenBeanClassDataModelProvider extends NewEnterpriseBea
 			String value = getStringProperty(MESSAGE_LISTENER_INTERFACE);
 			if (value == null || value.length() == 0 || QUALIFIED_JMS_MESSAGELISTENER.equals(value)) {
 				List<String> interfaces = (List<String>) getProperty(INTERFACES);
-				String messageListenerInterface = null;
+				String messageListenerInterface = "";
 				if (interfaces.size() > 0) {
 					messageListenerInterface = interfaces.get(0);
 				}
