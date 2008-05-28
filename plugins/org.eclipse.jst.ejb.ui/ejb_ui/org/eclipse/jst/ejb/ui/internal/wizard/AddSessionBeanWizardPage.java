@@ -193,53 +193,44 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 	}
 
 	@Override
-	protected void createInterfaceControls(Composite composite) {
-
-		Label bussinessInterfaces = new Label(composite, SWT.TOP);
+	protected void createInterfaceControls(Composite parent) {
+		Label bussinessInterfaces = new Label(parent, SWT.TOP);
 		bussinessInterfaces.setText(EJBUIMessages.BUSSINESS_INTERFACE);
-		bussinessInterfaces.setLayoutData(new GridData(SWT.BEGINNING,
-				SWT.BEGINNING, false, false, 1, 1));
+		bussinessInterfaces.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING | GridData.VERTICAL_ALIGN_BEGINNING));
 
-		GridData gridData = new GridData();
-		gridData.horizontalAlignment = GridData.FILL;
-		gridData.verticalAlignment = GridData.FILL;
-		gridData.grabExcessHorizontalSpace = true;
-		gridData.grabExcessVerticalSpace = true;
+		Composite composite = new Composite(parent, SWT.NULL);
+		GridLayout layout = new GridLayout();
+		layout.numColumns = 2;
+		composite.setLayout(layout);
+		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		interfaceViewer = new TableViewer(composite, SWT.BORDER);
-		interfaceViewer
-				.setContentProvider(new BusinessInterfaceContentProvider());
+		interfaceViewer.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
+		interfaceViewer.setContentProvider(new BusinessInterfaceContentProvider());
 		interfaceViewer.setLabelProvider(new BusinessInterfaceLabelProvider());
-		interfaceViewer.getControl().setLayoutData(gridData);
-		interfaceViewer
-				.addSelectionChangedListener(new ISelectionChangedListener() {
-					public void selectionChanged(SelectionChangedEvent event) {
-						IStructuredSelection selection = (IStructuredSelection) interfaceViewer
-								.getSelection();
-						BusinessInterface element = (BusinessInterface) selection
-								.getFirstElement();
-						removeButton.setEnabled(element != null);
-					}
-
-				});
+		interfaceViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			public void selectionChanged(SelectionChangedEvent event) {
+				IStructuredSelection selection = (IStructuredSelection) interfaceViewer.getSelection();
+				BusinessInterface element = (BusinessInterface) selection.getFirstElement();
+				removeButton.setEnabled(element != null);
+			}
+		});
 		updateBusinessInterfacesList();
 
-		Composite buttonComposite = new Composite(composite, SWT.BEGINNING);
-		GridLayout buttonLayout = new GridLayout(1, true);
-		GridData buttonGridData = new GridData();
-		buttonGridData.grabExcessHorizontalSpace = true;
-		buttonComposite.setLayout(buttonLayout);
-		buttonComposite.setLayoutData(new GridData(SWT.CENTER, SWT.BEGINNING,
-				false, false, 1, 1));
-
-		addButton = new Button(buttonComposite, SWT.PUSH);
+		Composite buttonCompo = new Composite(composite, SWT.NULL);
+		layout = new GridLayout();
+		layout.marginHeight = 0;
+		buttonCompo.setLayout(layout);
+		buttonCompo.setLayoutData(new GridData(GridData.FILL_VERTICAL | GridData.VERTICAL_ALIGN_BEGINNING));
+		
+		addButton = new Button(buttonCompo, SWT.PUSH);
 		addButton.setText(EJBUIMessages.ADD_INTERFACES);
+		addButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
 		addButton.addSelectionListener(new AddButtonListener(this, model));
-		addButton.setLayoutData(buttonGridData);
-		removeButton = new Button(buttonComposite, SWT.PUSH);
+		
+		removeButton = new Button(buttonCompo, SWT.PUSH);
 		removeButton.setText(EJBUIMessages.REMOVE_INTERFACES);
-		removeButton.setEnabled(false);
-		removeButton.setLayoutData(buttonGridData);
+		removeButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
 		removeButton.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
 				IStructuredSelection selection = (IStructuredSelection) interfaceViewer
@@ -259,6 +250,7 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 
 			}
 		});
+		removeButton.setEnabled(false);
 	}
 
 	public void updateBusinessInterfacesList() {
