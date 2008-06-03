@@ -69,7 +69,7 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 			this.verifyAllFilesImported(archive);
 			
 		} finally {
-			if (null != archive) {
+			if (null != archive && archive.isOpen()) {
 				JavaEEArchiveUtilities.INSTANCE.closeArchive(archive);
 			}
 		}
