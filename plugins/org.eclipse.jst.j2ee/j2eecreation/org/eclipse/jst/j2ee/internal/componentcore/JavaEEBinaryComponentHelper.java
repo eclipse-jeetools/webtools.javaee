@@ -1,5 +1,6 @@
 package org.eclipse.jst.j2ee.internal.componentcore;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -14,8 +15,10 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
+import org.eclipse.jst.j2ee.internal.componentcore.EnterpriseBinaryComponentHelper.IReferenceCountedArchive;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
 import org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory;
@@ -40,6 +43,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 
 	private IArchive archive;
+	private EnterpriseBinaryComponentHelper legacyBinaryHelper;
 
 	private int localArchiveAccessCount = 0;
 
@@ -155,6 +159,16 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 		}
 		return archive;
 	}
+	
+	protected void safeReleaseArchive(IArchive archive){
+		int count = 0;
+		synchronized(this){
+			count = localArchiveAccessCount;
+		}
+		if(count > 0){
+			releaseArchive(archive);
+		}
+	}
 
 	public void releaseArchive(IArchive archive) {
 		if (archive != this.archive) {
@@ -169,10 +183,113 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 		}
 	}
 
+	private int preSwapAccessCount = 0;
+	protected void preFileSwap(){
+		int count = 0;
+		synchronized (this) {
+			preSwapAccessCount = localArchiveAccessCount;
+			count = preSwapAccessCount;
+		}
+		while (count > 0){
+			count --;
+			releaseArchive(archive);
+		}
+	}
+	
+	protected void postFileSwap() {
+		int count = 0;
+		synchronized (this) {
+			count = preSwapAccessCount;
+			preSwapAccessCount = 0;
+		}
+		while(count > 0){
+			count --;
+			accessArchive();
+		}
+	}
+	
+	public Archive accessLegacyArchive() {
+		if(legacyBinaryHelper == null){
+			JavaEEQuickPeek qp = getJavaEEQuickPeek(getComponent());
+			IPath ddPath = null;
+			switch (qp.getType()) {
+			case JavaEEQuickPeek.APPLICATION_CLIENT_TYPE:
+				legacyBinaryHelper = new AppClientBinaryComponentHelper(getComponent()){
+					protected void aboutToClose() {
+						safeReleaseArchive(JavaEEBinaryComponentHelper.this.archive);
+					}
+					protected void preCleanupAfterTempSave(String uri, File original, File destinationFile) {
+						preFileSwap();
+					}
+					protected void postCleanupAfterTempSave(String uri, File original, File destinationFile) {
+						postFileSwap();
+					}
+				};
+				break;
+			case JavaEEQuickPeek.EJB_TYPE:
+				legacyBinaryHelper = new EJBBinaryComponentHelper(getComponent()){
+					protected void aboutToClose() {
+						safeReleaseArchive(JavaEEBinaryComponentHelper.this.archive);
+					}
+					protected void preCleanupAfterTempSave(String uri, File original, File destinationFile) {
+						preFileSwap();
+					}
+					protected void postCleanupAfterTempSave(String uri, File original, File destinationFile) {
+						postFileSwap();
+					}
+				};
+				break;
+			case JavaEEQuickPeek.WEB_TYPE:
+				legacyBinaryHelper = new WebBinaryComponentHelper(getComponent()){
+					protected void aboutToClose() {
+						safeReleaseArchive(JavaEEBinaryComponentHelper.this.archive);
+					}
+					protected void preCleanupAfterTempSave(String uri, File original, File destinationFile) {
+						preFileSwap();
+					}
+					protected void postCleanupAfterTempSave(String uri, File original, File destinationFile) {
+						postFileSwap();
+					}
+				};
+				break;
+			case JavaEEQuickPeek.CONNECTOR_TYPE:
+				legacyBinaryHelper = new JCABinaryComponentHelper(getComponent()){
+					protected void aboutToClose() {
+						safeReleaseArchive(JavaEEBinaryComponentHelper.this.archive);
+					}
+					protected void preCleanupAfterTempSave(String uri, File original, File destinationFile) {
+						preFileSwap();
+					}
+					protected void postCleanupAfterTempSave(String uri, File original, File destinationFile) {
+						postFileSwap();
+					}
+				};
+				break;
+			default: //utility jar
+				legacyBinaryHelper = new UtilityBinaryComponentHelper(getComponent()){
+					protected void aboutToClose() {
+						safeReleaseArchive(JavaEEBinaryComponentHelper.this.archive);
+					}
+					protected void preCleanupAfterTempSave(String uri, File original, File destinationFile) {
+						preFileSwap();
+					}
+					protected void postCleanupAfterTempSave(String uri, File original, File destinationFile) {
+						postFileSwap();
+					}
+				};
+				break;
+			}
+		}
+		accessArchive();
+		Archive legacyArchive = legacyBinaryHelper.accessArchive();
+		return legacyArchive;
+	}
+	
 	@Override
 	public void dispose() {
 		super.dispose();
 		int count = 0;
+		int legacyCount = 0;
 		synchronized (this) {
 			count = localArchiveAccessCount;
 		}
@@ -183,6 +300,12 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 				synchronized (this) {
 					localArchiveAccessCount--;
 				}
+			}
+		}
+		if(legacyBinaryHelper != null){
+			IReferenceCountedArchive legacyArchive = legacyBinaryHelper.archive;
+			if(legacyArchive != null){
+				legacyArchive.forceClose();
 			}
 		}
 	}

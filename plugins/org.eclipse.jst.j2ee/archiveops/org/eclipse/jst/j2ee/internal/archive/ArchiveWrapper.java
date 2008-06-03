@@ -118,10 +118,10 @@ public class ArchiveWrapper {
 
 	public void close() {
 		try {
-			if (commonArchive != null) {
+			if (commonArchive != null && commonArchive.isOpen()) {
 				commonArchive.close();
 			}
-			if (archive != null) {
+			if (archive != null && archive.isOpen()) {
 				JavaEEArchiveUtilities.INSTANCE.closeArchive(archive);
 			}
 		} catch (RuntimeException e) {

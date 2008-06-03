@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.componentcore;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -64,7 +65,7 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 		return helper;
 	}
 	
-	private IReferenceCountedArchive archive = null;
+	IReferenceCountedArchive archive = null;
 
 	protected EnterpriseBinaryComponentHelper(IVirtualComponent component) {
 		super(component);
@@ -197,6 +198,17 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 	protected static void physicallyClose(IReferenceCountedArchive archive) {
 		((BinaryZipFileLoadStrategy)archive.getLoadStrategy()).physicallyClose();
 	}
+	
+	protected void aboutToClose() {
+		//default is to do nothing
+	}
+	
+	protected void preCleanupAfterTempSave(String uri, File original, File destinationFile) {
+		//default is to do nothing
+	}
+	protected void postCleanupAfterTempSave(String uri, File original, File destinationFile) {
+		//default is to do nothing
+	}
 
 	private static class BinaryZipFileLoadStrategy extends ZipFileLoadStrategyImpl {
 		
@@ -208,6 +220,11 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 
 		public BinaryZipFileLoadStrategy(java.io.File file) throws IOException {
 			super(file);
+		}
+		
+		public void close() {
+			physicallyOpen = false;
+			super.close();
 		}
 
 		public boolean isPhysicallyOpen(){

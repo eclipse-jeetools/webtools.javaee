@@ -39,8 +39,6 @@ import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFile;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
-import org.eclipse.jst.jee.archive.ArchiveOptions;
-import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -634,18 +632,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		verifyOperationSupported();
 		if (isBinary()) {
 			JavaEEBinaryComponentHelper helper = (JavaEEBinaryComponentHelper)getBinaryComponentHelper();
-			IArchive iArchive = null;
-			try{
-				iArchive = helper.accessArchive();
-				IPath path = (IPath)iArchive.getArchiveOptions().getOption(ArchiveOptions.ARCHIVE_PATH);
-				org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions options = new org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions();
-				options.setIsReadOnly(true);
-				options.setRendererType(org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions.SAX);
-				options.setUseJavaReflection(false);
-				return CommonarchiveFactory.eINSTANCE.openWARFile(options, path.toOSString());
-			} finally {
-				helper.releaseArchive(iArchive);
-			}
+			return helper.accessLegacyArchive();
 		} else {
 			WebComponentLoadStrategyImpl loader = new WebComponentLoadStrategyImpl(getComponent(), includeClasspathComponents);
 			loader.setExportSource(includeSource);

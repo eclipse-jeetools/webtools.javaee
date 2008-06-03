@@ -10,12 +10,14 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.componentcore;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.RARFileImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
@@ -69,6 +71,7 @@ public class JCABinaryComponentHelper extends EnterpriseBinaryComponentHelper {
 		}
 
 		public void close() {
+			helper.aboutToClose();
 			synchronized (this) {
 				count--;
 				if (count > 0) {
@@ -80,6 +83,7 @@ public class JCABinaryComponentHelper extends EnterpriseBinaryComponentHelper {
 		
 		public void forceClose(){
 			count = 0;
+			helper.aboutToClose();
 			super.close();
 		}
 		
@@ -99,7 +103,14 @@ public class JCABinaryComponentHelper extends EnterpriseBinaryComponentHelper {
 			} catch (OpenFailureException e) {
 				throw new IOException(e.getMessage());
 			}
-		}		
+		}
+		
+		@Override
+		protected void cleanupAfterTempSave(String uri, File original, File destinationFile) throws SaveFailureException {
+			helper.preCleanupAfterTempSave(uri, original, destinationFile);
+			super.cleanupAfterTempSave(uri, original, destinationFile);
+			helper.postCleanupAfterTempSave(uri, original, destinationFile);
+		}
 	}
 
 	protected ArchiveTypeDiscriminator getDiscriminator() {
