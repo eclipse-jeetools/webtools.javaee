@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jst.common.project.facet.JavaFacetUtils;
 import org.eclipse.jst.common.project.facet.core.JavaFacetInstallConfig;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -81,7 +82,7 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 	            if( javaModel != null )
 	            {
 	                final IPath outputFolder
-                        = propertyValue == null ? null : new Path( (String) propertyValue );
+                        = propertyValue == null ? null : new Path( (String) propertyValue + "/" +J2EEConstants.WEB_INF_CLASSES );
 
 	                javaModel.setDefaultOutputFolder( outputFolder );
 	            }
