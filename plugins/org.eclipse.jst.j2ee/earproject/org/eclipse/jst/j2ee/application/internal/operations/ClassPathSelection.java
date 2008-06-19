@@ -941,30 +941,44 @@ public class ClassPathSelection {
 			return;
 
 		element.setProject(p);
+		
+		IVirtualComponent comp = ComponentCore.createComponent(p);
+		if( comp == null )
+			return;
+		
 		//Handle the imported jars in the project
 		String[] cp = null;
 		try {
 //			cp = referencedArchive.getManifest().getClassPathTokenized();
-			ArchiveManifest referencedManifest = J2EEProjectUtilities.readManifest(p);
-			cp = referencedManifest.getClassPathTokenized();
+			ArchiveManifest referencedManifest = null;
+			
+			if( comp.isBinary() ){
+				referencedManifest = J2EEProjectUtilities.readManifest(comp);
+			}else{
+				referencedManifest = J2EEProjectUtilities.readManifest(p);
+			}
+			if( referencedManifest != null )
+				cp = referencedManifest.getClassPathTokenized();
 		} catch (ManifestException mfEx) {
 			Logger.getLogger().logError(mfEx);
 			cp = new String[]{};
 		}
-		List paths = new ArrayList(cp.length);
-		for (int i = 0; i < cp.length; i++) {
-
-			IFile file = null;
-			try {
-				file = p.getFile(cp[i]);
-			} catch (IllegalArgumentException invalidPath) {
-				continue;
+		if( cp != null ){
+			List paths = new ArrayList(cp.length);
+			for (int i = 0; i < cp.length; i++) {
+	
+				IFile file = null;
+				try {
+					file = p.getFile(cp[i]);
+				} catch (IllegalArgumentException invalidPath) {
+					continue;
+				}
+				if (file.exists())
+					paths.add(file.getFullPath());
 			}
-			if (file.exists())
-				paths.add(file.getFullPath());
-		}
-		if (!paths.isEmpty())
-			element.setImportedJarPaths(paths);
+			if (!paths.isEmpty())
+				element.setImportedJarPaths(paths);
+			}
 	}
 
 	public String toString() {
