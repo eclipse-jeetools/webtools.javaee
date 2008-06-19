@@ -45,6 +45,9 @@ import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.EJBLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.ServletLink;
+import org.eclipse.jst.javaee.application.Application;
+import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
+import org.eclipse.jst.javaee.ejb.internal.impl.EJBJarImpl;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorRegistry;
@@ -240,8 +243,19 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			IEditorRegistry registry = PlatformUI.getWorkbench().getEditorRegistry();
 			IFile file = WorkbenchResourceHelper.getFile((EObject)obj);
 			if(file != null) {
-				IContentType contentType = IDE.getContentType(file);
-				currentDescriptor = registry.getDefaultEditor(file.getName(), contentType);
+				/*[235218] if 'obj' is a JavaEE DD file it can only be opened if the file exists
+				 *	if 'obj' is not a DD file, the WorkbenchResourceHelper may still return the DD
+				 *	as the associated file (such as in the case with Beans), thus we must try to get
+				 *	the default editor if 'obj' is not a JavaEE DD file.
+				 */
+				boolean isJavaEEDDFile = isJavaEEDDFile((EObject)obj);
+				if((isJavaEEDDFile && file.exists()) || !isJavaEEDDFile){
+					IContentType contentType = IDE.getContentType(file);
+					currentDescriptor = registry.getDefaultEditor(file.getName(), contentType);
+				} else {
+					currentDescriptor = null;
+					return false;
+				}
 			} else {
 				if (((EObject)obj).eResource() != null) {
 					String name = (new Path(((EObject)obj).eResource().getURI().toString())).lastSegment();
@@ -323,5 +337,12 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			return refObj;
 		}
 		return null;
+	}
+	
+	//[235218] Determine if the given EObject is a JavaEE DD
+	private boolean isJavaEEDDFile(EObject obj){
+		boolean isDD = obj instanceof EJBJarImpl || obj instanceof org.eclipse.jst.javaee.web.WebApp || 
+				obj instanceof Application || obj instanceof ApplicationClient;
+		return isDD;
 	}
 }
