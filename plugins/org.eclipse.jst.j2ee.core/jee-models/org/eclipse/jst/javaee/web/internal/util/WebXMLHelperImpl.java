@@ -10,7 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.javaee.web.internal.util;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage;
 import org.eclipse.jst.javaee.core.internal.util.JEEXMLHelperImpl;
@@ -37,6 +39,17 @@ public class WebXMLHelperImpl extends JEEXMLHelperImpl {
 			return name;
 		} else
 			return super.getQName(ePackage, name, mustHavePrefix);
+	}
+
+	@Override
+	public EStructuralFeature getFeature(EClass class1, String namespaceURI, String name, boolean isElement) {
+		
+		EStructuralFeature feat = super.getFeature(class1, namespaceURI, name, isElement);
+		if (feat == null)
+			//Try to use JSP namespace
+			feat = super.getFeature(class1, JspPackage.eNS_URI, name, isElement);
+		return feat;
+		
 	}
 
 }
