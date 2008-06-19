@@ -14,7 +14,7 @@ package org.eclipse.jst.j2ee.model.internal.validation;
  * Message key constants for J2EE validators.
  */
 public interface J2EEMessageConstants {
-	public static final String EREF_CATEGORY = "erefvalidation"; //$NON-NLS-1$
+	public static final String EREF_CATEGORY = "org.eclipse.jst.j2ee.core.internal.plugin.erefvalidation"; //$NON-NLS-1$
 	public static final String WAR_CATEGORY = "warvalidation"; //$NON-NLS-1$
 	public static final String EAR_CATEGORY = "earvalidation"; //$NON-NLS-1$
 	public static final String EJBJAR_CATEGORY = "ejbjarvalidation"; //$NON-NLS-1$
