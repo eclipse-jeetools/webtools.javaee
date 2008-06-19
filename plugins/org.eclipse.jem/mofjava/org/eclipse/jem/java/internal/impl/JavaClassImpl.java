@@ -950,7 +950,11 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 	 */
 	public boolean isExistingType() {
 		// TODO: Temporary, inefficient implementation
-		return ((JavaReflectionAdaptor) getReadAdapter()).hasReflectionSource();
+		JavaReflectionAdaptor adapter = (JavaReflectionAdaptor) getReadAdapter();
+		if (adapter != null)
+		    return (adapter).hasReflectionSource();
+		else
+			return false;
 	}
 
 	/**
