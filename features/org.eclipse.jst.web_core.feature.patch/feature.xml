@@ -2,7 +2,7 @@
 <feature
     id="org.eclipse.jst.web_core.feature.patch"
     label="%featureName"
-    version="2.0.3.qualifier"
+    version="2.0.2.qualifier"
     provider-name="%providerName">
 
     <description>%description</description>
@@ -24,6 +24,13 @@
         install-size="0"
         version="0.0.0"
         unpack="false" />
+    
+    <plugin
+         id="org.eclipse.jst.j2ee.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
     
     <plugin
         id="org.eclipse.jst.jee"
