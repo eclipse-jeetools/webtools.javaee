@@ -183,16 +183,18 @@ public class ClasspathElement {
 			return ComponentCore.createComponent(project);
 		} else if(relativeText != null){
 			IVirtualComponent earComponent = ComponentCore.createComponent(earProject);
-			IVirtualReference[] refs = earComponent.getReferences();
-			for (int i = 0; i < refs.length; i++) {
-				IVirtualReference reference = refs[i];
-				if( reference.getReferencedComponent() != null ){
-					String name = reference.getReferencedComponent().getName();
-					if(name.lastIndexOf('/') != -1){
-						name = name.substring(name.lastIndexOf('/')+1);
-					}
-					if (name.equals(relativeText)){
-						return reference.getReferencedComponent();
+			if(earComponent != null) {
+				IVirtualReference[] refs = earComponent.getReferences();
+				for (int i = 0; i < refs.length; i++) {
+					IVirtualReference reference = refs[i];
+					if( reference.getReferencedComponent() != null ){
+						String name = reference.getReferencedComponent().getName();
+						if(name.lastIndexOf('/') != -1){
+							name = name.substring(name.lastIndexOf('/')+1);
+						}
+						if (name.equals(relativeText)){
+							return reference.getReferencedComponent();
+						}
 					}
 				}
 			}
