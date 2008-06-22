@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.jst.web_core.feature"
       label="%featureName"
-      version="2.0.300.qualifier"
+      version="2.0.301.qualifier"
       provider-name="%providerName">
 
    <description>
@@ -98,8 +98,6 @@
          version="0.0.0"
          unpack="false"/>
 
-
-
    <plugin
          id="javax.servlet"
          download-size="100"
@@ -120,7 +118,6 @@
          install-size="118"
          version="1.0.0.qualifier"
          unpack="false"/>
-
 
    <plugin
          id="org.eclipse.jst.common.annotations.core"
@@ -170,7 +167,7 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
+
    <plugin
          id="org.eclipse.jst.jee"
          download-size="0"
@@ -191,8 +188,6 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
-         
 
    <plugin
          id="org.eclipse.jst.jsf.core"
@@ -200,6 +195,7 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
    <plugin
          id="org.eclipse.jst.jsf.common"
          download-size="0"
@@ -219,8 +215,6 @@
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>         
-         
-         
+         unpack="false"/>
 
 </feature>
