@@ -30,6 +30,7 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.jca.Connector;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -141,28 +142,48 @@ public class JEEDeployableFactory extends ProjectModuleFactoryDelegate {
 						ArtifactEdit moduleEdit = null;
 						try {
 							if (j2eeModule.isEjbModule()) {
-								moduleEdit = ComponentUtilities.getArtifactEditForRead(moduleComponent, J2EEProjectUtilities.EJB);
-								EJBJar ejbJar = (EJBJar) moduleEdit.getContentModelRoot();
-								moduleType = J2EEProjectUtilities.EJB;
-								moduleVersion = ejbJar.getVersion();
+								try {
+									moduleEdit = ComponentUtilities.getArtifactEditForRead(moduleComponent, J2EEProjectUtilities.EJB);
+									EJBJar ejbJar = (EJBJar) moduleEdit.getContentModelRoot();
+									moduleType = J2EEProjectUtilities.EJB;
+									moduleVersion = ejbJar.getVersion();
+								} catch( NullPointerException npe ) {
+									moduleType = IJ2EEFacetConstants.EJB; 
+									moduleVersion = IJ2EEFacetConstants.EJB_30.getVersionString();
+								}
 							}
 							else if (j2eeModule.isWebModule()) {
-								moduleEdit = ComponentUtilities.getArtifactEditForRead(moduleComponent, J2EEProjectUtilities.DYNAMIC_WEB);
-								WebApp webApp = (WebApp) moduleEdit.getContentModelRoot();
-								moduleType = J2EEProjectUtilities.DYNAMIC_WEB;
-								moduleVersion = webApp.getVersion();
+								try {
+									moduleEdit = ComponentUtilities.getArtifactEditForRead(moduleComponent, J2EEProjectUtilities.DYNAMIC_WEB);
+									WebApp webApp = (WebApp) moduleEdit.getContentModelRoot();
+									moduleType = J2EEProjectUtilities.DYNAMIC_WEB;
+									moduleVersion = webApp.getVersion();
+								} catch( NullPointerException npe ) {
+									moduleType = IJ2EEFacetConstants.DYNAMIC_WEB;
+									moduleVersion = IJ2EEFacetConstants.DYNAMIC_WEB_24.getVersionString();
+								}
 							}
 							else if (j2eeModule.isConnectorModule()) {
-								moduleEdit = ComponentUtilities.getArtifactEditForRead(moduleComponent, J2EEProjectUtilities.JCA);
-								Connector connector = (Connector) moduleEdit.getContentModelRoot();
-								moduleType = J2EEProjectUtilities.JCA;
-								moduleVersion = connector.getVersion();
+								try {
+									moduleEdit = ComponentUtilities.getArtifactEditForRead(moduleComponent, J2EEProjectUtilities.JCA);
+									Connector connector = (Connector) moduleEdit.getContentModelRoot();
+									moduleType = J2EEProjectUtilities.JCA;
+									moduleVersion = connector.getVersion();
+								} catch( NullPointerException npe ) {
+									moduleType = IJ2EEFacetConstants.JCA;
+									moduleVersion = "1.5";
+								}
 							}
 							else if (j2eeModule.isJavaModule()) {
-								moduleEdit = ComponentUtilities.getArtifactEditForRead(moduleComponent, J2EEProjectUtilities.APPLICATION_CLIENT);
-								ApplicationClient appClient = (ApplicationClient) moduleEdit.getContentModelRoot();
-								moduleType = J2EEProjectUtilities.APPLICATION_CLIENT;
-								moduleVersion = appClient.getVersion();
+								try {
+									moduleEdit = ComponentUtilities.getArtifactEditForRead(moduleComponent, J2EEProjectUtilities.APPLICATION_CLIENT);
+									ApplicationClient appClient = (ApplicationClient) moduleEdit.getContentModelRoot();
+									moduleType = J2EEProjectUtilities.APPLICATION_CLIENT;
+									moduleVersion = appClient.getVersion();
+								} catch( NullPointerException npe ) {
+									moduleType = IJ2EEFacetConstants.APPLICATION_CLIENT;
+									moduleVersion = IJ2EEFacetConstants.APPLICATION_CLIENT_50.getVersionString();
+								}
 							}
 						} finally {
 							if (moduleEdit!=null)
