@@ -165,11 +165,20 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			
 			IJavaProject javaProject = JavaCore.create(project);
 			if(javaProject.exists()){
-				IType type;
+				IType type = null;
 				try {
-					type = javaProject.findType( name );
-					ICompilationUnit cu = type.getCompilationUnit();
-					EditorUtility.openInEditor(cu);					
+					//if name is null then can't get type
+					if(name != null) {
+						type = javaProject.findType( name );
+					}
+					
+					//if type is null then can't open its editor, so open editor for the resource
+					if(type != null) {
+						ICompilationUnit cu = type.getCompilationUnit();
+						EditorUtility.openInEditor(cu);
+					} else{
+						openAppropriateEditor(resource);
+					}
 				} catch (JavaModelException e) {
 					J2EEUIPlugin.logError(-1, e.getMessage(), e);
 				} catch (PartInitException e) {
