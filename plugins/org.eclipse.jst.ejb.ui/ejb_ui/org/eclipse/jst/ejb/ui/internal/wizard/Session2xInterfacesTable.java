@@ -26,6 +26,7 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.ControlAdapter;
@@ -35,10 +36,16 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -47,18 +54,18 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class Session2xInterfacesTable extends Composite {
 
+	private static final String _TABLEITEM = "_TABLEITEM";
+
 	private Table table;
 	private TableViewer viewer;
 	private IDataModel model;
-	private final String ABRIVIATION_COLUMN = "abriviation";
-	private final String CLASS_NAME_COLUMN = "className";
+	private final static String ABBREVIATION_COLUMN = "abbreviation";
+	private final static String CLASS_NAME_COLUMN = "className";
 	
 	private ArrayList tableValues = new ArrayList();
 	
 	// Set column names
-	private String[] columnNames = { ABRIVIATION_COLUMN, 
-			CLASS_NAME_COLUMN
-			};
+	private String[] columnNames = { ABBREVIATION_COLUMN, CLASS_NAME_COLUMN };
 	
 	protected class IntfTableContentProvider implements IStructuredContentProvider {
 
@@ -86,11 +93,11 @@ public class Session2xInterfacesTable extends Composite {
 		}
 
 		public String getColumnText(Object element, int columnIndex) {
-			if(element instanceof Session2xInterfacesTableRow){
+			if (element instanceof Session2xInterfacesTableRow) {
 				Session2xInterfacesTableRow row = (Session2xInterfacesTableRow) element;
-				if(columnIndex == 0){
-					return row.getAbriviation();
-				}else if(columnIndex == 1){
+				if (columnIndex == 0) {
+					return row.getAbbreviation();
+				} else if(columnIndex == 1){
 					return row.getClassName();
 				}
 			}
@@ -103,17 +110,14 @@ public class Session2xInterfacesTable extends Composite {
 	public Session2xInterfacesTable(Composite parent, String[] columnTitles, IDataModel model, Session2xInterfacesTableRow[] tableRows) {
 		super(parent, SWT.NONE);
 		this.model = model;
-		for(int k=0;k<tableRows.length;k++){
+		for (int k = 0; k < tableRows.length; k++) {
 			tableValues.add(tableRows[k]);
 		}
+		
 		GridLayout layout = new GridLayout(1, false);
 		layout.marginHeight = 4;
 		layout.marginWidth = 0;
 		this.setLayout(layout);
-		
-		
-
-		
 		
 		createTable();
 		createTableViewer();
@@ -122,7 +126,7 @@ public class Session2xInterfacesTable extends Composite {
 		
 		setInput(tableValues);
 		TableItem[] items = getTable().getItems();
-		for(int i =0; i<items.length;i++) {
+		for(int i = 0; i < items.length; i++) {
             final TableItem item = items[i];
             TableEditor editor = new TableEditor(getTable());
             Button button = new Button(getTable(), SWT.FLAT);
@@ -163,6 +167,8 @@ public class Session2xInterfacesTable extends Composite {
     		gridData1.grabExcessHorizontalSpace = true;
     		getTable().setLayoutData(gridData1);
 		}
+		
+		setTableTooltips(table);
 	}
 
 	public void setInput(List input) {		
@@ -190,7 +196,7 @@ public class Session2xInterfacesTable extends Composite {
 		getTable().setLinesVisible(true);
 		getTable().setHeaderVisible(false);
 		
-		// 1st column Abriviation
+		// 1st column abbreviation
 		TableColumn column = new TableColumn(getTable(), SWT.CENTER, 0);		
 		column.setWidth(25);
 		
@@ -232,7 +238,7 @@ public class Session2xInterfacesTable extends Composite {
 	 */
 	private void createTableViewer() {
 
-		viewer = new TableViewer(getTable()){
+		viewer = new TableViewer(getTable()) {
 
 			@Override
 			public void update(Object element, String[] properties) {				
@@ -263,10 +269,10 @@ public class Session2xInterfacesTable extends Composite {
 		// Assign the cell editors to the viewer 
 		viewer.setCellEditors(editors);
 		// Set the cell modifier for the viewer
-		viewer.setCellModifier(new ICellModifier(){
+		viewer.setCellModifier(new ICellModifier() {
 
 			public boolean canModify(Object element, String property) {
-				if(property.equals(CLASS_NAME_COLUMN)){
+				if(property.equals(CLASS_NAME_COLUMN)) {
 					return true;
 				}
 				return false;
@@ -274,7 +280,7 @@ public class Session2xInterfacesTable extends Composite {
 
 			public Object getValue(Object element, String property) {
 				Session2xInterfacesTableRow row = (Session2xInterfacesTableRow) element;
-				if(property.equals(CLASS_NAME_COLUMN)){					
+				if(property.equals(CLASS_NAME_COLUMN)) {					
 					return row.getClassName();
 				}
 				return null;
@@ -283,14 +289,13 @@ public class Session2xInterfacesTable extends Composite {
 			public void modify(Object element, String property, Object value) {
 				TableItem item = (TableItem) element;
 				Session2xInterfacesTableRow row = (Session2xInterfacesTableRow) item.getData();
-				if(property.equals(CLASS_NAME_COLUMN)){
+				if(property.equals(CLASS_NAME_COLUMN)) {
 					row.setClassName((String) value);
 				}
 				viewer.update(row, null);
 			}
 			
-		}
-		);
+		});
 		viewer.setContentProvider(new IntfTableContentProvider());
 		viewer.setLabelProvider(new IntfTableLabelProvider());
 	}
@@ -302,4 +307,102 @@ public class Session2xInterfacesTable extends Composite {
 	public Table getTable() {
 		return table;
 	}
+	
+
+	
+	/**
+	 * <p>This method has been derived from example 
+	 * <a href="http://dev.eclipse.org/viewcvs/index.cgi/org.eclipse.swt.snippets/src/org/eclipse/swt/snippets/Snippet125.java?view=co">Snippet 125</a></p>
+	 * @param table
+	 */
+	protected void setTableTooltips(final Table table) {
+		// Disable native tooltip
+		table.setToolTipText("");
+		
+		// Implement a "fake" tooltip
+		final Listener labelListener = new Listener() {
+			public void handleEvent(Event event) {
+				Label label = (Label) event.widget;
+				Shell shell = label.getShell();
+				switch (event.type) {
+					case SWT.MouseDown:
+						Event e = new Event();
+						e.item = (TableItem) label.getData(_TABLEITEM);
+						// Assuming table is single select, set the selection as if
+						// the mouse down event went through to the table
+						table.setSelection(new TableItem[] { (TableItem) e.item });
+						table.notifyListeners(SWT.Selection, e);
+						shell.dispose();
+						table.setFocus();
+						break;
+					case SWT.MouseExit:
+						shell.dispose();
+						break;
+				}
+			}
+		};
+		
+		Listener tableListener = new Listener() {
+			Shell tip = null;
+			Label label = null;
+			public void handleEvent(Event event) {
+				switch (event.type) {
+					case SWT.Dispose:
+					case SWT.KeyDown:
+					case SWT.MouseMove: {
+						if (tip == null) break;
+						tip.dispose();
+						tip = null;
+						label = null;
+						break;
+					}
+					case SWT.MouseHover: {
+						TableItem item = table.getItem(new Point(event.x, event.y));
+						if (item != null) {
+							if (tip != null  && !tip.isDisposed()) tip.dispose();
+							Display display = event.widget.getDisplay();
+							Shell shell = ((Table) event.widget).getShell();
+							tip = new Shell(shell, SWT.ON_TOP | SWT.NO_FOCUS | SWT.TOOL);
+							tip.setBackground(display.getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+							FillLayout layout = new FillLayout();
+							layout.marginWidth = 2;
+							tip.setLayout(layout);
+							label = new Label(tip, SWT.NONE);
+							label.setForeground(display.getSystemColor(SWT.COLOR_INFO_FOREGROUND));
+							label.setBackground(display.getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+							label.setData(_TABLEITEM, item);
+							label.setText(getTooltipForTableItem(item.getText()));
+							label.addListener(SWT.MouseExit, labelListener);
+							label.addListener(SWT.MouseDown, labelListener);
+							Point size = tip.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+							Rectangle rect = item.getBounds(0);
+							Point pt = table.toDisplay(rect.x, rect.y);
+							tip.setBounds(pt.x, pt.y, size.x, size.y);
+							tip.setVisible(true);
+						}
+					}
+				}
+			}
+		};
+		
+		table.addListener(SWT.Dispose, tableListener);
+		table.addListener(SWT.KeyDown, tableListener);
+		table.addListener(SWT.MouseMove, tableListener);
+		table.addListener(SWT.MouseHover, tableListener);
+	}
+	
+	protected String getTooltipForTableItem(String tableItemText) {
+		if (EJBUIMessages.LOCAL_COMPONENT_INTERFACE_CODE.equals(tableItemText)) {
+			return EJBUIMessages.LOCAL_COMPONENT_INTERFACE_TOOLTIP;
+		} else if (EJBUIMessages.LOCAL_HOME_INTERFACE_CODE.equals(tableItemText)) {
+			return EJBUIMessages.LOCAL_HOME_INTERFACE_TOOLTIP;
+		} else if (EJBUIMessages.REMOTE_COMPONENT_INTERFACE_CODE.equals(tableItemText)) {
+			return EJBUIMessages.REMOTE_COMPONENT_INTERFACE_TOOLTIP;
+		} else if (EJBUIMessages.REMOTE_HOME_INTERFACE_CODE.equals(tableItemText)) {
+			return EJBUIMessages.REMOTE_HOME_INTERFACE_TOOLTIP;
+		} 
+		
+		return "";
+	}
+	
 }

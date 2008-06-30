@@ -51,9 +51,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
-
-	//private Text remoteInterfaceName;
-	//private Text localInterfaceName;
+	
 	private Text ejbNameText;
 	private Text mappedNameText;
 	private Combo transactionTypeCombo;
@@ -137,8 +135,14 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 		
 		synchHelper.synchCheckbox(local2xCheck, LOCAL_HOME, null);
 		
-		Session2xInterfacesTableRow localRow = new Session2xInterfacesTableRow("L", model.getStringProperty(LOCAL_COMPONENT_INTERFACE), LOCAL_COMPONENT_INTERFACE);
-		Session2xInterfacesTableRow localRowHome = new Session2xInterfacesTableRow("LH", model.getStringProperty(LOCAL_HOME_INTERFACE), LOCAL_HOME_INTERFACE);
+		Session2xInterfacesTableRow localRow = new Session2xInterfacesTableRow(
+				EJBUIMessages.LOCAL_COMPONENT_INTERFACE_CODE, 
+				model.getStringProperty(LOCAL_COMPONENT_INTERFACE), 
+				LOCAL_COMPONENT_INTERFACE);
+		Session2xInterfacesTableRow localRowHome = new Session2xInterfacesTableRow(
+				EJBUIMessages.LOCAL_HOME_INTERFACE_CODE, 
+				model.getStringProperty(LOCAL_HOME_INTERFACE), 
+				LOCAL_HOME_INTERFACE);
 		Session2xInterfacesTableRow[] localTableRows = {localRow, localRowHome};
 		localIntfTable = new Session2xInterfacesTable(othersComposite, new String[0], model, localTableRows);
 		localIntfTable.getTable().setEnabled(model.getBooleanProperty(LOCAL_HOME));
@@ -166,8 +170,14 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 		
 		synchHelper.synchCheckbox(remote2xCheck, REMOTE_HOME, null);
 
-		Session2xInterfacesTableRow remoteRow = new Session2xInterfacesTableRow("R", model.getStringProperty(REMOTE_COMPONENT_INTERFACE), REMOTE_COMPONENT_INTERFACE);
-		Session2xInterfacesTableRow remoteRowHome = new Session2xInterfacesTableRow("RH", model.getStringProperty(REMOTE_HOME_INTERFACE), REMOTE_HOME_INTERFACE);
+		Session2xInterfacesTableRow remoteRow = new Session2xInterfacesTableRow(
+				EJBUIMessages.REMOTE_COMPONENT_INTERFACE_CODE, 
+				model.getStringProperty(REMOTE_COMPONENT_INTERFACE), 
+				REMOTE_COMPONENT_INTERFACE);
+		Session2xInterfacesTableRow remoteRowHome = new Session2xInterfacesTableRow(
+				EJBUIMessages.REMOTE_HOME_INTERFACE_CODE, 
+				model.getStringProperty(REMOTE_HOME_INTERFACE), 
+				REMOTE_HOME_INTERFACE);
 		Session2xInterfacesTableRow[] remoteTableRows = {remoteRow, remoteRowHome};
 		remoteIntfTable = new Session2xInterfacesTable(othersComposite, new String[0], model, remoteTableRows);
 		remoteIntfTable.getTable().setEnabled(model.getBooleanProperty(REMOTE_HOME));
@@ -317,6 +327,5 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 	protected boolean showValidationErrorsOnEnter() {
 	   return true;
 	}
-	
 	
 }

@@ -96,6 +96,14 @@ public class EJBUIMessages extends NLS {
 	public static String MESSAGE_LISTENER_INTERFACE_HYPERLINK;
 	public static String MESSAGE_LISTENER_INTERFACE_HYPERLINK_TOOLTIP;
 	public static String CLICK_TO_SELECT;
+	public static String LOCAL_COMPONENT_INTERFACE_CODE;
+	public static String LOCAL_HOME_INTERFACE_CODE;
+	public static String REMOTE_COMPONENT_INTERFACE_CODE;
+	public static String REMOTE_HOME_INTERFACE_CODE;
+	public static String LOCAL_COMPONENT_INTERFACE_TOOLTIP;
+	public static String LOCAL_HOME_INTERFACE_TOOLTIP;
+	public static String REMOTE_COMPONENT_INTERFACE_TOOLTIP;
+	public static String REMOTE_HOME_INTERFACE_TOOLTIP;
 	
 
 	static {

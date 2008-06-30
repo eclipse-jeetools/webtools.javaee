@@ -10,26 +10,30 @@
  *******************************************************************************/
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
-public class Session2xInterfacesTableRow{
-	private String abriviation;
+public class Session2xInterfacesTableRow {
+	
+	private String abbreviation;
 	private String className;
 	private String propertyName;
 	
-	Session2xInterfacesTableRow(String abriviation, String className, String propertyName){
-		setAbriviation(abriviation);
+	Session2xInterfacesTableRow(String abbreviation, String className, String propertyName){
+		setAbbreviation(abbreviation);
 		setClassName(className);
 		setPropertyName(propertyName);
 	}
 	
-	public void setAbriviation(String abriviation) {
-		this.abriviation = abriviation;
+	public void setAbbreviation(String abbreviation) {
+		this.abbreviation = abbreviation;
 	}
-	public String getAbriviation() {
-		return abriviation;
+	
+	public String getAbbreviation() {
+		return abbreviation;
 	}
+	
 	public void setClassName(String className) {
 		this.className = className;
 	}
+	
 	public String getClassName() {
 		return className;
 	}
@@ -41,4 +45,5 @@ public class Session2xInterfacesTableRow{
 	public String getPropertyName() {
 		return propertyName;
 	}
+	
 }
