@@ -11,10 +11,16 @@
 
 package org.eclipse.jst.j2ee.internal.actions;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -34,8 +40,11 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
 import org.eclipse.jst.j2ee.internal.componentcore.ComponentArchiveOptions;
+import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper;
+import org.eclipse.jst.j2ee.internal.plugin.BinaryEditorUtilities;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -48,7 +57,11 @@ import org.eclipse.jst.j2ee.webservice.wsdd.ServletLink;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
 import org.eclipse.jst.javaee.ejb.internal.impl.EJBJarImpl;
+import org.eclipse.jst.jee.archive.IArchive;
+import org.eclipse.jst.jee.archive.IArchiveResource;
+import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.ui.IEditorDescriptor;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorRegistry;
 import org.eclipse.ui.IWorkbenchPage;
@@ -57,6 +70,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
@@ -107,7 +121,24 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 		IEditorPart editor = null;
 		try {
 			page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-			editor = page.openEditor(new ComponentEditorInput(c), currentDescriptor.getId());
+			
+			IEditorInput editorInput = null;
+			
+			//[Bug 237794] if component c is a JEE 5 archive then editorInput needs to be a BinaryEditorInput
+			if (c instanceof VirtualArchiveComponent) {
+				JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(c);
+				if( qp.getJavaEEVersion() == JavaEEQuickPeek.JEE_5_0_ID) {
+					String path = ((EObject)srcObject).eResource().getURI().toString();
+					editorInput = BinaryEditorUtilities.getBinaryEditorInput((VirtualArchiveComponent)c, path);
+				}
+			} 
+			
+			//this is for all other cases
+			if(editorInput == null) {
+				editorInput = new ComponentEditorInput(c);
+			}
+			
+			editor = page.openEditor(editorInput, currentDescriptor.getId());
 			if (editor instanceof ISetSelectionTarget)
 				((ISetSelectionTarget) editor).selectReveal(getStructuredSelection());
 		} catch (Exception e) {
@@ -210,11 +241,21 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 						IVirtualComponent component = ((ComponentArchiveOptions)options).getComponent();
 						openAppropriateEditor(component);
 					}
+				} else {
+					//if can't get a ModuleFile then get the component from the archive
+					IArchive archive = JavaEEArchiveUtilities.findArchive(ro);
+					if(archive != null) {
+						IVirtualComponent component = JavaEEArchiveUtilities.findComponent(archive);
+						if(component != null){
+							openAppropriateEditor(component);
+						}
+					}
 				}
 			}
 		}
-		else if (srcObject instanceof Resource)
+		else if (srcObject instanceof Resource) {
 			openAppropriateEditor(WorkbenchResourceHelper.getFile((Resource)srcObject));
+		}
 	}
 
 	/**
@@ -234,7 +275,7 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 		// Make sure this is one of the selections we can handle,
 		// then set the source object as is. The run() will do the hard stuff.
 		Object obj = s.getFirstElement();
-		
+
 		if (obj instanceof J2EEJavaClassProviderHelper)
 			currentDescriptor = getJavaEditorDescriptor();
 		else if (obj instanceof BeanLink)
@@ -256,10 +297,35 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 					currentDescriptor = null;
 					return false;
 				}
-			} else {
-				if (((EObject)obj).eResource() != null) {
-					String name = (new Path(((EObject)obj).eResource().getURI().toString())).lastSegment();
-					currentDescriptor = registry.getDefaultEditor(name, null);
+			}  else if (((EObject)obj).eResource() != null) {
+				//[Bug 237794] if the file is null then it maybe a binary resource in an archive
+				//	attempt to get the resource from the archive and the content type from that
+				EObject eObj = (EObject) obj;
+				IArchive archive = JavaEEArchiveUtilities.findArchive(eObj);
+				if(archive != null) {
+					IPath path = new Path(((EObject)obj).eResource().getURI().toString());
+					if(archive.containsArchiveResource(path)) {
+						InputStream stream = null;
+						try {
+							IArchiveResource resource = archive.getArchiveResource(path);
+							stream = resource.getInputStream();
+							IContentType type = Platform.getContentTypeManager().findContentTypeFor(stream, path.lastSegment());
+							currentDescriptor = registry.getDefaultEditor(path.lastSegment(),type);
+						} catch (FileNotFoundException e) {
+							J2EEUIPlugin.logError(-1, e.getMessage(), e);
+						} catch (IOException e) {
+							J2EEUIPlugin.logError(-1, e.getMessage(), e);
+						} finally {
+							if(stream != null) {
+								try {
+									stream.close();
+								} catch (IOException e) {
+									J2EEUIPlugin.logError(-1, e.getMessage(), e);
+								}
+							}
+						}
+						
+					}
 				}
 			}
 		}
@@ -325,7 +391,7 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 		try {
 			J2EEEditorUtility.openInEditor(javaClass, p);
 		} catch (Exception cantOpen) {
-			cantOpen.printStackTrace();
+			J2EEUIPlugin.logError(-1, cantOpen.getMessage(), cantOpen);
 		}
 	}
 
