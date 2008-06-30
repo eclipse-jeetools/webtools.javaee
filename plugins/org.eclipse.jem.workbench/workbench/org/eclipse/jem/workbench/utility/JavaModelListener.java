@@ -11,7 +11,7 @@
 package org.eclipse.jem.workbench.utility;
 
 /*
- * $RCSfile: JavaModelListener.java,v $ $Revision: 1.6 $ $Date: 2006/09/14 18:31:08 $
+ * $RCSfile: JavaModelListener.java,v $ $Revision: 1.7 $ $Date: 2008/06/30 21:06:41 $
  */
 
 import java.util.*;
@@ -36,6 +36,7 @@ public abstract class JavaModelListener implements IElementChangedListener {
 	 * 
 	 * @since 1.2.0
 	 */
+	private HashMap resolvedContainers = new HashMap();
 	public JavaModelListener() {
 		this(ElementChangedEvent.POST_CHANGE);
 	}
@@ -58,7 +59,9 @@ public abstract class JavaModelListener implements IElementChangedListener {
 	 * @see org.eclipse.jdt.core.IElementChangedListener#elementChanged(org.eclipse.jdt.core.ElementChangedEvent)
 	 */
 	public void elementChanged(ElementChangedEvent event) {
+		
 		processDelta((IJavaElementDelta) event.getSource());
+		
 	}
 
 	/**
@@ -99,6 +102,11 @@ public abstract class JavaModelListener implements IElementChangedListener {
 	 */
 	public void processDelta(IJavaElementDelta delta) {
 		IJavaElement element = delta.getElement();
+		// if the class path has changed we refresh the resolved container cache
+		int flags= delta.getFlags();
+		if (((flags & IJavaElementDelta.F_RESOLVED_CLASSPATH_CHANGED) != 0) && !resolvedContainers.isEmpty()){
+			resolvedContainers.clear();			
+		}
 
 		switch (element.getElementType()) {
 			case IJavaElement.JAVA_MODEL:
@@ -348,7 +356,13 @@ public abstract class JavaModelListener implements IElementChangedListener {
 					}
 					if (container == null || container.getKind() != IClasspathContainer.K_APPLICATION)
 						break;
-					IClasspathEntry[] containerEntries = container.getClasspathEntries();
+					//First see if we already resolved
+					IClasspathEntry[] containerEntries = null;
+					containerEntries = (IClasspathEntry[])resolvedContainers.get(container);
+					if (containerEntries == null) {
+						containerEntries = container.getClasspathEntries();
+						resolvedContainers.put(container, containerEntries);
+					}
 					for (int j = 0; j < containerEntries.length; j++) {
 						if (containerEntries[j].getEntryKind() == IClasspathEntry.CPE_PROJECT) {
 							IJavaProject conEntryProject = getVisibleJavaProject(containerEntries[j], isFirstLevel);
