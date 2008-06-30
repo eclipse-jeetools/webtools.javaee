@@ -161,7 +161,14 @@ public class SessionConfigImpl extends EObjectImpl implements SessionConfig {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebPackage.SESSION_CONFIG__SESSION_TIMEOUT:
-				setSessionTimeout((BigInteger)newValue);
+				if(newValue.getClass() == Integer.class) {
+			        Integer i = (Integer) newValue;
+				    setSessionTimeout(BigInteger.valueOf(i));
+				} else if (newValue.getClass() == BigInteger.class)
+					setSessionTimeout( (BigInteger) newValue);
+				else {
+					// do nothing if value is not Integer or BigInteger.
+				}
 				return;
 			case WebPackage.SESSION_CONFIG__ID:
 				setId((String)newValue);
