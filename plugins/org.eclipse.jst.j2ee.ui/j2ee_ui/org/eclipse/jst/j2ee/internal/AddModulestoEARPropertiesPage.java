@@ -92,7 +92,7 @@ import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceCo
 import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -684,10 +684,8 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	}
 	
 	private void handleChangeLibDirButton(boolean warnBlank) {					
-		IVirtualFolder root = earComponent.getRootFolder();
-		String earContentRoot = root.getUnderlyingResource().getName();
-		String ddFullPath = IPath.SEPARATOR + earContentRoot + IPath.SEPARATOR + J2EEConstants.APPLICATION_DD_URI;
-		if (!project.getFile(ddFullPath).exists()) {
+		IVirtualFile vFile = earComponent.getRootFolder().getFile(new Path(J2EEConstants.APPLICATION_DD_URI));
+		if (!vFile.exists()) {
 			if (!MessageDialog.openQuestion(null, 
 					J2EEUIMessages.getResourceString(J2EEUIMessages.NO_DD_MSG_TITLE), 
 					J2EEUIMessages.getResourceString(J2EEUIMessages.GEN_DD_QUESTION))) return;
