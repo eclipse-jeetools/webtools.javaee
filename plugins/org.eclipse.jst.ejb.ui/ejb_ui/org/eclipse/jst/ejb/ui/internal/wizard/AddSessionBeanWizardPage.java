@@ -271,18 +271,30 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 	public void updateInterfaces(){
 		if(localIntfTable != null){
 			ArrayList input = new ArrayList();
-			Session2xInterfacesTableRow localRow = new Session2xInterfacesTableRow("L", model.getStringProperty(LOCAL_COMPONENT_INTERFACE), LOCAL_COMPONENT_INTERFACE);
+			Session2xInterfacesTableRow localRow = new Session2xInterfacesTableRow(
+					EJBUIMessages.LOCAL_COMPONENT_INTERFACE_CODE, 
+					model.getStringProperty(LOCAL_COMPONENT_INTERFACE), 
+					LOCAL_COMPONENT_INTERFACE);
 			input.add(localRow);
-			Session2xInterfacesTableRow localRowHome = new Session2xInterfacesTableRow("LH", model.getStringProperty(LOCAL_HOME_INTERFACE), LOCAL_HOME_INTERFACE);
+			Session2xInterfacesTableRow localRowHome = new Session2xInterfacesTableRow(
+					EJBUIMessages.LOCAL_HOME_INTERFACE_CODE, 
+					model.getStringProperty(LOCAL_HOME_INTERFACE), 
+					LOCAL_HOME_INTERFACE);
 			input.add(localRowHome);
 			localIntfTable.getTableViewer().setInput(input);
 			//localIntfTable.getTableViewer().refresh();
 		}
 		if(remoteIntfTable != null){
 			ArrayList input = new ArrayList();
-			Session2xInterfacesTableRow remoteRow = new Session2xInterfacesTableRow("R", model.getStringProperty(REMOTE_COMPONENT_INTERFACE), REMOTE_COMPONENT_INTERFACE);
+			Session2xInterfacesTableRow remoteRow = new Session2xInterfacesTableRow(
+					EJBUIMessages.REMOTE_COMPONENT_INTERFACE_CODE, 
+					model.getStringProperty(REMOTE_COMPONENT_INTERFACE), 
+					REMOTE_COMPONENT_INTERFACE);
 			input.add(remoteRow);
-			Session2xInterfacesTableRow remoteRowHome = new Session2xInterfacesTableRow("RH", model.getStringProperty(REMOTE_HOME_INTERFACE), REMOTE_HOME_INTERFACE);
+			Session2xInterfacesTableRow remoteRowHome = new Session2xInterfacesTableRow(
+					EJBUIMessages.REMOTE_HOME_INTERFACE_CODE, 
+					model.getStringProperty(REMOTE_HOME_INTERFACE), 
+					REMOTE_HOME_INTERFACE);
 			input.add(remoteRowHome);
 			remoteIntfTable.getTableViewer().setInput(input);
 		}
