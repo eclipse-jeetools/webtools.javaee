@@ -10,6 +10,8 @@
  ***********************************************************************/
 package org.eclipse.jst.jee.ui.internal.navigator;
 
+import org.eclipse.emf.ecore.util.FeatureMap;
+import org.eclipse.emf.ecore.util.FeatureMap.Entry;
 import org.eclipse.jst.j2ee.navigator.internal.J2EELabelProvider;
 import org.eclipse.jst.javaee.core.Listener;
 import org.eclipse.jst.javaee.core.ParamValue;
@@ -105,8 +107,19 @@ public class Web25LabelProvider extends J2EELabelProvider {
 	}
 
 	private String getFilterMappingDisplay(FilterMapping element) {
-		UrlPatternType urlPatterns = (UrlPatternType) element.getUrlPatterns().get(0);
-		return urlPatterns.getValue() + "-> " + element.getFilterName(); //$NON-NLS-1$
+		UrlPatternType urlPatterns = null;
+		String value = null;
+		if (element.getUrlPatterns().size() > 0){
+			urlPatterns = (UrlPatternType) element.getUrlPatterns().get(0);
+			value = urlPatterns.getValue();
+		}else{
+			FeatureMap group = element.getGroup();
+			if (group.size() >0) {
+				Entry entry = group.get(0);
+				value = entry.getValue().toString();
+			}
+		}
+		return value + "-> " + element.getFilterName(); //$NON-NLS-1$
 	}
 
 	private String getServletMappingDisplay(ServletMapping element) {
