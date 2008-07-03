@@ -47,15 +47,29 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	
 	/**
+	 * This is equivalent to calling getRawComponentClasspathDependencies(javaProject, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);
+	 * 
+	 * @deprecated use {@link #getRawComponentClasspathDependencies(IJavaProject, org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType)}
+	 * 
+	 * @param javaProject
+	 * @return
+	 * @throws CoreException
+	 */
+	public static Map getRawComponentClasspathDependencies(final IJavaProject javaProject) throws CoreException {
+		return getRawComponentClasspathDependencies(javaProject, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);
+	}
+	
+	/**
 	 * Returns all unresolved classpath entries for the specified Java project that
 	 * have the special WTP classpath component dependency attribute.
 	 *  
 	 * @param javaProject Java project whose component classpath dependencies are being retrieved.
+	 * @parem attributeType the attribute to search for
 	 * @return Map from IClasspathEntry to IClasspathAttribute for classpath component dependency.
 	 * @return IClasspathEntries with the special component dependency attribute.
 	 * @throws CoreException Thrown if an error is encountered accessing the unresolved classpath.
 	 */
-	public static Map getRawComponentClasspathDependencies(final IJavaProject javaProject) throws CoreException {
+	public static Map getRawComponentClasspathDependencies(final IJavaProject javaProject, DependencyAttributeType attributeType) throws CoreException {
 		if (javaProject == null) {
 			return Collections.EMPTY_MAP;
 		}
@@ -63,7 +77,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 		final IClasspathEntry[] entries = javaProject.getRawClasspath();
         for (int i = 0; i < entries.length; i++) {
             final IClasspathEntry entry = entries[i];
-            final IClasspathAttribute attrib = checkForComponentDependencyAttribute(entry, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);
+            final IClasspathAttribute attrib = checkForComponentDependencyAttribute(entry, attributeType);
             if (attrib != null) {
             	referencedRawEntries.put(entry, attrib);
             }
