@@ -105,12 +105,7 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 				importModel.getDefaultOperation().execute(new SubProgressMonitor(monitor, PROJECT_CREATION_WORK + libArchive.getSize()) , info);
 				nestedComponent = (IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
 				targetComponents.add(nestedComponent);
-				String archiveURI = libArchive.getPath().toOSString();
-				int lastIndex = archiveURI.lastIndexOf('/');
-				if (-1 != lastIndex && lastIndex + 1 < archiveURI.length()) {
-					lastIndex++;
-					archiveURI = archiveURI.substring(lastIndex);
-				}
+				String archiveURI = libArchive.getPath().lastSegment();
 				compToURIMap.put(nestedComponent, archiveURI);
 			}
 		}
