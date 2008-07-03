@@ -21,6 +21,9 @@ import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceDescription;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -55,6 +58,7 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	private Object[] selection;
 	private IStatus multiStatus;
 	private IProject currentProject;
+	private boolean wasAutoBuilding;
 
 	/**
 	 *  
@@ -80,27 +84,61 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		DeployerRegistry reg = DeployerRegistry.instance();
-		List components = getSelectedModules(selection);
-		monitor.beginTask(J2EEPluginResourceHandler.J2EEDeployOperation_UI_0, components.size()); 
-		for (int i = 0; i < components.size(); i++) {
-			IVirtualComponent component = null;
-			component = (IVirtualComponent) components.get(i);
-			IProject proj = component.getProject();
-			IRuntime runtime = null;
-			try {
-				runtime = J2EEProjectUtilities.getServerRuntime(proj);
+		try { 
+			turnAutoBuildOff();
+			DeployerRegistry reg = DeployerRegistry.instance();
+			List components = getSelectedModules(selection);
+			monitor.beginTask(J2EEPluginResourceHandler.J2EEDeployOperation_UI_0, components.size()); 
+			for (int i = 0; i < components.size(); i++) {
+				IVirtualComponent component = null;
+				component = (IVirtualComponent) components.get(i);
+				IProject proj = component.getProject();
+				IRuntime runtime = null;
+				try {
+					runtime = J2EEProjectUtilities.getServerRuntime(proj);
+				}
+				catch (CoreException e) {
+					J2EEPlugin.getDefault().getLog().log(e.getStatus());
+				}
+				if (runtime == null)
+					continue;
+				List visitors = reg.getDeployModuleExtensions(proj, runtime);
+				deploy(visitors, component, monitor);
+				monitor.worked(1);
 			}
-			catch (CoreException e) {
-				J2EEPlugin.getDefault().getLog().log(e.getStatus());
-			}
-			if (runtime == null)
-				continue;
-			List visitors = reg.getDeployModuleExtensions(proj, runtime);
-			deploy(visitors, component, monitor);
-			monitor.worked(1);
+		}
+		finally {
+			restoreBuildSettings();
 		}
 		return getMultiStatus();
+	}
+	
+	private void turnAutoBuildOff() {
+		// turn off autobuild 
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IWorkspaceDescription description= workspace.getDescription();
+		
+		wasAutoBuilding = workspace.isAutoBuilding();
+		description.setAutoBuilding(false);
+		try {
+			workspace.setDescription(description);
+		} catch (CoreException e) {
+			J2EEPlugin.logError(e);
+		}
+	}
+	
+	private void restoreBuildSettings() {
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IWorkspaceDescription description= workspace.getDescription();
+		if (wasAutoBuilding) {
+			description.setAutoBuilding(true);
+			try {
+				workspace.setDescription(description);
+			} catch (CoreException e) {
+				J2EEPlugin.logError(e);
+			}
+		}
+				
 	}
 
 	/**
