@@ -45,7 +45,6 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.componentcore.resources.IVirtualContainer;
 
 public class ConnectorComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 
@@ -219,11 +218,6 @@ public class ConnectorComponentLoadStrategyImpl extends ComponentLoadStrategyImp
 		return artifactEdit;
 	}
 
-	protected boolean shouldInclude(IVirtualContainer vContainer) {
-		boolean isDDFolder = vContainer.getProjectRelativePath().isPrefixOf(knownDD.getProjectRelativePath());
-		return isDDFolder || !inJavaSrc(vContainer);
-	}
-	
 	protected boolean shouldInclude(String uri) {
 		return !hasExtension(uri, ArchiveUtil.DOT_CLASS) && !hasExtension(uri, ArchiveUtil.DOT_JAVA);
 	}
