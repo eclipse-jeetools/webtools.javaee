@@ -27,7 +27,6 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.Signature;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
@@ -308,21 +307,16 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 	 */
 	@Override
 	public IStatus validate(String propertyName) {
-		IStatus result = Status.OK_STATUS;
-		
-		// If our default is the superclass, we know it is ok
-		if (propertyName.equals(SUPERCLASS) && getStringProperty(propertyName).equals(DEFAULT_SUPERCLASS))
-			return WTPCommonPlugin.OK_STATUS;
-		if (propertyName.equals(CLASS_NAME)) {
-			if (getStringProperty(propertyName).length()!=0 && getBooleanProperty(USE_EXISTING_CLASS))
+		if (propertyName.equals(SUPERCLASS)) {
+			// If our default is the superclass, we know it is ok
+			if (getStringProperty(propertyName).equals(DEFAULT_SUPERCLASS))			
 				return WTPCommonPlugin.OK_STATUS;
-			result = super.validateJavaClassName(getStringProperty(propertyName));
-			if (result.isOK()) {
-				result = validateJavaClassName(getStringProperty(propertyName));
-				if (result.isOK()&&!getBooleanProperty(USE_EXISTING_CLASS))
-					result = canCreateTypeInClasspath(getStringProperty(CLASS_NAME));
+		}
+		
+		if (propertyName.equals(CLASS_NAME)) {
+			if (getStringProperty(propertyName).length() !=0 && getBooleanProperty(USE_EXISTING_CLASS)) {
+				return WTPCommonPlugin.OK_STATUS;
 			}
-			return result;
 		}
 		
 		// Otherwise defer to super to validate the property
