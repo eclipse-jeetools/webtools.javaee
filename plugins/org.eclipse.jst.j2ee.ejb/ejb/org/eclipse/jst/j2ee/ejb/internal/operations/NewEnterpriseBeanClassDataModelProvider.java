@@ -17,11 +17,20 @@ import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataM
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.JAVA_PACKAGE;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SUPERCLASS;
 
+import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.javaee.ejb.EJBJar;
+import org.eclipse.jst.javaee.ejb.EnterpriseBeans;
+import org.eclipse.jst.javaee.ejb.SessionBean;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
@@ -86,6 +95,12 @@ public class NewEnterpriseBeanClassDataModelProvider extends NewJavaClassDataMod
 				String msg = EJBCreationResourceHandler.Bean_Class_Cannot_Be_In_UI_;
 				return WTPCommonPlugin.createErrorStatus(msg);
 			}
+		} else if (EJB_NAME.equals(propertyName)) {
+			String value = getStringProperty(propertyName).trim();
+			if (value == null || value.trim().length() == 0){
+				return WTPCommonPlugin.createWarningStatus(EJBCreationResourceHandler.WRN_BEAN_NAME_IS_EMPTY);
+			}
+			return validateEjbName();
 		}
 		return super.validate(propertyName);
 	}
@@ -131,6 +146,27 @@ public class NewEnterpriseBeanClassDataModelProvider extends NewJavaClassDataMod
 		} 
 		
 		return super.getValidPropertyDescriptors(propertyName);
+	}
+
+	protected IStatus validateEjbName() {
+		// check if an EJB with the same name already exists
+		String projectName = getStringProperty(PROJECT_NAME);
+		if (projectName != null && projectName.length() > 0) {
+			IModelProvider provider = ModelProviderManager.getModelProvider(ResourcesPlugin.getWorkspace().getRoot().getProject(projectName));
+			EJBJar modelObject = (EJBJar) provider.getModelObject();
+			EnterpriseBeans enterpriseBeans = modelObject.getEnterpriseBeans();
+			if (enterpriseBeans != null)
+			{
+				List sessionBeans = enterpriseBeans.getSessionBeans();
+				for (Object object : sessionBeans) {
+					SessionBean session = (SessionBean) object;
+					if (session.getEjbName().equals(getDataModel().getStringProperty(EJB_NAME).trim())){
+						return new Status(IStatus.ERROR, EjbPlugin.PLUGIN_ID, EJBCreationResourceHandler.ERR_BEAN_ALREADY_EXISTS);
+					}
+				}
+			}
+		}
+		return Status.OK_STATUS;
 	}
 	
 }

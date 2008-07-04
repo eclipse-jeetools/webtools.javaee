@@ -155,8 +155,8 @@ public class CreateSessionBeanTemplateModel extends
 	
 	public Map<String, String> getClassAnnotationParams() {
 		Map<String, String> result = new Hashtable<String, String>();
-		String dispName = getProperty(EJB_NAME);
-		if (!dispName.equals(getClassName()))
+		String dispName = getProperty(EJB_NAME).trim();
+		if (!dispName.equals(getClassName()) && (dispName.length() > 0))
 			result.put(ATT_NAME, dispName);
 		String mappedName = getProperty(MAPPED_NAME).trim();
 		if (mappedName != null && mappedName.length() > 0) {

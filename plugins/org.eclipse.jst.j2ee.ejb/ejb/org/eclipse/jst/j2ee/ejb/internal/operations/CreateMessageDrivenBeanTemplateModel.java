@@ -76,8 +76,8 @@ public class CreateMessageDrivenBeanTemplateModel extends
 			else 
 				throw new IllegalStateException("illegal destination type: " + destinationType);
 		}
-		String dispName = getProperty(EJB_NAME);
-		if (!dispName.equals(getClassName()))
+		String dispName = getProperty(EJB_NAME).trim();
+		if (!dispName.equals(getClassName()) && (dispName.length() > 0))
 			result.put(ATT_NAME, QUOTATION_STRING + dispName + QUOTATION_STRING);
 		String mappedName = getProperty(MAPPED_NAME).trim();
 		if (mappedName != null && mappedName.length() > 0) {

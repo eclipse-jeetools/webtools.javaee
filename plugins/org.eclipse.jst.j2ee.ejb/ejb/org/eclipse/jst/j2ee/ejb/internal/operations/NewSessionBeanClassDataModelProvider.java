@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
-import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.EJB_NAME;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.BUSINESS_INTERFACES;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_BUSINESS_INTERFACE;
@@ -48,11 +47,6 @@ import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
-import org.eclipse.jst.j2ee.model.IModelProvider;
-import org.eclipse.jst.j2ee.model.ModelProviderManager;
-import org.eclipse.jst.javaee.ejb.EJBJar;
-import org.eclipse.jst.javaee.ejb.EnterpriseBeans;
-import org.eclipse.jst.javaee.ejb.SessionBean;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -307,9 +301,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 	public IStatus validate(String propertyName) {
 		IStatus status = null;
 		
-		if (EJB_NAME.equals(propertyName)){
-			return validateEjbName();
-		} else if (LOCAL_BUSINESS_INTERFACE.equals(propertyName)) {
+		if (LOCAL_BUSINESS_INTERFACE.equals(propertyName)) {
 			if (model.getBooleanProperty(LOCAL)) {
 				return validateEjbInterface(getStringProperty(propertyName));
 			}
@@ -337,27 +329,6 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 				status = existsStatus;
 		}
 		return status;
-	}
-
-	private IStatus validateEjbName() {
-		// check if an EJB with the same name already exists
-		String projectName = getStringProperty(PROJECT_NAME);
-		if (projectName != null && projectName.length() > 0) {
-			IModelProvider provider = ModelProviderManager.getModelProvider(ResourcesPlugin.getWorkspace().getRoot().getProject(projectName));
-			EJBJar modelObject = (EJBJar) provider.getModelObject();
-			EnterpriseBeans enterpriseBeans = modelObject.getEnterpriseBeans();
-			if (enterpriseBeans != null)
-			{
-				List sessionBeans = enterpriseBeans.getSessionBeans();
-				for (Object object : sessionBeans) {
-					SessionBean session = (SessionBean) object;
-					if (session.getEjbName().equals(getDataModel().getStringProperty(EJB_NAME))){
-						return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.ERR_BEAN_ALREADY_EXISTS);
-					}
-				}
-			}
-		}
-		return Status.OK_STATUS;
 	}
 
 	protected IStatus validateComponentHomeInterfaces() {

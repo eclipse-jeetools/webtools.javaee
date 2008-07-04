@@ -202,7 +202,7 @@ public class AddMessageDrivenBeanWizardPage extends
 
 	@Override
 	protected String[] getValidationPropertyNames() {
-		return new String[] { MESSAGE_LISTENER_INTERFACE };
+		return new String[] { MESSAGE_LISTENER_INTERFACE , EJB_NAME};
 	}
 
 }
