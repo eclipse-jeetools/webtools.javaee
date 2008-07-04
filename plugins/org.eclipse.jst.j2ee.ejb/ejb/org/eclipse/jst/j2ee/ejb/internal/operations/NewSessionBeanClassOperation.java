@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
-import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.BUSINESS_INTERFACES;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_HOME;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_HOME;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.JAVA_PACKAGE;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.JAVA_PACKAGE_FRAGMENT_ROOT;
 
@@ -335,7 +335,7 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 	}
 
 	private boolean hasInterfacesToGenerate() {
-		List<BusinessInterface> businessInterfaces = (List<BusinessInterface>) model.getProperty(BUSINESS_INTERFACES);
+		List<BusinessInterface> businessInterfaces = (List<BusinessInterface>) model.getProperty(INTERFACES);
 		boolean remoteHome = model.getBooleanProperty(REMOTE_HOME);
 		boolean localHome = model.getBooleanProperty(LOCAL_HOME);
 		return businessInterfaces.size() > 0 || remoteHome || localHome;

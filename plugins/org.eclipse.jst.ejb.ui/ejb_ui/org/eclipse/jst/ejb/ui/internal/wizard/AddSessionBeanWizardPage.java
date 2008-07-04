@@ -22,15 +22,16 @@ import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassD
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_COMPONENT_INTERFACE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_HOME;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_HOME_INTERFACE;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import org.eclipse.jdt.internal.ui.preferences.ScrolledPageContent;
 import org.eclipse.jface.resource.JFaceResources;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface;
 import org.eclipse.swt.SWT;
@@ -51,7 +52,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
-	
+
 	private Text ejbNameText;
 	private Text mappedNameText;
 	private Combo transactionTypeCombo;
@@ -59,8 +60,7 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 	private Session2xInterfacesTable remoteIntfTable;
 
 	public AddSessionBeanWizardPage(IDataModel model, String pageName) {
-		super(model, pageName,
-				IEjbWizardConstants.ADD_SESSION_BEAN_WIZARD_PAGE_DESC,
+		super(model, pageName, IEjbWizardConstants.ADD_SESSION_BEAN_WIZARD_PAGE_DESC,
 				IEjbWizardConstants.ADD_SESSION_BEAN_WIZARD_PAGE_TITLE);
 	}
 
@@ -93,7 +93,7 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 		transactionTypeLabel.setText(EJBUIMessages.TRANSACTION_TYPE);
 		transactionTypeCombo = new Combo(composite, SWT.None | SWT.READ_ONLY);
 		transactionTypeCombo.setLayoutData(data);
-		
+
 		DataModelPropertyDescriptor[] descriptors = model.getValidPropertyDescriptors(TRANSACTION_TYPE);
 		for (DataModelPropertyDescriptor descriptor : descriptors) {
 			transactionTypeCombo.add(descriptor.getPropertyDescription());
@@ -101,7 +101,6 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 
 		transactionTypeCombo.select(0);
 		synchHelper.synchCombo(transactionTypeCombo, TRANSACTION_TYPE, null);
-		
 
 		addSeperator(composite, 3);
 		createInterfaceControls(composite);
@@ -112,15 +111,12 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 	}
 
 	private ExpandableComposite createExpandableComposite(Composite composite) {
-		ExpandableComposite excomposite = new ExpandableComposite(composite,
-				SWT.NONE, ExpandableComposite.TWISTIE
-						| ExpandableComposite.CLIENT_INDENT);
+		ExpandableComposite excomposite = new ExpandableComposite(composite, SWT.NONE, ExpandableComposite.TWISTIE
+				| ExpandableComposite.CLIENT_INDENT);
 		excomposite.setText(EJBUIMessages.HOMECOMPONENTINTERFACE);
 		excomposite.setExpanded(false);
-		excomposite.setFont(JFaceResources.getFontRegistry().getBold(
-				JFaceResources.DIALOG_FONT));
-		excomposite.setLayoutData(new GridData(GridData.FILL, GridData.FILL,
-				true, false, 3, 1));
+		excomposite.setFont(JFaceResources.getFontRegistry().getBold(JFaceResources.DIALOG_FONT));
+		excomposite.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, false, 3, 1));
 		excomposite.addExpansionListener(new ExpansionAdapter() {
 			public void expansionStateChanged(ExpansionEvent e) {
 				expandedStateChanged((ExpandableComposite) e.getSource());
@@ -132,18 +128,16 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 		othersComposite.setLayout(new GridLayout(2, false));
 		final Button local2xCheck = new Button(othersComposite, SWT.CHECK | SWT.TOP);
 		local2xCheck.setText(EJBUIMessages.LOCAL_BUSINESS_INTERFACE);
-		
+
 		synchHelper.synchCheckbox(local2xCheck, LOCAL_HOME, null);
-		
+
 		Session2xInterfacesTableRow localRow = new Session2xInterfacesTableRow(
-				EJBUIMessages.LOCAL_COMPONENT_INTERFACE_CODE, 
-				model.getStringProperty(LOCAL_COMPONENT_INTERFACE), 
+				EJBUIMessages.LOCAL_COMPONENT_INTERFACE_CODE, model.getStringProperty(LOCAL_COMPONENT_INTERFACE),
 				LOCAL_COMPONENT_INTERFACE);
 		Session2xInterfacesTableRow localRowHome = new Session2xInterfacesTableRow(
-				EJBUIMessages.LOCAL_HOME_INTERFACE_CODE, 
-				model.getStringProperty(LOCAL_HOME_INTERFACE), 
+				EJBUIMessages.LOCAL_HOME_INTERFACE_CODE, model.getStringProperty(LOCAL_HOME_INTERFACE),
 				LOCAL_HOME_INTERFACE);
-		Session2xInterfacesTableRow[] localTableRows = {localRow, localRowHome};
+		Session2xInterfacesTableRow[] localTableRows = { localRow, localRowHome };
 		localIntfTable = new Session2xInterfacesTable(othersComposite, new String[0], model, localTableRows);
 		localIntfTable.getTable().setEnabled(model.getBooleanProperty(LOCAL_HOME));
 		GridData gridData = new GridData();
@@ -152,47 +146,44 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 		GridData gridData1 = new GridData();
 		gridData.verticalAlignment = SWT.BEGINNING;
 		gridData.verticalSpan = 1;
-		local2xCheck.addSelectionListener(new SelectionListener(){
+		local2xCheck.addSelectionListener(new SelectionListener() {
 
 			public void widgetDefaultSelected(SelectionEvent e) {
-				
+
 			}
 
 			public void widgetSelected(SelectionEvent e) {
 				localIntfTable.getTable().setEnabled(local2xCheck.getSelection());
 			}
-			
+
 		});
-		
-		
+
 		final Button remote2xCheck = new Button(othersComposite, SWT.CHECK);
 		remote2xCheck.setText(EJBUIMessages.REMOTE_BUSINESS_INTERFACE);
-		
+
 		synchHelper.synchCheckbox(remote2xCheck, REMOTE_HOME, null);
 
 		Session2xInterfacesTableRow remoteRow = new Session2xInterfacesTableRow(
-				EJBUIMessages.REMOTE_COMPONENT_INTERFACE_CODE, 
-				model.getStringProperty(REMOTE_COMPONENT_INTERFACE), 
+				EJBUIMessages.REMOTE_COMPONENT_INTERFACE_CODE, model.getStringProperty(REMOTE_COMPONENT_INTERFACE),
 				REMOTE_COMPONENT_INTERFACE);
 		Session2xInterfacesTableRow remoteRowHome = new Session2xInterfacesTableRow(
-				EJBUIMessages.REMOTE_HOME_INTERFACE_CODE, 
-				model.getStringProperty(REMOTE_HOME_INTERFACE), 
+				EJBUIMessages.REMOTE_HOME_INTERFACE_CODE, model.getStringProperty(REMOTE_HOME_INTERFACE),
 				REMOTE_HOME_INTERFACE);
-		Session2xInterfacesTableRow[] remoteTableRows = {remoteRow, remoteRowHome};
+		Session2xInterfacesTableRow[] remoteTableRows = { remoteRow, remoteRowHome };
 		remoteIntfTable = new Session2xInterfacesTable(othersComposite, new String[0], model, remoteTableRows);
 		remoteIntfTable.getTable().setEnabled(model.getBooleanProperty(REMOTE_HOME));
-		remote2xCheck.addSelectionListener(new SelectionListener(){
+		remote2xCheck.addSelectionListener(new SelectionListener() {
 
 			public void widgetDefaultSelected(SelectionEvent e) {
-				
+
 			}
 
 			public void widgetSelected(SelectionEvent e) {
 				remoteIntfTable.getTable().setEnabled(remote2xCheck.getSelection());
 			}
-			
+
 		});
-		
+
 		return excomposite;
 	}
 
@@ -203,68 +194,46 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 	}
 
 	@Override
-	protected void createInterfaceControls(Composite parent) {
-		Label bussinessInterfaces = new Label(parent, SWT.TOP);
-		bussinessInterfaces.setText(EJBUIMessages.BUSSINESS_INTERFACE);
-		bussinessInterfaces.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING | GridData.VERTICAL_ALIGN_BEGINNING));
+	protected IStructuredContentProvider getInterfaceContentProvider() {
+		return new BusinessInterfaceContentProvider();
+	}
 
-		Composite composite = new Composite(parent, SWT.NULL);
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 2;
-		composite.setLayout(layout);
-		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
+	@Override
+	protected ILabelProvider getInterfaceLabelProvider() {
+		return new BusinessInterfaceLabelProvider();
+	}
 
-		interfaceViewer = new TableViewer(composite, SWT.BORDER);
-		interfaceViewer.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
-		interfaceViewer.setContentProvider(new BusinessInterfaceContentProvider());
-		interfaceViewer.setLabelProvider(new BusinessInterfaceLabelProvider());
-		interfaceViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-			public void selectionChanged(SelectionChangedEvent event) {
-				IStructuredSelection selection = (IStructuredSelection) interfaceViewer.getSelection();
-				BusinessInterface element = (BusinessInterface) selection.getFirstElement();
-				removeButton.setEnabled(element != null);
-			}
-		});
+	@Override
+	protected void handleInterfaceAddButtonSelected() {
+		AddButtonListener listener = new AddButtonListener(this, model);
+		listener.widgetSelected(null);
+	}
+ 	
+
+	@Override
+	protected void handleInterfaceRemoveButtonSelected() {
+		IStructuredSelection selection = (IStructuredSelection) interfaceViewer.getSelection();
+		BusinessInterface element = (BusinessInterface) selection.getFirstElement();
+		removeInterfaceFromModel(element);
 		updateBusinessInterfacesList();
+		if (element.getJavaType() == null) {
+			if (element.isLocal())
+				model.setBooleanProperty(LOCAL, false);
+			else
+				model.setBooleanProperty(REMOTE, false);
+		}
+	}
 
-		Composite buttonCompo = new Composite(composite, SWT.NULL);
-		layout = new GridLayout();
-		layout.marginHeight = 0;
-		buttonCompo.setLayout(layout);
-		buttonCompo.setLayoutData(new GridData(GridData.FILL_VERTICAL | GridData.VERTICAL_ALIGN_BEGINNING));
-		
-		addButton = new Button(buttonCompo, SWT.PUSH);
-		addButton.setText(EJBUIMessages.ADD_INTERFACES);
-		addButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
-		addButton.addSelectionListener(new AddButtonListener(this, model));
-		
-		removeButton = new Button(buttonCompo, SWT.PUSH);
-		removeButton.setText(EJBUIMessages.REMOVE_INTERFACES);
-		removeButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
-		removeButton.addSelectionListener(new SelectionListener() {
-			public void widgetSelected(SelectionEvent e) {
-				IStructuredSelection selection = (IStructuredSelection) interfaceViewer
-						.getSelection();
-				BusinessInterface element = (BusinessInterface) selection
-						.getFirstElement();
-				interfaceViewer.remove(element);
-				if (element.getJavaType() == null) {
-					if (element.isLocal())
-						model.setBooleanProperty(LOCAL, false);
-					else
-						model.setBooleanProperty(REMOTE, false);
-				}
-			}
-
-			public void widgetDefaultSelected(SelectionEvent e) {
-
-			}
-		});
-		removeButton.setEnabled(false);
+	private void removeInterfaceFromModel(BusinessInterface element) {
+		Collection<BusinessInterface> biList = (Collection<BusinessInterface>) model
+				.getProperty(INTERFACES);
+		biList.remove(element);
+		model.setProperty(INTERFACES, biList);
+		model.setProperty(BUSINESS_INTERFACES, biList);
 	}
 
 	public void updateBusinessInterfacesList() {
-		Object biList = getDataModel().getProperty(BUSINESS_INTERFACES);
+		Object biList = getDataModel().getProperty(INTERFACES);
 		interfaceViewer.setInput(biList);
 	}
 	
@@ -325,19 +294,14 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 		}
 	}
 
-//	private static GridData gdhspan(int span) {
-//		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-//		gd.horizontalSpan = span;
-//		return gd;
-//	}
-
 	protected String[] getValidationPropertyNames() {
-		return new String[] { LOCAL_HOME_INTERFACE, REMOTE_HOME_INTERFACE, LOCAL_COMPONENT_INTERFACE, REMOTE_COMPONENT_INTERFACE, EJB_NAME };
+		return new String[] { LOCAL_HOME_INTERFACE, REMOTE_HOME_INTERFACE, LOCAL_COMPONENT_INTERFACE,
+				REMOTE_COMPONENT_INTERFACE, EJB_NAME };
 	}
-	
+
 	@Override
 	protected boolean showValidationErrorsOnEnter() {
-	   return true;
+		return true;
 	}
-	
+
 }

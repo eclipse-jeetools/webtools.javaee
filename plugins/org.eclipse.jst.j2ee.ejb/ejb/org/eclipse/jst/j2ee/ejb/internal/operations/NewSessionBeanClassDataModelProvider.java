@@ -24,6 +24,7 @@ import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassD
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_HOME_INTERFACE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.STATE_TYPE;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CLASS_NAME;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.JAVA_PACKAGE;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME;
 
@@ -125,7 +126,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 			return Boolean.TRUE;
 		else if (propertyName.equals(STATE_TYPE))
 			return StateType.STATELESS.toString(); 
-		else if (propertyName.equals(BUSINESS_INTERFACES)) {
+		else if (propertyName.equals(INTERFACES)) {
 			List<BusinessInterface> listResult = new ArrayList<BusinessInterface>();
 			String className = getStringProperty(QUALIFIED_CLASS_NAME);
 			if ((Boolean) getProperty(REMOTE) && className.length() > 0) {
@@ -191,16 +192,16 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		boolean result = super.propertySet(propertyName, propertyValue);
 
 		if (propertyName.equals(REMOTE)) {
-			if (!getDataModel().isPropertySet(BUSINESS_INTERFACES)) {
-				getDataModel().notifyPropertyChange(BUSINESS_INTERFACES, IDataModel.DEFAULT_CHG);
+			if (!getDataModel().isPropertySet(INTERFACES)) {
+				getDataModel().notifyPropertyChange(INTERFACES, IDataModel.DEFAULT_CHG);
 				getDataModel().notifyPropertyChange(REMOTE_BUSINESS_INTERFACE, IDataModel.VALUE_CHG);
 			}else{
 				updateBusinessInterfaces(REMOTE);
 			}
 
 		}
-		if (propertyName.equals(LOCAL)  && !getDataModel().isPropertySet(BUSINESS_INTERFACES)) {
-			getDataModel().notifyPropertyChange(BUSINESS_INTERFACES, IDataModel.DEFAULT_CHG);
+		if (propertyName.equals(LOCAL)  && !getDataModel().isPropertySet(INTERFACES)) {
+			getDataModel().notifyPropertyChange(INTERFACES, IDataModel.DEFAULT_CHG);
 			getDataModel().notifyPropertyChange(LOCAL_BUSINESS_INTERFACE, IDataModel.VALUE_CHG);
 			// TODO - ccc- shouldn't there be an updateBusinessInterfaces(LOCAL) here?
 		}
@@ -260,7 +261,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 	}
 
 	private void updateBusinessInterfaces(String propertyName) {
-		List<BusinessInterface> list = (List<BusinessInterface>) getProperty(BUSINESS_INTERFACES);
+		List<BusinessInterface> list = (List<BusinessInterface>) getProperty(INTERFACES);
 		if (propertyName.equals(REMOTE)) {
 			if (getBooleanProperty(propertyName)) {
 				// should be add remote property
@@ -284,7 +285,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 	}
 
 	private BusinessInterface getRemoteProperty() {
-		List<BusinessInterface> businessInterfaces = (List<BusinessInterface>) getProperty(BUSINESS_INTERFACES);
+		List<BusinessInterface> businessInterfaces = (List<BusinessInterface>) getProperty(INTERFACES);
 		for (BusinessInterface iface : businessInterfaces) {
 			if ((iface.getJavaType() == null) && (iface.isRemote())) {
 				return iface;
@@ -293,7 +294,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		return null;
 	}
 	private BusinessInterface getLocalProperty() {
-		List<BusinessInterface> businessInterfaces = (List<BusinessInterface>) getProperty(BUSINESS_INTERFACES);
+		List<BusinessInterface> businessInterfaces = (List<BusinessInterface>) getProperty(INTERFACES);
 		for (BusinessInterface iface : businessInterfaces) {
 			if ((iface.getJavaType() == null) && (iface.isLocal())) {
 				return iface;

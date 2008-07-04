@@ -12,7 +12,7 @@ package org.eclipse.jst.j2ee.ejb.internal.operations;
 
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.EJB_NAME;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.MAPPED_NAME;
-import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.BUSINESS_INTERFACES;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_HOME;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_HOME;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.STATE_TYPE;
@@ -118,7 +118,7 @@ public class CreateSessionBeanTemplateModel extends
 	
 	@SuppressWarnings("unchecked")
 	public List<BusinessInterface> getBusinessInterfaces() {
-		return (List<BusinessInterface>) dataModel.getProperty(BUSINESS_INTERFACES);
+		return (List<BusinessInterface>) dataModel.getProperty(INTERFACES);
 	}
 	
 	public List<BusinessInterface> getExistingLocalBusinessInterfaces() {
