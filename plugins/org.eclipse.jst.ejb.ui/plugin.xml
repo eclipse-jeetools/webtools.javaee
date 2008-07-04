@@ -351,6 +351,13 @@
             </objectClass>
          </visibility>
       </objectContribution>
+   </extension>
+   <extension
+         point="org.eclipse.wst.common.project.facet.ui.images">
+      <image
+            facet="jst.ejb"
+            path="icons/EjbModule.gif">
+      </image>
    </extension>  
    
 
