@@ -52,6 +52,7 @@ import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.ejb.EnterpriseBeans;
 import org.eclipse.jst.javaee.ejb.SessionBean;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
@@ -192,7 +193,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		if (propertyName.equals(REMOTE)) {
 			if (!getDataModel().isPropertySet(BUSINESS_INTERFACES)) {
 				getDataModel().notifyPropertyChange(BUSINESS_INTERFACES, IDataModel.DEFAULT_CHG);
-				getDataModel().notifyPropertyChange(REMOTE_BUSINESS_INTERFACE, IDataModel.DEFAULT_CHG);
+				getDataModel().notifyPropertyChange(REMOTE_BUSINESS_INTERFACE, IDataModel.VALUE_CHG);
 			}else{
 				updateBusinessInterfaces(REMOTE);
 			}
@@ -200,7 +201,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		}
 		if (propertyName.equals(LOCAL)  && !getDataModel().isPropertySet(BUSINESS_INTERFACES)) {
 			getDataModel().notifyPropertyChange(BUSINESS_INTERFACES, IDataModel.DEFAULT_CHG);
-			getDataModel().notifyPropertyChange(LOCAL_BUSINESS_INTERFACE, IDataModel.DEFAULT_CHG);
+			getDataModel().notifyPropertyChange(LOCAL_BUSINESS_INTERFACE, IDataModel.VALUE_CHG);
 			// TODO - ccc- shouldn't there be an updateBusinessInterfaces(LOCAL) here?
 		}
 		if (REMOTE_BUSINESS_INTERFACE.equals(propertyName))
@@ -303,35 +304,42 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 
 	@Override
 	public IStatus validate(String propertyName) {
-
-		IStatus currentStatus = null;
-		if (LOCAL_HOME_INTERFACE.equals(propertyName) || REMOTE_HOME_INTERFACE.equals(propertyName)
-				|| LOCAL_BUSINESS_INTERFACE.equals(propertyName) || REMOTE_BUSINESS_INTERFACE.equals(propertyName)
-				|| LOCAL_COMPONENT_INTERFACE.equals(propertyName) || REMOTE_COMPONENT_INTERFACE.equals(propertyName) || EJB_NAME.equals(propertyName)) {
-			String value = getStringProperty(propertyName);
-			currentStatus = validateJavaTypeName(value);
-			if (!currentStatus.isOK()) {
-				return currentStatus;
+		IStatus status = null;
+		
+		if (EJB_NAME.equals(propertyName)){
+			return validateEjbName();
+		} else if (LOCAL_BUSINESS_INTERFACE.equals(propertyName)) {
+			if (model.getBooleanProperty(LOCAL)) {
+				return validateEjbInterface(getStringProperty(propertyName));
 			}
-			if (EJB_NAME.equals(propertyName)){
-				currentStatus = validateEjbName();
-				if (!currentStatus.isOK()) {
-					return currentStatus;
-				}
+		} else if (REMOTE_BUSINESS_INTERFACE.equals(propertyName)) {
+			if (model.getBooleanProperty(REMOTE)) {
+				return validateEjbInterface(getStringProperty(propertyName));
 			}
-			if (LOCAL_COMPONENT_INTERFACE.equals(propertyName) || REMOTE_COMPONENT_INTERFACE.equals(propertyName)
-					|| LOCAL_HOME_INTERFACE.equals(propertyName) || REMOTE_HOME_INTERFACE.equals(propertyName)){
-				currentStatus = validateComponentHomeInterfaces();
-				if (!currentStatus.isOK()) {
-					return currentStatus;
-				}
-			}
-			
+		} else if (LOCAL_COMPONENT_INTERFACE.equals(propertyName) || 
+				REMOTE_COMPONENT_INTERFACE.equals(propertyName) || 
+				LOCAL_HOME_INTERFACE.equals(propertyName) || 
+				REMOTE_HOME_INTERFACE.equals(propertyName)) {
+			return validateComponentHomeInterfaces();
 		}
+			
 		return super.validate(propertyName);
+	}
+	
+	protected IStatus validateEjbInterface(String fullyQualifiedName) {
+		IStatus status = validateJavaTypeName(fullyQualifiedName);
+		if (status.getSeverity() != IStatus.ERROR) {
+			IStatus existsStatus = canCreateTypeInClasspath(
+					Signature.getQualifier(fullyQualifiedName), 
+					Signature.getSimpleName(fullyQualifiedName));
+			if (existsStatus.matches(IStatus.ERROR | IStatus.WARNING))
+				status = existsStatus;
+		}
+		return status;
 	}
 
 	private IStatus validateEjbName() {
+		// check if an EJB with the same name already exists
 		String projectName = getStringProperty(PROJECT_NAME);
 		if (projectName != null && projectName.length() > 0) {
 			IModelProvider provider = ModelProviderManager.getModelProvider(ResourcesPlugin.getWorkspace().getRoot().getProject(projectName));
@@ -343,7 +351,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 				for (Object object : sessionBeans) {
 					SessionBean session = (SessionBean) object;
 					if (session.getEjbName().equals(getDataModel().getStringProperty(EJB_NAME))){
-						return new Status(IStatus.ERROR, EjbPlugin.PLUGIN_ID, EJBCreationResourceHandler.ERR_BEAN_ALREADY_EXISTS);
+						return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.ERR_BEAN_ALREADY_EXISTS);
 					}
 				}
 			}
@@ -358,18 +366,44 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 			IJavaProject javaProject = JavaCore.create(project);
 			try {
-				if (getBooleanProperty(REMOTE)){
-					result = validate2xInterfaces(javaProject, getStringProperty(REMOTE_HOME_INTERFACE), getStringProperty(REMOTE_COMPONENT_INTERFACE), false);
+				if (getBooleanProperty(REMOTE_HOME)) {
+					String remoteHomeInterface = getStringProperty(REMOTE_HOME_INTERFACE);
+					String remoteComponentInterface = getStringProperty(REMOTE_COMPONENT_INTERFACE);
+					result = validate2xInterfaces(javaProject, remoteHomeInterface, remoteComponentInterface, false);
 					if (!result.isOK()){
 						return result;
-					}	
+					}
+					if (result.isOK()) {
+						IType findType = javaProject.findType(remoteHomeInterface);
+						if (findType == null || !findType.exists()) {
+							result = validateEjbInterface(remoteHomeInterface);
+						}
+						findType = javaProject.findType(remoteComponentInterface);
+						if ((findType == null || !findType.exists()) && result.isOK()) {
+							result = validateEjbInterface(remoteComponentInterface);
+						}
+					}
 				}
-	
-				if (getBooleanProperty(LOCAL)){
-					result = validate2xInterfaces(javaProject, getStringProperty(LOCAL_HOME_INTERFACE), getStringProperty(LOCAL_COMPONENT_INTERFACE), true);
+
+				if (getBooleanProperty(LOCAL_HOME)) {
+					String localHomeInterface = getStringProperty(LOCAL_HOME_INTERFACE);
+					String localComponentInterface = getStringProperty(LOCAL_COMPONENT_INTERFACE);
+					result = validate2xInterfaces(javaProject, localHomeInterface, localComponentInterface, true);
+					if (result.isOK()) {
+						IType findType = javaProject.findType(localHomeInterface);
+						if (findType == null || !findType.exists()) {
+							result = validateEjbInterface(localHomeInterface);
+						}
+						findType = javaProject.findType(localComponentInterface);
+						if ((findType == null || !findType.exists()) && result.isOK()) {
+							result = validateEjbInterface(localComponentInterface);
+						}
+					}
 				}
 			} catch (JavaModelException e) {
-				return new Status(IStatus.ERROR, EjbPlugin.PLUGIN_ID, EJBCreationResourceHandler.ERR_COULD_NOT_RESOLVE_INTERFACE + e.getMessage());
+				return WTPCommonPlugin.createErrorStatus(NLS.bind(
+						EJBCreationResourceHandler.ERR_COULD_NOT_RESOLVE_INTERFACE, 
+						new Object[] { e.getMessage() }));
 			}
 		}
 		return result;
@@ -382,14 +416,14 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 
 		if (home != null && 
 				(!home.isInterface() || 
-						!hasRequiredElementInSignature(home.getSuperInterfaceTypeSignatures(), new String[] { isLocal ? "EjbLocalHome" : "EjbHome" }))) {
+						!hasRequiredElementInSignature(home.getSuperInterfaceTypeSignatures(), new String[] { isLocal ? "EJBLocalHome" : "EJBHome" }))) {
 			String msg = (isLocal) ? EJBCreationResourceHandler.ERR_LOCAL_HOME_NOT_INTERFACE : EJBCreationResourceHandler.ERR_REMOTE_HOME_NOT_INTERFACE;
 			return new Status(IStatus.ERROR, EjbPlugin.PLUGIN_ID, msg);
 		}
 
 		if (component != null && 
 				(!component.isInterface() 
-						|| !hasRequiredElementInSignature(component.getSuperInterfaceTypeSignatures(), new String[] { isLocal ? "EjbLocalObject" : "EjbObject" }))) {
+						|| !hasRequiredElementInSignature(component.getSuperInterfaceTypeSignatures(), new String[] { isLocal ? "EJBLocalObject" : "EJBObject" }))) {
 			String msg = (isLocal) ? EJBCreationResourceHandler.ERR_LOCAL_COMPONENT_NOT_INTERFACE : EJBCreationResourceHandler.ERR_REMOTE_COMPONENT_NOT_INTERFACE;
 			return new Status(IStatus.ERROR, EjbPlugin.PLUGIN_ID, msg);
 		}
@@ -436,7 +470,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 					}
 					break;
 				}
-				
+
 			}
 
 		}
@@ -455,4 +489,5 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		}
 		return WTPCommonPlugin.OK_STATUS;
 	}
+
 }
