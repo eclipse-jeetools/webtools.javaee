@@ -42,6 +42,7 @@ import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveFactory;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualContainer;
 
 public class ConnectorComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter {
 
@@ -284,4 +285,10 @@ public class ConnectorComponentArchiveLoadAdapter extends ComponentArchiveLoadAd
 	protected IPath getDefaultModelObjectPath() {
 		return new Path(J2EEConstants.RAR_DD_URI);
 	}
+	
+	protected boolean shouldInclude(IVirtualContainer vContainer) {
+		boolean isDDFolder = vContainer.getProjectRelativePath().isPrefixOf(knownDD.getProjectRelativePath());
+		return isDDFolder || !inJavaSrc(vContainer);
+	}
+	
 }

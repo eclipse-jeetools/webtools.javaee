@@ -514,7 +514,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 	 *            Current Java src roots.
 	 * @return True if contained in a Java src root, false otherwise.
 	 */
-	private boolean inJavaSrc(final IVirtualResource virtualResource) {
+	protected boolean inJavaSrc(final IVirtualResource virtualResource) {
 		if (sourceRoots.length == 0) {
 			return false;
 		}
