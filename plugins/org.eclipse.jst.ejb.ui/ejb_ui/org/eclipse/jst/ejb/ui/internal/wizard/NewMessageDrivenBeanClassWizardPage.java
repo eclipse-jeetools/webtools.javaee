@@ -14,7 +14,6 @@ import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanCla
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewMessageDrivenBeanClassDataModelProperties.DESTINATION_TYPE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewMessageDrivenBeanClassDataModelProperties.JMS;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -28,11 +27,6 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class NewMessageDrivenBeanClassWizardPage extends NewEnterpriseBeanClassWizardPage {
-
-	@Override
-	protected IProject getExtendedSelectedProject(Object selection) {
-		return super.getExtendedSelectedProject(selection);
-	}
 
 	private Label destinationLabel;
 	private Combo destinationTypeCombo;

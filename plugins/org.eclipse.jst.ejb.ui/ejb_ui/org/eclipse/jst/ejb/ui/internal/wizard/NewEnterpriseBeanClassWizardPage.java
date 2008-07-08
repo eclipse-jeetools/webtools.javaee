@@ -11,9 +11,13 @@
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
+import org.eclipse.jst.jee.ui.internal.navigator.AbstractDDNode;
+import org.eclipse.jst.jee.ui.internal.navigator.ejb.GroupEJBProvider;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -38,6 +42,19 @@ public class NewEnterpriseBeanClassWizardPage extends NewJavaClassWizardPage {
 		boolean result = super.isProjectValid(project);
 		result = result && J2EEProjectUtilities.isJEEProject(project);
 		return result;
+	}
+	
+	@Override
+	protected IProject getExtendedSelectedProject(Object selection) {
+		if (selection instanceof GroupEJBProvider) {
+			String projectName = ((GroupEJBProvider) selection).getProjectName();
+			return ProjectUtilities.getProject(projectName);
+		} else if (selection instanceof AbstractDDNode) {
+			Object adapterNode = ((AbstractDDNode) selection).getAdapterNode();
+			return ProjectUtilities.getProject((EObject)adapterNode);
+		}
+		
+		return super.getExtendedSelectedProject(selection);
 	}
 	
 }
