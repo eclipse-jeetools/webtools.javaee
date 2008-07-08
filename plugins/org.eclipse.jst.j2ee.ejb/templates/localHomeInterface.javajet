@@ -20,6 +20,6 @@ import <%= model.getLocalComponentPackage()%>.<%= model.getLocalComponentClassSi
 
 public interface <%=model.getLocalHomeClassSimpleName()%> extends EJBLocalHome {
 
-	public <%= model.getLocalComponentClassSimpleName() %> create() throws CreateException, RemoteException;
+	public <%= model.getLocalComponentClassSimpleName() %> create() throws CreateException;
 	
 }
