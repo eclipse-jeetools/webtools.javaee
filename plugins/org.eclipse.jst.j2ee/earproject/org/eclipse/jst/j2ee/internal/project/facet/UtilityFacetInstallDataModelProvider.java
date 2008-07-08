@@ -10,9 +10,17 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.project.facet;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.project.facet.core.JavaFacet;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.project.facet.IUtilityFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEModuleFacetInstallDataModelProvider;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 public class UtilityFacetInstallDataModelProvider extends J2EEModuleFacetInstallDataModelProvider implements IUtilityFacetInstallDataModelProperties {
@@ -27,6 +35,33 @@ public class UtilityFacetInstallDataModelProvider extends J2EEModuleFacetInstall
 		} else if (propertyName.equals(MODULE_URI)) {
 			String projectName = model.getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
 			return projectName + IJ2EEModuleConstants.JAR_EXT;
+		}
+		else if( propertyName.equals( CONFIG_FOLDER ) )
+		{
+		    final IFacetedProjectWorkingCopy fpjwc 
+		        = (IFacetedProjectWorkingCopy) getProperty( FACETED_PROJECT_WORKING_COPY );
+		    
+		    final IFacetedProject fpj = fpjwc.getFacetedProject();
+		    
+		    if( fpj.hasProjectFacet( JavaFacet.FACET ) )
+		    {
+		        try
+		        {
+    		        final IJavaProject jpj = JavaCore.create( fpj.getProject() );
+    		        
+    		        for( IClasspathEntry cpe : jpj.getRawClasspath() )
+    		        {
+    		            if( cpe.getEntryKind() == IClasspathEntry.CPE_SOURCE )
+    		            {
+    		                return cpe.getPath().removeFirstSegments( 1 ).toPortableString();
+    		            }
+    		        }
+		        }
+		        catch( CoreException e )
+		        {
+		            Logger.getLogger().logError(e);
+		        }
+		    }
 		}
 		return super.getDefaultProperty(propertyName);
 	}
