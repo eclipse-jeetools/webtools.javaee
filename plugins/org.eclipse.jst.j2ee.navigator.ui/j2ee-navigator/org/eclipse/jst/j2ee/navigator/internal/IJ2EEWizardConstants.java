@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.navigator.internal;
 
-import org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentExportWizard;
-import org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentImportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.AppClientComponentExportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.AppClientComponentImportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.EARComponentExportWizard;
@@ -49,7 +47,7 @@ public interface IJ2EEWizardConstants {
 
 	String IMPORT_CONNECTOR_WIZARD_ID = ConnectorComponentImportWizard.class.getName();
 
-	String IMPORT_ENTERPRISE_BEAN_WIZARD_ID = EJBComponentImportWizard.class.getName();
+	String IMPORT_ENTERPRISE_BEAN_WIZARD_ID = "org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentImportWizard"; //$NON-NLS-1$
 
 	String IMPORT_WEB_MODULE_WIZARD_ID = "org.eclipse.jst.servlet.ui.internal.wizard.WebComponentImportWizard"; //$NON-NLS-1$
 	
@@ -63,7 +61,7 @@ public interface IJ2EEWizardConstants {
 
 	String EXPORT_CONNECTOR_WIZARD_ID = ConnectorComponentExportWizard.class.getName();
 
-	String EXPORT_ENTERPRISE_BEAN_WIZARD_ID = EJBComponentExportWizard.class.getName();
+	String EXPORT_ENTERPRISE_BEAN_WIZARD_ID = "org.eclipse.jst.ejb.ui.internal.wizardEJBComponentExportWizard"; //$NON-NLS-1$
 
 	
 }
