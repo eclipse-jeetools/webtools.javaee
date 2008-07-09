@@ -419,6 +419,22 @@
               <instanceof
                     value="org.eclipse.jst.jee.ui.internal.navigator.ejb.GroupEjbSession">
               </instanceof>
+              <instanceof
+                    value="org.eclipse.jst.javaee.ejb.SessionBean">
+              </instanceof>
+              <instanceof
+                    value="org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanInterfaceNode">
+              </instanceof>
+              <adapt
+                    type="org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanNode">
+                 <or>
+                    <test
+                          forcePluginActivation="true"
+                          property="org.eclipse.jst.jee.ui.beanType"
+                          value="isSessionBean">
+                    </test>
+                 </or>
+              </adapt>
            </or>
         </enablement>
      </commonWizard>
@@ -434,6 +450,25 @@
               <instanceof
                     value="org.eclipse.jst.jee.ui.internal.navigator.ejb.GroupEjbMessageDriven">
               </instanceof>
+              <instanceof
+                    value="org.eclipse.jst.javaee.ejb.MessageDrivenBean">
+              </instanceof>
+              <instanceof
+                    value="org.eclipse.jst.jee.ui.internal.navigator.ejb.ActivationConfigProperties">
+              </instanceof>
+              <instanceof
+                    value="org.eclipse.jst.javaee.ejb.ActivationConfigProperty">
+              </instanceof>
+              <adapt
+                    type="org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanNode">
+                 <or>
+                    <test
+                          forcePluginActivation="true"
+                          property="org.eclipse.jst.jee.ui.beanType"
+                          value="isMessageDrivenBean">
+                    </test>
+                 </or>
+              </adapt>
            </or></enablement>
      </commonWizard>
      
@@ -961,6 +996,16 @@
                %JAVA_EE_5_PROBLEM_MARKER_RESOURCE_DECORATOR.DESCRIPTION
             </description>
       </decorator>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanNodePropertyTester"
+            id="org.eclipse.jst.jee.ui.BeanNodePropertyTester"
+            namespace="org.eclipse.jst.jee.ui"
+            properties="beanType"
+            type="org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanNode">
+      </propertyTester>
    </extension>  
       
       
