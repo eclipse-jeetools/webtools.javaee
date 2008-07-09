@@ -36,7 +36,8 @@ Require-Bundle: org.eclipse.ui;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.ui.navigator.resources;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.jst.server.core;bundle-version="[1.0.102,2.0.0)",
  org.eclipse.jst.common.frameworks;bundle-version="[1.1.0,2.0.0)",
- org.eclipse.jst.j2ee.jca;bundle-version="[1.1.0,2.0.0)"
+ org.eclipse.jst.j2ee.jca;bundle-version="[1.1.0,2.0.0)",
+ org.eclipse.core.expressions;bundle-version="[3.4.0,4.0.0)"
 Eclipse-LazyStart: true
 Bundle-Localization: plugin
 Bundle-Vendor: %Bundle-Vendor.0
