@@ -89,17 +89,6 @@
       </attribute>
    </extension>
 
-	<extension
-        point="org.eclipse.ui.ide.resourceFilters">
-        <filter
-            pattern=".JETEmitters"
-            selected="true">
-        </filter>        
-        <filter
-            pattern="gen"
-            selected="true">
-        </filter>
-    </extension>
     
     
 
