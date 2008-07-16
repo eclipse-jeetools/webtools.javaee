@@ -727,7 +727,7 @@
                  value="org.eclipse.jst.jee.ui.internal.navigator.ear.ModulesNode">
            </instanceof>
            <instanceof
-                 value="org.eclipse.jst.jee.navigator.internal.BundledLibsNode">
+                 value="org.eclipse.jst.jee.ui.internal.navigator.ear.BundledLibsNode">
            </instanceof>
         </or>
      </triggerPoints>
@@ -735,9 +735,6 @@
         <or>
            <instanceof
                  value="java.io.File">
-           </instanceof>
-           <instanceof
-                 value="org.eclipse.jst.jee.ui.internal.navigator.ear.ModulesNode">
            </instanceof>
            <adapt
                  type="org.eclipse.core.resources.IProject">
@@ -774,6 +771,21 @@
                  </test>
               </or>
            </adapt>
+           <instanceof
+                 value="org.eclipse.jst.jee.ui.internal.navigator.ear.ModulesNode">
+           </instanceof>
+           <instanceof
+                 value="org.eclipse.core.internal.resources.File">
+           </instanceof>
+           <instanceof
+                 value="org.eclipse.jdt.internal.core.JarPackageFragmentRoot">
+           </instanceof>
+           <instanceof
+                 value="org.eclipse.core.internal.resources.Project">
+           </instanceof>
+           <instanceof
+                 value="org.eclipse.wst.common.componentcore.resources.IVirtualReference">
+           </instanceof>
         </or>
      </possibleChildren>
      <commonSorter
@@ -797,7 +809,10 @@
                     value="org.eclipse.jst.javaee.application.Application">
               </instanceof>
               <instanceof
-                    value="org.eclipse.jst.jee.ui.internal.navigator.ear.ModulesNode">
+                    value="org.eclipse.jst.jee.ui.internal.navigator.ear.AbstractEarNode">
+              </instanceof>
+              <instanceof
+                    value="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
               </instanceof>
            </or>
         </possibleDropTargets>
@@ -951,6 +966,9 @@
          <includes>
            <contentExtension pattern="org.eclipse.jst.jee.ui.*"/>
            <contentExtension pattern="org.eclipse.jst.jee.ui.filters.*"/>
+           <contentExtension
+                 pattern="org.eclipse.jst.jee.ui.internal.navigator.*">
+           </contentExtension>
          </includes>
       </viewerContentBinding>
    </extension>

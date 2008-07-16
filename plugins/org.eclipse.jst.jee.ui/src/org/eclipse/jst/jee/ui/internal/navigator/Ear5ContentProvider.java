@@ -23,7 +23,9 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.jee.ui.internal.Messages;
 import org.eclipse.jst.jee.ui.internal.navigator.ear.AbstractEarNode;
 import org.eclipse.jst.jee.ui.internal.navigator.ear.BundledNode;
@@ -45,7 +47,7 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
  */
 public class Ear5ContentProvider extends JEE5ContentProvider {
 
-	public final static String EAR_DEFAULT_LIB = "lib"; //$NON-NLS-1$
+	public final static String EAR_DEFAULT_LIB = "/lib"; //$NON-NLS-1$
 
 	private List getComponentReferencesAsList(List componentTypes, IVirtualComponent virtualComponent, IPath runtimePath) {
 		List components = new ArrayList();
@@ -118,14 +120,22 @@ public class Ear5ContentProvider extends JEE5ContentProvider {
 								IPath runtimePath = reference.getRuntimePath();
 
 								if (runtimePath != null && runtimePath.segment(0) != null && 
-										runtimePath.equals(new Path("/" + EAR_DEFAULT_LIB))) { //$NON-NLS-1$
+//										runtimePath.equals(new Path(EAR_DEFAULT_LIB))) {
+									!runtimePath.isRoot()) {
 									bundledLibs.add(libs.get(i));
 								} else {
 									appLibsInTheRoot.add(libs.get(i));
 								}
 							}
+							
+							String libDir = EAR_DEFAULT_LIB;
+							if (J2EEProjectUtilities.isJEEProject(project)) {
+								String oldLibDir = ((Application)ModelProviderManager.getModelProvider(project).getModelObject()).getLibraryDirectory();
+								if (oldLibDir == null) oldLibDir = EAR_DEFAULT_LIB;
+								libDir = oldLibDir;
+							}
 
-							BundledNode bundledLibsDirectoryNode = new BundledNode(project, bundledLibs, Messages.LIBRARY_DIRECTORY + ": /" + EAR_DEFAULT_LIB, null);							 //$NON-NLS-1$
+							BundledNode bundledLibsDirectoryNode = new BundledNode(project, bundledLibs, Messages.LIBRARY_DIRECTORY + ": " + libDir, null);							 //$NON-NLS-1$
 							appLibsInTheRoot.add(bundledLibsDirectoryNode);
 							BundledNode bundledLibsNode = new BundledNode(project, appLibsInTheRoot, Messages.BUNDLED_LIBRARIES_NODE, bundledLibsDirectoryNode);
 							
