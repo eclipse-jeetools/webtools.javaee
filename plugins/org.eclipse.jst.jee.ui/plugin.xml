@@ -25,7 +25,85 @@
              adaptableType="org.eclipse.jst.javaee.application.Application">
              <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
         </factory>
+        <factory
+              adaptableType="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider"
+              class="org.eclipse.jst.jee.ui.internal.deployables.EnterpriseDeployableArtifactAdapterFactory">
+           <adapter
+                 type="org.eclipse.debug.ui.actions.ILaunchable">
+           </adapter>
+        </factory>
 
+   </extension>
+   
+    <extension point="org.eclipse.core.runtime.adapters">
+         <factory
+             class="org.eclipse.jst.jee.ui.internal.deployables.WebDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.core.resources.IProject">
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
+        </factory>
+        <factory
+             class="org.eclipse.jst.jee.ui.internal.deployables.WebDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.jdt.core.ICompilationUnit">
+            <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
+        </factory>
+        <factory
+             class="org.eclipse.jst.jee.ui.internal.deployables.WebDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.core.resources.IFile">
+            <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
+       </factory>
+       <factory
+             class="org.eclipse.jst.jee.ui.internal.deployables.WebDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.jst.javaee.web.Servlet">
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
+       </factory>       
+       <factory
+             class="org.eclipse.jst.jee.ui.internal.deployables.WebDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.jst.javaee.web.WebApp">
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
+       </factory> 
+
+   </extension>  
+
+    <extension point="org.eclipse.core.runtime.adapters">
+         <factory
+             class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.core.resources.IProject">
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
+        </factory>
+        <factory
+             class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.jdt.core.ICompilationUnit">
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
+        </factory>
+        <factory
+             class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.core.resources.IFile">
+            <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
+       </factory>
+
+	   	<factory
+	    	class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+	     	adaptableType="org.eclipse.jst.javaee.ejb.EJBJar">
+	     	<adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
+		</factory>
+		
+		<factory
+			class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+	     	adaptableType="org.eclipse.jst.javaee.ejb.SessionBean">
+	     	<adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
+	   	</factory>
+	   		
+		<factory
+			class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+	     	adaptableType="org.eclipse.jst.javaee.ejb.MessageDrivenBean">
+	     	<adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
+	   	</factory>	
+	   	
+	   	<factory
+			class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+	     	adaptableType="org.eclipse.jst.javaee.ejb.EntityBean">
+	     	<adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
+	   	</factory>       
    </extension> 
    
    <extension
@@ -67,6 +145,18 @@
 							value="jst.ear:5.0" />
 			 </adapt>
            </with>
+         </enablement>
+      </moduleArtifactAdapter>
+      <moduleArtifactAdapter
+            class="org.eclipse.jst.jee.ui.internal.deployables.EnterpriseDeployableArtifactAdapterFactory"
+            id="org.eclipse.jst.jee.server.ear4">
+         <enablement>
+            <with
+                  variable="selection">
+               <adapt
+                     type="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+               </adapt>
+            </with>
          </enablement>
       </moduleArtifactAdapter>
      </extension>
@@ -140,77 +230,6 @@
            </with>
          </enablement>
        </moduleArtifactAdapter>
-   </extension>
-   
-    <extension point="org.eclipse.core.runtime.adapters">
-         <factory
-             class="org.eclipse.jst.jee.ui.internal.deployables.WebDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.core.resources.IProject">
-             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
-        </factory>
-        <factory
-             class="org.eclipse.jst.jee.ui.internal.deployables.WebDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.jdt.core.ICompilationUnit">
-            <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
-        </factory>
-        <factory
-             class="org.eclipse.jst.jee.ui.internal.deployables.WebDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.core.resources.IFile">
-            <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
-       </factory>
-       <factory
-             class="org.eclipse.jst.jee.ui.internal.deployables.WebDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.jst.javaee.web.Servlet">
-             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
-       </factory>       
-       <factory
-             class="org.eclipse.jst.jee.ui.internal.deployables.WebDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.jst.javaee.web.WebApp">
-             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
-       </factory> 
-
-   </extension>  
-
-    <extension point="org.eclipse.core.runtime.adapters">
-         <factory
-             class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.core.resources.IProject">
-             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
-        </factory>
-        <factory
-             class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.jdt.core.ICompilationUnit">
-             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
-        </factory>
-        <factory
-             class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.core.resources.IFile">
-            <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
-       </factory>
-
-	   	<factory
-	    	class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
-	     	adaptableType="org.eclipse.jst.javaee.ejb.EJBJar">
-	     	<adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
-		</factory>
-		
-		<factory
-			class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
-	     	adaptableType="org.eclipse.jst.javaee.ejb.SessionBean">
-	     	<adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
-	   	</factory>
-	   		
-		<factory
-			class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
-	     	adaptableType="org.eclipse.jst.javaee.ejb.MessageDrivenBean">
-	     	<adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
-	   	</factory>	
-	   	
-	   	<factory
-			class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
-	     	adaptableType="org.eclipse.jst.javaee.ejb.EntityBean">
-	     	<adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
-	   	</factory>       
    </extension>
    
    <!-- ==================================================================== -->
@@ -295,6 +314,38 @@
          </enablement>
       </moduleArtifactAdapter>
       </extension>
+   <extension
+         point="org.eclipse.wst.server.core.moduleArtifactAdapters">
+      <moduleArtifactAdapter
+            class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+            id="org.eclipse.jst.jee.server.ejb">
+         <enablement>
+            <with
+                  variable="selection">
+               <adapt
+                     type="org.eclipse.core.resources.IProject">
+                  <test
+                        forcePluginActivation="true"
+                        property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                        value="jst.ejb:3.0">
+                  </test>
+               </adapt>
+            </with>
+         </enablement>
+      </moduleArtifactAdapter>
+      <moduleArtifactAdapter
+            class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+            id="org.eclipse.jst.jee.server.ejb77">
+         <enablement>
+            <with
+                  variable="selection">
+               <instanceof
+                     value="org.eclipse.jst.jee.ui.internal.navigator.ejb.GroupEJBProvider">
+               </instanceof>
+            </with>
+         </enablement>
+      </moduleArtifactAdapter>
+   </extension>
   
   <extension
          point="org.eclipse.ui.popupMenus">
@@ -534,6 +585,9 @@
               <instanceof
                     value="org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider">
               </instanceof>
+              <adapt
+                    type="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+              </adapt>
 
            </or>
         </enablement>
@@ -553,6 +607,9 @@
 		       <instanceof
 		             value="org.eclipse.jst.javaee.core.JavaEEObject">
 		       </instanceof>
+         <adapt
+               type="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+         </adapt>
 
            </or>
         </enablement>
@@ -568,10 +625,25 @@
               <instanceof
                     value="org.eclipse.jst.jee.ui.internal.navigator.AbstractDDNode">
               </instanceof>
+              <adapt
+                    type="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+              </adapt>
 
            </or>
         </enablement>
      </actionProvider>
+     <commonWizard
+           menuGroupId="org.eclipse.jst.ejb.export1"
+           type="export"
+           wizardId="org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentExportWizard">
+        <enablement>
+           <or>
+              <instanceof
+                    value="org.eclipse.jst.jee.ui.internal.navigator.ejb.GroupEJBProvider">
+              </instanceof>
+           </or>
+        </enablement>
+     </commonWizard>
      	 
      	 
   </navigatorContent>
@@ -726,6 +798,18 @@
               </instanceof>
            </or></enablement>
      </commonWizard>
+     <commonWizard
+           menuGroupId="org.eclipse.wst.web.export"
+           type="export"
+           wizardId="org.eclipse.jst.servlet.ui.internal.wizard.WebComponentExportWizard">
+        <enablement>
+           <or>
+              <instanceof
+                    value="org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider">
+              </instanceof>
+           </or>
+        </enablement>
+     </commonWizard>
   </navigatorContent>
   <navigatorContent
         activeByDefault="true"
@@ -841,6 +925,149 @@
            </or>
         </possibleDropTargets>
      </dropAssistant>
+     <commonWizard
+           menuGroupId="org.eclipse.jst.ear.ui"
+           type="new"
+           wizardId="org.eclipse.jst.ejb.ui.project.facet.EjbProjectWizard">
+        <enablement>
+           <or>
+              <adapt
+                    type="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+              </adapt>
+           </or></enablement>
+     </commonWizard>
+     <commonWizard
+           menuGroupId="org.eclipse.jst.ear.ui"
+           type="new"
+           wizardId="org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard">
+        <enablement>
+           <or>
+              <adapt
+                    type="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+              </adapt>
+           </or>
+        </enablement>
+     </commonWizard>
+     <commonWizard
+           menuGroupId="org.eclipse.jst.ear.ui"
+           type="new"
+           wizardId="org.eclipse.jst.j2ee.ui.project.facet.EarProjectWizard">
+        <enablement>
+           <or>
+              <adapt
+                    type="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+              </adapt>
+           </or>
+        </enablement>
+     </commonWizard>
+     <commonWizard
+           menuGroupId="org.eclipse.jst.ear.ui"
+           type="new"
+           wizardId="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientProjectWizard">
+        <enablement>
+           <or>
+              <adapt
+                    type="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+              </adapt>
+           </or>
+        </enablement>
+     </commonWizard>
+     <commonWizard
+           menuGroupId="org.eclipse.jst.ear.ui"
+           type="new"
+           wizardId="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorProjectWizard">
+        <enablement>
+           <or>
+              <adapt
+                    type="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+              </adapt>
+           </or>
+        </enablement>
+     </commonWizard>
+     <commonWizard
+           menuGroupId="org.eclipse.jst.ear.ui.export"
+           type="export"
+           wizardId="org.eclipse.jst.j2ee.internal.wizard.EARComponentExportWizard">
+        <enablement>
+           <or>
+              <adapt
+                    type="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+              </adapt>
+           </or>
+        </enablement>
+     </commonWizard>
+     <commonWizard
+           menuGroupId="org.eclipse.jst.ear.ui.import"
+           type="import"
+           wizardId="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentImportWizard">
+        <enablement>
+           <or>
+              <adapt
+                    type="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+              </adapt>
+           </or>
+        </enablement>
+     </commonWizard>
+     <commonWizard
+           menuGroupId="org.eclipse.jst.ear.ui.import"
+           type="import"
+           wizardId="org.eclipse.jst.j2ee.internal.wizard.EARComponentImportWizard">
+        <enablement>
+           <or>
+              <adapt
+                    type="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+              </adapt>
+           </or>
+        </enablement>
+     </commonWizard>
+     <commonWizard
+           menuGroupId="org.eclipse.jst.ear.ui.import"
+           type="import"
+           wizardId="org.eclipse.jst.j2ee.internal.wizard.J2EEUtilityJarImportWizardNew">
+        <enablement>
+           <or>
+              <adapt
+                    type="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+              </adapt>
+           </or>
+        </enablement>
+     </commonWizard>
+     <commonWizard
+           menuGroupId="org.eclipse.jst.ear.ui.import"
+           type="import"
+           wizardId="org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentImportWizard">
+        <enablement>
+           <or>
+              <adapt
+                    type="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+              </adapt>
+           </or>
+        </enablement>
+     </commonWizard>
+     <commonWizard
+           menuGroupId="org.eclipse.jst.ear.ui.import"
+           type="import"
+           wizardId="org.eclipse.jst.servlet.ui.internal.wizard.WebComponentImportWizard">
+        <enablement>
+           <or>
+              <adapt
+                    type="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+              </adapt>
+           </or>
+        </enablement>
+     </commonWizard>
+     <commonWizard
+           menuGroupId="org.eclipse.jst.ear.ui.import"
+           type="import"
+           wizardId="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentImportWizard">
+        <enablement>
+           <or>
+              <adapt
+                    type="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+              </adapt>
+           </or>
+        </enablement>
+     </commonWizard>
   </navigatorContent>
   <navigatorContent
         activeByDefault="true"
@@ -886,38 +1113,6 @@
      </possibleChildren>
   </navigatorContent>
 	</extension>
-   <extension
-         point="org.eclipse.wst.server.core.moduleArtifactAdapters">
-      <moduleArtifactAdapter
-            class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
-            id="org.eclipse.jst.jee.server.ejb">
-         <enablement>
-            <with
-                  variable="selection">
-               <adapt
-                     type="org.eclipse.core.resources.IProject">
-                  <test
-                        forcePluginActivation="true"
-                        property="org.eclipse.wst.common.project.facet.core.projectFacet"
-                        value="jst.ejb:3.0">
-                  </test>
-               </adapt>
-            </with>
-         </enablement>
-      </moduleArtifactAdapter>
-      <moduleArtifactAdapter
-            class="org.eclipse.jst.jee.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
-            id="org.eclipse.jst.jee.server.ejb77">
-         <enablement>
-            <with
-                  variable="selection">
-               <instanceof
-                     value="org.eclipse.jst.jee.ui.internal.navigator.ejb.GroupEJBProvider">
-               </instanceof>
-            </with>
-         </enablement>
-      </moduleArtifactAdapter>
-   </extension>
    <extension
          point="org.eclipse.core.runtime.adapters">
       <factory

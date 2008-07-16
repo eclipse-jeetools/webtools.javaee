@@ -13,18 +13,39 @@ package org.eclipse.jst.jee.ui.internal.navigator;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
+import org.eclipse.jst.j2ee.internal.componentcore.ComponentArchiveOptions;
 import org.eclipse.jst.j2ee.internal.provider.J2EEUtilityJarItemProvider;
+import org.eclipse.jst.jee.archive.IArchive;
+import org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider;
+import org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanInterfaceNode;
+import org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanNode;
+import org.eclipse.jst.jee.ui.internal.navigator.ejb.GroupEJBProvider;
+import org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider;
 import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionContext;
+import org.eclipse.ui.actions.OpenWithMenu;
+import org.eclipse.ui.internal.navigator.resources.plugin.WorkbenchNavigatorMessages;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionConstants;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonMenuConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 /**
  * Standard operations Java EE Action Provider.
@@ -108,6 +129,8 @@ private static final Class IRESOURCE_CLASS = IResource.class;
 				aMenu.insertAfter(ICommonMenuConstants.GROUP_OPEN, openAction);
 //			if (createAction.isEnabled())
 //				aMenu.insertAfter(ICommonMenuConstants.GROUP_OPEN, createAction);
+			addOpenWithMenu(aMenu);
+			
 		}
 	}
 
@@ -132,4 +155,77 @@ private static final Class IRESOURCE_CLASS = IResource.class;
 		return false;
 	} 
 	 
+	private void addOpenWithMenu(IMenuManager menu) {
+		ISelection selection= getContext().getSelection();
+		if (selection.isEmpty() || !(selection instanceof IStructuredSelection))
+			return;
+		IStructuredSelection ss= (IStructuredSelection)selection;
+		if (ss.size() != 1)
+			return;
+
+		Object srcObject = ss.getFirstElement();
+		Object resource = null;
+		
+		if (srcObject instanceof EObject) {
+			resource = openEObject((EObject) srcObject);
+		} else if (srcObject instanceof BeanInterfaceNode) {
+			resource = ((BeanInterfaceNode) srcObject).get_fqn();
+		} else if (srcObject instanceof BeanNode) {
+			resource = ((BeanNode) srcObject).getEjbClassQualifiedName();
+
+		} else if (srcObject instanceof WebAppProvider) {
+			IFile file = ((WebAppProvider) srcObject).getDDFile();
+			if (file.isAccessible()){				
+				resource = file;
+			}
+		} else if (srcObject instanceof GroupEJBProvider) {
+			resource = openEObject((EObject) ((GroupEJBProvider)srcObject).getEjbJar());
+		} else if (srcObject instanceof GroupEARProvider) {
+			IFile file = ((GroupEARProvider) srcObject).getDDFile();
+			if (file.isAccessible()){
+				resource = file;
+			}
+		}
+		
+		if (!(resource instanceof IFile))
+			return; 
+
+		// Create a menu.
+		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+		.getActivePage();
+		IMenuManager submenu= new MenuManager(WorkbenchNavigatorMessages.OpenActionProvider_OpenWithMenu_label, 
+				ICommonMenuConstants.GROUP_OPEN_WITH); 
+		submenu.add(new OpenWithMenu(page, (IFile) resource));
+
+		// Add the submenu.
+		menu.appendToGroup(ICommonMenuConstants.GROUP_OPEN, submenu);
+	}
+	
+	private IResource openEObject(EObject _srcObject) {
+		EObject ro = (EObject) _srcObject;
+		IResource resource = WorkbenchResourceHelper
+		.getFile((EObject) _srcObject);
+		if (resource != null) {
+			return resource;
+		} else {
+			ModuleFile moduleFile = ArchiveUtil.getModuleFile(ro);
+			if (moduleFile != null) {
+				ArchiveOptions options = moduleFile.getOptions();
+				if (options instanceof ComponentArchiveOptions) {
+					IVirtualComponent component = ((ComponentArchiveOptions) options)
+					.getComponent();
+//					openAppropriateEditor(component);
+				}
+			} else {
+				IArchive archive = JavaEEArchiveUtilities.findArchive(ro);
+				if(archive != null){
+					IVirtualComponent component = JavaEEArchiveUtilities.findComponent(archive);
+					if(component != null){
+//						openAppropriateEditor(component);
+					}
+				}
+			}
+		}
+		return null;
+	}
 }
