@@ -661,7 +661,7 @@
      </actionProvider>
      
      <commonWizard
-           menuGroupId="org.eclipse.wst.web.ui"
+           menuGroupId="org.eclipse.wst.web.ui.webclass"
            type="new"
            wizardId="org.eclipse.jst.servlet.ui.internal.wizard.AddServletWizard">
         <enablement>
@@ -672,10 +672,19 @@
               <instanceof
                     value="org.eclipse.jst.jee.ui.internal.navigator.web.GroupServletItemProvider">
               </instanceof>
+              <instanceof
+                    value="org.eclipse.jst.javaee.web.Servlet">
+              </instanceof>
+              <instanceof
+                    value="org.eclipse.jst.jee.ui.internal.navigator.web.GroupServletMappingItemProvider">
+              </instanceof>
+              <instanceof
+                    value="org.eclipse.jst.javaee.web.ServletMapping">
+              </instanceof>
            </or></enablement>
      </commonWizard>
      <commonWizard
-           menuGroupId="org.eclipse.wst.web.ui"
+           menuGroupId="org.eclipse.wst.web.ui.webclass"
            type="new"
            wizardId="org.eclipse.jst.servlet.ui.internal.wizard.AddFilterWizard">
         <enablement>
@@ -686,10 +695,22 @@
               <instanceof
                     value="org.eclipse.jst.jee.ui.internal.navigator.web.GroupFiltersItemProvider">
               </instanceof>
+              <instanceof
+                    value="org.eclipse.jst.javaee.web.Filter">
+              </instanceof>
+              <instanceof
+                    value="org.eclipse.jst.jee.ui.internal.navigator.web.GroupFilterMappingItemProvider">
+              </instanceof>
+              <instanceof
+                    value="org.eclipse.jst.javaee.web.FilterMapping">
+              </instanceof>
+              <instanceof
+                    value="org.eclipse.jst.javaee.web.Servlet">
+              </instanceof>
            </or></enablement>
      </commonWizard>
      <commonWizard
-           menuGroupId="org.eclipse.wst.web.ui"
+           menuGroupId="org.eclipse.wst.web.ui.webclass"
            type="new"
            wizardId="org.eclipse.jst.servlet.ui.internal.wizard.AddListenerWizard">
         <enablement>
@@ -699,6 +720,9 @@
               </instanceof>
               <instanceof
                     value="org.eclipse.jst.jee.ui.internal.navigator.web.GroupListenerItemProvider">
+              </instanceof>
+              <instanceof
+                    value="org.eclipse.jst.javaee.core.Listener">
               </instanceof>
            </or></enablement>
      </commonWizard>
