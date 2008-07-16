@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -290,6 +291,16 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			}
 
 			folder.create(true, true, null);
+		}
+		else
+		{
+		    IContainer x = folder;
+		    
+		    while( x instanceof IFolder && x.isDerived() )
+		    {
+		        x.setDerived( false );
+		        x = x.getParent();
+		    }
 		}
 	}
 }
