@@ -24,9 +24,6 @@
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-<%		if (model.isGenericServletSuperclass()) { %>
-		super.init();
-<%		} %>
 	}
 <% } %>
 <% if (model.shouldGenDestroy()) { %>
@@ -36,9 +33,6 @@
 	 */
 	public void destroy() {
 		// TODO Auto-generated method stub
-<% 		if (model.isGenericServletSuperclass()) { %>
-		super.destroy();
-<% 		} %>
 	}
 <% } %>
 <% if (model.shouldGenGetServletConfig()) { %>
@@ -48,11 +42,7 @@
 	 */
 	public ServletConfig getServletConfig() {
 		// TODO Auto-generated method stub
-<%		if (model.isGenericServletSuperclass()) { %>
-		return super.getServletConfig();
-<% 		} else { %>
 		return null;
-<%		} %>
 	}
 <% } %>
 <% if (model.shouldGenGetServletInfo()) { %>
@@ -62,11 +52,7 @@
 	 */
 	public String getServletInfo() {
 		// TODO Auto-generated method stub
-<% 		if (model.isGenericServletSuperclass()) { %>
-		return super.getServletInfo();
-<% 		} else { %>
 		return null; 
-<% 		} %>
 	}
 <% } %>
 <% if (model.shouldGenService() && !model.isHttpServletSuperclass()) { %>
@@ -85,7 +71,6 @@
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		super.service(request, response);
 	}
 <% } %>
 <% if (model.shouldGenDoGet()) { %>
@@ -95,7 +80,6 @@
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		super.doGet(request, response);
 	}
 <% } %>
 <% if (model.shouldGenDoPost()) { %>
@@ -105,7 +89,6 @@
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		super.doPost(request, response);
 	}
 <% } %>
 <% if (model.shouldGenDoPut()) { %>
@@ -115,7 +98,6 @@
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		super.doPut(request, response);
 	}
 <% } %>
 <% if (model.shouldGenDoDelete()) { %>
@@ -125,7 +107,6 @@
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		super.doDelete(request, response);
 	}
 <% } %>
 <% if (model.shouldGenDoHead()) { %>
@@ -135,7 +116,6 @@
 	 */
 	protected void doHead(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		super.doHead(request, response);
 	}
 <% } %>
 <% if (model.shouldGenDoOptions()) { %>
@@ -145,7 +125,6 @@
 	 */
 	protected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		super.doOptions(request, response);
 	}
 <% } %>
 <% if (model.shouldGenDoTrace()) { %>
@@ -155,7 +134,6 @@
 	 */
 	protected void doTrace(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		super.doTrace(request, response);
 	}
 <% } %>
 
