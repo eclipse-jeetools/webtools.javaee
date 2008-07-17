@@ -577,7 +577,17 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 			// needs work, the names above will be simple names if we are relfecting from a source file
 			List list = getJavaClassTarget().getImplementsInterfacesGen();
 			for (int i = 0; i < interfaceNames.length; i++) {
-				ref = reflectJavaClass(interfaceNames[i]);
+				String name = interfaceNames[i];
+				// if a class implements an interface that is actually an inner interface, the inner interface
+				// package is not resolved correctly without getting the fully qualified name. For example,
+				// public class TestBean implements SomeOtherSimpleClass.SomeInterface
+				// without getting the fully qualified name, we are using SomeOtherSimpleClass as the 
+				// package name which is incorrect.
+				String innertypeName = JDOMSearchHelper.getResolvedTypeName(name, getType(), getTypeResolutionCache());
+				if (innertypeName != null) {
+					name = innertypeName;
+				}
+				ref = reflectJavaClass(name);
 				list.add(ref);
 			}
 		} catch (JavaModelException npe) {
