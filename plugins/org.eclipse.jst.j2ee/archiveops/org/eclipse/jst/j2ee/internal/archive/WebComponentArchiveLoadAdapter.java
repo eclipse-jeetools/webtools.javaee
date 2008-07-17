@@ -108,6 +108,10 @@ public class WebComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 					webLibArchive = JavaEEArchiveUtilities.INSTANCE.openArchive(webLibOptions);
 					webLibArchive.setPath(new Path(uri));
 					webLibArchive.setArchive(archive);
+					//this is in case there is a jar in the WEB-INF/lib folder which is also
+					//mapped as a project.  If it is not removed here, then export will include
+					//the jar version instead of the project version.
+					filesHolder.remove(webLibArchive.getPath());
 					filesHolder.addFile(webLibArchive);
 				} catch (ArchiveOpenFailureException e) {
 					String message = ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.UNABLE_TO_LOAD_MODULE_ERROR_, new Object[]{uri, getComponent().getProject().getName(), e.getMessage()});

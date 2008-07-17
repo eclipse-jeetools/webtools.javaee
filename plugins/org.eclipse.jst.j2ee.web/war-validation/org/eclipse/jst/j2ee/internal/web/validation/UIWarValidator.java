@@ -186,7 +186,8 @@ public class UIWarValidator extends WarValidator {
 	private void checkLibName(final String name, final IProject project, final Set webLibNames, final boolean addName) {
 		if (webLibNames.contains(name)) {
 			if (project != null) {
-				_reporter.addMessage(this, new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_DUPLICATE_WEB_INF_LIB_OTHER_PROJECT, new String[]{name, project.getName()}));
+				//ignore this because of WAR import brings in the lib jars along with projects
+				//_reporter.addMessage(this, new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_DUPLICATE_WEB_INF_LIB_OTHER_PROJECT, new String[]{name, project.getName()}));
 			} else {
 				_reporter.addMessage(this, new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_DUPLICATE_WEB_INF_LIB, new String[]{name}));
 			}

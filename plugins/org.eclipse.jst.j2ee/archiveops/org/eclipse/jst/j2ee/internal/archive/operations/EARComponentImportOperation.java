@@ -106,7 +106,7 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 							List warLibModels = (List) warModel.getProperty(libModels);
 							for (int k = 0; k < warLibModels.size(); k++) {
 								IDataModel libModel = (IDataModel) warLibModels.get(k);
-								if (libModel.getProperty(IJ2EEComponentImportDataModelProperties.ARCHIVE_WRAPPER) == nestedArchive) {
+								if (((ArchiveWrapper)libModel.getProperty(IJ2EEComponentImportDataModelProperties.ARCHIVE_WRAPPER)).getUnderLyingArchive() == nestedArchive.getUnderLyingArchive()) {
 									libModel.setProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME, importModel.getProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME));
 									libModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, importModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME));
 								}
