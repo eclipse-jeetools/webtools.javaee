@@ -190,9 +190,20 @@ public class BinaryEditorUtilities {
 
 	public static IEditorInput getBinaryEditorInput(
 			VirtualArchiveComponent component, String archiveRelativePath) {
-		// TODO make this work with components outside the workspace
+		
+		IEditorInput input = null;
 		IPath archivePath = component.getWorkspaceRelativePath();
-		return getBinaryEditorInput(archivePath, archiveRelativePath);
+		
+		//[Bug 238616] if there is no workspace relative path then the archive is outside
+		//	the workspace so get the OS path directly from the file
+		if(archivePath != null) {
+			input = getBinaryEditorInput(archivePath, archiveRelativePath);
+		} else {
+			String archiveOSPath = component.getUnderlyingDiskFile().getPath();
+			input = getBinaryEditorInput(archiveOSPath, archiveRelativePath);
+		}
+		
+		return input;
 	}
 
 	public static IEditorInput getBinaryEditorInput(IPath archivePath,
@@ -200,10 +211,27 @@ public class BinaryEditorUtilities {
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IWorkspaceRoot root = workspace.getRoot();
 		IResource resource = root.findMember(archivePath);
-		if (resource == null)
+		if (resource == null) {
 			return null;
-		String zipFile = resource.getLocation().toOSString();
-		JarEntryFile jarFile = new JarEntryFile(archiveRelativePath, zipFile);
+		}
+		String archiveOSPath = resource.getLocation().toOSString();
+		IEditorInput editorInput = getBinaryEditorInput(archiveOSPath, archiveRelativePath);
+		return editorInput;
+	}
+	
+	/**
+	 * [Bug 238616]
+	 * 
+	 * Gets binary editor input given an OS relative path to an archive and
+	 * 	the archive relative path to a file
+	 * 
+	 * @param archiveOSPath the OS relative path to the archive
+	 * @param archiveRelativePath the archive relative path to the file to get binary editor input for
+	 * @return
+	 */
+	public static IEditorInput getBinaryEditorInput(String archiveOSPath,
+			String archiveRelativePath) {
+		JarEntryFile jarFile = new JarEntryFile(archiveRelativePath, archiveOSPath);
 		JarEntryEditorInput editorInput = new JarEntryEditorInput(jarFile);
 		return editorInput;
 	}
