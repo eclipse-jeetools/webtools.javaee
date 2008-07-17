@@ -127,7 +127,7 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 
 	private void alterDependencyAttributes(final IJavaProject javaProject, final Map entries, final boolean add, final boolean modifyComponentDep) throws CoreException {
 		// initialize to the set of raw entries with the attrib
-		final Map entriesWithAttrib = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProject);
+		final Map entriesWithAttrib = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProject, modifyComponentDep ? DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY : DependencyAttributeType.CLASSPATH_COMPONENT_NONDEPENDENCY);
 		
 		Iterator i = entries.keySet().iterator();
 		while (i.hasNext()) {
