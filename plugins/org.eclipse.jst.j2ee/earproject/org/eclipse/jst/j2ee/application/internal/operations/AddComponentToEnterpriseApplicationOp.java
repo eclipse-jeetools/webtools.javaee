@@ -30,10 +30,10 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.EarFacetRuntimeHandler;
 import org.eclipse.jst.javaee.application.ApplicationFactory;
 import org.eclipse.jst.javaee.application.Module;
@@ -153,8 +153,9 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		ICommonModule newModule = null;
 		final IVirtualComponent ear = (IVirtualComponent) this.model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
 		final IProject earpj = ear.getProject();
-		boolean useNewModel = J2EEProjectUtilities.getJ2EEDDProjectVersion(earpj).equals(J2EEVersionConstants.VERSION_5_0_TEXT);
-		if (J2EEProjectUtilities.isDynamicWebProject(wc.getProject())) {
+		boolean useNewModel = JavaEEProjectUtilities.getJ2EEDDProjectVersion(earpj).equals(J2EEVersionConstants.VERSION_5_0_TEXT);
+		//[Bug 238264] need to use componenet to determine type of project incase component is binary
+		if (JavaEEProjectUtilities.isDynamicWebComponent(wc)) {
 			Properties props = wc.getMetaProperties();
 			String contextroot = ""; //$NON-NLS-1$
 			if ((props != null) && (props.containsKey(J2EEConstants.CONTEXTROOT)))
@@ -174,7 +175,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 				newModule = (ICommonModule)webModule;
 			}
 			return newModule;
-		} else if (J2EEProjectUtilities.isEJBProject(wc.getProject())) {
+		} else if (JavaEEProjectUtilities.isEJBComponent(wc)) {
 			if (useNewModel) {
 				Module ejbModule = ApplicationFactory.eINSTANCE.createModule();
 				ejbModule.setEjb(name);
@@ -186,7 +187,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 				newModule = (ICommonModule)ejbModule;
 			}			
 			return newModule;
-		} else if (J2EEProjectUtilities.isApplicationClientProject(wc.getProject())) {
+		} else if (JavaEEProjectUtilities.isApplicationClientComponent(wc)) {
 			if (useNewModel) {
 				Module appClientModule = ApplicationFactory.eINSTANCE.createModule();
 				appClientModule.setJava(name);
@@ -198,7 +199,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 				newModule = (ICommonModule)appClientModule;
 			}			
 			return newModule;
-		} else if (J2EEProjectUtilities.isJCAProject(wc.getProject())) {
+		} else if (JavaEEProjectUtilities.isJCAComponent(wc)) {
 			if (useNewModel) {
 				Module j2cModule = ApplicationFactory.eINSTANCE.createModule();
 				j2cModule.setConnector(name);

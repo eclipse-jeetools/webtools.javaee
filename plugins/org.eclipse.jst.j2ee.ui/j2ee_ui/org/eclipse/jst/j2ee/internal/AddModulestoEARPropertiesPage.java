@@ -128,6 +128,9 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	protected static final IStatus OK_STATUS = IDataModelProvider.OK_STATUS;
 	protected boolean isVersion5;
 	protected Set libsToUncheck;
+	
+	//[Bug 238264] the cached list of jars selected using 'add jar' or 'add external jars'
+	protected List<IVirtualComponent> addedJARComponents = new ArrayList<IVirtualComponent>();
 
 
 	/**
@@ -278,12 +281,24 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		}
 	}
 	
-	private void execAddOp(IProgressMonitor monitor, List list, String path) throws CoreException {
-		if (list == null || list.isEmpty()) return;
+	private void execAddOp(IProgressMonitor monitor, List componentList, String path) throws CoreException {
+		if (componentList == null || componentList.isEmpty()) return;
 		IDataModel dm = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
 		
 		dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComponent);					
-		dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, list);
+		dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, componentList);
+		
+		//[Bug 238264] the uri map needs to be manuly set correctly
+		Map uriMap = new HashMap();
+		IVirtualComponent virtComp;
+		String virtCompURIMapName;
+		for(int i=0; i<componentList.size(); i++) {
+			virtComp = (IVirtualComponent)componentList.get(i);
+			virtCompURIMapName = this.getURIMappingName(virtComp);
+			uriMap.put(virtComp, virtCompURIMapName);
+		}
+		dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, uriMap);
+		
         if (isVersion5) dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH, path);
 
 		IStatus stat = dm.validateProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
@@ -363,6 +378,11 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		} catch (Exception e) {
 			Logger.getLogger().log(e);
 		}
+		
+		//[Bug 238264] clear out the cache because they should all either be added as references now
+		//	or no longer checked and therefor not wanted by the user
+		this.addedJARComponents.clear();
+		
 		return OK_STATUS;
 	}
 	
@@ -593,51 +613,31 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	}
 	
 	/**
-	 * Adds a reference while avoiding name collisions
-	 * @param archive
-	 * @return
+	 * [Bug 238264]
+	 * Add an archive as a potential new reference for this.earComponent
+	 * NOTE1: the given archive will not be added as a potential reference if there is already a reference to it
+	 * NOTE2: the given archive will only be added as an actual reference when this.performOk is invoked
+	 * 
+	 * @param archive the archive to add as a potential new reference in this.earComponent
+	 * 			
 	 */
-	private void addReference(IVirtualComponent archive){
-		IVirtualReference newRef = ComponentCore.createReference( earComponent, archive );
-		
+	private void addPotentialNewReference(IVirtualComponent archive) {
+		//check to see if a reference to the given archive already exists
 		IVirtualReference [] existingRefs = earComponent.getReferences();
-		String defaultArchiveName = new Path(newRef.getReferencedComponent().getName()).lastSegment();
-		
-		boolean dupeArchiveName = false;
-		//check for duplicates
-		for(int j=0;j<existingRefs.length;j++){
-			if(existingRefs[j].getReferencedComponent().getName().equals(newRef.getReferencedComponent().getName())){
-				return; //same exact component already referenced
-			} else if(existingRefs[j].getArchiveName().equals(defaultArchiveName)){
-				dupeArchiveName = true; //different archive with same archive name
-			}
+		IVirtualComponent referencedComponent;
+		boolean refAlreadyExists = false;
+		for(int i=0;i<existingRefs.length && !refAlreadyExists;i++){
+			referencedComponent = existingRefs[i].getReferencedComponent();
+			refAlreadyExists = referencedComponent.equals(archive);
 		}
 		
-		for(int j=1; dupeArchiveName; j++){ //ensure it doesn't have the runtime path
-			int lastDotIndex = defaultArchiveName.lastIndexOf('.');
-			String newArchiveName = null;
-			String increment = "_"+j;
-			if(lastDotIndex != -1){
-				newArchiveName = defaultArchiveName.substring(0, lastDotIndex) + increment + defaultArchiveName.substring(lastDotIndex);
-			} else {
-				newArchiveName = defaultArchiveName.substring(0)+increment;
-			}
-			
-			int k = 0;
-			for(;k<existingRefs.length; k++){
-				if(existingRefs[k].getArchiveName().equals(newArchiveName )){
-					break;
-				}
-			}
-			if(k == existingRefs.length){
-				dupeArchiveName = false;
-				newRef.setArchiveName(newArchiveName);
-			}
+		//only add the archive as a potentialy new reference if it does not already exist
+		if(!refAlreadyExists) {
+			this.j2eeComponentList.add(archive);
+			this.addedJARComponents.add(archive);
+		} else {
+			//TODO should inform user that they selected an already referenced archive?
 		}
-		
-		earComponent.addReferences(new IVirtualReference[] {newRef });
-		j2eeComponentList.add(archive);
-		
 	}
 	
 	private void handleSelectExternalJarButton(){
@@ -650,7 +650,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 				IVirtualComponent archive = ComponentCore.createArchiveComponent( earComponent.getProject(), type +
 							selected[i].toString());
 				
-				addReference(archive);
+				this.addPotentialNewReference(archive);
 			}
 			refresh();
 		}
@@ -673,8 +673,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 					IVirtualComponent archive = ComponentCore.createArchiveComponent( earComponent.getProject(), type +
 								paths[i].toString());
 					
-					addReference(archive);
-					
+					this.addPotentialNewReference(archive);
 				}else{
 					//display error
 				}
@@ -1002,6 +1001,12 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		data.heightHint = availableComponentsViewer.getTable().getItemHeight() * numlines;
 		availableComponentsViewer.getTable().setLayoutData(data);
 
+		//[Bug 238264] for all the jars in the cache temparaly list them in the grid
+		// until the user applys the changes
+		for(IVirtualComponent jarComponent : this.addedJARComponents) {
+			availableComponentsViewer.add(jarComponent);
+		}
+		
 		TableItem [] items = availableComponentsViewer.getTable().getItems();
 		List list = new ArrayList();
 		//Object[] comps = getComponentsInEar();
@@ -1099,10 +1104,64 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 				String type = VirtualArchiveComponent.LIBARCHIVETYPE + IPath.SEPARATOR;
 				IVirtualComponent archive = ComponentCore.createArchiveComponent( earComponent.getProject(), type +
 							selected[i].makeRelative().toString());
-				addReference(archive);
+				
+				this.addPotentialNewReference(archive);
 			}
 			refresh();
 		}
 		
+	}
+	
+	/**
+	 * [Bug 238264]
+	 * determines a unique URI mapping name for a given component
+	 * this is incase to components have the same name.
+	 * 
+	 * @return returns a valid (none duplicate) uri mapping name for the given component\
+	 */
+	private String getURIMappingName(IVirtualComponent archive) {
+		
+		//get the default uri map name for the given archive
+		IPath componentPath = Path.fromOSString(archive.getName());
+		String uriMapName = componentPath.lastSegment().replace(' ', '_');
+		
+		
+		//check to be sure this uri mapping is not already in use by another reference
+		boolean dupeArchiveName;
+		String refedCompName;
+		int lastDotIndex;
+		String increment;
+		IVirtualReference [] existingRefs = earComponent.getReferences();
+		for(int i=0;i<existingRefs.length;i++){
+			refedCompName = existingRefs[i].getReferencedComponent().getName();
+			
+			//if uri mapping names of the refed component and the given archive are the same
+			//  find a new uri map name for the given archive
+			if(existingRefs[i].getArchiveName().equals(uriMapName)){
+				dupeArchiveName = true;
+				//find a new uriMapName for the given component
+				for(int j=1; dupeArchiveName; j++){
+					lastDotIndex = uriMapName.lastIndexOf('.');
+					increment = "_"+j; //$NON-NLS-1$
+					
+					//create the new potential name
+					if(lastDotIndex != -1){
+						uriMapName = uriMapName.substring(0, lastDotIndex) + increment + uriMapName.substring(lastDotIndex);
+					} else {
+						uriMapName = uriMapName.substring(0)+increment;
+					}
+					
+					//determine if the new potential name is valid
+					for(int k=0; k<existingRefs.length; k++) {
+						dupeArchiveName = existingRefs[k].getArchiveName().equals(uriMapName);
+						if(dupeArchiveName) {
+							break;
+						}
+					}
+				}
+			}
+		}
+		
+		return uriMapName;
 	}
 }
