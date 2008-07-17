@@ -96,7 +96,7 @@ public class AppClientFacetPostInstallDelegate extends J2EEFacetInstallDelegate 
 
 			IContainer container = J2EEProjectUtilities.getSourceFolderOrFirst(project, null);
 			if( container != null ){
-				String projRelativeSourcePath = IPath.SEPARATOR + project.getName() + IPath.SEPARATOR + container.getName();
+				String projRelativeSourcePath = container.getFullPath().toPortableString();
 				mainClassDataModel.setProperty(INewJavaClassDataModelProperties.SOURCE_FOLDER, projRelativeSourcePath);
 				mainClassDataModel.getDefaultOperation().execute(monitor, null);
 				createManifestEntryForMainClass(monitor, model, project);
