@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.workbench.utility;
 /*
- * $RCSfile: JemProjectUtilities.java,v $ $Revision: 1.11 $ $Date: 2007/10/05 19:57:08 $
+ * $RCSfile: JemProjectUtilities.java,v $ $Revision: 1.12 $ $Date: 2008/07/17 16:39:25 $
  */
 
 import java.net.URL;
@@ -303,7 +303,7 @@ public class JemProjectUtilities extends ProjectUtilities {
 		for (int i = 0; i < roots.length; i++) {
 			IPackageFragmentRoot root = roots[i];
 			if (root.getKind() == IPackageFragmentRoot.K_SOURCE)
-				result.add(result);
+				result.add(root);
 		}
 		return result;
 	}
