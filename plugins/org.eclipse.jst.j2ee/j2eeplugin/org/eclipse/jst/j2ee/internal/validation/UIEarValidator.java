@@ -25,6 +25,7 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
@@ -224,14 +225,50 @@ public class UIEarValidator extends EarValidator {
 		IVirtualComponent earModule = ComponentCore.createComponent(proj);
             if(J2EEProjectUtilities.isEARProject(proj)){
 				IVirtualFile ddFile = earModule.getRootFolder().getFile(J2EEConstants.APPLICATION_DD_URI);
-				if( ddFile.exists()) {	
-					status = super.validateInJob(inHelper, inReporter);
-					validateModuleMaps(earModule);
-					validateManifests();
-					validateDuplicateClasspathComponentURIs(earModule);
-	//				validateUtilJarMaps(earEdit,earModule);
-	//				validateUriAlreadyExistsInEar(earEdit,earModule);
-	//				validateDocType(earEdit,earModule);	
+				if( ddFile.exists()) {
+					inReporter.removeAllMessages(this);
+					
+					IProject[] earReferencedProjects;
+					boolean isMixedEAR = false;
+					boolean isJEEFiveProject = false;
+					boolean isLegacyEAR = J2EEProjectUtilities.isLegacyJ2EEProject(proj);
+					try {
+						//because of [224484] 5.0 EARs may get to this validator when they should not, need to protect against this
+						if(isLegacyEAR) {
+							earReferencedProjects = proj.getReferencedProjects();
+							for(IProject earRefedProj : earReferencedProjects) {
+								isJEEFiveProject = J2EEProjectUtilities.isJEEProject(earRefedProj);
+								if(isJEEFiveProject) {
+									 //HACK: this is normally done by the call to super.validateInJob but in this case we are purposely avoiding that call
+									_reporter = inReporter;
+									
+									String[] params = {proj.getName(), earRefedProj.getName()};
+									String msg = NLS.bind(EARValidationMessageResourceHandler.JEE5_PROJECT_REFERENCED_BY_PRE_JEE5_EAR, params);
+									addLocalizedError(msg,proj);
+								
+								}
+								
+								//if any referenced project is a JEE 5 project then ear is mixed
+								if(!isMixedEAR) {
+									isMixedEAR = isJEEFiveProject;
+								}
+							}
+						}
+					} catch (CoreException e) {
+						org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+					}
+					
+					//should only continue validation if this is not an invalid mixed EAR
+					//isLegacyEAR check needed because of [224484] 5.0 EARs may get to this validator when they should not, need to protect against this
+					if(isLegacyEAR && !isMixedEAR) {
+						status = super.validateInJob(inHelper, inReporter);
+						validateModuleMaps(earModule);
+						validateManifests();
+						validateDuplicateClasspathComponentURIs(earModule);
+		//				validateUtilJarMaps(earEdit,earModule);
+		//				validateUriAlreadyExistsInEar(earEdit,earModule);
+		//				validateDocType(earEdit,earModule);
+					}
 				}
             }
 		return status;
