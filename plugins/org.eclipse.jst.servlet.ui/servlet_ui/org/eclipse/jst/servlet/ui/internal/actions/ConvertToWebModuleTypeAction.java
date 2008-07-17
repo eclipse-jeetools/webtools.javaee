@@ -33,7 +33,10 @@ import org.eclipse.jst.servlet.ui.internal.wizard.ConvertToWebModuleTypeDialog;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
@@ -131,11 +134,22 @@ public class ConvertToWebModuleTypeAction extends Action implements IWorkbenchWi
 		IFacetedProject.Action uninstall = new IFacetedProject.Action(IFacetedProject.Action.Type.UNINSTALL, facetedProject.getInstalledVersion(webFacet), null);
 		IDataModel webModelCfg = DataModelFactory.createDataModel(new WebFacetInstallDataModelProvider());
 		webModelCfg.setBooleanProperty(IWebFacetInstallDataModelProperties.ADD_TO_EAR, false);
+		// Get the default web root folder name (just in case the .component file doesn't exist for some reason)
+		String webRoot = webModelCfg.getStringProperty(IWebFacetInstallDataModelProperties.CONFIG_FOLDER);
 		
+		IVirtualComponent c = ComponentCore.createComponent(project);
+		c.create(0, null);
+		if (c.exists()) {
+			// Get the web root folder from the .component file 
+			IVirtualFolder root = c.getRootFolder();
+			webRoot = root.getUnderlyingFolder().getName();
+			// Store the name into the properties for use during facet instal
+			webModelCfg.setStringProperty(IWebFacetInstallDataModelProperties.CONFIG_FOLDER, webRoot);
+		}
+
 		IDataModel javaModelCfg = null;
 		if (ProductManager.shouldUseSingleRootStructure()){
 			javaModelCfg = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
-			String webRoot = webModelCfg.getStringProperty(IWebFacetInstallDataModelProperties.CONFIG_FOLDER);			
 			javaModelCfg.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME,
 					webRoot+"/"+ J2EEConstants.WEB_INF_CLASSES); //$NON-NLS-1$
 		}		
