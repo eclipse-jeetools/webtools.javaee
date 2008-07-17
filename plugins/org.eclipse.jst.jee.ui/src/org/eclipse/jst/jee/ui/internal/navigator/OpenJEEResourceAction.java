@@ -17,10 +17,13 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.internal.ui.javaeditor.EditorUtility;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -38,6 +41,8 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.jst.javaee.core.Listener;
+import org.eclipse.jst.javaee.ejb.EntityBean;
+import org.eclipse.jst.javaee.ejb.MessageDrivenBean;
 import org.eclipse.jst.javaee.ejb.SessionBean;
 import org.eclipse.jst.javaee.web.Filter;
 import org.eclipse.jst.javaee.web.Servlet;
@@ -53,6 +58,7 @@ import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorRegistry;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.part.FileEditorInput;
@@ -196,24 +202,64 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 			((J2EEJavaClassProviderHelper) srcObject).openInEditor();
 			return;
 		}
-		if (srcObject instanceof SessionBean){
-			openAppropriateEditor(((SessionBean)srcObject).getEjbClass());
-			return;
-		}
-		if(srcObject instanceof Servlet){
-			openAppropriateEditor(((Servlet)srcObject).getServletClass());
+		
+		//[Bug 240512] deal with if any of these node types ndo not have an associated class
+		if (srcObject instanceof SessionBean ||
+				srcObject instanceof MessageDrivenBean ||
+				srcObject instanceof EntityBean ||
+				srcObject instanceof Servlet ||
+				srcObject instanceof Filter ||
+				srcObject instanceof Listener){
+			
+			String name = ""; //$NON-NLS-1$
+			if( srcObject instanceof SessionBean ){
+				SessionBean bean = (SessionBean)srcObject;
+				name = bean.getEjbClass();
+			} else if(srcObject instanceof MessageDrivenBean){
+				MessageDrivenBean  bean = (MessageDrivenBean)srcObject;
+				name = bean.getEjbClass();
+			} else if(srcObject instanceof EntityBean){
+				EntityBean bean = (EntityBean)srcObject;
+				name = bean.getEjbClass();
+			} else if(srcObject instanceof Servlet){
+				Servlet servlet = (Servlet)srcObject;
+				name = servlet.getServletClass();
+			} else if(srcObject instanceof Filter) {
+	        	Filter filter = (Filter)srcObject;		
+	        	name = filter.getFilterClass();
+			} else if(srcObject instanceof Listener){
+	        	Listener listener = (Listener)srcObject;
+	        	name = listener.getListenerClass();
+			}
+			
+			IResource resource = WorkbenchResourceHelper.getFile((EObject)srcObject);
+			IProject project = resource.getProject();			
+			IJavaProject javaProject = JavaCore.create(project);
+			if(javaProject.exists()){
+				IType type = null;
+				try {
+					//if name is null then can't get type
+					if(name != null) {
+						type = javaProject.findType( name );
+					}
+					
+					//if type is null then can't open its editor, so open editor for the resource
+					if(type != null) {
+						ICompilationUnit cu = type.getCompilationUnit();
+						EditorUtility.openInEditor(cu);
+					} else{
+						openAppropriateEditor(resource);
+					}
+				} catch (JavaModelException e) {
+					JEEUIPlugin.logError(e.getMessage(), e);
+				} catch (PartInitException e) {
+					JEEUIPlugin.logError(e.getMessage(), e);
+				}
+			}
 			return;
 		}
 		
-        if(srcObject instanceof Filter){
-        	openAppropriateEditor(((Filter)srcObject).getFilterClass());
-        	return;
-		}
-        
-        if(srcObject instanceof Listener){
-        	openAppropriateEditor(((Listener)srcObject).getListenerClass());
-        	return;
-		}
+		
 		if (srcObject instanceof EObject) {
 			openEObject((EObject) srcObject);
 		} else if (srcObject instanceof BeanInterfaceNode) {
