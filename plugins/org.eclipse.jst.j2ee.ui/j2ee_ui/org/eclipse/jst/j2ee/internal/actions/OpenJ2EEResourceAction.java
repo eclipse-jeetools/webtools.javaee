@@ -127,7 +127,8 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			//[Bug 237794] if component c is a JEE 5 archive then editorInput needs to be a BinaryEditorInput
 			if (c instanceof VirtualArchiveComponent) {
 				JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(c);
-				if( qp.getJavaEEVersion() == JavaEEQuickPeek.JEE_5_0_ID) {
+				//[Bug 239440] because Connectors are opened with the basic XML editor and not a specialized editor they need binary editor input
+				if( qp.getJavaEEVersion() == JavaEEQuickPeek.JEE_5_0_ID || qp.getType() == JavaEEQuickPeek.CONNECTOR_TYPE) {
 					String path = ((EObject)srcObject).eResource().getURI().toString();
 					editorInput = BinaryEditorUtilities.getBinaryEditorInput((VirtualArchiveComponent)c, path);
 				}
