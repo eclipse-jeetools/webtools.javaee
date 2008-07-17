@@ -392,9 +392,8 @@ public class UIEarValidator extends EarValidator {
 			uri = aFile.getURI();
 			if (mfuri.equalsIgnoreCase(uri) && !mfuri.equals(uri)) {
 				String[] params = {uri, anArchive.getURI()};
-				IResource target = earHelper.getProject().getFile(J2EEConstants.MANIFEST_URI);
 				String msg = NLS.bind(EARValidationMessageResourceHandler.INVALID_CASE_FOR_MANIFEST_ERROR_, params);
-				addLocalizedError(msg, target);				
+				addLocalizedError(msg, null);				
 			}
 		}
 
