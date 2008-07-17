@@ -32,8 +32,11 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipFileLoadStrat
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
+import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ArtifactEditRegistryReader;
@@ -83,49 +86,56 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 				IVirtualComponent referencedComponent = reference.getReferencedComponent();
 
 				java.io.File diskFile = null;
+				boolean forceUtility = false;
 				if (referencedComponent.isBinary()) {
+					JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(referencedComponent);
+					int jeeVersion = qp.getJavaEEVersion();
+					if(jeeVersion == J2EEVersionConstants.JEE_5_0_ID){
+						forceUtility = true;
+					}
 					diskFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingDiskFile();
 					if (!diskFile.exists()) {
 						IFile wbFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingWorkbenchFile();
 						diskFile = new File(wbFile.getLocation().toOSString());
 					}
 				}
-
 				boolean isModule = false;
-				boolean addClasspathComponentDependencies = false;
-				ArtifactEdit componentArtifactEdit = null;
-				try {
-					if (J2EEProjectUtilities.isApplicationClientComponent(referencedComponent)) {
-						componentArtifactEdit = AppClientArtifactEdit.getAppClientArtifactEditForRead(referencedComponent);
-					} else if (J2EEProjectUtilities.isEJBComponent(referencedComponent)) {
-						addClasspathComponentDependencies = true;
-						componentArtifactEdit = ArtifactEditRegistryReader.instance().getArtifactEdit(J2EEProjectUtilities.EJB).createArtifactEditForRead(referencedComponent);
-					} else if (J2EEProjectUtilities.isDynamicWebComponent(referencedComponent)) {
-						addClasspathComponentDependencies = true;
-						componentArtifactEdit = ArtifactEditRegistryReader.instance().getArtifactEdit(J2EEProjectUtilities.DYNAMIC_WEB).createArtifactEditForRead(referencedComponent);
-					} else if (J2EEProjectUtilities.isJCAComponent(referencedComponent)) {
-						addClasspathComponentDependencies = true;
-						componentArtifactEdit = ArtifactEditRegistryReader.instance().getArtifactEdit(J2EEProjectUtilities.JCA).createArtifactEditForRead(referencedComponent);
-					}
-					if (null != componentArtifactEdit) {
-						Archive archive = ((EnterpriseArtifactEdit) componentArtifactEdit).asArchive(exportSource, includeClasspathComponents);
-						if (referencedComponent.isBinary()) {
-							artifactEditsToDispose.add(componentArtifactEdit);
-							archive.setLoadingContainer(getContainer());
-							binaryComponentURIsToDiskFileMap.put(archive.getOriginalURI(), diskFile);
+				if(!forceUtility){
+					boolean addClasspathComponentDependencies = false;
+					ArtifactEdit componentArtifactEdit = null;
+					try {
+						if (J2EEProjectUtilities.isApplicationClientComponent(referencedComponent)) {
+							componentArtifactEdit = AppClientArtifactEdit.getAppClientArtifactEditForRead(referencedComponent);
+						} else if (J2EEProjectUtilities.isEJBComponent(referencedComponent)) {
+							addClasspathComponentDependencies = true;
+							componentArtifactEdit = ArtifactEditRegistryReader.instance().getArtifactEdit(J2EEProjectUtilities.EJB).createArtifactEditForRead(referencedComponent);
+						} else if (J2EEProjectUtilities.isDynamicWebComponent(referencedComponent)) {
+							addClasspathComponentDependencies = true;
+							componentArtifactEdit = ArtifactEditRegistryReader.instance().getArtifactEdit(J2EEProjectUtilities.DYNAMIC_WEB).createArtifactEditForRead(referencedComponent);
+						} else if (J2EEProjectUtilities.isJCAComponent(referencedComponent)) {
+							addClasspathComponentDependencies = true;
+							componentArtifactEdit = ArtifactEditRegistryReader.instance().getArtifactEdit(J2EEProjectUtilities.JCA).createArtifactEditForRead(referencedComponent);
 						}
-						archive.setURI(earArtifactEdit.getModuleURI(referencedComponent));
-						filesHolder.addFile(archive);
-						isModule = true;
-						if (addClasspathComponentDependencies) {
-							addClasspathComponentDependencies(referencedComponent);
+						if (null != componentArtifactEdit) {
+							Archive archive = ((EnterpriseArtifactEdit) componentArtifactEdit).asArchive(exportSource, includeClasspathComponents);
+							if (referencedComponent.isBinary()) {
+								artifactEditsToDispose.add(componentArtifactEdit);
+								archive.setLoadingContainer(getContainer());
+								binaryComponentURIsToDiskFileMap.put(archive.getOriginalURI(), diskFile);
+							}
+							archive.setURI(earArtifactEdit.getModuleURI(referencedComponent));
+							filesHolder.addFile(archive);
+							isModule = true;
+							if (addClasspathComponentDependencies) {
+								addClasspathComponentDependencies(referencedComponent);
+							}
 						}
-					}
-				} catch (OpenFailureException oe) {
-					Logger.getLogger().logError(oe);
-				} finally {
-					if (!referencedComponent.isBinary() && componentArtifactEdit != null) {
-						componentArtifactEdit.dispose();
+					} catch (OpenFailureException oe) {
+						Logger.getLogger().logError(oe);
+					} finally {
+						if (!referencedComponent.isBinary() && componentArtifactEdit != null) {
+							componentArtifactEdit.dispose();
+						}
 					}
 				}
 				if (!isModule) {
