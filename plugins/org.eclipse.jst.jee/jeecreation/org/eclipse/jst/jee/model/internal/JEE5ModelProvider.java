@@ -219,7 +219,7 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 			modelPath = getDefaultResourcePath();
 		IWorkspace work = ResourcesPlugin.getWorkspace();
 		IFile file = WorkbenchResourceHelper.getFile(getModelResource(modelPath));
-		if (file != null) {
+		if (file != null && file.exists()) {
 			IFile[] files = { file };
 			if (context == null)
 				context = IWorkspace.VALIDATE_PROMPT;
