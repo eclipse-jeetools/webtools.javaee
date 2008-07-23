@@ -18,9 +18,8 @@ in a Java EE project by changing the value of the <uicontrol>Java</uicontrol> fa
 applies only to J2EE projects. To set the <tm tmclass="special" tmowner="Sun Microsystems, Inc."
 tmtype="tm" trademark="Java">Java</tm> compiler level of a non-Java EE project,
 such as a <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
-trademark="Java">Java</tm> project, see <xref format="html" href="../../org.eclipse.jdt.doc.user/reference/ref-preferences-compiler.htm"
-scope="peer"><tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
-trademark="Java">Java</tm> Compiler</xref>.</p><p>To change the <tm tmclass="special"
+trademark="Java">Java</tm> project, see <xref format="html" href="../../org.eclipse.jdt.doc.user/reference/ref-properties-compiler.htm"
+scope="peer">Java Compiler</xref>.</p><p>To change the <tm tmclass="special"
 tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> compiler
 version, complete the following steps:</p></context>
 <steps outputclass="id_steps">

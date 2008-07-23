@@ -66,8 +66,8 @@ Properties dialog.</cmd></step>
 <step><cmd>In the <uicontrol>Targeted Runtimes</uicontrol> list, select the
 check boxes next to each of the runtimes that you want to develop the project
 for. If you don't see the runtime that you want to use, you need to add it
-to the runtimes in the workbench. For more information, see <xref format="html"
-href="../org.eclipse.wst.server.ui.doc.user/topics/twinstprf.html" scope="peer">Defining
+to the runtimes in the workbench. For more information, see <xref format=""
+href="../../org.eclipse.wst.server.ui.doc.user/topics/twinstprf.dita" scope="peer">Defining
 the installed server runtime environments</xref>.</cmd><info><note>Only the
 runtimes compatible with the project's facets are shown. You can select the <uicontrol>Show
 all runtimes</uicontrol> check box to display the runtimes not compatible
