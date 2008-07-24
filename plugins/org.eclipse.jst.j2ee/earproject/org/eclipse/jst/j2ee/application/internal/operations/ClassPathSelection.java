@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 
 
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -624,8 +625,13 @@ public class ClassPathSelection {
 					if( other == null ){
 						//making a best guess for the project name
 						if( element.getProject() == null ){
-							int  index = cpEntry.indexOf(".jar"); //$NON-NLS-1$
-							if( index > 0 ){
+							int index = cpEntry.indexOf(".jar"); //$NON-NLS-1$
+							// if jar is nested in a folder you must not look for
+							// project (segments in project name cause assertion
+							// error)
+							boolean isMultiSegment = cpEntry
+									.indexOf(File.pathSeparator) == -1;
+							if (!isMultiSegment && index > 0) {
 								String projectName = cpEntry.substring(0, index);
 								IPath projectPath = new Path(projectName);
 								//if there are multiple segments and no reference archive is found
