@@ -52,9 +52,11 @@ public class JEEDeployableFactory extends ProjectModuleFactoryDelegate {
 
 	protected IModule[] createModules(IProject project) {
 		try {
+			if (project.exists()) {
 			ModuleCoreNature nature = (ModuleCoreNature) project.getNature(IModuleConstants.MODULE_NATURE_ID);
 			if (nature != null)
 				return createModules(nature);
+			}
 		} catch (CoreException e) {
 			Logger.getLogger().write(e);
 		}
