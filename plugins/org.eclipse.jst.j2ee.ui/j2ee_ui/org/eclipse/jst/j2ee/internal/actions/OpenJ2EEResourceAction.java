@@ -196,8 +196,6 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 
 			IResource resource = WorkbenchResourceHelper.getFile((EObject)srcObject);
 			IProject project = resource.getProject();
-
-			
 			IJavaProject javaProject = JavaCore.create(project);
 			if(javaProject.exists()){
 				IType type = null;
@@ -227,6 +225,7 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 		if (srcObject instanceof EObject) {
 			EObject ro = (EObject) srcObject;
 			IProject p = ProjectUtilities.getProject(ro);
+			
 			if (ro instanceof BeanLink) {
 				openBeanLinkInJavaEditor((BeanLink) ro, p);
 				return;
@@ -234,7 +233,7 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			IResource resource = WorkbenchResourceHelper.getFile((EObject)srcObject);
 			if(resource != null && resource.exists()){
 				openAppropriateEditor(resource);
-			} else {
+			} else if(ro.eResource() != null) {
 				ModuleFile moduleFile = ArchiveUtil.getModuleFile(ro);
 				if (moduleFile != null) {
 					ArchiveOptions options = moduleFile.getOptions();
@@ -253,8 +252,7 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 					}
 				}
 			}
-		}
-		else if (srcObject instanceof Resource) {
+		} else if (srcObject instanceof Resource) {
 			openAppropriateEditor(WorkbenchResourceHelper.getFile((Resource)srcObject));
 		}
 	}
@@ -290,7 +288,7 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 				 *	as the associated file (such as in the case with Beans), thus we must try to get
 				 *	the default editor if 'obj' is not a JavaEE DD file.
 				 */
-				boolean isJavaEEDDFile = isJavaEEDDFile((EObject)obj);
+				boolean isJavaEEDDFile = isJavaEEDDFile(getRootObject(obj));		
 				if((isJavaEEDDFile && file.exists()) || !isJavaEEDDFile){
 					IContentType contentType = IDE.getContentType(file);
 					currentDescriptor = registry.getDefaultEditor(file.getName(), contentType);
