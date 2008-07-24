@@ -288,13 +288,13 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComponent);					
 		dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, componentList);
 		
-		//[Bug 238264] the uri map needs to be manuly set correctly
+		//[Bug 238264] the uri map needs to be manually set correctly
 		Map uriMap = new HashMap();
 		IVirtualComponent virtComp;
 		String virtCompURIMapName;
 		for(int i=0; i<componentList.size(); i++) {
 			virtComp = (IVirtualComponent)componentList.get(i);
-			virtCompURIMapName = this.getURIMappingName(virtComp);
+			virtCompURIMapName = getVirtualComponentNameWithExtension(virtComp);
 			uriMap.put(virtComp, virtCompURIMapName);
 		}
 		dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, uriMap);
@@ -1115,7 +1115,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	/**
 	 * [Bug 238264]
 	 * determines a unique URI mapping name for a given component
-	 * this is incase to components have the same name.
+	 * this is in case two components have the same name.
 	 * 
 	 * @return returns a valid (none duplicate) uri mapping name for the given component\
 	 */
@@ -1163,5 +1163,31 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		}
 		
 		return uriMapName;
+	}
+	
+	/**
+	 * Method returns the name of the given IVirtualComponent being sure the correct extension
+	 * is on the end of the name, this is important for internal projects. Added for [Bug 241509]
+	 * 
+	 * @param virtComp the IVirtualComponent to get the name of with the correct extension
+	 * @return the name of the given IVirtualComponent with the correct extension
+	 */
+	private String getVirtualComponentNameWithExtension(IVirtualComponent virtComp) {
+		String virtCompURIMapName = this.getURIMappingName(virtComp);
+		
+		if(JavaEEProjectUtilities.isDynamicWebComponent(virtComp) &&
+			!virtCompURIMapName.endsWith(IJ2EEModuleConstants.WAR_EXT)) {
+			//web module URIs need to end in WAR
+			virtCompURIMapName += IJ2EEModuleConstants.WAR_EXT;
+		} else if(JavaEEProjectUtilities.isJCAComponent(virtComp) &&
+			!virtCompURIMapName.endsWith(IJ2EEModuleConstants.RAR_EXT)) {
+			//connector module URIs need to end in RAR
+			virtCompURIMapName += IJ2EEModuleConstants.RAR_EXT;
+		} else if(!virtCompURIMapName.endsWith(IJ2EEModuleConstants.JAR_EXT)) {
+			//all other modules (EJB, AppClient, Utility) need to end in JAR
+			virtCompURIMapName += IJ2EEModuleConstants.JAR_EXT;
+		}
+		
+		return virtCompURIMapName;
 	}
 }
