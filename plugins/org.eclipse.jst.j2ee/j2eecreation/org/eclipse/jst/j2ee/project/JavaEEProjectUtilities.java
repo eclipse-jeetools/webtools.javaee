@@ -297,4 +297,33 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 		return retVal;
 	}
 	
+	/**
+	 * Given a component returns weather the component has
+	 * Java EE version greater then or equal to 5 or not
+	 * 
+	 * NOTE: this method uses JavaEEQuickPeek and not the IProject so does require
+	 * more resources to complete.  This is manly for the binary archive case [Bug  241525].
+	 * 
+	 * @param component
+	 * @return true if the component is JavaEE version 5 or greater, false otherwise
+	 */
+	public static boolean isJEEComponent(IVirtualComponent component){
+		JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(component);
+		int javaEEVersion = qp.getJavaEEVersion();
+		return javaEEVersion >= J2EEConstants.JEE_5_0_ID;
+	}
+	
+	/**
+	 * Given a component returns weather the component has Java EE version less then 5
+	 * 
+	 * NOTE: this method uses JavaEEQuickPeek and not the IProject so does require
+	 * more resources to complete.  This is manly for the binary archive case [Bug  241525].
+	 * 
+	 * @param component
+	 * @return true if the component is less then JavaEE version 5, false otherwise
+	 */
+	public static boolean isLegacyJ2EEComponent(IVirtualComponent component){
+		return !isJEEComponent(component);
+	}
+	
 }
