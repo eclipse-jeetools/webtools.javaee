@@ -15,7 +15,7 @@ import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.swt.widgets.*;
+import org.eclipse.swt.widgets.Shell;
 
 public class DependencyConflictResolveDialog extends MessageDialogWithToggle {
 	

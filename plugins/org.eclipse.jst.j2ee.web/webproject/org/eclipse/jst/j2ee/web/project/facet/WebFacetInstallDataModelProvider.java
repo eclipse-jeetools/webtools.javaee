@@ -16,9 +16,7 @@ import java.util.Set;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.jst.common.project.facet.JavaFacetUtils;
-import org.eclipse.jst.common.project.facet.core.JavaFacetInstallConfig;
+import org.eclipse.jst.common.project.facet.core.JavaFacetInstallConfig.ChangeEvent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
@@ -27,8 +25,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.jst.j2ee.project.facet.J2EEModuleFacetInstallDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.project.facet.core.IFacetedProject;
-import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.project.facet.ProductManager;
 
@@ -36,7 +32,14 @@ import com.ibm.icu.util.StringTokenizer;
 
 public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallDataModelProvider implements IWebFacetInstallDataModelProperties {
 
-	public Set getPropertyNames() {
+    protected void handleJavaFacetSourceFoldersChanged( final ChangeEvent event )
+    {
+        final List<IPath> sourceFolders = event.getJavaFacetInstallConfig().getSourceFolders();
+        final String sourceFolder = ( sourceFolders.isEmpty() ? null : sourceFolders.get( 0 ).toPortableString() );
+        getDataModel().setProperty( SOURCE_FOLDER, sourceFolder );
+    }
+
+    public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
 		names.add(CONTEXT_ROOT);
 		names.add(SOURCE_FOLDER);
@@ -47,9 +50,15 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 		if (propertyName.equals(CONFIG_FOLDER)) {
 			return J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.WEB_CONTENT_FOLDER);
 		} else if (propertyName.equals(SOURCE_FOLDER)) {
-            final JavaFacetInstallConfig javaModel = findJavaFacetInstallConfig();
-            final List<IPath> sourceFolders = javaModel.getSourceFolders();
-            return ( sourceFolders.isEmpty() ? null : sourceFolders.get( 0 ).toPortableString() );
+		    if( this.javaFacetInstallConfig != null )
+		    {
+                final List<IPath> sourceFolders = this.javaFacetInstallConfig.getSourceFolders();
+                return ( sourceFolders.isEmpty() ? null : sourceFolders.get( 0 ).toPortableString() );
+		    }
+		    else
+		    {
+		        return null;
+		    }
 		} else if (propertyName.equals(CONTEXT_ROOT)) {
 			return getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
 		} else if (propertyName.equals(FACET_ID)) {
@@ -77,55 +86,27 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 			// The output folder will be "<contentRoot>/WEB-INF/classes"
 			if (ProductManager.shouldUseSingleRootStructure()) 
 			{
-	            final JavaFacetInstallConfig javaModel = findJavaFacetInstallConfig();
-	            
-	            if( javaModel != null )
+	            if( this.javaFacetInstallConfig != null )
 	            {
 	                final IPath outputFolder
                         = propertyValue == null ? null : new Path( (String) propertyValue + "/" +J2EEConstants.WEB_INF_CLASSES );
 
-	                javaModel.setDefaultOutputFolder( outputFolder );
+	                this.javaFacetInstallConfig.setDefaultOutputFolder( outputFolder );
 	            }
 			}
 			return true;
 		} else if (propertyName.equals(SOURCE_FOLDER)) 
 		{
-		    final JavaFacetInstallConfig javaModel = findJavaFacetInstallConfig();
-		    
-		    if( javaModel != null )
+		    if( this.javaFacetInstallConfig != null )
 		    {
 		        final IPath sourceFolder
 		            = propertyValue == null ? null : new Path( (String) propertyValue );
 		        
-		        javaModel.setSourceFolder( sourceFolder );
+		        this.javaFacetInstallConfig.setSourceFolder( sourceFolder );
 			}
 		}
+		
 		return super.propertySet(propertyName, propertyValue);
-	}
-	
-	private JavaFacetInstallConfig findJavaFacetInstallConfig()
-	{
-        final IFacetedProjectWorkingCopy fpjwc 
-            = (IFacetedProjectWorkingCopy) this.model.getProperty( FACETED_PROJECT_WORKING_COPY );
-        
-        if( fpjwc != null )
-        {
-            final IFacetedProject.Action javaInstallAction
-                = fpjwc.getProjectFacetAction( JavaFacetUtils.JAVA_FACET );
-            
-            final Object config = javaInstallAction.getConfig();
-            
-            if( config instanceof JavaFacetInstallConfig )
-            {
-                return (JavaFacetInstallConfig) config;
-            }
-            else
-            {
-                return (JavaFacetInstallConfig) Platform.getAdapterManager().getAdapter( config, JavaFacetInstallConfig.class );
-            }
-        }
-        
-        return null;
 	}
 
 	public boolean isPropertyEnabled(String propertyName) {

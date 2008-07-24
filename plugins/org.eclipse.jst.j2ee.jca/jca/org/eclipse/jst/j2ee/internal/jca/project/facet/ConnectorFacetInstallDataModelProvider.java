@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.jca.project.facet;
 
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -19,10 +21,6 @@ import org.eclipse.jst.j2ee.project.facet.J2EEModuleFacetInstallDataModelProvide
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 public class ConnectorFacetInstallDataModelProvider extends J2EEModuleFacetInstallDataModelProvider implements IConnectorFacetInstallDataModelProperties {
-	public ConnectorFacetInstallDataModelProvider()
-	{
-		super();
-	}
 
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(FACET_ID)) {
@@ -41,4 +39,20 @@ public class ConnectorFacetInstallDataModelProvider extends J2EEModuleFacetInsta
 	protected int convertFacetVersionToJ2EEVersion(IProjectFacetVersion version) {
 		return J2EEVersionUtil.convertConnectorVersionStringToJ2EEVersionID(version.getVersionString());
 	}
+	
+    public boolean propertySet(String propertyName, Object propertyValue) {
+        if (propertyName.equals(CONFIG_FOLDER)) 
+        {
+            if( this.javaFacetInstallConfig != null )
+            {
+                final IPath sourceFolder
+                    = propertyValue == null ? null : new Path( (String) propertyValue );
+                
+                this.javaFacetInstallConfig.setSourceFolder( sourceFolder );
+            }
+        }
+        
+        return super.propertySet(propertyName, propertyValue);
+    }
+    
 }

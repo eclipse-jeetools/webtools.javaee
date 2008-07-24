@@ -35,10 +35,13 @@ import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModel;
+import org.eclipse.jst.j2ee.internal.common.ClasspathModelEvent;
+import org.eclipse.jst.j2ee.internal.dialogs.DependencyConflictResolveDialog;
 import org.eclipse.jst.j2ee.internal.listeners.IValidateEditListener;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.wizard.AvailableJarsProvider;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -51,9 +54,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
-import org.eclipse.jst.j2ee.internal.common.ClasspathModelEvent;
-import org.eclipse.jst.j2ee.internal.dialogs.DependencyConflictResolveDialog;
-import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 
 /**
  * @author jialin

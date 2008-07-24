@@ -20,14 +20,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 public class AppClientFacetInstallPage extends J2EEModuleFacetInstallPage implements IAppClientFacetInstallDataModelProperties {
 
-	private Label configFolderLabel;
-	private Text configFolder;
 	private Button createMainClass;
 	
 	public AppClientFacetInstallPage() {
@@ -45,15 +41,6 @@ public class AppClientFacetInstallPage extends J2EEModuleFacetInstallPage implem
 		final Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));
 
-		configFolderLabel = new Label(composite, SWT.NONE);
-		configFolderLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.SOURCEFOLDER));
-		configFolderLabel.setLayoutData(gdhfill());
-
-		configFolder = new Text(composite, SWT.BORDER);
-		configFolder.setLayoutData(gdhfill());
-		configFolder.setData("label", configFolderLabel); //$NON-NLS-1$
-		synchHelper.synchText(configFolder, CONFIG_FOLDER, null);
-		
 		createMainClass = new Button(composite, SWT.CHECK);
 		createMainClass.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_CREATE_MAIN));
 		synchHelper.synchCheckbox(createMainClass, CREATE_DEFAULT_MAIN_CLASS, null);

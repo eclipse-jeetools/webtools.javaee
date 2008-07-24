@@ -34,8 +34,6 @@ public class WebFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 	private Text contextRoot;
 	private Label contentDirLabel;
 	private Text contentDir;
-	private Text sourceDir;
-	private Label sourceDirLabel;
 
 	public WebFacetInstallPage() {
 		super("web.facet.install.page"); //$NON-NLS-1$
@@ -66,15 +64,6 @@ public class WebFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 		this.contentDir.setData("label", this.contentDirLabel); //$NON-NLS-1$
 		synchHelper.synchText(contentDir, CONFIG_FOLDER, null);
 		
-		this.sourceDirLabel = new Label(composite, SWT.NONE);
-		this.sourceDirLabel.setText(Resources.sourceDirLabel);
-		this.sourceDirLabel.setLayoutData(gdhfill());
-		
-		this.sourceDir = new Text(composite, SWT.BORDER);
-		this.sourceDir.setLayoutData(gdhfill());
-		this.sourceDir.setData("label", this.sourceDirLabel); //$NON-NLS-1$
-		synchHelper.synchText(sourceDir, SOURCE_FOLDER, null);
-		
 		createGenerateDescriptorControl( composite );
 		registerFacetVersionChangeListener();
 		
@@ -100,8 +89,6 @@ public class WebFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 		public static String contextRootLabelInvalid;
 		public static String contentDirLabel;
 		public static String contentDirLabelInvalid;
-		public static String sourceDirLabel;
-
 
 		static {
 			initializeMessages(WebFacetInstallPage.class.getName(), Resources.class);

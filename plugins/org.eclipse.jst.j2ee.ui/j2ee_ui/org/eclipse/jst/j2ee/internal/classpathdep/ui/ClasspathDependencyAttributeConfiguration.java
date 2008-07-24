@@ -12,16 +12,12 @@ package org.eclipse.jst.j2ee.internal.classpathdep.ui;
 
 import java.net.URL;
 
-
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.ui.wizards.ClasspathAttributeConfiguration;
-
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
-
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Shell;
 

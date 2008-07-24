@@ -30,7 +30,7 @@ public class UtilityProjectFirstPage extends J2EEComponentFacetCreationWizardPag
 		public static String pageDescription;
 
 		static {
-			initializeMessages(UtilityFacetInstallPage.class.getName(), Resources.class);
+			initializeMessages(UtilityProjectFirstPage.class.getName(), Resources.class);
 		}
 	}
 

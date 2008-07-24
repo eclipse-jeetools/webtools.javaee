@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.project.facet;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.internal.resources.ResourceStatus;
@@ -18,11 +19,16 @@ import org.eclipse.core.internal.utils.Messages;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
+import org.eclipse.jst.common.project.facet.JavaFacetUtils;
+import org.eclipse.jst.common.project.facet.core.JavaFacetInstallConfig;
+import org.eclipse.jst.common.project.facet.core.JavaFacetInstallConfig.ChangeEvent;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
@@ -42,7 +48,10 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.common.project.facet.core.events.IFacetedProjectEvent;
+import org.eclipse.wst.common.project.facet.core.events.IFacetedProjectListener;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
+import org.eclipse.wst.common.project.facet.core.util.IEventListener;
 import org.eclipse.wst.project.facet.ProductManager;
 
 public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetInstallDataModelProvider implements IJ2EEModuleFacetInstallDataModelProperties {
@@ -53,6 +62,25 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 	 */
 	public static final String PROHIBIT_ADD_TO_EAR = "J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR"; //$NON-NLS-1$
 
+    protected IFacetedProjectWorkingCopy fpjwc = null;
+    protected JavaFacetInstallConfig javaFacetInstallConfig = null;
+
+    private IEventListener<JavaFacetInstallConfig.ChangeEvent> javaFacetSourceFolderListener 
+        = new IEventListener<JavaFacetInstallConfig.ChangeEvent>()
+    {
+        public void handleEvent( final ChangeEvent event ) 
+        {
+            handleJavaFacetSourceFoldersChanged( event );
+        }
+    };
+
+    protected void handleJavaFacetSourceFoldersChanged( final ChangeEvent event )
+    {
+        final List<IPath> sourceFolders = event.getJavaFacetInstallConfig().getSourceFolders();
+        final String sourceFolder = ( sourceFolders.isEmpty() ? null : sourceFolders.get( 0 ).toPortableString() );
+        getDataModel().setProperty( CONFIG_FOLDER, sourceFolder );
+    }
+	
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
 		names.add(ADD_TO_EAR);
@@ -137,6 +165,22 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			model.notifyPropertyChange(ADD_TO_EAR, IDataModel.VALID_VALUES_CHG);
 			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
 		}
+        else if( propertyName.equals( FACETED_PROJECT_WORKING_COPY ) )
+        {
+            this.fpjwc = (IFacetedProjectWorkingCopy) propertyValue;
+            
+            this.fpjwc.addListener
+            (
+                new IFacetedProjectListener()
+                {
+                    public void handleEvent( final IFacetedProjectEvent event ) 
+                    {
+                        handleProjectFacetsChanged();
+                    }
+                },
+                IFacetedProjectEvent.Type.PROJECT_FACETS_CHANGED
+            );
+        }
 
 		if (ADD_TO_EAR.equals(propertyName)) {
 			IStatus stat = model.validateProperty(propertyName);
@@ -148,6 +192,28 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 
 		return super.propertySet(propertyName, propertyValue);
 	}
+	
+    private void handleProjectFacetsChanged()
+    {
+        final IFacetedProject.Action javaInstallAction
+            = this.fpjwc.getProjectFacetAction( JavaFacetUtils.JAVA_FACET );
+        
+        if( javaInstallAction != null )
+        {
+            final Object config = javaInstallAction.getConfig();
+            
+            if( config instanceof JavaFacetInstallConfig )
+            {
+                this.javaFacetInstallConfig = (JavaFacetInstallConfig) config;
+            }
+            else
+            {
+                this.javaFacetInstallConfig = (JavaFacetInstallConfig) Platform.getAdapterManager().getAdapter( config, JavaFacetInstallConfig.class );
+            }
+            
+            this.javaFacetInstallConfig.addListener( this.javaFacetSourceFolderListener, JavaFacetInstallConfig.ChangeEvent.Type.SOURCE_FOLDERS_CHANGED );
+        }
+    }
 
 	public boolean isPropertyEnabled(String propertyName) {
 		if (ADD_TO_EAR.equals(propertyName)) {
