@@ -34,6 +34,7 @@ import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbClientProjectRemov
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.IEjbClientProjectRemovalDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.progress.UIJob;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -78,8 +79,8 @@ public class EJBClientRemovalAction extends AbstractClientJARAction {
 		try{
 				//validatorMgr.suspendAllValidation(true);
 				
-				Job clientRemoveJob = new Job("Removing EJB Client Project"){ //$NON-NLS-1$
-					protected IStatus run(IProgressMonitor monitor) {
+				Job clientRemoveJob = new UIJob("Removing EJB Client Project"){ //$NON-NLS-1$
+					public IStatus runInUIThread(IProgressMonitor monitor) {
 						
 						UIOperationHandler opHandler = new UIOperationHandler(shell);
 						IDataModel model = DataModelFactory.createDataModel( new EjbClientProjectRemovalDataModelProvider() );
