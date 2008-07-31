@@ -39,15 +39,14 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
-import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
-import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
-import org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.ClientJARCreationConstants;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentsDataModelProvider;
@@ -221,21 +220,23 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 	 * Remove the client JAR entry from the deployment descriptor
 	 */
 	private void updateDD() {
-		EnterpriseArtifactEdit ejbEdit = null;
-		try {
-			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite(ejbProject);
-
-			if (ejbEdit != null) {
-				EJBJarImpl ejbres = (EJBJarImpl) ejbEdit.getDeploymentDescriptorRoot();
-				ejbres.setEjbClientJar( null );
-				ejbEdit.saveIfNecessary( null );
-			}
-		} catch (Exception e) {
-			Logger.getLogger().logError(e);
-		} finally {
-			if (ejbEdit != null)
-				ejbEdit.dispose();
-		}
+		IModelProvider ejbModel = ModelProviderManager.getModelProvider(ejbProject);
+        ejbModel.modify(new Runnable() {
+            public void run() {
+                IModelProvider writableEjbModel = ModelProviderManager.getModelProvider(ejbProject);
+                Object modelObject = writableEjbModel.getModelObject();
+                
+                if (modelObject instanceof org.eclipse.jst.javaee.ejb.EJBJar) {
+                    org.eclipse.jst.javaee.ejb.EJBJar ejbres = (org.eclipse.jst.javaee.ejb.EJBJar) writableEjbModel.getModelObject();
+                    if (ejbres != null)
+                    	ejbres.setEjbClientJar(null);
+                }
+                else {
+                    org.eclipse.jst.j2ee.ejb.EJBJar ejbres = (org.eclipse.jst.j2ee.ejb.EJBJar) writableEjbModel.getModelObject();
+                    ejbres.setEjbClientJar(null);
+                }
+            }
+        },null);
 	}
 
 	/*

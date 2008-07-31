@@ -22,8 +22,10 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
@@ -33,16 +35,17 @@ import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterp
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
-import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
-import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
-import org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.facet.IUtilityFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.UtilityProjectCreationDataModelProvider;
+import org.eclipse.jst.jee.project.facet.ICreateDeploymentFilesDataModelProperties;
+import org.eclipse.jst.jee.project.facet.IEJBCreateDeploymentFilesDataModelProperties;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
@@ -268,39 +271,48 @@ public class EjbClientJarCreationOperation
 	}
 
 
-	private void updateEJBDD(IDataModel model, IProgressMonitor monitor) {
+	private void updateEJBDD(final IDataModel model, IProgressMonitor monitor) {
 
 		String ejbprojectName = model.getStringProperty( EJB_PROJECT_NAME );
-		IProject ejbProj = ProjectUtilities.getProject(ejbprojectName);
-
-
-		String clientProjectName = model.getStringProperty(PROJECT_NAME);
-
-		IVirtualComponent c = ComponentCore.createComponent(ejbProj);
-		Properties props = c.getMetaProperties();
-
-		String clienturi = props.getProperty(CreationConstants.CLIENT_JAR_URI);
-
-		EnterpriseArtifactEdit ejbEdit = null;
-		try {
-			ejbEdit = new EJBArtifactEdit(ejbProj, false, true);
-
-			if (ejbEdit != null) {
-				EJBJarImpl ejbres = (EJBJarImpl) ejbEdit.getDeploymentDescriptorRoot();
-				if (clienturi != null && !clienturi.equals("")) {
-					ejbres.setEjbClientJar(clienturi);//$NON-NLS-1$
-				} else
-					ejbres.setEjbClientJar(clientProjectName + ".jar");//$NON-NLS-1$
-				ejbres.setEjbClientJar(clienturi);//$NON-NLS-1$
-				ejbEdit.saveIfNecessary(monitor);
+		final IProject ejbProj = ProjectUtilities.getProject(ejbprojectName);
+		
+		//if deployment descriptor does not exist then we need to generate one
+		if (!hasDeploymentDescriptor(ejbProj)) {
+			IDataModel dataModel = DataModelFactory.createDataModel(IEJBCreateDeploymentFilesDataModelProperties.class);
+			dataModel.setProperty(ICreateDeploymentFilesDataModelProperties.TARGET_PROJECT, ejbProj);
+			try {
+				dataModel.getDefaultOperation().execute(new NullProgressMonitor(), null);
+			} catch (ExecutionException e) {
+				Logger.getLogger().logError( e );
 			}
-		} catch (Exception e) {
-			Logger.getLogger().logError(e);
-		} finally {
-			if (ejbEdit != null)
-				ejbEdit.dispose();
 		}
 
+		IModelProvider ejbModel = ModelProviderManager.getModelProvider(ejbProj);
+        ejbModel.modify(new Runnable() {
+            public void run() {
+                IModelProvider writableEjbModel = ModelProviderManager.getModelProvider(ejbProj);
+                Object modelObject = writableEjbModel.getModelObject();
+                String clientProjectName = model.getStringProperty(PROJECT_NAME);
+        		IVirtualComponent c = ComponentCore.createComponent(ejbProj);
+        		Properties props = c.getMetaProperties();
+        		String clienturi = props.getProperty(CreationConstants.CLIENT_JAR_URI);
+        		
+                if (modelObject instanceof org.eclipse.jst.javaee.ejb.EJBJar) {
+                    org.eclipse.jst.javaee.ejb.EJBJar ejbres = (org.eclipse.jst.javaee.ejb.EJBJar) writableEjbModel.getModelObject();
+                    if (clienturi != null && !clienturi.equals("")) { //$NON-NLS-1$
+                    	ejbres.setEjbClientJar(clienturi);
+                    } else
+                    	ejbres.setEjbClientJar(clientProjectName + ".jar");//$NON-NLS-1$
+                }
+                else {
+                    org.eclipse.jst.j2ee.ejb.EJBJar ejbres = (org.eclipse.jst.j2ee.ejb.EJBJar) writableEjbModel.getModelObject();
+                    if (clienturi != null && !clienturi.equals("")) { //$NON-NLS-1$
+                        ejbres.setEjbClientJar(clienturi);
+                    } else
+                        ejbres.setEjbClientJar(clientProjectName + ".jar");//$NON-NLS-1$
+                }
+            }
+        },null);
 	}	
 	
 	//The referencing projects which were having Ejb will now have ejbclient
@@ -381,5 +393,17 @@ public class EjbClientJarCreationOperation
 
         }
     }
+    
+    private boolean hasDeploymentDescriptor(IProject project) {
+    	boolean ret = true;
+    	IPath ddFilePath = new Path(J2EEConstants.EJBJAR_DD_URI);
+    	IVirtualComponent component = ComponentCore.createComponent(project);
+    	if (component.getRootFolder() != null && component.getRootFolder().getUnderlyingFolder() != null) {
+    		IFile ddXmlFile = component.getRootFolder().getUnderlyingFolder().getFile(ddFilePath);
+    		ret = ddXmlFile.exists();
+    	}
+    	return ret;
+    }
+
     
 }
