@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
@@ -82,12 +82,7 @@ public class EjbFacetInstallDataModelProvider
 	}
 	
 	protected int convertFacetVersionToJ2EEVersion(IProjectFacetVersion version) {
-		if (EJB_11.equals(version)) {
-			return J2EEVersionConstants.J2EE_1_2_ID;
-		} else if (EJB_20.equals(version)) {
-			return J2EEVersionConstants.J2EE_1_3_ID;
-		}
-		return J2EEVersionConstants.J2EE_1_4_ID;
+		return J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(version.getVersionString());
 	}
 		
 	public boolean isPropertyEnabled(String propertyName) {
