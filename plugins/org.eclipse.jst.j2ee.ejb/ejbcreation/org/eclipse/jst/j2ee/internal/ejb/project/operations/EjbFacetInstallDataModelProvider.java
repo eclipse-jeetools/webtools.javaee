@@ -12,7 +12,9 @@ package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 
 import java.util.Set;
 
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -130,7 +132,16 @@ public class EjbFacetInstallDataModelProvider
 	    		}
 	    	}
 	    	model.notifyPropertyChange(CREATE_CLIENT, IDataModel.ENABLE_CHG);
-	    }
+        } else if (propertyName.equals(CONFIG_FOLDER)) 
+        {
+            if( this.javaFacetInstallConfig != null )
+            {
+                final IPath sourceFolder
+                    = propertyValue == null ? null : new Path( (String) propertyValue );
+                
+                this.javaFacetInstallConfig.setSourceFolder( sourceFolder );
+            }
+        }
 
 		return status;
 	}	

@@ -33,8 +33,6 @@ public class EjbFacetInstallPage extends J2EEModuleFacetInstallPage
 
     private static final String MODULE_NAME_UI = J2EEUIMessages.getResourceString(J2EEUIMessages.NAME_LABEL);
     
-	private Text configFolder;
-	private Label configFolderLabel;
 	protected Button addClient;	
     protected Text clientNameText = null;  
 	private Label clientJarURILabel;
@@ -57,15 +55,6 @@ public class EjbFacetInstallPage extends J2EEModuleFacetInstallPage
 		composite.setLayout(new GridLayout(1, false));
 
 		//setupEarControl(composite);
-		
-		this.configFolderLabel = new Label(composite, SWT.NONE);
-		this.configFolderLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.SOURCEFOLDER));
-		this.configFolderLabel.setLayoutData(gdhfill());
-		
-		this.configFolder = new Text(composite, SWT.BORDER);
-		this.configFolder.setLayoutData(gdhfill());
-		this.configFolder.setData("label", this.configFolderLabel); //$NON-NLS-1$
-		synchHelper.synchText(configFolder, CONFIG_FOLDER, null);
 		
 		createEJBClientGroup( composite );
 		createProjectNameGroup( composite );
