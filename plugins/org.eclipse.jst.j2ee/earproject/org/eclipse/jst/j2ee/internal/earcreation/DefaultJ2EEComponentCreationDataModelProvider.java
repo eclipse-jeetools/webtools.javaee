@@ -38,6 +38,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
+import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
@@ -389,25 +390,37 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 
 	private void setNestedJ2EEVersion(Object j2eeVersion) {
 		int j2eeVer = ((Integer) j2eeVersion).intValue();
-		if (ejbFacetModel != null) {
+		if (ejbModel != null && ejbFacetModel != null) {
 			String facetVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToEJBVersionID(j2eeVer));
 			IProjectFacetVersion facetVersion = ProjectFacetsManager.getProjectFacet(ejbFacetModel.getStringProperty(IFacetDataModelProperties.FACET_ID)).getVersion(facetVersionString);
 			ejbFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, facetVersion);
+			//[Bug 243226] IFacetedProjectWorkingCopy facet version is not automatically updated so it has to be done manually
+			IFacetedProjectWorkingCopy fpwc = (IFacetedProjectWorkingCopy)ejbModel.getProperty(IFacetProjectCreationDataModelProperties.FACETED_PROJECT_WORKING_COPY);
+			fpwc.changeProjectFacetVersion(facetVersion);
 		}
-		if (webFacetModel != null) {
+		if (webModel != null &&webFacetModel != null) {
 			String facetVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToWebVersionID(j2eeVer));
 			IProjectFacetVersion facetVersion = ProjectFacetsManager.getProjectFacet(webFacetModel.getStringProperty(IFacetDataModelProperties.FACET_ID)).getVersion(facetVersionString);
 			webFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, facetVersion);
+			//[Bug 243226] IFacetedProjectWorkingCopy facet version is not automatically updated so it has to be done manually
+			IFacetedProjectWorkingCopy fpwc = (IFacetedProjectWorkingCopy)webModel.getProperty(IFacetProjectCreationDataModelProperties.FACETED_PROJECT_WORKING_COPY);
+			fpwc.changeProjectFacetVersion(facetVersion);
 		}
-		if (jcaFacetModel != null) {
+		if (jcaModel != null && jcaFacetModel != null) {
 			String facetVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToConnectorVersionID(j2eeVer));
 			IProjectFacetVersion facetVersion = ProjectFacetsManager.getProjectFacet(jcaFacetModel.getStringProperty(IFacetDataModelProperties.FACET_ID)).getVersion(facetVersionString);
 			jcaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, facetVersion);
+			//[Bug 243226] IFacetedProjectWorkingCopy facet version is not automatically updated so it has to be done manually
+			IFacetedProjectWorkingCopy fpwc = (IFacetedProjectWorkingCopy)jcaModel.getProperty(IFacetProjectCreationDataModelProperties.FACETED_PROJECT_WORKING_COPY);
+			fpwc.changeProjectFacetVersion(facetVersion);
 		}
-		if (clientFacetModel != null){
+		if (clientModel != null && clientFacetModel != null){
 			String facetVersionString = J2EEVersionUtil.convertVersionIntToString(j2eeVer);
 			IProjectFacetVersion facetVersion = ProjectFacetsManager.getProjectFacet(clientFacetModel.getStringProperty(IFacetDataModelProperties.FACET_ID)).getVersion(facetVersionString);
 			clientFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, facetVersion);
+			//[Bug 243226] IFacetedProjectWorkingCopy facet version is not automatically updated so it has to be done manually
+			IFacetedProjectWorkingCopy fpwc = (IFacetedProjectWorkingCopy)clientModel.getProperty(IFacetProjectCreationDataModelProperties.FACETED_PROJECT_WORKING_COPY);
+			fpwc.changeProjectFacetVersion(facetVersion);
 		}
 	}
 
