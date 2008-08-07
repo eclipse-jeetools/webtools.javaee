@@ -21,6 +21,7 @@ import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.EObject;
@@ -33,6 +34,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentLoadAdapter;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
@@ -45,6 +47,7 @@ import org.eclipse.jst.jee.archive.internal.ArchiveImpl;
 import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
 import org.eclipse.jst.jee.archive.internal.ZipFileArchiveLoadAdapterImpl;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
@@ -118,7 +121,29 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 			ArchiveOptions archiveOptions = new ArchiveOptions();
 			archiveOptions.setOption(ArchiveOptions.LOAD_ADAPTER, loadAdapter);
 			archiveOptions.setOption(ArchiveOptions.ARCHIVE_PATH, loadAdapter.getArchivePath());
-			return openArchive(archiveOptions);
+			IArchive parentEARArchive = null;
+			try {
+				try {
+					IProject earProject = virtualComponent.getProject();
+					if(earProject != null && EarUtilities.isEARProject(earProject)){
+						IVirtualComponent earComponent = ComponentCore.createComponent(virtualComponent.getProject());
+						if(earComponent != null) {
+							parentEARArchive = openArchive(earComponent);
+							if(parentEARArchive != null) {
+								archiveOptions.setOption(ArchiveOptions.PARENT_ARCHIVE, parentEARArchive);
+							}
+						}
+					}
+				} catch(ArchiveOpenFailureException e) {
+					org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+				}
+				return openArchive(archiveOptions);
+			} finally {
+				archiveOptions.removeOption(ArchiveOptions.PARENT_ARCHIVE);
+				if(parentEARArchive != null){
+					closeArchive(parentEARArchive);
+				}
+			}
 		}
 		int type = J2EEVersionConstants.UNKNOWN;
 		IArchiveLoadAdapter archiveLoadAdapter = null;

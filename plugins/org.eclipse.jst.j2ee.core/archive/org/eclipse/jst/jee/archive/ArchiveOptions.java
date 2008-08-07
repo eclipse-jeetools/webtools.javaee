@@ -64,6 +64,10 @@ public class ArchiveOptions {
 		optionsMap.put(optionKey, optionValue);
 	}
 	
+	public void removeOption(Object optionKey){
+		optionsMap.remove(optionKey);
+	}
+	
 	public Set keySet(){
 		return optionsMap.keySet();
 	}
