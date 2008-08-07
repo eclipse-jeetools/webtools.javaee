@@ -200,7 +200,9 @@ public class EJBClientRemovalAction extends AbstractClientJARAction {
 
 	public void selectionChanged(IAction action, ISelection selection) {
 		super.selectionChanged(action, selection);
-		if( !hasClientJar() )
-			action.setEnabled( false );
+		if (hasClientJar())
+			action.setEnabled(true);
+		else 
+			action.setEnabled(false);
 	}    
 }

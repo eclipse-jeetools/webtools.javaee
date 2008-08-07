@@ -119,7 +119,9 @@ public class EJBClientCreationAction extends AbstractClientJARAction {
 
 	public void selectionChanged(IAction action, ISelection selection) {
 		super.selectionChanged(action, selection);
-		if( hasClientJar() )
-			action.setEnabled( false );
+		if (hasClientJar())
+			action.setEnabled(false);
+		else 
+			action.setEnabled(true);
 	}
 }
