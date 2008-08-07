@@ -51,6 +51,7 @@ import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.jst.server.core.IApplicationClientModule;
 import org.eclipse.jst.server.core.IConnectorModule;
@@ -927,19 +928,47 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 					}
 				}
 				return false;
-			} else if (J2EEProjectUtilities.isEJBProject(getProject()) || J2EEProjectUtilities.isJCAProject(getProject())
-					|| J2EEProjectUtilities.isApplicationClientProject(getProject()) || J2EEProjectUtilities.isUtilityProject(getProject())) {
+			} else if (JavaEEProjectUtilities.isEJBProject(getProject()) || JavaEEProjectUtilities.isJCAProject(getProject())
+					|| JavaEEProjectUtilities.isApplicationClientProject(getProject()) || JavaEEProjectUtilities.isUtilityProject(getProject())) {
 				// if there are any linked resources then this is not a singleroot module
 				if (this.rootFoldersHaveLinkedContent()) {
 					return false;
 				}
 				// Ensure there are only source folder component resource mappings to the root content folder
 				if (isRootResourceMapping(resourceMaps,false)) {
+					IContainer[] javaOutputFolders = getJavaOutputFolders();
 					// Verify only one java outputfolder
-					if (getJavaOutputFolders().length==1) {
-						// At this point for utility projects, this project is optimized, we can just use the output folder
-						if (J2EEProjectUtilities.isUtilityProject(getProject()))
-							return true;
+					if (javaOutputFolders.length==1) {
+						// By the time we get here we know: for any folders defined as source in the 
+						// .component file that they are also java source folders.
+						if (JavaEEProjectUtilities.isUtilityProject(getProject()) || 
+								JavaEEProjectUtilities.isEJBProject(getProject()) || 
+								JavaEEProjectUtilities.isApplicationClientProject(getProject())) {
+							if (! isSourceContainer(javaOutputFolders[0].getFullPath())) {
+								// The single output folder is NOT a source folder so this is single-rooted. Since the
+								// output folder (something like classes or bin) is not a source folder, JDT copies all files
+								// (including non Java files) to this folder, so every resource needed at runtime is located 
+								// in a single directory.
+								return true;
+							} else {
+// Don't implement at this time. Currently, we claim single-rooted when ejbModlule is the output folder.  However,
+// we know this is not true because it cannot contain non Java files unless it is the only source folder. But, fixing
+// at this time would break all current users.
+//								// The single output folder IS a source folder. If there is more than one source folder
+//								// then this cannot be single-rooted because JDT does NOTcopy non Java resources into the
+//								// output folder when it is a source folder.
+//								if (getSourceContainers().length > 1) {
+//									return false;
+//								} else {
+//									// There is only one source folder and since the output folder is a source folder
+//									// this is single-rooted.
+//									return true;
+//								}
+							}
+						}
+//						// At this point for utility projects, this project is optimized, we can just use the output folder
+//						if (J2EEProjectUtilities.isUtilityProject(getProject()))
+//							return true;
 						// Verify the java output folder is the same as one of the content roots
 						IPath javaOutputPath = getJavaOutputFolders()[0].getProjectRelativePath();
 						IContainer[] rootFolders = component.getRootFolder().getUnderlyingFolders();
