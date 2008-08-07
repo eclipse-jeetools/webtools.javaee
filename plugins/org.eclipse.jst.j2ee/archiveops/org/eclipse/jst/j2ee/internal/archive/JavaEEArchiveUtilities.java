@@ -313,7 +313,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 									definedType = J2EEVersionConstants.WEB_TYPE;
 								}
 							}
-						} else {
+						} else { //J2EE 1.4 or below, rely solely on DD
 							org.eclipse.jst.j2ee.application.Application app = (org.eclipse.jst.j2ee.application.Application) ddObj;
 							org.eclipse.jst.j2ee.application.Module module = app.getFirstModule(archivePath.toString());
 							if (null != module) {
@@ -326,6 +326,10 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 								} else if (module.isWebModule()) {
 									definedType = J2EEVersionConstants.WEB_TYPE;
 								}
+							} else { //J2EE 1.4 or below, and not in DD, treat as utility
+								JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(null);
+								archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
+								return simpleArchive;
 							}
 						}
 						if (definedType != J2EEVersionConstants.UNKNOWN) {
