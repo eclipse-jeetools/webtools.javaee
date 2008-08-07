@@ -307,6 +307,7 @@ public class WTPJETEmitter extends JETEmitter {
 		IScopeContext context = new ProjectScope( project );
 		IEclipsePreferences prefs = context.getNode( JavaCore.PLUGIN_ID );
 		prefs.put( JavaCore.COMPILER_PB_RAW_TYPE_REFERENCE, JavaCore.IGNORE );
+		prefs.put( JavaCore.COMPILER_PB_UNCHECKED_TYPE_OPERATION, JavaCore.IGNORE );
 	}
 
 	/**
