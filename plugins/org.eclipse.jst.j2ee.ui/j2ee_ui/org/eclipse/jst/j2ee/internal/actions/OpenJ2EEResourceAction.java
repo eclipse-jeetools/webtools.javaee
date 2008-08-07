@@ -34,6 +34,8 @@ import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jst.j2ee.application.Application;
+import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
@@ -48,15 +50,13 @@ import org.eclipse.jst.j2ee.internal.plugin.BinaryEditorUtilities;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.EJBLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.ServletLink;
-import org.eclipse.jst.javaee.application.Application;
-import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
-import org.eclipse.jst.javaee.ejb.internal.impl.EJBJarImpl;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
@@ -178,10 +178,7 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			return;
 		}
 		
-		if( srcObject instanceof org.eclipse.jst.javaee.ejb.SessionBean ||
-			srcObject instanceof org.eclipse.jst.javaee.ejb.MessageDrivenBean ||
-			srcObject instanceof org.eclipse.jst.javaee.ejb.EntityBean ){
-			
+		if( isEJB3BeanObject(srcObject) ){
 			String name = ""; //$NON-NLS-1$
 			if( srcObject instanceof org.eclipse.jst.javaee.ejb.SessionBean ){
 				org.eclipse.jst.javaee.ejb.SessionBean bean = (org.eclipse.jst.javaee.ejb.SessionBean)srcObject;
@@ -275,11 +272,13 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 		// then set the source object as is. The run() will do the hard stuff.
 		Object obj = s.getFirstElement();
 
-		if (obj instanceof J2EEJavaClassProviderHelper)
+		if (obj instanceof J2EEJavaClassProviderHelper) {
 			currentDescriptor = getJavaEditorDescriptor();
-		else if (obj instanceof BeanLink)
+		} else if (obj instanceof BeanLink) {
 			currentDescriptor = getBaseJavaEditorDescriptor();	
-		else if (obj instanceof EObject) {
+		} else if(isEJB3BeanObject(obj)) {
+			//[241685] if it is a EJB 3 bean the class is specially opened by the run() method
+		} else if (obj instanceof EObject) {
 			IEditorRegistry registry = PlatformUI.getWorkbench().getEditorRegistry();
 			IFile file = WorkbenchResourceHelper.getFile((EObject)obj);
 			if(file != null) {
@@ -288,8 +287,10 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 				 *	as the associated file (such as in the case with Beans), thus we must try to get
 				 *	the default editor if 'obj' is not a JavaEE DD file.
 				 */
-				boolean isJavaEEDDFile = isJavaEEDDFile(getRootObject(obj));		
-				if((isJavaEEDDFile && file.exists()) || !isJavaEEDDFile){
+				boolean isJavaEEDDFile = isJavaEEDDFile((EObject)obj);
+				boolean isParentJavaEEDDFile = isJavaEEDDFile(getRootObject(obj));
+				//[241685] if file is a DD or its containing parent is a DD then it is open-able as a DD
+				if((isJavaEEDDFile && file.exists()) || (isParentJavaEEDDFile && file.exists())){
 					IContentType contentType = IDE.getContentType(file);
 					currentDescriptor = registry.getDefaultEditor(file.getName(), contentType);
 				} else {
@@ -404,10 +405,40 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 		return null;
 	}
 	
-	//[235218] Determine if the given EObject is a JavaEE DD
+	/**
+	 * Determine if the given EObject is a JavaEE DD
+	 * [235218] first added
+	 * [241685] Updated to include both pre and post JavaEE 5 DDs
+	 * @param obj
+	 * @return
+	 */
 	private boolean isJavaEEDDFile(EObject obj){
-		boolean isDD = obj instanceof EJBJarImpl || obj instanceof org.eclipse.jst.javaee.web.WebApp || 
-				obj instanceof Application || obj instanceof ApplicationClient;
+		boolean isDD =
+			obj instanceof org.eclipse.jst.javaee.ejb.EJBJar ||
+			obj instanceof org.eclipse.jst.javaee.web.WebApp ||
+			obj instanceof org.eclipse.jst.javaee.applicationclient.ApplicationClient ||
+			obj instanceof org.eclipse.jst.javaee.application.Application ||
+			obj instanceof EJBJar ||
+			obj instanceof WebApp ||
+			obj instanceof ApplicationClient ||
+			obj instanceof Connector ||
+			obj instanceof Application;
 		return isDD;
+	}
+	
+	/**
+	 * Determines if the given object is a EJB 3 Bean
+	 * [241685] first added
+	 * 
+	 * @param obj determine weather this object is an EJB 3 bean or not
+	 * @return true if obj is a EJB 3 bean, false otherwise
+	 */
+	private boolean isEJB3BeanObject(Object obj) {
+		boolean isBean =
+			obj instanceof org.eclipse.jst.javaee.ejb.SessionBean ||
+			obj instanceof org.eclipse.jst.javaee.ejb.MessageDrivenBean ||
+			obj instanceof org.eclipse.jst.javaee.ejb.EntityBean;
+		
+		return isBean;
 	}
 }
