@@ -327,6 +327,14 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 						if (qp.getVersion() == JavaEEQuickPeek.JEE_5_0_ID) {
 							org.eclipse.jst.javaee.application.Application app = (org.eclipse.jst.javaee.application.Application) ddObj;
 							org.eclipse.jst.javaee.application.Module module = app.getFirstModule(archivePath.toString());
+							//if the archive isn't found, do a smart search for it
+							if(module == null){
+								IPath noDevicePath = archivePath.setDevice(null);
+								for(int i=1; i<noDevicePath.segmentCount() && module == null; i++){
+									String stringPath = noDevicePath.removeFirstSegments(i).toString();
+									module = app.getFirstModule(stringPath);
+								}
+							}
 							if (null != module) {
 								if (module.getEjb() != null) {
 									definedType = J2EEVersionConstants.EJB_TYPE;
@@ -341,6 +349,14 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 						} else { //J2EE 1.4 or below, rely solely on DD
 							org.eclipse.jst.j2ee.application.Application app = (org.eclipse.jst.j2ee.application.Application) ddObj;
 							org.eclipse.jst.j2ee.application.Module module = app.getFirstModule(archivePath.toString());
+							//if the archive isn't found, do a smart search for it
+							if(module == null){
+								IPath noDevicePath = archivePath.setDevice(null);
+								for(int i=1; i<noDevicePath.segmentCount() && module == null; i++){
+									String stringPath = noDevicePath.removeFirstSegments(i).toString();
+									module = app.getFirstModule(stringPath);
+								}
+							}
 							if (null != module) {
 								if (module.isEjbModule()) {
 									definedType = J2EEVersionConstants.EJB_TYPE;
