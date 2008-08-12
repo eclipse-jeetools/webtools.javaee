@@ -35,6 +35,7 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentLoadAdapter;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.EarUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
@@ -172,7 +173,10 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 			IArchive archive = super.openArchive(options);
 			if (type != J2EEVersionConstants.UNKNOWN) {
 				int version = J2EEVersionConstants.UNKNOWN;
-				String versionStr = J2EEProjectUtilities.getJ2EEProjectVersion(virtualComponent.getProject());
+				String versionStr = JavaEEProjectUtilities.getJ2EEDDProjectVersion(virtualComponent.getProject());
+				if(versionStr == null){
+					versionStr = J2EEProjectUtilities.getJ2EEProjectVersion(virtualComponent.getProject());
+				}
 				switch (type) {
 				case J2EEVersionConstants.APPLICATION_CLIENT_TYPE:
 				case J2EEVersionConstants.APPLICATION_TYPE:
