@@ -242,7 +242,7 @@ public abstract class FlexibleProjectContainer
                 for( int j = 0; j < contents.length; j++ )
                 {
                     final IResource r = contents[ j ].getUnderlyingResource();
-                    final IPath p = r.getFullPath();
+                    final IPath p = r.getLocation();
                     
                     if(!jarsHandled.contains(p.lastSegment()) &&  isJarFile( r ) )
                     {
@@ -261,7 +261,7 @@ public abstract class FlexibleProjectContainer
                 
                 for( int j = 0; j < uf.length; j++ )
                 {
-                    final IPath p = uf[ j ].getFullPath();
+                    final IPath p = uf[ j ].getLocation();
                     
                     if( ! jarsHandled.contains( p.lastSegment() ) && 
                         ! isSourceOrOutputDirectory( p ) )
