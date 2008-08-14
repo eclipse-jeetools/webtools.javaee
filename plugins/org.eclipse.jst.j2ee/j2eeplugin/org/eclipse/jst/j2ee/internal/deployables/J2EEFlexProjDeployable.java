@@ -92,6 +92,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	protected HashMap cachedOutputMappings;
 	protected HashMap cachedSourceOutputPairs;
 	protected List classpathComponentDependencyURIs = new ArrayList();
+	private boolean isSingleJavaOutputNonSource = false;
 
 	/**
 	 * Constructor for J2EEFlexProjDeployable.
@@ -882,6 +883,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	 *    <code>false</code> otherwise
 	 */
 	public boolean isSingleRootStructure() {
+		isSingleJavaOutputNonSource = false;
 		StructureEdit edit = null;
 		try {
 			edit = StructureEdit.getStructureEditForRead(getProject());
@@ -949,6 +951,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 								// output folder (something like classes or bin) is not a source folder, JDT copies all files
 								// (including non Java files) to this folder, so every resource needed at runtime is located 
 								// in a single directory.
+								isSingleJavaOutputNonSource = true;
 								return true;
 							} else {
 // Don't implement at this time. Currently, we claim single-rooted when ejbModlule is the output folder.  However,
@@ -1066,8 +1069,9 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	}
 	
 	/**
-	 * This method is added for performance reasons.
-	 * It assumes the virtual component is not using any flexible features and is in a standard J2EE format
+	 * This method is added for performance reasons. It can ONLY be called when the project is single root.
+	 * @see isSingleRootStructure().  If the project has an output folder that is also a source folder then,
+	 * it assumes the virtual component is not using any flexible features and is in a standard J2EE format
 	 * with one component root folder and an output folder the same as its content folder.  This will bypass 
 	 * the virtual component API and just return the module resources as they are on disk.
 	 * 
@@ -1076,8 +1080,12 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	 */
 	private IModuleResource[] getOptimizedMembers() throws CoreException {
 		if (component != null) {
-			// For java utility modules, we can just use the output container, at this point we know there is only one
-			if (J2EEProjectUtilities.isUtilityProject(getProject())) {
+			if (isSingleJavaOutputNonSource) {
+				// We determined when testing for a single root structure that this project has
+				// one output folder and that output folder is not a source folder. Since the
+				// output folder (for example, classes or bin) is not a source folder, JDT copies all files
+				// (including non Java files) to this folder, so every resource needed at runtime is located 
+				// in that single output directory.
 				return getModuleResources(Path.EMPTY, getJavaOutputFolders()[0]);
 			}
 			// For J2EE modules, we use the contents of the content root
