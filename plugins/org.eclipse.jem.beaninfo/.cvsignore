@@ -1,9 +1,0 @@
-bin
-build.xml
-bin_beaninfocommon
-bin_vm_beaninfovm
-javaCompiler.vm_beaninfovm.jar.args
-javaCompiler...args
-@dot
-vm
-org.eclipse.jem.beaninfo_2.0.100.200806031304.jar
