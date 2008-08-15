@@ -258,7 +258,7 @@ public class UIEarValidator extends EarValidator {
 								
 								String[] params = {earProj.getName(), referencedComponenet.getName()};
 								String msg = NLS.bind(EARValidationMessageResourceHandler.JEE5_PROJECT_REFERENCED_BY_PRE_JEE5_EAR, params);
-								addLocalizedError(msg,earProj);
+								addLocalizedWarning(msg,earProj);
 							
 							}
 							
