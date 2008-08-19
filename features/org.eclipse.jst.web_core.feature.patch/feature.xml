@@ -21,7 +21,7 @@
       <import feature="org.eclipse.jst.web_core.feature" version="3.0.1.v200807220252-7M7AEUwEFp_acwcTs1eRz-u" patch="true"/>
    </requires>
    <plugin
-         id="org.eclipse.jst.j2ee.webservice"
+         id="org.eclipse.jst.jsp.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
