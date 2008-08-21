@@ -34,8 +34,6 @@ import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.application.Application;
-import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
@@ -50,7 +48,6 @@ import org.eclipse.jst.j2ee.internal.plugin.BinaryEditorUtilities;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -282,15 +279,7 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			IEditorRegistry registry = PlatformUI.getWorkbench().getEditorRegistry();
 			IFile file = WorkbenchResourceHelper.getFile((EObject)obj);
 			if(file != null) {
-				/*[235218] if 'obj' is a JavaEE DD file it can only be opened if the file exists
-				 *	if 'obj' is not a DD file, the WorkbenchResourceHelper may still return the DD
-				 *	as the associated file (such as in the case with Beans), thus we must try to get
-				 *	the default editor if 'obj' is not a JavaEE DD file.
-				 */
-				boolean isJavaEEDDFile = isJavaEEDDFile((EObject)obj);
-				boolean isParentJavaEEDDFile = isJavaEEDDFile(getRootObject(obj));
-				//[241685] if file is a DD or its containing parent is a DD then it is open-able as a DD
-				if((isJavaEEDDFile && file.exists()) || (isParentJavaEEDDFile && file.exists())){
+				if(file.exists()){
 					IContentType contentType = IDE.getContentType(file);
 					currentDescriptor = registry.getDefaultEditor(file.getName(), contentType);
 				} else {
@@ -403,27 +392,6 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			return refObj;
 		}
 		return null;
-	}
-	
-	/**
-	 * Determine if the given EObject is a JavaEE DD
-	 * [235218] first added
-	 * [241685] Updated to include both pre and post JavaEE 5 DDs
-	 * @param obj
-	 * @return
-	 */
-	private boolean isJavaEEDDFile(EObject obj){
-		boolean isDD =
-			obj instanceof org.eclipse.jst.javaee.ejb.EJBJar ||
-			obj instanceof org.eclipse.jst.javaee.web.WebApp ||
-			obj instanceof org.eclipse.jst.javaee.applicationclient.ApplicationClient ||
-			obj instanceof org.eclipse.jst.javaee.application.Application ||
-			obj instanceof EJBJar ||
-			obj instanceof WebApp ||
-			obj instanceof ApplicationClient ||
-			obj instanceof Connector ||
-			obj instanceof Application;
-		return isDD;
 	}
 	
 	/**
