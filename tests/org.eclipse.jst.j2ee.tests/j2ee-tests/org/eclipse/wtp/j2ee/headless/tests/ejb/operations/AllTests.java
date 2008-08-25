@@ -10,6 +10,8 @@ package org.eclipse.wtp.j2ee.headless.tests.ejb.operations;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.eclipse.jst.j2ee.flexible.project.fvtests.EJBDeployTest;
+
 /**
  * @author jsholl
  *
@@ -28,6 +30,7 @@ public class AllTests extends TestSuite {
         addTest(EJBImportOperationTest.suite());
         addTest(EJBProjectCreationOperationTest.suite());
         addTest(AddEJBeanOperationTest.suite());
+        addTest(EJBDeployTest.suite());
     }
     
 }
