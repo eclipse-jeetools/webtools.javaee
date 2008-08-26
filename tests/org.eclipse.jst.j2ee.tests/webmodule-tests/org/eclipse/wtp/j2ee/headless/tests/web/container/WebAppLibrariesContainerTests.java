@@ -175,10 +175,10 @@ public final class WebAppLibrariesContainerTests
         this.webProject = fpj.getProject();
         
         this.jarFile1 = this.webProject.getFile( WEBINFLIB_DIR + "/" + ABC_JAR_NAME );
-        this.jarFile1Path = this.jarFile1.getFullPath();
+        this.jarFile1Path = this.jarFile1.getLocation();
         
         this.jarFile2 = this.webProject.getFile( WEBINFLIB_DIR + "/" + FOO_JAR_NAME );
-        this.jarFile2Path = this.jarFile2.getFullPath();
+        this.jarFile2Path = this.jarFile2.getLocation();
         
         addResourceToCleanup( this.webProject );
 
