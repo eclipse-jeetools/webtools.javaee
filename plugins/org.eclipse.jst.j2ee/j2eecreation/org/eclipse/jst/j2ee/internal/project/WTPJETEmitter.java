@@ -308,6 +308,13 @@ public class WTPJETEmitter extends JETEmitter {
 		IEclipsePreferences prefs = context.getNode( JavaCore.PLUGIN_ID );
 		prefs.put( JavaCore.COMPILER_PB_RAW_TYPE_REFERENCE, JavaCore.IGNORE );
 		prefs.put( JavaCore.COMPILER_PB_UNCHECKED_TYPE_OPERATION, JavaCore.IGNORE );
+		
+		// set Java compiler compliance level to 1.5
+		prefs.put( JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_5 );
+		prefs.put( JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_5 );
+		prefs.put( JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_5 );
+		prefs.put( JavaCore.COMPILER_PB_ASSERT_IDENTIFIER, JavaCore.ERROR );
+		prefs.put( JavaCore.COMPILER_PB_ENUM_IDENTIFIER, JavaCore.ERROR );
 	}
 
 	/**
