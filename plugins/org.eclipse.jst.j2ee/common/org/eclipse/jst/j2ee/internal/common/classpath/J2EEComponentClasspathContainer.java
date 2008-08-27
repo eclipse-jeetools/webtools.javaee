@@ -43,6 +43,7 @@ import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphManager;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -72,6 +73,8 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	private IClasspathEntry[] entries = new IClasspathEntry[0];
 	private static Map keys = new Hashtable();
 	private static Map previousSelves = new Hashtable();
+	private static int MAX_RETRIES = 10;
+	private static Map retries = new Hashtable();
 	
 	private class LastUpdate {
 		private long dotClasspathModificationStamp = -1;
@@ -153,6 +156,22 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		J2EEComponentClasspathContainer firstPreviousSelf = (J2EEComponentClasspathContainer)previousSelves.get(key);
 		if (component == null) {
 			return;
+		} 
+		
+		if(!javaProject.getProject().getFile(StructureEdit.MODULE_META_FILE_NAME).exists()){
+			Integer retryCount = (Integer)retries.get(key);
+			if(retryCount == null){
+				retryCount = new Integer(1);
+			} else if(retryCount.intValue() > MAX_RETRIES){
+				return;
+			} else {
+				retryCount = new Integer(retryCount.intValue() + 1);
+			}
+			retries.put(key, retryCount);
+			J2EEComponentClasspathUpdater.getInstance().queueUpdate(javaProject.getProject());
+			return;
+		} else {
+			retries.remove(key);
 		}
 		
 		IFile dotClasspath = javaProject.getProject().getFile(ProjectUtilities.DOT_CLASSPATH);
