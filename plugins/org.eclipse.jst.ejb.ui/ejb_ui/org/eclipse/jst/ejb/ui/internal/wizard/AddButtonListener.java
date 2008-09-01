@@ -10,8 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
-import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.BUSINESS_INTERFACES;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -27,6 +28,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
 import org.eclipse.jdt.core.search.IJavaSearchScope;
 import org.eclipse.jdt.core.search.SearchEngine;
+import org.eclipse.jdt.ui.dialogs.TypeSelectionExtension;
 import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface;
@@ -87,8 +89,9 @@ public class AddButtonListener implements SelectionListener {
         if (currentSelection != null && !currentSelection.equals(EMPTY)) {
             currSelection = currentSelection;
         }
-        
-        BusinessInterfaceSelectionDialog dialog = new BusinessInterfaceSelectionDialog(shell, false, null, scope, type);
+        TypeSelectionExtension selectionExtension = createTypeSelectionExtension();
+		BusinessInterfaceSelectionDialog dialog = new BusinessInterfaceSelectionDialog(shell, false, null, scope, type,
+				selectionExtension);
         dialog.setTitle(EJBUIMessages.chooseInterface);
         dialog.setMessage(EJBUIMessages.chooseInterface);
         dialog.setInitialPattern(currSelection);
@@ -154,4 +157,8 @@ public class AddButtonListener implements SelectionListener {
         
         return SearchEngine.createJavaSearchScope(roots);
     }
+	
+	private TypeSelectionExtension createTypeSelectionExtension() {
+		return new BusinessInterfaceSelectionExtension();
+	}
 }
