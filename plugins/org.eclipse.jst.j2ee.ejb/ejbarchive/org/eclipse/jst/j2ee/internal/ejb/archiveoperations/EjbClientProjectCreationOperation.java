@@ -14,8 +14,8 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
+import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJavaUtilityProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IUtilityFacetInstallDataModelProperties;
@@ -82,7 +82,7 @@ public class EjbClientProjectCreationOperation
 		try {
 			stat = op.execute( monitor, null );
 		} catch (ExecutionException e) {
-			Logger.getLogger().logError(e);
+			EjbPlugin.logError(e);
 		}
 		return stat;
 	}

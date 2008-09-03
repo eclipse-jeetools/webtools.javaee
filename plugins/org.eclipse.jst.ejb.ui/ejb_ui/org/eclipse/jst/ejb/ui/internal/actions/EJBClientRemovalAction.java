@@ -92,7 +92,7 @@ public class EJBClientRemovalAction extends AbstractClientJARAction {
 						try {
 							status = model.getDefaultOperation().execute(monitor, null);
 						} catch (ExecutionException e) {
-							Logger.getLogger().logError(e);
+							EJBUIPlugin.logError(e);
 						}
 						return status;
 					}
@@ -143,7 +143,7 @@ public class EJBClientRemovalAction extends AbstractClientJARAction {
 	}
 	
 //	private void handleException(Shell shell, Exception e) {
-//		Logger.getLogger().logError(e);
+//		EJBUIPlugin.logError(e);
 //		MessageDialog.openError(shell, REMOVE_ERROR_TITLE, ERROR_REMOVING_CLIENT);
 //	}
 

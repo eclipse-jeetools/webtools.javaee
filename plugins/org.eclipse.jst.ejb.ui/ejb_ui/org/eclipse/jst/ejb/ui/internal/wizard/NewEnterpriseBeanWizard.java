@@ -20,9 +20,9 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jst.ejb.ui.internal.plugin.EJBUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.ui.INewWizard;
@@ -76,7 +76,7 @@ public abstract class NewEnterpriseBeanWizard extends DataModelWizard implements
 			file = (IFile) javaProject.findType(className).getResource();
 			openEditor(file);
 		} catch (JavaModelException e) {
-			Logger.getLogger().log(e);
+			EJBUIPlugin.logError(e);
 		}
 	}
 
@@ -89,7 +89,7 @@ public abstract class NewEnterpriseBeanWizard extends DataModelWizard implements
 							IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 							IDE.openEditor(page, file, true);
 						} catch (PartInitException e) {
-							Logger.getLogger().log(e);
+							EJBUIPlugin.logError(e);
 						}
 					}
 				});

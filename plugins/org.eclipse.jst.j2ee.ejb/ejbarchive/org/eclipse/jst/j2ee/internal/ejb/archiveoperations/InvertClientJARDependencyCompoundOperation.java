@@ -20,8 +20,8 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.SubProgressMonitor;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProvider;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyOperation;
@@ -102,7 +102,7 @@ public class InvertClientJARDependencyCompoundOperation extends AbstractDataMode
 			try {
 				op.execute(new SubProgressMonitor(monitor, 1), null);
 			} catch (Exception e) {
-				Logger.getLogger().logError(e);
+				EjbPlugin.logError(e);
 			}
 		}
 	}

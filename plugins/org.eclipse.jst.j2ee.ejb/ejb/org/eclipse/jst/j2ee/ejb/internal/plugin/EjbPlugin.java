@@ -16,6 +16,7 @@ import java.text.MessageFormat;
 
 import org.eclipse.core.internal.boot.PlatformURLConnection;
 import org.eclipse.core.resources.IResourceStatus;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
@@ -23,7 +24,6 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -79,7 +79,7 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 				String installLocation = ((PlatformURLConnection) url.openConnection()).getURLAsLocal().getFile();
 				location = new Path(installLocation);
 			} catch (IOException e) {
-				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logWarning(J2EEPluginResourceHandler.getString("Install_Location_Error_", new Object[]{url}) + e); //$NON-NLS-1$
+				logError(e);
 			}
 		}
 		return location;
@@ -117,7 +117,7 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 	 * otherwise this can still be used to signal some other error condition within the operation,
 	 * or to throw a core exception in a context other than executing an operation
 	 * 
-	 * Create a new IStatus of type ERROR, code OPERATION_FAILED, using the J2EEPlugin ID
+	 * Create a new IStatus of type ERROR, code OPERATION_FAILED, using the EjbPlugin ID
 	 */
 	public static IStatus createErrorStatus(String aMessage, Throwable exception) {
 		return createErrorStatus(0, aMessage, exception);
@@ -128,17 +128,26 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 	 * then the client code should throw {@link com.ibm.etools.wft.util.WFTWrappedException};
 	 * otherwise this can still be used to signal some other error condition within the operation.
 	 * 
-	 * Create a new IStatus of type ERROR, code OPERATION_FAILED, using the J2EEPlugin ID
+	 * Create a new IStatus of type ERROR, code OPERATION_FAILED, using the EjbPlugin ID
 	 */
 	public static IStatus newOperationFailedStatus(String aMessage, Throwable exception) {
 		return createStatus(IStatus.ERROR, IResourceStatus.OPERATION_FAILED, aMessage, exception);
 	}
 
 	/**
-	 * Create a new IStatus with a severity using the J2EEPlugin ID. aCode is just an internal code.
+	 * Create a new IStatus with a severity using the EjbPlugin ID. aCode is just an internal code.
 	 */
 	public static IStatus createStatus(int severity, int aCode, String aMessage, Throwable exception) {
-		return new Status(severity, PLUGIN_ID, aCode, aMessage, exception);
+		return new Status(severity, PLUGIN_ID, aCode,
+				aMessage != null ? aMessage : "No message.", exception);
+	}
+
+	public static IStatus createStatus(int severity, String message, Throwable exception) {
+		return new Status(severity, PLUGIN_ID, message, exception);
+	}
+
+	public static IStatus createStatus(int severity, String message) {
+		return createStatus(severity, message, null);
 	}
 
 	/*
@@ -165,10 +174,10 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 	 * otherwise this can still be used to signal some other error condition within the operation,
 	 * or to throw a core exception in a context other than executing an operation
 	 * 
-	 * Create a new IStatus of type ERROR using the J2EEPlugin ID. aCode is just an internal code.
+	 * Create a new IStatus of type ERROR using the EjbPlugin ID. aCode is just an internal code.
 	 */
 	public static IStatus createErrorStatus(int aCode, String aMessage, Throwable exception) {
-		return createStatus(IStatus.ERROR, aCode, aMessage, exception);
+		return createStatus(IStatus.ERROR, aCode, aMessage != null ? aMessage : exception.toString(), exception);
 	}
 
 	public void start(BundleContext context) throws Exception {
@@ -183,6 +192,51 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 	public String getString(String key, Object[] substitutions, boolean translate) {
 		// TODO For now...  translate not supported
 		return getString(key,substitutions);
-	}	
+	}
+	
+	/**
+	 * Record an error against this plugin's log. 
+	 * 
+	 * @param aCode
+	 * @param aMessage
+	 * @param anException
+	 */
+	public static void logError(int aCode, String aMessage,
+			Throwable anException) {
+		getDefault().getLog().log(
+				createErrorStatus(aCode, aMessage, anException));
+	}
+
+	/**
+	 * 
+	 * Record a message against this plugin's log. 
+	 * 
+	 * @param severity
+	 * @param aCode
+	 * @param aMessage
+	 * @param exception
+	 */
+	public static void log(int severity, int aCode, String aMessage,
+			Throwable exception) {
+		log(createStatus(severity, aCode, aMessage, exception));
+	}
+
+	/**
+	 * 
+	 * Record a status against this plugin's log. 
+	 * 
+	 * @param aStatus
+	 */
+	public static void log(IStatus aStatus) {
+		getDefault().getLog().log(aStatus);
+	}
+
+	public static void logError(Throwable exception) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( createStatus(IStatus.ERROR, exception.getMessage(), exception));
+	}
+
+	public static void logError(CoreException exception) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( exception.getStatus() );
+	} 
 
 }

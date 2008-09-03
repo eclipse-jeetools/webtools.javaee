@@ -36,9 +36,9 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
+import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProvider;
@@ -187,11 +187,11 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 				throw new InterruptedException();
 			deleteClientProject();
 		}catch(CoreException e){
-			Logger.getLogger().logError( e );
+			EjbPlugin.logError( e );
 		}catch(InvocationTargetException e){
-			Logger.getLogger().logError( e );
+			EjbPlugin.logError( e );
 		}catch(InterruptedException e){
-			Logger.getLogger().logError( e );
+			EjbPlugin.logError( e );
 		}
 
 		return OK_STATUS;
@@ -296,7 +296,7 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 		try {
 			dataModel.getDefaultOperation().execute( createSubProgressMonitor(1), null);
 		} catch (ExecutionException e) {
-			Logger.getLogger().logError( e );
+			EjbPlugin.logError( e );
 		}
 
 		
@@ -326,7 +326,7 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 			try{
 				dataModel2.getDefaultOperation().execute( createSubProgressMonitor(1), null );
 			}catch (ExecutionException e) {
-				Logger.getLogger().logError( e );
+				EjbPlugin.logError( e );
 			}
 		}
 	}
@@ -344,7 +344,7 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 		try {
 			op.execute(createSubProgressMonitor(1), null);
 		} catch (ExecutionException e) {
-			Logger.getLogger().logError( e );
+			EjbPlugin.logError( e );
 		}
 	}
 
@@ -536,7 +536,7 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 			try {
 				dm.getDefaultOperation().execute(monitor, null);
 			} catch (ExecutionException e) {
-				Logger.getLogger().log(e);
+				EjbPlugin.logError(e);
 			}
 		}
 		

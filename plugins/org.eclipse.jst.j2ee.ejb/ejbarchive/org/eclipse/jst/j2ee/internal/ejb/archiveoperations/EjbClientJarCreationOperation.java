@@ -29,12 +29,12 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
+import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProperties;
@@ -86,7 +86,7 @@ public class EjbClientJarCreationOperation
 			try {
 				facetedProject = ProjectFacetsManager.create(ejbproject);
 			} catch (CoreException e) {
-				Logger.getLogger().logError(e);
+				EjbPlugin.logError(e);
 				canContinue = false;
 			}
 			if( canContinue ){
@@ -132,7 +132,7 @@ public class EjbClientJarCreationOperation
 			try {
 				stat = op.execute( monitor, null );
 			} catch (ExecutionException e) {
-				Logger.getLogger().logError(e);
+				EjbPlugin.logError(e);
 			}
 
 			final IVirtualComponent c = ComponentCore.createComponent( ejbproject );
@@ -212,7 +212,7 @@ public class EjbClientJarCreationOperation
 			try {
 				dm.getDefaultOperation().execute(monitor, null);
 			} catch (ExecutionException e) {
-				Logger.getLogger().log(e);
+				EjbPlugin.logError(e);
 			}
 		}
 	}
@@ -238,7 +238,7 @@ public class EjbClientJarCreationOperation
 		try {
 			dm.getDefaultOperation().execute(monitor, null);
 		} catch (ExecutionException e) {
-			Logger.getLogger().log(e);
+			EjbPlugin.logError(e);
 		}
 
 	}
@@ -265,7 +265,7 @@ public class EjbClientJarCreationOperation
 		try {
 			updateManifestDataModel.getDefaultOperation().execute(aMonitor, null);
 		} catch (Exception e) {
-			Logger.getLogger().logError(e);
+			EjbPlugin.logError(e);
 		}
 
 	}
@@ -283,7 +283,7 @@ public class EjbClientJarCreationOperation
 			try {
 				dataModel.getDefaultOperation().execute(new NullProgressMonitor(), null);
 			} catch (ExecutionException e) {
-				Logger.getLogger().logError( e );
+				EjbPlugin.logError( e );
 			}
 		}
 
@@ -326,7 +326,7 @@ public class EjbClientJarCreationOperation
 		try {
 			op.execute(createSubProgressMonitor(1), null);
 		} catch (ExecutionException e) {
-			Logger.getLogger().logError( e );
+			EjbPlugin.logError( e );
 		}
 	}
 	
@@ -386,7 +386,7 @@ public class EjbClientJarCreationOperation
 				addDataModel.getDefaultOperation().execute( new SubProgressMonitor(sub, 1), null );
 	            removeDataModel.getDefaultOperation().execute( new SubProgressMonitor(sub, 1), null );				
 			} catch (ExecutionException e) {
-				Logger.getLogger().logError( e );
+				EjbPlugin.logError( e );
 			}
 
           

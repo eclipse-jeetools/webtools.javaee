@@ -86,9 +86,9 @@ public class EJBComponentExportDataModelProvider extends J2EEComponentExportData
 	// try {
 	// dataModel.getDefaultOperation().run(null);
 	// } catch (InvocationTargetException e) {
-	// Logger.getLogger().logError(e);
+	// EjbPlugin.logError(e);
 	// } catch (InterruptedException e) {
-	// Logger.getLogger().logError(e);
+	// EjbPlugin.logError(e);
 	// }
 	// }
 }

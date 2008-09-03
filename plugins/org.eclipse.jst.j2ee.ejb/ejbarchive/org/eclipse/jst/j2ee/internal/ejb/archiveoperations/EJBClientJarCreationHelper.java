@@ -38,7 +38,6 @@ import org.eclipse.jdt.core.search.SearchMatch;
 import org.eclipse.jdt.core.search.SearchRequestor;
 import org.eclipse.jem.internal.adapters.jdom.JDOMSearchHelper;
 import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
@@ -46,6 +45,7 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.ClientJARCreationConstants;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 
@@ -186,7 +186,7 @@ public class EJBClientJarCreationHelper {
 				computeRequiredReferencedJavaTypes(type);
 			}
 		} catch (JavaModelException e) {
-			Logger.getLogger().logError(e);
+			EjbPlugin.logError(e);
 			return;
 		} 
 	}
@@ -256,7 +256,7 @@ public class EJBClientJarCreationHelper {
 				computeRMICJavaTypes(root);
 			}
 		}catch(CoreException e){
-			Logger.getLogger().logError(e);
+			EjbPlugin.logError(e);
 		}
 	}
 	
@@ -325,7 +325,7 @@ public class EJBClientJarCreationHelper {
 			try {
 				engine.searchDeclarationsOfReferencedTypes(type, this, null);
 			} catch (ClassCastException ex) {
-				Logger.getLogger().logError(ex);
+				EjbPlugin.logError(ex);
 			}
 		}
 		public void acceptSearchMatch(SearchMatch match) throws CoreException {

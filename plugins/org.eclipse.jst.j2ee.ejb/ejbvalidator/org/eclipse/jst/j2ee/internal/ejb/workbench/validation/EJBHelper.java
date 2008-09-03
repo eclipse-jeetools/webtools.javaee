@@ -548,7 +548,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 			try {
 				return  ((EnterpriseArtifactEdit) edit).asArchive(false);
 			} catch (OpenFailureException e1) {
-				Logger.getLogger().log(e1);
+				EjbPlugin.logError(e1);
 			}
 		return null;		
 	}
@@ -565,7 +565,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 				ejbJarFile = (EJBJarFile)((EnterpriseArtifactEdit) edit).asArchive(false);
 				ejbJar = ejbJarFile.getDeploymentDescriptor();
 			} catch (OpenFailureException e1) {
-				Logger.getLogger().log(e1);
+				EjbPlugin.logError(e1);
 			}
 		}
 		return ejbJar;

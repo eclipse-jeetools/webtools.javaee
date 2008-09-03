@@ -29,10 +29,10 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
@@ -94,9 +94,9 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 				try {
 					createManifest(project, ejbFolder, monitor);
 				} catch (InvocationTargetException e) {
-					Logger.getLogger().logError(e);
+					EjbPlugin.logError(e);
 				} catch (InterruptedException e) {
-					Logger.getLogger().logError(e);
+					EjbPlugin.logError(e);
 				}
 			}
 			
@@ -110,7 +110,7 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
                             final String ejbJarXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ejb-jar version=\"3.0\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd\">\n  <display-name> \n" + project.getName() +" </display-name> \n </ejb-jar>"; //$NON-NLS-1$
                             ejbJarXmlFile.create(new ByteArrayInputStream(ejbJarXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
                         } catch (UnsupportedEncodingException e) {
-                            Logger.getLogger().logError(e);
+                            EjbPlugin.logError(e);
                         }
                     }
                 }
@@ -149,7 +149,7 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 			try {
 				((IDataModelOperation) model.getProperty(FacetDataModelProvider.NOTIFICATION_OPERATION)).execute(monitor, null);
 			} catch (ExecutionException e) {
-				Logger.getLogger().logError(e);
+				EjbPlugin.logError(e);
 			}
 			
 			if (monitor != null) {

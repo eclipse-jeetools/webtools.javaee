@@ -17,6 +17,10 @@ package org.eclipse.jst.ejb.ui.internal.plugin;
 
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
@@ -54,4 +58,70 @@ public class EJBUIPlugin extends AbstractUIPlugin {
 	public static IWorkspace getWorkspace() {
 		return ResourcesPlugin.getWorkspace();
 	}
+
+	/**
+	 * Create a new IStatus with a severity using the EJBUIPlugin ID. aCode is just an internal code.
+	 */
+	public static IStatus createStatus(int severity, int aCode, String aMessage, Throwable exception) {
+		return new Status(severity, PLUGIN_ID, aCode,
+				aMessage != null ? aMessage : "No message.", exception);
+	}
+
+	public static IStatus createStatus(int severity, String message, Throwable exception) {
+		return new Status(severity, PLUGIN_ID, message, exception);
+	}
+
+	public static IStatus createStatus(int severity, String message) {
+		return createStatus(severity, message, null);
+	}
+	
+	public static IStatus createErrorStatus(int aCode, String aMessage, Throwable exception) {
+		return createStatus(IStatus.ERROR, aCode, aMessage != null ? aMessage : exception.toString(), exception);
+	}
+	
+	/**
+	 * Record an error against this plugin's log. 
+	 * 
+	 * @param aCode
+	 * @param aMessage
+	 * @param anException
+	 */
+	public static void logError(int aCode, String aMessage,
+			Throwable anException) {
+		getDefault().getLog().log(
+				createErrorStatus(aCode, aMessage, anException));
+	}
+
+	/**
+	 * 
+	 * Record a message against this plugin's log. 
+	 * 
+	 * @param severity
+	 * @param aCode
+	 * @param aMessage
+	 * @param exception
+	 */
+	public static void log(int severity, int aCode, String aMessage,
+			Throwable exception) {
+		log(createStatus(severity, aCode, aMessage, exception));
+	}
+
+	/**
+	 * 
+	 * Record a status against this plugin's log. 
+	 * 
+	 * @param aStatus
+	 */
+	public static void log(IStatus aStatus) {
+		getDefault().getLog().log(aStatus);
+	}
+
+	public static void logError(Throwable exception) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( createStatus(IStatus.ERROR, exception.getMessage(), exception));
+	}
+
+	public static void logError(CoreException exception) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( exception.getStatus() );
+	} 
+	
 }

@@ -25,12 +25,12 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.internal.provider.JNDIEnvRefsGroupItemProvider;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
+import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
@@ -266,7 +266,7 @@ public class EnterpriseBeanItemProvider extends JNDIEnvRefsGroupItemProvider imp
 				myChildren.addAll(serviceHelper.get13ServiceRefs(bean));
 			}
 		} catch (RuntimeException re) {
-			Logger.getLogger().logError(re);
+			EjbPlugin.logError(re);
 		}
 		return myChildren;
 	}
@@ -285,7 +285,7 @@ public class EnterpriseBeanItemProvider extends JNDIEnvRefsGroupItemProvider imp
 				myChildren.addAll(serviceHelper.get13ServiceRefs(bean));
 			}
 		} catch (RuntimeException re) {
-			Logger.getLogger().logError(re);
+			EjbPlugin.logError(re);
 		}
 		return myChildren;
 	}

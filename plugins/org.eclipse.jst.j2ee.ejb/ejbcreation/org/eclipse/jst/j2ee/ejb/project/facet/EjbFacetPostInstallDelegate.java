@@ -28,11 +28,11 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
 import org.eclipse.jst.j2ee.ejb.archiveoperations.IEjbClientProjectCreationDataModelProperties;
+import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.ejb.project.operations.IEjbFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
@@ -129,7 +129,7 @@ public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implem
 
 
 					} catch (Exception e) {
-						Logger.getLogger().logError(e);
+						EjbPlugin.logError(e);
 					}
 
 					if (createClient && clientProjectName != null && clientProjectName != "") { //$NON-NLS-1$
@@ -196,7 +196,7 @@ public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implem
 			try {
 				dm.getDefaultOperation().execute(monitor, null);
 			} catch (ExecutionException e) {
-				Logger.getLogger().log(e);
+				EjbPlugin.logError(e);
 			}
 		}
 	}
@@ -222,7 +222,7 @@ public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implem
 		try {
 			dm.getDefaultOperation().execute(monitor, null);
 		} catch (ExecutionException e) {
-			Logger.getLogger().log(e);
+			EjbPlugin.logError(e);
 		}
 
 	}
@@ -237,7 +237,7 @@ public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implem
 			try {
 				createManifest(ejbProj, ejbComponent.getRootFolder().getUnderlyingFolder(), aMonitor);
 			} catch (Exception e) {
-				Logger.getLogger().logError(e);
+				EjbPlugin.logError(e);
 			}
 			String manifestFolder = IPath.SEPARATOR + model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER) + IPath.SEPARATOR + J2EEConstants.META_INF;
 			IContainer container = ejbProj.getFolder(manifestFolder);
@@ -256,7 +256,7 @@ public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implem
 		try {
 			updateManifestDataModel.getDefaultOperation().execute(aMonitor, null);
 		} catch (Exception e) {
-			Logger.getLogger().logError(e);
+			EjbPlugin.logError(e);
 		}
 
 	}

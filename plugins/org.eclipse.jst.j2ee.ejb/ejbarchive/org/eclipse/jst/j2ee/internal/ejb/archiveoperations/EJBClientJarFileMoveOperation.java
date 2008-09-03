@@ -34,8 +34,8 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -96,7 +96,7 @@ public class EJBClientJarFileMoveOperation extends AbstractDataModelOperation
 	                else
 	                    moveClassFiles(packageFragmentRoot, types);
 	            } catch (JavaModelException e) {
-	                Logger.getLogger().logError(e);
+	                EjbPlugin.logError(e);
 	            }
 	        }
 	        IJavaProject javaProject = JemProjectUtilities.getJavaProject(clientProject);
@@ -104,7 +104,7 @@ public class EJBClientJarFileMoveOperation extends AbstractDataModelOperation
 	        javaProject.close();
 	        javaProject.open(null);
 		}catch(CoreException e){
-			Logger.getLogger().logError( e );
+			EjbPlugin.logError( e );
 		}
 		return status;
 	}
@@ -121,7 +121,7 @@ public class EJBClientJarFileMoveOperation extends AbstractDataModelOperation
 		try {
 			leadSegmentsToTruncate = packageFragmentRoot.getUnderlyingResource().getFullPath().segmentCount();
 		} catch (JavaModelException ex) {
-			Logger.getLogger().logError(ex);
+			EjbPlugin.logError(ex);
 			return;
 		}
 		for (Iterator iter = types.iterator(); iter.hasNext(); ) {
@@ -182,7 +182,7 @@ public class EJBClientJarFileMoveOperation extends AbstractDataModelOperation
 		try {
 			JemProjectUtilities.appendJavaClassPath(clientProject, JavaCore.newLibraryEntry(folder.getFullPath(), null, null, true));
 		} catch (CoreException ex) {
-			Logger.getLogger().logError(ex);
+			EjbPlugin.logError(ex);
 		}
 		moveFiles(packageFragmentRoot, types);
 	}
