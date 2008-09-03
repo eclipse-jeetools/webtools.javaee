@@ -414,12 +414,13 @@
     <extension  
 	  point="org.eclipse.ui.navigator.navigatorContent">
    <navigatorContent
-        activeByDefault="true"
-        contentProvider="org.eclipse.jst.jee.ui.internal.navigator.Ejb3ContentProvider"
-        id="org.eclipse.jst.jee.ui.ejb"
-        labelProvider="org.eclipse.jst.jee.ui.internal.navigator.Ejb3LabelProvider"
-        name="JEE Navigator Content EJB"
-        priority="highest">
+         activeByDefault="true"
+         contentProvider="org.eclipse.jst.jee.ui.internal.navigator.Ejb3ContentProvider"
+         icon="icons/ejbgroup_obj.gif"
+         id="org.eclipse.jst.jee.ui.ejb"
+         labelProvider="org.eclipse.jst.jee.ui.internal.navigator.Ejb3LabelProvider"
+         name="JEE Navigator Content EJB"
+         priority="highest">
      <triggerPoints>
         <or>
            <adapt type="org.eclipse.core.resources.IProject">
@@ -650,6 +651,7 @@
   
   <navigatorContent
         contentProvider="org.eclipse.jst.jee.ui.internal.navigator.Web25ContentProvider"
+        icon="icons/webgroup_obj.gif"
         id="org.eclipse.jst.jee.ui.web"
         labelProvider="org.eclipse.jst.jee.ui.internal.navigator.Web25LabelProvider"
         name="JEE Navigator Content WEB"
@@ -814,6 +816,7 @@
   <navigatorContent
         activeByDefault="true"
         contentProvider="org.eclipse.jst.jee.ui.internal.navigator.Ear5ContentProvider"
+        icon="icons/eargroup_obj.gif"
         id="org.eclipse.jst.jee.ui.ear"
         labelProvider="org.eclipse.jst.jee.ui.internal.navigator.Ear5LabelProvider"
         name="JEE Navigator Content EAR"
@@ -1072,6 +1075,7 @@
   <navigatorContent
         activeByDefault="true"
         contentProvider="org.eclipse.jst.jee.ui.internal.navigator.AppClient5ContentProvider"
+        icon="icons/appclientgroup_obj.gif"
         id="org.eclipse.jst.jee.ui.appclient"
         labelProvider="org.eclipse.jst.jee.ui.internal.navigator.AppClient5LabelProvider"
         name="JEE Navigator Content App Client"
