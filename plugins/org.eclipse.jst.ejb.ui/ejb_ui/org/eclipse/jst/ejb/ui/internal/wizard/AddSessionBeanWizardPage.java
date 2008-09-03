@@ -26,6 +26,7 @@ import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataM
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.eclipse.jdt.internal.ui.preferences.ScrolledPageContent;
 import org.eclipse.jface.resource.JFaceResources;
@@ -213,15 +214,19 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 	@Override
 	protected void handleInterfaceRemoveButtonSelected() {
 		IStructuredSelection selection = (IStructuredSelection) interfaceViewer.getSelection();
-		BusinessInterface element = (BusinessInterface) selection.getFirstElement();
-		removeInterfaceFromModel(element);
-		updateBusinessInterfacesList();
-		if (element.getJavaType() == null) {
-			if (element.isLocal())
-				model.setBooleanProperty(LOCAL, false);
-			else
-				model.setBooleanProperty(REMOTE, false);
+		Iterator iterator = selection.iterator();
+		while (iterator.hasNext()) {
+			BusinessInterface element = (BusinessInterface) iterator.next();
+			if (element.getJavaType() == null) {
+				if (element.isLocal())
+					model.setBooleanProperty(LOCAL, false);
+				else
+					model.setBooleanProperty(REMOTE, false);
+			} else {
+				removeInterfaceFromModel(element);
+			}
 		}
+		updateBusinessInterfacesList();
 	}
 
 	private void removeInterfaceFromModel(BusinessInterface element) {

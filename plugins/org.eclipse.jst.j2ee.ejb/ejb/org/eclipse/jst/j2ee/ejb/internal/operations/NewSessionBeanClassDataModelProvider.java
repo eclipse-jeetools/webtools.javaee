@@ -140,7 +140,6 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		else if (LOCAL_BUSINESS_INTERFACE.equals(propertyName)) {
 			String className = getStringProperty(QUALIFIED_CLASS_NAME);
 			return className + ((className != null && className.length() > 0) ? LOCAL_SUFFIX : "");
-//			return className + ;
 		}
 		else if (REMOTE_HOME_INTERFACE.equals(propertyName))
 		{
@@ -188,16 +187,19 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		if (propertyName.equals(REMOTE)) {
 			if (!getDataModel().isPropertySet(INTERFACES)) {
 				getDataModel().notifyPropertyChange(INTERFACES, IDataModel.DEFAULT_CHG);
-				getDataModel().notifyPropertyChange(REMOTE_BUSINESS_INTERFACE, IDataModel.VALUE_CHG);
-			}else{
+			} else {
 				updateBusinessInterfaces(REMOTE);
 			}
+			getDataModel().notifyPropertyChange(REMOTE_BUSINESS_INTERFACE, IDataModel.ENABLE_CHG);
 
 		}
-		if (propertyName.equals(LOCAL)  && !getDataModel().isPropertySet(INTERFACES)) {
-			getDataModel().notifyPropertyChange(INTERFACES, IDataModel.DEFAULT_CHG);
-			getDataModel().notifyPropertyChange(LOCAL_BUSINESS_INTERFACE, IDataModel.VALUE_CHG);
-			// TODO - ccc- shouldn't there be an updateBusinessInterfaces(LOCAL) here?
+		if (propertyName.equals(LOCAL)) {
+			if (!getDataModel().isPropertySet(INTERFACES)) {
+				getDataModel().notifyPropertyChange(INTERFACES, IDataModel.DEFAULT_CHG);
+			} else {
+				updateBusinessInterfaces(LOCAL);
+			}
+			getDataModel().notifyPropertyChange(LOCAL_BUSINESS_INTERFACE, IDataModel.ENABLE_CHG);
 		}
 		if (REMOTE_BUSINESS_INTERFACE.equals(propertyName))
 		{
@@ -208,26 +210,14 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		else if (LOCAL_BUSINESS_INTERFACE.equals(propertyName))
 		{
 			if(getLocalProperty() != null){
-				getLocalProperty().setFullyQualifiedName(propertyName);
+				getLocalProperty().setFullyQualifiedName(propertyValue.toString());
 			}
-
 		}
 		else if (CLASS_NAME.equals(propertyName) || JAVA_PACKAGE.equals(propertyName))
 		{
 			IDataModel dataModel = getDataModel();
-			String className = getStringProperty(QUALIFIED_CLASS_NAME);
-			BusinessInterface remoteInterface = getRemoteProperty();
-			if (remoteInterface != null)
-			{
-				remoteInterface.setFullyQualifiedName(className + REMOTE_SUFFIX);
-				dataModel.notifyPropertyChange(REMOTE_BUSINESS_INTERFACE, IDataModel.DEFAULT_CHG);
-			}
-			BusinessInterface localInterface = getLocalProperty();
-			if (localInterface != null)
-			{
-				localInterface.setFullyQualifiedName(className + LOCAL_SUFFIX);
-				dataModel.notifyPropertyChange(LOCAL_BUSINESS_INTERFACE, IDataModel.DEFAULT_CHG);
-			}
+			dataModel.notifyPropertyChange(REMOTE_BUSINESS_INTERFACE, IDataModel.DEFAULT_CHG);
+			dataModel.notifyPropertyChange(LOCAL_BUSINESS_INTERFACE, IDataModel.DEFAULT_CHG);
 			dataModel.notifyPropertyChange(REMOTE_HOME_INTERFACE, IDataModel.DEFAULT_CHG);
 			dataModel.notifyPropertyChange(LOCAL_HOME_INTERFACE, IDataModel.DEFAULT_CHG);
 			dataModel.notifyPropertyChange(REMOTE_COMPONENT_INTERFACE, IDataModel.DEFAULT_CHG);
@@ -235,6 +225,17 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		}
 
 		return result;
+	}
+	
+	@Override
+	public boolean isPropertyEnabled(String propertyName) {
+		if (REMOTE_BUSINESS_INTERFACE.equals(propertyName))	{
+			return getDataModel().getBooleanProperty(REMOTE);
+		} else if (LOCAL_BUSINESS_INTERFACE.equals(propertyName)) {
+			return getDataModel().getBooleanProperty(LOCAL);
+		}
+		
+		return super.isPropertyEnabled(propertyName);
 	}
 	
 	@Override
@@ -258,7 +259,6 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		List<BusinessInterface> list = (List<BusinessInterface>) getProperty(INTERFACES);
 		if (propertyName.equals(REMOTE)) {
 			if (getBooleanProperty(propertyName)) {
-				// should be add remote property
 				list.add(new BusinessInterface(getStringProperty(REMOTE_BUSINESS_INTERFACE), BusinessInterfaceType.REMOTE));
 			} else {
 				BusinessInterface remoteInterface = getRemoteProperty();
@@ -267,8 +267,6 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 			}
 		} else if (propertyName.equals(LOCAL)) {
 			if (getBooleanProperty(propertyName)) {
-				// should be add remote property
-				String className = Signature.getSimpleName(getStringProperty(CLASS_NAME));
 				list.add(new BusinessInterface(getStringProperty(LOCAL_BUSINESS_INTERFACE), BusinessInterfaceType.LOCAL));
 			} else {
 				BusinessInterface localInterface = getLocalProperty();

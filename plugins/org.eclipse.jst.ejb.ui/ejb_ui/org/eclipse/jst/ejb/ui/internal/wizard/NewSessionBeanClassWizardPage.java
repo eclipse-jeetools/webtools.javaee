@@ -17,8 +17,6 @@ import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassD
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.STATE_TYPE;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -82,7 +80,6 @@ public class NewSessionBeanClassWizardPage extends NewEnterpriseBeanClassWizardP
 		synchHelper.synchCheckbox(remoteCheckbox, REMOTE, null);
 		
 		remoteInterfaceName.setLayoutData(data2);
-//		remoteInterfaceName.setText("");
 		synchHelper.synchText(remoteInterfaceName, REMOTE_BUSINESS_INTERFACE, null);
 
 		localCheckbox = new Button(group, SWT.CHECK);
@@ -92,30 +89,6 @@ public class NewSessionBeanClassWizardPage extends NewEnterpriseBeanClassWizardP
 		localInterfaceName = new Text(group, SWT.SINGLE | SWT.BORDER);
 		localInterfaceName.setLayoutData(data2);
 		synchHelper.synchText(localInterfaceName, LOCAL_BUSINESS_INTERFACE, null);
-		
-		remoteCheckbox.addSelectionListener(new SelectionListener(){
-
-			public void widgetDefaultSelected(SelectionEvent e) {
-				remoteInterfaceName.setEnabled(((Button)e.getSource()).getSelection());
-			}
-
-			public void widgetSelected(SelectionEvent e) {					
-				remoteInterfaceName.setEnabled(((Button)e.getSource()).getSelection());
-			}
-			
-		});
-		localCheckbox.addSelectionListener(new SelectionListener(){
-
-			public void widgetDefaultSelected(SelectionEvent e) {
-				localInterfaceName.setEnabled(((Button)e.getSource()).getSelection());
-			}
-
-			public void widgetSelected(SelectionEvent e) {					
-				localInterfaceName.setEnabled(((Button)e.getSource()).getSelection());
-			}
-			
-		});
-		remoteInterfaceName.setEnabled(false);
 	}
 
 	private static GridData gdhspan(int span) {
