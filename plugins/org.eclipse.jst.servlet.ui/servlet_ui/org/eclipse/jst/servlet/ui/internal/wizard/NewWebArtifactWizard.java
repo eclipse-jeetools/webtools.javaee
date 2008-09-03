@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CLASS_NAME;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.OPEN_IN_EDITOR;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.PROJECT;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME;
@@ -78,7 +79,7 @@ public abstract class NewWebArtifactWizard extends NewWebWizard {
 	
 	protected void openWebFile() {
 		try {
-			String className = getDataModel().getStringProperty(QUALIFIED_CLASS_NAME);
+			String className = getDataModel().getStringProperty(CLASS_NAME);
 			IProject p = (IProject) getDataModel().getProperty(PROJECT);
 			IVirtualComponent component = ComponentCore.createComponent(p);
 			IContainer webContent = component.getRootFolder().getUnderlyingFolder();
