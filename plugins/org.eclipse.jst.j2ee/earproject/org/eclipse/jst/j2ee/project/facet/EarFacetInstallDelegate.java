@@ -54,7 +54,7 @@ public final class EarFacetInstallDelegate implements IDelegate {
 			final IVirtualFolder earroot = c.getRootFolder();
 			earroot.createLink(new Path("/" + model.getStringProperty(IEarFacetInstallDataModelProperties.CONTENT_DIR)), 0, null); //$NON-NLS-1$
 
-			if (!project.getFile(J2EEConstants.APPLICATION_DD_URI).exists()) {
+			if (!earroot.getFile(J2EEConstants.APPLICATION_DD_URI).exists()) {
 				String ver = fv.getVersionString();
 				int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
 				EARArtifactEdit.createDeploymentDescriptor(project, nVer);
