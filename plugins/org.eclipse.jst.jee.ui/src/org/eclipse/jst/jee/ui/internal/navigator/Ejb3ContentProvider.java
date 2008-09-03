@@ -166,6 +166,7 @@ public class Ejb3ContentProvider extends JEE5ContentProvider {
 		if (sb.getLocal() != null) {
 			children.add(new BeanInterfaceNode(sb, (String)sb.getLocal(), BeanInterfaceNode.KINDS.LOCAL));
 		}
+		
 		if (sb.getLocalHome() != null) {
 			children.add(new BeanInterfaceNode(sb, (String)sb.getLocalHome(), BeanInterfaceNode.KINDS.LOCAL_HOME));
 		}
@@ -173,16 +174,20 @@ public class Ejb3ContentProvider extends JEE5ContentProvider {
 		if (sb.getRemote() != null) {
 			children.add(new BeanInterfaceNode(sb, (String)sb.getRemote(), BeanInterfaceNode.KINDS.REMOTE));
 		}
+		
 		if (sb.getHome() != null) {
 			children.add(new BeanInterfaceNode(sb, (String)sb.getHome(), BeanInterfaceNode.KINDS.REMOTE_HOME));
 		}
 
-
-		children.add(new BeanNode((SessionBean) sb));
+		if (sb.getEjbClass() != null) {
+			children.add(new BeanNode((SessionBean) sb));
+		}
+		
 		List r = sb.getBusinessLocals();
 		for (Object locals : r) {
 			children.add(new BeanInterfaceNode(sb, (String)locals, BeanInterfaceNode.KINDS.BUSSINESS_LOCAL));
 		}
+		
 		r = sb.getBusinessRemotes();
 		for (Object locals : r) {
 			children.add(new BeanInterfaceNode(sb, (String)locals, BeanInterfaceNode.KINDS.BUSSINESS_REMOTE));
