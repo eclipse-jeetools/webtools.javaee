@@ -50,6 +50,9 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public class J2EEModuleVirtualComponent extends VirtualComponent implements IComponentImplFactory {
 
+	public static String GET_JAVA_REFS = "GET_JAVA_REFS";
+	public static String GET_FUZZY_EAR_REFS = "GET_FUZZY_EAR_REFS";
+	
 	public J2EEModuleVirtualComponent() {
 		super();
 	}
@@ -77,6 +80,15 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	 */
 	public IVirtualReference[] getNonJavaReferences() {
 		return getReferences(false, false);
+	}
+	
+	@Override
+	public IVirtualReference[] getReferences(Map<String, Object> options) {
+		Object objGetJavaRefs = options.get(GET_JAVA_REFS);
+		Object objGetFuzzyEarRefs = options.get(GET_FUZZY_EAR_REFS);
+		boolean getJavaRefs = objGetJavaRefs != null ? ((Boolean)objGetJavaRefs).booleanValue() : true;
+		boolean findFuzzyEARRefs = objGetFuzzyEarRefs != null ? ((Boolean)objGetFuzzyEarRefs).booleanValue() : false;
+		return getReferences(getJavaRefs, findFuzzyEARRefs);
 	}
 	
 	public IVirtualReference[] getReferences() {
