@@ -138,10 +138,15 @@ public class ConnectorComponentArchiveLoadAdapter extends ComponentArchiveLoadAd
 			// TODO
 			// throw new ArchiveRuntimeException(core);
 		}
+		
+		IContainer ddFolder = vComponent.getRootFolder().getFolder(J2EEConstants.META_INF).getUnderlyingFolder();
+
 		for (int i = 0; i < members.length; i++) {
 			IResource res = members[i];
 			if (res.getType() == IResource.FOLDER) {
-				foundJava = gatherFilesForJAR(iFiles, (IFolder) res, isModuleRoot, foundJava, sourceContainerSegmentCount) || foundJava;
+				if (!ddFolder.equals(res)) {//if it's not the dd folder
+					foundJava = gatherFilesForJAR(iFiles, (IFolder) res, isModuleRoot, foundJava, sourceContainerSegmentCount) || foundJava;
+				}
 			} else {// it must be a file
 				IFile srcFile = (IFile) res;
 				if (belongsInNestedJAR(srcFile, isModuleRoot)) {
@@ -287,7 +292,7 @@ public class ConnectorComponentArchiveLoadAdapter extends ComponentArchiveLoadAd
 	}
 	
 	protected boolean shouldInclude(IVirtualContainer vContainer) {
-		boolean isDDFolder = vContainer.getProjectRelativePath().isPrefixOf(knownDD.getProjectRelativePath());
+		boolean isDDFolder = vComponent.getRootFolder().getFolder(J2EEConstants.META_INF).equals(vContainer);
 		return isDDFolder || !inJavaSrc(vContainer);
 	}
 	
