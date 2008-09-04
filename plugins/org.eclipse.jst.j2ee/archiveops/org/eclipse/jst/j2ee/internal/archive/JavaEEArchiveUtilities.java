@@ -30,6 +30,7 @@ import org.eclipse.jdt.core.util.IAnnotation;
 import org.eclipse.jdt.core.util.IClassFileAttribute;
 import org.eclipse.jdt.core.util.IClassFileReader;
 import org.eclipse.jdt.core.util.IRuntimeVisibleAnnotationsAttribute;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentLoadAdapter;
@@ -49,7 +50,6 @@ import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
 import org.eclipse.jst.jee.archive.internal.ZipFileArchiveLoadAdapterImpl;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchiveFactory {
@@ -117,31 +117,33 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 
 	public IArchive openArchive(IVirtualComponent virtualComponent) throws ArchiveOpenFailureException {
 		if (virtualComponent.isBinary()) {
-			VirtualArchiveComponent archiveComponent = (VirtualArchiveComponent) virtualComponent;
+			J2EEModuleVirtualArchiveComponent archiveComponent = (J2EEModuleVirtualArchiveComponent) virtualComponent;
 			JavaEEBinaryComponentLoadAdapter loadAdapter = new JavaEEBinaryComponentLoadAdapter(archiveComponent);
 			ArchiveOptions archiveOptions = new ArchiveOptions();
 			archiveOptions.setOption(ArchiveOptions.LOAD_ADAPTER, loadAdapter);
 			archiveOptions.setOption(ArchiveOptions.ARCHIVE_PATH, loadAdapter.getArchivePath());
 			IArchive parentEARArchive = null;
 			try {
-				try {
-					IProject earProject = virtualComponent.getProject();
-					if(earProject != null && EarUtilities.isEARProject(earProject)){
-						IVirtualComponent earComponent = ComponentCore.createComponent(virtualComponent.getProject());
-						if(earComponent != null) {
-							parentEARArchive = openArchive(earComponent);
-							if(parentEARArchive != null) {
-								archiveOptions.setOption(ArchiveOptions.PARENT_ARCHIVE, parentEARArchive);
+				if(archiveComponent.isLinkedToEAR()){
+					try {
+						IProject earProject = virtualComponent.getProject();
+						if(earProject != null && EarUtilities.isEARProject(earProject)){
+							IVirtualComponent earComponent = ComponentCore.createComponent(virtualComponent.getProject());
+							if(earComponent != null) {
+								parentEARArchive = openArchive(earComponent);
+								if(parentEARArchive != null) {
+									archiveOptions.setOption(ArchiveOptions.PARENT_ARCHIVE, parentEARArchive);
+								}
 							}
 						}
+					} catch(ArchiveOpenFailureException e) {
+						org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
 					}
-				} catch(ArchiveOpenFailureException e) {
-					org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
 				}
 				return openArchive(archiveOptions);
 			} finally {
-				archiveOptions.removeOption(ArchiveOptions.PARENT_ARCHIVE);
 				if(parentEARArchive != null){
+					archiveOptions.removeOption(ArchiveOptions.PARENT_ARCHIVE);
 					closeArchive(parentEARArchive);
 				}
 			}

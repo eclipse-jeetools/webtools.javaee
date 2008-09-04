@@ -27,6 +27,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
@@ -116,25 +117,36 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 					for (int i = 0; i < list.size(); i++) {
 						StructureEdit compse = null;
 						final IVirtualComponent wc = (IVirtualComponent) list.get(i);
-						WorkbenchComponent earwc = se.getComponent();
-						try {
-							compse = StructureEdit.getStructureEditForWrite(wc.getProject());
-							WorkbenchComponent refwc = compse.getComponent();
-							final ReferencedComponent ref = se.findReferencedComponent(earwc, refwc);
-							earModel.modify(new Runnable() {
-								public void run() {
-									final ICommonApplication application = (ICommonApplication)earModel.getModelObject();
-									if(application != null) {
-										ICommonModule mod = addModule(application, wc, (String) map.get(wc));
-										if (ref!=null)
-											ref.setDependentObject((EObject)mod);
+						boolean linkedToEAR = true;
+						try{
+							if(wc.isBinary()){
+								linkedToEAR = ((J2EEModuleVirtualArchiveComponent)wc).isLinkedToEAR();
+								((J2EEModuleVirtualArchiveComponent)wc).setLinkedToEAR(false);
+							}
+							WorkbenchComponent earwc = se.getComponent();
+							try {
+								compse = StructureEdit.getStructureEditForWrite(wc.getProject());
+								WorkbenchComponent refwc = compse.getComponent();
+								final ReferencedComponent ref = se.findReferencedComponent(earwc, refwc);
+								earModel.modify(new Runnable() {
+									public void run() {
+										final ICommonApplication application = (ICommonApplication)earModel.getModelObject();
+										if(application != null) {
+											ICommonModule mod = addModule(application, wc, (String) map.get(wc));
+											if (ref!=null)
+												ref.setDependentObject((EObject)mod);
+										}
 									}
+								}, null);
+							} finally {
+								if (compse != null) {
+									compse.saveIfNecessary(monitor);
+									compse.dispose();
 								}
-							}, null);
+							}
 						} finally {
-							if (compse != null) {
-								compse.saveIfNecessary(monitor);
-								compse.dispose();
+							if(wc.isBinary()){
+								((J2EEModuleVirtualArchiveComponent)wc).setLinkedToEAR(linkedToEAR);
 							}
 						}
 					}

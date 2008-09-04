@@ -24,6 +24,8 @@ public class J2EEModuleVirtualArchiveComponent extends VirtualArchiveComponent {
 
 	protected static final IVirtualReference[] NO_REFERENCES = new VirtualReference[0];
 
+	private boolean linkedToEAR = true;
+	
 	protected String[] manifestClasspath;
 
 	public J2EEModuleVirtualArchiveComponent(IProject aComponentProject, String archiveLocation, IPath aRuntimePath) {
@@ -50,4 +52,13 @@ public class J2EEModuleVirtualArchiveComponent extends VirtualArchiveComponent {
 		}
 		return manifestClasspath;
 	}
+
+	public void setLinkedToEAR(boolean linkedToEAR) {
+		this.linkedToEAR = linkedToEAR;
+	}
+
+	public boolean isLinkedToEAR() {
+		return linkedToEAR;
+	}
+	
 }

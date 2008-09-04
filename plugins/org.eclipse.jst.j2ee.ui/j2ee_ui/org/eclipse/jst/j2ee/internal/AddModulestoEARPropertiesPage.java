@@ -294,7 +294,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		String virtCompURIMapName;
 		for(int i=0; i<componentList.size(); i++) {
 			virtComp = (IVirtualComponent)componentList.get(i);
-			virtCompURIMapName = getVirtualComponentNameWithExtension(virtComp);
+			virtCompURIMapName = getVirtualComponentNameWithExtension(virtComp);	
 			uriMap.put(virtComp, virtCompURIMapName);
 		}
 		dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, uriMap);
@@ -1175,19 +1175,31 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	private String getVirtualComponentNameWithExtension(IVirtualComponent virtComp) {
 		String virtCompURIMapName = this.getURIMappingName(virtComp);
 		
-		if(JavaEEProjectUtilities.isDynamicWebComponent(virtComp) &&
-			!virtCompURIMapName.endsWith(IJ2EEModuleConstants.WAR_EXT)) {
-			//web module URIs need to end in WAR
-			virtCompURIMapName += IJ2EEModuleConstants.WAR_EXT;
-		} else if(JavaEEProjectUtilities.isJCAComponent(virtComp) &&
-			!virtCompURIMapName.endsWith(IJ2EEModuleConstants.RAR_EXT)) {
-			//connector module URIs need to end in RAR
-			virtCompURIMapName += IJ2EEModuleConstants.RAR_EXT;
-		} else if(!virtCompURIMapName.endsWith(IJ2EEModuleConstants.JAR_EXT)) {
-			//all other modules (EJB, AppClient, Utility) need to end in JAR
-			virtCompURIMapName += IJ2EEModuleConstants.JAR_EXT;
+		boolean linkedToEAR = true;
+		try {
+			if(virtComp.isBinary()){
+				linkedToEAR = ((J2EEModuleVirtualArchiveComponent)virtComp).isLinkedToEAR();
+				((J2EEModuleVirtualArchiveComponent)virtComp).setLinkedToEAR(false);
+			}
+			if(JavaEEProjectUtilities.isDynamicWebComponent(virtComp)) {
+				if(!virtCompURIMapName.endsWith(IJ2EEModuleConstants.WAR_EXT)) {
+					//web module URIs need to end in WAR
+					virtCompURIMapName += IJ2EEModuleConstants.WAR_EXT;
+				}
+			} else if(JavaEEProjectUtilities.isJCAComponent(virtComp)) {
+				if(!virtCompURIMapName.endsWith(IJ2EEModuleConstants.RAR_EXT)) {
+					//connector module URIs need to end in RAR
+					virtCompURIMapName += IJ2EEModuleConstants.RAR_EXT;
+				}
+			} else if(!virtCompURIMapName.endsWith(IJ2EEModuleConstants.JAR_EXT)) {
+				//all other modules (EJB, AppClient, Utility) need to end in JAR
+				virtCompURIMapName += IJ2EEModuleConstants.JAR_EXT;
+			}
+		} finally {
+			if(virtComp.isBinary()){
+				((J2EEModuleVirtualArchiveComponent)virtComp).setLinkedToEAR(linkedToEAR);
+			}
 		}
-		
 		return virtCompURIMapName;
 	}
 }
