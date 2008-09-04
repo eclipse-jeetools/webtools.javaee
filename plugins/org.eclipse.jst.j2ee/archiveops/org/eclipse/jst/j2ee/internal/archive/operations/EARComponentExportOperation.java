@@ -18,10 +18,10 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.jee.archive.IArchive;
-import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -37,9 +37,10 @@ public class EARComponentExportOperation extends J2EEArtifactExportOperation {
 		IProgressMonitor subMonitor = new SubProgressMonitor(progressMonitor, EXPORT_WORK);
 		IArchive archiveFromComponent = null;
 		try {
-			archiveFromComponent = JavaEEArchiveUtilities.INSTANCE.openArchive(getComponent());
-			JavaEEQuickPeek quickPeek = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archiveFromComponent);
-			if (quickPeek.getJavaEEVersion() == J2EEConstants.JEE_5_0_ID) {
+			//[Bug 244049] need to use ProjectFacet version to determine how to export the EAR
+			String versionStr = J2EEProjectUtilities.getJ2EEProjectVersion(getComponent().getProject());
+			if (versionStr.equals(J2EEVersionConstants.VERSION_5_0_TEXT)) {
+				archiveFromComponent = JavaEEArchiveUtilities.INSTANCE.openArchive(getComponent());
 				saveArchive(archiveFromComponent, getDestinationPath().toOSString(), subMonitor);
 			} else {
 				EnterpriseArtifactEdit artifactEdit = null;
