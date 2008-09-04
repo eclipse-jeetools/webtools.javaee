@@ -106,17 +106,16 @@ public abstract class J2EEFacetInstallDelegate {
     		        }
 		        }
 		        
-                final IProjectFacetVersion earFacetVersion
-                    = EARFacetUtils.EAR_FACET.getVersion( j2eeVersionText );
-            
-                // Note that the next call is necessary even if a preset is going to be selected 
-                // later since it allows the dynamic preset to adjust for the ear facet version.
-                
-                fpjwc.setProjectFacets( Collections.singleton( earFacetVersion ) );
-                
 		        if( presetId != null )
 		        {
 		            fpjwc.setSelectedPreset( presetId );
+		        }
+		        else
+		        {
+		            final IProjectFacetVersion earFacetVersion
+		                = EARFacetUtils.EAR_FACET.getVersion( j2eeVersionText );
+		            
+		            fpjwc.setProjectFacets( Collections.singleton( earFacetVersion ) );
 		        }
 		    }
 		}
