@@ -21,6 +21,7 @@
       <import plugin="org.eclipse.wst.common.tests"/>
       <import plugin="org.eclipse.jst.j2ee.core"/>
       <import plugin="org.eclipse.jst.j2ee.tests"/>
+      <import plugin="org.eclipse.wst.common.project.facet.core"/>
    </requires>
 
 </plugin>
