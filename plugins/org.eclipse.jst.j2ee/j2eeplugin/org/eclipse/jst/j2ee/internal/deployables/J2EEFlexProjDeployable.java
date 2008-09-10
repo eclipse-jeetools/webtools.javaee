@@ -77,6 +77,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	private IContainer[] cachedOutputContainers;
 	private HashMap cachedOutputMappings;
 	private HashMap cachedSourceOutputPairs;
+	private boolean isSingleJavaOutputNonSource = false;
 
 	/**
 	 * Constructor for J2EEFlexProjDeployable.
@@ -666,6 +667,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	 *    <code>false</code> otherwise
 	 */
 	public boolean isSingleRootStructure() {
+		isSingleJavaOutputNonSource = false;
 		StructureEdit edit = null;
 		try {
 			edit = StructureEdit.getStructureEditForRead(getProject());
@@ -730,6 +732,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 							// output folder (something like classes or bin) is not a source folder, JDT copies all files
 							// (including non Java files) to this folder, so every resource needed at runtime is located 
 							// in a single directory.
+							isSingleJavaOutputNonSource = true;
 							return true;
 						} else {
 // Don't implement at this time. Currently, we claim single-rooted when ejbModlule is the output folder.  However,
@@ -856,8 +859,12 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	 */
 	private IModuleResource[] getOptimizedMembers() throws CoreException {
 		if (component != null) {
-			// For java utility modules, we can just use the output container, at this point we know there is only one
-			if (J2EEProjectUtilities.isUtilityProject(getProject())) {
+			if (isSingleJavaOutputNonSource) {
+				// We determined when testing for a single root structure that this project has
+				// one output folder and that output folder is not a source folder. Since the
+				// output folder (for example, classes or bin) is not a source folder, JDT copies all files
+				// (including non Java files) to this folder, so every resource needed at runtime is located 
+				// in that single output directory.
 				return getModuleResources(Path.EMPTY, getJavaOutputFolders()[0]);
 			}
 			// For J2EE modules, we use the contents of the content root
