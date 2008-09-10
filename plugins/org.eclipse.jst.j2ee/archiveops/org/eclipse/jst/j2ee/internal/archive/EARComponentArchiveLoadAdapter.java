@@ -8,6 +8,7 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  * Stefan Dimov, stefan.dimov@sap.com - bug 207826
+ * Kaloyan Raev, kaloyan.raev@sap.com - bug 220912
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.archive;
 
@@ -30,6 +31,7 @@ import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComp
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.IArchive;
+import org.eclipse.jst.jee.archive.IArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
@@ -96,6 +98,14 @@ public class EARComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 					}
 					binaryResourcesToDiskFiles.put(nestedModuleArchive, diskFile);
 				} else {
+					// Bug 220912 - set "export source" flag before calling JavaEEQuickPeek
+					if (nestedModuleArchive.getType() == IArchive.ARCHIVE_TYPE) {
+						IArchiveLoadAdapter nestedLoadAdapter = (IArchiveLoadAdapter)((IArchive)nestedModuleArchive).getLoadAdapter();
+						if(nestedLoadAdapter instanceof ComponentArchiveLoadAdapter){
+							((ComponentArchiveLoadAdapter)nestedLoadAdapter).setExportSource(isExportSource());
+						}
+					}
+					
 					JavaEEQuickPeek quickPeek = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(nestedModuleArchive);
 					switch (quickPeek.getType()) {
 					case JavaEEQuickPeek.CONNECTOR_TYPE:
