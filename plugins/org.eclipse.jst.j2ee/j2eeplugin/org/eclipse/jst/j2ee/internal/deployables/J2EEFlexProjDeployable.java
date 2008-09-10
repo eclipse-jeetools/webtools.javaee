@@ -24,6 +24,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -812,6 +813,17 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 		}
 		return false;
 	}
+
+	/**
+	 * Checks if the path argument exists relative to this workspace root.
+	 * 
+	 * @param a workspace relative full path
+	 * @return is path in the workspace?
+	 */
+	private boolean exists(IPath path) {
+		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+		return workspaceRoot.exists(path);
+	}
 	
 	/**
 	 * Ensure the default web setup is correct with one resource map and any number of java 
@@ -836,11 +848,12 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 			// Verify if the map is for the content root
 			if (resourceMap.getRuntimePath().equals(Path.ROOT)) {
 				rootValidMaps++;
-			// Verify if the map is for a java src folder and is mapped to "WEB-INF/classes"
+			// Verify if the map is for a java src folder and is mapped to "WEB-INF/classes".
 			} else if (resourceMap.getRuntimePath().equals(webInfClasses) && isSourceContainer(sourcePath)) {
 				javaValidRoots++;
-			// Otherwise we bail because we have a non optimized map
-			} else {
+			// Otherwise we bail because we have a non optimized map.
+			// Except if  the source path is to a nonexistent resource then just ignore the map and keep trying
+			} else if (exists(sourcePath)) {
 				return false;
 			}
 		}
