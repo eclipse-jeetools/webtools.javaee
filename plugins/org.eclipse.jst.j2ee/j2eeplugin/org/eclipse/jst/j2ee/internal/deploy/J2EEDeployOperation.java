@@ -21,6 +21,9 @@ import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceDescription;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -55,6 +58,7 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	private Object[] selection;
 	private IStatus multiStatus;
 	private IProject currentProject;
+	private boolean wasAutoBuilding;
 
 	/**
 	 *  
@@ -80,31 +84,39 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		DeployerRegistry reg = DeployerRegistry.instance();
-		List modules = getSelectedModules(selection);
-		monitor.beginTask(J2EEPluginResourceHandler.J2EEDeployOperation_UI_0, modules.size()); 
-		for (int i = 0; i < modules.size(); i++) {
-			EnterpriseArtifactEdit edit = null;
-			try {
-				edit = (EnterpriseArtifactEdit) modules.get(i);
-				EObject module = edit.getDeploymentDescriptorRoot();
-				IProject proj = ProjectUtilities.getProject(module);
-				IRuntime runtime = null;
+		try {
+			//[Bug 245305] turn off auto build for this operation
+			turnAutoBuildOff();
+			
+			DeployerRegistry reg = DeployerRegistry.instance();
+			List modules = getSelectedModules(selection);
+			monitor.beginTask(J2EEPluginResourceHandler.J2EEDeployOperation_UI_0, modules.size()); 
+			for (int i = 0; i < modules.size(); i++) {
+				EnterpriseArtifactEdit edit = null;
 				try {
-					runtime = J2EEProjectUtilities.getServerRuntime(proj);
+					edit = (EnterpriseArtifactEdit) modules.get(i);
+					EObject module = edit.getDeploymentDescriptorRoot();
+					IProject proj = ProjectUtilities.getProject(module);
+					IRuntime runtime = null;
+					try {
+						runtime = J2EEProjectUtilities.getServerRuntime(proj);
+					}
+					catch (CoreException e) {
+						J2EEPlugin.getDefault().getLog().log(e.getStatus());
+					}
+					if (runtime == null)
+						continue;
+					List visitors = reg.getDeployModuleExtensions(module, runtime);
+					deploy(visitors, module, monitor);
+					monitor.worked(1);
+				} finally {
+					if (edit != null)
+						edit.dispose();
 				}
-				catch (CoreException e) {
-					J2EEPlugin.getDefault().getLog().log(e.getStatus());
-				}
-				if (runtime == null)
-					continue;
-				List visitors = reg.getDeployModuleExtensions(module, runtime);
-				deploy(visitors, module, monitor);
-				monitor.worked(1);
-			} finally {
-				if (edit != null)
-					edit.dispose();
 			}
+		} finally {
+			//always be sure to turn previous build settings back on
+			restoreBuildSettings();
 		}
 		return getMultiStatus();
 	}
@@ -235,5 +247,39 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 			}
 		}
 		return modules;
+	}
+	
+	/**
+	 * Turn off the workspace autobuild
+	 */
+	private void turnAutoBuildOff() {
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IWorkspaceDescription description = workspace.getDescription();
+		wasAutoBuilding = workspace.isAutoBuilding();
+		//only turn off auto building if it is actually on
+		if(wasAutoBuilding) {
+			description.setAutoBuilding(false);
+			try {
+				workspace.setDescription(description);
+			} catch (CoreException e) {
+				J2EEPlugin.log(J2EEPlugin.createErrorStatus(0, e.getMessage(), e));
+			}
+		}
+	}
+
+	/**
+	 * Turn on the workspace autobuild
+	 */
+	private void restoreBuildSettings() {
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IWorkspaceDescription description = workspace.getDescription();
+		if (wasAutoBuilding) {
+			description.setAutoBuilding(true);
+			try {
+				workspace.setDescription(description);
+			} catch (CoreException e) {
+				J2EEPlugin.log(J2EEPlugin.createErrorStatus(0, e.getMessage(), e));
+			}
+		}
 	}
 }
