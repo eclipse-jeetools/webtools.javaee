@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.27 $  $Date: 2006/09/18 17:53:18 $ 
+ *  $Revision: 1.27.4.1 $  $Date: 2008/09/10 07:38:59 $ 
  */
 
 import java.util.*;
@@ -577,7 +577,17 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 			// needs work, the names above will be simple names if we are relfecting from a source file
 			List list = getJavaClassTarget().getImplementsInterfacesGen();
 			for (int i = 0; i < interfaceNames.length; i++) {
-				ref = reflectJavaClass(interfaceNames[i]);
+				String name = interfaceNames[i];
+				// if a class implements an interface that is actually an inner interface, the inner interface
+				// package is not resolved correctly without getting the fully qualified name. For example,
+				// public class TestBean implements SomeOtherSimpleClass.SomeInterface
+				// without getting the fully qualified name, we are using SomeOtherSimpleClass as the 
+				// package name which is incorrect.
+				String innertypeName = JDOMSearchHelper.getResolvedTypeName(name, getType(), getTypeResolutionCache());
+				if (innertypeName != null) {
+					name = innertypeName;
+				}
+				ref = reflectJavaClass(name);
 				list.add(ref);
 			}
 		} catch (JavaModelException npe) {
