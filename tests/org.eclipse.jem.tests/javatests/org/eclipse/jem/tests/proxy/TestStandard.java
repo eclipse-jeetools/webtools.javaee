@@ -108,7 +108,12 @@ public class TestStandard extends AbstractTestProxy {
 		// Get all constructors.
 		IConstructorProxy[] ctors = stringType.getConstructors();
 		assertNotNull(ctors);
-		int expectedCtors = System.getProperty("java.version","").startsWith("1.5") ? 13 : 11;
+		int expectedCtors = 11;
+		if (System.getProperty("java.version","").startsWith("1.5")) {
+			expectedCtors = 13;
+		} else if (System.getProperty("java.version","").startsWith("1.6")) {
+			expectedCtors = 15;
+		}
 		assertEquals(expectedCtors, ctors.length);		
 	}
 
