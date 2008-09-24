@@ -10,11 +10,14 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JEMPlugin.java,v $
- *  $Revision: 1.8 $  $Date: 2005/08/24 20:20:25 $ 
+ *  $Revision: 1.8.6.1 $  $Date: 2008/09/24 07:07:12 $ 
  */
 package org.eclipse.jem.internal.core;
 
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.BundleContext;
 
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -28,6 +31,7 @@ public class JEMPlugin extends Plugin {
 
 	private static JEMPlugin PLUGIN;
 	private Logger logger;
+	private static final String PLUGIN_ID = "org.eclipse.jem"; //$NON-NLS-1$
 	
 	public JEMPlugin() {
 		PLUGIN = this;
@@ -49,5 +53,22 @@ public class JEMPlugin extends Plugin {
 	public Logger getLogger() {
 		return logger;
 	}
+	
+	public String getPluginID() {
+		return PLUGIN_ID;
+	}
+	
+	public static IStatus createStatus(int severity, String message, Throwable exception) {
+		return new Status(severity, PLUGIN_ID, severity, message, exception);
+	}
+	
+	public static void logWarning(String message, Throwable exception) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( createStatus(IStatus.WARNING, message , exception));
+	}
+	
+	public static void logError(String message, Throwable exception) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( createStatus(IStatus.ERROR, message , exception));
+	}
+
 
 }

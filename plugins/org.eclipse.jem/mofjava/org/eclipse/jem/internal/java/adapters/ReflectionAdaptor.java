@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.adapters;
 /*
  *  $RCSfile: ReflectionAdaptor.java,v $
- *  $Revision: 1.14 $  $Date: 2006/05/17 20:13:07 $ 
+ *  $Revision: 1.14.6.1 $  $Date: 2008/09/24 07:07:12 $ 
  */
 import java.util.logging.Level;
 
@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-
+import org.eclipse.jem.internal.core.JEMPlugin;
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
 import org.eclipse.jem.util.logger.proxy.Logger;
 /**
@@ -149,6 +149,7 @@ public synchronized boolean reflectValuesIfNecessary() {
 			if (logger.isLoggingLevel(Level.WARNING)) {
 				logger.log(ResourceHandler.getString("Failed_reflecting_values_ERROR_"), Level.WARNING); //$NON-NLS-1$ = "Failed reflecting values!!!"
 				logger.logWarning(e);
+				JEMPlugin.logWarning(ResourceHandler.getString("Failed_reflecting_values_ERROR_"), e);
 			}
 		} finally {
 			isReflecting = false;
