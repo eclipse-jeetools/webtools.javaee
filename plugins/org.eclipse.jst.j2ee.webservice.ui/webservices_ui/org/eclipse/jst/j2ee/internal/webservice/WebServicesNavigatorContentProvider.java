@@ -90,6 +90,10 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 			if(WebServiceViewerSynchronization.isThereWebServicesPreferenceSet()){
 				if(WebServiceViewerSynchronization.areThereWebServices()){
 					viewerSynchronization.setNavigatorGroupAdded(true);
+					if (!viewerSynchronization.hasIndexJobBeenScheduled()) {
+						viewerSynchronization.startIndexJob();
+					}					
+					viewerSynchronization.start();
 					return new Object[]{getNavigatorGroup()};
 				} else {
 					return NO_CHILDREN;
