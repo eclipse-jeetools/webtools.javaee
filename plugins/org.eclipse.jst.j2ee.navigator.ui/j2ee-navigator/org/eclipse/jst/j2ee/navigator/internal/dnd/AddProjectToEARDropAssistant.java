@@ -42,7 +42,10 @@ import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.navigator.ui.Messages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.navigator.internal.plugin.J2EENavigatorPlugin;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.facet.EARFacetUtils;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.dnd.DropTargetEvent;
@@ -58,7 +61,9 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.common.project.facet.core.internal.FacetedProject;
 
 public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 
@@ -153,6 +158,9 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 		} else if (!projectToAdd.isAccessible()) {
 			return J2EENavigatorPlugin.createErrorStatus(0, Messages.AddProjectToEARDropAssistant_The_dragged_project_cannot_be_added_, null);
 		}
+		else if (earVersion > 14){
+			return J2EENavigatorPlugin.createErrorStatus(0, Messages.AddProjectToEARDropAssistant_Could_not_add_module_to_Enterprise_, null);
+		}
 
 		IStatus isValid = validateProjectToAdd(projectToAdd, earVersion);
 		if (!isValid.isOK()) {
@@ -171,21 +179,19 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 	 */
 	protected final int getEarVersion(IProject earProject) {
 		int earVersion = -1;
-		EnterpriseArtifactEdit earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
+		
+	    IFacetedProject facetedProject;
 		try {
-			if(earArtifactEdit != null)
-				earVersion = earArtifactEdit.getJ2EEVersion();
-			else {
-				J2EENavigatorPlugin.logError(0, "Could not acquire model elements for project \""+earProject.getName()+"\".", null); //$NON-NLS-1$ //$NON-NLS-2$
-			}
-		} finally {
-			if (earArtifactEdit != null) {
-				earArtifactEdit.dispose();
-			}
+			facetedProject = ProjectFacetsManager.create(earProject);
+			 IProjectFacetVersion version = facetedProject.getProjectFacetVersion(EarUtilities.ENTERPRISE_APPLICATION_FACET);
+			 earVersion = J2EEVersionUtil.convertVersionStringToInt(version.getVersionString());
+		} catch (CoreException e) {
+			//nothing to do version cannot be determined since there is a problem with faceted project. 
+			J2EENavigatorPlugin.logError(0, e.getMessage(), e);
 		}
 		return earVersion;
 	}
-
+		
 	/**
 	 * @param facetedProject
 	 * @return
