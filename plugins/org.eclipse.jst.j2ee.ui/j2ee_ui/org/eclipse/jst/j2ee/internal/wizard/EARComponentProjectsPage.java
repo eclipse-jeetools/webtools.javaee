@@ -118,8 +118,11 @@ public class EARComponentProjectsPage extends DataModelWizardPage {
 				IDataModel importDM = null;
 				for (int i = 0; i < list.size(); i++) {
 					importDM = (IDataModel) list.get(i);
-					if (!newList.contains(importDM) && !((IVirtualComponent) importDM.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT)).exists()) {
-						newList.add(importDM);
+					if (!newList.contains(importDM)) {
+						IVirtualComponent tempComponent = (IVirtualComponent) importDM.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
+						if(tempComponent == null || !tempComponent.exists()){
+							newList.add(importDM);
+						}
 					}
 				}
 				model.setProperty(IEARComponentImportDataModelProperties.SELECTED_MODELS_LIST, newList);
@@ -244,11 +247,11 @@ public class EARComponentProjectsPage extends DataModelWizardPage {
 
 
 		TableColumn fileNameColumns = new TableColumn(earFileListTable, SWT.NONE);
-		fileNameColumns.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_Modules_in_EAR)); //$NON-NLS-1$ = "Modules in EAR"
+		fileNameColumns.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_Modules_in_EAR));
 		fileNameColumns.setResizable(true);
 
 		TableColumn importNameColumn = new TableColumn(earFileListTable, SWT.NONE);
-		importNameColumn.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_New_Project_Name)); //$NON-NLS-1$ = "New Project Name"
+		importNameColumn.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_New_Project_Name));
 		importNameColumn.setResizable(true);
 
 		String[] columnProperties = new String[2];
