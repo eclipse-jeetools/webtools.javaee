@@ -189,29 +189,31 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			}
 
 			IResource resource = WorkbenchResourceHelper.getFile((EObject)srcObject);
-			IProject project = resource.getProject();
-			IJavaProject javaProject = JavaCore.create(project);
-			if(javaProject.exists()){
-				IType type = null;
-				try {
-					//if name is null then can't get type
-					if(name != null) {
-						type = javaProject.findType( name );
+			if(resource != null) {
+				IProject project = resource.getProject();
+				IJavaProject javaProject = JavaCore.create(project);
+				if(javaProject.exists()){
+					IType type = null;
+					try {
+						//if name is null then can't get type
+						if(name != null) {
+							type = javaProject.findType( name );
+						}
+						
+						//if type is null then can't open its editor, so open editor for the resource
+						if(type != null) {
+							ICompilationUnit cu = type.getCompilationUnit();
+							EditorUtility.openInEditor(cu);
+						} else{
+							openAppropriateEditor(resource);
+						}
+					} catch (JavaModelException e) {
+						J2EEUIPlugin.logError(-1, e.getMessage(), e);
+					} catch (PartInitException e) {
+						J2EEUIPlugin.logError(-1, e.getMessage(), e);
 					}
-					
-					//if type is null then can't open its editor, so open editor for the resource
-					if(type != null) {
-						ICompilationUnit cu = type.getCompilationUnit();
-						EditorUtility.openInEditor(cu);
-					} else{
-						openAppropriateEditor(resource);
-					}
-				} catch (JavaModelException e) {
-					J2EEUIPlugin.logError(-1, e.getMessage(), e);
-				} catch (PartInitException e) {
-					J2EEUIPlugin.logError(-1, e.getMessage(), e);
+	
 				}
-
 			}
 			return;
 		}
