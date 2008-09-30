@@ -498,6 +498,7 @@ public class UIEarValidator extends EarValidator {
 	}
 
 	protected void addLineLengthError(Archive anArchive, IFile target, int lineNo) {
+		// https://bugs.eclipse.org/bugs/show_bug.cgi?id=218667 - Changing this to warning
 		String[] args = new String[2];
 		args[0] = Integer.toString(lineNo);
 		args[1] = anArchive.getURI();
@@ -505,9 +506,9 @@ public class UIEarValidator extends EarValidator {
 		String tmp = NLS.bind(EARValidationMessageResourceHandler.MANIFEST_LINE_EXCEEDS_LENGTH_ERROR_, args);
 		
 		if( lineNo >= 0 ){
-			addLocalizedError(tmp, target, MANIFEST_GROUP_NAME, lineNo );
+			addLocalizedWarning(tmp, target, MANIFEST_GROUP_NAME, lineNo );
 		}else{
-			addLocalizedError(tmp, target, MANIFEST_GROUP_NAME );
+			addLocalizedWarning(tmp, target, MANIFEST_GROUP_NAME );
 		}
 
 	}

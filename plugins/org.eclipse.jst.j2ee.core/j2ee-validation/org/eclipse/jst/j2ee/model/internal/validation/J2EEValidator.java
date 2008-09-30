@@ -347,6 +347,12 @@ public abstract class J2EEValidator implements IValidatorJob, J2EEMessageConstan
 		message.setGroupName(groupName);
 		_reporter.addMessage(this, message);
 	}	
+	public void addLocalizedWarning(String msg, Object target, String groupName, int lineNo) {
+		IMessage message = new LocalizedMessage(IMessage.NORMAL_SEVERITY, msg, target);
+		message.setGroupName(groupName);
+		message.setLineNo(lineNo);
+		_reporter.addMessage(this, message);
+	}
 	
 	/**
 	 * Perform any resource cleanup once validation is complete.
