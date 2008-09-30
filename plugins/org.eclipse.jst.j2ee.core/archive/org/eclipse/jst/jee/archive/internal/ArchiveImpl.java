@@ -158,6 +158,9 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 				archiveFileIndex.addFile(aFile);
 			}
 		}
+		if(aFile == null){
+			throw new FileNotFoundException(archiveRelativePath.toString() +" in "+toString());
+		}
 		return aFile;
 	}
 
@@ -187,10 +190,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 	}
 
 	public String toString() {
-		StringBuffer buffer = new StringBuffer(super.toString());
-		buffer.append(" Loaded by: "); //$NON-NLS-1$
-		buffer.append(loadAdapter);
-		return buffer.toString();
+		return loadAdapter.toString();
 	}
 
 	protected void finalize() throws Throwable {

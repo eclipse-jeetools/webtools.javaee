@@ -644,10 +644,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 		}
 
 		public String toString() {
-			StringBuffer buffer = new StringBuffer(JavaEEArchiveUtilities.class.getName());
-			buffer.append(" wrapping: ");
-			buffer.append(simpleLoadAdapter.toString());
-			return buffer.toString();
+			return simpleLoadAdapter.toString();
 		}
 
 	};

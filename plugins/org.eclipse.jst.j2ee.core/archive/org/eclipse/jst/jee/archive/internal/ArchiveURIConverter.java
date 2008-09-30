@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.URIConverterImpl;
 import org.eclipse.jst.jee.archive.IArchive;
@@ -34,9 +35,9 @@ public class ArchiveURIConverter extends URIConverterImpl {
 		return archive;
 	}
 
-	protected Map uriToPathMap = new HashMap();
+	protected Map <URI, IPath> uriToPathMap = new HashMap <URI, IPath>();
 
-	protected Map pathToURIMap = new HashMap();
+	protected Map <IPath, URI> pathToURIMap = new HashMap <IPath, URI>();
 
 	public final URI getURI(IPath path) {
 		if (!pathToURIMap.containsKey(path)) {
@@ -45,7 +46,7 @@ public class ArchiveURIConverter extends URIConverterImpl {
 			pathToURIMap.put(path, uri);
 			return uri;
 		} else {
-			return (URI) pathToURIMap.get(path);
+			return pathToURIMap.get(path);
 		}
 	}
 
@@ -53,19 +54,25 @@ public class ArchiveURIConverter extends URIConverterImpl {
 		return URI.createURI(path.toString());
 	}
 
+	protected IPath convertURIToPath(URI uri) {
+		return new Path(uri.toString());
+	}
+
 	public final IPath getPath(URI uri) {
-		return (IPath) uriToPathMap.get(uri);
+		if (!uriToPathMap.containsKey(uri)) {
+			IPath path = convertURIToPath(uri);
+			uriToPathMap.put(uri, path);
+			pathToURIMap.put(path, uri);
+			return path;
+		} else {
+			return uriToPathMap.get(uri);
+		}
 	}
 
 	public InputStream createInputStream(URI uri) throws IOException {
 		IPath path = getPath(uri);
-		try {
-			IArchiveResource archiveResource = getArchive().getArchiveResource(path);
-			return archiveResource.getInputStream();
-		} catch (FileNotFoundException e) {
-			throw new IOException(e.getMessage());
-		}
-
+		IArchiveResource archiveResource = getArchive().getArchiveResource(path);
+		return archiveResource.getInputStream();
 	}
 
 }

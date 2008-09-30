@@ -3,6 +3,8 @@ package org.eclipse.jst.j2ee.internal.componentcore;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
@@ -11,6 +13,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.archive.JavaEEEMFZipFileLoadAdapterImpl;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
@@ -82,6 +85,83 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 			}
 		} 
 	}
+
+	public boolean containsArchiveResource(IPath resourcePath) {
+		final boolean isPhysciallyOpen = isPhysicallyOpen();
+		Exception caughtException = null;
+		try {
+			if (!isPhysciallyOpen) {
+				physicallyOpen();
+			}
+			try{
+				return super.containsArchiveResource(resourcePath);
+			} catch(Exception e){
+				J2EEPlugin.logError(caughtException);
+			}
+		} catch (Exception e) {
+			caughtException = e;
+			J2EEPlugin.logError(caughtException);
+		} finally {
+			if (caughtException != null) {
+				if (!isPhysciallyOpen) {
+					physicallyClose();
+				}
+			}
+		}
+		return false;
+	}
+	
+	public IArchiveResource getArchiveResource(IPath filePath) {
+		final boolean isPhysciallyOpen = isPhysicallyOpen();
+		Exception caughtException = null;
+		try {
+			if (!isPhysciallyOpen) {
+				physicallyOpen();
+			}
+			try {
+				return super.getArchiveResource(filePath);
+			} catch(Exception e){
+				J2EEPlugin.logError(caughtException);
+			}
+		} catch (Exception e) {
+			caughtException = e;
+			J2EEPlugin.logError(caughtException);
+		} finally {
+			if (caughtException != null) {
+				if (!isPhysciallyOpen) {
+					physicallyClose();
+				}
+			}
+		}
+		return null;
+	}
+	
+	@Override
+	public List getArchiveResources() {
+		final boolean isPhysciallyOpen = isPhysicallyOpen();
+		Exception caughtException = null;
+		try {
+			if (!isPhysciallyOpen) {
+				physicallyOpen();
+			}
+			try {
+				return super.getArchiveResources();
+			} catch(Exception e){
+				J2EEPlugin.logError(caughtException);
+			}
+		} catch (Exception e) {
+			caughtException = e;
+			J2EEPlugin.logError(caughtException);
+		} finally {
+			if (caughtException != null) {
+				if (!isPhysciallyOpen) {
+					physicallyClose();
+				}
+			}
+		}
+		return Collections.EMPTY_LIST;
+	}
+	
 	
 	public java.io.InputStream getInputStream(IArchiveResource aFile) throws IOException, FileNotFoundException {
 		final boolean isPhysciallyOpen = isPhysicallyOpen();
