@@ -15,10 +15,10 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
-import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.IEjbClientProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.project.EJBUtilities;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -122,19 +122,7 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
 		IProject project = ProjectUtilities.getProject( projectName );
 		
 		if( project.exists() && project.isAccessible()){
-			EJBArtifactEdit edit = null;
-			try {
-					edit = EJBArtifactEdit.getEJBArtifactEditForRead(project);
-					if (edit != null && edit.hasEJBClientJARProject()){
-						enableAllSections(false);
-					} else{
-						enableAllSections(true); 
-					}
-			} finally {
-				if(edit != null)
-					edit.dispose();
-					  
-			}
+			enableAllSections(EJBUtilities.hasEJBClientJARProject(project));
 		}
 	}
 	
