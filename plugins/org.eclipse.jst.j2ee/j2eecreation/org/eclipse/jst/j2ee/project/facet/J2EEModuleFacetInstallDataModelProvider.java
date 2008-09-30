@@ -145,7 +145,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 						javaModel.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME,propertyValue);
 				}
 			}
-		} else if ((EAR_PROJECT_NAME.equals(propertyName) || ADD_TO_EAR.equals(propertyName)) && getBooleanProperty(ADD_TO_EAR)) {
+		} else if ((EAR_PROJECT_NAME.equals(propertyName) || ADD_TO_EAR.equals(propertyName) || LAST_EAR_NAME.equals(propertyName)) && getBooleanProperty(ADD_TO_EAR)) {
 			IStatus status = validateEAR(model.getStringProperty(EAR_PROJECT_NAME));
 			if (status.isOK()) {
 				IProject project = ProjectUtilities.getProject(getStringProperty(EAR_PROJECT_NAME));
@@ -159,8 +159,6 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 				}
 			}
 			model.notifyPropertyChange(FACET_RUNTIME, IDataModel.ENABLE_CHG);
-		} else if (LAST_EAR_NAME.equals(propertyName)) {
-			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.DEFAULT_CHG);
 		} else if (propertyName.equals(IFacetProjectCreationDataModelProperties.FACET_RUNTIME)) {
 			model.notifyPropertyChange(ADD_TO_EAR, IDataModel.VALID_VALUES_CHG);
 			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
