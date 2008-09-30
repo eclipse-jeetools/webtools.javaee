@@ -1,5 +1,6 @@
 package org.eclipse.wtp.j2ee.headless.tests.j2ee.operations;
 
+import java.io.FileNotFoundException;
 import java.io.StringBufferInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -236,14 +237,20 @@ public class JavaFileTestingUtilities {
 		for(int i = 0; i < classNames.length; i++) {
 			if(withClassFiles) {
 				resourcePath = new Path(srcDirectoryPath + classNames[i] + ".class");
-				resource = archive.getArchiveResource(resourcePath);
-				if(resource == null){
+				try{
+					resource = archive.getArchiveResource(resourcePath);
+					if(resource == null){
+						System.err.println("TODO -- There should be an archive resource class file for class " + classNames[i]);
+						System.err.println("     -- see https://bugs.eclipse.org/bugs/show_bug.cgi?id=195668");
+						//Assert.fail("There should be an archive resource class file for class " + classNames[i]);
+					}
+					resource = null;
+					resourcePath = null;
+				} catch (FileNotFoundException e){
 					System.err.println("TODO -- There should be an archive resource class file for class " + classNames[i]);
 					System.err.println("     -- see https://bugs.eclipse.org/bugs/show_bug.cgi?id=195668");
 					//Assert.fail("There should be an archive resource class file for class " + classNames[i]);
 				}
-				resource = null;
-				resourcePath = null;
 			}
 
 			if(withSource) {
