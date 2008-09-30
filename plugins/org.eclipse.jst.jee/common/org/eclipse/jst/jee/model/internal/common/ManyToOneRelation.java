@@ -117,4 +117,11 @@ public class ManyToOneRelation<M, O> {
 		}
 	}
 
+	/**
+	 * @return a collection of the targets.
+	 */
+	public Collection<O> getTargets() {
+		return manyToOne.values();
+	}
+
 }

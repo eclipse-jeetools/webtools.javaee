@@ -54,4 +54,8 @@ public class Result {
 	public Collection<IType> getDependedTypes() {
 		return dependedTypes;
 	}
+	
+	public boolean isEmpty() {
+		return mainObject == null && getAdditional().isEmpty();
+	}
 }

@@ -10,29 +10,30 @@
  ***********************************************************************/
 package org.eclipse.jst.jee.model.internal.common;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceChangeEvent;
-import org.eclipse.core.resources.IResourceChangeListener;
-import org.eclipse.core.resources.IResourceDelta;
-import org.eclipse.core.resources.IResourceDeltaVisitor;
-import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.resources.IResourceProxy;
+import org.eclipse.core.resources.IResourceProxyVisitor;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jdt.core.ElementChangedEvent;
+import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IElementChangedListener;
+import org.eclipse.jdt.core.IJavaElementDelta;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProviderEvent;
@@ -41,13 +42,20 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.jst.javaee.core.SecurityRole;
 import org.eclipse.jst.javaee.core.SecurityRoleRef;
 import org.eclipse.jst.javaee.ejb.SessionBean;
+import org.eclipse.jst.jee.JEEPlugin;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 
 /**
+ * Base implementation for model providers based on annotations in java files.
+ * 
+ * Listeners can be registered with {@link #addListener(IModelProviderListener)}
+ * 
  * @author Kiril Mitov k.mitov@sap.com
  * 
  */
-public abstract class AbstractAnnotationModelProvider<T> implements IResourceChangeListener, IModelProvider {
+public abstract class AbstractAnnotationModelProvider<T> implements IElementChangedListener, IModelProvider {
+
+	private static final String JAVA_EXTENSION = "java"; //$NON-NLS-1$
 
 	/**
 	 * Find the security role with the given name in the given assembly
@@ -78,9 +86,9 @@ public abstract class AbstractAnnotationModelProvider<T> implements IResourceCha
 
 	/**
 	 * Constructs a new AnnotationReader for this faceted project. An illegal
-	 * argument if a project with value <code>null</code> is passed. No
-	 * loading is done in this constructor. Loading the model is made on demand
-	 * when calling {@link #getModelObject()}.
+	 * argument if a project with value <code>null</code> is passed. No loading
+	 * is done in this constructor. Loading the model is made on demand when
+	 * calling {@link #getModelObject()}.
 	 * 
 	 * @param project
 	 *            the ejb project. Can not be <code>null</code>
@@ -124,8 +132,7 @@ public abstract class AbstractAnnotationModelProvider<T> implements IResourceCha
 	}
 
 	protected void postLoad() {
-		ResourcesPlugin.getWorkspace().addResourceChangeListener(this,
-				IResourceChangeEvent.POST_BUILD | IResourceChangeEvent.PRE_CLOSE | IResourceChangeEvent.PRE_DELETE);
+		JavaCore.addElementChangedListener(this);
 	}
 
 	/**
@@ -223,16 +230,16 @@ public abstract class AbstractAnnotationModelProvider<T> implements IResourceCha
 	}
 
 	/**
-	 * @param project
+	 * @param javaProject
 	 * @return true if the given project contains resources that are relative to
 	 *         the model. This method returns <code>true</code> for the
 	 *         ejbProject on which this instance is working a <code>true</code>
 	 *         for its client project.
 	 */
-	protected boolean isProjectRelative(IProject project) {
-		if (project == null || facetedProject == null)
+	protected boolean isProjectRelative(IJavaProject javaProject) {
+		if (javaProject == null || facetedProject == null)
 			return false;
-		else if (project.equals(facetedProject.getProject()))
+		else if (javaProject.getProject().equals(facetedProject.getProject()))
 			return true;
 		return false;
 	}
@@ -243,252 +250,75 @@ public abstract class AbstractAnnotationModelProvider<T> implements IResourceCha
 	 * listener that will be notified when the instance is disposed. After all
 	 * the listeners are notified the list of listeners is cleared.
 	 */
-	public abstract void dispose();
-
-	/**
-	 * An internal refresh of the model. Depending on the type of the event and
-	 * the amount of work that must be done the refresh may occur in the same or
-	 * in another thread. Use {@link #addListener(IModelProviderListener)} to
-	 * register a listener that will be notified when updating the model is
-	 * finished.
-	 * 
-	 * Changing a resource can also mean disposing the instance it the resource
-	 * change event describes that a project is deleted or closed.
-	 * 
-	 * @see org.eclipse.core.resources.IResourceChangeListener#resourceChanged(org.eclipse.core.resources.IResourceChangeEvent)
-	 */
-	public void resourceChanged(final IResourceChangeEvent event) {
-		// if (ejbJar == null)
-		// return;
-		final IModelProviderEvent modelEvent = new MyModelProviderEvent(0, null, facetedProject.getProject());
-
-		switch (event.getType()) {
-		case IResourceChangeEvent.PRE_DELETE:
-		case IResourceChangeEvent.PRE_CLOSE:
-			IProject project = (IProject) event.getResource();
-			if (!isProjectRelative(project))
-				return;
-			dispose();
-			break;
-		case IResourceChangeEvent.POST_BUILD:
-			internalRefresh(modelEvent, event.getDelta());
-		}
+	public void dispose() {
+		IModelProviderEvent modelEvent = createModelProviderEvent();
+		modelEvent.addResource(facetedProject.getProject());
+		modelEvent.setEventCode(modelEvent.getEventCode() | IModelProviderEvent.PRE_DISPOSE);
+		JavaCore.removeElementChangedListener(this);
+		modelObject = null;
+		notifyListeners(modelEvent);
+		clearListeners();
 	}
 
 	/**
-	 * Internal refresh of the model maintained by this instance. Calling this
-	 * method usually means that there is a descent amount of work to be
-	 * processed. The method is processing the added/remove/change java files
-	 * described by "projectDelta"
-	 * 
-	 * Specific information for which objects were changed will be added in the
-	 * modelEvent
-	 * 
-	 * Refreshing the model may occurs in another thread. Use
-	 * {@link #addListener(IModelProviderListener)} to register a listener. The
-	 * listener will be notified when refreshing is finished.
-	 * 
-	 * @param modelEvent
-	 * @param projectDelta
-	 */
-	protected void internalRefresh(final IModelProviderEvent modelEvent, final IResourceDelta projectDelta) {
-		final CollectiveResourceDeltaVisitor visitor = collectDeltaFiles(projectDelta);
-		Job job = new Job("Refresh annotation model") {
-			@Override
-			protected IStatus run(IProgressMonitor monitor) {
-				try {
-					for (IFile file : visitor.getRemovedFiles()) {
-						processRemovedFile(modelEvent, file);
-					}
-					for (IFile file : visitor.getAddedFiles()) {
-						processAddedFile(modelEvent, file);
-					}
-					for (IFile file : visitor.getChangedFiles()) {
-						processChangedFile(modelEvent, file);
-					}
-					visitor.clear();
-				} catch (CoreException e) {
-					return e.getStatus();
-				} finally {
-					/*
-					 * I do not provide a backup version of the model from which
-					 * a revert is possible so I am notifying the listeners even
-					 * if an error has occurred. Since the model might be
-					 * changed in one thread an the notification will occur in
-					 * another thread there might be listener depending on this
-					 * notifications to unblock a blocked thread.
-					 * 
-					 * It is possible in case of an exception to rebuild the
-					 * model from scratch or to send a notification that the
-					 * model is not valid. This is is still open question.
-					 */
-					notifyListeners(modelEvent);
-				}
-				return Status.OK_STATUS;
-			}
-		};
-		job.schedule();
-	}
-
-	protected CollectiveResourceDeltaVisitor collectDeltaFiles(IResourceDelta projectDelta) {
-		CollectiveResourceDeltaVisitor visitor = new CollectiveResourceDeltaVisitor(facetedProject.getProject());
-		try {
-			projectDelta.accept(visitor);
-		} catch (CoreException e1) {
-			log(e1.getStatus());
-			e1.printStackTrace();
-		}
-		return visitor;
-	}
-
-	/**
-	 * Process a file as "removed". The method is allowed not to make checks
-	 * whether the file was added/removed/change. It is processing the file as
+	 * Process a unit as "removed". The method is allowed not to make checks
+	 * whether the unit was added/removed/change. It is processing the unit as
 	 * "removed".
-	 * 
-	 * <p>
-	 * This method changes the model. The method is called by
-	 * {@link #internalRefresh(IModelProviderEvent, IResourceDelta)}.
-	 * Implementations should assure changes to the model are synchronized
-	 * between each other.
-	 * </p>
 	 * 
 	 * If no model object depends on the given file "modelEvent" is not changed.
 	 * 
-	 * @see #internalRefresh(IModelProviderEvent, IResourceDelta)
-	 * @see #processAddedFile(IModelProviderEvent, IFile)
+	 * @see #processAddedCompilationUnit(IModelProviderEvent, ICompilationUnit)
 	 * @param modelEvent
 	 * @param file
 	 *            the file to be removed.
 	 * @throws CoreException
 	 *             if there was an error during parsing the file
 	 */
-	protected abstract void processRemovedFile(IModelProviderEvent modelEvent, IFile file) throws CoreException;
+	protected abstract void processRemovedCompilationUnit(IModelProviderEvent modelEvent, ICompilationUnit unit)
+			throws CoreException;
 
 	/**
-	 * Process a file as "added". The method is allowed not to make checks
-	 * whether the file was added/removed/change. It is processing the file as
+	 * Process a unit as "added". The method is allowed not to make checks
+	 * whether the unit was added/removed/change. It is processing the file as
 	 * "added". It is the responsibility of the caller to make sure the
 	 * processing of the file as added will not leave the model in a wrong
 	 * state.
 	 * 
 	 * modelEvent is changed to contain information about the added modelObject.
 	 * 
-	 * <p>
-	 * This method changes the model. The method is called by
-	 * {@link #internalRefresh(IModelProviderEvent, IResourceDelta)}.
-	 * Implementations should assure changes to the model are synchronized
-	 * between each other.
-	 * </p>
-	 * 
-	 * @see #processChangedFile(IModelProviderEvent, IFile)
-	 * @see #processRemovedFile(IModelProviderEvent, IFile)
+	 * @see #processRemovedCompilationUnit(IModelProviderEvent,
+	 *      ICompilationUnit)
 	 * @param modelEvent
 	 * @param file
 	 *            the file that was added
 	 * @throws CoreException
 	 */
-	protected abstract void processAddedFile(IModelProviderEvent modelEvent, IFile file) throws CoreException;
+	protected abstract void processAddedCompilationUnit(IModelProviderEvent modelEvent, ICompilationUnit file)
+			throws CoreException;
 
 	/**
-	 * Process a file as "changed". The method is allowed not to make checks
-	 * whether the file was added/removed/change. It is processing the file as
+	 * Process a unit as "changed". The method is allowed not to make checks
+	 * whether the unit was added/removed/change. It is processing the unit as
 	 * "changed". It is the responsibility of the caller to make sure the
 	 * processing of the file as "changed" will not leave the model in a wrong
 	 * state.
 	 * 
-	 * <p>
-	 * This method changes the model. The method is called by
-	 * {@link #internalRefresh(IModelProviderEvent, IResourceDelta)}.
-	 * Implementations should assure changes to the model are synchronized
-	 * between each other.
-	 * </p>
-	 * 
-	 * @see #processAddedFile(IModelProviderEvent, IFile)
-	 * @see #processRemovedFile(IModelProviderEvent, IFile)
+	 * @see #processAddedCompilationUnit(IModelProviderEvent, ICompilationUnit)
+	 * @see #processRemovedCompilationUnit(IModelProviderEvent,
+	 *      ICompilationUnit)
 	 * @param modelEvent
-	 * @param file
-	 *            the file that was changed
+	 * @param unit
+	 *            the unti that was changed
 	 * @throws CoreException
 	 */
-	protected abstract void processChangedFile(IModelProviderEvent modelEvent, IFile file) throws CoreException;
+	protected abstract void processChangedCompilationUnit(IModelProviderEvent modelEvent, ICompilationUnit file)
+			throws CoreException;
 
 	protected void log(IStatus status) {
 	}
 
 	protected MyModelProviderEvent createModelProviderEvent() {
 		return new MyModelProviderEvent(0, null, facetedProject.getProject());
-	}
-
-	/**
-	 * @author Kiril Mitov k.mitov@sap.com
-	 * 
-	 */
-	protected class CollectiveResourceDeltaVisitor implements IResourceDeltaVisitor {
-
-		private Collection<IFile> addedFiles;
-
-		private Collection<IFile> removedFiles;
-
-		private Collection<IFile> changedFiles;
-
-		private IJavaProject ejbProjectJavaView;
-
-		public CollectiveResourceDeltaVisitor(IProject ejbProject) {
-			addedFiles = new ArrayList<IFile>();
-			removedFiles = new ArrayList<IFile>();
-			changedFiles = new ArrayList<IFile>();
-			this.ejbProjectJavaView = JavaCore.create(ejbProject);
-		}
-
-		public Collection<IFile> getAddedFiles() {
-			return addedFiles;
-		}
-
-		public Collection<IFile> getRemovedFiles() {
-			return removedFiles;
-		}
-
-		public Collection<IFile> getChangedFiles() {
-			return changedFiles;
-		}
-
-		public void clear() {
-			addedFiles.clear();
-			removedFiles.clear();
-			changedFiles.clear();
-		}
-
-		private boolean isOnClasspath(IFile file) {
-			return ejbProjectJavaView.isOnClasspath(file);
-		}
-
-		public boolean visit(IResourceDelta delta) throws CoreException {
-
-			if (delta.getResource().getType() == IResource.PROJECT) {
-				return isProjectRelative((IProject) delta.getResource());
-			}
-			if (delta.getResource().getType() == IResource.FILE) {
-				IFile file = (IFile) delta.getResource();
-				if (!isOnClasspath(file))
-					return false;
-				if ("java".equals(file.getFileExtension())) {
-					switch (delta.getKind()) {
-					case IResourceDelta.ADDED:
-						addedFiles.add((IFile) delta.getResource());
-						break;
-					case IResourceDelta.CHANGED:
-						changedFiles.add((IFile) delta.getResource());
-						break;
-					case IResourceDelta.REMOVED:
-						removedFiles.add((IFile) delta.getResource());
-						break;
-					}
-				}
-				return false;
-			}
-			return true;
-		}
 	}
 
 	// ---------------SECURITY ROLES ---------------------------//
@@ -581,5 +411,149 @@ public abstract class AbstractAnnotationModelProvider<T> implements IResourceCha
 			if (ref.getRoleName().equals(role.getRoleName()))
 				rolesToRolesRef.connect(ref, role);
 		}
+	}
+
+	public void elementChanged(final ElementChangedEvent javaEvent) {
+		if (javaEvent.getType() == ElementChangedEvent.POST_RECONCILE)
+			internalPostReconcile(javaEvent);
+		else if (javaEvent.getType() == ElementChangedEvent.POST_CHANGE)
+			internalPostChange(javaEvent);
+	}
+
+	private void internalPostChange(ElementChangedEvent javaEvent) {
+		IModelProviderEvent modelEvent = createModelProviderEvent();
+		// handles ElementChangedEvent.POST_CHANGE - the case when the
+		// compilation unit has been changed
+		for (IJavaElementDelta child : javaEvent.getDelta().getAffectedChildren()) {
+			if (child.getElement() instanceof IJavaProject) {
+				processChangedProject(modelEvent, child);
+				notifyListeners(modelEvent);
+			}
+		}
+	}
+
+	private void internalPostReconcile(final ElementChangedEvent javaEvent) {
+		IModelProviderEvent modelEvent = createModelProviderEvent();
+		if (javaEvent.getDelta().getElement() instanceof ICompilationUnit) {
+			recursevilyProcessCompilationUnits(modelEvent, javaEvent.getDelta());
+			notifyListeners(modelEvent);
+		}
+	}
+
+	protected void processChangedProject(IModelProviderEvent event, IJavaElementDelta projectDelta) {
+		if (!isProjectRelative(projectDelta.getElement().getJavaProject())) {
+			return;
+		}
+		Assert.isTrue(projectDelta.getElement() instanceof IJavaProject,
+				"An invalid change notification has occured. Element is <" + projectDelta.getElement() + ">"); //$NON-NLS-1$//$NON-NLS-2$
+		if (((projectDelta.getFlags() & IJavaElementDelta.F_OPENED) != 0)
+				|| projectDelta.getKind() == IJavaElementDelta.ADDED) {
+			try {
+				loadModel();
+			} catch (CoreException e) {
+				JEEPlugin.getDefault().getLog().log(
+						new Status(IStatus.ERROR, JEEPlugin.getDefault().getPluginID(), e.getMessage(), e));
+			}
+		}
+
+		if (((projectDelta.getFlags() & IJavaElementDelta.F_CLOSED) != 0)
+				|| projectDelta.getKind() == IJavaElementDelta.REMOVED) {
+			dispose();
+		}
+
+		processChangedProjectChildren(event, projectDelta);
+	}
+
+	protected void processChangedProjectChildren(IModelProviderEvent event, IJavaElementDelta projectDelta) {
+		for (IJavaElementDelta childDelta : projectDelta.getAffectedChildren()) {
+			if (!(childDelta.getElement() instanceof IPackageFragmentRoot)) {
+				continue;
+			}
+			if ((childDelta.getFlags() & IJavaElementDelta.F_CHILDREN) != 0) {
+				recursevilyProcessPackages(event, childDelta);
+			}
+		}
+	}
+
+	public void recursevilyProcessPackages(IModelProviderEvent modelEvent, IJavaElementDelta delta) {
+		if (delta.getElement() instanceof IPackageFragment) {
+			try {
+				IPackageFragment fragment = (IPackageFragment) delta.getElement();
+				if (delta.getKind() == IJavaElementDelta.ADDED) {
+					for (ICompilationUnit unit : fragment.getCompilationUnits()) {
+						processAddedCompilationUnit(modelEvent, unit);
+					}
+				} else if (delta.getKind() == IJavaElementDelta.REMOVED) {
+					if (delta.getKind() == IJavaElementDelta.REMOVED) {
+						processRemovedPackage(modelEvent, delta);
+					}
+				} else if (delta.getKind() == IJavaElementDelta.CHANGED) {
+					recursevilyProcessCompilationUnits(modelEvent, delta);
+				}
+			} catch (CoreException e) {
+				JEEPlugin.getDefault().getLog().log(
+						new Status(IStatus.ERROR, JEEPlugin.getDefault().getPluginID(), e.getMessage(), e));
+			}
+		} else {
+			for (IJavaElementDelta childDelta : delta.getAffectedChildren()) {
+				recursevilyProcessPackages(modelEvent, childDelta);
+			}
+		}
+	}
+
+	protected abstract void processRemovedPackage(IModelProviderEvent modelEvent, IJavaElementDelta delta)
+			throws CoreException;
+
+	public void recursevilyProcessCompilationUnits(IModelProviderEvent modelEvent, IJavaElementDelta delta) {
+		if (delta.getElement() instanceof ICompilationUnit) {
+			if (!isProjectRelative(delta.getElement().getJavaProject()))
+				return;
+			try {
+				final ICompilationUnit unit = (ICompilationUnit) delta.getElement();
+
+				if (delta.getKind() == IJavaElementDelta.ADDED) {
+					processAddedCompilationUnit(modelEvent, unit);
+				}
+				if (delta.getKind() == IJavaElementDelta.REMOVED) {
+					processRemovedCompilationUnit(modelEvent, unit);
+				}
+				if (delta.getKind() == IJavaElementDelta.CHANGED) {
+					if (((delta.getFlags() & IJavaElementDelta.F_PRIMARY_RESOURCE) == 0)
+							|| ((delta.getFlags() & IJavaElementDelta.F_PRIMARY_WORKING_COPY) == 0)) {
+						processChangedCompilationUnit(modelEvent, unit);
+					}
+				}
+			} catch (CoreException e) {
+				JEEPlugin.getDefault().getLog().log(
+						new Status(IStatus.ERROR, JEEPlugin.getDefault().getPluginID(), e.getMessage(), e));
+			}
+		} else {
+			for (IJavaElementDelta childDelta : delta.getAffectedChildren()) {
+				recursevilyProcessCompilationUnits(modelEvent, childDelta);
+			}
+		}
+	}
+
+	protected void visitJavaFiles(final Collection<ICompilationUnit> javaFiles, final IPackageFragmentRoot root)
+			throws CoreException {
+		if (root.getKind() != IPackageFragmentRoot.K_SOURCE)
+			return;
+		root.getCorrespondingResource().accept(new IResourceProxyVisitor() {
+			public boolean visit(IResourceProxy proxy) throws CoreException {
+				if (proxy.getType() == IResource.FILE) {
+					if (proxy.getName().endsWith("." + JAVA_EXTENSION)) { //$NON-NLS-1$
+						IFile file = (IFile) proxy.requestResource();
+						if (!root.getJavaProject().isOnClasspath(file))
+							return false;
+						if (!file.isSynchronized(IResource.DEPTH_ONE))
+							return false;
+						javaFiles.add(JavaCore.createCompilationUnitFrom(file));
+					}
+					return false;
+				}
+				return true;
+			}
+		}, IContainer.NONE);
+
 	}
 }
