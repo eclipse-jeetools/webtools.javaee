@@ -227,7 +227,7 @@ private int primGetVersionID() {
 		}
 		return quickPeek.getVersion();
 	} else{
-		String path = getURI().devicePath();
+		String path = getURI().toFileString();
 		try {
 			in = new FileInputStream(path);
 			if( in != null ){
