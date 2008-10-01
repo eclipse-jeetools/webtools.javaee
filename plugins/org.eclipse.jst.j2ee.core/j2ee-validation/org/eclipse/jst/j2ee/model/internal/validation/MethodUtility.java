@@ -280,7 +280,10 @@ public final class MethodUtility {
 					return true;
 				}
 				
-				if(ValidationRuleUtility.getMethod(method, method.getName(), ABeanClassVRule.getRemoteComponentMethodsExtended(methodsExtendedLists)) != null) {
+//				if(ValidationRuleUtility.getMethod(method, method.getName(), ABeanClassVRule.getRemoteComponentMethodsExtended(methodsExtendedLists)) != null) {
+//					return true;
+//				}
+				if(ValidationRuleUtility.getMethod(method, method.getName(), ABeanClassVRule.getLocalComponentMethodsExtended(methodsExtendedLists)) != null) {
 					return true;
 				}
 				
