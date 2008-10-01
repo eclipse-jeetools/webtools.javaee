@@ -54,6 +54,8 @@ public interface IJ2EEFacetConstants {
 
 	public static final String JCA = IModuleConstants.JST_CONNECTOR_MODULE;
 	public static final IProjectFacet JCA_FACET = ProjectFacetsManager.getProjectFacet(JCA);
+	public static final IProjectFacetVersion JCA_10 = JCA_FACET.getVersion("1.0"); //$NON-NLS-1$
+	public static final IProjectFacetVersion JCA_15 = JCA_FACET.getVersion("1.5"); //$NON-NLS-1$
 
 	public static final String STATIC_WEB = IModuleConstants.WST_WEB_MODULE;
 
