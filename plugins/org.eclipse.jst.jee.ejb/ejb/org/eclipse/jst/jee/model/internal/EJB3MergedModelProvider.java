@@ -114,7 +114,7 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 
 		EJBJar backup = mergedModel;
 		mergedModel = (EJBJar) ddProvider.getModelObject();
-		ddProvider.modify(runnable, modelPath);
+		modifyDDProvider(runnable, modelPath);
 		if (isDisposed()) {
 			return;
 		}
@@ -126,6 +126,10 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 		 */
 		// getMergedModel();
 		merge(getXmlEjbJar(), getAnnotationEjbJar());
+	}
+
+	private void modifyDDProvider(Runnable runnable, IPath modelPath) {
+		ddProvider.modify(runnable, modelPath);
 	}
 
 	protected void annotationModelChanged(IModelProviderEvent event) {

@@ -15,21 +15,17 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
-import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceChangeEvent;
-import org.eclipse.core.resources.IResourceProxy;
-import org.eclipse.core.resources.IResourceProxyVisitor;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IElementChangedListener;
+import org.eclipse.jdt.core.IJavaElementDelta;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
@@ -61,32 +57,14 @@ import org.eclipse.wst.common.project.facet.core.IFacetedProject;
  * 
  * The loaded model is returned from {@link #getEJBJar()}.
  * 
- * Model changes can occur if a java file in the project is changed. When
- * resources are changed, EJBAnnotationReader will rebuild is model. The current
- * implementation is doing a best try to minimize the number of resource change
- * events from the platform that cause the model to be rebuild.
+ * Model changes can occur if a java file in the project is changed. When JDT
+ * model is changed, EJBAnnotationReader will rebuild is model. The current
+ * implementation is doing a best try to minimize the number of change events
+ * from JDT that cause the model to be rebuild.
  * 
  * A listener is notified for changes in the model. The notification of the
  * listener may occur in the same or in another thread from the one changing the
  * resource.
- * 
- * Listeners can be registered to #EJBAnnotationReader with
- * {@link #addListener(IModelProviderListener)}.
- * 
- * <p>
- * The current implementation of EJBAnnotationReader is listening for
- * {@link IResourceChangeEvent#POST_BUILD}. This is so since if the java files
- * can not be compiled and build, I make not assumption a valid model can be
- * created from them.
- * 
- * More importantly the Java editor is a resource change listener and it is
- * updating the java model when a resource change event is received. If we are
- * listening for {@link IResourceChangeEvent#POST_CHANGE} instead of
- * {@link IResourceChangeEvent#POST_BUILD} EJBAnnotationReader will not work if
- * it receive a resource change event before the Java Editor. The same incorrect
- * behavior may occur if listening for {@link IResourceChangeEvent#POST_CHANGE}
- * and the user copy/pastes over a file from which a model object is created.
- * </p>
  * 
  * <p>
  * The class is maintaining a reference between the bean and the interfaces it
@@ -113,9 +91,7 @@ import org.eclipse.wst.common.project.facet.core.IFacetedProject;
  * @author Kiril Mitov k.mitov@sap.com
  * 
  */
-public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar> {
-
-	private static final String JAVA_EXTENSION = "java"; //$NON-NLS-1$
+public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar> implements IElementChangedListener {
 
 	/**
 	 * An abstraction of a reference between a model object and an interface.
@@ -188,16 +164,14 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 
 	}
 
-	private static int instances = 0;
-
 	private IProject clientProject;
 
-	private Map<IFile, JavaEEObject> resourceToModel;
+	public Map<ICompilationUnit, JavaEEObject> unitToModel;
 
 	/**
 	 * An instance of {@link ManyToOneRelation}. This instance is used to
-	 * maintain the references between a file which stores an interface and the
-	 * beans that depend on this interface.
+	 * maintain the references between a compilation unit which stores an
+	 * interface and the beans that depend on this interface.
 	 * 
 	 * Since one bean can refer to many interfaces and one interface can refer
 	 * to many beans a many-to-many relation must be modeled. This is done using
@@ -205,15 +179,15 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 	 * 
 	 * @see BeanInterfaceRef
 	 */
-	private ManyToOneRelation<BeanInterfaceRef, IFile> beanRefToResolvedInterface;
+	private ManyToOneRelation<BeanInterfaceRef, ICompilationUnit> beanRefToResolvedInterfaceUnit;
 
 	private EjbAnnotationFactory annotationFactory;
 
 	/**
 	 * Constructs a new EJBAnnotation reader for this faceted project. An
-	 * illegal argument if a project with value <code>null</code> is passed.
-	 * No loading is done in this constructor. Loading the model is made on
-	 * demand when calling {@link #getEJBJar()}.
+	 * illegal argument if a project with value <code>null</code> is passed. No
+	 * loading is done in this constructor. Loading the model is made on demand
+	 * when calling {@link #getEJBJar()}.
 	 * 
 	 * It is possible to specify the additional clientProject for this
 	 * ejbProject. A client project can contain part of the java files that make
@@ -229,7 +203,6 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 	public EJBAnnotationReader(IFacetedProject project, IProject clientProject) {
 		super(project);
 		this.clientProject = clientProject;
-		instances++;
 	}
 
 	/**
@@ -237,9 +210,9 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 	 * 
 	 * @throws CoreException
 	 */
-	protected void loadModel() throws CoreException {
+	public void loadModel() throws CoreException {
 		IJavaProject javaProject = JavaCore.create(facetedProject.getProject());
-		final Collection<IFile> javaFiles = new HashSet<IFile>();
+		final Collection<ICompilationUnit> javaFiles = new HashSet<ICompilationUnit>();
 		for (final IPackageFragmentRoot root : javaProject.getAllPackageFragmentRoots()) {
 			visitJavaFiles(javaFiles, root);
 		}
@@ -250,84 +223,63 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 				visitJavaFiles(javaFiles, root);
 			}
 		}
-		resourceToModel = new HashMap<IFile, JavaEEObject>();
-		beanRefToResolvedInterface = new ManyToOneRelation<BeanInterfaceRef, IFile>();
-		for (IFile file : javaFiles) {
-			Result result = analyzeFileForBean(file);
+		unitToModel = new HashMap<ICompilationUnit, JavaEEObject>();
+		beanRefToResolvedInterfaceUnit = new ManyToOneRelation<BeanInterfaceRef, ICompilationUnit>();
+		for (ICompilationUnit unit : javaFiles) {
+			Result result = analyzeUnitForBean(unit);
 			if (result == null)
 				continue;
-			processResult(file, result);
+			processResult(unit, result);
 		}
 	}
 
 	protected void preLoad() {
+		super.preLoad();
 		modelObject = EjbFactory.eINSTANCE.createEJBJar();
 		modelObject.setEnterpriseBeans(EjbFactory.eINSTANCE.createEnterpriseBeans());
 		annotationFactory = EjbAnnotationFactory.createFactory();
 	}
 
-	private void visitJavaFiles(final Collection<IFile> javaFiles, final IPackageFragmentRoot root)
-			throws CoreException {
-		if (root.getKind() != IPackageFragmentRoot.K_SOURCE)
-			return;
-		root.getCorrespondingResource().accept(new IResourceProxyVisitor() {
-			public boolean visit(IResourceProxy proxy) throws CoreException {
-				if (proxy.getType() == IResource.FILE) {
-					if (proxy.getName().endsWith("." + JAVA_EXTENSION)) { //$NON-NLS-1$
-						IFile file = (IFile) proxy.requestResource();
-						if (root.getJavaProject().isOnClasspath(file))
-							javaFiles.add(file);
-					}
-					return false;
-				}
-				return true;
-			}
-		}, IContainer.NONE);
-
-	}
-
 	/**
-	 * Process the result from parsing the file. Depending on the result this
-	 * might include adding a session bean, message driven bean, securityRole
-	 * etc.
+	 * Process the result from parsing the compilation unit. Depending on the
+	 * result this might include adding a session bean, message driven bean,
+	 * securityRole etc.
 	 * 
-	 * @see #sessionBeanFound(IFile, SessionBean, Collection)
-	 * @see #messageBeanFound(IFile, MessageDrivenBean, Collection)
-	 * @see #securityRoleFound(IFile, SecurityRole)
-	 * @param file
+	 * @see #sessionBeanFound(ICompilationUnit, SessionBean, Collection)
+	 * @see #messageBeanFound(ICompilationUnit, MessageDrivenBean, Collection)
+	 * @see #securityRoleFound(ICompilationUnit, SecurityRole)
+	 * @param unit
 	 * @param result
 	 * @throws JavaModelException
 	 */
-	private void processResult(IFile file, Result result) throws JavaModelException {
+	private void processResult(ICompilationUnit unit, Result result) throws JavaModelException {
 		JavaEEObject modelObject = result.getMainObject();
 		if (SessionBean.class.isInstance(modelObject)) {
-			sessionBeanFound(file, (SessionBean) modelObject, result.getDependedTypes());
+			sessionBeanFound(unit, (SessionBean) modelObject, result.getDependedTypes());
 		} else if (MessageDrivenBean.class.isInstance(modelObject)) {
-			messageBeanFound(file, (MessageDrivenBean) modelObject, result.getDependedTypes());
+			messageBeanFound(unit, (MessageDrivenBean) modelObject, result.getDependedTypes());
 		}
 		for (JavaEEObject additional : result.getAdditional()) {
 			if (SecurityRole.class.isInstance(additional)) {
-				securityRoleFound((SessionBean) resourceToModel.get(file), (SecurityRole) additional);
+				securityRoleFound((SessionBean) unitToModel.get(unit), (SecurityRole) additional);
 			}
 		}
 	}
 
 	/**
-	 * Analyze this file for a bean. If the file is not a valid java compilation
-	 * unit or it does not contain a class the method returns <code>null</code>
+	 * Analyze this compilation unit for a bean. If the file is not a valid java
+	 * compilation unit or it does not contain a class the method returns
+	 * <code>null</code>
 	 * 
 	 * Only the primary type of the compilation unit is processed.
 	 * 
 	 * @see EjbAnnotationFactory
-	 * @param file
+	 * @param unit
 	 *            the file to be processed.
 	 * @return result from processing the file
 	 * @throws JavaModelException
 	 */
-	private Result analyzeFileForBean(IFile file) throws JavaModelException {
-		org.eclipse.core.runtime.Assert.isTrue(JAVA_EXTENSION.equals(file.getFileExtension()),
-				"A file with extension different from \"java\" is analyzed for beans"); //$NON-NLS-1$
-		ICompilationUnit compilationUnit = JavaCore.createCompilationUnitFrom(file);
+	private Result analyzeUnitForBean(ICompilationUnit compilationUnit) throws JavaModelException {
 		if (compilationUnit == null)
 			return null;
 		IType rootType = compilationUnit.findPrimaryType();
@@ -343,71 +295,69 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 	}
 
 	/**
-	 * A message driven bean was found in the given file. Add this messageDriven
-	 * bean to the list of mdbs in the
+	 * A message driven bean was found in the given compilation unit. Add this
+	 * messageDriven bean to the list of mdbs in the
 	 * {@link EnterpriseBeans#getMessageDrivenBeans()}
 	 * 
-	 * @param file
+	 * @param unit
 	 * @param messageBean
 	 * @param dependedTypes
 	 *            the types on which this mdb depends. This list specifies
 	 *            changes on which types should lead to rebuilding the mdb.
 	 * @throws JavaModelException
 	 */
-	private void messageBeanFound(IFile file, MessageDrivenBean messageBean, Collection<IType> dependedTypes)
+	private void messageBeanFound(ICompilationUnit unit, MessageDrivenBean messageBean, Collection<IType> dependedTypes)
 			throws JavaModelException {
 		if (modelObject.getEnterpriseBeans() == null)
 			modelObject.setEnterpriseBeans(EjbFactory.eINSTANCE.createEnterpriseBeans());
 		modelObject.getEnterpriseBeans().getMessageDrivenBeans().add(messageBean);
-		connectBeanWithTypes(file, messageBean, dependedTypes);
+		connectBeanWithTypes(unit, messageBean, dependedTypes);
 	}
 
 	/**
-	 * A session bean was found in the give file. The session bean is also
-	 * depended on the types in dependedTypes. Here "depended" means that if any
-	 * of the types in dependedTypes is change the bean will also be rebuilded.
-	 * For example a session bean is depended on the types of it local and
-	 * remote interfaces.
+	 * A session bean was found in the given compilation unit. The session bean
+	 * is also depended on the types in dependedTypes. Here "depended" means
+	 * that if any of the types in dependedTypes is change the bean will also be
+	 * rebuilded. For example a session bean is depended on the types of it
+	 * local and remote interfaces.
 	 * 
 	 * <p>
-	 * Since that a bean can depended on more then on files this method also
-	 * establish an appropriate connection between the bean and all the files it
-	 * depends on. This are the "file" and the files of "dependedTypes".
+	 * Since a bean can depended on more then one compilation unit this method
+	 * also establish an appropriate connection between the bean and all the
+	 * units it depends on. This are the "unit" and the units of
+	 * "dependedTypes".
 	 * </p>
 	 * 
 	 * @see #getFilesFromTypes(Collection)
 	 * 
-	 * @param file
+	 * @param unit
 	 * @param sessionBean
 	 * @param dependedTypes
 	 * @throws JavaModelException
 	 */
-	private void sessionBeanFound(IFile file, SessionBean sessionBean, Collection<IType> dependedTypes)
+	private void sessionBeanFound(ICompilationUnit unit, SessionBean sessionBean, Collection<IType> dependedTypes)
 			throws JavaModelException {
 		if (modelObject.getEnterpriseBeans() == null)
 			modelObject.setEnterpriseBeans(EjbFactory.eINSTANCE.createEnterpriseBeans());
 		modelObject.getEnterpriseBeans().getSessionBeans().add(sessionBean);
-		connectBeanWithTypes(file, sessionBean, dependedTypes);
+		connectBeanWithTypes(unit, sessionBean, dependedTypes);
 	}
 
 	/**
 	 * 
-	 * @param file
+	 * @param unit
 	 * @param bean
 	 * @param dependedTypes
 	 * @throws JavaModelException
 	 */
-	private void connectBeanWithTypes(IFile file, JavaEEObject bean, Collection<IType> dependedTypes)
+	private void connectBeanWithTypes(ICompilationUnit unit, JavaEEObject bean, Collection<IType> dependedTypes)
 			throws JavaModelException {
-		resourceToModel.put(file, bean);
-		Collection<IFile> files = new HashSet<IFile>(dependedTypes.size());
+		unitToModel.put(unit, bean);
 		for (IType type : dependedTypes) {
 			if (type.isBinary() || type.isInterface() == false)
 				continue;
-			IResource resource = type.getCompilationUnit().getCorrespondingResource();
-			if (resource != null && resource.exists())
-				beanRefToResolvedInterface.connect(new BeanInterfaceRef(type.getFullyQualifiedName(), bean),
-						(IFile) resource);
+			beanRefToResolvedInterfaceUnit.connect(new BeanInterfaceRef(type.getFullyQualifiedName(), bean), type
+					.getCompilationUnit());
 		}
 	}
 
@@ -416,38 +366,24 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 	 * thread. Use {@link #addListener(IModelProviderListener)} to register a
 	 * listener that will be notified when the instance is disposed. After all
 	 * the listeners are notified the list of listeners is cleared.
-	 * 
 	 */
 	public void dispose() {
-//		Job disposeJob = new Job(Messages.getString("EJBAnnotationReader.DisposeEjbAnnotationReader")) { //$NON-NLS-1$
-//			@Override
-//			protected IStatus run(IProgressMonitor monitor) {
-				IModelProviderEvent modelEvent = createModelProviderEvent();
-				modelEvent.addResource(facetedProject.getProject());
-				modelEvent.setEventCode(modelEvent.getEventCode() | IModelProviderEvent.PRE_DISPOSE);
-				ResourcesPlugin.getWorkspace().removeResourceChangeListener(EJBAnnotationReader.this);
-				resourceToModel = null;
-				beanRefToResolvedInterface = null;
-				modelObject = null;
-				notifyListeners(modelEvent);
-				clearListeners();
-//				return Status.OK_STATUS;
-//	}
-//		};
-//		disposeJob.schedule();
+		beanRefToResolvedInterfaceUnit = null;
+		unitToModel.clear();
+		super.dispose();
 	}
 
 	/**
-	 * @param project
+	 * @param javaProject
 	 * @return true if the given project contains resources that are relative to
 	 *         the model. This method returns <code>true</code> for the
 	 *         ejbProject on which this instance is working a <code>true</code>
 	 *         for its client project.
 	 */
-	protected boolean isProjectRelative(IProject project) {
-		if (super.isProjectRelative(project) == true)
+	protected boolean isProjectRelative(IJavaProject javaProject) {
+		if (super.isProjectRelative(javaProject) == true)
 			return true;
-		else if (clientProject != null && project.equals(clientProject.getProject()))
+		else if (clientProject != null && javaProject.getProject().equals(clientProject.getProject()))
 			return true;
 		return false;
 	}
@@ -455,60 +391,61 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 	/**
 	 * {non-Javadoc}
 	 * 
-	 * <p>
-	 * Changing the model may occur in different threads.
-	 * {@link #processAddedFile(IModelProviderEvent, IFile)} is synchronized so
-	 * that no other thread can add a file to the model in the same moment.
-	 * </p>
-	 * 
-	 * @see org.eclipse.jst.jee.model.internal.common.AbstractAnnotationModelProvider#processAddedFile(org.eclipse.jst.j2ee.model.IModelProviderEvent,
-	 *      org.eclipse.core.resources.IFile)
+	 * @see org.eclipse.jst.jee.model.internal.common.AbstractAnnotationModelProvider#processAddedCompilationUnit(org.eclipse.jst.j2ee.model.IModelProviderEvent,
+	 *      org.eclipse.core.resources.ICompilationUnit)
 	 */
-	protected synchronized void processAddedFile(IModelProviderEvent modelEvent, IFile file) throws CoreException {
-		ICompilationUnit unit = JavaCore.createCompilationUnitFrom(file);
+	protected void processAddedCompilationUnit(IModelProviderEvent modelEvent, ICompilationUnit unit)
+			throws CoreException {
 		if (unit == null)
 			return;
-		Collection<IFile> filesToRebuild = new HashSet<IFile>();
-		IType rootType = unit.getTypes()[0];
-		if (rootType.isClass()) {
-			Result result = analyzeFileForBean(file);
-			if (result == null)
-				return;
-			processResult(file, result);
-			modelEvent.addResource(file);
-		} else if (rootType.isInterface()) {
-			String rootTypeSimpleName = rootType.getElementName();
-			for (Iterator beanIter = getConcreteModel().getEnterpriseBeans().getSessionBeans().iterator(); beanIter
-					.hasNext();) {
-				SessionBean bean = (SessionBean) beanIter.next();
-				for (Iterator interfaceIter = bean.getBusinessLocals().iterator(); interfaceIter.hasNext();) {
-					String inter = (String) interfaceIter.next();
-					if (rootTypeSimpleName.equals(inter))
-						filesToRebuild.add(getResourceFromModel(bean));
-				}
-				if (rootTypeSimpleName.equals(bean.getLocalHome()) || rootTypeSimpleName.equals(bean.getHome()))
-					filesToRebuild.add(getResourceFromModel(bean));
-				findDependedFiles(bean, rootTypeSimpleName, bean.getEjbLocalRefs(), bean.getResourceRefs(),
-						filesToRebuild);
-			}
-			for (Iterator beanIter = getConcreteModel().getEnterpriseBeans().getMessageDrivenBeans().iterator(); beanIter
-					.hasNext();) {
-				MessageDrivenBean bean = (MessageDrivenBean) beanIter.next();
-				findDependedFiles(bean, rootTypeSimpleName, bean.getEjbLocalRefs(), bean.getResourceRefs(),
-						filesToRebuild);
-			}
-		}
-		if (filesToRebuild.isEmpty())
+		Collection<ICompilationUnit> unitsToRebuild = new HashSet<ICompilationUnit>();
+		IType rootType = unit.findPrimaryType();
+		if (rootType == null)
 			return;
-		for (IFile changedFile : filesToRebuild) {
-			processRemovedFile(modelEvent, changedFile);
-			processAddedFile(modelEvent, changedFile);
+		if (rootType.isClass()) {
+			Result result = analyzeUnitForBean(unit);
+			if (result == null || result.isEmpty())
+				return;
+			processResult(unit, result);
+			modelEvent.addResource(unit);
+		} else if (rootType.isInterface()) {
+			unitsToRebuild.addAll(processAddedInterface(rootType));
 		}
-		filesToRebuild.clear();
+		if (unitsToRebuild.isEmpty())
+			return;
+		for (ICompilationUnit changedUnit : unitsToRebuild) {
+			processRemovedCompilationUnit(modelEvent, changedUnit);
+			processAddedCompilationUnit(modelEvent, changedUnit);
+		}
+		unitsToRebuild.clear();
+
 	}
 
-	private IFile getResourceFromModel(JavaEEObject bean) {
-		for (Map.Entry<IFile, JavaEEObject> entry : resourceToModel.entrySet()) {
+	private Collection<ICompilationUnit> processAddedInterface(IType rootType) {
+		Collection<ICompilationUnit> unitsToRebuild = new HashSet<ICompilationUnit>();
+		String rootTypeSimpleName = rootType.getElementName();
+		for (Iterator beanIter = getConcreteModel().getEnterpriseBeans().getSessionBeans().iterator(); beanIter
+				.hasNext();) {
+			SessionBean bean = (SessionBean) beanIter.next();
+			for (Iterator interfaceIter = bean.getBusinessLocals().iterator(); interfaceIter.hasNext();) {
+				String inter = (String) interfaceIter.next();
+				if (rootTypeSimpleName.equals(inter))
+					unitsToRebuild.add(getCompilationUnitFromModel(bean));
+			}
+			if (rootTypeSimpleName.equals(bean.getLocalHome()) || rootTypeSimpleName.equals(bean.getHome()))
+				unitsToRebuild.add(getCompilationUnitFromModel(bean));
+			findDependedFiles(bean, rootTypeSimpleName, bean.getEjbLocalRefs(), bean.getResourceRefs(), unitsToRebuild);
+		}
+		for (Iterator beanIter = getConcreteModel().getEnterpriseBeans().getMessageDrivenBeans().iterator(); beanIter
+				.hasNext();) {
+			MessageDrivenBean bean = (MessageDrivenBean) beanIter.next();
+			findDependedFiles(bean, rootTypeSimpleName, bean.getEjbLocalRefs(), bean.getResourceRefs(), unitsToRebuild);
+		}
+		return unitsToRebuild;
+	}
+
+	private ICompilationUnit getCompilationUnitFromModel(JavaEEObject bean) {
+		for (Map.Entry<ICompilationUnit, JavaEEObject> entry : unitToModel.entrySet()) {
 			if (entry.getValue().equals(bean))
 				return entry.getKey();
 		}
@@ -516,204 +453,154 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 	}
 
 	private void findDependedFiles(JavaEEObject bean, String rootTypeSimpleName, Collection<EjbLocalRef> ejbRefs,
-			Collection<ResourceRef> resourceRefs, Collection<IFile> filesToRebuild) {
+			Collection<ResourceRef> resourceRefs, Collection<ICompilationUnit> filesToRebuild) {
 		for (Iterator refsIter = ejbRefs.iterator(); refsIter.hasNext();) {
 			String localRefInterface = ((EjbLocalRef) refsIter.next()).getLocal();
 			if (rootTypeSimpleName.equals(localRefInterface))
-				filesToRebuild.add(getResourceFromModel(bean));
+				filesToRebuild.add(getCompilationUnitFromModel(bean));
 		}
 		for (Iterator refsIter = resourceRefs.iterator(); refsIter.hasNext();) {
 			String resourceRef = ((ResourceRef) refsIter.next()).getResType();
 			if (rootTypeSimpleName.equals(resourceRef)) {
-				filesToRebuild.add(getResourceFromModel(bean));
+				filesToRebuild.add(getCompilationUnitFromModel(bean));
 			}
 		}
 	}
 
-	/**
-	 * (non-Javadoc)
-	 * 
-	 * <p>
-	 * Changing the model may occur in different threads.
-	 * {@link #processRemovedFile(IModelProviderEvent, IFile)} is synchronized
-	 * so that now other thread can remove a file from the model in the same
-	 * moment.
-	 * </p>
-	 * 
-	 * 
-	 * @see #processRemoveBean(IModelProviderEvent, IFile)
-	 * @see #processRemoveInterface(IModelProviderEvent, IFile)
-	 * @see org.eclipse.jst.jee.model.internal.common.AbstractAnnotationModelProvider#processRemovedFile(org.eclipse.jst.j2ee.model.IModelProviderEvent,
-	 *      org.eclipse.core.resources.IFile)
-	 * @param modelEvent
-	 * @param file
-	 *            the file to be removed.
-	 * @throws JavaModelException
-	 *             if there was an error during parsing the file
-	 */
-	protected synchronized void processRemovedFile(IModelProviderEvent modelEvent, IFile file) throws CoreException {
-		if (resourceToModel.containsKey(file))
-			processRemoveBean(modelEvent, file);
-		else if (beanRefToResolvedInterface.containsTarget(file))
-			processRemoveInterface(modelEvent, file);
+	protected void processRemovedCompilationUnit(IModelProviderEvent modelEvent, ICompilationUnit unit)
+			throws CoreException {
+		if (unitToModel.containsKey(unit))
+			processRemoveBean(modelEvent, unit);
+		else if (beanRefToResolvedInterfaceUnit.containsTarget(unit))
+			processRemovedInterface(modelEvent, unit);
 
 	}
 
 	/**
-	 * Process a file as a removed interface. It is the responsibility of the
-	 * caller to make sure the file really contains an interface and that this
+	 * Process a unit as a removed interface. It is the responsibility of the
+	 * caller to make sure the unit really contains an interface and that this
 	 * interface is really removed.
 	 * 
 	 * Removing an interface will also remove the connections between the
 	 * interface and the beans that depend on it -
-	 * {@link #beanRefToResolvedInterface}.
+	 * {@link #beanRefToResolvedInterfaceUnit}.
 	 * 
 	 * Removing an interface will result in rebuilding all the modelObjects that
 	 * depend on this interface.
 	 * 
-	 * <p>
-	 * The method is not synchronous. It is again a responsibility of the caller
-	 * to assure no thread will work on the same model. This is easily assured
-	 * by calling this method from a synchronized one such as
-	 * {@link #processRemovedFile(IModelProviderEvent, IFile)}
-	 * </p>
-	 * 
-	 * @see #beanRefToResolvedInterface
-	 * @see #processRemovedFile(IModelProviderEvent, IFile)
-	 * @see #processRemoveBean(IModelProviderEvent, IFile)
+	 * @see #beanRefToResolvedInterfaceUnit
+	 * @see #processRemovedCompilationUnit(IModelProviderEvent,
+	 *      ICompilationUnit)
+	 * @see #processRemoveBean(IModelProviderEvent, ICompilationUnit)
 	 * @param modelEvent
-	 * @param file
+	 * @param unit
 	 * @throws JavaModelException
 	 */
-	private void processRemoveInterface(IModelProviderEvent modelEvent, IFile file) throws CoreException {
-		Collection<BeanInterfaceRef> refs = beanRefToResolvedInterface.getSources(file);
-		Collection<IFile> filesToRebuild = new HashSet<IFile>();
+	private void processRemovedInterface(IModelProviderEvent modelEvent, ICompilationUnit unit) throws CoreException {
+		Collection<BeanInterfaceRef> refs = beanRefToResolvedInterfaceUnit.getSources(unit);
+		Collection<ICompilationUnit> filesToRebuild = new HashSet<ICompilationUnit>();
 		for (BeanInterfaceRef ref : refs) {
-			filesToRebuild.add(getResourceFromModel(ref.getModelObject()));
+			filesToRebuild.add(getCompilationUnitFromModel(ref.getModelObject()));
 		}
 		if (filesToRebuild.isEmpty())
 			return;
-		for (IFile changedFile : filesToRebuild) {
-			processRemovedFile(modelEvent, changedFile);
-			processAddedFile(modelEvent, changedFile);
+		for (ICompilationUnit changedFile : filesToRebuild) {
+			processRemovedCompilationUnit(modelEvent, changedFile);
+			processAddedCompilationUnit(modelEvent, changedFile);
 		}
 		filesToRebuild.clear();
-		beanRefToResolvedInterface.disconnect(file);
+		beanRefToResolvedInterfaceUnit.disconnect(unit);
 	}
 
 	/**
-	 * Process a file as a removed bean. It is the responsibility of the caller
+	 * Process a unit as a removed bean. It is the responsibility of the caller
 	 * to make sure the file really contains a bean and that this bean is really
 	 * removed.
 	 * 
-	 * <p>
-	 * The method is not synchronous. It is again a responsibility of the caller
-	 * to assure no thread will work on the same model. This is easily assured
-	 * by calling this method from a synchronized one such as
-	 * {@link #processRemovedFile(IModelProviderEvent, IFile)}
-	 * </p>
-	 * 
-	 * @see #processRemovedFile(IModelProviderEvent, IFile)
-	 * @see #processRemoveInterface(IModelProviderEvent, IFile)
+	 * @see #processRemovedCompilationUnit(IModelProviderEvent,
+	 *      ICompilationUnit)
+	 * @see #processRemovedInterface(IModelProviderEvent, ICompilationUnit)
 	 * @see #beanRefToResolvedInterface
 	 * @param modelEvent
-	 * @param file
-	 *            the file containing the removed bean
+	 * @param unit
+	 *            the removed compilation unit
 	 * @throws JavaModelException
 	 */
-	private void processRemoveBean(IModelProviderEvent modelEvent, IFile file) throws JavaModelException {
-		EObject modelObject = (EObject) resourceToModel.get(file);
+	private void processRemoveBean(IModelProviderEvent modelEvent, ICompilationUnit unit) throws JavaModelException {
+		EObject modelObject = (EObject) unitToModel.get(unit);
 		EcoreUtil.remove(modelObject);
 
-		resourceToModel.remove(getResourceFromModel((JavaEEObject) modelObject));
+		unitToModel.remove(unit);
 		modelEvent.setEventCode(modelEvent.getEventCode() | IModelProviderEvent.REMOVED_RESOURCE);
-		modelEvent.addResource(file);
+		modelEvent.addResource(unit);
 		disconnectFromRoles((JavaEEObject) modelObject);
 	}
 
 	/**
-	 * Process a file as "changed". If no model object depends on this file the
-	 * file will be process as added (since it may not have been a bean till
-	 * now, but an annotation was added). It is the responsibility of the caller
-	 * to make sure the file really contains a bean/interface and that this bean
-	 * is really changed and can be accessed.
+	 * Process a unit as "changed". If no model object depends on this unit the
+	 * unit will be process as added (since it may not have been a bean till
+	 * now, but an annotation was added).
 	 * 
-	 * <p>
-	 * Changing the model may occur in different threads.
-	 * {@link #processChangedFile(IModelProviderEvent, IFile)} is synchronized
-	 * so that now other thread can change a file from the model in the same
-	 * moment.
-	 * </p>
+	 * It is the responsibility of the caller to make sure the unit really
+	 * contains a bean/interface and that this bean is really changed and can be
+	 * accessed.
 	 * 
-	 * @see #processChangedBean(IModelProviderEvent, IFile)
-	 * @see #processChangedInterface(IModelProviderEvent, IFile)
+	 * @see #processChangedBean(IModelProviderEvent, ICompilationUnit)
+	 * @see #processChangedInterface(IModelProviderEvent, ICompilationUnit)
 	 * @param modelEvent
-	 * @param file
+	 * @param unit
 	 * @throws JavaModelException
 	 */
-	protected synchronized void processChangedFile(IModelProviderEvent modelEvent, IFile file) throws CoreException {
-		if (resourceToModel.containsKey(file))
-			processChangedBean(modelEvent, file);
-		else if (beanRefToResolvedInterface.containsTarget(file))
-			processChangedInterface(modelEvent, file);
+	protected void processChangedCompilationUnit(IModelProviderEvent modelEvent, ICompilationUnit unit)
+			throws CoreException {
+		if (unitToModel.containsKey(unit))
+			processChangedBean(modelEvent, unit);
+		else if (beanRefToResolvedInterfaceUnit.containsTarget(unit))
+			processChangedInterface(modelEvent, unit);
 		else
-			processAddedFile(modelEvent, file);
+			processAddedCompilationUnit(modelEvent, unit);
 	}
 
 	/**
-	 * Process a file as a changed bean. It is the responsibility of the caller
-	 * to make sure the file really contains a bean and that this bean is really
+	 * Process a unit as a changed bean. It is the responsibility of the caller
+	 * to make sure the unit really contains a bean and that this bean is really
 	 * changed.
-	 * 
-	 * <p>
-	 * The method is not synchronous. It is again a responsibility of the caller
-	 * to assure no thread will work on the same model. This is easily assured
-	 * by calling this method from a synchronized one such as
-	 * {@link #processChangedFile(IModelProviderEvent, IFile)}
-	 * </p>
 	 * 
 	 * Changing a bean may mean removing it from the model (if it was a bean
 	 * till now, but the annotation was deleted)
 	 * 
-	 * @see #processChangedFile(IModelProviderEvent, IFile)
-	 * @see {@link #processChangedInterface(IModelProviderEvent, IFile)}
+	 * @see #processChangedBean(IModelProviderEvent, ICompilationUnit)
+	 * @see {@link #processChangedInterface(IModelProviderEvent, ICompilationUnit)}
 	 * @param modelEvent
-	 * @param file
+	 * @param unit
 	 * @throws JavaModelException
 	 */
-	private void processChangedBean(IModelProviderEvent modelEvent, IFile file) throws CoreException {
-		EObject oldBean = (EObject) resourceToModel.get(file);
-		IFile beanFile = getResourceFromModel((JavaEEObject) oldBean);
-		processRemovedFile(modelEvent, beanFile);
-		processAddedFile(modelEvent, beanFile);
+	private void processChangedBean(IModelProviderEvent modelEvent, ICompilationUnit unit) throws CoreException {
+		EObject oldBean = (EObject) unitToModel.get(unit);
+		ICompilationUnit beanUnit = getCompilationUnitFromModel((JavaEEObject) oldBean);
+		processRemovedCompilationUnit(modelEvent, beanUnit);
+		processAddedCompilationUnit(modelEvent, beanUnit);
 	}
 
 	/**
-	 * Process a file as a changed interface. It is the responsibility of the
+	 * Process a unit as a changed interface. It is the responsibility of the
 	 * caller to make sure the file really contains an interface and that this
 	 * interface is really changed.
-	 * 
-	 * <p>
-	 * The method is not synchronous. It is again a responsibility of the caller
-	 * to assure no thread will work on the same model. This is easily assured
-	 * by calling this method from a synchronized one such as
-	 * {@link #processChangedFile(IModelProviderEvent, IFile)}
-	 * </p>
 	 * 
 	 * Changing an interface may mean rebuilding all the beans that depend on
 	 * this interface (if it was annotated with "@Local", but this annotation
 	 * was changed to "@Remote" )
 	 * 
 	 * @param modelEvent
-	 * @param file
+	 * @param unit
 	 * @throws JavaModelException
 	 */
-	private void processChangedInterface(IModelProviderEvent modelEvent, IFile file) throws CoreException {
-		Collection<BeanInterfaceRef> references = beanRefToResolvedInterface.getSources(file);
+	private void processChangedInterface(IModelProviderEvent modelEvent, ICompilationUnit unit) throws CoreException {
+		Collection<BeanInterfaceRef> references = beanRefToResolvedInterfaceUnit.getSources(unit);
 		for (BeanInterfaceRef ref : references) {
-			IFile next = getResourceFromModel(ref.getModelObject());
-			processRemovedFile(modelEvent, next);
-			processAddedFile(modelEvent, next);
+			ICompilationUnit next = getCompilationUnitFromModel(ref.getModelObject());
+			processRemovedCompilationUnit(modelEvent, next);
+			processAddedCompilationUnit(modelEvent, next);
 		}
 	}
 
@@ -736,6 +623,16 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 		if (modelObject.getAssemblyDescriptor() == null)
 			modelObject.setAssemblyDescriptor(EjbFactory.eINSTANCE.createAssemblyDescriptor());
 		return modelObject.getAssemblyDescriptor().getSecurityRoles();
+	}
+
+	@Override
+	protected void processRemovedPackage(IModelProviderEvent modelEvent, IJavaElementDelta delta) throws CoreException {
+		Set<ICompilationUnit> keySet = new HashSet<ICompilationUnit>(unitToModel.keySet());
+		for (ICompilationUnit unit : keySet) {
+			if (unit.getParent().getElementName().equals(delta.getElement().getElementName())) {
+				processRemovedCompilationUnit(modelEvent, unit);
+			}
+		}
 	}
 
 }
