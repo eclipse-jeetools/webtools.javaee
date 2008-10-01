@@ -18,6 +18,8 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.Module;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
@@ -29,6 +31,8 @@ import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
+import org.eclipse.wst.common.project.facet.core.IProjectFacet;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 public class EarUtilities extends JavaEEProjectUtilities {
 
@@ -239,5 +243,97 @@ public class EarUtilities extends JavaEEProjectUtilities {
 		}
 		return NO_REFERENCES;
 		
+	}
+
+	/**
+	 * Returns a List of ProjectFacetVersions for a given module type that are supported by a given ear version
+	 * @param earProjectFacetVersion - the ProjectFacetVersion for the ENTERPRISE_APPLICATION that the module will be added to
+	 * @param moduleProjectFacet - the module type whose appropriate ProjectFacetVersions are desired
+	 * @return List of compatible ProjectFacetVersions of the moduleProjectFacet type
+	 */
+	public static List<IProjectFacetVersion> getSupportedFacets(IProjectFacetVersion earProjectFacetVersion, IProjectFacet moduleProjectFacet)
+	{
+		List<IProjectFacetVersion> retVal = new ArrayList<IProjectFacetVersion>();
+
+		if (earProjectFacetVersion != null && ENTERPRISE_APPLICATION.equals(earProjectFacetVersion.getProjectFacet().getId()))
+		{
+			String moduleProjectFacetId = moduleProjectFacet.getId();
+			int earVersion = J2EEVersionUtil.convertVersionStringToInt(earProjectFacetVersion.getVersionString());
+
+			if (DYNAMIC_WEB.equals(moduleProjectFacetId))
+			{
+				switch (earVersion)
+				{
+				case J2EEVersionConstants.VERSION_5_0:
+					retVal.add(DYNAMIC_WEB_25);
+				case J2EEVersionConstants.VERSION_1_4:
+					retVal.add(DYNAMIC_WEB_24);
+				case J2EEVersionConstants.VERSION_1_3:
+					retVal.add(DYNAMIC_WEB_23);
+				case J2EEVersionConstants.VERSION_1_2:
+					retVal.add(DYNAMIC_WEB_22);
+				}
+			}
+			else if (EJB.equals(moduleProjectFacetId))
+			{
+				switch (earVersion)
+				{
+				case J2EEVersionConstants.VERSION_5_0:
+					retVal.add(EJB_30);
+				case J2EEVersionConstants.VERSION_1_4:
+					retVal.add(EJB_21);
+				case J2EEVersionConstants.VERSION_1_3:
+					retVal.add(EJB_20);
+				case J2EEVersionConstants.VERSION_1_2:
+					retVal.add(EJB_11);
+				}
+			}
+			else if (JCA.equals(moduleProjectFacetId))
+			{
+				switch (earVersion)
+				{
+				case J2EEVersionConstants.VERSION_5_0:
+				case J2EEVersionConstants.VERSION_1_4:
+					retVal.add(JCA_15);
+				case J2EEVersionConstants.VERSION_1_3:
+					retVal.add(JCA_10);
+				case J2EEVersionConstants.VERSION_1_2:
+					// there is no JCA in EAR 1.2
+				}
+			}
+			else if (APPLICATION_CLIENT.equals(moduleProjectFacetId))
+			{
+				switch (earVersion)
+				{
+				case J2EEVersionConstants.VERSION_5_0:
+					retVal.add(APPLICATION_CLIENT_50);
+				case J2EEVersionConstants.VERSION_1_4:
+					retVal.add(APPLICATION_CLIENT_14);
+				case J2EEVersionConstants.VERSION_1_3:
+					retVal.add(APPLICATION_CLIENT_13);
+				case J2EEVersionConstants.VERSION_1_2:
+					retVal.add(APPLICATION_CLIENT_12);
+				}
+			}
+			else if (UTILITY.equals(moduleProjectFacetId))
+			{
+				retVal.add(UTILITY_FACET_10);
+			}
+			else
+			{
+				// invalid module type
+				throw new IllegalArgumentException("The moduleProjectFacet parameter must be a valid Java EE module type.");
+			}
+		}
+		else
+		{
+			// invalid EAR facet
+			if (earProjectFacetVersion == null)
+				throw new IllegalArgumentException("The earProjectFacetVersion parameter cannot be null");
+			else
+				throw new IllegalArgumentException("The earProjectFacetVersion parameter must be an ENTERPRISE_APPLICATION facet.");
+		}
+
+		return retVal;
 	}
 }
