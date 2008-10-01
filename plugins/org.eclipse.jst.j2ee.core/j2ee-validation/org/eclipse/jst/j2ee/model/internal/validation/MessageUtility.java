@@ -316,7 +316,10 @@ public final class MessageUtility {
 			return getMessage(vc, messageNumber, severity, bean, clazz, rule);
 		}
 		
-		return getMessage(vc, messageNumber, severity, null, clazz, field, field.getName(), ValidationRuleUtility.onClass(clazz, field), getGroupName(bean), rule);
+		//return getMessage(vc, messageNumber, severity, null, clazz, field, field.getName(), ValidationRuleUtility.onClass(clazz, field), getGroupName(bean), rule);
+		String [] additionalParms = new String[1];
+		additionalParms[0] = ValidationRuleUtility.getType(field).getJavaName();
+		return getMessage(vc, messageNumber, severity, additionalParms, clazz, field, field.getName(), ValidationRuleUtility.onClass(clazz, field), getGroupName(bean), rule);
 	}
 		
 	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, EnterpriseBean bean, JavaClass clazz, Field field, String[] additionalParms, IValidationRule rule) {

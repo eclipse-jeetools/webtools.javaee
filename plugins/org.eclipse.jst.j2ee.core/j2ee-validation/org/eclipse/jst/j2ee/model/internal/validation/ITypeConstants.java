@@ -61,4 +61,6 @@ public interface ITypeConstants {
 	/*package*/ static final String CLASSNAME_JAVAX_JMS_MESSAGE = "javax.jms.Message"; //$NON-NLS-1$
 	/*package*/ static final String CLASSNAME_JAVAX_JMS_MESSAGELISTENER = "javax.jms.MessageListener"; //$NON-NLS-1$
 	/*package*/ static final String CLASSNAME_JAVAX_TRANSACTION_USERTRANSACTION = "javax.transaction.UserTransaction"; //$NON-NLS-1$
+
+	/*package*/ static final String CLASSNAME_JAVAX_NAMING_CONTEXT = "javax.naming.Context"; //$NON-NLS-1$
 }
