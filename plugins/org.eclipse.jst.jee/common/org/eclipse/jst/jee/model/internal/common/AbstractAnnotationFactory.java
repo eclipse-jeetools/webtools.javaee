@@ -92,8 +92,6 @@ public abstract class AbstractAnnotationFactory {
 			Collection<IType> dependedTypes) throws JavaModelException {
 		int memberType = member.getElementType();
 		IMemberValuePair[] pairs = annotation.getMemberValuePairs();
-		IType declaringType = (IType) (member.getElementType() == IJavaElement.TYPE ? member : member
-				.getDeclaringType());
 
 		String beanInterfaceValue = (String) getAnnotatedValue("beanInterface", pairs);
 		beanInterfaceValue = internalProcessInjection(beanInterfaceValue, member, dependedTypes);
@@ -110,7 +108,7 @@ public abstract class AbstractAnnotationFactory {
 		if (refName == null) {
 			refName = getMemberQualifiedName(member);
 		}
-		EjbLocalRef ref = ref = JavaeeFactory.eINSTANCE.createEjbLocalRef();
+		EjbLocalRef ref = JavaeeFactory.eINSTANCE.createEjbLocalRef();
 		ref.setEjbRefName(refName);
 		localRefs.add(ref);
 		ref.setLocal(beanInterfaceValue);
@@ -118,12 +116,21 @@ public abstract class AbstractAnnotationFactory {
 		ref.setEjbLink((String) getAnnotatedValue("beanName", pairs));
 		ref.setMappedName((String) getAnnotatedValue("mappedName", pairs));
 		if (memberType == IJavaElement.METHOD || memberType == IJavaElement.FIELD) {
-			InjectionTarget injectionTarget = JavaeeFactory.eINSTANCE.createInjectionTarget();
-			int index = refName.indexOf('/');
+			createInjectionTarget(refName, ref.getInjectionTargets(), annotation);
+		}
+	}
+
+	private void createInjectionTarget(String refName, List<InjectionTarget> injectionTargets, IAnnotation annotation) {
+		InjectionTarget injectionTarget = JavaeeFactory.eINSTANCE.createInjectionTarget();
+		int index = refName.indexOf('/');
+		if (index != -1) {
 			injectionTarget.setInjectionTargetClass(refName.substring(0, index));
 			injectionTarget.setInjectionTargetName(refName.substring(index + 1));
-			ref.getInjectionTargets().add(injectionTarget);
+		} else {
+			injectionTarget.setInjectionTargetName(refName);
+			injectionTarget.setInjectionTargetClass("");//$NON-NLS-1$
 		}
+		injectionTargets.add(injectionTarget);
 	}
 
 	/**
@@ -165,11 +172,11 @@ public abstract class AbstractAnnotationFactory {
 		specifiedType = internalProcessInjection(specifiedType, member, dependedTypes);
 		if (specifiedType == null)
 			return;
-		String name = (String) getAnnotatedValue("name", pairs);
-		if (name == null)
-			name = getMemberQualifiedName(member);
+		String refName = (String) getAnnotatedValue("name", pairs);
+		if (refName == null)
+			refName = getMemberQualifiedName(member);
 		ResourceRef ref = JavaeeFactory.eINSTANCE.createResourceRef();
-		ref.setResRefName(name);
+		ref.setResRefName(refName);
 		ref.setResType(specifiedType);
 		ref.setMappedName((String) getAnnotatedValue("mappedName", pairs));
 		String description = (String) getAnnotatedValue("description", pairs);
@@ -178,6 +185,9 @@ public abstract class AbstractAnnotationFactory {
 			desc.setValue(description);
 			ref.getDescriptions().clear();
 			ref.getDescriptions().add(desc);
+		}
+		if (member.getElementType() == IJavaElement.METHOD || member.getElementType() == IJavaElement.FIELD) {
+			createInjectionTarget(refName, ref.getInjectionTargets(), annotation);
 		}
 		String value = (String) getAnnotatedValue("authenticationType", pairs);
 		/*

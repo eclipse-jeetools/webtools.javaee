@@ -14,19 +14,13 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceProxy;
-import org.eclipse.core.resources.IResourceProxyVisitor;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IJavaElementDelta;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
@@ -39,9 +33,7 @@ import org.eclipse.jst.javaee.core.Listener;
 import org.eclipse.jst.javaee.core.ResourceRef;
 import org.eclipse.jst.javaee.core.SecurityRole;
 import org.eclipse.jst.javaee.core.SecurityRoleRef;
-import org.eclipse.jst.javaee.ejb.MessageDrivenBean;
 import org.eclipse.jst.javaee.ejb.SecurityIdentityType;
-import org.eclipse.jst.javaee.ejb.SessionBean;
 import org.eclipse.jst.javaee.web.Filter;
 import org.eclipse.jst.javaee.web.Servlet;
 import org.eclipse.jst.javaee.web.WebApp;
@@ -57,11 +49,9 @@ import org.eclipse.wst.common.project.facet.core.IFacetedProject;
  */
 public class WebAnnotationReader extends AbstractAnnotationModelProvider<WebApp> {
 
-	private static final String JAVA_EXTENSION = "java"; //$NON-NLS-1$
+	private ManyToOneRelation<JavaEEObject, ICompilationUnit> modelToUnit;
 
-	private ManyToOneRelation<JavaEEObject, IFile> modelToResource;
-
-	private ManyToOneRelation<JavaEEObject, IFile> modelToInterfaceResource;
+	private ManyToOneRelation<JavaEEObject, ICompilationUnit> modelToInterfaceUnit;
 
 	private WebAnnotationFactory annotationFactory;
 
@@ -83,40 +73,36 @@ public class WebAnnotationReader extends AbstractAnnotationModelProvider<WebApp>
 	@Override
 	protected void loadModel() throws CoreException {
 		IJavaProject javaProject = JavaCore.create(facetedProject.getProject());
-		final Collection<IFile> javaFiles = new HashSet<IFile>();
+		final Collection<ICompilationUnit> javaUnits = new HashSet<ICompilationUnit>();
 		for (final IPackageFragmentRoot root : javaProject.getAllPackageFragmentRoots()) {
-			visitJavaFiles(javaFiles, root);
+			visitJavaFiles(javaUnits, root);
 		}
 		annotationFactory = WebAnnotationFactory.createFactory();
 
-		modelToInterfaceResource = new ManyToOneRelation<JavaEEObject, IFile>();
-		modelToResource = new ManyToOneRelation<JavaEEObject, IFile>();
-		for (IFile file : javaFiles) {
-			Result result = analyzeFile(file);
+		modelToInterfaceUnit = new ManyToOneRelation<JavaEEObject, ICompilationUnit>();
+		modelToUnit = new ManyToOneRelation<JavaEEObject, ICompilationUnit>();
+		for (ICompilationUnit unit : javaUnits) {
+			Result result = analyzeCompilationUnit(unit);
 			if (result == null)
 				continue;
-			processResult(file, result);
+			processResult(unit, result);
 		}
 	}
 
 	/**
-	 * Analyze this file for a bean. If the file is not a valid java compilation
-	 * unit or it does not contain a class the method returns <code>null</code>
+	 * Analyze this unit for a web artifact. If the file is not a valid java
+	 * compilation unit or it does not contain a class the method returns
+	 * <code>null</code>
 	 * 
 	 * Only the primary type of the compilation unit is processed.
 	 * 
-	 * @param file
-	 *            the file to be processed.
+	 * @param unit
+	 *            the unit to be processed.
 	 * @return result from processing the file
 	 * @throws JavaModelException
 	 */
-	private Result analyzeFile(IFile file) throws JavaModelException {
-		org.eclipse.core.runtime.Assert.isTrue(JAVA_EXTENSION.equals(file.getFileExtension()),
-				"A file with extension different from \"java\" is analyzed for beans"); //$NON-NLS-1$
-		ICompilationUnit compilationUnit = JavaCore.createCompilationUnitFrom(file);
-		if (compilationUnit == null)
-			return null;
-		IType rootType = compilationUnit.findPrimaryType();
+	private Result analyzeCompilationUnit(ICompilationUnit unit) throws JavaModelException {
+		IType rootType = unit.findPrimaryType();
 		/*
 		 * If the compilation unit is not valid and can not be compiled the
 		 * rootType may be null. This can happen if a class is define as follows
@@ -145,156 +131,115 @@ public class WebAnnotationReader extends AbstractAnnotationModelProvider<WebApp>
 	}
 
 	/**
-	 * Process the result from parsing the file. Depending on the result this
+	 * Process the result from parsing the unit. Depending on the result this
 	 * might include adding a session bean, message driven bean, securityRole
 	 * etc.
 	 * 
-	 * @see #sessionBeanFound(IFile, SessionBean, Collection)
-	 * @see #messageBeanFound(IFile, MessageDrivenBean, Collection)
-	 * @see #securityRoleFound(IFile, SecurityRole)
-	 * @param file
+	 * @param unit
 	 * @param result
 	 * @throws JavaModelException
 	 */
-	private void processResult(IFile file, Result result) throws JavaModelException {
+	private void processResult(ICompilationUnit unit, Result result) throws JavaModelException {
 		JavaEEObject mainObject = result.getMainObject();
 		if (Servlet.class.isInstance(mainObject))
-			servletFound(file, (Servlet) result.getMainObject(), result.getDependedTypes());
+			servletFound(unit, (Servlet) result.getMainObject(), result.getDependedTypes());
 		for (JavaEEObject additional : result.getAdditional()) {
 			if (EjbLocalRef.class.isInstance(additional)) {
-				ejbLocalRefFound(file, (EjbLocalRef) additional, result.getDependedTypes());
+				ejbLocalRefFound(unit, (EjbLocalRef) additional, result.getDependedTypes());
 			} else if (ResourceRef.class.isInstance(additional)) {
-				resourceRefFound(file, (ResourceRef) additional, result.getDependedTypes());
+				resourceRefFound(unit, (ResourceRef) additional, result.getDependedTypes());
 			} else if (SecurityRole.class.isInstance(additional)) {
 				securityRoleFound(result.getMainObject(), (SecurityRole) additional);
 			} else if (SecurityIdentityType.class.isInstance(additional)) {
-				securityIdentityTypeFound(file, (SecurityIdentityType) additional);
+				securityIdentityTypeFound(unit, (SecurityIdentityType) additional);
 			}
 		}
 	}
 
-	private void servletFound(IFile file, Servlet servlet, Collection<IType> dependedTypes) throws JavaModelException {
+	private void servletFound(ICompilationUnit unit, Servlet servlet, Collection<IType> dependedTypes)
+			throws JavaModelException {
 		modelObject.getServlets().add(servlet);
-		connectObjectWithFile(file, servlet, dependedTypes);
+		connectObjectWithFile(unit, servlet, dependedTypes);
 	}
 
-	private void securityIdentityTypeFound(IFile file, SecurityIdentityType additional) {
+	private void securityIdentityTypeFound(ICompilationUnit file, SecurityIdentityType additional) {
 	}
 
-	private void resourceRefFound(IFile file, ResourceRef resourceRef, Collection<IType> dependedTypes)
+	private void resourceRefFound(ICompilationUnit unit, ResourceRef resourceRef, Collection<IType> dependedTypes)
 			throws JavaModelException {
 		modelObject.getResourceRefs().add(resourceRef);
-		connectObjectWithFile(file, resourceRef, dependedTypes);
+		connectObjectWithFile(unit, resourceRef, dependedTypes);
 	}
 
-	private void ejbLocalRefFound(IFile file, EjbLocalRef localRef, Collection<IType> dependedTypes)
+	private void ejbLocalRefFound(ICompilationUnit unit, EjbLocalRef localRef, Collection<IType> dependedTypes)
 			throws JavaModelException {
 		modelObject.getEjbLocalRefs().add(localRef);
-		connectObjectWithFile(file, localRef, dependedTypes);
+		connectObjectWithFile(unit, localRef, dependedTypes);
 	}
 
-	private void connectObjectWithFile(IFile file, JavaEEObject localRef, Collection<IType> dependedTypes)
+	private void connectObjectWithFile(ICompilationUnit unit, JavaEEObject localRef, Collection<IType> dependedTypes)
 			throws JavaModelException {
-		modelToResource.connect(localRef, file);
-		Collection<IFile> files = new HashSet<IFile>(dependedTypes.size());
+		modelToUnit.connect(localRef, unit);
 		for (IType type : dependedTypes) {
 			if (type.isBinary() || type.isInterface() == false)
 				continue;
-			IResource resource = type.getCompilationUnit().getCorrespondingResource();
-			if (resource != null && resource.exists())
-				modelToInterfaceResource.connect(localRef, (IFile) resource);
+			modelToInterfaceUnit.connect(localRef, type.getCompilationUnit());
 		}
 	}
 
-	private void visitJavaFiles(final Collection<IFile> javaFiles, final IPackageFragmentRoot root)
+	@Override
+	protected void processAddedCompilationUnit(IModelProviderEvent modelEvent, ICompilationUnit unit)
 			throws CoreException {
-		if (root.getKind() != IPackageFragmentRoot.K_SOURCE)
+		Result result = analyzeCompilationUnit(unit);
+		if (result == null || result.isEmpty())
 			return;
-		root.getCorrespondingResource().accept(new IResourceProxyVisitor() {
-			public boolean visit(IResourceProxy proxy) throws CoreException {
-				if (proxy.getType() == IResource.FILE) {
-					if (proxy.getName().endsWith("." + JAVA_EXTENSION)) { //$NON-NLS-1$
-						IFile file = (IFile) proxy.requestResource();
-						if (root.getJavaProject().isOnClasspath(file))
-							javaFiles.add(file);
-					}
-					return false;
-				}
-				return true;
-			}
-		}, IContainer.NONE);
-
+		processResult(unit, result);
+		modelEvent.addResource(unit);
 	}
 
 	@Override
-	protected boolean isProjectRelative(IProject project) {
-		if (project == null)
-			return false;
-		else if (project.equals(facetedProject.getProject()))
-			return true;
-		return false;
-	}
-
-	@Override
-	public void dispose() {
-//		Job disposeJob = new Job(Messages.getString("WebAnnotationReader.DisposeWebAnnotationReader")) { //$NON-NLS-1$
-//			@Override
-//			protected IStatus run(IProgressMonitor monitor) {
-				IModelProviderEvent modelEvent = createModelProviderEvent();
-				modelEvent.addResource(facetedProject.getProject());
-				modelEvent.setEventCode(modelEvent.getEventCode() | IModelProviderEvent.PRE_DISPOSE);
-				ResourcesPlugin.getWorkspace().removeResourceChangeListener(WebAnnotationReader.this);
-				modelToResource = null;
-				modelObject = null;
-				notifyListeners(modelEvent);
-				clearListeners();
-//				return Status.OK_STATUS;
-//			}
-//		};
-//		disposeJob.schedule();
-	}
-
-	@Override
-	protected synchronized void processAddedFile(IModelProviderEvent modelEvent, IFile file) throws CoreException {
-		Result result = analyzeFile(file);
-		if (result == null)
-			return;
-		processResult(file, result);
-		modelEvent.addResource(file);
-	}
-
-	@Override
-	protected synchronized void processChangedFile(IModelProviderEvent modelEvent, IFile file) throws CoreException {
-		if (modelToResource.containsTarget(file))
-			processChangedModelFile(modelEvent, file);
+	protected void processChangedCompilationUnit(IModelProviderEvent modelEvent, ICompilationUnit unit)
+			throws CoreException {
+		if (modelToUnit.containsTarget(unit))
+			processChangedModelUnit(modelEvent, unit);
 		else
-			processAddedFile(modelEvent, file);
+			processAddedCompilationUnit(modelEvent, unit);
 	}
 
-	private void processChangedModelFile(IModelProviderEvent modelEvent, IFile file) throws CoreException {
-		processRemovedFile(modelEvent, file);
-		processAddedFile(modelEvent, file);
+	private void processChangedModelUnit(IModelProviderEvent modelEvent, ICompilationUnit unit) throws CoreException {
+		processRemovedCompilationUnit(modelEvent, unit);
+		processAddedCompilationUnit(modelEvent, unit);
 	}
 
 	@Override
-	protected synchronized void processRemovedFile(IModelProviderEvent modelEvent, IFile file) throws CoreException {
-		if (modelToResource.containsTarget(file))
-			processRemovedModelResource(modelEvent, file);
-		else if (modelToInterfaceResource.containsTarget(file))
-			processRemoveInterface(modelEvent, file);
+	protected void processRemovedCompilationUnit(IModelProviderEvent modelEvent, ICompilationUnit unit)
+			throws CoreException {
+		if (modelToUnit.containsTarget(unit))
+			processRemovedModelResource(modelEvent, unit);
+		else if (modelToInterfaceUnit.containsTarget(unit))
+			processRemoveInterface(modelEvent, unit);
 	}
 
-	private void processRemoveInterface(IModelProviderEvent event, IFile file) {
+	private void processRemoveInterface(IModelProviderEvent event, ICompilationUnit unit) {
 	}
 
-	private void processRemovedModelResource(IModelProviderEvent event, IFile file) {
-		Collection<JavaEEObject> modelObjects = modelToResource.getSources(file);
+	@Override
+	protected void processRemovedPackage(IModelProviderEvent modelEvent, IJavaElementDelta delta) throws CoreException {
+		for (ICompilationUnit unit : modelToUnit.getTargets()) {
+			if (unit.getParent().getElementName().equals(delta.getElement().getElementName())) {
+				processRemovedCompilationUnit(modelEvent, unit);
+			}
+		}
+	}
+
+	private void processRemovedModelResource(IModelProviderEvent event, ICompilationUnit file) {
+		Collection<JavaEEObject> modelObjects = modelToUnit.getSources(file);
 		for (JavaEEObject o : modelObjects) {
 			if (Servlet.class.isInstance(o))
 				disconnectFromRoles(o);
 			EcoreUtil.remove((EObject) o);
 		}
-		modelToResource.disconnect(file);
+		modelToUnit.disconnect(file);
 		event.setEventCode(event.getEventCode() | IModelProviderEvent.REMOVED_RESOURCE);
 		event.addResource(file);
 	}
