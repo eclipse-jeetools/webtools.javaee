@@ -982,13 +982,13 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	}
 
 	private boolean shouldBeDisabled(IVirtualComponent component) {
-		if (J2EEProjectUtilities.isApplicationClientComponent(component)) return true;
-		if (J2EEProjectUtilities.isEARProject(component.getProject()) && component.isBinary()) return false;
-		if (J2EEProjectUtilities.isEJBComponent(component)) return true;
-		if (J2EEProjectUtilities.isDynamicWebComponent(component)) return true;
-		if (J2EEProjectUtilities.isJCAComponent(component)) return true;
-		if (J2EEProjectUtilities.isStaticWebProject(component.getProject())) return true;
-		if (J2EEProjectUtilities.isProjectOfType(component.getProject(), IJ2EEFacetConstants.JAVA)) return false;
+		if (JavaEEProjectUtilities.isApplicationClientComponent(component)) return true;
+		if (JavaEEProjectUtilities.isEARProject(component.getProject()) && component.isBinary()) return false;
+		if (JavaEEProjectUtilities.isEJBComponent(component)) return true;
+		if (JavaEEProjectUtilities.isDynamicWebComponent(component)) return true;
+		if (JavaEEProjectUtilities.isJCAComponent(component)) return true;
+		if (JavaEEProjectUtilities.isStaticWebProject(component.getProject())) return true;
+		if (JavaEEProjectUtilities.isProjectOfType(component.getProject(), IJ2EEFacetConstants.JAVA)) return false;
 		return false;
 	}
 	
@@ -1045,20 +1045,27 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 			j2eeComponentSet.add(j2eeComponentList.get(i));
 		}
 				
-		for( int i=0; i< items.length; i++ ){
+		for (int i = 0; i < items.length; i++) {
 			Object element = items[i].getData();
-			if( element instanceof IVirtualComponent){
-				IVirtualComponent comp = (IVirtualComponent)element;
-				if (j2eeComponentSet.contains(comp)) {
-					list.add(comp);
+			try {
+				if (element instanceof IVirtualComponent || 
+						(element instanceof IProject && ((IProject) element).hasNature(JavaCore.NATURE_ID))) {
+					if (j2eeComponentSet.contains(element)) {
+						list.add(element);
+					}
+					if (isVersion5) {
+						DoubleCheckboxTableItem dcbItem = (DoubleCheckboxTableItem)items[i]; 
+						boolean secondEnabled = true;
+						if (element instanceof IVirtualComponent) {
+							secondEnabled = !shouldBeDisabled((IVirtualComponent) element);
+						} 
+						dcbItem.setSecondEnabled(secondEnabled);
+						dcbItem.setSecondChecked(j2eeLibComponentSet.contains(element));
+						if (j2eeLibComponentSet.contains(element)) list.add(element);
+					}
 				}
-				if (isVersion5) {
-					DoubleCheckboxTableItem dcbItem = (DoubleCheckboxTableItem)items[i]; 
-					boolean secondEnabled = dcbItem.getSecondEnabled();
-					if (shouldBeDisabled(comp) == secondEnabled) dcbItem.setSecondEnabled(!secondEnabled);						
-					dcbItem.setSecondChecked(j2eeLibComponentSet.contains(comp));
-					if (j2eeLibComponentSet.contains(comp)) list.add(comp);
-				}
+			} catch (CoreException e) {
+				J2EEUIPlugin.logError(0, e.getMessage(), e);
 			}
 		}		
 		

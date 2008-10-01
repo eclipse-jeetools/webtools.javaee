@@ -91,9 +91,17 @@ public class DoubleCheckboxTableItem extends TableItem {
 	}
 	
 	public void dispose() {
-		secondCheckBox.removeSelectionListener(selLstnr);
-		selLstnr = null;
+		disposeSecondCheckbox();
 		super.dispose();
+	}
+	
+	protected void disposeSecondCheckbox() {
+		if (secondCheckBox != null) {
+			secondCheckBox.removeSelectionListener(selLstnr);
+			secondCheckBox.dispose();
+			secondCheckBox = null;
+		}
+		selLstnr = null;
 	}
 	
 	void setTableListener(ICheckStateListener tblLstnr) {

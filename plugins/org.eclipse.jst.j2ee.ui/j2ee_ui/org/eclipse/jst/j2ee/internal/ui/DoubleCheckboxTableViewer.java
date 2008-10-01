@@ -150,5 +150,32 @@ public class DoubleCheckboxTableViewer extends CheckboxTableViewer {
 
         }
     }
+
+	@Override
+	protected void doRemove(int start, int end) {
+		// ensure that the second check box is disposed
+		for (int i = start; i <= end; i++) { 
+			disposeSecondCheckboxOfItem(i);
+		}
+		
+		super.doRemove(start, end);
+	}
+
+	@Override
+	protected void doRemove(int[] indices) {
+		// ensure that the second check box is disposed
+		for (int i : indices) {
+			disposeSecondCheckboxOfItem(i);
+		}
+		
+		super.doRemove(indices);
+	}
+	
+	private void disposeSecondCheckboxOfItem(int index) {
+		TableItem item = getTable().getItem(index);
+		if (item instanceof DoubleCheckboxTableItem) {
+			((DoubleCheckboxTableItem) item).disposeSecondCheckbox();
+		}
+	}	
 	    
 }
