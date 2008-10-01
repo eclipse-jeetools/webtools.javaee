@@ -193,16 +193,21 @@ protected static HashMap resourceSetListeners;
 				notifyModelProviders(event);
 			
 		}
-		
 
 	/**
 	 * Used to register an IModelProviderFactory against a facet version
-	 * @param providerFactory - {@link IModelProviderFactory}
-	 * @param v - {@link IProjectFacetVersion}
-	 * @param priority - {@link String}- Used to allow multiple instances, the highest priority is chosen
+	 * 
+	 * @param providerFactory
+	 *            - {@link IModelProviderFactory}
+	 * @param v
+	 *            - {@link IProjectFacetVersion}
+	 * @param priority
+	 *            - {@link String}- Used to allow multiple instances, the
+	 *            highest priority is chosen. Priority '0' is higher that
+	 *            priority '1'. If priorities are equal the new providerFactory
+	 *            is chosen.
 	 */
-	public static void registerProvider(IModelProviderFactory providerFactory,
-			IProjectFacetVersion v, String priority) {
+	public static void registerProvider(IModelProviderFactory providerFactory, IProjectFacetVersion v, String priority) {
 
 		int newPriority = (priority != null) ? Integer.parseInt(priority) : DEFAULT_PRIORITY;
 		int currentPriority = getProviderPriority(v);
