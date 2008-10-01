@@ -244,10 +244,13 @@ public final class MessageDrivenBeanClassVRule extends ABeanClassVRule implement
             ValidationCancelledException, ValidationException {
     	if((bean.getVersionID() == J2EEVersionConstants.EJB_2_0_ID) || (bean.getVersionID() == J2EEVersionConstants.EJB_2_1_ID)){		
 			JavaClass jclass = ((MessageDriven)bean).getMessagingType();
-			if( jclass != null ){
-				if (jclass.getQualifiedName().equals(ITypeConstants.CLASSNAME_JAVAX_JMS_MESSAGELISTENER)){
+//			if( jclass != null ){
+//				if (jclass.getQualifiedName().equals(ITypeConstants.CLASSNAME_JAVAX_JMS_MESSAGELISTENER)){
+//				    super.validateMethodsWhichMustExist(vc, bean, clazz);
+//				}
+//			}
+			if( jclass == null || jclass.getQualifiedName().equals(ITypeConstants.CLASSNAME_JAVAX_JMS_MESSAGELISTENER)){
 				    super.validateMethodsWhichMustExist(vc, bean, clazz);
-				}
 			}
 		}
       
