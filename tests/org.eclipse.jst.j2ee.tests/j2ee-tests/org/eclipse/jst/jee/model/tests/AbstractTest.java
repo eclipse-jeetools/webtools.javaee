@@ -13,7 +13,6 @@ package org.eclipse.jst.jee.model.tests;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
@@ -26,7 +25,6 @@ import org.eclipse.core.filebuffers.LocationKind;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
@@ -181,48 +179,19 @@ public class AbstractTest {
 		javaProject.setRawClasspath(entries, true, new NullProgressMonitor());
 	}
 
-	public static Collection<IResourceChangeEvent> saveFile(IFile file, String content) throws Exception {
-		ChangeListenerWithSemaphore listener = new ChangeListenerWithSemaphore(1);
-		ResourcesPlugin.getWorkspace().addResourceChangeListener(listener, IResourceChangeEvent.POST_BUILD);
-		int retries = 3;
-		while (retries > 0) {
-			try {
-				if (file.exists())
-					setContents(content, file);
-				else
-					createFile(content, file);
-				if (listener.waitForEvents()) {
-					retries = 0;
-					break;
-				}
-			} catch (CoreException e) {
-				e.printStackTrace();
-				ResourcesPlugin.getWorkspace().removeResourceChangeListener(listener);
-				// try {
-				/*
-				 * An exception was occurring - "The requested operation cannot
-				 * be performed on a file with a user-mapped section open".
-				 * Running the finalization as suggested at
-				 * http://webteam.archive.org/jira/browse/HER-661?decorator=printable
-				 */
-				// VmFactory.getCurrentVm().forceMaxGc();
-				// } catch (InvalidVmException vmException) {
-				System.runFinalization();
-				System.gc();
-				// }
-				listener = new ChangeListenerWithSemaphore(1);
-				ResourcesPlugin.getWorkspace().addResourceChangeListener(listener, IResourceChangeEvent.POST_BUILD);
-			} finally {
-				retries--;
-			}
-		}
-		if (retries != -1)
-			throw new AssertionFailedError("The number of retries is <" + retries + ">");
-		ResourcesPlugin.getWorkspace().removeResourceChangeListener(listener);
-		return listener.getReceivedEvents();
+	public static void saveFile(IFile file, String content) throws Exception {
+		JdtChangeListenerWithSemaphore listener = new JdtChangeListenerWithSemaphore(1);
+		JavaCore.addElementChangedListener(listener);
+		if (file.exists())
+			setContents(content, file);
+		else
+			createFile(content, file);
+		if (listener.waitForEvents() == false)
+			throw new AssertionFailedError();
+		JavaCore.removeElementChangedListener(listener);
 	}
 
-	public static void createFile(final String content, final IFile file) throws Exception {
+	private static void createFile(final String content, final IFile file) throws Exception {
 		BlockProgressMonitor monitor = new BlockProgressMonitor();
 		ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
 			public void run(IProgressMonitor monitor) throws CoreException {
@@ -241,7 +210,7 @@ public class AbstractTest {
 		}
 	}
 
-	public static void setContents(final String content, final IFile file) throws Exception {
+	private static void setContents(final String content, final IFile file) throws Exception {
 		BlockProgressMonitor monitor = new BlockProgressMonitor();
 		ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
 			public void run(IProgressMonitor monitor) throws CoreException {
@@ -262,48 +231,17 @@ public class AbstractTest {
 	}
 
 	public static void deleteFile(final IFile file) throws Exception {
-		ChangeListenerWithSemaphore listener = new ChangeListenerWithSemaphore(1);
-		ResourcesPlugin.getWorkspace().addResourceChangeListener(listener, IResourceChangeEvent.POST_BUILD);
-		int retries = 3;
-		while (retries > 0) {
-			try {
-				BlockProgressMonitor monitor = new BlockProgressMonitor();
-				ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
-					public void run(IProgressMonitor monitor) throws CoreException {
-						file.delete(false, monitor);
-						ResourcesPlugin.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, monitor);
-					}
-				}, monitor);
-				if (monitor.waitForEvent() == false)
-					throw new IllegalStateException("Monitor not finished...");
-				if (listener.waitForEvents()) {
-					retries = 0;
-					break;
-				}
-			} catch (CoreException e) {
-				ResourcesPlugin.getWorkspace().removeResourceChangeListener(listener);
-				// try {
-				/*
-				 * An exception was occurring - "The requested operation cannot
-				 * be performed on a file with a user-mapped section open".
-				 * Running the finalization as suggested at
-				 * http://webteam.archive.org/jira/browse/HER-661?decorator=printable
-				 */
-				// VmFactory.getCurrentVm().forceMaxGc();
-				// } catch (InvalidVmException vmException) {
-				System.runFinalization();
-				System.gc();
-				// }
-				listener = new ChangeListenerWithSemaphore(1);
-				ResourcesPlugin.getWorkspace().addResourceChangeListener(listener, IResourceChangeEvent.POST_CHANGE);
-			} finally {
-				retries--;
+		JdtChangeListenerWithSemaphore listener = new JdtChangeListenerWithSemaphore(1);
+		JavaCore.addElementChangedListener(listener);
+		ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
+			public void run(IProgressMonitor monitor) throws CoreException {
+				file.delete(false, monitor);
+				ResourcesPlugin.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, monitor);
 			}
-
-		}
-		if (retries != -1)
-			throw new AssertionFailedError("The number of retries for file<" + file + "> is <" + retries + ">");
-		ResourcesPlugin.getWorkspace().removeResourceChangeListener(listener);
+		}, new NullProgressMonitor());
+		if (listener.waitForEvents() == false)
+			throw new AssertionFailedError();
+		JavaCore.removeElementChangedListener(listener);
 	}
 
 	private static class BlockProgressMonitor implements IProgressMonitor {
