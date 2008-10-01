@@ -369,7 +369,10 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 	 */
 	public void dispose() {
 		beanRefToResolvedInterfaceUnit = null;
-		unitToModel.clear();
+		if (unitToModel != null)
+			// bug 249234. If the model is not loaded and dispose is called a
+			// NPE occurs.
+			unitToModel.clear();
 		super.dispose();
 	}
 
