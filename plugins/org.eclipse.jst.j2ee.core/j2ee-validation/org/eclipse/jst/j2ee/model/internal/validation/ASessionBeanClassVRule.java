@@ -29,10 +29,12 @@ public abstract class ASessionBeanClassVRule extends ABeanClassVRule {
 			
 			JavaHelpers javaxEjbSessionContext = ValidationRuleUtility.getType(ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONCONTEXT, bean);
 			JavaHelpers javaxTransactionUsertransaction = ValidationRuleUtility.getType(ITypeConstants.CLASSNAME_JAVAX_TRANSACTION_USERTRANSACTION, bean);
+			JavaHelpers javaxNamingContext = ValidationRuleUtility.getType(ITypeConstants.CLASSNAME_JAVAX_NAMING_CONTEXT, bean);
 			if(ValidationRuleUtility.isAssignableFrom(ValidationRuleUtility.getType(field), javaxEjbSessionContext) ||
 				ValidationRuleUtility.isAssignableFrom(ValidationRuleUtility.getType(field), javaxTransactionUsertransaction) ||
 				ValidationRuleUtility.isLocalType(bean, ValidationRuleUtility.getType(field)) ||
-				ValidationRuleUtility.isJNDINamingContext(field))
+				//ValidationRuleUtility.isJNDINamingContext(field))
+				ValidationRuleUtility.isAssignableFrom(ValidationRuleUtility.getType(field), javaxNamingContext))
 			{
 				// IWAD4024 = A transient field should not be the {0} type. Read section 7.4.1 of the EJB 2.0 specification.
 				message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2452, IEJBValidationContext.WARNING, bean, clazz, field, this);		
