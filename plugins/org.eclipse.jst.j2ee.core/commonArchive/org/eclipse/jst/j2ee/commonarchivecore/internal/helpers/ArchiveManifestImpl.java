@@ -88,7 +88,7 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements org.e
 	}
 
 	/**
-	 * @see com.ibm.etools.archive.ArchiveManifest
+	 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest
 	 */
 	public void appendClassPath(java.lang.String extension) {
 		String classPath = getClassPath();
@@ -99,14 +99,14 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements org.e
 	}
 
 	/**
-	 * @see com.ibm.etools.archive.ArchiveManifest
+	 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest
 	 */
 	public java.lang.String getClassPath() {
 		return ArchiveUtil.getValueIgnoreKeyCase(Attributes.Name.CLASS_PATH.toString(), getMainAttributes());
 	}
 
 	/**
-	 * @see com.ibm.etools.archive.ArchiveManifest
+	 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest
 	 */
 	public java.lang.String[] getClassPathTokenized() {
 		String classPath = getClassPath();
@@ -131,7 +131,7 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements org.e
 	}
 
 	/**
-	 * @see com.ibm.etools.archive.ArchiveManifest
+	 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest
 	 */
 	public void mergeClassPath(java.lang.String[] classPathEntries) {
 		StringBuffer sb = new StringBuffer();
@@ -163,7 +163,7 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements org.e
 	}
 
 	/**
-	 * @see com.ibm.etools.archive.ArchiveManifest
+	 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest
 	 */
 	public void setClassPath(java.lang.String aSpaceDelimitedPath) {
 		Attributes attributes = getMainAttributes();
@@ -174,7 +174,7 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements org.e
 	}
 
 	/**
-	 * @see com.ibm.etools.archive.ArchiveManifest
+	 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest
 	 */
 	public void setMainClass(java.lang.String className) {
 		Attributes attributes = getMainAttributes();
@@ -185,7 +185,7 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements org.e
 	}
 
 	/**
-	 * @see com.ibm.etools.archive.ArchiveManifest
+	 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest
 	 */
 	public void setManifestVersion(java.lang.String version) {
 		Attributes attributes = getMainAttributes();
@@ -310,7 +310,13 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements org.e
 		int length = line.length();
 		if (length > 72) {
 			int index = 70;
+			// bug 233801 - we are splitting every 72 bytes, but adding two bytes to the end of, 
+			// and one space at the beginning of every line after the first
 			while (index - 1 < length) {
+				if (line.charAt(index) == ' ')
+				{
+					index--;
+				}
 				line.insert(index, "\r\n "); //$NON-NLS-1$
 				index += 72;
 				length += 3;
