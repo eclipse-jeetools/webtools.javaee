@@ -14,6 +14,9 @@ import junit.framework.TestSuite;
 
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jst.javaee.core.EjbLocalRef;
+import org.eclipse.jst.javaee.core.InjectionTarget;
+import org.eclipse.jst.javaee.core.ResourceRef;
 import org.eclipse.jst.javaee.ejb.MessageDrivenBean;
 import org.eclipse.jst.javaee.ejb.RemoveMethodType;
 import org.eclipse.jst.javaee.ejb.SessionBean;
@@ -225,4 +228,64 @@ public class EjbAnnotationFactoryTest extends AbstractAnnotationFactoryTest {
 		assertNotNull(bean);
 	}
 
+	public void testEjbRefName() throws Exception {
+		final String beanContent = "package com.sap;"
+				+ "@Stateless public class testEjbRefName implements SessionBeanLocal {"
+				+ "@EJB(name=\"refName\") private SessionBeanLocal field;" + "}";
+		IType type = createCompilationUnit("testEjbRefName", beanContent).findPrimaryType();
+		Result result = fixture.createJavaeeObject(type);
+		SessionBean sessionBean = (SessionBean) result.getMainObject();
+		assertNotNull(sessionBean);
+		assertEquals(1, sessionBean.getEjbLocalRefs().size());
+		EjbLocalRef ref = (EjbLocalRef) sessionBean.getEjbLocalRefs().get(0);
+		assertEquals(1, ref.getInjectionTargets().size());
+		assertInjectionTarget("refName", "", (InjectionTarget) ref.getInjectionTargets().get(0));
+	}
+
+	public void testEjbRefNameWithSlash() throws Exception {
+		final String beanContent = "package com.sap;"
+				+ "@Stateless public class testEjbRefNameWithSlash implements SessionBeanLocal {"
+				+ "@EJB(name=\"refClass/refName\") private SessionBeanLocal field;" + "}";
+		IType type = createCompilationUnit("testEjbRefNameWithSlash", beanContent).findPrimaryType();
+		Result result = fixture.createJavaeeObject(type);
+		SessionBean sessionBean = (SessionBean) result.getMainObject();
+		assertNotNull(sessionBean);
+		assertEquals(1, sessionBean.getEjbLocalRefs().size());
+		EjbLocalRef ref = (EjbLocalRef) sessionBean.getEjbLocalRefs().get(0);
+		assertEquals(1, ref.getInjectionTargets().size());
+		assertInjectionTarget("refName", "refClass", (InjectionTarget) ref.getInjectionTargets().get(0));
+	}
+
+	public void testResourceRefName() throws Exception {
+		final String beanContent = "package com.sap;"
+				+ "@Stateless public class testResourceRefName implements SessionBeanLocal {"
+				+ "@Resource(name=\"refName\") private SessionBeanLocal field;" + "}";
+		IType type = createCompilationUnit("testResourceRefName", beanContent).findPrimaryType();
+		Result result = fixture.createJavaeeObject(type);
+		SessionBean sessionBean = (SessionBean) result.getMainObject();
+		assertNotNull(sessionBean);
+		assertEquals(1, sessionBean.getResourceRefs().size());
+		ResourceRef ref = (ResourceRef) sessionBean.getResourceRefs().get(0);
+		assertEquals(1, ref.getInjectionTargets().size());
+		assertInjectionTarget("refName", "", (InjectionTarget) ref.getInjectionTargets().get(0));
+	}
+
+	public void testResourceRefNameWithSlash() throws Exception {
+		final String beanContent = "package com.sap;"
+				+ "@Stateless public class testResourceRefNameWithSlash implements SessionBeanLocal {"
+				+ "@Resource(name=\"refClass/refName\") private SessionBeanLocal field;" + "}";
+		IType type = createCompilationUnit("testResourceRefNameWithSlash", beanContent).findPrimaryType();
+		Result result = fixture.createJavaeeObject(type);
+		SessionBean sessionBean = (SessionBean) result.getMainObject();
+		assertNotNull(sessionBean);
+		assertEquals(1, sessionBean.getResourceRefs().size());
+		ResourceRef ref = (ResourceRef) sessionBean.getResourceRefs().get(0);
+		assertEquals(1, ref.getInjectionTargets().size());
+		assertInjectionTarget("refName", "refClass", (InjectionTarget) ref.getInjectionTargets().get(0));
+	}
+	
+	private void assertInjectionTarget(String targetName, String targetClass, InjectionTarget target) {
+		assertEquals(targetClass, target.getInjectionTargetClass());
+		assertEquals(targetName, target.getInjectionTargetName());
+	}
 }
