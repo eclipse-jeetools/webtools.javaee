@@ -33,17 +33,9 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 	public JavaEEBinaryComponentLoadAdapter(VirtualArchiveComponent archiveComponent) throws ArchiveOpenFailureException {
 		super();
 		this.archiveComponent = archiveComponent;
-		java.io.File diskFile = null;
-		diskFile = archiveComponent.getUnderlyingDiskFile();
-		if (!diskFile.exists()) {
-			IFile wbFile = archiveComponent.getUnderlyingWorkbenchFile();
-			diskFile = new File(wbFile.getLocation().toOSString());
-		}
-		IPath archivePath = new Path(diskFile.getAbsolutePath());
-		file = new java.io.File(archivePath.toOSString());
-		ZipFile zipFile;
-		try {
-			zipFile = new ZipFile(file);
+		IPath archivePath = recomputeArchivePath();
+		try{
+			resetZipFile(archivePath);
 		} catch (ZipException e) {
 			ArchiveOpenFailureException openFailureException = new ArchiveOpenFailureException(file.getAbsolutePath(), e);
 			throw openFailureException;
@@ -51,8 +43,23 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 			ArchiveOpenFailureException openFailureException = new ArchiveOpenFailureException(file.getAbsolutePath(), e);
 			throw openFailureException;
 		}
+	}
+	
+	private void resetZipFile(IPath archivePath)  throws ZipException, IOException {
+		file = new java.io.File(archivePath.toOSString());
+		ZipFile zipFile = new ZipFile(file);
 		setZipFile(zipFile);
-		setArchivePath(archivePath);
+		setArchivePath(archivePath);	
+	}
+	
+	private IPath recomputeArchivePath() {
+		java.io.File diskFile = archiveComponent.getUnderlyingDiskFile();
+		if (!diskFile.exists()) {
+			IFile wbFile = archiveComponent.getUnderlyingWorkbenchFile();
+			diskFile = new File(wbFile.getLocation().toOSString());
+		}
+		IPath archivePath = new Path(diskFile.getAbsolutePath());
+		return archivePath;
 	}
 	
 	private void setArchivePath(IPath archivePath) {
@@ -69,8 +76,19 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 	
 	public void physicallyOpen() throws ZipException, IOException{
 		if(!isPhysicallyOpen()){
+			if(file.exists()){
+				setZipFile(new ZipFile(file));
+			} else { 
+				//check if the file has moved -- this can happen when
+				//checking into ClearCase.
+				IPath newPath = recomputeArchivePath();
+				if(newPath.equals(archivePath)){
+					throw new FileNotFoundException(archivePath.toOSString());
+				} else {
+					resetZipFile(newPath);
+				}
+			}
 			physicallyOpen = true;
-			setZipFile(new ZipFile(file));
 		}
 	}
 	
