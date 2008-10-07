@@ -7,7 +7,7 @@
  * it only in accordance with the terms of the license agreement you entered
  * into with SAP.
  * 
- * $Id: EjbAnnotationReaderTest.java,v 1.4 2008/03/28 19:57:50 canderson Exp $
+ * $Id: EjbAnnotationReaderTest.java,v 1.5 2008/10/07 18:01:48 kmitov Exp $
  ***********************************************************************/
 package org.eclipse.jst.jee.model.ejb.tests;
 
@@ -29,7 +29,9 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.dependency.tests.util.ProjectUtil;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.javaee.ejb.ActivationConfigProperty;
+import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.ejb.EnterpriseBeans;
 import org.eclipse.jst.javaee.ejb.InitMethodType;
 import org.eclipse.jst.javaee.ejb.MessageDrivenBean;
@@ -41,6 +43,7 @@ import org.eclipse.jst.jee.model.tests.AbstractAnnotationModelTest;
 import org.eclipse.jst.jee.model.tests.AbstractTest;
 import org.eclipse.jst.jee.model.tests.SynchronousModelChangedListener;
 import org.eclipse.jst.jee.model.tests.TestUtils;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 /**
  * @author Kiril Mitov k.mitov@sap.com
@@ -58,11 +61,11 @@ public class EjbAnnotationReaderTest extends AbstractAnnotationModelTest {
 	}
 
 	public static void setUpProject() throws Exception {
-		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(EjbAnnotationReaderTest.class.getSimpleName());
-		if (!project.exists())
-		{
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(
+				EjbAnnotationReaderTest.class.getSimpleName());
+		if (!project.exists()) {
 			project = ProjectUtil.createEJBProject(EjbAnnotationReaderTest.class.getSimpleName(), null,
-				J2EEVersionConstants.EJB_3_0_ID, true);
+					J2EEVersionConstants.EJB_3_0_ID, true);
 			createProjectContent(project);
 		}
 	}
@@ -129,6 +132,36 @@ public class EjbAnnotationReaderTest extends AbstractAnnotationModelTest {
 			fail("IllegalArgumentException expected");
 		} catch (IllegalArgumentException e) {
 		}
+	}
+
+	public void testLoadForEmptyProject() throws Exception {
+		String projectName = EjbAnnotationReaderTest.class.getSimpleName() + "testLoadForEmptyProject";
+		IProject emptyProject = ProjectUtil.createEJBProject(projectName, null, J2EEVersionConstants.EJB_3_0_ID, true);
+		IModelProvider provider = new EJBAnnotationReader(ProjectFacetsManager.create(emptyProject), null);
+		EJBJar ejbJar = (EJBJar) provider.getModelObject();
+		assertNull(ejbJar.getEnterpriseBeans());
+		AbstractTest.deleteProject(projectName);
+	}
+
+	public void testNullEnterpriseBeanAfterDelete() throws Exception {
+		final String projectName = EjbAnnotationReaderTest.class.getSimpleName() + "testNullEnterpriseBeanAfterDelete";
+		IProject oneBeanProject = ProjectUtil
+				.createEJBProject(projectName, null, J2EEVersionConstants.EJB_3_0_ID, true);
+		facetedProject = ProjectFacetsManager.create(oneBeanProject);
+		fixture = new EJBAnnotationReader(facetedProject, clientProject);
+
+		IFile beanFile = oneBeanProject.getFile("ejbModule/testNullEnterpriseBeanAfterDelete.java");
+		assertFalse(beanFile.exists());
+		final String content = "import javax.ejb.Stateless;"
+				+ "@Stateless public class testNullEnterpriseBeanAfterDelete implements SessionBeanLocal {}";
+		// add the file
+		saveFileAndUpdate(beanFile, content);
+		SessionBean result = TestUtils.getSessionBean(getEJBJar(), "testNullEnterpriseBeanAfterDelete");
+		assertNotNull(result);
+		// delete the file
+		deleteFileAndUpdate(beanFile);
+		assertNull(getEJBJar().getEnterpriseBeans());
+		AbstractTest.deleteProject(projectName);
 	}
 
 	// @Test

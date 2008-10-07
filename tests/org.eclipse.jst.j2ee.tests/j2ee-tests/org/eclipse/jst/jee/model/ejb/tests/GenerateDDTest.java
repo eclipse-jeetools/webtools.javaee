@@ -21,7 +21,6 @@ import org.eclipse.jst.j2ee.dependency.tests.util.ProjectUtil;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
-import org.eclipse.jst.jee.model.tests.AbstractTest;
 import org.eclipse.jst.jee.model.tests.SynchronousModelChangedListener;
 import org.eclipse.jst.jee.project.facet.ICreateDeploymentFilesDataModelProperties;
 import org.eclipse.jst.jee.project.facet.IEJBCreateDeploymentFilesDataModelProperties;
@@ -77,8 +76,6 @@ public class GenerateDDTest extends TestCase {
 		IDataModel dataModel = DataModelFactory.createDataModel(IEJBCreateDeploymentFilesDataModelProperties.class);
 		dataModel.setProperty(ICreateDeploymentFilesDataModelProperties.TARGET_PROJECT, project);
 		dataModel.getDefaultOperation().execute(new NullProgressMonitor(), null);
-
-		AbstractTest.saveFile(file, EJB_JAR_CONTENT);
 
 		listener.waitForEvents();
 		fixture.removeListener(listener);

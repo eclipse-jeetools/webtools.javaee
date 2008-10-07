@@ -119,6 +119,8 @@ public class TestUtils {
 	}
 
 	public static SessionBean getSessionBean(EJBJar jar, String name) {
+		if (jar.getEnterpriseBeans() == null)
+			return null;
 		for (Iterator iter = jar.getEnterpriseBeans().getSessionBeans().iterator(); iter.hasNext();) {
 			SessionBean bean = (SessionBean) iter.next();
 			if (name.equals(bean.getEjbName())) {
@@ -129,6 +131,8 @@ public class TestUtils {
 	}
 
 	public static MessageDrivenBean getMessageDrivenBean(EJBJar jar, String name) {
+		if (jar.getEnterpriseBeans() == null)
+			return null;
 		for (Iterator iter = jar.getEnterpriseBeans().getMessageDrivenBeans().iterator(); iter.hasNext();) {
 			MessageDrivenBean bean = (MessageDrivenBean) iter.next();
 			if (name.equals(bean.getEjbName())) {
