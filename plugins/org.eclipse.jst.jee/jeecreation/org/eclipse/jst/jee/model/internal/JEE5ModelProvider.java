@@ -71,9 +71,11 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 	private List modelResources = new ArrayList();
 	protected class ResourceAdapter extends AdapterImpl {
 		public void notifyChanged(Notification notification) {
-			if ( notification.getEventType() == Notification.SET && notification.getFeatureID(null) == Resource.RESOURCE__IS_LOADED) {
+			if (notification.getEventType() == Notification.SET
+					&& notification.getFeatureID(null) == Resource.RESOURCE__IS_LOADED) {
 				resourceIsLoadedChanged((Resource) notification.getNotifier(), notification.getOldBooleanValue(), notification.getNewBooleanValue());
-			}
+			} else if (notification.getFeatureID(null) == Resource.RESOURCE__IS_MODIFIED)
+				resourceChanged((Resource) notification.getNotifier());
 		}
 	}
 	
@@ -92,6 +94,16 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 	public void setWritableResource(XMLResourceImpl writableResource) {
 		this.writableResource = writableResource;
 	}
+	
+	protected void resourceChanged(Resource aResource) {
+		if (hasListeners()) {
+			int eventCode = ModelProviderEvent.KNOWN_RESOURCES_CHANGED;
+			ModelProviderEvent evt = new ModelProviderEvent(eventCode, this, proj);
+			evt.addResource(aResource);
+			notifyListeners(evt);
+		}
+	}
+	
 	protected void resourceIsLoadedChanged(Resource aResource, boolean oldValue, boolean newValue) {
 		if (hasListeners()) {
 			int eventCode = newValue ? ModelProviderEvent.LOADED_RESOURCE : ModelProviderEvent.UNLOADED_RESOURCE;

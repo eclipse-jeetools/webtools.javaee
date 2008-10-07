@@ -13,7 +13,6 @@ package org.eclipse.jst.jee.model.internal;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProviderEvent;
 import org.eclipse.jst.javaee.web.WebApp;
@@ -32,15 +31,6 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 
 	public Web25MergedModelProvider(IProject project) {
 		super(project);
-	}
-
-	/**
-	 * (non-Javadoc) Synchronizing the loading of the model
-	 * 
-	 * @see org.eclipse.jst.jee.model.internal.common.AbstractMergedModelProvider#loadModel()
-	 */
-	protected final synchronized WebApp loadModel() throws CoreException {
-		return super.loadModel();
 	}
 
 	@Override
@@ -70,30 +60,24 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 		 * Someone has called modify before loading the model. Try to load the
 		 * model.
 		 */
-		getMergedModel();
+		if (mergedModel == null)
+			getMergedModel();
+		if (isDisposed()) {
+			return;
+		}
 		/*
 		 * Still not supporting modifications of the merged model. During modify
 		 * the model is becoming the ddModel. After modifying the model is
 		 * unloaded.
 		 */
 		WebApp backup = mergedModel;
-		mergedModel = (WebApp) ddProvider.getModelObject();
-		ddProvider.modify(runnable, modelPath);
-		if (isDisposed()) {
-			return;
-		}
-		mergedModel = backup;
-		clearModel(mergedModel);
 		try {
-			WebAppMerger merger = new WebAppMerger(mergedModel, (WebApp) ddProvider.getModelObject(),
-					ModelElementMerger.ADD);
-			merger.process();
-			merger = new WebAppMerger(mergedModel, getAnnotationWebApp(), ModelElementMerger.ADD);
-			merger.process();
-		} catch (ModelException e) {
-			e.printStackTrace();
+			mergedModel = (WebApp) ddProvider.getModelObject();
+			ddProvider.modify(runnable, modelPath);
+		} finally {
+			mergedModel = backup;
 		}
-
+		merge(getXmlWebApp(), getAnnotationWebApp());
 	}
 
 	private void clearModel(WebApp app) {
@@ -138,14 +122,7 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 	}
 
 	protected void xmlModelChanged(IModelProviderEvent event) {
-		if (isDisposed())
-			return;
-		if (shouldDispose(event)) {
-			dispose();
-			notifyListeners(event);
-			return;
-		}
-		notifyListeners(event);
+		internalModelChanged(event);
 	}
 
 	/*
@@ -154,37 +131,34 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 	 * that no race conditions occurs I am synchronizing this method.
 	 */
 	private synchronized void internalModelChanged(IModelProviderEvent event) {
-		if (isDisposed())
-			return;
-		if (shouldDispose(event)) {
-			dispose();
-			notifyListeners(event);
-			return;
-		}
 		merge(getXmlWebApp(), getAnnotationWebApp());
 		notifyListeners(event);
 	}
 
 	@Override
 	protected WebApp merge(WebApp ddModel, WebApp annotationsModel) {
-
 		try {
-			WebAppMerger merger;
-			if (mergedModel == null) {
-				mergedModel = (WebApp) WebFactory.eINSTANCE.createWebApp();
-				initMergedModelResource((EObject) ddModel);
+			if (mergedModel == ddModel) {
+				mergeWithModel(annotationsModel);
 			} else {
 				clearModel(mergedModel);
-
+				mergeWithModel(ddModel);
+				mergeWithModel(annotationsModel);
 			}
-			merger = new WebAppMerger(mergedModel, ddModel, ModelElementMerger.ADD);
-			merger.process();
-
-			merger = new WebAppMerger(mergedModel, annotationsModel, ModelElementMerger.ADD);
-			merger.process();
 		} catch (ModelException e) {
 			e.printStackTrace();
 		}
 		return mergedModel;
 	}
+
+	private void mergeWithModel(WebApp model) throws ModelException {
+		WebAppMerger merger = new WebAppMerger(mergedModel, model, ModelElementMerger.ADD);
+		merger.process();
+	}
+
+	@Override
+	protected WebApp createNewModelInstance() {
+		return WebFactory.eINSTANCE.createWebApp();
+	}
+
 }
