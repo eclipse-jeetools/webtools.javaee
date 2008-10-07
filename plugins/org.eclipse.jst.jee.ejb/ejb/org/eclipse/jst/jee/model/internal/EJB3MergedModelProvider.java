@@ -14,7 +14,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProviderEvent;
 import org.eclipse.jst.j2ee.model.IModelProviderListener;
@@ -70,15 +69,6 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 		super(project);
 	}
 
-	/**
-	 * (non-Javadoc) Synchronizing the loading of the model
-	 * 
-	 * @see org.eclipse.jst.jee.model.internal.common.AbstractMergedModelProvider#loadModel()
-	 */
-	protected final synchronized EJBJar loadModel() throws CoreException {
-		return super.loadModel();
-	}
-
 	@Override
 	protected IModelProvider loadAnnotationModel(EJBJar ddModel) throws CoreException {
 		if (ddModel.getEjbClientJar() != null)
@@ -111,25 +101,35 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 		 */
 		if (mergedModel == null)
 			getMergedModel();
-
-		EJBJar backup = mergedModel;
-		mergedModel = (EJBJar) ddProvider.getModelObject();
-		modifyDDProvider(runnable, modelPath);
 		if (isDisposed()) {
 			return;
 		}
-		mergedModel = backup;
-		clearModel(mergedModel);
+		modifyWithBackup(runnable, modelPath);
+	}
 
+	/*
+	 * The method will call modify to the ddProvider and during this time the
+	 * getMergedModel() method will return the ddModel.
+	 * 
+	 * After dd modify is finished there will be a merge between dd model and
+	 * annotation model.
+	 * 
+	 * During dd modify there might be notifications from ddProvider which will
+	 * result in changes of the mergedModel.
+	 */
+	private void modifyWithBackup(Runnable runnable, IPath modelPath) {
+		EJBJar backup = mergedModel;
+		try {
+			mergedModel = (EJBJar) ddProvider.getModelObject();
+			ddProvider.modify(runnable, modelPath);
+		} finally {
+			mergedModel = backup;
+		}
+		clearModel(mergedModel);
 		/*
 		 * Reload the model.
 		 */
-		// getMergedModel();
 		merge(getXmlEjbJar(), getAnnotationEjbJar());
-	}
-
-	private void modifyDDProvider(Runnable runnable, IPath modelPath) {
-		ddProvider.modify(runnable, modelPath);
 	}
 
 	protected void annotationModelChanged(IModelProviderEvent event) {
@@ -146,13 +146,6 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 	 * that no race conditions occurs I am synchronizing this method.
 	 */
 	private synchronized void internalModelChanged(IModelProviderEvent event) {
-		if (isDisposed())
-			return;
-		if (shouldDispose(event)) {
-			dispose();
-			notifyListeners(event);
-			return;
-		}
 		/*
 		 * The client project was changed. Reload the annotation model.
 		 */
@@ -187,23 +180,24 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 
 	@Override
 	protected EJBJar merge(EJBJar ddModel, EJBJar annotationsModel) {
-		if (mergedModel == null) {
-			mergedModel = (EJBJar) EjbFactory.eINSTANCE.createEJBJar();
-			initMergedModelResource((EObject) ddModel);
-		} else {
-			clearModel(mergedModel);
-		}
-
-		mergedModel.setEnterpriseBeans(EjbFactory.eINSTANCE.createEnterpriseBeans());
 		try {
-			EjbJarMerger merger = new EjbJarMerger(mergedModel, ddModel, ModelElementMerger.ADD);
-			merger.process();
-			merger = new EjbJarMerger(mergedModel, annotationsModel, ModelElementMerger.ADD);
-			merger.process();
+			if (mergedModel == ddModel) {
+				mergeWithModel(annotationsModel);
+			} else {
+				clearModel(mergedModel);
+				mergedModel.setEnterpriseBeans(EjbFactory.eINSTANCE.createEnterpriseBeans());
+				mergeWithModel(ddModel);
+				mergeWithModel(annotationsModel);
+			}
 		} catch (ModelException e) {
 			e.printStackTrace();
 		}
 		return mergedModel;
+	}
+
+	private void mergeWithModel(EJBJar annotationsModel) throws ModelException {
+		EjbJarMerger merger = new EjbJarMerger(mergedModel, annotationsModel, ModelElementMerger.ADD);
+		merger.process();
 	}
 
 	private void clearModel(EJBJar jar) {
@@ -215,6 +209,11 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 		jar.setEjbClientJar(null);
 		jar.setInterceptors(null);
 		jar.getIcons().clear();
+	}
+
+	@Override
+	protected EJBJar createNewModelInstance() {
+		return EjbFactory.eINSTANCE.createEJBJar();
 	}
 
 }

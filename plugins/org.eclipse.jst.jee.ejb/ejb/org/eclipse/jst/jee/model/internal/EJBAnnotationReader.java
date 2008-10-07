@@ -236,10 +236,9 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 	protected void preLoad() {
 		super.preLoad();
 		modelObject = EjbFactory.eINSTANCE.createEJBJar();
-		modelObject.setEnterpriseBeans(EjbFactory.eINSTANCE.createEnterpriseBeans());
 		annotationFactory = EjbAnnotationFactory.createFactory();
 	}
-
+	
 	/**
 	 * Process the result from parsing the compilation unit. Depending on the
 	 * result this might include adding a session bean, message driven bean,
@@ -427,6 +426,9 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 	private Collection<ICompilationUnit> processAddedInterface(IType rootType) {
 		Collection<ICompilationUnit> unitsToRebuild = new HashSet<ICompilationUnit>();
 		String rootTypeSimpleName = rootType.getElementName();
+		if (getConcreteModel().getEnterpriseBeans() == null)
+			return unitsToRebuild;
+		
 		for (Iterator beanIter = getConcreteModel().getEnterpriseBeans().getSessionBeans().iterator(); beanIter
 				.hasNext();) {
 			SessionBean bean = (SessionBean) beanIter.next();
@@ -532,7 +534,8 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 	private void processRemoveBean(IModelProviderEvent modelEvent, ICompilationUnit unit) throws JavaModelException {
 		EObject modelObject = (EObject) unitToModel.get(unit);
 		EcoreUtil.remove(modelObject);
-
+		if (getConcreteModel().getEnterpriseBeans().getGroup().isEmpty())
+			getConcreteModel().setEnterpriseBeans(null);
 		unitToModel.remove(unit);
 		modelEvent.setEventCode(modelEvent.getEventCode() | IModelProviderEvent.REMOVED_RESOURCE);
 		modelEvent.addResource(unit);
