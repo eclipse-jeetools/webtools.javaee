@@ -30,19 +30,18 @@ public final class WtpUtils
     private static final String JEM_NATURE
         = "org.eclipse.jem.workbench.JavaEMFNature"; //$NON-NLS-1$
     
+    private static final String[] NATURES = {WTP_NATURE, JEM_NATURE};
+    
     public static void addNatures( final IProject project )
     
         throws CoreException
         
     {
-        final IProjectDescription desc = project.getDescription();
-        final String[] current = desc.getNatureIds();
-        final String[] replacement = new String[ current.length + 2 ];
-        System.arraycopy( current, 0, replacement, 0, current.length );
-        replacement[ current.length ] = WTP_NATURE;
-        replacement[ current.length + 1 ] = JEM_NATURE;
-        desc.setNatureIds( replacement );
-        project.setDescription( desc, null );
+        for (int i = 0; i < NATURES.length; i++) {
+			if (!project.hasNature(NATURES[i])) {
+				ProjectUtilities.addNatureToProject(project, NATURES[i]);
+			}
+		}
     }
 
     public static void addNaturestoEAR( final IProject project )
