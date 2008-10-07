@@ -787,4 +787,17 @@
       id="org.eclipse.jst.j2ee.internal.module.container">
     </classpathContainerPage>
   </extension>
+
+  <!-- 
+    *****************************
+    * WTP User Library Provider *
+    *****************************
+  -->
+         
+  <extension point="org.eclipse.jst.common.project.facet.ui.libraryProviderActionPanels">
+    <panel 
+      provider="wtp-user-library-provider"
+      class="org.eclipse.jst.j2ee.internal.ui.WtpUserLibraryProviderInstallPanel"/>
+  </extension>
+
 </plugin>

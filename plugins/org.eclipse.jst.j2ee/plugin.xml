@@ -763,4 +763,19 @@
 	</propertyTester>
   </extension>
   
+  <!--
+    *****************************
+    * WTP User Library Provider *
+    *****************************
+  -->
+    
+  <extension point="org.eclipse.jst.common.project.facet.core.libraryProviders">
+    <provider id="wtp-user-library-provider" abstract="true" extends="user-library-provider">
+      <action type="INSTALL">
+        <config class="org.eclipse.jst.j2ee.internal.common.classpath.WtpUserLibraryProviderInstallOperationConfig"/>
+        <operation class="org.eclipse.jst.j2ee.internal.common.classpath.WtpUserLibraryProviderInstallOperation"/>
+      </action>
+    </provider>
+  </extension>
+  
 </plugin>
