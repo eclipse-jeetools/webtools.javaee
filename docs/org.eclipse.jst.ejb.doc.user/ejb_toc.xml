@@ -10,7 +10,6 @@
 </topic>
 <topic label="Developing EJB 3.0 Applications" href="topics/cejb3.html">
 <topic label="Creating EJB projects" href="topics/tecrtpro.html">
-<topic label="Creating an entity bean" href="topics/tcreatingentitybeans3.html"/>
 <topic label="Creating a session bean" href="topics/tcreatingsessbeans3.html"/>
 <topic label="Creating a message-driven bean" href="topics/tcreatinmessbeans3.html"/>
 </topic>

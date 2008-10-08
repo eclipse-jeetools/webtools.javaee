@@ -12,8 +12,6 @@
 </topicref>
 <topicref href="topics/cejb3.dita" navtitle="Developing EJB 3.0 Applications">
 <topicref href="topics/tecrtpro.dita" navtitle="Creating EJB projects">
-<topicref href="topics/tcreatingentitybeans3.dita" navtitle="Creating an entity bean">
-</topicref>
 <topicref href="topics/tcreatingsessbeans3.dita" navtitle="Creating a session bean">
 </topicref>
 <topicref href="topics/tcreatinmessbeans3.dita" navtitle="Creating a message-driven bean">
