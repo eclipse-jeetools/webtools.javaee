@@ -156,7 +156,6 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 		merger.process();
 	}
 
-	@Override
 	protected WebApp createNewModelInstance() {
 		return WebFactory.eINSTANCE.createWebApp();
 	}
