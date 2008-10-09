@@ -68,6 +68,16 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 		super(aBinaryComponent);
 	}
 
+	public IPath getAbsolutePath() {
+		IArchiveLoadAdapter loadAdapter = null;
+		if(getArchive().getArchiveOptions().hasOption(JavaEEArchiveUtilities.WRAPPED_LOAD_ADAPTER)){
+			loadAdapter = (IArchiveLoadAdapter)getArchive().getArchiveOptions().getOption(JavaEEArchiveUtilities.WRAPPED_LOAD_ADAPTER);
+		} else {
+			loadAdapter = (IArchiveLoadAdapter)getArchive().getArchiveOptions().getOption(ArchiveOptions.LOAD_ADAPTER);
+		}
+		return ((JavaEEBinaryComponentLoadAdapter) loadAdapter).getArchivePath();
+	}
+	
 	@Override
 	public EObject getPrimaryRootObject() {
 		JavaEEQuickPeek qp = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(getArchive());

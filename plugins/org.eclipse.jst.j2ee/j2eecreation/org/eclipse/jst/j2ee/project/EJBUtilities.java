@@ -13,8 +13,12 @@ package org.eclipse.jst.j2ee.project;
 import java.util.Properties;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
+import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
+import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -25,6 +29,57 @@ public class EJBUtilities extends JavaEEProjectUtilities {
 		// TODO Auto-generated constructor stub
 	}
 
+	public static IVirtualComponent getEJBClientJar(IVirtualComponent ejbComponent){
+		if(!ejbComponent.isBinary()){
+			return getEJBClientJar(ejbComponent.getProject());
+		} else {
+			if(ejbComponent.isBinary()){
+				JavaEEBinaryComponentHelper helper = null; 
+				try{
+					helper = new JavaEEBinaryComponentHelper(ejbComponent);
+					IArchive archive = null;
+					try {
+						archive = helper.accessArchive();
+						Object jar = archive.getModelObject(new Path("META-INF/ejb-jar.xml"));
+						String clientJAR = null;
+						if (jar != null)
+						{
+							if (jar instanceof org.eclipse.jst.j2ee.ejb.EJBJar)
+							{
+								clientJAR = ((org.eclipse.jst.j2ee.ejb.EJBJar)jar).getEjbClientJar();
+							}
+							else if (jar instanceof org.eclipse.jst.javaee.ejb.EJBJar)
+							{
+								clientJAR = ((org.eclipse.jst.javaee.ejb.EJBJar)jar).getEjbClientJar();
+							}
+						}
+						if (clientJAR != null) {
+							IVirtualComponent earComponent = ComponentCore.createComponent(ejbComponent.getProject());
+							IVirtualReference[] refs = earComponent.getReferences();
+							for (int i = 0; i < refs.length; i++) {
+								if (refs[i].getArchiveName().equals(clientJAR)) {
+									return refs[i].getReferencedComponent();
+								}
+							}
+						}
+					} catch (ArchiveModelLoadException e) {
+						org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+					} finally {
+						if(archive != null){
+							helper.releaseArchive(archive);
+						}
+					}
+				} finally {
+					if(helper != null){
+						helper.dispose();
+					}
+				}
+			} 
+		}
+		return null;
+	}
+	
+	
 	/**
 	 * This method will return the IVirtualComponent of the EJBClientJar for a given EJB project
 	 * @param project
