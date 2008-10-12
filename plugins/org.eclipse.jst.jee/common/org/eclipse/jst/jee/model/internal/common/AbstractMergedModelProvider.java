@@ -71,12 +71,26 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 
 	private class AnnotationModelListener implements IModelProviderListener {
 		public void modelsChanged(IModelProviderEvent event) {
+			if (isDisposed())
+				return;
+			if (shouldDispose(event)) {
+				dispose();
+				notifyListeners(event);
+				return;
+			}
 			AbstractMergedModelProvider.this.annotationModelChanged(event);
 		}
 	}
 
 	private class XmlModelListener implements IModelProviderListener {
 		public void modelsChanged(IModelProviderEvent event) {
+			if (isDisposed())
+				return;
+			if (shouldDispose(event)) {
+				dispose();
+				notifyListeners(event);
+				return;
+			}
 			AbstractMergedModelProvider.this.xmlModelChanged(event);
 		}
 	}
@@ -208,20 +222,29 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 			return null;
 		T ddModel = (T) ddProvider.getModelObject();
 		T annotationModel = (T) annotationModelProvider.getModelObject();
+		mergedModel = createNewModelInstance();
+		initMergedModelResource((EObject) ddModel);
 
 		enableInternalNotifications();
 		isOnceDisposed = false;
 		return merge(ddModel, annotationModel);
 	}
-	
+
+	/**
+	 * Creates a new instance of the model that will be used for mergedModel
+	 * 
+	 * @return
+	 */
+	protected abstract T createNewModelInstance();
+
 	protected void initMergedModelResource(EObject ddModel) {
 		Resource resourceDD = ddModel.eResource();
-		Resource resourceMM = ((EObject)mergedModel).eResource();
-		if (resourceDD != null && resourceMM == null){
-		  ResourceImpl resRes = new ResourceImpl(resourceDD.getURI());
-		  resRes.getContents().add((EObject)mergedModel);
-	    }
-		
+		Resource resourceMM = ((EObject) mergedModel).eResource();
+		if (resourceDD != null && resourceMM == null) {
+			ResourceImpl resRes = new ResourceImpl(resourceDD.getURI());
+			resRes.getContents().add((EObject) mergedModel);
+		}
+
 	}
 
 	/**
