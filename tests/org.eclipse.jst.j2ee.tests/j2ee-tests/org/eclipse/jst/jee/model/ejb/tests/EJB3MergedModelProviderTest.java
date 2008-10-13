@@ -10,6 +10,9 @@
  ***********************************************************************/
 package org.eclipse.jst.jee.model.ejb.tests;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import junit.framework.TestSuite;
 
 import org.eclipse.core.resources.IFolder;
@@ -25,9 +28,13 @@ import org.eclipse.jst.j2ee.ejb.internal.operations.AddSessionBeanOperation;
 import org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.internal.operations.NewSessionBeanClassDataModelProvider;
 import org.eclipse.jst.j2ee.ejb.internal.operations.StateType;
+import org.eclipse.jst.j2ee.ejb.project.operations.IEjbFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbClientJarCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.IEjbClientJarCreationDataModelProperties;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.jee.model.tests.AbstractAnnotationModelTest;
 import org.eclipse.jst.jee.model.tests.AbstractTest;
@@ -127,29 +134,29 @@ public class EJB3MergedModelProviderTest extends AbstractAnnotationModelTest {
 		assertNotNull(TestUtils.getSessionBean(result, "testAddBeanWithOperation"));
 	}
 
-//	public void testCreateClientProjectWithOperation() throws Exception {
-//		final String ejbProjectName = this.getClass().getSimpleName() + this.getName();
-//		final String earProjectName = ejbProjectName + "ear";
-//		Map<String, Object> facetModelProperties = new HashMap<String, Object>();
-//		facetModelProperties.put(IEjbFacetInstallDataModelProperties.CREATE_CLIENT, false);
-//		facetModelProperties.put(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, true);
-//		final IProject project = ProjectUtil.createEJBProject(ejbProjectName, earProjectName, facetModelProperties,
-//				J2EEVersionConstants.EJB_3_0_ID, true);
-//		final IModelProvider provider = new Ejb3ModelProvider(project);
-//		provider.getModelObject();
-//		final IDataModel model = DataModelFactory.createDataModel(new EjbClientJarCreationDataModelProvider());
-//		model.setProperty(IEjbClientJarCreationDataModelProperties.EJB_PROJECT_NAME, ejbProjectName);
-//		model.setProperty(IEjbClientJarCreationDataModelProperties.PROJECT_NAME, CLIENT_NAME + "newName");
-//
-//		SynchronousModelChangedListener listener = new SynchronousModelChangedListener(1);
-//		provider.addListener(listener);
-//		model.getDefaultOperation().execute(null, null);
-//		assertTrue(listener.waitForEvents());
-//		provider.removeListener(listener);
-//
-//		EJBJar result = (EJBJar) provider.getModelObject();
-//		assertEquals(CLIENT_NAME + "newName" + ".jar", result.getEjbClientJar());
-//	}
+	public void testCreateClientProjectWithOperation() throws Exception {
+		final String ejbProjectName = this.getClass().getSimpleName() + this.getName();
+		final String earProjectName = ejbProjectName + "ear";
+		Map<String, Object> facetModelProperties = new HashMap<String, Object>();
+		facetModelProperties.put(IEjbFacetInstallDataModelProperties.CREATE_CLIENT, false);
+		facetModelProperties.put(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, true);
+		final IProject project = ProjectUtil.createEJBProject(ejbProjectName, earProjectName, facetModelProperties,
+				J2EEVersionConstants.EJB_3_0_ID, true);
+		final IModelProvider provider = ModelProviderManager.getModelProvider(project);
+		provider.getModelObject();
+		final IDataModel model = DataModelFactory.createDataModel(new EjbClientJarCreationDataModelProvider());
+		model.setProperty(IEjbClientJarCreationDataModelProperties.EJB_PROJECT_NAME, ejbProjectName);
+		model.setProperty(IEjbClientJarCreationDataModelProperties.PROJECT_NAME, CLIENT_NAME + "newName");
+
+		SynchronousModelChangedListener listener = new SynchronousModelChangedListener(1);
+		provider.addListener(listener);
+		model.getDefaultOperation().execute(null, null);
+		assertTrue(listener.waitForEvents());
+		provider.removeListener(listener);
+
+		EJBJar result = (EJBJar) provider.getModelObject();
+		assertEquals(CLIENT_NAME + "newNameClient" + ".jar", result.getEjbClientJar());
+	}
 
 	// @Test
 //	public void testChangeClientProject() throws Exception {
