@@ -13,6 +13,7 @@ package org.eclipse.jst.jee.model.web.tests;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -46,7 +47,6 @@ public class Web25MergedModelProviderTest extends TestCase {
 
 	public static TestSuite suite() throws Exception {
 		TestSuite suite = new TestSuite(Web25MergedModelProviderTest.class);
-		setUpProject();
 		return suite;
 	}
 
@@ -57,19 +57,24 @@ public class Web25MergedModelProviderTest extends TestCase {
 		fixture = ModelProviderManager.getModelProvider(facetedProject.getProject());
 	}
 
-	// @BeforeClass
-	public static void setUpProject() throws Exception {
-		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(Web25MergedModelProviderTest.class.getSimpleName());
-		if (!project.exists())
-		{
-			facetedProject = AbstractTest.createWebProject(Web25MergedModelProviderTest.class.getSimpleName());
-			createProjectContent();
-		}
+	protected void tearDown() throws Exception {
+		deleteProjectAndWait(facetedProject.getProject().getName());
 	}
 
-	// @AfterClass
-	public static void tearDownAfterClass() throws InterruptedException {
-		AbstractTest.deleteProject(Web25MergedModelProviderTest.class.getSimpleName());
+	private void deleteProjectAndWait(String projectName) throws InterruptedException {
+		SynchronousModelChangedListener listener = new SynchronousModelChangedListener(1);
+		fixture.addListener(listener);
+		AbstractTest.deleteProject(projectName);
+		assertTrue(listener.waitForEvents());
+		fixture.removeListener(listener);
+	}
+
+	// @BeforeClass
+	public void setUpProject() throws Exception {
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(
+				Web25MergedModelProviderTest.class.getSimpleName() + this.getName());
+		facetedProject = AbstractTest.createWebProject(project.getName());
+		createProjectContent();
 	}
 
 	private static void createProjectContent() throws Exception {
@@ -90,15 +95,37 @@ public class Web25MergedModelProviderTest extends TestCase {
 		dataModel.setStringProperty(INewServletClassDataModelProperties.JAVA_PACKAGE, "org.eclipse");
 		AddServletOperation operation = new AddServletOperation(dataModel);
 
+		executeAndWait(operation);
+
+		WebApp app = (WebApp) fixture.getModelObject();
+		assertEquals(new Integer(1), new Integer(app.getServlets().size()));
+		assertNotNull(TestUtils.findServletByName(app, "testAddServletWithOperation"));
+	}
+
+	public void testAddServletFromJSP() throws Exception {
+		AbstractTest.saveFile(facetedProject.getProject().getFile("WebContent/index.jsp"), "");
+		IDataModel dataModel = DataModelFactory.createDataModel(new NewServletClassDataModelProvider());
+		dataModel.setStringProperty(INewServletClassDataModelProperties.CLASS_NAME, "index.jsp");
+		dataModel.setStringProperty(INewServletClassDataModelProperties.DISPLAY_NAME, "index");
+		dataModel.setStringProperty(INewServletClassDataModelProperties.PROJECT_NAME, facetedProject.getProject()
+				.getName());
+		dataModel.setBooleanProperty(INewServletClassDataModelProperties.USE_EXISTING_CLASS, Boolean.TRUE);
+		dataModel.setBooleanProperty(INewServletClassDataModelProperties.IS_SERVLET_TYPE, Boolean.FALSE);
+		AddServletOperation operation = new AddServletOperation(dataModel);
+
+		executeAndWait(operation);
+
+		WebApp app = (WebApp) fixture.getModelObject();
+		assertEquals(new Integer(1), new Integer(app.getServlets().size()));
+		assertNotNull(TestUtils.findServletByName(app, "index"));
+	}
+
+	private void executeAndWait(AddServletOperation operation) throws InterruptedException, ExecutionException {
 		SynchronousModelChangedListener listener = new SynchronousModelChangedListener(1);
 		fixture.addListener(listener);
 		operation.execute(null, null);
 		listener.waitForEvents();
 		fixture.removeListener(listener);
-
-		WebApp app = (WebApp) fixture.getModelObject();
-		assertEquals(new Integer(1), new Integer(app.getServlets().size()));
-		assertNotNull(TestUtils.findServletByName(app, "testAddServletWithOperation"));
 	}
 
 }
