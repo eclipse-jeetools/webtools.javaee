@@ -14,7 +14,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -27,8 +26,8 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
@@ -46,6 +45,7 @@ import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsOp;
+import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -108,6 +108,8 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		try {
 			IVirtualComponent sourceComp = (IVirtualComponent) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
 			final IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(sourceComp.getProject());
+			final IVirtualComponent ear = (IVirtualComponent) this.model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
+			final IProject earpj = ear.getProject();
 			
 			se = StructureEdit.getStructureEditForWrite(sourceComp.getProject());
 			if (earModel != null) {
@@ -135,8 +137,9 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 											ICommonModule mod = addModule(application, wc, (String) map.get(wc));
 											if (ref!=null)
 												ref.setDependentObject((EObject)mod);
+											updateContextRoot(earpj, wc, mod);
 										}
-									}
+									}						
 								}, null);
 							} finally {
 								if (compse != null) {
@@ -161,20 +164,41 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		}
 	}
 
+	private void updateContextRoot(final IProject earpj, final IVirtualComponent wc,
+			ICommonModule mod) {
+		boolean useNewModel = JavaEEProjectUtilities.getJ2EEDDProjectVersion(earpj).equals(
+				J2EEVersionConstants.VERSION_5_0_TEXT);
+		String contextroot = ComponentUtilities.getServerContextRoot(wc.getProject());
+		if (contextroot == null) {
+			contextroot = wc.getProject().getName();
+		}
+		if (useNewModel) {
+			if (mod instanceof Module) {
+				// safety check
+				Module module = (Module) mod;
+				Web web = ((Module) mod).getWeb();
+				web.setContextRoot(contextroot);
+			}
+		}
+		else {
+			if (JavaEEProjectUtilities.isStaticWebProject(wc.getProject())
+					|| JavaEEProjectUtilities.isDynamicWebComponent(wc)) {
+				if (mod instanceof WebModule) {
+					((WebModule) mod).setContextRoot(contextroot);
+				}
+			}
+		}
+	}
+	
 	protected ICommonModule createNewModule(IVirtualComponent wc, String name) {
 		ICommonModule newModule = null;
 		final IVirtualComponent ear = (IVirtualComponent) this.model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
 		final IProject earpj = ear.getProject();
 		boolean useNewModel = JavaEEProjectUtilities.getJ2EEDDProjectVersion(earpj).equals(J2EEVersionConstants.VERSION_5_0_TEXT);
-		//[Bug 238264] need to use componenet to determine type of project incase component is binary
+		//[Bug 238264] need to use component to determine type of project in-case component is binary
 		if (JavaEEProjectUtilities.isDynamicWebComponent(wc)) {
-			Properties props = wc.getMetaProperties();
-			String contextroot = ""; //$NON-NLS-1$
-			if ((props != null) && (props.containsKey(J2EEConstants.CONTEXTROOT)))
-				contextroot = props.getProperty(J2EEConstants.CONTEXTROOT);
 			if (useNewModel) {
 				Web web = ApplicationFactory.eINSTANCE.createWeb();
-				web.setContextRoot(contextroot);
 				web.setWebUri(name);
 				Module webModule = ApplicationFactory.eINSTANCE.createModule();
 				webModule.setWeb(web);
@@ -183,9 +207,9 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 			else {
 				org.eclipse.jst.j2ee.application.WebModule webModule = org.eclipse.jst.j2ee.application.ApplicationFactory.eINSTANCE.createWebModule();
 				webModule.setUri(name);
-				webModule.setContextRoot(contextroot);
 				newModule = (ICommonModule)webModule;
 			}
+			updateContextRoot(earpj, wc, newModule);
 			return newModule;
 		} else if (JavaEEProjectUtilities.isEJBComponent(wc)) {
 			if (useNewModel) {

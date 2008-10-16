@@ -11,202 +11,166 @@
  *******************************************************************************/
 
 package org.eclipse.jst.j2ee.internal.ui;
-import org.eclipse.core.commands.ExecutionException;
+
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jst.j2ee.internal.J2EEPropertiesConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
+import org.eclipse.jst.j2ee.internal.ui.refactoring.RenameContextRootChange;
+import org.eclipse.jst.j2ee.internal.ui.refactoring.RenameContextRootRefactoringProcessor;
+import org.eclipse.jst.j2ee.internal.ui.refactoring.RenameContextRootWizard;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.ltk.ui.refactoring.RefactoringWizard;
+import org.eclipse.ltk.ui.refactoring.RefactoringWizardOpenOperation;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.PropertyPage;
-import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
-import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.web.internal.operation.IWebProjectPropertiesUpdateDataModelProperties;
-import org.eclipse.wst.web.internal.operation.WebProjectPropertiesUpdateDataModelProvider;
+import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 
-import com.ibm.icu.util.StringTokenizer;
+public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesConstants {
 
+	private Text contextRootNameField;
+	private boolean dirty = false;
 
-/**
- * 
- * To change this generated comment edit the template variable "typecomment":
- * Window>Preferences>Java>Templates. To enable and disable the creation of
- * type comments go to Window>Preferences>Java>Code Generation.
- */
-public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesConstants  {
-	protected IProject project = null;
-	private static final int SIZING_TEXT_FIELD_WIDTH = 250;
-	Text contextRootNameField, webContentFolderField;
-
-	
 	/**
 	 * @see org.eclipse.jface.preference.PreferencePage#createContents(Composite)
 	 */
 	protected Control createContents(Composite parent) {
-		Control control = null;
-		project = getProject();
-		if (project != null) {
-			Composite containerGroup = new Composite(parent, SWT.NONE );
-			control = containerGroup;
-			GridLayout layout = new GridLayout();
-			layout.numColumns = 2;
-			
-			containerGroup.setLayout(layout);
-			
-			fillInformation(project, containerGroup);
+		Composite c = parent;
+		IProject project = getProject();
+		if (project != null
+				&& JavaEEProjectUtilities.getJ2EEProjectType(project).equals(
+						JavaEEProjectUtilities.DYNAMIC_WEB)
+				|| JavaEEProjectUtilities.getJ2EEProjectType(project).equals(
+						JavaEEProjectUtilities.STATIC_WEB)) {
+
+			c = new Composite(parent, SWT.NONE);
+
+			Label contextRootLabel = new Label(c, SWT.NONE);
+			contextRootLabel.setText(J2EEPropertiesConstants.WEB_CONTEXT_ROOT);
+
+			contextRootNameField = new Text(c, SWT.BORDER);
+			contextRootNameField.addModifyListener(new ModifyListener() {
+
+				public void modifyText(ModifyEvent e) {
+					dirty = !contextRootNameField.getText().equals(
+							ComponentUtilities.getServerContextRoot(getProject()));
+					validateText();
+				}
+			});
+			GridLayoutFactory.fillDefaults().numColumns(2).applyTo(c);
+			GridDataFactory.defaultsFor(contextRootLabel).applyTo(contextRootLabel);
+			GridDataFactory.defaultsFor(contextRootNameField).grab(true, false).applyTo(
+					contextRootNameField);
 		}
-		Dialog.applyDialogFont(parent);
-		return control;
+		applyDialogFont(c);
+		return c;
 	}
-	
-	private void fillInformation(IProject p, Composite c) {
-		try {
-			if( J2EEProjectUtilities.getJ2EEProjectType(p).equals( J2EEProjectUtilities.DYNAMIC_WEB) ||
-						J2EEProjectUtilities.getJ2EEProjectType(p).equals( J2EEProjectUtilities.STATIC_WEB)	){
-				fillContextRoot(p,c);
+
+	@Override
+	public void createControl(Composite parent) {
+		super.createControl(parent);
+		refresh();
+		refreshApplyButton();
+	}
+
+	private void validateText() {
+		IStatus status = RenameContextRootChange
+				.validateContextRoot(contextRootNameField.getText());
+		if (!status.isOK()) {
+			setErrorMessage(status.getMessage());
+			setValid(false);
+		}
+		else {
+			setErrorMessage(null);
+			setValid(true);
+			refreshApplyButton();
+		}
+	}
+
+	private void refreshApplyButton() {
+		if (dirty) {
+			if (getApplyButton() != null) {
+				getApplyButton().setEnabled(true);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
-	}
-
-	
-	
-	/**
-	 * @param p
-	 * @param c
-	 */
-
-	private void fillContextRoot(IProject p, Composite c) {
-		Label contextRootLabel = new Label(c, SWT.NULL);
-		contextRootLabel.setText(J2EEPropertiesConstants.WEB_CONTEXT_ROOT);
-		GridData data = new GridData();
-		data.horizontalIndent = 15;
-		contextRootLabel.setLayoutData(data);
-		
-		contextRootNameField = new Text(c, SWT.BORDER);
-		data = new GridData(GridData.FILL_HORIZONTAL);
-		data.widthHint = SIZING_TEXT_FIELD_WIDTH;
-		contextRootNameField.setLayoutData(data);
-		contextRootNameField.setEditable(true);
-		
-		String s = J2EEProjectUtilities.getServerContextRoot(p);
-		if( s == null ){
-			s = ""; //$NON-NLS-1$
-		}
-		contextRootNameField.setText(s);
-		
-		contextRootNameField.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
-				String newContextRoot = contextRootNameField.getText();
-				validateContextRoot(newContextRoot);
+		else {
+			if (getApplyButton() != null) {
+				getApplyButton().setEnabled(false);
 			}
-        });
-		
-		
+		}
 	}
 
+	public void refresh() {
+		if (contextRootNameField != null) {
+			String s = ComponentUtilities.getServerContextRoot(getProject());
+			if (s == null) {
+				s = ""; //$NON-NLS-1$
+			}
+			contextRootNameField.setText(s);
+			validateText();
+		}
+	}
 
 	private IProject getProject() {
-		if (project == null) {
-			Object element = getElement();
-			if (element == null) {
-				return null;
-			}
-			if (element instanceof IProject) {
-				project = (IProject)element;
-				return project;
-			}
+
+		Object element = getElement();
+		if (element == null) {
 			return null;
 		}
-		return project;
-	}
-
-	/**
-	 * @return
-	 */
-	private String getContextRoot() {
-		return (contextRootNameField != null) ? contextRootNameField.getText() : null;
-	}
-
-	protected boolean hasUpdatedInformation() {
-		return hasContextRootChanged();
- 	
-	 }
-	
-	private boolean hasContextRootChanged() {
-		String oldContextRoot = J2EEProjectUtilities.getServerContextRoot( project );
-		if (oldContextRoot == null) return true;
-		return !oldContextRoot.equals(getContextRoot());
-	}
-	
-
-	
-	protected void performDefaults() {
-		super.performDefaults();
-	
-		if (this.contextRootNameField != null)
-			contextRootNameField.setText(J2EEProjectUtilities.getServerContextRoot(project));
-		
-	}
-	
-	
-	public boolean performOk() {
-		boolean retVal = true;
-
-		IDataModel model = DataModelFactory.createDataModel( new WebProjectPropertiesUpdateDataModelProvider());
-		model.setProperty( IWebProjectPropertiesUpdateDataModelProperties.PROJECT, project );
-		model.setStringProperty( IWebProjectPropertiesUpdateDataModelProperties.CONTEXT_ROOT, getContextRoot() );
-		try {
-			model.getDefaultOperation().execute( new NullProgressMonitor(), null );
-		} catch (ExecutionException e) {
-			Logger.getLogger().logError( e );
+		if (element instanceof IProject) {
+			IProject project = (IProject) element;
+			return project;
 		}
-		return retVal;
+		return null;
+
 	}
-	
 
-	 
-	 public void validateContextRoot(String name) {  
-        boolean bValid = true;
-        if (name == null) { 
-            //  this was added because the error message shouldnt be shown initially. It should be shown only if context
-            // root field is edited to
-            this.setErrorMessage(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Context_Root_cannot_be_empty_2, new Object[0]));
-            bValid = false;
-        }
+	private int doRefactor() {
+		int id = IDialogConstants.OK_ID;
+		if (dirty) {
+			RenameContextRootRefactoringProcessor processor = new RenameContextRootRefactoringProcessor();
+			processor.setProject(getProject());
+			processor.setNewName(contextRootNameField.getText());
+			RenameContextRootWizard wizard = new RenameContextRootWizard(processor,
+					RefactoringWizard.DIALOG_BASED_USER_INTERFACE);
+			wizard.setPrompt(false);
+			RefactoringWizardOpenOperation operation = new RefactoringWizardOpenOperation(wizard);
 
-        if (!(name.indexOf(' ') > -1)) {
-            StringTokenizer stok = new StringTokenizer(name, "."); //$NON-NLS-1$
-            while (stok.hasMoreTokens()) {
-                String token = stok.nextToken();
-                for (int i = 0; i < token.length(); i++) {
-                    if (!(token.charAt(i) == '_') && !(token.charAt(i) == '-') && !(token.charAt(i) == '/') && Character.isLetterOrDigit(token.charAt(i)) == false) {
-                        if (Character.isWhitespace(token.charAt(i)) == false) {
-                        	this.setErrorMessage( ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.The_character_is_invalid_in_a_context_root , new Object[] {(new Character(token.charAt(i))).toString()}));
-                        	bValid = false;
-                        }
-                    }
-                }
-            }
-        } // en/ end of if(name.trim
-        else {
-        	this.setErrorMessage(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Names_cannot_contain_whitespace_, new Object[0]));
-        	bValid = false;
-        }
-        if (bValid)   	this.setErrorMessage(null);
-        this.setValid(bValid);
-     
-    }
-	
+			try {
+				id = operation.run(getShell(), ""); //$NON-NLS-1$
+			}
+			catch (InterruptedException ee) {
+
+			}
+			if (id == IDialogConstants.OK_ID) {
+				dirty = false;
+				refresh();
+			}
+		}
+
+		return id;
+	}
+
+	@Override
+	protected void performApply() {
+		doRefactor();
+	}
+
+	@Override
+	protected void performDefaults() {
+		refresh();
+	}
+
+	public boolean performOk() {
+		return doRefactor() == IDialogConstants.OK_ID;
+	}
+
 }

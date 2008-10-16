@@ -16,6 +16,7 @@ import java.util.List;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -27,10 +28,7 @@ import org.eclipse.jst.javaee.core.DisplayName;
 import org.eclipse.jst.javaee.core.JavaeeFactory;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.web.WebApp;
-import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
-import org.eclipse.wst.common.componentcore.internal.Property;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -54,39 +52,16 @@ public class ProjectRenameOperation extends ProjectRefactorOperation {
 	 */
 	protected void updateProject(final ProjectRefactorMetadata originalMetadata) 
 		throws ExecutionException {
-		
+		  
 		// Update the project's .component file
 		final ProjectRefactorMetadata refactoredMetadata = super.getProjectMetadata();
 		final String oldProjectName = originalMetadata.getProjectName();
 		final String newProjectName = refactoredMetadata.getProjectName();
-		StructureEdit core = null;
-		try {
-			core = StructureEdit.getStructureEditForWrite(refactoredMetadata.getProject());
-			WorkbenchComponent component = core.getComponent();
-			// if the deploy-name had been set to the old project name, update it to 
-			// the new project name
-			if (component.getName().equals(originalMetadata.getProjectName())) {
-				component.setName(refactoredMetadata.getProjectName());
-			}
-			// if there is a context-root property that had been set to the old project name, update it to 
-			// the new project name
-			List propList = component.getProperties();
-            for (int i = 0; i < propList.size(); i++) {
-            	final Property prop = (Property) propList.get(i);
-            	if (prop.getName().equals("context-root") && prop.getValue().equals(oldProjectName)) {
-            		propList.remove(i);
-            		final Property newProp = ComponentcoreFactory.eINSTANCE.createProperty();
-				    newProp.setName("context-root");
-				    newProp.setValue(newProjectName);
-				    propList.add(newProp);
-				    break;
-            	}
-            }
-		} finally {
-			if(core != null) {
-				core.saveIfNecessary(null);
-				core.dispose();
-			}
+		IProject newProject = ResourcesPlugin.getWorkspace(). getRoot().getProject(newProjectName);
+		String originalContextRoot = ComponentUtilities.getServerContextRoot(newProject);
+		if (oldProjectName.equals(originalContextRoot)) {
+			// if old context root = project name, lets update it
+			ComponentUtilities.setServerContextRoot(newProject, newProjectName);
 		}
 		
 		// if the deploy-name equals the old project name, update it in the module-specific deployment descriptor
