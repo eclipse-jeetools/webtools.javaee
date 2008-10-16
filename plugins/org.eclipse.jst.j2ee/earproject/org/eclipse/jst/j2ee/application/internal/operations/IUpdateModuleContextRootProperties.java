@@ -10,12 +10,12 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
-import org.eclipse.wst.web.internal.operation.IWebProjectPropertiesUpdateDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IServerContextRootDataModelProperties;
 
 /**
  * Holds DataModelOperation properties for updating the context-root of modules in associated EAR application.xml files.
  */
-public interface IUpdateModuleContextRootProperties extends IWebProjectPropertiesUpdateDataModelProperties {
+public interface IUpdateModuleContextRootProperties extends IServerContextRootDataModelProperties {
 	/**
 	 * ID for nexted IDataModel
 	 */
