@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.project;
 import java.util.Properties;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
@@ -40,25 +41,28 @@ public class EJBUtilities extends JavaEEProjectUtilities {
 					IArchive archive = null;
 					try {
 						archive = helper.accessArchive();
-						Object jar = archive.getModelObject(new Path("META-INF/ejb-jar.xml"));
-						String clientJAR = null;
-						if (jar != null)
-						{
-							if (jar instanceof org.eclipse.jst.j2ee.ejb.EJBJar)
+						IPath ddPath = new Path("META-INF/ejb-jar.xml");
+						if(archive.containsArchiveResource(ddPath)){
+							Object jar = archive.getModelObject(ddPath);
+							String clientJAR = null;
+							if (jar != null)
 							{
-								clientJAR = ((org.eclipse.jst.j2ee.ejb.EJBJar)jar).getEjbClientJar();
+								if (jar instanceof org.eclipse.jst.j2ee.ejb.EJBJar)
+								{
+									clientJAR = ((org.eclipse.jst.j2ee.ejb.EJBJar)jar).getEjbClientJar();
+								}
+								else if (jar instanceof org.eclipse.jst.javaee.ejb.EJBJar)
+								{
+									clientJAR = ((org.eclipse.jst.javaee.ejb.EJBJar)jar).getEjbClientJar();
+								}
 							}
-							else if (jar instanceof org.eclipse.jst.javaee.ejb.EJBJar)
-							{
-								clientJAR = ((org.eclipse.jst.javaee.ejb.EJBJar)jar).getEjbClientJar();
-							}
-						}
-						if (clientJAR != null) {
-							IVirtualComponent earComponent = ComponentCore.createComponent(ejbComponent.getProject());
-							IVirtualReference[] refs = earComponent.getReferences();
-							for (int i = 0; i < refs.length; i++) {
-								if (refs[i].getArchiveName().equals(clientJAR)) {
-									return refs[i].getReferencedComponent();
+							if (clientJAR != null) {
+								IVirtualComponent earComponent = ComponentCore.createComponent(ejbComponent.getProject());
+								IVirtualReference[] refs = earComponent.getReferences();
+								for (int i = 0; i < refs.length; i++) {
+									if (refs[i].getArchiveName().equals(clientJAR)) {
+										return refs[i].getReferencedComponent();
+									}
 								}
 							}
 						}
