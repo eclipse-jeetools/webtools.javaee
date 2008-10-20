@@ -121,7 +121,7 @@ public class J2EEDependencyListener implements IResourceChangeListener, IResourc
 			if (name.equals(J2EEConstants.MANIFEST_SHORT_NAME)) {
 				IFile manifestFile = J2EEProjectUtilities.getManifestFile(resource.getProject(), false);
 				if (null == manifestFile || resource.equals(manifestFile)) {
-					IDependencyGraph.INSTANCE.update(resource.getProject());
+					IDependencyGraph.INSTANCE.update(resource.getProject(), IDependencyGraph.MODIFIED);
 				}
 			} else if (name.equals(WTPModulesResourceFactory.WTP_MODULES_SHORT_NAME)) {
 				if (EarUtilities.isEARProject(resource.getProject())) {
@@ -129,17 +129,18 @@ public class J2EEDependencyListener implements IResourceChangeListener, IResourc
 					// is to force the update of all projects
 					IProject[] allProjects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 					for (IProject sourceProject : allProjects) {
-						IDependencyGraph.INSTANCE.update(sourceProject);
+						IDependencyGraph.INSTANCE.update(sourceProject, IDependencyGraph.MODIFIED);
 					}
 				}
-			} else if (endsWithIgnoreCase(name, IModuleExtensions.DOT_JAR)) {
+			} else if (endsWithIgnoreCase(name, IModuleExtensions.DOT_JAR) || endsWithIgnoreCase(name, IModuleExtensions.DOT_WAR) || endsWithIgnoreCase(name, IModuleExtensions.DOT_RAR)) {
 				if (EarUtilities.isEARProject(resource.getProject())) {
 					IVirtualComponent comp = ComponentCore.createComponent(resource.getProject());
 					if (isFolder(resource.getParent(), comp.getRootFolder())) {
 						IVirtualReference[] refs = comp.getReferences();
 						for (IVirtualReference ref : refs) {
-							IDependencyGraph.INSTANCE.update(ref.getReferencedComponent().getProject());
+							IDependencyGraph.INSTANCE.update(ref.getReferencedComponent().getProject(), IDependencyGraph.MODIFIED);
 						}
+						IDependencyGraph.INSTANCE.update(resource.getProject(), IDependencyGraph.MODIFIED);
 					}
 
 				}
