@@ -15,6 +15,8 @@ import java.util.Map;
 
 import junit.framework.TestSuite;
 
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -36,6 +38,7 @@ import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.javaee.ejb.EJBJar;
+import org.eclipse.jst.jee.model.internal.Ejb3ModelProvider;
 import org.eclipse.jst.jee.model.tests.AbstractAnnotationModelTest;
 import org.eclipse.jst.jee.model.tests.AbstractTest;
 import org.eclipse.jst.jee.model.tests.SynchronousModelChangedListener;
@@ -123,39 +126,98 @@ public class EJB3MergedModelProviderTest extends AbstractAnnotationModelTest {
 
 		EJBJar result = (EJBJar) provider.getModelObject();
 		assertEquals(new Integer(0), new Integer(result.getEnterpriseBeans().getSessionBeans().size()));
-		SynchronousModelChangedListener listener = new SynchronousModelChangedListener(1);
-		provider.addListener(listener);
-		operation.execute(null, null);
-		assertTrue(listener.waitForEvents());
-		provider.removeListener(listener);
+		executeAndWait(operation, provider);
 
 		result = (EJBJar) provider.getModelObject();
 		assertEquals(new Integer(1), new Integer(result.getEnterpriseBeans().getSessionBeans().size()));
 		assertNotNull(TestUtils.getSessionBean(result, "testAddBeanWithOperation"));
 	}
 
-	public void testCreateClientProjectWithOperation() throws Exception {
+	// @Test
+	public void testAddBeanWithOperationPreserveListeners() throws Exception {
 		final String ejbProjectName = this.getClass().getSimpleName() + this.getName();
-		final String earProjectName = ejbProjectName + "ear";
+		IProject project = ProjectUtil.createEJBProject(ejbProjectName, null, J2EEVersionConstants.EJB_3_0_ID, true);
+		IModelProvider provider = ModelProviderManager.getModelProvider(project);
+		IDataModelOperation operation = createBeanOperation("testAddBeanWithOperationPreserveListeners1", "com.sap",
+				project.getName());
+		SynchronousModelChangedListener preservedListener = new SynchronousModelChangedListener(2);
+		provider.addListener(preservedListener);
+		executeAndWait(operation, provider);
+		assertNotNull(TestUtils.getSessionBean((EJBJar) provider.getModelObject(),
+				"testAddBeanWithOperationPreserveListeners1"));
+
+		int oldReceivedEvents = preservedListener.getReceivedEvents().size();
+		operation = createBeanOperation("testAddBeanWithOperationPreserveListeners2", "com.sap", project.getName());
+		executeAndWait(operation, provider);
+		assertNotNull(TestUtils.getSessionBean((EJBJar) provider.getModelObject(),
+				"testAddBeanWithOperationPreserveListeners2"));
+		assertTrue(preservedListener.getReceivedEvents().size() > oldReceivedEvents);
+	}
+
+	/**
+	 * Execute an operation on the model. Change the dd. The listeners should
+	 * not be removed. https://bugs.eclipse.org/bugs/show_bug.cgi?id=241496
+	 * 
+	 * @throws Exception
+	 */
+	public void testPreserveListenersChangeDD() throws Exception {
+		final String ejbProjectName = this.getClass().getSimpleName() + this.getName();
+		final IProject project = createEjbProjectWithoutClient(ejbProjectName, ejbProjectName + "ear");
+		final IDataModel model = createModelEjbProjectWithClient(ejbProjectName);
+		SynchronousModelChangedListener preserveListener = new SynchronousModelChangedListener(2);
+
+		IModelProvider provider = ModelProviderManager.getModelProvider(project);
+		provider.addListener(preserveListener);
+		IFile ejbJarXml = project.getFile("ejbModule/META-INF/ejb-jar.xml");
+		String content = TestUtils.getFileContent(ejbJarXml);
+		executeAndWait(model.getDefaultOperation(), provider);
+		assertNotNull(((EJBJar) provider.getModelObject()).getEjbClientJar());
+
+		int oldEventsSize = preserveListener.getReceivedEvents().size();
+		AbstractTest.saveFile(ejbJarXml, content);
+		assertTrue(preserveListener.waitForEvents());
+		assertTrue(preserveListener.getReceivedEvents().size() > oldEventsSize);
+		assertNull(((EJBJar) provider.getModelObject()).getEjbClientJar());
+		fixture.removeListener(preserveListener);
+	}
+
+	private IDataModel createModelEjbProjectWithClient(final String ejbProjectName) {
+		final IDataModel model = DataModelFactory.createDataModel(new EjbClientJarCreationDataModelProvider());
+		model.setProperty(IEjbClientJarCreationDataModelProperties.EJB_PROJECT_NAME, ejbProjectName);
+		model.setProperty(IEjbClientJarCreationDataModelProperties.PROJECT_NAME, CLIENT_NAME + "newName");
+		return model;
+	}
+
+	private IProject createEjbProjectWithoutClient(final String ejbProjectName, final String earProjectName)
+			throws Exception {
 		Map<String, Object> facetModelProperties = new HashMap<String, Object>();
 		facetModelProperties.put(IEjbFacetInstallDataModelProperties.CREATE_CLIENT, false);
 		facetModelProperties.put(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, true);
 		final IProject project = ProjectUtil.createEJBProject(ejbProjectName, earProjectName, facetModelProperties,
 				J2EEVersionConstants.EJB_3_0_ID, true);
-		final IModelProvider provider = ModelProviderManager.getModelProvider(project);
-		provider.getModelObject();
-		final IDataModel model = DataModelFactory.createDataModel(new EjbClientJarCreationDataModelProvider());
-		model.setProperty(IEjbClientJarCreationDataModelProperties.EJB_PROJECT_NAME, ejbProjectName);
-		model.setProperty(IEjbClientJarCreationDataModelProperties.PROJECT_NAME, CLIENT_NAME + "newName");
+		return project;
+	}
 
-		SynchronousModelChangedListener listener = new SynchronousModelChangedListener(1);
-		provider.addListener(listener);
-		model.getDefaultOperation().execute(null, null);
-		assertTrue(listener.waitForEvents());
-		provider.removeListener(listener);
+	public void testCreateClientProjectWithOperation() throws Exception {
+		final String ejbProjectName = this.getClass().getSimpleName() + this.getName();
+		final IProject project = createEjbProjectWithoutClient(ejbProjectName, ejbProjectName + "ear");
+		final IModelProvider provider = new Ejb3ModelProvider(project);
+		provider.getModelObject();
+		final IDataModel model = createModelEjbProjectWithClient(ejbProjectName);
+
+		executeAndWait(model.getDefaultOperation(), provider);
 
 		EJBJar result = (EJBJar) provider.getModelObject();
 		assertEquals(CLIENT_NAME + "newNameClient" + ".jar", result.getEjbClientJar());
+	}
+
+	private void executeAndWait(IDataModelOperation operation, IModelProvider provider) throws InterruptedException,
+			ExecutionException {
+		SynchronousModelChangedListener listener = new SynchronousModelChangedListener(1);
+		provider.addListener(listener);
+		operation.execute(null, null);
+		assertTrue(listener.waitForEvents());
+		provider.removeListener(listener);
 	}
 
 	// @Test
@@ -244,11 +306,7 @@ public class EJB3MergedModelProviderTest extends AbstractAnnotationModelTest {
 		assertEquals(ejbProjectName + "Client.jar", result.getEjbClientJar());
 		IDataModelOperation operation = createBeanOperation("testAddSessionBeanClientExists", "com.sap", project
 				.getName());
-		SynchronousModelChangedListener listener = new SynchronousModelChangedListener(1);
-		provider.addListener(listener);
-		operation.execute(null, null);
-		listener.waitForEvents();
-		provider.removeListener(listener);
+		executeAndWait(operation, provider);
 
 		result = (EJBJar) provider.getModelObject();
 		assertNotNull(TestUtils.getSessionBean(result, "testAddSessionBeanClientExists"));

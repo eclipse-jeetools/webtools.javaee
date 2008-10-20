@@ -10,9 +10,14 @@
  ***********************************************************************/
 package org.eclipse.jst.jee.model.tests;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jst.javaee.core.EjbLocalRef;
 import org.eclipse.jst.javaee.core.LifecycleCallback;
 import org.eclipse.jst.javaee.core.ResourceRef;
@@ -32,6 +37,19 @@ import org.eclipse.jst.javaee.web.WebApp;
  *
  */
 public class TestUtils {
+	
+	public static String getFileContent(IFile file) throws CoreException, IOException {
+		InputStream stream = file.getContents();
+		try {
+			ByteArrayOutputStream os = new ByteArrayOutputStream();
+			int i = 0;
+			while ((i = stream.read()) != -1)
+				os.write(i);
+			return os.toString();
+		} finally {
+			stream.close();
+		}
+	}
 
 	public static EjbLocalRef findLocalRefByName(List<EjbLocalRef> localRefs, String refName) {
 		for (Iterator iter = localRefs.iterator(); iter.hasNext();) {
