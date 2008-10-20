@@ -15,11 +15,15 @@ import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataM
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.BROWSE_BUTTON_LABEL;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.CLASS_NAME_LABEL;
 import static org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties.PROJECT_NAME;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.GENERATE_DD;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
@@ -35,6 +39,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
@@ -160,5 +166,24 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage {
 			}
 		}
 		return false;
+	}
+
+	protected void validateProjectRequirements(IProject project)
+	{
+		IVirtualComponent component = ComponentCore.createComponent(project);
+		if(component.getRootFolder() != null
+				&& component.getRootFolder().getUnderlyingFolder() != null){
+			IFile ddXmlFile = component.getRootFolder().getUnderlyingFolder().getFile(new Path(J2EEConstants.WEBAPP_DD_URI));
+			if (!ddXmlFile.exists())
+			{
+				// add a flag into the model to create the DD at the beginning of the operation
+				model.setBooleanProperty(GENERATE_DD, Boolean.TRUE);
+			}
+			else
+			{
+				// don't create a DD, since one already exists.
+				model.setBooleanProperty(GENERATE_DD, Boolean.FALSE);
+			}
+		}
 	}
 }
