@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -30,8 +31,10 @@ import org.eclipse.jface.viewers.AbstractTreeViewer;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.j2ee.internal.ejb.provider.BeanClassProviderHelper;
+import org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper;
 import org.eclipse.jst.j2ee.internal.provider.MethodsProviderDelegate;
 import org.eclipse.jst.j2ee.navigator.internal.EMFRootObjectProvider.IRefreshHandlerListener;
+import org.eclipse.jst.j2ee.navigator.internal.plugin.J2EENavigatorPlugin;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.progress.UIJob;
@@ -89,39 +92,43 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 	public Object[] getChildren(Object aParentElement) {
 		IProject project = null;
 		List children = new ArrayList();
-		if (aParentElement instanceof IAdaptable && !(aParentElement instanceof EObject) && !(aParentElement instanceof ItemProvider)) {
-			project = (IProject) ((IAdaptable) aParentElement).getAdapter(IPROJECT_CLASS); 
-			 
-	 			
-			// Verify if the model *is being* 
-			//			loaded and just return the place holder 			
-			if(LoadingDDNode.isBeingLoaded(project)) {
-				children.add(LoadingDDNode.createPlaceHolder(project)); 
-				
-			// Verify if the model has been loaded, just return it  
-			} else if (rootObjectProvider.hasLoadedModels(project)) {
-				/* model already loaded, just return the model */ 
-				children.addAll(Arrays.asList(rootObjectProvider.getModels(project)));
-			
-			// Otherwise return a place holder node and start loading job
-			} else { 
-				LoadingDDNode placeHolder = LoadingDDNode.createPlaceHolder(project);
-				/* we need to load the model; possible long running operation */					
-				if(LoadingDDNode.canBeginLoading(project))
-					new LoadingDDJob(viewer, placeHolder, (IAdaptable) aParentElement, rootObjectProvider)
-						.schedule();
-				children.add(placeHolder);
+		if (aParentElement instanceof IAdaptable && !(aParentElement instanceof EObject) && !(aParentElement instanceof ItemProvider)
+				&& !(aParentElement instanceof J2EEJavaClassProviderHelper)) {
+			project = (IProject) ProjectUtilities.getProject(aParentElement);
+
+			if (project != null) {
+				// Verify if the model *is being*
+				// loaded and just return the place holder
+				if (LoadingDDNode.isBeingLoaded(project)) {
+					children.add(LoadingDDNode.createPlaceHolder(project));
+
+					// Verify if the model has been loaded, just return it
+				} else if (rootObjectProvider.hasLoadedModels(project)) {
+					/* model already loaded, just return the model */
+					children.addAll(Arrays.asList(rootObjectProvider.getModels(project)));
+
+					// Otherwise return a place holder node and start loading
+					// job
+				} else {
+					LoadingDDNode placeHolder = LoadingDDNode.createPlaceHolder(project);
+					/*
+					 * we need to load the model; possible long running
+					 * operation
+					 */
+					if (LoadingDDNode.canBeginLoading(project))
+						new LoadingDDJob(viewer, placeHolder, (IAdaptable) aParentElement, rootObjectProvider).schedule();
+					children.add(placeHolder);
+				}
+
 			}
-//			if (project != null) {
-//				LoadingDDNode placeHolder = new LoadingDDNode(project.getName());				
-//				LoadingDDJob loadJob = new LoadingDDJob(viewer, placeHolder, (IAdaptable) aParentElement, rootObjectProvider);
-//				loadJob.schedule();
-//				children.add(placeHolder);
-//			}
 		} else if (MethodsProviderDelegate.providesContentFor(aParentElement))
 			return delegateMethodsProvider.getChildren(aParentElement);
 		else /* if (isEMFEditObject(aParentElement)) */{
-			Object[] siblings = delegateContentProvider.getChildren(aParentElement);
+			Object[] siblings = null;
+			try {
+				siblings = delegateContentProvider.getChildren(aParentElement);
+			} catch (Exception e) {
+				J2EENavigatorPlugin.logError(0, e.getMessage(), e);			}
 			if (siblings != null)
 				children.addAll(Arrays.asList(siblings));
 		}
