@@ -16,13 +16,16 @@ import java.util.HashSet;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProviderEvent;
 import org.eclipse.jst.j2ee.model.IModelProviderListener;
+import org.eclipse.jst.jee.JEEPlugin;
 
 /**
  * A base class for model providers providing a merged view between two
@@ -30,7 +33,7 @@ import org.eclipse.jst.j2ee.model.IModelProviderListener;
  * where the two composed providers will be called "internalProviders"
  * 
  * This class introduces the notation of a disposed state. {@link #dispose()} is
- * used to dispose the model provider. {@link #isDisposed()} is used get the
+ * used to dispose the model provider. {@link #isDisposed()} is used to get the
  * state of the provider. If the method {@link #getModelObject()} is called for
  * a model provider in a disposed state, the provider should try to move to a
  * non disposed state and return a correct model object.
@@ -48,14 +51,14 @@ import org.eclipse.jst.j2ee.model.IModelProviderListener;
  * <p>
  * internalProviders are loaded with {@link #loadDeploymentDescriptorModel()}
  * and {@link #loadAnnotationModel(Object)}. This methods should be override to
- * provide create the specific model providers.
+ * provide specific model providers.
  * </p>
  * 
  * <p>
  * The mergedModelProvider is a listener to the internalProviders. After
  * disposing the instance of a mergedModelProvider it should no longer accept
  * notifications from the internalProviders. It should also properly "dispose"
- * the internalProviders if need.
+ * the internalProviders if needed.
  * </p>
  * 
  * @author Kiril Mitov k.mitov@sap.com
@@ -67,11 +70,9 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 
 	protected IModelProvider annotationModelProvider;
 
-	protected boolean isOnceDisposed = false;
-
 	private class AnnotationModelListener implements IModelProviderListener {
 		public void modelsChanged(IModelProviderEvent event) {
-			if (isDisposed())
+			if (isDisposed() || mergedModel == null)
 				return;
 			if (shouldDispose(event)) {
 				dispose();
@@ -84,10 +85,10 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 
 	private class XmlModelListener implements IModelProviderListener {
 		public void modelsChanged(IModelProviderEvent event) {
-			if (isDisposed())
+			if (isDisposed() || mergedModel == null)
 				return;
 			if (shouldDispose(event)) {
-				dispose();
+				mergedModel = null;
 				notifyListeners(event);
 				return;
 			}
@@ -126,7 +127,7 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.jst.j2ee.model.IModelProvider#modify(java.lang.Runnable,
-	 *      org.eclipse.core.runtime.IPath)
+	 * org.eclipse.core.runtime.IPath)
 	 */
 	public void modify(Runnable runnable, IPath modelPath) {
 	}
@@ -138,8 +139,9 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.model.IModelProvider#validateEdit(org.eclipse.core.runtime.IPath,
-	 *      java.lang.Object)
+	 * @see
+	 * org.eclipse.jst.j2ee.model.IModelProvider#validateEdit(org.eclipse.core
+	 * .runtime.IPath, java.lang.Object)
 	 */
 	public IStatus validateEdit(IPath modelPath, Object context) {
 		if (ddProvider == null)
@@ -200,7 +202,7 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 			if (mergedModel == null)
 				mergedModel = loadModel();
 		} catch (CoreException e) {
-			e.printStackTrace();
+			JEEPlugin.getDefault().getLog().log(e.getStatus());
 			return null;
 		}
 		return mergedModel;
@@ -214,10 +216,12 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 	protected T loadModel() throws CoreException {
 		if (project.isAccessible() == false)
 			throw new IllegalStateException("The project <" + project + "> is not accessible."); //$NON-NLS-1$//$NON-NLS-2$
-		ddProvider = loadDeploymentDescriptorModel();
+		if (ddProvider == null)
+			ddProvider = loadDeploymentDescriptorModel();
 		if (ddProvider == null || ddProvider.getModelObject() == null)
 			return null;
-		annotationModelProvider = loadAnnotationModel((T) ddProvider.getModelObject());
+		if (annotationModelProvider == null)
+			annotationModelProvider = loadAnnotationModel((T) ddProvider.getModelObject());
 		if (annotationModelProvider == null || annotationModelProvider.getModelObject() == null)
 			return null;
 		T ddModel = (T) ddProvider.getModelObject();
@@ -226,7 +230,6 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 		initMergedModelResource((EObject) ddModel);
 
 		enableInternalNotifications();
-		isOnceDisposed = false;
 		return merge(ddModel, annotationModel);
 	}
 
@@ -269,11 +272,17 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 		annotationModelProvider.removeListener(annotationModelListener);
 	}
 
-	protected void notifyListeners(IModelProviderEvent event) {
+	protected void notifyListeners(final IModelProviderEvent event) {
 		event.setModel(this);
 		event.setProject(project);
-		for (IModelProviderListener listener : getListeners()) {
-			listener.modelsChanged(event);
+		for (final IModelProviderListener listener : getListeners()) {
+			SafeRunner.run(new ISafeRunnable() {
+				public void handleException(Throwable exception) {
+				}
+				public void run() throws Exception {
+					listener.modelsChanged(event);
+				}
+			});
 		}
 	}
 
@@ -290,7 +299,7 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 	 * @return true if the model provider is to be treated as disposed
 	 */
 	public boolean isDisposed() {
-		return isOnceDisposed || (ddProvider == null && annotationModelProvider == null);
+		return (ddProvider == null && annotationModelProvider == null);
 	}
 
 	/**
@@ -308,7 +317,6 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 		ddProvider = null;
 		annotationModelProvider = null;
 		mergedModel = null;
-		isOnceDisposed = true;
 	}
 
 }
