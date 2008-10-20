@@ -181,9 +181,7 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 	@Override
 	protected EJBJar merge(EJBJar ddModel, EJBJar annotationsModel) {
 		try {
-			if (mergedModel == ddModel) {
-				mergeWithModel(annotationsModel);
-			} else {
+			if (mergedModel != ddModel) {
 				clearModel(mergedModel);
 				mergedModel.setEnterpriseBeans(EjbFactory.eINSTANCE.createEnterpriseBeans());
 				mergeWithModel(ddModel);

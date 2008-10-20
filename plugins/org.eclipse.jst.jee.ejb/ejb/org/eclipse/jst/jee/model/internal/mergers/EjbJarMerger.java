@@ -150,7 +150,7 @@ public class EjbJarMerger extends ModelElementMerger {
         IMerger m = getSessionMerger((SessionBean)baseBean, sessionType, getKind());
         if(m != null){
           warnings.addAll(m.process());
-          break;
+          continue;
         }
       } else {
         sessionBeansBase.add(EcoreUtil.copy((EObject) session));
