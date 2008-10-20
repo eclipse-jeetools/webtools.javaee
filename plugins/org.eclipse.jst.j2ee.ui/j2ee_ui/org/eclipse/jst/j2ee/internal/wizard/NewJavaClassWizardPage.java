@@ -171,12 +171,14 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		projectNameCombo.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				super.widgetSelected(e);
+				IProject project = ProjectUtilities.getProject(projectNameCombo.getText());
 				// update source folder
 				if (folderText != null) {					
-					String sourceFolder = getDefaultJavaSourceFolder(ProjectUtilities.getProject(projectNameCombo.getText())).getFullPath().toOSString();					
+					String sourceFolder = getDefaultJavaSourceFolder(project).getFullPath().toOSString();					
 					if (sourceFolder != null)
 						folderText.setText(sourceFolder);
 				}
+				validateProjectRequirements(project);
 			}
 		});
 		synchHelper.synchCombo(projectNameCombo, IArtifactEditOperationDataModelProperties.PROJECT_NAME, null);
@@ -258,6 +260,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 			if (selectedProject != null && selectedProject.isAccessible()
 					&& selectedProject.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
 				projectNameCombo.setText(selectedProject.getName());
+				validateProjectRequirements(selectedProject);
 				model.setProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME, selectedProject.getName());
 			}
 		} catch (CoreException ce) {
@@ -268,6 +271,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 
 		if ((projectNameCombo.getText() == null || projectNameCombo.getText().length() == 0) && projectName != null) {
 			projectNameCombo.setText(projectName);
+			validateProjectRequirements(ProjectUtilities.getProject(projectName));
 			model.setProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME, projectName);
 		}
 
@@ -695,4 +699,8 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		this.projectName = projectName;
 	}
 
+	protected void validateProjectRequirements(IProject project)
+	{
+		// nothing to do in most cases
+	}
 }

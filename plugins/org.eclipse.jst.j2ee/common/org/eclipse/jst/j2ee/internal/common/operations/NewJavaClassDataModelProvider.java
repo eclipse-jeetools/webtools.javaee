@@ -26,6 +26,7 @@ import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataM
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SOURCE_FOLDER;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SUPERCLASS;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.GENERATE_DD;
 
 import java.lang.reflect.Modifier;
 import java.net.URI;
@@ -192,6 +193,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 		propertyNames.add(JAVA_SOURCE_FOLDER);
 		propertyNames.add(PROJECT);
 		propertyNames.add(QUALIFIED_CLASS_NAME);
+		propertyNames.add(GENERATE_DD);
 		return propertyNames;
 	}
 
@@ -235,6 +237,8 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 			return getJavaPackageFragmentRoot();
 		else if (propertyName.equals(QUALIFIED_CLASS_NAME))
 			return getQualifiedClassName();
+		else if (GENERATE_DD.equals(propertyName))
+			return Boolean.FALSE;
 		return super.getDefaultProperty(propertyName);
 	}
 

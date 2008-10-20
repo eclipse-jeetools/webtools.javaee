@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 
 import static org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel.USE_ANNOTATIONS;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CLASS_NAME;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.GENERATE_DD;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.USE_EXISTING_CLASS;
 
 import java.lang.reflect.InvocationTargetException;
@@ -22,6 +23,9 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.common.operations.AddJavaEEArtifactOperation;
+import org.eclipse.jst.jee.project.facet.ICreateDeploymentFilesDataModelProperties;
+import org.eclipse.jst.jee.project.facet.IWebCreateDeploymentFilesDataModelProperties;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public abstract class AddWebClassOperation extends AddJavaEEArtifactOperation {
@@ -64,7 +68,15 @@ public abstract class AddWebClassOperation extends AddJavaEEArtifactOperation {
 
 		// If the filter is not annotated, generate the filter metadata for the DD
 		if (!model.getBooleanProperty(USE_ANNOTATIONS))
+		{
+			if (model.getBooleanProperty(GENERATE_DD))
+			{
+				IDataModel ddModel = DataModelFactory.createDataModel(IWebCreateDeploymentFilesDataModelProperties.class);
+				ddModel.setProperty(ICreateDeploymentFilesDataModelProperties.TARGET_PROJECT, getTargetProject());
+				ddModel.getDefaultOperation().execute(monitor, info);
+			}
 			generateMetaData(model, qualifiedClassName);
+		}
 		
 		return OK_STATUS;
 	}
