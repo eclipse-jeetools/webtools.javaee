@@ -253,7 +253,7 @@ public abstract class AbstractAnnotationModelProvider<T> implements IElementChan
 	public void dispose() {
 		IModelProviderEvent modelEvent = createModelProviderEvent();
 		modelEvent.addResource(facetedProject.getProject());
-		modelEvent.setEventCode(modelEvent.getEventCode() | IModelProviderEvent.PRE_DISPOSE);
+		modelEvent.setEventCode(IModelProviderEvent.UNLOADED_RESOURCE);
 		JavaCore.removeElementChangedListener(this);
 		modelObject = null;
 		notifyListeners(modelEvent);

@@ -138,9 +138,7 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 	@Override
 	protected WebApp merge(WebApp ddModel, WebApp annotationsModel) {
 		try {
-			if (mergedModel == ddModel) {
-				mergeWithModel(annotationsModel);
-			} else {
+			if (mergedModel != ddModel) {
 				clearModel(mergedModel);
 				mergeWithModel(ddModel);
 				mergeWithModel(annotationsModel);
