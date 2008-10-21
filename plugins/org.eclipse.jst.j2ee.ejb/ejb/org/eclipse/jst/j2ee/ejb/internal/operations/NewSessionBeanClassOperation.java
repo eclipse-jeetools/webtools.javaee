@@ -38,6 +38,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.Signature;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
+import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.project.EJBUtilities;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation;
@@ -174,7 +175,8 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 				}
 				
 				// Create the session bean java file
-				String source = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_FILE, monitor);
+				SessionBeanTemplate tempImpl = SessionBeanTemplate.create(null);
+				String source = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_FILE, tempImpl, monitor);
 				String javaFileName = tempModel.getClassName() + DOT_JAVA;
 				IFile aFile = createJavaFile(monitor, fragment, source, javaFileName);
 			}
@@ -183,7 +185,8 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 		}
 	}
 	
-	protected void generateInterfacesUsingTemplates(IProgressMonitor monitor, IPackageFragment fragment, CreateSessionBeanTemplateModel tempModel) throws JETException, JavaModelException {
+	protected void generateInterfacesUsingTemplates(IProgressMonitor monitor, IPackageFragment fragment, CreateSessionBeanTemplateModel tempModel) 
+			throws JETException, JavaModelException {
 		boolean useClientJar = EJBUtilities.hasEJBClientJARProject(getTargetProject());
 		List<BusinessInterface> interfaces = tempModel.getBusinessInterfaces();
 		for (BusinessInterface iface : interfaces) {
@@ -191,12 +194,14 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 				tempModel.setCurrentBusinessInterface(iface);
 				if (iface.isLocal()) {
 					// Create the java files for the non-exising Local Business interfaces
-					String src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_LOCAL_FILE, monitor);
+					LocalBusinessInterfaceTemplate tempImpl = LocalBusinessInterfaceTemplate.create(null);
+					String src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_LOCAL_FILE, tempImpl, monitor);
 					String fileName = iface.getSimpleName() + DOT_JAVA;
 					createJavaFile(monitor, getPackageFragment(useClientJar, iface.getFullyQualifiedName()), src, fileName);
 				} else if (iface.isRemote()) {
 					// Create the java files for the non-exising Remote Business interfaces
-					String src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_REMOTE_FILE, monitor);
+					RemoteBusinessInterfaceTemplate tempImpl = RemoteBusinessInterfaceTemplate.create(null);
+					String src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_REMOTE_FILE, tempImpl, monitor);
 					String fileName = iface.getSimpleName() + DOT_JAVA;
 					createJavaFile(monitor, getPackageFragment(useClientJar, iface.getFullyQualifiedName()), src, fileName);
 				}
@@ -220,7 +225,8 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 			String src = "";
 			if(type == null){
 				remoteFragment = getPackageFragment(useClientJar, remoteFullName);
-				src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_REMOTEHOME_FILE, monitor);
+				RemoteHomeInterfaceTemplate tempImpl = RemoteHomeInterfaceTemplate.create(null);
+				src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_REMOTEHOME_FILE, tempImpl, monitor);
 				createJavaFile(monitor, remoteFragment, src, fileName);
 			}
 			
@@ -229,7 +235,8 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 			type = javaProject.findType(remoteComponentFullName);
 			if(type == null){
 				IPackageFragment remoteComponentFragment = getPackageFragment(useClientJar, remoteComponentFullName);
-				src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_REMOTECOMPONENT_FILE, monitor);
+				RemoteComponentInterfaceTemplate tempImpl = RemoteComponentInterfaceTemplate.create(null);
+				src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_REMOTECOMPONENT_FILE, tempImpl, monitor);
 				createJavaFile(monitor, remoteComponentFragment, src, fileComponentName);
 			}
 		}
@@ -251,7 +258,8 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 			String src = "";
 			if(type == null){
 				localFragment = getPackageFragment(useClientJar, localFullName);
-				src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_LOCALHOME_FILE, monitor);
+				LocalHomeInterfaceTemplate tempImpl = LocalHomeInterfaceTemplate.create(null);
+				src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_LOCALHOME_FILE, tempImpl, monitor);
 				createJavaFile(monitor, localFragment, src, fileName);
 			}
 			
@@ -260,7 +268,8 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 			type = javaProject.findType(localComponentFullName);
 			if(type == null){
 				IPackageFragment localComponentFragment = getPackageFragment(useClientJar, localComponentFullName);
-				src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_LOCALCOMPONENT_FILE, monitor);
+				LocalComponentInterfaceTemplate tempImpl = LocalComponentInterfaceTemplate.create(null);
+				src = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_LOCALCOMPONENT_FILE, tempImpl, monitor);
 				createJavaFile(monitor, localComponentFragment, src, fileComponentName);
 			}
 		}

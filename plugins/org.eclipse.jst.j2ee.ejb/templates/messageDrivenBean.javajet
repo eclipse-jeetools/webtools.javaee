@@ -1,5 +1,5 @@
-<%@ jet package="org.eclipse.jst.j2ee.ejb" 
-	imports="java.util.* org.eclipse.jst.j2ee.internal.common.operations.* org.eclipse.jst.j2ee.ejb.internal.operations.*" 
+<%@ jet package="org.eclipse.jst.j2ee.ejb.internal.operations" 
+	imports="java.util.* org.eclipse.jst.j2ee.internal.common.operations.*" 
 	class="MessageDrivenBeanTemplate" 
 %>
 <% CreateMessageDrivenBeanTemplateModel model = (CreateMessageDrivenBeanTemplateModel) argument; %>

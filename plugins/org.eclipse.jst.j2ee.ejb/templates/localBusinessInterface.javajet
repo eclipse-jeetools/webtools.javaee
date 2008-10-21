@@ -1,5 +1,4 @@
-<%@ jet package="org.eclipse.jst.j2ee.ejb" 
-	imports="org.eclipse.jst.j2ee.ejb.internal.operations.* " 
+<%@ jet package="org.eclipse.jst.j2ee.ejb.internal.operations" 
 	class="LocalBusinessInterfaceTemplate" 
 %>
 <% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; %>

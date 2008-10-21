@@ -93,8 +93,9 @@ public class NewMessageDrivenBeanClassOperation extends NewEnterpriseBeanClassOp
 		// Using the WTPJetEmitter, generate the java source based on the bean template model
 		try {
 			if (fragment != null) {
-				// Create the session bean java file
-				String source = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_FILE, monitor);
+				// Create the message-driven bean java file
+				MessageDrivenBeanTemplate tempImpl = MessageDrivenBeanTemplate.create(null);
+				String source = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_FILE, tempImpl, monitor);
 				String javaFileName = tempModel.getClassName() + DOT_JAVA;
 				IFile aFile = createJavaFile(monitor, fragment, source, javaFileName);
 			}
