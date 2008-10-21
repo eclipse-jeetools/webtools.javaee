@@ -100,6 +100,9 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	public static final String LIBCOPY_BUILDER_ID = PLUGIN_ID + ".LibCopyBuilder"; //$NON-NLS-1$
 	// Validation part of the plugin
 	public static final String VALIDATION_BUILDER_ID = ValidationPlugin.VALIDATION_BUILDER_ID; // plugin
+	
+	public static final String DYNAMIC_TRANSLATION_OF_JET_TEMPLATES_PREF_KEY = "dynamicTranslationOfJetTemplates"; //$NON-NLS-1$
+	
 //	private static final String KEY_PREFIX = "%"; //$NON-NLS-1$
 //	private static final String KEY_DOUBLE_PREFIX = "%%"; //$NON-NLS-1$	
 	// id

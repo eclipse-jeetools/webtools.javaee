@@ -124,9 +124,9 @@ public abstract class NewWebClassOperation extends NewJavaEEArtifactClassOperati
 		CreateWebClassTemplateModel tempModel = createTemplateModel();
 		IProject project = getTargetProject();
 		String source;
-		// Using the WTPJetEmitter, generate the java source based on the listener template model
 		try {
-			source = generateTemplateSource(WebPlugin.getPlugin(), tempModel, getTemplateFile(), monitor);
+			// generate the java source based on the template model
+			source = generateTemplateSource(WebPlugin.getPlugin(), tempModel, getTemplateFile(), getTemplateImplementation(), monitor);
 		} catch (Exception e) {
 			throw new WFTWrappedException(e);
 		}
@@ -214,8 +214,24 @@ public abstract class NewWebClassOperation extends NewJavaEEArtifactClassOperati
 	 * @return CreateWebClassTemplateModel
 	 */
 	protected abstract CreateWebClassTemplateModel createTemplateModel();
-	
+
+	/**
+	 * This method will return the location of the template file that will be
+	 * passed to the WTPJETEmitter to generate the template implementation
+	 * class.
+	 * 
+	 * @return path to the template file. 
+	 */
 	protected abstract String getTemplateFile();
+
+	/**
+	 * This method will return an instance of the template implementation class
+	 * that is statically compiled in the plugin. This instance can be used to
+	 * generate the artifact's code without using the WTPJETEmitter.
+	 * 
+	 * @return an instance of the template implementation class. 
+	 */
+	protected abstract Object getTemplateImplementation();
 
 	private IVirtualComponent getTargetComponent() {
 		return ComponentCore.createComponent(getTargetProject());
