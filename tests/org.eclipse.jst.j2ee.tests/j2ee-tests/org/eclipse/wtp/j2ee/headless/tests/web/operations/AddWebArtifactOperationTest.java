@@ -26,6 +26,7 @@ import junit.framework.TestSuite;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Preferences;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
@@ -33,6 +34,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.common.Listener;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.web.operations.NewFilterClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.operations.NewListenerClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProvider;
@@ -87,6 +89,12 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
 	public static Test suite() {
         return new TestSuite(AddWebArtifactOperationTest.class);
     }
+	
+	public void testAddServlet_Web24_Defaults_NoJETEmitter() throws Exception {
+		disableJETEmitter();
+		testAddServlet_Web24_Defaults();
+		enableJETEmitter();
+	}
 
     public void testAddServlet_Web24_Defaults() throws Exception {
     	createWebProject(WEB_PROJECT_NAME, JavaEEFacetConstants.WEB_24);
@@ -128,6 +136,12 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
     			webEdit.dispose();
     	}
     }
+	
+	public void testAddServlet_Web25_Defaults_NoJETEmitter() throws Exception {
+		disableJETEmitter();
+		testAddServlet_Web25_Defaults();
+		enableJETEmitter();
+	}
 
     public void testAddServlet_Web25_Defaults() throws Exception {
     	createWebProject(WEB_PROJECT_NAME, JavaEEFacetConstants.WEB_25);
@@ -173,6 +187,12 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
     	assertEquals("Servlet mapping URL pattern value is expected to be " + SERVLET_DEFAULT_MAPPING + ", but it is " + urlPattern.getValue(), 
     			SERVLET_DEFAULT_MAPPING, urlPattern.getValue());
     }
+    
+    public void testAddFilter_Web24_Defaults_NoJETEmitter() throws Exception {
+		disableJETEmitter();
+		testAddFilter_Web24_Defaults();
+		enableJETEmitter();
+	}
     
     public void testAddFilter_Web24_Defaults() throws Exception {
     	createWebProject(WEB_PROJECT_NAME, JavaEEFacetConstants.WEB_24);
@@ -220,6 +240,12 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
     			webEdit.dispose();
     	}
     }
+    
+    public void testAddFilter_Web25_Defaults_NoJETEmitter() throws Exception {
+		disableJETEmitter();
+		testAddFilter_Web25_Defaults();
+		enableJETEmitter();
+	}
     
     public void testAddFilter_Web25_Defaults() throws Exception {
     	createWebProject(WEB_PROJECT_NAME, JavaEEFacetConstants.WEB_25);
@@ -270,6 +296,12 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
     			0, mapping.getDispatchers().size());
     }
     
+    public void testAddListener_Web24_Defaults_NoJETEmitter() throws Exception {
+		disableJETEmitter();
+		testAddListener_Web24_Defaults();
+		enableJETEmitter();
+	}
+    
     public void testAddListener_Web24_Defaults() throws Exception {
     	createWebProject(WEB_PROJECT_NAME, JavaEEFacetConstants.WEB_24);
     	WebArtifactEdit webEdit = null;
@@ -294,6 +326,12 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
     	}
     }
     
+    public void testAddListener_Web25_Defaults_NoJETEmitter() throws Exception {
+		disableJETEmitter();
+		testAddListener_Web25_Defaults();
+		enableJETEmitter();
+	}
+    
     public void testAddListener_Web25_Defaults() throws Exception {
     	createWebProject(WEB_PROJECT_NAME, JavaEEFacetConstants.WEB_25);
     	IProject proj = ProjectUtilities.getProject(WEB_PROJECT_NAME);
@@ -312,6 +350,27 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
     	assertEquals("Listener " + LISTENER_CLASS_NAME + " is expected in the model, but " + listener.getListenerClass() + " is found", 
     			LISTENER_CLASS_NAME, listener.getListenerClass());
     }
+
+	@Override
+	protected void tearDown() throws Exception {
+		// uncomment the below line if you want to dump a check whether the
+		// .JETEmitters projects is created as a result of the executed
+		// operation
+//		System.out.println(".JETEmitters exists : "
+//				+ ResourcesPlugin.getWorkspace().getRoot().getProject(
+//						WTPJETEmitter.PROJECT_NAME).exists());
+		super.tearDown();
+	}
+
+    private void enableJETEmitter() {
+    	Preferences preferences = J2EEPlugin.getDefault().getPluginPreferences();
+		preferences.setValue(J2EEPlugin.DYNAMIC_TRANSLATION_OF_JET_TEMPLATES_PREF_KEY, true);
+	}
+
+	private void disableJETEmitter() {
+		Preferences preferences = J2EEPlugin.getDefault().getPluginPreferences();
+		preferences.setValue(J2EEPlugin.DYNAMIC_TRANSLATION_OF_JET_TEMPLATES_PREF_KEY, false);
+	}
 
     public void createWebProject(String projectName, IProjectFacetVersion version) throws Exception {
     	IDataModel dm = WebProjectCreationOperationTest.getWebDataModel(

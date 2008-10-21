@@ -6,6 +6,7 @@ import junit.framework.TestSuite;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Preferences;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
@@ -14,6 +15,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.ejb.internal.operations.NewMessageDrivenBeanClassDataModelProvider;
 import org.eclipse.jst.j2ee.ejb.internal.operations.NewSessionBeanClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
@@ -47,6 +49,12 @@ public class AddEJBeanOperationTest extends OperationTestCase implements
         return new TestSuite(AddEJBeanOperationTest.class);
     }
 	
+	public void testAddSessionBean_EJB30_Defaults_NoJETEmitter() throws Exception {
+		disableJETEmitter();
+		testAddSessionBean_EJB30_Defaults();
+		enableJETEmitter();
+	}
+	
 	public void testAddSessionBean_EJB30_Defaults() throws Exception {
     	createEJBProject(EJB_PROJECT_NAME, JavaEEFacetConstants.EJB_3);
     	IProject proj = ProjectUtilities.getProject(EJB_PROJECT_NAME);
@@ -59,6 +67,12 @@ public class AddEJBeanOperationTest extends OperationTestCase implements
     	// no EJB3 annotation model to check yet
     }
 	
+	public void testAddMessageDrivenBean_EJB30_Defaults_NoJETEmitter() throws Exception {
+		disableJETEmitter();
+		testAddMessageDrivenBean_EJB30_Defaults();
+		enableJETEmitter();
+	}
+	
 	public void testAddMessageDrivenBean_EJB30_Defaults() throws Exception {
     	createEJBProject(EJB_PROJECT_NAME, JavaEEFacetConstants.EJB_3);
     	IProject proj = ProjectUtilities.getProject(EJB_PROJECT_NAME);
@@ -69,6 +83,27 @@ public class AddEJBeanOperationTest extends OperationTestCase implements
     	
     	// no EJB3 annotation model to check yet
     }
+
+	@Override
+	protected void tearDown() throws Exception {
+		// uncomment the below line if you want to dump a check whether the
+		// .JETEmitters projects is created as a result of the executed
+		// operation
+//		System.out.println(".JETEmitters exists : "
+//				+ ResourcesPlugin.getWorkspace().getRoot().getProject(
+//						WTPJETEmitter.PROJECT_NAME).exists());
+		super.tearDown();
+	}
+
+    private void enableJETEmitter() {
+    	Preferences preferences = J2EEPlugin.getDefault().getPluginPreferences();
+		preferences.setValue(J2EEPlugin.DYNAMIC_TRANSLATION_OF_JET_TEMPLATES_PREF_KEY, true);
+	}
+
+	private void disableJETEmitter() {
+		Preferences preferences = J2EEPlugin.getDefault().getPluginPreferences();
+		preferences.setValue(J2EEPlugin.DYNAMIC_TRANSLATION_OF_JET_TEMPLATES_PREF_KEY, false);
+	}
 	
 	private void createEJBProject(String projectName, IProjectFacetVersion version) throws Exception {
     	IDataModel dm = EJBProjectCreationOperationTest.getEJBDataModel(
