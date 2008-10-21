@@ -17,6 +17,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
 import org.eclipse.jst.jee.ui.internal.navigator.appclient.GroupAppClientProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.ear.ModulesNode;
 
@@ -38,8 +39,7 @@ public class AppClient5ContentProvider extends JEE5ContentProvider {
 			project = (IProject) ((IAdaptable) aParentElement).getAdapter(IPROJECT_CLASS);
 			if (project != null && JavaEEProjectUtilities.isApplicationClientProject(project) &&
 					J2EEProjectUtilities.isJEEProject(project)) {
-				GroupAppClientProvider element = new GroupAppClientProvider(project);
-				children.add(element);
+				children.add((GroupAppClientProvider) getCachedContentProvider(project));
 			}
 		}
 		return children.toArray();
@@ -64,4 +64,15 @@ public class AppClient5ContentProvider extends JEE5ContentProvider {
 	public Object[] getElements(Object inputElement) {
 		return getChildren(inputElement);
 	}
+
+
+
+	@Override
+	protected AbstractGroupProvider getNewContentProviderInstance(IProject project) {
+		return new GroupAppClientProvider((ApplicationClient) getCachedModelProvider(project).getModelObject(), project);
+	}
+
+
+
+
 }

@@ -20,6 +20,7 @@ import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
 import org.eclipse.jst.jee.ui.internal.Messages;
+import org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPluginIcons;
 import org.eclipse.swt.graphics.Image;
@@ -32,31 +33,27 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
  * @author Dimitar Giormov
  * 
  */
-public class GroupAppClientProvider {
+public class GroupAppClientProvider extends AbstractGroupProvider {
 
 	
+	private final IProject project;
+
+
+	public GroupAppClientProvider(ApplicationClient javaee, IProject project) {
+		super(javaee);
+		this.project = project;
+	}
+
 	private static final String PROJECT_RELATIVE_PATH = "META-INF/application-client.xml"; //$NON-NLS-1$
 	
 	private static Image APP_CLIENT50;
 
-	private IProject project = null;
-
-	private ApplicationClient model = null;
-
-	protected List children;
-
-	private Object javaee = null;
-
 	private IFile ddFile;
 
-	public GroupAppClientProvider(IProject project) {
-		this.project = project;
-		javaee = getModel();
-	}
 
 	private ApplicationClient getModel() {
-		if (this.model != null)
-			return this.model;
+		if (this.javaee != null)
+			return (ApplicationClient) this.javaee;
 		IModelProvider modelProvider = ModelProviderManager
 		.getModelProvider(project);
 		Object modelObject = null;
@@ -98,7 +95,7 @@ public class GroupAppClientProvider {
 		return result;
 	}
 	
-	public static Image getImage() {
+	public Image getImage() {
 		if (APP_CLIENT50 == null) {
 			ImageDescriptor imageDescriptor = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.APP_CLIENT50);
 			APP_CLIENT50 = imageDescriptor.createImage();

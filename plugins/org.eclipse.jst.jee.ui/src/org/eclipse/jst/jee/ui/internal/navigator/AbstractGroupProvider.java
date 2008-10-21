@@ -27,29 +27,42 @@ import org.eclipse.swt.graphics.Image;
  */
 public abstract class AbstractGroupProvider {
 
-  protected List children = new ArrayList<Object>();
-  protected JavaEEObject javaee;
-  protected  String text;
+	protected List children = new ArrayList<Object>();
+	protected JavaEEObject javaee;
+	protected  String text;
+	protected boolean isValid = true;
 
-  public AbstractGroupProvider(JavaEEObject javaee) {
-    this.javaee = javaee;
-    text = Messages.DEPLOYMENT_DESCRIPTOR + javaee.toString();
-  }
+	public void setValid(boolean isValid) {
+		this.isValid = isValid;
+	}
 
-  public abstract List getChildren();
-  
-  public abstract Image getImage();
+	public AbstractGroupProvider(JavaEEObject javaee) {
+		this.javaee = javaee;
+		text = Messages.DEPLOYMENT_DESCRIPTOR + javaee.toString();
+	}
 
-  public String getText() {
-    return text ;
-  }
+	public abstract List getChildren();
 
-  public boolean hasChildren() {
-    return !getChildren().isEmpty();
-  }
+	public abstract Image getImage();
 
-  public JavaEEObject getJavaEEObject() {
-	  return javaee;
-  }
+	public String getText() {
+		return text ;
+	}
+
+	public boolean hasChildren() {
+		return !getChildren().isEmpty();
+	}
+
+	public JavaEEObject getJavaEEObject() {
+		return javaee;
+	}
+
+	public void reinit(JavaEEObject modelObject) {
+		this.javaee = modelObject;
+	}
+
+	public boolean isValid(){
+		return isValid;
+	}
 
 }
