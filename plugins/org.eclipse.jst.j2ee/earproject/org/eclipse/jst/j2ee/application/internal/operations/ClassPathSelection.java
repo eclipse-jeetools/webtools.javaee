@@ -864,7 +864,7 @@ public class ClassPathSelection {
 	private void setType(ClasspathElement element, IVirtualReference other) {
 		if (other == null)
 			return;
-		else if (clientToEJBJARs.containsKey(other))
+		else if (clientToEJBJARs.containsKey(other.getReferencedComponent()))
 			element.setJarType(ClasspathElement.EJB_CLIENT_JAR);
 		else if (J2EEProjectUtilities.isEJBComponent(other.getReferencedComponent()))
 			element.setJarType(ClasspathElement.EJB_JAR);
