@@ -12,6 +12,7 @@ package org.eclipse.jst.jee.ui.internal.navigator.ejb;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.jee.ui.internal.Messages;
 import org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider;
@@ -63,8 +64,16 @@ public class GroupEJBProvider extends AbstractGroupProvider {
 		this.projectName = projectName;
 	}
 
-  @Override
-  public Image getImage() {
-    return null;
-  }
+	@Override
+	public Image getImage() {
+		return null;
+	}
+
+	@Override
+	public void reinit(JavaEEObject modelObject) {
+		super.reinit(modelObject);
+		groupEjbSession.reinit(modelObject);
+		groupEjbMessageDriven.reinit(modelObject);
+		groupEjbEntity.reinit(modelObject);
+	}
 }

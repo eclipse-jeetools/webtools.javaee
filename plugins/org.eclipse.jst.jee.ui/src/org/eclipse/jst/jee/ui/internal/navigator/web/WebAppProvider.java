@@ -16,8 +16,10 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.jee.ui.internal.Messages;
+import org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPluginIcons;
 import org.eclipse.swt.graphics.Image;
@@ -30,7 +32,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
  * @author Dimitar Giormov
  *
  */
-public class WebAppProvider {
+public class WebAppProvider extends AbstractGroupProvider {
   
   
 	private static final String PROJECT_RELATIVE_PATH = "WEB-INF/web.xml"; //$NON-NLS-1$
@@ -44,6 +46,7 @@ public class WebAppProvider {
 	private GroupFilterMappingItemProvider filterMapping;
 	private GroupReferenceItemProvider references;
 	private GroupWelcomePagesItemProvider welcome;
+	private GroupContextParamsItemProvider contextParams;
 	
 	private List<Object> children = new ArrayList<Object>();
 	
@@ -54,15 +57,11 @@ public class WebAppProvider {
 	private IFile ddFile = null;
 
 
-  private GroupContextParamsItemProvider contextParams;
-
-
   
-	
-	
-	
+
 	
 	public WebAppProvider(WebApp webApp, IProject project) {
+		super(webApp);
 		text = Messages.DEPLOYMENT_DESCRIPTOR + project.getName();
 		contextParams = new GroupContextParamsItemProvider(webApp);
 		errors = new GroupErrorPagesItemProvider(webApp);
@@ -110,5 +109,13 @@ public class WebAppProvider {
 
 		IVirtualFolder virtualFolder = ComponentCore.createComponent(getProject()).getRootFolder();
 		return virtualFolder.getFile(PROJECT_RELATIVE_PATH).getUnderlyingFile();
+	}
+	
+	@Override
+	public void reinit(JavaEEObject modelObject) {
+		super.reinit(modelObject);
+		for (Object child : children) {
+			((AbstractGroupProvider)child).reinit(modelObject);
+		}
 	}
 }

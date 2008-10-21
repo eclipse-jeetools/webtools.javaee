@@ -694,9 +694,9 @@
               <instanceof
                     value="org.eclipse.jst.jee.ui.internal.navigator.web.AbstractSubWebProviders">
               </instanceof>
-              <instanceof
+              <!--<instanceof
                     value="org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider">
-              </instanceof>
+              </instanceof>-->
            </or>
         </enablement>
      </actionProvider>
@@ -727,9 +727,10 @@
               <instanceof
                     value="org.eclipse.jst.jee.ui.internal.navigator.web.AbstractSubWebProviders">
               </instanceof>
+              <!--
               <instanceof
                     value="org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider">
-              </instanceof>
+              </instanceof>-->
            </or>
         </enablement>
      </actionProvider>
@@ -826,6 +827,9 @@
            <instanceof
                  value="org.eclipse.core.resources.IProject">
            </instanceof>
+           <instanceof
+                 value="org.eclipse.jst.jee.ui.internal.navigator.ear.BundledNode">
+           </instanceof>
            <adapt
                  type="org.eclipse.core.resources.IProject">
               <test
@@ -883,8 +887,9 @@
               </or>
            </adapt>
            <instanceof
-                 value="org.eclipse.jst.jee.ui.internal.navigator.ear.ModulesNode">
-           </instanceof>
+                 value="org.eclipse.jst.jee.ui.internal.navigator.ear.ModulesNode"/>
+           <instanceof
+                 value="org.eclipse.jst.jee.ui.internal.navigator.ear.BundledNode"/>
            <instanceof
                  value="org.eclipse.core.internal.resources.File">
            </instanceof>

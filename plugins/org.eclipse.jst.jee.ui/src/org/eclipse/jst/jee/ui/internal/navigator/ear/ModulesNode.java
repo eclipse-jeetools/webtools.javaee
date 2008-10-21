@@ -13,7 +13,10 @@ package org.eclipse.jst.jee.ui.internal.navigator.ear;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.jee.ui.internal.Messages;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 /**
  * 
@@ -24,8 +27,8 @@ import org.eclipse.jst.jee.ui.internal.Messages;
  */
 public class ModulesNode extends AbstractEarNode {
 
-	public ModulesNode(IProject earProject, List modules) {
-		super(earProject, modules);
+	public ModulesNode(IProject earProject) {
+		super(earProject);
 		type = MODULES_TYPE;
 	}
 
@@ -38,4 +41,9 @@ public class ModulesNode extends AbstractEarNode {
 	public String getText() {
 		return Messages.EAR_MODULES_NODE;
 	}
+	
+	 public List getModules() {
+	    	IVirtualComponent projectComponent = ComponentCore.createComponent(getEarProject());
+	    	return getComponentReferencesAsList(implicitUtilityReferenceTypes, projectComponent, new Path("/")); //$NON-NLS-1$
+	 }
 }

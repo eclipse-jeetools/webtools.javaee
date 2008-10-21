@@ -70,10 +70,8 @@ public class Ejb3ContentProvider extends JEE5ContentProvider {
 				.getAdapter(IPROJECT_CLASS);
 				if (project != null) {
 					if (isEjbModuleProject(project)) {
-						IModelProvider modelProvider = getCachedModelProvider(project);
-						GroupEJBProvider element = new GroupEJBProvider((EJBJar) modelProvider.getModelObject());
-						element.setProjectName(project.getName());
-						children.add(element);
+						GroupEJBProvider root = (GroupEJBProvider) getCachedContentProvider(project);
+						children.add(root);
 					}
 				}
 			}
@@ -226,6 +224,14 @@ public class Ejb3ContentProvider extends JEE5ContentProvider {
 
 	public Object[] getElements(Object inputElement) {
 		return getChildren(inputElement);
+	}
+
+	@Override
+	protected AbstractGroupProvider getNewContentProviderInstance(IProject project) {
+		IModelProvider cachedModelProvider = getCachedModelProvider(project);
+		GroupEJBProvider root = new GroupEJBProvider((EJBJar) cachedModelProvider.getModelObject());
+		root.setProjectName(project.getName());
+		return root;
 	}
 
 }

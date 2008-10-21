@@ -26,11 +26,8 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.application.Application;
-import org.eclipse.jst.jee.ui.internal.Messages;
 import org.eclipse.jst.jee.ui.internal.navigator.ear.AbstractEarNode;
-import org.eclipse.jst.jee.ui.internal.navigator.ear.BundledNode;
 import org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider;
-import org.eclipse.jst.jee.ui.internal.navigator.ear.ModulesNode;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
@@ -134,24 +131,20 @@ public class Ear5ContentProvider extends JEE5ContentProvider {
 								if (oldLibDir == null) oldLibDir = EAR_DEFAULT_LIB;
 								libDir = oldLibDir;
 							}
+//
+//							List implicitUtilityReferenceTypes =
+//								Arrays.asList(new String[] {  
+//										IModuleConstants.JST_APPCLIENT_MODULE,
+//										IModuleConstants.JST_WEB_MODULE,
+//										IModuleConstants.JST_EJB_MODULE,
+//										IModuleConstants.JST_CONNECTOR_MODULE});
+//
 
-							BundledNode bundledLibsDirectoryNode = new BundledNode(project, bundledLibs, Messages.LIBRARY_DIRECTORY + ": " + libDir, null);							 //$NON-NLS-1$
-							appLibsInTheRoot.add(bundledLibsDirectoryNode);
-							BundledNode bundledLibsNode = new BundledNode(project, appLibsInTheRoot, Messages.BUNDLED_LIBRARIES_NODE, bundledLibsDirectoryNode);
-							
-							List implicitUtilityReferenceTypes =
-								Arrays.asList(new String[] {  
-										IModuleConstants.JST_APPCLIENT_MODULE,
-										IModuleConstants.JST_WEB_MODULE,
-										IModuleConstants.JST_EJB_MODULE,
-										IModuleConstants.JST_CONNECTOR_MODULE});
+//							List modules = getComponentReferencesAsList(implicitUtilityReferenceTypes, projectComponent, new Path("/")); //$NON-NLS-1$
+//							ModulesNode modulesNode = new ModulesNode(project);
 
-
-							List modules = getComponentReferencesAsList(implicitUtilityReferenceTypes, projectComponent, new Path("/")); //$NON-NLS-1$
-							ModulesNode modulesNode = new ModulesNode(project, modules);
-
-							children.add(modulesNode);
-							children.add(bundledLibsNode);
+//							children.add(modulesNode);
+//							children.add(bundledLibsNode);
 				}
 			} catch (CoreException e) {
 				String msg = "Error in the JEEContentProvider.getChildren() for parent:" +  aParentElement; //$NON-NLS-1$
@@ -169,8 +162,7 @@ public class Ear5ContentProvider extends JEE5ContentProvider {
 							facetedProject.hasProjectFacet(
 									ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE).getVersion(
 											J2EEVersionConstants.VERSION_5_0_TEXT))) {
-						IVirtualComponent component = ComponentCore.createComponent(project);
-						GroupEARProvider element = new GroupEARProvider((EARVirtualComponent)component);
+						GroupEARProvider element = (GroupEARProvider) getCachedContentProvider(project);
 						children.add(element);
 					}
 				} catch (CoreException e) {
@@ -199,5 +191,10 @@ public class Ear5ContentProvider extends JEE5ContentProvider {
 
 	public Object[] getElements(Object inputElement) {
 		return getChildren(inputElement);
+	}
+
+	@Override
+	protected AbstractGroupProvider getNewContentProviderInstance(IProject project) {
+		return new GroupEARProvider((Application) getCachedModelProvider(project).getModelObject(), (EARVirtualComponent)ComponentCore.createComponent(project));
 	}
 }

@@ -16,7 +16,6 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider;
 
@@ -35,9 +34,10 @@ public class Web25ContentProvider extends JEE5ContentProvider {
 		if (aParentElement instanceof IAdaptable) {
 			project = (IProject) ((IAdaptable) aParentElement).getAdapter(IPROJECT_CLASS);
 			if (project != null) {
-				IModelProvider provider = getCachedModelProvider(project);
-			    Object mObj = provider.getModelObject();
-				children.add(new WebAppProvider((WebApp) mObj,project));
+				AbstractGroupProvider cachedContentProvider = getCachedContentProvider(project);
+				if (cachedContentProvider.isValid()){
+					children.add(cachedContentProvider);
+				}
 			}
 		} else if (aParentElement instanceof WebAppProvider){
 			children.addAll(((WebAppProvider) aParentElement).getChildren());
@@ -50,7 +50,7 @@ public class Web25ContentProvider extends JEE5ContentProvider {
 
 	public boolean hasChildren(Object element) {
 		if (element instanceof WebAppProvider) {
-			return true;
+			return ((WebAppProvider)element).isValid();
 		} else if (element instanceof AbstractGroupProvider) {
 			return ((AbstractGroupProvider) element).hasChildren();
 		} else
@@ -63,5 +63,11 @@ public class Web25ContentProvider extends JEE5ContentProvider {
 
 	public Object[] getElements(Object inputElement) {
 		return getChildren(inputElement);
+	}
+
+
+	@Override
+	protected AbstractGroupProvider getNewContentProviderInstance(IProject project) {
+		return new WebAppProvider((WebApp) getCachedModelProvider(project).getModelObject(), project);
 	}
 }

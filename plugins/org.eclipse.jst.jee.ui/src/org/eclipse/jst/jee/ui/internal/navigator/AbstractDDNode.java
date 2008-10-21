@@ -13,6 +13,7 @@ package org.eclipse.jst.jee.ui.internal.navigator;
 import java.util.List;
 
 import org.eclipse.jface.viewers.IDecoration;
+import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.swt.graphics.Image;
 
 /**
@@ -24,46 +25,50 @@ import org.eclipse.swt.graphics.Image;
  */
 public abstract class AbstractDDNode {
 
-  protected Object adapterNode;
-  protected Image image;
-  protected String text;
-  protected String description;
+	protected Object adapterNode;
+	protected Image image;
+	protected String text;
+	protected String description;
 
-  
-  /**
-   * Constructor for the class
-   * 
-   * @param adapterNode - the wrapped object 
-   */
-  public AbstractDDNode(Object adapterNode){
-    this.adapterNode = adapterNode;
-    image = null;
-    text = null;
-    description = null;
-  }
 
-  public abstract List getChildren();
+	/**
+	 * Constructor for the class
+	 * 
+	 * @param adapterNode - the wrapped object 
+	 */
+	public AbstractDDNode(Object adapterNode){
+		this.adapterNode = adapterNode;
+		image = null;
+		text = null;
+		description = null;
+	}
 
-  public abstract boolean hasChildren();
+	public abstract List getChildren();
 
-  public void decorate(IDecoration decoration) {
-    // do nothing, subclasses should override
-  }
+	public abstract boolean hasChildren();
 
-  public Image getImage() {
-    return image; 
-  }
+	public void decorate(IDecoration decoration) {
+		// do nothing, subclasses should override
+	}
 
-  public String getText() {
-    return text;
-  }
+	public Image getImage() {
+		return image; 
+	}
 
-  public String getDescription() {
-    return description;
-  }
+	public String getText() {
+		return text;
+	}
 
-  public Object getAdapterNode() {
-    return adapterNode;
-  }
+	public String getDescription() {
+		return description;
+	}
+
+	public Object getAdapterNode() {
+		return adapterNode;
+	}
+
+	public void reinit(JavaEEObject modelObject) {
+		adapterNode = modelObject;
+	}		
 
 }
