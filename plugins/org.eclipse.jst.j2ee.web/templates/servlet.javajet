@@ -1,5 +1,5 @@
-<%@ jet package="org.eclipse.jst.j2ee.web" 
-	imports="java.util.* org.eclipse.jst.j2ee.internal.common.operations.* org.eclipse.jst.j2ee.internal.web.operations.*" 
+<%@ jet package="org.eclipse.jst.j2ee.internal.web.operations" 
+	imports="java.util.* org.eclipse.jst.j2ee.internal.common.operations.*" 
 	class="ServletTemplate" 
 %>
 <% CreateServletTemplateModel model = (CreateServletTemplateModel) argument; %>

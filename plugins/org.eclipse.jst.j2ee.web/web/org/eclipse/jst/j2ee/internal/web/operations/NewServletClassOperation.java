@@ -96,5 +96,10 @@ public class NewServletClassOperation extends NewWebClassOperation {
 	protected String getTemplateFile() {
 		return TEMPLATE_FILE;
 	}
+
+	@Override
+	protected ServletTemplate getTemplateImplementation() {
+		return ServletTemplate.create(null);
+	}
 	
 }

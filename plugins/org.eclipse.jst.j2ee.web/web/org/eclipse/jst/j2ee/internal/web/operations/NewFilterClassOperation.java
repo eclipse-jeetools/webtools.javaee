@@ -86,5 +86,10 @@ public class NewFilterClassOperation extends NewWebClassOperation {
 	protected String getTemplateFile() {
 		return TEMPLATE_FILE;
 	}
+
+	@Override
+	protected FilterTemplate getTemplateImplementation() {
+		return FilterTemplate.create(null);
+	}
 	
 }

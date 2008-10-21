@@ -90,5 +90,10 @@ public class NewListenerClassOperation extends NewWebClassOperation {
 	protected String getTemplateFile() {
 		return TEMPLATE_FILE;
 	}
+
+	@Override
+	protected ListenerTemplate getTemplateImplementation() {
+		return ListenerTemplate.create(null);
+	}
 	
 }
