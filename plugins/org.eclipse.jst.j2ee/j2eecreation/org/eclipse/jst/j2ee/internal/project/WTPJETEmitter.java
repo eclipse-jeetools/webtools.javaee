@@ -72,6 +72,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.osgi.util.ManifestElement;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.Constants;
+import org.osgi.service.prefs.BackingStoreException;
 
 /**
  * @author schacher, mdelder
@@ -273,8 +274,9 @@ public class WTPJETEmitter extends JETEmitter {
 	 * @param javaProject
 	 * @throws CoreException
 	 * @throws JavaModelException
+	 * @throws BackingStoreException 
 	 */
-	protected void initializeJavaProject(IProgressMonitor progressMonitor, final IProject project, IJavaProject javaProject) throws CoreException, JavaModelException {
+	protected void initializeJavaProject(IProgressMonitor progressMonitor, final IProject project, IJavaProject javaProject) throws CoreException, JavaModelException, BackingStoreException {
 		progressMonitor.subTask(CodeGenPlugin.getPlugin().getString("_UI_JETInitializingProject_message", new Object[]{project.getName()})); //$NON-NLS-1$
 		IClasspathEntry classpathEntry = JavaCore.newSourceEntry(new Path("/" + project.getName() + "/src")); //$NON-NLS-1$ //$NON-NLS-2$
 
@@ -329,6 +331,9 @@ public class WTPJETEmitter extends JETEmitter {
 		prefs.put( JavaCore.COMPILER_PB_MISSING_JAVADOC_COMMENTS, JavaCore.IGNORE );
 		prefs.put( JavaCore.COMPILER_PB_MISSING_JAVADOC_COMMENTS_VISIBILITY, JavaCore.PUBLIC );
 		prefs.put( JavaCore.COMPILER_PB_MISSING_JAVADOC_COMMENTS_OVERRIDING, JavaCore.DISABLED );
+		
+		// store changed properties permanently
+		prefs.flush();
 	}
 
 	/**
