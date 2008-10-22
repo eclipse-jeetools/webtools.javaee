@@ -16,7 +16,6 @@ import java.util.Map;
 import junit.framework.TestSuite;
 
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -153,32 +152,35 @@ public class EJB3MergedModelProviderTest extends AbstractAnnotationModelTest {
 		assertTrue(preservedListener.getReceivedEvents().size() > oldReceivedEvents);
 	}
 
-	/**
-	 * Execute an operation on the model. Change the dd. The listeners should
-	 * not be removed. https://bugs.eclipse.org/bugs/show_bug.cgi?id=241496
-	 * 
-	 * @throws Exception
-	 */
-	public void testPreserveListenersChangeDD() throws Exception {
-		final String ejbProjectName = this.getClass().getSimpleName() + this.getName();
-		final IProject project = createEjbProjectWithoutClient(ejbProjectName, ejbProjectName + "ear");
-		final IDataModel model = createModelEjbProjectWithClient(ejbProjectName);
-		SynchronousModelChangedListener preserveListener = new SynchronousModelChangedListener(2);
-
-		IModelProvider provider = ModelProviderManager.getModelProvider(project);
-		provider.addListener(preserveListener);
-		IFile ejbJarXml = project.getFile("ejbModule/META-INF/ejb-jar.xml");
-		String content = TestUtils.getFileContent(ejbJarXml);
-		executeAndWait(model.getDefaultOperation(), provider);
-		assertNotNull(((EJBJar) provider.getModelObject()).getEjbClientJar());
-
-		int oldEventsSize = preserveListener.getReceivedEvents().size();
-		AbstractTest.saveFile(ejbJarXml, content);
-		assertTrue(preserveListener.waitForEvents());
-		assertTrue(preserveListener.getReceivedEvents().size() > oldEventsSize);
-		assertNull(((EJBJar) provider.getModelObject()).getEjbClientJar());
-		provider.removeListener(preserveListener);
-	}
+	// /**
+	// * Execute an operation on the model. Change the dd. The listeners should
+	// * not be removed. https://bugs.eclipse.org/bugs/show_bug.cgi?id=241496
+	// *
+	// * @throws Exception
+	// */
+	// public void testPreserveListenersChangeDD() throws Exception {
+	// final String ejbProjectName = this.getClass().getSimpleName() +
+	// this.getName();
+	// final IProject project = createEjbProjectWithoutClient(ejbProjectName,
+	// ejbProjectName + "ear");
+	// final IDataModel model = createModelEjbProjectWithClient(ejbProjectName);
+	// SynchronousModelChangedListener preserveListener = new
+	// SynchronousModelChangedListener(2);
+	//
+	// IModelProvider provider = ModelProviderManager.getModelProvider(project);
+	// provider.addListener(preserveListener);
+	// IFile ejbJarXml = project.getFile("ejbModule/META-INF/ejb-jar.xml");
+	// String content = TestUtils.getFileContent(ejbJarXml);
+	// executeAndWait(model.getDefaultOperation(), provider);
+	// assertNotNull(((EJBJar) provider.getModelObject()).getEjbClientJar());
+	//
+	// int oldEventsSize = preserveListener.getReceivedEvents().size();
+	// AbstractTest.saveFile(ejbJarXml, content);
+	// assertTrue(preserveListener.waitForEvents());
+	// assertTrue(preserveListener.getReceivedEvents().size() > oldEventsSize);
+	// assertNull(((EJBJar) provider.getModelObject()).getEjbClientJar());
+	// provider.removeListener(preserveListener);
+	// }
 
 	private IDataModel createModelEjbProjectWithClient(final String ejbProjectName) {
 		final IDataModel model = DataModelFactory.createDataModel(new EjbClientJarCreationDataModelProvider());
@@ -220,59 +222,70 @@ public class EJB3MergedModelProviderTest extends AbstractAnnotationModelTest {
 	}
 
 	// @Test
-//	public void testChangeClientProject() throws Exception {
-//		final String ejbProjectName = this.getClass().getSimpleName() + this.getName();
-//		final String clientName = ejbProjectName + "Client";
-//		IProject project = ProjectUtil.createEJBProject(ejbProjectName, ejbProjectName + "ear", clientName,
-//				J2EEVersionConstants.EJB_3_0_ID, true);
-//
-//		IFile dd = facetedProject.getProject().getFile("ejbModule/META-INF/ejb-jar.xml");
-//		final String ddWithClient = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-//				+ "<ejb-jar xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:ejb=\"http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd\" version=\"3.0\">"
-//				+ "<ejb-client-jar>" + clientName + ".jar</ejb-client-jar></ejb-jar>";
-//		final String ddNoClient = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-//				+ "<ejb-jar xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:ejb=\"http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd\" version=\"3.0\">"
-//				+ "</ejb-jar>";
-//		// load the model
-//		IModelProvider provider = ModelProviderManager.getModelProvider(project);
-//
-//		EJBJar result = (EJBJar) provider.getModelObject();
-//		/*
-//		 * From now on the model provider should not listener for changes in
-//		 * the client project since it is not described in the deployment
-//		 * descriptor.
-//		 */
-//		saveFileAndUpdate(dd, ddNoClient, provider);
-//
-//		/*
-//		 * Change the interface. The model should not be updated.
-//		 */
-//		final String remoteInterface = "package com.sap;" + "import javax.ejb.Remote;"
-//				+ "@Remote public interface SessionBeanLocal {}";
-//		IFile interfaceFile = clientProject.getFile("ejbModule/com/sap/SessionBeanLocal.java");
-//		SynchronousModelChangedListener listener = new SynchronousModelChangedListener(1);
-//		provider.addListener(listener);
-//		AbstractTest.saveFile(interfaceFile, remoteInterface);
-//		assertFalse(listener.waitForEvents());
-//		provider.removeListener(listener);
-//		result = (EJBJar) provider.getModelObject();
-//		SessionBean bean = TestUtils.getSessionBean(result, "SessionBean");
-//		assertEquals(new Integer(1), new Integer(bean.getBusinessLocals().size()));
-//		assertTrue(bean.getBusinessRemotes().isEmpty());
-//
-//		/*
-//		 * The deployment descriptor is changed. The bean should now contain the
-//		 * interface in the remotes list
-//		 */
-//		saveFileAndUpdate(dd, ddWithClient, provider);
-//		bean = TestUtils.getSessionBean(result, "SessionBean");
-//		assertEquals(new Integer(1), new Integer(bean.getBusinessRemotes().size()));
-//		assertTrue(bean.getBusinessLocals().isEmpty());
-//
-//		// revet the changes
-//		saveFileAndUpdate(facetedProject.getProject().getFile("ejbModule/com/sap/SessionBean.java"), beanContent);
-//		saveFileAndUpdate(interfaceFile, localInterfaceContent);
-//	}
+	// public void testChangeClientProject() throws Exception {
+	// final String ejbProjectName = this.getClass().getSimpleName() +
+	// this.getName();
+	// final String clientName = ejbProjectName + "Client";
+	// IProject project = ProjectUtil.createEJBProject(ejbProjectName,
+	// ejbProjectName + "ear", clientName,
+	// J2EEVersionConstants.EJB_3_0_ID, true);
+	//
+	// IFile dd =
+	// facetedProject.getProject().getFile("ejbModule/META-INF/ejb-jar.xml");
+	// final String ddWithClient = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+	// +
+	// "<ejb-jar xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:ejb=\"http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd\" version=\"3.0\">"
+	// + "<ejb-client-jar>" + clientName + ".jar</ejb-client-jar></ejb-jar>";
+	// final String ddNoClient = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+	// +
+	// "<ejb-jar xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:ejb=\"http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd\" version=\"3.0\">"
+	// + "</ejb-jar>";
+	// // load the model
+	// IModelProvider provider = ModelProviderManager.getModelProvider(project);
+	//
+	// EJBJar result = (EJBJar) provider.getModelObject();
+	// /*
+	// * From now on the model provider should not listener for changes in
+	// * the client project since it is not described in the deployment
+	// * descriptor.
+	// */
+	// saveFileAndUpdate(dd, ddNoClient, provider);
+	//
+	// /*
+	// * Change the interface. The model should not be updated.
+	// */
+	// final String remoteInterface = "package com.sap;" +
+	// "import javax.ejb.Remote;"
+	// + "@Remote public interface SessionBeanLocal {}";
+	// IFile interfaceFile =
+	// clientProject.getFile("ejbModule/com/sap/SessionBeanLocal.java");
+	// SynchronousModelChangedListener listener = new
+	// SynchronousModelChangedListener(1);
+	// provider.addListener(listener);
+	// AbstractTest.saveFile(interfaceFile, remoteInterface);
+	// assertFalse(listener.waitForEvents());
+	// provider.removeListener(listener);
+	// result = (EJBJar) provider.getModelObject();
+	// SessionBean bean = TestUtils.getSessionBean(result, "SessionBean");
+	// assertEquals(new Integer(1), new
+	// Integer(bean.getBusinessLocals().size()));
+	// assertTrue(bean.getBusinessRemotes().isEmpty());
+	//
+	// /*
+	// * The deployment descriptor is changed. The bean should now contain the
+	// * interface in the remotes list
+	// */
+	// saveFileAndUpdate(dd, ddWithClient, provider);
+	// bean = TestUtils.getSessionBean(result, "SessionBean");
+	// assertEquals(new Integer(1), new
+	// Integer(bean.getBusinessRemotes().size()));
+	// assertTrue(bean.getBusinessLocals().isEmpty());
+	//
+	// // revet the changes
+	// saveFileAndUpdate(facetedProject.getProject().getFile("ejbModule/com/sap/SessionBean.java"),
+	// beanContent);
+	// saveFileAndUpdate(interfaceFile, localInterfaceContent);
+	// }
 
 	/**
 	 * Create an ejb project with a client project. Add a session bean to the
@@ -315,8 +328,7 @@ public class EJB3MergedModelProviderTest extends AbstractAnnotationModelTest {
 		NewSessionBeanClassDataModelProvider dataProvider = new NewSessionBeanClassDataModelProvider();
 		IDataModel dataModel = DataModelFactory.createDataModel(dataProvider);
 		dataModel.setStringProperty(INewSessionBeanClassDataModelProperties.CLASS_NAME, className);
-		dataModel.setStringProperty(INewSessionBeanClassDataModelProperties.STATE_TYPE,
-				StateType.STATELESS.toString());
+		dataModel.setStringProperty(INewSessionBeanClassDataModelProperties.STATE_TYPE, StateType.STATELESS.toString());
 		dataModel.setStringProperty(INewSessionBeanClassDataModelProperties.EJB_NAME, className);
 		dataModel.setStringProperty(INewSessionBeanClassDataModelProperties.JAVA_PACKAGE, javaPackage);
 		dataModel.setStringProperty(INewSessionBeanClassDataModelProperties.PROJECT_NAME, projectName);

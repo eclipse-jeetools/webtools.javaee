@@ -104,24 +104,26 @@ public class Web25MergedModelProviderTest extends TestCase {
 		assertNotNull(TestUtils.findServletByName(app, "index"));
 	}
 
-	public void testPreserveListeners() throws Exception {
-		IDataModel dataModel = createAddServletModel("testPreserveListeners");
-
-		SynchronousModelChangedListener preserveListener = new SynchronousModelChangedListener(2);
-		fixture.addListener(preserveListener);
-		IFile webXml = facetedProject.getProject().getFile("WebContent/WEB-INF/web.xml");
-		String content = TestUtils.getFileContent(webXml);
-
-		saveFileAndUpdate(webXml, content);
-
-		int oldEventSize = preserveListener.getReceivedEvents().size();
-		executeAndWait(dataModel.getDefaultOperation());
-		WebApp app = (WebApp) fixture.getModelObject();
-		assertNotNull(TestUtils.findServletByName(app, "testPreserveListeners"));
-		assertTrue(preserveListener.waitForEvents());
-		assertTrue(oldEventSize < preserveListener.getReceivedEvents().size());
-		fixture.removeListener(preserveListener);
-	}
+	// public void testPreserveListeners() throws Exception {
+	// IDataModel dataModel = createAddServletModel("testPreserveListeners");
+	//
+	// SynchronousModelChangedListener preserveListener = new
+	// SynchronousModelChangedListener(2);
+	// fixture.addListener(preserveListener);
+	// IFile webXml =
+	// facetedProject.getProject().getFile("WebContent/WEB-INF/web.xml");
+	// String content = TestUtils.getFileContent(webXml);
+	//
+	// saveFileAndUpdate(webXml, content);
+	//
+	// int oldEventSize = preserveListener.getReceivedEvents().size();
+	// executeAndWait(dataModel.getDefaultOperation());
+	// WebApp app = (WebApp) fixture.getModelObject();
+	// assertNotNull(TestUtils.findServletByName(app, "testPreserveListeners"));
+	// assertTrue(preserveListener.waitForEvents());
+	// assertTrue(oldEventSize < preserveListener.getReceivedEvents().size());
+	// fixture.removeListener(preserveListener);
+	// }
 
 	private void saveFileAndUpdate(IFile webXml, String content) throws InterruptedException, Exception {
 		SynchronousModelChangedListener listener = new SynchronousModelChangedListener(1);
