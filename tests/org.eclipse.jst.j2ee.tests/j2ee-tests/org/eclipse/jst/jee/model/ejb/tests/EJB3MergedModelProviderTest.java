@@ -104,7 +104,6 @@ public class EJB3MergedModelProviderTest extends AbstractAnnotationModelTest {
 	// @Before
 	public void setUp() throws Exception {
 		super.setUp();
-		// fixture = new EJB3MergedModelProvider(facetedProject.getProject());
 		if (facetedProject == null)
 			return;
 		fixture = ModelProviderManager.getModelProvider(facetedProject.getProject());
@@ -178,7 +177,7 @@ public class EJB3MergedModelProviderTest extends AbstractAnnotationModelTest {
 		assertTrue(preserveListener.waitForEvents());
 		assertTrue(preserveListener.getReceivedEvents().size() > oldEventsSize);
 		assertNull(((EJBJar) provider.getModelObject()).getEjbClientJar());
-		fixture.removeListener(preserveListener);
+		provider.removeListener(preserveListener);
 	}
 
 	private IDataModel createModelEjbProjectWithClient(final String ejbProjectName) {

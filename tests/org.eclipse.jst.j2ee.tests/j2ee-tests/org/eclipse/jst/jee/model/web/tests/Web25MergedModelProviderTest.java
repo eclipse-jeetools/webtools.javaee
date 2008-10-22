@@ -119,7 +119,7 @@ public class Web25MergedModelProviderTest extends TestCase {
 		WebApp app = (WebApp) fixture.getModelObject();
 		assertNotNull(TestUtils.findServletByName(app, "testPreserveListeners"));
 		assertTrue(preserveListener.waitForEvents());
-		assertEquals(oldEventSize + 1, preserveListener.getReceivedEvents().size());
+		assertTrue(oldEventSize < preserveListener.getReceivedEvents().size());
 		fixture.removeListener(preserveListener);
 	}
 
