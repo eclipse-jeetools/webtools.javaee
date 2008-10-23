@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.impl;
 /*
  *  $RCSfile: PTCharacterLiteralImpl.java,v $
- *  $Revision: 1.4 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.4.6.1 $  $Date: 2008/10/23 20:14:29 $ 
  */
 import org.eclipse.emf.common.notify.Notification;
 
@@ -281,18 +281,7 @@ public class PTCharacterLiteralImpl extends PTExpressionImpl implements PTCharac
 				b.append("\\7"); //$NON-NLS-1$
 				break;			
 			default:
-				// use a simple algorithm, if char is < 255 then just use it, else use it as unicode.
-				if (character < 255)
-					b.append(character);
-				else {
-					b.append("\\u");
-					String s = Integer.toString(character, 16);
-					int zeros = 4-s.length();
-					while (zeros-- > 0) {
-						b.append('0');
-					}
-					b.append(s);
-				}	
+				b.append(character);
 		}
 	}
 
