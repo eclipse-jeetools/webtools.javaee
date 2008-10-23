@@ -244,6 +244,49 @@ public class WebAppMergerTest extends TestCase{
     Assert.assertEquals(1, descriptorBase.getServlets().size());
   }
   
+  
+ /**
+  * Tests the merger with null named servlet in toMerge array, the merger should ignore such entries.
+  * 
+  * @throws ModelException
+  */
+ //@Test
+ public void testSingleNullServletToMerge() throws ModelException{
+   WebApp descriptorBase = WebFactory.eINSTANCE.createWebApp();
+   WebApp descriptorToMerge = WebFactory.eINSTANCE.createWebApp();
+   Servlet servletBase = WebFactory.eINSTANCE.createServlet();
+   
+   descriptorToMerge.getServlets().add(servletBase);
+   
+   
+   WebAppMerger result = new WebAppMerger(descriptorBase, descriptorToMerge, 0);
+   result.process();
+   Assert.assertEquals(0, descriptorBase.getServlets().size());
+ }
+ 
+ /**
+  * Tests the merger with null named servlet in Base, as this is extremely unlikely
+  * the merger should not stop merging because of such error.
+  * 
+  * @throws ModelException
+  */
+ //@Test
+ public void testSingleNullNamedServletInBase() throws ModelException{
+   WebApp descriptorBase = WebFactory.eINSTANCE.createWebApp();
+   WebApp descriptorToMerge = WebFactory.eINSTANCE.createWebApp();
+   Servlet servletBase = WebFactory.eINSTANCE.createServlet();
+   Servlet servletMerge = WebFactory.eINSTANCE.createServlet();
+   servletMerge.setServletName("servName");
+   
+   descriptorBase.getServlets().add(servletBase);
+   descriptorToMerge.getServlets().add(servletMerge);
+   
+   
+   WebAppMerger result = new WebAppMerger(descriptorBase, descriptorToMerge, 0);
+   result.process();
+   Assert.assertEquals(2, descriptorBase.getServlets().size());
+ }
+  
   /**
    * Tests the merger with one and the same security role.
    * The result should be non merged 1 security role.

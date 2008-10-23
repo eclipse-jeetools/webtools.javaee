@@ -553,4 +553,78 @@ public class EjbJarMergerTest extends TestCase {
 		assertEquals(clientJar, base.getEjbClientJar());
 
 	}
+	
+	
+	/**
+	 * Tests weather the merger will ignore incorrect bean (ejbName is missing)
+	 * Session beans
+	 * 
+	 * @throws ModelException
+	 */
+	// @Test
+	public void testSesionBeansNullNameMerge() throws ModelException {
+		EJBJar base = EjbFactory.eINSTANCE.createEJBJar();
+		EJBJar merge = EjbFactory.eINSTANCE.createEJBJar();
+		base.setEnterpriseBeans(EjbFactory.eINSTANCE.createEnterpriseBeans());
+		merge.setEnterpriseBeans(EjbFactory.eINSTANCE.createEnterpriseBeans());
+		SessionBean sessionBean = EjbFactory.eINSTANCE.createSessionBean();
+		base.getEnterpriseBeans().getSessionBeans().add(sessionBean);
+		merge.getEnterpriseBeans().getSessionBeans().add(sessionBean);
+		(new EjbJarMerger(base, merge, 0)).process();
+		assertNotNull(base.getEnterpriseBeans());
+		assertNotNull(merge.getEnterpriseBeans());
+		assertEquals(0, base.getEnterpriseBeans().getSessionBeans().size());
+		assertEquals(1, merge.getEnterpriseBeans().getSessionBeans().size());
+
+	}
+	
+	
+
+	/**
+	 * Tests weather the merger will ignore incorrect bean (ejbName is missing)
+	 * For MdBeans
+	 * 
+	 * @throws ModelException
+	 */
+	// @Test
+	public void testMdBeansNullNameMergeSameBean() throws ModelException {
+		EJBJar base = EjbFactory.eINSTANCE.createEJBJar();
+		EJBJar merge = EjbFactory.eINSTANCE.createEJBJar();
+		base.setEnterpriseBeans(EjbFactory.eINSTANCE.createEnterpriseBeans());
+		merge.setEnterpriseBeans(EjbFactory.eINSTANCE.createEnterpriseBeans());
+		MessageDrivenBean mdb = EjbFactory.eINSTANCE.createMessageDrivenBean();
+		base.getEnterpriseBeans().getMessageDrivenBeans().add(mdb);
+		merge.getEnterpriseBeans().getMessageDrivenBeans().add(mdb);
+		(new EjbJarMerger(base, merge, 0)).process();
+		assertNotNull(base.getEnterpriseBeans());
+		assertNotNull(merge.getEnterpriseBeans());
+		assertEquals(0, base.getEnterpriseBeans().getMessageDrivenBeans().size());
+		assertEquals(1, merge.getEnterpriseBeans().getMessageDrivenBeans().size());
+
+	}
+	
+	
+
+	/**
+	 * Tests weather the merger will ignore incorrect bean (ejbName is missing)
+	 * EntityBeans
+	 * 
+	 * @throws ModelException
+	 */
+	// @Test
+	public void testEntityBeansNullNameMerge() throws ModelException {
+		EJBJar base = EjbFactory.eINSTANCE.createEJBJar();
+		EJBJar merge = EjbFactory.eINSTANCE.createEJBJar();
+		base.setEnterpriseBeans(EjbFactory.eINSTANCE.createEnterpriseBeans());
+		merge.setEnterpriseBeans(EjbFactory.eINSTANCE.createEnterpriseBeans());
+		EntityBean entity = EjbFactory.eINSTANCE.createEntityBean();
+		base.getEnterpriseBeans().getEntityBeans().add(entity);
+		merge.getEnterpriseBeans().getEntityBeans().add(entity);
+		(new EjbJarMerger(base, merge, 0)).process();
+		assertNotNull(base.getEnterpriseBeans());
+		assertNotNull(merge.getEnterpriseBeans());
+		assertEquals(0, base.getEnterpriseBeans().getEntityBeans().size());
+		assertEquals(1, merge.getEnterpriseBeans().getEntityBeans().size());
+
+	}
 }
