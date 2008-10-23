@@ -10,8 +10,8 @@
  ***********************************************************************/
 package org.eclipse.jst.jee.model.internal.common;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -144,7 +144,16 @@ public abstract class AbstractAnnotationModelProvider<T> implements IElementChan
 	 *            the event that should be send to the listeners
 	 */
 	protected void notifyListeners(final IModelProviderEvent event) {
-		notifyListeners(listeners, event);
+		if (listeners == null)
+			return;
+		listenersLock.lock();
+		try {
+			IModelProviderListener[] backup = listeners.toArray(new IModelProviderListener[listeners.size()]);
+			notifyListeners(backup, event);
+			backup = null;
+		} finally {
+			listenersLock.unlock();
+		}
 	}
 
 	/**
@@ -163,27 +172,19 @@ public abstract class AbstractAnnotationModelProvider<T> implements IElementChan
 		}
 	}
 
-	private void notifyListeners(final Collection<IModelProviderListener> aListeners, final IModelProviderEvent event) {
-		if (listeners == null)
+	private void notifyListeners(final IModelProviderListener[] aListeners, final IModelProviderEvent event) {
+		if (event.getChangedResources() == null || event.getChangedResources().isEmpty())
 			return;
-		listenersLock.lock();
-		try {
-			if (event.getChangedResources() == null || event.getChangedResources().isEmpty())
-				return;
-			for (final IModelProviderListener listener : aListeners) {
-				SafeRunner.run(new ISafeRunnable() {
-					public void handleException(Throwable exception) {
-					}
+		for (final IModelProviderListener listener : aListeners) {
+			SafeRunner.run(new ISafeRunnable() {
+				public void handleException(Throwable exception) {
+				}
 
-					public void run() throws Exception {
-						listener.modelsChanged(event);
-					}
-				});
-			}
-		} finally {
-			listenersLock.unlock();
+				public void run() throws Exception {
+					listener.modelsChanged(event);
+				}
+			});
 		}
-
 	}
 
 	/**
@@ -191,7 +192,7 @@ public abstract class AbstractAnnotationModelProvider<T> implements IElementChan
 	 */
 	protected Collection<IModelProviderListener> getListeners() {
 		if (listeners == null) {
-			listeners = new HashSet<IModelProviderListener>();
+			listeners = new ArrayList<IModelProviderListener>();
 		}
 		return listeners;
 	}

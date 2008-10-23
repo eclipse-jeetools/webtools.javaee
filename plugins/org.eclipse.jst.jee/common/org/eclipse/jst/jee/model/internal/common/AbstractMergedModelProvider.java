@@ -10,8 +10,8 @@
  ***********************************************************************/
 package org.eclipse.jst.jee.model.internal.common;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -193,7 +193,7 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 
 	protected Collection<IModelProviderListener> getListeners() {
 		if (listeners == null)
-			listeners = new HashSet<IModelProviderListener>();
+			listeners = new ArrayList<IModelProviderListener>();
 		return listeners;
 	}
 
@@ -275,15 +275,19 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 	protected void notifyListeners(final IModelProviderEvent event) {
 		event.setModel(this);
 		event.setProject(project);
-		for (final IModelProviderListener listener : getListeners()) {
+		final Collection<IModelProviderListener> listeners = getListeners();
+		IModelProviderListener[] backup = listeners.toArray(new IModelProviderListener[listeners.size()]);
+		for (final IModelProviderListener listener : backup) {
 			SafeRunner.run(new ISafeRunnable() {
 				public void handleException(Throwable exception) {
 				}
+
 				public void run() throws Exception {
 					listener.modelsChanged(event);
 				}
 			});
 		}
+		backup = null;
 	}
 
 	protected boolean shouldDispose(IModelProviderEvent event) {
