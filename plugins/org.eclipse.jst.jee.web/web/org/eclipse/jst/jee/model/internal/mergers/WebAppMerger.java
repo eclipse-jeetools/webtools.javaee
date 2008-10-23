@@ -145,7 +145,7 @@ public class WebAppMerger  extends ModelElementMerger {
   private Servlet findServletInBase(String servletName, List baseServlets) {
     for (Object object : baseServlets) {
       Servlet servlet = (Servlet) object;
-      if(servlet.getServletName().equals(servletName)){
+			if(servlet.getServletName() != null && servlet.getServletName().equals(servletName)){
         return servlet;
       }
     }
@@ -228,23 +228,40 @@ public class WebAppMerger  extends ModelElementMerger {
 
   private void copyAllContentInBase(List listSource, List target) {
     for (Object object : listSource) {
+			if (artifactIsValid(object)){
       target.add(EcoreUtil.copy((EObject) object));
     }
+		}
 
   }
 
   private void copyMissingContentInBase(List listSource, List target) {
     for (Object object : listSource) {
-      if(!artifactExists(object, target)){
+			if(artifactIsValid(object) && !artifactExists(object, target)){
         target.add(EcoreUtil.copy((EObject) object));        
       }
     }
 
   }
 
+	private boolean artifactIsValid(Object javaEEObject) {
+		if (javaEEObject instanceof Servlet){
+			return ( (Servlet)javaEEObject).getServletName() != null;
+		} else if (javaEEObject instanceof Listener){        
+			return ((Listener)javaEEObject).getListenerClass() != null;
+		} else if (javaEEObject instanceof Filter){
+			return ((Filter)javaEEObject).getFilterName() != null;
+		} 
+		return true;
+	}
+
   private boolean artifactExists(Object javaEEObject, List target) {
     for (Object targetArtifact : target) {
+			if( !artifactIsValid(targetArtifact) ){
+				continue;
+			}
       if (javaEEObject instanceof Servlet){
+				
         if(((Servlet) targetArtifact).getServletName().equals(((Servlet)javaEEObject).getServletName())){
           return true;
         }
@@ -265,8 +282,6 @@ public class WebAppMerger  extends ModelElementMerger {
           return true;
         }
       }
-        
-      
     }
     return false;
   }
