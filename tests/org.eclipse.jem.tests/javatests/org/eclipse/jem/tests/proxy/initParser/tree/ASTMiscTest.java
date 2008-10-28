@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ASTMiscTest.java,v $
- *  $Revision: 1.3 $  $Date: 2005/08/24 20:58:54 $ 
+ *  $Revision: 1.5 $  $Date: 2009/01/29 14:58:45 $ 
  */
 package org.eclipse.jem.tests.proxy.initParser.tree;
 
@@ -48,7 +48,8 @@ public class ASTMiscTest extends AbstractInitParserTestCase {
 		cl.setEscapedValue("\'\\u0300\'");
 		assertEquals('\u0300', cl.getCharValue());
 		cl.setCharValue('\u0400');
-		assertEquals("\'\\u0400\'", cl.getEscapedValue());
+		// https://bugs.eclipse.org/bugs/show_bug.cgi?id=249019
+		assertEquals("\'\u0400\'", cl.getEscapedValue());
 	}
 
 	public void testStringLiteral() {
@@ -64,7 +65,8 @@ public class ASTMiscTest extends AbstractInitParserTestCase {
 		sl.setEscapedValue("\"\\u0300\"");
 		assertEquals("\u0300", sl.getLiteralValue());
 		sl.setLiteralValue("\u0400");
-		assertEquals("\"\\u0400\"", sl.getEscapedValue());
+		// https://bugs.eclipse.org/bugs/show_bug.cgi?id=249019
+		assertEquals("\"\u0400\"", sl.getEscapedValue());
 	}
 	
 }
