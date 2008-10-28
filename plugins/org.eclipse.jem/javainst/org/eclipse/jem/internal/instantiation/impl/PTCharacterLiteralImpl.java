@@ -281,18 +281,7 @@ public class PTCharacterLiteralImpl extends PTExpressionImpl implements PTCharac
 				b.append("\\7"); //$NON-NLS-1$
 				break;			
 			default:
-				// use a simple algorithm, if char is < 255 then just use it, else use it as unicode.
-				if (character < 255)
-					b.append(character);
-				else {
-					b.append("\\u");
-					String s = Integer.toString(character, 16);
-					int zeros = 4-s.length();
-					while (zeros-- > 0) {
-						b.append('0');
-					}
-					b.append(s);
-				}	
+				b.append(character);
 		}
 	}
 
