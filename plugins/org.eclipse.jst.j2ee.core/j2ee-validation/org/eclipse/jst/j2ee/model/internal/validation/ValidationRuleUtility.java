@@ -600,7 +600,7 @@ public final class ValidationRuleUtility {
 		}
 
 		JavaHelpers helper = null;
-		if(commonClassNames == null || commonClassNames.isEmpty()) {
+		if(commonClassNames == null) {
 			initializeCommonClassNames();
 		}
 		if (commonClassNames.contains(javaClassName)) {
@@ -636,36 +636,37 @@ public final class ValidationRuleUtility {
 		return mapHelper;
 	}    
     
-	private static void initializeCommonClassNames() {
-		if(commonClassNames == null)
-			commonClassNames = new HashSet();
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVA_IO_IOEXCEPTION);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVA_IO_SERIALIZABLE);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVA_LANG_OBJECT);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVA_LANG_EXCEPTION);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVA_LANG_RUNTIMEEXCEPTION);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVA_RMI_REMOTE);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVA_RMI_REMOTEEXCEPTION);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVA_UTIL_COLLECTION);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVA_UTIL_ENUMERATION);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVA_UTIL_SET);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_CREATEEXCEPTION);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_ENTITYBEAN);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_EJBEXCEPTION);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_EJBHOME);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_EJBLOCALHOME);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_EJBOBJECT);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_EJBLOCALOBJECT);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_ENTITYCONTEXT);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_FINDEREXCEPTION);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_MESSAGEDRIVENBEAN);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_OBJECTNOTFOUNDEXCEPTION);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONBEAN);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONCONTEXT);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONSYNCHRONIZATION);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_JMS_MESSAGE);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_JMS_MESSAGELISTENER);
-		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_TRANSACTION_USERTRANSACTION);
+	private synchronized static void initializeCommonClassNames() {
+		if (commonClassNames != null) return;
+		HashSet names = new HashSet();
+		names.add(ITypeConstants.CLASSNAME_JAVA_IO_IOEXCEPTION);
+		names.add(ITypeConstants.CLASSNAME_JAVA_IO_SERIALIZABLE);
+		names.add(ITypeConstants.CLASSNAME_JAVA_LANG_OBJECT);
+		names.add(ITypeConstants.CLASSNAME_JAVA_LANG_EXCEPTION);
+		names.add(ITypeConstants.CLASSNAME_JAVA_LANG_RUNTIMEEXCEPTION);
+		names.add(ITypeConstants.CLASSNAME_JAVA_RMI_REMOTE);
+		names.add(ITypeConstants.CLASSNAME_JAVA_RMI_REMOTEEXCEPTION);
+		names.add(ITypeConstants.CLASSNAME_JAVA_UTIL_COLLECTION);
+		names.add(ITypeConstants.CLASSNAME_JAVA_UTIL_ENUMERATION);
+		names.add(ITypeConstants.CLASSNAME_JAVA_UTIL_SET);
+		names.add(ITypeConstants.CLASSNAME_JAVAX_EJB_CREATEEXCEPTION);
+		names.add(ITypeConstants.CLASSNAME_JAVAX_EJB_ENTITYBEAN);
+		names.add(ITypeConstants.CLASSNAME_JAVAX_EJB_EJBEXCEPTION);
+		names.add(ITypeConstants.CLASSNAME_JAVAX_EJB_EJBHOME);
+		names.add(ITypeConstants.CLASSNAME_JAVAX_EJB_EJBLOCALHOME);
+		names.add(ITypeConstants.CLASSNAME_JAVAX_EJB_EJBOBJECT);
+		names.add(ITypeConstants.CLASSNAME_JAVAX_EJB_EJBLOCALOBJECT);
+		names.add(ITypeConstants.CLASSNAME_JAVAX_EJB_ENTITYCONTEXT);
+		names.add(ITypeConstants.CLASSNAME_JAVAX_EJB_FINDEREXCEPTION);
+		names.add(ITypeConstants.CLASSNAME_JAVAX_EJB_MESSAGEDRIVENBEAN);
+		names.add(ITypeConstants.CLASSNAME_JAVAX_EJB_OBJECTNOTFOUNDEXCEPTION);
+		names.add(ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONBEAN);
+		names.add(ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONCONTEXT);
+		names.add(ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONSYNCHRONIZATION);
+		names.add(ITypeConstants.CLASSNAME_JAVAX_JMS_MESSAGE);
+		names.add(ITypeConstants.CLASSNAME_JAVAX_JMS_MESSAGELISTENER);
+		names.add(ITypeConstants.CLASSNAME_JAVAX_TRANSACTION_USERTRANSACTION);
+		commonClassNames = names;
 	}
 	
 	/**
