@@ -61,8 +61,11 @@ public class BundledNode extends AbstractEarNode {
 	public List getModules() {
 		IVirtualComponent projectComponent = ComponentCore.createComponent(getEarProject());
 
+		Path libPath = new Path("/" + EAR_DEFAULT_LIB); //$NON-NLS-1$
+		
 		List libs = getComponentReferencesAsList(Collections.singletonList(J2EEProjectUtilities.UTILITY), projectComponent,
-				new Path("/" + EAR_DEFAULT_LIB)); //$NON-NLS-1$
+				libPath);
+		libs.addAll(getBinariesInLibDir(projectComponent,libPath));
 
 		List modules = new ArrayList();
 		for (int i = 0; i < libs.size(); i++) {

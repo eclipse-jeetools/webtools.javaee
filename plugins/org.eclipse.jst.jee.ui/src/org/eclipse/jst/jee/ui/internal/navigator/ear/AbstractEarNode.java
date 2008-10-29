@@ -65,10 +65,32 @@ public abstract class AbstractEarNode {
 				if (componentTypes == null || componentTypes.size() == 0) {
 					components.add(refComponents[i]);
 				} else {
-					if (componentTypes.contains(JavaEEProjectUtilities.getJ2EEComponentType(module))) {
+					if (refComponents[i].getRuntimePath().equals(runtimePath) && componentTypes.contains(JavaEEProjectUtilities.getJ2EEComponentType(module))) {
 						components.add(refComponents[i]);
 					}
 				}
+			}
+		}
+		return components;
+	}
+	
+	protected List getBinariesInLibDir(IVirtualComponent virtualComponent, IPath runtimePath) {
+		List components = new ArrayList();
+		IVirtualComponent earComponent = virtualComponent;
+		if (earComponent != null ) {
+			IVirtualReference[] refComponents = earComponent.getReferences();
+			for (int i = 0; i < refComponents.length; i++) {
+				IVirtualComponent module = refComponents[i].getReferencedComponent();
+				if (module == null) continue;
+				// if component types passed in is null then return all components
+				if (module.isBinary() && refComponents[i].getRuntimePath().equals(runtimePath)) {
+					components.add(refComponents[i]);
+				} 
+//				else {
+//					if (componentTypes.contains(JavaEEProjectUtilities.getJ2EEComponentType(module))) {
+//						components.add(refComponents[i]);
+//					}
+//				}
 			}
 		}
 		return components;

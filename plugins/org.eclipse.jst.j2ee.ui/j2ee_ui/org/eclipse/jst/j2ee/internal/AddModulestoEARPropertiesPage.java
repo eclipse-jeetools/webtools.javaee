@@ -982,6 +982,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	}
 
 	private boolean shouldBeDisabled(IVirtualComponent component) {
+		if(component.isBinary()) return false;
 		if (JavaEEProjectUtilities.isApplicationClientComponent(component)) return true;
 		if (JavaEEProjectUtilities.isEARProject(component.getProject()) && component.isBinary()) return false;
 		if (JavaEEProjectUtilities.isEJBComponent(component)) return true;
