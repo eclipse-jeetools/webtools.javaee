@@ -275,10 +275,13 @@ public class JDOMSearchHelper {
 			if (adaptor != null) {
 				//Ensure the name is qualified which it may not be if an inner class
 				innerName = getResolvedTypeName(innerName, adaptor.getType(), adaptor.getTypeResolutionCache());
+				if (qualifiedName.equals(innerName)) {
+					return;
+				}
 			}
 			info[1] = innerName;
 			info[0] = findJavaElement(innerName, javaProject, adaptor);
-			if (info[0] == null)
+			if (javaProject.getProject().isAccessible()&& info[0] == null)
 				findInnerJavaElement(info, javaProject, adaptor);
 		}
 	}
