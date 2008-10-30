@@ -131,8 +131,13 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 							continue;
 						// we will assume the component name is in synch with the module uri
 						IFile utilityJar = project.getFile(module.getName() + ".jar"); //$NON-NLS-1$
-						if (utilityJar != null)
-							children.add(utilityJar);
+						if (utilityJar != null) {
+							if (utilityJar.exists())
+								children.add(utilityJar);
+							else
+								children.add(new UtilityModuleProjectItemProvider(getAdapterFactory(),module.getProject(),this));
+						}
+							
 					}
 				}
 			} finally {
