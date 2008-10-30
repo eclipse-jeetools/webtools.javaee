@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -207,14 +208,16 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	public void closeOpenArchives() {
 		if (getOpenArchives().isEmpty())
 			return;
-		List opened = new ArrayList(getOpenArchives().size());
-		Iterator it = getOpenArchives().keySet().iterator();
-		while (it.hasNext()) {
-			opened.add(it.next());
-		}
-		for (int i = 0; i < opened.size(); i++) {
-			Archive anArchive = (Archive) opened.get(i);
-			anArchive.close();
+		synchronized (getOpenArchives()) {
+			List opened = new ArrayList(getOpenArchives().size());
+			Iterator it = getOpenArchives().keySet().iterator();
+			while (it.hasNext()) {
+				opened.add(it.next());
+			}
+			for (int i = 0; i < opened.size(); i++) {
+				Archive anArchive = (Archive) opened.get(i);
+				anArchive.close();
+			}
 		}
 	}
 
@@ -421,7 +424,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	 */
 	public java.util.Map getOpenArchives() {
 		if (openArchives == null)
-			openArchives = new WeakHashMap();
+			openArchives = Collections.synchronizedMap(new WeakHashMap());
 		return openArchives;
 	}
 
@@ -430,28 +433,32 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	 */
 	public Set getOpenArchivesDependingOn(Archive anArchive) {
 		Set dependents = new HashSet();
-		Iterator opened = getOpenArchives().keySet().iterator();
-		while (opened.hasNext()) {
-			Archive openedArchive = (Archive) opened.next();
-			if (openedArchive == anArchive)
-				continue;
-			if (!openedArchive.isIndexed())
-				//**********Optimization***********
-				//If the file list has never been built for the archive, we don't want to trigger
-				// it now,
-				//and we are sure that the archive is not preventing the parameter from closing
-				continue;
-			List files = openedArchive.getFiles();
-			for (int i = 0; i < files.size(); i++) {
-				File aFile = (File) files.get(i);
-				if (aFile.getLoadingContainer() == anArchive) {
-					Archive outermost = openedArchive;
-					Container c = openedArchive.getContainer();
-					while (c != null && c.isArchive()) {
-						outermost = (Archive) c;
-						c = c.getContainer();
+		synchronized (getOpenArchives()) {
+			Iterator opened = getOpenArchives().keySet().iterator();
+			while (opened.hasNext()) {
+				Archive openedArchive = (Archive) opened.next();
+				if (openedArchive == anArchive)
+					continue;
+				if (!openedArchive.isIndexed())
+					// **********Optimization***********
+					// If the file list has never been built for the archive, we
+					// don't want to trigger
+					// it now,
+					// and we are sure that the archive is not preventing the
+					// parameter from closing
+					continue;
+				List files = openedArchive.getFiles();
+				for (int i = 0; i < files.size(); i++) {
+					File aFile = (File) files.get(i);
+					if (aFile.getLoadingContainer() == anArchive) {
+						Archive outermost = openedArchive;
+						Container c = openedArchive.getContainer();
+						while (c != null && c.isArchive()) {
+							outermost = (Archive) c;
+							c = c.getContainer();
+						}
+						dependents.add(outermost);
 					}
-					dependents.add(outermost);
 				}
 			}
 		}
