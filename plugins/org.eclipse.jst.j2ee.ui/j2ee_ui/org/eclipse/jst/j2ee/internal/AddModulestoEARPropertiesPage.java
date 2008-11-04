@@ -13,10 +13,10 @@
 package org.eclipse.jst.j2ee.internal;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -42,6 +42,7 @@ import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ICheckStateListener;
+import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.RemoveComponentFromEnterpriseApplicationDataModelProvider;
@@ -72,14 +73,19 @@ import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.jee.project.facet.EarCreateDeploymentFilesDataModelProvider;
 import org.eclipse.jst.jee.project.facet.ICreateDeploymentFilesDataModelProperties;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -104,7 +110,8 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 
 public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, Listener {
-
+	
+	protected final String PATH_SEPARATOR = AvailableJ2EEComponentsForEARContentProvider.PATH_SEPARATOR;	
 	protected final IProject project;
 	protected final J2EEDependenciesPage propPage; 
 	protected IVirtualComponent earComponent = null;
@@ -128,6 +135,8 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	protected static final IStatus OK_STATUS = IDataModelProvider.OK_STATUS;
 	protected boolean isVersion5;
 	protected Set libsToUncheck;
+	protected Listener tableListener;
+	protected Listener labelListener;
 	
 	//[Bug 238264] the cached list of jars selected using 'add jar' or 'add external jars'
 	protected List<IVirtualComponent> addedJARComponents = new ArrayList<IVirtualComponent>();
@@ -236,6 +245,16 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	}
 	
 	public void dispose() {
+		Table table = null;
+		if (availableComponentsViewer != null) {
+		     table = availableComponentsViewer.getTable();
+		     if (table == null)
+		    	 return;
+		}
+		table.removeListener(SWT.Dispose, tableListener);
+		table.removeListener(SWT.KeyDown, tableListener);
+		table.removeListener(SWT.MouseMove, tableListener);
+		table.removeListener(SWT.MouseHover, tableListener);		
 	}
 
 	public void setVisible(boolean visible) {
@@ -487,7 +506,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		String targetProjName; 
 		if (target instanceof J2EEModuleVirtualArchiveComponent) {
 			targetProjName = ((J2EEModuleVirtualArchiveComponent)target).getName();
-			String[] pathSegments = targetProjName.split("" + IPath.SEPARATOR);
+			String[] pathSegments = targetProjName.split(PATH_SEPARATOR);
 			targetProjName = pathSegments[pathSegments.length - 1];
 		} else {
 			targetProjName = target.getProject().getName();
@@ -541,6 +560,8 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 				IVirtualReference ref = oldrefs[j];
 				IVirtualComponent handle = ref.getReferencedComponent();
 				if(!j2eeComponentList.contains(handle) && (isVersion5 ? !j2eeLibElementList.contains(handle) : true)){
+					if ((handle instanceof VirtualArchiveComponent) && (isPhysicallyAdded((VirtualArchiveComponent)handle)))
+						continue;
 					list.add(handle);
 				}
 			}
@@ -559,6 +580,11 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 			for (int j = 0; j < oldrefs.length; j++) {
 				IVirtualReference ref = oldrefs[j];
 				IVirtualComponent handle = ref.getReferencedComponent();
+				if (handle instanceof VirtualArchiveComponent) {
+					VirtualArchiveComponent comp = (VirtualArchiveComponent)handle;
+					if (isPhysicallyAdded(comp))
+						continue;
+				}
 				if(!j2eeComponentList.contains(handle) && ref.getRuntimePath().isRoot()) {
 					list[0].add(handle);
 				}
@@ -703,7 +729,8 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		if (libDir.length() > 0) {
 			if (!libDir.startsWith(J2EEConstants.EAR_ROOT_DIR)) libDir = IPath.SEPARATOR + libDir;
 		}
-				
+		setLibDirInContentProvider();
+		refresh();
 	}
 
 	
@@ -779,21 +806,110 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 			AvailableJ2EEComponentsForEARContentProvider provider = new AvailableJ2EEComponentsForEARContentProvider(earComponent, j2eeVersion);
 			availableComponentsViewer.setContentProvider(provider);
 			availableComponentsViewer.setLabelProvider(provider);
-			
+			setLibDirInContentProvider();
 			addTableListeners();
 		}
+	}
+	
+	private void setLibDirInContentProvider() {
+		IContentProvider prov = availableComponentsViewer.getContentProvider();
+		if (prov instanceof AvailableJ2EEComponentsForEARContentProvider) 
+			((AvailableJ2EEComponentsForEARContentProvider)prov).setCurrentLibDir(libDir);
 	}
 
 	protected void addTableListeners() {
 		addCheckStateListener();
+		addHoverHelpListeners();
+	}
+	
+	protected void addHoverHelpListeners() {
+		final Table table = availableComponentsViewer.getTable();				
+		createLabelListener(table);
+		createTableListener(table);
+		table.addListener(SWT.Dispose, tableListener);
+		table.addListener(SWT.KeyDown, tableListener);
+		table.addListener(SWT.MouseMove, tableListener);
+		table.addListener(SWT.MouseHover, tableListener);		
+	}
+	
+	protected void createLabelListener(final Table table) {
+		labelListener = new Listener () {
+			public void handleEvent (Event event) {
+				Label label = (Label)event.widget;
+				Shell shell = label.getShell ();
+				switch (event.type) {
+					case SWT.MouseDown:
+						Event e = new Event ();
+						e.item = (TableItem) label.getData ("_TABLEITEM");
+						table.setSelection (new TableItem [] {(TableItem) e.item});
+						table.notifyListeners (SWT.Selection, e);
+						shell.dispose ();
+						table.setFocus();
+						break;
+					case SWT.MouseExit:
+						shell.dispose ();
+						break;
+				}
+			}
+		};
+	}
+	
+	protected void createTableListener(final Table table) {
+		tableListener = new Listener () {
+			Shell tip = null;
+			Label label = null;
+			public void handleEvent (Event event) {
+				switch (event.type) {
+					case SWT.Dispose:
+					case SWT.KeyDown:
+					case SWT.MouseMove: {
+						if (tip == null) break;
+						tip.dispose ();
+						tip = null;
+						label = null;
+						break;
+					}
+					case SWT.MouseHover: {
+						TableItem item = table.getItem (new Point (event.x, event.y));
+						if (item != null) {
+							if (!item.getGrayed())
+								return;
+							if (tip != null  && !tip.isDisposed ()) tip.dispose ();
+							tip = new Shell (PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+					                .getShell(), SWT.ON_TOP | SWT.NO_FOCUS | SWT.TOOL);
+							tip.setBackground (Display.getDefault().getSystemColor (SWT.COLOR_INFO_BACKGROUND));
+							FillLayout layout = new FillLayout ();
+							layout.marginWidth = 2;
+							tip.setLayout (layout);
+							label = new Label (tip, SWT.WRAP);
+							label.setForeground (Display.getDefault().getSystemColor (SWT.COLOR_INFO_FOREGROUND));
+							label.setBackground (Display.getDefault().getSystemColor (SWT.COLOR_INFO_BACKGROUND));
+							label.setData ("_TABLEITEM", item);
+							label.setText (J2EEUIMessages.getResourceString(J2EEUIMessages.HOVER_HELP_FOR_DISABLED_LIBS));
+							label.addListener (SWT.MouseExit, labelListener);
+							label.addListener (SWT.MouseDown, labelListener);
+							Point size = tip.computeSize (SWT.DEFAULT, SWT.DEFAULT);
+							Rectangle rect = item.getBounds (0);
+							Point pt = table.toDisplay (rect.x, rect.y);
+							tip.setBounds (pt.x, pt.y - size.y, size.x, size.y);
+							tip.setVisible (true);
+						}
+					}
+				}
+			}
+		};		
 	}
 
 	protected void addCheckStateListener() {
 		availableComponentsViewer.addCheckStateListener(new ICheckStateListener() {
 			public void checkStateChanged(CheckStateChangedEvent event) {
+				CheckboxTableViewer vr = (CheckboxTableViewer)event.getSource();
+				Object element = event.getElement();
+				if (vr.getGrayed(element)) 
+					vr.setChecked(element, !vr.getChecked(element));
+				Object o = event.getSource();
 				if (!(event instanceof SecondCheckBoxStateChangedEvent) && (isVersion5)) {
-					DoubleCheckboxTableViewer vr = (DoubleCheckboxTableViewer)event.getSource();
-					Object[] items = vr.getUncheckedItems();					
+					Object[] items = ((DoubleCheckboxTableViewer)vr).getUncheckedItems();					
 					for (int i = 0; i < items.length; i++) {
 						DoubleCheckboxTableItem item = (DoubleCheckboxTableItem)items[i];
 						if (item.getSecondChecked()) {
@@ -832,7 +948,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		});
 	}
 	
-	protected Object[] getCPComponentsInEar(boolean inLibFolder) {
+	protected List getCPComponentsInEar(boolean inLibFolder) {
 		List list = new ArrayList();
 		Map pathToComp = new HashMap();
 		IVirtualReference refs[] = earComponent.getReferences();
@@ -846,10 +962,10 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 				AvailableJ2EEComponentsForEARContentProvider.addClasspathComponentDependencies(list, pathToComp, comp);
 			}
 		}
-		return list.toArray();
+		return list;
 	}
 	
-	protected Object[] getComponentsInEar(boolean inLibFolder) {
+	protected List getComponentsInEar(boolean inLibFolder) {
 		List list = new ArrayList();
 		IVirtualReference refs[] = earComponent.getReferences();
 		for( int i=0; i< refs.length; i++){
@@ -862,7 +978,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 				list.add(comp);
 			}
 		}
-		return list.toArray();
+		return list;
 	}
 	
 	/**
@@ -981,7 +1097,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 
 	}
 
-	private boolean shouldBeDisabled(IVirtualComponent component) {
+	private boolean secondShouldBeDisabled(IVirtualComponent component) {
 		if(component.isBinary()) return false;
 		if (JavaEEProjectUtilities.isApplicationClientComponent(component)) return true;
 		if (JavaEEProjectUtilities.isEARProject(component.getProject()) && component.isBinary()) return false;
@@ -992,6 +1108,24 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		if (JavaEEProjectUtilities.isProjectOfType(component.getProject(), IJ2EEFacetConstants.JAVA)) return false;
 		return false;
 	}
+	
+	private boolean isPhysicallyAdded(VirtualArchiveComponent component) {
+		IPath p = null;
+		try {
+			p = component.getProjectRelativePath();
+			return true;
+		} catch (IllegalArgumentException e) {
+			return false;
+		}
+	}		
+		
+	private boolean isInLibDir(VirtualArchiveComponent comp) {
+		IPath p = comp.getProjectRelativePath();
+		if (p.segmentCount() == 2)
+			return false;
+		return true;
+	}
+	
 	
 	public void refresh() {
 
@@ -1011,36 +1145,36 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		TableItem [] items = availableComponentsViewer.getTable().getItems();
 		List list = new ArrayList();
 		//Object[] comps = getComponentsInEar();
-		Object[] cpComps;
-		Object[] cpLibComps = new Object[0];
+		List cpComps;
+		List cpLibComps = new LinkedList();
 		HashSet j2eeComponentSet = new HashSet();
 		HashSet j2eeLibComponentSet = new HashSet();		
 		if (isVersion5) {
 			if( j2eeComponentList.isEmpty() ){
-				Object[] comps = getComponentsInEar(false);
-				j2eeComponentList.addAll( Arrays.asList(comps));
+				List comps = getComponentsInEar(false);
+				j2eeComponentList.addAll(comps);
 			}
 			if( j2eeLibElementList.isEmpty() ){
-				Object[] comps = getComponentsInEar(true);
-				j2eeLibElementList.addAll( Arrays.asList(comps));
+				List comps = getComponentsInEar(true);
+				j2eeLibElementList.addAll(comps);
 			}			
 			// get all Classpath contributions to the Ear
 			cpComps = getCPComponentsInEar(false);
-			j2eeComponentList.addAll(Arrays.asList(cpComps));	
+			j2eeComponentList.addAll(cpComps);	
 			cpLibComps = getCPComponentsInEar(true);
-			j2eeLibElementList.addAll(Arrays.asList(cpLibComps));	
+			j2eeLibElementList.addAll(cpLibComps);	
 			for (int i = 0; i < j2eeLibElementList.size(); i++) {
 				j2eeLibComponentSet.add(j2eeLibElementList.get(i));
 			}
 				
 		} else {
 			if( j2eeComponentList.isEmpty() ){
-				Object[] comps = getComponentsInEar(false);
-				j2eeComponentList.addAll( Arrays.asList(comps));
+				List comps = getComponentsInEar(false);
+				j2eeComponentList.addAll(comps);
 			}
 			// get all Classpath contributions to the Ear
 			cpComps = getCPComponentsInEar(false);
-			j2eeComponentList.addAll(Arrays.asList(cpComps));			
+			j2eeComponentList.addAll(cpComps);			
 		}
 		for (int i = 0; i < j2eeComponentList.size(); i++) {
 			j2eeComponentSet.add(j2eeComponentList.get(i));
@@ -1054,14 +1188,26 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 					if (j2eeComponentSet.contains(element)) {
 						list.add(element);
 					}
+					boolean shouldBeDisabled = false;
+					if (element instanceof VirtualArchiveComponent) {
+						shouldBeDisabled = isPhysicallyAdded((VirtualArchiveComponent)element);
+						if (shouldBeDisabled) {
+							items[i].setChecked(true);
+							items[i].setGrayed(true);
+						}
+					}
 					if (isVersion5) {
 						DoubleCheckboxTableItem dcbItem = (DoubleCheckboxTableItem)items[i]; 
 						boolean secondEnabled = true;
-						if (element instanceof IVirtualComponent) {
-							secondEnabled = !shouldBeDisabled((IVirtualComponent) element);
-						} 
-						dcbItem.setSecondEnabled(secondEnabled);
-						dcbItem.setSecondChecked(j2eeLibComponentSet.contains(element));
+						if (element instanceof IVirtualComponent) 
+							secondEnabled = !secondShouldBeDisabled((IVirtualComponent) element);
+						if (shouldBeDisabled) {
+							dcbItem.setSecondChecked(isInLibDir((VirtualArchiveComponent)element));
+							dcbItem.setSecondEnabled(false);
+						} else {
+							dcbItem.setSecondChecked(j2eeLibComponentSet.contains(element));							
+							dcbItem.setSecondEnabled(secondEnabled);
+						}
 						if (j2eeLibComponentSet.contains(element)) list.add(element);
 					}
 				}
@@ -1070,11 +1216,8 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 			}
 		}		
 		
-		availableComponentsViewer.setCheckedElements(list.toArray());
-		availableComponentsViewer.setGrayedElements(cpComps);
-		if (isVersion5) availableComponentsViewer.setGrayedElements(cpLibComps);
-
-	//	j2eeComponentList.addAll(list);
+		for (int i = 0; i < list.size(); i++) 
+			availableComponentsViewer.setChecked(list.get(i), true);
 		GridData btndata = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_BEGINNING);
 		buttonColumn.setLayoutData(btndata);
 
@@ -1210,4 +1353,5 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		}
 		return virtCompURIMapName;
 	}
+		
 }

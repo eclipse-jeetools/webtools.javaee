@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.CoreException;
@@ -34,6 +35,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -42,10 +44,15 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public class AvailableJ2EEComponentsForEARContentProvider implements IStructuredContentProvider, ITableLabelProvider {
+	
+	final static String PATH_SEPARATOR = String.valueOf(IPath.SEPARATOR);
+	
 	private int j2eeVersion;
 	private IVirtualComponent earComponent;
 	private boolean isEE5 = false;
-
+	private String libDir = null;
+	
+	
 	public AvailableJ2EEComponentsForEARContentProvider(IVirtualComponent aEarComponent, int j2eeVersion) {
 		super();
 		this.j2eeVersion = j2eeVersion;
@@ -87,14 +94,22 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 					}
 				}else if(null != earComponent && J2EEProjectUtilities.isEARProject(project)){
 					//find the ArchiveComponent
-					if( component.equals( earComponent )){
+					if(component.equals( earComponent )){
+						if (isEE5) {
+							Application app = (Application)ModelProviderManager.getModelProvider(project).getModelObject();
+							if (libDir == null)
+								libDir = app.getLibraryDirectory();
+							if (libDir == null)
+								libDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
+						}
 						IVirtualReference[] newrefs = component.getReferences();
 						for( int k=0; k< newrefs.length; k++ ){
 							IVirtualReference tmpref = newrefs[k];
 							IVirtualComponent referencedcomp = tmpref.getReferencedComponent();		
 							boolean isBinary = referencedcomp.isBinary();
 							if( isBinary ){
-								validCompList.add(referencedcomp);
+								if (shouldShow(referencedcomp))
+									validCompList.add(referencedcomp);
 							} else {
 								addClasspathComponentDependencies(validCompList, pathToComp, referencedcomp);
 							}
@@ -104,7 +119,7 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 			} else
 				try {
 					if (project.exists() && project.isAccessible() && project.hasNature("org.eclipse.jdt.core.javanature") ){ //$NON-NLS-1$
-						if( !project.getName().startsWith(".") )
+						if( !project.getName().startsWith(".") ) //$NON-NLS-1$
 							validCompList.add(project);
 					}
 				} catch (CoreException e) {
@@ -113,6 +128,50 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 		}
 		return validCompList.toArray();
 	}
+	
+	public void setCurrentLibDir(String libDir) {
+		this.libDir = libDir;
+	}
+	
+	private boolean shouldShow(IVirtualComponent component) {
+		if (!(component instanceof VirtualArchiveComponent)) 
+			return true;
+		
+		VirtualArchiveComponent comp = (VirtualArchiveComponent)component;
+		IPath p = null;
+		try {
+			p = comp.getProjectRelativePath();
+		} catch (IllegalArgumentException e) {
+			return true;
+		}
+		if ((p == null) && (p.segmentCount() == 0))
+			return true;	
+		IFolder f  = (IFolder) earComponent.getRootFolder().getUnderlyingFolder();
+		String rootFolderName = f.getProjectRelativePath().segment(0);
+		if (!p.segment(0).equals(rootFolderName)) 
+			return false;
+		if (p.segmentCount() == 2)
+			return true;
+		if (isEE5) {
+			String strippedLibDir = stripSeparators(libDir);
+			String[] libDirSegs = strippedLibDir.split(PATH_SEPARATOR); 
+			if (p.segmentCount() - 2 != libDirSegs.length)
+				return false;
+			for (int i = 0; i < libDirSegs.length; i++) 
+				if (!libDirSegs[i].equals(p.segment(i + 1)))
+					return false;
+			return true;
+		}
+		return false;
+	}
+	
+	private String stripSeparators(String dir) {
+		if (dir.startsWith(PATH_SEPARATOR)) 
+			dir = dir.substring(1);
+		if (dir.endsWith(PATH_SEPARATOR))  
+			dir = dir.substring(0, dir.length() - 1);
+		return dir;
+	}	
 
 	public static void addClasspathComponentDependencies(final List componentList, final Map pathToComp, final IVirtualComponent referencedComponent) {
 		if (referencedComponent instanceof J2EEModuleVirtualComponent) {
@@ -181,13 +240,13 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 			} else if (columnIndex == 1) {
 				return comp.getProject().getName();
 			} else if (columnIndex == 2) {
-				return "";
+				return ""; //$NON-NLS-1$
 			}
 		} else if (element instanceof IProject){
 			if (columnIndex != 2) {
 				return ((IProject)element).getName();
 			} else {
-				return "";
+				return ""; //$NON-NLS-1$
 			}
 		}		
 		return null;

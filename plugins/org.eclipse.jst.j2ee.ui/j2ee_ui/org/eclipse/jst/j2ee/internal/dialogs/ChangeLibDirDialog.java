@@ -38,8 +38,14 @@ public class ChangeLibDirDialog extends InputDialog {
         	} else {
     			if (res.startsWith("" + IPath.SEPARATOR)); //$NON-NLS-1$
     			res = res.substring(1);	
+    			String[] segments = res.split("" + IPath.SEPARATOR); //$NON-NLS-1$
     			Path p = new Path(""); //$NON-NLS-1$
-    			boolean valid = p.isValidSegment(res); 
+    			boolean valid = true;
+    			for (int i = 0; i < segments.length; i++) {
+    				valid = p.isValidSegment(segments[i]);
+    				if (!valid)
+    					break;
+    			}
     			if (!valid) {
     				MessageDialog.openError(null, 
     						J2EEUIMessages.getResourceString(J2EEUIMessages.INVALID_PATH), 
