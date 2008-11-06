@@ -73,7 +73,7 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 			final IPath pjpath = project.getFullPath();
 
 			// Setup the flexible project structure.
-			final IVirtualComponent c = ComponentCore.createComponent(project);
+			final IVirtualComponent c = ComponentCore.createComponent(project, false);
 			c.create(0, null);
 			setOutputFolder(model,c);
 			final IVirtualFolder ejbroot = c.getRootFolder();
