@@ -98,7 +98,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			// Setup the flexible project structure.
 
-			final IVirtualComponent c = ComponentCore.createComponent(project);
+			final IVirtualComponent c = ComponentCore.createComponent(project, false);
 
 			c.create(0, null);
 
@@ -261,7 +261,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 	}
 
 	private IPath setContentPropertyIfNeeded(final IDataModel model, final IPath pjpath, IProject project) {
-		IVirtualComponent c = ComponentCore.createComponent(project);
+		IVirtualComponent c = ComponentCore.createComponent(project, false);
 		if (c.exists()) {
 			if( !c.getRootFolder().getProjectRelativePath().isRoot() ){
 				return c.getRootFolder().getUnderlyingResource().getFullPath();

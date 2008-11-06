@@ -48,7 +48,7 @@ public final class EarFacetInstallDelegate implements IDelegate {
 
 			WtpUtils.addNaturestoEAR(project);
 
-			final IVirtualComponent c = ComponentCore.createComponent(project);
+			final IVirtualComponent c = ComponentCore.createComponent(project, false);
 			c.create(0, null);
 
 			final IVirtualFolder earroot = c.getRootFolder();
