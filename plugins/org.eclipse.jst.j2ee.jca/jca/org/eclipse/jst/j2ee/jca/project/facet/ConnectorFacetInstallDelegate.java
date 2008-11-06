@@ -80,7 +80,7 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			// Setup the flexible project structure.
 
-			final IVirtualComponent c = ComponentCore.createComponent(project);
+			final IVirtualComponent c = ComponentCore.createComponent(project, false);
 
 			c.create(0, null);
 			setOutputFolder(model, c);
