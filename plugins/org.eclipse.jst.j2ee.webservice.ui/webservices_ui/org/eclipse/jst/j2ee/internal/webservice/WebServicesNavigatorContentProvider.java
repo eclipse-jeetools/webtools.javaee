@@ -103,19 +103,19 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 				}
 			} else {
 				// first time on this workspace, let the job set the WebServiceViewerSynchronization.ARE_THERE_WEBSERVICES
-				if (!viewerSynchronization.hasIndexJobBeenScheduled()) {
+				if (viewerSynchronization != null && !viewerSynchronization.hasIndexJobBeenScheduled()) {
 					viewerSynchronization.startIndexJob();
 				}
 				return NO_CHILDREN;
 			}
 		} else if (parentElement instanceof WebServiceNavigatorGroup){
-			if (!viewerSynchronization.hasIndexJobBeenScheduled()) {
+			if (viewerSynchronization != null && !viewerSynchronization.hasIndexJobBeenScheduled()) {
 				viewerSynchronization.startIndexJob();
 			} 
 			return new Object[]{getServicesGroup(), getClientsGroup()};
 
 		}else if (parentElement instanceof WebServiceNavigatorGroupType) {
-			if (!viewerSynchronization.hasIndexJobBeenScheduled()) {
+			if (viewerSynchronization != null && !viewerSynchronization.hasIndexJobBeenScheduled()) {
 				viewerSynchronization.startIndexJob();
 			} 
 			WebServiceNavigatorGroupType wsGroupType = (WebServiceNavigatorGroupType) parentElement;
