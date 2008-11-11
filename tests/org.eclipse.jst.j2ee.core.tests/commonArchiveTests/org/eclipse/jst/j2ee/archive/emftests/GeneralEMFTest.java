@@ -5,6 +5,9 @@ package org.eclipse.jst.j2ee.archive.emftests;
 
 import java.util.HashSet;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
@@ -15,6 +18,8 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 import org.eclipse.wst.common.tests.BaseTestCase;
+import org.eclipse.wst.common.tests.ProjectUtility;
+import org.eclipse.wst.validation.internal.operations.ValidationBuilder;
 
 /**
  * @author itewk
@@ -23,6 +28,7 @@ import org.eclipse.wst.common.tests.BaseTestCase;
 public abstract class GeneralEMFTest extends BaseTestCase {
 	private RendererFactory testingFactory;
 	private RendererFactory defaultFactory;
+	public static final String VALIDATOR_JOB_FAMILY = "validators";
 	
 	public GeneralEMFTest(String name) {
 		super(name);
@@ -48,8 +54,9 @@ public abstract class GeneralEMFTest extends BaseTestCase {
 	protected void tearDown() throws Exception {
 		//set the default factory back to the orginal default
 		RendererFactory.setDefaultRendererFactory(defaultFactory);
-		
-		super.setUp();
+		// Wait for all validation jobs to end before ending test....
+		waitOnJobs();
+		super.tearDown();
 	}
 	
 	protected CommonarchiveFactory getArchiveFactory() {
@@ -72,5 +79,15 @@ public abstract class GeneralEMFTest extends BaseTestCase {
 		HashSet set = new HashSet();
 		set.add("id");
 		return set;
+	}
+	public static void waitOnJobs() throws InterruptedException {
+		IProject[] projects = ProjectUtility.getAllProjects();
+		for (int i = 0; i < projects.length; i++) {
+			IProject project = projects[i];
+			Job.getJobManager().join(project.getName() + VALIDATOR_JOB_FAMILY,null);
+		}
+		Job.getJobManager().join(ResourcesPlugin.FAMILY_MANUAL_BUILD,null);
+		Job.getJobManager().join(ResourcesPlugin.FAMILY_AUTO_BUILD,null);
+		Job.getJobManager().join(ValidationBuilder.FAMILY_VALIDATION_JOB,null);
 	}
 }
