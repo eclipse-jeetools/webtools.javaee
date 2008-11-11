@@ -124,8 +124,8 @@ public class WebServicesNavigatorLabelProvider extends AdapterFactoryLabelProvid
 				if (((ServiceRef) element).eContainer() instanceof Session)
 					beanName14 = ((Session) ((ServiceRef) element).eContainer()).getName() + ": "; //$NON-NLS-1$
 			}
-
-			return ProjectUtilities.getProject((ServiceRef) element).getName() + ": " + beanName14 //$NON-NLS-1$
+			IProject refProj = ProjectUtilities.getProject((ServiceRef) element);
+			return (refProj != null) ? refProj.getName() : "" + ": " + beanName14 //$NON-NLS-1$
 						+ ((ServiceRef) element).getServiceRefName();
 		} else
 			return super.getText(element);

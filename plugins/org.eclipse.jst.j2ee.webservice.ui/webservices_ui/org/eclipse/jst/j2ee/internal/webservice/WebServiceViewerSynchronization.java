@@ -25,6 +25,7 @@ import org.eclipse.jst.j2ee.navigator.internal.IJ2EENavigatorConstants;
 import org.eclipse.ui.progress.UIJob;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
 import org.eclipse.wst.common.project.facet.core.internal.FacetedProjectPropertyTester;
+import org.eclipse.wst.project.facet.ProductManager;
 
 public class WebServiceViewerSynchronization implements WebServiceManagerListener{
 	
@@ -226,8 +227,10 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 	}
 	
 	public static boolean areThereWebServices() {
-		String val = WebServiceUIPlugin.getDefault().getPluginPreferences().getString(WebServiceViewerSynchronization.ARE_THERE_WEBSERVICES);
-		return Boolean.parseBoolean(val);
+		if (ProductManager.shouldUseViewerSyncForWebservices()) {
+			String val = WebServiceUIPlugin.getDefault().getPluginPreferences().getString(WebServiceViewerSynchronization.ARE_THERE_WEBSERVICES);
+			return Boolean.parseBoolean(val);
+		} else return false;
 	}
 
 	public static boolean isThereWebServicesPreferenceSet() {
@@ -337,7 +340,7 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 						viewer.remove(contentProvider.getNavigatorGroup());
 						setNavigatorGroupAdded(false);
 						setAreThereWebServices(false);
-						if(!contentProvider.projectListener.isDisposed()
+						if(contentProvider.projectListener != null && !contentProvider.projectListener.isDisposed()
 								&& !contentProvider.projectListener.isListening())
 							contentProvider.projectListener.startListening();
 					}

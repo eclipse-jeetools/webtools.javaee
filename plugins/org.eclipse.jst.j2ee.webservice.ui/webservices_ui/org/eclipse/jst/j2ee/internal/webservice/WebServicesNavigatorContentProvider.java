@@ -39,6 +39,7 @@ import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
 import org.eclipse.jst.j2ee.webservice.wsdd.PortComponent;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
+import org.eclipse.wst.project.facet.ProductManager;
 
 /**
  * @author jlanuti
@@ -63,14 +64,17 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 
 	public WebServicesNavigatorContentProvider() {
 		super(createAdapterFactory());
-		viewerSynchronization = new WebServiceViewerSynchronization(this);
-		projectListener = new NewProjectsListener(viewerSynchronization);
+		if (ProductManager.shouldUseViewerSyncForWebservices()) {
+			viewerSynchronization = new WebServiceViewerSynchronization(this);
+			projectListener = new NewProjectsListener(viewerSynchronization);
+		}
 
 	} 
 	
 	public void dispose() { 
 		super.dispose();
-		projectListener.dispose();
+		if (projectListener != null)
+			projectListener.dispose();
 	}
 
 	/**
@@ -86,31 +90,32 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 	 * @see org.eclipse.wst.common.navigator.internal.views.navigator.INavigatorContentProvider#getChildren(java.lang.Object)
 	 */
 	public Object[] getChildren(Object parentElement) {
-		
+
 		if (parentElement instanceof IWorkspaceRoot) {
 			// return new Object[]{ getWebServicesNavigatorGroup(parentElement) };
 			if(WebServiceViewerSynchronization.isThereWebServicesPreferenceSet()){
 				if(WebServiceViewerSynchronization.areThereWebServices()){
-					viewerSynchronization.setNavigatorGroupAdded(true);
+					if (viewerSynchronization != null)
+						viewerSynchronization.setNavigatorGroupAdded(true);
 					return new Object[]{getNavigatorGroup()};
 				} else {
 					return NO_CHILDREN;
 				}
 			} else {
 				// first time on this workspace, let the job set the WebServiceViewerSynchronization.ARE_THERE_WEBSERVICES
-				if (!viewerSynchronization.hasIndexJobBeenScheduled()) {
+				if (viewerSynchronization != null && !viewerSynchronization.hasIndexJobBeenScheduled()) {
 					viewerSynchronization.startIndexJob();
 				}
 				return NO_CHILDREN;
 			}
 		} else if (parentElement instanceof WebServiceNavigatorGroup){
-			if (!viewerSynchronization.hasIndexJobBeenScheduled()) {
+			if (viewerSynchronization != null && !viewerSynchronization.hasIndexJobBeenScheduled()) {
 				viewerSynchronization.startIndexJob();
 			} 
 			return new Object[]{getServicesGroup(), getClientsGroup()};
 
 		}else if (parentElement instanceof WebServiceNavigatorGroupType) {
-			if (!viewerSynchronization.hasIndexJobBeenScheduled()) {
+			if (viewerSynchronization != null && !viewerSynchronization.hasIndexJobBeenScheduled()) {
 				viewerSynchronization.startIndexJob();
 			} 
 			WebServiceNavigatorGroupType wsGroupType = (WebServiceNavigatorGroupType) parentElement;

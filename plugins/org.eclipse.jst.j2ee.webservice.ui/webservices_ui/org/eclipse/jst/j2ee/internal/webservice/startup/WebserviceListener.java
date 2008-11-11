@@ -11,6 +11,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.ui.IStartup;
 import org.eclipse.wst.common.project.facet.core.internal.FacetedProjectPropertyTester;
+import org.eclipse.wst.project.facet.ProductManager;
 
 public class WebserviceListener implements IStartup, IResourceChangeListener, IResourceDeltaVisitor {
 	
@@ -76,8 +77,12 @@ public class WebserviceListener implements IStartup, IResourceChangeListener, IR
 		return listening;
 	}
 	public void earlyStartup() {
-		INSTANCE = this;
-		startListening();
+		if (ProductManager.shouldUseViewerSyncForWebservices()) {
+			INSTANCE = this;
+			startListening();
+		} else {
+			org.eclipse.jst.j2ee.internal.webservice.WebServiceViewerSynchronization.setAreThereWebServices(false);
+		}
 	}
 
 	public void resourceChanged(IResourceChangeEvent event) {
