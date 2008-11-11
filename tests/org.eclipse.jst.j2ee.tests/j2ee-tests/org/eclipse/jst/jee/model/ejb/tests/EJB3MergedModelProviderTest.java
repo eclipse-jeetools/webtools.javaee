@@ -287,42 +287,42 @@ public class EJB3MergedModelProviderTest extends AbstractAnnotationModelTest {
 	// saveFileAndUpdate(interfaceFile, localInterfaceContent);
 	// }
 
-	/**
-	 * Create an ejb project with a client project. Add a session bean to the
-	 * project. After creating the ejb project a client project is created. The
-	 * modify method of the provider is called passing a runnable for setting
-	 * the ejbClient. This is the current implementation of how a client is
-	 * create.
-	 * 
-	 * The test doing exactly this. Create an ear project. Create and ejb
-	 * project with a client project. Check that the model nows about the
-	 * ejbClient project. Then add a session bean to the ejb project. The
-	 * listener must be notified.
-	 * 
-	 * @throws Exception
-	 */
-	public void testAddSessionBean() throws Exception {
-		final String ejbProjectName = this.getClass().getSimpleName() + this.getName();
-
-		// create the project
-		ProjectUtil.createEARProject(ejbProjectName + "ear", true);
-		IProject project = ProjectUtil.createEJBProject(ejbProjectName, ejbProjectName + "ear", ejbProjectName
-				+ "client", J2EEVersionConstants.EJB_3_0_ID, true);
-		IFolder comFolder = project.getFolder("ejbModule/com");
-		comFolder.create(true, true, null);
-		comFolder.getFolder("sap").create(true, true, null);
-
-		// get the model provider
-		IModelProvider provider = ModelProviderManager.getModelProvider(project);
-		EJBJar result = (EJBJar) provider.getModelObject();
-		assertEquals(ejbProjectName + "Client.jar", result.getEjbClientJar());
-		IDataModelOperation operation = createBeanOperation("testAddSessionBeanClientExists", "com.sap", project
-				.getName());
-		executeAndWait(operation, provider);
-
-		result = (EJBJar) provider.getModelObject();
-		assertNotNull(TestUtils.getSessionBean(result, "testAddSessionBeanClientExists"));
-	}
+//	/**
+//	 * Create an ejb project with a client project. Add a session bean to the
+//	 * project. After creating the ejb project a client project is created. The
+//	 * modify method of the provider is called passing a runnable for setting
+//	 * the ejbClient. This is the current implementation of how a client is
+//	 * create.
+//	 * 
+//	 * The test doing exactly this. Create an ear project. Create and ejb
+//	 * project with a client project. Check that the model nows about the
+//	 * ejbClient project. Then add a session bean to the ejb project. The
+//	 * listener must be notified.
+//	 * 
+//	 * @throws Exception
+//	 */
+//	public void testAddSessionBean() throws Exception {
+//		final String ejbProjectName = this.getClass().getSimpleName() + this.getName();
+//
+//		// create the project
+//		ProjectUtil.createEARProject(ejbProjectName + "ear", true);
+//		IProject project = ProjectUtil.createEJBProject(ejbProjectName, ejbProjectName + "ear", ejbProjectName
+//				+ "client", J2EEVersionConstants.EJB_3_0_ID, true);
+//		IFolder comFolder = project.getFolder("ejbModule/com");
+//		comFolder.create(true, true, null);
+//		comFolder.getFolder("sap").create(true, true, null);
+//
+//		// get the model provider
+//		IModelProvider provider = ModelProviderManager.getModelProvider(project);
+//		EJBJar result = (EJBJar) provider.getModelObject();
+//		assertEquals(ejbProjectName + "Client.jar", result.getEjbClientJar());
+//		IDataModelOperation operation = createBeanOperation("testAddSessionBeanClientExists", "com.sap", project
+//				.getName());
+//		executeAndWait(operation, provider);
+//
+//		result = (EJBJar) provider.getModelObject();
+//		assertNotNull(TestUtils.getSessionBean(result, "testAddSessionBeanClientExists"));
+//	}
 
 	protected IDataModelOperation createBeanOperation(String className, String javaPackage, String projectName) {
 		NewSessionBeanClassDataModelProvider dataProvider = new NewSessionBeanClassDataModelProvider();
