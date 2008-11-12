@@ -18,6 +18,10 @@ import org.eclipse.jst.common.project.facet.core.libprov.user.UserLibraryProvide
 import org.eclipse.jst.common.project.facet.core.libprov.user.UserLibraryProviderInstallOperationConfig;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
+import org.eclipse.wst.common.project.facet.core.IFacetedProjectBase;
+import org.eclipse.wst.common.project.facet.core.IProjectFacet;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 /**
  * @author <a href="mailto:konstantin.komissarchik@oracle.com">Konstantin Komissarchik</a>
@@ -28,6 +32,9 @@ public class WtpUserLibraryProviderInstallOperation
     extends UserLibraryProviderInstallOperation
     
 {
+    private static final IProjectFacet WEB_FACET 
+        = ProjectFacetsManager.getProjectFacet( IJ2EEFacetConstants.DYNAMIC_WEB );
+    
     @Override
     protected IClasspathEntry createClasspathEntry( final UserLibraryProviderInstallOperationConfig config,
                                                     final String libraryName )
@@ -35,12 +42,15 @@ public class WtpUserLibraryProviderInstallOperation
         final WtpUserLibraryProviderInstallOperationConfig cfg
             = (WtpUserLibraryProviderInstallOperationConfig) config;
         
+        final IFacetedProjectBase fproj = cfg.getFacetedProject();
+        final boolean isWebProject = fproj.hasProjectFacet( WEB_FACET );
+        
         final IClasspathAttribute attr;
         
-        if( cfg.isCopyOnPublishEnabled() )
+        if( cfg.isIncludeWithApplicationEnabled() )
         {
             attr = JavaCore.newClasspathAttribute( IClasspathDependencyConstants.CLASSPATH_COMPONENT_DEPENDENCY,
-                                                   ClasspathDependencyUtil.getDefaultRuntimePath( true ).toString() );
+                                                   ClasspathDependencyUtil.getDefaultRuntimePath( isWebProject ).toString() );
         }
         else
         {

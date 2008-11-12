@@ -41,7 +41,7 @@ public class WtpUserLibraryProviderInstallPanel
         
         final Button copyOnPublishCheckBox = new Button( composite, SWT.CHECK );
         copyOnPublishCheckBox.setText( Resources.copyLibraries );
-        copyOnPublishCheckBox.setSelection( cfg.isCopyOnPublishEnabled() );
+        copyOnPublishCheckBox.setSelection( cfg.isIncludeWithApplicationEnabled() );
         
         copyOnPublishCheckBox.addSelectionListener
         (
@@ -50,7 +50,7 @@ public class WtpUserLibraryProviderInstallPanel
                 @Override
                 public void widgetSelected( final SelectionEvent event )
                 {
-                    cfg.setCopyOnPublishEnabled( copyOnPublishCheckBox.getSelection() );
+                    cfg.setIncludeWithApplicationEnabled( copyOnPublishCheckBox.getSelection() );
                 }
             }
         );
@@ -61,11 +61,11 @@ public class WtpUserLibraryProviderInstallPanel
                                          final Object oldValue,
                                          final Object newValue )
             {
-                copyOnPublishCheckBox.setSelection( cfg.isCopyOnPublishEnabled() );
+                copyOnPublishCheckBox.setSelection( cfg.isIncludeWithApplicationEnabled() );
             }
         };
         
-        cfg.addListener( listener, WtpUserLibraryProviderInstallOperationConfig.PROP_COPY_ON_PUBLISH_ENABLED );
+        cfg.addListener( listener, WtpUserLibraryProviderInstallOperationConfig.PROP_INCLUDE_WITH_APPLICATION_ENABLED );
         
         copyOnPublishCheckBox.addDisposeListener
         (
