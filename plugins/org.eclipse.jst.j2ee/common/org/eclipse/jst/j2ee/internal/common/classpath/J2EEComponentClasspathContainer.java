@@ -72,7 +72,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	private IPath containerPath;
 	private IJavaProject javaProject;
 	private IClasspathEntry[] entries = new IClasspathEntry[0];
-	private boolean exportEntries; //the default behavior is to always export these dependencies
+	private boolean exportEntries = true; //the default behavior is to always export these dependencies
 	private static Map keys = new Hashtable();
 	private static Map previousSelves = new Hashtable();
 	private static int MAX_RETRIES = 10;
