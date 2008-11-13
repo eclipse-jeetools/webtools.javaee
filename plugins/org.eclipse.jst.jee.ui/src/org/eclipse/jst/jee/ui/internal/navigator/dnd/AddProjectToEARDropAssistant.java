@@ -222,6 +222,16 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 				IStatus status = null;
 				for (Iterator iterator = structuredSelection.iterator(); iterator.hasNext();) {
 					Object next = iterator.next();
+					
+					//check if library is physically present in the Ear path
+					if (IVirtualReference.class.isInstance(next)){
+						IVirtualComponent referencedComponent = ((IVirtualReference)next).getReferencedComponent();
+						if (referencedComponent.isBinary() && VirtualArchiveComponent.class.isInstance(referencedComponent)){
+							if (isPhysicallyAdded((VirtualArchiveComponent) referencedComponent)){
+								return Status.CANCEL_STATUS;
+							}
+						}
+					}
 
 					if (next instanceof IVirtualReference) {
 						return Status.OK_STATUS;
@@ -268,6 +278,15 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 		}
 		return Status.CANCEL_STATUS;
 	}
+	
+	private boolean isPhysicallyAdded(VirtualArchiveComponent component) {
+		try {
+			component.getProjectRelativePath();
+			return true;
+		} catch (IllegalArgumentException e) {
+			return false;
+		}
+	}	
 
 	/**
 	 * @param target

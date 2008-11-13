@@ -31,10 +31,11 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
  */
 public class BundledNode extends AbstractEarNode {
 
+	private static final List<String> UTILITY = Collections.singletonList(J2EEProjectUtilities.UTILITY);
 	private final String nodeName;
 	private final BundledNode bundledLibsDirectoryNode;
 
-	public final static String EAR_DEFAULT_LIB = "lib"; //$NON-NLS-1$
+	
 
 	public BundledNode(IProject earProject, String nodeName, BundledNode bundledLibsDirectoryNode) {
 		super(earProject);
@@ -61,19 +62,23 @@ public class BundledNode extends AbstractEarNode {
 	public List getModules() {
 		IVirtualComponent projectComponent = ComponentCore.createComponent(getEarProject());
 
-		Path libPath = new Path("/" + EAR_DEFAULT_LIB); //$NON-NLS-1$
+		Path libPath = new Path("/"); //$NON-NLS-1$
+		if (bundledLibsDirectoryNode == null){
+			libPath = new Path("/" + recomputeLibFolder(getEarProject())); //$NON-NLS-1$
+		}
 		
-		List libs = getComponentReferencesAsList(Collections.singletonList(J2EEProjectUtilities.UTILITY), projectComponent,
+		List libs = getComponentReferencesAsList(UTILITY, projectComponent,
 				libPath);
-		libs.addAll(getBinariesInLibDir(projectComponent,libPath));
+		libs.addAll(getBinariesInLibDir(projectComponent,libPath, UTILITY));
 
 		List modules = new ArrayList();
 		for (int i = 0; i < libs.size(); i++) {
 			IVirtualReference reference = (IVirtualReference) libs.get(i);
-			IPath runtimePath = reference.getRuntimePath();
+			
+			IPath runtimePath =  getRealRuntimePath(reference);
 
 			if (runtimePath != null && runtimePath.segment(0) != null && 
-					runtimePath.equals(new Path("/" + EAR_DEFAULT_LIB))) { //$NON-NLS-1$
+					runtimePath.equals(libPath)) {
 				if (bundledLibsDirectoryNode == null){
 					modules.add(libs.get(i));
 				}
