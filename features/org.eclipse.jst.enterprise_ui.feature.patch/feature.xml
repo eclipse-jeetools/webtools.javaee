@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.jst.enterprise_ui.feature.patch"
       label="%featureName"
-      version="3.0.1.qualifier"
+      version="3.0.3.qualifier"
       provider-name="%providerName">
 
    <description>
@@ -18,15 +18,8 @@
    </license>
 
    <requires>
-      <import feature="org.eclipse.jst.enterprise_ui.feature" version="3.0.1.v200807220252-7Y7BFSVEPOwQL0L132UKBz0UyQuX" patch="true"/>
+      <import feature="org.eclipse.jst.enterprise_ui.feature" version="3.0.3.v200810010400-7Y7BFSrEPOwQPnUuwhYV60NEQtTn" patch="true"/>
    </requires>
-
-   <plugin
-         id="org.eclipse.jst.ws.consumption.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
 
    <plugin
          id="org.eclipse.jst.j2ee.ui"
@@ -34,5 +27,5 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
+
 </feature>
