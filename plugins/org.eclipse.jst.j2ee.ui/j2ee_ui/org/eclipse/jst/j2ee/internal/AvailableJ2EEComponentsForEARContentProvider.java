@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.CoreException;
@@ -146,7 +146,7 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 		}
 		if ((p == null) && (p.segmentCount() == 0))
 			return true;	
-		IFolder f  = (IFolder) earComponent.getRootFolder().getUnderlyingFolder();
+		IContainer f  = earComponent.getRootFolder().getUnderlyingFolder();
 		String rootFolderName = f.getProjectRelativePath().segment(0);
 		if (!p.segment(0).equals(rootFolderName)) 
 			return false;
