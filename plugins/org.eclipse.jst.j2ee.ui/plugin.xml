@@ -620,12 +620,16 @@
 		<newWizardShortcut id="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorProjectWizard"/>
 		<newWizardShortcut id="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientProjectWizard"/>
 		<newWizardShortcut id="org.eclipse.wst.web.ui.internal.wizards.SimpleWebProjectWizard"/>				
-				
-		<newWizardShortcut id="org.eclipse.ui.wizards.new.folder"/>
-		<newWizardShortcut id="org.eclipse.ui.wizards.new.file"/>
-		
-                     
-         <actionSet id="org.eclipse.wst.server.ui.internal.webbrowser.actionSet"/>
+      	<newWizardShortcut id="org.eclipse.jpt.ui.wizard.newJpaProject"/>
+      	<newWizardShortcut id="org.eclipse.jst.servlet.ui.internal.wizard.AddServletWizard"/>
+      	<newWizardShortcut id="org.eclipse.jst.ejb.ui.internal.wizard.AddSessionBeanWizard"/>
+      	<newWizardShortcut id="org.eclipse.jst.ejb.ui.internal.wizard.AddMessageDrivenBeanWizard"/>
+        <newWizardShortcut id="org.eclipse.jpt.ui.wizard.newEntity"/>      	
+        <newWizardShortcut id="org.eclipse.jst.ws.creation.ui.wizard.serverwizard"/>
+        <newWizardShortcut id="org.eclipse.ui.wizards.new.folder"/>
+        <newWizardShortcut id="org.eclipse.ui.wizards.new.file"/>
+        <actionSet id="org.eclipse.wst.server.ui.internal.webbrowser.actionSet"/>
+        <actionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
       </perspectiveExtension>
       <perspectiveExtension targetID="org.eclipse.ui.resourcePerspective">
          <perspectiveShortcut id="org.eclipse.jst.j2ee.J2EEPerspective"/>
