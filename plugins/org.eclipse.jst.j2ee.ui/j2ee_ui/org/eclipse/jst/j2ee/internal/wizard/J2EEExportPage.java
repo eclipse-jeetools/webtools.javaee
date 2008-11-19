@@ -32,6 +32,7 @@ import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelPr
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties.IArchiveExportParticipantData;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.ui.archive.IArchiveExportParticipantPanelFactory;
 import org.eclipse.jst.j2ee.ui.archive.internal.ArchiveExportParticipantPanelsExtensionPoint;
 import org.eclipse.swt.SWT;
@@ -98,7 +99,12 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 				}
 			}
 			if(!projectNameSet && validProjectNames.length > 0){
-				model.setProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME, validProjectNames[0].getPropertyDescription());
+				//if export dialog is invoked by selecting a non EAR project, get the corresponding EAR
+				IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(project);
+				if( earProjects.length > 0 ){
+					model.setProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME, earProjects[0].getName());						
+				}else
+					model.setProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME, validProjectNames[0].getPropertyDescription());
 			}
 		}
 	}
