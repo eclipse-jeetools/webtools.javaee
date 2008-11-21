@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.jst.web_core.feature.patch"
       label="%featureName"
-      version="3.0.1.qualifier"
+      version="3.0.3.qualifier"
       provider-name="%providerName">
 
    <description>
@@ -18,29 +18,14 @@
    </license>
 
    <requires>
-      <import feature="org.eclipse.jst.web_core.feature" version="3.0.1.v200807220252-7M7AEUwEFp_acwcTs1eRz-u" patch="true"/>
+      <import feature="org.eclipse.jst.web_core.feature" version="3.0.3.v200810020322-7M7AEX2EFp_acwkiuz-bTpl" patch="true"/>
    </requires>
 
-   <plugin
-         id="org.eclipse.jst.jsp.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-         
    <plugin
          id="org.eclipse.jst.j2ee"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
-         
-   <plugin
-         id="org.eclipse.jst.jsf.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>  
-                  
+                           
 </feature>
