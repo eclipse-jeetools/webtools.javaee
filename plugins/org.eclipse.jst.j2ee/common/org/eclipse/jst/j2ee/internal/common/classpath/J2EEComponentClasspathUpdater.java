@@ -480,6 +480,8 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			return false;
 		}
 		case IResource.FILE: {
+			// If it is only a marker change, ignore the change
+			if (delta.getFlags() == IResourceDelta.MARKERS)return false;
 			String name = resource.getName();
 			if (name.equals(WTPModulesResourceFactory.WTP_MODULES_SHORT_NAME) || name.equals(ProjectUtilities.DOT_CLASSPATH)) {
 				queueUpdate(resource.getProject());
