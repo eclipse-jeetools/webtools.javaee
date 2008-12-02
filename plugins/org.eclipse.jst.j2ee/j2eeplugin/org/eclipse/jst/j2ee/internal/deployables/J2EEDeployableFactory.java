@@ -16,25 +16,23 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.model.ModuleDelegate;
 import org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 /**
  * J2EE module factory.
@@ -49,25 +47,22 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 	}
 
 	protected IModule[] createModules(IProject project) {
-		try {
-			if (project.exists()) {
-				ModuleCoreNature nature = (ModuleCoreNature) project.getNature(IModuleConstants.MODULE_NATURE_ID);
-				if (nature != null)
-					return createModules(nature);
-			}
-		} catch (CoreException e) {
-			J2EEPlugin.logError(e);
+		IVirtualComponent component = ComponentCore.createComponent(project);
+		if(component != null){
+			return createModuleDelegates(component);
 		}
 		return null;
 	}
 
+	/**
+	 * Use {@link #createModule(IProject)} instead.
+	 * @deprecated
+	 * @param nature
+	 * @return
+	 */
 	protected IModule[] createModules(ModuleCoreNature nature) {
-		IProject project = nature.getProject();
-		try {
-			IVirtualComponent comp = ComponentCore.createComponent(project);
-			return createModuleDelegates(comp);
-		} catch (Exception e) {
-			J2EEPlugin.logError(e);
+		if(nature != null){
+			return createModules(nature.getProject());
 		}
 		return null;
 	}
@@ -77,6 +72,10 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 	}
 
 	protected IModule[] createModuleDelegates(IVirtualComponent component) {
+		if(component == null){
+			return null;
+		}
+		
 		List<IModule> projectModules = new ArrayList<IModule>();
 		try {
 			if (J2EEProjectUtilities.isLegacyJ2EEProject(component.getProject())) {
