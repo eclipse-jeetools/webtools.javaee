@@ -681,16 +681,19 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 					try {
 						ioStream = archiveResource.getInputStream();
 						IClassFileReader classFileReader = ToolFactory.createDefaultClassFileReader(ioStream, IClassFileReader.CLASSFILE_ATTRIBUTES);
-						IClassFileAttribute[] attributes = classFileReader.getAttributes();
-						for (IClassFileAttribute attribute : attributes) {
-							char[] attributeName = attribute.getAttributeName();
-							if (Arrays.equals(attributeName, RUNTIME_VISIBLE)) {
-								IRuntimeVisibleAnnotationsAttribute annotationsAttribute = (IRuntimeVisibleAnnotationsAttribute) attribute;
-								IAnnotation[] annotations = annotationsAttribute.getAnnotations();
-								for (IAnnotation annotation : annotations) {
-									char[] typedName = annotation.getTypeName();
-									if (Arrays.equals(typedName, STATELESS) || Arrays.equals(typedName, STATEFUL) || Arrays.equals(typedName, MESSAGEDRIVEN)) {
-										return true;
+						//classFileReader will be null if this is an invalid java .class file
+						if(classFileReader != null){
+							IClassFileAttribute[] attributes = classFileReader.getAttributes();
+							for (IClassFileAttribute attribute : attributes) {
+								char[] attributeName = attribute.getAttributeName();
+								if (Arrays.equals(attributeName, RUNTIME_VISIBLE)) {
+									IRuntimeVisibleAnnotationsAttribute annotationsAttribute = (IRuntimeVisibleAnnotationsAttribute) attribute;
+									IAnnotation[] annotations = annotationsAttribute.getAnnotations();
+									for (IAnnotation annotation : annotations) {
+										char[] typedName = annotation.getTypeName();
+										if (Arrays.equals(typedName, STATELESS) || Arrays.equals(typedName, STATEFUL) || Arrays.equals(typedName, MESSAGEDRIVEN)) {
+											return true;
+										}
 									}
 								}
 							}
