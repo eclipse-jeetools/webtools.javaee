@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -31,7 +30,6 @@ import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.server.core.IModule;
@@ -51,25 +49,22 @@ public class JEEDeployableFactory extends ProjectModuleFactoryDelegate {
 	}
 
 	protected IModule[] createModules(IProject project) {
-		try {
-			if (project.exists()) {
-			ModuleCoreNature nature = (ModuleCoreNature) project.getNature(IModuleConstants.MODULE_NATURE_ID);
-			if (nature != null)
-				return createModules(nature);
-			}
-		} catch (CoreException e) {
-			Logger.getLogger().write(e);
+		IVirtualComponent comp = ComponentCore.createComponent(project);
+		if(comp != null){
+			return createModuleDelegates(comp);
 		}
 		return null;
 	}
 
+	/**
+	 * Use {@link #createModule(IProject)} instead.
+	 * @deprecated
+	 * @param nature
+	 * @return
+	 */
 	protected IModule[] createModules(ModuleCoreNature nature) {
-		IProject project = nature.getProject();
-		try {
-			IVirtualComponent comp = ComponentCore.createComponent(project);
-			return createModuleDelegates(comp);
-		} catch (Exception e) {
-			Logger.getLogger().write(e);
+		if(nature != null){
+			return createModules(nature.getProject());
 		}
 		return null;
 	}
@@ -79,6 +74,9 @@ public class JEEDeployableFactory extends ProjectModuleFactoryDelegate {
 	}
 
 	protected IModule[] createModuleDelegates(IVirtualComponent component) {
+		if(component == null){
+			return null;
+		}
 		List projectModules = new ArrayList();
 		try {
 			if (J2EEProjectUtilities.isJEEProject(component.getProject())) {
