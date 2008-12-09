@@ -16,6 +16,7 @@ import org.eclipse.jst.j2ee.internal.archive.JavaEEEMFZipFileLoadAdapterImpl;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.IArchiveResource;
+import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 
 /**
@@ -47,7 +48,7 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 	
 	private void resetZipFile(IPath archivePath)  throws ZipException, IOException {
 		file = new java.io.File(archivePath.toOSString());
-		ZipFile zipFile = new ZipFile(file);
+		ZipFile zipFile = ArchiveUtil.newZipFile(file);
 		setZipFile(zipFile);
 		setArchivePath(archivePath);	
 	}
@@ -77,7 +78,7 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 	public void physicallyOpen() throws ZipException, IOException{
 		if(!isPhysicallyOpen()){
 			if(file.exists()){
-				setZipFile(new ZipFile(file));
+				setZipFile(ArchiveUtil.newZipFile(file));
 			} else { 
 				//check if the file has moved -- this can happen when
 				//checking into ClearCase.

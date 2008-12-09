@@ -32,7 +32,7 @@ public class TempZipFileArchiveLoadAdapterImpl extends ZipFileArchiveLoadAdapter
 	}
 
 	public TempZipFileArchiveLoadAdapterImpl(java.io.File file) throws java.io.IOException {
-		super(new ZipFile(file));
+		super(ArchiveUtil.newZipFile(file));
 		this.file = file;
 	}
 	

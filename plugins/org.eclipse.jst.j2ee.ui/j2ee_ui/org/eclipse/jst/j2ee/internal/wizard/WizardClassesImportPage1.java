@@ -40,6 +40,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.events.FocusEvent;
@@ -1337,7 +1338,7 @@ class WizardClassesImportPage1 extends WizardResourceImportPage implements Liste
 			return null;
 
 		try {
-			return new ZipFile(fileName);
+			return ArchiveUtil.newZipFile(fileName);
 		} catch (ZipException e) {
 			//displayErrorDialog(DataTransferMessages.getString("ZipImport.badFormat"));
 			// //$NON-NLS-1$

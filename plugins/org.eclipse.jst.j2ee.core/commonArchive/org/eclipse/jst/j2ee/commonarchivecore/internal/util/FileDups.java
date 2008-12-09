@@ -171,7 +171,7 @@ public class FileDups {
 		sJARs++;
 		ZipFile zip = null;
 		try {
-			zip = new ZipFile(file);
+			zip = org.eclipse.jst.jee.archive.internal.ArchiveUtil.newZipFile(file);
 			Enumeration eNum = zip.entries();
 			while (eNum.hasMoreElements()) {
 				ZipEntry entry = (ZipEntry) eNum.nextElement();

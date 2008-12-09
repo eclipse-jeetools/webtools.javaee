@@ -289,7 +289,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				ZipFile zipFile;
 				IPath path = reference.getRuntimePath();
 				try {
-					zipFile = new ZipFile(diskFile);
+					zipFile = org.eclipse.jst.jee.archive.internal.ArchiveUtil.newZipFile(diskFile);
 					zipFiles.add(zipFile);
 					Enumeration enumeration = zipFile.entries();
 					while (enumeration.hasMoreElements()) {
