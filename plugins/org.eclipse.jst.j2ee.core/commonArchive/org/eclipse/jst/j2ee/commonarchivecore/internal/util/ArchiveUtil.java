@@ -634,7 +634,7 @@ public class ArchiveUtil {
 			} else {
 				ZipFile zip = null;
 				try {
-					zip = new ZipFile(aFile);
+					zip = org.eclipse.jst.jee.archive.internal.ArchiveUtil.newZipFile(aFile);
 				} catch (Exception ex) {
 					inform(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.invalid_classpath_WARN_, (new Object[]{pathEntry}))); // = "Classpath element "{0}" is not a directory or a Zip file"
 					continue;

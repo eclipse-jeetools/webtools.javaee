@@ -30,7 +30,7 @@ public class ArchiveFactoryImpl implements IArchiveFactory {
 		java.io.File file = new java.io.File(archivePath.toOSString());
 		ZipFile zipFile;
 		try {
-			zipFile = new ZipFile(file);
+			zipFile = ArchiveUtil.newZipFile(file);
 		} catch (ZipException e) {
 			ArchiveOpenFailureException openFailureException = new ArchiveOpenFailureException(e);
 			throw openFailureException;

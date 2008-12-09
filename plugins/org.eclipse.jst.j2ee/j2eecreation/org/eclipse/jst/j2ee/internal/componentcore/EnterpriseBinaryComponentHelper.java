@@ -21,7 +21,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
-import java.util.zip.ZipFile;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -37,6 +36,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipFileLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
 import org.eclipse.wst.common.componentcore.internal.BinaryComponentHelper;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -234,7 +234,7 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 		public void physicallyOpen() throws ZipException, IOException{
 			if(!isPhysicallyOpen()){
 				physicallyOpen = true;
-				setZipFile(new ZipFile(file));
+				setZipFile(ArchiveUtil.newZipFile(file));
 			}
 		}
 		

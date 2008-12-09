@@ -22,6 +22,7 @@ import java.util.Map;
 import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
 
 
 /**
@@ -134,7 +135,7 @@ public class RepairArchiveCommand extends AbstractCommand {
 		boolean isZip = false;
 		java.util.zip.ZipFile zip = null;
 		try {
-			zip = new java.util.zip.ZipFile(file);
+			zip = ArchiveUtil.newZipFile(file);
 			isZip = true;
 		} catch (java.io.IOException ex) {
 			isZip = false;

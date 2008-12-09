@@ -27,6 +27,7 @@ import java.util.zip.ZipFile;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.URIConverterImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
+import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
 
 
 /**
@@ -168,7 +169,7 @@ public class ArchiveURIConverterImpl extends URIConverterImpl {
 			String f = st.nextToken();
 			ZipFile zf = null;
 			try {
-				zf = new ZipFile(f);
+				zf = ArchiveUtil.newZipFile(f);
 			} catch (Exception e) {
 				//Ignore
 			}

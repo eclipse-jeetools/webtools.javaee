@@ -47,7 +47,7 @@ public class ZipFileLoadStrategyImpl extends LoadStrategyImpl {
 	public ZipFileLoadStrategyImpl(java.io.File file) throws IOException {
 		super();
 		setFile(file);
-		setZipFile(new ZipFile(file));
+		setZipFile(org.eclipse.jst.jee.archive.internal.ArchiveUtil.newZipFile(file));
 	}
 
 	public void close() {

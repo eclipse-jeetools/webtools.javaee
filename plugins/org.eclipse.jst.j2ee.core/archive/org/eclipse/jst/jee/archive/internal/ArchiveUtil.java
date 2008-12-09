@@ -10,11 +10,17 @@
  *******************************************************************************/
 package org.eclipse.jst.jee.archive.internal;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
@@ -221,5 +227,57 @@ public class ArchiveUtil {
 	
 	public static void warn(String message) {
 		org.eclipse.jem.util.logger.proxy.Logger.getLogger().logWarning(message);
+	}
+	
+	public static ZipFile newZipFile(String fileName)throws ZipException, IOException {
+		return ArchiveUtil.newZipFile(new File(fileName), ZipFile.OPEN_READ);
+	}
+	public static ZipFile newZipFile(File aFile)throws ZipException, IOException {
+		return ArchiveUtil.newZipFile(aFile, ZipFile.OPEN_READ);
+	}
+	
+	/**
+	 * Utility to create ZipFiles which avoid memory leaks 
+	 * because closing them fails to close open inputstreams.
+	 * There is a SUN bug open for this: http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6735255 
+     * but it looks like the "fix" will be to change the Javadoc :-(   
+	 * @param aFile mode
+	 * @return
+	 * @throws ZipException
+	 * @throws IOException
+	 */
+	public static ZipFile newZipFile(File aFile, int mode) throws ZipException, IOException {
+		return new ZipFile(aFile, mode){
+			Collection <InputStream> openStreams = null;
+			
+			public InputStream getInputStream(ZipEntry entry) throws IOException {
+				InputStream in = super.getInputStream(entry);
+				if(in != null){
+					if(openStreams == null){
+						openStreams = new ArrayList<InputStream>();
+					}
+					openStreams.add(in);
+				}
+				return in;
+			}
+			
+			public void close() throws IOException {
+				closeOpenStreams();
+				super.close();
+			}
+
+			private void closeOpenStreams() {
+				if(openStreams != null){
+					for(InputStream in:openStreams){
+						try {
+							in.close();
+						} catch (IOException e) {
+							warn(e);
+						}
+					}
+				}
+				
+			}
+		};
 	}
 }

@@ -30,6 +30,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.JavaModelManager;
 import org.eclipse.jdt.internal.core.JavaModelStatus;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorRegistry;
 import org.eclipse.ui.IPersistableElement;
@@ -58,7 +59,7 @@ public class BinaryEditorUtilities {
 					//$ANALYSIS-IGNORE
 					System.out.println("(" + Thread.currentThread() + ") [JarEntryFile.getContents()] Creating ZipFile on " + this.zipName);
 				}
-				ZipFile zipFile = new ZipFile(this.zipName);
+				ZipFile zipFile = ArchiveUtil.newZipFile(this.zipName);
 				ZipEntry zipEntry = zipFile.getEntry(this.entryName);
 				if (zipEntry == null) {
 					throw new JavaModelException(new JavaModelStatus(

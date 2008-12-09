@@ -52,6 +52,7 @@ import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.jst.jee.archive.internal.ArchiveURIConverter;
+import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.DependencyType;
@@ -308,7 +309,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 				ZipFile zipFile;
 				IPath path = reference.getRuntimePath();
 				try {
-					zipFile = new ZipFile(diskFile);
+					zipFile = ArchiveUtil.newZipFile(diskFile);
 					zipFiles.add(zipFile);
 					Enumeration enumeration = zipFile.entries();
 					while (enumeration.hasMoreElements()) {
