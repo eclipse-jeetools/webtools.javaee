@@ -12,6 +12,9 @@ package org.eclipse.jst.jee.ui.internal.navigator.ejb;
 
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.jee.ui.internal.Messages;
@@ -23,7 +26,7 @@ import org.eclipse.swt.graphics.Image;
  * @author Dimitar Giormov
  *
  */
-public class GroupEJBProvider extends AbstractGroupProvider {
+public class GroupEJBProvider extends AbstractGroupProvider implements IAdaptable {
 
 	private GroupEjbSession groupEjbSession;
 	private GroupEjbMessageDriven groupEjbMessageDriven;
@@ -75,5 +78,12 @@ public class GroupEJBProvider extends AbstractGroupProvider {
 		groupEjbSession.reinit(modelObject);
 		groupEjbMessageDriven.reinit(modelObject);
 		groupEjbEntity.reinit(modelObject);
+	}
+
+	public Object getAdapter(Class adapter) {
+		if (IProject.class == adapter){
+			return ResourcesPlugin.getWorkspace().getRoot().getProject(getProjectName());
+		}
+		return null;
 	}
 }

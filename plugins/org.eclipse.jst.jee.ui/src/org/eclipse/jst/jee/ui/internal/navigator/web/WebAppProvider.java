@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.jst.javaee.web.WebApp;
@@ -32,7 +33,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
  * @author Dimitar Giormov
  *
  */
-public class WebAppProvider extends AbstractGroupProvider {
+public class WebAppProvider extends AbstractGroupProvider implements IAdaptable {
   
   
 	private static final String PROJECT_RELATIVE_PATH = "WEB-INF/web.xml"; //$NON-NLS-1$
@@ -117,5 +118,13 @@ public class WebAppProvider extends AbstractGroupProvider {
 		for (Object child : children) {
 			((AbstractGroupProvider)child).reinit(modelObject);
 		}
+	}
+	
+
+	public Object getAdapter(Class adapter) {
+		if (IProject.class == adapter){
+			return getProject();
+		}
+		return null;
 	}
 }

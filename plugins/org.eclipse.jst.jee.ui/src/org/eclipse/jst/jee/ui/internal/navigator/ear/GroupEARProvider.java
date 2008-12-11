@@ -16,6 +16,7 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -38,7 +39,7 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
  * @author Dimitar Giormov
  *
  */
-public class GroupEARProvider extends AbstractGroupProvider {
+public class GroupEARProvider extends AbstractGroupProvider implements IAdaptable {
 
 	private static final String PROJECT_RELATIVE_PATH = "META-INF/application.xml"; //$NON-NLS-1$
 	public final static String EAR_DEFAULT_LIB = "lib"; //$NON-NLS-1$
@@ -120,6 +121,13 @@ public class GroupEARProvider extends AbstractGroupProvider {
 		IVirtualFolder virtualFolder = ComponentCore.createComponent(getProject()).getRootFolder();
 		ddFile = virtualFolder.getFile(PROJECT_RELATIVE_PATH).getUnderlyingFile();
 		return ddFile;
+	}
+	
+	public Object getAdapter(Class adapter) {
+		if (IProject.class == adapter){
+			return getProject();
+		}
+		return null;
 	}
 
 }

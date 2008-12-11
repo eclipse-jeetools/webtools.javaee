@@ -13,6 +13,7 @@ package org.eclipse.jst.jee.ui.internal;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -47,11 +48,21 @@ public class CreateDeploymentFilesActionDelegate extends BaseAction {
 		boolean isEnabled = false;
 		if (aSelection != null) {
 			IStructuredSelection structuredSelection = (IStructuredSelection) aSelection;
-			IProject project = ProjectUtilities.getProject(structuredSelection.getFirstElement());
-			isEnabled = isValidSelection(project, null);
+			isEnabled = isValidSelection(getProjectFromSelection(structuredSelection), null);
 		}
 		setEnabled(isEnabled);
 		action.setEnabled(isEnabled);
+	}
+	
+	private IProject getProjectFromSelection(IStructuredSelection structuredSelection){
+		IProject project = ProjectUtilities.getProject(structuredSelection.getFirstElement());
+		if (project == null){
+			Object firstElement = structuredSelection.getFirstElement();
+			if (IAdaptable.class.isInstance(firstElement)){
+				return (IProject) ((IAdaptable) firstElement).getAdapter(IProject.class);
+			}
+		}
+		return project;
 	}
 
 	private boolean isValidSelection(IProject project, Shell shell) {
@@ -95,7 +106,7 @@ public class CreateDeploymentFilesActionDelegate extends BaseAction {
 	/*
 	 */
 	protected void primRun(Shell shell) {
-		IProject project = ProjectUtilities.getProject(selection.getFirstElement());
+		IProject project = getProjectFromSelection(selection);
 		if (!validateSelection(project, shell))
 			return;
 		try {

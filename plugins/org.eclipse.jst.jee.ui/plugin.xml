@@ -383,6 +383,15 @@
 							property="org.eclipse.wst.common.project.facet.core.projectFacet"
 							value="jst.appclient:[5.0" />
 				  </adapt>
+      <instanceof
+            value="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+      </instanceof>
+      <instanceof
+            value="org.eclipse.jst.jee.ui.internal.navigator.ejb.GroupEJBProvider">
+      </instanceof>
+      <instanceof
+            value="org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider">
+      </instanceof>
 		    </or>
          </enablement>         		   		
       </objectContribution>
@@ -397,6 +406,38 @@
                label="Add/Remove"
                menubarPath="additions">
          </action>
+      </objectContribution>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.eclipse.jst.jee.ui.CreateDeploymentFilesAction"
+            objectClass="java.lang.Object">
+         <action
+               class="org.eclipse.jst.jee.ui.internal.CreateDeploymentFilesActionDelegate"
+               enablesFor="1"
+               icon="icons/full/ctool16/dep_desc.gif"
+               id="createDeploymentFiles"
+               label="%create_deploy_files">
+		</action>
+        <enablement>
+            <or>
+      <instanceof
+            value="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+      </instanceof>
+      <instanceof
+            value="org.eclipse.jst.jee.ui.internal.navigator.ejb.GroupEJBProvider">
+      </instanceof>
+      <instanceof
+            value="org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider">
+      </instanceof>
+      <instanceof
+            value="org.eclipse.jst.jee.ui.internal.navigator.appclient.GroupAppClientProvider">
+      </instanceof>
+		    </or>
+         </enablement>         		   		
       </objectContribution>
    </extension>
    

@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
@@ -33,7 +34,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
  * @author Dimitar Giormov
  * 
  */
-public class GroupAppClientProvider extends AbstractGroupProvider {
+public class GroupAppClientProvider extends AbstractGroupProvider implements IAdaptable {
 
 	
 	private final IProject project;
@@ -110,5 +111,16 @@ public class GroupAppClientProvider extends AbstractGroupProvider {
 		IVirtualFolder virtualFolder = ComponentCore.createComponent(project).getRootFolder();
 		ddFile = virtualFolder.getFile(PROJECT_RELATIVE_PATH).getUnderlyingFile();
 		return ddFile;
+	}
+
+	public IProject getProject() {
+		return project;
+	}
+	
+	public Object getAdapter(Class adapter) {
+		if (IProject.class == adapter){
+			return getProject();
+		}
+		return null;
 	}
 }
