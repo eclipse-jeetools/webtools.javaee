@@ -877,10 +877,15 @@ public class BeaninfoNature implements IProjectNature {
 			}
 			
 			// Add the common to the end of the classpath. (Since we are now a jarred plugin, the common is not the plugin jar itself).
-			controller.contributeClasspath(BeaninfoPlugin.getPlugin().getBundle(), (IPath) null, IConfigurationContributionController.APPEND_USER_CLASSPATH, false); //$NON-NLS-1$
+			// With bug 256441 we've reverted to putting only the "common.jar" on the classpath, though now it is its own bundle. See
+			// https://bugs.eclipse.org/bugs/show_bug.cgi?id=256441
+			Bundle commonBundle = Platform.getBundle("org.eclipse.jem.beaninfo.vm.common");
+			controller.contributeClasspath(commonBundle, (IPath) null, IConfigurationContributionController.APPEND_USER_CLASSPATH, false); //$NON-NLS-1$
 			
 			// Add the beaninfovm.jar and any nls to the end of the classpath.
-			controller.contributeClasspath(BeaninfoPlugin.getPlugin().getBundle(), "vm/beaninfovm.jar", IConfigurationContributionController.APPEND_USER_CLASSPATH, true); //$NON-NLS-1$
+			// https://bugs.eclipse.org/bugs/show_bug.cgi?id=256441
+			Bundle vmBundle = Platform.getBundle("org.eclipse.jem.beaninfo.vm");
+			controller.contributeClasspath(vmBundle, (IPath) null, IConfigurationContributionController.APPEND_USER_CLASSPATH, true); //$NON-NLS-1$
 		}
 
 		private IClasspathEntry get(IClasspathEntry[] array, SearchpathEntry se) {
