@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider;
 
@@ -31,17 +30,15 @@ public class Web25ContentProvider extends JEE5ContentProvider {
 
 		List<Object> children = new ArrayList<Object>();
 		IProject project = null;
-		if (aParentElement instanceof IAdaptable) {
-			project = (IProject) ((IAdaptable) aParentElement).getAdapter(IPROJECT_CLASS);
-			if (project != null) {
+		if (IProject.class.isInstance(aParentElement)) {
+			project = (IProject) aParentElement;
 				AbstractGroupProvider cachedContentProvider = getCachedContentProvider(project);
 				if (cachedContentProvider.isValid()){
 					children.add(cachedContentProvider);
 				}
-			}
-		} else if (aParentElement instanceof WebAppProvider){
+		} else if (WebAppProvider.class.isInstance(aParentElement)){
 			children.addAll(((WebAppProvider) aParentElement).getChildren());
-		} else if (aParentElement instanceof AbstractGroupProvider){
+		} else if (AbstractGroupProvider.class.isInstance(aParentElement)){
 			children.addAll(((AbstractGroupProvider) aParentElement).getChildren());
 		}
 		return children.toArray();
