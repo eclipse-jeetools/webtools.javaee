@@ -71,6 +71,9 @@ public abstract class J2EEComponentImportDataModelProvider extends J2EEArtifactI
 		case J2EEVersionConstants.JEE_5_0_ID:
 			javaFacetVersion = JavaFacetUtils.JAVA_50;
 			break;
+		case J2EEVersionConstants.JEE_6_0_ID:
+			javaFacetVersion = JavaFacetUtils.JAVA_60;
+			break;
 		}
 		if(javaFacetVersion != null){
 			IDataModel moduleDM = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);

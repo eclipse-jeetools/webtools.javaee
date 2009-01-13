@@ -110,7 +110,13 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			if (webroot.getProjectRelativePath().equals(new Path("/"))) //$NON-NLS-1$
 				webroot.createLink(new Path("/" + model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER)), 0, null); //$NON-NLS-1$
 
-			if( fv == WebFacetUtils.WEB_25 )
+			if( fv == WebFacetUtils.WEB_30 )
+			{
+				 if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
+		                createWeb30DeploymentDescriptor(project, fv, webinfFolder, monitor);
+		            }
+			}
+			else if( fv == WebFacetUtils.WEB_25 )
 			{
 		         if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
 		                createWeb25DeploymentDescriptor(project, fv, webinfFolder, monitor);
@@ -269,6 +275,24 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		}
 		return pjpath.append(model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER));
 	}
+	
+	// This method still creates a web.xml with a Servlet 2.5 schema, because the Servlet 3.0 one is not yet defined
+    private void createWeb30DeploymentDescriptor(final IProject project, final IProjectFacetVersion fv, 
+                                               IFolder webinfFolder, IProgressMonitor monitor) throws CoreException {
+       // Create the deployment descriptor (web.xml) if one doesn't exist
+       IFile webxmlFile = webinfFolder.getFile("web.xml"); //$NON-NLS-1$
+       if (!webxmlFile.exists()) {
+           try {
+               // Create a minimal web.xml file, so the model can be initialized
+               final String webXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-app id=\"WebApp_ID\" version=\"2.5\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd\">\n</web-app>"; //$NON-NLS-1$
+               webxmlFile.create(new ByteArrayInputStream(webXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
+               
+               // TODO do some stuff with the module
+           } catch (UnsupportedEncodingException e) {
+               Logger.getLogger().logError(e);
+           }
+       }
+   }
 	
     private void createWeb25DeploymentDescriptor(final IProject project, final IProjectFacetVersion fv, 
                                                IFolder webinfFolder, IProgressMonitor monitor) throws CoreException {

@@ -12,7 +12,9 @@
 package org.eclipse.jst.j2ee.ui.project.facet.appclient;
 
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleFacetInstallPage;
 import org.eclipse.jst.j2ee.project.facet.IAppClientFacetInstallDataModelProperties;
@@ -55,7 +57,8 @@ public class AppClientFacetInstallPage extends J2EEModuleFacetInstallPage implem
     protected void handleFacetVersionChangedEvent()
     {
         final IProjectFacetVersion fv = (IProjectFacetVersion) this.model.getProperty( FACET_VERSION );
-        this.addDD.setVisible( fv == APPLICATION_CLIENT_50 );
+        boolean isJEE5OrGreater = J2EEVersionUtil.convertVersionStringToInt(fv.getVersionString()) >= J2EEVersionConstants.JEE_5_0_ID;
+        this.addDD.setVisible(isJEE5OrGreater);
     }
 
 }

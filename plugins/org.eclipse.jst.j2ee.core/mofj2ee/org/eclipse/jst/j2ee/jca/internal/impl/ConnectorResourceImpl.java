@@ -160,6 +160,8 @@ public class ConnectorResourceImpl extends XMLResourceImpl implements ConnectorR
 				return J2EEVersionConstants.J2EE_1_3_ID;
 			case J2EEVersionConstants.JCA_1_5_ID :
 				return J2EEVersionConstants.J2EE_1_4_ID;
+			case J2EEVersionConstants.JCA_1_6_ID :
+				return J2EEVersionConstants.JEE_6_0_ID;
 			default :
 			return J2EEVersionConstants.J2EE_1_4_ID;
 		}
