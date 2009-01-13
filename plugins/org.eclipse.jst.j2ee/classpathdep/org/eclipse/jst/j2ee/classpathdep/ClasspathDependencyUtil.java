@@ -31,9 +31,16 @@ import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyValidator;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyValidator.ClasspathDependencyValidatorData;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.EarUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.jst.javaee.application.Application;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -102,6 +109,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 			return Collections.EMPTY_LIST;
 		}
 		final IProject project = javaProject.getProject();
+		final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(project);
 		final ClasspathDependencyValidatorData data = new ClasspathDependencyValidatorData(project);
 		final IClasspathEntry[] entries = javaProject.getRawClasspath();
         for (int i = 0; i < entries.length; i++) {
@@ -125,6 +133,75 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
             	if (error) {
             		continue;
             	}
+            	if (IClasspathEntry.CPE_LIBRARY == entry.getEntryKind()) {
+					final boolean isFile = !ClasspathDependencyUtil.isClassFolderEntry(entry);
+					if (isFile) {
+						boolean foundEntry = false;
+						IVirtualComponent component = ComponentCore.createComponent(project);
+						if (isWebApp) { // checks for web libs
+							IContainer[] webLibFolders = component.getRootFolder().getFolder(WEB_INF_LIB_PATH).getUnderlyingFolders();
+							for (IContainer webLib : webLibFolders) {
+								IPath webLibFolderPath = webLib.getFullPath();
+								if (webLibFolderPath.equals(entry.getPath().removeLastSegments(1))) {
+									foundEntry = true;
+									break;
+								}
+							}
+							if (foundEntry) {
+								continue;
+							}
+						}
+						// checks for manifest references
+						List manifestRefs = J2EEModuleVirtualComponent.getManifestReferences(component, null);
+						if(manifestRefs != null){
+							for (int j = 0; j < manifestRefs.size(); j++) {
+								IVirtualReference ref = (IVirtualReference) manifestRefs.get(j);
+								IVirtualComponent c = ref.getReferencedComponent();
+								if (c.isBinary()) {
+									VirtualArchiveComponent archiveComponent = (VirtualArchiveComponent) c;
+									IFile file = archiveComponent.getUnderlyingWorkbenchFile();
+									if (file != null) {
+										if (file.getFullPath().equals(entry.getPath())) {
+											foundEntry = true;
+											break;
+										}
+									}
+								}
+							}
+							if (foundEntry) {
+								continue;
+							}
+						}
+						// checks for ear library-directory entries
+						IProject[] earProjects = EarUtilities.getReferencingEARProjects(project);
+						for (IProject earProject : earProjects) {
+							String earDDVersion = EarUtilities.getJ2EEDDProjectVersion(earProject);
+							if(!earDDVersion.equals(J2EEVersionConstants.VERSION_1_2_TEXT) && !earDDVersion.equals(J2EEVersionConstants.VERSION_1_3_TEXT) && !earDDVersion.equals(J2EEVersionConstants.VERSION_1_4_TEXT)) {
+								IVirtualComponent earComponent = ComponentCore.createComponent(earProject);
+								Application app = (Application) ModelProviderManager.getModelProvider(earComponent).getModelObject();
+								String libDir = app.getLibraryDirectory();
+								if (libDir == null) {
+									// lib is the default if no library-directory is set
+									libDir = "lib";
+								}
+								IContainer[] earLibFolders = earComponent.getRootFolder().getFolder(new Path(libDir)).getUnderlyingFolders();
+								for (IContainer earLib : earLibFolders) {
+									IPath earLibFolderPath = earLib.getFullPath();
+									if (earLibFolderPath.equals(entry.getPath().removeLastSegments(1))) {
+										foundEntry = true;
+										break;
+									}
+								}
+								if (foundEntry) {
+									break;
+								}
+							}
+						}
+						if (foundEntry) {
+							continue;
+						}
+					}
+				}
             	
             	// entry can potentially be tagged as a component dependency
             	potentialRawEntries.add(entry);
@@ -175,7 +252,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 		final ClasspathDependencyValidatorData data = new ClasspathDependencyValidatorData(javaProject.getProject());
 		
 		// get the raw entries
-		final Map referencedRawEntries = getRawComponentClasspathDependencies(javaProject);
+		final Map referencedRawEntries = getRawComponentClasspathDependencies(javaProject, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);
 		final Map validRawEntries = new HashMap();
 
 		// filter out non-valid referenced raw entries
