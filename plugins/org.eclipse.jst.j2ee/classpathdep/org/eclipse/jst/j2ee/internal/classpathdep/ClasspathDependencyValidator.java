@@ -33,8 +33,10 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
+import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -82,8 +84,8 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 			    && proj.hasNature(JavaCore.NATURE_ID)) {
 			    
 				final IJavaProject javaProject = JavaCore.create(proj);
-			    final boolean isWebApp = J2EEProjectUtilities.isDynamicWebProject(proj);
-				final Map referencedRawEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProject); 				
+			    final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(proj);
+				final Map referencedRawEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProject, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY); 				
 				final List potentialRawEntries = ClasspathDependencyUtil.getPotentialComponentClasspathDependencies(javaProject);
 				final IVirtualComponent component = ComponentCore.createComponent(proj);				
 				final ClasspathDependencyValidatorData data = new ClasspathDependencyValidatorData(proj);
@@ -113,7 +115,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 				}
 			
 				if (!referencedRawEntries.isEmpty()) {
-					if (J2EEProjectUtilities.isApplicationClientProject(proj)) { 
+					if (JavaEEProjectUtilities.isApplicationClientProject(proj)) { 
 						// classpath component dependencies are not supported for application client projects
 						final IMessage msg = new Message("classpathdependencyvalidator", // $NON-NLS-1$
 								IMessage.HIGH_SEVERITY, AppClientProject, null, proj);
@@ -126,8 +128,8 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 						final List earWarRefs = new ArrayList();
 						final IVirtualComponent[] refComponents = component.getReferencingComponents();
 						for (int j = 0; j < refComponents.length; j++) {
-							if (J2EEProjectUtilities.isEARProject(refComponents[j].getProject())
-									|| J2EEProjectUtilities.isDynamicWebProject(refComponents[j].getProject())) {
+							if (JavaEEProjectUtilities.isEARProject(refComponents[j].getProject())
+									|| JavaEEProjectUtilities.isDynamicWebProject(refComponents[j].getProject())) {
 								referencedFromEARorWAR = true;
 								earWarRefs.add(refComponents[j]);
 							}

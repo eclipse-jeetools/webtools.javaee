@@ -33,6 +33,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFacetConstants {
@@ -43,20 +44,27 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 	}
 
 	public static boolean isProjectOfType(IProject project, String typeID) {
+		return getProjectFacetVersion(project, typeID) != null;
+	}
+
+	public static IProjectFacetVersion getProjectFacetVersion(IProject project, String typeID){
 		IFacetedProject facetedProject = null;
 		try {
 			facetedProject = ProjectFacetsManager.create(project);
 		} catch (CoreException e) {
-			return false;
+			return null;
 		}
 
 		if (facetedProject != null && ProjectFacetsManager.isProjectFacetDefined(typeID)) {
 			IProjectFacet projectFacet = ProjectFacetsManager.getProjectFacet(typeID);
-			return projectFacet != null && facetedProject.hasProjectFacet(projectFacet);
+			if(projectFacet == null){
+				return null;
+			}
+			return facetedProject.getProjectFacetVersion(projectFacet);
 		}
-		return false;
+		return null;
 	}
-
+	
 	private static boolean isProjectOfType(IFacetedProject facetedProject, String typeID) {
 
 		if (facetedProject != null && ProjectFacetsManager.isProjectFacetDefined(typeID)) {
@@ -97,7 +105,7 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 	public static boolean isEARProject(IProject project) {
 		return isProjectOfType(project, ENTERPRISE_APPLICATION);
 	}
-
+	
 	public static boolean isDynamicWebComponent(IVirtualComponent component) {
 		if (component.isBinary()) {
 			return isBinaryType(component, JavaEEQuickPeek.WEB_TYPE);
@@ -298,29 +306,78 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 	}
 	
 	/**
-	 * Given a component returns weather the component has
-	 * Java EE version greater then or equal to 5 or not
-	 * 
-	 * NOTE: this method uses JavaEEQuickPeek and not the IProject so does require
-	 * more resources to complete.  This is manly for the binary archive case [Bug  241525].
+	 * Given a component returns whether the component has
+	 * Java EE version greater than or equal to 5
 	 * 
 	 * @param component
-	 * @return true if the component is JavaEE version 5 or greater, false otherwise
+	 * @return true if the component is Java EE version 5 or greater, false otherwise
 	 */
 	public static boolean isJEEComponent(IVirtualComponent component){
-		JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(component);
-		int javaEEVersion = qp.getJavaEEVersion();
-		return javaEEVersion >= J2EEConstants.JEE_5_0_ID;
+		if(component.isBinary()){
+			JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(component);
+			int javaEEVersion = qp.getJavaEEVersion();
+			return javaEEVersion >= J2EEConstants.JEE_5_0_ID;
+		} else {
+			IProject project = component.getProject();
+			
+			IProjectFacetVersion facetVersion = getProjectFacetVersion(project, ENTERPRISE_APPLICATION);
+			if(facetVersion != null){
+				if(facetVersion == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_12 ||
+				   facetVersion == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_13 ||
+				   facetVersion == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_14){
+					return false;
+				}
+				return true;
+			}
+			
+			facetVersion = getProjectFacetVersion(project, APPLICATION_CLIENT);
+			if(facetVersion != null){
+				if(facetVersion == IJ2EEFacetConstants.APPLICATION_CLIENT_12 ||
+				   facetVersion == IJ2EEFacetConstants.APPLICATION_CLIENT_13 ||
+				   facetVersion == IJ2EEFacetConstants.APPLICATION_CLIENT_14){
+					return false;
+				}
+				return true;
+			}
+			
+			facetVersion = getProjectFacetVersion(project, EJB);
+			if(facetVersion != null){
+				if(facetVersion == IJ2EEFacetConstants.EJB_11 ||
+				   facetVersion == IJ2EEFacetConstants.EJB_20 ||
+				   facetVersion == IJ2EEFacetConstants.EJB_21){
+					return false;
+				}
+				return true;
+			}
+			
+			facetVersion = getProjectFacetVersion(project, DYNAMIC_WEB);
+			if(facetVersion != null){
+				if(facetVersion == IJ2EEFacetConstants.DYNAMIC_WEB_22 ||
+				   facetVersion == IJ2EEFacetConstants.DYNAMIC_WEB_23 ||
+				   facetVersion == IJ2EEFacetConstants.DYNAMIC_WEB_24){
+					return false;
+				}
+				return true;
+			}
+			
+			facetVersion = getProjectFacetVersion(project, JCA);
+			if(facetVersion != null){
+				if(facetVersion == IJ2EEFacetConstants.JCA_10 ||
+				   facetVersion == IJ2EEFacetConstants.JCA_15 ){
+					return false;
+				}
+				return true;
+			}
+			
+			return false;
+		}
 	}
 	
 	/**
-	 * Given a component returns weather the component has Java EE version less then 5
-	 * 
-	 * NOTE: this method uses JavaEEQuickPeek and not the IProject so does require
-	 * more resources to complete.  This is manly for the binary archive case [Bug  241525].
+	 * Given a component returns whether the component has Java EE version less than 5
 	 * 
 	 * @param component
-	 * @return true if the component is less then JavaEE version 5, false otherwise
+	 * @return true if the component is less then Java EE version 5, false otherwise
 	 */
 	public static boolean isLegacyJ2EEComponent(IVirtualComponent component){
 		return !isJEEComponent(component);
