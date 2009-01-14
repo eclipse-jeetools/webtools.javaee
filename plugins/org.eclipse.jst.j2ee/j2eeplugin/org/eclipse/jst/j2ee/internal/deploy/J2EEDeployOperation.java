@@ -202,21 +202,20 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	private void addErrorStatus(IStatus exceptionStatus, String DeployerName, Throwable ex) {
 
 		Throwable mainCause = null;
+		int severity = exceptionStatus.getSeverity();
 		if (exceptionStatus instanceof MultiStatus) {
 			IStatus[] stati = ((MultiStatus) exceptionStatus).getChildren();
-			for (int i = 0; 1 < stati.length; i++) {
+			for (int i = 0; i < stati.length; i++) {
 				addErrorStatus(stati[i], DeployerName, stati[i].getException());
 			}
 		}
-		mainCause = (ex.getCause() != null) ? ex.getCause() : ex;
-			
+		mainCause = (ex != null && ex.getCause() != null) ? ex.getCause() : ex;
+
 		//String errorNotes = (mainCause != null && mainCause.getMessage() != null) ? mainCause.getMessage() : "";
 
 		String message = J2EEPluginResourceHandler.bind(J2EEPluginResourceHandler.J2EEDeployOperation_3_UI_,DeployerName, ""); //$NON-NLS-1$
-		IStatus statusLocal = new Status(IStatus.ERROR, J2EEPlugin.getPlugin().getPluginID(), IStatus.ERROR, message, mainCause); //$NON-NLS-1$
+		IStatus statusLocal = new Status(severity, J2EEPlugin.getPlugin().getPluginID(), severity, message, mainCause); //$NON-NLS-1$
 		getMultiStatus().add(statusLocal);
-
-
 
 	}
 
