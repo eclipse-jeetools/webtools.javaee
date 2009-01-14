@@ -44,9 +44,11 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
 		super(dataModel, pageName);
 	}
 
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
-        final Composite top = super.createTopLevelComposite( parent );
+        final Composite top = super.createTopLevelComposite(parent);
 		createEarComposite(top);
+        createWorkingSetGroupPanel(top, new String[] { RESOURCE_WORKING_SET, JAVA_WORKING_SET });
 		return top;
 	}
 
