@@ -59,7 +59,7 @@ public class WarEMFTest extends GeneralEMFPopulationTest {
     
     public static junit.framework.Test suite(RendererFactory factory) {
         TestSuite suite = new TestSuite(WarEMFTest.class.getName());
-        suite.addTest(new WarEMFTest("testWARPopulation",factory));
+        //[248158] suite.addTest(new WarEMFTest("testWARPopulation",factory));
 		suite.addTest(new WarEMFTest("test14WARPopulation",factory));
         return suite;
     }

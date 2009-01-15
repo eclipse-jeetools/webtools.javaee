@@ -49,7 +49,7 @@ public class EarEMFTest extends GeneralEMFPopulationTest {
 
     public static junit.framework.Test suite(RendererFactory factory) {
         TestSuite suite = new TestSuite(EarEMFTest.class.getName());
-        suite.addTest(new EarEMFTest("testEARPopulation", factory));
+        //[248158] suite.addTest(new EarEMFTest("testEARPopulation", factory));
 		suite.addTest(new EarEMFTest("test14EARPopulation", factory));
         return suite;
     }

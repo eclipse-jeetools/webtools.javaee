@@ -47,7 +47,7 @@ public class RarEMFTest extends GeneralEMFPopulationTest {
 
 	public static junit.framework.Test suite(RendererFactory factory) {
 		TestSuite suite = new TestSuite(RarEMFTest.class.getName());
-		suite.addTest(new RarEMFTest("testRARPopulation",factory));
+		//[248158] suite.addTest(new RarEMFTest("testRARPopulation",factory));
 		suite.addTest(new RarEMFTest("test14RARPopulation",factory));
 		return suite;
 	}

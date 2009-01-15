@@ -81,7 +81,7 @@ public class EjbEMFTest extends GeneralEMFPopulationTest {
 
 	public static junit.framework.Test suite(RendererFactory factory) {
 		TestSuite suite = new TestSuite(EjbEMFTest.class.getName());
-		suite.addTest(new EjbEMFTest("testEJBJarPopulation",factory));
+		//[248158] suite.addTest(new EjbEMFTest("testEJBJarPopulation",factory));
 		suite.addTest(new EjbEMFTest("test14EJBJarPopulation",factory));
 		return suite;
 	}

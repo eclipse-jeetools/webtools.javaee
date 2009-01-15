@@ -46,7 +46,7 @@ public class AppClientEMFTest extends GeneralEMFPopulationTest {
 
     public static junit.framework.Test suite(RendererFactory factory) {
         TestSuite suite = new TestSuite(AppClientEMFTest.class.getName());
-        suite.addTest(new AppClientEMFTest("testApplicationClientPopulation", factory));
+        //[248158] suite.addTest(new AppClientEMFTest("testApplicationClientPopulation", factory));
         suite.addTest(new AppClientEMFTest("test14ApplicationClientPopulation", factory));
         return suite;
     }
