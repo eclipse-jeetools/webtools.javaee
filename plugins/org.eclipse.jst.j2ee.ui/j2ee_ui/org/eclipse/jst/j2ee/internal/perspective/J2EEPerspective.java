@@ -40,6 +40,8 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 	private static final String ID_SEARCH_VIEW = "org.eclipse.search.ui.views.SearchView"; //$NON-NLS-1$
 	private static final String ID_DATA_VIEW = "org.eclipse.datatools.connectivity.DataSourceExplorerNavigator"; //$NON-NLS-1$
 	public static final String ID_CONSOLE_VIEW= "org.eclipse.ui.console.ConsoleView"; //$NON-NLS-1$
+	public static final String ID_MARKERS_VIEW= "org.eclipse.ui.views.AllMarkersView";
+	public static final String ID_TASKLIST_VIEW= "org.eclipse.mylyn.tasks.ui.views.tasks";
 
 	public J2EEPerspective() {
 		super();
@@ -75,11 +77,11 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 		layout.addShowViewShortcut(ID_DATA_VIEW);
 		layout.addShowViewShortcut(IPageLayout.ID_BOOKMARKS);
 		layout.addShowViewShortcut(IPageLayout.ID_OUTLINE);
-		layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);
 		layout.addShowViewShortcut(IPageLayout.ID_PROP_SHEET);
 		layout.addShowViewShortcut(IPageLayout.ID_RES_NAV);
-		layout.addShowViewShortcut(IPageLayout.ID_TASK_LIST);
 		layout.addShowViewShortcut(ID_WST_SNIPPETS_VIEW);
+		layout.addShowViewShortcut(ID_MARKERS_VIEW);
+		layout.addShowViewShortcut(ID_TASKLIST_VIEW);
 		
 		// views - search
 		layout.addShowViewShortcut(ID_SEARCH_VIEW);
@@ -102,13 +104,14 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 
 		// Bottom right.
 		IFolderLayout bottomRight = layout.createFolder("bottomRight", IPageLayout.BOTTOM, 0.7f, editorArea);//$NON-NLS-1$
-		bottomRight.addView(IPageLayout.ID_PROBLEM_VIEW);
-		bottomRight.addView(IPageLayout.ID_TASK_LIST);
+		bottomRight.addView(ID_MARKERS_VIEW);
 		bottomRight.addView(IPageLayout.ID_PROP_SHEET);
 		bottomRight.addView(ID_SERVERS_VIEW);
 		addDBViewIfPresent(layout,bottomRight);
 		bottomRight.addView(ID_WST_SNIPPETS_VIEW);
 		
+		bottomRight.addPlaceholder(IPageLayout.ID_PROBLEM_VIEW);
+		bottomRight.addPlaceholder(IPageLayout.ID_TASK_LIST);
 		bottomRight.addPlaceholder(ID_CONSOLE_VIEW);
 		bottomRight.addPlaceholder(IPageLayout.ID_BOOKMARKS);
 		bottomRight.addPlaceholder(IProgressConstants.PROGRESS_VIEW_ID);
@@ -117,6 +120,8 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 		// Top right.
 		IFolderLayout topRight = layout.createFolder("topRight", IPageLayout.RIGHT, 0.7f, editorArea);//$NON-NLS-1$
 		topRight.addView(IPageLayout.ID_OUTLINE);
+		addTLViewIfPresent(layout, topRight);
+		
 	}
 	private void addDBViewIfPresent(IPageLayout page,IFolderLayout bottomRight) {
 		// TODO Auto-generated method stub
@@ -124,6 +129,12 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 		if (dbView != null)
 			bottomRight.addView(ID_DATA_VIEW);
 	}
+	private void addTLViewIfPresent(IPageLayout page,IFolderLayout topRight) {
+		// TODO Auto-generated method stub
+		IViewDescriptor tlView = PlatformUI.getWorkbench().getViewRegistry().find(ID_TASKLIST_VIEW);
+		if (tlView != null)
+			topRight.addView(ID_TASKLIST_VIEW);
+		}
 }
 
 
