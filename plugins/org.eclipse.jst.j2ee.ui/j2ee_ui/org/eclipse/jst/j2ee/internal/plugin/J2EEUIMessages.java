@@ -211,7 +211,9 @@ public class J2EEUIMessages extends Messages {
 	public static final String CONTENT_FOLDER = "102"; //$NON-NLS-1$
 	
 	public static final String HOVER_HELP_FOR_DISABLED_LIBS = "HOVER_HELP_FOR_DISABLED_LIBS"; //$NON-NLS-1$
-
+	public static final String JAVA_EE_PREFERENCE_PAGE_NAME = "JAVA_EE_PREFERENCE_PAGE_NAME"; //$NON-NLS-1$
+	public static final String JAVA_EE_PREFERENCE_PAGE_JET_TEMPLATE = "JAVA_EE_PREFERENCE_PAGE_JET_TEMPLATE"; //$NON-NLS-1$
+	public static final String JAVA_EE_PREFERENCE_PAGE_DYN_TRANSLATION_BTN_NAME = "JAVA_EE_PREFERENCE_PAGE_DYN_TRANSLATION_BTN_NAME"; //$NON-NLS-1$
 	/**
 	 * Returns the string from the resource bundle, or 'key' if not found.
 	 */
