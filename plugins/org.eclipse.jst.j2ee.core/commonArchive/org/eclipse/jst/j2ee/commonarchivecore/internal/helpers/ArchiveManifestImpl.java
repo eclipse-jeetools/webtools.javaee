@@ -46,7 +46,9 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements org.e
 		try {
 			read(is);
 		} catch(Exception e){
-			throw new IOException(e);
+			IOException ioe = new IOException(e.toString());
+			ioe.initCause(e);
+			throw ioe;
 		}
 	}
 
