@@ -24,6 +24,7 @@ import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -629,6 +630,9 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 
 	public Archive asArchive(boolean includeSource, boolean includeClasspathComponents) throws OpenFailureException {
+		return asArchive(includeSource, includeClasspathComponents, false);
+	}
+	public Archive asArchive(boolean includeSource, boolean includeClasspathComponents, boolean readOnly) throws OpenFailureException {
 		verifyOperationSupported();
 		if (isBinary()) {
 			JavaEEBinaryComponentHelper helper = (JavaEEBinaryComponentHelper)getBinaryComponentHelper();
@@ -636,8 +640,12 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		} else {
 			WebComponentLoadStrategyImpl loader = new WebComponentLoadStrategyImpl(getComponent(), includeClasspathComponents);
 			loader.setExportSource(includeSource);
+			loader.setReadOnly(readOnly);
 			String uri = ModuleURIUtil.getHandleString(getComponent());
-			return CommonarchiveFactory.eINSTANCE.openWARFile(loader, uri);
+			ArchiveOptions options = new ArchiveOptions();
+			options.setLoadStrategy(loader);
+			options.setIsReadOnly(readOnly);
+			return CommonarchiveFactory.eINSTANCE.openWARFile(options, uri);
 		}
 	}
 

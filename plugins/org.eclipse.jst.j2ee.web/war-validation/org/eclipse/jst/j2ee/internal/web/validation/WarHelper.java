@@ -114,7 +114,7 @@ public class WarHelper extends J2EEValidationHelper {
 			edit = ComponentUtilities.getArtifactEditForRead(comp);
 			
 			try {
-				warFile = (WARFile)((WebArtifactEdit) edit).asArchive(false);
+				warFile = (WARFile)((WebArtifactEdit) edit).asArchive(false, true, true);
 				return warFile;
 			} catch (OpenFailureException e1) {
 				Logger.getLogger().log(e1);

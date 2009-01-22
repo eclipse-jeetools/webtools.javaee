@@ -32,6 +32,7 @@ import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategyImpl;
@@ -577,16 +578,22 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 
 	public Archive asArchive(boolean includeSource) throws OpenFailureException {
-		verifyOperationSupported();
 		return asArchive(includeSource, true);
 	}
 	
 	public Archive asArchive(boolean includeSource, boolean includeClasspathComponents) throws OpenFailureException {
+		return asArchive(includeSource, includeClasspathComponents, false);
+	}
+	public Archive asArchive(boolean includeSource, boolean includeClasspathComponents, boolean readOnly) throws OpenFailureException {
 		verifyOperationSupported();
 		EARComponentLoadStrategyImpl loader = new EARComponentLoadStrategyImpl(getComponent(), includeClasspathComponents);
+		loader.setReadOnly(readOnly);
 		loader.setExportSource(includeSource);
 		String uri = ModuleURIUtil.getHandleString(getComponent());
-		return CommonarchiveFactory.eINSTANCE.openEARFile(loader, uri);
+		ArchiveOptions options = new ArchiveOptions();
+		options.setLoadStrategy(loader);
+		options.setIsReadOnly(readOnly);
+		return CommonarchiveFactory.eINSTANCE.openEARFile(options, uri);
 	}
 
 	public static void createDeploymentDescriptor(IProject project, int version) {
