@@ -272,22 +272,48 @@ public class ArchiveWrapper {
 			return cachedEARModules;
 		}
 		if (archive != null) {
-			List<IArchiveResource> resources = archive.getArchiveResources();
-			for (IArchiveResource resource : resources) {
-				if (resource.getType() != IArchiveResource.DIRECTORY_TYPE) {
-					IPath path = resource.getPath();
-					if (path.segmentCount() > 0) {
-						String lastSegment = path.lastSegment();
-						if (lastSegment.endsWith("jar") || lastSegment.endsWith("zip") || lastSegment.endsWith("rar") || lastSegment.endsWith("war")) {
-							IArchive earmodule;
+			if(jqp.getJavaEEVersion() == JavaEEQuickPeek.JEE_5_0_ID){
+				List<IArchiveResource> resources = archive.getArchiveResources();
+				for (IArchiveResource resource : resources) {
+					if (resource.getType() != IArchiveResource.DIRECTORY_TYPE) {
+						IPath path = resource.getPath();
+						if (path.segmentCount() > 0) {
+							String lastSegment = path.lastSegment();
+							if (lastSegment.endsWith("jar") || lastSegment.endsWith("zip") || lastSegment.endsWith("rar") || lastSegment.endsWith("war")) {
+								IArchive earmodule;
+								try {
+									earmodule = archive.getNestedArchive(resource);
+									cachedEARModules.add(new ArchiveWrapper(earmodule));
+								} catch (ArchiveOpenFailureException e) {
+									Logger.getLogger().logError(e);
+								}
+							}
+						}
+					}
+				}
+			} else {
+				try {
+					org.eclipse.jst.j2ee.application.Application app = (org.eclipse.jst.j2ee.application.Application)archive.getModelObject();
+					List modules = app.getModules();
+					for(int i=0;i<modules.size();i++){
+						org.eclipse.jst.j2ee.application.Module mod = (org.eclipse.jst.j2ee.application.Module)modules.get(i);
+						String uri = mod.getUri();
+						IPath path = new Path(uri);
+						if(archive.containsArchiveResource(path)){
 							try {
+								IArchiveResource resource = archive.getArchiveResource(path);
+								IArchive earmodule;
 								earmodule = archive.getNestedArchive(resource);
 								cachedEARModules.add(new ArchiveWrapper(earmodule));
 							} catch (ArchiveOpenFailureException e) {
 								Logger.getLogger().logError(e);
+							} catch (FileNotFoundException e) {
+								org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
 							}
 						}
 					}
+				} catch (ArchiveModelLoadException e) {
+					org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
 				}
 			}
 			return cachedEARModules;
