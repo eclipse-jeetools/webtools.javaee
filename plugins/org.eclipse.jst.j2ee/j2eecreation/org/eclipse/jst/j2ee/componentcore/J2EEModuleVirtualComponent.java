@@ -325,10 +325,16 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 								String archiveName = earRefs[j].getArchiveName();
 								if (null != archiveName){
 									boolean shouldAdd = false;
-									if(simplePath && manifestClasspath[manifestIndex].lastIndexOf("/") == -1){ //$NON-NLS-1$
-										shouldAdd = archiveName.equals(manifestClasspath[manifestIndex]);	
+									String manifestEntryString = manifestClasspath[manifestIndex];
+									if( manifestEntryString != null ){
+										IPath manifestPath = new Path(manifestEntryString);
+										manifestEntryString = manifestPath.toPortableString();
+									}
+									
+									if(simplePath && manifestEntryString.lastIndexOf("/") == -1){ //$NON-NLS-1$
+										shouldAdd = archiveName.equals(manifestEntryString);	
 									} else {
-										String earRelativeURI = ArchiveUtil.deriveEARRelativeURI(manifestClasspath[manifestIndex], earArchiveURI);
+										String earRelativeURI = ArchiveUtil.deriveEARRelativeURI(manifestEntryString, earArchiveURI);
 										if(null != earRelativeURI){
 											shouldAdd = earRelativeURI.equals(archiveName);	
 										}
