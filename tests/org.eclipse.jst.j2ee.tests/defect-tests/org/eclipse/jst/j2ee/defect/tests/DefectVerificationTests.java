@@ -12,16 +12,11 @@ package org.eclipse.jst.j2ee.defect.tests;
 
 //import java.io.File;
 import java.io.StringBufferInputStream;
-//import java.net.URL;
-//import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-//import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
-//import java.util.zip.ZipEntry;
-//import java.util.zip.ZipFile;
 
 import junit.framework.Assert;
 
@@ -53,6 +48,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.RuntimeClasspathEntry;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
@@ -71,7 +67,6 @@ import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProp
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
-//import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -97,7 +92,6 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
-//import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebImportOperationTest;
 
 public class DefectVerificationTests extends OperationTestCase {
 
@@ -121,6 +115,25 @@ public class DefectVerificationTests extends OperationTestCase {
 			e.printStackTrace();
 		}
 		return "";
+	}
+	
+	
+	public void test261508() throws Exception {
+		String earFileName = getFullTestDataPath("EARForLibDep.ear");
+		IDataModel model = DataModelFactory.createDataModel(new EARComponentImportDataModelProvider());
+		model.setProperty(IEARComponentImportDataModelProperties.FILE_NAME, earFileName);
+		runAndVerify(model);
+	
+		IVirtualComponent webComponent = ComponentCore.createComponent(J2EEProjectUtilities.getProject("WebForLibDep"));
+		IVirtualReference[] refs = webComponent.getReferences();
+		Assert.assertTrue(refs.length == 2);
+		for( IVirtualReference ref : refs ){
+			IVirtualComponent refComponent = ref.getReferencedComponent();
+			if ( refComponent instanceof J2EEModuleVirtualArchiveComponent ){
+				J2EEModuleVirtualArchiveComponent j2eeVirtualArchive = (J2EEModuleVirtualArchiveComponent)refComponent;
+				Assert.assertTrue( j2eeVirtualArchive.getName().endsWith("EjbTestClient.jar"));
+			}
+		}
 	}
 	
 	/**
@@ -825,4 +838,7 @@ public class DefectVerificationTests extends OperationTestCase {
 		}
 	}
 	**/
+	
+	
+
 }
