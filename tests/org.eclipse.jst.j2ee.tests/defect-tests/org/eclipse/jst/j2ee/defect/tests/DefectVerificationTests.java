@@ -118,7 +118,7 @@ public class DefectVerificationTests extends OperationTestCase {
 	}
 	
 	
-	public void test261508() throws Exception {
+	public void _test261508() throws Exception {
 		String earFileName = getFullTestDataPath("EARForLibDep.ear");
 		IDataModel model = DataModelFactory.createDataModel(new EARComponentImportDataModelProvider());
 		model.setProperty(IEARComponentImportDataModelProperties.FILE_NAME, earFileName);
