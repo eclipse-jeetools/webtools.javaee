@@ -10,12 +10,15 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.classpathdep;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
@@ -29,6 +32,8 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestIm
  */
 public class ClasspathDependencyManifestUtil {
 
+	private static ConcurrentHashMap<String, String> manifestClasspaths = new ConcurrentHashMap<String, String>();
+	
 	/**
 	 * Generates new MANIFEST.MF with a dynamically updated classpath that is written to the specified
 	 * output stream.
@@ -39,7 +44,36 @@ public class ClasspathDependencyManifestUtil {
 	 * @throws FileNotFoundException
 	 */
 	public static void updateManifestClasspath(final IFile manifestFile, final List dynamicURIs, final OutputStream outputStream) throws IOException, FileNotFoundException {
+		updateManifestClasspathImpl(manifestFile, dynamicURIs, null, outputStream);
+    }
+	
+	/**
+	 * Generates new MANIFEST.MF with a dynamically updated classpath that is written to the specified
+	 * output stream.
+	 * @param manifestFile The current MANIFEST.MF file.
+	 * @param dynamicURIs Is List of URIs to dynamically add to the manifest classpath.
+	 * @param outputFile File to which the modified entry should be written.
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 */
+	public static void updateManifestClasspath(final IFile manifestFile, final List dynamicURIs, final File outputFile) throws IOException, FileNotFoundException {
+		updateManifestClasspathImpl(manifestFile, dynamicURIs, outputFile, null);
+    }
+
+	/**
+	 * Generates new MANIFEST.MF with a dynamically updated classpath that is written to the specified
+	 * file or output stream, with the stream taking precedence.
+	 * @param manifestFile The current MANIFEST.MF file.
+	 * @param dynamicURIs Is List of URIs to dynamically add to the manifest classpath.
+	 * @param outputFile File to which the modified entry should be written.
+	 * @param OutputStream stream Stream to which the modified entry should be written. If not null,
+	 * the stream will be written and the outputFile ignored.
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 */
+	private static void updateManifestClasspathImpl(final IFile manifestFile, final List dynamicURIs, final File outputFile, final OutputStream stream) throws IOException, FileNotFoundException {
 		
+		OutputStream outputStream = stream; 
         try {
         	InputStream in = null;
         	ArchiveManifest manifest = null;
@@ -88,9 +122,25 @@ public class ClasspathDependencyManifestUtil {
         		}
         		cpBuffer.append((String) updatedCP.get(j));
         	}
-        	manifest.setClassPath(cpBuffer.toString());
-        	manifest.write(outputStream);
-        	outputStream.flush();
+        	String cp = cpBuffer.toString();
+        	// If we have an output stream, always write to the stream 
+        	if (outputStream != null) {
+            	manifest.setClassPath(cp);
+            	manifest.write(outputStream);
+            	outputStream.flush();
+        	}
+        	// Else, without an output stream, conditionally update the specified file
+        	else {
+            	String manifestPath = manifestFile.getFullPath().toString();
+            	String priorClasspath = manifestClasspaths.get(manifestPath);
+            	if (priorClasspath == null || !priorClasspath.equals(cp) || !outputFile.exists()) {
+                	manifestClasspaths.put(manifestPath, cp);
+                	manifest.setClassPath(cp);
+                	outputStream = new FileOutputStream(outputFile);
+                	manifest.write(outputStream);
+                	outputStream.flush();
+            	}
+        	}
         } finally {
         	if (outputStream != null) {
         		outputStream.close();

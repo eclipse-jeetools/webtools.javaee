@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.internal.deployables;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -306,7 +305,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 			}
 			// create temp MANIFEST.MF using util method
 			try {
-				ClasspathDependencyManifestUtil.updateManifestClasspath(file, classpathComponentDependencyURIs, new FileOutputStream(fsFile));
+				ClasspathDependencyManifestUtil.updateManifestClasspath(file, classpathComponentDependencyURIs, fsFile);
 				// create new ModuleFile that points to temp MANIFEST.MF
 				return new ModuleFile(fsFile, file.getName(), path);
 			} catch (IOException ioe) {
