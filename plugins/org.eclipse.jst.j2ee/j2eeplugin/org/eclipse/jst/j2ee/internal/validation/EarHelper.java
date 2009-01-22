@@ -20,7 +20,7 @@ import org.eclipse.jst.j2ee.application.internal.impl.ApplicationImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
+import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -83,7 +83,7 @@ public class EarHelper extends J2EEValidationHelper {
 		edit = ComponentUtilities.getArtifactEditForRead(comp);
 		
 		try {
-			Archive archive = ((EnterpriseArtifactEdit) edit).asArchive(false, false);
+			Archive archive = ((EARArtifactEdit) edit).asArchive(false, false, true);
 			earFile = (EARFile)archive;
 			return archive;
 		} catch (OpenFailureException e1) {
