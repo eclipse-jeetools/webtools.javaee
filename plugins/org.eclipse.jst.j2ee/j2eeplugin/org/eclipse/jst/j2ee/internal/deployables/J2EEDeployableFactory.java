@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.internal.deployables;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +39,7 @@ import org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate;
  * J2EE module factory.
  */
 public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
-	protected Map moduleDelegates = new HashMap(5);
+	protected Map <IModule, ModuleDelegate> moduleDelegates = new HashMap<IModule, ModuleDelegate>(5);
 
 	public static final String ID = "org.eclipse.jst.j2ee.server"; //$NON-NLS-1$
 
@@ -68,7 +69,17 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 	}
 
 	public ModuleDelegate getModuleDelegate(IModule module) {
-		return (ModuleDelegate) moduleDelegates.get(module);
+		if (module == null)
+			return null;
+
+		ModuleDelegate md = (ModuleDelegate) moduleDelegates.get(module);
+
+		if (md == null) {
+			createModules(module.getProject());
+			md = (ModuleDelegate) moduleDelegates.get(module);
+		}
+
+		return md;
 	}
 
 	protected IModule[] createModuleDelegates(IVirtualComponent component) {
@@ -171,7 +182,22 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 		};
 	}
 
-	protected void clearCache() {
-		moduleDelegates = new HashMap(5);
+	protected void clearCache(IProject project) {
+		super.clearCache(project);
+		List<IModule> modulesToRemove = null;
+		for (Iterator<IModule> iterator = moduleDelegates.keySet().iterator(); iterator.hasNext();) {
+			IModule module = iterator.next();
+			if (module.getProject().equals(project)) {
+				if (modulesToRemove == null) {
+					modulesToRemove = new ArrayList<IModule>();
+				}
+				modulesToRemove.add(module);
+			}
+		}
+		if (modulesToRemove != null) {
+			for (IModule module : modulesToRemove) {
+				moduleDelegates.remove(module);
+			}
+		}
 	}
 }
