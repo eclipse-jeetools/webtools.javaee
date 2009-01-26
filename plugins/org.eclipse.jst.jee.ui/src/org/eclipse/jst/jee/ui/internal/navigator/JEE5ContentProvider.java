@@ -10,7 +10,10 @@
  ***********************************************************************/
 package org.eclipse.jst.jee.ui.internal.navigator;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
@@ -35,8 +38,15 @@ import org.eclipse.jst.j2ee.model.IModelProviderListener;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.navigator.internal.EMFRootObjectProvider.IRefreshHandlerListener;
 import org.eclipse.jst.javaee.core.JavaEEObject;
+import org.eclipse.jst.javaee.ejb.EntityBean;
+import org.eclipse.jst.javaee.ejb.MessageDrivenBean;
+import org.eclipse.jst.javaee.ejb.SessionBean;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Item;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.progress.UIJob;
 
 public abstract class JEE5ContentProvider implements ITreeContentProvider, IRefreshHandlerListener, IModelProviderListener, IResourceChangeListener {
@@ -95,12 +105,66 @@ public abstract class JEE5ContentProvider implements ITreeContentProvider, IRefr
 			Runnable refreshThread = new Runnable() {
 				public void run() {
 					if (viewer != null) {
-						ISelection sel = ((TreeViewer) viewer).getSelection();
-						ITreeContentProvider contentProvider = ((ITreeContentProvider) ((TreeViewer) viewer)
-								.getContentProvider());
-						contentProvider.getChildren(project);
-						((StructuredViewer) viewer).refresh(project);
-						((TreeViewer) viewer).setSelection(sel);
+						try{
+							viewer.getControl().setRedraw(false);
+							ISelection sel = ((TreeViewer) viewer).getSelection();
+							ITreeContentProvider contentProvider = ((ITreeContentProvider) ((TreeViewer) viewer)
+									.getContentProvider());
+							contentProvider.getChildren(project);
+							
+							Object[] expandedElements = ((TreeViewer) viewer).getExpandedElements();
+							
+							((StructuredViewer) viewer).refresh(project);
+							((TreeViewer) viewer).setSelection(sel);
+							
+							ArrayList<Object> newExpandedElements = new ArrayList<Object>();
+							
+							ArrayList<Object> allElements = new ArrayList<Object>();
+							getViewerElements(allElements, ((TreeViewer) viewer).getControl());
+							
+							Object[] expandedElementsAfterRefresh = ((TreeViewer) viewer).getExpandedElements();
+							newExpandedElements.addAll(Arrays.asList(expandedElementsAfterRefresh));
+							for(int i=0;i < expandedElements.length;i++){
+								boolean expanded = false;
+								for(int j=0;j < expandedElementsAfterRefresh.length; j++){
+									if(expandedElements[i].equals(expandedElementsAfterRefresh[j])){
+										expanded = true;
+									}
+								}
+								if(!expanded){
+									for(Object ob : allElements){
+										if(ob instanceof SessionBean
+												&& expandedElements[i] instanceof SessionBean){
+											SessionBean bean = (SessionBean) ob;
+											SessionBean bean2 = (SessionBean) expandedElements[i];
+											if(bean.getEjbName().equals(bean2.getEjbName())){
+												newExpandedElements.add(ob);
+											}
+										}
+										if(ob instanceof MessageDrivenBean
+												&& expandedElements[i] instanceof MessageDrivenBean){
+											MessageDrivenBean bean = (MessageDrivenBean) ob;
+											MessageDrivenBean bean2 = (MessageDrivenBean) expandedElements[i];
+											if(bean.getEjbName().equals(bean2.getEjbName())){
+												newExpandedElements.add(ob);
+											}
+										}
+										if(ob instanceof EntityBean
+												&& expandedElements[i] instanceof EntityBean){
+											EntityBean bean = (EntityBean) ob;
+											EntityBean bean2 = (EntityBean) expandedElements[i];
+											if(bean.getEjbName().equals(bean2.getEjbName())){
+												newExpandedElements.add(ob);
+											}
+										}
+									}
+								}
+							}
+							((TreeViewer) viewer).setExpandedElements(newExpandedElements.toArray());
+							
+						}finally{
+							viewer.getControl().setRedraw(true);
+						}
 					}
 				}
 			};
@@ -111,6 +175,25 @@ public abstract class JEE5ContentProvider implements ITreeContentProvider, IRefr
 		}
 	}
 
+	private void getViewerElements(List result, Widget widget) {
+		Item[] items = getChildren(widget);
+		for (int i = 0; i < items.length; i++) {
+			Item item = items[i];
+			result.add(item.getData());
+			getViewerElements(result, item);
+		}
+	}
+	
+	protected Item[] getChildren(Widget o) {
+		if (o instanceof TreeItem) {
+			return ((TreeItem) o).getItems();
+		}
+		if (o instanceof Tree) {
+			return ((Tree) o).getItems();
+		}
+		return null;
+	}
+	
 	public void modelsChanged(IModelProviderEvent event) {
 		projectChanged(event.getProject());
 
