@@ -622,15 +622,15 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 * @generated
 	 */
 	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
+		if (eContainerFeatureID() >= 0) {
+			switch (eContainerFeatureID()) {
 				case BeaninfoPackage.EVENT_SET_DECORATOR__EMODEL_ELEMENT:
 					return eContainer.eInverseRemove(this, EcorePackage.EMODEL_ELEMENT__EANNOTATIONS, EModelElement.class, msgs);
 				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID(), null, msgs);
 	}
 
 	/**

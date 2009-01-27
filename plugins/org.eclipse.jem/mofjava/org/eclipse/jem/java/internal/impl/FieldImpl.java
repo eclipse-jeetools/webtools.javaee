@@ -288,7 +288,7 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 	 * @generated
 	 */
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case JavaRefPackage.FIELD__JAVA_CLASS:
 				return eInternalContainer().eInverseRemove(this, JavaRefPackage.JAVA_CLASS__FIELDS, JavaClass.class, msgs);
 		}
@@ -544,7 +544,7 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 	 * @generated This field/method will be replaced during code generation 
 	 */
 	public JavaClass getJavaClass() {
-		if (eContainerFeatureID != JavaRefPackage.FIELD__JAVA_CLASS) return null;
+		if (eContainerFeatureID() != JavaRefPackage.FIELD__JAVA_CLASS) return null;
 		return (JavaClass)eContainer();
 	}
 
@@ -564,7 +564,7 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 	 * @generated
 	 */
 	public void setJavaClass(JavaClass newJavaClass) {
-		if (newJavaClass != eInternalContainer() || (eContainerFeatureID != JavaRefPackage.FIELD__JAVA_CLASS && newJavaClass != null)) {
+		if (newJavaClass != eInternalContainer() || (eContainerFeatureID() != JavaRefPackage.FIELD__JAVA_CLASS && newJavaClass != null)) {
 			if (EcoreUtil.isAncestor(this, newJavaClass))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
@@ -644,11 +644,7 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 	  @Override
 	  public EList<EObject> eCrossReferences()
 	  {
-	    if (eCrossReferences == null)
-	    {
-	      eCrossReferences = ECrossReferenceEList.createECrossReferenceEList(this);
-	    }
-	    return eCrossReferences;
+	    return ECrossReferenceEList.createECrossReferenceEList(this);
 	  }
 
 }

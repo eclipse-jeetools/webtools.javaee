@@ -1765,20 +1765,12 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 	@Override
 	  public EList<EObject> eContents()
 	  {
-	    if (eContents == null)
-	    {
-	      eContents = EContentsEList.createEContentsEList(this);
-	    }
-	    return eContents;
+	    return EContentsEList.createEContentsEList(this);
 	  }
 
 	  @Override
 	  public EList<EObject> eCrossReferences()
 	  {
-	    if (eCrossReferences == null)
-	    {
-	      eCrossReferences = ECrossReferenceEList.createECrossReferenceEList(this);
-	    }
-	    return eCrossReferences;
+	    return ECrossReferenceEList.createECrossReferenceEList(this);
 	  }
 }

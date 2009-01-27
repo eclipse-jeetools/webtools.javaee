@@ -74,7 +74,7 @@ public void setCollectionTypeName(String typeName) {
 	 * @generated This field/method will be replaced during code generation 
 	 */
 	public EJBRelationshipRole getRole() {
-		if (eContainerFeatureID != EjbPackage.CMR_FIELD__ROLE) return null;
+		if (eContainerFeatureID() != EjbPackage.CMR_FIELD__ROLE) return null;
 		return (EJBRelationshipRole)eContainer();
 	}
 
@@ -92,7 +92,7 @@ public void setCollectionTypeName(String typeName) {
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public void setRole(EJBRelationshipRole newRole) {
-		if (newRole != eInternalContainer() || (eContainerFeatureID != EjbPackage.CMR_FIELD__ROLE && newRole != null)) {
+		if (newRole != eInternalContainer() || (eContainerFeatureID() != EjbPackage.CMR_FIELD__ROLE && newRole != null)) {
 			if (EcoreUtil.isAncestor(this, newRole))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
@@ -175,7 +175,7 @@ public void setCollectionTypeName(String typeName) {
 	 * @generated
 	 */
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case EjbPackage.CMR_FIELD__ROLE:
 				return eInternalContainer().eInverseRemove(this, EjbPackage.EJB_RELATIONSHIP_ROLE__CMR_FIELD, EJBRelationshipRole.class, msgs);
 		}

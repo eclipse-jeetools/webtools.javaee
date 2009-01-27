@@ -452,7 +452,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 					File aFile = (File) files.get(i);
 					if (aFile.getLoadingContainer() == anArchive) {
 						Archive outermost = openedArchive;
-						Container c = openedArchive.getContainer();
+						org.eclipse.jst.j2ee.commonarchivecore.internal.Container c = openedArchive.getContainer();
 						while (c != null && c.isArchive()) {
 							outermost = (Archive) c;
 							c = c.getContainer();
