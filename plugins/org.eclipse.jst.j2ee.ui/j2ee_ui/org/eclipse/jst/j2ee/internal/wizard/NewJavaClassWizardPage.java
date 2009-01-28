@@ -172,12 +172,6 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 			public void widgetSelected(SelectionEvent e) {
 				super.widgetSelected(e);
 				IProject project = ProjectUtilities.getProject(projectNameCombo.getText());
-				// update source folder
-				if (folderText != null) {					
-					String sourceFolder = getDefaultJavaSourceFolder(project).getFullPath().toOSString();					
-					if (sourceFolder != null)
-						folderText.setText(sourceFolder);
-				}
 				validateProjectRequirements(project);
 			}
 		});

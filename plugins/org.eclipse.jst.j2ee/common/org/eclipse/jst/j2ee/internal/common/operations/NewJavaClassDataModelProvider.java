@@ -556,7 +556,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		boolean result = super.propertySet(propertyName, propertyValue);
 		if (result) {
-			if (COMPONENT_NAME.equals(propertyName)){
+			if (COMPONENT_NAME.equals(propertyName) || PROJECT_NAME.equals(propertyName)){
 				if( getDefaultJavaSourceFolder() != null ){
 					setProperty(SOURCE_FOLDER, getDefaultJavaSourceFolder().getFullPath().toOSString());
 				}
