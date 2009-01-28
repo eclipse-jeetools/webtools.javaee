@@ -29,15 +29,6 @@
          id="org.eclipse.jst.web_core.feature"
          version="0.0.0"/>
 
-  <!-- temporary. remove before M5 --> 
-   <plugin
-         id="com.ibm.icu"
-         download-size="0"
-         install-size="0"
-         version="3.8.1.qualifier"
-         unpack="false"/>
-         
-         
    <plugin
          id="org.eclipse.wst.jsdt.web.support.jsp"
          download-size="0"
