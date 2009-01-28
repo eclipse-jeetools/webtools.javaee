@@ -13,9 +13,14 @@ package org.eclipse.jst.jee.ui.internal.navigator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
@@ -197,4 +202,52 @@ public class Ear5ContentProvider extends JEE5ContentProvider {
 	protected AbstractGroupProvider getNewContentProviderInstance(IProject project) {
 		return new GroupEARProvider((Application) getCachedModelProvider(project).getModelObject(), (EARVirtualComponent)ComponentCore.createComponent(project));
 	}
+
+	public EarLibVisitor getVisitor() {
+		return new EarLibVisitor();
+	}
+
+	protected class EarLibVisitor implements IResourceDeltaVisitor {
+
+		private Set<IProject> projects = new HashSet<IProject>();
+
+		public boolean visit(IResourceDelta delta) throws CoreException {
+			IResourceDelta[] affectedChildren = delta.getAffectedChildren(IResourceDelta.ADDED | IResourceDelta.REMOVED | IResourceDelta.REPLACED);
+			if (affectedChildren != null){
+				for (int i = 0; i < affectedChildren.length; i++) {
+					if (affectedChildren[i].getResource() != null && affectedChildren[i].getResource().getName() != null
+							&& affectedChildren[i].getResource().getName().toLowerCase().endsWith(".jar")){ //$NON-NLS-1$
+						projects.add(affectedChildren[i].getResource().getProject());
+					}
+				}
+			}
+			return true;
+		}
+
+		protected Set<IProject> getChangedProject() {
+			return projects;
+		}
+
+	}
+
+	public void resourceChanged(IResourceChangeEvent event) {
+		super.resourceChanged(event);
+		if (event.getType() == IResourceChangeEvent.POST_CHANGE){
+			EarLibVisitor visitor = getVisitor();
+			if (visitor == null){
+				return;
+			}
+			try {
+				event.getDelta().accept(visitor);
+				Set<IProject> changedProject = visitor.getChangedProject();
+				for (IProject project : changedProject) {
+					projectChanged(project);
+				}
+				
+			} catch (CoreException e) {
+				JEEUIPlugin.logError("Could not refresh changed project.", e); //$NON-NLS-1$
+			}
+		}
+	} 
+
 }
