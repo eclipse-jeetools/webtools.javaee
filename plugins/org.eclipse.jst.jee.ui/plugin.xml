@@ -726,6 +726,9 @@
            <instanceof
                  value="org.eclipse.jst.jee.ui.internal.navigator.web.WebArtifactNode">
            </instanceof>
+                <instanceof
+                      value="org.eclipse.jst.javaee.core.JavaEEObject">
+                </instanceof>
         </or>
      </possibleChildren>
      
