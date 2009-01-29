@@ -36,11 +36,15 @@ public class ClearPlaceHolderJob extends UIJob {
 	public IStatus runInUIThread(IProgressMonitor monitor) {
 
 		try {
-			viewer.getControl().setRedraw(false);
-			viewer.remove(placeHolder);
-			viewer.add(parent, children);
+			if( !viewer.getControl().isDisposed() ){
+				viewer.getControl().setRedraw(false);
+				viewer.remove(placeHolder);
+				viewer.add(parent, children);
+			}
 		} finally {
-			viewer.getControl().setRedraw(true);
+			if( !viewer.getControl().isDisposed() ){
+				viewer.getControl().setRedraw(true);
+			}
 		}
 		return Status.OK_STATUS;
 	}
