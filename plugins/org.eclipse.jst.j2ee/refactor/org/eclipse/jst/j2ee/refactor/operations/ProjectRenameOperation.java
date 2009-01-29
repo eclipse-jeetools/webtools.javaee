@@ -28,6 +28,8 @@ import org.eclipse.jst.javaee.core.DisplayName;
 import org.eclipse.jst.javaee.core.JavaeeFactory;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.web.WebApp;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -63,8 +65,24 @@ public class ProjectRenameOperation extends ProjectRefactorOperation {
 			// if old context root = project name, lets update it
 			ComponentUtilities.setServerContextRoot(newProject, newProjectName);
 		}
-		
+		StructureEdit core = null;
+		WorkbenchComponent component = null;
+		try{
+		core = StructureEdit.getStructureEditForWrite(refactoredMetadata.getProject());
+		if(core != null){
+		component = core.getComponent();
+		}
+	
 		// if the deploy-name equals the old project name, update it in the module-specific deployment descriptor
+		if (component != null && component.getName().equals(originalMetadata.getProjectName())) {
+			component.setName(refactoredMetadata.getProjectName());
+		}
+		}finally {
+			if(core != null) {
+				core.saveIfNecessary(null);
+				core.dispose();
+			}
+		}
 		final IProject refactoredProject = refactoredMetadata.getProject();
 		if (J2EEProjectUtilities.isUtilityProject(refactoredProject)) {
 			// skip if a utility project (will not have a ModelProvider and checking logs an error
