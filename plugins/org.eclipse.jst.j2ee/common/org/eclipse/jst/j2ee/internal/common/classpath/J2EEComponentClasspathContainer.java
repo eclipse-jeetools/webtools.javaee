@@ -292,7 +292,11 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 				            attrs = dec.getExtraAttributes();
 				        }
 			        
-				        entriesList.add(JavaCore.newLibraryEntry( lastUpdate.paths[i], srcpath, srcrootpath, access, attrs, exportEntries ));
+//				        entriesList.add(JavaCore.newLibraryEntry( lastUpdate.paths[i], srcpath, srcrootpath, access, attrs, exportEntries ));
+				        IClasspathEntry newEntry = JavaCore.newLibraryEntry( lastUpdate.paths[i], srcpath, srcrootpath, access, attrs, exportEntries ); 
+				        entriesList.add(newEntry);
+				        existingEntries.add(newEntry);
+				        
 					}
 				} else {
 					IProject project = comp.getProject();
