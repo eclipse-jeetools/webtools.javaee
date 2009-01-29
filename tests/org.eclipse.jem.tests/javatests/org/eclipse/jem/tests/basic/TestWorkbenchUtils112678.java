@@ -8,10 +8,7 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-/*
- *  $RCSfile: TestWorkbenchUtils112678.java,v $
- *  $Revision: 1.2 $  $Date: 2008/09/25 18:22:26 $ 
- */
+
 package org.eclipse.jem.tests.basic;
 
 import junit.framework.TestCase;
