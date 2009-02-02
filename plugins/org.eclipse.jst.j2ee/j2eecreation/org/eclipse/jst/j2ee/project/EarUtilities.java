@@ -264,8 +264,6 @@ public class EarUtilities extends JavaEEProjectUtilities {
 			{
 				switch (earVersion)
 				{
-				case J2EEVersionConstants.VERSION_6_0:
-					retVal.add(DYNAMIC_WEB_30);
 				case J2EEVersionConstants.VERSION_5_0:
 					retVal.add(DYNAMIC_WEB_25);
 				case J2EEVersionConstants.VERSION_1_4:
@@ -280,8 +278,6 @@ public class EarUtilities extends JavaEEProjectUtilities {
 			{
 				switch (earVersion)
 				{
-				case J2EEVersionConstants.VERSION_6_0:
-					retVal.add(EJB_31);
 				case J2EEVersionConstants.VERSION_5_0:
 					retVal.add(EJB_30);
 				case J2EEVersionConstants.VERSION_1_4:
@@ -296,8 +292,6 @@ public class EarUtilities extends JavaEEProjectUtilities {
 			{
 				switch (earVersion)
 				{
-				case J2EEVersionConstants.VERSION_6_0:
-					retVal.add(JCA_16);
 				case J2EEVersionConstants.VERSION_5_0:
 				case J2EEVersionConstants.VERSION_1_4:
 					retVal.add(JCA_15);
@@ -311,8 +305,6 @@ public class EarUtilities extends JavaEEProjectUtilities {
 			{
 				switch (earVersion)
 				{
-				case J2EEVersionConstants.VERSION_6_0:
-					retVal.add(APPLICATION_CLIENT_60);
 				case J2EEVersionConstants.VERSION_5_0:
 					retVal.add(APPLICATION_CLIENT_50);
 				case J2EEVersionConstants.VERSION_1_4:

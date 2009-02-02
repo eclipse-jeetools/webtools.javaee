@@ -51,9 +51,7 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String APP_CLIENT_SYSTEMID_1_3          =       "http://java.sun.com/dtd/application-client_1_3.dtd"; //$NON-NLS-1$
     String APP_CLIENT_ALT_SYSTEMID_1_3      =       "http://java.sun.com/dtd/application-client_1.3.dtd"; //$NON-NLS-1$
     String APP_CLIENT_SCHEMA_1_4       =   "http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application-client_1_4.xsd";//$NON-NLS-1$
-    String APP_CLIENT_SCHEMA_5         =   "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application-client_5.xsd"; //$NON-NLS-1$
-    // The following is still set to the Java EE 5 schema, because to date the Java EE 6 one is not yet defined
-    String APP_CLIENT_SCHEMA_6         =   "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application-client_5.xsd"; //$NON-NLS-1$ // EJB3
+    String APP_CLIENT_SCHEMA_5         =   "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application-client_5.xsd"; //$NON-NLS-1$ // EJB3
     
     //Application constants
     /** "Application_ID"                                                                                                    */
@@ -76,9 +74,7 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String APPLICATION_SYSTEMID_1_4         =       "http://java.sun.com/dtd/application_1_4.dtd"; //$NON-NLS-1$
     String APPLICATION_ALT_SYSTEMID_1_4 =  "http://java.sun.com/dtd/application_1_4.dtd"; //$NON-NLS-1$
     String APPLICATION_SCHEMA_1_4       =  "http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application_1_4.xsd";//$NON-NLS-1$
-    String APPLICATION_SCHEMA_5         =  "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd"; //$NON-NLS-1$
-    // The following is still set to the Java EE 5 schema, because to date the Java EE 6 one is not yet defined
-    String APPLICATION_SCHEMA_6         =  "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd"; //$NON-NLS-1$ 
+    String APPLICATION_SCHEMA_5         =  "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd"; //$NON-NLS-1$ // EJB3
     
     //EJB Jar Constants
     /** "ejb-jar_ID"                                                                                                                */
@@ -100,11 +96,8 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String EJBJAR_ALT_SYSTEMID_2_0  =   "http://java.sun.com/dtd/ejb-jar_2.0.dtd"; //$NON-NLS-1$
     String EJBJAR_SCHEMA_2_1        =   "http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd";//$NON-NLS-1$
     String EJBJAR_SCHEMA_2_1_NS     =   "http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd";//$NON-NLS-1$
-    String EJBJAR_SCHEMA_3_0        =   "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"; //$NON-NLS-1$ 
-    String EJBJAR_SCHEMA_3_0_NS     =   "http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"; //$NON-NLS-1$
-    // The following two are still set to the EJB 3.0 schema, because to date the EJB 3.1 one is not yet defined
-    String EJBJAR_SCHEMA_3_1        =   "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"; //$NON-NLS-1$ 
-    String EJBJAR_SCHEMA_3_1_NS     =   "http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"; //$NON-NLS-1$ 
+    String EJBJAR_SCHEMA_3_0        =   "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"; //$NON-NLS-1$ // EJB3
+    String EJBJAR_SCHEMA_3_0_NS     =   "http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"; //$NON-NLS-1$ // EJB3
     
     // EAR constants
     
@@ -131,8 +124,6 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String WEBAPP_ALT_SYSTEMID_2_3  =       "http://java.sun.com/dtd/web-app_2.3.dtd"; //$NON-NLS-1$
     String WEBAPP_SCHEMA_2_4        =   "http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd";//$NON-NLS-1$
     String WEBAPP_SCHEMA_2_5        =   "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd";//$NON-NLS-1$
-    // The following is still set to the Servlet 2.5 schema, because to date the Servlet 3.0 one is not yet defined
-    String WEBAPP_SCHEMA_3_0        =   "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd";//$NON-NLS-1$
     //J2C Resource Adapter Constants
     /** "J2CResourceAdapter_ID"                                                                                             */
     String RAR_ID                                           =       "J2CResourceAdapter_ID"; //$NON-NLS-1$
@@ -148,7 +139,7 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String CONNECTOR_SYSTEMID_1_0           =       "http://java.sun.com/dtd/connector_1_0.dtd"; //$NON-NLS-1$
     String CONNECTOR_ALT_SYSTEMID_1_0       =       "http://java.sun.com/dtd/connector_1.0.dtd"; //$NON-NLS-1$
     String CONNECTOR_SCHEMA_1_5         =   "http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/connector_1_5.xsd";//$NON-NLS-1$
-    String CONNECTOR_SCHEMA_1_6         =   "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/connector_1_6.xsd";//$NON-NLS-1$
+    
     //Web Services Constants
     /** Doc type for webservices deployment descriptors */
     String WEB_SERVICES_CLIENT_DOCTYPE      = "webservicesclient";  //$NON-NLS-1$

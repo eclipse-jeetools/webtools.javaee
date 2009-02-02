@@ -46,8 +46,7 @@ public class WebProjectFirstPage extends J2EEComponentFacetCreationWizardPage {
 	    
 	    facets.add( primaryFacetVersion );
 	    
-	    if( primaryFacetVersion == WebFacetUtils.WEB_30 || 
-	    	primaryFacetVersion == WebFacetUtils.WEB_25 )
+	    if( primaryFacetVersion == WebFacetUtils.WEB_25 )
 	    {
 	        facets.add( JavaFacetUtils.JAVA_50 );
 	    }
