@@ -12,9 +12,7 @@ package org.eclipse.jst.ejb.ui.project.facet;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
-import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.IEjbFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleFacetInstallPage;
@@ -26,6 +24,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 
 
@@ -71,9 +70,8 @@ public class EjbFacetInstallPage extends J2EEModuleFacetInstallPage
 	
     protected void handleFacetVersionChangedEvent()
     {
-        String fv = model.getStringProperty(FACET_VERSION_STR);
-        boolean isEJB30OrGreater = J2EEVersionUtil.convertVersionStringToInt(fv) >= J2EEVersionConstants.EJB_3_0_ID;
-        this.addDD.setVisible(isEJB30OrGreater);
+        final IProjectFacetVersion fv = (IProjectFacetVersion) this.model.getProperty( FACET_VERSION );
+        this.addDD.setVisible( fv == EJB_30 );
     }
 
 	private void createEJBClientGroup(Composite parent) {
