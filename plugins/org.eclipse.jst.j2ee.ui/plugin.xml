@@ -792,6 +792,15 @@
     </classpathContainerPage>
   </extension>
 
+  <extension
+        point="org.eclipse.ui.preferencePages">
+     <page
+           class="org.eclipse.jst.j2ee.internal.ui.preferences.JavaEEPreferencePage"
+           id="org.eclipse.jst.j2ee.ui.preferencePages.JavaEE"
+           name="Java EE">
+     </page>
+  </extension>
+
   <!-- 
     *****************************
     * WTP User Library Provider *
@@ -803,13 +812,17 @@
       provider="wtp-user-library-provider"
       class="org.eclipse.jst.j2ee.internal.ui.WtpUserLibraryProviderInstallPanel"/>
   </extension>
-  <extension
-        point="org.eclipse.ui.preferencePages">
-     <page
-           class="org.eclipse.jst.j2ee.internal.ui.preferences.JavaEEPreferencePage"
-           id="org.eclipse.jst.j2ee.ui.preferencePages.JavaEE"
-           name="Java EE">
-     </page>
+
+  <!-- 
+    *************************************
+    * WTP OSGi Bundles Library Provider *
+    *************************************
+  -->
+         
+  <extension point="org.eclipse.jst.common.project.facet.ui.libraryProviderActionPanels">
+    <panel 
+      provider="wtp-osgi-bundles-library-provider"
+      class="org.eclipse.jst.j2ee.internal.ui.WtpOsgiBundlesLibraryProviderInstallPanel"/>
   </extension>
 
 </plugin>

@@ -778,4 +778,19 @@
     </provider>
   </extension>
   
+  <!--
+    *************************************
+    * WTP OSGi Bundles Library Provider *
+    *************************************
+  -->
+    
+  <extension point="org.eclipse.jst.common.project.facet.core.libraryProviders">
+    <provider id="wtp-osgi-bundles-library-provider" abstract="true" extends="osgi-bundles-library-provider">
+      <action type="INSTALL">
+        <config class="org.eclipse.jst.j2ee.internal.common.classpath.WtpOsgiBundlesLibraryProviderInstallOperationConfig"/>
+        <operation class="org.eclipse.jst.j2ee.internal.common.classpath.WtpOsgiBundlesLibraryProviderInstallOperation"/>
+      </action>
+    </provider>
+  </extension>
+
 </plugin>
