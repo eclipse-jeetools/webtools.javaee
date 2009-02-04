@@ -670,18 +670,24 @@
          value="org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider">
    </instanceof>
    <instanceof
-         value="org.eclipse.jst.jee.ui.internal.navigator.web.AbstractSubWebProviders">
+         value="org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider">
    </instanceof>
         </or>
      </triggerPoints>
      <possibleChildren>
         <or>
            <instanceof
-                 value="org.eclipse.jst.jee.ui.internal.navigator.web.AbstractSubWebProviders">
+                 value="org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider">
            </instanceof>
            <instanceof
                  value="org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider">
            </instanceof>
+           <instanceof
+                 value="org.eclipse.jst.jee.ui.internal.navigator.web.WebArtifactNode">
+           </instanceof>
+                <instanceof
+                      value="org.eclipse.jst.javaee.core.JavaEEObject">
+                </instanceof>
         </or>
      </possibleChildren>
      
