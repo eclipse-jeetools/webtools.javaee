@@ -44,6 +44,10 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 public class DependencyCreationUtil {
 	
 	public static void createEARDependency(final IProject earProject, final IProject childProject) throws ExecutionException {
+		createEARDependency(earProject, childProject, false);
+	}
+	
+	public static void createEARDependency(final IProject earProject, final IProject childProject, final boolean inLibDir) throws ExecutionException {
 		final IDataModel dm = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
 		IVirtualComponent earComp = ComponentCore.createComponent(earProject);
 		IVirtualComponent childComp = ComponentCore.createComponent(childProject);
@@ -51,6 +55,9 @@ public class DependencyCreationUtil {
 		final List depList = new ArrayList();
 		depList.add(childComp);
 		dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, depList);
+		if (inLibDir) {
+			dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH, J2EEConstants.EAR_DEFAULT_LIB_DIR); //$NON-NLS-1$
+		}
 		dm.getDefaultOperation().execute(null, null);
         ProjectUtil.waitForClasspathUpdate();
 	}

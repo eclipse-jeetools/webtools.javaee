@@ -28,6 +28,7 @@ public class AllTests extends TestCase {
 //        suite.addTest(ProjectWebLibRefactoringTests.suite());
         suite.addTest(ProjectClasspathRefactoringTests.suite());
         suite.addTest(ProjectServerRefactoringTests.suite());
+        suite.addTest(EarLibDirContainerTests.suite());
         
         return suite;
     }
