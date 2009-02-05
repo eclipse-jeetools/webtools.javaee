@@ -47,6 +47,15 @@
 						</or>
 					</adapt>
 				</and>
+    <instanceof
+          value="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider">
+    </instanceof>
+    <instanceof
+          value="org.eclipse.jst.j2ee.internal.provider.J2EEUtilityJarItemProvider">
+    </instanceof>
+    <instanceof
+          value="org.eclipse.jst.j2ee.internal.provider.UtilityModuleProjectItemProvider">
+    </instanceof>
 			</or>
 		</triggerPoints>
 		<!--  The possibleChildren is more verbose to allow the drop handlers to be invoked for 
@@ -511,6 +520,9 @@
 						property="org.eclipse.wst.common.project.facet.core.projectFacet"
 						value="jst.web:2.4]" />
 				</adapt>
+    <instanceof
+          value="org.eclipse.jst.j2ee.internal.war.ui.util.WebGroupItemProvider">
+    </instanceof>
 			</or>
 		</triggerPoints>
 		<possibleChildren>
@@ -819,6 +831,15 @@
 							value="jst.ejb:2.1]" />
 					</adapt>
 				</and>
+    <instanceof
+          value="org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper">
+    </instanceof>
+    <instanceof
+          value="org.eclipse.jst.j2ee.internal.ejb.provider.GroupedEJBItemProvider">
+    </instanceof>
+    <instanceof
+          value="org.eclipse.jst.j2ee.navigator.internal.LoadingDDNode">
+    </instanceof>
 			</or>
 		</triggerPoints>
 		<possibleChildren>

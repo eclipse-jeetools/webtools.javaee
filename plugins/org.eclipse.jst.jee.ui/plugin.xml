@@ -708,10 +708,16 @@
               </or>
            </adapt>
    <instanceof
+         value="org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider">
+   </instanceof>
+   <instanceof
          value="org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider">
    </instanceof>
    <instanceof
-         value="org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider">
+         value="org.eclipse.jst.jee.ui.internal.navigator.web.WebArtifactNode">
+   </instanceof>
+   <instanceof
+         value="org.eclipse.jst.javaee.core.JavaEEObject">
    </instanceof>
         </or>
      </triggerPoints>
@@ -890,6 +896,9 @@
            </instanceof>
            <instanceof
                  value="org.eclipse.jst.jee.ui.internal.navigator.ear.BundledLibsNode">
+           </instanceof>
+           <instanceof
+                 value="org.eclipse.wst.common.componentcore.resources.IVirtualReference">
            </instanceof>
         </or>
      </triggerPoints>

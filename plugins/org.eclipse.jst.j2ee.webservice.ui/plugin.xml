@@ -17,6 +17,7 @@
                <instanceof value="org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription"/>
                <instanceof value="org.eclipse.jst.j2ee.internal.webservice.WebServiceNavigatorGroupType"/>
                <instanceof value="org.eclipse.wst.wsdl.util.WSDLResourceImpl"/>
+               <instanceof value="org.eclipse.wst.wsdl.Service"/>
                <and>
                  <instanceof value="org.eclipse.emf.ecore.EObject"/>
                   <or>
