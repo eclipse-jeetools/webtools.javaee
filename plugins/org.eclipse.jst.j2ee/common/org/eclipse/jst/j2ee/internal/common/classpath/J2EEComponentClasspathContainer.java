@@ -40,9 +40,15 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.jdt.internal.classpath.ClasspathDecorations;
 import org.eclipse.jst.common.jdt.internal.classpath.ClasspathDecorationsManager;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
+import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.EarUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphManager;
@@ -191,6 +197,38 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			refsList.add(refs[i]);
 			refedComps.add(refs[i].getReferencedComponent());
 		}
+		
+		// check for the references in the lib dirs of the referencing EARs
+		IVirtualComponent[] referencingList = component.getReferencingComponents();
+		for (IVirtualComponent referencingComp : referencingList) {
+			// check if the referencing component is an EAR
+			if (EarUtilities.isEARProject(referencingComp.getProject())) {
+				EARVirtualComponent earComp = (EARVirtualComponent) referencingComp;
+				// retrieve the EAR's library directory 
+				String libDir = getEARLibDir(earComp);
+				// if the EAR version is lower than 5, then the library directory will be null
+				if (libDir != null) {
+					// check if the component itself is not in the library directory of this EAR - avoid cycles in the build patch
+					if (!libDir.equals(earComp.getReference(component.getName()).getRuntimePath().toString())) {
+						// retrieve the referenced components from the EAR
+						IVirtualReference[] earRefs = earComp.getReferences();
+						for (IVirtualReference earRef : earRefs) {
+							// check if the referenced component is in the library directory
+							if (libDir.equals(earRef.getRuntimePath().toString())) {
+								IVirtualComponent earRefComp = earRef.getReferencedComponent();
+								// check if the referenced component is already visited - avoid cycles in the build path
+								if (!refedComps.contains(earRefComp)) {
+									// visit the referenced component
+									refsList.add(earRef);
+									refedComps.add(earRefComp);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
 		for(int i=0; i< refsList.size(); i++){
 			comp = ((IVirtualReference)refsList.get(i)).getReferencedComponent();
 			if(comp.isBinary()){
@@ -208,7 +246,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		lastUpdate.isBinary = new boolean[lastUpdate.refCount];
 		lastUpdate.paths = new IPath[lastUpdate.refCount];
 
-		boolean isWeb = J2EEProjectUtilities.isDynamicWebProject(component.getProject());
+		boolean isWeb = JavaEEProjectUtilities.isDynamicWebProject(component.getProject());
 		boolean shouldAdd = true;
 
 		List entriesList = new ArrayList();
@@ -433,6 +471,38 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * Get the library directory from an EAR virtual component
+	 * 
+	 * @param earComponent
+	 *            the EAR virtual component
+	 * 
+	 * @return a runtime representation of the library directory path or null if
+	 *         the EAR's version is lower than 5
+	 */
+	private String getEARLibDir(EARVirtualComponent earComponent) {
+		// check if the EAR component's version is 5 or greater
+		IProject project = earComponent.getProject();
+		if (!JavaEEProjectUtilities.isJEEComponent(earComponent)) return null;
+		
+		// retrieve the model provider
+		IModelProvider modelProvider = ModelProviderManager.getModelProvider(project);
+		if (modelProvider == null) return null;
+		
+		// retrieve the EAR's model object
+		Application app = (Application) modelProvider.getModelObject();
+		if (app == null) return null;
+		
+		// retrieve the library directory from the model
+		String libDir = app.getLibraryDirectory();
+		if (libDir == null) {
+			// the library directory is not set - use the default one
+			libDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
+		}
+		
+		return libDir;
 	}
 	
 }
