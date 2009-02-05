@@ -77,7 +77,9 @@ public class EARComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 		for (int i = 0; i < components.length; i++) {
 			IVirtualReference reference = components[i];
 			IVirtualComponent referencedComponent = reference.getReferencedComponent();
-
+			if(vComponent.equals(referencedComponent)){
+				continue;
+			}
 			try {
 				IArchive nestedModuleArchive = JavaEEArchiveUtilities.INSTANCE.openArchive(referencedComponent);
 				String sPath = reference.getArchiveName();
