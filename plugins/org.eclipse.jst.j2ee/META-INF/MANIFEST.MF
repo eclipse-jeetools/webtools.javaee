@@ -49,7 +49,11 @@ Export-Package: org.eclipse.jst.j2ee.application.internal.operations;x-internal:
  org.eclipse.jst.j2ee.project.facet,
  org.eclipse.jst.j2ee.refactor,
  org.eclipse.jst.j2ee.refactor.listeners,
- org.eclipse.jst.j2ee.refactor.operations
+ org.eclipse.jst.j2ee.refactor.operations,
+ org.eclipse.jst.javaee.ltk.core.change,
+ org.eclipse.jst.javaee.ltk.core.descriptor,
+ org.eclipse.jst.javaee.ltk.core.nls,
+ org.eclipse.jst.javaee.ltk.core.participant
 Require-Bundle: org.eclipse.emf.edit;bundle-version="[2.2.0,3.0.0)",
  org.eclipse.jem.workbench;bundle-version="[2.0.0,3.0.0)",
  org.eclipse.jst.j2ee.core;bundle-version="[1.1.0,1.2.0)",
@@ -81,6 +85,7 @@ Require-Bundle: org.eclipse.emf.edit;bundle-version="[2.2.0,3.0.0)",
  org.eclipse.wst.common.environment;bundle-version="[1.0.100,1.1.0)",
  org.eclipse.core.expressions;bundle-version="[3.4.0,4.0.0)",
  org.eclipse.core.commands;bundle-version="[3.4.0,4.0.0)",
- org.eclipse.core.filesystem;bundle-version="[1.2.0,2.0.0)"
+ org.eclipse.core.filesystem;bundle-version="[1.2.0,2.0.0)",
+ org.eclipse.ltk.core.refactoring;bundle-version="3.4.1"
 Eclipse-LazyStart: true
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

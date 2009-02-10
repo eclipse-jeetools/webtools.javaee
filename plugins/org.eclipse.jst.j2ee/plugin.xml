@@ -793,4 +793,12 @@
     </provider>
   </extension>
 
+  <extension point="org.eclipse.ltk.core.refactoring.deleteParticipants">
+     <deleteParticipant
+           class="org.eclipse.jst.javaee.ltk.core.participant.JavaEERefactoringParticipant"
+           id="JavaEERefactoringParticipant"
+           name="JavaEERefactoringParticipant">
+        <enablement></enablement>
+     </deleteParticipant>
+  </extension>
 </plugin>

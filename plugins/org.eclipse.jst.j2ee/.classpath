@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="j2eeplugin"/>
+	<classpathentry kind="src" path="ltkbasedrefactoring"/>
 	<classpathentry kind="src" path="contenttype"/>
 	<classpathentry kind="src" path="common"/>
 	<classpathentry kind="src" path="commonedit"/>
