@@ -118,7 +118,7 @@ public class NonEARModuleReferenceRemoveChange extends Change {
 			return false;
 		Properties props = referencingModuleProjectComp.getMetaProperties();
 		String clientCompName = props.getProperty(CreationConstants.EJB_CLIENT_NAME);
-		if(clientCompName == null || clientCompName.isEmpty()){
+		if(clientCompName == null || clientCompName.length() == 0){
 			return false;
 		}
 			
