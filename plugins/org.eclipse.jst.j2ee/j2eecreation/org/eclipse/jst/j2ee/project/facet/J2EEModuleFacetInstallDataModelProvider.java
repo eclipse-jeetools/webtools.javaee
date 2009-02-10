@@ -47,6 +47,7 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.events.IFacetedProjectEvent;
 import org.eclipse.wst.common.project.facet.core.events.IFacetedProjectListener;
@@ -63,6 +64,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 	public static final String PROHIBIT_ADD_TO_EAR = "J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR"; //$NON-NLS-1$
 
     protected IFacetedProjectWorkingCopy fpjwc = null;
+    private IFacetedProjectListener fpjwcListener = null;
     protected JavaFacetInstallConfig javaFacetInstallConfig = null;
 
     private IEventListener<JavaFacetInstallConfig.ChangeEvent> javaFacetSourceFolderListener 
@@ -166,18 +168,16 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
         else if( propertyName.equals( FACETED_PROJECT_WORKING_COPY ) )
         {
             this.fpjwc = (IFacetedProjectWorkingCopy) propertyValue;
-            
-            this.fpjwc.addListener
-            (
-                new IFacetedProjectListener()
+
+            this.fpjwcListener = new IFacetedProjectListener()
+            {
+                public void handleEvent( final IFacetedProjectEvent event ) 
                 {
-                    public void handleEvent( final IFacetedProjectEvent event ) 
-                    {
-                        handleProjectFacetsChanged();
-                    }
-                },
-                IFacetedProjectEvent.Type.PROJECT_FACETS_CHANGED
-            );
+                    handleProjectFacetsChanged();
+                }
+            };
+            
+            this.fpjwc.addListener( this.fpjwcListener, IFacetedProjectEvent.Type.PROJECT_FACETS_CHANGED );
         }
 
 		if (ADD_TO_EAR.equals(propertyName)) {
@@ -322,4 +322,21 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			ret = rt.supports(EARFacetUtils.EAR_FACET);
 		return ret;
 	}
+
+    @Override
+    protected int convertFacetVersionToJ2EEVersion( IProjectFacetVersion version )
+    {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public void dispose()
+    {
+        if( this.fpjwc != null )
+        {
+            this.fpjwc.removeListener( this.fpjwcListener );
+        }
+    }
+	
 }
