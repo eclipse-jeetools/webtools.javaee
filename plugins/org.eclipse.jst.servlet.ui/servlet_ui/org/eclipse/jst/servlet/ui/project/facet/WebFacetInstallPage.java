@@ -13,6 +13,7 @@
 package org.eclipse.jst.servlet.ui.project.facet;
 
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleFacetInstallPage;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
@@ -64,7 +65,7 @@ public class WebFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 		this.contentDir.setData("label", this.contentDirLabel); //$NON-NLS-1$
 		synchHelper.synchText(contentDir, CONFIG_FOLDER, null);
 		
-		createGenerateDescriptorControl( composite );
+		createGenerateDescriptorControl(composite, J2EEConstants.WEBAPP_DD_SHORT_NAME);
 		registerFacetVersionChangeListener();
 		
 		Dialog.applyDialogFont(parent);

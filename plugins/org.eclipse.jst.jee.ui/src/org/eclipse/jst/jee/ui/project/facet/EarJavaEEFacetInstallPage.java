@@ -10,11 +10,9 @@ package org.eclipse.jst.jee.ui.project.facet;
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 
 public class EarJavaEEFacetInstallPage extends
 		org.eclipse.jst.j2ee.ui.project.facet.EarFacetInstallPage {
@@ -27,17 +25,8 @@ public class EarJavaEEFacetInstallPage extends
 
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = super.createTopLevelComposite(parent);
-		createDDSection(composite);
+		createGenerateDescriptorControl(composite, J2EEConstants.APPLICATION_DD_SHORT_NAME);
 		return composite;
 	}
 	
-	private void createDDSection(Composite parent) {
-		new Label(parent, SWT.NONE);
-		addDD = new Button(parent, SWT.CHECK);
-		addDD.setText(Messages.EarJavaEEFacetInstallPage_0);
-		synchHelper.synchCheckbox(addDD, GENERATE_DD, null);
-		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
-		gd.horizontalSpan = 2;
-		addDD.setLayoutData(gd);
-    }
 }

@@ -12,6 +12,7 @@
 package org.eclipse.jst.j2ee.ui.project.facet.appclient;
 
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleFacetInstallPage;
@@ -45,7 +46,7 @@ public class AppClientFacetInstallPage extends J2EEModuleFacetInstallPage implem
 		createMainClass.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_CREATE_MAIN));
 		synchHelper.synchCheckbox(createMainClass, CREATE_DEFAULT_MAIN_CLASS, null);
 		
-        createGenerateDescriptorControl( composite );
+        createGenerateDescriptorControl(composite, J2EEConstants.APP_CLIENT_DD_SHORT_NAME);
         registerFacetVersionChangeListener();
         
 	    Dialog.applyDialogFont(parent);

@@ -28,17 +28,18 @@ import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.jst.j2ee.earcreation.IEarFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.AvailableJ2EEComponentsForEARContentProvider;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.earcreation.IDefaultJ2EEComponentCreationDataModelProperties;
-import org.eclipse.jst.j2ee.internal.earcreation.IEarFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.DefaultJ2EEComponentCreationWizard;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentLabelProvider;
+import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleFacetInstallPage;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -56,13 +57,12 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.internal.FacetedProjectWorkingCopy;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
-import org.eclipse.wst.web.ui.internal.wizards.DataModelFacetInstallPage;
 
 /**
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
  */
 
-public class EarFacetInstallPage extends DataModelFacetInstallPage implements IEarFacetInstallDataModelProperties {
+public class EarFacetInstallPage extends J2EEModuleFacetInstallPage implements IEarFacetInstallDataModelProperties {
 	
 	private Button selectAllButton;
 	private Button deselectAllButton;

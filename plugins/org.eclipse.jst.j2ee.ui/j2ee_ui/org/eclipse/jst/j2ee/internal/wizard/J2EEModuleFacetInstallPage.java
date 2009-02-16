@@ -33,6 +33,9 @@ public abstract class J2EEModuleFacetInstallPage extends DataModelFacetInstallPa
 		super(pageName);
 	}
 
+	/**
+	 * @deprecated This member should not be used any more. The EAR Panel is moved to the first wizard page. 
+	 */
 	protected EarSelectionPanel earPanel;
 
 	public void dispose() {
@@ -43,6 +46,9 @@ public abstract class J2EEModuleFacetInstallPage extends DataModelFacetInstallPa
 		super.dispose();
 	}
 
+	/**
+	 * @deprecated This method should not be called any more. The EAR Panel is moved to the first wizard page. 
+	 */
 	protected void setupEarControl(final Composite parent) {
 		Composite c = new Composite(parent, SWT.NONE);
 		c.setLayoutData(gdhfill());
@@ -53,10 +59,17 @@ public abstract class J2EEModuleFacetInstallPage extends DataModelFacetInstallPa
 		this.earPanel = new EarSelectionPanel(model, c);
 	}
 	
-	protected void createGenerateDescriptorControl( final Composite parent )
-	{
+	protected void createGenerateDescriptorControl(Composite parent) {
+		createGenerateDescriptorControl(parent, null);
+	}
+	
+	protected void createGenerateDescriptorControl(Composite parent, String ddFileName)	{
         this.addDD = new Button(parent, SWT.CHECK);
-        this.addDD.setText(Resources.generateDeploymentDescriptor);
+        if (ddFileName == null) {
+        	this.addDD.setText(Resources.generateDeploymentDescriptor);
+        } else {
+        	this.addDD.setText(NLS.bind(Resources.generateDeploymentDescriptorWithFileName, ddFileName));
+        }
         //synchHelper.synchCheckbox(addDD, GENERATE_DD, null); bug 215284 - see enter()
         GridData gd = new GridData(GridData.FILL_HORIZONTAL);
         gd.horizontalSpan = 2;
@@ -100,7 +113,7 @@ public abstract class J2EEModuleFacetInstallPage extends DataModelFacetInstallPa
 
     private static final class Resources extends NLS {
         public static String generateDeploymentDescriptor;
-
+        public static String generateDeploymentDescriptorWithFileName;
 
         static {
             initializeMessages(J2EEModuleFacetInstallPage.class.getName(), Resources.class);
