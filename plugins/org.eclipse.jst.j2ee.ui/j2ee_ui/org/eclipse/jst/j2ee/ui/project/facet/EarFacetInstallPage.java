@@ -88,27 +88,17 @@ public class EarFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 	}
 
 	protected Composite createTopLevelComposite(Composite parent) {
-		Composite modulesGroup = new Composite(parent, SWT.NONE);
-		GridLayout layout = new GridLayout();
-		modulesGroup.setLayout(layout);
 		setInfopopID(IJ2EEUIContextIds.NEW_EAR_ADD_MODULES_PAGE);
-		GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
-		modulesGroup.setLayoutData(gridData);
-		createModuleProjectOptions(modulesGroup);
-		createButtonsGroup(modulesGroup);
 		
-		final Composite composite = new Composite(modulesGroup, SWT.NONE);
-		composite.setLayout(new GridLayout(1, false));
-
-		this.contentDirLabel = new Label(composite, SWT.NONE);
-		this.contentDirLabel.setText(Resources.contentDirLabel);
-		this.contentDirLabel.setLayoutData(gdhfill());
-
-		this.contentDir = new Text(composite, SWT.BORDER);
-		this.contentDir.setLayoutData(gdhfill());
-		synchHelper.synchText(contentDir, CONTENT_DIR, null);
+		Composite composite = new Composite(parent, SWT.NONE);
+		composite.setLayout(new GridLayout());
+		composite.setLayoutData(gdhfill());
+		
+		createModuleProjectOptions(composite);
+		createContentDirGroup(composite);
+		
 	    Dialog.applyDialogFont(parent);
-		return modulesGroup;
+		return composite;
 	}
 
 	protected int getJ2EEVersion() {
@@ -117,14 +107,20 @@ public class EarFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 	}
 	
 	/**
-	 * @param modulesGroup
+	 * @param parent
 	 */
-	private void createModuleProjectOptions(Composite modulesGroup) {
-		moduleProjectsLabel = new Label(modulesGroup, SWT.NONE);
-		moduleProjectsLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.J2EE_MODULE_DEPENDENCIES_LABEL));
-		moduleProjectsLabel.setLayoutData(gdhfill());
+	private void createModuleProjectOptions(Composite parent) {
+		Composite composite = new Composite(parent, SWT.NONE);
+		composite.setLayout(new GridLayout(2, false));
+		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
 		
-		moduleProjectsViewer = CheckboxTableViewer.newCheckList(modulesGroup, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+		moduleProjectsLabel = new Label(composite, SWT.NONE);
+		moduleProjectsLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.J2EE_MODULE_DEPENDENCIES_LABEL));
+		GridData gd = gdhfill();
+		gd.horizontalSpan = 2;
+		moduleProjectsLabel.setLayoutData(gd);
+		
+		moduleProjectsViewer = CheckboxTableViewer.newCheckList(composite, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
 		GridData gData = new GridData(GridData.FILL_BOTH);
 		gData.widthHint = 200;
 		gData.heightHint = 80;
@@ -148,6 +144,8 @@ public class EarFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 		moduleProjectsViewer.getTable().setHeaderVisible(false);
 		moduleProjectsViewer.getTable().setLinesVisible(false);
 		moduleProjectsViewer.setSorter(null);
+		
+		createButtonsGroup(composite);
 	}
 
 	/**
@@ -214,30 +212,42 @@ public class EarFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 	}
 	
 	
-	protected void createButtonsGroup(org.eclipse.swt.widgets.Composite parent) {
+	protected void createButtonsGroup(Composite parent) {
 		Composite buttonGroup = new Composite(parent, SWT.NONE);
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 4;
-		buttonGroup.setLayout(layout);
-		buttonGroup.setLayoutData(new GridData(GridData.FILL_BOTH));
+		buttonGroup.setLayout(new GridLayout());
+		buttonGroup.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING));
+		
 		selectAllButton = new Button(buttonGroup, SWT.PUSH);
 		selectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_PROJECT_MODULES_PG_SELECT));
 		selectAllButton.addListener(SWT.Selection, this);
-		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-		gd.widthHint = SWT.DEFAULT;
-		selectAllButton.setLayoutData(gd);
+		selectAllButton.setLayoutData(gdhfill());
+		
 		deselectAllButton = new Button(buttonGroup, SWT.PUSH);
 		deselectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_PROJECT_MODULES_PG_DESELECT));
 		deselectAllButton.addListener(SWT.Selection, this);
-		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-		gd.widthHint = SWT.DEFAULT;
-		deselectAllButton.setLayoutData(gd);
+		deselectAllButton.setLayoutData(gdhfill());
+		
+		new Label(buttonGroup, SWT.NONE); // pad
+		
 		newModuleButton = new Button(buttonGroup, SWT.PUSH);
 		newModuleButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_PROJECT_MODULES_PG_NEW));
 		newModuleButton.addListener(SWT.Selection, this);
-		gd = new GridData(GridData.GRAB_HORIZONTAL);
-		gd.minimumWidth = SWT.DEFAULT;
-		newModuleButton.setLayoutData(gd);
+		newModuleButton.setLayoutData(gdhfill());
+	}
+	
+	private void createContentDirGroup(Composite modulesGroup) {
+		final Composite composite = new Composite(modulesGroup, SWT.NONE);
+		composite.setLayout(new GridLayout(2, false));
+		composite.setLayoutData(gdhfill());
+
+		this.contentDirLabel = new Label(composite, SWT.NONE);
+		this.contentDirLabel.setText(Resources.contentDirLabel);
+		this.contentDirLabel.setLayoutData(new GridData());
+
+		this.contentDir = new Text(composite, SWT.BORDER);
+		this.contentDir.setLayoutData(gdhfill());
+		
+		synchHelper.synchText(contentDir, CONTENT_DIR, null);
 	}
 
 	/**

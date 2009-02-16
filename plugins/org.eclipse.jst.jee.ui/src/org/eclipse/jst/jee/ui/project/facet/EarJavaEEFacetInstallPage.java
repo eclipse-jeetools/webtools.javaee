@@ -11,6 +11,8 @@ package org.eclipse.jst.jee.ui.project.facet;
  **************************************************************************************************/
 
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 
@@ -25,7 +27,12 @@ public class EarJavaEEFacetInstallPage extends
 
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = super.createTopLevelComposite(parent);
-		createGenerateDescriptorControl(composite, J2EEConstants.APPLICATION_DD_SHORT_NAME);
+		
+		Composite holder = new Composite(composite, SWT.NONE);
+		holder.setLayout(new GridLayout());
+		holder.setLayoutData(gdhfill());
+		createGenerateDescriptorControl(holder, J2EEConstants.APPLICATION_DD_SHORT_NAME);
+		
 		return composite;
 	}
 	
