@@ -13,6 +13,7 @@ package org.eclipse.jst.ejb.ui.project.facet;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.ejb.project.operations.IEjbFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleFacetInstallPage;
@@ -62,7 +63,7 @@ public class EjbFacetInstallPage extends J2EEModuleFacetInstallPage
 		
 		new Label(composite, SWT.NONE); // pad
 		
-        createGenerateDescriptorControl( composite );
+        createGenerateDescriptorControl(composite, J2EEConstants.EJBJAR_DD_SHORT_NAME);
         registerFacetVersionChangeListener();
         
 	    Dialog.applyDialogFont(parent);
