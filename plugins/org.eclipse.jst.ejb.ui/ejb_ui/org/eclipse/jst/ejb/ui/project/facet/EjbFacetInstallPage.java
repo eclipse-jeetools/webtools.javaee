@@ -12,8 +12,8 @@ package org.eclipse.jst.ejb.ui.project.facet;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
+import org.eclipse.jst.j2ee.ejb.project.operations.IEjbFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.IEjbFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleFacetInstallPage;
 import org.eclipse.swt.SWT;
@@ -22,6 +22,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
@@ -29,7 +30,7 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 
 public class EjbFacetInstallPage extends J2EEModuleFacetInstallPage 
-	implements IEjbFacetInstallDataModelProperties{
+	implements IEjbFacetInstallDataModelProperties {
 
     private static final String MODULE_NAME_UI = J2EEUIMessages.getResourceString(J2EEUIMessages.NAME_LABEL);
     
@@ -54,11 +55,12 @@ public class EjbFacetInstallPage extends J2EEModuleFacetInstallPage
 		final Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));
 
-		//setupEarControl(composite);
+		Composite ejbClientComposite = createEjbClientComposite(composite);
+		createEJBClientGroup(ejbClientComposite);
+		createProjectNameGroup(ejbClientComposite);
+		createClientJarURISection(ejbClientComposite);
 		
-		createEJBClientGroup( composite );
-		createProjectNameGroup( composite );
-		createClientJarURISection( composite );
+		new Label(composite, SWT.NONE); // pad
 		
         createGenerateDescriptorControl( composite );
         registerFacetVersionChangeListener();
@@ -73,10 +75,16 @@ public class EjbFacetInstallPage extends J2EEModuleFacetInstallPage
         final IProjectFacetVersion fv = (IProjectFacetVersion) this.model.getProperty( FACET_VERSION );
         this.addDD.setVisible( fv == EJB_30 );
     }
+    
+    private Composite createEjbClientComposite(Composite parent) {
+    	Group group = new Group(parent, SWT.NONE);
+    	group.setLayout(new GridLayout(2, false));
+    	group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+    	group.setText(EJBUIMessages.EJB_CLIENT_JAR_GROUP);
+    	return group;
+    }
 
 	private void createEJBClientGroup(Composite parent) {
-		// Create Add Client checkbox
-		new Label(parent, SWT.NONE);
 		addClient = new Button(parent, SWT.CHECK);
 		addClient.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.CREATE_EJB_CLIENT_JAR));
 		synchHelper.synchCheckbox(addClient, CREATE_CLIENT, null);
@@ -97,7 +105,6 @@ public class EjbFacetInstallPage extends J2EEModuleFacetInstallPage
         data = new GridData(GridData.FILL_HORIZONTAL);
         //data.widthHint = SIZING_TEXT_FIELD_WIDTH;
         clientNameText.setLayoutData(data);
-        new Label(parent, SWT.NONE); // pad
         synchHelper.synchText(clientNameText, CLIENT_NAME, new Control[]{projectNameLabel});
         clientNameText.setFocus();
     }
@@ -113,7 +120,6 @@ public class EjbFacetInstallPage extends J2EEModuleFacetInstallPage
         data = new GridData(GridData.FILL_HORIZONTAL);
         //data.widthHint = SIZING_TEXT_FIELD_WIDTH;
         clientJarURI.setLayoutData(data);
-        new Label(parent, SWT.NONE); // pad
 		synchHelper.synchText(clientJarURI, CLIENT_URI, new Control[]{clientJarURILabel});
     }    
 }

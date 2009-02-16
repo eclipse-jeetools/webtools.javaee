@@ -104,6 +104,7 @@ public class EJBUIMessages extends NLS {
 	public static String LOCAL_HOME_INTERFACE_TOOLTIP;
 	public static String REMOTE_COMPONENT_INTERFACE_TOOLTIP;
 	public static String REMOTE_HOME_INTERFACE_TOOLTIP;
+	public static String EJB_CLIENT_JAR_GROUP;
 	
 
 	static {
