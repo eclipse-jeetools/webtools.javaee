@@ -20,6 +20,7 @@ import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
 import org.eclipse.jst.servlet.ui.IWebUIContextIds;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -45,11 +46,11 @@ public class WebFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 	protected Composite createTopLevelComposite(final Composite parent) {
 		setInfopopID(IWebUIContextIds.NEW_DYNAMIC_WEB_PROJECT_PAGE3);
 		final Composite composite = new Composite(parent, SWT.NONE);
-		composite.setLayout(new GridLayout(1, false));
+		composite.setLayout(new GridLayout(2, false));
 
 		this.contextRootLabel = new Label(composite, SWT.NONE);
 		this.contextRootLabel.setText(Resources.contextRootLabel);
-		this.contextRootLabel.setLayoutData(gdhfill());
+		this.contextRootLabel.setLayoutData(new GridData());
 
 		this.contextRoot = new Text(composite, SWT.BORDER);
 		this.contextRoot.setLayoutData(gdhfill());
@@ -58,12 +59,14 @@ public class WebFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 
 		this.contentDirLabel = new Label(composite, SWT.NONE);
 		this.contentDirLabel.setText(Resources.contentDirLabel);
-		this.contentDirLabel.setLayoutData(gdhfill());
+		this.contentDirLabel.setLayoutData(new GridData());
 
 		this.contentDir = new Text(composite, SWT.BORDER);
 		this.contentDir.setLayoutData(gdhfill());
 		this.contentDir.setData("label", this.contentDirLabel); //$NON-NLS-1$
 		synchHelper.synchText(contentDir, CONFIG_FOLDER, null);
+		
+		new Label(composite, SWT.NONE); // pad
 		
 		createGenerateDescriptorControl(composite, J2EEConstants.WEBAPP_DD_SHORT_NAME);
 		registerFacetVersionChangeListener();
