@@ -119,12 +119,12 @@ public class Web25LabelProvider extends J2EELabelProvider {
 				value = entry.getValue().toString();
 			}
 		}
-		return value + "-> " + element.getFilterName(); //$NON-NLS-1$
+		return value + " -> " + element.getFilterName(); //$NON-NLS-1$
 	}
 
 	private String getServletMappingDisplay(ServletMapping element) {
 		UrlPatternType urlPatterns = (UrlPatternType) element.getUrlPatterns().get(0);
-		return urlPatterns.getValue() + "-> " + element.getServletName(); //$NON-NLS-1$;
+		return urlPatterns.getValue() + " -> " + element.getServletName(); //$NON-NLS-1$;
 	}
 
 }

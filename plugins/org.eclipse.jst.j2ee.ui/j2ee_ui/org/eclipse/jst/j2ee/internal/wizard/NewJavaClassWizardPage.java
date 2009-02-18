@@ -24,6 +24,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
@@ -568,12 +569,12 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 			return null;
 		if (!(selection instanceof IStructuredSelection)) 
 			return null;
-		IStructuredSelection stucturedSelection = (IStructuredSelection) selection;
-		if (stucturedSelection.getFirstElement() instanceof EObject)
-			return ProjectUtilities.getProject(stucturedSelection.getFirstElement());
 		IJavaElement element = getInitialJavaElement(selection);
 		if (element != null && element.getJavaProject() != null)
 			return element.getJavaProject().getProject();
+		IStructuredSelection stucturedSelection = (IStructuredSelection) selection;
+		if (stucturedSelection.getFirstElement() instanceof EObject)
+			return ProjectUtilities.getProject(stucturedSelection.getFirstElement());
 		return getExtendedSelectedProject(stucturedSelection.getFirstElement());
 	}
 	
@@ -637,20 +638,16 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		IJavaElement jelem = null;
 		if (selection != null && !selection.isEmpty() && selection instanceof IStructuredSelection) {
 			Object selectedElement = ((IStructuredSelection) selection).getFirstElement();
-			if (selectedElement instanceof IAdaptable) {
-				IAdaptable adaptable = (IAdaptable) selectedElement;
-
-				jelem = (IJavaElement) adaptable.getAdapter(IJavaElement.class);
-				if (jelem == null) {
-					IResource resource = (IResource) adaptable.getAdapter(IResource.class);
-					if (resource != null && resource.getType() != IResource.ROOT) {
-						while (jelem == null && resource.getType() != IResource.PROJECT) {
-							resource = resource.getParent();
-							jelem = (IJavaElement) resource.getAdapter(IJavaElement.class);
-						}
-						if (jelem == null) {
-							jelem = JavaCore.create(resource); // java project
-						}
+			jelem = getJavaElement(selectedElement);
+			if (jelem == null) {
+				IResource resource = getResource(selectedElement);
+				if (resource != null && resource.getType() != IResource.ROOT) {
+					while (jelem == null && resource.getType() != IResource.PROJECT) {
+						resource = resource.getParent();
+						jelem = (IJavaElement) resource.getAdapter(IJavaElement.class);
+					}
+					if (jelem == null) {
+						jelem = JavaCore.create(resource); // java project
 					}
 				}
 			}
@@ -696,5 +693,25 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 	protected void validateProjectRequirements(IProject project)
 	{
 		// nothing to do in most cases
+	}
+	
+	protected IJavaElement getJavaElement(Object obj) {
+		if (obj instanceof IJavaElement) 
+			return (IJavaElement) obj;
+		
+		if (obj instanceof IAdaptable) 
+			return (IJavaElement) ((IAdaptable) obj).getAdapter(IJavaElement.class);
+			
+		return (IJavaElement) Platform.getAdapterManager().getAdapter(obj, IJavaElement.class);
+	}
+	
+	protected IResource getResource(Object obj) {
+		if (obj instanceof IResource) 
+			return (IResource) obj;
+		
+		if (obj instanceof IAdaptable) 
+			return (IResource) ((IAdaptable) obj).getAdapter(IResource.class);
+			
+		return (IResource) Platform.getAdapterManager().getAdapter(obj, IResource.class);
 	}
 }

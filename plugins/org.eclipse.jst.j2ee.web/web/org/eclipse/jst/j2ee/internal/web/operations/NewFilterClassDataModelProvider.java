@@ -358,4 +358,12 @@ public class NewFilterClassDataModelProvider extends
 		return WTPCommonPlugin.OK_STATUS;
 	}
 
+	@Override
+	public boolean propertySet(String propertyName, Object propertyValue) {
+		if (DISPLAY_NAME.equals(propertyName)) {
+			model.notifyPropertyChange(FILTER_MAPPINGS, IDataModel.DEFAULT_CHG);
+		}
+		return super.propertySet(propertyName, propertyValue);
+	}
+
 }

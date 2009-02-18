@@ -55,9 +55,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 
-public class FilterMappingsArrayTableWizardSection extends Composite {
+public class FilterMappingsArrayTableWizardSection extends Composite implements IDataModelListener {
 
 	protected class StringArrayListContentProvider implements IStructuredContentProvider {
 		public boolean isDeleted(Object element) {
@@ -124,6 +126,7 @@ public class FilterMappingsArrayTableWizardSection extends Composite {
 	    
         this.model = model;
         this.propertyName = propertyName;
+        model.addListener(this);
         
         GridLayout layout = new GridLayout(2, false);
         layout.marginHeight = 4;
@@ -250,6 +253,8 @@ public class FilterMappingsArrayTableWizardSection extends Composite {
 		        }
 		    }
 		});
+		
+		viewer.setInput((List) model.getProperty(propertyName));
 	}
 
 	private void handleAddButtonSelected() {
@@ -338,6 +343,18 @@ public class FilterMappingsArrayTableWizardSection extends Composite {
             valueList = new ArrayList();
         }
         return valueList;
+	}
+
+	public void propertyChanged(DataModelEvent event) {
+		if (this.propertyName.equals(event.getPropertyName())) {
+			viewer.setInput((List) event.getProperty());
+		}
+	}
+
+	@Override
+	public void dispose() {
+		model.removeListener(this);
+		super.dispose();
 	}
 
 }

@@ -33,17 +33,10 @@ import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.VAL
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.VALUE_TITLE;
 import static org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties.PROJECT_NAME;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jst.j2ee.internal.web.operations.FilterMappingItem;
-import org.eclipse.jst.j2ee.internal.web.operations.IFilterMappingItem;
 import org.eclipse.jst.j2ee.internal.wizard.StringArrayTableWizardSection;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -118,12 +111,6 @@ public class AddFilterWizardPage extends DataModelWizardPage {
 		mappingSection = new FilterMappingsArrayTableWizardSection(composite, 
 		         model, FILTER_MAPPINGS);
 
-		String text = displayNameText.getText();
-		// Set default URL Pattern
-		List input = new ArrayList();
-		input.add(new FilterMappingItem(IFilterMappingItem.URL_PATTERN, "/" + text)); //$NON-NLS-1$
-		if (mappingSection != null)
-		    mappingSection.setInput(input);
 		displayNameText.setFocus();
 
 		IStatus projectStatus = validateProjectName();
@@ -153,17 +140,6 @@ public class AddFilterWizardPage extends DataModelWizardPage {
 		displayNameLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
 		displayNameText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		displayNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		displayNameText.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
-				String text = displayNameText.getText();
-				// Set default URL Pattern
-				List input = new ArrayList();
-				input.add(new FilterMappingItem(IFilterMappingItem.URL_PATTERN, "/" + text)); //$NON-NLS-1$
-				if (mappingSection != null)
-				    mappingSection.setInput(input);
-			}
-
-		});
 		synchHelper.synchText(displayNameText, DISPLAY_NAME, null);
 
 		// description
