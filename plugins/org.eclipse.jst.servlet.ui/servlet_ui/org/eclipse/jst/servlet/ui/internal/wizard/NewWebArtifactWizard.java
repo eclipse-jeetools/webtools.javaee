@@ -14,6 +14,7 @@ import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataM
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.OPEN_IN_EDITOR;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.PROJECT;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.USE_EXISTING_CLASS;
 
 import java.net.URL;
 
@@ -67,7 +68,12 @@ public abstract class NewWebArtifactWizard extends NewWebWizard {
 	
 	protected void openJavaClass() {
 		try {
-			String className = getDataModel().getStringProperty(QUALIFIED_CLASS_NAME);
+			String className;
+			if (getDataModel().getBooleanProperty(USE_EXISTING_CLASS)) {
+				className = getDataModel().getStringProperty(CLASS_NAME);
+			} else {
+				className = getDataModel().getStringProperty(QUALIFIED_CLASS_NAME);
+			}
 			IProject p = (IProject) getDataModel().getProperty(PROJECT);
 			IJavaProject javaProject = J2EEEditorUtility.getJavaProject(p);
 			IFile file = (IFile) javaProject.findType(className).getResource();

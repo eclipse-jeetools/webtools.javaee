@@ -44,23 +44,31 @@ public class WebArtifactAdapterFactory implements IAdapterFactory {
 	
 	private String getFullyQualifiedClassName(Object adaptableObject) {
 		if (adaptableObject instanceof org.eclipse.jst.javaee.web.Servlet) {
-			return ((org.eclipse.jst.javaee.web.Servlet) adaptableObject).getServletClass();
+			org.eclipse.jst.javaee.web.Servlet servlet = (org.eclipse.jst.javaee.web.Servlet) adaptableObject;
+			return servlet.getServletClass();
 		} else if (adaptableObject instanceof org.eclipse.jst.javaee.web.Filter) {
-			return ((org.eclipse.jst.javaee.web.Filter) adaptableObject).getFilterClass();
+			org.eclipse.jst.javaee.web.Filter filter = (org.eclipse.jst.javaee.web.Filter) adaptableObject;
+			return filter.getFilterClass();
 		} else if (adaptableObject instanceof org.eclipse.jst.javaee.core.Listener) {
-			return ((org.eclipse.jst.javaee.core.Listener) adaptableObject).getListenerClass();
+			org.eclipse.jst.javaee.core.Listener listener = (org.eclipse.jst.javaee.core.Listener) adaptableObject;
+			return listener.getListenerClass();
 		} else if (adaptableObject instanceof org.eclipse.jst.j2ee.webapplication.Servlet) {
-			return ((org.eclipse.jst.j2ee.webapplication.Servlet) adaptableObject).getServletClass().getQualifiedName();
+			org.eclipse.jst.j2ee.webapplication.Servlet servlet = (org.eclipse.jst.j2ee.webapplication.Servlet) adaptableObject;
+			if (servlet.getWebType().isServletType()) {
+				return servlet.getServletClass().getQualifiedName();
+			}
 		} else if (adaptableObject instanceof org.eclipse.jst.j2ee.webapplication.Filter) {
-			return ((org.eclipse.jst.j2ee.webapplication.Filter) adaptableObject).getFilterClass().getQualifiedName();
+			org.eclipse.jst.j2ee.webapplication.Filter filter = (org.eclipse.jst.j2ee.webapplication.Filter) adaptableObject;
+			return filter.getFilterClass().getQualifiedName();
 		} else if (adaptableObject instanceof org.eclipse.jst.j2ee.common.Listener) {
-			return ((org.eclipse.jst.j2ee.common.Listener) adaptableObject).getListenerClass().getQualifiedName();
+			org.eclipse.jst.j2ee.common.Listener listener = (org.eclipse.jst.j2ee.common.Listener) adaptableObject;
+			return listener.getListenerClass().getQualifiedName();
 		}
 		return null;
 	}
 	
 	private IJavaElement getJavaElement(IJavaProject javaProject, String className) {
-		if (javaProject != null && javaProject.exists()) {
+		if (className != null && javaProject != null && javaProject.exists()) {
 			try {
 				return javaProject.findType(className);
 			} catch (JavaModelException e) {

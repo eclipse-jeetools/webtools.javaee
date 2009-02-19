@@ -21,6 +21,7 @@ import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.USE
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
@@ -31,6 +32,7 @@ import org.eclipse.jst.jee.ui.internal.navigator.web.GroupServletItemProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -110,4 +112,27 @@ public class NewServletClassWizardPage extends NewWebClassWizardPage {
 		getControl().setCursor(null);
 	}
 	
+	@Override
+	protected Composite createTopLevelComposite(Composite parent) {
+		Composite composite = super.createTopLevelComposite(parent);
+		
+		Object obj = getSelectedObject();
+		if (isServlet(obj)) {
+			checkExistingButton(true);
+			if (isServletJSP(obj)) {
+				existingClassText.setText(getServletJSPFile(obj));
+				model.setBooleanProperty(IS_SERVLET_TYPE, false);
+			} else {
+				existingClassText.setText(getServletClass(obj));
+				model.setBooleanProperty(IS_SERVLET_TYPE, true);
+			}
+		} else if (isJSP(obj)) {
+			checkExistingButton(true);
+			existingClassText.setText(getWebResourcePath((IResource) obj));
+			model.setBooleanProperty(IS_SERVLET_TYPE, false);
+		}
+		
+		return composite;
+	}
+
 }

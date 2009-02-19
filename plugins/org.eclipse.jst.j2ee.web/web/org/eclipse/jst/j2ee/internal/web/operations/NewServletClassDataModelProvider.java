@@ -44,6 +44,7 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.Signature;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.util.J2EEFileUtil;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.web.validation.UrlPattern;
@@ -223,7 +224,7 @@ public class NewServletClassDataModelProvider extends
 			return Boolean.TRUE;
 		else if (propertyName.equals(DISPLAY_NAME)) {
 			String className = getStringProperty(CLASS_NAME);
-			if (className.endsWith(".jsp")) { //$NON-NLS-1$
+			if (className.endsWith(J2EEFileUtil.DOT_JSP)) { 
 				int index = className.lastIndexOf("/"); //$NON-NLS-1$
 				className = className.substring(index+1,className.length()-4);
 			} else {

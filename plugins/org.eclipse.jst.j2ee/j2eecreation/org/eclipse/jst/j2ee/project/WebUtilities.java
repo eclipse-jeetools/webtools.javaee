@@ -14,9 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
@@ -109,5 +111,42 @@ public class WebUtilities extends JavaEEProjectUtilities {
 	public static IVirtualReference[] getLibModules(IProject webProject) {
 		IVirtualComponent webComponent = ComponentCore.createComponent(webProject);
 		return getLibModules(webComponent);
+	}
+
+	/**
+	 * Determines whether the specified object is an accessible web resource.
+	 * 
+	 * <p>
+	 * An accessible web object is a file or directory that can be accessed
+	 * through an URI after deploying on an application server.
+	 * </p>
+	 * 
+	 * <p>
+	 * This includes all files and directories that are under the WebContent
+	 * root directory of a Dynamic Web Project and are not under the WEB-INF and
+	 * META-INF folders.
+	 * </p>
+	 * 
+	 * @param object
+	 *            the object to test
+	 * @return <code>true</code> if accessible web object, <code>false</code> -
+	 *         otherwise.
+	 */
+	public static boolean isWebResource(Object object) {
+		if (object instanceof IResource) {
+			IResource resource = (IResource) object;
+			IVirtualComponent component = ComponentCore.createComponent(resource.getProject());
+			if (component != null && JavaEEProjectUtilities.isDynamicWebComponent(component)) {
+				IPath rootPath = component.getRootFolder().getWorkspaceRelativePath();
+				IPath webInfPath = rootPath.append(J2EEConstants.WEB_INF);
+				IPath metaInfPath = rootPath.append(J2EEConstants.META_INF);
+				IPath resourcePath = resource.getFullPath();
+				return rootPath.isPrefixOf(resourcePath) && 
+						!rootPath.equals(resourcePath) &&
+						!webInfPath.isPrefixOf(resourcePath) && 
+						!metaInfPath.isPrefixOf(resourcePath);
+			}
+		}
+		return false;
 	}
 }

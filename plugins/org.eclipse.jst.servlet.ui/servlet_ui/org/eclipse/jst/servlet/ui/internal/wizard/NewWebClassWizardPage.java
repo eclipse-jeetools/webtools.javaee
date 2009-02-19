@@ -12,21 +12,38 @@ package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import static org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel.USE_ANNOTATIONS;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CLASS_NAME;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.GENERATE_DD;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.BROWSE_BUTTON_LABEL;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.CLASS_NAME_LABEL;
 import static org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties.PROJECT_NAME;
-import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.GENERATE_DD;
+
+import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.ITypeHierarchy;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.util.J2EEFileUtil;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.WebUtilities;
+import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
 import org.eclipse.jst.servlet.ui.internal.navigator.CompressedJavaProject;
 import org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin;
@@ -37,8 +54,11 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -186,4 +206,222 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage {
 			}
 		}
 	}
+
+	protected Object getSelectedObject() {
+		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		if (window == null)
+			return null;
+		ISelection selection = window.getSelectionService().getSelection();
+		if (selection == null)
+			return null;
+		if (!(selection instanceof IStructuredSelection)) 
+			return null;
+		IStructuredSelection ssel = (IStructuredSelection) selection;
+		if (ssel.size() != 1)
+			return null;
+		return ssel.getFirstElement();
+	}
+	
+	private IType getPrimaryType(ICompilationUnit cu) {
+		return cu.getType(new Path(cu.getElementName()).removeFileExtension().toString());
+	}
+	
+	private boolean isObjectSubclassOf(Object obj, String base) {
+		IJavaElement jelem = getJavaElement(obj);
+		
+		try {
+			if (jelem != null) {
+				if (jelem instanceof ICompilationUnit) {
+					ICompilationUnit cu = (ICompilationUnit) jelem;
+					jelem = getPrimaryType(cu);
+				}
+				
+				if (jelem instanceof IType && ((IType) jelem).isClass()) {
+					IType type = (IType) jelem;
+					ITypeHierarchy typeHierarchy = type.newTypeHierarchy(null);
+					for (IType superType : typeHierarchy.getAllSuperInterfaces(type)) {
+						if (base.equals(superType.getFullyQualifiedName()))
+							return true;
+					}
+				} 
+			}
+		} catch (JavaModelException e) {
+			ServletUIPlugin.log(e);
+		}
+		
+		return false;
+	}
+	
+	protected boolean isServlet(Object obj) {
+		if (obj instanceof org.eclipse.jst.javaee.web.Servlet) 
+			return true;
+		
+		if (obj instanceof org.eclipse.jst.j2ee.webapplication.Servlet)
+			return true;
+		
+		return isObjectSubclassOf(obj, IServletConstants.QUALIFIED_SERVLET);
+	}
+	
+	protected boolean isFilter(Object obj) {
+		if (obj instanceof org.eclipse.jst.javaee.web.Filter) 
+			return true;
+		
+		if (obj instanceof org.eclipse.jst.j2ee.webapplication.Filter)
+			return true;
+		
+		return isObjectSubclassOf(obj, IServletConstants.QUALIFIED_FILTER);
+	}
+	
+	private String getJavaClass(Object obj) {
+		IJavaElement jelem = getJavaElement(obj); 
+		
+		if (jelem == null) {
+			throw new IllegalArgumentException("the object parameter must be instance of IJavaElement");
+		}
+		
+		if (jelem instanceof ICompilationUnit) {
+			ICompilationUnit cu = (ICompilationUnit) jelem;
+			jelem = getPrimaryType(cu);
+		}
+		return ((IType) jelem).getFullyQualifiedName();		
+	}
+	
+	protected String getServletClass(Object obj) {
+		if (obj instanceof org.eclipse.jst.javaee.web.Servlet) {
+			org.eclipse.jst.javaee.web.Servlet servlet = (org.eclipse.jst.javaee.web.Servlet) obj;
+			return servlet.getServletClass();
+		} 
+
+		if (obj instanceof org.eclipse.jst.j2ee.webapplication.Servlet) {
+			org.eclipse.jst.j2ee.webapplication.Servlet servlet = (org.eclipse.jst.j2ee.webapplication.Servlet) obj;
+			return servlet.getServletClass().getQualifiedName();
+		}
+		
+		return getJavaClass(obj);
+	}
+	
+	protected String getFilterClass(Object obj) {
+		if (obj instanceof org.eclipse.jst.javaee.web.Filter) {
+			org.eclipse.jst.javaee.web.Filter filter = (org.eclipse.jst.javaee.web.Filter) obj;
+			return filter.getFilterClass();
+		} 
+
+		if (obj instanceof org.eclipse.jst.j2ee.webapplication.Filter) {
+			org.eclipse.jst.j2ee.webapplication.Filter filter = (org.eclipse.jst.j2ee.webapplication.Filter) obj;
+			return filter.getFilterClass().getQualifiedName();
+		}
+		
+		return getJavaClass(obj);
+	}
+	
+	protected String getServletName(Object obj) {
+		if (obj instanceof org.eclipse.jst.javaee.web.Servlet) {
+			org.eclipse.jst.javaee.web.Servlet servlet = (org.eclipse.jst.javaee.web.Servlet) obj;
+			return servlet.getServletName();
+		} 
+
+		if (obj instanceof org.eclipse.jst.j2ee.webapplication.Servlet) {
+			org.eclipse.jst.j2ee.webapplication.Servlet servlet = (org.eclipse.jst.j2ee.webapplication.Servlet) obj;
+			return servlet.getServletName();
+		}
+		
+		String servletClass = getServletClass(obj);
+		IProject project = getJavaElement(obj).getJavaProject().getProject();
+		IModelProvider provider = ModelProviderManager.getModelProvider(project);
+		Object modelObject = provider.getModelObject();
+		if (modelObject instanceof org.eclipse.jst.javaee.web.WebApp) {
+			org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) modelObject;
+			Iterator servlets = webApp.getServlets().iterator();
+			while (servlets.hasNext()) {
+				org.eclipse.jst.javaee.web.Servlet servlet = (org.eclipse.jst.javaee.web.Servlet) servlets.next();
+				String qualified = servlet.getServletClass(); 
+				if (qualified.equals(servletClass)) {
+					return servlet.getServletName();
+				}
+			}
+		} else if (modelObject instanceof org.eclipse.jst.j2ee.webapplication.WebApp) {
+			org.eclipse.jst.j2ee.webapplication.WebApp webApp = (org.eclipse.jst.j2ee.webapplication.WebApp) modelObject;
+			Iterator servlets = webApp.getServlets().iterator();
+			while (servlets.hasNext()) {
+				org.eclipse.jst.j2ee.webapplication.Servlet servlet = (org.eclipse.jst.j2ee.webapplication.Servlet) servlets.next();
+				String qualified = servlet.getServletClass().getQualifiedName(); 
+				if (qualified.equals(servletClass)) {
+					return servlet.getServletName();
+				}
+			}
+		}
+		
+		return null;
+	}
+	
+	protected boolean isServletJSP(Object obj) {
+		return getServletJSPFile(obj) != null;
+	}
+	
+	protected String getServletJSPFile(Object obj) {
+		if (obj instanceof org.eclipse.jst.javaee.web.Servlet) {
+			org.eclipse.jst.javaee.web.Servlet servlet = (org.eclipse.jst.javaee.web.Servlet) obj;
+			return servlet.getJspFile();
+		} 
+
+		if (obj instanceof org.eclipse.jst.j2ee.webapplication.Servlet) {
+			org.eclipse.jst.j2ee.webapplication.Servlet servlet = (org.eclipse.jst.j2ee.webapplication.Servlet) obj;
+			org.eclipse.jst.j2ee.webapplication.WebType webType = servlet.getWebType();
+			if (webType.isJspType()) {
+				org.eclipse.jst.j2ee.webapplication.JSPType jspType = (org.eclipse.jst.j2ee.webapplication.JSPType) webType;
+				return jspType.getJspFile();
+			}
+		}
+		
+		return null;
+	}
+	
+	protected boolean isWebFolder(Object obj) {
+		if (obj instanceof IFolder) {
+			return WebUtilities.isWebResource(obj);
+		}
+		return false;
+	}
+	
+	protected boolean isJSP(Object obj) {
+		if (obj instanceof IFile) {
+			IFile file = (IFile) obj;
+			return WebUtilities.isWebResource(file) && file.getName().endsWith(J2EEFileUtil.DOT_JSP);
+		}
+		return false;
+	}
+
+	protected String getWebResourcePath(IResource resource) {
+		IVirtualComponent comp = ComponentCore.createComponent(resource.getProject());
+		if (comp != null) {
+			IPath rootPath = comp.getRootFolder().getWorkspaceRelativePath();
+			return "/" + resource.getFullPath().makeRelativeTo(rootPath).toString();
+		}
+		return null;
+	}
+	
+	protected String makeFirstCharUppercase(String str) {
+		if (str == null || str.length() == 0) 
+			return str;
+		
+		StringBuilder builder = new StringBuilder(str);
+		builder.setCharAt(0, Character.toUpperCase(builder.charAt(0)));
+		return builder.toString();
+	}
+	
+	protected String getFileNameWithouFileExtension(IFile file) {
+		String name = file.getName();
+		String ext = file.getFileExtension();
+		
+		if (ext == null) 
+			return name;
+		
+		return name.substring(0, name.length() - (ext.length() + 1));
+	}
+	
+	protected void checkExistingButton(boolean state) {
+		existingButton.setSelection(state);
+		existingButton.notifyListeners(SWT.Selection, new Event());
+	}
+	
 }
