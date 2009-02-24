@@ -14,6 +14,7 @@ package org.eclipse.jst.j2ee.internal.classpathdep.ui;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -25,6 +26,7 @@ import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jst.j2ee.classpathdep.UpdateClasspathAttributeUtil;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyValidator;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.IMarkerResolution;
 import org.eclipse.ui.IMarkerResolutionGenerator;
@@ -72,9 +74,15 @@ public final class ClasspathDependencyValidatorMarkerResolutions implements IMar
 			// quick fix removes the dependency
 			return new IMarkerResolution[] { new UpdateClasspathDependencyAttributeResolution(cpEntryPath, false) };			
 		} else if (ClasspathDependencyValidator.NonTaggedExportedClasses.equals(messageId)) {
-			// quick fix adds the dependency
-			return new IMarkerResolution[] { new UpdateClasspathDependencyAttributeResolution(cpEntryPath, true),
-					new AddClasspathNonDependencyAttributeResolution(cpEntryPath)};	
+			IResource resource = marker.getResource();
+			if(null != resource && resource.getType() == IResource.PROJECT && !JavaEEProjectUtilities.isApplicationClientProject((IProject)resource)){
+				// quick fix adds the dependency, and one to remove it
+				return new IMarkerResolution[] { new UpdateClasspathDependencyAttributeResolution(cpEntryPath, true),
+						new AddClasspathNonDependencyAttributeResolution(cpEntryPath)};	
+			} else {
+				// quick fix removes the dependency
+				return new IMarkerResolution[] { new AddClasspathNonDependencyAttributeResolution(cpEntryPath) };
+			}
 		} else if (ClasspathDependencyValidator.ProjectClasspathEntry.equals(messageId)) {
 			// quick fix removes the dependency
 			return new IMarkerResolution[] { new UpdateClasspathDependencyAttributeResolution(cpEntryPath, false) };	
