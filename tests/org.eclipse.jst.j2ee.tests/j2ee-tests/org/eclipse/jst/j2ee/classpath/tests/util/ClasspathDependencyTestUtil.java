@@ -30,6 +30,7 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
+import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.dependency.tests.util.DependencyUtil;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -125,7 +126,7 @@ public class ClasspathDependencyTestUtil extends DependencyUtil {
 	}
 	
 	public static Map verifyClasspathAttributes(final IJavaProject javaProject, final Set rawEntryPaths) throws Exception {
-		final Map entriesToAttrib = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProject);
+		final Map entriesToAttrib = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProject, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);
 		Assert.assertTrue("Project " + javaProject + " should have " + rawEntryPaths.size() + " raw classpath dependencies, only has: " + 
 				entriesToAttrib.size(), entriesToAttrib.size()== rawEntryPaths.size());
 		final Iterator i = entriesToAttrib.keySet().iterator();
