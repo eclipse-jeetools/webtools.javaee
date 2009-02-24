@@ -42,6 +42,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
+import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Container;
@@ -308,7 +309,7 @@ public class ClassPathSelection {
 			if (project.hasNature(JavaCore.NATURE_ID)) {
 				final IJavaProject javaProject = JavaCore.create(project);
 				final boolean isWebApp = J2EEProjectUtilities.isDynamicWebProject(project);
-				final Map taggedEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProject);
+				final Map taggedEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProject, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);
 				
 				Iterator i = taggedEntries.keySet().iterator();
 				while (i.hasNext()) {

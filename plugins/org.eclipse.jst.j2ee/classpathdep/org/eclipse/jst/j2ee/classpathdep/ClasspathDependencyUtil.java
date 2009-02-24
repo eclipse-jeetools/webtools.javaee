@@ -110,6 +110,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 		}
 		final IProject project = javaProject.getProject();
 		final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(project);
+		final boolean isRAR = JavaEEProjectUtilities.isJCAProject(project);
 		final ClasspathDependencyValidatorData data = new ClasspathDependencyValidatorData(project);
 		final IClasspathEntry[] entries = javaProject.getRawClasspath();
         for (int i = 0; i < entries.length; i++) {
@@ -147,9 +148,18 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 									break;
 								}
 							}
-							if (foundEntry) {
-								continue;
+						} else if(isRAR){
+							IContainer [] rootFolders = component.getRootFolder().getUnderlyingFolders();
+							for(IContainer root: rootFolders){
+								IPath rootPath = root.getFullPath();
+								if(rootPath.isPrefixOf(entry.getPath())){
+									foundEntry = true;
+									break;
+								}
 							}
+						}
+						if (foundEntry) {
+							continue;
 						}
 						// checks for manifest references
 						List manifestRefs = J2EEModuleVirtualComponent.getManifestReferences(component, null);
