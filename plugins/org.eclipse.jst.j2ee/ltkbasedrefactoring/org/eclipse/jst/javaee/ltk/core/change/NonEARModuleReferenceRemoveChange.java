@@ -203,15 +203,14 @@ public class NonEARModuleReferenceRemoveChange extends Change {
 			final ArchiveManifest manifest = J2EEProjectUtilities.readManifest(manifestmf);
 			String[] cp = manifest.getClassPathTokenized();
 			List cpList = new ArrayList();
-			String newCp = refactoredProjName + ".jar";//$NON-NLS-1$
+			String newjarCp = refactoredProjName + ".jar";//$NON-NLS-1$
+			String newrarCp = refactoredProjName + ".rar";//$NON-NLS-1$
 			for (int i = 0; i < cp.length; i++) {
-				if (!cp[i].equals(newCp)) {
+				if (!cp[i].equals(newjarCp) && !cp[i].equals(newrarCp)) {
 					cpList.add(cp[i]);
 				}
 			}
-			if (!remove) {
-				cpList.add(newCp);
-			}
+			
 			updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.JAR_LIST, cpList);
 			try {
 				updateManifestDataModel.getDefaultOperation().execute(monitor, null );

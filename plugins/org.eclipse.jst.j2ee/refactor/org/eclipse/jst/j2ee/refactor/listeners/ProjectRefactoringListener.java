@@ -31,7 +31,6 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.refactor.RefactorResourceHandler;
 import org.eclipse.jst.j2ee.refactor.operations.OptionalRefactorHandler;
-import org.eclipse.jst.j2ee.refactor.operations.ProjectDeleteDataModelProvider;
 import org.eclipse.jst.j2ee.refactor.operations.ProjectRefactorMetadata;
 import org.eclipse.jst.j2ee.refactor.operations.ProjectRefactoringDataModelProvider;
 import org.eclipse.jst.j2ee.refactor.operations.ProjectRenameDataModelProvider;
@@ -134,7 +133,9 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 				ProjectRefactorMetadata metadata = (ProjectRefactorMetadata) deletedProjectMetadata.remove(project.getName()); 
 				// note: only projects with ModuleCoreNature will have cached metadata
 				if (metadata != null && OptionalRefactorHandler.getInstance().shouldRefactorDeletedProject(metadata)) {
-				    processDelete(metadata);
+					//Delete refactoring is now being done by the LTK refactoring framework
+					//for all java ee modules. Please refer to JavaEERefactoringParticipant
+					//  processDelete(metadata);
 				} 
 			} 
 		} else if (kind == IResourceDelta.ADDED && hasRenamedAddedFlags(flags)) { // was renamed
@@ -215,31 +216,5 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 		job.schedule();
 	}
 	
-	/*
-	 * Processes the deletion of a project.
-	 */
-	private void processDelete(final ProjectRefactorMetadata metadata) {
-		WorkspaceJob job = new WorkspaceJob("J2EEProjectDeleteJob") {
-			public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
-				final IDataModel dataModel = DataModelFactory.createDataModel(new ProjectDeleteDataModelProvider());
-				dataModel.setProperty(ProjectRefactoringDataModelProvider.PROJECT_METADATA, metadata);
-				try {
-					dataModel.getDefaultOperation().execute(monitor, null);
-				} catch (Exception e) {
-					final String msg = RefactorResourceHandler.getString("error_updating_project_on_delete", new Object[]{metadata.getProjectName()});
-					Logger.getLogger().logError(msg);
-					Logger.getLogger().logError(e);
-					return new Status(Status.ERROR, J2EEPlugin.PLUGIN_ID, 0, msg, e);
-				}
-				return Status.OK_STATUS;
-			}
-			
-			public boolean belongsTo(final Object family) {
-				return PROJECT_REFACTORING_JOB_FAMILY.equals(family);
-			}
-		};
-		// XXX note: might want to consider switching to a MultiRule for optimization
-		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
-		job.schedule();
-	}
+	
 }
