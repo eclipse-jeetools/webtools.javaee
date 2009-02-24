@@ -49,11 +49,12 @@ public class WebComponentExportOperation extends J2EEArtifactExportOperation {
 				CommonarchiveFactory caf = ((CommonarchivePackage) EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI)).getCommonarchiveFactory();
 				WebComponentLoadStrategyImpl ls = new WebComponentLoadStrategyImpl(getComponent());
 				ls.setExportSource(isExportSource());
+				ls.setReadOnly(true);
 				setModuleFile(caf.openWARFile(ls, getDestinationPath().toOSString()));
+				getModuleFile().getOptions().setIsReadOnly(true);
 				ls.setProgressMonitor(subMonitor);
 				getModuleFile().saveAsNoReopen(getDestinationPath().toOSString());
 			}
-			
 		} catch (SaveFailureException ex) {
 			throw ex;
 		} catch (Exception e) {
