@@ -50,10 +50,15 @@ import org.eclipse.wst.web.internal.facet.RuntimePresetMappingRegistry;
 public abstract class J2EEFacetInstallDelegate {
 
 	protected static void addToClasspath(final IJavaProject jproj, final IClasspathEntry entry) throws CoreException {
-		final IClasspathEntry[] current = jproj.getRawClasspath();
-		final IClasspathEntry[] updated = new IClasspathEntry[current.length + 1];
-		System.arraycopy(current, 0, updated, 0, current.length);
-		updated[current.length] = entry;
+		final IClasspathEntry[] existingEntries = jproj.getRawClasspath();
+		for(IClasspathEntry existingEntry : existingEntries){
+			if(existingEntry.equals(entry)){
+				return;
+			}
+		}
+		final IClasspathEntry[] updated = new IClasspathEntry[existingEntries.length + 1];
+		System.arraycopy(existingEntries, 0, updated, 0, existingEntries.length);
+		updated[existingEntries.length] = entry;
 		jproj.setRawClasspath(updated, null);
 	}
 
