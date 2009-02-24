@@ -370,13 +370,12 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 	 */
 	private static class ArchiveCache {
 
-		private static ArchiveCache instance = null;
+		private static class ArchiveCacheInstanceHolder {
+			private static ArchiveCache instance = new ArchiveCache();
+		}
 
 		public static ArchiveCache getInstance() {
-			if (instance == null) {
-				instance = new ArchiveCache();
-			}
-			return instance;
+			return ArchiveCacheInstanceHolder.instance;
 		}
 
 		protected Map<IVirtualComponent, IArchive> componentsToArchives = new Hashtable<IVirtualComponent, IArchive>();
