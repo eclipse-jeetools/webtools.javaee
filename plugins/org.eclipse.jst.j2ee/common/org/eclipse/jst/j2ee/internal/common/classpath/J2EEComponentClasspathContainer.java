@@ -485,7 +485,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	private String getEARLibDir(EARVirtualComponent earComponent) {
 		// check if the EAR component's version is 5 or greater
 		IProject project = earComponent.getProject();
-		if (!JavaEEProjectUtilities.isJEEComponent(earComponent)) return null;
+		if (!JavaEEProjectUtilities.isJEEComponent(earComponent, JavaEEProjectUtilities.DD_VERSION)) return null;
 		
 		// retrieve the model provider
 		IModelProvider modelProvider = ModelProviderManager.getModelProvider(project);
