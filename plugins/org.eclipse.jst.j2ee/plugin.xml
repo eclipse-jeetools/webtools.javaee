@@ -156,6 +156,7 @@
             name="messageId">
       </attribute>
    </extension>
+   <!--
    <extension
          id="ClasspathDependencyValidator"
          name="%classpath_component_dependency_validator_UI_"
@@ -215,6 +216,7 @@
             name="messageId">
       </attribute>
    </extension>
+   -->
    <extension
          id="ApplicationClientValidator"
          name="%application_client_validator_UI_"
