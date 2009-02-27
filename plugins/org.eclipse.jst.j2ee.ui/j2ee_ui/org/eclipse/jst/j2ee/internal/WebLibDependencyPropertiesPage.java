@@ -12,10 +12,17 @@
 package org.eclipse.jst.j2ee.internal;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.ui.wizards.BuildPathDialogAccess;
@@ -25,6 +32,7 @@ import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModel;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModelListener;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -36,9 +44,14 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.internal.ui.WorkspaceModifyComposedOperation;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage implements IClasspathTableOwner, Listener, ClasspathModelListener {
 
@@ -118,6 +131,15 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 		}
 		return true;
 	}
+	private boolean equals(final Object obj1, final Object obj2) {
+		if (obj1 == obj2) {
+			return true;
+		} else if (obj1 == null || obj2 == null) {
+			return false;
+		} else {
+			return obj1.equals(obj2);
+		}
+	}
 
 	protected void setEnablement() {
 		if (tableManager.availableJARsViewer.getTable().getItems().length == 0) {
@@ -127,6 +149,9 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 			tableManager.selectAllButton.setEnabled(true);
 			tableManager.deselectAllButton.setEnabled(true);
 		}
+	}
+	private IProgressMonitor submon(final IProgressMonitor parent, final int ticks) {
+		return (parent == null ? null : new SubProgressMonitor(parent, ticks));
 	}
 
 	private void handleWLPSupport() {
@@ -149,9 +174,12 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 			return true;
 		}
 		try {
+			IProject[] javaProjects = getJavaProjectsWithoutFacets();
 			boolean createdFlexProjects = runWLPOp(createFlexProjectOperations());
+			
 			boolean createdComponentDependency = false;
 			if (createdFlexProjects) {
+				addTargetRuntimesToNewJavaProjects(javaProjects,new NullProgressMonitor());
 				createdComponentDependency = runWLPOp(createComponentDependencyOperations());
 				isDirty = false;
 			}
@@ -163,6 +191,23 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 		} finally {
 			model.dispose();
 		}
+	}
+
+	private IProject[] getJavaProjectsWithoutFacets() {
+		List projectsList = new ArrayList();
+		Object[] elements = tableManager.availableJARsViewer.getCheckedElements();
+		for (int i = 0; i < elements.length; i++) {
+			ClasspathElement element = (ClasspathElement) elements[i];
+			IProject elementProject = element.getProject();
+			try {
+				if (elementProject != null && !elementProject.hasNature(IModuleConstants.MODULE_NATURE_ID))
+					projectsList.add(elementProject);
+			} catch (CoreException e) {
+				// TODO Auto-generated catch block
+				J2EEPlugin.getDefault().logError(e);
+			}
+		}
+		return (IProject[])projectsList.toArray(new IProject[projectsList.size()]);
 	}
 
 	private boolean runWLPOp(WorkspaceModifyComposedOperation composed) {
@@ -186,6 +231,51 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 			return false;
 		}
 		return true;
+	}
+
+	private void addTargetRuntimesToNewJavaProjects(IProject[] javaProjects, final IProgressMonitor monitor )
+
+	{
+		if (monitor != null) {
+			monitor.beginTask("", 1);
+		}
+		IProject targetProject = project;
+		for (int i = 0; i < javaProjects.length; i++) {
+			IProject moduleProject = javaProjects[i];
+
+			try {
+				final IFacetedProject targetFacetedProject = ProjectFacetsManager.create(targetProject);
+
+				final IRuntime targetRuntime = targetFacetedProject.getRuntime();
+
+				final IFacetedProject moduleFacetedProject = ProjectFacetsManager.create(moduleProject);
+
+				if (moduleFacetedProject != null && !equals(targetRuntime, moduleFacetedProject.getRuntime())) {
+					boolean supports = true;
+
+					if (targetRuntime != null) {
+						for (Iterator itr = moduleFacetedProject.getProjectFacets().iterator(); itr.hasNext();) {
+							final IProjectFacetVersion fver = (IProjectFacetVersion) itr.next();
+
+							if (!targetRuntime.supports(fver)) {
+								supports = false;
+								break;
+							}
+						}
+					}
+
+					if (supports) {
+						moduleFacetedProject.setRuntime(targetRuntime, submon(monitor, 1));
+					}
+				}
+			} catch(CoreException ex) {
+				J2EEPlugin.getDefault().logError(ex);
+			} finally {
+				if (monitor != null) {
+					monitor.done();
+				}
+			}
+		}
 	}
 
 	private void createRef(String aComponentName){
