@@ -35,6 +35,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -94,13 +95,17 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 					}
 				}else if(null != earComponent && J2EEProjectUtilities.isEARProject(project)){
 					//find the ArchiveComponent
-					if(component.equals( earComponent )){
+					if (component.equals( earComponent )) {
 						if (isEE5) {
-							Application app = (Application)ModelProviderManager.getModelProvider(project).getModelObject();
-							if (libDir == null)
-								libDir = app.getLibraryDirectory();
-							if (libDir == null)
-								libDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
+							String earDDVersion = JavaEEProjectUtilities.getJ2EEDDProjectVersion(project);
+							boolean isDDVersion5 = earDDVersion.equals(J2EEVersionConstants.VERSION_5_0_TEXT) ? true : false;
+							if (isDDVersion5) {
+								Application app = (Application)ModelProviderManager.getModelProvider(project).getModelObject();
+								if (libDir == null)
+									libDir = app.getLibraryDirectory();
+								if (libDir == null)
+									libDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
+							}
 						}
 						IVirtualReference[] newrefs = component.getReferences();
 						for( int k=0; k< newrefs.length; k++ ){
