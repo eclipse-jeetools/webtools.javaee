@@ -243,7 +243,7 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
                     if( event.getPropertyName().equals( IJ2EEComponentExportDataModelProperties.RUNTIME ) && 
                         event.getFlag() == IDataModel.VALUE_CHG )
                     {
-                        refreshExtensionsComposite( extComposite );
+                        refreshExtensionsComposite( extComposite, true );
                     }
                     else if( event.getPropertyName().equals( IJ2EEComponentExportDataModelProperties.OPTIMIZE_FOR_SPECIFIC_RUNTIME  ) &&
                              event.getFlag() == IDataModel.VALUE_CHG )
@@ -255,10 +255,10 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
             }
         );
         
-        refreshExtensionsComposite( extComposite );
+        refreshExtensionsComposite( extComposite, false );
 	}
     
-    private void refreshExtensionsComposite( final Composite extComposite )
+    private void refreshExtensionsComposite( final Composite extComposite, boolean forceRefresh )
     {
         for( Control child : extComposite.getChildren() )
         {
@@ -310,7 +310,9 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
             }
         }
         
-        extComposite.getShell().layout( true, true );
+        if (forceRefresh) {
+        	extComposite.getShell().layout( true, true );
+        }
     }
     
     /**
