@@ -43,6 +43,30 @@ public class ConnectionHandler {
 	// in Linux 1.4. So on Linux 1.3 need to put timeouts in on those sockets that can be separately closed while reading/accepting.
 	static boolean LINUX_1_3 = "linux".equalsIgnoreCase(System.getProperty("os.name")) && System.getProperty("java.version","").startsWith("1.3");	 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 	
+	
+	static {
+		try{
+			Class.forName("java.awt.Dialog");
+		}
+		catch (ExceptionInInitializerError e){}
+		catch (LinkageError e){}
+		catch (ClassNotFoundException e) {}
+		
+		try{
+			Class.forName("sun.awt.windows.WToolkit");			
+		}
+		catch (ExceptionInInitializerError e){}
+		catch (LinkageError e){}
+		catch (ClassNotFoundException e) {}
+		
+		try{
+			Class.forName("java.awt.Component");
+		}
+		catch (ExceptionInInitializerError e){}
+		catch (LinkageError e){}
+		catch (ClassNotFoundException e) {}	
+	}
+	
 	/**
 	 * This may be running as a callback, in that case there is no connectionThread.
 	 */
