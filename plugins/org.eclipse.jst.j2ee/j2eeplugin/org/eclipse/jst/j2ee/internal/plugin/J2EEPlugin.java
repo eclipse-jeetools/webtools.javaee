@@ -517,22 +517,13 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		
 		final ProjectRefactoringListener listener = new ProjectRefactoringListener();//ProjectDependencyCache.getCache());
 		// register the project rename/delete refactoring listener
-		String ltkRefactoring = System.getProperty(IJ2EEModuleConstants.USE_LTK_REFACTORING);
-		if(ltkRefactoring != null && ltkRefactoring.equals(IJ2EEModuleConstants.TRUE_STRING)){
-			ResourcesPlugin.getWorkspace().addResourceChangeListener(listener, IResourceChangeEvent.POST_CHANGE);
-			// register the IElementChangedLister that updates the .component file in 
-			// response to .classpath changes
-			JavaCore.addElementChangedListener(new J2EEElementChangedListener(), ElementChangedEvent.POST_CHANGE);
-			ResourcesPlugin.getWorkspace().addResourceChangeListener(J2EEComponentClasspathUpdater.getInstance(), IResourceChangeEvent.POST_CHANGE | IResourceChangeEvent.PRE_CLOSE);
-			ResourcesPlugin.getWorkspace().addResourceChangeListener(J2EEDependencyListener.INSTANCE, IResourceChangeEvent.POST_CHANGE | IResourceChangeEvent.PRE_CLOSE);
-		} else{
-				ResourcesPlugin.getWorkspace().addResourceChangeListener(listener, IResourceChangeEvent.POST_CHANGE | IResourceChangeEvent.PRE_DELETE);
-				// register the IElementChangedLister that updates the .component file in 
-				// response to .classpath changes
-				JavaCore.addElementChangedListener(new J2EEElementChangedListener(), ElementChangedEvent.POST_CHANGE);
-				ResourcesPlugin.getWorkspace().addResourceChangeListener(J2EEComponentClasspathUpdater.getInstance(), IResourceChangeEvent.POST_CHANGE | IResourceChangeEvent.PRE_CLOSE | IResourceChangeEvent.PRE_DELETE);
-				ResourcesPlugin.getWorkspace().addResourceChangeListener(J2EEDependencyListener.INSTANCE, IResourceChangeEvent.POST_CHANGE | IResourceChangeEvent.PRE_CLOSE | IResourceChangeEvent.PRE_DELETE);
-		}
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(listener, IResourceChangeEvent.POST_CHANGE | IResourceChangeEvent.PRE_DELETE);
+		// register the IElementChangedLister that updates the .component file in 
+		// response to .classpath changes
+		JavaCore.addElementChangedListener(new J2EEElementChangedListener(), ElementChangedEvent.POST_CHANGE);
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(J2EEComponentClasspathUpdater.getInstance(), IResourceChangeEvent.POST_CHANGE | IResourceChangeEvent.PRE_CLOSE | IResourceChangeEvent.PRE_DELETE);
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(J2EEDependencyListener.INSTANCE, IResourceChangeEvent.POST_CHANGE | IResourceChangeEvent.PRE_CLOSE | IResourceChangeEvent.PRE_DELETE);
+	
 	}
 	
 	public void stop(BundleContext context) throws Exception {
