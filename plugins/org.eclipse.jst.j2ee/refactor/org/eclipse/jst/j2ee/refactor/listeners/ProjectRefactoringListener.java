@@ -57,7 +57,17 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 	 * Map from name of deleted project to ProjectRefactorMetadata instances.
 	 */
 	private final Map deletedProjectMetadata = new HashMap();
+
+	private static boolean useLTK = false;
 	
+	public static boolean isUseLTK() {
+		return useLTK;
+	}
+
+	public static void setUseLTK(boolean useLTK) {
+		ProjectRefactoringListener.useLTK = useLTK;
+	}
+
 	/**
 	 * Maintains a cache of project depencencies;
 	 */
@@ -134,7 +144,9 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 				ProjectRefactorMetadata metadata = (ProjectRefactorMetadata) deletedProjectMetadata.remove(project.getName()); 
 				// note: only projects with ModuleCoreNature will have cached metadata
 				if (metadata != null && OptionalRefactorHandler.getInstance().shouldRefactorDeletedProject(metadata)) {
-				    processDelete(metadata);
+					if(useLTK == false){
+						processDelete(metadata);
+					}
 				} 
 			} 
 		} else if (kind == IResourceDelta.ADDED && hasRenamedAddedFlags(flags)) { // was renamed
