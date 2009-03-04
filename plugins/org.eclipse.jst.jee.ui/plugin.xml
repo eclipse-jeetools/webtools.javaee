@@ -104,7 +104,17 @@
 	     	adaptableType="org.eclipse.jst.javaee.ejb.EntityBean">
 	     	<adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
 	   	</factory>       
-   </extension> 
+   </extension>
+    <extension
+          point="org.eclipse.core.runtime.adapters">
+       <factory
+             adaptableType="org.eclipse.jst.jee.ui.internal.navigator.AbstractDDNode"
+             class="org.eclipse.jst.jee.ui.internal.navigator.DDAdapterFactory">
+          <adapter
+                type="org.eclipse.jdt.core.IJavaElement">
+          </adapter>
+       </factory>
+    </extension> 
    
    <extension
          point="org.eclipse.wst.server.core.moduleArtifactAdapters">

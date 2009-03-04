@@ -208,36 +208,64 @@
          point="org.eclipse.core.runtime.adapters">
       <factory
             adaptableType="org.eclipse.jst.javaee.web.Servlet"
-            class="org.eclipse.jst.javaee.adapter.WebArtifactAdapterFactory">
+            class="org.eclipse.jst.javaee.internal.adapter.WebArtifactAdapterFactory">
          <adapter type="org.eclipse.jdt.core.IJavaElement"/>
       </factory>
       <factory
             adaptableType="org.eclipse.jst.j2ee.webapplication.Servlet"
-            class="org.eclipse.jst.javaee.adapter.WebArtifactAdapterFactory">
+            class="org.eclipse.jst.javaee.internal.adapter.WebArtifactAdapterFactory">
          <adapter
                type="org.eclipse.jdt.core.IJavaElement">
          </adapter>
       </factory>
       <factory
             adaptableType="org.eclipse.jst.javaee.web.Filter"
-            class="org.eclipse.jst.javaee.adapter.WebArtifactAdapterFactory">
+            class="org.eclipse.jst.javaee.internal.adapter.WebArtifactAdapterFactory">
          <adapter type="org.eclipse.jdt.core.IJavaElement"/>
       </factory>
       <factory
             adaptableType="org.eclipse.jst.j2ee.webapplication.internal.impl.FilterImpl"
-            class="org.eclipse.jst.javaee.adapter.WebArtifactAdapterFactory">
+            class="org.eclipse.jst.javaee.internal.adapter.WebArtifactAdapterFactory">
          <adapter
                type="org.eclipse.jdt.core.IJavaElement">
          </adapter>
       </factory>
       <factory
             adaptableType="org.eclipse.jst.javaee.core.Listener"
-            class="org.eclipse.jst.javaee.adapter.WebArtifactAdapterFactory">
+            class="org.eclipse.jst.javaee.internal.adapter.WebArtifactAdapterFactory">
          <adapter type="org.eclipse.jdt.core.IJavaElement"/>
       </factory>
       <factory
             adaptableType="org.eclipse.jst.j2ee.common.internal.impl.ListenerImpl"
-            class="org.eclipse.jst.javaee.adapter.WebArtifactAdapterFactory">
+            class="org.eclipse.jst.javaee.internal.adapter.WebArtifactAdapterFactory">
+         <adapter
+               type="org.eclipse.jdt.core.IJavaElement">
+         </adapter>
+      </factory>
+      <factory
+            adaptableType="org.eclipse.jst.javaee.ejb.SessionBean"
+            class="org.eclipse.jst.javaee.internal.adapter.EjbArtifactAdapterFactory">
+         <adapter
+               type="org.eclipse.jdt.core.IJavaElement">
+         </adapter>
+      </factory>
+      <factory
+            adaptableType="org.eclipse.jst.javaee.ejb.MessageDrivenBean"
+            class="org.eclipse.jst.javaee.internal.adapter.EjbArtifactAdapterFactory">
+         <adapter
+               type="org.eclipse.jdt.core.IJavaElement">
+         </adapter>
+      </factory>
+      <factory
+            adaptableType="org.eclipse.jst.javaee.ejb.EntityBean"
+            class="org.eclipse.jst.javaee.internal.adapter.EjbArtifactAdapterFactory">
+         <adapter
+               type="org.eclipse.jdt.core.IJavaElement">
+         </adapter>
+      </factory>
+      <factory
+            adaptableType="org.eclipse.jst.j2ee.ejb.EnterpriseBean"
+            class="org.eclipse.jst.javaee.internal.adapter.EjbArtifactAdapterFactory">
          <adapter
                type="org.eclipse.jdt.core.IJavaElement">
          </adapter>
