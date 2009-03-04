@@ -11,7 +11,6 @@
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -51,7 +50,7 @@ public class NewEnterpriseBeanClassWizardPage extends NewJavaClassWizardPage {
 			return ProjectUtilities.getProject(projectName);
 		} else if (selection instanceof AbstractDDNode) {
 			Object adapterNode = ((AbstractDDNode) selection).getAdapterNode();
-			return ProjectUtilities.getProject((EObject)adapterNode);
+			return ProjectUtilities.getProject(adapterNode);
 		}
 		
 		return super.getExtendedSelectedProject(selection);
