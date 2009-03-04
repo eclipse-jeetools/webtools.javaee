@@ -148,7 +148,15 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		addClassnameGroup(composite);
 		addSuperclassGroup(composite);
 
-		classText.setFocus();
+		// set the cursor focus
+		//   - to the "Java package" if it is empty
+		//   - to the "Class name" - otherwise
+		if (packageText.getText().trim().length() == 0) {
+			packageText.setFocus();
+		} else {
+			classText.setFocus();
+		}
+		
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(composite, getInfopopID());
 	    Dialog.applyDialogFont(parent);
 		return composite;
