@@ -96,7 +96,7 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 		final List changedJavaPaths = new ArrayList();
 		
 		// make certain this is a J2EE project
-		if (ModuleCoreNature.getModuleCoreNature(project) != null) {
+		if (ModuleCoreNature.isFlexibleProject(project)) {
 			IVirtualComponent c = ComponentCore.createComponent(project);
 			try {
 				// Did the classpath change?
