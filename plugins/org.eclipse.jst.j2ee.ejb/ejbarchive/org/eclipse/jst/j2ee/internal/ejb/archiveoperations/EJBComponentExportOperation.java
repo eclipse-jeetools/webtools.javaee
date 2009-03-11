@@ -37,6 +37,9 @@ public class EJBComponentExportOperation extends J2EEArtifactExportOperation {
 		super(model);
 	}
 
+	/**
+	 * @deprecated this will be removed post 3.1 with bug 268201
+	 */
 	protected void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
 		IProgressMonitor subMonitor = new SubProgressMonitor(progressMonitor, EXPORT_WORK);
 		IArchive archiveFromComponent = null;
@@ -62,10 +65,16 @@ public class EJBComponentExportOperation extends J2EEArtifactExportOperation {
 		}
 	}
 
+	/**
+	 * @deprecated this will be removed post 3.1 with bug 268201
+	 */
 	protected String archiveString() {
 		return EJBArchiveOpsResourceHandler.EJB_Jar_File_UI_;
 	}
 
+	/**
+	 * @deprecated this will be removed post 3.1 with bug 268201
+	 */
 	public void createModuleFile() throws SaveFailureException {
 		try {
 			CommonarchiveFactory caf = ((CommonarchivePackage) EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI)).getCommonarchiveFactory();
