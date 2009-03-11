@@ -47,7 +47,6 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
 // hari: make abstract
 public class ComponentArchiveSaveAdapter extends AbstractArchiveSaveAdapter {
@@ -205,7 +204,7 @@ public class ComponentArchiveSaveAdapter extends AbstractArchiveSaveAdapter {
 	 * @throws Exception
 	 */
 	protected void saveAsArchiveComponent(IArchive archive, IPath projectRelativePath, InputStream in) throws Exception {
-		IFile iFile = saveToOutputPathIFile(projectRelativePath, in);
+		IFile iFile = saveToOutputPath(projectRelativePath, in);
 		// TODO investigate removing this block and related variables and
 		// linkArchiveComponents(); see bugzilla 159160
 		if (shouldLinkAsComponentRef(archive)) {
@@ -248,15 +247,7 @@ public class ComponentArchiveSaveAdapter extends AbstractArchiveSaveAdapter {
 	 * @param in
 	 * @throws Exception
 	 */
-	protected void saveToOutputPath(IPath projectRelativePath, InputStream in) throws Exception {
-		saveToOutputPathIFile(projectRelativePath, in);
-	}
-
-	/**
-	 * TODO refactor change the method above to return IFile
-	 * {@link DoNotUseMeThisWillBeDeletedPost15}
-	 */
-	protected IFile saveToOutputPathIFile(IPath projectRelativePath, InputStream in) throws Exception {
+	protected IFile saveToOutputPath(IPath projectRelativePath, InputStream in) throws Exception {
 		IFile iFile = vComponent.getProject().getFile(projectRelativePath);
 		saveToIFile(iFile, in);
 		return iFile;

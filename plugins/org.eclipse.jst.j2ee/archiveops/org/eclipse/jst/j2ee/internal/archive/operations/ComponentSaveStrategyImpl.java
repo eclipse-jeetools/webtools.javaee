@@ -45,7 +45,6 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 
 public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 
@@ -197,7 +196,7 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 	 * @throws Exception
 	 */
 	protected void saveAsArchiveComponent(Archive archive, IPath projectRelativePath, InputStream in) throws Exception {
-		IFile iFile = saveToOutputPathIFile(projectRelativePath, in);
+		IFile iFile = saveToOutputPath(projectRelativePath, in);
 		//TODO investigate removing this block and related variables and linkArchiveComponents(); see bugzilla 159160
 		if (shouldLinkAsComponentRef(archive)) {
 			IVirtualComponent archiveComponent = ComponentCore.createArchiveComponent(vComponent.getProject(), VirtualArchiveComponent.LIBARCHIVETYPE + iFile.getFullPath().toString());
@@ -235,27 +234,17 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 	}
 
 	/**
-	 * Saves to the specified project relative output path. Warning this method
-	 * will be changed post 1.5 to return an IFile
+	 * Saves to the specified project relative output path.
 	 * 
 	 * @param projectRelativePath
 	 * @param in
 	 * @throws Exception
 	 */
-	protected void saveToOutputPath(IPath projectRelativePath, InputStream in) throws Exception {
-		saveToOutputPathIFile(projectRelativePath, in);
-	}
-
-	/**
-	 * TODO refactor change the method above to return IFile
-	 * {@link DoNotUseMeThisWillBeDeletedPost15}
-	 */
-	protected IFile saveToOutputPathIFile(IPath projectRelativePath, InputStream in) throws Exception {
+	protected IFile saveToOutputPath(IPath projectRelativePath, InputStream in) throws Exception {
 		IFile iFile = vComponent.getProject().getFile(projectRelativePath);
 		saveToIFile(iFile, in);
 		return iFile;
 	}
-
 
 	protected void saveToIFile(IFile iFile, InputStream in) throws Exception {
 		validateEdit(iFile);

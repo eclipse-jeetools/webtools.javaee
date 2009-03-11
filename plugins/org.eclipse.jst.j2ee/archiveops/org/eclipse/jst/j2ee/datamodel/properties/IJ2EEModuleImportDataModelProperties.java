@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.datamodel.properties;
 
-import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
-
-
 /**
  * <p>
  * IJ2EEModuleImportDataModelProperties provides properties to the IDataModel associated with the 
@@ -33,20 +30,6 @@ import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPos
  */
 public interface IJ2EEModuleImportDataModelProperties extends IJ2EEComponentImportDataModelProperties {
     
-	/**
-	 * @deprecated use the {@link IJ2EEFacetProjectCreationDataModelProperties#EAR_PROJECT_NAME} on the nested project creation model
-	 * 
-	 * @see DoNotUseMeThisWillBeDeletedPost15
-	 */
-	public static final String EAR_COMPONENT_NAME = "IJ2EEModuleImportDataModelProperties.EAR_COMPONENT_NAME"; //$NON-NLS-1$
-    /**
-     * @deprecated use the {@link IJ2EEFacetProjectCreationDataModelProperties#ADD_TO_EAR} on the nested project creation model
-     * 
-     * @see DoNotUseMeThisWillBeDeletedPost15
-     */
-    public static final String ADD_TO_EAR = "IJ2EEModuleImportDataModelProperties.ADD_TO_EAR"; //$NON-NLS-1$
-	
 	public static final String EXTENDED_IMPORT_FACTORY = "IJ2EEModuleImportDataModelProperties.EXTENDED_IMPORT_FACTORY"; //$NON-NLS-1$
-
 
 }
