@@ -63,6 +63,9 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 	protected IProgressMonitor progressMonitor;
 	private IVirtualComponent component;
 	private IPath destinationPath;
+	/**
+	 * @deprecated this will be removed post 3.1 with bug 268201
+	 */
 	private ModuleFile moduleFile;
 	private boolean exportSource = false;
 
@@ -151,8 +154,14 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 		return OK_STATUS;
 	}
 
+	/**
+	 * @deprecated this will be removed post 3.1 with bug 268201
+	 */
 	protected abstract void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException;
 
+	/**
+	 * @deprecated this will be removed post 3.1 with bug 268201
+	 */
 	protected abstract String archiveString();
 
 	protected void setProgressMonitor(IProgressMonitor newProgressMonitor) {
@@ -189,10 +198,16 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 		exportSource = newExportSource;
 	}
 
+	/**
+	 * @deprecated this will be removed post 3.1 with bug 268201
+	 */
 	protected ModuleFile getModuleFile() {
 		return moduleFile;
 	}
 
+	/**
+	 * @deprecated this will be removed post 3.1 with bug 268201
+	 */
 	protected void setModuleFile(ModuleFile newModuleFile) {
 		moduleFile = newModuleFile;
 	}

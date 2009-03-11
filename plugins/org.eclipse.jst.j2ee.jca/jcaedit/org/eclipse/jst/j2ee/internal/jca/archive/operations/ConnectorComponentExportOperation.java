@@ -33,6 +33,9 @@ public class ConnectorComponentExportOperation extends J2EEArtifactExportOperati
 		super(model);
 	}
 
+	/**
+	 * @deprecated this will be removed post 3.1 with bug 268201
+	 */
 	protected void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
 		IProgressMonitor subMonitor = new SubProgressMonitor(progressMonitor, EXPORT_WORK);
 		try {
@@ -51,6 +54,9 @@ public class ConnectorComponentExportOperation extends J2EEArtifactExportOperati
 		}
 	}
 
+	/**
+	 * @deprecated this will be removed post 3.1 with bug 268201
+	 */
 	protected String archiveString() {
 		//TODO fill in string
 		return ""; //$NON-NLS-1$

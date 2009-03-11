@@ -33,7 +33,10 @@ public class EARComponentExportOperation extends J2EEArtifactExportOperation {
 		super(model);
 	}
 
-	protected void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
+	/**
+	 * @deprecated this will be removed post 3.1 with bug 268201
+	 */
+    protected void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
 		IProgressMonitor subMonitor = new SubProgressMonitor(progressMonitor, EXPORT_WORK);
 		IArchive archiveFromComponent = null;
 		try {
@@ -86,6 +89,9 @@ public class EARComponentExportOperation extends J2EEArtifactExportOperation {
 		}
 	}
 
+	/**
+	 * @deprecated this will be removed post 3.1 with bug 268201
+	 */
 	protected String archiveString() {
 		return "EAR";
 	}

@@ -31,6 +31,9 @@ public class AppClientComponentExportOperation extends J2EEArtifactExportOperati
 		super(model);
 	}
 
+	/**
+	 * @deprecated this will be removed post 3.1 with bug 268201
+	 */
 	public void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
 		IProgressMonitor subMonitor = new SubProgressMonitor(progressMonitor, EXPORT_WORK);
 		IArchive archiveFromComponent = null;
@@ -58,6 +61,9 @@ public class AppClientComponentExportOperation extends J2EEArtifactExportOperati
 		}
 	}
 
+	/**
+	 * @deprecated this will be removed post 3.1 with bug 268201
+	 */
 	protected String archiveString() {
 		return AppClientArchiveOpsResourceHandler.Application_Client_File_UI_; 
 	}
