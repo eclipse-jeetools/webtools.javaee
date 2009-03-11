@@ -21,6 +21,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.wizard.ImportUtil;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.ui.navigator.CommonDropAdapter;
@@ -210,8 +211,8 @@ public class J2EEImportDropAction implements IDropActionDelegate {
 					if (archiveType == ImportUtil.EARFILE ) {
 						dataModel.setProperty(IJ2EEModuleImportDataModelProperties.PROJECT_NAME, project.getName());
 					} else {
-						dataModel.setProperty(IJ2EEModuleImportDataModelProperties.EAR_COMPONENT_NAME, project.getName());
-						dataModel.setBooleanProperty(IJ2EEModuleImportDataModelProperties.ADD_TO_EAR, true);
+						dataModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME, project.getName());
+						dataModel.setBooleanProperty(IJ2EEFacetProjectCreationDataModelProperties.ADD_TO_EAR, true);
 					}
 				} catch (Exception e) {
 					return false;
