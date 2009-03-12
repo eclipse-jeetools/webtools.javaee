@@ -27,7 +27,8 @@ Export-Package: org.eclipse.jst.common.jdt.internal.integration.ui;x-internal:=t
  org.eclipse.jst.j2ee.ui.archive,
  org.eclipse.jst.j2ee.ui.archive.internal,
  org.eclipse.jst.j2ee.ui.project.facet,
- org.eclipse.jst.j2ee.ui.project.facet.appclient
+ org.eclipse.jst.j2ee.ui.project.facet.appclient,
+ org.eclipse.jst.j2ee.internal.ui.preferences
 Require-Bundle: org.eclipse.ui.ide;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.core.resources;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.ui;bundle-version="[3.2.0,4.0.0)",

@@ -7,6 +7,10 @@
      name="Archive Export Participant Panels Extension Point" 
      schema="schema/archiveExportParticipantPanels.exsd"/>
 
+	<extension-point id="JavaEEPreferencePageExtender" 
+	 name="JavaEEPreferencePage"
+	 schema="schema/JavaEEPreferencePageExtender.exsd"/>
+	 	 
 <!--================================-->
 <!-- Project Wizard Contributions   -->
 <!--================================-->
@@ -797,7 +801,7 @@
      <page
            class="org.eclipse.jst.j2ee.internal.ui.preferences.JavaEEPreferencePage"
            id="org.eclipse.jst.j2ee.ui.preferencePages.JavaEE"
-           name="Java EE">
+           name="%j2ee">
      </page>
   </extension>
 

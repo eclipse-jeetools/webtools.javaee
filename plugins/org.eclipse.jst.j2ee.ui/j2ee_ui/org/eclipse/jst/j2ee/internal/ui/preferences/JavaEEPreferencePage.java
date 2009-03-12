@@ -1,5 +1,8 @@
 package org.eclipse.jst.j2ee.internal.ui.preferences;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.runtime.Preferences;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.preference.PreferencePage;
@@ -17,6 +20,7 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
+
 public class JavaEEPreferencePage extends PreferencePage implements
 		IWorkbenchPreferencePage {
 
@@ -24,6 +28,7 @@ public class JavaEEPreferencePage extends PreferencePage implements
 	private String name = J2EEPlugin.DYNAMIC_TRANSLATION_OF_JET_TEMPLATES_PREF_KEY;
 	private Button showReferences;
 	private boolean dynamicTranslation;
+	private ArrayList<IJavaEEPreferencePageExtender> extenders = new ArrayList();
 
 	public JavaEEPreferencePage() {
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.JAVA_EE_PREFERENCE_PAGE_NAME));
@@ -35,6 +40,10 @@ public class JavaEEPreferencePage extends PreferencePage implements
 		J2EEPlugin.getDefault().savePluginPreferences();
 		dynamicTranslation = preferences.getBoolean(name);
 		showReferences.setSelection(dynamicTranslation);
+		for(IJavaEEPreferencePageExtender extender : extenders ){
+			 extender.performDefaults();
+		}
+
 		super.performDefaults();
 	}
 
@@ -60,6 +69,8 @@ public class JavaEEPreferencePage extends PreferencePage implements
 				dynamicTranslation = showReferences.getSelection();
 			}
 		});
+		invokeExtensions(result);
+
 		return result;
 	}
 
@@ -72,6 +83,27 @@ public class JavaEEPreferencePage extends PreferencePage implements
 	public boolean performOk() {
 		preferences.setValue(name, showReferences.getSelection());
 		J2EEPlugin.getDefault().savePluginPreferences();
-		return super.performOk();
+		boolean result = false;
+		for(IJavaEEPreferencePageExtender extender : extenders ){
+			result = extender.performOk();
+		}
+		result = super.performOk();
+		return result;
 	}
+	
+	
+	protected void invokeExtensions(Composite parent){
+		List<JavaEEPreferencePageExtension> list = JavaEEPreferencePageExtensionReader.getInstance().getJavaEEPageExtenders();
+		for(JavaEEPreferencePageExtension pageExtension : list ){
+			IJavaEEPreferencePageExtender extender = pageExtension.getInstance();
+			extenders.add(extender);
+			extender.extendPage(parent);
+		}
+	}
+	
+	 public void dispose(){
+			for(IJavaEEPreferencePageExtender extender : extenders ){
+				extender.dispose();
+			}
+	 }
 }
