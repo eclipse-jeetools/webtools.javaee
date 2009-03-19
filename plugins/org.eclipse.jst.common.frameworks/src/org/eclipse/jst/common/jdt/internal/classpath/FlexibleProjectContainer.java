@@ -261,7 +261,7 @@ public abstract class FlexibleProjectContainer
                 
                 for( int j = 0; j < uf.length; j++ )
                 {
-                    final IPath p = uf[ j ].getLocation();
+                    final IPath p = uf[ j ].getFullPath();
                     
                     if( ! jarsHandled.contains( p.lastSegment() ) && 
                         ! isSourceOrOutputDirectory( p ) )
