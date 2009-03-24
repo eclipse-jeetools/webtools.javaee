@@ -704,6 +704,9 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 	}
 	
 	protected IJavaElement getJavaElement(Object obj) {
+		if (obj == null)
+			return null;
+		
 		if (obj instanceof IJavaElement) 
 			return (IJavaElement) obj;
 		
@@ -714,6 +717,9 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 	}
 	
 	protected IResource getResource(Object obj) {
+		if (obj == null)
+			return null;
+		
 		if (obj instanceof IResource) 
 			return (IResource) obj;
 		
