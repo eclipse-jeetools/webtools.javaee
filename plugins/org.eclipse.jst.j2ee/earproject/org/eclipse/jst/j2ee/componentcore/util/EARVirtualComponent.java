@@ -112,6 +112,8 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 								} else {
 									if (referencedIVirtualComponent.isBinary()) {
 										archiveName = getJarURI(referencedComponent, referencedIVirtualComponent);
+									} else if(referencedComponent.getArchiveName() != null){
+										archiveName = referencedComponent.getArchiveName();
 									} else {
 										IProject referencedProject = referencedIVirtualComponent.getProject();
 										// If dependent object is not set, assume
