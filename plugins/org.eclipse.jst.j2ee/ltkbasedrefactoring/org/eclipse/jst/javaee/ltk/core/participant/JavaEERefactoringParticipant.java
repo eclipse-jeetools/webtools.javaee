@@ -11,14 +11,13 @@
 
 package org.eclipse.jst.javaee.ltk.core.participant;
 
-import java.util.Properties;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
-import org.eclipse.jst.j2ee.internal.common.CreationConstants;
+import org.eclipse.jst.j2ee.project.EJBUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.ltk.core.change.DeleteEJBClientProjectChange;
 import org.eclipse.jst.javaee.ltk.core.change.EARReferenceRemoveChange;
@@ -30,7 +29,6 @@ import org.eclipse.ltk.core.refactoring.RefactoringStatus;
 import org.eclipse.ltk.core.refactoring.participants.CheckConditionsContext;
 import org.eclipse.ltk.core.refactoring.participants.DeleteParticipant;
 import org.eclipse.osgi.util.NLS;
-import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraph;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
@@ -90,15 +88,10 @@ public class JavaEERefactoringParticipant extends DeleteParticipant {
 	
 	
 	private IProject getClientProject(IProject ejbProject) {
-
 		if( ejbProject.exists() && ejbProject.isAccessible()){
-			IVirtualComponent comp = ComponentCore.createComponent(ejbProject);;
-			Properties props = comp.getMetaProperties();
-			String clientProjName = props.getProperty(CreationConstants.EJB_CLIENT_NAME);
-			if(clientProjName != null && !clientProjName.equals("")){
-			IProject clientProj = JavaEEProjectUtilities.getProject(clientProjName);
-			if(clientProj != null && clientProj.exists())
-				return clientProj;
+			IVirtualComponent clientComponent = EJBUtilities.getEJBClientJar(ejbProject);
+			if(clientComponent != null){
+				return clientComponent.getProject();
 			}
 		}
 		return null;
