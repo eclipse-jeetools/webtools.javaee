@@ -83,7 +83,7 @@ public class EarHelper extends J2EEValidationHelper {
 		edit = ComponentUtilities.getArtifactEditForRead(comp);
 		
 		try {
-			Archive archive = ((EARArtifactEdit) edit).asArchive(false);
+			Archive archive = ((EARArtifactEdit) edit).asArchive(false, true);
 			earFile = (EARFile)archive;
 			return archive;
 		} catch (OpenFailureException e1) {

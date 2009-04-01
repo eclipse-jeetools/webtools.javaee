@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
@@ -634,13 +635,21 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 
 	public Archive asArchive(boolean includeSource) throws OpenFailureException {
+		return asArchive(includeSource, false);
+	}
+
+	public Archive asArchive(boolean includeSource, boolean readOnly) throws OpenFailureException {
 		if (isBinary()) {
 			return ((EnterpriseBinaryComponentHelper) getBinaryComponentHelper()).accessArchive();
 		} else {
 			WebComponentLoadStrategyImpl loader = new WebComponentLoadStrategyImpl(getComponent());
 			loader.setExportSource(includeSource);
+			loader.setReadOnly(readOnly);
 			String uri = ModuleURIUtil.getHandleString(getComponent());
-			return CommonarchiveFactory.eINSTANCE.openWARFile(loader, uri);
+			ArchiveOptions options = new ArchiveOptions();
+			options.setLoadStrategy(loader);
+			options.setIsReadOnly(readOnly);
+			return CommonarchiveFactory.eINSTANCE.openWARFile(options, uri);
 		}
 	}
 
