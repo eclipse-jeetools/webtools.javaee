@@ -96,7 +96,9 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 					diskFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingDiskFile();
 					if (!diskFile.exists()) {
 						IFile wbFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingWorkbenchFile();
-						diskFile = new File(wbFile.getLocation().toOSString());
+						if (wbFile != null && wbFile.exists()) {
+							diskFile = new File(wbFile.getLocation().toOSString());
+						}
 					}
 				}
 				boolean isModule = false;
