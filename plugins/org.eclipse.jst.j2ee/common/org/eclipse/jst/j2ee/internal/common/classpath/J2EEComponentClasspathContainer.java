@@ -110,7 +110,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			return true;
 		}
 		
-		IVirtualReference[] refs = component instanceof J2EEModuleVirtualComponent ? ((J2EEModuleVirtualComponent)component).getReferences(true, true): component.getReferences();
+		IVirtualReference[] refs = component instanceof J2EEModuleVirtualComponent ? ((J2EEModuleVirtualComponent)component).getReferences(false, true): component.getReferences();
 		IVirtualComponent comp = null;
 
 		// avoid updating the container if references haven't changed
@@ -188,7 +188,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		IVirtualComponent comp = null;
 		IVirtualReference ref = null;
 		
-		IVirtualReference[] refs = component instanceof J2EEModuleVirtualComponent ? ((J2EEModuleVirtualComponent)component).getReferences(true, true): component.getReferences();
+		IVirtualReference[] refs = component instanceof J2EEModuleVirtualComponent ? ((J2EEModuleVirtualComponent)component).getReferences(false, true): component.getReferences();
 
 		List refsList = new ArrayList();
 		Set refedComps = new HashSet();
