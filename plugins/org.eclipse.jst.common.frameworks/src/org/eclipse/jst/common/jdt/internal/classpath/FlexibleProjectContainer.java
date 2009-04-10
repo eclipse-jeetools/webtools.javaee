@@ -178,9 +178,6 @@ public abstract class FlexibleProjectContainer
             return entries;
         }
         
-        final Set existingEntries 
-            = ClasspathUtil.getResolvedClasspath( this.owner, getPath() );
-        
         IVirtualReference[] refs = vc.getReferences();
         IVirtualComponent comp = null;
         Set jarsHandled = new HashSet();
@@ -214,7 +211,7 @@ public abstract class FlexibleProjectContainer
                 newPath = project.getFullPath();    
             }
             
-        	if( newPath != null && ! existingEntries.contains( newPath ) )
+        	if( newPath != null )
             {
                 entries.add( newPath );
         	}
@@ -246,12 +243,8 @@ public abstract class FlexibleProjectContainer
                     
                     if(!jarsHandled.contains(p.lastSegment()) &&  isJarFile( r ) )
                     {
-                        jarsHandled.add(p.lastSegment());
-                        
-                        if( ! existingEntries.contains( p ) )
-                        {
-                        	entries.add( p );
-                        }
+                        jarsHandled.add(p.lastSegment());                  
+                       	entries.add( p );
                     }
                 }
             }
@@ -267,11 +260,7 @@ public abstract class FlexibleProjectContainer
                         ! isSourceOrOutputDirectory( p ) )
                     {
                         jarsHandled.add(p.lastSegment());
-                        
-                        if( ! existingEntries.contains( p ) )
-                        {
-                        	entries.add( p );
-                        }
+                       	entries.add( p );
                     }
                 }
             }
