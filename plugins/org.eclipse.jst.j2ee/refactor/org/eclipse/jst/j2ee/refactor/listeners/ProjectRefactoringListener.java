@@ -11,7 +11,9 @@
 
 package org.eclipse.jst.j2ee.refactor.listeners;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
@@ -27,7 +29,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.refactor.RefactorResourceHandler;
 import org.eclipse.jst.j2ee.refactor.operations.OptionalRefactorHandler;
@@ -39,6 +40,11 @@ import org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphMana
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.IServer;
+import org.eclipse.wst.server.core.IServerWorkingCopy;
+import org.eclipse.wst.server.core.ServerUtil;
+import org.eclipse.wst.server.core.internal.DeletedModule;
 
 /**
  * Listens for project rename/delete events and, if the project had the
@@ -60,14 +66,7 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 	/**
 	 * Maintains a cache of project depencencies;
 	 */
-	//private final ProjectDependencyCache cache;
-	
-	public ProjectRefactoringListener() {//final ProjectDependencyCache dependencyCache) {
-		//cache = dependencyCache;
-		// force a refresh of the DependencyGraphManager; was hitting an NPE
-		// in StructureEdit when the DGM was getting constructed during the receipt of the
-		// first pre-delete event
-		DependencyGraphManager.getInstance();
+	public ProjectRefactoringListener() {
 	}
 	
 	/* (non-Javadoc)
@@ -89,7 +88,7 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 				event.getDelta().accept(this);
 			}
 		} catch (CoreException ce) {
-			Logger.getLogger().logError(ce);
+			J2EEPlugin.logError(ce);
 		}
 	}
 	
@@ -100,7 +99,6 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 		metadata.computeServers();
 		metadata.computeDependentMetadata(ProjectRefactorMetadata.REF_CACHING,
 				DependencyGraphManager.getInstance().getDependencyGraph().getReferencingComponents(project));
-		//, cache.getDependentProjects(project));
 		deletedProjectMetadata.put(project.getName(), metadata);
 	}
 	
@@ -127,15 +125,15 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 
 		if (kind == IResourceDelta.REMOVED) {
 			if (hasDeletedRemovedFlags(flags)) {
-				// Remove all entries int the project dependency cache
-				//cache.removeProject(project);
 				// if the kind is REMOVED and there are no special flags, the project was deleted
 				ProjectRefactorMetadata metadata = (ProjectRefactorMetadata) deletedProjectMetadata.remove(project.getName()); 
 				// note: only projects with ModuleCoreNature will have cached metadata
 				if (metadata != null && OptionalRefactorHandler.getInstance().shouldRefactorDeletedProject(metadata)) {
 					//Delete refactoring is now being done by the LTK refactoring framework
 					//for all java ee modules. Please refer to JavaEERefactoringParticipant
-					//  processDelete(metadata);
+					//we are only cleaning up the server references here
+					updateServerRefs(metadata);
+					
 				} 
 			} 
 		} else if (kind == IResourceDelta.ADDED && hasRenamedAddedFlags(flags)) { // was renamed
@@ -150,18 +148,8 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 			if (originalMetadata != null && OptionalRefactorHandler.getInstance().shouldRefactorRenamedProject(originalMetadata)) {
 				newMetadata.computeMetadata(originalMetadata.getProject());
 				processRename(originalMetadata, newMetadata, delta);
-				// Rename all entries in the project dependency cache
-				//cache.replaceProject(originalProject, project);
-			} else {
-				// likely due to missing the pre-delete event, so set the original to a metadata based on new project
-				// and reset project to one based on original name
-				//Logger.getLogger().logWarning(RefactorResourceHandler.getString("pre_delete_not_received_for_renamed", new Object[]{originalName + " " + flags}));
-			}
+			} 
 		} 
-		//else if (kind == IResourceDelta.CHANGED || kind == IResourceDelta.ADDED) { 
-		// (re)compute the dependencies
-		//cache.refreshDependencies(project);
-		//}		
 	}
 	
 	/*
@@ -200,8 +188,8 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 					dataModel.getDefaultOperation().execute(monitor, null);
 				} catch (Exception e) {
 					final String msg = RefactorResourceHandler.getString("error_updating_project_on_rename", new Object[]{originalMetadata.getProjectName()});
-					Logger.getLogger().logError(msg);
-					Logger.getLogger().logError(e);
+					J2EEPlugin.logError(msg);
+					J2EEPlugin.logError(e);
 					return new Status(Status.ERROR, J2EEPlugin.PLUGIN_ID, 0, msg, e);
 				}				
 				return Status.OK_STATUS;
@@ -216,5 +204,47 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 		job.schedule();
 	}
 	
+	private void updateServerRefs(final ProjectRefactorMetadata refactorMetadata) {
+		WorkspaceJob job = new WorkspaceJob("ServerRefreshJob") { //$NON-NLS-1$
+			public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
+				final IModule moduleToRemove = refactorMetadata.getModule();
+				if (moduleToRemove == null) {
+					return Status.OK_STATUS;
+				}
+				// Need to replace the original module with a DeletedModule
+				final IModule[] toUpdate = new IModule[1];
+				toUpdate[0] = new DeletedModule(moduleToRemove.getId(), moduleToRemove
+						.getName(), moduleToRemove.getModuleType());
+				IServer[] affectedServers = refactorMetadata.getServers();
+				IServerWorkingCopy wc = null;
+				for (int i = 0; i < affectedServers.length; i++) {
+					try {
+						wc = affectedServers[i].createWorkingCopy();
+						List list = Arrays.asList(affectedServers[i].getModules());
+						if (list.contains(moduleToRemove)) {
+							ServerUtil.modifyModules(wc, null, toUpdate, null);
+						}
+					} catch (CoreException ce) {
+						J2EEPlugin.logError(ce);
+					} finally {
+						try {
+							if (wc != null) {
+								wc.saveAll(true, null);
+							}
+						} catch (CoreException ce) {
+							J2EEPlugin.logError(ce);
+						}
+					}
+				}
+				return Status.OK_STATUS;
+			}
+			
+			public boolean belongsTo(final Object family) {
+				return ProjectRefactoringListener.PROJECT_REFACTORING_JOB_FAMILY.equals(family);
+			}
+		};
+		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
+		job.schedule();
+	}	
 	
 }

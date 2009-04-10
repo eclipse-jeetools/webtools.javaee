@@ -82,6 +82,7 @@ import org.eclipse.wst.validation.internal.operations.ValidatorManager;
 import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import java.lang.Throwable;
 
 /**
  * This is a top-level class of the j2ee plugin.
@@ -690,6 +691,10 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 
 	public static void logError(CoreException exception) {
 		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( exception.getStatus() );
+	}
+
+	public static void logError(String message) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( createStatus(IStatus.ERROR, message));
 	} 
 
 }
