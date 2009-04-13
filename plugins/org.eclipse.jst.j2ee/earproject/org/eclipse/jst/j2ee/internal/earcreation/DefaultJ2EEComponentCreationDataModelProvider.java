@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.internal.earcreation;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
@@ -63,6 +64,8 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 	private IDataModel jcaFacetModel;
 	private IDataModel clientModel;
 	private IDataModel clientFacetModel;
+	
+	private List <IDataModel> extendedModelsToDispose = new ArrayList<IDataModel>();
 
 	public DefaultJ2EEComponentCreationDataModelProvider() {
 		super();
@@ -103,6 +106,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 
 	protected void initNestedCreationModels() {
 		clientModel = DataModelFactory.createDataModel(new AppClientFacetProjectCreationDataModelProvider());
+		extendedModelsToDispose.add(clientModel);
 		model.addNestedModel(NESTED_MODEL_CLIENT, clientModel);
 		clientFacetModel = ((FacetDataModelMap)clientModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP)).getFacetDataModel(J2EEProjectUtilities.APPLICATION_CLIENT);
 		clientFacetModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, false);
@@ -112,6 +116,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 		if (ejbExt != null) {
 			ejbModel = ejbExt.createProjectDataModel();
 			if (ejbModel != null){
+				extendedModelsToDispose.add(ejbModel);
 				model.addNestedModel(NESTED_MODEL_EJB, ejbModel);
 				ejbFacetModel = ((FacetDataModelMap)ejbModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP)).getFacetDataModel(J2EEProjectUtilities.EJB);
 				ejbFacetModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, false);
@@ -122,6 +127,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 		if (webExt != null) {
 			webModel = webExt.createProjectDataModel();
 			if (webModel != null){
+				extendedModelsToDispose.add(webModel);
 				model.addNestedModel(NESTED_MODEL_WEB, webModel);
 				webFacetModel = ((FacetDataModelMap)webModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP)).getFacetDataModel(J2EEProjectUtilities.DYNAMIC_WEB);
 				webFacetModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, false);
@@ -132,6 +138,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 		if (rarExt != null) {
 			jcaModel = rarExt.createProjectDataModel();
 			if (jcaModel != null){
+				extendedModelsToDispose.add(jcaModel);
 				model.addNestedModel(NESTED_MODEL_JCA, jcaModel);
 				jcaFacetModel = ((FacetDataModelMap)jcaModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP)).getFacetDataModel(J2EEProjectUtilities.JCA);
 				jcaFacetModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, false);
@@ -453,5 +460,14 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 		if (propertyName.equals(WEB_COMPONENT_NAME))
 			return getBooleanProperty(CREATE_WEB);
 		return super.isPropertyEnabled(propertyName);
+	}
+	
+	@Override
+	public void dispose() {
+		for(IDataModel dm: extendedModelsToDispose){
+			dm.dispose();
+		}
+		extendedModelsToDispose.clear();
+		super.dispose();
 	}
 }

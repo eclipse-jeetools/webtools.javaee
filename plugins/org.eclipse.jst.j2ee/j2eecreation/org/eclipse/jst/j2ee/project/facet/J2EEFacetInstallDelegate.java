@@ -71,68 +71,77 @@ public abstract class J2EEFacetInstallDelegate {
 		if( project.exists())
 			return;
 		
-		final IFacetedProjectWorkingCopy fpjwc = FacetedProjectFramework.createNewProject();
-		
-		fpjwc.setProjectName( earProjectName );
-		
-		if( runtime != null )
-		{
-		    fpjwc.setTargetedRuntimes( Collections.singleton( runtime ) );
-		}
-		
-		fpjwc.setFixedProjectFacets( Collections.singleton( EARFacetUtils.EAR_FACET ) );
-		fpjwc.setSelectedPreset( FacetedProjectFramework.DEFAULT_CONFIGURATION_PRESET_ID );
-		
-		if( j2eeVersionText != null )
-		{
-		    final IProjectFacetVersion defaultEarFacetVersion
-		        = fpjwc.getProjectFacetVersion( EARFacetUtils.EAR_FACET );
-		    
-		    if( ! defaultEarFacetVersion.getVersionString().equals( j2eeVersionText ) )
-		    {
-		        String presetId = null;
-		        
-		        if( runtime != null )
-		        {
-    		        for( IRuntimeComponent rc : runtime.getRuntimeComponents() )
-    		        {
-    		            presetId = RuntimePresetMappingRegistry.INSTANCE.getPresetID
-    		            ( 
-    		                rc.getRuntimeComponentType().getId(),
-    		                rc.getRuntimeComponentVersion().getVersionString(), 
-    		                EARFacetUtils.EAR_FACET.getId(), 
-    		                j2eeVersionText 
-    		            );
-    		            
-    		            if( presetId != null )
-    		            {
-    		                break;
-    		            }
-    		        }
-		        }
-		        
-                final IProjectFacetVersion earFacetVersion
-                    = EARFacetUtils.EAR_FACET.getVersion( j2eeVersionText );
-            
-                // Note that the next call is necessary even if a preset is going to be selected 
-                // later since it allows the dynamic preset to adjust for the ear facet version.
-                
-                fpjwc.setProjectFacets( Collections.singleton( earFacetVersion ) );
-                
-		        if( presetId != null )
-		        {
-		            fpjwc.setSelectedPreset( presetId );
-		        }
-		    }
-		}
-		
+		IFacetedProjectWorkingCopy fpjwc = null;
 		try
-		{
-		    fpjwc.commitChanges( null );
-		}
-		catch( CoreException e )
-		{
-		    Logger.getLogger().logError( e );
+		{	
+			fpjwc = FacetedProjectFramework.createNewProject();		
+		
+		
+			fpjwc.setProjectName( earProjectName );
+			
+			if( runtime != null )
+			{
+			    fpjwc.setTargetedRuntimes( Collections.singleton( runtime ) );
+			}
+			
+			fpjwc.setFixedProjectFacets( Collections.singleton( EARFacetUtils.EAR_FACET ) );
+			fpjwc.setSelectedPreset( FacetedProjectFramework.DEFAULT_CONFIGURATION_PRESET_ID );
+			
+			if( j2eeVersionText != null )
+			{
+			    final IProjectFacetVersion defaultEarFacetVersion
+			        = fpjwc.getProjectFacetVersion( EARFacetUtils.EAR_FACET );
+			    
+			    if( ! defaultEarFacetVersion.getVersionString().equals( j2eeVersionText ) )
+			    {
+			        String presetId = null;
+			        
+			        if( runtime != null )
+			        {
+	    		        for( IRuntimeComponent rc : runtime.getRuntimeComponents() )
+	    		        {
+	    		            presetId = RuntimePresetMappingRegistry.INSTANCE.getPresetID
+	    		            ( 
+	    		                rc.getRuntimeComponentType().getId(),
+	    		                rc.getRuntimeComponentVersion().getVersionString(), 
+	    		                EARFacetUtils.EAR_FACET.getId(), 
+	    		                j2eeVersionText 
+	    		            );
+	    		            
+	    		            if( presetId != null )
+	    		            {
+	    		                break;
+	    		            }
+	    		        }
+			        }
+			        
+	                final IProjectFacetVersion earFacetVersion
+	                    = EARFacetUtils.EAR_FACET.getVersion( j2eeVersionText );
+	            
+	                // Note that the next call is necessary even if a preset is going to be selected 
+	                // later since it allows the dynamic preset to adjust for the ear facet version.
+	                
+	                fpjwc.setProjectFacets( Collections.singleton( earFacetVersion ) );
+	                
+			        if( presetId != null )
+			        {
+			            fpjwc.setSelectedPreset( presetId );
+			        }
+			    }
+			}
+			
+			try
+			{
+			    fpjwc.commitChanges( null );
+			}
+			catch( CoreException e )
+			{
+			    Logger.getLogger().logError( e );
+			}
+		}finally {
+			if(fpjwc != null){
+				fpjwc.dispose();
+			}
 		}
 	}
 	
