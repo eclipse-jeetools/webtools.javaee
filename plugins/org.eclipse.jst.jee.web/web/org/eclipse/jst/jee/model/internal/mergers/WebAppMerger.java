@@ -85,6 +85,7 @@ public class WebAppMerger  extends ModelElementMerger {
       mergeRunAs(warnings);
       mergeJNDIRefs(warnings);
       mergeSecurityRoles(warnings);
+      mergeSecurityConstraints(warnings);
     } catch (Exception e) {
       throw new ModelException(e);
     }
@@ -164,6 +165,15 @@ public class WebAppMerger  extends ModelElementMerger {
       }
     }
   }
+  
+  private void mergeSecurityConstraints(List warnings) {
+	    List securityConstraints = getBaseWebApp().getSecurityConstraints();
+	    List securityConstraintsToMerge = getToMergeWebApp().getSecurityConstraints();
+	    if (securityConstraintsToMerge == null){
+	      return;
+	    }
+	    copyMissingContentInBase(securityConstraintsToMerge, securityConstraints);
+	  }
 
   private boolean containsSecRole(SecurityRole secRole, List secRoles){
     for (Object sRoles : secRoles) {
