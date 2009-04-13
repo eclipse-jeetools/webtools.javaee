@@ -11,11 +11,8 @@
 package org.eclipse.jst.j2ee.internal.common.classpath;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -32,11 +29,6 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jdt.internal.core.ClasspathEntry;
-import org.eclipse.jdt.internal.core.JavaProject;
-import org.eclipse.jdt.internal.core.util.Util;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.jdt.internal.classpath.ClasspathDecorations;
 import org.eclipse.jst.common.jdt.internal.classpath.ClasspathDecorationsManager;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
@@ -51,7 +43,6 @@ import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphManager;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -80,12 +71,10 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	private IClasspathEntry[] entries = new IClasspathEntry[0];
 	private boolean exportEntries = true; //the default behavior is to always export these dependencies
 	private static Map keys = new Hashtable();
-	private static Map previousSelves = new Hashtable();
 	private static int MAX_RETRIES = 10;
 	private static Map retries = new Hashtable();
 	
 	private class LastUpdate {
-		private long dotClasspathModificationStamp = -1;
 		private int refCount = 0;
 		private boolean[] isBinary = new boolean[refCount];
 		private IPath[] paths = new IPath[refCount];
@@ -102,12 +91,6 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		IVirtualComponent component = ComponentCore.createComponent(javaProject.getProject());
 		if (component == null) {
 			return false;
-		}
-		
-		IFile dotClasspath = javaProject.getProject().getFile(ProjectUtilities.DOT_CLASSPATH);
-		long dotClasspathModificationStamp = dotClasspath.exists() ? dotClasspath.getModificationStamp() : 0;
-		if(dotClasspathModificationStamp != lastUpdate.dotClasspathModificationStamp){
-			return true;
 		}
 		
 		IVirtualReference[] refs = component instanceof J2EEModuleVirtualComponent ? ((J2EEModuleVirtualComponent)component).getReferences(false, true): component.getReferences();
@@ -152,7 +135,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 					return;
 				}
 			} catch (JavaModelException e) {
-				Logger.getLogger().logError(e);
+				J2EEPlugin.logError(e);
 			} catch (CoreException e) {
 				//ignore 
 				return;
@@ -160,13 +143,17 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		}
 		
 		IVirtualComponent component = ComponentCore.createComponent(javaProject.getProject());
-		Object key = keys.get(new Integer(javaProject.getProject().hashCode()));
-		J2EEComponentClasspathContainer firstPreviousSelf = (J2EEComponentClasspathContainer)previousSelves.get(key);
 		if (component == null) {
 			return;
 		} 
-		
+		Object key = null;
 		if(!javaProject.getProject().getFile(StructureEdit.MODULE_META_FILE_NAME).exists()){
+			Integer hashCode = new Integer(javaProject.getProject().hashCode());
+			key = keys.get(hashCode);
+			if(key == null){
+				keys.put(hashCode, hashCode);
+				key = hashCode;
+			}
 			Integer retryCount = (Integer)retries.get(key);
 			if(retryCount == null){
 				retryCount = new Integer(1);
@@ -179,11 +166,11 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			J2EEComponentClasspathUpdater.getInstance().queueUpdate(javaProject.getProject());
 			return;
 		} else {
-			retries.remove(key);
+			if(key != null){
+				retries.remove(key);
+				keys.remove(key);
+			}
 		}
-		
-		IFile dotClasspath = javaProject.getProject().getFile(ProjectUtilities.DOT_CLASSPATH);
-		lastUpdate.dotClasspathModificationStamp = dotClasspath.exists() ? dotClasspath.getModificationStamp() : 0;
 		
 		IVirtualComponent comp = null;
 		IVirtualReference ref = null;
@@ -269,30 +256,8 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 						}
 					}
 				}  catch (JavaModelException e) {
-					Logger.getLogger().logError(e);
+					J2EEPlugin.logError(e);
 				}
-			}
-			
-			Collection <IClasspathEntry> existingEntries = new ArrayList<IClasspathEntry>();
-			try {
-				IClasspathContainer container = JavaCore.getClasspathContainer(CONTAINER_PATH, javaProject);
-				IClasspathEntry[] previousEntries  = null;
-				if(null != container){
-					previousEntries = container.getClasspathEntries();
-				}
-				existingEntries.addAll(Arrays.asList(javaProject.getResolvedClasspath(true)));
-				removeMatchingEntries(previousEntries, existingEntries);
-				
-				if(firstPreviousSelf != null){
-					removeMatchingEntries(firstPreviousSelf.entries, existingEntries);
-				}
-				J2EEComponentClasspathContainer secondPreviousSelf = (J2EEComponentClasspathContainer)previousSelves.get(key);
-				if(firstPreviousSelf != secondPreviousSelf && secondPreviousSelf != null){
-					removeMatchingEntries(secondPreviousSelf.entries, existingEntries);
-				}
-				removeMatchingEntries(entries, existingEntries);
-			} catch (JavaModelException e) {
-				Logger.getLogger().logError(e);
 			}
 			
 			for (int i = 0; i < refsList.size(); i++) {
@@ -316,32 +281,24 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 						IFile iFile = archiveComp.getUnderlyingWorkbenchFile();
 						lastUpdate.paths[i] = iFile.getFullPath();
 					}
-					if (!isAlreadyOnClasspath(existingEntries, lastUpdate.paths[i])) {
-						ClasspathDecorations dec = decorationsManager.getDecorations( getPath().toString(), lastUpdate.paths[i].toString() );
-						
-						IPath srcpath = null;
-				        IPath srcrootpath = null;
-				        IClasspathAttribute[] attrs = {};
-				        IAccessRule[] access = {};
-						
-				        if( dec != null ) {
-				            srcpath = dec.getSourceAttachmentPath();
-				            srcrootpath = dec.getSourceAttachmentRootPath();
-				            attrs = dec.getExtraAttributes();
-				        }
-			        
-//				        entriesList.add(JavaCore.newLibraryEntry( lastUpdate.paths[i], srcpath, srcrootpath, access, attrs, exportEntries ));
-				        IClasspathEntry newEntry = JavaCore.newLibraryEntry( lastUpdate.paths[i], srcpath, srcrootpath, access, attrs, exportEntries ); 
-				        entriesList.add(newEntry);
-				        existingEntries.add(newEntry);
-				        
-					}
+					ClasspathDecorations dec = decorationsManager.getDecorations( getPath().toString(), lastUpdate.paths[i].toString() );
+					
+					IPath srcpath = null;
+			        IPath srcrootpath = null;
+			        IClasspathAttribute[] attrs = {};
+			        IAccessRule[] access = {};
+					
+			        if( dec != null ) {
+			            srcpath = dec.getSourceAttachmentPath();
+			            srcrootpath = dec.getSourceAttachmentRootPath();
+			            attrs = dec.getExtraAttributes();
+			        }
+			        IClasspathEntry newEntry = JavaCore.newLibraryEntry( lastUpdate.paths[i], srcpath, srcrootpath, access, attrs, exportEntries ); 
+			        entriesList.add(newEntry);
 				} else {
 					IProject project = comp.getProject();
 					lastUpdate.paths[i] = project.getFullPath();
-					if (!isAlreadyOnClasspath(existingEntries, lastUpdate.paths[i])) {
-						entriesList.add(JavaCore.newProjectEntry(lastUpdate.paths[i], exportEntries));
-					}
+					entriesList.add(JavaCore.newProjectEntry(lastUpdate.paths[i], exportEntries));
 				}
 			}
 		} finally {
@@ -350,42 +307,19 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 				entries[i] = (IClasspathEntry) entriesList.get(i);
 			}
 		}
-		previousSelves.put(key, this);
-	}
-
-	private void removeMatchingEntries(IClasspathEntry [] oldEntries, Collection<IClasspathEntry> existingEntries) {
-		if(oldEntries != null){
-			for(IClasspathEntry oldEntry : oldEntries){
-				Iterator <IClasspathEntry> iterator = existingEntries.iterator();
-				while(iterator.hasNext()){
-					IClasspathEntry existingEntry = iterator.next(); 
-					if(isAlreadyOnClasspath(existingEntry, oldEntry.getPath())){
-						iterator.remove();
-						break;
-					}
-				}
-			}
-		}
 	}
 
 	public static void install(IPath containerPath, IJavaProject javaProject) {
 		try{
 			J2EEComponentClasspathUpdater.getInstance().pauseUpdates();
-			Integer hashCode = new Integer(javaProject.getProject().hashCode());
-			Object key = keys.get(hashCode);
-			if(key == null){
-				keys.put(hashCode, hashCode);
-				key = hashCode;
-			}
 			final IJavaProject[] projects = new IJavaProject[]{javaProject};
 			final J2EEComponentClasspathContainer container = new J2EEComponentClasspathContainer(containerPath, javaProject);
 			container.update();
 			final IClasspathContainer[] conts = new IClasspathContainer[]{container};
 			try {
 				JavaCore.setClasspathContainer(containerPath, projects, conts, null);
-				previousSelves.put(key, container);
 			} catch (JavaModelException e) {
-				Logger.getLogger().log(e);
+				J2EEPlugin.logError(e);
 			}
 		} finally {
 			J2EEComponentClasspathUpdater.getInstance().resumeUpdates();
@@ -395,13 +329,6 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	public void refresh(boolean force){
 		if(force || requiresUpdate()){
 			install(containerPath, javaProject);
-			if (J2EEComponentClasspathUpdater.shouldUpdateDependencyGraph())
-			{
-				// Update dependency graph
-				DependencyGraphManager.getInstance().forceRefresh();
-				// [202820]
-				J2EEComponentClasspathUpdater.setUpdateDependencyGraph(false);
-			}
 		}
 	}
 	
@@ -435,42 +362,6 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 
 	public IPath getPath() {
 		return containerPath;
-	}
-
-	/**
-	 * Taken from {@link JavaProject#isOnClasspath(org.eclipse.core.resources.IResource)}
-	 * 
-	 * @param classpath
-	 * @param newPath
-	 * @return
-	 */
-	private static boolean isAlreadyOnClasspath(Collection<IClasspathEntry> classpath, IPath newPath) {
-		for (Iterator itr = classpath.iterator(); itr.hasNext();) {
-			IClasspathEntry entry = (IClasspathEntry) itr.next();
-			if(isAlreadyOnClasspath(entry, newPath)){
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * Taken from {@link JavaProject#isOnClasspath(org.eclipse.core.resources.IResource)}
-	 * 
-	 * @param classpath
-	 * @param newPath
-	 * @return
-	 */
-	private static boolean isAlreadyOnClasspath(IClasspathEntry classpathEntry, IPath newPath){
-		IPath entryPath = classpathEntry.getPath();
-		if (entryPath.equals(newPath)) { // package fragment roots must match exactly entry
-			// paths (no exclusion there)
-			return true;
-		}
-		if (entryPath.isPrefixOf(newPath) && !Util.isExcluded(newPath, ((ClasspathEntry) classpathEntry).fullInclusionPatternChars(), ((ClasspathEntry) classpathEntry).fullExclusionPatternChars(), false)) {
-			return true;
-		}
-		return false;
 	}
 
 	/**

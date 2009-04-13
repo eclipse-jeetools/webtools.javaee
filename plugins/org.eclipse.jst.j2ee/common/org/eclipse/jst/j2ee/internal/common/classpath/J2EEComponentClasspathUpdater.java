@@ -41,7 +41,6 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainer;
 import org.eclipse.jst.j2ee.application.internal.operations.IModuleExtensions;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
@@ -486,7 +485,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		}
 		case IResource.FILE: {
 			String name = resource.getName();
-			if (name.equals(WTPModulesResourceFactory.WTP_MODULES_SHORT_NAME) || name.equals(ProjectUtilities.DOT_CLASSPATH)) {
+			if (name.equals(WTPModulesResourceFactory.WTP_MODULES_SHORT_NAME)) {
 				queueUpdate(resource.getProject());
 			} else if (name.equals(J2EEConstants.MANIFEST_SHORT_NAME)) { // MANIFEST.MF must be all caps per spec
 				IFile manifestFile = J2EEProjectUtilities.getManifestFile(resource.getProject(), false);
