@@ -123,6 +123,7 @@ public class Session2xInterfacesTable extends Composite {
 		createTableViewer();
 		
 		final OpenTypeSelectionDialog dialog = new OpenTypeSelectionDialog(parent.getShell(), false, null, SearchEngine.createWorkspaceScope(), IJavaSearchConstants.INTERFACE);
+		dialog.setTitle(EJBUIMessages.chooseInterface);
 		
 		setInput(tableValues);
 		TableItem[] items = getTable().getItems();
@@ -138,7 +139,7 @@ public class Session2xInterfacesTable extends Composite {
 					
 				}
 
-				public void widgetSelected(SelectionEvent e) {					
+				public void widgetSelected(SelectionEvent e) {
 					if (dialog.open() != IDialogConstants.OK_ID)
 						return;
 
