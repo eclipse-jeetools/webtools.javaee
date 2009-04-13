@@ -46,43 +46,46 @@ public class EjbClientProjectCreationOperation
 		
 		org.eclipse.wst.common.project.facet.core.runtime.IRuntime runtime = (IRuntime) model.getProperty(IJavaUtilityProjectCreationDataModelProperties.RUNTIME);
 		
-		IDataModel dm = DataModelFactory.createDataModel(new UtilityProjectCreationDataModelProvider());
+		IDataModel dm = null;
+		try{
+			dm = DataModelFactory.createDataModel(new UtilityProjectCreationDataModelProvider());
 		
-		
-		//IDataModel pdm = dm.getNestedModel( IFacetProjectCreationDataModelProperties.NESTED_PROJECT_DM );
-		//pdm.setStringProperty( IProjectCreationPropertiesNew.PROJECT_LOCATION, model.getStringProperty( IJavaUtilityProjectCreationDataModelProperties.PROJECT_LOCATION ) );
-		
-		FacetDataModelMap map = (FacetDataModelMap) dm.getProperty(UtilityProjectCreationDataModelProvider.FACET_DM_MAP);
-		
-		IDataModel javadm = map.getFacetDataModel( IModuleConstants.JST_JAVA );
-		IDataModel utildm = map.getFacetDataModel( J2EEProjectUtilities.UTILITY );
-		
-		
-		javadm.setProperty( JavaFacetInstallDataModelProvider.FACET_PROJECT_NAME,
-				projectName);
-		
-		
-		javadm.setProperty( JavaFacetInstallDataModelProvider.SOURCE_FOLDER_NAME,
-				javaSourceFolder);
-
-		//		 if the parent data model has set these properties we will use it, or else default to the utility facet install
-		if(model.isPropertySet(ADD_TO_EAR))
-			utildm.setProperty(IUtilityFacetInstallDataModelProperties.ADD_TO_EAR, model.getProperty(ADD_TO_EAR));
-
-		if(model.isPropertySet(CLIENT_URI))
-			utildm.setProperty(IUtilityFacetInstallDataModelProperties.MODULE_URI, model.getProperty(CLIENT_URI));
-		
-
-		utildm.setProperty( IUtilityFacetInstallDataModelProperties.EAR_PROJECT_NAME, earProjectName);
-		
-		utildm.setProperty( IUtilityFacetInstallDataModelProperties.FACET_RUNTIME, runtime );
-		dm.setProperty(UtilityProjectCreationDataModelProvider.FACET_RUNTIME, runtime);
-
-		FacetProjectCreationOperation op = new FacetProjectCreationOperation(dm);
-		try {
-			stat = op.execute( monitor, null );
-		} catch (ExecutionException e) {
-			EjbPlugin.logError(e);
+			FacetDataModelMap map = (FacetDataModelMap) dm.getProperty(UtilityProjectCreationDataModelProvider.FACET_DM_MAP);
+			
+			IDataModel javadm = map.getFacetDataModel( IModuleConstants.JST_JAVA );
+			IDataModel utildm = map.getFacetDataModel( J2EEProjectUtilities.UTILITY );
+			
+			
+			javadm.setProperty( JavaFacetInstallDataModelProvider.FACET_PROJECT_NAME,
+					projectName);
+			
+			
+			javadm.setProperty( JavaFacetInstallDataModelProvider.SOURCE_FOLDER_NAME,
+					javaSourceFolder);
+	
+			//		 if the parent data model has set these properties we will use it, or else default to the utility facet install
+			if(model.isPropertySet(ADD_TO_EAR))
+				utildm.setProperty(IUtilityFacetInstallDataModelProperties.ADD_TO_EAR, model.getProperty(ADD_TO_EAR));
+	
+			if(model.isPropertySet(CLIENT_URI))
+				utildm.setProperty(IUtilityFacetInstallDataModelProperties.MODULE_URI, model.getProperty(CLIENT_URI));
+			
+	
+			utildm.setProperty( IUtilityFacetInstallDataModelProperties.EAR_PROJECT_NAME, earProjectName);
+			
+			utildm.setProperty( IUtilityFacetInstallDataModelProperties.FACET_RUNTIME, runtime );
+			dm.setProperty(UtilityProjectCreationDataModelProvider.FACET_RUNTIME, runtime);
+	
+			FacetProjectCreationOperation op = new FacetProjectCreationOperation(dm);
+			try {
+				stat = op.execute( monitor, null );
+			} catch (ExecutionException e) {
+				EjbPlugin.logError(e);
+			}
+		} finally {
+			if(dm != null){
+				dm.dispose();
+			}
 		}
 		return stat;
 	}
