@@ -214,10 +214,6 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 		
 		private boolean physicallyOpen = true;
 		
-		public BinaryZipFileLoadStrategy() {
-			super();
-		}
-
 		public BinaryZipFileLoadStrategy(java.io.File file) throws IOException {
 			super(file);
 		}
