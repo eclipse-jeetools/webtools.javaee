@@ -55,7 +55,7 @@ public class GroupWelcomePagesItemProvider extends AbstractGroupProvider{
               List welcomeFiles = ((WelcomeFileList)object).getWelcomeFiles();
               for (Object object2 : welcomeFiles) {
                 if(object2 != null && !"".equals( ((String)object2).trim())){ //$NON-NLS-1$
-                  children.add(new WebArtifactNode((String) object2, getWelcomePageImage()));
+                	children.add(new WebArtifactNode((WebApp)javaee, (String) object2, getWelcomePageImage()));
                 }
               }
             }

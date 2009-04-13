@@ -53,6 +53,7 @@ import org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanInterfaceNode;
 import org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanNode;
 import org.eclipse.jst.jee.ui.internal.navigator.ejb.GroupEJBProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider;
+import org.eclipse.jst.jee.ui.internal.navigator.web.WebArtifactNode;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
@@ -275,6 +276,11 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 				openAppropriateEditor(file);
 				return;
 			}
+		} else if (srcObject instanceof AbstractGroupProvider){ 
+ 			openEObject((EObject) ((AbstractGroupProvider)srcObject).getJavaEEObject()); 
+ 		} else if(srcObject instanceof WebArtifactNode){ 
+ 			openEObject((EObject) ((WebArtifactNode)srcObject).getJavaEEObject()); 
+
 		} else if (srcObject instanceof GroupEJBProvider) {
 			openEObject((EObject) ((GroupEJBProvider)srcObject).getEjbJar());
 		} else if (srcObject instanceof GroupEARProvider) {

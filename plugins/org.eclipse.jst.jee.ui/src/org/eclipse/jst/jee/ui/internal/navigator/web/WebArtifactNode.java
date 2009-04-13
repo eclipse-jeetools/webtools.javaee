@@ -10,6 +10,7 @@
  ***********************************************************************/
 package org.eclipse.jst.jee.ui.internal.navigator.web;
 
+import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.swt.graphics.Image;
 
 /**
@@ -20,16 +21,19 @@ import org.eclipse.swt.graphics.Image;
  * @author Dimitar Giormov
  *
  */
-public class WebArtifactNode {
+public class WebArtifactNode implements JavaEEObject{
 
 	private Image image;
 	private String text;
-
-	public WebArtifactNode(String text, Image image) {
-		super();
+ 	private JavaEEObject javaee; 
+ 	  
+	public WebArtifactNode(JavaEEObject javaee, String text, Image image) { 
+		super(); 
+ 		this.javaee = javaee; 
 		this.text = text;
-		this.image = image;
-	}
+		this.image = image; 
+	} 
+
 
 	public Image getImage() {
 		return image;
@@ -37,6 +41,10 @@ public class WebArtifactNode {
 
 	public String getText() {
 		return text;
+	}
+
+	public JavaEEObject getJavaEEObject() {
+		return javaee;
 	}
 
 }
