@@ -15,14 +15,12 @@ package org.eclipse.jst.j2ee.internal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.IWorkspaceRunnable;
@@ -35,7 +33,6 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.ui.wizards.BuildPathDialogAccess;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
@@ -46,10 +43,7 @@ import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.RemoveComponentFromEnterpriseApplicationDataModelProvider;
-import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
-import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
@@ -93,9 +87,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
-import org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphManager;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
-import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
@@ -159,7 +151,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 				}
 			}
 		} catch (CoreException e) {
-			Logger.getLogger().log(e);
+			J2EEUIPlugin.logError(e);
 		}
 		
 		if(hasEE5Facet){
@@ -295,7 +287,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 			try {
 				op.execute(monitor, null);
 			} catch (ExecutionException e) {
-				Logger.getLogger().log(e);
+				J2EEUIPlugin.logError(e);
 			}
 		}
 	}
@@ -326,7 +318,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		try {
 			dm.getDefaultOperation().execute(monitor, null);
 		} catch (ExecutionException e) {
-			Logger.getLogger().log(e);
+			J2EEUIPlugin.logError(e);
 		}		
 	}
 	
@@ -360,7 +352,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 					refdm.getDefaultOperation().execute(monitor, null);
 					j2eeCompList.add(targetcomponent);
 				} catch (ExecutionException e) {
-					Logger.getLogger().log(e);
+					J2EEUIPlugin.logError(e);
 				}
 			}
 			EarFacetRuntimeHandler.updateModuleProjectRuntime(earComponent.getProject(), moduleProjects, new NullProgressMonitor());
@@ -395,11 +387,11 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 				}
 			}
 		} catch (Exception e) {
-			Logger.getLogger().log(e);
+			J2EEUIPlugin.logError(e);
 		}
 		
 		//[Bug 238264] clear out the cache because they should all either be added as references now
-		//	or no longer checked and therefor not wanted by the user
+		//	or no longer checked and therefore not wanted by the user
 		this.addedJARComponents.clear();
 		
 		return OK_STATUS;
@@ -408,16 +400,13 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	private void remComps(List list, String path) {
 		if( !list.isEmpty()){
 			try {
-				// retrieve all dependencies on these components within the scope of the EAR
-				Map dependentComps = getEARModuleDependencies(earComponent, list);
 				// remove the components from the EAR
 				IDataModelOperation op = removeComponentFromEAROperation(earComponent, list, path);
 				op.execute(null, null);
 				// if that succeeded, remove all EAR-scope J2EE dependencies on these components
 				J2EEComponentClasspathUpdater.getInstance().queueUpdateEAR(earComponent.getProject());
-				removeEARComponentDependencies(dependentComps);
 			} catch (ExecutionException e) {
-				Logger.getLogger().log(e);
+				J2EEUIPlugin.logError(e);
 			}
 		}	
 	}
@@ -439,100 +428,6 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		}
 		return stat;
 	}		
-	
-	private Map getEARModuleDependencies(final IVirtualComponent earComponent, final List components) {
-		final Map dependentComps = new HashMap();
-		// get all current references to project within the scope of this EAR
-		for (int i = 0; i < components.size(); i++) {
-			
-			final List compsForProject = new ArrayList();
-			final IVirtualComponent comp = (IVirtualComponent) components.get(i);
-			final IProject[] dependentProjects = DependencyGraphManager.getInstance().getDependencyGraph().getReferencingComponents(comp.getProject());
-			for (int j = 0; j < dependentProjects.length; j++) {
-				final IProject project = dependentProjects[j];
-				// if this is an EAR, can skip
-				if (J2EEProjectUtilities.isEARProject(project)) {
-					continue;
-				}
-				final IVirtualComponent dependentComp = ComponentCore.createComponent(project);
-				// ensure that the project's share an EAR
-				final IProject[] refEARs = J2EEProjectUtilities.getReferencingEARProjects(project);
-				boolean sameEAR = false;
-				for (int k = 0; k < refEARs.length; k++) {
-					if (refEARs[k].equals(earComponent.getProject())) {
-						sameEAR = true;
-						break;
-					}
-				}
-				if (!sameEAR) {
-					continue;
-				}
-				// if the dependency is a web lib dependency, can skip
-				if (J2EEProjectUtilities.isDynamicWebProject(project)) {
-					IVirtualReference ref = dependentComp.getReference(comp.getName());
-					if (ref != null && ref.getRuntimePath().equals(new Path("/WEB-INF/lib"))) { //$NON-NLS-1$
-						continue;
-					}
-				}
-				compsForProject.add(dependentComp);
-			}
-			dependentComps.put(comp, compsForProject);
-		}
-		return dependentComps;
-	}
-	
-	private void removeEARComponentDependencies(final Map dependentComps) throws ExecutionException {
-		final Iterator targets = dependentComps.keySet().iterator();
-		while (targets.hasNext()) {
-			final IVirtualComponent target = (IVirtualComponent) targets.next();
-			final List sources = (List) dependentComps.get(target);
-			for (int i = 0; i < sources.size(); i++) {
-				final IVirtualComponent source = (IVirtualComponent) sources.get(i);
-				final IDataModel model = DataModelFactory.createDataModel(new RemoveReferenceComponentsDataModelProvider());
-				model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, source);
-				final List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
-				modHandlesList.add(target);
-				model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modHandlesList);
-				model.getDefaultOperation().execute(null, null);
-				// update the manifest
-				removeManifestDependency(source, target);
-			}
-		}
-	}
-	
-	private void removeManifestDependency(final IVirtualComponent source, final IVirtualComponent target) 
-		throws ExecutionException {
-		final String sourceProjName = source.getProject().getName();
-		String targetProjName; 
-		if (target instanceof J2EEModuleVirtualArchiveComponent) {
-			targetProjName = ((J2EEModuleVirtualArchiveComponent)target).getName();
-			String[] pathSegments = targetProjName.split(PATH_SEPARATOR);
-			targetProjName = pathSegments[pathSegments.length - 1];
-		} else {
-			targetProjName = target.getProject().getName();
-		}
-		final IProgressMonitor monitor = new NullProgressMonitor();
-		final IFile manifestmf = J2EEProjectUtilities.getManifestFile(source.getProject());
-		final ArchiveManifest mf = J2EEProjectUtilities.readManifest(source.getProject());
-		if (mf == null)
-			return;
-		final IDataModel updateManifestDataModel = DataModelFactory.createDataModel(new UpdateManifestDataModelProvider());
-		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.PROJECT_NAME, sourceProjName);
-		updateManifestDataModel.setBooleanProperty(UpdateManifestDataModelProperties.MERGE, false);
-		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.MANIFEST_FILE, manifestmf);
-		String[] cp = mf.getClassPathTokenized();
-		List cpList = new ArrayList();
-		String cpToRemove = (targetProjName.endsWith(".jar")) ? 
-				targetProjName : 
-					targetProjName + ".jar";//$NON-NLS-1$
-		for (int i = 0; i < cp.length; i++) {
-			if (!cp[i].equals(cpToRemove)) {
-				cpList.add(cp[i]);
-			}
-		}
-		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.JAR_LIST, cpList);
-		updateManifestDataModel.getDefaultOperation().execute(monitor, null );
-	}
 	
 	protected IDataModelOperation generateEARDDOperation() {		
 		IDataModel model = DataModelFactory.createDataModel(new EarCreateDeploymentFilesDataModelProvider());
@@ -1241,7 +1136,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 			}
 			return false;
 		} catch (CoreException ce) {
-			Logger.getLogger().log(ce);
+			J2EEUIPlugin.logError(ce);
 		}		
 		return false;
 	}	
