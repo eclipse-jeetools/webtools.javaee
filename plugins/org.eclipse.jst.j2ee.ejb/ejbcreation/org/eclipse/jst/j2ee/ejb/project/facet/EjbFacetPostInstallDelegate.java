@@ -119,7 +119,8 @@ public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implem
 						dm.setStringProperty(IJavaUtilityProjectCreationDataModelProperties.PROJECT_NAME, clientProjectName);
 						dm.setStringProperty(IEjbClientProjectCreationDataModelProperties.EJB_PROJECT_NAME, model.getStringProperty(IFacetDataModelProperties.FACET_PROJECT_NAME));
 						dm.setStringProperty(IJavaUtilityProjectCreationDataModelProperties.EAR_PROJECT_NAME, earProjectName);
-						dm.setStringProperty(IJavaUtilityProjectCreationDataModelProperties.SOURCE_FOLDER, (String) model.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_SOURCE_FOLDER));
+						String ejbConfigFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
+						dm.setStringProperty(IJavaUtilityProjectCreationDataModelProperties.SOURCE_FOLDER, ejbConfigFolder);
 						dm.setProperty(IJavaUtilityProjectCreationDataModelProperties.RUNTIME, rt);
 
 						// because we do not want utility->add to ear, as we are going to perform ejb client->add to ear

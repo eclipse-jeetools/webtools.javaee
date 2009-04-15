@@ -14,6 +14,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -62,6 +63,9 @@ public class EjbClientProjectCreationOperation
 			
 			javadm.setProperty( JavaFacetInstallDataModelProvider.SOURCE_FOLDER_NAME,
 					javaSourceFolder);
+			
+			javadm.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME,
+					javaSourceFolder);			
 	
 			//		 if the parent data model has set these properties we will use it, or else default to the utility facet install
 			if(model.isPropertySet(ADD_TO_EAR))
