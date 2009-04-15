@@ -20,7 +20,9 @@ import org.eclipse.jdt.internal.ui.dialogs.OpenTypeSelectionDialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ICellModifier;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
@@ -31,8 +33,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.events.TraverseEvent;
+import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -58,6 +64,7 @@ public class Session2xInterfacesTable extends Composite {
 
 	private Table table;
 	private TableViewer viewer;
+	
 	private IDataModel model;
 	private final static String ABBREVIATION_COLUMN = "abbreviation";
 	private final static String CLASS_NAME_COLUMN = "className";
@@ -130,7 +137,7 @@ public class Session2xInterfacesTable extends Composite {
 		for(int i = 0; i < items.length; i++) {
             final TableItem item = items[i];
             TableEditor editor = new TableEditor(getTable());
-            Button button = new Button(getTable(), SWT.FLAT);
+            final Button button = new Button(getTable(), SWT.FLAT);
             button.setText("...");
             button.pack();
             
@@ -153,6 +160,17 @@ public class Session2xInterfacesTable extends Composite {
 				}
             	
             });
+            
+            // accessibility: trigger button push when the RETURN hit is hit and the button is on focus
+            button.addTraverseListener(new TraverseListener() {
+            	public void keyTraversed(TraverseEvent e) {
+    				if (e.detail == SWT.TRAVERSE_RETURN) {
+                        e.doit = false;
+                        button.notifyListeners(SWT.Selection, new Event());
+    				}
+            	}
+            });
+            
             editor.minimumWidth = 24;
             editor.grabHorizontal = true;
             editor.horizontalAlignment = SWT.LEFT;
@@ -186,16 +204,13 @@ public class Session2xInterfacesTable extends Composite {
 	private void createTable() {
 		int style = SWT.SINGLE | SWT.BORDER | SWT.FULL_SELECTION;
 
-		setTable(new Table(this, style));
+		table = new Table(this, style);
 		GridData gridData = new GridData();
-		//gridData.grabExcessVerticalSpace = true;
-		//gridData.horizontalSpan = 2;
 		gridData.grabExcessHorizontalSpace = true;
-//		gridData.horizontalAlignment = GridData.FILL;
-		getTable().setLayoutData(gridData);		
+		table.setLayoutData(gridData);		
 					
-		getTable().setLinesVisible(true);
-		getTable().setHeaderVisible(false);
+		table.setLinesVisible(true);
+		table.setHeaderVisible(false);
 		
 		// 1st column abbreviation
 		TableColumn column = new TableColumn(getTable(), SWT.CENTER, 0);		
@@ -208,8 +223,33 @@ public class Session2xInterfacesTable extends Composite {
 		column = new TableColumn(getTable(), SWT.LEFT, 2);
 		column.setWidth(25);
 		
+		// accessibility: switch to cell editing when the RETURN key is hit
+		table.addTraverseListener(new TraverseListener() {
+			public void keyTraversed(TraverseEvent e) {
+				if (e.detail == SWT.TRAVERSE_RETURN) {
+                    e.doit = false;
+                    ISelection selection = viewer.getSelection();
+                    if (selection instanceof IStructuredSelection) {
+                    	IStructuredSelection ssel = (IStructuredSelection) selection;
+                    	Object element = ssel.getFirstElement();
+                    	if (element != null) {
+                    		viewer.editElement(element, 1);
+                    	}
+                    }
+                }
+			}
+		});
+		
+		// accessibility: if there is no selection select the first row by default
+		table.addFocusListener(new FocusAdapter() {
+			public void focusGained(FocusEvent e) {
+				if (table.getSelectionCount() == 0) {
+					table.select(0);
+				}
+			}
+		});
+		
 		this.addControlListener(new ControlAdapter() {
-
 			@Override
 			public void controlResized(ControlEvent e) {
 				Rectangle area = table.getParent().getClientArea();
@@ -228,10 +268,7 @@ public class Session2xInterfacesTable extends Composite {
 				column2.setWidth(tmp);
 				Point size = table.getSize();
 			}
-
 		});
-
-
 	}
 
 	/**
@@ -254,18 +291,12 @@ public class Session2xInterfacesTable extends Composite {
 
 		// Create the cell editors
 		CellEditor[] editors = new CellEditor[columnNames.length];
-
 		TextCellEditor textEditor = new TextCellEditor(getTable());
-		((Text) textEditor.getControl()).setTextLimit(60);
-		// Column 1 : Completed (Checkbox)
+		((Text) textEditor.getControl()).setTextLimit(256);
+		// Column 1 : business interface type - read only
 		editors[0] = null;
-
-		// Column 2 : Description (Free text)
-		
+		// Column 2 : business interface name
 		editors[1] = textEditor;
-
-		// Column 3 : Owner (Combo Box) 
-		
 		
 		// Assign the cell editors to the viewer 
 		viewer.setCellEditors(editors);
@@ -273,7 +304,7 @@ public class Session2xInterfacesTable extends Composite {
 		viewer.setCellModifier(new ICellModifier() {
 
 			public boolean canModify(Object element, String property) {
-				if(property.equals(CLASS_NAME_COLUMN)) {
+				if (property.equals(CLASS_NAME_COLUMN)) {
 					return true;
 				}
 				return false;
@@ -281,7 +312,7 @@ public class Session2xInterfacesTable extends Composite {
 
 			public Object getValue(Object element, String property) {
 				Session2xInterfacesTableRow row = (Session2xInterfacesTableRow) element;
-				if(property.equals(CLASS_NAME_COLUMN)) {					
+				if (property.equals(CLASS_NAME_COLUMN)) {					
 					return row.getClassName();
 				}
 				return null;
@@ -290,7 +321,7 @@ public class Session2xInterfacesTable extends Composite {
 			public void modify(Object element, String property, Object value) {
 				TableItem item = (TableItem) element;
 				Session2xInterfacesTableRow row = (Session2xInterfacesTableRow) item.getData();
-				if(property.equals(CLASS_NAME_COLUMN)) {
+				if (property.equals(CLASS_NAME_COLUMN)) {
 					row.setClassName((String) value);
 				}
 				viewer.update(row, null);
@@ -301,15 +332,9 @@ public class Session2xInterfacesTable extends Composite {
 		viewer.setLabelProvider(new IntfTableLabelProvider());
 	}
 
-	public void setTable(Table table) {
-		this.table = table;
-	}
-
 	public Table getTable() {
 		return table;
 	}
-	
-
 	
 	/**
 	 * <p>This method has been derived from example 
