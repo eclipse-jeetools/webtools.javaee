@@ -17,9 +17,12 @@ import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataM
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.JAVA_PACKAGE_FRAGMENT_ROOT;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -30,6 +33,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.codegen.jet.JETException;
+import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -294,14 +298,33 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 		// If folder does not exist, create the folder with the specified path
 		if (!folder.exists()) {
 			try {
-				folder.create(true, true, null);
+				createFolder( folder, false );
 			} catch (CoreException e) {
 				EjbPlugin.getDefault().getLogger().logError(e);
 			}
+
+			IProject  clientProject = EJBUtilities.getEJBClientJar(getTargetProject()).getProject();
+			IJavaProject  jProject = JavaCore.create( clientProject );
+			if( jProject != null ){
+				IClasspathEntry newEntry = JavaCore.newSourceEntry( folder.getFullPath() );
+				
+				List<IClasspathEntry> cp = new ArrayList<IClasspathEntry>();
+				IClasspathEntry[] classPath;
+				try {
+					classPath = jProject.getRawClasspath();
+					cp.addAll( Arrays.asList( classPath ) );
+					cp.add( newEntry );
+		            jProject.setRawClasspath( cp.toArray( new IClasspathEntry[ cp.size() ] ), null );					
+				} catch (JavaModelException e) {
+					EjbPlugin.getDefault().getLogger().logError(e);
+				}
+
+			}
+	        
 		}
 		// Return the source folder
 		return folder;
-	}
+	}	
 
 	protected IPackageFragment createJavaPackageInClientJar(String packageName) {
 		IPackageFragmentRoot packRoot = getClientPackageFragmentRoot();
@@ -396,4 +419,19 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 		// Return the package
 		return pack;
 	}
+	
+	private static void createFolder( final IFolder folder,
+	            final boolean isDerived )	throws CoreException {
+		if( ! folder.exists() ){
+
+			final IContainer parent = folder.getParent();
+		
+			if( parent instanceof IFolder ){
+				createFolder( (IFolder) parent, isDerived );
+			}
+		
+			folder.create( true, true, null );
+			folder.setDerived( isDerived );
+		}
+	}	
 }
