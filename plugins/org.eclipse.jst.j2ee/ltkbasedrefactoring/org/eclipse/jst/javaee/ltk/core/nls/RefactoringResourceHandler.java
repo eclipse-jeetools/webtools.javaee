@@ -22,7 +22,7 @@ public class RefactoringResourceHandler extends NLS {
 	public static String Delete_SB_From_DD;
 	public static String Remove_JavaEE_References;
 	public static String JavaEE_Refactorings_Participant_title;
-	
+	public static String Delete_EJB_Client_Project;
 	
 	private RefactoringResourceHandler() {
 		// Do not instantiate

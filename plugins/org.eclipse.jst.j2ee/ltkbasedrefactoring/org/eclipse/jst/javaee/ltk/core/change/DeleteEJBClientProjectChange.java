@@ -11,29 +11,58 @@
 
 package org.eclipse.jst.javaee.ltk.core.change;
 
+import org.eclipse.core.internal.resources.ResourceException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.jst.javaee.ltk.core.nls.RefactoringResourceHandler;
 import org.eclipse.ltk.core.refactoring.Change;
-import org.eclipse.ltk.core.refactoring.resource.DeleteResourceChange;
+import org.eclipse.ltk.core.refactoring.RefactoringStatus;
+import org.eclipse.osgi.util.NLS;
 
-public class DeleteEJBClientProjectChange extends DeleteResourceChange {
+public class DeleteEJBClientProjectChange extends Change{
 
 	IProject ejbClientProject = null;
 	
-	public DeleteEJBClientProjectChange(IPath resourcePath, boolean forceOutOfSync, boolean forceDelete) {
-		super(resourcePath, forceOutOfSync, forceDelete);
-		}
-	
 	public DeleteEJBClientProjectChange(IProject clientProj, boolean forceOutOfSync, boolean forceDelete) {
-		super(clientProj.getFullPath(), forceOutOfSync, forceDelete);
 		ejbClientProject = clientProj;
 	}
 	
 	public Change perform(IProgressMonitor pm) throws CoreException {
 		if(!ejbClientProject.isAccessible())
 			return null;
-		return super.perform(pm);
+		try{
+			ejbClientProject.delete(true, true, new NullProgressMonitor());
+		}catch(ResourceException e){
+			ejbClientProject.delete(false, true, new NullProgressMonitor());
+		}
+		return null;
+		
 	}
+
+	@Override
+	public Object getModifiedElement() {
+		return null;
+	}
+
+	@Override
+	public String getName() {
+		String name = NLS.bind(
+				RefactoringResourceHandler.Delete_EJB_Client_Project,
+				new Object[] { ejbClientProject.getName()});
+		return name;	
+	}
+
+	@Override
+	public void initializeValidationData(IProgressMonitor pm) {
+	}
+
+	@Override
+	public RefactoringStatus isValid(IProgressMonitor pm) throws CoreException,
+			OperationCanceledException {
+		return null;
+	}
+	
 }
