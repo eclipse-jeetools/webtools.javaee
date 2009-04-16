@@ -177,6 +177,9 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	}
 	
 	private IVirtualReference[] getJavaClasspathReferences(IVirtualReference[] hardReferences) {
+		if(!ClasspathDependencyUtil.isAllowClasspathComponentDependency()){
+			return new IVirtualReference[0];
+		}
 		final IProject project = getProject();
 		final List cpRefs = new ArrayList();
 		final boolean isWebApp = J2EEProjectUtilities.isDynamicWebComponent(this);

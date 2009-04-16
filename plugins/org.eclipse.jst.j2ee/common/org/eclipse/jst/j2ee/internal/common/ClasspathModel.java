@@ -645,12 +645,13 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 				classPathWLPSelection.addClasspathElement(element, unresolvedURI);
 			}
 		}
-		
-		// Add elements for raw classpath entries (either already tagged or potentially taggable) 
-		try {
-			classPathWLPSelection.createClasspathEntryElements(component, WEBLIB, WEBINF_CLASSES);
-		} catch (CoreException ce) {
-			Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(ce);
+		if(ClasspathDependencyUtil.isAllowClasspathComponentDependency()){
+			// Add elements for raw classpath entries (either already tagged or potentially taggable) 
+			try {
+				classPathWLPSelection.createClasspathEntryElements(component, WEBLIB, WEBINF_CLASSES);
+			} catch (CoreException ce) {
+				Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(ce);
+			}
 		}
 	}
 
