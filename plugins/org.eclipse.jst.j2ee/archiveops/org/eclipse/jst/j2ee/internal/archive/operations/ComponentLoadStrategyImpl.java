@@ -44,7 +44,6 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadException;
@@ -55,6 +54,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategyImpl
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyManifestUtil;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -209,7 +209,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		filesHolder = new FilesHolder();
 		exception = new Exception();
 		this.includeClasspathComponents = includeClasspathComponents;
-		if (includeClasspathComponents && ClasspathDependencyUtil.isAllowClasspathComponentDependency()) {
+		if (includeClasspathComponents && ClasspathDependencyEnablement.isAllowClasspathComponentDependency()) {
 			this.manifestFile = vComponent.getRootFolder().getFile(new Path(J2EEConstants.MANIFEST_URI));
 			saveJavaClasspathReferences();
 		}

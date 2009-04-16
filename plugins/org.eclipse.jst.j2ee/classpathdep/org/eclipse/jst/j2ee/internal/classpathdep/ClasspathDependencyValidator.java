@@ -72,7 +72,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 	
 	public IStatus validateInJob(IValidationContext helper, IReporter reporter)
 			throws ValidationException {
-		if(!ClasspathDependencyUtil.isAllowClasspathComponentDependency()){
+		if(!ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
 			return OK_STATUS;
 		}
 		_reporter = reporter;

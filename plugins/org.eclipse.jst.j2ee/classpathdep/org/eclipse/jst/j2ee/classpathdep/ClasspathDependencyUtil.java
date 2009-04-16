@@ -33,6 +33,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyValidator;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyValidator.ClasspathDependencyValidatorData;
@@ -52,21 +53,6 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
  * dependency attribute.
  */
 public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
-	
-	/**
-	 * This flag is used to control the enablement of the Classpath Dependency
-	 * functionality.  The default value is true which enables this functionality.
-	 * Setting this value to false will disable the functionality.
-	 */
-	private static boolean allowClasspathComponentDependnecy = true;
-	
-	public static void setAllowClasspathComponentDependency(boolean allow){
-		allowClasspathComponentDependnecy = allow;
-	}
-	
-	public static boolean isAllowClasspathComponentDependency(){
-		return allowClasspathComponentDependnecy;
-	}
 	
 	/**
 	 * This is equivalent to calling getRawComponentClasspathDependencies(javaProject, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);
@@ -92,7 +78,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 * @throws CoreException Thrown if an error is encountered accessing the unresolved classpath.
 	 */
 	public static Map getRawComponentClasspathDependencies(final IJavaProject javaProject, DependencyAttributeType attributeType) throws CoreException {
-		if (javaProject == null || !isAllowClasspathComponentDependency()) {
+		if (javaProject == null || !ClasspathDependencyEnablement.isAllowClasspathComponentDependency()) {
 			return Collections.EMPTY_MAP;
 		}
 		final Map referencedRawEntries = new HashMap();
@@ -120,7 +106,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	public static List getPotentialComponentClasspathDependencies(final IJavaProject javaProject) throws CoreException {
 		final List potentialRawEntries = new ArrayList();
 
-		if (javaProject == null || !javaProject.getProject().isAccessible() || !isAllowClasspathComponentDependency()) {
+		if (javaProject == null || !javaProject.getProject().isAccessible() || !ClasspathDependencyEnablement.isAllowClasspathComponentDependency()) {
 			return Collections.EMPTY_LIST;
 		}
 		final IProject project = javaProject.getProject();
@@ -273,7 +259,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 * @throws CoreException Thrown if an error is encountered accessing the unresolved classpath.
 	 */
 	public static Map getComponentClasspathDependencies(final IJavaProject javaProject, final boolean isWebApp, final boolean onlyValid) throws CoreException {
-		if(!isAllowClasspathComponentDependency()){
+		if(!ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
 			return Collections.EMPTY_MAP;
 		}
 		
@@ -583,7 +569,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 * @return The IClasspathAttribute that holds the special WTP attribute or null if one was not found.
 	 */
 	public static IClasspathAttribute checkForComponentDependencyAttribute(final IClasspathEntry entry, final DependencyAttributeType attributeType) {
-		if (entry == null || !isAllowClasspathComponentDependency()) {
+		if (entry == null || !ClasspathDependencyEnablement.isAllowClasspathComponentDependency()) {
 			return null;
 		}
 	    final IClasspathAttribute[] attributes = entry.getExtraAttributes();
