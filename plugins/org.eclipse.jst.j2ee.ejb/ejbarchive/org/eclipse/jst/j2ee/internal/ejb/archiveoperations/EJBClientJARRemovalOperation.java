@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.internal.resources.ResourceException;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -547,7 +548,11 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 	 */
 	private void deleteClientProject() throws CoreException {
 		if (shouldDelete)
-			clientProject.delete(true, true, createSubProgressMonitor(1));
+			try{
+				clientProject.delete(true, true, createSubProgressMonitor(1));
+			}catch(ResourceException e){
+				clientProject.delete(false, true, createSubProgressMonitor(1));
+			}
 	}
 
 	protected IProgressMonitor createSubProgressMonitor(int ticks) {
