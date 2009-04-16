@@ -33,12 +33,17 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.deploy.DeployerRegistry;
 import org.eclipse.jst.j2ee.internal.deploy.J2EEDeployOperation;
 import org.eclipse.jst.j2ee.internal.dialogs.RuntimeSelectionDialog;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.internal.WTPResourceHandler;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.server.core.IRuntime;
@@ -108,44 +113,56 @@ public class J2EEDeployAction extends BaseAction {
 
 	
 	public boolean checkEnabled(Shell shell) {
-
 		try {
 			DeployerRegistry reg = DeployerRegistry.instance();
-
-			List modules = DeployerRegistry.getSelectedModules(selection.toArray());
-			for (int i = 0; i < modules.size(); i++) {
-				EObject module = (EObject) modules.get(i);
-				IProject proj = ProjectUtilities.getProject(module);
-				if (proj == null) {
-					displayMessageDialog(J2EEUIMessages.getResourceString("DEPLOY_PROJECT_NOT_FOUND") , shell);
-					return false;
+			Object[] modules = selection.toArray();
+			for (int i = 0; i < modules.length; i++) {
+				Object object = modules[i];
+				if (object instanceof EObject) {
+					object = ProjectUtilities.getProject(object);
 				}
-				
-				IRuntime runtime = J2EEProjectUtilities.getServerRuntime(proj);
-				if (runtime == null) {
-					String message = MessageFormat.format(J2EEUIMessages.getResourceString("DEPLOY_RUNTIME_NOT_FOUND"), new String []{proj.getName()});
-					RuntimeSelectionDialog selectionDialog = new RuntimeSelectionDialog(shell, 
-							J2EEUIMessages.getResourceString("DEPLOY_DIALOG_TITLE"), 
- 								null /* default image */, 
- 								message, 
- 								MessageDialog.ERROR, 
- 								new String[] { IDialogConstants.OK_LABEL }, 0, proj) ;
-					selectionDialog.open();
-					runtime = J2EEProjectUtilities.getServerRuntime(proj);
-					if (runtime == null)
+				if (!(object instanceof IProject)) {
+					continue;
+				}
+				IVirtualComponent component = ComponentCore.createComponent((IProject) object);
+				EnterpriseArtifactEdit edit = null;
+				try {
+					edit = (EnterpriseArtifactEdit) ComponentUtilities.getArtifactEditForRead(component);
+					if (edit == null)
+						continue;
+					EObject module = edit.getDeploymentDescriptorRoot();
+					IProject proj = (IProject) object;
+					if (proj == null) {
+						displayMessageDialog(J2EEUIMessages.getResourceString("DEPLOY_PROJECT_NOT_FOUND"), shell);
 						return false;
+					}
+					IRuntime runtime = J2EEProjectUtilities.getServerRuntime(proj);
+					if (runtime == null) {
+						String message = MessageFormat.format(J2EEUIMessages.getResourceString("DEPLOY_RUNTIME_NOT_FOUND"), new String[] { proj.getName() });
+						RuntimeSelectionDialog selectionDialog = new RuntimeSelectionDialog( shell,
+								J2EEUIMessages.getResourceString("DEPLOY_DIALOG_TITLE"),
+								null /* default image */, message,
+								MessageDialog.ERROR,
+								new String[] { IDialogConstants.OK_LABEL }, 0, proj);
+						selectionDialog.open();
+						runtime = J2EEProjectUtilities.getServerRuntime(proj);
+						if (runtime == null)
+							return false;
+					}
+					List visitors = reg.getDeployModuleExtensions(module, runtime);
+					if (visitors.isEmpty()) {
+						displayMessageDialog( MessageFormat.format( J2EEUIMessages.getResourceString("DEPLOY_PROJECT_NOT_SUPPORTED"),
+																				new String[] { proj.getName() }), shell);
+						return false;
+					}
+				} finally {
+					if (edit != null)
+						edit.dispose();
 				}
-				List visitors = reg.getDeployModuleExtensions(module, runtime);
-				if (visitors.isEmpty()) {
-					displayMessageDialog(MessageFormat.format(J2EEUIMessages.getResourceString("DEPLOY_PROJECT_NOT_SUPPORTED"), new String []{proj.getName()}), shell);
-					return false;
-				}
-				
 			}
-			
 			return true;
 		} catch (CoreException e) {
-			System.out.println("Deploy Action recovering from problem verifying enablement."); //$NON-NLS-1$
+			J2EEPlugin.log(4, -1, "Deploy Action recovering from problem verifying enablement.", e); //$NON-NLS-1$
 			e.printStackTrace();
 		}
 		return false;
