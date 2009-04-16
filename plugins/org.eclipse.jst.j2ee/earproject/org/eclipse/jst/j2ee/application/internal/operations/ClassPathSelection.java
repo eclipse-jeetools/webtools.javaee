@@ -57,6 +57,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategyImpl;
+import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
@@ -660,10 +661,12 @@ public class ClassPathSelection {
 		//createClasspathComponentDependencyElements(comp);
 		
 		// Add elements for raw classpath entries (either already tagged or potentially taggable) 
-		try {
-		    createClasspathEntryElements(component, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_COMPONENT_PATH);
-		} catch (CoreException ce) {
-			Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(ce);
+		if(ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
+			try {
+			    createClasspathEntryElements(component, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_COMPONENT_PATH);
+			} catch (CoreException ce) {
+				Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(ce);
+			}
 		}
 		
 		if (earComponent != null) {

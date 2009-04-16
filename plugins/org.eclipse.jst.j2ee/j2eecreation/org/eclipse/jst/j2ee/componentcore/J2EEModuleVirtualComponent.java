@@ -34,6 +34,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.EarUtilities;
@@ -177,6 +178,9 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	}
 	
 	private IVirtualReference[] getJavaClasspathReferences(IVirtualReference[] hardReferences) {
+		if(!ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
+			return new IVirtualReference[0];
+		}
 		final IProject project = getProject();
 		final List cpRefs = new ArrayList();
 		final boolean isWebApp = J2EEProjectUtilities.isDynamicWebComponent(this);
