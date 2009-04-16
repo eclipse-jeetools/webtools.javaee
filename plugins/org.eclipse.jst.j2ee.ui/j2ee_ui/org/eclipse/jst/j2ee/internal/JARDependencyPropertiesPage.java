@@ -160,7 +160,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	}
 
 	protected ClasspathModel createClasspathModel(){
-		return new ClasspathModel(null, false);
+		return new ClasspathModel(J2EEProjectUtilities.readManifest(project), false);
 	}
 
 	public void dispose() {
