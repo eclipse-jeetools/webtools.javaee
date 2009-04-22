@@ -72,28 +72,33 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 
 	private class AnnotationModelListener implements IModelProviderListener {
 		public void modelsChanged(IModelProviderEvent event) {
-			if (isDisposed() || mergedModel == null)
+			if (disposeIfNeeded(event))
 				return;
-			if (shouldDispose(event)) {
-				dispose();
-				notifyListeners(event);
-				return;
-			}
 			AbstractMergedModelProvider.this.annotationModelChanged(event);
 		}
 	}
 
 	private class XmlModelListener implements IModelProviderListener {
 		public void modelsChanged(IModelProviderEvent event) {
-			if (isDisposed() || mergedModel == null)
+			if (disposeIfNeeded(event))
 				return;
-			if (shouldDispose(event)) {
-				mergedModel = null;
-				notifyListeners(event);
-				return;
-			}
 			AbstractMergedModelProvider.this.xmlModelChanged(event);
 		}
+	}
+
+	/**
+	 * @param event
+	 * @return true if the model provider is disposed.
+	 */
+	private boolean disposeIfNeeded(IModelProviderEvent event) {
+		if (isDisposed() || mergedModel == null)
+			return true;
+		if (shouldDispose(event)) {
+			dispose();
+			notifyListeners(event);
+			return true;
+		}
+		return false;
 	}
 
 	private Collection<IModelProviderListener> listeners;
