@@ -50,7 +50,8 @@ public class J2EEPreferences {
 		final static String USE_EAR_LIBRARIES = "org.eclipse.jst.j2ee.preferences.useEARLibraries";//$NON-NLS-1$
 		final static String USE_WEB_APP_LIBRARIES = "org.eclipse.jst.j2ee.preferences.useWebAppLibraries";//$NON-NLS-1$
 		final static String USE_EAR_LIBRARIES_JDT_EXPORT = "org.eclipse.jst.j2ee.preferences.useEARLibrariesJDTExport";//$NON-NLS-1$
-		
+		final static String ALLOW_CLASSPATH_DEP = "org.eclipse.jst.j2ee.preferences.allowClasspathDep";//$NON-NLS-1$
+
 		/**
 		 * @deprecated, 
 		 * but should it be deprecated ? is j2ee_web_content a better name than web_content_folder ?
@@ -150,6 +151,7 @@ public class J2EEPreferences {
 		final static boolean INCREMENTAL_DEPLOYMENT_SUPPORT = true;
 		final static boolean USE_EAR_LIBRARIES_JDT_EXPORT = false;
 		final static String ID_PERSPECTIVE_HIERARCHY_VIEW = "org.eclipse.ui.navigator.ProjectExplorer"; //$NON-NLS-1$
+		final static boolean ALLOW_CLASSPATH_DEP = true;
 	}
 
 	private Plugin owner = null;
@@ -195,6 +197,7 @@ public class J2EEPreferences {
 		getPreferences().setDefault(Keys.USE_EAR_LIBRARIES_JDT_EXPORT, Defaults.USE_EAR_LIBRARIES_JDT_EXPORT);
 		String perspectiveID = ProductManager.getProperty(IProductConstants.ID_PERSPECTIVE_HIERARCHY_VIEW);
 		getPreferences().setDefault(Keys.ID_PERSPECTIVE_HIERARCHY_VIEW, (perspectiveID != null) ? perspectiveID : Defaults.ID_PERSPECTIVE_HIERARCHY_VIEW);
+		getPreferences().setDefault(Keys.ALLOW_CLASSPATH_DEP, Defaults.ALLOW_CLASSPATH_DEP);
 	}
 
 	
@@ -233,7 +236,15 @@ public class J2EEPreferences {
 		getPreferences().setValue(Keys.USE_WEB_APP_LIBRARIES, value);
 		firePreferenceChanged();
 	}
-			
+	
+	public boolean getAllowClasspathDep() {
+		return getPreferences().getBoolean(Keys.ALLOW_CLASSPATH_DEP);
+	}
+	
+	public void setAllowClasspathDep(boolean value) {
+		getPreferences().setValue(Keys.ALLOW_CLASSPATH_DEP, value);
+		firePreferenceChanged();
+	}
 	
 	public String getJ2EEWebContentFolderName() {
 		//return getPreferences().getString(Keys.J2EE_WEB_CONTENT);
