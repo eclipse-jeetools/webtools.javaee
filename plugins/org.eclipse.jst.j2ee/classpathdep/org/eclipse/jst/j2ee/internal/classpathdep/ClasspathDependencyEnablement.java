@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.classpathdep;
 
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
+
 public class ClasspathDependencyEnablement {
 
 	/**
@@ -17,14 +20,14 @@ public class ClasspathDependencyEnablement {
 	 * functionality.  The default value is true which enables this functionality.
 	 * Setting this value to false will disable the functionality.
 	 */
-	private static boolean allowClasspathComponentDependnecy = true;
+	private static boolean allowClasspathComponentDependency = J2EEPlugin.getDefault().getPluginPreferences().getBoolean(J2EEPreferences.Keys.ALLOW_CLASSPATH_DEP);
 	
 	public static void setAllowClasspathComponentDependency(boolean allow){
-		allowClasspathComponentDependnecy = allow;
+		allowClasspathComponentDependency = allow;
 	}
 	
 	public static boolean isAllowClasspathComponentDependency(){
-		return allowClasspathComponentDependnecy;
+		return allowClasspathComponentDependency;
 	}
 	
 }
