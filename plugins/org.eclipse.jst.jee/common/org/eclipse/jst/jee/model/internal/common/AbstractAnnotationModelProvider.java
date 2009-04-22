@@ -270,6 +270,9 @@ public abstract class AbstractAnnotationModelProvider<T> implements IElementChan
 	 * 
 	 * @see #processAddedCompilationUnit(IModelProviderEvent, ICompilationUnit)
 	 * @param modelEvent
+	 *            subclasses should "fill" modelEvent with information about the
+	 *            change that has happened. This event will be propagated to
+	 *            model provided listeners.
 	 * @param file
 	 *            the file to be removed.
 	 * @throws CoreException
@@ -290,6 +293,9 @@ public abstract class AbstractAnnotationModelProvider<T> implements IElementChan
 	 * @see #processRemovedCompilationUnit(IModelProviderEvent,
 	 *      ICompilationUnit)
 	 * @param modelEvent
+	 *            subclasses should "fill" modelEvent with information about the
+	 *            change that has happened. This event will be propagated to
+	 *            model provided listeners.
 	 * @param file
 	 *            the file that was added
 	 * @throws CoreException
@@ -308,6 +314,9 @@ public abstract class AbstractAnnotationModelProvider<T> implements IElementChan
 	 * @see #processRemovedCompilationUnit(IModelProviderEvent,
 	 *      ICompilationUnit)
 	 * @param modelEvent
+	 *            subclasses should "fill" modelEvent with information about the
+	 *            change that has happened. This event will be propagated to
+	 *            model provided listeners.
 	 * @param unit
 	 *            the unti that was changed
 	 * @throws CoreException
@@ -521,6 +530,8 @@ public abstract class AbstractAnnotationModelProvider<T> implements IElementChan
 				if (delta.getKind() == IJavaElementDelta.CHANGED) {
 					if (((delta.getFlags() & IJavaElementDelta.F_PRIMARY_RESOURCE) == 0)
 							|| ((delta.getFlags() & IJavaElementDelta.F_PRIMARY_WORKING_COPY) == 0)) {
+						modelEvent
+								.setEventCode(IModelProviderEvent.KNOWN_RESOURCES_CHANGED | modelEvent.getEventCode());
 						processChangedCompilationUnit(modelEvent, unit);
 					}
 				}
