@@ -27,6 +27,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
@@ -116,7 +117,7 @@ public class EJBProjectCreationDataModelVerifier extends ModuleProjectCreationDa
 			Assert.assertTrue("The created EAR should have a reference to the created EJB client project", foundEARRefToClient);
 			
 			//be sure the EJB client source folder was created
-			String clientSourceFolderPath = facetModel.getStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_SOURCE_FOLDER);
+			String clientSourceFolderPath = facetModel.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
 			IFolder clientSourceFolder = clientProject.getFolder(clientSourceFolderPath);
 			Assert.assertTrue("Client source folder should exist", clientSourceFolder.exists());
         }
