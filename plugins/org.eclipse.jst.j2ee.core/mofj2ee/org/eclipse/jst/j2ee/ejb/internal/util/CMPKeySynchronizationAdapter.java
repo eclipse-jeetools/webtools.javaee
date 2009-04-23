@@ -17,7 +17,9 @@
 package org.eclipse.jst.j2ee.ejb.internal.util;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.WeakHashMap;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
@@ -53,6 +55,9 @@ public class CMPKeySynchronizationAdapter extends AdapterImpl {
 	protected ContainerManagedEntity cmp = null;
 	private boolean isUpdating = false;
 	private boolean isEnabled = true;
+
+	private static	WeakHashMap<CMPKeySynchronizationAdapter, Object> unresolvedCMPAttributesToFlush = new WeakHashMap<CMPKeySynchronizationAdapter, Object>();
+	
 	
 	/**
 	 * Default constructor
@@ -110,6 +115,11 @@ public class CMPKeySynchronizationAdapter extends AdapterImpl {
 		
 		// reflect key fields into key attributes list
 		List keyFields = keyClass.getFieldsExtended();
+		if(keyFields.size() == 0){
+			unresolvedCMPAttributesToFlush.put(this, null);
+		}else{
+			unresolvedCMPAttributesToFlush.remove(this);
+		}
 		for (int i = 0; i < keyFields.size(); i++) {
 			Field field = (Field) keyFields.get(i);
 			if (field.getJavaVisibility() == JavaVisibilityKind.PUBLIC_LITERAL) { //only public fields
@@ -117,6 +127,15 @@ public class CMPKeySynchronizationAdapter extends AdapterImpl {
 				if (keyAttribute != null)
 					keys.add(keyAttribute);
 			}	
+		}
+	}
+	
+	public static void flushUnresolvedKeyAttributesOnCleanBuild(){
+		Iterator itr = unresolvedCMPAttributesToFlush.keySet().iterator();
+		while(itr.hasNext()){
+			CMPKeySynchronizationAdapter curAdapter = (CMPKeySynchronizationAdapter)itr.next(); 
+			curAdapter.initialized = false;
+			curAdapter.initializeKeyAttributes();
 		}
 	}
 	
