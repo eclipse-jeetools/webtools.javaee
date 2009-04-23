@@ -375,8 +375,10 @@ public class UIEarValidator extends EarValidator {
 			return;
 		List archives = earFile.getArchiveFiles();
 		for (int i = 0; i < archives.size(); i++) {
-
 			final Archive anArchive = (Archive) archives.get(i);
+			if(anArchive.getLoadStrategy().isReadOnly()){
+				continue;
+			}
 			IFile target = getManifestFile(anArchive);
 			if (target != null)
 				_reporter.removeMessageSubset(this, target, MANIFEST_GROUP_NAME);
