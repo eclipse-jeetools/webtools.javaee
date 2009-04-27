@@ -19,6 +19,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.jee.ui.internal.Messages;
 import org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.graphics.Image;
 /**
  * Deployment Descriptor root node. 
@@ -56,7 +57,7 @@ public class GroupEJBProvider extends AbstractGroupProvider implements IAdaptabl
 
 	@Override
 	public String getText() {
-		return Messages.DEPLOYMENT_DESCRIPTOR + projectName;
+		return NLS.bind(Messages.DEPLOYMENT_DESCRIPTOR, projectName);
 	}
 
 	public String getProjectName() {

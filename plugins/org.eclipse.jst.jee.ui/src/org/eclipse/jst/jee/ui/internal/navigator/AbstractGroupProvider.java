@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.jst.jee.ui.internal.Messages;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.graphics.Image;
 
 /**
@@ -38,7 +39,7 @@ public abstract class AbstractGroupProvider {
 
 	public AbstractGroupProvider(JavaEEObject javaee) {
 		this.javaee = javaee;
-		text = Messages.DEPLOYMENT_DESCRIPTOR + javaee.toString();
+		text = NLS.bind(Messages.DEPLOYMENT_DESCRIPTOR, javaee.toString());
 	}
 
 	public abstract List getChildren();

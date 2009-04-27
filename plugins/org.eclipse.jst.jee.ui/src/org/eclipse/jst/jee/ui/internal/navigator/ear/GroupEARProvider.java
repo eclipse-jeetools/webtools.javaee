@@ -25,6 +25,7 @@ import org.eclipse.jst.jee.ui.internal.Messages;
 import org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPluginIcons;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
@@ -60,7 +61,7 @@ public class GroupEARProvider extends AbstractGroupProvider implements IAdaptabl
 	}
 
 	public String getText() {
-		return "Deployment Descriptor: " + earComponent.getName(); //$NON-NLS-1$
+		return NLS.bind(Messages.DEPLOYMENT_DESCRIPTOR, earComponent.getName());
 	}
 
 	public EARVirtualComponent getEARVirtualComponent() {

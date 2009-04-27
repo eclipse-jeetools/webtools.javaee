@@ -23,6 +23,7 @@ import org.eclipse.jst.jee.ui.internal.Messages;
 import org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPluginIcons;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -63,7 +64,7 @@ public class WebAppProvider extends AbstractGroupProvider implements IAdaptable 
 	
 	public WebAppProvider(WebApp webApp, IProject project) {
 		super(webApp);
-		text = Messages.DEPLOYMENT_DESCRIPTOR + project.getName();
+		text = NLS.bind(Messages.DEPLOYMENT_DESCRIPTOR, project.getName());
 		contextParams = new GroupContextParamsItemProvider(webApp);
 		errors = new GroupErrorPagesItemProvider(webApp);
 		servlets = new GroupServletItemProvider(webApp);

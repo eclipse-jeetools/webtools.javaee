@@ -24,6 +24,7 @@ import org.eclipse.jst.jee.ui.internal.Messages;
 import org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPluginIcons;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -73,9 +74,9 @@ public class GroupAppClientProvider extends AbstractGroupProvider implements IAd
 	public String getText() {
 		String result = null;
 		if (this.project == null) {
-			result = Messages.DEPLOYMENT_DESCRIPTOR;
+			result = NLS.bind(Messages.DEPLOYMENT_DESCRIPTOR, new Object[] {""}); //$NON-NLS-1$
 		} else {
-			result = Messages.DEPLOYMENT_DESCRIPTOR + this.project.getName();
+			result = NLS.bind(Messages.DEPLOYMENT_DESCRIPTOR, this.project.getName());
 		}
 		return result;
 	}
