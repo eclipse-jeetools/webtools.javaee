@@ -13,7 +13,9 @@ package org.eclipse.jst.j2ee.internal.ear.actions;
 import java.text.MessageFormat;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-
+@Deprecated
+//This class is being deprecated in 3.1, and is in plan to be removed
+//in 3.2, since it is not being used.
 public class ArchiveEARUIResourceHandler {
 
 	private static ResourceBundle fgResourceBundle;

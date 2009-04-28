@@ -22,7 +22,9 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
-
+@Deprecated
+//This class is being deprecated in 3.1, and is in plan to be removed
+//in 3.2, since it is not being used.
 public class RenameModuleDialog extends J2EERenameDialog implements J2EERenameUIConstants {
 
 	protected RenameModuleComposite renameComposite;

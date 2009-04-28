@@ -20,6 +20,9 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 /**
  * Subclass of <code>ProjectRefactorOperation</code> that contains deletion-specific logic.
  */
+@Deprecated
+//This class is being deprecated in 3.1, and is in plan to be removed
+//in 3.2, since it is not being used.
 public class ProjectDeleteOperation extends ProjectRefactorOperation {
 
 	public ProjectDeleteOperation(final IDataModel model) {

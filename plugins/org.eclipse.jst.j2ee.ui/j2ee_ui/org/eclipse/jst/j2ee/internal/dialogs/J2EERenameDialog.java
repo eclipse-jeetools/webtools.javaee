@@ -14,7 +14,9 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jst.j2ee.internal.rename.RenameOptions;
 import org.eclipse.swt.widgets.Shell;
 
-
+@Deprecated
+//This class is being deprecated in 3.1, and is in plan to be removed
+//in 3.2, since it is not being used.
 public abstract class J2EERenameDialog extends MessageDialog implements J2EERenameUIConstants {
 
 	protected RenameOptions renameOptions;

@@ -27,6 +27,9 @@ import org.eclipse.jface.viewers.OpenEvent;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
+@Deprecated
+//This class is being deprecated in 3.1, and is in plan to be removed
+//in 3.2, since it is not being used.
 public class J2EEResourceOpenListener implements IOpenListener{
 
 	 private OpenJ2EEResourceAction action;

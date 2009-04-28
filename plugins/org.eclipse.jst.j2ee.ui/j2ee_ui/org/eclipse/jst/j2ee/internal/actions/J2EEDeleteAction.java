@@ -50,6 +50,9 @@ import org.eclipse.ui.actions.DeleteResourceAction;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
+@Deprecated
+//This class is being deprecated in 3.1, and is in plan to be removed
+//in 3.2, since it is not being used.
 public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDeleteUIConstants {
 
 	protected Shell shell;

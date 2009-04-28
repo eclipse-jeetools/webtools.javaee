@@ -28,6 +28,9 @@ import org.eclipse.swt.widgets.Shell;
  * 
  * To change this generated comment go to Window>Preferences>Java>Code Generation>Code and Comments
  */
+@Deprecated
+//This class is being deprecated in 3.1, and is in plan to be removed
+//in 3.2, since it is not being used.
 public class ExportEARAction extends BaseAction {
 
 	public static String LABEL = J2EEUIPlugin.getDefault().getDescriptor().getResourceString("%ear.export.action.description_ui_");//$NON-NLS-1$

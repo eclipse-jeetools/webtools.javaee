@@ -31,6 +31,9 @@ import org.eclipse.ui.PlatformUI;
  * 
  * To change this generated comment go to Window>Preferences>Java>Code Generation>Code and Comments
  */
+@Deprecated
+//This class is being deprecated in 3.1, and is in plan to be removed
+//in 3.2, since it is not being used.
 public class ImportClassesAction extends WTPBaseAction {
 
 	public static String LABEL = J2EEUIMessages.getResourceString("Import_Classes"); //$NON-NLS-1$

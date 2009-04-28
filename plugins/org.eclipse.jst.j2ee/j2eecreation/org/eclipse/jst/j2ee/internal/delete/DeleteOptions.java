@@ -12,7 +12,9 @@ package org.eclipse.jst.j2ee.internal.delete;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+@Deprecated
+//This class is being deprecated in 3.1, and is in plan to be removed
+//in 3.2, since it is not being used.
 public class DeleteOptions {
 
 	protected boolean isEARDelete;

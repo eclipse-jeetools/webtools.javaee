@@ -20,6 +20,9 @@ import org.eclipse.core.resources.IProject;
  * A simple structure that remembers for a given project, the manifest entries to be deleted and the
  * build path entries to be deleted
  */
+@Deprecated
+//This class is being deprecated in 3.1, and is in plan to be removed
+//in 3.2, since it is not being used.
 public class ClasspathRenameInfo {
 	/**
 	 * The project from which the dependencies will be removed

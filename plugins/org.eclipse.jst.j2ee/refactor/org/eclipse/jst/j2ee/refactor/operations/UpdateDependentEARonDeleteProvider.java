@@ -12,7 +12,9 @@
 package org.eclipse.jst.j2ee.refactor.operations;
 
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
-
+@Deprecated
+//This class is being deprecated in 3.1, and is in plan to be removed
+//in 3.2, since it is not being used.
 public class UpdateDependentEARonDeleteProvider extends UpdateDependentProjectDataModelProvider 
 	implements ProjectRefactoringProperties {
 	

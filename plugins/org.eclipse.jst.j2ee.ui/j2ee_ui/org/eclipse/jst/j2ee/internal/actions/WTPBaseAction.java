@@ -30,7 +30,9 @@ import org.eclipse.ui.IActionDelegate2;
 import org.eclipse.ui.IWorkbenchWindow;
 
 
-
+@Deprecated
+//This class is being deprecated in 3.1, and is in plan to be removed
+//in 3.2, since it is not being used.
 public abstract class WTPBaseAction extends Action implements IActionDelegate2 {
 	private final static String ERROR_OCCURRED_TITLE = J2EEUIMessages.getResourceString("ERROR_OCCURRED_TITLE"); //$NON-NLS-1$
 	private final static String ERROR_OCCURRED_MESSAGE = J2EEUIMessages.getResourceString("ERROR_OCCURRED_MESSAGE"); //$NON-NLS-1$

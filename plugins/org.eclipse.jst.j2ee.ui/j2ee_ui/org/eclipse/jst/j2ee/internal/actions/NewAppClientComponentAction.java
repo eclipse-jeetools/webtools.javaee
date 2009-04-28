@@ -17,7 +17,9 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientProjectWizard;
 import org.eclipse.ui.IWorkbench;
 
-
+@Deprecated
+//This class is being deprecated in 3.1, and is in plan to be removed
+//in 3.2, since it is not being used.
 public class NewAppClientComponentAction extends AbstractOpenWizardWorkbenchAction {
 
 	// TODO MDE 02-28 Find correct label

@@ -29,6 +29,9 @@ import org.eclipse.swt.widgets.Shell;
  * 
  * To change this generated comment go to Window>Preferences>Java>Code Generation>Code and Comments
  */
+@Deprecated
+//This class is being deprecated in 3.1, and is in plan to be removed
+//in 3.2, since it is not being used.
 public class ImportEARAction extends BaseAction {
 	public static String LABEL = ArchiveEARUIResourceHandler.getString("Import_EAR"); //$NON-NLS-1$
 	private static final String ICON = "import_ear_wiz"; //$NON-NLS-1$

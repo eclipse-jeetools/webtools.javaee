@@ -38,7 +38,9 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 
-
+@Deprecated
+//This class is being deprecated in 3.1, and is in plan to be removed
+//in 3.2, since it is not being used.
 public class RenameEARComposite extends Composite implements J2EERenameUIConstants, Listener, ICheckStateListener {
 
 	protected Button renameAppProjectsBtn;

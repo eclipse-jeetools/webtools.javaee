@@ -9,6 +9,9 @@
 package org.eclipse.jst.j2ee.internal.dialogs;
 
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+@Deprecated
+//This class is being deprecated in 3.1, and is in plan to be removed
+//in 3.2, since it is not being used.
 
 public interface J2EEDeleteUIConstants {
 	String DELETE = J2EEUIMessages.getResourceString("Delete_1"); //$NON-NLS-1$
