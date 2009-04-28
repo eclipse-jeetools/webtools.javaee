@@ -22,6 +22,9 @@ import org.eclipse.ui.wizards.datatransfer.IImportStructureProvider;
  * The <code>MinimizedFileSystemElement</code> is a <code>FileSystemElement</code> that knows if
  * it has been populated or not.
  */
+@Deprecated
+//This class is being deprecated in 3.1, and is in plan to be removed
+//in 3.2, since it is not being used.
 class MinimizedFileSystemElement extends FileSystemElement {
 	private boolean populated = false;
 	private String packageBaseDirName = null;

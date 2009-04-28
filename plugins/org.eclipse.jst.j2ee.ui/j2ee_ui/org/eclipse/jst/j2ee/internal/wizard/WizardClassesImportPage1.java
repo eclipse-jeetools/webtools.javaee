@@ -76,7 +76,9 @@ import org.eclipse.ui.wizards.datatransfer.ZipFileStructureProvider;
 /**
  * Page 1 of the base resource import-from-file-system Wizard
  */
-/* package */
+@Deprecated
+//This class is being deprecated in 3.1, and is in plan to be removed
+//in 3.2, since it is not being used.
 class WizardClassesImportPage1 extends WizardResourceImportPage implements Listener {
 
 	// widgets

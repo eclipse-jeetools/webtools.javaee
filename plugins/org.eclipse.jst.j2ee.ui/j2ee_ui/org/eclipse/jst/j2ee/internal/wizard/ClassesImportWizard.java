@@ -35,6 +35,9 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.IWorkbench;
 
+@Deprecated
+//This class is being deprecated in 3.1, and is in plan to be removed
+//in 3.2, since it is not being used.
 public class ClassesImportWizard extends Wizard implements IImportWizard {
 
 	public WizardClassesImportMainPage mainPage = null;

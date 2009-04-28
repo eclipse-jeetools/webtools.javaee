@@ -20,6 +20,9 @@ import java.io.FileInputStream;
  * Window>Preferences>Java>Templates. To enable and disable the creation of type comments go to
  * Window>Preferences>Java>Code Generation.
  */
+@Deprecated
+//This class is being deprecated in 3.1, and is in plan to be removed
+//in 3.2, since it is not being used.
 public class PackageNameResolver extends ClassLoader {
 
 	public PackageNameResolver() {

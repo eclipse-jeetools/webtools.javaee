@@ -40,6 +40,9 @@ import org.eclipse.ui.PlatformUI;
  * To change the template for this generated type comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
+@Deprecated
+//This class is being deprecated in 3.1, and is in plan to be removed
+//in 3.2, since it is not being used.
 public class WizardClassesImportMainPage extends WizardPage {
 	Composite composite;
 
