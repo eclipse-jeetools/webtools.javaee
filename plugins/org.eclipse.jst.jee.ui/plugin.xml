@@ -406,7 +406,7 @@
                class="org.eclipse.jst.jee.ui.internal.navigator.ear.ShowDepPropPageAction"
                enablesFor="1"
                id="show_dep_prop_page"
-               label="Add/Remove"
+               label="%ADD_REMOVE_MODULE_DEPENDENCIES_ACTION"
                menubarPath="additions">
          </action>
       </objectContribution>
@@ -466,7 +466,7 @@
          icon="icons/ejbgroup_obj.gif"
          id="org.eclipse.jst.jee.ui.ejb"
          labelProvider="org.eclipse.jst.jee.ui.internal.navigator.Ejb3LabelProvider"
-         name="JEE Navigator Content EJB"
+         name="%EJB_NAVIGATOR_CONTENT"
          priority="highest">
      <triggerPoints>
         <or>
@@ -701,7 +701,7 @@
         icon="icons/webgroup_obj.gif"
         id="org.eclipse.jst.jee.ui.web"
         labelProvider="org.eclipse.jst.jee.ui.internal.navigator.Web25LabelProvider"
-        name="JEE Navigator Content WEB"
+        name="%WEB_NAVIGATOR_CONTENT"
         priority="highest">
      <triggerPoints>
         <or>
@@ -879,7 +879,7 @@
         icon="icons/eargroup_obj.gif"
         id="org.eclipse.jst.jee.ui.ear"
         labelProvider="org.eclipse.jst.jee.ui.internal.navigator.Ear5LabelProvider"
-        name="JEE Navigator Content EAR"
+        name="%EAR_NAVIGATOR_CONTENT"
         priority="highest">
      <triggerPoints>
         <or>
@@ -1145,7 +1145,7 @@
         icon="icons/appclientgroup_obj.gif"
         id="org.eclipse.jst.jee.ui.appclient"
         labelProvider="org.eclipse.jst.jee.ui.internal.navigator.AppClient5LabelProvider"
-        name="JEE Navigator Content App Client"
+        name="%APP_CLIENT_NAVIGATOR_CONTENT"
         priority="highest">
      <triggerPoints>
         <or>
