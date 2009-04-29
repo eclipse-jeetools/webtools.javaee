@@ -98,6 +98,8 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 		// make certain this is a J2EE project
 		if (ModuleCoreNature.isFlexibleProject(project)) {
 			IVirtualComponent c = ComponentCore.createComponent(project);
+			if(c == null)
+				return;
 			try {
 				// Did the classpath change?
 				if ((flags & IJavaElementDelta.F_CHILDREN) == IJavaElementDelta.F_CHILDREN) {
