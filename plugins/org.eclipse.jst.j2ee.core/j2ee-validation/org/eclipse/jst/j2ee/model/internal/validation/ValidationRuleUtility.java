@@ -323,6 +323,46 @@ public final class ValidationRuleUtility {
 	
 	/**
 	 * Get the method of this name and these parameters. It will look up the supertype hierarchy.
+     *
+	 * 
+	 * If retType is null it means that the return type of the method doesn't need to be checked.
+	 * Otherwise, check that the return type matches too.
+	 */
+	public static Method getMethodExtended(JavaClass clazz, String methodName, JavaParameter[] parameterTypes, JavaHelpers retType) {
+		if (clazz.isInterface()) {
+			// Check the current class first. If the method has been overriden,
+			// don't want to return the parent's method instead of the child's.
+			return getMethodInterfaceExtended(clazz, methodName, parameterTypes);
+		}
+		// Check the current class first. If the method has been overriden,
+		// don't want to return the parent's method instead of the child's.
+		Method method = null;
+		List methods = null;
+		do {
+			methods = clazz.getMethods();
+			method = getMethod(methodName, parameterTypes, methods);
+			if (method != null) {
+				if(retType != null) {
+					JavaHelpers methRetType = method.getReturnType();
+					if(isAssignableFrom(methRetType, retType)) {
+						return method;
+					}
+				}
+				else {
+					return method;
+				}
+			}
+
+			// else, search the parent	
+			clazz = clazz.getSupertype();
+		}
+		while ((method == null) && (clazz != null));
+
+		return null;
+	}
+	
+	/**
+	 * Get the method of this name and these parameters. It will look up the supertype hierarchy.
 	 *
 	 * This method is a duplicate of getMethodInterfaceExtended(String, String[], JavaClass).
 	 * For performance reasons, the code was duplicated instead of converting the
@@ -905,6 +945,30 @@ public final class ValidationRuleUtility {
 		else {
 			return compareType.getWrapper().isAssignableFrom(type.getWrapper());
 		}
+	}
+	
+	/**
+	 * Returns the JavaClass for the JavaHelper type
+	 */
+	public static JavaClass getJavaClass(JavaHelpers type) {
+		if (type == null) {
+			return null;
+		}
+	
+		if (!type.isPrimitive()) {
+			if(type.isArray()) {
+				JavaClass classType = type.getWrapper();
+				if (classType == null) {
+					return null;
+				}
+				JavaHelpers finalType = ((ArrayType)classType).getFinalComponentType();
+				return getJavaClass(finalType);
+			}
+			else {
+				return type.getWrapper();
+			}
+		}
+		return null;
 	}
 
 	/**

@@ -14,9 +14,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.jem.internal.java.adapters.JavaReflectionAdaptor;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jem.java.Method;
+import org.eclipse.jem.java.TypeKind;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
@@ -86,8 +88,24 @@ public abstract class AComponentVRule extends AInterfaceTypeVRule {
 				// IWAD4228 = This method must return the same type as {0}. Read section 10.6.11 of the EJB 2.0 specification.
 				// IWAD4328 = This method must return the same type as {0} on {1}. Read section 12.2.8 of the EJB 2.0 specification.
 				// IWAD4355 = This method must return {0}. Read section 12.2.10 of the EJB 2.0 specification.
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2470, IEJBValidationContext.ERROR, bean, clazz, method, new String[]{match.getReturnType().getJavaName()}, this);
-				vc.addMessage(message);
+				
+				boolean addMessage = true;
+				
+				//if the return type on the interface is resolvable and the match on the bean is not. flush the bean and recheck if it resolves
+				JavaClass returnType = ValidationRuleUtility.getJavaClass(method.getReturnType());
+				JavaClass beanReturnType = ValidationRuleUtility.getJavaClass(match.getReturnType());
+				if (returnType != null  && beanReturnType != null && returnType.getKind() != TypeKind.UNDEFINED_LITERAL && beanReturnType.getKind() == TypeKind.UNDEFINED_LITERAL) { 
+					// bugzilla 274340 - EJB validation is using a stale JEM cache for bean class
+					JavaReflectionAdaptor adapter = (JavaReflectionAdaptor) JavaReflectionAdaptor.retrieveAdaptorFrom(bean.getEjbClass());
+					adapter.flushReflectedValuesIfNecessary(true);
+					if (ValidationRuleUtility.getMethodExtended(bean.getEjbClass(), method.getName(), method.listParametersWithoutReturn(), method.getReturnType()) != null) {
+						addMessage = false;
+					}
+				}	
+				if (addMessage) {
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2470, IEJBValidationContext.ERROR, bean, clazz, method, new String[]{match.getReturnType().getJavaName()}, this);
+					vc.addMessage(message);
+				}
 			}
 			
 			Set exceptions = ValidationRuleUtility.getNotSubsetExceptions(bean, match, method);
