@@ -11,7 +11,6 @@ Export-Package: org.eclipse.jem.internal.beaninfo,
  org.eclipse.jem.internal.beaninfo.core,
  org.eclipse.jem.internal.beaninfo.impl
 Require-Bundle: org.eclipse.jem.proxy;bundle-version="[2.0.0,3.0.0)",
- com.ibm.etools.emf.event;bundle-version="[3.0.0,4.0.0)";resolution:=optional,
  org.eclipse.jdt.core;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.jem.workbench;bundle-version="[2.0.0,3.0.0)",
  org.eclipse.jem;bundle-version="[2.0.0,3.0.0)",
