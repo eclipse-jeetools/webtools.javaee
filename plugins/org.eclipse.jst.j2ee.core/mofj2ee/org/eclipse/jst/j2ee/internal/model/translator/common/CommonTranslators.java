@@ -369,11 +369,11 @@ public class CommonTranslators implements DeploymentDescriptorXmlMapperI {
 	 * @return
 	 */
 	public static Translator createDisplayNameTranslator(EStructuralFeature feature) {
-		GenericTranslator result = new GenericTranslator(DISPLAY_NAME, feature);
+		GenericTranslator result = new GenericTranslator(DISPLAY_NAME, feature, Translator.END_TAG_NO_INDENT);
 		result.setChildren(new Translator[] {
 			IDTranslator.INSTANCE,
 			new Translator(LANG, COMMON_PKG.getDisplayName_Lang(), Translator.DOM_ATTRIBUTE),
-			new Translator(Translator.TEXT_ATTRIBUTE_VALUE, COMMON_PKG.getDisplayName_Value()) 
+			new Translator(Translator.TEXT_ATTRIBUTE_VALUE, COMMON_PKG.getDisplayName_Value())
 		});
 		return result;
 	}
