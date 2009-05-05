@@ -27,6 +27,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.datamodel.properties.IAddWebComponentToEnterpriseApplicationDataModelProperties;
@@ -49,6 +50,7 @@ import org.eclipse.jst.j2ee.project.facet.EARFacetProjectCreationDataModelProvid
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
+import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
@@ -722,5 +724,24 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 		FacetDataModelMap map = (FacetDataModelMap) componentCreationDM.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 		IDataModel earFacet = map.getFacetDataModel( IJ2EEFacetConstants.ENTERPRISE_APPLICATION );	
 		earFacet.setBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, false);
+	}
+	
+	@Override
+	protected ArchiveWrapper openArchiveWrapper(String uri) throws OpenFailureException, ArchiveOpenFailureException {
+		ArchiveWrapper wrapper = super.openArchiveWrapper(uri);
+		if(null != wrapper){
+			JavaEEQuickPeek jqp =  wrapper.getJavaEEQuickPeek();
+			if(jqp.getType() != JavaEEQuickPeek.APPLICATION_TYPE){
+				wrapper.close();
+				throw new OpenFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.could_not_open_EXC_, (new Object[]{uri})));
+			}
+		}
+		return wrapper;
+	}
+	
+	protected void handleUnknownType(JavaEEQuickPeek jqp) {
+		jqp.setType(J2EEVersionConstants.APPLICATION_TYPE);
+		jqp.setVersion(J2EEVersionConstants.JEE_5_0_ID);
+		jqp.setJavaEEVersion(J2EEVersionConstants.JEE_5_0_ID);
 	}
 }
