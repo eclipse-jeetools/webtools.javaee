@@ -1128,9 +1128,11 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 				if (!J2EEProjectUtilities.isEARProject(earRefProjects[i]) &&
 						!earRefProjects[i].equals(libProj)) {
 					IVirtualComponent cmp1 = ComponentCore.createComponent(earRefProjects[i]);
-					IVirtualReference[] refs = cmp1.getReferences();
-					for (int j = 0; j < refs.length; j++) {
-						if (refs[j].getReferencedComponent().getProject().equals(libProj)) return true;
+					if (cmp1 != null) {
+						IVirtualReference[] refs = cmp1.getReferences();
+						for (int j = 0; j < refs.length; j++) {
+							if (refs[j].getReferencedComponent().getProject().equals(libProj)) return true;
+						}
 					}
 				}	
 			}
