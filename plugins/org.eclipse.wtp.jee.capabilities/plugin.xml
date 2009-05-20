@@ -14,10 +14,6 @@
             id="org.eclipse.wtp.webservices.capabilities">
       </activity>
       
-      <categoryActivityBinding
-            activityId="org.eclipse.wtp.webservices.capabilities"
-            categoryId="org.eclipse.categories.developmentCategory">
-        </categoryActivityBinding>
         
         <activityPatternBinding
             activityId="org.eclipse.wtp.webservices.capabilities"
@@ -59,14 +55,22 @@
             pattern="org\.eclipse\.wst\.command\.[\.\w/]*">
         </activityPatternBinding>
         
+        <!--
         <activityRequirementBinding 
           requiredActivityId="org.eclipse.wtp.web" 
           activityId="org.eclipse.wtp.webservices.capabilities">
         </activityRequirementBinding>
+        -->
+        <!--
+        <categoryActivityBinding
+            activityId="org.eclipse.wtp.webservices.capabilities"
+            categoryId="org.eclipse.categories.developmentCategory">
+        </categoryActivityBinding>
         
         <defaultEnablement
             id="org.eclipse.wtp.webservices.capabilities">
         </defaultEnablement>
+        -->
       
    </extension>
 
@@ -74,66 +78,67 @@
    <!-- Enterprise Java Capability Definition-->
    <extension point="org.eclipse.ui.activities">
       	
-  		<activity
+  	<activity
             name="%activity.enterprisejava"
             description="%activity.enterprisejava.desc"
-            id="org.eclipse.wtp.jee">
+            id="org.eclipse.wtp.jee.capabilities">
      	</activity>
      	
-     	<categoryActivityBinding
-            activityId="org.eclipse.wtp.jee"
-            categoryId="org.eclipse.categories.developmentCategory">
-      	</categoryActivityBinding>
-      	
       	<activityPatternBinding
-            activityId="org.eclipse.wtp.jee"
+            activityId="org.eclipse.wtp.jee.capabilities"
             pattern="org\.eclipse\.jst\.common\.[\.\w/]*">
       	</activityPatternBinding>
       	
       	<activityPatternBinding
-            activityId="org.eclipse.wtp.jee"
+            activityId="org.eclipse.wtp.jee.capabilities"
             pattern="org\.eclipse\.jst\.ejb\.[\.\w/]*">
       	</activityPatternBinding>
       	
       	<activityPatternBinding
-            activityId="org.eclipse.wtp.jee"
+            activityId="org.eclipse.wtp.jee.capabilities"
             pattern="org\.eclipse\.jst\.j2ee\.[\.\w/]*">
       	</activityPatternBinding>
       	
       	<activityPatternBinding
-            activityId="org.eclipse.wtp.jee"
+            activityId="org.eclipse.wtp.jee.capabilities"
             pattern="org\.eclipse\.jst\.jsp\.[\.\w/]*">
       	</activityPatternBinding>
       	
       	<activityPatternBinding
-            activityId="org.eclipse.wtp.jee"
+            activityId="org.eclipse.wtp.jee.capabilities"
             pattern="org\.eclipse\.jst\.server\.[\.\w/]*">
       	</activityPatternBinding>
       	
       	<activityPatternBinding
-            activityId="org.eclipse.wtp.jee"
+            activityId="org.eclipse.wtp.jee.capabilities"
             pattern="org\.eclipse\.jst\.servlet\.[\.\w/]*">
       	</activityPatternBinding>
       	
       	<activityRequirementBinding 
       		requiredActivityId="org.eclipse.wtp.webservices.capabilities" 
-      		activityId="org.eclipse.wtp.jee">
+      		activityId="org.eclipse.wtp.jee.capabilities">
       	</activityRequirementBinding>
       	
       	<activityRequirementBinding 
       		requiredActivityId="org.eclipse.javaDevelopment" 
-      		activityId="org.eclipse.wtp.jee">
+      		activityId="org.eclipse.wtp.jee.capabilities">
       	</activityRequirementBinding>
       	<!--
       	<activityRequirementBinding 
       		requiredActivityId="org.eclipse.team" 
-      		activityId="org.eclipse.wtp.jee">
+      		activityId="org.eclipse.wtp.jee.capabilities">
       	</activityRequirementBinding>
       	-->
+      	<!--
+       <categoryActivityBinding
+            activityId="org.eclipse.wtp.jee.capabilities"
+            categoryId="org.eclipse.categories.developmentCategory">
+       </categoryActivityBinding>
+       
       	<defaultEnablement
-            id="org.eclipse.wtp.jee">
+            id="org.eclipse.wtp.jee.capabilities">
       	</defaultEnablement>
-      
+      -->
    </extension>
    
    <!-- Add to the Web Service Capability Definition-->
@@ -161,7 +166,7 @@
       	
       	<!--
       	<activityRequirementBinding 
-      		requiredActivityId="org.eclipse.wtp.jee" 
+      		requiredActivityId="org.eclipse.wtp.jee.capabilities" 
       		activityId="org.eclipse.wtp.webservices.capabilities">
       	</activityRequirementBinding>
       	-->
