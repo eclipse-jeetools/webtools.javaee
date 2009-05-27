@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -28,11 +29,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
+import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.EarFacetRuntimeHandler;
 import org.eclipse.jst.javaee.application.ApplicationFactory;
@@ -48,6 +51,7 @@ import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceCo
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
@@ -62,7 +66,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		if (monitor != null) {
-			monitor.beginTask("", 3);
+			monitor.beginTask("", 4);
 		}
 		try {
 			J2EEComponentClasspathUpdater.getInstance().pauseUpdates();
@@ -73,6 +77,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 					return Status.CANCEL_STATUS;
 				updateEARDD(submon(monitor, 1));
 				updateModuleRuntimes(submon(monitor, 1));
+				moduleClasspathForceUpdate(submon(monitor, 1));
 			}
 			return status;
 		} finally {
@@ -292,6 +297,33 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 			EarFacetRuntimeHandler.updateModuleProjectRuntime(earpj, moduleProjects, submon(monitor, 9));
 		} catch (Exception e) {
 			Logger.getLogger().logError(e);
+		} finally {
+			if (monitor != null) {
+				monitor.done();
+			}
+		}
+	}
+
+	private void moduleClasspathForceUpdate(IProgressMonitor monitor) {
+		if (monitor != null) {
+			monitor.beginTask("", 1);
+		}
+		
+		try {
+			EARVirtualComponent ear = (EARVirtualComponent) this.model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
+			String deployPath = model.getStringProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH);
+			String libDir = EarUtilities.getEARLibDir(ear);
+			
+			if (JavaEEProjectUtilities.isJEEComponent(ear) && libDir.equals(deployPath)) {
+				// the component added is in the library directory of an EAR 5+ project
+				// we should trigger force update of the classpath of all module in the EAR
+				IVirtualReference[] refs = ear.getReferences();
+				Collection<IProject> projects = new HashSet<IProject>();
+				for (IVirtualReference ref : refs) {
+					projects.add(ref.getReferencedComponent().getProject());
+				}
+				J2EEComponentClasspathUpdater.getInstance().forceUpdate(projects);
+			}
 		} finally {
 			if (monitor != null) {
 				monitor.done();

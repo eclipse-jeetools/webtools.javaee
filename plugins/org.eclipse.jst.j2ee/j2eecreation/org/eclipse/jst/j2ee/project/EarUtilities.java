@@ -18,12 +18,16 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.Module;
+import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
+import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
+import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.jee.application.ICommonApplication;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
@@ -336,4 +340,37 @@ public class EarUtilities extends JavaEEProjectUtilities {
 
 		return retVal;
 	}
+
+	/**
+	 * Get the library directory from an EAR virtual component
+	 * 
+	 * @param earComponent
+	 *            the EAR virtual component
+	 * 
+	 * @return a runtime representation of the library directory path or null if
+	 *         the EAR's version is lower than 5
+	 */
+	public static String getEARLibDir(EARVirtualComponent earComponent) {
+		// check if the EAR component's version is 5 or greater
+		IProject project = earComponent.getProject();
+		if (!JavaEEProjectUtilities.isJEEComponent(earComponent, JavaEEProjectUtilities.DD_VERSION)) return null;
+		
+		// retrieve the model provider
+		IModelProvider modelProvider = ModelProviderManager.getModelProvider(project);
+		if (modelProvider == null) return null;
+		
+		// retrieve the EAR's model object
+		Application app = (Application) modelProvider.getModelObject();
+		if (app == null) return null;
+		
+		// retrieve the library directory from the model
+		String libDir = app.getLibraryDirectory();
+		if (libDir == null) {
+			// the library directory is not set - use the default one
+			libDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
+		}
+		
+		return libDir;
+	}
+	
 }

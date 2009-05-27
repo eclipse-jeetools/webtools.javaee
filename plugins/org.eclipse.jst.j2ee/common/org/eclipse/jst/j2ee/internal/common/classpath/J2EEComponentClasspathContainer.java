@@ -32,14 +32,10 @@ import org.eclipse.jst.common.jdt.internal.classpath.ClasspathDecorations;
 import org.eclipse.jst.common.jdt.internal.classpath.ClasspathDecorationsManager;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.model.IModelProvider;
-import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
-import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
@@ -176,7 +172,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			if (EarUtilities.isEARProject(referencingComp.getProject())) {
 				EARVirtualComponent earComp = (EARVirtualComponent) referencingComp;
 				// retrieve the EAR's library directory 
-				String libDir = getEARLibDir(earComp);
+				String libDir = EarUtilities.getEARLibDir(earComp);
 				// if the EAR version is lower than 5, then the library directory will be null
 				if (libDir != null) {
 					// check if the component itself is not in the library directory of this EAR - avoid cycles in the build patch
@@ -346,38 +342,6 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 
 	public IPath getPath() {
 		return containerPath;
-	}
-
-	/**
-	 * Get the library directory from an EAR virtual component
-	 * 
-	 * @param earComponent
-	 *            the EAR virtual component
-	 * 
-	 * @return a runtime representation of the library directory path or null if
-	 *         the EAR's version is lower than 5
-	 */
-	private String getEARLibDir(EARVirtualComponent earComponent) {
-		// check if the EAR component's version is 5 or greater
-		IProject project = earComponent.getProject();
-		if (!JavaEEProjectUtilities.isJEEComponent(earComponent, JavaEEProjectUtilities.DD_VERSION)) return null;
-		
-		// retrieve the model provider
-		IModelProvider modelProvider = ModelProviderManager.getModelProvider(project);
-		if (modelProvider == null) return null;
-		
-		// retrieve the EAR's model object
-		Application app = (Application) modelProvider.getModelObject();
-		if (app == null) return null;
-		
-		// retrieve the library directory from the model
-		String libDir = app.getLibraryDirectory();
-		if (libDir == null) {
-			// the library directory is not set - use the default one
-			libDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
-		}
-		
-		return libDir;
 	}
 	
 }
