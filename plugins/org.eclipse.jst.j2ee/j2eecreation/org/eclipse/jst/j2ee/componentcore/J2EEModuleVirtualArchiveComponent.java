@@ -61,4 +61,13 @@ public class J2EEModuleVirtualArchiveComponent extends VirtualArchiveComponent {
 		return linkedToEAR;
 	}
 	
+	private IPath deploymentPath;
+	
+	public IPath getDeploymentPath() {
+		return deploymentPath;
+	}
+	public void setDeploymentPath(IPath path) {
+		this.deploymentPath = path;
+	}
+	
 }

@@ -102,6 +102,9 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 								} else {
 									if (referencedIVirtualComponent.isBinary()) {
 										archiveName = getJarURI(referencedComponent, referencedIVirtualComponent);
+										if (J2EEModuleVirtualArchiveComponent.class.isInstance(referencedIVirtualComponent)){
+											((J2EEModuleVirtualArchiveComponent)referencedIVirtualComponent).setDeploymentPath(vReference.getRuntimePath());
+										}
 									} else if(referencedComponent.getArchiveName() != null){
 										archiveName = referencedComponent.getArchiveName();
 									} else {
@@ -164,6 +167,8 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 							IResource iResource = members[i].getUnderlyingResource();
 							IVirtualComponent dynamicComponent = ComponentCore.createArchiveComponent(earComponent.getProject(), VirtualArchiveComponent.LIBARCHIVETYPE + iResource.getFullPath().toString());
 							IVirtualReference dynamicRef = ComponentCore.createReference(earComponent, dynamicComponent);
+							if( dynamicComponent instanceof J2EEModuleVirtualArchiveComponent)
+								((J2EEModuleVirtualArchiveComponent)dynamicComponent).setDeploymentPath(members[i].getRuntimePath());
 							dynamicRef.setArchiveName(archiveName);
 							if (null == dynamicReferences) {
 								dynamicReferences = new ArrayList();

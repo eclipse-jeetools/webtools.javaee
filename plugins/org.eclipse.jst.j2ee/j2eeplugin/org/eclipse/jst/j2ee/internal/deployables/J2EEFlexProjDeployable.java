@@ -485,9 +485,24 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     }
     
     private String getContainedURI(IModule module) {
-    	if (component instanceof J2EEModuleVirtualArchiveComponent || isBinaryModuleArchive(module))
+    	if( isBinaryModuleArchive(module)) {
+    		J2EEFlexProjDeployable moduleDelegate = (J2EEFlexProjDeployable)module.loadAdapter(J2EEFlexProjDeployable.class, null);
+    		if( moduleDelegate != null && moduleDelegate.component != null
+    				&& moduleDelegate.component instanceof J2EEModuleVirtualArchiveComponent) {
+    			J2EEModuleVirtualArchiveComponent moduleVirtualArchiveComponent = (J2EEModuleVirtualArchiveComponent)moduleDelegate.component;
+    			IPath moduleDeployPath = moduleVirtualArchiveComponent.getDeploymentPath();
+    			String moduleName = new Path(moduleVirtualArchiveComponent.getName()).lastSegment();
+    			if (moduleName.equals(moduleDeployPath.lastSegment())){
+    				return moduleDeployPath.toString();
+    			}
+    			return moduleDeployPath.append(moduleName).toString();
+    		}
+    	}
+
+    	if (component instanceof J2EEModuleVirtualArchiveComponent || isBinaryModuleArchive(module)) {
     		return new Path(module.getName()).lastSegment();
-    	
+    	}
+
     	IVirtualComponent comp = ComponentCore.createComponent(module.getProject());
     	String aURI = null;
     	if (comp!=null && component!=null && J2EEProjectUtilities.isEARProject(component.getProject())) {

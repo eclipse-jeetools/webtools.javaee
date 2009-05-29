@@ -27,6 +27,7 @@ import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.ejb.EnterpriseBeans;
 import org.eclipse.jst.javaee.ejb.SessionBean;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -64,7 +65,7 @@ public class JEEFlexProjDeployable extends J2EEFlexProjDeployable {
 		if (J2EEProjectUtilities.isEARProject(component.getProject()))
 			return virtualComp != null && virtualComp.isBinary() && !isNestedJ2EEModule(virtualComp, references, model);
 		else 
-			return super.shouldIncludeUtilityComponent(virtualComp, references, null);
+			return super.shouldIncludeUtilityComponent(virtualComp, references, ArtifactEdit.class.isInstance(model) ? (ArtifactEdit)model : null);
 	}
 	    
     public String getJNDIName(String ejbName, String interfaceName) {
