@@ -60,14 +60,14 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class Session2xInterfacesTable extends Composite {
 
-	private static final String _TABLEITEM = "_TABLEITEM";
+	private static final String _TABLEITEM = "_TABLEITEM"; //$NON-NLS-1$
 
 	private Table table;
 	private TableViewer viewer;
 	
 	private IDataModel model;
-	private final static String ABBREVIATION_COLUMN = "abbreviation";
-	private final static String CLASS_NAME_COLUMN = "className";
+	private final static String ABBREVIATION_COLUMN = "abbreviation"; //$NON-NLS-1$
+	private final static String CLASS_NAME_COLUMN = "className"; //$NON-NLS-1$
 	
 	private ArrayList tableValues = new ArrayList();
 	
@@ -138,7 +138,7 @@ public class Session2xInterfacesTable extends Composite {
             final TableItem item = items[i];
             TableEditor editor = new TableEditor(getTable());
             final Button button = new Button(getTable(), SWT.FLAT);
-            button.setText("...");
+            button.setText("..."); //$NON-NLS-1$
             button.pack();
             
             button.addSelectionListener(new SelectionListener(){
@@ -242,6 +242,7 @@ public class Session2xInterfacesTable extends Composite {
 		
 		// accessibility: if there is no selection select the first row by default
 		table.addFocusListener(new FocusAdapter() {
+			@Override
 			public void focusGained(FocusEvent e) {
 				if (table.getSelectionCount() == 0) {
 					table.select(0);
@@ -266,7 +267,6 @@ public class Session2xInterfacesTable extends Composite {
 				TableColumn column2 = table.getColumn(1);
 				int tmp = column2.getWidth() + delta;
 				column2.setWidth(tmp);
-				Point size = table.getSize();
 			}
 		});
 	}
@@ -343,7 +343,7 @@ public class Session2xInterfacesTable extends Composite {
 	 */
 	protected void setTableTooltips(final Table table) {
 		// Disable native tooltip
-		table.setToolTipText("");
+		table.setToolTipText(""); //$NON-NLS-1$
 		
 		// Implement a "fake" tooltip
 		final Listener labelListener = new Listener() {
@@ -428,7 +428,7 @@ public class Session2xInterfacesTable extends Composite {
 			return EJBUIMessages.REMOTE_HOME_INTERFACE_TOOLTIP;
 		} 
 		
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 	
 }

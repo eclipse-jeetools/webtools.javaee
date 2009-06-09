@@ -105,7 +105,7 @@ public class AddButtonListener implements SelectionListener {
 	public boolean hasInterface(String text, List<BusinessInterface> biList) {
 		
         for (Iterator<BusinessInterface> i = biList.iterator(); i.hasNext(); ) {
-            BusinessInterface element = (BusinessInterface) i.next();
+            BusinessInterface element = i.next();
             if (element.getFullyQualifiedName().equals(text)) {
             	return true;
             }
@@ -136,7 +136,7 @@ public class AddButtonListener implements SelectionListener {
             	for (IProject p : projects) {
             		javaProjects.add(JavaCore.create(p));
             	}
-            	prjs = (IJavaProject[]) javaProjects.toArray(new IJavaProject[javaProjects.size()]);
+            	prjs = javaProjects.toArray(new IJavaProject[javaProjects.size()]);
             }
 
             for (int i = 0; prjs != null && (i < prjs.length); i++) {
