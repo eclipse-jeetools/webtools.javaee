@@ -146,7 +146,7 @@ public class ServletMappingImpl extends J2EEEObjectImpl implements ServletMappin
 	public void setWebApp(WebApp newWebApp) {
 		if (newWebApp != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.SERVLET_MAPPING__WEB_APP && newWebApp != null)) {
 			if (EcoreUtil.isAncestor(this, newWebApp))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -334,9 +334,9 @@ public class ServletMappingImpl extends J2EEEObjectImpl implements ServletMappin
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (urlPattern: ");
+		result.append(" (urlPattern: "); //$NON-NLS-1$
 		result.append(urlPattern);
-		result.append(", name: ");
+		result.append(", name: "); //$NON-NLS-1$
 		result.append(name);
 		result.append(')');
 		return result.toString();

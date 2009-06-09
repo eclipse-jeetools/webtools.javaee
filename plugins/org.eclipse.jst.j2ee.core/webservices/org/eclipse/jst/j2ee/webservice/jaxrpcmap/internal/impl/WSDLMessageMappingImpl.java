@@ -431,14 +431,14 @@ public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (id: ");
+		result.append(" (id: "); //$NON-NLS-1$
 		result.append(id);
-		result.append(", wsdlMessagePartName: ");
+		result.append(", wsdlMessagePartName: "); //$NON-NLS-1$
 		result.append(wsdlMessagePartName);
-		result.append(", parameterMode: ");
+		result.append(", parameterMode: "); //$NON-NLS-1$
 		result.append(parameterMode);
-		result.append(", soapHeader: ");
-		if (soapHeaderESet) result.append(soapHeader); else result.append("<unset>");
+		result.append(", soapHeader: "); //$NON-NLS-1$
+		if (soapHeaderESet) result.append(soapHeader); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(')');
 		return result.toString();
 	}

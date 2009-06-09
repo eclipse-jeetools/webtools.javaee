@@ -78,7 +78,7 @@ public final class ResAuthTypeBase extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final ResAuthTypeBase CONTAINER_LITERAL = new ResAuthTypeBase(CONTAINER, "Container", "Container"); //$NON-NLS-1$
+	public static final ResAuthTypeBase CONTAINER_LITERAL = new ResAuthTypeBase(CONTAINER, "Container", "Container"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Application</b></em>' literal object.
@@ -92,7 +92,7 @@ public final class ResAuthTypeBase extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final ResAuthTypeBase APPLICATION_LITERAL = new ResAuthTypeBase(APPLICATION, "Application", "Application"); //$NON-NLS-1$
+	public static final ResAuthTypeBase APPLICATION_LITERAL = new ResAuthTypeBase(APPLICATION, "Application", "Application"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>SERVLET</b></em>' literal object.
@@ -106,7 +106,7 @@ public final class ResAuthTypeBase extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final ResAuthTypeBase SERVLET_LITERAL = new ResAuthTypeBase(SERVLET, "SERVLET", "SERVLET"); //$NON-NLS-1$
+	public static final ResAuthTypeBase SERVLET_LITERAL = new ResAuthTypeBase(SERVLET, "SERVLET", "SERVLET"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>Res Auth Type Base</b></em>' enumerators.

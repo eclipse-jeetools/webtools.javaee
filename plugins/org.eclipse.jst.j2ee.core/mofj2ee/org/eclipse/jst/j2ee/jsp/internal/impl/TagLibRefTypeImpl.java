@@ -212,9 +212,9 @@ public class TagLibRefTypeImpl extends J2EEEObjectImpl implements TagLibRefType 
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (taglibURI: ");
+		result.append(" (taglibURI: "); //$NON-NLS-1$
 		result.append(taglibURI);
-		result.append(", taglibLocation: ");
+		result.append(", taglibLocation: "); //$NON-NLS-1$
 		result.append(taglibLocation);
 		result.append(')');
 		return result.toString();

@@ -135,7 +135,7 @@ public class RoleNameTypeImpl extends J2EEEObjectImpl implements RoleNameType {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (roleName: ");
+		result.append(" (roleName: "); //$NON-NLS-1$
 		result.append(roleName);
 		result.append(')');
 		return result.toString();

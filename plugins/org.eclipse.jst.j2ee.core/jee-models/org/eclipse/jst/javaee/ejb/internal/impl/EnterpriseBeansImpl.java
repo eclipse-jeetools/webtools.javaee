@@ -115,7 +115,7 @@ public class EnterpriseBeansImpl extends EObjectImpl implements EnterpriseBeans 
 	 * @generated
 	 */
 	public List getSessionBeans() {
-		return ((FeatureMap)getGroup()).list(EjbPackage.Literals.ENTERPRISE_BEANS__SESSION_BEANS);
+		return (getGroup()).list(EjbPackage.Literals.ENTERPRISE_BEANS__SESSION_BEANS);
 	}
 
 	/**
@@ -124,7 +124,7 @@ public class EnterpriseBeansImpl extends EObjectImpl implements EnterpriseBeans 
 	 * @generated
 	 */
 	public List getEntityBeans() {
-		return ((FeatureMap)getGroup()).list(EjbPackage.Literals.ENTERPRISE_BEANS__ENTITY_BEANS);
+		return (getGroup()).list(EjbPackage.Literals.ENTERPRISE_BEANS__ENTITY_BEANS);
 	}
 
 	/**
@@ -133,7 +133,7 @@ public class EnterpriseBeansImpl extends EObjectImpl implements EnterpriseBeans 
 	 * @generated
 	 */
 	public List getMessageDrivenBeans() {
-		return ((FeatureMap)getGroup()).list(EjbPackage.Literals.ENTERPRISE_BEANS__MESSAGE_DRIVEN_BEANS);
+		return (getGroup()).list(EjbPackage.Literals.ENTERPRISE_BEANS__MESSAGE_DRIVEN_BEANS);
 	}
 
 	/**

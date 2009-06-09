@@ -233,7 +233,7 @@ public WebapplicationFactory getFactory() {
 	public void setSecConstraint(SecurityConstraint newSecConstraint) {
 		if (newSecConstraint != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT && newSecConstraint != null)) {
 			if (EcoreUtil.isAncestor(this, newSecConstraint))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -477,13 +477,13 @@ public WebapplicationFactory getFactory() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (webResourceName: ");
+		result.append(" (webResourceName: "); //$NON-NLS-1$
 		result.append(webResourceName);
-		result.append(", description: ");
+		result.append(", description: "); //$NON-NLS-1$
 		result.append(description);
-		result.append(", urlPattern: ");
+		result.append(", urlPattern: "); //$NON-NLS-1$
 		result.append(urlPattern);
-		result.append(", httpMethod: ");
+		result.append(", httpMethod: "); //$NON-NLS-1$
 		result.append(httpMethod);
 		result.append(')');
 		return result.toString();

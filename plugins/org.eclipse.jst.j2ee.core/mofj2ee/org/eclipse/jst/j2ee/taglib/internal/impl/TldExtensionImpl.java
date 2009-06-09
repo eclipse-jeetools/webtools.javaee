@@ -216,7 +216,7 @@ public class TldExtensionImpl extends J2EEEObjectImpl implements TldExtension {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (namespace: ");
+		result.append(" (namespace: "); //$NON-NLS-1$
 		result.append(namespace);
 		result.append(')');
 		return result.toString();

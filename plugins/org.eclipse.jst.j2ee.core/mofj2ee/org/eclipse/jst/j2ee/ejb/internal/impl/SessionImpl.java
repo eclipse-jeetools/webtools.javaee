@@ -320,10 +320,10 @@ public class SessionImpl extends EnterpriseBeanImpl implements Session, Enterpri
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (transactionType: ");
-		if (transactionTypeESet) result.append(transactionType); else result.append("<unset>");
-		result.append(", sessionType: ");
-		if (sessionTypeESet) result.append(sessionType); else result.append("<unset>");
+		result.append(" (transactionType: "); //$NON-NLS-1$
+		if (transactionTypeESet) result.append(transactionType); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", sessionType: "); //$NON-NLS-1$
+		if (sessionTypeESet) result.append(sessionType); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(')');
 		return result.toString();
 	}

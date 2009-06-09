@@ -58,7 +58,7 @@ public final class BodyContentType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final BodyContentType TAGDEPENDENT_LITERAL = new BodyContentType(TAGDEPENDENT, "tagdependent", "tagdependent");//$NON-NLS-1$
+	public static final BodyContentType TAGDEPENDENT_LITERAL = new BodyContentType(TAGDEPENDENT, "tagdependent", "tagdependent");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>JSP</b></em>' literal object.
@@ -72,7 +72,7 @@ public final class BodyContentType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final BodyContentType JSP_LITERAL = new BodyContentType(JSP, "JSP", "JSP");//$NON-NLS-1$
+	public static final BodyContentType JSP_LITERAL = new BodyContentType(JSP, "JSP", "JSP");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Empty</b></em>' literal object.
@@ -86,7 +86,7 @@ public final class BodyContentType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final BodyContentType EMPTY_LITERAL = new BodyContentType(EMPTY, "empty", "empty");//$NON-NLS-1$
+	public static final BodyContentType EMPTY_LITERAL = new BodyContentType(EMPTY, "empty", "empty");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Scriptless</b></em>' literal object.
@@ -100,7 +100,7 @@ public final class BodyContentType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final BodyContentType SCRIPTLESS_LITERAL = new BodyContentType(SCRIPTLESS, "scriptless", "scriptless");//$NON-NLS-1$
+	public static final BodyContentType SCRIPTLESS_LITERAL = new BodyContentType(SCRIPTLESS, "scriptless", "scriptless");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>Body Content Type</b></em>' enumerators.

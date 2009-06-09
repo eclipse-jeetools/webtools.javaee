@@ -268,9 +268,9 @@ public class AdminObjectImpl extends J2EEEObjectImpl implements AdminObject {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (adminObjectInterface: ");
+		result.append(" (adminObjectInterface: "); //$NON-NLS-1$
 		result.append(adminObjectInterface);
-		result.append(", adminObjectClass: ");
+		result.append(", adminObjectClass: "); //$NON-NLS-1$
 		result.append(adminObjectClass);
 		result.append(')');
 		return result.toString();

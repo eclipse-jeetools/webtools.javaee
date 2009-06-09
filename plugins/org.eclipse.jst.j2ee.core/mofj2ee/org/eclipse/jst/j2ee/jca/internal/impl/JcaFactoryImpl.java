@@ -48,7 +48,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 */
 	public static JcaFactory init() {
 		try {
-			JcaFactory theJcaFactory = (JcaFactory)EPackage.Registry.INSTANCE.getEFactory("jca.xmi"); 
+			JcaFactory theJcaFactory = (JcaFactory)EPackage.Registry.INSTANCE.getEFactory("jca.xmi");  //$NON-NLS-1$
 			if (theJcaFactory != null) {
 				return theJcaFactory;
 			}
@@ -85,7 +85,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 			case JcaPackage.ACTIVATION_SPEC: return createActivationSpec();
 			case JcaPackage.REQUIRED_CONFIG_PROPERTY_TYPE: return createRequiredConfigPropertyType();
 			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -102,7 +102,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 			case JcaPackage.TRANSACTION_SUPPORT_KIND:
 				return createTransactionSupportKindFromString(eDataType, initialValue);
 			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -119,7 +119,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 			case JcaPackage.TRANSACTION_SUPPORT_KIND:
 				return convertTransactionSupportKindToString(eDataType, instanceValue);
 			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -226,7 +226,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 */
 	public AuthenticationMechanismType createAuthenticationMechanismTypeFromString(EDataType eDataType, String initialValue) {
 		AuthenticationMechanismType result = AuthenticationMechanismType.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		return result;
 	}
 
@@ -246,7 +246,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 */
 	public TransactionSupportKind createTransactionSupportKindFromString(EDataType eDataType, String initialValue) {
 		TransactionSupportKind result = TransactionSupportKind.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		return result;
 	}
 

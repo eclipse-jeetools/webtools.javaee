@@ -796,21 +796,21 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (managedConnectionFactoryClass: ");
+		result.append(" (managedConnectionFactoryClass: "); //$NON-NLS-1$
 		result.append(managedConnectionFactoryClass);
-		result.append(", connectionFactoryInterface: ");
+		result.append(", connectionFactoryInterface: "); //$NON-NLS-1$
 		result.append(connectionFactoryInterface);
-		result.append(", connectionFactoryImplClass: ");
+		result.append(", connectionFactoryImplClass: "); //$NON-NLS-1$
 		result.append(connectionFactoryImplClass);
-		result.append(", connectionInterface: ");
+		result.append(", connectionInterface: "); //$NON-NLS-1$
 		result.append(connectionInterface);
-		result.append(", connectionImplClass: ");
+		result.append(", connectionImplClass: "); //$NON-NLS-1$
 		result.append(connectionImplClass);
-		result.append(", transactionSupport: ");
-		if (transactionSupportESet) result.append(transactionSupport); else result.append("<unset>");
-		result.append(", reauthenticationSupport: ");
-		if (reauthenticationSupportESet) result.append(reauthenticationSupport); else result.append("<unset>");
-		result.append(", resourceAdapterClass: ");
+		result.append(", transactionSupport: "); //$NON-NLS-1$
+		if (transactionSupportESet) result.append(transactionSupport); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", reauthenticationSupport: "); //$NON-NLS-1$
+		if (reauthenticationSupportESet) result.append(reauthenticationSupport); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", resourceAdapterClass: "); //$NON-NLS-1$
 		result.append(resourceAdapterClass);
 		result.append(')');
 		return result.toString();

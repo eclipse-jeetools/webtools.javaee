@@ -48,7 +48,7 @@ public final class DestinationType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final DestinationType QUEUE_LITERAL = new DestinationType(QUEUE, "Queue", "Queue"); //$NON-NLS-1$
+	public static final DestinationType QUEUE_LITERAL = new DestinationType(QUEUE, "Queue", "Queue"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Topic</b></em>' literal object.
@@ -62,7 +62,7 @@ public final class DestinationType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final DestinationType TOPIC_LITERAL = new DestinationType(TOPIC, "Topic", "Topic"); //$NON-NLS-1$
+	public static final DestinationType TOPIC_LITERAL = new DestinationType(TOPIC, "Topic", "Topic"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>Destination Type</b></em>' enumerators.

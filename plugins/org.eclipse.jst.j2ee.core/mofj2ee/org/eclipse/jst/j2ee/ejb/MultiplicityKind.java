@@ -48,7 +48,7 @@ public final class MultiplicityKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final MultiplicityKind ONE_LITERAL = new MultiplicityKind(ONE, "One", "One"); //$NON-NLS-1$
+	public static final MultiplicityKind ONE_LITERAL = new MultiplicityKind(ONE, "One", "One"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Many</b></em>' literal object.
@@ -62,7 +62,7 @@ public final class MultiplicityKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final MultiplicityKind MANY_LITERAL = new MultiplicityKind(MANY, "Many", "Many"); //$NON-NLS-1$
+	public static final MultiplicityKind MANY_LITERAL = new MultiplicityKind(MANY, "Many", "Many"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>Multiplicity Kind</b></em>' enumerators.

@@ -452,13 +452,13 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
+		result.append(" (name: "); //$NON-NLS-1$
 		result.append(name);
-		result.append(", required: ");
-		if (requiredESet) result.append(required); else result.append("<unset>");
-		result.append(", rtExprValue: ");
-		if (rtExprValueESet) result.append(rtExprValue); else result.append("<unset>");
-		result.append(", fragment: ");
+		result.append(", required: "); //$NON-NLS-1$
+		if (requiredESet) result.append(required); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", rtExprValue: "); //$NON-NLS-1$
+		if (rtExprValueESet) result.append(rtExprValue); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", fragment: "); //$NON-NLS-1$
 		result.append(fragment);
 		result.append(')');
 		return result.toString();

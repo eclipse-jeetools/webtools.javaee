@@ -25,7 +25,7 @@ public class EarXMLHelperImpl extends JEEXMLHelperImpl {
 	
 	@Override
 	public String getURI(String prefix) {
-		if (prefix != null && prefix.equals(""))
+		if (prefix != null && prefix.equals("")) //$NON-NLS-1$
 			return ApplicationPackage.eNS_URI;
 		else
 			return super.getURI(prefix);

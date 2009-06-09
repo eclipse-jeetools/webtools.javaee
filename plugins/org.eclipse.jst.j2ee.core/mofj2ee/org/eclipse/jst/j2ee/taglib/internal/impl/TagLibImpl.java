@@ -495,13 +495,13 @@ public class TagLibImpl extends CompatibilityDescriptionGroupImpl implements Tag
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (tagLibVersion: ");
+		result.append(" (tagLibVersion: "); //$NON-NLS-1$
 		result.append(tagLibVersion);
-		result.append(", jspVersion: ");
+		result.append(", jspVersion: "); //$NON-NLS-1$
 		result.append(jspVersion);
-		result.append(", shortName: ");
+		result.append(", shortName: "); //$NON-NLS-1$
 		result.append(shortName);
-		result.append(", uri: ");
+		result.append(", uri: "); //$NON-NLS-1$
 		result.append(uri);
 		result.append(')');
 		return result.toString();

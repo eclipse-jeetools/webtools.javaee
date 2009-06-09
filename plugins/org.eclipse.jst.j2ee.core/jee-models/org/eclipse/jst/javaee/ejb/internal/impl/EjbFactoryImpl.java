@@ -726,7 +726,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * @generated
 	 */
 	public CmpVersionType createCmpVersionTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return (CmpVersionType)createCmpVersionTypeFromString(EjbPackage.Literals.CMP_VERSION_TYPE, initialValue);
+		return createCmpVersionTypeFromString(EjbPackage.Literals.CMP_VERSION_TYPE, initialValue);
 	}
 
 	/**
@@ -744,7 +744,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * @generated
 	 */
 	public CMRFieldType createCMRFieldTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return (CMRFieldType)createCMRFieldTypeFromString(EjbPackage.Literals.CMR_FIELD_TYPE, initialValue);
+		return createCMRFieldTypeFromString(EjbPackage.Literals.CMR_FIELD_TYPE, initialValue);
 	}
 
 	/**
@@ -798,7 +798,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * @generated
 	 */
 	public MethodInterfaceType createMethodInterfaceTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return (MethodInterfaceType)createMethodInterfaceTypeFromString(EjbPackage.Literals.METHOD_INTERFACE_TYPE, initialValue);
+		return createMethodInterfaceTypeFromString(EjbPackage.Literals.METHOD_INTERFACE_TYPE, initialValue);
 	}
 
 	/**
@@ -834,7 +834,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * @generated
 	 */
 	public MultiplicityType createMultiplicityTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return (MultiplicityType)createMultiplicityTypeFromString(EjbPackage.Literals.MULTIPLICITY_TYPE, initialValue);
+		return createMultiplicityTypeFromString(EjbPackage.Literals.MULTIPLICITY_TYPE, initialValue);
 	}
 
 	/**
@@ -852,7 +852,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * @generated
 	 */
 	public PersistenceType createPersistenceTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return (PersistenceType)createPersistenceTypeFromString(EjbPackage.Literals.PERSISTENCE_TYPE, initialValue);
+		return createPersistenceTypeFromString(EjbPackage.Literals.PERSISTENCE_TYPE, initialValue);
 	}
 
 	/**
@@ -870,7 +870,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * @generated
 	 */
 	public ResultTypeMappingType createResultTypeMappingTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return (ResultTypeMappingType)createResultTypeMappingTypeFromString(EjbPackage.Literals.RESULT_TYPE_MAPPING_TYPE, initialValue);
+		return createResultTypeMappingTypeFromString(EjbPackage.Literals.RESULT_TYPE_MAPPING_TYPE, initialValue);
 	}
 
 	/**
@@ -888,7 +888,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * @generated
 	 */
 	public SessionType createSessionTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return (SessionType)createSessionTypeFromString(EjbPackage.Literals.SESSION_TYPE, initialValue);
+		return createSessionTypeFromString(EjbPackage.Literals.SESSION_TYPE, initialValue);
 	}
 
 	/**
@@ -906,7 +906,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * @generated
 	 */
 	public TransactionAttributeType createTransactionAttributeTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return (TransactionAttributeType)createTransactionAttributeTypeFromString(EjbPackage.Literals.TRANSACTION_ATTRIBUTE_TYPE, initialValue);
+		return createTransactionAttributeTypeFromString(EjbPackage.Literals.TRANSACTION_ATTRIBUTE_TYPE, initialValue);
 	}
 
 	/**
@@ -924,7 +924,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * @generated
 	 */
 	public TransactionType createTransactionTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return (TransactionType)createTransactionTypeFromString(EjbPackage.Literals.TRANSACTION_TYPE, initialValue);
+		return createTransactionTypeFromString(EjbPackage.Literals.TRANSACTION_TYPE, initialValue);
 	}
 
 	/**

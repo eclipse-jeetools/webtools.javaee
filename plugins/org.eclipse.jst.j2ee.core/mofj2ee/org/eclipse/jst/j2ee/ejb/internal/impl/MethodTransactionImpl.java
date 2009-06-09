@@ -234,7 +234,7 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	public void setAssemblyDescriptor(AssemblyDescriptor newAssemblyDescriptor) {
 		if (newAssemblyDescriptor != eInternalContainer() || (eContainerFeatureID != EjbPackage.METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR && newAssemblyDescriptor != null)) {
 			if (EcoreUtil.isAncestor(this, newAssemblyDescriptor))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -425,9 +425,9 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (transactionAttribute: ");
-		if (transactionAttributeESet) result.append(transactionAttribute); else result.append("<unset>");
-		result.append(", description: ");
+		result.append(" (transactionAttribute: "); //$NON-NLS-1$
+		if (transactionAttributeESet) result.append(transactionAttribute); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", description: "); //$NON-NLS-1$
 		result.append(description);
 		result.append(')');
 		return result.toString();

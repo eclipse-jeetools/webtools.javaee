@@ -48,7 +48,7 @@ public final class SessionType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final SessionType STATEFUL_LITERAL = new SessionType(STATEFUL, "Stateful", "Stateful"); //$NON-NLS-1$
+	public static final SessionType STATEFUL_LITERAL = new SessionType(STATEFUL, "Stateful", "Stateful"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Stateless</b></em>' literal object.
@@ -62,7 +62,7 @@ public final class SessionType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final SessionType STATELESS_LITERAL = new SessionType(STATELESS, "Stateless", "Stateless"); //$NON-NLS-1$
+	public static final SessionType STATELESS_LITERAL = new SessionType(STATELESS, "Stateless", "Stateless"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>Session Type</b></em>' enumerators.

@@ -48,7 +48,7 @@ public final class ReturnTypeMapping extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final ReturnTypeMapping LOCAL_LITERAL = new ReturnTypeMapping(LOCAL, "Local", "Local"); //$NON-NLS-1$
+	public static final ReturnTypeMapping LOCAL_LITERAL = new ReturnTypeMapping(LOCAL, "Local", "Local"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Remote</b></em>' literal object.
@@ -62,7 +62,7 @@ public final class ReturnTypeMapping extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final ReturnTypeMapping REMOTE_LITERAL = new ReturnTypeMapping(REMOTE, "Remote", "Remote"); //$NON-NLS-1$
+	public static final ReturnTypeMapping REMOTE_LITERAL = new ReturnTypeMapping(REMOTE, "Remote", "Remote"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>Return Type Mapping</b></em>' enumerators.

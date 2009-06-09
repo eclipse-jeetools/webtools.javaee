@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: HandlerChainImpl.java,v 1.2 2009/06/09 19:35:55 jsholl Exp $
+ * $Id: HandlerChainImpl.java,v 1.3 2009/06/09 22:38:39 jsholl Exp $
  */
 package org.eclipse.jst.j2ee.webservice.wsdd.internal.impl;
 
@@ -304,11 +304,11 @@ public class HandlerChainImpl extends J2EEEObjectImpl implements HandlerChain {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (serviceNamePattern: ");
+		result.append(" (serviceNamePattern: "); //$NON-NLS-1$
 		result.append(serviceNamePattern);
-		result.append(", portNamePattern: ");
+		result.append(", portNamePattern: "); //$NON-NLS-1$
 		result.append(portNamePattern);
-		result.append(", protocolBindings: ");
+		result.append(", protocolBindings: "); //$NON-NLS-1$
 		result.append(protocolBindings);
 		result.append(')');
 		return result.toString();

@@ -503,9 +503,9 @@ public CMPAttribute removePersistentAttribute(String aName) {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (version: ");
+		result.append(" (version: "); //$NON-NLS-1$
 		result.append(version);
-		result.append(", abstractSchemaName: ");
+		result.append(", abstractSchemaName: "); //$NON-NLS-1$
 		result.append(abstractSchemaName);
 		result.append(')');
 		return result.toString();

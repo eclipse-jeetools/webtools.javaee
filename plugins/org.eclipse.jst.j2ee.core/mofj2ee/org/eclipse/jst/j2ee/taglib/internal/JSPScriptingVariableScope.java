@@ -47,7 +47,7 @@ public final class JSPScriptingVariableScope extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final JSPScriptingVariableScope NESTED_LITERAL = new JSPScriptingVariableScope(NESTED, "NESTED", "NESTED");//$NON-NLS-1$
+	public static final JSPScriptingVariableScope NESTED_LITERAL = new JSPScriptingVariableScope(NESTED, "NESTED", "NESTED");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>AT BEGIN</b></em>' literal object.
@@ -61,7 +61,7 @@ public final class JSPScriptingVariableScope extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final JSPScriptingVariableScope AT_BEGIN_LITERAL = new JSPScriptingVariableScope(AT_BEGIN, "AT_BEGIN", "AT_BEGIN");//$NON-NLS-1$
+	public static final JSPScriptingVariableScope AT_BEGIN_LITERAL = new JSPScriptingVariableScope(AT_BEGIN, "AT_BEGIN", "AT_BEGIN");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>AT END</b></em>' literal object.
@@ -75,7 +75,7 @@ public final class JSPScriptingVariableScope extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final JSPScriptingVariableScope AT_END_LITERAL = new JSPScriptingVariableScope(AT_END, "AT_END", "AT_END");//$NON-NLS-1$
+	public static final JSPScriptingVariableScope AT_END_LITERAL = new JSPScriptingVariableScope(AT_END, "AT_END", "AT_END");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>JSP Scripting Variable Scope</b></em>' enumerators.

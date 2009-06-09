@@ -246,7 +246,7 @@ public boolean isEquivalent(MethodPermission anotherMethodPermission) {
 	public void setAssemblyDescriptor(AssemblyDescriptor newAssemblyDescriptor) {
 		if (newAssemblyDescriptor != eInternalContainer() || (eContainerFeatureID != EjbPackage.METHOD_PERMISSION__ASSEMBLY_DESCRIPTOR && newAssemblyDescriptor != null)) {
 			if (EcoreUtil.isAncestor(this, newAssemblyDescriptor))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -458,10 +458,10 @@ public boolean isEquivalent(MethodPermission anotherMethodPermission) {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (description: ");
+		result.append(" (description: "); //$NON-NLS-1$
 		result.append(description);
-		result.append(", unchecked: ");
-		if (uncheckedESet) result.append(unchecked); else result.append("<unset>");
+		result.append(", unchecked: "); //$NON-NLS-1$
+		if (uncheckedESet) result.append(unchecked); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(')');
 		return result.toString();
 	}

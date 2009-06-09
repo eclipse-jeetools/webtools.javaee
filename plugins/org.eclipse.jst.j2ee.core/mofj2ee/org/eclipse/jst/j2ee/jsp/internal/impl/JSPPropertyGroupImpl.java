@@ -524,19 +524,19 @@ public class JSPPropertyGroupImpl extends CompatibilityDescriptionGroupImpl impl
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (urlPattern: ");
+		result.append(" (urlPattern: "); //$NON-NLS-1$
 		result.append(urlPattern);
-		result.append(", elIgnored: ");
-		if (elIgnoredESet) result.append(elIgnored); else result.append("<unset>");
-		result.append(", pageEncoding: ");
+		result.append(", elIgnored: "); //$NON-NLS-1$
+		if (elIgnoredESet) result.append(elIgnored); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", pageEncoding: "); //$NON-NLS-1$
 		result.append(pageEncoding);
-		result.append(", scriptingInvalid: ");
-		if (scriptingInvalidESet) result.append(scriptingInvalid); else result.append("<unset>");
-		result.append(", isXML: ");
-		if (isXMLESet) result.append(isXML); else result.append("<unset>");
-		result.append(", includePreludes: ");
+		result.append(", scriptingInvalid: "); //$NON-NLS-1$
+		if (scriptingInvalidESet) result.append(scriptingInvalid); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", isXML: "); //$NON-NLS-1$
+		if (isXMLESet) result.append(isXML); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", includePreludes: "); //$NON-NLS-1$
 		result.append(includePreludes);
-		result.append(", includeCodas: ");
+		result.append(", includeCodas: "); //$NON-NLS-1$
 		result.append(includeCodas);
 		result.append(')');
 		return result.toString();

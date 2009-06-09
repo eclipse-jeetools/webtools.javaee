@@ -376,13 +376,13 @@ public class JSPVariableImpl extends J2EEEObjectImpl implements JSPVariable {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (nameGiven: ");
+		result.append(" (nameGiven: "); //$NON-NLS-1$
 		result.append(nameGiven);
-		result.append(", nameFromAttribute: ");
+		result.append(", nameFromAttribute: "); //$NON-NLS-1$
 		result.append(nameFromAttribute);
-		result.append(", declare: ");
+		result.append(", declare: "); //$NON-NLS-1$
 		result.append(declare);
-		result.append(", scope: ");
+		result.append(", scope: "); //$NON-NLS-1$
 		result.append(scope);
 		result.append(')');
 		return result.toString();

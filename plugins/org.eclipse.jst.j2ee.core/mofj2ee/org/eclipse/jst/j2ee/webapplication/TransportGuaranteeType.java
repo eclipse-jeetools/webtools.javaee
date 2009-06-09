@@ -49,7 +49,7 @@ public final class TransportGuaranteeType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransportGuaranteeType NONE_LITERAL = new TransportGuaranteeType(NONE, "NONE", "NONE");//$NON-NLS-1$
+	public static final TransportGuaranteeType NONE_LITERAL = new TransportGuaranteeType(NONE, "NONE", "NONE");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>INTEGRAL</b></em>' literal object.
@@ -63,7 +63,7 @@ public final class TransportGuaranteeType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransportGuaranteeType INTEGRAL_LITERAL = new TransportGuaranteeType(INTEGRAL, "INTEGRAL", "INTEGRAL");//$NON-NLS-1$
+	public static final TransportGuaranteeType INTEGRAL_LITERAL = new TransportGuaranteeType(INTEGRAL, "INTEGRAL", "INTEGRAL");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>CONFIDENTIAL</b></em>' literal object.
@@ -77,7 +77,7 @@ public final class TransportGuaranteeType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransportGuaranteeType CONFIDENTIAL_LITERAL = new TransportGuaranteeType(CONFIDENTIAL, "CONFIDENTIAL", "CONFIDENTIAL");//$NON-NLS-1$
+	public static final TransportGuaranteeType CONFIDENTIAL_LITERAL = new TransportGuaranteeType(CONFIDENTIAL, "CONFIDENTIAL", "CONFIDENTIAL");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>Transport Guarantee Type</b></em>' enumerators.

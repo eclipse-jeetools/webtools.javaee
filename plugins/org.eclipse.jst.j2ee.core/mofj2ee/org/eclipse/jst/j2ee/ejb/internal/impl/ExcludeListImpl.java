@@ -225,7 +225,7 @@ public class ExcludeListImpl extends J2EEEObjectImpl implements ExcludeList {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (description: ");
+		result.append(" (description: "); //$NON-NLS-1$
 		result.append(description);
 		result.append(')');
 		return result.toString();

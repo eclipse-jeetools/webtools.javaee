@@ -161,7 +161,7 @@ public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (soapRole: ");
+		result.append(" (soapRole: "); //$NON-NLS-1$
 		result.append(soapRole);
 		result.append(')');
 		return result.toString();

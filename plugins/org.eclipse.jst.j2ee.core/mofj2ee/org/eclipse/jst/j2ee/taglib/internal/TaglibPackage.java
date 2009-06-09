@@ -39,7 +39,7 @@ public interface TaglibPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNAME = "taglib";
+	String eNAME = "taglib"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace URI.
@@ -47,7 +47,7 @@ public interface TaglibPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "taglib.xmi";
+	String eNS_URI = "taglib.xmi"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.
@@ -55,7 +55,7 @@ public interface TaglibPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_PREFIX = "org.eclipse.jst.j2ee.taglib";
+	String eNS_PREFIX = "org.eclipse.jst.j2ee.taglib"; //$NON-NLS-1$
 
 	/**
 	 * The singleton instance of the package.

@@ -171,7 +171,7 @@ public class FilterMappingImpl extends EObjectImpl implements FilterMapping {
 	 * @generated
 	 */
 	public List getUrlPatterns() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.FILTER_MAPPING__URL_PATTERNS);
+		return (getGroup()).list(WebPackage.Literals.FILTER_MAPPING__URL_PATTERNS);
 	}
 
 	/**
@@ -180,7 +180,7 @@ public class FilterMappingImpl extends EObjectImpl implements FilterMapping {
 	 * @generated
 	 */
 	public List getServletNames() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.FILTER_MAPPING__SERVLET_NAMES);
+		return (getGroup()).list(WebPackage.Literals.FILTER_MAPPING__SERVLET_NAMES);
 	}
 
 	/**

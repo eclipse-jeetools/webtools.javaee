@@ -120,7 +120,7 @@ public class RoleSourceImpl extends J2EEEObjectImpl implements RoleSource {
 	public void setRole(EJBRelationshipRole newRole) {
 		if (newRole != eInternalContainer() || (eContainerFeatureID != EjbPackage.ROLE_SOURCE__ROLE && newRole != null)) {
 			if (EcoreUtil.isAncestor(this, newRole))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -325,7 +325,7 @@ public class RoleSourceImpl extends J2EEEObjectImpl implements RoleSource {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (description: ");
+		result.append(" (description: "); //$NON-NLS-1$
 		result.append(description);
 		result.append(')');
 		return result.toString();

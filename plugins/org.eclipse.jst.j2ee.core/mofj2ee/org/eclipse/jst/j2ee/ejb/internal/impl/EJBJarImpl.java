@@ -379,7 +379,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	@Override
 	public int getJ2EEVersionID() throws IllegalStateException {
 		J2EEVersionResource res = (J2EEVersionResource) eResource();
-		if (res == null) throw new IllegalStateException("XMLResource is null");
+		if (res == null) throw new IllegalStateException("XMLResource is null"); //$NON-NLS-1$
 		return res.getJ2EEVersionID();
 	}
 
@@ -634,9 +634,9 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (ejbClientJar: ");
+		result.append(" (ejbClientJar: "); //$NON-NLS-1$
 		result.append(ejbClientJar);
-		result.append(", version: ");
+		result.append(", version: "); //$NON-NLS-1$
 		result.append(version);
 		result.append(')');
 		return result.toString();

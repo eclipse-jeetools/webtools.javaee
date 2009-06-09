@@ -717,7 +717,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * @generated
 	 */
 	public EjbRefType createEjbRefTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return (EjbRefType)createEjbRefTypeFromString(JavaeePackage.Literals.EJB_REF_TYPE, initialValue);
+		return createEjbRefTypeFromString(JavaeePackage.Literals.EJB_REF_TYPE, initialValue);
 	}
 
 	/**
@@ -735,7 +735,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * @generated
 	 */
 	public EnvEntryType createEnvEntryTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return (EnvEntryType)createEnvEntryTypeFromString(JavaeePackage.Literals.ENV_ENTRY_TYPE, initialValue);
+		return createEnvEntryTypeFromString(JavaeePackage.Literals.ENV_ENTRY_TYPE, initialValue);
 	}
 
 	/**
@@ -915,7 +915,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * @generated
 	 */
 	public MessageDestinationUsageType createMessageDestinationUsageTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return (MessageDestinationUsageType)createMessageDestinationUsageTypeFromString(JavaeePackage.Literals.MESSAGE_DESTINATION_USAGE_TYPE, initialValue);
+		return createMessageDestinationUsageTypeFromString(JavaeePackage.Literals.MESSAGE_DESTINATION_USAGE_TYPE, initialValue);
 	}
 
 	/**
@@ -951,7 +951,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * @generated
 	 */
 	public PersistenceContextType createPersistenceContextTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return (PersistenceContextType)createPersistenceContextTypeFromString(JavaeePackage.Literals.PERSISTENCE_CONTEXT_TYPE, initialValue);
+		return createPersistenceContextTypeFromString(JavaeePackage.Literals.PERSISTENCE_CONTEXT_TYPE, initialValue);
 	}
 
 	/**
@@ -987,7 +987,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * @generated
 	 */
 	public ResAuthType createResAuthTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return (ResAuthType)createResAuthTypeFromString(JavaeePackage.Literals.RES_AUTH_TYPE, initialValue);
+		return createResAuthTypeFromString(JavaeePackage.Literals.RES_AUTH_TYPE, initialValue);
 	}
 
 	/**
@@ -1005,7 +1005,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * @generated
 	 */
 	public ResSharingScopeType createResSharingScopeTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return (ResSharingScopeType)createResSharingScopeTypeFromString(JavaeePackage.Literals.RES_SHARING_SCOPE_TYPE, initialValue);
+		return createResSharingScopeTypeFromString(JavaeePackage.Literals.RES_SHARING_SCOPE_TYPE, initialValue);
 	}
 
 	/**
@@ -1058,7 +1058,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	public String convertServiceRefProtocolBindingListTypeToString(EDataType eDataType, Object instanceValue) {
 		if (instanceValue == null) return null;
 		List list = (List)instanceValue;
-		if (list.isEmpty()) return "";
+		if (list.isEmpty()) return ""; //$NON-NLS-1$
 		StringBuffer result = new StringBuffer();
 		for (Iterator i = list.iterator(); i.hasNext(); ) {
 			result.append(convertServiceRefProtocolBindingTypeToString(JavaeePackage.Literals.SERVICE_REF_PROTOCOL_BINDING_TYPE, i.next()));
@@ -1086,7 +1086,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 			exception = e;
 		}
 		try {
-			result = (String)createServiceRefProtocolURIAliasTypeFromString(JavaeePackage.Literals.SERVICE_REF_PROTOCOL_URI_ALIAS_TYPE, initialValue);
+			result = createServiceRefProtocolURIAliasTypeFromString(JavaeePackage.Literals.SERVICE_REF_PROTOCOL_URI_ALIAS_TYPE, initialValue);
 			if (result != null && Diagnostician.INSTANCE.validate(eDataType, result, null, null)) {
 				return result;
 			}
@@ -1122,7 +1122,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 			catch (Exception e) {
 			}
 		}
-		throw new IllegalArgumentException("Invalid value: '"+instanceValue+"' for datatype :"+eDataType.getName());
+		throw new IllegalArgumentException("Invalid value: '"+instanceValue+"' for datatype :"+eDataType.getName()); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**
@@ -1185,7 +1185,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * @generated
 	 */
 	public Boolean createTrueFalseTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return (Boolean)createTrueFalseTypeFromString(JavaeePackage.Literals.TRUE_FALSE_TYPE, initialValue);
+		return createTrueFalseTypeFromString(JavaeePackage.Literals.TRUE_FALSE_TYPE, initialValue);
 	}
 
 	/**

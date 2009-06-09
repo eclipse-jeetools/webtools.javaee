@@ -64,7 +64,7 @@ public final class TransactionAttributeType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransactionAttributeType NOT_SUPPORTED_LITERAL = new TransactionAttributeType(NOT_SUPPORTED, "NotSupported", "NotSupported"); //$NON-NLS-1$
+	public static final TransactionAttributeType NOT_SUPPORTED_LITERAL = new TransactionAttributeType(NOT_SUPPORTED, "NotSupported", "NotSupported"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Supports</b></em>' literal object.
@@ -78,7 +78,7 @@ public final class TransactionAttributeType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransactionAttributeType SUPPORTS_LITERAL = new TransactionAttributeType(SUPPORTS, "Supports", "Supports"); //$NON-NLS-1$
+	public static final TransactionAttributeType SUPPORTS_LITERAL = new TransactionAttributeType(SUPPORTS, "Supports", "Supports"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Required</b></em>' literal object.
@@ -92,7 +92,7 @@ public final class TransactionAttributeType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransactionAttributeType REQUIRED_LITERAL = new TransactionAttributeType(REQUIRED, "Required", "Required"); //$NON-NLS-1$
+	public static final TransactionAttributeType REQUIRED_LITERAL = new TransactionAttributeType(REQUIRED, "Required", "Required"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Requires New</b></em>' literal object.
@@ -106,7 +106,7 @@ public final class TransactionAttributeType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransactionAttributeType REQUIRES_NEW_LITERAL = new TransactionAttributeType(REQUIRES_NEW, "RequiresNew", "RequiresNew"); //$NON-NLS-1$
+	public static final TransactionAttributeType REQUIRES_NEW_LITERAL = new TransactionAttributeType(REQUIRES_NEW, "RequiresNew", "RequiresNew"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Mandatory</b></em>' literal object.
@@ -120,7 +120,7 @@ public final class TransactionAttributeType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransactionAttributeType MANDATORY_LITERAL = new TransactionAttributeType(MANDATORY, "Mandatory", "Mandatory"); //$NON-NLS-1$
+	public static final TransactionAttributeType MANDATORY_LITERAL = new TransactionAttributeType(MANDATORY, "Mandatory", "Mandatory"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Never</b></em>' literal object.
@@ -134,7 +134,7 @@ public final class TransactionAttributeType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransactionAttributeType NEVER_LITERAL = new TransactionAttributeType(NEVER, "Never", "Never"); //$NON-NLS-1$
+	public static final TransactionAttributeType NEVER_LITERAL = new TransactionAttributeType(NEVER, "Never", "Never"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>Transaction Attribute Type</b></em>' enumerators.

@@ -48,7 +48,7 @@ public final class TransactionType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransactionType BEAN_LITERAL = new TransactionType(BEAN, "Bean", "Bean"); //$NON-NLS-1$
+	public static final TransactionType BEAN_LITERAL = new TransactionType(BEAN, "Bean", "Bean"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Container</b></em>' literal object.
@@ -62,7 +62,7 @@ public final class TransactionType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransactionType CONTAINER_LITERAL = new TransactionType(CONTAINER, "Container", "Container"); //$NON-NLS-1$
+	public static final TransactionType CONTAINER_LITERAL = new TransactionType(CONTAINER, "Container", "Container"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>Transaction Type</b></em>' enumerators.

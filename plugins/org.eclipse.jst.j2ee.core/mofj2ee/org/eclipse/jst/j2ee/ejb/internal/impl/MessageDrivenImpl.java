@@ -637,13 +637,13 @@ public boolean isMessageDriven() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (transactionType: ");
-		if (transactionTypeESet) result.append(transactionType); else result.append("<unset>");
-		result.append(", messageSelector: ");
+		result.append(" (transactionType: "); //$NON-NLS-1$
+		if (transactionTypeESet) result.append(transactionType); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", messageSelector: "); //$NON-NLS-1$
 		result.append(messageSelector);
-		result.append(", acknowledgeMode: ");
-		if (acknowledgeModeESet) result.append(acknowledgeMode); else result.append("<unset>");
-		result.append(", link: ");
+		result.append(", acknowledgeMode: "); //$NON-NLS-1$
+		if (acknowledgeModeESet) result.append(acknowledgeMode); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", link: "); //$NON-NLS-1$
 		result.append(link);
 		result.append(')');
 		return result.toString();

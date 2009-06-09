@@ -212,9 +212,9 @@ public class ActivationConfigPropertyImpl extends J2EEEObjectImpl implements Act
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (value: ");
+		result.append(" (value: "); //$NON-NLS-1$
 		result.append(value);
-		result.append(", name: ");
+		result.append(", name: "); //$NON-NLS-1$
 		result.append(name);
 		result.append(')');
 		return result.toString();

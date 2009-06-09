@@ -135,7 +135,7 @@ public class SessionConfigImpl extends J2EEEObjectImpl implements SessionConfig 
 	public void setWebApp(WebApp newWebApp) {
 		if (newWebApp != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.SESSION_CONFIG__WEB_APP && newWebApp != null)) {
 			if (EcoreUtil.isAncestor(this, newWebApp))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -268,8 +268,8 @@ public class SessionConfigImpl extends J2EEEObjectImpl implements SessionConfig 
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (sessionTimeout: ");
-		if (sessionTimeoutESet) result.append(sessionTimeout); else result.append("<unset>");
+		result.append(" (sessionTimeout: "); //$NON-NLS-1$
+		if (sessionTimeoutESet) result.append(sessionTimeout); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(')');
 		return result.toString();
 	}

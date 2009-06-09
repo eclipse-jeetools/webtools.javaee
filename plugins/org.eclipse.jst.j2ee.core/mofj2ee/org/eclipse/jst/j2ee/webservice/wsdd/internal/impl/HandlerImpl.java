@@ -343,9 +343,9 @@ public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (handlerName: ");
+		result.append(" (handlerName: "); //$NON-NLS-1$
 		result.append(handlerName);
-		result.append(", handlerClass: ");
+		result.append(", handlerClass: "); //$NON-NLS-1$
 		result.append(handlerClass);
 		result.append(')');
 		return result.toString();

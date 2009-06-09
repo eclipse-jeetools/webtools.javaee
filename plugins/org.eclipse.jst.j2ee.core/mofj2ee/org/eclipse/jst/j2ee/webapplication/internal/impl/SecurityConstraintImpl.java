@@ -142,7 +142,7 @@ public class SecurityConstraintImpl extends J2EEEObjectImpl implements SecurityC
 	public void setWebApp(WebApp newWebApp) {
 		if (newWebApp != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.SECURITY_CONSTRAINT__WEB_APP && newWebApp != null)) {
 			if (EcoreUtil.isAncestor(this, newWebApp))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -437,7 +437,7 @@ public class SecurityConstraintImpl extends J2EEEObjectImpl implements SecurityC
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (displayName: ");
+		result.append(" (displayName: "); //$NON-NLS-1$
 		result.append(displayName);
 		result.append(')');
 		return result.toString();

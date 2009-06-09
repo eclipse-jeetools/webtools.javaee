@@ -344,9 +344,9 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 		while( it.hasNext()){
 			JavaClass  interfaceClass = (JavaClass)it.next();
 			String interfaceName = interfaceClass.getQualifiedName();
-			if( !interfaceName.equals("javax.ejb.MessageDrivenBean") && 
-					!interfaceName.equals("javax.ejb.EntityBean")&&
-					!interfaceName.equals("javax.ejb.SessionBean")){
+			if( !interfaceName.equals("javax.ejb.MessageDrivenBean") &&  //$NON-NLS-1$
+					!interfaceName.equals("javax.ejb.EntityBean")&& //$NON-NLS-1$
+					!interfaceName.equals("javax.ejb.SessionBean")){ //$NON-NLS-1$
 				result.addAll( getAvailableMethodElements(interfaceClass, MethodElementKind.UNSPECIFIED_LITERAL));
 			}
 		}
@@ -906,7 +906,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	public void setEjbJar(EJBJar newEjbJar) {
 		if (newEjbJar != eInternalContainer() || (eContainerFeatureID != EjbPackage.ENTERPRISE_BEAN__EJB_JAR && newEjbJar != null)) {
 			if (EcoreUtil.isAncestor(this, newEjbJar))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -1230,7 +1230,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
+		result.append(" (name: "); //$NON-NLS-1$
 		result.append(name);
 		result.append(')');
 		return result.toString();

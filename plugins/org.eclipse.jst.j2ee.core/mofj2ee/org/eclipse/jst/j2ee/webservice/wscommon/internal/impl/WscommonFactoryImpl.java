@@ -41,7 +41,7 @@ public class WscommonFactoryImpl extends EFactoryImpl implements WscommonFactory
 	 */
 	public static WscommonFactory init() {
 		try {
-			WscommonFactory theWscommonFactory = (WscommonFactory)EPackage.Registry.INSTANCE.getEFactory("wscommon.xmi"); 
+			WscommonFactory theWscommonFactory = (WscommonFactory)EPackage.Registry.INSTANCE.getEFactory("wscommon.xmi");  //$NON-NLS-1$
 			if (theWscommonFactory != null) {
 				return theWscommonFactory;
 			}
@@ -77,7 +77,7 @@ public EObject create(EClass eClass) {
 			case WscommonPackage.DESCRIPTION_TYPE: return createDescriptionType();
 			case WscommonPackage.DISPLAY_NAME_TYPE: return createDisplayNameType();
 			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 

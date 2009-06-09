@@ -94,7 +94,7 @@ public class WebAppResourceFactory extends TranslatorResourceFactory {
 	
 	public static Resource.Factory getRegisteredFactory() {
 
-		System.err.println("fetching registered factory for web app uri");
+		System.err.println("fetching registered factory for web app uri"); //$NON-NLS-1$
 		return J2EEResourceFactoryRegistry.INSTANCE.getFactory(J2EEConstants.WEBAPP_DD_URI_OBJ);
 	}
 

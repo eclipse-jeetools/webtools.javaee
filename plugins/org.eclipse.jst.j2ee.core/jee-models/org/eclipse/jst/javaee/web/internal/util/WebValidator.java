@@ -428,7 +428,7 @@ public class WebValidator extends EObjectValidator {
 	public static final  PatternMatcher [][] ENCODING_TYPE__PATTERN__VALUES =
 		new PatternMatcher [][] {
 			new PatternMatcher [] {
-				XMLTypeUtil.createPatternMatcher("[^\\s]+")
+				XMLTypeUtil.createPatternMatcher("[^\\s]+") //$NON-NLS-1$
 			}
 		};
 
@@ -462,7 +462,7 @@ public class WebValidator extends EObjectValidator {
 	public static final  PatternMatcher [][] ERROR_CODE_TYPE__PATTERN__VALUES =
 		new PatternMatcher [][] {
 			new PatternMatcher [] {
-				XMLTypeUtil.createPatternMatcher("\\d{3}")
+				XMLTypeUtil.createPatternMatcher("\\d{3}") //$NON-NLS-1$
 			}
 		};
 
@@ -505,7 +505,7 @@ public class WebValidator extends EObjectValidator {
 	public static final  PatternMatcher [][] HTTP_METHOD_TYPE__PATTERN__VALUES =
 		new PatternMatcher [][] {
 			new PatternMatcher [] {
-				XMLTypeUtil.createPatternMatcher("[\\p{L}-[\\p{Cc}\\p{Z}]]+")
+				XMLTypeUtil.createPatternMatcher("[\\p{L}-[\\p{Cc}\\p{Z}]]+") //$NON-NLS-1$
 			}
 		};
 
@@ -579,7 +579,7 @@ public class WebValidator extends EObjectValidator {
 	public static final  PatternMatcher [][] LOCALE_TYPE__PATTERN__VALUES =
 		new PatternMatcher [][] {
 			new PatternMatcher [] {
-				XMLTypeUtil.createPatternMatcher("[a-z]{2}(_|-)?([\\p{L}\\-\\p{Nd}]{2})?")
+				XMLTypeUtil.createPatternMatcher("[a-z]{2}(_|-)?([\\p{L}\\-\\p{Nd}]{2})?") //$NON-NLS-1$
 			}
 		};
 
@@ -612,7 +612,7 @@ public class WebValidator extends EObjectValidator {
 	public static final  PatternMatcher [][] MIME_TYPE_TYPE__PATTERN__VALUES =
 		new PatternMatcher [][] {
 			new PatternMatcher [] {
-				XMLTypeUtil.createPatternMatcher("[^\\p{Cc}^\\s]+/[^\\p{Cc}^\\s]+")
+				XMLTypeUtil.createPatternMatcher("[^\\p{Cc}^\\s]+/[^\\p{Cc}^\\s]+") //$NON-NLS-1$
 			}
 		};
 
@@ -697,7 +697,7 @@ public class WebValidator extends EObjectValidator {
 	public static final  PatternMatcher [][] WAR_PATH_TYPE__PATTERN__VALUES =
 		new PatternMatcher [][] {
 			new PatternMatcher [] {
-				XMLTypeUtil.createPatternMatcher("/.*")
+				XMLTypeUtil.createPatternMatcher("/.*") //$NON-NLS-1$
 			}
 		};
 

@@ -123,7 +123,7 @@ public class RelationshipsImpl extends J2EEEObjectImpl implements Relationships 
 	public void setEjbJar(EJBJar newEjbJar) {
 		if (newEjbJar != eInternalContainer() || (eContainerFeatureID != EjbPackage.RELATIONSHIPS__EJB_JAR && newEjbJar != null)) {
 			if (EcoreUtil.isAncestor(this, newEjbJar))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -308,7 +308,7 @@ public class RelationshipsImpl extends J2EEEObjectImpl implements Relationships 
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (description: ");
+		result.append(" (description: "); //$NON-NLS-1$
 		result.append(description);
 		result.append(')');
 		return result.toString();

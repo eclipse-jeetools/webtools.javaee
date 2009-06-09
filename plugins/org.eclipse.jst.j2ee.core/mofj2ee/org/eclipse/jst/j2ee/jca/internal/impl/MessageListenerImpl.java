@@ -241,7 +241,7 @@ public class MessageListenerImpl extends J2EEEObjectImpl implements MessageListe
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (messageListenerType: ");
+		result.append(" (messageListenerType: "); //$NON-NLS-1$
 		result.append(messageListenerType);
 		result.append(')');
 		return result.toString();

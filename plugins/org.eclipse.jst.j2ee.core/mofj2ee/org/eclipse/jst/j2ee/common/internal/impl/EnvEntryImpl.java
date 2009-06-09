@@ -358,14 +358,14 @@ public class EnvEntryImpl extends J2EEEObjectImpl implements EnvEntry {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (description: ");
+		result.append(" (description: "); //$NON-NLS-1$
 		result.append(description);
-		result.append(", name: ");
+		result.append(", name: "); //$NON-NLS-1$
 		result.append(name);
-		result.append(", value: ");
+		result.append(", value: "); //$NON-NLS-1$
 		result.append(value);
-		result.append(", type: ");
-		if (typeESet) result.append(type); else result.append("<unset>");
+		result.append(", type: "); //$NON-NLS-1$
+		if (typeESet) result.append(type); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(')');
 		return result.toString();
 	}

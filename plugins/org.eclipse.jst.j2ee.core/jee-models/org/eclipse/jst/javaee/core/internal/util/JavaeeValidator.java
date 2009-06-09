@@ -554,7 +554,7 @@ public class JavaeeValidator extends EObjectValidator {
 	public static final  PatternMatcher [][] DEWEY_VERSION_TYPE__PATTERN__VALUES =
 		new PatternMatcher [][] {
 			new PatternMatcher [] {
-				XMLTypeUtil.createPatternMatcher("\\.?[0-9]+(\\.[0-9]+)*")
+				XMLTypeUtil.createPatternMatcher("\\.?[0-9]+(\\.[0-9]+)*") //$NON-NLS-1$
 			}
 		};
 
@@ -641,7 +641,7 @@ public class JavaeeValidator extends EObjectValidator {
 	public static final  PatternMatcher [][] JAVA_IDENTIFIER__PATTERN__VALUES =
 		new PatternMatcher [][] {
 			new PatternMatcher [] {
-				XMLTypeUtil.createPatternMatcher("($|_|\\p{L})(\\p{L}|\\p{Nd}|_|$)*")
+				XMLTypeUtil.createPatternMatcher("($|_|\\p{L})(\\p{L}|\\p{Nd}|_|$)*") //$NON-NLS-1$
 			}
 		};
 
@@ -674,7 +674,7 @@ public class JavaeeValidator extends EObjectValidator {
 	public static final  PatternMatcher [][] JAVA_TYPE__PATTERN__VALUES =
 		new PatternMatcher [][] {
 			new PatternMatcher [] {
-				XMLTypeUtil.createPatternMatcher("[^\\p{Z}]*")
+				XMLTypeUtil.createPatternMatcher("[^\\p{Z}]*") //$NON-NLS-1$
 			}
 		};
 
@@ -847,10 +847,10 @@ public class JavaeeValidator extends EObjectValidator {
 		if (diagnostics != null) {
 			BasicDiagnostic tempDiagnostics = new BasicDiagnostic();
 			if (XMLTypePackage.Literals.ANY_URI.isInstance(serviceRefProtocolBindingType)) {
-				if (xmlTypeValidator.validateAnyURI((String)serviceRefProtocolBindingType, tempDiagnostics, context)) return true;
+				if (xmlTypeValidator.validateAnyURI(serviceRefProtocolBindingType, tempDiagnostics, context)) return true;
 			}
 			if (JavaeePackage.Literals.SERVICE_REF_PROTOCOL_URI_ALIAS_TYPE.isInstance(serviceRefProtocolBindingType)) {
-				if (validateServiceRefProtocolURIAliasType((String)serviceRefProtocolBindingType, tempDiagnostics, context)) return true;
+				if (validateServiceRefProtocolURIAliasType(serviceRefProtocolBindingType, tempDiagnostics, context)) return true;
 			}
 			List children = tempDiagnostics.getChildren();
 			for (int i = 0; i < children.size(); i++) {
@@ -859,10 +859,10 @@ public class JavaeeValidator extends EObjectValidator {
 		}
 		else {
 			if (XMLTypePackage.Literals.ANY_URI.isInstance(serviceRefProtocolBindingType)) {
-				if (xmlTypeValidator.validateAnyURI((String)serviceRefProtocolBindingType, null, context)) return true;
+				if (xmlTypeValidator.validateAnyURI(serviceRefProtocolBindingType, null, context)) return true;
 			}
 			if (JavaeePackage.Literals.SERVICE_REF_PROTOCOL_URI_ALIAS_TYPE.isInstance(serviceRefProtocolBindingType)) {
-				if (validateServiceRefProtocolURIAliasType((String)serviceRefProtocolBindingType, null, context)) return true;
+				if (validateServiceRefProtocolURIAliasType(serviceRefProtocolBindingType, null, context)) return true;
 			}
 		}
 		return false;
@@ -887,7 +887,7 @@ public class JavaeeValidator extends EObjectValidator {
 	public static final  PatternMatcher [][] SERVICE_REF_PROTOCOL_URI_ALIAS_TYPE__PATTERN__VALUES =
 		new PatternMatcher [][] {
 			new PatternMatcher [] {
-				XMLTypeUtil.createPatternMatcher("##.+")
+				XMLTypeUtil.createPatternMatcher("##.+") //$NON-NLS-1$
 			}
 		};
 
@@ -920,7 +920,7 @@ public class JavaeeValidator extends EObjectValidator {
 	public static final  PatternMatcher [][] SERVICE_REF_QNAME_PATTERN__PATTERN__VALUES =
 		new PatternMatcher [][] {
 			new PatternMatcher [] {
-				XMLTypeUtil.createPatternMatcher("\\*|([\\i-[:]][\\c-[:]]*:)?[\\i-[:]][\\c-[:]]*\\*?")
+				XMLTypeUtil.createPatternMatcher("\\*|([\\i-[:]][\\c-[:]]*:)?[\\i-[:]][\\c-[:]]*\\*?") //$NON-NLS-1$
 			}
 		};
 
@@ -953,7 +953,7 @@ public class JavaeeValidator extends EObjectValidator {
 	public static final  PatternMatcher [][] TRUE_FALSE_TYPE__PATTERN__VALUES =
 		new PatternMatcher [][] {
 			new PatternMatcher [] {
-				XMLTypeUtil.createPatternMatcher("(true|false)")
+				XMLTypeUtil.createPatternMatcher("(true|false)") //$NON-NLS-1$
 			}
 		};
 

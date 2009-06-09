@@ -485,11 +485,11 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (serviceRefName: ");
+		result.append(" (serviceRefName: "); //$NON-NLS-1$
 		result.append(serviceRefName);
-		result.append(", wsdlFile: ");
+		result.append(", wsdlFile: "); //$NON-NLS-1$
 		result.append(wsdlFile);
-		result.append(", jaxrpcMappingFile: ");
+		result.append(", jaxrpcMappingFile: "); //$NON-NLS-1$
 		result.append(jaxrpcMappingFile);
 		result.append(')');
 		return result.toString();

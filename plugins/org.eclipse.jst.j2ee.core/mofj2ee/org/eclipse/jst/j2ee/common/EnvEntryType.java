@@ -75,7 +75,7 @@ public final class EnvEntryType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final EnvEntryType STRING_LITERAL = new EnvEntryType(STRING, "String", "String"); //$NON-NLS-1$
+	public static final EnvEntryType STRING_LITERAL = new EnvEntryType(STRING, "String", "String"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Integer</b></em>' literal object.
@@ -89,7 +89,7 @@ public final class EnvEntryType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final EnvEntryType INTEGER_LITERAL = new EnvEntryType(INTEGER, "Integer", "Integer"); //$NON-NLS-1$
+	public static final EnvEntryType INTEGER_LITERAL = new EnvEntryType(INTEGER, "Integer", "Integer"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Boolean</b></em>' literal object.
@@ -103,7 +103,7 @@ public final class EnvEntryType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final EnvEntryType BOOLEAN_LITERAL = new EnvEntryType(BOOLEAN, "Boolean", "Boolean"); //$NON-NLS-1$
+	public static final EnvEntryType BOOLEAN_LITERAL = new EnvEntryType(BOOLEAN, "Boolean", "Boolean"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Double</b></em>' literal object.
@@ -117,7 +117,7 @@ public final class EnvEntryType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final EnvEntryType DOUBLE_LITERAL = new EnvEntryType(DOUBLE, "Double", "Double"); //$NON-NLS-1$
+	public static final EnvEntryType DOUBLE_LITERAL = new EnvEntryType(DOUBLE, "Double", "Double"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Byte</b></em>' literal object.
@@ -131,7 +131,7 @@ public final class EnvEntryType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final EnvEntryType BYTE_LITERAL = new EnvEntryType(BYTE, "Byte", "Byte"); //$NON-NLS-1$
+	public static final EnvEntryType BYTE_LITERAL = new EnvEntryType(BYTE, "Byte", "Byte"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Short</b></em>' literal object.
@@ -145,7 +145,7 @@ public final class EnvEntryType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final EnvEntryType SHORT_LITERAL = new EnvEntryType(SHORT, "Short", "Short"); //$NON-NLS-1$
+	public static final EnvEntryType SHORT_LITERAL = new EnvEntryType(SHORT, "Short", "Short"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Long</b></em>' literal object.
@@ -159,7 +159,7 @@ public final class EnvEntryType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final EnvEntryType LONG_LITERAL = new EnvEntryType(LONG, "Long", "Long"); //$NON-NLS-1$
+	public static final EnvEntryType LONG_LITERAL = new EnvEntryType(LONG, "Long", "Long"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Float</b></em>' literal object.
@@ -173,7 +173,7 @@ public final class EnvEntryType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final EnvEntryType FLOAT_LITERAL = new EnvEntryType(FLOAT, "Float", "Float"); //$NON-NLS-1$
+	public static final EnvEntryType FLOAT_LITERAL = new EnvEntryType(FLOAT, "Float", "Float"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Character</b></em>' literal object.
@@ -187,7 +187,7 @@ public final class EnvEntryType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final EnvEntryType CHARACTER_LITERAL = new EnvEntryType(CHARACTER, "Character", "Character"); //$NON-NLS-1$
+	public static final EnvEntryType CHARACTER_LITERAL = new EnvEntryType(CHARACTER, "Character", "Character"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>Env Entry Type</b></em>' enumerators.

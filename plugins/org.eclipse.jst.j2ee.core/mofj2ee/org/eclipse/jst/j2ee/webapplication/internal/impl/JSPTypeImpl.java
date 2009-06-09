@@ -142,7 +142,7 @@ public boolean isJspType() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (jspFile: ");
+		result.append(" (jspFile: "); //$NON-NLS-1$
 		result.append(jspFile);
 		result.append(')');
 		return result.toString();

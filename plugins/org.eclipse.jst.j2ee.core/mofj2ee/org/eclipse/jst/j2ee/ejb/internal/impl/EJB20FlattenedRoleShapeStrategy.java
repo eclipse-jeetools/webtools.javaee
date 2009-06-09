@@ -134,7 +134,7 @@ public class EJB20FlattenedRoleShapeStrategy extends RoleShapeStrategy {
 	protected CMPAttribute createPersistentAttribute(String aName) {
 		CMPAttribute attribute = ((EjbPackage)EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI)).getEjbFactory().createCMPAttribute();
 		attribute.setName(aName);
-		attribute.setDescription("Generated to support relationships.  Do NOT delete.");
+		attribute.setDescription("Generated to support relationships.  Do NOT delete."); //$NON-NLS-1$
 		return attribute;
 	}
 	/**
@@ -153,7 +153,7 @@ public class EJB20FlattenedRoleShapeStrategy extends RoleShapeStrategy {
 	 */
 	protected void collectKeyRoleAttributes(ContainerManagedEntity entity, String attributeName, List aList, List computedNames) {
 		if(visitedKeyTypes.contains(entity)){
-			throw new RuntimeException("Key role cycle detected");
+			throw new RuntimeException("Key role cycle detected"); //$NON-NLS-1$
 		}
 		visitedKeyTypes.add(entity);
 		java.util.Iterator it = entity.getFilteredFeatures(KeyRelationshipRoleFilter.singleton()).iterator();

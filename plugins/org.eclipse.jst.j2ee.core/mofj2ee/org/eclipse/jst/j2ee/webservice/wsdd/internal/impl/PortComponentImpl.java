@@ -1050,21 +1050,21 @@ public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (portComponentName: ");
+		result.append(" (portComponentName: "); //$NON-NLS-1$
 		result.append(portComponentName);
-		result.append(", serviceEndpointInterface: ");
+		result.append(", serviceEndpointInterface: "); //$NON-NLS-1$
 		result.append(serviceEndpointInterface);
-		result.append(", smallIcon: ");
+		result.append(", smallIcon: "); //$NON-NLS-1$
 		result.append(smallIcon);
-		result.append(", largeIcon: ");
+		result.append(", largeIcon: "); //$NON-NLS-1$
 		result.append(largeIcon);
-		result.append(", description: ");
+		result.append(", description: "); //$NON-NLS-1$
 		result.append(description);
-		result.append(", displayName: ");
+		result.append(", displayName: "); //$NON-NLS-1$
 		result.append(displayName);
-		result.append(", enableMtom: ");
+		result.append(", enableMtom: "); //$NON-NLS-1$
 		result.append(enableMtom);
-		result.append(", protocolBinding: ");
+		result.append(", protocolBinding: "); //$NON-NLS-1$
 		result.append(protocolBinding);
 		result.append(')');
 		return result.toString();

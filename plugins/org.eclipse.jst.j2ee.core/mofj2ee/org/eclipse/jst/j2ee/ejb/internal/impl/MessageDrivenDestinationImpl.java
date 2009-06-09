@@ -210,7 +210,7 @@ public class MessageDrivenDestinationImpl extends J2EEEObjectImpl implements Mes
 	public void setBean(MessageDriven newBean) {
 		if (newBean != eInternalContainer() || (eContainerFeatureID != EjbPackage.MESSAGE_DRIVEN_DESTINATION__BEAN && newBean != null)) {
 			if (EcoreUtil.isAncestor(this, newBean))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -353,10 +353,10 @@ public class MessageDrivenDestinationImpl extends J2EEEObjectImpl implements Mes
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (type: ");
-		if (typeESet) result.append(type); else result.append("<unset>");
-		result.append(", subscriptionDurability: ");
-		if (subscriptionDurabilityESet) result.append(subscriptionDurability); else result.append("<unset>");
+		result.append(" (type: "); //$NON-NLS-1$
+		if (typeESet) result.append(type); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", subscriptionDurability: "); //$NON-NLS-1$
+		if (subscriptionDurabilityESet) result.append(subscriptionDurability); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(')');
 		return result.toString();
 	}

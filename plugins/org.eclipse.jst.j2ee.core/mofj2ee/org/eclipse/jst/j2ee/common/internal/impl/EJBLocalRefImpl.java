@@ -196,9 +196,9 @@ public class EJBLocalRefImpl extends EjbRefImpl implements EJBLocalRef {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (localHome: ");
+		result.append(" (localHome: "); //$NON-NLS-1$
 		result.append(localHome);
-		result.append(", local: ");
+		result.append(", local: "); //$NON-NLS-1$
 		result.append(local);
 		result.append(')');
 		return result.toString();

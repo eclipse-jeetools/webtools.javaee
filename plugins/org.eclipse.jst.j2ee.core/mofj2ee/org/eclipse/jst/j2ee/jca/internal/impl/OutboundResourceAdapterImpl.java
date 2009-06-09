@@ -374,10 +374,10 @@ public class OutboundResourceAdapterImpl extends J2EEEObjectImpl implements Outb
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (reauthenticationSupport: ");
-		if (reauthenticationSupportESet) result.append(reauthenticationSupport); else result.append("<unset>");
-		result.append(", transactionSupport: ");
-		if (transactionSupportESet) result.append(transactionSupport); else result.append("<unset>");
+		result.append(" (reauthenticationSupport: "); //$NON-NLS-1$
+		if (reauthenticationSupportESet) result.append(reauthenticationSupport); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", transactionSupport: "); //$NON-NLS-1$
+		if (transactionSupportESet) result.append(transactionSupport); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(')');
 		return result.toString();
 	}

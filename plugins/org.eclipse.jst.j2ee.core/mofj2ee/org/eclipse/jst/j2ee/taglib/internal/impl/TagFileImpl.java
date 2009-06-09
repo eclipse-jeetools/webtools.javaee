@@ -320,11 +320,11 @@ public class TagFileImpl extends DescriptionGroupImpl implements TagFile {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
+		result.append(" (name: "); //$NON-NLS-1$
 		result.append(name);
-		result.append(", path: ");
+		result.append(", path: "); //$NON-NLS-1$
 		result.append(path);
-		result.append(", example: ");
+		result.append(", example: "); //$NON-NLS-1$
 		result.append(example);
 		result.append(')');
 		return result.toString();

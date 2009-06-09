@@ -275,15 +275,15 @@ public class AuthenticationMechanismImpl extends J2EEEObjectImpl implements Auth
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (description: ");
+		result.append(" (description: "); //$NON-NLS-1$
 		result.append(description);
-		result.append(", authenticationMechanism: ");
+		result.append(", authenticationMechanism: "); //$NON-NLS-1$
 		result.append(authenticationMechanism);
-		result.append(", authenticationMechanismType: ");
-		if (authenticationMechanismTypeESet) result.append(authenticationMechanismType); else result.append("<unset>");
-		result.append(", credentialInterface: ");
+		result.append(", authenticationMechanismType: "); //$NON-NLS-1$
+		if (authenticationMechanismTypeESet) result.append(authenticationMechanismType); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", credentialInterface: "); //$NON-NLS-1$
 		result.append(credentialInterface);
-		result.append(", customAuthMechType: ");
+		result.append(", customAuthMechType: "); //$NON-NLS-1$
 		result.append(customAuthMechType);
 		result.append(')');
 		return result.toString();

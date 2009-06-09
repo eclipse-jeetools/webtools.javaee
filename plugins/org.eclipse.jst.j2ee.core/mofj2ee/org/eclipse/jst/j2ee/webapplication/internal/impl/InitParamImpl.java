@@ -221,11 +221,11 @@ public class InitParamImpl extends J2EEEObjectImpl implements InitParam {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (paramName: ");
+		result.append(" (paramName: "); //$NON-NLS-1$
 		result.append(paramName);
-		result.append(", paramValue: ");
+		result.append(", paramValue: "); //$NON-NLS-1$
 		result.append(paramValue);
-		result.append(", description: ");
+		result.append(", description: "); //$NON-NLS-1$
 		result.append(description);
 		result.append(')');
 		return result.toString();

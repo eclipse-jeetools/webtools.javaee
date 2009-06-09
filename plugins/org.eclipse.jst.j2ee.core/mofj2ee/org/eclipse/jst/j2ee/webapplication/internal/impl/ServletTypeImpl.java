@@ -139,7 +139,7 @@ public boolean isServletType() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (className: ");
+		result.append(" (className: "); //$NON-NLS-1$
 		result.append(className);
 		result.append(')');
 		return result.toString();

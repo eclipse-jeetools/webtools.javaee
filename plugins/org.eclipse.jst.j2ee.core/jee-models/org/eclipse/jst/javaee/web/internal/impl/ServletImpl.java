@@ -541,7 +541,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 				getInitParams().addAll((Collection)newValue);
 				return;
 			case WebPackage.SERVLET__LOAD_ON_STARTUP:
-				setLoadOnStartup((Object)newValue);
+				setLoadOnStartup(newValue);
 				return;
 			case WebPackage.SERVLET__RUN_AS:
 				setRunAs((RunAs)newValue);

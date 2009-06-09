@@ -39,7 +39,7 @@ public class Webservice_clientFactoryImpl extends EFactoryImpl implements Webser
 	 */
 	public static Webservice_clientFactory init() {
 		try {
-			Webservice_clientFactory theWebservice_clientFactory = (Webservice_clientFactory)EPackage.Registry.INSTANCE.getEFactory("webservice_client.xmi"); 
+			Webservice_clientFactory theWebservice_clientFactory = (Webservice_clientFactory)EPackage.Registry.INSTANCE.getEFactory("webservice_client.xmi");  //$NON-NLS-1$
 			if (theWebservice_clientFactory != null) {
 				return theWebservice_clientFactory;
 			}
@@ -74,7 +74,7 @@ public class Webservice_clientFactoryImpl extends EFactoryImpl implements Webser
 			case Webservice_clientPackage.WEB_SERVICES_CLIENT: return createWebServicesClient();
 			case Webservice_clientPackage.COMPONENT_SCOPED_REFS: return createComponentScopedRefs();
 			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 

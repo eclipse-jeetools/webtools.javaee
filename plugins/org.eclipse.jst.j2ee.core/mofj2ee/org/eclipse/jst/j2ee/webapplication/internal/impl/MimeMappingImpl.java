@@ -131,7 +131,7 @@ public class MimeMappingImpl extends J2EEEObjectImpl implements MimeMapping {
 	public void setWebApp(WebApp newWebApp) {
 		if (newWebApp != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.MIME_MAPPING__WEB_APP && newWebApp != null)) {
 			if (EcoreUtil.isAncestor(this, newWebApp))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -274,9 +274,9 @@ public class MimeMappingImpl extends J2EEEObjectImpl implements MimeMapping {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (extension: ");
+		result.append(" (extension: "); //$NON-NLS-1$
 		result.append(extension);
-		result.append(", mimeType: ");
+		result.append(", mimeType: "); //$NON-NLS-1$
 		result.append(mimeType);
 		result.append(')');
 		return result.toString();

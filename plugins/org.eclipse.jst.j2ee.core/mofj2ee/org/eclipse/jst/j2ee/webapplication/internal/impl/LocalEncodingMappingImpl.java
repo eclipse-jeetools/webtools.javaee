@@ -212,9 +212,9 @@ public class LocalEncodingMappingImpl extends J2EEEObjectImpl implements LocalEn
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (locale: ");
+		result.append(" (locale: "); //$NON-NLS-1$
 		result.append(locale);
-		result.append(", encoding: ");
+		result.append(", encoding: "); //$NON-NLS-1$
 		result.append(encoding);
 		result.append(')');
 		return result.toString();

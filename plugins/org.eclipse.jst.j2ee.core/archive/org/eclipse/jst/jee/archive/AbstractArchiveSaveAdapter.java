@@ -43,7 +43,7 @@ public abstract class AbstractArchiveSaveAdapter extends AbstractArchiveAdapter 
 			monitor.beginTask("Saving resources", TOTAL_TICKS);
 			
 			List<IArchiveResource> files = getArchiveResourcesForSave();
-			IPath manifestPath = new Path("META-INF/MANIFEST.MF");
+			IPath manifestPath = new Path("META-INF/MANIFEST.MF"); //$NON-NLS-1$
 			if(getArchive().containsArchiveResource(manifestPath)){
 				manifest = getArchive().getArchiveResource(manifestPath);
 			}

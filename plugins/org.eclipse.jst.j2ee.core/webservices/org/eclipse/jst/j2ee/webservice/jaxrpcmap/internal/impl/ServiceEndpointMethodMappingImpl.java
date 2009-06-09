@@ -473,14 +473,14 @@ public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (id: ");
+		result.append(" (id: "); //$NON-NLS-1$
 		result.append(id);
-		result.append(", javaMethodName: ");
+		result.append(", javaMethodName: "); //$NON-NLS-1$
 		result.append(javaMethodName);
-		result.append(", wsdlOperation: ");
+		result.append(", wsdlOperation: "); //$NON-NLS-1$
 		result.append(wsdlOperation);
-		result.append(", wrappedElement: ");
-		if (wrappedElementESet) result.append(wrappedElement); else result.append("<unset>");
+		result.append(", wrappedElement: "); //$NON-NLS-1$
+		if (wrappedElementESet) result.append(wrappedElement); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(')');
 		return result.toString();
 	}

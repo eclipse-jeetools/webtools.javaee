@@ -850,19 +850,19 @@ public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (jaxrpcMappingFile: ");
+		result.append(" (jaxrpcMappingFile: "); //$NON-NLS-1$
 		result.append(jaxrpcMappingFile);
-		result.append(", webServiceDescriptionName: ");
+		result.append(", webServiceDescriptionName: "); //$NON-NLS-1$
 		result.append(webServiceDescriptionName);
-		result.append(", wsdlFile: ");
+		result.append(", wsdlFile: "); //$NON-NLS-1$
 		result.append(wsdlFile);
-		result.append(", smallIcon: ");
+		result.append(", smallIcon: "); //$NON-NLS-1$
 		result.append(smallIcon);
-		result.append(", largeIcon: ");
+		result.append(", largeIcon: "); //$NON-NLS-1$
 		result.append(largeIcon);
-		result.append(", description: ");
+		result.append(", description: "); //$NON-NLS-1$
 		result.append(description);
-		result.append(", displayName: ");
+		result.append(", displayName: "); //$NON-NLS-1$
 		result.append(displayName);
 		result.append(')');
 		return result.toString();

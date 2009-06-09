@@ -59,7 +59,7 @@ public final class AuthMethodKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final AuthMethodKind UNSPECIFIED_LITERAL = new AuthMethodKind(UNSPECIFIED, "UNSPECIFIED", "UNSPECIFIED");//$NON-NLS-1$
+	public static final AuthMethodKind UNSPECIFIED_LITERAL = new AuthMethodKind(UNSPECIFIED, "UNSPECIFIED", "UNSPECIFIED");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>BASIC</b></em>' literal object.
@@ -73,7 +73,7 @@ public final class AuthMethodKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final AuthMethodKind BASIC_LITERAL = new AuthMethodKind(BASIC, "BASIC", "BASIC");//$NON-NLS-1$
+	public static final AuthMethodKind BASIC_LITERAL = new AuthMethodKind(BASIC, "BASIC", "BASIC");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>DIGEST</b></em>' literal object.
@@ -87,7 +87,7 @@ public final class AuthMethodKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final AuthMethodKind DIGEST_LITERAL = new AuthMethodKind(DIGEST, "DIGEST", "DIGEST");//$NON-NLS-1$
+	public static final AuthMethodKind DIGEST_LITERAL = new AuthMethodKind(DIGEST, "DIGEST", "DIGEST");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>FORM</b></em>' literal object.
@@ -101,7 +101,7 @@ public final class AuthMethodKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final AuthMethodKind FORM_LITERAL = new AuthMethodKind(FORM, "FORM", "FORM");//$NON-NLS-1$
+	public static final AuthMethodKind FORM_LITERAL = new AuthMethodKind(FORM, "FORM", "FORM");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>CLIENT CERT</b></em>' literal object.
@@ -115,7 +115,7 @@ public final class AuthMethodKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final AuthMethodKind CLIENT_CERT_LITERAL = new AuthMethodKind(CLIENT_CERT, "CLIENT_CERT", "CLIENT_CERT");//$NON-NLS-1$
+	public static final AuthMethodKind CLIENT_CERT_LITERAL = new AuthMethodKind(CLIENT_CERT, "CLIENT_CERT", "CLIENT_CERT");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>Auth Method Kind</b></em>' enumerators.

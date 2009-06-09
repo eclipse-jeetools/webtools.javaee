@@ -70,7 +70,7 @@ public final class MethodElementKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final MethodElementKind UNSPECIFIED_LITERAL = new MethodElementKind(UNSPECIFIED, "Unspecified", "Unspecified"); //$NON-NLS-1$
+	public static final MethodElementKind UNSPECIFIED_LITERAL = new MethodElementKind(UNSPECIFIED, "Unspecified", "Unspecified"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Remote</b></em>' literal object.
@@ -84,7 +84,7 @@ public final class MethodElementKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final MethodElementKind REMOTE_LITERAL = new MethodElementKind(REMOTE, "Remote", "Remote"); //$NON-NLS-1$
+	public static final MethodElementKind REMOTE_LITERAL = new MethodElementKind(REMOTE, "Remote", "Remote"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Home</b></em>' literal object.
@@ -98,7 +98,7 @@ public final class MethodElementKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final MethodElementKind HOME_LITERAL = new MethodElementKind(HOME, "Home", "Home"); //$NON-NLS-1$
+	public static final MethodElementKind HOME_LITERAL = new MethodElementKind(HOME, "Home", "Home"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Local</b></em>' literal object.
@@ -112,7 +112,7 @@ public final class MethodElementKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final MethodElementKind LOCAL_LITERAL = new MethodElementKind(LOCAL, "Local", "Local"); //$NON-NLS-1$
+	public static final MethodElementKind LOCAL_LITERAL = new MethodElementKind(LOCAL, "Local", "Local"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Local Home</b></em>' literal object.
@@ -126,7 +126,7 @@ public final class MethodElementKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final MethodElementKind LOCAL_HOME_LITERAL = new MethodElementKind(LOCAL_HOME, "LocalHome", "LocalHome"); //$NON-NLS-1$
+	public static final MethodElementKind LOCAL_HOME_LITERAL = new MethodElementKind(LOCAL_HOME, "LocalHome", "LocalHome"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Service Endpoint</b></em>' literal object.
@@ -140,7 +140,7 @@ public final class MethodElementKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final MethodElementKind SERVICE_ENDPOINT_LITERAL = new MethodElementKind(SERVICE_ENDPOINT, "ServiceEndpoint", "ServiceEndpoint"); //$NON-NLS-1$
+	public static final MethodElementKind SERVICE_ENDPOINT_LITERAL = new MethodElementKind(SERVICE_ENDPOINT, "ServiceEndpoint", "ServiceEndpoint"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>Method Element Kind</b></em>' enumerators.

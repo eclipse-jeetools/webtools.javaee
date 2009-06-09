@@ -491,18 +491,18 @@ public class ResourceRefImpl extends J2EEEObjectImpl implements ResourceRef {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (description: ");
+		result.append(" (description: "); //$NON-NLS-1$
 		result.append(description);
-		result.append(", name: ");
+		result.append(", name: "); //$NON-NLS-1$
 		result.append(name);
-		result.append(", type: ");
+		result.append(", type: "); //$NON-NLS-1$
 		result.append(type);
-		result.append(", auth: ");
-		if (authESet) result.append(auth); else result.append("<unset>");
-		result.append(", link: ");
+		result.append(", auth: "); //$NON-NLS-1$
+		if (authESet) result.append(auth); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", link: "); //$NON-NLS-1$
 		result.append(link);
-		result.append(", resSharingScope: ");
-		if (resSharingScopeESet) result.append(resSharingScope); else result.append("<unset>");
+		result.append(", resSharingScope: "); //$NON-NLS-1$
+		if (resSharingScopeESet) result.append(resSharingScope); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(')');
 		return result.toString();
 	}

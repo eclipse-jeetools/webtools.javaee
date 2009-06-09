@@ -275,8 +275,8 @@ public void setPrimaryKeyName(String primaryKeyName) {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (reentrant: ");
-		if (reentrantESet) result.append(reentrant); else result.append("<unset>");
+		result.append(" (reentrant: "); //$NON-NLS-1$
+		if (reentrantESet) result.append(reentrant); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(')');
 		return result.toString();
 	}

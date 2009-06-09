@@ -204,7 +204,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getDescriptions() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__DESCRIPTIONS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__DESCRIPTIONS);
 	}
 
 	/**
@@ -213,7 +213,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getDisplayNames() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__DISPLAY_NAMES);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__DISPLAY_NAMES);
 	}
 
 	/**
@@ -222,7 +222,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getIcons() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__ICONS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__ICONS);
 	}
 
 	/**
@@ -231,7 +231,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getDistributables() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__DISTRIBUTABLES);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__DISTRIBUTABLES);
 	}
 
 	/**
@@ -240,7 +240,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getContextParams() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__CONTEXT_PARAMS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__CONTEXT_PARAMS);
 	}
 
 	/**
@@ -249,7 +249,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getFilters() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__FILTERS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__FILTERS);
 	}
 
 	/**
@@ -258,7 +258,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getFilterMappings() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__FILTER_MAPPINGS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__FILTER_MAPPINGS);
 	}
 
 	/**
@@ -267,7 +267,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getListeners() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__LISTENERS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__LISTENERS);
 	}
 
 	/**
@@ -276,7 +276,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getServlets() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__SERVLETS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__SERVLETS);
 	}
 
 	/**
@@ -285,7 +285,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getServletMappings() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__SERVLET_MAPPINGS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__SERVLET_MAPPINGS);
 	}
 
 	/**
@@ -294,7 +294,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getSessionConfigs() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__SESSION_CONFIGS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__SESSION_CONFIGS);
 	}
 
 	/**
@@ -303,7 +303,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getMimeMappings() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__MIME_MAPPINGS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__MIME_MAPPINGS);
 	}
 
 	/**
@@ -312,7 +312,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getWelcomeFileLists() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__WELCOME_FILE_LISTS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__WELCOME_FILE_LISTS);
 	}
 
 	/**
@@ -321,7 +321,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getErrorPages() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__ERROR_PAGES);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__ERROR_PAGES);
 	}
 
 	/**
@@ -330,7 +330,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getJspConfigs() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__JSP_CONFIGS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__JSP_CONFIGS);
 	}
 
 	/**
@@ -339,7 +339,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getSecurityConstraints() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__SECURITY_CONSTRAINTS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__SECURITY_CONSTRAINTS);
 	}
 
 	/**
@@ -348,7 +348,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getLoginConfigs() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__LOGIN_CONFIGS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__LOGIN_CONFIGS);
 	}
 
 	/**
@@ -357,7 +357,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getSecurityRoles() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__SECURITY_ROLES);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__SECURITY_ROLES);
 	}
 
 	/**
@@ -366,7 +366,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getEnvEntries() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__ENV_ENTRIES);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__ENV_ENTRIES);
 	}
 
 	/**
@@ -375,7 +375,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getEjbRefs() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__EJB_REFS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__EJB_REFS);
 	}
 
 	/**
@@ -384,7 +384,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getEjbLocalRefs() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__EJB_LOCAL_REFS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__EJB_LOCAL_REFS);
 	}
 
 	/**
@@ -393,7 +393,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getServiceRefs() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__SERVICE_REFS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__SERVICE_REFS);
 	}
 
 	/**
@@ -402,7 +402,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getResourceRefs() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__RESOURCE_REFS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__RESOURCE_REFS);
 	}
 
 	/**
@@ -411,7 +411,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getResourceEnvRefs() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__RESOURCE_ENV_REFS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__RESOURCE_ENV_REFS);
 	}
 
 	/**
@@ -420,7 +420,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getMessageDestinationRefs() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__MESSAGE_DESTINATION_REFS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__MESSAGE_DESTINATION_REFS);
 	}
 
 	/**
@@ -429,7 +429,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getPersistenceContextRefs() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__PERSISTENCE_CONTEXT_REFS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__PERSISTENCE_CONTEXT_REFS);
 	}
 
 	/**
@@ -438,7 +438,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getPersistenceUnitRefs() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__PERSISTENCE_UNIT_REFS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__PERSISTENCE_UNIT_REFS);
 	}
 
 	/**
@@ -447,7 +447,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getPostConstructs() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__POST_CONSTRUCTS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__POST_CONSTRUCTS);
 	}
 
 	/**
@@ -456,7 +456,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getPreDestroys() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__PRE_DESTROYS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__PRE_DESTROYS);
 	}
 
 	/**
@@ -465,7 +465,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getMessageDestinations() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__MESSAGE_DESTINATIONS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__MESSAGE_DESTINATIONS);
 	}
 
 	/**
@@ -474,7 +474,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 */
 	public List getLocalEncodingMappingsLists() {
-		return ((FeatureMap)getGroup()).list(WebPackage.Literals.WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS);
+		return (getGroup()).list(WebPackage.Literals.WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS);
 	}
 
 	/**

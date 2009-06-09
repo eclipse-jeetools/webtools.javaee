@@ -265,7 +265,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	public void setWebApp(WebApp newWebApp) {
 		if (newWebApp != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.SERVLET__WEB_APP && newWebApp != null)) {
 			if (EcoreUtil.isAncestor(this, newWebApp))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -586,10 +586,10 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (servletName: ");
+		result.append(" (servletName: "); //$NON-NLS-1$
 		result.append(servletName);
-		result.append(", loadOnStartup: ");
-		if (loadOnStartupESet) result.append(loadOnStartup); else result.append("<unset>");
+		result.append(", loadOnStartup: "); //$NON-NLS-1$
+		if (loadOnStartupESet) result.append(loadOnStartup); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(')');
 		return result.toString();
 	}

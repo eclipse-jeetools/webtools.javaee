@@ -383,11 +383,11 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (handlerName: ");
+		result.append(" (handlerName: "); //$NON-NLS-1$
 		result.append(handlerName);
-		result.append(", soapRoles: ");
+		result.append(", soapRoles: "); //$NON-NLS-1$
 		result.append(soapRoles);
-		result.append(", portNames: ");
+		result.append(", portNames: "); //$NON-NLS-1$
 		result.append(portNames);
 		result.append(')');
 		return result.toString();

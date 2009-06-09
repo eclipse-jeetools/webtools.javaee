@@ -439,13 +439,13 @@ public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (id: ");
+		result.append(" (id: "); //$NON-NLS-1$
 		result.append(id);
-		result.append(", classType: ");
+		result.append(", classType: "); //$NON-NLS-1$
 		result.append(classType);
-		result.append(", qnameScope: ");
+		result.append(", qnameScope: "); //$NON-NLS-1$
 		result.append(qnameScope);
-		result.append(", anonymousTypeQname: ");
+		result.append(", anonymousTypeQname: "); //$NON-NLS-1$
 		result.append(anonymousTypeQname);
 		result.append(')');
 		return result.toString();

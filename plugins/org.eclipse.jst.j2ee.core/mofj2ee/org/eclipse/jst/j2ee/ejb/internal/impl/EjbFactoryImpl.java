@@ -76,7 +76,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 */
 	public static EjbFactory init() {
 		try {
-			EjbFactory theEjbFactory = (EjbFactory)EPackage.Registry.INSTANCE.getEFactory("ejb.xmi"); 
+			EjbFactory theEjbFactory = (EjbFactory)EPackage.Registry.INSTANCE.getEFactory("ejb.xmi");  //$NON-NLS-1$
 			if (theEjbFactory != null) {
 				return theEjbFactory;
 			}
@@ -130,7 +130,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 			case EjbPackage.ACTIVATION_CONFIG_PROPERTY: return createActivationConfigProperty();
 			case EjbPackage.ACTIVATION_CONFIG: return createActivationConfig();
 			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -161,7 +161,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 			case EjbPackage.MULTIPLICITY_KIND:
 				return createMultiplicityKindFromString(eDataType, initialValue);
 			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -192,7 +192,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 			case EjbPackage.MULTIPLICITY_KIND:
 				return convertMultiplicityKindToString(eDataType, instanceValue);
 			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -436,7 +436,7 @@ static String getTypeName(Class type) {
 	 */
 	public TransactionAttributeType createTransactionAttributeTypeFromString(EDataType eDataType, String initialValue) {
 		TransactionAttributeType result = TransactionAttributeType.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		return result;
 	}
 
@@ -456,7 +456,7 @@ static String getTypeName(Class type) {
 	 */
 	public TransactionType createTransactionTypeFromString(EDataType eDataType, String initialValue) {
 		TransactionType result = TransactionType.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		return result;
 	}
 
@@ -476,7 +476,7 @@ static String getTypeName(Class type) {
 	 */
 	public SessionType createSessionTypeFromString(EDataType eDataType, String initialValue) {
 		SessionType result = SessionType.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		return result;
 	}
 
@@ -496,7 +496,7 @@ static String getTypeName(Class type) {
 	 */
 	public MethodElementKind createMethodElementKindFromString(EDataType eDataType, String initialValue) {
 		MethodElementKind result = MethodElementKind.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		return result;
 	}
 
@@ -516,7 +516,7 @@ static String getTypeName(Class type) {
 	 */
 	public AcknowledgeMode createAcknowledgeModeFromString(EDataType eDataType, String initialValue) {
 		AcknowledgeMode result = AcknowledgeMode.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		return result;
 	}
 
@@ -536,7 +536,7 @@ static String getTypeName(Class type) {
 	 */
 	public SubscriptionDurabilityKind createSubscriptionDurabilityKindFromString(EDataType eDataType, String initialValue) {
 		SubscriptionDurabilityKind result = SubscriptionDurabilityKind.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		return result;
 	}
 
@@ -556,7 +556,7 @@ static String getTypeName(Class type) {
 	 */
 	public ReturnTypeMapping createReturnTypeMappingFromString(EDataType eDataType, String initialValue) {
 		ReturnTypeMapping result = ReturnTypeMapping.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		return result;
 	}
 
@@ -576,7 +576,7 @@ static String getTypeName(Class type) {
 	 */
 	public DestinationType createDestinationTypeFromString(EDataType eDataType, String initialValue) {
 		DestinationType result = DestinationType.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		return result;
 	}
 
@@ -596,7 +596,7 @@ static String getTypeName(Class type) {
 	 */
 	public MultiplicityKind createMultiplicityKindFromString(EDataType eDataType, String initialValue) {
 		MultiplicityKind result = MultiplicityKind.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		return result;
 	}
 

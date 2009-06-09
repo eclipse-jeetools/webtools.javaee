@@ -263,11 +263,11 @@ public class IconTypeImpl extends J2EEEObjectImpl implements IconType {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (smallIcon: ");
+		result.append(" (smallIcon: "); //$NON-NLS-1$
 		result.append(smallIcon);
-		result.append(", largeIcon: ");
+		result.append(", largeIcon: "); //$NON-NLS-1$
 		result.append(largeIcon);
-		result.append(", lang: ");
+		result.append(", lang: "); //$NON-NLS-1$
 		result.append(lang);
 		result.append(')');
 		return result.toString();

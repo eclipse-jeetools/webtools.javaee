@@ -34,7 +34,7 @@ public class ClientFactoryImpl extends EFactoryImpl implements ClientFactory {
 	 */
 	public static ClientFactory init() {
 		try {
-			ClientFactory theClientFactory = (ClientFactory)EPackage.Registry.INSTANCE.getEFactory("client.xmi"); 
+			ClientFactory theClientFactory = (ClientFactory)EPackage.Registry.INSTANCE.getEFactory("client.xmi");  //$NON-NLS-1$
 			if (theClientFactory != null) {
 				return theClientFactory;
 			}
@@ -58,7 +58,7 @@ public class ClientFactoryImpl extends EFactoryImpl implements ClientFactory {
 		switch (eClass.getClassifierID()) {
 			case ClientPackage.APPLICATION_CLIENT: return createApplicationClient();
 			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -73,7 +73,7 @@ public class ClientFactoryImpl extends EFactoryImpl implements ClientFactory {
 			case ClientPackage.RES_AUTH_APPLICATION_TYPE:
 				return createResAuthApplicationTypeFromString(eDataType, initialValue);
 			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -88,7 +88,7 @@ public class ClientFactoryImpl extends EFactoryImpl implements ClientFactory {
 			case ClientPackage.RES_AUTH_APPLICATION_TYPE:
 				return convertResAuthApplicationTypeToString(eDataType, instanceValue);
 			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -110,7 +110,7 @@ public static ClientFactory getActiveFactory() {
 	 */
 	public ResAuthApplicationType createResAuthApplicationTypeFromString(EDataType eDataType, String initialValue) {
 		ResAuthApplicationType result = ResAuthApplicationType.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		return result;
 	}
 

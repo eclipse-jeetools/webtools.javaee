@@ -216,7 +216,7 @@ public class ActivationSpecImpl extends J2EEEObjectImpl implements ActivationSpe
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (activationSpecClass: ");
+		result.append(" (activationSpecClass: "); //$NON-NLS-1$
 		result.append(activationSpecClass);
 		result.append(')');
 		return result.toString();

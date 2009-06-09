@@ -83,7 +83,7 @@ public final class DispatcherType extends AbstractEnumerator
 	 * @generated
 	 * @ordered
 	 */
-	public static final DispatcherType FORWARD_LITERAL = new DispatcherType(FORWARD, "FORWARD", "FORWARD");//$NON-NLS-1$
+	public static final DispatcherType FORWARD_LITERAL = new DispatcherType(FORWARD, "FORWARD", "FORWARD");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>INCLUDE</b></em>' literal object.
@@ -97,7 +97,7 @@ public final class DispatcherType extends AbstractEnumerator
 	 * @generated
 	 * @ordered
 	 */
-	public static final DispatcherType INCLUDE_LITERAL = new DispatcherType(INCLUDE, "INCLUDE", "INCLUDE");//$NON-NLS-1$
+	public static final DispatcherType INCLUDE_LITERAL = new DispatcherType(INCLUDE, "INCLUDE", "INCLUDE");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>REQUEST</b></em>' literal object.
@@ -111,7 +111,7 @@ public final class DispatcherType extends AbstractEnumerator
 	 * @generated
 	 * @ordered
 	 */
-	public static final DispatcherType REQUEST_LITERAL = new DispatcherType(REQUEST, "REQUEST", "REQUEST");//$NON-NLS-1$
+	public static final DispatcherType REQUEST_LITERAL = new DispatcherType(REQUEST, "REQUEST", "REQUEST");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>ERROR</b></em>' literal object.
@@ -125,7 +125,7 @@ public final class DispatcherType extends AbstractEnumerator
 	 * @generated
 	 * @ordered
 	 */
-	public static final DispatcherType ERROR_LITERAL = new DispatcherType(ERROR, "ERROR", "ERROR");//$NON-NLS-1$
+	public static final DispatcherType ERROR_LITERAL = new DispatcherType(ERROR, "ERROR", "ERROR");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>Dispatcher Type</b></em>' enumerators.

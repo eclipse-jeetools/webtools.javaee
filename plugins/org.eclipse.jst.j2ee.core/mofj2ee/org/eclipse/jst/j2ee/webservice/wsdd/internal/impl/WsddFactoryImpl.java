@@ -45,7 +45,7 @@ public class WsddFactoryImpl extends EFactoryImpl implements WsddFactory
 	 */
 	public static WsddFactory init() {
 		try {
-			WsddFactory theWsddFactory = (WsddFactory)EPackage.Registry.INSTANCE.getEFactory("wsdd.xmi"); 
+			WsddFactory theWsddFactory = (WsddFactory)EPackage.Registry.INSTANCE.getEFactory("wsdd.xmi");  //$NON-NLS-1$
 			if (theWsddFactory != null) {
 				return theWsddFactory;
 			}
@@ -87,7 +87,7 @@ public EObject create(EClass eClass) {
 			case WsddPackage.HANDLER_CHAIN: return createHandlerChain();
 			case WsddPackage.HANDLERS_CHAINS: return createHandlersChains();
 			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 

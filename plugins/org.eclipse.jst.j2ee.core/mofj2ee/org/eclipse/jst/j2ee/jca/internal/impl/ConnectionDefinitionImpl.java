@@ -424,15 +424,15 @@ public class ConnectionDefinitionImpl extends J2EEEObjectImpl implements Connect
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (managedConnectionFactoryClass: ");
+		result.append(" (managedConnectionFactoryClass: "); //$NON-NLS-1$
 		result.append(managedConnectionFactoryClass);
-		result.append(", connectionFactoryInterface: ");
+		result.append(", connectionFactoryInterface: "); //$NON-NLS-1$
 		result.append(connectionFactoryInterface);
-		result.append(", connectionFactoryImplClass: ");
+		result.append(", connectionFactoryImplClass: "); //$NON-NLS-1$
 		result.append(connectionFactoryImplClass);
-		result.append(", connectionInterface: ");
+		result.append(", connectionInterface: "); //$NON-NLS-1$
 		result.append(connectionInterface);
-		result.append(", connectionImplClass: ");
+		result.append(", connectionImplClass: "); //$NON-NLS-1$
 		result.append(connectionImplClass);
 		result.append(')');
 		return result.toString();

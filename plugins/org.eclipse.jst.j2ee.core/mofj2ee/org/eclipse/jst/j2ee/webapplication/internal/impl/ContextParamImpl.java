@@ -162,7 +162,7 @@ public class ContextParamImpl extends J2EEEObjectImpl implements ContextParam {
 	public void setWebApp(WebApp newWebApp) {
 		if (newWebApp != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.CONTEXT_PARAM__WEB_APP && newWebApp != null)) {
 			if (EcoreUtil.isAncestor(this, newWebApp))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -315,11 +315,11 @@ public class ContextParamImpl extends J2EEEObjectImpl implements ContextParam {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (paramName: ");
+		result.append(" (paramName: "); //$NON-NLS-1$
 		result.append(paramName);
-		result.append(", paramValue: ");
+		result.append(", paramValue: "); //$NON-NLS-1$
 		result.append(paramValue);
-		result.append(", description: ");
+		result.append(", description: "); //$NON-NLS-1$
 		result.append(description);
 		result.append(')');
 		return result.toString();

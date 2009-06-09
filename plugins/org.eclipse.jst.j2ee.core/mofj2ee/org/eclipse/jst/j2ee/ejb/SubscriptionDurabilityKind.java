@@ -48,7 +48,7 @@ public final class SubscriptionDurabilityKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final SubscriptionDurabilityKind DURABLE_LITERAL = new SubscriptionDurabilityKind(DURABLE, "Durable", "Durable"); //$NON-NLS-1$
+	public static final SubscriptionDurabilityKind DURABLE_LITERAL = new SubscriptionDurabilityKind(DURABLE, "Durable", "Durable"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Non Durable</b></em>' literal object.
@@ -62,7 +62,7 @@ public final class SubscriptionDurabilityKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final SubscriptionDurabilityKind NON_DURABLE_LITERAL = new SubscriptionDurabilityKind(NON_DURABLE, "NonDurable", "NonDurable"); //$NON-NLS-1$
+	public static final SubscriptionDurabilityKind NON_DURABLE_LITERAL = new SubscriptionDurabilityKind(NON_DURABLE, "NonDurable", "NonDurable"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>Subscription Durability Kind</b></em>' enumerators.

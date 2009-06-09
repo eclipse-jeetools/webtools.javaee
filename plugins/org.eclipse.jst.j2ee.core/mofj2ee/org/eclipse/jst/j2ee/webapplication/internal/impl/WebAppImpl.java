@@ -1209,9 +1209,9 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (distributable: ");
-		if (distributableESet) result.append(distributable); else result.append("<unset>");
-		result.append(", version: ");
+		result.append(" (distributable: "); //$NON-NLS-1$
+		if (distributableESet) result.append(distributable); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", version: "); //$NON-NLS-1$
 		result.append(version);
 		result.append(')');
 		return result.toString();

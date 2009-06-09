@@ -237,9 +237,9 @@ public class SecurityPermissionImpl extends J2EEEObjectImpl implements SecurityP
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (description: ");
+		result.append(" (description: "); //$NON-NLS-1$
 		result.append(description);
-		result.append(", specification: ");
+		result.append(", specification: "); //$NON-NLS-1$
 		result.append(specification);
 		result.append(')');
 		return result.toString();

@@ -397,13 +397,13 @@ public class MessageDestinationRefImpl extends J2EEEObjectImpl implements Messag
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
+		result.append(" (name: "); //$NON-NLS-1$
 		result.append(name);
-		result.append(", type: ");
+		result.append(", type: "); //$NON-NLS-1$
 		result.append(type);
-		result.append(", usage: ");
+		result.append(", usage: "); //$NON-NLS-1$
 		result.append(usage);
-		result.append(", link: ");
+		result.append(", link: "); //$NON-NLS-1$
 		result.append(link);
 		result.append(')');
 		return result.toString();

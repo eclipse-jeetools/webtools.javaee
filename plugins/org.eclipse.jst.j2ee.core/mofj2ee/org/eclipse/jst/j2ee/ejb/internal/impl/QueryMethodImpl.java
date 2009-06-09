@@ -157,7 +157,7 @@ protected Method getSelectMethod() {
 	public void setQuery(Query newQuery) {
 		if (newQuery != eInternalContainer() || (eContainerFeatureID != EjbPackage.QUERY_METHOD__QUERY && newQuery != null)) {
 			if (EcoreUtil.isAncestor(this, newQuery))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);

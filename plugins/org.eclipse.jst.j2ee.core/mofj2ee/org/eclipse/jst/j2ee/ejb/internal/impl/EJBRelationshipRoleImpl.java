@@ -918,14 +918,14 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (description: ");
+		result.append(" (description: "); //$NON-NLS-1$
 		result.append(description);
-		result.append(", roleName: ");
+		result.append(", roleName: "); //$NON-NLS-1$
 		result.append(roleName);
-		result.append(", multiplicity: ");
-		if (multiplicityESet) result.append(multiplicity); else result.append("<unset>");
-		result.append(", cascadeDelete: ");
-		if (cascadeDeleteESet) result.append(cascadeDelete); else result.append("<unset>");
+		result.append(", multiplicity: "); //$NON-NLS-1$
+		if (multiplicityESet) result.append(multiplicity); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", cascadeDelete: "); //$NON-NLS-1$
+		if (cascadeDeleteESet) result.append(cascadeDelete); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(')');
 		return result.toString();
 	}
@@ -961,7 +961,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	public void setRelationshipGen(EJBRelation newRelationship) {
 		if (newRelationship != eInternalContainer() || (eContainerFeatureID != EjbPackage.EJB_RELATIONSHIP_ROLE__RELATIONSHIP && newRelationship != null)) {
 			if (EcoreUtil.isAncestor(this, newRelationship))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);

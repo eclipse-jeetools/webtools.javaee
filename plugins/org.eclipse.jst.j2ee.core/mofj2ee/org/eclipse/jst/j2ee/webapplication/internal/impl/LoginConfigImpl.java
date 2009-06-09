@@ -220,7 +220,7 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 	public void setWebApp(WebApp newWebApp) {
 		if (newWebApp != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.LOGIN_CONFIG__WEB_APP && newWebApp != null)) {
 			if (EcoreUtil.isAncestor(this, newWebApp))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -428,11 +428,11 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (authMethod: ");
-		if (authMethodESet) result.append(authMethod); else result.append("<unset>");
-		result.append(", realmName: ");
+		result.append(" (authMethod: "); //$NON-NLS-1$
+		if (authMethodESet) result.append(authMethod); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", realmName: "); //$NON-NLS-1$
 		result.append(realmName);
-		result.append(", authorizationMethod: ");
+		result.append(", authorizationMethod: "); //$NON-NLS-1$
 		result.append(authorizationMethod);
 		result.append(')');
 		return result.toString();

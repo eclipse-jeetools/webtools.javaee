@@ -97,7 +97,7 @@ public class URLPatternTypeImpl extends J2EEEObjectImpl implements URLPatternTyp
 	public void setResCollection(WebResourceCollection newResCollection) {
 		if (newResCollection != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.URL_PATTERN_TYPE__RES_COLLECTION && newResCollection != null)) {
 			if (EcoreUtil.isAncestor(this, newResCollection))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -230,7 +230,7 @@ public class URLPatternTypeImpl extends J2EEEObjectImpl implements URLPatternTyp
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (urlPattern: ");
+		result.append(" (urlPattern: "); //$NON-NLS-1$
 		result.append(urlPattern);
 		result.append(')');
 		return result.toString();

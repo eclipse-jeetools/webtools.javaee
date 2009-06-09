@@ -160,7 +160,7 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final HTTPMethodTypeEnum GET_LITERAL = new HTTPMethodTypeEnum(GET, "GET", "GET");//$NON-NLS-1$
+	public static final HTTPMethodTypeEnum GET_LITERAL = new HTTPMethodTypeEnum(GET, "GET", "GET");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>POST</b></em>' literal object.
@@ -174,7 +174,7 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final HTTPMethodTypeEnum POST_LITERAL = new HTTPMethodTypeEnum(POST, "POST", "POST");//$NON-NLS-1$
+	public static final HTTPMethodTypeEnum POST_LITERAL = new HTTPMethodTypeEnum(POST, "POST", "POST");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>PUT</b></em>' literal object.
@@ -188,7 +188,7 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final HTTPMethodTypeEnum PUT_LITERAL = new HTTPMethodTypeEnum(PUT, "PUT", "PUT");//$NON-NLS-1$
+	public static final HTTPMethodTypeEnum PUT_LITERAL = new HTTPMethodTypeEnum(PUT, "PUT", "PUT");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>DELETE</b></em>' literal object.
@@ -202,7 +202,7 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final HTTPMethodTypeEnum DELETE_LITERAL = new HTTPMethodTypeEnum(DELETE, "DELETE", "DELETE");//$NON-NLS-1$
+	public static final HTTPMethodTypeEnum DELETE_LITERAL = new HTTPMethodTypeEnum(DELETE, "DELETE", "DELETE");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>HEAD</b></em>' literal object.
@@ -216,7 +216,7 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final HTTPMethodTypeEnum HEAD_LITERAL = new HTTPMethodTypeEnum(HEAD, "HEAD", "HEAD");//$NON-NLS-1$
+	public static final HTTPMethodTypeEnum HEAD_LITERAL = new HTTPMethodTypeEnum(HEAD, "HEAD", "HEAD");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>OPTIONS</b></em>' literal object.
@@ -230,7 +230,7 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final HTTPMethodTypeEnum OPTIONS_LITERAL = new HTTPMethodTypeEnum(OPTIONS, "OPTIONS", "OPTIONS");//$NON-NLS-1$
+	public static final HTTPMethodTypeEnum OPTIONS_LITERAL = new HTTPMethodTypeEnum(OPTIONS, "OPTIONS", "OPTIONS");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>TRACE</b></em>' literal object.
@@ -244,7 +244,7 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final HTTPMethodTypeEnum TRACE_LITERAL = new HTTPMethodTypeEnum(TRACE, "TRACE", "TRACE");//$NON-NLS-1$
+	public static final HTTPMethodTypeEnum TRACE_LITERAL = new HTTPMethodTypeEnum(TRACE, "TRACE", "TRACE");//$NON-NLS-1$ //$NON-NLS-2$
 
 	//WEBDAV support
     public static final HTTPMethodTypeEnum ACK_LITERAL = new HTTPMethodTypeEnum(ACK, "ACK", "ACK"); //$NON-NLS-1$ //$NON-NLS-2$

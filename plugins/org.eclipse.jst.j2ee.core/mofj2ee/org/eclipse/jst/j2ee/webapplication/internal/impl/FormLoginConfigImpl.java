@@ -133,7 +133,7 @@ public class FormLoginConfigImpl extends J2EEEObjectImpl implements FormLoginCon
 	public void setLoginConfig(LoginConfig newLoginConfig) {
 		if (newLoginConfig != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.FORM_LOGIN_CONFIG__LOGIN_CONFIG && newLoginConfig != null)) {
 			if (EcoreUtil.isAncestor(this, newLoginConfig))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -276,9 +276,9 @@ public class FormLoginConfigImpl extends J2EEEObjectImpl implements FormLoginCon
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (formLoginPage: ");
+		result.append(" (formLoginPage: "); //$NON-NLS-1$
 		result.append(formLoginPage);
-		result.append(", formErrorPage: ");
+		result.append(", formErrorPage: "); //$NON-NLS-1$
 		result.append(formErrorPage);
 		result.append(')');
 		return result.toString();

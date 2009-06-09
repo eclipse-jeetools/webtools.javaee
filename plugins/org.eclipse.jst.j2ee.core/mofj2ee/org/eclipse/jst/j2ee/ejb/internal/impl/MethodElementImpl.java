@@ -1089,13 +1089,13 @@ public boolean uniquelyIdentifies(Method aMethod) {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
+		result.append(" (name: "); //$NON-NLS-1$
 		result.append(name);
-		result.append(", parms: ");
+		result.append(", parms: "); //$NON-NLS-1$
 		result.append(parms);
-		result.append(", type: ");
-		if (typeESet) result.append(type); else result.append("<unset>");
-		result.append(", description: ");
+		result.append(", type: "); //$NON-NLS-1$
+		if (typeESet) result.append(type); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", description: "); //$NON-NLS-1$
 		result.append(description);
 		result.append(')');
 		return result.toString();

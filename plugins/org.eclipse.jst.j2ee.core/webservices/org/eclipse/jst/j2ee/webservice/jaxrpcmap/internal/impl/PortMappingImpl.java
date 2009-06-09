@@ -264,11 +264,11 @@ public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (id: ");
+		result.append(" (id: "); //$NON-NLS-1$
 		result.append(id);
-		result.append(", portName: ");
+		result.append(", portName: "); //$NON-NLS-1$
 		result.append(portName);
-		result.append(", javaPortName: ");
+		result.append(", javaPortName: "); //$NON-NLS-1$
 		result.append(javaPortName);
 		result.append(')');
 		return result.toString();

@@ -345,11 +345,11 @@ public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (id: ");
+		result.append(" (id: "); //$NON-NLS-1$
 		result.append(id);
-		result.append(", methodReturnValue: ");
+		result.append(", methodReturnValue: "); //$NON-NLS-1$
 		result.append(methodReturnValue);
-		result.append(", wsdlMessagePartName: ");
+		result.append(", wsdlMessagePartName: "); //$NON-NLS-1$
 		result.append(wsdlMessagePartName);
 		result.append(')');
 		return result.toString();

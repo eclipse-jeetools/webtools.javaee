@@ -488,18 +488,18 @@ public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (id: ");
+		result.append(" (id: "); //$NON-NLS-1$
 		result.append(id);
-		result.append(", javaVariableName: ");
+		result.append(", javaVariableName: "); //$NON-NLS-1$
 		result.append(javaVariableName);
-		result.append(", xmlElementName: ");
+		result.append(", xmlElementName: "); //$NON-NLS-1$
 		result.append(xmlElementName);
-		result.append(", dataMember: ");
-		if (dataMemberESet) result.append(dataMember); else result.append("<unset>");
-		result.append(", xmlAttributeName: ");
+		result.append(", dataMember: "); //$NON-NLS-1$
+		if (dataMemberESet) result.append(dataMember); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", xmlAttributeName: "); //$NON-NLS-1$
 		result.append(xmlAttributeName);
-		result.append(", xmlWildcard: ");
-		if (xmlWildcardESet) result.append(xmlWildcard); else result.append("<unset>");
+		result.append(", xmlWildcard: "); //$NON-NLS-1$
+		if (xmlWildcardESet) result.append(xmlWildcard); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(')');
 		return result.toString();
 	}

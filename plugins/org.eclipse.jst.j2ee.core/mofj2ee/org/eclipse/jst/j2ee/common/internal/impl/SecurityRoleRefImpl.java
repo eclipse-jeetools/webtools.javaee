@@ -277,11 +277,11 @@ public class SecurityRoleRefImpl extends J2EEEObjectImpl implements SecurityRole
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
+		result.append(" (name: "); //$NON-NLS-1$
 		result.append(name);
-		result.append(", description: ");
+		result.append(", description: "); //$NON-NLS-1$
 		result.append(description);
-		result.append(", link: ");
+		result.append(", link: "); //$NON-NLS-1$
 		result.append(link);
 		result.append(')');
 		return result.toString();

@@ -144,7 +144,7 @@ public boolean isErrorCode() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (errorCode: ");
+		result.append(" (errorCode: "); //$NON-NLS-1$
 		result.append(errorCode);
 		result.append(')');
 		return result.toString();

@@ -47,7 +47,7 @@ public final class EjbRefType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final EjbRefType SESSION_LITERAL = new EjbRefType(SESSION, "Session", "Session"); //$NON-NLS-1$
+	public static final EjbRefType SESSION_LITERAL = new EjbRefType(SESSION, "Session", "Session"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Entity</b></em>' literal object.
@@ -61,7 +61,7 @@ public final class EjbRefType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final EjbRefType ENTITY_LITERAL = new EjbRefType(ENTITY, "Entity", "Entity"); //$NON-NLS-1$
+	public static final EjbRefType ENTITY_LITERAL = new EjbRefType(ENTITY, "Entity", "Entity"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>Ejb Ref Type</b></em>' enumerators.

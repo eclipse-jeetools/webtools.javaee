@@ -190,7 +190,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	public void setEjbJar(EJBJar newEjbJar) {
 		if (newEjbJar != eInternalContainer() || (eContainerFeatureID != EjbPackage.ASSEMBLY_DESCRIPTOR__EJB_JAR && newEjbJar != null)) {
 			if (EcoreUtil.isAncestor(this, newEjbJar))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);

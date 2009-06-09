@@ -483,7 +483,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * @generated
 	 */
 	public DispatcherType createDispatcherTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return (DispatcherType)createDispatcherTypeFromString(WebPackage.Literals.DISPATCHER_TYPE, initialValue);
+		return createDispatcherTypeFromString(WebPackage.Literals.DISPATCHER_TYPE, initialValue);
 	}
 
 	/**
@@ -537,7 +537,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * @generated
 	 */
 	public String createFilterNameTypeFromString(EDataType eDataType, String initialValue) {
-		return (String)createNonEmptyStringTypeFromString(WebPackage.Literals.NON_EMPTY_STRING_TYPE, initialValue);
+		return createNonEmptyStringTypeFromString(WebPackage.Literals.NON_EMPTY_STRING_TYPE, initialValue);
 	}
 
 	/**
@@ -577,7 +577,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 		Object result = null;
 		RuntimeException exception = null;
 		try {
-			result = (Object)createNullCharTypeFromString(WebPackage.Literals.NULL_CHAR_TYPE, initialValue);
+			result = createNullCharTypeFromString(WebPackage.Literals.NULL_CHAR_TYPE, initialValue);
 			if (result != null && Diagnostician.INSTANCE.validate(eDataType, result, null, null)) {
 				return result;
 			}
@@ -586,7 +586,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 			exception = e;
 		}
 		try {
-			result = (Object)XMLTypeFactory.eINSTANCE.createFromString(XMLTypePackage.Literals.INTEGER, initialValue);
+			result = XMLTypeFactory.eINSTANCE.createFromString(XMLTypePackage.Literals.INTEGER, initialValue);
 			if (result != null && Diagnostician.INSTANCE.validate(eDataType, result, null, null)) {
 				return result;
 			}
@@ -623,7 +623,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 		}
 		String value = instanceValue.toString();
 		if (value != null) return value;
-		throw new IllegalArgumentException("Invalid value: '"+instanceValue+"' for datatype :"+eDataType.getName());
+		throw new IllegalArgumentException("Invalid value: '"+instanceValue+"' for datatype :"+eDataType.getName()); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**
@@ -686,7 +686,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * @generated
 	 */
 	public NullCharType createNullCharTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return (NullCharType)createNullCharTypeFromString(WebPackage.Literals.NULL_CHAR_TYPE, initialValue);
+		return createNullCharTypeFromString(WebPackage.Literals.NULL_CHAR_TYPE, initialValue);
 	}
 
 	/**
@@ -704,7 +704,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * @generated
 	 */
 	public String createServletNameTypeFromString(EDataType eDataType, String initialValue) {
-		return (String)createNonEmptyStringTypeFromString(WebPackage.Literals.NON_EMPTY_STRING_TYPE, initialValue);
+		return createNonEmptyStringTypeFromString(WebPackage.Literals.NON_EMPTY_STRING_TYPE, initialValue);
 	}
 
 	/**
@@ -722,7 +722,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * @generated
 	 */
 	public TransportGuaranteeType createTransportGuaranteeTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return (TransportGuaranteeType)createTransportGuaranteeTypeFromString(WebPackage.Literals.TRANSPORT_GUARANTEE_TYPE, initialValue);
+		return createTransportGuaranteeTypeFromString(WebPackage.Literals.TRANSPORT_GUARANTEE_TYPE, initialValue);
 	}
 
 	/**
@@ -758,7 +758,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * @generated
 	 */
 	public WebAppVersionType createWebAppVersionTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return (WebAppVersionType)createWebAppVersionTypeFromString(WebPackage.Literals.WEB_APP_VERSION_TYPE, initialValue);
+		return createWebAppVersionTypeFromString(WebPackage.Literals.WEB_APP_VERSION_TYPE, initialValue);
 	}
 
 	/**

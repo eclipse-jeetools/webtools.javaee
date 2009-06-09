@@ -325,9 +325,9 @@ public void setServletName(String servletName){
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (urlPattern: ");
+		result.append(" (urlPattern: "); //$NON-NLS-1$
 		result.append(urlPattern);
-		result.append(", dispatcherType: ");
+		result.append(", dispatcherType: "); //$NON-NLS-1$
 		result.append(dispatcherType);
 		result.append(')');
 		return result.toString();

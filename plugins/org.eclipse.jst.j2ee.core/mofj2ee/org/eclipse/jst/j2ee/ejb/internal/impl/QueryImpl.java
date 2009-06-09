@@ -310,7 +310,7 @@ public boolean isRemoteResultMapping() {
 	public void setEntity(ContainerManagedEntity newEntity) {
 		if (newEntity != eInternalContainer() || (eContainerFeatureID != EjbPackage.QUERY__ENTITY && newEntity != null)) {
 			if (EcoreUtil.isAncestor(this, newEntity))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -504,12 +504,12 @@ public boolean isRemoteResultMapping() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (description: ");
+		result.append(" (description: "); //$NON-NLS-1$
 		result.append(description);
-		result.append(", ejbQL: ");
+		result.append(", ejbQL: "); //$NON-NLS-1$
 		result.append(ejbQL);
-		result.append(", returnTypeMapping: ");
-		if (returnTypeMappingESet) result.append(returnTypeMapping); else result.append("<unset>");
+		result.append(", returnTypeMapping: "); //$NON-NLS-1$
+		if (returnTypeMappingESet) result.append(returnTypeMapping); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(')');
 		return result.toString();
 	}

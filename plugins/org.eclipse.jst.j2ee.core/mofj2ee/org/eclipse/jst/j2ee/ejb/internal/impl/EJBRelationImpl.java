@@ -232,7 +232,7 @@ public void setFoward(EJBRelationshipRole aRole) {
 	public void setRelationshipList(Relationships newRelationshipList) {
 		if (newRelationshipList != eInternalContainer() || (eContainerFeatureID != EjbPackage.EJB_RELATION__RELATIONSHIP_LIST && newRelationshipList != null)) {
 			if (EcoreUtil.isAncestor(this, newRelationshipList))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -429,9 +429,9 @@ public void setFoward(EJBRelationshipRole aRole) {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (description: ");
+		result.append(" (description: "); //$NON-NLS-1$
 		result.append(description);
-		result.append(", name: ");
+		result.append(", name: "); //$NON-NLS-1$
 		result.append(name);
 		result.append(')');
 		return result.toString();

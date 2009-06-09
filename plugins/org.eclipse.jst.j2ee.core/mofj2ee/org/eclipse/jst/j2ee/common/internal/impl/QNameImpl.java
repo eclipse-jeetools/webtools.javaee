@@ -408,13 +408,13 @@ public class QNameImpl extends J2EEEObjectImpl implements QName {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (namespaceURI: ");
+		result.append(" (namespaceURI: "); //$NON-NLS-1$
 		result.append(namespaceURI);
-		result.append(", localPart: ");
+		result.append(", localPart: "); //$NON-NLS-1$
 		result.append(localPart);
-		result.append(", combinedQName: ");
+		result.append(", combinedQName: "); //$NON-NLS-1$
 		result.append(combinedQName);
-		result.append(", internalPrefixOrNsURI: ");
+		result.append(", internalPrefixOrNsURI: "); //$NON-NLS-1$
 		result.append(internalPrefixOrNsURI);
 		result.append(')');
 		return result.toString();

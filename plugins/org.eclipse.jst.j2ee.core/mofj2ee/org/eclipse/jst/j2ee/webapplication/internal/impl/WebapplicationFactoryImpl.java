@@ -65,7 +65,7 @@ public class WebapplicationFactoryImpl extends EFactoryImpl implements Webapplic
 	 */
 	public static WebapplicationFactory init() {
 		try {
-			WebapplicationFactory theWebapplicationFactory = (WebapplicationFactory)EPackage.Registry.INSTANCE.getEFactory("webapplication.xmi"); 
+			WebapplicationFactory theWebapplicationFactory = (WebapplicationFactory)EPackage.Registry.INSTANCE.getEFactory("webapplication.xmi");  //$NON-NLS-1$
 			if (theWebapplicationFactory != null) {
 				return theWebapplicationFactory;
 			}
@@ -118,7 +118,7 @@ public class WebapplicationFactoryImpl extends EFactoryImpl implements Webapplic
 			case WebapplicationPackage.LOCAL_ENCODING_MAPPING: return createLocalEncodingMapping();
 			case WebapplicationPackage.HTTP_METHOD_TYPE: return createHTTPMethodType();
 			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -141,7 +141,7 @@ public class WebapplicationFactoryImpl extends EFactoryImpl implements Webapplic
 			case WebapplicationPackage.AUTH_METHOD_KIND:
 				return createAuthMethodKindFromString(eDataType, initialValue);
 			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -164,7 +164,7 @@ public class WebapplicationFactoryImpl extends EFactoryImpl implements Webapplic
 			case WebapplicationPackage.AUTH_METHOD_KIND:
 				return convertAuthMethodKindToString(eDataType, instanceValue);
 			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -402,7 +402,7 @@ public static WebapplicationFactory getActiveFactory() {
 	 */
 	public ResAuthServletType createResAuthServletTypeFromString(EDataType eDataType, String initialValue) {
 		ResAuthServletType result = ResAuthServletType.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		return result;
 	}
 
@@ -422,7 +422,7 @@ public static WebapplicationFactory getActiveFactory() {
 	 */
 	public HTTPMethodTypeEnum createHTTPMethodTypeEnumFromString(EDataType eDataType, String initialValue) {
 		HTTPMethodTypeEnum result = HTTPMethodTypeEnum.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		return result;
 	}
 
@@ -442,7 +442,7 @@ public static WebapplicationFactory getActiveFactory() {
 	 */
 	public TransportGuaranteeType createTransportGuaranteeTypeFromString(EDataType eDataType, String initialValue) {
 		TransportGuaranteeType result = TransportGuaranteeType.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		return result;
 	}
 
@@ -462,7 +462,7 @@ public static WebapplicationFactory getActiveFactory() {
 	 */
 	public DispatcherType createDispatcherTypeFromString(EDataType eDataType, String initialValue) {
 		DispatcherType result = DispatcherType.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		return result;
 	}
 
@@ -482,7 +482,7 @@ public static WebapplicationFactory getActiveFactory() {
 	 */
 	public AuthMethodKind createAuthMethodKindFromString(EDataType eDataType, String initialValue) {
 		AuthMethodKind result = AuthMethodKind.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		return result;
 	}
 

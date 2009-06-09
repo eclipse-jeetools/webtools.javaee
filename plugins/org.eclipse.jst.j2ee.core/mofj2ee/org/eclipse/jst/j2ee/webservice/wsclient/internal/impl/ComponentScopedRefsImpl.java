@@ -216,7 +216,7 @@ public class ComponentScopedRefsImpl extends J2EEEObjectImpl implements Componen
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (componentName: ");
+		result.append(" (componentName: "); //$NON-NLS-1$
 		result.append(componentName);
 		result.append(')');
 		return result.toString();

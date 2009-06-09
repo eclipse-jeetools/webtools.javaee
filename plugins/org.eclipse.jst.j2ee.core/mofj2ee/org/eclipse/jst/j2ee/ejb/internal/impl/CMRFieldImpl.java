@@ -97,7 +97,7 @@ public void setCollectionTypeName(String typeName) {
 	public void setRole(EJBRelationshipRole newRole) {
 		if (newRole != eInternalContainer() || (eContainerFeatureID() != EjbPackage.CMR_FIELD__ROLE && newRole != null)) {
 			if (EcoreUtil.isAncestor(this, newRole))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);

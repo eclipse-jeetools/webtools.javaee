@@ -44,7 +44,7 @@ public final class ResAuthServletType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final ResAuthServletType CONTAINER_LITERAL = new ResAuthServletType(CONTAINER, "CONTAINER", "CONTAINER");//$NON-NLS-1$
+	public static final ResAuthServletType CONTAINER_LITERAL = new ResAuthServletType(CONTAINER, "CONTAINER", "CONTAINER");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>SERVLET</b></em>' literal object.
@@ -58,7 +58,7 @@ public final class ResAuthServletType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final ResAuthServletType SERVLET_LITERAL = new ResAuthServletType(SERVLET, "SERVLET", "SERVLET");//$NON-NLS-1$
+	public static final ResAuthServletType SERVLET_LITERAL = new ResAuthServletType(SERVLET, "SERVLET", "SERVLET");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>Res Auth Servlet Type</b></em>' enumerators.

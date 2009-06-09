@@ -160,7 +160,7 @@ public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (servletLink: ");
+		result.append(" (servletLink: "); //$NON-NLS-1$
 		result.append(servletLink);
 		result.append(')');
 		return result.toString();

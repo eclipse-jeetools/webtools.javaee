@@ -134,7 +134,7 @@ public class AuthConstraintImpl extends J2EEEObjectImpl implements AuthConstrain
 	public void setSecConstraint(SecurityConstraint newSecConstraint) {
 		if (newSecConstraint != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.AUTH_CONSTRAINT__SEC_CONSTRAINT && newSecConstraint != null)) {
 			if (EcoreUtil.isAncestor(this, newSecConstraint))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -303,9 +303,9 @@ public class AuthConstraintImpl extends J2EEEObjectImpl implements AuthConstrain
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (description: ");
+		result.append(" (description: "); //$NON-NLS-1$
 		result.append(description);
-		result.append(", roles: ");
+		result.append(", roles: "); //$NON-NLS-1$
 		result.append(roles);
 		result.append(')');
 		return result.toString();

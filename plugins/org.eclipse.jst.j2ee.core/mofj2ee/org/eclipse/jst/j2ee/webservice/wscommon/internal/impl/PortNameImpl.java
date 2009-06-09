@@ -161,7 +161,7 @@ public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (portName: ");
+		result.append(" (portName: "); //$NON-NLS-1$
 		result.append(portName);
 		result.append(')');
 		return result.toString();

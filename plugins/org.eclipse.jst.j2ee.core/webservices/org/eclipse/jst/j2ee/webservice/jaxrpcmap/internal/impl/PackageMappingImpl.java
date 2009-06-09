@@ -264,11 +264,11 @@ public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (id: ");
+		result.append(" (id: "); //$NON-NLS-1$
 		result.append(id);
-		result.append(", packageType: ");
+		result.append(", packageType: "); //$NON-NLS-1$
 		result.append(packageType);
-		result.append(", namespaceURI: ");
+		result.append(", namespaceURI: "); //$NON-NLS-1$
 		result.append(namespaceURI);
 		result.append(')');
 		return result.toString();

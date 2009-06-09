@@ -36,7 +36,7 @@ public class JspFactoryImpl extends EFactoryImpl implements JspFactory {
 	 */
 	public static JspFactory init() {
 		try {
-			JspFactory theJspFactory = (JspFactory)EPackage.Registry.INSTANCE.getEFactory("jsp.xmi"); 
+			JspFactory theJspFactory = (JspFactory)EPackage.Registry.INSTANCE.getEFactory("jsp.xmi");  //$NON-NLS-1$
 			if (theJspFactory != null) {
 				return theJspFactory;
 			}
@@ -69,7 +69,7 @@ public class JspFactoryImpl extends EFactoryImpl implements JspFactory {
 			case JspPackage.JSP_PROPERTY_GROUP: return createJSPPropertyGroup();
 			case JspPackage.TAG_LIB_REF_TYPE: return createTagLibRefType();
 			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 

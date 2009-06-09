@@ -415,13 +415,13 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (vendorName: ");
+		result.append(" (vendorName: "); //$NON-NLS-1$
 		result.append(vendorName);
-		result.append(", specVersion: ");
+		result.append(", specVersion: "); //$NON-NLS-1$
 		result.append(specVersion);
-		result.append(", eisType: ");
+		result.append(", eisType: "); //$NON-NLS-1$
 		result.append(eisType);
-		result.append(", version: ");
+		result.append(", version: "); //$NON-NLS-1$
 		result.append(version);
 		result.append(')');
 		return result.toString();

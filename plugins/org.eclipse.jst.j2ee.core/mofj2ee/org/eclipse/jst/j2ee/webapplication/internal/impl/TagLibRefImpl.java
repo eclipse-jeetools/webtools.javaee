@@ -138,7 +138,7 @@ public class TagLibRefImpl extends J2EEEObjectImpl implements TagLibRef {
 	public void setWebApp(WebApp newWebApp) {
 		if (newWebApp != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.TAG_LIB_REF__WEB_APP && newWebApp != null)) {
 			if (EcoreUtil.isAncestor(this, newWebApp))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -281,9 +281,9 @@ public class TagLibRefImpl extends J2EEEObjectImpl implements TagLibRef {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (taglibURI: ");
+		result.append(" (taglibURI: "); //$NON-NLS-1$
 		result.append(taglibURI);
-		result.append(", taglibLocation: ");
+		result.append(", taglibLocation: "); //$NON-NLS-1$
 		result.append(taglibLocation);
 		result.append(')');
 		return result.toString();

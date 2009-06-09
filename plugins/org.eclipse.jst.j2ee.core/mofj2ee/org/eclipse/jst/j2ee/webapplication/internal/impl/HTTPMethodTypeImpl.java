@@ -160,7 +160,7 @@ public class HTTPMethodTypeImpl extends J2EEEObjectImpl implements HTTPMethodTyp
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (httpMethod: ");
+		result.append(" (httpMethod: "); //$NON-NLS-1$
 		result.append(httpMethod);
 		result.append(')');
 		return result.toString();

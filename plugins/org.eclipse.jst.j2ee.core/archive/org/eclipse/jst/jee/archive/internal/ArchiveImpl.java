@@ -119,7 +119,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 				throw new RuntimeException("Attempting to modify a fully indexed file list"); //$NON-NLS-1$
 			}
 		}
-	};
+	}
 
 	private ArchiveFileIndex archiveFileIndex = new ArchiveFileIndex();
 

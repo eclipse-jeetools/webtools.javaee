@@ -71,7 +71,7 @@ public final class MessageDestinationUsageType extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final MessageDestinationUsageType CONSUMES_LITERAL = new MessageDestinationUsageType(CONSUMES, "Consumes", "Consumes"); //$NON-NLS-1$
+	public static final MessageDestinationUsageType CONSUMES_LITERAL = new MessageDestinationUsageType(CONSUMES, "Consumes", "Consumes"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Produces</b></em>' literal object.
@@ -85,7 +85,7 @@ public final class MessageDestinationUsageType extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final MessageDestinationUsageType PRODUCES_LITERAL = new MessageDestinationUsageType(PRODUCES, "Produces", "Produces"); //$NON-NLS-1$
+	public static final MessageDestinationUsageType PRODUCES_LITERAL = new MessageDestinationUsageType(PRODUCES, "Produces", "Produces"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Consumes Produces</b></em>' literal object.
@@ -99,7 +99,7 @@ public final class MessageDestinationUsageType extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final MessageDestinationUsageType CONSUMES_PRODUCES_LITERAL = new MessageDestinationUsageType(CONSUMES_PRODUCES, "ConsumesProduces", "ConsumesProduces"); //$NON-NLS-1$
+	public static final MessageDestinationUsageType CONSUMES_PRODUCES_LITERAL = new MessageDestinationUsageType(CONSUMES_PRODUCES, "ConsumesProduces", "ConsumesProduces"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>Message Destination Usage Type</b></em>' enumerators.

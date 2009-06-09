@@ -56,7 +56,7 @@ public class JaxrpcmapFactoryImpl extends EFactoryImpl implements JaxrpcmapFacto
 	 */
 	public static JaxrpcmapFactory init() {
 		try {
-			JaxrpcmapFactory theJaxrpcmapFactory = (JaxrpcmapFactory)EPackage.Registry.INSTANCE.getEFactory("jaxrpcmap.xmi"); 
+			JaxrpcmapFactory theJaxrpcmapFactory = (JaxrpcmapFactory)EPackage.Registry.INSTANCE.getEFactory("jaxrpcmap.xmi");  //$NON-NLS-1$
 			if (theJaxrpcmapFactory != null) {
 				return theJaxrpcmapFactory;
 			}
@@ -108,7 +108,7 @@ public EObject create(EClass eClass) {
 			case JaxrpcmapPackage.WSDL_MESSAGE_PART_NAME: return createWSDLMessagePartName();
 			case JaxrpcmapPackage.INTERFACE_MAPPING: return createInterfaceMapping();
 			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 

@@ -40,7 +40,6 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 	
 	
 	private static class RootVersionAdapter extends AdapterImpl {
-		static final String ADAPTER_TYPE = RootVersionAdapter.class.getName();
 		/* (non-Javadoc)
 		 * @see org.eclipse.emf.common.notify.impl.AdapterImpl#isAdapterForType(java.lang.Object)
 		 */

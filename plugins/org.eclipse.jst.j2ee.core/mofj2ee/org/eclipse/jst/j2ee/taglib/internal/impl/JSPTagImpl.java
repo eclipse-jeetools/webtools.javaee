@@ -539,13 +539,13 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (bodyContent: ");
-		if (bodyContentESet) result.append(bodyContent); else result.append("<unset>");
-		result.append(", example: ");
+		result.append(" (bodyContent: "); //$NON-NLS-1$
+		if (bodyContentESet) result.append(bodyContent); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", example: "); //$NON-NLS-1$
 		result.append(example);
-		result.append(", name: ");
+		result.append(", name: "); //$NON-NLS-1$
 		result.append(name);
-		result.append(", dynamicAttributes: ");
+		result.append(", dynamicAttributes: "); //$NON-NLS-1$
 		result.append(dynamicAttributes);
 		result.append(')');
 		return result.toString();

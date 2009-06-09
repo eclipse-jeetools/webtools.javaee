@@ -381,11 +381,11 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
+		result.append(" (name: "); //$NON-NLS-1$
 		result.append(name);
-		result.append(", signature: ");
+		result.append(", signature: "); //$NON-NLS-1$
 		result.append(signature);
-		result.append(", example: ");
+		result.append(", example: "); //$NON-NLS-1$
 		result.append(example);
 		result.append(')');
 		return result.toString();

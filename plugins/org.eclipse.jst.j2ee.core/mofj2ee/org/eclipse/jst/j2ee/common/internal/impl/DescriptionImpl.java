@@ -211,9 +211,9 @@ public class DescriptionImpl extends J2EEEObjectImpl implements Description {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (lang: ");
+		result.append(" (lang: "); //$NON-NLS-1$
 		result.append(lang);
-		result.append(", value: ");
+		result.append(", value: "); //$NON-NLS-1$
 		result.append(value);
 		result.append(')');
 		return result.toString();

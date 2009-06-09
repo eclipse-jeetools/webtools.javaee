@@ -98,7 +98,7 @@ public class WelcomeFileImpl extends J2EEEObjectImpl implements WelcomeFile {
 	public void setFileList(WelcomeFileList newFileList) {
 		if (newFileList != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.WELCOME_FILE__FILE_LIST && newFileList != null)) {
 			if (EcoreUtil.isAncestor(this, newFileList))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -231,7 +231,7 @@ public class WelcomeFileImpl extends J2EEEObjectImpl implements WelcomeFile {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (welcomeFile: ");
+		result.append(" (welcomeFile: "); //$NON-NLS-1$
 		result.append(welcomeFile);
 		result.append(')');
 		return result.toString();
