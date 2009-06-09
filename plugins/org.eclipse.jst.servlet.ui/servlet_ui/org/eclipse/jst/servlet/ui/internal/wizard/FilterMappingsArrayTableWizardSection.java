@@ -80,9 +80,9 @@ public class FilterMappingsArrayTableWizardSection extends Composite implements 
 	}
 	protected class StringArrayListLabelProvider extends LabelProvider implements ITableLabelProvider {
         private final Image URL_PATTERN_ICON = 
-            ImageDescriptor.createFromURL((URL) WebPlugin.getDefault().getImage("url_mapping")).createImage();
+            ImageDescriptor.createFromURL((URL) WebPlugin.getDefault().getImage("url_mapping")).createImage(); //$NON-NLS-1$
         private final Image SERVLET_ICON = 
-            ImageDescriptor.createFromURL((URL) WebPlugin.getDefault().getImage("servlet")).createImage();
+            ImageDescriptor.createFromURL((URL) WebPlugin.getDefault().getImage("servlet")).createImage(); //$NON-NLS-1$
 
         public Image getColumnImage(Object element, int columnIndex) {
 		    if (columnIndex == 0) {
@@ -110,9 +110,9 @@ public class FilterMappingsArrayTableWizardSection extends Composite implements 
 	
 	final static int ICON_WIDTH = 25;
 	final static int DISPATCHERS_WIDTH = 100;
-	private final static String ICON_PROP = "ICON_PROP";
-	private final static String NAME_PROP = "NAME_PROP";
-	private final static String DISPATCHERS_PROP = "DISPATCHERS_PROP";
+	private final static String ICON_PROP = "ICON_PROP"; //$NON-NLS-1$
+	private final static String NAME_PROP = "NAME_PROP"; //$NON-NLS-1$
+	private final static String DISPATCHERS_PROP = "DISPATCHERS_PROP"; //$NON-NLS-1$
 	
 	private TableViewer viewer;
 	private Button addButton;
@@ -255,11 +255,11 @@ public class FilterMappingsArrayTableWizardSection extends Composite implements 
 		    }
 		});
 		
-		viewer.setInput((List) model.getProperty(propertyName));
+		viewer.setInput(model.getProperty(propertyName));
 	}
 
 	private void handleAddButtonSelected() {
-	    String title = WebAppEditResourceHandler.getString("Add_Filter_Mapping_Title_UI_");
+	    String title = WebAppEditResourceHandler.getString("Add_Filter_Mapping_Title_UI_"); //$NON-NLS-1$
 	    IProject p = (IProject) model.getProperty(PROJECT);
 	    List valueList = (List) viewer.getInput();
 	    AddEditFilterMappingDialog dialog = 
@@ -271,7 +271,7 @@ public class FilterMappingsArrayTableWizardSection extends Composite implements 
 	}
 
      private void handleEditButtonSelected() {
-         String title = WebAppEditResourceHandler.getString("Edit_Filter_Mapping_Title_UI_");
+         String title = WebAppEditResourceHandler.getString("Edit_Filter_Mapping_Title_UI_"); //$NON-NLS-1$
 		ISelection s = viewer.getSelection();
 		if (!(s instanceof IStructuredSelection))
 			return;
@@ -348,7 +348,7 @@ public class FilterMappingsArrayTableWizardSection extends Composite implements 
 
 	public void propertyChanged(DataModelEvent event) {
 		if (this.propertyName.equals(event.getPropertyName())) {
-			viewer.setInput((List) event.getProperty());
+			viewer.setInput(event.getProperty());
 		}
 	}
 

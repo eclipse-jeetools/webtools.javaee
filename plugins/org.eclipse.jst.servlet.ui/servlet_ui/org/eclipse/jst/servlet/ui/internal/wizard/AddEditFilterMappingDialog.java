@@ -69,7 +69,7 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 	
 	private static class TypeRenderer extends LabelProvider {
         private final Image SERVLET_ICON = 
-            ImageDescriptor.createFromURL((URL) WebPlugin.getDefault().getImage("servlet")).createImage();
+            ImageDescriptor.createFromURL((URL) WebPlugin.getDefault().getImage("servlet")).createImage(); //$NON-NLS-1$
 
         @Override
 		public String getText(Object element) {
@@ -129,7 +129,7 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 			setTitle(WebAppEditResourceHandler.getString("File_Selection_UI_")); //$NON-NLS-1$
 		else setTitle(title);
 		
-		Status currStatus = new Status(Status.OK, ServletUIPlugin.PLUGIN_ID, Status.OK, "", null);
+		Status currStatus = new Status(Status.OK, ServletUIPlugin.PLUGIN_ID, Status.OK, "", null); //$NON-NLS-1$
 		
 		updateStatus(currStatus);
 		fElementRenderer = new TypeRenderer();
@@ -158,7 +158,7 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
                 }
             }
     
-            fServletNames = (String[]) servletsList.toArray(new String[servletsList.size()]);
+            fServletNames = servletsList.toArray(new String[servletsList.size()]);
             servletsList = null;
         } catch (Exception e) {
             ServletUIPlugin.log(e);
@@ -331,7 +331,7 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
         Label messageLabel = new Label(composite, SWT.NONE);
         gd = new GridData();
         messageLabel.setLayoutData(gd);
-        messageLabel.setText(URL_PATTERN_LABEL); //$NON-NLS-1$
+        messageLabel.setText(URL_PATTERN_LABEL);
 
         fURLText = new Text(composite, SWT.BORDER);
         GridData spec = new GridData();
@@ -370,7 +370,7 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 
         //Create Dispatchers control
         Group dispatchers = new Group(fChild, SWT.SHADOW_IN);
-        dispatchers.setText(WebAppEditResourceHandler.getString("Select_Dispatchers_UI_"));
+        dispatchers.setText(WebAppEditResourceHandler.getString("Select_Dispatchers_UI_")); //$NON-NLS-1$
         dispatchers.setLayout(new CellLayout(2).setMargins(10,10).setSpacing(5,5));
         GridData gridData = new GridData(GridData.FILL_HORIZONTAL | GridData.GRAB_HORIZONTAL);
         gridData.horizontalSpan = 2;
@@ -539,8 +539,11 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 	}
 
 	public void setElements(Object[] elements) {
-	    if (elements == null) elements = new Object[0]; 
-		fElements = elements;
+	    Object [] innerElements = elements;
+		if (innerElements == null){
+			innerElements = new Object[0];
+	    }
+		fElements = innerElements;
 		fRenderedStrings = renderStrings(fElements);
 	}
 

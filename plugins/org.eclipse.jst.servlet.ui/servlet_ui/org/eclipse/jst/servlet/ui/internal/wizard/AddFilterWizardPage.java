@@ -20,7 +20,6 @@ import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.ADD
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.ADD_FILTER_WIZARD_PAGE_TITLE;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.DESCRIPTION_LABEL;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.DESCRIPTION_TITLE;
-import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.DISPATCHERS_LABEL;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.EDIT_BUTTON_LABEL;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.INIT_PARAM_LABEL;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.INIT_PARAM_TITLE;
@@ -28,7 +27,6 @@ import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.NAM
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.NAME_TITLE;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.NO_WEB_PROJECTS;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.REMOVE_BUTTON_LABEL;
-import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.URL_SERVLET_LABEL;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.VALUE_LABEL;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.VALUE_TITLE;
 import static org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties.PROJECT_NAME;
@@ -100,16 +98,6 @@ public class AddFilterWizardPage extends DataModelWizardPage {
 				INIT_PARAM);
 		initSection.setCallback(callback);
 		
-		String[] buttons = new String[] {
-		        ADD_BUTTON_LABEL, 
-		        EDIT_BUTTON_LABEL, 
-		        REMOVE_BUTTON_LABEL
-		};
-		String[] columnNames = new String[] {
-		        null,
-		        URL_SERVLET_LABEL,
-		        DISPATCHERS_LABEL
-		};
 		mappingSection = new FilterMappingsArrayTableWizardSection(composite, 
 		         model, FILTER_MAPPINGS);
 

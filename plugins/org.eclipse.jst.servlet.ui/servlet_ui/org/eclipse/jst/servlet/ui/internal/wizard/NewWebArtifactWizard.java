@@ -62,7 +62,7 @@ public abstract class NewWebArtifactWizard extends NewWebWizard {
 	protected abstract ImageDescriptor getImage();
 	
 	protected ImageDescriptor getImageFromJ2EEPlugin(String key) {
-		URL url = (URL) J2EEPlugin.getDefault().getImage(key); //$NON-NLS-1$
+		URL url = (URL) J2EEPlugin.getDefault().getImage(key);
 		return ImageDescriptor.createFromURL(url);
 	}
 	
