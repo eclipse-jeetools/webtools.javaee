@@ -37,7 +37,7 @@ public class ApplicationFactoryImpl extends EFactoryImpl implements ApplicationF
 	 */
 	public static ApplicationFactory init() {
 		try {
-			ApplicationFactory theApplicationFactory = (ApplicationFactory)EPackage.Registry.INSTANCE.getEFactory("application.xmi"); 
+			ApplicationFactory theApplicationFactory = (ApplicationFactory)EPackage.Registry.INSTANCE.getEFactory("application.xmi");  //$NON-NLS-1$
 			if (theApplicationFactory != null) {
 				return theApplicationFactory;
 			}
@@ -66,7 +66,7 @@ public class ApplicationFactoryImpl extends EFactoryImpl implements ApplicationF
 			case ApplicationPackage.EJB_MODULE: return createEjbModule();
 			case ApplicationPackage.CONNECTOR_MODULE: return createConnectorModule();
 			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 

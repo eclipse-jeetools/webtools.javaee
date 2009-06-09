@@ -142,7 +142,7 @@ public boolean isWebModule() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (contextRoot: ");
+		result.append(" (contextRoot: "); //$NON-NLS-1$
 		result.append(contextRoot);
 		result.append(')');
 		return result.toString();

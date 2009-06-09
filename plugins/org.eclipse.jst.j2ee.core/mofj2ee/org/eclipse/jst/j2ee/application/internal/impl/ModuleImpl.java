@@ -147,8 +147,8 @@ public boolean isWebModule() {
 	 * @generated
 	 */
 	public NotificationChain basicSetApplication(Application newApplication, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newApplication, ApplicationPackage.MODULE__APPLICATION, msgs);
-		return msgs;
+		NotificationChain innerMsgs = eBasicSetContainer((InternalEObject)newApplication, ApplicationPackage.MODULE__APPLICATION, msgs);
+		return innerMsgs;
 	}
 
 	/**
@@ -157,7 +157,7 @@ public boolean isWebModule() {
 	public void setApplication(Application newApplication) {
 		if (newApplication != eInternalContainer() || (eContainerFeatureID != ApplicationPackage.MODULE__APPLICATION && newApplication != null)) {
 			if (EcoreUtil.isAncestor(this, newApplication))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -179,9 +179,11 @@ public boolean isWebModule() {
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ApplicationPackage.MODULE__APPLICATION:
-				if (eInternalContainer() != null)
-					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetApplication((Application)otherEnd, msgs);
+				NotificationChain innerMsgs = msgs;
+				if (eInternalContainer() != null){
+					innerMsgs = eBasicRemoveFromContainer(msgs);
+				}
+				return basicSetApplication((Application)otherEnd, innerMsgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -300,9 +302,9 @@ public boolean isWebModule() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (uri: ");
+		result.append(" (uri: "); //$NON-NLS-1$
 		result.append(uri);
-		result.append(", altDD: ");
+		result.append(", altDD: "); //$NON-NLS-1$
 		result.append(altDD);
 		result.append(')');
 		return result.toString();
