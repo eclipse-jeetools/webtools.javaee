@@ -19,11 +19,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.CommonPackage;
@@ -42,7 +37,7 @@ import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
  * 
  * @generated
  */
-public class EnterpriseBeanItemProvider extends JNDIEnvRefsGroupItemProvider implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class EnterpriseBeanItemProvider extends JNDIEnvRefsGroupItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
@@ -58,6 +53,7 @@ public class EnterpriseBeanItemProvider extends JNDIEnvRefsGroupItemProvider imp
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -151,6 +147,7 @@ public class EnterpriseBeanItemProvider extends JNDIEnvRefsGroupItemProvider imp
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -165,6 +162,7 @@ public class EnterpriseBeanItemProvider extends JNDIEnvRefsGroupItemProvider imp
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -179,6 +177,7 @@ public class EnterpriseBeanItemProvider extends JNDIEnvRefsGroupItemProvider imp
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(EnterpriseBean.class)) {
 			case EjbPackage.ENTERPRISE_BEAN__EJB_CLASS :
@@ -203,6 +202,7 @@ public class EnterpriseBeanItemProvider extends JNDIEnvRefsGroupItemProvider imp
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -221,6 +221,7 @@ public class EnterpriseBeanItemProvider extends JNDIEnvRefsGroupItemProvider imp
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getCreateChildText(Object owner, Object feature, Object child, Collection selection) {
 		boolean qualify = feature == CommonPackage.eINSTANCE.getJNDIEnvRefsGroup_EjbRefs() || feature == CommonPackage.eINSTANCE.getJNDIEnvRefsGroup_EjbLocalRefs();
 		return getString(qualify ? "_UI_CreateChild_text2" : "_UI_CreateChild_text", //$NON-NLS-1$ //$NON-NLS-2$
@@ -233,6 +234,7 @@ public class EnterpriseBeanItemProvider extends JNDIEnvRefsGroupItemProvider imp
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -247,10 +249,12 @@ public class EnterpriseBeanItemProvider extends JNDIEnvRefsGroupItemProvider imp
 	/**
 	 * This returns EnterpriseBean.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("bmpEntity_obj"); //$NON-NLS-1$
 	}
 
+	@Override
 	public String getText(Object object) {
 		return getEJBName(object);
 	}
@@ -276,6 +280,7 @@ public class EnterpriseBeanItemProvider extends JNDIEnvRefsGroupItemProvider imp
 	 * 
 	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#getChildren(java.lang.Object)
 	 */
+	@Override
 	public Collection getChildren(Object object) {
 		Collection myChildren = super.getChildren(object);
 		EnterpriseBean bean = (EnterpriseBean) object;

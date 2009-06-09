@@ -328,6 +328,7 @@ public class EJBClientJarCreationHelper {
 				EjbPlugin.logError(ex);
 			}
 		}
+		@Override
 		public void acceptSearchMatch(SearchMatch match) throws CoreException {
 			if(match.getAccuracy() == SearchMatch.A_ACCURATE && !(match.isInsideDocComment() || isBeanType((IType) match.getElement())))
 				results.add(match.getElement());

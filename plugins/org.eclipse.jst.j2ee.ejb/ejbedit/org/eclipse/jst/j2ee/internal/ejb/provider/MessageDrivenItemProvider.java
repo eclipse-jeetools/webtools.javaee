@@ -23,11 +23,6 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
@@ -41,7 +36,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 /**
  * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.MessageDriven}object.
  */
-public class MessageDrivenItemProvider extends EnterpriseBeanItemProvider implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
+public class MessageDrivenItemProvider extends EnterpriseBeanItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 */
@@ -65,6 +60,7 @@ public class MessageDrivenItemProvider extends EnterpriseBeanItemProvider implem
 	 * This specifies how to implement {@link #getChildren}and {@link AddCommand}and
 	 * {@link RemoveCommand}support in {@link #createCommand}.
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			childrenReferences = (List) super.getChildrenReferences(object);
@@ -81,6 +77,7 @@ public class MessageDrivenItemProvider extends EnterpriseBeanItemProvider implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -115,6 +112,7 @@ public class MessageDrivenItemProvider extends EnterpriseBeanItemProvider implem
 	/**
 	 * This returns MessageDriven.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("message_bean_obj"); //$NON-NLS-1$
 	}
@@ -122,6 +120,7 @@ public class MessageDrivenItemProvider extends EnterpriseBeanItemProvider implem
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -233,6 +232,7 @@ public class MessageDrivenItemProvider extends EnterpriseBeanItemProvider implem
 	 * method or it will be regenerated. <!-- end-user-doc -->
 	 *  
 	 */
+	@Override
 	public String getText(Object object) {
 		return super.getText(object);
 	}
@@ -243,6 +243,7 @@ public class MessageDrivenItemProvider extends EnterpriseBeanItemProvider implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(MessageDriven.class)) {
 			case EjbPackage.MESSAGE_DRIVEN__TRANSACTION_TYPE :
@@ -264,6 +265,7 @@ public class MessageDrivenItemProvider extends EnterpriseBeanItemProvider implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -278,6 +280,7 @@ public class MessageDrivenItemProvider extends EnterpriseBeanItemProvider implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getCreateChildText(Object owner, Object feature, Object child, Collection selection) {
 		boolean qualify = feature == CommonPackage.eINSTANCE.getJNDIEnvRefsGroup_EjbRefs() || feature == CommonPackage.eINSTANCE.getJNDIEnvRefsGroup_EjbLocalRefs();
 		return getString(qualify ? "_UI_CreateChild_text2" : "_UI_CreateChild_text", //$NON-NLS-1$ //$NON-NLS-2$
@@ -290,6 +293,7 @@ public class MessageDrivenItemProvider extends EnterpriseBeanItemProvider implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

@@ -61,10 +61,12 @@ public class J2EENotificationImpl extends NotificationImpl {
 		this.notifier = notifier;
 	}
 
+	@Override
 	public Object getNotifier() {
 		return notifier;
 	}
 
+	@Override
 	public Object getFeature() {
 		return feature;
 	}

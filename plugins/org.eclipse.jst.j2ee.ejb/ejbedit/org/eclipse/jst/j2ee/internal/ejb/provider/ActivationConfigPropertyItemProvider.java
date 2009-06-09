@@ -52,6 +52,7 @@ public class ActivationConfigPropertyItemProvider extends ItemProviderAdapter im
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -92,6 +93,7 @@ public class ActivationConfigPropertyItemProvider extends ItemProviderAdapter im
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/ActivationConfigProperty"); //$NON-NLS-1$
 	}
@@ -101,6 +103,7 @@ public class ActivationConfigPropertyItemProvider extends ItemProviderAdapter im
 	 * -->
 	 *  
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((ActivationConfigProperty) object).getName();
 		return label == null || label.length() == 0 ? EJBProviderLibrariesResourceHandler.getString("_UI_ActivationConfigProperty_type") : //$NON-NLS-1$
@@ -113,6 +116,7 @@ public class ActivationConfigPropertyItemProvider extends ItemProviderAdapter im
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(ActivationConfigProperty.class)) {
 			case EjbPackage.ACTIVATION_CONFIG_PROPERTY__VALUE :
@@ -131,6 +135,7 @@ public class ActivationConfigPropertyItemProvider extends ItemProviderAdapter im
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -141,6 +146,7 @@ public class ActivationConfigPropertyItemProvider extends ItemProviderAdapter im
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

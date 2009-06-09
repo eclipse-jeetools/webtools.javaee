@@ -167,6 +167,7 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectCreationOperation(com.ibm.etools.archive.ear.operations.ImportOption)
 	 */
+	@Override
 	public IDataModelOperation  createProjectCreationOperation(ImportOption option) {
 		if (option.getArchiveType() == IJ2EEProjectTypes.EJB_CLIENT) {
             IDataModel model = option.getModel();

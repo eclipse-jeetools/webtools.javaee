@@ -161,6 +161,7 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 
 
 	
+	@Override
 	public IStatus execute(IProgressMonitor aMonitor, IAdaptable info) throws ExecutionException {
 		monitor = aMonitor;
 		initialize();

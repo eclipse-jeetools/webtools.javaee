@@ -29,6 +29,7 @@ public class EjbFacetInstallDataModelProvider
 		extends J2EEModuleFacetInstallDataModelProvider 
 		implements IEjbFacetInstallDataModelProperties{
 
+	@Override
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
 		names.add(CONFIG_FOLDER);
@@ -39,6 +40,7 @@ public class EjbFacetInstallDataModelProvider
 		return names;
 	}
 	
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		if(propertyName.equals(FACET_ID)){
 			return EJB;
@@ -83,10 +85,12 @@ public class EjbFacetInstallDataModelProvider
 		return super.getDefaultProperty(propertyName);
 	}
 	
+	@Override
 	protected int convertFacetVersionToJ2EEVersion(IProjectFacetVersion version) {
 		return J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(version.getVersionString());
 	}
 		
+	@Override
 	public boolean isPropertyEnabled(String propertyName) {
 		if (CLIENT_NAME.equals(propertyName)) {
 			return getBooleanProperty(CREATE_CLIENT);
@@ -101,6 +105,7 @@ public class EjbFacetInstallDataModelProvider
 	}
 
 	
+	@Override
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		boolean status = super.propertySet(propertyName, propertyValue);
 		
@@ -146,6 +151,7 @@ public class EjbFacetInstallDataModelProvider
 		return status;
 	}	
 	
+	@Override
 	public IStatus validate(String propertyName) {
 		if (propertyName.equals(CLIENT_NAME)) {
 			//should only validate on CLIENT_NAME if going to create a client

@@ -68,6 +68,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 	private static final String REMOTE_COMPONENT_SUFFIX = "RemoteComponent"; //$NON-NLS-1$
 
 
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new AddSessionBeanOperation(getDataModel());
 	}
@@ -78,6 +79,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getPropertyNames()
 	 */
+	@Override
 	public Set<String> getPropertyNames() {
 		// Add Bean specific properties defined in this data model
 		Set<String> propertyNames = (Set<String>) super.getPropertyNames();
@@ -109,6 +111,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 	 * @param propertyName
 	 * @return Object default value of property
 	 */
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(REMOTE_HOME))
 			return Boolean.FALSE;
@@ -180,6 +183,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 	 * @param propertyValue
 	 * @return boolean was property set?
 	 */
+	@Override
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		// Call super to set the property on the data model
 		boolean result = super.propertySet(propertyName, propertyValue);

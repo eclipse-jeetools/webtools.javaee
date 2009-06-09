@@ -31,6 +31,7 @@ J2EEFacetProjectCreationDataModelProvider {
 		super();
 	}
 
+	@Override
 	public void init() {
 		super.init();
 
@@ -61,6 +62,7 @@ J2EEFacetProjectCreationDataModelProvider {
 		});
 	}
 	
+	@Override
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		if( propertyName.equals( MODULE_URI )){
 			FacetDataModelMap map = (FacetDataModelMap) getProperty(FACET_DM_MAP);

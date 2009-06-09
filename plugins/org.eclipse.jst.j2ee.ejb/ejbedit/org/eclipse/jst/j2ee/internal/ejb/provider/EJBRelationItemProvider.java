@@ -53,6 +53,7 @@ public class EJBRelationItemProvider extends EjbItemProviderAdapter implements I
 	/**
 	 * This creates a new child for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
+	@Override
 	public Object createChild(Object object) {
 		// TODO: check that this is what you want.
 		EJBRelationshipRole child = EjbFactory.eINSTANCE.createEJBRelationshipRole();
@@ -66,6 +67,7 @@ public class EJBRelationItemProvider extends EjbItemProviderAdapter implements I
 	 * This specifies how to implement {@link #getChildren}and {@link AddCommand}and
 	 * {@link RemoveCommand}support in {@link #createCommand}.
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -79,6 +81,7 @@ public class EJBRelationItemProvider extends EjbItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -90,6 +93,7 @@ public class EJBRelationItemProvider extends EjbItemProviderAdapter implements I
 	/**
 	 * This returns the image for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
+	@Override
 	public Object getCreateChildImage(Object object) {
 		EObject refObject = (EObject) object;
 		return org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.getPlugin().getImage(refObject.eClass().getName() + EJBProviderLibrariesResourceHandler.getString("CreateEJBRelationshipRole_1")); //$NON-NLS-1$
@@ -98,6 +102,7 @@ public class EJBRelationItemProvider extends EjbItemProviderAdapter implements I
 	/**
 	 * This returns the label for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
+	@Override
 	public String getCreateChildText(Object object) {
 		return EJBProviderLibrariesResourceHandler.getString("Create_EJBRelationshipRole_2"); //$NON-NLS-1$
 	}
@@ -105,6 +110,7 @@ public class EJBRelationItemProvider extends EjbItemProviderAdapter implements I
 	/**
 	 * This returns the help text for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
+	@Override
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;
 		return EJBProviderLibrariesResourceHandler.getString("Create_a_child_of_type_EJBRelationshipRole_for_the_selected__3") + refObject.eClass().getName() + EJBProviderLibrariesResourceHandler.getString("_4"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -113,6 +119,7 @@ public class EJBRelationItemProvider extends EjbItemProviderAdapter implements I
 	/**
 	 * This returns EJBRelation.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("EJBRelation"); //$NON-NLS-1$
 	}
@@ -120,6 +127,7 @@ public class EJBRelationItemProvider extends EjbItemProviderAdapter implements I
 	/**
 	 * This returns the parent of the EJBRelation.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}
@@ -127,6 +135,7 @@ public class EJBRelationItemProvider extends EjbItemProviderAdapter implements I
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -179,6 +188,7 @@ public class EJBRelationItemProvider extends EjbItemProviderAdapter implements I
 					EjbPackage.eINSTANCE.getEJBRelation_Name(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE));
 	}
 
+	@Override
 	public String getText(Object object) {
 		EJBRelation ejbRelation = ((EJBRelation) object);
 		String name = ejbRelation.getName();
@@ -191,6 +201,7 @@ public class EJBRelationItemProvider extends EjbItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(EJBRelation.class)) {
 			case EjbPackage.EJB_RELATION__DESCRIPTION :
@@ -211,6 +222,7 @@ public class EJBRelationItemProvider extends EjbItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -227,6 +239,7 @@ public class EJBRelationItemProvider extends EjbItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

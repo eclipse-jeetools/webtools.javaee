@@ -19,11 +19,6 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
@@ -34,7 +29,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 /**
  * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.Session}object.
  */
-public class SessionItemProvider extends EnterpriseBeanItemProvider implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
+public class SessionItemProvider extends EnterpriseBeanItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 */
@@ -45,6 +40,7 @@ public class SessionItemProvider extends EnterpriseBeanItemProvider implements I
 	/**
 	 * This returns Session.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		//	  Session sess = null;
 		// 	  if (object instanceof Session)
@@ -59,6 +55,7 @@ public class SessionItemProvider extends EnterpriseBeanItemProvider implements I
 	 * method or it will be regenerated. <!-- end-user-doc -->
 	 *  
 	 */
+	@Override
 	public String getText(Object object) {
 		return super.getText(object);
 	}
@@ -69,6 +66,7 @@ public class SessionItemProvider extends EnterpriseBeanItemProvider implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(Session.class)) {
 			case EjbPackage.SESSION__TRANSACTION_TYPE :
@@ -88,6 +86,7 @@ public class SessionItemProvider extends EnterpriseBeanItemProvider implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -98,6 +97,7 @@ public class SessionItemProvider extends EnterpriseBeanItemProvider implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getCreateChildText(Object owner, Object feature, Object child, Collection selection) {
 		boolean qualify = feature == CommonPackage.eINSTANCE.getJNDIEnvRefsGroup_EjbRefs() || feature == CommonPackage.eINSTANCE.getJNDIEnvRefsGroup_EjbLocalRefs();
 		return getString(qualify ? "_UI_CreateChild_text2" : "_UI_CreateChild_text", //$NON-NLS-1$ //$NON-NLS-2$
@@ -110,6 +110,7 @@ public class SessionItemProvider extends EnterpriseBeanItemProvider implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -117,6 +118,7 @@ public class SessionItemProvider extends EnterpriseBeanItemProvider implements I
 	/**
 	 * This returns the parent of the Session.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return super.getParent(object);
 	}
@@ -124,6 +126,7 @@ public class SessionItemProvider extends EnterpriseBeanItemProvider implements I
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);

@@ -129,6 +129,7 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 	 * @throws InterruptedException
 	 * @throws InvocationTargetException
 	 */
+	@Override
 	public IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		// Retrieve the package name from the java class data model
 		String packageName = model.getStringProperty(JAVA_PACKAGE);

@@ -87,6 +87,7 @@ public class NewMessageDrivenBeanClassOperation extends NewEnterpriseBeanClassOp
 	 * @throws CoreException
 	 * @throws WFTWrappedException
 	 */
+	@Override
 	protected void generateUsingTemplates(IProgressMonitor monitor, IPackageFragment fragment) throws WFTWrappedException, CoreException {
 		// Create the enterprise bean template model
 		CreateMessageDrivenBeanTemplateModel tempModel = createTemplateModel();

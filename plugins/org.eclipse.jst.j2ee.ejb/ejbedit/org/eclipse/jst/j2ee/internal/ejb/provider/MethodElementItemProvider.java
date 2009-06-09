@@ -62,6 +62,7 @@ public class MethodElementItemProvider extends EjbItemProviderAdapter implements
 	/**
 	 * This returns MethodElement.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 
 		MethodElement gen = (MethodElement) object;
@@ -96,6 +97,7 @@ public class MethodElementItemProvider extends EjbItemProviderAdapter implements
 		imageObjects.add(base);
 		imageObjects.add(overlayImage);
 		return new ComposedImage(imageObjects) {
+			@Override
 			public List getDrawPoints(Size size) {
 				List result = super.getDrawPoints(size);
 				if (result.size() > 1) {
@@ -110,6 +112,7 @@ public class MethodElementItemProvider extends EjbItemProviderAdapter implements
 	/**
 	 * This returns the parent of the MethodElement.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}
@@ -117,6 +120,7 @@ public class MethodElementItemProvider extends EjbItemProviderAdapter implements
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -244,6 +248,7 @@ public class MethodElementItemProvider extends EjbItemProviderAdapter implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -253,6 +258,7 @@ public class MethodElementItemProvider extends EjbItemProviderAdapter implements
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		return ((MethodElement) object).getSignature();
 	}
@@ -263,6 +269,7 @@ public class MethodElementItemProvider extends EjbItemProviderAdapter implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(MethodElement.class)) {
 			case EjbPackage.METHOD_ELEMENT__NAME :
@@ -284,6 +291,7 @@ public class MethodElementItemProvider extends EjbItemProviderAdapter implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -298,6 +306,7 @@ public class MethodElementItemProvider extends EjbItemProviderAdapter implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -316,6 +325,7 @@ public class MethodElementItemProvider extends EjbItemProviderAdapter implements
 	/**
 	 * @see Adapter#setTarget(Notifier)
 	 */
+	@Override
 	public void setTarget(Notifier newTarget) {
 		super.setTarget(newTarget);
 		if (newTarget != null && newTarget instanceof MethodElement) {
@@ -349,6 +359,7 @@ public class MethodElementItemProvider extends EjbItemProviderAdapter implements
 	/**
 	 * @see IDisposable#dispose()
 	 */
+	@Override
 	public void dispose() {
 		super.dispose();
 	}

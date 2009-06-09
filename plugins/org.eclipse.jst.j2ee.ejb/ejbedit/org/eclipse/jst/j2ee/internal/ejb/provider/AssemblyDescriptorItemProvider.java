@@ -52,6 +52,7 @@ public class AssemblyDescriptorItemProvider extends EjbItemProviderAdapter imple
 	/**
 	 * This creates a new child for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
+	@Override
 	public Object createChild(Object object) {
 		// TODO: check that this is what you want.
 		MethodPermission child = EjbFactory.eINSTANCE.createMethodPermission();
@@ -65,6 +66,7 @@ public class AssemblyDescriptorItemProvider extends EjbItemProviderAdapter imple
 	 * This specifies how to implement {@link #getChildren}and {@link AddCommand}and
 	 * {@link RemoveCommand}support in {@link #createCommand}.
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		EjbPackage pkg = EjbPackage.eINSTANCE;
 		Collection result = new ArrayList();
@@ -80,6 +82,7 @@ public class AssemblyDescriptorItemProvider extends EjbItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -91,6 +94,7 @@ public class AssemblyDescriptorItemProvider extends EjbItemProviderAdapter imple
 	/**
 	 * This returns the image for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
+	@Override
 	public Object getCreateChildImage(Object object) {
 		EObject refObject = (EObject) object;
 		return J2EEPlugin.getPlugin().getImage(refObject.eClass().getName() + "CreateMethodPermission");//$NON-NLS-1$
@@ -99,6 +103,7 @@ public class AssemblyDescriptorItemProvider extends EjbItemProviderAdapter imple
 	/**
 	 * This returns the label for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
+	@Override
 	public String getCreateChildText(Object object) {
 		return EJBProviderLibrariesResourceHandler.getString("Create_MethodPermission_UI_"); //$NON-NLS-1$ = "Create MethodPermission"
 	}
@@ -106,6 +111,7 @@ public class AssemblyDescriptorItemProvider extends EjbItemProviderAdapter imple
 	/**
 	 * This returns the help text for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
+	@Override
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;
 		return EJBProviderLibrariesResourceHandler.getString("Create_a_child_of_type_Met_UI_") + refObject.eClass().getName() + ".";//$NON-NLS-2$ //$NON-NLS-1$ = "Create a child of type MethodPermission for the selected "
@@ -114,6 +120,7 @@ public class AssemblyDescriptorItemProvider extends EjbItemProviderAdapter imple
 	/**
 	 * This returns AssemblyDescriptor.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("assemblyDescriptor_obj");//$NON-NLS-1$
 	}
@@ -121,6 +128,7 @@ public class AssemblyDescriptorItemProvider extends EjbItemProviderAdapter imple
 	/**
 	 * This returns the parent of the AssemblyDescriptor.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}
@@ -128,6 +136,7 @@ public class AssemblyDescriptorItemProvider extends EjbItemProviderAdapter imple
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -144,6 +153,7 @@ public class AssemblyDescriptorItemProvider extends EjbItemProviderAdapter imple
 		return itemPropertyDescriptors;
 	}
 
+	@Override
 	public String getText(Object object) {
 		return EJBProviderLibrariesResourceHandler.getString("AssemblyDescriptor_UI_"); //$NON-NLS-1$ = "AssemblyDescriptor"
 	}
@@ -154,6 +164,7 @@ public class AssemblyDescriptorItemProvider extends EjbItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(AssemblyDescriptor.class)) {
 			case EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_PERMISSIONS :
@@ -175,6 +186,7 @@ public class AssemblyDescriptorItemProvider extends EjbItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -195,6 +207,7 @@ public class AssemblyDescriptorItemProvider extends EjbItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

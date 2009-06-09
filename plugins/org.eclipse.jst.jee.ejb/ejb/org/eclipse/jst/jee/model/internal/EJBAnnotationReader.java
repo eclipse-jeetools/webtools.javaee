@@ -24,7 +24,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jdt.core.ICompilationUnit;
-import org.eclipse.jdt.core.IElementChangedListener;
 import org.eclipse.jdt.core.IJavaElementDelta;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -91,7 +90,7 @@ import org.eclipse.wst.common.project.facet.core.IFacetedProject;
  * @author Kiril Mitov k.mitov@sap.com
  * 
  */
-public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar> implements IElementChangedListener {
+public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>{
 
 	/**
 	 * An abstraction of a reference between a model object and an interface.
@@ -121,10 +120,6 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 			super();
 			this.interfacee = interfacee;
 			this.modelObject = modelObject;
-		}
-
-		public String getInterfacee() {
-			return interfacee;
 		}
 
 		public JavaEEObject getModelObject() {
@@ -210,6 +205,7 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 	 * 
 	 * @throws CoreException
 	 */
+	@Override
 	public void loadModel() throws CoreException {
 		IJavaProject javaProject = JavaCore.create(facetedProject.getProject());
 		final Collection<ICompilationUnit> javaFiles = new HashSet<ICompilationUnit>();
@@ -233,6 +229,7 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 		}
 	}
 
+	@Override
 	protected void preLoad() {
 		super.preLoad();
 		modelObject = EjbFactory.eINSTANCE.createEJBJar();
@@ -366,6 +363,7 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 	 * listener that will be notified when the instance is disposed. After all
 	 * the listeners are notified the list of listeners is cleared.
 	 */
+	@Override
 	public void dispose() {
 		beanRefToResolvedInterfaceUnit = null;
 		if (unitToModel != null)
@@ -382,6 +380,7 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 	 *         ejbProject on which this instance is working a <code>true</code>
 	 *         for its client project.
 	 */
+	@Override
 	protected boolean isProjectRelative(IJavaProject javaProject) {
 		if (super.isProjectRelative(javaProject) == true)
 			return true;
@@ -396,6 +395,7 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 	 * @see org.eclipse.jst.jee.model.internal.common.AbstractAnnotationModelProvider#processAddedCompilationUnit(org.eclipse.jst.j2ee.model.IModelProviderEvent,
 	 *      org.eclipse.core.resources.ICompilationUnit)
 	 */
+	@Override
 	protected void processAddedCompilationUnit(IModelProviderEvent modelEvent, ICompilationUnit unit)
 			throws CoreException {
 		if (unit == null)
@@ -472,6 +472,7 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 		}
 	}
 
+	@Override
 	protected void processRemovedCompilationUnit(IModelProviderEvent modelEvent, ICompilationUnit unit)
 			throws CoreException {
 		if (unitToModel.containsKey(unit))
@@ -557,6 +558,7 @@ public class EJBAnnotationReader extends AbstractAnnotationModelProvider<EJBJar>
 	 * @param unit
 	 * @throws JavaModelException
 	 */
+	@Override
 	protected void processChangedCompilationUnit(IModelProviderEvent modelEvent, ICompilationUnit unit)
 			throws CoreException {
 		if (unitToModel.containsKey(unit))

@@ -30,6 +30,7 @@ public class UpdateEJBClientRefOnRenameOp extends UpdateEJBClientRefOp {
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.commands.operations.IUndoableOperation#execute(org.eclipse.core.runtime.IProgressMonitor, org.eclipse.core.runtime.IAdaptable)
 	 */
+	@Override
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		return updateEJBClientRef(monitor, false);
 	}

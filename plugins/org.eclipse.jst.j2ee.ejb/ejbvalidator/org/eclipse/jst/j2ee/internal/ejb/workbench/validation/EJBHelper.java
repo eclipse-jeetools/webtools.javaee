@@ -152,6 +152,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	 * 
 	 * If the cleanup is a long-running operation, subtask messages should be sent to the IReporter.
 	 */
+	@Override
 	public void cleanup(WorkbenchReporter reporter) {
 //		if (_projectResources != null) {
 //			_projectResources.cleanup();
@@ -185,6 +186,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	 * Given an IMessage's target object, return a string which identifies the object, so that the
 	 * user can locate it. This method is called only if getLineNo() doesn't return a line number.
 	 */
+	@Override
 	public String getDescription(Object object) {
 		if (object == null) {
 			return ""; //$NON-NLS-1$
@@ -240,6 +242,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 		return super.getDescription(object);
 	}
 
+	@Override
 	public IResource getResource(Object object) {
 		IResource result = super.getResource(object);
 		if ((result != null) && (result.exists())) {
@@ -274,6 +277,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	 * identify a particular object must be returned. The id needs to be unique only within one
 	 * particular IValidator.
 	 */
+	@Override
 	public String getTargetObjectName(Object obj) {
 		if (obj == null) {
 			return null;
@@ -294,6 +298,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 		}
 	}
 
+	@Override
 	public Object loadModel(String symbolicName, Object[] parms) {
 		if (isRegistered(symbolicName)) {
 			// one of the constants listed in the constructor
@@ -608,6 +613,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	 * For example, if this IWorkbenchContext delegates to another IWorkbenchContext, then that
 	 * IWorkbenchContext's setProject() method should be called here.
 	 */
+	@Override
 	public void initialize() {
 		super.initialize();
 		// Always new up the project resources, because the project's model
@@ -736,6 +742,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	/**
 	 * @see org.eclipse.wst.validation.internal.operations.IWorkbenchContext#getPortableName(IResource)
 	 */
+	@Override
 	public String getPortableName(IResource resource) {
 		// Return the URI of the object.
 		if (!(resource instanceof IFile)) {

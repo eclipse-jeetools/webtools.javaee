@@ -35,7 +35,8 @@ public class AccessibleBeanMerger extends EnterpriseBeanMerger {
   /* (non-Javadoc)
    * @see org.eclipse.jst.javaee.ejb.model.mergers.EnterpriseBeanMerger#process()
    */
-  public List process() throws ModelException {
+  @Override
+public List process() throws ModelException {
     List warnings = new ArrayList();
     warnings.addAll(super.process());
     mergeInterfaces(warnings);

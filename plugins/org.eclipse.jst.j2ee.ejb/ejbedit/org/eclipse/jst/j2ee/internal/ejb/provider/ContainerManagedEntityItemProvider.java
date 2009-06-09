@@ -19,11 +19,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
@@ -39,7 +34,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
  * 
  * @generated
  */
-public class ContainerManagedEntityItemProvider extends EntityItemProvider implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ContainerManagedEntityItemProvider extends EntityItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
@@ -55,6 +50,7 @@ public class ContainerManagedEntityItemProvider extends EntityItemProvider imple
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -125,6 +121,7 @@ public class ContainerManagedEntityItemProvider extends EntityItemProvider imple
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 *  
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -139,6 +136,7 @@ public class ContainerManagedEntityItemProvider extends EntityItemProvider imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -152,6 +150,7 @@ public class ContainerManagedEntityItemProvider extends EntityItemProvider imple
 	 * method or it will be regenerated. <!-- end-user-doc -->
 	 *  
 	 */
+	@Override
 	public String getText(Object object) {
 		return super.getText(object);
 	}
@@ -161,6 +160,7 @@ public class ContainerManagedEntityItemProvider extends EntityItemProvider imple
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 *  
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(ContainerManagedEntity.class)) {
 			case EjbPackage.CONTAINER_MANAGED_ENTITY__VERSION :
@@ -185,6 +185,7 @@ public class ContainerManagedEntityItemProvider extends EntityItemProvider imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -201,6 +202,7 @@ public class ContainerManagedEntityItemProvider extends EntityItemProvider imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getCreateChildText(Object owner, Object feature, Object child, Collection selection) {
 		boolean qualify = feature == CommonPackage.eINSTANCE.getJNDIEnvRefsGroup_EjbRefs() || feature == CommonPackage.eINSTANCE.getJNDIEnvRefsGroup_EjbLocalRefs();
 		return getString(qualify ? "_UI_CreateChild_text2" : "_UI_CreateChild_text", //$NON-NLS-1$ //$NON-NLS-2$
@@ -213,6 +215,7 @@ public class ContainerManagedEntityItemProvider extends EntityItemProvider imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -220,25 +223,28 @@ public class ContainerManagedEntityItemProvider extends EntityItemProvider imple
 	/**
 	 * This returns ContainerManagedEntity.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		//Cmp 20 should have their own Itemprovider
 		ContainerManagedEntity cmp = null;
 		if (object instanceof ContainerManagedEntity) {
 			cmp = (ContainerManagedEntity) object;
+			switch (cmp.getVersionID()) {
+	
+				case J2EEVersionConstants.EJB_1_0_ID :
+				case J2EEVersionConstants.EJB_1_1_ID :
+					return J2EEPlugin.getPlugin().getImage("11_cmpbean_obj"); //$NON-NLS-1$
+				case J2EEVersionConstants.EJB_2_0_ID :
+					return J2EEPlugin.getPlugin().getImage("20_cmpbean_obj"); //$NON-NLS-1$
+				case J2EEVersionConstants.EJB_2_1_ID :
+				default :
+					return J2EEPlugin.getPlugin().getImage("21_cmpbean_obj"); //$NON-NLS-1$
+			}
 		}
-		switch (cmp.getVersionID()) {
-
-			case J2EEVersionConstants.EJB_1_0_ID :
-			case J2EEVersionConstants.EJB_1_1_ID :
-				return J2EEPlugin.getPlugin().getImage("11_cmpbean_obj"); //$NON-NLS-1$
-			case J2EEVersionConstants.EJB_2_0_ID :
-				return J2EEPlugin.getPlugin().getImage("20_cmpbean_obj"); //$NON-NLS-1$
-			case J2EEVersionConstants.EJB_2_1_ID :
-			default :
-				return J2EEPlugin.getPlugin().getImage("21_cmpbean_obj"); //$NON-NLS-1$
-		}
+		return J2EEPlugin.getPlugin().getImage("21_cmpbean_obj"); //$NON-NLS-1$
 	}
 
+	@Override
 	public boolean hasChildren(Object arg0) {
 		return true;
 	}
@@ -248,6 +254,7 @@ public class ContainerManagedEntityItemProvider extends EntityItemProvider imple
 	 * 
 	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#getChildren(java.lang.Object)
 	 */
+	@Override
 	public Collection getChildren(Object object) {
 		Collection result = super.getChildren(object);
 		result.addAll(ModelledPersistentAttributeFilter.singleton().filter((ContainerManagedEntity) object));

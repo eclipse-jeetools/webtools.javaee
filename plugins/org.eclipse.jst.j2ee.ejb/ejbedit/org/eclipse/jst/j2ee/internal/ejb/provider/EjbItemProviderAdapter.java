@@ -65,6 +65,7 @@ public class EjbItemProviderAdapter extends EObjectItemProvider {
 	 * 
 	 * @see org.eclipse.emf.edit.provider.IDisposable#dispose()
 	 */
+	@Override
 	public void dispose() {
 		super.dispose();
 		target = null;

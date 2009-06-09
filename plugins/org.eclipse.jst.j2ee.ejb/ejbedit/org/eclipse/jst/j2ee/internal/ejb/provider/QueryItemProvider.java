@@ -43,10 +43,12 @@ public class QueryItemProvider extends EjbItemProviderAdapter implements IEditin
 		super(adapterFactory);
 	}
 
+	@Override
 	public Object createChild(Object object) {
 		return null;
 	}
 
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (super.childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -60,6 +62,7 @@ public class QueryItemProvider extends EjbItemProviderAdapter implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -68,28 +71,34 @@ public class QueryItemProvider extends EjbItemProviderAdapter implements IEditin
 	}
 
 
+	@Override
 	public Object getCreateChildImage(Object object) {
 		EObject refObject = (EObject) object;
 		return J2EEPlugin.getPlugin().getImage(refObject.eClass().getName() + "Create#CHILD_CLASS_NAME#"); //$NON-NLS-1$
 	}
 
+	@Override
 	public String getCreateChildText(Object object) {
 		return "Create #CHILD_CLASS_NAME#"; //$NON-NLS-1$
 	}
 
+	@Override
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;
 		return "Create a child of type #CHILD_CLASS_NAME# for the selected " + refObject.eClass().getName() + "."; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("db_obj"); //$NON-NLS-1$
 	}
 
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}
 
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (super.itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -139,6 +148,7 @@ public class QueryItemProvider extends EjbItemProviderAdapter implements IEditin
 					EjbPackage.eINSTANCE.getQuery_ReturnTypeMapping(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE));
 	}
 
+	@Override
 	public String getText(Object object) {
 		Query query = (Query) object;
 		return "Query " + query.getEjbQL(); //$NON-NLS-1$
@@ -150,6 +160,7 @@ public class QueryItemProvider extends EjbItemProviderAdapter implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(Query.class)) {
 			case EjbPackage.QUERY__DESCRIPTION :
@@ -171,6 +182,7 @@ public class QueryItemProvider extends EjbItemProviderAdapter implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -187,6 +199,7 @@ public class QueryItemProvider extends EjbItemProviderAdapter implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

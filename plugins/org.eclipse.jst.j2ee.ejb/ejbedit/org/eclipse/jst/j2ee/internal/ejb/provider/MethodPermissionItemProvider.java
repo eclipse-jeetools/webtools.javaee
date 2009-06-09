@@ -53,6 +53,7 @@ public class MethodPermissionItemProvider extends EjbItemProviderAdapter impleme
 	/**
 	 * This creates a new child for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
+	@Override
 	public Object createChild(Object object) {
 		// TODO: check that this is what you want.
 		MethodElement child = EjbFactory.eINSTANCE.createMethodElement();
@@ -66,6 +67,7 @@ public class MethodPermissionItemProvider extends EjbItemProviderAdapter impleme
 	 * This specifies how to implement {@link #getChildren}and {@link AddCommand}and
 	 * {@link RemoveCommand}support in {@link #createCommand}.
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		return Collections.singleton(EjbPackage.eINSTANCE.getMethodPermission_MethodElements());
 	}
@@ -75,6 +77,7 @@ public class MethodPermissionItemProvider extends EjbItemProviderAdapter impleme
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -86,6 +89,7 @@ public class MethodPermissionItemProvider extends EjbItemProviderAdapter impleme
 	/**
 	 * This returns the image for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
+	@Override
 	public Object getCreateChildImage(Object object) {
 		EObject refObject = (EObject) object;
 		return J2EEPlugin.getPlugin().getImage(refObject.eClass().getName() + "CreateMethodElement"); //$NON-NLS-1$
@@ -94,6 +98,7 @@ public class MethodPermissionItemProvider extends EjbItemProviderAdapter impleme
 	/**
 	 * This returns the label for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
+	@Override
 	public String getCreateChildText(Object object) {
 		return EJBProviderLibrariesResourceHandler.getString("Create_MethodElement_UI_"); //$NON-NLS-1$ = "Create MethodElement"
 	}
@@ -101,6 +106,7 @@ public class MethodPermissionItemProvider extends EjbItemProviderAdapter impleme
 	/**
 	 * This returns the help text for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
+	@Override
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;
 		return EJBProviderLibrariesResourceHandler.getString("Create_a_child_of_type_Met1_UI_") + refObject.eClass().getName() + "."; //$NON-NLS-2$ //$NON-NLS-1$ = "Create a child of type MethodElement for the selected "
@@ -109,6 +115,7 @@ public class MethodPermissionItemProvider extends EjbItemProviderAdapter impleme
 	/**
 	 * This returns MethodPermission.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("methPermission_obj"); //$NON-NLS-1$
 	}
@@ -116,6 +123,7 @@ public class MethodPermissionItemProvider extends EjbItemProviderAdapter impleme
 	/**
 	 * This returns the parent of the MethodPermission.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}
@@ -123,6 +131,7 @@ public class MethodPermissionItemProvider extends EjbItemProviderAdapter impleme
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -181,6 +190,7 @@ public class MethodPermissionItemProvider extends EjbItemProviderAdapter impleme
 					EjbPackage.eINSTANCE.getMethodPermission_Roles(), true));
 	}
 
+	@Override
 	public String getText(Object object) {
 		if (object instanceof MethodPermission)
 			return getText((MethodPermission) object);
@@ -193,6 +203,7 @@ public class MethodPermissionItemProvider extends EjbItemProviderAdapter impleme
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(MethodPermission.class)) {
 			case EjbPackage.METHOD_PERMISSION__DESCRIPTION :
@@ -213,6 +224,7 @@ public class MethodPermissionItemProvider extends EjbItemProviderAdapter impleme
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -231,6 +243,7 @@ public class MethodPermissionItemProvider extends EjbItemProviderAdapter impleme
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

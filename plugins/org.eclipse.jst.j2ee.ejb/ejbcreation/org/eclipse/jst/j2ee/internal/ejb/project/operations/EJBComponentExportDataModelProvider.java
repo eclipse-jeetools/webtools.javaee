@@ -23,22 +23,27 @@ public class EJBComponentExportDataModelProvider extends J2EEComponentExportData
 		super();
 	}
 
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new EJBComponentExportOperation(model);
 	}
 
+	@Override
 	protected String getProjectType() {
 		return J2EEProjectUtilities.EJB;
 	}
 
+	@Override
 	protected String getWrongComponentTypeString(String projectName) {
 		return EARCreationResourceHandler.getString(EARCreationResourceHandler.NOT_AN_EJB, new Object[]{projectName});
 	}
 
+	@Override
 	protected String getModuleExtension() {
 		return ".jar"; //$NON-NLS-1$
 	}
 
+	@Override
 	public IStatus validate(String propertyName) {
 		IStatus status = super.validate(propertyName);
 		// if (status.isOK()) {

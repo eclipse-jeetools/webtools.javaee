@@ -45,6 +45,7 @@ public class QueryMethodItemProvider extends MethodElementItemProvider implement
 		super(adapterFactory);
 	}
 
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("query_method_obj"); //$NON-NLS-1$
 	}
@@ -52,6 +53,7 @@ public class QueryMethodItemProvider extends MethodElementItemProvider implement
 	/**
 	 * This returns the parent of the QueryMethod.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}
@@ -59,6 +61,7 @@ public class QueryMethodItemProvider extends MethodElementItemProvider implement
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -75,6 +78,7 @@ public class QueryMethodItemProvider extends MethodElementItemProvider implement
 		return itemPropertyDescriptors;
 	}
 
+	@Override
 	public String getText(Object object) {
 		QueryMethod queryMethod = (QueryMethod) object;
 		return queryMethod.getName(); //$NON-NLS-1$
@@ -86,6 +90,7 @@ public class QueryMethodItemProvider extends MethodElementItemProvider implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		super.notifyChanged(notification);
 	}
@@ -97,6 +102,7 @@ public class QueryMethodItemProvider extends MethodElementItemProvider implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -107,6 +113,7 @@ public class QueryMethodItemProvider extends MethodElementItemProvider implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

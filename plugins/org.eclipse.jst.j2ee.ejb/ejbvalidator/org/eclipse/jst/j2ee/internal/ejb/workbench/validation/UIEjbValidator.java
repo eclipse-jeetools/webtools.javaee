@@ -39,6 +39,7 @@ public class UIEjbValidator extends EJBValidator {
 		super();
 	}
 	
+	@Override
 	public IStatus validateInJob(IValidationContext inHelper, IReporter inReporter) throws
 	    org.eclipse.wst.validation.internal.core.ValidationException {
 		
@@ -59,6 +60,7 @@ public class UIEjbValidator extends EJBValidator {
 		
 	}
 	
+	@Override
 	public ISchedulingRule getSchedulingRule(IValidationContext helper) {
 		
 		IProject project = ((IWorkbenchContext) helper).getProject();

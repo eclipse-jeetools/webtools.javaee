@@ -128,6 +128,7 @@ public abstract class UpdateEJBClientRefOp extends AbstractDataModelOperation
 	 * Override to disable redo support
 	 * @see org.eclipse.core.commands.operations.IUndoableOperation#canRedo()
 	 */
+	@Override
 	public boolean canRedo() {
 		return false;
 	}
@@ -136,6 +137,7 @@ public abstract class UpdateEJBClientRefOp extends AbstractDataModelOperation
 	 * Override to disable undo support.
 	 * @see org.eclipse.core.commands.operations.IUndoableOperation#canUndo()
 	 */
+	@Override
 	public boolean canUndo() {
 		return false;
 	}

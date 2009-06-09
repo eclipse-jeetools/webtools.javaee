@@ -47,6 +47,7 @@ public class RoleSourceItemProvider extends EjbItemProviderAdapter implements IE
 	/**
 	 * This returns RoleSource.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("RoleSource"); //$NON-NLS-1$
 	}
@@ -54,6 +55,7 @@ public class RoleSourceItemProvider extends EjbItemProviderAdapter implements IE
 	/**
 	 * This returns the parent of the RoleSource.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}
@@ -61,6 +63,7 @@ public class RoleSourceItemProvider extends EjbItemProviderAdapter implements IE
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -121,6 +124,7 @@ public class RoleSourceItemProvider extends EjbItemProviderAdapter implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -130,6 +134,7 @@ public class RoleSourceItemProvider extends EjbItemProviderAdapter implements IE
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		RoleSource roleSource = ((RoleSource) object);
 		return EJBProviderLibrariesResourceHandler.getString("RoleSource__8") + roleSource.getDescription(); //$NON-NLS-1$
@@ -141,6 +146,7 @@ public class RoleSourceItemProvider extends EjbItemProviderAdapter implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(RoleSource.class)) {
 			case EjbPackage.ROLE_SOURCE__DESCRIPTION :
@@ -159,6 +165,7 @@ public class RoleSourceItemProvider extends EjbItemProviderAdapter implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -173,6 +180,7 @@ public class RoleSourceItemProvider extends EjbItemProviderAdapter implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

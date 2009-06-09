@@ -87,6 +87,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		super(aModule);
 	}
 
+	@Override
 	protected BinaryComponentHelper initBinaryComponentHelper(IVirtualComponent binaryModule) {
 		return new JavaEEBinaryComponentHelper(binaryModule);
 	}
@@ -201,6 +202,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * 
 	 */
 
+	@Override
 	public int getJ2EEVersion() {
 		verifyOperationSupported();
 		return getEJBJarXmiResource().getJ2EEVersionID();
@@ -283,6 +285,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * 
 	 */
 
+	@Override
 	public Resource getDeploymentDescriptorResource() {
 		verifyOperationSupported();
 		if (isBinary()) {
@@ -311,6 +314,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return EObject
 	 * 
 	 */
+	@Override
 	public EObject getDeploymentDescriptorRoot() {
 		verifyOperationSupported();
 		Resource res = getDeploymentDescriptorResource();
@@ -526,6 +530,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot()
 	 */
+	@Override
 	public EObject createModelRoot() {
 		verifyOperationSupported();
 		if (isBinary()) {
@@ -540,6 +545,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(int)
 	 */
+	@Override
 	public EObject createModelRoot(int version) {
 		verifyOperationSupported();
 		if (isBinary()) {
@@ -560,6 +566,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		return getEJBArtifactEditForWrite(aComponent);
 	}
 
+	@Override
 	public Archive asArchive(boolean includeSource, boolean includeClasspathComponents) throws OpenFailureException {
 		if (isBinary()) {
 			JavaEEBinaryComponentHelper helper = (JavaEEBinaryComponentHelper)getBinaryComponentHelper();
@@ -584,13 +591,16 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			ejbEdit.dispose();
 		}
 	}
+	@Override
 	public IModelProvider create(IProject project) {
 		return (IModelProvider)getEJBArtifactEditForRead(project);
 	}
 
+	@Override
 	public IModelProvider create(IVirtualComponent component) {
 		return (IModelProvider)getEJBArtifactEditForRead(component);
 	}
+	@Override
 	public void modify(Runnable runnable, IPath modelPath) {
 		setWritableEdit(getEJBArtifactEditForWrite(getProject()));
 		try{
@@ -607,9 +617,11 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 
 	
+	@Override
 	protected String getContentTypeDescriber() {
 		return EJB_CONTENT_TYPE;
 	}
+	@Override
 	protected URI getRootURI() {
 		return J2EEConstants.EJBJAR_DD_URI_OBJ;
 	}

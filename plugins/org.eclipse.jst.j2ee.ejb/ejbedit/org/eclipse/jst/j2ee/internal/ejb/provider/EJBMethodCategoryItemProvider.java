@@ -41,6 +41,7 @@ public class EJBMethodCategoryItemProvider extends EjbItemProviderAdapter implem
 	/**
 	 * This returns EJBMethodCategory.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("EJBMethodCategory");//$NON-NLS-1$
 	}
@@ -48,6 +49,7 @@ public class EJBMethodCategoryItemProvider extends EjbItemProviderAdapter implem
 	/**
 	 * This returns the parent of the EJBMethodCategory.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}
@@ -55,6 +57,7 @@ public class EJBMethodCategoryItemProvider extends EjbItemProviderAdapter implem
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -62,6 +65,7 @@ public class EJBMethodCategoryItemProvider extends EjbItemProviderAdapter implem
 		return itemPropertyDescriptors;
 	}
 
+	@Override
 	public String getText(Object object) {
 		return EJBProviderLibrariesResourceHandler.getString("EJBMethodCategory_UI_"); //$NON-NLS-1$ = "EJBMethodCategory"
 	}
@@ -72,6 +76,7 @@ public class EJBMethodCategoryItemProvider extends EjbItemProviderAdapter implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		super.notifyChanged(notification);
 	}
@@ -83,6 +88,7 @@ public class EJBMethodCategoryItemProvider extends EjbItemProviderAdapter implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -93,6 +99,7 @@ public class EJBMethodCategoryItemProvider extends EjbItemProviderAdapter implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

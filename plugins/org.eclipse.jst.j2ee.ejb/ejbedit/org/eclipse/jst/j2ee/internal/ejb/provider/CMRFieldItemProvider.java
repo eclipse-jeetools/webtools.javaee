@@ -46,6 +46,7 @@ public class CMRFieldItemProvider extends CMPAttributeItemProvider implements IE
 	/**
 	 * This returns CMRField.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("CMRField"); //$NON-NLS-1$
 	}
@@ -53,6 +54,7 @@ public class CMRFieldItemProvider extends CMPAttributeItemProvider implements IE
 	/**
 	 * This returns the parent of the CMRField.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}
@@ -60,6 +62,7 @@ public class CMRFieldItemProvider extends CMPAttributeItemProvider implements IE
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -95,6 +98,7 @@ public class CMRFieldItemProvider extends CMPAttributeItemProvider implements IE
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		CMRField cmrField = ((CMRField) object);
 		return EJBProviderLibrariesResourceHandler.getString("CMRField__6") + cmrField.getName(); //$NON-NLS-1$
@@ -106,6 +110,7 @@ public class CMRFieldItemProvider extends CMPAttributeItemProvider implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		super.notifyChanged(notification);
 	}
@@ -117,6 +122,7 @@ public class CMRFieldItemProvider extends CMPAttributeItemProvider implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -127,6 +133,7 @@ public class CMRFieldItemProvider extends CMPAttributeItemProvider implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

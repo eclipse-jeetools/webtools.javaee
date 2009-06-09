@@ -62,6 +62,7 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements 
 	/**
 	 * This creates a new child for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
+	@Override
 	public Object createChild(Object object) {
 		// TODO: check that this is what you want.
 		ContainerManagedEntity child = EjbFactory.eINSTANCE.createContainerManagedEntity();
@@ -74,12 +75,14 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements 
 	/**
 	 * This creates a primitive {@link com.ibm.etools.emf.edit.command.SetCommand}.
 	 */
+	@Override
 	protected Command createSetCommand(EditingDomain domain, EObject owner, EStructuralFeature feature, Object value) {
 
 		if (feature == EcorePackage.eINSTANCE.getENamedElement_Name()) {
 			return new SetCommand(domain, owner, feature, value) {
 				protected Command setTypeCommand;
 
+				@Override
 				public void doExecute() {
 					CMPAttribute cmpAttribute = (CMPAttribute) this.owner;
 					JavaHelpers type = cmpAttribute.getType();
@@ -95,6 +98,7 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements 
 					}
 				}
 
+				@Override
 				public void doUndo() {
 					if (setTypeCommand != null) {
 						setTypeCommand.undo();
@@ -102,6 +106,7 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements 
 					super.doUndo();
 				}
 
+				@Override
 				public void doRedo() {
 					super.doRedo();
 					if (setTypeCommand != null) {
@@ -109,6 +114,7 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements 
 					}
 				}
 
+				@Override
 				public void doDispose() {
 					super.doDispose();
 					if (setTypeCommand != null) {
@@ -123,6 +129,7 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements 
 	/**
 	 * This returns the image for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
+	@Override
 	public Object getCreateChildImage(Object object) {
 		EObject refObject = (EObject) object;
 		return J2EEPlugin.getPlugin().getImage(refObject.eClass().getName() + "CreateContainerManagedEntity"); //$NON-NLS-1$
@@ -131,6 +138,7 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements 
 	/**
 	 * This returns the label for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
+	@Override
 	public String getCreateChildText(Object object) {
 		return EJBProviderLibrariesResourceHandler.getString("Create_ContainerManagedEnt_UI_"); //$NON-NLS-1$ = "Create ContainerManagedEntity"
 	}
@@ -138,6 +146,7 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements 
 	/**
 	 * This returns the help text for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
+	@Override
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;
 		return EJBProviderLibrariesResourceHandler.getString("Create_a_child_of_type_Con_UI_") + refObject.eClass().getName() + "."; //$NON-NLS-2$ //$NON-NLS-1$ = "Create a child of type ContainerManagedEntity for the selected "
@@ -146,6 +155,7 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements 
 	/**
 	 * This returns CMPAttribute.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage((((CMPAttribute) object).isKey()) ? "attributeKey_obj" : "attribute_obj"); //$NON-NLS-2$//$NON-NLS-1$
 	}
@@ -153,6 +163,7 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements 
 	/**
 	 * This returns the parent of the CMPAttribute.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}
@@ -160,6 +171,7 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements 
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -194,11 +206,13 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements 
 			itemPropertyDescriptors.add(new ItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), EJBProviderLibrariesResourceHandler.getString("Type_UI_"), //$NON-NLS-1$ = "ETypeClassifier"
 						EJBProviderLibrariesResourceHandler.getString("The_type_property_UI_"), //$NON-NLS-1$ = "The eTypeClassifier property"
 						ePackageEcore.getETypedElement_EType(), false) {
+				@Override
 				public Object getPropertyValue(Object o) {
 					CMPAttribute thisCMPAttribute = (CMPAttribute) o;
 					return createPropertyValueWrapper(o, thisCMPAttribute.getType().getQualifiedName());
 				}
 
+				@Override
 				public Collection getChoiceOfValues(Object o) {
 					CMPAttribute thisCMPAttribute = (CMPAttribute) o;
 					Collection result = new ArrayList();
@@ -233,6 +247,7 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -241,6 +256,7 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements 
 		return childrenReferences;
 	}
 
+	@Override
 	public String getText(Object object) {
 
 		CMPAttribute cmpAttribute = (CMPAttribute) object;
@@ -255,6 +271,7 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(CMPAttribute.class)) {
 			case EjbPackage.CMP_ATTRIBUTE__DESCRIPTION :
@@ -274,6 +291,7 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -288,10 +306,12 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
 
+	@Override
 	public void setTarget(Notifier target) {
 		if (targets == null || !targets.contains(target))
 			super.setTarget(target);
@@ -310,6 +330,7 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements 
 	/**
 	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#getElements(Object)
 	 */
+	@Override
 	public Collection getElements(Object object) {
 		return super.getElements(object);
 	}
@@ -317,6 +338,7 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements 
 	/**
 	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#getChildren(Object)
 	 */
+	@Override
 	public Collection getChildren(Object object) {
 		try {
 			return super.getChildren(object);
@@ -326,6 +348,7 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements 
 		return Collections.EMPTY_LIST;
 	}
 
+	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
 		super.dispose();

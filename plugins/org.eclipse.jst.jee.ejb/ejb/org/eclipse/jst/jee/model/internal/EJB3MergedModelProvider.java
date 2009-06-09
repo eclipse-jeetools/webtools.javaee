@@ -94,6 +94,7 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 		return null;
 	}
 
+	@Override
 	public void modify(Runnable runnable, IPath modelPath) {
 		/*
 		 * Someone has called modify before loading the model. Try to load the
@@ -132,10 +133,12 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 		merge(getXmlEjbJar(), getAnnotationEjbJar());
 	}
 
+	@Override
 	protected void annotationModelChanged(IModelProviderEvent event) {
 		internalModelChanged(event);
 	}
 
+	@Override
 	protected void xmlModelChanged(IModelProviderEvent event) {
 		internalModelChanged(event);
 	}

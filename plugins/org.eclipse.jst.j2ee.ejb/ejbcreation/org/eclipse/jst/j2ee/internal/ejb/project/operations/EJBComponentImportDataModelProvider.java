@@ -40,10 +40,12 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
  */
 public final class EJBComponentImportDataModelProvider extends J2EEComponentImportDataModelProvider implements IEJBComponentImportDataModelProperties {
 
+	@Override
 	protected int getType() {
 		return XMLResource.EJB_TYPE;
 	}
 
+	@Override
 	protected Archive openArchive(String uri) throws OpenFailureException {
 		Archive archive =  CommonarchiveFactory.eINSTANCE.openEJBJarFile(getArchiveOptions(), uri);
 		return archive;
@@ -56,10 +58,12 @@ public final class EJBComponentImportDataModelProvider extends J2EEComponentImpo
 		jqp.setJavaEEVersion(J2EEVersionConstants.JEE_5_0_ID);
 	}
 	
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new EJBComponentImportOperation(model);
 	}
 
+	@Override
 	protected IDataModel createJ2EEComponentCreationDataModel() {
 		IDataModel ejbCreationDM = DataModelFactory.createDataModel(new EjbFacetProjectCreationDataModelProvider());
 		
@@ -69,6 +73,7 @@ public final class EJBComponentImportDataModelProvider extends J2EEComponentImpo
 		return ejbCreationDM;
 	}
 	
+	@Override
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		boolean set = super.propertySet(propertyName, propertyValue);
 		if (propertyName.equals(ARCHIVE_WRAPPER)) {
@@ -88,6 +93,7 @@ public final class EJBComponentImportDataModelProvider extends J2EEComponentImpo
 		return set;
 	}
 
+	@Override
 	public void init() {
 		super.init();
 		IDataModel componentCreationDM = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);

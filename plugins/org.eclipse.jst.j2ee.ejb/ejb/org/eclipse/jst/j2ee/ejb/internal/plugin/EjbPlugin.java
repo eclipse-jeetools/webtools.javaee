@@ -164,6 +164,7 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 		return MessageFormat.format(getString(key), substitutions);
 	}
 
+	@Override
 	public String getPluginID() {
 		return PLUGIN_ID;
 	}
@@ -180,6 +181,7 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 		return createStatus(IStatus.ERROR, aCode, aMessage != null ? aMessage : exception.toString(), exception);
 	}
 
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context); 
 	}

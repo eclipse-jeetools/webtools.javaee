@@ -31,6 +31,7 @@ public class EjbClientProjectCreationDataModelProvider
 		super();
 	}
 	
+	@Override
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(EJB_PROJECT_NAME);
@@ -39,10 +40,12 @@ public class EjbClientProjectCreationDataModelProvider
 		return propertyNames;
 	}
 	
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new EjbClientProjectCreationOperation(model);
 	}
 
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(CLIENT_URI)){
 			String projectName = model.getStringProperty(EJB_PROJECT_NAME);
@@ -55,7 +58,8 @@ public class EjbClientProjectCreationDataModelProvider
 		return super.getDefaultProperty(propertyName);
 	}
 	
-    public IStatus validate(String propertyName) {
+    @Override
+	public IStatus validate(String propertyName) {
 
         IStatus status = OK_STATUS;
         if(status.isOK()) {

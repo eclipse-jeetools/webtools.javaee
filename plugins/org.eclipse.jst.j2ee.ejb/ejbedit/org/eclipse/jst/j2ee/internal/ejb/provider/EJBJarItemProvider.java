@@ -43,7 +43,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
  * 
  * @generated
  */
-public class EJBJarItemProvider extends CompatibilityDescriptionGroupItemProvider implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class EJBJarItemProvider extends CompatibilityDescriptionGroupItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
@@ -60,6 +60,7 @@ public class EJBJarItemProvider extends CompatibilityDescriptionGroupItemProvide
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -98,6 +99,7 @@ public class EJBJarItemProvider extends CompatibilityDescriptionGroupItemProvide
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -113,6 +115,7 @@ public class EJBJarItemProvider extends CompatibilityDescriptionGroupItemProvide
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -127,6 +130,7 @@ public class EJBJarItemProvider extends CompatibilityDescriptionGroupItemProvide
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(EJBJar.class)) {
 			case EjbPackage.EJB_JAR__EJB_CLIENT_JAR :
@@ -148,6 +152,7 @@ public class EJBJarItemProvider extends CompatibilityDescriptionGroupItemProvide
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -170,6 +175,7 @@ public class EJBJarItemProvider extends CompatibilityDescriptionGroupItemProvide
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -177,6 +183,7 @@ public class EJBJarItemProvider extends CompatibilityDescriptionGroupItemProvide
 	/**
 	 * This returns EJBJar.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		String key = null;
 		if (((EJBJar) object).eResource() == null)
@@ -199,6 +206,7 @@ public class EJBJarItemProvider extends CompatibilityDescriptionGroupItemProvide
 		return J2EEPlugin.getPlugin().getImage(key);
 	}
 
+	@Override
 	public String getText(Object object) {
 		EJBJar ejbJar = (EJBJar) object;
 		if (ejbJar.getDisplayName() == null) {
@@ -222,6 +230,7 @@ public class EJBJarItemProvider extends CompatibilityDescriptionGroupItemProvide
 	/**
 	 * @see ITreeItemContentProvider#hasChildren(Object)
 	 */
+	@Override
 	public boolean hasChildren(Object parent) {
 		if (parent == null)
 			return false;
@@ -233,6 +242,7 @@ public class EJBJarItemProvider extends CompatibilityDescriptionGroupItemProvide
 	 * 
 	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#getChildren(java.lang.Object)
 	 */
+	@Override
 	public Collection getChildren(Object object) {
 		List children = new ArrayList();
 		EJBJar aJar = (EJBJar) object;

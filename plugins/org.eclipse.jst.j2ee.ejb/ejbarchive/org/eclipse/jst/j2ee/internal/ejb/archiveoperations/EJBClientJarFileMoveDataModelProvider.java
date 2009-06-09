@@ -21,6 +21,7 @@ public class EJBClientJarFileMoveDataModelProvider
  						extends AbstractDataModelProvider
  						implements IEJBClientJarFileMoveDataModelProperties{
     
+	@Override
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(EJB_CLIENTVIEW_PROJECT_NAME);
@@ -30,6 +31,7 @@ public class EJBClientJarFileMoveDataModelProvider
 	}
 	
 
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new EJBClientJarFileMoveOperation( model );
 	}

@@ -46,6 +46,7 @@ public class MessageDrivenDestinationItemProvider extends EjbItemProviderAdapter
 	/**
 	 * This returns MessageDrivenDestination.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		String imageString = null;
 		//  	MessageDrivenDestination messageDrivenDestination = ((MessageDrivenDestination)object);
@@ -61,6 +62,7 @@ public class MessageDrivenDestinationItemProvider extends EjbItemProviderAdapter
 	/**
 	 * This returns the parent of the MessageDrivenDestination.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}
@@ -68,6 +70,7 @@ public class MessageDrivenDestinationItemProvider extends EjbItemProviderAdapter
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -121,6 +124,7 @@ public class MessageDrivenDestinationItemProvider extends EjbItemProviderAdapter
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		MessageDrivenDestination messageDrivenDestination = ((MessageDrivenDestination) object);
 		if (messageDrivenDestination.getType().getName() != null)
@@ -134,6 +138,7 @@ public class MessageDrivenDestinationItemProvider extends EjbItemProviderAdapter
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(MessageDrivenDestination.class)) {
 			case EjbPackage.MESSAGE_DRIVEN_DESTINATION__TYPE :
@@ -152,6 +157,7 @@ public class MessageDrivenDestinationItemProvider extends EjbItemProviderAdapter
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -162,6 +168,7 @@ public class MessageDrivenDestinationItemProvider extends EjbItemProviderAdapter
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

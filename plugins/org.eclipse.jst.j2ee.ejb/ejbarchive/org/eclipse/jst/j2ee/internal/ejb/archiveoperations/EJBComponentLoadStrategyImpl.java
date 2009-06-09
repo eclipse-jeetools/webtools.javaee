@@ -24,6 +24,7 @@ public class EJBComponentLoadStrategyImpl extends J2EEComponentLoadStrategyImpl 
 	public EJBComponentLoadStrategyImpl(IVirtualComponent vComponent, boolean includeClasspathComponents) {
 		super(vComponent, includeClasspathComponents);		
 	}
+	@Override
 	protected synchronized ArtifactEdit getArtifactEditForRead() {
 		if(artifactEdit == null){
 			artifactEdit = EJBArtifactEdit.getEJBArtifactEditForRead(vComponent);

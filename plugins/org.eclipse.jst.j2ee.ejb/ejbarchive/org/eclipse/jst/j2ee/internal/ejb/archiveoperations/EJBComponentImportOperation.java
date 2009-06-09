@@ -32,6 +32,7 @@ public class EJBComponentImportOperation extends J2EEArtifactImportOperation {
 		super(dataModel);
 	}
 
+	@Override
 	protected void importModuleFile(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 		if (null == model.getProperty(IEJBComponentImportDataModelProperties.EXTENDED_IMPORT_FACTORY)) {
 			super.importModuleFile(monitor);
@@ -52,11 +53,13 @@ public class EJBComponentImportOperation extends J2EEArtifactImportOperation {
 		// }
 	}
 
+	@Override
 	protected SaveStrategy createSaveStrategy(IVirtualComponent virtualComponent) {
 		EJBComponentSaveStrategyImpl saveStrat = new EJBComponentSaveStrategyImpl(virtualComponent);
 		return saveStrat;
 	}
 	
+	@Override
 	protected ComponentArchiveSaveAdapter getArchiveSaveAdapter(IVirtualComponent virtualComponent) {
 		return new EJBComponentArchiveSaveAdapter(virtualComponent);
 	}

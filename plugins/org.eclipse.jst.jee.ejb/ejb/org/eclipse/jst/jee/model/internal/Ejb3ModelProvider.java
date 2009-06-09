@@ -37,17 +37,20 @@ public class Ejb3ModelProvider extends JEE5ModelProvider {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.model.IModelProvider#getModelObject(org.eclipse.core.runtime.IPath)
 	 */
+	@Override
 	public Object getModelObject(IPath modelPath) {
 		IEJBResource ejbRes = (IEJBResource)getModelResource(modelPath);
 		if (ejbRes != null && ejbRes.getRootObject() != null) 
 			return ejbRes.getEjbJar();
 		return null;
 	}
+	@Override
 	protected String getContentTypeDescriber() {
 		return EJB3_CONTENT_TYPE;
 	}
 
 
+	@Override
 	public void populateRoot(XMLResourceImpl res, String name) {
 		EJBJarDeploymentDescriptor dd = EjbFactory.eINSTANCE.createEJBJarDeploymentDescriptor();
 		dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE_NS_URL);  //$NON-NLS-1$

@@ -181,11 +181,13 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	/**
 	 * This implementation substitutes the factory itself as the key for the adapter.
 	 */
+	@Override
 	public Adapter adapt(Notifier notifier, Object type) {
 		adaptContainerIfNecessary((EObject) notifier, type);
 		return super.adapt(notifier, this);
 	}
 
+	@Override
 	public Object adapt(Object object, Object type) {
 		// This is a kludge to deal with enumerators, which crash the doSwitch.
 		//
@@ -203,6 +205,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 		return null;
 	}
 
+	@Override
 	public Adapter adaptNew(Notifier target, Object adapterType) {
 		Adapter adapter = super.adaptNew(target, adapterType);
 		disposable.add(adapter);
@@ -221,6 +224,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.AssemblyDescriptor}.
 	 */
+	@Override
 	public Adapter createAssemblyDescriptorAdapter() {
 		if (assemblyDescriptorItemProvider == null) {
 			assemblyDescriptorItemProvider = new AssemblyDescriptorItemProvider(this);
@@ -232,6 +236,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.CMPAttribute}.
 	 */
+	@Override
 	public Adapter createCMPAttributeAdapter() {
 		if (cmpAttributeItemProvider == null) {
 			cmpAttributeItemProvider = new CMPAttributeItemProvider(this);
@@ -243,6 +248,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.CMRField}.
 	 */
+	@Override
 	public Adapter createCMRFieldAdapter() {
 		if (cmrFieldItemProvider == null) {
 			cmrFieldItemProvider = new CMRFieldItemProvider(this);
@@ -254,6 +260,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.ContainerManagedEntity}.
 	 */
+	@Override
 	public Adapter createContainerManagedEntityAdapter() {
 		if (containerManagedEntityItemProvider == null) {
 			containerManagedEntityItemProvider = new ContainerManagedEntityItemProvider(this);
@@ -265,6 +272,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.EJBJar}.
 	 */
+	@Override
 	public Adapter createEJBJarAdapter() {
 		if (eJBJarItemProvider == null) {
 			eJBJarItemProvider = new EJBJarItemProvider(this);
@@ -276,6 +284,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.EJBMethodCategory}.
 	 */
+	@Override
 	public Adapter createEJBMethodCategoryAdapter() {
 		if (ejbMethodCategoryItemProvider == null) {
 			ejbMethodCategoryItemProvider = new EJBMethodCategoryItemProvider(this);
@@ -295,6 +304,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.EJBRelation}.
 	 */
+	@Override
 	public Adapter createEJBRelationAdapter() {
 		if (ejbRelationItemProvider == null) {
 			ejbRelationItemProvider = new EJBRelationItemProvider(this);
@@ -306,6 +316,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.EJBRelationshipRole}.
 	 */
+	@Override
 	public Adapter createEJBRelationshipRoleAdapter() {
 		if (ejbRelationshipRoleItemProvider == null) {
 			ejbRelationshipRoleItemProvider = new EJBRelationshipRoleItemProvider(this);
@@ -317,6 +328,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.EnterpriseBean}.
 	 */
+	@Override
 	public Adapter createEnterpriseBeanAdapter() {
 		if (enterpriseBeanItemProvider == null) {
 			enterpriseBeanItemProvider = new EnterpriseBeanItemProvider(this);
@@ -328,6 +340,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.Entity}.
 	 */
+	@Override
 	public Adapter createEntityAdapter() {
 		if (entityItemProvider == null) {
 			entityItemProvider = new EntityItemProvider(this);
@@ -339,6 +352,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.ExcludeList}.
 	 */
+	@Override
 	public Adapter createExcludeListAdapter() {
 		if (excludeListItemProvider == null) {
 			excludeListItemProvider = new ExcludeListItemProvider(this);
@@ -350,6 +364,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.MessageDriven}.
 	 */
+	@Override
 	public Adapter createMessageDrivenAdapter() {
 		if (messageDrivenItemProvider == null) {
 			messageDrivenItemProvider = new MessageDrivenItemProvider(this);
@@ -361,6 +376,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.MessageDrivenDestination}.
 	 */
+	@Override
 	public Adapter createMessageDrivenDestinationAdapter() {
 		if (messageDrivenDestinationItemProvider == null) {
 			messageDrivenDestinationItemProvider = new MessageDrivenDestinationItemProvider(this);
@@ -372,6 +388,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.MethodElement}.
 	 */
+	@Override
 	public Adapter createMethodElementAdapter() {
 		if (methodElementItemProvider == null) {
 			methodElementItemProvider = new MethodElementItemProvider(this);
@@ -383,6 +400,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.MethodPermission}.
 	 */
+	@Override
 	public Adapter createMethodPermissionAdapter() {
 		if (methodPermissionItemProvider == null) {
 			methodPermissionItemProvider = new MethodPermissionItemProvider(this);
@@ -394,6 +412,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.MethodTransaction}.
 	 */
+	@Override
 	public Adapter createMethodTransactionAdapter() {
 		if (methodTransactionItemProvider == null) {
 			methodTransactionItemProvider = new MethodTransactionItemProvider(this);
@@ -405,6 +424,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.Query}.
 	 */
+	@Override
 	public Adapter createQueryAdapter() {
 		if (queryItemProvider == null) {
 			queryItemProvider = new QueryItemProvider(this);
@@ -416,6 +436,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.QueryMethod}.
 	 */
+	@Override
 	public Adapter createQueryMethodAdapter() {
 		if (queryMethodItemProvider == null) {
 			queryMethodItemProvider = new QueryMethodItemProvider(this);
@@ -439,6 +460,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createActivationConfigPropertyAdapter() {
 		if (activationConfigPropertyItemProvider == null) {
 			activationConfigPropertyItemProvider = new ActivationConfigPropertyItemProvider(this);
@@ -461,6 +483,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createActivationConfigAdapter() {
 		if (activationConfigItemProvider == null) {
 			activationConfigItemProvider = new ActivationConfigItemProvider(this);
@@ -472,6 +495,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.Relationships}.
 	 */
+	@Override
 	public Adapter createRelationshipsAdapter() {
 		if (relationshipsItemProvider == null) {
 			relationshipsItemProvider = new RelationshipsItemProvider(this);
@@ -483,6 +507,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.RoleSource}.
 	 */
+	@Override
 	public Adapter createRoleSourceAdapter() {
 		if (roleSourceItemProvider == null) {
 			roleSourceItemProvider = new RoleSourceItemProvider(this);
@@ -494,6 +519,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.Session}.
 	 */
+	@Override
 	public Adapter createSessionAdapter() {
 		if (sessionItemProvider == null) {
 			sessionItemProvider = new SessionItemProvider(this);
@@ -513,6 +539,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 		return parentAdapterFactory == null ? this : parentAdapterFactory.getRootAdapterFactory();
 	}
 
+	@Override
 	public boolean isFactoryForType(Object type) {
 		return super.isFactoryForType(type) || supportedTypes.contains(type);
 	}

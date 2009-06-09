@@ -23,6 +23,7 @@ public class EjbClientProjectRemovalDataModelProvider
 		super();
 	}
 	
+	@Override
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add( EJB_PROJECT );
@@ -31,10 +32,12 @@ public class EjbClientProjectRemovalDataModelProvider
 		return propertyNames;
 	}
 	
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new EJBClientJARRemovalOperation(model);
 	}
 
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		return super.getDefaultProperty(propertyName);
 	}

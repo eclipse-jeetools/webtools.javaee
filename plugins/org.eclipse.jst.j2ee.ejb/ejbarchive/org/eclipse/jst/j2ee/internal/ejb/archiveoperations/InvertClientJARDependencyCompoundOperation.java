@@ -50,6 +50,7 @@ public class InvertClientJARDependencyCompoundOperation extends AbstractDataMode
 	}
 
 
+	@Override
 	public IStatus execute(IProgressMonitor aMonitor, IAdaptable info) throws ExecutionException {
 		monitor = aMonitor;
 		createChildOperations();
