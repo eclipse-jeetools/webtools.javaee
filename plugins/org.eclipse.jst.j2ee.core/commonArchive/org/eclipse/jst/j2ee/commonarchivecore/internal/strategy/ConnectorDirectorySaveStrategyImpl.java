@@ -29,7 +29,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 /**
  * Implementer that knows how to save an archives contents to a directory on the local file system
  */
-public class ConnectorDirectorySaveStrategyImpl extends SaveStrategyImpl implements SaveStrategy {
+public class ConnectorDirectorySaveStrategyImpl extends SaveStrategyImpl {
 	protected String directoryName;
 	protected URIConverter uriConverter;
 	/** Indicates which type of archives should be expanded */

@@ -265,8 +265,6 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 				for (int i = 0; i < list.size(); i++) {
 					updateModificationTracking((Resource) list.get(i));
 				}
-			default :
-				break;
 		}
 	}
 

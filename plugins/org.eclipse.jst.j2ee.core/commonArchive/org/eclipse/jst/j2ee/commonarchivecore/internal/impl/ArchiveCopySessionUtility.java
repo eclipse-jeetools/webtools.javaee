@@ -119,7 +119,7 @@ public class ArchiveCopySessionUtility extends EtoolsCopySession {
      * attribute, which is not to be copied if in an uninitialized state.</p>
      */
     
-    public static final String CMP_KEY_ATTRIBUTES_NAME = "keyAttributes";
+    public static final String CMP_KEY_ATTRIBUTES_NAME = "keyAttributes"; //$NON-NLS-1$
 
     /**
      * <p>Test introduced for bugzilla 177397: Tell if a specified reference

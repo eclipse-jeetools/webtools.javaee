@@ -23,7 +23,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ImportStrategy;
  * 
  * @author: Administrator
  */
-public class RootArchiveTypeDescriminatorImpl extends org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminatorImpl implements org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator {
+public class RootArchiveTypeDescriminatorImpl extends org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminatorImpl {
 	protected static ArchiveTypeDiscriminatorImpl singleton;
 
 	/**

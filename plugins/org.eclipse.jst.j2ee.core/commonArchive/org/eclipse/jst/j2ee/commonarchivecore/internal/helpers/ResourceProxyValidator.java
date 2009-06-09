@@ -68,7 +68,7 @@ final class ResourceProxyValidator {
 							String id = ((EObjectImpl) proxyOrObject).eProxyURI().fragment();
 							if (resourceURIMap.get(resourceURI) != null) {
 								Resource cachedResource = (Resource) resourceURIMap.get(resourceURI);
-								proxyOrObject = (EObject) ((XMLResource) cachedResource).getIDToEObjectMap().get(id);
+								proxyOrObject = ((XMLResource) cachedResource).getIDToEObjectMap().get(id);
 							} else {
 								proxyOrObject = (EObject) refObject.eGet(reference);
 								resourceURIMap.put(resourceURI, proxyOrObject.eResource());

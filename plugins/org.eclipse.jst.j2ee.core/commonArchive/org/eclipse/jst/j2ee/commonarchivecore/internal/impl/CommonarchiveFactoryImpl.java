@@ -41,7 +41,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHand
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ConnectorModuleRef;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Container;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBModuleRef;
@@ -85,7 +84,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	 */
 	public static CommonarchiveFactory init() {
 		try {
-			CommonarchiveFactory theCommonarchiveFactory = (CommonarchiveFactory)EPackage.Registry.INSTANCE.getEFactory("commonarchive.xmi"); 
+			CommonarchiveFactory theCommonarchiveFactory = (CommonarchiveFactory)EPackage.Registry.INSTANCE.getEFactory("commonarchive.xmi"); //$NON-NLS-1$ 
 			if (theCommonarchiveFactory != null) {
 				return theCommonarchiveFactory;
 			}
@@ -190,7 +189,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 			case CommonarchivePackage.CLIENT_MODULE_REF: return createClientModuleRef();
 			case CommonarchivePackage.CONNECTOR_MODULE_REF: return createConnectorModuleRef();
 			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 

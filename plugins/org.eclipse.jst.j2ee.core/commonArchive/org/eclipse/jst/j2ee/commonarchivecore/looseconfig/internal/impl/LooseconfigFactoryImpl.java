@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.impl;
 
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
@@ -26,7 +25,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseconfigFa
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseconfigPackage;
 
 
-public class LooseconfigFactoryImpl extends EFactoryImpl implements LooseconfigFactory, EFactory {
+public class LooseconfigFactoryImpl extends EFactoryImpl implements LooseconfigFactory {
 	/**
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->
@@ -35,7 +34,7 @@ public class LooseconfigFactoryImpl extends EFactoryImpl implements LooseconfigF
 	 */
 	public static LooseconfigFactory init() {
 		try {
-			LooseconfigFactory theLooseconfigFactory = (LooseconfigFactory)EPackage.Registry.INSTANCE.getEFactory("commonarchive.looseconfig.xmi"); 
+			LooseconfigFactory theLooseconfigFactory = (LooseconfigFactory)EPackage.Registry.INSTANCE.getEFactory("commonarchive.looseconfig.xmi");  //$NON-NLS-1$
 			if (theLooseconfigFactory != null) {
 				return theLooseconfigFactory;
 			}
@@ -66,7 +65,7 @@ public class LooseconfigFactoryImpl extends EFactoryImpl implements LooseconfigF
 			case LooseconfigPackage.LOOSE_CONFIGURATION: return createLooseConfiguration();
 			case LooseconfigPackage.LOOSE_WAR_FILE: return createLooseWARFile();
 			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 

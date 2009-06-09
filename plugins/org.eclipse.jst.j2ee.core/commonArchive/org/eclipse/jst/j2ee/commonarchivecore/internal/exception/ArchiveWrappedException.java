@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.commonarchivecore.internal.exception;
 
-import org.eclipse.jst.j2ee.internal.IWrappedException;
 import org.eclipse.jst.j2ee.internal.WrappedException;
 
 
@@ -19,7 +18,7 @@ import org.eclipse.jst.j2ee.internal.WrappedException;
  * Base exception class for non-runtime exceptions occurring with manipulation of archives, where a
  * caught exception causes this exception to be thrown
  */
-public class ArchiveWrappedException extends WrappedException implements IWrappedException {
+public class ArchiveWrappedException extends WrappedException {
 	/**
 	 * 
 	 */

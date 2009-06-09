@@ -199,7 +199,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (types: ");
+		result.append(" (types: "); //$NON-NLS-1$
 		result.append(types);
 		result.append(')');
 		return result.toString();
@@ -1382,9 +1382,8 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 		try {
 			if ( (getLoadStrategy().getLooseArchive() != null) && getContainer().isEARFile() ) {
 				return getEARFile().getBinariesPath();
-			} else {
-				return new java.io.File(getBinariesPath()).getParentFile().getAbsolutePath();
 			}
+			return new java.io.File(getBinariesPath()).getParentFile().getAbsolutePath();
 		} catch (FileNotFoundException e) {
 			return null;
 		}

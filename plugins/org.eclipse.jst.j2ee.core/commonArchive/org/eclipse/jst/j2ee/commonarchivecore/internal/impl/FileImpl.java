@@ -444,8 +444,8 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	 * @generated
 	 */
 	public NotificationChain basicSetContainer(Container newContainer, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newContainer, CommonarchivePackage.FILE__CONTAINER, msgs);
-		return msgs;
+		NotificationChain innerMsgs = eBasicSetContainer((InternalEObject)newContainer, CommonarchivePackage.FILE__CONTAINER, msgs);
+		return innerMsgs;
 	}
 
 	/**
@@ -454,7 +454,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	public void setContainer(Container newContainer) {
 		if (newContainer != eInternalContainer() || (eContainerFeatureID != CommonarchivePackage.FILE__CONTAINER && newContainer != null)) {
 			if (EcoreUtil.isAncestor(this, newContainer))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -476,9 +476,11 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case CommonarchivePackage.FILE__CONTAINER:
-				if (eInternalContainer() != null)
-					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetContainer((Container)otherEnd, msgs);
+				NotificationChain innerMsgs = msgs;
+				if (eInternalContainer() != null){
+					innerMsgs = eBasicRemoveFromContainer(msgs);
+				}
+				return basicSetContainer((Container)otherEnd, innerMsgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -638,15 +640,15 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (URI: ");
+		result.append(" (URI: "); //$NON-NLS-1$
 		result.append(uri);
-		result.append(", lastModified: ");
-		if (lastModifiedESet) result.append(lastModified); else result.append("<unset>");
-		result.append(", size: ");
-		if (sizeESet) result.append(size); else result.append("<unset>");
-		result.append(", directoryEntry: ");
-		if (directoryEntryESet) result.append(directoryEntry); else result.append("<unset>");
-		result.append(", originalURI: ");
+		result.append(", lastModified: "); //$NON-NLS-1$
+		if (lastModifiedESet) result.append(lastModified); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", size: "); //$NON-NLS-1$
+		if (sizeESet) result.append(size); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", directoryEntry: "); //$NON-NLS-1$
+		if (directoryEntryESet) result.append(directoryEntry); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", originalURI: "); //$NON-NLS-1$
 		result.append(originalURI);
 		result.append(')');
 		return result.toString();

@@ -34,7 +34,7 @@ import org.eclipse.wst.common.internal.emf.utilities.Revisit;
  * resources, will be output to a ZipOutputStream. The output stream should be passed in by the
  * client.
  */
-public class ZipStreamSaveStrategyImpl extends SaveStrategyImpl implements SaveStrategy {
+public class ZipStreamSaveStrategyImpl extends SaveStrategyImpl {
 	protected OutputStream destinationStream;
 	/** Used internally */
 	protected ZipOutputStream zipOutputStream;

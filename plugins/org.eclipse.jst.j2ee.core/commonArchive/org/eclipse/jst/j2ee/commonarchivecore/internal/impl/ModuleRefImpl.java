@@ -232,8 +232,8 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	 * @generated
 	 */
 	public NotificationChain basicSetEarFile(EARFile newEarFile, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newEarFile, CommonarchivePackage.MODULE_REF__EAR_FILE, msgs);
-		return msgs;
+		NotificationChain msgs2 = eBasicSetContainer((InternalEObject)newEarFile, CommonarchivePackage.MODULE_REF__EAR_FILE, msgs);
+		return msgs2;
 	}
 
 	/**
@@ -242,7 +242,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	public void setEarFile(EARFile newEarFile) {
 		if (newEarFile != eInternalContainer() || (eContainerFeatureID != CommonarchivePackage.MODULE_REF__EAR_FILE && newEarFile != null)) {
 			if (EcoreUtil.isAncestor(this, newEarFile))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -297,9 +297,10 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case CommonarchivePackage.MODULE_REF__EAR_FILE:
+				NotificationChain msgs2 = msgs;
 				if (eInternalContainer() != null)
-					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetEarFile((EARFile)otherEnd, msgs);
+					msgs2 = eBasicRemoveFromContainer(msgs2);
+				return basicSetEarFile((EARFile)otherEnd, msgs2);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}

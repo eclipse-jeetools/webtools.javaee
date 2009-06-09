@@ -351,11 +351,8 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements org.e
         {
             return null;
         }
-        else
-        {
-            final byte[] utf8 = str.getBytes( "UTF-8" );
-            return new String( utf8, 0, 0, utf8.length );
-        }
+        final byte[] utf8 = str.getBytes( "UTF-8" ); //$NON-NLS-1$
+        return new String( utf8, 0, 0, utf8.length );
     }
 
 }

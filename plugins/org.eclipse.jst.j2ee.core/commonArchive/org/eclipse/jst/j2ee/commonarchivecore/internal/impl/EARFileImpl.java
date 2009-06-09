@@ -229,7 +229,9 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 		} else if (aModuleFile.isRARFile()) {
 			aModule = getApplicationFactory().createConnectorModule();
 		}
-		aModule.setUri(aModuleFile.getURI());
+		if(aModule != null){
+			aModule.setUri(aModuleFile.getURI());
+		}
 		return aModule;
 	}
 
@@ -1021,10 +1023,10 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 			newRef = getCommonArchiveFactory().createConnectorModuleRef();
 		else if (aModule.isJavaModule())
 			newRef = getCommonArchiveFactory().createClientModuleRef();
-
-		newRef.setModule(aModule);
-		newRef.setModuleFile(aFile);
-
+		if(newRef != null){
+			newRef.setModule(aModule);
+			newRef.setModuleFile(aFile);
+		}
 		return newRef;
 	}
 

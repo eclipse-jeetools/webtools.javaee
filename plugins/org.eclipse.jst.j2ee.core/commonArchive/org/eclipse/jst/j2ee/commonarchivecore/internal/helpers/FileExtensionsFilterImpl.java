@@ -22,7 +22,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
  * 
  * @author: Administrator
  */
-public class FileExtensionsFilterImpl extends SaveFilterImpl implements org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter {
+public class FileExtensionsFilterImpl extends SaveFilterImpl {
 	protected Set excludedExtensions;
 	protected boolean isCaseSensitive = false;
 	protected Set excludedExtensionsAsUppercase;

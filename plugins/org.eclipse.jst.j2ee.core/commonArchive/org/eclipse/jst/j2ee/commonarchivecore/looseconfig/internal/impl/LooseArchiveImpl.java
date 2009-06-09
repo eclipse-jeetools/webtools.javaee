@@ -159,8 +159,8 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 	 * @generated
 	 */
 	public NotificationChain basicSetLooseApp(LooseApplication newLooseApp, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newLooseApp, LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP, msgs);
-		return msgs;
+		NotificationChain innerMsgs = eBasicSetContainer((InternalEObject)newLooseApp, LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP, msgs);
+		return innerMsgs;
 	}
 
 	/**
@@ -169,7 +169,7 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 	public void setLooseApp(LooseApplication newLooseApp) {
 		if (newLooseApp != eInternalContainer() || (eContainerFeatureID != LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP && newLooseApp != null)) {
 			if (EcoreUtil.isAncestor(this, newLooseApp))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -195,9 +195,11 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP:
-				if (eInternalContainer() != null)
-					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetLooseApp((LooseApplication)otherEnd, msgs);
+				NotificationChain innerMsgs = msgs;
+				if (eInternalContainer() != null){
+					innerMsgs = eBasicRemoveFromContainer(msgs);
+				}
+				return basicSetLooseApp((LooseApplication)otherEnd, innerMsgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -326,11 +328,11 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (uri: ");
+		result.append(" (uri: "); //$NON-NLS-1$
 		result.append(uri);
-		result.append(", binariesPath: ");
+		result.append(", binariesPath: "); //$NON-NLS-1$
 		result.append(binariesPath);
-		result.append(", resourcesPath: ");
+		result.append(", resourcesPath: "); //$NON-NLS-1$
 		result.append(resourcesPath);
 		result.append(')');
 		return result.toString();

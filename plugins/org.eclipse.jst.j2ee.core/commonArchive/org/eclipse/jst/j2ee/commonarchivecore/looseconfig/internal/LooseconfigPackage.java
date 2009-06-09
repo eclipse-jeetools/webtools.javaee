@@ -38,7 +38,7 @@ public interface LooseconfigPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNAME = "looseconfig";
+	String eNAME = "looseconfig"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace URI.
@@ -46,7 +46,7 @@ public interface LooseconfigPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "commonarchive.looseconfig.xmi";
+	String eNS_URI = "commonarchive.looseconfig.xmi"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.
@@ -54,7 +54,7 @@ public interface LooseconfigPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_PREFIX = "org.eclipse.jst.j2ee.commonarchivecore.looseconfig";
+	String eNS_PREFIX = "org.eclipse.jst.j2ee.commonarchivecore.looseconfig"; //$NON-NLS-1$
 
 	/**
 	 * The singleton instance of the package.

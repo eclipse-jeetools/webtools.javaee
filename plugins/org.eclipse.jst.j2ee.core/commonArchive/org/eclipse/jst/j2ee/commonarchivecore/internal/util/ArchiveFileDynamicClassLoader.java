@@ -38,7 +38,7 @@ public class ArchiveFileDynamicClassLoader extends ClassLoader {
 	protected Archive archive = null;
 	protected ClassLoader extraClassLoader;
 	protected boolean inEARFile;
-	private static final String URL_PROTOCOL = "archive";
+	private static final String URL_PROTOCOL = "archive"; //$NON-NLS-1$
 	private ArchiveURLStreamHandler handler;
     
 	protected ProtectionDomain protectionDomain;
@@ -294,7 +294,7 @@ public class ArchiveFileDynamicClassLoader extends ClassLoader {
 	protected URL findResource(String name) {
 		if (getFile(name) != null) {
 			try {
-				return new URL(null, URL_PROTOCOL + "://" + name, handler);
+				return new URL(null, URL_PROTOCOL + "://" + name, handler); //$NON-NLS-1$
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 				throw new RuntimeException(e);

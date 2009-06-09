@@ -316,28 +316,28 @@ public class LooseconfigPackageImpl extends EPackageImpl implements LooseconfigP
 		looseWARFileEClass.getESuperTypes().add(this.getLooseModule());
 
 		// Initialize classes and features; add operations and parameters
-		initEClass(looseApplicationEClass, LooseApplication.class, "LooseApplication", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getLooseApplication_LooseArchives(), this.getLooseArchive(), this.getLooseArchive_LooseApp(), "looseArchives", null, 0, -1, LooseApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(looseApplicationEClass, LooseApplication.class, "LooseApplication", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getLooseApplication_LooseArchives(), this.getLooseArchive(), this.getLooseArchive_LooseApp(), "looseArchives", null, 0, -1, LooseApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
-		initEClass(looseArchiveEClass, LooseArchive.class, "LooseArchive", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getLooseArchive_Uri(), ecorePackage.getEString(), "uri", null, 0, 1, LooseArchive.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getLooseArchive_BinariesPath(), ecorePackage.getEString(), "binariesPath", null, 0, 1, LooseArchive.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getLooseArchive_ResourcesPath(), ecorePackage.getEString(), "resourcesPath", null, 0, 1, LooseArchive.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getLooseArchive_LooseApp(), this.getLooseApplication(), this.getLooseApplication_LooseArchives(), "looseApp", null, 0, 1, LooseArchive.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(looseArchiveEClass, LooseArchive.class, "LooseArchive", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getLooseArchive_Uri(), ecorePackage.getEString(), "uri", null, 0, 1, LooseArchive.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getLooseArchive_BinariesPath(), ecorePackage.getEString(), "binariesPath", null, 0, 1, LooseArchive.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getLooseArchive_ResourcesPath(), ecorePackage.getEString(), "resourcesPath", null, 0, 1, LooseArchive.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getLooseArchive_LooseApp(), this.getLooseApplication(), this.getLooseApplication_LooseArchives(), "looseApp", null, 0, 1, LooseArchive.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
-		addEOperation(looseArchiveEClass, ecorePackage.getEBoolean(), "isModule", 0, 1);
+		addEOperation(looseArchiveEClass, ecorePackage.getEBoolean(), "isModule", 0, 1); //$NON-NLS-1$
 
-		initEClass(looseLibraryEClass, LooseLibrary.class, "LooseLibrary", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getLooseLibrary_LooseWAR(), this.getLooseWARFile(), this.getLooseWARFile_LooseLibs(), "looseWAR", null, 0, 1, LooseLibrary.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(looseLibraryEClass, LooseLibrary.class, "LooseLibrary", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getLooseLibrary_LooseWAR(), this.getLooseWARFile(), this.getLooseWARFile_LooseLibs(), "looseWAR", null, 0, 1, LooseLibrary.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
-		initEClass(looseModuleEClass, LooseModule.class, "LooseModule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getLooseModule_AltDD(), ecorePackage.getEString(), "altDD", null, 0, 1, LooseModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(looseModuleEClass, LooseModule.class, "LooseModule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getLooseModule_AltDD(), ecorePackage.getEString(), "altDD", null, 0, 1, LooseModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
-		initEClass(looseConfigurationEClass, LooseConfiguration.class, "LooseConfiguration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getLooseConfiguration_Applications(), this.getLooseApplication(), null, "applications", null, 0, -1, LooseConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(looseConfigurationEClass, LooseConfiguration.class, "LooseConfiguration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getLooseConfiguration_Applications(), this.getLooseApplication(), null, "applications", null, 0, -1, LooseConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
-		initEClass(looseWARFileEClass, LooseWARFile.class, "LooseWARFile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getLooseWARFile_LooseLibs(), this.getLooseLibrary(), this.getLooseLibrary_LooseWAR(), "looseLibs", null, 0, -1, LooseWARFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(looseWARFileEClass, LooseWARFile.class, "LooseWARFile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getLooseWARFile_LooseLibs(), this.getLooseLibrary(), this.getLooseLibrary_LooseWAR(), "looseLibs", null, 0, -1, LooseWARFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 	}
 
 } //LooseconfigPackageImpl

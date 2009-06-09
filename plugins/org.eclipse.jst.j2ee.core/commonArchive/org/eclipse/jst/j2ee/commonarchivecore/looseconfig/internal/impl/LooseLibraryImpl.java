@@ -55,8 +55,8 @@ public class LooseLibraryImpl extends LooseArchiveImpl implements LooseLibrary {
 	 * @generated
 	 */
 	public NotificationChain basicSetLooseWAR(LooseWARFile newLooseWAR, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newLooseWAR, LooseconfigPackage.LOOSE_LIBRARY__LOOSE_WAR, msgs);
-		return msgs;
+		NotificationChain msgs2 = eBasicSetContainer((InternalEObject)newLooseWAR, LooseconfigPackage.LOOSE_LIBRARY__LOOSE_WAR, msgs);
+		return msgs2;
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class LooseLibraryImpl extends LooseArchiveImpl implements LooseLibrary {
 	public void setLooseWAR(LooseWARFile newLooseWAR) {
 		if (newLooseWAR != eInternalContainer() || (eContainerFeatureID != LooseconfigPackage.LOOSE_LIBRARY__LOOSE_WAR && newLooseWAR != null)) {
 			if (EcoreUtil.isAncestor(this, newLooseWAR))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -87,9 +87,10 @@ public class LooseLibraryImpl extends LooseArchiveImpl implements LooseLibrary {
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_LIBRARY__LOOSE_WAR:
+				NotificationChain msgs2 = msgs;
 				if (eInternalContainer() != null)
-					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetLooseWAR((LooseWARFile)otherEnd, msgs);
+					msgs2 = eBasicRemoveFromContainer(msgs2);
+				return basicSetLooseWAR((LooseWARFile)otherEnd, msgs2);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}

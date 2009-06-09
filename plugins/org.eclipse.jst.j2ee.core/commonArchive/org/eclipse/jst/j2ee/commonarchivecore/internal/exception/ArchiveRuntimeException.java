@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.commonarchivecore.internal.exception;
 
-import org.eclipse.jst.j2ee.internal.IWrappedException;
 import org.eclipse.jst.j2ee.internal.WrappedRuntimeException;
 
 
@@ -21,7 +20,7 @@ import org.eclipse.jst.j2ee.internal.WrappedRuntimeException;
  * because the signatures of etools generated methods cannot be overridden to throw any exception
  * other than runtime.
  */
-public class ArchiveRuntimeException extends WrappedRuntimeException implements IWrappedException {
+public class ArchiveRuntimeException extends WrappedRuntimeException {
 	/**
 	 * 
 	 */

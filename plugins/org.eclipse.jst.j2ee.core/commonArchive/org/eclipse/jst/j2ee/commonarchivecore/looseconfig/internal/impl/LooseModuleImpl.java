@@ -138,7 +138,7 @@ public class LooseModuleImpl extends LooseArchiveImpl implements LooseModule {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (altDD: ");
+		result.append(" (altDD: "); //$NON-NLS-1$
 		result.append(altDD);
 		result.append(')');
 		return result.toString();
