@@ -415,12 +415,12 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	}
 	@Override
 	public IModelProvider create(IProject project) {
-		return (IModelProvider)getConnectorArtifactEditForRead(project);
+		return getConnectorArtifactEditForRead(project);
 	}
 
 	@Override
 	public IModelProvider create(IVirtualComponent component) {
-		return (IModelProvider)getConnectorArtifactEditForRead(component);
+		return getConnectorArtifactEditForRead(component);
 	}
 	@Override
 	public void modify(Runnable runnable, IPath modelPath) {

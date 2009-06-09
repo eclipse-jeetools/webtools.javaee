@@ -590,7 +590,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 
 	protected InputStream getSuperInputStream(IArchiveResource archiveResource) throws IOException, FileNotFoundException {
 		if (archiveResource.getType() == IArchive.ARCHIVE_TYPE) {
-			IArchiveLoadAdapter nestedLoadAdapter = (IArchiveLoadAdapter)((IArchive)archiveResource).getLoadAdapter();
+			IArchiveLoadAdapter nestedLoadAdapter = ((IArchive)archiveResource).getLoadAdapter();
 			if(nestedLoadAdapter instanceof ComponentArchiveLoadAdapter){
 				((ComponentArchiveLoadAdapter)nestedLoadAdapter).setExportSource(isExportSource());
 			}

@@ -165,7 +165,7 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	public EObject getDeploymentDescriptorRoot() {
 		Resource res = getDeploymentDescriptorResource();
 		if (!res.getContents().isEmpty())
-			return (EObject) res.getContents().get(0);
+			return res.getContents().get(0);
 		return null;
 	}
 

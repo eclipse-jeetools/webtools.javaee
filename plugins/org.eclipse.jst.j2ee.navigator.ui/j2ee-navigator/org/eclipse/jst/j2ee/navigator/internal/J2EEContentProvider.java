@@ -221,13 +221,13 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 	public void onRefresh(final Object element) {
 		if (viewer instanceof AbstractTreeViewer) {
 			if (Display.getCurrent() != null) {
-				((AbstractTreeViewer) viewer).refresh(element, true);
+				(viewer).refresh(element, true);
 			} else {
 				/* Create and schedule a UI Job to update the Navigator Content Viewer */
 				Job job = new UIJob("Update the Navigator Content Viewer Job") { //$NON-NLS-1$
 					@Override
 					public IStatus runInUIThread(IProgressMonitor monitor) {
-						((AbstractTreeViewer) viewer).refresh(element, true);
+						(viewer).refresh(element, true);
 						return Status.OK_STATUS;
 					}
 				};

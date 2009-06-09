@@ -69,7 +69,7 @@ public class ClasspathDependencyExtensions {
         	final IConfigurationElement[] elements = extensions[i].getConfigurationElements();
         	for (int j = 0; j < elements.length; j++) {
         		if (elements[j].getName().equals(FILTERED_CLASSPATH_CONTAINER)) {
-        			String cpContainerID = elements[j].getAttribute(CLASSPATH_CONTAINER_ID); //$NON-NLS-1$
+        			String cpContainerID = elements[j].getAttribute(CLASSPATH_CONTAINER_ID); 
                     if (cpContainerID != null) {
                     	filteredClasspathContainerIDs.add(cpContainerID);
                     }

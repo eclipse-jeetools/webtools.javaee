@@ -670,12 +670,12 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 	@Override
 	public IModelProvider create(IProject project) {
-		return (IModelProvider)getWebArtifactEditForRead(project);
+		return getWebArtifactEditForRead(project);
 	}
 
 	@Override
 	public IModelProvider create(IVirtualComponent component) {
-		return (IModelProvider)getWebArtifactEditForRead(component);
+		return getWebArtifactEditForRead(component);
 	}
 
 	@Override

@@ -234,7 +234,7 @@ public class NewFilterClassDataModelProvider extends
 		for (int i = 0; i < n; i++) {
 			IFilterMappingItem item = input.get(i);
 	        for (int j = i + 1; j < n; j++) {
-	            IFilterMappingItem item2 = (IFilterMappingItem) input.get(j);
+	            IFilterMappingItem item2 = input.get(j);
                 if (item.getName().equals(item2.getName()) && 
                 		item.getMappingType() == item2.getMappingType()) {
                     dup = true;

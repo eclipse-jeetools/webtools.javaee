@@ -74,11 +74,11 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 		if (module == null)
 			return null;
 
-		ModuleDelegate md = (ModuleDelegate) moduleDelegates.get(module);
+		ModuleDelegate md = moduleDelegates.get(module);
 
 		if (md == null) {
 			createModules(module.getProject());
-			md = (ModuleDelegate) moduleDelegates.get(module);
+			md = moduleDelegates.get(module);
 		}
 
 		return md;
@@ -109,7 +109,7 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 		} catch (Exception e) {
 			J2EEPlugin.logError(e);
 		}
-		return (IModule[]) projectModules.toArray(new IModule[projectModules.size()]);
+		return projectModules.toArray(new IModule[projectModules.size()]);
 	}
 
 	protected List<IModule> createBinaryModules(IVirtualComponent component) {

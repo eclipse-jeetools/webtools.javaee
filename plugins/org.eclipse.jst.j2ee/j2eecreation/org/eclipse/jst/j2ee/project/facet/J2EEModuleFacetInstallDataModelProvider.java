@@ -294,7 +294,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 				if (status.isOK())
 				{
 					/* bug 223072 test invalid character - URI.FRAGMENT_SEPARATOR */
-					if (folderName.indexOf('#') != -1) { //$NON-NLS-1$
+					if (folderName.indexOf('#') != -1) { 
 						String message = NLS.bind(Messages.resources_invalidCharInName, "#", folderName); //$NON-NLS-1$
 						status = new ResourceStatus(IResourceStatus.INVALID_VALUE, null, message);
 					}

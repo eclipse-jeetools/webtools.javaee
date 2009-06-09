@@ -123,7 +123,7 @@ public class ConnectorComponentArchiveLoadAdapter extends ComponentArchiveLoadAd
 		if (!isModuleRoot || foundJava) {
 			List <IFile> iFilesList = Collections.list(Collections.enumeration(iFilesSet));
 			for (int i = 0; i < iFilesList.size(); i++) {
-				filesHolder.removeIFile((IFile) iFilesList.get(i));
+				filesHolder.removeIFile(iFilesList.get(i));
 			}
 			IArchiveResource nestedArchive = createNestedArchive(iFilesList, sourceContainer, javaOutputFolder);
 			return nestedArchive;

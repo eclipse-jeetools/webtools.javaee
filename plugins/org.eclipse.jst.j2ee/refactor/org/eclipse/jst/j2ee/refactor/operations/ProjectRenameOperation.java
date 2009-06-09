@@ -90,7 +90,7 @@ public class ProjectRenameOperation extends ProjectRefactorOperation {
 			// skip if a utility project (will not have a ModelProvider and checking logs an error
 			return;
 		}
-		final IModelProvider model = (IModelProvider)ModelProviderManager.getModelProvider(refactoredProject);
+		final IModelProvider model = ModelProviderManager.getModelProvider(refactoredProject);
 		if (model != null) {
 			model.modify(new Runnable() {
 				public void run() {

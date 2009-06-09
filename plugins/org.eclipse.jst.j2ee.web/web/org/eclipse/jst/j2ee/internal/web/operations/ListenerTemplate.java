@@ -134,7 +134,7 @@ public class ListenerTemplate
 	}
 	
  	for (int i = 0; i < interfaces.size(); i++) {
-   		String INTERFACE = (String) interfaces.get(i);
+   		String INTERFACE = interfaces.get(i);
    		if (i > 0) {
 
     stringBuffer.append(TEXT_18);

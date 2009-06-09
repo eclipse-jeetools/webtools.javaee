@@ -101,7 +101,7 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 		List targetComponents = new ArrayList();
 		Map compToURIMap = new HashMap();
 		for (int i = 0; null != libProjects && i < libProjects.size(); i++) {
-			importModel = (IDataModel) libProjects.get(i);
+			importModel = libProjects.get(i);
 			libArchive = (ArchiveWrapper) importModel.getProperty(IJ2EEComponentImportDataModelProperties.ARCHIVE_WRAPPER);
 			if (selectedLibsUnderlyingArchives.contains(libArchive.getUnderLyingArchive())) {
 				importModel.getDefaultOperation().execute(new SubProgressMonitor(monitor, PROJECT_CREATION_WORK + libArchive.getSize()) , info);

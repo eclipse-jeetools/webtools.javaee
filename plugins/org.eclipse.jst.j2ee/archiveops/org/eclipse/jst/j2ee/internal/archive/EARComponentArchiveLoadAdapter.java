@@ -104,7 +104,7 @@ public class EARComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 				} else {
 					// Bug 220912 - set "export source" flag before calling JavaEEQuickPeek
 					if (nestedModuleArchive.getType() == IArchive.ARCHIVE_TYPE) {
-						IArchiveLoadAdapter nestedLoadAdapter = (IArchiveLoadAdapter)((IArchive)nestedModuleArchive).getLoadAdapter();
+						IArchiveLoadAdapter nestedLoadAdapter = (nestedModuleArchive).getLoadAdapter();
 						if(nestedLoadAdapter instanceof ComponentArchiveLoadAdapter){
 							((ComponentArchiveLoadAdapter)nestedLoadAdapter).setExportSource(isExportSource());
 						}

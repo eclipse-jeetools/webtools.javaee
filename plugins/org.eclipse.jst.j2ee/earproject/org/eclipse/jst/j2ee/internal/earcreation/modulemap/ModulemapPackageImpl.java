@@ -94,14 +94,14 @@ public class ModulemapPackageImpl extends EPackageImpl implements ModulemapPacka
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public EReference getEARProjectMap_Mappings() {
-		return (EReference) earProjectMapEClass.getEReferences().get(0);
+		return earProjectMapEClass.getEReferences().get(0);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public EReference getEARProjectMap_UtilityJARMappings() {
-		return (EReference) earProjectMapEClass.getEReferences().get(1);
+		return earProjectMapEClass.getEReferences().get(1);
 	}
 
 	/**
@@ -115,14 +115,14 @@ public class ModulemapPackageImpl extends EPackageImpl implements ModulemapPacka
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public EAttribute getModuleMapping_ProjectName() {
-		return (EAttribute) moduleMappingEClass.getEAttributes().get(0);
+		return moduleMappingEClass.getEAttributes().get(0);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public EReference getModuleMapping_Module() {
-		return (EReference) moduleMappingEClass.getEReferences().get(0);
+		return moduleMappingEClass.getEReferences().get(0);
 	}
 
 	/**
@@ -136,14 +136,14 @@ public class ModulemapPackageImpl extends EPackageImpl implements ModulemapPacka
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public EAttribute getUtilityJARMapping_ProjectName() {
-		return (EAttribute) utilityJARMappingEClass.getEAttributes().get(0);
+		return utilityJARMappingEClass.getEAttributes().get(0);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public EAttribute getUtilityJARMapping_Uri() {
-		return (EAttribute) utilityJARMappingEClass.getEAttributes().get(1);
+		return utilityJARMappingEClass.getEAttributes().get(1);
 	}
 
 	/**

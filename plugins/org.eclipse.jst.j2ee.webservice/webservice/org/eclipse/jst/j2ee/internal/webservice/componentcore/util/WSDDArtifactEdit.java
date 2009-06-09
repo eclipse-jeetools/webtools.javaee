@@ -493,12 +493,12 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	}
 	@Override
 	public IModelProvider create(IProject project) {
-		return (IModelProvider)getWSDDArtifactEditForRead(project);
+		return getWSDDArtifactEditForRead(project);
 	}
 
 	@Override
 	public IModelProvider create(IVirtualComponent component) {
-		return (IModelProvider)getWSDDArtifactEditForRead(component);
+		return getWSDDArtifactEditForRead(component);
 	}
 
 	// [182417] This ArtifactEdit works for all project versions, so just return true.

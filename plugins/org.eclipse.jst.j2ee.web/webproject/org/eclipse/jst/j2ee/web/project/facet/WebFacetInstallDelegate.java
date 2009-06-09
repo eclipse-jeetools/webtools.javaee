@@ -288,7 +288,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
                        WebApp webApp = (WebApp) provider.getModelObject();
                        
                        // Add the display-name tag
-                       DisplayName displayName = (DisplayName) JavaeeFactory.eINSTANCE.createDisplayName();
+                       DisplayName displayName = JavaeeFactory.eINSTANCE.createDisplayName();
                        displayName.setValue(project.getName());
                        webApp.getDisplayNames().add(displayName);
                        
@@ -303,7 +303,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
                        );
                        
                        // Add the welcome-file-list tag
-                       WelcomeFileList welcomeFileList = (WelcomeFileList) WebFactory.eINSTANCE.createWelcomeFileList();
+                       WelcomeFileList welcomeFileList = WebFactory.eINSTANCE.createWelcomeFileList();
                        welcomeFileList.getWelcomeFiles().addAll(welcomeFiles); 
                        webApp.getWelcomeFileLists().add(welcomeFileList);
                    }

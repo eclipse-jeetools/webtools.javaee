@@ -66,7 +66,7 @@ public class WebComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 				result.add(refComponents[i]);
 		}
 
-		return (IVirtualReference[]) result.toArray(new IVirtualReference[result.size()]);
+		return result.toArray(new IVirtualReference[result.size()]);
 
 	}
 

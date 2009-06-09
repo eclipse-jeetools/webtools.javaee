@@ -322,7 +322,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 					}
 					if (projects.containsKey(tempProjectName)) {
 						return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_2, new Object[] { tempProjectName,
-								tempArchive.getPath(), ((ArchiveWrapper) projects.get(tempProjectName)).getPath() }));
+								tempArchive.getPath(), (projects.get(tempProjectName)).getPath() }));
 					} else if (!WTPPlugin.isPlatformCaseSensitive()) {
 						String lowerCaseProjectName = tempProjectName.toLowerCase();
 						String currentKey = null;
@@ -427,7 +427,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 			currentArchive = utilityJars.get(i);
 			boolean added = false;
 			for (int j = 0; utilityModels != null && j < utilityModels.size() && !added; j++) {
-				currentUtilityModel = (IDataModel) utilityModels.get(j);
+				currentUtilityModel = utilityModels.get(j);
 				if (currentUtilityModel.getProperty(IJavaUtilityJarImportDataModelProperties.ARCHIVE_WRAPPER) == currentArchive) {
 					added = true;
 				}
@@ -447,7 +447,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 			}
 		} // Remove extras
 		for (int i = utilityModels.size() - 1; i >= 0; i--) {
-			currentUtilityModel = (IDataModel) utilityModels.get(i);
+			currentUtilityModel = utilityModels.get(i);
 			currentArchive = (ArchiveWrapper) currentUtilityModel.getProperty(IJavaUtilityJarImportDataModelProperties.ARCHIVE_WRAPPER);
 			if (null == utilityJars || !utilityJars.contains(currentArchive)) {
 				currentUtilityModel.removeListener(nestedListener);

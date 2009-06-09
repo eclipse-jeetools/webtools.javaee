@@ -64,7 +64,7 @@ public class JavaEERefactoringParticipant extends DeleteParticipant {
 	
 	private CompositeChange createChangeObjects(CompositeChange compositeChange, IProject projectToBeDeleted){
 		Set<IProject> referencingComponents = IDependencyGraph.INSTANCE.getReferencingComponents(projectToBeDeleted);
-		IProject[] dependentProjectList = (IProject[]) referencingComponents.toArray(new IProject[referencingComponents.size()]);
+		IProject[] dependentProjectList = referencingComponents.toArray(new IProject[referencingComponents.size()]);
 	
 		if (dependentProjectList.length > 0){
 			if(compositeChange == null){

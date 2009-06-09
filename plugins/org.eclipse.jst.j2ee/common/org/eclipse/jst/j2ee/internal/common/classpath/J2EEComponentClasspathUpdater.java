@@ -212,7 +212,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				clear();
 				return data;
 			}
-		};
+		}
 
 		private Queue moduleQueue = new Queue();
 
@@ -327,7 +327,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 
 			return Status.OK_STATUS;
 		}
-	};
+	}
 
 	public IClasspathContainer getWebAppLibrariesContainer(IProject webProject, boolean create) {
 		IJavaProject jproj = JavaCore.create(webProject);

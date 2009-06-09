@@ -96,7 +96,7 @@ public class WebDeployableArtifactUtil {
 				}
 				WebType webType = ((Servlet) obj).getWebType();
 				if (webType.isJspType()) {
-					resource = ((IProject) resource).getFile(((JSPType) webType).getJspFile()); //$NON-NLS-1$
+					resource = ((IProject) resource).getFile(((JSPType) webType).getJspFile()); 
 				} else if (webType.isServletType()) {
 					return new WebResource(getModule(resource.getProject(), component), new Path("servlet/" + ((ServletType) webType).getClassName())); //$NON-NLS-1$
 				}
@@ -178,7 +178,7 @@ public class WebDeployableArtifactUtil {
 
 	protected static IModule getModule(IProject project, IVirtualComponent component) {
 		IModule deployable = null;
-		Iterator iterator = Arrays.asList(ServerUtil.getModules(J2EEProjectUtilities.DYNAMIC_WEB)).iterator(); //$NON-NLS-1$
+		Iterator iterator = Arrays.asList(ServerUtil.getModules(J2EEProjectUtilities.DYNAMIC_WEB)).iterator(); 
 		String componentName = null;
 		if (component != null)
 			componentName = component.getName();
@@ -293,7 +293,7 @@ public class WebDeployableArtifactUtil {
 
 			int size = superClasses.length;
 			for (int i = 0; i < size; i++) {
-				if (superClassName.equals(superClasses[i].getFullyQualifiedName())) //$NON-NLS-1$
+				if (superClassName.equals(superClasses[i].getFullyQualifiedName())) 
 					return true;
 			}
 			return false;

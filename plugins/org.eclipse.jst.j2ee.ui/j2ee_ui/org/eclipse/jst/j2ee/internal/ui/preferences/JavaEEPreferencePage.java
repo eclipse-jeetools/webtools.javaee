@@ -62,7 +62,7 @@ public class JavaEEPreferencePage extends PreferencePage implements
         buttonComposite.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.JAVA_EE_PREFERENCE_PAGE_JET_TEMPLATE));
 
 		showReferences = new Button(buttonComposite, SWT.CHECK);
-		showReferences.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.JAVA_EE_PREFERENCE_PAGE_DYN_TRANSLATION_BTN_NAME)); //$NON-NLS-1$
+		showReferences.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.JAVA_EE_PREFERENCE_PAGE_DYN_TRANSLATION_BTN_NAME)); 
 		showReferences.setSelection(dynamicTranslation);
 		showReferences.addSelectionListener(new SelectionAdapter() {
 			@Override

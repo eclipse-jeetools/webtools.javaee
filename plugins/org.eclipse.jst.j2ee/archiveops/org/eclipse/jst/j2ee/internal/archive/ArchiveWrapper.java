@@ -80,7 +80,7 @@ public class ArchiveWrapper {
 	}
 
 	public Archive getCommonArchive() {
-		return (Archive) commonArchive;
+		return commonArchive;
 	}
 
 	public Object getUnderLyingArchive() {
@@ -420,7 +420,7 @@ public class ArchiveWrapper {
 					try {
 						Application application = (Application) earArchive.getModelObject();
 						String moduleName = archive.getPath().toString();
-						Module module = (Module) application.getFirstModule(moduleName);
+						Module module = application.getFirstModule(moduleName);
 						if(module != null){
 							cachedWebContextRoot[0] = module.getWeb().getContextRoot();
 						} else {

@@ -46,7 +46,7 @@ public class J2EEUtilityJarListImportOperation extends AbstractDataModelOperatio
 		if (utilityJars == null || utilityJars.length == 0)
 			return J2EEPlugin.createErrorStatus(0, EARCreationResourceHandler.J2EEUtilityJarListImportOperation_There_were_no_utility_jars_selected, null);
 
-		monitor.beginTask(EARCreationResourceHandler.J2EEUtilityJarListImportOperation_UI_Import_Utility_Jars, utilityJars.length * (1 + ASSISTANT_TICKS)); //$NON-NLS-1$
+		monitor.beginTask(EARCreationResourceHandler.J2EEUtilityJarListImportOperation_UI_Import_Utility_Jars, utilityJars.length * (1 + ASSISTANT_TICKS)); 
 
 //		String earProjectName = model.getStringProperty(IJ2EEUtilityJarListImportDataModelProperties.EAR_PROJECT_NAME);
 //		boolean isBinary = model.getBooleanProperty(IJ2EEUtilityJarListImportDataModelProperties.BINARY_IMPORT);
@@ -63,7 +63,7 @@ public class J2EEUtilityJarListImportOperation extends AbstractDataModelOperatio
 		if(toOverrideProjectRoot)
 			projectRoot = model.getStringProperty(IJ2EEUtilityJarListImportDataModelProperties.PROJECT_ROOT);
 		
-		monitor.subTask(EARCreationResourceHandler.J2EEUtilityJarListImportOperation_UI_Preparing_to_import); //$NON-NLS-1$
+		monitor.subTask(EARCreationResourceHandler.J2EEUtilityJarListImportOperation_UI_Preparing_to_import); 
 
 		String associatedEARProjectName = model.getStringProperty(IJ2EEUtilityJarListImportDataModelProperties.EAR_PROJECT_NAME);		
 		

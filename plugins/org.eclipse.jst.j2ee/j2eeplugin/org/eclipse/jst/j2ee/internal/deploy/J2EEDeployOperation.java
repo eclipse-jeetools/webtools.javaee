@@ -217,7 +217,7 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 		//String errorNotes = (mainCause != null && mainCause.getMessage() != null) ? mainCause.getMessage() : "";
 
 		String message = J2EEPluginResourceHandler.bind(J2EEPluginResourceHandler.J2EEDeployOperation_3_UI_,DeployerName, ""); //$NON-NLS-1$
-		IStatus statusLocal = new Status(severity, J2EEPlugin.getPlugin().getPluginID(), severity, message, mainCause); //$NON-NLS-1$
+		IStatus statusLocal = new Status(severity, J2EEPlugin.getPlugin().getPluginID(), severity, message, mainCause); 
 		getMultiStatus().add(statusLocal);
 
 	}

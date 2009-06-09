@@ -659,12 +659,12 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 	@Override
 	public IModelProvider create(IProject project) {
-		return (IModelProvider)getEARArtifactEditForRead(project);
+		return getEARArtifactEditForRead(project);
 	}
 
 	@Override
 	public IModelProvider create(IVirtualComponent component) {
-		return (IModelProvider)getEARArtifactEditForRead(component);
+		return getEARArtifactEditForRead(component);
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit#modify(java.lang.Runnable, org.eclipse.core.runtime.IPath)

@@ -90,7 +90,7 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 				importModel = (IDataModel) modelsToImport.get(i);
 				ArchiveWrapper nestedArchive = (ArchiveWrapper) importModel.getProperty(IEARComponentImportDataModelProperties.ARCHIVE_WRAPPER);
 				if (nestedArchive.getPath().toString().startsWith(ArchiveConstants.WEBAPP_LIB_URI)) {
-					ArchiveWrapper owningWar = (ArchiveWrapper) nestedArchive.getParent();
+					ArchiveWrapper owningWar = nestedArchive.getParent();
 					modelsToImport.remove(importModel);
 					for (int j = 0; j < modelsToImport.size(); j++) {
 						IDataModel warModel = (IDataModel) modelsToImport.get(j);
