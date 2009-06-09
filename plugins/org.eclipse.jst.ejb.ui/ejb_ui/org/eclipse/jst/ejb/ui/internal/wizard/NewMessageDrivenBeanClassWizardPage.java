@@ -38,6 +38,7 @@ public class NewMessageDrivenBeanClassWizardPage extends NewEnterpriseBeanClassW
 		super(model, pageName, pageDesc, pageTitle, moduleType);
 	}
 
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = super.createTopLevelComposite(parent);
 		

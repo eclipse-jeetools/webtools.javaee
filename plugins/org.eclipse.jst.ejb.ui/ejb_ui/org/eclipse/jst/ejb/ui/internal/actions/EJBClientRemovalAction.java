@@ -63,6 +63,7 @@ public class EJBClientRemovalAction extends AbstractClientJARAction {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2ee.common.actions.BaseAction#primRun(org.eclipse.swt.widgets.Shell)
 	 */
+	@Override
 	protected void primRun(final Shell shell) {
 		final IProject ejbProject = getProject();
 
@@ -80,6 +81,7 @@ public class EJBClientRemovalAction extends AbstractClientJARAction {
 				//validatorMgr.suspendAllValidation(true);
 				
 				Job clientRemoveJob = new UIJob("Removing EJB Client Project"){ //$NON-NLS-1$
+					@Override
 					public IStatus runInUIThread(IProgressMonitor monitor) {
 						
 						UIOperationHandler opHandler = new UIOperationHandler(shell);
@@ -198,6 +200,7 @@ public class EJBClientRemovalAction extends AbstractClientJARAction {
 		return true;		
 	}
 
+	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 		super.selectionChanged(action, selection);
 		if (hasClientJar())

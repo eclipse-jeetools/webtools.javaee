@@ -31,6 +31,7 @@ public class EJBDeployableArtifactAdapterFactory extends ModuleArtifactAdapterDe
 		return new Class[]{ILaunchable.class};
 	}
 
+	@Override
 	public IModuleArtifact getModuleArtifact(Object obj) {
 		return EJBDeployableArtifactAdapterUtil.getModuleObject(obj);
 	}

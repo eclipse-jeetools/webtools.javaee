@@ -20,6 +20,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class EjbProjectFirstPage extends J2EEComponentFacetCreationWizardPage {
 
+	@Override
 	protected String getModuleFacetID() {
 		return J2EEProjectUtilities.EJB;
 	}

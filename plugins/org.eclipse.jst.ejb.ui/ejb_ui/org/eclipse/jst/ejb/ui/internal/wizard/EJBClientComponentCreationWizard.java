@@ -43,6 +43,7 @@ public class EJBClientComponentCreationWizard extends DataModelWizard {
 	 * 
 	 * @see org.eclipse.jface.wizard.Wizard#addPages()
 	 */
+	@Override
 	public void doAddPages() {
 		addPage(new EJBClientComponentCreationWizardPage(getDataModel(), PAGE_ONE));
 	}
@@ -52,11 +53,13 @@ public class EJBClientComponentCreationWizard extends DataModelWizard {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#runForked()
 	 */
+	@Override
 	protected boolean runForked() {
 		return false;
 	}
 
-    protected IDataModelProvider getDefaultProvider() {
+    @Override
+	protected IDataModelProvider getDefaultProvider() {
         return new EjbClientJarCreationDataModelProvider();
     }
 

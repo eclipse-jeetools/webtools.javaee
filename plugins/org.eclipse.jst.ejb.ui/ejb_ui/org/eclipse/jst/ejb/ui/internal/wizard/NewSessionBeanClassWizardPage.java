@@ -42,6 +42,7 @@ public class NewSessionBeanClassWizardPage extends NewEnterpriseBeanClassWizardP
 		super(model, pageName, pageDesc, pageTitle, moduleType);
 	}
 	
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = super.createTopLevelComposite(parent);
 		
@@ -97,6 +98,7 @@ public class NewSessionBeanClassWizardPage extends NewEnterpriseBeanClassWizardP
 		return gd;
 	}
 
+	@Override
 	protected String[] getValidationPropertyNames() {
 		String[] retVal = null;
 		String[] baseVals = super.getValidationPropertyNames();

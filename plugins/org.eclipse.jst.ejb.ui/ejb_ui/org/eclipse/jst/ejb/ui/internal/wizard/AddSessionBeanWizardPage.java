@@ -65,6 +65,7 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 				IEjbWizardConstants.ADD_SESSION_BEAN_WIZARD_PAGE_TITLE);
 	}
 
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 
 		ScrolledPageContent pageContent = new ScrolledPageContent(parent);
@@ -119,6 +120,7 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 		excomposite.setFont(JFaceResources.getFontRegistry().getBold(JFaceResources.DIALOG_FONT));
 		excomposite.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, false, 3, 1));
 		excomposite.addExpansionListener(new ExpansionAdapter() {
+			@Override
 			public void expansionStateChanged(ExpansionEvent e) {
 				expandedStateChanged((ExpandableComposite) e.getSource());
 			}
@@ -144,7 +146,6 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 		GridData gridData = new GridData();
 		gridData.verticalAlignment = SWT.BEGINNING;
 		gridData.verticalSpan = 2;
-		GridData gridData1 = new GridData();
 		gridData.verticalAlignment = SWT.BEGINNING;
 		gridData.verticalSpan = 1;
 		local2xCheck.addSelectionListener(new SelectionListener() {
@@ -299,6 +300,7 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 		}
 	}
 
+	@Override
 	protected String[] getValidationPropertyNames() {
 		return new String[] { LOCAL_HOME_INTERFACE, REMOTE_HOME_INTERFACE, LOCAL_COMPONENT_INTERFACE,
 				REMOTE_COMPONENT_INTERFACE, EJB_NAME };

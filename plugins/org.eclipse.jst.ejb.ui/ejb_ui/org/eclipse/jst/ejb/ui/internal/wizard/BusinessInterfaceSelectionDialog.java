@@ -49,7 +49,8 @@ public class BusinessInterfaceSelectionDialog extends OpenTypeSelectionDialog {
         setShellStyle(getShellStyle() | SWT.RESIZE);
     }
     
-    protected Control createDialogArea(Composite parent) {
+    @Override
+	protected Control createDialogArea(Composite parent) {
         Composite area = (Composite)super.createDialogArea(parent);
         
         Label label = new Label(area, SWT.NONE);

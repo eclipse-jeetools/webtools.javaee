@@ -61,7 +61,7 @@ public class AddMessageDrivenBeanWizard extends NewEnterpriseBeanWizard {
 
 	@Override
 	protected IDataModelProvider getDefaultProvider() {
-		return (IDataModelProvider) new NewMessageDrivenBeanClassDataModelProvider();
+		return new NewMessageDrivenBeanClassDataModelProvider();
 	}
 
 }

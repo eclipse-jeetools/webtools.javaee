@@ -38,18 +38,22 @@ public class NewEJBComponentAction extends AbstractOpenWizardWorkbenchAction {
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(ICON));
 	}
 
+	@Override
 	protected Wizard createWizard() {
 		return new EjbProjectWizard();
 	}
 
+	@Override
 	protected boolean shouldAcceptElement(Object obj) {
 		return true; /* NewGroup.isOnBuildPath(obj) && !NewGroup.isInArchive(obj); */
 	}
 
+	@Override
 	protected String getDialogText() {
 		return null;
 	}
 	
+	@Override
 	public String getId() {
 		return EJBUIMessages.NewEJBModuleAction;
 	}

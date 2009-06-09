@@ -61,7 +61,7 @@ public class AddSessionBeanWizard extends NewEnterpriseBeanWizard {
 
 	@Override
 	protected IDataModelProvider getDefaultProvider() {
-		return (IDataModelProvider) new NewSessionBeanClassDataModelProvider();
+		return new NewSessionBeanClassDataModelProvider();
 	}
 
 }

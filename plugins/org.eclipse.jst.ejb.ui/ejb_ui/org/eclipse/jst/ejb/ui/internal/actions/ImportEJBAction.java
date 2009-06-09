@@ -44,6 +44,7 @@ public class ImportEJBAction extends BaseAction {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.common.actions.BaseAction#primRun(org.eclipse.swt.widgets.Shell)
 	 */
+	@Override
 	protected void primRun(Shell shell) {
 
 		EJBComponentImportWizard wizard = new EJBComponentImportWizard();

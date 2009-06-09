@@ -46,11 +46,13 @@ public class EjbFacetInstallPage extends J2EEModuleFacetInstallPage
 		setDescription(EJBUIMessages.pageDescription);
 	}
 	
+	@Override
 	protected String[] getValidationPropertyNames() {
 		return new String[]{EAR_PROJECT_NAME, CREATE_CLIENT, CLIENT_NAME, CLIENT_SOURCE_FOLDER, CLIENT_URI, CONFIG_FOLDER};
 	}
 
 		
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 		setInfopopID(IJ2EEUIContextIds.NEW_EJB_WIZARD_P3);
 		final Composite composite = new Composite(parent, SWT.NONE);
@@ -71,7 +73,8 @@ public class EjbFacetInstallPage extends J2EEModuleFacetInstallPage
 		return composite;
 	}
 	
-    protected void handleFacetVersionChangedEvent()
+    @Override
+	protected void handleFacetVersionChangedEvent()
     {
         final IProjectFacetVersion fv = (IProjectFacetVersion) this.model.getProperty( FACET_VERSION );
         this.addDD.setVisible( fv == EJB_30 );

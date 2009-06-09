@@ -24,6 +24,7 @@ public class EJBClientRemovalActionDelegate extends AbstractActionDelegate {
         super();
        	setAllowsMultiSelect(false);
     }
+	@Override
 	protected void primRun(Shell shell) {
 		realAction.setSelection(getStructuredSelection());
 		realAction.primRun(shell);
@@ -31,6 +32,7 @@ public class EJBClientRemovalActionDelegate extends AbstractActionDelegate {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2ee.common.actions.AbstractActionDelegate#isSupportedAction(java.lang.Object)
 	 */
+	@Override
 	protected boolean isSupportedAction(Object element) {
 		return false;
 	}

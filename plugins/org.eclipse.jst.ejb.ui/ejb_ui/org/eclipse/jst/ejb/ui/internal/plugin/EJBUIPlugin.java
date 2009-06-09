@@ -63,8 +63,7 @@ public class EJBUIPlugin extends AbstractUIPlugin {
 	 * Create a new IStatus with a severity using the EJBUIPlugin ID. aCode is just an internal code.
 	 */
 	public static IStatus createStatus(int severity, int aCode, String aMessage, Throwable exception) {
-		return new Status(severity, PLUGIN_ID, aCode,
-				aMessage != null ? aMessage : "No message.", exception);
+		return new Status(severity, PLUGIN_ID, aCode, aMessage, exception);
 	}
 
 	public static IStatus createStatus(int severity, String message, Throwable exception) {

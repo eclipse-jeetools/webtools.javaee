@@ -51,7 +51,7 @@ public class AddButtonListener implements SelectionListener {
 	}
 	
 	public void widgetSelected(SelectionEvent e) {
-		BusinessInterface iface = chooseEnclosingType(getRoots(), new String[] { "All_APIs" }, 
+		BusinessInterface iface = chooseEnclosingType(getRoots(), new String[] { "All_APIs" },  //$NON-NLS-1$
 				page.getShell(), page.getWizard().getContainer(),
 				IJavaSearchConstants.INTERFACE, EMPTY);
 		

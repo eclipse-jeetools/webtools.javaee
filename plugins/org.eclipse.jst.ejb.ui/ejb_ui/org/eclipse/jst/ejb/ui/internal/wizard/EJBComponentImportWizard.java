@@ -56,6 +56,7 @@ public final class EJBComponentImportWizard extends J2EEComponentImportWizard {
 	 * Adds an {@link EJBComponentImportPage} as the main wizard page ({@link #MAIN_PG}).
 	 * </p>
 	 */
+	@Override
 	public void doAddPages() {
 		addPage(new EJBComponentImportPage(getDataModel(), MAIN_PG));
 	}
@@ -67,20 +68,24 @@ public final class EJBComponentImportWizard extends J2EEComponentImportWizard {
 	 * Sets up the dialog window title and default wizard page image.
 	 * </p>
 	 */
+	@Override
 	public final void doInit() {
 		setWindowTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.IMPORT_WIZ_TITLE));
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EJB_IMPORT_WIZARD_BANNER));
 		// updateEARToModelFromSelection(getSpecificDataModel());
 	}
 
+	@Override
 	protected String[] getModuleValidatorStrings() {
 		return new String[]{"org.eclipse.jst.j2ee.model.internal.validation.EJBValidator"}; //$NON-NLS-1$ 
 	}
 
+	@Override
 	protected IDataModelProvider getDefaultProvider() {
 		return new EJBComponentImportDataModelProvider();
 	}
 	
+	@Override
 	protected String getFinalPerspectiveID() {
         return ProductManager.getProperty(IProductConstants.FINAL_PERSPECTIVE_EJB);
 	}

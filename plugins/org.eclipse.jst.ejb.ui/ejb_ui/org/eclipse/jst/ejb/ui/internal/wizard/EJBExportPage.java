@@ -50,6 +50,7 @@ public class EJBExportPage extends J2EEModuleExportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEImportPage#getProjectImportLabel()
 	 */
+	@Override
 	protected String getComponentLabel() {
 		return J2EEUIMessages.getResourceString(J2EEUIMessages.EJB_PROJ_LBL);
 	}
@@ -59,6 +60,7 @@ public class EJBExportPage extends J2EEModuleExportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEImportPage#getFilterExpression()
 	 */
+	@Override
 	protected String[] getFilterExpression() {
 		return new String[]{"*.jar"}; //$NON-NLS-1$
 	}
@@ -68,15 +70,18 @@ public class EJBExportPage extends J2EEModuleExportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEExportPage#isMetaTypeSupported(java.lang.Object)
 	 */
+	@Override
 	protected boolean isMetaTypeSupported(Object o) {
 		return o instanceof org.eclipse.jst.j2ee.ejb.EJBJar;
 	}
 
+	@Override
 	protected String getInfopopID() {
 		return IJ2EEUIContextIds.EXPORT_EJB_WIZARD_P1;
 	}
 
-    protected String getCompnentID() {
+    @Override
+	protected String getCompnentID() {
         return "JST_EJB"; //$NON-NLS-1$
     }
 

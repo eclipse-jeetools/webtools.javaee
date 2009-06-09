@@ -38,22 +38,27 @@ public class EJBComponentImportPage extends J2EEModuleImportPage {
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EJB_IMPORT_WIZARD_BANNER));
 	}
 
+	@Override
 	protected String getFileNamesStoreID() {
 		return "EJB";//$NON-NLS-1$
 	}
 
+	@Override
 	protected String getFileImportLabel() {
 		return EJBUIMessages.EJB_JAR_FILE_LBL;
 	}
 
+	@Override
 	protected String[] getFilterExpression() {
 		return new String[]{"*.jar"}; //$NON-NLS-1$
 	}
 
+	@Override
 	protected String getProjectImportLabel() {
 		return EJBUIMessages.EJB_PROJECT_LBL;
 	}
 
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 		setInfopopID(IJ2EEUIContextIds.IMPORT_EJB_WIZARD_P1);
 		return super.createTopLevelComposite(parent);
@@ -64,10 +69,12 @@ public class EJBComponentImportPage extends J2EEModuleImportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEModuleImportPage#createAnnotationsStandaloneGroup(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	protected void createAnnotationsStandaloneGroup(Composite composite) {
 		// new AnnotationsStandaloneGroup(composite, getEJBDataModel(), false);
 	}
 	
+	@Override
 	protected String getModuleFacetID(){
 		return J2EEProjectUtilities.EJB;
 	}	

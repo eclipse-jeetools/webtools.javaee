@@ -123,6 +123,7 @@ public class AddMessageDrivenBeanWizardPage extends
 		return new HyperlinkDataModelSynchHelper(dm);
 	}
 
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NULL);
 		composite.setLayout(new GridLayout(2, false));
@@ -171,11 +172,11 @@ public class AddMessageDrivenBeanWizardPage extends
 		data.horizontalSpan = 2;
 		messageListenerInterfaceHyperlink = new Hyperlink(composite, SWT.NULL);
 		messageListenerInterfaceHyperlink.setLayoutData(data);
-		String messageListenerInterface = getDataModel().getStringProperty(MESSAGE_LISTENER_INTERFACE);
 		messageListenerInterfaceHyperlink.setToolTipText(IEjbWizardConstants.MESSAGE_LISTENER_INTERFACE_HYPERLINK_TOOLTIP);
 		messageListenerInterfaceHyperlink.setVisible(true);
 		messageListenerInterfaceHyperlink.setUnderlined(true);
 		messageListenerInterfaceHyperlink.addHyperlinkListener(new HyperlinkAdapter() {
+			@Override
 			public void linkActivated(HyperlinkEvent e){
 				IProject project = (IProject) model.getProperty(INewJavaClassDataModelProperties.PROJECT);
 				IRunnableContext context = PlatformUI.getWorkbench().getActiveWorkbenchWindow();

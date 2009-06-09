@@ -63,6 +63,7 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
 
 
     
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 		
 		Composite top = new Composite(parent, SWT.NONE);
@@ -140,6 +141,7 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
+	@Override
 	protected String[] getValidationPropertyNames() {
 		return new String[]{PROJECT_NAME, EJB_PROJECT_NAME, CLIENT_URI };
 	}
@@ -149,15 +151,18 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#showValidationErrorsOnEnter()
 	 */
+	@Override
 	protected boolean showValidationErrorsOnEnter() {
 		return true;
 	}
 
 
+	@Override
 	public void dispose() {
 		super.dispose();
 	}
 
+	@Override
 	protected void enter() {
 		super.enter();
 	}

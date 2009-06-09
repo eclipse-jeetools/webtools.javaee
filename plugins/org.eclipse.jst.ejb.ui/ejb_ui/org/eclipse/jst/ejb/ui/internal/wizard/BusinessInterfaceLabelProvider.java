@@ -23,8 +23,7 @@ public class BusinessInterfaceLabelProvider extends LabelProvider {
 			if (((BusinessInterface) element).isLocal()) {
 				return J2EEUIPlugin.getDefault().getImage("local_interface_overlay_obj"); //$NON-NLS-1$
 			}
-			else
-				return J2EEUIPlugin.getDefault().getImage("remote_interface_overlay_obj"); //$NON-NLS-1$
+			return J2EEUIPlugin.getDefault().getImage("remote_interface_overlay_obj"); //$NON-NLS-1$
 		}
 		return super.getImage(element);
 	}

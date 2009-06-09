@@ -44,6 +44,7 @@ public class ExportEJBAction extends BaseAction {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.common.actions.BaseAction#primRun(org.eclipse.swt.widgets.Shell)
 	 */
+	@Override
 	protected void primRun(Shell shell) {
 		EJBComponentExportWizard wizard = new EJBComponentExportWizard();
 		J2EEUIPlugin plugin = J2EEUIPlugin.getDefault();

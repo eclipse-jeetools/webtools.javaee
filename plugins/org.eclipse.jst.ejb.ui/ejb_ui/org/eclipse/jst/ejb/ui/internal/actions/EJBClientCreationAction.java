@@ -51,6 +51,7 @@ public class EJBClientCreationAction extends AbstractClientJARAction {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2ee.common.actions.BaseAction#primRun(org.eclipse.swt.widgets.Shell)
 	 */
+	@Override
 	protected void primRun(Shell shell) {
 		if(getSelectedProject() == null) return;
 		if(!checkBinaryProject(shell) || !checkEARProject(shell))
@@ -117,6 +118,7 @@ public class EJBClientCreationAction extends AbstractClientJARAction {
         return null;
     }
 
+	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 		super.selectionChanged(action, selection);
 		if (hasClientJar())

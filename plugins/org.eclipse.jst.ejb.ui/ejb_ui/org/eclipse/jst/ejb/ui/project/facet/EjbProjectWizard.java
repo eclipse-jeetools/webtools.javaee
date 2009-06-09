@@ -38,24 +38,29 @@ public class EjbProjectWizard extends NewProjectDataModelFacetWizard {
 		setWindowTitle(EJBUIMessages.KEY_1);
 	}
 	
+	@Override
 	protected IDataModel createDataModel() {
 		return DataModelFactory.createDataModel(new EjbFacetProjectCreationDataModelProvider());
 	}
 
+	@Override
 	protected IFacetedProjectTemplate getTemplate() {
 		return ProjectFacetsManager.getTemplate("template.jst.ejb"); //$NON-NLS-1$
 	}
 
+	@Override
 	protected IWizardPage createFirstPage() {
 		return new EjbProjectFirstPage(model, "first.page"); //$NON-NLS-1$
 	}
 	
+	@Override
 	protected ImageDescriptor getDefaultPageImageDescriptor() {
 		final Bundle bundle = Platform.getBundle("org.eclipse.jst.ejb.ui"); //$NON-NLS-1$
 		final URL url = bundle.getEntry("icons/full/wizban/ejbproject_wiz.gif"); //$NON-NLS-1$
 		return ImageDescriptor.createFromURL(url);
 	}
 	
+	@Override
 	protected String getFinalPerspectiveID() {
         return ProductManager.getProperty(IProductConstants.FINAL_PERSPECTIVE_EJB);
 	}
