@@ -35,6 +35,7 @@ public class JavaArtifactEditModelFactory extends EditModelFactory {
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.common.internal.emfworkbench.integration.EditModelFactory#createEditModelForRead(java.lang.String, org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext, java.util.Map)
 	 */
+	@Override
 	public EditModel createEditModelForRead(String editModelID, EMFWorkbenchContext context, Map params) {
 		URI moduleURI = (URI) ((params != null) ? params.get(PARAM_MODULE_URI) : null);
 		URI rootURI = (URI) ((params != null) ? params.get(PARAM_ROOT_URI) : null);
@@ -48,6 +49,7 @@ public class JavaArtifactEditModelFactory extends EditModelFactory {
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.common.internal.emfworkbench.integration.EditModelFactory#createEditModelForWrite(java.lang.String, org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext, java.util.Map)
 	 */
+	@Override
 	public EditModel createEditModelForWrite(String editModelID, EMFWorkbenchContext context, Map params) {
 		URI moduleURI = (URI) ((params != null) ? params.get(PARAM_MODULE_URI) : null);
 		URI rootURI = (URI) ((params != null) ? params.get(PARAM_ROOT_URI) : null);
@@ -60,6 +62,7 @@ public class JavaArtifactEditModelFactory extends EditModelFactory {
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.common.internal.emfworkbench.integration.EditModelFactory#getCacheID(java.lang.String, java.util.Map)
 	 */
+	@Override
 	public String getCacheID(String editModelID, Map params) { 
 		URI moduleURI = (URI)params.get(PARAM_MODULE_URI);
 		if(moduleURI != null)

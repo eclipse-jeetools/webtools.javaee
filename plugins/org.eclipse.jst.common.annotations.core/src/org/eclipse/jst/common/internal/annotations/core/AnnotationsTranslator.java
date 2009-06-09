@@ -61,6 +61,7 @@ public class AnnotationsTranslator extends Translator {
 	 * @see com.ibm.wtp.emf.xml.Translator#setMOFValue(org.eclipse.emf.ecore.EObject,
 	 *      java.lang.Object)
 	 */
+	@Override
 	public void setMOFValue(EObject emfObject, Object value) {
 		if (value == null)
 			return;
@@ -80,6 +81,7 @@ public class AnnotationsTranslator extends Translator {
 	 * 
 	 * @see com.ibm.etools.emf2xml.impl.Translator#isSetMOFValue(org.eclipse.emf.ecore.EObject)
 	 */
+	@Override
 	public boolean isSetMOFValue(EObject emfObject) {
 		return getMOFValue(emfObject) != null;
 	}
@@ -89,6 +91,7 @@ public class AnnotationsTranslator extends Translator {
 	 * 
 	 * @see com.ibm.etools.emf2xml.impl.Translator#getMOFValue(org.eclipse.emf.ecore.EObject)
 	 */
+	@Override
 	public Object getMOFValue(EObject emfObject) {
 		return AnnotationsAdapter.getAnnotations(emfObject, AnnotationsAdapter.GENERATED);
 	}
@@ -98,6 +101,7 @@ public class AnnotationsTranslator extends Translator {
 	 * 
 	 * @see com.ibm.etools.emf2xml.impl.Translator#unSetMOFValue(org.eclipse.emf.ecore.EObject)
 	 */
+	@Override
 	public void unSetMOFValue(EObject emfObject) {
 		AnnotationsAdapter.removeAnnotations(emfObject, AnnotationsAdapter.GENERATED);
 	}
@@ -107,6 +111,7 @@ public class AnnotationsTranslator extends Translator {
 	 * 
 	 * @see com.ibm.etools.emf2xml.impl.Translator#featureExists(org.eclipse.emf.ecore.EObject)
 	 */
+	@Override
 	public boolean featureExists(EObject emfObject) {
 		return true;
 	}
@@ -116,6 +121,7 @@ public class AnnotationsTranslator extends Translator {
 	 * 
 	 * @see com.ibm.etools.emf2xml.impl.Translator#isDataType()
 	 */
+	@Override
 	public boolean isDataType() {
 		return true;
 	}
@@ -126,6 +132,7 @@ public class AnnotationsTranslator extends Translator {
 	 * @see com.ibm.etools.emf2xml.impl.Translator#isMapFor(java.lang.Object, java.lang.Object,
 	 *      java.lang.Object)
 	 */
+	@Override
 	public boolean isMapFor(Object aFeature, Object oldValue, Object newValue) {
 		return (aFeature == feature);
 	}

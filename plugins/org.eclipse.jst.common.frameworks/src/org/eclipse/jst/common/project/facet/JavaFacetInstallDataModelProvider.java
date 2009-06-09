@@ -37,6 +37,7 @@ public class JavaFacetInstallDataModelProvider extends FacetInstallDataModelProv
 	    this.installConfig = installConfig;
 	}
 
+	@Override
 	public Set getPropertyNames() 
 	{
 		Set propertyNames = super.getPropertyNames();
@@ -101,6 +102,7 @@ public class JavaFacetInstallDataModelProvider extends FacetInstallDataModelProv
         this.installConfig.addListener( listener );
     }
 	
+	@Override
 	public boolean propertySet( final String propertyName, 
 	                            final Object propertyValue )
     {

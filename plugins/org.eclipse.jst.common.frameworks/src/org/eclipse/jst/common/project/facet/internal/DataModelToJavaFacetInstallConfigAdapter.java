@@ -34,7 +34,7 @@ public final class DataModelToJavaFacetInstallConfigAdapter
         {
             final IDataModel dm = (IDataModel) adaptable;
             
-            return (JavaFacetInstallConfig) dm.getProperty( IJavaFacetInstallDataModelProperties.JAVA_FACET_INSTALL_CONFIG );
+            return dm.getProperty( IJavaFacetInstallDataModelProperties.JAVA_FACET_INSTALL_CONFIG );
         }
 
         return null;

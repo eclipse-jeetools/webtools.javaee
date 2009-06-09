@@ -50,6 +50,7 @@ public class AnnotationsAdapter extends AdapterImpl implements CloneablePublic {
 	 * 
 	 * @see java.lang.Object#clone()
 	 */
+	@Override
 	public Object clone() { // throws CloneNotSupportedException {
 		//return super.clone();
 		return null;
@@ -154,6 +155,7 @@ public class AnnotationsAdapter extends AdapterImpl implements CloneablePublic {
 	 * 
 	 * @see org.eclipse.emf.common.notify.impl.AdapterImpl#isAdapterForType(java.lang.Object)
 	 */
+	@Override
 	public boolean isAdapterForType(Object type) {
 		return ADAPTER_TYPE.equals(type);
 	}

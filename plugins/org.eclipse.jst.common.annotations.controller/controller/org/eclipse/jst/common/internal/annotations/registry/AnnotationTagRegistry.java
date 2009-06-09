@@ -99,11 +99,13 @@ public class AnnotationTagRegistry {
 			}
 		}
 
+		@Override
 		public void add(int index, Object element) {
 			super.add(index, element);
 			addScope((TagSpec)element);
 		}
 
+		@Override
 		public boolean add(Object o) {
 			TagSpec newTagSpec = (TagSpec)o;
 			// search for already existing tag spec with same name and same tag set name
@@ -119,32 +121,38 @@ public class AnnotationTagRegistry {
 			return super.add(newTagSpec);
 		}
 
+		@Override
 		public boolean addAll(Collection c) {
 			scopeAll(c, true);
 			return super.addAll(c);
 		}
 
+		@Override
 		public boolean addAll(int index, Collection c) {
 			scopeAll(c, true);
 			return super.addAll(index, c);
 		}
 
+		@Override
 		public Object remove(int index) {
 			Object result = super.remove(index);
 			removeScope((TagSpec) result);
 			return result;
 		}
 
+		@Override
 		public boolean remove(Object o) {
 			removeScope((TagSpec) o);
 			return super.remove(o);
 		}
 
+		@Override
 		public boolean removeAll(Collection c) {
 			scopeAll(c, false);
 			return super.removeAll(c);
 		}
 
+		@Override
 		public boolean retainAll(Collection c) {
 			Iterator iter = this.iterator();
 			while (iter.hasNext()) {
@@ -490,6 +498,7 @@ public class AnnotationTagRegistry {
 		 * 
 		 * @see java.lang.Object#equals(java.lang.Object)
 		 */
+		@Override
 		public boolean equals(Object obj) {
 			if (this == obj)
 				return true;
@@ -498,6 +507,11 @@ public class AnnotationTagRegistry {
 
 			return name.equals(((InitTagInfo) obj).name) || (scope.equals(((InitTagInfo) obj).name));
 
+		}
+		
+		@Override
+		public int hashCode() {
+			return super.hashCode() + name.hashCode();
 		}
 	}
 

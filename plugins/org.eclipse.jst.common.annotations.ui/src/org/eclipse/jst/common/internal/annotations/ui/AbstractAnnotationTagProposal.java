@@ -147,10 +147,8 @@ public abstract class AbstractAnnotationTagProposal {
 						} catch (BadLocationException e) {
 						}
 					}
-					// fall through
-				default:
-					return null;
 			}
+			return null;
 		}
 	
 	}
@@ -905,6 +903,7 @@ public abstract class AbstractAnnotationTagProposal {
 	/*
 	 * @see java.lang.Object#toString()
 	 */
+	@Override
 	public String toString() {
 		return getDisplayString();
 	}

@@ -237,7 +237,7 @@ public class AnnotationTagCompletionProc implements IJavadocCompletionProcessor,
 
 		// If we got this far, we're either in a value, or really confused.
 		// try and return valid values or bail?
-		if (a.value != null && (a.value.contains(rCurPos) || (target.hasAssignment() && area.relativeCursorPos(cursorPos) > a.name.getBeginning())))
+		if (a!= null && a.value != null && (a.value.contains(rCurPos) || (target.hasAssignment() && area.relativeCursorPos(cursorPos) > a.name.getBeginning())))
 			return attributeValidValuesFor(ts, a, area, cursorPos);
 		return attributeCompletionsFor(ts, cursorPos, 0, "", true); //$NON-NLS-1$
 	}
@@ -656,10 +656,6 @@ public class AnnotationTagCompletionProc implements IJavadocCompletionProcessor,
 			this.javaElement = javaElement;
 			beginOffset = beg;
 			endOffset = end;
-		}
-
-		public boolean contains(int offset) {
-			return offset >= beginOffset && offset < endOffset;
 		}
 
 		public int length() {

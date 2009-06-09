@@ -119,6 +119,7 @@ public class AnnotationsControllerManager extends RegistryReader implements IEna
 	/**
 	 * read extension element
 	 */
+	@Override
 	public boolean readElement(IConfigurationElement element) {
 		if (!element.getName().equals(Descriptor.ANNOTATIONS_CONTROLLER))
 			return false;

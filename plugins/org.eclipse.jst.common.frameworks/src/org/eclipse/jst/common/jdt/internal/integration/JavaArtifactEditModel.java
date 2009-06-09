@@ -79,11 +79,13 @@ public class JavaArtifactEditModel extends ArtifactEditModel implements WorkingC
 	/**
 	 * This method should only be called by the J2EENature.
 	 */
+	@Override
 	protected void doDispose() {
 		super.doDispose();
 		resetWorkingCopyManager();
 	}
 
+	@Override
 	public Set getAffectedFiles() {
 		java.util.Set affected = super.getAffectedFiles();
 		if (getWorkingCopyManager() != null)
@@ -121,6 +123,7 @@ public class JavaArtifactEditModel extends ArtifactEditModel implements WorkingC
 	/**
 	 * Save the new compilation units only.
 	 */
+	@Override
 	protected void handleSaveIfNecessaryDidNotSave(IProgressMonitor monitor) {
 		getWorkingCopyManager().saveOnlyNewCompilationUnits(monitor);
 	}
@@ -128,6 +131,7 @@ public class JavaArtifactEditModel extends ArtifactEditModel implements WorkingC
 	/**
 	 * @see org.eclipse.jst.j2ee.internal.internal.workbench.J2EEEditModel#isDirty()
 	 */
+	@Override
 	public boolean isDirty() {
 		boolean dirtyBool = super.isDirty();
 		if (!dirtyBool && getWorkingCopyManager() != null)
@@ -138,11 +142,13 @@ public class JavaArtifactEditModel extends ArtifactEditModel implements WorkingC
 	/**
 	 * This will force all of the referenced Resources to be saved.
 	 */
+	@Override
 	public void primSave(IProgressMonitor monitor) {
 		saveCompilationUnits(monitor);
 		if (monitor == null || !monitor.isCanceled())
 			super.primSave(monitor);
 	}
+	@Override
 	protected void runSaveOperation(IWorkspaceRunnable runnable, IProgressMonitor monitor) throws SaveFailedException {
 		try {
 			ResourcesPlugin.getWorkspace().run(runnable, null,IWorkspace.AVOID_UPDATE,monitor);
@@ -156,6 +162,7 @@ public class JavaArtifactEditModel extends ArtifactEditModel implements WorkingC
 	 * 
 	 * @return java.util.Set
 	 */
+	@Override
 	public void processResource(Resource aResource) {
 		if (aResource != null && !getResources().contains(aResource)) {
 			if (aResource instanceof ReferencedResource) {
@@ -172,6 +179,7 @@ public class JavaArtifactEditModel extends ArtifactEditModel implements WorkingC
 	/**
 	 * Release each of the referenced resources.
 	 */
+	@Override
 	protected void release(Resource aResource) {
 	
 		removeResource(aResource);
@@ -190,12 +198,14 @@ public class JavaArtifactEditModel extends ArtifactEditModel implements WorkingC
 	 * @see org.eclipse.jst.j2ee.internal.internal.workbench.J2EEEditModel#resourceIsLoadedChanged(org.eclipse.emf.ecore.resource.Resource,
 	 *      boolean, boolean)
 	 */
+	@Override
 	protected void resourceIsLoadedChanged(Resource aResource, boolean oldValue, boolean newValue) {
 		if (!isReverting && !disposing && !isReadOnly() && oldValue && !newValue && aResource instanceof TranslatorResource)
 			resetWorkingCopyManager();
 		super.resourceIsLoadedChanged(aResource, oldValue, newValue);
 	}
 
+	@Override
 	protected void reverted(ReferencedResource revertedResource) {
 		if (getWorkingCopyManager() != null)
 			getWorkingCopyManager().revert();

@@ -103,6 +103,7 @@ public class AnnotationTagProposal extends AbstractAnnotationTagProposal impleme
 	/**
 	 * Our override that uses <code>textHolder</code> to provide the help text.
 	 */
+	@Override
 	public String getAdditionalProposalInfo() {
 		return locText;
 	}
@@ -123,6 +124,7 @@ public class AnnotationTagProposal extends AbstractAnnotationTagProposal impleme
 	 * @see org.eclipse.jdt.internal.ui.text.java.JavaCompletionProposal#apply(org.eclipse.jface.text.IDocument,
 	 *      char, int)
 	 */
+	@Override
 	public void apply(IDocument document, char trigger, int offset) {
 		ensureQuotedIfNecessary(document, offset);
 		super.apply(document, trigger, offset);
@@ -169,6 +171,7 @@ public class AnnotationTagProposal extends AbstractAnnotationTagProposal impleme
 		this.ensureEndQuote = ensureEndQuote;
 	}
 	
+	@Override
 	protected boolean isValidPrefix(String prefix) {
 		if (getReplacementString().startsWith(getDisplayString())) {
 			return super.isValidPrefix(prefix);
@@ -197,9 +200,8 @@ public class AnnotationTagProposal extends AbstractAnnotationTagProposal impleme
 		for (int i = chars.length - 1; i > -1; i--) {
 			if (Character.isWhitespace(chars[i])) {
 				break;
-			} else {
-				buffer.append(chars[i]);
 			}
+			buffer.append(chars[i]);
 		}
 		buffer = buffer.reverse();
 		return buffer.toString();

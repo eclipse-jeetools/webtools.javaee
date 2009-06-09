@@ -523,10 +523,7 @@ public abstract class FlexibleProjectContainer
                                 result[ 0 ] = true;
                                 return false;
                             }
-                            else
-                            {
-                                return true;
-                            }
+                            return true;
                         }
                         case IResource.FILE:
                         {

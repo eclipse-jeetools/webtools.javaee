@@ -49,6 +49,7 @@ public class AnnotationsProviderManager extends RegistryReader {
 		super(Descriptor.EXTENSION_PT_PLUGIN, Descriptor.ANNOTATIONS_PROVIDER);
 	}
 	
+	@Override
 	public boolean readElement(IConfigurationElement element) {
 		if (!element.getName().equals(Descriptor.ANNOTATIONS_PROVIDER))
 			return false;

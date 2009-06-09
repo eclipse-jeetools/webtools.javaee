@@ -21,6 +21,7 @@ public class JavaProjectFacetCreationDataModelProvider extends FacetProjectCreat
 		super();
 	}
 
+	@Override
 	public void init() {
 		super.init();
 

@@ -105,12 +105,13 @@ public class WTPWorkingCopyManager implements WorkingCopyManager {
 	 * 
 	 * @cu from the workbench and fix the internal references for this working copy manager.
 	 */
-	public void delete(ICompilationUnit cu, IProgressMonitor monitor) {
-		if (cu.isWorkingCopy())
-			cu = cu.getPrimary();
-		addDeletedCompilationUnit(cu);
+	public void delete(final ICompilationUnit cu, final IProgressMonitor monitor) {
+		ICompilationUnit localCU = cu;
+		if (localCU.isWorkingCopy())
+			localCU = localCU.getPrimary();
+		addDeletedCompilationUnit(localCU);
 		try {
-			cu.delete(false, monitor);
+			localCU.delete(false, monitor);
 		} catch (JavaModelException e) {
 			if (e.getStatus().getCode() != org.eclipse.jdt.core.IJavaModelStatusConstants.ELEMENT_DOES_NOT_EXIST)
 				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(e);

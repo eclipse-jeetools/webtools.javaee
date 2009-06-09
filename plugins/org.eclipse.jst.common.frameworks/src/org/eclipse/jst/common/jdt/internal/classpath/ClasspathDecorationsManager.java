@@ -170,7 +170,9 @@ public final class ClasspathDecorationsManager
         }
         finally
         {
-            w.close();
+        	if(null != w){
+        		w.close();
+        	}
         }
     }
     

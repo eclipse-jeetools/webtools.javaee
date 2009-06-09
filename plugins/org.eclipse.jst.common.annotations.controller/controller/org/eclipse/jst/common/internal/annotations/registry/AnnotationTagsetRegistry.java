@@ -49,6 +49,7 @@ public class AnnotationTagsetRegistry extends RegistryReader {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.RegistryReader#readElement(org.eclipse.core.runtime.IConfigurationElement)
 	 */
+	@Override
 	public boolean readElement(IConfigurationElement element) {
 		if (TagsetDescriptor.TAGSET.equals(element.getName())) {
 			getDescriptors().add(new TagsetDescriptor(element));

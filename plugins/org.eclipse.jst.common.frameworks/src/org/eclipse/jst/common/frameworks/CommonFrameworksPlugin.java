@@ -41,7 +41,8 @@ public final class CommonFrameworksPlugin
 		if (inst == null)
 			inst = this;
 	}
-    public String getPluginID() 
+    @Override
+	public String getPluginID() 
     {
         return PLUGIN_ID;
     }

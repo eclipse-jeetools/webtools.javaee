@@ -32,13 +32,15 @@ public abstract class FlexibleProjectContainerInitializer
     private static final ClasspathDecorationsManager decorations
         = FlexibleProjectContainer.getDecorationsManager();
     
-    public boolean canUpdateClasspathContainer( final IPath containerPath, 
+    @Override
+	public boolean canUpdateClasspathContainer( final IPath containerPath, 
                                                 final IJavaProject project) 
     {
         return true; 
     }
 
-    public void requestClasspathContainerUpdate( final IPath containerPath, 
+    @Override
+	public void requestClasspathContainerUpdate( final IPath containerPath, 
                                                  final IJavaProject project, 
                                                  final IClasspathContainer sg ) 
     
